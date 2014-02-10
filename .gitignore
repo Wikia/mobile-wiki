@@ -1,0 +1,11 @@
+/* Misc Files */
+.DS_Store
+
+/* Editor Files */
+*.sw[a-z]
+*.orig
+
+/* Packages */
+node_modules/
+lib/
+vendor/
