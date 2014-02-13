@@ -2,7 +2,7 @@
   "name": "mobile",
   "version": "0.0.0",
   "description": "Wikia Web Application",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,6 +30,6 @@
     "grunt-contrib-watch": "~0.5.3"
   },
   "scripts": {
-	"start": "node index.js --dev && grunt"
+	"start": "node server.js --dev && grunt"
   }
 }
