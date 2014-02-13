@@ -11,3 +11,13 @@ indent_style = tab
 insert_final_newline = true
 max_line_length = 120 # Vim
 trim_trailing_whitespace = true
+
+[**.html]
+charset = utf-8
+end_of_line = lf
+indent_style = space 
+indent_size = 2 
+insert_final_newline = true
+max_line_length = 120 # Vim
+trim_trailing_whitespace = true
+
