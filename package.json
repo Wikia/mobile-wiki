@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Wikia/mobile",
   "private": true,
   "dependencies": {
-    "hapi": "~2.2.0",
+    "hapi": "~2.3.0",
     "handlebars": "~2.0.0-alpha.1",
     "grunt": "~0.4.2",
     "node-sass": "~0.8.1",

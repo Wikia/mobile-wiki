@@ -1,13 +1,16 @@
-#!/usr/bin/env node --use strict
+#!/usr/bin/env node --use_strict
 
-/* jshint strict: false */
 var Hapi = require('hapi');
 var Path = require('path');
+var config = require('./config');
+
+var localSettings = config.localSettings();
 
 var app = {};
 
 app.initialize = function() {
-	var server = new Hapi.createServer('localhost', 8888, {
+	var server = new Hapi.createServer(localSettings.host, localSettings.port, {
+		// ez enable cross origin resource sharing
 		cors: true,
 		views: {
 			engines: {

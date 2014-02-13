@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-	'use strict';
 	grunt.initConfig({
 		// configure grunt plugins here
 

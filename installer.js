@@ -1,4 +1,3 @@
-'use strict';
 var sudo = require('sudo');
 var options = {
 	cachePassword: true,

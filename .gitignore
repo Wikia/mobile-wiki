@@ -16,3 +16,6 @@ vendor/
 /* Static Assets */
 .tmp/
 www/
+
+/* Config */
+config/localSettings.js
