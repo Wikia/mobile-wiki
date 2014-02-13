@@ -16,5 +16,20 @@
     "url": "https://github.com/Wikia/mobile/issues"
   },
   "homepage": "https://github.com/Wikia/mobile",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "hapi": "~2.2.0",
+    "handlebars": "~2.0.0-alpha.1",
+    "grunt": "~0.4.2",
+    "node-sass": "~0.8.1",
+    "grunt-sass": "~0.10.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.5.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.5.3"
+  },
+  "scripts": {
+	"start": "node index.js --dev && grunt"
+  }
 }
