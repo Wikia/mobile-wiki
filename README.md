@@ -1,7 +1,7 @@
 # Wikia Mobile
-1. [Installation](#installation)
+1. [Getting Started](#getting-started)
 
-## Installation
+## Getting Started 
 * `npm install` will install local dependencies
 * `node installer.js` to install global dependencies
 * `node start` to start application listening on `localhost:8888`
