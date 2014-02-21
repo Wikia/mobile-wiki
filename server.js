@@ -9,7 +9,10 @@ var localSettings = config.localSettings();
 var app = {};
 
 app.initialize = function() {
-	var server = new Hapi.createServer(localSettings.host, localSettings.port, {
+	var server,
+		options;
+
+	server = new Hapi.createServer(localSettings.host, localSettings.port, {
 		// ez enable cross origin resource sharing
 		cors: true,
 		views: {
@@ -24,7 +27,20 @@ app.initialize = function() {
 			 */
 			helpersPath: Path.join(__dirname, 'views', '_helpers'),
 			path: Path.join(__dirname, 'views'),
-			partialsPath: Path.join(__dirname, 'views', '_partials'),
+			partialsPath: Path.join(__dirname, 'views', '_partials')
+		}
+	});
+
+
+	options = {
+		subscribers: {
+			console: ['ops', 'request', 'log', 'error']
+		}
+	};
+
+	server.pack.require('good', options, function(err) {
+		if (err) {
+			console.log('[ERROR] ', err);
 		}
 	});
 

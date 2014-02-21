@@ -4,7 +4,7 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js --dev && grunt"
   },
   "repository": {
     "type": "git",
@@ -18,18 +18,16 @@
   "homepage": "https://github.com/Wikia/mobile",
   "private": true,
   "dependencies": {
-    "hapi": "~2.3.0",
+    "hapi": "^2.5.0",
     "handlebars": "~2.0.0-alpha.1",
     "grunt": "~0.4.2",
     "node-sass": "~0.8.1",
     "grunt-sass": "~0.10.0",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-copy": "~0.5.0"
+    "grunt-contrib-copy": "~0.5.0",
+    "good": "~1.0.0"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3"
-  },
-  "scripts": {
-	"start": "node server.js --dev && grunt"
   }
 }
