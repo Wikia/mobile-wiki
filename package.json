@@ -2,9 +2,9 @@
   "name": "mobile",
   "version": "0.0.0",
   "description": "Wikia Web Application",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js --dev && grunt"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,17 @@
     "url": "https://github.com/Wikia/mobile/issues"
   },
   "homepage": "https://github.com/Wikia/mobile",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "hapi": "~2.6.0",
+    "handlebars": "~2.0.0-alpha.1",
+    "node-sass": "~0.8.1",
+    "good": "~1.0.0",
+    "gulp": "^3.5.5",
+    "gulp-sass": "^0.7.1",
+    "gulp-clean": "^0.2.4",
+    "gulp-util": "^2.2.14"
+  },
+  "devDependencies": {
+  }
 }

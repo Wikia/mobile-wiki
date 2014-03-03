@@ -9,3 +9,13 @@
 node_modules/
 lib/
 vendor/
+
+/* Node/NPM */
+*.log
+
+/* Static Assets */
+.tmp/
+www/
+
+/* Config */
+config/localSettings.js
