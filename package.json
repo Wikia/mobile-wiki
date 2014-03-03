@@ -4,7 +4,7 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js --dev && grunt"
+    "start": "node server.js --dev && gulp"
   },
   "repository": {
     "type": "git",
