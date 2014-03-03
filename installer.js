@@ -9,7 +9,7 @@ var npmInstall = [
 ];
 
 var dependencies = [
-	'bower', 'jshint', 'grunt-cli', 'forever'
+	'bower', 'jshint', 'gulp', 'forever'
 ];
 
 var children = [];

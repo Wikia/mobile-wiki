@@ -20,14 +20,13 @@
   "dependencies": {
     "hapi": "^2.5.0",
     "handlebars": "~2.0.0-alpha.1",
-    "grunt": "~0.4.2",
     "node-sass": "~0.8.1",
-    "grunt-sass": "~0.10.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-copy": "~0.5.0",
-    "good": "~1.0.0"
+    "good": "~1.0.0",
+    "gulp": "^3.5.5",
+    "gulp-sass": "^0.7.1",
+    "gulp-clean": "^0.2.4",
+    "gulp-util": "^2.2.14"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "~0.5.3"
   }
 }
