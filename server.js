@@ -1,14 +1,14 @@
 #!/usr/bin/env node --use_strict
 
 var Hapi = require('hapi');
-var Path = require('path');
+var path = require('path');
 var config = require('./config');
 
 var localSettings = config.localSettings();
 
 var app = {};
 
-app.initialize = function() {
+app.initialize = function () {
 	var server,
 		options;
 
@@ -25,9 +25,9 @@ app.initialize = function() {
 			 * Helpers are functions usable from within handlebars templates.
 			 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
 			 */
-			helpersPath: Path.join(__dirname, 'views', '_helpers'),
-			path: Path.join(__dirname, 'views'),
-			partialsPath: Path.join(__dirname, 'views', '_partials')
+			helpersPath: path.join(__dirname, 'views', '_helpers'),
+			path: path.join(__dirname, 'views'),
+			partialsPath: path.join(__dirname, 'views', '_partials')
 		}
 	});
 
@@ -38,7 +38,7 @@ app.initialize = function() {
 		}
 	};
 
-	server.pack.require('good', options, function(err) {
+	server.pack.require('good', options, function (err) {
 		if (err) {
 			console.log('[ERROR] ', err);
 		}
@@ -46,33 +46,10 @@ app.initialize = function() {
 
 	/*
 	 * Routes
-	 * TODO: These should be abstracted out into a separate directory with an index.js later, for modularity
-	 * and maintainability sake
 	 */
+	require('./routes')(server);
 
-	// Set up static assets serving, this is probably not a final implementation as we should probably setup
-	// nginx or apache to serve static assets and route the rest of the requests to node.
-	server.route({
-		method: 'GET',
-		path: '/{path*}',
-		handler: {
-			directory: {
-				path: Path.join(__dirname, '.tmp/public'),
-				listing: false,
-				index: false
-			}
-		}
-	});
-
-	// Base route
-	server.route({
-		method: 'GET',
-		path: '/',
-		handler: require('./controllers/home')
-			.index
-	});
-
-	server.start(function() {
+	server.start(function () {
 		console.log('Server started at: ' + server.info.uri);
 	});
 };

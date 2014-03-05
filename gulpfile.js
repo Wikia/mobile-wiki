@@ -16,19 +16,19 @@ var paths = {
 	styles: 'public/styles/**'
 };
 
-gulp.task('clean:dev', function() {
+gulp.task('clean:dev', function () {
 	return gulp.src('.tmp/public/**', {
 		read: false
 	}).pipe(clean());
 });
 
-gulp.task('clean:prod', function() {
+gulp.task('clean:prod', function () {
 	return gulp.src('www', {
 		read: false
 	}).pipe(clean());
 });
 
-gulp.task('sass:dev', function() {
+gulp.task('sass:dev', function () {
 	return gulp.src(paths.styles)
 		.pipe(sass({
 			includePaths: ['./public/styles'],
@@ -38,10 +38,10 @@ gulp.task('sass:dev', function() {
 		.pipe(gulp.dest('.tmp/public/styles'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 	log('Watching files');
 	var styles = gulp.watch(paths.styles, ['sass:dev']);
-	styles.on('change', function(event) {
+	styles.on('change', function (event) {
 		log('Style changed:', gutils.colors.green(event.path));
 	});
 });

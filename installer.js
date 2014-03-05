@@ -14,9 +14,9 @@ var dependencies = [
 
 var children = [];
 
-dependencies.forEach(function(dep) {
+dependencies.forEach(function (dep) {
 	var child = sudo(npmInstall.concat([dep]), options);
-	child.stdout.on('data', function(data) {
+	child.stdout.on('data', function (data) {
 		console.log(data.toString());
 	});
 	children.push(child);
