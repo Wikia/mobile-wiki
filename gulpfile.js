@@ -4,9 +4,11 @@ var gulp = require('gulp');
 var clean = require('gulp-clean');
 var sass = require('gulp-sass');
 var gutils = require('gulp-util');
+var nodemon = require('gulp-nodemon');
 
 function log() {
 	var args = Array.prototype.slice.call(arguments, 0);
+
 	return gutils
 		.log
 		.apply(null, [gutils.colors.cyan('[INFO]')].concat(args));
@@ -41,11 +43,16 @@ gulp.task('sass:dev', function () {
 gulp.task('watch', function () {
 	log('Watching files');
 	var styles = gulp.watch(paths.styles, ['sass:dev']);
+
 	styles.on('change', function (event) {
 		log('Style changed:', gutils.colors.green(event.path));
 	});
 });
 
+gulp.task('server:dev', function(){
+	nodemon({ script: 'server.js', ext: 'js' });
+});
+
 gulp.task('assets:dev', ['sass:dev']);
-gulp.task('default', ['clean:dev', 'assets:dev', 'watch']);
+gulp.task('default', ['server:dev', 'clean:dev', 'assets:dev', 'watch']);
 // gulp.task('production', ['clean:prod']);
