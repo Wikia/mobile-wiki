@@ -1,10 +1,13 @@
 'use strict';
 
-var gulp = require('gulp');
-var clean = require('gulp-clean');
-var sass = require('gulp-sass');
-var gutils = require('gulp-util');
-var nodemon = require('gulp-nodemon');
+var gulp = require('gulp'),
+	clean = require('gulp-clean'),
+	sass = require('gulp-sass'),
+	gutils = require('gulp-util'),
+	nodemon = require('gulp-nodemon'),
+	paths = {
+		styles: 'public/styles/**'
+	};
 
 function log() {
 	var args = Array.prototype.slice.call(arguments, 0);
@@ -13,10 +16,6 @@ function log() {
 		.log
 		.apply(null, [gutils.colors.cyan('[INFO]')].concat(args));
 }
-
-var paths = {
-	styles: 'public/styles/**'
-};
 
 gulp.task('clean:dev', function () {
 	return gulp.src('.tmp/public/**', {
