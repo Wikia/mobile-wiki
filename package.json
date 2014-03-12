@@ -28,5 +28,8 @@
     "gulp-util": "^2.2.14",
     "sudo": "^1.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gulp-browserify": "^0.5.0",
+	"browserify": "3.32.x"
+  }
 }
