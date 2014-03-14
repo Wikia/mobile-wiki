@@ -18,17 +18,19 @@
   "homepage": "https://github.com/Wikia/mobile",
   "private": true,
   "dependencies": {
-    "hapi": "~2.6.0",
-    "handlebars": "~2.0.0-alpha.1",
-    "node-sass": "~0.8.1",
-    "good": "~1.0.0",
-    "gulp": "^3.5.5",
-    "gulp-sass": "^0.7.1",
-    "gulp-clean": "^0.2.4",
-    "gulp-util": "^2.2.14",
-    "sudo": "^1.0.3"
+    "hapi": "~2.6.x",
+    "handlebars": "2.0.x",
+    "node-sass": "0.8.x",
+    "good": "1.0.x",
+    "gulp": "3.5.x",
+    "gulp-sass": "0.7.x",
+    "gulp-clean": "0.2.x",
+    "gulp-util": "2.2.x",
+    "sudo": "1.0.x"
   },
   "devDependencies": {
-	  "gulp-nodemon": "1.0.x"
+	  "gulp-nodemon": "1.0.x",
+    "gulp-browserify": "^0.5.0",
+		"browserify": "3.32.x"
   }
 }

@@ -5,9 +5,14 @@ var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	gutils = require('gulp-util'),
 	nodemon = require('gulp-nodemon'),
-	paths = {
-		styles: 'public/styles/**'
-	};
+	browserify = require('gulp-browserify'),
+	paths;
+
+paths = {
+	styles: 'public/styles/**',
+	scripts: 'public/scripts/**',
+	main: 'public/scripts/test.js'
+};
 
 function log() {
 	var args = Array.prototype.slice.call(arguments, 0);
@@ -32,11 +37,19 @@ gulp.task('clean:prod', function () {
 gulp.task('sass:dev', function () {
 	return gulp.src(paths.styles)
 		.pipe(sass({
-			includePaths: ['./public/styles'],
-			outputStyle: 'expanded',
-			sourceComments: 'map'
-		}))
+		includePaths: ['./public/styles'],
+		outputStyle: 'expanded',
+		sourceComments: 'map'
+	}))
 		.pipe(gulp.dest('.tmp/public/styles'));
+});
+
+gulp.task('scripts:dev', function () {
+	gulp.src(paths.main)
+		.pipe(browserify({
+		debug: process.env.NODE_ENV !== 'production'
+	}))
+		.pipe(gulp.dest('.tmp/public/js'));
 });
 
 gulp.task('watch', function () {
@@ -46,12 +59,19 @@ gulp.task('watch', function () {
 	styles.on('change', function (event) {
 		log('Style changed:', gutils.colors.green(event.path));
 	});
+
+	gulp.watch(paths.scripts, ['scripts:dev']).on('change', function (event) {
+		log('Script changed:', gutils.colors.green(event.path));
+	});
 });
 
-gulp.task('server:dev', function(){
-	nodemon({ script: 'server.js', ext: 'js' });
+gulp.task('server:dev', function () {
+	nodemon({
+		script: 'server.js',
+		ext: 'js'
+	});
 });
 
-gulp.task('assets:dev', ['sass:dev']);
+gulp.task('assets:dev', ['sass:dev', 'scripts:dev']);
 gulp.task('default', ['server:dev', 'clean:dev', 'assets:dev', 'watch']);
 // gulp.task('production', ['clean:prod']);
