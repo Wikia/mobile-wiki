@@ -41,7 +41,7 @@ gulp.task('sass:dev', function () {
 		.pipe(gulp.dest('.tmp/public/styles'));
 });
 
-gulp.task('scripts:dev', function() {
+gulp.task('scripts:dev', function () {
 	gulp.src(paths.main)
 		.pipe(browserify({
 			debug: process.env.NODE_ENV !== 'production'

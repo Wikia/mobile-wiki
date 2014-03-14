@@ -1,3 +1,3 @@
-module.exports = function( log ) {
-	console.log( log );
+module.exports = function (log) {
+	console.log(log);
 };
