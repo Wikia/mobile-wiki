@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Wikia/mobile",
   "private": true,
   "dependencies": {
-    "hapi": "2.6.x",
+    "hapi": "~2.6.x",
     "handlebars": "2.0.x",
     "node-sass": "0.8.x",
     "good": "1.0.x",
@@ -29,7 +29,8 @@
     "sudo": "1.0.x"
   },
   "devDependencies": {
+	  "gulp-nodemon": "1.0.x",
     "gulp-browserify": "^0.5.0",
-	"browserify": "3.32.x"
+		"browserify": "3.32.x"
   }
 }
