@@ -21,7 +21,7 @@
     "hapi": "~2.6.x",
     "handlebars": "2.0.x",
     "node-sass": "0.8.x",
-    "good": "1.0.x",
+    "good": "^2.0.x",
     "gulp": "3.5.x",
     "gulp-sass": "0.7.x",
     "gulp-clean": "0.2.x",
