@@ -19,7 +19,12 @@ module.exports = function (server) {
 	server.route({
 		method: 'GET',
 		path: '/',
-		handler: require('./controllers/home')
-			.index
+		handler: require('./controllers/home').index
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/article/{wiki}/{articleId}',
+		handler: require('./controllers/article').get
 	});
 };
