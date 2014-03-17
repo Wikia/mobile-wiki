@@ -22,6 +22,7 @@ module.exports = function (server) {
 		handler: require('./controllers/home').index
 	});
 
+	// eg. http://www.example.com/article/muppet/154
 	server.route({
 		method: 'GET',
 		path: '/article/{wiki}/{articleId}',
