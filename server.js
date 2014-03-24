@@ -17,7 +17,7 @@ app.initialize = function () {
 		cors: true,
 		views: {
 			engines: {
-				html: 'handlebars'
+				hbs: 'handlebars'
 			},
 			isCached: process.env.NODE_ENV === 'production',
 			layout: true,

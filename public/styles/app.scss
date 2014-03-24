@@ -1,5 +1,8 @@
-body {
-  background: black;
-  font-size: 14px;
-  color: white;
-}
+@import '../components/foundation/scss/normalize';
+@import '../components/foundation/scss/foundation';
+
+@import 'base/index';
+@import 'layout/index';
+@import 'state/index';
+@import 'theme/index';
+@import 'module/index';

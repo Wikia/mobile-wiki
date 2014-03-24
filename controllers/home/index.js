@@ -1,6 +1,5 @@
 exports.index = function (request, reply) {
-	reply.view('home/index', {
-		title: 'foo',
+	reply.view('application', {
 		message: 'bar'
 	});
 };
