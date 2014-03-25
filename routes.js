@@ -13,7 +13,7 @@ module.exports = function (server) {
 			path: route,
 			handler: require('./controllers/home').index
 		});
-	})
+	});
 
 	// eg. http://www.example.com/article/muppet/154
 	server.route({
