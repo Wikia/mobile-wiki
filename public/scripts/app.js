@@ -6,12 +6,16 @@ window.Wikia = Em.Application.create({
 
 Wikia.Router.map(function () {
 	this.resource('wiki', {
-		path: '/:wikiName'
+		path: '/w/:wikiName'
 	}, function () {
 		this.route('article', {
 			path: 'article/:articleId'
 		});
 	});
+});
+
+Wikia.Router.reopen({
+	location: 'history'
 });
 
 Wikia.ApplicationRoute = Em.Route.extend({

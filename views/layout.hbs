@@ -8,13 +8,24 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{getStyle 'app'}}" type="text/css" media="screen" title="no title" charset="utf-8">
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+  </head>
+  <body>
+    <!--[if lt IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <!-- TODO: Add Bower Components here temporarily till we figure out approach to assets bundling -->
+    <script src="{{getComponent 'jquery/jquery'}}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{getComponent 'handlebars/handlebars'}}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{getComponent 'ember/ember'}}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{getScript 'app'}}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/x-handlebars">
 			<header class="row">
 				<h1>Wikia R&D</h1>
 			</header>
 			<div class="page-content row">
-				\{{name}}
-				<a href="#/muppet">Anchor Text</a>
 				\{{outlet}}
 			</div>
 			<footer class="row"></footer>
@@ -37,18 +48,5 @@
 			<h1 id="wiki">wiki/index</h1>	
     </script>
 
-    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
-  </head>
-  <body>
-    <!--[if lt IE 8]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
-    <!-- Add your site or application content here -->
-    <!-- TODO: Add Bower Components here temporarily till we figure out approach to assets bundling -->
-    <script src="{{getComponent 'jquery/jquery'}}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{getComponent 'handlebars/handlebars'}}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{getComponent 'ember/ember'}}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{getScript 'app'}}" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
