@@ -20,7 +20,7 @@
     <script src="{{getComponent 'jquery/jquery'}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{getComponent 'handlebars/handlebars'}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{getComponent 'ember/ember'}}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{getScript 'app'}}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{getScript 'main'}}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/x-handlebars">
 			<header class="row">
 				<h1>Wikia Reader</h1>
@@ -37,7 +37,7 @@
     </script>
 		<script type="text/x-handlebars" data-template-name="wiki/article">
 			\{{#each}}
-				<h3>\{{title}}</h3>
+				<h3 \{{action 'test'}}>\{{title}}</h3>
 				\{{#each image in images}}
 					<img \{{bind-attr src=image.src}}>
 				\{{/each}}
