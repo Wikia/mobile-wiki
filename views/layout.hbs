@@ -31,7 +31,9 @@
 			<footer class="row"></footer>
     </script>
 		<script type="text/x-handlebars" data-template-name="wiki">
-			\{{outlet}}
+			<article class="columns small-7 small-offset-3">
+				\{{outlet}}
+			</article>
     </script>
 		<script type="text/x-handlebars" data-template-name="wiki/article">
 			\{{#each}}
@@ -53,6 +55,5 @@
     </script>
 		<script type="text/x-handlebars" data-template-name="wiki/index">
     </script>
-
   </body>
 </html>
