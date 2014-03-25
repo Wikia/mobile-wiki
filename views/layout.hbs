@@ -23,7 +23,7 @@
     <script src="{{getScript 'app'}}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/x-handlebars">
 			<header class="row">
-				<h1>Wikia R&D</h1>
+				<h1>Wikia Reader</h1>
 			</header>
 			<div class="page-content row">
 				\{{outlet}}
@@ -31,21 +31,27 @@
 			<footer class="row"></footer>
     </script>
 		<script type="text/x-handlebars" data-template-name="wiki">
-			\{{wikiName}}
 			\{{outlet}}
     </script>
 		<script type="text/x-handlebars" data-template-name="wiki/article">
-			wiki/article
-			\{{articleId}}
 			\{{#each}}
 				<h3>\{{title}}</h3>
+				\{{#each image in images}}
+					<img \{{bind-attr src=image.src}}>
+				\{{/each}}
 				\{{#each item in content}}
 					<p>\{{item.text}}</p>
+					\{{#if item.elements.length}}
+						<ul>
+						\{{#each element in item.elements}}
+							<li>\{{element.text}}</li>
+						\{{/each}}
+						</ul>
+					\{{/if}}
 				\{{/each}}
 			\{{/each}}
     </script>
 		<script type="text/x-handlebars" data-template-name="wiki/index">
-			<h1 id="wiki">wiki/index</h1>	
     </script>
 
   </body>
