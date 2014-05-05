@@ -4,4 +4,3 @@ Wikia.ApplicationRoute = Em.Route.extend({
 		return params;
 	}
 });
-module.exports = Wikia.ApplicationRoute;

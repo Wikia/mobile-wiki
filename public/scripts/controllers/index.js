@@ -1,5 +1,3 @@
 'use strict';
-module.exports = {
-	ApplicationController: require('./ApplicationController'),
-	WikiArticleController: require('./WikiArticleController')
-};
+import './ApplicationController';
+import './WikiArticleController';

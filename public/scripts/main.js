@@ -1,6 +1,7 @@
 'use strict';
-require('./app');
-require('./router');
-require('./routes');
-require('./controllers');
-require('./views');
+import './app';
+import './routes';
+import './router';
+import './controllers';
+import './views';
+

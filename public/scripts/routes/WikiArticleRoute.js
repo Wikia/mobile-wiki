@@ -12,5 +12,4 @@ Wikia.WikiArticleRoute = Em.Route.extend({
 		});
 	}
 });
-module.exports = Wikia.WikiArticleRoute;
 

@@ -6,4 +6,3 @@ Wikia.WikiArticleController = Em.ArrayController.extend({
 		}
 	}
 });
-module.exports = Wikia.WikiArticleController;

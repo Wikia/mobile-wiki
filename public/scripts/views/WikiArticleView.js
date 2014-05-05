@@ -6,4 +6,3 @@ Wikia.WikiArticleView = Em.View.extend({
 		console.log(this);
 	}
 });
-module.exports = Wikia.WikiArticleView;

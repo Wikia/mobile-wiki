@@ -5,4 +5,3 @@ Wikia.WikiIndexRoute = Em.Route.extend({
 	}
 });
 
-module.exports = Wikia.WikiIndexRoute;

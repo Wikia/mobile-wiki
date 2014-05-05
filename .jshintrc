@@ -5,6 +5,7 @@
 	// IDE/editor here: http://www.jshint.com/install/
 
 	// Enforcing
+	"esnext": true,
 	"bitwise": true,
 	"camelcase": true,
 	"curly": true,

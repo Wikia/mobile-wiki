@@ -1,5 +1,5 @@
 'use strict';
-Wikia.Router.map(function () {
+Ember.Router.map(function () {
 	this.resource('wiki', {
 		path: '/w/:wikiName'
 	}, function () {
@@ -9,6 +9,6 @@ Wikia.Router.map(function () {
 	});
 });
 
-Wikia.Router.reopen({
+Ember.Router.reopen({
 	location: 'history'
 });

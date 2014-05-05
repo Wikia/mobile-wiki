@@ -1,17 +1,19 @@
 'use strict';
 
 var gulp = require('gulp'),
-		clean = require('gulp-clean'),
-		sass = require('gulp-sass'),
-		gutils = require('gulp-util'),
-		nodemon = require('gulp-nodemon'),
-		browserify = require('gulp-browserify'),
-		paths;
+	clean = require('gulp-clean'),
+	sass = require('gulp-sass'),
+	gutils = require('gulp-util'),
+	nodemon = require('gulp-nodemon'),
+	browserify = require('gulp-browserify'),
+	concat = require('gulp-concat'),
+	es6ify = require('es6ify'),
+	paths;
 
 paths = {
 	components: 'public/components/**',
 	styles: 'public/styles/**',
-	scripts: 'public/scripts/**.js'
+	scripts: 'public/scripts/**'
 };
 
 function log() {
@@ -34,7 +36,7 @@ gulp.task('clean:prod', function () {
 
 gulp.task('sass:dev', function () {
 	return gulp.src(paths.styles)
-		.pipe(sass({
+			.pipe(sass({
 			includePaths: ['./public/styles'],
 			outputStyle: 'expanded',
 			sourceComments: 'map'
@@ -42,11 +44,18 @@ gulp.task('sass:dev', function () {
 		.pipe(gulp.dest('.tmp/public/styles'));
 });
 
+es6ify.traceurOverrides = {
+	// Has weird behavior with `this` keyword reference
+	arrowFunctions: false
+};
+
 gulp.task('scripts:dev', function () {
-	gulp.src(paths.scripts)
-		.pipe(browserify({
-			debug: process.env.NODE_ENV !== 'production'
+	return gulp.src('./public/scripts/main.js')
+			.pipe(browserify({
+			transform: [es6ify],
+			debug: true
 		}))
+		.pipe(concat('main.js'))
 		.pipe(gulp.dest('.tmp/public/scripts'));
 });
 
