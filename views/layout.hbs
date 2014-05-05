@@ -20,40 +20,7 @@
     <script src="{{getComponent 'jquery/jquery'}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{getComponent 'handlebars/handlebars'}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{getComponent 'ember/ember'}}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{getScript 'templates'}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{getScript 'main'}}" type="text/javascript" charset="utf-8"></script>
-		<script type="text/x-handlebars">
-			<header class="row">
-				<h1>Wikia Reader</h1>
-			</header>
-			<div class="page-content row">
-				\{{outlet}}
-			</div>
-			<footer class="row"></footer>
-    </script>
-		<script type="text/x-handlebars" data-template-name="wiki">
-			<article class="columns small-7 small-offset-3">
-				\{{outlet}}
-			</article>
-    </script>
-		<script type="text/x-handlebars" data-template-name="wiki/article">
-			\{{#each}}
-				<h3 \{{action 'test'}}>\{{title}}</h3>
-				\{{#each image in images}}
-					<img \{{bind-attr src=image.src}}>
-				\{{/each}}
-				\{{#each item in content}}
-					<p>\{{item.text}}</p>
-					\{{#if item.elements.length}}
-						<ul>
-						\{{#each element in item.elements}}
-							<li>\{{element.text}}</li>
-						\{{/each}}
-						</ul>
-					\{{/if}}
-				\{{/each}}
-			\{{/each}}
-    </script>
-		<script type="text/x-handlebars" data-template-name="wiki/index">
-    </script>
   </body>
 </html>

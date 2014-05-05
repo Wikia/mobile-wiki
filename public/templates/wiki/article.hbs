@@ -1,0 +1,17 @@
+{{#each}} 
+	<h3 {{action 'test'}}>{{title}}</h3> 
+	{{#each image in images}} 
+		<img {{bind-attr src=image.src}}> 
+	{{/each}} 
+	{{#each item in content}} 
+		<p>{{item.text}}</p> 
+		{{#if item.elements.length}} 
+			<ul> 
+			{{#each element in item.elements}} 
+				<li>{{element.text}}</li> 
+			{{/each}} 
+			</ul> 
+		{{/if}} 
+	{{/each}} 
+{{/each}} 
+

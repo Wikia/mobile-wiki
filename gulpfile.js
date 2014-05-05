@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 	browserify = require('gulp-browserify'),
 	concat = require('gulp-concat'),
 	es6ify = require('es6ify'),
+	handlebars = require('gulp-ember-handlebars'),
 	paths;
 
 paths = {
@@ -59,6 +60,15 @@ gulp.task('scripts:dev', function () {
 		.pipe(gulp.dest('.tmp/public/scripts'));
 });
 
+gulp.task('templates:dev', function () {
+	gulp.src('./public/templates/**/*.hbs')
+		.pipe(handlebars({
+					output: 'browser'
+		}))
+		.pipe(concat('templates.js'))
+		.pipe(gulp.dest('.tmp/public/scripts'));
+});
+
 gulp.task('components:dev', function () {
 	// TODO: Temporary copy over bower components to tmp folder till we figure out approach for bundling all assets
 	gulp.src(paths.components + '/*.js')
@@ -85,6 +95,6 @@ gulp.task('server:dev', function () {
 	});
 });
 
-gulp.task('assets:dev', ['sass:dev', 'scripts:dev', 'components:dev']);
+gulp.task('assets:dev', ['sass:dev', 'scripts:dev', 'components:dev', 'templates:dev']);
 gulp.task('default', ['assets:dev', 'watch', 'server:dev']);
 // gulp.task('production', ['clean:prod']);
