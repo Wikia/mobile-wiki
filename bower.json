@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "ember": "~1.4.0",
+    "ember": "~1.5.1",
     "foundation": "~5.2.1"
   }
 }
