@@ -55,20 +55,9 @@
 	"browser": true,
 	"devel": false,
 	"globals": {
-		"mw": false,
-		"mediaWiki": false,
 		"Wikia": false,
-		"define": false,
-		"require": false,
-		"Backbone": false,
-		"Mustache": false,
-		"_": false,
-		"describe": false,
-		"it": false,
-		"expect": false,
-		"beforeEach": false,
-		"modules": false,
-		"spyOn": false
+		"Ember": false,
+		"Em": false
 	},
 	"jquery": true,
 	"node": true,
