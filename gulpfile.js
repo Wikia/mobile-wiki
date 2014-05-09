@@ -9,12 +9,14 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	es6ify = require('es6ify'),
 	handlebars = require('gulp-ember-handlebars'),
+	prefixer = require('gulp-autoprefixer'),
 	paths;
 
 paths = {
 	components: 'public/components/**',
 	styles: 'public/styles/**',
-	scripts: 'public/scripts/**'
+	scripts: 'public/scripts/**',
+	templates: 'public/templates/**/*.hbs'
 };
 
 function log() {
@@ -38,10 +40,11 @@ gulp.task('clean:prod', function () {
 gulp.task('sass:dev', function () {
 	return gulp.src(paths.styles)
 			.pipe(sass({
-			includePaths: ['./public/styles'],
 			outputStyle: 'expanded',
-			sourceComments: 'map'
+			sourceComments: 'map',
+			errLogToConsole: true
 		}))
+		.pipe(prefixer(['last 1 version', '> 1%', 'ie 8', 'ie 7'], { cascade: true, map: false }))
 		.pipe(gulp.dest('.tmp/public/styles'));
 });
 
@@ -61,7 +64,7 @@ gulp.task('scripts:dev', function () {
 });
 
 gulp.task('templates:dev', function () {
-	gulp.src('./public/templates/**/*.hbs')
+	gulp.src(paths.templates)
 		.pipe(handlebars({
 					output: 'browser'
 		}))
@@ -85,6 +88,10 @@ gulp.task('watch', function () {
 
 	gulp.watch(paths.scripts, ['scripts:dev']).on('change', function (event) {
 		log('Script changed:', gutils.colors.green(event.path));
+	});
+
+	gulp.watch(paths.templates, ['templates:dev']).on('change', function (event) {
+		log('Template changed:', gutils.colors.green(event.path));
 	});
 });
 

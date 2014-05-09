@@ -1,5 +1,5 @@
 'use strict';
-Wikia.WikiArticleController = Em.ArrayController.extend({
+Wikia.WikiArticleController = Em.ObjectController.extend({
 	actions: {
 		test: function () {
 			console.log(this);

@@ -34,6 +34,7 @@
     "browserify": "~3.x.x",
     "es6ify": "~1.1.0",
     "gulp-concat": "~2.2.0",
-    "gulp-ember-handlebars": "~0.6.0"
+    "gulp-ember-handlebars": "~0.6.0",
+    "gulp-autoprefixer": "0.0.7"
   }
 }

@@ -1,0 +1,23 @@
+.site-head {
+	@extend .row;
+	@extend .small-12;
+	background: salmon;
+	text-align: center;
+	height: 50px;
+	margin: 0 auto;
+	position: relative;
+
+	.drawer-menu, .user-icon {
+		position: absolute;
+  }
+
+  .drawer-menu {
+	  left: 0;
+	  top: 0;
+  }
+
+  .user-icon {
+	  right: 0;
+	  top: 0;
+  }
+}

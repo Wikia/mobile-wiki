@@ -1,0 +1,18 @@
+$border-color: rgb(218,219,220);
+.table-of-contents {
+  overflow: hidden;
+
+  .title {
+	color: rgb(130, 131, 133);
+	display: block;
+	background-color: rgb(249, 249, 249);
+	border-top: 1px solid $border-color;
+	border-bottom: 1px solid $border-color;
+	padding: rem-calc(5px) rem-calc(40px);
+	font-size: .9em;
+  }
+
+  ul {
+	@extend .slide-down;
+  }
+}
