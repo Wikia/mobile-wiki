@@ -1,6 +1,8 @@
+@import 'settings';
 @import '../components/foundation/scss/normalize';
 @import '../components/foundation/scss/foundation';
 
+@import 'placeholders/index';
 @import 'base/index';
 @import 'layout/index';
 @import 'state/index';

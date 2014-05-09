@@ -1,4 +1,8 @@
-{{#each}} 
+<h1 class="article-title">Placeholder Article Title</h1>
+{{#table-of-contents sections=headings}}
+Table of Contents
+{{/table-of-contents}}
+{{#each article}} 
 	<h3 {{action 'test'}}>{{title}}</h3> 
 	{{#each image in images}} 
 		<img {{bind-attr src=image.src}}> 

@@ -1,0 +1,8 @@
+.page-wrapper {
+	@extend .row;
+
+	.article-body {
+		@extend .small-12;
+		@extend .columns;
+	}
+}

@@ -1,0 +1,6 @@
+<span class="title" {{action 'toggleMenu'}}>{{yield}}</span>
+<ul {{bind-attr class="isCollapsed:collapsed"}}>
+{{#each section in sections}}
+<li><a href="#" alt="{{section}}">{{section}}</a></li>
+{{/each}}
+</ul>
