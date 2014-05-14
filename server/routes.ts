@@ -1,17 +1,19 @@
-var path = require('path');
+/// <reference path="../definitions/hapi/hapi.d.ts" />
 
-module.exports = function (server) {
+import path = require('path');
+
+function routes(server: HapiServer) {
 	// all the routes that should resolve to loading single page app entry view
-	var indexRoutes = [
-			'/',
-			'/w/{parts*}'
+	var indexRoutes: string[] = [
+		'/',
+		'/w/{parts*}'
 	];
 
-	indexRoutes.forEach(function (route) {
+	indexRoutes.forEach(function (route: string) {
 		server.route({
 			method: 'GET',
 			path: route,
-			handler: require('./controllers/home').index
+			handler: require('./controllers/home')
 		});
 	});
 
@@ -29,11 +31,12 @@ module.exports = function (server) {
 		path: '/{path*}',
 		handler: {
 			directory: {
-				path: path.join(__dirname, '.tmp/public'),
+				path: path.join(__dirname, '../public'),
 				listing: false,
 				index: false
 			}
 		}
 	});
+}
 
-};
+export = routes;

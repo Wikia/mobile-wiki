@@ -1,4 +1,5 @@
 'use strict';
+
 Ember.Router.map(function () {
 	this.resource('wiki', {
 		path: '/w/:wikiName'

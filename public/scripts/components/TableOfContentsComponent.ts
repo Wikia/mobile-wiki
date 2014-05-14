@@ -1,10 +1,12 @@
+/// <reference path="../app.ts" />
+
 'use strict';
 Wikia.TableOfContentsComponent = Em.Component.extend({
 		tagName: 'nav',
 		classNames: ['table-of-contents'],
 		isCollapsed: true,
 		actions: {
-			toggleMenu() {
+			toggleMenu: function() {
 				this.toggleProperty('isCollapsed');
 			}
 		}

@@ -4,7 +4,7 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js --dev && gulp"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
@@ -18,23 +18,22 @@
   "homepage": "https://github.com/Wikia/mobile",
   "private": true,
   "dependencies": {
-    "handlebars": "~2.0.x",
-    "node-sass": "~0.x.x",
-    "good": "~2.x.x",
-    "gulp": "~3.x.x",
-    "gulp-sass": "0.7.x",
-    "gulp-clean": "0.2.x",
-    "gulp-util": "2.2.x",
-    "sudo": "1.0.x",
-    "hapi": "~4.1.0"
+    "good": "2.x.x",
+    "hapi": "4.x.x"
   },
   "devDependencies": {
-    "gulp-nodemon": "~1.0.2",
-    "gulp-browserify": "~0.5.0",
-    "browserify": "~3.x.x",
-    "es6ify": "~1.1.0",
-    "gulp-concat": "~2.2.0",
-    "gulp-ember-handlebars": "~0.6.0",
-    "gulp-autoprefixer": "0.0.7"
+    "sudo": "1.x.x",
+    "gulp": "3.x.x",
+    "gulp-sass": "0.x.x",
+    "gulp-clean": "0.x.x",
+    "gulp-util": "2.x.x",
+    "gulp-nodemon": "1.x.x",
+    "gulp-concat": "2.x.x",
+    "gulp-ember-handlebars": "0.x.x",
+    "gulp-autoprefixer": "0.x.x",
+    "gulp-tsc": "0.x.x",
+    "gulp-uglify": "0.x.x",
+	"handlebars": "2.x.x",
+	"node-sass": "0.x.x"
   }
 }

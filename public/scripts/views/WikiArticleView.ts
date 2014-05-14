@@ -1,3 +1,5 @@
+/// <reference path="../app.ts" />
+
 'use strict';
 Wikia.WikiArticleView = Em.View.extend({
 	classNames: ['article-body'],

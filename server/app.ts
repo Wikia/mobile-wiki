@@ -1,18 +1,16 @@
-#!/usr/bin/env node --use_strict
+/// <reference path="../definitions/hapi/hapi.d.ts" />
 
-var Hapi = require('hapi');
-var path = require('path');
-var config = require('./config');
+import Hapi = require('hapi');
+import path = require('path');
+var localSettings: any = require('./../../config/LocalSettings');
 
-var localSettings = config.localSettings();
-
-var app = {};
+var app: any = {};
 
 app.initialize = function () {
-	var server,
-		options;
+	var server: HapiServer,
+		options: {};
 
-	server = new Hapi.createServer(localSettings.host, localSettings.port, {
+	server = Hapi.createServer(localSettings.host, localSettings.port, {
 		// ez enable cross origin resource sharing
 		cors: true,
 		views: {
@@ -25,9 +23,9 @@ app.initialize = function () {
 			 * Helpers are functions usable from within handlebars templates.
 			 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
 			 */
-			helpersPath: path.join(__dirname, 'views', '_helpers'),
-			path: path.join(__dirname, 'views'),
-			partialsPath: path.join(__dirname, 'views', '_partials')
+			helpersPath: path.join(__dirname, '../../views', '_helpers'),
+			path: path.join(__dirname, '../../views'),
+			partialsPath: path.join(__dirname, '../../views', '_partials')
 		}
 	});
 

@@ -1,3 +1,5 @@
+/// <reference path="../app.ts" />
+
 'use strict';
 Wikia.WikiRoute = Em.Route.extend({
 	model: function (params) {

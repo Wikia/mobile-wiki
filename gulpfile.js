@@ -5,9 +5,9 @@ var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	gutils = require('gulp-util'),
 	nodemon = require('gulp-nodemon'),
-	browserify = require('gulp-browserify'),
 	concat = require('gulp-concat'),
-	es6ify = require('es6ify'),
+	typescript = require('gulp-tsc'),
+	uglify = require('gulp-uglify'),
 	handlebars = require('gulp-ember-handlebars'),
 	prefixer = require('gulp-autoprefixer'),
 	paths;
@@ -16,6 +16,7 @@ paths = {
 	components: 'public/components/**',
 	styles: 'public/styles/**',
 	scripts: 'public/scripts/**',
+	back: 'server/**/*.ts',
 	templates: 'public/templates/**/*.hbs'
 };
 
@@ -26,7 +27,7 @@ function log() {
 }
 
 gulp.task('clean:dev', function () {
-	return gulp.src('.tmp/public', {
+	return gulp.src('.tmp/', {
 		read: false
 	}).pipe(clean());
 });
@@ -48,27 +49,42 @@ gulp.task('sass:dev', function () {
 		.pipe(gulp.dest('.tmp/public/styles'));
 });
 
-es6ify.traceurOverrides = {
-	// Has weird behavior with `this` keyword reference
-	arrowFunctions: false
-};
+gulp.task('scripts:front:dev', function () {
+	var outDir = '.tmp/public/scripts';
 
-gulp.task('scripts:dev', function () {
-	return gulp.src('./public/scripts/main.js')
-			.pipe(browserify({
-			transform: [es6ify],
-			debug: true
+	return gulp.src('public/**/*.ts')
+		.pipe(typescript({
+			target: 'ES5', //ES3
+			sourcemap: false,
+			//outDir: outDir,
+			emitError: false
 		}))
 		.pipe(concat('main.js'))
-		.pipe(gulp.dest('.tmp/public/scripts'));
+		//.pipe(uglify())
+		.pipe(gulp.dest(outDir));
+});
+
+gulp.task('scripts:back:dev', function () {
+	var outDir = '.tmp/server';
+
+	return gulp.src('server/**/*.ts')
+		.pipe(typescript({
+			module: 'commonjs', //amd
+			target: 'ES5', //ES3
+			sourcemap: false,
+			//outDir: outDir,
+			emitError: false
+		}))
+		.pipe(gulp.dest(outDir));
 });
 
 gulp.task('templates:dev', function () {
 	gulp.src(paths.templates)
 		.pipe(handlebars({
-					output: 'browser'
+			output: 'browser'
 		}))
 		.pipe(concat('templates.js'))
+		//.pipe(uglify())
 		.pipe(gulp.dest('.tmp/public/scripts'));
 });
 
@@ -86,8 +102,12 @@ gulp.task('watch', function () {
 		log('Style changed:', gutils.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts, ['scripts:dev']).on('change', function (event) {
+	gulp.watch(paths.scripts, ['scripts:front:dev']).on('change', function (event) {
 		log('Script changed:', gutils.colors.green(event.path));
+	});
+
+	gulp.watch(paths.back, ['scripts:back:dev']).on('change', function (event) {
+		log('Script for backend changed:', gutils.colors.green(event.path));
 	});
 
 	gulp.watch(paths.templates, ['templates:dev']).on('change', function (event) {
@@ -95,13 +115,16 @@ gulp.task('watch', function () {
 	});
 });
 
-gulp.task('server:dev', function () {
+gulp.task('server:dev', ['scripts:back:dev'], function () {
 	nodemon({
-		script: 'server.js',
-		ext: 'js'
+		script: '.tmp/server/app.js',
+		ext: 'js',
+		watch: [
+			'.tmp/server'
+		]
 	});
 });
 
-gulp.task('assets:dev', ['sass:dev', 'scripts:dev', 'components:dev', 'templates:dev']);
+gulp.task('assets:dev', ['sass:dev', 'scripts:back:dev', 'scripts:front:dev', 'components:dev', 'templates:dev']);
 gulp.task('default', ['assets:dev', 'watch', 'server:dev']);
 // gulp.task('production', ['clean:prod']);
