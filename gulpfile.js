@@ -14,8 +14,8 @@ var gulp = require('gulp'),
 
 paths = {
 	components: 'public/components/**',
-	styles: 'public/styles/**',
-	scripts: 'public/scripts/**',
+	styles: 'public/styles/app.scss',
+	front: 'public/scripts/**',
 	back: 'server/**/*.ts',
 	templates: 'public/templates/**/*.hbs'
 };
@@ -39,24 +39,28 @@ gulp.task('clean:prod', function () {
 });
 
 gulp.task('sass:dev', function () {
-	return gulp.src(paths.styles)
-			.pipe(sass({
+	var outDir = '.tmp/public/styles';
+
+	return gulp
+		.src(paths.styles)
+		.pipe(sass({
 			outputStyle: 'expanded',
 			sourceComments: 'map',
 			errLogToConsole: true
 		}))
 		.pipe(prefixer(['last 1 version', '> 1%', 'ie 8', 'ie 7'], { cascade: true, map: false }))
-		.pipe(gulp.dest('.tmp/public/styles'));
+		.pipe(gulp.dest(outDir));
 });
 
 gulp.task('scripts:front:dev', function () {
 	var outDir = '.tmp/public/scripts';
 
-	return gulp.src('public/**/*.ts')
+	return gulp
+		.src('public/**/*.ts')
 		.pipe(typescript({
 			target: 'ES5', //ES3
-			sourcemap: false,
-			//outDir: outDir,
+			//sourcemap: true,
+			outDir: outDir,
 			emitError: false
 		}))
 		.pipe(concat('main.js'))
@@ -67,12 +71,11 @@ gulp.task('scripts:front:dev', function () {
 gulp.task('scripts:back:dev', function () {
 	var outDir = '.tmp/server';
 
-	return gulp.src('server/**/*.ts')
+	return gulp
+		.src('server/**/*.ts')
 		.pipe(typescript({
 			module: 'commonjs', //amd
 			target: 'ES5', //ES3
-			sourcemap: false,
-			//outDir: outDir,
 			emitError: false
 		}))
 		.pipe(gulp.dest(outDir));
@@ -96,13 +99,12 @@ gulp.task('components:dev', function () {
 
 gulp.task('watch', function () {
 	log('Watching files');
-	var styles = gulp.watch(paths.styles, ['sass:dev']);
 
-	styles.on('change', function (event) {
+	gulp.watch(paths.styles, ['sass:dev']).on('change', function (event) {
 		log('Style changed:', gutils.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts, ['scripts:front:dev']).on('change', function (event) {
+	gulp.watch(paths.front, ['scripts:front:dev']).on('change', function (event) {
 		log('Script changed:', gutils.colors.green(event.path));
 	});
 

@@ -33,7 +33,7 @@
     "gulp-autoprefixer": "0.x.x",
     "gulp-tsc": "0.x.x",
     "gulp-uglify": "0.x.x",
-	"handlebars": "2.x.x",
-	"node-sass": "0.x.x"
+    "handlebars": "2.x.x",
+    "node-sass": "0.x.x"
   }
 }

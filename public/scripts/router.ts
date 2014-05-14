@@ -1,3 +1,5 @@
+/// <reference path="app.ts" />
+
 'use strict';
 
 Ember.Router.map(function () {
