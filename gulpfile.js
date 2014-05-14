@@ -10,13 +10,16 @@ var gulp = require('gulp'),
 	es6ify = require('es6ify'),
 	handlebars = require('gulp-ember-handlebars'),
 	prefixer = require('gulp-autoprefixer'),
+	svgmin = require('gulp-svgmin'),
+	sprites = require('gulp-svg-sprites'),
 	paths;
 
 paths = {
 	components: 'public/components/**',
 	styles: 'public/styles/**',
 	scripts: 'public/scripts/**',
-	templates: 'public/templates/**/*.hbs'
+	templates: 'public/templates/**/*.hbs',
+	svg: 'public/svg/*.svg'
 };
 
 function log() {
@@ -78,6 +81,15 @@ gulp.task('components:dev', function () {
 		.pipe(gulp.dest('.tmp/public/components'));
 });
 
+gulp.task('sprites:dev', function () {
+	gulp.src(paths.svg)
+		.pipe(svgmin())
+		.pipe(sprites.svg({
+					defs: true
+		}))
+		.pipe(gulp.dest('.tmp/public/svg'));
+});
+
 gulp.task('watch', function () {
 	log('Watching files');
 	var styles = gulp.watch(paths.styles, ['sass:dev']);
@@ -93,6 +105,10 @@ gulp.task('watch', function () {
 	gulp.watch(paths.templates, ['templates:dev']).on('change', function (event) {
 		log('Template changed:', gutils.colors.green(event.path));
 	});
+
+	gulp.watch(paths.svg, ['sprites:dev']).on('change', function (event) {
+		log('Svg changed:', gutils.colors.green(event.path));
+	});
 });
 
 gulp.task('server:dev', function () {
@@ -102,6 +118,6 @@ gulp.task('server:dev', function () {
 	});
 });
 
-gulp.task('assets:dev', ['sass:dev', 'scripts:dev', 'components:dev', 'templates:dev']);
+gulp.task('assets:dev', ['sass:dev', 'scripts:dev', 'components:dev', 'templates:dev', 'sprites:dev']);
 gulp.task('default', ['assets:dev', 'watch', 'server:dev']);
 // gulp.task('production', ['clean:prod']);

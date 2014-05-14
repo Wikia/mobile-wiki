@@ -1,5 +1,4 @@
 $border-color: #d0d0d0;
-
 .table-of-contents {
 
 	.title {
@@ -8,6 +7,7 @@ $border-color: #d0d0d0;
 		@extend %header-section-title;
 
 		// positioning
+		position: relative;
 
 		// display & box model
 		display: block;
@@ -23,10 +23,38 @@ $border-color: #d0d0d0;
 		line-height: 2.4rem;
 
 		// other
-  }
+
+		&:not(.collapsed) .chevron {
+			transform: rotate(-180deg);
+			transition: .25s transform ease-in-out;
+		}
+
+		.icon {
+			position: absolute;
+			top: 50%;
+
+			&.toc {
+				left: 10px;
+				margin-top: -7px;
+			}
+
+			&.chevron {
+				right: 10px;
+				margin-top: -4px;
+			}
+		}
+
+	}
+
 
   ul {
 	  @extend %list-reset;
 	  @extend .slide-down;
+
+		li {
+			padding: 10px 0;
+			border-bottom: 1px solid $border-color;
+			text-align: center;
+		}
   }
 }
