@@ -5,7 +5,7 @@ import path = require('path');
 var localSettings: any = require('./../../config/LocalSettings');
 
 class App {
-	constructor () {
+	constructor() {
 		var server: Hapi.Server,
 			options: {};
 

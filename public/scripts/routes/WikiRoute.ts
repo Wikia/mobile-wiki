@@ -7,4 +7,3 @@ Wikia.WikiRoute = Em.Route.extend({
 		return Em.Object.create(params);
 	}
 });
-

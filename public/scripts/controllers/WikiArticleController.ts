@@ -3,7 +3,7 @@
 
 Wikia.WikiArticleController = Em.ObjectController.extend({
 	actions: {
-		test: function(): void {
+		test: function (): void {
 			console.log(this);
 		}
 	}

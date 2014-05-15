@@ -6,7 +6,7 @@ Wikia.TableOfContentsComponent = Em.Component.extend({
 	classNames: ['table-of-contents'],
 	isCollapsed: true,
 	actions: {
-		toggleMenu: function(): void {
+		toggleMenu: function (): void {
 			this.toggleProperty('isCollapsed');
 		}
 	}
