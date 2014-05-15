@@ -11,7 +11,7 @@ import http = require('http');
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
  */
-export var get = function (request: Hapi.Request, reply: any) {
+export function handleRoute(request: Hapi.Request, reply: any) {
 	var str: string = '',
 		client: http.ClientRequest,
 		apiUrl: string = 'http://' + request.params.wiki + '.wikia.com/index.php?useskin=wikiamobile&action=render&title=' + request.params.articleTitle;
@@ -35,4 +35,4 @@ export var get = function (request: Hapi.Request, reply: any) {
 		reply(err);
 		client.abort();
 	});
-};
+}

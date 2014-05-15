@@ -70,14 +70,16 @@ gulp.task('scripts:front:dev', function () {
 });
 
 gulp.task('scripts:back:dev', function () {
-	var outDir = '.tmp/server';
+	var outDir = '.tmp';
 
 	return gulp
 		.src('server/**/*.ts')
 		.pipe(typescript({
 			module: 'commonjs', //amd
 			target: 'ES5', //ES3
-			emitError: false
+			emitError: false,
+			outDir: outDir,
+			removeComments: true
 		}))
 		.pipe(gulp.dest(outDir));
 });

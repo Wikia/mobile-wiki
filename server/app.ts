@@ -1,8 +1,9 @@
+/// <reference path="../definitions/node/node.d.ts" />
 /// <reference path="../definitions/hapi/hapi.d.ts" />
 
 import hapi = require('hapi');
 import path = require('path');
-var localSettings: any = require('./../../config/LocalSettings');
+import localSettings = require('../config/localSettings');
 
 class App {
 	constructor() {

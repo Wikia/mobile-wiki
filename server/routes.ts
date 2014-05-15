@@ -21,7 +21,7 @@ function routes(server) {
 	server.route({
 		method: 'GET',
 		path: '/article/{wiki}/{articleTitle}',
-		handler: require('./controllers/article').get
+		handler: require('./controllers/article').handleRoute
 	});
 
 	// Set up static assets serving, this is probably not a final implementation as we should probably setup
