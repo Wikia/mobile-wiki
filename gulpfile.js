@@ -10,15 +10,14 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	handlebars = require('gulp-ember-handlebars'),
 	prefixer = require('gulp-autoprefixer'),
-	paths;
-
-paths = {
-	components: 'public/components/**',
-	styles: 'public/styles/app.scss',
-	front: 'public/scripts/**',
-	back: 'server/**/*.ts',
-	templates: 'public/templates/**/*.hbs'
-};
+	packages = require('./packages'),
+	paths = {
+		components: 'public/components/',
+		styles: 'public/styles/app.scss',
+		front: 'public/scripts/**',
+		back: 'server/**/*.ts',
+		templates: 'public/templates/**/*.hbs'
+	};
 
 function log() {
 	var args = Array.prototype.slice.call(arguments, 0);
@@ -59,11 +58,13 @@ gulp.task('scripts:front:dev', function () {
 		.src('public/**/*.ts')
 		.pipe(typescript({
 			target: 'ES5', //ES3
-			//sourcemap: true,
+			sourcemap: false,
 			outDir: outDir,
-			emitError: false
+			out: 'main.js',
+			//mapRoot: '',
+			emitError: false,
+			removeComments: true
 		}))
-		.pipe(concat('main.js'))
 		//.pipe(uglify())
 		.pipe(gulp.dest(outDir));
 });
@@ -92,8 +93,13 @@ gulp.task('templates:dev', function () {
 });
 
 gulp.task('components:dev', function () {
-	// TODO: Temporary copy over bower components to tmp folder till we figure out approach for bundling all assets
-	gulp.src(paths.components + '/*.js')
+	var files = packages.map(function(asset){
+		return paths.components + asset;
+	});
+
+	return gulp.src(files)
+		.pipe(concat('assets.js'))
+		.pipe(uglify())
 		.pipe(gulp.dest('.tmp/public/components'));
 });
 
