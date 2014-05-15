@@ -2,20 +2,5 @@
 {{#table-of-contents sections=headings}}
 Table of Contents
 {{/table-of-contents}}
-{{#each article}} 
-	<h3 {{action 'test'}}>{{title}}</h3> 
-	{{#each image in images}} 
-		<img {{bind-attr src=image.src}}> 
-	{{/each}} 
-	{{#each item in content}} 
-		<p>{{item.text}}</p> 
-		{{#if item.elements.length}} 
-			<ul> 
-			{{#each element in item.elements}} 
-				<li>{{element.text}}</li> 
-			{{/each}} 
-			</ul> 
-		{{/if}} 
-	{{/each}} 
-{{/each}} 
+{{{content.article}}}
 

@@ -1,7 +1,9 @@
+/// <reference path="../../definitions/hapi/hapi.d.ts" />
 /**
  * @description Article controller
  */
-var http = require('http');
+
+import http = require('http');
 
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
@@ -9,29 +11,28 @@ var http = require('http');
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
  */
-exports.get = function (request, reply) {
-	var str,
-			client,
-			apiUrl;
-
-	apiUrl = 'http://' + request.params.wiki + '.wikia.com/api/v1/Articles/AsSimpleJson?id=' + request.params.articleId;
-
-	str = '';
+export function handleRoute(request: Hapi.Request, reply: any) {
+	var str: string = '',
+		client: http.ClientRequest,
+		apiUrl: string = 'http://' + request.params.wiki + '.wikia.com/index.php?useskin=wikiamobile&action=render&title=' + request.params.articleTitle;
 
 	client = http.get(apiUrl, function (api) {
-		api.on('data', function (chunk) {
+		api.on('data', function (chunk: string) {
 			str += chunk;
 		});
 
 		api.on('end', function () {
 			reply({
 				params: request.params,
-				payload: JSON.parse(str)
+				payload: str
 			});
+
 			client.abort();
 		});
-	}).on('error', function (err) {
+	});
+
+	client.on('error', function (err: Error) {
 		reply(err);
 		client.abort();
 	});
-};
+}
