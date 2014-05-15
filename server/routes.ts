@@ -2,7 +2,7 @@
 
 import path = require('path');
 
-function routes(server: HapiServer) {
+function routes(server) {
 	// all the routes that should resolve to loading single page app entry view
 	var indexRoutes: string[] = [
 		'/',
@@ -20,7 +20,7 @@ function routes(server: HapiServer) {
 	// eg. http://www.example.com/article/muppet/154
 	server.route({
 		method: 'GET',
-		path: '/article/{wiki}/{articleId}',
+		path: '/article/{wiki}/{articleTitle}',
 		handler: require('./controllers/article').get
 	});
 

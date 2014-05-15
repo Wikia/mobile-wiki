@@ -2,7 +2,7 @@
 'use strict';
 
 Wikia.WikiArticleRoute = Em.Route.extend({
-	model: function (params: {articleTitle: string}) {
+	model: function (params: {articleTitle: string}): JQueryPromise<{article: string}> {
 		var wikiName = this.modelFor('wiki').get('wikiName'),
 			articleTitle = params.articleTitle;
 
@@ -14,4 +14,3 @@ Wikia.WikiArticleRoute = Em.Route.extend({
 		});
 	}
 });
-
