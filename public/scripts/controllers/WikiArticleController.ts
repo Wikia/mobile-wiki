@@ -3,8 +3,9 @@
 
 Wikia.WikiArticleController = Em.ObjectController.extend({
 	actions: {
-		test: function (): void {
-			console.log(this);
+		updateHeaders: function (headers): void {
+		   var article = this.get('model');
+		   article.set('headers', headers);
 		}
 	}
 });

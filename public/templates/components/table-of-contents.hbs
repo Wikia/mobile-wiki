@@ -9,6 +9,6 @@
 </span>
 <ul {{bind-attr class="isCollapsed:collapsed"}}>
 	{{#each section in sections}}
-	<li><a href="#" alt="{{section}}">{{section}}</a></li>
+	<li><a href="#{{id}}" alt="{{name}}">{{name}}</a></li>
 	{{/each}}
 </ul>
