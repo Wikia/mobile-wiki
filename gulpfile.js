@@ -15,7 +15,8 @@ var gulp = require('gulp'),
 	packages = require('./packages'),
 	paths = {
 		components: 'public/components/',
-		styles: 'public/styles/app.scss',
+		mainScssFile: 'public/styles/app.scss',
+		styles: 'public/styles/**/*.scss',
 		front: 'public/scripts/**',
 		back: 'server/**/*.ts',
 		templates: 'public/templates/**/*.hbs',
@@ -44,7 +45,7 @@ gulp.task('sass:dev', function () {
 	var outDir = '.tmp/public/styles';
 
 	return gulp
-		.src(paths.styles)
+		.src(paths.mainScssFile)
 		.pipe(sass({
 			outputStyle: 'expanded',
 			sourceComments: 'map',

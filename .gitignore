@@ -19,4 +19,4 @@ public/components/
 www/
 
 /* Config */
-config/localSettings.js
+config/localSettings.ts

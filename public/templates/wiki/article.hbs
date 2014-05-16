@@ -1,9 +1,10 @@
 <h1 class="article-title">{{title}}</h1>
-{{#table-of-contents sections=headers}}
+{{#table-of-contents sections=headings}}
 Table of Contents
 {{/table-of-contents}}
-{{{content.article}}}
-
+<article class="article-content">
+	{{{content.article}}}
+</article>
 <a class="btn comments-btn" href="#">Load 324 comments</a>
 <ul class="contributors">
 	<li><a href=""><img src="http://placekitten.com/g/40/40" alt=""></a></li>

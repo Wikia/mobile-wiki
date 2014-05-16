@@ -1,5 +1,6 @@
 $border-color: #d0d0d0;
 .table-of-contents {
+	margin-bottom: rem-calc(20);
 
 	.title {
 		// extends & mixins
@@ -52,9 +53,13 @@ $border-color: #d0d0d0;
 	  @extend .slide-down;
 
 		li {
-			padding: 10px 0;
 			border-bottom: 1px solid $border-color;
 			text-align: center;
+
+			a {
+				padding: 10px 0;
+				display: block;
+			}
 		}
   }
 }
