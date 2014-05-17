@@ -1,5 +1,29 @@
 .content-recommendations {
 	clear: both;
-	background: peachpuff;
-	height: 100px;
+	padding: rem-calc(10) rem-calc(20);
+	background-color: rgb(241, 242, 252);
+	
+	h1 {
+		color: $primary-color;
+	}
+
+	ul {
+		@extend %list-reset;
+
+		li {
+			margin-bottom: 1rem;
+			background-color: white;
+		}
+
+		.thumbnail {
+			background-color: #ddd;
+			height: 150px;
+		}
+
+		.title {
+			display: block;
+			padding: 1rem;
+			color: $body-font-color;
+		}
+	}
 }

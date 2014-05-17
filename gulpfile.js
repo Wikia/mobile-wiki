@@ -10,13 +10,17 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	handlebars = require('gulp-ember-handlebars'),
 	prefixer = require('gulp-autoprefixer'),
+	svgmin = require('gulp-svgmin'),
+	sprites = require('gulp-svg-sprites'),
 	packages = require('./packages'),
 	paths = {
 		components: 'public/components/',
-		styles: 'public/styles/app.scss',
+		mainScssFile: 'public/styles/app.scss',
+		styles: 'public/styles/**/*.scss',
 		front: 'public/scripts/**',
 		back: 'server/**/*.ts',
-		templates: 'public/templates/**/*.hbs'
+		templates: 'public/templates/**/*.hbs',
+		svg: 'public/svg/*.svg'
 	};
 
 function log() {
@@ -41,7 +45,7 @@ gulp.task('sass:dev', function () {
 	var outDir = '.tmp/public/styles';
 
 	return gulp
-		.src(paths.styles)
+		.src(paths.mainScssFile)
 		.pipe(sass({
 			outputStyle: 'expanded',
 			sourceComments: 'map',
@@ -105,6 +109,15 @@ gulp.task('components:dev', function () {
 		.pipe(gulp.dest('.tmp/public/components'));
 });
 
+gulp.task('sprites:dev', function () {
+	gulp.src(paths.svg)
+		.pipe(svgmin())
+		.pipe(sprites.svg({
+					defs: true
+		}))
+		.pipe(gulp.dest('.tmp/public/svg'));
+});
+
 gulp.task('watch', function () {
 	log('Watching files');
 
@@ -123,6 +136,10 @@ gulp.task('watch', function () {
 	gulp.watch(paths.templates, ['templates:dev']).on('change', function (event) {
 		log('Template changed:', gutils.colors.green(event.path));
 	});
+
+	gulp.watch(paths.svg, ['sprites:dev']).on('change', function (event) {
+		log('Svg changed:', gutils.colors.green(event.path));
+	});
 });
 
 gulp.task('server:dev', ['scripts:back:dev'], function () {
@@ -135,6 +152,13 @@ gulp.task('server:dev', ['scripts:back:dev'], function () {
 	});
 });
 
-gulp.task('assets:dev', ['sass:dev', 'scripts:back:dev', 'scripts:front:dev', 'components:dev', 'templates:dev']);
+gulp.task('assets:dev', [
+		'sass:dev',
+		'scripts:back:dev',
+		'scripts:front:dev',
+		'components:dev',
+		'templates:dev',
+		'sprites:dev'
+]);
 gulp.task('default', ['assets:dev', 'watch', 'server:dev']);
 // gulp.task('production', ['clean:prod']);

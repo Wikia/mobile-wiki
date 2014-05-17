@@ -1,0 +1,15 @@
+.icon {
+	&.chevron {
+		width: 12px;
+		height: 7px;
+	}
+
+	&.wikia-logo {
+		width: rem-calc(80);
+	}
+
+	&.toc {
+		width: 18px;
+		height: 13px;
+	}
+}

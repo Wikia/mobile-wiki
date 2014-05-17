@@ -1,18 +1,65 @@
-$border-color: rgb(218,219,220);
+$border-color: #d0d0d0;
 .table-of-contents {
-  overflow: hidden;
+	margin-bottom: rem-calc(20);
 
-  .title {
-	color: rgb(130, 131, 133);
-	display: block;
-	background-color: rgb(249, 249, 249);
-	border-top: 1px solid $border-color;
-	border-bottom: 1px solid $border-color;
-	padding: rem-calc(5px) rem-calc(40px);
-	font-size: .9em;
-  }
+	.title {
+		// extends & mixins
+		@extend .subtext;
+		@extend %header-section-title;
+
+		// positioning
+		position: relative;
+
+		// display & box model
+		display: block;
+		padding: rem-calc(5px) rem-calc(40px);
+		border-top: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+
+		// color
+		color: rgb(130, 131, 133);
+
+		// text
+		font-size: .9em;
+		line-height: 2.4rem;
+
+		// other
+
+		&:not(.collapsed) .chevron {
+			transform: rotate(-180deg);
+			transition: .25s transform ease-in-out;
+		}
+
+		.icon {
+			position: absolute;
+			top: 50%;
+
+			&.toc {
+				left: 10px;
+				margin-top: -7px;
+			}
+
+			&.chevron {
+				right: 10px;
+				margin-top: -4px;
+			}
+		}
+
+	}
+
 
   ul {
-	@extend .slide-down;
+	  @extend %list-reset;
+	  @extend .slide-down;
+
+		li {
+			border-bottom: 1px solid $border-color;
+			text-align: center;
+
+			a {
+				padding: 10px 0;
+				display: block;
+			}
+		}
   }
 }

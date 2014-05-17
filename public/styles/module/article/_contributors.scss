@@ -1,0 +1,22 @@
+.contributors {
+	@extend %list-reset;
+	@extend .clearfix;
+
+	li {
+		float: left;
+		width: 16.66%;
+		text-align: center;
+
+		img {
+			border-radius: 50%;
+		}
+	}
+}
+
+.last-edit {
+	display: block;
+	border-bottom: 1px solid #999;
+	padding: 20px 0;
+	margin-bottom: 40px;
+	color: #999;
+}

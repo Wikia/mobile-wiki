@@ -1,3 +1,7 @@
 .site-footer {
 	@extend .row;
+	padding: 1.5rem;
+	height: 100px;
+	background-color: rgb(18, 49, 84);
+	color: white;
 }

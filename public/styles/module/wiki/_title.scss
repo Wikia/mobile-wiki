@@ -1,12 +1,10 @@
 .wiki-title {
 	@extend %header-section-title;
-	text-decoration: underline;
-	font-weight: normal;
-	font-size: .9em;
-	letter-spacing: 1.5px;
-	margin-bottom: .85em;
+	@extend .subtext;
+	margin-bottom: rem-calc(20);
 
 	a {
-		color: rgb(214,215,216);
+		color: $primary-color;
+		display: block;
 	}
 }

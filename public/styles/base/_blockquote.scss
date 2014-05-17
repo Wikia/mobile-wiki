@@ -1,0 +1,12 @@
+blockquote {
+	border-left: 6px solid $primary-color;
+	margin: 0;
+	padding: 0 rem-calc(20);
+
+	color: #333;
+
+	font-weight: bold;
+
+	/* word-break: break-word; */
+}
+
