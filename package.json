@@ -19,7 +19,8 @@
   "private": true,
   "dependencies": {
     "good": "2.x.x",
-    "hapi": "4.x.x"
+    "hapi": "4.x.x",
+    "q": "~1.0.1"
   },
   "devDependencies": {
     "sudo": "1.x.x",
