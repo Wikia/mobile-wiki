@@ -3,7 +3,7 @@
 
 interface MockResponseObject {
 	payload: string;
-    params: { articleTitle: string; };
+    articleTitle: string;
 }
 
 Wikia.WikiArticleRoute = Em.Route.extend({

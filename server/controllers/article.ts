@@ -14,59 +14,104 @@ import Q = require('q');
  * article slug name
  */
 
-function getArticle(data) {
+interface ResponseData {
+	wikiName: string;
+	articleTitle: string;
+	payload?: string;
+	articleDetails?: any;
+	comments?: any;
+	relatedPages?: any;
+	userDetails?: any;
+}
+
+/**
+ * Creates promise for callback function
+ *
+ * @param {function} callback
+ * @returns {object}
+ */
+function promisify(callback: (deferred: Q.Deferred<any>)=>void): Q.Promise<any> {
 	var deferred: Q.Deferred<any> = Q.defer();
-	mediawiki.article(data.wikiName, data.articleTitle)
-		.then(function(article) {
-			data.payload = article.body;
-			deferred.resolve(data);
-		})
-		.catch(function(error) {
-			deferred.reject(error);
-		});
+	callback(deferred);
 	return deferred.promise;
 }
 
-function getArticleId(data) {
-	var deferred: Q.Deferred<any> = Q.defer();
-	mediawiki.articleId(data.wikiName, data.articleTitle)
-		.then(function(articleIdData) {
-			data.articleId = parseInt(Object.keys(articleIdData.query.pages)[0], 10);
-			deferred.resolve(data);
-		})
-		.catch(function(error) {
-			deferred.reject(error);
-		});
-	return deferred.promise;
+/**
+ * Gets article data
+ *
+ * @param {object} data
+ * @returns {Q.Promise<*>}
+ */
+function getArticle(data: ResponseData): Q.Promise<any> {
+	return promisify(function(deferred) {
+		mediawiki.article(data.wikiName, data.articleTitle)
+			.then(function(article) {
+				data.payload = article.body;
+				deferred.resolve(data);
+			})
+			.catch(function(error) {
+				deferred.reject(error);
+			});
+	});
 }
 
-function getArticleComments(data) {
-	var deferred: Q.Deferred<any> = Q.defer();
-	mediawiki.articleComments(data.wikiName, data.articleId)
-		.then(function(articleComments) {
-			data.comments = articleComments;
-			deferred.resolve(data);
-		})
-		.catch(function(error) {
-			deferred.reject(error);
-		});
-	return deferred.promise;
+function getArticleId(data: ResponseData): Q.Promise<any> {
+	return promisify(function(deferred){
+		mediawiki.articleDetails(data.wikiName, [data.articleTitle])
+			.then(function(articleDetails) {
+				data.articleDetails = articleDetails.items[Object.keys(articleDetails.items)[0]];
+				deferred.resolve(data);
+			})
+			.catch(function(error) {
+				deferred.reject(error);
+			});
+	});
 }
 
-function getRelatedPages(data) {
-	var deferred: Q.Deferred<any> = Q.defer();
-	mediawiki.relatedPages(data.wikiName, [data.articleId])
-		.then(function(relatedPages) {
-			data.relatedPages = relatedPages;
-			deferred.resolve(data);
-		})
-		.catch(function(error) {
-			deferred.reject(error);
-		});
-	return deferred.promise;
+function getArticleComments(data: ResponseData): Q.Promise<any> {
+	return promisify(function(deferred){
+		mediawiki.articleComments(data.wikiName, data.articleDetails.id)
+			.then(function(articleComments) {
+				data.comments = articleComments;
+				deferred.resolve(data);
+			})
+			.catch(function(error) {
+				deferred.reject(error);
+			});
+	});
 }
 
-export function handleRoute(request: Hapi.Request, reply: any) {
+function getRelatedPages(data: ResponseData): Q.Promise<any> {
+	return promisify(function(deferred){
+		mediawiki.relatedPages(data.wikiName, [data.articleDetails.id])
+			.then(function(relatedPages) {
+				data.relatedPages = relatedPages;
+				deferred.resolve(data);
+			})
+			.catch(function(error) {
+				deferred.reject(error);
+			});
+	});
+}
+
+function getUserDetails(data: ResponseData): Q.Promise<any> {
+	return promisify(function(deferred){
+		// todo: get top contributors list
+		var userIds: number[] = [
+			parseInt(data.articleDetails.revision.user_id, 10)
+		];
+		mediawiki.userDetails(data.wikiName, userIds)
+			.then(function(userDetails) {
+				data.userDetails = userDetails;
+				deferred.resolve(data);
+			})
+			.catch(function(error) {
+				deferred.reject(error);
+			});
+	});
+}
+
+export function handleRoute(request: Hapi.Request, reply: any): void {
 	getArticle({
 		wikiName: request.params.wiki,
 		articleTitle: request.params.articleTitle
@@ -74,6 +119,7 @@ export function handleRoute(request: Hapi.Request, reply: any) {
 	.then(getArticleId)
 	.then(getArticleComments)
 	.then(getRelatedPages)
+	.then(getUserDetails)
 	.then(function(response) {
 		reply(response);
 	})
