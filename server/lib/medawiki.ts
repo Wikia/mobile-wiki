@@ -130,7 +130,7 @@ module mediawiki {
 		return jsonGet(
 			createUrl(
 				wikiName,
-				'api/v1/Mercury/CommentsPerArticleCount', {
+				'api/v1/Mercury/ArticleCommentsCount', {
 					articleId: articleId
 				}
 			)
