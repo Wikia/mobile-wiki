@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface MockResponseObject {
+interface Response {
 	payload: string;
 	articleTitle: string;
 }
@@ -12,7 +12,7 @@ Wikia.WikiArticleRoute = Em.Route.extend({
 			articleTitle = params.articleTitle;
 
 		return Ember.$.getJSON('/article/' + wikiName + '/' + articleTitle)
-			.then(function (response: MockResponseObject) {
+			.then(function (response: Response) {
 				return Wikia.WikiArticleModel.create({
 					article: response.payload,
 					title: response.articleTitle,

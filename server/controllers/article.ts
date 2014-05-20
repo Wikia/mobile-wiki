@@ -4,7 +4,7 @@
  */
 
 import http = require('http');
-import mediawiki = require('../lib/medawiki');
+import mediawiki = require('../lib/mediawiki');
 import common = require('../lib/common');
 
 /**
