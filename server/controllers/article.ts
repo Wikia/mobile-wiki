@@ -5,7 +5,7 @@
 
 import http = require('http');
 import mediawiki = require('../lib/medawiki');
-import Q = require('q');
+import common = require('../lib/common');
 
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
@@ -25,25 +25,13 @@ interface ResponseData {
 }
 
 /**
- * Creates promise for callback function
- *
- * @param {function} callback
- * @returns {object}
- */
-function promisify(callback: (deferred: Q.Deferred<any>)=>void): Q.Promise<any> {
-	var deferred: Q.Deferred<any> = Q.defer();
-	callback(deferred);
-	return deferred.promise;
-}
-
-/**
  * Gets article data
  *
  * @param {object} data
  * @returns {Q.Promise<*>}
  */
 function getArticle(data: ResponseData): Q.Promise<any> {
-	return promisify(function(deferred) {
+	return common.promisify(function(deferred: Q.Deferred<any>) {
 		mediawiki.article(data.wikiName, data.articleTitle)
 			.then(function(article) {
 				data.payload = article.body;
@@ -56,7 +44,7 @@ function getArticle(data: ResponseData): Q.Promise<any> {
 }
 
 function getArticleId(data: ResponseData): Q.Promise<any> {
-	return promisify(function(deferred){
+	return common.promisify(function(deferred: Q.Deferred<any>){
 		mediawiki.articleDetails(data.wikiName, [data.articleTitle])
 			.then(function(articleDetails) {
 				data.articleDetails = articleDetails.items[Object.keys(articleDetails.items)[0]];
@@ -69,7 +57,7 @@ function getArticleId(data: ResponseData): Q.Promise<any> {
 }
 
 function getArticleComments(data: ResponseData): Q.Promise<any> {
-	return promisify(function(deferred){
+	return common.promisify(function(deferred: Q.Deferred<any>){
 		mediawiki.articleComments(data.wikiName, data.articleDetails.id)
 			.then(function(articleComments) {
 				data.comments = articleComments;
@@ -82,7 +70,7 @@ function getArticleComments(data: ResponseData): Q.Promise<any> {
 }
 
 function getRelatedPages(data: ResponseData): Q.Promise<any> {
-	return promisify(function(deferred){
+	return common.promisify(function(deferred: Q.Deferred<any>){
 		mediawiki.relatedPages(data.wikiName, [data.articleDetails.id])
 			.then(function(relatedPages) {
 				data.relatedPages = relatedPages;
@@ -95,7 +83,7 @@ function getRelatedPages(data: ResponseData): Q.Promise<any> {
 }
 
 function getUserDetails(data: ResponseData): Q.Promise<any> {
-	return promisify(function(deferred){
+	return common.promisify(function(deferred: Q.Deferred<any>){
 		// todo: get top contributors list
 		var userIds: number[] = [
 			parseInt(data.articleDetails.revision.user_id, 10)
@@ -117,7 +105,6 @@ export function handleRoute(request: Hapi.Request, reply: any): void {
 		articleTitle: request.params.articleTitle
 	})
 	.then(getArticleId)
-	.then(getArticleComments)
 	.then(getRelatedPages)
 	.then(getUserDetails)
 	.then(function(response) {
