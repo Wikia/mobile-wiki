@@ -115,12 +115,23 @@ module mediawiki {
 		);
 	}
 
-	export function userDetails(wikiName:string, userIds: number[]):Q.Promise<any> {
+	export function userDetails(wikiName: string, userIds: number[]): Q.Promise<any> {
 		return jsonGet(
 			createUrl(
 				wikiName,
 				'api/v1/User/Details', {
 					ids: userIds.join(',')
+				}
+			)
+		);
+	}
+
+	export function getArticleCommentsCount(wikiName: string, articleId: number):Q.Promise<any> {
+		return jsonGet(
+			createUrl(
+				wikiName,
+				'api/v1/Mercury/CommentsPerArticleCount', {
+					articleId: articleId
 				}
 			)
 		);
