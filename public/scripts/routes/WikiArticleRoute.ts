@@ -15,7 +15,7 @@ Wikia.WikiArticleRoute = Em.Route.extend({
 			.then(function (response: MockResponseObject) {
 				return Wikia.WikiArticleModel.create({
 					article: response.payload,
-					title: response.params.articleTitle,
+					title: response.articleTitle,
 					headers: []
 				});
 			});

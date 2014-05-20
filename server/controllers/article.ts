@@ -18,7 +18,7 @@ function getArticle(data) {
 	var deferred: Q.Deferred<any> = Q.defer();
 	mediawiki.article(data.wikiName, data.articleTitle)
 		.then(function(article) {
-			data.article = article.body;
+			data.payload = article.body;
 			deferred.resolve(data);
 		})
 		.catch(function(error) {
@@ -31,8 +31,7 @@ function getArticleId(data) {
 	var deferred: Q.Deferred<any> = Q.defer();
 	mediawiki.articleId(data.wikiName, data.articleTitle)
 		.then(function(articleIdData) {
-			var articleId = JSON.parse(articleIdData.body);
-			data.articleId = parseInt(Object.keys(articleId.query.pages)[0], 10);
+			data.articleId = parseInt(Object.keys(articleIdData.query.pages)[0], 10);
 			deferred.resolve(data);
 		})
 		.catch(function(error) {
@@ -45,7 +44,7 @@ function getArticleComments(data) {
 	var deferred: Q.Deferred<any> = Q.defer();
 	mediawiki.articleComments(data.wikiName, data.articleId)
 		.then(function(articleComments) {
-			data.comments = JSON.parse(articleComments.body);
+			data.comments = articleComments;
 			deferred.resolve(data);
 		})
 		.catch(function(error) {
@@ -58,7 +57,7 @@ function getRelatedPages(data) {
 	var deferred: Q.Deferred<any> = Q.defer();
 	mediawiki.relatedPages(data.wikiName, [data.articleId])
 		.then(function(relatedPages) {
-			data.relatedPages = JSON.parse(relatedPages.body);
+			data.relatedPages = relatedPages;
 			deferred.resolve(data);
 		})
 		.catch(function(error) {
