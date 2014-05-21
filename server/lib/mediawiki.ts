@@ -46,7 +46,6 @@ module mediawiki {
 	function httpGet(url: string): Q.Promise<any> {
 		return common.promisify(function (deferred: Q.Deferred<any>):void {
 			var buffer: string = '';
-console.log(url);
 			followRedirects.http.get(url, function (res) {
 				res.on('data', function (chunk: string) {
 					buffer += chunk;
