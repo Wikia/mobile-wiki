@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../utils/sloth.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -7,26 +8,49 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-Wikia.WikiArticleView = Em.View.extend({
+var sloth = new W.Sloth();
+
+App.WikiArticleView = Em.View.extend({
 	classNames: ['article-body'],
+	articleObserver: function(){
+		Em.run.later(() => {
+			if(this.get('controller.article').length > 0) {
+				var lazyImages = this.$( '.lazy' );
+				var lazyload = new W.Lazyload();
+
+				lazyload.fixSizes( lazyImages );
+
+				sloth.drop();
+				sloth.dos( {
+					on: lazyImages,
+					threshold: 400,
+					callback: (elem) => lazyload.load(elem, false)
+				} );
+
+				// TODO: Temporary solution for generating Table of Contents
+				// Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
+				// ToC data from server and render view based on that.
+				var headers: HeadersFromDom[] = this.$('h2').map((i, elem: HTMLElement): HeadersFromDom => {
+					return {
+						level: elem.tagName,
+						name: elem.textContent,
+						id: elem.id
+					};
+				}).toArray();
+
+				this.get('controller').send('updateHeaders', headers);
+			}
+		},1000);
+	}.observes('controller.article'),
+
 	didInsertElement: function (): void {
-		// TODO: Temporary solution for generating Table of Contents
-		// Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
-		// ToC data from server and render view based on that.
-		var headers: HeadersFromDom[] = this.$().find('h1, h2, h3').map(function (i: number, elem: HTMLElement): HeadersFromDom {
-			return {
-				level: elem.tagName,
-				name: elem.textContent,
-				id: elem.id
-			};
-		});
-		this.get('controller').send('updateHeaders', headers);
+
 	},
 	click: function (event) {
 		if (event.target.tagName === 'A') {
 			event.preventDefault();
 
-			this.get('controller.target.router').transitionTo('/w/glee/article/' + event.target.pathname.replace('/wiki/', ''));
+			this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
 		}
 	}
 });
