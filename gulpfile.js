@@ -94,7 +94,7 @@ gulp.task('templates:dev', function () {
 			output: 'browser'
 		}))
 		.pipe(concat('templates.js'))
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('.tmp/public/scripts'));
 });
 
