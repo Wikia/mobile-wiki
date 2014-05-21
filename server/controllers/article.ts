@@ -49,8 +49,12 @@ function getArticleId(data: ResponseData): Q.Promise<any> {
 	return common.promisify(function(deferred: Q.Deferred<any>){
 		mediawiki.articleDetails(data.wikiName, [data.articleTitle])
 			.then(function(articleDetails) {
-				data.articleDetails = articleDetails.items[Object.keys(articleDetails.items)[0]];
-				deferred.resolve(data);
+				if (Object.keys(articleDetails.items).length > 0) {
+					data.articleDetails = articleDetails.items[Object.keys(articleDetails.items)[0]];
+					deferred.resolve(data);
+				} else {
+					deferred.reject(new Error('Article not found'));
+				}
 			})
 			.catch(function(error) {
 				deferred.reject(error);
@@ -106,16 +110,17 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		wikiName: request.params.wiki,
 		articleTitle: request.params.articleTitle
 	};
-	getArticleId(data)
-	.then(function(data){
+	getArticleId(data).then(function(data){
 		return Q.all([
 			getArticle(data),
 			getRelatedPages(data),
 			getUserDetails(data)
-		]).done(function() {
-			reply(data);
-		}).catch(function(error) {
-			reply(error);
-		});
+		]).done(
+			function() {
+				reply(data);
+			}
+		);
+	}).catch(function(error) {
+		reply(error);
 	});
 }
