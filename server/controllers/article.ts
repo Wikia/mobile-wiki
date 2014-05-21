@@ -1,4 +1,5 @@
 /// <reference path="../../definitions/hapi/hapi.d.ts" />
+/// <reference path="../../definitions/q/Q.d.ts" />
 /**
  * @description Article controller
  */
@@ -6,6 +7,7 @@
 import http = require('http');
 import mediawiki = require('../lib/mediawiki');
 import common = require('../lib/common');
+import Q = require('q');
 
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
@@ -99,18 +101,21 @@ function getUserDetails(data: ResponseData): Q.Promise<any> {
 	});
 }
 
-export function handleRoute(request: Hapi.Request, reply: any): void {
-	getArticle({
+export function handleRoute(request: Hapi.Request, reply: Function): void {
+	var data = {
 		wikiName: request.params.wiki,
 		articleTitle: request.params.articleTitle
-	})
-	.then(getArticleId)
-	.then(getRelatedPages)
-	.then(getUserDetails)
-	.then(function(response) {
-		reply(response);
-	})
-	.catch(function(error) {
-		reply(error);
+	};
+	getArticleId(data)
+	.then(function(data){
+		return Q.all([
+			getArticle(data),
+			getRelatedPages(data),
+			getUserDetails(data)
+		]).done(function() {
+			reply(data);
+		}).catch(function(error) {
+			reply(error);
+		});
 	});
 }

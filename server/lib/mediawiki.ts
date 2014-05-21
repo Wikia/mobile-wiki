@@ -1,11 +1,12 @@
 /// <reference path="../../definitions/q/Q.d.ts" />
 /// <reference path="../../definitions/node/node.d.ts" />
+/// <reference path="common.ts" />
 
 /**
  * @description Mediawiki API functions
  */
 
-import http = require('http');
+import followRedirects = require('follow-redirects');
 import common = require('./common');
 
 module mediawiki {
@@ -29,7 +30,7 @@ module mediawiki {
 	function httpGet(url: string): Q.Promise<any> {
 		return common.promisify(function (deferred: Q.Deferred<any>):void {
 			var buffer: string = '';
-			http.get(url, function (res) {
+			followRedirects.http.get(url, function (res) {
 				res.on('data', function (chunk: string) {
 					buffer += chunk;
 				});
