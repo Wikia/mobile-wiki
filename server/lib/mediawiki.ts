@@ -137,6 +137,15 @@ module mediawiki {
 			)
 		);
 	}
+
+	export function getWikiTheme(wikiName: string):Q.Promise<any> {
+		return jsonGet(
+			createUrl(
+				wikiName,
+				'api/v1/Mercury/WikiTheme'
+			)
+		);
+	}
 }
 
 export = mediawiki
