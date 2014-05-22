@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	svgmin = require('gulp-svgmin'),
 	sprites = require('gulp-svg-sprites'),
-	packages = require('./packages'),
+	packages = require('./assets'),
 	paths = {
 		components: 'public/components/',
 		mainScssFile: 'public/styles/app.scss',
@@ -89,7 +89,7 @@ gulp.task('scripts:back:dev', function () {
 });
 
 gulp.task('templates:dev', function () {
-	gulp.src(paths.templates)
+	return gulp.src(paths.templates)
 		.pipe(handlebars({
 			output: 'browser'
 		}))
@@ -110,10 +110,10 @@ gulp.task('components:dev', function () {
 });
 
 gulp.task('sprites:dev', function () {
-	gulp.src(paths.svg)
+	return gulp.src(paths.svg)
 		.pipe(svgmin())
 		.pipe(sprites.svg({
-					defs: true
+			defs: true
 		}))
 		.pipe(gulp.dest('.tmp/public/svg'));
 });

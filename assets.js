@@ -1,6 +1,6 @@
 var assets = [
 	'jquery/dist/jquery.js',
-	'handlebars/handlebars.js',
+	'handlebars/handlebars.runtime.js',
 	'ember/ember.js',
 ];
 
