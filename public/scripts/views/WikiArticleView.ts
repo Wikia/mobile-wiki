@@ -14,7 +14,7 @@ App.WikiArticleView = Em.View.extend({
 	classNames: ['article-body'],
 	articleObserver: function(){
 		Em.run.later(() => {
-			if(this.get('controller.article').length > 0) {
+			if(this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$( '.lazy' );
 				var lazyload = new W.Lazyload();
 
