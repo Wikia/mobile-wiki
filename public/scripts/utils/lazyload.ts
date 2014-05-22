@@ -70,10 +70,6 @@ module W {
 			}
 		}
 
-		static load ( elements: NodeList, background: boolean ) {
-
-		}
-
 		fixSizes ( elements: NodeList ) {
 			var i = 0,
 				elm,

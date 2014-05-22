@@ -113,7 +113,7 @@ module W {
 			}
 		}
 
-		dos( params ) {
+		attach( params ) {
 			if ( params ) {
 				var elements = params.on,
 					prune = params.off,

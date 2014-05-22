@@ -21,7 +21,7 @@ App.WikiArticleView = Em.View.extend({
 				lazyload.fixSizes( lazyImages );
 
 				sloth.drop();
-				sloth.dos( {
+				sloth.attach( {
 					on: lazyImages,
 					threshold: 400,
 					callback: (elem) => lazyload.load(elem, false)
