@@ -26,7 +26,7 @@ module W {
 
 	export class Branch {
 		private element;
-		private threshold;
+		private threshold: number;
 		callback: Function;
 
 		constructor (element: HTMLElement, threshold: number, callback: Function) {
@@ -38,10 +38,10 @@ module W {
 		isVisible (visibleBottom: number, visibleTop: number): boolean {
 			var elem = this.element,
 				mayBeVisible = elem.scrollHeight || elem.scrollWidth,
-				height,
-				threshold,
-				top,
-				bottom;
+				height: number,
+				threshold: number,
+				top: number,
+				bottom: number;
 
 			if ( mayBeVisible ) {
 				threshold = this.threshold;
@@ -80,8 +80,8 @@ module W {
 		}
 
 		execute ( force: boolean = false ): void {
-			var i = this.branches.length,
-				branch;
+			var i: number = this.branches.length,
+				branch: Branch;
 
 			if ( debounce ) {
 				this.removeEvent();
@@ -117,9 +117,9 @@ module W {
 			if ( params ) {
 				var elements = params.on,
 					prune = params.off,
-					threshold = params.threshold !== this.undef ? params.threshold : 100,
-					callback = params.callback,
-					i;
+					threshold: number = params.threshold !== this.undef ? params.threshold : 100,
+					callback: Function = params.callback,
+					i: number;
 
 				if ( elements && callback ) {
 					if ( elements.length !== this.undef ) {
