@@ -21,8 +21,8 @@ module W {
 			} );
 		}
 
-		onLoad ( img: HTMLImageElement, background: boolean ): Function {
-			return function() {
+		onLoad ( img: HTMLImageElement, background: boolean ) {
+			return function(): void {
 				var url = this.src;
 				img.className += ' load';
 
@@ -43,11 +43,11 @@ module W {
 		}
 
 		load ( elements: NodeList, background: boolean ) {
-			var i = 0,
-				elm,
-				img,
-				src,
-				elementsArray = $.makeArray( elements );
+			var i: number = 0,
+				elm: HTMLImageElement,
+				img: HTMLImageElement,
+				src: string,
+				elementsArray: HTMLImageElement[] = $.makeArray( elements );
 
 			while ( elm = elementsArray[i++] ) {
 				img = new Image();
@@ -71,16 +71,16 @@ module W {
 		}
 
 		fixSizes ( elements: NodeList ) {
-			var i = 0,
-				elm,
-				imageWidth,
-				elementsArray = $.makeArray( elements );
+			var i: number = 0,
+				elm: HTMLImageElement,
+				imageWidth: number,
+				elementsArray: HTMLImageElement[] = $.makeArray( elements );
 
 			while ( elm = elementsArray[i++] ) {
 				imageWidth = ~~elm.getAttribute( 'width' );
 
 				if ( this.pageWidth < imageWidth ) {
-					elm.setAttribute( 'height', Math.round( elm.width * ( ~~elm.getAttribute( 'height' ) / imageWidth) ) );
+					elm.setAttribute( 'height', Math.round( elm.width * ( ~~elm.getAttribute( 'height' ) / imageWidth) ).toString() );
 				}
 			}
 		}
