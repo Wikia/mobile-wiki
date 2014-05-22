@@ -162,6 +162,17 @@ module mediawiki {
 			)
 		);
 	}
+
+	export function getTopContributors(wikiName: string, articleId: number):Q.Promise<any> {
+		return jsonGet(
+			createUrl(
+				wikiName,
+				'api/v1/Mercury/TopContributorsPerArticle', {
+					articleId: articleId.toString()
+				}
+			)
+		);
+	}
 }
 
 export = mediawiki
