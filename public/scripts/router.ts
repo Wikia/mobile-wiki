@@ -16,7 +16,7 @@ Ember.Router.reopen({
 });
 
 Ember.Route.reopen({
-	render: function(controller, model) {
+	render: function (controller, model) {
 		this._super();
 		window.scrollTo(0, 0);
 	}
