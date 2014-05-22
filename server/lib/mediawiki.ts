@@ -159,7 +159,7 @@ module mediawiki {
 		return jsonGet(
 			createUrl(
 				wikiName,
-				'api/v1/Mercury/WikiTheme'
+				'api/v1/Mercury/WikiSettings'
 			)
 		);
 	}
