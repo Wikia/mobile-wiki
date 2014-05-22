@@ -7,7 +7,6 @@
 
 /* Packages */
 node_modules/
-lib/
 vendor/
 public/components/
 
