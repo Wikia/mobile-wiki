@@ -91,12 +91,23 @@ function getRelatedPages(data: ResponseData): Q.Promise<any> {
 function getUserDetails(data: ResponseData): Q.Promise<any> {
 	return common.promisify(function(deferred: Q.Deferred<any>){
 		// todo: get top contributors list
-		var userIds: number[] = [
-			parseInt(data.articleDetails.revision.user_id, 10)
-		];
+		var userIds: number[] = data.contributors.items;
 		mediawiki.userDetails(data.wikiName, userIds)
 			.then(function(userDetails) {
 				data.userDetails = userDetails;
+				deferred.resolve(data);
+			})
+			.catch(function(error) {
+				deferred.reject(error);
+			});
+	});
+}
+
+function getTopContributors(data: ResponseData): Q.Promise<any> {
+	return common.promisify(function(deferred: Q.Deferred<any>){
+		mediawiki.getTopContributors(data.wikiName, data.articleDetails.id)
+			.then(function(topContributors) {
+				data.contributors = topContributors;
 				deferred.resolve(data);
 			})
 			.catch(function(error) {
@@ -114,12 +125,12 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		return Q.all([
 			getArticle(data),
 			getRelatedPages(data),
-			getUserDetails(data)
-		]).done(
-			function() {
-				reply(data);
-			}
-		);
+			getTopContributors(data).then(function(data) {
+				return getUserDetails(data);
+			})
+		]).done(function() {
+			reply(data);
+		})
 	}).catch(function(error) {
 		reply(error);
 	});

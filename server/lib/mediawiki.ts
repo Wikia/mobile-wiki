@@ -8,6 +8,7 @@
 
 import followRedirects = require('follow-redirects');
 import common = require('./common');
+import localSettings = require('../../config/localSettings');
 
 module mediawiki {
 
@@ -15,14 +16,30 @@ module mediawiki {
 		[key: string]: string
 	}
 
-	function createUrl(domain: string, path: string, params: URLParams = {}): string {
+	function getDomainName(wikiSubDomain: string):string {
+		var environment = localSettings.environment,
+			options = {
+				production: '',
+				preview: 'preview.',
+				verify: 'verify.'
+			};
+
+		if (!environment) {
+			throw Error('Environment not set');
+		}
+		if (typeof options[environment] !== 'undefined') {
+			return 'http://' + options[environment] + wikiSubDomain + '.wikia.com/';
+		}
+		// Devbox
+		return 'http://' + wikiSubDomain + '.' +environment + '.wikia-dev.com/';
+	}
+
+	function createUrl(wikiSubDomain: string, path: string, params: URLParams = {}): string {
 		var qsAggregator: string[] = [];
 		Object.keys(params).forEach(function(key){
 			qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
 		});
-		return 'http://' +
-			domain +
-			'.wikia.com/' +
+		return getDomainName(wikiSubDomain) +
 			path +
 			(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 	}
@@ -132,7 +149,7 @@ module mediawiki {
 			createUrl(
 				wikiName,
 				'api/v1/Mercury/ArticleCommentsCount', {
-					articleId: articleId
+					articleId: articleId.toString()
 				}
 			)
 		);
@@ -143,6 +160,17 @@ module mediawiki {
 			createUrl(
 				wikiName,
 				'api/v1/Mercury/WikiSettings'
+			)
+		);
+	}
+
+	export function getTopContributors(wikiName: string, articleId: number):Q.Promise<any> {
+		return jsonGet(
+			createUrl(
+				wikiName,
+				'api/v1/Mercury/TopContributorsPerArticle', {
+					articleId: articleId.toString()
+				}
 			)
 		);
 	}
