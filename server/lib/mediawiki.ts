@@ -19,10 +19,11 @@ module mediawiki {
 	function getDomainName(wikiSubDomain: string):string {
 		var environment = localSettings.environment,
 			options = {
-			production: '',
-			preview: 'preview.',
-			verify: 'verify.'
-		}
+				production: '',
+				preview: 'preview.',
+				verify: 'verify.'
+			};
+
 		if (!environment) {
 			throw Error('Environment not set');
 		}
