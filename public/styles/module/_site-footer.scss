@@ -1,7 +1,45 @@
-.site-footer {
+$margin: 1rem;
+$hr-color: rgb(131,140,150);
+
+.wikia-footer {
 	@extend .row;
-	padding: 1.5rem;
-	height: 100px;
 	background-color: rgb(18, 49, 84);
 	color: white;
+	padding-bottom: 10rem;
+
+	.ad-leaderboard {
+		margin: $margin;
+		height: 250px;
+		background-color: lavender;
+	}
+
+	ul {
+		list-style: none;
+		margin: $margin;
+		padding: 0;
+		line-height: 2rem;
+	}
+
+	li {
+		display: inline-block;
+
+		&:not(:last-of-type)::after {
+			content: '|';
+			padding: 5px;
+		}
+
+		a {
+			color: white;
+		}
+	}
+
+	hr {
+		background-color: $hr-color;
+		border: none;
+		height: 1px;
+	}
+
+	.logo {
+		margin: $margin;
+	}
 }

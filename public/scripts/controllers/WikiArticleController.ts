@@ -1,11 +1,15 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-Wikia.WikiArticleController = Em.ObjectController.extend({
+App.WikiArticleController = Em.ObjectController.extend({
 	actions: {
 		updateHeaders: function (headers): void {
 		   var article = this.get('model');
-		   article.set('headers', headers);
+
+			article.set('sections', headers);
+		},
+		changePage: function(title){
+			this.transitionToRoute('wiki.article', title);
 		}
 	}
 });

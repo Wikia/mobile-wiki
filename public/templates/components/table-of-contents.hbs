@@ -7,8 +7,8 @@
 	</svg>
 	{{yield}}
 </span>
-<ul {{bind-attr class="isCollapsed:collapsed"}}>
+<ol {{bind-attr class="isCollapsed:collapsed"}}>
 	{{#each sections}}
-	<li><a href="#{{unbound id}}" alt="{{unbound name}}">{{unbound name}}</a></li>
+	<li><a href="#{{unbound id}}" title="{{unbound name}}">{{unbound name}}</a></li>
 	{{/each}}
-</ul>
+</ol>

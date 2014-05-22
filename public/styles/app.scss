@@ -8,3 +8,7 @@
 @import 'state/index';
 @import 'theme/index';
 @import 'module/index';
+
+body {
+	word-wrap: break-word;
+}

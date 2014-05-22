@@ -1,14 +1,14 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-Wikia.TableOfContentsComponent = Em.Component.extend({
+App.TableOfContentsComponent = Em.Component.extend({
 	tagName: 'nav',
 	classNames: ['table-of-contents'],
 	isCollapsed: true,
 	eventManager: {
 		click: function (event: JQueryEventObject): void {
 			console.log(event);
-		},
+		}
 	},
 	actions: {
 		toggleMenu: function (): void {
