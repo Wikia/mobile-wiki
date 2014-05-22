@@ -1,5 +1,57 @@
 .infobox {
-	tr:first-of-type {
-		display: none;
+	figure {
+		margin: 0 auto;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	th {
+		max-width: 100px;
+		text-align: left;
+	}
+
+	tr {
+		border-bottom: 1px solid #d0d0d0;
+
+		&:nth-of-type(n+11):not(.infobox-expand) {
+			display: none;
+		}
+
+		&:first-of-type {
+			display: none;
+		}
+	}
+
+	td {
+		padding: 5px;
+
+		&[colspan='2'] {
+			text-align: center;
+		}
+	}
+
+	p {
+		//Some wikis have p inside td. ie. Firefly
+		margin: 0;
+	}
+
+	//There is already enough spacing
+	ul, ol {
+		padding: 0;
+	}
+
+	& {
+		.chevron {
+			border-color: $border-color transparent transparent transparent;
+			margin-top: 15px;
+
+			&:after {
+				border-color: white transparent transparent transparent;
+				bottom: -3/2 - 1;
+			}
+		}
 	}
 }
