@@ -1,35 +1,13 @@
 <section class="content-recommendations">
 	<h1>Read More</h1>
 	<ul>
+		{{#each pages}}
 		<li>
-			<a href="#">
-				<div class="thumbnail">&nbsp;</div>
-				<span class="title">Some Name</span>
-			</a>
+			{{#link-to 'wiki.article' title}}
+				<img src="{{unbound imgUrl}}" class="thumbnail" />
+				<span class="title">{{unbound title}}</span>
+			{{/link-to}}
 		</li>
-		<li>
-			<a href="#">
-				<div class="thumbnail">&nbsp;</div>
-				<span class="title">Some Name</span>
-			</a>
-		</li>
-		<li>
-			<a href="#">
-				<div class="thumbnail">&nbsp;</div>
-				<span class="title">Some Name</span>
-			</a>
-		</li>
-		<li>
-			<a href="#">
-				<div class="thumbnail">&nbsp;</div>
-				<span class="title">Some Name</span>
-			</a>
-		</li>
-		<li>
-			<a href="#">
-				<div class="thumbnail">&nbsp;</div>
-				<span class="title">Some Name</span>
-			</a>
-		</li>
+		{{/each}}
 	</ul>
 </section>
