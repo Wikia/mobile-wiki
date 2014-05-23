@@ -60,7 +60,7 @@ gulp.task('scripts:front:dev', function () {
 	var outDir = '.tmp/public/scripts';
 
 	return gulp
-		.src('public/**/*.ts')
+		.src('public/scripts/**/*.ts')
 		.pipe(typescript({
 			target: 'ES5', //ES3
 			sourcemap: false,
