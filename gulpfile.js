@@ -6,6 +6,7 @@ var gulp = require('gulp'),
 	gutils = require('gulp-util'),
 	nodemon = require('gulp-nodemon'),
 	concat = require('gulp-concat'),
+	changed = require('gulp-changed'),
 	typescript = require('gulp-tsc'),
 	uglify = require('gulp-uglify'),
 	handlebars = require('gulp-ember-handlebars'),
@@ -16,6 +17,7 @@ var gulp = require('gulp'),
 	paths = {
 		components: 'public/components/',
 		mainScssFile: 'public/styles/app.scss',
+		aboveTheFoldScssFile: 'public/styles/aboveTheFold.scss',
 		styles: 'public/styles/**/*.scss',
 		scripts: {
 			front: 'public/scripts/**/*.ts',
@@ -47,7 +49,8 @@ gulp.task('sass:dev', function () {
 	var outDir = '.tmp/public/styles';
 
 	return gulp
-		.src(paths.mainScssFile)
+		.src([paths.mainScssFile, paths.aboveTheFoldScssFile])
+		.pipe(changed(outDir, { extension: '.css' }))
 		.pipe(sass({
 			outputStyle: 'compressed', //'nested'
 			sourceComments: 'map',
@@ -56,6 +59,7 @@ gulp.task('sass:dev', function () {
 		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))//currently support for map is broken
 		.pipe(gulp.dest(outDir));
 });
+
 
 gulp.task('scripts:front:dev', function () {
 	var outDir = '.tmp/public/scripts';
@@ -101,15 +105,18 @@ gulp.task('templates:dev', function () {
 });
 
 gulp.task('components:dev', function () {
+	var outDir = '.tmp/public/components';
+
 	Object.keys(assets).forEach(function(key){
 		var files = assets[key].map(function(asset){
 			return paths.components + asset;
 		});
 
 		gulp.src(files)
+			.pipe(changed(outDir, { extension: '.js' }))
 			.pipe(concat(key + '.js'))
 			.pipe(uglify())
-			.pipe(gulp.dest('.tmp/public/components'));
+			.pipe(gulp.dest(outDir));
 	});
 });
 
