@@ -20,8 +20,8 @@
   "dependencies": {
     "good": "2.x.x",
     "hapi": "4.x.x",
-    "q": "~1.0.1",
-    "follow-redirects": "0.0.3"
+    "q": "1.0.x",
+    "follow-redirects": "0.0.x"
   },
   "devDependencies": {
     "sudo": "1.x.x",
@@ -37,7 +37,7 @@
     "gulp-uglify": "0.x.x",
     "handlebars": "2.x.x",
     "node-sass": "0.x.x",
-    "gulp-svg-sprites": "~0.1.0",
-    "gulp-svgmin": "~0.4.5"
+    "gulp-svg-sprites": "0.1.x",
+    "gulp-svgmin": "0.4.x"
   }
 }

@@ -12,12 +12,12 @@ var gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	svgmin = require('gulp-svgmin'),
 	sprites = require('gulp-svg-sprites'),
-	packages = require('./assets'),
+	assets = require('./assets'),
 	paths = {
 		components: 'public/components/',
 		mainScssFile: 'public/styles/app.scss',
 		styles: 'public/styles/**/*.scss',
-		front: 'public/scripts/**',
+		front: 'public/scripts/**/*.ts',
 		back: 'server/**/*.ts',
 		templates: 'public/templates/**/*.hbs',
 		svg: 'public/svg/*.svg'
@@ -51,7 +51,7 @@ gulp.task('sass:dev', function () {
 			sourceComments: 'map',
 			errLogToConsole: true
 		}))
-		.pipe(prefixer(['last 1 version', '> 1%', 'ie 8', 'ie 7'], { cascade: true, map: false }))
+		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: true, map: false }))
 		.pipe(gulp.dest(outDir));
 });
 
@@ -99,7 +99,7 @@ gulp.task('templates:dev', function () {
 });
 
 gulp.task('components:dev', function () {
-	var files = packages.map(function(asset){
+	var files = assets.map(function(asset){
 		return paths.components + asset;
 	});
 
