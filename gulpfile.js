@@ -101,14 +101,16 @@ gulp.task('templates:dev', function () {
 });
 
 gulp.task('components:dev', function () {
-	var files = assets.map(function(asset){
-		return paths.components + asset;
-	});
+	Object.keys(assets).forEach(function(key){
+		var files = assets[key].map(function(asset){
+			return paths.components + asset;
+		});
 
-	return gulp.src(files)
-		.pipe(concat('assets.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('.tmp/public/components'));
+		gulp.src(files)
+			.pipe(concat(key + '.js'))
+			.pipe(uglify())
+			.pipe(gulp.dest('.tmp/public/components'));
+	});
 });
 
 gulp.task('sprites:dev', function () {
