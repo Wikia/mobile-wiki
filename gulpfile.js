@@ -17,8 +17,10 @@ var gulp = require('gulp'),
 		components: 'public/components/',
 		mainScssFile: 'public/styles/app.scss',
 		styles: 'public/styles/**/*.scss',
-		front: 'public/scripts/**/*.ts',
-		back: 'server/**/*.ts',
+		scripts: {
+			front: 'public/scripts/**/*.ts',
+			back: 'server/**/*.ts'
+		},
 		templates: 'public/templates/**/*.hbs',
 		svg: 'public/svg/*.svg'
 	};
@@ -47,11 +49,11 @@ gulp.task('sass:dev', function () {
 	return gulp
 		.src(paths.mainScssFile)
 		.pipe(sass({
-			outputStyle: 'expanded',
+			outputStyle: 'compressed', //'nested'
 			sourceComments: 'map',
 			errLogToConsole: true
 		}))
-		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: true, map: false }))
+		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))//currently support for map is broken
 		.pipe(gulp.dest(outDir));
 });
 
@@ -59,10 +61,10 @@ gulp.task('scripts:front:dev', function () {
 	var outDir = '.tmp/public/scripts';
 
 	return gulp
-		.src('public/scripts/**/*.ts')
+		.src(paths.scripts.front)
 		.pipe(typescript({
 			target: 'ES5', //ES3
-			sourcemap: false,
+			sourcemap: true,
 			outDir: outDir,
 			out: 'main.js',
 			//mapRoot: '',
@@ -77,7 +79,7 @@ gulp.task('scripts:back:dev', function () {
 	var outDir = '.tmp';
 
 	return gulp
-		.src('server/**/*.ts')
+		.src(paths.scripts.back)
 		.pipe(typescript({
 			module: 'commonjs', //amd
 			target: 'ES5', //ES3
@@ -125,11 +127,11 @@ gulp.task('watch', function () {
 		log('Style changed:', gutils.colors.green(event.path));
 	});
 
-	gulp.watch(paths.front, ['scripts:front:dev']).on('change', function (event) {
+	gulp.watch(paths.scripts.front, ['scripts:front:dev']).on('change', function (event) {
 		log('Script changed:', gutils.colors.green(event.path));
 	});
 
-	gulp.watch(paths.back, ['scripts:back:dev']).on('change', function (event) {
+	gulp.watch(paths.scripts.back, ['scripts:back:dev']).on('change', function (event) {
 		log('Script for backend changed:', gutils.colors.green(event.path));
 	});
 
