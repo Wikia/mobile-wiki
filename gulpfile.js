@@ -15,6 +15,7 @@ var gulp = require('gulp'),
 	packages = require('./packages'),
 	paths = {
 		components: 'public/components/',
+		locales: 'public/locales/**/*.json',
 		mainScssFile: 'public/styles/app.scss',
 		styles: 'public/styles/**/*.scss',
 		front: 'public/scripts/**',
@@ -109,6 +110,11 @@ gulp.task('components:dev', function () {
 		.pipe(gulp.dest('.tmp/public/components'));
 });
 
+gulp.task('locales:dev', function () {
+	return gulp.src(paths.locales)
+		.pipe(gulp.dest('.tmp/public/locales'));
+});
+
 gulp.task('sprites:dev', function () {
 	gulp.src(paths.svg)
 		.pipe(svgmin())
@@ -157,6 +163,7 @@ gulp.task('assets:dev', [
 		'scripts:back:dev',
 		'scripts:front:dev',
 		'components:dev',
+		'locales:dev',
 		'templates:dev',
 		'sprites:dev'
 ]);
