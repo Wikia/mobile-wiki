@@ -1,6 +1,10 @@
 $border-color: #d0d0d0;
+
 .table-of-contents {
 	margin-bottom: rem-calc(20);
+
+	border-top: 1px solid $border-color;
+	border-bottom: 1px solid $border-color;
 
 	.title {
 		// extends & mixins
@@ -13,8 +17,6 @@ $border-color: #d0d0d0;
 		// display & box model
 		display: block;
 		padding: rem-calc(5px) rem-calc(40px);
-		border-top: 1px solid $border-color;
-		border-bottom: 1px solid $border-color;
 
 		// color
 		color: rgb(130, 131, 133);
@@ -48,17 +50,20 @@ $border-color: #d0d0d0;
 	}
 
 
-  ul {
-	  @extend %list-reset;
+  ol {
 	  @extend .slide-down;
+	  margin: 0;
+	  margin-left: 2rem;
 
 		li {
-			border-bottom: 1px solid $border-color;
-			text-align: center;
-
 			a {
 				padding: 10px 0;
 				display: block;
+				color: #000000;
+			}
+
+			&:last-of-type {
+				margin-bottom: 10px;
 			}
 		}
   }

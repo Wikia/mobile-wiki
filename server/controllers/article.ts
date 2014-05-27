@@ -4,11 +4,11 @@
  * @description Article controller
  */
 
-import http = require('http');
 import mediawiki = require('../lib/mediawiki');
 import common = require('../lib/common');
 import Q = require('q');
 
+var mem = {};
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
@@ -121,17 +121,28 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		wikiName: request.params.wiki,
 		articleTitle: request.params.articleTitle
 	};
-	getArticleId(data).then(function(data){
-		return Q.all([
-			getArticle(data),
-			getRelatedPages(data),
-			getTopContributors(data).then(function(data) {
-				return getUserDetails(data);
-			})
-		]).done(function() {
-			reply(data);
-		})
-	}).catch(function(error) {
-		reply(error);
-	});
+
+	if (mem[data.wikiName + data.articleTitle]) {
+		reply(mem[data.wikiName + data.articleTitle]);
+	} else {
+		getArticleId(data).then(function(data){
+			return Q.all([
+					getArticle(data),
+					getRelatedPages(data),
+					getTopContributors(data).then(function(data) {
+						return getUserDetails(data);
+					})
+				]).done(function() {
+					reply(data);
+
+					mem[data.wikiName + data.articleTitle] = data;
+				})
+		}).catch(function(error) {
+			reply(error);
+		});
+	}
+	
+	
+	
+
 }

@@ -1,3 +1,4 @@
+/// <reference path="../node/node.d.ts" />
 declare module Hapi {
 	export interface ServerOptions {
 		app?: any;
@@ -62,8 +63,8 @@ declare module Hapi {
 		responses: Object;
 		query: Object;
 		raw: {
-			req: any;
-			res: any;
+			req: any; //http.ClientRequest
+			res: any; //http.ClientResponse
 		};
 		route: string;
 		server: Server;
@@ -141,8 +142,10 @@ declare module Hapi {
 
 		export function reply(result: any);
 	}
+
+	export function createServer (host: string, port: number, options?: ServerOptions): Server;
 }
 
 declare module "hapi" {
-	export function createServer (host: string, port: number, options?: Hapi.ServerOptions): Hapi.Server;
+	export = Hapi;
 }

@@ -1,11 +1,11 @@
 .slide-down {
 	position: relative;
 	overflow: hidden;
-	max-height: 300px;
-	transition: 1s all cubic-bezier(0, 1, 0.5, 1);
+	max-height: 999px;
+	transition: max-height .5s linear;
 
 	&.collapsed {
-		transition: .1s all cubic-bezier(0, 1, 0.5, 1);
+		transition: max-height .5s linear;
 		max-height: 0;
 	}
 }
