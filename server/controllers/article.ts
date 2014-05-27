@@ -24,6 +24,7 @@ interface ResponseData {
 	comments?: any;
 	relatedPages?: any;
 	userDetails?: any;
+	contributors?: any;
 }
 
 /**

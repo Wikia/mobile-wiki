@@ -13,7 +13,7 @@ var sloth = new W.Sloth();
 App.WikiArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
 	articleObserver: function(){
-		Em.run.later(() => {
+		Em.run.later(null, () => {
 			if(this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$( '.lazy' );
 				var lazyload = new W.Lazyload();

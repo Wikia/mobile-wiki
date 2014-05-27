@@ -1,5 +1,6 @@
 /// <reference path="../../definitions/q/Q.d.ts" />
 /// <reference path="../../definitions/node/node.d.ts" />
+/// <reference path="../../definitions/follow-redirects/follow-redirects.d.ts" />
 /// <reference path="common.ts" />
 
 /**
