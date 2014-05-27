@@ -39,6 +39,7 @@
     "node-sass": "0.x.x",
     "gulp-svg-sprites": "0.1.x",
     "gulp-svgmin": "0.4.x",
-    "gulp-changed": "0.x.x"
+    "gulp-changed": "0.x.x",
+    "gulp-load-plugins": "0.5.x"
   }
 }

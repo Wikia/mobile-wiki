@@ -1,19 +1,8 @@
 'use strict';
 
 var gulp = require('gulp'),
+	plugins = require('gulp-load-plugins')(),
 	argv = require('minimist')(process.argv.slice(2)),
-	clean = require('gulp-clean'),
-	sass = require('gulp-sass'),
-	gutils = require('gulp-util'),
-	nodemon = require('gulp-nodemon'),
-	concat = require('gulp-concat'),
-	changed = require('gulp-changed'),
-	typescript = require('gulp-tsc'),
-	uglify = require('gulp-uglify'),
-	handlebars = require('gulp-ember-handlebars'),
-	prefixer = require('gulp-autoprefixer'),
-	svgmin = require('gulp-svgmin'),
-	sprites = require('gulp-svg-sprites'),
 	assets = require('./assets'),
 	availableEnvironments = ['dev', 'prod'],
 	environment = (function(type){
@@ -130,48 +119,46 @@ var gulp = require('gulp'),
 		}
 	};
 
-
 function log() {
 	var args = Array.prototype.slice.call(arguments, 0);
 
-	return gutils.log.apply(null, [gutils.colors.cyan('[INFO]')].concat(args));
+	return plugins.util.log.apply(null, [plugins.util.colors.cyan('[INFO]')].concat(args));
 }
 
 gulp.task('clean', function () {
 	return gulp.src(basePath, {
 		read: false
-	}).pipe(clean());
+	}).pipe(plugins.clean());
 });
 
 gulp.task('sass', function () {
 	return gulp
 		.src([paths.styles.main, paths.styles.aboveTheFold])
-		.pipe(changed(paths.styles.out, { extension: '.css' }))
-		.pipe(sass(options.sass[environment]))
-		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))//currently support for map is broken
+		.pipe(plugins.changed(paths.styles.out, { extension: '.css' }))
+		.pipe(plugins.sass(options.sass[environment]))
+		.pipe(plugins.autoprefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))//currently support for map is broken
 		.pipe(gulp.dest(paths.styles.out));
 });
-
 
 gulp.task('scripts:front', function () {
 	return gulp
 		.src(paths.scripts.front.in)
-		.pipe(typescript(options.scripts.front[environment]))
-		//.pipe(uglify())
+		.pipe(plugins.tsc(options.scripts.front[environment]))
+		//.pipe(plugins.uglify())
 		.pipe(gulp.dest(paths.scripts.front.out));
 });
 
 gulp.task('scripts:back', function () {
 	return gulp
 		.src(paths.scripts.back.in)
-		.pipe(typescript(options.scripts.back[environment]))
+		.pipe(plugins.tsc(options.scripts.back[environment]))
 		.pipe(gulp.dest(paths.scripts.back.out));
 });
 
 gulp.task('templates', function () {
 	return gulp.src(paths.templates.in)
-		.pipe(handlebars(options.handlebars[environment]))
-		.pipe(concat('templates.js'))
+		.pipe(plugins.emberHandlebars(options.handlebars[environment]))
+		.pipe(plugins.concat('templates.js'))
 		//.pipe(uglify())
 		.pipe(gulp.dest(paths.templates.out));
 
@@ -184,17 +171,17 @@ gulp.task('components', function () {
 		});
 
 		gulp.src(files)
-			.pipe(changed(paths.components.out, { extension: '.js' }))
-			.pipe(concat(key + '.js'))
-			.pipe(uglify())
+			.pipe(plugins.changed(paths.components.out, { extension: '.js' }))
+			.pipe(plugins.concat(key + '.js'))
+			.pipe(plugins.uglify())
 			.pipe(gulp.dest(paths.components.out));
 	});
 });
 
 gulp.task('sprites', function () {
 	return gulp.src(paths.svg.in)
-		.pipe(svgmin())
-		.pipe(sprites.svg(options.svg[environment]))
+		.pipe(plugins.svgmin())
+		.pipe(plugins.svgSprites.svg(options.svg[environment]))
 		.pipe(gulp.dest(paths.svg.out));
 });
 
@@ -223,7 +210,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('server', ['scripts:back'], function () {
-	nodemon({
+	plugins.nodemon({
 		script: '.tmp/server/app.js',
 		ext: 'js',
 		watch: [
