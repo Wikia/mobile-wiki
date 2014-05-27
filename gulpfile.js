@@ -15,16 +15,34 @@ var gulp = require('gulp'),
 	sprites = require('gulp-svg-sprites'),
 	assets = require('./assets'),
 	paths = {
-		components: 'public/components/',
-		mainScssFile: 'public/styles/app.scss',
-		aboveTheFoldScssFile: 'public/styles/aboveTheFold.scss',
-		styles: 'public/styles/**/*.scss',
-		scripts: {
-			front: 'public/scripts/**/*.ts',
-			back: 'server/**/*.ts'
+		components: {
+			in: 'public/components/',
+			out: '.tmp/public/components'
 		},
-		templates: 'public/templates/**/*.hbs',
-		svg: 'public/svg/*.svg'
+		styles: {
+			aboveTheFold: 'public/styles/aboveTheFold.scss'
+			watch: 'public/styles/**/*.scss',
+			main: 'public/styles/app.scss',
+			out: '.tmp/public/styles'
+		},
+		scripts: {
+			front: {
+				in: 'public/scripts/**/*.ts',
+				out: '.tmp/public/scripts'
+			},
+			back: {
+				in: 'server/**/*.ts',
+				out: '.tmp'
+			}
+		},
+		templates: {
+			in: 'public/templates/**/*.hbs',
+			out: '.tmp/public/scripts'
+		},
+		svg: {
+			in: 'public/svg/*.svg',
+			out: '.tmp/public/svg'
+		}
 	};
 
 function log() {
@@ -46,26 +64,22 @@ gulp.task('clean:prod', function () {
 });
 
 gulp.task('sass:dev', function () {
-	var outDir = '.tmp/public/styles';
-
 	return gulp
-		.src([paths.mainScssFile, paths.aboveTheFoldScssFile])
-		.pipe(changed(outDir, { extension: '.css' }))
+		.src([paths.styles.main, paths.styles.aboveTheFold])
+		.pipe(changed(paths.styles.out, { extension: '.css' }))
 		.pipe(sass({
 			outputStyle: 'compressed', //'nested'
 			sourceComments: 'map',
 			errLogToConsole: true
 		}))
 		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))//currently support for map is broken
-		.pipe(gulp.dest(outDir));
+		.pipe(gulp.dest(paths.styles.out));
 });
 
 
 gulp.task('scripts:front:dev', function () {
-	var outDir = '.tmp/public/scripts';
-
 	return gulp
-		.src(paths.scripts.front)
+		.src(paths.scripts.front.in)
 		.pipe(typescript({
 			target: 'ES5', //ES3
 			sourcemap: true,
@@ -76,14 +90,12 @@ gulp.task('scripts:front:dev', function () {
 			removeComments: true
 		}))
 		//.pipe(uglify())
-		.pipe(gulp.dest(outDir));
+		.pipe(gulp.dest(paths.scripts.front.out));
 });
 
 gulp.task('scripts:back:dev', function () {
-	var outDir = '.tmp';
-
 	return gulp
-		.src(paths.scripts.back)
+		.src(paths.scripts.back.in)
 		.pipe(typescript({
 			module: 'commonjs', //amd
 			target: 'ES5', //ES3
@@ -91,42 +103,41 @@ gulp.task('scripts:back:dev', function () {
 			outDir: outDir,
 			removeComments: true
 		}))
-		.pipe(gulp.dest(outDir));
+		.pipe(gulp.dest(paths.scripts.back.out));
 });
 
 gulp.task('templates:dev', function () {
-	return gulp.src(paths.templates)
+	return gulp.src(paths.templates.in)
 		.pipe(handlebars({
 			output: 'browser'
 		}))
 		.pipe(concat('templates.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('.tmp/public/scripts'));
+		//.pipe(uglify())
+		.pipe(gulp.dest(paths.templates.out));
+
 });
 
 gulp.task('components:dev', function () {
-	var outDir = '.tmp/public/components';
-
 	Object.keys(assets).forEach(function(key){
 		var files = assets[key].map(function(asset){
-			return paths.components + asset;
+			return paths.components.in + asset;
 		});
 
 		gulp.src(files)
 			.pipe(changed(outDir, { extension: '.js' }))
 			.pipe(concat(key + '.js'))
 			.pipe(uglify())
-			.pipe(gulp.dest(outDir));
+			.pipe(gulp.dest(paths.components.out));
 	});
 });
 
 gulp.task('sprites:dev', function () {
-	return gulp.src(paths.svg)
+	return gulp.src(paths.svg.in)
 		.pipe(svgmin())
 		.pipe(sprites.svg({
 			defs: true
 		}))
-		.pipe(gulp.dest('.tmp/public/svg'));
+		.pipe(gulp.dest(paths.svg.out));
 });
 
 gulp.task('watch', function () {
@@ -171,5 +182,5 @@ gulp.task('assets:dev', [
 		'templates:dev',
 		'sprites:dev'
 ]);
+
 gulp.task('default', ['assets:dev', 'watch', 'server:dev']);
-// gulp.task('production', ['clean:prod']);
