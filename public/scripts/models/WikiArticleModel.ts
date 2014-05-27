@@ -1,8 +1,23 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../../definitions/i18next/i18next.d.ts" />
 
 interface Response {
 	payload: string;
 	params: { articleTitle: string; };
+}
+
+function getTranslation(data:any):any {
+	var defer = $.Deferred(),
+		language = data.lang;
+	if (language !== currentLanguage) {
+		i18n.setLng(language, function() {
+			currentLanguage = language;
+			defer.resolve(data);
+		});
+	} else {
+		defer.resolve(data);
+	}
+	return defer.promise();
 }
 
 App.WikiArticleModel = Ember.Object.extend({
@@ -15,7 +30,9 @@ App.WikiArticleModel = Ember.Object.extend({
 
 	titleChanged: function () {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
-			.then((response) => {
+			.pipe(getTranslation)
+			.pipe((response) => {
+				this.refresh();
 				this.set('article', response.payload);
 
 				this.set('lastEdited', Math.floor((Date.now() - new Date(response.articleDetails.revision.timestamp*1000).getTime())/1000/60/60/24/7));
