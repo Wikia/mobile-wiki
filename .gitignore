@@ -19,3 +19,6 @@ www/
 
 /* Config */
 config/localSettings.ts
+config/localSettings.js
+config/localSettings.example.js
+
