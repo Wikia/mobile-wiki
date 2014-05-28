@@ -22,6 +22,10 @@ gulp.task('watch', function () {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
+	gulp.watch(paths.views.in, ['views']).on('change', function (event) {
+		log('Views changed:', gutil.colors.green(event.path));
+	});
+
 	gulp.watch(paths.svg.in, ['sprites']).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});

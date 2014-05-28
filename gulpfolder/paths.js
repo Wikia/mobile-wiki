@@ -36,6 +36,10 @@ module.exports = {
 			out: basePath
 		}
 	},
+	views: {
+		in: 'views/**/*',
+		out: basePath + '/views'
+	},
 	templates: {
 		in: 'public/templates/**/*.hbs',
 		out: basePath + '/public/scripts'
@@ -47,7 +51,8 @@ module.exports = {
 	nodemon: {
 		script: basePath + '/server/app.js',
 		watch: [
-				basePath + '/server'
+			basePath + '/server',
+			basePath + '/views'
 		]
 	}
 };

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Wikia</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{getStyle 'app'}}" media="screen">
-    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
-	<style>{{{inlineFileContents '/styles/aboveTheFold.css'}}}</style>
-  </head>
-  <body>
-	{{{inlineFileContents '/svg/sprites/svg-defs.svg'}}}
-    <!--[if lt IE 8]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-	{{{content}}}
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Wikia</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="{{getStyle 'app'}}" media="screen">
+		<!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+		<style>{{{inlineFileContents '/styles/aboveTheFold.css'}}}</style>
+	</head>
+	<body>
+		{{{inlineFileContents '/svg/sprites/svg-defs.svg'}}}
+		<!--[if lt IE 8]>
+		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
 
-    <!-- Add your site or application content here -->
-    <!-- TODO: Add Bower Components here temporarily till we figure out approach to assets bundling -->
-    <script src="{{getComponent 'main'}}"></script>
-    <script src="{{getScript 'templates'}}"></script>
-    <script src="{{getScript 'main'}}"></script>
-  </body>
+		{{{content}}}
+
+
+		<script src="{{getComponent 'main'}}"></script>
+		<script src="{{getScript 'templates'}}"></script>
+		<script src="{{getScript 'main'}}"></script>
+	</body>
 </html>
