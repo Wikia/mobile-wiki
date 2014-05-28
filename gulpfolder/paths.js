@@ -9,6 +9,11 @@ var environment = require('./util/environment'),
 	},
 	basePath = basePaths[environment];
 
+if (!basePath) {
+	console.log('Paths for a given environment (' + environment + ') not found');
+	process.exit(1);
+}
+
 module.exports = {
 	base: basePath,
 	components: {
