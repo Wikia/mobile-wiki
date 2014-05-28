@@ -1,6 +1,8 @@
 $border-color: #d0d0d0;
 
 .infobox {
+	margin-bottom: rem-calc(40);
+
 	figure {
 		margin: 0 auto;
 	}
@@ -17,6 +19,9 @@ $border-color: #d0d0d0;
 
 	tr {
 		border-bottom: 1px solid #d0d0d0;
+
+		// TODO: This is only needed temporarily because the HTML parser supplies still contains presentation attrs
+		vertical-align: middle;
 
 		&:nth-of-type(n+11):not(.infobox-expand) {
 			display: none;
