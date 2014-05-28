@@ -38,10 +38,8 @@ module.exports = {
 		read: false
 	},
 	nodemon: {
-		script: '.tmp/server/app.js',
+		script: paths.nodemon.script,
 		ext: 'js',
-		watch: [
-			'.tmp/server'
-		]
+		watch: paths.nodemon.watch
 	}
 };

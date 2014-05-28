@@ -1,17 +1,17 @@
 var gulp = require('gulp'),
-	assets = require('./assets'),
 	sass = require('gulp-sass'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
+	assets = require('../assets'),
 	environment = require('../util/environment'),
 	paths = require('../paths').components;
 
 gulp.task('components', function () {
 	Object.keys(assets).forEach(function(key){
 		var files = assets[key].map(function(asset){
-			return paths.components.in + asset;
+			return paths.in + asset;
 		});
 
 		gulp.src(files)

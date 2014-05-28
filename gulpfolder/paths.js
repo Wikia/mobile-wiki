@@ -43,5 +43,11 @@ module.exports = {
 	svg: {
 		in: 'public/svg/*.svg',
 		out: basePath + '/public/svg'
+	},
+	nodemon: {
+		script: basePath + '/server/app.js',
+		watch: [
+				basePath + '/server'
+		]
 	}
 };
