@@ -1,6 +1,8 @@
 var Path = require('path'),
-		fs = require('fs');
+	fs = require('fs');
 
 module.exports = function (context) {
-	return fs.readFileSync(Path.join(__dirname,  '../../public/', context));
+	var file =  context.fn ? context.fn() : context;
+
+	return fs.readFileSync(Path.join(__dirname,  '../../public/', file));
 };

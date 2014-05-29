@@ -40,6 +40,8 @@
     "gulp-svg-sprites": "0.1.x",
     "gulp-svgmin": "0.4.x",
     "gulp-changed": "0.x.x",
-    "gulp-if": "1.2.x"
+    "gulp-if": "1.2.x",
+    "gulp-rev": "0.4.x",
+    "gulp-filter": "0.4.x"
   }
 }

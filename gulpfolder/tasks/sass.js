@@ -2,6 +2,7 @@ var gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	sass = require('gulp-sass'),
 	concat = require('gulp-concat'),
+	rev = require('gulp-rev'),
 	changed = require('gulp-changed'),
 	options = require('../options').styles,
 	paths = require('../paths').styles;
@@ -11,6 +12,10 @@ gulp.task('sass', function () {
 		.src([paths.main, paths.aboveTheFold])
 		.pipe(changed(paths.out, { extension: '.css' }))
 		.pipe(sass(options))
-		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false })) //currently support for map is broken
+		//currently support for map is broken
+		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))
+		.pipe(rev())
+		.pipe(gulp.dest(paths.out))
+		.pipe(rev.manifest())
 		.pipe(gulp.dest(paths.out));
 });

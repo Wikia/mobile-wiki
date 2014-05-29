@@ -42,7 +42,7 @@ module.exports = {
 	},
 	templates: {
 		in: 'public/templates/**/*.hbs',
-		out: basePath + '/public/scripts'
+		out: basePath + '/public/templates'
 	},
 	svg: {
 		in: 'public/svg/*.svg',
