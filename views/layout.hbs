@@ -6,22 +6,27 @@
 		<title>Wikia</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="{{getAsset 'styles' 'app.css'}}" media="screen">
-		<!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
-		<style>{{#inlineFileContents}}{{getAsset 'styles' 'aboveTheFold.css'}}{{/inlineFileContents}}</style>
+        <!-- build:css -->
+		<link rel="stylesheet" href="../public/styles/app.scss">
+        <!-- endbuild -->
+		<style>
+			@@include('public/styles/aboveTheFold.css')
+        </style>
 	</head>
 	<body>
-		{{{inlineFileContents '/svg/sprites/svg-defs.svg'}}}
+    	@@include('public/svg/sprites/svg-defs.svg')
+
 		<!--[if lt IE 8]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
 		{{{content}}}
 
-        <!-- include:js(scripts/**/*.js) -->
-
-		<script src="{{getAsset 'components' 'main.js'}}"></script>
-		<script src="{{getAsset 'templates' 'main.js'}}"></script>
-		<script src="{{getAsset 'scripts' 'main.js'}}"></script>
+        <!-- build:components -->
+		<!-- endbuild -->
+        <!-- build:templates -->
+		<!-- endbuild -->
+        <!-- build:scripts -->
+		<!-- endbuild -->
 	</body>
 </html>

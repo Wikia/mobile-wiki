@@ -1,4 +1,7 @@
-var argv = require('minimist')(process.argv.slice(2)),
-	environment = argv.env || 'dev';
+var gutil = require('gulp-util'),
+	environment = gutil.env.type || 'dev';
 
-module.exports = environment;
+module.exports = {
+	name: environment,
+	isProduction: environment === 'production'
+};

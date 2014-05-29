@@ -3,6 +3,8 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	environment = require('../util/environment'),
 	gulpif = require('gulp-if'),
+	replace = require('gulp-replace'),
+	changed = require('gulp-changed'),
 	rev = require('gulp-rev'),
 	filter = require('gulp-filter'),
 	options = require('../options').scripts.front,
@@ -12,8 +14,10 @@ var gulp = require('gulp'),
 gulp.task('scripts:front', function () {
 	return gulp
 		.src(paths.in)
+		.pipe(changed(paths.out, { extension: '.js' }))
 		.pipe(typescript(options))
-		.pipe(gulpif(environment === 'prod', uglify()))
+		.pipe(gulpif(environment.isProduction, uglify()))
+		.pipe(gulp.dest(paths.out))
 		.pipe(jsFilter)
 		.pipe(rev())
 		.pipe(jsFilter.restore())

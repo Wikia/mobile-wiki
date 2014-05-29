@@ -14,6 +14,7 @@ gulp.task('sass', function () {
 		.pipe(sass(options))
 		//currently support for map is broken
 		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))
+		.pipe(gulp.dest(paths.out))
 		.pipe(rev())
 		.pipe(gulp.dest(paths.out))
 		.pipe(rev.manifest())

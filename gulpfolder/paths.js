@@ -3,11 +3,12 @@
  */
 
 var environment = require('./util/environment'),
+	path = require('path'),
 	basePaths = {
 		dev: '.tmp',
-		prod: 'www'
+		production: 'www'
 	},
-	basePath = basePaths[environment];
+	basePath = basePaths[environment.name];
 
 if (!basePath) {
 	console.log('Paths for a given environment (' + environment + ') not found');
@@ -16,6 +17,7 @@ if (!basePath) {
 
 module.exports = {
 	base: basePath,
+	baseFull: path.resolve(basePath),
 	components: {
 		in: 'public/components/',
 		out: basePath + '/public/components'

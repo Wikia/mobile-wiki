@@ -18,7 +18,7 @@ gulp.task('components', function () {
 		gulp.src(files)
 			.pipe(changed(paths.out, { extension: '.js' }))
 			.pipe(concat(key + '.js'))
-			.pipe(gulpif(environment === 'prod', uglify()))
+			.pipe(gulpif(environment.isProduction, uglify()))
 			.pipe(rev())
 			.pipe(gulp.dest(paths.out))
 			.pipe(rev.manifest())
