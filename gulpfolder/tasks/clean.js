@@ -1,10 +1,12 @@
 var gulp = require('gulp'),
 	clean = require('gulp-clean'),
+	pipe = require('multipipe'),
 	options = require('../options').clean,
 	paths = require('../paths');
 
 gulp.task('clean', function () {
-	return gulp
-		.src(paths.base, options)
-		.pipe(clean());
+	return pipe(
+		gulp.src(paths.base, options),
+		clean()
+	);
 });

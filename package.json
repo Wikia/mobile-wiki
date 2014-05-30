@@ -45,6 +45,7 @@
     "gulp-filter": "0.4.x",
     "gulp-html-replace": "1.1.x",
     "gulp-file-include": "0.3.x",
-    "gulp-minify-html": "0.1.x"
+    "gulp-minify-html": "0.1.x",
+    "multipipe": "0.1.x"
   }
 }
