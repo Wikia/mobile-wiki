@@ -5,18 +5,15 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
 	rev = require('gulp-rev'),
-	pipe = require('multipipe'),
 	environment = require('../util/environment'),
 	options = require('../options').handlebars,
 	paths = require('../paths').templates;
 
 gulp.task('templates', function () {
-	return pipe(
-		gulp.src(paths.in),
-		changed(paths.out, { extension: '.js' }),
-		handlebars(options),
-		concat('main.js'),
-		gulpif(environment.isProduction, uglify()),
-		gulp.dest(paths.out)
-	);
+	return gulp.src(paths.in)
+		.pipe(changed(paths.out, { extension: '.js' }))
+		.pipe(handlebars(options))
+		.pipe(concat('main.js'))
+		.pipe(gulpif(environment.isProduction, uglify()))
+		.pipe(gulp.dest(paths.out));
 });

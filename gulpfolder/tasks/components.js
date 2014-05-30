@@ -5,7 +5,6 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
 	rev = require('gulp-rev'),
-	pipe = require('multipipe'),
 	assets = require('../assets'),
 	environment = require('../util/environment'),
 	paths = require('../paths').components;
@@ -16,12 +15,10 @@ gulp.task('components', function () {
 			return paths.in + asset;
 		});
 
-		pipe(
-			gulp.src(files),
-			changed(paths.out, { extension: '.js' }),
-			concat(key + '.js'),
-			gulpif(environment.isProduction, uglify()),
-			gulp.dest(paths.out)
-		);
+		gulp.src(files)
+			.pipe(changed(paths.out, { extension: '.js' }))
+			.pipe(concat(key + '.js'))
+			.pipe(gulpif(environment.isProduction, uglify()))
+			.pipe(gulp.dest(paths.out));
 	});
 });

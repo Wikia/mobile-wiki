@@ -7,17 +7,15 @@ var gulp = require('gulp'),
 	changed = require('gulp-changed'),
 	rev = require('gulp-rev'),
 	filter = require('gulp-filter'),
-	pipe = require('multipipe'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
 	jsFilter = filter('*.js');
 
 gulp.task('scripts:front', function () {
-	return pipe(
-		gulp.src(paths.in),
-		changed(paths.out, { extension: '.js' }),
-		typescript(options),
-		gulpif(environment.isProduction, uglify()),
-		gulp.dest(paths.out)
-	);
+	return gulp
+		.src(paths.in)
+		.pipe(changed(paths.out, { extension: '.js' }))
+		.pipe(typescript(options))
+		.pipe(gulpif(environment.isProduction, uglify()))
+		.pipe(gulp.dest(paths.out))
 });

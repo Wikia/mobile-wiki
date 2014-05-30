@@ -3,15 +3,12 @@ var gulp = require('gulp'),
 	svgmin = require('gulp-svgmin'),
 	sprites = require('gulp-svg-sprites'),
 	concat = require('gulp-concat'),
-	pipe = require('multipipe'),
 	options = require('../options').svg,
 	paths = require('../paths').svg;
 
 gulp.task('sprites', function () {
-	return pipe(
-		gulp.src(paths.in),
-		svgmin(),
-		sprites.svg(options),
-		gulp.dest(paths.out)
-	);
+	return gulp.src(paths.in)
+		.pipe(svgmin())
+		.pipe(sprites.svg(options))
+		.pipe(gulp.dest(paths.out));
 });

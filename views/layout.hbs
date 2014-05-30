@@ -6,15 +6,15 @@
 		<title>Wikia</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- build:css -->
-		<link rel="stylesheet" href="../public/styles/app.scss">
-        <!-- endbuild -->
+
+		<link rel="stylesheet" href="/styles/app.css">
+
 		<style>
 			@@include('public/styles/aboveTheFold.css')
-        </style>
+		</style>
 	</head>
 	<body>
-    	@@include('public/svg/sprites/svg-defs.svg')
+		@@include('public/svg/sprites/svg-defs.svg')
 
 		<!--[if lt IE 8]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -22,11 +22,8 @@
 
 		{{{content}}}
 
-        <!-- build:components -->
-		<!-- endbuild -->
-        <!-- build:templates -->
-		<!-- endbuild -->
-        <!-- build:scripts -->
-		<!-- endbuild -->
+		<script src="/components/main.js"></script>
+		<script src="/templates/main.js"></script>
+		<script src="/scripts/main.js"></script>
 	</body>
 </html>

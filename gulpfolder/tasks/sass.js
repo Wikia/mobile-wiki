@@ -4,17 +4,15 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	rev = require('gulp-rev'),
 	changed = require('gulp-changed'),
-	pipe = require('multipipe'),
 	options = require('../options').styles,
 	paths = require('../paths').styles;
 
 gulp.task('sass', function () {
-	return pipe(
-		gulp.src([paths.main, paths.aboveTheFold]),
-		changed(paths.out, { extension: '.css' }),
-		sass(options),
+	return gulp
+		.src([paths.main, paths.aboveTheFold])
+		.pipe(changed(paths.out, { extension: '.css' }))
+		.pipe(sass(options))
 		//currently support for map is broken
-		prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }),
-		gulp.dest(paths.out)
-	);
+		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))
+		.pipe(gulp.dest(paths.out));
 });
