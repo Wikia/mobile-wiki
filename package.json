@@ -4,6 +4,7 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
+	"dev": "gulp clean && gulp",
     "start": "gulp"
   },
   "repository": {
@@ -19,7 +20,7 @@
   "private": true,
   "dependencies": {
     "good": "2.x.x",
-    "hapi": "4.x.x",
+    "hapi": "5.x.x",
     "q": "1.0.x",
     "follow-redirects": "0.0.x"
   },
@@ -44,6 +45,7 @@
     "gulp-rev": "0.4.x",
     "gulp-filter": "0.4.x",
     "gulp-file-include": "0.3.x",
-    "gulp-minify-html": "0.1.x"
+    "gulp-minify-html": "0.1.x",
+    "gulp-replace-task": "0.0.5"
   }
 }

@@ -1,10 +1,10 @@
 var gulp = require('gulp'),
 	environment = require('../util/environment'),
 	rev = require('gulp-rev'),
-	filter = require('gulp-filter'),
+	changed = require('gulp-changed'),
 	paths = require('../paths');
 
-gulp.task('rev', function () {
+gulp.task('rev', ['sass', 'scripts:front', 'templates', 'components'], function () {
 	return gulp
 		.src([
 				paths.scripts.front.out + '/*.js',
