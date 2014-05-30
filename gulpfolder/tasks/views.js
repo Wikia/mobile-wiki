@@ -8,11 +8,11 @@ var gulp = require('gulp'),
 	paths = require('../paths'),
 	environment = require('../util/environment');
 
-gulp.task('views', ['assets'], function() {
+gulp.task('views', ['sprites', 'sass'], function() {
 	return gulp.src(paths.views.in)
 		.pipe(fileInclude({
 			basepath: paths.baseFull
 		}))
 		.pipe(gulpif(environment.isProduction, minifyHTML()))
-		.pipe(gulp.dest(paths.views.out))
+		.pipe(gulp.dest(paths.views.out));
 });

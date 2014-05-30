@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 gulp.task('watch', function () {
 	log('Watching files');
 
-	gulp.watch(paths.styles.in, ['sass']).on('change', function (event) {
+	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
 		log('Style changed:', gutil.colors.green(event.path));
 	});
 
