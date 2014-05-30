@@ -1546,7 +1546,7 @@ declare module Ember {
         disconnectOutlet(options?: DisconnectOutletOptions): void;
         generateController(name: string, model: {}): void;
         model(params: {}, transition: EmberStates.Transition): any;
-        modelFor(name: string): {get: Function};
+        modelFor(name: string): {};
         render(name: string, options?: RenderOptions): void;
         renderTemplate(controller: Controller, model: {}): void;
         // ReSharper disable once InconsistentNaming
@@ -1573,7 +1573,7 @@ declare module Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
-        static map(callback: Function): Router;
+        map(callback: Function): Router;
     }
     class RouterDSL {
         resource(name: string, options?: {}, callback?: Function): void;
@@ -2409,4 +2409,3 @@ declare module Em {
     var watchedEvents: typeof Ember.watchedEvents;
     var wrap: typeof Ember.wrap;
 }
-
