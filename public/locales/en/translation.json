@@ -6,5 +6,9 @@
 		"privacy-policy": "Privacy Policy",
 		"terms-of-use": "Terms of Use",
 		"api": "API"
+	},
+	"article": {
+		"table-of-contents": "Table of Contents",
+		"load-n-comments": "Load __count__ comments"
 	}
 }

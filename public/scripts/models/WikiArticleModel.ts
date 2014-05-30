@@ -3,21 +3,22 @@
 
 interface Response {
 	payload: string;
-	params: { articleTitle: string; };
-}
-
-function getTranslation(data:any):any {
-	var defer = $.Deferred(),
-		language = data.lang;
-	if (language !== currentLanguage) {
-		i18n.setLng(language, function() {
-			currentLanguage = language;
-			defer.resolve(data);
-		});
-	} else {
-		defer.resolve(data);
+	articleTitle: string;
+	articleDetails: {
+		revision: {
+			timestamp: number;
+		}
+		comments: any;
+		id: number;
+		ns: string;
+		title: string;
 	}
-	return defer.promise();
+	relatedPages: {
+		items: any[];
+	}
+	userDetails: {
+		items: any[];
+	}
 }
 
 App.WikiArticleModel = Ember.Object.extend({
@@ -30,9 +31,8 @@ App.WikiArticleModel = Ember.Object.extend({
 
 	titleChanged: function () {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
-			.pipe(getTranslation)
-			.pipe((response) => {
-				this.refresh();
+			.then(
+			(response: Response) => {
 				this.set('article', response.payload);
 
 				this.set('lastEdited', Math.floor((Date.now() - new Date(response.articleDetails.revision.timestamp*1000).getTime())/1000/60/60/24/7));
@@ -42,6 +42,8 @@ App.WikiArticleModel = Ember.Object.extend({
 				this.set('cleanTitle', response.articleDetails.title);
 				this.set('relatedPages', response.relatedPages.items[response.articleDetails.id]);
 				this.set('users', response.userDetails.items);
-			});
+			},
+			() => {/* todo: handle error */}
+		);
 	}.observes('title').on('init')
 });
