@@ -4,16 +4,7 @@
 
 var environment = require('./util/environment'),
 	path = require('path'),
-	basePaths = {
-		dev: '.tmp',
-		production: 'www'
-	},
-	basePath = basePaths[environment.name];
-
-if (!basePath) {
-	console.log('Paths for a given environment (' + environment + ') not found');
-	process.exit(1);
-}
+	basePath = 'www';
 
 module.exports = {
 	base: basePath,
