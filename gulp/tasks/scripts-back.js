@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 	options = require('../options').scripts.back,
 	paths = require('../paths').scripts.back;
 
-gulp.task('scripts:back', function () {
+gulp.task('scripts-back', function () {
 	return gulp
 		.src(paths.in)
 		.pipe(typescript(options))

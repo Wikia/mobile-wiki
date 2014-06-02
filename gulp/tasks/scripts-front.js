@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	paths = require('../paths').scripts.front,
 	jsFilter = filter('*.js');
 
-gulp.task('scripts:front', function () {
+gulp.task('scripts-front', function () {
 	return gulp
 		.src(paths.in)
 		.pipe(changed(paths.out, { extension: '.js' }))

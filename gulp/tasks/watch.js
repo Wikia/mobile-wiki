@@ -10,11 +10,11 @@ gulp.task('watch', function () {
 		log('Style changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.front.in, ['scripts:front']).on('change', function (event) {
+	gulp.watch(paths.scripts.front.in, ['scripts-front']).on('change', function (event) {
 		log('Script changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.back.in, ['scripts:back']).on('change', function (event) {
+	gulp.watch(paths.scripts.back.in, ['scripts-back']).on('change', function (event) {
 		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
