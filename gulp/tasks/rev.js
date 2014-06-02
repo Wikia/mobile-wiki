@@ -1,7 +1,12 @@
+/**
+ * Task to rev files based on gulp-rev
+ * Adds md5 to a file name
+ * and generates minifest of all the files that it changed
+ */
 var gulp = require('gulp'),
-	environment = require('../util/environment'),
 	rev = require('gulp-rev'),
 	changed = require('gulp-changed'),
+	environment = require('../util/environment'),
 	paths = require('../paths');
 
 gulp.task('rev', ['sass', 'scripts-front', 'templates', 'components'], function () {
