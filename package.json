@@ -38,14 +38,14 @@
     "gulp-uglify": "0.x.x",
     "handlebars": "2.x.x",
     "node-sass": "0.x.x",
-    "gulp-svg-sprites": "0.1.x",
-    "gulp-svgmin": "0.4.x",
+    "gulp-svg-sprites": "0.x.x",
+    "gulp-svgmin": "0.x.x",
     "gulp-changed": "0.x.x",
-    "gulp-if": "1.2.x",
-    "gulp-rev": "0.4.x",
-    "gulp-filter": "0.4.x",
+    "gulp-if": "1.x.x",
+    "gulp-rev": "0.x.x",
+    "gulp-filter": "0.x.x",
     "gulp-file-include": "0.3.x",
     "gulp-minify-html": "0.1.x",
-    "gulp-replace-task": "0.0.5"
+    "gulp-replace-task": "0.x.x"
   }
 }
