@@ -1,14 +1,11 @@
 var gulp = require('gulp'),
 	typescript = require('gulp-tsc'),
 	uglify = require('gulp-uglify'),
-	environment = require('../util/environment'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
-	rev = require('gulp-rev'),
-	filter = require('gulp-filter'),
+	environment = require('../util/environment'),
 	options = require('../options').scripts.front,
-	paths = require('../paths').scripts.front,
-	jsFilter = filter('*.js');
+	paths = require('../paths').scripts.front;
 
 gulp.task('scripts-front', function () {
 	return gulp
