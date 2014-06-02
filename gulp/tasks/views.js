@@ -18,7 +18,7 @@ function getPath(key) {
 	);
 }
 
-gulp.task('views', ['sprites', 'rev'], function() {
+gulp.task('views', ['sprites', 'sass'], function() {
 	files = [];
 
 	try {

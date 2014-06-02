@@ -6,19 +6,19 @@ var gulp = require('gulp'),
 gulp.task('watch', function () {
 	log('Watching files');
 
-	gulp.watch(paths.styles.watch, ['sass', 'rev', 'views']).on('change', function (event) {
+	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
 		log('Style changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.front.in, ['scripts-front', 'rev', 'views']).on('change', function (event) {
+	gulp.watch(paths.scripts.front.in, ['scripts-front']).on('change', function (event) {
 		log('Script changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.templates.in, ['templates', 'rev', 'views']).on('change', function (event) {
+	gulp.watch(paths.templates.in, ['templates']).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.svg.in, ['sprites', 'rev', 'views']).on('change', function (event) {
+	gulp.watch(paths.svg.in, ['sprites']).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 
