@@ -1,5 +1,6 @@
 /// <reference path="../../definitions/ember/ember.d.ts" />
-/// <reference path="utils/lazyload.ts" />
+/// <reference path="../../definitions/i18next/i18next.d.ts" />
+
 'use strict';
 
 declare var i18n;
@@ -8,23 +9,15 @@ var App: any = Em.Application.create({
 		LOG_ACTIVE_GENERATION: true,
 		LOG_VIEW_LOOKUPS: true,
 		LOG_TRANSITIONS: true,
-		currentLanguage: 'en',
-		changeLanguage: function (language) {
-			var self = App;
-			return new Promise(function(resolve, reject) {
-				if (language !== self.get('currentLanguage')) {
-					i18n.setLng(language, function(translation){
-						if (translation) {
-							self.set('currentLanguage', language);
-							resolve();
-						} else {
-							reject();
-						}
-					});
-				} else {
-					self.set('currentLanguage', language);
-					resolve();
-				}
+		language: 'en',
+		T: {}, // Translations object
+		_setLocale: function(language: string) {
+			i18n.setLng(language, function(){
+				Object.keys(App.T).forEach(function(key){
+					if (typeof(App.T.get(key)) !== 'function') {
+						App.T.set(key, App.get('i18n')(key));
+					}
+				});
 			});
 		}
 	});
@@ -33,15 +26,26 @@ Em.Application.initializer({
 	name: 'preload',
 
 	initialize: function(container, application) {
-		App.deferReadiness();
+		application.deferReadiness();
 		i18n.init({
-			lng: 'en',
-			fallbackLng: 'en',
+			lng: application.language,
+			fallbackLng: application.language,
+			resGetPath: '/locales/__lng__/__ns__.json',
 			debug: true,
-			resGetPath: '/locales/__lng__/__ns__.json'
+			useLocalStorage: false
 		}, function(i18) {
-			App.set('i18n', i18);
-			App.advanceReadiness();
+			application.T = Em.Object.create({
+				unknownProperty: function(key) {
+					App.T.set(key, App.get('i18n')(key));
+					return App.T.get(key);
+				}
+			});
+			application.set('i18n', i18);
+			application.advanceReadiness();
 		});
 	}
+});
+
+App.addObserver('language', function (object, property) {
+	object._setLocale(object.language);
 });

@@ -28,6 +28,7 @@ App.WikiArticleModel = Ember.Object.extend({
 	wiki: '',
 	article: '',
 	users: [],
+	comments: 0,
 
 	titleChanged: function () {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
