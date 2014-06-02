@@ -11,8 +11,8 @@ var gulp = require('gulp'),
 
 gulp.task('components', function (done) {
 	var packages = Object.keys(assets),
-	length = packages.length,
-	i = 0;
+		length = packages.length,
+		i = 0;
 
 	packages.forEach(function (key) {
 		var files = assets[key].map(function (asset) {
@@ -30,7 +30,7 @@ gulp.task('components', function (done) {
 		i += 1;
 
 		if (i === length) {
-			done()
+			done();
 		}
 	});
 });
