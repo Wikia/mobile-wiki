@@ -24,7 +24,7 @@ module.exports = {
 	},
 	styles: {
 		main: 'public/styles/app.scss',
-		aboveTheFold: 'public/styles/aboveTheFold.scss',
+		aboveTheFold: 'public/styles/baseline.scss',
 		watch: 'public/styles/**/*.scss',
 		out: basePath + '/public/styles'
 	},
