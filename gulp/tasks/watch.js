@@ -11,7 +11,7 @@ gulp.task('watch', function () {
 		 * Baseline is a scss file that gets inlined, so the views must be recompiled
 		 * when it is changed
          */
-		if (event.path.match('baseline.scss').length) {
+		if (event.path.match('baseline.scss')) {
 			gulp.start('views');
 		}
 		log('Style changed:', gutil.colors.green(event.path));
