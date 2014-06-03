@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-	filter = require('gulp-filter'),
 	gutil = require('gulp-util'),
 	gulpif = require('gulp-if'),
 	minifyHTML = require('gulp-minify-html'),
@@ -18,23 +17,23 @@ function getPath(key) {
 	);
 }
 
-gulp.task('views', ['sprites', 'sass'], function() {
+gulp.task('views', ['sprites', 'sass'], function () {
 	files = [];
 
 	try {
 		manifest = require(paths.baseFull + '/public/rev-manifest.json');
 
-		Object.keys(manifest).forEach(function(key){
+		Object.keys(manifest).forEach(function (key) {
 			files.push({
 				match: getPath(key),
 				replacement: getPath(manifest[key])
-			})
+			});
 		});
-	} catch(exception) {
+	} catch (exception) {
 		gutil.log(exception.message);
 	}
 
-	return gulp.src(paths.views.in)
+	return gulp.src(paths.views.in )
 		.pipe(fileInclude({
 			basepath: paths.baseFull
 		}))
