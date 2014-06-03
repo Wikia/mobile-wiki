@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 gulp.task('sass', function () {
 	return gulp
 		.src([paths.main, paths.aboveTheFold])
-		.pipe(changed(paths.out, { extension: '.css' }))
+		// .pipe(changed(paths.out, { extension: '.css' }))
 		.pipe(sass(options))
 		//currently support for map is broken
 		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))

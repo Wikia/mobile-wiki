@@ -1,0 +1,15 @@
+.article-footer {
+	border-bottom: 1px solid $secondary-color;
+	margin-bottom: rem-calc(40);
+
+	div {
+		border-top: 1px solid $secondary-color;
+		color: #333;
+		padding: 1em;
+		font-weight: bold;
+		text-decoration: bold;
+	}
+
+	.comments {
+	}
+}

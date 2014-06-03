@@ -6,12 +6,17 @@
 	<article class="article-content">
 		{{{article}}}
 	</article>
-	<a class="btn comments-btn" href="#">Load {{comments}} comments</a>
+</section>
+<section class="article-footer">
 	<ul class="contributors">
 		{{#each users}}
-			<li><a href="{{unbound url}}"><img src={{unbound avatar}} alt="{{unbound name}}"></a></li>
+		<li><a href="{{unbound url}}"><img src={{unbound avatar}} alt="{{unbound name}}"></a></li>
 		{{/each}}
 	</ul>
-	<span class="last-edit">Last edited {{lastEdited}} weeks ago</span>
+	{{#if comments}}
+	<div class="comments">
+		{{comments}} comments
+	</div>
+	{{/if}}
 </section>
 {{content-recommendations pages=relatedPages}}

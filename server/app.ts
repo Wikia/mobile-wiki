@@ -1,5 +1,5 @@
-/// <reference path="../definitions/node/node.d.ts" />
-/// <reference path="../definitions/hapi/hapi.d.ts" />
+/// <reference path="../typings/node/node.d.ts" />
+/// <reference path="../typings/hapi/hapi.d.ts" />
 
 import hapi = require('hapi');
 import path = require('path');

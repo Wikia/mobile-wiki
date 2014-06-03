@@ -1,4 +1,4 @@
-/// <reference path="../definitions/hapi/hapi.d.ts" />
+/// <reference path="../typings/hapi/hapi.d.ts" />
 
 import path = require('path');
 

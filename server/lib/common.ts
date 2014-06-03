@@ -1,4 +1,4 @@
-/// <reference path="../../definitions/q/Q.d.ts" />
+/// <reference path="../../typings/q/Q.d.ts" />
 
 import Q = require('q');
 

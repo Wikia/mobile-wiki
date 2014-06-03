@@ -1,4 +1,4 @@
-/// <reference path="../../definitions/ember/ember.d.ts" />
+/// <reference path="../../typings/ember/ember.d.ts" />
 /// <reference path="utils/lazyload.ts" />
 'use strict';
 
