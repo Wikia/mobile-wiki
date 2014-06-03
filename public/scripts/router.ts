@@ -1,7 +1,7 @@
 /// <reference path="./app.ts" />
 'use strict';
 
-Ember.Router.map(function () {
+App.Router.map(function () {
 	this.resource('wiki', {
 		path: '/w/:wikiName'
 	}, function () {
@@ -11,13 +11,6 @@ Ember.Router.map(function () {
 	});
 });
 
-Ember.Router.reopen({
+App.Router.reopen({
 	location: 'history'
-});
-
-Ember.Route.reopen({
-	render: function (controller, model) {
-		this._super();
-		window.scrollTo(0, 0);
-	}
 });
