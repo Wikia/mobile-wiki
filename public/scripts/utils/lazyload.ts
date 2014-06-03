@@ -1,5 +1,6 @@
 /// <reference path="./thumbnailer.ts" />
 /// <reference path="../../../definitions/jquery/jquery.d.ts" />
+
 /**
  * @define lazyload
  *

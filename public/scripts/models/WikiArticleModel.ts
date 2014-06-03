@@ -33,18 +33,19 @@ App.WikiArticleModel = Ember.Object.extend({
 	titleChanged: function () {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
 			.then(
-			(response: Response) => {
-				this.set('article', response.payload);
+				(response: Response) => {
+					this.set('article', response.payload);
 
-				this.set('lastEdited', Math.floor((Date.now() - new Date(response.articleDetails.revision.timestamp*1000).getTime())/1000/60/60/24/7));
-				this.set('comments', response.articleDetails.comments);
-				this.set('id', response.articleDetails.id);
-				this.set('namespace', response.articleDetails.ns);
-				this.set('cleanTitle', response.articleDetails.title);
-				this.set('relatedPages', response.relatedPages.items[response.articleDetails.id]);
-				this.set('users', response.userDetails.items);
-			},
-			() => {/* todo: handle error */}
-		);
+					this.set('lastEdited', Math.floor((Date.now() - new Date(response.articleDetails.revision.timestamp*1000).getTime())/1000/60/60/24/7));
+					this.set('comments', response.articleDetails.comments);
+					this.set('id', response.articleDetails.id);
+					this.set('namespace', response.articleDetails.ns);
+					this.set('cleanTitle', response.articleDetails.title);
+					this.set('relatedPages', response.relatedPages.items[response.articleDetails.id]);
+					this.set('users', response.userDetails.items);
+				},
+				// TODO: handle errors
+				() => {}
+			);
 	}.observes('title').on('init')
 });
