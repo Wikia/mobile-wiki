@@ -4,8 +4,7 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
-	rev = require('gulp-rev'),
-	environment = require('../utils/environment'),
+	environment = require('../util/environment'),
 	options = require('../options').handlebars,
 	paths = require('../paths').templates;
 
