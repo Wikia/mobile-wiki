@@ -1,9 +1,6 @@
 var gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	sass = require('gulp-sass'),
-	concat = require('gulp-concat'),
-	rev = require('gulp-rev'),
-	changed = require('gulp-changed'),
 	options = require('../options').styles,
 	paths = require('../paths').styles;
 

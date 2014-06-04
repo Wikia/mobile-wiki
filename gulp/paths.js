@@ -1,9 +1,7 @@
 /*
  * Path list for tasks
  */
-
-var environment = require('./util/environment'),
-	path = require('path'),
+var path = require('path'),
 	basePath = 'www';
 
 module.exports = {

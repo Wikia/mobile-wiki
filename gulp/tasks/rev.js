@@ -5,8 +5,6 @@
  */
 var gulp = require('gulp'),
 	rev = require('gulp-rev'),
-	changed = require('gulp-changed'),
-	environment = require('../util/environment'),
 	paths = require('../paths');
 
 gulp.task('rev', ['sass', 'scripts-front', 'templates', 'components'], function () {
