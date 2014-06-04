@@ -1,10 +1,8 @@
 var gulp = require('gulp'),
-	sass = require('gulp-sass'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
-	rev = require('gulp-rev'),
 	assets = require('../assets'),
 	environment = require('../util/environment'),
 	paths = require('../paths').components;

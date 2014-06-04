@@ -10,5 +10,3 @@ module.exports = function () {
 
 	return gutil.log.apply(null, [gutil.colors.cyan('[INFO]')].concat(args));
 };
-
-
