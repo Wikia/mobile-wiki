@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
-	log = require('../util/logger'),
+	log = require('../utils/logger'),
 	paths = require('../paths');
 
 gulp.task('watch', function () {
@@ -17,8 +17,12 @@ gulp.task('watch', function () {
 		log('Style changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.front.in, ['scripts-front']).on('change', function (event) {
+	gulp.watch(paths.scripts.front.in, ['tslint', 'scripts-front']).on('change', function (event) {
 		log('Script changed:', gutil.colors.green(event.path));
+	});
+
+	gulp.watch(paths.scripts.back.in, ['tslint', 'scripts-back']).on('change', function (event) {
+		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
 	gulp.watch(paths.templates.in, ['templates']).on('change', function (event) {
@@ -27,10 +31,6 @@ gulp.task('watch', function () {
 
 	gulp.watch(paths.svg.in, ['sprites']).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
-	});
-
-	gulp.watch(paths.scripts.back.in, ['scripts-back']).on('change', function (event) {
-		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
 	gulp.watch(paths.views.in, ['views']).on('change', function (event) {

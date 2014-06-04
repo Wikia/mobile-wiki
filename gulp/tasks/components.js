@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 	changed = require('gulp-changed'),
 	rev = require('gulp-rev'),
 	assets = require('../assets'),
-	environment = require('../util/environment'),
+	environment = require('../utils/environment'),
 	paths = require('../paths').components;
 
 gulp.task('components', function (done) {

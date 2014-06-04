@@ -42,5 +42,8 @@ module.exports = {
 		watch: [
 			'www/server'
 		]
+	},
+	tslint: {
+		emitError: true
 	}
 };

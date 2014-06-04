@@ -4,7 +4,7 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-	"dev": "gulp clean && gulp",
+    "dev": "gulp clean && gulp",
     "start": "gulp"
   },
   "repository": {
@@ -46,6 +46,7 @@
     "gulp-filter": "0.x.x",
     "gulp-file-include": "0.3.x",
     "gulp-minify-html": "0.1.x",
-    "gulp-replace-task": "0.x.x"
+    "gulp-replace-task": "0.x.x",
+    "gulp-tslint": "~1.1.0"
   }
 }

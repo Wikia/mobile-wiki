@@ -2,7 +2,7 @@
  * Path list for tasks
  */
 
-var environment = require('./util/environment'),
+var environment = require('./utils/environment'),
 	path = require('path'),
 	basePath = 'www';
 

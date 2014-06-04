@@ -2,7 +2,7 @@
 	Load appropriate options object based on environment
  */
 
-var environment = require('../util/environment').name;
+var environment = require('../utils/environment').name;
 
 try {
 	module.exports = require('./' + environment);
