@@ -1,5 +1,5 @@
-/// <reference path="../../definitions/hapi/hapi.d.ts" />
-/// <reference path="../../definitions/q/Q.d.ts" />
+/// <reference path="../../typings/hapi/hapi.d.ts" />
+/// <reference path="../../typings/q/Q.d.ts" />
 /**
  * @description Article controller
  */

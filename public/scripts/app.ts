@@ -1,5 +1,5 @@
-/// <reference path="../../definitions/ember/ember.d.ts" />
-/// <reference path="../../definitions/i18next/i18next.d.ts" />
+/// <reference path="../../typings/ember/ember.d.ts" />
+/// <reference path="../../typings/i18next/i18next.d.ts" />
 
 'use strict';
 
