@@ -97,7 +97,12 @@ module W {
 			var tokens = url.split('/'),
 				last = tokens.slice(-1)[0].replace(this.extRegExp, '');
 
-			tokens.push(width + (height ? 'x' + height : '-') + ((type === 'video' || type === 'nocrop') ? '-' :  'x2-') + last + '.png');
+			tokens.push(
+					width + (height ? 'x' + height : '-') +
+					((type === 'video' || type === 'nocrop') ?
+					'-' : 'x2-') + last + '.png'
+			);
+
 			return tokens.join('/');
 		}
 
