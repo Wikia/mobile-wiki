@@ -6,5 +6,6 @@ gulp.task('assets', [
 	'scripts-front',
 	'components',
 	'templates',
-	'sprites'
+	'sprites',
+	'locales'
 ]);

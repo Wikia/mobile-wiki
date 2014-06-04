@@ -13,6 +13,10 @@ module.exports = {
 		in: 'public/components/',
 		out: basePath + '/public/components'
 	},
+	locales: {
+		in: 'public/locales/**/*.json',
+		out: basePath + '/public/locales'
+	},
 	styles: {
 		main: 'public/styles/app.scss',
 		aboveTheFold: 'public/styles/baseline.scss',

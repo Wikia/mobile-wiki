@@ -1,0 +1,16 @@
+{
+	"app": {
+		"about": "About",
+		"community-central": "Community Central",
+		"advertise": "Advertise",
+		"privacy-policy": "Privacy Policy",
+		"terms-of-use": "Terms of Use",
+		"api": "API",
+		"table-of-contents": "Table of Contents",
+		"load-n-comments": "Load __count__ comments",
+		"read-more": "Read More",
+		"last-edited-n-weeks-ago": "Last edited 1 week ago",
+		"last-edited-n-weeks-ago_plural_0": "Last edited this week",
+		"last-edited-n-weeks-ago_plural_2": "Last edited __count__ weeks ago"
+	}
+}

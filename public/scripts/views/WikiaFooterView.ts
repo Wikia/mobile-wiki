@@ -9,32 +9,32 @@ App.WikiaFooterView = Ember.View.extend({
 			{
 				route: 'wiki.article',
 				context: 'about',
-				name: 'About'
+				name: 'about'
 			},
 			{
 				route: 'wiki',
 				context: 'about',
-				name: 'Community Central'
+				name: 'community-central'
 			},
 			{
 				route: 'wiki',
 				context: 'about',
-				name: 'Advertise'
+				name: 'advertise'
 			},
 			{
 				route: 'wiki',
 				context: 'about',
-				name: 'Privacy Policy'
+				name: 'privacy-policy'
 			},
 			{
 				route: 'wiki',
 				context: 'about',
-				name: 'Terms of use'
+				name: 'terms-of-use'
 			},
 			{
 				route: 'wiki',
 				context: 'about',
-				name: 'API'
+				name: 'api'
 			}
 		]
 	}

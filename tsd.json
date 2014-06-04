@@ -12,13 +12,16 @@
       "commit": "af346df4042ce4a36bbabdc9e00583d52c1dfe84"
     },
     "jquery/jquery.d.ts": {
-      "commit": "af346df4042ce4a36bbabdc9e00583d52c1dfe84"
+      "commit": "9ff1cf69b31b1e37607110e6c4db349d02fd8341"
     },
     "node/node.d.ts": {
       "commit": "af346df4042ce4a36bbabdc9e00583d52c1dfe84"
     },
     "q/Q.d.ts": {
       "commit": "af346df4042ce4a36bbabdc9e00583d52c1dfe84"
+    },
+    "i18next/i18next.d.ts": {
+      "commit": "9ff1cf69b31b1e37607110e6c4db349d02fd8341"
     }
   }
 }
