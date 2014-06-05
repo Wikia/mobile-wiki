@@ -9,10 +9,10 @@ var gulp = require('gulp'),
 	paths = require('../paths').templates;
 
 gulp.task('templates', function () {
-	return gulp.src(paths.in)
-		.pipe(changed(paths.out, { extension: '.js' }))
+	return gulp.src(paths.src)
+		.pipe(changed(paths.dest, { extension: '.js' }))
 		.pipe(handlebars(options))
 		.pipe(concat('main.js'))
 		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulp.dest(paths.out));
+		.pipe(gulp.dest(paths.dest));
 });

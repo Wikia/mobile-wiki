@@ -5,8 +5,8 @@ var gulp = require('gulp'),
 	paths = require('../paths').svg;
 
 gulp.task('sprites', function () {
-	return gulp.src(paths.in)
+	return gulp.src(paths.src)
 		.pipe(svgmin())
 		.pipe(sprites.svg(options))
-		.pipe(gulp.dest(paths.out));
+		.pipe(gulp.dest(paths.dest));
 });

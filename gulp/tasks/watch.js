@@ -17,23 +17,24 @@ gulp.task('watch', function () {
 		log('Style changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.front.in, ['tslint', 'scripts-front']).on('change', function (event) {
+	gulp.watch(paths.scripts.front.src, ['tslint', 'scripts-front']).on('change', function (event) {
 		log('Script changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.back.in, ['tslint', 'scripts-back']).on('change', function (event) {
+	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back']).on('change', function (event) {
 		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.templates.in, ['templates']).on('change', function (event) {
+
+	gulp.watch(paths.templates.src, ['templates']).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.svg.in, ['sprites']).on('change', function (event) {
+	gulp.watch(paths.svg.src, ['sprites']).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.views.in, ['views']).on('change', function (event) {
+	gulp.watch(paths.views.src, ['views']).on('change', function (event) {
 		log('Views changed:', gutil.colors.green(event.path));
 	});
 });

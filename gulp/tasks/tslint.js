@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 	options = require('../options').tslint;
 
 gulp.task('tslint', function () {
-	gulp.src([paths.scripts.front.in , paths.scripts.back.in ])
+	gulp.src([paths.scripts.front.src , paths.scripts.back.src ])
 		.pipe(tslint())
 		.pipe(tslint.report('verbose', options));
 });
