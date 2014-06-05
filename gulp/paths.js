@@ -8,40 +8,39 @@ module.exports = {
 	base: basePath,
 	baseFull: path.resolve(basePath),
 	components: {
-		in: 'public/components/',
-		out: basePath + '/public/components'
+		src: 'public/components/',
+		dest: basePath + '/public/components'
 	},
 	locales: {
-		in: 'public/locales/**/*.json',
-		out: basePath + '/public/locales'
+		src: 'public/locales/**/*.json',
+		dest: basePath + '/public/locales'
 	},
 	styles: {
-		main: 'public/styles/app.scss',
-		aboveTheFold: 'public/styles/baseline.scss',
+		src: ['!public/styles/_*.scss', 'public/styles/*.scss'],
 		watch: 'public/styles/**/*.scss',
-		out: basePath + '/public/styles'
+		dest: basePath + '/public/styles'
 	},
 	scripts: {
 		front: {
-			in: 'public/scripts/**/*.ts',
-			out: basePath + '/public/scripts'
+			src: 'public/scripts/**/*.ts',
+			dest: basePath + '/public/scripts'
 		},
 		back: {
-			in: 'server/**/*.ts',
-			out: basePath
+			src: 'server/**/*.ts',
+			dest: basePath
 		}
 	},
 	views: {
-		in: 'views/**/*',
-		out: basePath + '/views'
+		src: 'views/**/*',
+		dest: basePath + '/views'
 	},
 	templates: {
-		in: 'public/templates/**/*.hbs',
-		out: basePath + '/public/templates'
+		src: 'public/templates/**/*.hbs',
+		dest: basePath + '/public/templates'
 	},
 	svg: {
-		in: 'public/svg/*.svg',
-		out: basePath + '/public/svg'
+		src: 'public/svg/*.svg',
+		dest: basePath + '/public/svg'
 	},
 	nodemon: {
 		script: basePath + '/server/app.js',

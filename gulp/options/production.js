@@ -13,7 +13,7 @@ module.exports = {
 		front: {
 			target: 'ES5',
 			sourcemap: false,
-			outDir: paths.scripts.front.out,
+			outDir: paths.scripts.front.dest,
 			out: 'main.js',
 			//mapRoot: '',
 			emitError: false,
@@ -23,7 +23,7 @@ module.exports = {
 			module: 'commonjs',
 			target: 'ES5',
 			emitError: false,
-			outDir: paths.scripts.back.out,
+			outDir: paths.scripts.back.dest,
 			removeComments: true
 		}
 	},

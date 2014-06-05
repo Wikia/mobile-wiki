@@ -33,7 +33,7 @@ function views() {
 		gutil.log(exception.message);
 	}
 
-	return gulp.src(paths.views.in )
+	return gulp.src(paths.views.src )
 		.pipe(fileInclude({
 			basepath: paths.baseFull
 		}))
@@ -42,7 +42,7 @@ function views() {
 			patterns: files,
 			prefix: '../public'
 		}))
-		.pipe(gulp.dest(paths.views.out));
+		.pipe(gulp.dest(paths.views.dest));
 }
 
 gulp.task('views', ['sprites', 'sass'], views);
