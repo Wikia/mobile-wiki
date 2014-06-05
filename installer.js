@@ -9,7 +9,7 @@ var npmInstall = [
 ];
 
 var dependencies = [
-	'bower', 'jshint', 'gulp', 'forever', 'browserify', 'typescript', 'tsd', 'typescript-formatter'
+	'bower', 'jshint', 'gulp', 'forever', 'tsd', 'typescript-formatter'
 ];
 
 var children = [];
