@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
 	"dev": "gulp clean && gulp",
-    "start": "gulp"
+    "start": "gulp clean && gulp build --env prod && node www/server/app.js"
   },
   "repository": {
     "type": "git",

@@ -17,7 +17,7 @@ function getPath(key) {
 	);
 }
 
-gulp.task('views', ['sprites', 'sass'], function () {
+function views() {
 	files = [];
 
 	try {
@@ -43,4 +43,7 @@ gulp.task('views', ['sprites', 'sass'], function () {
 			prefix: '../public'
 		}))
 		.pipe(gulp.dest(paths.views.out));
-});
+}
+
+gulp.task('views', ['sprites', 'sass'], views);
+gulp.task('views:revved', ['sprites', 'rev'], views);
