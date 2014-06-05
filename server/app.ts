@@ -35,7 +35,7 @@ class App {
 			}
 		};
 
-		server.pack.require('good', options, function (err) {
+		server.pack.require('good', options, function(err) {
 			if (err) {
 				console.log('[ERROR] ', err);
 			}
@@ -46,10 +46,10 @@ class App {
 		 */
 		require('./routes')(server);
 
-		server.start(function () {
+		server.start(function() {
 			console.log('Server started at: ' + server.info.uri);
 		});
 	}
 }
 
-new App();
+var app: App = new App();

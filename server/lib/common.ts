@@ -9,7 +9,7 @@ import Q = require('q');
  * @returns {object}
  */
 module common {
-	export function promisify(callback: (deferred: Q.Deferred<any>)=>void): Q.Promise<any> {
+	export function promisify(callback: (deferred: Q.Deferred<any>) => void): Q.Promise<any> {
 		var deferred: Q.Deferred<any> = Q.defer();
 		callback(deferred);
 		return deferred.promise;

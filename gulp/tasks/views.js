@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 	replace = require('gulp-replace-task'),
 	path = require('path'),
 	paths = require('../paths'),
-	environment = require('../util/environment'),
+	environment = require('../utils/environment'),
 	manifest,
 	files;
 

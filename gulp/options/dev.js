@@ -41,5 +41,8 @@ module.exports = {
 		script: paths.nodemon.script,
 		ext: 'js',
 		watch: paths.nodemon.watch
+	},
+	tslint: {
+		emitError: false
 	}
 };

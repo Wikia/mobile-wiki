@@ -9,7 +9,7 @@ function routes(server) {
 		'/w/{parts*}'
 	];
 
-	indexRoutes.forEach(function (route: string) {
+	indexRoutes.forEach(function(route: string) {
 		server.route({
 			method: 'GET',
 			path: route,
