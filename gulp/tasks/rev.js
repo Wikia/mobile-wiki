@@ -10,10 +10,10 @@ var gulp = require('gulp'),
 gulp.task('rev', ['sass', 'scripts-front', 'templates', 'components'], function () {
 	return gulp
 		.src([
-				paths.scripts.front.out + '/*.js',
-				paths.styles.out + '/*.css',
-				paths.components.out + '/*.js',
-				paths.templates.out + '/*.js'
+				paths.scripts.front.dest + '/*.js',
+				paths.styles.dest + '/*.css',
+				paths.components.dest + '/*.js',
+				paths.templates.dest + '/*.js'
 			],
 			{base: '.'}
 		)
