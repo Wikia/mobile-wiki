@@ -20,22 +20,22 @@ interface Window {
 
 module W {
 	var slice = Array.prototype.slice,
-		debounce = (function ( element ) {
-			return element ? parseInt( element.getAttribute( 'data-sloth-debounce' ), 10 ) : 200;
-		})( window.document.querySelector( 'script[data-sloth-debounce]' ));
+		debounce = (function(element) {
+			return element ? parseInt(element.getAttribute('data-sloth-debounce'), 10) : 200;
+		})(window.document.querySelector('script[data-sloth-debounce]'));
 
 	export class Branch {
 		private element;
 		private threshold: number;
 		callback: Function;
 
-		constructor (element: HTMLElement, threshold: number, callback: Function) {
+		constructor(element: HTMLElement, threshold: number, callback: Function) {
 			this.element = element;
 			this.threshold = threshold;
-			this.callback = () => callback( this.element );
+			this.callback = () => callback(this.element);
 		}
 
-		isVisible (visibleBottom: number, visibleTop: number): boolean {
+		isVisible(visibleBottom: number, visibleTop: number): boolean {
 			var elem = this.element,
 				mayBeVisible = elem.scrollHeight || elem.scrollWidth,
 				height: number,
@@ -43,7 +43,7 @@ module W {
 				top: number,
 				bottom: number;
 
-			if ( mayBeVisible ) {
+			if (mayBeVisible) {
 				threshold = this.threshold;
 				height = elem.offsetHeight;
 				top = (elem.offsetTop || elem.y) - threshold;
@@ -55,7 +55,7 @@ module W {
 			return false;
 		}
 
-		compare ( element: HTMLElement ): boolean {
+		compare(element: HTMLElement): boolean {
 			return this.element === element;
 		}
 	}
@@ -67,33 +67,33 @@ module W {
 		branches: Branch[] = [];
 		lock = 0;
 
-		addEvent () {
-			window.addEventListener( 'scroll', () => this.execute() );
+		addEvent() {
+			window.addEventListener('scroll', () => this.execute());
 		}
 
-		removeEvent () {
-			window.removeEventListener( 'scroll', () => this.execute() );
+		removeEvent() {
+			window.removeEventListener('scroll', () => this.execute());
 		}
 
-		drop () {
+		drop() {
 			this.branches = [];
 		}
 
-		execute ( force: boolean = false ): void {
+		execute(force: boolean = false): void {
 			var i: number = this.branches.length,
 				branch: Branch;
 
-			if ( debounce ) {
+			if (debounce) {
 				this.removeEvent();
 			}
 
-			if ( i && ( force || !this.lock ) ) {
-				if ( debounce ) {
+			if (i && (force || !this.lock)) {
+				if (debounce) {
 
-					this.lock = setTimeout( () => {
+					this.lock = setTimeout(() => {
 						this.lock = 0;
 						this.addEvent();
-					}, debounce );
+					}, debounce);
 				}
 
 				// in IE10 window.scrollY doesn't work
@@ -102,57 +102,57 @@ module W {
 				this.wTop = window.scrollY || window.pageYOffset;
 				this.wBottom = this.wTop + window.innerHeight;
 
-				while ( i-- ) {
+				while (i--) {
 					branch = this.branches[i];
 
-					if ( branch.isVisible( this.wBottom, this.wTop ) ) {
-						setTimeout( branch.callback, 0 );
-						this.branches.splice( i, 1 );
+					if (branch.isVisible(this.wBottom, this.wTop)) {
+						setTimeout(branch.callback, 0);
+						this.branches.splice(i, 1);
 					}
 				}
 			}
 		}
 
-		attach( params ) {
-			if ( params ) {
+		attach(params) {
+			if (params) {
 				var elements = params.on,
 					prune = params.off,
 					threshold: number = params.threshold !== this.undef ? params.threshold : 100,
 					callback: Function = params.callback,
 					i: number;
 
-				if ( elements && callback ) {
-					if ( elements.length !== this.undef ) {
-						elements = slice.call( elements );
+				if (elements && callback) {
+					if (elements.length !== this.undef) {
+						elements = slice.call(elements);
 						i = elements.length;
 
-						while ( i-- ) {
-							this.branches.push( new Branch( elements[i], threshold, callback ) );
+						while (i--) {
+							this.branches.push(new Branch(elements[i], threshold, callback));
 						}
 					} else {
-						this.branches.push( new Branch( elements, threshold, callback ) );
+						this.branches.push(new Branch(elements, threshold, callback));
 					}
 				}
 
-				if ( prune ) {
-					if ( prune.length !== this.undef ) {
-						prune = slice.call( prune );
+				if (prune) {
+					if (prune.length !== this.undef) {
+						prune = slice.call(prune);
 						i = prune.length;
 
-						while ( i-- ) {
-							this.branches = this.branches.filter(( branch ) => {
-								return !branch.compare( prune[i] );
+						while (i--) {
+							this.branches = this.branches.filter((branch) => {
+								return !branch.compare(prune[i]);
 							}, this);
 						}
 					} else {
-						this.branches = this.branches.filter(( branch ) =>{
-							return !branch.compare( prune );
+						this.branches = this.branches.filter((branch) => {
+							return !branch.compare(prune);
 						}, this);
 					}
 				}
 			}
 
-			this.execute( true );
+			this.execute(true);
 		}
 	}
 }

@@ -17,7 +17,7 @@ module mediawiki {
 		[key: string]: string
 	}
 
-	function getDomainName(wikiSubDomain: string):string {
+	function getDomainName(wikiSubDomain: string): string {
 		var environment = localSettings.environment,
 			options = {
 				production: '',
@@ -32,12 +32,12 @@ module mediawiki {
 			return 'http://' + options[environment] + wikiSubDomain + '.wikia.com/';
 		}
 		// Devbox
-		return 'http://' + wikiSubDomain + '.' +environment + '.wikia-dev.com/';
+		return 'http://' + wikiSubDomain + '.' + environment + '.wikia-dev.com/';
 	}
 
 	function createUrl(wikiSubDomain: string, path: string, params: URLParams = {}): string {
 		var qsAggregator: string[] = [];
-		Object.keys(params).forEach(function(key){
+		Object.keys(params).forEach(function(key) {
 			qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
 		});
 		return getDomainName(wikiSubDomain) +
@@ -46,39 +46,39 @@ module mediawiki {
 	}
 
 	function httpGet(url: string): Q.Promise<any> {
-		return common.promisify(function (deferred: Q.Deferred<any>):void {
+		return common.promisify(function(deferred: Q.Deferred<any>): void {
 			var buffer: string = '';
-			followRedirects.http.get(url, function (res) {
-				res.on('data', function (chunk: string) {
+			followRedirects.http.get(url, function(res) {
+				res.on('data', function(chunk: string) {
 					buffer += chunk;
 				});
 
-				res.on('end', function () {
+				res.on('end', function() {
 					deferred.resolve({
 						body: buffer,
 						headers: res.headers
 					});
 				});
 			})
-			.on('error', function (err: Error) {
-				deferred.reject(err);
-			});
+				.on('error', function(err: Error) {
+					deferred.reject(err);
+				});
 		});
 	}
 
-	function jsonGet(url: string):Q.Promise<any> {
-		return common.promisify(function (deferred: Q.Deferred<any>):void {
+	function jsonGet(url: string): Q.Promise<any> {
+		return common.promisify(function(deferred: Q.Deferred<any>): void {
 			httpGet(url)
-			.then(function(data){
-				try {
-					deferred.resolve(JSON.parse(data.body));
-				} catch (error) {
+				.then(function(data) {
+					try {
+						deferred.resolve(JSON.parse(data.body));
+					} catch (error) {
+						deferred.reject(error);
+					}
+				})
+				.catch(function(error) {
 					deferred.reject(error);
-				}
-			})
-			.catch(function(error){
-				deferred.reject(error)
-			});
+				});
 		});
 	}
 
@@ -91,8 +91,8 @@ module mediawiki {
 					action: 'render',
 					title: articleTitle
 				}
-			)
-		);
+				)
+			);
 	}
 
 	export function articleDetails(wikiName: string, articleTitles: string[]): Q.Promise<any> {
@@ -100,12 +100,12 @@ module mediawiki {
 			createUrl(
 				wikiName,
 				'api/v1/Articles/Details', {
-					titles: articleTitles.map(function(text: string):string {
+					titles: articleTitles.map(function(text: string): string {
 						return text.replace(' ', '_');
 					}).join(',')
 				}
-			)
-		);
+				)
+			);
 	}
 
 	export function articleComments(wikiName: string, articleId: number): Q.Promise<any> {
@@ -118,8 +118,8 @@ module mediawiki {
 					method: 'Content',
 					articleId: articleId.toString()
 				}
-			)
-		);
+				)
+			);
 	}
 
 	export function relatedPages(wikiName: string, articleIds: number[], limit: number = 6): Q.Promise<any> {
@@ -130,8 +130,8 @@ module mediawiki {
 					ids: articleIds.join(','),
 					limit: limit.toString()
 				}
-			)
-		);
+				)
+			);
 	}
 
 	export function userDetails(wikiName: string, userIds: number[]): Q.Promise<any> {
@@ -141,40 +141,40 @@ module mediawiki {
 				'api/v1/User/Details', {
 					ids: userIds.join(',')
 				}
-			)
-		);
+				)
+			);
 	}
 
-	export function getArticleCommentsCount(wikiName: string, articleId: number):Q.Promise<any> {
+	export function getArticleCommentsCount(wikiName: string, articleId: number): Q.Promise<any> {
 		return jsonGet(
 			createUrl(
 				wikiName,
 				'api/v1/Mercury/ArticleCommentsCount', {
 					articleId: articleId.toString()
 				}
-			)
-		);
+				)
+			);
 	}
 
-	export function getWikiTheme(wikiName: string):Q.Promise<any> {
+	export function getWikiTheme(wikiName: string): Q.Promise<any> {
 		return jsonGet(
 			createUrl(
 				wikiName,
 				'api/v1/Mercury/WikiSettings'
-			)
-		);
+				)
+			);
 	}
 
-	export function getTopContributors(wikiName: string, articleId: number):Q.Promise<any> {
+	export function getTopContributors(wikiName: string, articleId: number): Q.Promise<any> {
 		return jsonGet(
 			createUrl(
 				wikiName,
 				'api/v1/Mercury/TopContributorsPerArticle', {
 					articleId: articleId.toString()
 				}
-			)
-		);
+				)
+			);
 	}
 }
 
-export = mediawiki
+export = mediawiki;
