@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
 	assets = require('../assets'),
-	environment = require('../util/environment'),
+	environment = require('../utils/environment'),
 	paths = require('../paths').components;
 
 gulp.task('components', function (done) {
@@ -14,16 +14,16 @@ gulp.task('components', function (done) {
 
 	packages.forEach(function (key) {
 		var files = assets[key].map(function (asset) {
-			return paths.in + asset;
+			return paths.src + asset;
 		});
 
 		gulp.src(files)
-			.pipe(changed(paths.out, {
+			.pipe(changed(paths.dest, {
 				extension: '.js'
 			}))
 			.pipe(concat(key + '.js'))
 			.pipe(gulpif(environment.isProduction, uglify()))
-			.pipe(gulp.dest(paths.out));
+			.pipe(gulp.dest(paths.dest));
 
 		i += 1;
 

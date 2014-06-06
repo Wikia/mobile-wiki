@@ -6,7 +6,7 @@
 
 var localSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
-	host:  'localhost',
+	host: 'localhost',
 	port: 8000,
 	// Targeted environment [production|preview|verify|devbox_name]
 	environment: 'production'

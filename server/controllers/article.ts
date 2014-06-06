@@ -47,7 +47,7 @@ function getArticle(data: ResponseData): Q.Promise<any> {
 }
 
 function getArticleId(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>){
+	return common.promisify(function(deferred: Q.Deferred<any>) {
 		mediawiki.articleDetails(data.wikiName, [data.articleTitle])
 			.then(function(articleDetails) {
 				if (Object.keys(articleDetails.items).length > 0) {
@@ -64,7 +64,7 @@ function getArticleId(data: ResponseData): Q.Promise<any> {
 }
 
 function getArticleComments(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>){
+	return common.promisify(function(deferred: Q.Deferred<any>) {
 		mediawiki.articleComments(data.wikiName, data.articleDetails.id)
 			.then(function(articleComments) {
 				data.comments = articleComments;
@@ -77,7 +77,7 @@ function getArticleComments(data: ResponseData): Q.Promise<any> {
 }
 
 function getRelatedPages(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>){
+	return common.promisify(function(deferred: Q.Deferred<any>) {
 		mediawiki.relatedPages(data.wikiName, [data.articleDetails.id])
 			.then(function(relatedPages) {
 				data.relatedPages = relatedPages;
@@ -90,7 +90,7 @@ function getRelatedPages(data: ResponseData): Q.Promise<any> {
 }
 
 function getUserDetails(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>){
+	return common.promisify(function(deferred: Q.Deferred<any>) {
 		// todo: get top contributors list
 		var userIds: number[] = data.contributors.items;
 		mediawiki.userDetails(data.wikiName, userIds)
@@ -105,7 +105,7 @@ function getUserDetails(data: ResponseData): Q.Promise<any> {
 }
 
 function getTopContributors(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>){
+	return common.promisify(function(deferred: Q.Deferred<any>) {
 		mediawiki.getTopContributors(data.wikiName, data.articleDetails.id)
 			.then(function(topContributors) {
 				data.contributors = topContributors;
@@ -125,25 +125,22 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 
 	if (mem[data.wikiName + data.articleTitle]) {
 		reply(mem[data.wikiName + data.articleTitle]);
+
 	} else {
-		getArticleId(data).then(function(data){
+		getArticleId(data).then(function(data) {
 			return Q.all([
-					getArticle(data),
-					getRelatedPages(data),
-					getTopContributors(data).then(function(data) {
-						return getUserDetails(data);
-					})
-				]).done(function() {
+				getArticle(data),
+				getRelatedPages(data),
+				getTopContributors(data).then(function(data) {
+					return getUserDetails(data);
+				})
+			]).done(function() {
 					reply(data);
 
 					mem[data.wikiName + data.articleTitle] = data;
-				})
+				});
 		}).catch(function(error) {
 			reply(error);
 		});
 	}
-	
-	
-	
-
 }

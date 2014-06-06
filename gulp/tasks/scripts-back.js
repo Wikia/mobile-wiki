@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-back', function () {
 	return gulp
-		.src(paths.in)
+		.src(paths.src)
 		.pipe(typescript(options))
-		.pipe(gulp.dest(paths.out));
+		.pipe(gulp.dest(paths.dest));
 });

@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 	replace = require('gulp-replace-task'),
 	path = require('path'),
 	paths = require('../paths'),
-	environment = require('../util/environment'),
+	environment = require('../utils/environment'),
 	manifest,
 	files;
 
@@ -17,7 +17,7 @@ function getPath(key) {
 	);
 }
 
-gulp.task('views', ['sprites', 'sass'], function () {
+function views() {
 	files = [];
 
 	try {
@@ -33,7 +33,7 @@ gulp.task('views', ['sprites', 'sass'], function () {
 		gutil.log(exception.message);
 	}
 
-	return gulp.src(paths.views.in )
+	return gulp.src(paths.views.src )
 		.pipe(fileInclude({
 			basepath: paths.baseFull
 		}))
@@ -42,5 +42,8 @@ gulp.task('views', ['sprites', 'sass'], function () {
 			patterns: files,
 			prefix: '../public'
 		}))
-		.pipe(gulp.dest(paths.views.out));
-});
+		.pipe(gulp.dest(paths.views.dest));
+}
+
+gulp.task('views', ['sprites', 'sass'], views);
+gulp.task('views:revved', ['sprites', 'rev'], views);
