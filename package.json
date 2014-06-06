@@ -4,8 +4,8 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "dev": "gulp clean && gulp",
-    "start": "gulp"
+	"dev": "gulp clean && gulp",
+    "start": "gulp clean && gulp build --type production && node www/server/app.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "hapi": "5.x.x",
     "q": "1.0.x",
     "follow-redirects": "0.0.x",
-    "tslint": "~0.4.9"
+    "tslint": "0.4.x"
   },
   "devDependencies": {
     "sudo": "1.x.x",
@@ -48,6 +48,6 @@
     "gulp-file-include": "0.3.x",
     "gulp-minify-html": "0.1.x",
     "gulp-replace-task": "0.x.x",
-    "gulp-tslint": "~1.1.0"
+    "gulp-tslint": "1.x.x"
   }
 }
