@@ -27,7 +27,7 @@ function routes(server) {
 	// eg. http://www.example.com/articleComments/muppet/154
 	server.route({
 		method: 'GET',
-		path: '/articleComments/{wiki}/{articleId}',
+		path: '/articleComments/{wiki}/{articleId}/{page?}',
 		handler: require('./controllers/articleComments').handleRoute
 	});
 
