@@ -108,15 +108,13 @@ module mediawiki {
 			);
 	}
 
-	export function articleComments(wikiName: string, articleId: number): Q.Promise<any> {
-		// @todo JSON comments
-		return httpGet(
+	export function articleComments(wikiName: string, articleId: number, page: number = 1): Q.Promise<any> {
+		return jsonGet(
 			createUrl(
 				wikiName,
-				'wikia.php', {
-					controller: 'ArticleComments',
-					method: 'Content',
-					articleId: articleId.toString()
+				'api/v1/Mercury/ArticleComments', {
+					articleId: articleId.toString(),
+					page: page.toString()
 				}
 				)
 			);
