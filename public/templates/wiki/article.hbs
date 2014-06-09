@@ -1,7 +1,7 @@
 <section class="article-body">
 	<h1 class="article-title">{{cleanTitle}}</h1>
 	{{#table-of-contents sections=sections}}
-	{{i18n T.table-of-contents}}
+	{{i18n 'table-of-contents'}}
 	{{/table-of-contents}}
 	<article class="article-content">
 		{{{article}}}
@@ -15,7 +15,7 @@
 	</ul>
 	{{#if comments}}
 	<div class="comments">
-		{{i18n T.load-n-comments count=comments}}
+		{{i18n 'load-n-comments' count=comments}}
 	</div>
 	{{/if}}
 </section>

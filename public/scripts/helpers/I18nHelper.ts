@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 
-Em.Handlebars.registerBoundHelper('i18n', function(value: string, options: any) {
+Em.Handlebars.registerHelper('i18n', function(value: string, options: any) {
 	var params = {},
 		self = this,
 		namespace = 'app';
@@ -13,5 +13,5 @@ Em.Handlebars.registerBoundHelper('i18n', function(value: string, options: any) 
 		}
 	});
 
-	return App.get('i18n')(namespace + '.' + value, params);
-}, App.Translations);
+	return i18n.t(namespace + '.' + value, params);
+});
