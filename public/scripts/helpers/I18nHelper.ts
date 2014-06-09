@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 
-Em.Handlebars.registerHelper('i18n', function(value: string, options: any) {
+Em.Handlebars.registerBoundHelper('i18n', function(value: string, options: any) {
 	var params = {},
 		self = this,
 		namespace = 'app';
