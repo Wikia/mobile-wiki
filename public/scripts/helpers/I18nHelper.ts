@@ -13,5 +13,5 @@ Em.Handlebars.registerHelper('i18n', function(value: string, options: any) {
 		}
 	});
 
-	return i18n.t(namespace + '.' + value, params);
+	return i18n.t(namespace + ':' + value, params);
 });

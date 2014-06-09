@@ -4,6 +4,7 @@
 'use strict';
 
 declare var i18n;
+declare var _T;
 
 var App: any = Em.Application.create({
 	LOG_ACTIVE_GENERATION: true,
@@ -15,15 +16,10 @@ var App: any = Em.Application.create({
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		App.deferReadiness();
 		i18n.init({
-			lng: application.get('language'),
-			fallbackLng: application.get('language'),
-			resGetPath: '/locales/__lng__/__ns__.json',
-			debug: true,
-			useLocalStorage: false
-		}, () => {
-			App.advanceReadiness();
+			lng: 'en',
+			debug: 'true',
+			resStore: _T
 		});
 	}
 });
