@@ -8,7 +8,7 @@
 
 module.exports = {
 	main: [
-		'jquery/dist/jquery.js',
+		'jquery/jquery.js',
 		'handlebars/handlebars.runtime.js',
 		'ember/ember.js',
 		'i18next/i18next.js'
