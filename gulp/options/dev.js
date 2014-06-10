@@ -32,7 +32,9 @@ module.exports = {
 		output: 'browser'
 	},
 	svg: {
-		defs: true
+		defs: true,
+		generatePreview: false,
+		generateCSS: false
 	},
 	clean: {
 		read: false
