@@ -35,12 +35,14 @@ module.exports = {
 		dest: basePath + '/views'
 	},
 	templates: {
-		src: 'public/templates/**/*.hbs',
-		dest: basePath + '/public/templates'
+		src: 'public/templates/',
+		dest: basePath + '/public/templates',
+		files: '**/*.hbs'
 	},
 	svg: {
-		src: 'public/svg/*.svg',
-		dest: basePath + '/public/svg'
+		src: 'public/svg',
+		dest: basePath + '/public/svg',
+		files: '*.svg'
 	},
 	nodemon: {
 		script: basePath + '/server/app.js',
