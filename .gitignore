@@ -9,6 +9,8 @@
 node_modules/
 vendor/
 public/components/
+public/styles/components/
+bower_components/
 
 /* Node/NPM */
 *.log
