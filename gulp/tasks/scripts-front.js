@@ -3,15 +3,19 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
+	folders = require('gulp-folder'),
+	concat = require('gulp-concat'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
-	paths = require('../paths').scripts.front;
+	paths = require('../paths').scripts.front,
+	path = require('path');
 
-gulp.task('scripts-front', function () {
+gulp.task('scripts-front', folders(paths.src, function (folder) {
 	return gulp
-		.src(paths.src)
+		.src(path.join(paths.src, folder, paths.files))
 		.pipe(changed(paths.dest, { extension: '.js' }))
 		.pipe(typescript(options))
 		.pipe(gulpif(environment.isProduction, uglify()))
+		.pipe(concat(folder + '.js'))
 		.pipe(gulp.dest(paths.dest));
-});
+}));

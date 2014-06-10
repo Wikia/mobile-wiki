@@ -17,7 +17,7 @@ gulp.task('watch', function () {
 		log('Style changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.front.src, ['tslint', 'scripts-front']).on('change', function (event) {
+	gulp.watch(paths.scripts.front.src + paths.scripts.front.files, ['tslint', 'scripts-front']).on('change', function (event) {
 		log('Script changed:', gutil.colors.green(event.path));
 	});
 
