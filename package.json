@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "gulp clean && gulp",
-    "start": "gulp clean && gulp build --type production && node www/server/app.js"
+    "start": "gulp clean && gulp build --type production && forever www/server/app.js"
   },
   "repository": {
     "type": "git",
@@ -48,7 +48,6 @@
     "gulp-file-include": "0.3.x",
     "gulp-minify-html": "0.1.x",
     "gulp-replace-task": "0.x.x",
-    "gulp-tslint": "1.x.x",
-    "event-stream": "^3.1.5"
+    "gulp-tslint": "1.x.x"
   }
 }
