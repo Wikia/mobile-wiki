@@ -25,12 +25,11 @@ gulp.task('watch', function () {
 		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
-
-	gulp.watch(paths.templates.src, ['templates']).on('change', function (event) {
+	gulp.watch(paths.templates.src + paths.templates.files, ['templates']).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.svg.src, ['sprites']).on('change', function (event) {
+	gulp.watch(paths.svg.src + paths.svg.files, ['sprites']).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 
