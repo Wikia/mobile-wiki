@@ -34,22 +34,22 @@ interface ResponseData {
  * @returns {Q.Promise<*>}
  */
 function getArticle(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>) {
+	return common.promisify((deferred: Q.Deferred<any>) => {
 		mediawiki.article(data.wikiName, data.articleTitle)
-			.then(function(article) {
+			.then((article) => {
 				data.payload = article.body;
 				deferred.resolve(data);
 			})
-			.catch(function(error) {
+			.catch((error) => {
 				deferred.reject(error);
 			});
 	});
 }
 
 function getArticleId(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>) {
+	return common.promisify((deferred: Q.Deferred<any>) => {
 		mediawiki.articleDetails(data.wikiName, [data.articleTitle])
-			.then(function(articleDetails) {
+			.then((articleDetails) => {
 				if (Object.keys(articleDetails.items).length > 0) {
 					data.articleDetails = articleDetails.items[Object.keys(articleDetails.items)[0]];
 					deferred.resolve(data);
@@ -57,33 +57,33 @@ function getArticleId(data: ResponseData): Q.Promise<any> {
 					deferred.reject(new Error('Article not found'));
 				}
 			})
-			.catch(function(error) {
+			.catch((error) => {
 				deferred.reject(error);
 			});
 	});
 }
 
 function getArticleComments(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>) {
+	return common.promisify((deferred: Q.Deferred<any>) => {
 		mediawiki.articleComments(data.wikiName, data.articleDetails.id)
-			.then(function(articleComments) {
+			.then((articleComments) => {
 				data.comments = articleComments;
 				deferred.resolve(data);
 			})
-			.catch(function(error) {
+			.catch((error) => {
 				deferred.reject(error);
 			});
 	});
 }
 
 function getRelatedPages(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>) {
+	return common.promisify((deferred: Q.Deferred<any>) => {
 		mediawiki.relatedPages(data.wikiName, [data.articleDetails.id])
-			.then(function(relatedPages) {
+			.then((relatedPages) => {
 				data.relatedPages = relatedPages;
 				deferred.resolve(data);
 			})
-			.catch(function(error) {
+			.catch((error) => {
 				deferred.reject(error);
 			});
 	});
@@ -94,53 +94,61 @@ function getUserDetails(data: ResponseData): Q.Promise<any> {
 		// todo: get top contributors list
 		var userIds: number[] = data.contributors.items;
 		mediawiki.userDetails(data.wikiName, userIds)
-			.then(function(userDetails) {
+			.then((userDetails) => {
 				data.userDetails = userDetails;
 				deferred.resolve(data);
 			})
-			.catch(function(error) {
+			.catch((error) => {
 				deferred.reject(error);
 			});
 	});
 }
 
 function getTopContributors(data: ResponseData): Q.Promise<any> {
-	return common.promisify(function(deferred: Q.Deferred<any>) {
+	return common.promisify((deferred: Q.Deferred<any>) => {
 		mediawiki.getTopContributors(data.wikiName, data.articleDetails.id)
-			.then(function(topContributors) {
+			.then((topContributors) => {
 				data.contributors = topContributors;
 				deferred.resolve(data);
 			})
-			.catch(function(error) {
+			.catch((error) => {
 				deferred.reject(error);
 			});
 	});
 }
 
+export function createFullArticle(data: any, callback: any, err: any) {
+	getArticleId(data)
+		.then((data) => {
+			return Q.all([
+				getArticle(data),
+				getRelatedPages(data),
+				getTopContributors(data).then((data) => {
+					return getUserDetails(data);
+				})
+			]).done(() => {
+					callback(data);
+				});
+
+		}).catch(() => {
+			err();
+		});
+}
+
 export function handleRoute(request: Hapi.Request, reply: Function): void {
 	var data = {
 		wikiName: request.params.wiki,
-		articleTitle: request.params.articleTitle
+		articleTitle: decodeURIComponent(request.params.articleTitle)
 	};
-
 	if (mem[data.wikiName + data.articleTitle]) {
 		reply(mem[data.wikiName + data.articleTitle]);
 
 	} else {
-		getArticleId(data).then(function(data) {
-			return Q.all([
-				getArticle(data),
-				getRelatedPages(data),
-				getTopContributors(data).then(function(data) {
-					return getUserDetails(data);
-				})
-			]).done(function() {
-					reply(data);
-
-					mem[data.wikiName + data.articleTitle] = data;
-				});
-		}).catch(function(error) {
-			reply(error);
-		});
+		createFullArticle(data, (data) => {
+			reply(data);
+			mem[data.wikiName + data.articleTitle] = data;
+		}, (error) => {
+				reply(error);
+			});
 	}
 }

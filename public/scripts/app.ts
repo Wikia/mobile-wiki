@@ -4,22 +4,24 @@
 'use strict';
 
 declare var i18n;
-declare var _T;
+declare var Wikia;
 
 var App: any = Em.Application.create({
 	LOG_ACTIVE_GENERATION: true,
 	LOG_VIEW_LOOKUPS: true,
 	LOG_TRANSITIONS: true,
+	rootElement: '#app-container',
 	language: 'en'
 });
 
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
+		$('html').removeClass('preload');
 		i18n.init({
 			lng: 'en',
 			debug: 'true',
-			resStore: _T
+			resStore: Wikia._t
 		});
 	}
 });

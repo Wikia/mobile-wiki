@@ -11,8 +11,56 @@
 
 		<style>@@include('public/styles/baseline.css')</style>
 		<script>
-			window._T = {};
-			_T.en = @@include('public/locales/en/translation.json');
+			(function (window) {
+				'use strict';
+				document.querySelector('html').classList.add('preload');
+
+				function namespacer(str, ns, val) {
+					var parts, i;
+
+					if (!str) {
+						parts = [];
+					} else {
+						parts = str.split('.');
+					}
+
+					if (parts.length === 1 && !ns) {
+						throw new Error('Uneccessary assignment, please specify more items in arg1 or a namespace in arg2');
+					}
+
+					if (!ns) {
+						ns = window;
+					}
+
+					if (typeof ns === 'string') {
+						ns = window[ns] = window[ns] || {};
+					}
+
+					for (i = 0; i < parts.length; i++) {
+						// if a obj is passed in and loop is assigning last variable in namespace
+						if (i === parts.length - 1) {
+							ns = ns[parts[i]] = val;
+						} else {
+							// if namespace doesn't exist, instantiate as empty object
+							ns = ns[parts[i]] = ns[parts[i]] || {};
+						}
+					}
+					return ns;
+				}
+
+				namespacer(null, 'Wikia', {});
+
+				Wikia.provide = function (str, obj) {
+					if (typeof str !== 'string') {
+						throw Error('Invalid string supplied to namespacer');
+					}
+					return namespacer(str, 'Wikia', obj);
+				};
+			})(window);
+
+			Wikia.provide('_t.en', @@include('public/locales/en/translation.json'));
+			Wikia.provide('article', {{{articleJson}}});
+			Wikia.provide('_state.firstPage', true);
 		</script>
 	</head>
 	<body>
@@ -22,7 +70,9 @@
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
-		{{{content}}}
+		<div id="app-container">
+			{{{content}}}
+		</div>
 
 		<script src="/components/main.js"></script>
 		<script src="/templates/main.js"></script>
