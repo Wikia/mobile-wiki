@@ -1,7 +1,7 @@
-# pubilc folder
+# Public folder
 This is the place to store all client side assets
 
-# locales
+## locales
 Place for all translation files
 
 Folder structure:
@@ -11,7 +11,7 @@ Folder structure:
   	  filename.json
 ```
 
-# scripts
+## scripts
 Place for all client side files
 
 Folder structure:
@@ -28,7 +28,7 @@ that is compiled to
     packageName.js
 ```
 
-# styles
+## styles
 Place for all styles
 
 Folder structure:
@@ -56,7 +56,7 @@ so to add new package just add filename.scss
 vendor folder should not be edited manually
 This is where bower installs third party scss
 
-# svg
+## svg
 Place for all svg icons and graphics
 
 ```
@@ -72,7 +72,7 @@ That is compiled to
     packageName.svg
 ```
 
-# templates
+## templates
 Place for all template files
 
 ```
@@ -87,7 +87,7 @@ That is compiled to
   templates
     packageName.js
 ```
-# vendor
+## vendor
 Those are third party files
 Should not be touched manually
 place that bower installs all files
