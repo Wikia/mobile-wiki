@@ -8,8 +8,8 @@
 /* Packages */
 node_modules/
 vendor/
-public/components/
-public/styles/components/
+public/vendor/
+public/styles/vendor/
 bower_components/
 
 /* Node/NPM */

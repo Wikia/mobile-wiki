@@ -15,8 +15,8 @@
   },
   "install": {
 	  "path" : {
-		  "scss": "public/styles/components",
-		  "js": "public/components"
+		  "scss": "public/styles/vendor",
+		  "js": "public/vendor"
 	  },
 	  "sources" : {
 		  "foundation": "bower_components/foundation/scss/**",
