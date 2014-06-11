@@ -7,5 +7,3 @@ install:
    - node installer.js
    - tsd update --overwrite --verbose --save
    - bower-installer
-env:
-   - NODE_ENV="production"
