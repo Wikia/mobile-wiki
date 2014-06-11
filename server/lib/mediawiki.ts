@@ -137,7 +137,7 @@ module mediawiki {
 			createUrl(
 				wikiName,
 				'api/v1/User/Details', {
-					ids: userIds.join(',')
+					ids: userIds ? userIds.join(',') : '0'
 				}
 				)
 			);
