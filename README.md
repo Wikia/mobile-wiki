@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Wikia/mercury.svg?branch=master)](https://travis-ci.org/Wikia/mercury)
+[![Build Status](https://travis-ci.org/Wikia/mercury.svg?branch=master&style=flat)](https://travis-ci.org/Wikia/mercury)
 
 # Wikia Mobile
 1. [Getting Started](#getting-started)
