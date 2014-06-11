@@ -43,12 +43,10 @@ App.WikiArticleView = Em.View.extend({
 		}, 1000);
 	}.observes('controller.article'),
 
-	eventManager: {
-		click(event) {
-			if (event.target.tagName === 'A') {
-				event.preventDefault();
-				this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
-			}
+	click(event) {
+		if (event.target.tagName === 'A') {
+			event.preventDefault();
+			this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
 		}
 	},
 
