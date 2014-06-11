@@ -5,9 +5,9 @@ var gulp = require('gulp'),
 	changed = require('gulp-changed'),
 	assets = require('../assets'),
 	environment = require('../utils/environment'),
-	paths = require('../paths').components;
+	paths = require('../paths').vendor;
 
-gulp.task('components', function (done) {
+gulp.task('vendor', function (done) {
 	var packages = Object.keys(assets),
 		length = packages.length,
 		i = 0;

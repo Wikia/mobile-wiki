@@ -7,9 +7,9 @@ var path = require('path'),
 module.exports = {
 	base: basePath,
 	baseFull: path.resolve(basePath),
-	components: {
-		src: 'public/components/',
-		dest: basePath + '/public/components'
+	vendor: {
+		src: 'public/vendor/',
+		dest: basePath + '/public/vendor'
 	},
 	locales: {
 		src: 'public/locales/**/*.json',

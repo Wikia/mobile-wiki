@@ -19,7 +19,7 @@ App.initializer({
 		i18n.init({
 			lng: application.get('language'),
 			fallbackLng: application.get('language'),
-			resGetPath: '/locales/__lng__/__ns__.json',
+			resGetPath: '/assets/locales/__lng__/__ns__.json',
 			debug: true,
 			useLocalStorage: false
 		}, () => {
