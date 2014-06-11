@@ -4,8 +4,9 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-	"dev": "gulp clean && gulp",
-    "start": "gulp clean && gulp build --type production && node www/server/app.js"
+    "dev": "gulp clean && gulp",
+    "start": "gulp clean && gulp build --type production && node www/server/app.js",
+    "test": "gulp build --type production"
   },
   "repository": {
     "type": "git",
