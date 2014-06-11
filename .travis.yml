@@ -4,6 +4,6 @@ node_js:
    - 0.10
 install:
    - npm install
-   - node installer.js
+   - sudo npm install -g bower jshint gulp
    - tsd update --overwrite --verbose --save
-   - bower-installer
+   - bower-installern
