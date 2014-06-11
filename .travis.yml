@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-   - 0.11
-   - 0.10
+   - "0.11"
+   - "0.10"
 cache: npm
 install:
    - npm install
-   - npm install -g bower jshint gulp tsd
-   - tsd update --overwrite --verbose --save
-   - bower install
+   - npm install -g bower jshint gulp tsd bower-installer
+   - tsd update --overwrite
+   - bower-installer
