@@ -2,8 +2,9 @@ language: node_js
 node_js:
    - 0.11
    - 0.10
+cache: npm
 install:
    - npm install
-   - npm install -g bower jshint gulp
+   - npm install -g bower jshint gulp tsd
    - tsd update --overwrite --verbose --save
-   - bower-installern
+   - bower install
