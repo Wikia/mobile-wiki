@@ -8,7 +8,6 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-	"jquery": "2.1.x",
     "ember": "1.5.x",
     "foundation": "5.2.x",
     "i18next": "1.7.x"
