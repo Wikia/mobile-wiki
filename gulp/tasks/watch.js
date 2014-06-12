@@ -21,9 +21,10 @@ gulp.task('watch', ['assets'], function () {
 		log('Style changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.scripts.front.src + paths.scripts.front.files, ['tslint', 'scripts-front']).on('change', function (event) {
-		log('Script changed:', gutil.colors.green(event.path));
-	});
+	gulp.watch(paths.scripts.front.src + paths.scripts.front.files, ['tslint', 'scripts-front'])
+		.on('change', function (event) {
+			log('Script changed:', gutil.colors.green(event.path));
+		});
 
 	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back']).on('change', function (event) {
 		log('Script for backend changed:', gutil.colors.green(event.path));
