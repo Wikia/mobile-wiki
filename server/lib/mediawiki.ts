@@ -22,12 +22,18 @@ module mediawiki {
 			options = {
 				production: '',
 				preview: 'preview.',
-				verify: 'verify.'
+				verify: 'verify.',
+				sandbox: ''
 			};
 
 		if (!environment) {
 			throw Error('Environment not set');
 		}
+
+		if (typeof localSettings.environment === 'sandbox') {
+			return 'http://' + localSettings.host + '.' + wikiSubDomain + '.wikia.com/';
+		}
+
 		if (typeof options[environment] !== 'undefined') {
 			return 'http://' + options[environment] + wikiSubDomain + '.wikia.com/';
 		}

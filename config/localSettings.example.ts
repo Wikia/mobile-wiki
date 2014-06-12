@@ -6,10 +6,10 @@
 
 var localSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
-	host: 'localhost',
+	host: process.env.HOST,
 	port: 8000,
 	// Targeted environment [production|preview|verify|devbox_name]
-	environment: 'production'
+	environment: process.env.WIKIA_ENVIRONMENT || 'production'
 };
 
 export = localSettings;
