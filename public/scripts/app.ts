@@ -19,9 +19,11 @@ App.initializer({
 	initialize: (container: any, application: any) => {
 		$('html').removeClass('preload');
 		i18n.init({
-			lng: 'en',
-			debug: 'true',
-			resStore: Wikia._t
+			lng: application.get('language'),
+			fallbackLng: application.get('language'),
+			debug: true,
+			resStore: Wikia._t,
+			useLocalStorage: false
 		});
 	}
 });

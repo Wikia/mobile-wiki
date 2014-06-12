@@ -17,6 +17,7 @@
   "dependencies": {
     "ember": "~1.5.1",
     "foundation": "~5.2.1",
-    "i18next": "~1.7.3"
+    "i18next": "~1.7.3",
+    "ember-qunit": "~0.1.8"
   }
 }
