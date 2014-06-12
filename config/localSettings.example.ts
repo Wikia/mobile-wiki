@@ -1,3 +1,4 @@
+/// <reference path="../typings/node/node.d.ts" />
 /**
  * localSettings for application
  * @example
@@ -9,7 +10,9 @@ var localSettings = {
 	host: process.env.HOST,
 	port: 8000,
 	// Targeted environment [production|preview|verify|devbox_name]
-	environment: process.env.WIKIA_ENVIRONMENT || 'production'
+	environment: process.env.WIKIA_ENVIRONMENT || 'production',
+	mediawikiHost: 'your-devbox-name'
+
 };
 
 export = localSettings;

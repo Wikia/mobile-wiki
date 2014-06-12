@@ -10,7 +10,8 @@
   "dependencies": {
     "ember": "1.5.x",
     "foundation": "5.2.x",
-    "i18next": "1.7.x"
+    "i18next": "1.7.x",
+    "ember-qunit": "~0.1.8"
   },
   "install": {
     "path" : {
