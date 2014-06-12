@@ -34,7 +34,7 @@ function views() {
 		gutil.log(exception.message);
 	}
 
-	return gulp.src(paths.views.src )
+	return gulp.src(paths.views.src)
 		.pipe(fileInclude({
 			basepath: paths.baseFull
 		}))

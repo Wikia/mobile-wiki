@@ -5,11 +5,13 @@ var gulp = require('gulp'),
 	paths = require('../paths').styles;
 
 gulp.task('sass', function () {
-	return gulp
-		.src(paths.src)
+	return gulp.src(paths.src)
 		// .pipe(changed(paths.dest, { extension: '.css' }))
 		.pipe(sass(options))
 		//currently support for map is broken
-		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], { cascade: false, map: false }))
+		.pipe(prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], {
+			cascade: false,
+			map: false
+		}))
 		.pipe(gulp.dest(paths.dest));
 });

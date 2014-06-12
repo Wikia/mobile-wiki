@@ -10,10 +10,10 @@ gulp.task('watch', ['assets'], function () {
 	livereload.listen();
 
 	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
-        /*
+		/*
 		 * Baseline is a scss file that gets inlined, so the views must be recompiled
 		 * when it is changed
-         */
+		 */
 		if (event.path.match('baseline.scss')) {
 			gulp.start('views');
 		}
@@ -42,7 +42,7 @@ gulp.task('watch', ['assets'], function () {
 		log('Views changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.baseFull + '/public/**').on('change', function(event){
+	gulp.watch(paths.baseFull + '/public/**').on('change', function (event) {
 		livereload.changed(event.path);
 	});
 });

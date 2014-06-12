@@ -10,13 +10,13 @@ var gulp = require('gulp'),
 gulp.task('rev', ['sass', 'scripts-front', 'templates', 'vendor'], function () {
 	return gulp
 		.src([
-				paths.scripts.front.dest + '/*.js',
-				paths.styles.dest + '/*.css',
-				paths.vendor.dest + '/*.js',
-				paths.templates.dest + '/*.js'
-			],
-			{base: '.'}
-		)
+			paths.scripts.front.dest + '/*.js',
+			paths.styles.dest + '/*.css',
+			paths.vendor.dest + '/*.js',
+			paths.templates.dest + '/*.js'
+		], {
+			base: '.'
+		})
 		.pipe(rev())
 		.pipe(gulp.dest(paths.base + '/../'))
 		.pipe(rev.manifest())

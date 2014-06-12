@@ -13,7 +13,9 @@ var gulp = require('gulp'),
 gulp.task('scripts-front', folders(paths.src, function (folder) {
 	return gulp
 		.src(path.join(paths.src, folder, paths.files))
-		.pipe(changed(paths.dest, { extension: '.js' }))
+		.pipe(changed(paths.dest, {
+			extension: '.js'
+		}))
 		.pipe(typescript(options))
 		.pipe(gulpif(environment.isProduction, uglify()))
 		.pipe(concat(folder + '.js'))
