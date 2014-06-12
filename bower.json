@@ -1,7 +1,7 @@
 {
   "name": "public",
   "version": "0.0.1",
-  "homepage": "https://github.com/Wikia/mobile",
+  "homepage": "https://github.com/Wikia/mercury",
   "authors": [
     "Kenneth Kouot <kenneth@wikia-inc.com>"
   ],
@@ -13,14 +13,14 @@
     "i18next": "1.7.x"
   },
   "install": {
-	  "path" : {
-		  "scss": "public/styles/vendor",
-		  "js": "public/vendor"
-	  },
-	  "sources" : {
-		  "foundation": "bower_components/foundation/scss/**",
-		  "modernizr": "bower_components/modernizr/modernizr.js",
-		  "handlebars": "bower_components/handlebars/handlebars.runtime.js"
-	  }
+    "path" : {
+      "scss": "public/styles/vendor",
+      "js": "public/vendor"
+    },
+    "sources" : {
+      "foundation": "bower_components/foundation/scss/**",
+      "modernizr": "bower_components/modernizr/modernizr.js",
+      "handlebars": "bower_components/handlebars/handlebars.runtime.js"
+    }
   }
 }
