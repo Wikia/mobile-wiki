@@ -93,14 +93,20 @@ function getUserDetails(data: ResponseData): Q.Promise<any> {
 	return common.promisify(function(deferred: Q.Deferred<any>) {
 		// todo: get top contributors list
 		var userIds: number[] = data.contributors.items;
-		mediawiki.userDetails(data.wikiName, userIds)
-			.then(function(userDetails) {
-				data.userDetails = userDetails;
-				deferred.resolve(data);
-			})
-			.catch(function(error) {
-				deferred.reject(error);
-			});
+
+		if ( userIds ) {
+			mediawiki.userDetails(data.wikiName, userIds)
+				.then(function(userDetails) {
+					data.userDetails = userDetails;
+					deferred.resolve(data);
+				})
+				.catch(function(error) {
+					deferred.reject(error);
+				});
+		} else {
+			data.userDetails = [];
+			deferred.resolve(data);
+		}
 	});
 }
 
