@@ -11,13 +11,17 @@ function index(request: any, reply: { view: Function }) {
 	}, (data) => {
 		var payload = data.payload;
 		var title = data.cleanTitle;
+		// We're already sending the article body (which can get quite large) back to get rendered in the template,
+		// so let's not send it with the JSON payload either
 		delete data.payload;
 		delete data.cleanTitle;
 		reply.view('application', {
+			// article content to be rendered on server
 			article: {
-						 payload: payload,
-						 cleanTitle: title
-					 },
+				payload: payload,
+				cleanTitle: title
+			 },
+			// article data to bootstrap Ember with in first load of application
 			articleJson: JSON.stringify(data)
 		});
 	}, (error) => {

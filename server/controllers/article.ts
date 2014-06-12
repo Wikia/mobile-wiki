@@ -148,7 +148,7 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 			reply(data);
 			mem[data.wikiName + data.articleTitle] = data;
 		}, (error) => {
-				reply(error);
+			reply(error);
 		});
 	}
 }
