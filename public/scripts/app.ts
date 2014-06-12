@@ -4,26 +4,24 @@
 'use strict';
 
 declare var i18n;
+declare var Wikia;
 
 var App: any = Em.Application.create({
 	LOG_ACTIVE_GENERATION: true,
 	LOG_VIEW_LOOKUPS: true,
 	LOG_TRANSITIONS: true,
+	rootElement: '#app-container',
 	language: 'en'
 });
 
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		App.deferReadiness();
+		$('html').removeClass('preload');
 		i18n.init({
-			lng: application.get('language'),
-			fallbackLng: application.get('language'),
-			resGetPath: '/locales/__lng__/__ns__.json',
-			debug: true,
-			useLocalStorage: false
-		}, () => {
-			App.advanceReadiness();
+			lng: 'en',
+			debug: 'true',
+			resStore: Wikia._t
 		});
 	}
 });
