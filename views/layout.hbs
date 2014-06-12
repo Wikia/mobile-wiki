@@ -10,6 +10,13 @@
 		<link rel="stylesheet" href="/assets/styles/app.css">
 
 		<style>@@include('public/styles/baseline.css')</style>
+
+        <!-- @if WIKIA_ENVIRONMENT='dev' -->
+        <script src="/assets/scripts/dev.js"></script>
+        <!-- @endif -->
+        <!-- @if WIKIA_ENVIRONMENT='production' -->
+        <script src="/assets/scripts/analytics.js"></script>
+        <!-- @endif -->
 	</head>
 	<body>
 		@@include('public/svg/main.svg')
@@ -23,6 +30,5 @@
 		<script src="/assets/vendor/main.js"></script>
 		<script src="/assets/templates/main.js"></script>
 		<script src="/assets/scripts/main.js"></script>
-		<script src="/assets/scripts/dev.js"></script>
 	</body>
 </html>

@@ -38,7 +38,7 @@ module mediawiki {
 			return 'http://' + options[environment] + wikiSubDomain + '.wikia.com/';
 		}
 		// Devbox
-		return 'http://' + wikiSubDomain + '.' + environment + '.wikia-dev.com/';
+		return 'http://' + wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com/';
 	}
 
 	function createUrl(wikiSubDomain: string, path: string, params: URLParams = {}): string {

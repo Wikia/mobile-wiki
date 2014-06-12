@@ -3,6 +3,7 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	minifyHTML = require('gulp-minify-html'),
 	fileInclude = require('gulp-file-include'),
+	preprocess = require('gulp-preprocess'),
 	replace = require('gulp-replace-task'),
 	path = require('path'),
 	paths = require('../paths'),
@@ -42,6 +43,7 @@ function views() {
 			patterns: files,
 			prefix: '../public'
 		}))
+		.pipe(preprocess())
 		.pipe(gulp.dest(paths.views.dest));
 }
 
