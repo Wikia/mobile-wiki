@@ -11,3 +11,7 @@
 * alternatively run `./install.sh`
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and add your eth0 address as the host, set a port
 * run npm run-script dev to start server and watch files
+
+##Live reload
+on dev environments livereload server runs that reload your web browser on any change in public folder
+
