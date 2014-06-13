@@ -10,18 +10,17 @@
   "dependencies": {
     "ember": "1.5.x",
     "foundation": "5.2.x",
-    "i18next": "1.7.x",
+    "i18next": "1.7.x"
+  },
+  "devDependencies": {
     "ember-qunit": "~0.1.8"
   },
-  "install": {
-    "path" : {
-      "scss": "public/styles/vendor",
-      "js": "public/vendor"
-    },
-    "sources" : {
-      "foundation": "bower_components/foundation/scss/**",
-      "modernizr": "bower_components/modernizr/modernizr.js",
-      "handlebars": "bower_components/handlebars/handlebars.runtime.js"
-    }
+  "packages": {
+    "main": [
+      "jquery/dist/jquery.js",
+      "handlebars/handlebars.runtime.js",
+      "ember/ember.js",
+      "i18next/i18next.js"
+    ]
   }
 }

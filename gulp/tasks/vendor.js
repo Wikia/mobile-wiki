@@ -3,17 +3,17 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	changed = require('gulp-changed'),
-	assets = require('../assets'),
+	packages = require('../../bower').packages,
 	environment = require('../utils/environment'),
 	paths = require('../paths').vendor;
 
 gulp.task('vendor', function (done) {
-	var packages = Object.keys(assets),
-		length = packages.length,
+	var packageNames = Object.keys(packages),
+		length = packageNames.length,
 		i = 0;
 
-	packages.forEach(function (key) {
-		var files = assets[key].map(function (asset) {
+	packageNames.forEach(function (name) {
+		var files = packages[name].map(function (asset) {
 			return paths.src + asset;
 		});
 
@@ -21,7 +21,7 @@ gulp.task('vendor', function (done) {
 			.pipe(changed(paths.dest, {
 				extension: '.js'
 			}))
-			.pipe(concat(key + '.js'))
+			.pipe(concat(name + '.js'))
 			.pipe(gulpif(environment.isProduction, uglify()))
 			.pipe(gulp.dest(paths.dest));
 
