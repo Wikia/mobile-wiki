@@ -1,13 +1,10 @@
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	log = require('../utils/logger'),
-	livereload = require('gulp-livereload'),
 	paths = require('../paths');
 
 gulp.task('watch', ['assets'], function () {
 	log('Watching files');
-
-	livereload.listen();
 
 	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
 		/*
@@ -40,9 +37,5 @@ gulp.task('watch', ['assets'], function () {
 
 	gulp.watch(paths.views.src, ['views']).on('change', function (event) {
 		log('Views changed:', gutil.colors.green(event.path));
-	});
-
-	gulp.watch(paths.baseFull + '/public/**').on('change', function (event) {
-		livereload.changed(event.path);
 	});
 });
