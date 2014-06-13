@@ -1,10 +1,9 @@
 /**
- * Adds livereload script to the page
+ * Adds browser-sync script to the page
  */
 
 document.write(
-	'<script src="http://' +
-		(location.host || 'localhost').split(':')[0] +
-		':35729/livereload.js?snipver=1"></' +
-		'script>'
+	"<script defer src='//HOST:3000/socket.io/socket.io.js'><\/script>" +
+	"<script defer src='//HOST:3001/client/browser-sync-client.0.9.1.js'><\/script>"
+	.replace(/HOST/g, location.hostname)
 );

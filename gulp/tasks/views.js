@@ -47,5 +47,5 @@ function views() {
 		.pipe(gulp.dest(paths.views.dest));
 }
 
-gulp.task('views', ['sprites', 'sass'], views);
+gulp.task('views', ['sprites', 'sass', 'scripts-front'], views);
 gulp.task('views:revved', ['sprites', 'rev'], views);
