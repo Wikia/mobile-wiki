@@ -8,6 +8,9 @@
 // properly
 document.write('<div id="ember-testing"></div>');
 
+window.Wikia = {};
+window.Wikia._t = { en: {} };
+
 var App = window.App;
 
 Ember.run(function () {
