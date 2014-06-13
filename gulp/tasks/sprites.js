@@ -4,8 +4,8 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	folders = require('gulp-folders'),
 	options = require('../options').svg,
-	paths = require('../paths').svg;
-path = require('path');
+	paths = require('../paths').svg,
+	path = require('path');
 
 gulp.task('sprites', folders(paths.src, function (folder) {
 	return gulp.src(path.join(paths.src, folder, paths.files))
