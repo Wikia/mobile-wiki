@@ -7,10 +7,7 @@
 
 /* Packages */
 node_modules/
-vendor/
 public/vendor/
-public/styles/vendor/
-bower_components/
 
 /* Node/NPM */
 *.log
@@ -23,8 +20,4 @@ www/
 config/localSettings.ts
 config/localSettings.js
 config/localSettings.example.js
-
-/* Compiled Files */
-server/*.js
-server/**/*.js
 
