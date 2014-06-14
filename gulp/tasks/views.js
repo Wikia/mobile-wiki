@@ -2,7 +2,6 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	gulpif = require('gulp-if'),
 	minifyHTML = require('gulp-minify-html'),
-	fileInclude = require('gulp-file-include'),
 	preprocess = require('gulp-preprocess'),
 	replace = require('gulp-replace-task'),
 	path = require('path'),
@@ -35,13 +34,11 @@ function views() {
 	}
 
 	return gulp.src(paths.views.src)
-		.pipe(fileInclude({
-			basepath: paths.baseFull
-		}))
 		.pipe(gulpif(environment.isProduction, minifyHTML()))
 		.pipe(replace({
 			patterns: files,
-			prefix: '../public'
+			prefix: '/assets',
+			preservePrefix: true
 		}))
 		.pipe(preprocess())
 		.pipe(gulp.dest(paths.views.dest));
