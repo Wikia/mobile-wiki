@@ -31,6 +31,15 @@ App.WikiArticleModel = Ember.Object.extend({
 	comments: 0,
 
 	titleChanged: function() {
+		if (Wikia._state.firstPage) {
+			this.fetchFromPreload();
+			Wikia._state.firstPage = false;
+		} else {
+			this.fetch();
+		}
+	}.observes('title').on('init'),
+
+	fetch() {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
 			.then(
 			(response: Response) => {
@@ -45,5 +54,19 @@ App.WikiArticleModel = Ember.Object.extend({
 			// TODO: handle errors
 			() => { return; }
 			);
-	}.observes('title').on('init')
+	},
+
+	fetchFromPreload() {
+		var articleMeta = Wikia.article,
+			articleContent = $('.article-content').html();
+
+		this.set('article', articleContent);
+		this.set('comments', articleMeta.articleDetails.comments);
+		this.set('id', articleMeta.articleDetails.id);
+		this.set('namespace', articleMeta.articleDetails.ns);
+		this.set('cleanTitle', articleMeta.articleDetails.title);
+		this.set('relatedPages', articleMeta.relatedPages.items[articleMeta.articleDetails.id]);
+		this.set('users', articleMeta.userDetails.items);
+	}
+
 });

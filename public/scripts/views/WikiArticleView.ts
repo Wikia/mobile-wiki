@@ -42,11 +42,15 @@ App.WikiArticleView = Em.View.extend({
 			}
 		}, 1000);
 	}.observes('controller.article'),
-	click: function(event) {
+
+	click(event) {
 		if (event.target.tagName === 'A') {
 			event.preventDefault();
-
 			this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
 		}
+	},
+
+	willInsertElement() {
+		$('#app-container').html('');
 	}
 });
