@@ -2,7 +2,7 @@ var gulp = require('gulp'),
 	karma = require('gulp-karma'),
 	paths = require('../paths');
 
-gulp.task('karma', ['assets'], function () {
+gulp.task('karma', function () {
 	return gulp.src([
 		paths.components.dest + '/main.js',
 		paths.scripts.front.dest + '/main.js',
