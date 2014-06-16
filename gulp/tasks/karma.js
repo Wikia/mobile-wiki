@@ -14,7 +14,7 @@ gulp.task('karma', ['assets'], function () {
 	])
 	.pipe(karma({
 		configFile: 'test/karma.conf.js',
-		action: 'watch'
+		action: gulp.env.action === 'watch' ? gulp.env.action : 'run'
 	}))
 	.on('error', function (error) {
 		throw error;
