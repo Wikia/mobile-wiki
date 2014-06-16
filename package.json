@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "gulp clean && gulp",
     "start": "gulp clean && gulp build --type production && node www/server/app.js",
-    "test": "gulp build --type production"
+    "test": "gulp assets && gulp karma"
   },
   "repository": {
     "type": "git",
