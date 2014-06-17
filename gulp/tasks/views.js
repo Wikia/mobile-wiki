@@ -1,48 +1,21 @@
 var gulp = require('gulp'),
-	gutil = require('gulp-util'),
 	gulpif = require('gulp-if'),
 	minifyHTML = require('gulp-minify-html'),
 	preprocess = require('gulp-preprocess'),
-	replace = require('gulp-replace-task'),
-	path = require('path'),
+	useref = require('gulp-useref'),
+	rev = require('gulp-rev'),
+	revReplace = require('gulp-rev-replace'),
 	paths = require('../paths'),
-	environment = require('../utils/environment'),
-	manifest,
-	files;
+	environment = require('../utils/environment');
 
-function getPath(key) {
-	return '/' + path.join(
-		path.basename(path.dirname(key)),
-		path.basename(key)
-	);
-}
-
-function views() {
-	files = [];
-
-	try {
-		manifest = require(paths.baseFull + '/public/rev-manifest.json');
-
-		Object.keys(manifest).forEach(function (key) {
-			files.push({
-				match: getPath(key),
-				replacement: getPath(manifest[key])
-			});
-		});
-	} catch (exception) {
-		gutil.log(exception.message);
-	}
-
-	return gulp.src(paths.views.src)
+gulp.task('views', ['assets'], function views() {
+	return gulp.src(paths.views.src, {base: paths.baseFull})
+		.pipe(gulpif('**/layout.hbs', preprocess()))
+		.pipe(useref.assets())
+		.pipe(gulpif(environment.isProduction, rev()))
+		.pipe(useref.restore())
+		.pipe(useref())
+		.pipe(revReplace())
 		.pipe(gulpif(environment.isProduction, minifyHTML()))
-		.pipe(replace({
-			patterns: files,
-			prefix: '/assets',
-			preservePrefix: true
-		}))
-		.pipe(preprocess())
 		.pipe(gulp.dest(paths.views.dest));
-}
-
-gulp.task('views', ['sprites', 'sass', 'scripts-front'], views);
-gulp.task('views:revved', ['sprites', 'rev'], views);
+});
