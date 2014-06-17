@@ -37,7 +37,7 @@ function getArticle(data: ResponseData): Q.Promise<any> {
 	return common.promisify((deferred: Q.Deferred<any>) => {
 		mediawiki.article(data.wikiName, data.articleTitle)
 			.then((article) => {
-				data.payload = article.body;
+				data.payload = article.payload;
 				deferred.resolve(data);
 			})
 			.catch((error) => {
@@ -133,8 +133,8 @@ export function createFullArticle(data: any, callback: any, err: any) {
 					return getUserDetails(data);
 				})
 			]).done(() => {
-					callback(data);
-				});
+				callback(data);
+			});
 
 		}).catch(() => {
 			err();

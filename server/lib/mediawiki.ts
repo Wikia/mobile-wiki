@@ -89,12 +89,10 @@ module mediawiki {
 	}
 
 	export function article(wikiName: string, articleTitle: string): Q.Promise<any> {
-		return httpGet(
+		return jsonGet(
 			createUrl(
 				wikiName,
-				'index.php', {
-					useskin: 'wikiamobile',
-					action: 'render',
+				'api/v1/Articles/asJson', {
 					title: articleTitle
 				}
 				)
