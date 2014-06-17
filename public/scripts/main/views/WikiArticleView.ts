@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../utils/sloth.ts" />
+/// <reference path="../utils/lazyload.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -15,7 +16,7 @@ App.WikiArticleView = Em.View.extend({
 	articleObserver: function() {
 		Em.run.later(null, () => {
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				var lazyImages = this.$('.lazy');
+				var lazyImages = this.$('.article-media');
 				var lazyload = new W.Lazyload();
 
 				lazyload.fixSizes(lazyImages);
