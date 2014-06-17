@@ -10,12 +10,19 @@ var gulp = require('gulp'),
 
 gulp.task('views', ['assets'], function views() {
 	return gulp.src(paths.views.src, {base: paths.baseFull})
-		.pipe(gulpif('**/layout.hbs', preprocess()))
-		.pipe(useref.assets())
+		.pipe(gulpif('**/layout.hbs', preprocess({
+			context: {
+				base: paths.baseFull
+			}
+		})))
+		.pipe(useref.assets({
+			searchPath: paths.base
+		}))
 		.pipe(gulpif(environment.isProduction, rev()))
+		.pipe(gulp.dest(paths.base))
 		.pipe(useref.restore())
 		.pipe(useref())
 		.pipe(revReplace())
 		.pipe(gulpif(environment.isProduction, minifyHTML()))
-		.pipe(gulp.dest(paths.views.dest));
+		.pipe(gulpif('**/views/*', gulp.dest(paths.views.dest)));
 });
