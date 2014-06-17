@@ -2,8 +2,8 @@ var gulp = require('gulp'),
 	typescript = require('gulp-tsc'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
-	changed = require('gulp-changed'),
 	folders = require('gulp-folders'),
+	cache = require('gulp-cached'),
 	concat = require('gulp-concat'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
@@ -13,11 +13,9 @@ var gulp = require('gulp'),
 gulp.task('scripts-front', folders(paths.src, function (folder) {
 	return gulp
 		.src(path.join(paths.src, folder, paths.files))
-		.pipe(changed(paths.dest, {
-			extension: '.js'
-		}))
+		.pipe(cache('scripts-front'))
 		.pipe(typescript(options))
-		.pipe(gulpif(environment.isProduction, uglify()))
 		.pipe(concat(folder + '.js'))
+		.pipe(gulpif(environment.isProduction, uglify()))
 		.pipe(gulp.dest(paths.dest));
 }));

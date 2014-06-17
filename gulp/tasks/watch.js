@@ -12,7 +12,7 @@ gulp.task('watch', ['assets'], function () {
 		 * when it is changed
 		 */
 		if (event.path.match('baseline.scss')) {
-			gulp.start('views');
+			gulp.start('build');
 		}
 
 		log('Style changed:', gutil.colors.green(event.path));
@@ -35,7 +35,7 @@ gulp.task('watch', ['assets'], function () {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.views.src, ['views']).on('change', function (event) {
+	gulp.watch(paths.views.src, ['build']).on('change', function (event) {
 		log('Views changed:', gutil.colors.green(event.path));
 	});
 });

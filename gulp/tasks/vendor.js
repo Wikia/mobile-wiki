@@ -1,15 +1,12 @@
 var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
-	changed = require('gulp-changed'),
+	cache = require('gulp-cached'),
 	environment = require('../utils/environment'),
 	paths = require('../paths').vendor;
 
 gulp.task('vendor', function () {
 	return gulp.src(paths.src)
-		.pipe(changed(paths.dest, {
-			extension: '.js'
-		}))
-		.pipe(gulpif(environment.isProduction, uglify()))
+		.pipe(cache('vendor'))
 		.pipe(gulp.dest(paths.dest));
 });

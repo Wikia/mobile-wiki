@@ -43,7 +43,6 @@
     "node-sass": "0.x.x",
     "gulp-svg-sprites": "0.x.x",
     "gulp-svgmin": "0.x.x",
-    "gulp-changed": "0.x.x",
     "gulp-if": "1.x.x",
     "gulp-rev": "0.x.x",
     "gulp-filter": "0.x.x",
@@ -59,6 +58,8 @@
     "karma-chrome-launcher": "~0.1.4",
     "browser-sync": "0.x.x",
     "gulp-rev-replace": "0.x.x",
-    "gulp-useref": "0.x.x"
+    "gulp-useref": "0.x.x",
+    "multipipe": "0.x.x",
+    "gulp-cached": "0.x.x"
   }
 }
