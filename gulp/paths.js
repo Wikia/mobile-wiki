@@ -8,7 +8,7 @@ module.exports = {
 	base: basePath,
 	baseFull: path.resolve(basePath),
 	vendor: {
-		src: 'public/vendor/',
+		src: 'public/vendor/**/*',
 		dest: basePath + '/public/vendor'
 	},
 	locales: {
@@ -32,7 +32,7 @@ module.exports = {
 		}
 	},
 	views: {
-		src: 'views/**/*',
+		src: 'views/**/*.+(hbs|js)',
 		dest: basePath + '/views'
 	},
 	templates: {
