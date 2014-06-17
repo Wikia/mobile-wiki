@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	paths = require('../paths'),
 	environment = require('../utils/environment');
 
-gulp.task('build', ['sass', 'scripts-front', 'sprites', 'vendor', 'templates'], function build() {
+gulp.task('build', ['sass', 'scripts-front', 'sprites', 'vendor', 'templates'], function () {
 	return multipipe(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull
