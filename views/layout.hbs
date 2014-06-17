@@ -6,10 +6,15 @@
 		<title>Wikia</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/assets/styles/app.css">
+
+        <!-- build:css /public/styles/app.css -->
+		<link rel="stylesheet" href="/public/styles/app.css">
+		<!-- endbuild -->
+
 		<style>
 			<!-- @include ../www/public/styles/baseline.css -->
 		</style>
+
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
 			Wikia.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
@@ -18,20 +23,30 @@
 		</script>
 
 		<!-- @if WIKIA_ENVIRONMENT='dev' -->
-		<script src="/assets/scripts/dev.js"></script>
-		<!-- @endif -->
-		<!-- @if WIKIA_ENVIRONMENT='production' -->
-		<script src="/assets/scripts/analytics.js"></script>
+		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
+
 		<div id="app-container" class="app-container">
 			{{{content}}}
 		</div>
 
-		<script src="/assets/vendor/main.js"></script>
-		<script src="/assets/templates/main.js"></script>
-		<script src="/assets/scripts/main.js"></script>
+        <!-- build:js /public/vendor/main.js -->
+			<script src="/public/vendor/jquery/dist/jquery.js"></script>
+			<script src="/public/vendor/handlebars/handlebars.runtime.js"></script>
+			<script src="/public/vendor/ember/ember.js"></script>
+			<script src="/public/vendor/i18next/i18next.js"></script>
+
+			<!-- @if WIKIA_ENVIRONMENT='production' -->
+				<script src="../www/public/scripts/analytics.js"></script>
+			<!-- @endif -->
+        <!-- endbuild -->
+
+        <!-- build:js /public/scripts/combined.js -->
+			<script src="/public/templates/main.js"></script>
+			<script src="/public/scripts/main.js"></script>
+        <!-- endbuild -->
 	</body>
 </html>
