@@ -35,7 +35,7 @@ function routes(server) {
 	// nginx or apache to serve static assets and route the rest of the requests to node.
 	server.route({
 		method: 'GET',
-		path: '/assets/{path*}',
+		path: '/public/{path*}',
 		handler: {
 			directory: {
 				path: path.join(__dirname, '../public'),
