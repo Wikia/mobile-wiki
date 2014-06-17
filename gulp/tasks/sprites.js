@@ -3,14 +3,17 @@ var gulp = require('gulp'),
 	sprites = require('gulp-svg-sprites'),
 	concat = require('gulp-concat'),
 	folders = require('gulp-folders'),
+	multipipe = require('multipipe'),
 	options = require('../options').svg,
 	paths = require('../paths').svg,
 	path = require('path');
 
 gulp.task('sprites', folders(paths.src, function (folder) {
-	return gulp.src(path.join(paths.src, folder, paths.files))
-		.pipe(svgmin())
-		.pipe(sprites.svg(options))
-		.pipe(concat(folder + '.svg'))
-		.pipe(gulp.dest(paths.dest));
+	return multipipe(
+		gulp.src(path.join(paths.src, folder, paths.files)),
+		svgmin(),
+		sprites.svg(options),
+		concat(folder + '.svg'),
+		gulp.dest(paths.dest)
+	);
 }));

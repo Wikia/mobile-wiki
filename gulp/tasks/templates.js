@@ -4,15 +4,18 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
+	multipipe = require('multipipe'),
 	environment = require('../utils/environment'),
 	options = require('../options').handlebars,
 	paths = require('../paths').templates,
 	path = require('path');
 
 gulp.task('templates', folders(paths.src, function (folder) {
-	return gulp.src(path.join(paths.src, folder, paths.files))
-		.pipe(handlebars(options))
-		.pipe(concat(folder + '.js'))
-		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulp.dest(paths.dest));
+	return multipipe(
+		gulp.src(path.join(paths.src, folder, paths.files)),
+		handlebars(options),
+		concat(folder + '.js'),
+		gulpif(environment.isProduction, uglify()),
+		gulp.dest(paths.dest)
+	);
 }));
