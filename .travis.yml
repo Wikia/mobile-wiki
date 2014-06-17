@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-   - "0.11"
-   - "0.10"
+  - "0.10"
 install:
-   - npm install
-   - npm install -g bower jshint gulp tsd bower-installer
-   - tsd update --overwrite
-   - bower install
+  - ./install.sh
+notifications:
+  webhooks:
+    urls:
+      - http://wikia-lita.herokuapp.com/travis

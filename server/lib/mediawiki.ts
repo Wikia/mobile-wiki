@@ -22,17 +22,23 @@ module mediawiki {
 			options = {
 				production: '',
 				preview: 'preview.',
-				verify: 'verify.'
+				verify: 'verify.',
+				sandbox: ''
 			};
 
 		if (!environment) {
 			throw Error('Environment not set');
 		}
+
+		if (typeof localSettings.environment === 'sandbox') {
+			return 'http://' + localSettings.host + '.' + wikiSubDomain + '.wikia.com/';
+		}
+
 		if (typeof options[environment] !== 'undefined') {
 			return 'http://' + options[environment] + wikiSubDomain + '.wikia.com/';
 		}
 		// Devbox
-		return 'http://' + wikiSubDomain + '.' + environment + '.wikia-dev.com/';
+		return 'http://' + wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com/';
 	}
 
 	function createUrl(wikiSubDomain: string, path: string, params: URLParams = {}): string {

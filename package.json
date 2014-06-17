@@ -43,19 +43,23 @@
     "node-sass": "0.x.x",
     "gulp-svg-sprites": "0.x.x",
     "gulp-svgmin": "0.x.x",
-    "gulp-changed": "0.x.x",
     "gulp-if": "1.x.x",
     "gulp-rev": "0.x.x",
     "gulp-filter": "0.x.x",
-    "gulp-file-include": "0.3.x",
     "gulp-minify-html": "0.1.x",
-    "gulp-replace-task": "0.x.x",
     "gulp-tslint": "1.x.x",
+    "gulp-folders": "0.x.x",
+    "gulp-preprocess": "1.x.x",
     "karma": "~0.12.16",
     "gulp-karma": "0.0.4",
     "qunitjs": "~1.14.0",
     "karma-qunit": "~0.1.3",
     "karma-phantomjs-launcher": "~0.1.4",
-    "karma-chrome-launcher": "~0.1.4"
+    "karma-chrome-launcher": "~0.1.4",
+    "browser-sync": "0.x.x",
+    "gulp-rev-replace": "0.x.x",
+    "gulp-useref": "0.x.x",
+    "multipipe": "0.x.x",
+    "gulp-cached": "0.x.x"
   }
 }

@@ -13,8 +13,6 @@ module.exports = {
 		front: {
 			target: 'ES5',
 			sourcemap: false,
-			outDir: paths.scripts.front.dest,
-			out: 'main.js',
 			//mapRoot: '',
 			emitError: false,
 			removeComments: true
@@ -31,7 +29,9 @@ module.exports = {
 		output: 'browser'
 	},
 	svg: {
-		defs: true
+		defs: true,
+		generatePreview: false,
+		generateCSS: false
 	},
 	clean: {
 		read: false

@@ -7,9 +7,9 @@ var path = require('path'),
 module.exports = {
 	base: basePath,
 	baseFull: path.resolve(basePath),
-	components: {
-		src: 'public/components/',
-		dest: basePath + '/public/components'
+	vendor: {
+		src: 'public/vendor/**/*',
+		dest: basePath + '/public/vendor'
 	},
 	locales: {
 		src: 'public/locales/**/*.json',
@@ -22,8 +22,9 @@ module.exports = {
 	},
 	scripts: {
 		front: {
-			src: 'public/scripts/**/*.ts',
-			dest: basePath + '/public/scripts'
+			src: 'public/scripts/',
+			dest: basePath + '/public/scripts',
+			files: '**/*.ts'
 		},
 		back: {
 			src: 'server/**/*.ts',
@@ -31,16 +32,18 @@ module.exports = {
 		}
 	},
 	views: {
-		src: 'views/**/*',
+		src: 'views/**/*.+(hbs|js)',
 		dest: basePath + '/views'
 	},
 	templates: {
-		src: 'public/templates/**/*.hbs',
-		dest: basePath + '/public/templates'
+		src: 'public/templates/',
+		dest: basePath + '/public/templates',
+		files: '**/*.hbs'
 	},
 	svg: {
-		src: 'public/svg/*.svg',
-		dest: basePath + '/public/svg'
+		src: 'public/svg',
+		dest: basePath + '/public/svg',
+		files: '*.svg'
 	},
 	nodemon: {
 		script: basePath + '/server/app.js',

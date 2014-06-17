@@ -4,11 +4,14 @@ var gulp = require('gulp'),
 
 gulp.task('karma', function () {
 	return gulp.src([
-		paths.components.dest + '/main.js',
+		paths.vendor.dest + '/handlebars/handlebars.runtime.js',
+		paths.vendor.dest + '/jquery/dist/jquery.js',
+		paths.vendor.dest + '/ember/ember.js',
+		paths.vendor.dest + '/i18next/i18next.js',
 		paths.scripts.front.dest + '/main.js',
 		paths.scripts.back.dest + '/main.js',
 		// qunit helpers must not be included in general components package
-		'public/components/ember-qunit/dist/globals/main.js',
+		'public/vendor/ember-qunit/dist/globals/main.js',
 		'test/helpers/**/*.js',
 		'test/specs/**/*.js',
 	])
