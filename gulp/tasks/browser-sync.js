@@ -4,11 +4,6 @@ var gulp = require('gulp'),
 
 gulp.task('browser-sync', function() {
 	browserSync.init([
-		paths.baseFull + '/**/*.js',
-		paths.baseFull + '/**/*.css',
-		paths.baseFull + '/**/*.hbs',
-		paths.baseFull + '/**/*.svg'
-	], {
-		debounce: 100
-	});
+		paths.baseFull + '/**/*.+(js|hbs|css|svg)',
+	]);
 });
