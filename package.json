@@ -48,7 +48,6 @@
     "gulp-rev": "0.x.x",
     "gulp-filter": "0.x.x",
     "gulp-minify-html": "0.1.x",
-    "gulp-replace-task": "0.x.x",
     "gulp-tslint": "1.x.x",
     "gulp-folders": "0.x.x",
     "gulp-preprocess": "1.x.x",
@@ -58,6 +57,8 @@
     "karma-qunit": "~0.1.3",
     "karma-phantomjs-launcher": "~0.1.4",
     "karma-chrome-launcher": "~0.1.4",
-    "browser-sync": "0.x.x"
+    "browser-sync": "0.x.x",
+    "gulp-rev-replace": "0.x.x",
+    "gulp-useref": "0.x.x"
   }
 }
