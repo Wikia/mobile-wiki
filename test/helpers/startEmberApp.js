@@ -4,21 +4,17 @@
  * https://github.com/rpflorence/ember-qunit
  */
 
+// Add this content to test application bootstrap
 // Writing this element to test runner DOM is required for Ember to bootstrap
 // properly
-document.write('<div id="ember-testing"></div>');
-
-window.Wikia = {};
-window.Wikia._t = { en: {} };
+document.write('<div class="article-content">Test content</div><div id="ember-testing"></div>');
 
 var App = window.App;
 
 Ember.run(function () {
-	Ember.run(function () {
-		App.setupForTesting();
-		App.injectTestHelpers();
-	});
-
+	App.rootElement = '#ember-testing';
+	App.setupForTesting();
+	App.injectTestHelpers();
 	App.reset();
 });
 

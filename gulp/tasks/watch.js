@@ -24,6 +24,9 @@ gulp.task('watch', ['assets'], function () {
 		), ['tslint', 'scripts-front'])
 		.on('change', function (event) {
 			log('Script changed:', gutil.colors.green(event.path));
+			if (event.path.match('baseline')) {
+				gulp.start('build');
+			}
 		});
 
 	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back']).on('change', function (event) {
