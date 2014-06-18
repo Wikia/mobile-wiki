@@ -5,10 +5,9 @@
  */
 
 // Add this content to test application bootstrap
-$('body').append('<div class="article-content">Test content</div>');
 // Writing this element to test runner DOM is required for Ember to bootstrap
 // properly
-$('body').append('<div id="ember-testing"></div>');
+document.write('<div class="article-content">Test content</div><div id="ember-testing"></div>');
 
 var App = window.App;
 
