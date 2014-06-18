@@ -28,11 +28,6 @@ module.exports = {
 	handlebars: {
 		output: 'browser'
 	},
-	svg: {
-		defs: true,
-		generatePreview: false,
-		generateCSS: false
-	},
 	clean: {
 		read: false
 	},
