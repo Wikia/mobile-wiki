@@ -28,7 +28,7 @@ module.exports = {
 		},
 		back: {
 			src: 'server/**/*.ts',
-			dest: basePath + '/server'
+			dest: basePath
 		}
 	},
 	views: {

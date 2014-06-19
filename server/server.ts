@@ -6,7 +6,7 @@
 // restarting all the workers and reloading the app.
 
 var cluster = require('cluster'),
-	workerCount = process.env.WORKER_COUNT || 2,
+	workerCount = parseInt(process.env.WORKER_COUNT, 10) || 2,
 	stopping = false,
 	// A list of workers queued for a restart
 	workersToStop: Array<string> = [];
