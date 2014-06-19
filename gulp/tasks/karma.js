@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
 	karma = require('gulp-karma'),
+	gutil = require('gulp-util'),
 	paths = require('../paths');
 
 gulp.task('karma', function () {
@@ -20,7 +21,7 @@ gulp.task('karma', function () {
 	])
 	.pipe(karma({
 		configFile: 'test/karma.conf.js',
-		action: gulp.env.action === 'watch' ? gulp.env.action : 'run'
+		action: gutil.env.action === 'watch' ? gutil.env.action : 'run'
 	}))
 	.on('error', function (error) {
 		throw error;
