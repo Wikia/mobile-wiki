@@ -4,20 +4,18 @@ import path = require('path');
 
 function routes(server) {
 	// all the routes that should resolve to loading single page app entry view
-	var indexRoutes: string[] = [
-		'/',
-		'/w/{parts*}'
-	];
+	var indexRoutes: string[] = ['/', '/w/{parts*}'],
+		SECOND: number = 1000;
 
 	indexRoutes.forEach(function(route: string) {
 		server.route({
 			method: 'GET',
 			path: route,
-			handler: (request, reply) => {
-				server.methods.getArticleData(request._pathSegments, (error, result) => {
-					// TODO: handle error a bit better :D
-					reply.view('application', error || result);
-				});
+			config: {
+				cache: {
+					expiresIn: 60 * SECOND,
+				},
+				handler: require('./controllers/home/index')
 			}
 		});
 	});
@@ -25,14 +23,13 @@ function routes(server) {
 	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
 	server.route({
 		method: 'GET',
-		path: '/article/{wiki}/{articleTitle}',
-		handler: (request, reply) => {
-			server.methods.getArticleData(request._pathSegments, (error, result) => {
-				// TODO: handle error a bit better :D
-				reply(error || result);
-			});
+		path: '/article/{wikiName}/{articleTitle}',
+		config: {
+			cache: {
+				expiresIn: 60 * SECOND,
+			},
+			handler: require('./controllers/article').handleRoute
 		}
-		//require('./controllers/article').handleRoute
 	});
 
 	// eg. http://www.example.com/articleComments/muppet/154

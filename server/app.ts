@@ -15,9 +15,9 @@ class App {
 			cors: true,
 			views: {
 				engines: {
-					hbs: 'handlebars'
+					hbs: require('handlebars')
 				},
-				isCached: process.env.NODE_ENV === 'production',
+				isCached: true,
 				layout: true,
 				/*
 				 * Helpers are functions usable from within handlebars templates.
@@ -34,12 +34,6 @@ class App {
 				console: ['ops', 'request', 'log', 'error']
 			}
 		};
-
-		server.pack.require('good', options, function(err) {
-			if (err) {
-				console.log('[ERROR] ', err);
-			}
-		});
 
 		/*
 		 * Server Methods

@@ -6,8 +6,6 @@
 import MediaWiki = require('../lib/MediaWiki');
 import Promise = require('bluebird');
 
-var mem = {};
-
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
@@ -58,18 +56,13 @@ export function createFullArticle(data: any, callback: any, err: any) {
 
 export function handleRoute(request: Hapi.Request, reply: Function): void {
 	var data = {
-		wikiName: request.params.wiki,
+		wikiName: request.params.wikiName,
 		articleTitle: decodeURIComponent(request.params.articleTitle)
 	};
-	if (mem[data.wikiName + data.articleTitle]) {
-		reply(mem[data.wikiName + data.articleTitle]);
 
-	} else {
-		createFullArticle(data, (data) => {
-			reply(data);
-			mem[data.wikiName + data.articleTitle] = data;
-		}, (error) => {
-				reply(error);
-			});
-	}
+	createFullArticle(data, (data) => {
+		reply(data);
+	}, (error) => {
+		reply(error);
+	});
 }
