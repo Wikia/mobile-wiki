@@ -22,7 +22,7 @@ module W {
 			});
 		}
 
-		onLoad(img: HTMLImageElement, background: boolean) {
+		onLoad(img: HTMLElement, background: boolean) {
 			return function(): void {
 				var url = this.src;
 				img.className += ' load';
@@ -33,7 +33,7 @@ module W {
 			};
 		}
 
-		static displayImage(img: HTMLImageElement, url: string, background: boolean): void {
+		static displayImage(img: HTMLElement, url: string, background: boolean): void {
 			if (background) {
 				img.style.backgroundImage = 'url(' + url + ')';
 			} else {
@@ -47,26 +47,29 @@ module W {
 			var i: number = 0,
 				elm: HTMLImageElement,
 				img: HTMLImageElement,
-				src: string,
+				ref: number,
+				data,
 				elementsArray: HTMLImageElement[] = $.makeArray(elements);
 
 			while (elm = elementsArray[i++]) {
 				img = new Image();
-				src = elm.getAttribute('data-src');
+				ref = parseInt(elm.getAttribute('data-ref'), 10);
+				data = Wikia.article.payload.media[~~elm.dataset.ref];
 
-				if (src) {
-					if (elm.className.indexOf('getThumb') > -1 && !W.Thumbnailer.isThumbUrl(src)) {
-						src = W.Thumbnailer.getThumbURL(src, 'nocrop', '660', '330');
+				if (ref && data.url) {
+					if (elm.className.indexOf('getThumb') > -1 && !W.Thumbnailer.isThumbUrl(data.url)) {
+						data.url = W.Thumbnailer.getThumbURL(src, 'nocrop', '660', '330');
 					}
 
-					img.src = src;
+					img.src = data.url;
 
-					//don't do any animation if image is already loaded
-					if (img.complete) {
-						Lazyload.displayImage(elm, src, background);
-					} else {
-						img.onload = this.onLoad(elm, background);
-					}
+					elm.parentNode.replaceChild(img, elm);
+//					//don't do any animation if image is already loaded
+//					if (img.complete) {
+//						Lazyload.displayImage(elm, src, background);
+//					} else {
+//						img.onload = this.onLoad(elm, background);
+//					}
 				}
 			}
 		}

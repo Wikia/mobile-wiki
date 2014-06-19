@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/Wikia/mercury.svg?branch=master&style=flat)](https://travis-ci.org/Wikia/mercury)
+[![Build Status](https://travis-ci.org/Wikia/mercury.svg)](https://travis-ci.org/Wikia/mercury)
+[![Dependency Status](https://david-dm.org/Wikia/mercury.svg)](https://david-dm.org/Wikia/mercury)
+[![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
 # Wikia Mobile
 1. [Getting Started](#getting-started)

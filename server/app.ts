@@ -8,16 +8,18 @@ import localSettings = require('../config/localSettings');
 class App {
 	constructor() {
 		var server: Hapi.Server,
-			options: {};
+			options: {},
+			//Counter for maxRequestPerChild
+			counter = 0;
 
 		server = hapi.createServer(localSettings.host, localSettings.port, {
 			// ez enable cross origin resource sharing
 			cors: true,
 			views: {
 				engines: {
-					hbs: 'handlebars'
+					hbs: require('handlebars')
 				},
-				isCached: process.env.NODE_ENV === 'production',
+				isCached: true,
 				layout: true,
 				/*
 				 * Helpers are functions usable from within handlebars templates.
@@ -35,11 +37,16 @@ class App {
 			}
 		};
 
-		server.pack.require('good', options, function(err) {
-			if (err) {
-				console.log('[ERROR] ', err);
+		server.pack.register({
+				plugin: require('good'),
+				options: options
+			},
+			function (err) {
+				if (err) {
+					console.log('[ERROR] ', err);
+				}
 			}
-		});
+		);
 
 		/*
 		 * Routes
@@ -48,6 +55,16 @@ class App {
 
 		server.start(function() {
 			console.log('Server started at: ' + server.info.uri);
+		});
+
+		server.on('response', function () {
+			counter++;
+
+			if (counter >= localSettings.maxRequestsPerChild) {
+				//This is a safety net for memory leaks
+				//It restarts child so even if it leaks we are 'safe'
+				process.exit(0);
+			}
 		});
 	}
 }

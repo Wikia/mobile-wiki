@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	log = require('../utils/logger'),
-	paths = require('../paths');
+	paths = require('../paths'),
+	path = require('path');
 
 gulp.task('watch', ['assets'], function () {
 	log('Watching files');
@@ -17,20 +18,32 @@ gulp.task('watch', ['assets'], function () {
 		}
 	});
 
-	gulp.watch(paths.scripts.front.src + paths.scripts.front.files, ['tslint', 'scripts-front'])
+	gulp.watch(path.join(
+			paths.scripts.front.src,
+			paths.scripts.front.files
+		), ['tslint', 'scripts-front'])
 		.on('change', function (event) {
 			log('Script changed:', gutil.colors.green(event.path));
+			if (event.path.match('baseline')) {
+				gulp.start('build');
+			}
 		});
 
 	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back']).on('change', function (event) {
 		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.templates.src + paths.templates.files, ['templates']).on('change', function (event) {
+	gulp.watch(path.join(
+			paths.templates.src,
+			paths.templates.files
+		), ['templates']).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.svg.src + paths.svg.files, ['sprites']).on('change', function (event) {
+	gulp.watch(path.join(
+			paths.svg.src,
+			paths.svg.files
+		), ['build']).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 
