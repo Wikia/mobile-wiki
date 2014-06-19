@@ -22,7 +22,7 @@ module.exports = {
 	},
 	scripts: {
 		front: {
-			src: 'public/scripts/',
+			src: 'public/scripts',
 			dest: basePath + '/public/scripts',
 			files: '**/*.ts'
 		},
@@ -36,7 +36,7 @@ module.exports = {
 		dest: basePath + '/views'
 	},
 	templates: {
-		src: 'public/templates/',
+		src: 'public/templates',
 		dest: basePath + '/public/templates',
 		files: '**/*.hbs'
 	},
