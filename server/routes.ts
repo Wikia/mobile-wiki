@@ -13,7 +13,12 @@ function routes(server) {
 		server.route({
 			method: 'GET',
 			path: route,
-			handler: require('./controllers/home')
+			handler: (request, reply) => {
+				server.methods.getArticleData(request._pathSegments, (error, result) => {
+					// TODO: handle error a bit better :D
+					reply.view('application', error || result);
+				});
+			}
 		});
 	});
 
@@ -21,7 +26,13 @@ function routes(server) {
 	server.route({
 		method: 'GET',
 		path: '/article/{wiki}/{articleTitle}',
-		handler: require('./controllers/article').handleRoute
+		handler: (request, reply) => {
+			server.methods.getArticleData(request._pathSegments, (error, result) => {
+				// TODO: handle error a bit better :D
+				reply(error || result);
+			});
+		}
+		//require('./controllers/article').handleRoute
 	});
 
 	// eg. http://www.example.com/articleComments/muppet/154

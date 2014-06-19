@@ -42,6 +42,10 @@ class App {
 		});
 
 		/*
+		 * Server Methods
+		 */
+		require('./methods')(server);
+		/*
 		 * Routes
 		 */
 		require('./routes')(server);

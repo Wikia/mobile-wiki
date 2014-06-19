@@ -24,6 +24,7 @@
     "good": "2.x.x",
     "hapi": "5.x.x",
     "nipple": "^2.5.3",
+    "q": "^1.0.1",
     "tslint": "0.4.x"
   },
   "devDependencies": {
