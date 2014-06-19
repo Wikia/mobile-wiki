@@ -60,7 +60,9 @@ class App {
 		server.on('response', function () {
 			counter++;
 
-			if (counter === localSettings.maxRequestPerChild) {
+			if (counter >= localSettings.maxRequestsPerChild) {
+				//This is a safety net for memory leaks
+				//It restarts child so even if it leaks we are 'safe'
 				process.exit(0);
 			}
 		});
