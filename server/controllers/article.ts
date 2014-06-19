@@ -32,7 +32,7 @@ interface ResponseData {
 export function createFullArticle(data: any, callback: any, err: any) {
 
 	var article = new mediawiki.ArticleRequest();
-	
+
 	article.articleDetails(data.wikiName, [data.articleTitle])
 		.then((response) => {
 			var articleDetails = response,
@@ -61,14 +61,13 @@ export function createFullArticle(data: any, callback: any, err: any) {
 						userDetails: result.userData.users,
 						relatedPages: result.relatedPages,
 						payload: result.article
-					}; 
+					};
 					callback(articleResponse);
 				}).catch((error) => {
 					err(error);
 				});
 			} else {
 				err('Article not found');
-
 			}
 		});
 }
