@@ -1,13 +1,15 @@
 /// <reference path="../typings/node/node.d.ts" />
+
 // This script will boot app.js with the number of workers
 // specified in WORKER_COUNT.
 //
 // The master will respond to SIGHUP, which will trigger
 // restarting all the workers and reloading the app.
 
-var cluster = require('cluster'),
-	workerCount = parseInt(process.env.WORKER_COUNT, 10) || 2,
-	stopping = false,
+import cluster = require('cluster');
+import localSettings = require('../config/localSettings');
+
+var stopping = false,
 	// A list of workers queued for a restart
 	workersToStop: Array<string> = [];
 
@@ -23,7 +25,7 @@ function numWorkers(): number {
 // Forks off the workers unless the server is stopping
 function forkNewWorkers(): void {
 	if (!stopping) {
-		for (var i = numWorkers(); i < workerCount; i++) {
+		for (var i = numWorkers(); i < localSettings.workerCount; i++) {
 			cluster.fork();
 		}
 	}
@@ -55,7 +57,7 @@ function stopNextWorker() {
 	}
 }
 
-// Stops all the works at once
+// Stops all the workers at once
 function stopAllWorkers() {
 	stopping = true;
 
