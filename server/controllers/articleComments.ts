@@ -71,7 +71,7 @@ export function handleRoute(request: Hapi.Request, reply: any): void {
 			parseInt(request.params.articleId, 10),
 			parseInt(request.params.page, 10) || 1
 		)
-		.then(function(response) {
+		.then(function(response: any) {
 			reply(wrapResponse(response));
 		})
 		.catch(function(error) {

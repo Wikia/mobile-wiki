@@ -2,7 +2,9 @@
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
-	payload: string;
+	payload: {
+		article: string
+	};
 	articleTitle: string;
 	articleDetails: {
 		revision: {
@@ -41,9 +43,8 @@ App.WikiArticleModel = Ember.Object.extend({
 
 	fetch() {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
-			.then(
-			(response: Response) => {
-				this.set('article', response.payload);
+			.then((response: Response) => {
+				this.set('article', response.payload.article);
 				this.set('comments', response.articleDetails.comments);
 				this.set('id', response.articleDetails.id);
 				this.set('namespace', response.articleDetails.ns);

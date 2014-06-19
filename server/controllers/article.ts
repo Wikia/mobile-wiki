@@ -37,6 +37,7 @@ export function createFullArticle(data: any, callback: any, err: any) {
 						});
 					})
 				}).then((result: any) => {
+					console.log(result);
 						var articleResponse = {
 							wikiName: data.wikiName,
 							articleTitle: data.articleTitle,

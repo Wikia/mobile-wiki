@@ -1,16 +1,11 @@
-/// <reference path="../../typings/q/q.d.ts" />
 /// <reference path="../../typings/bluebird/bluebird.d.ts" />
 /// <reference path="../../typings/node/node.d.ts" />
-/// <reference path="../../typings/follow-redirects/follow-redirects.d.ts" />
-/// <reference path="nipple.d.ts" />
-/// <reference path="common.ts" />
+/// <reference path="../../typings/nipple/nipple.d.ts" />
 
 /**
  * @description Mediawiki API functions
  */
 
-import followRedirects = require('follow-redirects');
-import common = require('./common');
 import localSettings = require('../../config/localSettings');
 import Nipple = require('nipple');
 import Promise = require('bluebird');
@@ -22,15 +17,11 @@ module mediawiki {
 	}
 
 	export class ArticleRequest {
-		constructor() {
-		}
 		article(wikiName: string, articleTitle: string) {
-			var url = createUrl( wikiName, 'index.php', {
-						useskin: 'wikiamobile',
-						action: 'render',
-						title: articleTitle
+			var url = createUrl(wikiName, 'api/v1/Articles/asJson', {
+					title: articleTitle
+			});
 
-				});
 			return fetch(url);
 		}
 
@@ -72,7 +63,7 @@ module mediawiki {
 			var url: string = createUrl( wikiName, 'api/v1/Mercury/ArticleCommentsCount', {
 						articleId: articleId.toString()
 			});
-			
+
 			return fetch(url);
 		}
 
