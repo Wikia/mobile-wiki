@@ -50,10 +50,11 @@ module.exports = {
 		dest: basePath + '/node_modules'
 	},
 	nodemon: {
-		script: basePath + '/server/app.js',
+		script: basePath + '/server/server.js',
 		watch: [
 			basePath + '/server',
-			basePath + '/views'
+			basePath + '/views',
+			basePath + '/config'
 		]
 	}
 };
