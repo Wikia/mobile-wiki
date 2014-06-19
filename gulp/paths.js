@@ -28,7 +28,7 @@ module.exports = {
 		},
 		back: {
 			src: 'server/**/*.ts',
-			dest: basePath
+			dest: basePath + '/server'
 		}
 	},
 	views: {
@@ -46,10 +46,11 @@ module.exports = {
 		files: '*.svg'
 	},
 	nodemon: {
-		script: basePath + '/server/app.js',
+		script: basePath + '/server/server.js',
 		watch: [
 			basePath + '/server',
-			basePath + '/views'
+			basePath + '/views',
+			basePath + '/config'
 		]
 	}
 };

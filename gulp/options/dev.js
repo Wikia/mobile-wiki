@@ -35,7 +35,10 @@ module.exports = {
 	nodemon: {
 		script: paths.nodemon.script,
 		ext: 'js',
-		watch: paths.nodemon.watch
+		watch: paths.nodemon.watch,
+		env: {
+			WORKER_COUNT: 2
+		}
 	},
 	tslint: {
 		emitError: false
