@@ -10,7 +10,7 @@ import localSettings = require('../../config/localSettings');
 import Nipple = require('nipple');
 import Promise = require('bluebird');
 
-module mediawiki {
+module MediaWiki {
 
 	interface URLParams {
 		[key: string]: string
@@ -133,4 +133,4 @@ module mediawiki {
 			(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 	}
 }
-export = mediawiki;
+export = MediaWiki;
