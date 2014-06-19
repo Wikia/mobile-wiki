@@ -19,7 +19,7 @@ class App {
 				engines: {
 					hbs: require('handlebars')
 				},
-				isCached: process.env.NODE_ENV === 'production',
+				isCached: true,
 				layout: true,
 				/*
 				 * Helpers are functions usable from within handlebars templates.
@@ -53,7 +53,7 @@ class App {
 		 */
 		require('./routes')(server);
 
-		server.start(function () {
+		server.start(function() {
 			console.log('Server started at: ' + server.info.uri);
 		});
 

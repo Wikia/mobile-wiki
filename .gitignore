@@ -13,6 +13,7 @@ public/vendor/
 *.log
 
 /* Static Assets */
+server/**/*.js
 .tmp/
 www/
 
