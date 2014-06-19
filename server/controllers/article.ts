@@ -37,7 +37,6 @@ export function createFullArticle(data: any, callback: any, err: any) {
 						});
 					})
 				}).then((result: any) => {
-					console.log(result);
 						var articleResponse = {
 							wikiName: data.wikiName,
 							articleTitle: data.articleTitle,
@@ -71,6 +70,6 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 			mem[data.wikiName + data.articleTitle] = data;
 		}, (error) => {
 				reply(error);
-		});
+			});
 	}
 }
