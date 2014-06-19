@@ -102,7 +102,10 @@ declare module Hapi {
 	}
 
 	export class Pack {
-		require(name: string, options: {}, callback: Function): void;
+		server(host: string, port: number, options: any): void;
+		start(callback: Function): void;
+		stop(options: {}, callback: Function): void;
+		register(plugins: {plugin: any; options: any}, callback: Function): void;
 	}
 
 	export interface ServerView {
@@ -338,6 +341,7 @@ declare module Hapi {
 		method(name: string, fn: () => void, options: any): void;
 		inject(options: any, callback: any): void;
 		handler(name: string, method: (name: string, options: any) => void): void;
+		on(name: string, callback: Function);
 	}
 
 	export interface Request {

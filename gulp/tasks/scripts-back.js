@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-back', function () {
 	return multipipe(
-		gulp.src(paths.src),
+		gulp.src(paths.src, {base: './'}),
 		cache('scripts-back'),
 		typescript(options),
 		gulp.dest(paths.dest)
