@@ -4,7 +4,7 @@
  */
 
 import http = require('http');
-import mediawiki = require('../lib/mediawiki');
+import MediaWiki = require('../lib/MediaWiki');
 
 interface Comment {
 	id: number;
@@ -66,7 +66,7 @@ function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
  */
 
 export function handleRoute(request: Hapi.Request, reply: any): void {
-	mediawiki.articleComments(
+	new MediaWiki.ArticleRequest().articleComments(
 			request.params.wiki,
 			parseInt(request.params.articleId, 10),
 			parseInt(request.params.page, 10) || 1
