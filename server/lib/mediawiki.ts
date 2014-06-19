@@ -1,6 +1,8 @@
-/// <reference path="../../typings/q/Q.d.ts" />
+/// <reference path="../../typings/q/q.d.ts" />
+/// <reference path="../../typings/bluebird/bluebird.d.ts" />
 /// <reference path="../../typings/node/node.d.ts" />
 /// <reference path="../../typings/follow-redirects/follow-redirects.d.ts" />
+/// <reference path="nipple.d.ts" />
 /// <reference path="common.ts" />
 
 /**
@@ -10,11 +12,100 @@
 import followRedirects = require('follow-redirects');
 import common = require('./common');
 import localSettings = require('../../config/localSettings');
+import Nipple = require('nipple');
+import Promise = require('bluebird');
 
 module mediawiki {
 
 	interface URLParams {
 		[key: string]: string
+	}
+
+	export class ArticleRequest {
+		constructor() {
+		}
+		article(wikiName: string, articleTitle: string) {
+			var url = createUrl( wikiName, 'index.php', {
+						useskin: 'wikiamobile',
+						action: 'render',
+						title: articleTitle
+
+				});
+			return fetch(url);
+		}
+
+		articleDetails(wikiName: string, articleTitles: string[]) {
+			var url: string = createUrl( wikiName, 'api/v1/Articles/Details', {
+						titles: articleTitles.map(function(text: string): string {
+							return text.replace(' ', '_');
+						}).join(',')
+					});
+			return fetch(url);
+		}
+
+		articleComments(wikiName: string, articleId: number, page: number = 1) {
+			var url: string = createUrl( wikiName, 'api/v1/Mercury/ArticleComments', {
+					articleId: articleId.toString(),
+					page: page.toString()
+				});
+			return fetch(url);
+		}
+
+		relatedPages(wikiName: string, articleIds: number[], limit: number = 6) {
+			var url: string = createUrl( wikiName, 'api/v1/RelatedPages/List', {
+					ids: articleIds.join(','),
+					limit: limit.toString()
+				});
+
+			return fetch(url);
+		}
+
+		userDetails(wikiName: string, userIds: number[]) {
+			var url: string = createUrl(wikiName, 'api/v1/User/Details', {
+					ids: userIds.join(',')
+				});
+
+			return fetch(url);
+		}
+
+		getArticleCommentsCount(wikiName: string, articleId: number) {
+			var url: string = createUrl( wikiName, 'api/v1/Mercury/ArticleCommentsCount', {
+						articleId: articleId.toString()
+			});
+			
+			return fetch(url);
+		}
+
+		getWikiTheme(wikiName: string) {
+			var url: string = createUrl( wikiName, 'api/v1/Mercury/WikiSettings');
+			return fetch(url);
+		}
+
+		getTopContributors(wikiName: string, articleId: number) {
+			var url: string = createUrl( wikiName, 'api/v1/Mercury/TopContributorsPerArticle', {
+				articleId: articleId.toString()
+			});
+
+			return fetch(url);
+		}
+
+	}
+
+	function fetch (url) {
+		return new Promise((resolve, reject) => {
+			Nipple.get(url, {
+				redirects: 1
+			}, (err, res, payload) => {
+				if (res.headers['content-type'].match('application/json')) {
+					payload = JSON.parse(payload);
+				}
+				if (err) {
+					reject(err);
+				} else {
+					resolve(payload);
+				}
+			});
+		});
 	}
 
 	function getDomainName(wikiSubDomain: string): string {
@@ -50,135 +141,5 @@ module mediawiki {
 			path +
 			(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 	}
-
-	function httpGet(url: string): Q.Promise<any> {
-		return common.promisify(function(deferred: Q.Deferred<any>): void {
-			var buffer: string = '';
-			followRedirects.http.get(url, function(res) {
-				res.on('data', function(chunk: string) {
-					buffer += chunk;
-				});
-
-				res.on('end', function() {
-					deferred.resolve({
-						body: buffer,
-						headers: res.headers
-					});
-				});
-			})
-				.on('error', function(err: Error) {
-					deferred.reject(err);
-				});
-		});
-	}
-
-	function jsonGet(url: string): Q.Promise<any> {
-		return common.promisify(function(deferred: Q.Deferred<any>): void {
-			httpGet(url)
-				.then(function(data) {
-					try {
-						deferred.resolve(JSON.parse(data.body));
-					} catch (error) {
-						deferred.reject(error);
-					}
-				})
-				.catch(function(error) {
-					deferred.reject(error);
-				});
-		});
-	}
-
-	export function article(wikiName: string, articleTitle: string): Q.Promise<any> {
-		return httpGet(
-			createUrl(
-				wikiName,
-				'index.php', {
-					useskin: 'wikiamobile',
-					action: 'render',
-					title: articleTitle
-				}
-				)
-			);
-	}
-
-	export function articleDetails(wikiName: string, articleTitles: string[]): Q.Promise<any> {
-		return jsonGet(
-			createUrl(
-				wikiName,
-				'api/v1/Articles/Details', {
-					titles: articleTitles.map(function(text: string): string {
-						return text.replace(' ', '_');
-					}).join(',')
-				}
-				)
-			);
-	}
-
-	export function articleComments(wikiName: string, articleId: number, page: number = 1): Q.Promise<any> {
-		return jsonGet(
-			createUrl(
-				wikiName,
-				'api/v1/Mercury/ArticleComments', {
-					articleId: articleId.toString(),
-					page: page.toString()
-				}
-				)
-			);
-	}
-
-	export function relatedPages(wikiName: string, articleIds: number[], limit: number = 6): Q.Promise<any> {
-		return jsonGet(
-			createUrl(
-				wikiName,
-				'api/v1/RelatedPages/List', {
-					ids: articleIds.join(','),
-					limit: limit.toString()
-				}
-				)
-			);
-	}
-
-	export function userDetails(wikiName: string, userIds: number[]): Q.Promise<any> {
-		return jsonGet(
-			createUrl(
-				wikiName,
-				'api/v1/User/Details', {
-					ids: userIds.join(',')
-				}
-				)
-			);
-	}
-
-	export function getArticleCommentsCount(wikiName: string, articleId: number): Q.Promise<any> {
-		return jsonGet(
-			createUrl(
-				wikiName,
-				'api/v1/Mercury/ArticleCommentsCount', {
-					articleId: articleId.toString()
-				}
-				)
-			);
-	}
-
-	export function getWikiTheme(wikiName: string): Q.Promise<any> {
-		return jsonGet(
-			createUrl(
-				wikiName,
-				'api/v1/Mercury/WikiSettings'
-				)
-			);
-	}
-
-	export function getTopContributors(wikiName: string, articleId: number): Q.Promise<any> {
-		return jsonGet(
-			createUrl(
-				wikiName,
-				'api/v1/Mercury/TopContributorsPerArticle', {
-					articleId: articleId.toString()
-				}
-				)
-			);
-	}
 }
-
 export = mediawiki;

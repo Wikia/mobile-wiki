@@ -1,6 +1,8 @@
 /// <reference path="../../typings/q/Q.d.ts" />
+/// <reference path="../../typings/bluebird/bluebird.d.ts" />
 
 import Q = require('q');
+import Promise = require('bluebird');
 
 /**
  * Creates promise for callback function
