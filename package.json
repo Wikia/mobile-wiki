@@ -24,7 +24,7 @@
     "hapi": "5.x.x",
     "q": "1.0.x",
     "follow-redirects": "0.0.x",
-    "tslint": "0.4.x"
+    "handlebars": "2.x.x"
   },
   "devDependencies": {
     "sudo": "1.x.x",
@@ -39,7 +39,6 @@
     "gulp-autoprefixer": "0.x.x",
     "gulp-tsc": "0.x.x",
     "gulp-uglify": "0.x.x",
-    "handlebars": "2.x.x",
     "node-sass": "0.x.x",
     "gulp-if": "1.x.x",
     "gulp-rev": "0.x.x",
@@ -60,6 +59,7 @@
     "multipipe": "0.x.x",
     "gulp-cached": "0.x.x",
     "gulp-svg-symbols": "0.x.x",
-    "gulp-rename": "1.x.x"
+    "gulp-rename": "1.x.x",
+    "tslint": "0.4.x"
   }
 }
