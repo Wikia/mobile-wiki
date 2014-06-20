@@ -44,13 +44,7 @@ App.WikiArticleModel = Ember.Object.extend({
 	fetch() {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
 			.then((response: Response) => {
-				this.set('article', response.payload.article);
-				this.set('comments', response.articleDetails.comments);
-				this.set('id', response.articleDetails.id);
-				this.set('namespace', response.articleDetails.ns);
-				this.set('cleanTitle', response.articleDetails.title);
-				this.set('relatedPages', response.relatedPages.items[response.articleDetails.id]);
-				this.set('users', response.userDetails.items);
+				this.loadData(response.payload.article, response.articleDetails);
 			},
 			// TODO: handle errors
 			() => { return; }
@@ -60,14 +54,17 @@ App.WikiArticleModel = Ember.Object.extend({
 	fetchFromPreload() {
 		var articleMeta = Wikia.article,
 			articleContent = $('.article-content').html();
+		this.loadData(articleContent, articleMeta);
+	},
 
-		this.set('article', articleContent);
-		this.set('comments', articleMeta.articleDetails.comments);
-		this.set('id', articleMeta.articleDetails.id);
-		this.set('namespace', articleMeta.articleDetails.ns);
-		this.set('cleanTitle', articleMeta.articleDetails.title);
-		this.set('relatedPages', articleMeta.relatedPages.items[articleMeta.articleDetails.id]);
-		this.set('users', articleMeta.userDetails.items);
+	loadData(content: string, meta: {articleDetails: any, relatedPages: any, userDetails: any}) {
+		this.set('article', content);
+		this.set('comments', meta.articleDetails.comments);
+		this.set('id', meta.articleDetails.id);
+		this.set('namespace', meta.articleDetails.ns);
+		this.set('cleanTitle', meta.articleDetails.title);
+		this.set('relatedPages', meta.relatedPages.items[meta.articleDetails.id]);
+		this.set('users', meta.userDetails.items);
 	}
 
 });
