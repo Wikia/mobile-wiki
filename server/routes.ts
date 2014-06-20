@@ -14,7 +14,7 @@ function routes(server) {
 		cache: {
 			privacy: 'public',
 			expiresIn: 60 * second
-			   }
+		}
 	};
 
 	indexRoutes.forEach(function(route: string) {
