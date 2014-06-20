@@ -32,7 +32,7 @@ App.WikiArticleModel = Ember.Object.extend({
 	users: [],
 	comments: 0,
 
-	titleChanged: function() {
+	titleChanged: function () {
 		if (Wikia._state.firstPage) {
 			this.fetchFromPreload();
 			Wikia._state.firstPage = false;
@@ -41,33 +41,39 @@ App.WikiArticleModel = Ember.Object.extend({
 		}
 	}.observes('title').on('init'),
 
-	fetch() {
+	fetch: function () {
 		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
 			.then((response: Response) => {
-				this.set('article', response.payload.article);
-				this.set('comments', response.articleDetails.comments);
-				this.set('id', response.articleDetails.id);
-				this.set('namespace', response.articleDetails.ns);
-				this.set('cleanTitle', response.articleDetails.title);
-				this.set('relatedPages', response.relatedPages.items[response.articleDetails.id]);
-				this.set('users', response.userDetails.items);
-			},
-			// TODO: handle errors
-			() => { return; }
-			);
+					this.set('article', response.payload.article);
+					this.set('comments', response.articleDetails.comments);
+					this.set('id', response.articleDetails.id);
+					this.set('namespace', response.articleDetails.ns);
+					this.set('cleanTitle', response.articleDetails.title);
+					this.set('relatedPages', response.relatedPages.items[response.articleDetails.id]);
+					this.set('users', response.userDetails.items);
+				},
+				// TODO: handle errors
+				() => {
+					return;
+				}
+		);
 	},
 
-	fetchFromPreload() {
+	fetchFromPreload: function () {
 		var articleMeta = Wikia.article,
 			articleContent = $('.article-content').html();
 
 		this.set('article', articleContent);
-		this.set('comments', articleMeta.articleDetails.comments);
-		this.set('id', articleMeta.articleDetails.id);
-		this.set('namespace', articleMeta.articleDetails.ns);
-		this.set('cleanTitle', articleMeta.articleDetails.title);
-		this.set('relatedPages', articleMeta.relatedPages.items[articleMeta.articleDetails.id]);
-		this.set('users', articleMeta.userDetails.items);
+
+		if (articleMeta.articleDetails) {
+			this.set('comments', articleMeta.articleDetails.comments);
+			this.set('id', articleMeta.articleDetails.id);
+			this.set('namespace', articleMeta.articleDetails.ns);
+			this.set('cleanTitle', articleMeta.articleDetails.title);
+			this.set('relatedPages', articleMeta.relatedPages.items[articleMeta.articleDetails.id]);
+			this.set('users', articleMeta.userDetails.items);
+		}
+
 	}
 
 });
