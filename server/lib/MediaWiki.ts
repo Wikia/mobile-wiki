@@ -31,6 +31,7 @@ module MediaWiki {
 							return text.replace(' ', '_');
 						}).join(',')
 					});
+
 			return fetch(url);
 		}
 
@@ -39,6 +40,7 @@ module MediaWiki {
 					articleId: articleId.toString(),
 					page: page.toString()
 				});
+
 			return fetch(url);
 		}
 
@@ -69,6 +71,7 @@ module MediaWiki {
 
 		getWikiTheme(wikiName: string) {
 			var url: string = createUrl( wikiName, 'api/v1/Mercury/WikiSettings');
+
 			return fetch(url);
 		}
 
