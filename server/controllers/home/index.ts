@@ -2,12 +2,10 @@
 
 import article = require('../article');
 
-function index(request: any, reply: { view: Function }) {
-	var parts = request._pathSegments;
-
+function index(pathSegments, next): void {
 	article.createFullArticle({
-		wikiName: parts[2],
-		articleTitle: decodeURIComponent(parts[4])
+		wikiName: pathSegments[2],
+		articleTitle: decodeURIComponent(pathSegments[4])
 	}, (data) => {
 		var article = data.payload.article;
 		var title = data.articleTitle;
@@ -15,7 +13,7 @@ function index(request: any, reply: { view: Function }) {
 		// so let's not send it with the JSON payload either
 		delete data.payload.article;
 		delete data.payload.title;
-		reply.view('application', {
+		next(null, {
 			// article content to be rendered on server
 			article: {
 				content: article,
@@ -27,10 +25,9 @@ function index(request: any, reply: { view: Function }) {
 			wiki: data.wikiName
 		});
 	}, (error) => {
-		reply.view('application', {
-			article: error
-		});
+		next(error);
 	});
 }
 
 export = index;
+
