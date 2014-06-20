@@ -10,11 +10,16 @@ class App {
 		var server: Hapi.Server,
 			options: {},
 			//Counter for maxRequestPerChild
-			counter = 0;
+			counter = 0,
+			second = 1000;
 
 		server = hapi.createServer(localSettings.host, localSettings.port, {
 			// ez enable cross origin resource sharing
 			cors: true,
+			cache: {
+				engine: require('catbox-memory'),
+				name: 'appcache'
+			},
 			views: {
 				engines: {
 					hbs: require('handlebars')
@@ -48,6 +53,7 @@ class App {
 			}
 		);
 
+		require('./methods')(server);
 		/*
 		 * Routes
 		 */

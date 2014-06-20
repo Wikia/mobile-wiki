@@ -3,19 +3,30 @@
 import path = require('path');
 
 function routes(server) {
+	var second = 1000;
 	// all the routes that should resolve to loading single page app entry view
-	var indexRoutes: string[] = ['/', '/w/{parts*}'],
-		SECOND: number = 1000;
+	var indexRoutes: string[] = [
+		'/',
+		'/w/{parts*}'
+	];
+
+	var config = {
+		cache: {
+			privacy: 'public',
+			expiresIn: 60 * second
+		}
+	};
 
 	indexRoutes.forEach(function(route: string) {
 		server.route({
 			method: 'GET',
 			path: route,
-			config: {
-				cache: {
-					expiresIn: 60 * SECOND,
-				},
-				handler: require('./controllers/home/index')
+			config: config,
+			handler: (request, reply) => {
+				server.methods.getPrerenderedData(request._pathSegments, (error, result) => {
+					// TODO: handle error a bit better :D
+					reply.view('application', error || result);
+				});
 			}
 		});
 	});
@@ -24,11 +35,12 @@ function routes(server) {
 	server.route({
 		method: 'GET',
 		path: '/article/{wikiName}/{articleTitle}',
-		config: {
-			cache: {
-				expiresIn: 60 * SECOND,
-			},
-			handler: require('./controllers/article').handleRoute
+		config: config,
+		handler: (request, reply) => {
+			server.methods.getArticleData(request.params, (error, result) => {
+				// TODO: handle error a bit better :D
+				reply(error || result);
+			});
 		}
 	});
 
@@ -55,3 +67,4 @@ function routes(server) {
 }
 
 export = routes;
+
