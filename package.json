@@ -58,7 +58,6 @@
     "karma-qunit": "0.1.x",
     "multipipe": "0.x.x",
     "node-sass": "0.x.x",
-    "q": "1.0.x",
     "qunitjs": "1.14.x",
     "tslint": "0.4.x"
   }
