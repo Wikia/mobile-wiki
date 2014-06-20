@@ -42,7 +42,6 @@ function routes(server) {
 				reply(error || result);
 			});
 		}
-		//require('./controllers/article').handleRoute
 	});
 
 	// eg. http://www.example.com/articleComments/muppet/154
