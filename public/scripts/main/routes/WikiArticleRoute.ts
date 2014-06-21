@@ -4,7 +4,7 @@
 
 App.WikiArticleRoute = Em.Route.extend({
 	model: function(params) {
-		return App.WikiArticleModel.create({
+		return App.WikiArticleModel.find({
 			title: params.articleTitle,
 			wiki: this.modelFor('wiki').get('wikiName')
 		});

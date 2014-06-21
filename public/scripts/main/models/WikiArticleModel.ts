@@ -24,56 +24,58 @@ interface Response {
 }
 
 App.WikiArticleModel = Ember.Object.extend({
-	sections: [],
-	title: '',
-	cleanTitle: '',
-	wiki: '',
-	article: '',
-	users: [],
+	article: null,
+	categories: [],
+	cleanTitle: null,
 	comments: 0,
+	media: [],
+	mediaUsers: [],
+	sections: [],
+	title: null,
+	user: null,
+	users: [],
+	wiki: null
+});
 
-	titleChanged: function () {
-		if (Wikia._state.firstPage) {
-			this.fetchFromPreload();
-			Wikia._state.firstPage = false;
-		} else {
-			this.fetch();
-		}
-	}.observes('title').on('init'),
-
-	fetch: function () {
-		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
-			.then((response: Response) => {
-					this.set('article', response.payload.article);
-					this.set('comments', response.articleDetails.comments);
-					this.set('id', response.articleDetails.id);
-					this.set('namespace', response.articleDetails.ns);
-					this.set('cleanTitle', response.articleDetails.title);
-					this.set('relatedPages', response.relatedPages.items[response.articleDetails.id]);
-					this.set('users', response.userDetails.items);
-				},
-				// TODO: handle errors
-				() => {
-					return;
-				}
-		);
+App.WikiArticleModel.reopenClass({
+	url: function (params) {
+		return '/article/' + params.wiki + '/' + params.title;
 	},
+	find: function (params) {
+		var model = App.WikiArticleModel.create(params),
+			self = this;
 
-	fetchFromPreload: function () {
-		var articleMeta = Wikia.article,
-			articleContent = $('.article-content').html();
+		model.set('wiki', params.wiki);
+		model.set('title', params.title);
 
-		this.set('article', articleContent);
-
-		if (articleMeta.articleDetails) {
-			this.set('comments', articleMeta.articleDetails.comments);
-			this.set('id', articleMeta.articleDetails.id);
-			this.set('namespace', articleMeta.articleDetails.ns);
-			this.set('cleanTitle', articleMeta.articleDetails.title);
-			this.set('relatedPages', articleMeta.relatedPages.items[articleMeta.articleDetails.id]);
-			this.set('users', articleMeta.userDetails.items);
+		if (Wikia._state.firstPage) {
+			this.setArticle(model);
+			return model;
 		}
 
-	}
+		return Ember.$.getJSON(this.url(params))
+			.then((response: Response) => {
+				self.setArticle(model, response);
+				return model;
+			});
+	},
+	getPreloadedData: function () {
+		Wikia._state.firstPage = false;
+		return Wikia.article;
+	},
+	setArticle: function (model, source = this.getPreloadedData()) {
+		model.set('type', source.articleDetails.ns);
+		model.set('cleanTitle', source.articleDetails.title);
+		model.set('comments', source.articleDetails.comments);
+		model.set('id', source.articleDetails.id);
 
+		model.set('article', source.payload.article || $('.article-content').html());
+		model.set('media', source.payload.media);
+		model.set('mediaUsers', source.payload.users);
+		model.set('user', source.payload.user);
+		model.set('categories', source.payload.categories);
+
+		model.set('relatedPages', source.relatedPages.items[source.articleDetails.id]);
+		model.set('users', source.userDetails.items);
+	}
 });

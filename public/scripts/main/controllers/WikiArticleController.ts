@@ -5,7 +5,6 @@ App.WikiArticleController = Em.ObjectController.extend({
 	actions: {
 		updateHeaders: function(headers): void {
 			var article = this.get('model');
-
 			article.set('sections', headers);
 		},
 		changePage: function(title) {
