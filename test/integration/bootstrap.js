@@ -5,7 +5,7 @@ module('Integration: Bootrap Article from Preloaded Data', {
 });
 
 test('Article Preload', function () {
-	visit('/w/foo/article/Bar');
+	visit('/w/lastofus/article/Ellie');
 	andThen(function () {
 		ok(find('.article-content', '').text().match('Test content'), 'Content gets loaded correctly');
 	});

@@ -37,7 +37,7 @@ module.exports = {
 		ext: 'js',
 		watch: paths.nodemon.watch,
 		env: {
-			WORKER_COUNT: 2,
+			WORKER_COUNT: 4,
 			MAX_REQUEST_PER_CHILD: 1000
 		}
 	},

@@ -11,4 +11,9 @@
 	Wikia.provide('article.articleDetails.title', {});
 	Wikia.provide('article.relatedPages.items', []);
 	Wikia.provide('article.userDetails.items', []);
+	Wikia.provide('article.payload.media', []);
+	Wikia.provide('article.payload.mediaUsers', []);
+	Wikia.provide('article.payload.users', []);
+	Wikia.provide('article.payload.user', 0);
+	Wikia.provide('article.payload.categories', []);
 }());
