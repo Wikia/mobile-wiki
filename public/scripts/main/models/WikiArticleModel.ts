@@ -24,47 +24,58 @@ interface Response {
 }
 
 App.WikiArticleModel = Ember.Object.extend({
-	sections: [],
-	title: '',
-	cleanTitle: '',
-	wiki: '',
-	article: '',
-	users: [],
+	article: null,
+	categories: [],
+	cleanTitle: null,
 	comments: 0,
+	media: [],
+	mediaUsers: [],
+	sections: [],
+	title: null,
+	user: null,
+	users: [],
+	wiki: null
+});
 
-	titleChanged: function() {
+App.WikiArticleModel.reopenClass({
+	url: function (params) {
+		return '/article/' + params.wiki + '/' + params.title;
+	},
+	find: function (params) {
+		var model = App.WikiArticleModel.create(params),
+			self = this;
+
+		model.set('wiki', params.wiki);
+		model.set('title', params.title);
+
 		if (Wikia._state.firstPage) {
-			this.fetchFromPreload();
-			Wikia._state.firstPage = false;
-		} else {
-			this.fetch();
+			this.setArticle(model);
+			return model;
 		}
-	}.observes('title').on('init'),
 
-	fetch() {
-		Ember.$.getJSON('/article/' + this.get('wiki') + '/' + this.get('title'))
+		return Ember.$.getJSON(this.url(params))
 			.then((response: Response) => {
-				this.loadData(response.payload.article, response.articleDetails);
-			},
-			// TODO: handle errors
-			() => { return; }
-			);
+				self.setArticle(model, response);
+				return model;
+			});
 	},
-
-	fetchFromPreload() {
-		var articleMeta = Wikia.article,
-			articleContent = $('.article-content').html();
-		this.loadData(articleContent, articleMeta);
+	getPreloadedData: function () {
+		Wikia._state.firstPage = false;
+		return Wikia.article;
 	},
+	setArticle: function (model, source = this.getPreloadedData()) {
+		model.set('type', source.articleDetails.ns);
+		model.set('cleanTitle', source.articleDetails.title);
+		model.set('comments', source.articleDetails.comments);
+		model.set('id', source.articleDetails.id);
 
-	loadData(content: string, meta: {articleDetails: any; relatedPages: any; userDetails: any}) {
-		this.set('article', content);
-		this.set('comments', meta.articleDetails.comments);
-		this.set('id', meta.articleDetails.id);
-		this.set('namespace', meta.articleDetails.ns);
-		this.set('cleanTitle', meta.articleDetails.title);
-		this.set('relatedPages', meta.relatedPages.items[meta.articleDetails.id]);
-		this.set('users', meta.userDetails.items);
+		model.set('article', source.payload.article || $('.article-content').html());
+		model.set('media', source.payload.media);
+		model.set('mediaUsers', source.payload.users);
+		model.set('user', source.payload.user);
+		model.set('categories', source.payload.categories);
+
+		model.set('relatedPages', source.relatedPages.items[source.articleDetails.id]);
+		model.set('users', source.userDetails.items);
 	}
-
 });
