@@ -15,17 +15,18 @@ App.WikiArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
 	articleObserver: function() {
 		Em.run.later(null, () => {
+			var model = this.get('controller.model');
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
-				var lazyload = new W.Lazyload();
+				var lazy = new W.LazyLoad();
 
-				lazyload.fixSizes(lazyImages);
+				lazy.fixSizes(lazyImages);
 
 				sloth.drop();
 				sloth.attach({
 					on: lazyImages,
 					threshold: 400,
-					callback: (elem) => lazyload.load(elem, false)
+					callback: (elem) => lazy.load(elem, false, model.get('media'))
 				});
 
 				// TODO: Temporary solution for generating Table of Contents

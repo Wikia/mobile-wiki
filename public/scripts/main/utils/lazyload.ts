@@ -9,7 +9,7 @@
 'use strict';
 
 module W {
-	export class Lazyload {
+	export class LazyLoad {
 		pageContent: HTMLElement;
 		pageWidth: number;
 
@@ -22,18 +22,18 @@ module W {
 			});
 		}
 
-		onLoad(img: HTMLElement, background: boolean) {
+		onLoad(img: HTMLImageElement, background: boolean) {
 			return function(): void {
 				var url = this.src;
 				img.className += ' load';
 
 				setTimeout(() => {
-					Lazyload.displayImage(img, url, background);
+					LazyLoad.displayImage(img, url, background);
 				}, 250);
 			};
 		}
 
-		static displayImage(img: HTMLElement, url: string, background: boolean): void {
+		static displayImage(img: HTMLImageElement, url: string, background: boolean): void {
 			if (background) {
 				img.style.backgroundImage = 'url(' + url + ')';
 			} else {
@@ -43,7 +43,7 @@ module W {
 			img.className += ' loaded';
 		}
 
-		load(elements: NodeList, background: boolean) {
+		load(elements: NodeList, background: boolean, media: any[]) {
 			var i: number = 0,
 				elm: HTMLImageElement,
 				img: HTMLImageElement,
@@ -54,19 +54,20 @@ module W {
 			while (elm = elementsArray[i++]) {
 				img = new Image();
 				ref = parseInt(elm.getAttribute('data-ref'), 10);
-				data = Wikia.article.payload.media[~~elm.dataset.ref];
+				data = media[~~elm.dataset.ref];
 
 				if (ref && data.url) {
-					if (elm.className.indexOf('getThumb') > -1 && !W.Thumbnailer.isThumbUrl(data.url)) {
-						data.url = W.Thumbnailer.getThumbURL(src, 'nocrop', '660', '330');
-					}
+					// TODO: unsure what src is supposed to be and it's currently undef
+					// if (elm.className.indexOf('getThumb') > -1 && !W.Thumbnailer.isThumbUrl(data.url)) {
+						// data.url = W.Thumbnailer.getThumbURL(src, 'nocrop', '660', '330');
+					// }
 
 					img.src = data.url;
 
 					elm.parentNode.replaceChild(img, elm);
 //					//don't do any animation if image is already loaded
 //					if (img.complete) {
-//						Lazyload.displayImage(elm, src, background);
+//						LazyLoad.displayImage(elm, src, background);
 //					} else {
 //						img.onload = this.onLoad(elm, background);
 //					}

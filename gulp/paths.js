@@ -45,6 +45,10 @@ module.exports = {
 		dest: basePath + '/public/svg',
 		files: '*.svg'
 	},
+	nodeModules: {
+		src: 'node_modules',
+		dest: basePath + '/node_modules'
+	},
 	nodemon: {
 		script: basePath + '/server/server.js',
 		watch: [
