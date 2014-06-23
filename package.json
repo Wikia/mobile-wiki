@@ -32,6 +32,7 @@
   "devDependencies": {
     "browser-sync": "0.x.x",
     "ember-qunit": "0.1.x",
+    "glob": "^4.0.2",
     "gulp": "3.x.x",
     "gulp-autoprefixer": "0.x.x",
     "gulp-cached": "0.x.x",
@@ -61,6 +62,7 @@
     "karma-qunit": "0.1.x",
     "multipipe": "0.x.x",
     "node-sass": "0.x.x",
+    "qunit": "^0.6.4",
     "qunitjs": "1.14.x",
     "tslint": "0.4.x"
   }
