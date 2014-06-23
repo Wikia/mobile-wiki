@@ -57,7 +57,7 @@ App.WikiArticleModel = Ember.Object.extend({
 		this.loadData(articleContent, articleMeta);
 	},
 
-	loadData(content: string, meta: {articleDetails: any, relatedPages: any, userDetails: any}) {
+	loadData(content: string, meta: {articleDetails: any; relatedPages: any; userDetails: any}) {
 		this.set('article', content);
 		this.set('comments', meta.articleDetails.comments);
 		this.set('id', meta.articleDetails.id);
