@@ -13,9 +13,12 @@ import Promise = require('bluebird');
  * article slug name
  */
 export function createFullArticle(data: any, callback: any, err: any) {
-	var article = new MediaWiki.ArticleRequest();
+	var article = new MediaWiki.ArticleRequest({
+		name: data.wikiName,
+		title: data.articleTitle
+	});
 
-	article.articleDetails(data.wikiName, [data.articleTitle])
+	article.articleDetails()
 		.then((response: any) => {
 			var articleDetails = response,
 				articleId;
@@ -24,10 +27,10 @@ export function createFullArticle(data: any, callback: any, err: any) {
 				articleId = Object.keys(articleDetails.items)[0];
 
 				Promise.props({
-					article: article.article(data.wikiName, data.articleTitle),
-					relatedPages: article.relatedPages(data.wikiName, [articleId]),
-					userData: article.getTopContributors(data.wikiName, articleId).then((contributors: any) => {
-						return article.userDetails(data.wikiName, contributors.items).then((users) => {
+					article: article.article(),
+					relatedPages: article.relatedPages([articleId]),
+					userData: article.getTopContributors(articleId).then((contributors: any) => {
+						return article.userDetails([contributors.items]).then((users) => {
 							return {
 								contributors: contributors,
 								users: users

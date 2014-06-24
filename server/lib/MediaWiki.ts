@@ -12,22 +12,26 @@ import Promise = require('bluebird');
 
 module MediaWiki {
 
-	interface URLParams {
-		[key: string]: string
-	}
-
 	export class ArticleRequest {
-		article(wikiName: string, articleTitle: string) {
-			var url = createUrl(wikiName, 'api/v1/Articles/asJson', {
-					title: articleTitle
+		name: string;
+		title: string;
+
+		constructor(params) {
+			this.name = params.name;
+			this.title = params.title;
+		}
+
+		article() {
+			var url = createUrl(this.name, 'api/v1/Articles/asJson', {
+					title: this.title
 			});
 
 			return fetch(url);
 		}
 
-		articleDetails(wikiName: string, articleTitles: string[]) {
-			var url: string = createUrl( wikiName, 'api/v1/Articles/Details', {
-						titles: articleTitles.map(function(text: string): string {
+		articleDetails(articles: string[] = [this.title]) {
+			var url: string = createUrl(this.name, 'api/v1/Articles/Details', {
+						titles: articles.map(function(text: string): string {
 							return text.replace(' ', '_');
 						}).join(',')
 					});
@@ -35,8 +39,8 @@ module MediaWiki {
 			return fetch(url);
 		}
 
-		articleComments(wikiName: string, articleId: number, page: number = 1) {
-			var url: string = createUrl( wikiName, 'api/v1/Mercury/ArticleComments', {
+		articleComments(articleId: number, page: number = 1) {
+			var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
 					articleId: articleId.toString(),
 					page: page.toString()
 				});
@@ -44,8 +48,8 @@ module MediaWiki {
 			return fetch(url);
 		}
 
-		relatedPages(wikiName: string, articleIds: number[], limit: number = 6) {
-			var url: string = createUrl( wikiName, 'api/v1/RelatedPages/List', {
+		relatedPages(articleIds: number[], limit: number = 6) {
+			var url: string = createUrl(this.name, 'api/v1/RelatedPages/List', {
 					ids: articleIds.join(','),
 					limit: limit.toString()
 				});
@@ -53,16 +57,16 @@ module MediaWiki {
 			return fetch(url);
 		}
 
-		userDetails(wikiName: string, userIds: number[]) {
-			var url: string = createUrl(wikiName, 'api/v1/User/Details', {
+		userDetails(userIds: number[]) {
+			var url: string = createUrl(this.name, 'api/v1/User/Details', {
 					ids: userIds.join(',')
 				});
 
 			return fetch(url);
 		}
 
-		getArticleCommentsCount(wikiName: string, articleId: number) {
-			var url: string = createUrl( wikiName, 'api/v1/Mercury/ArticleCommentsCount', {
+		getArticleCommentsCount(articleId: number) {
+			var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleCommentsCount', {
 						articleId: articleId.toString()
 			});
 
@@ -70,13 +74,13 @@ module MediaWiki {
 		}
 
 		getWikiTheme(wikiName: string) {
-			var url: string = createUrl( wikiName, 'api/v1/Mercury/WikiSettings');
+			var url: string = createUrl(this.name, 'api/v1/Mercury/WikiSettings');
 
 			return fetch(url);
 		}
 
-		getTopContributors(wikiName: string, articleId: number) {
-			var url: string = createUrl( wikiName, 'api/v1/Mercury/TopContributorsPerArticle', {
+		getTopContributors(articleId: number) {
+			var url: string = createUrl(this.name, 'api/v1/Mercury/TopContributorsPerArticle', {
 				articleId: articleId.toString()
 			});
 
@@ -85,7 +89,7 @@ module MediaWiki {
 
 	}
 
-	function fetch (url) {
+	export function fetch (url) {
 		return new Promise((resolve, reject) => {
 			Nipple.get(url, {
 				redirects: 1
@@ -102,7 +106,7 @@ module MediaWiki {
 		});
 	}
 
-	function getDomainName(wikiSubDomain: string): string {
+	export function getDomainName(wikiSubDomain: string): string {
 		var environment = localSettings.environment,
 			options = {
 				production: '',
@@ -126,7 +130,7 @@ module MediaWiki {
 		return 'http://' + wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com/';
 	}
 
-	function createUrl(wikiSubDomain: string, path: string, params: URLParams = {}): string {
+	export function createUrl(wikiSubDomain: string, path: string, params?: any): string {
 		var qsAggregator: string[] = [];
 		Object.keys(params).forEach(function(key) {
 			qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
