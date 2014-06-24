@@ -1,5 +1,5 @@
 /**
- * startWikiaBaseline.js
+ * wikiaBaseline.js
  * @description Sets up baseline first load experience to mirror the main web client
  */
 function resetWikiaBaseline () {
