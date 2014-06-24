@@ -1,7 +1,7 @@
 moduleFor('model:wikiArticle', 'Wiki Article Model', {
 	setup: function () {
 		// Test data for later tests
-		exampleArticleID = 123;
+		var exampleArticleID = 123;
 		this.example = Ember.Object.create({
 			payload: {
 				article: 'Test content'
@@ -41,7 +41,7 @@ test('WikiArticleModel RESTful URL tests', function () {
 				];
 	expect(tests.length);
 	for (var i = 0; i < tests.length; i++) {
-		test = tests[i];
+		var test = tests[i];
 		var url = App.WikiArticleModel.url(test);
 		var expected = '/article/' + test.wiki + '/' + test.title;
 		equal(url, expected, 'url returned"' + url + '", expected ' + expected);
@@ -58,7 +58,11 @@ test('getPreloadedData test', function () {
 	deepEqual(article, Wikia.article, 'article loaded from Wikia object on first page');
 });
 
-// Helper for following tests
+/**
+ * @desc Helper function for tests below which checks the validity of the data stored in the model
+ * @param {model} The WikiArticleModel that data has been loaded into which should be tested
+ * @param {example} The reference data
+ */
 function verifyArticle(model, example) {
 	equal(model.get('type'), example.articleDetails.ns,
 		'expected namespace=' + example.articleDetails.ns + ', got ' + model.get('type'));
@@ -96,7 +100,7 @@ test('test setArticle with preloaded data', function () {
 test('test setArticle with parametrized data', function () {
 	expect(11);
 	var model = this.subject();
-	App.WikiArticleModel.setArticle(model, this.example)
+	App.WikiArticleModel.setArticle(model, this.example);
 	verifyArticle(model, this.example);
 });
 
