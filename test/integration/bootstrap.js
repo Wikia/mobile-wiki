@@ -1,7 +1,7 @@
 module('Integration: Bootrap Article from Preloaded Data', {
 	teardown: function () {
 		App.reset();
-		wikiaBaseline();
+		resetWikiaBaseline();
 	}
 });
 

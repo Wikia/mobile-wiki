@@ -4,9 +4,10 @@
 interface Response {
 	payload: {
 		article: string;
-		media: any;
-		users: any;
-		categories: any;
+		user: any;
+		media: any[];
+		users: any[];
+		categories: any[];
 	};
 	articleTitle: string;
 	articleDetails: {
