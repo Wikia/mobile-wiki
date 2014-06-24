@@ -3,7 +3,11 @@
 
 interface Response {
 	payload: {
-		article: string
+		article: string;
+		user: any;
+		media: any[];
+		users: any[];
+		categories: any[];
 	};
 	articleTitle: string;
 	articleDetails: {
