@@ -2,7 +2,7 @@
  * startWikiaBaseline.js
  * @description Sets up baseline first load experience to mirror the main web client
  */
-wikiaBaseline = function () {
+function resetWikiaBaseline () {
 	var Wikia = window.Wikia;
 	Wikia.provide('_state.firstPage', true);
 	Wikia.provide('article.articleDetails.comments', {});
@@ -18,4 +18,4 @@ wikiaBaseline = function () {
 	Wikia.provide('article.payload.categories', []);
 };
 
-wikiaBaseline();
+resetWikiaBaseline();
