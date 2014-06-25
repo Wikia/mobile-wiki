@@ -1,4 +1,11 @@
-QUnit.module('lib/MediaWiki');
+QUnit.module('lib/MediaWiki', {
+	setup: function () {
+		this.notFoundResponse = require('../../../fixtures/not-found.json');
+	},
+	teardown: function () {
+
+	}
+});
 
 test('createURL', function () {
 	global.localSettings.environment = 'dev';
@@ -21,35 +28,39 @@ test('ArticleRequest class', function () {
 	equal(typeof global.ArticleRequest, 'function', 'be a constructor function');
 });
 
-// test('receives article content on fetch', function () {
-// 	// console.log(global);
+// May be better suited for integrating testing
+test('receives article content on fetch', function () {
+	stop();
+	expect(1);
+	var request = new global.ArticleRequest({
+		name: 'starwars',
+		title: 'Chewbacca'
+	});
+	request.article().then(function(response) {
+		// console.log(response);
+		ok(response.payload &&
+			response.payload.article,
+			'received article');
+		start();
+	});
+});
 
-// 	stop();
-// 	expect(1);
-// 	var request = new global.ArticleRequest({
-// 		name: 'lastofus',
-// 		title: 'Ellie'
-// 	});
-// 	request.article().then(function(response) {
-// 		// console.log(response);
-// 		ok(response.payload.article.length > 0, 'article length is nonzero');
-// 		start();
-// 	});
-// });
-
+// May be better suited for integrating testing
 test('receives error message on invalid fetch', function () {
+	self = this;
 	stop();
 	expect(1);
 	var request = new global.ArticleRequest({
 		name: "alsjdflkajsdlfjasd",
-		title: "ckx,.,,eeeee;;;ooOOOOO"
+		title: "ckxoOOOOO"
 	});
 	// Note that this does not robustly test the request, it only checks that if all else
 	// is good, then if the wiki name and article title are bad then we get the response
 	// we expect
 	request.article().then(function(response) {
 		deepEqual(response,
-			require('../../../fixtures/not-found.json'),
-			'gets error on bad article request')
+			self.notFoundResponse,
+			'gets error on bad article request');
+		start();
 	});
 });
