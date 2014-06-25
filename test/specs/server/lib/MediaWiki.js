@@ -14,3 +14,17 @@ test('ArticleRequest class', function () {
 	});
 	equal(typeof global.ArticleRequest, 'function', 'be a constructor function');
 });
+
+test('receives article content on fetch', function () {
+	stop();
+	expect(1);
+	var request = new global.ArticleRequest({
+		name: 'lastofus',
+		title: 'Ellie'
+	});
+	request.article().then(function(response) {
+		console.log(response);
+		ok(response.payload.article.length > 0, 'article length is nonzero');
+		start();
+	});
+});
