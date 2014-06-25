@@ -6,7 +6,7 @@ testrunner.setup({
 	deps: {
 		path: './www/config/localSettings.js',
 		namespace: 'localSettings'
-		},
+	},
 	log: {
 		// log assertions overview
 		assertions: true,
