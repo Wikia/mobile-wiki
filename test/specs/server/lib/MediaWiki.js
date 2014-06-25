@@ -1,10 +1,26 @@
 QUnit.module('lib/MediaWiki', {
-	setup: function () {
-
-	},
-	teardown: function () {
-		Nipple.get = this.oldGet;
-	}
+	// setup: function () {
+	// 	this.oldGet = Nipple.get;
+	// 	// Written to match the way MediaWiki.fetch() calls it.
+	// 	Nipple.get = function (uri, options, callback) {
+	// 		if (url == 'http://foo.kenneth.wikia-dev.com/api/test?title=bar') {
+	// 			var data = require('../../fixtures/valid-response.json');
+	// 			var res = {
+	// 				headers: {
+	// 					'content-type':'applications/json'
+	// 				},
+	// 				payload: data
+	// 			};
+	// 			callback({}, res, payload);
+	// 		} else {
+	// 			var err = require('../../not-found.json');
+	// 			callback(err);
+	// 		}
+	// 	};
+	// },
+	// teardown: function () {
+	// 	Nipple.get = this.oldGet;
+	// }
 });
 
 test('createURL', function () {
@@ -29,24 +45,7 @@ test('ArticleRequest class', function () {
 });
 
 test('receives article content on fetch', function () {
-
-	this.oldGet = Nipple.get;
-		// Written to match the way MediaWiki.fetch() calls it.
-		Nipple.get = function (uri, options, callback) {
-			if (url == 'http://foo.kenneth.wikia-dev.com/api/test?title=bar') {
-				var data = require('../../fixtures/valid-response.json');
-				var res = {
-					headers: {
-						'content-type':'applications/json'
-					},
-					payload: data
-				};
-				callback({}, res, payload);
-			} else {
-				var err = require('../../not-found.json');
-				callback(err);
-			}
-		};
+	console.log(global);
 
 	stop();
 	expect(1);
@@ -61,6 +60,6 @@ test('receives article content on fetch', function () {
 	});
 });
 
-test('receives error message on invalid fetch', function () {
+// test('receives error message on invalid fetch', function () {
 
-});
+// });
