@@ -2,6 +2,7 @@
 # @author Ben Isaacs
 # @date 06/25/2014
 # Checks if the local settings file exists, and if it doesn't then we use a default file
+# Only gets called in travis so far
 SCRIPT_NAME=`basename $0`
 LOCAL_SETTINGS="config/localSettings.ts"
 LOCAL_SETTINGS_DEFAULT="config/localSettings.test.ts"

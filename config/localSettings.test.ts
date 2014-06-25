@@ -1,6 +1,7 @@
 /// <reference path="../typings/node/node.d.ts" />
 /**
- * localSettings for application
+ * localSettings for application, used by default by travis
+ * (settings in .travis.yml)
  * @example
  * var localConfig = require('./config').localSettings
  */

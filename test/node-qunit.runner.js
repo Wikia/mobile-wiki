@@ -5,8 +5,7 @@ var testrunner = require('qunit'),
 testrunner.setup({
 	deps: {
 		path: './www/config/localSettings.js',
-		namespace: 'localSettings'
-	},
+		namespace: 'localSettings' },
 	log: {
 		// log assertions overview
 		assertions: true,
