@@ -15,7 +15,7 @@ gulp.task('karma', function () {
 		// qunit helpers must not be included in general components package
 		'public/vendor/ember-qunit/dist/globals/main.js',
 		'test/helpers/**/*.js',
-		'test/specs/**/*.js',
+		'test/specs/public/**/*.js',
 		'test/integration/**/*.js',
 	])
 	.pipe(karma({
@@ -25,4 +25,5 @@ gulp.task('karma', function () {
 	.on('error', function (error) {
 		throw error;
 	});
+
 });
