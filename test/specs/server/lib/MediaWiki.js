@@ -61,5 +61,5 @@ test('receives article content on fetch', function () {
 });
 
 test('receives error message on invalid fetch', function () {
-
+	expect(0);
 });
