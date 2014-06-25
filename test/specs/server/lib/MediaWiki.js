@@ -45,7 +45,7 @@ test('ArticleRequest class', function () {
 });
 
 test('receives article content on fetch', function () {
-	console.log(global);
+	// console.log(global);
 
 	stop();
 	expect(1);
@@ -60,6 +60,6 @@ test('receives article content on fetch', function () {
 	});
 });
 
-// test('receives error message on invalid fetch', function () {
+test('receives error message on invalid fetch', function () {
 
-// });
+});
