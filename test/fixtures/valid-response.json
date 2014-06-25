@@ -1,0 +1,65 @@
+{
+	"payload": {
+		"title": "article title here",
+		"article": "article content here",
+		"user": 123456,
+		"media": [
+			{
+				"type":"image",
+				"url":"http:\/\/www.example.com\/img1.jpg",
+				"fileUrl":"something.wikia.com\/img1.jpg",
+				"title":"example image",
+				"caption":"",
+				"user":"Jane Doe",
+				"embed":"",
+				"views":0
+			},
+			{
+				"type":"image",
+				"url":"http:\/\/www.example.com\/img2.png",
+				"fileUrl":"something.wikia.com\/img2.png",
+				"title":"example image two",
+				"caption":"",
+				"user":"John Drangnemgo",
+				"embed":"",
+				"views":0
+			},
+			[
+				{
+					"type":"image",
+					"url":"http:\/\/www.example.com\/img7666.png",
+					"fileUrl":"something.wikia.com\/img7666.png",
+					"title":"example image ssss",
+					"caption":"",
+					"user":"Joffrey Boratheon",
+					"embed":"",
+					"views":0
+				},
+				{
+					"type":"image",
+					"url":"http:\/\/www.example.com\/img111.png",
+					"fileUrl":"something.wikia.com\/img111.png",
+					"title":"example image million",
+					"caption":"",
+					"user":"Arya Stark",
+					"embed":"",
+					"views":0
+				}
+			]
+		],
+		"users": {
+			"Wikia Fan Zero": {
+				"id":10923834,
+				"avatar":"http:\/\/www.example.com\/avatar.jpg",
+				"url":"\/wiki\/User:Wikia_Fan_Zero"
+			}
+		},
+		"categories": [
+			{
+				"title":"Articles no one will ever look at",
+				"url":"\/wiki\/Category:Articles_no_one_will_ever_look_at"
+			}
+		]
+	},
+	"baseUrl":"http:\/\/lastofus.kenneth.wikia-dev.com"
+}

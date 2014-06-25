@@ -1,0 +1,7 @@
+{
+	"exception": {
+		"message":"Not found",
+		"code":404,
+		"details":"Unable to find any article"
+	}
+}
