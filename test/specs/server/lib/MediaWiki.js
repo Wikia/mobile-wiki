@@ -18,7 +18,7 @@ test('getDomainName', function () {
 	equal(global.getDomainName('foo'),
 		'http://hoest.foo.wikia.com/',
 		'sandbox URL has correct output');
-	global.localSettings.environment = 'production'
+	global.localSettings.environment = 'production';
 	equal(global.getDomainName('foo'),
 		'http://foo.wikia.com/',
 		'production URL has correct output');
@@ -38,10 +38,6 @@ test('createURL', function () {
 });
 
 test('ArticleRequest class', function () {
-	var instance = new global.ArticleRequest({
-		name: 'foo',
-		title: 'bar'
-	});
 	equal(typeof global.ArticleRequest, 'function', 'be a constructor function');
 });
 
@@ -68,8 +64,8 @@ test('receives error message on invalid fetch', function () {
 	stop();
 	expect(1);
 	var request = new global.ArticleRequest({
-		name: "alsjdflkajsdlfjasd",
-		title: "ckxoOOOOO"
+		name: 'alsjdflkajsdlfjasd',
+		title: 'ckxoOOOOO'
 	});
 	// Note that this does not robustly test the request, it only checks that if all else
 	// is good, then if the wiki name and article title are bad then we get the response
