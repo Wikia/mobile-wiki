@@ -50,7 +50,6 @@ test('receives article content on fetch', function () {
 		title: 'Chewbacca'
 	});
 	request.article().then(function(response) {
-		// console.log(response);
 		ok(response.payload &&
 			response.payload.article,
 			'received article');
@@ -60,7 +59,7 @@ test('receives article content on fetch', function () {
 
 // May be better suited for integrating testing
 test('receives error message on invalid fetch', function () {
-	self = this;
+	var self = this;
 	stop();
 	expect(1);
 	var request = new global.ArticleRequest({
