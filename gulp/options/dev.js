@@ -13,9 +13,7 @@ module.exports = {
 	scripts: {
 		front: {
 			target: 'ES5',
-			sourcemap: true,
-			outDir: paths.scripts.front.dest,
-			out: 'main.js',
+			sourcemap: false,
 			//mapRoot: '',
 			emitError: false,
 			removeComments: false
@@ -31,16 +29,17 @@ module.exports = {
 	handlebars: {
 		output: 'browser'
 	},
-	svg: {
-		defs: true
-	},
 	clean: {
 		read: false
 	},
 	nodemon: {
 		script: paths.nodemon.script,
 		ext: 'js',
-		watch: paths.nodemon.watch
+		watch: paths.nodemon.watch,
+		env: {
+			WORKER_COUNT: 4,
+			MAX_REQUEST_PER_CHILD: 1000
+		}
 	},
 	tslint: {
 		emitError: false

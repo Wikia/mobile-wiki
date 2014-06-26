@@ -1,12 +1,19 @@
-[![Build Status](https://travis-ci.org/Wikia/mercury.svg?branch=master&style=flat)](https://travis-ci.org/Wikia/mercury)
+[![Build Status](https://travis-ci.org/Wikia/mercury.svg)](https://travis-ci.org/Wikia/mercury)
+[![Dependency Status](https://david-dm.org/Wikia/mercury.svg)](https://david-dm.org/Wikia/mercury)
+[![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
 # Wikia Mobile
 1. [Getting Started](#getting-started)
 
-## Getting Started 
+## Getting Started
 * `npm install` will install local dependencies
-* `node installer.js` to install global dependencies
+* `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
 * `bower install` will install client dependencies
 * `tsd update` will update typings folder with ambient files
+* alternatively run `./install.sh`
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and add your eth0 address as the host, set a port
-* run gulp to start server and watch files
+* run npm run-script dev to start server and watch files
+
+##Live reload
+on dev environments livereload server runs that reload your web browser on any change in public folder
+

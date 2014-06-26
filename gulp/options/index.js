@@ -11,4 +11,3 @@ try {
 	console.log(exception.message);
 	process.exit(1)
 }
-
