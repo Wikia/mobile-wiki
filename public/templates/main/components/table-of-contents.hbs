@@ -1,0 +1,14 @@
+<span {{action 'toggleMenu'}} {{bind-attr class=":title isCollapsed:collapsed"}}>
+	<svg role="img" class="icon toc">
+		<use xlink:href="#toc"></use>
+	</svg>
+	<svg role="img" class="icon chevron">
+		<use xlink:href="#chevron"></use>
+	</svg>
+	{{yield}}
+</span>
+<ol {{bind-attr class="isCollapsed:collapsed"}}>
+	{{#each sections}}
+	<li><a href="#{{unbound id}}" title="{{unbound name}}">{{unbound name}}</a></li>
+	{{/each}}
+</ol>

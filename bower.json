@@ -1,23 +1,18 @@
 {
   "name": "public",
-  "version": "0.0.0",
-  "homepage": "https://github.com/Wikia/mobile",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Wikia/mercury",
   "authors": [
     "Kenneth Kouot <kenneth@wikia-inc.com>"
   ],
   "license": "MIT",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
-    "ember": "~1.5.1",
-    "foundation": "~5.2.1",
-    "i18next": "~1.7.3",
+    "ember": "1.5.x",
+    "foundation": "5.2.x",
+    "i18next": "1.7.x"
+  },
+  "devDependencies": {
     "ember-qunit": "~0.1.8"
   }
 }

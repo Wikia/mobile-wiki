@@ -5,7 +5,7 @@ gulp.task('assets', [
 	'tslint',
 	'scripts-back',
 	'scripts-front',
-	'components',
+	'vendor',
 	'templates',
 	'sprites',
 	'locales'

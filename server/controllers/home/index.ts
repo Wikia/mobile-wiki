@@ -2,33 +2,32 @@
 
 import article = require('../article');
 
-function index(request: any, reply: { view: Function }) {
-	var parts = request._pathSegments;
-
+function index(pathSegments, next): void {
 	article.createFullArticle({
-		wikiName: parts[2],
-		articleTitle: decodeURIComponent(parts[4])
+		wikiName: pathSegments[2],
+		articleTitle: decodeURIComponent(pathSegments[4])
 	}, (data) => {
-		var payload = data.payload;
-		var title = data.cleanTitle;
+		var article = data.payload.article;
+		var title = data.articleTitle;
 		// We're already sending the article body (which can get quite large) back to get rendered in the template,
 		// so let's not send it with the JSON payload either
-		delete data.payload;
-		delete data.cleanTitle;
-		reply.view('application', {
+		delete data.payload.article;
+		delete data.payload.title;
+		next(null, {
 			// article content to be rendered on server
 			article: {
-				payload: payload,
-				cleanTitle: title
+				content: article,
+				title: title,
+				description: data.articleDetails.abstract
 			 },
 			// article data to bootstrap Ember with in first load of application
-			articleJson: JSON.stringify(data)
+			articleJson: JSON.stringify(data),
+			wiki: data.wikiName
 		});
 	}, (error) => {
-		reply.view('application', {
-			article: error
-		});
+		next(error);
 	});
 }
 
 export = index;
+
