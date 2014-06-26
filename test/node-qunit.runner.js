@@ -42,6 +42,10 @@ glob.sync(__dirname + '/specs/server/**/*.js', function (err, tests) {
 
 		testrunner.run(prepped.filter(function (module) {
 			return module.code.length && module.tests.length;
-		}));
+		}), function (err) {
+			if (err) {
+				throw err;
+			}
+		});
 	});
 });
