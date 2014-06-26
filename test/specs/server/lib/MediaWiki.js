@@ -7,6 +7,23 @@ QUnit.module('lib/MediaWiki', {
 	}
 });
 
+test('getDomainName', function () {
+	expect(3);
+	global.localSettings.environment = 'dev';
+	equal(global.getDomainName('foo'),
+		'http://foo.kenneth.wikia-dev.com/',
+		'dev URL has correct output');
+	global.localSettings.environment = 'sandbox';
+	global.localSettings.host = 'hoest';
+	equal(global.getDomainName('foo'),
+		'http://hoest.foo.wikia.com/',
+		'sandbox URL has correct output');
+	global.localSettings.environment = 'production'
+	equal(global.getDomainName('foo'),
+		'http://foo.wikia.com/',
+		'production URL has correct output');
+});
+
 test('createURL', function () {
 	global.localSettings.environment = 'dev';
 	equal(global.createUrl('foo', 'api/test', { }),
