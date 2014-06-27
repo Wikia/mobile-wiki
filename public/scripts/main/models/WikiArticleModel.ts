@@ -58,8 +58,12 @@ App.WikiArticleModel.reopenClass({
 		}
 
 		return Ember.$.getJSON(this.url(params))
-			.then((response: Response) => {
-				self.setArticle(model, response);
+			.then((response: any) => {
+				if (response.statusCode == 404) {
+					model.set('exception', true);
+				} else {
+					self.setArticle(model, response);
+				}
 				return model;
 			});
 	},

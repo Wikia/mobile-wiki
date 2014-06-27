@@ -4,9 +4,21 @@
 
 App.WikiArticleRoute = Em.Route.extend({
 	model: function(params) {
-		return App.WikiArticleModel.find({
-			title: params.articleTitle,
-			wiki: this.modelFor('wiki').get('wikiName')
+		return new Ember.RSVP.Promise({
+			var articleModel = App.WikiArticleModel.find({
+				title: params.articleTitle,
+				wiki: this.modelFor('wiki').get('wikiName');
+			});
+			if (articleModel.get('exception')) {
+				reject('Could not find article');
+			} else {
+				resolve(model);
+			}
 		});
+
+		// return App.WikiArticleModel.find({
+		// 	title: params.articleTitle,
+		// 	wiki: this.modelFor('wiki').get('wikiName')
+		// });
 	}
 });

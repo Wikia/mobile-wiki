@@ -52,7 +52,7 @@ export function createFullArticle(data: any, callback: any, err: any) {
 						err(error);
 					});
 			} else {
-				err('Article not found');
+				err(response);
 			}
 		});
 }

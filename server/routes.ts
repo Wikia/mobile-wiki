@@ -1,6 +1,7 @@
 /// <reference path="../typings/hapi/hapi.d.ts" />
 
 import path = require('path');
+import Hapi = require('hapi');
 
 function routes(server) {
 	var second = 1000;
@@ -39,6 +40,10 @@ function routes(server) {
 		handler: (request, reply) => {
 			server.methods.getArticleData(request.params, (error, result) => {
 				// TODO: handle error a bit better :D
+				if (error) {
+					error = Hapi.error.notFound('Could not find article or Wiki, please check to' +
+						' see that you supplied correct parameters');
+				}
 				reply(error || result);
 			});
 		}
