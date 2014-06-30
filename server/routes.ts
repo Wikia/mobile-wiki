@@ -7,7 +7,7 @@ function routes(server) {
 	// all the routes that should resolve to loading single page app entry view
 	var indexRoutes: string[] = [
 		'/',
-		'/w/{parts*}'
+		'/a/{parts*}'
 	];
 
 	var config = {
@@ -23,7 +23,10 @@ function routes(server) {
 			path: route,
 			config: config,
 			handler: (request, reply) => {
-				server.methods.getPrerenderedData(request._pathSegments, (error, result) => {
+				server.methods.getPrerenderedData({
+					wiki: request.headers.host.split('.')[0],
+					title: request._pathSegments[2]
+				}, (error, result) => {
 					// TODO: handle error a bit better :D
 					reply.view('application', error || result);
 				});

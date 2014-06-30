@@ -2,10 +2,10 @@
 
 import article = require('../article');
 
-function index(pathSegments, next): void {
+function index(params, next): void {
 	article.createFullArticle({
-		wikiName: pathSegments[2],
-		articleTitle: decodeURIComponent(pathSegments[4])
+		wikiName: params.wiki,
+		articleTitle: params.title
 	}, (data) => {
 		var article = data.payload.article;
 		var title = data.articleTitle;
