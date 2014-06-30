@@ -55,6 +55,7 @@ App.WikiArticleModel.reopenClass({
 
 		if (Wikia._state.firstPage) {
 			this.setArticle(model);
+			debugger;
 			return model;
 		}
 
@@ -68,6 +69,7 @@ App.WikiArticleModel.reopenClass({
 					resolve(model);
 				},
 				error: function (err) {
+					debugger;
 					reject(err);
 				}
 			});

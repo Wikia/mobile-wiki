@@ -34,7 +34,7 @@ function routes(server) {
 						// console.log(error);
 						reply.view('error', error);
 					} else {
-						reply.view('application', error || result);
+						reply.view('application', result);
 					}
 				});
 			}
