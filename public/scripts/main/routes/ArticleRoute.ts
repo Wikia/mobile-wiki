@@ -6,7 +6,7 @@ App.ArticleRoute = Em.Route.extend({
 	model: function(params) {
 		return App.ArticleModel.find({
 			title: params.articleTitle,
-			wiki: window.location.host.split('.')[0]
+			wiki: this.controllerFor('application').get('domain')
 		});
 	}
 });
