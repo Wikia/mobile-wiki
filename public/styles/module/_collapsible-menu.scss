@@ -1,0 +1,70 @@
+$border-color: #d0d0d0;
+
+.collapsible-menu {
+	margin-bottom: rem-calc(20);
+
+	border-top: 1px solid $border-color;
+	border-bottom: 1px solid $border-color;
+
+	.title {
+		// extends & mixins
+		@extend .subtext;
+		@extend %header-section-title;
+
+		// positioning
+		position: relative;
+
+		// display & box model
+		display: block;
+		padding: rem-calc(5px) rem-calc(40px);
+
+		// color
+		color: rgb(130, 131, 133);
+
+		// text
+		font-size: .9em;
+		line-height: 2.4rem;
+
+		// other
+
+		&:not(.collapsed) .chevron {
+			transform: rotate(-180deg);
+			transition: .25s transform ease-in-out;
+		}
+
+		.icon {
+			position: absolute;
+			top: 50%;
+
+			&.toc {
+				left: 10px;
+				margin-top: -7px;
+			}
+
+			&.chevron {
+				right: 10px;
+				margin-top: -4px;
+			}
+		}
+
+	}
+
+
+  ol, ul {
+	  @extend .slide-down;
+	  margin: 0;
+	  margin-left: 2rem;
+
+		li {
+			a {
+				padding: 10px 0;
+				display: block;
+				color: #000000;
+			}
+
+			&:last-of-type {
+				margin-bottom: 10px;
+			}
+		}
+  }
+}

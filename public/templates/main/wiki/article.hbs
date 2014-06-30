@@ -1,8 +1,10 @@
 <section class="article-body">
 	<h1 class="article-title">{{cleanTitle}}</h1>
-	{{#table-of-contents sections=sections}}
-	{{i18n 'table-of-contents'}}
-	{{/table-of-contents}}
+	{{#collapsible-menu showMenuIcon=true additionalClasses="table-of-contents" tLabel="table-of-contents"}}
+		{{#each sections}}
+		<li><a href="#{{unbound id}}" title="{{unbound name}}">{{unbound name}}</a></li>
+		{{/each}}
+	{{/collapsible-menu}}
 	<article class="article-content">
 		{{{article}}}
 	</article>

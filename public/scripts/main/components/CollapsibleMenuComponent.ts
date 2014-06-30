@@ -1,9 +1,9 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.TableOfContentsComponent = Em.Component.extend({
+App.CollapsibleMenuComponent = Em.Component.extend({
 	tagName: 'nav',
-	classNames: ['table-of-contents'],
+	classNames: ['collapsible-menu'],
 	isCollapsed: true,
 	actions: {
 		toggleMenu: function (): void {
