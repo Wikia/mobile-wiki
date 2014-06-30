@@ -28,6 +28,7 @@ interface Response {
 }
 
 App.WikiArticleModel = Ember.Object.extend({
+	// exception: null,
 	article: null,
 	categories: [],
 	cleanTitle: null,
@@ -57,15 +58,31 @@ App.WikiArticleModel.reopenClass({
 			return model;
 		}
 
-		return Ember.$.getJSON(this.url(params))
-			.then((response: any) => {
-				if (response.statusCode == 404) {
-					model.set('exception', true);
-				} else {
-					self.setArticle(model, response);
+		return new Ember.RSVP.Promise(function (resolve, reject) {
+			Ember.$.ajax({
+				url: self.url(params),
+				dataType: 'json',
+				async: false,
+				success: function (data) {
+					self.setArticle(model, data);
+					resolve(model);
+				},
+				error: function (err) {
+					reject(err);
 				}
-				return model;
 			});
+
+
+			// getJSON(this.url(params), function(response) {
+			// debugger;
+				
+			// }).fail(function (jqXHR, textStatus, errorThrown) {
+			// 	model.set('exception', true);
+			// 	return model;
+			// });
+		});
+
+		
 	},
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;

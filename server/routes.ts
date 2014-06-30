@@ -11,6 +11,9 @@ function routes(server) {
 		'/w/{parts*}'
 	];
 
+	var notFoundError = 'Could not find article or Wiki, please check to' +
+						' see that you supplied correct parameters';
+
 	var config = {
 		cache: {
 			privacy: 'public',
@@ -26,7 +29,13 @@ function routes(server) {
 			handler: (request, reply) => {
 				server.methods.getPrerenderedData(request._pathSegments, (error, result) => {
 					// TODO: handle error a bit better :D
-					reply.view('application', error || result);
+					if (error) {
+						error = Hapi.error.notFound(notFoundError);
+						// console.log(error);
+						reply.view('error', error);
+					} else {
+						reply.view('application', error || result);
+					}
 				});
 			}
 		});
@@ -41,8 +50,7 @@ function routes(server) {
 			server.methods.getArticleData(request.params, (error, result) => {
 				// TODO: handle error a bit better :D
 				if (error) {
-					error = Hapi.error.notFound('Could not find article or Wiki, please check to' +
-						' see that you supplied correct parameters');
+					error = Hapi.error.notFound(notFoundError);
 				}
 				reply(error || result);
 			});
