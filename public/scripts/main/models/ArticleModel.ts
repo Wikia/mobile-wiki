@@ -27,8 +27,7 @@ interface Response {
 	};
 }
 
-App.WikiArticleModel = Ember.Object.extend({
-	// exception: null,
+App.ArticleModel = Ember.Object.extend({
 	article: null,
 	categories: [],
 	cleanTitle: null,
@@ -42,12 +41,12 @@ App.WikiArticleModel = Ember.Object.extend({
 	wiki: null
 });
 
-App.WikiArticleModel.reopenClass({
+App.ArticleModel.reopenClass({
 	url: function (params) {
 		return '/article/' + params.wiki + '/' + params.title;
 	},
 	find: function (params) {
-		var model = App.WikiArticleModel.create(params),
+		var model = App.ArticleModel.create(params),
 			self = this;
 
 		model.set('wiki', params.wiki);
@@ -55,7 +54,6 @@ App.WikiArticleModel.reopenClass({
 
 		if (Wikia._state.firstPage) {
 			this.setArticle(model);
-			debugger;
 			return model;
 		}
 
@@ -73,18 +71,7 @@ App.WikiArticleModel.reopenClass({
 					reject(err);
 				}
 			});
-
-
-			// getJSON(this.url(params), function(response) {
-			// debugger;
-				
-			// }).fail(function (jqXHR, textStatus, errorThrown) {
-			// 	model.set('exception', true);
-			// 	return model;
-			// });
 		});
-
-		
 	},
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;

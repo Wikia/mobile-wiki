@@ -2,13 +2,9 @@
 'use strict';
 
 App.Router.map(function() {
-	this.resource('wiki', {
-		path: '/w/:wikiName'
-	}, function() {
-			this.route('article', {
-				path: 'article/:articleTitle'
-			});
-		});
+	this.resource('article', {
+		path: 'a/:articleTitle'
+	});
 });
 
 App.Router.reopen({

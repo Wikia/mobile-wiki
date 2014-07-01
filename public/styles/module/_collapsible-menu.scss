@@ -9,7 +9,6 @@ $border-color: #d0d0d0;
 	.title {
 		// extends & mixins
 		@extend .subtext;
-		@extend %header-section-title;
 
 		// positioning
 		position: relative;
@@ -23,13 +22,21 @@ $border-color: #d0d0d0;
 
 		// text
 		font-size: .9em;
+		font-weight: bold;
 		line-height: 2.4rem;
+		text-transform: uppercase;
+		text-align: center;
 
 		// other
 
 		&:not(.collapsed) .chevron {
 			transform: rotate(-180deg);
 			transition: .25s transform ease-in-out;
+		}
+
+		&.text-left {
+			text-align: left;
+			padding-left: rem-calc(15);
 		}
 
 		.icon {
@@ -49,8 +56,7 @@ $border-color: #d0d0d0;
 
 	}
 
-
-  ol, ul {
+	ol, ul {
 	  @extend .slide-down;
 	  margin: 0;
 	  margin-left: 2rem;
@@ -66,5 +72,5 @@ $border-color: #d0d0d0;
 				margin-bottom: 10px;
 			}
 		}
-  }
+	}
 }
