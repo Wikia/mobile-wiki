@@ -100,7 +100,7 @@ test('test find with preloaded data', function () {
  * @param {model} The ArticleModel that data has been loaded into which should be tested
  * @param {example} The reference data
  */
-function verifyArticle(model, example) {
+function verifyArticle (model, example) {
 	equal(model.get('type'),
 		example.articleDetails.ns,
 		'expected namespace=' + example.articleDetails.ns + ', got ' + model.get('type'));
