@@ -67,8 +67,7 @@ App.ArticleModel.reopenClass({
 					resolve(model);
 				},
 				error: function (err) {
-					debugger;
-					reject(err);
+					reject($.extend(err, model));
 				}
 			});
 		});

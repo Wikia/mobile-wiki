@@ -11,8 +11,7 @@ App.ArticleRoute = Em.Route.extend({
 	},
 	actions: {
 		error: function (error, transition) {
-			debugger;
-			transitionTo('article.error');
+			alert(error.status + ' Error: Sorry, we couldn\'t find ' + error.title);
 		}
 	}
 });
