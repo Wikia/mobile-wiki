@@ -24,7 +24,6 @@ function routes(server) {
 	});
 
 	var indexRoutes: string[] = [
-		// '/',
 		'/a/{title}'
 	];
 

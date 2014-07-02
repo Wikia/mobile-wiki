@@ -4,10 +4,6 @@
 
 App.NotFoundRoute = Em.Route.extend({
 	beforeModel: function (transition) {
-		// debugger;
 		transition.abort();
-	},
-	model: function (params) {
-		return params;
 	}
 });
