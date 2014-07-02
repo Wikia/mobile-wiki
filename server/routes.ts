@@ -42,7 +42,6 @@ function routes(server) {
 					// TODO: handle error a bit better :D
 					if (error) {
 						error = Hapi.error.notFound(notFoundError);
-						// console.log(error);
 						reply.view('error', error);
 					} else {
 						reply.view('application', result);
