@@ -6,12 +6,12 @@ var gulp = require('gulp'),
 	rev = require('gulp-rev'),
 	uglify = require('gulp-uglify'),
 	revReplace = require('gulp-rev-replace'),
-	multipipe = require('multipipe'),
+	piper = require('../utils/piper'),
 	paths = require('../paths'),
 	environment = require('../utils/environment');
 
 gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates'], function () {
-	return multipipe(
+	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull
 		}),
@@ -20,7 +20,7 @@ gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor'
 				base: paths.baseFull
 			}
 		})),
-		gulpif(environment.isProduction, multipipe(
+		gulpif(environment.isProduction, piper(
 			useref.assets({
 				searchPath: paths.base
 			}),

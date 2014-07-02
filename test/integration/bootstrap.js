@@ -1,4 +1,7 @@
 module('Integration: Bootrap Article from Preloaded Data', {
+	setup: function () {
+		Wikia.article.wikiName = 'lastofus';
+	},
 	teardown: function () {
 		App.reset();
 		resetWikiaBaseline();
@@ -6,7 +9,7 @@ module('Integration: Bootrap Article from Preloaded Data', {
 });
 
 test('Article Preload', function () {
-	visit('/w/lastofus/article/Ellie');
+	visit('/a/Ellie');
 	andThen(function () {
 		ok(find('.article-content', '').text().match('Test content'), 'Content gets loaded correctly');
 	});

@@ -1,4 +1,4 @@
-moduleFor('controller:wiki-article', 'WikiArticle Controller', {
+moduleFor('controller:article', 'Article Controller', {
 	setup: function () {
 		// TODO: need to consolidate mocking for Wikia obj
 		Wikia._state = {};

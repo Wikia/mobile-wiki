@@ -1,12 +1,12 @@
 var gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	sass = require('gulp-sass'),
-	multipipe = require('multipipe'),
+	piper = require('../utils/piper'),
 	options = require('../options').styles,
 	paths = require('../paths').styles;
 
 gulp.task('sass', function () {
-	return multipipe(
+	return piper(
 		gulp.src(paths.src),
 		sass(options),
 		//currently support for map is broken
