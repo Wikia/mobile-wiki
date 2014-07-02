@@ -3,6 +3,11 @@
 'use strict';
 
 App.ArticleRoute = Em.Route.extend({
+	beforeModel: function (transition) {
+		if (Wikia.error) {
+			transition.abort();
+		}
+	},
 	model: function (params) {
 		return App.ArticleModel.find({
 			title: params.articleTitle,

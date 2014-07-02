@@ -6,9 +6,17 @@ import Hapi = require('hapi');
 function routes(server) {
 	var second = 1000;
 	// all the routes that should resolve to loading single page app entry view
+
+	server.route({
+		method: '*',
+		path: '/{p*}',
+		handler: function (request, reply) {
+			reply.view('error', Hapi.error.notFound('Page not found'));
+		}
+	});
 	var indexRoutes: string[] = [
 		'/',
-		'/a/{parts*}'
+		'/a/{title}'
 	];
 
 	var notFoundError = 'Could not find article or Wiki, please check to' +
