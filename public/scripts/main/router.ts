@@ -5,7 +5,9 @@ App.Router.map(function () {
 	this.resource('articles', {
 		path: '/a'
 	}, function () {
-		this.resource('article', {path: ':articleTitle'});
+		this.resource('article', {path: ':articleTitle'}, function () {
+			this.route('comments', {path: 'comments'});
+		});
 	});
 });
 

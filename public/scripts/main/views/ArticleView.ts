@@ -13,9 +13,11 @@ var sloth = new W.Sloth();
 
 App.ArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
+	templateName: 'article/index',
 	articleObserver: function() {
 		Em.run.later(null, () => {
 			var model = this.get('controller.model');
+
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
 				var lazy = new W.LazyLoad();
@@ -42,17 +44,7 @@ App.ArticleView = Em.View.extend({
 
 				this.get('controller').send('updateHeaders', headers);
 			}
+
 		}, 1000);
-	}.observes('controller.article'),
-
-	click(event) {
-		if (event.target.tagName === 'A') {
-			event.preventDefault();
-			this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
-		}
-	},
-
-	willInsertElement() {
-		$('#app-container').html('');
-	}
+	}.observes('controller.article')
 });

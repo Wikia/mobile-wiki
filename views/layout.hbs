@@ -22,6 +22,7 @@
 			{{#if articleJson}}
 			Wikia.provide('article', {{{articleJson}}});
 			{{else}}
+			Wikia.provide('article', {});
 			Wikia.provide('error.message', '{{output.payload.message}}');
 			Wikia.provide('error.status', '{{output.payload.statusCode}}');
 			Wikia.provide('error.error', '{{output.payload.error}}');

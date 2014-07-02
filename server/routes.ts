@@ -16,7 +16,8 @@ function routes(server) {
 	});
 	var indexRoutes: string[] = [
 		'/',
-		'/a/{title}'
+		'/a/{title}',
+		'/a/{title}/comments'
 	];
 
 	var notFoundError = 'Could not find article or Wiki, please check to' +
