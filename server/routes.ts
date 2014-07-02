@@ -1,14 +1,26 @@
 /// <reference path="../typings/hapi/hapi.d.ts" />
 
 import path = require('path');
+import Hapi = require('hapi');
 
 function routes(server) {
 	var second = 1000;
 	// all the routes that should resolve to loading single page app entry view
+
+	server.route({
+		method: '*',
+		path: '/{p*}',
+		handler: function (request, reply) {
+			reply.view('error', Hapi.error.notFound('Page not found'));
+		}
+	});
 	var indexRoutes: string[] = [
 		'/',
-		'/a/{parts*}'
+		'/a/{title}'
 	];
+
+	var notFoundError = 'Could not find article or Wiki, please check to' +
+						' see that you supplied correct parameters';
 
 	var config = {
 		cache: {
@@ -28,7 +40,12 @@ function routes(server) {
 					title: request._pathSegments[2]
 				}, (error, result) => {
 					// TODO: handle error a bit better :D
-					reply.view('application', error || result);
+					if (error) {
+						error = Hapi.error.notFound(notFoundError);
+						reply.view('error', error);
+					} else {
+						reply.view('application', result);
+					}
 				});
 			}
 		});
@@ -42,6 +59,9 @@ function routes(server) {
 		handler: (request, reply) => {
 			server.methods.getArticleData(request.params, (error, result) => {
 				// TODO: handle error a bit better :D
+				if (error) {
+					error = Hapi.error.notFound(notFoundError);
+				}
 				reply(error || result);
 			});
 		}

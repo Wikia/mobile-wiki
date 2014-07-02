@@ -57,11 +57,20 @@ App.ArticleModel.reopenClass({
 			return model;
 		}
 
-		return Ember.$.getJSON(this.url(params))
-			.then((response: Response) => {
-				self.setArticle(model, response);
-				return model;
+		return new Ember.RSVP.Promise(function (resolve, reject) {
+			Ember.$.ajax({
+				url: self.url(params),
+				dataType: 'json',
+				async: false,
+				success: function (data) {
+					self.setArticle(model, data);
+					resolve(model);
+				},
+				error: function (err) {
+					reject($.extend(err, model));
+				}
 			});
+		});
 	},
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;
