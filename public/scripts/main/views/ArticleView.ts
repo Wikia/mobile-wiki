@@ -11,7 +11,7 @@ interface HeadersFromDom {
 
 var sloth = new W.Sloth();
 
-App.WikiArticleView = Em.View.extend({
+App.ArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
 	articleObserver: function() {
 		Em.run.later(null, () => {

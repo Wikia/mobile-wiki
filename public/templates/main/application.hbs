@@ -13,6 +13,8 @@
 Leaderboard Ad
 {{/ad-leaderboard}}
 <div class="page-wrapper">
-	{{outlet}}
+	<section class="wiki-container">
+		<h2 class="wiki-title"><a href="#" alt="{{wikiName}}">{{wikiName}}</a></h2>
+		{{outlet}} 
+	</section>
 </div>
-{{view App.WikiaFooterView}}

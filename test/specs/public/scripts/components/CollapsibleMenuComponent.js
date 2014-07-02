@@ -1,4 +1,4 @@
-moduleForComponent('table-of-contents', 'TableOfContentsComponent');
+moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent');
 
 test('Beginning state', function () {
 	expect(1);

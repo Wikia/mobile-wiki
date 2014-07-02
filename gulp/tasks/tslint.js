@@ -1,12 +1,12 @@
 var gulp = require('gulp'),
 	tslint = require('gulp-tslint'),
 	cache = require('gulp-cached'),
-	multipipe = require('multipipe'),
+	piper = require('../utils/piper'),
 	paths = require('../paths'),
 	options = require('../options').tslint;
 
 gulp.task('tslint', function () {
-	return multipipe(
+	return piper(
 		gulp.src([
 			paths.scripts.front.src + paths.scripts.front.files,
 			paths.scripts.back.src
