@@ -7,6 +7,8 @@ App.Router.map(function () {
 	}, function () {
 		this.resource('article', {path: ':articleTitle'});
 	});
+	// The catch-all route
+	this.route('notFound', {path: '*'});
 });
 
 App.Router.reopen({
