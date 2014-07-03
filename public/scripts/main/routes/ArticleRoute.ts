@@ -2,7 +2,7 @@
 
 'use strict';
 
-App.ArticleRoute = Em.Route.extend({
+App.ArticleRoute = Em.Route.extend(App.ResetScroll, {
 	beforeModel: function (transition) {
 		if (Wikia.error) {
 			transition.abort();
