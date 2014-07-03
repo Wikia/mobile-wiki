@@ -7,7 +7,8 @@ App.Router.map(function () {
 	}, function () {
 		this.resource('article', {path: ':articleTitle'});
 	});
-	// The catch-all route
+	// Route to catch all badly formed URLs, i.e., anything that doesn't match
+	// '/', '/a' or '/a/title', which are the three cases already handled by existing routes.
 	this.route('notFound', {path: '/*url'});
 });
 
