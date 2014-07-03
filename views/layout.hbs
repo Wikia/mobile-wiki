@@ -20,7 +20,7 @@
 			Wikia.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			Wikia.provide('_state.firstPage', true);
 			{{#if articleJson}}
-			Wikia.provide('article', {{{articleJson}}});
+				Wikia.provide('article', {{{articleJson}}});
 			{{else}}
 				Wikia.provide('article', {});
 				Wikia.provide('error.message', '{{output.payload.message}}');
