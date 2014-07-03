@@ -2,7 +2,7 @@
 
 'use strict';
 
-App.ArticleRoute = Em.Route.extend(App.ResetScroll, {
+App.ArticleRoute = Em.Route.extend({
 	beforeModel: function (transition) {
 		if (Wikia.error) {
 			transition.abort();
@@ -17,6 +17,10 @@ App.ArticleRoute = Em.Route.extend(App.ResetScroll, {
 	actions: {
 		error: function (error, transition) {
 			alert(error.status + ' Error: Sorry, we couldn\'t find ' + error.title);
+		},
+		// TODO: Fix how this scrolls to the top even when there is an error. Bad.
+		willTransition: function (transition) {
+			window.scrollTo(0,0);
 		}
 	}
 });
