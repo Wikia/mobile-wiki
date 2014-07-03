@@ -42,7 +42,7 @@ App.ArticleView = Em.View.extend({
 
 				this.get('controller').send('updateHeaders', headers);
 			}
-		}, 1000);
+		}, 0);
 	}.observes('controller.article'),
 
 	click(event) {
