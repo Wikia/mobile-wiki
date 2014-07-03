@@ -16,6 +16,7 @@ App.ArticleView = Em.View.extend({
 	articleObserver: function() {
 		Em.run.later(null, () => {
 			var model = this.get('controller.model');
+
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
 				var lazy = new W.LazyLoad();
@@ -45,14 +46,19 @@ App.ArticleView = Em.View.extend({
 		}, 1000);
 	}.observes('controller.article'),
 
+	modelObserver: function () {
+		var model = this.get('controller.model');
+		if (model) {
+			var wiki = model.get('wiki');
+			var title = model.get('cleanTitle');
+			document.title = title + ' - ' + wiki + ' wiki';
+		}
+	}.observes('controller.model'),
+
 	click(event) {
 		if (event.target.tagName === 'A') {
 			event.preventDefault();
 			this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
 		}
-	},
-
-	willInsertElement() {
-		$('#app-container').html('');
 	}
 });
