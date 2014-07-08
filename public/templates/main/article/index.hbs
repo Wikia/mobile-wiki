@@ -16,11 +16,9 @@
 		{{/each}}
 	</ul>
 	{{#if comments}}
-	<div class="comments">
-		{{#link-to 'article.comments' title}}
+		{{#link-to 'article.comments' title classNames="show-comments-btn"}}
 		{{i18n 'load-n-comments' count=comments}}
 		{{/link-to}}
-	</div>
 	{{outlet comments}}
 	{{/if}}
 </section>

@@ -1,0 +1,17 @@
+<li class="comment">
+	<div class="avatar">
+		<img src="{{unbound avatarUrl}}">
+	</div>
+	<div class="content">
+		<span class="username"><a href="{{unbound url}}">{{userName}}</a></span>
+		{{{text}}}
+		{{#if comments}}
+		<a href="">{{i18n 'load-n-replies' count=comments.length}}</a>
+			<ul class="row">
+			{{#each comments itemController="articleComment"}}
+				{{view App.ArticleCommentView}}
+			{{/each}}
+			</ul>
+		{{/if}}
+	</div>
+</li>

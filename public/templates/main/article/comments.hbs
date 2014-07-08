@@ -1,13 +1,5 @@
-<h1>COMMENTS DUDE</h1>
 <ul class="comments">
-{{#each comment in controller}}
-<li class="comment">
-<div>
-</div>
-<div>
-	{{view App.ArticleUsersView userNameBinding='comment.userName'}}
-	{{{comment.text}}}
-</div>
-</li>
+{{#each controller}}
+	{{view App.ArticleCommentView}}
 {{/each}}
 </ul>
