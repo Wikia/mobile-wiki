@@ -20,11 +20,12 @@
 			Wikia.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			Wikia.provide('_state.firstPage', true);
 			{{#if articleJson}}
-			Wikia.provide('article', {{{articleJson}}});
+				Wikia.provide('article', {{{articleJson}}});
 			{{else}}
-			Wikia.provide('error.message', '{{output.payload.message}}');
-			Wikia.provide('error.status', '{{output.payload.statusCode}}');
-			Wikia.provide('error.error', '{{output.payload.error}}');
+				Wikia.provide('article', {});
+				Wikia.provide('error.message', '{{output.payload.message}}');
+				Wikia.provide('error.status', '{{output.payload.statusCode}}');
+				Wikia.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
 
 		</script>
