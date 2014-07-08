@@ -7,15 +7,23 @@ function routes(server) {
 	var second = 1000;
 	// all the routes that should resolve to loading single page app entry view
 
+	function restrictedHandler (request, reply) {
+		reply.view('error', Hapi.error.notFound('Invalid URL parameters'));
+	}
+
+	server.route({
+		method: '*',
+		path: '/',
+		handler: restrictedHandler
+	});
+
 	server.route({
 		method: '*',
 		path: '/{p*}',
-		handler: function (request, reply) {
-			reply.view('error', Hapi.error.notFound('Page not found'));
-		}
+		handler: restrictedHandler 
 	});
+
 	var indexRoutes: string[] = [
-		'/',
 		'/a/{title}'
 	];
 

@@ -52,9 +52,5 @@ App.ArticleView = Em.View.extend({
 			event.preventDefault();
 			this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
 		}
-	},
-
-	willInsertElement() {
-		$('#app-container').html('');
 	}
 });
