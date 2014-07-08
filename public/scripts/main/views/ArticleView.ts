@@ -45,6 +45,15 @@ App.ArticleView = Em.View.extend({
 		}, 1000);
 	}.observes('controller.article'),
 
+	modelObserver: function () {
+		var model = this.get('controller.model');
+		if (model) {
+			var wiki = model.get('wiki');
+			var title = model.get('cleanTitle');
+			document.title = title + ' - ' + wiki + ' wiki';
+		}
+	}.observes('controller.model'),
+
 	click(event) {
 		if (event.target.tagName === 'A') {
 			event.preventDefault();
