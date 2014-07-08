@@ -18,7 +18,8 @@ App.ArticleRoute = Em.Route.extend({
 		error: function (error, transition) {
 			alert(error.status + ' Error: Sorry, we couldn\'t find ' + error.title);
 		},
-		// TODO: Fix how this scrolls to the top even when there is an error. Bad.
+		// TODO: This currently will scroll to the top even when the app has encountered
+		// an error. Optimally, it would remain in the same place.
 		willTransition: function (transition) {
 			window.scrollTo(0,0);
 		}
