@@ -68,7 +68,11 @@
 		"equal": false,
 		"ok": false,
 		"deepEqual": false,
-		"strictEqual": false
+		"strictEqual": false,
+		"App": false,
+		"visit": false,
+		"andThen": false,
+		"find": false
 	},
 	"jquery": true,
 	"node": true,

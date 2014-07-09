@@ -1,3 +1,4 @@
+/* global resetWikiaBaseline */
 module('Integration: Bootrap Article from Preloaded Data', {
 	setup: function () {
 		Wikia.article.wikiName = 'lastofus';
