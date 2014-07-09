@@ -18,6 +18,7 @@ function index(params, next): void {
 			article: {
 				content: article,
 				title: title,
+				cleanTitle: data.articleDetails.title,
 				description: data.articleDetails.abstract
 			 },
 			// article data to bootstrap Ember with in first load of application

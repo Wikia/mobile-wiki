@@ -44,7 +44,17 @@ App.ArticleView = Em.View.extend({
 
 				this.get('controller').send('updateHeaders', headers);
 			}
+		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
+		// cause problems in the future with the lazyloading code above (unknown)
+		}, 0);
+	}.observes('controller.article'),
 
-		}, 1000);
-	}.observes('controller.article')
+	modelObserver: function () {
+		var model = this.get('controller.model');
+		if (model) {
+			var wiki = model.get('wiki');
+			var title = model.get('cleanTitle');
+			document.title = title + ' - ' + wiki + ' wiki';
+		}
+	}.observes('controller.model')
 });

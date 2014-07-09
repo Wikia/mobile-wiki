@@ -20,7 +20,6 @@ export function createFullArticle(data: any, callback: any, err: any) {
 
 	article.articleDetails()
 		.then((response: any) => {
-			console.log(response);
 			var articleDetails = response,
 				articleId;
 
