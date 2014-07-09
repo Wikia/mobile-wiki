@@ -22,10 +22,18 @@
 
 	ul {
 		@extend %list-reset;
+
+		display: none;
+
 		margin-left: rem-calc(-10);
 		margin-top: rem-calc(20);
 
+		&.expanded {
+			display: block;
+		}
+
 		.avatar img { margin-left: rem-calc(-10); }
+		
 	}
 
 	.avatar {
