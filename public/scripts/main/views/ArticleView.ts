@@ -58,24 +58,25 @@ App.ArticleView = Em.View.extend({
 
 	click(event) {
 		if (event.target.tagName === 'A') {
-			debugger;
 			var model = this.get('controller.model');
-			var basepath = model.get('basepath');
-			var title = model.get('title');
-			var hash = event.target.hash;
-			var uri = event.target.pathname;
-			var info = W.getLinkInfo(basepath, title, hash, uri);
-			debugger;
+			var info = W.getLinkInfo(model.get('basepath'),
+				model.get('title'),
+				event.target.hash,
+				event.target.href);
 
 			event.preventDefault();
 
-			debugger;
 			if (info.article) {
 				this.get('controller').send('changePage', info.article);
 			} else if (info.url) {
-				window.location = info.url;
+				// If it's a jump link, then jump.
+				if (info.url.charAt(0) === '#') {
+					window.location = info.url;
+				} else {
+					window.open(info.url);
+				}
 			} else {
-				console.log('unable to open link "' + uri + '"');
+				console.log('unable to open link "' + event.target.href + '"');
 			}
 		}
 	}
