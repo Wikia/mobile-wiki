@@ -21,8 +21,7 @@ App.ArticleRoute = Em.Route.extend({
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
 		willTransition: function (transition) {
-			var currentArticleStr = this.currentModel.get('title');
-			if (transition.targetName !== 'article.comments' && transition.intent.contexts[0] !== currentArticleStr) {
+			if (transition.targetName === 'article.index') {
 				window.scrollTo(0, 0);
 			}
 		}
