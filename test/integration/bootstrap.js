@@ -11,7 +11,9 @@ module('Integration: Bootrap Article from Preloaded Data', {
 test('Article Preload', function () {
 	visit('/a/Ellie');
 	andThen(function () {
-		ok(find('.article-content', '').text().match('Test content'), 'Content gets loaded correctly');
+		var content = find('.article-content', '').text();
+		ok(content.match('Test content'),
+			'Expected "Test content", received ' + content);
 	});
 });
 

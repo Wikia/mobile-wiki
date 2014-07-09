@@ -1,10 +1,12 @@
 <section class="article-body">
 	<h1 class="article-title">{{cleanTitle}}</h1>
-	{{#collapsible-menu showMenuIcon=true additionalClasses="table-of-contents" tLabel="table-of-contents"}}
-		{{#each sections}}
-		<li><a href="#{{unbound id}}" title="{{unbound name}}">{{unbound name}}</a></li>
-		{{/each}}
-	{{/collapsible-menu}}
+	{{#if sections.length}}
+		{{#collapsible-menu showMenuIcon=true additionalClasses="table-of-contents" tLabel="table-of-contents"}}
+			{{#each sections}}
+			<li><a href="#{{unbound id}}" title="{{unbound name}}">{{unbound name}}</a></li>
+			{{/each}}
+		{{/collapsible-menu}}
+	{{/if}}
 	<article class="article-content">
 		{{{article}}}
 	</article>
