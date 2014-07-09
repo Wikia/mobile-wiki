@@ -77,6 +77,7 @@ App.ArticleModel.reopenClass({
 		return Wikia.article;
 	},
 	setArticle: function (model, source = this.getPreloadedData()) {
+		debugger;
 		model.set('type', source.articleDetails.ns);
 		model.set('cleanTitle', source.articleDetails.title);
 		model.set('comments', source.articleDetails.comments);
@@ -90,5 +91,7 @@ App.ArticleModel.reopenClass({
 
 		model.set('relatedPages', source.relatedPages.items[source.articleDetails.id]);
 		model.set('users', source.userDetails.items);
+
+		model.set('basepath', source.userDetails.basepath);
 	}
 });

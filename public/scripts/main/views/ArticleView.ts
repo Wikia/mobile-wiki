@@ -47,8 +47,25 @@ App.ArticleView = Em.View.extend({
 
 	click(event) {
 		if (event.target.tagName === 'A') {
+			debugger;
+			var model = this.get('controller.model');
+			var basepath = model.get('basepath');
+			var title = model.get('title');
+			var hash = event.target.hash;
+			var uri = event.target.pathname;
+			var info = W.getLinkInfo(basepath, title, hash, uri);
+			debugger;
+
 			event.preventDefault();
-			this.get('controller').send('changePage', event.target.pathname.replace('/wiki/', ''));
+
+			debugger;
+			if (info.article) {
+				this.get('controller').send('changePage', info.article);
+			} else if (info.url) {
+				window.location = info.url;
+			} else {
+				console.log('unable to open link "' + uri + '"');
+			}
 		}
 	}
 });
