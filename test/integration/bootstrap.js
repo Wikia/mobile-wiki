@@ -10,12 +10,14 @@ module('Integration: Bootrap Article from Preloaded Data', {
 });
 
 test('Article Preload', function () {
+	stop();
 	visit('/a/Ellie');
-	andThen(function () {
-		var content = find('.article-content', '').text();
-		ok(content.match('Test content'),
-			'Expected "Test content", received ' + content);
-	});
+	var content = find('.article-content', '').text();
+	ok(content.match('Test content'),
+		'Expected "Test content", received ' + content);
+	setTimeout(function () {
+		start();
+	}, 3000);
 });
 
 
