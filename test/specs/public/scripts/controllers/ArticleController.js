@@ -1,4 +1,5 @@
 moduleFor('controller:article', 'Article Controller', {
+	needs: ['controller:application'],
 	setup: function () {
 		// TODO: need to consolidate mocking for Wikia obj
 		Wikia._state = {};

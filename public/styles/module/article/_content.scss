@@ -9,4 +9,17 @@
 	h1, h2, h3, h4, h6 {
 		color: $primary-color;
 	}
+
+	h1, h2 {
+		padding-top: rem-calc(20);
+	}
+
+	img {
+		margin-bottom: rem-calc(20);
+
+		& ~ h1,
+		& ~ h2 {
+			margin-bottom: 0;
+		}
+	}
 }
