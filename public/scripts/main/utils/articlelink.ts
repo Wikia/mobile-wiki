@@ -46,9 +46,7 @@ module W {
 			var info = null;
 			namespaces.forEach(function (ns) {
 				var regex = '^\/wiki\/' + ns + '.*$';
-				console.log('matching ' + local + ' with ' + regex);
 				if (local.match(regex)) {
-					console.log('matches');
 					info = {
 						article: null,
 						url: basepath + local
