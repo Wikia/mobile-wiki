@@ -27,7 +27,9 @@ test('getLinkInfo test external paths', function () {
 test('getLinkInfo special links', function () {
 	var tests = [
 		'Special:',
-		'Special:something'
+		'Special:something',
+		'File:img.jpg',
+		'Project_Talk:blerg'
 	];
 	expect(tests.length * 2);
 	tests.forEach(function (test) {

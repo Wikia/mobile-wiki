@@ -20,11 +20,12 @@ function routes(server) {
 	server.route({
 		method: '*',
 		path: '/{p*}',
-		handler: restrictedHandler 
+		handler: restrictedHandler
 	});
 
 	var indexRoutes: string[] = [
-		'/a/{title}'
+		'/a/{title}',
+		'/a/{title}/comments'
 	];
 
 	var notFoundError = 'Could not find article or Wiki, please check to' +
@@ -62,10 +63,14 @@ function routes(server) {
 	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
 	server.route({
 		method: 'GET',
-		path: '/article/{wikiName}/{articleTitle}',
+		path: '/api/v1/article/{articleTitle}',
 		config: config,
 		handler: (request, reply) => {
-			server.methods.getArticleData(request.params, (error, result) => {
+			var params = {
+				wikiName: request.headers.host.split('.')[0],
+				articleTitle: request.params.articleTitle
+			};
+			server.methods.getArticleData(params, (error, result) => {
 				// TODO: handle error a bit better :D
 				if (error) {
 					error = Hapi.error.notFound(notFoundError);
@@ -78,7 +83,7 @@ function routes(server) {
 	// eg. http://www.example.com/articleComments/muppet/154
 	server.route({
 		method: 'GET',
-		path: '/articleComments/{wiki}/{articleId}/{page?}',
+		path: '/api/v1/article/comments/{articleId}/{page?}',
 		handler: require('./controllers/articleComments').handleRoute
 	});
 

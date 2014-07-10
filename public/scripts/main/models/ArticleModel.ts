@@ -43,7 +43,7 @@ App.ArticleModel = Ember.Object.extend({
 
 App.ArticleModel.reopenClass({
 	url: function (params) {
-		return '/article/' + params.wiki + '/' + params.title;
+		return '/api/v1/article/' + params.title;
 	},
 	find: function (params) {
 		var model = App.ArticleModel.create(params),

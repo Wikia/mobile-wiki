@@ -12,7 +12,7 @@
 	"curly": true,
 	"eqeqeq": true,
 	"immed": true,
-	"latedef": true,
+	"latedef": false,
 	"maxdepth": 3,
 	"maxlen": 120,
 	"newcap": true,
@@ -66,7 +66,13 @@
 		"test": false,
 		"expect": false,
 		"equal": false,
-		"ok": false
+		"ok": false,
+		"deepEqual": false,
+		"strictEqual": false,
+		"App": false,
+		"visit": false,
+		"andThen": false,
+		"find": false
 	},
 	"jquery": true,
 	"node": true,

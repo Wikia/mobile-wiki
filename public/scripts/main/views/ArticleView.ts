@@ -13,6 +13,7 @@ var sloth = new W.Sloth();
 
 App.ArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
+	templateName: 'article/index',
 	articleObserver: function() {
 		Em.run.later(null, () => {
 			var model = this.get('controller.model');
@@ -54,30 +55,5 @@ App.ArticleView = Em.View.extend({
 			var title = model.get('cleanTitle');
 			document.title = title + ' - ' + wiki + ' wiki';
 		}
-	}.observes('controller.model'),
-
-	click(event) {
-		if (event.target.tagName === 'A') {
-			var model = this.get('controller.model');
-			var info = W.getLinkInfo(model.get('basepath'),
-				model.get('title'),
-				event.target.hash,
-				event.target.href);
-
-			event.preventDefault();
-
-			if (info.article) {
-				this.get('controller').send('changePage', info.article);
-			} else if (info.url) {
-				// If it's a jump link, then jump.
-				if (info.url.charAt(0) === '#' || info.url.match(/https?:\/\/.*\.wikia\.com\/.*/)) {
-					window.location = info.url;
-				} else {
-					window.open(info.url);
-				}
-			} else {
-				console.log('unable to open link "' + event.target.href + '"');
-			}
-		}
-	}
+	}.observes('controller.model')
 });

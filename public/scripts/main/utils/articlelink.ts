@@ -43,15 +43,21 @@ module W {
 			];
 			// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
 			// NOTE: see below, but we might also have to deal with links in the form /Special:.*
+			var info = null;
 			namespaces.forEach(function (ns) {
 				var regex = '^\/wiki\/' + ns + '.*$';
+				console.log('matching ' + local + ' with ' + regex);
 				if (local.match(regex)) {
-				return {
-					article: null,
-					url: basepath + local
-				};
-			}
+					console.log('matches');
+					info = {
+						article: null,
+						url: basepath + local
+					};
+				}
 			});
+			if (info) {
+				return info;
+			}
 			/**
 			 * Here we test if its an article link. We also have to check for /a/something for the jump links,
 			 * because the url will be in that form and there will be a hash
