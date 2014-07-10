@@ -29,9 +29,12 @@ $collapsible-menu-font-size: rem-calc(13);
 		// other
 		cursor: pointer;
 
-		&:not(.collapsed) .chevron {
-			transform: rotate(-180deg);
+		.chevron {
 			transition: .25s transform ease-in-out;
+		}
+
+		&:not(.collapsed) .chevron {
+			transform: scaleY(-1);
 		}
 
 		&.text-left {
