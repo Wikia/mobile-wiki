@@ -3,8 +3,16 @@
 App.ArticleContentView = Ember.View.extend({
 	tagName: 'article',
 	classNames: ['article-content'],
-	click(event) {
-		if (event.target.tagName === 'A') {
+	click: function (event) {
+		var target;
+		/**
+		* Could cache the $ selector lookup before the if, but that would mean it'd be run for each click regardless
+		* So we just eat the overhead for instances of elements wrapped in anchors eg:
+		* <a href="foo">This <em>link</em></a>
+		* This is because it's overall more performant to skip the lookup completely first test in the
+		* condition passes
+		*/
+		if (event.target.tagName === 'A' || Ember.$(event.target).closest('a').length) {
 			var model = this.get('controller.model');
 			var info = W.getLinkInfo(model.get('basepath'),
 				model.get('title'),
