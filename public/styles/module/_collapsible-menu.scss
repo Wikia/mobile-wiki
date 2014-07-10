@@ -1,4 +1,5 @@
 $border-color: #d0d0d0;
+$collapsible-menu-font-size: rem-calc(13);
 
 .collapsible-menu {
 	margin-bottom: rem-calc(20);
@@ -18,14 +19,12 @@ $border-color: #d0d0d0;
 		padding: rem-calc(5px) rem-calc(40px);
 
 		// color
-		color: rgb(130, 131, 133);
 
 		// text
-		font-size: .9em;
+		font-size: $collapsible-menu-font-size;
 		font-weight: bold;
 		line-height: 2.4rem;
 		text-transform: uppercase;
-		text-align: center;
 
 		// other
 
@@ -57,19 +56,28 @@ $border-color: #d0d0d0;
 	}
 
 	ol, ul {
-	  @extend .slide-down;
-	  margin: 0;
-	  margin-left: 2rem;
+		@extend .slide-down;
+		margin: 0;
+		padding: 0;
+
+		font-size: $collapsible-menu-font-size;
 
 		li {
+			border-top: 1px solid $border-color;
+			padding-left: rem-calc(40);
+			
 			a {
+				position: relative;
 				padding: 10px 0;
 				display: block;
 				color: #000000;
 			}
 
-			&:last-of-type {
-				margin-bottom: 10px;
+			a > .chevron {
+				position: absolute;
+				right: rem-calc(10);
+				top: rem-calc(13);
+				transform: scale(.8) rotate(-90deg);
 			}
 		}
 	}
