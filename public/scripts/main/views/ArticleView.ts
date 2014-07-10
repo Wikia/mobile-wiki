@@ -70,7 +70,7 @@ App.ArticleView = Em.View.extend({
 				this.get('controller').send('changePage', info.article);
 			} else if (info.url) {
 				// If it's a jump link, then jump.
-				if (info.url.charAt(0) === '#') {
+				if (info.url.charAt(0) === '#' || info.url.match(/https?:\/\/.*\.wikia\.com\/.*/)) {
 					window.location = info.url;
 				} else {
 					window.open(info.url);
