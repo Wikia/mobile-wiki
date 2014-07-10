@@ -1,3 +1,4 @@
+/* global App, resetWikiaBaseline */
 moduleFor('model:article', 'Article Model', {
 	setup: function () {
 		// Test data for later tests
@@ -35,22 +36,16 @@ moduleFor('model:article', 'Article Model', {
 
 test('ArticleModel RESTful URL tests', function () {
 	var tests = [{
-		wiki: '',
 		title: ''
 	}, {
-		wiki: 'foo',
 		title: 'bar'
 	}, {
-		wiki: '',
 		title: 'hippopotamus'
-	}, {
-		wiki: 'starwars',
-		title: ''
 	}];
 	expect(tests.length);
-	tests.forEach(function (test, index, array) {
+	tests.forEach(function (test) {
 		var url = App.ArticleModel.url(test);
-		var expected = '/article/' + test.wiki + '/' + test.title;
+		var expected = '/api/v1/article/' + test.title;
 		equal(url, expected, 'url returned"' + url + '", expected ' + expected);
 	});
 });
@@ -82,11 +77,14 @@ test('test setArticle with parametrized data', function () {
 });
 
 test('test find with preloaded data', function () {
+	var model, params;
 	expect(13);
-	var params = {
+
+	params = {
 		wiki: 'wiki',
 		article: 'article'
 	};
+
 	ok(Wikia._state.firstPage, 'firstPage==true before test, as expected');
 	Ember.run(function () {
 		model = App.ArticleModel.find(params);

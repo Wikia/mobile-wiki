@@ -1,0 +1,25 @@
+<section class="article-body">
+	<h1 class="article-title">{{cleanTitle}}</h1>
+	{{#collapsible-menu showMenuIcon=true additionalClasses="table-of-contents" tLabel="table-of-contents"}}
+		{{#each sections}}
+		<li><a href="#{{unbound id}}" title="{{unbound name}}">{{unbound name}}</a></li>
+		{{/each}}
+	{{/collapsible-menu}}
+	{{#view App.ArticleContentView}}
+		{{{article}}}
+	{{/view}}
+</section>
+<section class="article-footer">
+	<ul class="contributors">
+		{{#each users}}
+		<li><a href="{{unbound url}}"><img src={{unbound avatar}} alt="{{unbound name}}"></a></li>
+		{{/each}}
+	</ul>
+	{{#if comments}}
+		{{#link-to 'article.comments' title classNames="show-comments-btn"}}
+		{{i18n 'load-n-comments' count=comments}}
+		{{/link-to}}
+	{{outlet comments}}
+	{{/if}}
+</section>
+{{content-recommendations pages=relatedPages}}

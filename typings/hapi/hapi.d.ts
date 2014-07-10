@@ -353,7 +353,7 @@ declare module Hapi {
 			session: Object
 		};
 		domain: any;
-		headers: Object;
+		headers: any;
 		id: number;
 		info: {
 			received: number;
@@ -396,7 +396,7 @@ declare module Hapi {
 
 	export interface Response {
 		statusCode: number;
-		headers: Object;
+		headers: any;
 		source: any;
 		variety: string;
 		app: any;

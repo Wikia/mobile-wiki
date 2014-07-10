@@ -67,7 +67,7 @@ function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
 
 export function handleRoute(request: Hapi.Request, reply: any): void {
 	new MediaWiki.ArticleRequest({
-		name: request.params.wiki
+		name: request.headers.host.split('.')[0]
 	}).articleComments(
 			parseInt(request.params.articleId, 10),
 			parseInt(request.params.page, 10) || 1
