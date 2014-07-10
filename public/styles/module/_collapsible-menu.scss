@@ -27,6 +27,7 @@ $collapsible-menu-font-size: rem-calc(13);
 		text-transform: uppercase;
 
 		// other
+		cursor: pointer;
 
 		&:not(.collapsed) .chevron {
 			transform: rotate(-180deg);
@@ -65,7 +66,7 @@ $collapsible-menu-font-size: rem-calc(13);
 		li {
 			border-top: 1px solid $border-color;
 			padding-left: rem-calc(40);
-			
+
 			a {
 				position: relative;
 				padding: 10px 0;

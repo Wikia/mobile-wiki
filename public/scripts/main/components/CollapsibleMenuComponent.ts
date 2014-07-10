@@ -7,6 +7,7 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 	isCollapsed: true,
 	actions: {
 		toggleMenu: function (): void {
+			this.$('ol, ul').slideToggle(this.get('animSpeed'));
 			this.toggleProperty('isCollapsed');
 		}
 	},
