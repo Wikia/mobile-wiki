@@ -116,10 +116,10 @@ module MediaWiki {
 	 * @param url the url to fetch
 	 * @param redirectsNum the number of redirects to follow, default 1
 	 */
-	export function fetch (url: string, redirectsNum: number = 1) {
+	export function fetch (url: string, redirects: number = 1) {
 		return new Promise((resolve, reject) => {
 			Nipple.get(url, {
-				redirects: redirectsNum
+				redirects: redirects
 			}, (err, res, payload) => {
 				if (res.headers['content-type'].match('application/json')) {
 					payload = JSON.parse(payload);

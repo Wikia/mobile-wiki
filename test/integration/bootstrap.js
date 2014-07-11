@@ -13,9 +13,9 @@ test('Article Preload', function () {
 	stop();
 	visit('/a/Ellie');
 	var content = find('.article-content', '').text();
+	setTimeout(function () {
 	ok(content.match('Test content'),
 		'Expected "Test content", received ' + content);
-	setTimeout(function () {
 		start();
 	}, 3000);
 });
