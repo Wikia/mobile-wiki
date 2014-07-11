@@ -21,40 +21,19 @@ module W {
 		var localPathMatch = uri.match('^' + window.location.origin + '(.*)$');
 		if (localPathMatch) {
 			var local = localPathMatch[1];
-			var namespaces = [
-				'Special:',
-				'Talk:',
-				'User:',
-				'User_Talk:',
-				'Project:',
-				'Project_Talk:',
-				'File:',
-				'File_Talk:',
-				'MediaWiki:',
-				'MediaWiki_Talk:',
-				'Template:',
-				'Template_Talk:',
-				'Help:',
-				'Help_Talk:',
-				'Category:',
-				'Category_Talk:',
-				'Blog:',
-				'Blog_Talk:'
-			];
 			// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
 			// NOTE: see below, but we might also have to deal with links in the form /Special:.*
-			var info = null;
-			namespaces.forEach(function (ns) {
-				var regex = '^\/wiki\/' + ns + '.*$';
+			for (var ns in Wikia.wiki.namespaces) {
+				if (!namespaces.hasOwnProperty(ns)) {
+					continue;
+				}
+				var regex = '^\/wiki\/' + ns + ':.*$';
 				if (local.match(regex)) {
-					info = {
+					return {
 						article: null,
 						url: basepath + local
 					};
 				}
-			});
-			if (info) {
-				return info;
 			}
 			/**
 			 * Here we test if its an article link. We also have to check for /a/something for the jump links,
