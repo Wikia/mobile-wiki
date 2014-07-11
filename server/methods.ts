@@ -17,13 +17,13 @@ function methods(server): void {
 	server.method('getPrerenderedData', indexController, cacheOptions);
 
 	server.method('getArticleData', (params, next) => {
-		article.createFullArticle(params, (data) => {
+		article.createFullArticle(false, params, (data) => {
 			next(null, data);
 		}, (err) => {
 			next(err);
 		});
 	}, cacheOptions);
- 
+
 };
 
 export = methods;

@@ -13,9 +13,27 @@ App.ArticleContentView = Ember.View.extend({
 		* condition passes
 		*/
 		if (event.target.tagName === 'A' || Ember.$(event.target).closest('a').length) {
+			var model = this.get('controller.model');
+			var info = W.getLinkInfo(model.get('basepath'),
+				model.get('title'),
+				event.target.hash,
+				event.target.href);
+
 			event.preventDefault();
-			target = event.target.pathname || Ember.$(event.target).closest('a')[0].pathname;
-			this.get('controller').send('changePage', target.replace('/wiki/', ''));
+
+			if (info.article) {
+				this.get('controller').send('changePage', info.article);
+			} else if (info.url) {
+				// If it's a jump link, then jump.
+				// TODO: this regex is alright for dev environment, but doesn't work well with production
+				if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(\-.*)?\.com.*\/.*$/)) {
+					window.location = info.url;
+				} else {
+					window.open(info.url);
+				}
+			} else {
+				console.log('unable to open link "' + event.target.href + '"');
+			}
 		}
 	}
 });

@@ -17,7 +17,6 @@ App.ArticleView = Em.View.extend({
 	articleObserver: function() {
 		Em.run.later(null, () => {
 			var model = this.get('controller.model');
-
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
 				var lazy = new W.LazyLoad();

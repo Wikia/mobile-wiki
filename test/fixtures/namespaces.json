@@ -1,0 +1,23 @@
+{
+	"0": {
+		"id":0,
+		"canonical": ""
+	},
+	"1": {
+		"id":1,
+		"canonical": "Special"
+	},
+	"2": {
+		"id":2,
+		"canonical": "Project Talk"
+	},
+	"3": {
+		"id":3,
+		"canonical": "File"
+	},
+	"4": {
+		"id":4,
+		"canonical": "This namespace Requires replacing multiple spaces with UNDERSCORES"
+	}
+	
+}

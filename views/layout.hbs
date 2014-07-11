@@ -21,13 +21,13 @@
 			Wikia.provide('_state.firstPage', true);
 			{{#if articleJson}}
 				Wikia.provide('article', {{{articleJson}}});
+				Wikia.provide('wiki.namespaces', {{{namespaces}}});
 			{{else}}
 				Wikia.provide('article', {});
 				Wikia.provide('error.message', '{{output.payload.message}}');
 				Wikia.provide('error.status', '{{output.payload.statusCode}}');
 				Wikia.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
-
 		</script>
 
 		<!-- @if WIKIA_ENVIRONMENT='dev' -->
