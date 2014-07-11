@@ -2,9 +2,12 @@
 @import 'settings';
 @import 'foundation-imports';
 
-@import 'placeholders/index';
+// DO NOT CHANGE:
+// load order of files below is intentional
+@import 'placeholder/index';
 @import 'base/index';
 @import 'layout/index';
 @import 'state/index';
 @import 'theme/index';
+@import 'component/index';
 @import 'module/index';
