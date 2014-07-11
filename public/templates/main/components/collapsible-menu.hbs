@@ -1,4 +1,4 @@
-<span {{action 'toggleMenu'}} {{bind-attr class=":title isCollapsed:collapsed additionalClasses"}}>
+<span {{action 'toggleMenu'}} {{bind-attr class=":title isCollapsed:collapsed"}}>
 	{{#if showMenuIcon}}
 	<svg viewBox="0 0 18 13" class="icon toc">
 		<use xlink:href="#toc"></use>
@@ -10,11 +10,11 @@
 	{{i18n tLabel count=tCount}}
 </span>
 {{#if ordered}}
-<ol {{bind-attr class="isCollapsed:collapsed"}}>
+<ol>
 	{{yield}}
 </ol>
 {{else}}
-<ul {{bind-attr class="isCollapsed:collapsed"}}>
+<ul>
 	{{yield}}
 </ul>
 {{/if}}

@@ -16,7 +16,6 @@ $collapsible-menu-font-size: rem-calc(13);
 
 		// display & box model
 		display: block;
-		padding: rem-calc(5px) rem-calc(40px);
 
 		// color
 
@@ -28,6 +27,7 @@ $collapsible-menu-font-size: rem-calc(13);
 
 		// other
 		cursor: pointer;
+		user-select: none;
 
 		.chevron {
 			transition: .25s transform ease-in-out;
@@ -60,7 +60,8 @@ $collapsible-menu-font-size: rem-calc(13);
 	}
 
 	ol, ul {
-		@extend .slide-down;
+		display: none;
+
 		margin: 0;
 		padding: 0;
 
@@ -72,9 +73,16 @@ $collapsible-menu-font-size: rem-calc(13);
 
 			a {
 				position: relative;
-				padding: 10px 0;
 				display: block;
+				overflow: hidden;
+
+				padding: 10px 0;
+				padding-right: rem-calc(40);
+
 				color: #000000;
+
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 
 			a > .chevron {

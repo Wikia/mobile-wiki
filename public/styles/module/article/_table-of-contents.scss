@@ -1,5 +1,10 @@
+// Instance of collapsible-menu component
 .table-of-contents {
-	& ~ ol {
+	.title {
+		padding: rem-calc(5px) rem-calc(40px);
+	}
+
+	ol {
 		list-style: none;
 	}
 }
