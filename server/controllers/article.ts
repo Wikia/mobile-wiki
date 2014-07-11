@@ -11,6 +11,7 @@ import Promise = require('bluebird');
  * http://www.wikia.com/api/v1/#!/Articles
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
+ * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
 export function createFullArticle(data: any, callback: any, err: any, getWikiInfo: boolean = false) {
 	var article = new MediaWiki.ArticleRequest({
