@@ -23,11 +23,14 @@ module W {
 			var local = localPathMatch[1];
 			// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
 			// NOTE: see below, but we might also have to deal with links in the form /Special:.*
-			for (var ns in Wikia.wiki.namespaces) {
-				if (!namespaces.hasOwnProperty(ns)) {
+			var namespaces = Wikia.wiki.namespaces;
+			for (var ns in namespaces) {
+				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 					continue;
 				}
-				var regex = '^\/wiki\/' + ns + ':.*$';
+				// Style guide advises using dot accessor instead of brackets, but it is difficult
+				// to access a key with an asterisk* in it
+				var regex = '^\/wiki\/' + namespaces[ns].canonical.replace(/ /g, '_') + ':.*$';
 				if (local.match(regex)) {
 					return {
 						article: null,

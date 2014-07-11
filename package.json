@@ -40,6 +40,7 @@
     "gulp-concat": "2.x.x",
     "gulp-ember-handlebars": "0.x.x",
     "gulp-filter": "0.x.x",
+    "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "0.x.x",
     "gulp-if": "1.x.x",
     "gulp-karma": "0.0.4",
