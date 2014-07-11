@@ -4,6 +4,7 @@
 App.CollapsibleMenuComponent = Em.Component.extend({
 	tagName: 'nav',
 	classNames: ['collapsible-menu'],
+	classNameBindings: ['additionalClasses'],
 	// Begin component property defaults
 	additionalClasses: null,
 	animSpeed: 100,
