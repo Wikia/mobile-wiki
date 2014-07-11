@@ -11,12 +11,19 @@ import Promise = require('bluebird');
  * http://www.wikia.com/api/v1/#!/Articles
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
+ * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
-export function createFullArticle(data: any, callback: any, err: any) {
+export function createFullArticle(data: any, callback: any, err: any, getWikiInfo: boolean = false) {
 	var article = new MediaWiki.ArticleRequest({
 		name: data.wikiName,
 		title: data.articleTitle
 	});
+
+	if (getWikiInfo) {
+		var wiki = new MediaWiki.WikiRequest({
+			name: data.wikiName
+		});
+	}
 
 	article.articleDetails()
 		.then((response: any) => {
@@ -26,7 +33,7 @@ export function createFullArticle(data: any, callback: any, err: any) {
 			if (Object.keys(articleDetails.items).length) {
 				articleId = Object.keys(articleDetails.items)[0];
 
-				Promise.props({
+				var props = {
 					article: article.article(),
 					relatedPages: article.relatedPages([articleId]),
 					userData: article.getTopContributors(articleId).then((contributors: any) => {
@@ -36,8 +43,16 @@ export function createFullArticle(data: any, callback: any, err: any) {
 								users: users
 							};
 						});
-					})
-				}).then((result: any) => {
+					}),
+					wiki: null
+				};
+
+				if (getWikiInfo) {
+					props.wiki = wiki.wikiNamespaces();
+				}
+
+				Promise.props(props)
+					.then((result: any) => {
 						var articleResponse = {
 							wikiName: data.wikiName,
 							articleTitle: data.articleTitle,
@@ -45,8 +60,12 @@ export function createFullArticle(data: any, callback: any, err: any) {
 							contributors: result.userData.contributors,
 							userDetails: result.userData.users,
 							relatedPages: result.relatedPages,
-							payload: result.article.payload
+							payload: result.article.payload,
+							namespaces: null
 						};
+						if (getWikiInfo) {
+							articleResponse.namespaces = result.wiki.query.namespaces;
+						}
 						callback(articleResponse);
 					}).catch((error) => {
 						err(error);

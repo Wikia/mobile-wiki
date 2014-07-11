@@ -12,6 +12,29 @@ import Promise = require('bluebird');
 
 module MediaWiki {
 
+	/**
+	 * @desc a wrapper for making API requests for info about the wiki
+	 *
+	 */
+	export class WikiRequest {
+		name: string;
+
+		constructor(params) {
+			this.name = params.name;
+		}
+
+		wikiNamespaces() {
+			var url: string = createUrl(this.name, 'api.php', {
+									action: 'query',
+									meta:   'siteinfo',
+									siprop: 'namespaces',
+									format: 'json'
+									// TODO: , siinlanguagecode = ...
+								});
+			return fetch(url, 0);
+		}
+	}
+
 	export class ArticleRequest {
 		name: string;
 		title: string;
@@ -89,10 +112,14 @@ module MediaWiki {
 
 	}
 
-	export function fetch (url) {
+	/**
+	 * @param url the url to fetch
+	 * @param redirectsNum the number of redirects to follow, default 1
+	 */
+	export function fetch (url: string, redirectsNum: number = 1) {
 		return new Promise((resolve, reject) => {
 			Nipple.get(url, {
-				redirects: 1
+				redirects: redirectsNum
 			}, (err, res, payload) => {
 				if (res.headers['content-type'].match('application/json')) {
 					payload = JSON.parse(payload);
