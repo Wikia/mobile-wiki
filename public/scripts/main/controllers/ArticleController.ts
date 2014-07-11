@@ -2,6 +2,7 @@
 'use strict';
 
 App.ArticleController = Em.ObjectController.extend({
+	needs: ['application'],
 	actions: {
 		updateHeaders: function(headers): void {
 			var article = this.get('model');

@@ -5,8 +5,8 @@ gulp.task('assets', [
 	'tslint',
 	'scripts-back',
 	'scripts-front',
-	'vendor',
 	'templates',
 	'sprites',
-	'locales'
+	'locales',
+	'vendor'
 ]);

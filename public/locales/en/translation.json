@@ -12,6 +12,8 @@
 		"read-more": "Read More",
 		"last-edited-n-weeks-ago": "Last edited 1 week ago",
 		"last-edited-n-weeks-ago_plural_0": "Last edited this week",
-		"last-edited-n-weeks-ago_plural_2": "Last edited __count__ weeks ago"
+		"last-edited-n-weeks-ago_plural_2": "Last edited __count__ weeks ago",
+
+		"article-categories-list-label": "Categories"
 	}
 }

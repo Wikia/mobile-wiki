@@ -1,10 +1,26 @@
 <section class="article-body">
 	<h1 class="article-title">{{cleanTitle}}</h1>
-	{{#collapsible-menu showMenuIcon=true additionalClasses="table-of-contents" tLabel="table-of-contents"}}
-		{{#each sections}}
-		<li><a href="#{{unbound id}}" title="{{unbound name}}">{{unbound name}}</a></li>
-		{{/each}}
-	{{/collapsible-menu}}
+	{{#if sections.length}}
+		{{#collapsible-menu
+			showMenuIcon=true
+			additionalClasses="table-of-contents"
+			tLabel="table-of-contents"
+			ordered=true
+			observe=cleanTitle
+			animSpeed=controller.controllers.application.globalAnimSpeed
+		}}
+			{{#each sections}}
+			<li>
+				<a href="#{{unbound id}}" title="{{unbound name}}">
+					{{increment _view.contentIndex}}&nbsp;&nbsp;{{unbound name}}
+					<svg viewBox="0 0 12 7" class="icon chevron">
+						<use xlink:href="#chevron"></use>
+					</svg>
+				</a>
+			</li>
+			{{/each}}
+		{{/collapsible-menu}}
+	{{/if}}
 	{{#view App.ArticleContentView}}
 		{{{article}}}
 	{{/view}}
@@ -20,6 +36,27 @@
 		{{i18n 'load-n-comments' count=comments}}
 		{{/link-to}}
 	{{outlet comments}}
+	{{/if}}
+	{{#if categories}}
+		{{#collapsible-menu
+			showMenuIcon=false
+			additionalClasses="article-categories-list"
+			tLabel="article-categories-list-label"
+			ordered=false
+			observe=cleanTitle
+			animSpeed=controller.controllers.application.globalAnimSpeed
+		}}
+			{{#each categories itemController="categoryListItem"}}
+			<li>
+				<a href="{{unbound url}}" title="{{unbound title}}">
+				    	{{cleanTitle}}
+					<svg viewBox="0 0 12 7" class="icon chevron">
+						<use xlink:href="#chevron"></use>
+					</svg>
+				</a>
+			</li>
+			{{/each}}
+		{{/collapsible-menu}}
 	{{/if}}
 </section>
 {{content-recommendations pages=relatedPages}}

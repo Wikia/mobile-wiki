@@ -24,6 +24,9 @@ App.ArticleRoute = Em.Route.extend({
 			if (transition.targetName === 'article.index') {
 				window.scrollTo(0, 0);
 			}
+			// notify a property change on soon to be stale model for observers (like
+			// the Table of Contents menu) can reset appropriately
+			this.notifyPropertyChange('cleanTitle');
 		}
 	}
 });

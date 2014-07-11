@@ -1,4 +1,12 @@
-moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent');
+moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent', {
+	setup: function () {
+		var self = this;
+		// Mock transclusion of element to be slide toggled
+		Ember.run(function () {
+			self.$().append('<ol></ol>');
+		});
+	}
+});
 
 test('Beginning state', function () {
 	expect(1);
@@ -9,8 +17,10 @@ test('Beginning state', function () {
 test('Calling toggleMenu to expand and then collapse', function () {
 	expect(2);
 	var component = this.subject();
-	component.send('toggleMenu');
-	equal(component.isCollapsed, false, 'component should then be expanded');
-	component.send('toggleMenu');
-	equal(component.isCollapsed, true, 'it should flip back to collapsed');
+	Ember.run(function () {
+		component.send('toggleMenu');
+		equal(component.isCollapsed, false, 'component should then be expanded');
+		component.send('toggleMenu');
+		equal(component.isCollapsed, true, 'it should flip back to collapsed');
+	});
 });

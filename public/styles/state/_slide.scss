@@ -1,11 +1,7 @@
 .slide-down {
 	position: relative;
-	overflow: hidden;
-	max-height: 999px;
-	transition: max-height .5s linear;
 
 	&.collapsed {
-		transition: max-height .5s linear;
-		max-height: 0;
+		display: none;
 	}
 }
