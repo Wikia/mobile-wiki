@@ -25,12 +25,12 @@ module MediaWiki {
 
 		wikiNamespaces() {
 			var url: string = createUrl(this.name, 'api.php', {
-									action: 'query',
-									meta:   'siteinfo',
-									siprop: 'namespaces',
-									format: 'json'
-									// TODO: , siinlanguagecode = ...
-								});
+				action: 'query',
+				meta:   'siteinfo',
+				siprop: 'namespaces',
+				format: 'json'
+				// TODO: , siinlanguagecode = ...
+			});
 			return fetch(url, 0);
 		}
 	}
