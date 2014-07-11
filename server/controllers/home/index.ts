@@ -3,7 +3,7 @@
 import article = require('../article');
 
 function index(params, next): void {
-	article.createFullArticle({
+	article.createFullArticle(true, {
 		wikiName: params.wiki,
 		articleTitle: params.title
 	}, (data) => {
@@ -30,7 +30,7 @@ function index(params, next): void {
 		});
 	}, (error) => {
 		next(error);
-	}, true);
+	});
 }
 
 export = index;

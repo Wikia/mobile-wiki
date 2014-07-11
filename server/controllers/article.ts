@@ -13,7 +13,7 @@ import Promise = require('bluebird');
  * article slug name
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
-export function createFullArticle(data: any, callback: any, err: any, getWikiInfo: boolean = false) {
+export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any) {
 	var article = new MediaWiki.ArticleRequest({
 		name: data.wikiName,
 		title: data.articleTitle
@@ -82,7 +82,7 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		articleTitle: decodeURIComponent(request.params.articleTitle)
 	};
 
-	createFullArticle(data, (data) => {
+	createFullArticle(false, data, (data) => {
 		reply(data);
 	}, (error) => {
 		reply(error);
