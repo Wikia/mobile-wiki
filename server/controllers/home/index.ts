@@ -15,7 +15,6 @@ function index(params, next): void {
 		delete data.payload.article;
 		delete data.payload.title;
 		delete data.namespaces;
-		console.log(data.namespaces);
 		next(null, {
 			// article content to be rendered on server
 			article: {
