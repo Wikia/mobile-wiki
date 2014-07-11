@@ -7,9 +7,9 @@ function index(params, next): void {
 		wikiName: params.wiki,
 		articleTitle: params.title
 	}, (data) => {
-		var article = data.payload.article;
-		var title = data.articleTitle;
-		var namespaces = data.namespaces;
+		var article = data.payload.article,
+			title = data.articleTitle,
+			namespaces = data.namespaces;
 		// We're already sending the article body (which can get quite large) back to get rendered in the template,
 		// so let's not send it with the JSON payload either
 		delete data.payload.article;
