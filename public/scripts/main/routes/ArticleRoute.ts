@@ -8,7 +8,7 @@ App.ArticleRoute = Em.Route.extend({
 			transition.abort();
 		}
 	},
-	model: function (params) {
+	model: function (params, transition) {
 		return App.ArticleModel.find({
 			title: params.articleTitle,
 			wiki: this.controllerFor('application').get('domain')
@@ -16,7 +16,8 @@ App.ArticleRoute = Em.Route.extend({
 	},
 	actions: {
 		error: function (error, transition) {
-			alert(error.status + ' Error: Sorry, we couldn\'t find ' + error.title);
+			transition.abort();
+			console.warn(error);
 		},
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.

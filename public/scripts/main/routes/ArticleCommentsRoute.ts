@@ -21,6 +21,9 @@ App.ArticleCommentsRoute = Em.Route.extend({
 		error (err) {
 			console.warn(err);
 			return true;
+		},
+		loading () {
+			return true;
 		}
 	}
 });
