@@ -21,6 +21,28 @@ App.ApplicationRoute = Em.Route.extend({
 			if (spinnerView) {
 				spinnerView.destroy();
 			}
+		},
+		handleClick: function (target) {
+			var controller = this.controllerFor('article'),
+				model = controller.get('model'),
+				info = W.getLinkInfo(model.get('basepath'),
+						model.get('title'),
+						target.hash,
+						target.href);
+
+			if (info.article) {
+				controller.send('changePage', info.article);
+			} else if (info.url) {
+				// If it's a jump link, then jump.
+				// TODO: this regex is alright for dev environment, but doesn't work well with production
+				if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(\-.*)?\.com.*\/.*$/)) {
+					window.location = info.url;
+				} else {
+					window.open(info.url);
+				}
+			} else {
+				console.log('unable to open link "' + target.href + '"');
+			}
 		}
 	}
 });
