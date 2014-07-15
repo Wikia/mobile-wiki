@@ -84,7 +84,19 @@ function routes(server) {
 	server.route({
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
-		handler: require('./controllers/articleComments').handleRoute
+		handler: (request, reply) => {
+			var params = {
+				host: request.headers.host.split('.')[0],
+				articleId: parseInt(request.params.articleId, 10),
+				page: (request.params.page, 10) || 1
+			};
+			server.methods.getArticleComments(params, (error, result) => {
+				if (error) {
+					error = Hapi.error.notFound(notFoundError);
+				}
+				reply(error || result);
+			});
+		}
 	});
 
 	// Set up static assets serving, this is probably not a final implementation as we should probably setup
