@@ -36,7 +36,8 @@ App.ArticleView = Em.View.extend({
 				var headers: HeadersFromDom[] = this.$('h2').map((i, elem: HTMLElement): HeadersFromDom => {
 					return {
 						level: elem.tagName,
-						name: elem.textContent,
+						// Remove up jump link from beginning of h2
+						name: elem.textContent.replace(/^↑/, ''),
 						id: elem.id
 					};
 				}).toArray();

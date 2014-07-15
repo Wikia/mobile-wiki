@@ -77,12 +77,23 @@ App.ArticleModel.reopenClass({
 		return Wikia.article;
 	},
 	setArticle: function (model, source = this.getPreloadedData()) {
+		var content;
+
 		model.set('type', source.articleDetails.ns);
 		model.set('cleanTitle', source.articleDetails.title);
 		model.set('comments', source.articleDetails.comments);
 		model.set('id', source.articleDetails.id);
 
-		model.set('article', source.payload.article || $('.article-content').html());
+		content = source.payload.article || $('.article-content').html();
+
+		// TODO: move this code to ArticleView in an observer and also don't use float.
+		// instead use position relative/absolute to get it in the right place
+		// top: 15px right 0
+		content = content.replace(/(<h[234].*?>)/gi, function (headerType, headerTag) {
+			return headerTag + '<a href="#top" style="float:right">&#8593;</a>';
+		});
+
+		model.set('article', content);
 		model.set('media', source.payload.media);
 		model.set('mediaUsers', source.payload.users);
 		model.set('user', source.payload.user);
