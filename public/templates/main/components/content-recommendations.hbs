@@ -3,8 +3,10 @@
 	<ul>
 		{{#each pages}}
 		<li>
-				<img src="{{unbound imgUrl}}" class="thumbnail" />
-				<span class="title">{{unbound title}}</span>
+				<a href="{{unbound url}}">
+					<img src="{{unbound imgUrl}}" class="thumbnail" />
+					<span class="title">{{unbound title}}</span>
+				</a>
 		</li>
 		{{/each}}
 	</ul>
