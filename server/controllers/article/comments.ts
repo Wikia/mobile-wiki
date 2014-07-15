@@ -1,10 +1,10 @@
-/// <reference path="../../typings/hapi/hapi.d.ts" />
+/// <reference path="../../../typings/hapi/hapi.d.ts" />
 /**
  * @description ArticleComments controller
  */
 
 import http = require('http');
-import MediaWiki = require('../lib/MediaWiki');
+import MediaWiki = require('../../lib/MediaWiki');
 
 interface Comment {
 	id: number;
@@ -65,17 +65,17 @@ function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
  * @description Handler for /articleComments/{wiki}/{articleId}/{page?}
  */
 
-export function handleRoute(request: Hapi.Request, reply: any): void {
+export function handleRoute(params: any, callback: Function, err: Function): void {
 	new MediaWiki.ArticleRequest({
-		name: request.headers.host.split('.')[0]
-	}).articleComments(
-			parseInt(request.params.articleId, 10),
-			parseInt(request.params.page, 10) || 1
+			name: params.host
+		}).articleComments(
+			params.articleId,
+			params.page
 		)
 		.then(function(response: any) {
-			reply(wrapResponse(response));
+			callback(wrapResponse(response));
 		})
 		.catch(function(error) {
-			reply(error);
+			err(error);
 		});
 }

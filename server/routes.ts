@@ -44,8 +44,9 @@ function routes(server) {
 			path: route,
 			config: config,
 			handler: (request, reply) => {
+				var hostParts = request.headers.host.split('.');
 				server.methods.getPrerenderedData({
-					wiki: request.headers.host.split('.')[0],
+					wiki: hostParts[hostParts.length - 3],
 					title: request._pathSegments[2]
 				}, (error, result) => {
 					// TODO: handle error a bit better :D
@@ -66,8 +67,9 @@ function routes(server) {
 		path: '/api/v1/article/{articleTitle}',
 		config: config,
 		handler: (request, reply) => {
+			var hostParts = request.headers.host.split('.');
 			var params = {
-				wikiName: request.headers.host.split('.')[0],
+				wikiName: hostParts[hostParts.length - 3],
 				articleTitle: request.params.articleTitle
 			};
 			server.methods.getArticleData(params, (error, result) => {
@@ -84,7 +86,20 @@ function routes(server) {
 	server.route({
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
-		handler: require('./controllers/articleComments').handleRoute
+		handler: (request, reply) => {
+			var hostParts = request.headers.host.split('.');
+			var params = {
+				host: hostParts[hostParts.length - 3],
+				articleId: parseInt(request.params.articleId, 10),
+				page: (request.params.page, 10) || 1
+			};
+			server.methods.getArticleComments(params, (error, result) => {
+				if (error) {
+					error = Hapi.error.notFound(notFoundError);
+				}
+				reply(error || result);
+			});
+		}
 	});
 
 	// Set up static assets serving, this is probably not a final implementation as we should probably setup

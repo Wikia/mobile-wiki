@@ -1,9 +1,9 @@
-/// <reference path="../../typings/hapi/hapi.d.ts" />
-/// <reference path="../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../../typings/hapi/hapi.d.ts" />
+/// <reference path="../../../typings/bluebird/bluebird.d.ts" />
 /**
  * @description Article controller
  */
-import MediaWiki = require('../lib/MediaWiki');
+import MediaWiki = require('../../lib/MediaWiki');
 import Promise = require('bluebird');
 
 /**
@@ -85,6 +85,6 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 	createFullArticle(false, data, (data) => {
 		reply(data);
 	}, (error) => {
-		reply(error);
+			reply(error);
 	});
 }

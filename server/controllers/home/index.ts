@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/node/node.d.ts" />
 
-import article = require('../article');
+import article = require('../article/index');
 
 function index(params, next): void {
 	article.createFullArticle(true, {
