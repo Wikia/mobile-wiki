@@ -1,11 +1,13 @@
-<section class="content-recommendations">
-	<h1>{{i18n 'read-more'}}</h1>
-	<ul>
-		{{#each pages}}
-		<li>
-				<img src="{{unbound imgUrl}}" class="thumbnail" />
-				<span class="title">{{unbound title}}</span>
-		</li>
-		{{/each}}
-	</ul>
-</section>
+{{#if pages.length}}
+	<section class="content-recommendations">
+		<h1>{{i18n 'read-more'}}</h1>
+		<ul>
+			{{#each pages}}
+			<li>
+					<img src="{{unbound imgUrl}}" class="thumbnail" />
+					<span class="title">{{unbound title}}</span>
+			</li>
+			{{/each}}
+		</ul>
+	</section>
+{{/if}}
