@@ -1,10 +1,13 @@
 .content-recommendations {
 	clear: both;
-	padding: rem-calc(10) rem-calc(20);
+	padding: 40px rem-calc(20);
 	background-color: rgb(241, 242, 252);
 
 	h1 {
 		color: $primary-color;
+		padding: 0;
+		margin: 0;
+		padding-bottom: 20px;
 	}
 
 	ul {
@@ -14,6 +17,15 @@
 			margin-bottom: 1rem;
 			background-color: white;
 			position: relative;
+			display: block;
+		}
+
+		.overlay {
+			background-image: linear-gradient(white 65%, gray 90%, black 100%);
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			opacity: 0.25;
 		}
 
 		.thumbnail {
@@ -22,10 +34,12 @@
 		}
 
 		.title {
-			display: block;
+			font-size: 13px;
+			font-weight: bold;
 			padding: 1rem;
-			color: $body-font-color;
+			color: white;
 			position: absolute;
+			bottom: 0px;
 		}
 	}
 }

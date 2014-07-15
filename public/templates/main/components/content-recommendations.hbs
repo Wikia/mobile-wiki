@@ -3,12 +3,13 @@
 		<h1>{{i18n 'read-more'}}</h1>
 		<ul>
 			{{#each pages}}
-			<li>
-				<a href="{{unbound url}}">
-					<img src="{{unbound imgUrl}}" class="thumbnail" />
-					<span class="title">{{unbound title}}</span>
-				</a>
-			</li>
+				<li>
+					<div class="overlay"> </div>
+					<a href="{{unbound url}}">
+						<img src="{{unbound imgUrl}}" class="thumbnail" />
+						<span class="title">{{unbound title}}</span>
+					</a>
+				</li>
 			{{/each}}
 		</ul>
 	</section>
