@@ -1,19 +1,13 @@
 {
 	"app": {
-		"about": "About",
-		"community-central": "Community Central",
-		"advertise": "Advertise",
-		"privacy-policy": "Privacy Policy",
-		"terms-of-use": "Terms of Use",
-		"api": "API",
-		"table-of-contents": "Table of Contents",
-		"load-n-comments": "Load __count__ comments",
-		"load-n-replies": "View __count__ replies",
-		"read-more": "Read More",
-		"last-edited-n-weeks-ago": "Last edited 1 week ago",
-		"last-edited-n-weeks-ago_plural_0": "Last edited this week",
-		"last-edited-n-weeks-ago_plural_2": "Last edited __count__ weeks ago",
-
+		"article-toc-label": "Table of Contents",
+		"article-comments-label": "__count__ comment",
+		"article-comments-label_plural": "__count__ comments",
+		"article-replies-label": "View __count__ replies",
+		"article-suggestions-label": "Read More",
+		"article-last-edit": "Last edited 1 week ago",
+		"article-last-edit_plural_0": "Last edited this week",
+		"article-last-edit_plural_2": "Last edited __count__ weeks ago",
 		"article-categories-list-label": "Categories"
 	}
 }

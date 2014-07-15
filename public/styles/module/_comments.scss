@@ -2,8 +2,9 @@
 	display: block;
 	border-top: 1px solid $secondary-color;
 	color: #333;
-	padding: 1em;
+	padding: rem-calc(16) rem-calc(20);
 	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .comments {
@@ -33,7 +34,7 @@
 		}
 
 		.avatar img { margin-left: rem-calc(-10); }
-		
+
 	}
 
 	.avatar {

@@ -1,5 +1,4 @@
 $border-color: #d0d0d0;
-$collapsible-menu-font-size: rem-calc(13);
 
 .collapsible-menu {
 	margin-bottom: rem-calc(20);
@@ -8,9 +7,6 @@ $collapsible-menu-font-size: rem-calc(13);
 	border-bottom: 1px solid $border-color;
 
 	.title {
-		// extends & mixins
-		@extend .subtext;
-
 		// positioning
 		position: relative;
 
@@ -20,7 +16,6 @@ $collapsible-menu-font-size: rem-calc(13);
 		// color
 
 		// text
-		font-size: $collapsible-menu-font-size;
 		font-weight: bold;
 		line-height: 2.4rem;
 		text-transform: uppercase;
@@ -56,7 +51,6 @@ $collapsible-menu-font-size: rem-calc(13);
 				margin-top: -4px;
 			}
 		}
-
 	}
 
 	ol, ul {
@@ -65,7 +59,6 @@ $collapsible-menu-font-size: rem-calc(13);
 		margin: 0;
 		padding: 0;
 
-		font-size: $collapsible-menu-font-size;
 
 		li {
 			border-top: 1px solid $border-color;
