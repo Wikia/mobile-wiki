@@ -29,9 +29,7 @@ function methods(server): void {
 	}, cacheOptions);
 
 	server.method('getArticleComments', (params, next) => {
-
 		comments.handleRoute(params, (data) => {
-			console.log(data);
 			next(null, data);
 		}, (err) => {
 			next(err);
