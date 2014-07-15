@@ -47,8 +47,8 @@ $border-color: #d0d0d0;
 			}
 
 			&.chevron {
-				right: 10px;
-				margin-top: -4px;
+				right: rem-calc(10);
+				margin-top: -rem-calc(-4);
 			}
 		}
 	}

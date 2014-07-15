@@ -2,9 +2,16 @@
 	display: block;
 	border-top: 1px solid $secondary-color;
 	color: #333;
+
 	padding: rem-calc(16) rem-calc(20);
 	font-weight: bold;
 	text-transform: uppercase;
+
+	.chevron {
+		position: absolute;
+		right: rem-calc(10);
+		margin-top: rem-calc(5);
+	}
 }
 
 .comments {
