@@ -44,8 +44,9 @@ function routes(server) {
 			path: route,
 			config: config,
 			handler: (request, reply) => {
+				var hostParts = request.headers.host.split('.');
 				server.methods.getPrerenderedData({
-					wiki: request.headers.host.split('.')[0],
+					wiki: hostParts[hostParts.length - 3],
 					title: request._pathSegments[2]
 				}, (error, result) => {
 					// TODO: handle error a bit better :D
@@ -66,8 +67,9 @@ function routes(server) {
 		path: '/api/v1/article/{articleTitle}',
 		config: config,
 		handler: (request, reply) => {
+			var hostParts = request.headers.host.split('.');
 			var params = {
-				wikiName: request.headers.host.split('.')[0],
+				wikiName: hostParts[hostParts.length -3],
 				articleTitle: request.params.articleTitle
 			};
 			server.methods.getArticleData(params, (error, result) => {
@@ -85,8 +87,9 @@ function routes(server) {
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
 		handler: (request, reply) => {
+			var hostParts = request.headers.host.split('.');
 			var params = {
-				host: request.headers.host.split('.')[0],
+				host: hostParts[hostParts.length - 3],
 				articleId: parseInt(request.params.articleId, 10),
 				page: (request.params.page, 10) || 1
 			};
