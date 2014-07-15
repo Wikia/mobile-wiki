@@ -90,7 +90,8 @@ App.ArticleModel.reopenClass({
 
 		/**
 		 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
-		 * are no relatedPages for some reason.
+		 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
+		 * to handle this and never return malformed structures.
 		 */
 		model.set('relatedPages',
 			source.relatedPages.hasOwnProperty('items') ?
