@@ -69,7 +69,7 @@ function routes(server) {
 		handler: (request, reply) => {
 			var hostParts = request.headers.host.split('.');
 			var params = {
-				wikiName: hostParts[hostParts.length -3],
+				wikiName: hostParts[hostParts.length - 3],
 				articleTitle: request.params.articleTitle
 			};
 			server.methods.getArticleData(params, (error, result) => {
