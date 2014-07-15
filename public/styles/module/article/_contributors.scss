@@ -1,9 +1,10 @@
 .contributors {
 	@extend %list-reset;
 	@extend .clearfix;
-	width: 90%;
+	padding: 20px 5%;
 	margin: 0 auto;
 	margin-bottom: 40px;
+	background-color: #F2F3F3;
 
 	li {
 		float: left;
@@ -14,5 +15,11 @@
 		img {
 			border-radius: 50%;
 		}
+	}
+
+	.text {
+		font-size: 13px;
+		font-weight: bold;
+		padding-bottom: 15px;
 	}
 }

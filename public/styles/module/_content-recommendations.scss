@@ -2,7 +2,7 @@
 	clear: both;
 	padding: rem-calc(10) rem-calc(20);
 	background-color: rgb(241, 242, 252);
-	
+
 	h1 {
 		color: $primary-color;
 	}
@@ -13,6 +13,7 @@
 		li {
 			margin-bottom: 1rem;
 			background-color: white;
+			position: relative;
 		}
 
 		.thumbnail {
@@ -24,6 +25,7 @@
 			display: block;
 			padding: 1rem;
 			color: $body-font-color;
+			position: absolute;
 		}
 	}
 }
