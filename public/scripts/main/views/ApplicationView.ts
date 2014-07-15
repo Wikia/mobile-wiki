@@ -8,7 +8,7 @@ App.ApplicationView = Em.View.extend({
 
 	click: function (event) {
 		var target,
-			closest,
+			$closest,
 			matches;
 
 		// First, check if the target is an anchor
@@ -21,8 +21,8 @@ App.ApplicationView = Em.View.extend({
 		 	 * because if the user clicks the part of the link in the <i></i> then
 		 	 * target.tagName will register as 'I' and not 'A'.
 			 */
-			closest = Ember.$(event.target).closest('a');
-			target = closest.length ? closest[0] : undefined;
+			$closest = Ember.$(event.target).closest('a');
+			target = $closest.length ? $closest[0] : undefined;
 		}
 
 		/**
@@ -35,11 +35,11 @@ App.ApplicationView = Em.View.extend({
 			/**
 			 * But if it does have an href, we check that it's not the link to expand the comments
 			 * If it's _any_ other link than that comments link, we stop its action and
-			 * pass it up to handleClick
+			 * pass it up to handleLink
 			 */
 			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
 				event.preventDefault();
-				this.get('controller').send('handleClick', target);
+				this.get('controller').send('handleLink', target);
 			}
 		}
 	}

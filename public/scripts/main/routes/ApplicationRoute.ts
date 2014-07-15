@@ -22,7 +22,7 @@ App.ApplicationRoute = Em.Route.extend({
 				spinnerView.destroy();
 			}
 		},
-		handleClick: function (target) {
+		handleLink: function (target) {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
 				info = W.getLinkInfo(model.get('basepath'),
