@@ -21,11 +21,11 @@
 		}
 
 		.overlay {
-			background-image: linear-gradient(white 65%, gray 90%, black 100%);
+			background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
 			position: absolute;
 			height: 100%;
 			width: 100%;
-			opacity: 0.25;
+			opacity: 1;
 		}
 
 		.thumbnail {
