@@ -1,26 +1,36 @@
 .contributors {
 	@extend %list-reset;
 	@extend .clearfix;
-	padding: 20px 5%;
-	margin: 0 auto;
-	margin-bottom: 40px;
+	padding-top: rem-calc(20);
+	padding-bottom: rem-calc(20);
+	margin-bottom: rem-calc(40);
 	background-color: #F2F3F3;
 
-	li {
-		float: left;
-		width: 16%;
-		margin: 0 2%;
-		text-align: center;
+	ul {
+		@include block-grid(
+			$per-row: 5,
+			$spacing: rem-calc(5)
+		);
+		padding: 0;
+		padding-left: 3%;
+		margin: 0;
 
-		img {
-			@include perfect-square(rem-calc(44));
-			border-radius: 50%;
+		li {
+			// Overrides the bottom padding that block-grid adds
+			padding-bottom: 0;
+			margin: 0;
+
+			img {
+				@include perfect-square(rem-calc(44));
+				border-radius: 50%;
+			}
 		}
 	}
 
-	.text {
-		font-size: 13px;
+	.title {
+		@extend .subtext;
+		margin-left: 5%;
 		font-weight: bold;
-		padding-bottom: 15px;
+		padding-bottom: rem-calc(15);
 	}
 }

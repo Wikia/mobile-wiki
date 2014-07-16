@@ -1,6 +1,6 @@
 .content-recommendations {
 	clear: both;
-	padding: 40px rem-calc(20);
+	padding: rem-calc(40) rem-calc(20);
 	background-color: rgb(241, 242, 252);
 
 	h1 {
@@ -21,11 +21,9 @@
 		}
 
 		.overlay {
+			@include perfect-square(100%);
 			background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
 			position: absolute;
-			height: 100%;
-			width: 100%;
-			opacity: 1;
 		}
 
 		.thumbnail {
@@ -39,7 +37,7 @@
 			padding: 1rem;
 			color: white;
 			position: absolute;
-			bottom: 0px;
+			bottom: 0;
 		}
 	}
 }
