@@ -48,7 +48,7 @@ $border-color: #d0d0d0;
 
 			&.chevron {
 				right: rem-calc(10);
-				margin-top: -rem-calc(4);
+				margin-top: rem-calc(-4);
 			}
 		}
 	}
