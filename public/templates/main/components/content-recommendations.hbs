@@ -1,13 +1,16 @@
-<section class="content-recommendations">
-	<h1>{{i18n 'article-suggestions-label'}}</h1>
-	<ul>
-		{{#each pages}}
-		<li>
-				<a href="{{unbound url}}">
-					<img src="{{unbound imgUrl}}" class="thumbnail" />
-					<span class="title">{{unbound title}}</span>
-				</a>
-		</li>
-		{{/each}}
-	</ul>
-</section>
+{{#if pages.length}}
+	<section class="content-recommendations">
+		<h1>{{i18n 'article-suggestions-label'}}</h1>
+		<ul>
+			{{#each pages}}
+				<li>
+					<div class="overlay"> </div>
+					<a href="{{unbound url}}">
+						<img src="{{unbound imgUrl}}" class="thumbnail" />
+						<span class="title">{{unbound title}}</span>
+					</a>
+				</li>
+			{{/each}}
+		</ul>
+	</section>
+{{/if}}
