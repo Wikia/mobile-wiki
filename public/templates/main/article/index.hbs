@@ -4,7 +4,7 @@
 		{{#collapsible-menu
 			showMenuIcon=true
 			additionalClasses="table-of-contents"
-			tLabel="table-of-contents"
+			tLabel="article-toc-label"
 			ordered=true
 			observe=cleanTitle
 			animSpeed=controller.controllers.application.globalAnimSpeed
@@ -33,7 +33,10 @@
 	</ul>
 	{{#if comments}}
 		{{#link-to 'article.comments' title classNames="show-comments-btn"}}
-		{{i18n 'load-n-comments' count=comments}}
+		{{i18n 'article-comments-label' count=comments}}
+		<svg viewBox="0 0 12 7" class="icon chevron">
+			<use xlink:href="#chevron"></use>
+		</svg>
 		{{/link-to}}
 	{{outlet comments}}
 	{{/if}}

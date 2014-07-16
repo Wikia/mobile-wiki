@@ -7,7 +7,7 @@
 		{{{text}}}
 		{{#if comments}}
 			{{#view App.LoadReplyBtnView}}
-				{{i18n 'load-n-replies' count=comments.length}}
+				{{i18n 'article-replies-label' count=comments.length}}
 			{{/view}}
 			<ul {{bind-attr class="expanded:expanded"}}>
 			{{#each comments itemController="articleComment"}}
