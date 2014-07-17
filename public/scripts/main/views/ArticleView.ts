@@ -29,9 +29,9 @@ App.ArticleView = Em.View.extend({
 					threshold: 400,
 					callback: (elem) => lazy.load(elem, false, model.get('media'))
 				});
+				this.loadTableOfContentsData();
+				this.replaceHeadersWithArticleSectionHeaders();
 			}
-			this.loadTableOfContentsData();
-			this.replaceHeadersWithArticleSectionHeaders();
 		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
 		// cause problems in the future with the lazyloading code above (unknown)
 		}, 0);
@@ -53,7 +53,6 @@ App.ArticleView = Em.View.extend({
 	 * ToC data from server and render view based on that.
 	 */
 	loadTableOfContentsData: function () {
-
 		var headers: HeadersFromDom[] = this.$('h2').map((i, elem: HTMLElement): HeadersFromDom => {
 			return {
 				level: elem.tagName,
@@ -61,11 +60,6 @@ App.ArticleView = Em.View.extend({
 				id: elem.id
 			};
 		}).toArray();
-
-		// TODO: move this code to ArticleView in an observer and also don't use float.
-		// instead use position relative/absolute to get it in the right place
-		// top: 15px right 0
-
 		this.get('controller').send('updateHeaders', headers);
 	},
 
