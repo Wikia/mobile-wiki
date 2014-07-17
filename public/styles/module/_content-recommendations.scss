@@ -18,12 +18,17 @@
 			background-color: white;
 			position: relative;
 			display: block;
+
+			a {
+				display: block;
+			}
 		}
 
 		.overlay {
 			@include perfect-square(100%);
 			background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
 			position: absolute;
+			pointer-events: none;
 		}
 
 		.thumbnail {
