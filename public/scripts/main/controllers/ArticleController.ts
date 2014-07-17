@@ -10,6 +10,10 @@ App.ArticleController = Em.ObjectController.extend({
 		},
 		changePage: function(title) {
 			this.transitionToRoute('article', title);
+		},
+		// Bubbled up from ArticleSectionHeaderView, which is a child of ArticleView
+		scrollToTop: function () {
+			window.scrollTo(0, 0);
 		}
 	}
 });

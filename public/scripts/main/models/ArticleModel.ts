@@ -81,7 +81,6 @@ App.ArticleModel.reopenClass({
 		model.set('cleanTitle', source.articleDetails.title);
 		model.set('comments', source.articleDetails.comments);
 		model.set('id', source.articleDetails.id);
-
 		model.set('article', source.payload.article || $('.article-content').html());
 		model.set('media', source.payload.media);
 		model.set('mediaUsers', source.payload.users);
