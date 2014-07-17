@@ -3,7 +3,7 @@
 
 App.LoadingSpinnerComponent = Em.Component.extend({
 	classNames: ['loading-spinner'],
-	templateName: 'components/loading-spinner',
+	layoutName: 'components/loading-spinner',
 	willInsertElement () {
 		Ember.$('body').addClass('no-scroll');
 	},
