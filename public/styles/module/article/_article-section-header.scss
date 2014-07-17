@@ -1,0 +1,17 @@
+.article-section-header {
+	position: relative;
+	padding-right: rem-calc(20);
+
+	a {
+		position: absolute;
+		right: rem-calc(5);
+		top: 0;
+	}
+
+	h2 ~ a {
+		margin-top: rem-calc(37);
+	}
+	.chevron {
+		transform: rotate(180deg);
+	}
+}
