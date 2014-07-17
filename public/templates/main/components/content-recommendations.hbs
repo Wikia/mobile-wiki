@@ -2,15 +2,19 @@
 	<section class="content-recommendations">
 		<h1>{{i18n 'article-suggestions-label'}}</h1>
 		<ul>
-			{{#each pages}}
-				<li>
-					<div class="overlay"> </div>
-					<a href="{{unbound url}}">
-						<img src="{{unbound imgUrl}}" class="thumbnail" />
-						<span class="title">{{unbound title}}</span>
-					</a>
-				</li>
-			{{/each}}
+			{{#slice pages size=5}}
+				{{#with collection}}
+					{{#each}}
+						<li>
+							<div class="overlay"> </div>
+							<a href="{{unbound url}}">
+								<img src="{{unbound imgUrl}}" class="thumbnail" />
+								<span class="title">{{unbound title}}</span>
+							</a>
+						</li>
+					{{/each}}
+				{{/with}}
+			{{/slice}}
 		</ul>
 	</section>
 {{/if}}
