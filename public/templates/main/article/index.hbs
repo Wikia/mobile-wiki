@@ -29,13 +29,9 @@
 	<div class="contributors">
 		<div class="title">Top Contributors of this Wiki</div>
 		<ul class="contributors">
-			{{#slice users 5}}
-				{{#with collection}}
-					{{#each}}
-					<li><a href="{{unbound url}}"><img src={{unbound avatar}} alt="{{unbound name}}"></a></li>
-					{{/each}}
-				{{/with}}	
-			{{/slice}}
+			{{#each displayUsers}}
+			<li><a href="{{unbound url}}"><img src={{unbound avatar}} alt="{{unbound name}}"></a></li>
+			{{/each}}
 		</ul>
 	</div>
 	{{#if comments}}
