@@ -86,7 +86,18 @@ App.ArticleModel.reopenClass({
 		model.set('mediaUsers', source.payload.users);
 		model.set('user', source.payload.user);
 		model.set('categories', source.payload.categories);
-		model.set('relatedPages', source.relatedPages.items[source.articleDetails.id]);
+
+		/**
+		 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
+		 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
+		 * to handle this and never return malformed structures.
+		 */
+		model.set('relatedPages',
+			source.relatedPages.hasOwnProperty('items') ?
+			source.relatedPages.items[source.articleDetails.id] :
+			[]
+		);
+
 		model.set('users', source.userDetails.items);
 		model.set('basepath', source.userDetails.basepath);
 	}
