@@ -26,14 +26,16 @@
 	{{/view}}
 </section>
 <section class="article-footer">
-	<div class="contributors">
-		<div class="title">Top Contributors of this Wiki</div>
-		<ul class="contributors">
-			{{#each displayUsers}}
-			<li><a href="{{unbound url}}"><img src={{unbound avatar}} alt="{{unbound name}}"></a></li>
-			{{/each}}
-		</ul>
-	</div>
+	{{#if users.length}}
+		<div class="contributors">
+			<div class="title">Top Contributors of this Wiki</div>
+			<ul class="contributors">
+				{{#each displayUsers}}
+				<li><a href="{{unbound url}}"><img src={{unbound avatar}} alt="{{unbound name}}"></a></li>
+				{{/each}}
+			</ul>
+		</div>
+	{{/if}}
 	{{#if comments}}
 		{{#link-to 'article.comments' title classNames="show-comments-btn"}}
 		{{i18n 'article-comments-label' count=comments}}

@@ -98,7 +98,8 @@ App.ArticleModel.reopenClass({
 			[]
 		);
 
-		model.set('users', source.userDetails.items);
+		// Same issue: the response to the ajaz should always be valid and not undefined
+		model.set('users', source.userDetails.items || []);
 		model.set('basepath', source.userDetails.basepath);
 	}
 });

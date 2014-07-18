@@ -14,7 +14,7 @@ var sloth = new W.Sloth();
 App.ArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
-	articleObserver: function() {
+	articleObserver: Ember.observer('controller.article', function () {
 		Em.run.later(null, () => {
 			var model = this.get('controller.model');
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
@@ -35,16 +35,16 @@ App.ArticleView = Em.View.extend({
 		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
 		// cause problems in the future with the lazyloading code above (unknown)
 		}, 0);
-	}.observes('controller.article'),
+	}),
 
-	modelObserver: function () {
+	modelObserver: Ember.observer('controller.model', function () {
 		var model = this.get('controller.model');
 		if (model) {
 			var wiki = model.get('wiki');
 			var title = model.get('cleanTitle');
 			document.title = title + ' - ' + wiki + ' wiki';
 		}
-	}.observes('controller.model'),
+	}),
 
 	/**
 	 * @desc Generates table of contents data based on h2 elements in teh article
