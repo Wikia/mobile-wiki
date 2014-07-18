@@ -15,7 +15,7 @@ function getWikiName (host: string) {
 	 * 3. Port including leading colon (e.g. :8000)
 	 * We just return capture group 2
 	*/
-	var regex = /^(sandbox\-mercury\.)?(.+?)\.wikia.*\.com(:[0-9]+)?$/;
+	var regex = /^(sandbox\-mercury\.)?(.+?)\.wikia.*\.com(:\d+)?$/;
 	return host.match(regex)[2];
 }
 
