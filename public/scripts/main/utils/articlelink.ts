@@ -30,7 +30,7 @@ module W {
 				}
 				// Style guide advises using dot accessor instead of brackets, but it is difficult
 				// to access a key with an asterisk* in it
-				var regex = '^\/wiki\/' + namespaces[ns].canonical.replace(/ /g, '_') + ':.*$';
+				var regex = '^(\/wiki)?\/' + namespaces[ns].canonical.replace(/ /g, '_') + ':.*$';
 				if (local.match(regex)) {
 					return {
 						article: null,
@@ -43,17 +43,19 @@ module W {
 			 * because the url will be in that form and there will be a hash
 			 * Some wikis, e.g. GTA, have article URLs in the from /something without the /wiki, so the /wiki
 			 * is optional here.
+			 *
+			 * The order of these conditions is purposeful; we need to first check if it's in the form
 			 */
-			var article = local.match(/^(\/wiki)?\/([^\/#]+)(#.*)?/) || local.match(/^\/a\/([^\/#]*)(#.*)?/);
+			var article = local.match(/^(\/(a|wiki))?\/([^#]+)(#.*)?$/);
 			if (article) {
-				if (article[2] === title && hash && hash !== '') {
+				if (article[3] === title && hash && hash !== '') {
 					return {
 						article: null,
 						url: hash
 					};
 				}
 				return {
-					article: article[2],
+					article: article[3],
 					url: null
 				};
 			}
