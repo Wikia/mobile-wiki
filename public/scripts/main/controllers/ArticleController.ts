@@ -15,8 +15,5 @@ App.ArticleController = Em.ObjectController.extend({
 		scrollToTop: function () {
 			window.scrollTo(0, 0);
 		}
-	},
-	displayUsers: function () {
-		return this.get('model.users').slice(0,5);
-	}.property('model', 'model.users.@each')
+	}
 });
