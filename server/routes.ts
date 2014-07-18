@@ -11,6 +11,7 @@ function getWikiName (host: string) {
 	 * Capture groups:
  	 * 1. "sandbox-mercury." (if it's the beginning of the url)
 	 * 2. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
+	 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
 	 * 3. Port including leading colon (e.g. :8000)
 	 * We just return capture group 2
 	*/
