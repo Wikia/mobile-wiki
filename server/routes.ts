@@ -3,6 +3,21 @@
 import path = require('path');
 import Hapi = require('hapi');
 
+/**
+ * @desc extracts the wiki name from the host
+ */
+function getWikiName (host: string) {
+	/**
+	 * Capture groups:
+ 	 * 1. "sandbox-mercury." (if it's the beginning of the url)
+	 * 2. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
+	 * 3. Port including leading colon (e.g. :8000)
+	 * We just return capture group 2
+	*/
+	var regex = /^(sandbox\-mercury\.)?(.+?)\.wikia.*\.com(:[0-9]+)?$/;
+	return host.match(regex)[2];
+}
+
 function routes(server) {
 	var second = 1000;
 	// all the routes that should resolve to loading single page app entry view
@@ -44,9 +59,8 @@ function routes(server) {
 			path: route,
 			config: config,
 			handler: (request, reply) => {
-				var hostParts = request.headers.host.split('.');
 				server.methods.getPrerenderedData({
-					wiki: hostParts[hostParts.length - 3],
+					wiki: getWikiName(request.headers.host),
 					title: request._pathSegments[2]
 				}, (error, result) => {
 					// TODO: handle error a bit better :D
@@ -67,9 +81,8 @@ function routes(server) {
 		path: '/api/v1/article/{articleTitle}',
 		config: config,
 		handler: (request, reply) => {
-			var hostParts = request.headers.host.split('.');
 			var params = {
-				wikiName: hostParts[hostParts.length - 3],
+				wikiName: getWikiName(request.headers.host),
 				articleTitle: request.params.articleTitle
 			};
 			server.methods.getArticleData(params, (error, result) => {

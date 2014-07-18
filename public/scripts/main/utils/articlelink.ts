@@ -41,19 +41,19 @@ module W {
 			/**
 			 * Here we test if its an article link. We also have to check for /a/something for the jump links,
 			 * because the url will be in that form and there will be a hash
-			 * TODO: apparently some wikis might have the article name in the root, like '/article', in which case
-			 * I'd use uri.match(/^\/([^\/]*)/) as well to get the article name. Not sure though.
+			 * Some wikis, e.g. GTA, have article URLs in the from /something without the /wiki, so the /wiki
+			 * is optional here.
 			 */
-			var article = local.match(/^\/wiki\/([^\/#]*)(#.*)?/) || local.match(/^\/a\/([^\/#]*)(#.*)?/);
+			var article = local.match(/^(\/wiki)?\/([^\/#]+)(#.*)?/) || local.match(/^\/a\/([^\/#]*)(#.*)?/);
 			if (article) {
-				if (article[1] === title && hash && hash !== '') {
+				if (article[2] === title && hash && hash !== '') {
 					return {
 						article: null,
 						url: hash
 					};
 				}
 				return {
-					article: article[1],
+					article: article[2],
 					url: null
 				};
 			}
