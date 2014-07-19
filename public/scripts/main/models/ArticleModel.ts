@@ -98,7 +98,7 @@ App.ArticleModel.reopenClass({
 			[]
 		);
 
-		// Same issue: the response to the ajaz should always be valid and not undefined
+		// Same issue: the response to the ajax should always be valid and not undefined
 		model.set('users', source.userDetails.items || []);
 		model.set('basepath', source.userDetails.basepath);
 	}
