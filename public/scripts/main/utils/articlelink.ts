@@ -44,11 +44,13 @@ module W {
 			 * Some wikis, e.g. GTA, have article URLs in the from /something without the /wiki, so the /wiki
 			 * is optional here.
 			 *
-			 * The order of these conditions is purposeful; we need to first check if it's in the form
+			 * TODO: We currently don't handle links to other pages with jump links appended. If input is a
+			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
+			 * there is a #jumplink appended to it.
 			 */
 			var article = local.match(/^(\/(a|wiki))?\/([^#]+)(#.*)?$/);
 			if (article) {
-				if (article[3] === title && hash && hash !== '') {
+				if (article[3] === title && hash) {
 					return {
 						article: null,
 						url: hash
