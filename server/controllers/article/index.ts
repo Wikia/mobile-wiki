@@ -30,7 +30,7 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 			var articleDetails = response,
 				articleId;
 
-			if (Object.keys(articleDetails.items).length) {
+			if (articleDetails.items && Object.keys(articleDetails.items).length) {
 				articleId = Object.keys(articleDetails.items)[0];
 
 				var props = {
