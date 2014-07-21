@@ -30,6 +30,10 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 			var articleDetails = response,
 				articleId;
 
+			/**
+			 * Have to check articleDetails.items in case the wiki is not present on the devbox and the
+			 * API returns bad data.
+			 */
 			if (articleDetails.items && Object.keys(articleDetails.items).length) {
 				articleId = Object.keys(articleDetails.items)[0];
 
