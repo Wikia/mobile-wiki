@@ -30,7 +30,7 @@ module W {
 				}
 				// Style guide advises using dot accessor instead of brackets, but it is difficult
 				// to access a key with an asterisk* in it
-				var regex = '^\/wiki\/' + namespaces[ns].canonical.replace(/ /g, '_') + ':.*$';
+				var regex = '^(\/wiki)?\/' + namespaces[ns].canonical.replace(/ /g, '_') + ':.*$';
 				if (local.match(regex)) {
 					return {
 						article: null,
@@ -41,19 +41,23 @@ module W {
 			/**
 			 * Here we test if its an article link. We also have to check for /a/something for the jump links,
 			 * because the url will be in that form and there will be a hash
-			 * TODO: apparently some wikis might have the article name in the root, like '/article', in which case
-			 * I'd use uri.match(/^\/([^\/]*)/) as well to get the article name. Not sure though.
+			 * Some wikis, e.g. GTA, have article URLs in the from /something without the /wiki, so the /wiki
+			 * is optional here.
+			 *
+			 * TODO: We currently don't handle links to other pages with jump links appended. If input is a
+			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
+			 * there is a #jumplink appended to it.
 			 */
-			var article = local.match(/^\/wiki\/([^\/#]*)(#.*)?/) || local.match(/^\/a\/([^\/#]*)(#.*)?/);
+			var article = local.match(/^(\/(a|wiki))?\/([^#]+)(#.*)?$/);
 			if (article) {
-				if (article[1] === title && hash && hash !== '') {
+				if (article[3] === title && hash) {
 					return {
 						article: null,
 						url: hash
 					};
 				}
 				return {
-					article: article[1],
+					article: article[3],
 					url: null
 				};
 			}
