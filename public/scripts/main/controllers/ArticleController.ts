@@ -15,5 +15,8 @@ App.ArticleController = Em.ObjectController.extend({
 		scrollToTop: function () {
 			window.scrollTo(0, 0);
 		}
-	}
+	},
+	displayUsers: Ember.computed('users', function () {
+		return this.get('users').slice(0, 5);
+	})
 });

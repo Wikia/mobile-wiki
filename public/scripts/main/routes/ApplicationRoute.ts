@@ -6,7 +6,7 @@ App.ApplicationRoute = Em.Route.extend({
 		return params;
 	},
 	actions: {
-		loading () {
+		loading: function () {
 			var controller = this.controllerFor('application'),
 				spinner;
 
@@ -16,7 +16,7 @@ App.ApplicationRoute = Em.Route.extend({
 
 			controller.set('spinnerView', spinner);
 		},
-		didTransition () {
+		didTransition: function () {
 			var spinnerView = this.controllerFor('application').get('spinnerView');
 			if (spinnerView) {
 				spinnerView.destroy();
