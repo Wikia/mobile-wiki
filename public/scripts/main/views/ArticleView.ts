@@ -31,6 +31,7 @@ App.ArticleView = Em.View.extend({
 				});
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.wrapTablesInScrollingDivs();
 			}
 		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
 		// cause problems in the future with the lazyloading code above (unknown)
@@ -69,7 +70,10 @@ App.ArticleView = Em.View.extend({
 	 */
 	replaceHeadersWithArticleSectionHeaders: function () {
 		this.$('h2,h3').map((i, elem: HTMLElement) => {
-			this.replaceWithArticleSectionHeader(elem);
+			// Only replace if it is actually a section header
+			if ($(elem).parent().hasClass('article-content')) {
+				this.replaceWithArticleSectionHeader(elem);
+			}
 		});
 	},
 
@@ -84,5 +88,11 @@ App.ArticleView = Em.View.extend({
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
+	},
+
+	wrapTablesInScrollingDivs: function () {
+		var tableContainer = this.createChildView('ArticleTableContainer');
+		tableContainer.createElement();
+		this.$('table').wrap(tableContainer.$()[0].outerHTML)
 	}
 });
