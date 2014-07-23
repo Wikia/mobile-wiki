@@ -35,7 +35,7 @@ function methods(server): void {
 			next(err);
 		});
 	}, cacheOptions);
-};
+}
 
 export = methods;
 
