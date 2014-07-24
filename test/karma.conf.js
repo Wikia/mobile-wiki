@@ -13,10 +13,10 @@ module.exports = function (config) {
 		reporters: ['progress', 'coverage'],
 
 		preprocessors: {
-			// source files, that you wanna generate coverage for
+			// source files, that you want to generate coverage for
 			// do not include tests or libraries
 			// (these files will be instrumented by Istanbul)
-			'/**/www/public/+(**|!vendor)/*.js': ['coverage']
+			'/**/public/+(**|!vendor)/*.js': ['coverage']
 		},
 
 		// optionally, configure the reporter

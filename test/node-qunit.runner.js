@@ -17,13 +17,10 @@ testrunner.setup({
 		summary: false,
 		// log global summary (all files)
 		globalSummary: false,
-		// log coverage
-		coverage: false,
-		// log global coverage (all files)
-		globalCoverage: false,
 		// log currently testing code file
 		testing: true
-	}
+	},
+	coverage: 'test/coverage/server'
 });
 
 glob.sync(__dirname + '/specs/server/**/*.js', function (err, tests) {

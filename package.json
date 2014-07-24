@@ -59,12 +59,12 @@
     "gulp-util": "2.x.x",
     "karma": "~0.12.16",
     "karma-chrome-launcher": "0.1.x",
-	"karma-coverage": "0.2.x",
+	"karma-coverage": "0.x.x",
     "karma-phantomjs-launcher": "0.1.x",
     "karma-qunit": "0.1.x",
     "multipipe": "0.x.x",
     "node-sass": "0.x.x",
-    "qunit": "^0.6.4",
+    "qunit": "hakubo/node-qunit",
     "qunitjs": "1.14.x",
     "tslint": "0.4.x"
   }
