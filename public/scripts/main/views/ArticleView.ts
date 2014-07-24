@@ -71,7 +71,7 @@ App.ArticleView = Em.View.extend({
 	replaceHeadersWithArticleSectionHeaders: function () {
 		this.$('h2,h3').map((i, elem: HTMLElement) => {
 			// Only replace if it is actually a section header as opposed to an h2 within another element
-			if ($(elem).parent().hasClass('article-content')) {
+			if (Ember.$(elem).parent().hasClass('article-content')) {
 				this.replaceWithArticleSectionHeader(elem);
 			}
 		});
