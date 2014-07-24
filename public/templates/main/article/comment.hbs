@@ -1,0 +1,19 @@
+<li class="comment">
+	<div class="avatar">
+		<img src="{{unbound avatarUrl}}">
+	</div>
+	<div class="content">
+		<span class="username"><a href="{{unbound url}}">{{userName}}</a></span>
+		{{{text}}}
+		{{#if comments}}
+			{{#view App.LoadReplyBtnView}}
+				{{i18n 'article-replies-label' count=comments.length}}
+			{{/view}}
+			<ul {{bind-attr class="expanded:expanded"}}>
+			{{#each comments itemController="articleComment"}}
+				{{view App.ArticleCommentView}}
+			{{/each}}
+			</ul>
+		{{/if}}
+	</div>
+</li>

@@ -1,12 +1,12 @@
 var gulp = require('gulp'),
 	typescript = require('gulp-tsc'),
 	cache = require('gulp-cached'),
-	multipipe = require('multipipe'),
+	piper = require('../utils/piper'),
 	options = require('../options').scripts.back,
 	paths = require('../paths').scripts.back;
 
 gulp.task('scripts-back', function () {
-	return multipipe(
+	return piper(
 		gulp.src(paths.src, {base: './'}),
 		cache('scripts-back'),
 		typescript(options),

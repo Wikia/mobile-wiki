@@ -13,8 +13,11 @@ public/vendor/
 *.log
 
 /* Static Assets */
+server/**/*.js
 .tmp/
 www/
+/* Should only commit json files, not compiled js fixtures */
+test/fixtures/**/*.js
 
 /* Config */
 config/localSettings.ts

@@ -4,14 +4,14 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
-	multipipe = require('multipipe'),
+	piper = require('../utils/piper'),
 	environment = require('../utils/environment'),
 	options = require('../options').handlebars,
 	paths = require('../paths').templates,
 	path = require('path');
 
 gulp.task('templates', folders(paths.src, function (folder) {
-	return multipipe(
+	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		handlebars(options),
 		concat(folder + '.js'),

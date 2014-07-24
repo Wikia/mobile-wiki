@@ -1,0 +1,89 @@
+$border-color: #d0d0d0;
+
+.collapsible-menu {
+	margin-bottom: rem-calc(20);
+
+	border-top: 1px solid $border-color;
+	border-bottom: 1px solid $border-color;
+
+	.title {
+		// positioning
+		position: relative;
+
+		// display & box model
+		display: block;
+
+		// color
+
+		// text
+		font-weight: bold;
+		line-height: 2.4rem;
+		text-transform: uppercase;
+
+		// other
+		cursor: pointer;
+		user-select: none;
+
+		.chevron {
+			transition: .25s transform ease-in-out;
+		}
+
+		&:not(.collapsed) .chevron {
+			transform: scaleY(-1);
+		}
+
+		&.text-left {
+			text-align: left;
+			padding-left: rem-calc(15);
+		}
+
+		.icon {
+			position: absolute;
+			top: 50%;
+
+			&.toc {
+				left: 10px;
+				margin-top: -7px;
+			}
+
+			&.chevron {
+				right: rem-calc(10);
+				margin-top: rem-calc(-4);
+			}
+		}
+	}
+
+	ol, ul {
+		display: none;
+
+		margin: 0;
+		padding: 0;
+
+
+		li {
+			border-top: 1px solid $border-color;
+			padding-left: rem-calc(40);
+
+			a {
+				position: relative;
+				display: block;
+				overflow: hidden;
+
+				padding: 10px 0;
+				padding-right: rem-calc(40);
+
+				color: #000000;
+
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			a > .chevron {
+				position: absolute;
+				right: rem-calc(10);
+				top: rem-calc(13);
+				transform: scale(.8) rotate(-90deg);
+			}
+		}
+	}
+}

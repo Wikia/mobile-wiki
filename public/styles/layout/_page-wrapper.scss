@@ -4,5 +4,7 @@
 	.article-body {
 		@extend .small-12;
 		@extend .columns;
+
+		overflow-x: hidden;
 	}
 }

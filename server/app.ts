@@ -10,16 +10,21 @@ class App {
 		var server: Hapi.Server,
 			options: {},
 			//Counter for maxRequestPerChild
-			counter = 0;
+			counter = 0,
+			second = 1000;
 
 		server = hapi.createServer(localSettings.host, localSettings.port, {
 			// ez enable cross origin resource sharing
 			cors: true,
+			cache: {
+				engine: require('catbox-memory'),
+				name: 'appcache'
+			},
 			views: {
 				engines: {
 					hbs: require('handlebars')
 				},
-				isCached: process.env.NODE_ENV === 'production',
+				isCached: true,
 				layout: true,
 				/*
 				 * Helpers are functions usable from within handlebars templates.
@@ -48,12 +53,13 @@ class App {
 			}
 		);
 
+		require('./methods')(server);
 		/*
 		 * Routes
 		 */
 		require('./routes')(server);
 
-		server.start(function () {
+		server.start(function() {
 			console.log('Server started at: ' + server.info.uri);
 		});
 

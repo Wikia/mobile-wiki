@@ -1,0 +1,66 @@
+.show-comments-btn {
+	display: block;
+	border-top: 1px solid $secondary-color;
+	color: #333;
+
+	padding: rem-calc(16) rem-calc(20);
+	font-weight: bold;
+	text-transform: uppercase;
+
+	.chevron {
+		position: absolute;
+		right: rem-calc(10);
+		margin-top: rem-calc(5);
+	}
+}
+
+.comments {
+	@extend %list-reset;
+	font-size: rem-calc(13);
+}
+
+.comment {
+	@extend .row;
+	margin: rem-calc(20) 0;
+
+	> div {
+		@extend .columns;
+		padding: 0;
+	}
+
+	ul {
+		@extend %list-reset;
+
+		display: none;
+
+		margin-left: rem-calc(-10);
+		margin-top: rem-calc(20);
+
+		&.expanded {
+			display: block;
+		}
+
+		.avatar img { margin-left: rem-calc(-10); }
+
+	}
+
+	.avatar {
+		@extend .small-3;
+		text-align: left;
+		padding-left: rem-calc(15);
+
+		img {
+			border-radius: 100%;
+		}
+	}
+
+	.content {
+		@extend .small-9;
+		padding-right: rem-calc(20);
+	}
+
+	.username {
+		font-weight: bold;
+	}
+
+}

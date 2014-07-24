@@ -3,7 +3,8 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	paths = require('../paths');
 
-gulp.task('karma', function () {
+// NOTE: fixtures task only gets run once, so need to restart karma if you change fixtures
+gulp.task('karma', ['fixtures'], function () {
 	return gulp.src([
 		paths.vendor.dest + '/handlebars/handlebars.runtime.js',
 		paths.vendor.dest + '/jquery/dist/jquery.js',
@@ -12,11 +13,11 @@ gulp.task('karma', function () {
 		paths.scripts.front.dest + '/baseline.js',
 		paths.scripts.front.dest + '/main.js',
 		paths.templates.dest + '/main.js',
-		paths.scripts.back.dest + '/main.js',
 		// qunit helpers must not be included in general components package
 		'public/vendor/ember-qunit/dist/globals/main.js',
+		'test/fixtures/test-fixtures.js',
 		'test/helpers/**/*.js',
-		'test/specs/**/*.js',
+		'test/specs/public/**/*.js',
 		'test/integration/**/*.js',
 	])
 	.pipe(karma({
@@ -26,4 +27,5 @@ gulp.task('karma', function () {
 	.on('error', function (error) {
 		throw error;
 	});
+
 });

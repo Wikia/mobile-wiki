@@ -43,7 +43,7 @@ gulp.task('watch', ['assets'], function () {
 	gulp.watch(path.join(
 			paths.svg.src,
 			paths.svg.files
-		), ['sprites']).on('change', function (event) {
+		), ['build']).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 

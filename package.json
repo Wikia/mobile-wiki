@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "gulp clean && gulp",
-    "start": "gulp clean && gulp build --type production && node www/server/server.js",
-    "test": "gulp assets && gulp karma"
+    "start": "gulp clean && gulp build --type production && gulp scripts-back && node www/server/server.js",
+    "test": "gulp assets && gulp karma && gulp node-test"
   },
   "repository": {
     "type": "git",
@@ -20,16 +20,19 @@
   "homepage": "https://github.com/Wikia/mercury",
   "private": true,
   "dependencies": {
+    "bluebird": "^2.1.3",
+    "catbox": "^3.0.0",
+    "catbox-memory": "^1.0.3",
     "good": "2.x.x",
+    "handlebars": "2.x.x",
     "hapi": "6.x.x",
-    "q": "1.0.x",
-    "follow-redirects": "0.0.x",
-    "tslint": "0.4.x",
-    "handlebars": "2.x.x"
+    "nipple": "^2.5.3",
+    "tslint": "0.4.x"
   },
   "devDependencies": {
     "browser-sync": "0.x.x",
     "ember-qunit": "0.1.x",
+    "glob": "^4.0.2",
     "gulp": "3.x.x",
     "gulp-autoprefixer": "0.x.x",
     "gulp-cached": "0.x.x",
@@ -37,6 +40,7 @@
     "gulp-concat": "2.x.x",
     "gulp-ember-handlebars": "0.x.x",
     "gulp-filter": "0.x.x",
+    "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "0.x.x",
     "gulp-if": "1.x.x",
     "gulp-karma": "0.0.4",
@@ -53,13 +57,15 @@
     "gulp-uglify": "0.x.x",
     "gulp-useref": "0.x.x",
     "gulp-util": "2.x.x",
-    "karma": "0.12.x",
+    "karma": "~0.12.16",
     "karma-chrome-launcher": "0.1.x",
-    "karma-coverage": "0.2.x",
+	"karma-coverage": "0.2.x",
     "karma-phantomjs-launcher": "0.1.x",
     "karma-qunit": "0.1.x",
     "multipipe": "0.x.x",
     "node-sass": "0.x.x",
-    "qunitjs": "~1.14.x"
+    "qunit": "^0.6.4",
+    "qunitjs": "1.14.x",
+    "tslint": "0.4.x"
   }
 }

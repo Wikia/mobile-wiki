@@ -1,14 +1,23 @@
+/* global resetWikiaBaseline */
 module('Integration: Bootrap Article from Preloaded Data', {
+	setup: function () {
+		Wikia.article.wikiName = 'lastofus';
+	},
 	teardown: function () {
 		App.reset();
+		resetWikiaBaseline();
 	}
 });
 
 test('Article Preload', function () {
-	visit('/w/foo/article/Bar');
-	andThen(function () {
-		ok(find('.article-content', '').text().match('Test content'), 'Content gets loaded correctly');
-	});
+	stop();
+	visit('/a/Ellie');
+	var content = find('.article-content', '').text();
+	setTimeout(function () {
+	ok(content.match('Test content'),
+		'Expected "Test content", received ' + content);
+		start();
+	}, 3000);
 });
 
 

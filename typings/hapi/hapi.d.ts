@@ -6,6 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module Hapi {
+	var error: any;
 	export interface ServerOptions {
 		app?: any;
 //		cache?: string;
@@ -353,7 +354,7 @@ declare module Hapi {
 			session: Object
 		};
 		domain: any;
-		headers: Object;
+		headers: any;
 		id: number;
 		info: {
 			received: number;
@@ -396,7 +397,7 @@ declare module Hapi {
 
 	export interface Response {
 		statusCode: number;
-		headers: Object;
+		headers: any;
 		source: any;
 		variety: string;
 		app: any;
@@ -454,6 +455,7 @@ declare module Hapi {
 	}
 
 	export function createServer (host: string, port: number, options?: ServerOptions): Server;
+
 }
 
 declare module "hapi" {
