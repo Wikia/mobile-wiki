@@ -20,7 +20,9 @@ testrunner.setup({
 		// log currently testing code file
 		testing: true
 	},
-	coverage: 'test/coverage/server'
+	coverage: {
+		dir:'test/coverage/server'
+	}
 });
 
 glob.sync(__dirname + '/specs/server/**/*.js', function (err, tests) {
