@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.ArticleController = Em.ObjectController.extend({
+App.ArticleIndexController = Em.ObjectController.extend({
 	needs: ['application'],
 	actions: {
 		updateHeaders: function(headers): void {
@@ -9,7 +9,7 @@ App.ArticleController = Em.ObjectController.extend({
 			article.set('sections', headers);
 		},
 		changePage: function(title) {
-			this.transitionToRoute('article', title);
+			this.transitionToRoute('article.index', title);
 		},
 		// Bubbled up from ArticleSectionHeaderView, which is a child of ArticleView
 		scrollToTop: function () {

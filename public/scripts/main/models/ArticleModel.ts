@@ -27,7 +27,7 @@ interface Response {
 	};
 }
 
-App.ArticleModel = Ember.Object.extend({
+App.ArticleIndexModel = Ember.Object.extend({
 	article: null,
 	categories: [],
 	cleanTitle: null,
@@ -41,12 +41,12 @@ App.ArticleModel = Ember.Object.extend({
 	wiki: null
 });
 
-App.ArticleModel.reopenClass({
+App.ArticleIndexModel.reopenClass({
 	url: function (params) {
 		return '/api/v1/article/' + params.title;
 	},
 	find: function (params) {
-		var model = App.ArticleModel.create(params),
+		var model = App.ArticleIndexModel.create(params),
 			self = this;
 
 		model.set('wiki', params.wiki);

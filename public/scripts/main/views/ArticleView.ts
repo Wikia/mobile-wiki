@@ -11,11 +11,23 @@ interface HeadersFromDom {
 
 var sloth = new W.Sloth();
 
-App.ArticleView = Em.View.extend({
+App.ArticleIndexView = Em.View.extend({
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
-	articleObserver: Ember.observer('controller.article', function () {
-		Em.run.later(null, () => {
+	/**
+	* willInsertElement
+	* @description The article view is only inserted once, and then refreshed on new models. Use this hook to bind
+	* events for DOM manipulation
+	*/
+	willInsertElement: function (): void {
+		Ember.addObserver(this.get('controller'), 'article', this, this.onArticleChange);
+		// Trigger an article change once on insertion because the first insertion happens after article
+		// state has changed
+		this.get('controller').notifyPropertyChange('article');
+	},
+
+	onArticleChange: function (): void {
+		Em.run.scheduleOnce('afterRender', () => {
 			var model = this.get('controller.model');
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
@@ -34,8 +46,8 @@ App.ArticleView = Em.View.extend({
 			}
 		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
 		// cause problems in the future with the lazyloading code above (unknown)
-		}, 0);
-	}),
+		});
+	},
 
 	modelObserver: Ember.observer('controller.model', function () {
 		var model = this.get('controller.model');

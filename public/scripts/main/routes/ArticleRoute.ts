@@ -2,14 +2,14 @@
 
 'use strict';
 
-App.ArticleRoute = Em.Route.extend({
+App.ArticleIndexRoute = Em.Route.extend({
 	beforeModel: function (transition) {
 		if (Wikia.error) {
 			transition.abort();
 		}
 	},
 	model: function (params, transition) {
-		return App.ArticleModel.find({
+		return App.ArticleIndexModel.find({
 			title: params.articleTitle,
 			wiki: this.controllerFor('application').get('domain')
 		});

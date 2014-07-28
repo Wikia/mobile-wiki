@@ -23,7 +23,7 @@ App.ApplicationRoute = Em.Route.extend({
 			}
 		},
 		handleLink: function (target) {
-			var controller = this.controllerFor('article'),
+			var controller = this.controllerFor('article.index'),
 				model = controller.get('model'),
 				info = W.getLinkInfo(model.get('basepath'),
 						model.get('title'),
