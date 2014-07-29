@@ -11,7 +11,7 @@ interface HeadersFromDom {
 
 var sloth = new W.Sloth();
 
-App.ArticleIndexView = Em.View.extend({
+App.ArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
 	/**
