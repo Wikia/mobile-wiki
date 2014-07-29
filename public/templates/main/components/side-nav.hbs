@@ -6,15 +6,26 @@
 <div class="menu-container">
 	<div {{action 'collapseSideNav'}} class="overlay"></div>
 	<div class="menu">
-		<div class="search">
+		<div class="search-container">
 			<input type="text" placeholder="Search"/>
+			<svg viewbox="0 0 18 18" class="icon close">
+				<use xlink:href="#close"></use>
+			</svg>
+			<svg viewBox="0 0 14 14" class="icon search">
+				<use xlink:href="#search"></use>
+			</svg>
 		</div>
 		<div class='title'>
 			Menu
 		</div>
 
 		<ul>
-			<li>one</li>
+			<li>
+				one
+				<svg viewbox="0 0 12 7" class="icon chevron">
+					<use xlink:href="#chevron"></use>
+				</svg>
+			</li>
 			<li>two</li>
 		</ul>
 	</div>

@@ -1,6 +1,6 @@
 $transition-length: 0.25s;
-$left-padding: rem-calc(13);
-$overlay-opacity: 0.7;
+$left-right-padding: rem-calc(13);
+$overlay-opacity: 0.5;
 
 .side-nav {
 	position: absolute;
@@ -15,7 +15,6 @@ $overlay-opacity: 0.7;
 	&.collapsed .menu-container {
 		visibility: hidden;
 
-		// TODO: use translate-x http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
 		.menu {
 			transition: $transition-length;
 		}
@@ -30,7 +29,7 @@ $overlay-opacity: 0.7;
 	&:not(.collapsed) .menu-container {
 		.menu {
 			transition: $transition-length;
-			transform: translate(260px);
+			transform: translate(rem-calc(260));
 		}
 
 		.overlay {
@@ -48,6 +47,16 @@ $overlay-opacity: 0.7;
 		width: 100%;
 		z-index: 10;
 
+		li {
+			position: relative;
+			.chevron {
+				position: absolute;
+				right: $left-right-padding;
+				top: rem-calc(18);
+				transform: rotate(-90deg);
+			}
+		}
+
 		.overlay {
 			position: absolute;
 			top: 0;
@@ -55,42 +64,78 @@ $overlay-opacity: 0.7;
 			z-index: 10;
 			width: 100%;
 			height: 100%;
-			background-color: gray;
+			background-color: black;
 		}
 
 		.menu {
 			position: absolute;
 			top: 0;
-			left: -260px;
+			left: rem-calc(-260);
 			z-index: 10;
-			width: 260px;
+			width: rem-calc(260);
 			height: 100%;
 			background-color: white;
 			opacity: 1;
 
-			.search {
+			.search-container {
 				margin: rem-calc(8) rem-calc(13);
+
+				.search {
+					position: absolute;
+					top: rem-calc(13);
+					left: rem-calc(85);
+					fill: gray;
+					transition: $transition-length;
+				}
+
+				.close {
+					position: absolute;
+					top: rem-calc(13);
+					background-color: gray;
+					border-radius: rem-calc(9);
+					right: rem-calc(20);
+					visibility: hidden;
+					opacity: 0;
+					transition: opacity $transition-length linear;
+				}
+
 				input {
-					text-align: center;
+					padding-left: rem-calc(90);
 					background-color: #f0f0f0;
-					border: 2px #d0d0d0 solid;
+					border: rem-calc(1) #d0d0d0 solid;
 					width: 100%;
 					outline: none;
 					border-radius: rem-calc(2);
+					transition: $transition-length;
 				}
+
 				input:focus {
-					background-color: yellow;
+					text-align: left;
+					padding-left: rem-calc(25);
+					transition: $transition-length;
+				}
+
+				input:focus ~ .search {
+					left: rem-calc(20);
+					transition: $transition-length;
+					transform: translateX(-65);
+				}
+
+				input:focus ~ .close {
+					visibility: visible;
+					opacity: 1;
+					transition: opacity $transition-length linear;
 				}
 			}
 
 			.title {
-				padding-top: 10px;
-				padding-bottom: 10px;
+				padding-top: rem-calc(10);
+				padding-bottom: rem-calc(10);
 				color: #123054;
 				font-weight: bold;
 				text-transform: uppercase;
 				background-color: #e0e0e0;
-				padding-left: $left-padding;
+				padding-left: $left-right-padding;
 			}
 
 			ol, ul {
@@ -98,9 +143,9 @@ $overlay-opacity: 0.7;
 				padding: 0;
 				li {
 					height: rem-calc(44);
-					padding-left: $left-padding;
-					border-bottom: 1px solid #D0D0D0;
-					padding-top: 10px;
+					padding-left: $left-right-padding;
+					border-bottom: rem-calc(1) solid #D0D0D0;
+					padding-top: rem-calc(10);
 				}
 			}
 		}
