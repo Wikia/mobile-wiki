@@ -1,0 +1,21 @@
+<span {{action 'expandSideNav'}}>
+	<svg viewBox="0 0 24 14" class="icon nav">
+		<use xlink:href="#nav"></use>
+	</svg>
+</span>
+<div class="menu-container">
+	<div {{action 'collapseSideNav'}} class="overlay"></div>
+	<div class="menu">
+		<div class="search">
+			<input type="text" placeholder="Search"/>
+		</div>
+		<div class='title'>
+			Menu
+		</div>
+
+		<ul>
+			<li>one</li>
+			<li>two</li>
+		</ul>
+	</div>
+</div>
