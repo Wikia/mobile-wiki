@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
 	karma = require('gulp-karma'),
+	gutil = require('gulp-util'),
 	paths = require('../paths');
 
 // NOTE: fixtures task only gets run once, so need to restart karma if you change fixtures
@@ -21,7 +22,7 @@ gulp.task('karma', ['fixtures'], function () {
 	])
 	.pipe(karma({
 		configFile: 'test/karma.conf.js',
-		action: gulp.env.action === 'watch' ? gulp.env.action : 'run'
+		action: gutil.env.action === 'watch' ? gutil.env.action : 'run'
 	}))
 	.on('error', function (error) {
 		throw error;
