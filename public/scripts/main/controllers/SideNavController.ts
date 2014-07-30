@@ -1,18 +1,16 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.SideNavComponent = Em.Component.extend({
-	tagName: 'nav',
-	classNames: ['side-nav'],
-	classNameBindings: ['collapsed'],
-	collapsed: true,
+App.SideNavController = Em.Controller.extend({
+	isCollapsed: true,
 	actions: {
 		expandSideNav: function (): void {
-			this.set('collapsed', false);
+			debugger;
+			this.set('isCollapsed', false);
 			Ember.$('body').addClass('no-scroll');
 		},
 		collapseSideNav: function (): void {
-			this.set('collapsed', true);
+			this.set('isCollapsed', true);
 			Ember.$('body').removeClass('no-scroll');
 		}
 	}

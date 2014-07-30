@@ -1,18 +1,18 @@
-<span {{action 'expandSideNav'}}>
+<span {{action 'expandSideNav' target="view"}}>
 	<svg viewBox="0 0 24 14" class="icon nav">
 		<use xlink:href="#nav"></use>
 	</svg>
 </span>
 <div class="menu-container">
-	<div {{action 'collapseSideNav'}} class="overlay"></div>
+	<div {{action 'collapseSideNav' target="view"}} class="overlay"></div>
 	<div class="menu">
 		<div class="search-container">
 			<input type="text" placeholder="Search"/>
-			<svg viewbox="0 0 18 18" class="icon close">
-				<use xlink:href="#close"></use>
+			<svg viewbox="0 0 18 18" class="icon close-side-menu">
+				<use xlink:href="#close-side-menu"></use>
 			</svg>
-			<svg viewBox="0 0 14 14" class="icon search">
-				<use xlink:href="#search"></use>
+			<svg viewBox="0 0 14 14" class="icon search-side-menu">
+				<use xlink:href="#search-side-menu"></use>
 			</svg>
 		</div>
 		<div class='title'>

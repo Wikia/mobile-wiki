@@ -80,23 +80,33 @@ $overlay-opacity: 0.5;
 			.search-container {
 				margin: rem-calc(8) rem-calc(13);
 
-				.search {
+				.search-side-menu {
 					position: absolute;
-					top: rem-calc(13);
+					top: rem-calc(12);
 					left: rem-calc(85);
 					fill: gray;
 					transition: $transition-length;
 				}
 
-				.close {
+				.close-side-menu {
 					position: absolute;
-					top: rem-calc(13);
-					background-color: gray;
-					border-radius: rem-calc(9);
+					top: rem-calc(12);
 					right: rem-calc(20);
+					transition: opacity $transition-length linear;
+				}
+
+				// Hide the close icon
+				input:not(:focus) ~ .close-side-menu {
 					visibility: hidden;
 					opacity: 0;
-					transition: opacity $transition-length linear;
+					transition: visibility 0s $transition-length;
+				}
+
+				// Show the close icon
+				input:focus ~ .close-side-menu {
+					visibility: visible;
+					// transition: opacity $transition-length linear;
+					opacity: 1;
 				}
 
 				input {
@@ -115,16 +125,10 @@ $overlay-opacity: 0.5;
 					transition: $transition-length;
 				}
 
-				input:focus ~ .search {
+				input:focus ~ .search-side-menu {
 					left: rem-calc(20);
 					transition: $transition-length;
 					transform: translateX(-65);
-				}
-
-				input:focus ~ .close {
-					visibility: visible;
-					opacity: 1;
-					transition: opacity $transition-length linear;
 				}
 			}
 
