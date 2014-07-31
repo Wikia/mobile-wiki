@@ -1,0 +1,147 @@
+$transition-length: 0.25s;
+$left-right-padding: rem-calc(13);
+$overlay-opacity: 0.5;
+$side-nav-width-val: 260;
+$side-nav-width: rem-calc($side-nav-width-val);
+$side-nav-offset: rem-calc($side-nav-width-val * -1);
+
+// Slide drawer into view
+@keyframes slidein {
+	0% {
+		left: $side-nav-offset;
+	}
+
+	100% {
+		left: 0;
+	}
+}
+
+// Slide drawer out of view
+@keyframes slideout {
+	100% {
+		left: $side-nav-offset;
+	}
+}
+
+.side-nav {
+	// --- OPEN NAV BUTTON ---
+	.nav-container {
+		height: 100%;
+		padding-top: rem-calc(15);
+		width: rem-calc(60);
+		position: absolute;
+		svg {
+			display: block;
+			margin: auto;
+			height: rem-calc(20);
+			width: auto;
+		}
+	}
+	// -----
+
+	// --- OVERLAY ---
+	.overlay {
+		@include perfect-square(100%);
+		position: fixed;
+		top: 0;
+		left: 0;
+		background-color: black;
+		z-index: 10;
+	}
+
+	&.hidden .overlay {
+		visibility: hidden;
+		opacity: 0;
+		transition: visibility 0s $transition-length, opacity $transition-length;
+	}
+
+	&.slide-into-view  .overlay {
+		visibility: visible;
+		opacity: $overlay-opacity;
+		transition: opacity $transition-length;
+	}
+	// ------
+
+	// --- SLIDE-OUT DRAWER ---
+	.drawer {
+		position: fixed;
+		background-color: white;
+		height: 100%;
+		z-index: 11;
+
+		input {
+			position: absolute;
+			margin: $left-right-padding rem-calc(13);
+			top: 0;
+			left: 0;
+			width: $side-nav-width - 2 * $left-right-padding;
+			height: rem-calc(28);
+			margin-top: rem-calc(8);
+			margin-bottom: rem-calc(8);
+			padding-left: rem-calc(90);
+			background-color: #f0f0f0;
+			border-color: #d0d0d0;
+			border-radius: rem-calc(2);
+			outline: none;
+			font-size: rem-calc(13);
+		}
+
+		// Cancel search div
+		.cancel {
+			position: absolute;
+			top: rem-calc(15);
+			left: rem-calc(260);
+			height: rem-calc(44);
+			font-size: rem-calc(13);
+			color: #006598;
+		}
+
+		.icon.search-side-menu {
+			left: rem-calc(85);
+			position: absolute;
+			top: rem-calc(15);
+		}
+
+		.icon.close-side-menu {
+			visibility: hidden;
+			left: rem-calc(225);
+			position: absolute;
+			top: rem-calc(15);
+		}
+
+		&:not(.search) {
+			width: $side-nav-width;
+			.cancel {
+				visibility: hidden;
+			}
+		}
+
+		&.search {
+			width: 100%;
+			visibility: visible;
+
+			.icon.search-side-menu {
+				left: rem-calc(20);
+			}
+
+			.icon.close-side-menu {
+				visibility: visible;
+			}
+
+			input {
+				padding-left: rem-calc(25);
+			}
+		}
+	}
+
+	&.hidden .drawer {
+		transform: translateX($side-nav-offset);
+		transition: $transition-length;
+	}
+
+	&.slide-into-view .drawer {
+		left: 0;
+		animation: $transition-length;
+		animation-name: slidein;
+	}
+}

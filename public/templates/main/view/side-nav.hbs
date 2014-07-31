@@ -1,32 +1,29 @@
-<span {{action 'expandSideNav' target="view"}}>
+<div {{action 'expandSideNav' target="view"}} class="nav-container">
 	<svg viewBox="0 0 24 14" class="icon nav">
 		<use xlink:href="#nav"></use>
 	</svg>
-</span>
-<div class="menu-container">
-	<div {{action 'collapseSideNav' target="view"}} class="overlay"></div>
-	<div class="menu">
-		<div class="search-container">
-			<input type="text" placeholder="Search"/>
-			<svg viewbox="0 0 18 18" class="icon close-side-menu">
-				<use xlink:href="#close-side-menu"></use>
-			</svg>
-			<svg viewBox="0 0 14 14" class="icon search-side-menu">
-				<use xlink:href="#search-side-menu"></use>
-			</svg>
-		</div>
-		<div class='title'>
-			Menu
-		</div>
+</div>
+{{! Overlay that fades in}}
+<div {{action collapseSideNav target="view"}} class="overlay"></div>
+{{! 
+	This is the element that is slid away
+	If this element has search class, the elements in it will rearrange to be in search mode or whatever
+}}
+<div {{bind-attr class=":drawer controller.isInSearchMode:search"}}>
+	{{input placeholder="Search" focus-in="searchFocus"}}
+	<svg viewBox="0 0 14 14" class="icon search-side-menu">
+		<use xlink:href="#search-side-menu"></use>
+	</svg>
+	<svg {{action 'clearSearch' target="view"}} viewbox="0 0 18 18" class="icon close-side-menu">
+		<use xlink:href="#close-side-menu"></use>
+	</svg>
+	<div {{action 'searchCancel'}} class='cancel'>Cancel</div>
+	{{! 
+		Here goes the local Wikia navigation menu content. These
+		things must have bottom: 0; width: 100%;
+	}}
+	{{view "localNavMenu"}}
 
-		<ul>
-			<li>
-				one
-				<svg viewbox="0 0 12 7" class="icon chevron">
-					<use xlink:href="#chevron"></use>
-				</svg>
-			</li>
-			<li>two</li>
-		</ul>
-	</div>
+	{{! Search results get put here}}
+	{{view "localWikiaSearch"}}
 </div>

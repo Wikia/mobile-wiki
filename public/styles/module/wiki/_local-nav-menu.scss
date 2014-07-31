@@ -1,0 +1,67 @@
+.local-nav-menu {
+	position: absolute;
+	top: rem-calc(44);
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+
+	$title-height: rem-calc(25);
+	.title {
+		position: absolute;
+		padding-top: rem-calc(5);
+		padding-bottom: rem-calc(10);
+		height: $title-height;
+		width: 100%;
+		color: #123054;
+		font-weight: bold;
+		text-align: left;
+		text-transform: uppercase;
+		background-color: #e0e0e0;
+		padding-left: $left-right-padding;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		padding-top: $title-height;
+		bottom: 0;
+		height: 100%;
+		overflow: auto;
+	}
+
+	li {
+		position: relative;
+		font-size: rem-calc(13);
+		font-weight: normal;
+		color: #333333;
+		height: rem-calc(44);
+		padding-top: rem-calc(15);
+		text-align: left;
+		list-style: none outside none;
+		border-bottom: rem-calc(1) solid #d0d0d0;
+		padding-left: $left-right-padding;
+
+		.chevron {
+			position: absolute;
+			right: $left-right-padding;
+			top: rem-calc(18);
+			transform: rotate(-90deg);
+		}
+
+		// Class for back button li
+		&.back {
+			padding-left: $left-right-padding + rem-calc(20);
+			color: #006598;
+			.chevron {
+				right: auto;
+				left: $left-right-padding;
+				transform: rotate(90deg);
+			}
+		}
+	}
+}
+
+&.search .local-nav-menu {
+	visibility: hidden;
+}

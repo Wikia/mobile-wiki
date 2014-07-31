@@ -2,16 +2,13 @@
 'use strict';
 
 App.SideNavController = Em.Controller.extend({
-	isCollapsed: true,
+	isInSearchMode: false,
 	actions: {
-		expandSideNav: function (): void {
-			debugger;
-			this.set('isCollapsed', false);
-			Ember.$('body').addClass('no-scroll');
+		searchFocus: function () {
+			this.set('isInSearchMode', true);
 		},
-		collapseSideNav: function (): void {
-			this.set('isCollapsed', true);
-			Ember.$('body').removeClass('no-scroll');
+		searchCancel: function () {
+			this.set('isInSearchMode', false);
 		}
 	}
 });
