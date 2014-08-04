@@ -7,6 +7,11 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	click: function (event) {
+		event.preventDefault();
+	},
+
+	mouseUp: function (event) {
+		// debugger;
 		var target,
 			$closest,
 			matches;

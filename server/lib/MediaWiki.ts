@@ -33,6 +33,12 @@ module MediaWiki {
 			});
 			return fetch(url, 0);
 		}
+
+		localNavData() {
+			var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
+			console.log('fetching ' + url);
+			return fetch(url);
+		}
 	}
 
 	export class ArticleRequest {

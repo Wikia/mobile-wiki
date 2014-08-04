@@ -16,7 +16,8 @@ App.SideNavView = Em.View.extend({
 			this.set('isCollapsed', true);
 			Ember.$('body').removeClass('no-scroll');
 		},
-		/** Action for 'x' button in search box -- not sure what
+		/**
+		 * Action for 'x' button in search box -- not sure what
 		 * it's supposed to do but right now it clears the text.
 		 */
 		clearSearch: function (): void {

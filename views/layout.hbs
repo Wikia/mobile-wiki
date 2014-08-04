@@ -22,6 +22,7 @@
 			{{#if articleJson}}
 				Wikia.provide('article', {{{articleJson}}});
 				Wikia.provide('wiki.namespaces', {{{namespaces}}});
+				Wikia.provide('wiki.navData', {{{navData}}});
 			{{else}}
 				Wikia.provide('article', {});
 				Wikia.provide('error.message', '{{output.payload.message}}');

@@ -9,12 +9,14 @@ function index(params, next): void {
 	}, (data) => {
 		var article = data.payload.article,
 			title = data.articleTitle,
-			namespaces = data.namespaces;
+			namespaces = data.namespaces,
+			navData = data.navData;
 		// We're already sending the article body (which can get quite large) back to get rendered in the template,
 		// so let's not send it with the JSON payload either
 		delete data.payload.article;
 		delete data.payload.title;
 		delete data.namespaces;
+		delete data.navData;
 		next(null, {
 			// article content to be rendered on server
 			article: {
@@ -26,7 +28,8 @@ function index(params, next): void {
 			// article data to bootstrap Ember with in first load of application
 			articleJson: JSON.stringify(data),
 			wiki: data.wikiName,
-			namespaces: JSON.stringify(namespaces)
+			namespaces: JSON.stringify(namespaces),
+			navData: JSON.stringify(navData)
 		});
 	}, (error) => {
 		next(error);

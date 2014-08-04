@@ -18,12 +18,9 @@
 		<use xlink:href="#close-side-menu"></use>
 	</svg>
 	<div {{action 'searchCancel'}} class='cancel'>Cancel</div>
-	{{! 
-		Here goes the local Wikia navigation menu content. These
-		things must have bottom: 0; width: 100%;
-	}}
-	{{view "localNavMenu"}}
+	{{! Here goes the local Wikia navigation menu content. }}
+	{{render "localNavMenu" localNavMenu}}
 
 	{{! Search results get put here}}
-	{{view "localWikiaSearch"}}
+	{{render "localWikiaSearch" localWikiaSearch}}
 </div>

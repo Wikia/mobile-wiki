@@ -16,13 +16,6 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 	}
 }
 
-// Slide drawer out of view
-@keyframes slideout {
-	100% {
-		left: $side-nav-offset;
-	}
-}
-
 .side-nav {
 	// --- OPEN NAV BUTTON ---
 	.nav-container {
@@ -78,7 +71,7 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 			height: rem-calc(28);
 			margin-top: rem-calc(8);
 			margin-bottom: rem-calc(8);
-			padding-left: rem-calc(90);
+			padding-left: rem-calc(95);
 			background-color: #f0f0f0;
 			border-color: #d0d0d0;
 			border-radius: rem-calc(2);
@@ -97,7 +90,7 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 		}
 
 		.icon.search-side-menu {
-			left: rem-calc(85);
+			left: rem-calc(90);
 			position: absolute;
 			top: rem-calc(15);
 		}
@@ -135,6 +128,7 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 	}
 
 	&.hidden .drawer {
+		left: $side-nav-offset;
 		transform: translateX($side-nav-offset);
 		transition: $transition-length;
 	}
