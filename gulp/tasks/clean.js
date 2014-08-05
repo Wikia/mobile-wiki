@@ -1,10 +1,10 @@
 var gulp = require('gulp'),
-	clean = require('gulp-clean'),
+	rimraf = require('gulp-rimraf'),
 	options = require('../options').clean,
 	paths = require('../paths');
 
 gulp.task('clean', function () {
 	return gulp
 		.src(paths.base, options)
-		.pipe(clean());
+		.pipe(rimraf());
 });
