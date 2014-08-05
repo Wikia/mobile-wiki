@@ -1,4 +1,5 @@
 <ul>
-	<li>Search Result One</li>
-	<li>Search Result Two</li>
+	{{#each controller.controllers.localWikiaSearch.suggestions}}
+		<li>{{title}}</li>
+	{{/each}}
 </ul>

@@ -2,22 +2,20 @@
 'use strict';
 
 App.LocalWikiaSearchController = Em.Controller.extend({
+	needs: ['application'],
 	query: '',
 	suggestions: [],
 	search: Ember.observer('query', function () {
-		debugger;
 		if (!this.get('query')) {
 			this.set('suggestions', []);
 			return;
 		}
-		var uri = Wikia.article.wikiName + '.kenneth.wikia-dev.com/api/v1/Search/List?limit=25&minArticleQuality=10&namespaces=0,14&query=';
-		uri += this.get('query');
+		var uri = '/api/v1/search/' + encodeURI(this.get('query'));
 		console.log('uri: ' + uri);
 		Ember.$.getJSON(uri).then((data) => {
-			debugger;
 			this.set('suggestions', data.items);
+			console.log(this.get('suggestions'));
 		}, (reason) => {
-			debugger;
 			console.log('could not retrieve')
 		});
 		// .error(() => {

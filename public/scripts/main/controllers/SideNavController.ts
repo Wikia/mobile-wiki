@@ -2,6 +2,7 @@
 'use strict';
 
 App.SideNavController = Em.Controller.extend({
+	// Needs this so we can send search query to that controller
 	needs: 'localWikiaSearch',
 	isInSearchMode: false,
 	actions: {
