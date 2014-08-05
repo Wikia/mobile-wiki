@@ -13,12 +13,40 @@ import Promise = require('bluebird');
 module MediaWiki {
 
 	/**
+	 * @desc wrapper class for making API search requests
+	 */
+	export class SearchRequest {
+		name: string;
+
+		constructor(params) {
+			this.name = params.name;
+		}
+
+		/**
+		 * Default parameters to make the REST url clean -- we may want to
+		 * customize later
+		 */
+		searchForQuery(query: string) {
+			var url = createUrl(this.name, 'api/v1/Search/List', {
+				limit: 25,
+				minArticleQuality: 10,
+				namespaces: '0,14',
+				query: query
+			});
+			return fetch(url);
+		}
+	}
+
+	/**
 	 * @desc a wrapper for making API requests for info about the wiki
 	 *
 	 */
 	export class WikiRequest {
 		name: string;
 
+		/**
+		 * @param name the name of the wiki
+		 */
 		constructor(params) {
 			this.name = params.name;
 		}

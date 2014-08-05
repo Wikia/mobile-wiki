@@ -1,4 +1,5 @@
 import indexController = require('./controllers/home/index');
+import search = require('./controllers/search');
 import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
 
@@ -17,6 +18,14 @@ function methods(server): void {
 			return JSON.stringify(opts);
 		}
 	};
+
+	server.method('searchForQuery', (params, next) => {
+		search.searchWiki(params, (data) => {
+			next(null, data);
+		}, (err) => {
+			next(err);
+		});
+	});
 
 	server.method('getPrerenderedData', indexController, cacheOptions);
 
