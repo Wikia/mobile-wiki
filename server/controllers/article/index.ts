@@ -14,68 +14,36 @@ import Promise = require('bluebird');
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
 export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any) {
-	var article = new MediaWiki.ArticleRequest({
+	var wikiVariables,
+		article = new MediaWiki.ArticleRequest({
 		name: data.wikiName,
 		title: data.articleTitle
 	});
 
 	if (getWikiInfo) {
-		var wiki = new MediaWiki.WikiRequest({
+		wikiVariables = new MediaWiki.WikiRequest({
 			name: data.wikiName
-		});
+		}).getWikiVariables();
 	}
 
-	article.articleDetails()
+	article.fetch()
 		.then((response: any) => {
-			var articleDetails = response,
-				articleId;
+			var data = response.data;
 
-			/**
-			 * Have to check articleDetails.items in case the wiki is not present on the devbox and the
-			 * API returns bad data.
-			 */
-			if (articleDetails.items && Object.keys(articleDetails.items).length) {
-				articleId = Object.keys(articleDetails.items)[0];
+			if (data) {
+				if (wikiVariables) {
+						wikiVariables.then((payload: any) => {
+							data.wiki = payload.data;
 
-				var props = {
-					article: article.article(),
-					relatedPages: article.relatedPages([articleId]),
-					userData: article.getTopContributors(articleId).then((contributors: any) => {
-						return article.userDetails([contributors.items]).then((users) => {
-							return {
-								contributors: contributors,
-								users: users
-							};
+							callback(data);
+						}).catch((error: any) => {
+							err(error);
 						});
-					}),
-					wiki: null
-				};
-
-				if (getWikiInfo) {
-					props.wiki = wiki.wikiNamespaces();
+				} else {
+					callback(data);
 				}
-
-				Promise.props(props)
-					.then((result: any) => {
-						var articleResponse = {
-							wikiName: data.wikiName,
-							articleTitle: data.articleTitle,
-							articleDetails: articleDetails.items[articleId],
-							contributors: result.userData.contributors,
-							userDetails: result.userData.users,
-							relatedPages: result.relatedPages,
-							payload: result.article.payload,
-							namespaces: null
-						};
-						if (getWikiInfo) {
-							articleResponse.namespaces = result.wiki.query.namespaces;
-						}
-						callback(articleResponse);
-					}).catch((error) => {
-						err(error);
-					});
 			} else {
-				err(response);
+				err(data);
 			}
 		});
 }
@@ -89,6 +57,6 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 	createFullArticle(false, data, (data) => {
 		reply(data);
 	}, (error) => {
-			reply(error);
+		reply(error);
 	});
 }

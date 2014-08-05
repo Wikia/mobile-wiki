@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{article.cleanTitle}} - {{wiki}} wiki</title>
+		<title>{{article.cleanTitle}} - {{siteName}}</title>
 		<meta name="description" content="{{article.description}}">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,11 +17,11 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			Wikia.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
+			Wikia.provide('_t.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
 			Wikia.provide('_state.firstPage', true);
 			{{#if articleJson}}
 				Wikia.provide('article', {{{articleJson}}});
-				Wikia.provide('wiki.namespaces', {{{namespaces}}});
+				Wikia.provide('wiki', {{{wikiJson}}});
 			{{else}}
 				Wikia.provide('article', {});
 				Wikia.provide('error.message', '{{output.payload.message}}');
