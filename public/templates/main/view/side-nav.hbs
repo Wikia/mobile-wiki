@@ -10,7 +10,7 @@
 	If this element has search class, the elements in it will rearrange to be in search mode or whatever
 }}
 <div {{bind-attr class=":drawer controller.isInSearchMode:search"}}>
-	{{input placeholder="Search" focus-in="searchFocus"}}
+	{{input placeholder="Search" focus-in="searchFocus" value=controllers.localWikiaSearch.query}}
 	<svg viewBox="0 0 14 14" class="icon search-side-menu">
 		<use xlink:href="#search-side-menu"></use>
 	</svg>
@@ -18,9 +18,9 @@
 		<use xlink:href="#close-side-menu"></use>
 	</svg>
 	<div {{action 'searchCancel'}} class='cancel'>Cancel</div>
-	{{! Here goes the local Wikia navigation menu content. }}
-	{{render "localNavMenu" localNavMenu}}
 
 	{{! Search results get put here}}
 	{{render "localWikiaSearch" localWikiaSearch}}
+	{{! Here goes the local Wikia navigation menu content. }}
+	{{render "localNavMenu" localNavMenu}}
 </div>

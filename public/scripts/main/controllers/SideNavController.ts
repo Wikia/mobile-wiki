@@ -2,6 +2,7 @@
 'use strict';
 
 App.SideNavController = Em.Controller.extend({
+	needs: 'localWikiaSearch',
 	isInSearchMode: false,
 	actions: {
 		searchFocus: function () {

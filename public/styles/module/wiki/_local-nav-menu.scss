@@ -32,7 +32,10 @@
 
 	li {
 		position: relative;
-		font-size: rem-calc(13);
+		font-size: rem-calc(17);
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 		font-weight: normal;
 		color: #333333;
 		height: rem-calc(44);
