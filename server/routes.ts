@@ -115,7 +115,7 @@ function routes(server) {
 			var params = {
 				host: hostParts[hostParts.length - 3],
 				articleId: parseInt(request.params.articleId, 10),
-				page: (request.params.page, 10) || 1
+				page: parseInt(request.params.page, 10) || 1
 			};
 			server.methods.getArticleComments(params, (error, result) => {
 				if (error) {
