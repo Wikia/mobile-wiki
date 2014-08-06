@@ -4,8 +4,14 @@
 App.LocalWikiaSearchController = Em.Controller.extend({
 	query: '',
 	suggestions: [{ title: 'No Results' }],
+	 // in ms
+	debouceDuration: 250,
 
-	search: Ember.observer('query', function () {
+	/**
+	 * @desc query observer which makes ajax request for search suggestions
+	 * based on query
+	 */
+	searchUnDebounced: function () {
 		var noResults,
 			uri;
 
@@ -29,5 +35,12 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 				}));
 			}
 		});
+	},
+
+	/**
+	 * @desc debouncing wrapper for query observer
+	 */
+	search: Ember.observer('query', function () {
+		Ember.run.debounce(this, this.searchUnDebounced, this.debouceDuration);
 	})
 });
