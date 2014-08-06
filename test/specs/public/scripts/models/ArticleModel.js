@@ -4,29 +4,30 @@ moduleFor('model:article', 'Article Model', {
 		// Test data for later tests
 		var exampleArticleID = 123;
 		this.example = Ember.Object.create({
-			payload: {
-				article: 'Test content'
-			},
-			articleTitle: 'sample title',
-			articleDetails: {
-				revision: {
-					timestamp: 123
+				details: {
+					revision: {
+						timestamp: 123
+					},
+					comments: 123,
+					id: exampleArticleID,
+					ns: 'namespace',
+					title: 'sample title'
 				},
-				comments: ['one', 'two', 'three'],
-				id: exampleArticleID,
-				ns: 'namespace',
-				title: 'sample title'
-			},
-			relatedPages: {
-				items: ['an item', 'another item']
-			},
-			userDetails: {
-				items: ['some item', 'yet one more']
-			}
-		});
-		this.example.get('relatedPages.items')[exampleArticleID] = ['one', 'two', 'three'];
+				article: {
+					content: 'Test content'
+				},
+				relatedPages: ['an item', 'another item'],
+				userDetails: ['some item', 'yet one more']
+			});
+
+		this.wikiExample = {
+			siteName: 'test'
+		};
+
+		//this.example.get('relatedPages.items')[exampleArticleID] = ['one', 'two', 'three'];
 		// Preload data into Wikia.article
 		Wikia.article = this.example;
+		Wikia.wiki = this.wikiExample;
 	},
 	teardown: function () {
 		App.reset();
@@ -50,7 +51,7 @@ test('ArticleModel RESTful URL tests', function () {
 	});
 });
 
-test('getPreloadedData test', function () {
+test('getPreloadedData', function () {
 	expect(2);
 	// Already run in wikiaBaseline and the startup callback:
 	// Wikia._state.firstPage = true;
@@ -60,23 +61,23 @@ test('getPreloadedData test', function () {
 	deepEqual(article, Wikia.article, 'article loaded from Wikia object on first page');
 });
 
-test('test setArticle with preloaded data', function () {
+test('setArticle with preloaded data', function () {
 	// Note: data preloaded in setup callback
 	expect(11);
 	var model = this.subject();
 	App.ArticleModel.setArticle(model);
 	// Necessary to set context
-	verifyArticle(model, this.example);
+	verifyArticle(model, this.example, this.wikiExample);
 });
 
-test('test setArticle with parametrized data', function () {
+test('setArticle with parametrized data', function () {
 	expect(11);
 	var model = this.subject();
 	App.ArticleModel.setArticle(model, this.example);
 	verifyArticle(model, this.example);
 });
 
-test('test find with preloaded data', function () {
+test('find with preloaded data', function () {
 	var model, params;
 	expect(13);
 
@@ -89,7 +90,7 @@ test('test find with preloaded data', function () {
 	Ember.run(function () {
 		model = App.ArticleModel.find(params);
 	});
-	verifyArticle(model, this.example);
+	verifyArticle(model, this.example, this.wikiExample);
 	ok(!Wikia._state.firstPage, 'firstPage==false after test, as expected');
 });
 
@@ -100,34 +101,34 @@ test('test find with preloaded data', function () {
  */
 function verifyArticle (model, example) {
 	equal(model.get('type'),
-		example.articleDetails.ns,
-		'expected namespace=' + example.articleDetails.ns + ', got ' + model.get('type'));
+		example.details.ns,
+		'expected namespace=' + example.details.ns + ', got ' + model.get('type'));
 	equal(model.get('cleanTitle'),
-		example.articleDetails.title,
-		'expected title=' + example.articleDetails.title + ', got ' + model.get('cleanTitle'));
+		example.details.title,
+		'expected title=' + example.details.title + ', got ' + model.get('cleanTitle'));
 	equal(model.get('comments'),
-		example.articleDetails.comments,
+		example.details.comments,
 		'correctly ingested comments');
 	equal(model.get('id'),
-		example.articleDetails.id,
-		'expected article ID=' + example.articleDetails.id + ', got ' + model.get('id'));
+		example.details.id,
+		'expected article ID=' + example.details.id + ', got ' + model.get('id'));
 	equal(model.get('article'),
-		example.payload.article,
-		'expected sample content=' + example.payload.article + ', got ' + model.get('article'));
+		example.article.content,
+		'expected sample content=' + example.article.content + ', got ' + model.get('article'));
 	deepEqual(model.get('media'),
-		example.payload.media,
-		'expected media=' + example.payload.media + ', got ' + model.get('media'));
+		example.article.media,
+		'expected media=' + example.article.media + ', got ' + model.get('media'));
 	equal(model.get('mediaUsers'),
-		example.payload.users,
-		'expected mediaUsers=' + example.payload.users + ', got ' + model.get('mediaUsers'));
+		example.article.users,
+		'expected mediaUsers=' + example.article.users + ', got ' + model.get('mediaUsers'));
 	equal(model.get('user'),
-		example.payload.user,
-		'expected user=' + example.payload.user + ', got ' + model.get('user'));
+		example.article.user,
+		'expected user=' + example.article.user + ', got ' + model.get('user'));
 	deepEqual(model.get('categories'),
-		example.payload.categories,
-		'expected categories=' + example.payload.categories + ', got ' + model.get('categories'));
+		example.article.categories,
+		'expected categories=' + example.article.categories + ', got ' + model.get('categories'));
 	deepEqual(model.get('relatedPages'),
-		example.relatedPages.items[example.articleDetails.id],
+		example.relatedPages,
 		'correction ingested related pages');
-	deepEqual(model.users, example.userDetails.items, 'correctly ingested user items');
+	deepEqual(model.users, example.details.items, 'correctly ingested user items');
 }
