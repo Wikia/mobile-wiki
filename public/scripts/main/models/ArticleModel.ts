@@ -78,7 +78,6 @@ App.ArticleModel.reopenClass({
 		return Wikia.wiki;
 	},
 	setArticle: function (model, source = this.getPreloadedData(), wiki = this.getWikiData()) {
-		console.log(source)
 		model.set('type', source.details.ns);
 		model.set('cleanTitle', source.details.title);
 		model.set('comments', source.details.comments);
