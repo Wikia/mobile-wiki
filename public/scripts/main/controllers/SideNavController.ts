@@ -3,7 +3,7 @@
 
 App.SideNavController = Em.Controller.extend({
 	// Needs this so we can send search query to that controller
-	needs: 'localWikiaSearch',
+	needs: ['localWikiaSearch'],
 	isInSearchMode: false,
 	actions: {
 		searchFocus: function () {
