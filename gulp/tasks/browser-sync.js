@@ -13,9 +13,9 @@ gulp.task('browser-sync', function() {
 		reloadDelay: 300,
 		ghostMode: {
 			clicks: true,
-				location: true,
-				forms: true,
-				scroll: true
+			location: true,
+			forms: true,
+			scroll: true
 		},
 		open: false
 	});
