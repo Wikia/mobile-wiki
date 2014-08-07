@@ -20,12 +20,8 @@
 		padding-top: rem-calc(15);
 		text-align: left;
 		list-style: none outside none;
-		border-bottom: rem-calc(1) solid #d0d0d0;
 		padding-left: $left-right-padding;
-
-		&:first-child {
-			border-top: rem-calc(1) solid #d0d0d0;
-		}
+		border-bottom: rem-calc(1) solid #d0d0d0;
 	}
 }
 

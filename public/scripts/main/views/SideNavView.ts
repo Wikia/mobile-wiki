@@ -8,13 +8,6 @@ App.SideNavView = Em.View.extend({
 	isCollapsed: true,
 	layoutName: 'view/side-nav',
 
-	// searchModeObserver: function () {
-	// 	debugger;
-	// 	if (!this.get('controller.isInSearchMode')) {
-	// 		this.send('clearSearch');
-	// 	}
-	// }.observes('controller.isInSearchMode').on('didInsertElement'),
-
 	actions: {
 		expandSideNav: function (): void {
 			this.set('isCollapsed', false);
@@ -25,21 +18,27 @@ App.SideNavView = Em.View.extend({
 			this.set('controller.isInSearchMode', false);
 			this.set('isCollapsed', true);
 			Ember.$('body').removeClass('no-scroll');
+		},
+		/**
+		 * Action for 'x' button in search box -- not sure what
+		 * it's supposed to do but right now it clears the text.
+		 */
+		clearSearch: function (): void {
+			this.set('controller.controllers.localWikiaSearch.query', '');
 		}
-		// /**
-		//  * Action for 'x' button in search box -- not sure what
-		//  * it's supposed to do but right now it clears the text.
-		//  */
-		// clearSearch: function (): void {
-		// 	if (this.get('controllers.localWikiSearch')) {
-		// 		this.set('controllers.localWikiSearch.query', '');
-		// 	}
-		// 	debugger;
-		// 	// var $searchBox = this.$('input');
-		// 	// // Have to make this check in case it isn't rendered yet.
-		// 	// if ($searchBox) {
-		// 	// 	$searchBox.val('');
-		// 	// }
-		// }
+	},
+
+	searchModeObserver: function () {
+		if (!this.get('isInSearchMode')) {
+			this.set('controllers.localWikiaSearch.query', '');
+		}
+	},
+
+	didInsertElement: function () {
+		this.get('controller').addObserver('isInSearchMode', this.searchModeObserver);
+	},
+
+	willDestroy: function () {
+		this.get('controller').removeObserver('isInSearchMode', this.searchModeObserver);
 	}
 });

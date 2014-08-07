@@ -3,7 +3,9 @@
 
 App.LocalWikiaSearchController = Em.Controller.extend({
 	query: '',
-	suggestions: [{ title: 'No Results' }],
+	suggestions: [],
+	// Message to display if suggestions is empty
+	emptyMessage: '',
 	 // in ms
 	debouceDuration: 250,
 
@@ -11,23 +13,15 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	 * @desc query observer which makes ajax request for search suggestions
 	 * based on query
 	 */
-	searchUnDebounced: function () {
-		var noResults,
-			uri;
+	searchWithoutDebounce: function () {
+		var uri;
 
-		noResults = [{
-			title: 'No Results'
-		}];
-
-		if (!this.get('query')) {
-			this.set('suggestions', noResults);
-			return;
-		}
 		uri = '/api/v1/search/' + encodeURI(this.get('query'));
 		console.log('uri: ' + uri);
 		Ember.$.getJSON(uri).then((data) => {
 			if (data.exception) {
-				this.set('suggestions', noResults);
+				this.set('suggestions', []);
+				this.set('emptyMessage', 'No Results')
 			} else{
 				this.set('suggestions', data.items.map(function (elem) {
 					elem.url = '/wiki/' + elem.url.substr(elem.url.lastIndexOf('/') + 1);
@@ -41,6 +35,12 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	 * @desc debouncing wrapper for query observer
 	 */
 	search: Ember.observer('query', function () {
-		Ember.run.debounce(this, this.searchUnDebounced, this.debouceDuration);
+		this.set('suggestions', []);
+		if (this.get('query')) {
+			this.set('emptyMessage', 'Loading...');
+			Ember.run.debounce(this, this.searchWithoutDebounce, this.debouceDuration);
+		} else {
+			this.set('emptyMessage', '');
+		}
 	})
 });

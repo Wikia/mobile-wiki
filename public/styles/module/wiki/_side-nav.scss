@@ -4,6 +4,8 @@ $overlay-opacity: 0.5;
 $side-nav-width-val: 260;
 $side-nav-width: rem-calc($side-nav-width-val);
 $side-nav-offset: rem-calc($side-nav-width-val * -1);
+// Color for placeholder text, border
+$search-box-color: #d1d2d4;
 
 // Slide drawer into view
 @keyframes slidein {
@@ -62,8 +64,28 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 		height: 100%;
 		z-index: 11;
 
-		input {
+		.search-container {
 			position: absolute;
+			left: 0;
+			right: 0;
+			text-align: left;
+			border-bottom: rem-calc(1) solid #d0d0d0;
+
+			// Cancel search div
+			.cancel {
+				position: absolute;
+				padding: rem-calc(15);
+				right: 0;
+				padding-right: rem-calc(13);
+				// height: rem-calc(44);
+				// width: rem-calc(60);
+				font-size: rem-calc(13);
+				color: #006598;
+			}
+		}
+
+		input {
+			float: left;
 			margin: $left-right-padding rem-calc(13);
 			top: 0;
 			left: 0;
@@ -78,17 +100,15 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 			border-radius: rem-calc(2);
 			outline: none;
 			font-size: rem-calc(13);
+			border: rem-calc(1) solid $search-box-color;
+			background-color: white;
 		}
 
-		// Cancel search div
-		.cancel {
-			position: absolute;
-			top: rem-calc(15);
-			left: rem-calc(260);
-			height: rem-calc(44);
-			font-size: rem-calc(13);
-			color: #006598;
+		::-webkit-input-placeholder {
+		   color: $search-box-color;
 		}
+
+
 
 		.icon.search-side-menu {
 			left: rem-calc(90);
@@ -98,7 +118,7 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 
 		.icon.close-side-menu {
 			visibility: hidden;
-			left: rem-calc(225);
+			left: rem-calc(234);
 			position: absolute;
 			top: rem-calc(15);
 		}
@@ -124,6 +144,7 @@ $side-nav-offset: rem-calc($side-nav-width-val * -1);
 
 			input {
 				padding-left: rem-calc(25);
+				width: rem-calc(243);
 			}
 		}
 	}
