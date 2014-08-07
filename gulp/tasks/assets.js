@@ -8,6 +8,5 @@ gulp.task('assets', [
 	'templates',
 	'sprites',
 	'locales',
-	'vendor',
-	'hack'
+	'vendor'
 ]);

@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	paths = require('../paths'),
 	environment = require('../utils/environment');
 
-gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates', 'locales', 'hack'], function () {
+gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates', 'locales'], function () {
 	var assets = useref.assets({
 		searchPath: paths.base
 	});
