@@ -1,6 +1,13 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+/**
+ * @desc Controller for the search results. Note that the actual search bar is
+ * contained in SideNav, so this is a child of that controller and that
+ * controller modifies LocalWikiaSearchController#query at will. This controller
+ * is simply made to respond to changes to that property, and update so that its
+ * view can display the results of the search.
+ */
 App.LocalWikiaSearchController = Em.Controller.extend({
 	query: '',
 	suggestions: [],

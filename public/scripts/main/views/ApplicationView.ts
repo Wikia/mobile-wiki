@@ -10,8 +10,8 @@ App.ApplicationView = Em.View.extend({
 		event.preventDefault();
 	},
 
+	// Changed from click to mouseUp because that should work better with touch devices
 	mouseUp: function (event) {
-		// debugger;
 		var target,
 			$closest,
 			matches;

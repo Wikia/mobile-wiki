@@ -1,8 +1,11 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+/**
+ * @desc Controller for the local nav menu, which facilitates local Wikia
+ * navigation. The view for this controller is rendered in SideNavView.
+ */
 App.LocalNavMenuController = Em.ObjectController.extend({
-	needs: ['application'],
 	init: function () {
 		/**
 		 * Note: this means that the model is stored directly
@@ -54,8 +57,6 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 
 	actions: {
 		goBack: function () {
-			// debugger;
-			// TODO doesn't traverse up the tree correctly
 			this.set('currentMenuItem', this.get('parentItem'));
 			// We've made it back to the root of the menu
 			if (this.get('currentMenuItem') == this.get('menuRoot')) {

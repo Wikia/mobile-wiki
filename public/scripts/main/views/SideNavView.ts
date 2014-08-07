@@ -28,6 +28,11 @@ App.SideNavView = Em.View.extend({
 		}
 	},
 
+	/**
+	 * Every time we exit search mode, regardless of if it was through the Cancel
+	 * link or through clicking a search result, we want to clear out the query
+	 * so that the search bar will clear.
+	 */
 	searchModeObserver: function () {
 		if (!this.get('isInSearchMode')) {
 			this.set('controllers.localWikiaSearch.query', '');
