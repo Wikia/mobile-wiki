@@ -9,6 +9,7 @@
 
         <!-- build:css /public/styles/app.css -->
 		<link rel="stylesheet" href="/public/styles/app.css">
+
 		<!-- endbuild -->
 
 		<style>
@@ -33,6 +34,8 @@
 		<!-- @if WIKIA_ENVIRONMENT='dev' -->
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
+		<link rel="stylesheet" href="/public/hack/tablesaw/tablesaw.css">
+
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
@@ -54,5 +57,12 @@
 			<script src="/public/templates/main.js"></script>
 			<script src="/public/scripts/main.js"></script>
         <!-- endbuild -->
+
+
+		<!--[if lt IE 9]><script src="respond.min.js"></script><!--<![endif]-->
+		<script src="/public/hack/tablesaw/tablesaw.js"></script>
+		<script src="/public/hack/tablesaw/hack.js"></script>
+
+
 	</body>
 </html>

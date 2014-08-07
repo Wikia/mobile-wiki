@@ -11,6 +11,10 @@ module.exports = {
 		src: 'public/vendor/**/*',
 		dest: basePath + '/public/vendor'
 	},
+	hack: {
+		src: 'public/hack/**/*',
+		dest: basePath + '/public/hack'
+	},
 	locales: {
 		src: 'public/locales/**/*.json',
 		dest: basePath + '/public/locales'

@@ -10,7 +10,8 @@
   "dependencies": {
     "ember": ">=1.7",
     "foundation": "5.x.x",
-    "i18next": "1.x.x"
+    "i18next": "1.x.x",
+    "normalize-css": "3.0.1"
   },
   "devDependencies": {
     "ember-qunit": "~0.1.8"
