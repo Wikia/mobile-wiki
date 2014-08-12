@@ -29,15 +29,12 @@ module Wikia.Modules {
 
 		createRequestURL(params) {
 			var parts = [],
-				paramStr,
-				key;
+				paramStr
 
-			for (key in params) {
-				if (params.hasOwnProperty(key)) {
-					paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-					parts.push(paramStr);
-				}
-			}
+			Object.keys(params).forEach((key) => {
+				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+				parts.push(paramStr);
+			});
 
 			return this.baseUrl + '?' + parts.join('&');
 		}
