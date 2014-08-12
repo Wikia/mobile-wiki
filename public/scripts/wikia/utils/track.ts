@@ -1,5 +1,3 @@
-/// <reference path="../index.ts" />
-
 module Wikia.Utils {
 	var tracker,
 	    config;

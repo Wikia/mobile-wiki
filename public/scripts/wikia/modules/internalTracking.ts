@@ -1,5 +1,3 @@
-/// <reference path="../index.ts" />
-
 module Wikia.Modules {
 	export class InternalTracker {
 		baseUrl: string;
