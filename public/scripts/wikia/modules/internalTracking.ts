@@ -1,4 +1,5 @@
 module Wikia.Modules {
+
 	export class InternalTracker {
 		baseUrl: string;
 		callbackTimeout: number;
@@ -7,7 +8,7 @@ module Wikia.Modules {
 		head: HTMLElement;
 		defaults: any;
 
-		constructor(config) {
+		constructor(config: any) {
 			this.baseUrl = config.baseUrl;
 			this.head = document.head || document.getElementsByTagName('head')[0];
 			this.callbackTimeout = config.callbackTimeout || 200;
@@ -16,33 +17,30 @@ module Wikia.Modules {
 			this.defaults = config.defaults || {};
 		}
 
-		public track(eventName = 'trackingevent', params = {}) {
+		public track(eventName: string = 'trackingevent', params: any = {}): void {
 			var requestURL,
 			    config;
 
-			config = Wikia.Utils.extend(params, this.defaults);
+			config = W.extend(params, this.defaults);
 
 			this.baseUrl += encodeURIComponent(eventName);
 			requestURL = this.createRequestURL(config);
 			this.loadTrackingScript(requestURL);
 		}
 
-		createRequestURL(params) {
+		createRequestURL(params: any): string {
 			var parts = [],
-				paramStr,
-				key;
+				paramStr
 
-			for (key in params) {
-				if (params.hasOwnProperty(key)) {
-					paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-					parts.push(paramStr);
-				}
-			}
+			Object.keys(params).forEach((key) => {
+				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+				parts.push(paramStr);
+			});
 
 			return this.baseUrl + '?' + parts.join('&');
 		}
 
-		loadTrackingScript(url) {
+		loadTrackingScript(url: string): void {
 			var script,
 				self;
 
@@ -74,6 +72,7 @@ module Wikia.Modules {
 					setTimeout(self.error, self.callbackTimeout);
 				}
 			};
+
 			this.head.insertBefore(script, this.head.firstChild);
 		}
 	}

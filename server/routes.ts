@@ -2,6 +2,7 @@
 
 import path = require('path');
 import Hapi = require('hapi');
+import localSettings = require('../config/localSettings');
 
 /**
  * @desc extracts the wiki name from the host
@@ -69,6 +70,8 @@ function routes(server) {
 						error = Hapi.error.notFound(notFoundError);
 						reply.view('error', error);
 					} else {
+						// export Google Analytics code to layout
+						result.gaId = localSettings.gaId;
 						reply.view('application', result);
 					}
 				});
