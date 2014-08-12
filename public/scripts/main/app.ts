@@ -23,7 +23,7 @@ App.initializer({
 			lng: application.get('language'),
 			fallbackLng: application.get('language'),
 			debug: true,
-			resStore: Wikia._state.translations,
+			resStore: Wikia._t,
 			useLocalStorage: false
 		});
 	}

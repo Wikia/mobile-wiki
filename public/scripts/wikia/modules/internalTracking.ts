@@ -26,7 +26,6 @@ module Wikia.Modules {
 
 			this.baseUrl += encodeURIComponent(eventName);
 			requestURL = this.createRequestURL(config);
-			console.log(requestURL);
 			this.loadTrackingScript(requestURL);
 		}
 

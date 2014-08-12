@@ -1,6 +1,4 @@
 /// <reference path="../app.ts" />
-/// <reference path="../utils/sloth.ts" />
-/// <reference path="../utils/lazyload.ts" />
 'use strict';
 
 interface HeadersFromDom {
