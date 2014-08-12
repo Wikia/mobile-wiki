@@ -33,7 +33,7 @@ module Wikia {
 		return ns;
 	}
 
-	export module utils {
+	export module Utils {
 		export function provide(str, obj) {
 			if (typeof str !== 'string') {
 				throw Error('Invalid string supplied to namespacer');
@@ -45,4 +45,4 @@ module Wikia {
 }
 
 // alias _w for quick access to utility functions
-var _w = Wikia.utils;
+var W = Wikia.Utils;

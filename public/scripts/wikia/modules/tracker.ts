@@ -1,85 +1,83 @@
 /// <reference path="../index.ts" />
 
-module Wikia {
-	export module modules {
-		export class InternalTracker {
-			baseUrl: string;
-			callbackTimeout: number;
-			success: Function;
-			error: Function;
-			head: HTMLElement;
-			defaults: any;
+module Wikia.Modules {
+	export class InternalTracker {
+		baseUrl: string;
+		callbackTimeout: number;
+		success: Function;
+		error: Function;
+		head: HTMLElement;
+		defaults: any;
 
-			constructor(config) {
-				this.baseUrl = config.baseUrl;
-				this.head = document.head || document.getElementsByTagName('head')[0];
-				this.callbackTimeout = config.callbackTimeout || 200;
-				this.success = config.success ? config.success : null;
-				this.error = config.error ? config.success : null;
-				this.defaults = config.defaults || {};
+		constructor(config) {
+			this.baseUrl = config.baseUrl;
+			this.head = document.head || document.getElementsByTagName('head')[0];
+			this.callbackTimeout = config.callbackTimeout || 200;
+			this.success = config.success ? config.success : null;
+			this.error = config.error ? config.success : null;
+			this.defaults = config.defaults || {};
+		}
+
+		public track(eventName = 'trackingevent', params = {}) {
+			var requestURL,
+			    config;
+
+			config = Wikia.Utils.extend(params, this.defaults);
+
+			this.baseUrl += encodeURIComponent(eventName);
+			requestURL = this.createRequestURL(config);
+			console.log(requestURL);
+			this.loadTrackingScript(requestURL);
+		}
+
+		createRequestURL(params) {
+			var parts = [],
+				paramStr,
+				key;
+
+			for (key in params) {
+				if (params.hasOwnProperty(key)) {
+					paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+					parts.push(paramStr);
+				}
 			}
 
-			public track(eventName = 'trackingevent', params = {}) {
-				var requestURL,
-				    config;
+			return this.baseUrl + '?' + parts.join('&');
+		}
 
-				config = Wikia.utils.extend(params, this.defaults);
+		loadTrackingScript(url) {
+			var script,
+				self;
 
-				this.baseUrl += encodeURIComponent(eventName);
-				requestURL = this.createRequestURL(config);
-				console.log(requestURL);
-				this.loadTrackingScript(requestURL);
-			}
+			self = this;
+			script = document.createElement('script');
+			script.src = url;
 
-			createRequestURL(params) {
-				var parts = [],
-					paramStr,
-					key;
+			script.onload = script.onreadystatechange = function (abort) {
 
-				for (key in params) {
-					if (params.hasOwnProperty(key)) {
-						paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-						parts.push(paramStr);
-					}
+				if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
+					return;
 				}
 
-				return this.baseUrl + '?' + parts.join('&');
-			}
+				// Handle memory leak in IE
+				script.onload = script.onreadystatechange = null;
 
-			loadTrackingScript(url) {
-				var script,
-					self;
+				// Remove the script
+				if (this.head && script.parentNode) {
+					this.head.removeChild(script);
+				}
 
-				self = this;
-				script = document.createElement('script');
-				script.src = url;
+				// Dereference the script
+				script = undefined;
 
-				script.onload = script.onreadystatechange = function (abort) {
+				if (!abort && typeof self.success === 'function') {
+					setTimeout(self.success, self.callbackTimeout);
 
-					if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
-						return;
-					}
-
-					// Handle memory leak in IE
-					script.onload = script.onreadystatechange = null;
-
-					// Remove the script
-					if (this.head && script.parentNode) {
-						this.head.removeChild(script);
-					}
-
-					// Dereference the script
-					script = undefined;
-
-					if (!abort && typeof self.success === 'function') {
-						setTimeout(self.success, self.callbackTimeout);
-
-					} else if (abort && typeof self.error === 'function') {
-						setTimeout(self.error, self.callbackTimeout);
-					}
-				};
-				this.head.insertBefore(script, this.head.firstChild);
-			}
+				} else if (abort && typeof self.error === 'function') {
+					setTimeout(self.error, self.callbackTimeout);
+				}
+			};
+			this.head.insertBefore(script, this.head.firstChild);
 		}
 	}
 }

@@ -17,16 +17,16 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			_w.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
-			_w.provide('_state.firstPage', true);
+			W.provide('_state.translations.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
+			W.provide('_state.firstPage', true);
 			{{#if articleJson}}
-				_w.provide('article', {{{articleJson}}});
-				_w.provide('wiki.namespaces', {{{namespaces}}});
+				W.provide('article', {{{articleJson}}});
+				W.provide('wiki.namespaces', {{{namespaces}}});
 			{{else}}
-				_w.provide('article', {});
-				_w.provide('error.message', '{{output.payload.message}}');
-				_w.provide('error.status', '{{output.payload.statusCode}}');
-				_w.provide('error.error', '{{output.payload.error}}');
+				W.provide('article', {});
+				W.provide('error.message', '{{output.payload.message}}');
+				W.provide('error.status', '{{output.payload.statusCode}}');
+				W.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
 		</script>
 

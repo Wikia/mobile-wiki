@@ -9,7 +9,7 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-var sloth = new W.Sloth();
+var sloth = new Wikia.Modules.Sloth();
 
 App.ArticleView = Em.View.extend({
 	classNames: ['article-wrapper'],
@@ -31,7 +31,7 @@ App.ArticleView = Em.View.extend({
 			var model = this.get('controller.model');
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
-				var lazy = new W.LazyLoad();
+				var lazy = new Wikia.Modules.LazyLoad();
 
 				lazy.fixSizes(lazyImages);
 
