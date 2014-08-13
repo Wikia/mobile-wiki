@@ -53,9 +53,8 @@ App.ArticleView = Em.View.extend({
 		var model = this.get('controller.model');
 
 		if (model) {
-			var wiki = model.get('siteName');
 			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + wiki;
+			document.title = title + ' - ' + Wikia.wiki.siteName;
 		}
 	}),
 

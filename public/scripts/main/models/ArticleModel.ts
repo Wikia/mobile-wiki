@@ -74,10 +74,7 @@ App.ArticleModel.reopenClass({
 		Wikia._state.firstPage = false;
 		return Wikia.article;
 	},
-	getWikiData: function () {
-		return Wikia.wiki;
-	},
-	setArticle: function (model, source = this.getPreloadedData(), wiki = this.getWikiData()) {
+	setArticle: function (model, source = this.getPreloadedData()) {
 		model.set('type', source.details.ns);
 		model.set('cleanTitle', source.details.title);
 		model.set('comments', source.details.comments);
@@ -87,7 +84,6 @@ App.ArticleModel.reopenClass({
 		model.set('mediaUsers', source.article.users);
 		model.set('user', source.details.revision.user_id);
 		model.set('categories', source.article.categories);
-		model.set('siteName', wiki.siteName);
 
 		/**
 		 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
