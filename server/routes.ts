@@ -63,7 +63,7 @@ function routes(server) {
 			handler: (request, reply) => {
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
-					title: request._pathSegments[2]
+					title: request.params.title
 				}, (error, result) => {
 					// TODO: handle error a bit better :D
 					if (error) {
