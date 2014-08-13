@@ -1,5 +1,5 @@
 /* global resetWikiaBaseline */
-module('Integration: Bootrap Article from Preloaded Data', {
+module('Integration: Bootsrap Article from Preloaded Data', {
 	setup: function () {
 		Wikia.article.wikiName = 'lastofus';
 	},
@@ -19,5 +19,3 @@ test('Article Preload', function () {
 		start();
 	}, 3000);
 });
-
-
