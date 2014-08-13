@@ -1,5 +1,5 @@
 /* global resetWikiaBaseline */
-module('Integration: Bootsrap Article from Preloaded Data', {
+module('Integration: Bootstrap Article from Preloaded Data', {
 	setup: function () {
 		Wikia.article.wikiName = 'lastofus';
 	},
