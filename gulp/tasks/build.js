@@ -14,6 +14,7 @@ gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor'
 	var assets = useref.assets({
 		searchPath: paths.base
 	});
+
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull

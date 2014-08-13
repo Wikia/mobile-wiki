@@ -39,7 +39,7 @@ App.ApplicationRoute = Em.Route.extend({
 				 * TODO: this regex is alright for dev environment, but doesn't work well with production
 				 */
 				if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(\-.*)?\.com.*\/.*$/)) {
-					window.location.href = info.url;
+					window.location.assign(info.url);
 				} else {
 					window.open(info.url);
 				}
