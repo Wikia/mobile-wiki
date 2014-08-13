@@ -27,7 +27,7 @@ App.ArticleView = Em.View.extend({
 	},
 
 	onArticleChange: function (): void {
-		Em.run.scheduleOnce('afterRender', () => {
+		Em.run.scheduleOnce('afterRender', this, () => {
 			var model = this.get('controller.model');
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
@@ -49,14 +49,14 @@ App.ArticleView = Em.View.extend({
 		});
 	},
 
-	modelObserver: Ember.observer('controller.model', function () {
+	modelObserver: function () {
 		var model = this.get('controller.model');
 		if (model) {
 			var wiki = model.get('wiki');
 			var title = model.get('cleanTitle');
 			document.title = title + ' - ' + wiki + ' wiki';
 		}
-	}),
+	}.property('controller.model'),
 
 	/**
 	 * @desc Generates table of contents data based on h2 elements in the article

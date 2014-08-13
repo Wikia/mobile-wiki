@@ -8,6 +8,10 @@
  */
 'use strict';
 
+interface DOMStringMap {
+	ref: number;
+}
+
 module W {
 	export class LazyLoad {
 		pageContent: HTMLElement;
