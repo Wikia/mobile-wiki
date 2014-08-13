@@ -5,7 +5,7 @@
  */
 'use strict';
 
-module W {
+module Wikia.Utils {
 	/**
 	 * @param basepath the base url of the wiki without trailing slash, i.e. http://lastofus.wikia.com
 	 * or http://halo.bisaacs.wikia-dev

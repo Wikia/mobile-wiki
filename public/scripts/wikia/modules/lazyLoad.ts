@@ -8,11 +8,7 @@
  */
 'use strict';
 
-interface DOMStringMap {
-	ref: number;
-}
-
-module W {
+module Wikia.Modules {
 	export class LazyLoad {
 		pageContent: HTMLElement;
 		pageWidth: number;

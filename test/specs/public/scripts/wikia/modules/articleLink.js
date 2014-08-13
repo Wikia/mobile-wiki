@@ -1,7 +1,8 @@
+/* global W */
 QUnit.module('getLinkInfo tests', {
 	setup: function () {
 		// The format that we get the namespaces is strange and awkward to reproduce
-		Wikia.provide('wiki.namespaces', window.FIXTURES['test/fixtures/namespaces.json']);
+		W.provide('wiki.namespaces', window.FIXTURES['test/fixtures/namespaces.json']);
 	},
 	teardown: function () {
 
@@ -58,7 +59,7 @@ test('getLinkInfo article links', function () {
 		var res = W.getLinkInfo('http://lastofus.wikia.com', 'article', '', window.location.origin + prefix + test);
 		equal(res.article, test, 'article should match article passed in');
 		equal(res.url, null, 'url should be null');
-	}
+	};
 	tests.forEach(cb);
 	prefix = '/';
 	tests.forEach(cb);
@@ -66,7 +67,9 @@ test('getLinkInfo article links', function () {
 
 test('getLinkInfo jump links', function () {
 	expect(2);
-	var res = W.getLinkInfo('http://lastofus.wikia.com', 'article', '#hash', window.location.origin + '/wiki/article#hash');
+	var res = W.getLinkInfo(
+		'http://lastofus.wikia.com',
+		'article', '#hash', window.location.origin + '/wiki/article#hash');
 	equal(res.article, null, 'for jump links article should be null');
 	equal(res.url, '#hash', 'for jump links the url should just be the jump link');
 });
