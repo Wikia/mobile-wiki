@@ -17,18 +17,31 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			Wikia.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
-			Wikia.provide('_state.firstPage', true);
+			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
+			W.provide('_state.firstPage', true);
 			{{#if articleJson}}
-				Wikia.provide('article', {{{articleJson}}});
-				Wikia.provide('wiki.namespaces', {{{namespaces}}});
+				W.provide('article', {{{articleJson}}});
+				W.provide('wiki.namespaces', {{{namespaces}}});
 			{{else}}
-				Wikia.provide('article', {});
-				Wikia.provide('error.message', '{{output.payload.message}}');
-				Wikia.provide('error.status', '{{output.payload.statusCode}}');
-				Wikia.provide('error.error', '{{output.payload.error}}');
+				W.provide('article', {});
+				W.provide('error.message', '{{output.payload.message}}');
+				W.provide('error.status', '{{output.payload.statusCode}}');
+				W.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
 		</script>
+
+		<!-- Google Analytics -->
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			// staging GA id
+			ga('create', '{{gaId}}', 'auto');
+			ga('send', 'pageview');
+		</script>
+		<!-- End Google Analytics -->
 
 		<!-- @if WIKIA_ENVIRONMENT='dev' -->
 		<script src="/public/scripts/dev.js"></script>
@@ -52,6 +65,7 @@
 
         <!-- build:js /public/scripts/combined.js -->
 			<script src="/public/templates/main.js"></script>
+			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
         <!-- endbuild -->
 	</body>

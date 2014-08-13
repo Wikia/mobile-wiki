@@ -18,7 +18,7 @@ interface Window {
 	scrollY: number;
 }
 
-module W {
+module Wikia.Modules {
 	var slice = Array.prototype.slice,
 		debounce = (function(element) {
 			return element ? parseInt(element.getAttribute('data-sloth-debounce'), 10) : 200;
