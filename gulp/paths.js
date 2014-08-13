@@ -24,7 +24,8 @@ module.exports = {
 		front: {
 			src: 'public/scripts',
 			dest: basePath + '/public/scripts',
-			files: '**/*.ts'
+			files: '**/*.ts',
+			dFiles: '**/*.d.ts'
 		},
 		back: {
 			src: 'server/**/*.ts',
