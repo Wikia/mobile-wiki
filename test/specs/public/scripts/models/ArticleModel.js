@@ -24,7 +24,6 @@ moduleFor('model:article', 'Article Model', {
 			siteName: 'test'
 		};
 
-		//this.example.get('relatedPages.items')[exampleArticleID] = ['one', 'two', 'three'];
 		// Preload data into Wikia.article
 		Wikia.article = this.example;
 		Wikia.wiki = this.wikiExample;
