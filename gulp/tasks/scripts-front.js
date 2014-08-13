@@ -11,10 +11,11 @@ var gulp = require('gulp'),
 	path = require('path');
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
+	options.out = folder + '.js';
+
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		typescript(options),
-		concat(folder + '.js'),
 		gulpif(environment.isProduction, uglify()),
 		gulp.dest(paths.dest)
 	);
