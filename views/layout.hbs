@@ -17,6 +17,7 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
+			W.provide('language', '{{language}}');
 			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			W.provide('_state.firstPage', true);
 			{{#if articleJson}}
