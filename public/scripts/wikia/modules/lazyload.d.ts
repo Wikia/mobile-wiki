@@ -1,4 +1,4 @@
-/// <reference path="thumbnailer.d.ts" />
+/// <reference path="../../main/utils/thumbnailer.d.ts" />
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 declare module W {
     class LazyLoad {
