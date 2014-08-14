@@ -1,5 +1,6 @@
-/// <reference path="thumbnailer.d.ts" />
+/// <reference path="./thumbnailer.ts" />
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
+
 declare module W {
     class LazyLoad {
         public pageContent: HTMLElement;
