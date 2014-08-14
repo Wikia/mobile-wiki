@@ -48,7 +48,8 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 							};
 						});
 					}),
-					wiki: null
+					wiki: null,
+					wikiTheme: null
 				};
 
 				if (getWikiInfo) {
