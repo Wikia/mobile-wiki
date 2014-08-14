@@ -16,7 +16,7 @@ var App: any = Em.Application.create({
 	LOG_TRANSITIONS: true,
 	LOG_INTERNAL_TRANSITIONS: true,
 	rootElement: '#app-container',
-	language: 'en'
+	language: Wikia.language
 });
 
 App.initializer({

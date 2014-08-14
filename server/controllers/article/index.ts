@@ -53,6 +53,7 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 
 				if (getWikiInfo) {
 					props.wiki = wiki.wikiNamespaces();
+					props.wikiTheme = wiki.getWikiTheme();
 				}
 
 				Promise.props(props)
@@ -65,10 +66,12 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 							userDetails: result.userData.users,
 							relatedPages: result.relatedPages,
 							payload: result.article.payload,
-							namespaces: null
+							namespaces: null,
+							language: null
 						};
 						if (getWikiInfo) {
 							articleResponse.namespaces = result.wiki.query.namespaces;
+							articleResponse.language = result.wikiTheme.settings.language;
 						}
 						callback(articleResponse);
 					}).catch((error) => {

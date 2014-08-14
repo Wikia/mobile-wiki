@@ -9,6 +9,7 @@
 		"article-last-edit": "Last edited 1 week ago",
 		"article-last-edit_plural_0": "Last edited this week",
 		"article-last-edit_plural_2": "Last edited __count__ weeks ago",
-		"article-categories-list-label": "Categories"
+		"article-categories-list-label": "Categories",
+		"article-top-contributors": "Top Contributors of this Wiki"
 	}
 }
