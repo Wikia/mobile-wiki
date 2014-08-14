@@ -65,6 +65,13 @@ module MediaWiki {
 		localNavData() {
 			var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
 			console.log('fetching ' + url);
+
+			return fetch(url);
+		}
+
+		getWikiTheme() {
+			var url: string = createUrl(this.name, 'api/v1/Mercury/WikiSettings', {});
+
 			return fetch(url);
 		}
 	}
@@ -130,12 +137,6 @@ module MediaWiki {
 			return fetch(url);
 		}
 
-		getWikiTheme(wikiName: string) {
-			var url: string = createUrl(this.name, 'api/v1/Mercury/WikiSettings');
-
-			return fetch(url);
-		}
-
 		getTopContributors(articleId: number) {
 			var url: string = createUrl(this.name, 'api/v1/Mercury/TopContributorsPerArticle', {
 				articleId: articleId.toString()
@@ -148,7 +149,7 @@ module MediaWiki {
 
 	/**
 	 * @param url the url to fetch
-	 * @param redirectsNum the number of redirects to follow, default 1
+	 * @param redirects the number of redirects to follow, default 1
 	 */
 	export function fetch (url: string, redirects: number = 1) {
 		return new Promise((resolve, reject) => {

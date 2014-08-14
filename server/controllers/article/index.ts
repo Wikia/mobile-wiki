@@ -49,12 +49,16 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 						});
 					}),
 					wikiNamespaces: null,
-					wikiNavData: null
+					wikiNavData: null,
+					wiki: null,
+					wikiTheme: null
 				};
 
 				if (getWikiInfo) {
 					props.wikiNamespaces = wiki.wikiNamespaces();
 					props.wikiNavData = wiki.localNavData();
+					props.wiki = wiki.wikiNamespaces();
+					props.wikiTheme = wiki.getWikiTheme();
 				}
 
 				Promise.props(props)
@@ -68,11 +72,13 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 							relatedPages: result.relatedPages,
 							payload: result.article.payload,
 							namespaces: null,
+							language: null,
 							navData: null
 						};
 						if (getWikiInfo) {
 							articleResponse.namespaces = result.wikiNamespaces.query.namespaces;
 							articleResponse.navData = result.wikiNavData;
+							articleResponse.language = result.wikiTheme.settings.language;
 						}
 						callback(articleResponse);
 					}).catch((error) => {
