@@ -11,6 +11,10 @@ var gulp = require('gulp'),
 	environment = require('../utils/environment');
 
 gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates', 'locales'], function () {
+	var assets = useref.assets({
+		searchPath: paths.base
+	});
+
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull
@@ -21,14 +25,12 @@ gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor'
 			}
 		})),
 		gulpif(environment.isProduction, piper(
-			useref.assets({
-				searchPath: paths.base
-			}),
+			assets,
 			//before running build I can not know what files from vendor to minify
 			gulpif('**/vendor/**', uglify()),
 			rev(),
 			gulp.dest(paths.base),
-			useref.restore(),
+			assets.restore(),
 			useref(),
 			revReplace(),
 			minifyHTML()

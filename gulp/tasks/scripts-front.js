@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
 	return piper(
-		gulp.src(path.join(paths.src, folder, paths.files)),
+		gulp.src(['!' + path.join(paths.src, folder, paths.dFiles), path.join(paths.src, folder, paths.files)]),
 		typescript(options),
 		concat(folder + '.js'),
 		gulpif(environment.isProduction, uglify()),

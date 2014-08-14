@@ -35,7 +35,7 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 			 * API returns bad data.
 			 */
 			if (articleDetails.items && Object.keys(articleDetails.items).length) {
-				articleId = Object.keys(articleDetails.items)[0];
+				articleId = parseInt(Object.keys(articleDetails.items)[0], 10);
 
 				var props = {
 					article: article.article(),

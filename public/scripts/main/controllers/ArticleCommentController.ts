@@ -4,14 +4,16 @@
 App.ArticleCommentController = Ember.ObjectController.extend({
 	needs: ['articleUsers'],
 	expanded: false,
-	avatarUrl: Ember.computed('content.userName', function () {
+	avatarUrl: function () {
 		var users = this.parentController.get('controllers.articleUsers').get('content');
 		return users[this.get('content.userName')].avatar;
-	}),
-	url: Ember.computed('content.userName', function () {
+	}.property('content.userName'),
+
+	url: function () {
 		var users = this.parentController.get('controllers.articleUsers').get('content');
 		return users[this.get('content.userName')].url;
-	}),
+	}.property('content.userName'),
+
 	actions: {
 		toggleExpand: function () {
 			this.toggleProperty('expanded');
