@@ -14,6 +14,7 @@ module.exports = {
 		front: {
 			target: 'ES5',
 			sourcemap: false,
+			noImplicitAny: true,
 			//mapRoot: '',
 			emitError: false,
 			removeComments: false
@@ -22,6 +23,7 @@ module.exports = {
 			module: 'commonjs',
 			target: 'ES5',
 			emitError: false,
+			noImplicitAny: true,
 			outDir: paths.scripts.back.dest,
 			removeComments: true
 		}
