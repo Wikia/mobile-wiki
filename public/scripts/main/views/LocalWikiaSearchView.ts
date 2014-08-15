@@ -3,5 +3,5 @@
 
 App.LocalWikiaSearchView = Em.View.extend({
 	classNames: ['local-wikia-search'],
-	layoutName: 'view/local-wikia-search'
+	layoutName: 'app/local-wikia-search'
 });

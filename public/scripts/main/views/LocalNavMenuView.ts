@@ -3,5 +3,5 @@
 
 App.LocalNavMenuView = Em.View.extend({
 	classNames: ['local-nav-menu'],
-	layoutName: 'view/local-nav-menu'
+	layoutName: 'app/local-nav-menu'
 });

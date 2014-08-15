@@ -6,7 +6,7 @@ App.SideNavView = Em.View.extend({
 	classNames: ['side-nav'],
 	classNameBindings: ['isCollapsed:hidden:slide-into-view'],
 	isCollapsed: true,
-	layoutName: 'view/side-nav',
+	layoutName: 'app/side-nav',
 
 	actions: {
 		expandSideNav: function (): void {
