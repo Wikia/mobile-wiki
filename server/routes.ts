@@ -2,6 +2,7 @@
 
 import path = require('path');
 import Hapi = require('hapi');
+import localSettings = require('../config/localSettings');
 
 var wikiNames = {};
 /**
@@ -72,13 +73,15 @@ function routes(server) {
 			handler: (request, reply) => {
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
-					title: request._pathSegments[2]
+					title: request.params.title
 				}, (error, result) => {
 					// TODO: handle error a bit better :D
 					if (error) {
 						error = Hapi.error.notFound(notFoundError);
 						reply.view('error', error);
 					} else {
+						// export Google Analytics code to layout
+						result.gaId = localSettings.gaId;
 						reply.view('application', result);
 					}
 				});

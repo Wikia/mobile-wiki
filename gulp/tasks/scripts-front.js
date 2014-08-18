@@ -3,7 +3,6 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
-	concat = require('gulp-concat'),
 	piper = require('../utils/piper'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
@@ -11,11 +10,14 @@ var gulp = require('gulp'),
 	path = require('path');
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
-	options.out = folder + '.js';
+	//we need a copy of that object per folder
+	var folderOptions = JSON.parse(JSON.stringify(options));
+
+	folderOptions.out = folder + '.js';
 
 	return piper(
-		gulp.src(path.join(paths.src, folder, paths.files)),
-		typescript(options),
+		gulp.src(['!' + path.join(paths.src, folder, paths.dFiles), path.join(paths.src, folder, paths.files)]),
+		typescript(folderOptions),
 		gulpif(environment.isProduction, uglify()),
 		gulp.dest(paths.dest)
 	);

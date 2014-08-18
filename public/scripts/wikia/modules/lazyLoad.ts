@@ -8,7 +8,7 @@
  */
 'use strict';
 
-module W {
+module Wikia.Modules {
 	export class LazyLoad {
 		pageContent: HTMLElement;
 		pageWidth: number;

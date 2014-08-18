@@ -3,6 +3,7 @@
  * @description Sets up baseline first load experience to mirror the main web client
  */
 function resetWikiaBaseline () {
+	var W = window.W;
 	W.provide('_state.firstPage', true);
 	W.provide('article.articleDetails.comments', {});
 	W.provide('article.articleDetails.id', 0);

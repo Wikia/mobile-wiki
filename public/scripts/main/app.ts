@@ -6,13 +6,17 @@
 declare var i18n;
 declare var Wikia;
 
+interface Location {
+	origin: string;
+}
+
 var App: any = Em.Application.create({
 	LOG_ACTIVE_GENERATION: true,
 	LOG_VIEW_LOOKUPS: true,
 	LOG_TRANSITIONS: true,
 	LOG_INTERNAL_TRANSITIONS: true,
 	rootElement: '#app-container',
-	language: 'en'
+	language: Wikia.language
 });
 
 App.initializer({

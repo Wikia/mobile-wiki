@@ -26,7 +26,7 @@ App.ApplicationRoute = Em.Route.extend({
 		handleLink: function (target) {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
-				info = W.getLinkInfo(model.get('basepath'),
+				info = Wikia.Utils.getLinkInfo(model.get('basepath'),
 						model.get('title'),
 						target.hash,
 						target.href);
@@ -40,7 +40,7 @@ App.ApplicationRoute = Em.Route.extend({
 				 * TODO: this regex is alright for dev environment, but doesn't work well with production
 				 */
 				if (info.url.charAt(0) === '#' || info.url.match(/^https?:\/\/.*\.wikia(\-.*)?\.com.*\/.*$/)) {
-					window.location = info.url;
+					window.location.assign(info.url);
 				} else {
 					window.open(info.url);
 				}

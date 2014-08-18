@@ -28,6 +28,12 @@ module MediaWiki {
 
 			return fetch(url);
 		}
+
+		getWikiTheme() {
+			var url: string = createUrl(this.name, 'api/v1/Mercury/WikiSettings', {});
+
+			return fetch(url);
+		}
 	}
 
 	export class ArticleRequest {
