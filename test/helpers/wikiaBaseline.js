@@ -3,19 +3,18 @@
  * @description Sets up baseline first load experience to mirror the main web client
  */
 function resetWikiaBaseline () {
-	var Wikia = window.Wikia;
-	Wikia.provide('_state.firstPage', true);
-	Wikia.provide('article.articleDetails.comments', {});
-	Wikia.provide('article.articleDetails.id', 0);
-	Wikia.provide('article.articleDetails.ns', {});
-	Wikia.provide('article.articleDetails.title', {});
-	Wikia.provide('article.relatedPages.items', []);
-	Wikia.provide('article.userDetails.items', []);
-	Wikia.provide('article.payload.media', []);
-	Wikia.provide('article.payload.mediaUsers', []);
-	Wikia.provide('article.payload.users', []);
-	Wikia.provide('article.payload.user', 0);
-	Wikia.provide('article.payload.categories', []);
-};
+	W.provide('_state.firstPage', true);
+	W.provide('article.articleDetails.comments', {});
+	W.provide('article.articleDetails.id', 0);
+	W.provide('article.articleDetails.ns', {});
+	W.provide('article.articleDetails.title', {});
+	W.provide('article.relatedPages.items', []);
+	W.provide('article.userDetails.items', []);
+	W.provide('article.payload.media', []);
+	W.provide('article.payload.mediaUsers', []);
+	W.provide('article.payload.users', []);
+	W.provide('article.payload.user', 0);
+	W.provide('article.payload.categories', []);
+}
 
 resetWikiaBaseline();
