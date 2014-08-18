@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/node/node.d.ts" />
 
 import article = require('../article/index');
+import localSettings = require('../../../config/localSettings');
 
 function index(params, next): void {
 	article.createFullArticle(true, {
@@ -30,7 +31,7 @@ function index(params, next): void {
 			wiki: data.wikiName,
 			namespaces: JSON.stringify(namespaces),
 			language: language,
-			mediawikiHost: 'jolek'
+			mediawikiHost: localSettings.mediawikiHost
 		});
 	}, (error) => {
 		next(error);
