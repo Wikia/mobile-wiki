@@ -30,21 +30,23 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 		.then((response: any) => {
 			var data = response.data;
 
-			if (data) {
-				if (wikiVariables) {
-						wikiVariables.then((payload: any) => {
-							data.wiki = payload.data;
-
-							callback(data);
-						}).catch((error: any) => {
-							err(error);
-						});
-				} else {
-					callback(data);
-				}
-			} else {
+			if (!data) {
 				err(data);
+				return;
 			}
+
+			if (!wikiVariables) {
+				callback(data);
+				return;
+			}
+
+			wikiVariables.then((payload: any) => {
+				data.wiki = payload.data;
+
+				callback(data);
+			}).catch((error: any) => {
+				err(error);
+			});
 		});
 }
 
