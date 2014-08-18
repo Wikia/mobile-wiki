@@ -29,7 +29,8 @@ function index(params, next): void {
 			articleJson: JSON.stringify(data),
 			wiki: data.wikiName,
 			namespaces: JSON.stringify(namespaces),
-			language: language
+			language: language,
+			mediawikiHost: 'jolek'
 		});
 	}, (error) => {
 		next(error);

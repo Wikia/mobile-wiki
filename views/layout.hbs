@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{article.cleanTitle}} - {{wiki}} wiki</title>
 		<meta name="description" content="{{article.description}}">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         <!-- build:css /public/styles/app.css -->
 		<link rel="stylesheet" href="/public/styles/app.css">
@@ -20,6 +20,7 @@
 			W.provide('language', '{{language}}');
 			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			W.provide('_state.firstPage', true);
+			W.provide('ads.slots', []);
 			{{#if articleJson}}
 				W.provide('article', {{{articleJson}}});
 				W.provide('wiki.namespaces', {{{namespaces}}});
@@ -29,6 +30,8 @@
 				W.provide('error.status', '{{output.payload.statusCode}}');
 				W.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
+
+			window.wgShowAds = true;
 		</script>
 
 		<!-- Google Analytics -->
@@ -69,5 +72,7 @@
 			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
         <!-- endbuild -->
+
+        <script async src="//{{mediawikiHost}}.wikia-dev.com/__am/1407921291/groups/-/mercury_ads_js"></script>
 	</body>
 </html>
