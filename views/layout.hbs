@@ -5,9 +5,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{article.cleanTitle}} - {{wiki}} wiki</title>
 		<meta name="description" content="{{article.description}}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-        <!-- build:css /public/styles/app.css -->
+		<!-- build:css /public/styles/app.css -->
 		<link rel="stylesheet" href="/public/styles/app.css">
 		<!-- endbuild -->
 
@@ -58,21 +58,21 @@
 			{{{content}}}
 		</div>
 
-        <!-- build:js /public/vendor/main.js -->
+		<!-- build:js /public/vendor/main.js -->
 			<script src="/public/vendor/jquery/dist/jquery.js"></script>
 			<script src="/public/vendor/handlebars/handlebars.runtime.js"></script>
 			<script src="/public/vendor/ember/ember.js"></script>
 			<script src="/public/vendor/i18next/i18next.js"></script>
-        <!-- @if WIKIA_ENVIRONMENT='production' -->
-        <!-- @endif -->
-        <!-- endbuild -->
+		<!-- @if WIKIA_ENVIRONMENT='production' -->
+		<!-- @endif -->
+		<!-- endbuild -->
 
-        <!-- build:js /public/scripts/combined.js -->
+		<!-- build:js /public/scripts/combined.js -->
 			<script src="/public/templates/main.js"></script>
 			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
-        <!-- endbuild -->
+		<!-- endbuild -->
 
-        <script async src="//{{mediawikiHost}}.wikia-dev.com/__am/1407921291/groups/-/mercury_ads_js"></script>
+		<script async src="//{{mediawikiHost}}.wikia-dev.com/__am/1407921291/groups/-/mercury_ads_js"></script>
 	</body>
 </html>
