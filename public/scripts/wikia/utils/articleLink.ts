@@ -1,9 +1,18 @@
+/// <reference path="../../wikia/utils/extend.ts" />
 /**
  * @define articlelink
  *
  * Library to parse links in an article and return information about how to process a given link.
  */
 'use strict';
+
+interface Location {
+	origin: string;
+}
+
+interface W{
+	wiki: any;
+}
 
 module Wikia.Utils {
 	/**

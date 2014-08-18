@@ -12,12 +12,12 @@ module.exports = {
 	},
 	scripts: {
 		front: {
-			target: 'ES5',
-			sourcemap: false,
-			noImplicitAny: true,
-			//mapRoot: '',
-			emitError: false,
-			removeComments: false
+			target: 'es5',
+			//noImplicitAny: true,
+			removeComments: false,
+			declarationFiles: false,
+			//noExternalResolve: true,
+			sortOutput: true
 		},
 		back: {
 			module: 'commonjs',

@@ -8,6 +8,10 @@
  */
 'use strict';
 
+interface DOMStringMap {
+	ref: string;
+}
+
 module Wikia.Modules {
 	export class LazyLoad {
 		pageContent: HTMLElement;

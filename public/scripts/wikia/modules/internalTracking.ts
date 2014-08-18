@@ -1,3 +1,7 @@
+interface W {
+	extend(a:any, b: any): void
+}
+
 module Wikia.Modules {
 
 	export class InternalTracker {
