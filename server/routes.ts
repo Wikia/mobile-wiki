@@ -9,7 +9,8 @@ var wikiNames = {};
  * @desc extracts the wiki name from the host
  */
 function getWikiName (host: string) {
-	var wikiName = wikiNames[host];
+	var wikiName = wikiNames[host],
+	    regex, match;
 
 	if ( wikiName ) {
 		return wikiName;
@@ -22,9 +23,9 @@ function getWikiName (host: string) {
 		 * 3. Port including leading colon (e.g. :8000)
 		 * We just return capture group 2
 		 */
-		var regex = /^(.+?)\..+(:\d+)?$/,
-			match = host.match(regex),
-			wikiName = match ? match[1] : 'community';
+		regex = /^(.+?)\..+(:\d+)?$/;
+		match = host.match(regex);
+		wikiName = match ? match[1] : 'community';
 
 		return wikiNames[host] = wikiName;
 	}
