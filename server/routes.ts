@@ -4,30 +4,20 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 
-var wikiNames = {};
 /**
  * @desc extracts the wiki name from the host
  */
 function getWikiName (host: string) {
-	var wikiName = wikiNames[host];
-
-	if ( wikiName ) {
-		return wikiName;
-	} else {
-		/**
-		 * Capture groups:
-		 * 1. "sandbox-mercury." (if it's the beginning of the url)
-		 * 2. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
-		 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
-		 * 3. Port including leading colon (e.g. :8000)
-		 * We just return capture group 2
-		 */
-		var regex = /^(.+?)\..+(:\d+)?$/,
-			match = host.match(regex),
-			wikiName = match ? match[1] : 'community';
-
-		return wikiNames[host] = wikiName;
-	}
+	/**
+	 * Capture groups:
+ 	 * 1. "sandbox-mercury." (if it's the beginning of the url)
+	 * 2. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
+	 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
+	 * 3. Port including leading colon (e.g. :8000)
+	 * We just return capture group 2
+	*/
+	var regex = /^(sandbox\-mercury\.)?(.+?)\.wikia.*\.com(:\d+)?$/;
+	return host.match(regex)[2];
 }
 
 function routes(server) {
@@ -118,7 +108,7 @@ function routes(server) {
 			var params = {
 				host: hostParts[hostParts.length - 3],
 				articleId: parseInt(request.params.articleId, 10),
-				page: parseInt(request.params.page, 10) || 1
+				page: (request.params.page, 10) || 1
 			};
 			server.methods.getArticleComments(params, (error, result) => {
 				if (error) {

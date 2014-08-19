@@ -4,3 +4,7 @@ node_js:
 install:
   - ./install.sh
   - ./local-settings-setup.sh
+notifications:
+  webhooks:
+    urls:
+      - http://wikia-lita.herokuapp.com/travis

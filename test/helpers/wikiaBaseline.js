@@ -5,6 +5,7 @@
 function resetWikiaBaseline () {
 	var W = window.W;
 	W.provide('_state.firstPage', true);
+	W.provide('_state.translations', {});
 	W.provide('article.articleDetails.comments', {});
 	W.provide('article.articleDetails.id', 0);
 	W.provide('article.articleDetails.ns', {});

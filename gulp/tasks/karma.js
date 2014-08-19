@@ -19,7 +19,7 @@ gulp.task('karma', ['fixtures'], function () {
 		'test/fixtures/test-fixtures.js',
 		'test/helpers/**/*.js',
 		'test/specs/public/**/*.js',
-		'test/integration/public/**/*.js',
+		'test/integration/**/*.js',
 	])
 	.pipe(karma({
 		configFile: 'test/karma.conf.js',
