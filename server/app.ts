@@ -71,6 +71,12 @@ class App {
 		});
 	}
 
+	/**
+	 * @desc Create caching config object based on caching config
+	 *
+	 * @param {object} cache Cache settings
+	 * @returns {object} Caching config
+	 */
 	private getCacheSettings(cache: CacheInterface): any {
 		if (typeof cache === 'object') {
 			cache.engine = require('catbox-' + cache.engine);
