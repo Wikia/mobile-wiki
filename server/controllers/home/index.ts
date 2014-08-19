@@ -2,6 +2,7 @@
 
 import article = require('../article/index');
 import localSettings = require('../../../config/localSettings');
+import MediaWiki = require('../../lib/MediaWiki');
 
 function index(params, next): void {
 	article.createFullArticle(true, {
@@ -31,7 +32,8 @@ function index(params, next): void {
 			wiki: data.wikiName,
 			namespaces: JSON.stringify(namespaces),
 			language: language,
-			mediawikiHost: localSettings.mediawikiHost
+			mediawikiDomain: MediaWiki.getDomainName(),
+			cb: localSettings.mediawikiCb
 		});
 	}, (error) => {
 		next(error);

@@ -133,7 +133,7 @@ module MediaWiki {
 		});
 	}
 
-	export function getDomainName(wikiSubDomain: string): string {
+	export function getDomainName(wikiSubDomain: string = ''): string {
 		var environment = localSettings.environment,
 			options = {
 				production: '',
@@ -146,11 +146,15 @@ module MediaWiki {
 			throw Error('Environment not set');
 		}
 
+		if (wikiSubDomain) {
+			wikiSubDomain = wikiSubDomain + '.';
+		}
+
 		if (typeof options[environment] !== 'undefined') {
-			return 'http://' + options[environment] + wikiSubDomain + '.wikia.com/';
+			return 'http://' + options[environment] + wikiSubDomain + 'wikia.com/';
 		}
 		// Devbox
-		return 'http://' + wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com/';
+		return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
 	}
 
 	export function createUrl(wikiSubDomain: string, path: string, params?: any): string {
@@ -163,4 +167,5 @@ module MediaWiki {
 			(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 	}
 }
+
 export = MediaWiki;
