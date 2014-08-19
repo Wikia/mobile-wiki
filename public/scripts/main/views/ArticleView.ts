@@ -48,9 +48,21 @@ App.ArticleView = Em.View.extend({
 	},
 
 	injectAds: function () {
-		//FIXME: render ad-slot
-		this.$('h2:first').before('MOBILE_IN_CONTENT');
-		this.$('.article-body').after('MOBILE_PREFOOTER');
+		var viewClass = Ember.View.extend({
+			templateName: 'components/ad-slot'
+		}),
+			inContent = this.createChildView(viewClass, { context: {
+				name: 'MOBILE_IN_CONTENT'
+			}}),
+			prefooter = this.createChildView(viewClass, { context: {
+				name: 'MOBILE_PREFOOTER'
+			}});
+
+		//TODO: Lazyload?
+		//TODO: should not be appended always
+		//TODO: abstract it somewhere?
+		this.$('h2:first').before(inContent.renderToBuffer().buffer);
+		this.$('.article-body').after(prefooter.renderToBuffer().buffer);
 	},
 
 	modelObserver: function () {
