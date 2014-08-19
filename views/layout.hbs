@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{article.cleanTitle}} - {{wiki}} wiki</title>
+		<title>{{article.cleanTitle}} - {{siteName}}</title>
 		<meta name="description" content="{{article.description}}">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,6 +23,7 @@
 			{{#if articleJson}}
 				W.provide('article', {{{articleJson}}});
 				W.provide('wiki.namespaces', {{{namespaces}}});
+				W.provide('wiki', {{{wikiJson}}});
 			{{else}}
 				W.provide('article', {});
 				W.provide('error.message', '{{output.payload.message}}');
