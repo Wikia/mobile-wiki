@@ -82,7 +82,12 @@ class App {
 			cache.engine = require('catbox-' + cache.engine);
 			return cache;
 		}
-		return null;
+		// Fallback to memory
+		console.log('No cache settings found. Falling back to memory');
+		return {
+			name: 'appcache',
+			engine: require('catbox-memory')
+		};
 	}
 }
 
