@@ -1,0 +1,10 @@
+// Global Variables
+
+$left-right-padding: rem-calc(13);
+$overlay-opacity: 0.5;
+// Color for placeholder text, border
+$search-box-color: #d1d2d4;
+$side-nav-width-val: 260;
+$side-nav-offset: rem-calc($side-nav-width-val * -1);
+$side-nav-width: rem-calc($side-nav-width-val);
+$transition-length: 0.25s;

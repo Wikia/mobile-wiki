@@ -1,3 +1,6 @@
+// Local Variables
+$title-height: rem-calc(25);
+
 .local-nav-menu {
 	position: absolute;
 	top: rem-calc(44);
@@ -6,7 +9,6 @@
 	right: 0;
 	width: 100%;
 
-	$title-height: rem-calc(25);
 	.title {
 		position: absolute;
 		padding-top: rem-calc(7);

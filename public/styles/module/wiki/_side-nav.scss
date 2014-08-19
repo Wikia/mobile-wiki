@@ -1,12 +1,3 @@
-$transition-length: 0.25s;
-$left-right-padding: rem-calc(13);
-$overlay-opacity: 0.5;
-$side-nav-width-val: 260;
-$side-nav-width: rem-calc($side-nav-width-val);
-$side-nav-offset: rem-calc($side-nav-width-val * -1);
-// Color for placeholder text, border
-$search-box-color: #d1d2d4;
-
 // Slide drawer into view
 @keyframes slidein {
 	0% {

@@ -4,7 +4,7 @@
 	{{#if parentItem}}
 		{{currentMenuItem.text}}
 	{{else}}
-		Menu
+		{{i18n 'side-nav-menu-label'}}
 	{{/if}}
 </div>
 
@@ -14,7 +14,7 @@
 			<svg viewBox="0 0 12 7" class="icon chevron">
 				<use xlink:href="#chevron"></use>
 			</svg>
-			Back
+			{{i18n 'navigation-back-label'}}
 		</li>
 	{{/if}}
 	{{#each currentMenuItem.children}}
