@@ -16,10 +16,7 @@ class App {
 		server = hapi.createServer(localSettings.host, localSettings.port, {
 			// ez enable cross origin resource sharing
 			cors: true,
-			cache: {
-				engine: require('catbox-memory'),
-				name: 'appcache'
-			},
+			cache: this.getCacheSettings(localSettings.cache),
 			views: {
 				engines: {
 					hbs: require('handlebars')
@@ -72,6 +69,14 @@ class App {
 				process.exit(0);
 			}
 		});
+	}
+
+	private getCacheSettings(cache: CacheInterface): any {
+		if (typeof cache === 'object') {
+			cache.engine = require('catbox-' + cache.engine);
+			return cache;
+		}
+		return null;
 	}
 }
 
