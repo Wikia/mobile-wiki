@@ -49,10 +49,10 @@ App.ArticleView = Em.View.extend({
 
 	modelObserver: function () {
 		var model = this.get('controller.model');
-
 		if (model) {
+			var wiki = model.get('wiki');
 			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + Wikia.wiki.siteName;
+			document.title = title + ' - ' + wiki + ' wiki';
 		}
 	}.property('controller.model'),
 

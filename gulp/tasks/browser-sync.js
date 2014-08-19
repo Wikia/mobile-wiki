@@ -3,14 +3,9 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync');
 
 gulp.task('browser-sync', function() {
-	browserSync( {
-		files: [
-			paths.baseFull + '/**/*.+(js|hbs|css|svg)',
-		],
-		watchOptions: {
-			debounceDelay: 100
-		},
-		reloadDelay: 300,
+	browserSync.init([
+		paths.baseFull + '/**/*.+(js|hbs|css|svg)',
+	], {
 		ghostMode: {
 			clicks: true,
 			location: true,
