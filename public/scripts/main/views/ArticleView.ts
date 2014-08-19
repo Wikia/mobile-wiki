@@ -27,6 +27,7 @@ App.ArticleView = Em.View.extend({
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
 			var model = this.get('controller.model');
+
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
 				var lazy = new Wikia.Modules.LazyLoad();
@@ -41,10 +42,15 @@ App.ArticleView = Em.View.extend({
 				});
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.injectAds();
 			}
-		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
-		// cause problems in the future with the lazyloading code above (unknown)
 		});
+	},
+
+	injectAds: function () {
+		//FIXME: render ad-slot
+		this.$('h2:first').before('MOBILE_IN_CONTENT');
+		this.$('.article-body').after('MOBILE_PREFOOTER');
 	},
 
 	modelObserver: function () {
