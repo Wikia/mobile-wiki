@@ -22,7 +22,6 @@
 			W.provide('_state.firstPage', true);
 			{{#if articleJson}}
 				W.provide('article', {{{articleJson}}});
-				W.provide('wiki.namespaces', {{{namespaces}}});
 				W.provide('wiki', {{{wikiJson}}});
 			{{else}}
 				W.provide('article', {});
