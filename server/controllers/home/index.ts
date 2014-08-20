@@ -7,31 +7,28 @@ function index(params, next): void {
 		wikiName: params.wiki,
 		articleTitle: params.title
 	}, (data) => {
-		var article = data.payload.article,
-			title = data.articleTitle,
-			namespaces = data.namespaces,
-			navData = data.navData,
+		var articleContent = data.article.content,
+			wiki = data.wiki,
 			language = data.language;
+
 		// We're already sending the article body (which can get quite large) back to get rendered in the template,
 		// so let's not send it with the JSON payload either
-		delete data.payload.article;
-		delete data.payload.title;
-		delete data.namespaces;
-		delete data.navData;
+		delete data.article.content;
+		delete data.wiki;
 		delete data.language;
+
 		next(null, {
 			// article content to be rendered on server
 			article: {
-				content: article,
-				title: title,
-				cleanTitle: data.articleDetails.title,
-				description: data.articleDetails.abstract
+				content: articleContent,
+				title: params.title,
+				cleanTitle: data.details.title,
+				description: data.details.abstract
 			 },
 			// article data to bootstrap Ember with in first load of application
 			articleJson: JSON.stringify(data),
-			wiki: data.wikiName,
-			namespaces: JSON.stringify(namespaces),
-			navData: JSON.stringify(navData),
+			siteName: wiki.siteName,
+			wikiJson: JSON.stringify(wiki),
 			language: language
 		});
 	}, (error) => {
