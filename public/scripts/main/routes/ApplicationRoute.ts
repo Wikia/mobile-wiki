@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../utils/articlelink.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend({

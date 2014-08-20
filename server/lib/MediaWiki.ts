@@ -23,19 +23,8 @@ module MediaWiki {
 			this.name = params.name;
 		}
 
-		wikiNamespaces() {
-			var url: string = createUrl(this.name, 'api.php', {
-				action: 'query',
-				meta:   'siteinfo',
-				siprop: 'namespaces',
-				format: 'json'
-				// TODO: , siinlanguagecode = ...
-			});
-			return fetch(url, 0);
-		}
-
-		getWikiTheme() {
-			var url: string = createUrl(this.name, 'api/v1/Mercury/WikiSettings', {});
+		getWikiVariables() {
+			var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 
 			return fetch(url);
 		}
@@ -50,25 +39,15 @@ module MediaWiki {
 			this.title = params.title;
 		}
 
-		article() {
-			var url = createUrl(this.name, 'api/v1/Articles/asJson', {
-					title: this.title
+		fetch() {
+			var url = createUrl(this.name, 'api/v1/Mercury/Article', {
+				title: this.title
 			});
 
 			return fetch(url);
 		}
 
-		articleDetails(articles: string[] = [this.title]) {
-			var url: string = createUrl(this.name, 'api/v1/Articles/Details', {
-						titles: articles.map(function(text: string): string {
-							return text.replace(' ', '_');
-						}).join(',')
-					});
-
-			return fetch(url);
-		}
-
-		articleComments(articleId: number, page: number = 1) {
+		comments(articleId: number, page: number = 1) {
 			var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
 					articleId: articleId.toString(),
 					page: page.toString()
@@ -76,57 +55,24 @@ module MediaWiki {
 
 			return fetch(url);
 		}
-
-		relatedPages(articleIds: number[], limit: number = 6) {
-			var url: string = createUrl(this.name, 'api/v1/RelatedPages/List', {
-					ids: articleIds.join(','),
-					limit: limit.toString()
-				});
-
-			return fetch(url);
-		}
-
-		userDetails(userIds: number[]) {
-			var url: string = createUrl(this.name, 'api/v1/User/Details', {
-					ids: userIds.join(',')
-				});
-
-			return fetch(url);
-		}
-
-		getArticleCommentsCount(articleId: number) {
-			var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleCommentsCount', {
-						articleId: articleId.toString()
-			});
-
-			return fetch(url);
-		}
-
-		getTopContributors(articleId: number) {
-			var url: string = createUrl(this.name, 'api/v1/Mercury/TopContributorsPerArticle', {
-				articleId: articleId.toString()
-			});
-
-			return fetch(url);
-		}
-
 	}
 
 	/**
 	 * @param url the url to fetch
 	 * @param redirects the number of redirects to follow, default 1
 	 */
-	export function fetch (url: string, redirects: number = 1) {
+	export function fetch (url: string, redirects: number = 1): Promise<any> {
 		return new Promise((resolve, reject) => {
 			Nipple.get(url, {
 				redirects: redirects
 			}, (err, res, payload) => {
-				if (res.headers['content-type'].match('application/json')) {
-					payload = JSON.parse(payload);
-				}
 				if (err) {
 					reject(err);
 				} else {
+					if (res.headers['content-type'].match('application/json')) {
+						payload = JSON.parse(payload);
+					}
+
 					resolve(payload);
 				}
 			});
@@ -157,7 +103,7 @@ module MediaWiki {
 		return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
 	}
 
-	export function createUrl(wikiSubDomain: string, path: string, params?: any): string {
+	export function createUrl(wikiSubDomain: string, path: string, params: any = {}): string {
 		var qsAggregator: string[] = [];
 		Object.keys(params).forEach(function(key) {
 			qsAggregator.push(key + '=' + encodeURIComponent(params[key]));

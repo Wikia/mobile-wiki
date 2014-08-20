@@ -2,28 +2,26 @@
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
-	payload: {
-		article: string;
-		user: any;
-		media: any[];
-		users: any[];
-		categories: any[];
-	};
-	articleTitle: string;
-	articleDetails: {
-		revision: {
-			timestamp: number;
+	data: {
+		details: {
+			revision: {
+				timestamp: number;
+			};
+			comments: any;
+			id: number;
+			ns: string;
+			title: string;
 		};
-		comments: any;
-		id: number;
-		ns: string;
-		title: string;
-	};
-	relatedPages: {
-		items: any[];
-	};
-	userDetails: {
-		items: any[];
+		article: {
+			content: string;
+			user: any;
+			media: any[];
+			users: any[];
+			categories: any[];
+		};
+		relatedPages: any[];
+		userDetails: any[];
+		topContributors: any[];
 	};
 }
 
@@ -77,29 +75,25 @@ App.ArticleModel.reopenClass({
 		return Wikia.article;
 	},
 	setArticle: function (model, source = this.getPreloadedData()) {
-		model.set('type', source.articleDetails.ns);
-		model.set('cleanTitle', source.articleDetails.title);
-		model.set('comments', source.articleDetails.comments);
-		model.set('id', source.articleDetails.id);
-		model.set('article', source.payload.article || $('.article-content').html());
-		model.set('media', source.payload.media);
-		model.set('mediaUsers', source.payload.users);
-		model.set('user', source.payload.user);
-		model.set('categories', source.payload.categories);
+		model.set('type', source.details.ns);
+		model.set('cleanTitle', source.details.title);
+		model.set('comments', source.details.comments);
+		model.set('id', source.details.id);
+		model.set('article', source.article.content || $('.article-content').html());
+		model.set('media', source.article.media);
+		model.set('mediaUsers', source.article.users);
+		model.set('user', source.details.revision.user_id);
+		model.set('categories', source.article.categories);
 
 		/**
 		 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
 		 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
 		 * to handle this and never return malformed structures.
 		 */
-		model.set('relatedPages',
-			source.relatedPages.hasOwnProperty('items') ?
-			source.relatedPages.items[source.articleDetails.id] :
-			[]
-		);
+		model.set('relatedPages', source.relatedPages);
 
 		// Same issue: the response to the ajax should always be valid and not undefined
-		model.set('users', source.userDetails.items || []);
-		model.set('basepath', source.userDetails.basepath);
+		model.set('users', source.topContributors);
+		model.set('basepath', source.basePath);
 	}
 });

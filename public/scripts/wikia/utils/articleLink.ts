@@ -30,7 +30,7 @@ module Wikia.Utils {
 				}
 				// Style guide advises using dot accessor instead of brackets, but it is difficult
 				// to access a key with an asterisk* in it
-				var regex = '^(\/wiki)?\/' + namespaces[ns].canonical.replace(/ /g, '_') + ':.*$';
+				var regex = '^(\/wiki)?\/' + namespaces[ns] + ':.*$';
 				if (local.match(regex)) {
 					return {
 						article: null,
