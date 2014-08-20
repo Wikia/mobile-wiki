@@ -13,36 +13,48 @@ import Promise = require('bluebird');
  * article slug name
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
-export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any) {
-	var wikiVariables,
-		article = new MediaWiki.ArticleRequest({
+export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any): void {
+	var wikiRequest,
+	    wikiVariables,
+	    article,
+	    props;
+
+	article = new MediaWiki.ArticleRequest({
 		name: data.wikiName,
 		title: data.articleTitle
 	});
 
 	if (getWikiInfo) {
-		wikiVariables = new MediaWiki.WikiRequest({
+		wikiRequest = new MediaWiki.WikiRequest({
 			name: data.wikiName
-		}).getWikiVariables();
+		});
+		
+		props = {
+			wikiState: wikiRequest.getWikiVariables(),
+			navData: wikiRequest.getLocalNavData()
+		};
+
+		wikiVariables = Promise.props(props);
 	}
 
-	article.fetch()
-		.then((response: any) => {
-			var data = response.data;
+	article.fetch().then(onArticleFetch);
 
-			if (!wikiVariables) {
-				callback(data);
-				return;
-			}
+	function onArticleFetch(response) {
+		var data = response.data;
 
-			wikiVariables.then((payload: any) => {
-				data.wiki = payload.data;
+		if (!wikiVariables) {
+			callback(data);
+			return;
+		}
 
-				callback(data);
-			}).catch((error: any) => {
-				err(error);
-			});
+		wikiVariables.then((payload: any) => {
+			payload.wikiState.navData = payload.navData;
+			data.wiki = payload.wikiState;
+			callback(data);
+		}).catch((error: any) => {
+			err(error);
 		});
+	}
 }
 
 export function handleRoute(request: Hapi.Request, reply: Function): void {

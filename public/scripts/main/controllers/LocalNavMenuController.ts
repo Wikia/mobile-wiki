@@ -14,7 +14,7 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 		 * this controller has exclusive access to it.
 		 */
 		this.set('model', Wikia.wiki.navData);
-		this.set('menuRoot', { children: this.get('model.navigation.wiki') });
+		this.set('menuRoot', {children: this.get('model.navigation.wiki')});
 		this.set('currentMenuItem', this.get('menuRoot'));
 		this.set('parentItem', null);
 		this.injectParentPointersAndIndices();
@@ -59,7 +59,7 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 		goBack: function () {
 			this.set('currentMenuItem', this.get('parentItem'));
 			// We've made it back to the root of the menu
-			if (this.get('currentMenuItem') == this.get('menuRoot')) {
+			if (this.get('currentMenuItem') === this.get('menuRoot')) {
 				this.set('parentItem', null);
 			} else {
 				this.set('parentItem', this.get('currentMenuItem').parent);

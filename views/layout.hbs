@@ -21,7 +21,6 @@
 			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			W.provide('_state.firstPage', true);
 			{{#if articleJson}}
-				W.provide('wiki.navData', {{{navData}}});
 				W.provide('article', {{{articleJson}}});
 				W.provide('wiki', {{{wikiJson}}});
 			{{else}}

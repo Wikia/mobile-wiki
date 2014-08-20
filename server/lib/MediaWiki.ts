@@ -51,29 +51,13 @@ module MediaWiki {
 			this.name = params.name;
 		}
 
-		wikiNamespaces() {
-			var url: string = createUrl(this.name, 'api.php', {
-				action: 'query',
-				meta:   'siteinfo',
-				siprop: 'namespaces',
-				format: 'json'
-				// TODO: , siinlanguagecode = ...
-			});
-			return fetch(url, 0);
-		}
-
-		localNavData() {
+		getLocalNavData() {
 			var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
 			console.log('fetching ' + url);
 
 			return fetch(url);
 		}
 
-		getWikiTheme() {
-			var url: string = createUrl(this.name, 'api/v1/Mercury/WikiSettings', {});
-
-			return fetch(url);
-		}
 		getWikiVariables() {
 			var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 
