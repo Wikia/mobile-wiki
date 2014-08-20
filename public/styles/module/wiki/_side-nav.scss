@@ -73,10 +73,10 @@
 
 		input {
 			float: left;
-			margin: $left-right-padding rem-calc(13);
+			margin: $local-nav-li-gutter rem-calc(13);
 			top: 0;
 			left: 0;
-			width: $side-nav-width - (2 * $left-right-padding);
+			width: $side-nav-width - (2 * $local-nav-li-gutter);
 			height: rem-calc(28);
 			margin-top: rem-calc(8);
 			margin-bottom: rem-calc(8);
@@ -94,8 +94,6 @@
 		::-webkit-input-placeholder {
 		   color: $search-box-color;
 		}
-
-
 
 		.icon.search-side-menu {
 			position: absolute;

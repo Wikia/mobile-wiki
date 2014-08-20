@@ -1,14 +1,11 @@
 <ul>
-	{{!-- {{#unless controller.suggestions}}
-		<li>{{unbound emptyMessage}}<li>
-	{{/unless}} --}}
 	{{#each controller.suggestions}}
 		<a {{action collapseSideNav target="view.parentView" on="mouseUp"}} href="{{unbound url}}">
 			<li>{{unbound title}}</li>
 		</a>
 	{{else}}
-		{{#if emptyMessage}}
-			<li>{{unbound emptyMessage}}</li>
-		{{/if}}
+	{{#if showEmptyMessage}}
+		<li>{{i18n 'search-no-results-msg'}}</li>
+	{{/if}}
 	{{/each}}
 </ul>

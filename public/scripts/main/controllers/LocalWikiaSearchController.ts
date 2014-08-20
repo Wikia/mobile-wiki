@@ -12,8 +12,8 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	query: '',
 	suggestions: [],
 	// Message to display if suggestions is empty
-	emptyMessage: '',
-	 // in ms
+	showEmptyMessage: false,
+	// in ms
 	debouceDuration: 250,
 
 	/**
@@ -24,18 +24,19 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 		var uri;
 
 		uri = '/api/v1/search/' + encodeURI(this.get('query'));
-		console.log('uri: ' + uri);
+
 		Ember.$.getJSON(uri).then((data) => {
 			if (data.exception) {
 				this.set('suggestions', []);
-				this.set('emptyMessage', 'No Results')
-			} else{
+				this.set('showEmptyMessage', true)
+			} else {
 				this.set('suggestions', data.items.map(function (elem) {
 					elem.url = '/wiki/' + elem.url.substr(elem.url.lastIndexOf('/') + 1);
 					return elem;
 				}));
 			}
 		});
+
 	},
 
 	/**

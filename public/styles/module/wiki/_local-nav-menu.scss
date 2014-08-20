@@ -21,7 +21,7 @@ $title-height: rem-calc(25);
 		text-transform: uppercase;
 		background-color: #e0e0e0;
 		font-size: rem-calc(12);
-		padding-left: $left-right-padding;
+		padding-left: $local-nav-li-gutter;
 	}
 
 	ul {
@@ -46,22 +46,22 @@ $title-height: rem-calc(25);
 		text-align: left;
 		list-style: none outside none;
 		border-bottom: rem-calc(1) solid #d0d0d0;
-		padding-left: $left-right-padding;
+		padding-left: $local-nav-li-gutter;
 
 		.chevron {
 			position: absolute;
-			right: $left-right-padding;
+			right: $local-nav-li-gutter;
 			top: rem-calc(18);
 			transform: rotate(-90deg);
 		}
 
 		// Class for back button li
 		&.back {
-			padding-left: $left-right-padding + rem-calc(20);
+			padding-left: $local-nav-li-gutter + rem-calc(20);
 			color: #006598;
 			.chevron {
 				right: auto;
-				left: $left-right-padding;
+				left: $local-nav-li-gutter;
 				transform: rotate(90deg);
 			}
 		}

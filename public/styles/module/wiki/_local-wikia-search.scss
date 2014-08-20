@@ -13,15 +13,16 @@
 
 	li {
 		position: relative;
+
+		padding: rem-calc(15) $local-nav-li-gutter;
+		border-bottom: rem-calc(1) solid #d0d0d0;
+
+		text-align: left;
 		font-size: rem-calc(13);
 		font-weight: normal;
 		color: #333333;
-		height: rem-calc(44);
-		padding-top: rem-calc(15);
-		text-align: left;
+
 		list-style: none outside none;
-		padding-left: $left-right-padding;
-		border-bottom: rem-calc(1) solid #d0d0d0;
 	}
 }
 
