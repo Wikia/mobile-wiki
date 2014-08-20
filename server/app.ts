@@ -4,6 +4,7 @@
 import hapi = require('hapi');
 import path = require('path');
 import localSettings = require('../config/localSettings');
+import logger = require('./lib/Logger');
 
 class App {
 	constructor() {
@@ -45,7 +46,7 @@ class App {
 			},
 			function (err) {
 				if (err) {
-					console.log('[ERROR] ', err);
+					logger.error(err);
 				}
 			}
 		);
@@ -57,7 +58,7 @@ class App {
 		require('./routes')(server);
 
 		server.start(function() {
-			console.log('Server started at: ' + server.info.uri);
+			logger.info('Server started at: ' + server.info.uri);
 		});
 
 		server.on('response', function () {
@@ -83,7 +84,7 @@ class App {
 			return cache;
 		}
 		// Fallback to memory
-		console.log('No cache settings found. Falling back to memory');
+		logger.warning('No cache settings found. Falling back to memory');
 		return {
 			name: 'appcache',
 			engine: require('catbox-memory')

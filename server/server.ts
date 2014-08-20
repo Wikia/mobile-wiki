@@ -8,6 +8,7 @@
 
 import cluster = require('cluster');
 import localSettings = require('../config/localSettings');
+import logger = require('./lib/Logger');
 
 var stopping = false,
 	// A list of workers queued for a restart
@@ -34,7 +35,7 @@ function forkNewWorkers(): void {
 // Stops a single worker
 // Gives 60 seconds after disconnect before SIGTERM
 function stopWorker(worker: any): void {
-	console.log('stopping', worker.process.pid);
+	logger.info('stopping', worker.process.pid);
 
 	worker.disconnect();
 	var killTimer: NodeJS.Timer = <any>setTimeout(function () {
@@ -61,7 +62,7 @@ function stopNextWorker() {
 function stopAllWorkers() {
 	stopping = true;
 
-	console.log('stopping all workers');
+	logger.info('stopping all workers');
 	for (var id in cluster.workers) {
 		if (cluster.workers.hasOwnProperty(id)) {
 			stopWorker(cluster.workers[id]);
@@ -80,7 +81,7 @@ cluster.on('disconnect', forkNewWorkers);
 
 // HUP signal sent to the master process to start restarting all the workers sequentially
 process.on('SIGHUP', function () {
-	console.log('restarting all workers');
+	logger.info('restarting all workers');
 
 	workersToStop = Object.keys(cluster.workers);
 	stopNextWorker();
@@ -92,4 +93,4 @@ process.on('SIGTERM', stopAllWorkers);
 // Fork off the initial workers
 forkNewWorkers();
 
-console.log('Master process', process.pid, 'booted');
+logger.info('Master process', process.pid, 'booted');
