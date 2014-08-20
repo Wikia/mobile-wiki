@@ -21,10 +21,13 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 	});
 
 	if (getWikiInfo) {
+		console.log('Fetching wiki variables', data.wikiName);
 		wikiVariables = new MediaWiki.WikiRequest({
 			name: data.wikiName
 		}).getWikiVariables();
 	}
+
+	console.log('Fetching article', data.wikiName, data.articleTitle);
 
 	article.fetch()
 		.then((response: any) => {
