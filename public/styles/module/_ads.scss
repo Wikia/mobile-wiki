@@ -1,3 +1,15 @@
 .ad-slot {
 	text-align: center;
+
+	&.hidden {
+		display: none;
+	}
+}
+
+.ad-slot-wrapper {
+	border: {
+		top: 1px solid;
+		bottom: 1px solid;
+	}
+	padding: 10px 0;
 }
