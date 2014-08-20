@@ -3,7 +3,7 @@
 
 	.article-body {
 		@extend .small-12;
-		@extend .columns;
+		padding: 0 1.125rem;
 
 		overflow-x: hidden;
 	}
