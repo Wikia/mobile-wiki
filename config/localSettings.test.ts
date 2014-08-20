@@ -15,7 +15,7 @@ var localSettings = {
 	// Targeted environment [production|preview|verify|devbox_name]
 	environment: process.env.WIKIA_ENVIRONMENT,
 	mediawikiHost: 'kenneth',
-	mediawikiCb: '123'
+	mediawikiCacheBuster: '123'
 };
 
 export = localSettings;

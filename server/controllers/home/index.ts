@@ -33,7 +33,7 @@ function index(params, next): void {
 			wikiJson: JSON.stringify(wiki),
 			language: language,
 			mediawikiDomain: MediaWiki.getDomainName(),
-			cb: localSettings.mediawikiCb
+			cacheBuster: localSettings.mediawikiCacheBuster
 		});
 	}, (error) => {
 		next(error);
