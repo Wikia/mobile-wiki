@@ -11,8 +11,8 @@ var wikiNames = {};
  */
 function getWikiName (host: string) {
 	var wikiName = wikiNames[host],
-	    regex,
-	    match;
+		regex,
+		match;
 
 	if (wikiName) {
 		return wikiName;
