@@ -1,3 +1,5 @@
+/// <reference path="../modules/internalTracking.ts" />
+
 module Wikia.Utils {
 	var tracker,
 	    config;
