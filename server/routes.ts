@@ -5,6 +5,7 @@ import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 
 var wikiNames = {};
+
 /**
  * @desc extracts the wiki name from the host
  */
@@ -12,7 +13,7 @@ function getWikiName (host: string) {
 	var wikiName = wikiNames[host],
 	    regex, match;
 
-	if ( wikiName ) {
+	if (wikiName) {
 		return wikiName;
 	} else {
 		/**
@@ -23,9 +24,9 @@ function getWikiName (host: string) {
 		 * 3. Port including leading colon (e.g. :8000)
 		 * We just return capture group 2
 		 */
-		regex = /^(.+?)\..+(:\d+)?$/;
+		regex = /^(sandbox\-[^\.]+\.)?(.+?)\.wikia.*\.com(:\d+)?$/;
 		match = host.match(regex);
-		wikiName = match ? match[1] : 'community';
+		wikiName = match ? match[2] : 'community';
 
 		return wikiNames[host] = wikiName;
 	}
@@ -53,7 +54,9 @@ function routes(server) {
 
 	var indexRoutes: string[] = [
 		'/a/{title}',
-		'/a/{title}/comments'
+		'/a/{title}/comments',
+		'/wiki/{title}',
+		'/wiki/{title}/comments'
 	];
 
 	var notFoundError = 'Could not find article or Wiki, please check to' +
