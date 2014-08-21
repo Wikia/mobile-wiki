@@ -1,11 +1,12 @@
 /// <reference path="../typings/node/node.d.ts" />
+/// <reference path="./localSettings.d.ts" />
 /**
  * localSettings for application
  * @example
  * var localConfig = require('./config').localSettings
  */
 
-var localSettings = {
+var localSettings: LocalSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
 	port: 8000,
@@ -15,7 +16,13 @@ var localSettings = {
 	environment: process.env.WIKIA_ENVIRONMENT,
 	mediawikiHost: 'your-devbox-name',
 	mediawikiCacheBuster: '123',
-	gaId: 'GOOGLE ANALYTICS ID'
+	gaId: 'GOOGLE ANALYTICS ID',
+	// Caching settings
+	cache: {
+		name: 'appcache',
+		engine: 'memory' // cache data in [memory|memcached]
+		// location: '127.0.0.1:11211' // Check https://github.com/3rd-Eden/node-memcached#server-locations for ref
+	}
 };
 
 export = localSettings;

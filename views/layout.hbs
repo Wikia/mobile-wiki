@@ -17,7 +17,6 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			W.provide('language', '{{language}}');
 			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			W.provide('_state.firstPage', true);
 			W.provide('ads.slots', []);
@@ -50,7 +49,7 @@
 		</script>
 		<!-- End Google Analytics -->
 
-		<!-- @if WIKIA_ENVIRONMENT='dev' -->
+		<!-- @ifdef browserSync -->
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 	</head>
