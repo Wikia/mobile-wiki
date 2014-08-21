@@ -5,6 +5,7 @@
  */
 import MediaWiki = require('../../lib/MediaWiki');
 import Promise = require('bluebird');
+import logger = require('../../lib/Logger');
 
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
@@ -27,7 +28,7 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 		}).getWikiVariables();
 	}
 
-	console.log('Fetching article', data.wikiName, data.articleTitle);
+	logger.info('Fetching article', data.wikiName, data.articleTitle);
 
 	article.fetch()
 		.then((response: any) => {
