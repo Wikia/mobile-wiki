@@ -8,7 +8,7 @@ App.NotFoundRoute = Em.Route.extend({
 	 * message loaded in the page, so all this hook has to do is prevent any transition
 	 * from occurring.
 	 */
-	beforeModel: function (transition) {
+	beforeModel: function (transition: {abort: () => void}) {
 		transition.abort();
 	}
 });
