@@ -6,8 +6,7 @@ App.AdsMixin = Em.Mixin.create({
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
 		mobileInContent: 'MOBILE_IN_CONTENT',
-		mobilePreFooter: 'MOBILE_PREFOOTER',
-		showAds: window.wgShowAds && !window.document.referrer.match(/info.tvsideview.sony.net/)
+		mobilePreFooter: 'MOBILE_PREFOOTER'
 	},
 
 	appendAd: function (adSlotName, place, element) {
