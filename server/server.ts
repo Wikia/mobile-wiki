@@ -49,7 +49,7 @@ function stopWorker(worker: any): void {
 // Tell the next worker queued to restart to disconnect
 // This will allow the process to finish it's work
 // for 60 seconds before sending SIGTERM
-function stopNextWorker() {
+function stopNextWorker(): void {
 	var i = workersToStop.pop(),
 		worker = cluster.workers[i];
 
@@ -59,7 +59,7 @@ function stopNextWorker() {
 }
 
 // Stops all the workers at once
-function stopAllWorkers() {
+function stopAllWorkers(): void {
 	stopping = true;
 
 	logger.info('stopping all workers');
@@ -80,7 +80,7 @@ cluster.on('listening', stopNextWorker);
 cluster.on('disconnect', forkNewWorkers);
 
 // HUP signal sent to the master process to start restarting all the workers sequentially
-process.on('SIGHUP', function () {
+process.on('SIGHUP', function (): void {
 	logger.info('restarting all workers');
 
 	workersToStop = Object.keys(cluster.workers);

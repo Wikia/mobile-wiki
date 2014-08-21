@@ -1,25 +1,23 @@
 // TODO: This is a mock logger. Add proper logging to Kibana
 
-interface LoggerFunction {
-	(...args: any[]): void;
-}
+declare module Logger {
+	interface LoggerFunction {
+		(...args: any[]): void;
+	}
 
-interface Logger {
-	emergency: LoggerFunction;
-	alert: LoggerFunction;
-	critical: LoggerFunction;
-	error: LoggerFunction;
-	warning: LoggerFunction;
-	notice: LoggerFunction;
-	info: LoggerFunction;
-	debug: LoggerFunction;
+	var emergency:  LoggerFunction;
+	var alert: LoggerFunction;
+	var critical: LoggerFunction;
+	var error: LoggerFunction;
+	var warning: LoggerFunction;
+	var notice: LoggerFunction;
+	var info: LoggerFunction;
+	var debug: LoggerFunction;
 }
 
 module Logger {
-
-	function log(loggerType: string) {
-		return () => {
-			var args = Array.prototype.slice.call(arguments);
+	function log(loggerType: string): LoggerFunction {
+		return (...args: any[]): void => {
 			args.unshift('[' + loggerType + ']');
 			console.log.apply(this, args);
 		};
@@ -35,7 +33,7 @@ module Logger {
 		'info',
 		'debug'
 	].forEach(function (level) {
-		Logger[level] = log(level.toUpperCase());
+		 Logger[level] = log(level.toUpperCase());
 	});
 }
 
