@@ -33,11 +33,11 @@ function getWikiName (host: string) {
 	}
 }
 
-function routes(server) {
+function routes(server: Hapi.Server) {
 	var second = 1000;
 	// all the routes that should resolve to loading single page app entry view
 
-	function restrictedHandler (request, reply) {
+	function restrictedHandler (request: Hapi.Request, reply: any) {
 		reply.view('error', Hapi.error.notFound('Invalid URL parameters'));
 	}
 
@@ -75,18 +75,18 @@ function routes(server) {
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: (request, reply) => {
+			handler: (request: Hapi.Request, reply: any) => {
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
 					title: request.params.title
-				}, (error, result) => {
+				}, (error: any, result: any) => {
 					// TODO: handle error a bit better :D
 					if (error) {
 						error = Hapi.error.notFound(notFoundError);
 						reply.view('error', error);
 					} else {
 						// export Google Analytics code to layout
-						result.gaId = localSettings.gaId;
+						//result.gaId = localSettings.gaId;
 						reply.view('application', result);
 					}
 				});
@@ -99,12 +99,12 @@ function routes(server) {
 		method: 'GET',
 		path: '/api/v1/article/{articleTitle}',
 		config: config,
-		handler: (request, reply) => {
+		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
 				wikiName: getWikiName(request.headers.host),
 				articleTitle: request.params.articleTitle
 			};
-			server.methods.getArticleData(params, (error, result) => {
+			server.methods.getArticleData(params, (error: any, result: any) => {
 				// TODO: handle error a bit better :D
 				if (error) {
 					error = Hapi.error.notFound(notFoundError);
@@ -118,14 +118,14 @@ function routes(server) {
 	server.route({
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
-		handler: (request, reply) => {
+		handler: (request: Hapi.Request, reply: any) => {
 			var hostParts = request.headers.host.split('.');
 			var params = {
 				host: hostParts[hostParts.length - 3],
 				articleId: parseInt(request.params.articleId, 10),
 				page: parseInt(request.params.page, 10) || 1
 			};
-			server.methods.getArticleComments(params, (error, result) => {
+			server.methods.getArticleComments(params, (error: any, result: any) => {
 				if (error) {
 					error = Hapi.error.notFound(notFoundError);
 				}
