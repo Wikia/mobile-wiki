@@ -7,7 +7,7 @@ App.AdSlotComponent = Em.Component.extend({
 	classNameBindings: ['nameLowerCase'],
 
 	nameLowerCase: function(){
-		return this.get('name').toLowerCase().replace(/_/g, '-')
+		return this.get('name').toLowerCase().replace(/_/g, '-');
 	}.property('name'),
 
 	didInsertElement: function(){
