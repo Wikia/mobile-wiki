@@ -40,10 +40,10 @@ App.ArticleModel = Ember.Object.extend({
 });
 
 App.ArticleModel.reopenClass({
-	url: function (params) {
+	url: function (params: any) {
 		return '/api/v1/article/' + params.title;
 	},
-	find: function (params) {
+	find: function (params: any) {
 		var model = App.ArticleModel.create(params),
 			self = this;
 
@@ -55,7 +55,7 @@ App.ArticleModel.reopenClass({
 			return model;
 		}
 
-		return new Ember.RSVP.Promise(function (resolve, reject) {
+		return new Ember.RSVP.Promise(function (resolve: Function, reject: Function) {
 			Ember.$.ajax({
 				url: self.url(params),
 				dataType: 'json',
@@ -74,7 +74,7 @@ App.ArticleModel.reopenClass({
 		Wikia._state.firstPage = false;
 		return Wikia.article;
 	},
-	setArticle: function (model, source = this.getPreloadedData()) {
+	setArticle: function (model: Ember.Object, source = this.getPreloadedData()) {
 		model.set('type', source.details.ns);
 		model.set('cleanTitle', source.details.title);
 		model.set('comments', source.details.comments);
