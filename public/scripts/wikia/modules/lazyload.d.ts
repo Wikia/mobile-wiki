@@ -1,7 +1,7 @@
 /// <reference path="./thumbnailer.ts" />
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 
-declare module W {
+declare module Wikia.Modules {
     class LazyLoad {
         public pageContent: HTMLElement;
         public pageWidth: number;

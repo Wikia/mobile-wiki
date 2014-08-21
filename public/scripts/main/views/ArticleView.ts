@@ -1,4 +1,6 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../wikia/modules/sloth.d.ts" />
+/// <reference path="../../wikia/modules/lazyload.d.ts" />
 'use strict';
 
 interface HeadersFromDom {

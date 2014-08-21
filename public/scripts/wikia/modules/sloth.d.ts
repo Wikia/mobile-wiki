@@ -1,7 +1,7 @@
 interface Window {
     scrollY: number;
 }
-declare module W {
+declare module Wikia.Modules {
     class Branch {
         private element;
         private threshold;
