@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	fixtures2js = require("gulp-fixtures2js");
+	fixtures2js = require('gulp-fixtures2js');
 
 gulp.task('fixtures', function () {
 	return gulp.src([
@@ -8,7 +8,7 @@ gulp.task('fixtures', function () {
 		])
 		.pipe(fixtures2js('test-fixtures.js', {
 			postProcessors: {
-				"**/*.json": "json"
+				'**/*.json': 'json'
 			}
 		}))
 		.pipe(gulp.dest('test/fixtures'));
