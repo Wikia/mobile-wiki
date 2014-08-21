@@ -2,26 +2,31 @@
 
 'use strict';
 
+interface Transition {
+	abort: () => void;
+	targetName: string;
+}
+
 App.ArticleRoute = Em.Route.extend({
-	beforeModel: function (transition) {
+	beforeModel: function (transition: Transition) {
 		if (Wikia.error) {
 			transition.abort();
 		}
 	},
-	model: function (params, transition) {
+	model: function (params: any) {
 		return App.ArticleModel.find({
 			title: params.articleTitle,
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},
 	actions: {
-		error: function (error, transition) {
+		error: function (error: any, transition: Transition) {
 			transition.abort();
-			console.warn(error);
+			Em.Logger.warn(error);
 		},
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
-		willTransition: function (transition) {
+		willTransition: function (transition: Transition) {
 			if (transition.targetName === 'article.index') {
 				window.scrollTo(0, 0);
 			}
