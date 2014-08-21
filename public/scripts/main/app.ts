@@ -4,7 +4,7 @@
 
 'use strict';
 
-declare var i18n;
+declare var i18n: I18nextStatic;
 
 interface Location {
 	origin: string;
