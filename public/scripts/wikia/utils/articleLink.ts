@@ -1,3 +1,5 @@
+// <reference path="../../baseline/Wikia.d.ts" />
+
 /**
  * @define articlelink
  *

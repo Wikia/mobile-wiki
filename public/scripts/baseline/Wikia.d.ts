@@ -6,6 +6,4 @@ declare module Wikia {
 	var _state: any;
 	var error: any;
 	var wiki: any;
-	var Modules: any;
-	var Utils: any;
 }
