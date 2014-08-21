@@ -342,7 +342,7 @@ declare module Hapi {
 		method(name: string, fn: () => void, options: any): void;
 		inject(options: any, callback: any): void;
 		handler(name: string, method: (name: string, options: any) => void): void;
-		on(name: string, callback: Function);
+		on(name: string, callback: Function): void;
 	}
 
 	export interface Request {
