@@ -10,7 +10,7 @@ App.AdsMixin = Em.Mixin.create({
 		showAds: window.wgShowAds && !window.document.referrer.match(/info.tvsideview.sony.net/)
 	},
 
-	appendAd: function (adSlotName, element, place) {
+	appendAd: function (adSlotName, place, element) {
 		var view = this.createChildView(App.AdSlotComponent, {
 			name: adSlotName
 		}).createElement();
@@ -24,16 +24,14 @@ App.AdsMixin = Em.Mixin.create({
 			$articleBody = this.$('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			showInContent = firstSectionTop > this.adsData.minZerothSectionLength,
-			showPreFooter = $articleBody.height() > this.adsData.minPageLength || firstSectionTop < this.adsData.minZerothSectionLength,
-			inContent,
-			preFooter;
+			showPreFooter = $articleBody.height() > this.adsData.minPageLength || firstSectionTop < this.adsData.minZerothSectionLength;
 
-		if ( showInContent ) {
-			this.appendAd(this.adsData.mobileInContent, $firstSection.parent(), 'before');
+		if (showInContent) {
+			this.appendAd(this.adsData.mobileInContent, 'before', $firstSection.parent());
 		}
 
-		if ( showPreFooter ) {
-			this.appendAd(this.adsData.mobilePreFooter, $articleBody, 'after');
+		if (showPreFooter) {
+			this.appendAd(this.adsData.mobilePreFooter, 'after', $articleBody);
 		}
 	}
 });
