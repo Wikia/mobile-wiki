@@ -11,6 +11,8 @@ App.AdSlotComponent = Em.Component.extend({
 	}.property('name'),
 
 	didInsertElement: function(){
+		Em.Logger.info('Injected ad:', this.get('name'));
+
 		Wikia.ads.slots.push([this.get('name')]);
 	}
 });

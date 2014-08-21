@@ -9,7 +9,7 @@ interface HeadersFromDom {
 
 var sloth = new Wikia.Modules.Sloth();
 
-App.ArticleView = Em.View.extend({
+App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
 	/**
@@ -45,24 +45,6 @@ App.ArticleView = Em.View.extend({
 				this.injectAds();
 			}
 		});
-	},
-
-	injectAds: function () {
-		var inContent = this.createChildView(App.AdSlotComponent, {
-				name: 'MOBILE_IN_CONTENT'
-			}).createElement(),
-			prefooter = this.createChildView(App.AdSlotComponent, {
-				name: 'MOBILE_PREFOOTER'
-			}).createElement();
-
-		//TODO: Lazyload?
-		//TODO: should not be appended always
-		//TODO: abstract it somewhere?
-		this.$('h2:first').parent().before(inContent.$());
-		inContent.trigger('didInsertElement');
-
-		this.$('.article-body').after(prefooter.$());
-		prefooter.trigger('didInsertElement');
 	},
 
 	modelObserver: function () {
