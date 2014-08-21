@@ -26,7 +26,7 @@ function index(params, next): void {
 			// article data to bootstrap Ember with in first load of application
 			articleJson: JSON.stringify(data),
 			siteName: wiki.siteName,
-			wikiJson: JSON.stringify(wiki),
+			wikiJson: JSON.stringify(wiki)
 		});
 	}, (error) => {
 		next(error);
