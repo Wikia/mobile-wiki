@@ -19,7 +19,7 @@ module MediaWiki {
 	export class WikiRequest {
 		name: string;
 
-		constructor(params) {
+		constructor(params: {name: string}) {
 			this.name = params.name;
 		}
 
@@ -34,7 +34,7 @@ module MediaWiki {
 		name: string;
 		title: string;
 
-		constructor(params) {
+		constructor(params: {name: string; title: string}) {
 			this.name = params.name;
 			this.title = params.title;
 		}
@@ -65,7 +65,7 @@ module MediaWiki {
 		return new Promise((resolve, reject) => {
 			Nipple.get(url, {
 				redirects: redirects
-			}, (err, res, payload) => {
+			}, (err: any, res: any, payload: any): void => {
 				if (err) {
 					reject(err);
 				} else {
