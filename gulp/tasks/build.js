@@ -12,17 +12,16 @@ var gulp = require('gulp'),
 	environment = require('../utils/environment'),
 	preprocessContext = {
 		base: paths.baseFull
-	};
+	},
+	assets = useref.assets({
+		searchPath: paths.base
+	});
 
-if (!gutil.env.nobs) {
+if (!gutil.env.nosync) {
 	preprocessContext.browserSync = true;
 }
 
 gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates', 'locales'], function () {
-	var assets = useref.assets({
-		searchPath: paths.base
-	});
-
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull

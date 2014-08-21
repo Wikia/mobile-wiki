@@ -6,20 +6,20 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload;
 
-if (!gutil.env.nobs) {
-	browserSync( {
-		ghostMode: {
-			clicks: true,
-			location: true,
-			forms: true,
-			scroll: true
-		},
-		open: false
-	});
-}
-
 gulp.task('watch', ['assets'], function () {
 	log('Watching files');
+
+	if (!gutil.env.nosync) {
+		browserSync( {
+			ghostMode: {
+				clicks: true,
+				location: true,
+				forms: true,
+				scroll: true
+			},
+			open: false
+		});
+	}
 
 	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
 		log('Style changed:', gutil.colors.green(event.path));
