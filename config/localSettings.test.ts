@@ -14,7 +14,14 @@ var localSettings = {
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 2,
 	// Targeted environment [production|preview|verify|devbox_name]
 	environment: process.env.WIKIA_ENVIRONMENT,
-	mediawikiHost: 'kenneth'
+	mediawikiHost: 'kenneth',
+	// cache responses in [memory|memcached]
+	cache: [
+	{
+		name: 'appcache',
+		engine: 'memory' // cache responses in [memory|memcached]
+	}
+]
 };
 
 export = localSettings;

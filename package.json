@@ -27,7 +27,8 @@
     "handlebars": "2.x.x",
     "hapi": "6.x.x",
     "nipple": "^2.5.5",
-    "tslint": "0.4.x"
+    "tslint": "0.4.x",
+    "catbox-memcached": "~1.0.2"
   },
   "devDependencies": {
     "browser-sync": "1.x.x",
@@ -65,7 +66,7 @@
     "multipipe": "0.x.x",
     "node-sass": "0.x.x",
     "qunit": "0.x.x",
-    "qunitjs": "1.15.x",
+    "qunitjs": "1.14.x",
     "tslint": "0.4.x"
   }
 }
