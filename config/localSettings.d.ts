@@ -13,5 +13,6 @@ interface LocalSettings {
 	environment: any;
 	mediawikiHost: string;
 	gaId: string;
+	mediawikiCacheBuster: string;
 	cache: CacheInterface;
 }
