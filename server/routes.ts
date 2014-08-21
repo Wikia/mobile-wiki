@@ -26,7 +26,7 @@ function getWikiName (host: string) {
 		 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
 		 * We just return capture group 1
 		 */
-		regex = /^(?:sandbox\-[^\.]+|preview|verify)?\.?(.+?)\.wikia.*\.(?:com|local)(:\d+)?$/;
+		regex = /^(?:sandbox\-[^\.]+|preview|verify)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
 		match = host.match(regex);
 		//TODO: This is a bad default, find better solution
 		wikiName = match ? match[1] : 'community';
