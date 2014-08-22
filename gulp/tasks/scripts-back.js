@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 	tsProject = ts.createProject(options);
 
 gulp.task('scripts-back', function () {
-	return gulp.src(paths.src, {base: './'})
+	return gulp.src([paths.src, paths.config], {base: './'})
 		.pipe(ts(tsProject)).js
 		.pipe(gulp.dest(paths.dest));
 });
