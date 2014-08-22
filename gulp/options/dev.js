@@ -21,7 +21,7 @@ module.exports = {
 		},
 		back: {
 			module: 'commonjs',
-			target: 'ES5',
+			target: 'es5',
 			emitError: false,
 			noImplicitAny: true,
 			outDir: paths.scripts.back.dest,
