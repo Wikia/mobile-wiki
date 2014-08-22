@@ -4,15 +4,17 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 
-var wikiNames = {};
+var wikiNames: {
+	[key: string]: string;
+} = {};
 
 /**
  * @desc extracts the wiki name from the host
  */
 function getWikiName (host: string) {
 	var wikiName = wikiNames[host],
-		regex,
-		match;
+		regex: RegExp,
+		match: string[];
 
 	if (wikiName) {
 		return wikiName;
