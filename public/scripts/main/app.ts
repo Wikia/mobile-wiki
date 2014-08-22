@@ -11,7 +11,7 @@ interface Location {
 }
 
 var App: any = Em.Application.create({
-	LOG_ACTIVE_GENERATION: 'ehennk!!!!rstnklrstik',
+	LOG_ACTIVE_GENERATION: true,
 	LOG_VIEW_LOOKUPS: true,
 	LOG_TRANSITIONS: false,
 	LOG_INTERNAL_TRANSITIONS: false,
