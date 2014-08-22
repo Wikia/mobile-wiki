@@ -52,7 +52,6 @@
     "gulp-rimraf": "^0.1.0",
     "gulp-sass": "0.x.x",
     "gulp-svg-symbols": "0.x.x",
-    "gulp-tsc": "0.x.x",
     "gulp-tslint": "1.x.x",
     "gulp-type": "^0.2.0",
     "gulp-uglify": "0.x.x",
@@ -63,10 +62,8 @@
     "karma-coverage": "0.x.x",
     "karma-phantomjs-launcher": "0.x.x",
     "karma-qunit": "0.x.x",
-    "multipipe": "0.x.x",
     "node-sass": "0.x.x",
     "qunit": "0.x.x",
-    "qunitjs": "1.15.x",
-    "tslint": "0.4.x"
+    "qunitjs": "1.15.x"
   }
 }
