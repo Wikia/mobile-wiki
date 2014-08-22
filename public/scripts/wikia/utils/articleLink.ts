@@ -1,4 +1,4 @@
-// <reference path="../../baseline/Wikia.d.ts" />
+// <reference path="../../baseline/Wikia.ts" />
 
 /**
  * @define articlelink
@@ -6,6 +6,14 @@
  * Library to parse links in an article and return information about how to process a given link.
  */
 'use strict';
+
+interface Location {
+	origin: string;
+}
+
+declare module Wikia {
+	var wiki: any;
+}
 
 module Wikia.Utils {
 	/**
@@ -21,11 +29,13 @@ module Wikia.Utils {
 	 */
 	export function getLinkInfo(basepath: string, title: string, hash: string, uri: string): {article: string; url: string; } {
 		var localPathMatch = uri.match('^' + window.location.origin + '(.*)$');
+
 		if (localPathMatch) {
 			var local = localPathMatch[1];
 			// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
 			// NOTE: see below, but we might also have to deal with links in the form /Special:.*
 			var namespaces = Wikia.wiki.namespaces;
+
 			for (var ns in namespaces) {
 				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 					continue;
