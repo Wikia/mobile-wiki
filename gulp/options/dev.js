@@ -13,10 +13,9 @@ module.exports = {
 	scripts: {
 		front: {
 			target: 'es5',
-			//noImplicitAny: true,
+			noImplicitAny: true,
 			removeComments: false,
 			declarationFiles: false,
-			//noExternalResolve: true,
 			sortOutput: true
 		},
 		back: {
@@ -24,8 +23,8 @@ module.exports = {
 			target: 'es5',
 			emitError: false,
 			noImplicitAny: true,
-			outDir: paths.scripts.back.dest,
-			removeComments: true
+			declarationFiles: false,
+			removeComments: false
 		}
 	},
 	handlebars: {
