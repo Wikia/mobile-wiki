@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
-	typescript = require('gulp-tsc'),
-	gulpif = require('gulp-if'),
+	ts = require('gulp-type'),
 	folders = require('gulp-folders'),
 	paths = require('../paths').scripts.front,
 	path = require('path');
@@ -11,9 +10,9 @@ gulp.task('typings', folders(paths.src, function (folder) {
 				cwd: paths.src
 			}
 		)
-		.pipe(typescript({
+		.pipe(ts({
 			declaration: true,
 			removeComments: true
-		}))
-		.pipe(gulpif(paths.dFiles, gulp.dest(path.join(paths.src + folder))));
+		})).dts
+		.pipe(gulp.dest(path.join(paths.src + folder)));
 }));
