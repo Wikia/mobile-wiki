@@ -21,7 +21,7 @@ module Wikia.Modules {
 
 		public track(eventName: string = 'trackingevent', params: any = {}): void {
 			var requestURL = this.createRequestURL(config),
-			    config = Wikia.extend(params, this.defaults);
+			    config = W.extend(params, this.defaults);
 
 			this.baseUrl += encodeURIComponent(eventName);
 			this.loadTrackingScript(requestURL);
@@ -40,11 +40,9 @@ module Wikia.Modules {
 		}
 
 		loadTrackingScript(url: string): void {
-			var script,
-				self;
+			var script = document.createElement('script'),
+				self = this;
 
-			self = this;
-			script = document.createElement('script');
 			script.src = url;
 
 			script.onload = script.onreadystatechange = function (abort) {

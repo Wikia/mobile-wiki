@@ -24,10 +24,10 @@ interface HTMLElement {
 }
 
 interface attachParams {
-	on: any;
-	off: any;
-	threshold: number;
-	callback: Function;
+	on?: any;
+	off?: any;
+	threshold?: number;
+	callback?: Function;
 }
 
 module Wikia.Modules {

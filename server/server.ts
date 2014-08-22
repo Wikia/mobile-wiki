@@ -34,7 +34,7 @@ function forkNewWorkers(): void {
 
 // Stops a single worker
 // Gives 60 seconds after disconnect before SIGTERM
-function stopWorker(worker: any): void {
+function stopWorker(worker: cluster.Worker): void {
 	logger.info('stopping', worker.process.pid);
 
 	worker.disconnect();
@@ -50,7 +50,7 @@ function stopWorker(worker: any): void {
 // This will allow the process to finish it's work
 // for 60 seconds before sending SIGTERM
 function stopNextWorker(): void {
-	var i = workersToStop.pop(),
+	var i = <any>workersToStop.pop(),
 		worker = cluster.workers[i];
 
 	if (worker) {
