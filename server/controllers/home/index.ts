@@ -3,7 +3,6 @@
 import article = require('../article/index');
 
 function index(params: any, next: Function): void {
-	console.log(params)
 	article.createFullArticle(true, {
 		wikiName: params.wiki,
 		articleTitle: params.title
