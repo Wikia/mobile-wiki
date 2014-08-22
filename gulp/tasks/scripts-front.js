@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-	//typescript = require('gulp-tsc'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
