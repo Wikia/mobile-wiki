@@ -33,7 +33,7 @@ module Logger {
 		'info',
 		'debug'
 	].forEach(function (level) {
-		 Logger[level] = log(level.toUpperCase());
+		Logger[level] = log(level.toUpperCase());
 	});
 }
 
