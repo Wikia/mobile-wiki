@@ -15,13 +15,12 @@ var localSettings = {
 	// Targeted environment [production|preview|verify|devbox_name]
 	environment: process.env.WIKIA_ENVIRONMENT,
 	mediawikiHost: 'kenneth',
+	mediawikiCacheBuster: '123',
 	// cache responses in [memory|memcached]
-	cache: [
-	{
+	cache: [{
 		name: 'appcache',
 		engine: 'memory' // cache responses in [memory|memcached]
-	}
-]
+	}]
 };
 
 export = localSettings;

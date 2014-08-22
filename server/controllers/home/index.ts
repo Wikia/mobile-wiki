@@ -1,6 +1,8 @@
 /// <reference path="../../../typings/node/node.d.ts" />
 
 import article = require('../article/index');
+import localSettings = require('../../../config/localSettings');
+import MediaWiki = require('../../lib/MediaWiki');
 
 function index(params, next): void {
 	article.createFullArticle(true, {
@@ -27,6 +29,8 @@ function index(params, next): void {
 			articleJson: JSON.stringify(data),
 			siteName: wiki.siteName,
 			wikiJson: JSON.stringify(wiki),
+			mediawikiDomain: MediaWiki.getDomainName(),
+			cacheBuster: localSettings.mediawikiCacheBuster
 		});
 	}, (error) => {
 		next(error);

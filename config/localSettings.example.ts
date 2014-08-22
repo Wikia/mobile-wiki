@@ -15,6 +15,7 @@ var localSettings: LocalSettings = {
 	// Targeted environment [production|preview|verify|devbox_name]
 	environment: process.env.WIKIA_ENVIRONMENT,
 	mediawikiHost: 'your-devbox-name',
+	mediawikiCacheBuster: '123',
 	gaId: 'GOOGLE ANALYTICS ID',
 	// Caching settings
 	cache: {
