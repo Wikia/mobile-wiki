@@ -1,14 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../../../typings/ember/ember.d.ts" />
 
 'use strict';
 
-interface Transition {
-	abort: () => void;
-	targetName: string;
-}
-
 App.ArticleRoute = Em.Route.extend({
-	beforeModel: function (transition: Transition) {
+	beforeModel: function (transition: EmberStates.Transition) {
 		if (Wikia.error) {
 			transition.abort();
 		}
@@ -20,13 +16,13 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 	actions: {
-		error: function (error: any, transition: Transition) {
+		error: function (error: any, transition: EmberStates.Transition) {
 			transition.abort();
 			Em.Logger.warn(error);
 		},
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
-		willTransition: function (transition: Transition) {
+		willTransition: function (transition: EmberStates.Transition) {
 			if (transition.targetName === 'article.index') {
 				window.scrollTo(0, 0);
 			}
