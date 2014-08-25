@@ -26,8 +26,7 @@
     "good": "2.x.x",
     "handlebars": "2.x.x",
     "hapi": "6.x.x",
-    "nipple": "^2.5.6",
-    "tslint": "0.4.x"
+    "nipple": "^2.5.6"
   },
   "devDependencies": {
     "browser-sync": "1.x.x",
@@ -65,6 +64,7 @@
     "karma-qunit": "0.x.x",
     "multipipe": "^0.1.1",
     "node-sass": "0.x.x",
+    "tslint": "0.4.x",
     "qunit": "0.x.x",
     "qunitjs": "1.14.x"
   }
