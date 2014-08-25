@@ -13,8 +13,8 @@ interface Location {
 var App: any = Em.Application.create({
 	LOG_ACTIVE_GENERATION: true,
 	LOG_VIEW_LOOKUPS: true,
-	LOG_TRANSITIONS: false,
-	LOG_INTERNAL_TRANSITIONS: false,
+	LOG_TRANSITIONS: true,
+	LOG_INTERNAL_TRANSITIONS: true,
 	rootElement: '#app-container',
 	language: Wikia.language
 });
