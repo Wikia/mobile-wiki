@@ -88,7 +88,7 @@ function routes(server: Hapi.Server) {
 						reply.view('error', error);
 					} else {
 						// export Google Analytics code to layout
-						//result.gaId = localSettings.gaId;
+						result.gaId = localSettings.gaId;
 						reply.view('application', result);
 					}
 				});
