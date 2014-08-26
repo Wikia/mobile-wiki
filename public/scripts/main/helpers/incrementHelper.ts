@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../baseline/init.ts" />
 
 Em.Handlebars.registerBoundHelper('increment', function(value: number, incrementBy: number) {
 	if (typeof incrementBy !== 'number') {

@@ -12,20 +12,19 @@ module.exports = {
 	},
 	scripts: {
 		front: {
-			target: 'ES5',
-			sourcemap: false,
+			target: 'es5',
 			noImplicitAny: true,
-			//mapRoot: '',
-			emitError: false,
-			removeComments: false
+			removeComments: false,
+			declarationFiles: false,
+			sortOutput: true
 		},
 		back: {
 			module: 'commonjs',
-			target: 'ES5',
+			target: 'es5',
 			emitError: false,
 			noImplicitAny: true,
-			outDir: paths.scripts.back.dest,
-			removeComments: true
+			declarationFiles: false,
+			removeComments: false
 		}
 	},
 	handlebars: {

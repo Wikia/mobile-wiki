@@ -29,6 +29,7 @@ module.exports = {
 		},
 		back: {
 			src: 'server/**/*.ts',
+			config: 'config/*.ts',
 			dest: basePath
 		}
 	},

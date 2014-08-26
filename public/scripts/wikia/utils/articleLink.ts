@@ -1,5 +1,4 @@
 // <reference path="../../baseline/Wikia.ts" />
-
 /**
  * @define articlelink
  *
@@ -9,10 +8,6 @@
 
 interface Location {
 	origin: string;
-}
-
-declare module Wikia {
-	var wiki: any;
 }
 
 module Wikia.Utils {

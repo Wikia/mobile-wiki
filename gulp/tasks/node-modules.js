@@ -5,6 +5,6 @@ var gulp = require('gulp'),
 gulp.task('node-modules', function () {
 	var deps = '/{' + dependencies.join('/**/*,') + '/**/*}';
 
-	gulp.src(paths.src + deps)
+	return gulp.src(paths.src + deps)
 		.pipe(gulp.dest(paths.dest));
 });
