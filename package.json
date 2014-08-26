@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "gulp clean && gulp",
-    "start": "gulp clean && gulp build --type production && gulp scripts-back && node www/server/server.js",
+    "start": "gulp clean && gulp build --type production --nosync && gulp scripts-back && node www/server/server.js",
     "test": "gulp assets && gulp karma && gulp node-test"
   },
   "repository": {
@@ -20,14 +20,14 @@
   "homepage": "https://github.com/Wikia/mercury",
   "private": true,
   "dependencies": {
-    "bluebird": "^2.2.2",
+    "bluebird": "^2.3.0",
     "catbox": "^3.1.0",
-    "catbox-memory": "^1.0.4",
+    "catbox-memory": "^1.0.5",
     "good": "2.x.x",
     "handlebars": "2.x.x",
     "hapi": "6.x.x",
-    "nipple": "^2.5.5",
-    "tslint": "0.4.x"
+    "nipple": "^2.5.6",
+    "catbox-memcached": "~1.0.2"
   },
   "devDependencies": {
     "browser-sync": "1.x.x",
@@ -44,6 +44,7 @@
     "gulp-if": "1.x.x",
     "gulp-karma": "0.0.4",
     "gulp-minify-html": "0.1.x",
+    "gulp-newer": "^0.3.0",
     "gulp-nodemon": "1.x.x",
     "gulp-preprocess": "1.x.x",
     "gulp-rename": "1.x.x",
@@ -52,8 +53,8 @@
     "gulp-rimraf": "^0.1.0",
     "gulp-sass": "0.x.x",
     "gulp-svg-symbols": "0.x.x",
-    "gulp-tsc": "0.x.x",
     "gulp-tslint": "1.x.x",
+    "gulp-type": "^0.2.0",
     "gulp-uglify": "0.x.x",
     "gulp-useref": "0.x.x",
     "gulp-util": "3.x.x",
@@ -62,10 +63,10 @@
     "karma-coverage": "0.x.x",
     "karma-phantomjs-launcher": "0.x.x",
     "karma-qunit": "0.x.x",
-    "multipipe": "0.x.x",
+    "multipipe": "^0.1.1",
     "node-sass": "0.x.x",
+    "tslint": "0.4.x",
     "qunit": "0.x.x",
-    "qunitjs": "1.15.x",
-    "tslint": "0.4.x"
+    "qunitjs": "1.14.x"
   }
 }
