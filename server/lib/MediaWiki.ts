@@ -49,7 +49,7 @@ module MediaWiki {
 
 		comments(articleId: number, page: number = 1) {
 			var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
-					articleId: articleId.toString(),
+					id: articleId.toString(),
 					page: page.toString()
 				});
 
