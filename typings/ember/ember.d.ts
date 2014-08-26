@@ -1388,7 +1388,7 @@ declare module Ember {
         /**
         Creates a subclass of the Object class.
         **/
-        static extend<T>(arguments?: CoreObjectArguments): T;
+        static extend<T>(...arguments: CoreObjectArguments[]): T;
         /**
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.

@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../baseline/Wikia.d.ts" />
 'use strict';
 
 App.AdSlotComponent = Em.Component.extend({

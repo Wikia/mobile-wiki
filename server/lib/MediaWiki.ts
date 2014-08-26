@@ -104,11 +104,11 @@ export function getDomainName(wikiSubDomain: string = ''): string {
 
 export function createUrl(wikiSubDomain: string, path: string, params: any = {}): string {
 	var qsAggregator: string[] = [];
-	
+
 	Object.keys(params).forEach(function(key) {
 		qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
 	});
-	
+
 	return getDomainName(wikiSubDomain) +
 		path +
 		(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');

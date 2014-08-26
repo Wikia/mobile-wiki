@@ -1,8 +1,6 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../../typings/bluebird/bluebird.d.ts" />
 
-import MediaWiki = require('../../lib/MediaWiki');
-
 /**
  * @description Article controller
  */

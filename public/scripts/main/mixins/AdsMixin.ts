@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../../../typings/jquery/jquery.d.ts" />
 'use strict';
 
 App.AdsMixin = Em.Mixin.create({
@@ -9,16 +10,16 @@ App.AdsMixin = Em.Mixin.create({
 		mobilePreFooter: 'MOBILE_PREFOOTER'
 	},
 
-	appendAd: function (adSlotName, place, element) {
+	appendAd: function (adSlotName: string, place: string, element: JQuery): void {
 		var view = this.createChildView(App.AdSlotComponent, {
 			name: adSlotName
 		}).createElement();
 
-		element[place](view.$());
+		element[place](<string>view.$());
 		view.trigger('didInsertElement');
 	},
 
-	injectAds: function () {
+	injectAds: function (): void {
 		var $firstSection = this.$('h2').first(),
 			$articleBody = this.$('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,

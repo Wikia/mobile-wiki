@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../baseline/Wikia.d.ts" />
 'use strict';
 
 App.ArticleController = Em.ObjectController.extend({
@@ -15,7 +16,7 @@ App.ArticleController = Em.ObjectController.extend({
 				require([
 					'ext.wikia.adEngine.adEngine',
 					'ext.wikia.adEngine.adConfigMobile'
-				], function(adEngine, adConfigMobile){
+				], function(adEngine: any, adConfigMobile: any){
 
 					adEngine.run( adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile' );
 				});
