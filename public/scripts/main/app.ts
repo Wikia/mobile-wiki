@@ -6,10 +6,6 @@
 
 declare var i18n: I18nextStatic;
 
-interface Location {
-	origin: string;
-}
-
 var App: any = Em.Application.create({
 	LOG_ACTIVE_GENERATION: true,
 	LOG_VIEW_LOOKUPS: true,

@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../wikia/utils/articleLink.d.ts" />
+/// <reference path="../../wikia/utils/articleLink.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend({

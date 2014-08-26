@@ -12,3 +12,7 @@ declare module Wikia {
 		slots: string[][];
 	};
 }
+
+interface Location {
+	origin: string;
+}

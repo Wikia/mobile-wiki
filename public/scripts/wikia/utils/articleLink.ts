@@ -1,14 +1,11 @@
-// <reference path="../../baseline/Wikia.ts" />
+/// <reference path="../../baseline/Wikia.d.ts" />
+
 /**
  * @define articlelink
  *
  * Library to parse links in an article and return information about how to process a given link.
  */
 'use strict';
-
-interface Location {
-	origin: string;
-}
 
 module Wikia.Utils {
 	/**
