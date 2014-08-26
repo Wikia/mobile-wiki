@@ -6,13 +6,12 @@ App.ArticleCommentsModel = Ember.Object.extend({
 });
 
 App.ArticleCommentsModel.reopenClass({
-	find: function (params) {
-		var model = App.ArticleCommentsModel.create(),
-			self = this;
+	find: function (params: any) {
+		var model = App.ArticleCommentsModel.create();
 
-		return new Ember.RSVP.Promise(function (resolve, reject) {
+		return new Ember.RSVP.Promise((resolve: Function, reject: Function) => {
 			Ember.$.ajax({
-				url: self.url(params.id),
+				url: this.url(params.id),
 				success: function (data) {
 					model.setProperties(data.payload);
 					resolve(model);
@@ -23,7 +22,7 @@ App.ArticleCommentsModel.reopenClass({
 			});
 		});
 	},
-	url: function (id) {
+	url: function (id: string) {
 		return '/api/v1/article/comments/' + id;
 	}
 });

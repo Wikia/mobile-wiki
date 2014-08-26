@@ -1,4 +1,6 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../wikia/modules/sloth.ts" />
+/// <reference path="../../wikia/modules/lazyLoad.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -38,7 +40,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				sloth.attach({
 					on: lazyImages,
 					threshold: 400,
-					callback: (elem) => lazy.load(elem, false, model.get('media'))
+					callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
 				});
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
@@ -63,7 +65,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 * ToC data from server and render view based on that.
 	 */
 	loadTableOfContentsData: function () {
-		var headers: HeadersFromDom[] = this.$('h2').map((i, elem: HTMLElement): HeadersFromDom => {
+		var headers: HeadersFromDom[] = this.$('h2').map((i: number, elem: HTMLElement): HeadersFromDom => {
 			return {
 				level: elem.tagName,
 				name: elem.textContent,
@@ -78,7 +80,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 * loadTableOfContentsData)
 	 */
 	replaceHeadersWithArticleSectionHeaders: function () {
-		this.$('h2,h3').map((i, elem: HTMLElement) => {
+		this.$('h2,h3').map((i: number, elem: HTMLElement) => {
 			this.replaceWithArticleSectionHeader(elem);
 		});
 	},

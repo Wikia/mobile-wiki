@@ -18,14 +18,26 @@ interface Window {
 	scrollY: number;
 }
 
+interface HTMLElement {
+	x: number;
+	y: number;
+}
+
+interface attachParams {
+	on?: any;
+	off?: any;
+	threshold?: number;
+	callback?: Function;
+}
+
 module Wikia.Modules {
 	var slice = Array.prototype.slice,
-		debounce = (function(element) {
+		debounce = (function(element: Element): number {
 			return element ? parseInt(element.getAttribute('data-sloth-debounce'), 10) : 200;
 		})(window.document.querySelector('script[data-sloth-debounce]'));
 
 	export class Branch {
-		private element;
+		private element: HTMLElement;
 		private threshold: number;
 		callback: Function;
 
@@ -63,7 +75,6 @@ module Wikia.Modules {
 	export class Sloth {
 		wTop: number;
 		wBottom: number;
-		undef;
 		branches: Branch[] = [];
 		lock = 0;
 
@@ -113,16 +124,16 @@ module Wikia.Modules {
 			}
 		}
 
-		attach(params) {
+		attach(params: attachParams) {
 			if (params) {
 				var elements = params.on,
 					prune = params.off,
-					threshold: number = params.threshold !== this.undef ? params.threshold : 100,
+					threshold: number = params.threshold !== undefined ? params.threshold : 100,
 					callback: Function = params.callback,
 					i: number;
 
 				if (elements && callback) {
-					if (elements.length !== this.undef) {
+					if (elements.length !== undefined) {
 						elements = slice.call(elements);
 						i = elements.length;
 
@@ -135,7 +146,7 @@ module Wikia.Modules {
 				}
 
 				if (prune) {
-					if (prune.length !== this.undef) {
+					if (prune.length !== undefined) {
 						prune = slice.call(prune);
 						i = prune.length;
 

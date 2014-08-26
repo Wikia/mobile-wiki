@@ -4,11 +4,11 @@
 App.ArticleController = Em.ObjectController.extend({
 	needs: ['application'],
 	actions: {
-		updateHeaders: function(headers): void {
+		updateHeaders: function(headers: NodeList): void {
 			var article = this.get('model');
 			article.set('sections', headers);
 		},
-		changePage: function(title) {
+		changePage: function(title: string) {
 			//this is temporary solution
 			//this requires refactoring adEngine to support UMD
 			if (require) {

@@ -8,7 +8,7 @@ App.ArticleCommentsRoute = Em.Route.extend({
 			id: this.modelFor('article').get('id')
 		});
 	},
-	setupController: function (controller, model) {
+	setupController: function (controller: Ember.Controller, model: Ember.Object) {
 		controller.set('content', model.get('comments'));
 		this.controllerFor('articleUsers').set('content', model.get('users'));
 	},
@@ -18,11 +18,11 @@ App.ArticleCommentsRoute = Em.Route.extend({
 		});
 	},
 	actions: {
-		error (err) {
-			console.warn(err);
+		error: function (err: any) {
+			Em.Logger.warn(err);
 			return true;
 		},
-		loading () {
+		loading: function () {
 			return true;
 		}
 	}

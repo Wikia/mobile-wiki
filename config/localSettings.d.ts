@@ -1,5 +1,5 @@
 interface CacheInterface {
-	engine: string;
+	engine: any;
 	name: string;
 	location?: any;
 	shared?: boolean;

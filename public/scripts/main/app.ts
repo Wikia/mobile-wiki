@@ -1,10 +1,10 @@
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
+/// <reference path="../baseline/Wikia.d.ts" />
 
 'use strict';
 
-declare var i18n;
-declare var Wikia;
+declare var i18n: I18nextStatic;
 
 interface Location {
 	origin: string;

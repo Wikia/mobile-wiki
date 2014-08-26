@@ -75,7 +75,7 @@ export function handleRoute(params: any, callback: Function, err: Function): voi
 		.then(function(response: any) {
 			callback(wrapResponse(response));
 		})
-		.catch(function(error) {
+		.catch(function(error: any) {
 			err(error);
 		});
 }

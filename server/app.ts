@@ -1,5 +1,6 @@
 /// <reference path="../typings/node/node.d.ts" />
 /// <reference path="../typings/hapi/hapi.d.ts" />
+/// <reference path="../config/localSettings.d.ts" />
 
 import hapi = require('hapi');
 import path = require('path');
@@ -44,7 +45,7 @@ class App {
 				plugin: require('good'),
 				options: options
 			},
-			function (err) {
+			function (err: any) {
 				if (err) {
 					logger.error(err);
 				}
@@ -78,7 +79,7 @@ class App {
 	 * @param {object} cache Cache settings
 	 * @returns {object} Caching config
 	 */
-	private getCacheSettings(cache: CacheInterface): any {
+	private getCacheSettings(cache: CacheInterface): CacheInterface {
 		if (typeof cache === 'object') {
 			cache.engine = require('catbox-' + cache.engine);
 			return cache;

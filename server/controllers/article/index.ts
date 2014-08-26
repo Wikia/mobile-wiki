@@ -1,5 +1,8 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../../typings/bluebird/bluebird.d.ts" />
+
+import MediaWiki = require('../../lib/MediaWiki');
+
 /**
  * @description Article controller
  */
@@ -13,13 +16,16 @@ import logger = require('../../lib/Logger');
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
+ * @param data
+ * @param callback
+ * @param err
  */
 export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any) {
-	var wikiVariables,
+	var wikiVariables: any,
 		article = new MediaWiki.ArticleRequest({
-		name: data.wikiName,
-		title: data.articleTitle
-	});
+			name: data.wikiName,
+			title: data.articleTitle
+		});
 
 	if (getWikiInfo) {
 		logger.info('Fetching wiki variables', data.wikiName);
@@ -60,9 +66,9 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		articleTitle: decodeURIComponent(request.params.articleTitle)
 	};
 
-	createFullArticle(false, data, (data) => {
+	createFullArticle(false, data, (data: any) => {
 		reply(data);
-	}, (error) => {
+	}, (error: any) => {
 		reply(error);
 	});
 }

@@ -4,11 +4,11 @@ import article = require('../article/index');
 import localSettings = require('../../../config/localSettings');
 import MediaWiki = require('../../lib/MediaWiki');
 
-function index(params, next): void {
+function index(params: any, next: Function): void {
 	article.createFullArticle(true, {
 		wikiName: params.wiki,
 		articleTitle: params.title
-	}, (data) => {
+	}, (data: any) => {
 		var articleContent = data.article.content,
 			wiki = data.wiki;
 
@@ -32,7 +32,7 @@ function index(params, next): void {
 			mediawikiDomain: MediaWiki.getDomainName(),
 			cacheBuster: wiki.cacheBuster
 		});
-	}, (error) => {
+	}, (error: any) => {
 		next(error);
 	});
 }

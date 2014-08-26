@@ -1,15 +1,19 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface MouseEvent {
+	target: HTMLAnchorElement;
+}
+
 App.ApplicationView = Em.View.extend({
-	willInsertElement() {
+	willInsertElement: function() {
 		$('#app-container').html('');
 	},
 
-	click: function (event) {
-		var target,
-			$closest,
-			matches;
+	click: function (event: MouseEvent) {
+		var target: HTMLAnchorElement,
+			$closest: JQuery,
+			matches: Array<string>;
 
 		// First, check if the target is an anchor
 		if (event.target.tagName === 'A') {
@@ -21,8 +25,8 @@ App.ApplicationView = Em.View.extend({
 		 	 * because if the user clicks the part of the link in the <i></i> then
 		 	 * target.tagName will register as 'I' and not 'A'.
 			 */
-			$closest = Ember.$(event.target).closest('a');
-			target = $closest.length ? $closest[0] : undefined;
+			$closest = Em.$(event.target).closest('a');
+			target = $closest.length ? <HTMLAnchorElement>$closest[0] : undefined;
 		}
 
 		/**
