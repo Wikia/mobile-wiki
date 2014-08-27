@@ -18,10 +18,10 @@ module Wikia.Modules {
 		pageWidth: number;
 
 		constructor() {
-			this.pageContent = $('.page-wrapper')[0];
+			this.pageContent = $('.article-content')[0];
 			this.pageWidth = this.pageContent.offsetWidth;
 
-			window.addEventListener('viewportsize', (ev) => {
+			window.addEventListener('resize', (ev) => {
 				this.pageWidth = this.pageContent.offsetWidth;
 			});
 		}
@@ -70,19 +70,19 @@ module Wikia.Modules {
 
 					img.src = data.url;
 
-					elm.parentNode.replaceChild(img, elm);
-//					//don't do any animation if image is already loaded
-//					if (img.complete) {
-//						LazyLoad.displayImage(elm, src, background);
-//					} else {
-//						img.onload = this.onLoad(elm, background);
-//					}
+					//elm.parentNode.replaceChild(img, elm);
+					//don't do any animation if image is already loaded
+					if (img.complete) {
+						LazyLoad.displayImage(elm, src, background);
+					} else {
+						img.onload = this.onLoad(elm, background);
+					}
 				}
 			}
 		}
 
 		fixSizes(elements: NodeList) {
-			var i: number = 0,
+			var i = 0,
 				elm: HTMLImageElement,
 				imageWidth: number,
 				elementsArray: HTMLImageElement[] = $.makeArray(elements);

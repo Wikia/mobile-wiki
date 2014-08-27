@@ -31,8 +31,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				var lazyImages = this.$('.article-media');
-				var lazy = new Wikia.Modules.LazyLoad();
+				var lazyImages = this.$('.article-media'),
+					lazy = new Wikia.Modules.LazyLoad();
 
 				lazy.fixSizes(lazyImages);
 
