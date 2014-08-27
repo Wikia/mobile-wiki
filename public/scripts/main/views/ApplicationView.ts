@@ -3,6 +3,7 @@
 
 interface MouseEvent {
 	target: HTMLAnchorElement;
+	preventDefault: { (): void };
 }
 
 App.ApplicationView = Em.View.extend({
@@ -10,7 +11,16 @@ App.ApplicationView = Em.View.extend({
 		$('#app-container').html('');
 	},
 
-	mouseUp: function (event: MouseEvent) {
+	/**
+	 * Necessary because presently, we open external links in new pages, so if we didn't
+	 * cancel the click event on the current page, then the mouseUp handler would open
+	 * the external link in a new page _and_ the current page would be set to that external link.
+	 */
+	click: function (event: MouseEvent): void {
+		event.preventDefault();
+	},
+
+	mouseUp: function (event: MouseEvent): void {
 		var target: HTMLAnchorElement,
 			$closest: JQuery,
 			matches: Array<string>;

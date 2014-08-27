@@ -141,12 +141,12 @@ function routes(server: Hapi.Server) {
 	server.route({
 		method: 'GET',
 		path: '/api/v1/search/{query}',
-		handler: (request, reply) => {
+		handler: (request: any, reply: any) => {
 			var params = {
 				wikiName: getWikiName(request.headers.host),
 				query: request.params.query
 			};
-			server.methods.searchForQuery(params, (error, result) => {
+			server.methods.searchForQuery(params, (error: any, result: any) => {
 				if (error) {
 					error = Hapi.error.notFound('No results for that search term');
 				}

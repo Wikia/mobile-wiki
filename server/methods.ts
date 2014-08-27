@@ -16,10 +16,10 @@ function methods(server: Hapi.Server): void {
 			}
 		};
 
-	server.method('searchForQuery', (params, next) => {
-		search.searchWiki(params, (data) => {
+	server.method('searchForQuery', (params: any, next: any) => {
+		search.searchWiki(params, (data: any) => {
 			next(null, data);
-		}, (err) => {
+		}, (err: any) => {
 			next(err);
 		});
 	});

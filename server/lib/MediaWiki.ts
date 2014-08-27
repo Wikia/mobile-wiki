@@ -17,7 +17,7 @@ import Promise = require('bluebird');
 	export class SearchRequest {
 		name: string;
 
-		constructor(params) {
+		constructor(params: { name: string }) {
 			this.name = params.name;
 		}
 
@@ -47,15 +47,16 @@ import Promise = require('bluebird');
 		this.name = params.name;
 	}
 
-		getLocalNavData() {
-			var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
-			console.log('fetching ' + url);
 
-			return fetch(url);
-		}
+	getLocalNavData() {
+		var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
+		console.log('fetching ' + url);
 
-		getWikiVariables() {
-			var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
+		return fetch(url);
+	}
+
+	getWikiVariables() {
+		var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 
 		return fetch(url);
 	}
