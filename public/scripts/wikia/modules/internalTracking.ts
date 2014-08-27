@@ -20,8 +20,11 @@ module Wikia.Modules {
 		}
 
 		public track(eventName: string = 'trackingevent', params: any = {}): void {
-			var requestURL = this.createRequestURL(config),
-			    config = W.extend(params, this.defaults);
+			var requestURL: string,
+			    config: any;
+
+			config = W.extend(params, this.defaults);
+			requestURL = this.createRequestURL(config);
 
 			this.baseUrl += encodeURIComponent(eventName);
 			this.loadTrackingScript(requestURL);
