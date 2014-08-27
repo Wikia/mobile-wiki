@@ -1,14 +1,10 @@
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
+/// <reference path="../baseline/Wikia.d.ts" />
 
 'use strict';
 
-declare var i18n;
-declare var Wikia;
-
-interface Location {
-	origin: string;
-}
+declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
 	LOG_ACTIVE_GENERATION: true,
@@ -16,7 +12,7 @@ var App: any = Em.Application.create({
 	LOG_TRANSITIONS: true,
 	LOG_INTERNAL_TRANSITIONS: true,
 	rootElement: '#app-container',
-	language: Wikia.language
+	language: Wikia.wiki ? Wikia.wiki.language : 'en'
 });
 
 App.initializer({

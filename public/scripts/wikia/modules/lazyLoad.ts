@@ -8,6 +8,10 @@
  */
 'use strict';
 
+interface DOMStringMap {
+	ref: string;
+}
+
 module Wikia.Modules {
 	export class LazyLoad {
 		pageContent: HTMLElement;
@@ -43,12 +47,14 @@ module Wikia.Modules {
 			img.className += ' loaded';
 		}
 
-		load(elements: NodeList, background: boolean, media: any[]) {
+		load(elements: any, background: boolean, media: any[]): void {
 			var i: number = 0,
 				elm: HTMLImageElement,
 				img: HTMLImageElement,
 				ref: number,
-				data,
+				data: {
+					url: string;
+				},
 				elementsArray: HTMLImageElement[] = $.makeArray(elements);
 
 			while (elm = elementsArray[i++]) {

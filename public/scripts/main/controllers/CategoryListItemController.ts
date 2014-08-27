@@ -1,8 +1,8 @@
 /// <reference path="../app.ts" />
 'use strict';
 App.CategoryListItemController = Ember.ObjectController.extend({
-	cleanTitle: Ember.computed('title', function () {
+	cleanTitle: function () {
 		return this.get('title').toString().replace(/_/gi, ' ');
-	})
+	}.property('title')
 });
 

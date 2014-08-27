@@ -1,9 +1,11 @@
 /// <reference path="../typings/node/node.d.ts" />
 /// <reference path="../typings/hapi/hapi.d.ts" />
+/// <reference path="../config/localSettings.d.ts" />
 
 import hapi = require('hapi');
 import path = require('path');
 import localSettings = require('../config/localSettings');
+import logger = require('./lib/Logger');
 
 class App {
 	constructor() {
@@ -16,10 +18,7 @@ class App {
 		server = hapi.createServer(localSettings.host, localSettings.port, {
 			// ez enable cross origin resource sharing
 			cors: true,
-			cache: {
-				engine: require('catbox-memory'),
-				name: 'appcache'
-			},
+			cache: this.getCacheSettings(localSettings.cache),
 			views: {
 				engines: {
 					hbs: require('handlebars')
@@ -46,9 +45,9 @@ class App {
 				plugin: require('good'),
 				options: options
 			},
-			function (err) {
+			function (err: any) {
 				if (err) {
-					console.log('[ERROR] ', err);
+					logger.error(err);
 				}
 			}
 		);
@@ -60,7 +59,7 @@ class App {
 		require('./routes')(server);
 
 		server.start(function() {
-			console.log('Server started at: ' + server.info.uri);
+			logger.info('Server started at: ' + server.info.uri);
 		});
 
 		server.on('response', function () {
@@ -72,6 +71,25 @@ class App {
 				process.exit(0);
 			}
 		});
+	}
+
+	/**
+	 * @desc Create caching config object based on caching config
+	 *
+	 * @param {object} cache Cache settings
+	 * @returns {object} Caching config
+	 */
+	private getCacheSettings(cache: CacheInterface): CacheInterface {
+		if (typeof cache === 'object') {
+			cache.engine = require('catbox-' + cache.engine);
+			return cache;
+		}
+		// Fallback to memory
+		logger.warning('No cache settings found. Falling back to memory');
+		return {
+			name: 'appcache',
+			engine: require('catbox-memory')
+		};
 	}
 }
 

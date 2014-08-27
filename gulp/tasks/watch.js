@@ -2,10 +2,24 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	log = require('../utils/logger'),
 	paths = require('../paths'),
-	path = require('path');
+	path = require('path'),
+	browserSync = require('browser-sync'),
+	reload = browserSync.reload;
 
 gulp.task('watch', ['assets'], function () {
 	log('Watching files');
+
+	if (!gutil.env.nosync) {
+		browserSync( {
+			ghostMode: {
+				clicks: true,
+				location: true,
+				forms: true,
+				scroll: true
+			},
+			open: false
+		});
+	}
 
 	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
 		log('Style changed:', gutil.colors.green(event.path));
@@ -21,33 +35,34 @@ gulp.task('watch', ['assets'], function () {
 	gulp.watch(path.join(
 			paths.scripts.front.src,
 			paths.scripts.front.files
-		), ['tslint', 'scripts-front'])
+		), ['tslint', 'scripts-front', reload])
 		.on('change', function (event) {
 			log('Script changed:', gutil.colors.green(event.path));
+
 			if (event.path.match('baseline')) {
 				gulp.start('build');
 			}
 		});
 
-	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back']).on('change', function (event) {
+	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back', reload]).on('change', function (event) {
 		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
 	gulp.watch(path.join(
 			paths.templates.src,
 			paths.templates.files
-		), ['templates']).on('change', function (event) {
+		), ['templates', reload]).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
 	gulp.watch(path.join(
 			paths.svg.src,
 			paths.svg.files
-		), ['build']).on('change', function (event) {
+		), ['build', reload]).on('change', function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.views.src, ['build']).on('change', function (event) {
+	gulp.watch(paths.views.src, ['build', reload]).on('change', function (event) {
 		log('Views changed:', gutil.colors.green(event.path));
 	});
 });

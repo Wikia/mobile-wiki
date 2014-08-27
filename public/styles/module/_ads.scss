@@ -1,0 +1,27 @@
+.ad-slot {
+	text-align: center;
+
+	&.hidden {
+		display: none;
+	}
+}
+
+.mobile-in-content, .mobile-prefooter {
+	border: {
+		top: 1px solid;
+		bottom: 1px solid;
+	}
+	padding: 10px 0;
+	margin: 10px 0;
+}
+
+//This ad is inside article-body and we want it full width
+.mobile-in-content {
+	height: 270px;
+
+	.ad-slot {
+		position: absolute;
+		left: 0;
+		right: 0;
+	}
+}

@@ -10,7 +10,6 @@ import localSettings = require('../../config/localSettings');
 import Nipple = require('nipple');
 import Promise = require('bluebird');
 
-module MediaWiki {
 
 	/**
 	 * @desc wrapper class for making API search requests
@@ -44,12 +43,9 @@ module MediaWiki {
 	export class WikiRequest {
 		name: string;
 
-		/**
-		 * @param name the name of the wiki
-		 */
-		constructor(params) {
-			this.name = params.name;
-		}
+	constructor(params: {name: string}) {
+		this.name = params.name;
+	}
 
 		getLocalNavData() {
 			var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
@@ -61,87 +57,91 @@ module MediaWiki {
 		getWikiVariables() {
 			var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 
-			return fetch(url);
-		}
+		return fetch(url);
+	}
+}
+
+export class ArticleRequest {
+	name: string;
+	title: string;
+
+	constructor(params: {name: string; title?: string}) {
+		this.name = params.name;
+		this.title = params.title;
 	}
 
-	export class ArticleRequest {
-		name: string;
-		title: string;
+	fetch() {
+		var url = createUrl(this.name, 'api/v1/Mercury/Article', {
+			title: this.title
+		});
 
-		constructor(params) {
-			this.name = params.name;
-			this.title = params.title;
-		}
-
-		fetch() {
-			var url = createUrl(this.name, 'api/v1/Mercury/Article', {
-				title: this.title
-			});
-
-			return fetch(url);
-		}
+		return fetch(url);
+	}
 
 		comments(articleId: number, page: number = 1) {
 			var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
-					articleId: articleId.toString(),
+					id: articleId.toString(),
 					page: page.toString()
 				});
 
-			return fetch(url);
-		}
-	}
-
-	/**
-	 * @param url the url to fetch
-	 * @param redirects the number of redirects to follow, default 1
-	 */
-	export function fetch (url: string, redirects: number = 1): Promise<any> {
-		return new Promise((resolve, reject) => {
-			Nipple.get(url, {
-				redirects: redirects
-			}, (err, res, payload) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (res.headers['content-type'].match('application/json')) {
-						payload = JSON.parse(payload);
-					}
-
-					resolve(payload);
-				}
-			});
-		});
-	}
-
-	export function getDomainName(wikiSubDomain: string): string {
-		var environment = localSettings.environment,
-			options = {
-				production: '',
-				preview: 'preview.',
-				verify: 'verify.',
-				sandbox: (localSettings.host + '.')
-			};
-
-		if (!environment) {
-			throw Error('Environment not set');
-		}
-
-		if (typeof options[environment] !== 'undefined') {
-			return 'http://' + options[environment] + wikiSubDomain + '.wikia.com/';
-		}
-		// Devbox
-		return 'http://' + wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com/';
-	}
-
-	export function createUrl(wikiSubDomain: string, path: string, params: any = {}): string {
-		var qsAggregator: string[] = [];
-		Object.keys(params).forEach(function(key) {
-			qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
-		});
-		return getDomainName(wikiSubDomain) +
-			path +
-			(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
+		return fetch(url);
 	}
 }
-export = MediaWiki;
+
+/**
+ * @param url the url to fetch
+ * @param redirects the number of redirects to follow, default 1
+ */
+export function fetch (url: string, redirects: number = 1): Promise<any> {
+	return new Promise((resolve, reject) => {
+		Nipple.get(url, {
+			redirects: redirects
+		}, (err: any, res: any, payload: any): void => {
+			if (err) {
+				reject(err);
+			} else {
+				if (res.headers['content-type'].match('application/json')) {
+					payload = JSON.parse(payload);
+				}
+
+				resolve(payload);
+			}
+		});
+	});
+}
+
+export function getDomainName(wikiSubDomain: string = ''): string {
+	var environment: string = localSettings.environment,
+		options: any = {
+			production: '',
+			preview: 'preview.',
+			verify: 'verify.',
+			sandbox: (localSettings.host + '.')
+		};
+
+	if (!environment) {
+		throw Error('Environment not set');
+	}
+
+	if (wikiSubDomain) {
+		wikiSubDomain = wikiSubDomain + '.';
+	}
+
+	if (typeof options[environment] !== 'undefined') {
+		return 'http://' + options[environment] + wikiSubDomain + 'wikia.com/';
+	}
+	// Devbox
+	return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
+}
+
+export function createUrl(wikiSubDomain: string, path: string, params: any = {}): string {
+	var qsAggregator: string[] = [];
+
+	Object.keys(params).forEach(function(key) {
+		qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
+	});
+
+	return getDomainName(wikiSubDomain) +
+		path +
+		(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
+}

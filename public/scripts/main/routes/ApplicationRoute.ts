@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="../utils/articlelink.ts" />
+/// <reference path="../../wikia/utils/articleLink.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend({
@@ -9,27 +9,27 @@ App.ApplicationRoute = Em.Route.extend({
 	actions: {
 		loading: function () {
 			var controller = this.controllerFor('application'),
-				spinner;
-
-			spinner = App.LoadingSpinnerComponent.create({
-				animSpeed: controller.get('globalAnimSpeed')
-			}).append();
+				spinner = App.LoadingSpinnerComponent.create({
+					animSpeed: controller.get('globalAnimSpeed')
+				}).append();
 
 			controller.set('spinnerView', spinner);
 		},
 		didTransition: function () {
 			var spinnerView = this.controllerFor('application').get('spinnerView');
+
 			if (spinnerView) {
 				spinnerView.destroy();
 			}
 		},
-		handleLink: function (target) {
+		handleLink: function (target: HTMLAnchorElement) {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
 				info = Wikia.Utils.getLinkInfo(model.get('basepath'),
-						model.get('title'),
-						target.hash,
-						target.href);
+					model.get('title'),
+					target.hash,
+					target.href
+				);
 
 			if (info.article) {
 				controller.send('changePage', info.article);

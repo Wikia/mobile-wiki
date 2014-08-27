@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
+	gutil = require('gulp-util'),
 	minifyHTML = require('gulp-minify-html'),
 	preprocess = require('gulp-preprocess'),
 	useref = require('gulp-useref'),
@@ -8,21 +9,25 @@ var gulp = require('gulp'),
 	revReplace = require('gulp-rev-replace'),
 	piper = require('../utils/piper'),
 	paths = require('../paths'),
-	environment = require('../utils/environment');
-
-gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates', 'locales'], function () {
-	var assets = useref.assets({
+	environment = require('../utils/environment'),
+	preprocessContext = {
+		base: paths.baseFull
+	},
+	assets = useref.assets({
 		searchPath: paths.base
 	});
 
+if (!gutil.env.nosync) {
+	preprocessContext.browserSync = true;
+}
+
+gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates', 'locales'], function () {
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull
 		}),
 		gulpif('**/layout.hbs', preprocess({
-			context: {
-				base: paths.baseFull
-			}
+			context: preprocessContext
 		})),
 		gulpif(environment.isProduction, piper(
 			assets,

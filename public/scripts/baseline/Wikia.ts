@@ -1,6 +1,12 @@
+interface Window {
+	[key: string]: any;
+}
+
 module Wikia {
-	function namespacer(str, ns, val) {
-		var parts, i;
+	function namespacer(str: string, ns: string, val: any): any;
+	function namespacer(str: string, ns: any, val: any): any  {
+		var parts: string[],
+			i: number;
 
 		if (!str) {
 			parts = [];
@@ -30,16 +36,17 @@ module Wikia {
 				ns = ns[parts[i]] = ns[parts[i]] || {};
 			}
 		}
+
 		return ns;
 	}
 
 	export module Utils {
-		export function provide(str, obj) {
+		export function provide(str: string, obj: any) {
 			if (typeof str !== 'string') {
 				throw Error('Invalid string supplied to namespacer');
 			}
 			return namespacer(str, 'Wikia', obj);
-		};
+		}
 	}
 
 }

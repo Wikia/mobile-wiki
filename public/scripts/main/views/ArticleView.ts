@@ -1,4 +1,6 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../wikia/modules/sloth.ts" />
+/// <reference path="../../wikia/modules/lazyLoad.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -9,7 +11,7 @@ interface HeadersFromDom {
 
 var sloth = new Wikia.Modules.Sloth();
 
-App.ArticleView = Em.View.extend({
+App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
 	/**
@@ -27,6 +29,7 @@ App.ArticleView = Em.View.extend({
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
 			var model = this.get('controller.model');
+
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				var lazyImages = this.$('.article-media');
 				var lazy = new Wikia.Modules.LazyLoad();
@@ -37,13 +40,12 @@ App.ArticleView = Em.View.extend({
 				sloth.attach({
 					on: lazyImages,
 					threshold: 400,
-					callback: (elem) => lazy.load(elem, false, model.get('media'))
+					callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
 				});
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.injectAds();
 			}
-		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
-		// cause problems in the future with the lazyloading code above (unknown)
 		});
 	},
 
@@ -63,7 +65,7 @@ App.ArticleView = Em.View.extend({
 	 * ToC data from server and render view based on that.
 	 */
 	loadTableOfContentsData: function () {
-		var headers: HeadersFromDom[] = this.$('h2').map((i, elem: HTMLElement): HeadersFromDom => {
+		var headers: HeadersFromDom[] = this.$('h2').map((i: number, elem: HTMLElement): HeadersFromDom => {
 			return {
 				level: elem.tagName,
 				name: elem.textContent,
@@ -78,7 +80,7 @@ App.ArticleView = Em.View.extend({
 	 * loadTableOfContentsData)
 	 */
 	replaceHeadersWithArticleSectionHeaders: function () {
-		this.$('h2,h3').map((i, elem: HTMLElement) => {
+		this.$('h2,h3').map((i: number, elem: HTMLElement) => {
 			this.replaceWithArticleSectionHeader(elem);
 		});
 	},

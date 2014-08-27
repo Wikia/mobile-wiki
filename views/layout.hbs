@@ -5,9 +5,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{article.cleanTitle}} - {{siteName}}</title>
 		<meta name="description" content="{{article.description}}">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-        <!-- build:css /public/styles/app.css -->
+		<!-- build:css /public/styles/app.css -->
 		<link rel="stylesheet" href="/public/styles/app.css">
 		<!-- endbuild -->
 
@@ -17,9 +17,9 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			W.provide('language', '{{language}}');
 			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			W.provide('_state.firstPage', true);
+			W.provide('ads.slots', []);
 			{{#if articleJson}}
 				W.provide('article', {{{articleJson}}});
 				W.provide('wiki', {{{wikiJson}}});
@@ -29,6 +29,11 @@
 				W.provide('error.status', '{{output.payload.statusCode}}');
 				W.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
+
+			//TODO: Remove when ad context object is available
+			//This is beginning of porting some ads specific var
+			//they will be moved to an object once AdEng has finished ADEN-1318
+			window.wgShowAds = true;
 		</script>
 
 		<!-- Google Analytics -->
@@ -44,7 +49,7 @@
 		</script>
 		<!-- End Google Analytics -->
 
-		<!-- @if WIKIA_ENVIRONMENT='dev' -->
+		<!-- @ifdef browserSync -->
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 	</head>
@@ -55,19 +60,21 @@
 			{{{content}}}
 		</div>
 
-        <!-- build:js /public/vendor/main.js -->
+		<!-- build:js /public/vendor/main.js -->
 			<script src="/public/vendor/jquery/dist/jquery.js"></script>
 			<script src="/public/vendor/handlebars/handlebars.runtime.js"></script>
 			<script src="/public/vendor/ember/ember.js"></script>
 			<script src="/public/vendor/i18next/i18next.js"></script>
-        <!-- @if WIKIA_ENVIRONMENT='production' -->
-        <!-- @endif -->
-        <!-- endbuild -->
+		<!-- @if WIKIA_ENVIRONMENT='production' -->
+		<!-- @endif -->
+		<!-- endbuild -->
 
-        <!-- build:js /public/scripts/combined.js -->
+		<!-- build:js /public/scripts/combined.js -->
 			<script src="/public/templates/main.js"></script>
 			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
-        <!-- endbuild -->
+		<!-- endbuild -->
+
+		<script async src="{{mediawikiDomain}}__am/{{cacheBuster}}/groups/-/mercury_ads_js"></script>
 	</body>
 </html>

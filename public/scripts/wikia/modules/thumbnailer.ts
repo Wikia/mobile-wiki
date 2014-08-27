@@ -12,8 +12,8 @@ module Wikia.Modules {
 	export class Thumbnailer {
 		//targets the image file extension
 		private static extRegExp = /\.(jpg|jpeg|gif|bmp|png|svg)$/i;
-		private static imagePath: string = '/images/';
-		private static thumbPath: string = '/images/thumb/';
+		private static imagePath = '/images/';
+		private static thumbPath = '/images/thumb/';
 		/**
 		 * Checks if a URL points to a thumbnail
 		 *
@@ -55,8 +55,8 @@ module Wikia.Modules {
 		 * @return {String} The URL with the switched path
 		 */
 		static switchPathTo(url: string, type: string): string {
-			var from,
-				to,
+			var from: string,
+				to: string,
 				thumb = (type === 'thumb');
 
 			if (thumb) {

@@ -1,21 +1,21 @@
 /// <reference path="../../../typings/node/node.d.ts" />
 
 import article = require('../article/index');
+import localSettings = require('../../../config/localSettings');
+import MediaWiki = require('../../lib/MediaWiki');
 
-function index(params, next): void {
+function index(params: any, next: Function): void {
 	article.createFullArticle(true, {
 		wikiName: params.wiki,
 		articleTitle: params.title
-	}, (data) => {
+	}, (data: any) => {
 		var articleContent = data.article.content,
-			wiki = data.wiki,
-			language = data.language;
+			wiki = data.wiki;
 
 		// We're already sending the article body (which can get quite large) back to get rendered in the template,
 		// so let's not send it with the JSON payload either
 		delete data.article.content;
 		delete data.wiki;
-		delete data.language;
 
 		next(null, {
 			// article content to be rendered on server
@@ -29,9 +29,10 @@ function index(params, next): void {
 			articleJson: JSON.stringify(data),
 			siteName: wiki.siteName,
 			wikiJson: JSON.stringify(wiki),
-			language: language
+			mediawikiDomain: MediaWiki.getDomainName(),
+			cacheBuster: wiki.cacheBuster
 		});
-	}, (error) => {
+	}, (error: any) => {
 		next(error);
 	});
 }

@@ -1,4 +1,5 @@
 /// <reference path="../typings/node/node.d.ts" />
+/// <reference path="./localSettings.d.ts" />
 /**
  * localSettings for application, used by default by travis
  * (settings in .travis.yml)
@@ -6,7 +7,7 @@
  * var localConfig = require('./config').localSettings
  */
 
-var localSettings = {
+var localSettings: LocalSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
 	port: 8000,
@@ -14,7 +15,13 @@ var localSettings = {
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 2,
 	// Targeted environment [production|preview|verify|devbox_name]
 	environment: process.env.WIKIA_ENVIRONMENT,
-	mediawikiHost: 'kenneth'
+	mediawikiHost: 'kenneth',
+	gaId: 'GOOGLE ANALYTICS ID',
+	// cache responses in [memory|memcached]
+	cache: {
+		name: 'appcache',
+		engine: 'memory' // cache responses in [memory|memcached]
+	}
 };
 
 export = localSettings;

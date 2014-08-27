@@ -1,3 +1,5 @@
+/// <reference path="../utils/extend.ts" />
+
 module Wikia.Modules {
 
 	export class InternalTracker {
@@ -18,19 +20,16 @@ module Wikia.Modules {
 		}
 
 		public track(eventName: string = 'trackingevent', params: any = {}): void {
-			var requestURL,
-			    config;
-
-			config = W.extend(params, this.defaults);
+			var requestURL = this.createRequestURL(config),
+			    config = W.extend(params, this.defaults);
 
 			this.baseUrl += encodeURIComponent(eventName);
-			requestURL = this.createRequestURL(config);
 			this.loadTrackingScript(requestURL);
 		}
 
 		createRequestURL(params: any): string {
-			var parts = [],
-				paramStr
+			var parts: string[] = [],
+				paramStr: string;
 
 			Object.keys(params).forEach((key) => {
 				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
@@ -41,11 +40,9 @@ module Wikia.Modules {
 		}
 
 		loadTrackingScript(url: string): void {
-			var script,
-				self;
+			var script = document.createElement('script'),
+				self = this;
 
-			self = this;
-			script = document.createElement('script');
 			script.src = url;
 
 			script.onload = script.onreadystatechange = function (abort) {

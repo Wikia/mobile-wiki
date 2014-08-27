@@ -1,24 +1,26 @@
 var gulp = require('gulp'),
-	typescript = require('gulp-tsc'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
-	piper = require('../utils/piper'),
+	ts = require('gulp-type'),
+	newer = require('gulp-newer'),
+	concat = require('gulp-concat'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
-	path = require('path');
+	path = require('path'),
+	tsProjects = {};
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
-	//we need a copy of that object per folder
-	var folderOptions = JSON.parse(JSON.stringify(options));
+	//we need project per folder
+	if ( !tsProjects[folder] ) {
+		tsProjects[folder] = ts.createProject(options);
+	}
 
-	folderOptions.out = folder + '.js';
-
-	return piper(
-		gulp.src(['!' + path.join(paths.src, folder, paths.dFiles), path.join(paths.src, folder, paths.files)]),
-		typescript(folderOptions),
-		gulpif(environment.isProduction, uglify()),
-		gulp.dest(paths.dest)
-	);
+	return gulp.src([path.join(paths.src, folder, paths.files)])
+		.pipe(newer(path.join(paths.dest, folder + '.js')))
+		.pipe(ts(tsProjects[folder])).js
+		.pipe(concat(folder + '.js'))
+		.pipe(gulpif(environment.isProduction, uglify()))
+		.pipe(gulp.dest(paths.dest));
 }));

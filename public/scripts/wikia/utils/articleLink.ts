@@ -1,3 +1,5 @@
+/// <reference path="../../baseline/Wikia.d.ts" />
+
 /**
  * @define articlelink
  *
@@ -19,18 +21,20 @@ module Wikia.Utils {
 	 */
 	export function getLinkInfo(basepath: string, title: string, hash: string, uri: string): {article: string; url: string; } {
 		var localPathMatch = uri.match('^' + window.location.origin + '(.*)$');
+
 		if (localPathMatch) {
 			var local = localPathMatch[1];
 			// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
 			// NOTE: see below, but we might also have to deal with links in the form /Special:.*
 			var namespaces = Wikia.wiki.namespaces;
+
 			for (var ns in namespaces) {
 				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 					continue;
 				}
 				// Style guide advises using dot accessor instead of brackets, but it is difficult
 				// to access a key with an asterisk* in it
-				var regex = '^(\/wiki)?\/' + namespaces[ns].canonical.replace(/ /g, '_') + ':.*$';
+				var regex = '^(\/wiki)?\/' + namespaces[ns] + ':.*$';
 				if (local.match(regex)) {
 					return {
 						article: null,

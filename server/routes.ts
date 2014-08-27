@@ -4,38 +4,44 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 
-var wikiNames = {};
+var wikiNames: {
+	[key: string]: string;
+} = {};
+
 /**
  * @desc extracts the wiki name from the host
  */
 function getWikiName (host: string) {
-	var wikiName = wikiNames[host],
-	    regex, match;
+	host = host.split(':')[0]; //get rid of port
 
-	if ( wikiName ) {
+	var wikiName = wikiNames[host],
+		regex: RegExp,
+		match: string[];
+
+	if (wikiName) {
 		return wikiName;
 	} else {
 		/**
 		 * Capture groups:
-		 * 1. "sandbox-mercury." (if it's the beginning of the url)
-		 * 2. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
+		 * 0. "sandbox-*|preview|verify" (if it's the beginning of the url)
+		 * 1. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
 		 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
-		 * 3. Port including leading colon (e.g. :8000)
-		 * We just return capture group 2
+		 * We just return capture group 1
 		 */
-		regex = /^(.+?)\..+(:\d+)?$/;
+		regex = /^(?:sandbox\-[^\.]+|preview|verify)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
 		match = host.match(regex);
+		//TODO: This is a bad default, find better solution
 		wikiName = match ? match[1] : 'community';
 
 		return wikiNames[host] = wikiName;
 	}
 }
 
-function routes(server) {
+function routes(server: Hapi.Server) {
 	var second = 1000;
 	// all the routes that should resolve to loading single page app entry view
 
-	function restrictedHandler (request, reply) {
+	function restrictedHandler (request: Hapi.Request, reply: any) {
 		reply.view('error', Hapi.error.notFound('Invalid URL parameters'));
 	}
 
@@ -53,7 +59,9 @@ function routes(server) {
 
 	var indexRoutes: string[] = [
 		'/a/{title}',
-		'/a/{title}/comments'
+		'/a/{title}/comments',
+		'/wiki/{title}',
+		'/wiki/{title}/comments'
 	];
 
 	var notFoundError = 'Could not find article or Wiki, please check to' +
@@ -71,11 +79,11 @@ function routes(server) {
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: (request, reply) => {
+			handler: (request: Hapi.Request, reply: any) => {
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
 					title: request.params.title
-				}, (error, result) => {
+				}, (error: any, result: any) => {
 					// TODO: handle error a bit better :D
 					if (error) {
 						error = Hapi.error.notFound(notFoundError);
@@ -95,12 +103,12 @@ function routes(server) {
 		method: 'GET',
 		path: '/api/v1/article/{articleTitle}',
 		config: config,
-		handler: (request, reply) => {
+		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
 				wikiName: getWikiName(request.headers.host),
 				articleTitle: request.params.articleTitle
 			};
-			server.methods.getArticleData(params, (error, result) => {
+			server.methods.getArticleData(params, (error: any, result: any) => {
 				// TODO: handle error a bit better :D
 				if (error) {
 					error = Hapi.error.notFound(notFoundError);
@@ -114,14 +122,14 @@ function routes(server) {
 	server.route({
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
-		handler: (request, reply) => {
+		handler: (request: Hapi.Request, reply: any) => {
 			var hostParts = request.headers.host.split('.');
 			var params = {
 				host: hostParts[hostParts.length - 3],
 				articleId: parseInt(request.params.articleId, 10),
 				page: parseInt(request.params.page, 10) || 1
 			};
-			server.methods.getArticleComments(params, (error, result) => {
+			server.methods.getArticleComments(params, (error: any, result: any) => {
 				if (error) {
 					error = Hapi.error.notFound(notFoundError);
 				}
