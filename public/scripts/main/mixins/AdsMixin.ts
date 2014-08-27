@@ -19,12 +19,16 @@ App.AdsMixin = Em.Mixin.create({
 		view.trigger('didInsertElement');
 	},
 
-	injectAds: function (): void {
+	injectAds: function (adsContext: any): void {
 		var $firstSection = this.$('h2').first(),
 			$articleBody = this.$('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			showInContent = firstSectionTop > this.adsData.minZerothSectionLength,
 			showPreFooter = $articleBody.height() > this.adsData.minPageLength || firstSectionTop < this.adsData.minZerothSectionLength;
+
+		window.ads = {
+			context: adsContext
+		};
 
 		if (showInContent) {
 			this.appendAd(this.adsData.mobileInContent, 'before', $firstSection.parent());

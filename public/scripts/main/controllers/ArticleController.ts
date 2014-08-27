@@ -12,6 +12,7 @@ App.ArticleController = Em.ObjectController.extend({
 		changePage: function(title: string) {
 			//this is temporary solution
 			//this requires refactoring adEngine to support UMD
+
 			if (require) {
 				require([
 					'ext.wikia.adEngine.adEngine',

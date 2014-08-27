@@ -43,8 +43,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 					callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
 				});
 				this.loadTableOfContentsData();
-				this.replaceHeadersWithArticleSectionHeaders();
-				this.injectAds();
+				this.replaceHeadersWithArticleSectionHeaders();;
+				this.injectAds(model.adsContext);
 			}
 		});
 	},
