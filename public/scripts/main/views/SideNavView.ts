@@ -24,7 +24,7 @@ App.SideNavView = Em.View.extend({
 		 * it's supposed to do but right now it clears the text.
 		 */
 		clearSearch: function (): void {
-			this.set('controller.controllers.localWikiaSearch.query', '');
+			this.set('controllers.localWikiaSearch.query', '');
 		}
 	},
 

@@ -140,7 +140,7 @@ function routes(server) {
 			};
 			server.methods.searchForQuery(params, (error, result) => {
 				if (error) {
-					error = Hapi.error.notFound(notFoundError);
+					error = Hapi.error.notFound('No results for that search term');
 				}
 				reply(error || result);
 			});

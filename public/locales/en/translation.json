@@ -13,6 +13,7 @@
 		"article-top-contributors": "Top Contributors of this Wiki",
 		"side-nav-menu-label": "Menu",
 		"navigation-back-label": "Back",
-		"search-no-results-msg": "Sorry, we couldn't find anything that matched your search!"
+		"search-no-results-msg": "Sorry, we couldn't find anything that matched your search!",
+		"search-loading-msg": "Loading search results..."
 	}
 }
