@@ -30,7 +30,8 @@ function index(params: any, next: Function): void {
 			siteName: wiki.siteName,
 			wikiJson: JSON.stringify(wiki),
 			mediawikiDomain: MediaWiki.getDomainName(),
-			cacheBuster: wiki.cacheBuster
+			cacheBuster: wiki.cacheBuster,
+			adsContext: JSON.stringify(data.adsContext)
 		});
 	}, (error: any) => {
 		next(error);
