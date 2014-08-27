@@ -11,20 +11,19 @@ App.SideNavView = Em.View.extend({
 	actions: {
 		expandSideNav: function (): void {
 			this.set('isCollapsed', false);
-			Ember.$('body').addClass('no-scroll');
+			// Send unscroll action to ApplicationView
+			this.get('parentView').send('setUnScrollable');
 		},
 		collapseSideNav: function (): void {
-			console.log('collapsing');
 			this.set('controller.isInSearchMode', false);
 			this.set('isCollapsed', true);
-			Ember.$('body').removeClass('no-scroll');
+			this.get('parentView').send('setScrollable');
 		},
 		/**
-		 * Action for 'x' button in search box -- not sure what
-		 * it's supposed to do but right now it clears the text.
+		 * Action for 'x' button in search box
 		 */
 		clearSearch: function (): void {
-			this.set('controllers.localWikiaSearch.query', '');
+			this.set('controller.controllers.localWikiaSearch.query', '');
 		}
 	},
 

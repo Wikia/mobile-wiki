@@ -21,7 +21,7 @@ interface Suggestion {
  */
 App.LocalWikiaSearchController = Em.Controller.extend({
 	query: '',
-	// Array<Suggestion>
+	// Array<Suggestion>, this is what's currently displayed in the search results
 	suggestions: [],
 	/**
 	 * Whether or not to show that empty message (should be shown if there is a valid
@@ -31,12 +31,17 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	// Whether or not to display the loading search results message (en: 'Loading...')
 	isLoadingSearchResults: false,
 	// in ms
-	debounceDuration: 100,
-	// Array<string>
+	debounceDuration: 250,
+	// Array<string> which holds in order of insertion, the keys for the cached items
 	cachedResultsQueue: [],
 	// How many items to store in the cachedResultsQueue
 	cachedResultsLimit: 100,
-	// key: query string, value: number for index in cachedResultsQueue
+	/**
+	 * A set (only keys used) of query strings that are currently being ajax'd so
+	 * we know not to perform another request.
+	 */
+	requestsInProgress: {},
+	// key: query string, value: Array<Suggestion>
 	cachedResults: {},
 
 	setSuggestions: function (suggestions: Array<Suggestion>): void {
@@ -61,13 +66,13 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	 * @desc Wrapper for query observer that also checks the cache
 	 */
 	search: Ember.observer('query', function (): void {
-		// debugger;
 		var query: string = this.get('query'),
 			cached: any;
 		this.set('suggestions', []);
 		this.set('showEmptyMessage', false);
+
 		// If the query string is empty, return to leave the view blank
-		if (query === '') {
+		if (!query) {
 			/**
 			 * Even if there are pending search API ajax requests, we don't care about
 			 * them anymore because the query string has been cleared.
@@ -94,37 +99,79 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 		var query: string = this.get('query'),
 			uri: string = this.getSearchURI(query);
 
-		// debugger;
-
 		/**
-		 * Special case: if the function is debounced until the user backspaced their
-		 * query string, then don't even run the query because it will never be useful to us.
+		 * This was queued to run before the user has finished typing, and when they
+		 * finished typing it may have turned out that they were just backspacing OR
+		 * they finished typing something that was already in the cache, in which case
+		 * we just ignore this request because the search fn already put the cached
+		 * value into the window.
 		 */
-		if (query === '') {
+		if (!query || this.hasCachedResult(query) || this.requestInProgress(query)) {
 			return;
 		}
 
+		this.startedRequest(query);
+
 		Ember.$.getJSON(uri).then((data: any) => {
-			// By the time this JSON request is complete, its results might be irrelevant
+			/**
+			 * If the user makes one request, request A, and then keeps typing to make
+			 * reqeust B, but request A takes a long time while request B returns quickly,
+			 * then we don't want request A to dump its info into the window after B has
+			 * already inserted the relevant information.
+			 */
 			if (query === this.get('query')) {
-				// We have a response, so we're no longer loading the results
-				this.set('isLoadingSearchResults', false);
 				this.setSuggestions(data.items);
 			}
 			this.cacheResult(query, data.items);
+		// When we get a 404, it means there were no results
 		}).fail((reason: any) => {
 			if (query === this.get('query')) {
 				this.setEmptySuggestions();
 			}
 			this.cacheResult(query);
+		}).always(() => {
+			// We have a response, so we're no longer loading the results
+			if (query === this.get('query')) {
+				this.set('isLoadingSearchResults', false);
+			}
+			this.endedRequest(query)
 		});
 
 	},
 
-	// Cache methods
+	/**
+	 * Methods that modify requestsInProgress to record what requests are currently
+ 	 * being executed so we don't do them more than once.
+	 */
 
 	/**
-	 * @return hether or not the number of cached results is equal to
+	 * @desc records that we have submitted an ajax request for a query term
+	 * @param the query string that we submitted an ajax request for
+	 */
+	startedRequest: function (query: string): void {
+		this.get('requestsInProgress')[query] = true;
+	},
+
+	/**
+	 * @desc returns whether or not there is a request in progress
+	 * @param query the query to check
+	 */
+	requestInProgress: function (query: string): boolean {
+		return this.get('requestsInProgress').hasOwnProperty(query);
+	},
+
+	/**
+	 * @desc records that we have finished a request
+	 * @param query the string we searched for that we're now done with
+	 */
+	endedRequest: function (query: string): void {
+		delete this.get('requestsInProgress')[query];
+	},
+
+	// Search result cache methods
+
+	/**
+	 * @return whether or not the number of cached results is equal to
 	 * our limit on cached results
 	 */
 	needToEvict: function (): boolean {
@@ -162,7 +209,11 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 		return this.get('cachedResults').hasOwnProperty(query);
 	},
 
-	getCachedResult: function (query: string): Array<Suggestion> {
+	/**
+	 * @param query the query string to search the cache with
+	 * @return the cached result or null if there were no results (type Array<Suggestion>|null)
+	 */
+	getCachedResult: function (query: string): any {
 		return this.get('cachedResults')[query];
 	}
 });

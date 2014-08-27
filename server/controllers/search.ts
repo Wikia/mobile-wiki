@@ -18,7 +18,5 @@ export function searchWiki(data: any, callback: any, err: any) {
 			return elem;
 		});
 		callback(response);
-	}).catch((e) => {
-		err(e);
-	});
+	}).catch(err);
 }

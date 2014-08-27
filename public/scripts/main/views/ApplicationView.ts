@@ -46,5 +46,14 @@ App.ApplicationView = Em.View.extend({
 				this.get('controller').send('handleLink', target);
 			}
 		}
+	},
+
+	actions: {
+		setScrollable: function () {
+			Ember.$('body').removeClass('no-scroll');
+		},
+		setUnScrollable: function () {
+			Ember.$('body').addClass('no-scroll');
+		}
 	}
 });
