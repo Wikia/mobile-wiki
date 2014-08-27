@@ -31,7 +31,7 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 		wikiRequest = new MediaWiki.WikiRequest({
 			name: data.wikiName
 		});
-		
+
 		props = {
 			wikiState: wikiRequest.getWikiVariables(),
 			navData: wikiRequest.getLocalNavData()
@@ -56,12 +56,13 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 				return;
 			}
 
-		wikiVariables.then((payload: any) => {
-			payload.wikiState.navData = payload.navData;
-			data.wiki = payload.wikiState;
-			callback(data);
-		}).catch((error: any) => {
-			err(error);
+			wikiVariables.then((payload: any) => {
+				payload.wikiState.navData = payload.navData;
+				data.wiki = payload.wikiState;
+				callback(data);
+			}).catch((error: any) => {
+				err(error);
+			});
 		});
 }
 
