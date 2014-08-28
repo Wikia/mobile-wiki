@@ -24,13 +24,13 @@ module Wikia.Modules {
 			    config: any;
 
 			config = W.extend(params, this.defaults);
-			requestURL = this.createRequestURL(config);
+			requestURL = this.createRequestURL(eventName, config);
 
-			this.baseUrl += encodeURIComponent(eventName);
+			console.log(eventName, requestURL);
 			this.loadTrackingScript(requestURL);
 		}
 
-		createRequestURL(params: any): string {
+		createRequestURL(eventName: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string;
 
@@ -39,7 +39,7 @@ module Wikia.Modules {
 				parts.push(paramStr);
 			});
 
-			return this.baseUrl + '?' + parts.join('&');
+			return this.baseUrl + eventName + '?' + parts.join('&');
 		}
 
 		loadTrackingScript(url: string): void {

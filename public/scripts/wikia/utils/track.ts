@@ -122,8 +122,7 @@ module Wikia.Utils {
 	}
 
 	export function track(event: string, params: any): void {
-		var eventName = event,
-		    browserEvent = window.event,
+		var browserEvent = window.event,
 		    trackingMethod: string = params.trackingMethod || 'none',
 		    track: TrackingMethods = {},
 		    action: string = params.action,
