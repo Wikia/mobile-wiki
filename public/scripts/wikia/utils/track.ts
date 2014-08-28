@@ -31,7 +31,8 @@ module Wikia.Utils {
 	    inited = false;
 
 	/**
-	* @description Init function used to defer the binding of global variables until app is inited, mostly for testing
+	* @description Init function used to defer the binding of global variables until app is inited,
+	* mostly for testing
 	*/
 	function init(): void {
 		config = {

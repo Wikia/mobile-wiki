@@ -26,7 +26,6 @@ module Wikia.Modules {
 			config = W.extend(params, this.defaults);
 			requestURL = this.createRequestURL(eventName, config);
 
-			console.log(eventName, requestURL);
 			this.loadTrackingScript(requestURL);
 		}
 
