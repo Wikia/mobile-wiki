@@ -1,0 +1,14 @@
+<div class="light-box--header">
+	<div class="light-box--header-title">{{header}}</div>
+	<svg role="img" class="light-box--close-button close-icon" {{action 'closeLightBox'}}>
+        <use xlink:href="#close"></use>
+    </svg>
+</div>
+<div class="light-box--content">
+	<div class="light-box--content-inner">
+		{{content}}
+	</div>
+</div>
+{{#if footer}}
+    <div {{bind-attr class="footerExpanded :light-box--footer"}} {{action 'toggleFooter'}}>{{footer}}</div>
+{{/if}}
