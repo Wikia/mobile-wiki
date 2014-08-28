@@ -11,49 +11,49 @@ import Nipple = require('nipple');
 import Promise = require('bluebird');
 
 
-	/**
-	 * @desc wrapper class for making API search requests
-	 */
-	export class SearchRequest {
-		name: string;
+/**
+ * @desc wrapper class for making API search requests
+ */
+export class SearchRequest {
+	name: string;
 
-		constructor(params: { name: string }) {
-			this.name = params.name;
-		}
-
-		/**
-		 * Default parameters to make the REST url clean -- we may want to
-		 * customize later
-		 */
-		searchForQuery(query: string) {
-			var url = createUrl(this.name, 'api/v1/Search/List', {
-				limit: 25,
-				minArticleQuality: 10,
-				namespaces: '0,14',
-				query: query
-			});
-			return fetch(url);
-		}
+	constructor (params: {name: string}) {
+		this.name = params.name;
 	}
 
 	/**
-	 * @desc a wrapper for making API requests for info about the wiki
-	 *
+	 * @desc Default parameters to make the request url clean -- we may
+	 * want to customize later
 	 */
-	export class WikiRequest {
-		name: string;
+	searchForQuery (query: string) {
+		var url = createUrl(this.name, 'api/v1/Search/List', {
+			limit: 25,
+			minArticleQuality: 10,
+			namespaces: '0,14',
+			query: query
+		});
+		return fetch(url);
+	}
+}
 
-	constructor(params: {name: string}) {
+/**
+ * @desc a wrapper for making API requests for info about the wiki
+ *
+ */
+export class WikiRequest {
+	name: string;
+
+	constructor (params: {name: string}) {
 		this.name = params.name;
 	}
 
 
-	getLocalNavData() {
+	getLocalNavData () {
 		var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
 		return fetch(url);
 	}
 
-	getWikiVariables() {
+	getWikiVariables () {
 		var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 
 		return fetch(url);
@@ -64,12 +64,12 @@ export class ArticleRequest {
 	name: string;
 	title: string;
 
-	constructor(params: {name: string; title?: string}) {
+	constructor (params: {name: string; title?: string}) {
 		this.name = params.name;
 		this.title = params.title;
 	}
 
-	fetch() {
+	fetch () {
 		var url = createUrl(this.name, 'api/v1/Mercury/Article', {
 			title: this.title
 		});
@@ -77,11 +77,11 @@ export class ArticleRequest {
 		return fetch(url);
 	}
 
-		comments(articleId: number, page: number = 1) {
-			var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
-					id: articleId.toString(),
-					page: page.toString()
-				});
+	comments (articleId: number, page: number = 1) {
+		var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
+			id: articleId.toString(),
+			page: page.toString()
+		});
 
 		return fetch(url);
 	}

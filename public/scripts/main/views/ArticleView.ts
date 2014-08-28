@@ -54,7 +54,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 		if (model) {
 			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + Wikia.wiki.data.siteName;
+			document.title = title + ' - ' + Wikia.wiki.siteName;
 		}
 	}.observes('controller.model'),
 
