@@ -4,7 +4,7 @@
 /**
  * Type for search suggestion, as returned by node-side search API
  */
-interface Suggestion {
+interface SearchSuggestionItem {
 	id: number;
 	ns: number;
 	quality: number;
@@ -21,7 +21,7 @@ interface Suggestion {
  */
 App.LocalWikiaSearchController = Em.Controller.extend({
 	query: '',
-	// Array<Suggestion>, this is what's currently displayed in the search results
+	// Array<SearchSuggestionItem>, this is what's currently displayed in the search results
 	suggestions: [],
 	/**
 	 * Whether or not to show that empty message (should be shown if there is a valid
@@ -41,14 +41,14 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	 * we know not to perform another request.
 	 */
 	requestsInProgress: {},
-	// key: query string, value: Array<Suggestion>
+	// key: query string, value: Array<SearchSuggestionItem>
 	cachedResults: {},
 
-	setSuggestions: function (suggestions: Array<Suggestion>): void {
+	setSearchSuggestionItems: function (suggestions: Array<SearchSuggestionItem>): void {
 		this.set('suggestions', suggestions);
 	},
 
-	setEmptySuggestions: function (): void {
+	setEmptySearchSuggestionItems: function (): void {
 		this.set('suggestions', []);
 		this.set('isLoadingSearchResults', false);
 		this.set('showEmptyMessage', true);
@@ -81,9 +81,9 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 		} else if (this.hasCachedResult(query)) {
 			cached = this.getCachedResult(query);
 			if (cached === null) {
-				this.setEmptySuggestions();
+				this.setEmptySearchSuggestionItems();
 			} else {
-				this.setSuggestions(cached);
+				this.setSearchSuggestionItems(cached);
 			}
 		} else {
 			this.set('isLoadingSearchResults', true);
@@ -120,13 +120,13 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 			 * already inserted the relevant information.
 			 */
 			if (query === this.get('query')) {
-				this.setSuggestions(data.items);
+				this.setSearchSuggestionItems(data.items);
 			}
 			this.cacheResult(query, data.items);
 		// When we get a 404, it means there were no results
 		}).fail((reason: any) => {
 			if (query === this.get('query')) {
-				this.setEmptySuggestions();
+				this.setEmptySearchSuggestionItems();
 			}
 			this.cacheResult(query);
 		}).always(() => {
@@ -193,7 +193,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	 * @param query the query string that was used in the search API request
 	 * @param the array of suggestions -- if not provided, then there were zero results
 	 */
-	cacheResult: function (query: string, suggestions?: Array<Suggestion>): void {
+	cacheResult: function (query: string, suggestions?: Array<SearchSuggestionItem>): void {
 		if (this.needToEvict()) {
 			this.evictCachedResult();
 		}
@@ -211,7 +211,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 
 	/**
 	 * @param query the query string to search the cache with
-	 * @return the cached result or null if there were no results (type Array<Suggestion>|null)
+	 * @return the cached result or null if there were no results (type Array<SearchSuggestionItem>|null)
 	 */
 	getCachedResult: function (query: string): any {
 		return this.get('cachedResults')[query];
