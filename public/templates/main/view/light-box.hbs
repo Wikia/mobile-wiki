@@ -1,0 +1,12 @@
+<div class="light-box--bar">
+	<div class="light-box--toolbar">{{toolbar}}</div>
+	<div class="light-box--close-button close-icon" {{action 'closeLightBox'}}>X</div>
+</div>
+<div class="light-box--content">
+	<div class="light-box--content-inner">
+		{{content}}
+	</div>
+</div>
+{{#if footer}}
+    <div class="light-box--footer">{{footer}}</div>
+{{/if}}

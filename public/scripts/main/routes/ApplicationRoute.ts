@@ -48,6 +48,20 @@ App.ApplicationRoute = Em.Route.extend({
 				// Reaching this clause means something is probably wrong.
 				console.log('unable to open link "' + target.href + '"');
 			}
+		},
+
+		openLightBox: function(lightBoxName) {
+			return this.render(lightBoxName, {
+				into: 'application',
+				outlet: 'light-box'
+			});
+		},
+
+		closeLightBox: function() {
+			return this.disconnectOutlet({
+				outlet: 'light-box',
+				parentView: 'application'
+			});
 		}
 	}
 });
