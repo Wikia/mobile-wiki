@@ -27,29 +27,36 @@ interface InternalTrackingConfig {
 module Wikia.Utils {
 	var config: InternalTrackingConfig,
 	    tracker: Wikia.Modules.InternalTracker,
-	    actions: any;
+	    actions: any,
+	    inited = false;
 
-	config = {
-		c: 123,
-		x: window.Wikia.wiki.siteName,
-		a: window.Wikia.article.details.title,
-		lc: window.Wikia.wiki.language,
-		n: 1,
-		u: 0,
-		s: 'mercury',
-		beacon: '',
-		cb: ~~(Math.random() * 99999)
-	};
+	/**
+	* @description Init function used to defer the binding of global variables until app is inited, mostly for testing
+	*/
+	function init(): void {
+		config = {
+			c: 123,
+			x: window.Wikia.wiki.siteName,
+			a: window.Wikia.article.details.title,
+			lc: window.Wikia.wiki.language,
+			n: 1,
+			u: 0,
+			s: 'mercury',
+			beacon: '',
+			cb: ~~(Math.random() * 99999)
+		};
 
-	tracker = new Wikia.Modules.InternalTracker({
-		baseUrl: 'http://a.wikia-beacon.com/__track/special/',
-		defaults: config
-	});
+		tracker = new Wikia.Modules.InternalTracker({
+			baseUrl: 'http://a.wikia-beacon.com/__track/special/',
+			defaults: config
+		});
+
+		inited = true;
+	}
 
 	// These actions were ported over from legacy Wikia app code:
 	// https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
 	// The property keys were modified to fit style rules
-
 	actions = {
 		dd: 'add',
 		// Generic click, mostly javascript clicks
@@ -115,7 +122,7 @@ module Wikia.Utils {
 	}
 
 	export function track(event: string, params: any): void {
-		var eventName: string = event,
+		var eventName = event,
 		    browserEvent = window.event,
 		    trackingMethod: string = params.trackingMethod || 'none',
 		    track: TrackingMethods = {},
@@ -127,10 +134,14 @@ module Wikia.Utils {
 
 		track[trackingMethod] = true;
 
+		if (!inited) {
+			init();
+		}
+
 		if (track.none) {
 			throw new Error('must specify a tracking method');
 		}
-		
+
 		if (track.both) {
 			track.ga = true;
 			track.internal = true;
@@ -141,7 +152,7 @@ module Wikia.Utils {
 		}
 
 		if (track.ga) {
-			gaqArgs.push(action, category, label);
+			gaqArgs.push(actions[action], category, label);
 			gaqArgs.push(value || '');
 			// No-interactive = true
 			gaqArgs.push(true);
