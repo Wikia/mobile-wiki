@@ -65,7 +65,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	/**
 	 * @desc Wrapper for query observer that also checks the cache
 	 */
-	search: Ember.observer('query', function (): void {
+	search: function (): void {
 		var query: string = this.get('query'),
 			cached: any;
 		this.set('suggestions', []);
@@ -89,7 +89,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 			this.set('isLoadingSearchResults', true);
 			Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
 		}
-	}),
+	}.observes('query'),
 
 	/**
 	 * @desc query observer which makes ajax request for search suggestions

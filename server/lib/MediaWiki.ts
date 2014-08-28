@@ -50,8 +50,6 @@ import Promise = require('bluebird');
 
 	getLocalNavData() {
 		var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
-		console.log('fetching ' + url);
-
 		return fetch(url);
 	}
 

@@ -1,28 +1,25 @@
 .local-wikia-search {
-	position: absolute;
-	visibility: hidden;
-	top: rem-calc(44);
 	bottom: 0;
-	width: 100%;
 	overflow: auto;
+	position: absolute;
+	top: rem-calc(44);
+	visibility: hidden;
+	width: 100%;
+
+	li {
+		border-bottom: rem-calc(1) solid #d0d0d0;
+		color: #333333;
+		font-size: rem-calc(13);
+		font-weight: normal;
+		list-style: none;
+		padding: rem-calc(15) $local-nav-li-gutter;
+		position: relative;
+		text-align: left;
+	}
 
 	ul {
 		margin: 0;
 		padding: 0;
-	}
-
-	li {
-		position: relative;
-
-		padding: rem-calc(15) $local-nav-li-gutter;
-		border-bottom: rem-calc(1) solid #d0d0d0;
-
-		text-align: left;
-		font-size: rem-calc(13);
-		font-weight: normal;
-		color: #333333;
-
-		list-style: none;
 	}
 }
 

@@ -1,9 +1,9 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface MouseEvent {
-	target: HTMLAnchorElement;
-	preventDefault: { (): void };
+// TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
+interface HTMLMouseEvent extends MouseEvent {
+	target: HTMLElement;
 }
 
 App.ApplicationView = Em.View.extend({
@@ -20,14 +20,15 @@ App.ApplicationView = Em.View.extend({
 		event.preventDefault();
 	},
 
-	mouseUp: function (event: MouseEvent): void {
+	mouseUp: function (event: HTMLMouseEvent): void {
 		var target: HTMLAnchorElement,
 			$closest: JQuery,
 			matches: Array<string>;
 
 		// First, check if the target is an anchor
 		if (event.target.tagName === 'A') {
-			target = event.target;
+			// If it is, we can coerce its type
+			target = <HTMLAnchorElement>event.target;
 		} else {
 			/**
 			 * If it isn't, check if the target has a parent that is an anchor

@@ -49,14 +49,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		});
 	},
 
-	modelObserver: Ember.observer('controller.model', function () {
+	modelObserver: function (): void {
 		var model = this.get('controller.model');
 
 		if (model) {
 			var title = model.get('cleanTitle');
 			document.title = title + ' - ' + Wikia.wiki.data.siteName;
 		}
-	}),
+	}.observes('controller.model'),
 
 	/**
 	 * @desc Generates table of contents data based on h2 elements in the article

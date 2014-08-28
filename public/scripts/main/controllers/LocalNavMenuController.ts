@@ -2,21 +2,27 @@
 'use strict';
 
 /**
- * @desc Type for nav menu item
- * The top level only has a children array, and the leaf nodes don't have
- * children arrays, so all properties have to be optional
+ * @desc type for topmost-level nav item, which doesn't have any of the
+ * properties defined in NavItem. Can also be used to describe any of NavItem
+ * which has children
  */
-interface NavItem {
+interface RootNavItem {
 	// Children, if this item has sub-items
 	children?: Array<NavItem>;
+}
+
+/**
+ * @desc Type for nav menu item
+ */
+interface NavItem extends RootNavItem {
 	// The link to this item's page
-	href?: string;
+	href: string;
 	// The index of this item in its parent's children array
-	index?: number;
-	// This item's parent item
-	parent?: NavItem;
+	index: number;
+	// This item's parent item (could  be RootNavItem or NavItem)
+	parent: RootNavItem;
 	// Text to print as menu item text
-	text?: string;
+	text: string;
 }
 
 /**
@@ -49,10 +55,10 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 	 */
 	injectParentPointersAndIndices: function (): void {
 		// topLevel is almost a NavItem but it has no href or text
-		var topLevel = this.get('menuRoot'),
+		var topLevel: RootNavItem = this.get('menuRoot'),
 			children: Array<NavItem> = topLevel.children,
 			i: number,
-			len: number = children.length;
+			len = children.length;
 		for (i = 0; i < len; i++) {
 			this.injectParentPointersAndIndicesHelper(topLevel, children[i], i);
 		}
@@ -66,7 +72,7 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 	 * 	we need it to link to the correct child
 	 * set the parent of all its children, depth-first.
 	 */
-	injectParentPointersAndIndicesHelper: function (parent: NavItem, curr: NavItem, index: number): void {
+	injectParentPointersAndIndicesHelper: function (parent: RootNavItem, curr: NavItem, index: number): void {
 		var i: number,
 			len: number;
 		curr.parent = parent;
@@ -97,7 +103,7 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 		 * @param index The index of the item to change to
 		 */
 		changeMenuItem: function (index: number): void {
-			var curr: NavItem = this.get('currentMenuItem');
+			var curr: RootNavItem = this.get('currentMenuItem');
 			this.set('currentMenuItem', curr.children[index]);
 			this.set('parentItem', curr);
 		}
