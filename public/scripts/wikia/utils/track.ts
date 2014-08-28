@@ -13,14 +13,25 @@ interface TrackingMethods {
 }
 
 interface InternalTrackingConfig {
+	// TODO: These are legacy config values that are terse and very coupled with MW, lets see if we can't
+	// deprecate these and use something a bit more appropriate
+	// wgCityId
 	c: Number;
+	// wgDBname
 	x: String;
+	// wgArticleId
 	a: String;
+	// wgContentLanguage
 	lc: String;
+	// wgNamespaceNumber
 	n: Number;
+	// trackID || wgTrackID || 0
 	u: Number;
+	// skin
 	s: String;
+	// beacon_id || ''
 	beacon: String;
+	// cachebuster
 	cb: Number;
 }
 
