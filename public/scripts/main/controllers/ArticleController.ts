@@ -10,15 +10,15 @@ App.ArticleController = Em.ObjectController.extend({
 			article.set('sections', headers);
 		},
 		changePage: function(title: string) {
+			var article = this.get('model');
 			//this is temporary solution
 			//this requires refactoring adEngine to support UMD
-
 			if (require) {
 				require([
 					'ext.wikia.adEngine.adEngine',
 					'ext.wikia.adEngine.adConfigMobile'
 				], function(adEngine: any, adConfigMobile: any){
-
+					adConfigMobile.setContext(article.get('adsContext'));
 					adEngine.run( adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile' );
 				});
 			}
