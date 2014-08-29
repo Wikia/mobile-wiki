@@ -2,7 +2,7 @@
 'use strict';
 
 App.LightBoxController = Em.ObjectController.extend({
-	header: '',
-	content: '',
-	footer: ''
+	header: null,
+	content: null,
+	footer: null
 });
