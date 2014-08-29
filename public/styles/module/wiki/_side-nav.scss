@@ -152,8 +152,7 @@
 	}
 
 	&.slide-into-view .drawer {
-		animation-name: slide-in;
-		animation: $transition-length;
+		animation: slide-in $transition-length;
 		left: 0;
 	}
 }
