@@ -17,7 +17,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	jumpToAnchor: function (): void {
 		var hash = App.get('hash');
 		if (hash) {
-			window.scrollTo(0, Ember.$(hash).offset().top);
+			window.location.hash = hash;
 		}
 		App.set('hash', null);
 	},
