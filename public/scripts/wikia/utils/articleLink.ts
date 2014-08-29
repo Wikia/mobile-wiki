@@ -7,6 +7,12 @@
  */
 'use strict';
 
+interface LinkInfo {
+	article: string;
+	url: string;
+	hash?: string;
+};
+
 module Wikia.Utils {
 	/**
 	 * @param basepath the base url of the wiki without trailing slash, i.e. http://lastofus.wikia.com
@@ -19,7 +25,7 @@ module Wikia.Utils {
 	 * non-null, then the application should transition to that article. If url is non-null, then the application should
 	 * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
 	 */
-	export function getLinkInfo(basepath: string, title: string, hash: string, uri: string): {article: string; url: string; } {
+	export function getLinkInfo(basepath: string, title: string, hash: string, uri: string): LinkInfo {
 		var localPathMatch = uri.match('^' + window.location.origin + '(.*)$');
 
 		if (localPathMatch) {
@@ -60,9 +66,11 @@ module Wikia.Utils {
 						url: hash
 					};
 				}
+
 				return {
 					article: article[3],
-					url: null
+					url: null,
+					hash: article[4] ? hash : null
 				};
 			}
 		}

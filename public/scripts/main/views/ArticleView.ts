@@ -14,6 +14,14 @@ var sloth = new Wikia.Modules.Sloth();
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
+	jumpToAnchor: function (): void {
+		var hash = App.get('hash');
+		if (hash) {
+			window.scrollTo(0, Ember.$(hash).offset().top);
+		}
+		App.set('hash', null);
+	},
+
 	/**
 	* willInsertElement
 	* @description The article view is only inserted once, and then refreshed on new models. Use this hook to bind
@@ -45,6 +53,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.injectAds();
+				this.jumpToAnchor();
 			}
 		});
 	},
