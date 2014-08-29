@@ -2,7 +2,7 @@ $modal-background: #3D3D3D;
 $modal-text-color: white;
 
 .lightbox-wrapper {
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	bottom: 0;
 	color: $modal-text-color;
 	font-size: 0.8rem;
@@ -56,7 +56,7 @@ $modal-text-color: white;
 }
 
 .lightbox-footer {
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(black, 0.8);
 	bottom: 0;
 	font-weight: 300;
 	height: auto;
