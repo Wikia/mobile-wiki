@@ -1,7 +1,7 @@
 $modal-background: #3D3D3D;
 $modal-text-color: white;
 
-.light-box-wrapper {
+.lightbox-wrapper {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	bottom: 0;
 	color: $modal-text-color;
@@ -13,7 +13,7 @@ $modal-text-color: white;
 	top: 0;
 }
 
-.light-box--header {
+.lightbox--header {
 	height: 40px;
 	width: 100%;
 	padding: 15px 13px;
@@ -21,12 +21,12 @@ $modal-text-color: white;
 	line-height: 15px;
 
 	//TODO: do better animation or something
-	.hidden-ui & {
+	.hidden-header & {
 		display: none;
 	}
 }
 
-.light-box--content {
+.lightbox--content {
 	background-color: $modal-background;
 	width: 100%;
 	height: 100%;
@@ -41,7 +41,7 @@ $modal-text-color: white;
 	}
 }
 
-.light-box--footer {
+.lightbox--footer {
 	background-color: rgba(0, 0, 0, 0.8);
 	bottom: 0;
 	font-weight: 300;
@@ -65,7 +65,7 @@ $modal-text-color: white;
 	}
 
 	//TODO: do better animation or something
-	.hidden-ui & {
+	.hidden-footer & {
 		display: none;
 	}
 
@@ -75,11 +75,11 @@ $modal-text-color: white;
 	}
 }
 
-.footer-expanded {
+.lightbox-footer-expanded {
 	max-height: none;
 }
 
-.light-box--close-button {
+.lightbox--close-button {
 	height: 45px;
 	padding: 13px;
 	position: absolute;
@@ -88,7 +88,7 @@ $modal-text-color: white;
 	width: 40px;
 }
 
-.light-box--content-inner {
+.lightbox--content-inner {
 	width: 100%;
 	height: 100%;
 }

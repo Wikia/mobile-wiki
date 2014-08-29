@@ -53,13 +53,13 @@ App.ApplicationRoute = Em.Route.extend({
 		openLightbox: function(lightboxName) {
 			return this.render(lightboxName, {
 				into: 'application',
-				outlet: 'light-box'
+				outlet: 'lightbox'
 			});
 		},
 
 		closeLightbox: function() {
 			return this.disconnectOutlet({
-				outlet: 'light-box',
+				outlet: 'lightbox',
 				parentView: 'application'
 			});
 		}
