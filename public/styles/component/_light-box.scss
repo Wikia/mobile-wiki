@@ -13,7 +13,7 @@ $modal-text-color: white;
 	top: 0;
 }
 
-.lightbox--header {
+.lightbox-header {
 	height: 40px;
 	width: 100%;
 	padding: 15px 13px;
@@ -26,12 +26,26 @@ $modal-text-color: white;
 	}
 }
 
-.lightbox--content {
+.lightbox-close-button {
+	height: 45px;
+	padding: 13px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 40px;
+}
+
+.lightbox-content-inner {
+	width: 100%;
+	height: 100%;
+}
+
+.lightbox-content {
 	background-color: $modal-background;
 	width: 100%;
 	height: 100%;
 
-	overflow:{
+	overflow: {
 		x: hidden;
 		y: scroll;
 	}
@@ -41,7 +55,7 @@ $modal-text-color: white;
 	}
 }
 
-.lightbox--footer {
+.lightbox-footer {
 	background-color: rgba(0, 0, 0, 0.8);
 	bottom: 0;
 	font-weight: 300;
@@ -77,18 +91,4 @@ $modal-text-color: white;
 
 .lightbox-footer-expanded {
 	max-height: none;
-}
-
-.lightbox--close-button {
-	height: 45px;
-	padding: 13px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 40px;
-}
-
-.lightbox--content-inner {
-	width: 100%;
-	height: 100%;
 }
