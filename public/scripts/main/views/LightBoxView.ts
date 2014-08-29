@@ -1,16 +1,18 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.LightBoxView = Em.View.extend({
-	classNames: ['light-box-wrapper'],
-	classNameBindings: ['status', 'hiddenUI'],
+App.LightboxView = Em.View.extend({
+	classNames: ['lightbox-wrapper'],
+	classNameBindings: ['status', 'hiddenFooter', 'hiddenHeader'],
 
 	footerExpanded: false,
-	hiddenUI: false,
+	hiddenFooter: false,
+	hiddenHeader: false,
 	status: 'open',
 
 	click: function(){
-		this.toggleProperty('hiddenUI');
+		this.toggleProperty('hiddenFooter');
+		this.toggleProperty('hiddenHeader');
 	},
 
 	actions: {
