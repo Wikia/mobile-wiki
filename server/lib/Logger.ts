@@ -32,7 +32,7 @@ module Logger {
 		'notice',
 		'info',
 		'debug'
-	].forEach(function (level) {
+	].forEach(function (level: string) {
 		Logger[level] = log(level.toUpperCase());
 	});
 }

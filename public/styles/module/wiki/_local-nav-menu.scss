@@ -1,0 +1,84 @@
+// Local Variables
+$title-height: rem-calc(25);
+
+.local-nav-menu {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: rem-calc(44);
+	width: 100%;
+
+	li {
+		border-bottom: rem-calc(1) solid #d0d0d0;
+		color: #333333;
+		font-size: rem-calc(14);
+		font-weight: normal;
+		height: rem-calc(44);
+		list-style: none;
+		overflow: hidden;
+		padding-left: $local-nav-li-gutter;
+		padding-top: rem-calc(11);
+		position: relative;
+		text-align: left;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		.chevron {
+			position: absolute;
+			right: $local-nav-li-gutter;
+			top: rem-calc(18);
+			transform: rotate(-90deg);
+		}
+
+		// Class for back button li
+		&.back {
+			color: #006598;
+			padding-left: $local-nav-li-gutter + rem-calc(20);
+
+			.chevron {
+				left: $local-nav-li-gutter;
+				right: auto;
+				transform: rotate(90deg);
+			}
+		}
+
+		// TODO: touch states
+		// &:hover, &:active, &:focus {
+		// 	background: yellow;
+		// }
+	}
+
+	.title {
+		background-color: #e0e0e0;
+		color: #123054;
+		font-size: rem-calc(12);
+		font-weight: bold;
+		height: $title-height;
+		padding-bottom: rem-calc(10);
+		padding-left: $local-nav-li-gutter;
+		padding-top: rem-calc(2);
+		position: absolute;
+		text-align: left;
+		text-transform: uppercase;
+		width: 100%;
+	}
+
+	ul {
+		bottom: 0;
+		height: 100%;
+		margin: 0;
+		overflow: auto;
+		padding: {
+			top: $title-height;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		};
+	}
+
+}
+
+&.search .local-nav-menu {
+	visibility: hidden;
+}
