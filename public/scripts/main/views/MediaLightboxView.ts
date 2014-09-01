@@ -12,6 +12,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 		}
 
 		this._super(event);
+	},
+
+	willDestroyElement: function(){
+		this.get('controller').set('file', null);
 	}
 });
 

@@ -96,5 +96,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
+	},
+
+	didInsertElement: function(){
+		var controller = this.get('controller');
+
+		if (controller.get('file')) {
+			controller.send('openLightbox', 'media-lightbox');
+		}
 	}
 });

@@ -50,9 +50,10 @@ App.ApplicationRoute = Em.Route.extend({
 			}
 		},
 
-		openLightbox: function(lightboxName: string, mediaRef: number) {
-			this.controllerFor(lightboxName).set('currentImage', mediaRef);
-			this.controllerFor(lightboxName).set('model', App.MediaModel.create());
+		openLightbox: function(lightboxName: string, mediaRef: any): string {
+			if (mediaRef) {
+				this.controllerFor(lightboxName).set('currentImage', mediaRef);
+			}
 
 			return this.render(lightboxName, {
 				into: 'application',

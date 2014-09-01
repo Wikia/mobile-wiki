@@ -2,7 +2,25 @@
 'use strict';
 
 App.MediaLightboxController = App.LightboxController.extend({
-	currentImage: 0,
+	needs: 'article',
+	file: Ember.computed.alias(
+		'controllers.article.file'
+	),
+
+	currentImage: 4,
+
+	init: function(){
+		this.set('model', App.MediaModel.create());
+
+		var i = 0;
+
+		this.get('model.media').forEach((value, key) => {
+			if(value.title === this.get('file')) {
+				this.set('currentImage', i);
+			}
+			i++;
+		});
+	},
 
 	currentMedia: function(){
 		var current = this.get('model.media')[this.get('currentImage')];
@@ -11,9 +29,13 @@ App.MediaLightboxController = App.LightboxController.extend({
 			this.set('isGallery', true);
 			this.set('galleryLength', current.length);
 			this.set('currentGalleryImage', 1);
+			this.set('file', current[0].title);
+
 			return current[0];
 		} else {
 			this.set('isGallery', false);
+			this.set('file', current.title);
+
 			return current;
 		}
 	}.property('model.media', 'currentImage'),
