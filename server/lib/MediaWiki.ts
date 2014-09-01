@@ -1,6 +1,6 @@
 /// <reference path="../../typings/bluebird/bluebird.d.ts" />
 /// <reference path="../../typings/node/node.d.ts" />
-/// <reference path="../../typings/nipple/nipple.d.ts" />
+/// <reference path="../../typings/wreck/wreck.d.ts" />
 
 /**
  * @description Mediawiki API functions
@@ -94,7 +94,8 @@ export class ArticleRequest {
 export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
-			redirects: redirects
+			redirects: redirects,
+			timeout:   10000 // timeout after 10 seconds
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
 				reject(err);
