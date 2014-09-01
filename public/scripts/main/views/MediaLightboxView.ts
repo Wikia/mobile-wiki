@@ -1,24 +1,11 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.LightboxView = Em.View.extend({
-	classNames: ['lightbox-wrapper'],
-	classNameBindings: ['status', 'hiddenFooter', 'hiddenHeader'],
-
-	footerExpanded: false,
-	hiddenFooter: false,
-	hiddenHeader: false,
-	status: 'open',
+App.MediaLightboxView = App.LightboxView.extend({
+	classNames: ['media-lightbox'],
 
 	click: function(){
-		this.toggleProperty('hiddenFooter');
-		this.toggleProperty('hiddenHeader');
-	},
-
-	actions: {
-		toggleFooter: function(){
-			this.toggleProperty('footerExpanded');
-		}
+		this.get('controller').incrementProperty('currentGalleryImage')
 	}
 });
 

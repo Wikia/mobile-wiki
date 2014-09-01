@@ -1,28 +1,13 @@
 /// <reference path="../app.ts" />
-
 'use strict';
 
-App.ArticleCommentsModel = Ember.Object.extend({
-});
-
-App.ArticleCommentsModel.reopenClass({
-	find: function (params: any) {
-		var model = App.ArticleCommentsModel.create();
-
-		return new Ember.RSVP.Promise((resolve: Function, reject: Function) => {
-			Ember.$.ajax({
-				url: this.url(params.id),
-				success: function (data) {
-					model.setProperties(data.payload);
-					resolve(model);
-				},
-				error: function (data) {
-					reject(data);
-				}
-			});
-		});
+App.MediaModel = Ember.ArrayController.extend({
+	//media: Wikia.article.article.media,
+	init: function(){
+		this.set('media', Wikia.article.article.media)
 	},
-	url: function (id: string) {
-		return '/api/v1/article/comments/' + id;
-	}
+	image: function(mediaRef = 0){
+		console.log(this.get('media'))
+		return this.get('media')[mediaRef];
+	}.property('media')
 });

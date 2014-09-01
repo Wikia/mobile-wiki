@@ -50,7 +50,7 @@ App.ApplicationView = Em.View.extend({
 		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef);
 
-			this.get('controller').send('openLightbox', 'lightbox', mediaRef);
+			this.get('controller').send('openLightbox', 'media-lightbox', mediaRef);
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}

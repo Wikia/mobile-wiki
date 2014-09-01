@@ -46,11 +46,14 @@ App.ApplicationRoute = Em.Route.extend({
 				}
 			} else {
 				// Reaching this clause means something is probably wrong.
-				console.log('unable to open link "' + target.href + '"');
+				Em.Logger.error('unable to open link', target.href);
 			}
 		},
 
-		openLightbox: function(lightboxName) {
+		openLightbox: function(lightboxName: string, mediaRef: number) {
+			this.controllerFor(lightboxName).set('currentImage', mediaRef);
+			this.controllerFor(lightboxName).set('model', App.MediaModel.create());
+
 			return this.render(lightboxName, {
 				into: 'application',
 				outlet: 'lightbox'
