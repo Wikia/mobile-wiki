@@ -3,6 +3,6 @@
 
 App.LightboxController = Em.ObjectController.extend({
 	header: null,
-	contents: null,
+	content: null,
 	footer: null
 });
