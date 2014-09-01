@@ -9,30 +9,24 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 		if (Em.$.isArray(current)) {
 			this.set('isGallery', true);
-			this.set('galleryLength', current.length - 1);
+			this.set('galleryLength', current.length);
 			this.set('currentGalleryImage', 1);
+			return current[0];
 		} else {
 			this.set('isGallery', false);
+			return current;
 		}
-
-		return current;
 	}.property('model.media', 'currentImage'),
 
 	contents: function(){
-		if(this.get('isGallery')) {
-			return ('<img src="' + this.get('currentMedia')[this.get('currentGalleryImage')].url + '">').htmlSafe();
-		} else {
-			return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
-		}
-
-	}.property('currentMedia', 'isGallery', 'currentGalleryImage'),
+		return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
+	}.property('currentMedia'),
 
 	footer: function() {
-		if (this.get('isGallery')) {
-			return this.get('currentMedia')[this.get('currentGalleryImage')].caption.htmlSafe()
-		}
-		return this.get('currentMedia').caption.htmlSafe();
-	}.property('currentMedia',  'currentGalleryImage', 'isGallery'),
+		var caption = this.get('currentMedia').caption;
+
+		return caption && caption.htmlSafe();
+	}.property('currentMedia'),
 
 	galleryHeader: function(){
 		return this.get('currentGalleryImage') + ' / ' + this.get('galleryLength');
@@ -42,7 +36,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		if (this.get('isGallery')) {
 			return this.get('galleryHeader');
 		}
-		return 'arft'//this.get('currentMedia').title.htmlSafe();
-	}.property('currentMedia', 'isGallery', 'galleryHeader')
+		return '';
+	}.property('isGallery', 'galleryHeader')
 
 });
