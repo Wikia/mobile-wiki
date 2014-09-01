@@ -7,7 +7,7 @@
  */
 
 import localSettings = require('../../config/localSettings');
-import Nipple = require('nipple');
+import Wreck = require('wreck');
 import Promise = require('bluebird');
 
 
@@ -93,7 +93,7 @@ export class ArticleRequest {
  */
 export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
-		Nipple.get(url, {
+		Wreck.get(url, {
 			redirects: redirects
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
