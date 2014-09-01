@@ -21,7 +21,7 @@ App.initializer({
 		$('html').removeClass('preload');
 		i18n.init({
 			lng: application.get('language'),
-			fallbackLng: application.get('language'),
+			fallbackLng: 'en',
 			debug: true,
 			resStore: Wikia._t,
 			useLocalStorage: false
