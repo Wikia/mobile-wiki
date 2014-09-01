@@ -7,18 +7,24 @@ $modal-text-color: white;
 	color: $modal-text-color;
 	font-size: 0.8rem;
 	left: 0;
+	opacity: 0;
 	overflow: hidden;
 	position: fixed;
 	right: 0;
 	top: 0;
+	transition: opacity .3s;
+
+	&.open {
+		opacity: 1;
+	}
 }
 
 .lightbox-header {
 	height: 40px;
-	width: 100%;
+	line-height: 15px;
 	padding: 15px 13px;
 	position: absolute;
-	line-height: 15px;
+	width: 100%;
 
 	//TODO: do better animation or something
 	.hidden-header & {
@@ -36,14 +42,14 @@ $modal-text-color: white;
 }
 
 .lightbox-content-inner {
-	width: 100%;
 	height: 100%;
+	width: 100%;
 }
 
 .lightbox-content {
 	background-color: $modal-background;
-	width: 100%;
 	height: 100%;
+	width: 100%;
 
 	overflow: {
 		x: hidden;
