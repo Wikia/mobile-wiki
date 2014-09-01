@@ -50,7 +50,7 @@ App.ApplicationRoute = Em.Route.extend({
 			}
 		},
 
-		openLightbox: function(lightboxName) {
+		openLightbox: function(lightboxName: string) {
 			return this.render(lightboxName, {
 				into: 'application',
 				outlet: 'lightbox'

@@ -16,13 +16,13 @@ function methods(server: Hapi.Server): void {
 			}
 		};
 
-	server.method('searchForQuery', (params: any, next: any) => {
+	server.method('searchForQuery', (params: any, next: Function) => {
 		search.searchWiki(params, (data: any) => {
 			next(null, data);
 		}, (err: any) => {
 			next(err);
 		});
-	});
+	}, {});
 
 	server.method('getPrerenderedData', indexController, cacheOptions);
 
