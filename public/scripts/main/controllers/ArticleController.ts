@@ -19,7 +19,7 @@ App.ArticleController = Em.ObjectController.extend({
 					'ext.wikia.adEngine.adConfigMobile'
 				], function(adEngine: any, adConfigMobile: any){
 					adConfigMobile.setContext(article.get('adsContext'));
-					adEngine.run( adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile' );
+					adEngine.run(adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile');
 				});
 			}
 
