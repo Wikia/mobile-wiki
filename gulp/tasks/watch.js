@@ -17,7 +17,8 @@ gulp.task('watch', ['assets'], function () {
 				forms: true,
 				scroll: true
 			},
-			open: false
+			debugInfo: false,
+			open: false,
 		});
 	}
 
