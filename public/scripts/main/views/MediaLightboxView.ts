@@ -16,15 +16,19 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this._super(event);
 	},
 
-	willDestroyElement: function(){
-		this.get('controller').set('file', null);
-		this._super();
-	},
-
 	didInsertElement: function() {
+		Em.$('body').css('overflow', 'hidden');
+
 		setTimeout(() => {
 			this.set('status', 'open');
 		}, 100);
+
+		this._super();
+	},
+
+	willDestroyElement: function(){
+		this.get('controller').set('file', null);
+		Em.$('body').css('overflow', 'auto');
 
 		this._super();
 	}
