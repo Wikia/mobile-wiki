@@ -35,8 +35,7 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 		});
 
 		props = Promise.props({
-			wikiVariables: wikiRequest.getWikiVariables(),
-			wikiNavData: wikiRequest.getLocalNavData()
+			wikiVariables: wikiRequest.getWikiVariables()
 		});
 	}
 
@@ -58,7 +57,6 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 
 			props.then((payload: any) => {
 				data.wiki = payload.wikiVariables.data;
-				data.wiki.navData = payload.wikiNavData;
 
 				callback(data);
 			}).catch(err);

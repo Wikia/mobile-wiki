@@ -83,7 +83,8 @@ function routes(server: Hapi.Server) {
 				var errorParams = {
 					message: 'Internal Server Error',
 					code: 500,
-					details: ''
+					details: '',
+					gaId: ''
 				};
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
