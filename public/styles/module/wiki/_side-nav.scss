@@ -120,6 +120,8 @@
 		}
 
 		&.search {
+			overflow-x: hidden;
+			overflow-y: auto;
 			visibility: visible;
 			width: 100%;
 
