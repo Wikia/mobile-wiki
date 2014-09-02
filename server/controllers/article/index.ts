@@ -47,7 +47,7 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 			var data = response.data;
 
 			if (!data) {
-				err(data);
+				err(response);
 				return;
 			}
 

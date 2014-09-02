@@ -80,14 +80,22 @@ function routes(server: Hapi.Server) {
 			path: route,
 			config: config,
 			handler: (request: Hapi.Request, reply: any) => {
+				var errorParams = {
+					message: 'Internal Server Error',
+					code: 500,
+					details: ''
+				};
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
 					title: request.params.title
 				}, (error: any, result: any) => {
 					// TODO: handle error a bit better :D
 					if (error) {
-						error = Hapi.error.notFound(notFoundError);
-						reply.view('error', error);
+						if (error.exception) {
+							errorParams = error.exception;
+						}
+						errorParams.gaId = localSettings.gaId;
+						reply.view('error', errorParams).code(errorParams.code);
 					} else {
 						// export Google Analytics code to layout
 						result.gaId = localSettings.gaId;
