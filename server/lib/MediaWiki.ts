@@ -1,13 +1,13 @@
 /// <reference path="../../typings/bluebird/bluebird.d.ts" />
 /// <reference path="../../typings/node/node.d.ts" />
-/// <reference path="../../typings/nipple/nipple.d.ts" />
+/// <reference path="../../typings/wreck/wreck.d.ts" />
 
 /**
  * @description Mediawiki API functions
  */
 
 import localSettings = require('../../config/localSettings');
-import Nipple = require('nipple');
+import Wreck = require('wreck');
 import Promise = require('bluebird');
 
 
@@ -93,8 +93,9 @@ export class ArticleRequest {
  */
 export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
-		Nipple.get(url, {
-			redirects: redirects
+		Wreck.get(url, {
+			redirects: redirects,
+			timeout:   10000 // timeout after 10 seconds
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
 				reject(err);

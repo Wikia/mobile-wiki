@@ -1,3 +1,15 @@
 .article-media {
+	background-color: #e7e7e7;
 	display: block;
+	margin: 0 auto;
+	height: inherit;
+
+	&.load {
+		//place holder for state when images is being loaded
+	}
+
+	&.loaded {
+		background-color: transparent;
+		height: auto;
+	}
 }
