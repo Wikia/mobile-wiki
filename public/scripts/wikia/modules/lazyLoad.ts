@@ -73,7 +73,7 @@ module Wikia.Modules {
 					//elm.parentNode.replaceChild(img, elm);
 					//don't do any animation if image is already loaded
 					if (img.complete) {
-						LazyLoad.displayImage(elm, src, background);
+						LazyLoad.displayImage(elm, img.src, background);
 					} else {
 						img.onload = this.onLoad(elm, background);
 					}
