@@ -14,8 +14,7 @@
  * </svg>
  */
 Em.Handlebars.registerHelper('svg', function (name: string, viewBox?: string, classes?: string) {
-	var ret: string;
-	ret = '<svg'
+	var ret = '<svg';
 	if (viewBox) {
 		ret += ' viewBox="' + viewBox + '"'
 	}
@@ -23,6 +22,5 @@ Em.Handlebars.registerHelper('svg', function (name: string, viewBox?: string, cl
 		ret += ' class="' + classes + '"';
 	}
 	ret +='><use xlink:href="#' + name + '"></use></svg>';
-	Em.Logger.info(ret);
-	return new Ember.Handlebars.SafeString(ret);
+	return new Em.Handlebars.SafeString(ret);
 });
