@@ -27,7 +27,7 @@ $modal-text-color: white;
 	width: 100%;
 
 	//TODO: do better animation or something
-	.hidden-header & {
+	&.header-hidden {
 		display: none;
 	}
 }
@@ -68,7 +68,7 @@ $modal-text-color: white;
 	height: auto;
 	left: 0;
 	line-height: 1rem;
-	max-height: 60px;
+	max-height: 4rem;
 	padding: 15px 13px;
 	position: absolute;
 	width: 100%;
@@ -85,7 +85,7 @@ $modal-text-color: white;
 	}
 
 	//TODO: do better animation or something
-	.hidden-footer & {
+	&.footer-hidden {
 		display: none;
 	}
 
