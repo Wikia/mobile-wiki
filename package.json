@@ -26,8 +26,8 @@
     "good": "2.x.x",
     "handlebars": "2.x.x",
     "hapi": "6.x.x",
-    "nipple": "^2.5.6",
-    "catbox-memcached": "~1.0.2"
+    "catbox-memcached": "~1.0.2",
+    "wreck": "^4.0.0"
   },
   "devDependencies": {
     "browser-sync": "1.x.x",

@@ -138,6 +138,23 @@ function routes(server: Hapi.Server) {
 		}
 	});
 
+	server.route({
+		method: 'GET',
+		path: '/api/v1/search/{query}',
+		handler: (request: any, reply: any) => {
+			var params = {
+				wikiName: getWikiName(request.headers.host),
+				query: request.params.query
+			};
+			server.methods.searchForQuery(params, (error: any, result: any) => {
+				if (error) {
+					error = Hapi.error.notFound('No results for that search term');
+				}
+				reply(error || result);
+			});
+		}
+	});
+
 	// Set up static assets serving, this is probably not a final implementation as we should probably setup
 	// nginx or apache to serve static assets and route the rest of the requests to node.
 	server.route({

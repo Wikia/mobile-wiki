@@ -1,0 +1,14 @@
+<ul>
+	{{#each controller.suggestions}}
+		<a {{action 'collapseSideNav' target="view.parentView" on="mouseUp"}} href="{{unbound url}}">
+			<li>{{unbound title}}</li>
+		</a>
+	{{else}}
+	{{#if showEmptyMessage}}
+		<li>{{i18n 'search-no-results-msg'}}</li>
+	{{/if}}
+	{{#if isLoadingSearchResults}}
+		<li>{{i18n 'search-loading-msg'}}</li>
+	{{/if}}
+	{{/each}}
+</ul>

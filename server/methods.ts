@@ -1,4 +1,5 @@
 import indexController = require('./controllers/home/index');
+import search = require('./controllers/search');
 import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
 
@@ -14,6 +15,14 @@ function methods(server: Hapi.Server): void {
 				return JSON.stringify(opts);
 			}
 		};
+
+	server.method('searchForQuery', (params: any, next: Function) => {
+		search.searchWiki(params, (data: any) => {
+			next(null, data);
+		}, (err: any) => {
+			next(err);
+		});
+	}, {});
 
 	server.method('getPrerenderedData', indexController, cacheOptions);
 

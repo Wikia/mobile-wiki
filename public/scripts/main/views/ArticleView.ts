@@ -39,8 +39,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				var lazyImages = this.$('.article-media');
-				var lazy = new Wikia.Modules.LazyLoad();
+				var lazyImages = this.$('.article-media'),
+					lazy = new Wikia.Modules.LazyLoad();
 
 				lazy.fixSizes(lazyImages);
 
@@ -58,14 +58,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		});
 	},
 
-	modelObserver: function () {
+	modelObserver: function (): void {
 		var model = this.get('controller.model');
 
 		if (model) {
 			var title = model.get('cleanTitle');
 			document.title = title + ' - ' + Wikia.wiki.siteName;
 		}
-	}.property('controller.model'),
+	}.observes('controller.model'),
 
 	/**
 	 * @desc Generates table of contents data based on h2 elements in the article

@@ -1,0 +1,158 @@
+// Slide drawer into view
+@keyframes slide-in {
+	0% {
+		left: $side-nav-offset;
+	}
+
+	100% {
+		left: 0;
+	}
+}
+
+.side-nav {
+	// open nav button
+	.nav-container {
+		height: 100%;
+		padding-top: rem-calc(15);
+		position: absolute;
+		width: rem-calc(60);
+
+		svg {
+			display: block;
+			height: rem-calc(20);
+			margin: auto;
+			width: auto;
+		}
+	}
+
+	// overlay
+	.overlay {
+		@include perfect-square(100%);
+		background-color: black;
+		left: 0;
+		position: fixed;
+		top: 0;
+		z-index: 10;
+	}
+
+	&.hidden .overlay {
+		opacity: 0;
+		transition: visibility 0s $transition-length, opacity $transition-length;
+		visibility: hidden;
+	}
+
+	&.slide-into-view  .overlay {
+		opacity: $overlay-opacity;
+		transition: opacity $transition-length;
+		visibility: visible;
+	}
+
+	// slide-out drawer
+	.drawer {
+		background-color: white;
+		height: 100%;
+		position: fixed;
+		z-index: 11;
+
+		.clear-search-btn {
+			@include perfect-square(45px);
+			cursor: pointer;
+			left: rem-calc(214);
+			padding: {
+				top: rem-calc(11.5);
+				left: rem-calc(20);
+			}
+			position: absolute;
+			top: 0;
+			user-select: none;
+			visibility: hidden;
+		}
+
+		.icon.search-side-menu {
+			left: rem-calc(90);
+			position: absolute;
+			top: rem-calc(15);
+		}
+
+		input {
+			background-color: #f0f0f0;
+			background-color: white;
+			border-color: #d0d0d0;
+			border-radius: rem-calc(2);
+			border: rem-calc(1) solid $search-box-color;
+			float: left;
+			font-size: rem-calc(13);
+			height: rem-calc(28);
+			left: 0;
+			margin: rem-calc(8) $local-nav-li-gutter;
+			outline: none;
+			padding-left: rem-calc(95);
+			padding-right: rem-calc(25);
+			top: 0;
+			width: $side-nav-width - (2 * $local-nav-li-gutter);
+		}
+
+		.search-container {
+			border-bottom: rem-calc(1) solid #d0d0d0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			text-align: left;
+
+			// Cancel search div
+			.cancel {
+				color: #006598;
+				font-size: rem-calc(13);
+				padding: {
+					bottom: rem-calc(10);
+					left:   rem-calc(10);
+					right:  rem-calc(13);
+					top:    rem-calc(10);
+				}
+				position: absolute;
+				right: 0;
+			}
+		}
+
+		::placeholder {
+			color: $search-box-color;
+		}
+
+		&.search {
+			visibility: visible;
+			width: 100%;
+
+			.clear-search-btn {
+				visibility: visible;
+			}
+
+			.icon.search-side-menu {
+				left: rem-calc(20);
+			}
+
+			input {
+				padding-left: rem-calc(25);
+				width: rem-calc(243);
+			}
+		}
+
+		&:not(.search) {
+			width: $side-nav-width;
+
+			.cancel {
+				visibility: hidden;
+			}
+		}
+	}
+
+	&.hidden .drawer {
+		left: $side-nav-offset;
+		transform: translateX($side-nav-offset);
+		transition: $transition-length;
+	}
+
+	&.slide-into-view .drawer {
+		animation: slide-in $transition-length;
+		left: 0;
+	}
+}

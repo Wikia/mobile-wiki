@@ -1,0 +1,100 @@
+$modal-background: #3D3D3D;
+$modal-text-color: white;
+
+.lightbox-wrapper {
+	-webkit-tap-highlight-color: transparent;
+	bottom: 0;
+	color: $modal-text-color;
+	font-size: 0.8rem;
+	left: 0;
+	opacity: 0;
+	overflow: hidden;
+	position: fixed;
+	right: 0;
+	top: 0;
+	transition: opacity .3s;
+
+	&.open {
+		opacity: 1;
+	}
+}
+
+.lightbox-header {
+	height: 40px;
+	line-height: 15px;
+	padding: 15px 13px;
+	position: absolute;
+	width: 100%;
+
+	//TODO: do better animation or something
+	.hidden-header & {
+		display: none;
+	}
+}
+
+.lightbox-close-button {
+	height: 45px;
+	padding: 13px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 40px;
+}
+
+.lightbox-content-inner {
+	height: 100%;
+	width: 100%;
+}
+
+.lightbox-content {
+	background-color: $modal-background;
+	height: 100%;
+	width: 100%;
+
+	overflow: {
+		x: hidden;
+		y: scroll;
+	}
+
+	& > p {
+		margin: 0;
+	}
+}
+
+.lightbox-footer {
+	background-color: rgba(black, 0.8);
+	bottom: 0;
+	font-weight: 300;
+	height: auto;
+	left: 0;
+	line-height: 1rem;
+	max-height: 60px;
+	padding: 15px 13px;
+	position: absolute;
+	width: 100%;
+
+	&::after {
+		background: linear-gradient(top, transparent 10%, black 100%);
+		bottom: 0;
+		content: '';
+		display: block;
+		height: 15px;
+		left: 0;
+		position: absolute;
+		right: 0;
+	}
+
+	//TODO: do better animation or something
+	.hidden-footer & {
+		display: none;
+	}
+
+	//caption is an output from parser
+	p {
+		margin: 0;
+	}
+}
+
+.lightbox-footer-expanded {
+	max-height: none;
+}

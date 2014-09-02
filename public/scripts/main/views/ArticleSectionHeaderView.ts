@@ -3,5 +3,5 @@
 
 App.ArticleSectionHeaderView = Em.View.extend({
 	classNames: ['article-section-header'],
-	layoutName: 'view/article-section-header'
+	layoutName: 'article/section-header'
 });
