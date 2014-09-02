@@ -11,7 +11,6 @@ App.LightboxController = Em.ObjectController.extend({
 			this.toggleProperty('lightboxFooterExpanded');
 		},
 		hideUI: function(): void {
-
 			this.toggleProperty('footerHidden');
 			this.toggleProperty('headerHidden');
 		}
