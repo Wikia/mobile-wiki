@@ -19,5 +19,13 @@ App.LightboxView = Em.View.extend({
 		if (event.keyCode === 27) {
 			this.get('controller').send('closeLightbox');
 		}
+	},
+
+	willDestroyElement: function(){
+		this.get('controller').setProperties({
+			'lightboxFooterExpanded': false,
+			'footerHidden': false,
+			'headerHidden': false
+		});
 	}
 });

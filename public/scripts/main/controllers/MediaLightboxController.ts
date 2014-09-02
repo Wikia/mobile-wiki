@@ -9,7 +9,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 	currentImage: 4,
 
-	init: function(){
+	init: function() {
 		this.set('model', App.MediaModel.create());
 
 		var i = 0;
@@ -22,7 +22,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		});
 	},
 
-	currentMedia: function(){
+	currentMedia: function() {
 		var current = this.get('model.media')[this.get('currentImage')];
 
 		if (Em.$.isArray(current)) {
@@ -40,7 +40,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('model.media', 'currentImage'),
 
-	contents: function(){
+	contents: function() {
 		return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
 	}.property('currentMedia'),
 

@@ -7,12 +7,15 @@ $modal-text-color: white;
 	color: $modal-text-color;
 	font-size: 0.8rem;
 	left: 0;
-	opacity: 0;
 	overflow: hidden;
 	position: fixed;
 	right: 0;
 	top: 0;
 	transition: opacity .3s;
+
+	&.opening {
+		opacity: 0;
+	}
 
 	&.open {
 		opacity: 1;
@@ -58,6 +61,16 @@ $modal-text-color: white;
 
 	& > p {
 		margin: 0;
+	}
+
+	img {
+		width: 100%;
+		opacity: 0;
+		transition: .01s opacity .3s;
+
+		.open & {
+			opacity: 1;
+		}
 	}
 }
 
