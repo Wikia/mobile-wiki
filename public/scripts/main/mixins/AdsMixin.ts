@@ -44,7 +44,7 @@ App.AdsMixin = Em.Mixin.create({
 		if (typeof require !== 'undefined') {
 			require([
 				'ext.wikia.adEngine.adEngine',
-				'ext.wikia.adEngine.adContext'
+				'ext.wikia.adEngine.adContext',
 				'ext.wikia.adEngine.adConfigMobile'
 			], function(adEngine: any, adContext: any, adConfigMobile: any){
 				adContext.setContext(adsContext);
