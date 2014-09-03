@@ -33,5 +33,22 @@ App.AdsMixin = Em.Mixin.create({
 		if (showPreFooter) {
 			this.appendAd(this.adsData.mobilePreFooter, 'after', $articleBody);
 		}
+	},
+
+	setupAdsContext: function (adsContext: any): void {
+		// FIXME: this is temporary solution
+		// this requires refactoring adEngine to support UMD
+		//
+		// On the first run require is undefined but the run is executed in the mercury.js file relying on the
+		// window setting for the context.
+		if (typeof require !== 'undefined') {
+			require([
+				'ext.wikia.adEngine.adEngine',
+				'ext.wikia.adEngine.adConfigMobile'
+			], function(adEngine: any, adConfigMobile: any){
+				adConfigMobile.setContext(adsContext);
+				adEngine.run(adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile');
+			});
+		}
 	}
 });
