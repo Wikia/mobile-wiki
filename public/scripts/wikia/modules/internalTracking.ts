@@ -20,14 +20,16 @@ module Wikia.Modules {
 		}
 
 		public track(eventName: string = 'trackingevent', params: any = {}): void {
-			var requestURL = this.createRequestURL(config),
-			    config = W.extend(params, this.defaults);
+			var requestURL: string,
+			    config: any;
 
-			this.baseUrl += encodeURIComponent(eventName);
+			config = W.extend(params, this.defaults);
+			requestURL = this.createRequestURL(eventName, config);
+
 			this.loadTrackingScript(requestURL);
 		}
 
-		createRequestURL(params: any): string {
+		createRequestURL(eventName: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string;
 
@@ -36,7 +38,7 @@ module Wikia.Modules {
 				parts.push(paramStr);
 			});
 
-			return this.baseUrl + '?' + parts.join('&');
+			return this.baseUrl + eventName + '?' + parts.join('&');
 		}
 
 		loadTrackingScript(url: string): void {

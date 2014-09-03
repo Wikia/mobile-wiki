@@ -19,7 +19,9 @@ import logger = require('../../lib/Logger');
  * @param err
  */
 export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any) {
-	var wikiVariables: any,
+	var wikiRequest: MediaWiki.WikiRequest,
+		// Bluebird promise.props object
+		props: any,
 		article = new MediaWiki.ArticleRequest({
 			name: data.wikiName,
 			title: data.articleTitle
@@ -27,9 +29,15 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 
 	if (getWikiInfo) {
 		logger.info('Fetching wiki variables', data.wikiName);
-		wikiVariables = new MediaWiki.WikiRequest({
+
+		wikiRequest = new MediaWiki.WikiRequest({
 			name: data.wikiName
-		}).getWikiVariables();
+		});
+
+		props = Promise.props({
+			wikiVariables: wikiRequest.getWikiVariables(),
+			wikiNavData: wikiRequest.getLocalNavData()
+		});
 	}
 
 	logger.info('Fetching article', data.wikiName, data.articleTitle);
@@ -43,18 +51,17 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 				return;
 			}
 
-			if (!wikiVariables) {
+			if (!wikiRequest) {
 				callback(data);
 				return;
 			}
 
-			wikiVariables.then((payload: any) => {
-				data.wiki = payload.data;
+			props.then((payload: any) => {
+				data.wiki = payload.wikiVariables.data;
+				data.wiki.navData = payload.wikiNavData;
 
 				callback(data);
-			}).catch((error: any) => {
-				err(error);
-			});
+			}).catch(err);
 		});
 }
 

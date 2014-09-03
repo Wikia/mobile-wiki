@@ -5,10 +5,18 @@
 function resetWikiaBaseline () {
 	var W = window.W;
 	W.provide('_state.firstPage', true);
-	W.provide('article.articleDetails.comments', {});
-	W.provide('article.articleDetails.id', 0);
-	W.provide('article.articleDetails.ns', {});
-	W.provide('article.articleDetails.title', {});
+	W.provide('article.details', {
+		abstract: 'Test abstract',
+		comments: 99,
+		id: 123,
+		ns: 0,
+		original_dimensions: {},
+		revision: {},
+		thumbnail: '',
+		title: 'Test',
+		type: 'article',
+		url: '/wiki/Test',
+	});
 	W.provide('article.relatedPages.items', []);
 	W.provide('article.userDetails.items', []);
 	W.provide('article.payload.media', []);
@@ -17,6 +25,9 @@ function resetWikiaBaseline () {
 	W.provide('article.payload.user', 0);
 	W.provide('article.payload.categories', []);
 	W.provide('ads.slots', []);
+	W.provide('wiki', {
+		siteName: 'Test Site'
+	});
 }
 
 resetWikiaBaseline();
