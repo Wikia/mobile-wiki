@@ -1,5 +1,4 @@
-QUnit.module('extend tests');
-
+module('extend tests');
 
 test('extends object with another objects properties', function () {
 	var testCases = [
