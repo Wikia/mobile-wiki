@@ -19,7 +19,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	didInsertElement: function() {
-		Em.$('body').css('overflow', 'hidden');
+		this.get('controller').send('disableScrolling');
 
 		this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
@@ -27,33 +27,37 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this._super();
 	},
 
-	animateMedia: function(image) {
-		var $imageCopy = $(image).clone();
+	animateMedia: function(image?: HTMLElement) {
+		if (image) {
+			var $image = $(image),
+				offset = $image.offset(),
+				$imageCopy = $(image).clone();
 
-		//initial style, mimck the image that is in page
-		$imageCopy.css({
-			position: 'fixed',
-			top: image.offsetTop - window.scrollY + 'px',
-			left: image.offsetLeft + 'px',
-			width: image.clientWidth + 'px',
-			transition: 'all .3s'
-		});
+			//initial style, mimck the image that is in page
+			$imageCopy.css({
+				position: 'fixed',
+				top: offset.top - window.scrollY + 'px',
+				left: offset.left + 'px',
+				width: $image.width() + 'px',
+				transition: 'all .3s'
+			});
 
-		this.$().append($imageCopy);
+			this.$().append($imageCopy);
 
-		//animate to full width and middle of screen
-		$imageCopy.css({
-			width: document.body.offsetWidth + 'px',
-			top: this.$('img')[0].offsetTop + 'px',
-			left: 0
-		}).on('webkitTransitionEnd', function(){
-			//$imageCopy.remove();
-		});
+			//animate to full width and middle of screen
+			$imageCopy.css({
+				width: document.body.offsetWidth + 'px',
+				top: this.$('img')[0].offsetTop + 'px',
+				left: 0
+			}).on('webkitTransitionEnd', function(){
+				$imageCopy.remove();
+			});
+		}
 	},
 
 	willDestroyElement: function() {
 		this.get('controller').set('file', null);
-		Em.$('body').css('overflow', 'auto');
+		this.get('controller').send('enableScrolling');
 
 		this._super();
 	}
