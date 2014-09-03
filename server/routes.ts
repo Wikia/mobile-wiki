@@ -31,7 +31,7 @@ function getWikiName (host: string) {
 		regex = /^(?:sandbox\-[^\.]+|preview|verify)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
 		match = host.match(regex);
 		//TODO: This is a bad default, find better solution
-		wikiName = match ? match[1] : 'community';
+		wikiName = match ? match[1] : (localSettings.wikiFallback || 'community');
 
 		return wikiNames[host] = wikiName;
 	}
