@@ -16,6 +16,7 @@ function resetWikiaBaseline () {
 	W.provide('article.payload.users', []);
 	W.provide('article.payload.user', 0);
 	W.provide('article.payload.categories', []);
+	W.provide('ads.slots', []);
 }
 
 resetWikiaBaseline();
