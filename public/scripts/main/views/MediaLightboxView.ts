@@ -39,6 +39,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 				top: offset.top - window.scrollY + 'px',
 				left: offset.left + 'px',
 				width: $image.width() + 'px',
+				height: 'auto',
 				transition: 'all .3s'
 			});
 
