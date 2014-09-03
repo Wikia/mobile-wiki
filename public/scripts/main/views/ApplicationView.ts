@@ -64,6 +64,7 @@ App.ApplicationView = Em.View.extend({
 			Ember.$('body').removeClass('no-scroll');
 		},
 		setUnScrollable: function () {
+			debugger;
 			Ember.$('body').addClass('no-scroll');
 		}
 	}
