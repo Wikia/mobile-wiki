@@ -5,11 +5,20 @@
 	height: inherit;
 
 	&.load {
-		//place holder for state when images is being loaded
+		animation: lazyImage .3s;
 	}
 
 	&.loaded {
 		background-color: transparent;
 		height: auto;
+	}
+}
+
+@keyframes lazyImage {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
 	}
 }

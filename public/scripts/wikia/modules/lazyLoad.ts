@@ -14,30 +14,25 @@ interface DOMStringMap {
 
 module Wikia.Modules {
 	export class LazyLoad {
-		pageContent: HTMLElement;
-		pageWidth: number;
+		pageContent: JQuery;
 
 		constructor() {
-			this.pageContent = $('.article-content')[0];
-			this.pageWidth = this.pageContent.offsetWidth;
-
-			window.addEventListener('resize', (ev) => {
-				this.pageWidth = this.pageContent.offsetWidth;
-			});
+			this.pageContent = $('.article-content');
 		}
 
-		onLoad(img: HTMLImageElement, background: boolean) {
-			return function(): void {
-				var url = this.src;
-				img.className += ' load';
+		getPageWidth(): number {
+			return this.pageContent.width();
+		}
 
-				setTimeout(() => {
-					LazyLoad.displayImage(img, url, background);
-				}, 250);
+		onLoad(img: HTMLImageElement, background: boolean): (ev: Event) => any {
+			return function (): void {
+				LazyLoad.displayImage(img, this.src, background);
 			};
 		}
 
 		static displayImage(img: HTMLImageElement, url: string, background: boolean): void {
+			img.className += ' load';
+
 			if (background) {
 				img.style.backgroundImage = 'url(' + url + ')';
 			} else {
@@ -65,17 +60,16 @@ module Wikia.Modules {
 				if (ref && data.url) {
 					// TODO: unsure what src is supposed to be and it's currently undef
 					// if (elm.className.indexOf('getThumb') > -1 && !W.Thumbnailer.isThumbUrl(data.url)) {
-						// data.url = W.Thumbnailer.getThumbURL(src, 'nocrop', '660', '330');
+					// data.url = W.Thumbnailer.getThumbURL(src, 'nocrop', '660', '330');
 					// }
 
 					img.src = data.url;
 
-					//elm.parentNode.replaceChild(img, elm);
 					//don't do any animation if image is already loaded
 					if (img.complete) {
 						LazyLoad.displayImage(elm, img.src, background);
 					} else {
-						img.onload = this.onLoad(elm, background);
+						img.addEventListener('load', this.onLoad(elm, background));
 					}
 				}
 			}
@@ -85,15 +79,16 @@ module Wikia.Modules {
 			var i = 0,
 				elm: HTMLImageElement,
 				imageWidth: number,
-				elementsArray: HTMLImageElement[] = $.makeArray(elements);
+				elementsArray: HTMLImageElement[] = $.makeArray(elements),
+				pageWidth = this.getPageWidth();
 
 			while (elm = elementsArray[i++]) {
 				imageWidth = ~~elm.getAttribute('width');
 
-				if (this.pageWidth < imageWidth) {
-					elm.setAttribute('height', Math.round(elm.width * (~~elm.getAttribute('height') / imageWidth)).toString());
-				}
+				if (pageWidth < imageWidth) {
+					elm.style.height = Math.round(elm.width * (~~elm.getAttribute('height') / imageWidth)) + 'px';
 			}
 		}
 	}
+}
 }

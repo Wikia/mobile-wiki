@@ -28,24 +28,27 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
-			var model = this.get('controller.model');
-
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				var lazyImages = this.$('.article-media'),
-					lazy = new Wikia.Modules.LazyLoad();
-
-				lazy.fixSizes(lazyImages);
-
-				sloth.drop();
-				sloth.attach({
-					on: lazyImages,
-					threshold: 400,
-					callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
-				});
+				this.lazyImages();
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.injectAds();
 			}
+		});
+	},
+
+	lazyImages: function() {
+		var model = this.get('controller.model'),
+			lazyImages = this.$('.article-media'),
+			lazy = new Wikia.Modules.LazyLoad();
+
+		lazy.fixSizes(lazyImages);
+
+		sloth.drop();
+		sloth.attach({
+			on: lazyImages,
+			threshold: 400,
+			callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
 		});
 	},
 
