@@ -9,7 +9,6 @@
 	li {
 		border-bottom: rem-calc(1) solid #d0d0d0;
 		color: #333333;
-		font-size: rem-calc(14);
 		font-weight: normal;
 		list-style: none;
 		overflow: hidden;
@@ -45,6 +44,7 @@
 
 	.title {
 		background-color: #e0e0e0;
+		border-bottom: 0;
 		color: #123054;
 		font-size: rem-calc(12);
 		font-weight: bold;
