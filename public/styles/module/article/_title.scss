@@ -1,6 +1,7 @@
 .article-title {
 	@extend %header-section-title;
 	margin-bottom: 1em;
+	margin-top: 0.1em;
 	word-break: break-word;
 }
 
