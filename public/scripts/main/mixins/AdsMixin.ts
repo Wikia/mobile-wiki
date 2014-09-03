@@ -44,9 +44,10 @@ App.AdsMixin = Em.Mixin.create({
 		if (typeof require !== 'undefined') {
 			require([
 				'ext.wikia.adEngine.adEngine',
+				'ext.wikia.adEngine.adContext'
 				'ext.wikia.adEngine.adConfigMobile'
-			], function(adEngine: any, adConfigMobile: any){
-				adConfigMobile.setContext(adsContext);
+			], function(adEngine: any, adContext: any, adConfigMobile: any){
+				adContext.setContext(adsContext);
 				adEngine.run(adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile');
 			});
 		}
