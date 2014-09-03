@@ -104,12 +104,7 @@
 			.cancel {
 				color: #006598;
 				font-size: rem-calc(13);
-				padding: {
-					bottom: rem-calc(10);
-					left:   rem-calc(10);
-					right:  rem-calc(13);
-					top:    rem-calc(10);
-				}
+				padding: rem-calc(11) rem-calc(13);
 				position: absolute;
 				right: 0;
 			}
