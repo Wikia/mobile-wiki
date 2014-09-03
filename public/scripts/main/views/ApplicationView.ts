@@ -44,37 +44,13 @@ App.ApplicationView = Em.View.extend({
 		}
 	},
 
-	animateMedia: function(image, mediaRef) {
-		var imageCopy = image.cloneNode();
-
-		//start
-		imageCopy.style.position = 'absolute';
-		imageCopy.style.top = image.offsetTop + 'px';
-		imageCopy.style.left = image.offsetLeft + 'px';
-		imageCopy.style.width = image.clientWidth + 'px';
-		imageCopy.style.transform = 'scale(1)';
-		imageCopy.style.transition = 'all .3s';
-
-		document.body.appendChild(imageCopy);
-
-		//end
-		var scale = document.body.offsetWidth/image.clientWidth;
-		imageCopy.style.top = window.scrollY + document.body.offsetHeight / 2 - image.offsetHeight/2 + 'px';
-		imageCopy.style.transform = 'scale('+document.body.offsetWidth/image.clientWidth+')';
-
-		setTimeout(() => {
-			imageCopy.parentElement.removeChild(imageCopy);
-		}, 600)
-	},
-
-	handleMedia: function(target: HTMLElement){
+	handleMedia: function(target: HTMLElement) {
 		var mediaRef = target.dataset.ref;
 
 		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef);
 
-			this.get('controller').send('openLightbox', 'media-lightbox', mediaRef);
-			this.animateMedia(target, mediaRef);
+			this.get('controller').send('openLightbox', 'media-lightbox', mediaRef, target);
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
