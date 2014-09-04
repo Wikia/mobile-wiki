@@ -5,6 +5,9 @@ App.LightboxController = Em.ObjectController.extend({
 	header: null,
 	contents: null,
 	footer: null,
+	lightboxFooterExpanded: null,
+	footerHidden: null,
+	headerHidden: null,
 
 	actions: {
 		toggleFooter: function(): void {
