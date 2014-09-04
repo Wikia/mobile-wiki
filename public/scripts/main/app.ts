@@ -12,12 +12,19 @@ var App: any = Em.Application.create({
 	LOG_TRANSITIONS: true,
 	LOG_INTERNAL_TRANSITIONS: true,
 	rootElement: '#app-container',
-	language: Wikia.wiki ? Wikia.wiki.language : 'en'
+	language: Wikia.wiki ? Wikia.wiki.language : 'en',
+	hash: null
 });
 
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
+		var hash = window.location.hash;
+
+		if (hash.length) {
+			App.set('hash', window.location.hash);
+		}
+
 		$('html').removeClass('preload');
 		i18n.init({
 			lng: application.get('language'),
