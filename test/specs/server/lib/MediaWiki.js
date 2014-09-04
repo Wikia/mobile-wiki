@@ -4,8 +4,12 @@ QUnit.module('lib/MediaWiki', {
 	}
 });
 
-test('getDomainName', function () {
-	expect(3);
+test('getDomainName', function (assert) {
+	expect(5);
+	delete(global.localSettings.environment);
+	assert.throws(function() {
+		global.getDomainName('foo')
+	}, 'Environment not set');
 	global.localSettings.environment = 'dev';
 	global.localSettings.mediawikiHost = 'test';
 
@@ -22,6 +26,9 @@ test('getDomainName', function () {
 	equal(global.getDomainName('foo'),
 		'http://foo.wikia.com/',
 		'production URL has correct output');
+	equal(global.getDomainName(),
+		'http://wikia.com/',
+		'handles missing url');
 });
 
 test('createURL', function () {
@@ -37,6 +44,8 @@ test('createURL', function () {
 		title: 'bar',
 		param: 'gibberish'
 	}), 'http://foo.test.wikia-dev.com/api/test?title=bar&param=gibberish', 'two query params');
+	equal(global.createUrl('foo', 'api/test'),
+		'http://foo.test.wikia-dev.com/api/test', 'missing query params');
 });
 
 test('Constructors', function () {
