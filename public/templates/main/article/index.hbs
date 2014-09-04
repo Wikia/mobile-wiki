@@ -13,7 +13,7 @@
 			<li>
 				<a href="#{{unbound id}}" title="{{unbound name}}">
 					{{increment _view.contentIndex}}&nbsp;&nbsp;{{unbound name}}
-					{{svg "chevron" "0 0 12 7" "icon chevron"}}
+					{{svg "chevron" viewBox="0 0 12 7" class="icon chevron"}}
 				</a>
 			</li>
 			{{/each}}
@@ -37,7 +37,7 @@
 	{{#if comments}}
 		{{#link-to 'article.comments' classNames="show-comments-btn"}}
 		{{i18n 'article-comments-label' count=comments}}
-		{{svg "chevron" "0 0 12 7" "icon chevron"}}
+		{{svg "chevron" viewBox="0 0 12 7" class="icon chevron"}}
 		{{/link-to}}
 	{{outlet comments}}
 	{{/if}}
@@ -54,7 +54,7 @@
 			<li>
 				<a href="{{unbound url}}" title="{{unbound title}}">
 				    	{{cleanTitle}}
-				    {{svg "chevron" "0 0 12 7" "icon chevron"}}
+				    {{svg "chevron" viewBox="0 0 12 7" class="icon chevron"}}
 				</a>
 			</li>
 			{{/each}}

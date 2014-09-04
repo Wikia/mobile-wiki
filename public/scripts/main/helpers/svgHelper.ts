@@ -13,14 +13,18 @@
  * 	<use xlink:href="#chevron"></use>
  * </svg>
  */
-Em.Handlebars.registerHelper('svg', function (name: string, viewBox?: string, classes?: string) {
-	var ret = '<svg';
-	if (viewBox) {
-		ret += ' viewBox="' + viewBox + '"'
-	}
-	if (classes) {
-		ret += ' class="' + classes + '"';
-	}
+Em.Handlebars.registerHelper('svg', function (name: string, options: any) {
+	var optionalParams = [
+			'class',
+			'role',
+			'viewBox'
+		],
+		ret = '<svg';
+	optionalParams.forEach(function (param: string) {
+		if (param in options.hash) {
+			ret += " " + param + '="' + options.hash[param] + '"';
+		}
+	});
 	ret += '><use xlink:href="#' + name + '"></use></svg>';
 	return new Em.Handlebars.SafeString(ret);
 });
