@@ -7,58 +7,105 @@ App.MediaLightboxController = App.LightboxController.extend({
 	file: Ember.computed.alias(
 		'controllers.article.file'
 	),
-	currentMediaRef: 0,
-	currentGalleryRef: 2210,
-	galleryLength: 0,
-	isGallery: false,
-
-	currentGalleryBounder: function(){
-		var currentGalleryRef = this.get('currentGalleryRef'),
-			galleryLength = this.get('galleryLength') - 1;
-
-		if(currentGalleryRef <= 0) {
-			this.set('currentGalleryRef', 0);
-		} else if (currentGalleryRef > galleryLength) {
-			this.set('currentGalleryRef', galleryLength);
-		}
-
-	}.observes('currentGalleryRef'),
+	currentMediaRef: undefined,
+	//default image in gallery is 0th
+	currentGalleryRef: 0,
+	//element on a page that will be animated
+	element: null,
 
 	init: function() {
 		this.set('model', App.MediaModel.create());
 
-		this.get('model.media').forEach((value: any, key: number) => {
-			if (value.title === this.get('file')) {
+		var file = this.get('file');
+
+		this.get('model.media').some((media: any, key: number) => {
+			if (Em.isArray(media)) {
+				return media.some((galleryMedia: any, galleryKey: number) => {
+					if (galleryMedia.title === file) {
+						this.set('currentMediaRef', parseInt(key, 10));
+						this.set('currentGalleryRef', parseInt(galleryKey, 10));
+						return true;
+					} else {
+						return false;
+					}
+				})
+			} else if (media.title === file) {
 				this.set('currentMediaRef', parseInt(key, 10));
+				return true;
 			}
+
+			return false;
 		});
 	},
 
+	galleryBoundries: function() {
+		var currentGalleryRef = this.get('currentGalleryRef'),
+			galleryLength = this.get('galleryLength') - 1;
+
+		if (currentGalleryRef < 0) {
+			this.set('currentGalleryRef', galleryLength);
+		} else if (currentGalleryRef > galleryLength) {
+			this.set('currentGalleryRef', 0);
+		}
+
+	}.observes('currentGalleryRef', 'galleryLength'),
+
+	isGallery: function() {
+		return Em.isArray(this.get('current'));
+	}.property('current'),
+
+	current: function(){
+		return this.get('model.media')[this.get('currentMediaRef')];
+	}.property('model.media', 'currentMediaRef'),
+
 	currentMedia: function() {
-		var current = this.get('model.media')[this.get('currentMediaRef')];
+		var current = this.get('current');
 
-		if (Em.$.isArray(current)) {
-			this.set('isGallery', true);
-			this.set('galleryLength', current.length);
-			this.set('file', current[this.get('currentGalleryRef')].title);
-
+		if (this.get('isGallery')) {
 			return current[this.get('currentGalleryRef')];
 		} else {
-			this.set('isGallery', false);
-			this.set('file', current.title);
-
 			return current;
 		}
-	}.property('model.media', 'currentMediaRef', 'currentGalleryRef'),
+	}.property('current', 'isGallery', 'currentGalleryRef'),
+
+	galleryLength: function() {
+		if (this.get('isGallery')) {
+			return this.get('current').length;
+		} else {
+			return false;
+		}
+	}.property('isGallery', 'current'),
+
+	fileWatcher: function() {
+		var currentMedia = this.get('currentMedia');
+
+		if (currentMedia) {
+			this.set('file', currentMedia.title);
+		} else {
+			this.set('file', null);
+		}
+	}.observes('currentMedia'),
 
 	contents: function() {
-		return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
+		var currentMedia = this.get('currentMedia');
+
+		if (currentMedia) {
+			return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
+		} else {
+			return 'Something wrong';
+		}
 	}.property('currentMedia'),
 
 	footer: function() {
-		var caption = this.get('currentMedia').caption;
+		var currentMedia = this.get('currentMedia');
 
-		return caption && caption.htmlSafe();
+		if (currentMedia) {
+			var caption = currentMedia.caption;
+
+			return caption && caption.htmlSafe();
+		} else {
+			return '';
+		}
 	}.property('currentMedia'),
 
 	galleryHeader: function(){
@@ -70,6 +117,13 @@ App.MediaLightboxController = App.LightboxController.extend({
 			return this.get('galleryHeader');
 		}
 		return '';
-	}.property('isGallery', 'galleryHeader')
+	}.property('isGallery', 'galleryHeader'),
 
+	reset: function(){
+		this.setProperties({
+			currentMediaRef: undefined,
+			currentGalleryRef: 0,
+			file: null
+		});
+	}
 });

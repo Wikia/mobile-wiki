@@ -101,7 +101,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.$(elem).replaceWith(header.$());
 	},
 
-	didInsertElement: function(){
+	didInsertElement: function() {
 		var controller = this.get('controller');
 
 		if (controller.get('file')) {
