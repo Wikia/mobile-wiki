@@ -15,3 +15,7 @@ test('Logger interface', function() {
 		equal(global.hasOwnProperty(functionName), true, 'Has function ' + functionName);
 	});
 });
+
+test('Logger logs message', function() {
+	equal(typeof global.info('Sample test message'), 'undefined', 'Logs message');
+});
