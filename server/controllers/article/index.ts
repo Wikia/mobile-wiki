@@ -18,28 +18,14 @@ import logger = require('../../lib/Logger');
  * @param callback
  * @param err
  */
-export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any) {
+export function createFullArticle(getWikiInfo: boolean, request: any, callback: any, err: any) {
 	var wikiRequest: MediaWiki.WikiRequest,
-		// Bluebird promise.props object
-		props: any,
 		article = new MediaWiki.ArticleRequest({
-			name: data.wikiName,
-			title: data.articleTitle
+			name: request.wikiName,
+			title: request.articleTitle
 		});
 
-	if (getWikiInfo) {
-		logger.info('Fetching wiki variables', data.wikiName);
-
-		wikiRequest = new MediaWiki.WikiRequest({
-			name: data.wikiName
-		});
-
-		props = Promise.props({
-			wikiVariables: wikiRequest.getWikiVariables()
-		});
-	}
-
-	logger.info('Fetching article', data.wikiName, data.articleTitle);
+	logger.info('Fetching article', request.wikiName, request.articleTitle);
 
 	article.fetch()
 		.then((response: any) => {
@@ -50,17 +36,24 @@ export function createFullArticle(getWikiInfo: boolean, data: any, callback: any
 				return;
 			}
 
-			if (!wikiRequest) {
+			if (!getWikiInfo) {
 				callback(data);
-				return;
+			} else {
+				logger.info('Fetching wiki variables', request.wikiName);
+
+				wikiRequest = new MediaWiki.WikiRequest({
+					name: data.wikiName
+				});
+
+				wikiRequest.getWikiVariables()
+					.then((response: any) => {
+						data.wiki = response.data;
+						callback(data);
+					})
+					.catch(err);
 			}
-
-			props.then((payload: any) => {
-				data.wiki = payload.wikiVariables.data;
-
-				callback(data);
-			}).catch(err);
-		});
+		})
+		.catch(err);
 }
 
 export function handleRoute(request: Hapi.Request, reply: Function): void {
