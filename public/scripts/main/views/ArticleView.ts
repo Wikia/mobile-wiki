@@ -14,11 +14,26 @@ var sloth = new Wikia.Modules.Sloth();
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
+	/**
+	* @description Ember does not natively support hashes in the URL, so we must support this functionality
+	* manually
+	*/
 	jumpToAnchor: function (): void {
-		var hash = App.get('hash');
+		var hash = App.get('hash'),
+			prevHash;
+		
 		if (hash) {
 			window.location.hash = hash;
 		}
+
+		// This is a hack to ensure that #hash jump links are preserved when navigating with browser native
+		// "back" button
+		if (!hash && window.location.hash) {
+			prevHash = window.location.hash;
+			window.location.hash = '#top';
+			window.location.hash = prevHash;
+		}
+
 		App.set('hash', null);
 	},
 
