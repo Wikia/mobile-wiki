@@ -21,6 +21,6 @@ Em.Handlebars.registerHelper('svg', function (name: string, viewBox?: string, cl
 	if (classes) {
 		ret += ' class="' + classes + '"';
 	}
-	ret +='><use xlink:href="#' + name + '"></use></svg>';
+	ret += '><use xlink:href="#' + name + '"></use></svg>';
 	return new Em.Handlebars.SafeString(ret);
 });
