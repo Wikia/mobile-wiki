@@ -19,8 +19,6 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	didInsertElement: function() {
-		this.get('controller').send('disableScrolling');
-
 		this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
 
@@ -58,7 +56,6 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 	willDestroyElement: function() {
 		this.get('controller').set('file', null);
-		this.get('controller').send('enableScrolling');
 
 		this._super();
 	}

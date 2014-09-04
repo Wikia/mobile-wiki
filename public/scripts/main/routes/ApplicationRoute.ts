@@ -70,14 +70,6 @@ App.ApplicationRoute = Em.Route.extend({
 				outlet: 'lightbox',
 				parentView: 'application'
 			});
-		},
-
-		enableScrolling: function() {
-			Em.$('body').removeClass('no-scroll');
-		},
-
-		disableScrolling: function() {
-			Em.$('body').addClass('no-scroll');
 		}
 	}
 });
