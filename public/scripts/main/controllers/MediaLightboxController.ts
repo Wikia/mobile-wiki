@@ -12,13 +12,10 @@ App.MediaLightboxController = App.LightboxController.extend({
 	init: function() {
 		this.set('model', App.MediaModel.create());
 
-		var i = 0;
-
-		this.get('model.media').forEach((value, key) => {
-			if(value.title === this.get('file')) {
-				this.set('currentImage', i);
+		this.get('model.media').forEach((value: any, key: number) => {
+			if (value.title === this.get('file')) {
+				this.set('currentImage', key);
 			}
-			i++;
 		});
 	},
 

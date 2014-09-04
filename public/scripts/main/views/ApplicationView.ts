@@ -45,7 +45,7 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	handleMedia: function(target: HTMLElement) {
-		var mediaRef = target.dataset.ref;
+		var mediaRef = parseInt(target.dataset.ref, 10);
 
 		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef);
