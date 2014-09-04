@@ -7,7 +7,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		'controllers.article.file'
 	),
 
-	currentImage: 4,
+	currentImage: 0,
 
 	init: function() {
 		this.set('model', App.MediaModel.create());
