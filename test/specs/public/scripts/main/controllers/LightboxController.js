@@ -1,8 +1,4 @@
-moduleFor('controller:lightbox', 'Lightbox Controller', {
-	setup: function () {
-
-	}
-});
+moduleFor('controller:lightbox', 'Lightbox Controller');
 
 test('toggleFooter', function () {
 	expect(3);
