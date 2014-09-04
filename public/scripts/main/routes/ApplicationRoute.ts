@@ -52,7 +52,7 @@ App.ApplicationRoute = Em.Route.extend({
 
 		openLightbox: function(lightboxName: string, mediaRef?: any, element?: HTMLElement): string {
 			if (mediaRef) {
-				this.controllerFor(lightboxName).set('currentImage', mediaRef);
+				this.controllerFor(lightboxName).set('currentMediaRef', parseInt(mediaRef, 10));
 			}
 
 			if (element) {

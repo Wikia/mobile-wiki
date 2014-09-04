@@ -9,10 +9,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 	status: 'opening',
 
 	keyDown: function(event: JQueryEventObject){
-		if (event.keyCode === 39) {
-			this.get('controller').incrementProperty('currentGalleryImage')
-		} else if (event.keyCode === 37) {
-			this.get('controller').decrementProperty('currentGalleryImage')
+		if (event.keyCode === 39) { //left arrow
+			this.get('controller').incrementProperty('currentGalleryRef')
+		} else if (event.keyCode === 37) { //right arrow
+			this.get('controller').decrementProperty('currentGalleryRef')
 		}
 
 		this._super(event);
