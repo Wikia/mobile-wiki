@@ -116,8 +116,10 @@
 		}
 
 		&.search {
-			overflow-x: hidden;
-			overflow-y: auto;
+			overflow: {
+				x: hidden;
+				y: auto;
+			}
 			visibility: visible;
 			width: 100%;
 

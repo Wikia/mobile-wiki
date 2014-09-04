@@ -68,7 +68,7 @@ App.ApplicationView = Em.View.extend({
 
 	actions: {
 		setScrollable: function () {
-			var $body = Ember.$('body');
+			var $body = Em.$('body');
 			$body.removeClass('no-scroll');
 			$body.css('top', '');
 			window.scrollTo(0, this.get('scrollLocation'));
@@ -76,7 +76,7 @@ App.ApplicationView = Em.View.extend({
 		},
 
 		setUnScrollable: function () {
-			var $body = Ember.$('body'),
+			var $body = Em.$('body'),
 				scrollLocation = $body.scrollTop();
 			this.set('scrollLocation', scrollLocation);
 			$body.css('top', -scrollLocation);
