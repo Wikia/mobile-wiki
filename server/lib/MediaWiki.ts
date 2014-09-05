@@ -47,12 +47,6 @@ export class WikiRequest {
 		this.name = params.name;
 	}
 
-
-	getLocalNavData () {
-		var url: string = createUrl(this.name, 'api/v1/Navigation/Data', {});
-		return fetch(url);
-	}
-
 	getWikiVariables () {
 		var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 

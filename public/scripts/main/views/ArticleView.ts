@@ -20,8 +20,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	*/
 	jumpToAnchor: function (): void {
 		var hash = App.get('hash'),
-			prevHash;
-		
+			prevHash: string;
+
 		if (hash) {
 			window.location.hash = hash;
 		}
@@ -67,6 +67,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				});
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.setupAdsContext(model.get('adsContext'));
 				this.injectAds();
 				this.jumpToAnchor();
 			}
