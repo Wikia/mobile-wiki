@@ -4,6 +4,8 @@
 	position: absolute;
 	top: rem-calc(45);
 	visibility: hidden;
+	// For iOS devices
+	-webkit-overflow-scrolling: touch;
 	width: 100%;
 
 	li {
