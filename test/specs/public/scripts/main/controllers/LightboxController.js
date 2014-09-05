@@ -15,19 +15,19 @@ test('toggleFooter', function () {
 	equal(lightboxController.get('lightboxFooterExpanded'), false);
 });
 
-test('hideUI', function () {
+test('toggleUI', function () {
 	expect(6);
 	var lightboxController = this.subject();
 
 	equal(lightboxController.get('footerHidden'), null);
 	equal(lightboxController.get('headerHidden'), null);
 
-	lightboxController.send('hideUI');
+	lightboxController.send('toggleUI');
 
 	equal(lightboxController.get('footerHidden'), true);
 	equal(lightboxController.get('headerHidden'), true);
 
-	lightboxController.send('hideUI');
+	lightboxController.send('toggleUI');
 
 	equal(lightboxController.get('footerHidden'), false);
 	equal(lightboxController.get('headerHidden'), false);
