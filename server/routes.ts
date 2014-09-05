@@ -3,38 +3,23 @@
 import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
+import Utils = require('./lib/Utils');
 
 var wikiNames: {
 	[key: string]: string;
 } = {};
 
-/**
- * @desc extracts the wiki name from the host
- */
-function getWikiName (host: string) {
-	host = host.split(':')[0]; //get rid of port
+function getWikiName(host: string): string {
+	var wikiName: string;
 
-	var wikiName = wikiNames[host],
-		regex: RegExp,
-		match: string[];
+	host = host.split(':')[0]; //get rid of port
+	wikiName = wikiNames[host];
 
 	if (wikiName) {
 		return wikiName;
-	} else {
-		/**
-		 * Capture groups:
-		 * 0. "sandbox-*|preview|verify" (if it's the beginning of the url)
-		 * 1. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
-		 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
-		 * We just return capture group 1
-		 */
-		regex = /^(?:sandbox\-[^\.]+|preview|verify)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
-		match = host.match(regex);
-		//TODO: This is a bad default, find better solution
-		wikiName = match ? match[1] : (localSettings.wikiFallback || 'community');
-
-		return wikiNames[host] = wikiName;
 	}
+
+	return wikiNames[host] = Utils.getWikiName(host);
 }
 
 function routes(server: Hapi.Server) {
@@ -80,14 +65,23 @@ function routes(server: Hapi.Server) {
 			path: route,
 			config: config,
 			handler: (request: Hapi.Request, reply: any) => {
+				var errorParams = {
+					message: 'Internal Server Error',
+					code: 500,
+					details: '',
+					gaId: ''
+				};
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
 					title: request.params.title
 				}, (error: any, result: any) => {
 					// TODO: handle error a bit better :D
 					if (error) {
-						error = Hapi.error.notFound(notFoundError);
-						reply.view('error', error);
+						if (error.exception) {
+							errorParams = error.exception;
+						}
+						errorParams.gaId = localSettings.gaId;
+						reply.view('error', errorParams).code(errorParams.code);
 					} else {
 						// export Google Analytics code to layout
 						result.gaId = localSettings.gaId;

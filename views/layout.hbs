@@ -29,11 +29,6 @@
 				W.provide('error.status', '{{output.payload.statusCode}}');
 				W.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
-
-			//TODO: Remove when ad context object is available
-			//This is beginning of porting some ads specific var
-			//they will be moved to an object once AdEng has finished ADEN-1318
-			window.wgShowAds = true;
 		</script>
 
 		<!-- Google Analytics -->

@@ -14,18 +14,6 @@ App.ArticleController = Em.ObjectController.extend({
 			article.set('sections', headers);
 		},
 		changePage: function(title: string) {
-			//this is temporary solution
-			//this requires refactoring adEngine to support UMD
-			if (typeof require !== 'undefined') {
-				require([
-					'ext.wikia.adEngine.adEngine',
-					'ext.wikia.adEngine.adConfigMobile'
-				], function(adEngine: any, adConfigMobile: any){
-
-					adEngine.run( adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile' );
-				});
-			}
-
 			this.transitionToRoute('article', title);
 		},
 		// Bubbled up from ArticleSectionHeaderView, which is a child of ArticleView
