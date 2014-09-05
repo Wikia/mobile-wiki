@@ -22,8 +22,10 @@ App.MediaLightboxController = App.LightboxController.extend({
 			if (Em.isArray(media)) {
 				return media.some((galleryMedia: any, galleryKey: number) => {
 					if (galleryMedia.title === file) {
-						this.set('currentMediaRef', key);
-						this.set('currentGalleryRef', galleryKey);
+						this.setProperties({
+							currentMediaRef: key,
+							currentGalleryRef: galleryKey
+						});
 						return true;
 					} else {
 						return false;
