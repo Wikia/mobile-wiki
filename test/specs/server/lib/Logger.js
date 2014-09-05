@@ -11,11 +11,11 @@ test('Logger interface', function() {
 		'info',
 		'debug'
 	];
-	functions.forEach(function(functionName) {
+	functions.forEach(function (functionName) {
 		equal(global.hasOwnProperty(functionName), true, 'Has function ' + functionName);
 	});
 });
 
-test('Logger logs message', function() {
+test('Logger logs message', function () {
 	equal(typeof global.info('Sample test message'), 'undefined', 'Logs message');
 });
