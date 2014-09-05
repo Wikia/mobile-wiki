@@ -52,6 +52,7 @@
 		background-color: white;
 		height: 100%;
 		position: fixed;
+		top: 0;
 		z-index: 11;
 
 		.clear-search-btn {
@@ -98,17 +99,13 @@
 			position: absolute;
 			right: 0;
 			text-align: left;
+			height: rem-calc(45);
 
 			// Cancel search div
 			.cancel {
 				color: #006598;
 				font-size: rem-calc(13);
-				padding: {
-					bottom: rem-calc(10);
-					left:   rem-calc(10);
-					right:  rem-calc(13);
-					top:    rem-calc(10);
-				}
+				padding: rem-calc(11) rem-calc(13);
 				position: absolute;
 				right: 0;
 			}
@@ -119,6 +116,10 @@
 		}
 
 		&.search {
+			overflow: {
+				x: hidden;
+				y: auto;
+			}
 			visibility: visible;
 			width: 100%;
 
