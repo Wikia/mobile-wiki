@@ -20,12 +20,21 @@ import logger = require('../../lib/Logger');
  */
 export function createFullArticle(getWikiInfo: boolean, request: any, callback: any, err: any) {
 	var wikiRequest: MediaWiki.WikiRequest,
+		getVariablesRequest: Promise<any>,
 		article = new MediaWiki.ArticleRequest({
 			name: request.wikiName,
 			title: request.articleTitle
 		});
 
 	logger.info('Fetching article', request.wikiName, request.articleTitle);
+
+	if (getWikiInfo) {
+		wikiRequest = new MediaWiki.WikiRequest({
+			name: request.wikiName
+		});
+
+		getVariablesRequest = wikiRequest.getWikiVariables();
+	}
 
 	article.fetch()
 		.then((response: any) => {
@@ -45,7 +54,7 @@ export function createFullArticle(getWikiInfo: boolean, request: any, callback: 
 					name: data.wikiName
 				});
 
-				wikiRequest.getWikiVariables()
+				getVariablesRequest
 					.then((response: any) => {
 						data.wiki = response.data;
 						callback(data);
