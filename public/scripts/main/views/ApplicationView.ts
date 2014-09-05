@@ -7,6 +7,13 @@ interface HTMLMouseEvent extends MouseEvent {
 }
 
 App.ApplicationView = Em.View.extend({
+	/**
+	 * Store scroll location so when we set the body to fixed position, we can set its
+	 * top, and also so we can scroll back to where it was before we fixed it.
+	 * @type int
+	 */
+	scrollLocation: null,
+
 	willInsertElement: function() {
 		$('#app-container').html('');
 	},
@@ -82,10 +89,22 @@ App.ApplicationView = Em.View.extend({
 
 	actions: {
 		setScrollable: function () {
-			Em.$('body').removeClass('no-scroll');
+			Em.$('body')
+				.removeClass('no-scroll')
+				.css('top', '');
+
+			window.scrollTo(0, this.get('scrollLocation'));
+			this.set('scrollLocation', null);
 		},
+
 		setUnScrollable: function () {
-			Em.$('body').addClass('no-scroll');
+			var $body = Em.$('body'),
+				scrollLocation = $body.scrollTop();
+
+			this.set('scrollLocation', scrollLocation);
+
+			$body.css('top', -scrollLocation)
+				.addClass('no-scroll');
 		}
 	}
 });

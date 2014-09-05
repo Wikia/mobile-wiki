@@ -2,17 +2,18 @@
 	bottom: 0;
 	overflow: auto;
 	position: absolute;
-	top: rem-calc(44);
+	top: rem-calc(45);
 	visibility: hidden;
+	// For iOS devices
+	-webkit-overflow-scrolling: touch;
 	width: 100%;
 
 	li {
 		border-bottom: rem-calc(1) solid #d0d0d0;
 		color: #333333;
-		font-size: rem-calc(13);
 		font-weight: normal;
 		list-style: none;
-		padding: rem-calc(15) $local-nav-li-gutter;
+		padding: rem-calc(10) $local-nav-li-gutter;
 		position: relative;
 		text-align: left;
 	}
