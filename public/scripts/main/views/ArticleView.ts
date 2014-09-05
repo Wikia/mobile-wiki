@@ -20,8 +20,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	*/
 	jumpToAnchor: function (): void {
 		var hash = App.get('hash'),
-			prevHash;
-		
+			prevHash: string;
+
 		if (hash) {
 			window.location.hash = hash;
 		}
