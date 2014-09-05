@@ -87,8 +87,8 @@ module Wikia.Modules {
 
 				if (pageWidth < imageWidth) {
 					elm.style.height = Math.round(elm.width * (~~elm.getAttribute('height') / imageWidth)) + 'px';
+				}
 			}
 		}
 	}
-}
 }
