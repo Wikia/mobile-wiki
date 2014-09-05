@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 	paths = require('../paths');
 
 // NOTE: fixtures task only gets run once, so need to restart karma if you change fixtures
-gulp.task('karma', ['fixtures'], function () {
+gulp.task('karma', ['fixtures', 'scripts-front'], function () {
 	return gulp.src([
 		paths.vendor.dest + '/handlebars/handlebars.runtime.js',
 		paths.vendor.dest + '/jquery/dist/jquery.js',
