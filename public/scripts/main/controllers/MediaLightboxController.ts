@@ -1,3 +1,4 @@
+/// <reference path="../app.ts" />
 /// <reference path="./LightboxController.ts" />
 'use strict';
 
@@ -94,7 +95,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		if (currentMedia) {
 			return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
 		} else {
-			return 'Something wrong';
+			return i18n.t('app:media-lightbox-error');
 		}
 	}.property('currentMedia'),
 
