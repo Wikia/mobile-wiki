@@ -1,4 +1,3 @@
-/// <reference path="../app.ts" />
 /// <reference path="./LightboxController.ts" />
 'use strict';
 

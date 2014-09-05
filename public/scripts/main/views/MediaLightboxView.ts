@@ -1,4 +1,4 @@
-/// <reference path="../app.ts" />
+/// <reference path="./LightboxView.ts" />
 'use strict';
 
 App.MediaLightboxView = App.LightboxView.extend({
