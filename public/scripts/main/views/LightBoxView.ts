@@ -23,9 +23,9 @@ App.LightboxView = Em.View.extend({
 
 	willDestroyElement: function(){
 		this.get('controller').setProperties({
-			'lightboxFooterExpanded': false,
-			'footerHidden': false,
-			'headerHidden': false
+			lightboxFooterExpanded: false,
+			footerHidden: false,
+			headerHidden: false
 		});
 	}
 });
