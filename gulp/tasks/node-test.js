@@ -13,7 +13,9 @@ gulp.task('node-test', ['scripts-back'], function () {
 
 	if (gutil.env.action !== 'watch' || gutil.env.action !== 'watching') {
 		child.on('exit', function(exitCode) {
-			process.exit(exitCode);
+			if (exitCode) {
+				throw 'Tests failed';
+			}
 		});
 	}
 });
