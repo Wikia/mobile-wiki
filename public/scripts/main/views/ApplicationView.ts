@@ -68,9 +68,10 @@ App.ApplicationView = Em.View.extend({
 
 	actions: {
 		setScrollable: function () {
-			var $body = Em.$('body');
-			$body.removeClass('no-scroll');
-			$body.css('top', '');
+			Em.$('body')
+				.removeClass('no-scroll')
+				.css('top', '');
+
 			window.scrollTo(0, this.get('scrollLocation'));
 			this.set('scrollLocation', null);
 		},
@@ -78,9 +79,11 @@ App.ApplicationView = Em.View.extend({
 		setUnScrollable: function () {
 			var $body = Em.$('body'),
 				scrollLocation = $body.scrollTop();
+
 			this.set('scrollLocation', scrollLocation);
-			$body.css('top', -scrollLocation);
-			$body.addClass('no-scroll');
+
+			$body.css('top', -scrollLocation)
+				.addClass('no-scroll');
 		}
 	}
 });
