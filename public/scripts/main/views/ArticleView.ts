@@ -67,6 +67,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				});
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.setupAdsContext(model.get('adsContext'));
 				this.injectAds();
 				this.jumpToAnchor();
 			}

@@ -84,6 +84,7 @@ App.ArticleModel.reopenClass({
 		model.set('mediaUsers', source.article.users);
 		model.set('user', source.details.revision.user_id);
 		model.set('categories', source.article.categories);
+		model.set('adsContext', source.adsContext);
 
 		/**
 		 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
