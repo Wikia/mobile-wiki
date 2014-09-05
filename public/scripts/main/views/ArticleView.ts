@@ -51,6 +51,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
+			var model = this.get('controller.model');
+
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				this.lazyImages();
 				this.loadTableOfContentsData();
