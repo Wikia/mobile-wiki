@@ -1,6 +1,6 @@
 QUnit.module('lib/Utils');
 
-test('getWikiName', function() {
+test('getWikiName', function () {
 	var testCases = [
 		{
 			host: 'poznan.wikia.com',
@@ -37,10 +37,10 @@ test('getWikiName', function() {
 		} , {
 			host: 'bg.poznan.wikia.locals',
 			expected: 'community',
-			description: 'Returns the default subdomain if the url is wrong'
+			description: 'Returns the default sub-domain if the url is wrong'
 		}
 	];
-	testCases.forEach(function(testCase) {
+	testCases.forEach(function (testCase) {
 		equal(global.getWikiName(testCase.host), testCase.expected, testCase.description);
 	});
 });

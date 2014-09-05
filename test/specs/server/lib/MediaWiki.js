@@ -7,7 +7,7 @@ QUnit.module('lib/MediaWiki', {
 test('getDomainName', function (assert) {
 	expect(5);
 	delete(global.localSettings.environment);
-	assert.throws(function() {
+	assert.throws(function () {
 		global.getDomainName('foo')
 	}, 'Environment not set');
 	global.localSettings.environment = 'dev';

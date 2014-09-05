@@ -1,6 +1,6 @@
 QUnit.module('lib/Logger');
 
-test('Logger interface', function() {
+test('Logger interface', function () {
 	var functions = [
 		'emergency',
 		'alert',
