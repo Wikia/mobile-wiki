@@ -21,6 +21,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	didInsertElement: function() {
 		this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
+		this.get('parentView').send('setUnScrollable');
 
 		this._super();
 	},
@@ -55,6 +56,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	willDestroyElement: function() {
+		this.get('parentView').send('setScrollable');
 		this.get('controller').reset();
 
 		this._super();
