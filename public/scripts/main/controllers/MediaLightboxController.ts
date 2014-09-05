@@ -8,7 +8,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	file: Ember.computed.alias(
 		'controllers.article.file'
 	),
-	currentMediaRef: undefined,
+	currentMediaRef: null,
 	//default image in gallery is 0th
 	currentGalleryRef: 0,
 	//element on a page that will be animated
@@ -124,7 +124,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 	reset: function(){
 		this.setProperties({
-			currentMediaRef: undefined,
+			currentMediaRef: null,
 			currentGalleryRef: 0,
 			file: null
 		});
