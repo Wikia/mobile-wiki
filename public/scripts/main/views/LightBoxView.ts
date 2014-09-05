@@ -12,7 +12,7 @@ App.LightboxView = Em.View.extend({
 
 	//this is needed if view wants to handle keyboard
 	didInsertElement: function() {
-		return this.$().focus();
+		this.$().focus();
 	},
 
 	keyDown: function(event: KeyboardEvent){
