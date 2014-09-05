@@ -22,15 +22,15 @@ App.MediaLightboxController = App.LightboxController.extend({
 			if (Em.isArray(media)) {
 				return media.some((galleryMedia: any, galleryKey: number) => {
 					if (galleryMedia.title === file) {
-						this.set('currentMediaRef', parseInt(key, 10));
-						this.set('currentGalleryRef', parseInt(galleryKey, 10));
+						this.set('currentMediaRef', key);
+						this.set('currentGalleryRef', galleryKey);
 						return true;
 					} else {
 						return false;
 					}
 				})
 			} else if (media.title === file) {
-				this.set('currentMediaRef', parseInt(key, 10));
+				this.set('currentMediaRef', key);
 				return true;
 			}
 
@@ -76,7 +76,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('isGallery', 'current'),
 
-	fileWatcher: function() {
+	currentMediaObserver: function() {
 		var currentMedia = this.get('currentMedia');
 
 		if (currentMedia) {
