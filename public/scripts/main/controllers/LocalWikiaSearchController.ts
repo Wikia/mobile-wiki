@@ -15,9 +15,9 @@ interface SearchSuggestionItem {
 /**
  * @desc Controller for the search results. Note that the actual search bar is
  * contained in SideNav, so this is a child of that controller and that
- * controller modifies LocalWikiaSearchController#query at will. This controller
- * is simply made to respond to changes to that property, and update so that its
- * view can display the results of the search.
+ * controller modifies LocalWikiaSearchController#query through an Ember input binding.
+ * This controller is simply made to respond to changes to that property, and update so
+ * that its view can display the results of the search.
  */
 App.LocalWikiaSearchController = Em.Controller.extend({
 	query: '',
@@ -179,8 +179,8 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	},
 
 	/**
-	 * @desc Evicts LRU from cachedResultsQueue cachedResults, based on what the first
-	 * (and therefore least recent) query string is.
+	 * @desc Evicts via FIFO from cachedResultsQueue cachedResults, based on what the first
+	 * (and therefore least recently cached) query string is.
 	 */
 	evictCachedResult: function (): void {
 		// Query string to evict
