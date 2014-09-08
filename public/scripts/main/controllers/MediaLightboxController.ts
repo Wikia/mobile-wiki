@@ -4,7 +4,7 @@
 App.MediaLightboxController = App.LightboxController.extend({
 	needs: 'article',
 
-	file: Ember.computed.alias(
+	file: Em.computed.alias(
 		'controllers.article.file'
 	),
 	currentMediaRef: null,
@@ -13,31 +13,48 @@ App.MediaLightboxController = App.LightboxController.extend({
 	//element on a page that will be animated
 	element: null,
 
-	init: function() {
-		this.set('model', App.MediaModel.create());
-
+	/**
+	 * This function checks if file=* matches any files on a page
+	 */
+	matchQueryString: function (): void {
 		var file = this.get('file');
 
-		this.get('model.media').some((media: any, key: number) => {
+		function findMediaInGallery (key: number): Function {
+			return function (galleryMedia: any, galleryKey: number): boolean {
+				if (galleryMedia.title === file) {
+					this.setProperties({
+						currentMediaRef: key,
+						currentGalleryRef: galleryKey
+					});
+
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
+		function findMedia(media: any, key: number): boolean {
 			if (Em.isArray(media)) {
-				return media.some((galleryMedia: any, galleryKey: number) => {
-					if (galleryMedia.title === file) {
-						this.setProperties({
-							currentMediaRef: key,
-							currentGalleryRef: galleryKey
-						});
-						return true;
-					} else {
-						return false;
-					}
-				})
+				return media.some(findMediaInGallery(key), this)
 			} else if (media.title === file) {
 				this.set('currentMediaRef', key);
+
 				return true;
 			}
 
 			return false;
-		});
+		}
+
+		if (!Em.isEmpty(file)) {
+			this.get('model.media').some(findMedia, this);
+		}
+	},
+
+	init: function() {
+		this.set('model', App.MediaModel.create());
+
+		this.matchQueryString();
 	},
 
 	galleryBoundries: function() {
@@ -86,7 +103,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		} else {
 			this.set('file', null);
 		}
-	}.observes('currentMedia'),
+	}.observes('currentMedia').on('init'),
 
 	contents: function() {
 		var currentMedia = this.get('currentMedia');
