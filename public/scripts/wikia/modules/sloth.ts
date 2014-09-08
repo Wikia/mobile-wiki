@@ -23,7 +23,7 @@ interface HTMLElement {
 	y: number;
 }
 
-interface attachParams {
+interface AttachParams {
 	on?: any;
 	off?: any;
 	threshold?: number;
@@ -124,7 +124,7 @@ module Wikia.Modules {
 			}
 		}
 
-		attach(params: attachParams) {
+		attach(params: AttachParams) {
 			if (params) {
 				var elements = params.on,
 					prune = params.off,
