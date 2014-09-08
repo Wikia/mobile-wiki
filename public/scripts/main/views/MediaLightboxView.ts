@@ -49,7 +49,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 				width: document.body.offsetWidth + 'px',
 				top: this.$('img')[0].offsetTop + 'px',
 				left: 0
-			}).on('webkitTransitionEnd', function () {
+			}).one('webkitTransitionEnd, transitionend', function () {
 				$imageCopy.remove();
 			});
 		}
