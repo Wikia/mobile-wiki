@@ -28,11 +28,6 @@ $modal-text-color: white;
 	padding: 15px 13px;
 	position: absolute;
 	width: 100%;
-
-	//TODO: do better animation or something
-	&.header-hidden {
-		display: none;
-	}
 }
 
 .lightbox-close-button {
@@ -95,11 +90,6 @@ $modal-text-color: white;
 		left: 0;
 		position: absolute;
 		right: 0;
-	}
-
-	//TODO: do better animation or something
-	&.footer-hidden {
-		display: none;
 	}
 
 	//caption is an output from parser
