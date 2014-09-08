@@ -23,7 +23,8 @@ export function createFullArticle(getWikiInfo: boolean, request: any, callback: 
 		getVariablesRequest: Promise<any>,
 		article = new MediaWiki.ArticleRequest({
 			name: request.wikiName,
-			title: request.articleTitle
+			title: request.articleTitle,
+			followRedirects: request.followRedirects
 		});
 
 	logger.info('Fetching article', request.wikiName, request.articleTitle);
@@ -68,7 +69,8 @@ export function createFullArticle(getWikiInfo: boolean, request: any, callback: 
 export function handleRoute(request: Hapi.Request, reply: Function): void {
 	var data = {
 		wikiName: request.params.wikiName,
-		articleTitle: decodeURIComponent(request.params.articleTitle)
+		articleTitle: decodeURIComponent(request.params.articleTitle),
+		followRedirects: request.params.followRedirects
 	};
 
 	createFullArticle(false, data, (data: any) => {

@@ -57,15 +57,18 @@ export class WikiRequest {
 export class ArticleRequest {
 	name: string;
 	title: string;
+	followRedirects: boolean;
 
-	constructor (params: {name: string; title?: string}) {
+	constructor (params: {name: string; title?: string; followRedirects?: boolean}) {
 		this.name = params.name;
 		this.title = params.title;
+		this.followRedirects = params.followRedirects;
 	}
 
 	fetch () {
 		var url = createUrl(this.name, 'api/v1/Mercury/Article', {
-			title: this.title
+			title: this.title,
+			followRedirects: this.followRedirects
 		});
 
 		return fetch(url);
@@ -132,7 +135,9 @@ export function createUrl(wikiSubDomain: string, path: string, params: any = {})
 	var qsAggregator: string[] = [];
 
 	Object.keys(params).forEach(function(key) {
-		qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
+		if (typeof params[key] !== 'undefined') {
+			qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
+		}
 	});
 
 	return getDomainName(wikiSubDomain) +
