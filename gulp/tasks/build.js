@@ -21,7 +21,16 @@ if (!gutil.env.nosync) {
 	preprocessContext.browserSync = true;
 }
 
-gulp.task('build', ['node-modules', 'sass', 'scripts-front', 'sprites', 'vendor', 'templates', 'locales'], function () {
+gulp.task('build', [
+		'node-modules',
+		'sass',
+		'scripts-front',
+		'sprites',
+		'vendor',
+		'templates',
+		'locales',
+		'scripts-back'
+	], function () {
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull
