@@ -10,9 +10,7 @@
 	</li>
 	{{#if parentItem}}
 		<li class="back" {{action 'goBack'}}>
-			<svg viewBox="0 0 12 7" class="icon chevron">
-				<use xlink:href="#chevron"></use>
-			</svg>
+			{{svg "chevron" viewBox="0 0 12 7" class="icon chevron"}}
 			{{i18n 'navigation-back-label'}}
 		</li>
 	{{/if}}
@@ -20,9 +18,7 @@
 		{{#if children}}
 			<li {{action 'changeMenuItem' index on="mouseUp"}}> 
 				{{unbound text}}
-				<svg viewBox="0 0 12 7" class="icon chevron">
-					<use xlink:href="#chevron"></use>
-				</svg>
+				{{svg "chevron" viewBox="0 0 12 7" class="icon chevron"}}
 			</li>
 		{{else}}
 			<a {{action 'collapseSideNav' target="view.parentView" on="mouseUp"}} href="{{unbound href}}"><li>{{unbound text}}</li></a>
