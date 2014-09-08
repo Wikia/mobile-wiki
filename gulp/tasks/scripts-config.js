@@ -2,8 +2,6 @@ var fs = require('fs'),
 	gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	rename = require('gulp-rename'),
-	conflict = require('gulp-conflict'),
-	options = require('../options').scripts.back,
 	config = require('../paths').config;
 
 fileDoesNotExists = function (fileName) {
