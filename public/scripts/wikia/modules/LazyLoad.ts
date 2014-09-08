@@ -1,4 +1,4 @@
-/// <reference path="./thumbnailer.ts" />
+/// <reference path="./Thumbnailer.ts" />
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 
 /**
