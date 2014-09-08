@@ -31,12 +31,12 @@ App.MediaLightboxController = App.LightboxController.extend({
 				} else {
 					return false;
 				}
-			}
+			};
 		}
 
-		function findMedia(media: any, key: number): boolean {
+		function findMedia (media: any, key: number): boolean {
 			if (Em.isArray(media)) {
-				return media.some(findMediaInGallery(key), this)
+				return media.some(findMediaInGallery(key), this);
 			} else if (media.title === file) {
 				this.set('currentMediaRef', key);
 
@@ -51,13 +51,13 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	},
 
-	init: function() {
+	init: function () {
 		this.set('model', App.MediaModel.create());
 
 		this.matchQueryString();
 	},
 
-	galleryBoundries: function() {
+	galleryBoundries: function () {
 		var currentGalleryRef = this.get('currentGalleryRef'),
 			galleryLength = this.get('galleryLength') - 1;
 
@@ -69,15 +69,15 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 	}.observes('currentGalleryRef', 'galleryLength'),
 
-	isGallery: function() {
+	isGallery: function () {
 		return Em.isArray(this.get('current'));
 	}.property('current'),
 
-	current: function(){
+	current: function () {
 		return this.get('model.media')[this.get('currentMediaRef')];
 	}.property('model.media', 'currentMediaRef'),
 
-	currentMedia: function() {
+	currentMedia: function () {
 		var current = this.get('current');
 
 		if (this.get('isGallery')) {
@@ -87,7 +87,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('current', 'isGallery', 'currentGalleryRef'),
 
-	galleryLength: function() {
+	galleryLength: function () {
 		if (this.get('isGallery')) {
 			return this.get('current').length;
 		} else {
@@ -95,7 +95,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('isGallery', 'current'),
 
-	currentMediaObserver: function() {
+	currentMediaObserver: function () {
 		var currentMedia = this.get('currentMedia');
 
 		if (currentMedia) {
@@ -105,7 +105,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.observes('currentMedia').on('init'),
 
-	contents: function() {
+	contents: function () {
 		var currentMedia = this.get('currentMedia');
 
 		if (currentMedia) {
@@ -115,7 +115,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('currentMedia'),
 
-	footer: function() {
+	footer: function () {
 		var currentMedia = this.get('currentMedia');
 
 		if (currentMedia) {
@@ -127,18 +127,18 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('currentMedia'),
 
-	galleryHeader: function(){
+	galleryHeader: function () {
 		return (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
 	}.property('galleryLength', 'currentGalleryRef'),
 
-	header: function() {
+	header: function () {
 		if (this.get('isGallery')) {
 			return this.get('galleryHeader');
 		}
 		return '';
 	}.property('isGallery', 'galleryHeader'),
 
-	reset: function(){
+	reset: function () {
 		this.setProperties({
 			currentMediaRef: null,
 			currentGalleryRef: 0,

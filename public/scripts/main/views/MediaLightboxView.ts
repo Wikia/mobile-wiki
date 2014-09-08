@@ -8,7 +8,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	//before didInsertElement the lightbox is opening
 	status: 'opening',
 
-	keyDown: function(event: JQueryEventObject){
+	keyDown: function (event: JQueryEventObject) {
 		if (event.keyCode === 39) { //left arrow
 			this.get('controller').incrementProperty('currentGalleryRef')
 		} else if (event.keyCode === 37) { //right arrow
@@ -18,7 +18,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this._super(event);
 	},
 
-	didInsertElement: function() {
+	didInsertElement: function () {
 		this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
 		this.get('parentView').send('setUnScrollable');
@@ -26,7 +26,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this._super();
 	},
 
-	animateMedia: function(image?: HTMLElement) {
+	animateMedia: function (image?: HTMLElement) {
 		if (image) {
 			var $image = $(image),
 				offset = $image.offset(),
@@ -49,13 +49,13 @@ App.MediaLightboxView = App.LightboxView.extend({
 				width: document.body.offsetWidth + 'px',
 				top: this.$('img')[0].offsetTop + 'px',
 				left: 0
-			}).on('webkitTransitionEnd', function(){
+			}).on('webkitTransitionEnd', function () {
 				$imageCopy.remove();
 			});
 		}
 	},
 
-	willDestroyElement: function() {
+	willDestroyElement: function () {
 		this.get('parentView').send('setScrollable');
 		this.get('controller').reset();
 
