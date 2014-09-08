@@ -54,7 +54,7 @@ App.ApplicationRoute = Em.Route.extend({
 			}
 		},
 
-		openLightbox: function(lightboxName: string, mediaRef?: number, element?: HTMLElement): string {
+		openLightbox: function (lightboxName: string, mediaRef?: number, element?: HTMLElement): void {
 
 			if (mediaRef >= 0) {
 				this.controllerFor(lightboxName).set('currentMediaRef', mediaRef);
@@ -70,7 +70,7 @@ App.ApplicationRoute = Em.Route.extend({
 			});
 		},
 
-		closeLightbox: function() {
+		closeLightbox: function (): void {
 			return this.disconnectOutlet({
 				outlet: 'lightbox',
 				parentView: 'application'
