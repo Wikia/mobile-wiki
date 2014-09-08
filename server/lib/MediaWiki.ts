@@ -57,18 +57,18 @@ export class WikiRequest {
 export class ArticleRequest {
 	name: string;
 	title: string;
-	followRedirects: boolean;
+	redirect: string;
 
-	constructor (params: {name: string; title?: string; followRedirects?: boolean}) {
+	constructor (params: {name: string; title?: string; redirect?: string}) {
 		this.name = params.name;
 		this.title = params.title;
-		this.followRedirects = params.followRedirects;
+		this.redirect = params.redirect;
 	}
 
 	fetch () {
 		var url = createUrl(this.name, 'api/v1/Mercury/Article', {
 			title: this.title,
-			followRedirects: this.followRedirects
+			redirect: this.redirect
 		});
 
 		return fetch(url);

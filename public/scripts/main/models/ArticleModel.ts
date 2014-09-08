@@ -40,16 +40,16 @@ App.ArticleModel = Ember.Object.extend({
 });
 
 App.ArticleModel.reopenClass({
-	url: function (params: {title: string; followRedirects?: boolean}) {
-		var queryString = '';
+	url: function (params: {title: string; redirect?: string}) {
+		var redirect = '';
 
-		if (params.followRedirects) {
-			queryString += 'followRedirects=true';
+		if (params.redirect) {
+			redirect += '?redirect=' + encodeURIComponent(params.redirect);
 		}
 
-		return '/api/v1/article/' + params.title + (queryString ? '?' + queryString : '');
+		return '/api/v1/article/' + params.title + redirect;
 	},
-	find: function (params: {wiki: string; title: string; followRedirects?: boolean}) {
+	find: function (params: {wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params),
 			self = this;
 

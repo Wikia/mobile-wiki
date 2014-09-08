@@ -8,7 +8,7 @@ function index(params: any, next: Function): void {
 	article.createFullArticle(true, {
 		wikiName: params.wiki,
 		articleTitle: params.title,
-		followRedirects: params.followRedirects
+		redirect: params.redirect
 	}, (data: any) => {
 		var articleContent = data.article.content,
 			wiki = data.wiki;
