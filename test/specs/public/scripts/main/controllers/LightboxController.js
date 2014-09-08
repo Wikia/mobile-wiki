@@ -1,6 +1,6 @@
 moduleFor('controller:lightbox', 'Lightbox Controller');
 
-test('toggleFooter', function () {
+test('if toggleFooter method toggles lightboxFooterExpanded property', function () {
 	expect(3);
 	var lightboxController = this.subject();
 
@@ -15,7 +15,7 @@ test('toggleFooter', function () {
 	equal(lightboxController.get('lightboxFooterExpanded'), false);
 });
 
-test('toggleUI', function () {
+test('if toggleUI method properly toggles footerHidden and headerHidden properties', function () {
 	expect(6);
 	var lightboxController = this.subject();
 
