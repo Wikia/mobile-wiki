@@ -30,11 +30,10 @@ moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 	}
 });
 
-test('init', function () {
+test('if init is run correctly and file is set', function () {
 	expect(3);
 	var mediaLightboxController = this.subject(),
 		articleController = mediaLightboxController.get('controllers.article');
-
 
 	deepEqual(mediaLightboxController.get('model'), App.MediaModel.create());
 	deepEqual(mediaLightboxController.get('file'), null);
@@ -44,14 +43,7 @@ test('init', function () {
 	equal(mediaLightboxController.get('file'), 'fileTitle');
 });
 
-test('currentMedia', function () {
-	expect(1);
-	var mediaLightboxController = this.subject();
-
-	equal(mediaLightboxController.get('currentMediaRef'), undefined);
-});
-
-test('contents', function () {
+test('if contents is generated properly', function () {
 	expect(3);
 	var mediaLightboxController = this.subject();
 
@@ -68,7 +60,7 @@ test('contents', function () {
 	equal(mediaLightboxController.get('contents'), '<img src="testgallery">');
 });
 
-test('footer', function () {
+test('generates correct footer for a currentMedia (with caption)', function () {
 	expect(2);
 	var mediaLightboxController = this.subject();
 
@@ -81,8 +73,8 @@ test('footer', function () {
 	equal(mediaLightboxController.get('footer'), 'testcaption1');
 
 });
-//
-test('galleryHeader', function () {
+
+test('genereates correct header for a gallery', function () {
 	expect(1);
 	var mediaLightboxController = this.subject();
 
@@ -92,7 +84,7 @@ test('galleryHeader', function () {
 
 });
 
-test('header', function () {
+test('updeates a header accordingly to current media', function () {
 	expect(3);
 	var mediaLightboxController = this.subject();
 
@@ -120,7 +112,7 @@ test('check if current media is gallery', function () {
 	equal(mediaLightboxController.get('isGallery'), true);
 });
 
-test('returns gallery length', function () {
+test('returns gallery length, if current media is a gallery', function () {
 	expect(2);
 	var mediaLightboxController = this.subject();
 
