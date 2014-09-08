@@ -3,3 +3,9 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.animated-media {
+	height: auto;
+	transition: all .3s;
+	position: fixed;
+}

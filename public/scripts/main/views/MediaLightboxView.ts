@@ -36,13 +36,11 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 			//initial style, mimck the image that is in page
 			$imageCopy.css({
-				position: 'fixed',
 				top: offset.top - window.scrollY + 'px',
 				left: offset.left + 'px',
-				width: $image.width() + 'px',
-				height: 'auto',
-				transition: 'all .3s'
-			});
+				width: $image.width() + 'px'
+			//for static css properties see _media_lightbox.scss
+			}).addClass('animated-media');
 
 			this.$().append($imageCopy);
 
