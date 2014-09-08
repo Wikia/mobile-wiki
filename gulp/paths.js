@@ -58,5 +58,10 @@ module.exports = {
 			basePath + '/views',
 			basePath + '/config'
 		]
+	},
+	config: {
+		path: 'config/',
+		exampleFile: 'localSettings.example.ts',
+		runtimeFile: 'localSettings.ts'
 	}
 };
