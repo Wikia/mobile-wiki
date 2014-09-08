@@ -14,7 +14,7 @@ App.ApplicationView = Em.View.extend({
 	 */
 	scrollLocation: null,
 
-	willInsertElement: function() {
+	willInsertElement: function (): void {
 		$('#app-container').html('');
 	},
 
@@ -27,7 +27,7 @@ App.ApplicationView = Em.View.extend({
 		event.preventDefault();
 	},
 
-	handleLink: function(target: HTMLAnchorElement){
+	handleLink: function (target: HTMLAnchorElement): void {
 		var matches: Array<string>;
 
 		Em.Logger.debug('Handling link with href:', target.href);
@@ -51,7 +51,7 @@ App.ApplicationView = Em.View.extend({
 		}
 	},
 
-	handleMedia: function(target: HTMLElement) {
+	handleMedia: function (target: HTMLElement): void {
 		var mediaRef = parseInt(target.dataset.ref, 10);
 
 		if (mediaRef >= 0) {
@@ -88,7 +88,7 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	actions: {
-		setScrollable: function () {
+		setScrollable: function (): void {
 			Em.$('body')
 				.removeClass('no-scroll')
 				.css('top', '');
@@ -97,7 +97,7 @@ App.ApplicationView = Em.View.extend({
 			this.set('scrollLocation', null);
 		},
 
-		setUnScrollable: function () {
+		setUnScrollable: function (): void {
 			var $body = Em.$('body'),
 				scrollLocation = $body.scrollTop();
 
