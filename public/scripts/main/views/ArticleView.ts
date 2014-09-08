@@ -54,7 +54,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				this.lazyImages();
+				this.lazyLoadMedia();
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.setupAdsContext(model.get('adsContext'));
@@ -64,7 +64,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		});
 	},
 
-	lazyImages: function() {
+	lazyLoadMedia: function() {
 		var model = this.get('controller.model'),
 			lazyImages = this.$('.article-media'),
 			lazy = new Wikia.Modules.LazyLoad();
