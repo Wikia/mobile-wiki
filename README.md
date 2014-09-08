@@ -4,7 +4,6 @@
 
 ## Automatic Setup
 * Run `./install.sh` after cloning this repo
-* Run `./local-settings-setup.sh` to setup config/localSettings.ts
 * Run `npm run dev` to start server and watch files
 
 ## Manual Setup
