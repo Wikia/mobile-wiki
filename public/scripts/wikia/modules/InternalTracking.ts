@@ -1,4 +1,4 @@
-/// <reference path="../utils/extend.ts" />
+/// <reference path="../../../../typings/jquery/jquery.d.ts" />
 
 module Wikia.Modules {
 
@@ -23,7 +23,7 @@ module Wikia.Modules {
 			var requestURL: string,
 			    config: any;
 
-			config = W.extend(params, this.defaults);
+			config = $.extend(params, this.defaults);
 			requestURL = this.createRequestURL(eventName, config);
 
 			this.loadTrackingScript(requestURL);
