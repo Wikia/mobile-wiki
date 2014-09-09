@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.ArticleCommentsController = Ember.ArrayController.extend({
+App.ArticleCommentsController = Em.ArrayController.extend({
 	needs: ['articleUsers'],
 	itemController: 'articleComment'
 });

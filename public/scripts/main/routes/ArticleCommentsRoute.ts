@@ -8,7 +8,7 @@ App.ArticleCommentsRoute = Em.Route.extend({
 			id: this.modelFor('article').get('id')
 		});
 	},
-	setupController: function (controller: Ember.Controller, model: Ember.Object) {
+	setupController: function (controller: Em.Controller, model: Em.Object) {
 		controller.set('content', model.get('comments'));
 		this.controllerFor('articleUsers').set('content', model.get('users'));
 	},

@@ -2,12 +2,12 @@
 
 'use strict';
 
-App.ArticleCommentsModel = Ember.Object.extend({
+App.ArticleCommentsModel = Em.Object.extend({
 	find: function (params: any) {
 		var model = App.ArticleCommentsModel.create();
 
-		return new Ember.RSVP.Promise((resolve: Function, reject: Function) => {
-			Ember.$.ajax({
+		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+			Em.$.ajax({
 				url: this.url(params.id),
 				success: function (data) {
 					model.setProperties(data.payload);

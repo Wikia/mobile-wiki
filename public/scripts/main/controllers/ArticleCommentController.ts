@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.ArticleCommentController = Ember.ObjectController.extend({
+App.ArticleCommentController = Em.ObjectController.extend({
 	needs: ['articleUsers'],
 	expanded: false,
 	avatarUrl: function () {
