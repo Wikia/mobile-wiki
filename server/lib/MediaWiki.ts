@@ -56,19 +56,15 @@ export class WikiRequest {
 
 export class ArticleRequest {
 	name: string;
-	title: string;
-	redirect: string;
 
-	constructor (params: {name: string; title?: string; redirect?: string}) {
-		this.name = params.name;
-		this.title = params.title;
-		this.redirect = params.redirect;
+	constructor (name: string) {
+		this.name = name;
 	}
 
-	fetch () {
+	fetch (title: string, redirect: string) {
 		var url = createUrl(this.name, 'api/v1/Mercury/Article', {
-			title: this.title,
-			redirect: this.redirect
+			title: title,
+			redirect: redirect
 		});
 
 		return fetch(url);
@@ -92,7 +88,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,
-			timeout:   10000 // timeout after 10 seconds
+			timeout:   10000
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
 				reject(err);
