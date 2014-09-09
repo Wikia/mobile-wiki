@@ -18,19 +18,16 @@ import logger = require('../../lib/Logger');
  * @param callback
  * @param err
  */
-export function createFullArticle(getWikiInfo: boolean, request: any, callback: any, err: any) {
+export function createFullArticle(getWikiInfo: boolean, params: any, callback: any, err: any) {
 	var wikiRequest: MediaWiki.WikiRequest,
 		getVariablesRequest: Promise<any>,
-		article = new MediaWiki.ArticleRequest({
-			name: request.wikiName,
-			title: request.articleTitle
-		});
+		article = new MediaWiki.ArticleRequest(params);
 
-	logger.info('Fetching article', request.wikiName, request.articleTitle);
+	logger.info('Fetching article', params);
 
 	if (getWikiInfo) {
 		wikiRequest = new MediaWiki.WikiRequest({
-			name: request.wikiName
+			name: params.wiki
 		});
 
 		getVariablesRequest = wikiRequest.getWikiVariables();
@@ -48,7 +45,7 @@ export function createFullArticle(getWikiInfo: boolean, request: any, callback: 
 			if (!getWikiInfo) {
 				callback(data);
 			} else {
-				logger.info('Fetching wiki variables', request.wikiName);
+				logger.info('Fetching wiki variables', params.wiki);
 
 				wikiRequest = new MediaWiki.WikiRequest({
 					name: data.wikiName

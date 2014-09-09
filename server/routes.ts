@@ -94,9 +94,10 @@ function routes(server: Hapi.Server) {
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
-				wikiName: getWikiName(request.headers.host),
-				articleTitle: request.params.articleTitle
+				wiki: getWikiName(request.headers.host),
+				title: request.params.articleTitle
 			};
+
 			server.methods.getArticleData(params, (error: any, result: any) => {
 				// TODO: handle error a bit better :D
 				if (error) {

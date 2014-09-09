@@ -55,16 +55,16 @@ export class WikiRequest {
 }
 
 export class ArticleRequest {
-	name: string;
+	wiki: string;
 	title: string;
 
-	constructor (params: {name: string; title?: string}) {
-		this.name = params.name;
+	constructor (params: {wiki: string; title?: string}) {
+		this.wiki = params.wiki;
 		this.title = params.title;
 	}
 
 	fetch () {
-		var url = createUrl(this.name, 'api/v1/Mercury/Article', {
+		var url = createUrl(this.wiki, 'api/v1/Mercury/Article', {
 			title: this.title
 		});
 
@@ -72,7 +72,7 @@ export class ArticleRequest {
 	}
 
 	comments (articleId: number, page: number = 1) {
-		var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
+		var url: string = createUrl(this.wiki, 'api/v1/Mercury/ArticleComments', {
 			id: articleId.toString(),
 			page: page.toString()
 		});
