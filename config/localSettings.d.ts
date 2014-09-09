@@ -14,4 +14,5 @@ interface LocalSettings {
 	mediawikiHost: string;
 	gaId: string;
 	cache: CacheInterface;
+	wikiFallback: string;
 }

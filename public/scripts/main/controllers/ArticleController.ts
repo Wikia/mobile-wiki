@@ -4,6 +4,10 @@
 
 App.ArticleController = Em.ObjectController.extend({
 	needs: ['application'],
+
+	queryParams: ['file'],
+	file: null,
+
 	actions: {
 		updateHeaders: function(headers: NodeList): void {
 			var article = this.get('model');

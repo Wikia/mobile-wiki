@@ -1,3 +1,5 @@
+import localSettings = require('../../config/localSettings');
+
 module Utils {
 
 	/**
@@ -17,7 +19,7 @@ module Utils {
 		regex = /^(?:sandbox\-[^\.]+|preview|verify)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
 		match = host.match(regex);
 		//TODO: This is a bad default, find better solution
-		return match ? match[1] : 'community';
+		return match ? match[1] : (localSettings.wikiFallback || 'community');
 	}
 }
 

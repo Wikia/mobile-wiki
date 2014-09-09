@@ -21,7 +21,8 @@ var localSettings: LocalSettings = {
 	cache: {
 		name: 'appcache',
 		engine: 'memory' // cache responses in [memory|memcached]
-	}
+	},
+	wikiFallback: 'glee'
 };
 
 export = localSettings;
