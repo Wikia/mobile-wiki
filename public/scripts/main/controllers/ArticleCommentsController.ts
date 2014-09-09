@@ -38,6 +38,8 @@ App.ArticleCommentsController = Em.ArrayController.extend({
 			page: this.get('commentsPage')
 		});
 
+		model.addObserver('pagesCount', this.commentsPageObserver);
+
 		this.set('model', model);
 	},
 
@@ -51,15 +53,11 @@ App.ArticleCommentsController = Em.ArrayController.extend({
 		},
 
 		nextPage: function () {
-			Ember.beginPropertyChanges();
 			this.incrementProperty('commentsPage');
-			Ember.endPropertyChanges();
 		},
 
 		prevPage: function () {
-			Ember.beginPropertyChanges();
 			this.decrementProperty('commentsPage');
-			Ember.endPropertyChanges();
 		}
 	}
 });
