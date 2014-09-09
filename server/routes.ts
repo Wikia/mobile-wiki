@@ -116,7 +116,7 @@ function routes(server: Hapi.Server) {
 	server.route({
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
-		handler: (request: Hapi.Request, reply: any) => {
+		handler: (request: Hapi.Request, reply: Function) => {
 			var hostParts = request.headers.host.split('.');
 			var params = {
 				host: hostParts[hostParts.length - 3],
@@ -135,7 +135,7 @@ function routes(server: Hapi.Server) {
 	server.route({
 		method: 'GET',
 		path: '/api/v1/search/{query}',
-		handler: (request: any, reply: any) => {
+		handler: (request: any, reply: Function) => {
 			var params = {
 				wikiName: getWikiName(request.headers.host),
 				query: request.params.query
@@ -162,6 +162,16 @@ function routes(server: Hapi.Server) {
 			}
 		}
 	});
+
+	// Heartbeat route for monitoring
+	server.route({
+		method: 'GET',
+		path: '/heartbeat',
+		handler: (request: any, reply: Function) => {
+			reply('OK').code(200);
+		}
+	});
+
 }
 
 export = routes;
