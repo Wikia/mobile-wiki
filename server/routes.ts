@@ -14,9 +14,11 @@ function getWikiName(host: string): string {
 
 	host = host.split(':')[0]; //get rid of port
 	wikiName = wikiNames[host];
+
 	if (wikiName) {
 		return wikiName;
 	}
+
 	return wikiNames[host] = Utils.getWikiName(host);
 }
 

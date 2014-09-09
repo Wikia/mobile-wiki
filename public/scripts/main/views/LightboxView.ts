@@ -2,23 +2,30 @@
 'use strict';
 
 App.LightboxView = Em.View.extend({
+	layoutName: 'lightbox',
 	classNames: ['lightbox-wrapper'],
-	classNameBindings: ['status', 'hiddenFooter', 'hiddenHeader'],
+	classNameBindings: ['status'],
+	attributeBindings: ['tabindex'],
+	tabindex: 1,
 
-	footerExpanded: false,
-	hiddenFooter: false,
-	hiddenHeader: false,
 	status: 'open',
 
-	click: function(){
-		this.toggleProperty('hiddenFooter');
-		this.toggleProperty('hiddenHeader');
+	//this is needed if view wants to handle keyboard
+	didInsertElement: function () {
+		this.$().focus();
 	},
 
-	actions: {
-		toggleFooter: function(){
-			this.toggleProperty('footerExpanded');
+	keyDown: function (event: KeyboardEvent){
+		if (event.keyCode === 27) {
+			this.get('controller').send('closeLightbox');
 		}
+	},
+
+	willDestroyElement: function () {
+		this.get('controller').setProperties({
+			lightboxFooterExpanded: false,
+			footerHidden: false,
+			headerHidden: false
+		});
 	}
 });
-

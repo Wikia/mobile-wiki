@@ -50,18 +50,27 @@ App.ApplicationRoute = Em.Route.extend({
 				}
 			} else {
 				// Reaching this clause means something is probably wrong.
-				console.log('unable to open link "' + target.href + '"');
+				Em.Logger.error('unable to open link', target.href);
 			}
 		},
 
-		openLightbox: function(lightboxName: string) {
+		openLightbox: function (lightboxName: string, mediaRef?: number, element?: HTMLElement): void {
+
+			if (mediaRef >= 0) {
+				this.controllerFor(lightboxName).set('currentMediaRef', mediaRef);
+			}
+
+			if (element) {
+				this.controllerFor(lightboxName).set('element', element);
+			}
+
 			return this.render(lightboxName, {
 				into: 'application',
 				outlet: 'lightbox'
 			});
 		},
 
-		closeLightbox: function() {
+		closeLightbox: function (): void {
 			return this.disconnectOutlet({
 				outlet: 'lightbox',
 				parentView: 'application'

@@ -12,10 +12,10 @@ gulp.task('watch', ['assets'], function () {
 	if (!gutil.env.nosync) {
 		browserSync( {
 			ghostMode: {
-				clicks: true,
+				clicks: false,
 				location: true,
-				forms: true,
-				scroll: true
+				forms: false,
+				scroll: false
 			},
 			debugInfo: false,
 			open: false

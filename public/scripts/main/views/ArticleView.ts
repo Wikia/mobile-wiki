@@ -54,23 +54,28 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				var lazyImages = this.$('.article-media'),
-					lazy = new Wikia.Modules.LazyLoad();
-
-				lazy.fixSizes(lazyImages);
-
-				sloth.drop();
-				sloth.attach({
-					on: lazyImages,
-					threshold: 400,
-					callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
-				});
+				this.lazyLoadMedia();
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.setupAdsContext(model.get('adsContext'));
 				this.injectAds();
 				this.jumpToAnchor();
 			}
+		});
+	},
+
+	lazyLoadMedia: function() {
+		var model = this.get('controller.model'),
+			lazyImages = this.$('.article-media'),
+			lazy = new Wikia.Modules.LazyLoad();
+
+		lazy.fixSizes(lazyImages);
+
+		sloth.drop();
+		sloth.attach({
+			on: lazyImages,
+			threshold: 400,
+			callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
 		});
 	},
 
@@ -121,5 +126,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
+	},
+
+	didInsertElement: function() {
+		var controller = this.get('controller');
+
+		if (controller.get('file')) {
+			controller.send('openLightbox', 'media-lightbox');
+		}
 	}
 });
