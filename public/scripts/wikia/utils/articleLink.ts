@@ -11,7 +11,7 @@ interface LinkInfo {
 	article: string;
 	url: string;
 	hash?: string;
-};
+}
 
 module Wikia.Utils {
 	/**
