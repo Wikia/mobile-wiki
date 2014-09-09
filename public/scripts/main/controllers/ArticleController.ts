@@ -5,8 +5,13 @@
 App.ArticleController = Em.ObjectController.extend({
 	needs: ['application'],
 
-	queryParams: ['file'],
+	queryParams: ['file', 'commentsPage'],
 	file: null,
+	commentsPage: null,
+
+	displayUsers: function () {
+		return this.get('users').slice(0, 5);
+	}.property('users'),
 
 	actions: {
 		updateHeaders: function(headers: NodeList): void {
@@ -20,8 +25,5 @@ App.ArticleController = Em.ObjectController.extend({
 		scrollToTop: function () {
 			window.scrollTo(0, 0);
 		}
-	},
-	displayUsers: function () {
-		return this.get('users').slice(0, 5);
-	}.property('users')
+	}
 });

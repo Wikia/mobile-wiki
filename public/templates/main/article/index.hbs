@@ -35,7 +35,7 @@
 		</div>
 	{{/if}}
 	{{#if comments}}
-		{{#link-to 'article.comments' classNames='show-comments-btn'}}
+		{{#link-to (query-params commentsPage=0) classNames='show-comments-btn'}}
 		{{i18n 'article-comments-label' count='comments'}}
 		{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 		{{/link-to}}

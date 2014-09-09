@@ -3,9 +3,6 @@
 'use strict';
 
 App.ArticleCommentsModel = Ember.Object.extend({
-});
-
-App.ArticleCommentsModel.reopenClass({
 	find: function (params: any) {
 		var model = App.ArticleCommentsModel.create();
 

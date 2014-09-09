@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../../wikia/modules/sloth.ts" />
 /// <reference path="../../wikia/modules/lazyLoad.ts" />
 'use strict';
@@ -54,19 +55,19 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				this.lazyLoadMedia();
+				this.lazyLoadMedia(model);
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.setupAdsContext(model.get('adsContext'));
 				this.injectAds();
 				this.jumpToAnchor();
+				this.scrollToComments();
 			}
 		});
 	},
 
-	lazyLoadMedia: function() {
-		var model = this.get('controller.model'),
-			lazyImages = this.$('.article-media'),
+	lazyLoadMedia: function(model: typeof App.ArticleModel) {
+		var lazyImages = this.$('.article-media'),
 			lazy = new Wikia.Modules.LazyLoad();
 
 		lazy.fixSizes(lazyImages);
@@ -126,6 +127,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
+	},
+
+	scrollToComments: function () {
+		var controller = this.get('controller');
+
+		if (controller.get('commentsPage') >= 0 ) {
+			window.scrollTo(0, this.$('.show-comments-btn').offset().top);
+		}
 	},
 
 	didInsertElement: function() {
