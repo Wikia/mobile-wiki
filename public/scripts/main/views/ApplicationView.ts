@@ -15,7 +15,7 @@ App.ApplicationView = Em.View.extend({
 	scrollLocation: null,
 
 	willInsertElement: function (): void {
-		$('#app-container').html('');
+		$('#article-preload').remove();
 	},
 
 	/**
