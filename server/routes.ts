@@ -168,7 +168,7 @@ function routes(server: Hapi.Server) {
 		method: 'GET',
 		path: '/heartbeat',
 		handler: (request: any, reply: Function) => {
-			reply('OK').code(200);
+			reply('Server status is: OK').code(200);
 		}
 	});
 
