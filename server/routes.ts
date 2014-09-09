@@ -25,7 +25,7 @@ function getWikiName(host: string): string {
 function routes(server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
-			'/wiki/{title}',
+			'/wiki/{title*}',
 		],
 		notFoundError = 'Could not find article or Wiki, please check to' +
 				' see that you supplied correct parameters',
