@@ -128,11 +128,16 @@ export function getDomainName(wikiSubDomain: string = ''): string {
 }
 
 export function createUrl(wikiSubDomain: string, path: string, params: any = {}): string {
-	var qsAggregator: string[] = [];
+	var qsAggregator: string[] = [],
+		queryParam: string;
 
 	Object.keys(params).forEach(function(key) {
-		if (typeof params[key] !== 'undefined') {
-			qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
+		if (params.hasOwnProperty(key)) {
+			queryParam = (typeof params[key] !== 'undefined') ?
+				key + '=' + encodeURIComponent(params[key]) :
+				key;
+
+			qsAggregator.push(queryParam);
 		}
 	});
 
