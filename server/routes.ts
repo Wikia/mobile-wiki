@@ -168,7 +168,11 @@ function routes(server: Hapi.Server) {
 		method: 'GET',
 		path: '/heartbeat',
 		handler: (request: any, reply: Function) => {
-			reply('Server status is: OK').code(200);
+			var memoryUsage = process.memoryUsage();
+			reply('Server status is: OK')
+				.header('X-Memory', String(memoryUsage.rss))
+				.header('X-Uptime', String(~~ process.uptime()))
+				.code(200);
 		}
 	});
 
