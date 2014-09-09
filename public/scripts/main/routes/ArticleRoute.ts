@@ -35,6 +35,13 @@ App.ArticleRoute = Em.Route.extend({
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
+		},
+
+		toggleComments: function (): void {
+			this.render('article/comments', {
+				outlet: 'comments',
+				into: 'article'
+			});
 		}
 	}
 });

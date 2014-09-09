@@ -1,5 +1,13 @@
-<ul class="comments">
-{{#each controller}}
-	{{view App.ArticleCommentView}}
-{{/each}}
-</ul>
+<ul {{bind-attr class=":comments commentsHidden:hidden"}}>
+{{#if controller.model.comments}}
+	{{#if showPrevButton}}
+		<button {{action 'prevPage'}}>Prev Page</button>
+	{{/if}}
+	{{#each controller.model.comments}}
+		{{render "articleComment" .}}
+	{{/each}}
+	{{#if showNextButton}}
+		<button {{action 'nextPage'}}>Next Page</button>
+	{{/if}}
+	</ul>
+{{/if}}

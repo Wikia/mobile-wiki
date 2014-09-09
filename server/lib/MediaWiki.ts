@@ -10,7 +10,6 @@ import localSettings = require('../../config/localSettings');
 import Wreck = require('wreck');
 import Promise = require('bluebird');
 
-
 /**
  * @desc wrapper class for making API search requests
  */
@@ -71,10 +70,10 @@ export class ArticleRequest {
 		return fetch(url);
 	}
 
-	comments (articleId: number, page: number = 1) {
-		var url: string = createUrl(this.wiki, 'api/v1/Mercury/ArticleComments', {
-			id: articleId.toString(),
-			page: page.toString()
+	comments (articleId: number, page: number = 0) {
+		var url = createUrl(this.wiki, 'api/v1/Mercury/ArticleComments', {
+			id: articleId,
+			page: page
 		});
 
 		return fetch(url);
@@ -89,7 +88,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,
-			timeout:   10000 // timeout after 10 seconds
+			timeout: 10000
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
 				reject(err);

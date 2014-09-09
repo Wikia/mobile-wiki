@@ -113,11 +113,10 @@ function routes(server: Hapi.Server) {
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
 		handler: (request: Hapi.Request, reply: any) => {
-			var hostParts = request.headers.host.split('.'),
-				params = {
-					host: hostParts[hostParts.length - 3],
+			var params = {
+					wiki: getWikiName(request.headers.host),
 					articleId: parseInt(request.params.articleId, 10),
-					page: parseInt(request.params.page, 10) || 1
+					page: parseInt(request.params.page, 10) || 0
 				};
 
 			server.methods.getArticleComments(params, (error: any, result: any) => {

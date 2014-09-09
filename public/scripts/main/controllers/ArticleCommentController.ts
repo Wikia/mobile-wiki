@@ -2,15 +2,23 @@
 'use strict';
 
 App.ArticleCommentController = Em.ObjectController.extend({
-	needs: ['articleUsers'],
+	needs: ['articleComments'],
+
 	expanded: false,
+
+	users: Em.computed.alias(
+		'controllers.articleComments.model.users'
+	),
+
 	avatarUrl: function () {
-		var users = this.parentController.get('controllers.articleUsers').get('content');
+		var users = this.get('users');
+
 		return users[this.get('content.userName')].avatar;
 	}.property('content.userName'),
 
 	url: function () {
-		var users = this.parentController.get('controllers.articleUsers').get('content');
+		var users = this.get('users');
+
 		return users[this.get('content.userName')].url;
 	}.property('content.userName'),
 

@@ -3,23 +3,32 @@
 'use strict';
 
 App.ArticleCommentsModel = Em.Object.extend({
-	find: function (params: any) {
-		var model = App.ArticleCommentsModel.create();
+	articleId: null,
+	comments: null,
+	users: null,
+	pagesCount: null,
+	page: 0,
 
+	fetch: function (page?: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
-				url: this.url(params.id),
-				success: function (data) {
-					model.setProperties(data.payload);
-					resolve(model);
+				url: this.url(this.get('articleId'), this.get('page')),
+				success: (data) => {
+					this.setProperties(data.payload);
+					resolve(this);
 				},
-				error: function (data) {
+				error: (data) => {
 					reject(data);
 				}
 			});
 		});
+	}.observes('page', 'articleId'),
+
+	init: function () {
+		return this.fetch();
 	},
-	url: function (id: string) {
-		return '/api/v1/article/comments/' + id;
+
+	url: function (articleId: number, page: number = 0) {
+		return '/api/v1/article/comments/' + articleId + '/' + page;
 	}
 });
