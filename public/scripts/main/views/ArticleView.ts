@@ -66,7 +66,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		});
 	},
 
-	lazyLoadMedia: function(model: typeof App.ArticleModel) {
+	lazyLoadMedia: function (model: typeof App.ArticleModel) {
 		var lazyImages = this.$('.article-media'),
 			lazy = new Wikia.Modules.LazyLoad();
 
@@ -137,7 +137,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		}
 	},
 
-	didInsertElement: function() {
+	didInsertElement: function () {
 		var controller = this.get('controller');
 
 		if (controller.get('file')) {

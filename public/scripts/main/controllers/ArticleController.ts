@@ -16,11 +16,11 @@ App.ArticleController = Em.ObjectController.extend({
 	}.property('users'),
 
 	actions: {
-		updateHeaders: function(headers: NodeList): void {
+		updateHeaders: function (headers: NodeList): void {
 			var article = this.get('model');
 			article.set('sections', headers);
 		},
-		changePage: function(title: string) {
+		changePage: function (title: string) {
 			this.transitionToRoute('article', title);
 		},
 		// Bubbled up from ArticleSectionHeaderView, which is a child of ArticleView
