@@ -46,7 +46,7 @@ export class WikiRequest {
 		this.name = params.name;
 	}
 
-	getWikiVariables () {
+	getWikiVariables (): Promise<any> {
 		var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 
 		return fetch(url);
@@ -122,6 +122,7 @@ export function getDomainName(wikiSubDomain: string = ''): string {
 	if (typeof options[environment] !== 'undefined') {
 		return 'http://' + options[environment] + wikiSubDomain + 'wikia.com/';
 	}
+
 	// Devbox
 	return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
 }

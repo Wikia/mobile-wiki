@@ -26,6 +26,8 @@ export function createFullArticle(getWikiInfo: boolean, params: any, callback: a
 	logger.info('Fetching article', params);
 
 	if (getWikiInfo) {
+		logger.info('Fetching wiki variables', params.wiki);
+
 		wikiRequest = new MediaWiki.WikiRequest({
 			name: params.wiki
 		});
@@ -33,7 +35,7 @@ export function createFullArticle(getWikiInfo: boolean, params: any, callback: a
 		getVariablesRequest = wikiRequest.getWikiVariables();
 	}
 
-	article.fetch(request.articleTitle, request.redirect)
+	article.fetch(params.title, params.redirect)
 		.then((response: any) => {
 			var data = response.data;
 
@@ -45,15 +47,10 @@ export function createFullArticle(getWikiInfo: boolean, params: any, callback: a
 			if (!getWikiInfo) {
 				callback(data);
 			} else {
-				logger.info('Fetching wiki variables', params.wiki);
-
-				wikiRequest = new MediaWiki.WikiRequest({
-					name: data.wikiName
-				});
-
 				getVariablesRequest
 					.then((response: any) => {
 						data.wiki = response.data;
+
 						callback(data);
 					})
 					.catch(err);
