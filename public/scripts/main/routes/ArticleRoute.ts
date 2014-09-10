@@ -37,6 +37,12 @@ App.ArticleRoute = Em.Route.extend({
 			this.notifyPropertyChange('cleanTitle');
 		},
 
+		/**
+		 * This is bubbled from ArticleView.ts only
+		 * when comments were not rendered
+		 * otherwise toggleComments from ArticleView.ts
+		 * does not bubble the event
+		 */
 		toggleComments: function (): void {
 			this.render('article/comments', {
 				outlet: 'comments',
