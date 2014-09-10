@@ -15,7 +15,7 @@ App.LightboxView = Em.View.extend({
 		this.$().focus();
 	},
 
-	keyDown: function (event: KeyboardEvent){
+	keyDown: function (event: KeyboardEvent) {
 		if (event.keyCode === 27) {
 			this.get('controller').send('closeLightbox');
 		}

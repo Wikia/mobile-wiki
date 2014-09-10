@@ -4,7 +4,7 @@
  * @example
  * sloth({
  * 		on: document.getElementById('lazyModule'),
- * 		callback: function (element){
+ * 		callback: function (element) {
  * 			element.innerHTML = ajax('/get/some/stuff');
  * 		}
  * });

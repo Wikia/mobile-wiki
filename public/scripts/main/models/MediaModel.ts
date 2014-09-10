@@ -2,7 +2,7 @@
 'use strict';
 
 App.MediaModel = Em.Object.extend({
-	init: function (){
+	init: function () {
 		this.set('media', Wikia.article.article.media)
 	}
 });
