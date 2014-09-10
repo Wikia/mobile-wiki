@@ -18,7 +18,8 @@ App.ArticleCommentsController = Em.ArrayController.extend({
 			this.set('commentsPage', 1);
 		} if (commentsPage >= this.get('model.pagesCount')) {
 			this.set('commentsPage', this.get('model.pagesCount'));
-		} else if (model.get('page').toString() !== commentsPage.toString()) {
+			//TODO: this is too manual I am sure that there is a better way
+		} else if (commentsPage && model.get('page').toString() !== commentsPage.toString()) {
 			model.set('page', commentsPage);
 		}
 	}.observes('commentsPage'),
@@ -35,10 +36,10 @@ App.ArticleCommentsController = Em.ArrayController.extend({
 	init: function () {
 		var model = App.ArticleCommentsModel.create({
 			articleId: this.get('articleId'),
-			page: this.get('commentsPage')
+			page: this.get('commentsPage') || 1
 		});
 
-		model.addObserver('pagesCount', this.commentsPageObserver);
+		model.addObserver('pagesCount', this, this.commentsPageObserver);
 
 		this.set('model', model);
 	},

@@ -1,13 +1,13 @@
-<ul {{bind-attr class=":comments commentsHidden:hidden"}}>
 {{#if controller.model.comments}}
 	{{#if showPrevButton}}
-		<button {{action 'prevPage'}}>Prev Page</button>
+		<button {{action 'prevPage'}}>{{i18n 'comments-prev-button'}}</button>
 	{{/if}}
+    <ul {{bind-attr class=":comments commentsHidden:hidden"}}>
 	{{#each controller.model.comments}}
 		{{render "articleComment" .}}
 	{{/each}}
+    </ul>
 	{{#if showNextButton}}
-		<button {{action 'nextPage'}}>Next Page</button>
+		<button {{action 'nextPage'}}>{{i18n 'comments-next-button'}}</button>
 	{{/if}}
-	</ul>
 {{/if}}
