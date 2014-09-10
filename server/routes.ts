@@ -68,7 +68,8 @@ function routes(server: Hapi.Server) {
 
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
-					title: request.params.title
+					title: request.params.title,
+					redirect: request.query.redirect
 				}, (error: any, result: any) => {
 					// TODO: handle error a bit better :D
 					if (error) {
@@ -95,7 +96,8 @@ function routes(server: Hapi.Server) {
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
 				wiki: getWikiName(request.headers.host),
-				title: request.params.articleTitle
+				title: request.params.articleTitle,
+				redirect: request.params.redirect
 			};
 
 			server.methods.getArticleData(params, (error: any, result: any) => {

@@ -55,16 +55,15 @@ export class WikiRequest {
 
 export class ArticleRequest {
 	wiki: string;
-	title: string;
 
-	constructor (params: {wiki: string; title?: string}) {
-		this.wiki = params.wiki;
-		this.title = params.title;
+	constructor (wiki: string}) {
+		this.wiki = wiki;
 	}
 
-	fetch () {
+	fetch (title: string, redirect: string) {
 		var url = createUrl(this.wiki, 'api/v1/Mercury/Article', {
-			title: this.title
+			title: title,
+			redirect: redirect
 		});
 
 		return fetch(url);
@@ -88,7 +87,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,
-			timeout: 10000
+			timeout:   10000
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
 				reject(err);
@@ -128,10 +127,17 @@ export function getDomainName(wikiSubDomain: string = ''): string {
 }
 
 export function createUrl(wikiSubDomain: string, path: string, params: any = {}): string {
-	var qsAggregator: string[] = [];
+	var qsAggregator: string[] = [],
+		queryParam: string;
 
 	Object.keys(params).forEach(function(key) {
-		qsAggregator.push(key + '=' + encodeURIComponent(params[key]));
+		if (params.hasOwnProperty(key)) {
+			queryParam = (typeof params[key] !== 'undefined') ?
+				key + '=' + encodeURIComponent(params[key]) :
+				key;
+
+			qsAggregator.push(queryParam);
+		}
 	});
 
 	return getDomainName(wikiSubDomain) +
