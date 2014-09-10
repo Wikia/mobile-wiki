@@ -10,6 +10,6 @@ declare var $script;
 */
 module Wikia.Utils {
 	export function load () {
-		return $script;
+		return $script.apply(null, arguments);
 	};
 }
