@@ -46,6 +46,7 @@ App.ApplicationView = Em.View.extend({
 			 */
 			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
 				event.preventDefault();
+
 				this.get('controller').send('handleLink', target);
 			}
 		}

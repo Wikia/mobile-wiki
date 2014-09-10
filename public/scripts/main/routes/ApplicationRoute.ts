@@ -6,6 +6,7 @@ App.ApplicationRoute = Em.Route.extend({
 	model: function <T>(params: T): T {
 		return params;
 	},
+
 	actions: {
 		loading: function () {
 			var controller = this.controllerFor('application'),
@@ -15,6 +16,7 @@ App.ApplicationRoute = Em.Route.extend({
 
 			controller.set('spinnerView', spinner);
 		},
+
 		didTransition: function () {
 			var spinnerView = this.controllerFor('application').get('spinnerView');
 
@@ -22,6 +24,7 @@ App.ApplicationRoute = Em.Route.extend({
 				spinnerView.destroy();
 			}
 		},
+
 		handleLink: function (target: HTMLAnchorElement) {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
