@@ -56,7 +56,7 @@ export class WikiRequest {
 export class ArticleRequest {
 	wiki: string;
 
-	constructor (wiki: string}) {
+	constructor (wiki: string) {
 		this.wiki = wiki;
 	}
 
