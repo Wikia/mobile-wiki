@@ -49,6 +49,7 @@ App.ArticleModel.reopenClass({
 
 		return '/api/v1/article/' + params.title + redirect;
 	},
+
 	find: function (params: {wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params),
 			self = this;
@@ -76,10 +77,12 @@ App.ArticleModel.reopenClass({
 			});
 		});
 	},
+
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;
 		return Wikia.article;
 	},
+
 	setArticle: function (model: Em.Object, source = this.getPreloadedData()) {
 		model.setProperties({
 			type: source.details.ns,
@@ -93,7 +96,7 @@ App.ArticleModel.reopenClass({
 			categories: source.article.categories,
 			adsContext: source.adsContext,
 
-			/**,
+			/**
 			 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
 			 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
 			 * to handle this and never return malformed structures.
