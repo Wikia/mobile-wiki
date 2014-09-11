@@ -372,7 +372,7 @@ declare module Hapi {
 		pre: Object;
 		response: Object;
 		responses: Object;
-		query: Object;
+		query: any;
 		raw: {
 			req: any; //http.ClientRequest
 			res: any; //http.ClientResponse

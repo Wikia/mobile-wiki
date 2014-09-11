@@ -7,7 +7,8 @@ import MediaWiki = require('../../lib/MediaWiki');
 function index(params: any, next: Function): void {
 	article.createFullArticle(true, {
 		wikiName: params.wiki,
-		articleTitle: params.title
+		articleTitle: params.title,
+		redirect: params.redirect
 	}, (data: any) => {
 		var articleContent = data.article.content,
 			wiki = data.wiki;
