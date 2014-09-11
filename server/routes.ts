@@ -27,6 +27,10 @@ function routes(server: Hapi.Server) {
 		indexRoutes = [
 			'/wiki/{title*}',
 		],
+		proxyRoutes = [
+			'/favicon.ico',
+			'/robots.txt'
+		],
 		notFoundError = 'Could not find article or Wiki, please check to' +
 				' see that you supplied correct parameters',
 		config = {
@@ -175,6 +179,20 @@ function routes(server: Hapi.Server) {
 		}
 	});
 
+	proxyRoutes.forEach((route: string) => {
+		server.route({
+			method: 'GET',
+			path: route,
+			handler: (request: any, reply: any) => {
+				var path = route.substr(1),
+					url = MediaWiki.createUrl(getWikiName(request.headers.host), path);
+				reply.proxy({
+					uri: url,
+					redirects: 3
+				});
+			}
+		});
+	});
 }
 
 export = routes;
