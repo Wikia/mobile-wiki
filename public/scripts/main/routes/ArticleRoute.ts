@@ -10,22 +10,43 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
+	/**
+	 * We need to support links like:
+	 * /wiki/Rachel Berry
+	 * /wiki/Rachel  Berry
+	 * /wiki/Rachel__Berry
+	 *
+	 * but we want them to be displayed normalized in URL bar
+	 */
 	beforeModel: function (transition: EmberStates.Transition) {
 		if (Wikia.error) {
 			transition.abort();
 		}
+
+		if (window.history) {
+			window.history.replaceState(
+				null,
+				null,
+				decodeURIComponent(window.location.pathname)
+					.replace(/\s/g, '_')
+					.replace(/_+/g, '_')
+			);
+		}
 	},
+
 	model: function (params: any) {
 		return App.ArticleModel.find({
 			title: params.articleTitle,
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},
+
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition) {
 			transition.abort();
 			Em.Logger.warn(error);
 		},
+
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
 		willTransition: function (transition: EmberStates.Transition) {
