@@ -132,7 +132,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	scrollToComments: function () {
 		var controller = this.get('controller');
 
-		if (controller.get('commentsPage') >= 0 ) {
+		if (controller.get('commentsPage') !== null ) {
 			window.scrollTo(0, this.$('.show-comments-btn').offset().top);
 		}
 	},
