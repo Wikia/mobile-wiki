@@ -2,11 +2,15 @@
 'use strict';
 
 module Wikia.Modules {
+	var playerClassMap = {
+		youtube: 'YouTube'
+	};
+
 	export class VideoLoader {
 		element: HTMLElement;
 		data: any;
 		trackingTimeout: number;
-		playerClassMap: any;
+		player: any;
 
 		constructor (element, data /* tracking cb */) {
 			element.innerHTML = data.html;
@@ -17,7 +21,8 @@ module Wikia.Modules {
 		static Player: any;
 
 		public loadPlayerClass () {
-			var player = new Wikia.Modules.VideoLoader.Player.YouTubePlayer(this.data.jsParams);
+			var playerClassStr = playerClassMap[this.data.provider.toLowerCase()] + 'Player';
+			this.player = new Wikia.Modules.VideoLoader.Player[playerClassStr](this.data.jsParams);
 		}
 
 	}
