@@ -10,7 +10,6 @@ import localSettings = require('../../config/localSettings');
 import Wreck = require('wreck');
 import Promise = require('bluebird');
 
-
 /**
  * @desc wrapper class for making API search requests
  */
@@ -47,7 +46,7 @@ export class WikiRequest {
 		this.name = params.name;
 	}
 
-	getWikiVariables () {
+	getWikiVariables (): Promise<any> {
 		var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
 
 		return fetch(url);
@@ -55,14 +54,14 @@ export class WikiRequest {
 }
 
 export class ArticleRequest {
-	name: string;
+	wiki: string;
 
-	constructor (name: string) {
-		this.name = name;
+	constructor (wiki: string) {
+		this.wiki = wiki;
 	}
 
 	fetch (title: string, redirect: string) {
-		var url = createUrl(this.name, 'api/v1/Mercury/Article', {
+		var url = createUrl(this.wiki, 'api/v1/Mercury/Article', {
 			title: title,
 			redirect: redirect
 		});
@@ -70,10 +69,10 @@ export class ArticleRequest {
 		return fetch(url);
 	}
 
-	comments (articleId: number, page: number = 1) {
-		var url: string = createUrl(this.name, 'api/v1/Mercury/ArticleComments', {
-			id: articleId.toString(),
-			page: page.toString()
+	comments (articleId: number, page: number = 0) {
+		var url = createUrl(this.wiki, 'api/v1/Mercury/ArticleComments', {
+			id: articleId,
+			page: page
 		});
 
 		return fetch(url);
@@ -123,6 +122,7 @@ export function getDomainName(wikiSubDomain: string = ''): string {
 	if (typeof options[environment] !== 'undefined') {
 		return 'http://' + options[environment] + wikiSubDomain + 'wikia.com/';
 	}
+
 	// Devbox
 	return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
 }

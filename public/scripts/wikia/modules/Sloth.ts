@@ -4,7 +4,7 @@
  * @example
  * sloth({
  * 		on: document.getElementById('lazyModule'),
- * 		callback: function(element){
+ * 		callback: function (element) {
  * 			element.innerHTML = ajax('/get/some/stuff');
  * 		}
  * });
@@ -32,7 +32,7 @@ interface AttachParams {
 
 module Wikia.Modules {
 	var slice = Array.prototype.slice,
-		debounce = (function(element: Element): number {
+		debounce = (function (element: Element): number {
 			return element ? parseInt(element.getAttribute('data-sloth-debounce'), 10) : 200;
 		})(window.document.querySelector('script[data-sloth-debounce]'));
 
