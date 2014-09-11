@@ -14,17 +14,14 @@ import logger = require('../../lib/Logger');
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
- * @param data
+ * @param request
  * @param callback
  * @param err
  */
 export function createFullArticle(getWikiInfo: boolean, request: any, callback: any, err: any) {
 	var wikiRequest: MediaWiki.WikiRequest,
 		getVariablesRequest: Promise<any>,
-		article = new MediaWiki.ArticleRequest({
-			name: request.wikiName,
-			title: request.articleTitle
-		});
+		article = new MediaWiki.ArticleRequest(request.wikiName);
 
 	logger.info('Fetching article', request.wikiName, request.articleTitle);
 
@@ -36,7 +33,7 @@ export function createFullArticle(getWikiInfo: boolean, request: any, callback: 
 		getVariablesRequest = wikiRequest.getWikiVariables();
 	}
 
-	article.fetch()
+	article.fetch(request.articleTitle, request.redirect)
 		.then((response: any) => {
 			var data = response.data;
 
@@ -68,7 +65,8 @@ export function createFullArticle(getWikiInfo: boolean, request: any, callback: 
 export function handleRoute(request: Hapi.Request, reply: Function): void {
 	var data = {
 		wikiName: request.params.wikiName,
-		articleTitle: decodeURIComponent(request.params.articleTitle)
+		articleTitle: decodeURIComponent(request.params.articleTitle),
+		redirect: request.params.redirect
 	};
 
 	createFullArticle(false, data, (data: any) => {

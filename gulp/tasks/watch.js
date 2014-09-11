@@ -10,7 +10,7 @@ gulp.task('watch', ['assets'], function () {
 	log('Watching files');
 
 	if (!gutil.env.nosync) {
-		browserSync( {
+		browserSync({
 			ghostMode: {
 				clicks: false,
 				location: true,
@@ -22,7 +22,7 @@ gulp.task('watch', ['assets'], function () {
 		});
 	}
 
-	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
+	gulp.watch(paths.styles.watch, ['sass', reload], function (event) {
 		log('Style changed:', gutil.colors.green(event.path));
 		/*
 		 * Baseline is a scss file that gets inlined, so the views must be recompiled
@@ -36,8 +36,7 @@ gulp.task('watch', ['assets'], function () {
 	gulp.watch(path.join(
 			paths.scripts.front.src,
 			paths.scripts.front.files
-		), ['tslint', 'scripts-front', reload])
-		.on('change', function (event) {
+		), ['tslint', 'scripts-front', reload], function (event) {
 			log('Script changed:', gutil.colors.green(event.path));
 
 			if (event.path.match('baseline')) {
@@ -45,25 +44,25 @@ gulp.task('watch', ['assets'], function () {
 			}
 		});
 
-	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back', reload]).on('change', function (event) {
+	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back', reload], function (event) {
 		log('Script for backend changed:', gutil.colors.green(event.path));
 	});
 
 	gulp.watch(path.join(
 			paths.templates.src,
 			paths.templates.files
-		), ['templates', reload]).on('change', function (event) {
+		), ['templates', reload], function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
 	gulp.watch(path.join(
 			paths.svg.src,
 			paths.svg.files
-		), ['build', reload]).on('change', function (event) {
+		), ['build', reload], function (event) {
 		log('Svg changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(paths.views.src, ['build', reload]).on('change', function (event) {
+	gulp.watch(paths.views.src, ['build', reload], function (event) {
 		log('Views changed:', gutil.colors.green(event.path));
 	});
 });

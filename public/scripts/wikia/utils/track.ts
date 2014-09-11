@@ -1,4 +1,4 @@
-/// <reference path="../modules/internalTracking.ts" />
+/// <reference path="../modules/InternalTracking.ts" />
 interface Window {
 	ga: any;
 	Wikia: any;
