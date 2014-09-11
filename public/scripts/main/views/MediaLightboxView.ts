@@ -45,7 +45,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	}.observes('controller.currentMedia'),
 
 	/**
-	  @method initVideoPlayer
+	* @method initVideoPlayer
 	* @description Used to instantiate a provider specific video player
 	*/
 	initVideoPlayer: function (media) {
