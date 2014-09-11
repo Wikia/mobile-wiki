@@ -22,6 +22,7 @@ var localSettings: LocalSettings = {
 		name: 'appcache',
 		engine: 'memory' // cache responses in [memory|memcached]
 	},
+	proxyMaxRedirects: 3,
 	wikiFallback: 'glee'
 };
 

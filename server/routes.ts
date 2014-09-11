@@ -188,7 +188,7 @@ function routes(server: Hapi.Server) {
 					url = MediaWiki.createUrl(getWikiName(request.headers.host), path);
 				reply.proxy({
 					uri: url,
-					redirects: 3
+					redirects: localSettings.proxyMaxRedirects || 3
 				});
 			}
 		});
