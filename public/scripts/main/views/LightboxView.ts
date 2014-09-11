@@ -2,7 +2,7 @@
 'use strict';
 
 App.LightboxView = Em.View.extend({
-	layoutName: 'lightbox',
+	layoutName: 'app/lightbox',
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['status'],
 	attributeBindings: ['tabindex'],

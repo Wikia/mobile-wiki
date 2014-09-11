@@ -62,4 +62,3 @@ App.ArticleCommentsController = Em.ArrayController.extend({
 		}
 	}
 });
-

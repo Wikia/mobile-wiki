@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "ember": ">=1.7",
-    "foundation": "5.x.x",
+    "ember": ">=1.8",
+    "foundation": "5.4.2",
     "i18next": "1.x.x"
   },
   "devDependencies": {

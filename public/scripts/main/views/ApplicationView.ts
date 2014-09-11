@@ -15,7 +15,7 @@ App.ApplicationView = Em.View.extend({
 	scrollLocation: null,
 
 	willInsertElement: function (): void {
-		$('#app-container').html('');
+		$('#article-preload').remove();
 	},
 
 	/**
@@ -98,7 +98,7 @@ App.ApplicationView = Em.View.extend({
 			this.set('scrollLocation', null);
 		},
 
-		setUnScrollable: function (): void {
+		setUnscrollable: function (): void {
 			var $body = Em.$('body'),
 				scrollLocation = $body.scrollTop();
 
