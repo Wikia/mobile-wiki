@@ -5,4 +5,3 @@ App.ArticleCommentsController = Ember.ArrayController.extend({
 	needs: ['articleUsers'],
 	itemController: 'articleComment'
 });
-

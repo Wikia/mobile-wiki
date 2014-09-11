@@ -27,9 +27,6 @@ module.exports = {
 			removeComments: false
 		}
 	},
-	handlebars: {
-		output: 'browser'
-	},
 	clean: {
 		read: false
 	},
