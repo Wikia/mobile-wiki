@@ -11,7 +11,6 @@ var App: any = Em.Application.create({
 	LOG_VIEW_LOOKUPS: true,
 	LOG_TRANSITIONS: true,
 	LOG_INTERNAL_TRANSITIONS: true,
-	rootElement: '#app-container',
 	language: Wikia.wiki ? Wikia.wiki.language : 'en',
 	hash: null
 });

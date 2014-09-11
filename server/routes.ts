@@ -23,7 +23,18 @@ function getWikiName(host: string): string {
 }
 
 function routes(server: Hapi.Server) {
-	var second = 1000;
+	var second = 1000,
+		indexRoutes = [
+			'/wiki/{title*}',
+		],
+		notFoundError = 'Could not find article or Wiki, please check to' +
+				' see that you supplied correct parameters',
+		config = {
+			cache: {
+				privacy: 'public',
+				expiresIn: 60 * second
+			}
+		};
 	// all the routes that should resolve to loading single page app entry view
 
 	function restrictedHandler (request: Hapi.Request, reply: any) {
@@ -42,23 +53,6 @@ function routes(server: Hapi.Server) {
 		handler: restrictedHandler
 	});
 
-	var indexRoutes: string[] = [
-		'/a/{title}',
-		'/a/{title}/comments',
-		'/wiki/{title}',
-		'/wiki/{title}/comments'
-	];
-
-	var notFoundError = 'Could not find article or Wiki, please check to' +
-						' see that you supplied correct parameters';
-
-	var config = {
-		cache: {
-			privacy: 'public',
-			expiresIn: 60 * second
-		}
-	};
-
 	indexRoutes.forEach(function(route: string) {
 		server.route({
 			method: 'GET',
@@ -71,9 +65,11 @@ function routes(server: Hapi.Server) {
 					details: '',
 					gaId: ''
 				};
+
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
-					title: request.params.title
+					title: request.params.title,
+					redirect: request.query.redirect
 				}, (error: any, result: any) => {
 					// TODO: handle error a bit better :D
 					if (error) {
@@ -99,9 +95,11 @@ function routes(server: Hapi.Server) {
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
-				wikiName: getWikiName(request.headers.host),
-				articleTitle: request.params.articleTitle
+				wiki: getWikiName(request.headers.host),
+				title: request.params.articleTitle,
+				redirect: request.params.redirect
 			};
+
 			server.methods.getArticleData(params, (error: any, result: any) => {
 				// TODO: handle error a bit better :D
 				if (error) {
@@ -117,12 +115,12 @@ function routes(server: Hapi.Server) {
 		method: 'GET',
 		path: '/api/v1/article/comments/{articleId}/{page?}',
 		handler: (request: Hapi.Request, reply: Function) => {
-			var hostParts = request.headers.host.split('.');
 			var params = {
-				host: hostParts[hostParts.length - 3],
-				articleId: parseInt(request.params.articleId, 10),
-				page: parseInt(request.params.page, 10) || 1
-			};
+					wiki: getWikiName(request.headers.host),
+					articleId: parseInt(request.params.articleId, 10),
+					page: parseInt(request.params.page, 10) || 0
+				};
+
 			server.methods.getArticleComments(params, (error: any, result: any) => {
 				if (error) {
 					error = Hapi.error.notFound(notFoundError);
@@ -140,6 +138,7 @@ function routes(server: Hapi.Server) {
 				wikiName: getWikiName(request.headers.host),
 				query: request.params.query
 			};
+
 			server.methods.searchForQuery(params, (error: any, result: any) => {
 				if (error) {
 					error = Hapi.error.notFound('No results for that search term');
