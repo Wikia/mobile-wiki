@@ -32,7 +32,6 @@ module Wikia.Modules.VideoLoader.Player {
 			if (window.YT) {
 				this.createPlayer();
 			} else {
-				debugger;
 				window.onYouTubeIframeAPIReady = () => {
 					this.createPlayer();
 				};

@@ -98,21 +98,29 @@ App.MediaLightboxController = App.LightboxController.extend({
 	currentMediaObserver: function () {
 		var currentMedia = this.get('currentMedia');
 
-		if (currentMedia) {
-			this.set('file', currentMedia.title);
-		} else {
+		if (!currentMedia) {
 			this.set('file', null);
+			return;
 		}
+
+		this.set('file', currentMedia.title);
 	}.observes('currentMedia').on('init'),
 
 	contents: function () {
 		var currentMedia = this.get('currentMedia');
 
-		if (currentMedia) {
-			return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
-		} else {
+		if (!currentMedia) {
 			return i18n.t('app:media-lightbox-error');
 		}
+		if (currentMedia.type === 'image') {
+			return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
+		}
+
+		if (currentMedia.type === 'video') {
+			// the provider specific embed code for a given provider
+			return (currentMedia.embed.html).htmlSafe();
+		}
+
 	}.property('currentMedia'),
 
 	footer: function () {
