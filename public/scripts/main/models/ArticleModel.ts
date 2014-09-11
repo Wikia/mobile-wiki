@@ -81,26 +81,30 @@ App.ArticleModel.reopenClass({
 		return Wikia.article;
 	},
 	setArticle: function (model: Ember.Object, source = this.getPreloadedData()) {
-		model.set('type', source.details.ns);
-		model.set('cleanTitle', source.details.title);
-		model.set('comments', source.details.comments);
-		model.set('id', source.details.id);
-		model.set('article', source.article.content || $('.article-content').html());
-		model.set('media', source.article.media);
-		model.set('mediaUsers', source.article.users);
-		model.set('user', source.details.revision.user_id);
-		model.set('categories', source.article.categories);
-		model.set('adsContext', source.adsContext);
+		model.setProperties({
+			type: source.details.ns,
+			cleanTitle: source.details.title,
+			comments: source.details.comments,
+			id: source.details.id,
+			article: source.article.content || $('.article-content').html(),
+			media: source.article.media,
+			mediaUsers: source.article.users,
+			user: source.details.revision.user_id,
+			categories: source.article.categories,
+			adsContext: source.adsContext,
 
-		/**
-		 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
-		 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
-		 * to handle this and never return malformed structures.
-		 */
-		model.set('relatedPages', source.relatedPages);
+			/**,
+			 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
+			 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
+			 * to handle this and never return malformed structures.
+			 */
+			relatedPages: source.relatedPages,
 
-		// Same issue: the response to the ajax should always be valid and not undefined
-		model.set('users', source.topContributors);
-		model.set('basepath', source.basePath);
+			// Same issue: the response to the ajax should always be valid and not undefined
+			users: source.topContributors,
+			basepath: source.basePath
+		});
+
+		Em.Logger.debug(model);
 	}
 });
