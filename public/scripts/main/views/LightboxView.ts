@@ -2,7 +2,7 @@
 'use strict';
 
 App.LightboxView = Em.View.extend({
-	layoutName: 'lightbox',
+	layoutName: 'app/lightbox',
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['status'],
 	attributeBindings: ['tabindex'],
@@ -15,7 +15,7 @@ App.LightboxView = Em.View.extend({
 		this.$().focus();
 	},
 
-	keyDown: function (event: KeyboardEvent){
+	keyDown: function (event: KeyboardEvent) {
 		if (event.keyCode === 27) {
 			this.get('controller').send('closeLightbox');
 		}

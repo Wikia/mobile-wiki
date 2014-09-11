@@ -12,7 +12,7 @@ App.SideNavView = Em.View.extend({
 		expandSideNav: function (): void {
 			this.set('isCollapsed', false);
 			// Send unscroll action to ApplicationView
-			this.get('parentView').send('setUnScrollable');
+			this.get('parentView').send('setUnscrollable');
 		},
 		collapseSideNav: function (): void {
 			this.set('controller.isInSearchMode', false);
