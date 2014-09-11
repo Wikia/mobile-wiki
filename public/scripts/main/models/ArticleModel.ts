@@ -25,7 +25,7 @@ interface Response {
 	};
 }
 
-App.ArticleModel = Ember.Object.extend({
+App.ArticleModel = Em.Object.extend({
 	article: null,
 	categories: [],
 	cleanTitle: null,
@@ -61,8 +61,8 @@ App.ArticleModel.reopenClass({
 			return model;
 		}
 
-		return new Ember.RSVP.Promise(function (resolve: Function, reject: Function) {
-			Ember.$.ajax({
+		return new Em.RSVP.Promise(function (resolve: Function, reject: Function) {
+			Em.$.ajax({
 				url: self.url(params),
 				dataType: 'json',
 				async: false,
@@ -80,7 +80,7 @@ App.ArticleModel.reopenClass({
 		Wikia._state.firstPage = false;
 		return Wikia.article;
 	},
-	setArticle: function (model: Ember.Object, source = this.getPreloadedData()) {
+	setArticle: function (model: Em.Object, source = this.getPreloadedData()) {
 		model.setProperties({
 			type: source.details.ns,
 			cleanTitle: source.details.title,
