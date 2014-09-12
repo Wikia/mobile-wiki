@@ -4,6 +4,7 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
+import MediaWiki = require('../../lib/MediaWiki');
 
 var wikiNames: {
 	[key: string]: string;
