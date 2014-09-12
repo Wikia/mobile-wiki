@@ -10,10 +10,27 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
+
 	beforeModel: function (transition: EmberStates.Transition) {
 		if (Wikia.error) {
 			transition.abort();
 		}
+
+		this.replaceWith(this.sanitizeURL(window.location.pathname));
+	},
+
+	/**
+	 * We need to support links like:
+	 * /wiki/Rachel Berry
+	 * /wiki/Rachel  Berry
+	 * /wiki/Rachel__Berry
+	 *
+	 * but we want them to be displayed normalized in URL bar
+	 */
+	sanitizeURL: function (path: string = ''){
+		return decodeURIComponent(path)
+			.replace(/\s/g, '_')
+			.replace(/_+/g, '_')
 	},
 
 	model: function (params: any) {
@@ -22,6 +39,7 @@ App.ArticleRoute = Em.Route.extend({
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},
+
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition) {
 			transition.abort();
