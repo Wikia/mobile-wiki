@@ -59,7 +59,11 @@ gulp.task('watch', ['build'], function () {
 	], ['build']);
 
 	//Watch build folder
-	gulp.watch(['www/config/localSettings.js', 'www/server/**/*', 'www/views/**/*']).on('change', function (event) {
+	gulp.watch([
+		paths.base + '/config/localSettings.js',
+		paths.base + '/server/**/*',
+		paths.base + '/views/**/*'
+	]).on('change', function (event) {
 		log('File changed:', gutil.colors.green(event.path), 'Reloading server');
 
 		if (!backEndChanges) {
@@ -72,10 +76,9 @@ gulp.task('watch', ['build'], function () {
 				backEndChanges = false;
 			});
 		}
-
 	});
 
-	gulp.watch('www/public/**/*').on('change', function (event) {
+	gulp.watch(paths.base + '/public/**/*').on('change', function (event) {
 		log('File changed:', gutil.colors.green(event.path), 'Reloading browser');
 
 		if (!backEndChanges) {
