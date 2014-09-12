@@ -32,6 +32,11 @@ class App {
 				helpersPath: path.join(__dirname, '../views', '_helpers'),
 				path: path.join(__dirname, '../views'),
 				partialsPath: path.join(__dirname, '../views', '_partials')
+			},
+			state: {
+				cookies: {
+					strictHeader: false
+				}
 			}
 		});
 
@@ -60,6 +65,7 @@ class App {
 
 		server.start(function() {
 			logger.info('Server started at: ' + server.info.uri);
+			process.send('Server started');
 		});
 
 		server.on('response', function () {

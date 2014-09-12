@@ -29,7 +29,6 @@ gulp.task('build', [
 		'vendor',
 		'templates',
 		'locales',
-		'script-config',
 		'scripts-back'
 	], function () {
 	return piper(

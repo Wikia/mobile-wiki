@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "gulp clean && gulp",
-    "start": "gulp clean && gulp build --type production --nosync && gulp scripts-back && node www/server/server.js",
-    "test": "gulp assets && gulp karma && gulp node-test"
+    "start": "gulp clean && gulp build --type production --nosync && node www/server/server.js",
+    "test": "gulp build --type production --nosync && gulp karma && gulp node-test"
   },
   "repository": {
     "type": "git",
@@ -37,8 +37,10 @@
     "gulp": "3.x.x",
     "gulp-autoprefixer": "1.x.x",
     "gulp-cached": "1.x.x",
+    "gulp-changed": "^1.0.0",
     "gulp-concat": "2.x.x",
     "gulp-declare": "^0.3.0",
+    "gulp-develop-server": "^0.2.0",
     "gulp-filter": "1.x.x",
     "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "0.x.x",
@@ -47,7 +49,6 @@
     "gulp-karma": "0.0.4",
     "gulp-minify-html": "0.1.x",
     "gulp-newer": "^0.3.0",
-    "gulp-nodemon": "1.x.x",
     "gulp-preprocess": "1.x.x",
     "gulp-rename": "1.x.x",
     "gulp-rev": "1.x.x",

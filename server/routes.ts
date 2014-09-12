@@ -4,6 +4,7 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
+import MediaWiki = require('./lib/MediaWiki');
 
 var wikiNames: {
 	[key: string]: string;
@@ -26,6 +27,10 @@ function routes(server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
 			'/wiki/{title*}',
+		],
+		proxyRoutes = [
+			'/favicon.ico',
+			'/robots.txt'
 		],
 		notFoundError = 'Could not find article or Wiki, please check to' +
 				' see that you supplied correct parameters',
@@ -175,6 +180,20 @@ function routes(server: Hapi.Server) {
 		}
 	});
 
+	proxyRoutes.forEach((route: string) => {
+		server.route({
+			method: 'GET',
+			path: route,
+			handler: (request: any, reply: any) => {
+				var path = route.substr(1),
+					url = MediaWiki.createUrl(getWikiName(request.headers.host), path);
+				reply.proxy({
+					uri: url,
+					redirects: localSettings.proxyMaxRedirects || 3
+				});
+			}
+		});
+	});
 }
 
 export = routes;

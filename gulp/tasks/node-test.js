@@ -3,7 +3,7 @@ var spawn = require('child_process').spawn,
 	gulp = require('gulp'),
 	gutil = require('gulp-util');
 
-gulp.task('node-test', ['scripts-back'], function () {
+gulp.task('node-test', function () {
 	var child = spawn('node', [path.resolve(__dirname, '../../test/node-qunit.runner.js')], {stdio: 'inherit'});
 
 	if (gutil.env.action && gutil.env.action === 'watch') {

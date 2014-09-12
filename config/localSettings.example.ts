@@ -22,6 +22,7 @@ var localSettings: LocalSettings = {
 		engine: 'memory' // cache data in [memory|memcached]
 		// location: '127.0.0.1:11211' // Check https://github.com/3rd-Eden/node-memcached#server-locations for ref
 	},
+	proxyMaxRedirects: 3,
 	wikiFallback: 'glee'
 };
 

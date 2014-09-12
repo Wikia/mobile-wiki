@@ -51,13 +51,8 @@ module.exports = {
 		src: 'node_modules',
 		dest: basePath + '/node_modules'
 	},
-	nodemon: {
-		script: basePath + '/server/server.js',
-		watch: [
-			basePath + '/server',
-			basePath + '/views',
-			basePath + '/config'
-		]
+	server: {
+		script: basePath + '/server/server.js'
 	},
 	config: {
 		path: 'config/',
