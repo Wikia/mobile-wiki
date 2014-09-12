@@ -30,14 +30,14 @@ module.exports = {
 	clean: {
 		read: false
 	},
-	nodemon: {
-		script: paths.nodemon.script,
-		ext: 'js',
-		watch: paths.nodemon.watch,
+	server: {
+		path: paths.server.script,
 		env: {
 			WORKER_COUNT: 2,
 			MAX_REQUEST_PER_CHILD: 1000
-		}
+		},
+		killSignal: 'SIGKILL',
+		successMessage: /Server started/
 	},
 	tslint: {
 		emitError: false

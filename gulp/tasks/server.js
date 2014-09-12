@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
-	nodemon = require('gulp-nodemon'),
-	options = require('../options').nodemon;
+	server = require('gulp-develop-server'),
+	options = require('../options').server;
 
 gulp.task('server', ['build'], function () {
-	nodemon(options);
+	server.listen(options);
 });
