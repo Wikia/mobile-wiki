@@ -23,7 +23,7 @@ module Wikia.Modules.VideoLoader.Player {
 		public resourceURI = 'https://www.youtube.com/iframe_api';
 		public containerId = this.createUniqueId('youtubeVideoPlayer');
 
-		bindPlayerEvents () {
+		bindPlayerEvents (): void {
 			this.params.events = {
 				'onReady': this.onPlayerReady,
 				'onStateChange': this.onPlayerStateChange
@@ -39,15 +39,15 @@ module Wikia.Modules.VideoLoader.Player {
 			}
 		}
 
-		createPlayer () {
+		createPlayer (): void {
 			this.player = new window.YT.Player(this.containerId, this.params);
 		}
 
-		onPlayerReady () {
+		onPlayerReady (): void {
 			/* tracking */
 		}
 
-		onPlayerStateChange () {
+		onPlayerStateChange (): void {
 		}
 
 	}

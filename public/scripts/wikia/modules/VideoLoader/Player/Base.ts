@@ -15,15 +15,17 @@ module Wikia.Modules.VideoLoader.Player {
 		}
 
 		loadPlayer () {
-			return W.load(this.resourceURI, this.playerDidLoad);
+			return W.load(this.resourceURI, () => {
+				// hook to be called once player is loaded
+				this.playerDidLoad();
+			});
 		}
 
-		playerDidLoad () {
-			/* empty hook */
-			console.log(this);
+		playerDidLoad (): void {
+			/* intentionally a no-op */
 		}
 
-		createUniqueId (id: string) {
+		createUniqueId (id: string): string {
 			var element = document.getElementById(id),
 			    newId = id + new Date().getTime();
 			if (element) {

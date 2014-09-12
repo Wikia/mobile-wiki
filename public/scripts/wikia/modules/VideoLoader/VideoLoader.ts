@@ -3,7 +3,8 @@
 
 module Wikia.Modules {
 	var playerClassMap = {
-		youtube: 'YouTube'
+		youtube: 'YouTube',
+		ooyala: 'Ooyala'
 	};
 
 	export class VideoLoader {
@@ -21,9 +22,14 @@ module Wikia.Modules {
 		static Player: any;
 
 		public loadPlayerClass () {
-			var playerClassStr = playerClassMap[this.data.provider.toLowerCase()] + 'Player';
+			var provider = !this.isProviderOoyala ? this.data.provider : 'ooyala',
+				playerClassStr = playerClassMap[provider] + 'Player';
 			this.player = new Wikia.Modules.VideoLoader.Player[playerClassStr](this.data.jsParams);
 		}
 
+		private isProviderOoyala () {
+			var hasParts = this.data.provider.match('/');
+			return hasParts ? (hasParts[0].toLowerCase() === 'ooyala' ? true : false ) : false;
+		}
 	}
 }
