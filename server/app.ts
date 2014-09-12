@@ -60,6 +60,7 @@ class App {
 
 		server.start(function() {
 			logger.info('Server started at: ' + server.info.uri);
+			process.send('Server started');
 		});
 
 		server.on('response', function () {

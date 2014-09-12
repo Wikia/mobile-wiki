@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 	paths = require('../paths'),
 	path = require('path'),
 	browserSync = require('browser-sync'),
-	reload = browserSync.reload;
+	reload = browserSync.reload,
+	backEndChanges = false;
 
 gulp.task('watch', ['build'], function () {
 	log('Watching files');
@@ -19,7 +20,7 @@ gulp.task('watch', ['build'], function () {
 				scroll: false
 			},
 			debugInfo: false,
-			reloadDelay: 100,
+			reloadDelay: 300,
 			open: false
 		});
 	}
@@ -57,12 +58,27 @@ gulp.task('watch', ['build'], function () {
 		paths.views.src
 	], ['build']);
 
-	gulp.watch(['www/config/*', 'www/public/**/*', 'www/server/**/*', 'www/views/**/*']).on('change', function (event) {
-		log('File changed:', gutil.colors.green(event.path));
+	//Watch build folder
+	gulp.watch(['www/config/localSettings.js', 'www/server/**/*', 'www/views/**/*']).on('change', function (event) {
+		log('File changed:', gutil.colors.green(event.path), 'Reloading server');
 
-		if (event.path.indexOf('/server/') !== -1) {
-			server.changed(reload);
-		} else {
+		if (!backEndChanges) {
+			backEndChanges = true;
+
+			server.changed(function(){
+				log('Reloading browser');
+
+				reload();
+				backEndChanges = false;
+			});
+		}
+
+	});
+
+	gulp.watch('www/public/**/*').on('change', function (event) {
+		log('File changed:', gutil.colors.green(event.path), 'Reloading browser');
+
+		if (!backEndChanges) {
 			reload(event.path);
 		}
 	});

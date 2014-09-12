@@ -94,3 +94,10 @@ process.on('SIGTERM', stopAllWorkers);
 forkNewWorkers();
 
 logger.info('Master process', process.pid, 'booted');
+
+//send up message from workers so we can now that they are up
+cluster.on('online', function(worker) {
+	worker.on('message', function(msg){
+		process.send(msg)
+	});
+});

@@ -37,6 +37,7 @@ module.exports = {
 			MAX_REQUEST_PER_CHILD: 1000
 		},
 		killSignal: 'SIGKILL',
+		delay: 0,
 		successMessage: /Server started/
 	},
 	tslint: {
