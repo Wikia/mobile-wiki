@@ -70,14 +70,27 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		var lazyImages = this.$('.article-media'),
 			lazy = new Wikia.Modules.LazyLoad();
 
-		lazy.fixSizes(lazyImages);
+		lazyImages.each((image, element) => {
+			var component = this.createChildView(App.MediaComponent.create(), {
+				ref: parseInt(element.dataset.ref, 10),
+				width: parseInt(element.getAttribute('width'), 10),
+				height: parseInt(element.getAttribute('height'), 10),
+				oldWidth: element.offsetWidth
+			}).createElement();
 
-		sloth.drop();
-		sloth.attach({
-			on: lazyImages,
-			threshold: 400,
-			callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
+			this.$(element).replaceWith(component.$());
+
+			component.trigger('load')
 		});
+
+		//lazy.fixSizes(lazyImages);
+
+//		sloth.drop();
+//		sloth.attach({
+//			on: lazyImages,
+//			threshold: 400,
+//			callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
+//		});
 	},
 
 	modelObserver: function (): void {

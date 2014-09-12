@@ -74,21 +74,5 @@ module Wikia.Modules {
 				}
 			}
 		}
-
-		fixSizes(elements: NodeList) {
-			var i = 0,
-				elm: HTMLImageElement,
-				imageWidth: number,
-				elementsArray: HTMLImageElement[] = $.makeArray(elements),
-				pageWidth = this.getPageWidth();
-
-			while (elm = elementsArray[i++]) {
-				imageWidth = ~~elm.getAttribute('width');
-
-				if (pageWidth < imageWidth) {
-					elm.style.height = Math.round(elm.width * (~~elm.getAttribute('height') / imageWidth)) + 'px';
-				}
-			}
-		}
 	}
 }
