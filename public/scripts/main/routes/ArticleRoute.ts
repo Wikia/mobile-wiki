@@ -15,8 +15,6 @@ App.ArticleRoute = Em.Route.extend({
 		if (Wikia.error) {
 			transition.abort();
 		}
-
-		this.replaceWith(this.sanitizeURL(window.location.pathname));
 	},
 
 	/**
@@ -35,7 +33,7 @@ App.ArticleRoute = Em.Route.extend({
 
 	model: function (params: any) {
 		return App.ArticleModel.find({
-			title: params.title,
+			title: this.sanitizeURL(params.title),
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},
