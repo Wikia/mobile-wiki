@@ -1,12 +1,14 @@
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
+	server = require('gulp-develop-server'),
 	log = require('../utils/logger'),
 	paths = require('../paths'),
 	path = require('path'),
 	browserSync = require('browser-sync'),
-	reload = browserSync.reload;
+	reload = browserSync.reload,
+	backEndChanges = false;
 
-gulp.task('watch', ['assets'], function () {
+gulp.task('watch', ['build'], function () {
 	log('Watching files');
 
 	if (!gutil.env.nosync) {
@@ -18,12 +20,12 @@ gulp.task('watch', ['assets'], function () {
 				scroll: false
 			},
 			debugInfo: false,
+			reloadDelay: 300,
 			open: false
 		});
 	}
 
-	gulp.watch(paths.styles.watch, ['sass', reload], function (event) {
-		log('Style changed:', gutil.colors.green(event.path));
+	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
 		/*
 		 * Baseline is a scss file that gets inlined, so the views must be recompiled
 		 * when it is changed
@@ -34,35 +36,53 @@ gulp.task('watch', ['assets'], function () {
 	});
 
 	gulp.watch(path.join(
-			paths.scripts.front.src,
-			paths.scripts.front.files
-		), ['tslint', 'scripts-front', reload], function (event) {
-			log('Script changed:', gutil.colors.green(event.path));
-
-			if (event.path.match('baseline')) {
-				gulp.start('build');
-			}
-		});
-
-	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back', reload], function (event) {
-		log('Script for backend changed:', gutil.colors.green(event.path));
+		paths.scripts.front.src,
+		paths.scripts.front.files
+	), ['tslint', 'scripts-front']).on('change', function (event) {
+		if (event.path.match('baseline')) {
+			gulp.start('build');
+		}
 	});
 
+	gulp.watch(paths.scripts.back.src, ['tslint', 'scripts-back']);
+
 	gulp.watch(path.join(
-			paths.templates.src,
-			paths.templates.files
-		), ['templates', reload], function (event) {
+		paths.templates.src,
+		paths.templates.files
+	), ['templates']).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
-	gulp.watch(path.join(
-			paths.svg.src,
-			paths.svg.files
-		), ['build', reload], function (event) {
-		log('Svg changed:', gutil.colors.green(event.path));
+	gulp.watch([
+		path.join(paths.svg.src, paths.svg.files),
+		paths.views.src
+	], ['build']);
+
+	//Watch build folder
+	gulp.watch([
+		paths.base + '/config/localSettings.js',
+		paths.base + '/server/**/*',
+		paths.base + '/views/**/*'
+	]).on('change', function (event) {
+		log('File changed:', gutil.colors.green(event.path), 'Reloading server');
+
+		if (!backEndChanges) {
+			backEndChanges = true;
+
+			server.changed(function(){
+				log('Reloading browser');
+
+				reload();
+				backEndChanges = false;
+			});
+		}
 	});
 
-	gulp.watch(paths.views.src, ['build', reload], function (event) {
-		log('Views changed:', gutil.colors.green(event.path));
+	gulp.watch(paths.base + '/public/**/*').on('change', function (event) {
+		log('File changed:', gutil.colors.green(event.path), 'Reloading browser');
+
+		if (!backEndChanges) {
+			reload(event.path);
+		}
 	});
 });

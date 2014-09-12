@@ -15,6 +15,7 @@ App.ArticleRoute = Em.Route.extend({
 			transition.abort();
 		}
 	},
+
 	model: function (params: any) {
 		return App.ArticleModel.find({
 			title: params.title,
@@ -26,6 +27,7 @@ App.ArticleRoute = Em.Route.extend({
 			transition.abort();
 			Em.Logger.warn(error);
 		},
+
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
 		willTransition: function (transition: EmberStates.Transition) {
