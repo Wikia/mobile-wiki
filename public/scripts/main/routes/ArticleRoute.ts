@@ -16,13 +16,7 @@ App.ArticleRoute = Em.Route.extend({
 			transition.abort();
 		}
 
-		if (window.history) {
-			window.history.replaceState(
-				null,
-				null,
-				this.sanitizeURL(window.location.pathname)
-			);
-		}
+		this.replaceWith(this.sanitizeURL(window.location.pathname));
 	},
 
 	/**
