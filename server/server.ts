@@ -98,7 +98,9 @@ logger.info('Master process', process.pid, 'booted');
 //if run as child
 //send up message from workers so we can now that they are up
 if (process.send) {
-	cluster.on('online', function(worker: cluster.Worker) {
-		worker.on('message', process.send);
+	cluster.on('online', function (worker: cluster.Worker) {
+		worker.on('message', function (message: string) {
+			process.send(message);
+		});
 	});
 }
