@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "gulp clean && gulp",
-    "start": "gulp clean && gulp build --type production --nosync && gulp scripts-back && node www/server/server.js",
-    "test": "gulp build && gulp karma && gulp node-test"
+    "start": "gulp clean && gulp build --type production --nosync && node www/server/server.js",
+    "test": "gulp build --type production --nosync && gulp karma && gulp node-test"
   },
   "repository": {
     "type": "git",
