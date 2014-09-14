@@ -1,6 +1,6 @@
 /// <reference path="../../../../baseline/Wikia.d.ts" />
 
-module Wikia.Modules.VideoLoader.Player {
+module Wikia.Modules.VideoPlayer {
 	export class BasePlayer {
 		player: any;
 		params: any;
@@ -8,7 +8,7 @@ module Wikia.Modules.VideoLoader.Player {
 		provider: string;
 		resourceURI: string;
 
-		constructor (params) {
+		constructor (params: any) {
 			this.provider = null;
 			this.params = params;
 			this.id = params.videoId;

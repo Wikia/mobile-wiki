@@ -1,8 +1,12 @@
 /// <reference path="../../../baseline/Wikia.d.ts" />
 'use strict';
 
+interface PlayerClassMap {
+	[index: string]: string;
+}
 module Wikia.Modules {
-	var playerClassMap = {
+
+	var playerClassMap: PlayerClassMap = {
 		youtube: 'YouTube',
 		ooyala: 'Ooyala'
 	};
@@ -13,7 +17,7 @@ module Wikia.Modules {
 		trackingTimeout: number;
 		player: any;
 
-		constructor (element, data /* tracking cb */) {
+		constructor (element: HTMLElement, data: any /* tracking cb */) {
 			element.innerHTML = data.html;
 			this.data = data;
 			this.loadPlayerClass();
@@ -22,14 +26,13 @@ module Wikia.Modules {
 		static Player: any;
 
 		public loadPlayerClass () {
-			var provider = !this.isProviderOoyala ? this.data.provider : 'ooyala',
+			var provider: string = this.isProviderOoyala() ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player';
-			this.player = new Wikia.Modules.VideoLoader.Player[playerClassStr](this.data.jsParams);
+			this.player = new Wikia.Modules.VideoPlayer[playerClassStr](this.data.jsParams);
 		}
 
 		private isProviderOoyala () {
-			var hasParts = this.data.provider.match('/');
-			return hasParts ? (hasParts[0].toLowerCase() === 'ooyala' ? true : false ) : false;
+			return !!this.data.provider.toLowerCase().match('ooyala');
 		}
 	}
 }

@@ -11,7 +11,16 @@ declare module Wikia {
 	var ads: {
 		slots: string[][];
 	};
+
+	module Modules {
+		class VideoPlayer {}
+	}
+
+	module Utils {
+	}
 }
+
+declare var W: any;
 
 interface Location {
 	origin: string;

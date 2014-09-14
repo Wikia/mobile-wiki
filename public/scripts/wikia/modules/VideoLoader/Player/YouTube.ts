@@ -8,12 +8,12 @@ interface Window {
 	onYouTubeIframeAPIReady: () => void;
 }
 
-module Wikia.Modules.VideoLoader.Player {
+module Wikia.Modules.VideoPlayer {
 	export class YouTubePlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;
 
-		constructor (params) {
+		constructor (params: any) {
 			super(params);
 			this.started = false;
 			this.ended = false;

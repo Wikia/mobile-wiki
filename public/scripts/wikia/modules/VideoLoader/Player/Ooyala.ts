@@ -13,10 +13,10 @@ interface Window {
 	}
 }
 
-module Wikia.Modules.VideoLoader.Player {
-	
+module Wikia.Modules.VideoPlayer {
+
 	export class OoyalaPlayer extends BasePlayer {
-		constructor (params) {
+		constructor (params: any) {
 			super(params);
 			this.setupPlayer();
 		}
