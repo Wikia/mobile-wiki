@@ -130,14 +130,13 @@ module Wikia.Utils {
 	}
 
 	function hasValidGaqArguments(obj: any) {
-		return !!(obj.action && obj.category && obj.label);
+		return !!(obj.category && obj.label);
 	}
 
 	export function track(event: string, params: any): void {
 		var browserEvent = window.event,
 		    trackingMethod: string = params.trackingMethod || 'none',
 		    track: TrackingMethods = {},
-		    action: string = params.action,
 		    category: string = params.category,
 		    label: string = params.label,
 		    value: string = params.value,
@@ -163,7 +162,7 @@ module Wikia.Utils {
 		}
 
 		if (track.ga) {
-			gaqArgs.push(actions[action], category, label);
+			gaqArgs.push(actions[params.action] || event, category, label);
 			gaqArgs.push(value || '');
 			// No-interactive = true
 			gaqArgs.push(true);

@@ -28,7 +28,7 @@ module Wikia.Modules {
 		public loadPlayerClass () {
 			var provider: string = this.isProviderOoyala() ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player';
-			this.player = new Wikia.Modules.VideoPlayer[playerClassStr](this.data.jsParams);
+			this.player = new Wikia.Modules.VideoPlayer[playerClassStr](provider, this.data.jsParams);
 		}
 
 		private isProviderOoyala () {

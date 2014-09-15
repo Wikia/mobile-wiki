@@ -1,4 +1,4 @@
-/// <reference path="../../../../baseline/Wikia.d.ts" />
+/// <reference path="../../../baseline/Wikia.d.ts" />
 
 module Wikia.Modules.VideoPlayer {
 	export class BasePlayer {
@@ -8,8 +8,8 @@ module Wikia.Modules.VideoPlayer {
 		provider: string;
 		resourceURI: string;
 
-		constructor (params: any) {
-			this.provider = null;
+		constructor (provider: string, params: any) {
+			this.provider = provider;
 			this.params = params;
 			this.id = params.videoId;
 		}
@@ -33,5 +33,16 @@ module Wikia.Modules.VideoPlayer {
 			}
 			return newId;
 		}
+
+		track (event: string, params?: any) {
+			var opts = {
+				trackingMethod: 'both',
+				label: this.provider,
+				category: 'video-player'
+			};
+			params = $.extend(opts, params);
+			return W.track(event, opts);
+		}
+
 	}
 }

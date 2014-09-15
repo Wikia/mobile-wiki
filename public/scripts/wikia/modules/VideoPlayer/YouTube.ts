@@ -1,4 +1,4 @@
-/// <reference path="../../../../baseline/Wikia.d.ts" />
+/// <reference path="../../../baseline/Wikia.d.ts" />
 /// <reference path="./Base.ts" />
 
 interface Window {
@@ -8,13 +8,18 @@ interface Window {
 	onYouTubeIframeAPIReady: () => void;
 }
 
+interface YouTubeEvent {
+	data: number;
+	target: any;
+}
+
 module Wikia.Modules.VideoPlayer {
 	export class YouTubePlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;
 
-		constructor (params: any) {
-			super(params);
+		constructor (provider: string, params: any) {
+			super(provider, params);
 			this.started = false;
 			this.ended = false;
 			this.bindPlayerEvents();
@@ -25,8 +30,8 @@ module Wikia.Modules.VideoPlayer {
 
 		bindPlayerEvents (): void {
 			this.params.events = {
-				'onReady': this.onPlayerReady,
-				'onStateChange': this.onPlayerStateChange
+				'onReady': () => { return this.onPlayerReady.apply(this, arguments); },
+				'onStateChange': () => { return this.onPlayerStateChange.apply(this, arguments); }
 			};
 
 			if (window.YT) {
@@ -44,10 +49,18 @@ module Wikia.Modules.VideoPlayer {
 		}
 
 		onPlayerReady (): void {
-			/* tracking */
+			this.track('player-loaded');
 		}
 
-		onPlayerStateChange (): void {
+		onPlayerStateChange (event: YouTubeEvent): void {
+			if (!this.started && event.data === 1) {
+				this.track('content-begin');
+				this.started = true;
+			}
+			if (!this.ended && event.data === 0) {
+				this.track('content-end');
+				this.ended = true;
+			}
 		}
 
 	}

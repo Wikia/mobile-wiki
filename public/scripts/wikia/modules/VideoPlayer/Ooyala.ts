@@ -1,4 +1,4 @@
-/// <reference path="../../../../baseline/Wikia.d.ts" />
+/// <reference path="../../../baseline/Wikia.d.ts" />
 /// <reference path="./Base.ts" />
 
 interface Window {
@@ -16,8 +16,8 @@ interface Window {
 module Wikia.Modules.VideoPlayer {
 
 	export class OoyalaPlayer extends BasePlayer {
-		constructor (params: any) {
-			super(params);
+		constructor (provider: string, params: any) {
+			super(provider, params);
 			this.setupPlayer();
 		}
 
