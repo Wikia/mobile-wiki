@@ -30,9 +30,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 	animateMedia: function (image?: HTMLElement) {
 		if (image) {
-			var $image = $(image),
+			var $image = $(image).find('img'),
 				offset = $image.offset(),
-				$imageCopy = $(image).clone();
+				$imageCopy = $($image).clone();
 
 			//initial style, mimck the image that is in page
 			$imageCopy.css({
