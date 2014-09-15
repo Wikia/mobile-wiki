@@ -75,7 +75,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				ref: parseInt(element.dataset.ref, 10),
 				width: parseInt(element.getAttribute('width'), 10),
 				height: parseInt(element.getAttribute('height'), 10),
-				oldWidth: element.offsetWidth
+				imgWidth: element.offsetWidth
 			}).createElement();
 
 			this.$(element).replaceWith(component.$());

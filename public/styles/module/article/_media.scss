@@ -1,8 +1,7 @@
 .article-media {
 	background-color: #e7e7e7;
-	display: block;
-	margin: 0 auto;
-	height: inherit;
+	margin: 0 0 1.25rem 0;
+	text-align: center;
 
 	&.load {
 		animation: lazyImage .3s;

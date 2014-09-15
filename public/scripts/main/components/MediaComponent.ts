@@ -17,7 +17,7 @@ App.MediaComponent = Em.Component.extend({
 			pageWidth = $('.article-content').width();
 
 		if (pageWidth < imageWidth) {
-			return Math.round(this.get('oldWidth') * (~~this.get('height') / imageWidth));
+			return Math.round(this.get('imgWidth') * (~~this.get('height') / imageWidth));
 		}
 
 		return this.get('height');
