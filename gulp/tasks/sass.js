@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 gulp.task('sass', function () {
 	return piper(
 		gulp.src(paths.src),
-		changed(paths.dest, {extension: '.css'}),
+		//changed(paths.dest, {extension: '.css'}),
 		sass(options),
 		//currently support for map is broken
 		prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], {

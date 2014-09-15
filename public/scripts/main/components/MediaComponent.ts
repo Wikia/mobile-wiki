@@ -1,16 +1,22 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../../wikia/modules/Thumbnailer.ts" />
+/// <reference path="../mixins/LazyMixin.ts" />
+
 'use strict';
 
-App.MediaComponent = Em.Component.extend({
+App.MediaComponent = Em.Component.extend(App.LazyMixin, {
 	tagName: 'figure',
 	layoutName: 'components/media',
 	classNames: ['article-media'],
+	classNameBindings: ['visible'],
 	attributeBindings: ['style'],
 
 	width: null,
 	height: null,
 	ref: null,
+	imageUrl: null,
+	visible: Em.computed.notEmpty('imageUrl'),
 
 	computedHeight: function () {
 		var imageWidth = this.get('width'),
@@ -27,7 +33,35 @@ App.MediaComponent = Em.Component.extend({
 		return "height:%@px;".fmt(this.get('computedHeight'));
 	}.property('computedHeight'),
 
-	url: function(){
-		return Wikia.article.article.media[this.get('ref')].url;
-	}.property('ref')
+	url: function (): string {
+		var thumbnailer = Wikia.Modules.Thumbnailer,
+			url = Wikia.article.article.media[this.get('ref')].url;
+
+		if (!thumbnailer.isThumbUrl(url)) {
+			url = thumbnailer.getThumbURL(url, 'nocrop', $('.article-content').width(), '0');
+		}
+
+		return url;
+	}.property('ref'),
+
+	actions: {
+		onVisible: function (): void {
+			this.load();
+		}
+	},
+
+	load: function(): void {
+		var image = new Image();
+
+		image.src = this.get('url');
+
+		//don't do any animation if image is already loaded
+		if (image.complete) {
+			this.set('imageUrl', image.src);
+		} else {
+			image.addEventListener('load', () => {
+				this.set('imageUrl', image.src);
+			});
+		}
+	}
 });

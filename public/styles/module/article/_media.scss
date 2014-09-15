@@ -3,13 +3,19 @@
 	margin: 0 0 1.25rem 0;
 	text-align: center;
 
-	&.load {
-		animation: lazyImage .3s;
+	img {
+		display: none;
+		pointer-events: none;
 	}
 
-	&.loaded {
+	&.visible {
+		animation: lazyImage .3s;
 		background-color: transparent;
 		height: auto;
+
+		img {
+			display: inline-block;
+		}
 	}
 }
 
