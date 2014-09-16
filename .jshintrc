@@ -59,6 +59,7 @@
 		"Wikia": false,
 		"Ember": false,
 		"Em": false,
+		"QUnit": false,
 		"emq": false,
 		"setResolver": false,
 		"moduleForComponent": false,

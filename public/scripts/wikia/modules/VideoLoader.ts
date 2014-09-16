@@ -1,4 +1,4 @@
-/// <reference path="../../../baseline/Wikia.d.ts" />
+/// <reference path="../../baseline/Wikia.d.ts" />
 'use strict';
 
 interface PlayerClassMap {
@@ -28,6 +28,13 @@ module Wikia.Modules {
 		public loadPlayerClass () {
 			var provider: string = this.isProviderOoyala() ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player';
+
+			// don't attempt to load controls for unsupported player classes
+			if (!playerClassMap[provider]) {
+				this.player = null;
+				return false;
+			}
+
 			this.player = new Wikia.Modules.VideoPlayer[playerClassStr](provider, this.data.jsParams);
 		}
 

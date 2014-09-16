@@ -1,3 +1,5 @@
+/// <reference path="../../../typings/jquery/jquery.d.ts" />
+declare var $: JQueryStatic;
 declare var require: (deps: string[], func: Function) => void;
 
 declare module Wikia {
