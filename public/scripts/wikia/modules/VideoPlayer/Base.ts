@@ -9,6 +9,9 @@ module Wikia.Modules.VideoPlayer {
 		resourceURI: string;
 
 		constructor (provider: string, params: any) {
+			if (!provider) {
+				throw new Error('VideoPlayer requires a provider as the first argument');
+			}
 			this.provider = provider;
 			this.params = params;
 			this.id = params.videoId;

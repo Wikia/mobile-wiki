@@ -57,6 +57,7 @@
 	"devel": false,
 	"globals": {
 		"Wikia": false,
+		"W": false,
 		"Ember": false,
 		"Em": false,
 		"QUnit": false,
@@ -70,6 +71,7 @@
 		"ok": false,
 		"deepEqual": false,
 		"strictEqual": false,
+		"throws": false,
 		"App": false,
 		"visit": false,
 		"andThen": false,
