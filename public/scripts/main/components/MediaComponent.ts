@@ -11,7 +11,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	classNames: ['article-media'],
 	classNameBindings: ['visible'],
 
-	model: App.MediaModel.create(),
 	width: null,
 	height: null,
 	ref: null,
@@ -45,9 +44,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	/**
 	 * returns current media
 	 */
-	media: function (): any {
-		return this.get('model.media')[this.get('ref')];
-	}.property('model', 'ref'),
+	media: function (): media {
+		return App.MediaModel.find(this.get('ref'));
+	}.property('ref'),
 
 	/**
 	 * url for given media
