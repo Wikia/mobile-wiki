@@ -21,7 +21,8 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	didInsertElement: function () {
-		this.animateMedia(this.get('controller').get('element'));
+		//disabled for now, we can make it better when we have time
+		//this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
 		this.get('parentView').send('setUnscrollable');
 
