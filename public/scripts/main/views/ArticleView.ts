@@ -9,8 +9,6 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-var sloth = new Wikia.Modules.Sloth();
-
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',

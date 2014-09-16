@@ -23,22 +23,22 @@ App.VisibleMixin = Em.Mixin.create({
 	},
 
 	check: function () {
-		var length = this.visibleShared.components.length - 1,
+		var components = this.visibleShared.components,
+			i = components.length - 1,
 			component: Em.Component,
 			// in IE10 window.scrollY doesn't work
 			// but window.pageYOffset is basically the same
 			// https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
 			wTop = window.scrollY || window.pageYOffset,
-			wBottom = wTop + window.innerHeight,
-			i;
+			wBottom = wTop + window.innerHeight;
 
-		if (length >= 0) {
-			for (i = 0; i < length; i++) {
-				component = this.visibleShared.components[i];
+		if (i >= 0) {
+			while(i--) {
+				component = components[i];
 
 				if (this.isVisible(component.$(), wBottom, wTop)) {
 					component.send('onVisible');
-					this.visibleShared.components.splice(i, 1);
+					components.splice(i, 1);
 				}
 			}
 		} else {
@@ -58,6 +58,7 @@ App.VisibleMixin = Em.Mixin.create({
 
 		if (!this.get('visibleShared.initialized')) {
 			window.addEventListener('scroll', () => this.checkDebounced());
+
 			this.checkDebounced();
 			this.set('visibleShared.initialized', true)
 		}

@@ -1,8 +1,7 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/VisibleMixin.ts" />
 /// <reference path="../../baseline/Wikia.d.ts" />
 /// <reference path="../../wikia/modules/Thumbnailer.ts" />
-/// <reference path="../mixins/LazyMixin.ts" />
-
 'use strict';
 
 App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
