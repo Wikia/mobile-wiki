@@ -408,9 +408,9 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '@each': EachProxy;
+    '@each': EachProxy;
         Boolean: boolean;
-        '[]': any[];
+    '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -538,8 +538,8 @@ declare module Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): any[];
-        '[]': any[];
-        '@each': EachProxy;
+    '[]': any[];
+    '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -916,7 +916,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+    '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1248,7 +1248,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+    '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1388,7 +1388,7 @@ declare module Ember {
         /**
         Creates a subclass of the Object class.
         **/
-        static extend<T>(...arguments: CoreObjectArguments[]): T;
+        static extend<T>(arguments?: CoreObjectArguments): T;
         /**
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
