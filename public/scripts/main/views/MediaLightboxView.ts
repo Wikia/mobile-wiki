@@ -32,13 +32,15 @@ App.MediaLightboxView = App.LightboxView.extend({
 		if (image) {
 			var $image = $(image).find('img'),
 				offset = $image.offset(),
-				$imageCopy = $($image).clone();
+				$imageCopy = $($image).clone(),
+				width = $image.width(),
+				deviceWidth = document.body.offsetWidth;
 
-			//initial style, mimck the image that is in page
+			//initial style, mimick the image that is in page
 			$imageCopy.css({
 				top: offset.top - window.scrollY + 'px',
 				left: offset.left + 'px',
-				width: $image.width() + 'px'
+				width: width + 'px'
 			//for static css properties see _media_lightbox.scss
 			}).addClass('animated-media');
 
@@ -46,8 +48,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 			//animate to full width and middle of screen
 			$imageCopy.css({
-				width: document.body.offsetWidth + 'px',
-				top: this.$('img')[0].offsetTop + 'px',
+				width: deviceWidth + 'px',
+				//half of - device height minus height of the animated image multiplied by scale
+				top: ((document.body.offsetHeight - ($image.height() * (deviceWidth / width))) / 2) + 'px',
 				left: 0
 			}).one('webkitTransitionEnd, transitionend', function () {
 				$imageCopy.remove();

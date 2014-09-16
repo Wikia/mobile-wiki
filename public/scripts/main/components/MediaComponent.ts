@@ -5,7 +5,7 @@
 
 'use strict';
 
-App.MediaComponent = Em.Component.extend(App.LazyMixin, {
+App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	tagName: 'figure',
 	layoutName: 'components/media',
 	classNames: ['article-media'],
