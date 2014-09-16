@@ -9,13 +9,12 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	layoutName: 'components/media',
 	classNames: ['article-media'],
 	classNameBindings: ['visible'],
-	attributeBindings: ['style'],
 
 	width: null,
 	height: null,
 	ref: null,
-	imageUrl: null,
-	visible: Em.computed.notEmpty('imageUrl'),
+	imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+	visible: false,
 
 	computedHeight: function () {
 		var imageWidth = this.get('width'),
@@ -28,20 +27,24 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return this.get('height');
 	}.property('width', 'height'),
 
-	style: function () {
-		return "height:%@px;".fmt(this.get('computedHeight'));
-	}.property('computedHeight'),
+	media: function () {
+		return Wikia.article.article.media[this.get('ref')];
+	}.property('ref'),
 
 	url: function (): string {
 		var thumbnailer = Wikia.Modules.Thumbnailer,
-			url = Wikia.article.article.media[this.get('ref')].url;
+			url = this.get('media').url;
 
 		if (!thumbnailer.isThumbUrl(url)) {
 			url = thumbnailer.getThumbURL(url, 'nocrop', $('.article-content').width(), '0');
 		}
 
 		return url;
-	}.property('ref'),
+	}.property('media'),
+
+	caption: function (): string {
+		return this.get('media').caption;
+	}.property('media'),
 
 	actions: {
 		onVisible: function (): void {
@@ -49,17 +52,23 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		}
 	},
 
+	update: function (src: string): void {
+		this.setProperties({
+			imageUrl: src,
+			visible: true
+		});
+	},
+
 	load: function(): void {
 		var image = new Image();
 
 		image.src = this.get('url');
 
-		//don't do any animation if image is already loaded
 		if (image.complete) {
-			this.set('imageUrl', image.src);
+			this.update(image.src);
 		} else {
 			image.addEventListener('load', () => {
-				this.set('imageUrl', image.src);
+				this.update(image.src);
 			});
 		}
 	}

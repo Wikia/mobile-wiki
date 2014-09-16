@@ -1,22 +1,27 @@
 .article-media {
-	background-color: #e7e7e7;
-	margin: 0 0 1.25rem 0;
+	margin: 40px 0;
 	text-align: center;
 
 	img {
-		display: none;
+		background-color: #e7e7e7;
 		pointer-events: none;
+		width: 100%;
+		display: inline-block;
 	}
 
 	&.visible {
-		animation: lazyImage .3s;
-		background-color: transparent;
-		height: auto;
-
 		img {
-			display: inline-block;
+			animation: lazyImage .3s;
+			height: auto;
+			width: auto;
+			background-color: transparent;
 		}
 	}
+}
+
+figcaption {
+	color: #999;
+	text-align: left;
 }
 
 @keyframes lazyImage {
