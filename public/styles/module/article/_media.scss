@@ -4,17 +4,17 @@
 
 	img {
 		background-color: #e7e7e7;
+		display: inline-block;
 		pointer-events: none;
 		width: 100%;
-		display: inline-block;
 	}
 
 	&.visible {
 		img {
 			animation: lazyImage .3s;
+			background-color: transparent;
 			height: auto;
 			width: auto;
-			background-color: transparent;
 		}
 	}
 }
