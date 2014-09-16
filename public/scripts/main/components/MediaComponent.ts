@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/VisibleMixin.ts" />
+/// <reference path="../models/MediaModel.ts" />
 /// <reference path="../../baseline/Wikia.d.ts" />
 /// <reference path="../../wikia/modules/Thumbnailer.ts" />
 'use strict';
@@ -10,15 +11,29 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	classNames: ['article-media'],
 	classNameBindings: ['visible'],
 
+	model: App.MediaModel.create(),
 	width: null,
 	height: null,
 	ref: null,
 	imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
 
-	computedHeight: function () {
+	/**
+	 * content width used to load smaller thumbnails
+	 * @return number
+	 */
+	contentWidth: function (): number {
+		return $('.article-content').width();
+	}.property(),
+
+	/**
+	 * used to set proper height to img tag before it loads
+	 * so we have less content jumping around due to lazy loading images
+	 * @return number
+	 */
+	computedHeight: function (): number {
 		var imageWidth = this.get('width'),
-			pageWidth = $('.article-content').width();
+			pageWidth = this.get('contentWidth');
 
 		if (pageWidth < imageWidth) {
 			return Math.round(this.get('imgWidth') * (~~this.get('height') / imageWidth));
@@ -27,21 +42,33 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return this.get('height');
 	}.property('width', 'height'),
 
-	media: function () {
-		return Wikia.article.article.media[this.get('ref')];
-	}.property('ref'),
+	/**
+	 * returns current media
+	 */
+	media: function (): any {
+		return this.get('model.media')[this.get('ref')];
+	}.property('model', 'ref'),
 
+	/**
+	 * url for given media
+	 * if image is not thumbnail, returns url to thumbnail with width set to contentWidth
+	 *
+	 * @return string
+	 */
 	url: function (): string {
 		var thumbnailer = Wikia.Modules.Thumbnailer,
 			url = this.get('media').url;
 
 		if (!thumbnailer.isThumbUrl(url)) {
-			url = thumbnailer.getThumbURL(url, 'nocrop', $('.article-content').width(), '0');
+			url = thumbnailer.getThumbURL(url, 'nocrop', this.get('contentWidth'), '0');
 		}
 
 		return url;
 	}.property('media'),
 
+	/**
+	 * caption for current media
+	 */
 	caption: function (): string {
 		return this.get('media').caption;
 	}.property('media'),
@@ -52,6 +79,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		}
 	},
 
+	/**
+	 * updates img with its src and sets media component to visible state
+	 *
+	 * @param src string - src for image
+	 */
 	update: function (src: string): void {
 		this.setProperties({
 			imageUrl: src,
@@ -59,6 +91,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		});
 	},
 
+	/**
+	 * load an image and run update function when it is loaded
+	 */
 	load: function(): void {
 		var image = new Image();
 
