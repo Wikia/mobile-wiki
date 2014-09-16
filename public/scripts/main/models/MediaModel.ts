@@ -12,10 +12,8 @@ interface media {
 	width: number;
 }
 
-App.MediaModel = Em.Object.create({
-	init: function (): void {
-		this.set('media', Wikia.article.article.media);
-	},
+App.MediaModel = Em.Object.extend({
+	media: [],
 
 	refresh: function (media: any[]): void {
 		this.set('media', media);
@@ -25,3 +23,5 @@ App.MediaModel = Em.Object.create({
 		return this.get('media')[id];
 	}
 });
+
+App.Media = App.MediaModel.create();

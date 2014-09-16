@@ -1,7 +1,7 @@
 moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 	needs: ['controller:article', 'controller:application'],
 	setup: function () {
-		Wikia.article.article ={
+		Wikia.article.article = {
 			media: [
 				{
 					title: 'test',
@@ -27,6 +27,8 @@ moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 				]
 			]
 		};
+
+		App.Media.refresh(Wikia.article.article.media);
 	}
 });
 
@@ -35,7 +37,8 @@ test('if init is run correctly and file is set', function () {
 	var mediaLightboxController = this.subject(),
 		articleController = mediaLightboxController.get('controllers.article');
 
-	deepEqual(mediaLightboxController.get('model'), App.MediaModel.create());
+	equal(mediaLightboxController.get('model'), App.Media);
+
 	deepEqual(mediaLightboxController.get('file'), null);
 
 	articleController.set('file', 'fileTitle');

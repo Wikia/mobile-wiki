@@ -52,7 +52,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	},
 
 	init: function () {
-		this.set('model', App.MediaModel);
+		this.set('model', App.Media);
 
 		this.matchQueryString();
 	},

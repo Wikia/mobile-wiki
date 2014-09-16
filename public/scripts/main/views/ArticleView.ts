@@ -52,13 +52,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				this.lazyLoadMedia(model);
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.setupAdsContext(model.get('adsContext'));
 				this.injectAds();
 				this.jumpToAnchor();
 				this.scrollToComments();
+				this.lazyLoadMedia(model);
 			}
 		});
 	},

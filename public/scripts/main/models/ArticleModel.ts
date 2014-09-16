@@ -90,7 +90,6 @@ App.ArticleModel.reopenClass({
 			comments: source.details.comments,
 			id: source.details.id,
 			article: source.article.content || $('.article-content').html(),
-			media: source.article.media,
 			mediaUsers: source.article.users,
 			user: source.details.revision.user_id,
 			categories: source.article.categories,
@@ -107,6 +106,8 @@ App.ArticleModel.reopenClass({
 			users: source.topContributors,
 			basepath: source.basePath
 		});
+
+		App.Media.refresh(source.article.media);
 
 		Em.Logger.debug(model);
 	}

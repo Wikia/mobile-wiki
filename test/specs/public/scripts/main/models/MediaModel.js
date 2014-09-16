@@ -19,7 +19,9 @@ moduleFor('model:media', 'Media Model', {
 test('returning the media array', function () {
 	expect(1);
 
-	var model = App.MediaModel.create();
+	var model = App.MediaModel.create({
+		media: Wikia.article.article.media
+	});
 
 	deepEqual(Wikia.article.article.media, model.get('media'));
 });
@@ -27,7 +29,19 @@ test('returning the media array', function () {
 test('returning data about media', function () {
 	expect(1);
 
+	var model = App.MediaModel.create({
+		media: Wikia.article.article.media
+	});
+
+	equal(Wikia.article.article.media[0], model.get('media')[0]);
+});
+
+test('allows for refreshing media', function () {
+	expect(1);
+
 	var model = App.MediaModel.create();
+
+	model.refresh(Wikia.article.article.media);
 
 	equal(Wikia.article.article.media[0], model.get('media')[0]);
 });

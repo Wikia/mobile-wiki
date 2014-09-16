@@ -1,8 +1,8 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/VisibleMixin.ts" />
-/// <reference path="../models/MediaModel.ts" />
 /// <reference path="../../baseline/Wikia.d.ts" />
 /// <reference path="../../wikia/modules/Thumbnailer.ts" />
+/// <reference path="../mixins/VisibleMixin.ts" />
+/// <reference path="../models/MediaModel.ts" />
 'use strict';
 
 App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
@@ -16,6 +16,10 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	ref: null,
 	imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
+
+	media: function (): media {
+		return App.Media.find(this.get('ref'));
+	}.property('ref'),
 
 	/**
 	 * content width used to load smaller thumbnails
@@ -40,13 +44,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 
 		return this.get('height');
 	}.property('width', 'height'),
-
-	/**
-	 * returns current media
-	 */
-	media: function (): media {
-		return App.MediaModel.find(this.get('ref'));
-	}.property('ref'),
 
 	/**
 	 * url for given media
