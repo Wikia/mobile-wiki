@@ -57,6 +57,8 @@ class App {
 			}
 		);
 
+		server.ext('onPreResponse', this.onPreResponseHandler);
+
 		require('./methods')(server);
 		/*
 		 * Routes
@@ -96,6 +98,18 @@ class App {
 			name: 'appcache',
 			engine: require('catbox-memory')
 		};
+	}
+
+	/**
+	 * @desc Set `X-Backend-Response-Time` header to every response. Value is in ms
+	 *
+	 * @param {object} request
+	 * @param {function} next
+	 */
+	private onPreResponseHandler(request: Hapi.Request, next: Function): void {
+		var response = <Hapi.Response>(request.response);
+		response.header('X-Backend-Response-Time', String(Date.now() - request.info.received));
+		next();
 	}
 }
 
