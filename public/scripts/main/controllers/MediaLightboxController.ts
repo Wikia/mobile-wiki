@@ -52,7 +52,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	},
 
 	init: function () {
-		this.set('model', App.MediaModel.create());
+		this.set('model', App.MediaModel);
 
 		this.matchQueryString();
 	},
@@ -74,8 +74,8 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('current'),
 
 	current: function () {
-		return this.get('model.media')[this.get('currentMediaRef')];
-	}.property('model.media', 'currentMediaRef'),
+		return this.get('model').find(this.get('currentMediaRef'));
+	}.property('model', 'currentMediaRef'),
 
 	currentMedia: function () {
 		var current = this.get('current');
