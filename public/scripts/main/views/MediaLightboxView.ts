@@ -37,7 +37,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 				width = $image.width(),
 				deviceWidth = document.body.offsetWidth;
 
-			//initial style, mimick the image that is in page
+			//initial style, mimic the image that is in page
 			$imageCopy.css({
 				top: offset.top - window.scrollY + 'px',
 				left: offset.left + 'px',
