@@ -13,10 +13,6 @@ interface ArticleMedia {
 }
 
 App.MediaModel = Em.Object.extend({
-	refresh: function (media: any[]): void {
-		this.set('media', media);
-	},
-
 	find: function (id: number): ArticleMedia {
 		return this.get('media')[id];
 	}

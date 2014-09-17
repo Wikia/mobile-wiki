@@ -48,12 +48,12 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 
 		if (!Em.isEmpty(file)) {
-			this.get('media').some(findMedia, this);
+			this.get('model').get('media').some(findMedia, this);
 		}
 	},
 
 	init: function (): void {
-		this.set('media', this.get('controllers.article.model.media').get('media'));
+		this.set('model', this.get('controllers.article.model.media'));
 
 		this.matchQueryString();
 	},
@@ -89,16 +89,16 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 *
 	 * @return object
 	 */
-	current: function (): media {
-		return this.get('media').find(this.get('currentMediaRef'));
-	}.property('media', 'currentMediaRef'),
+	current: function (): ArticleMedia {
+		return this.get('model').find(this.get('currentMediaRef'));
+	}.property('model', 'currentMediaRef'),
 
 	/**
 	 * gets current media or current media from gallery
 	 *
 	 * @return object
 	 */
-	currentMedia: function (): media {
+	currentMedia: function (): ArticleMedia {
 		var current = this.get('current');
 
 		if (this.get('isGallery')) {

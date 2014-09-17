@@ -35,13 +35,3 @@ test('returning data about media', function () {
 
 	equal(Wikia.article.article.media[0], model.get('media')[0]);
 });
-
-test('allows for refreshing media', function () {
-	expect(1);
-
-	var model = App.MediaModel.create();
-
-	model.refresh(Wikia.article.article.media);
-
-	equal(Wikia.article.article.media[0], model.get('media')[0]);
-});

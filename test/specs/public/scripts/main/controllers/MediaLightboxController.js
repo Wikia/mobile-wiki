@@ -27,28 +27,39 @@ moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 				]
 			]
 		};
-
-		App.Media.refresh(Wikia.article.article.media);
 	}
 });
 
 test('if init is run correctly and file is set', function () {
 	expect(3);
-	var mediaLightboxController = this.subject(),
+
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		}),
 		articleController = mediaLightboxController.get('controllers.article');
 
-	equal(mediaLightboxController.get('model'), App.Media);
+	deepEqual(mediaLightboxController.get('model'), mediaModel);
 
 	deepEqual(mediaLightboxController.get('file'), null);
 
 	articleController.set('file', 'fileTitle');
-
+	//
 	equal(mediaLightboxController.get('file'), 'fileTitle');
 });
 
 test('if contents is generated properly', function () {
 	expect(3);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
 
@@ -65,7 +76,13 @@ test('if contents is generated properly', function () {
 
 test('generates correct footer for a currentMedia (with caption)', function () {
 	expect(2);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
 
@@ -79,7 +96,13 @@ test('generates correct footer for a currentMedia (with caption)', function () {
 
 test('genereates correct header for a gallery', function () {
 	expect(1);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 2);
 
@@ -89,7 +112,13 @@ test('genereates correct header for a gallery', function () {
 
 test('updeates a header accordingly to current media', function () {
 	expect(3);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	equal(mediaLightboxController.get('header'), '');
 
@@ -104,7 +133,13 @@ test('updeates a header accordingly to current media', function () {
 
 test('check if current media is gallery', function () {
 	expect(2);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 1);
 
@@ -117,11 +152,17 @@ test('check if current media is gallery', function () {
 
 test('returns gallery length, if current media is a gallery', function () {
 	expect(2);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
 
-	deepEqual(mediaLightboxController.get('galleryLength'), false);
+	deepEqual(mediaLightboxController.get('galleryLength'), -1);
 
 	mediaLightboxController.set('currentMediaRef', 2);
 
@@ -130,7 +171,13 @@ test('returns gallery length, if current media is a gallery', function () {
 
 test('increments/decrements mediaGalleryRef within boundries', function () {
 	expect(4);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 2);
 	equal(mediaLightboxController.get('currentGalleryRef'), 0);
