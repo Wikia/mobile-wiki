@@ -13,8 +13,6 @@ interface ArticleMedia {
 }
 
 App.MediaModel = Em.Object.extend({
-	media: [],
-
 	refresh: function (media: any[]): void {
 		this.set('media', media);
 	},
@@ -23,5 +21,3 @@ App.MediaModel = Em.Object.extend({
 		return this.get('media')[id];
 	}
 });
-
-App.Media = App.MediaModel.create();

@@ -16,10 +16,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	ref: null,
 	imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
-
-	media: function (): ArticleMedia {
-		return App.Media.find(this.get('ref'));
-	}.property('ref'),
+	media: null,
 
 	/**
 	 * content width used to load smaller thumbnails

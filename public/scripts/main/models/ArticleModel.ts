@@ -91,6 +91,9 @@ App.ArticleModel.reopenClass({
 			id: source.details.id,
 			article: source.article.content || $('.article-content').html(),
 			mediaUsers: source.article.users,
+			media: App.MediaModel.create({
+				media: source.article.media
+			}),
 			user: source.details.revision.user_id,
 			categories: source.article.categories,
 			adsContext: source.adsContext,
@@ -106,8 +109,6 @@ App.ArticleModel.reopenClass({
 			users: source.topContributors,
 			basepath: source.basePath
 		});
-
-		App.Media.refresh(source.article.media);
 
 		Em.Logger.debug(model);
 	}
