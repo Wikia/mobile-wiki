@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
-/// <reference path="../../wikia/modules/sloth.ts" />
+/// <reference path="../components/MediaComponent.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -63,21 +63,24 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		});
 	},
 
+	createMediaComponent: function (element: HTMLElement) {
+		var ref = parseInt(element.dataset.ref, 10);
+
+		var component = this.createChildView(App.MediaComponent.newFromRef(ref), {
+			ref: ref,
+			width: parseInt(element.getAttribute('width'), 10),
+			height: parseInt(element.getAttribute('height'), 10),
+			imgWidth: element.offsetWidth
+		}).createElement();
+
+		return component.$();
+	},
+
 	lazyLoadMedia: function (model: typeof App.ArticleModel) {
 		var lazyImages = this.$('.article-media');
 
 		lazyImages.each((index: number, element: HTMLImageElement) => {
-			var component = this.createChildView(App.MediaComponent.create(), {
-					ref: parseInt(element.dataset.ref, 10),
-					width: parseInt(element.getAttribute('width'), 10),
-					height: parseInt(element.getAttribute('height'), 10),
-					imgWidth: element.offsetWidth
-				}).createElement(),
-				$element = component.$();
-
-			$element.attr('data-ref', element.dataset.ref);
-
-			this.$(element).replaceWith($element);
+			this.$(element).replaceWith(this.createMediaComponent(element));
 		});
 	},
 

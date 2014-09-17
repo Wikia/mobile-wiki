@@ -26,6 +26,17 @@ figcaption {
 	text-align: left;
 }
 
+.article-gallery {
+	overflow: scroll;
+	white-space: nowrap;
+
+	img {
+		width: 195px;
+		height: 195px;
+		margin-right: 8px;
+	}
+}
+
 @keyframes lazyImage {
 	0% {
 		opacity: 0;
