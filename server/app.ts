@@ -107,8 +107,9 @@ class App {
 	 * @param {function} next
 	 */
 	private onPreResponseHandler(request: Hapi.Request, next: Function): void {
-		var response = <Hapi.Response>(request.response);
-		response.header('X-Backend-Response-Time', String(Date.now() - request.info.received));
+		var response = <Hapi.Response>(request.response),
+			responseTimeSec = (Date.now() - request.info.received) / 1000;
+		response.header('X-Backend-Response-Time', responseTimeSec.toFixed(3));
 		next();
 	}
 }
