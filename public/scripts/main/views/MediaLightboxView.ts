@@ -33,7 +33,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		if (image) {
 			var $image = $(image).find('img'),
 				offset = $image.offset(),
-				$imageCopy = $($image).clone(),
+				$imageCopy = $image.clone(),
 				width = $image.width(),
 				deviceWidth = document.body.offsetWidth;
 
