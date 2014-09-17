@@ -21,13 +21,6 @@ $hr-color: rgb(131,140,150);
 	}
 
 	li {
-		display: inline-block;
-
-		&:not(:last-of-type)::after {
-			content: '|';
-			padding: 5px;
-		}
-
 		a {
 			color: white;
 		}
