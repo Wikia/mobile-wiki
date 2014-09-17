@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface media {
+interface ArticleMedia {
 	caption: string;
 	fileUrl: string;
 	height: number;
@@ -19,7 +19,7 @@ App.MediaModel = Em.Object.extend({
 		this.set('media', media);
 	},
 
-	find: function (id: number): media {
+	find: function (id: number): ArticleMedia {
 		return this.get('media')[id];
 	}
 });
