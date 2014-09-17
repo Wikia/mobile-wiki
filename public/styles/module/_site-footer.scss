@@ -24,6 +24,10 @@ $hr-color: rgb(131,140,150);
 		a {
 			color: white;
 		}
+
+		&.spaced {
+			margin-top: 2rem;
+		}
 	}
 
 	hr {
