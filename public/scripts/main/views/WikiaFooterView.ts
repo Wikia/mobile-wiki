@@ -7,34 +7,49 @@ App.WikiaFooterView = Ember.View.extend({
 	context: {
 		links: [
 			{
-				route: 'wiki.article',
-				context: 'about',
-				name: 'about'
+				href: '//gameshub.wikia.com/wiki/Games_Hub',
+				text: 'hub-games'
 			},
 			{
-				route: 'wiki',
-				context: 'about',
-				name: 'community-central'
+				href: '//movieshub.wikia.com/wiki/Movies_Hub',
+				text: 'hub-movies'
 			},
 			{
-				route: 'wiki',
-				context: 'about',
-				name: 'advertise'
+				href: '//tvhub.wikia.com/wiki/TV_Hub',
+				text: 'hub-tv'
 			},
 			{
-				route: 'wiki',
-				context: 'about',
-				name: 'privacy-policy'
+				href: '//comicshub.wikia.com/wiki/Comics_Hub',
+				text: 'hub-comics'
 			},
 			{
-				route: 'wiki',
-				context: 'about',
-				name: 'terms-of-use'
+				href: '//musichub.wikia.com/wiki/Music_Hub',
+				text: 'hub-music'
 			},
 			{
-				route: 'wiki',
-				context: 'about',
-				name: 'api'
+				href: '//bookshub.wikia.com/wiki/Books_Hub',
+				text: 'hub-books'
+			},
+			{
+				href: '//lifestylehub.wikia.com/wiki/Lifestyle_Hub',
+				text: 'hub-lifestyle'
+			},
+			{
+				href: '//www.wikia.com/',
+				text: 'footer-link-full-site',
+				spaced: true
+			},
+			{
+				href: '//www.wikia.com/Licensing',
+				text: 'footer-link-licensing'
+			},
+			{
+				href: '//www.wikia.com/Privacy_Policy',
+				text: 'footer-link-privacy-policy'
+			},
+			{
+				href: '//www.wikia.com/Special:Contact',
+				text: 'footer-link-feedback'
 			}
 		]
 	}

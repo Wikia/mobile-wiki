@@ -25,9 +25,9 @@
 		"hub-music": "Music",
 		"hub-books": "Books",
 		"hub-lifestyle": "Lifestyle",
-		"link-full-site": "Full site",
-		"link-licensing": "Licensing",
-		"link-privacy-policy": "Privacy Policy",
-		"link-feedback": "Feedback"
+		"footer-link-full-site": "Full site",
+		"footer-link-licensing": "Licensing",
+		"footer-link-privacy-policy": "Privacy Policy",
+		"footer-link-feedback": "Feedback"
 	}
 }
