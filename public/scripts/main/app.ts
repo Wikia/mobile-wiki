@@ -25,6 +25,7 @@ App.initializer({
 		}
 
 		$('html').removeClass('preload');
+
 		i18n.init({
 			lng: application.get('language'),
 			fallbackLng: 'en',

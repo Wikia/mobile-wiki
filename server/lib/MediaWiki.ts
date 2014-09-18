@@ -7,6 +7,7 @@
  */
 
 import localSettings = require('../../config/localSettings');
+import Logger = require('./Logger');
 import Wreck = require('wreck');
 import Promise = require('bluebird');
 
@@ -84,6 +85,8 @@ export class ArticleRequest {
  * @param redirects the number of redirects to follow, default 1
  */
 export function fetch (url: string, redirects: number = 1): Promise<any> {
+	Logger.debug('Fetching:', url);
+
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,

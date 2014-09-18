@@ -90,8 +90,10 @@ App.ArticleModel.reopenClass({
 			comments: source.details.comments,
 			id: source.details.id,
 			article: source.article.content || $('.article-content').html(),
-			media: source.article.media,
 			mediaUsers: source.article.users,
+			media: App.MediaModel.create({
+				media: source.article.media
+			}),
 			user: source.details.revision.user_id,
 			categories: source.article.categories,
 			adsContext: source.adsContext,

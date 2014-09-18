@@ -16,9 +16,7 @@
 		margin-top: 0;
 	}
 
-	img {
-		margin-bottom: rem-calc(20);
-
+	.article-media {
 		& ~ h1,
 		& ~ h2 {
 			margin-bottom: 0;

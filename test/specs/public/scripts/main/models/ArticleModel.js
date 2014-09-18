@@ -62,7 +62,7 @@ test('getPreloadedData', function () {
 
 test('setArticle with preloaded data', function () {
 	// Note: data preloaded in setup callback
-	expect(11);
+	expect(10);
 	var model = this.subject();
 	App.ArticleModel.setArticle(model);
 	// Necessary to set context
@@ -70,7 +70,7 @@ test('setArticle with preloaded data', function () {
 });
 
 test('setArticle with parametrized data', function () {
-	expect(11);
+	expect(10);
 	var model = this.subject();
 	App.ArticleModel.setArticle(model, this.example);
 	verifyArticle(model, this.example);
@@ -78,7 +78,7 @@ test('setArticle with parametrized data', function () {
 
 test('find with preloaded data', function () {
 	var model, params;
-	expect(13);
+	expect(12);
 
 	params = {
 		wiki: 'wiki',
@@ -114,9 +114,6 @@ function verifyArticle (model, example) {
 	equal(model.get('article'),
 		example.article.content,
 		'expected sample content=' + example.article.content + ', got ' + model.get('article'));
-	deepEqual(model.get('media'),
-		example.article.media,
-		'expected media=' + example.article.media + ', got ' + model.get('media'));
 	equal(model.get('mediaUsers'),
 		example.article.users,
 		'expected mediaUsers=' + example.article.users + ', got ' + model.get('mediaUsers'));
