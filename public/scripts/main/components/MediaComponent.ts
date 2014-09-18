@@ -164,9 +164,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 });
 
 App.MediaComponent.reopenClass({
-	newFromRef: function (ref: number) {
-		var media = App.Media.find(ref);
-
+	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (Em.isArray(media)) {
 			return App.GalleryMediaComponent.create();
 		} else {
