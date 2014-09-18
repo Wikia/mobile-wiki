@@ -1,16 +1,12 @@
 var fs = require('fs'),
 	gulp = require('gulp'),
-	config = require('../paths').config,
-	environment = require('../utils/environment').name;
+	gutil = require('gulp-util'),
+	config = require('../paths').config;
 
 gulp.task('scripts-config', function () {
-	var configFileName = config.exampleFile;
-	if (environment === 'testing') {
-		configFileName = config.testFile;
-	}
-	configFileName = config.path + configFileName;
-	if (!fs.existsSync(configFileName)) {
-		return fs.createReadStream(configFileName)
+	var configFileName = (gutil.env.testing) ? config.testFile : config.exampleFile;
+	if (!fs.existsSync(config.path + config.runtimeFile)) {
+		return fs.createReadStream(config.path + configFileName)
 			.pipe(fs.createWriteStream(config.path + config.runtimeFile));
 	}
 	return true;
