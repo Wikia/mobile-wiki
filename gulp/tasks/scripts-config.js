@@ -1,11 +1,17 @@
 var fs = require('fs'),
 	gulp = require('gulp'),
-	gulpif = require('gulp-if'),
-	rename = require('gulp-rename'),
-	config = require('../paths').config;
+	config = require('../paths').config,
+	environment = require('../utils/environment').name;
 
 gulp.task('scripts-config', function () {
-	return gulp.src(config.path + config.exampleFile)
-		.pipe(gulpif(!fs.existsSync(config.path + config.runtimeFile), rename(config.runtimeFile)))
-		.pipe(gulp.dest(config.path));
+	var configFileName = config.exampleFile;
+	if (environment === 'testing') {
+		configFileName = config.testFile;
+	}
+	configFileName = config.path + configFileName;
+	if (!fs.existsSync(configFileName)) {
+		return fs.createReadStream(configFileName)
+			.pipe(fs.createWriteStream(config.path + config.runtimeFile));
+	}
+	return true;
 });
