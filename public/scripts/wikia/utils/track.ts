@@ -48,7 +48,8 @@ module Wikia.Utils {
 	var config: InternalTrackingConfig,
 	    tracker: Wikia.Modules.InternalTracker,
 	    actions: any,
-	    inited = false;
+	    inited = false,
+	    global = window;
 
 	/**
 	* @description Init function used to defer the binding of global variables until app is inited,
@@ -56,11 +57,11 @@ module Wikia.Utils {
 	*/
 	function init (): void {
 		config = {
-			c: window.Wikia.wiki.id,
-			x: window.Wikia.wiki.dbName,
-			a: window.Wikia.article.details.title,
-			lc: window.Wikia.wiki.language,
-			n: window.Wikia.article.details.ns,
+			c: global.Wikia.wiki.id,
+			x: global.Wikia.wiki.dbName,
+			a: global.Wikia.article.details.title,
+			lc: global.Wikia.wiki.language,
+			n: global.Wikia.article.details.ns,
 			u: 0,
 			s: 'mercury',
 			beacon: '',

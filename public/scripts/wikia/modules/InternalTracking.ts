@@ -47,8 +47,7 @@ module Wikia.Modules {
 		}
 
 		loadTrackingScript (url: string): void {
-			var script = document.createElement('script'),
-				self = this;
+			var script = document.createElement('script');
 
 			script.src = url;
 
