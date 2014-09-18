@@ -1,4 +1,5 @@
 /// <reference path="./LightboxController.ts" />
+/// <reference path="../models/MediaModel.ts" />
 'use strict';
 
 App.MediaLightboxController = App.LightboxController.extend({
@@ -47,17 +48,22 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 
 		if (!Em.isEmpty(file)) {
-			this.get('model.media').some(findMedia, this);
+			this.get('model').get('media').some(findMedia, this);
 		}
 	},
 
-	init: function () {
-		this.set('model', App.MediaModel.create());
+	init: function (): void {
+		this.set('model', this.get('controllers.article.model.media'));
 
 		this.matchQueryString();
 	},
 
-	galleryBoundries: function () {
+	/**
+	 * observes currentGalleryRef
+	 * and sets boundries for it
+	 * so gallery loops over all images and does not go outside boundries of gallery
+	 */
+	galleryBoundries: function (): void {
 		var currentGalleryRef = this.get('currentGalleryRef'),
 			galleryLength = this.get('galleryLength') - 1;
 
@@ -69,15 +75,30 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 	}.observes('currentGalleryRef', 'galleryLength'),
 
-	isGallery: function () {
+	/**
+	 * check if current displayed media is a gallery
+	 *
+	 * @return boolean
+	 */
+	isGallery: function (): boolean {
 		return Em.isArray(this.get('current'));
 	}.property('current'),
 
-	current: function () {
-		return this.get('model.media')[this.get('currentMediaRef')];
-	}.property('model.media', 'currentMediaRef'),
+	/**
+	 * gets current media from model
+	 *
+	 * @return object
+	 */
+	current: function (): ArticleMedia {
+		return this.get('model').find(this.get('currentMediaRef'));
+	}.property('model', 'currentMediaRef'),
 
-	currentMedia: function () {
+	/**
+	 * gets current media or current media from gallery
+	 *
+	 * @return object
+	 */
+	currentMedia: function (): ArticleMedia {
 		var current = this.get('current');
 
 		if (this.get('isGallery')) {
@@ -87,15 +108,19 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('current', 'isGallery', 'currentGalleryRef'),
 
-	galleryLength: function () {
+	galleryLength: function (): number {
 		if (this.get('isGallery')) {
 			return this.get('current').length;
 		} else {
-			return false;
+			return -1;
 		}
 	}.property('isGallery', 'current'),
 
-	currentMediaObserver: function () {
+	/**
+	 * observes curentMedia and updates file property
+	 * that is an alias from article file and is a queryParam
+	 */
+	currentMediaObserver: function (): void {
 		var currentMedia = this.get('currentMedia');
 
 		if (currentMedia) {
@@ -105,7 +130,10 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.observes('currentMedia').on('init'),
 
-	contents: function () {
+	/**
+	 * returns content for currentMedia
+	 */
+	contents: function (): string {
 		var currentMedia = this.get('currentMedia');
 
 		if (currentMedia) {
@@ -115,7 +143,12 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('currentMedia'),
 
-	footer: function () {
+	/**
+	 * returns footer for currentMedia
+	 *
+	 * @return string
+	 */
+	footer: function (): string {
 		var currentMedia = this.get('currentMedia');
 
 		if (currentMedia) {
@@ -127,18 +160,31 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('currentMedia'),
 
-	galleryHeader: function () {
+	/**
+	 * returns header for gallery
+	 *
+	 * @return string
+	 */
+	galleryHeader: function (): string {
 		return (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
 	}.property('galleryLength', 'currentGalleryRef'),
 
-	header: function () {
+	/**
+	 * returns header for currentMedia if it is a gallery
+	 *
+	 * @return string
+	 */
+	header: function (): string {
 		if (this.get('isGallery')) {
 			return this.get('galleryHeader');
 		}
 		return '';
 	}.property('isGallery', 'galleryHeader'),
 
-	reset: function () {
+	/**
+	 * sets all properties to their null state
+	 */
+	reset: function (): void {
 		this.setProperties({
 			currentMediaRef: null,
 			currentGalleryRef: 0,

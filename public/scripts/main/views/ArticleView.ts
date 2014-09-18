@@ -1,7 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../../wikia/modules/sloth.ts" />
-/// <reference path="../../wikia/modules/lazyLoad.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -9,8 +8,6 @@ interface HeadersFromDom {
 	name: string;
 	id?: string;
 }
-
-var sloth = new Wikia.Modules.Sloth();
 
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
@@ -55,28 +52,35 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				this.lazyLoadMedia(model);
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.setupAdsContext(model.get('adsContext'));
 				this.injectAds();
 				this.jumpToAnchor();
 				this.scrollToComments();
+				this.lazyLoadMedia(model);
 			}
 		});
 	},
 
 	lazyLoadMedia: function (model: typeof App.ArticleModel) {
 		var lazyImages = this.$('.article-media'),
-			lazy = new Wikia.Modules.LazyLoad();
+			mediaModel = model.get('media');
 
-		lazy.fixSizes(lazyImages);
+		lazyImages.each((index: number, element: HTMLImageElement) => {
+			var ref = parseInt(element.dataset.ref, 10),
+				component = this.createChildView(App.MediaComponent.create(), {
+					ref: ref,
+					width: parseInt(element.getAttribute('width'), 10),
+					height: parseInt(element.getAttribute('height'), 10),
+					imgWidth: element.offsetWidth,
+					media: mediaModel.find(ref)
+				}).createElement(),
+				$element = component.$();
 
-		sloth.drop();
-		sloth.attach({
-			on: lazyImages,
-			threshold: 400,
-			callback: (elem: HTMLElement) => lazy.load(elem, false, model.get('media'))
+			$element.attr('data-ref', element.dataset.ref);
+
+			this.$(element).replaceWith($element);
 		});
 	},
 
