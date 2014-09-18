@@ -65,7 +65,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	createMediaComponent: function (element: HTMLElement) {
 		var ref = parseInt(element.dataset.ref, 10),
-			media = this.get('controller.model').get('media').find(ref);
+			media = this.get('controller.model.media').find(ref);
 
 		var component = this.createChildView(App.MediaComponent.newFromMedia(media), {
 			ref: ref,
@@ -75,7 +75,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			media: media
 		}).createElement();
 
-		return component.$().attr('data-ref', element.dataset.ref);
+		return component.$().attr('data-ref', ref);
 	},
 
 	lazyLoadMedia: function (model: typeof App.ArticleModel) {

@@ -81,6 +81,9 @@ App.ApplicationView = Em.View.extend({
 				case 'a':
 					this.handleLink(target);
 					break;
+				case 'figure':
+					this.handleMedia(target);
+					break;
 			}
 		}
 	},

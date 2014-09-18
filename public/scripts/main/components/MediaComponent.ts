@@ -51,13 +51,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return this.get('media').caption;
 	}.property('media'),
 
-	click: function () {
-		console.log(this)
-	},
-
 	actions: {
 		onVisible: function (): void {
-			//this.load();
+			this.load();
 		}
 	},
 
