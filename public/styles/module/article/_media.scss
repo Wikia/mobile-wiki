@@ -3,7 +3,12 @@
 	text-align: center;
 
 	img {
-		background-color: #e7e7e7;
+		background: {
+			color: rgb(223,223,223);
+			position: center;
+			repeat: no-repeat;
+			size: contain;
+		}
 		display: inline-block;
 		pointer-events: none;
 		width: 100%;
@@ -31,9 +36,9 @@ figcaption {
 	white-space: nowrap;
 
 	img {
-		width: 195px;
 		height: 195px;
 		margin-right: 8px;
+		width: 195px;
 	}
 }
 

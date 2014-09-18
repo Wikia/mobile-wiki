@@ -18,10 +18,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	visible: false,
 	media: null,
 
-	isGallery: function () {
-		return Em.isArray(this.get('media'));
-	}.property('media'),
-
 	/**
 	 * content width used to load smaller thumbnails
 	 * @return number
@@ -30,25 +26,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return $('.article-content').width();
 	}.property(),
 
-	/**
-	 * used to set proper height to img tag before it loads
-	 * so we have less content jumping around due to lazy loading images
-	 * @return number
-	 */
-	computedHeight: function (): number {
-		var pageWidth = this.get('contentWidth'),
-			imageWidth = this.getWithDefault('width', pageWidth);
-
-		if (this.get('isGallery')) {
-			return false;
-		} else {
-			if (pageWidth < imageWidth) {
-				return Math.round(this.get('imgWidth') * (~~this.get('height') / imageWidth));
-			}
-		}
-
-		return this.get('height');
-	}.property('width', 'height'),
 
 	/**
 	 * url for given media
@@ -67,23 +44,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return url;
 	},
 
-	urls: function (): any {
-		var urls = [];
-
-		if (this.get('isGallery')) {
-			this.get('media').forEach((media) => {
-				//urls.push(this.thumbUrl(media.url, 195, 195));
-				urls.push(this.get('imageUrl'));
-			})
-		} else {
-			return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
-		}
-
-		return urls;
-	}.property('isGallery', 'media'),
-
-	url: Em.computed.alias('urls'),
-
 	/**
 	 * caption for current media
 	 */
@@ -97,7 +57,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 
 	actions: {
 		onVisible: function (): void {
-			this.load();
+			//this.load();
 		}
 	},
 
@@ -111,56 +71,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			imageUrl: src,
 			visible: true
 		});
-	},
-
-	/**
-	 * load an image and run update function when it is loaded
-	 */
-	load: function(): void {
-		if (this.get('isGallery')) {
-			this.$().on('scroll', function () {
-				console.log(this)
-			})
-		} else {
-			var image = new Image();
-
-			image.src = this.get('url');
-
-			if (image.complete) {
-				this.update(image.src);
-			} else {
-				image.addEventListener('load', () => {
-					this.update(image.src);
-				});
-			}
-		}
 	}
-});
-
-App.ImageMediaComponent = App.MediaComponent.extend({
-	classNames: ['article-image'],
-	targetObject: Em.computed.alias('parentView'),
-	init: function () {
-
-		this._super();
-	},
-	actions: {
-		click: function () {
-			console.log('image');
-			this.sendAction();
-		}
-	},
-
-	mouseDown: function () {
-		console.log('image');
-		this.sendAction();
-	}
-
-});
-
-App.GalleryMediaComponent = App.MediaComponent.extend({
-	classNames: ['article-gallery'],
-	layoutName: 'components/gallery-media'
 });
 
 App.MediaComponent.reopenClass({
