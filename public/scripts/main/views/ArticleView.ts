@@ -70,14 +70,16 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			ref: ref,
 			width: parseInt(element.getAttribute('width'), 10),
 			height: parseInt(element.getAttribute('height'), 10),
-			imgWidth: element.offsetWidth
+			imgWidth: element.offsetWidth,
+			media: mediaModel.find(ref)
 		}).createElement();
 
-		return component.$();
+		return component.$().attr('data-ref', element.dataset.ref);
 	},
 
 	lazyLoadMedia: function (model: typeof App.ArticleModel) {
-		var lazyImages = this.$('.article-media');
+		var lazyImages = this.$('.article-media'),
+			mediaModel = model.get('media');
 
 		lazyImages.each((index: number, element: HTMLImageElement) => {
 			this.$(element).replaceWith(this.createMediaComponent(element));

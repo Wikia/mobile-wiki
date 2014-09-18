@@ -16,14 +16,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	ref: null,
 	imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
-
-	media: function (): media {
-		return App.Media.find(this.get('ref'));
-	}.property('ref'),
+	media: null,
 
 	isGallery: function () {
 		return Em.isArray(this.get('media'));
-	}.property('model'),
+	}.property('media'),
 
 	/**
 	 * content width used to load smaller thumbnails
@@ -38,9 +35,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	 * so we have less content jumping around due to lazy loading images
 	 * @return number
 	 */
-	computedHeight: function (): any {
-		var imageWidth = this.get('width'),
-			pageWidth = this.get('contentWidth');
+	computedHeight: function (): number {
+		var pageWidth = this.get('contentWidth'),
+			imageWidth = this.getWithDefault('width', pageWidth);
 
 		if (this.get('isGallery')) {
 			return false;

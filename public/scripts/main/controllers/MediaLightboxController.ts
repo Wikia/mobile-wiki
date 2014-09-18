@@ -48,12 +48,12 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 
 		if (!Em.isEmpty(file)) {
-			this.get('model.media').some(findMedia, this);
+			this.get('model').get('media').some(findMedia, this);
 		}
 	},
 
 	init: function (): void {
-		this.set('model', App.Media);
+		this.set('model', this.get('controllers.article.model.media'));
 
 		this.matchQueryString();
 	},
@@ -89,7 +89,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 *
 	 * @return object
 	 */
-	current: function (): media {
+	current: function (): ArticleMedia {
 		return this.get('model').find(this.get('currentMediaRef'));
 	}.property('model', 'currentMediaRef'),
 
@@ -98,7 +98,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 *
 	 * @return object
 	 */
-	currentMedia: function (): media {
+	currentMedia: function (): ArticleMedia {
 		var current = this.get('current');
 
 		if (this.get('isGallery')) {
@@ -108,11 +108,11 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}.property('current', 'isGallery', 'currentGalleryRef'),
 
-	galleryLength: function (): any {
+	galleryLength: function (): number {
 		if (this.get('isGallery')) {
 			return this.get('current').length;
 		} else {
-			return false;
+			return -1;
 		}
 	}.property('isGallery', 'current'),
 
