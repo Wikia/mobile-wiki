@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
-/// <reference path="../../wikia/modules/sloth.ts" />
+/// <reference path="../components/MediaComponent.ts" />
 'use strict';
 
 interface HeadersFromDom {
