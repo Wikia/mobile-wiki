@@ -47,7 +47,7 @@ test('if init is run correctly and file is set', function () {
 	deepEqual(mediaLightboxController.get('file'), null);
 
 	articleController.set('file', 'fileTitle');
-	//
+
 	equal(mediaLightboxController.get('file'), 'fileTitle');
 });
 
