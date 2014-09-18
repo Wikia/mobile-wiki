@@ -12,6 +12,15 @@ interface TrackingMethods {
 	none?: Boolean;
 }
 
+interface TrackingParams {
+	[idx: string]: any;
+	action?: string;
+	label?: string;
+	value?: string;
+	category?: string;
+	trackingMethod: string;
+}
+
 interface InternalTrackingConfig {
 	// TODO: These are legacy config values that are terse and very coupled with MW, lets see if we can't
 	// deprecate these and use something a bit more appropriate
@@ -39,19 +48,20 @@ module Wikia.Utils {
 	var config: InternalTrackingConfig,
 	    tracker: Wikia.Modules.InternalTracker,
 	    actions: any,
-	    inited = false;
+	    inited = false,
+	    global = window;
 
 	/**
 	* @description Init function used to defer the binding of global variables until app is inited,
 	* mostly for testing
 	*/
-	function init(): void {
+	function init (): void {
 		config = {
-			c: 123,
-			x: window.Wikia.wiki.siteName,
-			a: window.Wikia.article.details.title,
-			lc: window.Wikia.wiki.language,
-			n: 1,
+			c: global.Wikia.wiki.id,
+			x: global.Wikia.wiki.dbName,
+			a: global.Wikia.article.details.title,
+			lc: global.Wikia.wiki.language,
+			n: global.Wikia.article.details.ns,
 			u: 0,
 			s: 'mercury',
 			beacon: '',
@@ -59,7 +69,7 @@ module Wikia.Utils {
 		};
 
 		tracker = new Wikia.Modules.InternalTracker({
-			baseUrl: 'http://a.wikia-beacon.com/__track/special/',
+			baseUrl: 'http://a.wikia-beacon.com/__track/',
 			defaults: config
 		});
 
@@ -118,7 +128,7 @@ module Wikia.Utils {
 		view: 'view'
 	};
 
-	function gaTrack(gaqArgs: any[]): void {
+	function gaTrack (gaqArgs: any[]): void {
 		var ga = window.ga;
 
 		if (!ga) {
@@ -129,11 +139,18 @@ module Wikia.Utils {
 		ga.apply(window, gaqArgs);
 	}
 
-	function hasValidGaqArguments(obj: any) {
+	function hasValidGaqArguments (obj: TrackingParams) {
 		return !!(obj.action && obj.category && obj.label);
 	}
 
-	export function track(event: string, params: any): void {
+	function pruneParamsForInternalTrack (params: TrackingParams) {
+		delete params.action;
+		delete params.label;
+		delete params.value;
+		delete params.category;
+	}
+
+	export function track (event: string, params: TrackingParams): void {
 		var browserEvent = window.event,
 		    trackingMethod: string = params.trackingMethod || 'none',
 		    track: TrackingMethods = {},
@@ -156,6 +173,12 @@ module Wikia.Utils {
 		if (track.both) {
 			track.ga = true;
 			track.internal = true;
+			params = $.extend({
+				ga_action: action,
+				ga_category: category,
+				ga_label: label,
+				ga_value: value
+			}, params);
 		}
 
 		if ((track.both || track.ga) && !hasValidGaqArguments(params)) {
@@ -171,8 +194,8 @@ module Wikia.Utils {
 		}
 
 		if (track.internal) {
+			pruneParamsForInternalTrack(params);
 			tracker.track(event, params);
 		}
-
 	}
 }
