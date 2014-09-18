@@ -1,3 +1,3 @@
-{{#each url in urls}}
-    <img {{bind-attr src=url}}>
+{{#each image in limitedMedia}}
+    <img {{bind-attr src=image.thumbUrl}} {{bind-attr class='image.load:loaded'}} data-gallery-ref='{{unbound image.galleryRef}}'>
 {{/each}}
