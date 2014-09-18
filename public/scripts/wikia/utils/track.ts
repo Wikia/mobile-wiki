@@ -12,6 +12,15 @@ interface TrackingMethods {
 	none?: Boolean;
 }
 
+interface TrackingParams {
+	[idx: string]: any;
+	action?: string;
+	label?: string;
+	value?: string;
+	category?: string;
+	trackingMethod: string;
+}
+
 interface InternalTrackingConfig {
 	// TODO: These are legacy config values that are terse and very coupled with MW, lets see if we can't
 	// deprecate these and use something a bit more appropriate
@@ -129,18 +138,18 @@ module Wikia.Utils {
 		ga.apply(window, gaqArgs);
 	}
 
-	function hasValidGaqArguments (obj: any) {
+	function hasValidGaqArguments (obj: TrackingParams) {
 		return !!(obj.action && obj.category && obj.label);
 	}
 
-	function pruneParamsForInternalTrack (params) {
+	function pruneParamsForInternalTrack (params: TrackingParams) {
 		delete params.action;
 		delete params.label;
 		delete params.value;
 		delete params.category;
 	}
 
-	export function track (event: string, params: any): void {
+	export function track (event: string, params: TrackingParams): void {
 		var browserEvent = window.event,
 		    trackingMethod: string = params.trackingMethod || 'none',
 		    track: TrackingMethods = {},

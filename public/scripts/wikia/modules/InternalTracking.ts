@@ -29,8 +29,8 @@ module Wikia.Modules {
 			this.loadTrackingScript(requestURL);
 		}
 
-		isPageView (eventName) {
-			return !!(eventName.toLowerCase() === 'view');
+		isPageView (eventName: string): boolean {
+			return eventName.toLowerCase() === 'view';
 		}
 
 		createRequestURL (eventName: string, params: any): string {
@@ -52,7 +52,7 @@ module Wikia.Modules {
 
 			script.src = url;
 
-			script.onload = script.onreadystatechange = function (abort) {
+			script.onload = script.onreadystatechange = (abort: any): void => {
 
 				if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
 					return;
@@ -69,11 +69,11 @@ module Wikia.Modules {
 				// Dereference the script
 				script = undefined;
 
-				if (!abort && typeof self.success === 'function') {
-					setTimeout(self.success, self.callbackTimeout);
+				if (!abort && typeof this.success === 'function') {
+					setTimeout(this.success, this.callbackTimeout);
 
-				} else if (abort && typeof self.error === 'function') {
-					setTimeout(self.error, self.callbackTimeout);
+				} else if (abort && typeof this.error === 'function') {
+					setTimeout(this.error, this.callbackTimeout);
 				}
 			};
 
