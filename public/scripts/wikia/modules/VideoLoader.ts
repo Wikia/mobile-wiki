@@ -26,7 +26,7 @@ module Wikia.Modules {
 		static Player: any;
 
 		public loadPlayerClass () {
-			var provider: string = this.isProviderOoyala() ? 'ooyala' : this.data.provider,
+			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player';
 
 			// don't attempt to load controls for unsupported player classes
@@ -38,8 +38,8 @@ module Wikia.Modules {
 			this.player = new Wikia.Modules.VideoPlayer[playerClassStr](provider, this.data.jsParams);
 		}
 
-		private isProviderOoyala () {
-			return !!this.data.provider.toLowerCase().match('ooyala');
+		private isProvider (name: string): boolean {
+			return !!this.data.provider.toLowerCase().match(name);
 		}
 	}
 }

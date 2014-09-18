@@ -36,21 +36,21 @@ App.MediaLightboxView = App.LightboxView.extend({
 	* view has been updated. This is so that any specific embed markup is loaded
 	* before we try to instantiate player controls.
 	*/
-	currentMediaObserver: function () {
+	currentMediaObserver: function (): void {
 		var currentMedia = this.get('controller.currentMedia');
-		Em.run.scheduleOnce('afterRender', this, () => {
-			if (currentMedia.type === 'video') {
-				this.initVideoPlayer(currentMedia);
-			}
-		});
+		if (currentMedia.type === 'video') {
+			Em.run.scheduleOnce('afterRender', this, (): void => {
+					this.initVideoPlayer(currentMedia);
+			});
+		}
 	}.observes('controller.currentMedia'),
 
 	/**
 	* @method initVideoPlayer
 	* @description Used to instantiate a provider specific video player
 	*/
-	initVideoPlayer: function (media) {
-		var element = this.$().find('.lightbox-content-inner')[0];
+	initVideoPlayer: function (media: any) {
+		var element = this.$('.lightbox-content-inner')[0];
 		this.set('videoPlayer', new Wikia.Modules.VideoLoader(element, media.embed));
 	},
 

@@ -15,6 +15,9 @@ declare module Wikia {
 	};
 
 	module Modules {
+		class VideoLoader {
+			constructor(element: HTMLElement, params: any);
+		}
 		class VideoPlayer {}
 	}
 
