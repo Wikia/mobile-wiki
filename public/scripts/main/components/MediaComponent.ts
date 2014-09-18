@@ -32,8 +32,8 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	 * @return number
 	 */
 	computedHeight: function (): number {
-		var imageWidth = this.get('width'),
-			pageWidth = this.get('contentWidth');
+		var pageWidth = this.get('contentWidth'),
+			imageWidth = this.getWithDefault('width', pageWidth);
 
 		if (pageWidth < imageWidth) {
 			return Math.round(this.get('imgWidth') * (~~this.get('height') / imageWidth));
