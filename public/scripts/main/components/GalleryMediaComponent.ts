@@ -11,18 +11,18 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	limit: 2,
 
 	setUp: function (): void {
-		var mediaA = Em.A(),
+		var mediaArray = Em.A(),
 			emptyGif = this.get('imageUrl');
 
 		this.get('media').forEach((media, index) => {
 			media.galleryRef = index;
 			media.thumbUrl = emptyGif;
 
-			mediaA.pushObject(Em.Object.create(media));
+			mediaArray.pushObject(Em.Object.create(media));
 		});
 
 		this.setProperties({
-			media: mediaA,
+			media: mediaArray,
 			limit: 0
 		});
 	},
