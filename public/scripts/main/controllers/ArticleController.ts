@@ -11,7 +11,7 @@ App.ArticleController = Em.ObjectController.extend({
 	commentsLoaded: null,
 	commentsVisible: null,
 
-	displayUsers: function () {
+	displayUsers: function (): any[] {
 		return this.get('users').slice(0, 5);
 	}.property('users'),
 
@@ -20,15 +20,12 @@ App.ArticleController = Em.ObjectController.extend({
 			var article = this.get('model');
 			article.set('sections', headers);
 		},
-		changePage: function (title: string) {
+
+		changePage: function (title: string): void {
 			this.transitionToRoute('article', title);
 		},
-		// Bubbled up from ArticleSectionHeaderView, which is a child of ArticleView
-		scrollToTop: function () {
-			window.scrollTo(0, 0);
-		},
 
-		toggleComments: function (page: number) {
+		toggleComments: function (page: number): boolean {
 			if (Em.isEmpty(page) && !Em.isEmpty(this.get('commentsPage'))) {
 				this.set('commentsPage', null);
 			} else {
