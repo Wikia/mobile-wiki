@@ -51,7 +51,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 			image: ArticleMedia,
 			limit = Math.min(galleryRef + limit, this.get('galleryLength'));
 
-		for(;galleryRef < limit; galleryRef++) {
+		for(;galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
 
 			image.setProperties({
@@ -67,8 +67,6 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	load: function(): void {
 		var thisGallery = this.$(),
 			galleryWidth = thisGallery.width(),
-			images = thisGallery.find('img:not(.loaded)'),
-			imageWidth = images.width(),
 			thumbSize = this.get('thumbSize'),
 			maxImages = Math.ceil(galleryWidth / thumbSize);
 
