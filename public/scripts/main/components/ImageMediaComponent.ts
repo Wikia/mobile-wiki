@@ -4,11 +4,10 @@
 
 App.ImageMediaComponent = App.MediaComponent.extend({
 	classNames: ['article-image'],
-	targetObject: Em.computed.alias('parentView'),
-	init: function () {
 
-		this._super();
-	},
+	imageSrc: Em.computed.defaultTo(
+		'emptyGif'
+	),
 
 	/**
 	 * used to set proper height to img tag before it loads
@@ -47,16 +46,15 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		}
 	},
 
-	actions: {
-		click: function () {
-			console.log('image');
-			this.sendAction();
-		}
-	},
-
-	mouseDown: function () {
-		console.log('image');
-		this.sendAction();
+	/**
+	 * updates img with its src and sets media component to visible state
+	 *
+	 * @param src string - src for image
+	 */
+	update: function (src: string): void {
+		this.setProperties({
+			imageSrc: src,
+			visible: true
+		});
 	}
-
 });

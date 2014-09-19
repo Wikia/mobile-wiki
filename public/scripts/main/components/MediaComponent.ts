@@ -14,7 +14,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	width: null,
 	height: null,
 	ref: null,
-	imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
 	media: null,
 
@@ -55,18 +55,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		onVisible: function (): void {
 			this.load();
 		}
-	},
-
-	/**
-	 * updates img with its src and sets media component to visible state
-	 *
-	 * @param src string - src for image
-	 */
-	update: function (src: string): void {
-		this.setProperties({
-			imageUrl: src,
-			visible: true
-		});
 	}
 });
 

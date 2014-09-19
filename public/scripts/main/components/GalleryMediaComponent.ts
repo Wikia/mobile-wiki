@@ -17,7 +17,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 
 	setUp: function (): void {
 		var mediaArray = Em.A(),
-			emptyGif = this.get('imageUrl');
+			emptyGif = this.get('emptyGif');
 
 		this.get('media').forEach((media: ArticleMedia, index: number) => {
 			media.galleryRef = index;
