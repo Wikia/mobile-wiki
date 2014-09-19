@@ -25,10 +25,10 @@ App.ArticleRoute = Em.Route.extend({
 	 *
 	 * but we want them to be displayed normalized in URL bar
 	 */
-	sanitizeURL: function (path: string = ''){
+	sanitizeURL: function (path: string = '') {
 		return decodeURIComponent(path)
 			.replace(/\s/g, '_')
-			.replace(/_+/g, '_')
+			.replace(/_+/g, '_');
 	},
 
 	model: function (params: any) {
@@ -47,7 +47,7 @@ App.ArticleRoute = Em.Route.extend({
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
 		willTransition: function (transition: EmberStates.Transition) {
-			if (transition.targetName === 'article.index') {
+			if (transition.targetName === 'article') {
 				window.scrollTo(0, 0);
 			}
 

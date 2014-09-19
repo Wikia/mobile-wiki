@@ -1,3 +1,5 @@
+/// <reference path="../../../typings/jquery/jquery.d.ts" />
+declare var $: JQueryStatic;
 declare var require: (deps: string[], func: Function) => void;
 
 declare module Wikia {
@@ -11,7 +13,19 @@ declare module Wikia {
 	var ads: {
 		slots: string[][];
 	};
+
+	module Modules {
+		class VideoLoader {
+			constructor(element: HTMLElement, params: any);
+		}
+		class VideoPlayer {}
+	}
+
+	module Utils {
+	}
 }
+
+declare var W: any;
 
 interface Location {
 	origin: string;

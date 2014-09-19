@@ -1,28 +1,32 @@
 moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 	needs: ['controller:article', 'controller:application'],
 	setup: function () {
-		Wikia.article.article ={
+		Wikia.article.article = {
 			media: [
 				{
 					title: 'test',
 					url: 'testurl',
-					caption: 'testcaption'
+					caption: 'testcaption',
+					type: 'image'
 				},
 				{
 					title: 'test1',
 					url: 'testurl1',
-					caption: 'testcaption1'
+					caption: 'testcaption1',
+					type: 'image'
 				},
 				[
 					{
 						title: 'testgallery',
 						url: 'testgallery',
-						caption: 'testgallery'
+						caption: 'testgallery',
+						type: 'image'
 					},
 					{
 						title: 'testgallery1',
 						url: 'testgallery1',
-						caption: 'testgallery1'
+						caption: 'testgallery1',
+						type: 'image'
 					}
 				]
 			]
@@ -32,10 +36,18 @@ moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 
 test('if init is run correctly and file is set', function () {
 	expect(3);
-	var mediaLightboxController = this.subject(),
+
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		}),
 		articleController = mediaLightboxController.get('controllers.article');
 
-	deepEqual(mediaLightboxController.get('model'), App.MediaModel.create());
+	deepEqual(mediaLightboxController.get('model'), mediaModel);
+
 	deepEqual(mediaLightboxController.get('file'), null);
 
 	articleController.set('file', 'fileTitle');
@@ -43,9 +55,15 @@ test('if init is run correctly and file is set', function () {
 	equal(mediaLightboxController.get('file'), 'fileTitle');
 });
 
-test('if contents is generated properly', function () {
+test('image contents are generated properly', function () {
 	expect(3);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
 
@@ -62,7 +80,13 @@ test('if contents is generated properly', function () {
 
 test('generates correct footer for a currentMedia (with caption)', function () {
 	expect(2);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
 
@@ -76,7 +100,13 @@ test('generates correct footer for a currentMedia (with caption)', function () {
 
 test('genereates correct header for a gallery', function () {
 	expect(1);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 2);
 
@@ -86,7 +116,13 @@ test('genereates correct header for a gallery', function () {
 
 test('updeates a header accordingly to current media', function () {
 	expect(3);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	equal(mediaLightboxController.get('header'), '');
 
@@ -101,7 +137,13 @@ test('updeates a header accordingly to current media', function () {
 
 test('check if current media is gallery', function () {
 	expect(2);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 1);
 
@@ -114,11 +156,17 @@ test('check if current media is gallery', function () {
 
 test('returns gallery length, if current media is a gallery', function () {
 	expect(2);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
 
-	deepEqual(mediaLightboxController.get('galleryLength'), false);
+	deepEqual(mediaLightboxController.get('galleryLength'), -1);
 
 	mediaLightboxController.set('currentMediaRef', 2);
 
@@ -127,7 +175,13 @@ test('returns gallery length, if current media is a gallery', function () {
 
 test('increments/decrements mediaGalleryRef within boundries', function () {
 	expect(4);
-	var mediaLightboxController = this.subject();
+	var mediaModel = App.MediaModel.create({
+			media: Wikia.article.article.media
+		}),
+		mediaLightboxController = this.subject({
+			model: mediaModel,
+			init: function () {}
+		});
 
 	mediaLightboxController.set('currentMediaRef', 2);
 	equal(mediaLightboxController.get('currentGalleryRef'), 0);

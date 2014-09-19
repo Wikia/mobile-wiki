@@ -10,7 +10,7 @@ module Wikia.Modules {
 		head: HTMLElement;
 		defaults: any;
 
-		constructor(config: any) {
+		constructor (config: any) {
 			this.baseUrl = config.baseUrl;
 			this.head = document.head || document.getElementsByTagName('head')[0];
 			this.callbackTimeout = config.callbackTimeout || 200;
@@ -19,7 +19,7 @@ module Wikia.Modules {
 			this.defaults = config.defaults || {};
 		}
 
-		public track(eventName: string = 'trackingevent', params: any = {}): void {
+		public track (eventName: string = 'trackingevent', params: any = {}): void {
 			var requestURL: string,
 			    config: any;
 
@@ -29,25 +29,29 @@ module Wikia.Modules {
 			this.loadTrackingScript(requestURL);
 		}
 
-		createRequestURL(eventName: string, params: any): string {
+		isPageView (eventName: string): boolean {
+			return eventName.toLowerCase() === 'view';
+		}
+
+		createRequestURL (eventName: string, params: any): string {
 			var parts: string[] = [],
-				paramStr: string;
+				paramStr: string,
+				targetRoute = this.isPageView(eventName) ? 'view' : 'special/trackingevent';
 
 			Object.keys(params).forEach((key) => {
 				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
 				parts.push(paramStr);
 			});
 
-			return this.baseUrl + eventName + '?' + parts.join('&');
+			return this.baseUrl + targetRoute + '?' + parts.join('&');
 		}
 
-		loadTrackingScript(url: string): void {
-			var script = document.createElement('script'),
-				self = this;
+		loadTrackingScript (url: string): void {
+			var script = document.createElement('script');
 
 			script.src = url;
 
-			script.onload = script.onreadystatechange = function (abort) {
+			script.onload = script.onreadystatechange = (abort: any): void => {
 
 				if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
 					return;
@@ -64,11 +68,11 @@ module Wikia.Modules {
 				// Dereference the script
 				script = undefined;
 
-				if (!abort && typeof self.success === 'function') {
-					setTimeout(self.success, self.callbackTimeout);
+				if (!abort && typeof this.success === 'function') {
+					setTimeout(this.success, this.callbackTimeout);
 
-				} else if (abort && typeof self.error === 'function') {
-					setTimeout(self.error, self.callbackTimeout);
+				} else if (abort && typeof this.error === 'function') {
+					setTimeout(this.error, this.callbackTimeout);
 				}
 			};
 

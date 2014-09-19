@@ -6,6 +6,8 @@ var gulp = require('gulp'),
 // NOTE: fixtures task only gets run once, so need to restart karma if you change fixtures
 gulp.task('karma', ['fixtures'], function () {
 	return gulp.src([
+		paths.vendor.dest + '/sinonjs/sinon.js',
+		paths.vendor.dest + '/sinon-qunit/lib/sinon-qunit.js',
 		paths.vendor.dest + '/handlebars/handlebars.runtime.js',
 		paths.vendor.dest + '/jquery/dist/jquery.js',
 		paths.vendor.dest + '/ember/ember.js',
