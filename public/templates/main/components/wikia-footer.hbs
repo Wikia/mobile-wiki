@@ -1,8 +1,8 @@
 {{svg "wikia-logo-white" viewBox="0 0 152 42" role="img" class="logo"}}
 <ul class="footer-links">
-	{{#each links}}
-		<li {{bind-attr class="clss"}}>
-			<a {{bind-attr href="href"}}>{{i18n text}}</a>
+	{{#each link in links}}
+		<li class='{{unbound link.className}}'>
+			<a href='{{unbound link.href}}'>{{i18n link.text}}</a>
 		</li>
 	{{/each}}
 </ul>

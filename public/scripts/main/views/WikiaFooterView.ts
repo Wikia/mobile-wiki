@@ -37,7 +37,7 @@ App.WikiaFooterView = Ember.View.extend({
 			{
 				href: '//www.wikia.com/',
 				text: 'footer-link-full-site',
-				clss: 'spaced'
+				className: 'spaced'
 			},
 			{
 				href: '//www.wikia.com/Licensing',
