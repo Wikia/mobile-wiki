@@ -24,10 +24,11 @@ App.MediaLightboxController = App.LightboxController.extend({
 	element: Em.computed.alias(
 		'data.target'
 	),
+	model: Em.computed.oneWay(
+		'controllers.article.model.media'
+	),
 
 	init: function (): void {
-		this.set('model', this.get('controllers.article.model.media'));
-
 		this.matchQueryString();
 	},
 
@@ -196,8 +197,11 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 */
 	reset: function (): void {
 		this.setProperties({
-			currentMediaRef: null,
-			currentGalleryRef: null,
+			data: {
+				mediaRef: null,
+				galleryRef: null,
+				target: null
+			},
 			file: null
 		});
 	}
