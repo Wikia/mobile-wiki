@@ -140,7 +140,7 @@ module Wikia.Utils {
 	}
 
 	function hasValidGaqArguments (obj: TrackingParams) {
-		return !!(obj.action && obj.category && obj.label);
+		return !!(obj.category && obj.label);
 	}
 
 	function pruneParamsForInternalTrack (params: TrackingParams) {
@@ -186,7 +186,7 @@ module Wikia.Utils {
 		}
 
 		if (track.ga) {
-			gaqArgs.push(actions[action], category, label);
+			gaqArgs.push(actions[params.action] || event, category, label);
 			gaqArgs.push(value || '');
 			// No-interactive = true
 			gaqArgs.push(true);

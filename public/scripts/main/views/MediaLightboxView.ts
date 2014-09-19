@@ -7,6 +7,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	//opening, open
 	//before didInsertElement the lightbox is opening
 	status: 'opening',
+	videoPlayer: null,
 
 	keyDown: function (event: JQueryEventObject) {
 		if (event.keyCode === 39) {
@@ -27,6 +28,30 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.get('parentView').send('setUnscrollable');
 
 		this._super();
+	},
+
+	/**
+	* @method currentMediaObserver
+	* @description Used to check if media if video after the lightbox current
+	* view has been updated. This is so that any specific embed markup is loaded
+	* before we try to instantiate player controls.
+	*/
+	currentMediaObserver: function (): void {
+		var currentMedia = this.get('controller.currentMedia');
+		if (currentMedia.type === 'video') {
+			Em.run.scheduleOnce('afterRender', this, (): void => {
+					this.initVideoPlayer(currentMedia);
+			});
+		}
+	}.observes('controller.currentMedia'),
+
+	/**
+	* @method initVideoPlayer
+	* @description Used to instantiate a provider specific video player
+	*/
+	initVideoPlayer: function (media: any) {
+		var element = this.$('.lightbox-content-inner')[0];
+		this.set('videoPlayer', new Wikia.Modules.VideoLoader(element, media.embed));
 	},
 
 	animateMedia: function (image?: HTMLElement) {

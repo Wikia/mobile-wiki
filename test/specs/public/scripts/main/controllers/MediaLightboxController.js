@@ -6,23 +6,27 @@ moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 				{
 					title: 'test',
 					url: 'testurl',
-					caption: 'testcaption'
+					caption: 'testcaption',
+					type: 'image'
 				},
 				{
 					title: 'test1',
 					url: 'testurl1',
-					caption: 'testcaption1'
+					caption: 'testcaption1',
+					type: 'image'
 				},
 				[
 					{
 						title: 'testgallery',
 						url: 'testgallery',
-						caption: 'testgallery'
+						caption: 'testgallery',
+						type: 'image'
 					},
 					{
 						title: 'testgallery1',
 						url: 'testgallery1',
-						caption: 'testgallery1'
+						caption: 'testgallery1',
+						type: 'image'
 					}
 				]
 			]
@@ -51,7 +55,7 @@ test('if init is run correctly and file is set', function () {
 	equal(mediaLightboxController.get('file'), 'fileTitle');
 });
 
-test('if contents is generated properly', function () {
+test('image contents are generated properly', function () {
 	expect(3);
 	var mediaModel = App.MediaModel.create({
 			media: Wikia.article.article.media
