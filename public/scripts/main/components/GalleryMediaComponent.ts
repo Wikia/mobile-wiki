@@ -28,7 +28,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 
 		this.setProperties({
 			media: mediaArray,
-			limit: 0,
+			limit: 10,
 			galleryLength: mediaArray.length
 		});
 	},
@@ -85,7 +85,11 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 						}
 					});
 				} else {
-					thisGallery.off('scroll');
+					if (this.get('limit') < this.get('galleryLength')) {
+						this.incrementProperty('limit', 10);
+					} else {
+						thisGallery.off('scroll');
+					}
 				}
 			}, 100);
 		})
