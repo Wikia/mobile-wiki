@@ -31,7 +31,10 @@ figcaption {
 }
 
 .article-gallery {
-	overflow: scroll;
+	overflow: {
+		x: scroll;
+		y: hidden;
+	}
 	white-space: nowrap;
 
 	img {

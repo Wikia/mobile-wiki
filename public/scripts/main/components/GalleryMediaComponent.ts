@@ -14,6 +14,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	thumbSize: 195,
 	//limit how many images get rendered before user scrolls to a gallery
 	limit: 2,
+	incrementLimitValue: 10,
 
 	setUp: function (): void {
 		var mediaArray = Em.A(),
@@ -28,7 +29,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 
 		this.setProperties({
 			media: mediaArray,
-			limit: 10,
+			limit: this.incrementLimitValue,
 			galleryLength: mediaArray.length
 		});
 	},
@@ -44,7 +45,11 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 
 	}.property('media', 'limit'),
 
-	loadImages: function (imageOrGalleryRef: any, limit: number = 2, thumbSize: number = this.get('thumbSize')): void {
+	loadImages: function (
+		imageOrGalleryRef: any,
+		limit: number = 2,
+		thumbSize: number = this.get('thumbSize')
+	): void {
 		var galleryRef = typeof imageOrGalleryRef === 'number' ?
 				imageOrGalleryRef :
 				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
@@ -86,7 +91,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 					});
 				} else {
 					if (this.get('limit') < this.get('galleryLength')) {
-						this.incrementProperty('limit', 10);
+						this.incrementProperty('limit', this.incrementLimitValue);
 					} else {
 						thisGallery.off('scroll');
 					}
