@@ -25,16 +25,16 @@ QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {
 	expect(4);
 
 	this.instance.data.provider = 'ooyala/funimation';
-	ok(this.instance.isProviderOoyala());
+	ok(this.instance.isProvider('ooyala'));
 
 	this.instance.data.provider = 'OOYALA';
-	ok(this.instance.isProviderOoyala());
+	ok(this.instance.isProvider('ooyala'));
 
 	this.instance.data.provider = 'OoYaLa/randooom';
-	ok(this.instance.isProviderOoyala());
+	ok(this.instance.isProvider('ooyala'));
 
 	this.instance.data.provider = 'youtube';
-	equal(this.instance.isProviderOoyala(), false);
+	equal(this.instance.isProvider('ooyala'), false);
 });
 
 QUnit.test('VideoLoader should have loaded the correct player class', function () {
