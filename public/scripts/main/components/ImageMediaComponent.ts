@@ -5,7 +5,7 @@
 App.ImageMediaComponent = App.MediaComponent.extend({
 	classNames: ['article-image'],
 
-	imageSrc: Em.computed.defaultTo(
+	imageSrc: Em.computed.oneWay(
 		'emptyGif'
 	),
 
