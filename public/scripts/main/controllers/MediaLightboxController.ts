@@ -10,7 +10,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	),
 	data: {
 		mediaRef: null,
-		galleryRef: 0,
+		galleryRef: null,
 		target: null
 	},
 	//standard place where other components can set data for media lightbox
@@ -79,11 +79,11 @@ App.MediaLightboxController = App.LightboxController.extend({
 				value = 0;
 			}
 
-			this.set('galleryRefValue', value)
+			this.set('galleryRefValue', value);
 		}
 
 		return this.get('galleryRefValue');
-	}.property(),
+	}.property('galleryRefValue'),
 
 	/**
 	 * check if current displayed media is a gallery
@@ -197,7 +197,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	reset: function (): void {
 		this.setProperties({
 			currentMediaRef: null,
-			currentGalleryRef: 0,
+			currentGalleryRef: null,
 			file: null
 		});
 	}
