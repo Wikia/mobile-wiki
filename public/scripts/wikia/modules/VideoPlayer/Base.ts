@@ -19,7 +19,7 @@ module Wikia.Modules.VideoPlayer {
 
 		loadPlayer () {
 			return W.load(this.resourceURI, () => {
-				// hook to be called once player is loaded
+				// called once player is loaded
 				this.playerDidLoad();
 			});
 		}
