@@ -4,7 +4,7 @@ var fs = require('fs'),
 	config = require('../paths').config;
 
 gulp.task('scripts-config', function () {
-	var configFileName = (gutil.env.testing) ? config.testFile : config.exampleFile;
+	var configFileName = gutil.env.testing ? config.testFile : config.exampleFile;
 	if (!fs.existsSync(config.path + config.runtimeFile)) {
 		return fs.createReadStream(config.path + configFileName)
 			.pipe(fs.createWriteStream(config.path + config.runtimeFile));
