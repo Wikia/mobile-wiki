@@ -25,7 +25,8 @@ module Wikia.Modules.VideoPlayer {
 		}
 
 		playerDidLoad (): void {
-			/* intentionally a no-op */
+			// intentionally a no-op, documentation that this hook is implemented and to
+			// not error when called by loadPlayer*
 		}
 
 		createUniqueId (id: string): string {
