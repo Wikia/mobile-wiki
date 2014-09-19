@@ -35,7 +35,8 @@ App.WikiaFooterView = Ember.View.extend({
 				text: 'hub-lifestyle'
 			},
 			{
-				href: '//www.wikia.com/',
+				//TODO: take main skin for a wiki
+				href: '?useskin=oasis',
 				text: 'footer-link-full-site',
 				className: 'spaced'
 			},
