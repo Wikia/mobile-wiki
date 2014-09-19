@@ -24,7 +24,7 @@ App.VisibleMixin = Em.Mixin.create({
 
 	check: function () {
 		var components = this.visibleShared.components,
-			i = components.length - 1,
+			i = components.length,
 			component: Em.Component,
 			// in IE10 window.scrollY doesn't work
 			// but window.pageYOffset is basically the same
@@ -32,7 +32,7 @@ App.VisibleMixin = Em.Mixin.create({
 			wTop = window.scrollY || window.pageYOffset,
 			wBottom = wTop + window.innerHeight;
 
-		if (i >= 0) {
+		if (i > 0) {
 			while(i--) {
 				component = components[i];
 

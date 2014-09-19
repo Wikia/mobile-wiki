@@ -2,6 +2,11 @@
 /// <reference path="./MediaComponent.ts" />
 'use strict';
 
+interface ArticleMedia {
+	galleryRef: number;
+	thumbUrl: string;
+}
+
 App.GalleryMediaComponent = App.MediaComponent.extend({
 	classNames: ['article-gallery'],
 	layoutName: 'components/gallery-media',
@@ -14,7 +19,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		var mediaArray = Em.A(),
 			emptyGif = this.get('imageUrl');
 
-		this.get('media').forEach((media, index) => {
+		this.get('media').forEach((media: ArticleMedia, index: number) => {
 			media.galleryRef = index;
 			media.thumbUrl = emptyGif;
 
@@ -23,7 +28,8 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 
 		this.setProperties({
 			media: mediaArray,
-			limit: 0
+			limit: 0,
+			galleryLength: mediaArray.length
 		});
 	},
 
@@ -38,12 +44,21 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 
 	}.property('media', 'limit'),
 
-	loadImage: function (image: any, thumbSize: number = this.get('thumbSize')): void {
-		var galleryRef = typeof image === 'number' ? image : image.getAttribute('data-gallery-ref'),
-			image = this.get('media.' + galleryRef);
+	loadImages: function (imageOrGalleryRef: any, limit: number = 2, thumbSize: number = this.get('thumbSize')): void {
+		var galleryRef = typeof imageOrGalleryRef === 'number' ?
+				imageOrGalleryRef :
+				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
+			image: ArticleMedia,
+			limit = Math.min(galleryRef + limit, this.get('galleryLength'));
 
-		image.set('thumbUrl', this.thumbUrl(image.get('url'), thumbSize, thumbSize));
-		image.set('load', true);
+		for(;galleryRef < limit; galleryRef++) {
+			image = this.get('media').get(galleryRef);
+
+			image.setProperties({
+				thumbUrl: this.thumbUrl(image.get('url'), thumbSize, thumbSize),
+				load: true
+			});
+		}
 	},
 
 	/**
@@ -54,19 +69,26 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 			galleryWidth = thisGallery.width(),
 			images = thisGallery.find('img:not(.loaded)'),
 			imageWidth = images.width(),
-			thumbSize = this.get('thumbSize');
+			thumbSize = this.get('thumbSize'),
+			maxImages = Math.ceil(galleryWidth / thumbSize);
 
 		this.setUp();
-		this.loadImage(0);
-		this.loadImage(1);
+		this.loadImages(0, maxImages);
 
 		thisGallery.on('scroll', () => {
 			Em.run.debounce(this, () => {
-				thisGallery.find('img:not(.loaded)').each((index: number, image: HTMLImageElement) => {
-					if (image.offsetLeft < galleryWidth + thisGallery.scrollLeft()) {
-						this.loadImage(image);
-					}
-				});
+				var images = thisGallery.find('img:not(.loaded)'),
+					galleryScroll = thisGallery.scrollLeft();
+
+				if (images.length) {
+					images.each((index: number, image: HTMLImageElement) => {
+						if (image.offsetLeft < galleryWidth + galleryScroll) {
+							this.loadImages(image, maxImages);
+						}
+					});
+				} else {
+					thisGallery.off('scroll');
+				}
 			}, 100);
 		})
 	}
