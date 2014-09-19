@@ -37,7 +37,7 @@ module Wikia.Modules.VideoPlayer {
 			return newId;
 		}
 
-		track (event: string, params?: any) {
+		track (event: string, params?: any): Function {
 			var opts = {
 				trackingMethod: 'both',
 				label: this.provider,
