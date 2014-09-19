@@ -49,7 +49,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 				imageOrGalleryRef :
 				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
 			image: ArticleMedia,
-			limit = Math.min(galleryRef + limit, this.get('galleryLength'));
+			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1);
 
 		for(;galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
