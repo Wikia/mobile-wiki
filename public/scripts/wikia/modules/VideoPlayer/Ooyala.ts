@@ -79,18 +79,6 @@ module Wikia.Modules.VideoPlayer {
 			messageBus.subscribe(window.OO.EVENTS.ADS_PLAYED, 'tracking', () => {
 				this.track('ad-finish');
 			});
-
-			// Listen GoogleIma event to fill adTagUrl for no-flash scenario
-			// messageBus.subscribe('googleImaReady', 'tracking', function () {
-			// 	var i;
-			// 	if (player && player.modules && player.modules.length) {
-			// 		for (i = 0; i < player.modules.length; i = i + 1) {
-			// 			if (player.modules[i].name === "GoogleIma" && player.modules[i].instance) {
-			// 				player.modules[i].instance.adTagUrl = tagUrl;
-			// 			}
-			// 		}
-			// 	}
-			// });
 		}
 	}
 }
