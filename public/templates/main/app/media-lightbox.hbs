@@ -1,1 +1,10 @@
-<img class='current' {{bind-attr src=currentMedia.url}}>
+{{#if currentMedia}}
+	{{#if currentMedia.url}}
+        <img class='current' {{bind-attr src=currentMedia.url}}>
+	{{else}}
+		{{currentMedia.embed.html}}
+	{{/if}}
+{{else}}
+	{{i18n 'media-lightbox-error'}}
+{{/if}}
+
