@@ -17,6 +17,17 @@
 		"search-loading-msg": "Loading search results...",
 		"media-lightbox-error": "Image not found",
 		"comments-prev-button": "Previous page",
-		"comments-next-button": "Next page"
+		"comments-next-button": "Next page",
+		"hub-games": "Games",
+		"hub-movies": "Movies",
+		"hub-tv": "TV",
+		"hub-comics": "Comics",
+		"hub-music": "Music",
+		"hub-books": "Books",
+		"hub-lifestyle": "Lifestyle",
+		"footer-link-full-site": "Full site",
+		"footer-link-licensing": "Licensing",
+		"footer-link-privacy-policy": "Privacy Policy",
+		"footer-link-feedback": "Feedback"
 	}
 }
