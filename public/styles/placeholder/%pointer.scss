@@ -1,0 +1,5 @@
+%pointer {
+	// iOS only fires click events on elements that natively 'click', eg, anchor, button, input
+	// adding cursor: pointer to that element makes it register click events in iOS
+	cursor: pointer;
+}
