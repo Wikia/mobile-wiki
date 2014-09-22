@@ -24,7 +24,7 @@ App.ApplicationView = Em.View.extend({
 	 * the external link in a new page _and_ the current page would be set to that external link.
 	 */
 	click: function (event: MouseEvent): void {
-		//event.preventDefault();
+		event.preventDefault();
 	},
 
 	handleLink: function (target: HTMLAnchorElement): void {
