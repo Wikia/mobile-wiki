@@ -24,11 +24,12 @@ if (!gutil.env.nosync) {
 gulp.task('build', [
 		'node-modules',
 		'sass',
-		'scripts-front',
-		'sprites',
+		'symbols',
+		'images',
 		'vendor',
 		'templates',
 		'locales',
+		'scripts-front',
 		'scripts-back'
 	], function () {
 	return piper(

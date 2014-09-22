@@ -4,10 +4,10 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	rename = require('gulp-rename'),
 	piper = require('../utils/piper'),
-	paths = require('../paths').svg,
+	paths = require('../paths').symbols,
 	path = require('path');
 
-gulp.task('sprites', folders(paths.src, function (folder) {
+gulp.task('symbols', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		svgSymbols(),
