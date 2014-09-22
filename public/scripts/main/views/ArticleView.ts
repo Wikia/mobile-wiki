@@ -63,24 +63,26 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		});
 	},
 
+	createMediaComponent: function (element: HTMLElement) {
+		var ref = parseInt(element.dataset.ref, 10),
+			media = this.get('controller.model.media').find(ref);
+
+		var component = this.createChildView(App.MediaComponent.newFromMedia(media), {
+			ref: ref,
+			width: parseInt(element.getAttribute('width'), 10),
+			height: parseInt(element.getAttribute('height'), 10),
+			imgWidth: element.offsetWidth,
+			media: media
+		}).createElement();
+
+		return component.$().attr('data-ref', ref);
+	},
+
 	lazyLoadMedia: function (model: typeof App.ArticleModel) {
-		var lazyImages = this.$('.article-media'),
-			mediaModel = model.get('media');
+		var lazyImages = this.$('.article-media');
 
 		lazyImages.each((index: number, element: HTMLImageElement) => {
-			var ref = parseInt(element.dataset.ref, 10),
-				component = this.createChildView(App.MediaComponent.create(), {
-					ref: ref,
-					width: parseInt(element.getAttribute('width'), 10),
-					height: parseInt(element.getAttribute('height'), 10),
-					imgWidth: element.offsetWidth,
-					media: mediaModel.find(ref)
-				}).createElement(),
-				$element = component.$();
-
-			$element.attr('data-ref', element.dataset.ref);
-
-			this.$(element).replaceWith($element);
+			this.$(element).replaceWith(this.createMediaComponent(element));
 		});
 	},
 

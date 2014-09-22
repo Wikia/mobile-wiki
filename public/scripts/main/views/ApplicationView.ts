@@ -53,12 +53,17 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	handleMedia: function (target: HTMLElement): void {
-		var mediaRef = parseInt(target.dataset.ref, 10);
+		var galleryRef = parseInt(target.dataset.galleryRef, 10),
+			mediaRef = parseInt(target.parentElement.dataset.ref, 10);
 
 		if (mediaRef >= 0) {
-			Em.Logger.debug('Handling media:', mediaRef);
+			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
-			this.get('controller').send('openLightbox', 'media-lightbox', mediaRef, target);
+			this.get('controller').send('openLightbox', 'media-lightbox', {
+				mediaRef: mediaRef,
+				galleryRef: galleryRef,
+				target: target
+			});
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
@@ -81,7 +86,7 @@ App.ApplicationView = Em.View.extend({
 				case 'a':
 					this.handleLink(target);
 					break;
-				case 'figure':
+				case 'img':
 					this.handleMedia(target);
 					break;
 			}

@@ -14,7 +14,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	width: null,
 	height: null,
 	ref: null,
-	imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
 	media: null,
 
@@ -26,21 +26,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return $('.article-content').width();
 	}.property(),
 
-	/**
-	 * used to set proper height to img tag before it loads
-	 * so we have less content jumping around due to lazy loading images
-	 * @return number
-	 */
-	computedHeight: function (): number {
-		var pageWidth = this.get('contentWidth'),
-			imageWidth = this.getWithDefault('width', pageWidth);
-
-		if (pageWidth < imageWidth) {
-			return Math.round(this.get('imgWidth') * (~~this.get('height') / imageWidth));
-		}
-
-		return this.get('height');
-	}.property('width', 'height'),
 
 	/**
 	 * url for given media
@@ -48,16 +33,16 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	 *
 	 * @return string
 	 */
-	url: function (): string {
+	thumbUrl: function (url: string, width: number, height: number = 0): string {
 		var thumbnailer = Wikia.Modules.Thumbnailer,
-			url = this.get('media').url;
+			url = url;
 
 		if (!thumbnailer.isThumbUrl(url)) {
-			url = thumbnailer.getThumbURL(url, 'nocrop', this.get('contentWidth'), '0');
+			url = thumbnailer.getThumbURL(url, 'nocrop', width, height);
 		}
 
 		return url;
-	}.property('media'),
+	},
 
 	/**
 	 * caption for current media
@@ -70,34 +55,15 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		onVisible: function (): void {
 			this.load();
 		}
-	},
+	}
+});
 
-	/**
-	 * updates img with its src and sets media component to visible state
-	 *
-	 * @param src string - src for image
-	 */
-	update: function (src: string): void {
-		this.setProperties({
-			imageUrl: src,
-			visible: true
-		});
-	},
-
-	/**
-	 * load an image and run update function when it is loaded
-	 */
-	load: function(): void {
-		var image = new Image();
-
-		image.src = this.get('url');
-
-		if (image.complete) {
-			this.update(image.src);
+App.MediaComponent.reopenClass({
+	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
+		if (Em.isArray(media)) {
+			return App.GalleryMediaComponent.create();
 		} else {
-			image.addEventListener('load', () => {
-				this.update(image.src);
-			});
+			return App.ImageMediaComponent.create();
 		}
 	}
 });

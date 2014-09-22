@@ -3,9 +3,13 @@
 	text-align: center;
 
 	img {
-		background-color: #e7e7e7;
+		background: {
+			color: rgb(223,223,223);
+			position: center;
+			repeat: no-repeat;
+			size: contain;
+		}
 		display: inline-block;
-		pointer-events: none;
 		width: 100%;
 	}
 
@@ -24,6 +28,20 @@ figcaption {
 	margin: 5px 0;
 	pointer-events: none;
 	text-align: left;
+}
+
+.article-gallery {
+	overflow: {
+		x: scroll;
+		y: hidden;
+	}
+	white-space: nowrap;
+
+	img {
+		height: 195px;
+		margin-right: 8px;
+		width: 195px;
+	}
 }
 
 @keyframes lazyImage {

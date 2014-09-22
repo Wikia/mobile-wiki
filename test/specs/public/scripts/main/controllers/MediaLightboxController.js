@@ -53,6 +53,9 @@ test('if init is run correctly and file is set', function () {
 	articleController.set('file', 'fileTitle');
 
 	equal(mediaLightboxController.get('file'), 'fileTitle');
+	articleController.set('file', null);
+
+	mediaLightboxController.reset();
 });
 
 test('image contents are generated properly', function () {
@@ -66,16 +69,16 @@ test('image contents are generated properly', function () {
 		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
-
 	equal(mediaLightboxController.get('contents'), '<img src="testurl">');
 
 	mediaLightboxController.set('currentMediaRef', 1);
-
 	equal(mediaLightboxController.get('contents'), '<img src="testurl1">');
 
 	mediaLightboxController.set('currentMediaRef', 2);
-
+	mediaLightboxController.set('currentGalleryRef', 0);
 	equal(mediaLightboxController.get('contents'), '<img src="testgallery">');
+
+	mediaLightboxController.reset();
 });
 
 test('generates correct footer for a currentMedia (with caption)', function () {
@@ -96,6 +99,7 @@ test('generates correct footer for a currentMedia (with caption)', function () {
 
 	equal(mediaLightboxController.get('footer'), 'testcaption1');
 
+	mediaLightboxController.reset();
 });
 
 test('genereates correct header for a gallery', function () {
@@ -109,9 +113,11 @@ test('genereates correct header for a gallery', function () {
 		});
 
 	mediaLightboxController.set('currentMediaRef', 2);
+	mediaLightboxController.set('currentGalleryRef', 0);
 
 	equal(mediaLightboxController.get('galleryHeader'), '1 / 2');
 
+	mediaLightboxController.reset();
 });
 
 test('updeates a header accordingly to current media', function () {
@@ -124,15 +130,17 @@ test('updeates a header accordingly to current media', function () {
 			init: function () {}
 		});
 
+	mediaLightboxController.set('currentMediaRef', 0);
 	equal(mediaLightboxController.get('header'), '');
 
 	mediaLightboxController.set('currentMediaRef', 1);
-
 	equal(mediaLightboxController.get('header'), '');
 
 	mediaLightboxController.set('currentMediaRef', 2);
-
+	mediaLightboxController.set('currentGalleryRef', 0);
 	equal(mediaLightboxController.get('header'), '1 / 2');
+
+	mediaLightboxController.reset();
 });
 
 test('check if current media is gallery', function () {
@@ -146,12 +154,12 @@ test('check if current media is gallery', function () {
 		});
 
 	mediaLightboxController.set('currentMediaRef', 1);
-
 	equal(mediaLightboxController.get('isGallery'), false);
 
 	mediaLightboxController.set('currentMediaRef', 2);
-
 	equal(mediaLightboxController.get('isGallery'), true);
+
+	mediaLightboxController.reset();
 });
 
 test('returns gallery length, if current media is a gallery', function () {
@@ -165,12 +173,12 @@ test('returns gallery length, if current media is a gallery', function () {
 		});
 
 	mediaLightboxController.set('currentMediaRef', 0);
-
 	deepEqual(mediaLightboxController.get('galleryLength'), -1);
 
 	mediaLightboxController.set('currentMediaRef', 2);
-
 	deepEqual(mediaLightboxController.get('galleryLength'), 2);
+
+	mediaLightboxController.reset();
 });
 
 test('increments/decrements mediaGalleryRef within boundries', function () {
@@ -194,4 +202,6 @@ test('increments/decrements mediaGalleryRef within boundries', function () {
 
 	mediaLightboxController.decrementProperty('currentGalleryRef');
 	equal(mediaLightboxController.get('currentGalleryRef'), 1);
+
+	mediaLightboxController.reset();
 });

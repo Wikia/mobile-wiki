@@ -8,11 +8,29 @@ App.MediaLightboxController = App.LightboxController.extend({
 	file: Em.computed.alias(
 		'controllers.article.file'
 	),
-	currentMediaRef: null,
-	//default image in gallery is 0th
-	currentGalleryRef: 0,
+	data: {
+		mediaRef: null,
+		galleryRef: null,
+		target: null
+	},
+	//standard place where other components can set data for media lightbox
+	currentMediaRef: Em.computed.alias(
+		'data.mediaRef'
+	),
+	galleryRefValue: Em.computed.alias(
+		'data.galleryRef'
+	),
 	//element on a page that will be animated
-	element: null,
+	element: Em.computed.alias(
+		'data.target'
+	),
+	model: Em.computed.oneWay(
+		'controllers.article.model.media'
+	),
+
+	init: function (): void {
+		this.matchQueryString();
+	},
 
 	/**
 	 * This function checks if file=* matches any files on a page
@@ -52,28 +70,21 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	},
 
-	init: function (): void {
-		this.set('model', this.get('controllers.article.model.media'));
+	currentGalleryRef: function (key: string, value, number): number {
+		var galleryLength = this.get('galleryLength') - 1;
 
-		this.matchQueryString();
-	},
+		if (arguments.length > 1) {
+			if (value < 0) {
+				value = galleryLength;
+			} else if (value > galleryLength) {
+				value = 0;
+			}
 
-	/**
-	 * observes currentGalleryRef
-	 * and sets boundries for it
-	 * so gallery loops over all images and does not go outside boundries of gallery
-	 */
-	galleryBoundries: function (): void {
-		var currentGalleryRef = this.get('currentGalleryRef'),
-			galleryLength = this.get('galleryLength') - 1;
-
-		if (currentGalleryRef < 0) {
-			this.set('currentGalleryRef', galleryLength);
-		} else if (currentGalleryRef > galleryLength) {
-			this.set('currentGalleryRef', 0);
+			this.set('galleryRefValue', value);
 		}
 
-	}.observes('currentGalleryRef', 'galleryLength'),
+		return this.get('galleryRefValue');
+	}.property('galleryRefValue'),
 
 	/**
 	 * check if current displayed media is a gallery
@@ -194,8 +205,11 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 */
 	reset: function (): void {
 		this.setProperties({
-			currentMediaRef: null,
-			currentGalleryRef: 0,
+			data: {
+				mediaRef: null,
+				galleryRef: null,
+				target: null
+			},
 			file: null
 		});
 	}
