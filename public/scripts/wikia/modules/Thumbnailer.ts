@@ -100,7 +100,7 @@ module Wikia.Modules {
 			tokens.push(
 					width + (height ? 'x' + height : '-') +
 					((type === 'video' || type === 'nocrop') ?
-					'-' : 'x2-') + last + '.png'
+					'-' : 'x2-') + last + '.jpg'
 			);
 
 			return tokens.join('/');
