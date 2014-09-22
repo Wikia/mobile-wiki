@@ -56,7 +56,6 @@
     "gulp-rimraf": "^0.1.0",
     "gulp-sass": "0.x.x",
     "gulp-svg-symbols": "0.x.x",
-    "gulp-svgo": "^0.1.1",
     "gulp-tslint": "1.x.x",
     "gulp-type": "^0.3.0",
     "gulp-uglify": "1.x.x",
