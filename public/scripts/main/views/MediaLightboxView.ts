@@ -3,6 +3,7 @@
 
 App.MediaLightboxView = App.LightboxView.extend({
 	classNames: ['media-lightbox'],
+	templateName: 'app/media-lightbox',
 
 	//opening, open
 	//before didInsertElement the lightbox is opening
@@ -19,6 +20,15 @@ App.MediaLightboxView = App.LightboxView.extend({
 		}
 
 		this._super(event);
+	},
+
+	gestures: {
+		swipeLeft: function () {
+			this.get('controller').incrementProperty('currentGalleryRef')
+		},
+		swipeRight: function () {
+			this.get('controller').decrementProperty('currentGalleryRef')
+		}
 	},
 
 	didInsertElement: function () {
