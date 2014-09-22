@@ -2,7 +2,7 @@
 	{{#if currentMedia.url}}
 		<img class='current' {{bind-attr src=currentMedia.url}}>
 	{{else}}
-		{{currentMedia.embed.html}}
+		{{{currentMedia.embed.html}}}
 	{{/if}}
 {{else}}
 	{{i18n 'media-lightbox-error'}}
