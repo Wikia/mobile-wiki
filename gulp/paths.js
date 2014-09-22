@@ -42,8 +42,13 @@ module.exports = {
 		dest: basePath + '/public/templates',
 		files: '**/*.hbs'
 	},
-	svg: {
-		src: 'public/svg',
+	symbols: {
+		src: 'public/svg/symbols',
+		dest: basePath + '/public/svg',
+		files: '*.svg'
+	},
+	images: {
+		src: 'public/svg/images',
 		dest: basePath + '/public/svg',
 		files: '*.svg'
 	},

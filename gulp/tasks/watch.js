@@ -54,7 +54,7 @@ gulp.task('watch', ['build'], function () {
 	});
 
 	gulp.watch([
-		path.join(paths.svg.src, paths.svg.files),
+		path.join(paths.symbols.src, paths.symbols.files),
 		paths.views.src
 	], ['build']);
 
