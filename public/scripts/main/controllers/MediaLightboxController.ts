@@ -143,26 +143,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.observes('currentMedia').on('init'),
 
 	/**
-	 * returns content for currentMedia
-	 */
-	contents: function (): string {
-		var currentMedia = this.get('currentMedia');
-
-		if (!currentMedia) {
-			return i18n.t('app:media-lightbox-error');
-		}
-		if (currentMedia.type === 'image') {
-			return ('<img src="' + this.get('currentMedia').url + '">').htmlSafe();
-		}
-
-		if (currentMedia.type === 'video') {
-			// the provider specific embed code for a given provider
-			return (currentMedia.embed.html).htmlSafe();
-		}
-
-	}.property('currentMedia'),
-
-	/**
 	 * returns footer for currentMedia
 	 *
 	 * @return string

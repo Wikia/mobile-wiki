@@ -58,29 +58,6 @@ test('if init is run correctly and file is set', function () {
 	mediaLightboxController.reset();
 });
 
-test('image contents are generated properly', function () {
-	expect(3);
-	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
-		}),
-		mediaLightboxController = this.subject({
-			model: mediaModel,
-			init: function () {}
-		});
-
-	mediaLightboxController.set('currentMediaRef', 0);
-	equal(mediaLightboxController.get('contents'), '<img src="testurl">');
-
-	mediaLightboxController.set('currentMediaRef', 1);
-	equal(mediaLightboxController.get('contents'), '<img src="testurl1">');
-
-	mediaLightboxController.set('currentMediaRef', 2);
-	mediaLightboxController.set('currentGalleryRef', 0);
-	equal(mediaLightboxController.get('contents'), '<img src="testgallery">');
-
-	mediaLightboxController.reset();
-});
-
 test('generates correct footer for a currentMedia (with caption)', function () {
 	expect(2);
 	var mediaModel = App.MediaModel.create({

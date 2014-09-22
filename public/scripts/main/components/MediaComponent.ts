@@ -33,12 +33,12 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	 *
 	 * @return string
 	 */
-	thumbUrl: function (url: string, width: number, height: number = 0): string {
+	thumbUrl: function (url: string, width: number, height: number = 0, type: string = 'nocrop'): string {
 		var thumbnailer = Wikia.Modules.Thumbnailer,
 			url = url;
 
 		if (!thumbnailer.isThumbUrl(url)) {
-			url = thumbnailer.getThumbURL(url, 'nocrop', width, height);
+			url = thumbnailer.getThumbURL(url, type, width, height);
 		}
 
 		return url;
