@@ -1,11 +1,13 @@
 var fs = require('fs'),
 	gulp = require('gulp'),
-	gulpif = require('gulp-if'),
-	rename = require('gulp-rename'),
+	gutil = require('gulp-util'),
 	config = require('../paths').config;
 
 gulp.task('scripts-config', function () {
-	return gulp.src(config.path + config.exampleFile)
-		.pipe(gulpif(!fs.existsSync(config.path + config.runtimeFile), rename(config.runtimeFile)))
-		.pipe(gulp.dest(config.path));
+	var configFileName = gutil.env.testing ? config.testFile : config.exampleFile;
+	if (!fs.existsSync(config.path + config.runtimeFile)) {
+		return fs.createReadStream(config.path + configFileName)
+			.pipe(fs.createWriteStream(config.path + config.runtimeFile));
+	}
+	return true;
 });
