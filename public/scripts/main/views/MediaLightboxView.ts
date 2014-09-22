@@ -4,6 +4,9 @@
 App.MediaLightboxView = App.LightboxView.extend({
 	classNames: ['media-lightbox'],
 	templateName: 'app/media-lightbox',
+	isGallery: Em.computed.alias(
+		'controller.isGallery'
+	),
 
 	//opening, open
 	//before didInsertElement the lightbox is opening
@@ -11,23 +14,30 @@ App.MediaLightboxView = App.LightboxView.extend({
 	videoPlayer: null,
 
 	keyDown: function (event: JQueryEventObject) {
-		if (event.keyCode === 39) {
-			//handle right arrow
-			this.get('controller').incrementProperty('currentGalleryRef')
-		} else if (event.keyCode === 37) {
-			//handle left arrow
-			this.get('controller').decrementProperty('currentGalleryRef')
+		if (this.get('isGallery')) {
+			if (event.keyCode === 39) {
+				//handle right arrow
+				this.get('controller').incrementProperty('currentGalleryRef')
+			} else if (event.keyCode === 37) {
+				//handle left arrow
+				this.get('controller').decrementProperty('currentGalleryRef')
+			}
 		}
+
 
 		this._super(event);
 	},
 
 	gestures: {
 		swipeLeft: function () {
-			this.get('controller').incrementProperty('currentGalleryRef')
+			if (this.get('isGallery')) {
+				this.get('controller').incrementProperty('currentGalleryRef')
+			}
 		},
 		swipeRight: function () {
-			this.get('controller').decrementProperty('currentGalleryRef')
+			if (this.get('isGallery')) {
+				this.get('controller').decrementProperty('currentGalleryRef')
+			}
 		}
 	},
 
