@@ -12,6 +12,7 @@
 .side-nav {
 	// open nav button
 	.nav-container {
+		@extend %pointer;
 		height: 100%;
 		padding-top: rem-calc(15);
 		position: absolute;
@@ -27,6 +28,7 @@
 
 	// overlay
 	.overlay {
+		@extend %pointer;
 		@include perfect-square(100%);
 		background-color: black;
 		left: 0;
