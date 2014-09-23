@@ -9,7 +9,7 @@ App.AdsMixin = Em.Mixin.create({
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER'
 	},
-	adViews: [],
+	adViews: <Em.View[]>[],
 
 	appendAd: function (adSlotName: string, place: string, element: JQuery): void {
 		var view = this.createChildView(App.AdSlotComponent, {
@@ -23,7 +23,7 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	clearAdViews: function() {
-		var adView;
+		var adView: Em.View;
 		while (adView = this.adViews.pop()) {
 			adView.destroyElement();
 		}
