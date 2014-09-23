@@ -7,6 +7,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	maxZoom: 5,
 	lastX: 0,
 	lastY: 0,
+	lastScale: 1,
 	//opening, open
 	//before didInsertElement the lightbox is opening
 	status: 'opening',
@@ -130,7 +131,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		panend: function (event) {
+		panend: function () {
 			this.setProperties({
 				lastX: this.get('newX'),
 				lastY: this.get('newY')
@@ -143,12 +144,18 @@ App.MediaLightboxView = App.LightboxView.extend({
 			this.set('scale', scale > 1 ? 1 : 3);
 		},
 
-		pinchout: function (event: {scale: number}) {
-			this.set('scale', event.scale / this.get('scale'));
+		pinchmove: function (event: {scale: number}) {
+			var scale = this.get('scale');
+
+			this.setProperties({
+				scale: this.get('lastScale') * event.scale,
+				newX: this.get('lastX') + event.deltaX / scale,
+				newY: this.get('lastY') + event.deltaY / scale
+			});
 		},
 
-		pinchin: function (event) {
-			this.set('scale', this.get('scale') * event.scale);
+		pinchend: function (event: {scale: number}) {
+			this.set('lastScale', this.get('lastScale') * event.scale);
 		}
 	},
 
