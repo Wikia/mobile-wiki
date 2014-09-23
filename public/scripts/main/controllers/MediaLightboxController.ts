@@ -17,9 +17,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 	currentMediaRef: Em.computed.alias(
 		'data.mediaRef'
 	),
-	galleryRefValue: Em.computed.alias(
-		'data.galleryRef'
-	),
 	//element on a page that will be animated
 	element: Em.computed.alias(
 		'data.target'
@@ -75,16 +72,14 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 		if (arguments.length > 1) {
 			if (value < 0) {
-				value = galleryLength;
+				return galleryLength;
 			} else if (value > galleryLength) {
-				value = 0;
+				return 0;
 			}
-
-			this.set('galleryRefValue', value);
 		}
 
-		return this.get('galleryRefValue');
-	}.property('galleryRefValue'),
+		return value == null ? this.getWithDefault('data.galleryRef', 0) : value;
+	}.property(),
 
 	/**
 	 * check if current displayed media is a gallery

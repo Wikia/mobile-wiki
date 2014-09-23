@@ -88,6 +88,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	resetZoom: function () {
 		this.setProperties({
 			scale: 1,
+			lastScale: 1,
 			newX: 0,
 			newY: 0,
 			lastX: 0,
