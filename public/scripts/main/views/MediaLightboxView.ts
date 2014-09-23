@@ -140,9 +140,12 @@ App.MediaLightboxView = App.LightboxView.extend({
 		},
 
 		doubletap: function () {
-			var scale = this.get('scale');
+			var scale = this.get('scale') > 1 ? 1 : 3;
 
-			this.set('scale', scale > 1 ? 1 : 3);
+			this.setProperties({
+				scale: scale,
+				lastScale: scale
+			});
 		},
 
 		pinchmove: function (event: {scale: number}) {
@@ -225,28 +228,25 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	didInsertElement: function (): void {
-		//disabled for now, we can make it better when we have time
-		//this.animateMedia(this.get('controller').get('element'));
-		this.set('status', 'open');
-		this.resetZoom();
-
 		var onResize = () => {
 			this.notifyPropertyChange('viewportSize');
 			this.notifyPropertyChange('imageWidth');
 			this.notifyPropertyChange('imageHeight');
 		};
 
+		//disabled for now, we can make it better when we have time
+		//this.animateMedia(this.get('controller').get('element'));
+		this.set('status', 'open');
+		this.resetZoom();
+
 		$(window).on('resize', onResize);
 		this.set('onResize', onResize);
-		this.get('parentView').send('setUnscrollable');
 
 		this._super();
 	},
 
 	willDestroyElement: function (): void {
 		$(window).off('resize', this.get('onResize'));
-		this.get('parentView').send('setScrollable');
-		this.get('controller').reset();
 
 		this._super();
 	}

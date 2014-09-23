@@ -187,5 +187,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 			},
 			file: null
 		});
+
+		this._super();
 	}
 });
