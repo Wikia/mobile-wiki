@@ -69,26 +69,28 @@ App.ApplicationView = Em.View.extend({
 		}
 	},
 
-	mouseUp: function (event: HTMLMouseEvent): void {
-		/**
-		 * check if the target has a parent that is an anchor
-		 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
-		 * because if the user clicks the part of the link in the <i></i> then
-		 * target.tagName will register as 'I' and not 'A'.
-		 */
-		var $closest =  Em.$(event.target).closest('a'),
-			target =  $closest.length ? $closest[0] : event.target;
+	gestures: {
+		tap: function (event: HTMLMouseEvent): void {
+			/**
+			 * check if the target has a parent that is an anchor
+			 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
+			 * because if the user clicks the part of the link in the <i></i> then
+			 * target.tagName will register as 'I' and not 'A'.
+			 */
+			var $closest =  Em.$(event.target).closest('a'),
+				target =  $closest.length ? $closest[0] : event.target;
 
-		Em.Logger.debug(target.tagName.toLowerCase());
+			Em.Logger.debug(target.tagName.toLowerCase());
 
-		if (target) {
-			switch (target.tagName.toLowerCase()) {
-				case 'a':
-					this.handleLink(target);
-					break;
-				case 'img':
-					this.handleMedia(target);
-					break;
+			if (target) {
+				switch (target.tagName.toLowerCase()) {
+					case 'a':
+						this.handleLink(target);
+						break;
+					case 'img':
+						this.handleMedia(target);
+						break;
+				}
 			}
 		}
 	},
