@@ -54,8 +54,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
-				this.setupAdsContext(model.get('adsContext'));
 				this.injectAds();
+				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
 				this.scrollToComments();
 				this.lazyLoadMedia(model);

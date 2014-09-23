@@ -9,6 +9,7 @@ App.AdsMixin = Em.Mixin.create({
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER'
 	},
+	adViews: [],
 
 	appendAd: function (adSlotName: string, place: string, element: JQuery): void {
 		var view = this.createChildView(App.AdSlotComponent, {
@@ -16,7 +17,16 @@ App.AdsMixin = Em.Mixin.create({
 		}).createElement();
 
 		element[place](<string>view.$());
+		this.adViews.push(view);
+
 		view.trigger('didInsertElement');
+	},
+
+	clearAdViews: function() {
+		var adView;
+		while (adView = this.adViews.pop()) {
+			adView.destroyElement();
+		}
 	},
 
 	injectAds: function (): void {
@@ -25,6 +35,8 @@ App.AdsMixin = Em.Mixin.create({
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			showInContent = firstSectionTop > this.adsData.minZerothSectionLength,
 			showPreFooter = $articleBody.height() > this.adsData.minPageLength || firstSectionTop < this.adsData.minZerothSectionLength;
+
+		this.clearAdViews();
 
 		if (showInContent) {
 			this.appendAd(this.adsData.mobileInContent, 'before', $firstSection.parent());
