@@ -83,7 +83,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		} else {
 			return this.get('data.galleryRef') || 0
 		}
-	}.property(),
+	}.property('data.galleryRef'),
 
 	/**
 	 * check if current displayed media is a gallery
