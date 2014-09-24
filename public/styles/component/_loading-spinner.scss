@@ -3,7 +3,7 @@ $loader-size: 40px;
 @keyframes expand {
 	0% { transform: scale(0); }
 	50% { transform: scale(1); }
-	100% { z-index: 1; }
+	100% { z-index: $z-spinner-after; }
 }
 
 .loading-spinner {
@@ -28,14 +28,14 @@ $loader-size: 40px;
 
 		&:before,
 		&:after {
-			content: "";
+			content: '';
 			position: absolute;
 			left: 50%;
 			top: 50%;
 			display: block;
 			margin: (-$loader-size/2 - 1) 0 0 (-$loader-size/2 - 1);
 			border-radius: 50%;
-			z-index: 2;
+			z-index: $z-spinner-before;
 			height: $loader-size + 2;
 			width: $loader-size + 2;
 		}
