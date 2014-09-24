@@ -6,6 +6,11 @@ interface HTMLMouseEvent extends MouseEvent {
 	target: HTMLElement;
 }
 
+interface DOMStringMap {
+	galleryRef: string;
+	ref: string;
+}
+
 App.ApplicationView = Em.View.extend({
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its
@@ -69,7 +74,7 @@ App.ApplicationView = Em.View.extend({
 		}
 	},
 
-	mouseUp: function (event: HTMLMouseEvent): void {
+	mouseDown: function (event: HTMLMouseEvent): void {
 		/**
 		 * check if the target has a parent that is an anchor
 		 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
@@ -78,8 +83,6 @@ App.ApplicationView = Em.View.extend({
 		 */
 		var $closest =  Em.$(event.target).closest('a'),
 			target =  $closest.length ? $closest[0] : event.target;
-
-		Em.Logger.debug(target.tagName.toLowerCase());
 
 		if (target) {
 			switch (target.tagName.toLowerCase()) {

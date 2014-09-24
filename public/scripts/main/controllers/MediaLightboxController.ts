@@ -17,9 +17,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 	currentMediaRef: Em.computed.alias(
 		'data.mediaRef'
 	),
-	galleryRefValue: Em.computed.alias(
-		'data.galleryRef'
-	),
 	//element on a page that will be animated
 	element: Em.computed.alias(
 		'data.target'
@@ -70,21 +67,23 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	},
 
-	currentGalleryRef: function (key: string, value, number): number {
-		var galleryLength = this.get('galleryLength') - 1;
+	currentGalleryRef: function (key: string, value?: number): number {
+		var galleryLength: number;
 
 		if (arguments.length > 1) {
+			galleryLength = this.get('galleryLength') - 1;
+
 			if (value < 0) {
-				value = galleryLength;
+				return galleryLength;
 			} else if (value > galleryLength) {
-				value = 0;
+				return 0;
 			}
 
-			this.set('galleryRefValue', value);
+			return value;
+		} else {
+			return this.get('data.galleryRef') || 0
 		}
-
-		return this.get('galleryRefValue');
-	}.property('galleryRefValue'),
+	}.property(),
 
 	/**
 	 * check if current displayed media is a gallery
@@ -192,5 +191,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 			},
 			file: null
 		});
+
+		this._super();
 	}
 });

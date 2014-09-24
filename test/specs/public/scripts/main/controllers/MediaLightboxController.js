@@ -168,7 +168,11 @@ test('increments/decrements mediaGalleryRef within boundries', function () {
 			init: function () {}
 		});
 
-	mediaLightboxController.set('currentMediaRef', 2);
+	mediaLightboxController.set('data', {
+		mediaRef: 2,
+		galleryRef: 0
+	});
+
 	equal(mediaLightboxController.get('currentGalleryRef'), 0);
 
 	mediaLightboxController.incrementProperty('currentGalleryRef');

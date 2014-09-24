@@ -2,7 +2,7 @@
 /// <reference path="./MediaComponent.ts" />
 'use strict';
 
-interface ArticleMedia {
+interface ArticleMedia extends Em.Object {
 	galleryRef: number;
 	thumbUrl: string;
 }

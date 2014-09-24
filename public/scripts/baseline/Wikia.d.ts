@@ -15,9 +15,6 @@ declare module Wikia {
 	};
 
 	module Modules {
-		class VideoLoader {
-			constructor(element: HTMLElement, params: any);
-		}
 		class VideoPlayer {}
 	}
 
@@ -25,7 +22,7 @@ declare module Wikia {
 	}
 }
 
-declare var W: any;
+declare var W: typeof Wikia.Utils;
 
 interface Location {
 	origin: string;

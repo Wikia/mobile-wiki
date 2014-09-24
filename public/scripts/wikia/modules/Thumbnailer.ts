@@ -79,11 +79,13 @@ module Wikia.Modules {
 		 * @param {String} url The URL to the full size image or a thumbnail
 		 * @param {String} type The type, either 'image' (default, the result will be cropped)
 		 * or 'video' (the result will be squeezed)
-		 * @param {Integer} width The width of the thumbnail to fetch
-		 * @param {Integer} height The height of the thumbnail to fetch
+		 * @param {number} width The width of the thumbnail to fetch
+		 * @param {number} height The height of the thumbnail to fetch
 		 */
-		static getThumbURL(url: string = '', type: string = '', width = '50', height = '0') {
-			width = width + (height ? '' : 'px');
+		static getThumbURL(url = '', type = '', width = 50, height = 0) {
+			var widthParam = width + (height ? '' : 'px'),
+			    heightParam = height ? 'x' + height : '-',
+			    typeParam = (type === 'video' || type === 'nocrop') ? '-' : 'x2-';
 
 			if (this.isThumbUrl(url)) {
 				// URL points to a thumbnail, remove crop and size
@@ -98,9 +100,10 @@ module Wikia.Modules {
 				last = tokens.slice(-1)[0].replace(this.extRegExp, '');
 
 			tokens.push(
-					width + (height ? 'x' + height : '-') +
-					((type === 'video' || type === 'nocrop') ?
-					'-' : 'x2-') + last + '.jpg'
+				widthParam +
+				heightParam +
+				typeParam +
+				last + '.jpg'
 			);
 
 			return tokens.join('/');

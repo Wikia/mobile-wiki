@@ -26,7 +26,7 @@ module Wikia.Modules {
 		static Player: any;
 
 		public loadPlayerClass () {
-			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
+			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player';
 
 			// don't attempt to load controls for unsupported player classes
