@@ -263,7 +263,8 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 			//animate to full width and middle of screen
 			$imageCopy.css({
-				width: deviceWidth + 'px', //half of - device height minus height of the animated image multiplied by scale
+				width: deviceWidth + 'px',
+				//half of - device height minus height of the animated image multiplied by scale
 				top: ((viewportSize.height - ($image.height() * (deviceWidth / width))) / 2) + 'px',
 				left: 0
 			}).one('webkitTransitionEnd, transitionend', function () {
