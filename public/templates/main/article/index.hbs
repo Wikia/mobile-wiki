@@ -17,6 +17,14 @@
 				</a>
 			</li>
 			{{/each}}
+			{{#if comments}}
+				<li>
+					<a href='#article-comments'>
+						{{i18n 'article-toc-comments-label'}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a>
+				</li>
+			{{/if}}
 		{{/collapsible-menu}}
 	{{/if}}
 	{{#view 'article-content'}}
