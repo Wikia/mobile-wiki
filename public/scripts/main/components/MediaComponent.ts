@@ -19,8 +19,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	media: null,
 
 	/**
-	 * content width used to load smaller thumbnails
-	 * @return number
+	 * @desc content width used to load smaller thumbnails
 	 */
 	contentWidth: function (): number {
 		return $('.article-content').width();
@@ -28,10 +27,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 
 
 	/**
-	 * url for given media
+	 * @desc url for given media
 	 * if image is not thumbnail, returns url to thumbnail with width set to contentWidth
 	 *
-	 * @return string
 	 */
 	thumbUrl: function (url: string, width: number, height: number = 0, type: string = 'nocrop'): string {
 		var thumbnailer = Wikia.Modules.Thumbnailer,
@@ -45,10 +43,16 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	/**
-	 * caption for current media
+	 * @desc caption for current media
 	 */
 	caption: function (): string {
-		return this.get('media').caption.htmlSafe();
+		var caption = this.get('media').caption;
+
+		if (typeof caption === 'string') {
+			return caption.htmlSafe();
+		}
+
+		return caption;
 	}.property('media'),
 
 	actions: {
