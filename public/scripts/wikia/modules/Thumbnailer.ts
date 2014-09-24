@@ -82,8 +82,8 @@ module Wikia.Modules {
 		 * @param {Integer} width The width of the thumbnail to fetch
 		 * @param {Integer} height The height of the thumbnail to fetch
 		 */
-		static getThumbURL(url: string = '', type: string = '', width = '50', height = '0') {
-			width = width + (height ? '' : 'px');
+		static getThumbURL(url = '', type = '', width = 50, height = 0) {
+			var widthString = width + (height ? '' : 'px');
 
 			if (this.isThumbUrl(url)) {
 				// URL points to a thumbnail, remove crop and size
@@ -98,7 +98,7 @@ module Wikia.Modules {
 				last = tokens.slice(-1)[0].replace(this.extRegExp, '');
 
 			tokens.push(
-					width + (height ? 'x' + height : '-') +
+				widthString + (height ? 'x' + height : '-') +
 					((type === 'video' || type === 'nocrop') ?
 					'-' : 'x2-') + last + '.jpg'
 			);

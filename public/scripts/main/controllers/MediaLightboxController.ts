@@ -68,17 +68,21 @@ App.MediaLightboxController = App.LightboxController.extend({
 	},
 
 	currentGalleryRef: function (key: string, value, number): number {
-		var galleryLength = this.get('galleryLength') - 1;
+		var galleryLength: number;
 
 		if (arguments.length > 1) {
+			galleryLength = this.get('galleryLength') - 1;
+
 			if (value < 0) {
 				return galleryLength;
 			} else if (value > galleryLength) {
 				return 0;
 			}
-		}
 
-		return value == null ? this.getWithDefault('data.galleryRef', 0) : value;
+			return value;
+		} else {
+			return this.get('data.galleryRef') || 0
+		}
 	}.property(),
 
 	/**
