@@ -23,6 +23,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 		}
 	}.property(),
 
+	/**
+	 * @desc calculates current scale for zooming
+	 */
 	scale: function (name: string, value: number): any {
 		if (value >= 1) {
 			return Math.min(this.maxZoom, value);
@@ -31,6 +34,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return 1;
 	}.property(),
 
+	/**
+	 * @desc property that holds current image
+	 */
 	image: function (): JQuery {
 		return this.$('.current');
 	}.property(),
@@ -43,14 +49,23 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return this.get('image').height() * this.get('scale');
 	}.property('image', 'scale'),
 
+	/**
+	 * @desc used to set X boundries for panning image in media lightbox
+	 */
 	maxX: function (): number {
 		return Math.abs(this.get('viewportSize').width - this.get('imageWidth')) / 2 / this.get('scale');
 	}.property('viewportSize', 'imageWidth', 'scale'),
 
+	/**
+	 * @desc used to set Y boundries for panning image in media lightbox
+	 */
 	maxY: function (): number {
 		return Math.abs(this.get('viewportSize').height - this.get('imageHeight')) / 2 / this.get('scale');
 	}.property('viewportSize', 'imageHeight', 'scale'),
 
+	/**
+	 * @desc calculates X for panning with respect to maxX
+	 */
 	newX: function (key: string, value: number): number {
 		if (value && this.get('imageWidth') > this.get('viewportSize').width) {
 			return this.limit(value, this.get('maxX'));
@@ -59,6 +74,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return 0;
 	}.property('viewportSize', 'imageWidth'),
 
+	/**
+	 * @desc calculates Y for panning with respect to maxY
+	 */
 	newY: function (key: string, value: number): number {
 		if (value && this.get('imageHeight') > this.get('viewportSize').height) {
 			return this.limit(value, this.get('maxY'));
@@ -67,6 +85,13 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return 0;
 	}.property('viewportSize', 'imageHeight'),
 
+	/**
+	 * @desc returns limited value for given max ie.
+	 * value = 5, max = 6, return 5
+	 * value = 6, max = 3, return 3
+	 * value = -5, max = -6, return -5
+	 * value = -6, max = -3, return -3
+	 */
 	limit: function (value: number, max: number): number {
 		if (value < 0) {
 			return Math.max(value, -max);
@@ -132,14 +157,14 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		panend: function () {
+		panEnd: function () {
 			this.setProperties({
 				lastX: this.get('newX'),
 				lastY: this.get('newY')
 			});
 		},
 
-		doubletap: function () {
+		doubleTap: function () {
 			var scale = this.get('scale') > 1 ? 1 : 3;
 
 			this.setProperties({
@@ -148,7 +173,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		pinchmove: function (event: {scale: number}) {
+		pinchMove: function (event: {scale: number}) {
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -158,11 +183,15 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		pinchend: function (event: {scale: number}) {
+		pinchEnd: function (event: {scale: number}) {
 			this.set('lastScale', this.get('lastScale') * event.scale);
 		}
 	},
 
+	/**
+	 * @desc 'listens' to scale, newX and newY and returns
+	 * style string for an image, used for scaling and panning
+	 */
 	style: function (): string {
 		return 'transform: scale(%@1) translate3d(%@2px,%@3px,0);'.fmt(
 			this.get('scale').toFixed(2),
@@ -197,6 +226,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.set('videoPlayer', new Wikia.Modules.VideoLoader(element, media.embed));
 	},
 
+	/**
+	 * @desc used to animate image that is in article into a media lightbox
+	 */
 	animateMedia: function (image?: HTMLElement): void {
 		if (image) {
 			var $image = $(image).find('img'),
