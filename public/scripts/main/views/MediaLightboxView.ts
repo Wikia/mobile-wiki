@@ -37,7 +37,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	/**
 	 * @desc calculates current scale for zooming
 	 */
-	scale: function (name: string, value: number): any {
+	scale: function (key: string, value?: number): any {
 		if (value >= 1) {
 			return Math.min(this.maxZoom, value);
 		}
@@ -77,7 +77,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	/**
 	 * @desc calculates X for panning with respect to maxX
 	 */
-	newX: function (key: string, value: number): number {
+	newX: function (key: string, value?: number): number {
 		if (value && this.get('imageWidth') > this.get('viewportSize').width) {
 			return this.limit(value, this.get('maxX'));
 		}
@@ -88,7 +88,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	/**
 	 * @desc calculates Y for panning with respect to maxY
 	 */
-	newY: function (key: string, value: number): number {
+	newY: function (key: string, value?: number): number {
 		if (value && this.get('imageHeight') > this.get('viewportSize').height) {
 			return this.limit(value, this.get('maxY'));
 		}

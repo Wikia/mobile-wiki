@@ -67,7 +67,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	},
 
-	currentGalleryRef: function (key: string, value: number): number {
+	currentGalleryRef: function (key: string, value?: number): number {
 		var galleryLength: number;
 
 		if (arguments.length > 1) {
