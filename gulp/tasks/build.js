@@ -15,9 +15,10 @@ var gulp = require('gulp'),
 	},
 	assets = useref.assets({
 		searchPath: paths.base
-	});
+	}),
+	sync = !environment.isProduction && !gutil.env.nosync;
 
-if (!gutil.env.nosync) {
+if (sync) {
 	preprocessContext.browserSync = true;
 }
 
