@@ -12,7 +12,7 @@
 		font-weight: normal;
 		list-style: none;
 		overflow: hidden;
-		padding: rem-calc(10) $local-nav-li-gutter;
+		padding: rem-calc(10) $side-nav-item-gutter;
 		position: relative;
 		text-align: left;
 		text-overflow: ellipsis;
@@ -47,7 +47,7 @@
 		color: #123054;
 		font-size: rem-calc(12);
 		font-weight: bold;
-		padding: rem-calc(1) $local-nav-li-gutter;
+		padding: rem-calc(1) $side-nav-item-gutter;
 		text-align: left;
 		text-transform: uppercase;
 		width: 100%;

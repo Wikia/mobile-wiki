@@ -43,17 +43,29 @@ $z-side-nav: $z-9;
 // z-max
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Global Variables
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Border Radius
+$border-radius-global: rem-calc(2);
+
+// Colors
+$color-gray-light: #d1d2d4;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Module Variables
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // All variables should live here to prevent shadowing of variables and provide a central location for developers to
 // quickly modify the application
 
-$local-nav-li-gutter: rem-calc(13);
 $overlay-opacity: 0.5;
-// Color for placeholder text, border
-$search-box-color: #d1d2d4;
-$side-nav-width-val: 260;
-$side-nav-offset: rem-calc($side-nav-width-val * -1);
-$side-nav-width: rem-calc($side-nav-width-val);
+
+$search-box-border-color: $color-gray-light;
+$search-box-text-color: $color-gray-light;
+
+$side-nav-item-gutter: rem-calc(13);
+$side-nav-width: rem-calc(260);
+$side-nav-offset: $side-nav-width * -1;
+$side-nav-width: $side-nav-width;
 $transition-length: 0.25s;
