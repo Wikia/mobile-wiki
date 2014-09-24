@@ -48,7 +48,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	 * caption for current media
 	 */
 	caption: function (): string {
-		return this.get('media').caption;
+		return this.get('media').caption.htmlSafe();
 	}.property('media'),
 
 	actions: {
