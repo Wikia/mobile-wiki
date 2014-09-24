@@ -6,6 +6,11 @@ interface HTMLMouseEvent extends MouseEvent {
 	target: HTMLElement;
 }
 
+interface DOMStringMap {
+	galleryRef: string;
+	ref: string;
+}
+
 App.ApplicationView = Em.View.extend({
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its

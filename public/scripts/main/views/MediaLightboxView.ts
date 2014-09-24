@@ -1,5 +1,16 @@
 /// <reference path="./LightboxView.ts" />
+/// <reference path="../../wikia/modules/VideoLoader.ts" />
 'use strict';
+
+interface HammerEvent {
+	deltaX: number;
+	deltaY: number;
+	scale: number;
+}
+
+interface Window {
+	scrollY: number;
+}
 
 App.MediaLightboxView = App.LightboxView.extend({
 	classNames: ['media-lightbox'],
@@ -132,6 +143,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			}
 		}
 
+
 		this._super(event);
 	},
 
@@ -148,8 +160,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 			}
 		},
 
-		pan: function (event: {deltaX: number; deltaY: number}): void {
+		pan: function (event: HammerEvent): void {
 			var scale = this.get('scale');
+
 
 			this.setProperties({
 				newX: this.get('lastX') + event.deltaX / scale,
@@ -173,7 +186,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		pinchMove: function (event: {scale: number}) {
+		pinchMove: function (event: HammerEvent) {
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -183,7 +196,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		pinchEnd: function (event: {scale: number}) {
+		pinchEnd: function (event: HammerEvent) {
 			this.set('lastScale', this.get('lastScale') * event.scale);
 		}
 	},
