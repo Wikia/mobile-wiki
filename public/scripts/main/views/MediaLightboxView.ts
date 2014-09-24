@@ -293,6 +293,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 	willDestroyElement: function (): void {
 		$(window).off('resize', this.get('onResize'));
+		this.get('controller').reset();
 		this.get('_hammerInstance').get('pinch').set({ enable: false });
 
 		this._super();
