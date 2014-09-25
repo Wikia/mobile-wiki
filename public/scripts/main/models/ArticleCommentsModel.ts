@@ -29,6 +29,6 @@ App.ArticleCommentsModel = Em.Object.extend({
 	},
 
 	url: function (articleId: number, page: number = 0) {
-		return '/api/v1/article/comments/' + articleId + '/' + page;
+		return App.get('apiBase') + '/article/comments/' + articleId + '/' + page;
 	}
 });

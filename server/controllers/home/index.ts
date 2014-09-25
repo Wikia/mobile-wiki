@@ -27,6 +27,7 @@ function index(params: any, next: Function): void {
 			siteName: wiki.siteName,
 			wikiJson: JSON.stringify(wiki),
 			mediawikiDomain: MediaWiki.getDomainName(),
+			apiBase: localSettings.apiBase,
 			cacheBuster: wiki.cacheBuster
 		});
 	}, (error: any) => {

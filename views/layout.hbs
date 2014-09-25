@@ -23,6 +23,7 @@
 			{{#if articleJson}}
 				W.provide('article', {{{articleJson}}});
 				W.provide('wiki', {{{wikiJson}}});
+				W.provide('apiBase', '{{{apiBase}}}');
 			{{else}}
 				W.provide('article', {});
 				W.provide('error.message', '{{output.payload.message}}');

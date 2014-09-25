@@ -13,6 +13,7 @@ declare module Wikia {
 	var ads: {
 		slots: string[][];
 	};
+	var apiBase: string;
 
 	module Modules {
 		class VideoPlayer {}
