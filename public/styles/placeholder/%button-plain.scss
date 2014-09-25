@@ -1,0 +1,11 @@
+%button-plain {
+	border: 0;
+	outline: 0 none;
+	background: none;
+	padding: 0;
+}
+
+%button-plain:active, %button-plain:hover, %button-plain:focus, %button-plain:checked {
+	background: none;
+}
+

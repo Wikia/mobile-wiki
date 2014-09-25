@@ -1,3 +1,9 @@
+.show-reply-btn,
+.next-page-btn {
+	@extend %button-plain;
+	color: $anchor-color-normal;
+}
+
 .show-comments-btn {
 	display: block;
 	border-top: 1px solid $secondary-color;
@@ -62,5 +68,5 @@
 	.username {
 		font-weight: bold;
 	}
-
 }
+
