@@ -18,6 +18,8 @@ App.ArticleController = Em.ObjectController.extend({
 			commentsLoaded: null,
 			commentsVisible: null
 		});
+
+		App.IsVisible.reset();
 	}.observes('model'),
 
 	displayUsers: function (): any[] {

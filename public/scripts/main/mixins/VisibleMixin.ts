@@ -7,44 +7,40 @@
  */
 'use strict';
 
-App.VisibleMixin = Em.Mixin.create({
-	visibleId: null,
-	visibleShared: {
-		initialized: false,
-		components: [],
-		threshold: 400
-	},
+App.IsVisible = Em.Object.create({
 
-	isVisible: function(element: JQuery, visibleBottom: number, visibleTop: number): boolean {
-		var threshold = this.threshold || this.visibleShared.threshold,
-			top = element.offset().top - threshold,
-			bottom = top + element.height() + threshold;
+	initialized: false,
+	components: [],
+
+	isVisible: function(element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
+		var top = element.offset().top - threshold,
+		    bottom = top + element.height() + threshold;
 
 		return visibleBottom >= top && visibleTop <= bottom;
 	},
 
 	check: function () {
-		var components = this.visibleShared.components,
-			i = components.length,
-			component: Em.Component,
-			// in IE10 window.scrollY doesn't work
-			// but window.pageYOffset is basically the same
-			// https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
-			wTop = window.scrollY || window.pageYOffset,
-			wBottom = wTop + window.innerHeight;
+		var components = this.components,
+		    i = components.length,
+		    component: Em.Component,
+		    // in IE10 window.scrollY doesn't work
+		    // but window.pageYOffset is basically the same
+		    // https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
+		    wTop = window.scrollY || window.pageYOffset,
+		    wBottom = wTop + window.innerHeight;
 		console.log(components)
 		if (i > 0) {
 			while(i--) {
 				component = components[i];
 
-				if (this.isVisible(component.$(), wBottom, wTop)) {
+				if (this.isVisible(component.$(), wBottom, wTop, component.threshold)) {
 					component.send('onVisible');
 					components.splice(i, 1);
 				}
 			}
 		} else {
-			window.removeEventListener('scroll', () => this.checkDebounced());
-			this.set('visibleShared.initialized', false);
+			$(window).off('scroll.isVisible');
+			this.initialized = false;
 		}
 	},
 
@@ -52,32 +48,28 @@ App.VisibleMixin = Em.Mixin.create({
 		Em.run.debounce(this, this.check, 50);
 	},
 
-	init: function () {
-		this._super();
+	add: function (component: Em.Component) {
 
-		this.visibleShared.components.push(this);
+		this.components.push(component);
 
-		if (!this.get('visibleShared.initialized')) {
-			window.addEventListener('scroll', () => this.checkDebounced());
+		if (!this.initialized) {
+			$(window).on('scroll.isVisible', () => this.checkDebounced());
 
 			this.checkDebounced();
-			this.set('visibleShared.initialized', true)
+			this.initialized = true;
 		}
 	},
 
-	willDestroyElement: function () {
+	reset: function () {
+		this.components.length = 0;
+		this.initialized = false;
+	}
+});
+
+App.VisibleMixin = Em.Mixin.create({
+	init: function () {
 		this._super();
 
-		//this.visibleShared.components = $.grep(this.visibleShared.components, (component) => {
-		//	return component = this;
-		//}, true);
-
-		Em.run.once(function () {
-			console.log('on destroy')
-		})
-
-		this.visibleShared.components.length = 0;
-		this.set('visibleShared.initialized', false)
-		console.log(this.visibleShared.components)
+		App.IsVisible.add(this);
 	}
 });
