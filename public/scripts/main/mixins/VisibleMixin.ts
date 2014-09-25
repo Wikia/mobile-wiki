@@ -12,25 +12,25 @@ App.IsVisible = Em.Object.create({
 	initialized: false,
 	components: [],
 
-	isVisible: function(element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
+	isVisible: function (element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
 		var top = element.offset().top - threshold,
-		    bottom = top + element.height() + threshold;
+			bottom = top + element.height() + threshold;
 
 		return visibleBottom >= top && visibleTop <= bottom;
 	},
 
 	check: function () {
 		var components = this.components,
-		    i = components.length,
-		    component: Em.Component,
-		    // in IE10 window.scrollY doesn't work
-		    // but window.pageYOffset is basically the same
-		    // https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
-		    wTop = window.scrollY || window.pageYOffset,
-		    wBottom = wTop + window.innerHeight;
-		console.log(components)
+			i = components.length,
+			component: Em.Component,
+			// in IE10 window.scrollY doesn't work
+			// but window.pageYOffset is basically the same
+			// https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
+			wTop = window.scrollY || window.pageYOffset,
+			wBottom = wTop + window.innerHeight;
+
 		if (i > 0) {
-			while(i--) {
+			while (i--) {
 				component = components[i];
 
 				if (this.isVisible(component.$(), wBottom, wTop, component.threshold)) {
