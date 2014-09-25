@@ -1,15 +1,14 @@
 <div {{bind-attr class="view.headerHidden:hidden :lightbox-header"}}>
 	<div class="lightbox-header-title">{{header}}</div>
-	<svg role="img" class="lightbox-close-button close-icon" {{action 'closeLightbox'}}>
+	<svg role="img" class="lightbox-close-button close-icon" {{action 'closeLightbox' on='mouseUp'}}>
         <use xlink:href="#close"></use>
     </svg>
 </div>
-<div class="lightbox-content" {{action 'toggleUI' target='view'}}>
+<div class="lightbox-content">
 	<div class="lightbox-content-inner">
 		{{yield}}
 	</div>
 </div>
 {{#if footer}}
-    <div {{bind-attr class="view.lightboxFooterExpanded view.footerHidden:hidden :lightbox-footer"}}
-		{{action 'toggleFooter' target='view'}}>{{footer}}</div>
+    <div {{bind-attr class="view.lightboxFooterExpanded view.footerHidden:hidden :lightbox-footer"}}>{{footer}}</div>
 {{/if}}

@@ -186,6 +186,18 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
+		tap: function (event: HammerEvent) {
+			var $target = this.$(event.target);
+
+			if($target.is('.lightbox-footer')) {
+				this.send('toggleFooter');
+			} else if ($target.is('.close-icon')) {
+				this.get('controller').send('closeLightbox');
+			} else {
+				this.send('toggleUI');
+			}
+		},
+
 		pinchMove: function (event: HammerEvent) {
 			var scale = this.get('scale');
 
@@ -206,7 +218,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 * style string for an image, used for scaling and panning
 	 */
 	style: function (): string {
-		return 'transform: scale(%@1) translate3d(%@2px,%@3px,0);'.fmt(
+		return '-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0); transform: scale(%@1) translate3d(%@2px,%@3px,0);'.fmt(
 			this.get('scale').toFixed(2),
 			this.get('newX').toFixed(2),
 			this.get('newY').toFixed(2)
