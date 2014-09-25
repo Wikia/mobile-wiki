@@ -6,6 +6,7 @@ interface HammerEvent {
 	deltaX: number;
 	deltaY: number;
 	scale: number;
+	target: HTMLElement;
 }
 
 interface Window {
