@@ -16,4 +16,5 @@ interface LocalSettings {
 	cache: CacheInterface;
 	proxyMaxRedirects: number;
 	wikiFallback: string;
+	apiBase: string;
 }

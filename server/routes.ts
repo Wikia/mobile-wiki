@@ -96,7 +96,7 @@ function routes(server: Hapi.Server) {
 	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
 	server.route({
 		method: 'GET',
-		path: '/api/v1/article/{articleTitle}',
+		path: localSettings.apiBase + '/article/{articleTitle}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
@@ -118,7 +118,7 @@ function routes(server: Hapi.Server) {
 	// eg. http://www.example.com/articleComments/muppet/154
 	server.route({
 		method: 'GET',
-		path: '/api/v1/article/comments/{articleId}/{page?}',
+		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
 					wiki: getWikiName(request.headers.host),
@@ -137,7 +137,7 @@ function routes(server: Hapi.Server) {
 
 	server.route({
 		method: 'GET',
-		path: '/api/v1/search/{query}',
+		path: localSettings.apiBase + '/search/{query}',
 		handler: (request: any, reply: Function) => {
 			var params = {
 				wikiName: getWikiName(request.headers.host),
