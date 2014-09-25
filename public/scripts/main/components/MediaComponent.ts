@@ -8,7 +8,7 @@
 App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	tagName: 'figure',
 	layoutName: 'components/media',
-	classNames: ['article-media'],
+	classNames: ['media-component'],
 	classNameBindings: ['visible'],
 
 	width: null,
@@ -32,12 +32,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	 *
 	 */
 	thumbUrl: function (url: string, width: number, height: number = 0, type: string = 'nocrop'): string {
-		var thumbnailer = Wikia.Modules.Thumbnailer,
-			url = url;
+		var thumbnailer = Wikia.Modules.Thumbnailer;
 
-		if (!thumbnailer.isThumbUrl(url)) {
+		//if (!thumbnailer.isThumbUrl(url)) {
 			url = thumbnailer.getThumbURL(url, type, width, height);
-		}
+		//}
 
 		return url;
 	},
@@ -45,14 +44,16 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	/**
 	 * @desc caption for current media
 	 */
-	caption: function (): string {
-		var caption = this.get('media').caption;
+	caption: function (key: string, value?: string): string {
+		if (value) {
+			return value;
+		} else {
+			var media = this.get('media');
 
-		if (typeof caption === 'string') {
-			return caption.htmlSafe();
+			if (media && typeof media.caption === 'string') {
+				return media.caption.htmlSafe();
+			}
 		}
-
-		return caption;
 	}.property('media'),
 
 	actions: {

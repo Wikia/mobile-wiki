@@ -8,6 +8,7 @@
 'use strict';
 
 App.VisibleMixin = Em.Mixin.create({
+	visibleId: null,
 	visibleShared: {
 		initialized: false,
 		components: [],
@@ -31,7 +32,7 @@ App.VisibleMixin = Em.Mixin.create({
 			// https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
 			wTop = window.scrollY || window.pageYOffset,
 			wBottom = wTop + window.innerHeight;
-
+		console.log(components)
 		if (i > 0) {
 			while(i--) {
 				component = components[i];
@@ -62,5 +63,21 @@ App.VisibleMixin = Em.Mixin.create({
 			this.checkDebounced();
 			this.set('visibleShared.initialized', true)
 		}
+	},
+
+	willDestroyElement: function () {
+		this._super();
+
+		//this.visibleShared.components = $.grep(this.visibleShared.components, (component) => {
+		//	return component = this;
+		//}, true);
+
+		Em.run.once(function () {
+			console.log('on destroy')
+		})
+
+		this.visibleShared.components.length = 0;
+		this.set('visibleShared.initialized', false)
+		console.log(this.visibleShared.components)
 	}
 });

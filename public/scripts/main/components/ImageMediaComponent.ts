@@ -25,9 +25,23 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		return this.get('height');
 	}.property('width', 'height'),
 
-	url: function (): string {
-		return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
-	}.property('isGallery', 'media'),
+	url: function (key: string, value?: string): string {
+		if (value) {
+			return this.thumbUrl(value, this.get('contentWidth'), this.get('computedHeight'), 'crop');
+		} else {
+			var media = this.get('media');
+			if (media) {
+				return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
+			}
+
+		}
+	}.property('media', 'contentWidth'),
+
+	style: function () {
+		return this.get('visible') ?
+			false :
+			'height:%@px;'.fmt(this.get('computedHeight'));
+	}.property('computedHeight', 'visible'),
 
 	/**
 	 * load an image and run update function when it is loaded

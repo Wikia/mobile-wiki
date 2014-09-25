@@ -2,13 +2,11 @@
 	<section class="content-recommendations">
 		<h1>{{i18n 'article-suggestions-label'}}</h1>
 		<ul>
-			{{#each pages}}
+			{{#each page in pages}}
 				<li>
-					<div class="overlay"> </div>
-					<a href="{{unbound url}}">
-						<img src="{{unbound imgUrl}}" class="thumbnail" />
-						<span class="title">{{unbound title}}</span>
-					</a>
+					{{#link-to 'article' page.title}}
+						{{image-media url=page.imgUrl caption=page.title height=200 width=100}}
+					{{/link-to}}
 				</li>
 			{{/each}}
 		</ul>
