@@ -144,7 +144,6 @@ App.MediaLightboxView = App.LightboxView.extend({
 			}
 		}
 
-
 		this._super(event);
 	},
 
@@ -163,7 +162,6 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 		pan: function (event: HammerEvent): void {
 			var scale = this.get('scale');
-
 
 			this.setProperties({
 				newX: this.get('lastX') + event.deltaX / scale,
