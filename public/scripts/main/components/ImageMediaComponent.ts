@@ -26,11 +26,20 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 	}.property('width', 'height'),
 
 	url: function (key: string, value?: string): string {
+		var media: ArticleMedia;
+
 		if (value) {
 			return this.thumbUrl(value, this.get('width'), this.get('computedHeight'), 'crop');
 		} else {
-			return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
+			media = this.get('media');
+
+			if (media) {
+				return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
+			}
 		}
+
+		//if it got here, that means that we don't have an url for this media
+		//this might happen for example for read more section images
 	}.property('media', 'contentWidth'),
 
 	style: function (): string {
