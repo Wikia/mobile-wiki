@@ -33,9 +33,9 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		}
 	}.property('media', 'contentWidth'),
 
-	style: function () {
+	style: function (): string {
 		return this.get('visible') ?
-			false :
+			'' :
 			'height:%@px;'.fmt(this.get('computedHeight'));
 	}.property('computedHeight', 'visible'),
 
