@@ -27,13 +27,9 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 
 	url: function (key: string, value?: string): string {
 		if (value) {
-			return this.thumbUrl(value, this.get('contentWidth'), this.get('computedHeight'), 'crop');
+			return this.thumbUrl(value, this.get('width'), this.get('computedHeight'), 'crop');
 		} else {
-			var media = this.get('media');
-			if (media) {
-				return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
-			}
-
+			return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
 		}
 	}.property('media', 'contentWidth'),
 
