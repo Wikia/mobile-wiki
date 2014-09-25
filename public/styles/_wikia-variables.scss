@@ -50,7 +50,8 @@ $z-side-nav: $z-9;
 $border-radius-global: rem-calc(2);
 
 // Colors
-$color-gray-light: #d1d2d4;
+$color-gray-light: #d0d0d0;
+$color-blue-brand: #006cb0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Module Variables
@@ -59,6 +60,7 @@ $color-gray-light: #d1d2d4;
 // All variables should live here to prevent shadowing of variables and provide a central location for developers to
 // quickly modify the application
 
+$anchor-color-normal: $color-blue-brand;
 $overlay-opacity: 0.5;
 
 $search-box-border-color: $color-gray-light;
