@@ -47,7 +47,7 @@ App.ArticleModel.reopenClass({
 			redirect += '?redirect=' + encodeURIComponent(params.redirect);
 		}
 
-		return '/api/v1/article/' + params.title + redirect;
+		return App.get('apiBase') +'/article/' + params.title + redirect;
 	},
 
 	find: function (params: {wiki: string; title: string; redirect?: string}) {

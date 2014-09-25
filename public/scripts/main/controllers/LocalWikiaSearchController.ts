@@ -59,7 +59,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	 * @return uri to send an ajax request to
 	 */
 	getSearchURI: function (query: string): string {
-		return '/api/v1/search/' + encodeURIComponent(query)
+		return App.get('apiBase') +'/search/' + encodeURIComponent(query)
 	},
 
 	/**
