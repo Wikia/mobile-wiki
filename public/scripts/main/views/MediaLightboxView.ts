@@ -188,7 +188,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		tap: function (event: HammerEvent) {
 			var $target = this.$(event.target);
 
-			if($target.is('.lightbox-footer')) {
+			if ($target.is('.lightbox-footer')) {
 				this.send('toggleFooter');
 			} else if ($target.is('.close-icon')) {
 				this.get('controller').send('closeLightbox');
