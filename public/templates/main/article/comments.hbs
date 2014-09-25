@@ -1,6 +1,6 @@
 {{#if controller.model.comments}}
 	{{#if showPrevButton}}
-		<button {{action 'prevPage'}}>{{i18n 'comments-prev-button'}}</button>
+		<button class="page-btn" {{action 'prevPage'}}>{{i18n 'comments-prev-button'}}</button>
 	{{/if}}
     <ul {{bind-attr class=":comments commentsHidden:hidden"}}>
 	{{#each controller.model.comments}}
@@ -8,6 +8,6 @@
 	{{/each}}
     </ul>
 	{{#if showNextButton}}
-		<button class="next-page-btn" {{action 'nextPage'}}>{{i18n 'comments-next-button'}}</button>
+		<button class="page-btn" {{action 'nextPage'}}>{{i18n 'comments-next-button'}}</button>
 	{{/if}}
 {{/if}}
