@@ -22,15 +22,15 @@ App.LightboxView = Em.View.extend({
 		}
 	},
 
-	//this is needed if view wants to handle keyboard
 	didInsertElement: function (): void {
-		this.$().focus();
-
 		this.setProperties({
 			lightboxFooterExpanded: false,
 			footerHidden: false,
 			headerHidden: false
 		});
+
+		//this is needed if view wants to handle keyboard
+		this.$().focus();
 	},
 
 	keyDown: function (event: KeyboardEvent): void {
