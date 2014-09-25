@@ -12,7 +12,7 @@ var App: any = Em.Application.create({
 	LOG_TRANSITIONS: true,
 	LOG_INTERNAL_TRANSITIONS: true,
 	language: Wikia.wiki ? Wikia.wiki.language : 'en',
-	apiBase: '/api/v1',
+	apiBase: Wikia.apiBase || '/api/v1',
 	hash: null
 });
 
