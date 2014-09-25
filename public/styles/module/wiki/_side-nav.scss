@@ -34,7 +34,7 @@
 		left: 0;
 		position: fixed;
 		top: 0;
-		z-index: 10;
+		z-index: $z-side-nav-overlay;
 	}
 
 	&:not(.slide-into-view) .overlay {
@@ -55,14 +55,14 @@
 		height: 100%;
 		position: fixed;
 		top: 0;
-		z-index: 11;
+		z-index: $z-side-nav;
 
 		.clear-search-btn {
 			@include perfect-square(45px);
 			cursor: pointer;
 			left: rem-calc(214);
 			padding: {
-				top: rem-calc(11.5);
+				top: rem-calc(11);
 				left: rem-calc(20);
 			}
 			position: absolute;
@@ -78,21 +78,21 @@
 		}
 
 		input {
+			@extend .type-smallest;
 			background-color: #f0f0f0;
 			background-color: white;
 			border-color: #d0d0d0;
-			border-radius: rem-calc(2);
-			border: rem-calc(1) solid $search-box-color;
+			border-radius: $border-radius-global;
+			border: rem-calc(1) solid $search-box-border-color;
 			float: left;
-			font-size: rem-calc(13);
 			height: rem-calc(28);
 			left: 0;
-			margin: rem-calc(8) $local-nav-li-gutter;
+			margin: rem-calc(8) rem-calc(13);
 			outline: none;
 			padding-left: rem-calc(95);
 			padding-right: rem-calc(25);
 			top: 0;
-			width: $side-nav-width - (2 * $local-nav-li-gutter);
+			width: $side-nav-width - (2 * $side-nav-item-gutter);
 		}
 
 		.search-container {
@@ -105,8 +105,8 @@
 
 			// Cancel search div
 			.cancel {
+				@extend .type-smallest;
 				color: #006598;
-				font-size: rem-calc(13);
 				padding: rem-calc(11) rem-calc(13);
 				position: absolute;
 				right: 0;
@@ -114,7 +114,7 @@
 		}
 
 		::placeholder {
-			color: $search-box-color;
+			color: $search-box-text-color;
 		}
 
 		&.search {

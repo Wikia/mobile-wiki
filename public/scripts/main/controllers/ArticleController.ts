@@ -11,6 +11,15 @@ App.ArticleController = Em.ObjectController.extend({
 	commentsLoaded: null,
 	commentsVisible: null,
 
+	onModelChange: function () {
+		this.setProperties({
+			file: null,
+			commentsPage: null,
+			commentsLoaded: null,
+			commentsVisible: null
+		});
+	}.observes('model'),
+
 	displayUsers: function (): any[] {
 		return this.get('users').slice(0, 5);
 	}.property('users'),

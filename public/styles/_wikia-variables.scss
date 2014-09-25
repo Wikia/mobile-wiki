@@ -1,10 +1,73 @@
-// Global Variables
+// Wikia Variables
+// TODO: This file may get broken out into smaller files later if we decide we'd prefer the granularity to the
+// 10,000 foot view.
 
-$local-nav-li-gutter: rem-calc(13);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Z-Index Scale
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Never --ever-- implement z-index that doesn't use this scale, if you have a use-case that
+// for some reason falls out of this scale, ask for guidance before implementing one-offs
+// List all implementations of the z-scale in the next section (after Z-Index Scale
+
+$z-min: -1;
+$z-1: 100;
+$z-2: 200;
+$z-3: 300;
+$z-4: 400;
+$z-5: 500;
+$z-6: 600;
+$z-7: 700;
+$z-8: 800;
+$z-9: 900;
+$z-max: 10000;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Z-Index Implementations
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// z-min
+// z-1
+$z-spinner-before: $z-1;
+// z-2
+$z-spinner-after: $z-2;
+// z-3
+// z-4
+// z-5
+// z-6
+// z-7
+// z-8
+$z-side-nav-overlay: $z-8;
+// z-9
+$z-side-nav: $z-9;
+// z-max
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Global Variables
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Border Radius
+$border-radius-global: rem-calc(2);
+
+// Colors
+$color-gray-light: #d0d0d0;
+$color-blue-brand: #006cb0;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Module Variables
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// All variables should live here to prevent shadowing of variables and provide a central location for developers to
+// quickly modify the application
+
+$anchor-color-normal: $color-blue-brand;
 $overlay-opacity: 0.5;
-// Color for placeholder text, border
-$search-box-color: #d1d2d4;
-$side-nav-width-val: 260;
-$side-nav-offset: rem-calc($side-nav-width-val * -1);
-$side-nav-width: rem-calc($side-nav-width-val);
+
+$search-box-border-color: $color-gray-light;
+$search-box-text-color: $color-gray-light;
+
+$side-nav-item-gutter: rem-calc(13);
+$side-nav-width: rem-calc(260);
+$side-nav-offset: $side-nav-width * -1;
+$side-nav-width: $side-nav-width;
 $transition-length: 0.25s;

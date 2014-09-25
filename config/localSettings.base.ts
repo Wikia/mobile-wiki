@@ -25,7 +25,8 @@ var localSettings: LocalSettings = {
 		// location: '127.0.0.1:11211' // Check https://github.com/3rd-Eden/node-memcached#server-locations for ref
 	},
 	proxyMaxRedirects: 3,
-	wikiFallback: 'glee'
+	wikiFallback: 'glee',
+	apiBase: '/api/v1'
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
