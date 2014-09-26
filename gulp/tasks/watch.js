@@ -13,12 +13,7 @@ gulp.task('watch', ['build'], function () {
 
 	if (!gutil.env.nosync) {
 		browserSync({
-			ghostMode: {
-				clicks: false,
-				location: true,
-				forms: false,
-				scroll: false
-			},
+			ghostMode: false,
 			debugInfo: false,
 			reloadDelay: 300,
 			open: false

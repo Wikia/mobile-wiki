@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "ember": ">=1.8",
+    "ember": "https://github.com/kenkouot/ember.git#1.8.1",
     "foundation": "5.4.2",
     "i18next": "1.x.x",
     "script.js": "2.x.x",
