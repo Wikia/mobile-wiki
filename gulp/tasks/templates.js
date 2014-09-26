@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
 	handlebars = require('gulp-handlebars'),
-	emberHandlebars = require('ember-handlebars'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	wrap = require('gulp-wrap'),
@@ -16,7 +15,7 @@ gulp.task('templates', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		handlebars({
-			handlebars: emberHandlebars
+			handlebars: require('ember-handlebars')
 		}),
 		wrap('Em.Handlebars.template(<%= contents %>)'),
 		declare({
