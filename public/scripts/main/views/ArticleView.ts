@@ -144,14 +144,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	didInsertElement: function () {
-		var controller = this.get('controller');
-
-		if (controller.get('file')) {
-			controller.send('openLightbox', 'media-lightbox');
-		}
-
-		if (!Em.isEmpty(controller.get('commentsPage'))) {
-			controller.send('toggleComments', controller.get('commentsPage'));
-		}
+		this.get('controller').send('articleRendered');
 	}
 });

@@ -38,7 +38,7 @@ App.ArticleController = Em.ObjectController.extend({
 			if (Em.isEmpty(page) && !Em.isEmpty(this.get('commentsPage'))) {
 				this.set('commentsPage', null);
 			} else {
-				this.set('commentsPage', page || 0);
+				this.set('commentsPage', page || 1);
 			}
 
 			if (!this.get('commentsLoaded')) {
@@ -48,6 +48,14 @@ App.ArticleController = Em.ObjectController.extend({
 			}
 
 			return false;
+		},
+
+		articleRendered: function () {
+			if (this.get('file')) {
+				this.send('openLightbox', 'media-lightbox');
+			} else if (this.get('commentsPage')) {
+				this.send('toggleComments', this.get('commentsPage'));
+			}
 		}
 	}
 });

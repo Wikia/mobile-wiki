@@ -1,7 +1,11 @@
 .show-reply-btn,
 .page-btn {
 	@extend %button-plain;
+	background: rgb(250,250,250);
 	color: $anchor-color-normal;
+	padding: 10px;
+	text-align: center;
+	width: 100%;
 }
 
 .show-comments-btn {
