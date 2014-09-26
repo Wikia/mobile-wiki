@@ -42,6 +42,10 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		//this might happen for example for read more section images
 	}.property('media', 'contentWidth'),
 
+	/**
+	 * @desc style used on img tag to set height of it before we load an image
+	 * so when image loads, browser don't have to resize it
+	 */
 	style: function (): string {
 		return this.get('visible') ?
 			'' :
