@@ -4,7 +4,6 @@
 /**
  * Mixin that sends 'onVisible' action when element appears on screen for the first time.
  *
- * default threshold is 400 to change define property threshold in a component
  */
 'use strict';
 

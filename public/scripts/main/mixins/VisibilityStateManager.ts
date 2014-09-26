@@ -1,11 +1,24 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+/**
+ * object that stores visiblity state of components
+ * and fires onVisible action when a components is becoming visible
+ */
 App.VisibilityStateManager = Em.Object.create({
 
 	initialized: false,
 	components: [],
 
+	/**
+	 * @desc checks whether an element is inside viewport
+	 *
+	 * @param element to be checked
+	 * @param visibleBottom distance from top of a page to bottom of a viewport
+	 * @param visibleTop distance from top of a page to top of a viewport
+	 * @param threshold makes viewport virtually bigger
+	 * @returns {boolean}
+	 */
 	isVisible: function (element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
 		var top = element.offset().top - threshold,
 			bottom = top + element.height() + threshold;
@@ -13,6 +26,9 @@ App.VisibilityStateManager = Em.Object.create({
 		return visibleBottom >= top && visibleTop <= bottom;
 	},
 
+	/**
+	 * @desc runs a loop over this.components and check if they are visible
+	 */
 	check: function () {
 		var components = this.components,
 			i = components.length,
@@ -42,6 +58,10 @@ App.VisibilityStateManager = Em.Object.create({
 		Em.run.debounce(this, this.check, 50);
 	},
 
+	/**
+	 * @desc adds component to components array and initializes scroll listener
+	 * @param component
+	 */
 	add: function (component: Em.Component) {
 
 		this.components.push(component);
@@ -54,6 +74,9 @@ App.VisibilityStateManager = Em.Object.create({
 		}
 	},
 
+	/**
+	 * @desc resets state, used in ArticleController on a page change
+	 */
 	reset: function () {
 		this.components.length = 0;
 		this.initialized = false;
