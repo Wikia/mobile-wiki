@@ -1,6 +1,6 @@
 'use strict';
 
-App.WikiaFooterView = Ember.View.extend({
+App.WikiaFooterView = Em.View.extend({
 	classNames: ['wikia-footer'],
 	tagName: 'footer',
 	templateName: 'components/wikia-footer',

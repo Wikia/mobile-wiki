@@ -87,7 +87,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 			}
 		} else {
 			this.set('isLoadingSearchResults', true);
-			Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
+			Em.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
 		}
 	}.observes('query'),
 
@@ -112,7 +112,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 
 		this.startedRequest(query);
 
-		Ember.$.getJSON(uri).then((data: any) => {
+		Em.$.getJSON(uri).then((data: any) => {
 			/**
 			 * If the user makes one request, request A, and then keeps typing to make
 			 * reqeust B, but request A takes a long time while request B returns quickly,

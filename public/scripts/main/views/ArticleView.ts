@@ -41,7 +41,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	* events for DOM manipulation
 	*/
 	willInsertElement: function (): void {
-		Ember.addObserver(this.get('controller'), 'article', this, this.onArticleChange);
+		Em.addObserver(this.get('controller'), 'article', this, this.onArticleChange);
 		// Trigger an article change once on insertion because the first insertion happens after article
 		// state has changed
 		this.get('controller').notifyPropertyChange('article');
