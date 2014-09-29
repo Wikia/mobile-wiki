@@ -33,14 +33,22 @@ function forkNewWorkers(): void {
 }
 
 // Stops a single worker
-// Gives 60 seconds after disconnect before SIGTERM
+// Gives workerDisconnectTimeout seconds after disconnect before SIGTERM
 function stopWorker(worker: cluster.Worker): void {
-	logger.info('stopping', worker.process.pid);
+	logger.info('stopping', worker.process.pid, 'timeout', localSettings.workerDisconnectTimeout);
 
+	worker.send('shutdown');
 	worker.disconnect();
-	var killTimer: NodeJS.Timer = <any>setTimeout(function () {
+
+	var killTimer= <any>setTimeout(function () {
 		worker.kill();
-	}, 60000);
+	}, localSettings.workerDisconnectTimeout);
+
+	worker.on('disconnect', function(): void {
+		logger.info('Worker disconnected', worker.process.pid);
+		<any>clearTimeout(killTimer);
+		worker.kill();
+	})
 
 	// Ensure we don't stay up just for this setTimeout
 	killTimer.unref();
@@ -63,11 +71,9 @@ function stopAllWorkers(): void {
 	stopping = true;
 
 	logger.info('stopping all workers');
-	for (var id in cluster.workers) {
-		if (cluster.workers.hasOwnProperty(id)) {
-			stopWorker(cluster.workers[id]);
-		}
-	}
+	Object.keys(cluster.workers).forEach(function (id: any):void {
+		stopWorker(cluster.workers[id]);
+	});
 }
 
 // Worker is now listening on a port

@@ -26,7 +26,8 @@ var localSettings: LocalSettings = {
 	},
 	proxyMaxRedirects: 3,
 	wikiFallback: 'glee',
-	apiBase: '/api/v1'
+	apiBase: '/api/v1',
+	workerDisconnectTimeout: 3000
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

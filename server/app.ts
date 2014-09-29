@@ -66,7 +66,7 @@ class App {
 		require('./routes')(server);
 
 		server.start(function() {
-			logger.info('Server started at: ' + server.info.uri);
+			logger.info('Server started', process.pid, 'at: ' + server.info.uri);
 			process.send('Server started');
 		});
 
@@ -77,6 +77,16 @@ class App {
 				//This is a safety net for memory leaks
 				//It restarts child so even if it leaks we are 'safe'
 				process.exit(0);
+			}
+		});
+
+		process.on('message', function(msg) {
+			if(msg === 'shutdown') {
+				server.stop({
+					timeout: localSettings.workerDisconnectTimeout
+				}, function() {
+					logger.info('stopped', process.pid);
+				});
 			}
 		});
 	}
