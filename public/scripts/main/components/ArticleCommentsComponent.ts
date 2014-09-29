@@ -7,9 +7,10 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	articleId: null,
 	commentsCount: null,
 	classNames: ['article-comments'],
+	model: null,
 
-	hidePrevButton: Em.computed.lt('currentPage', 1),
-	hideNextButton: Em.computed.gt('currentPage', 'model.pagesCount'),
+	isFirstPage: false,
+	isLastPage: false,
 	showComments: false,
 
 	scrollToTop: function () {
@@ -21,49 +22,53 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	},
 
 	didInsertElement: function () {
-		var model = App.ArticleCommentsModel.create({
+		this.set('model', App.ArticleCommentsModel.create({
 			articleId: this.get('articleId'),
-			page: this.get('currentPage')
-		});
-
-		model.addObserver('currentPage', this, () => {
-			model.set('page', this.get('currentPage'))
-		});
-
-		console.log('render comments');
-		this.set('model', model);
+			page: this.get('page')
+		}));
 	},
 
-	currentPage: function (key: string, value?: number) {
-		if (value < 1) {
-			return 1;
-		} if (value > this.get('model.pagesCount')) {
-			return this.get('model.pagesCount');
+	pageObserver: function () {
+		var page = this.get('page'),
+			count = this.get('model.pagesCount'),
+			currentPage: number = page;
+
+		if (page != null) {
+			currentPage = Math.max(Math.min(page, count), 1);
 		}
 
-		return value || this.getWithDefault('page', 1);
-	}.property('page', 'model.pagesCount'),
+		this.setProperties({
+			isFirstPage: currentPage === 1,
+			isLastPage: currentPage === count,
+			page: currentPage
+		});
+
+		this.set('model.page', currentPage);
+	}.observes('page', 'model.pagesCount'),
+
+	articleIdObserver: function () {
+		this.setProperties({
+			'model.articleId': this.get('articleId'),
+			page: null
+		})
+	}.observes('articleId'),
 
 	actions: {
-		error: function (err: any) {
-			Em.Logger.warn(err);
-			return true;
-		},
-
-		loading: function () {
-			return true;
-		},
-
 		nextPage: function () {
-			this.incrementProperty('currentPage');
+			this.incrementProperty('page');
 		},
 
 		prevPage: function () {
-			this.decrementProperty('currentPage');
+			this.decrementProperty('page');
+			console.log(this.get('articleId'))
 		},
 
 		toggleComments: function (): boolean {
-			this.toggleProperty('showComments');
+			if (this.toggleProperty('showComments')) {
+				this.set('page', this.get('page') || 1);
+			} else {
+				this.set('page', null);
+			}
 		}
 	}
 });

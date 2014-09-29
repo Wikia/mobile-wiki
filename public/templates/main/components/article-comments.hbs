@@ -5,11 +5,11 @@
 	</button>
 {{/if}}
 {{#if showComments}}
-    <button {{bind-attr class=":page-btn hidePrevButton:hidden"}} {{action 'prevPage'}}>{{i18n 'comments-prev-button'}}</button>
+    <button {{bind-attr class=":page-btn isFirstPage:hidden"}} {{action 'prevPage'}}>{{i18n 'comments-prev-button'}}</button>
     <ul {{bind-attr class=":comments commentsHidden:hidden"}}>
 		{{#each comment in model.comments}}
 			{{article-comment comment=comment users=model.users}}
 		{{/each}}
     </ul>
-    <button {{bind-attr class=":page-btn hideNextButton:hidden"}} {{action 'nextPage'}}>{{i18n 'comments-next-button'}}</button>
+    <button {{bind-attr class=":page-btn isLastPage:hidden"}} {{action 'nextPage'}}>{{i18n 'comments-next-button'}}</button>
 {{/if}}

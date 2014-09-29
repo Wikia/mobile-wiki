@@ -24,10 +24,6 @@ App.ArticleCommentsModel = Em.Object.extend({
 		});
 	}.observes('page', 'articleId'),
 
-	init: function () {
-		return this.fetch();
-	},
-
 	url: function (articleId: number, page: number = 0) {
 		return App.get('apiBase') + '/article/comments/' + articleId + '/' + page;
 	}
