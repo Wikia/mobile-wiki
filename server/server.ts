@@ -10,9 +10,7 @@ import cluster = require('cluster');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
 
-var stopping = false,
-	// A list of workers queued for a restart
-	workersToStop: Array<string> = [];
+var isStopping = false;
 
 cluster.setupMaster({
 	exec: __dirname + '/app.js'
@@ -25,7 +23,7 @@ function numWorkers(): number {
 
 // Forks off the workers unless the server is stopping
 function forkNewWorkers(): void {
-	if (!stopping) {
+	if (!isStopping) {
 		for (var i = numWorkers(); i < localSettings.workerCount; i++) {
 			cluster.fork();
 		}
@@ -54,21 +52,9 @@ function stopWorker(worker: cluster.Worker): void {
 	killTimer.unref();
 }
 
-// Tell the next worker queued to restart to disconnect
-// This will allow the process to finish it's work
-// for 60 seconds before sending SIGTERM
-function stopNextWorker(): void {
-	var i = <any>workersToStop.pop(),
-		worker = cluster.workers[i];
-
-	if (worker) {
-		stopWorker(worker);
-	}
-}
-
 // Stops all the workers at once
 function stopAllWorkers(): void {
-	stopping = true;
+	isStopping = true;
 
 	logger.info('stopping all workers');
 	Object.keys(cluster.workers).forEach(function (id: any):void {
@@ -76,22 +62,10 @@ function stopAllWorkers(): void {
 	});
 }
 
-// Worker is now listening on a port
-// Once it is ready, we can signal the next worker to restart
-cluster.on('listening', stopNextWorker);
-
 // A worker has disconnected either because the process was killed
 // or we are processing the workersToStop array restarting each process
 // In either case, we will fork any workers needed
 cluster.on('disconnect', forkNewWorkers);
-
-// HUP signal sent to the master process to start restarting all the workers sequentially
-process.on('SIGHUP', function (): void {
-	logger.info('restarting all workers');
-
-	workersToStop = Object.keys(cluster.workers);
-	stopNextWorker();
-});
 
 // Kill all the workers at once
 process.on('SIGTERM', stopAllWorkers);

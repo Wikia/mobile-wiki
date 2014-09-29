@@ -80,7 +80,7 @@ class App {
 			}
 		});
 
-		process.on('message', function(msg) {
+		process.on('message', function(msg: string) {
 			if(msg === 'shutdown') {
 				server.stop({
 					timeout: localSettings.workerDisconnectTimeout
