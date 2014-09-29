@@ -14,11 +14,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	showComments: Em.computed.bool('page'),
 
 	scrollToTop: function () {
-		window.scrollTo(0, this.$('.comments').offset().top);
-	},
-
-	scrollToBottom: function () {
-		window.scrollTo(0, this.$('.comments').offset().top + this.$('.comments').height());
+		window.scrollTo(0, this.$().offset().top);
 	},
 
 	didInsertElement: function () {
@@ -46,6 +42,10 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		this.set('model.page', currentPage);
 	}.observes('page', 'model.pagesCount'),
 
+	commentsObserver: function () {
+		this.scrollToTop();
+	}.observes('model.comments'),
+
 	articleIdObserver: function () {
 		this.setProperties({
 			'model.articleId': this.get('articleId'),
@@ -60,7 +60,6 @@ App.ArticleCommentsComponent = Em.Component.extend({
 
 		prevPage: function () {
 			this.decrementProperty('page');
-			console.log(this.get('articleId'))
 		},
 
 		toggleComments: function (): boolean {
