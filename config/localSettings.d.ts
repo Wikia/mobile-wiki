@@ -10,11 +10,12 @@ interface LocalSettings {
 	port: number;
 	maxRequestsPerChild: number;
 	workerCount: number;
-	environment: any;
+	environment: string;
 	mediawikiHost: string;
 	gaId: string;
 	cache: CacheInterface;
 	proxyMaxRedirects: number;
 	wikiFallback: string;
 	apiBase: string;
+	isProduction?: boolean;
 }

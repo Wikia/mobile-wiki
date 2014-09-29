@@ -40,22 +40,25 @@ class App {
 			}
 		});
 
-		options = {
-			subscribers: {
-				console: ['ops', 'request', 'log', 'error']
-			}
-		};
-
-		server.pack.register({
-				plugin: require('good'),
-				options: options
-			},
-			function (err: any) {
-				if (err) {
-					logger.error(err);
+		if (!localSettings.isProduction) {
+			options = {
+				subscribers: {
+					console: ['ops', 'request', 'log', 'error']
 				}
-			}
-		);
+			};
+
+			server.pack.register({
+					plugin: require('good'),
+					options: options
+				},
+				function (err: any) {
+					if (err) {
+						logger.error(err);
+					}
+				}
+			);
+
+		}
 
 		server.ext('onPreResponse', this.onPreResponseHandler);
 
