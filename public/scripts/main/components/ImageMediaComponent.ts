@@ -25,9 +25,32 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		return this.get('height');
 	}.property('width', 'height'),
 
-	url: function (): string {
-		return this.thumbUrl(this.get('media').url, this.get('contentWidth'));
-	}.property('isGallery', 'media'),
+	url: function (key: string, value?: string): string {
+		var media: ArticleMedia;
+
+		if (value) {
+			return this.getThumbURL(value, this.get('width'), this.get('computedHeight'), 'crop');
+		} else {
+			media = this.get('media');
+
+			if (media) {
+				return this.getThumbURL(this.get('media').url, this.get('contentWidth'));
+			}
+		}
+
+		//if it got here, that means that we don't have an url for this media
+		//this might happen for example for read more section images
+	}.property('media', 'contentWidth'),
+
+	/**
+	 * @desc style used on img tag to set height of it before we load an image
+	 * so when image loads, browser don't have to resize it
+	 */
+	style: function (): string {
+		return this.get('visible') ?
+			'' :
+			'height:%@px;'.fmt(this.get('computedHeight'));
+	}.property('computedHeight', 'visible'),
 
 	/**
 	 * load an image and run update function when it is loaded

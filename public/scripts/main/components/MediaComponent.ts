@@ -8,7 +8,7 @@
 App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	tagName: 'figure',
 	layoutName: 'components/media',
-	classNames: ['article-media'],
+	classNames: ['media-component'],
 	classNameBindings: ['visible'],
 
 	width: null,
@@ -17,6 +17,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
 	media: null,
+	thumbnailer: Wikia.Modules.Thumbnailer,
 
 	/**
 	 * @desc content width used to load smaller thumbnails
@@ -25,18 +26,14 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return $('.article-content').width();
 	}.property(),
 
-
 	/**
 	 * @desc url for given media
 	 * if image is not thumbnail, returns url to thumbnail with width set to contentWidth
 	 *
 	 */
-	thumbUrl: function (url: string, width: number, height: number = 0, type: string = 'nocrop'): string {
-		var thumbnailer = Wikia.Modules.Thumbnailer,
-			url = url;
-
-		if (!thumbnailer.isThumbUrl(url)) {
-			url = thumbnailer.getThumbURL(url, type, width, height);
+	getThumbURL: function (url: string, width: number, height: number = 0, type: string = 'nocrop'): string {
+		if (!this.thumbnailer.isThumbUrl(url)) {
+			url = this.thumbnailer.getThumbURL(url, type, width, height);
 		}
 
 		return url;
@@ -45,14 +42,16 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	/**
 	 * @desc caption for current media
 	 */
-	caption: function (): string {
-		var caption = this.get('media').caption;
+	caption: function (key: string, value?: string): string {
+		if (value) {
+			return value;
+		} else {
+			var media = this.get('media');
 
-		if (typeof caption === 'string') {
-			return caption.htmlSafe();
+			if (media && typeof media.caption === 'string') {
+				return media.caption.htmlSafe();
+			}
 		}
-
-		return caption;
 	}.property('media'),
 
 	actions: {

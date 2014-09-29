@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../mixins/VisibilityStateManager.ts" />
 'use strict';
 
 App.ArticleController = Em.ObjectController.extend({
@@ -18,6 +19,8 @@ App.ArticleController = Em.ObjectController.extend({
 			commentsLoaded: null,
 			commentsVisible: null
 		});
+
+		App.VisibilityStateManager.reset();
 	}.observes('model'),
 
 	displayUsers: function (): any[] {
