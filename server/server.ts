@@ -48,7 +48,7 @@ function stopWorker(worker: cluster.Worker): void {
 		logger.info('Worker disconnected', worker.process.pid);
 		<any>clearTimeout(killTimer);
 		worker.kill();
-	})
+	});
 
 	// Ensure we don't stay up just for this setTimeout
 	killTimer.unref();
