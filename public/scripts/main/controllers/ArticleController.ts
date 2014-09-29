@@ -8,16 +8,11 @@ App.ArticleController = Em.ObjectController.extend({
 	queryParams: ['file', 'commentsPage'],
 	file: null,
 	commentsPage: null,
-	commentsLoaded: null,
-	commentsVisible: null,
 
 	onModelChange: function () {
 		//TODO: this should not happen on first load
 		this.setProperties({
-			file: null,
-			commentsPage: null,
-			commentsLoaded: null,
-			commentsVisible: null
+			file: null
 		});
 	}.observes('model'),
 
@@ -35,27 +30,9 @@ App.ArticleController = Em.ObjectController.extend({
 			this.transitionToRoute('article', title);
 		},
 
-		toggleComments: function (page?: number): boolean {
-			if (Em.isEmpty(page) && !Em.isEmpty(this.get('commentsPage'))) {
-				this.set('commentsPage', null);
-			} else {
-				this.set('commentsPage', page);
-			}
-
-			if (!this.get('commentsLoaded')) {
-				this.set('commentsLoaded', true);
-
-				return true;
-			}
-
-			return false;
-		},
-
 		articleRendered: function () {
 			if (this.get('file')) {
 				this.send('openLightbox', 'media-lightbox');
-			} else if (this.get('commentsPage')) {
-				this.send('toggleComments', this.get('commentsPage'));
 			}
 		}
 	}

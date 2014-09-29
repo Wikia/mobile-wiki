@@ -20,7 +20,7 @@
 			{{#if comments}}
 				<li>
 					<a href='#article-comments'>
-						{{i18n 'article-toc-comments-label'}}
+						{{i18n 'article-comments-label' count='comments'}}
 						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 					</a>
 				</li>
@@ -32,42 +32,36 @@
 	{{/view}}
 </section>
 <section class='article-footer'>
-	{{#if users.length}}
-		<div class='contributors'>
-			<div class='title'>{{i18n 'article-top-contributors-label'}}</div>
-			<ul class='contributors'>
-				{{#each displayUsers}}
-				<li><a href='{{unbound url}}'><img src='{{unbound avatar}}' alt='{{unbound name}}'></a></li>
-				{{/each}}
-			</ul>
-		</div>
-	{{/if}}
-	{{#if comments}}
-		<button {{action 'toggleComments'}} class='show-comments-btn page-btn'>
-			{{i18n 'article-comments-label' count='comments'}}
-			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-		</button>
-	{{outlet comments}}
-	{{/if}}
-	{{#if categories}}
-		{{#collapsible-menu
-			showMenuIcon=false
-			additionalClasses='article-categories-list'
-			tLabel='article-categories-list-label'
-			ordered=false
-			observe=cleanTitle
-			animSpeed=controller.controllers.application.globalAnimSpeed
-		}}
-			{{#each categories itemController='categoryListItem'}}
-			<li>
-				<a href='{{unbound url}}' title='{{unbound title}}'>
-				    	{{cleanTitle}}
-				    {{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-				</a>
-			</li>
+{{#if users.length}}
+	<div class='contributors'>
+		<div class='title'>{{i18n 'article-top-contributors-label'}}</div>
+		<ul class='contributors'>
+			{{#each displayUsers}}
+			<li><a href='{{unbound url}}'><img src='{{unbound avatar}}' alt='{{unbound name}}'></a></li>
 			{{/each}}
-		{{/collapsible-menu}}
-	{{/if}}
+		</ul>
+	</div>
+{{/if}}
+{{article-comments page=commentsPage articleId=id commentsCount=comments}}
+{{#if categories}}
+	{{#collapsible-menu
+		showMenuIcon=false
+		additionalClasses='article-categories-list'
+		tLabel='article-categories-list-label'
+		ordered=false
+		observe=cleanTitle
+		animSpeed=controller.controllers.application.globalAnimSpeed
+	}}
+		{{#each categories itemController='categoryListItem'}}
+		<li>
+			<a href='{{unbound url}}' title='{{unbound title}}'>
+					{{cleanTitle}}
+				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+			</a>
+		</li>
+		{{/each}}
+	{{/collapsible-menu}}
+{{/if}}
 </section>
 {{content-recommendations pages=relatedPages}}
 {{view 'wikia-footer'}}

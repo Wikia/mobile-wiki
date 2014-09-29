@@ -1,0 +1,17 @@
+<div class="avatar">
+	<img src="{{unbound avatarUrl}}">
+</div>
+<div class="content">
+	<span class="username"><a href="{{unbound url}}">{{comment.userName}}</a></span>
+	{{{comment.text}}}
+	{{#if comment.comments}}
+		<button class="show-reply-btn" {{action 'toggleExpand'}}>
+			{{i18n 'article-replies-label' count='comment.comments.length'}}
+		</button>
+		<ul {{bind-attr class="expanded"}}>
+		{{#each comment in comment.comments}}
+			{{article-comment comment=comment users=users}}
+		{{/each}}
+		</ul>
+	{{/if}}
+</div>
