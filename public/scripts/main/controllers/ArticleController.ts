@@ -9,13 +9,6 @@ App.ArticleController = Em.ObjectController.extend({
 	file: null,
 	commentsPage: null,
 
-	onModelChange: function () {
-		//TODO: this should not happen on first load
-		this.setProperties({
-			file: null
-		});
-	}.observes('model'),
-
 	displayUsers: function (): any[] {
 		return this.get('users').slice(0, 5);
 	}.property('users'),
@@ -27,6 +20,7 @@ App.ArticleController = Em.ObjectController.extend({
 		},
 
 		changePage: function (title: string): void {
+			this.set('file', null);
 			this.transitionToRoute('article', title);
 		},
 

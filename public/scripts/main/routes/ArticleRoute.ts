@@ -7,9 +7,11 @@ App.ArticleRoute = Em.Route.extend({
 	queryParams: {
 		file: {
 			replace: true
+		},
+		commentsPage: {
+			replace: true
 		}
 	},
-
 
 	beforeModel: function (transition: EmberStates.Transition) {
 		if (Wikia.error) {
