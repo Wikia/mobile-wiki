@@ -19,9 +19,12 @@ App.ArticleCommentsComponent = Em.Component.extend({
 
 	didInsertElement: function () {
 		this.set('model', App.ArticleCommentsModel.create({
-			articleId: this.get('articleId'),
-			page: this.get('page')
+			articleId: this.get('articleId')
 		}));
+
+		if (this.get('page')) {
+			this.scrollToTop();
+		}
 	},
 
 	pageObserver: function () {
@@ -29,7 +32,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 			count = this.get('model.pagesCount'),
 			currentPage: number = page;
 
-		if (page != null) {
+		if (page != null && count != null) {
 			currentPage = Math.max(Math.min(page, count), 1);
 		}
 
