@@ -11,7 +11,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 
 	isFirstPage: false,
 	isLastPage: false,
-	showComments: false,
+	showComments: Em.computed.bool('page'),
 
 	scrollToTop: function () {
 		window.scrollTo(0, this.$('.comments').offset().top);
@@ -64,11 +64,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		},
 
 		toggleComments: function (): boolean {
-			if (this.toggleProperty('showComments')) {
-				this.set('page', this.get('page') || 1);
-			} else {
-				this.set('page', null);
-			}
+			this.set('page', this.get('page') ? null : 1);
 		}
 	}
 });
