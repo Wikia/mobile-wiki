@@ -30,7 +30,7 @@ var localSettings: LocalSettings = {
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
-	var localSettings: LocalSettings = util._extend(localSettings, customLocalSet);
+	localSettings = util._extend(localSettings, customLocalSet);
 	localSettings.isProduction = localSettings.environment === 'production';
 	return localSettings;
 }
