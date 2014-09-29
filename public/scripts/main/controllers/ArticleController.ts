@@ -12,6 +12,7 @@ App.ArticleController = Em.ObjectController.extend({
 	commentsVisible: null,
 
 	onModelChange: function () {
+		//TODO: this should not happen on first load
 		this.setProperties({
 			file: null,
 			commentsPage: null,
@@ -34,11 +35,11 @@ App.ArticleController = Em.ObjectController.extend({
 			this.transitionToRoute('article', title);
 		},
 
-		toggleComments: function (page: number): boolean {
+		toggleComments: function (page?: number): boolean {
 			if (Em.isEmpty(page) && !Em.isEmpty(this.get('commentsPage'))) {
 				this.set('commentsPage', null);
 			} else {
-				this.set('commentsPage', page || 1);
+				this.set('commentsPage', page);
 			}
 
 			if (!this.get('commentsLoaded')) {

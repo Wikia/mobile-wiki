@@ -57,7 +57,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
-				this.scrollToComments();
 				this.lazyLoadMedia(model);
 			}
 		});
@@ -133,14 +132,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
-	},
-
-	scrollToComments: function () {
-		var controller = this.get('controller');
-
-		if (controller.get('commentsPage') !== null ) {
-			window.scrollTo(0, this.$('.show-comments-btn').offset().top);
-		}
 	},
 
 	didInsertElement: function () {

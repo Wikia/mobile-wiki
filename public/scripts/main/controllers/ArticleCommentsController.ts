@@ -6,9 +6,22 @@ App.ArticleCommentsController = Em.ArrayController.extend({
 	needs: ['article'],
 	itemController: 'articleComment',
 
-	commentsPage: Em.computed.alias(
-		'controllers.article.commentsPage'
-	),
+	commentsPage: Em.computed.alias('controllers.article.commentsPage'),
+	articleId: Em.computed.alias('controllers.article.model.id'),
+	showPrevButton: Em.computed.gt('commentsPage', 1),
+	showNextButton: Em.computed.lt('commentsPage', 'model.pagesCount'),
+	showComments: Em.computed.bool('commentsPage'),
+
+	init: function () {
+		var model = App.ArticleCommentsModel.create({
+			articleId: this.get('articleId'),
+			page: this.get('commentsPage') || 1
+		});
+
+		model.addObserver('pagesCount', this, this.commentsPageObserver);
+
+		this.set('model', model);
+	},
 
 	commentsPageObserver: function () {
 		var commentsPage = this.get('commentsPage'),
@@ -24,31 +37,12 @@ App.ArticleCommentsController = Em.ArrayController.extend({
 		}
 	}.observes('commentsPage'),
 
-	showPrevButton: Em.computed.gt('commentsPage', 1),
-	showNextButton: Em.computed.lt('commentsPage', 'model.pagesCount'),
-
-	commentsHidden: Em.computed.none('commentsPage'),
-
-	articleId: Em.computed.alias(
-		'controllers.article.model.id'
-	),
-
-	init: function () {
-		var model = App.ArticleCommentsModel.create({
-			articleId: this.get('articleId'),
-			page: this.get('commentsPage') || 1
-		});
-
-		model.addObserver('pagesCount', this, this.commentsPageObserver);
-
-		this.set('model', model);
-	},
-
 	actions: {
 		error: function (err: any) {
 			Em.Logger.warn(err);
 			return true;
 		},
+
 		loading: function () {
 			return true;
 		},

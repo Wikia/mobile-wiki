@@ -43,10 +43,10 @@
 		</div>
 	{{/if}}
 	{{#if comments}}
-		<a href="" {{action 'toggleComments'}} class='show-comments-btn'>
+		<button {{action 'toggleComments'}} class='show-comments-btn page-btn'>
 			{{i18n 'article-comments-label' count='comments'}}
 			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-		</a>
+		</button>
 	{{outlet comments}}
 	{{/if}}
 	{{#if categories}}

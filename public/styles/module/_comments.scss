@@ -4,18 +4,21 @@
 	background: rgb(250,250,250);
 	color: $anchor-color-normal;
 	padding: 10px;
-	text-align: center;
 	width: 100%;
 }
 
 .show-comments-btn {
 	display: block;
+	background: none;
 	border-top: 1px solid $secondary-color;
 	color: #333;
 
 	padding: rem-calc(16) rem-calc(20);
 	font-weight: bold;
-	text-transform: uppercase;
+	text: {
+		align: left;
+		transform: uppercase;
+	}
 
 	.chevron {
 		position: absolute;
@@ -43,14 +46,18 @@
 
 		display: none;
 
-		margin-left: rem-calc(-10);
-		margin-top: rem-calc(20);
+		margin: {
+			left: rem-calc(-10);
+			top: rem-calc(20);
+		}
 
 		&.expanded {
 			display: block;
 		}
 
-		.avatar img { margin-left: rem-calc(-10); }
+		.avatar img {
+			margin-left: rem-calc(-10);
+		}
 
 	}
 
