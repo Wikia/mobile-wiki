@@ -97,8 +97,8 @@ module Wikia.Modules {
 		 */
 		static getThumbURL(url = '', type = '', width = 50, height = 0) {
 			var widthParam = width + (height ? '' : 'px'),
-			    heightParam = height ? 'x' + height : '-',
-			    typeParam = (type === 'video' || type === 'nocrop') ? '-' : 'x2-',
+				heightParam = height ? 'x' + height : '-',
+				typeParam = (type === 'video' || type === 'nocrop') ? '-' : 'x2-',
 				extension = Thumbnailer.hasWebPSupport ? '.webp' : '';
 
 			if (this.isThumbUrl(url)) {
