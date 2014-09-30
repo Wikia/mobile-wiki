@@ -32,6 +32,7 @@ figcaption {
 }
 
 .article-gallery {
+	-webkit-overflow-scrolling: touch;
 	overflow: {
 		x: scroll;
 		y: hidden;
