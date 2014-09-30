@@ -36,7 +36,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 */
 	pageObserver: function (): void {
 		var page = this.get('page'),
-			count = +this.get('model.pagesCount'),
+			count = this.get('model.pagesCount'),
 			currentPage: number = page;
 
 		if (page != null && count != null) {
