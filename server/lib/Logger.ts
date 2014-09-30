@@ -1,40 +1,50 @@
-// TODO: This is a mock logger. Add proper logging to Kibana
+import bunyan = require('bunyan');
+import localSettings = require('../../config/localSettings');
 
-declare module Logger {
-	interface LoggerFunction {
-		(...args: any[]): void;
-	}
+var logger = null,
+	availableTargets = {
+		syslog: createSysLogLogger,
+		console: createConsoleLogger
+	};
 
-	var emergency:  LoggerFunction;
-	var alert: LoggerFunction;
-	var critical: LoggerFunction;
-	var error: LoggerFunction;
-	var warning: LoggerFunction;
-	var notice: LoggerFunction;
-	var info: LoggerFunction;
-	var debug: LoggerFunction;
+function createConsoleLogger(loggerConfig) {
+	var PrettyStream = require('bunyan-prettystream'),
+		prettyStdOut = new PrettyStream();
+	prettyStdOut.pipe(process.stdout);
+	return {
+		level: loggerConfig.level || 'debug',
+		stream: prettyStdOut
+	};
 }
 
-module Logger {
-	function log(loggerType: string): LoggerFunction {
-		return (...args: any[]): void => {
-			args.unshift('[' + loggerType + ']');
-			console.log.apply(this, args);
-		};
-	}
+function createSysLogLogger(loggerConfig) {
+	var bsyslog = require('bunyan-syslog');
+	return {
+		level: loggerConfig.level || 'debug',
+		type: 'raw',
+		stream: bsyslog.createBunyanStream({
+			facility: bsyslog.local0,
+			type: 'sys'
+		})
+	};
+}
 
-	[
-		'emergency',
-		'alert',
-		'critical',
-		'error',
-		'warning',
-		'notice',
-		'info',
-		'debug'
-	].forEach(function (level: string) {
-		Logger[level] = log(level.toUpperCase());
+function createLogger (loggerConfig) {
+	var streams = [];
+	Object.keys(loggerConfig).forEach((loggerType) => {
+		if (!availableTargets.hasOwnProperty(loggerType)) {
+			throw new Error('Unknown logger type ' + loggerType);
+		}
+		streams.push(availableTargets[loggerType](loggerConfig[loggerType]));
+	});
+	return 	bunyan.createLogger({
+		name: 'mercury',
+		streams: streams
 	});
 }
 
-export = Logger;
+if (!logger) {
+	logger = createLogger(localSettings.loggers);
+}
+
+export = logger;
