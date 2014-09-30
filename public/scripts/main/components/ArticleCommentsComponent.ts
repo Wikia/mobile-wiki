@@ -13,11 +13,14 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	isLastPage: false,
 	showComments: Em.computed.bool('page'),
 
-	scrollToTop: function () {
+	/**
+	 * @desc scrolls to top of article's container, used for pagination
+	 */
+	scrollToTop: function (): void {
 		window.scrollTo(0, this.$().offset().top);
 	},
 
-	didInsertElement: function () {
+	didInsertElement: function (): void {
 		this.set('model', App.ArticleCommentsModel.create({
 			articleId: this.get('articleId')
 		}));
@@ -27,7 +30,11 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		}
 	},
 
-	pageObserver: function () {
+	/**
+	 * @desc observes changes to page property, applies limit `1 <= page <= model.pagesCount`
+	 * and updates model, so it can load a page of comments
+	 */
+	pageObserver: function (): void {
 		var page = this.get('page'),
 			count = this.get('model.pagesCount'),
 			currentPage: number = page;
@@ -45,11 +52,17 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		this.set('model.page', currentPage);
 	}.observes('page', 'model.pagesCount'),
 
-	commentsObserver: function () {
+	/**
+	 * @desc watches changes to model, and scrolls to top of comments
+	 */
+	commentsObserver: function (): void {
 		this.scrollToTop();
 	}.observes('model.comments'),
 
-	articleIdObserver: function () {
+	/**
+	 * @desc if articleId changes, updates model
+	 */
+	articleIdObserver: function (): void {
 		this.setProperties({
 			'model.articleId': this.get('articleId'),
 			page: null
@@ -57,15 +70,15 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	}.observes('articleId'),
 
 	actions: {
-		nextPage: function () {
+		nextPage: function (): void {
 			this.incrementProperty('page');
 		},
 
-		prevPage: function () {
+		prevPage: function (): void {
 			this.decrementProperty('page');
 		},
 
-		toggleComments: function (): boolean {
+		toggleComments: function (): void {
 			this.set('page', this.get('page') ? null : 1);
 		}
 	}
