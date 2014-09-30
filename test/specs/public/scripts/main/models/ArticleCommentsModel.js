@@ -1,8 +1,5 @@
 /* global App, resetWikiaBaseline */
 moduleFor('model:articleComments', 'Article Comments Model', {
-	setup: function () {
-
-	},
 	teardown: function () {
 		App.reset();
 		resetWikiaBaseline();
