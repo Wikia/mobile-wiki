@@ -28,6 +28,14 @@ App.ArticleCommentsModel = Em.Object.extend({
 		}
 	}.observes('page', 'articleId'),
 
+	reset: function () {
+		this.setProperties({
+			comments: null,
+			users: null,
+			pagesCount: null
+		});
+	}.observes('articleId'),
+
 	url: function (articleId: number, page: number = 0) {
 		return App.get('apiBase') + '/article/comments/' + articleId + '/' + page;
 	}

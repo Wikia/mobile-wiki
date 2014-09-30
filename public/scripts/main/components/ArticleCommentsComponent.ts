@@ -66,7 +66,9 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		this.setProperties({
 			'model.articleId': this.get('articleId'),
 			page: null
-		})
+		});
+
+		this.rerender();
 	}.observes('articleId'),
 
 	actions: {
