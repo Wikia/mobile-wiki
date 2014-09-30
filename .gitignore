@@ -26,3 +26,5 @@ config/localSettings.example.js
 
 /* coverage */
 test/coverage
+
+.idea

@@ -17,4 +17,5 @@ interface LocalSettings {
 	proxyMaxRedirects: number;
 	wikiFallback: string;
 	apiBase: string;
+	workerDisconnectTimeout: number;
 }
