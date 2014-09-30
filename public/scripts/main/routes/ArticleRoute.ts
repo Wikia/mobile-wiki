@@ -7,9 +7,11 @@ App.ArticleRoute = Em.Route.extend({
 	queryParams: {
 		file: {
 			replace: true
+		},
+		commentsPage: {
+			replace: true
 		}
 	},
-
 
 	beforeModel: function (transition: EmberStates.Transition) {
 		if (Wikia.error) {
@@ -54,19 +56,6 @@ App.ArticleRoute = Em.Route.extend({
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
-		},
-
-		/**
-		 * This is bubbled from ArticleView.ts only
-		 * when comments were not rendered
-		 * otherwise toggleComments from ArticleView.ts
-		 * does not bubble the event
-		 */
-		toggleComments: function (): void {
-			this.render('article/comments', {
-				outlet: 'comments',
-				into: 'article'
-			});
 		}
 	}
 });

@@ -1,7 +1,6 @@
 {
 	"app": {
 		"article-toc-label": "Table of Contents",
-		"article-toc-comments-label": "Comments",
 		"article-comments-label": "__count__ comment",
 		"article-comments-label_plural": "__count__ comments",
 		"article-replies-label": "View __count__ reply",

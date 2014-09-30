@@ -41,7 +41,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	* events for DOM manipulation
 	*/
 	willInsertElement: function (): void {
-		Ember.addObserver(this.get('controller'), 'article', this, this.onArticleChange);
+		Em.addObserver(this.get('controller'), 'article', this, this.onArticleChange);
 		// Trigger an article change once on insertion because the first insertion happens after article
 		// state has changed
 		this.get('controller').notifyPropertyChange('article');
@@ -57,7 +57,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
-				this.scrollToComments();
 				this.lazyLoadMedia(model);
 			}
 		});
@@ -135,23 +134,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.$(elem).replaceWith(header.$());
 	},
 
-	scrollToComments: function () {
-		var controller = this.get('controller');
-
-		if (controller.get('commentsPage') !== null ) {
-			window.scrollTo(0, this.$('.show-comments-btn').offset().top);
-		}
-	},
-
 	didInsertElement: function () {
-		var controller = this.get('controller');
-
-		if (controller.get('file')) {
-			controller.send('openLightbox', 'media-lightbox');
-		}
-
-		if (!Em.isEmpty(controller.get('commentsPage'))) {
-			controller.send('toggleComments', controller.get('commentsPage'));
-		}
+		this.get('controller').send('articleRendered');
 	}
 });

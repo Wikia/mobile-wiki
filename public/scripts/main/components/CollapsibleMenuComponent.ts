@@ -27,10 +27,10 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 		}
 	},
 	didInsertElement: function (): void {
-		Ember.addObserver(this, 'observe', this, this.titleDidChange);
+		Em.addObserver(this, 'observe', this, this.titleDidChange);
 	},
 	willDestroyElement: function (): void {
-		Ember.removeObserver(this, 'observe', this, this.titleDidChange);
+		Em.removeObserver(this, 'observe', this, this.titleDidChange);
 	},
 	titleDidChange: function (): void {
 		if (!this.get('isCollapsed')) {
