@@ -8,6 +8,7 @@ import MediaWiki = require('../../lib/MediaWiki');
 import Promise = require('bluebird');
 import logger = require('../../lib/Logger');
 
+
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
@@ -21,42 +22,42 @@ import logger = require('../../lib/Logger');
 export function createFullArticle(getWikiInfo: boolean, params: any, callback: any, err: any) {
 	var wikiRequest: MediaWiki.WikiRequest,
 		getVariablesRequest: Promise<any>,
-		article = new MediaWiki.ArticleRequest(params.wiki);
+		article = new MediaWiki.ArticleRequest(params.wiki),
+		requests = [
+			article.fetch(params.title, params.redirect)
+		];
 
 	logger.info('Fetching article', params);
 
 	if (getWikiInfo) {
 		logger.info('Fetching wiki variables', params.wiki);
 
-		wikiRequest = new MediaWiki.WikiRequest({
+		requests.push(new MediaWiki.WikiRequest({
 			name: params.wiki
-		});
-
-		getVariablesRequest = wikiRequest.getWikiVariables();
+		}).getWikiVariables());
 	}
 
-	article.fetch(params.title, params.redirect)
-		.then((response: any) => {
-			var data = response.data;
+	Promise.all(requests)
+		.then((payload: any) => {
+			var data = {
+					article: payload[0].data,
+					wiki: payload[1].data
+				},
+				errors = {
+					article: payload[0].exception,
+					wiki: payload[1].exception
+				};
 
-			if (!data) {
-				err(response);
-				return;
-			}
+			//if (!articleData) {
+			//	err(payload);
+			//	return;
+			//}
 
-			if (!getWikiInfo) {
-				callback(data);
-			} else {
-				getVariablesRequest
-					.then((response: any) => {
-						data.wiki = response.data;
-
-						callback(data);
-					})
-					.catch(err);
-			}
+			callback(data, errors);
 		})
-		.catch(err);
+		.catch(function (data, a) {
+			console.log(data, a)
+		});
 }
 
 export function handleRoute(request: Hapi.Request, reply: Function): void {

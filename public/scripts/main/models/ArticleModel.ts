@@ -109,7 +109,5 @@ App.ArticleModel.reopenClass({
 			users: source.topContributors,
 			basepath: source.basePath
 		});
-
-		Em.Logger.debug(model);
 	}
 });

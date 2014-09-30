@@ -4,7 +4,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{article.cleanTitle}} - {{siteName}}</title>
+		{{#if article.description}}
 		<meta name="description" content="{{article.description}}">
+		{{/if}}
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 
 		<!-- build:css /public/styles/app.css -->
@@ -20,15 +22,18 @@
 			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
 			W.provide('_state.firstPage', true);
 			W.provide('ads.slots', []);
+            W.provide('apiBase', '{{{apiBase}}}');
+			{{#if wikiJson}}
+                W.provide('wiki', {{{wikiJson}}});
+			{{/if}}
+
 			{{#if articleJson}}
 				W.provide('article', {{{articleJson}}});
-				W.provide('wiki', {{{wikiJson}}});
-				W.provide('apiBase', '{{{apiBase}}}');
 			{{else}}
 				W.provide('article', {});
-				W.provide('error.message', '{{output.payload.message}}');
-				W.provide('error.status', '{{output.payload.statusCode}}');
-				W.provide('error.error', '{{output.payload.error}}');
+				<!--W.provide('error.message', '{{message}}');-->
+				<!--W.provide('error.status', '{{code}}');-->
+				<!--W.provide('error.error', '{{details}}');-->
 			{{/if}}
 		</script>
 
@@ -74,6 +79,8 @@
 			<script src="/public/scripts/main.js"></script>
 		<!-- endbuild -->
 
+		{{#if mediawikiDomain}}
 		<script async src="{{mediawikiDomain}}__am/{{cacheBuster}}/groups/-/mercury_ads_js"></script>
+		{{/if}}
 	</body>
 </html>
