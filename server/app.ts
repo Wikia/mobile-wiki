@@ -89,7 +89,7 @@ class App {
 			return cache;
 		}
 		// Fallback to memory
-		logger.warning('No cache settings found. Falling back to memory');
+		logger.warn('No cache settings found. Falling back to memory');
 		return {
 			name: 'appcache',
 			engine: require('catbox-memory')
