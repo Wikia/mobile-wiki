@@ -73,8 +73,8 @@ function routes(server: Hapi.Server) {
 					var errorParams = {},
 						code = 200;
 
-					if (error && error.exception) {
-						errorParams = error.exception;
+					if (result.error) {
+						errorParams = result.error;
 						code = errorParams.code;
 
 						errorParams.article = {

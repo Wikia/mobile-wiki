@@ -39,21 +39,21 @@ export function createFullArticle(getWikiInfo: boolean, params: any, callback: a
 
 	Promise.all(requests)
 		.then((payload: any) => {
-			var data = {
-					article: payload[0].data,
-					wiki: payload[1].data
-				},
-				errors = {
-					article: payload[0].exception,
-					wiki: payload[1].exception
-				};
+			var data = {},
+				errors = {};
 
-			//if (!articleData) {
-			//	err(payload);
-			//	return;
-			//}
+			if (payload) {
+				if (payload[0]) {
+					data.article = payload[0].data;
+					errors.article = payload[0].exception;
+				}
 
-			callback(data, errors);
+				if (payload[1]) {
+					data.wiki = payload[1].data;
+				}
+			}
+
+			callback(errors, data);
 		})
 		.catch(function (data, a) {
 			console.log(data, a)

@@ -5,7 +5,7 @@ import localSettings = require('../../../config/localSettings');
 import MediaWiki = require('../../lib/MediaWiki');
 
 function index(params: any, next: Function): void {
-	article.createFullArticle(true, params, (data: any, errors: any) => {
+	article.createFullArticle(true, params, (errors: any, data: any) => {
 		var articleData = data.article,
 			wikiData = data.wiki,
 			data = {
@@ -25,9 +25,9 @@ function index(params: any, next: Function): void {
 				title: params.title
 			};
 
-			delete articleData.article.content;
-
 			data.articleJson = JSON.stringify(articleData);
+
+			delete articleData.article.content;
 		}
 
 		if (wikiData) {
@@ -58,6 +58,8 @@ function index(params: any, next: Function): void {
 				},
 				article: {}
 			};
+
+			data.error = errors.article;
 
 			data.articleJson = JSON.stringify(data.article);
 		}
