@@ -38,11 +38,11 @@ function stopWorker(worker: cluster.Worker): void {
 	worker.send('shutdown');
 	worker.disconnect();
 
-	var killTimer= <any>setTimeout(function () {
+	var killTimer= <any>setTimeout(() => {
 		worker.kill();
 	}, localSettings.workerDisconnectTimeout);
 
-	worker.on('disconnect', function(): void {
+	worker.on('disconnect',(): void => {
 		logger.info('Worker disconnected', worker.process.pid);
 		<any>clearTimeout(killTimer);
 		worker.kill();
@@ -57,7 +57,7 @@ function stopAllWorkers(): void {
 	isStopping = true;
 
 	logger.info('stopping all workers');
-	Object.keys(cluster.workers).forEach(function (id: any):void {
+	Object.keys(cluster.workers).forEach((id: any) => {
 		stopWorker(cluster.workers[id]);
 	});
 }
@@ -78,8 +78,8 @@ logger.info('Master process', process.pid, 'booted');
 //if run as child
 //send up message from workers so we can now that they are up
 if (process.send) {
-	cluster.on('online', function (worker: cluster.Worker) {
-		worker.on('message', function (message: string) {
+	cluster.on('online', (worker: cluster.Worker) => {
+		worker.on('message', (message: string) => {
 			process.send(message);
 		});
 	});
