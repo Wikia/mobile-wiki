@@ -7,20 +7,20 @@ var logger = null,
 		console: createConsoleLogger
 	};
 
-function createConsoleLogger(loggerConfig) {
+function createConsoleLogger(minLogLevel) {
 	var PrettyStream = require('bunyan-prettystream'),
 		prettyStdOut = new PrettyStream();
 	prettyStdOut.pipe(process.stdout);
 	return {
-		level: loggerConfig.level || 'debug',
+		level: minLogLevel,
 		stream: prettyStdOut
 	};
 }
 
-function createSysLogLogger(loggerConfig) {
+function createSysLogLogger(minLogLevel) {
 	var bsyslog = require('bunyan-syslog');
 	return {
-		level: loggerConfig.level || 'debug',
+		level: minLogLevel,
 		type: 'raw',
 		stream: bsyslog.createBunyanStream({
 			facility: bsyslog.local0,

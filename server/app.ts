@@ -4,6 +4,7 @@
 
 import hapi = require('hapi');
 import path = require('path');
+import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
 
@@ -39,6 +40,8 @@ class App {
 				}
 			}
 		});
+
+		this.setupLogging(server);
 
 		server.ext('onPreResponse', this.onPreResponseHandler);
 
@@ -106,6 +109,31 @@ class App {
 			response.header('X-Backend-Response-Time', responseTimeSec.toFixed(3));
 		}
 		next();
+	}
+
+	private setupLogging(server: Hapi.Server): void {
+		server.on('log', (event, tags) => {
+			logger.error('Server Error', {
+				data: event.data
+			});
+		});
+
+		server.on('internalError', (request, err) => {
+			logger.error('Internal error', {
+				text: err.message,
+				url: url.format(request.url),
+				host: request.headers.host
+			});
+		});
+
+		server.on('response', function (request) {
+			logger.debug('Response', {
+				host: request.headers.host,
+				url: url.format(request.url),
+				code: request.response.statusCode,
+				responseTime: parseFloat(request.response.headers['x-backend-response-time'])
+			});
+		});
 	}
 }
 

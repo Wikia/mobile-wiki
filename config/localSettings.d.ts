@@ -6,11 +6,7 @@ interface CacheInterface {
 }
 
 interface LoggerInterface {
-	level: string;
-}
-
-interface MapOfLoggers {
-	[key: string]: LoggerInterface;
+	[key: string]: string
 }
 
 interface LocalSettings {
@@ -26,5 +22,5 @@ interface LocalSettings {
 	wikiFallback: string;
 	apiBase: string;
 	workerDisconnectTimeout: number;
-	loggers: MapOfLoggers;
+	loggers: LoggerInterface;
 }
