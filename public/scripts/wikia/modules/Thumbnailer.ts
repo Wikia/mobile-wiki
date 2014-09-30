@@ -11,9 +11,23 @@
 module Wikia.Modules {
 	export class Thumbnailer {
 		//targets the image file extension
-		private static extRegExp = /\.(jpg|jpeg|gif|bmp|png|svg)$/i;
+		private static extRegExp = /\.(jpg|jpeg|gif|bmp|png|svg|webp)$/i;
 		private static imagePath = '/images/';
 		private static thumbPath = '/images/thumb/';
+		private static hasWebPSupport = false;
+
+		static hasWebPSupport = (function () {
+			// @see http://stackoverflow.com/a/5573422
+			var webP = new Image();
+			webP.src = 'data:image/webp;' +
+			'base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+			webP.onload = webP.onerror = () => {
+				Thumbnailer.hasWebPSupport = (webP.height === 2);
+			};
+
+			return false;
+		})();
+
 		/**
 		 * Checks if a URL points to a thumbnail
 		 *
@@ -85,7 +99,8 @@ module Wikia.Modules {
 		static getThumbURL(url = '', type = '', width = 50, height = 0) {
 			var widthParam = width + (height ? '' : 'px'),
 			    heightParam = height ? 'x' + height : '-',
-			    typeParam = (type === 'video' || type === 'nocrop') ? '-' : 'x2-';
+			    typeParam = (type === 'video' || type === 'nocrop') ? '-' : 'x2-',
+				extension = Thumbnailer.hasWebPSupport ? '.webp' : '';
 
 			if (this.isThumbUrl(url)) {
 				// URL points to a thumbnail, remove crop and size
@@ -103,7 +118,8 @@ module Wikia.Modules {
 				widthParam +
 				heightParam +
 				typeParam +
-				last + '.jpg'
+				last +
+				extension
 			);
 
 			return tokens.join('/');
