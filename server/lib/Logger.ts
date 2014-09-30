@@ -1,13 +1,23 @@
+/// <reference path="../../typings/bunyan/bunyan.d.ts" />
+
 import bunyan = require('bunyan');
 import localSettings = require('../../config/localSettings');
 
-var logger = null,
-	availableTargets = {
-		syslog: createSysLogLogger,
-		console: createConsoleLogger
+interface CreateBunyanLoggerStream {
+	(minLogLevel: string): BunyanLoggerStream;
+}
+
+interface AvailableTargets {
+	[key: string]: CreateBunyanLoggerStream;
+};
+
+var logger: BunyanLogger = null,
+	availableTargets: AvailableTargets = {
+		syslog: createSysLogStream,
+		console: createConsoleStream
 	};
 
-function createConsoleLogger(minLogLevel) {
+function createConsoleStream(minLogLevel: string): BunyanLoggerStream {
 	var PrettyStream = require('bunyan-prettystream'),
 		prettyStdOut = new PrettyStream();
 	prettyStdOut.pipe(process.stdout);
@@ -17,7 +27,7 @@ function createConsoleLogger(minLogLevel) {
 	};
 }
 
-function createSysLogLogger(minLogLevel) {
+function createSysLogStream(minLogLevel: string): BunyanLoggerStream {
 	var bsyslog = require('bunyan-syslog');
 	return {
 		level: minLogLevel,
@@ -29,15 +39,15 @@ function createSysLogLogger(minLogLevel) {
 	};
 }
 
-function createLogger (loggerConfig) {
-	var streams = [];
-	Object.keys(loggerConfig).forEach((loggerType) => {
+function createLogger (loggerConfig: LoggerInterface) {
+	var streams: Array<BunyanLoggerStream> = [];
+	Object.keys(loggerConfig).forEach((loggerType: string) => {
 		if (!availableTargets.hasOwnProperty(loggerType)) {
 			throw new Error('Unknown logger type ' + loggerType);
 		}
 		streams.push(availableTargets[loggerType](loggerConfig[loggerType]));
 	});
-	return 	bunyan.createLogger({
+	return bunyan.createLogger({
 		name: 'mercury',
 		streams: streams
 	});

@@ -132,8 +132,8 @@ class App {
 			logger.debug('Response', {
 				host: request.headers.host,
 				url: url.format(request.url),
-				code: request.response.statusCode,
-				responseTime: parseFloat(request.response.headers['x-backend-response-time'])
+				code: (<Hapi.Response>request.response).statusCode,
+				responseTime: parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
 			});
 		});
 	}
