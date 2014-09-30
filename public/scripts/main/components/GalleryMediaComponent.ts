@@ -60,7 +60,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 			image = this.get('media').get(galleryRef);
 
 			image.setProperties({
-				thumbUrl: this.thumbUrl(image.get('url'), thumbSize, thumbSize, 'crop'),
+				thumbUrl: this.getThumbURL(image.get('url'), thumbSize, thumbSize, 'crop'),
 				load: true
 			});
 		}
