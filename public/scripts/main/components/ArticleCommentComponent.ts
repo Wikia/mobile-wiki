@@ -6,21 +6,14 @@ App.ArticleCommentComponent = Em.Component.extend({
 	classNames: ['article-comment'],
 
 	expanded: false,
-
 	users: null,
 	comment: null,
 
-	avatarUrl: function () {
+	user: function () {
 		var users = this.get('users');
 
-		return users[this.get('comment.userName')].avatar;
-	}.property('comment.userName'),
-
-	url: function () {
-		var users = this.get('users');
-
-		return users[this.get('comment.userName')].url;
-	}.property('comment.userName'),
+		return users[this.get('comment.userName')] || {};
+	}.property('users'),
 
 	actions: {
 		toggleExpand: function () {

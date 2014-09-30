@@ -1,8 +1,14 @@
 <div class="avatar">
-	<img src="{{unbound avatarUrl}}">
+	<img src="{{unbound user.avatar}}" width="50px">
 </div>
 <div class="content">
-	<span class="username"><a href="{{unbound url}}">{{comment.userName}}</a></span>
+	<span class="username">
+		{{#if user.url}}
+			<a href="{{unbound user.url}}">{{comment.userName}}</a>
+		{{else}}
+			{{comment.userName}}
+		{{/if}}
+	</span>
 	{{{comment.text}}}
 	{{#if comment.comments}}
 		<button class="show-reply-btn" {{action 'toggleExpand'}}>
