@@ -53,12 +53,10 @@
 		animSpeed=controller.controllers.application.globalAnimSpeed
 	}}
 		{{#each categories itemController='categoryListItem'}}
-		<li>
-			<a href='{{unbound url}}' title='{{unbound title}}'>
-					{{cleanTitle}}
-				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-			</a>
-		</li>
+		<li><a href='{{unbound url}}' title='{{unbound title}}'>
+			{{cleanTitle}}
+			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+		</a></li>
 		{{/each}}
 	{{/collapsible-menu}}
 {{/if}}
