@@ -78,6 +78,12 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
+	sanitizeTitle: function (title: string) {
+		return decodeURIComponent(title)
+			.replace(/\s+/g, ' ')
+			.replace(/_/g, ' ');
+	},
+
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;
 		return Wikia.article;
@@ -86,7 +92,7 @@ App.ArticleModel.reopenClass({
 	setArticle: function (model: Em.Object, source = this.getPreloadedData()) {
 		model.setProperties({
 			type: source.details.ns,
-			cleanTitle: source.details.title,
+			cleanTitle: this.sanitizeTitle(source.details.title),
 			comments: source.details.comments,
 			id: source.details.id,
 			article: source.article.content || $('.article-content').html(),

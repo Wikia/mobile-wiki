@@ -17,6 +17,8 @@ App.ArticleRoute = Em.Route.extend({
 		if (Wikia.error) {
 			transition.abort();
 		}
+
+		this.replaceWith(this.sanitizeURL(window.location.pathname));
 	},
 
 	/**
