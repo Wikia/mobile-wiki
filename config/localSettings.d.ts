@@ -10,7 +10,7 @@ interface LocalSettings {
 	port: number;
 	maxRequestsPerChild: number;
 	workerCount: number;
-	environment: any;
+	environment: string;
 	mediawikiHost: string;
 	gaId: string;
 	cache: CacheInterface;

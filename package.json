@@ -23,7 +23,6 @@
     "bluebird": "^2.3.2",
     "catbox": "^3.4.2",
     "catbox-memory": "^1.1.0",
-    "good": "2.x.x",
     "handlebars": "2.x.x",
     "hapi": "6.x.x",
     "catbox-memcached": "~1.0.3",
