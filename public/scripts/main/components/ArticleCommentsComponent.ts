@@ -56,7 +56,9 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 * @desc watches changes to model, and scrolls to top of comments
 	 */
 	commentsObserver: function (): void {
-		this.scrollToTop();
+		if (this.get('model.comments')) {
+			this.scrollToTop();
+		}
 	}.observes('model.comments'),
 
 	/**
