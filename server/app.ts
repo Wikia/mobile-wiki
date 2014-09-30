@@ -112,13 +112,15 @@ class App {
 	}
 
 	private setupLogging(server: Hapi.Server): void {
-		server.on('log', (event, tags) => {
-			logger.error('Server Error', {
-				data: event.data
-			});
+
+		server.on('log', (event: any, tags: Array<string>) => {
+			logger.info('Log', {
+				data: event.data,
+				tags: tags
+			})
 		});
 
-		server.on('internalError', (request, err) => {
+		server.on('internalError', (request: Hapi.Request, err: Error) => {
 			logger.error('Internal error', {
 				text: err.message,
 				url: url.format(request.url),
@@ -126,7 +128,7 @@ class App {
 			});
 		});
 
-		server.on('response', function (request) {
+		server.on('response', (request: Hapi.Request) => {
 			logger.debug('Response', {
 				host: request.headers.host,
 				url: url.format(request.url),

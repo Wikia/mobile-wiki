@@ -1,15 +1,14 @@
 QUnit.module('lib/Logger');
 
 test('Logger interface', function () {
+
 	var functions = [
-		'emergency',
-		'alert',
-		'critical',
+		'fatal',
 		'error',
-		'warning',
-		'notice',
+		'warn',
 		'info',
-		'debug'
+		'debug',
+		'trace'
 	];
 	functions.forEach(function (functionName) {
 		equal(global.hasOwnProperty(functionName), true, 'Has function ' + functionName);
