@@ -14,7 +14,6 @@ module Wikia.Modules {
 		private static extRegExp = /\.(jpg|jpeg|gif|bmp|png|svg|webp)$/i;
 		private static imagePath = '/images/';
 		private static thumbPath = '/images/thumb/';
-		private static hasWebPSupport = false;
 
 		static hasWebPSupport = (function () {
 			// @see http://stackoverflow.com/a/5573422
