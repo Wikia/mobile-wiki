@@ -38,7 +38,7 @@ function stopWorker(worker: cluster.Worker): void {
 	worker.send('shutdown');
 	worker.disconnect();
 
-	var killTimer= <any>setTimeout(() => {
+	var killTimer = <any>setTimeout(() => {
 		worker.kill();
 	}, localSettings.workerDisconnectTimeout);
 
