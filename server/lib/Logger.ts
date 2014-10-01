@@ -1,40 +1,72 @@
-// TODO: This is a mock logger. Add proper logging to Kibana
+/// <reference path="../../typings/bunyan/bunyan.d.ts" />
 
-declare module Logger {
-	interface LoggerFunction {
-		(...args: any[]): void;
-	}
+import bunyan = require('bunyan');
+import localSettings = require('../../config/localSettings');
 
-	var emergency:  LoggerFunction;
-	var alert: LoggerFunction;
-	var critical: LoggerFunction;
-	var error: LoggerFunction;
-	var warning: LoggerFunction;
-	var notice: LoggerFunction;
-	var info: LoggerFunction;
-	var debug: LoggerFunction;
+interface CreateBunyanLoggerStream {
+	(minLogLevel: string): BunyanLoggerStream;
 }
 
+interface AvailableTargets {
+	[key: string]: CreateBunyanLoggerStream;
+};
+
 module Logger {
-	function log(loggerType: string): LoggerFunction {
-		return (...args: any[]): void => {
-			args.unshift('[' + loggerType + ']');
-			console.log.apply(this, args);
+
+	var availableTargets: AvailableTargets = {
+			default: createDefaultLogStream,
+			syslog: createSysLogStream,
+			console: createConsoleStream
+		};
+
+	function createDefaultLogStream(minLogLevel: string = 'info') {
+		return {
+			stream: process.stderr,
+			level: minLogLevel
+		}
+	}
+
+	function createConsoleStream(minLogLevel: string): BunyanLoggerStream {
+		var PrettyStream = require('bunyan-prettystream'),
+			prettyStdOut = new PrettyStream();
+		prettyStdOut.pipe(process.stdout);
+		return {
+			level: minLogLevel,
+			stream: prettyStdOut
 		};
 	}
 
-	[
-		'emergency',
-		'alert',
-		'critical',
-		'error',
-		'warning',
-		'notice',
-		'info',
-		'debug'
-	].forEach(function (level: string) {
-		Logger[level] = log(level.toUpperCase());
-	});
+	function createSysLogStream(minLogLevel: string): BunyanLoggerStream {
+		var bsyslog = require('bunyan-syslog');
+		return {
+			level: minLogLevel,
+			type: 'raw',
+			stream: bsyslog.createBunyanStream({
+				facility: bsyslog.local0,
+				type: 'sys'
+			})
+		};
+	}
+
+	export function createLogger(loggerConfig: LoggerInterface) {
+		var streams: Array<BunyanLoggerStream> = [];
+		Object.keys(loggerConfig).forEach((loggerType: string) => {
+			if (!availableTargets.hasOwnProperty(loggerType)) {
+				throw new Error('Unknown logger type ' + loggerType);
+			}
+			streams.push(availableTargets[loggerType](loggerConfig[loggerType]));
+		});
+		if (streams.length === 0) {
+			streams.push(createDefaultLogStream());
+		}
+		return bunyan.createLogger({
+			name: 'mercury',
+			streams: streams
+		});
+	}
+
 }
 
-export = Logger;
+var logger = Logger.createLogger(localSettings.loggers);
+
+export = logger;

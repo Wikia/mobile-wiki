@@ -5,6 +5,10 @@ interface CacheInterface {
 	shared?: boolean;
 }
 
+interface LoggerInterface {
+	[key: string]: string
+}
+
 interface LocalSettings {
 	host: any;
 	port: number;
@@ -18,4 +22,5 @@ interface LocalSettings {
 	wikiFallback: string;
 	apiBase: string;
 	workerDisconnectTimeout: number;
+	loggers: LoggerInterface;
 }
