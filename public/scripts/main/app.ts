@@ -28,7 +28,7 @@ App.initializer({
 		$('html').removeClass('preload');
 
 		i18n.init({
-			resGetPath: '/public/locales/__lng__/__ns__.json',
+			resGetPath: '/public/locales/__lng__/translations.json',
 			detectLngQS: 'uselang',
 			lng: application.get('language'),
 			fallbackLng: 'en',
