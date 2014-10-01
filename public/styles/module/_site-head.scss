@@ -1,10 +1,14 @@
 .site-head {
 	@extend .row;
 	@extend .small-12;
-	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-bottom: 1px solid $color-gray-light;
 	height: 50px;
 	margin: 0 auto;
-	position: relative;
+	position: fixed;
+	text-align: center;
+	top: 0;
+	z-index: $z-site-head;
 
 	.drawer-menu, .user-icon {
 		position: absolute;
