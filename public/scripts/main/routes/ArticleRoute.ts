@@ -35,13 +35,12 @@ App.ArticleRoute = Em.Route.extend({
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
 		willTransition: function (transition: EmberStates.Transition) {
-			if (transition.targetName === 'article') {
-				window.scrollTo(0, 0);
-			}
-
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
+		},
+		didTransition: function () {
+			window.scrollTo(0, 0);
 		}
 	}
 });
