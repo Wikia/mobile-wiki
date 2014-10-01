@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{article.cleanTitle}} - {{siteName}}</title>
-		{{#if article.description}}
-		<meta name="description" content="{{article.description}}">
+		<title>{{article.details.cleanTitle}} - {{wiki.siteName}}</title>
+		{{#if article.details.abstract}}
+		<meta name="description" content="{{article.details.abstract}}">
 		{{/if}}
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -19,21 +19,14 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
+			W.provide('_t.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
 			W.provide('_state.firstPage', true);
 			W.provide('ads.slots', []);
-            W.provide('apiBase', '{{{apiBase}}}');
-			{{#if wikiJson}}
-                W.provide('wiki', {{{wikiJson}}});
-			{{/if}}
-
-			{{#if articleJson}}
-				W.provide('article', {{{articleJson}}});
-			{{else}}
-				W.provide('article', {});
-				<!--W.provide('error.message', '{{message}}');-->
-				<!--W.provide('error.status', '{{code}}');-->
-				<!--W.provide('error.error', '{{details}}');-->
+            W.provide('apiBase', '{{{server.apiBase}}}');
+            W.provide('wiki', {{{wiki.json}}});
+            W.provide('article', {{{article.json}}});
+			{{#if error}}
+            W.provide('article.error', {{{error}}});
 			{{/if}}
 		</script>
 
@@ -79,8 +72,8 @@
 			<script src="/public/scripts/main.js"></script>
 		<!-- endbuild -->
 
-		{{#if mediawikiDomain}}
-		<script async src="{{mediawikiDomain}}__am/{{cacheBuster}}/groups/-/mercury_ads_js"></script>
+		{{#if server.mediawikiDomain}}
+		<script async src="{{server.mediawikiDomain}}__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
 	</body>
 </html>

@@ -70,24 +70,18 @@ function routes(server: Hapi.Server) {
 					title: request.params.title,
 					redirect: request.query.redirect
 				}, (error: any, result: any) => {
-					var errorParams = {},
-						code = 200;
-
-					if (result.error) {
-						errorParams = result.error;
-						code = errorParams.code;
-
-						errorParams.article = {
-							title: request.params.title,
-							content: errorParams.details
-						};
-
-						errorParams.cacheBuster = 200;
-					}
+					var code = 200;
 
 					// export Google Analytics code to layout
 					result.gaId = localSettings.gaId;
-					reply.view('application', util._extend(result, errorParams)).code(code);
+
+					if (error) {
+						code = error.code;
+
+						result.error = JSON.stringify(error);
+					}
+
+					reply.view('application', result).code(code);
 				});
 			}
 		});
