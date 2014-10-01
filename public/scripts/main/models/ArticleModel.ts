@@ -51,25 +51,22 @@ App.ArticleModel.reopenClass({
 	},
 
 	find: function (params: {wiki: string; title: string; redirect?: string}) {
-		var model = App.ArticleModel.create(params),
-			self = this;
-
-		model.setProperties(params);
+		var model = App.ArticleModel.create(params);
 
 		if (Wikia._state.firstPage) {
 			this.setArticle(model);
 			return model;
 		}
 
-		return new Em.RSVP.Promise(function (resolve: Function, reject: Function) {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
 				url: self.url(params),
 				dataType: 'json',
-				success: function (data) {
-					self.setArticle(model, data);
+				success: (data) => {
+					this.setArticle(model, data);
 					resolve(model);
 				},
-				error: function (err) {
+				error: (err) => {
 					reject($.extend(err, model));
 				}
 			});
