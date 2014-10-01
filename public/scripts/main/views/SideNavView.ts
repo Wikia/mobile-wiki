@@ -4,7 +4,7 @@
 App.SideNavView = Em.View.extend({
 	tagName: 'nav',
 	classNames: ['side-nav'],
-	classNameBindings: ['isCollapsed::slide-into-view'],
+	classNameBindings: ['isCollapsed:collapsed:slide-into-view'],
 	isCollapsed: true,
 	layoutName: 'app/side-nav',
 

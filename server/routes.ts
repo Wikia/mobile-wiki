@@ -5,6 +5,7 @@ import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
 import MediaWiki = require('./lib/MediaWiki');
+import util = require('util');
 
 var wikiNames: {
 	[key: string]: string;
@@ -64,30 +65,23 @@ function routes(server: Hapi.Server) {
 			path: route,
 			config: config,
 			handler: (request: Hapi.Request, reply: any) => {
-				var errorParams = {
-					message: 'Internal Server Error',
-					code: 500,
-					details: '',
-					gaId: ''
-				};
-
 				server.methods.getPrerenderedData({
 					wiki: getWikiName(request.headers.host),
 					title: request.params.title,
 					redirect: request.query.redirect
 				}, (error: any, result: any) => {
-					// TODO: handle error a bit better :D
+					var code = 200;
+
+					// export Google Analytics code to layout
+					result.gaId = localSettings.gaId;
+
 					if (error) {
-						if (error.exception) {
-							errorParams = error.exception;
-						}
-						errorParams.gaId = localSettings.gaId;
-						reply.view('error', errorParams).code(errorParams.code);
-					} else {
-						// export Google Analytics code to layout
-						result.gaId = localSettings.gaId;
-						reply.view('application', result);
+						code = error.code;
+
+						result.error = JSON.stringify(error);
 					}
+
+					reply.view('application', result).code(code);
 				});
 			}
 		});
@@ -106,10 +100,6 @@ function routes(server: Hapi.Server) {
 			};
 
 			server.methods.getArticleData(params, (error: any, result: any) => {
-				// TODO: handle error a bit better :D
-				if (error) {
-					error = Hapi.error.notFound(notFoundError);
-				}
 				reply(error || result);
 			});
 		}

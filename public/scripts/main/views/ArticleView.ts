@@ -57,14 +57,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
-				this.lazyLoadMedia(model);
+				this.lazyLoadMedia(model.get('media'));
 			}
 		});
 	},
 
-	createMediaComponent: function (element: HTMLElement) {
+	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {
 		var ref = parseInt(element.dataset.ref, 10),
-			media = this.get('controller.model.media').find(ref);
+			media = model.find(ref);
 
 		var component = this.createChildView(App.MediaComponent.newFromMedia(media), {
 			ref: ref,
@@ -81,7 +81,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		var lazyImages = this.$('.article-media');
 
 		lazyImages.each((index: number, element: HTMLImageElement) => {
-			this.$(element).replaceWith(this.createMediaComponent(element));
+			this.$(element).replaceWith(this.createMediaComponent(element, model));
 		});
 	},
 
