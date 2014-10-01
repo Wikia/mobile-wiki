@@ -11,50 +11,62 @@ interface AvailableTargets {
 	[key: string]: CreateBunyanLoggerStream;
 };
 
-var logger: BunyanLogger = null,
-	availableTargets: AvailableTargets = {
-		syslog: createSysLogStream,
-		console: createConsoleStream
-	};
+module Logger {
 
-function createConsoleStream(minLogLevel: string): BunyanLoggerStream {
-	var PrettyStream = require('bunyan-prettystream'),
-		prettyStdOut = new PrettyStream();
-	prettyStdOut.pipe(process.stdout);
-	return {
-		level: minLogLevel,
-		stream: prettyStdOut
-	};
-}
+	var availableTargets: AvailableTargets = {
+			default: createDefaultLogStream,
+			syslog: createSysLogStream,
+			console: createConsoleStream
+		};
 
-function createSysLogStream(minLogLevel: string): BunyanLoggerStream {
-	var bsyslog = require('bunyan-syslog');
-	return {
-		level: minLogLevel,
-		type: 'raw',
-		stream: bsyslog.createBunyanStream({
-			facility: bsyslog.local0,
-			type: 'sys'
-		})
-	};
-}
-
-function createLogger (loggerConfig: LoggerInterface) {
-	var streams: Array<BunyanLoggerStream> = [];
-	Object.keys(loggerConfig).forEach((loggerType: string) => {
-		if (!availableTargets.hasOwnProperty(loggerType)) {
-			throw new Error('Unknown logger type ' + loggerType);
+	function createDefaultLogStream(minLogLevel: string = 'info') {
+		return {
+			stream: process.stderr,
+			level: minLogLevel
 		}
-		streams.push(availableTargets[loggerType](loggerConfig[loggerType]));
-	});
-	return bunyan.createLogger({
-		name: 'mercury',
-		streams: streams
-	});
+	}
+
+	function createConsoleStream(minLogLevel: string): BunyanLoggerStream {
+		var PrettyStream = require('bunyan-prettystream'),
+			prettyStdOut = new PrettyStream();
+		prettyStdOut.pipe(process.stdout);
+		return {
+			level: minLogLevel,
+			stream: prettyStdOut
+		};
+	}
+
+	function createSysLogStream(minLogLevel: string): BunyanLoggerStream {
+		var bsyslog = require('bunyan-syslog');
+		return {
+			level: minLogLevel,
+			type: 'raw',
+			stream: bsyslog.createBunyanStream({
+				facility: bsyslog.local0,
+				type: 'sys'
+			})
+		};
+	}
+
+	export function createLogger(loggerConfig: LoggerInterface) {
+		var streams: Array<BunyanLoggerStream> = [];
+		Object.keys(loggerConfig).forEach((loggerType: string) => {
+			if (!availableTargets.hasOwnProperty(loggerType)) {
+				throw new Error('Unknown logger type ' + loggerType);
+			}
+			streams.push(availableTargets[loggerType](loggerConfig[loggerType]));
+		});
+		if (streams.length === 0) {
+			streams.push(createDefaultLogStream());
+		}
+		return bunyan.createLogger({
+			name: 'mercury',
+			streams: streams
+		});
+	}
+
 }
 
-if (!logger) {
-	logger = createLogger(localSettings.loggers);
-}
+var logger = Logger.createLogger(localSettings.loggers);
 
 export = logger;
