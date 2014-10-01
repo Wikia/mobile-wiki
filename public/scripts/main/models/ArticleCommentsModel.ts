@@ -2,28 +2,41 @@
 
 'use strict';
 
-App.ArticleCommentsModel = Ember.Object.extend({
-});
+App.ArticleCommentsModel = Em.Object.extend({
+	articleId: null,
+	comments: null,
+	users: null,
+	pagesCount: null,
+	page: 0,
 
-App.ArticleCommentsModel.reopenClass({
-	find: function (params) {
-		var model = App.ArticleCommentsModel.create(),
-			self = this;
+	fetch: function () {
+		var page = this.get('page');
 
-		return new Ember.RSVP.Promise(function (resolve, reject) {
-			Ember.$.ajax({
-				url: self.url(params.id),
-				success: function (data) {
-					model.setProperties(data.payload);
-					resolve(model);
-				},
-				error: function (data) {
-					reject(data);
-				}
+		if (page && page >= 0) {
+			return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+				Em.$.ajax({
+					url: this.url(this.get('articleId'), page),
+					success: (data) => {
+						this.setProperties(data.payload);
+						resolve(this);
+					},
+					error: (data) => {
+						reject(data);
+					}
+				});
 			});
+		}
+	}.observes('page', 'articleId'),
+
+	reset: function () {
+		this.setProperties({
+			comments: null,
+			users: null,
+			pagesCount: null
 		});
-	},
-	url: function (id) {
-		return '/api/v1/article/comments/' + id;
+	}.observes('articleId'),
+
+	url: function (articleId: number, page: number = 0) {
+		return App.get('apiBase') + '/article/comments/' + articleId + '/' + page;
 	}
 });

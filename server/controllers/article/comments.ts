@@ -66,16 +66,14 @@ function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
  */
 
 export function handleRoute(params: any, callback: Function, err: Function): void {
-	new MediaWiki.ArticleRequest({
-			name: params.host
-		}).articleComments(
+	new MediaWiki.ArticleRequest(params.wiki).comments(
 			params.articleId,
 			params.page
 		)
 		.then(function(response: any) {
 			callback(wrapResponse(response));
 		})
-		.catch(function(error) {
+		.catch(function(error: any) {
 			err(error);
 		});
 }

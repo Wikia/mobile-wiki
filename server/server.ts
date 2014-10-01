@@ -8,10 +8,9 @@
 
 import cluster = require('cluster');
 import localSettings = require('../config/localSettings');
+import logger = require('./lib/Logger');
 
-var stopping = false,
-	// A list of workers queued for a restart
-	workersToStop: Array<string> = [];
+var isStopping = false;
 
 cluster.setupMaster({
 	exec: __dirname + '/app.js'
@@ -24,7 +23,7 @@ function numWorkers(): number {
 
 // Forks off the workers unless the server is stopping
 function forkNewWorkers(): void {
-	if (!stopping) {
+	if (!isStopping) {
 		for (var i = numWorkers(); i < localSettings.workerCount; i++) {
 			cluster.fork();
 		}
@@ -32,59 +31,41 @@ function forkNewWorkers(): void {
 }
 
 // Stops a single worker
-// Gives 60 seconds after disconnect before SIGTERM
-function stopWorker(worker: any): void {
-	console.log('stopping', worker.process.pid);
+// Gives workerDisconnectTimeout seconds after disconnect before SIGTERM
+function stopWorker(worker: cluster.Worker): void {
+	logger.info('stopping', worker.process.pid, 'timeout', localSettings.workerDisconnectTimeout);
 
+	worker.send('shutdown');
 	worker.disconnect();
-	var killTimer: NodeJS.Timer = <any>setTimeout(function () {
+
+	var killTimer = <any>setTimeout(() => {
 		worker.kill();
-	}, 60000);
+	}, localSettings.workerDisconnectTimeout);
+
+	worker.on('disconnect',(): void => {
+		logger.info('Worker disconnected', worker.process.pid);
+		<any>clearTimeout(killTimer);
+		worker.kill();
+	});
 
 	// Ensure we don't stay up just for this setTimeout
 	killTimer.unref();
 }
 
-// Tell the next worker queued to restart to disconnect
-// This will allow the process to finish it's work
-// for 60 seconds before sending SIGTERM
-function stopNextWorker() {
-	var i = workersToStop.pop(),
-		worker = cluster.workers[i];
-
-	if (worker) {
-		stopWorker(worker);
-	}
-}
-
 // Stops all the workers at once
-function stopAllWorkers() {
-	stopping = true;
+function stopAllWorkers(): void {
+	isStopping = true;
 
-	console.log('stopping all workers');
-	for (var id in cluster.workers) {
-		if (cluster.workers.hasOwnProperty(id)) {
-			stopWorker(cluster.workers[id]);
-		}
-	}
+	logger.info('stopping all workers');
+	Object.keys(cluster.workers).forEach((id: any) => {
+		stopWorker(cluster.workers[id]);
+	});
 }
-
-// Worker is now listening on a port
-// Once it is ready, we can signal the next worker to restart
-cluster.on('listening', stopNextWorker);
 
 // A worker has disconnected either because the process was killed
 // or we are processing the workersToStop array restarting each process
 // In either case, we will fork any workers needed
 cluster.on('disconnect', forkNewWorkers);
-
-// HUP signal sent to the master process to start restarting all the workers sequentially
-process.on('SIGHUP', function () {
-	console.log('restarting all workers');
-
-	workersToStop = Object.keys(cluster.workers);
-	stopNextWorker();
-});
 
 // Kill all the workers at once
 process.on('SIGTERM', stopAllWorkers);
@@ -92,4 +73,14 @@ process.on('SIGTERM', stopAllWorkers);
 // Fork off the initial workers
 forkNewWorkers();
 
-console.log('Master process', process.pid, 'booted');
+logger.info('Master process', process.pid, 'booted');
+
+//if run as child
+//send up message from workers so we can now that they are up
+if (process.send) {
+	cluster.on('online', (worker: cluster.Worker) => {
+		worker.on('message', (message: string) => {
+			process.send(message);
+		});
+	});
+}

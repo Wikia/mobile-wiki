@@ -282,7 +282,7 @@ declare module Hapi {
 
 	export class Server {
 		app: any;
-		methods: Array<() => void>;
+		methods: any;
 		info: {
 			port: number;
 			host?: string;
@@ -337,12 +337,13 @@ declare module Hapi {
 			}): void;
 			strategy: any;
 		};
-		ext(event: any, method: string, options?: any): void;
+		ext(event: string, method: (request: Hapi.Request, next: Function) => void, options?: any): void;
+		ext(event: string, method: (request: Hapi.Request, next: Function) => void[], options?: any): void;
 		method(method: Array<{name: string; fn: () => void; options: any}>): void;
-		method(name: string, fn: () => void, options: any): void;
+		method(name: string, fn: (params: any, next: Function) => void, options: any): void;
 		inject(options: any, callback: any): void;
 		handler(name: string, method: (name: string, options: any) => void): void;
-		on(name: string, callback: Function);
+		on(name: string, callback: Function): void;
 	}
 
 	export interface Request {
@@ -372,7 +373,7 @@ declare module Hapi {
 		pre: Object;
 		response: Object;
 		responses: Object;
-		query: Object;
+		query: any;
 		raw: {
 			req: any; //http.ClientRequest
 			res: any; //http.ClientResponse

@@ -17,12 +17,11 @@ testrunner.setup({
 		summary: false,
 		// log global summary (all files)
 		globalSummary: false,
-		// log coverage
-		coverage: false,
-		// log global coverage (all files)
-		globalCoverage: false,
 		// log currently testing code file
 		testing: true
+	},
+	coverage: {
+		dir:'test/coverage/server'
 	}
 });
 
@@ -42,9 +41,13 @@ glob.sync(__dirname + '/specs/server/**/*.js', function (err, tests) {
 
 		testrunner.run(prepped.filter(function (module) {
 			return module.code.length && module.tests.length;
-		}), function (err) {
+		}), function (err, report) {
 			if (err) {
 				throw err;
+			}
+
+			if (report && report.failed > 0) {
+				process.exit(1);
 			}
 		});
 	});

@@ -12,34 +12,30 @@ module.exports = {
 	},
 	scripts: {
 		front: {
-			target: 'ES5',
-			sourcemap: false,
-			//mapRoot: '',
-			emitError: false,
-			removeComments: false
+			target: 'es5',
+			noImplicitAny: true,
+			removeComments: false,
+			declarationFiles: false,
+			sortOutput: true
 		},
 		back: {
 			module: 'commonjs',
-			target: 'ES5',
+			target: 'es5',
 			emitError: false,
-			outDir: paths.scripts.back.dest,
-			removeComments: true
+			noImplicitAny: true,
+			declarationFiles: false,
+			removeComments: false
 		}
-	},
-	handlebars: {
-		output: 'browser'
 	},
 	clean: {
 		read: false
 	},
-	nodemon: {
-		script: paths.nodemon.script,
-		ext: 'js',
-		watch: paths.nodemon.watch,
-		env: {
-			WORKER_COUNT: 4,
-			MAX_REQUEST_PER_CHILD: 1000
-		}
+	server: {
+		path: paths.server.script,
+		env: process.env,
+		killSignal: 'SIGKILL',
+		delay: 0,
+		successMessage: /Server started/
 	},
 	tslint: {
 		emitError: false

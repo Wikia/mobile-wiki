@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
-/// <reference path="../utils/sloth.ts" />
-/// <reference path="../utils/lazyload.ts" />
+/// <reference path="../models/ArticleModel.ts" />
+/// <reference path="../components/MediaComponent.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -9,43 +9,91 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-var sloth = new W.Sloth();
-
-App.ArticleView = Em.View.extend({
+App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
-	articleObserver: Ember.observer('controller.article', function () {
-		Em.run.later(null, () => {
+	/**
+	* @description Ember does not natively support hashes in the URL, so we must support this functionality
+	* manually
+	*/
+	jumpToAnchor: function (): void {
+		var hash = App.get('hash'),
+			prevHash: string;
+
+		if (hash) {
+			window.location.hash = hash;
+		}
+
+		// This is a hack to ensure that #hash jump links are preserved when navigating with browser native
+		// "back" button
+		if (!hash && window.location.hash) {
+			prevHash = window.location.hash;
+			window.location.hash = '#top';
+			window.location.hash = prevHash;
+		}
+
+		App.set('hash', null);
+	},
+
+	/**
+	* willInsertElement
+	* @description The article view is only inserted once, and then refreshed on new models. Use this hook to bind
+	* events for DOM manipulation
+	*/
+	willInsertElement: function (): void {
+		Em.addObserver(this.get('controller'), 'article', this, this.onArticleChange);
+		// Trigger an article change once on insertion because the first insertion happens after article
+		// state has changed
+		this.get('controller').notifyPropertyChange('article');
+	},
+
+	onArticleChange: function (): void {
+		Em.run.scheduleOnce('afterRender', this, () => {
 			var model = this.get('controller.model');
+
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
-				var lazyImages = this.$('.article-media');
-				var lazy = new W.LazyLoad();
-
-				lazy.fixSizes(lazyImages);
-
-				sloth.drop();
-				sloth.attach({
-					on: lazyImages,
-					threshold: 400,
-					callback: (elem) => lazy.load(elem, false, model.get('media'))
-				});
 				this.loadTableOfContentsData();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.injectAds();
+				this.setupAdsContext(model.get('adsContext'));
+				this.jumpToAnchor();
+				this.lazyLoadMedia(model);
 				this.wrapTablesInScrollingDivs();
 			}
-		// This timeout is set to 0 because otherwise the ToC takes a second to load, but it could possibly
-		// cause problems in the future with the lazyloading code above (unknown)
-		}, 0);
-	}),
+		});
+	},
 
-	modelObserver: Ember.observer('controller.model', function () {
+	createMediaComponent: function (element: HTMLElement) {
+		var ref = parseInt(element.dataset.ref, 10),
+			media = this.get('controller.model.media').find(ref);
+
+		var component = this.createChildView(App.MediaComponent.newFromMedia(media), {
+			ref: ref,
+			width: parseInt(element.getAttribute('width'), 10),
+			height: parseInt(element.getAttribute('height'), 10),
+			imgWidth: element.offsetWidth,
+			media: media
+		}).createElement();
+
+		return component.$().attr('data-ref', ref);
+	},
+
+	lazyLoadMedia: function (model: typeof App.ArticleModel) {
+		var lazyImages = this.$('.article-media');
+
+		lazyImages.each((index: number, element: HTMLImageElement) => {
+			this.$(element).replaceWith(this.createMediaComponent(element));
+		});
+	},
+
+	modelObserver: function (): void {
 		var model = this.get('controller.model');
+
 		if (model) {
-			var wiki = model.get('wiki');
 			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + wiki + ' wiki';
+			document.title = title + ' - ' + Wikia.wiki.siteName;
 		}
-	}),
+	}.observes('controller.model'),
 
 	/**
 	 * @desc Generates table of contents data based on h2 elements in the article
@@ -54,7 +102,7 @@ App.ArticleView = Em.View.extend({
 	 * ToC data from server and render view based on that.
 	 */
 	loadTableOfContentsData: function () {
-		var headers: HeadersFromDom[] = this.$('h2').map((i, elem: HTMLElement): HeadersFromDom => {
+		var headers: HeadersFromDom[] = this.$('h2').map((i: number, elem: HTMLElement): HeadersFromDom => {
 			return {
 				level: elem.tagName,
 				name: elem.textContent,
@@ -69,11 +117,8 @@ App.ArticleView = Em.View.extend({
 	 * loadTableOfContentsData)
 	 */
 	replaceHeadersWithArticleSectionHeaders: function () {
-		this.$('h2,h3').map((i, elem: HTMLElement) => {
-			// Only replace if it is actually a section header as opposed to an h2 within another element
-			if (Ember.$(elem).parent().hasClass('article-content')) {
-				this.replaceWithArticleSectionHeader(elem);
-			}
+		this.$('h2,h3').map((i: number, elem: HTMLElement) => {
+			this.replaceWithArticleSectionHeader(elem);
 		});
 	},
 
@@ -90,6 +135,9 @@ App.ArticleView = Em.View.extend({
 		this.$(elem).replaceWith(header.$());
 	},
 
+	didInsertElement: function () {
+		this.get('controller').send('articleRendered');
+	},
 	wrapTablesInScrollingDivs: function () {
 		var tableContainer = this.createChildView('ArticleTableContainer');
 		tableContainer.createElement();

@@ -4,14 +4,21 @@ QUnit.module('lib/MediaWiki', {
 	}
 });
 
-test('getDomainName', function () {
-	expect(3);
+test('getDomainName', function (assert) {
+	expect(5);
+	delete(global.localSettings.environment);
+	assert.throws(function () {
+		global.getDomainName('foo')
+	}, 'Environment not set');
 	global.localSettings.environment = 'dev';
+	global.localSettings.mediawikiHost = 'test';
+
 	equal(global.getDomainName('foo'),
-		'http://foo.kenneth.wikia-dev.com/',
+		'http://foo.test.wikia-dev.com/',
 		'dev URL has correct output');
 	global.localSettings.environment = 'sandbox';
 	global.localSettings.host = 'hoest';
+
 	equal(global.getDomainName('foo'),
 		'http://hoest.foo.wikia.com/',
 		'sandbox URL has correct output');
@@ -19,72 +26,50 @@ test('getDomainName', function () {
 	equal(global.getDomainName('foo'),
 		'http://foo.wikia.com/',
 		'production URL has correct output');
+	equal(global.getDomainName(),
+		'http://wikia.com/',
+		'handles missing url');
 });
 
 test('createURL', function () {
 	global.localSettings.environment = 'dev';
+	global.localSettings.mediawikiHost = 'test';
+
 	equal(global.createUrl('foo', 'api/test', { }),
-		'http://foo.kenneth.wikia-dev.com/api/test', 'zero query params');
+		'http://foo.test.wikia-dev.com/api/test', 'zero query params');
 	equal(global.createUrl('foo', 'api/test', {
 		title: 'bar'
-	}), 'http://foo.kenneth.wikia-dev.com/api/test?title=bar', 'one query param');
+	}), 'http://foo.test.wikia-dev.com/api/test?title=bar', 'one query param');
 	equal(global.createUrl('foo', 'api/test',{
 		title: 'bar',
 		param: 'gibberish'
-	}), 'http://foo.kenneth.wikia-dev.com/api/test?title=bar&param=gibberish', 'two query params');
+	}), 'http://foo.test.wikia-dev.com/api/test?title=bar&param=gibberish', 'two query params');
+	equal(global.createUrl('foo', 'api/test'),
+		'http://foo.test.wikia-dev.com/api/test', 'missing query params');
 });
 
-test('ArticleRequest class', function () {
-	equal(typeof global.ArticleRequest, 'function', 'be a constructor function');
-});
-
-// May be better suited for integrating testing
-test('receives article content on fetch', function () {
-	stop();
-	expect(1);
-	var request = new global.ArticleRequest({
-		name: 'starwars',
-		title: 'Chewbacca'
-	});
-	request.article().then(function (response) {
-		ok(response.payload &&
-			response.payload.article,
-			'received article');
-		start();
-	});
-});
-
-// May be better suited for integration testing
-test('receives namespace info on call to wikiNamespace', function () {
-	stop();
-	expect(1);
-	var request = new global.WikiRequest({
-		name: 'starwars'
-	});
-	request.wikiNamespaces().then(function (response) {
-		ok(response.query &&
-			response.query.namespaces,
-			'received namespaces');
-		start();
-	});
-});
-
-// May be better suited for integrating testing
-test('receives error message on invalid ArticleRequest', function () {
-	var self = this;
-	stop();
-	expect(1);
-	var request = new global.ArticleRequest({
-		name: 'alsjdflkajsdlfjasd',
-		title: 'ckxoOOOOO'
-	});
-	// Note that this does not robustly test the request, it only checks that if all else
-	// is good, then if the wiki name and article title are bad then we get the response
-	// we expect
-	request.article().then(function (response) {
-		deepEqual(response,
-			self.notFoundResponse,
-			'gets error on bad article request');
-		start();
+test('Constructors', function () {
+	var testCases = [
+		{
+			name: 'ArticleRequest',
+			data: {
+				title: 'title',
+				name: 'name'
+			}
+		} , {
+			name: 'WikiRequest',
+			data: {
+				name: 'name'
+			}
+		} , {
+			name: 'SearchRequest',
+			data: {
+				name: 'name'
+			}
+		}
+	];
+	testCases.forEach(function (testCase) {
+		equal(typeof global[testCase.name], 'function', testCase.name + ' be a function');
+		equal(typeof new global[testCase.name](testCase.data), 'object', testCase.name + ' be a constructor function');
 	});
 });

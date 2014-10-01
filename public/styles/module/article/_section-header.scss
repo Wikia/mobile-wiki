@@ -1,13 +1,13 @@
 .article-section-header {
-	position: relative;
 	padding-right: rem-calc(20);
+	position: relative;
 
 	a {
 		@include perfect-square(rem-calc(44));
 		position: absolute;
 		right: rem-calc(5);
-		top: 0;
 		text-align: right;
+		top: 0;
 	}
 
 	h2 ~ a {

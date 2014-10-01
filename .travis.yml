@@ -3,8 +3,3 @@ node_js:
   - "0.10"
 install:
   - ./install.sh
-  - ./local-settings-setup.sh
-notifications:
-  webhooks:
-    urls:
-      - http://wikia-lita.herokuapp.com/travis

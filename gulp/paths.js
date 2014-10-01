@@ -24,10 +24,12 @@ module.exports = {
 		front: {
 			src: 'public/scripts',
 			dest: basePath + '/public/scripts',
-			files: '**/*.ts'
+			files: '**/*.ts',
+			dFiles: '**/*.d.ts'
 		},
 		back: {
 			src: 'server/**/*.ts',
+			config: 'config/*.ts',
 			dest: basePath
 		}
 	},
@@ -40,8 +42,13 @@ module.exports = {
 		dest: basePath + '/public/templates',
 		files: '**/*.hbs'
 	},
-	svg: {
-		src: 'public/svg',
+	symbols: {
+		src: 'public/svg/symbols',
+		dest: basePath + '/public/svg',
+		files: '*.svg'
+	},
+	images: {
+		src: 'public/svg/images',
 		dest: basePath + '/public/svg',
 		files: '*.svg'
 	},
@@ -49,12 +56,13 @@ module.exports = {
 		src: 'node_modules',
 		dest: basePath + '/node_modules'
 	},
-	nodemon: {
-		script: basePath + '/server/server.js',
-		watch: [
-			basePath + '/server',
-			basePath + '/views',
-			basePath + '/config'
-		]
+	server: {
+		script: basePath + '/server/server.js'
+	},
+	config: {
+		path: 'config/',
+		exampleFile: 'localSettings.example.ts',
+		testFile: 'localSettings.test.ts',
+		runtimeFile: 'localSettings.ts'
 	}
 };

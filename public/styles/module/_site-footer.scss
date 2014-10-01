@@ -1,45 +1,37 @@
-$margin: 1rem;
-$hr-color: rgb(131,140,150);
-
 .wikia-footer {
 	@extend .row;
 	background-color: rgb(18, 49, 84);
 	color: white;
-	padding-bottom: 10rem;
+	padding-bottom: 2rem;
 
 	.ad-leaderboard {
-		margin: $margin;
+		margin: rem-calc(20);
 		height: 250px;
 		background-color: lavender;
 	}
 
 	ul {
+		@extend .type-smallest;
 		list-style: none;
-		margin: $margin;
+		margin: 0 rem-calc(20);
 		padding: 0;
 		line-height: 2rem;
 	}
 
 	li {
-		display: inline-block;
-
-		&:not(:last-of-type)::after {
-			content: '|';
-			padding: 5px;
-		}
-
 		a {
 			color: white;
 		}
-	}
 
-	hr {
-		background-color: $hr-color;
-		border: none;
-		height: 1px;
+		&.spaced {
+			margin-top: 2rem;
+		}
 	}
 
 	.logo {
-		margin: $margin;
+		margin: rem-calc(20);
+		margin-bottom: 0;
+		width: rem-calc(152);
+		height: rem-calc(42);
 	}
 }

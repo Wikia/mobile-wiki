@@ -1,7 +1,7 @@
 .icon {
 	&.chevron {
-		width: 12px;
-		height: 7px;
+		width: rem-calc(12);
+		height: rem-calc(7);
 	}
 
 	&.wikia-logo {
@@ -10,7 +10,32 @@
 	}
 
 	&.toc {
-		width: 18px;
-		height: 13px;
+		width: rem-calc(18);
+		height: rem-calc(13);
+	}
+
+	&.nav {
+		width: rem-calc(24);
+		height: rem-calc(14);
+	}
+
+	&.search {
+		width: rem-calc(14);
+		height: rem-calc(14);
+	}
+
+	&.search-side-menu {
+		width: rem-calc(13.5);
+		height: rem-calc(14);
+	}
+
+	&.close {
+		width: rem-calc(14);
+		height: rem-calc(14);
+	}
+
+	&.close-side-menu {
+		width: rem-calc(15);
+		height: rem-calc(15);
 	}
 }

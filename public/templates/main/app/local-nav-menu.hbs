@@ -1,0 +1,27 @@
+<ul>
+	<li class="title">
+		{{! This was not in the spec but I think it makes it more navigable to put the title
+		of the current section instead of 'Menu' just so the user knows where they are}}
+		{{#if parentItem}}
+			{{currentMenuItem.text}}
+		{{else}}
+			{{i18n 'side-nav-menu-label'}}
+		{{/if}}
+	</li>
+	{{#if parentItem}}
+		<li class="back" {{action 'goBack'}}>
+			{{svg "chevron" viewBox="0 0 12 7" class="icon chevron"}}
+			{{i18n 'navigation-back-label'}}
+		</li>
+	{{/if}}
+	{{#each currentMenuItem.children}}
+		{{#if children}}
+			<li {{action 'changeMenuItem' index on="mouseUp"}}> 
+				{{unbound text}}
+				{{svg "chevron" viewBox="0 0 12 7" class="icon chevron"}}
+			</li>
+		{{else}}
+			<a {{action 'collapseSideNav' target="view.parentView" on="mouseUp"}} href="{{unbound href}}"><li>{{unbound text}}</li></a>
+		{{/if}}
+	{{/each}}
+</ul>

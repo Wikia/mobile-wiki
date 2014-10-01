@@ -2,4 +2,4 @@
 
 'use strict';
 
-App.ArticleUsersController = Ember.ObjectController.extend({});
+App.ArticleUsersController = Em.ObjectController.extend({});

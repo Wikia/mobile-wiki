@@ -1,10 +1,12 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../../typings/bluebird/bluebird.d.ts" />
+
 /**
  * @description Article controller
  */
 import MediaWiki = require('../../lib/MediaWiki');
 import Promise = require('bluebird');
+import logger = require('../../lib/Logger');
 
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
@@ -12,79 +14,61 @@ import Promise = require('bluebird');
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
+ * @param request
+ * @param callback
+ * @param err
  */
-export function createFullArticle(getWikiInfo: boolean, data: any, callback: any, err: any) {
-	var article = new MediaWiki.ArticleRequest({
-		name: data.wikiName,
-		title: data.articleTitle
-	});
+export function createFullArticle(getWikiInfo: boolean, params: any, callback: any, err: any) {
+	var wikiRequest: MediaWiki.WikiRequest,
+		getVariablesRequest: Promise<any>,
+		article = new MediaWiki.ArticleRequest(params.wiki);
+
+	logger.info('Fetching article', params);
 
 	if (getWikiInfo) {
-		var wiki = new MediaWiki.WikiRequest({
-			name: data.wikiName
+		logger.info('Fetching wiki variables', params.wiki);
+
+		wikiRequest = new MediaWiki.WikiRequest({
+			name: params.wiki
 		});
+
+		getVariablesRequest = wikiRequest.getWikiVariables();
 	}
 
-	article.articleDetails()
+	article.fetch(params.title, params.redirect)
 		.then((response: any) => {
-			var articleDetails = response,
-				articleId;
+			var data = response.data;
 
-			if (Object.keys(articleDetails.items).length) {
-				articleId = Object.keys(articleDetails.items)[0];
-
-				var props = {
-					article: article.article(),
-					relatedPages: article.relatedPages([articleId]),
-					userData: article.getTopContributors(articleId).then((contributors: any) => {
-						return article.userDetails([contributors.items]).then((users) => {
-							return {
-								contributors: contributors,
-								users: users
-							};
-						});
-					}),
-					wiki: null
-				};
-
-				if (getWikiInfo) {
-					props.wiki = wiki.wikiNamespaces();
-				}
-
-				Promise.props(props)
-					.then((result: any) => {
-						var articleResponse = {
-							wikiName: data.wikiName,
-							articleTitle: data.articleTitle,
-							articleDetails: articleDetails.items[articleId],
-							contributors: result.userData.contributors,
-							userDetails: result.userData.users,
-							relatedPages: result.relatedPages,
-							payload: result.article.payload,
-							namespaces: null
-						};
-						if (getWikiInfo) {
-							articleResponse.namespaces = result.wiki.query.namespaces;
-						}
-						callback(articleResponse);
-					}).catch((error) => {
-						err(error);
-					});
-			} else {
+			if (!data) {
 				err(response);
+				return;
 			}
-		});
+
+			if (!getWikiInfo) {
+				callback(data);
+			} else {
+				getVariablesRequest
+					.then((response: any) => {
+						data.wiki = response.data;
+
+						callback(data);
+					})
+					.catch(err);
+			}
+		})
+		.catch(err);
 }
 
 export function handleRoute(request: Hapi.Request, reply: Function): void {
 	var data = {
 		wikiName: request.params.wikiName,
-		articleTitle: decodeURIComponent(request.params.articleTitle)
+		articleTitle: decodeURIComponent(request.params.articleTitle),
+		redirect: request.params.redirect
 	};
 
-	createFullArticle(false, data, (data) => {
+	createFullArticle(false, data, (data: any) => {
 		reply(data);
-	}, (error) => {
-			reply(error);
+	}, (error: any) => {
+		reply(error);
 	});
 }

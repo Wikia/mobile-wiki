@@ -1,0 +1,28 @@
+<div {{action 'expandSideNav' target="view"}} class="nav-container">
+	{{svg "nav" viewBox="0 0 24 14" class="icon nav"}}
+</div>
+{{! Overlay that fades in}}
+<div {{action 'collapseSideNav' target="view"}} class="overlay"></div>
+{{! 
+	This is the element that is slid away
+	If this element has search class, the elements in it will rearrange to be in search mode or whatever
+}}
+<div {{bind-attr class=":drawer controller.isInSearchMode:search"}}>
+	<div class="search-container">
+		{{input placeholder="Search" focus-in="searchFocus" value=controllers.localWikiaSearch.query}}
+		{{! add action on this svg too because it's stacked on top of the input area}}
+		<svg {{action 'searchFocus'}} viewBox="0 0 14 14" class="icon search-side-menu">
+			<use xlink:href="#search-side-menu"></use>
+		</svg>
+		<div class="clear-search-btn" {{action 'clearSearch' target="view"}}>
+			<svg {{action 'clearSearch' target="view"}} viewbox="0 0 18 18" class="icon close-side-menu">
+				<use xlink:href="#close-side-menu"></use>
+			</svg>
+		</div>
+		<div {{action 'searchCancel'}} class='cancel'>Cancel</div>
+	</div>
+	{{! Search results get put here}}
+	{{render "localWikiaSearch" controller='localWikiaSearch'}}
+	{{! Here goes the local Wikia navigation menu content. }}
+	{{render "localNavMenu" localNavMenu}}
+</div>

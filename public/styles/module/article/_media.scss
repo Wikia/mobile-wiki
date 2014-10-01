@@ -1,3 +1,56 @@
-.article-media {
-	display: block;
+.media-component {
+	margin: 40px 0;
+	text-align: center;
+
+	img {
+		background: {
+			color: rgb(223,223,223);
+			image: url('../svg/brackets.svg');
+			position: center;
+			repeat: no-repeat;
+			size: contain;
+		}
+		display: inline-block;
+		width: 100%;
+	}
+
+	&.visible {
+		img {
+			animation: lazyImage .3s;
+			background: none;
+			height: auto;
+			width: auto;
+		}
+	}
+}
+
+figcaption {
+	color: #999;
+	margin: 5px 0;
+	pointer-events: none;
+	text-align: left;
+}
+
+.article-gallery {
+	-webkit-overflow-scrolling: touch;
+	overflow: {
+		x: scroll;
+		y: hidden;
+	}
+	white-space: nowrap;
+
+	img {
+		height: 195px;
+		margin-right: 8px;
+		width: 195px;
+	}
+}
+
+@keyframes lazyImage {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }

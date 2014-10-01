@@ -6,10 +6,10 @@
 		<span class="username"><a href="{{unbound url}}">{{userName}}</a></span>
 		{{{text}}}
 		{{#if comments}}
-			{{#view App.LoadReplyBtnView}}
-				{{i18n 'article-replies-label' count=comments.length}}
-			{{/view}}
-			<ul {{bind-attr class="expanded:expanded"}}>
+			<button class="show-reply-btn" {{action 'toggleExpand'}}>
+				{{i18n 'article-replies-label' count='comments.length'}}
+			</button>
+			<ul {{bind-attr class="expanded"}}>
 			{{#each comments itemController="articleComment"}}
 				{{view App.ArticleCommentView}}
 			{{/each}}

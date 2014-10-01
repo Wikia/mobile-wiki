@@ -1,7 +1,8 @@
-{{#ad-leaderboard}}Bottom ad{{/ad-leaderboard}}
-<hr />
-<div class="logo">Wikia</div>
+{{svg "wikia-logo-white" viewBox="0 0 152 42" role="img" class="logo"}}
 <ul class="footer-links">
-	{{#each links}}
+	{{#each link in links}}
+		<li class='{{unbound link.className}}'>
+			<a href='{{unbound link.href}}'>{{i18n link.text}}</a>
+		</li>
 	{{/each}}
 </ul>

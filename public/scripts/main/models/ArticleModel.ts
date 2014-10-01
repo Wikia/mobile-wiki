@@ -2,32 +2,30 @@
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
-	payload: {
-		article: string;
-		user: any;
-		media: any[];
-		users: any[];
-		categories: any[];
-	};
-	articleTitle: string;
-	articleDetails: {
-		revision: {
-			timestamp: number;
+	data: {
+		details: {
+			revision: {
+				timestamp: number;
+			};
+			comments: any;
+			id: number;
+			ns: string;
+			title: string;
 		};
-		comments: any;
-		id: number;
-		ns: string;
-		title: string;
-	};
-	relatedPages: {
-		items: any[];
-	};
-	userDetails: {
-		items: any[];
+		article: {
+			content: string;
+			user: any;
+			media: any[];
+			users: any[];
+			categories: any[];
+		};
+		relatedPages: any[];
+		userDetails: any[];
+		topContributors: any[];
 	};
 }
 
-App.ArticleModel = Ember.Object.extend({
+App.ArticleModel = Em.Object.extend({
 	article: null,
 	categories: [],
 	cleanTitle: null,
@@ -42,10 +40,17 @@ App.ArticleModel = Ember.Object.extend({
 });
 
 App.ArticleModel.reopenClass({
-	url: function (params) {
-		return '/api/v1/article/' + params.title;
+	url: function (params: {title: string; redirect?: string}) {
+		var redirect = '';
+
+		if (params.redirect) {
+			redirect += '?redirect=' + encodeURIComponent(params.redirect);
+		}
+
+		return App.get('apiBase') +'/article/' + params.title + redirect;
 	},
-	find: function (params) {
+
+	find: function (params: {wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params),
 			self = this;
 
@@ -57,8 +62,8 @@ App.ArticleModel.reopenClass({
 			return model;
 		}
 
-		return new Ember.RSVP.Promise(function (resolve, reject) {
-			Ember.$.ajax({
+		return new Em.RSVP.Promise(function (resolve: Function, reject: Function) {
+			Em.$.ajax({
 				url: self.url(params),
 				dataType: 'json',
 				async: false,
@@ -72,34 +77,39 @@ App.ArticleModel.reopenClass({
 			});
 		});
 	},
+
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;
 		return Wikia.article;
 	},
-	setArticle: function (model, source = this.getPreloadedData()) {
-		model.set('type', source.articleDetails.ns);
-		model.set('cleanTitle', source.articleDetails.title);
-		model.set('comments', source.articleDetails.comments);
-		model.set('id', source.articleDetails.id);
-		model.set('article', source.payload.article || $('.article-content').html());
-		model.set('media', source.payload.media);
-		model.set('mediaUsers', source.payload.users);
-		model.set('user', source.payload.user);
-		model.set('categories', source.payload.categories);
 
-		/**
-		 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
-		 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
-		 * to handle this and never return malformed structures.
-		 */
-		model.set('relatedPages',
-			source.relatedPages.hasOwnProperty('items') ?
-			source.relatedPages.items[source.articleDetails.id] :
-			[]
-		);
+	setArticle: function (model: Em.Object, source = this.getPreloadedData()) {
+		model.setProperties({
+			type: source.details.ns,
+			cleanTitle: source.details.title,
+			comments: source.details.comments,
+			id: source.details.id,
+			article: source.article.content || $('.article-content').html(),
+			mediaUsers: source.article.users,
+			media: App.MediaModel.create({
+				media: source.article.media
+			}),
+			user: source.details.revision.user_id,
+			categories: source.article.categories,
+			adsContext: source.adsContext,
 
-		// Same issue: the response to the ajax should always be valid and not undefined
-		model.set('users', source.userDetails.items || []);
-		model.set('basepath', source.userDetails.basepath);
+			/**
+			 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
+			 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
+			 * to handle this and never return malformed structures.
+			 */
+			relatedPages: source.relatedPages,
+
+			// Same issue: the response to the ajax should always be valid and not undefined
+			users: source.topContributors,
+			basepath: source.basePath
+		});
+
+		Em.Logger.debug(model);
 	}
 });

@@ -1,3 +1,4 @@
+// Styles for the "Read More" section at the bottom of articles
 .content-recommendations {
 	clear: both;
 	padding: rem-calc(40) rem-calc(20);
@@ -10,40 +11,39 @@
 		padding-bottom: 20px;
 	}
 
+	.visible {
+		img {
+			width: 100%;
+		}
+	}
+
 	ul {
 		@extend %list-reset;
 
-		li {
-			margin-bottom: 1rem;
-			background-color: white;
-			position: relative;
+		a {
 			display: block;
-
-			a {
-				display: block;
-			}
+			position: relative;
 		}
 
-		.overlay {
+		figure::after {
 			@include perfect-square(100%);
+			content: '';
 			background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
+			top: 0;
+			left: 0;
 			position: absolute;
-			pointer-events: none;
 		}
 
-		.thumbnail {
-			background-color: #ddd;
-			height: 150px;
-		}
-
-		.title {
-			font-size: 13px;
+		figcaption {
+			font-size: .9rem;
 			font-weight: bold;
 			padding: 1rem;
 			color: white;
-			position: absolute;
 			bottom: 0;
 			left: 0;
+			position: absolute;
+			pointer-events: none;
+			z-index: 1;
 		}
 	}
 }

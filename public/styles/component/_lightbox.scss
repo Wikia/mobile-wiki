@@ -1,0 +1,105 @@
+$modal-background: #3D3D3D;
+$modal-text-color: white;
+
+.lightbox-wrapper {
+	-webkit-tap-highlight-color: transparent;
+	bottom: 0;
+	color: $modal-text-color;
+	font-size: 0.8rem;
+	left: 0;
+	overflow: hidden;
+	position: fixed;
+	right: 0;
+	top: 0;
+	transition: opacity .3s;
+
+	&.opening {
+		opacity: 0;
+	}
+
+	&.open {
+		opacity: 1;
+	}
+
+	&:focus {
+		outline: 0;
+	}
+}
+
+.lightbox-header {
+	height: 40px;
+	line-height: 15px;
+	padding: 15px 13px;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+}
+
+.lightbox-close-button {
+	height: 45px;
+	padding: 13px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 40px;
+}
+
+.lightbox-content-inner {
+	height: 100%;
+	width: 100%;
+}
+
+.lightbox-content {
+	background-color: $modal-background;
+	height: 100%;
+	width: 100%;
+
+	overflow: hidden;
+
+	& > p {
+		margin: 0;
+	}
+
+	img {
+		width: 100%;
+		opacity: 0;
+		transition: .01s opacity .3s;
+
+		.open & {
+			opacity: 1;
+		}
+	}
+}
+
+.lightbox-footer {
+	background-color: rgba(black, 0.8);
+	bottom: 0;
+	font-weight: 300;
+	height: auto;
+	left: 0;
+	line-height: 1rem;
+	max-height: 4rem;
+	padding: 15px 13px;
+	position: absolute;
+	width: 100%;
+
+	&::after {
+		background: linear-gradient(top, transparent 10%, black 100%);
+		bottom: 0;
+		content: '';
+		display: block;
+		height: 15px;
+		left: 0;
+		position: absolute;
+		right: 0;
+	}
+
+	//caption is an output from parser
+	p {
+		margin: 0;
+	}
+}
+
+.lightbox-footer-expanded {
+	max-height: none;
+}

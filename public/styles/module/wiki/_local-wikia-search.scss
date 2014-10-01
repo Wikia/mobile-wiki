@@ -1,0 +1,29 @@
+.local-wikia-search {
+	bottom: 0;
+	overflow: auto;
+	position: absolute;
+	top: rem-calc(45);
+	visibility: hidden;
+	// For iOS devices
+	-webkit-overflow-scrolling: touch;
+	width: 100%;
+
+	li {
+		border-bottom: rem-calc(1) solid #d0d0d0;
+		color: #333333;
+		font-weight: normal;
+		list-style: none;
+		padding: rem-calc(10) $side-nav-item-gutter;
+		position: relative;
+		text-align: left;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+&.search .local-wikia-search {
+	visibility: visible;
+}

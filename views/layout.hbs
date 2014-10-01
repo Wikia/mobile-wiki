@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{article.cleanTitle}} - {{wiki}} wiki</title>
+		<title>{{article.cleanTitle}} - {{siteName}}</title>
 		<meta name="description" content="{{article.description}}">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 
-        <!-- build:css /public/styles/app.css -->
+		<!-- build:css /public/styles/app.css -->
 		<link rel="stylesheet" href="/public/styles/app.css">
 		<!-- endbuild -->
 
@@ -17,42 +17,63 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			Wikia.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
-			Wikia.provide('_state.firstPage', true);
+			W.provide('_t.{{#if language}}{{language}}{{else}}en{{/if}}', {{{translations language}}});
+			W.provide('_state.firstPage', true);
+			W.provide('ads.slots', []);
 			{{#if articleJson}}
-				Wikia.provide('article', {{{articleJson}}});
-				Wikia.provide('wiki.namespaces', {{{namespaces}}});
+				W.provide('article', {{{articleJson}}});
+				W.provide('wiki', {{{wikiJson}}});
+				W.provide('apiBase', '{{{apiBase}}}');
 			{{else}}
-				Wikia.provide('article', {});
-				Wikia.provide('error.message', '{{output.payload.message}}');
-				Wikia.provide('error.status', '{{output.payload.statusCode}}');
-				Wikia.provide('error.error', '{{output.payload.error}}');
+				W.provide('article', {});
+				W.provide('error.message', '{{output.payload.message}}');
+				W.provide('error.status', '{{output.payload.statusCode}}');
+				W.provide('error.error', '{{output.payload.error}}');
 			{{/if}}
 		</script>
 
-		<!-- @if WIKIA_ENVIRONMENT='dev' -->
+		<!-- Google Analytics -->
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			// staging GA id
+			ga('create', '{{gaId}}', 'auto');
+			ga('send', 'pageview');
+		</script>
+		<!-- End Google Analytics -->
+
+		<!-- @ifdef browserSync -->
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
 
-		<div id="app-container" class="app-container">
+		<div id="article-preload">
 			{{{content}}}
 		</div>
 
-        <!-- build:js /public/vendor/main.js -->
+		<!-- build:js /public/vendor/main.js -->
+			<script src="/public/vendor/script.js/dist/script.js"></script>
 			<script src="/public/vendor/jquery/dist/jquery.js"></script>
+			<script src="/public/vendor/hammerjs/hammer.js"></script>
 			<script src="/public/vendor/handlebars/handlebars.runtime.js"></script>
 			<script src="/public/vendor/ember/ember.js"></script>
+			<script src="/public/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/public/vendor/i18next/i18next.js"></script>
-        <!-- @if WIKIA_ENVIRONMENT='production' -->
-        <!-- @endif -->
-        <!-- endbuild -->
+		<!-- @if WIKIA_ENVIRONMENT='production' -->
+		<!-- @endif -->
+		<!-- endbuild -->
 
-        <!-- build:js /public/scripts/combined.js -->
+		<!-- build:js /public/scripts/combined.js -->
 			<script src="/public/templates/main.js"></script>
+			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
-        <!-- endbuild -->
+		<!-- endbuild -->
+
+		<script async src="{{mediawikiDomain}}__am/{{cacheBuster}}/groups/-/mercury_ads_js"></script>
 	</body>
 </html>

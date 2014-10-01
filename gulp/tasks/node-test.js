@@ -1,18 +1,21 @@
 var spawn = require('child_process').spawn,
 	path = require('path'),
-	gulp = require('gulp');
+	gulp = require('gulp'),
+	gutil = require('gulp-util');
 
-gulp.task('node-test', ['scripts-back'], function () {
+gulp.task('node-test', function () {
 	var child = spawn('node', [path.resolve(__dirname, '../../test/node-qunit.runner.js')], {stdio: 'inherit'});
 
-	if (gulp.env.action && gulp.env.action === 'watch') {
+	if (gutil.env.action && gutil.env.action === 'watch') {
 		gulp.start('node-test-watch');
-		gulp.env.action = 'watching';
+		gutil.env.action = 'watching';
 	}
 
-	if (gulp.env.action !== 'watch' || gulp.env.action !== 'watching') {
+	if (gutil.env.action !== 'watch' || gutil.env.action !== 'watching') {
 		child.on('exit', function(exitCode) {
-			process.exit(exitCode);
+			if (exitCode) {
+				throw 'Tests failed';
+			}
 		});
 	}
 });
