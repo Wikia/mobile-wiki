@@ -22,11 +22,11 @@
 			W.provide('_t.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
 			W.provide('_state.firstPage', true);
 			W.provide('ads.slots', []);
-            W.provide('apiBase', '{{{server.apiBase}}}');
-            W.provide('wiki', {{{wiki.json}}});
-            W.provide('article', {{{article.json}}});
+			W.provide('apiBase', '{{{server.apiBase}}}');
+			W.provide('wiki', {{{wiki.json}}});
+			W.provide('article', {{{article.json}}});
 			{{#if error}}
-            W.provide('article.error', {{{error}}});
+			W.provide('article.error', {{{error}}});
 			{{/if}}
 		</script>
 
