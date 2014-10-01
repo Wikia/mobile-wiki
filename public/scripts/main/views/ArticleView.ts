@@ -139,7 +139,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.get('controller').send('articleRendered');
 	},
 	wrapTablesInScrollingDivs: function () {
-		var tableContainer = this.createChildView('ArticleTableContainer');
+		var tableContainer = App.ArticleTableComponent.create();
 		tableContainer.createElement();
 		this.$('table').wrap(tableContainer.$()[0].outerHTML)
 	}
