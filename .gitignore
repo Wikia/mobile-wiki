@@ -1,5 +1,6 @@
 /* Misc Files */
 .DS_Store
+.sass-cache
 
 /* Editor Files */
 *.sw[a-z]

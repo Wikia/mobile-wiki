@@ -73,12 +73,6 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
-	sanitizeTitle: function (title: string) {
-		return decodeURIComponent(title)
-			.replace(/\s+/g, ' ')
-			.replace(/_/g, ' ');
-	},
-
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;
 		return Wikia.article;
@@ -100,7 +94,7 @@ App.ArticleModel.reopenClass({
 
 				data = $.extend(data, {
 					ns: details.ns,
-					cleanTitle: this.sanitizeTitle(details.title),
+					cleanTitle: Wikia.Title.sanitize(details.title),
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id
