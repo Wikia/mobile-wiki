@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	ts = require('gulp-type'),
+	ts = require('gulp-typescript'),
 	folders = require('gulp-folders'),
 	paths = require('../paths').scripts.front,
 	path = require('path');
