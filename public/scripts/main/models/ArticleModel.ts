@@ -60,7 +60,7 @@ App.ArticleModel.reopenClass({
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
-				url: self.url(params),
+				url: this.url(params),
 				dataType: 'json',
 				success: (data) => {
 					this.setArticle(model, data);
