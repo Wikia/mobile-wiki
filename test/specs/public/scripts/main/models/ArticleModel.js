@@ -11,15 +11,15 @@ moduleFor('model:article', 'Article Model', {
 					comments: 123,
 					id: exampleArticleID,
 					ns: 'namespace',
-					title: 'sample title'
+					title: 'sampleTitle'
 				},
 				article: {
-					content: 'Test content',
+					content: 'TestContent',
 					categories: 'test',
 					users: 'test'
 				},
-				relatedPages: ['an item', 'another item'],
-				userDetails: ['some item', 'yet one more']
+				relatedPages: ['anItem', 'anotherItem'],
+				userDetails: ['someItem', 'yetOneMore']
 			});
 
 		this.wikiExample = {
