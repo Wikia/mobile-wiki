@@ -14,7 +14,9 @@ moduleFor('model:article', 'Article Model', {
 					title: 'sample title'
 				},
 				article: {
-					content: 'Test content'
+					content: 'Test content',
+					categories: 'test',
+					users: 'test'
 				},
 				relatedPages: ['an item', 'another item'],
 				userDetails: ['some item', 'yet one more']
@@ -51,7 +53,6 @@ test('ArticleModel RESTful URL tests', function () {
 });
 
 test('getPreloadedData', function () {
-	expect(2);
 	// Already run in wikiaBaseline and the startup callback:
 	// Wikia._state.firstPage = true;
 	// Wikia.article = this.example;
@@ -62,7 +63,6 @@ test('getPreloadedData', function () {
 
 test('setArticle with preloaded data', function () {
 	// Note: data preloaded in setup callback
-	expect(10);
 	var model = this.subject();
 	App.ArticleModel.setArticle(model);
 	// Necessary to set context
@@ -70,7 +70,6 @@ test('setArticle with preloaded data', function () {
 });
 
 test('setArticle with parametrized data', function () {
-	expect(10);
 	var model = this.subject();
 	App.ArticleModel.setArticle(model, this.example);
 	verifyArticle(model, this.example);
@@ -78,7 +77,6 @@ test('setArticle with parametrized data', function () {
 
 test('find with preloaded data', function () {
 	var model, params;
-	expect(12);
 
 	params = {
 		wiki: 'wiki',
@@ -99,7 +97,7 @@ test('find with preloaded data', function () {
  * @param {example} The reference data
  */
 function verifyArticle (model, example) {
-	equal(model.get('type'),
+	equal(model.get('ns'),
 		example.details.ns,
 		'expected namespace=' + example.details.ns + ', got ' + model.get('type'));
 	equal(model.get('cleanTitle'),
@@ -126,5 +124,4 @@ function verifyArticle (model, example) {
 	deepEqual(model.get('relatedPages'),
 		example.relatedPages,
 		'correction ingested related pages');
-	deepEqual(model.users, example.details.items, 'correctly ingested user items');
 }
