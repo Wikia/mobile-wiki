@@ -9,6 +9,10 @@ interface HeadersFromDom {
 	id?: string;
 }
 
+interface DOMStringMap {
+	ref: string;
+}
+
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
@@ -138,9 +142,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	didInsertElement: function () {
 		this.get('controller').send('articleRendered');
 	},
-	wrapTablesInScrollingDivs: function () {
+	wrapTablesInScrollingDivs: function (): void {
 		var tableContainer = App.ArticleTableComponent.create();
 		tableContainer.createElement();
-		this.$('table').wrap(tableContainer.$()[0].outerHTML)
+		this.$('table:not(.infobox, .dirbox)')
+			.wrap(tableContainer.$()[0].outerHTML)
+			.css('visibility', 'visible');
 	}
 });

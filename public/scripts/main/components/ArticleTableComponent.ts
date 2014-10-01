@@ -2,5 +2,5 @@
 'use strict';
 
 App.ArticleTableComponent = Em.View.extend({
-	classNames: ['article-table']
+	classNames: ['article-table'],
 });
