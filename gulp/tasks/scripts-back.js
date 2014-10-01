@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	ts = require('gulp-type'),
+	ts = require('gulp-typescript'),
 	changed = require('gulp-changed'),
 	options = require('../options').scripts.back,
 	paths = require('../paths').scripts.back,
