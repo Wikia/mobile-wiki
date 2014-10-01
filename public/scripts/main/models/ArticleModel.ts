@@ -54,8 +54,7 @@ App.ArticleModel.reopenClass({
 		var model = App.ArticleModel.create(params),
 			self = this;
 
-		model.set('wiki', params.wiki);
-		model.set('title', params.title);
+		model.setProperties(params);
 
 		if (Wikia._state.firstPage) {
 			this.setArticle(model);
@@ -66,7 +65,6 @@ App.ArticleModel.reopenClass({
 			Em.$.ajax({
 				url: self.url(params),
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					self.setArticle(model, data);
 					resolve(model);

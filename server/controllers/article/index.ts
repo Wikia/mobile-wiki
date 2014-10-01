@@ -50,7 +50,7 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		redirect: request.params.redirect
 	};
 
-	createFullArticle(false, data, (error: any, article: any, wiki: any) => {
-		reply(data);
+	createFullArticle(false, data, (error: any, article: any) => {
+		reply(error || article);
 	});
 }

@@ -100,10 +100,6 @@ function routes(server: Hapi.Server) {
 			};
 
 			server.methods.getArticleData(params, (error: any, result: any) => {
-				// TODO: handle error a bit better :D
-				if (error) {
-					error = Hapi.error.notFound(notFoundError);
-				}
 				reply(error || result);
 			});
 		}

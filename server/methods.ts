@@ -27,10 +27,8 @@ function methods(server: Hapi.Server): void {
 	server.method('getPrerenderedData', indexController, cacheOptions);
 
 	server.method('getArticleData', (params: any, next: Function) => {
-		article.createFullArticle(false, params, (data: any) => {
-			next(null, data);
-		}, (err: any) => {
-			next(err);
+		article.createFullArticle(false, params, (error: any, article: any) => {
+			next(error, article);
 		});
 	}, cacheOptions);
 
