@@ -19,23 +19,9 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
-	/**
-	 * We need to support links like:
-	 * /wiki/Rachel Berry
-	 * /wiki/Rachel  Berry
-	 * /wiki/Rachel__Berry
-	 *
-	 * but we want them to be displayed normalized in URL bar
-	 */
-	sanitizeURL: function (path: string = '') {
-		return decodeURIComponent(path)
-			.replace(/\s/g, '_')
-			.replace(/_+/g, '_');
-	},
-
 	model: function (params: any) {
 		return App.ArticleModel.find({
-			title: this.sanitizeURL(params.title),
+			title: Wikia.Title.sanitize(params.title),
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},

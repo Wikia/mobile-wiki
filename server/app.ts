@@ -4,6 +4,7 @@
 
 import hapi = require('hapi');
 import path = require('path');
+import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
 
@@ -39,6 +40,8 @@ class App {
 				}
 			}
 		});
+
+		this.setupLogging(server);
 
 		server.ext('onPreResponse', this.onPreResponseHandler);
 
@@ -86,7 +89,7 @@ class App {
 			return cache;
 		}
 		// Fallback to memory
-		logger.warning('No cache settings found. Falling back to memory');
+		logger.warn('No cache settings found. Falling back to memory');
 		return {
 			name: 'appcache',
 			engine: require('catbox-memory')
@@ -106,6 +109,33 @@ class App {
 			response.header('X-Backend-Response-Time', responseTimeSec.toFixed(3));
 		}
 		next();
+	}
+
+	private setupLogging(server: Hapi.Server): void {
+
+		server.on('log', (event: any, tags: Array<string>) => {
+			logger.info('Log', {
+				data: event.data,
+				tags: tags
+			})
+		});
+
+		server.on('internalError', (request: Hapi.Request, err: Error) => {
+			logger.error('Internal error', {
+				text: err.message,
+				url: url.format(request.url),
+				host: request.headers.host
+			});
+		});
+
+		server.on('response', (request: Hapi.Request) => {
+			logger.debug('Response', {
+				host: request.headers.host,
+				url: url.format(request.url),
+				code: (<Hapi.Response>request.response).statusCode,
+				responseTime: parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
+			});
+		});
 	}
 }
 

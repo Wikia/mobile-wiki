@@ -14,7 +14,7 @@ gulp.task('watch', ['build'], function () {
 	if (!gutil.env.nosync) {
 		browserSync({
 			ghostMode: false,
-			debugInfo: false,
+			logLevel: 'silent',
 			reloadDelay: 300,
 			open: false
 		});
@@ -64,7 +64,7 @@ gulp.task('watch', ['build'], function () {
 		if (!backEndChanges) {
 			backEndChanges = true;
 
-			server.changed(function(){
+			server.changed(function () {
 				log('Reloading browser');
 
 				reload();

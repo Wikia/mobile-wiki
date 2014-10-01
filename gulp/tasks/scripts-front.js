@@ -2,7 +2,7 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
-	ts = require('gulp-type'),
+	ts = require('gulp-typescript'),
 	newer = require('gulp-newer'),
 	concat = require('gulp-concat'),
 	environment = require('../utils/environment'),
@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
 	//we need project per folder
-	if ( !tsProjects[folder] ) {
+	if (!tsProjects[folder]) {
 		tsProjects[folder] = ts.createProject(options);
 	}
 

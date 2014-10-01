@@ -51,27 +51,22 @@ App.ArticleModel.reopenClass({
 	},
 
 	find: function (params: {wiki: string; title: string; redirect?: string}) {
-		var model = App.ArticleModel.create(params),
-			self = this;
-
-		model.set('wiki', params.wiki);
-		model.set('title', params.title);
+		var model = App.ArticleModel.create(params);
 
 		if (Wikia._state.firstPage) {
 			this.setArticle(model);
 			return model;
 		}
 
-		return new Em.RSVP.Promise(function (resolve: Function, reject: Function) {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
-				url: self.url(params),
+				url: this.url(params),
 				dataType: 'json',
-				async: false,
-				success: function (data) {
-					self.setArticle(model, data);
+				success: (data) => {
+					this.setArticle(model, data);
 					resolve(model);
 				},
-				error: function (err) {
+				error: (err) => {
 					reject($.extend(err, model));
 				}
 			});
@@ -84,32 +79,60 @@ App.ArticleModel.reopenClass({
 	},
 
 	setArticle: function (model: Em.Object, source = this.getPreloadedData()) {
-		model.setProperties({
-			type: source.details.ns,
-			cleanTitle: source.details.title,
-			comments: source.details.comments,
-			id: source.details.id,
-			article: source.article.content || $('.article-content').html(),
-			mediaUsers: source.article.users,
-			media: App.MediaModel.create({
-				media: source.article.media
-			}),
-			user: source.details.revision.user_id,
-			categories: source.article.categories,
-			adsContext: source.adsContext,
+		var data: any = {};
 
-			/**
-			 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
-			 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
-			 * to handle this and never return malformed structures.
-			 */
-			relatedPages: source.relatedPages,
+		if (source.error) {
+			var error = source.error;
 
-			// Same issue: the response to the ajax should always be valid and not undefined
-			users: source.topContributors,
-			basepath: source.basePath
-		});
+			data = {
+				article: error.details,
+				cleanTitle: error.message
+			}
+		} else if (source) {
+			if (source.details) {
+				var details = source.details;
 
-		Em.Logger.debug(model);
+				data = $.extend(data, {
+					ns: details.ns,
+					cleanTitle: Wikia.Title.sanitize(details.title),
+					comments: details.comments,
+					id: details.id,
+					user: details.revision.user_id
+				})
+			}
+
+			if (source.article) {
+				var article = source.article;
+
+				data = $.extend(data, {
+					article: article.content || $('.article-content').html(),
+					mediaUsers: article.users,
+					media: App.MediaModel.create({
+						media: article.media
+					}),
+					categories: article.categories
+				})
+			}
+
+			if (source.relatedPages) {
+				/**
+				 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
+				 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
+				 * to handle this and never return malformed structures.
+				 */
+				data.relatedPages = source.relatedPages;
+			}
+
+			if (source.adsContext) {
+				data.adsContext = source.adsContext;
+			}
+
+			if (source.topContributors) {
+				// Same issue: the response to the ajax should always be valid and not undefined
+				data.users = source.topContributors;
+			}
+		}
+
+		model.setProperties(data);
 	}
 });

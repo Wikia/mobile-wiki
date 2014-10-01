@@ -1,11 +1,16 @@
+.media-lightbox {
+	z-index: $z-1;
+}
+
 .lightbox-content-inner {
-	display: flex;
 	align-items: center;
+	display: flex;
 	justify-content: center;
+	z-index: $z-1;
 }
 
 .animated-media {
 	height: auto;
-	transition: all .3s;
 	position: fixed;
+	transition: all .3s;
 }

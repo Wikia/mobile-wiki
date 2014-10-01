@@ -27,7 +27,12 @@ var localSettings: LocalSettings = {
 	proxyMaxRedirects: 3,
 	wikiFallback: 'glee',
 	apiBase: '/api/v1',
-	workerDisconnectTimeout: 3000
+	workerDisconnectTimeout: 3000,
+	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
+	// The value represent the minimum logging level
+	loggers: {
+		syslog: 'debug'
+	}
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

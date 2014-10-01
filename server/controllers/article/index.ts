@@ -8,55 +8,39 @@ import MediaWiki = require('../../lib/MediaWiki');
 import Promise = require('bluebird');
 import logger = require('../../lib/Logger');
 
+
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
- * @param request
+ * @param params
  * @param callback
  * @param err
  */
-export function createFullArticle(getWikiInfo: boolean, params: any, callback: any, err: any) {
-	var wikiRequest: MediaWiki.WikiRequest,
-		getVariablesRequest: Promise<any>,
-		article = new MediaWiki.ArticleRequest(params.wiki);
+export function createFullArticle(getWikiInfo: boolean, params: any, callback: any) {
+	var requests = [
+			new MediaWiki.ArticleRequest(params.wiki).fetch(params.title, params.redirect)
+		];
 
 	logger.info('Fetching article', params);
 
 	if (getWikiInfo) {
 		logger.info('Fetching wiki variables', params.wiki);
 
-		wikiRequest = new MediaWiki.WikiRequest({
+		requests.push(new MediaWiki.WikiRequest({
 			name: params.wiki
-		});
-
-		getVariablesRequest = wikiRequest.getWikiVariables();
+		}).getWikiVariables());
 	}
 
-	article.fetch(params.title, params.redirect)
-		.then((response: any) => {
-			var data = response.data;
-
-			if (!data) {
-				err(response);
-				return;
-			}
-
-			if (!getWikiInfo) {
-				callback(data);
-			} else {
-				getVariablesRequest
-					.then((response: any) => {
-						data.wiki = response.data;
-
-						callback(data);
-					})
-					.catch(err);
-			}
+	Promise.all(requests)
+		.spread((article: any, wiki: any = {}) => {
+			callback(article.exception, article.data, wiki.data);
 		})
-		.catch(err);
+		.catch((error: any) => {
+			callback(error);
+		});
 }
 
 export function handleRoute(request: Hapi.Request, reply: Function): void {
@@ -66,9 +50,7 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		redirect: request.params.redirect
 	};
 
-	createFullArticle(false, data, (data: any) => {
-		reply(data);
-	}, (error: any) => {
-		reply(error);
+	createFullArticle(false, data, (error: any, article: any) => {
+		reply(error || article);
 	});
 }

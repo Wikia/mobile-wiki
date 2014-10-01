@@ -5,7 +5,10 @@
 import baseLocalSettings = require('./localSettings.base');
 
 var localSettings = baseLocalSettings.getSettings({
-	mediawikiHost: 'kenneth'
+	mediawikiHost: 'kenneth',
+	loggers: {
+		default: 'info'
+	}
 });
 
 export = localSettings;

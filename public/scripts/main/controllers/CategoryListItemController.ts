@@ -2,7 +2,6 @@
 'use strict';
 App.CategoryListItemController = Em.ObjectController.extend({
 	cleanTitle: function () {
-		return this.get('title').toString().replace(/_/gi, ' ');
+		return Wikia.Title.normalize(this.get('title').toString());
 	}.property('title')
 });
-

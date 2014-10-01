@@ -21,15 +21,18 @@
   "private": true,
   "dependencies": {
     "bluebird": "^2.3.2",
+    "bunyan": "^1.1.3",
+    "bunyan-syslog": "^0.2.2",
     "catbox": "^3.4.2",
+    "catbox-memcached": "~1.0.3",
     "catbox-memory": "^1.1.0",
     "handlebars": "2.x.x",
     "hapi": "6.x.x",
-    "catbox-memcached": "~1.0.3",
     "wreck": "^5.0.1"
   },
   "devDependencies": {
     "browser-sync": "1.5.1",
+    "bunyan-prettystream": "^0.1.3",
     "ember-handlebars": "^1.2.0",
     "ember-qunit": "0.1.x",
     "glob": "^4.0.6",
@@ -56,7 +59,7 @@
     "gulp-sass": "1.x.x",
     "gulp-svg-symbols": "0.x.x",
     "gulp-tslint": "1.x.x",
-    "gulp-type": "^0.3.0",
+    "gulp-typescript": "^2.0.0",
     "gulp-uglify": "1.x.x",
     "gulp-useref": "1.x.x",
     "gulp-util": "3.x.x",
