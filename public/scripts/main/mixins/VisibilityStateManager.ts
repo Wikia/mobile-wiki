@@ -32,7 +32,7 @@ App.VisibilityStateManager = Em.Object.create({
 	check: function () {
 		var components = this.components,
 			i = components.length,
-			component: Em.Component,
+			component: any,
 			// in IE10 window.scrollY doesn't work
 			// but window.pageYOffset is basically the same
 			// https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
