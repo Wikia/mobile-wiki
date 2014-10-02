@@ -7,17 +7,6 @@
 }
 
 .mobile-in-content, .mobile-prefooter {
-	padding: 10px 0;
 	margin: 10px 0;
-}
-
-//This ad is inside article-body and we want it full width
-.mobile-in-content {
-	height: 270px;
-
-	.ad-slot {
-		position: absolute;
-		left: 0;
-		right: 0;
-	}
+	padding: 10px 0;
 }

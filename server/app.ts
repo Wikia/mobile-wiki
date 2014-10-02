@@ -52,7 +52,7 @@ class App {
 		require('./routes')(server);
 
 		server.start(function() {
-			logger.info('Server started', process.pid, 'at: ' + server.info.uri);
+			logger.info({url: server.info.uri}, 'Server started');
 			process.send('Server started');
 		});
 
@@ -67,11 +67,11 @@ class App {
 		});
 
 		process.on('message', function(msg: string) {
-			if(msg === 'shutdown') {
+			if (msg === 'shutdown') {
 				server.stop({
 					timeout: localSettings.workerDisconnectTimeout
 				}, function() {
-					logger.info('stopped', process.pid);
+					logger.info('Server stopped');
 				});
 			}
 		});
@@ -114,27 +114,27 @@ class App {
 	private setupLogging(server: Hapi.Server): void {
 
 		server.on('log', (event: any, tags: Array<string>) => {
-			logger.info('Log', {
+			logger.info({
 				data: event.data,
 				tags: tags
-			})
+			}, 'Log');
 		});
 
 		server.on('internalError', (request: Hapi.Request, err: Error) => {
-			logger.error('Internal error', {
+			logger.error({
 				text: err.message,
 				url: url.format(request.url),
 				host: request.headers.host
-			});
+			}, 'Internal error');
 		});
 
 		server.on('response', (request: Hapi.Request) => {
-			logger.debug('Response', {
+			logger.info({
 				host: request.headers.host,
 				url: url.format(request.url),
 				code: (<Hapi.Response>request.response).statusCode,
 				responseTime: parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
-			});
+			}, 'Response');
 		});
 	}
 }

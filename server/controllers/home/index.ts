@@ -12,11 +12,11 @@ function createWikiData (wiki: any) {
 				json: JSON.stringify(wiki || {})
 			},
 			wiki
-		)
+		);
 }
 
 function createArticleData (payload: any) {
-	var data;
+	var data: any;
 
 	if (payload) {
 		data = {
@@ -33,7 +33,7 @@ function createArticleData (payload: any) {
 			article: payload
 		},
 		data
-	)
+	);
 }
 
 function createServerData () {
@@ -49,7 +49,7 @@ function index(params: any, next: Function): void {
 			server: createServerData(),
 			wiki: createWikiData(wiki),
 			article: createArticleData(article)
-		})
+		});
 	});
 }
 

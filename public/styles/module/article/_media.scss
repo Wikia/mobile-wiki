@@ -26,7 +26,7 @@
 
 figcaption {
 	color: #999;
-	margin: 5px 0;
+	padding: 5px 0;
 	pointer-events: none;
 	text-align: left;
 }
@@ -43,6 +43,65 @@ figcaption {
 		height: 195px;
 		margin-right: 8px;
 		width: 195px;
+	}
+
+	.video {
+		display: inline-block;
+		position: relative;
+
+		img {
+			max-width: none;
+			width: 330px;
+		}
+	}
+}
+
+.video::after,
+.article-video::before {
+	content: '';
+	display: block;
+	background: {
+		image: url('../svg/play.svg');
+		position: 10px 10px;
+		repeat: no-repeat;
+		size: 45px;
+	}
+	bottom: 0;
+	left: 0;
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.article-video {
+	position: relative;
+
+	&::after {
+		@include perfect-square(100%);
+		background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
+		content: '';
+		left: 0;
+		position: absolute;
+		top: 0;
+	}
+
+	&.visible {
+		img {
+			width: 100%;
+		}
+	}
+
+	figcaption {
+		bottom: 0;
+		color: white;
+		font-size: 0.9rem;
+		line-height: 1rem;
+		padding: 10px;
+		pointer-events: none;
+		position: absolute;
+		width: 100%;
+		z-index: 1;
 	}
 }
 

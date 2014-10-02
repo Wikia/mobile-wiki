@@ -24,10 +24,10 @@ export function createFullArticle(getWikiInfo: boolean, params: any, callback: a
 			new MediaWiki.ArticleRequest(params.wiki).fetch(params.title, params.redirect)
 		];
 
-	logger.info('Fetching article', params);
+	logger.debug(params, 'Fetching article');
 
 	if (getWikiInfo) {
-		logger.info('Fetching wiki variables', params.wiki);
+		logger.debug({wiki: params.wiki}, 'Fetching wiki variables');
 
 		requests.push(new MediaWiki.WikiRequest({
 			name: params.wiki

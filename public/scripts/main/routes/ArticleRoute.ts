@@ -17,11 +17,15 @@ App.ArticleRoute = Em.Route.extend({
 		if (Wikia.error) {
 			transition.abort();
 		}
+
+		this.transitionTo('article',
+			Wikia.Utils.String.sanitize(transition.params.article.title)
+		);
 	},
 
 	model: function (params: any) {
 		return App.ArticleModel.find({
-			title: Wikia.Title.sanitize(params.title),
+			title: Wikia.Utils.String.sanitize(params.title),
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},
