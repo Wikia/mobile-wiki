@@ -11,7 +11,8 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	classNames: ['article-gallery'],
 	layoutName: 'components/gallery-media',
 
-	thumbSize: 195,
+	imageThumbSize: 195,
+	videoThumbSize: 330,
 	//limit how many images get rendered before user scrolls to a gallery
 	limit: 2,
 	incrementLimitValue: 10,
@@ -42,25 +43,27 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		} else {
 			return this.get('media');
 		}
-
 	}.property('media', 'limit'),
 
 	loadImages: function (
 		imageOrGalleryRef: any,
 		limit: number = 2,
-		thumbSize: number = this.get('thumbSize')
+		thumbHeight: number = this.get('imageThumbSize'),
+		videoThumbWidth: number = this.get('videoThumbSize')
 	): void {
 		var galleryRef = typeof imageOrGalleryRef === 'number' ?
 				imageOrGalleryRef :
 				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
 			image: ArticleMedia,
-			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1);
+			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1),
+			thumbWidth: number;
 
 		for(;galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
+			thumbWidth = image.type === 'video' ? videoThumbWidth : thumbHeight;
 
 			image.setProperties({
-				thumbUrl: this.getThumbURL(image.get('url'), thumbSize, thumbSize, 'crop'),
+				thumbUrl: this.getThumbURL(image.get('url'), thumbHeight, thumbWidth, 'crop'),
 				load: true
 			});
 		}
@@ -72,7 +75,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	load: function(): void {
 		var thisGallery = this.$(),
 			galleryWidth = thisGallery.width(),
-			thumbSize = this.get('thumbSize'),
+			thumbSize = this.get('imageThumbSize'),
 			maxImages = Math.ceil(galleryWidth / thumbSize);
 
 		this.setUp();
