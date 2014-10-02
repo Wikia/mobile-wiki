@@ -9,7 +9,7 @@ interface CreateBunyanLoggerStream {
 
 interface AvailableTargets {
 	[key: string]: CreateBunyanLoggerStream;
-};
+}
 
 module Logger {
 
@@ -23,7 +23,7 @@ module Logger {
 		return {
 			stream: process.stderr,
 			level: minLogLevel
-		}
+		};
 	}
 
 	function createConsoleStream(minLogLevel: string): BunyanLoggerStream {

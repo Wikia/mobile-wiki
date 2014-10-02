@@ -67,7 +67,7 @@ class App {
 		});
 
 		process.on('message', function(msg: string) {
-			if(msg === 'shutdown') {
+			if (msg === 'shutdown') {
 				server.stop({
 					timeout: localSettings.workerDisconnectTimeout
 				}, function() {
@@ -117,7 +117,7 @@ class App {
 			logger.info({
 				data: event.data,
 				tags: tags
-			}, 'Log')
+			}, 'Log');
 		});
 
 		server.on('internalError', (request: Hapi.Request, err: Error) => {

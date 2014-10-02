@@ -1,8 +1,8 @@
 /* global App, resetWikiaBaseline */
-QUnit.module('Title class');
+QUnit.module('String util functions');
 
 QUnit.test('sanitizing URL', function () {
-	var Title = Wikia.Title,
+	var string = Wikia.Utils.String,
 		testCases = [
 			{
 				title: 'test',
@@ -48,10 +48,10 @@ QUnit.test('sanitizing URL', function () {
 		];
 
 	testCases.forEach(function(testCase) {
-		equal(Title.sanitize(testCase.title), testCase.sanitized);
+		equal(string.sanitize(testCase.title), testCase.sanitized);
 	});
 
 	testCases.forEach(function(testCase) {
-		equal(Title.normalize(testCase.title), testCase.normalized);
+		equal(string.normalize(testCase.title), testCase.normalized);
 	});
 });

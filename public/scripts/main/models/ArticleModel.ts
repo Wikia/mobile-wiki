@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../wikia/utils/string.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
@@ -78,7 +79,7 @@ App.ArticleModel.reopenClass({
 		return Wikia.article;
 	},
 
-	setArticle: function (model: Em.Object, source = this.getPreloadedData()) {
+	setArticle: function (model: typeof App.ArticleModel, source = this.getPreloadedData()) {
 		var data: any = {};
 
 		if (source.error) {
@@ -86,7 +87,7 @@ App.ArticleModel.reopenClass({
 
 			data = {
 				article: error.details,
-				cleanTitle: error.message
+				cleanTitle: Wikia.Utils.String.normalize(model.title)
 			}
 		} else if (source) {
 			if (source.details) {
@@ -94,7 +95,7 @@ App.ArticleModel.reopenClass({
 
 				data = $.extend(data, {
 					ns: details.ns,
-					cleanTitle: Wikia.Title.sanitize(details.title),
+					cleanTitle: details.title,
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id

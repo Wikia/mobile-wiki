@@ -9,6 +9,11 @@ interface HeadersFromDom {
 	id?: string;
 }
 
+interface HTMLElement {
+	scrollIntoViewIfNeeded: () => void
+}
+
+
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
 	templateName: 'article/index',
