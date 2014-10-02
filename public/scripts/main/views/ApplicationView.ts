@@ -58,8 +58,8 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	handleMedia: function (target: HTMLElement): void {
-		var galleryRef = parseInt(target.dataset.galleryRef, 10),
-			mediaRef = parseInt(target.parentElement.dataset.ref, 10);
+		var galleryRef = $(target).closest('[data-gallery-ref]').data('gallery-ref'),
+			mediaRef = $(target).closest('[data-ref]').data('ref');
 
 		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
@@ -90,6 +90,7 @@ App.ApplicationView = Em.View.extend({
 					this.handleLink(target);
 					break;
 				case 'img':
+				case 'figure':
 					this.handleMedia(target);
 					break;
 			}
