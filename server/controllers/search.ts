@@ -11,12 +11,7 @@ export function searchWiki(data: any, callback: any, err: any) {
 		name: data.wikiName
 	});
 
-	searchReq.searchForQuery(data.query).then((response: any) => {
-		// Change hrefs from absolute to relative
-		response.items = response.items.map(function (elem: any) {
-			elem.url = '/wiki/' + elem.url.substr(elem.url.lastIndexOf('/') + 1);
-			return elem;
-		});
-		callback(response);
-	}).catch(err);
+	searchReq.searchForQuery(data.query)
+		.then(callback)
+		.catch(err);
 }
