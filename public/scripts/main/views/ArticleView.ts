@@ -53,6 +53,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				this.loadTableOfContentsData();
+				this.handleInfoboxes();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
@@ -132,6 +133,33 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
+	},
+
+	/**
+	 * @desc handles expanding long tables, code taken from WikiaMobile
+	 */
+	handleInfoboxes: function (){
+		var shortClass = 'short',
+			$infoboxes = $('table[class*="infobox"] tbody'),
+			body = window.document.body,
+			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+
+		if ($infoboxes.length) {
+			$infoboxes
+				.filter(function(){
+					return this.rows.length > 6;
+				})
+				.addClass(shortClass)
+				.append('<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></td></tr>')
+				.on('click', function(event){
+					var $target = $(event.target),
+						$this = $(this);
+
+					if(!$target.is('a') && $this.toggleClass(shortClass).hasClass(shortClass)) {
+						scrollTo.apply($this.find('.infobox-expand')[0]);
+					}
+				});
+		}
 	},
 
 	didInsertElement: function () {
