@@ -9,7 +9,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	tagName: 'figure',
 	layoutName: 'components/media',
 	classNames: ['media-component'],
-	classNameBindings: ['visible'],
 
 	width: null,
 	height: null,
@@ -65,6 +64,8 @@ App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (Em.isArray(media)) {
 			return App.GalleryMediaComponent.create();
+		} else if (media.type === 'video'){
+			return App.VideoMediaComponent.create();
 		} else {
 			return App.ImageMediaComponent.create();
 		}
