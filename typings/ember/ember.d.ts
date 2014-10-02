@@ -15,7 +15,7 @@ declare module EmberStates {
         addInitialStates(): void;
         matchContextsToStates(contexts: any[]): void;
         normalize(manager: Ember.StateManager, contexts: any[]): void;
-		params: any;
+        params: any;
         removeUnchangedContexts(manager: Ember.StateManager): void;
         retry(): void;
         sendEvents(eventName: string, sendRecursiveArguments: boolean, isUnhandledPass: boolean): void;

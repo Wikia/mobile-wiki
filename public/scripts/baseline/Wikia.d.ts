@@ -21,6 +21,9 @@ declare module Wikia {
 
 	module Utils {
 	}
+	module String {
+
+	}
 }
 
 declare var W: typeof Wikia.Utils;
