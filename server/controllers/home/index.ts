@@ -16,7 +16,7 @@ function createWikiData (wiki: any) {
 }
 
 function createArticleData (payload: any) {
-	var data;
+	var data: any;
 
 	if (payload) {
 		data = {
