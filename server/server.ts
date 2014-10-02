@@ -33,7 +33,7 @@ function forkNewWorkers(): void {
 // Stops a single worker
 // Gives workerDisconnectTimeout seconds after disconnect before SIGTERM
 function stopWorker(worker: cluster.Worker): void {
-	logger.info('stopping', worker.process.pid, 'timeout', localSettings.workerDisconnectTimeout);
+	logger.info('Stopping worker');
 
 	worker.send('shutdown');
 	worker.disconnect();
@@ -43,7 +43,7 @@ function stopWorker(worker: cluster.Worker): void {
 	}, localSettings.workerDisconnectTimeout);
 
 	worker.on('disconnect',(): void => {
-		logger.info('Worker disconnected', worker.process.pid);
+		logger.info('Worker disconnected');
 		<any>clearTimeout(killTimer);
 		worker.kill();
 	});
@@ -56,7 +56,7 @@ function stopWorker(worker: cluster.Worker): void {
 function stopAllWorkers(): void {
 	isStopping = true;
 
-	logger.info('stopping all workers');
+	logger.info('Stopping all workers');
 	Object.keys(cluster.workers).forEach((id: any) => {
 		stopWorker(cluster.workers[id]);
 	});
@@ -73,7 +73,7 @@ process.on('SIGTERM', stopAllWorkers);
 // Fork off the initial workers
 forkNewWorkers();
 
-logger.info('Master process', process.pid, 'booted');
+logger.info('Master process booted');
 
 //if run as child
 //send up message from workers so we can now that they are up
