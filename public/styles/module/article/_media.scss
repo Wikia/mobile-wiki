@@ -86,6 +86,12 @@ figcaption {
 		top: 0;
 	}
 
+	&.visible {
+		img {
+			width: 100%;
+		}
+	}
+
 	figcaption {
 		bottom: 0;
 		color: white;
