@@ -65,6 +65,8 @@ App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (Em.isArray(media)) {
 			return App.GalleryMediaComponent.create();
+		} else if (media.type === 'video'){
+			return App.VideoMediaComponent.create();
 		} else {
 			return App.ImageMediaComponent.create();
 		}

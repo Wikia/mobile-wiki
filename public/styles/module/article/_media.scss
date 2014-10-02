@@ -46,6 +46,38 @@ figcaption {
 	}
 }
 
+.article-video {
+	position: relative;
+
+	&::after {
+		@include perfect-square(100%);
+		background-image: linear-gradient(transparent 60%, rgba(black, .1) 70%, rgba(black, .7) 100%);
+		content: '';
+		left: 0;
+		position: absolute;
+		top: 0;
+	}
+
+	figcaption {
+		bottom: 0;
+		color: white;
+		font-size: 0.9rem;
+		line-height: 1rem;
+		padding: 10px;
+		pointer-events: none;
+		position: absolute;
+		z-index: 1;
+	}
+
+	.play {
+		left: 10px;
+		pointer-events: none;
+		position: absolute;
+		top: 10px;
+		width: 45px;
+	}
+}
+
 @keyframes lazyImage {
 	0% {
 		opacity: 0;
