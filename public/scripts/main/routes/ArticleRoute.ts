@@ -21,7 +21,7 @@ App.ArticleRoute = Em.Route.extend({
 
 	model: function (params: any) {
 		return App.ArticleModel.find({
-			title: Wikia.Title.sanitize(params.title),
+			title: Wikia.Utils.String.sanitize(params.title),
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},

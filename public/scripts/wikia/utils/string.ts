@@ -6,7 +6,7 @@
  * we are using. Use this stub to normalize/expose the features available to Wikia
  * developers and also to allow for swapping implementations in the future.
  */
-module Wikia.Title {
+module Wikia.Utils.String {
 	/**
 	 * We need to support links like:
 	 * /wiki/Rachel Berry
