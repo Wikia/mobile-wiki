@@ -46,9 +46,32 @@ figcaption {
 	}
 
 	.video {
-		width: 330px;
-		max-width: none;
+		display: inline-block;
+		position: relative;
+
+		img {
+			max-width: none;
+			width: 330px;
+		}
 	}
+}
+
+.video::after,
+.article-video::before {
+	content: '';
+	display: block;
+	background: {
+		image: url('../svg/play.svg');
+		position: 10px 10px;
+		repeat: no-repeat;
+		size: 45px;
+	}
+	bottom: 0;
+	left: 0;
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 .article-video {
@@ -73,14 +96,6 @@ figcaption {
 		position: absolute;
 		width: 100%;
 		z-index: 1;
-	}
-
-	.play {
-		left: 10px;
-		pointer-events: none;
-		position: absolute;
-		top: 10px;
-		width: 45px;
 	}
 }
 

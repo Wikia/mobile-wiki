@@ -1,3 +1,3 @@
 {{#each media in limitedMedia}}
-    <img {{bind-attr src=media.thumbUrl}} {{bind-attr class='media.load:loaded media.type'}} data-gallery-ref='{{unbound media.galleryRef}}'>
+	<span class='{{unbound media.type}}'><img {{bind-attr src=media.thumbUrl}} {{bind-attr class='media.load:loaded'}} data-gallery-ref='{{unbound media.galleryRef}}'></span>
 {{/each}}

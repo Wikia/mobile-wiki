@@ -63,7 +63,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 			thumbWidth = image.type === 'video' ? videoThumbWidth : thumbHeight;
 
 			image.setProperties({
-				thumbUrl: this.getThumbURL(image.get('url'), thumbHeight, thumbWidth, 'crop'),
+				thumbUrl: this.getThumbURL(image.get('url'), thumbWidth, thumbHeight, 'crop'),
 				load: true
 			});
 		}

@@ -9,7 +9,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	tagName: 'figure',
 	layoutName: 'components/media',
 	classNames: ['media-component'],
-	classNameBindings: ['visible'],
 
 	width: null,
 	height: null,
