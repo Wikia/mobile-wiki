@@ -2,10 +2,36 @@ import localSettings = require('../../config/localSettings');
 
 module Utils {
 
+	export function getDomainName(wikiSubDomain: string = ''): string {
+		var environment: string = localSettings.environment,
+			options: any = {
+				production: '',
+				preview: 'preview.',
+				verify: 'verify.',
+				sandbox: (localSettings.host + '.')
+			};
+
+		if (!environment) {
+			Logger.fatal('Environment not set');
+			throw Error('Environment not set');
+		}
+
+		if (wikiSubDomain) {
+			wikiSubDomain = wikiSubDomain + '.';
+		}
+
+		if (typeof options[environment] !== 'undefined') {
+			return 'http://' + options[environment] + wikiSubDomain + 'wikia.com/';
+		}
+
+		// Devbox
+		return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
+	}
+
 	/**
 	 * @desc extracts the wiki name from the host
 	 */
-	export function getWikiName (host: string): string {
+	export function getWikiDomainName (host?: string): string {
 		var regex: RegExp,
 			match: string[];
 
