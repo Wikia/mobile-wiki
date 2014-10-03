@@ -1,14 +1,22 @@
+import util = require('util');
 import localSettings = require('../../config/localSettings');
+import Logger = require('./Logger');
 
 module Utils {
 
-	export function getDomainName(wikiSubDomain: string = ''): string {
+	var passThroughEnv = {
+		production: '%s.wikia.com',
+		verify: 'verify.%s.wikia.com',
+		preview: 'preview.%s.wikia.com'
+	}
+
+	function getDomainName(wikiSubDomain: string = ''): string {
 		var environment: string = localSettings.environment,
 			options: any = {
 				production: '',
 				preview: 'preview.',
 				verify: 'verify.',
-				sandbox: (localSettings.host + '.')
+				sandbox: (localSettings.mediawikiHost + '.')
 			};
 
 		if (!environment) {
@@ -21,19 +29,31 @@ module Utils {
 		}
 
 		if (typeof options[environment] !== 'undefined') {
-			return 'http://' + options[environment] + wikiSubDomain + 'wikia.com/';
+			return options[environment] + wikiSubDomain + 'wikia.com';
 		}
 
 		// Devbox
-		return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
+		return wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com';
+	}
+
+	function getFallbackSubDomain() {
+		return (localSettings.wikiFallback || 'community')
 	}
 
 	/**
-	 * @desc extracts the wiki name from the host
+	 * @desc Generate wiki host name from the request host
 	 */
-	export function getWikiDomainName (host?: string): string {
+	export function getWikiDomainName (host: string = ''): string {
 		var regex: RegExp,
-			match: string[];
+			match: string[],
+			env = localSettings.environment;
+
+		if (env && passThroughEnv.hasOwnProperty(env)) {
+			if (host) {
+				return host;
+			}
+			return util.format(passThroughEnv[env], getFallbackSubDomain());
+		}
 
 		/**
 		 * Capture groups:
@@ -44,8 +64,12 @@ module Utils {
 		 */
 		regex = /^(?:sandbox\-[^\.]+|preview|verify)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
 		match = host.match(regex);
-		//TODO: This is a bad default, find better solution
-		return match ? match[1] : (localSettings.wikiFallback || 'community');
+
+		return getDomainName ( match ? match[1] : getFallbackSubDomain() );
+	}
+
+	export function clearHost (host: string): string {
+		return host.split(':')[0]; //get rid of port
 	}
 }
 

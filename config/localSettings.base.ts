@@ -32,7 +32,8 @@ var localSettings: LocalSettings = {
 	// The value represent the minimum logging level
 	loggers: {
 		syslog: 'debug'
-	}
+	},
+	isProduction: process.env.WIKIA_ENVIRONMENT === 'production'
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

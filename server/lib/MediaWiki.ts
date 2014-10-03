@@ -105,7 +105,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	});
 }
 
-export function createUrl(domainName: string, path: string, params: any = {}): string {
+export function createUrl(wikiDomain: string, path: string, params: any = {}): string {
 	var qsAggregator: string[] = [],
 		queryParam: string;
 
@@ -119,5 +119,5 @@ export function createUrl(domainName: string, path: string, params: any = {}): s
 		}
 	});
 
-	return domainName + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
+	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 }

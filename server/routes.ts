@@ -7,21 +7,17 @@ import Utils = require('./lib/Utils');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
 
-var wikiNames: {
+var wikiDomains: {
 	[key: string]: string;
 } = {};
 
 function getWikiDomainName(host: string): string {
-	var wikiName: string;
+	var wikiDomain: string;
 
-	host = host.split(':')[0]; //get rid of port
-	wikiName = wikiNames[host];
+	host = Utils.clearHost(host);
+	wikiDomain = wikiDomains[host];
 
-	if (wikiName) {
-		return wikiName;
-	}
-
-	return wikiNames[host] = Utils.getWikiDomainName(host);
+	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(host);
 }
 
 function routes(server: Hapi.Server) {

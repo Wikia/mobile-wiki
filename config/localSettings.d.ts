@@ -23,4 +23,5 @@ interface LocalSettings {
 	apiBase: string;
 	workerDisconnectTimeout: number;
 	loggers: LoggerInterface;
+	isProduction: boolean;
 }
