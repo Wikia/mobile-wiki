@@ -1,4 +1,4 @@
-table:not(.infobox) {
+table:not(.infobox, .dirbox) {
 	visibility: hidden;
 }
 
