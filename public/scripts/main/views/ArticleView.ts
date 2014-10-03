@@ -9,10 +9,13 @@ interface HeadersFromDom {
 	id?: string;
 }
 
+interface DOMStringMap {
+	ref: string;
+}
+
 interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
-
 
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
@@ -52,6 +55,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.get('controller').notifyPropertyChange('article');
 	},
 
+	didInsertElement: function () {
+		this.get('controller').send('articleRendered');
+	},
+
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
 			var model = this.get('controller.model');
@@ -64,6 +71,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
 				this.lazyLoadMedia(model.get('media'));
+				this.handleTables();
 			}
 		});
 	},
@@ -167,7 +175,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		}
 	},
 
-	didInsertElement: function () {
-		this.get('controller').send('articleRendered');
+	handleTables: function (): void {
+		var wrapper = document.createElement('div');
+		wrapper.className = 'article-table';
+		this.$('table:not(.infobox, .dirbox)')
+			.wrap(wrapper)
+			.css('visibility', 'visible');
 	}
 });

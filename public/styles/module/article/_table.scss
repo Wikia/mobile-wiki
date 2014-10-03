@@ -1,0 +1,31 @@
+table:not(.infobox, .dirbox) {
+	visibility: hidden;
+}
+
+.article-table {
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	border: 1px solid $border-color-light;
+
+	th, td {
+		white-space: nowrap;
+		padding: 10px;
+	}
+
+	th {
+		vertical-align: top;
+		text-align: left;
+
+		figure {
+			display: none;
+		}
+	}
+
+	td:not(:last-of-type), th:not(:last-of-type) {
+		border-right: 1px solid $border-color-light;
+	}
+
+	tr:not(:last-of-type) {
+		border-bottom: 1px solid $border-color-light;
+	}
+}
