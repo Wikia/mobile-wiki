@@ -39,10 +39,10 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		var limit = this.get('limit');
 
 		if (limit > 0) {
-			return this.get('media').slice(0, this.get('limit'))
-		} else {
-			return this.get('media');
+			return this.get('media').slice(0, limit)
 		}
+
+		return this.get('media');
 	}.property('media', 'limit'),
 
 	loadImages: function (
@@ -58,7 +58,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1),
 			thumbWidth: number;
 
-		for(;galleryRef <= limit; galleryRef++) {
+		for (; galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
 			thumbWidth = image.type === 'video' ? videoThumbWidth : thumbHeight;
 
@@ -72,7 +72,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	/**
 	 * load an image and run update function when it is loaded
 	 */
-	load: function(): void {
+	load: function (): void {
 		var thisGallery = this.$(),
 			galleryWidth = thisGallery.width(),
 			thumbSize = this.get('imageThumbSize'),
