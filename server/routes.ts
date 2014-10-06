@@ -17,7 +17,7 @@ function getWikiDomainName(host: string): string {
 	host = Utils.clearHost(host);
 	wikiDomain = wikiDomains[host];
 
-	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(host);
+	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(localSettings, host);
 }
 
 function routes(server: Hapi.Server) {

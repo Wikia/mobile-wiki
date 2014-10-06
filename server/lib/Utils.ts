@@ -1,22 +1,49 @@
-import util = require('util');
-import localSettings = require('../../config/localSettings');
-import Logger = require('./Logger');
-
 module Utils {
 
-	function getDomainName(environment: string, wikiSubDomain: string = ''): string {
-		if (environment === 'sandbox') {
+	export enum Environment {
+		Production,
+		Verify,
+		Preview,
+		Sandbox,
+		Devbox,
+		Testing
+	}
+
+	/**
+	 * @desc Get environment from string
+	 *
+	 * @param {string} environment Environment name
+	 * @param {Environment} fallbackEnvironment Fallback environment
+	 * @returns {Environment}
+	 */
+	export function getEnvironment(environment: string, fallbackEnvironment: Environment = Environment.Devbox) {
+		var environments: {[id: string]: Environment} = {
+			'production': Environment.Production,
+			'verify': Environment.Verify,
+			'preview': Environment.Preview,
+			'sandbox': Environment.Sandbox,
+			'devbox': Environment.Devbox,
+			'testing': Environment.Testing
+		};
+		if (environments.hasOwnProperty(environment)) {
+			return environments[environment];
+		}
+		return fallbackEnvironment;
+	}
+
+	function getDomainName(localSettings: LocalSettings, wikiSubDomain: string = ''): string {
+		if (localSettings.environment === Environment.Sandbox) {
 			return localSettings.mediawikiHost + '.' + wikiSubDomain + '.wikia.com';
 		}
 		// Devbox
-		return wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com';
+		return wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com';
 	}
 
 	/**
 	 * @desc Get fallback domain
 	 * @returns {string}
 	 */
-	function getFallbackSubDomain() {
+	function getFallbackSubDomain(localSettings: LocalSettings) {
 		return (localSettings.wikiFallback || 'community')
 	}
 
@@ -26,26 +53,22 @@ module Utils {
 	 * @param hostName
 	 * @returns {string}
 	 */
-	export function getWikiDomainName (hostName: string = ''): string {
+	export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 		var regex: RegExp,
 			match: string[],
 			environment = localSettings.environment,
 			// For these environments the host name can be passed through
-			passThroughEnv = {
-				production: '%s.wikia.com',
-				verify: 'verify.%s.wikia.com',
-				preview: 'preview.%s.wikia.com'
-			};
+			passThroughEnv: any = {};
 
-		if (!environment) {
-			throw Error('Environment not set');
-		}
+		passThroughEnv[Environment.Production] = '%s.wikia.com';
+		passThroughEnv[Environment.Verify] ='verify.%s.wikia.com';
+		passThroughEnv[Environment.Preview] = 'preview.%s.wikia.com';
 
-		if (environment && passThroughEnv.hasOwnProperty(environment)) {
+		if (passThroughEnv.hasOwnProperty(environment)) {
 			if (hostName) {
 				return hostName;
 			}
-			return util.format(passThroughEnv[environment], getFallbackSubDomain());
+			return passThroughEnv[environment].replace('%s', getFallbackSubDomain(localSettings));
 		}
 
 		/**
@@ -58,7 +81,7 @@ module Utils {
 		regex = /^(?:sandbox\-[^\.]+)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
 		match = hostName.match(regex);
 
-		return getDomainName(environment,  match ? match[1] : getFallbackSubDomain());
+		return getDomainName(localSettings,  match ? match[1] : getFallbackSubDomain(localSettings));
 	}
 
 	/**

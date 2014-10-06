@@ -7,6 +7,7 @@
  */
 
 import util = require('util');
+import Utils = require('../server/lib/Utils');
 
 var localSettings: LocalSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
@@ -14,8 +15,8 @@ var localSettings: LocalSettings = {
 	port: 8000,
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 1000,
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 2,
-	// Targeted environment [production|preview|verify|devbox_name]
-	environment: process.env.WIKIA_ENVIRONMENT,
+	// Targeted environment [production|preview|verify|devbox|testing]
+	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	mediawikiHost: 'your-devbox-name',
 	gaId: 'GOOGLE ANALYTICS ID',
 	// Caching settings
@@ -32,8 +33,7 @@ var localSettings: LocalSettings = {
 	// The value represent the minimum logging level
 	loggers: {
 		syslog: 'debug'
-	},
-	isProduction: process.env.WIKIA_ENVIRONMENT === 'production'
+	}
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
