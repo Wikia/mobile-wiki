@@ -15,7 +15,7 @@ interface LinkInfo {
 
 module Wikia.Utils {
 	/**
-	 * @param basepath the base url of the wiki without trailing slash, i.e. http://lastofus.wikia.com
+	 * @param basePath the base url of the wiki without trailing slash, i.e. http://lastofus.wikia.com
 	 * or http://halo.bisaacs.wikia-dev
 	 * @param title the title of the article, such as David_Michael_Vigil
 	 * @param hash jumplink, either '#something' (to indicate there is a jumplink) or '' or undefined
@@ -25,7 +25,7 @@ module Wikia.Utils {
 	 * non-null, then the application should transition to that article. If url is non-null, then the application should
 	 * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
 	 */
-	export function getLinkInfo(basepath: string, title: string, hash: string, uri: string): LinkInfo {
+	export function getLinkInfo(basePath: string, title: string, hash: string, uri: string): LinkInfo {
 		var localPathMatch = decodeURI(uri).match('^' + window.location.origin + '(.*)$');
 
 		if (localPathMatch) {
@@ -44,7 +44,7 @@ module Wikia.Utils {
 				if (local.match(regex)) {
 					return {
 						article: null,
-						url: basepath + local
+						url: basePath + local
 					};
 				}
 			}
