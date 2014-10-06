@@ -33,7 +33,7 @@ module Utils {
 
 	function getDomainName(localSettings: LocalSettings, wikiSubDomain: string = ''): string {
 		if (localSettings.environment === Environment.Sandbox) {
-			return localSettings.mediawikiHost + '.' + wikiSubDomain + '.wikia.com';
+			return localSettings.host + '.' + wikiSubDomain + '.wikia.com';
 		}
 		// Devbox
 		return wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com';
