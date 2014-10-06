@@ -72,7 +72,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.jumpToAnchor();
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
-				this.trackPageView();
+				Wikia.Tracking.trackPageView();
 			}
 		});
 	},
@@ -182,10 +182,5 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.$('table:not(.infobox, .dirbox)')
 			.wrap(wrapper)
 			.css('visibility', 'visible');
-	},
-
-	trackPageView: function () {
-		console.log('Track!')
-		//Wikia.Quantcast.track();
 	}
 });

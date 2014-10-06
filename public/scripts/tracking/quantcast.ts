@@ -4,11 +4,9 @@ interface Window {
 	_qevents: any[];
 }
 
-module Wikia.Quantcast {
+module Wikia.Tracking.Quantcast {
 	var elem = document.createElement('script'),
 		script;
-
-	console.log('lol?');
 
 	window._qevents = window._qevents || [];
 

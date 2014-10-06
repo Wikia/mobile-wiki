@@ -62,12 +62,12 @@
 			<script src="/public/vendor/ember/ember.js"></script>
 			<script src="/public/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/public/vendor/i18next/i18next.js"></script>
-			<!-- @if WIKIA_ENVIRONMENT='dev' -->
-			<script src="/public/scripts/tracking.js"></script>
-			<!-- @endif -->
 		<!-- endbuild -->
 
 		<!-- build:js /public/scripts/combined.js -->
+			<!-- @if WIKIA_ENVIRONMENT='dev' -->
+			<script src="/public/scripts/tracking.js"></script>
+			<!-- @endif -->
 			<script src="/public/templates/main.js"></script>
 			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
