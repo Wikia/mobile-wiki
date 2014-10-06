@@ -62,6 +62,13 @@ test('getWikiName', function () {
 			environment: 'devtest',
 			mediawikiHost: 'bimbo'
 		} , {
+			host: 'bg.poznan.wikia.local',
+			expected: 'bg.poznan.bimbo.wikia-dev.com',
+			description: 'Works on .local domains',
+			wikiFallback: null,
+			environment: 'devtest',
+			mediawikiHost: 'bimbo'
+		} , {
 			host: 'bg.poznan.wikia.locals',
 			expected: 'glee.bimbo.wikia-dev.com',
 			wikiFallback: 'glee',
@@ -87,12 +94,13 @@ test('getWikiName', function () {
 	];
 
 	function setupLocalSettings(testCase) {
-		global.localSettings.wikiFallback = testCase.wikiFallback;
-		global.localSettings.host = testCase.host;
-		global.localSettings.environment = testCase.environment;
-		global.localSettings.isProduction = testCase.environment === 'production';
-		global.localSettings.host = testCase.lsHost;
-		global.localSettings.mediawikiHost = testCase.mediawikiHost
+		var ls = global.localSettings
+		ls.wikiFallback = testCase.wikiFallback;
+		ls.host = testCase.host;
+		ls.environment = testCase.environment;
+		ls.isProduction = testCase.environment === 'production';
+		ls.host = testCase.lsHost;
+		ls.mediawikiHost = testCase.mediawikiHost
 	}
 
 	testCases.forEach(function (testCase) {
