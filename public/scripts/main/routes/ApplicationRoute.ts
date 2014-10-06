@@ -11,7 +11,7 @@ App.ApplicationRoute = Em.Route.extend({
 		handleLink: function (target: HTMLAnchorElement) {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
-				info = Wikia.Utils.getLinkInfo(model.get('basepath'),
+				info = Wikia.Utils.getLinkInfo(model.get('basePath'),
 					model.get('title'),
 					target.hash,
 					target.href
