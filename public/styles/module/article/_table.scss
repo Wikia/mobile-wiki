@@ -3,18 +3,18 @@ table:not(.infobox, .dirbox) {
 }
 
 .article-table {
-	overflow: scroll;
-	-webkit-overflow-scrolling: touch;
 	border: 1px solid $border-color-light;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 
 	th, td {
-		white-space: nowrap;
 		padding: 10px;
+		white-space: nowrap;
 	}
 
 	th {
-		vertical-align: top;
 		text-align: left;
+		vertical-align: top;
 
 		figure {
 			display: none;
