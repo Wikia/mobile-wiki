@@ -1,3 +1,4 @@
+/// <reference path="../baseline/Wikia.d.ts" />
 'use strict';
 
 interface Window {
@@ -6,7 +7,7 @@ interface Window {
 
 module Wikia.Tracking.Quantcast {
 	var elem = document.createElement('script'),
-		script;
+		script: HTMLScriptElement;
 
 	window._qevents = window._qevents || [];
 
@@ -19,8 +20,8 @@ module Wikia.Tracking.Quantcast {
 	export function track () {
 		var context = Wikia.article.adsContext.targeting,
 			quantcastLabels = '',
-			keyValues,
-			keyValue;
+			keyValues: string[],
+			keyValue: string[];
 
 		if (context.wikiCategory) {
 			quantcastLabels += context.wikiCategory;
