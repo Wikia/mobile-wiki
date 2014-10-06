@@ -61,7 +61,7 @@ test('getWikiName', function () {
 		} , {
 			host: 'sandbox-test.poznan.wikia.com',
 			localSettings: {
-				mediawikiHost: 'sandbox-test',
+				host: 'sandbox-test',
 				environment: global.Environment.Sandbox
 			},
 			expected: 'sandbox-test.poznan.wikia.com',
@@ -69,7 +69,7 @@ test('getWikiName', function () {
 		} , {
 			host: 'sandbox-test.bg.poznan.wikia.com',
 			localSettings: {
-				mediawikiHost: 'sandbox-test',
+				host: 'sandbox-test',
 				environment: global.Environment.Sandbox
 			},
 			expected: 'sandbox-test.bg.poznan.wikia.com',
