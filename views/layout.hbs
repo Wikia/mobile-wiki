@@ -62,8 +62,9 @@
 			<script src="/public/vendor/ember/ember.js"></script>
 			<script src="/public/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/public/vendor/i18next/i18next.js"></script>
-		<!-- @if WIKIA_ENVIRONMENT='production' -->
-		<!-- @endif -->
+			<!-- @if WIKIA_ENVIRONMENT='dev' -->
+			<script src="/public/scripts/tracking.js"></script>
+			<!-- @endif -->
 		<!-- endbuild -->
 
 		<!-- build:js /public/scripts/combined.js -->
@@ -76,32 +77,10 @@
 		<script async src="{{server.mediawikiDomain}}__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
 
-		<script async src="//quantserve.com/quant.js"></script>
-		<script>
-			var _qevents = _qevents || [],
-				quantcastLabels = "",
-				keyValues,
-				keyValue
-
-			if (window.cityShort) {
-				quantcastLabels += cityShort;
-				if (window.wgDartCustomKeyValues) {
-					keyValues = wgDartCustomKeyValues.split(';');
-
-					for (var i = 0; i < keyValues.length; i++) {
-						keyValue = keyValues[i].split('=');
-
-						if (keyValue.length >= 2) {
-							quantcastLabels += ',' + cityShort + '.' + keyValue[1];
-						}
-					}
-				}
-			}
-
-			_qevents.push( { qacct: "p-8bG6eLqkH6Avk", labels: quantcastLabels } );
-		</script>
+        <!-- @if WIKIA_ENVIRONMENT='production' -->
 		<noscript>
 			<div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-8bG6eLqkH6Avk.gif" height="1" width="1" alt="Quantcast"></div>
 		</noscript>
+        <!-- @endif -->
 	</body>
 </html>
