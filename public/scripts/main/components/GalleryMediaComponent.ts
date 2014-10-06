@@ -45,10 +45,12 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		return this.get('media');
 	}.property('media', 'limit'),
 
-	loadImages: function (imageOrGalleryRef: any,
-						  limit: number = 2,
-						  thumbHeight: number = this.get('imageThumbSize'),
-						  videoThumbWidth: number = this.get('videoThumbSize')): void {
+	loadImages: function (
+		imageOrGalleryRef: any,
+		limit: number = 2,
+		thumbHeight: number = this.get('imageThumbSize'),
+		videoThumbWidth: number = this.get('videoThumbSize')
+	): void {
 		var galleryRef = typeof imageOrGalleryRef === 'number' ?
 				imageOrGalleryRef :
 				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
