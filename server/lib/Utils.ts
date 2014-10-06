@@ -18,12 +18,12 @@ module Utils {
 	 */
 	export function getEnvironment(environment: string, fallbackEnvironment: Environment = Environment.Devbox) {
 		var environments: {[id: string]: Environment} = {
-			'production': Environment.Production,
-			'verify': Environment.Verify,
-			'preview': Environment.Preview,
-			'sandbox': Environment.Sandbox,
-			'devbox': Environment.Devbox,
-			'testing': Environment.Testing
+			production: Environment.Production,
+			verify: Environment.Verify,
+			preview: Environment.Preview,
+			sandbox: Environment.Sandbox,
+			devbox: Environment.Devbox,
+			testing: Environment.Testing
 		};
 		if (environments.hasOwnProperty(environment)) {
 			return environments[environment];
