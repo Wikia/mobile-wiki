@@ -1,7 +1,6 @@
 $border-color: #d0d0d0;
 
-table[class*="infobox"],
-table[class="infobox-table"] {
+table[class*='infobox'] {
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 0.9rem;
@@ -39,7 +38,7 @@ table[class="infobox-table"] {
 		padding: 5px;
 		vertical-align: top;
 
-		&[colspan='2']{
+		&[colspan='2'] {
 			text-align: center;
 			padding: 0;
 
