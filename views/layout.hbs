@@ -75,5 +75,33 @@
 		{{#if server.mediawikiDomain}}
 		<script async src="{{server.mediawikiDomain}}__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
+
+		<script async src="//quantserve.com/quant.js"></script>
+		<script>
+			var _qevents = _qevents || [],
+				quantcastLabels = "",
+				keyValues,
+				keyValue
+
+			if (window.cityShort) {
+				quantcastLabels += cityShort;
+				if (window.wgDartCustomKeyValues) {
+					keyValues = wgDartCustomKeyValues.split(';');
+
+					for (var i = 0; i < keyValues.length; i++) {
+						keyValue = keyValues[i].split('=');
+
+						if (keyValue.length >= 2) {
+							quantcastLabels += ',' + cityShort + '.' + keyValue[1];
+						}
+					}
+				}
+			}
+
+			_qevents.push( { qacct: "p-8bG6eLqkH6Avk", labels: quantcastLabels } );
+		</script>
+		<noscript>
+			<div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-8bG6eLqkH6Avk.gif" height="1" width="1" alt="Quantcast"></div>
+		</noscript>
 	</body>
 </html>
