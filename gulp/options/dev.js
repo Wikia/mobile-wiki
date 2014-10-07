@@ -27,9 +27,6 @@ module.exports = {
 			removeComments: false
 		}
 	},
-	clean: {
-		read: false
-	},
 	server: {
 		path: paths.server.script,
 		env: process.env,

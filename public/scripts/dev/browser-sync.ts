@@ -3,6 +3,6 @@
  */
 
 document.write(
-	"<script async src='//HOST:3000/browser-sync/browser-sync-client.1.5.1.js'><\/script>"
+	"<script async src='//HOST:3000/browser-sync/browser-sync-client.1.5.4.js'><\/script>"
 	.replace(/HOST/g, location.hostname)
 );
