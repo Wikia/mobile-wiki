@@ -5,20 +5,10 @@ App.SideNavView = Em.View.extend({
 	tagName: 'nav',
 	classNames: ['side-nav'],
 	classNameBindings: ['isCollapsed:collapsed:slide-into-view'],
-	isCollapsed: true,
+	isCollapsed: Em.computed.alias('controller.isCollapsed'),
 	layoutName: 'app/side-nav',
 
 	actions: {
-		expandSideNav: function (): void {
-			this.set('isCollapsed', false);
-			// Send unscroll action to ApplicationView
-			this.get('parentView').send('setUnscrollable');
-		},
-		collapseSideNav: function (): void {
-			this.set('controller.isInSearchMode', false);
-			this.set('isCollapsed', true);
-			this.get('parentView').send('setScrollable');
-		},
 		/**
 		 * Action for 'x' button in search box
 		 */
@@ -27,6 +17,15 @@ App.SideNavView = Em.View.extend({
 		}
 	},
 
+	isCollapsedObserver: function () {
+		if (this.get('isCollapsed')) {
+			this.set('controller.isInSearchMode', false);
+			this.get('parentView').send('setScrollable');
+		} else {
+			this.get('parentView').send('setUnscrollable');
+		}
+	}.observes('isCollapsed').on('didInsertElement'),
+
 	/**
 	 * Every time we exit search mode, regardless of if it was through the Cancel
 	 * link or through clicking a search result, we want to clear out the query
@@ -34,15 +33,7 @@ App.SideNavView = Em.View.extend({
 	 */
 	searchModeObserver: function () {
 		if (!this.get('isInSearchMode')) {
-			this.set('controllers.localWikiaSearch.query', '');
+			this.set('controller.controllers.localWikiaSearch.query', '');
 		}
-	},
-
-	didInsertElement: function () {
-		this.get('controller').addObserver('isInSearchMode', this.searchModeObserver);
-	},
-
-	willDestroy: function () {
-		this.get('controller').removeObserver('isInSearchMode', this.searchModeObserver);
-	}
+	}.observes('controller.isInSearchMode').on('didInsertElement')
 });

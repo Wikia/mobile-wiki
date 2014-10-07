@@ -1,5 +1,5 @@
 <nav class="site-head">
-	{{render "sideNav" sideNav}}
+	{{render "sideNav"}}
 	<div class="site-logo">
 		{{svg "wikia-logo" role="img" class="icon wikia-logo"}}
 	</div>
@@ -8,7 +8,7 @@
 <div class="page-wrapper">
 	<section class="wiki-container">
 		<h2 class="wiki-title">{{#link-to "" alt=siteName}}{{siteName}}{{/link-to}}</h2>
-		{{outlet}} 
+		{{outlet}}
 	</section>
 </div>
 {{outlet lightbox}}

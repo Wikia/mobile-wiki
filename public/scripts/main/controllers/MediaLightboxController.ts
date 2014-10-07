@@ -27,6 +27,8 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 	init: function (): void {
 		this.matchQueryString();
+
+		this._super();
 	},
 
 	/**

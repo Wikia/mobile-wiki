@@ -1,8 +1,8 @@
-<div {{action 'expandSideNav' target="view"}} class="nav-container">
+<div {{action 'expand'}} class="nav-container">
 	{{svg "nav" viewBox="0 0 24 14" class="icon nav"}}
 </div>
 {{! Overlay that fades in}}
-<div {{action 'collapseSideNav' target="view"}} class="overlay"></div>
+<div {{action 'collapse'}} class="overlay"></div>
 {{! 
 	This is the element that is slid away
 	If this element has search class, the elements in it will rearrange to be in search mode or whatever

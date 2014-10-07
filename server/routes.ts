@@ -23,7 +23,8 @@ function getWikiDomainName(host: string): string {
 function routes(server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
-			'/wiki/{title*}'
+			'/wiki/{title*}',
+			'/{title*}'
 		],
 		proxyRoutes = [
 			'/favicon.ico',

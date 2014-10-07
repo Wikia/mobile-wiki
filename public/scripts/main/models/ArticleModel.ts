@@ -87,7 +87,8 @@ App.ArticleModel.reopenClass({
 
 			data = {
 				article: error.details,
-				cleanTitle: Wikia.Utils.String.normalize(model.title)
+				cleanTitle: Wikia.Utils.String.normalize(model.title),
+				error: error
 			}
 		} else if (source) {
 			if (source.details) {

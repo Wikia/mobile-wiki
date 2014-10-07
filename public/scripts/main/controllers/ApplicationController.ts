@@ -3,9 +3,12 @@
 
 App.ApplicationController = Em.Controller.extend({
 	init: function () {
+		this.setProperties({
+			domain: Wikia.wiki.dbName || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+			siteName: Wikia.wiki.siteName || 'Wikia',
+			globalAnimSpeed: 100
+		});
+
 		this._super();
-		this.set('domain', Wikia.wiki.dbName || window.location.href.match(/^https?:\/\/(.*?)\./)[1]);
-		this.set('siteName', Wikia.wiki.siteName || 'Wikia');
-		this.set('globalAnimSpeed', 100);
 	}
 });

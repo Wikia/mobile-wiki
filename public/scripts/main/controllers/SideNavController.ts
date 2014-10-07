@@ -11,12 +11,20 @@ App.SideNavController = Em.Controller.extend({
 	// Needs this so we can send search query to that controller
 	needs: ['localWikiaSearch'],
 	isInSearchMode: false,
+	isCollapsed: true,
+
 	actions: {
-		searchFocus: function () {
+		searchFocus: function (): void {
 			this.set('isInSearchMode', true);
 		},
-		searchCancel: function () {
+		searchCancel: function (): void {
 			this.set('isInSearchMode', false);
+		},
+		expand: function (): void {
+			this.set('isCollapsed', false);
+		},
+		collapse: function (): void {
+			this.set('isCollapsed', true);
 		}
 	}
 });

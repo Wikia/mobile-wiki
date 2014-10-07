@@ -1,3 +1,4 @@
+{{#unless error}}
 <section class='article-body'>
 	<h1 class='article-title'>{{cleanTitle}}</h1>
 	{{#if sections.length}}
@@ -62,4 +63,7 @@
 {{/if}}
 </section>
 {{content-recommendations pages=relatedPages}}
+{{else}}
+	{{render 'notFound'}}
+{{/unless}}
 {{view 'wikia-footer'}}
