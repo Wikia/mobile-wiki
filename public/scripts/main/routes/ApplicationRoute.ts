@@ -56,6 +56,14 @@ App.ApplicationRoute = Em.Route.extend({
 				outlet: 'lightbox',
 				parentView: 'application'
 			});
+		},
+
+		expandSideNav: function (): void {
+			this.controllerFor('sideNav').send('expand');
+		},
+
+		collapseSideNav: function (): void {
+			this.controllerFor('sideNav').send('collapse');
 		}
 	}
 });

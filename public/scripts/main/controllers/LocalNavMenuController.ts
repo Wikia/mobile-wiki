@@ -42,6 +42,8 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 		this.set('currentMenuItem', this.get('menuRoot'));
 		this.set('parentItem', null);
 		this.injectParentPointersAndIndices();
+
+		this._super();
 	},
 
 	/**
