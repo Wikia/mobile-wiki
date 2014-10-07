@@ -16,11 +16,14 @@ interface LocalSettings {
 	workerCount: number;
 	environment: string;
 	mediawikiHost: string;
-	gaId: string;
 	cache: CacheInterface;
 	proxyMaxRedirects: number;
 	wikiFallback: string;
 	apiBase: string;
 	workerDisconnectTimeout: number;
 	loggers: LoggerInterface;
+	tracking: {
+		gaId: string;
+		quantserve: string;
+	}
 }

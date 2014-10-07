@@ -25,6 +25,7 @@
 			W.provide('apiBase', '{{{server.apiBase}}}');
 			W.provide('wiki', {{{wiki.json}}});
 			W.provide('article', {{{article.json}}});
+            W.provide('tracking', {{{trackingJson}}});
 			{{#if error}}
 			W.provide('article.error', {{{error}}});
 			{{/if}}
@@ -38,7 +39,7 @@
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 			// staging GA id
-			ga('create', '{{gaId}}', 'auto');
+			ga('create', '{{tracking.gaId}}', 'auto');
 			ga('send', 'pageview');
 		</script>
 		<!-- End Google Analytics -->
@@ -78,9 +79,7 @@
 		{{/if}}
 
         <!-- @if WIKIA_ENVIRONMENT='production' -->
-		<noscript>
-			<div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-8bG6eLqkH6Avk.gif" height="1" width="1" alt="Quantcast"></div>
-		</noscript>
+		<noscript><div style="display: none;"><img src='//pixel.quantserve.com/pixel/{{tracking.quantserve}}.gif' height='1' width='1' alt=''></div></noscript>
         <!-- @endif -->
 	</body>
 </html>
