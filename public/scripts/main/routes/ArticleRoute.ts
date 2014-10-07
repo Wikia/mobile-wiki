@@ -45,10 +45,6 @@ App.ArticleRoute = Em.Route.extend({
 		// an error. Optimally, it would remain in the same place.
 		didTransition: function () {
 			window.scrollTo(0, 0);
-		},
-
-		goBack: function () {
-			window.history.go(-1);
 		}
 	}
 });
