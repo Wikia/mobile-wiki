@@ -11,5 +11,5 @@ declare var $script: Function;
 module Wikia.Utils {
 	export function load () {
 		return $script.apply(null, arguments);
-	};
+	}
 }

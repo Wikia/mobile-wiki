@@ -18,7 +18,6 @@ var localSettings: LocalSettings = {
 	// Targeted environment [production|preview|verify|devbox|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	mediawikiHost: 'your-devbox-name',
-	gaId: 'GOOGLE ANALYTICS ID',
 	// Caching settings
 	cache: {
 		name: 'appcache',
@@ -33,6 +32,10 @@ var localSettings: LocalSettings = {
 	// The value represent the minimum logging level
 	loggers: {
 		syslog: 'debug'
+	},
+	tracking: {
+		gaId: 'GOOGLE ANALYTICS ID',
+		quantserve: 'p-8bG6eLqkH6Avk'
 	}
 };
 

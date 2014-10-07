@@ -72,6 +72,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.jumpToAnchor();
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
+
+				if (Wikia.Utils.Tracking) {
+					Wikia.Utils.Tracking.trackPageView();
+				}
 			}
 		});
 	},
