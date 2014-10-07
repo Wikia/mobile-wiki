@@ -87,7 +87,7 @@ function routes(server: Hapi.Server) {
 	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
 	server.route({
 		method: 'GET',
-		path: localSettings.apiBase + '/article/{articleTitle}',
+		path: localSettings.apiBase + '/article/{articleTitle*}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
