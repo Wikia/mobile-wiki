@@ -29,7 +29,7 @@
 		"footer-link-licensing": "Licensing",
 		"footer-link-privacy-policy": "Privacy Policy",
 		"footer-link-feedback": "Feedback",
-		"page-not-found": "Sorry, we can't find the page you are looking for.",
+		"page-not-found-error": "Sorry, we can't find the page you are looking for.",
 		"go-back": "Go back"
 	}
 }
