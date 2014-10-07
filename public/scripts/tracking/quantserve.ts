@@ -5,7 +5,7 @@ interface Window {
 	_qevents: any[];
 }
 
-module Wikia.Tracking.Quantserve {
+module Wikia.Utils.Tracking.Quantserve {
 	var elem = document.createElement('script'),
 		script: HTMLScriptElement;
 
