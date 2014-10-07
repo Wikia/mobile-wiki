@@ -15,10 +15,10 @@ import Promise = require('bluebird');
  * @desc wrapper class for making API search requests
  */
 export class SearchRequest {
-	name: string;
+	wikiDomain: string;
 
-	constructor (params: {name: string}) {
-		this.name = params.name;
+	constructor (params: {wikiDomain: string}) {
+		this.wikiDomain = params.wikiDomain;
 	}
 
 	/**
@@ -26,7 +26,7 @@ export class SearchRequest {
 	 * want to customize later
 	 */
 	searchForQuery (query: string) {
-		var url = createUrl(this.name, 'api/v1/Search/List', {
+		var url = createUrl(this.wikiDomain, 'api/v1/Search/List', {
 			limit: 25,
 			minArticleQuality: 10,
 			namespaces: '0,14',
@@ -41,28 +41,28 @@ export class SearchRequest {
  *
  */
 export class WikiRequest {
-	name: string;
+	wikiDomain: string;
 
-	constructor (params: {name: string}) {
-		this.name = params.name;
+	constructor (params: {wikiDomain: string}) {
+		this.wikiDomain = params.wikiDomain;
 	}
 
 	getWikiVariables (): Promise<any> {
-		var url = createUrl(this.name, 'api/v1/Mercury/WikiVariables');
+		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/WikiVariables');
 
 		return fetch(url);
 	}
 }
 
 export class ArticleRequest {
-	wiki: string;
+	wikiDomain: string;
 
-	constructor (wiki: string) {
-		this.wiki = wiki;
+	constructor (wikiDomain: string) {
+		this.wikiDomain = wikiDomain;
 	}
 
 	fetch (title: string, redirect: string) {
-		var url = createUrl(this.wiki, 'api/v1/Mercury/Article', {
+		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/Article', {
 			title: title,
 			redirect: redirect
 		});
@@ -71,7 +71,7 @@ export class ArticleRequest {
 	}
 
 	comments (articleId: number, page: number = 0) {
-		var url = createUrl(this.wiki, 'api/v1/Mercury/ArticleComments', {
+		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/ArticleComments', {
 			id: articleId,
 			page: page
 		});
@@ -105,33 +105,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	});
 }
 
-export function getDomainName(wikiSubDomain: string = ''): string {
-	var environment: string = localSettings.environment,
-		options: any = {
-			production: '',
-			preview: 'preview.',
-			verify: 'verify.',
-			sandbox: (localSettings.host + '.')
-		};
-
-	if (!environment) {
-		Logger.fatal('Environment not set');
-		throw Error('Environment not set');
-	}
-
-	if (wikiSubDomain) {
-		wikiSubDomain = wikiSubDomain + '.';
-	}
-
-	if (typeof options[environment] !== 'undefined') {
-		return 'http://' + options[environment] + wikiSubDomain + 'wikia.com/';
-	}
-
-	// Devbox
-	return 'http://' + wikiSubDomain + localSettings.mediawikiHost + '.wikia-dev.com/';
-}
-
-export function createUrl(wikiSubDomain: string, path: string, params: any = {}): string {
+export function createUrl(wikiDomain: string, path: string, params: any = {}): string {
 	var qsAggregator: string[] = [],
 		queryParam: string;
 
@@ -145,7 +119,5 @@ export function createUrl(wikiSubDomain: string, path: string, params: any = {})
 		}
 	});
 
-	return getDomainName(wikiSubDomain) +
-		path +
-		(qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
+	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 }

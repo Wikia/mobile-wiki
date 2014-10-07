@@ -7,27 +7,23 @@ import Utils = require('./lib/Utils');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
 
-var wikiNames: {
+var wikiDomains: {
 	[key: string]: string;
 } = {};
 
-function getWikiName(host: string): string {
-	var wikiName: string;
+function getWikiDomainName(host: string): string {
+	var wikiDomain: string;
 
-	host = host.split(':')[0]; //get rid of port
-	wikiName = wikiNames[host];
+	host = Utils.clearHost(host);
+	wikiDomain = wikiDomains[host];
 
-	if (wikiName) {
-		return wikiName;
-	}
-
-	return wikiNames[host] = Utils.getWikiName(host);
+	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(localSettings, host);
 }
 
 function routes(server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
-			'/wiki/{title*}',
+			'/wiki/{title*}'
 		],
 		proxyRoutes = [
 			'/favicon.ico',
@@ -66,7 +62,7 @@ function routes(server: Hapi.Server) {
 			config: config,
 			handler: (request: Hapi.Request, reply: any) => {
 				server.methods.getPrerenderedData({
-					wiki: getWikiName(request.headers.host),
+					wikiDomain: getWikiDomainName(request.headers.host),
 					title: request.params.title,
 					redirect: request.query.redirect
 				}, (error: any, result: any) => {
@@ -94,7 +90,7 @@ function routes(server: Hapi.Server) {
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
-				wiki: getWikiName(request.headers.host),
+				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
 			};
@@ -111,7 +107,7 @@ function routes(server: Hapi.Server) {
 		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
-					wiki: getWikiName(request.headers.host),
+					wikiDomain: getWikiDomainName(request.headers.host),
 					articleId: parseInt(request.params.articleId, 10),
 					page: parseInt(request.params.page, 10) || 0
 				};
@@ -130,7 +126,7 @@ function routes(server: Hapi.Server) {
 		path: localSettings.apiBase + '/search/{query}',
 		handler: (request: any, reply: Function) => {
 			var params = {
-				wikiName: getWikiName(request.headers.host),
+				wikiDomain: getWikiDomainName(request.headers.host),
 				query: request.params.query
 			};
 
@@ -176,7 +172,7 @@ function routes(server: Hapi.Server) {
 			path: route,
 			handler: (request: any, reply: any) => {
 				var path = route.substr(1),
-					url = MediaWiki.createUrl(getWikiName(request.headers.host), path);
+					url = MediaWiki.createUrl(getWikiDomainName(request.headers.host), path);
 				reply.proxy({
 					uri: url,
 					redirects: localSettings.proxyMaxRedirects || 3

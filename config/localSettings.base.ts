@@ -7,6 +7,7 @@
  */
 
 import util = require('util');
+import Utils = require('../server/lib/Utils');
 
 var localSettings: LocalSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
@@ -14,8 +15,8 @@ var localSettings: LocalSettings = {
 	port: 8000,
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 1000,
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 2,
-	// Targeted environment [production|preview|verify|devbox_name]
-	environment: process.env.WIKIA_ENVIRONMENT,
+	// Targeted environment [production|preview|verify|devbox|testing]
+	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	mediawikiHost: 'your-devbox-name',
 	gaId: 'GOOGLE ANALYTICS ID',
 	// Caching settings
@@ -25,7 +26,7 @@ var localSettings: LocalSettings = {
 		// location: '127.0.0.1:11211' // Check https://github.com/3rd-Eden/node-memcached#server-locations for ref
 	},
 	proxyMaxRedirects: 3,
-	wikiFallback: 'glee',
+	wikiFallback: 'community',
 	apiBase: '/api/v1',
 	workerDisconnectTimeout: 3000,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]

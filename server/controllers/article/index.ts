@@ -21,16 +21,16 @@ import logger = require('../../lib/Logger');
  */
 export function createFullArticle(getWikiInfo: boolean, params: any, callback: any) {
 	var requests = [
-			new MediaWiki.ArticleRequest(params.wiki).fetch(params.title, params.redirect)
+			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
 		];
 
 	logger.debug(params, 'Fetching article');
 
 	if (getWikiInfo) {
-		logger.debug({wiki: params.wiki}, 'Fetching wiki variables');
+		logger.debug({wiki: params.wikiDomain}, 'Fetching wiki variables');
 
 		requests.push(new MediaWiki.WikiRequest({
-			name: params.wiki
+			wikiDomain: params.wikiDomain
 		}).getWikiVariables());
 	}
 

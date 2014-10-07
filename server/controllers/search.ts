@@ -6,9 +6,9 @@
 import MediaWiki = require('../lib/MediaWiki');
 import Promise = require('bluebird');
 
-export function searchWiki(data: any, callback: any, err: any) {
+export function searchWiki(data: any, callback: any, err: any): void {
 	var searchReq = new MediaWiki.SearchRequest({
-		name: data.wikiName
+		wikiDomain: data.wikiDomain
 	});
 
 	searchReq.searchForQuery(data.query).then((response: any) => {
