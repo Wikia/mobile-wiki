@@ -27,9 +27,6 @@ module.exports = {
 			declarationFiles: false
 		}
 	},
-	clean: {
-		read: false
-	},
 	nodemon: {
 		script: 'www/server/app.js',
 		ext: 'js',
