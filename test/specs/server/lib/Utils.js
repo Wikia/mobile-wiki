@@ -128,7 +128,15 @@ test('getWikiName', function () {
 				environment: global.Environment.Devbox,
 				mediawikiHost: 'evgeniy'
 			},
-			expected: 'glee.evgeniy.wikia-dev.com'
+			expected: 'glee.evgeniy.wikia-dev.com',
+			description: 'Returns the devbox url if local is used'
+		}, {
+			localSettings: {
+				environment: global.Environment.Devbox,
+				mediawikiHost: 'test'
+			},
+			expected: 'community.test.wikia-dev.com',
+			description: 'Returns the default sub domain if no host is provided'
 		}
 	];
 
