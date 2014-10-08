@@ -26,7 +26,7 @@ export class SearchRequest {
 	 * want to customize later
 	 */
 	searchForQuery (query: string) {
-		var url = createUrl(this.name, 'api/v1/SearchSuggestions/List', {
+		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {
 			query: query
 		});
 
@@ -108,13 +108,11 @@ export function createUrl(wikiDomain: string, path: string, params: any = {}): s
 		queryParam: string;
 
 	Object.keys(params).forEach(function(key) {
-		if (params.hasOwnProperty(key)) {
-			queryParam = (typeof params[key] !== 'undefined') ?
-				key + '=' + encodeURIComponent(params[key]) :
-				key;
+		queryParam = (typeof params[key] !== 'undefined') ?
+			key + '=' + encodeURIComponent(params[key]) :
+			key;
 
-			qsAggregator.push(queryParam);
-		}
+		qsAggregator.push(queryParam);
 	});
 
 	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');

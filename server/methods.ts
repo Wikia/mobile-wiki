@@ -19,7 +19,7 @@ function methods(server: Hapi.Server): void {
 		    noCache: {}
 	    };
 
-	server.method('searchForQuery', search.searchWiki, cacheOptions.noCache);
+	server.method('searchSuggestions', search.searchWiki, cacheOptions.noCache);
 
 	server.method('getPreRenderedData', indexController, cacheOptions.default);
 

@@ -113,7 +113,7 @@ function routes(server: Hapi.Server) {
 				query: request.params.query
 			};
 
-			server.methods.searchForQuery(params, (error: any, result: any) => {
+			server.methods.searchSuggestions(params, (error: any, result: any) => {
 				reply(error || result);
 			});
 		}
