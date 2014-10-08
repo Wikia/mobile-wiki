@@ -46,8 +46,9 @@ App.SmartBannerComponent = Em.Component.extend({
 
 		//Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
 		if (type &&
-			!standalone// &&
-			//smartbanner
+			!standalone &&
+			smartbanner &&
+			!smartbanner.disabled
 			/* &&
 			!cookie.get('sb-closed') &&
 			!cookie.get('sb-installed')*/
@@ -75,7 +76,7 @@ App.SmartBannerComponent = Em.Component.extend({
 				title: smartbanner.name,
 				icon: smartbanner.icon,
 				type: type,
-				gloss: (type === 'ios'),
+				gloss: (type === 'ios') ? 'gloss' : '',
 				inStore: inStore,
 				link: link,
 				show: true
