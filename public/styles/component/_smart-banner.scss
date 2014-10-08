@@ -1,0 +1,182 @@
+.smartbanner {
+	left: 0;
+	position: relative;
+	border-bottom: 1px solid #e8e8e8;
+	width: 100%;
+	height: 80px;
+	background: linear-gradient(#f4f4f4 0%, #cdcdcd 100%);
+	-webkit-font-smoothing: antialiased;
+	-webkit-transition: height 1s;
+	overflow: hidden;
+
+	display: none;
+
+	&.show {
+		display: block;
+	}
+
+	&.no-icon {
+		.sb-icon {
+			display: none;
+		}
+
+		.sb-info {
+			left: 34px;
+		}
+	}
+
+	&.android{
+		border-top: 5px solid #88B131;
+	}
+
+}
+
+.sb-close {
+	display: inline-block;
+	border: 2px solid #fff;
+	font-size: 15px;
+	height: 15px;
+	text-align: center;
+	width: 15px;
+	background-color: #070707;
+	border-radius: 14px;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+	margin: 5px;
+
+	span {
+		display: block;
+		height: 30px;
+		width: 30px;
+	}
+
+	svg {
+		height: 7px;
+		display: block;
+		margin: 2px;
+	}
+
+	&:active {
+		font-size: 13px;
+		color: #aaa;
+	}
+}
+
+.sb-icon {
+	background-size: cover;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	display: block;
+	height: 57px;
+	left: 25px;
+	position: absolute;
+	top: 10px;
+	width: 57px;
+
+	&.gloss:after {
+		background: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.2) 100%);
+		border-radius: 10px 10px 12px 12px;
+		border-top: 1px solid rgba(255, 255, 255, 0.8);
+		content: '';
+		height: 50%;
+		left: 0;
+		position: absolute;
+		top: -1px;
+		width: 100%;
+	}
+}
+
+.sb-info {
+	font-size: 11px;
+	font-weight: bold;
+	left: 90px;
+	line-height: 1.2em;
+	position: absolute;
+	top: 18px;
+	width: 44%;
+	color: #6a6a6a;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+
+	div:first-of-type {
+		font-size: 13px;
+		color: #4d4d4d;
+		line-height: 18px;
+	}
+}
+
+.sb-button {
+	position: absolute;
+	right: 15px;
+	top: 24px;
+	border: 1px solid #bfbfbf;
+	font-weight: bold;
+	height: 24px;
+	min-width: 10%;
+	padding: 0 10px;
+	color: #6a6a6a;
+	background: linear-gradient(#efefef 0%, gainsboro 100%);
+	border-radius: 3px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+	text-transform: uppercase;
+
+	&:active, &:hover {
+		background: linear-gradient(gainsboro 0%, #efefef 100%);
+	}
+}
+
+.android {
+	border-color: #212228;
+	background: #3d3d3d url('/extensions/wikia/WikiaMobile/SmartBanner/dark_background_stripes.gif'); /* base64 */
+
+	.sb-close {
+		border-color: #000;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
+
+		&:active {
+			color: #eee;
+		}
+	}
+
+	.sb-info {
+		color: #ccc;
+		text-shadow: 0 1px 2px #000;
+
+		div:first-of-type {
+			color: #fff;
+		}
+	}
+
+	.sb-button {
+		min-width: 14%;
+		border: 1px solid #DDDCDC;
+		padding: 1px;
+		color: #d1d1d1;
+		background: none;
+		border-radius: 0;
+		box-shadow: none;
+
+		span {
+			display: block;
+			text-align: center;
+			text-transform: uppercase;
+			background-color: #42B6C9;
+			background: linear-gradient(#42b6c9 0%, #39a9bb 100%);
+			line-height: 100%;
+			pointer-events: none;
+			text-shadow: none;
+
+			height: 100%;
+			padding: 0 5px;
+		}
+
+		&:active, &:hover {
+			background: none;
+		}
+
+		&:active span, &:hover span {
+			background: #2AC7E1;
+		}
+	}
+}

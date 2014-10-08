@@ -30,6 +30,10 @@
 		"footer-link-privacy-policy": "Privacy Policy",
 		"footer-link-feedback": "Feedback",
 		"page-not-found-error": "Sorry, we can't find the page you are looking for.",
-		"page-not-found-message": "Use Navigation or Search"
+		"page-not-found-message": "Use Navigation or Search",
+		"smartbanner-store-ios": "On the App Store",
+		"smartbanner-store-android": "In Google Play",
+		"smartbanner-price": "FREE",
+		"smartbanner-view": "view"
 	}
 }

@@ -1,0 +1,7 @@
+<span class='sb-close' {{action 'close'}}>{{svg 'close' viewBox='0 0 18 18'}}</span>
+<span class='sb-icon {{unbound view.gloss}}' {{bind-attr style=view.style}}></span>
+<div class='sb-info'>
+    <div>{{view.title}}</div>
+    <div>{{i18n 'smartbanner-price'}} - {{view.inStore}}</div>
+</div>
+<a target='_BLANK' href='{{unbound view.link}}' class='sb-button external' {{action 'view'}}>{{i18n 'smartbanner-price'}}</a>
