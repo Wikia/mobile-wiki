@@ -6,23 +6,24 @@ import comments = require('./controllers/article/comments');
 function methods(server: Hapi.Server): void {
 	var second = 1000,
 	    cacheOptions = {
-			cache: {
-				expiresIn: 60 * second,
-				staleIn: 10 * second,
-				staleTimeout: 100
-			},
-			generateKey: (opts: any) => {
-				return JSON.stringify(opts);
-			}
-		};
+		    default: {
+			    cache: {
+				    expiresIn: 60 * second,
+				    staleIn: 10 * second,
+				    staleTimeout: 100
+			    },
+			    generateKey: (opts:any) => {
+				    return JSON.stringify(opts);
+			    }
+		    },
+		    noCache: {}
+	    };
 
 	server.method('searchForQuery', (params: any, next: Function) => {
-		search.searchWiki(params, (data: any) => {
-			next(null, data);
-		}, (err: any) => {
-			next(err);
+		search.searchWiki(params, (error: any, searchResults: any) => {
+			next(error, searchResults);
 		});
-	}, {});
+	}, cacheOptions.noCache);
 
 	server.method('getPrerenderedData', indexController, cacheOptions);
 
@@ -30,15 +31,13 @@ function methods(server: Hapi.Server): void {
 		article.createFullArticle(false, params, (error: any, article: any) => {
 			next(error, article);
 		});
-	}, cacheOptions);
+	}, cacheOptions.default);
 
 	server.method('getArticleComments', (params: any, next: Function) => {
-		comments.handleRoute(params, (data: any) => {
-			next(null, data);
-		}, (err: any) => {
-			next(err);
+		comments.handleRoute(params, (error: any, articleComments: any) => {
+			next(error, articleComments);
 		});
-	}, cacheOptions);
+	}, cacheOptions.default);
 }
 
 export = methods;

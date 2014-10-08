@@ -30,8 +30,6 @@ function routes(server: Hapi.Server) {
 			'/favicon.ico',
 			'/robots.txt'
 		],
-		notFoundError = 'Could not find article or Wiki, please check to' +
-				' see that you supplied correct parameters',
 		config = {
 			cache: {
 				privacy: 'public',
@@ -39,17 +37,7 @@ function routes(server: Hapi.Server) {
 			}
 		};
 
-	// all the routes that should resolve to loading single page app entry view
-	indexRoutes.forEach(function(route: string) {
-		server.route({
-			method: 'GET',
-			path: route,
-			config: config,
-			handler: articleHandler
-		});
-	});
-
-	function articleHandler(request: Hapi.Request, reply: any) => {
+	function articleHandler(request: Hapi.Request, reply: any) {
 		server.methods.getPrerenderedData({
 			wikiDomain: getWikiDomainName(request.headers.host),
 			title: request.params.title,
@@ -70,6 +58,16 @@ function routes(server: Hapi.Server) {
 			reply.view('application', result).code(code);
 		});
 	}
+
+	// all the routes that should resolve to loading single page app entry view
+	indexRoutes.forEach((route: string) => {
+		server.route({
+			method: 'GET',
+			path: route,
+			config: config,
+			handler: articleHandler
+		});
+	});
 
 	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
 	server.route({
@@ -101,9 +99,6 @@ function routes(server: Hapi.Server) {
 				};
 
 			server.methods.getArticleComments(params, (error: any, result: any) => {
-				if (error) {
-					error = Hapi.error.notFound(notFoundError);
-				}
 				reply(error || result);
 			});
 		}
@@ -119,9 +114,6 @@ function routes(server: Hapi.Server) {
 			};
 
 			server.methods.searchForQuery(params, (error: any, result: any) => {
-				if (error) {
-					error = Hapi.error.notFound('No results for that search term');
-				}
 				reply(error || result);
 			});
 		}
