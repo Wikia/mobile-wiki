@@ -4,7 +4,7 @@ module Wikia.Modules {
 		ACCOUNT_PRIMARY: string = 'primary';
 		ACCOUNT_SPECIAL: string = 'special';
 
-		accounts: Object;
+		accounts: GAAccountMap;
 
 		constructor () {
 			var i: number,
