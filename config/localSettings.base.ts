@@ -35,7 +35,12 @@ var localSettings: LocalSettings = {
 	},
 	tracking: {
 		gaId: 'GOOGLE ANALYTICS ID',
-		quantserve: 'p-8bG6eLqkH6Avk'
+		quantserve: 'p-8bG6eLqkH6Avk',
+		comscore: {
+			keyword: 'comscorekw',
+			id: '6177433',
+			c7: ''
+		}
 	}
 };
 

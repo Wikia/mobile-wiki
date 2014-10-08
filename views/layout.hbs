@@ -34,6 +34,8 @@
 		<!-- @ifdef browserSync -->
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
+
+		{{> analytics}}
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
@@ -53,7 +55,7 @@
 		<!-- endbuild -->
 
 		<!-- build:js /public/scripts/combined.js -->
-			<!-- @if WIKIA_ENVIRONMENT='production' -->
+			<!-- @if WIKIA_ENVIRONMENT='dev' -->
 			<script src="/public/scripts/tracking.js"></script>
 			<!-- @endif -->
 			<script src="/public/templates/main.js"></script>
@@ -65,8 +67,8 @@
 		<script async src="//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
 
-		<!-- @if WIKIA_ENVIRONMENT='production' -->
-		{{> tracking}}
+		<!-- @if WIKIA_ENVIRONMENT='dev' -->
+		{{> pixels}}
 		<!-- @endif -->
 	</body>
 </html>

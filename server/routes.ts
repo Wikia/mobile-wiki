@@ -4,6 +4,7 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
+import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
 
@@ -69,9 +70,7 @@ function routes(server: Hapi.Server) {
 				}, (error: any, result: any) => {
 					var code = 200;
 
-					// export tracking code to layout and front end code
-					result.tracking = localSettings.tracking;
-					result.trackingJson = JSON.stringify(localSettings.tracking);
+					//Tracking.handleResponse(result, request);
 
 					if (error) {
 						code = error.code;

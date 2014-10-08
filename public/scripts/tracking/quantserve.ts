@@ -39,10 +39,10 @@ module Wikia.Utils.Tracking.Quantserve {
 			}
 		}
 
-		//quantcastLabels += ',mobilebrowser';
-		window._qevents.push({
-			qacct: Wikia.tracking.quantserve,
-			labels: quantcastLabels
-		});
+	//quantcastLabels += ',mobilebrowser';
+	//window._qevents.push({
+	//	qacct: Wikia.tracking.quantserve,
+	//	labels: quantcastLabels
+	//});
 	}
 }

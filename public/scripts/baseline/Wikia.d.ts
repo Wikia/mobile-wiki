@@ -14,7 +14,7 @@ declare module Wikia {
 		slots: string[][];
 	};
 	var apiBase: string;
-	var tracking: {[index: string]: string};
+	var tracking: any;
 
 	module Modules {
 		class VideoPlayer {}

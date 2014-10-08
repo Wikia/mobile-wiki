@@ -25,5 +25,10 @@ interface LocalSettings {
 	tracking: {
 		gaId: string;
 		quantserve: string;
+		comscore: {
+			keyword: string;
+			id: string;
+			c7: string;
+		}
 	}
 }
