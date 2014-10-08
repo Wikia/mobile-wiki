@@ -38,24 +38,8 @@ function routes(server: Hapi.Server) {
 				expiresIn: 60 * second
 			}
 		};
+
 	// all the routes that should resolve to loading single page app entry view
-
-	function restrictedHandler (request: Hapi.Request, reply: any) {
-		reply.view('error', Hapi.error.notFound('Invalid URL parameters'));
-	}
-
-	server.route({
-		method: '*',
-		path: '/',
-		handler: restrictedHandler
-	});
-
-	server.route({
-		method: '*',
-		path: '/{p*}',
-		handler: restrictedHandler
-	});
-
 	indexRoutes.forEach(function(route: string) {
 		server.route({
 			method: 'GET',
