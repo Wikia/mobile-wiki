@@ -9,7 +9,7 @@ interface LoggerInterface {
 	[key: string]: string
 }
 
-export interface GAAccount {
+interface GAAccount {
 	// namespace prefix for _gaq.push methods, ie. 'special'
 	prefix?: string;
 	// ie. 'UA-32129070-1'
@@ -18,7 +18,7 @@ export interface GAAccount {
 	sampleRate: string;
 }
 
-export interface GAAccountMap {
+interface GAAccountMap {
 	[name: string]: GAAccount;
 }
 
