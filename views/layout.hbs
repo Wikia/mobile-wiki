@@ -57,7 +57,7 @@
 		<!-- endbuild -->
 
 		<!-- build:js /public/scripts/combined.js -->
-			<!-- @if WIKIA_ENVIRONMENT='dev' -->
+			<!-- @if WIKIA_ENVIRONMENT='production' -->
 			<script src="/public/scripts/tracking.js"></script>
 			<!-- @endif -->
 			<script src="/public/templates/main.js"></script>
@@ -69,7 +69,7 @@
 		<script async src="//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
 
-		<!-- @if WIKIA_ENVIRONMENT='dev' -->
+		<!-- @if WIKIA_ENVIRONMENT='production' -->
 		{{> pixels}}
 		<!-- @endif -->
 	</body>

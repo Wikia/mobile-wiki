@@ -8,11 +8,11 @@
  *
  * trackPageView is called in ArticleView.onArticleChange
  */
-module Wikia.Utils.Tracking {
-	export function trackPageView () {
+module Wikia.Utils.tracking {
+	export function pageView () {
 		Object.keys(this).forEach(function (tracker) {
 			if (this[tracker].track) {
-				Em.Logger.info('Tracking:', tracker);
+				Em.Logger.info('Tracking pageView:', tracker);
 				this[tracker].track();
 			}
 		}, this);

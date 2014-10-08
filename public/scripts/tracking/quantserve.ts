@@ -5,7 +5,7 @@ interface Window {
 	_qevents: any[];
 }
 
-module Wikia.Utils.Tracking.Quantserve {
+module Wikia.Utils.tracking.quantserve {
 	var elem = document.createElement('script'),
 		script: HTMLScriptElement;
 
@@ -39,10 +39,10 @@ module Wikia.Utils.Tracking.Quantserve {
 			}
 		}
 
-	//quantcastLabels += ',mobilebrowser';
-	//window._qevents.push({
-	//	qacct: Wikia.tracking.quantserve,
-	//	labels: quantcastLabels
-	//});
+		//quantcastLabels += ',mobilebrowser';
+		window._qevents.push({
+			qacct: Wikia.tracking.quantserve,
+			labels: quantcastLabels
+		});
 	}
 }

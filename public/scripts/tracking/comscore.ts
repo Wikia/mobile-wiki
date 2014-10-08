@@ -6,7 +6,7 @@ interface Window {
 	_comscore: any[];
 }
 
-module Wikia.Utils.Tracking.Comscore {
+module Wikia.Utils.tracking.comscore {
 	var elem = document.createElement('script'),
 		script: HTMLScriptElement;
 
@@ -30,7 +30,6 @@ module Wikia.Utils.Tracking.Comscore {
 			}
 		});
 
-		console.log(window._comscore);
-		//script.parentNode.insertBefore(elem, script);
+		script.parentNode.insertBefore(elem, script);
 	}
 }
