@@ -47,6 +47,7 @@ interface InternalTrackingConfig {
 module Wikia.Utils {
 	var config: InternalTrackingConfig,
 	    tracker: Wikia.Modules.InternalTracker,
+	    gaTracker: Wikia.Modules.GoogleAnalyticsTracker,
 	    actions: any,
 	    inited = false,
 	    global = window;
@@ -72,6 +73,7 @@ module Wikia.Utils {
 			baseUrl: 'http://a.wikia-beacon.com/__track/',
 			defaults: config
 		});
+		gaTracker = new Wikia.Modules.GoogleAnalyticsTracker();
 
 		inited = true;
 	}
@@ -80,7 +82,8 @@ module Wikia.Utils {
 	// https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
 	// The property keys were modified to fit style rules
 	actions = {
-		dd: 'add',
+		// Generic add
+		add: 'add',
 		// Generic click, mostly javascript clicks
 		// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
 		// to allow the browser time to send these events naturally. For more information on
@@ -128,17 +131,6 @@ module Wikia.Utils {
 		view: 'view'
 	};
 
-	function gaTrack (gaqArgs: any[]): void {
-		var ga = window.ga;
-
-		if (!ga) {
-			throw Error('Google Analytics not found!');
-		}
-
-		gaqArgs.unshift('send', 'event');
-		ga.apply(window, gaqArgs);
-	}
-
 	function hasValidGaqArguments (obj: TrackingParams) {
 		return !!(obj.category && obj.label);
 	}
@@ -157,8 +149,7 @@ module Wikia.Utils {
 		    action: string = params.action,
 		    category: string = params.category,
 		    label: string = params.label,
-		    value: string = params.value,
-		    gaqArgs: any[] = [];
+		    value: string = params.value;
 
 		track[trackingMethod] = true;
 
@@ -186,11 +177,7 @@ module Wikia.Utils {
 		}
 
 		if (track.ga) {
-			gaqArgs.push(actions[params.action] || event, category, label);
-			gaqArgs.push(value || '');
-			// No-interactive = true
-			gaqArgs.push(true);
-			gaTrack(gaqArgs);
+			gaTracker.track(category, actions[params.action] || event, label, value || 0, true);
 		}
 
 		if (track.internal) {
