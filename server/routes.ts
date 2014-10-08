@@ -45,29 +45,31 @@ function routes(server: Hapi.Server) {
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: (request: Hapi.Request, reply: any) => {
-				server.methods.getPrerenderedData({
-					wikiDomain: getWikiDomainName(request.headers.host),
-					title: request.params.title,
-					redirect: request.query.redirect
-				}, (error: any, result: any) => {
-					var code = 200;
-
-					// export tracking code to layout and front end code
-					result.tracking = localSettings.tracking;
-					result.trackingJson = JSON.stringify(localSettings.tracking);
-
-					if (error) {
-						code = error.code;
-
-						result.error = JSON.stringify(error);
-					}
-
-					reply.view('application', result).code(code);
-				});
-			}
+			handler: articleHandler
 		});
 	});
+
+	function articleHandler(request: Hapi.Request, reply: any) => {
+		server.methods.getPrerenderedData({
+			wikiDomain: getWikiDomainName(request.headers.host),
+			title: request.params.title,
+			redirect: request.query.redirect
+		}, (error: any, result: any) => {
+			var code = 200;
+
+			// export tracking code to layout and front end code
+			result.tracking = localSettings.tracking;
+			result.trackingJson = JSON.stringify(localSettings.tracking);
+
+			if (error) {
+				code = error.code;
+
+				result.error = JSON.stringify(error);
+			}
+
+			reply.view('application', result).code(code);
+		});
+	}
 
 	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
 	server.route({
