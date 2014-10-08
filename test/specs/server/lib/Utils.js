@@ -161,3 +161,36 @@ test('clearHost', function () {
 		equal(global.clearHost(testCase.host), testCase.expected, testCase.description);
 	});
 });
+
+test('getEnvironment', function() {
+	var testCases = [
+		{
+			environment: 'production',
+			expected: global.Environment.Production
+		}, {
+			environment: 'verify',
+			expected: global.Environment.Verify
+		}, {
+			environment: 'preview',
+			expected: global.Environment.Preview
+		}, {
+			environment: 'sandbox',
+			expected: global.Environment.Sandbox
+		}, {
+			environment: 'devbox',
+			expected: global.Environment.Devbox
+		}, {
+			environment: 'testing',
+			expected: global.Environment.Testing
+		}, {
+			expected: global.Environment.Devbox
+		}, {
+			environment: 'investing',
+			default: global.Environment.Production,
+			expected: global.Environment.Production
+		}
+	];
+	testCases.forEach(function(testCase) {
+		equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected);
+	});
+});
