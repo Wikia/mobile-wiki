@@ -70,7 +70,7 @@ function routes(server: Hapi.Server) {
 				}, (error: any, result: any) => {
 					var code = 200;
 
-					//Tracking.handleResponse(result, request);
+					Tracking.handleResponse(result, request);
 
 					if (error) {
 						code = error.code;
