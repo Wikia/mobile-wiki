@@ -136,3 +136,20 @@ test('getWikiName', function () {
 		equal(global.getWikiDomainName(testCase.localSettings, testCase.host), testCase.expected, testCase.description);
 	});
 });
+
+test('clearHost', function () {
+	var testCases = [
+		{
+			host: 'example.com',
+			expected: 'example.com',
+			description: 'returns the same host if no port is set'
+		} , {
+			host: 'example.com:8080',
+			expected: 'example.com',
+			description: 'clears the port from the host'
+		}
+	];
+	testCases.forEach(function (testCase) {
+		equal(global.clearHost(testCase.host), testCase.expected, testCase.description);
+	});
+});
