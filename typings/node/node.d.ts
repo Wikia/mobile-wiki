@@ -658,7 +658,7 @@ declare module "url" {
         host: string;
         pathname: string;
         search: string;
-        query: string;
+        query: any; // string | Object
         slashes: boolean;
         hash?: string;
         path?: string;
@@ -1076,15 +1076,19 @@ declare module "crypto" {
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     interface Cipher {
-        update(data: any, input_encoding?: string, output_encoding?: string): string;
-        final(output_encoding?: string): string;
+        update(data: Buffer): Buffer;
+        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        final(): Buffer;
+        final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     interface Decipher {
-        update(data: any, input_encoding?: string, output_encoding?: string): void;
-        final(output_encoding?: string): string;
+        update(data: Buffer): Buffer;
+        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        final(): Buffer;
+        final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createSign(algorithm: string): Signer;
@@ -1238,7 +1242,6 @@ declare module "util" {
     export function isDate(object: any): boolean;
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
-    export function _extend(origin: any, add: any): any;
 }
 
 declare module "assert" {
