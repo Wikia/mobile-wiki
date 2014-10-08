@@ -26,7 +26,7 @@ export class SearchRequest {
 	 * want to customize later
 	 */
 	searchForQuery (query: string) {
-		var url = createUrl(this.name, 'api/v1/SearchSuggestions/List', {
+		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {
 			query: query
 		});
 
