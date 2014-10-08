@@ -29,6 +29,7 @@ interface LocalSettings {
 			keyword: string;
 			id: string;
 			c7: string;
+			c7Value: string;
 		}
 	}
 }

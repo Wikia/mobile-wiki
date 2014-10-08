@@ -35,7 +35,9 @@
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 
+        <!-- @if WIKIA_ENVIRONMENT='production' -->
 		{{> analytics}}
+        <!-- @endif -->
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->

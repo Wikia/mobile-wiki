@@ -39,7 +39,8 @@ var localSettings: LocalSettings = {
 		comscore: {
 			keyword: 'comscorekw',
 			id: '6177433',
-			c7: ''
+			c7: '',
+			c7Value: ''
 		}
 	}
 };

@@ -20,17 +20,17 @@ module Wikia.Utils.Tracking.Comscore {
 	export function track () {
 		var comscore = Wikia.tracking.comscore,
 			id =  comscore.id,
-			c7 = comscore.c7;
+			c7Value = comscore.c7Value;
 
 		window._comscore.push({
 			c1: '2',
 			c2: id,
 			options: {
-				url_append: id + '=' + c7
+				url_append: id + '=' + c7Value
 			}
 		});
 
-		console.log(window._comscore)
+		console.log(window._comscore);
 		//script.parentNode.insertBefore(elem, script);
 	}
 }
