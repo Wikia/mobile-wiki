@@ -19,26 +19,15 @@ function methods(server: Hapi.Server): void {
 		    noCache: {}
 	    };
 
-	server.method('searchForQuery', (params: any, next: Function) => {
-		search.searchWiki(params, (error: any, searchResults: any) => {
-			next(error, searchResults);
-		});
-	}, cacheOptions.noCache);
+	server.method('searchForQuery', search.searchWiki, cacheOptions.noCache);
 
-	server.method('getPrerenderedData', indexController, cacheOptions);
+	server.method('getPrerenderedData', indexController, cacheOptions.default);
 
-	server.method('getArticleData', (params: any, next: Function) => {
-		article.createFullArticle(false, params, (error: any, article: any) => {
-			next(error, article);
-		});
+	server.method('getArticleData', (params: any, next: (error: any, data: any) => {}) => {
+		article.createFullArticle(false, params, next);
 	}, cacheOptions.default);
 
-	server.method('getArticleComments', (params: any, next: Function) => {
-		comments.handleRoute(params, (error: any, articleComments: any) => {
-			next(error, articleComments);
-		});
-	}, cacheOptions.default);
+	server.method('getArticleComments', comments.handleRoute, cacheOptions.default);
 }
-
 export = methods;
 
