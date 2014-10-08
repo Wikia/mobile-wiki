@@ -38,7 +38,7 @@ function routes(server: Hapi.Server) {
 		};
 
 	function articleHandler(request: Hapi.Request, reply: any) {
-		server.methods.getPrerenderedData({
+		server.methods.getPreRenderedData({
 			wikiDomain: getWikiDomainName(request.headers.host),
 			title: request.params.title,
 			redirect: request.query.redirect

@@ -44,13 +44,13 @@ function createServerData () {
 }
 
 function index(params: any, next: Function): void {
-	article.createFullArticle(true, params, (error: any, article: any, wiki: any) => {
+	article.createFullArticle(params, (error: any, article: any, wiki: any) => {
 		next(error, {
 			server: createServerData(),
 			wiki: createWikiData(wiki),
 			article: createArticleData(article)
 		});
-	});
+	}, true);
 }
 
 export = index;

@@ -21,11 +21,9 @@ function methods(server: Hapi.Server): void {
 
 	server.method('searchForQuery', search.searchWiki, cacheOptions.noCache);
 
-	server.method('getPrerenderedData', indexController, cacheOptions.default);
+	server.method('getPreRenderedData', indexController, cacheOptions.default);
 
-	server.method('getArticleData', (params: any, next: (error: any, data: any) => {}) => {
-		article.createFullArticle(false, params, next);
-	}, cacheOptions.default);
+	server.method('getArticleData', article.createFullArticle, cacheOptions.default);
 
 	server.method('getArticleComments', comments.handleRoute, cacheOptions.default);
 }
