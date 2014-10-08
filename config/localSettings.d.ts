@@ -21,6 +21,7 @@ interface LocalSettings {
 	wikiFallback: string;
 	apiBase: string;
 	workerDisconnectTimeout: number;
+	backendRequestTimeout: number;
 	loggers: LoggerInterface;
 	tracking: {
 		gaId: string;

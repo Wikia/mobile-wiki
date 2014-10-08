@@ -88,7 +88,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,
-			timeout: 10000
+			timeout: localSettings.backendRequestTimeout
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
 				reject(err);
