@@ -8,22 +8,25 @@
 	-webkit-overflow-scrolling: touch;
 	width: 100%;
 
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+
 	li {
 		border-bottom: rem-calc(1) solid #d0d0d0;
-		color: #333333;
 		font-weight: normal;
 		list-style: none;
 		padding: rem-calc(10) $side-nav-item-gutter;
 		position: relative;
 		text-align: left;
+
+		a {
+			color: #333333;
+		}
 	}
 
-	ul {
-		margin: 0;
-		padding: 0;
+	.search & {
+		visibility: visible;
 	}
-}
-
-&.search .local-wikia-search {
-	visibility: visible;
 }

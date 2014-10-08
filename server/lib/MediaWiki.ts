@@ -26,12 +26,10 @@ export class SearchRequest {
 	 * want to customize later
 	 */
 	searchForQuery (query: string) {
-		var url = createUrl(this.wikiDomain, 'api/v1/Search/List', {
-			limit: 25,
-			minArticleQuality: 10,
-			namespaces: '0,14',
+		var url = createUrl(this.name, 'api/v1/SearchSuggestions/List', {
 			query: query
 		});
+
 		return fetch(url);
 	}
 }
