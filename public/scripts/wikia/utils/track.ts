@@ -1,4 +1,6 @@
 /// <reference path="../modules/InternalTracking.ts" />
+/// <reference path="../modules/GoogleAnalyticsTracking.ts" />
+
 interface Window {
 	ga: any;
 	Wikia: any;
@@ -69,11 +71,11 @@ module Wikia.Utils {
 			cb: ~~(Math.random() * 99999)
 		};
 
-		tracker = new Wikia.Modules.InternalTracker({
+		tracker = Wikia.Modules.InternalTracker.getInstance({
 			baseUrl: 'http://a.wikia-beacon.com/__track/',
 			defaults: config
 		});
-		gaTracker = new Wikia.Modules.GoogleAnalyticsTracker();
+		gaTracker = Wikia.Modules.GoogleAnalyticsTracker.getInstance({global: window});
 
 		inited = true;
 	}

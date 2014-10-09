@@ -3,6 +3,7 @@
 module Wikia.Modules {
 
 	export class InternalTracker {
+		private static instance: Wikia.Modules.InternalTracker = null;
 		baseUrl: string;
 		callbackTimeout: number;
 		success: Function;
@@ -17,6 +18,19 @@ module Wikia.Modules {
 			this.success = config.success ? config.success : null;
 			this.error = config.error ? config.success : null;
 			this.defaults = config.defaults || {};
+		}
+
+		/**
+		 * Singleton accessor
+		 *
+		 * @param {Object} config
+		 * @returns {InternalTracker}
+		 */
+		public static getInstance (config: any): Wikia.Modules.InternalTracker {
+			if (InternalTracker.instance === null) {
+				InternalTracker.instance = new Wikia.Modules.InternalTracker(config);
+			}
+			return InternalTracker.instance;
 		}
 
 		public track (eventName: string = 'trackingevent', params: any = {}): void {

@@ -3,12 +3,13 @@
 module Wikia.Modules {
 
 	export class GoogleAnalyticsTracker {
+		private static instance: Wikia.Modules.GoogleAnalyticsTracker = null;
 		accounts: GAAccountMap;
-		accountPrimary: string = 'primary';
-		accountSpecial: string = 'special';
+		accountPrimary = 'primary';
+		accountSpecial = 'special';
 		queue: GoogleAnalyticsCode;
 
-		constructor () {
+		constructor (config: any) {
 			var i: number,
 				// All domains that host content for Wikia
 				possibleDomains: string[] = [
@@ -18,7 +19,7 @@ module Wikia.Modules {
 				];
 
 			this.accounts = Wikia.tracking.ga;
-			this.queue = window._gaq;
+			this.queue = config.global._gaq;
 
 			// Primary account (should not have a namespace prefix)
 			this.queue.push(['_setAccount', this.accounts[this.accountPrimary]['id']]);
@@ -51,6 +52,19 @@ module Wikia.Modules {
 		}
 
 		/**
+		 * Singleton accessor
+		 *
+		 * @param {Object} config
+		 * @returns {GoogleAnalyticsTracker}
+		 */
+		public static getInstance (config: any): Wikia.Modules.GoogleAnalyticsTracker {
+			if (GoogleAnalyticsTracker.instance === null) {
+				GoogleAnalyticsTracker.instance = new Wikia.Modules.GoogleAnalyticsTracker(config);
+			}
+			return GoogleAnalyticsTracker.instance;
+		}
+
+		/**
 		 * Check whether this is a special wiki, which warrants additional tracking
 		 *
 		 * @returns {boolean}
@@ -66,9 +80,9 @@ module Wikia.Modules {
 		 * @see {@link https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiEventTracking}
 		 * @param {string} category Event category.
 		 * @param {string} action Event action.
-		 * @param {string=""} label Event label.
-		 * @param {number=0} value Event value. Has to be an integer.
-		 * @param {boolean=false} nonInteractive Event is non-interactive.
+		 * @param {string} label Event label.
+		 * @param {number} value Event value. Has to be an integer.
+		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		public track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
@@ -78,6 +92,13 @@ module Wikia.Modules {
 			if (this.isSpecialWiki()) {
 				this.queue.push([this.accounts[this.accountSpecial]['prefix'] + '._trackEvent'].concat(args));
 			}
+		}
+
+		/**
+		 * Tracks the current page view
+		 */
+		public trackPageView () {
+			this.queue.push(['_trackPageView']);
 		}
 	}
 }
