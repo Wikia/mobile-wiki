@@ -70,8 +70,7 @@ module Wikia.Modules {
 		 * @returns {boolean}
 		 */
 		isSpecialWiki (): boolean {
-			// TODO: https://wikia-inc.atlassian.net/browse/HG-192
-			return false;
+			return !!Wikia.wiki.isGASpecialWiki;
 		}
 
 		/**
