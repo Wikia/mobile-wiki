@@ -75,7 +75,7 @@ module Wikia.Utils {
 			baseUrl: 'http://a.wikia-beacon.com/__track/',
 			defaults: config
 		});
-		gaTracker = Wikia.Modules.GoogleAnalyticsTracker.getInstance({global: window});
+		gaTracker = Wikia.Modules.GoogleAnalyticsTracker.getInstance();
 
 		inited = true;
 	}

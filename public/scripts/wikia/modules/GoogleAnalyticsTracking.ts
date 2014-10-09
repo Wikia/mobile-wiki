@@ -7,9 +7,10 @@ module Wikia.Modules {
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
+		accountMercury = 'mercury';
 		queue: GoogleAnalyticsCode;
 
-		constructor (config: any) {
+		constructor () {
 			var i: number,
 				// All domains that host content for Wikia
 				possibleDomains: string[] = [
@@ -19,23 +20,19 @@ module Wikia.Modules {
 				];
 
 			this.accounts = Wikia.tracking.ga;
-			this.queue = config.global._gaq;
+			this.queue = window._gaq;
 
-			// Primary account (should not have a namespace prefix)
-			this.queue.push(['_setAccount', this.accounts[this.accountPrimary]['id']]);
-			if (document.cookie.indexOf('qualaroo_survey_submission') > -1) {
-				// 100% sampling for users who participated in a Qualaroo survey
-				this.queue.push(['_setSampleRate', '100']);
-			} else {
-				this.queue.push(['_setSampleRate', this.accounts[this.accountPrimary]['sampleRate']]);
-			}
+			// Primary account
+			this.initAccount(this.accountPrimary);
 
 			// Special wikis account
 			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
-				this.queue.push([this.accounts[this.accountSpecial]['prefix'] + '._setAccount',
-					this.accounts[this.accountSpecial]['id']]);
-				this.queue.push([this.accounts[this.accountSpecial]['prefix'] + '._setSampleRate',
-					this.accounts[this.accountSpecial]['sampleRate']]);
+				this.initAccount(this.accountSpecial);
+			}
+
+			// Mercury-only account
+			if (this.accounts[this.accountMercury]) {
+				this.initAccount(this.accountMercury);
 			}
 
 			// Use one of the domains above. If none matches, the tag will fall back to
@@ -65,6 +62,21 @@ module Wikia.Modules {
 		}
 
 		/**
+		 * Initialize an additional account or property
+		 *
+		 * @param {string} name The name of the account as specified in localSettings
+		 */
+		initAccount (name: string): void {
+			var prefix = '';
+			// Primary account should not have a namespace prefix
+			if (name !== this.accountPrimary) {
+				prefix = this.accounts[name].prefix + '.';
+			}
+			this.queue.push([prefix + '_setAccount', this.accounts[name].id]);
+			this.queue.push([prefix + '_setSampleRate', <string>this.accounts[name].sampleRate]);
+		}
+
+		/**
 		 * Check whether this is a special wiki, which warrants additional tracking
 		 *
 		 * @returns {boolean}
@@ -88,8 +100,11 @@ module Wikia.Modules {
 
 			this.queue.push(['_trackEvent'].concat(args));
 
-			if (this.isSpecialWiki()) {
-				this.queue.push([this.accounts[this.accountSpecial]['prefix'] + '._trackEvent'].concat(args));
+			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackEvent'].concat(args));
+			}
+			if (this.accounts[this.accountMercury]) {
+				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackEvent'].concat(args));
 			}
 		}
 

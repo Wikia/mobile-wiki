@@ -14,8 +14,8 @@ interface GAAccount {
 	prefix?: string;
 	// ie. 'UA-32129070-1'
 	id: string;
-	// sample percentage as string, from '1' to '100'
-	sampleRate: string;
+	// sampling percentage, from 1 to 100
+	sampleRate: number;
 }
 
 interface GAAccountMap {
