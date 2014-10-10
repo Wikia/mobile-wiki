@@ -128,11 +128,69 @@ test('getWikiName', function () {
 				environment: global.Environment.Devbox,
 				mediawikiHost: 'evgeniy'
 			},
-			expected: 'glee.evgeniy.wikia-dev.com'
+			expected: 'glee.evgeniy.wikia-dev.com',
+			description: 'Returns the devbox url if local is used'
+		}, {
+			localSettings: {
+				environment: global.Environment.Devbox,
+				mediawikiHost: 'test'
+			},
+			expected: 'community.test.wikia-dev.com',
+			description: 'Returns the default sub domain if no host is provided'
 		}
 	];
 
 	testCases.forEach(function (testCase) {
 		equal(global.getWikiDomainName(testCase.localSettings, testCase.host), testCase.expected, testCase.description);
+	});
+});
+
+test('clearHost', function () {
+	var testCases = [
+		{
+			host: 'example.com',
+			expected: 'example.com',
+			description: 'returns the same host if no port is set'
+		} , {
+			host: 'example.com:8080',
+			expected: 'example.com',
+			description: 'clears the port from the host'
+		}
+	];
+	testCases.forEach(function (testCase) {
+		equal(global.clearHost(testCase.host), testCase.expected, testCase.description);
+	});
+});
+
+test('getEnvironment', function() {
+	var testCases = [
+		{
+			environment: 'production',
+			expected: global.Environment.Production
+		}, {
+			environment: 'verify',
+			expected: global.Environment.Verify
+		}, {
+			environment: 'preview',
+			expected: global.Environment.Preview
+		}, {
+			environment: 'sandbox',
+			expected: global.Environment.Sandbox
+		}, {
+			environment: 'devbox',
+			expected: global.Environment.Devbox
+		}, {
+			environment: 'testing',
+			expected: global.Environment.Testing
+		}, {
+			expected: global.Environment.Devbox
+		}, {
+			environment: 'investing',
+			default: global.Environment.Production,
+			expected: global.Environment.Production
+		}
+	];
+	testCases.forEach(function(testCase) {
+		equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected);
 	});
 });

@@ -65,15 +65,15 @@ function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
  * @description Handler for /articleComments/{wiki}/{articleId}/{page?}
  */
 
-export function handleRoute(params: any, callback: Function, err: Function): void {
+export function handleRoute(params: any, callback: (error:any, data: any) => {}): void {
 	new MediaWiki.ArticleRequest(params.wikiDomain).comments(
 			params.articleId,
 			params.page
 		)
 		.then(function(response: any) {
-			callback(wrapResponse(response));
+			callback(null, wrapResponse(response));
 		})
 		.catch(function(error: any) {
-			err(error);
+			callback(error, null);
 		});
 }

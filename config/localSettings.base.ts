@@ -28,6 +28,8 @@ var localSettings: LocalSettings = {
 	wikiFallback: 'community',
 	apiBase: '/api/v1',
 	workerDisconnectTimeout: 3000,
+	// Default timeout for backend requests
+	backendRequestTimeout: 30000,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
