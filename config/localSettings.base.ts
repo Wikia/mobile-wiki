@@ -36,7 +36,22 @@ var localSettings: LocalSettings = {
 		syslog: 'debug'
 	},
 	tracking: {
-		gaId: 'GOOGLE ANALYTICS ID',
+		ga: {
+			primary: {
+				id: 'UA-32129070-1',
+				sampleRate: 10
+			},
+			special: {
+				prefix: 'special',
+				id: 'UA-32132943-1',
+				sampleRate: 100
+			},
+			mercury: {
+				prefix: 'mercury',
+				id: 'UA-32132943-5',
+				sampleRate: 100
+			}
+		},
 		quantserve: 'p-8bG6eLqkH6Avk'
 	}
 };

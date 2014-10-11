@@ -2,8 +2,8 @@
 'use strict';
 
 /**
- * Module for aggergating all Tracking that Wikia uses
- * to make trackPageView work with your tracker,
+ * Module for aggregating all tracking that Wikia uses.
+ * To make trackPageView work with your tracker,
  * make it a submodule of this one and export one function 'track'
  *
  * trackPageView is called in ArticleView.onArticleChange

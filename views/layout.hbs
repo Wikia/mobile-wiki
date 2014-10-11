@@ -34,6 +34,10 @@
 		<!-- @ifdef browserSync -->
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
+
+		<!-- @if WIKIA_ENVIRONMENT='production' -->
+		{{> tracking}}
+		<!-- @endif -->
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
@@ -64,9 +68,5 @@
 		{{#if server.mediawikiDomain}}
 		<script async src="//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
-
-		<!-- @if WIKIA_ENVIRONMENT='production' -->
-		{{> tracking}}
-		<!-- @endif -->
 	</body>
 </html>
