@@ -46,9 +46,7 @@ function routes(server: Hapi.Server) {
 		}, (error: any, result: any) => {
 			var code = 200;
 
-			// export tracking code to layout and front end code
-			result.tracking = localSettings.tracking;
-			result.trackingJson = JSON.stringify(localSettings.tracking);
+			Tracking.handleResponse(result, request);
 
 			if (error) {
 				code = error.code;

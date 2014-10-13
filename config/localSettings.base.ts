@@ -52,7 +52,7 @@ var localSettings: LocalSettings = {
 				sampleRate: 100
 			}
 		},
-		quantserve: 'p-8bG6eLqkH6Avk'
+		quantserve: 'p-8bG6eLqkH6Avk',
 		comscore: {
 			keyword: 'comscorekw',
 			id: '6177433',

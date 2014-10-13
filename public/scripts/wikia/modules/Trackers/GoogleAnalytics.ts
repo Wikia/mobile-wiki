@@ -1,9 +1,9 @@
-/// <reference path="../../../../typings/google.analytics/ga.d.ts" />
+/// <reference path="../../../../../typings/google.analytics/ga.d.ts" />
 
-module Wikia.Modules {
+module Wikia.Modules.Trackers {
 
-	export class GoogleAnalyticsTracker {
-		private static instance: Wikia.Modules.GoogleAnalyticsTracker = null;
+	export class GoogleAnalytics {
+		private static instance: GoogleAnalytics = null;
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
@@ -52,13 +52,14 @@ module Wikia.Modules {
 		 * Singleton accessor
 		 *
 		 * @param {Object} config
-		 * @returns {GoogleAnalyticsTracker}
+		 * @returns {GoogleAnalytics}
 		 */
-		public static getInstance (config: any): Wikia.Modules.GoogleAnalyticsTracker {
-			if (GoogleAnalyticsTracker.instance === null) {
-				GoogleAnalyticsTracker.instance = new Wikia.Modules.GoogleAnalyticsTracker(config);
+		public static getInstance (): GoogleAnalytics {
+			if (GoogleAnalytics.instance === null) {
+				GoogleAnalytics.instance = new GoogleAnalytics();
 			}
-			return GoogleAnalyticsTracker.instance;
+
+			return GoogleAnalytics.instance;
 		}
 
 		/**

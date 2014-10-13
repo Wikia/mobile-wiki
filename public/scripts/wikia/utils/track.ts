@@ -187,4 +187,23 @@ module Wikia.Utils {
 			tracker.track(event, params);
 		}
 	}
+
+	/**
+	 * function for aggregating all page tracking that Wikia uses.
+	 * To make trackPageView work with your tracker,
+	 * make it a class in Wikia.Modules.Trackers and export one function 'trackPageView'
+	 *
+	 * trackPageView is called in ArticleView.onArticleChange
+	 */
+	export function trackPageView () {
+		var trackers = Em.get('Wikia.Modules.Trackers');
+
+		Object.keys(trackers).forEach(function (tracker) {
+			if (trackers[tracker]) {
+				Em.Logger.info('Track pageView:', tracker);
+
+				trackers[tracker].getInstance().trackPageView();
+			}
+		});
+	}
 }

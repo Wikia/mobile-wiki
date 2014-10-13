@@ -73,8 +73,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
 
-				if (Wikia.Utils.tracking) {
-					Wikia.Utils.tracking.pageView();
+				if (W.trackPageView) {
+					W.trackPageView();
 				}
 			}
 		});
