@@ -35,7 +35,7 @@
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 
-        <!-- @if WIKIA_ENVIRONMENT='dev' -->
+        <!-- @if WIKIA_ENVIRONMENT='production' -->
 		{{> tracking}}
         <!-- @endif -->
 	</head>
@@ -57,7 +57,7 @@
 		<!-- endbuild -->
 
 		<!-- build:js /public/scripts/combined.js -->
-			<!-- @if WIKIA_ENVIRONMENT='dev' -->
+			<!-- @if WIKIA_ENVIRONMENT='production' -->
 			<script src="/public/scripts/tracking.js"></script>
 			<!-- @endif -->
 			<script src="/public/templates/main.js"></script>
