@@ -120,11 +120,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 */
 	loadTableOfContentsData: function () {
 		var headers: HeadersFromDom[] = this.$('h2').map((i: number, elem: HTMLElement): HeadersFromDom => {
-			return {
-				level: elem.tagName,
-				name: elem.textContent,
-				id: elem.id
-			};
+			if (elem.textContent) {
+				return {
+					level: elem.tagName,
+					name: elem.textContent,
+					id: elem.id
+				};
+			}
 		}).toArray();
 		this.get('controller').send('updateHeaders', headers);
 	},

@@ -19,7 +19,7 @@ import logger = require('../../lib/Logger');
  * @param callback
  * @param err
  */
-export function createFullArticle(getWikiInfo: boolean, params: any, callback: any) {
+export function createFullArticle(params: any, callback: any, getWikiInfo: boolean = false):void {
 	var requests = [
 			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
 		];
@@ -50,7 +50,7 @@ export function handleRoute(request: Hapi.Request, reply: Function): void {
 		redirect: request.params.redirect
 	};
 
-	createFullArticle(false, data, (error: any, article: any) => {
+	createFullArticle(data, (error: any, article: any) => {
 		reply(error || article);
 	});
 }

@@ -28,14 +28,31 @@ var localSettings: LocalSettings = {
 	wikiFallback: 'community',
 	apiBase: '/api/v1',
 	workerDisconnectTimeout: 3000,
+	// Default timeout for backend requests
+	backendRequestTimeout: 30000,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
 		syslog: 'debug'
 	},
 	tracking: {
-		gaId: 'GOOGLE ANALYTICS ID',
-		quantserve: 'p-8bG6eLqkH6Avk',
+		ga: {
+			primary: {
+				id: 'UA-32129070-1',
+				sampleRate: 10
+			},
+			special: {
+				prefix: 'special',
+				id: 'UA-32132943-1',
+				sampleRate: 100
+			},
+			mercury: {
+				prefix: 'mercury',
+				id: 'UA-32132943-5',
+				sampleRate: 100
+			}
+		},
+		quantserve: 'p-8bG6eLqkH6Avk'
 		comscore: {
 			keyword: 'comscorekw',
 			id: '6177433',

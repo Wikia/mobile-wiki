@@ -6,40 +6,26 @@ import comments = require('./controllers/article/comments');
 function methods(server: Hapi.Server): void {
 	var second = 1000,
 	    cacheOptions = {
-			cache: {
-				expiresIn: 60 * second,
-				staleIn: 10 * second,
-				staleTimeout: 100
-			},
-			generateKey: (opts: any) => {
-				return JSON.stringify(opts);
-			}
-		};
+		    default: {
+			    cache: {
+				    expiresIn: 60 * second,
+				    staleIn: 10 * second,
+				    staleTimeout: 100
+			    },
+			    generateKey: (opts:any) => {
+				    return JSON.stringify(opts);
+			    }
+		    },
+		    noCache: {}
+	    };
 
-	server.method('searchForQuery', (params: any, next: Function) => {
-		search.searchWiki(params, (data: any) => {
-			next(null, data);
-		}, (err: any) => {
-			next(err);
-		});
-	}, {});
+	server.method('searchSuggestions', search.searchWiki, cacheOptions.noCache);
 
-	server.method('getPrerenderedData', indexController, cacheOptions);
+	server.method('getPreRenderedData', indexController, cacheOptions.default);
 
-	server.method('getArticleData', (params: any, next: Function) => {
-		article.createFullArticle(false, params, (error: any, article: any) => {
-			next(error, article);
-		});
-	}, cacheOptions);
+	server.method('getArticleData', article.createFullArticle, cacheOptions.default);
 
-	server.method('getArticleComments', (params: any, next: Function) => {
-		comments.handleRoute(params, (data: any) => {
-			next(null, data);
-		}, (err: any) => {
-			next(err);
-		});
-	}, cacheOptions);
+	server.method('getArticleComments', comments.handleRoute, cacheOptions.default);
 }
-
 export = methods;
 

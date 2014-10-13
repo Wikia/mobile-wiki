@@ -31,7 +31,7 @@ module Utils {
 		return fallbackEnvironment;
 	}
 
-	function getDomainName(localSettings: LocalSettings, wikiSubDomain: string = ''): string {
+	function getDomainName(localSettings: LocalSettings, wikiSubDomain: string): string {
 		if (localSettings.environment === Environment.Sandbox) {
 			return localSettings.host + '.' + wikiSubDomain + '.wikia.com';
 		}

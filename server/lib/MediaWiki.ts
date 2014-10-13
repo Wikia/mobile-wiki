@@ -26,12 +26,10 @@ export class SearchRequest {
 	 * want to customize later
 	 */
 	searchForQuery (query: string) {
-		var url = createUrl(this.wikiDomain, 'api/v1/Search/List', {
-			limit: 25,
-			minArticleQuality: 10,
-			namespaces: '0,14',
+		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {
 			query: query
 		});
+
 		return fetch(url);
 	}
 }
@@ -90,9 +88,10 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,
-			timeout: 10000
+			timeout: localSettings.backendRequestTimeout
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
+				Logger.error({url: url, error:err}, 'Error fetching url');
 				reject(err);
 			} else {
 				if (res.headers['content-type'].match('application/json')) {
@@ -110,13 +109,11 @@ export function createUrl(wikiDomain: string, path: string, params: any = {}): s
 		queryParam: string;
 
 	Object.keys(params).forEach(function(key) {
-		if (params.hasOwnProperty(key)) {
-			queryParam = (typeof params[key] !== 'undefined') ?
-				key + '=' + encodeURIComponent(params[key]) :
-				key;
+		queryParam = (typeof params[key] !== 'undefined') ?
+			key + '=' + encodeURIComponent(params[key]) :
+			key;
 
-			qsAggregator.push(queryParam);
-		}
+		qsAggregator.push(queryParam);
 	});
 
 	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');

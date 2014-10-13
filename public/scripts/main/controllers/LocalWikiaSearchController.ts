@@ -49,9 +49,11 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	},
 
 	setEmptySearchSuggestionItems: function (): void {
-		this.set('suggestions', []);
-		this.set('isLoadingSearchResults', false);
-		this.set('showEmptyMessage', true);
+		this.setProperties({
+			suggestions: [],
+			isLoadingSearchResults: false,
+			showEmptyMessage: true
+		});
 	},
 
 	/**
@@ -68,8 +70,11 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	search: function (): void {
 		var query: string = this.get('query'),
 			cached: any;
-		this.set('suggestions', []);
-		this.set('showEmptyMessage', false);
+
+		this.setProperties({
+			suggestions: [],
+			showEmptyMessage: false
+		});
 
 		// If the query string is empty, return to leave the view blank
 		if (!query) {
@@ -80,6 +85,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 			this.set('isLoadingSearchResults', false);
 		} else if (this.hasCachedResult(query)) {
 			cached = this.getCachedResult(query);
+
 			if (cached === null) {
 				this.setEmptySearchSuggestionItems();
 			} else {

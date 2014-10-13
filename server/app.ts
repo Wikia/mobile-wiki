@@ -20,20 +20,6 @@ class App {
 			// ez enable cross origin resource sharing
 			cors: true,
 			cache: this.getCacheSettings(localSettings.cache),
-			views: {
-				engines: {
-					hbs: require('handlebars')
-				},
-				isCached: true,
-				layout: true,
-				/*
-				 * Helpers are functions usable from within handlebars templates.
-				 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
-				 */
-				helpersPath: path.join(__dirname, '../views', '_helpers'),
-				path: path.join(__dirname, '../views'),
-				partialsPath: path.join(__dirname, '../views', '_partials')
-			},
 			state: {
 				cookies: {
 					strictHeader: false
@@ -42,6 +28,21 @@ class App {
 		});
 
 		this.setupLogging(server);
+
+		server.views({
+			engines: {
+				hbs: require('handlebars')
+			},
+			isCached: true,
+			layout: true,
+			/*
+			 * Helpers are functions usable from within handlebars templates.
+			 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
+			 */
+			helpersPath: path.join(__dirname, '../views', '_helpers'),
+			path: path.join(__dirname, '../views'),
+			partialsPath: path.join(__dirname, '../views', '_partials')
+		});
 
 		server.ext('onPreResponse', this.onPreResponseHandler);
 
