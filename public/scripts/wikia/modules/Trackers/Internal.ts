@@ -49,9 +49,7 @@ module Wikia.Modules.Trackers {
 			return {
 				c: wikia.wiki.id,
 				x: wikia.wiki.dbName,
-				a: wikia.article.details.title,
 				lc: wikia.wiki.language,
-				n: wikia.article.details.ns,
 				u: 0,
 				s: 'mercury',
 				beacon: '',
@@ -133,8 +131,11 @@ module Wikia.Modules.Trackers {
 		/**
 		 * alias to track a page view
 		 */
-		trackPageView () {
-			this.track('view', Internal.getConfig());
+		trackPageView (article: any) {
+			this.track('view', {
+				a: article.title,
+				n: article.ns
+			});
 		}
 	}
 }

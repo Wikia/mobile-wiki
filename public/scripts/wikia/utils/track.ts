@@ -140,7 +140,7 @@ module Wikia.Utils {
 	 *
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
-	export function trackPageView () {
+	export function trackPageView (data: any) {
 		var trackers = Em.get('Wikia.Modules.Trackers');
 
 		Object.keys(trackers).forEach(function (tracker) {
@@ -151,7 +151,7 @@ module Wikia.Utils {
 
 				if (trackerInstance && trackerInstance.trackPageView) {
 					Em.Logger.info('Track pageView:', tracker);
-					trackerInstance.trackPageView();
+					trackerInstance.trackPageView(data);
 				}
 			} else {
 				Em.Logger.info('Tracker', tracker, 'has no getInstance method');
