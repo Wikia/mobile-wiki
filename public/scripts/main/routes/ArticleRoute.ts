@@ -45,6 +45,8 @@ App.ArticleRoute = Em.Route.extend({
 		// an error. Optimally, it would remain in the same place.
 		didTransition: function () {
 			window.scrollTo(0, 0);
+			// bubble up to application didTransition hook
+			return true;
 		}
 	}
 });

@@ -8,6 +8,14 @@ App.ApplicationRoute = Em.Route.extend({
 	},
 
 	actions: {
+		loading: function () {
+			this.set('loadingView', this.container.lookup('view:loading').append());
+		},
+		didTransition: function () {
+			if (this.get('loadingView')) {
+				this.get('loadingView').destroy();
+			}
+		},
 		handleLink: function (target: HTMLAnchorElement) {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),

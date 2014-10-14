@@ -1,0 +1,31 @@
+$spinner-size: 50px;
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.loading-overlay {
+	z-index: $z-6;
+	background: rgba(white, .5);
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+
+.loading-overlay .spinner {
+	animation: spin .675s linear 0 infinite normal;
+	border-top: 5px solid $spinner-color;
+	border-bottom: 5px solid $spinner-color;
+	border-radius: 80%;
+	height: $spinner-size;
+	left: 50%;
+	margin: -25px 0 0 -25px;
+	position: absolute;
+	top: 50%;
+	width: $spinner-size;
+
+}
