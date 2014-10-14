@@ -115,11 +115,25 @@ App.MediaLightboxView = App.LightboxView.extend({
 	nextMedia: function () {
 		this.get('controller').incrementProperty('currentGalleryRef');
 		this.resetZoom();
+
+		Wikia.Utils.track('mercury-lightbox', {
+			trackingMethod: 'both',
+			category: 'mercury',
+			action: 'paginate',
+			label: 'next'
+		});
 	},
 
 	prevMedia: function () {
 		this.get('controller').decrementProperty('currentGalleryRef');
 		this.resetZoom();
+
+		Wikia.Utils.track('mercury-lightbox', {
+			trackingMethod: 'both',
+			category: 'mercury',
+			action: 'paginate',
+			label: 'previous'
+		});
 	},
 
 	resetZoom: function () {

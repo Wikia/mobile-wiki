@@ -187,5 +187,38 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.$('table:not([class*=infobox], .dirbox)')
 			.wrap(wrapper)
 			.css('visibility', 'visible');
+	},
+
+	gestures: {
+		swipeLeft: function (event): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-table').length) {
+				Wikia.Utils.track('mercury-tables', {
+					trackingMethod: 'both',
+					category: 'mercury',
+					action: 'swipe',
+					label: ''
+				});
+			} else if ($(event.target).parents('.article-gallery').length) {
+				Wikia.Utils.track('mercury-gallery', {
+					trackingMethod: 'both',
+					category: 'mercury',
+					action: 'paginate',
+					label: 'next'
+				});
+			}
+		},
+
+		swipeRight: function (event): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-gallery').length) {
+				Wikia.Utils.track('mercury-gallery', {
+					trackingMethod: 'both',
+					category: 'mercury',
+					action: 'paginate',
+					label: 'previous'
+				});
+			}
+		}
 	}
 });

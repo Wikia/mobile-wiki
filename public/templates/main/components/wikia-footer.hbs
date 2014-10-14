@@ -2,7 +2,7 @@
 <ul class="footer-links">
 	{{#each link in links}}
 		<li class='{{unbound link.className}}'>
-			<a href='{{unbound link.href}}'>{{i18n link.text}}</a>
+			<a href='{{unbound link.href}}' {{action 'trackClick' 'mercury-footer'}}>{{i18n link.text}}</a>
 		</li>
 	{{/each}}
 </ul>

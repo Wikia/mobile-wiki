@@ -64,6 +64,15 @@ App.ApplicationRoute = Em.Route.extend({
 
 		collapseSideNav: function (): void {
 			this.controllerFor('sideNav').send('collapse');
+		},
+
+		trackClick: function (eventName: string, label: any = ''): void {
+			Wikia.Utils.track(eventName, {
+				trackingMethod: 'both',
+				category: 'mercury',
+				action: 'click',
+				label: <string>label
+			});
 		}
 	}
 });

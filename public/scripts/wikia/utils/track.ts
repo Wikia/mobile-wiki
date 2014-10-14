@@ -134,7 +134,7 @@ module Wikia.Utils {
 	};
 
 	function hasValidGaqArguments (obj: TrackingParams) {
-		return !!(obj.category && obj.label);
+		return !!(obj.category && obj.action);
 	}
 
 	function pruneParamsForInternalTrack (params: TrackingParams) {
@@ -166,12 +166,6 @@ module Wikia.Utils {
 		if (track.both) {
 			track.ga = true;
 			track.internal = true;
-			params = $.extend({
-				ga_action: action,
-				ga_category: category,
-				ga_label: label,
-				ga_value: value
-			}, params);
 		}
 
 		if ((track.both || track.ga) && !hasValidGaqArguments(params)) {

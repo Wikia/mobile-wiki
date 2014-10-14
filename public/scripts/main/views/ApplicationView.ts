@@ -68,6 +68,15 @@ App.ApplicationView = Em.View.extend({
 				galleryRef: galleryRef,
 				target: target
 			});
+
+			if (galleryRef >= 0) {
+				Wikia.Utils.track('mercury-gallery', {
+					trackingMethod: 'both',
+					category: 'mercury',
+					action: 'click',
+					label: ''
+				});
+			}
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
