@@ -25,7 +25,7 @@ module Wikia.Modules.Trackers {
 		/**
 		 * Singleton accessor
 		 */
-		public static getInstance (): Quantserve {
+		static getInstance (): Quantserve {
 			if (Quantserve.instance === null) {
 				Quantserve.instance = new Quantserve();
 			}
@@ -33,7 +33,7 @@ module Wikia.Modules.Trackers {
 			return Quantserve.instance;
 		}
 
-		public trackPageView () {
+		trackPageView () {
 			var context = Wikia.article.adsContext.targeting,
 				quantcastLabels = '',
 				keyValues: string[],

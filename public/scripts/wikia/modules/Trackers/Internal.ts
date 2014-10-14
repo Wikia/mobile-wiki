@@ -40,7 +40,7 @@ module Wikia.Modules.Trackers {
 			this.head = document.head || document.getElementsByTagName('head')[0];
 			this.success = config.success ? config.success : null;
 			this.error = config.error ? config.success : null;
-			this.defaults = config.defaults || {};
+			this.defaults = config;
 		}
 
 		static getConfig () {
@@ -63,7 +63,7 @@ module Wikia.Modules.Trackers {
 			return eventName.toLowerCase() === 'view';
 		}
 
-		createRequestURL (eventName: string, params: any): string {
+		private createRequestURL (eventName: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
 				targetRoute = Internal.isPageView(eventName) ? 'view' : 'special/trackingevent';
@@ -76,7 +76,7 @@ module Wikia.Modules.Trackers {
 			return this.baseUrl + targetRoute + '?' + parts.join('&');
 		}
 
-		loadTrackingScript (url: string): void {
+		private loadTrackingScript (url: string): void {
 			var script = document.createElement('script');
 
 			script.src = url;
@@ -111,11 +111,8 @@ module Wikia.Modules.Trackers {
 
 		/**
 		 * Singleton accessor
-		 *
-		 * @param {Object} config
-		 * @returns {InternalTracker}
 		 */
-		public static getInstance (): Internal {
+		static getInstance (): Internal {
 			if (Internal.instance === null) {
 				Internal.instance = new Internal();
 			}
@@ -123,7 +120,7 @@ module Wikia.Modules.Trackers {
 			return Internal.instance;
 		}
 
-		public track (eventName: string = 'trackingevent', params: any = {}): void {
+		track (eventName: string = 'trackingevent', params: any = {}): void {
 			var requestURL: string,
 				config: any;
 
@@ -133,8 +130,11 @@ module Wikia.Modules.Trackers {
 			this.loadTrackingScript(requestURL);
 		}
 
-		public trackPageView () {
-			this.track('view');
+		/**
+		 * alias to track a page view
+		 */
+		trackPageView () {
+			this.track('view', Internal.getConfig());
 		}
 	}
 }

@@ -81,7 +81,6 @@ module Wikia.Utils {
 			view: 'view'
 		};
 
-
 	function hasValidGaqArguments (obj: TrackingParams) {
 		return !!(obj.category && obj.label);
 	}
@@ -155,7 +154,7 @@ module Wikia.Utils {
 					trackerInstance.trackPageView();
 				}
 			} else {
-				Em.Logger.error('Tracker', tracker, 'has no getInstance method');
+				Em.Logger.info('Tracker', tracker, 'has no getInstance method');
 			}
 		});
 	}

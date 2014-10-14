@@ -27,7 +27,7 @@ module Wikia.Modules.Trackers {
 		/**
 		 * Singleton accessor
 		 */
-		public static getInstance (): Comscore {
+		static getInstance (): Comscore {
 			if (Comscore.instance === null) {
 				Comscore.instance = new Comscore();
 			}
@@ -35,7 +35,7 @@ module Wikia.Modules.Trackers {
 			return Comscore.instance;
 		}
 
-		public trackPageView () {
+		trackPageView () {
 			var comscore = Wikia.tracking.comscore,
 				id =  comscore.id,
 				c7Value = comscore.c7Value;

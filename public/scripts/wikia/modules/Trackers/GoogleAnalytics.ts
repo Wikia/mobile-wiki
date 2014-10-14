@@ -54,7 +54,7 @@ module Wikia.Modules.Trackers {
 		 * @param {Object} config
 		 * @returns {GoogleAnalytics}
 		 */
-		public static getInstance (): GoogleAnalytics {
+		static getInstance (): GoogleAnalytics {
 			if (GoogleAnalytics.instance === null) {
 				GoogleAnalytics.instance = new GoogleAnalytics();
 			}
@@ -96,7 +96,7 @@ module Wikia.Modules.Trackers {
 		 * @param {number} value Event value. Has to be an integer.
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
-		public track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
+		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
 
 			this.queue.push(['_trackEvent'].concat(args));
@@ -112,7 +112,7 @@ module Wikia.Modules.Trackers {
 		/**
 		 * Tracks the current page view
 		 */
-		public trackPageView () {
+		trackPageView () {
 			this.queue.push(['_trackPageView']);
 		}
 	}
