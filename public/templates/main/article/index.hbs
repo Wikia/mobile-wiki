@@ -28,9 +28,13 @@
 			{{/if}}
 		{{/collapsible-menu}}
 	{{/if}}
-	{{#view 'article-content'}}
-		{{{article}}}
-	{{/view}}
+		{{#view 'article-content'}}
+			{{#if article}}
+				{{{article}}}
+			{{else}}
+				{{i18n 'article-empty-label'}}
+			{{/if}}
+		{{/view}}
 </section>
 <section class='article-footer'>
 {{#if users.length}}
