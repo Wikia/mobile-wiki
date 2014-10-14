@@ -1,5 +1,5 @@
-/// <reference path="../modules/InternalTracking.ts" />
-/// <reference path="../modules/GoogleAnalyticsTracking.ts" />
+/// <reference path="../modules/Trackers/Internal.ts" />
+/// <reference path="../modules/Trackers/GoogleAnalytics.ts" />
 
 interface Window {
 	ga: any;

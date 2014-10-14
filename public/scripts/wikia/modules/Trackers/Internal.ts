@@ -1,9 +1,9 @@
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../../../typings/jquery/jquery.d.ts" />
 
-module Wikia.Modules {
+module Wikia.Modules.Trackers {
 
-	export class InternalTracker {
-		private static instance: Wikia.Modules.InternalTracker = null;
+	export class Internal {
+		private static instance: Internal = null;
 		baseUrl: string;
 		callbackTimeout: number;
 		success: Function;
@@ -18,29 +18,6 @@ module Wikia.Modules {
 			this.success = config.success ? config.success : null;
 			this.error = config.error ? config.success : null;
 			this.defaults = config.defaults || {};
-		}
-
-		/**
-		 * Singleton accessor
-		 *
-		 * @param {Object} config
-		 * @returns {InternalTracker}
-		 */
-		public static getInstance (config: any): Wikia.Modules.InternalTracker {
-			if (InternalTracker.instance === null) {
-				InternalTracker.instance = new Wikia.Modules.InternalTracker(config);
-			}
-			return InternalTracker.instance;
-		}
-
-		public track (eventName: string = 'trackingevent', params: any = {}): void {
-			var requestURL: string,
-			    config: any;
-
-			config = $.extend(params, this.defaults);
-			requestURL = this.createRequestURL(eventName, config);
-
-			this.loadTrackingScript(requestURL);
 		}
 
 		isPageView (eventName: string): boolean {
@@ -91,6 +68,33 @@ module Wikia.Modules {
 			};
 
 			this.head.insertBefore(script, this.head.firstChild);
+		}
+
+		/**
+		 * Singleton accessor
+		 *
+		 * @param {Object} config
+		 * @returns {InternalTracker}
+		 */
+		public static getInstance (config: any): Internal {
+			if (Internal.instance === null) {
+				Internal.instance = new Internal(config);
+			}
+			return Internal.instance;
+		}
+
+		public track (eventName: string = 'trackingevent', params: any = {}): void {
+			var requestURL: string,
+				config: any;
+
+			config = $.extend(params, this.defaults);
+			requestURL = this.createRequestURL(eventName, config);
+
+			this.loadTrackingScript(requestURL);
+		}
+
+		public trackPageView () {
+			this.track('view');
 		}
 	}
 }
