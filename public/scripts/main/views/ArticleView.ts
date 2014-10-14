@@ -72,10 +72,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.jumpToAnchor();
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
-
-				if (W.trackPageView) {
-					W.trackPageView();
-				}
+				W.trackPageView();
 			}
 		});
 	},
