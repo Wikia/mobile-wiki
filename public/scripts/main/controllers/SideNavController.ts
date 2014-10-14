@@ -9,7 +9,7 @@
  */
 App.SideNavController = Em.Controller.extend({
 	// Needs this so we can send search query to that controller
-	needs: ['localWikiaSearch'],
+	needs: ['localWikiaSearch', 'localNavMenu'],
 	isInSearchMode: false,
 	isCollapsed: true,
 
@@ -25,6 +25,8 @@ App.SideNavController = Em.Controller.extend({
 		},
 		collapse: function (): void {
 			this.set('isCollapsed', true);
+			// set the localNav to the root menu on close
+			this.get('controllers.localNavMenu').send('gotoRoot');
 		}
 	}
 });

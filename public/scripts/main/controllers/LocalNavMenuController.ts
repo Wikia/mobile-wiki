@@ -89,6 +89,10 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 	},
 
 	actions: {
+		gotoRoot: function (): void {
+			this.set('currentMenuItem', this.get('menuRoot'));
+			this.set('parentItem', null);
+		},
 		goBack: function (): void {
 			this.set('currentMenuItem', this.get('parentItem'));
 			// We've made it back to the root of the menu
