@@ -1,4 +1,7 @@
 /// <reference path="../../../../../typings/google.analytics/ga.d.ts" />
+interface Window {
+	_gaq: any[]
+}
 
 module Wikia.Modules.Trackers {
 
@@ -20,7 +23,7 @@ module Wikia.Modules.Trackers {
 				];
 
 			this.accounts = Wikia.tracking.ga;
-			this.queue = window._gaq;
+			this.queue = window._gaq = window._gaq || [];
 
 			// Primary account
 			this.initAccount(this.accountPrimary);
