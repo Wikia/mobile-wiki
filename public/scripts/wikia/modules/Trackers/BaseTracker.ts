@@ -1,6 +1,6 @@
 /// <reference path="../../../baseline/Wikia.d.ts" />
 'use strict';
-console.log('lol')
+
 /**
  * Base class for trackers that have to append their scripts like Comscore or Quantserve
  */
