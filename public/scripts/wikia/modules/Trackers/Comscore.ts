@@ -13,15 +13,24 @@ module Wikia.Modules.Trackers {
 		elem: HTMLScriptElement;
 
 		constructor () {
-			var elem = document.createElement('script');
-
 			window._comscore = window._comscore || [];
 
-			elem.async = true;
-			elem.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
-
 			this.script = document.getElementsByTagName('script')[0];
+		}
+
+		appendScript () {
+			var elem = document.createElement('script');
+
+			elem.async = true;
+			elem.src = this.url();
+
 			this.elem = elem;
+
+			this.script.parentNode.insertBefore(this.elem, this.script);
+		}
+
+		url (): string {
+			return (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js?" + Math.random();
 		}
 
 		/**
@@ -48,10 +57,7 @@ module Wikia.Modules.Trackers {
 				}
 			});
 
-			this.script.parentNode.insertBefore(this.elem, this.script);
+			this.appendScript();
 		}
 	}
-
-
-
 }
