@@ -41,7 +41,7 @@ App.ArticleModel = Em.Object.extend({
 });
 
 App.ArticleModel.reopenClass({
-	url: function (params: { title: string; redirect?: string }) {
+	url: function (params: {title: string; redirect?: string}) {
 		var redirect = '';
 
 		if (params.redirect) {
@@ -51,7 +51,7 @@ App.ArticleModel.reopenClass({
 		return App.get('apiBase') + '/article/' + params.title + redirect;
 	},
 
-	find: function (params: { wiki: string; title: string; redirect?: string }) {
+	find: function (params: {wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params);
 
 		if (Wikia._state.firstPage) {
@@ -92,10 +92,6 @@ App.ArticleModel.reopenClass({
 				error: error
 			};
 		} else if (source) {
-			if (source.content) {
-				data.article = source.content;
-			}
-
 			if (source.details) {
 				var details = source.details;
 
@@ -106,19 +102,20 @@ App.ArticleModel.reopenClass({
 					id: details.id,
 					user: details.revision.user_id
 				});
-			}
+		}
 
 			if (source.article) {
 				var article = source.article;
 
 				data = $.extend(data, {
+					article: article.content,
 					mediaUsers: article.users,
 					media: App.MediaModel.create({
 						media: article.media
 					}),
 					categories: article.categories
 				});
-			}
+		}
 
 			if (source.relatedPages) {
 				/**
