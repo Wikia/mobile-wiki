@@ -1,4 +1,4 @@
-/// <reference path="../../../baseline/Wikia.d.ts" />
+/// <reference path="./BaseTracker.ts" />
 'use strict';
 
 interface Window {
@@ -7,23 +7,11 @@ interface Window {
 }
 
 module Wikia.Modules.Trackers {
-	export class Quantserve {
+	export class Quantserve extends BaseTracker {
 		private static instance: Quantserve = null;
-		script: HTMLScriptElement = null;
 
 		constructor () {
 			window._qevents = [];
-
-			this.script = document.getElementsByTagName('script')[0];
-		}
-
-		appendScript (): void {
-			var elem = document.createElement('script');
-
-			elem.async = true;
-			elem.src = this.url();
-
-			this.script.parentNode.insertBefore(elem, this.script);
 		}
 
 		url (): string {

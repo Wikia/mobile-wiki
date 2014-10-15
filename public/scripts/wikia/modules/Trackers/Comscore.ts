@@ -1,5 +1,4 @@
-/// <reference path="../../../baseline/Wikia.d.ts" />
-
+/// <reference path="./BaseTracker.ts" />
 'use strict';
 
 interface Window {
@@ -7,26 +6,11 @@ interface Window {
 }
 
 module Wikia.Modules.Trackers {
-	export class Comscore {
+	export class Comscore extends BaseTracker {
 		private static instance: Comscore = null;
-		script: HTMLScriptElement;
-		elem: HTMLScriptElement;
 
 		constructor () {
 			window._comscore = window._comscore || [];
-
-			this.script = document.getElementsByTagName('script')[0];
-		}
-
-		appendScript () {
-			var elem = document.createElement('script');
-
-			elem.async = true;
-			elem.src = this.url();
-
-			this.elem = elem;
-
-			this.script.parentNode.insertBefore(this.elem, this.script);
 		}
 
 		url (): string {
