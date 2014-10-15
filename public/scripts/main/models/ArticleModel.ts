@@ -108,11 +108,7 @@ App.ArticleModel.reopenClass({
 				var article = source.article;
 
 				data = $.extend(data, {
-<<<<<<< Updated upstream
-					article: article.content,
-=======
 					article: article.content || source.content,
->>>>>>> Stashed changes
 					mediaUsers: article.users,
 					media: App.MediaModel.create({
 						media: article.media
