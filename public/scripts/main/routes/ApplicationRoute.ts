@@ -7,7 +7,7 @@ App.ApplicationRoute = Em.Route.extend({
 		return params;
 	},
 
-	hideLoader: function () {
+	hideLoader: function (): void {
 		var view = this.get('loadingView');
 		if (view) {
 			view.destroy();
@@ -15,17 +15,16 @@ App.ApplicationRoute = Em.Route.extend({
 	},
 
 	actions: {
-		loading: function () {
+		loading: function (): void {
 			this.set('loadingView', this.container.lookup('view:loading').append());
 		},
-		didTransition: function () {
-		    this.hideLoader();
+		didTransition: function (): void {
+			this.hideLoader();
 		},
-		error: function () {
-			   debugger;
-		    this.hideLoader();
+		error: function (): void {
+			this.hideLoader();
 		},
-		handleLink: function (target: HTMLAnchorElement) {
+		handleLink: function (target: HTMLAnchorElement): void {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
 				info = Wikia.Utils.getLinkInfo(model.get('basePath'),
