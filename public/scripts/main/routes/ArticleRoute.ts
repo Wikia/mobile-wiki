@@ -34,6 +34,7 @@ App.ArticleRoute = Em.Route.extend({
 		error: function (error: any, transition: EmberStates.Transition) {
 			transition.abort();
 			Em.Logger.warn(error);
+			return true;
 		},
 
 		willTransition: function (transition: EmberStates.Transition) {
@@ -47,6 +48,8 @@ App.ArticleRoute = Em.Route.extend({
 		// an error. Optimally, it would remain in the same place.
 		didTransition: function () {
 			window.scrollTo(0, 0);
+			// bubble up to application didTransition hook
+			return true;
 		}
 	}
 });

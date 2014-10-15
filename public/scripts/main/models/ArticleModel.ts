@@ -48,7 +48,7 @@ App.ArticleModel.reopenClass({
 			redirect += '?redirect=' + encodeURIComponent(params.redirect);
 		}
 
-		return App.get('apiBase') +'/article/' + params.title + redirect;
+		return App.get('apiBase') + '/article/' + params.title + redirect;
 	},
 
 	find: function (params: {wiki: string; title: string; redirect?: string}) {
@@ -76,6 +76,7 @@ App.ArticleModel.reopenClass({
 
 	getPreloadedData: function () {
 		Wikia._state.firstPage = false;
+		Wikia.article.content = $('.article-content').html();
 		return Wikia.article;
 	},
 
@@ -89,7 +90,7 @@ App.ArticleModel.reopenClass({
 				article: error.details,
 				cleanTitle: Wikia.Utils.String.normalize(model.title),
 				error: error
-			}
+			};
 		} else if (source) {
 			if (source.details) {
 				var details = source.details;
@@ -100,21 +101,21 @@ App.ArticleModel.reopenClass({
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id
-				})
-			}
+				});
+		}
 
 			if (source.article) {
 				var article = source.article;
 
 				data = $.extend(data, {
-					article: article.content || $('.article-content').html(),
+					article: article.content || source.content,
 					mediaUsers: article.users,
 					media: App.MediaModel.create({
 						media: article.media
 					}),
 					categories: article.categories
-				})
-			}
+				});
+		}
 
 			if (source.relatedPages) {
 				/**
