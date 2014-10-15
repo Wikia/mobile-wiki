@@ -29,7 +29,11 @@
 		{{/collapsible-menu}}
 	{{/if}}
 	{{#view 'article-content'}}
-		{{{article}}}
+		{{#if article}}
+			{{{article}}}
+		{{else}}
+			{{i18n 'article-empty-label'}}
+		{{/if}}
 	{{/view}}
 </section>
 <section class='article-footer'>

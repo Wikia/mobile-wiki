@@ -1,5 +1,6 @@
 {
 	"app": {
+		"article-empty-label": "Sorry, this article seems to be empty!",
 		"article-toc-label": "Table of Contents",
 		"article-comments-label": "__count__ comment",
 		"article-comments-label_plural": "__count__ comments",
