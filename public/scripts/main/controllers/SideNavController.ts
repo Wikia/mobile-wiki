@@ -17,11 +17,8 @@ App.SideNavController = Em.Controller.extend({
 		searchFocus: function (): void {
 			this.set('isInSearchMode', true);
 			// Track when search is opened
-			Wikia.Utils.track('mercury-search', {
-				trackingMethod: 'both',
-				category: 'mercury',
-				action: 'click',
-				label: ''
+			W.track('search', {
+				action: W.track.actions.click
 			});
 		},
 		searchCancel: function (): void {
@@ -29,10 +26,8 @@ App.SideNavController = Em.Controller.extend({
 		},
 		expand: function (): void {
 			this.set('isCollapsed', false);
-			Wikia.Utils.track('mercury-menu', {
-				trackingMethod: 'both',
-				category: 'mercury',
-				action: 'click',
+			W.track('menu', {
+				action: W.track.actions.click,
 				label: 'open'
 			});
 		},
@@ -40,10 +35,8 @@ App.SideNavController = Em.Controller.extend({
 			this.set('isCollapsed', true);
 			// set the localNav to the root menu on close
 			this.get('controllers.localNavMenu').send('gotoRoot');
-			Wikia.Utils.track('mercury-menu', {
-				trackingMethod: 'both',
-				category: 'mercury',
-				action: 'click',
+			W.track('menu', {
+				action: W.track.actions.click,
 				label: 'close'
 			});
 		}

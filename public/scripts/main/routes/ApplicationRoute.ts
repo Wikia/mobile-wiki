@@ -67,10 +67,8 @@ App.ApplicationRoute = Em.Route.extend({
 		},
 
 		trackClick: function (eventName: string, label: any = ''): void {
-			Wikia.Utils.track(eventName, {
-				trackingMethod: 'both',
-				category: 'mercury',
-				action: 'click',
+			W.track(eventName, {
+				action: W.track.actions.click,
 				label: <string>label
 			});
 		}

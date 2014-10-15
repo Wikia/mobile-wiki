@@ -12,7 +12,7 @@
 			trackingEvent='mercury-toc'
 		}}
 			{{#each sections}}
-			<li {{action 'trackClick' 'mercury-toc' 'header' on='mouseDown'}}>
+			<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
 				<a href='#{{unbound id}}' title='{{unbound name}}'>
 					{{unbound name}}
 					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
@@ -39,7 +39,7 @@
 		<div class='title'>{{i18n 'article-top-contributors-label'}}</div>
 		<ul class='contributors'>
 			{{#each displayUsers}}
-			<li><a href='{{unbound url}}' {{action 'trackClick' 'mercury-contributors'}}><img src='{{unbound avatar}}' alt='{{unbound name}}'></a></li>
+			<li><a href='{{unbound url}}' {{action 'trackClick' 'contributors'}}><img src='{{unbound avatar}}' alt='{{unbound name}}'></a></li>
 			{{/each}}
 		</ul>
 	</div>
@@ -56,7 +56,7 @@
 		trackingEvent='mercury-category'
 	}}
 		{{#each categories itemController='categoryListItem'}}
-		<li {{action 'trackClick' 'mercury-category' 'link'}}><a href='{{unbound url}}' title='{{unbound title}}'>
+		<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound url}}' title='{{unbound title}}'>
 			{{cleanTitle}}
 			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 		</a></li>

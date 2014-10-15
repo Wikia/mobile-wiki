@@ -70,11 +70,8 @@ App.ApplicationView = Em.View.extend({
 			});
 
 			if (galleryRef >= 0) {
-				Wikia.Utils.track('mercury-gallery', {
-					trackingMethod: 'both',
-					category: 'mercury',
-					action: 'click',
-					label: ''
+				W.track('gallery', {
+					action: W.track.actions.click
 				});
 			}
 		} else {

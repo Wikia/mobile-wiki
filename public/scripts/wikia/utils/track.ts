@@ -11,7 +11,6 @@ interface TrackingMethods {
 	both?: Boolean;
 	ga?: Boolean;
 	internal?: Boolean;
-	none?: Boolean;
 }
 
 interface TrackingParams {
@@ -119,6 +118,8 @@ module Wikia.Utils {
 		remove: 'remove',
 		// Generic open
 		open: 'open',
+		// Page to next/previous
+		paginate: 'paginate',
 		// Sharing view email, social network, etc
 		share: 'share',
 		// Form submit, usually a post method
@@ -133,10 +134,6 @@ module Wikia.Utils {
 		view: 'view'
 	};
 
-	function hasValidGaqArguments (obj: TrackingParams) {
-		return !!(obj.category && obj.action);
-	}
-
 	function pruneParamsForInternalTrack (params: TrackingParams) {
 		delete params.action;
 		delete params.label;
@@ -145,18 +142,12 @@ module Wikia.Utils {
 	}
 
 	export function track (event: string, params: TrackingParams): void {
-		if (!Wikia.tracking) {
-			// Tracking config is not available.
-			// NOTE: This check is here to make unit tests pass. Can this be improved or moved elsewhere?
-			return;
-		}
-
 		var browserEvent = window.event,
-		    trackingMethod: string = params.trackingMethod || 'none',
+		    trackingMethod: string = params.trackingMethod || 'both',
 		    track: TrackingMethods = {},
 		    action: string = params.action,
-		    category: string = params.category,
-		    label: string = params.label,
+		    category: string = params.category || 'mercury',
+		    label: string = params.label || '',
 		    value: string = params.value;
 
 		track[trackingMethod] = true;
@@ -165,20 +156,15 @@ module Wikia.Utils {
 			init();
 		}
 
-		if (track.none) {
-			throw new Error('must specify a tracking method');
-		}
-
 		if (track.both) {
 			track.ga = true;
 			track.internal = true;
 		}
 
-		if ((track.both || track.ga) && !hasValidGaqArguments(params)) {
-			throw new Error('missing required GA params');
-		}
-
 		if (track.ga) {
+			if (!category || !action) {
+				throw new Error('missing required GA params');
+			}
 			gaTracker.track(category, actions[params.action] || event, label, value || 0, true);
 		}
 
@@ -187,4 +173,7 @@ module Wikia.Utils {
 			tracker.track(event, params);
 		}
 	}
+
+	// Export actions so that they're accessible as W.track.actions
+	track.actions = actions;
 }

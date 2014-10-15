@@ -85,10 +85,8 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		toggleComments: function (): void {
 			this.set('page', this.get('page') ? null : 1);
 
-			Wikia.Utils.track('mercury-comments', {
-				trackingMethod: 'both',
-				category: 'mercury',
-				action: 'click',
+			W.track('comments', {
+				action: W.track.actions.click,
 				label: this.get('page') ? 'close' : 'open'
 			});
 		}

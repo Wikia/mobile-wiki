@@ -193,17 +193,12 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		swipeLeft: function (event): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-table').length) {
-				Wikia.Utils.track('mercury-tables', {
-					trackingMethod: 'both',
-					category: 'mercury',
-					action: 'swipe',
-					label: ''
+				W.track('tables', {
+					action: W.track.actions.swipe
 				});
 			} else if ($(event.target).parents('.article-gallery').length) {
-				Wikia.Utils.track('mercury-gallery', {
-					trackingMethod: 'both',
-					category: 'mercury',
-					action: 'paginate',
+				W.track('gallery', {
+					action: W.track.actions.paginate,
 					label: 'next'
 				});
 			}
@@ -212,10 +207,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		swipeRight: function (event): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-gallery').length) {
-				Wikia.Utils.track('mercury-gallery', {
-					trackingMethod: 'both',
-					category: 'mercury',
-					action: 'paginate',
+				W.track('gallery', {
+					action: W.track.actions.paginate,
 					label: 'previous'
 				});
 			}

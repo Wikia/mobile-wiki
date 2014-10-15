@@ -28,11 +28,9 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 
 			// Track opening and closing menu
 			if (this.trackingEvent !== null) {
-				Wikia.Utils.track(this.trackingEvent, {
-					trackingMethod: 'both',
-					category: 'mercury',
-					action: 'click',
-					label: this.isCollapsed === false ? 'open' : 'close'
+				W.track(this.trackingEvent, {
+					action: W.track.actions.click,
+					label: this.isCollapsed ? 'close' : 'open'
 				});
 			}
 		}

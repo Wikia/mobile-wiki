@@ -3,7 +3,7 @@
 		<h1>{{i18n 'article-suggestions-label'}}</h1>
 		<ul>
 			{{#each page in pages}}
-				<li {{action 'trackClick' 'mercury-related' on='mouseDown'}}>
+				<li {{action 'trackClick' 'related' on='mouseDown'}}>
 					{{#link-to 'article' page.title}}
 						{{image-media url=page.imgUrl caption=page.title height=200}}
 					{{/link-to}}

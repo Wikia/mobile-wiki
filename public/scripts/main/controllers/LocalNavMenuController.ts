@@ -113,10 +113,8 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 			this.set('currentMenuItem', curr.children[index]);
 			this.set('parentItem', curr);
 
-			Wikia.Utils.track('mercury-wikinav', {
-				trackingMethod: 'both',
-				category: 'mercury',
-				action: 'click',
+			W.track('wikinav', {
+				action: W.track.actions.click,
 				label: index + 1
 			});
 		}
