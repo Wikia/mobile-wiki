@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 	paths = require('../paths'),
 	options = require('../options').doc.back;
 
-gulp.task('typedoc-back', function() {
+gulp.task('docs-back', function() {
 	return gulp
 		.src([paths.scripts.back.src, paths.scripts.back.config])
 		.pipe(typedoc(options));

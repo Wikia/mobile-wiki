@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 	paths = require('../paths'),
 	options = require('../options').doc.front;
 
-gulp.task('typedoc-front', function() {
+gulp.task('docs-front', function() {
 	return gulp
 		.src([paths.scripts.front.src + '/' + paths.scripts.front.files])
 		.pipe(typedoc(options));
