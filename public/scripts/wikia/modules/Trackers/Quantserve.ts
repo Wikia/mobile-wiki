@@ -3,23 +3,31 @@
 
 interface Window {
 	_qevents: any[];
+	__qc: any;
 }
 
 module Wikia.Modules.Trackers {
 	export class Quantserve {
 		private static instance: Quantserve = null;
+		script: HTMLScriptElement = null;
 
 		constructor () {
-			var elem = document.createElement('script'),
-				script: HTMLScriptElement;
+			window._qevents = [];
 
-			window._qevents = window._qevents || [];
+			this.script = document.getElementsByTagName('script')[0];
+		}
+
+		appendScript (): void {
+			var elem = document.createElement('script');
 
 			elem.async = true;
-			elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+			elem.src = this.url();
 
-			script = document.getElementsByTagName('script')[0];
-			script.parentNode.insertBefore(elem, script);
+			this.script.parentNode.insertBefore(elem, this.script);
+		}
+
+		url (): string {
+			return (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js?" + Math.random();
 		}
 
 		/**
@@ -33,13 +41,13 @@ module Wikia.Modules.Trackers {
 			return Quantserve.instance;
 		}
 
-		trackPageView () {
-			var context = Wikia.article.adsContext.targeting,
+		trackPageView (article: any) {
+			var context = Em.get('Wikia.article.adsContext.targeting'),
 				quantcastLabels = '',
 				keyValues: string[],
 				keyValue: string[];
 
-			if (context.wikiCategory) {
+			if (context && context.wikiCategory) {
 				quantcastLabels += context.wikiCategory;
 
 				if (context.wikiCustomKeyValues) {
@@ -55,11 +63,16 @@ module Wikia.Modules.Trackers {
 				}
 			}
 
+			//without this quantserve does not want to track 2+ page view
+			window.__qc = null;
+
 			//quantcastLabels += ',mobilebrowser';
-			window._qevents.push({
+			window._qevents = [{
 				qacct: Wikia.tracking.quantserve,
 				labels: quantcastLabels
-			});
+			}];
+
+			this.appendScript();
 		}
 	}
 }
