@@ -7,6 +7,7 @@ var path = require('path'),
 module.exports = {
 	base: basePath,
 	baseFull: path.resolve(basePath),
+	docs: 'docs',
 	vendor: {
 		src: 'public/vendor/**/*',
 		dest: basePath + '/public/vendor'

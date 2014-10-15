@@ -27,6 +27,20 @@ module.exports = {
 			removeComments: false
 		}
 	},
+	doc: {
+		front: {
+			name: 'Mercury front',
+			out: 'docs/front',
+			module: 'commonjs',
+			target: 'es5'
+		},
+		back: {
+			name: 'Mercury back',
+			out: 'docs/back',
+			module: 'commonjs',
+			target: 'es5'
+		}
+	},
 	server: {
 		path: paths.server.script,
 		env: process.env,
