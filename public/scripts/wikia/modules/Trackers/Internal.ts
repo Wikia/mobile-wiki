@@ -131,7 +131,7 @@ module Wikia.Modules.Trackers {
 		/**
 		 * alias to track a page view
 		 */
-		trackPageView (article: any) {
+		trackPageView (article: {title: string; ns: number}) {
 			this.track('view', {
 				a: article.title,
 				n: article.ns

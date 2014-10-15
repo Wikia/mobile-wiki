@@ -21,6 +21,8 @@ declare module Wikia {
 	}
 
 	module Utils {
+		var trackPageView: (obj: {article: string; ns: number}) => void;
+		var track: () => void;
 	}
 }
 

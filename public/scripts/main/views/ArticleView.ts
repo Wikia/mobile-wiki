@@ -9,10 +9,6 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-interface DOMStringMap {
-	ref: string;
-}
-
 interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
@@ -72,6 +68,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.jumpToAnchor();
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
+
 				W.trackPageView(model);
 			}
 		});

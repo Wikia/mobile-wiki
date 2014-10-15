@@ -29,7 +29,7 @@ module Wikia.Modules.Trackers {
 			return Quantserve.instance;
 		}
 
-		trackPageView (article: any) {
+		trackPageView () {
 			var context = Em.get('Wikia.article.adsContext.targeting'),
 				quantcastLabels = '',
 				keyValues: string[],
