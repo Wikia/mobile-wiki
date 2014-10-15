@@ -145,6 +145,12 @@ module Wikia.Utils {
 	}
 
 	export function track (event: string, params: TrackingParams): void {
+		if (!Wikia.tracking) {
+			// Tracking config is not available.
+			// NOTE: This check is here to make unit tests pass. Can this be improved or moved elsewhere?
+			return;
+		}
+
 		var browserEvent = window.event,
 		    trackingMethod: string = params.trackingMethod || 'none',
 		    track: TrackingMethods = {},
