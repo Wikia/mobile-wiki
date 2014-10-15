@@ -44,7 +44,7 @@ function forkNewWorkers(): void {
 
 /**
  * Stops a single worker
- * Gives workerDisconnectTimeout seconds after disconnect before SIGTERM
+ * Gives workerDisconnectTimeout seconds after disconnect before `SIGTERM`
  *
  * @param worker
  */

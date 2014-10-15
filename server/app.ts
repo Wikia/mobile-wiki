@@ -12,6 +12,10 @@ import logger = require('./lib/Logger');
  * Application class
  */
 class App {
+
+	/**
+	 * Creates new `hapi` server
+	 */
 	constructor() {
 		var server: Hapi.Server,
 			options: {},
