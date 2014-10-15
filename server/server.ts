@@ -1,27 +1,39 @@
 /// <reference path="../typings/node/node.d.ts" />
 
-// This script will boot app.js with the number of workers
-// specified in WORKER_COUNT.
-//
-// The master will respond to SIGHUP, which will trigger
-// restarting all the workers and reloading the app.
+/**
+ * This is the main server script.
+ *
+ * This script will boot app.js with the number of workers
+ * specified in WORKER_COUNT.
+ *
+ */
 
 import cluster = require('cluster');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
 
+/**
+ * Is the application stopping
+ * @type {boolean}
+ */
 var isStopping = false;
 
 cluster.setupMaster({
 	exec: __dirname + '/app.js'
 });
 
-// Gets the count of active workers
+/**
+ * Gets the count of active workers
+ *
+ * @returns {number} Current number of workers
+ */
 function numWorkers(): number {
 	return Object.keys(cluster.workers).length;
 }
 
-// Forks off the workers unless the server is stopping
+/**
+ * Forks off the workers unless the server is stopping
+ */
 function forkNewWorkers(): void {
 	if (!isStopping) {
 		for (var i = numWorkers(); i < localSettings.workerCount; i++) {
@@ -30,8 +42,12 @@ function forkNewWorkers(): void {
 	}
 }
 
-// Stops a single worker
-// Gives workerDisconnectTimeout seconds after disconnect before SIGTERM
+/**
+ * Stops a single worker
+ * Gives workerDisconnectTimeout seconds after disconnect before SIGTERM
+ *
+ * @param worker
+ */
 function stopWorker(worker: cluster.Worker): void {
 	logger.info('Stopping worker');
 
@@ -52,7 +68,9 @@ function stopWorker(worker: cluster.Worker): void {
 	killTimer.unref();
 }
 
-// Stops all the workers at once
+/**
+ * Stops all the workers at once
+ */
 function stopAllWorkers(): void {
 	isStopping = true;
 
@@ -75,8 +93,8 @@ forkNewWorkers();
 
 logger.info('Master process booted');
 
-//if run as child
-//send up message from workers so we can now that they are up
+// if run as child
+// send up message from workers so we can now that they are up
 if (process.send) {
 	cluster.on('online', (worker: cluster.Worker) => {
 		worker.on('message', (message: string) => {
