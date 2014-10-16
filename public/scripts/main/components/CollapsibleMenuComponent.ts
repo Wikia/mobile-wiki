@@ -13,6 +13,7 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 	ordered: false,
 	showMenuIcon: true,
 	tLabel: '',
+	trackingEvent: null,
 	// End component property
 	actions: {
 		toggleMenu: function (): void {
@@ -24,6 +25,15 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 				.slideToggle(this.get('animSpeed'));
 
 			this.toggleProperty('isCollapsed');
+
+			// Track opening and closing menu
+			if (this.trackingEvent !== null) {
+				W.track({
+					action: W.track.actions.click,
+					category: this.get('trackingEvent'),
+					label: this.isCollapsed ? 'close' : 'open'
+				});
+			}
 		}
 	},
 	didInsertElement: function (): void {

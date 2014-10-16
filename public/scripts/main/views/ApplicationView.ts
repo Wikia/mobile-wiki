@@ -68,6 +68,13 @@ App.ApplicationView = Em.View.extend({
 				galleryRef: galleryRef,
 				target: target
 			});
+
+			if (galleryRef >= 0) {
+				W.track({
+					action: W.track.actions.click,
+					category: 'gallery'
+				});
+			}
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
