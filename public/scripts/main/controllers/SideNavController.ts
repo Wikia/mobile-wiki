@@ -17,8 +17,9 @@ App.SideNavController = Em.Controller.extend({
 		searchFocus: function (): void {
 			this.set('isInSearchMode', true);
 			// Track when search is opened
-			W.track('search', {
-				action: W.track.actions.click
+			W.track({
+				action: W.track.actions.click,
+				category: 'search'
 			});
 		},
 		searchCancel: function (): void {
@@ -26,8 +27,9 @@ App.SideNavController = Em.Controller.extend({
 		},
 		expand: function (): void {
 			this.set('isCollapsed', false);
-			W.track('menu', {
+			W.track({
 				action: W.track.actions.click,
+				category: 'menu',
 				label: 'open'
 			});
 		},
@@ -35,8 +37,9 @@ App.SideNavController = Em.Controller.extend({
 			this.set('isCollapsed', true);
 			// set the localNav to the root menu on close
 			this.get('controllers.localNavMenu').send('gotoRoot');
-			W.track('menu', {
+			W.track({
 				action: W.track.actions.click,
+				category: 'menu',
 				label: 'close'
 			});
 		}

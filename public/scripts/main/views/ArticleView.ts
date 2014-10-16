@@ -193,12 +193,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		swipeLeft: function (event): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-table').length) {
-				W.track('tables', {
-					action: W.track.actions.swipe
+				W.track({
+					action: W.track.actions.swipe,
+					category: 'tables'
 				});
 			} else if ($(event.target).parents('.article-gallery').length) {
-				W.track('gallery', {
+				W.track({
 					action: W.track.actions.paginate,
+					category: 'gallery',
 					label: 'next'
 				});
 			}
@@ -207,8 +209,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		swipeRight: function (event): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-gallery').length) {
-				W.track('gallery', {
+				W.track({
 					action: W.track.actions.paginate,
+					category: 'gallery',
 					label: 'previous'
 				});
 			}

@@ -70,8 +70,9 @@ App.ApplicationView = Em.View.extend({
 			});
 
 			if (galleryRef >= 0) {
-				W.track('gallery', {
-					action: W.track.actions.click
+				W.track({
+					action: W.track.actions.click,
+					category: 'gallery'
 				});
 			}
 		} else {

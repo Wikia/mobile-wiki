@@ -146,7 +146,7 @@ module Wikia.Utils {
 		    trackingMethod: string = params.trackingMethod || 'both',
 		    track: TrackingMethods = {},
 		    action: string = params.action,
-		    category: string = params.category || 'mercury',
+		    category: string = 'mercury-' + params.category || 'mercury',
 		    label: string = params.label || '',
 		    value: string = params.value.toString();
 
