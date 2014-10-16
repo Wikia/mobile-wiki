@@ -35,7 +35,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 			media = this.get('media');
 
 			if (media) {
-				return this.getThumbURL(this.get('media').url, this.get('contentWidth'));
+				return this.getThumbURL(this.get('media').url, this.get('contentWidth'), this.get('computedHeight'));
 			}
 		}
 
