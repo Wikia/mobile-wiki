@@ -1,14 +1,14 @@
 <nav class="site-head">
-	{{render 'sideNav'}}
+	{{render "sideNav"}}
 	{{render 'login'}}
-	<div class="site-logo">
-		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+	<div class="site-logo" {{action 'trackClick' 'wordmark'}}>
+		{{svg "wikia-logo" role="img" class="icon wikia-logo"}}
 	</div>
 </nav>
 {{ad-slot name='MOBILE_TOP_LEADERBOARD'}}
 <div class="page-wrapper">
 	<section class="wiki-container">
-		<h2 class="wiki-title">{{#link-to "" alt=siteName}}{{siteName}}{{/link-to}}</h2>
+		<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to "" alt=siteName}}{{siteName}}{{/link-to}}</h2>
 		{{outlet}}
 	</section>
 </div>
