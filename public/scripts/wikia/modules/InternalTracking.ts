@@ -43,10 +43,14 @@ module Wikia.Modules {
 			this.loadTrackingScript(requestURL);
 		}
 
+		isPageView (eventName: string): boolean {
+			return eventName.toLowerCase() === 'view';
+		}
+
 		createRequestURL (params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
-				targetRoute = 'special/trackingevent';
+				targetRoute = this.isPageView(params.action) ? 'view' : 'special/trackingevent';
 
 			Object.keys(params).forEach((key) => {
 				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
