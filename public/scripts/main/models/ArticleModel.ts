@@ -108,7 +108,7 @@ App.ArticleModel.reopenClass({
 				var article = source.article;
 
 				data = $.extend(data, {
-					article: article.content,
+					article: article.content || source.content,
 					mediaUsers: article.users,
 					media: App.MediaModel.create({
 						media: article.media
