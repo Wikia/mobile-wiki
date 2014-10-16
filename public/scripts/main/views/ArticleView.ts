@@ -9,10 +9,6 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-interface DOMStringMap {
-	ref: string;
-}
-
 interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
@@ -190,7 +186,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	gestures: {
-		swipeLeft: function (event): void {
+		swipeLeft: function (event: JQueryEventObject): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-table').length) {
 				W.track({
@@ -206,7 +202,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			}
 		},
 
-		swipeRight: function (event): void {
+		swipeRight: function (event: JQueryEventObject): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-gallery').length) {
 				W.track({
