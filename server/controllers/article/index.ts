@@ -16,14 +16,14 @@ interface ArticleRequestParams {
 }
 
 /**
- * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
+ * Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
- * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
+ *
  * @param params
  * @param callback
- * @param err
+ * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
 export function createFullArticle(params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false):void {
 	var requests = [
