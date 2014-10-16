@@ -47,6 +47,18 @@ interface CommentsData {
 	}
 }
 
+interface ArticleRequestParams {
+	wikiDomain: string;
+	articleId: number;
+	page: number;
+}
+
+/**
+ * Wrap article comments data response
+ *
+ * @param commentsData Article comments payload from API
+ * @returns Wrapped Article comments object
+ */
 function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
 	return {
 		payload: {
@@ -62,10 +74,12 @@ function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
 }
 
 /**
- * @description Handler for /articleComments/{wiki}/{articleId}/{page?}
+ * Handler for /articleComments/{wiki}/{articleId}/{page?}
+ *
+ * @param params Request parameters
+ * @param callback
  */
-
-export function handleRoute(params: any, callback: (error:any, data: any) => {}): void {
+export function handleRoute(params: ArticleRequestParams, callback: (error:any, data: any) => {}): void {
 	new MediaWiki.ArticleRequest(params.wikiDomain).comments(
 			params.articleId,
 			params.page
