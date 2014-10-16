@@ -1,3 +1,4 @@
+/* tslint:disable:no-string-literal */
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 
 module Wikia.Modules {
@@ -43,14 +44,14 @@ module Wikia.Modules {
 			this.loadTrackingScript(requestURL);
 		}
 
-		isPageView (eventName: string): boolean {
-			return eventName.toLowerCase() === 'view';
+		isPageView (action: string): boolean {
+			return action === 'view';
 		}
 
 		createRequestURL (params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
-				targetRoute = this.isPageView(params.action) ? 'view' : 'special/trackingevent';
+				targetRoute = this.isPageView(params['ga_action']) ? 'view' : 'special/trackingevent';
 
 			Object.keys(params).forEach((key) => {
 				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);

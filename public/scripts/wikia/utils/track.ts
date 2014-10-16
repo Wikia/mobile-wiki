@@ -148,7 +148,7 @@ module Wikia.Utils {
 		    action: string = params.action,
 		    category: string = params.category ? 'mercury-' + params.category : null,
 		    label: string = params.label || '',
-		    value: number = params.value;
+		    value: number = params.value || 0;
 
 		track[trackingMethod] = true;
 
@@ -157,6 +157,13 @@ module Wikia.Utils {
 		}
 
 		if (track.both) {
+			params = $.extend({
+				ga_action: action,
+				ga_category: category,
+				ga_label: label,
+				ga_value: value
+			}, params);
+
 			track.ga = true;
 			track.internal = true;
 		}
@@ -165,7 +172,7 @@ module Wikia.Utils {
 			if (!category || !action) {
 				throw new Error('missing required GA params');
 			}
-			gaTracker.track(category, actions[params.action], label, value || 0, true);
+			gaTracker.track(category, actions[params.action], label, value, true);
 		}
 
 		if (track.internal) {
