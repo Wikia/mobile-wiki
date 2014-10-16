@@ -9,6 +9,12 @@ import Promise = require('bluebird');
 import logger = require('../../lib/Logger');
 
 
+interface ArticleRequestParams {
+	wikiDomain: string;
+	title: string;
+	redirect?: any;
+}
+
 /**
  * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
@@ -19,7 +25,7 @@ import logger = require('../../lib/Logger');
  * @param callback
  * @param err
  */
-export function createFullArticle(params: any, callback: any, getWikiInfo: boolean = false):void {
+export function createFullArticle(params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false):void {
 	var requests = [
 			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
 		];
@@ -44,9 +50,9 @@ export function createFullArticle(params: any, callback: any, getWikiInfo: boole
 }
 
 export function handleRoute(request: Hapi.Request, reply: Function): void {
-	var data = {
-		wikiName: request.params.wikiName,
-		articleTitle: decodeURIComponent(request.params.articleTitle),
+	var data: ArticleRequestParams = {
+		wikiDomain: request.params.wikiName,
+		title: decodeURIComponent(request.params.articleTitle),
 		redirect: request.params.redirect
 	};
 
