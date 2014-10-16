@@ -33,24 +33,20 @@ module Wikia.Modules {
 			return InternalTracker.instance;
 		}
 
-		public track (eventName: string = 'trackingevent', params: any = {}): void {
+		public track (params: any = {}): void {
 			var requestURL: string,
 			    config: any;
 
 			config = $.extend(params, this.defaults);
-			requestURL = this.createRequestURL(eventName, config);
+			requestURL = this.createRequestURL(config);
 
 			this.loadTrackingScript(requestURL);
 		}
 
-		isPageView (eventName: string): boolean {
-			return eventName.toLowerCase() === 'view';
-		}
-
-		createRequestURL (eventName: string, params: any): string {
+		createRequestURL (params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
-				targetRoute = this.isPageView(eventName) ? 'view' : 'special/trackingevent';
+				targetRoute = 'special/trackingevent';
 
 			Object.keys(params).forEach((key) => {
 				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);

@@ -1,4 +1,5 @@
 /// <reference path="../../../../typings/google.analytics/ga.d.ts" />
+/// <reference path="../../../../config/localSettings.d.ts" />
 
 module Wikia.Modules {
 
@@ -54,9 +55,9 @@ module Wikia.Modules {
 		 * @param {Object} config
 		 * @returns {GoogleAnalyticsTracker}
 		 */
-		public static getInstance (config: any): Wikia.Modules.GoogleAnalyticsTracker {
+		public static getInstance (): Wikia.Modules.GoogleAnalyticsTracker {
 			if (GoogleAnalyticsTracker.instance === null) {
-				GoogleAnalyticsTracker.instance = new Wikia.Modules.GoogleAnalyticsTracker(config);
+				GoogleAnalyticsTracker.instance = new Wikia.Modules.GoogleAnalyticsTracker();
 			}
 			return GoogleAnalyticsTracker.instance;
 		}
@@ -95,7 +96,7 @@ module Wikia.Modules {
 		 * @param {number} value Event value. Has to be an integer.
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
-		public track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
+		public track (category: string, action: string, label: string, value: string, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
 
 			this.queue.push(['_trackEvent'].concat(args));

@@ -141,14 +141,14 @@ module Wikia.Utils {
 		delete params.category;
 	}
 
-	export function track (event: string, params: TrackingParams): void {
+	export function track (params: TrackingParams): void {
 		var browserEvent = window.event,
 		    trackingMethod: string = params.trackingMethod || 'both',
 		    track: TrackingMethods = {},
 		    action: string = params.action,
 		    category: string = params.category || 'mercury',
 		    label: string = params.label || '',
-		    value: string = params.value;
+		    value: string = params.value.toString();
 
 		track[trackingMethod] = true;
 
@@ -165,12 +165,12 @@ module Wikia.Utils {
 			if (!category || !action) {
 				throw new Error('missing required GA params');
 			}
-			gaTracker.track(category, actions[params.action] || event, label, value || 0, true);
+			gaTracker.track(category, actions[params.action], label, value || '', true);
 		}
 
 		if (track.internal) {
 			pruneParamsForInternalTrack(params);
-			tracker.track(event, params);
+			tracker.track(params);
 		}
 	}
 
