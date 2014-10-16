@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../../typings/mercury-server/mercury-server.d.ts" />
 
 /**
  * @description Article controller
@@ -8,12 +9,6 @@ import MediaWiki = require('../../lib/MediaWiki');
 import Promise = require('bluebird');
 import logger = require('../../lib/Logger');
 
-
-interface ArticleRequestParams {
-	wikiDomain: string;
-	title: string;
-	redirect?: any;
-}
 
 /**
  * Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:

@@ -1,8 +1,7 @@
 declare module 'bunyan-prettystream' {
 	class PrettyStream {
-		pipe(any):any;
+		pipe(type: any):any;
 	}
-	var prettyStream: PrettyStream;
 
-	export = prettyStream;
+	export = PrettyStream;
 }

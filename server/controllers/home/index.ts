@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/node/node.d.ts" />
+/// <reference path="../../../typings/mercury-server/mercury-server.d.ts" />
 
 import util = require('util');
 import article = require('../article/index');
@@ -69,7 +70,7 @@ function createServerData (): ServerData {
  * @param params
  * @param next
  */
-function index(params: any, next: Function): void {
+function index(params: ArticleRequestParams, next: Function): void {
 	article.createFullArticle(params, (error: any, article: any, wiki: any) => {
 		next(error, {
 			server: createServerData(),

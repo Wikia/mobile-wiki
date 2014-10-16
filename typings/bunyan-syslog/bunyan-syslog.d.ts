@@ -3,8 +3,9 @@ interface BSyslog {
 	createBunyanStream (settings: any): BunyanLogger;
 }
 
-declare var bsyslog: BSyslog;
-
 declare module 'bunyan-syslog' {
+
+	var bsyslog: BSyslog;
+
 	export = bsyslog;
 }

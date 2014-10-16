@@ -1,15 +1,11 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../typings/mercury-server/mercury-server.d.ts" />
 /**
  * @description Search controller
  */
 import MediaWiki = require('../lib/MediaWiki');
 import Promise = require('bluebird');
-
-interface SearchRequestParams {
-	wikiDomain: string;
-	query: string;
-}
 
 /**
  * Get search suggestions

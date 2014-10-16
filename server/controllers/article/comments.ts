@@ -47,12 +47,6 @@ interface CommentsData {
 	}
 }
 
-interface ArticleCommentsRequestParams {
-	wikiDomain: string;
-	articleId: number;
-	page: number;
-}
-
 /**
  * Wrap article comments data response
  *
