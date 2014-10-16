@@ -15,6 +15,18 @@ module Wikia.Modules {
 		private static legacyThumbPathRegExp = /\/images\/thumb\//;
 		private static legacyPathRegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(.+)\/images\/(.*)$/;
 
+		static hasWebPSupport = (function () {
+			// @see http://stackoverflow.com/a/5573422
+			var webP = new Image();
+			webP.src = 'data:image/webp;' +
+			'base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+			webP.onload = webP.onerror = () => {
+				Thumbnailer.hasWebPSupport = (webP.height === 2);
+			};
+
+			return false;
+		})();
+
 		/**
 		 * Converts the URL of a full size image or of a thumbnail into one of a thumbnail of
 		 * the specified size and returns it
@@ -39,24 +51,11 @@ module Wikia.Modules {
 				url = this.clearThumbOptions(url);
 			}
 
-			if (this.isLegacyUrl(url)) {
-				url = this.updateLegacyUrl(url, type, width, height);
-			}
+			// for now we assume this url is always a legacy one
+			url = this.createThumbnailUrlFromLegacyUrl(url, type, width, height);
 
 			return url;
 		}
-
-		static hasWebPSupport = (function () {
-			// @see http://stackoverflow.com/a/5573422
-			var webP = new Image();
-			webP.src = 'data:image/webp;' +
-			'base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
-			webP.onload = webP.onerror = () => {
-				Thumbnailer.hasWebPSupport = (webP.height === 2);
-			};
-
-			return false;
-		})();
 
 		/**
 		 * Checks if a URL points to a thumbnail
@@ -98,26 +97,13 @@ module Wikia.Modules {
 		}
 
 		/**
-		 * Checks if url points to legacy image path
-		 *
-		 * @private
-		 *
-		 * @param {String} url
-		 *
-		 * @returns {Boolean}
-		 */
-		static isLegacyUrl(url: string): boolean {
-			return url && this.legacyPathRegExp.test(url);
-		}
-
-		/**
 		 * Removes the thumbnail options part from a thumbnail URL
 		 *
 		 * @private
 		 *
 		 * @param {String} url The URL of a thumbnail
 		 *
-		 * @return {String} The URL without the thymbnail options
+		 * @return {String} The URL without the thumbnail options
 		 */
 		static clearThumbOptions(url: string): string {
 			var clearedOptionsUrl;
@@ -133,7 +119,19 @@ module Wikia.Modules {
 			return clearedOptionsUrl;
 		}
 
-		static updateLegacyUrl(url: string, type: string, width: number, height: number): string {
+		/**
+		 * Creates thumbnail URL from legacy image URL which has to be stripped from thumbnail parameters already.
+		 *
+		 * @private
+		 *
+		 * @param {String} url
+		 * @param {String} type
+		 * @param {Number} width
+		 * @param {Number} height
+		 *
+		 * @return {string} The URL
+		 */
+		static createThumbnailUrlFromLegacyUrl(url: string, type: string, width: number, height: number): string {
 			var urlParsed = this.legacyPathRegExp.exec(url);
 			url = 'http://vignette.' + urlParsed[1] + '/' + urlParsed[3] + '/' + urlParsed[4] + '/revision/latest';
 			url = this.addParametersToUrl(url, type, width, height);
