@@ -49,6 +49,11 @@ export function createFullArticle(params: ArticleRequestParams, callback: any, g
 		});
 }
 
+/**
+ * Handle Article api request
+ * @param request
+ * @param reply
+ */
 export function handleRoute(request: Hapi.Request, reply: Function): void {
 	var data: ArticleRequestParams = {
 		wikiDomain: request.params.wikiName,
