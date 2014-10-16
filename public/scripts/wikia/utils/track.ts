@@ -17,7 +17,7 @@ interface TrackingParams {
 	[idx: string]: any;
 	action?: string;
 	label?: string;
-	value?: string;
+	value?: number;
 	category?: string;
 	trackingMethod: string;
 }
@@ -148,7 +148,7 @@ module Wikia.Utils {
 		    action: string = params.action,
 		    category: string = params.category ? 'mercury-' + params.category : null,
 		    label: string = params.label || '',
-		    value: string = params.value;
+		    value: number = params.value;
 
 		track[trackingMethod] = true;
 
@@ -165,7 +165,7 @@ module Wikia.Utils {
 			if (!category || !action) {
 				throw new Error('missing required GA params');
 			}
-			gaTracker.track(category, actions[params.action], label, value || '', true);
+			gaTracker.track(category, actions[params.action], label, value || 0, true);
 		}
 
 		if (track.internal) {
