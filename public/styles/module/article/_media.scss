@@ -40,6 +40,8 @@ figcaption {
 	white-space: nowrap;
 
 	img {
+		/* Fixes iOS Safari repaint bug when scrolling through gallery */
+		-webkit-transform: translate3d(0, 0, 0);
 		height: 195px;
 		margin-right: 8px;
 		width: 195px;
