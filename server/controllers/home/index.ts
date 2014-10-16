@@ -10,7 +10,6 @@ interface ServerData {
 	apiBase: string;
 }
 
-
 /**
  * Create wiki data object
  * @param wiki
@@ -66,11 +65,11 @@ function createServerData (): ServerData {
 }
 
 /**
- *
+ * Handle Full page data generation
  * @param params
  * @param next
  */
-function index(params: ArticleRequestParams, next: Function): void {
+function index(params: any, next: Function): void {
 	article.createFullArticle(params, (error: any, article: any, wiki: any) => {
 		next(error, {
 			server: createServerData(),
