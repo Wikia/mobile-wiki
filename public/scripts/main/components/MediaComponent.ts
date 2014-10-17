@@ -26,12 +26,17 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	}.property(),
 
 	/**
-	 * @desc url for given media
-	 * if image is not thumbnail, returns url to thumbnail with width set to contentWidth
+	 * @desc if image is not thumbnail, returns url to thumbnail with width set to contentWidth
 	 *
+	 * @param {String} url
+	 * @param {Number} width
+	 * @param {Number} height
+	 * @param {String} type
+	 *
+	 * @return {String}
 	 */
 	getThumbURL: function (url: string, width: number, height: number = 0, type: string = 'nocrop'): string {
-		if (!this.thumbnailer.isThumbUrl(url)) {
+		if (!this.thumbnailer.isThumbnailerUrl(url)) {
 			url = this.thumbnailer.getThumbURL(url, type, width, height);
 		}
 

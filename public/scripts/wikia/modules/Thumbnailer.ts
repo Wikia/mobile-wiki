@@ -8,12 +8,19 @@
  */
 'use strict';
 
+interface ImageUrlParameters {
+	domain: string;
+	cacheBuster: string;
+	wikiaBucket: string;
+	imagePath: string;
+}
+
 module Wikia.Modules {
 	export class Thumbnailer {
 		private static imagePathRegExp = /\/\/vignette\d?\.wikia/
 		private static thumbBasePathRegExp = /(.*\/revision\/\w+).*/;
 		private static legacyThumbPathRegExp = /\/images\/thumb\//;
-		private static legacyPathRegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(.+)\/images\/(.*)$/;
+		private static legacyPathRegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(.+)\/images\/(?:thumb\/)?(.*)$/;
 
 		static hasWebPSupport = (function () {
 			// @see http://stackoverflow.com/a/5573422
@@ -42,32 +49,24 @@ module Wikia.Modules {
 		 * @return {String}
 		 */
 		static getThumbURL(url: string, type: string, width: number, height: number): string {
+			var urlParameters: ImageUrlParameters;
+
 			url = url || '';
 			height = height || 0;
 			width = width || 50;
 
-			if (this.isThumbUrl(url)) {
-				// URL points to a thumbnail, remove crop and size
-				url = this.clearThumbOptions(url);
+			// for now we handle only legacy urls as input
+			if (this.isLegacyUrl(url)) {
+				if (this.isLegacyThumbnailerUrl(url)) {
+					// URL points to a thumbnail, remove crop and size
+					url = this.clearThumbOptions(url);
+				}
+
+				urlParameters = this.getParametersFromLegacyUrl(url);
+				url = this.createThumbnailUrl(urlParameters, type, width, height);
 			}
 
-			// for now we assume this url is always a legacy one
-			url = this.createThumbnailUrlFromLegacyUrl(url, type, width, height);
-
 			return url;
-		}
-
-		/**
-		 * Checks if a URL points to a thumbnail
-		 *
-		 * @public
-		 *
-		 * @param {String} url The URL of an image or thumbnail
-		 *
-		 * @return {Boolean} True f it's a thumbnail or false if it's an image
-		 */
-		static isThumbUrl(url: string): boolean {
-			return this.isLegacyThumbnailerUrl(url) || this.isThumbnailerUrl(url);
 		}
 
 		/**
@@ -77,7 +76,7 @@ module Wikia.Modules {
 		 *
 		 * @param {String} url
 		 *
-		 * @returns {Boolean}
+		 * @return {Boolean}
 		 */
 		static isLegacyThumbnailerUrl(url: string): boolean {
 			return url && this.legacyThumbPathRegExp.test(url);
@@ -86,14 +85,27 @@ module Wikia.Modules {
 		/**
 		 * Checks if url points to thumbnailer
 		 *
+		 * @public
+		 *
+		 * @param {String} url
+		 *
+		 * @return {Boolean}
+		 */
+		static isThumbnailerUrl(url: string): boolean {
+			return url && this.imagePathRegExp.test(url);
+		}
+
+		/**
+		 * Checks if url points to legacy image URL
+		 *
 		 * @private
 		 *
 		 * @param {String} url
 		 *
-		 * @returns {Boolean}
+		 * @return {Boolean}
 		 */
-		static isThumbnailerUrl(url: string): boolean {
-			return url && this.imagePathRegExp.test(url);
+		static isLegacyUrl(url: string): boolean {
+			return url && this.legacyPathRegExp.test(url);
 		}
 
 		/**
@@ -106,7 +118,7 @@ module Wikia.Modules {
 		 * @return {String} The URL without the thumbnail options
 		 */
 		static clearThumbOptions(url: string): string {
-			var clearedOptionsUrl;
+			var clearedOptionsUrl: string;
 
 			if (this.isThumbnailerUrl(url)) {
 				clearedOptionsUrl = url.replace(this.thumbBasePathRegExp, '$1');
@@ -120,64 +132,60 @@ module Wikia.Modules {
 		}
 
 		/**
-		 * Creates thumbnail URL from legacy image URL which has to be stripped from thumbnail parameters already.
+		 * Parses legacy image URL and returns object with URL parameters
 		 *
 		 * @private
 		 *
 		 * @param {String} url
+		 *
+		 * @return {ImageUrlParameters}
+		 */
+		static getParametersFromLegacyUrl(url: string): ImageUrlParameters {
+			var urlParsed = this.legacyPathRegExp.exec(url);
+
+			return {
+				domain: urlParsed[1],
+				cacheBuster: urlParsed[2],
+				wikiaBucket: urlParsed[3],
+				imagePath: urlParsed[4]
+			};
+		}
+
+		/**
+		 * Constructs complete thumbnailer url
+		 *
+		 * @private
+		 *
+		 * @param {ImageUrlParameters} urlParameters
 		 * @param {String} type
 		 * @param {Number} width
 		 * @param {Number} height
 		 *
-		 * @return {string} The URL
+		 * @return {String}
 		 */
-		static createThumbnailUrlFromLegacyUrl(url: string, type: string, width: number, height: number): string {
-			var urlParsed = this.legacyPathRegExp.exec(url);
-			url = 'http://vignette.' + urlParsed[1] + '/' + urlParsed[3] + '/' + urlParsed[4] + '/revision/latest';
-			url = this.addParametersToUrl(url, type, width, height);
-			url += '?cb=' + urlParsed[2];
+		static createThumbnailUrl(
+			urlParameters: ImageUrlParameters,
+			type: string,
+			width: number,
+			height: number
+			): string {
+			var url: string,
+				mode: string = (type === 'video' || type === 'nocrop') ? 'fixed-aspect-ratio' : 'top-crop';
+
+			url = 'http://vignette.' + urlParameters.domain;
+			url += '/' + urlParameters.wikiaBucket;
+			url += '/' + urlParameters.imagePath;
+			url += '/revision/latest';
+			url += '/' + mode;
+			url += '/width/' + width;
+			url += '/height/' + height;
+			url += '?cb=' + urlParameters.cacheBuster;
 
 			if (this.hasWebPSupport) {
 				url += '&format=webp';
 			}
 
 			return url;
-		}
-
-		/**
-		 * Constructs complete thumbnailer url by appending parameters to url
-		 *
-		 * @private
-		 *
-		 * @param {String} url
-		 * @param {String} type
-		 * @param {Number} width
-		 * @param {Number} height
-		 *
-		 * @returns {String} The URL with parameters for the thumbnailer added
-		 */
-		static addParametersToUrl(url, type, width, height) {
-			url = this.addThumbnailerParameters(url, type, width, height);
-			return url;
-		}
-
-		/**
-		 * Constructs complete thumbnailer url by appending parameters to url
-		 * URL before: http://vignette2.wikia.nocookie.net/thelastofus/f/ff/Joel.png/revision/latest
-		 * URL after: http://vignette2.wikia.nocookie.net/thelastofus/f/ff/Joel.png/revision/latest/zoom-crop/width/240/height/240
-		 *
-		 * @private
-		 *
-		 * @param {String} url
-		 * @param {String} type
-		 * @param {Number} width
-		 * @param {Number} height
-		 *
-		 * @returns {String}
-		 */
-		static addThumbnailerParameters(url, type, width, height) {
-			var thumbnailerRoute = (type === 'video' || type === 'nocrop') ? '/fixed-aspect-ratio' : '/top-crop';
-			return url + thumbnailerRoute + '/width/' + width + '/height/' + height;
 		}
 	}
 }
