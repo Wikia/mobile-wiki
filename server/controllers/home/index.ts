@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/node/node.d.ts" />
-/// <reference path="../../../typings/mercury-server/mercury-server.d.ts" />
+/// <reference path="../../../typings/mercury/mercury-server.d.ts" />
 
 import util = require('util');
 import article = require('../article/index');

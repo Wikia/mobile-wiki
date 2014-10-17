@@ -20,7 +20,7 @@ function methods(server: Hapi.Server): void {
 				    staleIn: 10 * second,
 				    staleTimeout: 100
 			    },
-			    generateKey: (opts:any) => {
+			    generateKey: (opts: any) => {
 				    return JSON.stringify(opts);
 			    }
 		    },

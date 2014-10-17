@@ -1,6 +1,6 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../typings/bluebird/bluebird.d.ts" />
-/// <reference path="../../typings/mercury-server/mercury-server.d.ts" />
+/// <reference path="../../typings/mercury/mercury-server.d.ts" />
 /**
  * @description Search controller
  */
@@ -13,7 +13,7 @@ import Promise = require('bluebird');
  * @param data Request params
  * @param callback
  */
-export function searchWiki(data: SearchRequestParams, callback: (error:any, data: any) => {}): void {
+export function searchWiki(data: SearchRequestParams, callback: (error: any, data: any) => {}): void {
 	var searchReq = new MediaWiki.SearchRequest({
 		wikiDomain: data.wikiDomain
 	});

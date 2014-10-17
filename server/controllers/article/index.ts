@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../../typings/bluebird/bluebird.d.ts" />
-/// <reference path="../../../typings/mercury-server/mercury-server.d.ts" />
+/// <reference path="../../../typings/mercury/mercury-server.d.ts" />
 
 /**
  * @description Article controller
@@ -20,7 +20,7 @@ import logger = require('../../lib/Logger');
  * @param callback
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
-export function createFullArticle(params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false):void {
+export function createFullArticle(params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false): void {
 	var requests = [
 			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
 		];

@@ -14,4 +14,3 @@ interface ArticleCommentsRequestParams {
 	articleId: number;
 	page: number;
 }
-

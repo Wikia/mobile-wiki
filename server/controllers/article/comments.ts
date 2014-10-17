@@ -73,7 +73,7 @@ function wrapResponse( commentsData: CommentsDataMW ): CommentsData {
  * @param params Request parameters
  * @param callback
  */
-export function handleRoute(params: ArticleCommentsRequestParams, callback: (error:any, data: any) => {}): void {
+export function handleRoute(params: ArticleCommentsRequestParams, callback: (error: any, data: any) => {}): void {
 	new MediaWiki.ArticleRequest(params.wikiDomain).comments(
 			params.articleId,
 			params.page

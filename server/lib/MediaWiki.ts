@@ -124,7 +124,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 			timeout: localSettings.backendRequestTimeout
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
-				Logger.error({url: url, error:err}, 'Error fetching url');
+				Logger.error({url: url, error: err}, 'Error fetching url');
 				reject(err);
 			} else {
 				if (res.headers['content-type'].match('application/json')) {
