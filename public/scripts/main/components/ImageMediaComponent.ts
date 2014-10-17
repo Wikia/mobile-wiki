@@ -30,7 +30,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		var media: ArticleMedia;
 
 		if (value) {
-			return this.getThumbURL(value, this.get('width'), this.get('computedHeight'), 'crop');
+			return this.getThumbURL(value, this.get('contentWidth'), this.get('computedHeight'), 'crop');
 		} else {
 			media = this.get('media');
 
