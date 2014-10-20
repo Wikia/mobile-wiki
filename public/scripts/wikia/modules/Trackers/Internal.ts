@@ -68,7 +68,7 @@ module Wikia.Modules.Trackers {
 				paramStr: string,
 				targetRoute = Internal.isPageView(category) ? 'view' : 'special/trackingevent';
 
-			Object.keys(params).forEach((key) => {
+			Object.keys(params).forEach((key: string) => {
 				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
 				parts.push(paramStr);
 			});
