@@ -2,7 +2,8 @@
  * Options for production environment
  */
 
-var paths = require('../paths');
+var zlib = require('zlib' ),
+	paths = require('../paths');
 
 module.exports = {
 	sass: {
@@ -39,7 +40,7 @@ module.exports = {
 	},
 	gzip: {
 		gzipOptions: {
-			level: 9
+			level: zlib.Z_BEST_COMPRESSION
 		}
 	}
 };
