@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 	paths = require('../paths');
 
 
-gulp.task('build', ['build-all'], function() {
+gulp.task('build', ['build-all'], function(cb) {
 	if (environment.isProduction) {
 		return gulp.src([
 			paths.base + '/public/**/*.json',
@@ -16,5 +16,5 @@ gulp.task('build', ['build-all'], function() {
 			.pipe(gzip(options.gzip))
 			.pipe(gulp.dest(paths.base + '/public'));
 	}
-	return true;
+	cb();
 });
