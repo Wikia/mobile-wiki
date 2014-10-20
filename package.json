@@ -47,6 +47,7 @@
     "gulp-filter": "1.x.x",
     "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "1.x.x",
+    "gulp-gzip": "0.0.8",
     "gulp-handlebars": "^3.0.1",
     "gulp-if": "1.x.x",
     "gulp-karma": "0.0.4",
