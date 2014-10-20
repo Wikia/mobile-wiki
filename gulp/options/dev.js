@@ -12,7 +12,7 @@ module.exports = {
 	},
 	scripts: {
 		front: {
-			target: 'es5',
+			target: 'ES5',
 			noImplicitAny: true,
 			removeComments: false,
 			declarationFiles: false,
@@ -20,7 +20,7 @@ module.exports = {
 		},
 		back: {
 			module: 'commonjs',
-			target: 'es5',
+			target: 'ES5',
 			emitError: false,
 			noImplicitAny: true,
 			declarationFiles: false,
