@@ -1,19 +1,8 @@
 moduleFor('controller:localWikiaSearch', 'Local Wikia Search Controller', {
 	setup: function () {
-		// Mock some GA event tracking stuff
-		Wikia.tracking = {
-			ga: {
-				primary: {
-					id: 'nothing',
-					sampleRate: 1
-				}
-			}
-		};
-		window._gaq = {
-			push: function () {
-				return;
-			}
-		};
+		// Mock some tracking stuff
+		W.track = function () {};
+		W.track.actions = {submit: ''};
 	}
 });
 
@@ -30,7 +19,7 @@ test('search URI generation', function () {
 		i,
 		query,
 		encodedQuery;
-	expect(queries.length);
+
 	for (i = 0; i < queries.length; i++) {
 		query = queries[i];
 		encodedQuery = encodedQueries[i];
@@ -41,7 +30,7 @@ test('search URI generation', function () {
 test('only runs one request for a given query at a time', function () {
 	var ctrl = this.subject(),
 		query = 'query';
-	expect(3);
+
 	ok(!ctrl.requestInProgress(query),
 		'request is not in progess with startedRequest hasn\'t been called');
 	ctrl.startedRequest(query);
@@ -62,7 +51,7 @@ test('cacheResult with one result', function () {
 			title: 'some title'
 		},
 		suggestions = [suggestion];
-	expect(2);
+
 	ctrl.cacheResult(query, suggestions);
 	ok(ctrl.hasCachedResult(query), 'acknowledges that the result is cached');
 	equal(suggestions, ctrl.getCachedResult(query), 'correct cached value');
@@ -70,7 +59,7 @@ test('cacheResult with one result', function () {
 
 test('eviction tests', function () {
 	var ctrl = this.subject();
-	expect(3);
+
 	ctrl.set('cachedResultsLimit', 2);
 	ok(!ctrl.needToEvict(), 'needToEvict returns false when cache isn\'t full');
 	ctrl.cacheResult('query1', []);
