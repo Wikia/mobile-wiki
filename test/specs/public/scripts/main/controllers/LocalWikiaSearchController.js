@@ -1,4 +1,21 @@
-moduleFor('controller:localWikiaSearch', 'Local Wikia Search Controller');
+moduleFor('controller:localWikiaSearch', 'Local Wikia Search Controller', {
+	setup: function () {
+		// Mock some GA event tracking stuff
+		Wikia.tracking = {
+			ga: {
+				primary: {
+					id: 'nothing',
+					sampleRate: 1
+				}
+			}
+		};
+		window._gaq = {
+			push: function () {
+				return;
+			}
+		};
+	}
+});
 
 test('search URI generation', function () {
 	var ctrl = this.subject(),

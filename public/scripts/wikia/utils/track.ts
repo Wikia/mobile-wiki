@@ -11,14 +11,13 @@ interface TrackingMethods {
 	both?: Boolean;
 	ga?: Boolean;
 	internal?: Boolean;
-	none?: Boolean;
 }
 
 interface TrackingParams {
 	[idx: string]: any;
 	action?: string;
 	label?: string;
-	value?: string;
+	value?: number;
 	category?: string;
 	trackingMethod: string;
 }
@@ -92,13 +91,13 @@ module Wikia.Utils {
 		delete params.category;
 	}
 
-	export function track (event: string, params: TrackingParams): void {
-		var trackingMethod = params.trackingMethod || 'none',
+	export function track (params: TrackingParams): void {
+		var trackingMethod: string = params.trackingMethod || 'both',
 		    track: TrackingMethods = {},
-		    action = params.action,
-		    category = params.category,
-		    label = params.label,
-		    value = params.value,
+		    action: string = params.action,
+		    category: string = params.category ? 'mercury-' + params.category : null,
+		    label: string = params.label || '',
+		    value: number = params.value || 0;
 			tracker = Wikia.Modules.Trackers.Internal.getInstance(),
 			gaTracker = Wikia.Modules.Trackers.GoogleAnalytics.getInstance();
 
@@ -109,27 +108,27 @@ module Wikia.Utils {
 		}
 
 		if (track.both) {
-			track.ga = true;
-			track.internal = true;
 			params = <TrackingParams>$.extend({
 				ga_action: action,
 				ga_category: category,
 				ga_label: label,
 				ga_value: value
 			}, params);
-		}
 
-		if ((track.both || track.ga) && !hasValidGaqArguments(params)) {
-			throw new Error('missing required GA params');
+			track.ga = true;
+			track.internal = true;
 		}
 
 		if (track.ga) {
-			gaTracker.track(category, actions[params.action] || event, label, value || 0, true);
+			if (!category || !action) {
+				throw new Error('missing required GA params');
+			}
+			gaTracker.track(category, actions[params.action], label, value, true);
 		}
 
 		if (track.internal) {
 			pruneParamsForInternalTrack(params);
-			tracker.track(event, params);
+			tracker.track(params);
 		}
 	}
 
@@ -158,4 +157,7 @@ module Wikia.Utils {
 			}
 		});
 	}
+
+	// Export actions so that they're accessible as W.track.actions
+	track.actions = actions;
 }

@@ -16,12 +16,16 @@ table[class*='infobox'] {
 		height: auto;
 	}
 
-	tr {
-		border-top: 1px solid $border-color;
-	}
-
 	th {
 		text-align: left;
+	}
+
+	tr:not(:first-of-type) {
+		border-bottom: 1px solid $border-color-light;
+	}
+
+   	tr:last-of-type {
+		border-bottom: none;
 	}
 
 	//There is already enough spacing
