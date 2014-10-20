@@ -3,8 +3,20 @@ interface Window {
 	_gaq: any[]
 }
 
-module Wikia.Modules.Trackers {
+interface GAAccount {
+	// namespace prefix for _gaq.push methods, ie. 'special'
+	prefix?: string;
+	// ie. 'UA-32129070-1'
+	id: string;
+	// sampling percentage, from 1 to 100
+	sampleRate: number;
+}
 
+interface GAAccountMap {
+	[name: string]: GAAccount;
+}
+
+module Wikia.Modules.Trackers {
 	export class GoogleAnalytics {
 		private static instance: GoogleAnalytics = null;
 		accounts: GAAccountMap;
@@ -48,7 +60,7 @@ module Wikia.Modules.Trackers {
 			}
 
 			// Send skin as custom variable
-			this.queue.push(['_setCustomVar', 4, 'Skin', 'mercury', 3]);
+			this.queue.push(['_setCustomVar', '4', 'Skin', 'mercury', '3']);
 		}
 
 		/**
@@ -72,12 +84,14 @@ module Wikia.Modules.Trackers {
 		 */
 		initAccount (name: string): void {
 			var prefix = '';
+
 			// Primary account should not have a namespace prefix
 			if (name !== this.accountPrimary) {
 				prefix = this.accounts[name].prefix + '.';
 			}
+
 			this.queue.push([prefix + '_setAccount', this.accounts[name].id]);
-			this.queue.push([prefix + '_setSampleRate', <string>this.accounts[name].sampleRate]);
+			this.queue.push([prefix + '_setSampleRate', this.accounts[name].sampleRate.toString()]);
 		}
 
 		/**

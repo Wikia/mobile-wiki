@@ -7,12 +7,8 @@ interface InternalTrackingConfig {
 	c: Number;
 	// wgDBname
 	x: String;
-	// wgArticleId
-	a: String;
 	// wgContentLanguage
 	lc: String;
-	// wgNamespaceNumber
-	n: Number;
 	// trackID || wgTrackID || 0
 	u: Number;
 	// skin
@@ -23,8 +19,16 @@ interface InternalTrackingConfig {
 	cb: Number;
 }
 
-module Wikia.Modules.Trackers {
+interface InternalTrackingParams {
+	//category
+	category: string;
+	// wgArticleId
+	a: String;
+	// wgNamespaceNumber
+	n: Number;
+}
 
+module Wikia.Modules.Trackers {
 	export class Internal {
 		private static instance: Internal = null;
 		baseUrl: string = 'http://a.wikia-beacon.com/__track/';
@@ -38,12 +42,10 @@ module Wikia.Modules.Trackers {
 			var config = Internal.getConfig();
 
 			this.head = document.head || document.getElementsByTagName('head')[0];
-			this.success = config.success ? config.success : null;
-			this.error = config.error ? config.success : null;
 			this.defaults = config;
 		}
 
-		static getConfig () {
+		static getConfig (): InternalTrackingConfig {
 			var wikia = window.Wikia;
 
 			return {
@@ -57,14 +59,14 @@ module Wikia.Modules.Trackers {
 			};
 		}
 
-		static isPageView (eventName: string): boolean {
-			return eventName.toLowerCase() === 'view';
+		static isPageView (category: string): boolean {
+			return category.toLowerCase() === 'view';
 		}
 
-		private createRequestURL (eventName: string, params: any): string {
+		private createRequestURL (category: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
-				targetRoute = Internal.isPageView(eventName) ? 'view' : 'special/trackingevent';
+				targetRoute = Internal.isPageView(category) ? 'view' : 'special/trackingevent';
 
 			Object.keys(params).forEach((key) => {
 				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
@@ -118,12 +120,12 @@ module Wikia.Modules.Trackers {
 			return Internal.instance;
 		}
 
-		track (eventName: string = 'trackingevent', params: any = {}): void {
+		track (params: InternalTrackingParams): void {
 			var requestURL: string,
 				config: any;
 
 			config = $.extend(params, this.defaults);
-			requestURL = this.createRequestURL(eventName, config);
+			requestURL = this.createRequestURL(config.category, config);
 
 			this.loadTrackingScript(requestURL);
 		}
@@ -131,8 +133,9 @@ module Wikia.Modules.Trackers {
 		/**
 		 * alias to track a page view
 		 */
-		trackPageView (article: {title: string; ns: number}) {
-			this.track('view', {
+		trackPageView (article: {title: string; ns: number}): void {
+			this.track({
+				category: 'view',
 				a: article.title,
 				n: article.ns
 			});

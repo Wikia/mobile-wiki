@@ -12,6 +12,7 @@ module Wikia.Modules.Trackers {
 
 		constructor () {
 			window._qevents = [];
+			super();
 		}
 
 		url (): string {
@@ -30,7 +31,7 @@ module Wikia.Modules.Trackers {
 		}
 
 		trackPageView () {
-			var context = Em.get('Wikia.article.adsContext.targeting'),
+			var context: typeof Wikia.tracking = Em.get('Wikia.article.adsContext.targeting'),
 				quantcastLabels = '',
 				keyValues: string[],
 				keyValue: string[];

@@ -11,6 +11,7 @@ module Wikia.Modules.Trackers {
 
 		constructor () {
 			window._comscore = window._comscore || [];
+			super();
 		}
 
 		url (): string {

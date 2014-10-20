@@ -8,6 +8,11 @@ module Wikia.Modules.Trackers {
 	export class BaseTracker {
 		static script: HTMLScriptElement = document.getElementsByTagName('script')[0];
 
+		//This method should overridden implemented by a tracker
+		url (): string {
+			return '';
+		}
+
 		appendScript () {
 			var elem = document.createElement('script');
 

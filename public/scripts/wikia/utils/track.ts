@@ -1,3 +1,4 @@
+/// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../modules/Trackers/Internal.ts" />
 /// <reference path="../modules/Trackers/GoogleAnalytics.ts" />
 
@@ -8,6 +9,7 @@ interface Window {
 
 interface TrackingMethods {
 	[idx: string]: any;
+	none?: Boolean;
 	both?: Boolean;
 	ga?: Boolean;
 	internal?: Boolean;
@@ -18,19 +20,17 @@ interface TrackingParams {
 	action?: string;
 	label?: string;
 	value?: number;
-	category?: string;
+	category: string;
 	trackingMethod: string;
+	a: string;
+	n: number;
 }
 
 module Wikia.Utils {
-	var config: InternalTrackingConfig,
-	    tracker: Wikia.Modules.InternalTracker,
-	    gaTracker: Wikia.Modules.GoogleAnalyticsTracker,
-	    global = window,
-	    // These actions were ported over from legacy Wikia app code:
-		// https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
-		// The property keys were modified to fit style rules
-		actions = {
+	// These actions were ported over from legacy Wikia app code:
+	// https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
+	// The property keys were modified to fit style rules
+	var actions = {
 			// Generic add
 			add: 'add',
 			// Generic click, mostly javascript clicks
@@ -97,7 +97,7 @@ module Wikia.Utils {
 		    action: string = params.action,
 		    category: string = params.category ? 'mercury-' + params.category : null,
 		    label: string = params.label || '',
-		    value: number = params.value || 0;
+		    value: number = params.value || 0,
 			tracker = Wikia.Modules.Trackers.Internal.getInstance(),
 			gaTracker = Wikia.Modules.Trackers.GoogleAnalytics.getInstance();
 
@@ -123,6 +123,7 @@ module Wikia.Utils {
 			if (!category || !action) {
 				throw new Error('missing required GA params');
 			}
+
 			gaTracker.track(category, actions[params.action], label, value, true);
 		}
 
@@ -140,13 +141,13 @@ module Wikia.Utils {
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
 	export function trackPageView (data: {title: string; ns: number}) {
-		var trackers = Em.get('Wikia.Modules.Trackers');
+		var trackers = <any>Em.get('Wikia.Modules.Trackers');
 
-		Object.keys(trackers).forEach(function (tracker) {
-			var trackerClass = trackers[tracker];
+		Object.keys(trackers).forEach(function (tracker: any) {
+			var trackerClass = <{getInstance: Function}>trackers[tracker];
 
 			if (trackerClass && trackerClass.getInstance) {
-				var trackerInstance = trackerClass.getInstance();
+				var trackerInstance = <{trackPageView: Function}>trackerClass.getInstance();
 
 				if (trackerInstance && trackerInstance.trackPageView) {
 					Em.Logger.info('Track pageView:', tracker);

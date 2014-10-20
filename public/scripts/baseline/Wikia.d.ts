@@ -19,11 +19,6 @@ declare module Wikia {
 	module Modules {
 		class VideoPlayer {}
 	}
-
-	module Utils {
-		var trackPageView: (obj: {article: string; ns: number}) => void;
-		var track: () => void;
-	}
 }
 
 declare var W: typeof Wikia.Utils;
