@@ -35,23 +35,25 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 * and updates model, so it can load a page of comments
 	 */
 	pageObserver: function (): void {
-		var page = this.get('page'),
-			count = this.get('model.pagesCount'),
-			currentPage: number = parseInt(page, 10);
+		Em.run.scheduleOnce('afterRender', () => {
+			var page = this.get('page'),
+				count = this.get('model.pagesCount'),
+				currentPage = page;
 
-		if (page != null && count != null) {
-			currentPage = Math.max(Math.min(page, count), 1);
-		}
+			if (page != null && count != null) {
+				currentPage = Math.max(Math.min(page, count), 1);
+			}
 
-		this.setProperties({
-			isFirstPage: currentPage === 1,
-			isLastPage: currentPage === count,
-			page: currentPage
+			this.setProperties({
+				isFirstPage: currentPage == 1,
+				isLastPage: currentPage == count,
+				page: currentPage
+			});
+
+			this.set('model.page', currentPage);
 		});
+	}.observes('page'),
 
-		this.set('model.page', currentPage);
-	}.observes('page', 'model.pagesCount'),
-	
 	/**
 	 * @desc watches changes to model, and scrolls to top of comments
 	 */
