@@ -61,7 +61,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 			image.setProperties({
 				thumbUrl: this.getThumbURL(
 					image.get('url'),
-					Wikia.Modules.Thumbnailer.thumbnailerMode.topCrop,
+					Wikia.Modules.Thumbnailer.mode.topCrop,
 					thumbSize,
 					thumbSize),
 				load: true

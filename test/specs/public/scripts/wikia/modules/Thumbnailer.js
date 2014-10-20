@@ -10,7 +10,7 @@ QUnit.test('Thumbnailer creates thumbnail URL', function () {
 	var testCases = [
 		{
 			url: 'http://static.igor.wikia-dev.com/__cb20130614225714/thelastofus/images/9/99/Robert.png',
-			mode: Wikia.Modules.Thumbnailer.thumbnailerMode.topCrop,
+			mode: Wikia.Modules.Thumbnailer.mode.topCrop,
 			width: 500,
 			height: 200,
 			hasWebPSupport: true,
@@ -19,7 +19,7 @@ QUnit.test('Thumbnailer creates thumbnail URL', function () {
 		},
 		{
 			url: 'http://img2.wikia.nocookie.net/__cb20100311231730/muppet/images/d/d9/Jim-and-jim.jpg',
-			mode: Wikia.Modules.Thumbnailer.thumbnailerMode.fixedAspectRatio,
+			mode: Wikia.Modules.Thumbnailer.mode.fixedAspectRatio,
 			width: 100,
 			height: 100,
 			hasWebPSupport: false,
@@ -164,7 +164,7 @@ QUnit.test('Thumbnailer creates thumb URL from list of parameters', function () 
 				wikiaBucket: 'thelastofus',
 				imagePath: '9/99/Robert.png'
 			},
-			mode: Wikia.Modules.Thumbnailer.thumbnailerMode.topCrop,
+			mode: Wikia.Modules.Thumbnailer.mode.topCrop,
 			width: 500,
 			height: 100,
 			hasWebPSupport: true,
@@ -178,7 +178,7 @@ QUnit.test('Thumbnailer creates thumb URL from list of parameters', function () 
 				wikiaBucket: 'muppet',
 				imagePath: 'd/d9/Jim-and-jim.jpg'
 			},
-			mode: Wikia.Modules.Thumbnailer.thumbnailerMode.fixedAspectRatio,
+			mode: Wikia.Modules.Thumbnailer.mode.fixedAspectRatio,
 			width: 300,
 			height: 150,
 			hasWebPSupport: false,

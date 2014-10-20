@@ -22,7 +22,7 @@ module Wikia.Modules {
 		private static legacyThumbPathRegExp: RegExp = /\/images\/thumb\//;
 		private static legacyPathRegExp: RegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(.+)\/images\/(?:thumb\/)?(.*)$/;
 
-		public static thumbnailerMode: any = {
+		public static mode: any = {
 			fixedAspectRatio: 'fixed-aspect-ratio',
 			fixedAspectRatioDown: 'fixed-aspect-ratio-down',
 			thumbnail: 'thumbnail',
@@ -52,7 +52,7 @@ module Wikia.Modules {
 		 * @public
 		 *
 		 * @param {String} url The URL to the full size image or a thumbnail
-		 * @param {String} mode The thumbnailer mode, one from Thumbnailer.thumbnailerMode
+		 * @param {String} mode The thumbnailer mode, one from Thumbnailer.mode
 		 * @param {Number} width The width of the thumbnail to fetch
 		 * @param {Number} height The height of the thumbnail to fetch
 		 *
@@ -81,19 +81,6 @@ module Wikia.Modules {
 		}
 
 		/**
-		 * Checks if url points to legacy thumbnailer
-		 *
-		 * @private
-		 *
-		 * @param {String} url
-		 *
-		 * @return {Boolean}
-		 */
-		static isLegacyThumbnailerUrl(url: string): boolean {
-			return url && this.legacyThumbPathRegExp.test(url);
-		}
-
-		/**
 		 * Checks if url points to thumbnailer
 		 *
 		 * @public
@@ -107,6 +94,19 @@ module Wikia.Modules {
 		}
 
 		/**
+		 * Checks if url points to legacy thumbnailer
+		 *
+		 * @private
+		 *
+		 * @param {String} url
+		 *
+		 * @return {Boolean}
+		 */
+		private static isLegacyThumbnailerUrl(url: string): boolean {
+			return url && this.legacyThumbPathRegExp.test(url);
+		}
+
+		/**
 		 * Checks if url points to legacy image URL
 		 *
 		 * @private
@@ -115,7 +115,7 @@ module Wikia.Modules {
 		 *
 		 * @return {Boolean}
 		 */
-		static isLegacyUrl(url: string): boolean {
+		private static isLegacyUrl(url: string): boolean {
 			return url && this.legacyPathRegExp.test(url);
 		}
 
@@ -128,7 +128,7 @@ module Wikia.Modules {
 		 *
 		 * @return {String} The URL without the thumbnail options
 		 */
-		static clearThumbOptions(url: string): string {
+		private static clearThumbOptions(url: string): string {
 			var clearedOptionsUrl: string;
 
 			if (this.isThumbnailerUrl(url)) {
@@ -151,7 +151,7 @@ module Wikia.Modules {
 		 *
 		 * @return {ImageUrlParameters}
 		 */
-		static getParametersFromLegacyUrl(url: string): ImageUrlParameters {
+		private static getParametersFromLegacyUrl(url: string): ImageUrlParameters {
 			var urlParsed = this.legacyPathRegExp.exec(url);
 
 			return {
@@ -174,28 +174,30 @@ module Wikia.Modules {
 		 *
 		 * @return {String}
 		 */
-		static createThumbnailUrl(
+		private static createThumbnailUrl(
 			urlParameters: ImageUrlParameters,
 			mode: string,
 			width: number,
 			height: number
 			): string {
-			var url: string;
+			var url: Array;
 
-			url = 'http://vignette.' + urlParameters.domain;
-			url += '/' + urlParameters.wikiaBucket;
-			url += '/' + urlParameters.imagePath;
-			url += '/revision/latest';
-			url += '/' + mode;
-			url += '/width/' + width;
-			url += '/height/' + height;
-			url += '?cb=' + urlParameters.cacheBuster;
+			url = [
+				'http://vignette.' + urlParameters.domain,
+				'/' + urlParameters.wikiaBucket,
+				'/' + urlParameters.imagePath,
+				'/revision/latest',
+				'/' + mode,
+				'/width/' + width,
+				'/height/' + height,
+				'?cb=' + urlParameters.cacheBuster
+			];
 
 			if (this.hasWebPSupport) {
-				url += '&format=webp';
+				url.push('&format=webp');
 			}
 
-			return url;
+			return url.join('');
 		}
 	}
 }
