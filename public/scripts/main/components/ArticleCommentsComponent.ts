@@ -37,7 +37,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	pageObserver: function (): void {
 		var page = this.get('page'),
 			count = this.get('model.pagesCount'),
-			currentPage: number = page;
+			currentPage: number = parseInt(page, 10);
 
 		if (page != null && count != null) {
 			currentPage = Math.max(Math.min(page, count), 1);
@@ -51,7 +51,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 
 		this.set('model.page', currentPage);
 	}.observes('page', 'model.pagesCount'),
-
+	
 	/**
 	 * @desc watches changes to model, and scrolls to top of comments
 	 */
