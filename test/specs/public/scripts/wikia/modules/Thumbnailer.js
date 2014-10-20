@@ -189,7 +189,7 @@ QUnit.test('Thumbnailer creates thumb URL from list of parameters', function () 
 
 	testCases.forEach(function (testCase) {
 		Wikia.Modules.Thumbnailer.hasWebPSupport = testCase.hasWebPSupport;
-		deepEqual(
+		equal(
 			Wikia.Modules.Thumbnailer.createThumbnailUrl(
 				testCase.urlParameters,
 				testCase.mode,
