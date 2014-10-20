@@ -50,17 +50,6 @@ App.ArticleRoute = Em.Route.extend({
 			window.scrollTo(0, 0);
 			// bubble up to application didTransition hook
 			return true;
-		},
-
-		/**
-		 * @desc Sets commentsPage property of ArticleController to 1
-		 *
-		 * The commentsPage property in ArticleController is being passed to ArticleCommentsComponent as page parameter.
-		 * There is an observer on the page property in ArticleCommentsComponents on which the whole logic of loading
-		 * comments and scrolling to their container depends.
-		 */
-		openComments: function (): viod {
-			this.controllerFor('article').set('commentsPage', 1);
 		}
 	}
 });
