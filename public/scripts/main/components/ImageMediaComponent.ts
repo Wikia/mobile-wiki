@@ -30,12 +30,22 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		var media: ArticleMedia;
 
 		if (value) {
-			return this.getThumbURL(value, this.get('contentWidth'), this.get('computedHeight'), 'crop');
+			return this.getThumbURL(
+				value,
+				Wikia.Modules.Thumbnailer.thumbnailerMode.topCrop,
+				this.get('contentWidth'),
+				this.get('computedHeight')
+			);
 		} else {
 			media = this.get('media');
 
 			if (media) {
-				return this.getThumbURL(this.get('media').url, this.get('contentWidth'), this.get('computedHeight'));
+				return this.getThumbURL(
+					this.get('media').url,
+					Wikia.Modules.Thumbnailer.thumbnailerMode.fixedAspectRatio,
+					this.get('contentWidth'),
+					this.get('computedHeight')
+				);
 			}
 		}
 

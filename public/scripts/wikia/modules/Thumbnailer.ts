@@ -17,10 +17,21 @@ interface ImageUrlParameters {
 
 module Wikia.Modules {
 	export class Thumbnailer {
-		private static imagePathRegExp = /\/\/vignette\d?\.wikia/
-		private static thumbBasePathRegExp = /(.*\/revision\/\w+).*/;
-		private static legacyThumbPathRegExp = /\/images\/thumb\//;
-		private static legacyPathRegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(.+)\/images\/(?:thumb\/)?(.*)$/;
+		private static imagePathRegExp: RegExp = /\/\/vignette\d?\.wikia/
+		private static thumbBasePathRegExp: RegExp = /(.*\/revision\/\w+).*/;
+		private static legacyThumbPathRegExp: RegExp = /\/images\/thumb\//;
+		private static legacyPathRegExp: RegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(.+)\/images\/(?:thumb\/)?(.*)$/;
+
+		public static thumbnailerMode: any = {
+			fixedAspectRatio: 'fixed-aspect-ratio',
+			fixedAspectRatioDown: 'fixed-aspect-ratio-down',
+			thumbnail: 'thumbnail',
+			thumbnailDown: 'thumbnail-down',
+			topCrop: 'top-crop',
+			topCropDown: 'top-crop-down',
+			zoomCrop: 'zoom-crop',
+			zoomCropDown: 'zoom-crop-down'
+		};
 
 		static hasWebPSupport = (function () {
 			// @see http://stackoverflow.com/a/5573422
@@ -41,19 +52,19 @@ module Wikia.Modules {
 		 * @public
 		 *
 		 * @param {String} url The URL to the full size image or a thumbnail
-		 * @param {String} type The type, either 'image' (default, the result will be cropped)
-		 * or 'video' (the result will be squeezed)
+		 * @param {String} mode The thumbnailer mode, one from Thumbnailer.thumbnailerMode
 		 * @param {Number} width The width of the thumbnail to fetch
 		 * @param {Number} height The height of the thumbnail to fetch
 		 *
 		 * @return {String}
 		 */
-		static getThumbURL(url: string, type: string, width: number, height: number): string {
+		static getThumbURL(
+			url: string,
+			mode: string,
+			width: number,
+			height: number
+			): string {
 			var urlParameters: ImageUrlParameters;
-
-			url = url || '';
-			height = height || 0;
-			width = width || 50;
 
 			// for now we handle only legacy urls as input
 			if (this.isLegacyUrl(url)) {
@@ -63,7 +74,7 @@ module Wikia.Modules {
 				}
 
 				urlParameters = this.getParametersFromLegacyUrl(url);
-				url = this.createThumbnailUrl(urlParameters, type, width, height);
+				url = this.createThumbnailUrl(urlParameters, mode, width, height);
 			}
 
 			return url;
@@ -157,7 +168,7 @@ module Wikia.Modules {
 		 * @private
 		 *
 		 * @param {ImageUrlParameters} urlParameters
-		 * @param {String} type
+		 * @param {String} mode
 		 * @param {Number} width
 		 * @param {Number} height
 		 *
@@ -165,12 +176,11 @@ module Wikia.Modules {
 		 */
 		static createThumbnailUrl(
 			urlParameters: ImageUrlParameters,
-			type: string,
+			mode: string,
 			width: number,
 			height: number
 			): string {
-			var url: string,
-				mode: string = (type === 'video' || type === 'nocrop') ? 'fixed-aspect-ratio' : 'top-crop';
+			var url: string;
 
 			url = 'http://vignette.' + urlParameters.domain;
 			url += '/' + urlParameters.wikiaBucket;
