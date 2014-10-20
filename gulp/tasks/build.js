@@ -11,6 +11,7 @@ var gulp = require('gulp'),
 	piper = require('../utils/piper'),
 	paths = require('../paths'),
 	environment = require('../utils/environment'),
+	options = require('../options' ),
 	preprocessContext = {
 		base: paths.baseFull
 	},
@@ -47,7 +48,7 @@ gulp.task('build', [
 			gulpif('**/vendor/**', uglify()),
 			rev(),
 			gulp.dest(paths.base),
-			gzip(),
+			gzip(options.gzip),
 			gulp.dest(paths.base),
 			assets.restore(),
 			useref(),

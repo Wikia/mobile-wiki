@@ -36,5 +36,10 @@ module.exports = {
 	},
 	tslint: {
 		emitError: true
+	},
+	gzip: {
+		gzipOptions: {
+			level: 9
+		}
 	}
 };
