@@ -5,7 +5,7 @@ QUnit.module('VideoPlayer.OoyalaPlayer', {
 			jsFile: ['foo'],
 			playerId: 'testId'
 		};
-		this.player = new Wikia.Modules.VideoPlayer.OoyalaPlayer('ooyala', params);
+		this.player = new Mercury.Modules.VideoPlayer.OoyalaPlayer('ooyala', params);
 	},
 	teardown: function () {
 	}

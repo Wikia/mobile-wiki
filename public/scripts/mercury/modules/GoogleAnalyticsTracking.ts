@@ -1,10 +1,10 @@
 /// <reference path="../../../../typings/google.analytics/ga.d.ts" />
 /// <reference path="../../../../config/localSettings.d.ts" />
 
-module Wikia.Modules {
+module Mercury.Modules {
 
 	export class GoogleAnalyticsTracker {
-		private static instance: Wikia.Modules.GoogleAnalyticsTracker = null;
+		private static instance: Mercury.Modules.GoogleAnalyticsTracker = null;
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
@@ -20,7 +20,7 @@ module Wikia.Modules {
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 				];
 
-			this.accounts = Wikia.tracking.ga;
+			this.accounts = Mercury.tracking.ga;
 			this.queue = window._gaq;
 
 			// Primary account
@@ -55,9 +55,9 @@ module Wikia.Modules {
 		 * @param {Object} config
 		 * @returns {GoogleAnalyticsTracker}
 		 */
-		public static getInstance (): Wikia.Modules.GoogleAnalyticsTracker {
+		public static getInstance (): Mercury.Modules.GoogleAnalyticsTracker {
 			if (GoogleAnalyticsTracker.instance === null) {
-				GoogleAnalyticsTracker.instance = new Wikia.Modules.GoogleAnalyticsTracker();
+				GoogleAnalyticsTracker.instance = new Mercury.Modules.GoogleAnalyticsTracker();
 			}
 			return GoogleAnalyticsTracker.instance;
 		}
@@ -83,7 +83,7 @@ module Wikia.Modules {
 		 * @returns {boolean}
 		 */
 		isSpecialWiki (): boolean {
-			return !!Wikia.wiki.isGASpecialWiki;
+			return !!Mercury.wiki.isGASpecialWiki;
 		}
 
 		/**

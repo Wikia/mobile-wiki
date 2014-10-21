@@ -54,7 +54,7 @@ App.ArticleModel.reopenClass({
 	find: function (params: {wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params);
 
-		if (Wikia._state.firstPage) {
+		if (Mercury._state.firstPage) {
 			this.setArticle(model);
 			return model;
 		}
@@ -75,9 +75,9 @@ App.ArticleModel.reopenClass({
 	},
 
 	getPreloadedData: function () {
-		Wikia._state.firstPage = false;
-		Wikia.article.content = $('.article-content').html();
-		return Wikia.article;
+		Mercury._state.firstPage = false;
+		Mercury.article.content = $('.article-content').html();
+		return Mercury.article;
 	},
 
 	setArticle: function (model: typeof App.ArticleModel, source = this.getPreloadedData()) {
@@ -88,7 +88,7 @@ App.ArticleModel.reopenClass({
 
 			data = {
 				article: error.details,
-				cleanTitle: Wikia.Utils.String.normalize(model.title),
+				cleanTitle: M.String.normalize(model.title),
 				error: error
 			};
 		} else if (source) {

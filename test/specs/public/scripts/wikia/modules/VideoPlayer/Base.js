@@ -3,7 +3,7 @@ QUnit.module('VideoPlayer.BasePlayer', {
 		var params = {
 			videoId: 666
 		};
-		this.player = new Wikia.Modules.VideoPlayer.BasePlayer('base', params);
+		this.player = new Mercury.Modules.VideoPlayer.BasePlayer('base', params);
 	},
 	teardown: function () {
 	}
@@ -12,13 +12,13 @@ QUnit.module('VideoPlayer.BasePlayer', {
 QUnit.test('Player requires a provider', function () {
 	expect(1);
 	var error = new Error('VideoPlayer requires a provider as the first argument');
-	throws(Wikia.Modules.VideoPlayer.BasePlayer, error);
+	throws(Mercury.Modules.VideoPlayer.BasePlayer, error);
 });
 
-QUnit.test('loadPlayer calls W.load and playerDidLoad hook', function () {
+QUnit.test('loadPlayer calls M.load and playerDidLoad hook', function () {
 	expect(3);
 
-	var stub = this.stub(W, 'load');
+	var stub = this.stub(M, 'load');
 	stub.callsArg(1);
 	this.spy(this.player, 'playerDidLoad');
 
@@ -26,7 +26,7 @@ QUnit.test('loadPlayer calls W.load and playerDidLoad hook', function () {
 
 	this.player.loadPlayer();
 
-	ok(W.load.calledOnce, 'W.load was called');
+	ok(M.load.calledOnce, 'M.load was called');
 	ok(this.player.playerDidLoad.calledOnce, 'the playerDidLoad hook fired appropriately');
 });
 
@@ -43,14 +43,14 @@ QUnit.test('createUniqueId', function () {
 	ok(newId.length === id.length + 13, 'Appends a UNIX timestamp');
 });
 
-QUnit.test('local track calls W.track with extended params', function () {
-	this.stub(W, 'track', function (event, opts) {
-		equal(event, 'test');
+QUnit.test('local track calls M.track with extended params', function () {
+	this.stub(M, 'track', function (opts) {
+		console.log(opts);
+		equal(opts.action, 'test');
 		equal(opts.foo, 'bar', 'params are properly extended');
-		equal(opts.trackingMethod, 'both', 'params are properly extended');
 	});
 
 	this.player.track('test', {foo: 'bar'});
-	ok(W.track.calledOnce);
+	ok(M.track.calledOnce);
 });
 

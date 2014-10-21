@@ -8,7 +8,7 @@
  */
 'use strict';
 
-module Wikia.Modules {
+module Mercury.Modules {
 	export class Thumbnailer {
 		//targets the image file extension
 		private static extRegExp = /\.(jpg|jpeg|gif|bmp|png|svg|webp)$/i;

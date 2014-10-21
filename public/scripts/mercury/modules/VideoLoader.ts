@@ -1,10 +1,10 @@
-/// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
 interface PlayerClassMap {
 	[index: string]: string;
 }
-module Wikia.Modules {
+module Mercury.Modules {
 
 	var playerClassMap: PlayerClassMap = {
 		youtube: 'YouTube',
@@ -35,7 +35,7 @@ module Wikia.Modules {
 				return false;
 			}
 
-			this.player = new Wikia.Modules.VideoPlayer[playerClassStr](provider, this.data.jsParams);
+			this.player = new Mercury.Modules.VideoPlayer[playerClassStr](provider, this.data.jsParams);
 		}
 
 		private isProvider (name: string): boolean {

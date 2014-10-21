@@ -8,7 +8,7 @@
  *
  * trackPageView is called in ArticleView.onArticleChange
  */
-module Wikia.Utils.Tracking {
+module Mercury.Utils.Tracking {
 	export function trackPageView () {
 		Object.keys(this).forEach(function (tracker) {
 			if (this[tracker].track) {

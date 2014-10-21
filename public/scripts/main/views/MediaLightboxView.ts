@@ -116,8 +116,8 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.get('controller').incrementProperty('currentGalleryRef');
 		this.resetZoom();
 
-		W.track({
-			action: W.track.actions.paginate,
+		M.track({
+			action: M.track.actions.paginate,
 			category: 'lightbox',
 			label: 'next'
 		});
@@ -127,8 +127,8 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.get('controller').decrementProperty('currentGalleryRef');
 		this.resetZoom();
 
-		W.track({
-			action: W.track.actions.paginate,
+		M.track({
+			action: M.track.actions.paginate,
 			category: 'lightbox',
 			label: 'previous'
 		});
@@ -259,7 +259,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	initVideoPlayer: function (media: any): void {
 		var element = this.$('.lightbox-content-inner')[0];
 
-		this.set('videoPlayer', new Wikia.Modules.VideoLoader(element, media.embed));
+		this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, media.embed));
 	},
 
 	/**

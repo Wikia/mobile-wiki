@@ -2,7 +2,7 @@ interface Window {
 	[key: string]: any;
 }
 
-module Wikia {
+module Mercury {
 	function namespacer(str: string, ns: string, val: any): any;
 	function namespacer(str: string, ns: any, val: any): any  {
 		var parts: string[],
@@ -45,11 +45,11 @@ module Wikia {
 			if (typeof str !== 'string') {
 				throw Error('Invalid string supplied to namespacer');
 			}
-			return namespacer(str, 'Wikia', obj);
+			return namespacer(str, 'Mercury', obj);
 		}
 	}
 
 }
 
-// alias _w for quick access to utility functions
-var W = Wikia.Utils;
+// alias M for quick access to utility functions
+var M = Mercury.Utils;

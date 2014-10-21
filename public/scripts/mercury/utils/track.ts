@@ -3,7 +3,7 @@
 
 interface Window {
 	ga: any;
-	Wikia: any;
+	Mercury: any;
 }
 
 interface TrackingMethods {
@@ -45,10 +45,10 @@ interface InternalTrackingConfig {
 	cb: Number;
 }
 
-module Wikia.Utils {
+module Mercury.Utils {
 	var config: InternalTrackingConfig,
-	    tracker: Wikia.Modules.InternalTracker,
-	    gaTracker: Wikia.Modules.GoogleAnalyticsTracker,
+	    tracker: Mercury.Modules.InternalTracker,
+	    gaTracker: Mercury.Modules.GoogleAnalyticsTracker,
 	    actions: any,
 	    inited = false,
 	    global = window;
@@ -59,22 +59,22 @@ module Wikia.Utils {
 	*/
 	function init (): void {
 		config = {
-			c: global.Wikia.wiki.id,
-			x: global.Wikia.wiki.dbName,
-			a: global.Wikia.article.details.title,
-			lc: global.Wikia.wiki.language,
-			n: global.Wikia.article.details.ns,
+			c: global.Mercury.wiki.id,
+			x: global.Mercury.wiki.dbName,
+			a: global.Mercury.article.details.title,
+			lc: global.Mercury.wiki.language,
+			n: global.Mercury.article.details.ns,
 			u: 0,
 			s: 'mercury',
 			beacon: '',
 			cb: ~~(Math.random() * 99999)
 		};
 
-		tracker = Wikia.Modules.InternalTracker.getInstance({
+		tracker = Mercury.Modules.InternalTracker.getInstance({
 			baseUrl: 'http://a.wikia-beacon.com/__track/',
 			defaults: config
 		});
-		gaTracker = Wikia.Modules.GoogleAnalyticsTracker.getInstance();
+		gaTracker = Mercury.Modules.GoogleAnalyticsTracker.getInstance();
 
 		inited = true;
 	}
@@ -181,6 +181,6 @@ module Wikia.Utils {
 		}
 	}
 
-	// Export actions so that they're accessible as W.track.actions
+	// Export actions so that they're accessible as M.track.actions
 	track.actions = actions;
 }

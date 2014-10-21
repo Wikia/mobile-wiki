@@ -1,10 +1,10 @@
 /* tslint:disable:no-string-literal */
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 
-module Wikia.Modules {
+module Mercury.Modules {
 
 	export class InternalTracker {
-		private static instance: Wikia.Modules.InternalTracker = null;
+		private static instance: Mercury.Modules.InternalTracker = null;
 		baseUrl: string;
 		callbackTimeout: number;
 		success: Function;
@@ -27,9 +27,9 @@ module Wikia.Modules {
 		 * @param {Object} config
 		 * @returns {InternalTracker}
 		 */
-		public static getInstance (config: any): Wikia.Modules.InternalTracker {
+		public static getInstance (config: any): Mercury.Modules.InternalTracker {
 			if (InternalTracker.instance === null) {
-				InternalTracker.instance = new Wikia.Modules.InternalTracker(config);
+				InternalTracker.instance = new Mercury.Modules.InternalTracker(config);
 			}
 			return InternalTracker.instance;
 		}

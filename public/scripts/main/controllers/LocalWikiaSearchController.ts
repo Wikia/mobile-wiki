@@ -174,8 +174,8 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 		delete this.get('requestsInProgress')[query];
 		// Track when search is submitted. To avoid spamming this event, track only
 		// when a search request has ended.
-		W.track({
-			action: W.track.actions.submit,
+		M.track({
+			action: M.track.actions.submit,
 			category: 'search'
 		});
 	},

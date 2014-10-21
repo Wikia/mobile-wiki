@@ -1,6 +1,6 @@
-/// <reference path="../../../baseline/Wikia.d.ts" />
+/// <reference path="../../../baseline/mercury.d.ts" />
 
-module Wikia.Modules.VideoPlayer {
+module Mercury.Modules.VideoPlayer {
 	export class BasePlayer {
 		player: any;
 		params: any;
@@ -18,7 +18,7 @@ module Wikia.Modules.VideoPlayer {
 		}
 
 		loadPlayer () {
-			return W.load(this.resourceURI, () => {
+			return M.load(this.resourceURI, () => {
 				// called once player is loaded
 				this.playerDidLoad();
 			});
@@ -40,12 +40,12 @@ module Wikia.Modules.VideoPlayer {
 
 		track (event: string, params?: any): Function {
 			var opts = {
-				trackingMethod: 'both',
 				label: this.provider,
-				category: 'video-player'
+				category: 'video-player',
+				action: event
 			};
 			params = $.extend(opts, params);
-			return W.track(event, opts);
+			return M.track(opts);
 		}
 
 	}

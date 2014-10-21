@@ -1,4 +1,4 @@
-/// <reference path="../../../baseline/Wikia.d.ts" />
+/// <reference path="../../../baseline/mercury.d.ts" />
 /// <reference path="./Base.ts" />
 
 interface Window {
@@ -14,7 +14,7 @@ interface Window {
 	}
 }
 
-module Wikia.Modules.VideoPlayer {
+module Mercury.Modules.VideoPlayer {
 
 	export class OoyalaPlayer extends BasePlayer {
 		started: boolean;

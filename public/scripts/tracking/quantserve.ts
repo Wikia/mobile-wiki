@@ -1,11 +1,11 @@
-/// <reference path="../baseline/Wikia.d.ts" />
+/// <reference path="../baseline/mercury.d.ts" />
 'use strict';
 
 interface Window {
 	_qevents: any[];
 }
 
-module Wikia.Utils.Tracking.Quantserve {
+module Mercury.Utils.Tracking.Quantserve {
 	var elem = document.createElement('script'),
 		script: HTMLScriptElement;
 
@@ -18,7 +18,7 @@ module Wikia.Utils.Tracking.Quantserve {
 	script.parentNode.insertBefore(elem, script);
 
 	export function track () {
-		var context = Wikia.article.adsContext.targeting,
+		var context = Mercury.article.adsContext.targeting,
 			quantcastLabels = '',
 			keyValues: string[],
 			keyValue: string[];
@@ -41,7 +41,7 @@ module Wikia.Utils.Tracking.Quantserve {
 
 		//quantcastLabels += ',mobilebrowser';
 		window._qevents.push({
-			qacct: Wikia.tracking.quantserve,
+			qacct: Mercury.tracking.quantserve,
 			labels: quantcastLabels
 		});
 	}

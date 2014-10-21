@@ -1,7 +1,7 @@
 moduleFor('controller:localWikiaSearch', 'Local Wikia Search Controller', {
 	setup: function () {
 		// Mock some GA event tracking stuff
-		Wikia.tracking = {
+		Mercury.tracking = {
 			ga: {
 				primary: {
 					id: 'nothing',

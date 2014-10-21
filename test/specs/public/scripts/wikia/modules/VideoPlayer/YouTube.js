@@ -3,7 +3,7 @@ QUnit.module('VideoPlayer.YouTubePlayer', {
 		var params = {
 			videoId: 666
 		};
-		this.player = new Wikia.Modules.VideoPlayer.YouTubePlayer('youtube', params);
+		this.player = new Mercury.Modules.VideoPlayer.YouTubePlayer('youtube', params);
 	},
 	teardown: function () {
 	}

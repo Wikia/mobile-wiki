@@ -1,8 +1,8 @@
-/// <reference path="../baseline/Wikia.d.ts" />
+/// <reference path="../baseline/mercury.d.ts" />
 
-module Wikia.Utils.tracking.googleAnalytics {
+module Mercury.Utils.tracking.googleAnalytics {
 	export function track () {
-		var gaTracker = Wikia.Modules.GoogleAnalyticsTracker.getInstance({global: window});
+		var gaTracker = Mercury.Modules.GoogleAnalyticsTracker.getInstance({global: window});
 		gaTracker.trackPageView();
 	}
 }

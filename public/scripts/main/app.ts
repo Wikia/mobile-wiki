@@ -1,7 +1,7 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
-/// <reference path="../baseline/Wikia.d.ts" />
+/// <reference path="../baseline/mercury.d.ts" />
 
 'use strict';
 
@@ -12,8 +12,8 @@ var App: any = Em.Application.create({
 	LOG_VIEW_LOOKUPS: true,
 	LOG_TRANSITIONS: true,
 	LOG_INTERNAL_TRANSITIONS: true,
-	language: Wikia.wiki ? Wikia.wiki.language : 'en',
-	apiBase: Wikia.apiBase || '/api/v1',
+	language: Mercury.wiki ? Mercury.wiki.language : 'en',
+	apiBase: Mercury.apiBase || '/api/v1',
 	hash: null
 });
 
@@ -34,7 +34,7 @@ App.initializer({
 			lng: application.get('language'),
 			fallbackLng: 'en',
 			debug: true,
-			resStore: Wikia._t,
+			resStore: Mercury._t,
 			useLocalStorage: false
 		});
 	}

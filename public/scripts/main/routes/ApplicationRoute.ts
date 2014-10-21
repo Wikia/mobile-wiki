@@ -27,7 +27,7 @@ App.ApplicationRoute = Em.Route.extend({
 		handleLink: function (target: HTMLAnchorElement): void {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
-				info = Wikia.Utils.getLinkInfo(model.get('basePath'),
+				info = M.getLinkInfo(model.get('basePath'),
 					model.get('title'),
 					target.hash,
 					target.href
@@ -83,8 +83,8 @@ App.ApplicationRoute = Em.Route.extend({
 		},
 
 		trackClick: function (category: string, label: string = ''): void {
-			W.track({
-				action: W.track.actions.click,
+			M.track({
+				action: M.track.actions.click,
 				category: category,
 				label: label
 			});
