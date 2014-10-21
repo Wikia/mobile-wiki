@@ -61,7 +61,7 @@ interface String {
 }
 
 interface Array<T> {
-    constructor(arr: any[]);
+    constructor(arr: any[]): T;
     activate(): void;
     addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
     addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
@@ -111,7 +111,7 @@ interface Array<T> {
     removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     removeAt(start: number, len: number): any;
     removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
-    replace(idx: number, amt: number, objects: any[]);
+    replace(idx: number, amt: number, objects: any[]): any;
     reverseObjects(): any[];
     setEach(key: string, value?: any): any;
     setObjects(objects: any[]): any[];
@@ -175,7 +175,7 @@ interface ApplicationInitializerArguments {
 }
 
 interface ApplicationInitializerFunction {
-    (container: Ember.Container, application: Ember.Application);
+    (container: Ember.Container, application: Ember.Application): any;
 }
 
 interface CoreObjectArguments {
@@ -202,11 +202,11 @@ interface ItemIndexEnumerableCallbackTarget {
 }
 
 interface ItemIndexEnumerableCallback {
-    (item: any, index: number, enumerable: Ember.Enumerable);
+    (item: any, index: number, enumerable: Ember.Enumerable): any;
 }
 
 interface ReduceCallback {
-    (previousValue: any, item: any, index: number, enumerable: Ember.Enumerable);
+    (previousValue: any, item: any, index: number, enumerable: Ember.Enumerable): any;
 }
 
 interface TransitionsHash {
@@ -233,10 +233,10 @@ interface RenderOptions {
 }
 
 interface ModifyObserver {
-    (obj: any, path: string, target: any, method?: Function);
-    (obj: any, path: string, target: any, method?: string);
-    (obj: any, path: string, func: Function, method?: Function);
-    (obj: any, path: string, func: Function, method?: string);
+    (obj: any, path: string, target: any, method?: Function): any;
+    (obj: any, path: string, target: any, method?: string): any;
+    (obj: any, path: string, func: Function, method?: Function): any;
+    (obj: any, path: string, func: Function, method?: string): any;
 }
 
 declare module Ember {
@@ -1388,7 +1388,7 @@ declare module Ember {
         /**
         Creates a subclass of the Object class.
         **/
-        static extend<T>(arguments?: CoreObjectArguments): T;
+        static extend<T>(...arguments: CoreObjectArguments[]): T;
         /**
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
@@ -2050,6 +2050,7 @@ declare module Ember {
     function generateController(container: Container, controllerName: string, context: any): Controller;
     function generateGuid(obj: any, prefix?: string): string;
     function get(obj: any, keyName: string): any;
+    function get(keyName: string): any;
     function getMeta(obj: any, property: string): any;
     /**
     getPath is deprecated since get now supports paths.
