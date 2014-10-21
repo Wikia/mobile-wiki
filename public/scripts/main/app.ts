@@ -7,15 +7,17 @@
 
 declare var i18n: I18nextStatic;
 
-var App: any = Em.Application.create({
-	LOG_ACTIVE_GENERATION: true,
-	LOG_VIEW_LOOKUPS: true,
-	LOG_TRANSITIONS: true,
-	LOG_INTERNAL_TRANSITIONS: true,
-	language: Wikia.wiki ? Wikia.wiki.language : 'en',
-	apiBase: Wikia.apiBase || '/api/v1',
-	hash: null
-});
+var debug: boolean = Wikia.environment === 'dev',
+	App: any = Em.Application.create({
+		LOG_ACTIVE_GENERATION: debug,
+		LOG_VIEW_LOOKUPS: debug,
+		LOG_TRANSITIONS: debug,
+		LOG_TRANSITIONS_INTERNAL: debug,
+		language: Wikia.wiki ? Wikia.wiki.language : 'en',
+		apiBase: Wikia.apiBase || '/api/v1',
+		hash: null,
+		debug: debug
+	});
 
 App.initializer({
 	name: 'preload',
@@ -33,7 +35,7 @@ App.initializer({
 			detectLngQS: 'uselang',
 			lng: application.get('language'),
 			fallbackLng: 'en',
-			debug: true,
+			debug: application.get('debug'),
 			resStore: Wikia._t,
 			useLocalStorage: false
 		});
