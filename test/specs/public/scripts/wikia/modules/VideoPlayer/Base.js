@@ -1,9 +1,9 @@
-QUnit.module('VideoPlayer.BasePlayer', {
+QUnit.module('VideoPlayers.BasePlayer', {
 	setup: function () {
 		var params = {
 			videoId: 666
 		};
-		this.player = new Wikia.Modules.VideoPlayer.BasePlayer('base', params);
+		this.player = new Wikia.Modules.VideoPlayers.BasePlayer('base', params);
 	},
 	teardown: function () {
 	}
@@ -12,7 +12,7 @@ QUnit.module('VideoPlayer.BasePlayer', {
 QUnit.test('Player requires a provider', function () {
 	expect(1);
 	var error = new Error('VideoPlayer requires a provider as the first argument');
-	throws(Wikia.Modules.VideoPlayer.BasePlayer, error);
+	throws(Wikia.Modules.VideoPlayers.BasePlayer, error);
 });
 
 QUnit.test('loadPlayer calls W.load and playerDidLoad hook', function () {
@@ -44,13 +44,11 @@ QUnit.test('createUniqueId', function () {
 });
 
 QUnit.test('local track calls W.track with extended params', function () {
-	this.stub(W, 'track', function (event, opts) {
-		equal(event, 'test');
-		equal(opts.foo, 'bar', 'params are properly extended');
-		equal(opts.trackingMethod, 'both', 'params are properly extended');
+	this.stub(W, 'track', function (opts) {
+		equal(opts.category, 'video-player-bar', 'params are properly extended');
 	});
 
-	this.player.track('test', {foo: 'bar'});
+	this.player.track('bar');
 	ok(W.track.calledOnce);
 });
 

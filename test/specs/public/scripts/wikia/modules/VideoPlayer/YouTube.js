@@ -1,9 +1,9 @@
-QUnit.module('VideoPlayer.YouTubePlayer', {
+QUnit.module('VideoPlayers.YouTubePlayer', {
 	setup: function () {
 		var params = {
 			videoId: 666
 		};
-		this.player = new Wikia.Modules.VideoPlayer.YouTubePlayer('youtube', params);
+		this.player = new Wikia.Modules.VideoPlayers.YouTubePlayer('youtube', params);
 	},
 	teardown: function () {
 	}
