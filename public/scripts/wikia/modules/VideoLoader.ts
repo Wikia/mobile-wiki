@@ -34,7 +34,7 @@ module Wikia.Modules {
 				return false;
 			}
 
-			this.player = new Wikia.Modules.VideoPlayer[playerClassStr](provider, this.data.jsParams);
+			this.player = new Wikia.Modules.VideoPlayers[<any>playerClassStr](provider, this.data.jsParams);
 		}
 
 		private isProvider (name: string): boolean {

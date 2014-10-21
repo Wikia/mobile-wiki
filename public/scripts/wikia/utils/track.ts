@@ -28,7 +28,8 @@ interface TrackFunction {
 	actions: any;
 }
 
-interface Tracker {
+interface TrackerInstance {
+	new(): TrackerInstance;
 	track: TrackFunction;
 	trackPageView: (context?: TrackContext) => void;
 }
@@ -37,7 +38,7 @@ module Wikia.Utils {
 	// These actions were ported over from legacy Wikia app code:
 	// https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
 	// The property keys were modified to fit style rules
-	var actions = {
+	var actions: any = {
 			// Generic add
 			add: 'add',
 			// Generic click, mostly javascript clicks
@@ -134,8 +135,8 @@ module Wikia.Utils {
 
 		if (trackingMethod === 'both' || trackingMethod === 'internal') {
 			tracker = new trackers.Internal();
-			params = <TrackingParams>$.extend(context, params);
-			tracker.track(params);
+			params = <InternalTrackingParams>$.extend(context, params);
+			tracker.track(<InternalTrackingParams>params);
 		}
 	}
 
@@ -147,10 +148,10 @@ module Wikia.Utils {
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
 	export function trackPageView () {
-		var trackers = <Tracker[]>Em.get('Wikia.Modules.Trackers');
+		var trackers: {[name: string]: TrackerInstance} = Em.get('Wikia.Modules.Trackers');
 
 		Object.keys(trackers).forEach(function (tracker: string) {
-			var trackerInstance = <Tracker>new trackers[tracker]();
+			var trackerInstance = new trackers[tracker]();
 
 			if (trackerInstance && trackerInstance.trackPageView) {
 				Em.Logger.info('Track pageView:', tracker);

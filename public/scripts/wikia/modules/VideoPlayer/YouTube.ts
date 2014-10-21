@@ -17,7 +17,7 @@ interface YouTubeEvent {
 	target: any;
 }
 
-module Wikia.Modules.VideoPlayer {
+module Wikia.Modules.VideoPlayers {
 	export class YouTubePlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;

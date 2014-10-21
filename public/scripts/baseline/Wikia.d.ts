@@ -16,10 +16,6 @@ declare module Wikia {
 	};
 	var apiBase: string;
 	var tracking: any;
-
-	module Modules {
-		class VideoPlayer {}
-	}
 }
 
 declare var W: typeof Wikia.Utils;
