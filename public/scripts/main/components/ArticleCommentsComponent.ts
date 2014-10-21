@@ -36,9 +36,9 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 */
 	pageObserver: function (): void {
 		Em.run.scheduleOnce('afterRender', () => {
-			var page = this.get('page'),
-				count = this.get('model.pagesCount'),
-				currentPage = page;
+			var page: any = this.get('page'),
+				count: any = this.get('model.pagesCount'),
+				currentPage: any = page;
 
 			if (page != null && count != null) {
 				currentPage = Math.max(Math.min(page, count), 1);
