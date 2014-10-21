@@ -23,6 +23,7 @@
 			W.provide('_state.firstPage', true);
 			W.provide('ads.slots', []);
 			W.provide('apiBase', '{{{server.apiBase}}}');
+			W.provide('environment', '{{{server.environment}}}');
 			W.provide('wiki', {{{wiki.json}}});
 			W.provide('article', {{{article.json}}});
 			W.provide('tracking', {{{trackingJson}}});
@@ -51,7 +52,12 @@
 			<script src="/public/vendor/jquery/dist/jquery.js"></script>
 			<script src="/public/vendor/hammerjs/hammer.js"></script>
 			<script src="/public/vendor/handlebars/handlebars.runtime.js"></script>
+			<!-- @if WIKIA_ENVIRONMENT='production' -->
+			<script src="/public/vendor/ember/ember.prod.js"></script>
+			<!-- @endif -->
+			<!-- @if WIKIA_ENVIRONMENT!='production' -->
 			<script src="/public/vendor/ember/ember.js"></script>
+			<!-- @endif -->
 			<script src="/public/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/public/vendor/i18next/i18next.js"></script>
 		<!-- endbuild -->

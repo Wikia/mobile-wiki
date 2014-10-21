@@ -15,6 +15,7 @@ declare module Wikia {
 	};
 	var apiBase: string;
 	var tracking: {[index: string]: string};
+	var environment: string;
 
 	module Modules {
 		class VideoPlayer {}
