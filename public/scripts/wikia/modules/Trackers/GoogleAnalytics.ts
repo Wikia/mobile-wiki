@@ -64,20 +64,6 @@ module Wikia.Modules.Trackers {
 		}
 
 		/**
-		 * Singleton accessor
-		 *
-		 * @param {Object} config
-		 * @returns {GoogleAnalytics}
-		 */
-		static getInstance (): GoogleAnalytics {
-			if (GoogleAnalytics.instance === null) {
-				GoogleAnalytics.instance = new GoogleAnalytics();
-			}
-
-			return GoogleAnalytics.instance;
-		}
-
-		/**
 		 * Initialize an additional account or property
 		 *
 		 * @param {string} name The name of the account as specified in localSettings

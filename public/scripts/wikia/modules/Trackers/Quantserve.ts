@@ -1,3 +1,4 @@
+/// <reference path="../../../../../typings/ember/ember.d.ts" />
 /// <reference path="./BaseTracker.ts" />
 'use strict';
 
@@ -19,22 +20,12 @@ module Wikia.Modules.Trackers {
 			return (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js?" + Math.random();
 		}
 
-		/**
-		 * Singleton accessor
-		 */
-		static getInstance (): Quantserve {
-			if (Quantserve.instance === null) {
-				Quantserve.instance = new Quantserve();
-			}
-
-			return Quantserve.instance;
-		}
-
 		trackPageView () {
 			var context: typeof Wikia.tracking = Em.get('Wikia.article.adsContext.targeting'),
 				quantcastLabels = '',
 				keyValues: string[],
 				keyValue: string[];
+
 
 			if (context && context.wikiCategory) {
 				quantcastLabels += context.wikiCategory;

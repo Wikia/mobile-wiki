@@ -1,3 +1,4 @@
+/// <reference path="../app.ts" />
 /// <reference path="./LightboxView.ts" />
 /// <reference path="../../wikia/modules/VideoLoader.ts" />
 'use strict';
@@ -117,7 +118,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.resetZoom();
 
 		W.track({
-			action: W.track.actions.paginate,
+			action: W.trackActions.paginate,
 			category: 'lightbox',
 			label: 'next'
 		});
@@ -128,7 +129,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.resetZoom();
 
 		W.track({
-			action: W.track.actions.paginate,
+			action: W.trackActions.paginate,
 			category: 'lightbox',
 			label: 'previous'
 		});

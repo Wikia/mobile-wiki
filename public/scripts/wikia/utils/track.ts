@@ -7,23 +7,30 @@ interface Window {
 	Wikia: any;
 }
 
-interface TrackingMethods {
-	[idx: string]: any;
-	none?: Boolean;
-	both?: Boolean;
-	ga?: Boolean;
-	internal?: Boolean;
+interface TrackContext {
+	//article title
+	a: string;
+	//namespace
+	n: number;
 }
 
 interface TrackingParams {
-	[idx: string]: any;
 	action?: string;
 	label?: string;
 	value?: number;
 	category: string;
-	trackingMethod: string;
-	a: string;
-	n: number;
+	trackingMethod?: string;
+	[idx: string]: any;
+}
+
+interface TrackFunction {
+	(params: TrackingParams): void;
+	actions: any;
+}
+
+interface Tracker {
+	track: TrackFunction;
+	trackPageView: (context?: TrackContext) => void;
 }
 
 module Wikia.Utils {
@@ -60,6 +67,7 @@ module Wikia.Utils {
 			impression: 'impression',
 			// Generic keypress
 			keypress: 'keypress',
+			paginate: 'paginate',
 			// Video play
 			playVideo: 'play-video',
 			// Removal
@@ -78,13 +86,17 @@ module Wikia.Utils {
 			takeSurvey: 'take-survey',
 			// View
 			view: 'view'
+		},
+		context: TrackContext = {
+			a: null,
+			n: null
 		};
 
 	function hasValidGaqArguments (obj: TrackingParams) {
 		return !!(obj.category && obj.label);
 	}
 
-	function pruneParamsForInternalTrack (params: TrackingParams) {
+	function pruneParams (params: TrackingParams) {
 		delete params.action;
 		delete params.label;
 		delete params.value;
@@ -93,42 +105,36 @@ module Wikia.Utils {
 
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
-		    track: TrackingMethods = {},
 		    action: string = params.action,
 		    category: string = params.category ? 'mercury-' + params.category : null,
 		    label: string = params.label || '',
 		    value: number = params.value || 0,
-			tracker = Wikia.Modules.Trackers.Internal.getInstance(),
-			gaTracker = Wikia.Modules.Trackers.GoogleAnalytics.getInstance();
+			trackers = Wikia.Modules.Trackers,
+			tracker: Wikia.Modules.Trackers.Internal,
+			gaTracker: Wikia.Modules.Trackers.GoogleAnalytics;
 
-		track[trackingMethod] = true;
+		params = <TrackingParams>$.extend({
+			ga_action: action,
+			ga_category: category,
+			ga_label: label,
+			ga_value: value
+		}, params);
 
-		if (track.none) {
-			throw new Error('must specify a tracking method');
-		}
+		//We rely on ga_* params in both trackers
+		pruneParams(params);
 
-		if (track.both) {
-			params = <TrackingParams>$.extend({
-				ga_action: action,
-				ga_category: category,
-				ga_label: label,
-				ga_value: value
-			}, params);
-
-			track.ga = true;
-			track.internal = true;
-		}
-
-		if (track.ga) {
+		if (trackingMethod === 'both' || trackingMethod === 'ga') {
 			if (!category || !action) {
 				throw new Error('missing required GA params');
 			}
 
+			gaTracker = new trackers.GoogleAnalytics();
 			gaTracker.track(category, actions[params.action], label, value, true);
 		}
 
-		if (track.internal) {
-			pruneParamsForInternalTrack(params);
+		if (trackingMethod === 'both' || trackingMethod === 'internal') {
+			tracker = new trackers.Internal();
+			params = <TrackingParams>$.extend(context, params);
 			tracker.track(params);
 		}
 	}
@@ -140,25 +146,23 @@ module Wikia.Utils {
 	 *
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
-	export function trackPageView (data: {title: string; ns: number}) {
-		var trackers = <any>Em.get('Wikia.Modules.Trackers');
+	export function trackPageView () {
+		var trackers = <Tracker[]>Em.get('Wikia.Modules.Trackers');
 
-		Object.keys(trackers).forEach(function (tracker: any) {
-			var trackerClass = <{getInstance: Function}>trackers[tracker];
+		Object.keys(trackers).forEach(function (tracker: string) {
+			var trackerInstance = <Tracker>new trackers[tracker]();
 
-			if (trackerClass && trackerClass.getInstance) {
-				var trackerInstance = <{trackPageView: Function}>trackerClass.getInstance();
-
-				if (trackerInstance && trackerInstance.trackPageView) {
-					Em.Logger.info('Track pageView:', tracker);
-					trackerInstance.trackPageView(data);
-				}
-			} else {
-				Em.Logger.info('Tracker', tracker, 'has no getInstance method');
+			if (trackerInstance && trackerInstance.trackPageView) {
+				Em.Logger.info('Track pageView:', tracker);
+				trackerInstance.trackPageView(context);
 			}
 		});
 	}
 
-	// Export actions so that they're accessible as W.track.actions
-	track.actions = actions;
+	export function setTrackContext(data: TrackContext) {
+		context = data;
+	}
+
+	// Export actions so that they're accessible as W.trackActions
+	export var trackActions = actions;
 }

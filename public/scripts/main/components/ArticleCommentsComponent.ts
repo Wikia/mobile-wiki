@@ -86,7 +86,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 			this.set('page', this.get('page') ? null : 1);
 
 			W.track({
-				action: W.track.actions.click,
+				action: W.trackActions.click,
 				category: 'comments',
 				label: this.get('page') ? 'close' : 'open'
 			});

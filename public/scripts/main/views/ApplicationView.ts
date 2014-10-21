@@ -71,7 +71,7 @@ App.ApplicationView = Em.View.extend({
 
 			if (galleryRef >= 0) {
 				W.track({
-					action: W.track.actions.click,
+					action: W.trackActions.click,
 					category: 'gallery'
 				});
 			}

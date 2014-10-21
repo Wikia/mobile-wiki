@@ -18,17 +18,6 @@ module Wikia.Modules.Trackers {
 			return (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js?" + Math.random();
 		}
 
-		/**
-		 * Singleton accessor
-		 */
-		static getInstance (): Comscore {
-			if (Comscore.instance === null) {
-				Comscore.instance = new Comscore();
-			}
-
-			return Comscore.instance;
-		}
-
 		trackPageView () {
 			var comscore = Wikia.tracking.comscore,
 				id =  comscore.id,

@@ -84,7 +84,7 @@ App.ApplicationRoute = Em.Route.extend({
 
 		trackClick: function (category: string, label: string = ''): void {
 			W.track({
-				action: W.track.actions.click,
+				action: W.trackActions.click,
 				category: category,
 				label: label
 			});

@@ -21,7 +21,7 @@ interface InternalTrackingConfig {
 
 interface InternalTrackingParams {
 	//category
-	category: string;
+	ga_category: string;
 	// wgArticleId
 	a: String;
 	// wgNamespaceNumber
@@ -36,7 +36,7 @@ module Wikia.Modules.Trackers {
 		success: Function;
 		error: Function;
 		head: HTMLElement;
-		defaults: any;
+		defaults: InternalTrackingConfig;
 
 		constructor () {
 			var config = Internal.getConfig();
@@ -66,11 +66,16 @@ module Wikia.Modules.Trackers {
 		private createRequestURL (category: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
-				targetRoute = Internal.isPageView(category) ? 'view' : 'special/trackingevent';
+				targetRoute = Internal.isPageView(category) ? 'view' : 'special/trackingevent',
+				value: string;
 
 			Object.keys(params).forEach((key: string) => {
-				paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-				parts.push(paramStr);
+				value = params[key];
+
+				if (value != null) {
+					paramStr = encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+					parts.push(paramStr);
+				}
 			});
 
 			return this.baseUrl + targetRoute + '?' + parts.join('&');
@@ -109,36 +114,21 @@ module Wikia.Modules.Trackers {
 			this.head.insertBefore(script, this.head.firstChild);
 		}
 
-		/**
-		 * Singleton accessor
-		 */
-		static getInstance (): Internal {
-			if (Internal.instance === null) {
-				Internal.instance = new Internal();
-			}
-
-			return Internal.instance;
-		}
-
 		track (params: InternalTrackingParams): void {
-			var requestURL: string,
-				config: any;
+			var config = <InternalTrackingParams>$.extend(params, this.defaults);
 
-			config = $.extend(params, this.defaults);
-			requestURL = this.createRequestURL(config.category, config);
-
-			this.loadTrackingScript(requestURL);
+			this.loadTrackingScript(
+				this.createRequestURL(config.ga_category, config)
+			);
 		}
 
 		/**
 		 * alias to track a page view
 		 */
-		trackPageView (article: {title: string; ns: number}): void {
-			this.track({
-				category: 'view',
-				a: article.title,
-				n: article.ns
-			});
+		trackPageView (context: TrackContext): void {
+			this.track(<InternalTrackingParams>$.extend({
+				ga_category: 'view'
+			}, context));
 		}
 	}
 }

@@ -14,7 +14,6 @@ module Wikia.Modules {
 	export class VideoLoader {
 		element: HTMLElement;
 		data: any;
-		trackingTimeout: number;
 		player: any;
 
 		constructor (element: HTMLElement, data: any /* tracking cb */) {
