@@ -17,12 +17,20 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 	// End component property
 	actions: {
 		toggleMenu: function (): void {
-			// slide transcluded element
-			this.$('.title')
-				.nextAll(':not(script)')
-				// use animSpeed, components have restricted scope and
-				// all relevant data must be explicitly passed into them
-				.slideToggle(this.get('animSpeed'));
+			var animSpeed = ~~this.get('animSpeed');
+			if (animSpeed > 0) {
+				// slide transcluded element
+				this.$('.title')
+					.nextAll(':not(script)')
+					// use animSpeed, components have restricted scope and
+					// all relevant data must be explicitly passed into them
+					.slideToggle(animSpeed);
+			} else {
+				// Toggle hide/show only
+				this.$('.title')
+					.nextAll(':not(script)')
+					.toggle();
+			}
 
 			this.toggleProperty('isCollapsed');
 
