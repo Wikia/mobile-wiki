@@ -18,14 +18,6 @@
 				</a>
 			</li>
 			{{/each}}
-			{{#if comments}}
-				<li>
-					<a href='#article-comments'>
-						{{i18n 'article-comments-label' count='comments'}}
-						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-					</a>
-				</li>
-			{{/if}}
 		{{/collapsible-menu}}
 	{{/if}}
 	{{#view 'article-content'}}
