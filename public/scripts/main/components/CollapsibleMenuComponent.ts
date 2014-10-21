@@ -13,17 +13,35 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 	ordered: false,
 	showMenuIcon: true,
 	tLabel: '',
+	trackingEvent: null,
 	// End component property
 	actions: {
 		toggleMenu: function (): void {
-			// slide transcluded element
-			this.$('.title')
-				.nextAll(':not(script)')
-				// use animSpeed, components have restricted scope and
-				// all relevant data must be explicitly passed into them
-				.slideToggle(this.get('animSpeed'));
+			var animSpeed = ~~this.get('animSpeed');
+			if (animSpeed > 0) {
+				// slide transcluded element
+				this.$('.title')
+					.nextAll(':not(script)')
+					// use animSpeed, components have restricted scope and
+					// all relevant data must be explicitly passed into them
+					.slideToggle(animSpeed);
+			} else {
+				// Toggle hide/show only
+				this.$('.title')
+					.nextAll(':not(script)')
+					.toggle();
+			}
 
 			this.toggleProperty('isCollapsed');
+
+			// Track opening and closing menu
+			if (this.trackingEvent !== null) {
+				W.track({
+					action: W.track.actions.click,
+					category: this.get('trackingEvent'),
+					label: this.isCollapsed ? 'close' : 'open'
+				});
+			}
 		}
 	},
 	didInsertElement: function (): void {

@@ -9,10 +9,6 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-interface DOMStringMap {
-	ref: string;
-}
-
 interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
@@ -187,5 +183,34 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.$('table:not([class*=infobox], .dirbox)')
 			.wrap(wrapper)
 			.css('visibility', 'visible');
+	},
+
+	gestures: {
+		swipeLeft: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-table').length) {
+				W.track({
+					action: W.track.actions.swipe,
+					category: 'tables'
+				});
+			} else if ($(event.target).parents('.article-gallery').length) {
+				W.track({
+					action: W.track.actions.paginate,
+					category: 'gallery',
+					label: 'next'
+				});
+			}
+		},
+
+		swipeRight: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-gallery').length) {
+				W.track({
+					action: W.track.actions.paginate,
+					category: 'gallery',
+					label: 'previous'
+				});
+			}
+		}
 	}
 });

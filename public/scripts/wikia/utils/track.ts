@@ -11,14 +11,13 @@ interface TrackingMethods {
 	both?: Boolean;
 	ga?: Boolean;
 	internal?: Boolean;
-	none?: Boolean;
 }
 
 interface TrackingParams {
 	[idx: string]: any;
 	action?: string;
 	label?: string;
-	value?: string;
+	value?: number;
 	category?: string;
 	trackingMethod: string;
 }
@@ -119,6 +118,8 @@ module Wikia.Utils {
 		remove: 'remove',
 		// Generic open
 		open: 'open',
+		// Page to next/previous
+		paginate: 'paginate',
 		// Sharing view email, social network, etc
 		share: 'share',
 		// Form submit, usually a post method
@@ -133,10 +134,6 @@ module Wikia.Utils {
 		view: 'view'
 	};
 
-	function hasValidGaqArguments (obj: TrackingParams) {
-		return !!(obj.category && obj.label);
-	}
-
 	function pruneParamsForInternalTrack (params: TrackingParams) {
 		delete params.action;
 		delete params.label;
@@ -144,14 +141,14 @@ module Wikia.Utils {
 		delete params.category;
 	}
 
-	export function track (event: string, params: TrackingParams): void {
+	export function track (params: TrackingParams): void {
 		var browserEvent = window.event,
-		    trackingMethod: string = params.trackingMethod || 'none',
+		    trackingMethod: string = params.trackingMethod || 'both',
 		    track: TrackingMethods = {},
 		    action: string = params.action,
-		    category: string = params.category,
-		    label: string = params.label,
-		    value: string = params.value;
+		    category: string = params.category ? 'mercury-' + params.category : null,
+		    label: string = params.label || '',
+		    value: number = params.value || 0;
 
 		track[trackingMethod] = true;
 
@@ -159,32 +156,31 @@ module Wikia.Utils {
 			init();
 		}
 
-		if (track.none) {
-			throw new Error('must specify a tracking method');
-		}
-
 		if (track.both) {
-			track.ga = true;
-			track.internal = true;
 			params = $.extend({
 				ga_action: action,
 				ga_category: category,
 				ga_label: label,
 				ga_value: value
 			}, params);
-		}
 
-		if ((track.both || track.ga) && !hasValidGaqArguments(params)) {
-			throw new Error('missing required GA params');
+			track.ga = true;
+			track.internal = true;
 		}
 
 		if (track.ga) {
-			gaTracker.track(category, actions[params.action] || event, label, value || 0, true);
+			if (!category || !action) {
+				throw new Error('missing required GA params');
+			}
+			gaTracker.track(category, actions[params.action], label, value, true);
 		}
 
 		if (track.internal) {
 			pruneParamsForInternalTrack(params);
-			tracker.track(event, params);
+			tracker.track(params);
 		}
 	}
+
+	// Export actions so that they're accessible as W.track.actions
+	track.actions = actions;
 }

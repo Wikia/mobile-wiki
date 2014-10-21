@@ -42,6 +42,7 @@ $modal-text-color: white;
 	right: 0;
 	top: 0;
 	width: 40px;
+	z-index: $z-lightbox-close-button;
 }
 
 .lightbox-content-inner {

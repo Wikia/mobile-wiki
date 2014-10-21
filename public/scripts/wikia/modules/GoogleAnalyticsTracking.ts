@@ -1,4 +1,5 @@
 /// <reference path="../../../../typings/google.analytics/ga.d.ts" />
+/// <reference path="../../../../config/localSettings.d.ts" />
 
 module Wikia.Modules {
 
@@ -54,9 +55,9 @@ module Wikia.Modules {
 		 * @param {Object} config
 		 * @returns {GoogleAnalyticsTracker}
 		 */
-		public static getInstance (config: any): Wikia.Modules.GoogleAnalyticsTracker {
+		public static getInstance (): Wikia.Modules.GoogleAnalyticsTracker {
 			if (GoogleAnalyticsTracker.instance === null) {
-				GoogleAnalyticsTracker.instance = new Wikia.Modules.GoogleAnalyticsTracker(config);
+				GoogleAnalyticsTracker.instance = new Wikia.Modules.GoogleAnalyticsTracker();
 			}
 			return GoogleAnalyticsTracker.instance;
 		}

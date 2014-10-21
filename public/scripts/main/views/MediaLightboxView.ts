@@ -115,11 +115,23 @@ App.MediaLightboxView = App.LightboxView.extend({
 	nextMedia: function () {
 		this.get('controller').incrementProperty('currentGalleryRef');
 		this.resetZoom();
+
+		W.track({
+			action: W.track.actions.paginate,
+			category: 'lightbox',
+			label: 'next'
+		});
 	},
 
 	prevMedia: function () {
 		this.get('controller').decrementProperty('currentGalleryRef');
 		this.resetZoom();
+
+		W.track({
+			action: W.track.actions.paginate,
+			category: 'lightbox',
+			label: 'previous'
+		});
 	},
 
 	resetZoom: function () {

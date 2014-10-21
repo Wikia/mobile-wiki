@@ -112,6 +112,12 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 			var curr: RootNavItem = this.get('currentMenuItem');
 			this.set('currentMenuItem', curr.children[index]);
 			this.set('parentItem', curr);
+
+			W.track({
+				action: W.track.actions.click,
+				category: 'wiki-nav',
+				label: 'header-' + (index + 1)
+			});
 		}
 	}
 });
