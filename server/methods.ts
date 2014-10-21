@@ -3,6 +3,14 @@ import search = require('./controllers/search');
 import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
 
+/**
+ * Defines server methods
+ */
+
+/**
+ * Attaches server methods and sets caching
+ * @param server
+ */
 function methods(server: Hapi.Server): void {
 	var second = 1000,
 	    cacheOptions = {
@@ -12,7 +20,7 @@ function methods(server: Hapi.Server): void {
 				    staleIn: 10 * second,
 				    staleTimeout: 100
 			    },
-			    generateKey: (opts:any) => {
+			    generateKey: (opts: any) => {
 				    return JSON.stringify(opts);
 			    }
 		    },
