@@ -33,9 +33,11 @@ module Wikia.Modules.VideoPlayer {
 		createUniqueId (id: string): string {
 			var element = document.getElementById(id),
 			    newId = id + new Date().getTime();
+
 			if (element) {
 				element.id = newId;
 			}
+
 			return newId;
 		}
 
