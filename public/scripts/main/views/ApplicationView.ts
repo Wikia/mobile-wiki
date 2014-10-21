@@ -11,6 +11,10 @@ interface DOMStringMap {
 	ref: string;
 }
 
+interface EventTarget {
+	tagName: string;
+}
+
 App.ApplicationView = Em.View.extend({
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its
@@ -99,6 +103,8 @@ App.ApplicationView = Em.View.extend({
 					case 'img':
 					case 'figure':
 						this.handleMedia(target);
+						break;
+					default:
 						break;
 				}
 			}
