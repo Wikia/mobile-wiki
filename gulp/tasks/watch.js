@@ -80,4 +80,6 @@ gulp.task('watch', ['build'], function () {
 			reload(event.path);
 		}
 	});
+
+	gulp.watch(paths.config.path + '*.ts', ['build']);
 });

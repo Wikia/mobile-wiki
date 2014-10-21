@@ -1,5 +1,11 @@
+/**
+ * Utility functions
+ */
 module Utils {
 
+	/**
+	 * Environment types
+	 */
 	export enum Environment {
 		Production,
 		Verify,
@@ -31,6 +37,13 @@ module Utils {
 		return fallbackEnvironment;
 	}
 
+	/**
+	 * Get domain name for devbox
+	 *
+	 * @param localSettings
+	 * @param wikiSubDomain
+	 * @returns {string}
+	 */
 	function getDomainName(localSettings: LocalSettings, wikiSubDomain: string): string {
 		if (localSettings.environment === Environment.Sandbox) {
 			return localSettings.host + '.' + wikiSubDomain + '.wikia.com';
@@ -43,8 +56,8 @@ module Utils {
 	 * @desc Get fallback domain
 	 * @returns {string}
 	 */
-	function getFallbackSubDomain(localSettings: LocalSettings) {
-		return (localSettings.wikiFallback || 'community')
+	function getFallbackSubDomain(localSettings: LocalSettings): string {
+		return (localSettings.wikiFallback || 'community');
 	}
 
 	/**
@@ -61,7 +74,7 @@ module Utils {
 			passThroughEnv: any = {};
 
 		passThroughEnv[Environment.Production] = '%s.wikia.com';
-		passThroughEnv[Environment.Verify] ='verify.%s.wikia.com';
+		passThroughEnv[Environment.Verify] = 'verify.%s.wikia.com';
 		passThroughEnv[Environment.Preview] = 'preview.%s.wikia.com';
 
 		if (passThroughEnv.hasOwnProperty(environment)) {

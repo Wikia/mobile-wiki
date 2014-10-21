@@ -27,6 +27,10 @@ module.exports = {
 			declarationFiles: false
 		}
 	},
+	doc: {
+		front: {},
+		back: {}
+	},
 	server: {
 		path: paths.server.script,
 		env: process.env,
