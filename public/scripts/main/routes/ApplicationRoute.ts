@@ -80,6 +80,14 @@ App.ApplicationRoute = Em.Route.extend({
 
 		collapseSideNav: function (): void {
 			this.controllerFor('sideNav').send('collapse');
+		},
+
+		trackClick: function (category: string, label: string = ''): void {
+			W.track({
+				action: W.track.actions.click,
+				category: category,
+				label: label
+			});
 		}
 	}
 });
