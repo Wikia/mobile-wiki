@@ -1,3 +1,5 @@
+/// <reference path="../../baseline/mercury.d.ts" />
+
 /**
  * Helper module to generate the URL to a thumbnail of specific size from JS
  *
