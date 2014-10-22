@@ -6,27 +6,40 @@ test('page is set correctly within boundries', function () {
 		scrollToTop: function () {}
 	});
 
-	component.setProperties({
-		model: {
-			pagesCount: 3
-		},
-		page: 2
+	Ember.run(function () {
+		component.setProperties({
+			model: {
+				pagesCount: 3
+			},
+			page: 2
+		});
 	});
 
 	equal(component.get('page'), 2);
 
-	component.send('nextPage');
+	Ember.run(function() {
+		component.send('nextPage');
+	});
 	equal(component.get('page'), 3);
 
-	component.send('nextPage');
+	Ember.run(function() {
+		component.send('nextPage');
+	});
+
 	equal(component.get('page'), 3);
 
-	component.send('prevPage');
+	Ember.run(function() {
+		component.send('prevPage');
+	});
 	equal(component.get('page'), 2);
 
-	component.send('prevPage');
+	Ember.run(function() {
+		component.send('prevPage');
+	});
 	equal(component.get('page'), 1);
 
-	component.send('prevPage');
+	Ember.run(function() {
+		component.send('prevPage');
+	});
 	equal(component.get('page'), 1);
 });
