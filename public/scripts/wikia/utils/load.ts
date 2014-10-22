@@ -9,7 +9,7 @@ declare var $script: Function;
 * developers and also to allow for swapping implementations in the future.
 */
 module Wikia.Utils {
-	export function load () {
-		return $script.apply(null, arguments);
+	export function load (...params: any[]) {
+		return $script.apply(null, params);
 	}
 }

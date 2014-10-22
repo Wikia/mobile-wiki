@@ -14,7 +14,7 @@ interface Window {
 	}
 }
 
-module Wikia.Modules.VideoPlayer {
+module Wikia.Modules.VideoPlayers {
 
 	export class OoyalaPlayer extends BasePlayer {
 		started: boolean;

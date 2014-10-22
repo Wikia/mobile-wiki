@@ -35,9 +35,7 @@
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 
-		<!-- @if WIKIA_ENVIRONMENT='production' -->
 		{{> tracking}}
-		<!-- @endif -->
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
@@ -57,9 +55,6 @@
 		<!-- endbuild -->
 
 		<!-- build:js /public/scripts/combined.js -->
-			<!-- @if WIKIA_ENVIRONMENT='production' -->
-			<script src="/public/scripts/tracking.js"></script>
-			<!-- @endif -->
 			<script src="/public/templates/main.js"></script>
 			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
@@ -68,5 +63,7 @@
 		{{#if server.mediawikiDomain}}
 		<script async src="//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
+
+		{{> tracking-pixels}}
 	</body>
 </html>

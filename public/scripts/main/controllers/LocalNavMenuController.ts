@@ -89,6 +89,10 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 	},
 
 	actions: {
+		gotoRoot: function (): void {
+			this.set('currentMenuItem', this.get('menuRoot'));
+			this.set('parentItem', null);
+		},
 		goBack: function (): void {
 			this.set('currentMenuItem', this.get('parentItem'));
 			// We've made it back to the root of the menu
@@ -108,6 +112,12 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 			var curr: RootNavItem = this.get('currentMenuItem');
 			this.set('currentMenuItem', curr.children[index]);
 			this.set('parentItem', curr);
+
+			W.track({
+				action: W.trackActions.click,
+				category: 'wiki-nav',
+				label: 'header-' + (index + 1)
+			});
 		}
 	}
 });

@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../typings/ember/ember.d.ts" />
 declare var $: JQueryStatic;
 declare var require: (deps: string[], func: Function) => void;
 
@@ -14,14 +15,7 @@ declare module Wikia {
 		slots: string[][];
 	};
 	var apiBase: string;
-	var tracking: {[index: string]: string};
-
-	module Modules {
-		class VideoPlayer {}
-	}
-
-	module Utils {
-	}
+	var tracking: any;
 }
 
 declare var W: typeof Wikia.Utils;

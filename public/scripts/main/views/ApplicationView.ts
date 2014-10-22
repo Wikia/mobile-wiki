@@ -11,6 +11,10 @@ interface DOMStringMap {
 	ref: string;
 }
 
+interface EventTarget {
+	tagName: string;
+}
+
 App.ApplicationView = Em.View.extend({
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its
@@ -68,30 +72,39 @@ App.ApplicationView = Em.View.extend({
 				galleryRef: galleryRef,
 				target: target
 			});
+
+			if (galleryRef >= 0) {
+				W.track({
+					action: W.trackActions.click,
+					category: 'gallery'
+				});
+			}
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
 	},
 
-	mouseDown: function (event: HTMLMouseEvent): void {
-		/**
-		 * check if the target has a parent that is an anchor
-		 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
-		 * because if the user clicks the part of the link in the <i></i> then
-		 * target.tagName will register as 'I' and not 'A'.
-		 */
-		var $closest =  Em.$(event.target).closest('a'),
-			target =  $closest.length ? $closest[0] : event.target;
+	gestures: {
+		tap: function (event: Event): void {
+			/**
+			 * check if the target has a parent that is an anchor
+			 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
+			 * because if the user clicks the part of the link in the <i></i> then
+			 * target.tagName will register as 'I' and not 'A'.
+			 */
+			var $closest =  Em.$(event.target).closest('a'),
+				target: EventTarget = $closest.length ? $closest[0] : event.target;
 
-		if (target) {
-			switch (target.tagName.toLowerCase()) {
-				case 'a':
-					this.handleLink(target);
-					break;
-				case 'img':
-				case 'figure':
-					this.handleMedia(target);
-					break;
+			if (target) {
+				switch (target.tagName.toLowerCase()) {
+					case 'a':
+						this.handleLink(target);
+						break;
+					case 'img':
+					case 'figure':
+						this.handleMedia(target);
+						break;
+				}
 			}
 		}
 	},

@@ -1,5 +1,6 @@
 {
 	"app": {
+		"article-empty-label": "Sorry, this article seems to be empty!",
 		"article-toc-label": "Table of Contents",
 		"article-comments-label": "__count__ comment",
 		"article-comments-label_plural": "__count__ comments",
@@ -30,6 +31,8 @@
 		"footer-link-privacy-policy": "Privacy Policy",
 		"footer-link-feedback": "Feedback",
 		"page-not-found-error": "Sorry, we can't find the page you are looking for.",
-		"page-not-found-message": "Use Navigation or Search"
+		"page-not-found-message": "Use Navigation or Search",
+		"random-page-label": "Random Page"
 	}
+	
 }

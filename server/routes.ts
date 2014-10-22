@@ -4,6 +4,7 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
+import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
 
@@ -11,6 +12,12 @@ var wikiDomains: {
 	[key: string]: string;
 } = {};
 
+/**
+ * Get cached Media Wiki domain name from the request host
+ *
+ * @param {string} host Request host name
+ * @returns {string} Host name to use for API
+ */
 function getWikiDomainName(host: string): string {
 	var wikiDomain: string;
 
@@ -20,6 +27,11 @@ function getWikiDomainName(host: string): string {
 	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(localSettings, host);
 }
 
+/**
+ * Adds routes to the server
+ *
+ * @param server
+ */
 function routes(server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
@@ -37,6 +49,12 @@ function routes(server: Hapi.Server) {
 			}
 		};
 
+	/**
+	 * Article request handler
+	 *
+	 * @param request Hapi request object
+	 * @param reply Hapi reply function
+	 */
 	function articleHandler(request: Hapi.Request, reply: any) {
 		server.methods.getPreRenderedData({
 			wikiDomain: getWikiDomainName(request.headers.host),
@@ -45,9 +63,7 @@ function routes(server: Hapi.Server) {
 		}, (error: any, result: any) => {
 			var code = 200;
 
-			// export tracking code to layout and front end code
-			result.tracking = localSettings.tracking;
-			result.trackingJson = JSON.stringify(localSettings.tracking);
+			Tracking.handleResponse(result, request);
 
 			if (error) {
 				code = error.code;
