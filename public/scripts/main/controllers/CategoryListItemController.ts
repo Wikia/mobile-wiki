@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../wikia/utils/string.ts" />
+/// <reference path="../../mercury/utils/string.ts" />
 
 'use strict';
 App.CategoryListItemController = Em.ObjectController.extend({

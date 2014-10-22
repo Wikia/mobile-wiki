@@ -1,5 +1,5 @@
 /// <reference path="./LightboxView.ts" />
-/// <reference path="../../wikia/modules/VideoLoader.ts" />
+/// <reference path="../../mercury/modules/VideoLoader.ts" />
 'use strict';
 
 interface HammerEvent {

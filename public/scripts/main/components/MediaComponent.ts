@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury.d.ts" />
-/// <reference path="../../wikia/modules/Thumbnailer.ts" />
+/// <reference path="../../mercury/modules/Thumbnailer.ts" />
 /// <reference path="../mixins/VisibleMixin.ts" />
 /// <reference path="../models/MediaModel.ts" />
 'use strict';
