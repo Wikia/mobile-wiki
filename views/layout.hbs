@@ -19,7 +19,7 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			M.provide('_t.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
+			M.provide('_state.translations.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
 			M.provide('_state.firstPage', true);
 			M.provide('ads.slots', []);
 			M.provide('apiBase', '{{{server.apiBase}}}');

@@ -35,7 +35,7 @@ App.initializer({
 			lng: application.get('language'),
 			fallbackLng: 'en',
 			debug: true,
-			resStore: Mercury._t,
+			resStore: Mercury._state.translations,
 			useLocalStorage: false
 		});
 	}

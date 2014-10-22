@@ -5,10 +5,12 @@ declare var require: (deps: string[], func: Function) => void;
 
 declare module Mercury {
 	var provide: (str: any, obj: any) => any;
-	var _t: any;
 	var language: string;
 	var article: any;
-	var _state: any;
+	var _state: {
+		firstPage: boolean;
+		translations: any;
+	};
 	var error: any;
 	var wiki: any;
 	var ads: {
