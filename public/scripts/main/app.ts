@@ -34,7 +34,7 @@ App.initializer({
 			LOG_VIEW_LOOKUPS: debug,
 			LOG_TRANSITIONS: debug,
 			LOG_TRANSITIONS_INTERNAL: debug
-		})
+		});
 
 		$('html').removeClass('preload');
 
