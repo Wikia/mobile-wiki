@@ -12,20 +12,27 @@ import Wreck = require('wreck');
 import Promise = require('bluebird');
 
 /**
- * @desc wrapper class for making API search requests
+ * Wrapper class for making API search requests
  */
 export class SearchRequest {
 	wikiDomain: string;
 
+	/**
+	 * Search request constructor
+	 *
+	 * @param params
+	 */
 	constructor (params: {wikiDomain: string}) {
 		this.wikiDomain = params.wikiDomain;
 	}
 
 	/**
-	 * @desc Default parameters to make the request url clean -- we may
+	 * Default parameters to make the request url clean -- we may
 	 * want to customize later
+	 * @param query Search query
+	 * @returns
 	 */
-	searchForQuery (query: string) {
+	searchForQuery (query: string): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {
 			query: query
 		});
@@ -41,10 +48,20 @@ export class SearchRequest {
 export class WikiRequest {
 	wikiDomain: string;
 
+	/**
+	 * WikiRequest constructor
+	 *
+	 * @param params
+	 */
 	constructor (params: {wikiDomain: string}) {
 		this.wikiDomain = params.wikiDomain;
 	}
 
+	/**
+	 * Gets general wiki information
+	 *
+	 * @returns {Promise<any>}
+	 */
 	getWikiVariables (): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/WikiVariables');
 
@@ -52,13 +69,27 @@ export class WikiRequest {
 	}
 }
 
+/**
+ * Gets article data
+ */
 export class ArticleRequest {
 	wikiDomain: string;
 
+	/**
+	 * ArticleRequest constructor
+	 * @param wikiDomain
+	 */
 	constructor (wikiDomain: string) {
 		this.wikiDomain = wikiDomain;
 	}
 
+	/**
+	 * Fetch article data
+	 *
+	 * @param title
+	 * @param redirect
+	 * @returns {Promise<any>}
+	 */
 	fetch (title: string, redirect: string) {
 		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/Article', {
 			title: title,
@@ -79,6 +110,8 @@ export class ArticleRequest {
 }
 
 /**
+ * Fetch http resource
+ *
  * @param url the url to fetch
  * @param redirects the number of redirects to follow, default 1
  */
@@ -91,7 +124,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 			timeout: localSettings.backendRequestTimeout
 		}, (err: any, res: any, payload: any): void => {
 			if (err) {
-				Logger.error({url: url, error:err}, 'Error fetching url');
+				Logger.error({url: url, error: err}, 'Error fetching url');
 				reject(err);
 			} else {
 				if (res.headers['content-type'].match('application/json')) {
@@ -104,6 +137,14 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	});
 }
 
+/**
+ * Create request URL
+ *
+ * @param wikiDomain
+ * @param path
+ * @param params
+ * @returns {string}
+ */
 export function createUrl(wikiDomain: string, path: string, params: any = {}): string {
 	var qsAggregator: string[] = [],
 		queryParam: string;
