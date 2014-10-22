@@ -78,7 +78,7 @@ test('getWikiName', function () {
 			host: 'bg.poznan.wikia.locals',
 			localSettings: {
 				wikiFallback: null,
-				environment: global.Environment.Devbox,
+				environment: global.Environment.Dev,
 				mediawikiHost: 'bimbo'
 			},
 			expected: 'community.bimbo.wikia-dev.com',
@@ -87,7 +87,7 @@ test('getWikiName', function () {
 			host: 'bg.poznan.wikia.local',
 			localSettings: {
 				wikiFallback: null,
-				environment: global.Environment.Devbox,
+				environment: global.Environment.Dev,
 				mediawikiHost: 'bimbo'
 			},
 			expected: 'bg.poznan.bimbo.wikia-dev.com',
@@ -96,7 +96,7 @@ test('getWikiName', function () {
 			host: 'bg.poznan.wikia.locals',
 			localSettings: {
 				wikiFallback: 'glee',
-				environment: global.Environment.Devbox,
+				environment: global.Environment.Dev,
 				mediawikiHost: 'bimbo'
 			},
 			expected: 'glee.bimbo.wikia-dev.com',
@@ -125,14 +125,14 @@ test('getWikiName', function () {
 		}, {
 			host: 'glee.wikia-local.com',
 			localSettings: {
-				environment: global.Environment.Devbox,
+				environment: global.Environment.Dev,
 				mediawikiHost: 'evgeniy'
 			},
 			expected: 'glee.evgeniy.wikia-dev.com',
 			description: 'Returns the devbox url if local is used'
 		}, {
 			localSettings: {
-				environment: global.Environment.Devbox,
+				environment: global.Environment.Dev,
 				mediawikiHost: 'test'
 			},
 			expected: 'community.test.wikia-dev.com',
@@ -177,13 +177,13 @@ test('getEnvironment', function() {
 			environment: 'sandbox',
 			expected: global.Environment.Sandbox
 		}, {
-			environment: 'devbox',
-			expected: global.Environment.Devbox
+			environment: 'dev',
+			expected: global.Environment.Dev
 		}, {
 			environment: 'testing',
 			expected: global.Environment.Testing
 		}, {
-			expected: global.Environment.Devbox
+			expected: global.Environment.Dev
 		}, {
 			environment: 'investing',
 			default: global.Environment.Production,
