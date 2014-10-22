@@ -29,6 +29,9 @@
 			{{#if error}}
 			W.provide('article.error', {{{error}}});
 			{{/if}}
+			{{#if server.mediawikiDomain}}
+			W.provide('ads.url', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			{{/if}}
 		</script>
 
 		<!-- @ifdef browserSync -->
@@ -64,9 +67,5 @@
 			<script src="/public/scripts/wikia.js"></script>
 			<script src="/public/scripts/main.js"></script>
 		<!-- endbuild -->
-
-		{{#if server.mediawikiDomain}}
-		<script async src="//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
-		{{/if}}
 	</body>
 </html>
