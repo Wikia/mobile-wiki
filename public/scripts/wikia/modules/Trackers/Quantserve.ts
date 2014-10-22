@@ -9,8 +9,6 @@ interface Window {
 
 module Wikia.Modules.Trackers {
 	export class Quantserve extends BaseTracker {
-		private static instance: Quantserve = null;
-
 		constructor () {
 			window._qevents = [];
 			super();

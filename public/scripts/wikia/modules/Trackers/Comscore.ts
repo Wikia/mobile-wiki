@@ -7,8 +7,6 @@ interface Window {
 
 module Wikia.Modules.Trackers {
 	export class Comscore extends BaseTracker {
-		private static instance: Comscore = null;
-
 		constructor () {
 			window._comscore = window._comscore || [];
 			super();

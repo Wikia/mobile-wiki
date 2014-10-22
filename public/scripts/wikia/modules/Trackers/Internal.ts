@@ -31,7 +31,6 @@ interface InternalTrackingParams extends TrackingParams {
 
 module Wikia.Modules.Trackers {
 	export class Internal {
-		private static instance: Internal = null;
 		baseUrl: string = 'http://a.wikia-beacon.com/__track/';
 		callbackTimeout: number = 200;
 		success: Function;

@@ -18,7 +18,6 @@ interface GAAccountMap {
 
 module Wikia.Modules.Trackers {
 	export class GoogleAnalytics {
-		private static instance: GoogleAnalytics = null;
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
