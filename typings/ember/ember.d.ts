@@ -2057,7 +2057,7 @@ declare module Ember {
     getPath is deprecated since get now supports paths.
     **/
     var getPath: typeof deprecateFunc;
-    function getWithDefault(root: string, key: string, defaultValue: any): any;
+    function getWithDefault(root: any, key: string, defaultValue: any): any;
     function guidFor(obj: any): string;
     function handleErrors(func: Function, context: any): any;
     function hasListeners(context: any, name: string): boolean;
