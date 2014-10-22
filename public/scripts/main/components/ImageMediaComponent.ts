@@ -33,7 +33,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		if (value) {
 			return this.getThumbURL(
 				value,
-				Wikia.Modules.Thumbnailer.mode.topCrop,
+				Mercury.Modules.Thumbnailer.mode.topCrop,
 				this.get('contentWidth'),
 				this.get('computedHeight')
 			);
@@ -43,7 +43,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 			if (media) {
 				return this.getThumbURL(
 					this.get('media').url,
-					Wikia.Modules.Thumbnailer.mode.fixedAspectRatio,
+					Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
 					this.get('contentWidth'),
 					this.get('computedHeight')
 				);
