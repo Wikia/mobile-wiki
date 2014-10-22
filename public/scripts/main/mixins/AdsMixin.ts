@@ -48,6 +48,6 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	setupAdsContext: function (adsContext: any): void {
-		Wikia.Modules.Ads.getInstance().reload(adsContext);
+		Mercury.Modules.Ads.getInstance().reload(adsContext);
 	}
 });

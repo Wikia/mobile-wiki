@@ -3,6 +3,7 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 /// <reference path="../baseline/mercury.d.ts" />
 /// <reference path="../mercury/utils/track.ts" />
+/// <reference path="../mercury/modules/Ads.ts" />
 
 'use strict';
 
@@ -28,10 +29,10 @@ App.initializer({
 		}
 
 		// Setup ads
-		if (Wikia.adsUrl) {
-			Wikia.Modules.Ads.getInstance().init(Wikia.adsUrl, function() {
-				if (Wikia.article.adsContext) {
-					this.reload(Wikia.article.adsContext);
+		if (Mercury.adsUrl) {
+			Mercury.Modules.Ads.getInstance().init(Mercury.adsUrl, function() {
+				if (Mercury.article.adsContext) {
+					this.reload(Mercury.article.adsContext);
 				};
 			});
 		}

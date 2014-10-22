@@ -1,13 +1,12 @@
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../../baseline/mercury.d.ts" />
 
 'use strict';
 
-module Wikia.Modules {
+module Mercury.Modules {
 
 	export class Ads {
-
-		private static instance: Wikia.Modules.Ads = null;
+		private static instance: Mercury.Modules.Ads = null;
 		private adSlots: string[][] = [];
 		private adEngine: any;
 		private adContext: any;
@@ -16,11 +15,11 @@ module Wikia.Modules {
 
 		/**
 		 * Returns instance of Ads object
-		 * @returns {Wikia.Modules.Ads}
+		 * @returns {Mercury.Modules.Ads}
 		 */
-		public static getInstance (): Wikia.Modules.Ads {
+		public static getInstance (): Mercury.Modules.Ads {
 			if (Ads.instance === null) {
-				Ads.instance = new Wikia.Modules.Ads();
+				Ads.instance = new Mercury.Modules.Ads();
 			}
 			return Ads.instance;
 		}
@@ -31,9 +30,9 @@ module Wikia.Modules {
 		 * @param adsUrl Url for the ads script
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
-		public init (adsUrl: string, callback: () => {}) {
+		public init (adsUrl: string, callback: () => void) {
 			// Load the ads code from MW
-			W.load(adsUrl, () => {
+			M.load(adsUrl, () => {
 				require([
 					'ext.wikia.adEngine.adEngine',
 					'ext.wikia.adEngine.adContext',
@@ -59,6 +58,12 @@ module Wikia.Modules {
 				this.adEngine.run(this.adConfigMobile, this.getSlots(), 'queue.mobile');
 			}
 		}
+
+		/**
+		 * Returns copy of adSlots
+		 *
+		 * @returns {string[][]}
+		 */
 		getSlots(): string[][] {
 			return <string[][]>$.extend([], this.adSlots);
 		}
