@@ -93,7 +93,7 @@ App.ApplicationView = Em.View.extend({
 			 * target.tagName will register as 'I' and not 'A'.
 			 */
 			var $closest =  Em.$(event.target).closest('a'),
-				target =  $closest.length ? $closest[0] : event.target;
+				target: EventTarget = $closest.length ? $closest[0] : event.target;
 
 			if (target) {
 				switch (target.tagName.toLowerCase()) {
