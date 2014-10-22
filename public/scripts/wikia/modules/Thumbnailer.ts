@@ -19,8 +19,8 @@ module Wikia.Modules {
 	export class Thumbnailer {
 		private static imagePathRegExp: RegExp = /\/\/vignette\d?\.wikia/
 		private static thumbBasePathRegExp: RegExp = /(.*\/revision\/\w+).*/;
-		private static legacyThumbPathRegExp: RegExp = /\/images\/thumb\//;
-		private static legacyPathRegExp: RegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(.+)\/images\/(?:thumb\/)?(.*)$/;
+		private static legacyThumbPathRegExp: RegExp = /\/\w+\/thumb\//;
+		private static legacyPathRegExp: RegExp = /(wikia-dev.com|wikia.nocookie.net)\/__cb([\d]+)\/(\w+\/\w+)\/(?:thumb\/)?(.*)$/;
 
 		public static mode: any = {
 			fixedAspectRatio: 'fixed-aspect-ratio',

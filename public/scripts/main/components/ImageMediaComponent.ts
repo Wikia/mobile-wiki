@@ -51,7 +51,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 
 		//if it got here, that means that we don't have an url for this media
 		//this might happen for example for read more section images
-	}.property('media', 'contentWidth'),
+	}.property('media', 'contentWidth', 'computedHeight'),
 
 	/**
 	 * @desc style used on img tag to set height of it before we load an image
