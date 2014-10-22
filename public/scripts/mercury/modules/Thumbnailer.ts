@@ -182,7 +182,7 @@ module Mercury.Modules {
 			width: number,
 			height: number
 			): string {
-			var url: Array;
+			var url: string[];
 
 			url = [
 				'http://vignette.' + urlParameters.domain,
