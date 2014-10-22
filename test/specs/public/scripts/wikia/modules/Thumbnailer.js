@@ -1,16 +1,16 @@
 /* global Wikia */
 QUnit.module('Thumbnailer tests');
 
-QUnit.test('Thumbnailer is compiled into Wikia.Modules namespace', function () {
-	ok(Wikia.Modules.Thumbnailer);
-	equal(typeof Wikia.Modules.Thumbnailer, 'function');
+QUnit.test('Thumbnailer is compiled into Mercury.Modules namespace', function () {
+	ok(Mercury.Modules.Thumbnailer);
+	equal(typeof Mercury.Modules.Thumbnailer, 'function');
 });
 
 QUnit.test('Thumbnailer creates thumbnail URL', function () {
 	var testCases = [
 		{
 			url: 'http://static.igor.wikia-dev.com/__cb20130614225714/thelastofus/images/9/99/Robert.png',
-			mode: Wikia.Modules.Thumbnailer.mode.topCrop,
+			mode: Mercury.Modules.Thumbnailer.mode.topCrop,
 			width: 500,
 			height: 200,
 			hasWebPSupport: true,
@@ -19,7 +19,7 @@ QUnit.test('Thumbnailer creates thumbnail URL', function () {
 		},
 		{
 			url: 'http://img2.wikia.nocookie.net/__cb20100311231730/muppet/images/d/d9/Jim-and-jim.jpg',
-			mode: Wikia.Modules.Thumbnailer.mode.fixedAspectRatio,
+			mode: Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
 			width: 100,
 			height: 100,
 			hasWebPSupport: false,
@@ -29,9 +29,9 @@ QUnit.test('Thumbnailer creates thumbnail URL', function () {
 	];
 
 	testCases.forEach(function (testCase) {
-		Wikia.Modules.Thumbnailer.hasWebPSupport = testCase.hasWebPSupport;
+		Mercury.Modules.Thumbnailer.hasWebPSupport = testCase.hasWebPSupport;
 		equal(
-			Wikia.Modules.Thumbnailer.getThumbURL(testCase.url, testCase.mode, testCase.width, testCase.height),
+			Mercury.Modules.Thumbnailer.getThumbURL(testCase.url, testCase.mode, testCase.width, testCase.height),
 			testCase.expectedOutput
 		);
 	});
@@ -59,7 +59,7 @@ QUnit.test('Thumbnailer verifies legacy thumbnailer URL', function () {
 	];
 
 	testCases.forEach(function (testCase) {
-		equal(Wikia.Modules.Thumbnailer.isLegacyThumbnailerUrl(testCase.url), testCase.expectedOutput);
+		equal(Mercury.Modules.Thumbnailer.isLegacyThumbnailerUrl(testCase.url), testCase.expectedOutput);
 	});
 });
 
@@ -94,7 +94,7 @@ QUnit.test('Thumbnailer verifies thumbnailer URL', function () {
 	];
 
 	testCases.forEach(function (testCase) {
-		equal(Wikia.Modules.Thumbnailer.isThumbnailerUrl(testCase.url), testCase.expectedOutput);
+		equal(Mercury.Modules.Thumbnailer.isThumbnailerUrl(testCase.url), testCase.expectedOutput);
 	});
 });
 
@@ -121,7 +121,7 @@ QUnit.test('Thumbnailer verifies legacy URL', function () {
 	];
 
 	testCases.forEach(function (testCase) {
-		equal(Wikia.Modules.Thumbnailer.isLegacyUrl(testCase.url), testCase.expectedOutput);
+		equal(Mercury.Modules.Thumbnailer.isLegacyUrl(testCase.url), testCase.expectedOutput);
 	});
 });
 
@@ -149,7 +149,7 @@ QUnit.test('Thumbnailer clears thumb options from URL', function () {
 	];
 
 	testCases.forEach(function (testCase) {
-		equal(Wikia.Modules.Thumbnailer.clearThumbOptions(testCase.url), testCase.expectedOutput);
+		equal(Mercury.Modules.Thumbnailer.clearThumbOptions(testCase.url), testCase.expectedOutput);
 	});
 });
 
@@ -185,7 +185,7 @@ QUnit.test('Thumbnailer parses legacy URL and returns list of parameters', funct
 	];
 
 	testCases.forEach(function (testCase) {
-		deepEqual(Wikia.Modules.Thumbnailer.getParametersFromLegacyUrl(testCase.url), testCase.expectedOutput);
+		deepEqual(Mercury.Modules.Thumbnailer.getParametersFromLegacyUrl(testCase.url), testCase.expectedOutput);
 	});
 });
 
@@ -198,7 +198,7 @@ QUnit.test('Thumbnailer creates thumb URL from list of parameters', function () 
 				wikiaBucket: 'thelastofus/images',
 				imagePath: '9/99/Robert.png'
 			},
-			mode: Wikia.Modules.Thumbnailer.mode.topCrop,
+			mode: Mercury.Modules.Thumbnailer.mode.topCrop,
 			width: 500,
 			height: 100,
 			hasWebPSupport: true,
@@ -212,7 +212,7 @@ QUnit.test('Thumbnailer creates thumb URL from list of parameters', function () 
 				wikiaBucket: 'muppet/images',
 				imagePath: 'd/d9/Jim-and-jim.jpg'
 			},
-			mode: Wikia.Modules.Thumbnailer.mode.fixedAspectRatio,
+			mode: Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
 			width: 300,
 			height: 150,
 			hasWebPSupport: false,
@@ -226,7 +226,7 @@ QUnit.test('Thumbnailer creates thumb URL from list of parameters', function () 
 				wikiaBucket: 'common/avatars',
 				imagePath: '7/7c/1271044.png'
 			},
-			mode: Wikia.Modules.Thumbnailer.mode.zoomCrop,
+			mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
 			width: 100,
 			height: 100,
 			hasWebPSupport: false,
@@ -236,9 +236,9 @@ QUnit.test('Thumbnailer creates thumb URL from list of parameters', function () 
 	];
 
 	testCases.forEach(function (testCase) {
-		Wikia.Modules.Thumbnailer.hasWebPSupport = testCase.hasWebPSupport;
+		Mercury.Modules.Thumbnailer.hasWebPSupport = testCase.hasWebPSupport;
 		equal(
-			Wikia.Modules.Thumbnailer.createThumbnailUrl(
+			Mercury.Modules.Thumbnailer.createThumbnailUrl(
 				testCase.urlParameters,
 				testCase.mode,
 				testCase.width,
