@@ -38,7 +38,8 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		Em.run.scheduleOnce('afterRender', () => {
 			var page: any = this.get('page'),
 				count: any = this.get('model.pagesCount'),
-				currentPage: any = page;
+				currentPage: any = page,
+				currentPageInteger: number = parseInt(currentPage, 10);
 
 			// since those can be null we intentionally correct the types
 			if (page != null && count != null) {
@@ -46,8 +47,8 @@ App.ArticleCommentsComponent = Em.Component.extend({
 			}
 
 			this.setProperties({
-				isFirstPage: currentPage == 1,
-				isLastPage: currentPage == count,
+				isFirstPage: currentPageInteger === 1,
+				isLastPage: currentPage === count,
 				page: currentPage
 			});
 
