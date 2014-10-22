@@ -31,12 +31,12 @@ module.exports = {
 		front: {},
 		back: {}
 	},
-	nodemon: {
-		script: 'www/server/app.js',
-		ext: 'js',
-		watch: [
-			'www/server'
-		]
+	server: {
+		path: paths.server.script,
+		env: process.env,
+		killSignal: 'SIGKILL',
+		delay: 0,
+		successMessage: /Server started/
 	},
 	tslint: {
 		emitError: true

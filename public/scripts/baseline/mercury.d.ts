@@ -18,6 +18,7 @@ declare module Mercury {
 	};
 	var apiBase: string;
 	var tracking: any;
+	var environment: string;
 }
 
 declare var M: typeof Mercury.Utils;

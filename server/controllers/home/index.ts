@@ -61,7 +61,8 @@ function createArticleData (payload: any) {
 function createServerData (): ServerData {
 	return {
 		mediawikiDomain: Utils.getWikiDomainName(localSettings),
-		apiBase: localSettings.apiBase
+		apiBase: localSettings.apiBase,
+		environment: Utils.getEnvironmentString(localSettings.environment)
 	};
 }
 
