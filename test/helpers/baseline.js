@@ -1,5 +1,5 @@
 /**
- * wikiaBaseline.js
+ * baseline.js
  * @description Sets up baseline first load experience to mirror the main web client
  */
 
