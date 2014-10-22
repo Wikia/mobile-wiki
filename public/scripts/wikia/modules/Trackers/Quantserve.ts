@@ -18,7 +18,7 @@ module Wikia.Modules.Trackers {
 			return (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js?" + Math.random();
 		}
 
-		trackPageView () {
+		trackPageView (): void {
 			var context: typeof Wikia.tracking = Em.get('Wikia.article.adsContext.targeting'),
 				quantcastLabels = '',
 				keyValues: string[],

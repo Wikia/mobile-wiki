@@ -16,10 +16,10 @@ module Wikia.Modules.Trackers {
 			return (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js?" + Math.random();
 		}
 
-		trackPageView () {
+		trackPageView (): void {
 			var comscore = Wikia.tracking.comscore,
-				id =  comscore.id,
-				c7Value = comscore.c7Value;
+				id: string =  comscore.id,
+				c7Value: string = comscore.c7Value;
 
 			window._comscore.push({
 				c1: '2',

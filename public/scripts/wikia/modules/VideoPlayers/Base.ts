@@ -1,5 +1,6 @@
 /// <reference path="../../../baseline/Wikia.d.ts" />
 /// <reference path="../../utils/track.ts" />
+/// <reference path="../../utils/load.ts" />
 
 module Wikia.Modules.VideoPlayers {
 	export class BasePlayer {

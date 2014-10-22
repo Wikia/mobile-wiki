@@ -114,7 +114,7 @@ module Wikia.Modules.Trackers {
 		/**
 		 * Tracks the current page view
 		 */
-		trackPageView () {
+		trackPageView (): void {
 			this.queue.push(['_trackPageView']);
 		}
 	}
