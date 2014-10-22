@@ -69,9 +69,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
 
-				if (Wikia.Utils.Tracking) {
-					Wikia.Utils.Tracking.trackPageView();
-				}
+				W.setTrackContext({
+					a: model.title,
+					n: model.ns
+				});
+				W.trackPageView();
 			}
 		});
 	},
@@ -190,12 +192,12 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			// Track swipe events
 			if ($(event.target).parents('.article-table').length) {
 				W.track({
-					action: W.track.actions.swipe,
+					action: W.trackActions.swipe,
 					category: 'tables'
 				});
 			} else if ($(event.target).parents('.article-gallery').length) {
 				W.track({
-					action: W.track.actions.paginate,
+					action: W.trackActions.paginate,
 					category: 'gallery',
 					label: 'next'
 				});
@@ -206,7 +208,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			// Track swipe events
 			if ($(event.target).parents('.article-gallery').length) {
 				W.track({
-					action: W.track.actions.paginate,
+					action: W.trackActions.paginate,
 					category: 'gallery',
 					label: 'previous'
 				});

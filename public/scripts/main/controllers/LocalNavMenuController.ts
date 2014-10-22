@@ -114,7 +114,7 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 			this.set('parentItem', curr);
 
 			W.track({
-				action: W.track.actions.click,
+				action: W.trackActions.click,
 				category: 'wiki-nav',
 				label: 'header-' + (index + 1)
 			});

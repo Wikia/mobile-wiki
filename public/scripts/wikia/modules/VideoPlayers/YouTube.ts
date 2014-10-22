@@ -1,10 +1,14 @@
 /// <reference path="../../../baseline/Wikia.d.ts" />
 /// <reference path="./Base.ts" />
 
+interface YouTubePlayer {
+	new(id: string, params: any): any;
+}
+
 interface Window {
 	YT: {
-		    Player: (id: string, params: any) => void;
-	    };
+		Player: YouTubePlayer
+	};
 	onYouTubeIframeAPIReady: () => void;
 }
 
@@ -13,7 +17,7 @@ interface YouTubeEvent {
 	target: any;
 }
 
-module Wikia.Modules.VideoPlayer {
+module Wikia.Modules.VideoPlayers {
 	export class YouTubePlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;
@@ -25,8 +29,8 @@ module Wikia.Modules.VideoPlayer {
 			this.bindPlayerEvents();
 		}
 
-		public resourceURI = 'https://www.youtube.com/iframe_api';
-		public containerId = this.createUniqueId('youtubeVideoPlayer');
+		resourceURI = 'https://www.youtube.com/iframe_api';
+		containerId = this.createUniqueId('youtubeVideoPlayer');
 
 		bindPlayerEvents (): void {
 			this.params.events = {
