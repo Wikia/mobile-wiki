@@ -35,7 +35,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 * and updates model, so it can load a page of comments
 	 */
 	pageObserver: function (): void {
-		Em.run.scheduleOnce('afterRender', () => {
+		Em.run.scheduleOnce('afterRender', this, () => {
 			var page: any = this.get('page'),
 				count: any = this.get('model.pagesCount'),
 				currentPage: any = page,
