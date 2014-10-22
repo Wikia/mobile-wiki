@@ -1,4 +1,5 @@
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../baseline/Wikia.d.ts" />
 
 'use strict';
 
@@ -13,6 +14,10 @@ module Wikia.Modules {
 		private adConfigMobile: any;
 		private isLoaded = false;
 
+		/**
+		 * Returns instance of Ads object
+		 * @returns {Wikia.Modules.Ads}
+		 */
 		public static getInstance (): Wikia.Modules.Ads {
 			if (Ads.instance === null) {
 				Ads.instance = new Wikia.Modules.Ads();
@@ -20,7 +25,13 @@ module Wikia.Modules {
 			return Ads.instance;
 		}
 
-		public init (adsUrl: string, callback: Function) {
+		/**
+		 * Initializes the Ad module
+		 *
+		 * @param adsUrl Url for the ads script
+		 * @param callback Callback function to exwecute when the script is loaded
+		 */
+		public init (adsUrl: string, callback: () => {}) {
 			// Load the ads code from MW
 			W.load(adsUrl, () => {
 				require([
@@ -37,6 +48,10 @@ module Wikia.Modules {
 			});
 		}
 
+		/**
+		 * Reloads the ads with the provided adsContext
+		 * @param adsContext
+		 */
 		public reload (adsContext: any) {
 			if (this.isLoaded) {
 				this.adContext.setContext(adsContext);
@@ -48,10 +63,21 @@ module Wikia.Modules {
 			return <string[][]>$.extend([], this.adSlots);
 		}
 
+		/**
+		 * Adds ad slot
+		 *
+		 * @param name name of the slot
+		 * @returns {number} index of the inserted slot
+		 */
 		public addSlot (name: string): number {
 			return this.adSlots.push([name]);
 		}
 
+		/**
+		 * Removes ad slot by name
+		 *
+		 * @param name Name of ths slot to remove
+		 */
 		public removeSlot (name:string): void {
 			this.adSlots = $.grep(this.adSlots, (slot) => {
 				return slot[0] && slot[0] === name;
