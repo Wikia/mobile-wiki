@@ -36,8 +36,8 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 
 			// Track opening and closing menu
 			if (this.trackingEvent !== null) {
-				W.track({
-					action: W.track.actions.click,
+				M.track({
+					action: M.trackActions.click,
 					category: this.get('trackingEvent'),
 					label: this.isCollapsed ? 'close' : 'open'
 				});

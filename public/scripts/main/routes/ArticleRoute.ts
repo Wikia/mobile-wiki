@@ -14,18 +14,18 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	beforeModel: function (transition: EmberStates.Transition) {
-		if (Wikia.error) {
+		if (Mercury.error) {
 			transition.abort();
 		}
 
 		this.transitionTo('article',
-			Wikia.Utils.String.sanitize(transition.params.article.title)
+			M.String.sanitize(transition.params.article.title)
 		);
 	},
 
 	model: function (params: any) {
 		return App.ArticleModel.find({
-			title: Wikia.Utils.String.sanitize(params.title),
+			title: Mercury.Utils.String.sanitize(params.title),
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},

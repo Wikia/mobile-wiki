@@ -88,8 +88,8 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		toggleComments: function (): void {
 			this.set('page', this.get('page') ? null : 1);
 
-			W.track({
-				action: W.track.actions.click,
+			M.track({
+				action: M.trackActions.click,
 				category: 'comments',
 				label: this.get('page') ? 'close' : 'open'
 			});
