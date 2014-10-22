@@ -1,4 +1,5 @@
 /// <reference path="../../baseline/mercury.d.ts" />
+/// <reference path="./VideoPlayers/Base.ts" />
 'use strict';
 
 interface PlayerClassMap {
@@ -14,8 +15,7 @@ module Mercury.Modules {
 	export class VideoLoader {
 		element: HTMLElement;
 		data: any;
-		trackingTimeout: number;
-		player: any;
+		player: Mercury.Modules.VideoPlayers.BasePlayer;
 
 		constructor (element: HTMLElement, data: any /* tracking cb */) {
 			element.innerHTML = data.html;
@@ -23,9 +23,11 @@ module Mercury.Modules {
 			this.loadPlayerClass();
 		}
 
-		static Player: any;
+		private isProvider (name: string): boolean {
+			return !!this.data.provider.toLowerCase().match(name);
+		}
 
-		public loadPlayerClass () {
+		loadPlayerClass () {
 			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player';
 
@@ -35,11 +37,7 @@ module Mercury.Modules {
 				return false;
 			}
 
-			this.player = new Mercury.Modules.VideoPlayer[playerClassStr](provider, this.data.jsParams);
-		}
-
-		private isProvider (name: string): boolean {
-			return !!this.data.provider.toLowerCase().match(name);
+			this.player = new Mercury.Modules.VideoPlayers[playerClassStr](provider, this.data.jsParams);
 		}
 	}
 }

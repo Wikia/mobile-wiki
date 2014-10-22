@@ -1,6 +1,8 @@
 /// <reference path="../../../baseline/mercury.d.ts" />
+/// <reference path="../../utils/track.ts" />
+/// <reference path="../../utils/load.ts" />
 
-module Mercury.Modules.VideoPlayer {
+module Mercury.Modules.VideoPlayers {
 	export class BasePlayer {
 		player: any;
 		params: any;
@@ -32,20 +34,19 @@ module Mercury.Modules.VideoPlayer {
 		createUniqueId (id: string): string {
 			var element = document.getElementById(id),
 			    newId = id + new Date().getTime();
+
 			if (element) {
 				element.id = newId;
 			}
+
 			return newId;
 		}
 
-		track (event: string, params?: any): Function {
-			var opts = {
+		track (event = ''): void {
+			return M.track({
 				label: this.provider,
-				category: 'video-player',
-				action: event
-			};
-			params = $.extend(opts, params);
-			return M.track(opts);
+				category: 'video-player-' + event
+			});
 		}
 
 	}

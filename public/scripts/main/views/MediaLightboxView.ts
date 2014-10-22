@@ -1,3 +1,4 @@
+/// <reference path="../app.ts" />
 /// <reference path="./LightboxView.ts" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
 'use strict';
@@ -32,7 +33,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return {
 			width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 			height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-		}
+		};
 	}.property(),
 
 	/**
@@ -117,7 +118,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.resetZoom();
 
 		M.track({
-			action: M.track.actions.paginate,
+			action: M.trackActions.paginate,
 			category: 'lightbox',
 			label: 'next'
 		});
@@ -128,7 +129,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this.resetZoom();
 
 		M.track({
-			action: M.track.actions.paginate,
+			action: M.trackActions.paginate,
 			category: 'lightbox',
 			label: 'previous'
 		});
@@ -229,11 +230,13 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 * style string for an image, used for scaling and panning
 	 */
 	style: function (): string {
-		return '-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0); transform: scale(%@1) translate3d(%@2px,%@3px,0);'.fmt(
-			this.get('scale').toFixed(2),
-			this.get('newX').toFixed(2),
-			this.get('newY').toFixed(2)
-		);
+		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
+				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
+			.fmt(
+				this.get('scale').toFixed(2),
+				this.get('newX').toFixed(2),
+				this.get('newY').toFixed(2)
+			);
 	}.property('scale', 'newX', 'newY'),
 
 	/**

@@ -75,9 +75,11 @@ App.ArticleModel.reopenClass({
 	},
 
 	getPreloadedData: function () {
+		var article = Mercury.article;
 		Mercury._state.firstPage = false;
-		Mercury.article.content = $('.article-content').html();
-		return Mercury.article;
+		article.content = $('.article-content').html();
+		delete Mercury.article;
+		return article;
 	},
 
 	setArticle: function (model: typeof App.ArticleModel, source = this.getPreloadedData()) {

@@ -1,9 +1,9 @@
-QUnit.module('VideoPlayer.BasePlayer', {
+QUnit.module('VideoPlayers.BasePlayer', {
 	setup: function () {
 		var params = {
 			videoId: 666
 		};
-		this.player = new Mercury.Modules.VideoPlayer.BasePlayer('base', params);
+		this.player = new Mercury.Modules.VideoPlayers.BasePlayer('base', params);
 	},
 	teardown: function () {
 	}
@@ -12,7 +12,7 @@ QUnit.module('VideoPlayer.BasePlayer', {
 QUnit.test('Player requires a provider', function () {
 	expect(1);
 	var error = new Error('VideoPlayer requires a provider as the first argument');
-	throws(Mercury.Modules.VideoPlayer.BasePlayer, error);
+	throws(Mercury.Modules.VideoPlayers.BasePlayer, error);
 });
 
 QUnit.test('loadPlayer calls M.load and playerDidLoad hook', function () {
@@ -44,13 +44,11 @@ QUnit.test('createUniqueId', function () {
 });
 
 QUnit.test('local track calls M.track with extended params', function () {
-	this.stub(M, 'track', function (opts) {
-		console.log(opts);
-		equal(opts.action, 'test');
-		equal(opts.foo, 'bar', 'params are properly extended');
+	this.stub(M, 'track', function (evt) {
+		equal(evt.category, 'video-player-bar');
 	});
 
-	this.player.track('test', {foo: 'bar'});
+	this.player.track('bar');
 	ok(M.track.calledOnce);
 });
 

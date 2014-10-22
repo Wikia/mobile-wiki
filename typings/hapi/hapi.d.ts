@@ -350,9 +350,9 @@ declare module Hapi {
 		app: any;
 		auth: {
 			isAuthenticated: boolean;
-			credentials: Object;
-			artifacts: Object;
-			session: Object
+			credentials: any;
+			artifacts: any;
+			session: any
 		};
 		domain: any;
 		headers: any;
@@ -369,10 +369,10 @@ declare module Hapi {
 		params: any;
 		path: string;
 		payload: any;
-		plugins: Object;
-		pre: Object;
-		response: Object;
-		responses: Object;
+		plugins: any;
+		pre: any;
+		response: any;
+		responses: any;
 		query: any;
 		raw: {
 			req: any; //http.ClientRequest
@@ -381,15 +381,15 @@ declare module Hapi {
 		route: string;
 		server: Server;
 		session: any;
-		state: Object;
-		url: Object;
+		state: any;
+		url: any;
 
 		setUrl? (url: string): void;
 		setMethod? (method: string): void;
 		log (tags: string, data?: string, timestamp?: number): void;
-		log (tags: string, data?: Object, timestamp?: number): void;
+		log (tags: string, data?: any, timestamp?: number): void;
 		log (tags: string[], data?: string, timestamp?: number): void;
-		log (tags: string[], data?: Object, timestamp?: number): void;
+		log (tags: string[], data?: any, timestamp?: number): void;
 		getLog(): string[];
 		getLog(tag: string): string[];
 		getLog(tags: string[]): string[];
@@ -402,7 +402,7 @@ declare module Hapi {
 		source: any;
 		variety: string;
 		app: any;
-		plugins: Object;
+		plugins: any;
 		settings: {
 			encoding: string;
 			charset: string;
@@ -448,9 +448,9 @@ declare module Hapi {
 			}
 		}): void;
 
-		function view(template: string, context?: Object, options?: Object): Response;
-		function close(options?: Object): void;
-		function proxy(options: Object): void;
+		function view(template: string, context?: any, options?: any): Response;
+		function close(options?: any): void;
+		function proxy(options: any): void;
 
 		export function reply(result: any): any;
 	}

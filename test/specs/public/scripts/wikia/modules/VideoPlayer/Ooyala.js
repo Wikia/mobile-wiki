@@ -1,11 +1,11 @@
-QUnit.module('VideoPlayer.OoyalaPlayer', {
+QUnit.module('VideoPlayers.OoyalaPlayer', {
 	setup: function () {
 		var params = {
 			videoId: 666,
 			jsFile: ['foo'],
 			playerId: 'testId'
 		};
-		this.player = new Mercury.Modules.VideoPlayer.OoyalaPlayer('ooyala', params);
+		this.player = new Mercury.Modules.VideoPlayers.OoyalaPlayer('ooyala', params);
 	},
 	teardown: function () {
 	}

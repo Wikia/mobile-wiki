@@ -1,10 +1,23 @@
-/// <reference path="../../../../typings/google.analytics/ga.d.ts" />
-/// <reference path="../../../../config/localSettings.d.ts" />
+/// <reference path="../../../../../typings/google.analytics/ga.d.ts" />
+interface Window {
+	_gaq: any[]
+}
 
-module Mercury.Modules {
+interface GAAccount {
+	// namespace prefix for _gaq.push methods, ie. 'special'
+	prefix?: string;
+	// ie. 'UA-32129070-1'
+	id: string;
+	// sampling percentage, from 1 to 100
+	sampleRate: number;
+}
 
-	export class GoogleAnalyticsTracker {
-		private static instance: Mercury.Modules.GoogleAnalyticsTracker = null;
+interface GAAccountMap {
+	[name: string]: GAAccount;
+}
+
+module Mercury.Modules.Trackers {
+	export class GoogleAnalytics {
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
@@ -21,7 +34,7 @@ module Mercury.Modules {
 				];
 
 			this.accounts = Mercury.tracking.ga;
-			this.queue = window._gaq;
+			this.queue = window._gaq = window._gaq || [];
 
 			// Primary account
 			this.initAccount(this.accountPrimary);
@@ -46,20 +59,7 @@ module Mercury.Modules {
 			}
 
 			// Send skin as custom variable
-			this.queue.push(['_setCustomVar', 4, 'Skin', 'mercury', 3]);
-		}
-
-		/**
-		 * Singleton accessor
-		 *
-		 * @param {Object} config
-		 * @returns {GoogleAnalyticsTracker}
-		 */
-		public static getInstance (): Mercury.Modules.GoogleAnalyticsTracker {
-			if (GoogleAnalyticsTracker.instance === null) {
-				GoogleAnalyticsTracker.instance = new Mercury.Modules.GoogleAnalyticsTracker();
-			}
-			return GoogleAnalyticsTracker.instance;
+			this.queue.push(['_setCustomVar', '4', 'Skin', 'mercury', '3']);
 		}
 
 		/**
@@ -69,12 +69,14 @@ module Mercury.Modules {
 		 */
 		initAccount (name: string): void {
 			var prefix = '';
+
 			// Primary account should not have a namespace prefix
 			if (name !== this.accountPrimary) {
 				prefix = this.accounts[name].prefix + '.';
 			}
+
 			this.queue.push([prefix + '_setAccount', this.accounts[name].id]);
-			this.queue.push([prefix + '_setSampleRate', <string>this.accounts[name].sampleRate]);
+			this.queue.push([prefix + '_setSampleRate', this.accounts[name].sampleRate.toString()]);
 		}
 
 		/**
@@ -96,7 +98,7 @@ module Mercury.Modules {
 		 * @param {number} value Event value. Has to be an integer.
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
-		public track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
+		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
 
 			this.queue.push(['_trackEvent'].concat(args));
@@ -112,7 +114,7 @@ module Mercury.Modules {
 		/**
 		 * Tracks the current page view
 		 */
-		public trackPageView () {
+		trackPageView (): void {
 			this.queue.push(['_trackPageView']);
 		}
 	}

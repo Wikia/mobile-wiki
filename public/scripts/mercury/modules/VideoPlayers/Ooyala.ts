@@ -14,7 +14,7 @@ interface Window {
 	}
 }
 
-module Mercury.Modules.VideoPlayer {
+module Mercury.Modules.VideoPlayers {
 
 	export class OoyalaPlayer extends BasePlayer {
 		started: boolean;

@@ -69,9 +69,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
 
-				if (M.Tracking) {
-					M.Tracking.trackPageView();
-				}
+				M.setTrackContext({
+					a: model.title,
+					n: model.ns
+				});
+				M.trackPageView();
 			}
 		});
 	},
@@ -189,13 +191,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		swipeLeft: function (event: JQueryEventObject): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-table').length) {
+
 				M.track({
-					action: M.track.actions.swipe,
+					action: M.trackActions.swipe,
 					category: 'tables'
 				});
 			} else if ($(event.target).parents('.article-gallery').length) {
 				M.track({
-					action: M.track.actions.paginate,
+					action: M.trackActions.paginate,
 					category: 'gallery',
 					label: 'next'
 				});
@@ -206,7 +209,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			// Track swipe events
 			if ($(event.target).parents('.article-gallery').length) {
 				M.track({
-					action: M.track.actions.paginate,
+					action: M.trackActions.paginate,
 					category: 'gallery',
 					label: 'previous'
 				});

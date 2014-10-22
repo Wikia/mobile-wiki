@@ -61,7 +61,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	 * @return uri to send an ajax request to
 	 */
 	getSearchURI: function (query: string): string {
-		return App.get('apiBase') +'/search/' + encodeURIComponent(query)
+		return App.get('apiBase') + '/search/' + encodeURIComponent(query);
 	},
 
 	/**
@@ -140,7 +140,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 			if (query === this.get('query')) {
 				this.set('isLoadingSearchResults', false);
 			}
-			this.endedRequest(query)
+			this.endedRequest(query);
 		});
 
 	},
@@ -175,7 +175,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 		// Track when search is submitted. To avoid spamming this event, track only
 		// when a search request has ended.
 		M.track({
-			action: M.track.actions.submit,
+			action: M.trackActions.submit,
 			category: 'search'
 		});
 	},

@@ -56,9 +56,13 @@ test('getPreloadedData', function () {
 	// Already run in wikiaBaseline and the startup callback:
 	// Mercury._state.firstPage = true;
 	// Mercury.article = this.example;
-	var article = App.ArticleModel.getPreloadedData();
+	var article = Mercury.article,
+		data = App.ArticleModel.getPreloadedData();
+
 	strictEqual(Mercury._state.firstPage, false, 'Mercury object\'s firstPage state flipped to false');
-	deepEqual(article, Mercury.article, 'article loaded from Mercury object on first page');
+	deepEqual(data, article, 'article loaded from Mercury object on first page');
+	console.log(Mercury.article);
+	deepEqual(Mercury.article, undefined, 'Mercury.article is set to null');
 });
 
 test('setArticle with preloaded data', function () {

@@ -1,9 +1,9 @@
-QUnit.module('VideoPlayer.YouTubePlayer', {
+QUnit.module('VideoPlayers.YouTubePlayer', {
 	setup: function () {
 		var params = {
 			videoId: 666
 		};
-		this.player = new Mercury.Modules.VideoPlayer.YouTubePlayer('youtube', params);
+		this.player = new Mercury.Modules.VideoPlayers.YouTubePlayer('youtube', params);
 	},
 	teardown: function () {
 	}

@@ -11,6 +11,10 @@ interface DOMStringMap {
 	ref: string;
 }
 
+interface EventTarget {
+	tagName: string;
+}
+
 App.ApplicationView = Em.View.extend({
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its
@@ -71,7 +75,7 @@ App.ApplicationView = Em.View.extend({
 
 			if (galleryRef >= 0) {
 				M.track({
-					action: M.track.actions.click,
+					action: M.trackActions.click,
 					category: 'gallery'
 				});
 			}
@@ -89,7 +93,7 @@ App.ApplicationView = Em.View.extend({
 			 * target.tagName will register as 'I' and not 'A'.
 			 */
 			var $closest =  Em.$(event.target).closest('a'),
-				target =  $closest.length ? $closest[0] : event.target;
+				target: EventTarget = $closest.length ? $closest[0] : event.target;
 
 			if (target) {
 				switch (target.tagName.toLowerCase()) {
