@@ -56,11 +56,11 @@ test('getPreloadedData', function () {
 	// Already run in wikiaBaseline and the startup callback:
 	// Wikia._state.firstPage = true;
 	// Wikia.article = this.example;
-	var data = Wikia.article,
-		article = App.ArticleModel.getPreloadedData();
+	var article = Wikia.article,
+		data = App.ArticleModel.getPreloadedData();
 
 	strictEqual(Wikia._state.firstPage, false, 'Wikia object\'s firstPage state flipped to false');
-	deepEqual(article, data, 'article loaded from Wikia object on first page');
+	deepEqual(data, article, 'article loaded from Wikia object on first page');
 	deepEqual(Wikia.article, null, 'Wikia.article is set to null');
 });
 
