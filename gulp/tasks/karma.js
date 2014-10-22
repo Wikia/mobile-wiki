@@ -14,7 +14,7 @@ gulp.task('karma', ['fixtures'], function () {
 		paths.vendor.dest + '/i18next/i18next.js',
 		paths.templates.dest + '/main.js',
 		paths.scripts.front.dest + '/baseline.js',
-		paths.scripts.front.dest + '/wikia.js',
+		paths.scripts.front.dest + '/mercury.js',
 		paths.scripts.front.dest + '/main.js',
 		// qunit helpers must not be included in general components package
 		'public/vendor/ember-qunit/dist/globals/main.js',

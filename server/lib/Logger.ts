@@ -1,4 +1,6 @@
 /// <reference path="../../typings/bunyan/bunyan.d.ts" />
+/// <reference path="../../typings/bunyan-prettystream/bunyan-prettystream.d.ts" />
+/// <reference path="../../typings/bunyan-syslog/bunyan-syslog.d.ts" />
 
 import bunyan = require('bunyan');
 import localSettings = require('../../config/localSettings');
@@ -10,7 +12,9 @@ interface CreateBunyanLoggerStream {
 interface AvailableTargets {
 	[key: string]: CreateBunyanLoggerStream;
 }
-
+/**
+ * Loogger interface
+ */
 module Logger {
 
 	var availableTargets: AvailableTargets = {
@@ -19,13 +23,25 @@ module Logger {
 			console: createConsoleStream
 		};
 
-	function createDefaultLogStream(minLogLevel: string = 'info') {
+	/**
+	 * Creates the default log stream settings
+	 *
+	 * @param minLogLevel
+	 * @returns {{stream: WritableStream, level: string}}
+	 */
+	function createDefaultLogStream(minLogLevel: string = 'info'): BunyanLoggerStream {
 		return {
-			stream: process.stderr,
-			level: minLogLevel
+			level: minLogLevel,
+			stream: process.stderr
 		};
 	}
 
+	/**
+	 * Creates the console log settings
+	 *
+	 * @param minLogLevel
+	 * @returns {{level: string, stream: exports}}
+	 */
 	function createConsoleStream(minLogLevel: string): BunyanLoggerStream {
 		var PrettyStream = require('bunyan-prettystream'),
 			prettyStdOut = new PrettyStream();
@@ -36,6 +52,12 @@ module Logger {
 		};
 	}
 
+	/**
+	 * Create the SysLog stream settings
+	 *
+	 * @param minLogLevel
+	 * @returns {{level: string, type: string, stream: any}}
+	 */
 	function createSysLogStream(minLogLevel: string): BunyanLoggerStream {
 		var bsyslog = require('bunyan-syslog');
 		return {
@@ -48,7 +70,13 @@ module Logger {
 		};
 	}
 
-	export function createLogger(loggerConfig: LoggerInterface) {
+	/**
+	 * Create logger
+	 *
+	 * @param loggerConfig
+	 * @returns {BunyanLogger}
+	 */
+	export function createLogger(loggerConfig: LoggerInterface): BunyanLogger {
 		var streams: Array<BunyanLoggerStream> = [];
 		Object.keys(loggerConfig).forEach((loggerType: string) => {
 			if (!availableTargets.hasOwnProperty(loggerType)) {

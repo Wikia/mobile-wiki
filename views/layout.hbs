@@ -19,15 +19,15 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			W.provide('_t.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
-			W.provide('_state.firstPage', true);
-			W.provide('ads.slots', []);
-			W.provide('apiBase', '{{{server.apiBase}}}');
-			W.provide('wiki', {{{wiki.json}}});
-			W.provide('article', {{{article.json}}});
-			W.provide('tracking', {{{trackingJson}}});
+			M.provide('_state.translations.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
+			M.provide('_state.firstPage', true);
+			M.provide('ads.slots', []);
+			M.provide('apiBase', '{{{server.apiBase}}}');
+			M.provide('wiki', {{{wiki.json}}});
+			M.provide('article', {{{article.json}}});
+			M.provide('tracking', {{{trackingJson}}});
 			{{#if error}}
-			W.provide('article.error', {{{error}}});
+			M.provide('article.error', {{{error}}});
 			{{/if}}
 		</script>
 
@@ -35,9 +35,7 @@
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 
-		<!-- @if WIKIA_ENVIRONMENT='production' -->
 		{{> tracking}}
-		<!-- @endif -->
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
@@ -57,16 +55,15 @@
 		<!-- endbuild -->
 
 		<!-- build:js /public/scripts/combined.js -->
-			<!-- @if WIKIA_ENVIRONMENT='production' -->
-			<script src="/public/scripts/tracking.js"></script>
-			<!-- @endif -->
 			<script src="/public/templates/main.js"></script>
-			<script src="/public/scripts/wikia.js"></script>
+			<script src="/public/scripts/mercury.js"></script>
 			<script src="/public/scripts/main.js"></script>
 		<!-- endbuild -->
 
 		{{#if server.mediawikiDomain}}
 		<script async src="//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
 		{{/if}}
+
+		{{> tracking-pixels}}
 	</body>
 </html>

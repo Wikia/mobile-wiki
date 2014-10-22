@@ -1,2 +1,2 @@
-/* global App, resetWikiaBaseline */
+/* global App, resetMercuryBaseline */
 moduleFor('route:article', 'Article Route');

@@ -12,7 +12,7 @@ module.exports = {
 	},
 	scripts: {
 		front: {
-			target: 'es5',
+			target: 'ES5',
 			noImplicitAny: true,
 			removeComments: false,
 			declarationFiles: false,
@@ -20,11 +20,25 @@ module.exports = {
 		},
 		back: {
 			module: 'commonjs',
-			target: 'es5',
+			target: 'ES5',
 			emitError: false,
 			noImplicitAny: true,
 			declarationFiles: false,
 			removeComments: false
+		}
+	},
+	doc: {
+		front: {
+			name: 'Mercury front',
+			out: 'docs/front',
+			module: 'commonjs',
+			target: 'es5'
+		},
+		back: {
+			name: 'Mercury back',
+			out: 'docs/back',
+			module: 'commonjs',
+			target: 'es5'
 		}
 	},
 	server: {

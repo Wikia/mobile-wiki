@@ -39,5 +39,11 @@ interface LocalSettings {
 	tracking: {
 		ga: GAAccountMap;
 		quantserve: string;
+		comscore: {
+			keyword: string;
+			id: string;
+			c7: string;
+			c7Value: string;
+		}
 	}
 }

@@ -28,6 +28,10 @@ module.exports = {
 			declarationFiles: false
 		}
 	},
+	doc: {
+		front: {},
+		back: {}
+	},
 	nodemon: {
 		script: 'www/server/app.js',
 		ext: 'js',

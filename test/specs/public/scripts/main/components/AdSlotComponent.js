@@ -39,5 +39,5 @@ test('Component is inserted on page', function () {
 	expect(1);
 	component.set('name', 'Test ad 1');
 	this.append();
-	equal(Wikia.ads.slots.length, 1, 'Element added to slot');
+	equal(Mercury.ads.slots.length, 1, 'Element added to slot');
 });
