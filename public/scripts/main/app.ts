@@ -1,15 +1,16 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
-/// <reference path="../baseline/Wikia.d.ts" />
+/// <reference path="../baseline/mercury.d.ts" />
+/// <reference path="../mercury/utils/track.ts" />
 
 'use strict';
 
 declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
-		language: Wikia.wiki ? Wikia.wiki.language : 'en',
-		apiBase: Wikia.apiBase || '/api/v1',
+		language: Mercury.wiki ? Mercury.wiki.language : 'en',
+		apiBase: Mercury.apiBase || '/api/v1',
 		hash: null
 	});
 
@@ -17,7 +18,7 @@ App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
 		var hash: string = window.location.hash,
-			debug: boolean = Wikia.environment === 'dev';
+			debug: boolean = Mercury.environment === 'dev';
 
 		if (hash.length) {
 			App.set('hash', window.location.hash);
@@ -43,7 +44,7 @@ App.initializer({
 			lng: application.get('language'),
 			fallbackLng: 'en',
 			debug: debug,
-			resStore: Wikia._t,
+			resStore: Mercury._state.translations,
 			useLocalStorage: false
 		});
 	}

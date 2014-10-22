@@ -1,4 +1,4 @@
-/* global App, resetWikiaBaseline */
+/* global App, resetMercuryBaseline */
 moduleFor('model:article', 'Article Model', {
 	setup: function () {
 		// Test data for later tests
@@ -26,13 +26,13 @@ moduleFor('model:article', 'Article Model', {
 			siteName: 'test'
 		};
 
-		// Preload data into Wikia.article
-		Wikia.article = this.example;
-		Wikia.wiki = this.wikiExample;
+		// Preload data into Mercury.article
+		Mercury.article = this.example;
+		Mercury.wiki = this.wikiExample;
 	},
 	teardown: function () {
 		App.reset();
-		resetWikiaBaseline();
+		resetMercuryBaseline();
 	}
 });
 
@@ -54,11 +54,15 @@ test('ArticleModel RESTful URL tests', function () {
 
 test('getPreloadedData', function () {
 	// Already run in wikiaBaseline and the startup callback:
-	// Wikia._state.firstPage = true;
-	// Wikia.article = this.example;
-	var article = App.ArticleModel.getPreloadedData();
-	strictEqual(Wikia._state.firstPage, false, 'Wikia object\'s firstPage state flipped to false');
-	deepEqual(article, Wikia.article, 'article loaded from Wikia object on first page');
+	// Mercury._state.firstPage = true;
+	// Mercury.article = this.example;
+	var article = Mercury.article,
+		data = App.ArticleModel.getPreloadedData();
+
+	strictEqual(Mercury._state.firstPage, false, 'Mercury object\'s firstPage state flipped to false');
+	deepEqual(data, article, 'article loaded from Mercury object on first page');
+	console.log(Mercury.article);
+	deepEqual(Mercury.article, undefined, 'Mercury.article is set to null');
 });
 
 test('setArticle with preloaded data', function () {
@@ -83,12 +87,12 @@ test('find with preloaded data', function () {
 		article: 'article'
 	};
 
-	ok(Wikia._state.firstPage, 'firstPage==true before test, as expected');
+	ok(Mercury._state.firstPage, 'firstPage==true before test, as expected');
 	Ember.run(function () {
 		model = App.ArticleModel.find(params);
 	});
 	verifyArticle(model, this.example, this.wikiExample);
-	ok(!Wikia._state.firstPage, 'firstPage==false after test, as expected');
+	ok(!Mercury._state.firstPage, 'firstPage==false after test, as expected');
 });
 
 /**

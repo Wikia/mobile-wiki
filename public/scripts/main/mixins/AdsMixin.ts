@@ -60,7 +60,7 @@ App.AdsMixin = Em.Mixin.create({
 				'ext.wikia.adEngine.adConfigMobile'
 			], function (adEngine: any, adContext: any, adConfigMobile: any) {
 				adContext.setContext(adsContext);
-				adEngine.run(adConfigMobile, JSON.parse(JSON.stringify(Wikia.ads.slots)), 'queue.mobile');
+				adEngine.run(adConfigMobile, JSON.parse(JSON.stringify(Mercury.ads.slots)), 'queue.mobile');
 			});
 		}
 	}
