@@ -175,7 +175,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 		// Track when search is submitted. To avoid spamming this event, track only
 		// when a search request has ended.
 		W.track({
-			action: W.track.actions.submit,
+			action: W.trackActions.submit,
 			category: 'search'
 		});
 	},

@@ -1,6 +1,8 @@
 /// <reference path="../../../baseline/Wikia.d.ts" />
+/// <reference path="../../utils/track.ts" />
+/// <reference path="../../utils/load.ts" />
 
-module Wikia.Modules.VideoPlayer {
+module Wikia.Modules.VideoPlayers {
 	export class BasePlayer {
 		player: any;
 		params: any;
@@ -32,20 +34,19 @@ module Wikia.Modules.VideoPlayer {
 		createUniqueId (id: string): string {
 			var element = document.getElementById(id),
 			    newId = id + new Date().getTime();
+
 			if (element) {
 				element.id = newId;
 			}
+
 			return newId;
 		}
 
-		track (event: string, params?: any): Function {
-			var opts = {
-				trackingMethod: 'both',
+		track (event = ''): void {
+			return W.track({
 				label: this.provider,
-				category: 'video-player'
-			};
-			params = $.extend(opts, params);
-			return W.track(event, opts);
+				category: 'video-player-' + event
+			});
 		}
 
 	}

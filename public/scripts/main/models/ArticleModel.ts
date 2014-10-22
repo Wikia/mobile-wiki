@@ -75,9 +75,12 @@ App.ArticleModel.reopenClass({
 	},
 
 	getPreloadedData: function () {
+		var article = Wikia.article;
+
 		Wikia._state.firstPage = false;
-		Wikia.article.content = $('.article-content').html();
-		return Wikia.article;
+		article.content = $('.article-content').html();
+		Wikia.article = null;
+		return article;
 	},
 
 	setArticle: function (model: typeof App.ArticleModel, source = this.getPreloadedData()) {
