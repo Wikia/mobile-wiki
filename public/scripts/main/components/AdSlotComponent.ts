@@ -14,13 +14,13 @@ App.AdSlotComponent = Em.Component.extend({
 	didInsertElement: function () {
 		Em.Logger.info('Injected ad:', this.get('name'));
 
-		App.get('ads').addSlot(this.get('name'));
+		Wikia.Modules.Ads.getInstance().addSlot(this.get('name'));
 	},
 
 	willDestroyElement: function() {
 		var name = this.get('name');
 
-		App.get('ads').removeSlot(this.get('name'));
+		Wikia.Modules.Ads.getInstance().removeSlot(this.get('name'));
 
 		this.$().remove();
 

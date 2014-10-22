@@ -26,7 +26,14 @@ App.initializer({
 			App.set('hash', window.location.hash);
 		}
 
-		App.set('ads', new Wikia.Modules.Ads(Wikia.article.adsContext));
+		// Setup ads
+		if (Wikia.adsUrl) {
+			Wikia.Modules.Ads.getInstance().init(Wikia.adsUrl, function() {
+				if (Wikia.article.adsContext) {
+					this.reload(Wikia.article.adsContext);
+				};
+			});
+		}
 
 		$('html').removeClass('preload');
 

@@ -6,29 +6,35 @@ module Wikia.Modules {
 
 	export class Ads {
 
+		private static instance: Wikia.Modules.Ads = null;
 		private adSlots: string[][] = [];
 		private adEngine: any;
 		private adContext: any;
 		private adConfigMobile: any;
 		private isLoaded = false;
 
-		constructor (adsContext: any) {
-			if (Wikia.adsUrl) {
-				// Load the ads code from MW
-				W.load(Wikia.adsUrl, () => {
-					require([
-						'ext.wikia.adEngine.adEngine',
-						'ext.wikia.adEngine.adContext',
-						'ext.wikia.adEngine.adConfigMobile'
-					], (adEngine, adContext, adConfigMobile) => {
-						this.adEngine = adEngine;
-						this.adContext = adContext;
-						this.adConfigMobile = adConfigMobile;
-						this.isLoaded = true;
-						this.reload(adsContext);
-					});
-				});
+		public static getInstance (): Wikia.Modules.Ads {
+			if (Ads.instance === null) {
+				Ads.instance = new Wikia.Modules.Ads();
 			}
+			return Ads.instance;
+		}
+
+		public init (adsUrl: string, callback: Function) {
+			// Load the ads code from MW
+			W.load(adsUrl, () => {
+				require([
+					'ext.wikia.adEngine.adEngine',
+					'ext.wikia.adEngine.adContext',
+					'ext.wikia.adEngine.adConfigMobile'
+				], (adEngine: any, adContext: any, adConfigMobile: any) => {
+					this.adEngine = adEngine;
+					this.adContext = adContext;
+					this.adConfigMobile = adConfigMobile;
+					this.isLoaded = true;
+					callback.call(this);
+				});
+			});
 		}
 
 		public reload (adsContext: any) {
