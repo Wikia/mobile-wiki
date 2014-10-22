@@ -25,6 +25,5 @@ App.AdSlotComponent = Em.Component.extend({
 		this.$().remove();
 
 		Em.Logger.info('Will destroy ad:', name);
-		//this.destroy();
 	}
 });
