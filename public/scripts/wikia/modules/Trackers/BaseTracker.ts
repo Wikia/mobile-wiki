@@ -13,7 +13,7 @@ module Wikia.Modules.Trackers {
 			return '';
 		}
 
-		appendScript () {
+		appendScript (): void {
 			var elem = document.createElement('script');
 
 			elem.async = true;
