@@ -7,8 +7,7 @@
 
 declare var i18n: I18nextStatic;
 
-var debug: boolean = Wikia.environment === 'dev',
-	App: any = Em.Application.create({
+var App: any = Em.Application.create({
 		language: Wikia.wiki ? Wikia.wiki.language : 'en',
 		apiBase: Wikia.apiBase || '/api/v1',
 		hash: null
@@ -17,7 +16,8 @@ var debug: boolean = Wikia.environment === 'dev',
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		var hash = window.location.hash;
+		var hash: string = window.location.hash,
+			debug: boolean = Wikia.environment === 'dev';
 
 		if (hash.length) {
 			App.set('hash', window.location.hash);
@@ -28,10 +28,12 @@ App.initializer({
 			debug = true;
 		}
 
-		App.set('LOG_ACTIVE_GENERATION', debug);
-		App.set('LOG_VIEW_LOOKUPS', debug);
-		App.set('LOG_TRANSITIONS', debug);
-		App.set('LOG_TRANSITIONS_INTERNAL', debug);
+		App.setProperties({
+			LOG_ACTIVE_GENERATION: debug,
+			LOG_VIEW_LOOKUPS: debug,
+			LOG_TRANSITIONS: debug,
+			LOG_TRANSITIONS_INTERNAL: debug
+		})
 
 		$('html').removeClass('preload');
 
