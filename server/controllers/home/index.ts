@@ -62,7 +62,7 @@ function createServerData (): ServerData {
 	return {
 		mediawikiDomain: Utils.getWikiDomainName(localSettings),
 		apiBase: localSettings.apiBase,
-		environment: process.env.WIKIA_ENVIRONMENT
+		environment: Utils.getEnvironmentString(localSettings.environment)
 	};
 }
 
