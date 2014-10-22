@@ -26,7 +26,7 @@ App.initializer({
 			App.set('hash', window.location.hash);
 		}
 
-		App.set('ads', new Wikia.Modules.Ads());
+		App.set('ads', new Wikia.Modules.Ads(Wikia.article.adsContext));
 
 		$('html').removeClass('preload');
 

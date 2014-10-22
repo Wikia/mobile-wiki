@@ -25,7 +25,7 @@ module Wikia.Modules {
 						this.adContext = adContext;
 						this.adConfigMobile = adConfigMobile;
 						this.isLoaded = true;
-						this.reload(adContext);
+						this.reload(adsContext);
 					});
 				});
 			}
