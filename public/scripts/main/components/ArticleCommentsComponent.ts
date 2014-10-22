@@ -40,6 +40,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 				count: any = this.get('model.pagesCount'),
 				currentPage: any = page;
 
+			// since those can be null we intentionally correct the types
 			if (page != null && count != null) {
 				currentPage = Math.max(Math.min(page, count), 1);
 			}
