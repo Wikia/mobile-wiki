@@ -4,7 +4,7 @@
 
 interface Window {
 	ga: any;
-	Wikia: any;
+	Mercury: any;
 }
 
 interface TrackContext {
@@ -34,7 +34,7 @@ interface TrackerInstance {
 	trackPageView: (context?: TrackContext) => void;
 }
 
-module Wikia.Utils {
+module Mercury.Utils {
 	// These actions were ported over from legacy Wikia app code:
 	// https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
 	// The property keys were modified to fit style rules
@@ -93,10 +93,6 @@ module Wikia.Utils {
 			n: null
 		};
 
-	function hasValidGaqArguments (obj: TrackingParams) {
-		return !!(obj.category && obj.label);
-	}
-
 	function pruneParams (params: TrackingParams) {
 		delete params.action;
 		delete params.label;
@@ -110,9 +106,9 @@ module Wikia.Utils {
 		    category: string = params.category ? 'mercury-' + params.category : null,
 		    label: string = params.label || '',
 		    value: number = params.value || 0,
-			trackers = Wikia.Modules.Trackers,
-			tracker: Wikia.Modules.Trackers.Internal,
-			gaTracker: Wikia.Modules.Trackers.GoogleAnalytics;
+			trackers = Mercury.Modules.Trackers,
+			tracker: Mercury.Modules.Trackers.Internal,
+			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
 
 		params = <TrackingParams>$.extend({
 			ga_action: action,
@@ -143,12 +139,12 @@ module Wikia.Utils {
 	/**
 	 * function for aggregating all page tracking that Wikia uses.
 	 * To make trackPageView work with your tracker,
-	 * make it a class in Wikia.Modules.Trackers and export one function 'trackPageView'
+	 * make it a class in Mercury.Modules.Trackers and export one function 'trackPageView'
 	 *
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
 	export function trackPageView () {
-		var trackers: {[name: string]: TrackerInstance} = Em.get('Wikia.Modules.Trackers');
+		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
 
 		Object.keys(trackers).forEach(function (tracker: string) {
 			var trackerInstance = new trackers[tracker]();
@@ -164,6 +160,6 @@ module Wikia.Utils {
 		context = data;
 	}
 
-	// Export actions so that they're accessible as W.trackActions
+	// Export actions so that they're accessible as M.trackActions
 	export var trackActions = actions;
 }

@@ -29,7 +29,7 @@ interface InternalTrackingParams extends TrackingParams {
 	n: Number;
 }
 
-module Wikia.Modules.Trackers {
+module Mercury.Modules.Trackers {
 	export class Internal {
 		baseUrl: string = 'http://a.wikia-beacon.com/__track/';
 		callbackTimeout: number = 200;
@@ -46,12 +46,12 @@ module Wikia.Modules.Trackers {
 		}
 
 		static getConfig (): InternalTrackingConfig {
-			var wikia = window.Wikia;
+			var mercury = window.Mercury;
 
 			return {
-				c: wikia.wiki.id,
-				x: wikia.wiki.dbName,
-				lc: wikia.wiki.language,
+				c: mercury.wiki.id,
+				x: mercury.wiki.dbName,
+				lc: mercury.wiki.language,
 				u: 0,
 				s: 'mercury',
 				beacon: '',

@@ -5,7 +5,7 @@ interface Window {
 	_comscore: any[];
 }
 
-module Wikia.Modules.Trackers {
+module Mercury.Modules.Trackers {
 	export class Comscore extends BaseTracker {
 		constructor () {
 			window._comscore = window._comscore || [];
@@ -17,7 +17,7 @@ module Wikia.Modules.Trackers {
 		}
 
 		trackPageView (): void {
-			var comscore = Wikia.tracking.comscore,
+			var comscore = Mercury.tracking.comscore,
 				id: string =  comscore.id,
 				c7Value: string = comscore.c7Value;
 

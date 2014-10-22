@@ -1,4 +1,4 @@
-/// <reference path="../../../baseline/Wikia.d.ts" />
+/// <reference path="../../../baseline/mercury.d.ts" />
 /// <reference path="./Base.ts" />
 
 interface YouTubePlayer {
@@ -17,7 +17,7 @@ interface YouTubeEvent {
 	target: any;
 }
 
-module Wikia.Modules.VideoPlayers {
+module Mercury.Modules.VideoPlayers {
 	export class YouTubePlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;

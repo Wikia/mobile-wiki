@@ -1,7 +1,7 @@
-/* global App, resetWikiaBaseline */
+/* global App, resetMercuryBaseline */
 moduleFor('model:media', 'Media Model', {
 	setup: function () {
-		Wikia.article.article.media = [
+		Mercury.article.article.media = [
 			{
 				image:'TEST'
 			},
@@ -12,7 +12,7 @@ moduleFor('model:media', 'Media Model', {
 	},
 	teardown: function () {
 		App.reset();
-		resetWikiaBaseline();
+		resetMercuryBaseline();
 	}
 });
 
@@ -20,18 +20,18 @@ test('returning the media array', function () {
 	expect(1);
 
 	var model = App.MediaModel.create({
-		media: Wikia.article.article.media
+		media: Mercury.article.article.media
 	});
 
-	deepEqual(Wikia.article.article.media, model.get('media'));
+	deepEqual(Mercury.article.article.media, model.get('media'));
 });
 
 test('returning data about media', function () {
 	expect(1);
 
 	var model = App.MediaModel.create({
-		media: Wikia.article.article.media
+		media: Mercury.article.article.media
 	});
 
-	equal(Wikia.article.article.media[0], model.get('media')[0]);
+	equal(Mercury.article.article.media[0], model.get('media')[0]);
 });

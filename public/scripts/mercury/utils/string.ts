@@ -1,7 +1,7 @@
-/// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-module Wikia.Utils.String {
+module Mercury.Utils.String {
 	/**
 	 * We need to support links like:
 	 * /wiki/Rachel Berry

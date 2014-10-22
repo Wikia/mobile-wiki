@@ -1,8 +1,8 @@
-/* global App, resetWikiaBaseline */
+/* global App, resetMercuryBaseline*/
 moduleFor('model:articleComments', 'Article Comments Model', {
 	teardown: function () {
 		App.reset();
-		resetWikiaBaseline();
+		resetMercuryBaseline();
 	}
 });
 

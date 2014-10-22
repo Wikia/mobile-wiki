@@ -1,7 +1,7 @@
 moduleFor('controller:article', 'Article Controller', {
 	needs: ['controller:application'],
 	setup: function () {
-		Wikia._state.firstPage = false;
+		Mercury._state.firstPage = false;
 	}
 });
 

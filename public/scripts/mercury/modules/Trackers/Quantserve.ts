@@ -7,7 +7,7 @@ interface Window {
 	__qc: any;
 }
 
-module Wikia.Modules.Trackers {
+module Mercury.Modules.Trackers {
 	export class Quantserve extends BaseTracker {
 		constructor () {
 			window._qevents = [];
@@ -19,7 +19,7 @@ module Wikia.Modules.Trackers {
 		}
 
 		trackPageView (): void {
-			var context: typeof Wikia.tracking = Em.get('Wikia.article.adsContext.targeting'),
+			var context: typeof Mercury.tracking = Em.get('Mercury.article.adsContext.targeting'),
 				quantcastLabels = '',
 				keyValues: string[],
 				keyValue: string[];
@@ -46,7 +46,7 @@ module Wikia.Modules.Trackers {
 
 			//quantcastLabels += ',mobilebrowser';
 			window._qevents = [{
-				qacct: Wikia.tracking.quantserve,
+				qacct: Mercury.tracking.quantserve,
 				labels: quantcastLabels
 			}];
 
