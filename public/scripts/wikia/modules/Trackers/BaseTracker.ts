@@ -14,7 +14,7 @@ module Wikia.Modules.Trackers {
 		}
 
 		appendScript (): void {
-			var elem = document.createElement('script');
+			var elem: HTMLScriptElement = document.createElement('script');
 
 			elem.async = true;
 			elem.src = this.url();
