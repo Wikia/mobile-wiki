@@ -187,6 +187,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			.css('visibility', 'visible');
 	},
 
+	hammerOptions: {
+		touchAction: 'auto'
+	},
+
 	gestures: {
 		swipeLeft: function (event: JQueryEventObject): void {
 			// Track swipe events
