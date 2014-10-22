@@ -1,8 +1,8 @@
 moduleFor('controller:localWikiaSearch', 'Local Wikia Search Controller', {
 	setup: function () {
 		// Mock some tracking stuff
-		W.track = function () {};
-		W.track.actions = {submit: ''};
+		M.track = function () {};
+		M.track.actions = {submit: ''};
 	}
 });
 

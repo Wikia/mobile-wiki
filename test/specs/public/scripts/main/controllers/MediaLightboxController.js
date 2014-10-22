@@ -1,7 +1,7 @@
 moduleFor('controller:media-lightbox', 'Media Lightbox Controller', {
 	needs: ['controller:article', 'controller:application'],
 	setup: function () {
-		Wikia.article.article = {
+		Mercury.article.article = {
 			media: [
 				{
 					title: 'test',
@@ -38,7 +38,7 @@ test('if init is run correctly and file is set', function () {
 	expect(3);
 
 	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
+			media: Mercury.article.article.media
 		}),
 		mediaLightboxController = this.subject({
 			model: mediaModel,
@@ -61,7 +61,7 @@ test('if init is run correctly and file is set', function () {
 test('generates correct footer for a currentMedia (with caption)', function () {
 	expect(2);
 	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
+			media: Mercury.article.article.media
 		}),
 		mediaLightboxController = this.subject({
 			model: mediaModel,
@@ -82,7 +82,7 @@ test('generates correct footer for a currentMedia (with caption)', function () {
 test('genereates correct header for a gallery', function () {
 	expect(1);
 	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
+			media: Mercury.article.article.media
 		}),
 		mediaLightboxController = this.subject({
 			model: mediaModel,
@@ -100,7 +100,7 @@ test('genereates correct header for a gallery', function () {
 test('updeates a header accordingly to current media', function () {
 	expect(3);
 	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
+			media: Mercury.article.article.media
 		}),
 		mediaLightboxController = this.subject({
 			model: mediaModel,
@@ -123,7 +123,7 @@ test('updeates a header accordingly to current media', function () {
 test('check if current media is gallery', function () {
 	expect(2);
 	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
+			media: Mercury.article.article.media
 		}),
 		mediaLightboxController = this.subject({
 			model: mediaModel,
@@ -142,7 +142,7 @@ test('check if current media is gallery', function () {
 test('returns gallery length, if current media is a gallery', function () {
 	expect(2);
 	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
+			media: Mercury.article.article.media
 		}),
 		mediaLightboxController = this.subject({
 			model: mediaModel,
@@ -161,7 +161,7 @@ test('returns gallery length, if current media is a gallery', function () {
 test('increments/decrements mediaGalleryRef within boundries', function () {
 	expect(4);
 	var mediaModel = App.MediaModel.create({
-			media: Wikia.article.article.media
+			media: Mercury.article.article.media
 		}),
 		mediaLightboxController = this.subject({
 			model: mediaModel,
