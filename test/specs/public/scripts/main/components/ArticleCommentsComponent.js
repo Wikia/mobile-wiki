@@ -6,7 +6,7 @@ test('page is set correctly within boundries', function () {
 		scrollToTop: function () {}
 	});
 
-	Ember.run(function() {
+	Ember.run(function () {
 		component.setProperties({
 			model: {
 				pagesCount: 3
