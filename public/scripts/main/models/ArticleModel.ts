@@ -78,6 +78,16 @@ App.ArticleModel.reopenClass({
 		var article = Mercury.article;
 		Mercury._state.firstPage = false;
 		article.content = $('.article-content').html();
+
+		// Setup ads
+		if (Mercury.adsUrl) {
+			Mercury.Modules.Ads.getInstance().init(Mercury.adsUrl, function() {
+				if (article.adsContext) {
+					this.reload(article.adsContext);
+				};
+			});
+		}
+
 		delete Mercury.article;
 		return article;
 	},

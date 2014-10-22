@@ -3,7 +3,6 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 /// <reference path="../baseline/mercury.d.ts" />
 /// <reference path="../mercury/utils/track.ts" />
-/// <reference path="../mercury/modules/Ads.ts" />
 
 'use strict';
 
@@ -26,15 +25,6 @@ App.initializer({
 
 		if (hash.length) {
 			App.set('hash', window.location.hash);
-		}
-
-		// Setup ads
-		if (Mercury.adsUrl) {
-			Mercury.Modules.Ads.getInstance().init(Mercury.adsUrl, function() {
-				if (Mercury.article.adsContext) {
-					this.reload(Mercury.article.adsContext);
-				};
-			});
 		}
 
 		$('html').removeClass('preload');
