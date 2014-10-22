@@ -10,11 +10,9 @@ declare module Wikia {
 	var _state: any;
 	var error: any;
 	var wiki: any;
-	var ads: {
-		slots: string[][];
-	};
 	var apiBase: string;
 	var tracking: {[index: string]: string};
+	var adsUrl: string
 
 	module Modules {
 		class VideoPlayer {}
