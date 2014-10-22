@@ -69,11 +69,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
 
-				W.setTrackContext({
+				M.setTrackContext({
 					a: model.title,
 					n: model.ns
 				});
-				W.trackPageView();
+				M.trackPageView();
 			}
 		});
 	},
@@ -106,7 +106,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 		if (model) {
 			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + Wikia.wiki.siteName;
+			document.title = title + ' - ' + Mercury.wiki.siteName;
 		}
 	}.observes('controller.model'),
 
@@ -191,13 +191,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		swipeLeft: function (event: JQueryEventObject): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-table').length) {
-				W.track({
-					action: W.trackActions.swipe,
+
+				M.track({
+					action: M.trackActions.swipe,
 					category: 'tables'
 				});
 			} else if ($(event.target).parents('.article-gallery').length) {
-				W.track({
-					action: W.trackActions.paginate,
+				M.track({
+					action: M.trackActions.paginate,
 					category: 'gallery',
 					label: 'next'
 				});
@@ -207,8 +208,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		swipeRight: function (event: JQueryEventObject): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-gallery').length) {
-				W.track({
-					action: W.trackActions.paginate,
+				M.track({
+					action: M.trackActions.paginate,
 					category: 'gallery',
 					label: 'previous'
 				});

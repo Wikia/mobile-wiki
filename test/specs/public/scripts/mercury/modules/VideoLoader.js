@@ -1,9 +1,8 @@
-/* global Wikia */
 QUnit.module('VideoLoader tests', {
 	setup: function () {
 		window.$script = function () {};
 		this.ele = document.createElement('div');
-		this.instance = new Wikia.Modules.VideoLoader(this.ele, {
+		this.instance = new Mercury.Modules.VideoLoader(this.ele, {
 				provider: 'youtube',
 				jsParams: {
 					videoId: 666,
@@ -15,10 +14,10 @@ QUnit.module('VideoLoader tests', {
 	}
 });
 
-QUnit.test('VideoLoader is compiled into Wikia.Modules namespace', function () {
+QUnit.test('VideoLoader is compiled into Mercury.Modules namespace', function () {
 	expect(2);
-	ok(Wikia.Modules.VideoLoader);
-	equal(typeof Wikia.Modules.VideoLoader, 'function');
+	ok(Mercury.Modules.VideoLoader);
+	equal(typeof Mercury.Modules.VideoLoader, 'function');
 });
 
 QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {

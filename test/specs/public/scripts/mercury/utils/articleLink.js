@@ -1,8 +1,8 @@
-/* global W */
+/* global M */
 QUnit.module('getLinkInfo tests', {
 	setup: function () {
 		// The format that we get the namespaces is strange and awkward to reproduce
-		W.provide('wiki.namespaces', window.FIXTURES['test/fixtures/namespaces.json']);
+		M.provide('wiki.namespaces', window.FIXTURES['test/fixtures/namespaces.json']);
 	},
 	teardown: function () {
 
@@ -21,7 +21,7 @@ test('getLinkInfo test external paths', function () {
 		var match = link.match(/^.*(#.*)$/);
 		// setting hash to mimic the way ArticleView calls this function
 		var hash = match ? match[1] : '';
-		var info = W.getLinkInfo('http://lastofus.wikia.com', 'Ellie', hash, link);
+		var info = M.getLinkInfo('http://lastofus.wikia.com', 'Ellie', hash, link);
 		equal(info.article, null, 'on external link, article should always be null');
 		equal(info.url, link, 'on external link output url should always be the same as input');
 	});
@@ -39,7 +39,7 @@ test('getLinkInfo special links', function () {
 	];
 	expect(tests.length * 2);
 	tests.forEach(function (test) {
-		var res = W.getLinkInfo('http://lastofus.wikia.com', 'article', '', window.location.origin + '/wiki/' + test);
+		var res = M.getLinkInfo('http://lastofus.wikia.com', 'article', '', window.location.origin + '/wiki/' + test);
 		equal(res.article, null, 'for special links article should be null');
 		equal(res.url, 'http://lastofus.wikia.com/wiki/' + test, 'special links should link back to main app');
 	});
@@ -56,7 +56,7 @@ test('getLinkInfo article links', function () {
 	var prefix = '/wiki/';
 	var cb = function (test) {
 		// 'article' is distinct from the tests, we're transtioning from a different page
-		var res = W.getLinkInfo('http://lastofus.wikia.com', 'article', '', window.location.origin + prefix + test);
+		var res = M.getLinkInfo('http://lastofus.wikia.com', 'article', '', window.location.origin + prefix + test);
 		equal(res.article, test, 'article should match article passed in');
 		equal(res.url, null, 'url should be null');
 	};
@@ -67,7 +67,7 @@ test('getLinkInfo article links', function () {
 
 test('getLinkInfo jump links', function () {
 	expect(2);
-	var res = W.getLinkInfo(
+	var res = M.getLinkInfo(
 		'http://lastofus.wikia.com',
 		'article', '#hash', window.location.origin + '/wiki/article#hash');
 	equal(res.article, null, 'for jump links article should be null');

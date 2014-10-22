@@ -16,7 +16,7 @@ interface GAAccountMap {
 	[name: string]: GAAccount;
 }
 
-module Wikia.Modules.Trackers {
+module Mercury.Modules.Trackers {
 	export class GoogleAnalytics {
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
@@ -33,7 +33,7 @@ module Wikia.Modules.Trackers {
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 				];
 
-			this.accounts = Wikia.tracking.ga;
+			this.accounts = Mercury.tracking.ga;
 			this.queue = window._gaq = window._gaq || [];
 
 			// Primary account
@@ -85,7 +85,7 @@ module Wikia.Modules.Trackers {
 		 * @returns {boolean}
 		 */
 		isSpecialWiki (): boolean {
-			return !!Wikia.wiki.isGASpecialWiki;
+			return !!Mercury.wiki.isGASpecialWiki;
 		}
 
 		/**

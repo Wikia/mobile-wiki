@@ -1,4 +1,4 @@
-/// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../../baseline/mercury.d.ts" />
 
 /**
  * @define articlelink
@@ -13,7 +13,7 @@ interface LinkInfo {
 	hash?: string;
 }
 
-module Wikia.Utils {
+module Mercury.Utils {
 	/**
 	 * @param basePath the base url of the wiki without trailing slash, i.e. http://lastofus.wikia.com
 	 * or http://halo.bisaacs.wikia-dev
@@ -32,7 +32,7 @@ module Wikia.Utils {
 			var local = localPathMatch[1];
 			// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
 			// NOTE: see below, but we might also have to deal with links in the form /Special:.*
-			var namespaces = Wikia.wiki.namespaces;
+			var namespaces = Mercury.wiki.namespaces;
 
 			for (var ns in namespaces) {
 				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {

@@ -1,8 +1,8 @@
-/* global App, resetWikiaBaseline */
+/* global App, resetMercuryBaseline */
 QUnit.module('String util functions');
 
 QUnit.test('sanitizing URL', function () {
-	var string = Wikia.Utils.String,
+	var string = Mercury.Utils.String,
 		testCases = [
 			{
 				title: 'test',

@@ -1,11 +1,12 @@
-/// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../../baseline/mercury.d.ts" />
 /// <reference path="./VideoPlayers/Base.ts" />
 'use strict';
 
 interface PlayerClassMap {
 	[index: string]: string;
 }
-module Wikia.Modules {
+module Mercury.Modules {
+
 	var playerClassMap: PlayerClassMap = {
 		youtube: 'YouTube',
 		ooyala: 'Ooyala'
@@ -14,7 +15,7 @@ module Wikia.Modules {
 	export class VideoLoader {
 		element: HTMLElement;
 		data: any;
-		player: Wikia.Modules.VideoPlayers.BasePlayer;
+		player: Mercury.Modules.VideoPlayers.BasePlayer;
 
 		constructor (element: HTMLElement, data: any /* tracking cb */) {
 			element.innerHTML = data.html;
@@ -36,7 +37,7 @@ module Wikia.Modules {
 				return false;
 			}
 
-			this.player = new Wikia.Modules.VideoPlayers[playerClassStr](provider, this.data.jsParams);
+			this.player = new Mercury.Modules.VideoPlayers[playerClassStr](provider, this.data.jsParams);
 		}
 	}
 }

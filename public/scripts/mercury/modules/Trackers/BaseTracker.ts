@@ -1,10 +1,10 @@
-/// <reference path="../../../baseline/Wikia.d.ts" />
+/// <reference path="../../../baseline/mercury.d.ts" />
 'use strict';
 
 /**
  * Base class for trackers that have to append their scripts like Comscore or Quantserve
  */
-module Wikia.Modules.Trackers {
+module Mercury.Modules.Trackers {
 	export class BaseTracker {
 		static script: HTMLScriptElement = document.getElementsByTagName('script')[0];
 

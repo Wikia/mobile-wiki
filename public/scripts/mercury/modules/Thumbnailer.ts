@@ -1,3 +1,5 @@
+/// <reference path="../../baseline/mercury.d.ts" />
+
 /**
  * Helper module to generate the URL to a thumbnail of specific size from JS
  *
@@ -15,7 +17,7 @@ interface ImageUrlParameters {
 	imagePath: string;
 }
 
-module Wikia.Modules {
+module Mercury.Modules {
 	export class Thumbnailer {
 		private static imagePathRegExp: RegExp = /\/\/vignette\d?\.wikia/
 		private static thumbBasePathRegExp: RegExp = /(.*\/revision\/\w+).*/;

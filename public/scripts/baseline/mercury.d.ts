@@ -3,12 +3,14 @@
 declare var $: JQueryStatic;
 declare var require: (deps: string[], func: Function) => void;
 
-declare module Wikia {
+declare module Mercury {
 	var provide: (str: any, obj: any) => any;
-	var _t: any;
 	var language: string;
 	var article: any;
-	var _state: any;
+	var _state: {
+		firstPage: boolean;
+		translations: any;
+	};
 	var error: any;
 	var wiki: any;
 	var ads: {
@@ -18,7 +20,7 @@ declare module Wikia {
 	var tracking: any;
 }
 
-declare var W: typeof Wikia.Utils;
+declare var M: typeof Mercury.Utils;
 
 interface Location {
 	origin: string;

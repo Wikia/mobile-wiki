@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../wikia/utils/string.ts" />
+/// <reference path="../../mercury/utils/string.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
@@ -54,7 +54,7 @@ App.ArticleModel.reopenClass({
 	find: function (params: {wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params);
 
-		if (Wikia._state.firstPage) {
+		if (Mercury._state.firstPage) {
 			this.setArticle(model);
 			return model;
 		}
@@ -75,11 +75,10 @@ App.ArticleModel.reopenClass({
 	},
 
 	getPreloadedData: function () {
-		var article = Wikia.article;
-
-		Wikia._state.firstPage = false;
+		var article = Mercury.article;
+		Mercury._state.firstPage = false;
 		article.content = $('.article-content').html();
-		Wikia.article = null;
+		delete Mercury.article;
 		return article;
 	},
 
@@ -91,7 +90,7 @@ App.ArticleModel.reopenClass({
 
 			data = {
 				article: error.details,
-				cleanTitle: Wikia.Utils.String.normalize(model.title),
+				cleanTitle: M.String.normalize(model.title),
 				error: error
 			};
 		} else if (source) {
