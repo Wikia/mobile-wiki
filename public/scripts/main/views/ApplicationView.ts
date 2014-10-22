@@ -104,8 +104,6 @@ App.ApplicationView = Em.View.extend({
 					case 'figure':
 						this.handleMedia(target);
 						break;
-					default:
-						break;
 				}
 			}
 		}
