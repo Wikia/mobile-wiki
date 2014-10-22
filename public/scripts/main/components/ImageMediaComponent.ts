@@ -17,13 +17,14 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 	 */
 	computedHeight: function (): number {
 		var pageWidth = this.get('contentWidth'),
-			imageWidth = this.getWithDefault('width', pageWidth);
+			imageWidth = this.getWithDefault('width', pageWidth),
+			imageHeight = this.get('height');
 
 		if (pageWidth < imageWidth) {
-			return Math.round(this.get('imgWidth') * (~~this.get('height') / imageWidth));
+			return ~~(pageWidth * (imageHeight / imageWidth));
 		}
 
-		return this.get('height');
+		return imageHeight;
 	}.property('width', 'height'),
 
 	url: function (key: string, value?: string): string {
