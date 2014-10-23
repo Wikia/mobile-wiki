@@ -13,11 +13,9 @@ declare module Mercury {
 	};
 	var error: any;
 	var wiki: any;
-	var ads: {
-		slots: string[][];
-	};
 	var apiBase: string;
 	var tracking: any;
+	var adsUrl: string;
 	var environment: string;
 }
 

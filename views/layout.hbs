@@ -30,6 +30,9 @@
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
 			{{/if}}
+			{{#if server.mediawikiDomain}}
+			M.provide('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			{{/if}}
 		</script>
 
 		<!-- @ifdef browserSync -->
@@ -65,10 +68,6 @@
 			<script src="/public/scripts/mercury.js"></script>
 			<script src="/public/scripts/main.js"></script>
 		<!-- endbuild -->
-
-		{{#if server.mediawikiDomain}}
-		<script async src="//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js"></script>
-		{{/if}}
 
 		{{> tracking-pixels}}
 	</body>

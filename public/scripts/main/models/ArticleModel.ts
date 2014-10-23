@@ -75,9 +75,19 @@ App.ArticleModel.reopenClass({
 	},
 
 	getPreloadedData: function () {
-		var article = Mercury.article;
+		var article = Mercury.article,
+			adsInstance;
 		Mercury._state.firstPage = false;
 		article.content = $('.article-content').html();
+
+		// Setup ads
+		if (Mercury.adsUrl) {
+			adsInstance = Mercury.Modules.Ads.getInstance();
+			adsInstance.init(Mercury.adsUrl, () => {
+				adsInstance.reload(article.adsContext);
+			});
+		};
+
 		delete Mercury.article;
 		return article;
 	},
