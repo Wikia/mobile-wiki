@@ -3,7 +3,6 @@
 /// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
-
 interface Response {
 	data: {
 		details: {
