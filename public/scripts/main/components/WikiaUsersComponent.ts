@@ -2,13 +2,12 @@
 'use strict';
 
 App.WikiaUsersComponent = Em.Component.extend({
-	classNames: ['wikia-users'],
+	avatarHeight: 100,
+	avatarWidth: 100,
 	classNameBindings: ['additionalClasses'],
 	label: null,
 	limit: 5,
-	thumbHeight: 100,
 	thumbMode: Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
-	thumbWidth: 100,
 	trackingEvent: null,
 	users: [],
 
