@@ -8,6 +8,11 @@ import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
 
+// NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
+if (localSettings.isNewRelicEnabled) {
+	require('newrelic');
+}
+
 /**
  * Application class
  */
