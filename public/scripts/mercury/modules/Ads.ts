@@ -52,7 +52,7 @@ module Mercury.Modules {
 		 * @param adsContext
 		 */
 		public reload (adsContext: any) {
-			if (this.isLoaded) {
+			if (this.isLoaded && adsContext) {
 				this.adContext.setContext(adsContext);
 				// We need a copy of adSlots as .run destroys it
 				this.adEngine.run(this.adConfigMobile, this.getSlots(), 'queue.mobile');
