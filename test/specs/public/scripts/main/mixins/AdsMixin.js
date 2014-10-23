@@ -6,7 +6,8 @@ test('setup ads context', function() {
 		},
 		gotContext = false,
 		runCalled = false,
-		testObj = Em.Object.createWithMixins(App.AdsMixin, {});
+		testObj = Em.Object.createWithMixins(App.AdsMixin, {}),
+		original = Mercury.Modules.Ads.getInstance;
 
 	Mercury.Modules.Ads.getInstance = function () {
 		return {
@@ -17,5 +18,6 @@ test('setup ads context', function() {
 	};
 
 	testObj.setupAdsContext(context);
+	Mercury.Modules.Ads.getInstance = original;
 	equal(gotContext, context, 'Set the ads context');
 });
