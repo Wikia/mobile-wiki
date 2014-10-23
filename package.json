@@ -28,6 +28,7 @@
     "catbox-memory": "^1.1.0",
     "handlebars": "2.x.x",
     "hapi": "7.x.x",
+    "newrelic": "^1.12.1",
     "wreck": "^5.0.1"
   },
   "devDependencies": {

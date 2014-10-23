@@ -23,19 +23,17 @@ interface GAAccountMap {
 }
 
 interface LocalSettings {
-	host: any;
-	port: number;
-	maxRequestsPerChild: number;
-	workerCount: number;
-	environment: any;
-	mediawikiHost: string;
-	cache: CacheInterface;
-	proxyMaxRedirects: number;
-	wikiFallback: string;
 	apiBase: string;
-	workerDisconnectTimeout: number;
 	backendRequestTimeout: number;
+	cache: CacheInterface;
+	environment: any;
+	host: any;
 	loggers: LoggerInterface;
+	mediawikiHost: string;
+	maxRequestsPerChild: number;
+	newRelic: boolean;
+	port: number;
+	proxyMaxRedirects: number;
 	tracking: {
 		ga: GAAccountMap;
 		quantserve: string;
@@ -45,5 +43,8 @@ interface LocalSettings {
 			c7: string;
 			c7Value: string;
 		}
-	}
+	};
+	wikiFallback: string;
+	workerCount: number;
+	workerDisconnectTimeout: number;
 }

@@ -30,6 +30,7 @@ var localSettings: LocalSettings = {
 	},
 	mediawikiHost: 'your-devbox-name',
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 1000,
+	newRelic: process.env.NEW_RELIC_INCLUDED === 'true',
 	port: 8000,
 	proxyMaxRedirects: 3,
 	tracking: {
