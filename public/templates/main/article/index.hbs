@@ -30,16 +30,12 @@
 	{{/view}}
 </section>
 <section class='article-footer'>
-{{#if users.length}}
-	<div class='contributors'>
-		<div class='title'>{{i18n 'article-top-contributors-label'}}</div>
-		<ul class='contributors'>
-			{{#each displayUsers}}
-			<li><a href='{{unbound url}}' {{action 'trackClick' 'contributors'}}><img src='{{unbound avatar}}' alt='{{unbound name}}'></a></li>
-			{{/each}}
-		</ul>
-	</div>
-{{/if}}
+{{wikia-users
+	users=topContributors
+	additionalClasses='contributors'
+	label='article-top-contributors-label'
+	trackingEvent='contributors'
+}}
 {{article-comments page=commentsPage articleId=id commentsCount=comments}}
 {{#if categories}}
 	{{#collapsible-menu

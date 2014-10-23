@@ -86,7 +86,8 @@ App.ArticleModel.reopenClass({
 			adsInstance.init(Mercury.adsUrl, () => {
 				adsInstance.reload(article.adsContext);
 			});
-		};
+		}
+		;
 
 		delete Mercury.article;
 		return article;
@@ -114,7 +115,7 @@ App.ArticleModel.reopenClass({
 					id: details.id,
 					user: details.revision.user_id
 				});
-		}
+			}
 
 			if (source.article) {
 				var article = source.article;
@@ -127,7 +128,7 @@ App.ArticleModel.reopenClass({
 					}),
 					categories: article.categories
 				});
-		}
+			}
 
 			if (source.relatedPages) {
 				/**
@@ -144,7 +145,7 @@ App.ArticleModel.reopenClass({
 
 			if (source.topContributors) {
 				// Same issue: the response to the ajax should always be valid and not undefined
-				data.users = source.topContributors;
+				data.topContributors = source.topContributors;
 			}
 
 			if (source.basePath) {
