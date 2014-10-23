@@ -58,4 +58,8 @@ QUnit.test('Reload ads works', function () {
 QUnit.test('Add/remove slots works', function () {
 	var instance = Mercury.Modules.Ads.getInstance();
 	equal(instance.adSlots.length, 0);
+	instance.addSlot('test1');
+	equal(instance.adSlots.length, 1);
+	instance.removeSlot('test1');
+	equal(instance.adSlots.length, 0);
 });
