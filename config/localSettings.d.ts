@@ -28,10 +28,10 @@ interface LocalSettings {
 	cache: CacheInterface;
 	environment: any;
 	host: any;
+	isNewRelicEnabled: boolean;
 	loggers: LoggerInterface;
 	mediawikiHost: string;
 	maxRequestsPerChild: number;
-	newRelic: boolean;
 	port: number;
 	proxyMaxRedirects: number;
 	tracking: {
