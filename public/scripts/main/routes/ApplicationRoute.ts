@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../wikia/utils/articleLink.ts" />
+/// <reference path="../../mercury/utils/articleLink.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend({
@@ -7,11 +7,27 @@ App.ApplicationRoute = Em.Route.extend({
 		return params;
 	},
 
+	hideLoader: function (): void {
+		var view = this.get('loadingView');
+		if (view) {
+			view.destroy();
+		}
+	},
+
 	actions: {
-		handleLink: function (target: HTMLAnchorElement) {
+		loading: function (): void {
+			this.set('loadingView', this.container.lookup('view:loading').append());
+		},
+		didTransition: function (): void {
+			this.hideLoader();
+		},
+		error: function (): void {
+			this.hideLoader();
+		},
+		handleLink: function (target: HTMLAnchorElement): void {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
-				info = Wikia.Utils.getLinkInfo(model.get('basePath'),
+				info = M.getLinkInfo(model.get('basePath'),
 					model.get('title'),
 					target.hash,
 					target.href
@@ -64,6 +80,14 @@ App.ApplicationRoute = Em.Route.extend({
 
 		collapseSideNav: function (): void {
 			this.controllerFor('sideNav').send('collapse');
+		},
+
+		trackClick: function (category: string, label: string = ''): void {
+			M.track({
+				action: M.trackActions.click,
+				category: category,
+				label: label
+			});
 		}
 	}
 });

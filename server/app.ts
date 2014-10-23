@@ -8,7 +8,19 @@ import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
 
+// NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
+if (localSettings.isNewRelicEnabled) {
+	require('newrelic');
+}
+
+/**
+ * Application class
+ */
 class App {
+
+	/**
+	 * Creates new `hapi` server
+	 */
 	constructor() {
 		var server: Hapi.Server,
 			options: {},
@@ -20,20 +32,6 @@ class App {
 			// ez enable cross origin resource sharing
 			cors: true,
 			cache: this.getCacheSettings(localSettings.cache),
-			views: {
-				engines: {
-					hbs: require('handlebars')
-				},
-				isCached: true,
-				layout: true,
-				/*
-				 * Helpers are functions usable from within handlebars templates.
-				 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
-				 */
-				helpersPath: path.join(__dirname, '../views', '_helpers'),
-				path: path.join(__dirname, '../views'),
-				partialsPath: path.join(__dirname, '../views', '_partials')
-			},
 			state: {
 				cookies: {
 					strictHeader: false
@@ -42,6 +40,21 @@ class App {
 		});
 
 		this.setupLogging(server);
+
+		server.views({
+			engines: {
+				hbs: require('handlebars')
+			},
+			isCached: true,
+			layout: true,
+			/*
+			 * Helpers are functions usable from within handlebars templates.
+			 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
+			 */
+			helpersPath: path.join(__dirname, '../views', '_helpers'),
+			path: path.join(__dirname, '../views'),
+			partialsPath: path.join(__dirname, '../views', '_partials')
+		});
 
 		server.ext('onPreResponse', this.onPreResponseHandler);
 
@@ -78,7 +91,7 @@ class App {
 	}
 
 	/**
-	 * @desc Create caching config object based on caching config
+	 * Create caching config object based on caching config
 	 *
 	 * @param {object} cache Cache settings
 	 * @returns {object} Caching config
@@ -97,7 +110,7 @@ class App {
 	}
 
 	/**
-	 * @desc Set `X-Backend-Response-Time` header to every response. Value is in ms
+	 * Set `X-Backend-Response-Time` header to every response. Value is in ms
 	 *
 	 * @param {object} request
 	 * @param {function} next
@@ -111,6 +124,11 @@ class App {
 		next();
 	}
 
+	/**
+	 * Setup logging for Hapi events
+	 *
+	 * @param server
+	 */
 	private setupLogging(server: Hapi.Server): void {
 
 		server.on('log', (event: any, tags: Array<string>) => {

@@ -14,18 +14,18 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	beforeModel: function (transition: EmberStates.Transition) {
-		if (Wikia.error) {
+		if (Mercury.error) {
 			transition.abort();
 		}
 
 		this.transitionTo('article',
-			Wikia.Utils.String.sanitize(transition.params.article.title)
+			M.String.sanitize(transition.params.article.title)
 		);
 	},
 
 	model: function (params: any) {
 		return App.ArticleModel.find({
-			title: Wikia.Utils.String.sanitize(params.title),
+			title: Mercury.Utils.String.sanitize(params.title),
 			wiki: this.controllerFor('application').get('domain')
 		});
 	},
@@ -34,9 +34,12 @@ App.ArticleRoute = Em.Route.extend({
 		error: function (error: any, transition: EmberStates.Transition) {
 			transition.abort();
 			Em.Logger.warn(error);
+			return true;
 		},
 
 		willTransition: function (transition: EmberStates.Transition) {
+			// dismiss side nav when {{#link-to 'article'}} is called from side nav
+			this.controllerFor('application').send('collapseSideNav');
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
@@ -45,6 +48,8 @@ App.ArticleRoute = Em.Route.extend({
 		// an error. Optimally, it would remain in the same place.
 		didTransition: function () {
 			window.scrollTo(0, 0);
+			// bubble up to application didTransition hook
+			return true;
 		}
 	}
 });

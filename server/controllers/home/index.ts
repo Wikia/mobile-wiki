@@ -1,10 +1,21 @@
 /// <reference path="../../../typings/node/node.d.ts" />
+/// <reference path="../../../typings/mercury/mercury-server.d.ts" />
 
 import util = require('util');
 import article = require('../article/index');
 import localSettings = require('../../../config/localSettings');
 import Utils = require('../../lib/Utils');
 
+interface ServerData {
+	mediawikiDomain: string;
+	apiBase: string;
+}
+
+/**
+ * Create wiki data object
+ * @param wiki
+ * @returns {any}
+ */
 function createWikiData (wiki: any) {
 	return util._extend(
 			{
@@ -15,6 +26,12 @@ function createWikiData (wiki: any) {
 		);
 }
 
+/**
+ * Form the article data
+ *
+ * @param payload
+ * @returns {any}
+ */
 function createArticleData (payload: any) {
 	var data: any;
 
@@ -36,21 +53,32 @@ function createArticleData (payload: any) {
 	);
 }
 
-function createServerData () {
+/**
+ * Create server data
+ *
+ * @returns ServerData
+ */
+function createServerData (): ServerData {
 	return {
 		mediawikiDomain: Utils.getWikiDomainName(localSettings),
-		apiBase: localSettings.apiBase
+		apiBase: localSettings.apiBase,
+		environment: Utils.getEnvironmentString(localSettings.environment)
 	};
 }
 
-function index(params: any, next: Function): void {
-	article.createFullArticle(true, params, (error: any, article: any, wiki: any) => {
+/**
+ * Handle Full page data generation
+ * @param params
+ * @param next
+ */
+function index(params: ArticleRequestParams, next: Function): void {
+	article.createFullArticle(params, (error: any, article: any, wiki: any) => {
 		next(error, {
 			server: createServerData(),
 			wiki: createWikiData(wiki),
 			article: createArticleData(article)
 		});
-	});
+	}, true);
 }
 
 export = index;

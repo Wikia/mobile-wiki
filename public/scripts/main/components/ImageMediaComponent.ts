@@ -17,31 +17,42 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 	 */
 	computedHeight: function (): number {
 		var pageWidth = this.get('contentWidth'),
-			imageWidth = this.getWithDefault('width', pageWidth);
+			imageWidth = this.getWithDefault('width', pageWidth),
+			imageHeight = this.get('height');
 
 		if (pageWidth < imageWidth) {
-			return Math.round(this.get('imgWidth') * (~~this.get('height') / imageWidth));
+			return ~~(pageWidth * (imageHeight / imageWidth));
 		}
 
-		return this.get('height');
+		return imageHeight;
 	}.property('width', 'height'),
 
 	url: function (key: string, value?: string): string {
 		var media: ArticleMedia;
 
 		if (value) {
-			return this.getThumbURL(value, this.get('width'), this.get('computedHeight'), 'crop');
+			return this.getThumbURL(
+				value,
+				Mercury.Modules.Thumbnailer.mode.topCrop,
+				this.get('contentWidth'),
+				this.get('computedHeight')
+			);
 		} else {
 			media = this.get('media');
 
 			if (media) {
-				return this.getThumbURL(this.get('media').url, this.get('contentWidth'));
+				return this.getThumbURL(
+					this.get('media').url,
+					Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
+					this.get('contentWidth'),
+					this.get('computedHeight')
+				);
 			}
 		}
 
 		//if it got here, that means that we don't have an url for this media
 		//this might happen for example for read more section images
-	}.property('media', 'contentWidth'),
+	}.property('media', 'contentWidth', 'computedHeight'),
 
 	/**
 	 * @desc style used on img tag to set height of it before we load an image

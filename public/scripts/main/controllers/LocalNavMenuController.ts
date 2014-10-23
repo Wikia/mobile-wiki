@@ -37,7 +37,7 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 		 * or removed the reference in the Wikia object to it so that
 		 * this controller has exclusive access to it.
 		 */
-		this.set('model', Wikia.wiki.navData);
+		this.set('model', Mercury.wiki.navData);
 		this.set('menuRoot', {children: this.get('model.navigation.wiki')});
 		this.set('currentMenuItem', this.get('menuRoot'));
 		this.set('parentItem', null);
@@ -58,7 +58,7 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 	injectParentPointersAndIndices: function (): void {
 		// topLevel is almost a NavItem but it has no href or text
 		var topLevel: RootNavItem = this.get('menuRoot'),
-			children: Array<NavItem> = topLevel.children,
+			children: Array<NavItem> = topLevel.children || [],
 			i: number,
 			len = children.length;
 		for (i = 0; i < len; i++) {
@@ -89,6 +89,10 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 	},
 
 	actions: {
+		gotoRoot: function (): void {
+			this.set('currentMenuItem', this.get('menuRoot'));
+			this.set('parentItem', null);
+		},
 		goBack: function (): void {
 			this.set('currentMenuItem', this.get('parentItem'));
 			// We've made it back to the root of the menu
@@ -108,6 +112,12 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 			var curr: RootNavItem = this.get('currentMenuItem');
 			this.set('currentMenuItem', curr.children[index]);
 			this.set('parentItem', curr);
+
+			M.track({
+				action: M.trackActions.click,
+				category: 'wiki-nav',
+				label: 'header-' + (index + 1)
+			});
 		}
 	}
 });

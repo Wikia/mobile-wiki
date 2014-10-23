@@ -720,6 +720,9 @@ declare module "net" {
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
         address(): { port: number; family: string; address: string; };
+        unref(): void;
+		ref(): void;
+		
         remoteAddress: string;
         remotePort: number;
         bytesRead: number;
@@ -767,13 +770,13 @@ declare module "dgram" {
         port: number;
         size: number;
     }
-    
+
     interface AddressInfo {
-        address: string; 
-        family: string; 
-        port: number; 
+        address: string;
+        family: string;
+        port: number;
     }
-    
+
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
@@ -1242,6 +1245,7 @@ declare module "util" {
     export function isDate(object: any): boolean;
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
+    export function _extend (origin: any, add:any): any;
 }
 
 declare module "assert" {

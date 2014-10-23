@@ -61,6 +61,7 @@ module.exports = {
 	},
 	config: {
 		path: 'config/',
+		baseFile: 'localSettings.base.ts',
 		exampleFile: 'localSettings.example.ts',
 		testFile: 'localSettings.test.ts',
 		runtimeFile: 'localSettings.ts'

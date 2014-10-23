@@ -4,6 +4,7 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
+import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
 
@@ -11,6 +12,12 @@ var wikiDomains: {
 	[key: string]: string;
 } = {};
 
+/**
+ * Get cached Media Wiki domain name from the request host
+ *
+ * @param {string} host Request host name
+ * @returns {string} Host name to use for API
+ */
 function getWikiDomainName(host: string): string {
 	var wikiDomain: string;
 
@@ -20,6 +27,11 @@ function getWikiDomainName(host: string): string {
 	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(localSettings, host);
 }
 
+/**
+ * Adds routes to the server
+ *
+ * @param server
+ */
 function routes(server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
@@ -30,58 +42,46 @@ function routes(server: Hapi.Server) {
 			'/favicon.ico',
 			'/robots.txt'
 		],
-		notFoundError = 'Could not find article or Wiki, please check to' +
-				' see that you supplied correct parameters',
 		config = {
 			cache: {
 				privacy: 'public',
 				expiresIn: 60 * second
 			}
 		};
-	// all the routes that should resolve to loading single page app entry view
 
-	function restrictedHandler (request: Hapi.Request, reply: any) {
-		reply.view('error', Hapi.error.notFound('Invalid URL parameters'));
+	/**
+	 * Article request handler
+	 *
+	 * @param request Hapi request object
+	 * @param reply Hapi reply function
+	 */
+	function articleHandler(request: Hapi.Request, reply: any) {
+		server.methods.getPreRenderedData({
+			wikiDomain: getWikiDomainName(request.headers.host),
+			title: request.params.title,
+			redirect: request.query.redirect
+		}, (error: any, result: any) => {
+			var code = 200;
+
+			Tracking.handleResponse(result, request);
+
+			if (error) {
+				code = error.code;
+
+				result.error = JSON.stringify(error);
+			}
+
+			reply.view('application', result).code(code);
+		});
 	}
 
-	server.route({
-		method: '*',
-		path: '/',
-		handler: restrictedHandler
-	});
-
-	server.route({
-		method: '*',
-		path: '/{p*}',
-		handler: restrictedHandler
-	});
-
-	indexRoutes.forEach(function(route: string) {
+	// all the routes that should resolve to loading single page app entry view
+	indexRoutes.forEach((route: string) => {
 		server.route({
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: (request: Hapi.Request, reply: any) => {
-				server.methods.getPrerenderedData({
-					wikiDomain: getWikiDomainName(request.headers.host),
-					title: request.params.title,
-					redirect: request.query.redirect
-				}, (error: any, result: any) => {
-					var code = 200;
-
-					// export tracking code to layout and front end code
-					result.tracking = localSettings.tracking;
-					result.trackingJson = JSON.stringify(localSettings.tracking);
-
-					if (error) {
-						code = error.code;
-
-						result.error = JSON.stringify(error);
-					}
-
-					reply.view('application', result).code(code);
-				});
-			}
+			handler: articleHandler
 		});
 	});
 
@@ -115,9 +115,6 @@ function routes(server: Hapi.Server) {
 				};
 
 			server.methods.getArticleComments(params, (error: any, result: any) => {
-				if (error) {
-					error = Hapi.error.notFound(notFoundError);
-				}
 				reply(error || result);
 			});
 		}
@@ -132,10 +129,7 @@ function routes(server: Hapi.Server) {
 				query: request.params.query
 			};
 
-			server.methods.searchForQuery(params, (error: any, result: any) => {
-				if (error) {
-					error = Hapi.error.notFound('No results for that search term');
-				}
+			server.methods.searchSuggestions(params, (error: any, result: any) => {
 				reply(error || result);
 			});
 		}
@@ -150,7 +144,8 @@ function routes(server: Hapi.Server) {
 			directory: {
 				path: path.join(__dirname, '../public'),
 				listing: false,
-				index: false
+				index: false,
+				lookupCompressed: true
 			}
 		}
 	});

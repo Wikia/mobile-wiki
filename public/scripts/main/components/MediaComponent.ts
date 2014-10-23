@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../baseline/Wikia.d.ts" />
-/// <reference path="../../wikia/modules/Thumbnailer.ts" />
+/// <reference path="../../baseline/mercury.d.ts" />
+/// <reference path="../../mercury/modules/Thumbnailer.ts" />
 /// <reference path="../mixins/VisibleMixin.ts" />
 /// <reference path="../models/MediaModel.ts" />
 'use strict';
@@ -16,7 +16,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	visible: false,
 	media: null,
-	thumbnailer: Wikia.Modules.Thumbnailer,
+	thumbnailer: Mercury.Modules.Thumbnailer,
 
 	/**
 	 * @desc content width used to load smaller thumbnails
@@ -26,13 +26,23 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	}.property(),
 
 	/**
-	 * @desc url for given media
-	 * if image is not thumbnail, returns url to thumbnail with width set to contentWidth
+	 * @desc if image is not thumbnail, returns url to thumbnail with width set to contentWidth
 	 *
+	 * @param {String} url
+	 * @param {String} mode
+	 * @param {Number} width
+	 * @param {Number} height
+	 *
+	 * @return {String}
 	 */
-	getThumbURL: function (url: string, width: number, height: number = 0, type: string = 'nocrop'): string {
-		if (!this.thumbnailer.isThumbUrl(url)) {
-			url = this.thumbnailer.getThumbURL(url, type, width, height);
+	getThumbURL: function (
+		url: string,
+		mode: string,
+		width: number,
+		height: number
+		): string {
+		if (!this.thumbnailer.isThumbnailerUrl(url)) {
+			url = this.thumbnailer.getThumbURL(url, mode, width, height);
 		}
 
 		return url;

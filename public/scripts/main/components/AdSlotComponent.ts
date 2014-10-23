@@ -1,5 +1,7 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../baseline/Wikia.d.ts" />
+/// <reference path="../../baseline/mercury.d.ts" />
+/// <reference path="../../mercury/modules/Ads.ts" />
+
 'use strict';
 
 App.AdSlotComponent = Em.Component.extend({
@@ -14,19 +16,16 @@ App.AdSlotComponent = Em.Component.extend({
 	didInsertElement: function () {
 		Em.Logger.info('Injected ad:', this.get('name'));
 
-		Wikia.ads.slots.push([this.get('name')]);
+		Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
 	},
 
 	willDestroyElement: function() {
 		var name = this.get('name');
 
-		Wikia.ads.slots = $.grep(Wikia.ads.slots, (slot) => {
-			return slot[0] && slot[0] === name;
-		}, true);
+		Mercury.Modules.Ads.getInstance().removeSlot(this.get('name'));
 
 		this.$().remove();
 
 		Em.Logger.info('Will destroy ad:', name);
-		this.destroy();
 	}
 });

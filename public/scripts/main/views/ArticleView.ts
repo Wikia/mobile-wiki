@@ -9,10 +9,6 @@ interface HeadersFromDom {
 	id?: string;
 }
 
-interface DOMStringMap {
-	ref: string;
-}
-
 interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
@@ -73,9 +69,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
 
-				if (Wikia.Utils.Tracking) {
-					Wikia.Utils.Tracking.trackPageView();
-				}
+				M.setTrackContext({
+					a: model.title,
+					n: model.ns
+				});
+				M.trackPageView();
 			}
 		});
 	},
@@ -108,7 +106,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 		if (model) {
 			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + Wikia.wiki.siteName;
+			document.title = title + ' - ' + Mercury.wiki.siteName;
 		}
 	}.observes('controller.model'),
 
@@ -187,5 +185,39 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.$('table:not([class*=infobox], .dirbox)')
 			.wrap(wrapper)
 			.css('visibility', 'visible');
+	},
+
+	hammerOptions: {
+		touchAction: 'auto'
+	},
+
+	gestures: {
+		swipeLeft: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-table').length) {
+
+				M.track({
+					action: M.trackActions.swipe,
+					category: 'tables'
+				});
+			} else if ($(event.target).parents('.article-gallery').length) {
+				M.track({
+					action: M.trackActions.paginate,
+					category: 'gallery',
+					label: 'next'
+				});
+			}
+		},
+
+		swipeRight: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-gallery').length) {
+				M.track({
+					action: M.trackActions.paginate,
+					category: 'gallery',
+					label: 'previous'
+				});
+			}
+		}
 	}
 });

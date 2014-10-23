@@ -1,5 +1,6 @@
+/// <reference path="../app.ts" />
 /// <reference path="./LightboxView.ts" />
-/// <reference path="../../wikia/modules/VideoLoader.ts" />
+/// <reference path="../../mercury/modules/VideoLoader.ts" />
 'use strict';
 
 interface HammerEvent {
@@ -32,7 +33,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return {
 			width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 			height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-		}
+		};
 	}.property(),
 
 	/**
@@ -115,11 +116,23 @@ App.MediaLightboxView = App.LightboxView.extend({
 	nextMedia: function () {
 		this.get('controller').incrementProperty('currentGalleryRef');
 		this.resetZoom();
+
+		M.track({
+			action: M.trackActions.paginate,
+			category: 'lightbox',
+			label: 'next'
+		});
 	},
 
 	prevMedia: function () {
 		this.get('controller').decrementProperty('currentGalleryRef');
 		this.resetZoom();
+
+		M.track({
+			action: M.trackActions.paginate,
+			category: 'lightbox',
+			label: 'previous'
+		});
 	},
 
 	resetZoom: function () {
@@ -217,11 +230,13 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 * style string for an image, used for scaling and panning
 	 */
 	style: function (): string {
-		return '-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0); transform: scale(%@1) translate3d(%@2px,%@3px,0);'.fmt(
-			this.get('scale').toFixed(2),
-			this.get('newX').toFixed(2),
-			this.get('newY').toFixed(2)
-		);
+		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
+				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
+			.fmt(
+				this.get('scale').toFixed(2),
+				this.get('newX').toFixed(2),
+				this.get('newY').toFixed(2)
+			);
 	}.property('scale', 'newX', 'newY'),
 
 	/**
@@ -247,7 +262,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	initVideoPlayer: function (media: any): void {
 		var element = this.$('.lightbox-content-inner')[0];
 
-		this.set('videoPlayer', new Wikia.Modules.VideoLoader(element, media.embed));
+		this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, media.embed));
 	},
 
 	/**

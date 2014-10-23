@@ -3,7 +3,6 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
 	ts = require('gulp-typescript'),
-	newer = require('gulp-newer'),
 	concat = require('gulp-concat'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
@@ -18,7 +17,6 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 	}
 
 	return gulp.src([path.join(paths.src, folder, paths.files)])
-		.pipe(newer(path.join(paths.dest, folder + '.js')))
 		.pipe(ts(tsProjects[folder])).js
 		.pipe(concat(folder + '.js'))
 		.pipe(gulpif(environment.isProduction, uglify()))

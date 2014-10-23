@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../../typings/mercury/mercury-server.d.ts" />
 
 /**
  * @description Article controller
@@ -10,16 +11,16 @@ import logger = require('../../lib/Logger');
 
 
 /**
- * @description Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
+ * Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
- * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
+ *
  * @param params
  * @param callback
- * @param err
+ * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
-export function createFullArticle(getWikiInfo: boolean, params: any, callback: any) {
+export function createFullArticle(params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false): void {
 	var requests = [
 			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
 		];
@@ -43,14 +44,19 @@ export function createFullArticle(getWikiInfo: boolean, params: any, callback: a
 		});
 }
 
+/**
+ * Handle Article api request
+ * @param request
+ * @param reply
+ */
 export function handleRoute(request: Hapi.Request, reply: Function): void {
-	var data = {
-		wikiName: request.params.wikiName,
-		articleTitle: decodeURIComponent(request.params.articleTitle),
+	var data: ArticleRequestParams = {
+		wikiDomain: request.params.wikiName,
+		title: decodeURIComponent(request.params.articleTitle),
 		redirect: request.params.redirect
 	};
 
-	createFullArticle(false, data, (error: any, article: any) => {
+	createFullArticle(data, (error: any, article: any) => {
 		reply(error || article);
 	});
 }

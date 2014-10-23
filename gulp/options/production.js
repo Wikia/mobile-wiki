@@ -2,7 +2,8 @@
  * Options for production environment
  */
 
-var paths = require('../paths');
+var zlib = require('zlib' ),
+	paths = require('../paths');
 
 module.exports = {
 	sass: {
@@ -27,14 +28,23 @@ module.exports = {
 			declarationFiles: false
 		}
 	},
-	nodemon: {
-		script: 'www/server/app.js',
-		ext: 'js',
-		watch: [
-			'www/server'
-		]
+	doc: {
+		front: {},
+		back: {}
+	},
+	server: {
+		path: paths.server.script,
+		env: process.env,
+		killSignal: 'SIGKILL',
+		delay: 0,
+		successMessage: /Server started/
 	},
 	tslint: {
 		emitError: true
+	},
+	gzip: {
+		gzipOptions: {
+			level: zlib.Z_BEST_COMPRESSION
+		}
 	}
 };
