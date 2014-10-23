@@ -56,10 +56,10 @@ var localSettings: LocalSettings = {
 			c7: '',
 			c7Value: ''
 		}
-	}
+	},
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 2,
-	workerDisconnectTimeout: 3000,
+	workerDisconnectTimeout: 3000
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
