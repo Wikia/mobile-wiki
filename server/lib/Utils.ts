@@ -11,7 +11,7 @@ module Utils {
 		Verify,
 		Preview,
 		Sandbox,
-		Devbox,
+		Dev,
 		Testing
 	}
 
@@ -22,19 +22,29 @@ module Utils {
 	 * @param {Environment} fallbackEnvironment Fallback environment
 	 * @returns {Environment}
 	 */
-	export function getEnvironment(environment: string, fallbackEnvironment: Environment = Environment.Devbox) {
+	export function getEnvironment(environment: string, fallbackEnvironment: Environment = Environment.Dev) {
 		var environments: {[id: string]: Environment} = {
 			production: Environment.Production,
 			verify: Environment.Verify,
 			preview: Environment.Preview,
 			sandbox: Environment.Sandbox,
-			devbox: Environment.Devbox,
+			dev: Environment.Dev,
 			testing: Environment.Testing
 		};
 		if (environments.hasOwnProperty(environment)) {
 			return environments[environment];
 		}
 		return fallbackEnvironment;
+	}
+
+	/**
+	 * @desc Get environment as string
+	 *
+	 * @param {Environment} environment
+	 * @return {string}
+	 */
+	export function getEnvironmentString(environment: Environment): string {
+		return Environment[environment].toLowerCase();
 	}
 
 	/**

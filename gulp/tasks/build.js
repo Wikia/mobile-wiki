@@ -1,56 +1,20 @@
 var gulp = require('gulp'),
-	gulpif = require('gulp-if'),
-	gutil = require('gulp-util'),
-	minifyHTML = require('gulp-minify-html'),
-	preprocess = require('gulp-preprocess'),
-	useref = require('gulp-useref'),
-	rev = require('gulp-rev'),
-	uglify = require('gulp-uglify'),
-	revReplace = require('gulp-rev-replace'),
-	piper = require('../utils/piper'),
-	paths = require('../paths'),
+	gzip = require('gulp-gzip'),
 	environment = require('../utils/environment'),
-	preprocessContext = {
-		base: paths.baseFull
-	},
-	assets = useref.assets({
-		searchPath: paths.base
-	}),
-	sync = !environment.isProduction && !gutil.env.nosync;
+	options = require('../options'),
+	paths = require('../paths');
 
-if (sync) {
-	preprocessContext.browserSync = true;
-}
 
-gulp.task('build', [
-		'node-modules',
-		'sass',
-		'symbols',
-		'images',
-		'vendor',
-		'templates',
-		'locales',
-		'scripts-front',
-		'scripts-back'
-	], function () {
-	return piper(
-		gulp.src(paths.views.src, {
-			base: paths.baseFull
-		}),
-		gulpif('**/layout.hbs', preprocess({
-			context: preprocessContext
-		})),
-		gulpif(environment.isProduction, piper(
-			assets,
-			//before running build I can not know what files from vendor to minify
-			gulpif('**/vendor/**', uglify()),
-			rev(),
-			gulp.dest(paths.base),
-			assets.restore(),
-			useref(),
-			revReplace(),
-			minifyHTML()
-		)),
-		gulpif('**/views/**', gulp.dest(paths.views.dest))
-	);
+gulp.task('build', ['build-all'], function(cb) {
+	if (environment.isProduction) {
+		return gulp.src([
+			paths.base + '/public/**/*.json',
+			paths.base + '/public/**/*.js',
+			paths.base + '/public/**/*.css',
+			paths.base + '/public/**/*.svg'
+		])
+			.pipe(gzip(options.gzip))
+			.pipe(gulp.dest(paths.base + '/public'));
+	}
+	cb();
 });

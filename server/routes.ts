@@ -144,7 +144,8 @@ function routes(server: Hapi.Server) {
 			directory: {
 				path: path.join(__dirname, '../public'),
 				listing: false,
-				index: false
+				index: false,
+				lookupCompressed: true
 			}
 		}
 	});

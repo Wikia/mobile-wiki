@@ -15,7 +15,7 @@ var localSettings: LocalSettings = {
 	port: 8000,
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 1000,
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 2,
-	// Targeted environment [production|preview|verify|devbox|testing]
+	// Targeted environment [production|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	mediawikiHost: 'your-devbox-name',
 	// Caching settings
