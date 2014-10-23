@@ -87,7 +87,6 @@ App.ArticleModel.reopenClass({
 				adsInstance.reload(article.adsContext);
 			});
 		}
-		;
 
 		delete Mercury.article;
 		return article;
