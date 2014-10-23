@@ -62,17 +62,17 @@ QUnit.module('GoogleAnalytics tests', {
 
 QUnit.test('GoogleAnalytics is compiled into Mercury.Modules.Trackers namespace', function () {
 	ok(Mercury.Modules.Trackers.GoogleAnalytics);
-	equal(typeof Mercury.Modules.Trackers.GoogleAnalytics, 'function');
+	strictEqual(typeof Mercury.Modules.Trackers.GoogleAnalytics, 'function');
 });
 
 QUnit.test('GoogleAnalytics constructor', function () {
 	new Mercury.Modules.Trackers.GoogleAnalytics();
 	strictEqual(this.queueCount('_setAccount'), 1);
 	strictEqual(this.queueCount('_setSampleRate'), 1);
-	strictEqual(this.queueContains(['_setAccount', '123']), true);
-	strictEqual(this.queueContains(['_setSampleRate', '10']), true);
-	strictEqual(this.queueContains(['mercury._setAccount', '456']), true);
-	strictEqual(this.queueContains(['mercury._setSampleRate', '100']), true);
+	strictEqual(this.queueContains(['_setAccount', Mercury.tracking.ga.primary.id]), true);
+	strictEqual(this.queueContains(['_setSampleRate', Mercury.tracking.ga.primary.sampleRate.toString()]), true);
+	strictEqual(this.queueContains(['mercury._setAccount', Mercury.tracking.ga.mercury.id]), true);
+	strictEqual(this.queueContains(['mercury._setSampleRate', Mercury.tracking.ga.mercury.sampleRate.toString()]), true);
 });
 
 QUnit.test('Special wiki', function () {

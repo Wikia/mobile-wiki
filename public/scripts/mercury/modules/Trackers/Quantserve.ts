@@ -19,11 +19,10 @@ module Mercury.Modules.Trackers {
 		}
 
 		trackPageView (): void {
-			var context: typeof Mercury.tracking = Em.get('Mercury.article.adsContext.targeting'),
+			var context: typeof Mercury.tracking = this.getContext(),
 				quantcastLabels = '',
 				keyValues: string[],
 				keyValue: string[];
-
 
 			if (context && context.wikiCategory) {
 				quantcastLabels += context.wikiCategory;
@@ -51,6 +50,10 @@ module Mercury.Modules.Trackers {
 			}];
 
 			this.appendScript();
+		}
+
+		getContext (): any {
+			return Em.get('Mercury.article.adsContext.targeting');
 		}
 	}
 }
