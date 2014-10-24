@@ -41,7 +41,6 @@
     "gulp": "3.x.x",
     "gulp-autoprefixer": "1.x.x",
     "gulp-cached": "1.x.x",
-    "gulp-changed": "^1.0.0",
     "gulp-concat": "2.x.x",
     "gulp-declare": "^0.3.0",
     "gulp-develop-server": "^0.2.4",
