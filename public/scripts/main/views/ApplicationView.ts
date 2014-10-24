@@ -15,6 +15,9 @@ interface EventTarget {
 	tagName: string;
 }
 
+//TODO add propser definition file for Headroom
+declare var Headroom : any;
+
 App.ApplicationView = Em.View.extend({
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its
@@ -34,6 +37,23 @@ App.ApplicationView = Em.View.extend({
 	 */
 	click: function (event: MouseEvent): void {
 		event.preventDefault();
+	},
+	/**
+	 * @desc Hide top bar when scrolling down. Uses headroom.js plugin. 
+	 * Styles in _site-head.scss
+	 */
+	didInsertElement: function () {
+		var head = document.querySelector(".site-head");
+		var headroom = new Headroom(head, {
+			offset: 405,
+			tolerance: 5,
+			classes: {
+				initial: "animated",
+				pinned: "slideDown",
+				unpinned: "slideUp"
+			}
+		});
+		headroom.init(); 
 	},
 
 	handleLink: function (target: HTMLAnchorElement): void {

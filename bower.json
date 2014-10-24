@@ -13,7 +13,8 @@
     "i18next": "1.x.x",
     "script.js": "2.x.x",
     "hammerjs": "~2.0.3",
-    "ember-hammer": "~1.0.0"
+    "ember-hammer": "~1.0.0",
+    "headroom.js": "~0.7.0"
   },
   "devDependencies": {
     "ember-qunit": "~0.1.8",
