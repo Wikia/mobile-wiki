@@ -4,7 +4,7 @@
 App.WikiaUsersComponent = Em.Component.extend({
 	avatarHeight: 100,
 	avatarWidth: 100,
-	classNameBindings: ['additionalClasses'],
+	classNameBindings: ['classes'],
 	isVisible: Em.computed.notEmpty('users'),
 	label: null,
 	limit: 5,
