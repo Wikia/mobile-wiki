@@ -15,7 +15,6 @@ gulp.task('watch', ['build'], function () {
 		browserSync({
 			ghostMode: false,
 			logLevel: 'silent',
-			reloadDelay: 300,
 			open: false
 		});
 	}
@@ -65,9 +64,6 @@ gulp.task('watch', ['build'], function () {
 			backEndChanges = true;
 
 			server.changed(function () {
-				log('Reloading browser');
-
-				reload();
 				backEndChanges = false;
 			});
 		}
@@ -76,9 +72,7 @@ gulp.task('watch', ['build'], function () {
 	gulp.watch(paths.base + '/public/**/*').on('change', function (event) {
 		log('File changed:', gutil.colors.green(event.path), 'Reloading browser');
 
-		if (!backEndChanges) {
-			reload(event.path);
-		}
+		reload(event.path);
 	});
 
 	gulp.watch(paths.config.path + '*.ts', ['build']);
