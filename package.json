@@ -53,6 +53,7 @@
     "gulp-if": "1.x.x",
     "gulp-karma": "0.0.4",
     "gulp-minify-html": "0.1.x",
+    "gulp-newer": "^0.3.0",
     "gulp-preprocess": "1.x.x",
     "gulp-rename": "1.x.x",
     "gulp-rev": "2.x.x",
