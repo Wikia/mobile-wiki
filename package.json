@@ -40,6 +40,7 @@
     "glob": "^4.0.6",
     "gulp": "3.x.x",
     "gulp-autoprefixer": "1.x.x",
+    "gulp-batch": "^1.0.1",
     "gulp-cached": "1.x.x",
     "gulp-changed": "^1.0.0",
     "gulp-concat": "2.x.x",
