@@ -14,24 +14,24 @@
 
 	.drawer-menu, .user-icon {
 		position: absolute;
-  }
+	}
 
-  .drawer-menu {
-	  left: 0;
-	  top: 0;
-  }
+	.drawer-menu {
+		left: 0;
+		top: 0;
+	}
 
-  .user-icon {
-	  right: 0;
-	  top: 0;
-  }
+	.user-icon {
+		right: 0;
+		top: 0;
+	}
 }
 
 .headroom--pinned {
 	display: block;
 }
 .headroom--unpinned {
-    display: none;
+	display: none;
 }
 
 .animated {

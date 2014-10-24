@@ -43,14 +43,13 @@ App.ApplicationView = Em.View.extend({
 	 * Styles in _site-head.scss
 	 */
 	didInsertElement: function () {
-		var head = document.querySelector(".site-head");
-		var headroom = new Headroom(head, {
+		var headroom = new Headroom(document.querySelector('.site-head'), {
 			offset: 405,
 			tolerance: 5,
 			classes: {
-				initial: "animated",
-				pinned: "slideDown",
-				unpinned: "slideUp"
+				initial: 'animated',
+				pinned: 'slideDown',
+				unpinned: 'slideUp'
 			}
 		});
 		headroom.init(); 
