@@ -28,7 +28,7 @@ Em.Handlebars.registerBoundHelper('thumbnail', function (value: string, options:
 
 	width = Em.getWithDefault(options, 'hash.width', defaultWidth);
 	height = Em.getWithDefault(options, 'hash.height', defaultHeight);
-	alt = Em.getWithDefault(options, 'hash.alt', null);
+	alt = Handlebars.Utils.escapeExpression(Em.getWithDefault(options, 'hash.alt', null));
 
 	return new Em.Handlebars.SafeString(
 		'<img src="' + Mercury.Modules.Thumbnailer.getThumbURL(value, mode, width, height) + '" alt="' + alt + '">'
