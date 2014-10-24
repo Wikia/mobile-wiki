@@ -5,6 +5,7 @@
 interface PlayerClassMap {
 	[index: string]: string;
 }
+
 module Mercury.Modules {
 
 	var playerClassMap: PlayerClassMap = {
@@ -15,7 +16,7 @@ module Mercury.Modules {
 	export class VideoLoader {
 		element: HTMLElement;
 		data: any;
-		player: Mercury.Modules.VideoPlayers.BasePlayer;
+		player: VideoPlayers.BasePlayer;
 
 		constructor (element: HTMLElement, data: any /* tracking cb */) {
 			element.innerHTML = data.html;
@@ -29,7 +30,8 @@ module Mercury.Modules {
 
 		loadPlayerClass () {
 			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
-				playerClassStr = playerClassMap[provider] + 'Player';
+				playerClassStr = playerClassMap[provider] + 'Player',
+				players: any[] = VideoPlayers;
 
 			// don't attempt to load controls for unsupported player classes
 			if (!playerClassMap[provider]) {
@@ -37,7 +39,7 @@ module Mercury.Modules {
 				return false;
 			}
 
-			this.player = new Mercury.Modules.VideoPlayers[playerClassStr](provider, this.data.jsParams);
+			this.player = new players[playerClassStr](provider, this.data.jsParams);
 		}
 	}
 }
