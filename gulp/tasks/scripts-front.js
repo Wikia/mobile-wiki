@@ -4,6 +4,7 @@ var gulp = require('gulp'),
 	folders = require('gulp-folders'),
 	ts = require('gulp-typescript'),
 	concat = require('gulp-concat'),
+	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
@@ -19,7 +20,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 	return gulp.src([path.join(paths.src, folder, paths.files)])
 		.pipe(ts(tsProjects[folder])).js
 		.on('error', function () {
-			if (environment.isProduction) {
+			if (gutil.env.testing && environment.isProduction) {
 				console.error('Build contains some typescript errors/warnings');
 				process.exit(1);
 			}
