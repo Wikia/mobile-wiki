@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/string.ts" />
+/// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
@@ -76,7 +77,7 @@ App.ArticleModel.reopenClass({
 
 	getPreloadedData: function () {
 		var article = Mercury.article,
-			adsInstance;
+			adsInstance: Mercury.Modules.Ads;
 		Mercury._state.firstPage = false;
 		article.content = $('.article-content').html();
 

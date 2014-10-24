@@ -147,11 +147,17 @@ class App {
 		});
 
 		server.on('response', (request: Hapi.Request) => {
+			// If there is an errors and headers are not present, set the response time to -1 to make these
+			// errors easy to discover
+			var responseTime = request.response.headers
+					&& request.response.headers.hasOwnProperty('x-backend-response-time')
+				? parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
+				: -1;
 			logger.info({
 				host: request.headers.host,
 				url: url.format(request.url),
 				code: (<Hapi.Response>request.response).statusCode,
-				responseTime: parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
+				responseTime: responseTime
 			}, 'Response');
 		});
 	}
