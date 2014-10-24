@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../../../typings/headroom/headroom.d.ts" />
 'use strict';
 
 // TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
@@ -14,9 +15,6 @@ interface DOMStringMap {
 interface EventTarget {
 	tagName: string;
 }
-
-//TODO add propser definition file for Headroom
-declare var Headroom : any;
 
 App.ApplicationView = Em.View.extend({
 	/**
