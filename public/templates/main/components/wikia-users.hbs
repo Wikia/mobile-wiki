@@ -1,12 +1,12 @@
 {{#if users.length}}
 	<div class='title'>{{i18n label}}</div>
 	<ul>
-        {{#each users}}
+		{{#each users}}
 			<li>
 				<a href='{{unbound url}}' {{action 'trackClick' trackingEvent}}>
 					{{thumbnail avatar width=100 height=100 mode=thumbMode alt=name}}
 				</a>
 			</li>
-        {{/each}}
+		{{/each}}
 	</ul>
 {{/if}}
