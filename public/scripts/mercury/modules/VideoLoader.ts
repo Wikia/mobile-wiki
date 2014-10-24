@@ -31,7 +31,7 @@ module Mercury.Modules {
 		loadPlayerClass () {
 			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player',
-				players: any[] = VideoPlayers;
+				players: any = VideoPlayers;
 
 			// don't attempt to load controls for unsupported player classes
 			if (!playerClassMap[provider]) {
