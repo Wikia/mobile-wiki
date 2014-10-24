@@ -1,7 +1,12 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/modules/Thumbnailer.ts" />
 
-Em.Handlebars.registerBoundHelper('thumbnail', function (value: string, options: any) {
+/**
+ * @desc Helper to generate img element with link to thumbnail as the src attribute
+ * Use case: {{thumbnail url width=100 height=100 mode=thumbMode alt=name}}
+ * Only the first parameter (url) is required, rest is optional
+ */
+Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: any) {
 	var thumbnailer = Mercury.Modules.Thumbnailer,
 		defaultMode: string = thumbnailer.mode.fixedAspectRatio,
 		defaultWidth: number = 100,
@@ -30,6 +35,6 @@ Em.Handlebars.registerBoundHelper('thumbnail', function (value: string, options:
 	alt = Handlebars.Utils.escapeExpression(Em.getWithDefault(options, 'hash.alt', null));
 
 	return new Em.Handlebars.SafeString(
-		'<img src="' + thumbnailer.getThumbURL(value, mode, width, height) + '" alt="' + alt + '">'
+		'<img src="' + thumbnailer.getThumbURL(url, mode, width, height) + '" alt="' + alt + '">'
 	);
 });

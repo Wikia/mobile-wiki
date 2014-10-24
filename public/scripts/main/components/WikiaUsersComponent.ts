@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../mercury/modules/Thumbnailer.ts" />
 'use strict';
 
 App.WikiaUsersComponent = Em.Component.extend({
