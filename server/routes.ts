@@ -56,23 +56,27 @@ function routes(server: Hapi.Server) {
 	 * @param reply Hapi reply function
 	 */
 	function articleHandler(request: Hapi.Request, reply: any) {
-		server.methods.getPreRenderedData({
-			wikiDomain: getWikiDomainName(request.headers.host),
-			title: request.params.title,
-			redirect: request.query.redirect
-		}, (error: any, result: any) => {
-			var code = 200;
+		if (request.params.title || request.path === '/') {
+			server.methods.getPreRenderedData({
+				wikiDomain: getWikiDomainName(request.headers.host),
+				title: request.params.title,
+				redirect: request.query.redirect
+			}, (error: any, result: any) => {
+				var code = 200;
 
-			Tracking.handleResponse(result, request);
+				Tracking.handleResponse(result, request);
 
-			if (error) {
-				code = error.code;
+				if (error) {
+					code = error.code;
 
-				result.error = JSON.stringify(error);
-			}
+					result.error = JSON.stringify(error);
+				}
 
-			reply.view('application', result).code(code);
-		});
+				reply.view('application', result).code(code);
+			});
+		} else {
+			reply.redirect('/');
+		}
 	}
 
 	// all the routes that should resolve to loading single page app entry view
