@@ -5,6 +5,7 @@ var gulp = require('gulp'),
 	ts = require('gulp-typescript'),
 	concat = require('gulp-concat'),
 	gutil = require('gulp-util'),
+	newer = require('gulp-newer'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
@@ -18,6 +19,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 	}
 
 	return gulp.src([path.join(paths.src, folder, paths.files)])
+		.pipe(newer({dest: paths.dest, ext: '.js'}))
 		.pipe(ts(tsProjects[folder])).js
 		.on('error', function () {
 			if (gutil.env.testing && environment.isProduction) {
