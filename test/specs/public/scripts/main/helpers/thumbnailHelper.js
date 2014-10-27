@@ -17,8 +17,8 @@ QUnit.test('Thumbnail helper is registered', function () {
 QUnit.test('generate thumbnail with default options', function () {
 	expect(1);
 	var options = {
-			hash: {}
-		};
+		hash: {}
+	};
 
 	equal(
 		Em.Handlebars.helpers.thumbnail._rawFunction('http://wikia.com/test.jpg', options),
