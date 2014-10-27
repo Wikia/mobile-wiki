@@ -5,28 +5,28 @@ test('getWikiName', function () {
 		{
 			host: 'poznan.wikia.com',
 			localSettings: {
-				environment: global.Environment.Production
+				environment: global.Environment.Prod
 			},
 			expected: 'poznan.wikia.com',
 			description: 'Works for production sub-domains'
 		}, {
 			host: 'example.com',
 			localSettings: {
-				environment: global.Environment.Production
+				environment: global.Environment.Prod
 			},
 			expected: 'example.com',
 			description: 'Custom URLs on production are passed through'
 		}, {
 			host: 'poznan.wikia.com',
 			localSettings: {
-				environment: global.Environment.Production
+				environment: global.Environment.Prod
 			},
 			expected: 'poznan.wikia.com',
 			description: 'Works for production sub-domains'
 		} , {
 			host: 'bg.poznan.wikia.com',
 			localSettings: {
-				environment: global.Environment.Production
+				environment: global.Environment.Prod
 			},
 			expected: 'bg.poznan.wikia.com',
 			description: 'Works for production sub-domains with language'
@@ -104,7 +104,7 @@ test('getWikiName', function () {
 		} , {
 			host: '',
 			localSettings: {
-				environment: global.Environment.Production
+				environment: global.Environment.Prod
 			},
 			expected: 'community.wikia.com',
 			description: 'Returns the default domain when no domain is provided'
@@ -166,7 +166,7 @@ test('getEnvironment', function() {
 	var testCases = [
 		{
 			environment: 'production',
-			expected: global.Environment.Production
+			expected: global.Environment.Prod
 		}, {
 			environment: 'verify',
 			expected: global.Environment.Verify
@@ -186,8 +186,8 @@ test('getEnvironment', function() {
 			expected: global.Environment.Dev
 		}, {
 			environment: 'investing',
-			default: global.Environment.Production,
-			expected: global.Environment.Production
+			default: global.Environment.Prod,
+			expected: global.Environment.Prod
 		}
 	];
 	testCases.forEach(function(testCase) {
