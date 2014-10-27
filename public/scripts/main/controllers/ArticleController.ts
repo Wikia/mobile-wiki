@@ -10,10 +10,6 @@ App.ArticleController = Em.ObjectController.extend({
 	file: null,
 	commentsPage: null,
 
-	displayUsers: function (): any[] {
-		return this.get('users').slice(0, 5);
-	}.property('users'),
-
 	actions: {
 		updateHeaders: function (headers: NodeList): void {
 			var article = this.get('model');

@@ -26,27 +26,3 @@ test('action updateHeaders correctly sets sections', function () {
 
 	equal(ctrl.get('model').get('sections'), obj);
 });
-
-test('displayUsers is the first five elements of users', function () {
-	var ctrl = this.subject(),
-		tests = [
-			[],
-			['one', 'two', 'three'],
-			['one', 'two', 'three', 'four', 'five'],
-			['one', 'two', 'three', 'four', 'five', 'six']
-		],
-		self = this,
-		displayUsers;
-
-	ctrl.set('model', Ember.Object.create());
-
-	expect(tests.length * 2);
-
-	tests.forEach(function (test, i, arr) {
-		ctrl.set('model.users', test);
-		displayUsers = ctrl.get('displayUsers');
-		// checks if it exists
-		ok(displayUsers);
-		equal(displayUsers.length, Math.min(test.length, 5));
-	});
-});
