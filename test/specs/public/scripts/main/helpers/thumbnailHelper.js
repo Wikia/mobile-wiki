@@ -10,12 +10,10 @@ QUnit.module('Handlebars thumbnail helper', {
 });
 
 QUnit.test('Thumbnail helper is registered', function () {
-	expect(1);
 	ok(Em.Handlebars.helpers.thumbnail);
 });
 
 QUnit.test('generate thumbnail with default options', function () {
-	expect(1);
 	var options = {
 		hash: {}
 	};
@@ -27,7 +25,6 @@ QUnit.test('generate thumbnail with default options', function () {
 });
 
 QUnit.test('generate thumbnail with all options given', function () {
-	expect(1);
 	var options = {
 		hash: {
 			mode: 'top-crop',
@@ -44,7 +41,6 @@ QUnit.test('generate thumbnail with all options given', function () {
 });
 
 QUnit.test('generate thumbnail with invalid mode which should be replaced by default', function () {
-	expect(1);
 	var options = {
 		hash: {
 			mode: 'non-existent'
