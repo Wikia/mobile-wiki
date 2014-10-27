@@ -75,7 +75,9 @@ function routes(server: Hapi.Server) {
 				reply.view('application', result).code(code);
 			});
 		} else {
-			reply.redirect('/');
+			//handle links like: {wiki}.wikia.com/wiki
+			//Status code 301: Moved permanently
+			reply.redirect('/').code(301);
 		}
 	}
 
