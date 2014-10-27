@@ -1,13 +1,19 @@
 var gulp = require('gulp'),
 	ts = require('gulp-typescript'),
-	changed = require('gulp-changed'),
+	gutil = require('gulp-util'),
+	environment = require('../utils/environment'),
 	options = require('../options').scripts.back,
 	paths = require('../paths').scripts.back,
 	tsProject = ts.createProject(options);
 
 gulp.task('scripts-back', ['scripts-config'], function () {
 	return gulp.src([paths.src, paths.config], {base: './'})
-		.pipe(changed(paths.dest, {extension: '.js'}))
 		.pipe(ts(tsProject)).js
+		.on('error', function () {
+			if (gutil.env.testing && environment.isProduction) {
+				console.error('Build contains some typescript errors/warnings');
+				process.exit(1);
+			}
+		})
 		.pipe(gulp.dest(paths.dest));
 });
