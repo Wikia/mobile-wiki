@@ -15,7 +15,7 @@ test('getDomainName', function () {
 	equal(global.getDomainName('foo'),
 		'http://hoest.foo.wikia.com/',
 		'sandbox URL has correct output');
-	global.localSettings.environment = 'production';
+	global.localSettings.environment = 'prod';
 	equal(global.getDomainName('foo'),
 		'http://foo.wikia.com/',
 		'production URL has correct output');

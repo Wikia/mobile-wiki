@@ -7,7 +7,7 @@ module Utils {
 	 * Environment types
 	 */
 	export enum Environment {
-		Production,
+		Prod,
 		Verify,
 		Preview,
 		Sandbox,
@@ -24,7 +24,10 @@ module Utils {
 	 */
 	export function getEnvironment(environment: string, fallbackEnvironment: Environment = Environment.Dev) {
 		var environments: {[id: string]: Environment} = {
-			production: Environment.Production,
+			// TODO: Remove `production` environment once all changes are propagated
+			production: Environment.Prod,
+
+			prod: Environment.Prod,
 			verify: Environment.Verify,
 			preview: Environment.Preview,
 			sandbox: Environment.Sandbox,
@@ -83,7 +86,7 @@ module Utils {
 			// For these environments the host name can be passed through
 			passThroughEnv: any = {};
 
-		passThroughEnv[Environment.Production] = '%s.wikia.com';
+		passThroughEnv[Environment.Prod] = '%s.wikia.com';
 		passThroughEnv[Environment.Verify] = 'verify.%s.wikia.com';
 		passThroughEnv[Environment.Preview] = 'preview.%s.wikia.com';
 
