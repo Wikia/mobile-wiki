@@ -9,7 +9,7 @@
 			ordered=true
 			observe=cleanTitle
 			animSpeed=0
-			trackingEvent='mercury-toc'
+			trackingEvent='toc'
 		}}
 			{{#each sections}}
 			<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
@@ -45,7 +45,7 @@
 		ordered=false
 		observe=cleanTitle
 		animSpeed=controller.controllers.application.globalAnimSpeed
-		trackingEvent='mercury-category'
+		trackingEvent='category'
 	}}
 		{{#each categories itemController='categoryListItem'}}
 		<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound url}}' title='{{unbound title}}'>
