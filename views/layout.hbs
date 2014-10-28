@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" lang="{{wiki.language.user}}" dir="{{wiki.language.userDir}}">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
-			M.provide('_state.translations.{{#if wiki.language}}{{wiki.language}}{{else}}en{{/if}}', {{{translations wiki.language}}});
+			M.provide('_state.translations.{{#if wiki.language.user}}{{wiki.language.user}}{{else}}en{{/if}}', {{{translations wiki.language.user}}});
 			M.provide('_state.firstPage', true);
 			M.provide('ads.slots', []);
 			M.provide('apiBase', '{{{server.apiBase}}}');

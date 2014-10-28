@@ -1,5 +1,5 @@
 /*
- * Options for production environment
+ * Options for prod environment
  */
 
 var zlib = require('zlib' ),

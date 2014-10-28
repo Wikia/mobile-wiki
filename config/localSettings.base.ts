@@ -19,7 +19,7 @@ var localSettings: LocalSettings = {
 		engine: 'memory' // cache data in [memory|memcached]
 		// location: '127.0.0.1:11211' // Check https://github.com/3rd-Eden/node-memcached#server-locations for ref
 	},
-	// Targeted environment [production|preview|verify|dev|testing]
+	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,

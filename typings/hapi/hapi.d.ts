@@ -310,16 +310,16 @@ declare module Hapi {
 		log(tags: string, data?: any, timestamp?: number): void;
 		log(tags: Array<string>, data?: any, timestamp?: number): void;
 		state(name: string, options?: {
-			ttl: number;
-			isSecure: boolean;
-			isHttpOnly: boolean;
-			path: string;
-			domain: string;
-			autoValue: (request: Request, next: (err: any, value: any) => void) => void;
+			ttl?: number;
+			isSecure?: boolean;
+			isHttpOnly?: boolean;
+			path?: string;
+			domain?: string;
+			autoValue?: any;
 			encoding?: string;
-			sign: any;
-			password: string;
-			iron: any;
+			sign?: any;
+			password?: string;
+			iron?: any;
 		}): void;
 		views(options: ServerView): void;
 		cache(name: string, options: {
