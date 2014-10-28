@@ -4,7 +4,9 @@
 	position: absolute;
 	right: 0;
 	top: rem-calc(44);
-	width: 100%;
+	margin: 0;
+	overflow: auto;
+	padding: 0;
 
 	li {
 		@extend %pointer;
@@ -53,15 +55,6 @@
 		text-transform: uppercase;
 		width: 100%;
 	}
-
-	ul {
-		bottom: 0;
-		height: 100%;
-		margin: 0;
-		overflow: auto;
-		padding: 0;
-	}
-
 }
 
 &.search .local-nav-menu {
