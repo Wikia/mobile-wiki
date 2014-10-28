@@ -5,7 +5,6 @@ declare var require: (deps: string[], func: Function) => void;
 
 declare module Mercury {
 	var provide: (str: any, obj: any) => any;
-	var language: string;
 	var article: any;
 	var _state: {
 		firstPage: boolean;
@@ -13,11 +12,9 @@ declare module Mercury {
 	};
 	var error: any;
 	var wiki: any;
-	var ads: {
-		slots: string[][];
-	};
 	var apiBase: string;
 	var tracking: any;
+	var adsUrl: string;
 	var environment: string;
 }
 

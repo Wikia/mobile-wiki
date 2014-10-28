@@ -48,20 +48,6 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	setupAdsContext: function (adsContext: any): void {
-		// FIXME: this is temporary solution
-		// this requires refactoring adEngine to support UMD
-		//
-		// On the first run require is undefined but the run is executed in the mercury.js file relying on the
-		// window setting for the context.
-		if (typeof require !== 'undefined') {
-			require([
-				'ext.wikia.adEngine.adEngine',
-				'ext.wikia.adEngine.adContext',
-				'ext.wikia.adEngine.adConfigMobile'
-			], function (adEngine: any, adContext: any, adConfigMobile: any) {
-				adContext.setContext(adsContext);
-				adEngine.run(adConfigMobile, JSON.parse(JSON.stringify(Mercury.ads.slots)), 'queue.mobile');
-			});
-		}
+		Mercury.Modules.Ads.getInstance().reload(adsContext);
 	}
 });

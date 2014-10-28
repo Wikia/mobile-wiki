@@ -2,7 +2,7 @@ var gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	sass = require('gulp-sass'),
 	piper = require('../utils/piper'),
-	options = require('../options').styles,
+	options = require('../options').sass,
 	paths = require('../paths').styles;
 
 gulp.task('sass', function () {

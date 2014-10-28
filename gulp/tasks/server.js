@@ -5,3 +5,8 @@ var gulp = require('gulp'),
 gulp.task('server', ['build'], function () {
 	server.listen(options);
 });
+
+//if anything happens kill server
+process.on('exit', function () {
+	server.kill();
+});

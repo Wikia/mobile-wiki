@@ -51,7 +51,7 @@ module Mercury.Modules.Trackers {
 			return {
 				c: mercury.wiki.id,
 				x: mercury.wiki.dbName,
-				lc: mercury.wiki.language,
+				lc: mercury.wiki.language.user,
 				u: 0,
 				s: 'mercury',
 				beacon: '',
