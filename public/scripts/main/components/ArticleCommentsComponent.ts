@@ -92,7 +92,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 			M.track({
 				action: M.trackActions.click,
 				category: 'comments',
-				label: this.get('page') ? 'close' : 'open'
+				label: this.get('page') ? 'open' : 'close'
 			});
 		}
 	}
