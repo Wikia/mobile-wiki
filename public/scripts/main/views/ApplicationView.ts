@@ -42,12 +42,12 @@ App.ApplicationView = Em.View.extend({
 	 */
 	didInsertElement: function () {
 		var headroom = new Headroom(document.querySelector('.site-head'), {
-			offset: 405,
-			tolerance: 5,
 			classes: {
 				initial: 'animated',
 				pinned: 'slideDown',
-				unpinned: 'slideUp'
+				unpinned: 'slideUp',
+				top : "headroom-top",
+				notTop : "headroom-not-top"
 			}
 		});
 		headroom.init(); 
