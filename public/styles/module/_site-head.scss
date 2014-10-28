@@ -28,43 +28,11 @@
 	}
 }
 
-.headroom--pinned {
+.headroom-pinned {
 	display: block;
 }
 
-.headroom--unpinned {
+.headroom-unpinned {
 	display: none;
 }
 
-.animated {
-	animation-duration: 0.5s;
-	animation-fill-mode: both;
-}
-
-@keyframes slideDown {
-	0% {
-		transform: translateY(-100%);
-	}
-
-	100% {
-		transform: translateY(0);
-	}
-}
-
-.animated.slideDown {
-	animation-name: slideDown;
-}
-
-@keyframes slideUp {
-	0% {
-		transform: translateY(0);
-	}
-
-	100% {
-		transform: translateY(-100%);
-	}
-}
-
-.animated.slideUp {
-	animation-name: slideUp;
-}
