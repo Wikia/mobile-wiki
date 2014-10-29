@@ -9,7 +9,7 @@
 }}
 <div {{bind-attr class=':drawer controller.isInSearchMode:search'}}>
 	<div class='search-container'>
-		{{input placeholder='Search' focus-in='searchFocus' value=controllers.localWikiaSearch.query}}
+		{{input placeholder='Search' focus-in='searchFocus' value=controllers.localWikiaSearch.query action='enter'}}
 		{{! add action on this svg too because it's stacked on top of the input area}}
 		<svg {{action 'searchFocus'}} viewBox='0 0 14 14' class='icon search-side-menu'>
 			<use xlink:href='#search-side-menu'></use>
