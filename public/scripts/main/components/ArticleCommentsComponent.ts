@@ -9,8 +9,8 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	classNames: ['article-comments'],
 	model: null,
 
-	isFirstPage: true,
-	isLastPage: true,
+	nextButtonShown: false,
+	prevButtonShown: false,
 	showComments: Em.computed.bool('page'),
 
 	/**
@@ -39,16 +39,19 @@ App.ArticleCommentsComponent = Em.Component.extend({
 			var page: any = this.get('page'),
 				count: any = this.get('model.pagesCount'),
 				currentPage: any = page,
-				currentPageInteger: number = parseInt(currentPage, 10);
+				currentPageInteger: number = parseInt(currentPage, 10),
+				isFirstPage: boolean;
 
 			// since those can be null we intentionally correct the types
 			if (page != null && count != null) {
 				currentPage = Math.max(Math.min(page, count), 1);
 			}
 
+			isFirstPage = currentPageInteger === 1;
+
 			this.setProperties({
-				isFirstPage: currentPageInteger === 1,
-				isLastPage: currentPage === count,
+				nextButtonShown: (isFirstPage || (count != null && currentPage < count)) && (count != null && count > 1),
+				prevButtonShown: !isFirstPage && (currentPageInteger > 1),
 				page: currentPage
 			});
 
