@@ -45,6 +45,8 @@ App.SideNavController = Em.Controller.extend({
 		},
 
 		/**
+		 * TODO: Refactor, use api
+		 *
 		 * Temporary solution for enter on search, will be refactored to be a route in mercury
 		 * @param value of input
 		 */
