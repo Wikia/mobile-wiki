@@ -37,7 +37,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	pageObserver: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
 			var page: any = this.get('page'),
-				count: any = this.get('model.pagesCount'),
+				count: number = this.get('model.pagesCount'),
 				currentPage: any = page,
 				currentPageInteger: number = parseInt(currentPage, 10),
 				isFirstPage: boolean;
@@ -50,14 +50,14 @@ App.ArticleCommentsComponent = Em.Component.extend({
 			isFirstPage = currentPageInteger === 1;
 
 			this.setProperties({
-				nextButtonShown: (isFirstPage || (count != null && currentPage < count)) && (count != null && count > 1),
+				nextButtonShown: (isFirstPage || currentPage < count) && count > 1,
 				prevButtonShown: !isFirstPage && (currentPageInteger > 1),
 				page: currentPage
 			});
 
 			this.set('model.page', currentPage);
 		});
-	}.observes('page'),
+	}.observes('page', 'model.comments'),
 
 	/**
 	 * @desc watches changes to model, and scrolls to top of comments
