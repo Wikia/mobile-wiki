@@ -38,7 +38,8 @@ App.WikiaFooterView = Em.View.extend({
 				//TODO: take main skin for a wiki
 				href: '?useskin=oasis',
 				text: 'footer-link-full-site',
-				className: 'spaced'
+				className: 'spaced',
+				action: 'fullSite'
 			},
 			{
 				href: '//www.wikia.com/Licensing',
@@ -53,5 +54,12 @@ App.WikiaFooterView = Em.View.extend({
 				text: 'footer-link-feedback'
 			}
 		]
+	},
+
+	actions: {
+		fullSite: function () {
+			console.log('rst')
+			return false;
+		}
 	}
 });
