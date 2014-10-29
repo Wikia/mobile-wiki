@@ -3,8 +3,7 @@
 	position: relative;
 	border-bottom: 1px solid #e8e8e8;
 	width: 100%;
-	height: 80px;
-	background: linear-gradient(#f4f4f4 0%, #cdcdcd 100%);
+	background: #e6e6e6;
 	-webkit-font-smoothing: antialiased;
 	-webkit-transition: height 1s;
 	overflow: hidden;
@@ -25,39 +24,24 @@
 		}
 	}
 
-	&.android{
-		border-top: 5px solid #88B131;
+	&.android {
+		height: 66px;
+	}
+
+	&.ios {
+		height: 166px;
 	}
 
 }
 
 .sb-close {
 	display: inline-block;
-	border: 2px solid #fff;
-	font-size: 15px;
-	height: 15px;
-	text-align: center;
-	width: 15px;
-	background-color: #070707;
-	border-radius: 14px;
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
-	margin: 5px;
-
-	span {
-		display: block;
-		height: 30px;
-		width: 30px;
-	}
+	height: 10px;
+	width: 10px;
 
 	svg {
-		height: 7px;
+		height: 10px;
 		display: block;
-		margin: 2px;
-	}
-
-	&:active {
-		font-size: 13px;
-		color: #aaa;
 	}
 }
 
@@ -67,11 +51,11 @@
 	border-radius: 10px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 	display: block;
-	height: 57px;
+	height: 46px;
 	left: 25px;
 	position: absolute;
 	top: 10px;
-	width: 57px;
+	width: 46px;
 
 	&.gloss:after {
 		background: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.2) 100%);
@@ -127,16 +111,12 @@
 }
 
 .android {
-	border-color: #212228;
-	background: #3d3d3d url('data:image/gif;base64,R0lGODlhCAAIAPABAFVVVf///yH5BAUHAAEALAAAAAAIAAgAQAIMRG54kdvvlIwKLuYKADs=');
+	box-sizing: border-box;
+	padding-top: 10px;
+	padding-bottom: 10px;
 
 	.sb-close {
-		border-color: #000;
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
-
-		&:active {
-			color: #eee;
-		}
+		margin-left: 10px;
 	}
 
 	.sb-info {
