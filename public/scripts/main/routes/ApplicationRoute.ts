@@ -37,8 +37,7 @@ App.ApplicationRoute = Em.Route.extend({
 			 * handle links that are external to the application like ?useskin=oasis
 			 */
 			if (target.className.indexOf('external') > -1) {
-				window.location.assign(target.href);
-				return;
+				return window.location.assign(target.href);
 			}
 
 			if (info.article) {
