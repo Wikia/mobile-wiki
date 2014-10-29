@@ -43,7 +43,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 			if (media) {
 				return this.getThumbURL(
 					this.get('media').url,
-					Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
+					Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 					this.get('contentWidth'),
 					this.get('computedHeight')
 				);

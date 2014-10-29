@@ -17,6 +17,12 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	visible: false,
 	media: null,
 	thumbnailer: Mercury.Modules.Thumbnailer,
+	limit: false,
+
+	//thumb widths
+	smallThumb: 340,
+	mediumThumb: 660,
+	largeThumb: 900,
 
 	/**
 	 * @desc content width used to load smaller thumbnails
@@ -24,6 +30,16 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	contentWidth: function (): number {
 		return $('.article-content').width();
 	}.property(),
+
+	normalizeThumbWidth: function (width: number): number {
+		if (width <= this.smallThumb) {
+			return this.smallThumb;
+		} else if (width <= this.mediumThumb) {
+			return this.mediumThumb;
+		}
+
+		return this.largeThumb;
+	},
 
 	/**
 	 * @desc if image is not thumbnail, returns url to thumbnail with width set to contentWidth
@@ -41,6 +57,15 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		width: number,
 		height: number
 		): string {
+
+		if (mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
+			width = this.normalizeThumbWidth(width);
+		}
+
+		if (!this.limit) {
+			height = width;
+		}
+
 		if (!this.thumbnailer.isThumbnailerUrl(url)) {
 			url = this.thumbnailer.getThumbURL(url, mode, width, height);
 		}
