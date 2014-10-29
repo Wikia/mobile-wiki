@@ -13,8 +13,6 @@ import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
 
-
-
 /**
  * Application class
  */
