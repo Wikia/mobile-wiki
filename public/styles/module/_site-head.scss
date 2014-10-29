@@ -28,11 +28,15 @@
 	}
 }
 
-.headroom-pinned {
-	display: block;
-}
+.site-head {
+	transition: transform .5s;
 
-.headroom-unpinned {
-	display: none;
+	&.pinned {
+		transform: translateY(0);
+	}
+
+	&.un-pinned {
+		transform: translateY(-100%);
+	}
 }
 

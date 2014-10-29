@@ -43,9 +43,9 @@ App.ApplicationView = Em.View.extend({
 	didInsertElement: function () {
 		var headroom = new Headroom(document.querySelector('.site-head'), {
 			classes: {
-				initial: 'animated',
-				pinned: 'slideDown',
-				unpinned: 'slideUp',
+				initial: 'headroom',
+				pinned: 'pinned',
+				unpinned: 'un-pinned',
 				top : "headroom-top",
 				notTop : "headroom-not-top"
 			}
