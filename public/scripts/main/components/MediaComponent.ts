@@ -17,7 +17,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	visible: false,
 	media: null,
 	thumbnailer: Mercury.Modules.Thumbnailer,
-	limit: false,
+	limitHeight: false,
 
 	//thumb widths
 	thumbSize: {
@@ -64,7 +64,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			width = this.normalizeThumbWidth(width);
 		}
 
-		if (!this.limit) {
+		if (!this.limitHeight) {
 			height = width;
 		}
 
