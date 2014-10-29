@@ -2,7 +2,7 @@
 /// <reference path="../../mercury/utils/articleLink.ts" />
 'use strict';
 
-App.ApplicationRoute = Em.Route.extend({
+App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 	model: function <T>(params: T): T {
 		return params;
 	},
@@ -27,11 +27,23 @@ App.ApplicationRoute = Em.Route.extend({
 		handleLink: function (target: HTMLAnchorElement): void {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
+				trackingEvent = target.dataset.trackingEvent,
 				info = M.getLinkInfo(model.get('basePath'),
 					model.get('title'),
 					target.hash,
 					target.href
 				);
+
+			/**
+			 * Handle tracking
+			 */
+			if (trackingEvent) {
+				this.triggerAction({
+					action:'trackClick',
+					target: this,
+					actionContext: trackingEvent
+				});
+			}
 
 			/**
 			 * handle links that are external to the application like ?useskin=oasis
