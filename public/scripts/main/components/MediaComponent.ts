@@ -20,9 +20,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	limit: false,
 
 	//thumb widths
-	smallThumb: 340,
-	mediumThumb: 660,
-	largeThumb: 900,
+	thumbSize: {
+		small: 340,
+		medium: 660,
+		large: 900
+	},
 
 	/**
 	 * @desc content width used to load smaller thumbnails
@@ -32,13 +34,13 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	}.property(),
 
 	normalizeThumbWidth: function (width: number): number {
-		if (width <= this.smallThumb) {
-			return this.smallThumb;
-		} else if (width <= this.mediumThumb) {
-			return this.mediumThumb;
+		if (width <= this.thumbSize.small) {
+			return this.thumbSize.small;
+		} else if (width <= this.thumbSize.medium) {
+			return this.thumbSize.medium;
 		}
 
-		return this.largeThumb;
+		return this.thumbSize.medium;
 	},
 
 	/**
