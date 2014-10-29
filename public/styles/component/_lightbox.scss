@@ -36,12 +36,14 @@ $modal-text-color: white;
 }
 
 .lightbox-close-button {
-	height: 45px;
+	//Fix for iOS7 not including paddings into border-box for svg
+	box-sizing: content-box;
+	height: 19px;
 	padding: 13px;
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 40px;
+	width: 14px;
 	z-index: $z-lightbox-close-button;
 }
 
