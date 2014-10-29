@@ -7,7 +7,7 @@ App.ApplicationController = Em.Controller.extend({
 			domain: Mercury.wiki.dbName || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			siteName: Mercury.wiki.siteName || 'Wikia',
 			language: Mercury.wiki.language,
-			globalAnimSpeed: 100,
+			globalAnimSpeed: 100
 		});
 
 		this._super();
