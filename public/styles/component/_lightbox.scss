@@ -29,21 +29,26 @@ $modal-text-color: white;
 .lightbox-header {
 	height: 40px;
 	line-height: 15px;
-	padding: 15px 13px;
 	position: absolute;
 	width: 100%;
-	z-index: 1;
+}
+
+.lightbox-header-title {
+	float: left;
+	padding: 15px 13px;
+}
+
+.lightbox-close-wrapper {
+	box-sizing: content-box;
+	float: right;
+	height: 15px;
+	padding: 13px;
+	width: 15px;
 }
 
 .lightbox-close-button {
-	//Fix for iOS7 not including paddings into border-box for svg
-	box-sizing: content-box;
-	height: 19px;
-	padding: 13px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 14px;
+	height: 15px;
+	width: 15px;
 	z-index: $z-lightbox-close-button;
 }
 
