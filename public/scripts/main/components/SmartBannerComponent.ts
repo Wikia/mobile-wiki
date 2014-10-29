@@ -30,7 +30,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	init: function () {
 		var ua = window.navigator.userAgent,
 			standalone = navigator.standalone, // Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
-			wiki = Wikia.wiki || {},
+			wiki = Mercury.wiki || {},
 			smartbanner = wiki.smartbanner || {},
 			type: string,
 			link: string,
