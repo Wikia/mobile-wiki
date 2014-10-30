@@ -73,7 +73,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 					a: model.title,
 					n: model.ns
 				});
-				M.trackPageView();
+				M.trackPageView(model.get('adsContext.targeting'));
 			}
 		});
 	},

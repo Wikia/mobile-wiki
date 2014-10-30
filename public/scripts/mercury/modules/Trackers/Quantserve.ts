@@ -9,6 +9,8 @@ interface Window {
 
 module Mercury.Modules.Trackers {
 	export class Quantserve extends BaseTracker {
+		usesAdsContext: boolean = true;
+
 		constructor () {
 			window._qevents = [];
 			super();
@@ -18,9 +20,8 @@ module Mercury.Modules.Trackers {
 			return (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js?" + Math.random();
 		}
 
-		trackPageView (): void {
-			var context: typeof Mercury.tracking = this.getContext(),
-				quantcastLabels = '',
+		trackPageView (context: any): void {
+			var quantcastLabels = '',
 				keyValues: string[],
 				keyValue: string[];
 
@@ -50,10 +51,6 @@ module Mercury.Modules.Trackers {
 			}];
 
 			this.appendScript();
-		}
-
-		getContext (): any {
-			return Em.get('Mercury.article.adsContext.targeting');
 		}
 	}
 }

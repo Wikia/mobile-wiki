@@ -24,10 +24,7 @@ QUnit.test('Track page view', function () {
 		}];
 
 	tracker.appendScript = function () {};
-	tracker.getContext = function () {
-		return context;
-	};
 
-	tracker.trackPageView();
+	tracker.trackPageView(context);
 	deepEqual(window._qevents, qevents);
 });
