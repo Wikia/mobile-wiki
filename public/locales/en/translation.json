@@ -30,7 +30,9 @@
 		"footer-link-licensing": "Licensing",
 		"footer-link-privacy-policy": "Privacy Policy",
 		"footer-link-feedback": "Feedback",
-		"media-video-views": "views",
+		"media-video-views": "__count__ view",
+		"media-video-views_plural": "__count__ views",
+		"media-video-views_plural_0": "__count__ views",
 		"page-not-found-error": "Sorry, we can't find the page you are looking for.",
 		"page-not-found-message": "Use Navigation or Search",
 		"random-page-label": "Random Page"
