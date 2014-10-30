@@ -39,15 +39,14 @@ $modal-text-color: white;
 }
 
 .lightbox-close-wrapper {
-	box-sizing: content-box;
 	float: right;
-	height: 15px;
 	padding: 13px;
-	width: 15px;
+	width: 40px;
 }
 
 .lightbox-close-button {
 	height: 15px;
+	pointer-events: none;
 	width: 15px;
 	z-index: $z-lightbox-close-button;
 }
