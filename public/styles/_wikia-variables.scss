@@ -66,6 +66,8 @@ $anchor-color-normal: $color-blue-brand;
 $overlay-opacity: .5;
 $border-color-light: $color-gray-light;
 
+$element-active-bg: $color-gray-light;
+
 $search-box-border-color: $color-gray-light;
 $search-box-text-color: $color-gray-light;
 $spinner-color: $color-blue-brand;
@@ -74,4 +76,4 @@ $side-nav-item-gutter: rem-calc(13);
 $side-nav-width: rem-calc(260);
 $side-nav-offset: $side-nav-width * -1;
 $side-nav-width: $side-nav-width;
-$transition-length: .25s;
+$transition-length: .10s;
