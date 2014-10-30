@@ -39,7 +39,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 			var page: any = this.get('page'),
 				count: number = this.get('model.pagesCount'),
 				currentPage: any = page,
-				currentPageInteger: number = parseInt(currentPage, 10),
+				currentPageInteger: number,
 				isFirstPage: boolean;
 
 			// since those can be null we intentionally correct the types
@@ -47,10 +47,11 @@ App.ArticleCommentsComponent = Em.Component.extend({
 				currentPage = Math.max(Math.min(page, count), 1);
 			}
 
+			currentPageInteger = parseInt(currentPage, 10);
 			isFirstPage = currentPageInteger === 1;
 
 			this.setProperties({
-				nextButtonShown: (isFirstPage || currentPage < count) && count > 1,
+				nextButtonShown: (isFirstPage || currentPageInteger < count) && count > 1,
 				prevButtonShown: !isFirstPage && (currentPageInteger > 1),
 				page: currentPage
 			});
