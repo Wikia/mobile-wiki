@@ -12,6 +12,10 @@ App.LightboxView = Em.View.extend({
 	headerHidden: false,
 	status: 'open',
 
+	hammerOptions: {
+		touchAction: 'auto'
+	},
+
 	actions: {
 		toggleFooter: function (): void {
 			this.toggleProperty('lightboxFooterExpanded');
