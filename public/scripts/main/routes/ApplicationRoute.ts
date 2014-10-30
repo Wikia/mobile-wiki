@@ -27,7 +27,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		handleLink: function (target: HTMLAnchorElement): void {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
-				trackingEvent = target.dataset.trackingEvent,
+				trackingCategory = target.dataset.trackingCategory,
 				info = M.getLinkInfo(model.get('basePath'),
 					model.get('title'),
 					target.hash,
@@ -37,11 +37,11 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			/**
 			 * Handle tracking
 			 */
-			if (trackingEvent) {
+			if (trackingCategory) {
 				this.triggerAction({
 					action:'trackClick',
 					target: this,
-					actionContext: trackingEvent
+					actionContext: trackingCategory
 				});
 			}
 
