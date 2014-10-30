@@ -12,6 +12,7 @@
 .side-nav {
 	// open nav button
 	.nav-container {
+		@extend .touch-active;
 		@extend %pointer;
 		height: 100%;
 		padding-top: rem-calc(15);
