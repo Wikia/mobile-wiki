@@ -8,6 +8,11 @@
  *
  */
 
+// NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
+if (process.env.NEW_RELIC_ENABLED === 'true') {
+	require('newrelic');
+}
+
 import cluster = require('cluster');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
