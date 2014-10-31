@@ -9,11 +9,10 @@ interface Window {
 
 module Mercury.Modules.Trackers {
 	export class Quantserve extends BaseTracker {
-		usesAdsContext: boolean = true;
-
 		constructor () {
 			window._qevents = [];
 			super();
+			this.usesAdsContext = true;
 		}
 
 		url (): string {
