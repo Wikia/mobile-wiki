@@ -7,6 +7,7 @@
 module Mercury.Modules.Trackers {
 	export class BaseTracker {
 		static script: HTMLScriptElement = document.getElementsByTagName('script')[0];
+		usesAdsContext: boolean = false;
 
 		//This method should overridden implemented by a tracker
 		url (): string {
