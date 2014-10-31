@@ -16,7 +16,7 @@
 	{{/if}}
 	{{#each currentMenuItem.children}}
 		{{#if children}}
-			<li {{action 'changeMenuItem' index on='mouseUp'}}> 
+			<li {{action 'changeMenuItem' index on='mouseUp'}} class="needsclick"> 
 				{{unbound text}}
 				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 			</li>
