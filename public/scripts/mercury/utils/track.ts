@@ -32,6 +32,7 @@ interface TrackerInstance {
 	new(): TrackerInstance;
 	track: TrackFunction;
 	trackPageView: (context?: TrackContext) => void;
+	usesAdsContext: boolean;
 }
 
 module Mercury.Utils {
