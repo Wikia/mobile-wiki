@@ -1,3 +1,5 @@
+/// <reference path="../../baseline/mercury.d.ts" />
+
 module Mercury.Utils.DateTime {
 
 	interface TimeAgoResult {
