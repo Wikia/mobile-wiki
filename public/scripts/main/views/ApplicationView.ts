@@ -1,5 +1,5 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/headroom/headroom.d.ts" />
+/// <reference path='../app.ts' />
+/// <reference path='../../../../typings/headroom/headroom.d.ts' />
 'use strict';
 
 // TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
@@ -47,8 +47,8 @@ App.ApplicationView = Em.View.extend({
 				initial: 'headroom',
 				pinned: 'pinned',
 				unpinned: 'un-pinned',
-				top : "headroom-top",
-				notTop : "headroom-not-top"
+				top : 'headroom-top',
+				notTop : 'headroom-not-top'
 			}
 		});
 		headroom.init(); 
@@ -110,7 +110,7 @@ App.ApplicationView = Em.View.extend({
 		tap: function (event: Event): void {
 			/**
 			 * check if the target has a parent that is an anchor
-			 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
+			 * We do this for links in the form <a href='...'>Blah <i>Blah</i> Blah</a>,
 			 * because if the user clicks the part of the link in the <i></i> then
 			 * target.tagName will register as 'I' and not 'A'.
 			 */
