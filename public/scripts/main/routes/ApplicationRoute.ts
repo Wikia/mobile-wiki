@@ -49,6 +49,10 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			 * handle links that are external to the application like ?useskin=oasis
 			 */
 			if (target.className.indexOf('external') > -1) {
+				if (target.href.indexOf('useskin=oasis') > -1) {
+					// If using Oasis skin, remove Mercury cookie
+					document.cookie = 'wk_mercury=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+				}
 				return window.location.assign(target.href);
 			}
 
