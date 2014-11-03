@@ -1,12 +1,12 @@
 .local-nav-menu {
 	bottom: 0;
 	left: 0;
-	position: absolute;
-	right: 0;
-	top: rem-calc(44);
 	margin: 0;
 	overflow: auto;
 	padding: 0;
+	position: absolute;
+	right: 0;
+	top: rem-calc(44);
 
 	li {
 		@extend %pointer;
