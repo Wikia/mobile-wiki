@@ -1,6 +1,6 @@
-Em.Handlebars.registerBoundHelper('timeAgo', function (timestamp: number) {
-	var timeDiff = Math.ceil(new Date().getTime() / 1000) - timestamp,
-		months;
+Em.Handlebars.registerBoundHelper('timeAgo', function (unixTimestamp: number) {
+	var timeDiff = Math.ceil(new Date().getTime() / 1000) - unixTimestamp;
+	// now
 	if (timeDiff == 0) {
 		return i18n.t('app:now-label');
 	}
@@ -15,7 +15,7 @@ Em.Handlebars.registerBoundHelper('timeAgo', function (timestamp: number) {
 	}
 	// hours
 	timeDiff = Math.ceil(timeDiff / 60);
-	if (timeDiff < 60) {
+	if (timeDiff < 24) {
 		return i18n.t('app:hours-ago-label', {count: timeDiff});
 	}
 	// days
@@ -24,11 +24,11 @@ Em.Handlebars.registerBoundHelper('timeAgo', function (timestamp: number) {
 		return i18n.t('app:days-ago-label', {count: timeDiff});
 	}
 	// months
-	months = Math.ceil(timeDiff / 30);
-	if (Math.ceil(timeDiff / 30) < 12) {
-		return i18n.t('app:months-ago-label', {count: months});
+	timeDiff = Math.ceil(timeDiff / 30);
+	if (timeDiff < 12) {
+		return i18n.t('app:months-ago-label', {count: timeDiff});
 	}
 	// years
-	timeDiff = Math.ceil(timeDiff / 365);
+	timeDiff = Math.ceil(timeDiff / 12);
 	return i18n.t('app:years-ago-label', {count: timeDiff});
 })
