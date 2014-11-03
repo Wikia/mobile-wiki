@@ -113,6 +113,22 @@ App.MediaLightboxView = App.LightboxView.extend({
 		}
 	},
 
+	/**
+	 * @desc Changes currently displayed item based on a place that was tapped
+	 *
+	 * @param event
+	 */
+	changeMediaOnTap: function (event: HammerEvent): void {
+		debugger;
+		if (this.get('isGallery')) {
+			if (event.center.x > this.get('viewportSize').width / 2) {
+				this.nextMedia();
+			} else {
+				this.prevMedia();
+			}
+		}
+	},
+
 	nextMedia: function () {
 		this.get('controller').incrementProperty('currentGalleryRef');
 		this.resetZoom();
@@ -206,7 +222,11 @@ App.MediaLightboxView = App.LightboxView.extend({
 			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
 			} else {
-				this.send('toggleUI');
+				if (!this.get('isZoomed') ){
+					this.changeMediaOnTap(event);
+				} else {
+					this.send('toggleUI');
+				}
 			}
 		},
 
