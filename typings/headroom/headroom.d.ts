@@ -19,6 +19,7 @@ interface HeadroomOptions {
 }
 
 declare class Headroom {
+	constructor(element: Node, options: HeadroomOptions);
 	constructor(element: Element, options: HeadroomOptions);
 	init: () => void;
 }
