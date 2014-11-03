@@ -1,0 +1,6 @@
+{{#if currentMapUrl}}
+	<iframe class='current' {{bind-attr src=currentMapUrl}} {{bind-attr style=view.style}}>
+{{else}}
+	{{i18n 'media-lightbox-error'}}
+{{/if}}
+

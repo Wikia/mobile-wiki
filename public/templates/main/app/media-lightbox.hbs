@@ -1,6 +1,6 @@
 {{#if currentMedia}}
 	{{#if currentMedia.url}}
-		<img class='current' {{bind-attr src=currentMedia.url}} {{bind-attr style=view.style}}>
+		<img class='current' {{bind-attr src=currentMedia.url}} >
 	{{else}}
 		{{{currentMedia.embed.html}}}
 	{{/if}}
