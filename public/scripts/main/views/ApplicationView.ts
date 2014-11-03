@@ -10,6 +10,7 @@ interface HTMLMouseEvent extends MouseEvent {
 interface DOMStringMap {
 	galleryRef: string;
 	ref: string;
+	trackingCategory: string;
 }
 
 interface EventTarget {

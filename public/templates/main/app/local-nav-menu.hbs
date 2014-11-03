@@ -16,7 +16,8 @@
 {{/if}}
 {{#each currentMenuItem.children}}
 	{{#if children}}
-		<li {{action 'changeMenuItem' index on='mouseUp'}}>
+	{{!The following li has the 'needsclick' class in order for FastClick to pass a synthetic click to the action}}
+		<li {{action 'changeMenuItem' index on='mouseUp'}} class='needsclick'>
 			{{unbound text}}
 			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 		</li>
