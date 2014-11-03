@@ -8,6 +8,10 @@ interface HammerEvent {
 	deltaY: number;
 	scale: number;
 	target: HTMLElement;
+	center: {
+		x: number;
+		y: number;
+	}
 }
 
 interface Window {
