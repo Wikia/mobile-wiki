@@ -119,12 +119,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 * @param {HammerEvent} event
 	 */
 	changeMediaOnTap: function (event: HammerEvent): void {
-		if (this.get('isGallery')) {
-			if (event.center.x > this.get('viewportSize').width / 2) {
-				this.nextMedia();
-			} else {
-				this.prevMedia();
-			}
+		if (event.center.x > this.get('viewportSize').width / 2) {
+			this.nextMedia();
+		} else {
+			this.prevMedia();
 		}
 	},
 
@@ -221,7 +219,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
 			} else {
-				if (!this.get('isZoomed') ){
+				if (!this.get('isZoomed') && this.get('isGallery')) {
 					this.changeMediaOnTap(event);
 				} else {
 					this.send('toggleUI');
