@@ -28,7 +28,8 @@
 	}
 }
 
-.site-head {
+
+.headroom-not-top {
 	transition: transform .5s;
 
 	&.pinned {
@@ -39,4 +40,3 @@
 		transform: translateY(-100%);
 	}
 }
-
