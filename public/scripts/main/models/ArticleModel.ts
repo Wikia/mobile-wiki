@@ -148,10 +148,6 @@ App.ArticleModel.reopenClass({
 				// Same issue: the response to the ajax should always be valid and not undefined
 				data.topContributors = source.topContributors;
 			}
-
-			if (source.basePath) {
-				data.basePath = source.basePath;
-			}
 		}
 
 		model.setProperties(data);
