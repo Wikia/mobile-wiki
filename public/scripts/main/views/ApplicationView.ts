@@ -51,6 +51,7 @@ App.ApplicationView = Em.View.extend({
 				notTop : 'headroom-not-top'
 			}
 		});
+
 		headroom.init(); 
 	},
 
