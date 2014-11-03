@@ -31,6 +31,7 @@ $modal-text-color: white;
 	line-height: 15px;
 	position: absolute;
 	width: 100%;
+	z-index: $z-lightbox-header;
 }
 
 .lightbox-header-title {

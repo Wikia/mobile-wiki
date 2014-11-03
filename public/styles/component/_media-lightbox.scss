@@ -1,12 +1,19 @@
 .media-lightbox {
-	z-index: $z-1;
+	z-index: $z-media-lightbox;
 }
 
 .lightbox-content-inner {
 	align-items: center;
 	display: flex;
 	justify-content: center;
-	z-index: $z-1;
+	z-index: $z-lightbox-content-inner;
+}
+
+.video-provider-ooyala {
+	.innerWrapper {
+		// Ooyala player sets this to 10000
+		z-index: $z-video-provider-ooyala-hack !important;
+	}
 }
 
 .animated-media {

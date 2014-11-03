@@ -23,6 +23,7 @@ module Mercury.Modules.VideoPlayers {
 			super(provider, params);
 			this.started = false;
 			this.ended = false;
+			this.setupContainer();
 			this.setupPlayer();
 		}
 
@@ -32,8 +33,16 @@ module Mercury.Modules.VideoPlayers {
 		// Ooyala JSON payload contains a DOM id
 		public containerId = this.createUniqueId(this.params.playerId);
 
-		setupPlayer (): void {
+		setupContainer (): void {
+			var onResize = () => {
+				this.resizeContainer();
+			};
+			$(window).on('resize', onResize);
 
+			this.resizeContainer();
+		}
+
+		setupPlayer (): void {
 			this.params = $.extend(this.params, {
 				onCreate: () => { return this.onCreate.apply(this, arguments) }
 			});
@@ -67,7 +76,6 @@ module Mercury.Modules.VideoPlayers {
 					this.track('content-begin');
 					this.started = true;
 				}
-
 			});
 
 			// Ad starts
@@ -78,6 +86,30 @@ module Mercury.Modules.VideoPlayers {
 			// Ad has been fully watched
 			messageBus.subscribe(window.OO.EVENTS.ADS_PLAYED, 'tracking', () => {
 				this.track('ad-finish');
+			});
+		}
+
+		resizeContainer (): void {
+			var $container: any = $('#' + this.containerId),
+				$lightbox: any = $('.lightbox-wrapper'),
+				videoWidth: number = this.params.size.width,
+				videoHeight: number = this.params.size.height,
+				lightboxWidth: number = $lightbox.width(),
+				lightboxHeight: number = $lightbox.height(),
+				targetWidth: number,
+				targetHeight: number;
+
+			if (lightboxWidth < lightboxHeight) {
+				targetWidth = lightboxWidth;
+				targetHeight = Math.min(lightboxHeight, ~~(lightboxWidth * videoHeight / videoWidth));
+			} else {
+				targetWidth = Math.min(lightboxWidth, ~~(lightboxHeight * videoWidth / videoHeight));
+				targetHeight = lightboxHeight;
+			}
+
+			$container.css({
+				width: targetWidth,
+				height: targetHeight
 			});
 		}
 	}

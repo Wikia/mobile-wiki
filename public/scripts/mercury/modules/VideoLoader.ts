@@ -20,7 +20,9 @@ module Mercury.Modules {
 
 		constructor (element: HTMLElement, data: any /* tracking cb */) {
 			element.innerHTML = data.html;
+			this.element = element;
 			this.data = data;
+			this.setCssClass();
 			this.loadPlayerClass();
 		}
 
@@ -31,7 +33,13 @@ module Mercury.Modules {
 		loadPlayerClass () {
 			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
 				playerClassStr = playerClassMap[provider] + 'Player',
-				players: any = VideoPlayers;
+				players: any = VideoPlayers,
+				params: any = $.extend(this.data.jsParams, {
+					size: {
+						height: this.data.height,
+						width: this.data.width
+					}
+				});
 
 			// don't attempt to load controls for unsupported player classes
 			if (!playerClassMap[provider]) {
@@ -39,7 +47,12 @@ module Mercury.Modules {
 				return false;
 			}
 
-			this.player = new players[playerClassStr](provider, this.data.jsParams);
+			this.player = new players[playerClassStr](provider, params);
+		}
+
+		setCssClass () {
+			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
+			$(this.element).addClass('video-provider-' + provider);
 		}
 	}
 }
