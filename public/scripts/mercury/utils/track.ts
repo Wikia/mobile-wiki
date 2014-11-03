@@ -127,7 +127,7 @@ module Mercury.Utils {
 			}
 
 			gaTracker = new trackers.GoogleAnalytics();
-			gaTracker.track(category, actions[params.action], label, value, true);
+			gaTracker.track(category, actions[action], label, value, true);
 		}
 
 		if (trackingMethod === 'both' || trackingMethod === 'internal') {
