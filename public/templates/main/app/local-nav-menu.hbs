@@ -1,28 +1,26 @@
-<ul>
-	<li class='title'>
-		{{#if parentItem}}
-			{{currentMenuItem.text}}
-		{{else}}
-			{{i18n 'side-nav-menu-label'}}
-		{{/if}}
-	</li>
+<li class='title'>
 	{{#if parentItem}}
-		<li class='back' {{action 'goBack'}}>
+		{{currentMenuItem.text}}
+	{{else}}
+		{{i18n 'side-nav-menu-label'}}
+	{{/if}}
+</li>
+{{#if parentItem}}
+	<li class='back' {{action 'goBack'}}>
+		{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+		{{i18n 'navigation-back-label'}}
+	</li>
+{{else}}
+	<li><a href='/wiki/Special:Random'>{{i18n 'random-page-label'}}</a></li>
+{{/if}}
+{{#each currentMenuItem.children}}
+	{{#if children}}
+	{{!The following li has the 'needsclick' class in order for FastClick to pass a synthetic click to the action}}
+		<li {{action 'changeMenuItem' index on='mouseUp'}} class='needsclick'>
+			{{unbound text}}
 			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-			{{i18n 'navigation-back-label'}}
 		</li>
 	{{else}}
-        <li><a href='/wiki/Special:Random'>{{i18n 'random-page-label'}}</a></li>
+        <li><a {{action 'collapseSideNav' target='view.parentView' on='mouseUp'}} href='{{unbound href}}'>{{unbound text}}</a></li>
 	{{/if}}
-	{{#each currentMenuItem.children}}
-		{{#if children}}
-			{{!The following li has the 'needsclick' class in order for FastClick to pass a synthetic click to the action}}
-			<li {{action 'changeMenuItem' index on='mouseUp'}} class="needsclick"> 
-				{{unbound text}}
-				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-			</li>
-		{{else}}
-			<a {{action 'collapseSideNav' target='view.parentView' on='mouseUp'}} href='{{unbound href}}'><li>{{unbound text}}</li></a>
-		{{/if}}
-	{{/each}}
-</ul>
+{{/each}}
