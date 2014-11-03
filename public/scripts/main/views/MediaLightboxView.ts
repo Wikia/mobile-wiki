@@ -116,10 +116,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 	/**
 	 * @desc Changes currently displayed item based on a place that was tapped
 	 *
-	 * @param event
+	 * @param {HammerEvent} event
 	 */
 	changeMediaOnTap: function (event: HammerEvent): void {
-		debugger;
 		if (this.get('isGallery')) {
 			if (event.center.x > this.get('viewportSize').width / 2) {
 				this.nextMedia();
