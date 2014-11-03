@@ -219,7 +219,8 @@ App.MediaLightboxView = App.LightboxView.extend({
 			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
 			} else {
-				if (!this.get('isZoomed') && this.get('isGallery')) {
+				if (this.get('controller').get('currentMedia').type === 'image' &&
+					!this.get('isZoomed') && this.get('isGallery')) {
 					this.changeMediaOnTap(event);
 				} else {
 					this.send('toggleUI');
