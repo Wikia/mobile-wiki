@@ -47,8 +47,8 @@ App.ApplicationView = Em.View.extend({
 				initial: 'headroom',
 				pinned: 'pinned',
 				unpinned: 'un-pinned',
-				top : 'headroom-top',
-				notTop : 'headroom-not-top'
+				top: 'headroom-top',
+				notTop: 'headroom-not-top'
 			}
 		});
 
