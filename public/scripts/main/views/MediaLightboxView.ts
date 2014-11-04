@@ -231,12 +231,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 				this.send('toggleFooter');
 			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
+			} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
+				this.changeMediaOnTap(event);
 			} else {
-				if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
-					this.changeMediaOnTap(event);
-				} else {
-					this.send('toggleUI');
-				}
+				this.send('toggleUI');
 			}
 		},
 
