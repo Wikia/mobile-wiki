@@ -89,6 +89,10 @@ module Mercury.Modules.VideoPlayers {
 			});
 		}
 
+		/**
+		 * Sets CSS width and height for the video container.
+		 * They're calculated basing on lightbox's dimensions and video's aspect ratio.
+		 */
 		resizeContainer (): void {
 			var $container: any = $('#' + this.containerId),
 				$lightbox: any = $('.lightbox-wrapper'),
