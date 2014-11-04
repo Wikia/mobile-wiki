@@ -5,7 +5,7 @@
  * @desc Helper to give textual representation of time interval between past date
  * and the current time/date in the form
  *
- * {timeAgo unixTimestam}
+ * {timeAgo unixTimestamp}
  *
  * which returns something like '2 days ago'
  */
@@ -13,7 +13,7 @@ Em.Handlebars.registerBoundHelper('timeAgo', function (unixTimestamp: number) {
 	var fromDate = new Date(unixTimestamp * 1000),
 		interval = M.DateTime.timeAgo(fromDate);
 
-	switch(interval.type) {
+	switch (interval.type) {
 		case M.DateTime.Interval.Now:
 			return i18n.t('app:now-label');
 		case M.DateTime.Interval.Second:
