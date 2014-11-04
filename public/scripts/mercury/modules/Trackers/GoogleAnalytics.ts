@@ -115,6 +115,13 @@ module Mercury.Modules.Trackers {
 		 */
 		trackPageView (): void {
 			this.queue.push(['_trackPageview']);
+
+			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
+			}
+			if (this.accounts[this.accountMercury]) {
+				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackPageview']);
+			}
 		}
 	}
 }
