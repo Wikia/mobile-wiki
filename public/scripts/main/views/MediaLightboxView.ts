@@ -118,6 +118,15 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	/**
+	 * @desc Checks if a currently displayed media is of a given type
+	 * @param {string} type e.g, image / video
+	 * @returns {boolean}
+	 */
+	isCurrentMediaType: function (type: string): boolean {
+		return this.get('controller').get('currentMedia').type === type;
+	},
+
+	/**
 	 * @desc Changes currently displayed item based on a place that was tapped
 	 *
 	 * @param {HammerEvent} event
@@ -223,8 +232,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
 			} else {
-				if (this.get('controller').get('currentMedia').type === 'image' &&
-					!this.get('isZoomed') && this.get('isGallery')) {
+				if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
 					this.changeMediaOnTap(event);
 				} else {
 					this.send('toggleUI');
