@@ -31,8 +31,8 @@ module Mercury.Modules {
 		}
 
 		loadPlayerClass () {
-			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
-				playerClassStr = playerClassMap[provider] + 'Player',
+			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
+				playerClassStr: string = playerClassMap[provider] + 'Player',
 				players: any = VideoPlayers,
 				params: any = $.extend(this.data.jsParams, {
 					size: {
@@ -51,7 +51,7 @@ module Mercury.Modules {
 		}
 
 		setCssClass () {
-			var provider = this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
+			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 			$(this.element).addClass('video-provider-' + provider);
 		}
 	}
