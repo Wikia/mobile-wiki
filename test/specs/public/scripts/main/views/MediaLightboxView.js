@@ -1,7 +1,6 @@
 moduleFor('view:media-lightbox', 'Media Lightbox Controller');
 
 test('if changeMediaOnTap changes current media', function () {
-	expect(2);
 	var mediaLightboxView = this.subject({
 			nextMedia: function () {
 				nextMediaWasTapped = true;
@@ -37,7 +36,6 @@ test('if changeMediaOnTap changes current media', function () {
 });
 
 test('if isCurrentMediaType method recognizes media', function () {
-	expect(1);
 	var mediaLightboxView = this.subject({
 			get: function () {
 				return {
