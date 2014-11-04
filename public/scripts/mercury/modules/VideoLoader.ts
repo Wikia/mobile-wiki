@@ -54,5 +54,9 @@ module Mercury.Modules {
 			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 			$(this.element).addClass('video-provider-' + provider);
 		}
+
+		onResize () {
+			this.player.onResize();
+		}
 	}
 }
