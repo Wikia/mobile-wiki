@@ -42,6 +42,16 @@ App.SideNavController = Em.Controller.extend({
 				category: 'menu',
 				label: 'close'
 			});
+		},
+
+		/**
+		 * TODO: Refactor, use api
+		 *
+		 * Temporary solution for enter on search, will be refactored to be a route in mercury
+		 * @param value of input
+		 */
+		enter: function (value = '') {
+			window.location.assign('/wiki/Special:Search?query=%@&fulltext=Search'.fmt(value));
 		}
 	}
 });

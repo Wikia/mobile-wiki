@@ -8,6 +8,10 @@ interface HammerEvent {
 	deltaY: number;
 	scale: number;
 	target: HTMLElement;
+	center: {
+		x: number;
+		y: number;
+	}
 }
 
 interface Window {
@@ -113,6 +117,28 @@ App.MediaLightboxView = App.LightboxView.extend({
 		}
 	},
 
+	/**
+	 * @desc Checks if a currently displayed media is of a given type
+	 * @param {string} type e.g, image / video
+	 * @returns {boolean}
+	 */
+	isCurrentMediaType: function (type: string): boolean {
+		return this.get('controller').get('currentMedia').type === type;
+	},
+
+	/**
+	 * @desc Changes currently displayed item based on a place that was tapped
+	 *
+	 * @param {HammerEvent} event
+	 */
+	changeMediaOnTap: function (event: HammerEvent): void {
+		if (event.center.x > this.get('viewportSize').width / 2) {
+			this.nextMedia();
+		} else {
+			this.prevMedia();
+		}
+	},
+
 	nextMedia: function () {
 		this.get('controller').incrementProperty('currentGalleryRef');
 		this.resetZoom();
@@ -203,8 +229,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 			if ($target.is('.lightbox-footer')) {
 				this.send('toggleFooter');
-			} else if ($target.is('.close-icon')) {
+			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
+			} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
+				this.changeMediaOnTap(event);
 			} else {
 				this.send('toggleUI');
 			}

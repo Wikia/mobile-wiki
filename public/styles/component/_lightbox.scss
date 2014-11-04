@@ -29,19 +29,25 @@ $modal-text-color: white;
 .lightbox-header {
 	height: 40px;
 	line-height: 15px;
-	padding: 15px 13px;
 	position: absolute;
 	width: 100%;
-	z-index: 1;
+}
+
+.lightbox-header-title {
+	float: left;
+	padding: 15px 13px;
+}
+
+.lightbox-close-wrapper {
+	float: right;
+	padding: 13px;
+	width: 40px;
 }
 
 .lightbox-close-button {
-	height: 45px;
-	padding: 13px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 40px;
+	height: 15px;
+	pointer-events: none;
+	width: 15px;
 	z-index: $z-lightbox-close-button;
 }
 

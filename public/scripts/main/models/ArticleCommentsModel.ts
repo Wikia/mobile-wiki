@@ -4,9 +4,9 @@
 
 App.ArticleCommentsModel = Em.Object.extend({
 	articleId: null,
-	comments: null,
+	comments: 0,
 	users: null,
-	pagesCount: null,
+	pagesCount: 0,
 	page: 0,
 
 	fetch: function () {
@@ -30,9 +30,9 @@ App.ArticleCommentsModel = Em.Object.extend({
 
 	reset: function () {
 		this.setProperties({
-			comments: null,
+			comments: 0,
 			users: null,
-			pagesCount: null
+			pagesCount: 0
 		});
 	}.observes('articleId'),
 

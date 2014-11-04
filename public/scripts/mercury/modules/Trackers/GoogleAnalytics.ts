@@ -34,7 +34,7 @@ module Mercury.Modules.Trackers {
 				];
 
 			this.accounts = Mercury.tracking.ga;
-			this.queue = window._gaq = window._gaq || [];
+			this.queue = window._gaq || [];
 
 			// Primary account
 			this.initAccount(this.accountPrimary);
@@ -59,7 +59,7 @@ module Mercury.Modules.Trackers {
 			}
 
 			// Send skin as custom variable
-			this.queue.push(['_setCustomVar', '4', 'Skin', 'mercury', '3']);
+			this.queue.push(['_setCustomVar', 4, 'Skin', 'mercury', 3]);
 		}
 
 		/**
@@ -100,7 +100,6 @@ module Mercury.Modules.Trackers {
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
-
 			this.queue.push(['_trackEvent'].concat(args));
 
 			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
@@ -115,7 +114,14 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
-			this.queue.push(['_trackPageView']);
+			this.queue.push(['_trackPageview']);
+
+			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
+			}
+			if (this.accounts[this.accountMercury]) {
+				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackPageview']);
+			}
 		}
 	}
 }
