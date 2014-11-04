@@ -35,3 +35,22 @@ test('if changeMediaOnTap changes current media', function () {
 	mediaLightboxView.changeMediaOnTap(tapEventLeft);
 	equal(prevMediaWasTapped, true);
 });
+
+test('if isCurrentMediaType method recognizes media', function () {
+	expect(1);
+	var mediaLightboxView = this.subject({
+			get: function () {
+				return {
+					get: function () {
+						return {
+							type: 'image'
+						}
+					}
+				}
+			}
+		}),
+		isMediaTypeImage = false;
+
+	isMediaTypeImage = mediaLightboxView.isCurrentMediaType('image');
+	equal(isMediaTypeImage, true);
+});
