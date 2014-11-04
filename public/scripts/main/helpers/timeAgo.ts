@@ -1,9 +1,17 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/dateTime.ts" />
+
+/**
+ * @desc Helper to give textual representation of time interval between past date
+ * and the current time/date in the form
+ *
+ * {timeAgo unixTimestam}
+ *
+ * which returns something like '2 days ago'
+ */
 Em.Handlebars.registerBoundHelper('timeAgo', function (unixTimestamp: number) {
 	var fromDate = new Date(unixTimestamp * 1000),
-		toDate = new Date(),
-		interval = M.DateTime.timeAgo(fromDate, toDate);
+		interval = M.DateTime.timeAgo(fromDate);
 
 	switch(interval.type) {
 		case M.DateTime.Interval.Now:

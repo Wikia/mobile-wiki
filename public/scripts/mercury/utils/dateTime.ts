@@ -1,12 +1,18 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 
+interface TimeAgoResult {
+	type: Mercury.Utils.DateTime.Interval
+	value: number
+}
+
+/**
+ * @desc Helper functions to deal with Date and time
+ */
 module Mercury.Utils.DateTime {
 
-	interface TimeAgoResult {
-		type: Interval
-		value: number
-	}
-
+	/**
+	 * Interval types
+	 */
 	export enum Interval {
 		Now,
 		Second,
@@ -17,7 +23,14 @@ module Mercury.Utils.DateTime {
 		Year
 	}
 
-	export function timeAgo (from: Date, to: Date): TimeAgoResult {
+	/**
+	 * Returns Interval type and value given two dates
+	 *
+	 * @param from Date in the past
+	 * @param to Optional date in the future. Defaults to current date/time
+	 * @returns TimeAgoResult
+	 */
+	export function timeAgo (from: Date, to: Date = new Date()): TimeAgoResult {
 		var timeDiff = Math.floor((to.getTime() - from.getTime()) / 1000);
 
 		if (timeDiff == 0) {
@@ -72,5 +85,4 @@ module Mercury.Utils.DateTime {
 			value: timeDiff
 		}
 	}
-
 }
