@@ -1,7 +1,7 @@
 {
   "app":{
+    "article-empty-label":"Sorry, this article seems to be empty!",
     "article-toc-label":"Indice",
-    "article-toc-comments-label":"Commenti",
     "article-comments-label":"__count__ commento",
     "article-comments-label_plural":"__count__ commenti",
     "article-replies-label":"Leggi __count__ risposta",
@@ -11,12 +11,12 @@
     "article-last-edit_plural_0":"Ultima modifica questa settimana",
     "article-last-edit_plural_2":"Ultima modifica __count__ settimane fa",
     "article-categories-list-label":"Categorie",
-    "article-top-contributors-label":"Migliori contributori di questo Wiki",
-    "side-nav-menu-label":"Menu",
+    "article-top-contributors-label":"Maggiori contributori di questa wiki",
+    "side-nav-menu-label":"Menù",
     "navigation-back-label":"Indietro",
     "search-no-results-msg":"Siamo spiacenti, non abbiamo trovato nulla che soddisfi la tua ricerca!",
     "search-loading-msg":"Risultati della ricerca in caricamento...",
-    "media-lightbox-error":"Supporto non trovato",
+    "media-lightbox-error":"Media non trovato",
     "comments-prev-button":"Pagina precedente",
     "comments-next-button":"Pagina successiva",
     "hub-games":"Giochi",
@@ -25,10 +25,16 @@
     "hub-comics":"Fumetti",
     "hub-music":"Musica",
     "hub-books":"Libri",
-    "hub-lifestyle":"Lifestyle",
+    "hub-lifestyle":"Stili di vita",
     "footer-link-full-site":"Sito completo",
     "footer-link-licensing":"Licenza",
     "footer-link-privacy-policy":"Informativa sulla privacy",
-    "footer-link-feedback":"Feedback"
+    "footer-link-feedback":"Feedback",
+    "media-video-views":"__count__ view",
+    "media-video-views_plural":"__count__ views",
+    "media-video-views_plural_0":"__count__ views",
+    "page-not-found-error":"Sorry, we can't find the page you are looking for.",
+    "page-not-found-message":"Use Navigation or Search",
+    "random-page-label":"Random Page"
   }
 }

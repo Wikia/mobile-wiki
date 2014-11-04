@@ -1,7 +1,7 @@
 {
   "app":{
+    "article-empty-label":"Sorry, this article seems to be empty!",
     "article-toc-label":"Inhoudsopgave",
-    "article-toc-comments-label":"Reacties",
     "article-comments-label":"__count__ reactie",
     "article-comments-label_plural":"__count__ reacties",
     "article-replies-label":"__count__ antwoord weergeven",
@@ -29,6 +29,12 @@
     "footer-link-full-site":"Volledige site",
     "footer-link-licensing":"Licentieverlening",
     "footer-link-privacy-policy":"Privacybeleid",
-    "footer-link-feedback":"Feedback"
+    "footer-link-feedback":"Feedback",
+    "media-video-views":"__count__ view",
+    "media-video-views_plural":"__count__ views",
+    "media-video-views_plural_0":"__count__ views",
+    "page-not-found-error":"Sorry, we can't find the page you are looking for.",
+    "page-not-found-message":"Use Navigation or Search",
+    "random-page-label":"Random Page"
   }
 }

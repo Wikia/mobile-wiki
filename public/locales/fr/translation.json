@@ -1,7 +1,7 @@
 {
   "app":{
+    "article-empty-label":"Sorry, this article seems to be empty!",
     "article-toc-label":"Sommaire",
-    "article-toc-comments-label":"Commentaires",
     "article-comments-label":"__count__ commentaire",
     "article-comments-label_plural":"__count__ commentaires",
     "article-replies-label":"Afficher __count__ réponse",
@@ -29,6 +29,12 @@
     "footer-link-full-site":"Site complet",
     "footer-link-licensing":"Licence",
     "footer-link-privacy-policy":"Politique de confidentialité",
-    "footer-link-feedback":"Avis"
+    "footer-link-feedback":"Avis",
+    "media-video-views":"__count__ view",
+    "media-video-views_plural":"__count__ views",
+    "media-video-views_plural_0":"__count__ views",
+    "page-not-found-error":"Sorry, we can't find the page you are looking for.",
+    "page-not-found-message":"Use Navigation or Search",
+    "random-page-label":"Random Page"
   }
 }

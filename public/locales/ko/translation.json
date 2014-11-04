@@ -1,7 +1,7 @@
 {
   "app":{
+    "article-empty-label":"이 문서는 비어 있습니다.",
     "article-toc-label":"목차",
-    "article-toc-comments-label":"댓글",
     "article-comments-label":"댓글 __count__개",
     "article-comments-label_plural":"댓글 __count__개",
     "article-replies-label":"답글 __count__개 보기",
@@ -29,6 +29,12 @@
     "footer-link-full-site":"전체 사이트",
     "footer-link-licensing":"라이선스",
     "footer-link-privacy-policy":"개인 정보 보호 정책",
-    "footer-link-feedback":"피드백"
+    "footer-link-feedback":"피드백",
+    "media-video-views":"__count__회 조회",
+    "media-video-views_plural":"__count__회 조회",
+    "media-video-views_plural_0":"__count__회 조회",
+    "page-not-found-error":"해당 문서를 찾을 수 없습니다.",
+    "page-not-found-message":"내비게이션 혹은 검색 기능 사용하기",
+    "random-page-label":"임의 문서"
   }
 }

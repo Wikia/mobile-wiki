@@ -1,12 +1,12 @@
 {
   "app":{
+    "article-empty-label":"Niestety ten artykuł wydaje się być pusty!",
     "article-toc-label":"Spis treści",
-    "article-toc-comments-label":"Komentarze",
     "article-comments-label":"__count__ komentarz",
     "article-comments-label_plural":"__count__ komentarze",
-    "article-replies-label":"Zobacz __count__ odpowiedz",
+    "article-replies-label":"Zobacz __count__ odpowiedź",
     "article-replies-label_plural":"Zobacz __count__ odpowiedzi",
-    "article-suggestions-label":"Czytaj więcej",
+    "article-suggestions-label":"Czytaj dalej",
     "article-last-edit":"Ostatnio edytowane 1 tydzień temu",
     "article-last-edit_plural_0":"Ostatnio edytowane w tym tygodniu",
     "article-last-edit_plural_2":"Ostatnio edytowane __count__ tygodni temu",
@@ -14,7 +14,7 @@
     "article-top-contributors-label":"Najlepsi współtwórcy tej wiki",
     "side-nav-menu-label":"Menu",
     "navigation-back-label":"Wstecz",
-    "search-no-results-msg":"Niestety, nie znaleźliśmy wyników pasujących do twojego zapytania!",
+    "search-no-results-msg":"Niestety, nie znaleźliśmy wyników pasujących do Twojego zapytania!",
     "search-loading-msg":"Ładowanie wyników wyszukiwania...",
     "media-lightbox-error":"Nie znaleziono mediów",
     "comments-prev-button":"Poprzednia strona",
@@ -25,10 +25,16 @@
     "hub-comics":"Komiksy",
     "hub-music":"Muzyka",
     "hub-books":"Książki",
-    "hub-lifestyle":"Styl życia",
-    "footer-link-full-site":"Wersja desktopowa",
+    "hub-lifestyle":"Lifestyle",
+    "footer-link-full-site":"Pełna wersja",
     "footer-link-licensing":"Licencja",
     "footer-link-privacy-policy":"Polityka prywatności",
-    "footer-link-feedback":"Opinia"
+    "footer-link-feedback":"Opinie",
+    "media-video-views":"__count__ odsłona",
+    "media-video-views_plural":"__count__ odsłon",
+    "media-video-views_plural_0":"__count__ odsłon",
+    "page-not-found-error":"Niestety nie możemy znaleźć strony, której szukasz.",
+    "page-not-found-message":"Użyj Nawigacji lub Wyszukiwarki",
+    "random-page-label":"Losowa Strona"
   }
 }
