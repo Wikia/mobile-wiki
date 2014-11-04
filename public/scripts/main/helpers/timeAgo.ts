@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../mercury/utils/dateTime.ts" />
 Em.Handlebars.registerBoundHelper('timeAgo', function (unixTimestamp: number) {
 	var fromDate = new Date(unixTimestamp * 1000),
 		toDate = new Date(),
