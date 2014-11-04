@@ -7,6 +7,9 @@ test('if changeMediaOnTap changes current media', function () {
 			},
 			prevMedia: function () {
 				prevMediaWasTapped = true;
+			},
+			viewportSize: {
+				width: 480
 			}
 		}),
 		tapEventRight = {
@@ -21,12 +24,6 @@ test('if changeMediaOnTap changes current media', function () {
 		},
 		nextMediaWasTapped = false,
 		prevMediaWasTapped = false;
-
-	Ember.run(function () {
-		mediaLightboxView.set('viewportSize', {
-			width: 480
-		});
-	});
 
 	mediaLightboxView.changeMediaOnTap(tapEventRight);
 	equal(nextMediaWasTapped, true);
