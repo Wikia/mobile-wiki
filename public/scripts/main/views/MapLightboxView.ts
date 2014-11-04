@@ -9,15 +9,9 @@ interface Window {
 App.MapLightboxView = App.LightboxView.extend({
 	classNames: ['map-lightbox'],
 	templateName: 'app/map-lightbox',
-	maxZoom: 5,
-	lastX: 0,
-	lastY: 0,
-	lastScale: 1,
 	//opening, open
 	//before didInsertElement the lightbox is opening
 	status: 'opening',
-
-	isZoomed: Em.computed.gt('scale', 1),
 
 	viewportSize: function () {
 		return {
@@ -40,23 +34,6 @@ App.MapLightboxView = App.LightboxView.extend({
 	imageHeight: function (): number {
 		return this.get('image').height() * this.get('scale');
 	}.property('image', 'scale'),
-
-
-
-	/**
-	 * @desc returns limited value for given max ie.
-	 * value = 5, max = 6, return 5
-	 * value = 6, max = 3, return 3
-	 * value = -5, max = -6, return -5
-	 * value = -6, max = -3, return -3
-	 */
-	limit: function (value: number, max: number): number {
-		if (value < 0) {
-			return Math.max(value, -max);
-		} else {
-			return Math.min(value, max);
-		}
-	},
 
 
 	/**

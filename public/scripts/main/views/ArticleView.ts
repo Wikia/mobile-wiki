@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
+/// <reference path="../components/WikiaMapsComponent.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -63,6 +64,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.replaceMapsWithMapComponents();
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
@@ -150,6 +152,27 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
+	},
+
+	replaceMapsWithMapComponents: function(){
+		this.$('.wikia-interactive-map-thumbnail').map((i:number, elem: HTMLElement) => {
+			this.replaceWithMapComponent(elem);
+		})
+	},
+
+	replaceWithMapComponent:function (elem: HTMLElement){
+		var child = elem.$('.wikia-interctive-map-link');
+		var map = this.createChildView(App.WikiaMapsComponent.create(), {
+			context: {
+				url: child.getAttribute('data-map-url'),
+				//url: 'o2.pl'
+				tag: elem.tagName,
+				title: elem.id,
+				text: 'MAPA diana'
+			}
+		});
+		map.createElement();
+		this.$(elem).replaceWith(map.$());
 	},
 
 	/**
