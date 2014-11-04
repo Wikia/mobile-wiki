@@ -10,9 +10,9 @@
 }
 
 .video-provider-ooyala {
+	// Ooyala player (3rd party script) sets z-index to 10000 and it breaks our layout, needs to be overridden
 	.innerWrapper {
-		// Ooyala player sets this to 10000
-		z-index: $z-video-provider-ooyala-hack !important;
+		z-index: $z-video-provider-ooyala-override !important;
 	}
 }
 
