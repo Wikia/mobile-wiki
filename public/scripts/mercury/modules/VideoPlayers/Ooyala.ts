@@ -1,4 +1,5 @@
 /// <reference path="../../../baseline/mercury.d.ts" />
+/// <reference path="../../utils/calculation.ts" />
 /// <reference path="./Base.ts" />
 
 interface Window {
@@ -82,7 +83,6 @@ module Mercury.Modules.VideoPlayers {
 
 		/**
 		 * Sets CSS width and height for the video container.
-		 * They're calculated basing on lightbox's dimensions and video's aspect ratio.
 		 */
 		onResize (): void {
 			var $container: any = $('#' + this.containerId),
@@ -91,20 +91,18 @@ module Mercury.Modules.VideoPlayers {
 				videoHeight: number = this.params.size.height,
 				lightboxWidth: number = $lightbox.width(),
 				lightboxHeight: number = $lightbox.height(),
-				targetWidth: number,
-				targetHeight: number;
+				targetSize: ContainerSize;
 
-			if (lightboxWidth < lightboxHeight) {
-				targetWidth = lightboxWidth;
-				targetHeight = Math.min(lightboxHeight, ~~(lightboxWidth * videoHeight / videoWidth));
-			} else {
-				targetWidth = Math.min(lightboxWidth, ~~(lightboxHeight * videoWidth / videoHeight));
-				targetHeight = lightboxHeight;
-			}
+			targetSize = Mercury.Utils.Calculation.containerSize(
+				lightboxWidth,
+				lightboxHeight,
+				videoWidth,
+				videoHeight
+			);
 
 			$container.css({
-				width: targetWidth,
-				height: targetHeight
+				width: targetSize.width,
+				height: targetSize.height
 			});
 		}
 	}

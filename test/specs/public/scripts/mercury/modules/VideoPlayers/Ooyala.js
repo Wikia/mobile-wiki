@@ -23,4 +23,3 @@ QUnit.test('resourceURI is set', function () {
 QUnit.test('containerId is set', function () {
 	ok(this.player.containerId.match('testId'));
 });
-
