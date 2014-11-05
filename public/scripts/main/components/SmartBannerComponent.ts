@@ -24,7 +24,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	day: 86400000,
 
 	style: function () {
-		return "background-image: url(%@)".fmt(this.get('icon'));
+		return 'background-image: url(%@)'.fmt(this.get('icon'));
 	}.property('icon'),
 
 	init: function () {
@@ -76,7 +76,6 @@ App.SmartBannerComponent = Em.Component.extend({
 				title: smartbanner.name,
 				icon: smartbanner.icon,
 				type: type,
-				gloss: (type === 'ios') ? 'gloss' : '',
 				inStore: inStore,
 				link: link,
 				show: true
