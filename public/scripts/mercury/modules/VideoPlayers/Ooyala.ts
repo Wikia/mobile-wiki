@@ -1,3 +1,4 @@
+/// <reference path="../../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../baseline/mercury.d.ts" />
 /// <reference path="../../utils/calculation.ts" />
 /// <reference path="./Base.ts" />
@@ -85,8 +86,8 @@ module Mercury.Modules.VideoPlayers {
 		 * Sets CSS width and height for the video container.
 		 */
 		onResize (): void {
-			var $container: any = $('#' + this.containerId),
-				$lightbox: any = $('.lightbox-wrapper'),
+			var $container: JQuery = $('#' + this.containerId),
+				$lightbox: JQuery = $('.lightbox-wrapper'),
 				videoWidth: number = this.params.size.width,
 				videoHeight: number = this.params.size.height,
 				lightboxWidth: number = $lightbox.width(),
