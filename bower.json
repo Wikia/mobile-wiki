@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "ember": "1.8.0",
+    "ember": "1.8.1",
     "foundation": "5.4.6",
     "i18next": "1.7.4",
     "script.js": "2.5.7",
