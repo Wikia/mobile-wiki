@@ -142,7 +142,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 */
 	getScreenArea: function (event: HammerEvent): number {
 		var x = event.center.x,
-			thirdPartOfScreen = this.get('viewportSize').width,
+			thirdPartOfScreen = this.get('viewportSize').width / 3,
 			screenAreas = this.get('screenAreas');
 		if (x < thirdPartOfScreen) {
 			return screenAreas.left;
