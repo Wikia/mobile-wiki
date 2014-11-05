@@ -25,7 +25,7 @@ module Mercury.Modules.Trackers {
 				c1: '2',
 				c2: id,
 				options: {
-					url_append: id + '=' + c7Value
+					url_append: comscore.keyword + '=' + c7Value
 				}
 			});
 
