@@ -1,5 +1,5 @@
 <img {{bind-attr src=imageSrc}} {{bind-attr style=style}}>
 <figcaption>
-	<div>{{media.title}} ({{duration media.duration}}, {{i18n 'media-video-views' count='media.views'}})</div>
+	<div>{{media.title}} ({{#if media.duration}}{{duration media.duration}}, {{/if}}{{i18n 'media-video-views' count='media.views'}})</div>
 	{{caption}}
 </figcaption>
