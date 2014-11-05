@@ -22,7 +22,7 @@ module Mercury.Modules {
 			element.innerHTML = data.html;
 			this.element = element;
 			this.data = data;
-			this.setCssClass();
+			this.setCSSClass();
 			this.loadPlayerClass();
 		}
 
@@ -50,7 +50,7 @@ module Mercury.Modules {
 			this.player = new players[playerClassStr](provider, params);
 		}
 
-		setCssClass () {
+		setCSSClass () {
 			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 			$(this.element).addClass('video-provider-' + provider);
 		}
