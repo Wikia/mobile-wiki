@@ -164,6 +164,8 @@ App.MediaLightboxView = App.LightboxView.extend({
 			this.nextMedia();
 		} else if (screenArea === screenAreas.left) {
 			this.prevMedia();
+		} else {
+			this.send('toggleUI');
 		}
 	},
 
