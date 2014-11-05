@@ -74,6 +74,15 @@
 	.content {
 		@extend .small-9;
 		padding-right: rem-calc(20);
+
+		.content {
+			padding-right: 0;
+		}
+	}
+
+	.timestamp {
+		color: $color-gray-semi;
+		float: right;
 	}
 
 	.username {
