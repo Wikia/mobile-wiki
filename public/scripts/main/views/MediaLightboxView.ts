@@ -128,14 +128,17 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 	/**
 	 * @desc Changes currently displayed item based on a place that was tapped
+	 * Currently 33%-wide sides of the screen trigger the media change
 	 *
 	 * @param {HammerEvent} event
 	 */
 	changeMediaOnTap: function (event: HammerEvent): void {
-		if (event.center.x > this.get('viewportSize').width / 2) {
-			this.nextMedia();
-		} else {
+		var tapX = event.center.x,
+			oneThirdOfScreen = this.get('viewportSize').width / 3;
+		if (tapX < oneThirdOfScreen) {
 			this.prevMedia();
+		} else if (tapX > 2 * oneThirdOfScreen) {
+			this.nextMedia();
 		}
 	},
 
