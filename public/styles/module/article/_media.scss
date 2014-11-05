@@ -101,9 +101,7 @@ figcaption {
 		z-index: 1;
 
 		div {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+			@extend %ellipsis;
 		}
 	}
 }
