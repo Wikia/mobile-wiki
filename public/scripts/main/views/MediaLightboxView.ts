@@ -33,14 +33,19 @@ App.MediaLightboxView = App.LightboxView.extend({
 	isGallery: Em.computed.alias('controller.isGallery'),
 	isZoomed: Em.computed.gt('scale', 1),
 
-	partsOfScreen: function () {
-		return enum parts {left, center, right}
-	}.property(),
-
 	viewportSize: function () {
 		return {
 			width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 			height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+		};
+	}.property(),
+
+	//Easy to port if we find a way to use enum here
+	screenAreas: function () {
+		return {
+			left: 0,
+			center: 1,
+			right: 2
 		};
 	}.property(),
 
@@ -130,17 +135,23 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return this.get('controller').get('currentMedia').type === type;
 	},
 
-	getTappedArea: function (event: HammerEvent): number {
-		var tapX = event.center.x,
-			thirdPartOfScreen = this.get('viewportSize').width;
-		if (tapX < thirdPartOfScreen) {
-			return partsOfScreen.left;
-		} else if (tapX > 2 * thirdPartOfScreen) {
-			return partsOfScreen.left;
+	/**
+	 * @desc Checks on which area on the screen an event took place
+	 * @param {HammerEvent} event
+	 * @returns {number}
+	 */
+	getScreenArea: function (event: HammerEvent): number {
+		var x = event.center.x,
+			thirdPartOfScreen = this.get('viewportSize').width,
+			screenAreas = this.get('screenAreas');
+		if (x < thirdPartOfScreen) {
+			return screenAreas.left;
+		} else if (x > 2 * thirdPartOfScreen) {
+			return screenAreas.right;
 		} else {
-			return partsOfScreen.center;
+			return screenAreas.center;
 		}
-	}
+	},
 
 	/**
 	 * @desc Changes currently displayed item based on a place that was tapped
@@ -149,12 +160,12 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 * @param {HammerEvent} event
 	 */
 	changeMediaOnTap: function (event: HammerEvent): void {
-		var tapX = event.center.x,
-			oneThirdOfScreen = this.get('viewportSize').width / 3;
-		if (tapX < oneThirdOfScreen) {
-			this.prevMedia();
-		} else if (tapX > 2 * oneThirdOfScreen) {
+		var screenArea = this.getScreenArea(event),
+			screenAreas = this.get('screenAreas');
+		if (screenArea === screenAreas.right) {
 			this.nextMedia();
+		} else if (screenArea === screenAreas.left) {
+			this.prevMedia();
 		}
 	},
 
@@ -235,7 +246,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 		},
 
 		doubleTap: function (event: HammerEvent) {
-			if ( event.center.x > this.get('viewportSize').width / 3 && event.center.x < 2* this.get('viewportSize').width / 3 ) {
+			if ( this.getScreenArea(event) === this.get('screenAreas').center ) {
 				var scale = this.get('scale') > 1 ? 1 : 3;
 
 				this.setProperties({
