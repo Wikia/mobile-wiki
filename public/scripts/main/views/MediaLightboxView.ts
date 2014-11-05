@@ -41,13 +41,11 @@ App.MediaLightboxView = App.LightboxView.extend({
 	}.property(),
 
 	//Easy to port if we find a way to use enum here
-	screenAreas: function () {
-		return {
-			left: 0,
-			center: 1,
-			right: 2
-		};
-	}.property(),
+	screenAreas:  {
+		left: 0,
+		center: 1,
+		right: 2
+	},
 
 	/**
 	 * @desc calculates current scale for zooming
