@@ -33,6 +33,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 	isGallery: Em.computed.alias('controller.isGallery'),
 	isZoomed: Em.computed.gt('scale', 1),
 
+	partsOfScreen: function () {
+		return enum parts {left, center, right}
+	}.property(),
+
 	viewportSize: function () {
 		return {
 			width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -126,6 +130,18 @@ App.MediaLightboxView = App.LightboxView.extend({
 		return this.get('controller').get('currentMedia').type === type;
 	},
 
+	getTappedArea: function (event: HammerEvent): number {
+		var tapX = event.center.x,
+			thirdPartOfScreen = this.get('viewportSize').width;
+		if (tapX < thirdPartOfScreen) {
+			return partsOfScreen.left;
+		} else if (tapX > 2 * thirdPartOfScreen) {
+			return partsOfScreen.left;
+		} else {
+			return partsOfScreen.center;
+		}
+	}
+
 	/**
 	 * @desc Changes currently displayed item based on a place that was tapped
 	 * Currently 33%-wide sides of the screen trigger the media change
@@ -218,13 +234,15 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		doubleTap: function () {
-			var scale = this.get('scale') > 1 ? 1 : 3;
+		doubleTap: function (event: HammerEvent) {
+			if ( event.center.x > this.get('viewportSize').width / 3 && event.center.x < 2* this.get('viewportSize').width / 3 ) {
+				var scale = this.get('scale') > 1 ? 1 : 3;
 
-			this.setProperties({
-				scale: scale,
-				lastScale: scale
-			});
+				this.setProperties({
+					scale: scale,
+					lastScale: scale
+				});
+			}
 		},
 
 		tap: function (event: HammerEvent) {
