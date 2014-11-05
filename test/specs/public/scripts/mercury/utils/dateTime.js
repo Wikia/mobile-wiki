@@ -55,7 +55,6 @@ test('timeAgo works correct', function () {
 	];
 	testCases.forEach(function (testCase) {
 		var result = M.DateTime.timeAgo(testCase.from, testCase.to);
-		console.log(result, testCase.expected);
 		deepEqual(result, testCase.expected);
 	});
 });
