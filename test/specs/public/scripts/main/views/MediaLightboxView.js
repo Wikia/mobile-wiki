@@ -14,12 +14,12 @@ test('if changeMediaOnTap changes current media', function () {
 		}),
 		tapEventRight = {
 			center: {
-				x: 360
+				x: 400
 			}
 		},
 		tapEventLeft = {
 			center: {
-				x: 120
+				x: 80
 			}
 		},
 		nextMediaWasTapped = false,
@@ -48,4 +48,38 @@ test('if isCurrentMediaType method recognizes media', function () {
 
 	isMediaTypeImage = mediaLightboxView.isCurrentMediaType('image');
 	equal(isMediaTypeImage, true);
+});
+
+test('if getScreenArea correctly returns screen areas', function () {
+	var mediaLightboxView = this.subject({
+			viewportSize: {
+				width: 480
+			}
+		}),
+		tapEventRight = {
+			center: {
+				x: 400
+			}
+		},
+		tapEventLeft = {
+			center: {
+				x: 80
+			}
+		},
+		tapEventCenter = {
+			center: {
+				x: 240
+			}
+		},
+		screenArea,
+		screenAreas = mediaLightboxView.get('screenAreas');
+
+	screenArea = mediaLightboxView.getScreenArea(tapEventLeft);
+	equal(screenArea, screenAreas.left);
+
+	screenArea = mediaLightboxView.getScreenArea(tapEventRight);
+	equal(screenArea, screenAreas.right);
+
+	screenArea = mediaLightboxView.getScreenArea(tapEventCenter);
+	equal(screenArea, screenAreas.center);
 });
