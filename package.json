@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "gulp clean && gulp",
     "start": "gulp clean && gulp build --type prod --nosync && node www/server/server.js",
-    "test": "gulp build --type prod --nosync --testing && gulp karma && gulp node-test"
+    "test": "gulp clean && gulp build --type prod --nosync --testing && gulp karma && gulp node-test"
   },
   "repository": {
     "type": "git",
@@ -75,6 +75,7 @@
     "multipipe": "^0.1.1",
     "qunit": "0.x.x",
     "qunitjs": "1.14.x",
-    "tslint": "^0.4.x"
+    "tslint": "^0.4.x",
+    "vignette": "wikia/vignette-js"
   }
 }

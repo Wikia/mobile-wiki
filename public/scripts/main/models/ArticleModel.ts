@@ -29,6 +29,7 @@ interface Response {
 
 App.ArticleModel = Em.Object.extend({
 	article: null,
+	basePath: null,
 	categories: [],
 	cleanTitle: null,
 	comments: 0,
@@ -52,7 +53,7 @@ App.ArticleModel.reopenClass({
 		return App.get('apiBase') + '/article/' + params.title + redirect;
 	},
 
-	find: function (params: {wiki: string; title: string; redirect?: string}) {
+	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params);
 
 		if (Mercury._state.firstPage) {
@@ -146,10 +147,6 @@ App.ArticleModel.reopenClass({
 			if (source.topContributors) {
 				// Same issue: the response to the ajax should always be valid and not undefined
 				data.topContributors = source.topContributors;
-			}
-
-			if (source.basePath) {
-				data.basePath = source.basePath;
 			}
 		}
 
