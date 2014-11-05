@@ -64,13 +64,10 @@ App.ApplicationView = Em.View.extend({
 		var galleryRef = $(target).closest('[data-gallery-ref]').data('gallery-ref'),
 			mediaRef = $(target).closest('[data-ref]').data('ref');
 		var mapId = $(target).children('.wikia-interactive-map-link').data('map-id');
-		console.log("w handlemedia, target: ", target);
-		console.log("w handlemedia mapid:", mapId);
-
 		if (mapId >= 0 ){
-			console.log("mapid >  0", mapId);
 			var mapTitle = $(target).children('.wikia-interactive-map-link').data('map-title');
 			var mapUrl = $(target).children('.wikia-interactive-map-link').data('map-url');
+			Em.Logger.debug('Handling map:', mapId, 'title:', mapTitle);
 			this.get('controller').send('openLightbox', 'map-lightbox', {
 				mapTitle: mapTitle,
 				mapUrl: mapUrl
@@ -102,15 +99,6 @@ App.ApplicationView = Em.View.extend({
 
 	gestures: {
 		tap: function (event: Event): void {
-			var parent = event.target.parentElement;
-			console.log('parent: ', parent.tagName);
-			console.log('parent classname: ', parent.className);
-			
-			if (parent.className === 'wikia-interactive-map-thumbnail') 
-			{
-				this.handleMedia('figure');
-				return;
-			}
 			/**
 			 * check if the target has a parent that is an anchor
 			 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
@@ -119,16 +107,22 @@ App.ApplicationView = Em.View.extend({
 			 */
 			var $closest =  Em.$(event.target).closest('a'),
 				target: EventTarget = $closest.length ? $closest[0] : event.target;
-					console.log("tap diana, target: " + target.tagName.toLowerCase());
+
+			var $parent = Em.$(event.target).parent();
+
+			if ($parent.hasClass('wikia-interactive-map-thumbnail')) {
+				this.handleMedia('figure');
+				return;
+			}
+
+			console.log("tapped target: " + target.tagName.toLowerCase());
 			if (target) {
 				switch (target.tagName.toLowerCase()) {
 					case 'a':
-						console.log('a diana');
 						this.handleLink(target);
 						break;
 					case 'img':
 					case 'figure':
-						console.log("figure diana");
 						this.handleMedia(target);
 						break;
 				}

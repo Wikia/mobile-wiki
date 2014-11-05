@@ -161,10 +161,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	replaceWithMapComponent:function (elem: HTMLElement){
-		var child = elem.$('.wikia-interctive-map-link');
+		var child = $(elem).children('.wikia-interctive-map-link');
 		var map = this.createChildView(App.WikiaMapsComponent.create(), {
 			context: {
-				url: child.getAttribute('data-map-url'),
+				url: child.attr('data-map-url'),
 				//url: 'o2.pl'
 				tag: elem.tagName,
 				title: elem.id,
