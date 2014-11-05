@@ -140,14 +140,14 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 */
 	getScreenArea: function (event: HammerEvent): number {
 		var x = event.center.x,
-			thirdPartOfScreen = this.get('viewportSize').width / 3,
-			screenAreas = this.get('screenAreas');
+			thirdPartOfScreen = this.get('viewportSize').width / 3;
+
 		if (x < thirdPartOfScreen) {
-			return screenAreas.left;
+			return this.screenAreas.left;
 		} else if (x > 2 * thirdPartOfScreen) {
-			return screenAreas.right;
+			return this.screenAreas.right;
 		} else {
-			return screenAreas.center;
+			return this.screenAreas.center;
 		}
 	},
 
@@ -158,11 +158,11 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 * @param {HammerEvent} event
 	 */
 	changeMediaOnTap: function (event: HammerEvent): void {
-		var screenArea = this.getScreenArea(event),
-			screenAreas = this.get('screenAreas');
-		if (screenArea === screenAreas.right) {
+		var screenArea = this.getScreenArea(event);
+
+		if (screenArea === this.screenAreas.right) {
 			this.nextMedia();
-		} else if (screenArea === screenAreas.left) {
+		} else if (screenArea === this.screenAreas.left) {
 			this.prevMedia();
 		} else {
 			this.send('toggleUI');
@@ -247,7 +247,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 		doubleTap: function (event: HammerEvent) {
 			//allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
-			if (!this.get('isGallery') || this.getScreenArea(event) === this.get('screenAreas').center) {
+			if (!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center) {
 				var scale = this.get('scale') > 1 ? 1 : 3;
 
 				this.setProperties({
