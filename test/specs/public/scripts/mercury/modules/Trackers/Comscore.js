@@ -23,7 +23,7 @@ QUnit.test('Track page view', function () {
 			c1: '2',
 			c2: Mercury.tracking.comscore.id,
 			options: {
-				url_append: Mercury.tracking.comscore.id + '=' + Mercury.tracking.comscore.c7Value
+				url_append: Mercury.tracking.comscore.keyword + '=' + Mercury.tracking.comscore.c7Value
 			}
 		}];
 

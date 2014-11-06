@@ -90,6 +90,7 @@ figcaption {
 	}
 
 	figcaption {
+		@extend %ellipsis;
 		bottom: 0;
 		color: white;
 		font-size: 0.9rem;
@@ -99,6 +100,10 @@ figcaption {
 		position: absolute;
 		width: 100%;
 		z-index: 1;
+
+		div {
+			@extend %ellipsis;
+		}
 	}
 }
 

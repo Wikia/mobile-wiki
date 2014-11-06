@@ -3,7 +3,11 @@ QUnit.module('VideoPlayers.OoyalaPlayer', {
 		var params = {
 			videoId: 666,
 			jsFile: ['foo'],
-			playerId: 'testId'
+			playerId: 'testId',
+			size: {
+				width: 100,
+				height: 100
+			}
 		};
 		this.player = new Mercury.Modules.VideoPlayers.OoyalaPlayer('ooyala', params);
 	},
@@ -19,4 +23,3 @@ QUnit.test('resourceURI is set', function () {
 QUnit.test('containerId is set', function () {
 	ok(this.player.containerId.match('testId'));
 });
-

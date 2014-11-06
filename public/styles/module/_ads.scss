@@ -4,13 +4,13 @@
 	&.hidden {
 		display: none;
 	}
+
+	div {
+		margin: 0 auto;
+	}
 }
 
 .mobile-in-content, .mobile-prefooter {
 	margin: 10px 0;
 	padding: 10px 0;
-}
-
-#MOBILE_TOP_LEADERBOARD div {
-	margin: 0 auto;
 }

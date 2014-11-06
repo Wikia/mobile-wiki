@@ -1,4 +1,6 @@
+/// <reference path="../../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../baseline/mercury.d.ts" />
+/// <reference path="../../utils/calculation.ts" />
 /// <reference path="./Base.ts" />
 
 interface Window {
@@ -23,6 +25,7 @@ module Mercury.Modules.VideoPlayers {
 			super(provider, params);
 			this.started = false;
 			this.ended = false;
+			this.onResize();
 			this.setupPlayer();
 		}
 
@@ -33,7 +36,6 @@ module Mercury.Modules.VideoPlayers {
 		public containerId = this.createUniqueId(this.params.playerId);
 
 		setupPlayer (): void {
-
 			this.params = $.extend(this.params, {
 				onCreate: () => { return this.onCreate.apply(this, arguments) }
 			});
@@ -67,7 +69,6 @@ module Mercury.Modules.VideoPlayers {
 					this.track('content-begin');
 					this.started = true;
 				}
-
 			});
 
 			// Ad starts
@@ -78,6 +79,31 @@ module Mercury.Modules.VideoPlayers {
 			// Ad has been fully watched
 			messageBus.subscribe(window.OO.EVENTS.ADS_PLAYED, 'tracking', () => {
 				this.track('ad-finish');
+			});
+		}
+
+		/**
+		 * Sets CSS width and height for the video container.
+		 */
+		onResize (): void {
+			var $container: JQuery = $('#' + this.containerId),
+				$lightbox: JQuery = $('.lightbox-wrapper'),
+				videoWidth: number = this.params.size.width,
+				videoHeight: number = this.params.size.height,
+				lightboxWidth: number = $lightbox.width(),
+				lightboxHeight: number = $lightbox.height(),
+				targetSize: ContainerSize;
+
+			targetSize = Mercury.Utils.Calculation.containerSize(
+				lightboxWidth,
+				lightboxHeight,
+				videoWidth,
+				videoHeight
+			);
+
+			$container.css({
+				width: targetSize.width,
+				height: targetSize.height
 			});
 		}
 	}
