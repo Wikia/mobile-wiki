@@ -140,9 +140,10 @@ class App {
 
 		server.on('internalError', (request: Hapi.Request, err: Error) => {
 			logger.error({
+				wiki: request.headers.host,
 				text: err.message,
 				url: url.format(request.url),
-				wiki: request.headers.host
+				referrer: request.info.referrer
 			}, 'Internal error');
 		});
 
