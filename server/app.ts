@@ -154,10 +154,11 @@ class App {
 				? parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
 				: -1;
 			logger.info({
-				host: request.headers.host,
-				url: url.format(request.url),
+				wiki: request.headers.host,
 				code: (<Hapi.Response>request.response).statusCode,
-				responseTime: responseTime
+				url: url.format(request.url),
+				responseTime: responseTime,
+				referrer: request.info.referrer
 			}, 'Response');
 		});
 	}
