@@ -161,14 +161,15 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	replaceWithMapComponent:function (elem: HTMLElement){
-		var child = $(elem).children('.wikia-interctive-map-link');
+		var a = $(elem).children('a');
+		var img = $(a).children('img');
+		console.log("img.attr data-src: " + img.attr('data-src'));
 		var map = this.createChildView(App.WikiaMapsComponent.create(), {
 			context: {
-				url: child.attr('data-map-url'),
-				//url: 'o2.pl'
+				mapUrl: a.attr('data-map-url'),
+				imgUrl: img.attr('data-src'),
 				tag: elem.tagName,
-				title: elem.id,
-				text: 'MAPA diana'
+				title: a.attr('data-map-title')
 			}
 		});
 		map.createElement();

@@ -1,5 +1,5 @@
-{{#if text}}
-	<iframe class='current' {{bind-attr src=url}} {{bind-attr style=view.style}}>
+{{#if imgUrl}}
+	<iframe class='current' {{bind-attr src=imgUrl}} {{bind-attr style=view.style}}>
 {{else}}
 	{{i18n 'media-lightbox-error'}}
 {{/if}}
