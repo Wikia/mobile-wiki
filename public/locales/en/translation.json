@@ -51,7 +51,8 @@
 		"years-ago-label_plural": "__count__ years ago",
 		"smartbanner-store-ios": "On the App Store",
 		"smartbanner-store-android": "In Google Play",
-		"smartbanner-price": "FREE",
-		"smartbanner-view": "view"
+		"smartbanner-install-ios": "Get the app",
+		"smartbanner-install-android": "Install",
+		"smartbanner-price": "FREE"
 	}
 }

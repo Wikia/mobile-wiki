@@ -35,7 +35,8 @@ App.SmartBannerComponent = Em.Component.extend({
 			type: string,
 			link: string,
 			appId: string,
-			inStore: string;
+			inStore: string,
+			install: string;
 
 		// Detect banner type (iOS or Android)
 		if (ua.match(/iPad|iPhone|iPod/i) !== null) {
@@ -54,6 +55,7 @@ App.SmartBannerComponent = Em.Component.extend({
 			!cookie.get('sb-installed')*/
 		) {
 			inStore = i18n.t('app:smartbanner-store-' + type);
+			install = i18n.t('app:smartbanner-install-' + type);
 			appId = Em.get(smartbanner, type + '.addId');
 
 			if (type === 'android') {
@@ -77,6 +79,7 @@ App.SmartBannerComponent = Em.Component.extend({
 				icon: smartbanner.icon,
 				type: type,
 				inStore: inStore,
+				install: install,
 				link: link,
 				show: true
 			});

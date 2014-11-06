@@ -1,8 +1,8 @@
 <div class='sb-close' {{action 'close'}}>{{svg 'close' viewBox='0 0 18 18'}}</div>
-<div class='sb-icon {{unbound view.gloss}}' {{bind-attr style=view.style}}></div>
+<div class='sb-icon' {{bind-attr style=view.style}}></div>
 <div class='sb-info'>
     <div class='sb-title'>{{view.title}}</div>
     <div class='sb-rating'></div>
-    <div class='sb-in-store'>{{i18n 'smartbanner-price'}} - {{view.inStore}}</div>
+    <div class='sb-in-store'>{{i18n 'smartbanner-price'}} - {{unbound view.inStore}}</div>
 </div>
-<a target='_BLANK' href='{{unbound view.link}}' class='sb-button external' {{action 'view'}}><span>{{i18n 'smartbanner-price'}}</span></a>
+<a target='_BLANK' href='{{unbound view.link}}' class='sb-button external' {{action 'view'}}><span>{{unbound view.install}}</span></a>
