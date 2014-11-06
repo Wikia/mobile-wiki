@@ -76,6 +76,7 @@
 }
 
 .lightbox-footer {
+	@extend %ellipsis;
 	background-color: rgba(black, 0.8);
 	bottom: 0;
 	font-weight: 300;
