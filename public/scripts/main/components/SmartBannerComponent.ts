@@ -93,34 +93,49 @@ App.SmartBannerComponent = Em.Component.extend({
 		}
 	},
 
-	actions: {
-		view: function () {
-			console.log('view');
-			this.set('show', false);
+	hammerOptions: {
+		touchAction: 'auto'
+	},
 
-			//
-			//cookie.set('sb-installed', 1, $.extend(cookieData, {
-			//	expires: options.daysReminder * day
-			//}));
-			//
-			//track.event('smart-banner', track.CLICK, {
-			//	label: 'app-store',
-			//	method: 'both'
-			//}, ev);
-		},
+	gestures: {
+		tap: function (event: HammerEvent): void {
+			var $target = this.$(event.target);
 
-		close: function () {
-			console.log('close');
-			this.set('show', false);
-
-			//cookie.set('sb-closed', 1, $.extend(cookieData, {
-			//	expires: options.daysHidden * day
-			//}));
-			//
-			//track.event('smart-banner', track.CLICK, {
-			//	label: 'dismiss',
-			//	method: 'both'
-			//});
+			if ($target.is('.sb-close')) {
+				this.close();
+			} else {
+				this.view();
+			}
 		}
+	},
+
+	close: function () {
+		console.log('close');
+		this.set('show', false);
+
+		//cookie.set('sb-closed', 1, $.extend(cookieData, {
+		//	expires: options.daysHidden * day
+		//}));
+		//
+		//track.event('smart-banner', track.CLICK, {
+		//	label: 'dismiss',
+		//	method: 'both'
+		//});
+	},
+
+	view: function () {
+		console.log('view');
+		this.set('show', false);
+		window.open(this.get('link'), '_blank');
+
+		//
+		//cookie.set('sb-installed', 1, $.extend(cookieData, {
+		//	expires: options.daysReminder * day
+		//}));
+		//
+		//track.event('smart-banner', track.CLICK, {
+		//	label: 'app-store',
+		//	method: 'both'
+		//}, ev);
 	}
 });
