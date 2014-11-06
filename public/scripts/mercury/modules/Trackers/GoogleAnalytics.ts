@@ -58,8 +58,15 @@ module Mercury.Modules.Trackers {
 				}
 			}
 
-			// Send skin as custom variable
+			// Custom variables
+			var adsContext = Mercury.Modules.Ads.getInstance().adContext.getContext();
+			this.queue.push(['_setCustomVar', 1, 'DBname', Mercury.wiki.dbName]);
 			this.queue.push(['_setCustomVar', 4, 'Skin', 'mercury', 3]);
+			this.queue.push(['_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]);
+			if (adsContext) {
+				this.queue.push(['_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical]);
+				this.queue.push(['_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No']);
+			}
 		}
 
 		/**
