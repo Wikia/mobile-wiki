@@ -142,7 +142,7 @@ class App {
 			logger.error({
 				text: err.message,
 				url: url.format(request.url),
-				host: request.headers.host
+				wiki: request.headers.host
 			}, 'Internal error');
 		});
 
