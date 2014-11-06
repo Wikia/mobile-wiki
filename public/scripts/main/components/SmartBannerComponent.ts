@@ -3,7 +3,7 @@
 
 App.SmartBannerComponent = Em.Component.extend({
 	classNames: ['smartbanner'],
-	classNameBindings: ['noIcon', 'type', 'show'],
+	classNameBindings: ['noIcon', 'type', 'show', 'verticalClass'],
 	noIcon: Em.computed.not('icon'),
 	show: false,
 
@@ -23,15 +23,21 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	day: 86400000,
 
-	style: function () {
+	iconStyle: function () {
 		return 'background-image: url(%@)'.fmt(this.get('icon'));
 	}.property('icon'),
 
+	verticalClass: function () {
+		return this.get('vertical') + '-vertical';
+	}.property('vertical'),
+
 	init: function () {
-		var ua = window.navigator.userAgent,
-			standalone = navigator.standalone, // Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
-			wiki = Mercury.wiki || {},
-			smartbanner = wiki.smartbanner || {},
+		var ua = Em.get(window, 'navigator.userAgent'),
+			// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
+			standalone = Em.get(navigator, 'standalone'),
+			wiki = Em.getWithDefault(Mercury, 'wiki', {}),
+			smartbanner = Em.getWithDefault(wiki, 'smartbanner', {}),
+			vertical = Em.get(wiki, 'vertical'),
 			type: string,
 			link: string,
 			appId: string,
@@ -56,7 +62,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		) {
 			inStore = i18n.t('app:smartbanner-store-' + type);
 			install = i18n.t('app:smartbanner-install-' + type);
-			appId = Em.get(smartbanner, type + '.addId');
+			appId = Em.get(smartbanner, 'appId.' + type);
 
 			if (type === 'android') {
 				link = 'https://play.google.com/store/apps/details?id=' +
@@ -75,6 +81,7 @@ App.SmartBannerComponent = Em.Component.extend({
 			//});
 
 			this.setProperties({
+				vertical: vertical,
 				title: smartbanner.name,
 				icon: smartbanner.icon,
 				type: type,
