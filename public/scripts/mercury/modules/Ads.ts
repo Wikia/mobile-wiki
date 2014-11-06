@@ -95,7 +95,7 @@ module Mercury.Modules {
 		 * @returns {Object|null}
 		 */
 		getContext (): any {
-			return ( this.adContext && this.adContext.getContext ) ? this.adContext.getContext() : null;
+			return (this.adContext && this.adContext.getContext) ? this.adContext.getContext() : null;
 		}
 	}
 }
