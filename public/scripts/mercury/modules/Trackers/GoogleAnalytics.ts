@@ -59,7 +59,7 @@ module Mercury.Modules.Trackers {
 			}
 
 			// Custom variables
-			var adsContext = Mercury.Modules.Ads.getInstance().adContext.getContext();
+			var adsContext = Mercury.Modules.Ads.getInstance().getContext();
 			this.queue.push(['_setCustomVar', 1, 'DBname', Mercury.wiki.dbName]);
 			this.queue.push(['_setCustomVar', 4, 'Skin', 'mercury', 3]);
 			this.queue.push(['_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]);
