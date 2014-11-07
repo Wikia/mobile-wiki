@@ -87,6 +87,7 @@
 	padding: 15px 13px;
 	position: absolute;
 	width: 100%;
+	z-index: $z-lightbox-footer;
 
 	&::after {
 		background: linear-gradient(top, transparent 10%, black 100%);
