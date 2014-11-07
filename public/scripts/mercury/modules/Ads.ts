@@ -88,5 +88,14 @@ module Mercury.Modules {
 				return slot[0] && slot[0] === name;
 			}, true);
 		}
+
+		/**
+		 * Retrieves the ads context
+		 *
+		 * @returns {Object|null}
+		 */
+		getContext (): any {
+			return (this.adContext && this.adContext.getContext) ? this.adContext.getContext() : null;
+		}
 	}
 }
