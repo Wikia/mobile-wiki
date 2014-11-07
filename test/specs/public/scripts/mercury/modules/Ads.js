@@ -34,10 +34,10 @@ QUnit.test('Reload ads works', function () {
 		setContextSpy = this.spy(),
 		runSpy = this.spy(),
 		instance = Mercury.Modules.Ads.getInstance();
-	instance.adContext = {
+	instance.adContextModule = {
 		setContext: setContextSpy
 	},
-	instance.adEngine = {
+	instance.adEngineModule = {
 		run: runSpy
 	};
 	instance.adConfigMobile = {
@@ -49,8 +49,8 @@ QUnit.test('Reload ads works', function () {
 	instance.reload(testContext);
 	ok(setContextSpy.calledWith(testContext));
 	ok(runSpy.calledWith(instance.adConfigMobile, instance.adSlots, 'queue.mobile'));
-	instance.adContext = undefined;
-	instance.adEngine = undefined;
+	instance.adContextModule = undefined;
+	instance.adEngineModule = undefined;
 	instance.adConfigMobile = undefined;
 	instance.adSlots = [];
 });
@@ -62,4 +62,5 @@ QUnit.test('Add/remove slots works', function () {
 	equal(instance.adSlots.length, 1);
 	instance.removeSlot('test1');
 	equal(instance.adSlots.length, 0);
+	instance.reload(null);
 });
