@@ -14,9 +14,10 @@
 	.nav-container {
 		@extend .touch-active;
 		@extend %pointer;
-		height: 100%;
+		display: inline-block;
+		float: left;
+		height: 50px;
 		padding-top: rem-calc(15);
-		position: absolute;
 		width: rem-calc(60);
 
 		svg {
