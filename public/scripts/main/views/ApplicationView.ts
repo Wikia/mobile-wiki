@@ -96,10 +96,9 @@ App.ApplicationView = Em.View.extend({
 			 * because if the user clicks the part of the link in the <i></i> then
 			 * target.tagName will register as 'I' and not 'A'.
 			 
+			 
 			var $closest =  Em.$(event.target).closest('a'),
 				target: EventTarget = $closest.length ? $closest[0] : event.target;
-
-			//var $parent = Em.$(event.target).parent();
 
 			console.log("tapped target: " + target.tagName.toLowerCase());
 			if (target) {

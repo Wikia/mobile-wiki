@@ -165,9 +165,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			$img = $($a).children('img'),
 			map = this.createChildView(App.WikiaMapsComponent.create({
 				mapUrl: $a.data('map-url'),
-				imageSrc: $img.attr('data-src'),
-				//tag: elem.tagName,
-				caption: $a.attr('data-map-title')
+				imageSrc: $img.data('src'),
+				mapId: $a.data('map-id'),
+				mapTitle: $a.data('map-title')
 			}));
 
 		map.createElement();

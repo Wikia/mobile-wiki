@@ -9,11 +9,16 @@ App.MapLightboxController = App.LightboxController.extend({
 
 	data: {
 		mapTitle: null,
-		mapUrl: null
+		mapUrl: null,
+		text: 'diana'
 	},
 
-	currentMapUrl: Em.computed.alias(
+	mapUrl: Em.computed.alias(
 		'data.mapUrl'
+	),
+
+	mapTitle: Em.computed.alias(
+		'data.mapTitle'
 	),
 
 	init: function (): void {

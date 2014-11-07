@@ -57,6 +57,8 @@ App.ApplicationRoute = Em.Route.extend({
 		},
 
 		openLightbox: function (lightboxName: string, data?: any): void {
+			console.log("opening Lightbox: " + lightboxName);
+			console.log("data.mapUrl: " + data.mapUrl);
 			if (data) {
 				this.controllerFor(lightboxName).set('data', data);
 			}

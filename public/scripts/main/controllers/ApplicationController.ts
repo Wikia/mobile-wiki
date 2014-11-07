@@ -11,5 +11,17 @@ App.ApplicationController = Em.Controller.extend({
 		});
 
 		this._super();
-	}
+	},
+
+			openLightbox: function (lightboxName: string, data?: any): void {
+			console.log("opening Lightbox: " + lightboxName);
+			if (data) {
+				this.controllerFor(lightboxName).set('data', data);
+			}
+
+			return this.render(lightboxName, {
+				into: 'application',
+				outlet: 'lightbox'
+			});
+		},
 });
