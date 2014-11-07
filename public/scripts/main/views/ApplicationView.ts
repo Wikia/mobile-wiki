@@ -63,16 +63,7 @@ App.ApplicationView = Em.View.extend({
 	handleMedia: function (target: HTMLElement): void {
 		var galleryRef = $(target).closest('[data-gallery-ref]').data('gallery-ref'),
 			mediaRef = $(target).closest('[data-ref]').data('ref');
-		var mapId = $(target).children('.wikia-interactive-map-link').data('map-id');
-		if (mapId >= 0 ){
-			var mapTitle = $(target).children('.wikia-interactive-map-link').data('map-title');
-			var mapUrl = $(target).children('.wikia-interactive-map-link').data('map-url');
-			Em.Logger.debug('Handling map:', mapId, 'title:', mapTitle);
-			this.get('controller').send('openLightbox', 'map-lightbox', {
-				mapTitle: mapTitle,
-				mapUrl: mapUrl
-			});
-		} else if (mediaRef >= 0) {
+		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
 			this.get('controller').send('openLightbox', 'media-lightbox', {
@@ -98,22 +89,17 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	gestures: {
-		tap: function (event: Event): void {
+		/*tap: function (event: Event): void {
 			/**
 			 * check if the target has a parent that is an anchor
 			 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
 			 * because if the user clicks the part of the link in the <i></i> then
 			 * target.tagName will register as 'I' and not 'A'.
-			 */
+			 
 			var $closest =  Em.$(event.target).closest('a'),
 				target: EventTarget = $closest.length ? $closest[0] : event.target;
 
-			var $parent = Em.$(event.target).parent();
-
-			if ($parent.hasClass('wikia-interactive-map-thumbnail')) {
-				this.handleMedia('figure');
-				return;
-			}
+			//var $parent = Em.$(event.target).parent();
 
 			console.log("tapped target: " + target.tagName.toLowerCase());
 			if (target) {
@@ -127,7 +113,7 @@ App.ApplicationView = Em.View.extend({
 						break;
 				}
 			}
-		}
+		} */
 	},
 
 	actions: {

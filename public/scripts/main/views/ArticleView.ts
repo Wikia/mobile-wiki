@@ -161,19 +161,18 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	replaceWithMapComponent:function (elem: HTMLElement){
-		var a = $(elem).children('a');
-		var img = $(a).children('img');
-		console.log("img.attr data-src: " + img.attr('data-src'));
-		var map = this.createChildView(App.WikiaMapsComponent.create(), {
-			context: {
-				mapUrl: a.attr('data-map-url'),
-				imgUrl: img.attr('data-src'),
-				tag: elem.tagName,
-				title: a.attr('data-map-title')
-			}
-		});
+		var $a = $(elem).children('a'),
+			$img = $($a).children('img'),
+			map = this.createChildView(App.WikiaMapsComponent.create({
+				mapUrl: $a.data('map-url'),
+				imageSrc: $img.attr('data-src'),
+				//tag: elem.tagName,
+				caption: $a.attr('data-map-title')
+			}));
+
 		map.createElement();
 		this.$(elem).replaceWith(map.$());
+		map.trigger('didInsertElement');
 	},
 
 	/**
