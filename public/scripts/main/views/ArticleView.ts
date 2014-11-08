@@ -154,13 +154,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.$(elem).replaceWith(header.$());
 	},
 
-	replaceMapsWithMapComponents: function(){
+	replaceMapsWithMapComponents: function () {
 		this.$('.wikia-interactive-map-thumbnail').map((i:number, elem: HTMLElement) => {
 			this.replaceWithMapComponent(elem);
 		})
 	},
 
-	replaceWithMapComponent:function (elem: HTMLElement){
+	replaceWithMapComponent: function (elem: HTMLElement) {
 		var $a = $(elem).children('a'),
 			$img = $($a).children('img'),
 			map = this.createChildView(App.WikiaMapsComponent.create({
@@ -172,7 +172,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 		map.createElement();
 		this.$(elem).replaceWith(map.$());
-		map.trigger('didInsertElement');
+		map.trigger('didInsertElement'); //<--- to change
 	},
 
 	/**

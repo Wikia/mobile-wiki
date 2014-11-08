@@ -24,12 +24,12 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 					mapUrl: this.get('mapUrl')
 				}); 
 			}
-		}
+		},
 	},
 
 	didInsertElement: function () {
 		this.$().click(() => {
-			console.log("diana wikia maps component click");
+			console.log("WikiaMapsComponent clicked");
 			this.send('lightboxOpening');
 		})
 	}

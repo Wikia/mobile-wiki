@@ -32,7 +32,7 @@ App.MapLightboxController = App.LightboxController.extend({
 	 */
 	header: function (): string {
 		return this.get('mapTitle');
-	},
+	}.property('mapTitle'),
 
 	/**
 	 * sets all properties to their null state

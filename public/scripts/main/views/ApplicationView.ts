@@ -89,15 +89,14 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	gestures: {
-		/*tap: function (event: Event): void {
+		tap: function (event: Event): void {
 			/**
 			 * check if the target has a parent that is an anchor
 			 * We do this for links in the form <a href="...">Blah <i>Blah</i> Blah</a>,
 			 * because if the user clicks the part of the link in the <i></i> then
 			 * target.tagName will register as 'I' and not 'A'.
-			 
-			 
-			var $closest =  Em.$(event.target).closest('a'),
+			 */
+			var $closest = Em.$(event.target).closest('a'),
 				target: EventTarget = $closest.length ? $closest[0] : event.target;
 
 			console.log("tapped target: " + target.tagName.toLowerCase());
@@ -108,11 +107,11 @@ App.ApplicationView = Em.View.extend({
 						break;
 					case 'img':
 					case 'figure':
-						this.handleMedia(target);
+						this.handleMedia(target); //<-- handling click should be in components not here IMO
 						break;
 				}
 			}
-		} */
+		} 
 	},
 
 	actions: {
