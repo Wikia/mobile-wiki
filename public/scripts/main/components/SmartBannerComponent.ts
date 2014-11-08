@@ -2,7 +2,7 @@
 'use strict';
 
 App.SmartBannerComponent = Em.Component.extend({
-	classNames: ['smartbanner'],
+	classNames: ['smart-banner'],
 	classNameBindings: ['noIcon', 'type', 'show', 'verticalClass'],
 	noIcon: Em.computed.not('icon'),
 	show: false,
@@ -10,10 +10,10 @@ App.SmartBannerComponent = Em.Component.extend({
 	options: {
 		// Language code for App Store
 		appStoreLanguage: 'us',
-		// Duration to hide the banner after being closed (0 = always show banner)
-		daysHidden: 15,
-		// Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
-		daysReminder: 90
+		// Duration to hide the banner after close button is clicked (0 = always show banner)
+		daysHiddenAfterClose: 15,
+		// Duration to hide the banner after it is clicked (0 = always show banner)
+		daysHiddenAfterView: 30
 	},
 
 	cookieData: {
@@ -36,7 +36,7 @@ App.SmartBannerComponent = Em.Component.extend({
 			// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
 			standalone = Em.get(navigator, 'standalone'),
 			wiki = Em.getWithDefault(Mercury, 'wiki', {}),
-			smartbanner = Em.getWithDefault(wiki, 'smartbanner', {}),
+			smartBannerConfig = Em.getWithDefault(wiki, 'smartBanner', {}),
 			vertical = Em.get(wiki, 'vertical'),
 			type: string,
 			link: string,
@@ -54,15 +54,13 @@ App.SmartBannerComponent = Em.Component.extend({
 		//Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
 		if (type &&
 			!standalone &&
-			smartbanner &&
-			!smartbanner.disabled
-			/* &&
-			!cookie.get('sb-closed') &&
-			!cookie.get('sb-installed')*/
+			smartBannerConfig &&
+			!smartBannerConfig.disabled,
+			$.cookie('sb-closed', Number) !== 1
 		) {
 			inStore = i18n.t('app:smartbanner-store-' + type);
 			install = i18n.t('app:smartbanner-install-' + type);
-			appId = Em.get(smartbanner, 'appId.' + type);
+			appId = Em.get(smartBannerConfig, 'appId.' + type);
 
 			if (type === 'android') {
 				link = 'https://play.google.com/store/apps/details?id=' +
@@ -82,8 +80,8 @@ App.SmartBannerComponent = Em.Component.extend({
 
 			this.setProperties({
 				vertical: vertical,
-				title: smartbanner.name,
-				icon: smartbanner.icon,
+				title: smartBannerConfig.name,
+				icon: smartBannerConfig.icon,
 				type: type,
 				inStore: inStore,
 				install: install,
@@ -110,13 +108,9 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 
 	close: function () {
-		console.log('close');
 		this.set('show', false);
+		this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 
-		//cookie.set('sb-closed', 1, $.extend(cookieData, {
-		//	expires: options.daysHidden * day
-		//}));
-		//
 		//track.event('smart-banner', track.CLICK, {
 		//	label: 'dismiss',
 		//	method: 'both'
@@ -124,18 +118,27 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 
 	view: function () {
-		console.log('view');
 		this.set('show', false);
+		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
 		window.open(this.get('link'), '_blank');
 
-		//
-		//cookie.set('sb-installed', 1, $.extend(cookieData, {
-		//	expires: options.daysReminder * day
-		//}));
-		//
 		//track.event('smart-banner', track.CLICK, {
 		//	label: 'app-store',
 		//	method: 'both'
 		//}, ev);
+	},
+
+	/**
+	 * Sets sb-closed=1 cookie for given number of days
+	 *
+	 * @param {number} days
+	 */
+	setSmartBannerCookie: function (days: number) {
+		var date: Date = new Date();
+		date.setTime(date.getTime() + (days * this.get('day')));
+		$.cookie('sb-closed', 1, {
+			expires: date,
+			path: '/'
+		});
 	}
 });
