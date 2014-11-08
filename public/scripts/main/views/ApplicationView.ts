@@ -98,8 +98,6 @@ App.ApplicationView = Em.View.extend({
 			 */
 			var $closest = Em.$(event.target).closest('a'),
 				target: EventTarget = $closest.length ? $closest[0] : event.target;
-
-			console.log("tapped target: " + target.tagName.toLowerCase());
 			if (target) {
 				switch (target.tagName.toLowerCase()) {
 					case 'a':
@@ -107,7 +105,7 @@ App.ApplicationView = Em.View.extend({
 						break;
 					case 'img':
 					case 'figure':
-						this.handleMedia(target); //<-- handling click should be in components not here IMO
+						this.handleMedia(target);
 						break;
 				}
 			}

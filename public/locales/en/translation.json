@@ -17,6 +17,7 @@
 		"search-no-results-msg": "Sorry, we couldn't find anything that matched your search!",
 		"search-loading-msg": "Loading search results...",
 		"media-lightbox-error": "Media not found",
+		"map-lightbox-error": "Map not found",
 		"comments-prev-button": "Previous page",
 		"comments-next-button": "Next page",
 		"hub-games": "Games",

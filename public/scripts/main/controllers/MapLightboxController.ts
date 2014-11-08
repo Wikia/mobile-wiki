@@ -1,5 +1,4 @@
 /// <reference path="./LightboxController.ts" />
-/// <reference path="../models/MapModel.ts" />
 
 App.MapLightboxController = App.LightboxController.extend({
 	needs: 'article',
@@ -9,9 +8,12 @@ App.MapLightboxController = App.LightboxController.extend({
 
 	data: {
 		mapTitle: null,
-		mapUrl: null,
-		text: 'diana'
+		mapUrl: null
 	},
+
+	currentMediaRef: Em.computed.alias(
+		'data.mapUrl'
+	),
 
 	mapUrl: Em.computed.alias(
 		'data.mapUrl'
@@ -35,6 +37,16 @@ App.MapLightboxController = App.LightboxController.extend({
 	}.property('mapTitle'),
 
 	/**
+	 * returns footer for currentMap
+	 *
+	 * @return string
+	 */
+	footer: function (): string {
+		return this.get('mapTitle');
+	}.property('mapTitle'),
+
+
+	/**
 	 * sets all properties to their null state
 	 */
 	reset: function (): void {
@@ -42,8 +54,7 @@ App.MapLightboxController = App.LightboxController.extend({
 			data: {
 				mapTitle: null,
 				mapUrl: null
-			},
-			file: null
+			}
 		});
 
 		this._super();

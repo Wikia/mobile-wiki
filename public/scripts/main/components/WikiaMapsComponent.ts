@@ -16,7 +16,6 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 
 	actions: {
 		lightboxOpening: function() {
-			console.log("mapUrl "+ this.get('mapUrl'));
 			if (this.get('mapUrl')) {
 				Em.Logger.debug('Handling map:', this.get('mapId'), 'title:', this.get('mapTitle'));
 				this.sendAction('clicked', 'map-lightbox', {

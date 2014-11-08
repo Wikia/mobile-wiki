@@ -6,10 +6,9 @@ App.MapLightboxView = App.LightboxView.extend({
 	classNames: ['map-lightbox'],
 	templateName: 'app/map-lightbox',
 	status: 'opening',
-	headerHidden: true,
 	height: 0,
 	width: 0,
-
+	bottom: 0,
 
 	didInsertElement: function (): void {
 		this._super();
@@ -17,7 +16,10 @@ App.MapLightboxView = App.LightboxView.extend({
 	},
 
 	style: function (): string {
-		return ('height: 100%;' + ' width: 100%;');
+		//var footerHeight = $('div.lightbox-footer').height(); //for now the footer height is hardcoded below
+		var footerHeight = 46,
+			lightboxWithoutFooterHeight = window.innerHeight - footerHeight;
+		return ('height: ' + lightboxWithoutFooterHeight + 'px; width: 100%; position: fixed; top: 0px; left: 0px');
 	}.property('height', 'width'),
 
 	willDestroyElement: function (): void {

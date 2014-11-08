@@ -1,0 +1,10 @@
+.map-lightbox {
+	z-index: $z-1;
+}
+
+.lightbox-content-inner {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	z-index: $z-1;
+}
