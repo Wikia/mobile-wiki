@@ -48,6 +48,7 @@
 		"months-ago-label": "one month ago",
 		"months-ago-label_plural": "__count__ months ago",
 		"years-ago-label": "one year ago",
-		"years-ago-label_plural": "__count__ years ago"
+		"years-ago-label_plural": "__count__ years ago",
+		"username-anonymous": "A Wikia Contributor"
 	}
 }
