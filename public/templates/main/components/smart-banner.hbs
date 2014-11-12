@@ -2,6 +2,9 @@
 <div class='sb-icon' {{bind-attr style=view.iconStyle}}></div>
 <div class='sb-info'>
     <div class='sb-title'>{{view.title}}</div>
+    {{#if view.description}}
+        <div class='sb-description'>{{view.description}}</div>
+    {{/if}}
     <div class='sb-rating'></div>
     <div class='sb-in-store'>{{i18n 'smartbanner-price'}} - {{unbound view.inStore}}</div>
 </div>

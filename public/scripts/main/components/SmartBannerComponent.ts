@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 'use strict';
 
 App.SmartBannerComponent = Em.Component.extend({
@@ -80,8 +81,9 @@ App.SmartBannerComponent = Em.Component.extend({
 
 			this.setProperties({
 				vertical: vertical,
-				title: smartBannerConfig.name,
-				icon: smartBannerConfig.icon,
+				title: Em.get(smartBannerConfig, 'name'),
+				icon: Em.get(smartBannerConfig, 'icon'),
+				description: Em.get(smartBannerConfig, 'description'),
 				type: type,
 				inStore: inStore,
 				install: install,
