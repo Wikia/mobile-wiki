@@ -56,8 +56,8 @@ App.SmartBannerComponent = Em.Component.extend({
 		if (type &&
 			!standalone &&
 			smartBannerConfig &&
-			!smartBannerConfig.disabled,
-			$.cookie('sb-closed', Number) !== 1
+			!smartBannerConfig.disabled &&
+			$.cookie('sb-closed') !== '1'
 		) {
 			inStore = i18n.t('app:smartbanner-store-' + type);
 			install = i18n.t('app:smartbanner-install-' + type);
