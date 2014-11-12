@@ -113,10 +113,11 @@ App.SmartBannerComponent = Em.Component.extend({
 		this.set('show', false);
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 
-		//track.event('smart-banner', track.CLICK, {
-		//	label: 'dismiss',
-		//	method: 'both'
-		//});
+		M.track({
+			action: M.trackActions.close,
+			category: 'smart-banner',
+			label: Em.get(Mercury, 'wiki.dbName')
+		});
 	},
 
 	view: function () {
@@ -124,10 +125,11 @@ App.SmartBannerComponent = Em.Component.extend({
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
 		window.open(this.get('link'), '_blank');
 
-		//track.event('smart-banner', track.CLICK, {
-		//	label: 'app-store',
-		//	method: 'both'
-		//}, ev);
+		M.track({
+			action: M.trackActions.open,
+			category: 'smart-banner',
+			label: Em.get(Mercury, 'wiki.dbName')
+		});
 	},
 
 	/**
