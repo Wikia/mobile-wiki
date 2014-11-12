@@ -40,7 +40,8 @@ module Mercury.Modules.Trackers {
 			this.initAccount(this.accountPrimary);
 
 			// Special wikis account
-			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
+			if (this.accounts[this.accountSpecial]) {
 				this.initAccount(this.accountSpecial);
 			}
 
@@ -109,7 +110,8 @@ module Mercury.Modules.Trackers {
 			var args = Array.prototype.slice.call(arguments);
 			this.queue.push(['_trackEvent'].concat(args));
 
-			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
+			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackEvent'].concat(args));
 			}
 			if (this.accounts[this.accountMercury]) {
@@ -123,7 +125,8 @@ module Mercury.Modules.Trackers {
 		trackPageView (): void {
 			this.queue.push(['_trackPageview']);
 
-			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
+			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
 			}
 			if (this.accounts[this.accountMercury]) {
