@@ -1,5 +1,8 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
 install:
-  - ./install.sh
+- ./install.sh
+notifications:
+  slack:
+    secure: On5LEb993wyzjpnjFwDlBv0gCz2D2liDmLg9pEJzR2P3sLxaN+67QkOrSbhCVDS/5+2j8kvPWTV4fB/gVoMMaSz9nQpntejIPIpl0dNxtqDi+78jtfSH0SEQFA8X6qlqqftPnRALcjM/vP98u/T+yyuEw5SYmgPKSWfVIu2O/EQ=
