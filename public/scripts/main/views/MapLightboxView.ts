@@ -16,10 +16,9 @@ App.MapLightboxView = App.LightboxView.extend({
 	},
 
 	style: function (): string {
-		//var footerHeight = $('div.lightbox-footer').height(); //for now the footer height is hardcoded below
-		var footerHeight = 46,
-			lightboxWithoutFooterHeight = window.innerHeight - footerHeight;
-		return ('height: ' + lightboxWithoutFooterHeight + 'px; width: 100%; position: fixed; top: 0px; left: 0px');
+		var captionBarHeight = 46,
+			mapHeight = window.innerHeight - captionBarHeight;
+		return ('height: ' + mapHeight + 'px; width: 100%; position: fixed; bottom: 0px; left: 0px');
 	}.property('height', 'width'),
 
 	willDestroyElement: function (): void {

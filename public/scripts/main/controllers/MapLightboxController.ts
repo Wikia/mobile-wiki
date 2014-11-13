@@ -36,15 +36,6 @@ App.MapLightboxController = App.LightboxController.extend({
 		return this.get('mapTitle');
 	}.property('mapTitle'),
 
-	/**
-	 * returns footer for currentMap
-	 *
-	 * @return string
-	 */
-	footer: function (): string {
-		return this.get('mapTitle');
-	}.property('mapTitle'),
-
 
 	/**
 	 * sets all properties to their null state
