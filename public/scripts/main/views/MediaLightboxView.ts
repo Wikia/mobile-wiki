@@ -326,3 +326,4 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this._super();
 	}
 });
+
