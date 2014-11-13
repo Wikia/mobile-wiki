@@ -18,7 +18,7 @@ App.MapLightboxView = App.LightboxView.extend({
 	style: function (): string {
 		var captionBarHeight = 46,
 			mapHeight = window.innerHeight - captionBarHeight;
-		return ('height: ' + mapHeight + 'px; width: 100%; position: fixed; bottom: 0px; left: 0px');
+		return ('height: ' + mapHeight + 'px; width: 100%; position: fixed; bottom: 0px; left: 0px; border: 0px;');
 	}.property('height', 'width'),
 
 	willDestroyElement: function (): void {
