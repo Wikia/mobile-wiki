@@ -125,7 +125,10 @@ App.ApplicationView = Em.View.extend({
 						break;
 					case 'img':
 					case 'figure':
-						this.handleMedia(target);
+						// If image is not a link to an article
+						if ($(target).children('a').length === 0) {
+							this.handleMedia(target);
+						}
 						break;
 				}
 			}

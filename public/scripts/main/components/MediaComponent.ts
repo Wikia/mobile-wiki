@@ -93,6 +93,14 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	actions: {
 		onVisible: function (): void {
 			this.load();
+		},
+
+		clickLinkedImage: function (): boolean {
+			M.track({
+				action: M.trackActions.click,
+				category: 'linkedimage'
+			});
+			return true;
 		}
 	}
 });
@@ -100,7 +108,17 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (Em.isArray(media)) {
-			return App.GalleryMediaComponent.create();
+			var isLinked: boolean = false;
+			for (var i in media) {
+				if (typeof media[i] === 'object' && media[i].link) {
+					isLinked = true;
+				}
+			}
+			if (isLinked) {
+				return App.LinkedGalleryMediaComponent.create();
+			} else {
+				return App.GalleryMediaComponent.create();
+			}
 		} else if (media.type === 'video'){
 			return App.VideoMediaComponent.create();
 		} else {

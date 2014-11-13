@@ -5,6 +5,7 @@ interface ArticleMedia {
 	caption: string;
 	fileUrl: string;
 	height: number;
+	link: string;
 	title: string;
 	type: string;
 	url: string;

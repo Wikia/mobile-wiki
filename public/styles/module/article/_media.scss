@@ -51,6 +51,41 @@ figcaption {
 		display: inline-block;
 		position: relative;
 	}
+
+	&.linked-gallery {
+		margin: auto;
+		overflow-x: visible;
+		overflow-y: visible;
+		white-space: normal;
+		width: 420px;
+
+		button {
+			@extend %button-primary;
+			padding: 10px 60px;
+			text-transform: uppercase;
+		}
+
+		.chevron {
+			background-color: #fff;
+			height: 20px;
+			margin: 175px 0 0 175px;
+			position: absolute;
+			width: 20px;
+			z-index: $z-1;
+		}
+
+		figcaption {
+			@extend %ellipsis;
+			height: 50px;
+			pointer-events: auto;
+		}
+
+		figure {
+			display: inline-block;
+			margin: 0;
+			width: 195px;
+		}
+	}
 }
 
 .gallery-video::after,
