@@ -23,6 +23,10 @@ App.SmartBannerComponent = Em.Component.extend({
 		return Em.get(this.get('config'), 'appId.' + this.get('system'));
 	}.property('config', 'system'),
 
+	appScheme: function (): string {
+		return Em.get(this.get('config'), 'appScheme.' + this.get('system'));
+	}.property('config', 'system'),
+
 	config: function (): any {
 		return Em.getWithDefault(Mercury, 'wiki.smartBanner', {});
 	}.property(),
@@ -107,7 +111,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		}
 	},
 
-	init: function () {
+	init: function (): void {
 		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
 		var standalone: any = Em.get(navigator, 'standalone'),
 			config: any = this.get('config');
@@ -119,14 +123,11 @@ App.SmartBannerComponent = Em.Component.extend({
 			!config.disabled &&
 			$.cookie('sb-closed') !== '1'
 		) {
-			//track.event('smart-banner', track.IMPRESSION, {
-			//	method: 'both'
-			//});
 			this.set('show', true);
 		}
 	},
 
-	close: function () {
+	close: function (): void {
 		this.set('show', false);
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 
@@ -137,10 +138,17 @@ App.SmartBannerComponent = Em.Component.extend({
 		});
 	},
 
-	view: function () {
+	view: function (): void {
+		var appScheme: string = this.get('appScheme');
+
 		this.set('show', false);
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
-		window.open(this.get('link'), '_blank');
+
+		if (appScheme) {
+			this.tryToOpenApp(appScheme);
+		} else {
+			window.open(this.get('link'), '_blank');
+		}
 
 		M.track({
 			action: M.trackActions.open,
@@ -150,11 +158,40 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 
 	/**
+	 * Try to open app using custom scheme and if it fails go to fallback function
+	 *
+	 * @param {string} appScheme
+	 */
+	tryToOpenApp: function (appScheme: string): void {
+		var time: number = (new Date()).getTime(),
+			link: string = this.get('link');
+
+		window.document.location.href = appScheme + '://';
+
+		setTimeout(this.fallbackToStore, 300, link, time);
+	},
+
+	/**
+	 * Open app store
+	 *
+	 * @param {string} link
+	 * @param {number} time
+	 */
+	fallbackToStore: function (link: string, time: number): void {
+		var now: number = (new Date()).getTime();
+
+		// this prevents error alert from being shown after user goes back to browser (needed for iOS only)
+		if ((now - time) < 800) {
+			window.open(link, '_blank');
+		}
+	},
+
+	/**
 	 * Sets sb-closed=1 cookie for given number of days
 	 *
 	 * @param {number} days
 	 */
-	setSmartBannerCookie: function (days: number) {
+	setSmartBannerCookie: function (days: number): void {
 		var date: Date = new Date();
 		date.setTime(date.getTime() + (days * this.get('day')));
 		$.cookie('sb-closed', 1, {
