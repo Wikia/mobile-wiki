@@ -78,7 +78,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		});
 	},
 
-	createMediaComponent: function (element, model: typeof App.ArticleModel) {
+	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {
 		var ref = parseInt(element.dataset.ref, 10),
 			media = model.find(ref);
 
