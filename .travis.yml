@@ -5,6 +5,7 @@ install:
 - ./install.sh
 notifications:
   slack:
-    secure: On5LEb993wyzjpnjFwDlBv0gCz2D2liDmLg9pEJzR2P3sLxaN+67QkOrSbhCVDS/5+2j8kvPWTV4fB/gVoMMaSz9nQpntejIPIpl0dNxtqDi+78jtfSH0SEQFA8X6qlqqftPnRALcjM/vP98u/T+yyuEw5SYmgPKSWfVIu2O/EQ=
+    rooms:
+      secure: ZT/r3kcm9wSUz6gVWFvlk9qjYldZ5e+tu43vX1zwdukdWJ4Z3sxYlhNgnks/3heTrBaxDom3Xg7TSEAMFxuItsA9KiqKoG3aDocYa+Wi7DaZ1/MVaBd6YlquJ+7K76DGBHox0Yd6Eueja8+TTlWQMbyEG/H40215ASdTGG1yd7s=
     on_success: change
     on_failure: always
