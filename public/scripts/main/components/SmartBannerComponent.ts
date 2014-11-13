@@ -163,26 +163,23 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * @param {string} appScheme
 	 */
 	tryToOpenApp: function (appScheme: string): void {
-		var time: number = (new Date()).getTime(),
-			link: string = this.get('link');
+		var startTime: number = (new Date()).getTime();
 
 		window.document.location.href = appScheme + '://';
-
-		setTimeout(this.fallbackToStore, 300, link, time);
+		Em.run.later(this, this.fallbackToStore, startTime, 300);
 	},
 
 	/**
 	 * Open app store
 	 *
-	 * @param {string} link
-	 * @param {number} time
+	 * @param {number} startTime
 	 */
-	fallbackToStore: function (link: string, time: number): void {
+	fallbackToStore: function (startTime: number): void {
 		var now: number = (new Date()).getTime();
 
 		// this prevents error alert from being shown after user goes back to browser (needed for iOS only)
-		if ((now - time) < 800) {
-			window.open(link, '_blank');
+		if ((now - startTime) < 800) {
+			window.document.location.href = this.get('link');
 		}
 	},
 
