@@ -2,6 +2,7 @@
 'use strict';
 
 interface ArticleMedia {
+	[index: string]: any;
 	caption: string;
 	fileUrl: string;
 	height: number;
