@@ -4,9 +4,7 @@
 
 App.SmartBannerComponent = Em.Component.extend({
 	classNames: ['smart-banner'],
-	classNameBindings: ['noIcon', 'type', 'show', 'verticalClass'],
-	noIcon: Em.computed.not('icon'),
-	show: false,
+	classNameBindings: ['noIcon', 'system', 'show', 'verticalClass'],
 
 	options: {
 		// Language code for App Store
@@ -16,82 +14,82 @@ App.SmartBannerComponent = Em.Component.extend({
 		// Duration to hide the banner after it is clicked (0 = always show banner)
 		daysHiddenAfterView: 30
 	},
-
-	cookieData: {
-		domain: window.location.hostname.replace(/^\w+/, ''),
-		path: '/'
-	},
-
 	day: 86400000,
 
-	iconStyle: function () {
+	noIcon: Em.computed.not('icon'),
+	show: false,
+
+	appId: function (): string {
+		return Em.get(this.get('config'), 'appId.' + this.get('system'));
+	}.property('config', 'system'),
+
+	config: function (): any {
+		return Em.getWithDefault(Mercury, 'wiki.smartBanner', {});
+	}.property(),
+
+	dbName: function (): string {
+		return Em.get(Mercury, 'wiki.dbName');
+	}.property(),
+
+	description: function (): string {
+		return Em.get(this.get('config'), 'description');
+	}.property('config'),
+
+	icon: function (): string {
+		return Em.get(this.get('config'), 'icon');
+	}.property('config'),
+
+	iconStyle: function (): string {
 		return 'background-image: url(%@)'.fmt(this.get('icon'));
 	}.property('icon'),
 
-	verticalClass: function () {
-		return this.get('vertical') + '-vertical';
-	}.property('vertical'),
+	labelInStore: function (): string {
+		return i18n.t('app:smartbanner-store-' + this.get('system'));
+	}.property('system'),
 
-	init: function () {
-		var ua = Em.get(window, 'navigator.userAgent'),
-			// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
-			standalone = Em.get(navigator, 'standalone'),
-			wiki = Em.getWithDefault(Mercury, 'wiki', {}),
-			smartBannerConfig = Em.getWithDefault(wiki, 'smartBanner', {}),
-			vertical = Em.get(wiki, 'vertical'),
-			type: string,
-			link: string,
-			appId: string,
-			inStore: string,
-			install: string;
+	labelInstall: function (): string {
+		return i18n.t('app:smartbanner-install-' + this.get('system'));
+	}.property('system'),
 
-		// Detect banner type (iOS or Android)
+	link: function (): string {
+		var link: string,
+			appId: string = this.get('appId');
+
+		if (this.get('system') === 'android') {
+			link = 'https://play.google.com/store/apps/details?id=' +
+			appId +
+			'&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D' +
+			this.get('dbName');
+		} else {
+			link = 'https://itunes.apple.com/' +
+			this.get('options.appStoreLanguage') +
+			'/app/id' +
+			appId;
+		}
+
+		return link;
+	}.property('appId', 'dbName', 'system'),
+
+	system: function (): string {
+		var ua: string = Em.get(window, 'navigator.userAgent'),
+			system: string;
+
 		if (ua.match(/iPad|iPhone|iPod/i) !== null) {
-			type = 'ios';
+			system = 'ios';
 		} else if (ua.match(/Android/i) !== null) {
-			type = 'android';
+			system = 'android';
 		}
+		return system;
+	}.property(),
 
-		//Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
-		if (type &&
-			!standalone &&
-			smartBannerConfig &&
-			!smartBannerConfig.disabled &&
-			$.cookie('sb-closed') !== '1'
-		) {
-			inStore = i18n.t('app:smartbanner-store-' + type);
-			install = i18n.t('app:smartbanner-install-' + type);
-			appId = Em.get(smartBannerConfig, 'appId.' + type);
+	title: function (): string {
+		return Em.get(this.get('config'), 'name');
+	}.property('config'),
 
-			if (type === 'android') {
-				link = 'https://play.google.com/store/apps/details?id=' +
-				appId +
-				'&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D' +
-				wiki.dbName;
-			} else {
-				link = 'https://itunes.apple.com/' +
-				this.get('options.appStoreLanguage') +
-				'/app/id' +
-				appId;
-			}
-
-			//track.event('smart-banner', track.IMPRESSION, {
-			//	method: 'both'
-			//});
-
-			this.setProperties({
-				vertical: vertical,
-				title: Em.get(smartBannerConfig, 'name'),
-				icon: Em.get(smartBannerConfig, 'icon'),
-				description: Em.get(smartBannerConfig, 'description'),
-				type: type,
-				inStore: inStore,
-				install: install,
-				link: link,
-				show: true
-			});
-		}
-	},
+	verticalClass: function (): string {
+		var vertical: string = Em.get(Mercury, 'wiki.vertical');
+		return vertical + '-vertical';
+	}.property(),
 
 	hammerOptions: {
 		touchAction: 'auto'
@@ -106,6 +104,25 @@ App.SmartBannerComponent = Em.Component.extend({
 			} else {
 				this.view();
 			}
+		}
+	},
+
+	init: function () {
+		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
+		var standalone: any = Em.get(navigator, 'standalone'),
+			config: any = this.get('config');
+
+		//Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
+		if (this.get('system') &&
+			!standalone &&
+			config &&
+			!config.disabled &&
+			$.cookie('sb-closed') !== '1'
+		) {
+			//track.event('smart-banner', track.IMPRESSION, {
+			//	method: 'both'
+			//});
+			this.set('show', true);
 		}
 	},
 
