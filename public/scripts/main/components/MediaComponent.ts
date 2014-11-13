@@ -98,7 +98,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		clickLinkedImage: function (): boolean {
 			M.track({
 				action: M.trackActions.click,
-				category: 'linkedimage'
+				category: 'linked-image'
 			});
 			return true;
 		}

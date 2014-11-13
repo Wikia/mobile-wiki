@@ -1,9 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="./GalleryMediaComponent.ts" />
 'use strict';
 
 App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	tagName: 'div',
-	classNames: ['article-gallery', 'linked-gallery'],
+	classNames: ['linked-gallery'],
 	layoutName: 'components/linked-gallery-media',
 
 	limit: 4,
@@ -13,9 +14,6 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 
 	canShowMore: function (): boolean {
 		return this.get('media').length > this.limit;
-	},
-
-	handleMedia: function (target: HTMLElement): void {
 	},
 
 	actions: {
