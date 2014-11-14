@@ -4,9 +4,9 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "dev": "gulp clean && gulp",
-    "start": "gulp clean && gulp build --type prod --nosync && node www/server/server.js",
-    "test": "gulp clean && gulp build --type prod --nosync --testing && gulp karma && gulp node-test"
+    "dev": "rm -rf www && gulp",
+    "start": "rm -rf www && gulp build --type prod --nosync && node www/server/server.js",
+    "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,6 @@
   "devDependencies": {
     "browser-sync": "^1.6.5",
     "bunyan-prettystream": "^0.1.3",
-    "del": "^0.1.3",
     "ember-handlebars": "^1.2.0",
     "ember-qunit": "0.1.x",
     "glob": "^4.0.6",
