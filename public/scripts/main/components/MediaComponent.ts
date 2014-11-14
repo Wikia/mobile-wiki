@@ -108,13 +108,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (Em.isArray(media)) {
-			var isLinked: boolean = false;
-			for (var i in media) {
-				if (typeof media[i] === 'object' && media[i].link) {
-					isLinked = true;
-				}
-			}
-			if (isLinked) {
+			if (media.some((media) => !!media.link)) {
 				return App.LinkedGalleryMediaComponent.create();
 			} else {
 				return App.GalleryMediaComponent.create();

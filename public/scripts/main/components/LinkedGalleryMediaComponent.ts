@@ -13,14 +13,15 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	incrementLimitValue: 4,
 
 	canShowMore: function (): boolean {
-		return this.get('media').length > this.limit;
+		return this.get('media').length > this.get('limit');
 	},
 
 	actions: {
 		showMore: function (): void {
-			var previousLimit = this.get('limit');
-			this.set('limit', this.get('media').length);
-			this.loadImages(previousLimit, (previousLimit + this.get('media').length));
+			var previousLimit = this.get('limit'),
+				mediaLength = this.get('media').length;
+			this.set('limit', mediaLength);
+			this.loadImages(previousLimit, (previousLimit + mediaLength));
 			this.$('button').remove();
 		}
 	}
