@@ -1,5 +1,5 @@
 #!/bin/sh
 
+npm install -g bower jshint gulp
 npm install
-npm install -g bower jshint gulp tsd typescript-formatter
 bower install
