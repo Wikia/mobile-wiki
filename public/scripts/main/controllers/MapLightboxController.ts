@@ -2,13 +2,19 @@
 
 App.MapLightboxController = App.LightboxController.extend({
 	needs: 'article',
+
 	model: Em.computed.oneWay(
 		'controllers.article.model.map'
 	),
 
+	map: Em.computed.alias(
+		'controllers.article.map'
+	),
+
 	data: {
 		mapTitle: null,
-		mapUrl: null
+		mapUrl: null,
+		mapId: null
 	},
 
 	currentMediaRef: Em.computed.alias(
@@ -23,19 +29,14 @@ App.MapLightboxController = App.LightboxController.extend({
 		'data.mapTitle'
 	),
 
+	header: Em.computed.alias(
+		'data.mapTitle'
+	),
+
 	init: function (): void {
 		this._super();
-	},
-
-	/**
-	 * returns header for currentMap
-	 *
-	 * @return string
-	 */
-	header: function (): string {
-		return this.get('mapTitle');
-	}.property('mapTitle'),
-
+		this.get('data.mapId') ? this.set('map', this.get('data.mapId')) : this.set('map', null);
+	}.observes('data.mapId').on('init'),
 
 	/**
 	 * sets all properties to their null state
@@ -45,7 +46,8 @@ App.MapLightboxController = App.LightboxController.extend({
 			data: {
 				mapTitle: null,
 				mapUrl: null
-			}
+			},
+			map: null
 		});
 
 		this._super();

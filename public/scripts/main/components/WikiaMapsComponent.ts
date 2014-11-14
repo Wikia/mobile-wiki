@@ -1,11 +1,9 @@
 /// <reference path="../app.ts" />
-/// <reference path="./MediaComponent.ts" />
 /// <reference path="./ImageMediaComponent.ts" />
 'use strict';
 
 App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
-	classNameBindings: ['visible'],
 
 	clicked: 'openLightbox',
 
@@ -20,15 +18,16 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 				Em.Logger.debug('Handling map:', this.get('mapId'), 'title:', this.get('mapTitle'));
 				this.sendAction('clicked', 'map-lightbox', {
 					mapTitle: this.get('mapTitle'),
-					mapUrl: this.get('mapUrl')
+					mapUrl: this.get('mapUrl'),
+					mapId: this.get('mapId')
 				}); 
 			}
 		},
 	},
 
 	didInsertElement: function () {
+		//handle click with jquery. Normal way to handle events doesn't work. 
 		this.$().click(() => {
-			console.log("WikiaMapsComponent clicked");
 			this.send('lightboxOpening');
 		})
 	}
