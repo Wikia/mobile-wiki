@@ -1249,7 +1249,7 @@ declare module "util" {
     export function isDate(object: any): boolean;
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
-	export function _extend (origin: any, add:any): any;
+    export function _extend (origin: any, add:any): any;
 }
 
 declare module "assert" {
