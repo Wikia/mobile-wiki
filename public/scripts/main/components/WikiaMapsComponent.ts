@@ -9,7 +9,6 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 
 	mapUrl: null,
 	mapTitle: null,
-	imageSrc: null,
 	mapId: null,
 
 	actions: {
@@ -26,7 +25,7 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 	},
 
 	didInsertElement: function () {
-		//handle click with jquery. Normal way to handle events doesn't work. 
+		//handle click with jquery because the 'normal' way to handle events doesn't work. 
 		this.$().click(() => {
 			this.send('lightboxOpening');
 		})

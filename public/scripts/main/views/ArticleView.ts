@@ -161,8 +161,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	replaceWithMapComponent: function (elem: HTMLElement) {
-		var $this_elem = this.$(elem);
-		var $a = $this_elem.children('a'),
+		var $this_elem = this.$(elem),
+			$a = $this_elem.children('a'),
 			$img = ($a).children('img'),
 			map = this.createChildView(App.WikiaMapsComponent.create({
 				mapUrl: $a.data('map-url'),

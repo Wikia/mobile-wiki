@@ -7,8 +7,6 @@ App.MapLightboxView = App.LightboxView.extend({
 	templateName: 'app/map-lightbox',
 	status: 'opening',
 	height: 0,
-	width: 0,
-	bottom: 0,
 
 	didInsertElement: function (): void {
 		this._super();
@@ -16,10 +14,10 @@ App.MapLightboxView = App.LightboxView.extend({
 	},
 
 	style: function (): string {
-		var captionBarHeight = 46,
+		var captionBarHeight = 40,
 			mapHeight = window.innerHeight - captionBarHeight;
-		return ('height: ' + mapHeight + 'px; width: 100%; position: fixed; bottom: 0px; left: 0px; border: 0px;');
-	}.property('height', 'width'),
+		return ('height: ' + mapHeight + 'px;');
+	}.property('height'),
 
 	willDestroyElement: function (): void {
 		$(window).off('resize', this.get('onResize'));

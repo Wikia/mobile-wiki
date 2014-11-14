@@ -2,7 +2,12 @@
 	z-index: $z-1;
 }
 
-.lightbox-content-inner {
+.lightbox-content-inner iframe.current {
+	width: 100%; 
+	position: absolute; 
+	top: 40px; 
+	left: 0; 
+	border: 0;
 	align-items: center;
 	display: flex;
 	justify-content: center;
