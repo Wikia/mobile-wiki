@@ -124,37 +124,28 @@ App.SmartBannerComponent = Em.Component.extend({
 			$.cookie('sb-closed') !== '1'
 		) {
 			this.set('show', true);
+			this.track(M.trackActions.impression);
 		}
 	},
 
 	close: function (): void {
-		this.set('show', false);
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-
-		M.track({
-			action: M.trackActions.close,
-			category: 'smart-banner',
-			label: Em.get(Mercury, 'wiki.dbName')
-		});
+		this.track(M.trackActions.close);
+		this.set('show', false);
 	},
 
 	view: function (): void {
 		var appScheme: string = this.get('appScheme');
 
-		this.set('show', false);
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
 
 		if (appScheme) {
 			this.tryToOpenApp(appScheme);
 		} else {
-			window.open(this.get('link'), '_blank');
+			window.document.location.href = this.get('link');
 		}
 
-		M.track({
-			action: M.trackActions.open,
-			category: 'smart-banner',
-			label: Em.get(Mercury, 'wiki.dbName')
-		});
+		this.set('show', false);
 	},
 
 	/**
@@ -165,7 +156,9 @@ App.SmartBannerComponent = Em.Component.extend({
 	tryToOpenApp: function (appScheme: string): void {
 		var startTime: number = (new Date()).getTime();
 
+		this.track(M.trackActions.open);
 		window.document.location.href = appScheme + '://';
+
 		Em.run.later(this, this.fallbackToStore, startTime, 300);
 	},
 
@@ -179,6 +172,7 @@ App.SmartBannerComponent = Em.Component.extend({
 
 		// this prevents error alert from being shown after user goes back to browser (needed for iOS only)
 		if ((now - startTime) < 800) {
+			this.track(M.trackActions.install);
 			window.document.location.href = this.get('link');
 		}
 	},
@@ -194,6 +188,14 @@ App.SmartBannerComponent = Em.Component.extend({
 		$.cookie('sb-closed', 1, {
 			expires: date,
 			path: '/'
+		});
+	},
+
+	track: function (action: string): void {
+		M.track({
+			action: action,
+			category: 'smart-banner',
+			label: Em.get(Mercury, 'wiki.dbName')
 		});
 	}
 });
