@@ -33,11 +33,14 @@ figcaption {
 
 .article-gallery {
 	-webkit-overflow-scrolling: touch;
-	overflow: {
-		x: scroll;
-		y: hidden;
+
+	&:not(.linked-gallery) {
+		overflow: {
+			x: scroll;
+			y: hidden;
+		}
+		white-space: nowrap;
 	}
-	white-space: nowrap;
 
 	img {
 		// Fixes iOS Safari repaint bug when scrolling through gallery
@@ -54,9 +57,6 @@ figcaption {
 
 	&.linked-gallery {
 		margin: auto;
-		overflow-x: visible;
-		overflow-y: visible;
-		white-space: normal;
 
 		button {
 			@extend %button-primary;

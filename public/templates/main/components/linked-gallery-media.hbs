@@ -1,5 +1,5 @@
 {{#each media in limitedMedia}}
-	<figure class='{{unbound media.type}}'>
+	<figure class='linked-gallery-{{unbound media.type}}'>
 		{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 		{{#if media.link}}
 			<a {{bind-attr href=media.link}} {{action 'clickLinkedImage'}}>
