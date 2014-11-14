@@ -18,7 +18,10 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 		tsProjects[folder] = ts.createProject(options);
 	}
 
-	return gulp.src([path.join(paths.src, folder, paths.files)])
+	return gulp.src([
+			'!' + path.join(paths.src, folder, paths.dFiles),
+			path.join(paths.src, folder, paths.files)
+		])
 		.pipe(newer({dest: paths.dest, ext: '.js'}))
 		.pipe(ts(tsProjects[folder])).js
 		.on('error', function () {

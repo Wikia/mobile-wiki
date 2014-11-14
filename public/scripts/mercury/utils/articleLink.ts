@@ -1,5 +1,4 @@
 /// <reference path="../../baseline/mercury.d.ts" />
-
 /**
  * @define articlelink
  *
