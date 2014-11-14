@@ -9,6 +9,7 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 
 	mapUrl: null,
 	mapTitle: null,
+	imageSrc: null,
 	mapId: null,
 
 	actions: {
