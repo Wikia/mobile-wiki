@@ -1,10 +1,11 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../mercury/utils/os.ts" />
 /// <reference path="../../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 'use strict';
 
 App.SmartBannerComponent = Em.Component.extend({
 	classNames: ['smart-banner'],
-	classNameBindings: ['noIcon', 'system', 'show', 'verticalClass'],
+	classNameBindings: ['noIcon', 'verticalClass'],
 
 	options: {
 		// Language code for App Store
@@ -15,9 +16,9 @@ App.SmartBannerComponent = Em.Component.extend({
 		daysHiddenAfterView: 30
 	},
 	day: 86400000,
-
+	isVisible: false,
+	smartBannerVisible: Em.computed.alias('isVisible'),
 	noIcon: Em.computed.not('icon'),
-	show: false,
 
 	appId: function (): string {
 		return Em.get(this.get('config'), 'appId.' + this.get('system'));
@@ -75,15 +76,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	}.property('appId', 'dbName', 'system'),
 
 	system: function (): string {
-		var ua: string = Em.get(window, 'navigator.userAgent'),
-			system: string;
-
-		if (ua.match(/iPad|iPhone|iPod/i) !== null) {
-			system = 'ios';
-		} else if (ua.match(/Android/i) !== null) {
-			system = 'android';
-		}
-		return system;
+		return Mercury.Utils.OS.getSystem();
 	}.property(),
 
 	title: function (): string {
@@ -111,7 +104,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		}
 	},
 
-	init: function (): void {
+	didInsertElement: function (): void {
 		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
 		var standalone: any = Em.get(navigator, 'standalone'),
 			config: any = this.get('config');
@@ -123,7 +116,7 @@ App.SmartBannerComponent = Em.Component.extend({
 			!config.disabled &&
 			$.cookie('sb-closed') !== '1'
 		) {
-			this.set('show', true);
+			this.show();
 			this.track(M.trackActions.impression);
 		}
 	},
@@ -131,7 +124,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	close: function (): void {
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 		this.track(M.trackActions.close);
-		this.set('show', false);
+		this.hide();
 	},
 
 	view: function (): void {
@@ -145,7 +138,17 @@ App.SmartBannerComponent = Em.Component.extend({
 			window.document.location.href = this.get('link');
 		}
 
-		this.set('show', false);
+		this.hide();
+	},
+
+	hide: function (): void {
+		Em.$('body').removeClass('smart-banner-visible');
+		this.set('isVisible', false);
+	},
+
+	show: function (): void {
+		Em.$('body').addClass('smart-banner-visible');
+		this.set('isVisible', true);
 	},
 
 	/**

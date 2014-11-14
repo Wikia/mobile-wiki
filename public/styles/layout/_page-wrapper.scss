@@ -1,6 +1,8 @@
 .page-wrapper {
 	@extend .row;
 
+	margin-top: 50px;
+
 	.article-body {
 		@extend .small-12;
 		padding: 0 1.125rem;

@@ -1,0 +1,57 @@
+/// <reference path="../app.ts" />
+/// <reference path="../../mercury/utils/os.ts" />
+'use strict';
+
+App.SiteHeadComponent = Em.Component.extend({
+	classNames: ['site-head'],
+	tagName: 'nav',
+	headroom: null,
+
+	smartBannerVisibleObserver: function (): void {
+		var headroom = this.get('headroom');
+
+		headroom.destroy();
+		this.initHeadroom();
+	}.observes('smartBannerVisible'),
+
+	options: {
+		// keep it consistent with values in _wikia-variables.scss
+		smartBannerHeight: {
+			android: 66,
+			ios: 83
+		}
+	},
+
+	offset: function (): number {
+		var system = Mercury.Utils.OS.getSystem();
+		if (this.get('smartBannerVisible')) {
+			return this.get('options.smartBannerHeight.' + system);
+		}
+		return 0;
+	}.property('smartBannerVisible'),
+
+	/**
+	 * @desc Hide top bar when scrolling down. Uses headroom.js plugin.
+	 * Styles in styles/module/wiki/_site-head.scss and styles/state/_animated.scss
+	 */
+	didInsertElement: function () {
+		this.initHeadroom();
+	},
+
+	initHeadroom: function (): void {
+		var headroom = new Headroom(this.get('element'), {
+			classes: {
+				initial: 'headroom',
+				pinned: 'pinned',
+				unpinned: 'un-pinned',
+				top: 'headroom-top',
+				notTop: 'headroom-not-top'
+			},
+			offset: this.get('offset')
+		});
+
+		headroom.init();
+
+		this.set('headroom', headroom);
+	}
+});

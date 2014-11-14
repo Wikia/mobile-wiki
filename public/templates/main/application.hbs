@@ -1,11 +1,5 @@
-{{smart-banner}}
-<nav class='site-head'>
-	{{render 'sideNav'}}
-	{{render 'login'}}
-	<div class='site-logo' {{action 'trackClick' 'wordmark'}}>
-		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-	</div>
-</nav>
+{{smart-banner smartBannerVisible=smartBannerVisible}}
+{{site-head smartBannerVisible=smartBannerVisible}}
 {{ad-slot name='MOBILE_TOP_LEADERBOARD'}}
 <div class='page-wrapper' {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
 	<section class='wiki-container'>

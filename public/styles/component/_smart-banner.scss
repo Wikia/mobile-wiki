@@ -3,28 +3,29 @@
 	background-size: auto 100%;
 	border-bottom: rem-calc(2) solid #8ca038;
 	box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.3);
+	display: flex;
 	-webkit-font-smoothing: antialiased;
 	-webkit-transition: height 1s;
 	width: 100%;
-
-	display: none;
-
-	&.show {
-		display: flex;
-	}
 
 	&.no-icon {
 		.sb-icon {
 			display: none;
 		}
 	}
+}
 
+body {
 	&.android {
-		height: rem-calc(66);
+		.smart-banner {
+			height: $smart-banner-android-height;
+		}
 	}
 
 	&.ios {
-		height: rem-calc(83);
+		.smart-banner {
+			height: $smart-banner-ios-height;
+		}
 	}
 }
 

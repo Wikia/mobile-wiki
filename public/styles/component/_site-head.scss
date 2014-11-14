@@ -4,7 +4,7 @@
 	background-color: rgb(255, 255, 255);
 	border-bottom: 1px solid $color-gray-light;
 	direction: ltr;
-	height: 50px;
+	height: rem-calc(50);
 	left: 0;
 	margin: 0 auto;
 	position: fixed;
@@ -25,6 +25,26 @@
 	.user-icon {
 		right: 0;
 		top: 0;
+	}
+}
+
+body {
+	&.smart-banner-visible {
+		.headroom-top {
+			position: absolute;
+		}
+
+		&.android {
+			.headroom-top {
+				top: $smart-banner-android-height;
+			}
+		}
+
+		&.ios {
+			.headroom-top {
+				top: $smart-banner-ios-height;
+			}
+		}
 	}
 }
 

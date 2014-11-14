@@ -3,6 +3,7 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 /// <reference path="../baseline/mercury.d.ts" />
 /// <reference path="../mercury/utils/track.ts" />
+/// <reference path="../mercury/utils/os.ts" />
 
 'use strict';
 
@@ -19,6 +20,8 @@ App.initializer({
 	initialize: (container: any, application: any) => {
 		var hash: string = window.location.hash,
 			debug: boolean = Mercury.environment === 'dev';
+
+		$('body').addClass(Mercury.Utils.OS.getSystem());
 
 		if (hash.length) {
 			App.set('hash', window.location.hash);

@@ -37,23 +37,6 @@ App.ApplicationView = Em.View.extend({
 	click: function (event: MouseEvent): void {
 		event.preventDefault();
 	},
-	/**
-	 * @desc Hide top bar when scrolling down. Uses headroom.js plugin. 
-	 * Styles in styles/module/wiki/_site-head.scss and styles/state/_animated.scss
-	 */
-	didInsertElement: function () {
-		var headroom = new Headroom(document.getElementsByClassName('site-head')[0], {
-			classes: {
-				initial: 'headroom',
-				pinned: 'pinned',
-				unpinned: 'un-pinned',
-				top: 'headroom-top',
-				notTop: 'headroom-not-top'
-			}
-		});
-
-		headroom.init(); 
-	},
 
 	handleLink: function (target: HTMLAnchorElement): void {
 		var matches: Array<string>;
