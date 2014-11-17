@@ -33,9 +33,9 @@ App.ArticleController = Em.ObjectController.extend({
 					url = foundMap.data('map-url'),
 					id = foundMap.data('map-id');
 				this.send('openLightbox', 'map-lightbox', {
-					mapTitle: title,
-					mapUrl: url,
-					mapId: id
+					title: title,
+					url: url,
+					id: id
 				});
 			}
 		}
