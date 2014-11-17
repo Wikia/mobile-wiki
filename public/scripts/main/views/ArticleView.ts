@@ -173,8 +173,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 		map.createElement();
 		$thisElem.replaceWith(map.$());
-		//TODO: to it in the nice way
-		map.trigger('didInsertElement');P
+		//TODO: do it in the nice way
+		map.trigger('didInsertElement');
 	},
 
 	/**
