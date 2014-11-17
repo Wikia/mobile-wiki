@@ -91,7 +91,7 @@ export class ArticleRequest {
 	 * @returns {Promise<any>}
 	 */
 	fetch (title: string, redirect: string) {
-		var urlParams:any = {
+		var urlParams: any = {
 				controller: 'MercuryApi',
 				method: 'getArticle',
 				title: title

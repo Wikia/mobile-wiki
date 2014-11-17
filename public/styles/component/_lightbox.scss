@@ -76,14 +76,13 @@
 }
 
 .lightbox-footer {
-	@extend %ellipsis;
 	background-color: rgba(black, 0.8);
 	bottom: 0;
 	font-weight: 300;
 	height: auto;
 	left: 0;
 	line-height: 1rem;
-	max-height: 4rem;
+	max-height: 3rem;
 	padding: 15px 13px;
 	position: absolute;
 	width: 100%;

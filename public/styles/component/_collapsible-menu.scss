@@ -23,14 +23,6 @@ $border-color: #d0d0d0;
 		cursor: pointer;
 		user-select: none;
 
-		.chevron {
-			transition: .25s transform ease-in-out;
-		}
-
-		&:not(.collapsed) .chevron {
-			transform: scaleY(-1);
-		}
-
 		&.text-left {
 			text-align: left;
 			padding-left: rem-calc(15);
