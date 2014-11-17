@@ -92,9 +92,9 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		},
 
 		toggleComments: function (): void {
-			this.toggleProperty('isCollapsed');
-
 			this.set('page', this.get('page') ? null : 1);
+
+			this.toggleProperty('isCollapsed');
 
 			M.track({
 				action: M.trackActions.click,

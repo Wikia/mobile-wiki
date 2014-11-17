@@ -14,6 +14,7 @@
 	color: #333;
 
 	padding: rem-calc(16) rem-calc(20);
+	position: relative;
 	font-weight: bold;
 	text: {
 		align: left;
@@ -24,7 +25,13 @@
 		position: absolute;
 		right: rem-calc(10);
 		margin-top: rem-calc(5);
+		transition: .25s transform ease-in-out;
 	}
+
+	&:not(.collapsed) .chevron {
+		transform: scaleY(-1);
+	}
+
 }
 
 .comments {
