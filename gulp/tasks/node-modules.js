@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
 	paths = require('../paths').nodeModules,
-	dependencies = Object.keys(require('../../package').dependencies);
+	dependencies = Object.keys(require('../../npm-shrinkwrap').dependencies);
 
 gulp.task('node-modules', function () {
 	var deps = '/{' + dependencies.join('/**/*,') + '/**/*}';
