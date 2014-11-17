@@ -8,6 +8,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	commentsCount: null,
 	classNames: ['article-comments'],
 	model: null,
+	isCollapsed: true,
 
 	nextButtonShown: false,
 	prevButtonShown: false,
@@ -91,6 +92,8 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		},
 
 		toggleComments: function (): void {
+			this.toggleProperty('isCollapsed');
+
 			this.set('page', this.get('page') ? null : 1);
 
 			M.track({
