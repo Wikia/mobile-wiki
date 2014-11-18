@@ -15,7 +15,7 @@
     "hammerjs": "2.0.4",
     "ember-hammer": "1.0.0",
     "headroom.js": "0.7.0",
-    "fastclick": "1.0.3",
+    "fastclick": "mklucsarits/fastclick#master",
     "vignette": "wikia/vignette-js"
   },
   "devDependencies": {

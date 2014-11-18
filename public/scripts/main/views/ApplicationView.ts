@@ -35,6 +35,12 @@ App.ApplicationView = Em.View.extend({
 	 * the external link in a new page _and_ the current page would be set to that external link.
 	 */
 	click: function (event: MouseEvent): void {
+		var $closest =  Em.$(event.target).closest('a'),
+			target: EventTarget = $closest.length ? $closest[0] : event.target;
+
+		if (target && target.tagName.toLowerCase() === 'a') {
+			this.handleLink(target);
+		}
 		event.preventDefault();
 	},
 	/**
@@ -115,18 +121,14 @@ App.ApplicationView = Em.View.extend({
 			 * because if the user clicks the part of the link in the <i></i> then
 			 * target.tagName will register as 'I' and not 'A'.
 			 */
-			var $closest =  Em.$(event.target).closest('a'),
-				target: EventTarget = $closest.length ? $closest[0] : event.target;
+			var $closest = Em.$(event.target).closest('a'),
+				target: EventTarget = $closest.length ? $closest[0] : event.target,
+				tagName: string;
 
 			if (target) {
-				switch (target.tagName.toLowerCase()) {
-					case 'a':
-						this.handleLink(target);
-						break;
-					case 'img':
-					case 'figure':
-						this.handleMedia(target);
-						break;
+				tagName = target.tagName.toLowerCase();
+				if (tagName === 'img' || tagName === 'figure') {
+					this.handleMedia(target);
 				}
 			}
 		}
