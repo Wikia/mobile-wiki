@@ -155,26 +155,26 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	replaceMapsWithMapComponents: function () {
-		this.$('.wikia-interactive-map-thumbnail').map((i:number, elem: HTMLElement) => {
+		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement) => {
 			this.replaceWithMapComponent(elem);
 		})
 	},
 
 	replaceWithMapComponent: function (elem: HTMLElement) {
-		var $thisElem = this.$(elem),
-			$a = $thisElem.children('a'),
-			$img = ($a).children('img'),
-			map = this.createChildView(App.WikiaMapsComponent.create({
+		var $mapPlaceholder = $(elem),
+			$a = $mapPlaceholder.children('a'),
+			$img = $a.children('img'),
+			mapComponent = this.createChildView(App.WikiaMapsComponent.create({
 				url: $a.data('map-url'),
 				imageSrc: $img.data('src'),
 				id: $a.data('map-id'),
 				title: $a.data('map-title')
 			}));
 
-		map.createElement();
-		$thisElem.replaceWith(map.$());
+		mapComponent.createElement();
+		$mapPlaceholder.replaceWith(mapComponent.$());
 		//TODO: do it in the nice way
-		map.trigger('didInsertElement');
+		mapComponent.trigger('didInsertElement');
 	},
 
 	/**
