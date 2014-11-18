@@ -91,10 +91,16 @@ export class ArticleRequest {
 	 * @returns {Promise<any>}
 	 */
 	fetch (title: string, redirect: string) {
-		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/Article', {
-			title: title,
-			redirect: redirect
-		});
+		var urlParams: any = {
+				controller: 'MercuryApi',
+				method: 'getArticle',
+				title: title
+			},
+			url: string;
+		if (redirect) {
+			urlParams.redirect = redirect;
+		}
+		url = createUrl(this.wikiDomain, 'wikia.php', urlParams);
 
 		return fetch(url);
 	}

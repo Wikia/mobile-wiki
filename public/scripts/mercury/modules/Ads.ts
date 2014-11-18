@@ -8,8 +8,9 @@ module Mercury.Modules {
 	export class Ads {
 		private static instance: Mercury.Modules.Ads = null;
 		private adSlots: string[][] = [];
-		private adEngine: any;
-		private adContext: any;
+		private adsContext: any = null;
+		private adEngineModule: any;
+		private adContextModule: any;
 		private adConfigMobile: any;
 		private isLoaded = false;
 
@@ -37,9 +38,9 @@ module Mercury.Modules {
 					'ext.wikia.adEngine.adEngine',
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.adConfigMobile'
-				], (adEngine: any, adContext: any, adConfigMobile: any) => {
-					this.adEngine = adEngine;
-					this.adContext = adContext;
+				], (adEngineModule: any, adContextModule: any, adConfigMobile: any) => {
+					this.adEngineModule = adEngineModule;
+					this.adContextModule = adContextModule;
 					this.adConfigMobile = adConfigMobile;
 					this.isLoaded = true;
 					callback.call(this);
@@ -47,15 +48,21 @@ module Mercury.Modules {
 			});
 		}
 
+		private setContext(adsContext: any) {
+			this.adsContext = adsContext ? adsContext : null;
+		}
+
 		/**
 		 * Reloads the ads with the provided adsContext
 		 * @param adsContext
 		 */
 		public reload (adsContext: any) {
+			// Store the context for external reuse
+			this.setContext(adsContext);
 			if (this.isLoaded && adsContext) {
-				this.adContext.setContext(adsContext);
+				this.adContextModule.setContext(adsContext);
 				// We need a copy of adSlots as .run destroys it
-				this.adEngine.run(this.adConfigMobile, this.getSlots(), 'queue.mobile');
+				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mobile');
 			}
 		}
 
@@ -87,6 +94,15 @@ module Mercury.Modules {
 			this.adSlots = $.grep(this.adSlots, (slot) => {
 				return slot[0] && slot[0] === name;
 			}, true);
+		}
+
+		/**
+		 * Retrieves the ads context
+		 *
+		 * @returns {Object|null}
+		 */
+		getContext (): any {
+			return this.adsContext;
 		}
 	}
 }

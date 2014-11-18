@@ -1,5 +1,11 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
 install:
-  - ./install.sh
+- ./install.sh
+notifications:
+  slack:
+    rooms:
+      secure: ZT/r3kcm9wSUz6gVWFvlk9qjYldZ5e+tu43vX1zwdukdWJ4Z3sxYlhNgnks/3heTrBaxDom3Xg7TSEAMFxuItsA9KiqKoG3aDocYa+Wi7DaZ1/MVaBd6YlquJ+7K76DGBHox0Yd6Eueja8+TTlWQMbyEG/H40215ASdTGG1yd7s=
+    on_success: change
+    on_failure: always

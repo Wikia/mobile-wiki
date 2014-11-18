@@ -721,8 +721,8 @@ declare module "net" {
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
         address(): { port: number; family: string; address: string; };
         unref(): void;
-		ref(): void;
-		
+        ref(): void;
+
         remoteAddress: string;
         remotePort: number;
         bytesRead: number;
@@ -823,8 +823,12 @@ declare module "fs" {
         close(): void;
     }
 
-    export interface ReadStream extends stream.Readable {}
-    export interface WriteStream extends stream.Writable {}
+    export interface ReadStream extends stream.Readable {
+        close(): void;
+    }
+    export interface WriteStream extends stream.Writable {
+        close(): void;
+    }
 
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function renameSync(oldPath: string, newPath: string): void;

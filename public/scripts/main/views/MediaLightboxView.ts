@@ -365,7 +365,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 			this.notifyPropertyChange('viewportSize');
 			this.notifyPropertyChange('imageWidth');
 			this.notifyPropertyChange('imageHeight');
-			this.get('videoPlayer').onResize();
+			if (this.get('videoPlayer')) {
+				this.get('videoPlayer').onResize();
+			}
 		};
 
 		//disabled for now, we can make it better when we have time
