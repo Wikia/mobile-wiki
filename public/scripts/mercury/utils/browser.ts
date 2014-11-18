@@ -1,11 +1,11 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 
 /**
- * @define os
+ * @define browser
  */
 'use strict';
 
-module Mercury.Utils.OS {
+module Mercury.Utils.Browser {
 	/**
 	 * Detects if user is using iOS or Android system
 	 * @return {string}

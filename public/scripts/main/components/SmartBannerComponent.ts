@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../mercury/utils/os.ts" />
+/// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path="../../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 'use strict';
 
@@ -76,7 +76,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	}.property('appId', 'dbName', 'system'),
 
 	system: function (): string {
-		return Mercury.Utils.OS.getSystem();
+		return Mercury.Utils.Browser.getSystem();
 	}.property(),
 
 	title: function (): string {

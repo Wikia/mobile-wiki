@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../mercury/utils/os.ts" />
+/// <reference path="../../mercury/utils/browser.ts" />
 'use strict';
 
 App.SiteHeadComponent = Em.Component.extend({
@@ -24,7 +24,7 @@ App.SiteHeadComponent = Em.Component.extend({
 	},
 
 	offset: function (): number {
-		var system = Mercury.Utils.OS.getSystem();
+		var system = Mercury.Utils.Browser.getSystem();
 		if (this.get('smartBannerVisible')) {
 			return this.get('options.smartBannerHeight.' + system);
 		}

@@ -4,6 +4,7 @@
 App.ApplicationController = Em.Controller.extend({
 	// this is shared between SmartBannerComponent and SiteHeadComponent to adjust topbar position
 	smartBannerVisible: false,
+
 	init: function () {
 		this.setProperties({
 			domain: Mercury.wiki.dbName || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
