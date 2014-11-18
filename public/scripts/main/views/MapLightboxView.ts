@@ -9,8 +9,9 @@ App.MapLightboxView = App.LightboxView.extend({
 	height: 0,
 
 	didInsertElement: function (): void {
-		this._super();
 		this.set('status', 'open');
+
+		this._super();
 	},
 
 	style: function (): string {
@@ -22,6 +23,7 @@ App.MapLightboxView = App.LightboxView.extend({
 	willDestroyElement: function (): void {
 		$(window).off('resize', this.get('onResize'));
 		this.get('controller').reset();
+
 		this._super();
 	}
 });
