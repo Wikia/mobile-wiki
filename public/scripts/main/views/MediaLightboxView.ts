@@ -1,4 +1,3 @@
-/// <reference path="../app.ts" />
 /// <reference path="./LightboxView.ts" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
 'use strict';
@@ -258,16 +257,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 		},
 
 		tap: function (event: HammerEvent) {
-			var $target = this.$(event.target);
-
-			if ($target.is('.lightbox-footer')) {
-				this.send('toggleFooter');
-			} else if ($target.is('.lightbox-close-wrapper')) {
-				this.get('controller').send('closeLightbox');
-			} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
+			 if (this.get('isGallery') && this.isCurrentMediaType('image') && !this.get('isZoomed')) {
 				this.changeMediaOnTap(event);
-			} else {
-				this.send('toggleUI');
+				return false;
 			}
 		},
 
@@ -390,4 +382,3 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this._super();
 	}
 });
-
