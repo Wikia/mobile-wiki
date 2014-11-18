@@ -4,19 +4,23 @@ table:not(.infobox, .dirbox) {
 
 .article-table {
 	border: 1px solid $border-color-light;
-	border-collapse: collapse;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 
-	table.infobox {
-		th, td {
-			width: 50%;
-		}
-	}
+	table {
+		border-collapse: collapse;
+		width: 100%;
 
-	table:not(.infobox) {
-		th, td {
-			white-space: nowrap;
+		&.infobox {
+			th, td {
+				width: 50%;
+			}
+		}
+
+		&:not(.infobox) {
+			th, td {
+				white-space: nowrap;
+			}
 		}
 	}
 
@@ -36,6 +40,10 @@ table:not(.infobox, .dirbox) {
 	th {
 		text-align: left;
 		vertical-align: top;
+	}
+
+	td:empty {
+		display: none;
 	}
 
 	td:not(:last-child), th:not(:last-child) {
