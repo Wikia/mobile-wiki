@@ -22,7 +22,7 @@ App.LightboxView = Em.View.extend({
 
 			if ($target.is('.lightbox-footer')) {
 				this.send('toggleFooter');
-			} else if ($target.is('.close-icon')) {
+			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
 			} else {
 				this.send('toggleUI');
