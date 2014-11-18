@@ -10,12 +10,13 @@ App.ArticleCommentsModel = Em.Object.extend({
 	page: 0,
 
 	fetch: function () {
-		var page = this.get('page');
+		var page = this.get('page'),
+			articleId = this.get('articleId');
 
-		if (page && page >= 0 && this.get('articleId')) {
+		if (page && page >= 0 && articleId) {
 			return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 				Em.$.ajax({
-					url: this.url(this.get('articleId'), page),
+					url: this.url(articleId, page),
 					success: (data) => {
 						this.setProperties(data.payload);
 						resolve(this);
