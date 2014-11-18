@@ -1,11 +1,8 @@
-/// <reference path="../app.ts" />
 /// <reference path="./ImageMediaComponent.ts" />
 'use strict';
 
 App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
-
-	clicked: 'openLightbox',
 
 	url: null,
 	title: null,
@@ -17,15 +14,17 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 			var url = this.get('url'),
 				id = this.get('id'),
 				title = this.get('title');
+
 			if (url) {
 				Em.Logger.debug('Handling map:', id, 'title:', title);
-				this.sendAction('clicked', 'map-lightbox', {
+
+				this.sendAction('openLightbox', 'map-lightbox', {
 					title: title,
 					url: url,
 					id: id
 				}); 
 			}
-		},
+		}
 	},
 
 	didInsertElement: function () {
