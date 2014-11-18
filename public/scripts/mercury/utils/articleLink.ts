@@ -1,5 +1,4 @@
 /// <reference path="../../baseline/mercury.d.ts" />
-
 /**
  * @define articlelink
  *
@@ -29,10 +28,18 @@ module Mercury.Utils {
 		var localPathMatch = decodeURI(uri).match('^' + window.location.origin + '(.*)$');
 
 		if (localPathMatch) {
-			var local = localPathMatch[1];
-			// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
-			// NOTE: see below, but we might also have to deal with links in the form /Special:.*
-			var namespaces = Mercury.wiki.namespaces;
+			var local = localPathMatch[1],
+				// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
+				// NOTE: see below, but we might also have to deal with links in the form /Special:.*
+				namespaces = Mercury.wiki.namespaces;
+
+			//Handle links to main page
+			if (local === '/') {
+				return {
+					article: '',
+					url: basePath + local
+				};
+			}
 
 			for (var ns in namespaces) {
 				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
@@ -74,6 +81,7 @@ module Mercury.Utils {
 				};
 			}
 		}
+
 		return {
 			article: null,
 			url: uri

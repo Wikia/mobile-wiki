@@ -8,19 +8,19 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "ember": "https://github.com/kenkouot/ember.git#master",
+    "ember": "1.8.1",
     "foundation": "5.4.6",
     "i18next": "1.7.4",
     "script.js": "2.5.7",
     "hammerjs": "2.0.4",
-    "ember-hammer": "1.0.0"
+    "ember-hammer": "1.0.0",
+    "headroom.js": "0.7.0",
+    "fastclick": "1.0.3",
+    "vignette": "wikia/vignette-js"
   },
   "devDependencies": {
     "ember-qunit": "0.1.8",
     "sinonjs": "1.10.2",
     "sinon-qunit": "https://github.com/cjohansen/sinon-qunit.git#2.0.0"
-  },
-  "resolutions": {
-    "ember": "6d3895bb00"
   }
 }

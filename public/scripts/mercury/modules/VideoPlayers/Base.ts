@@ -26,10 +26,16 @@ module Mercury.Modules.VideoPlayers {
 			});
 		}
 
-		playerDidLoad (): void {
-			// intentionally a no-op, documentation that this hook is implemented and to
-			// not error when called by loadPlayer*
-		}
+		/**
+		 * Intentionally a no-op, documentation that this hook is implemented
+		 * and to not error when called by loadPlayer*
+		 */
+		playerDidLoad (): void {}
+
+		/**
+		 * Abstract method which can be overridden by player if needed
+		 */
+		onResize (): void {}
 
 		createUniqueId (id: string): string {
 			var element = document.getElementById(id),

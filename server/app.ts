@@ -2,16 +2,16 @@
 /// <reference path="../typings/hapi/hapi.d.ts" />
 /// <reference path="../config/localSettings.d.ts" />
 
+// NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
+if (process.env.NEW_RELIC_ENABLED === 'true') {
+	require('newrelic');
+}
+
 import hapi = require('hapi');
 import path = require('path');
 import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
-
-// NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
-if (localSettings.isNewRelicEnabled) {
-	require('newrelic');
-}
 
 /**
  * Application class
@@ -140,9 +140,10 @@ class App {
 
 		server.on('internalError', (request: Hapi.Request, err: Error) => {
 			logger.error({
+				wiki: request.headers.host,
 				text: err.message,
 				url: url.format(request.url),
-				host: request.headers.host
+				referrer: request.info.referrer
 			}, 'Internal error');
 		});
 
@@ -154,10 +155,11 @@ class App {
 				? parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
 				: -1;
 			logger.info({
-				host: request.headers.host,
-				url: url.format(request.url),
+				wiki: request.headers.host,
 				code: (<Hapi.Response>request.response).statusCode,
-				responseTime: responseTime
+				url: url.format(request.url),
+				responseTime: responseTime,
+				referrer: request.info.referrer
 			}, 'Response');
 		});
 	}

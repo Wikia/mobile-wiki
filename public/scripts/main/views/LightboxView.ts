@@ -12,6 +12,10 @@ App.LightboxView = Em.View.extend({
 	headerHidden: false,
 	status: 'open',
 
+	hammerOptions: {
+		touchAction: 'auto'
+	},
+
 	gestures: {
 		tap: function (event: HammerEvent) {
 			var $target = this.$(event.target);

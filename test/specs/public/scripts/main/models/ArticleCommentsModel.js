@@ -32,8 +32,8 @@ test('reset, resets model properties', function () {
 	model.reset();
 
 	deepEqual(model.getProperties('comments', 'pagesCount'), {
-		comments: null,
-		pagesCount: null
+		comments: 0,
+		pagesCount: 0
 	});
 
 });

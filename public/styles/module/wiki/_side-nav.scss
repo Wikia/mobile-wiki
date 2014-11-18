@@ -12,17 +12,19 @@
 .side-nav {
 	// open nav button
 	.nav-container {
+		@extend .touch-active;
 		@extend %pointer;
-		height: 100%;
+		display: inline-block;
+		float: left;
+		height: 50px;
 		padding-top: rem-calc(15);
-		position: absolute;
 		width: rem-calc(60);
 
 		svg {
 			display: block;
 			height: rem-calc(20);
 			margin: auto;
-			width: auto;
+			width: rem-calc(34);
 		}
 	}
 

@@ -34,13 +34,14 @@ module Mercury.Modules.Trackers {
 				];
 
 			this.accounts = Mercury.tracking.ga;
-			this.queue = window._gaq = window._gaq || [];
+			this.queue = window._gaq || [];
 
 			// Primary account
 			this.initAccount(this.accountPrimary);
 
 			// Special wikis account
-			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
+			if (this.accounts[this.accountSpecial]) {
 				this.initAccount(this.accountSpecial);
 			}
 
@@ -58,8 +59,15 @@ module Mercury.Modules.Trackers {
 				}
 			}
 
-			// Send skin as custom variable
-			this.queue.push(['_setCustomVar', '4', 'Skin', 'mercury', '3']);
+			// Custom variables
+			var adsContext = Mercury.Modules.Ads.getInstance().getContext();
+			this.queue.push(['_setCustomVar', 1, 'DBname', Mercury.wiki.dbName]);
+			this.queue.push(['_setCustomVar', 4, 'Skin', 'mercury', 3]);
+			this.queue.push(['_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]);
+			if (adsContext) {
+				this.queue.push(['_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical]);
+				this.queue.push(['_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No']);
+			}
 		}
 
 		/**
@@ -100,10 +108,10 @@ module Mercury.Modules.Trackers {
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
-
 			this.queue.push(['_trackEvent'].concat(args));
 
-			if (this.accounts[this.accountSpecial] && this.isSpecialWiki()) {
+			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
+			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackEvent'].concat(args));
 			}
 			if (this.accounts[this.accountMercury]) {
@@ -115,7 +123,15 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
-			this.queue.push(['_trackPageView']);
+			this.queue.push(['_trackPageview']);
+
+			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
+			if (this.accounts[this.accountSpecial]) {
+				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
+			}
+			if (this.accounts[this.accountMercury]) {
+				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackPageview']);
+			}
 		}
 	}
 }

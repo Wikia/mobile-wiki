@@ -31,9 +31,25 @@
 		"footer-link-licensing": "Licensing",
 		"footer-link-privacy-policy": "Privacy Policy",
 		"footer-link-feedback": "Feedback",
+		"media-video-views": "__count__ view",
+		"media-video-views_plural": "__count__ views",
+		"media-video-views_plural_0": "__count__ views",
 		"page-not-found-error": "Sorry, we can't find the page you are looking for.",
 		"page-not-found-message": "Use Navigation or Search",
-		"random-page-label": "Random Page"
+		"random-page-label": "Random Page",
+		"now-label": "now",
+		"seconds-ago-label": "one seconds ago",
+		"seconds-ago-label_plural": "__count__ seconds ago",
+		"minutes-ago-label": "one minute ago",
+		"minutes-ago-label_plural": "__count__ minutes ago",
+		"hours-ago-label": "one hour ago",
+		"hours-ago-label_plural": "__count__ ago ago",
+		"days-ago-label": "one day ago",
+		"days-ago-label_plural": "__count__ days ago",
+		"months-ago-label": "one month ago",
+		"months-ago-label_plural": "__count__ months ago",
+		"years-ago-label": "one year ago",
+		"years-ago-label_plural": "__count__ years ago",
+		"username-anonymous": "A Wikia Contributor"
 	}
-	
 }

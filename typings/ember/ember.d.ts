@@ -409,9 +409,9 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '@each': EachProxy;
+        '@each': EachProxy;
         Boolean: boolean;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -539,8 +539,8 @@ declare module Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): any[];
-    '[]': any[];
-    '@each': EachProxy;
+        '[]': any[];
+        '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -917,7 +917,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -927,7 +927,7 @@ declare module Ember {
     A subclass of the JavaScript Error object for use in Ember.
     **/
     // ReSharper disable once DuplicatingLocalDeclaration
-    var Error: typeof Error;
+    var Error: Error;
     /**
     Handles delegating browser events to their corresponding Ember.Views. For example, when you click on
     a view, Ember.EventDispatcher ensures that that view's mouseDown method gets called.
@@ -2327,9 +2327,9 @@ declare module Em {
     var copy: typeof Ember.copy;
     var create: typeof Ember.create;
     var debug: typeof Ember.debug;
-    var defineProperty: typeof defineProperty;
-    var deprecate: typeof deprecate;
-    var deprecateFunc: typeof deprecateFunc;
+    var defineProperty: typeof Ember.defineProperty;
+    var deprecate: typeof Ember.deprecate;
+    var deprecateFunc: typeof Ember.deprecateFunc;
     var destroy: typeof Ember.destroy;
     var empty: typeof deprecateFunc;
     var endPropertyChanges: typeof Ember.endPropertyChanges;
@@ -2346,7 +2346,7 @@ declare module Em {
     var handleErrors: typeof Ember.handleErrors;
     var hasListeners: typeof Ember.hasListeners;
     var hasOwnProperty: typeof Ember.hasOwnProperty;
-    var immediateObserver: typeof immediateObserver;
+    var immediateObserver: typeof Ember.immediateObserver;
     var imports: typeof Ember.imports;
     var inspect: typeof Ember.inspect;
     var instrument: typeof Ember.instrument;

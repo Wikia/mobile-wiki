@@ -10,17 +10,17 @@
 // for some reason falls out of this scale, ask for guidance before implementing one-offs
 // List all implementations of the z-scale in the next section (after Z-Index Scale
 
-$z-min: -1;
-$z-1: 100;
-$z-2: 200;
-$z-3: 300;
-$z-4: 400;
-$z-5: 500;
-$z-6: 600;
-$z-7: 700;
-$z-8: 800;
-$z-9: 900;
-$z-max: 10000;
+$z-min : -1;
+$z-1   : 100;
+$z-2   : 200;
+$z-3   : 300;
+$z-4   : 400;
+$z-5   : 500;
+$z-6   : 600;
+$z-7   : 700;
+$z-8   : 800;
+$z-9   : 900;
+$z-max : 10000;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Z-Index Implementations
@@ -28,7 +28,11 @@ $z-max: 10000;
 
 // z-min
 // z-1
+$z-lightbox-content-inner: $z-1;
+$z-lightbox-img: $z-1;
+$z-media-lightbox: $z-1;
 $z-spinner-before: $z-1;
+$z-video-provider-ooyala-override: $z-1;
 // z-2
 $z-spinner-after: $z-2;
 // z-3
@@ -38,8 +42,9 @@ $z-spinner-after: $z-2;
 // z-7
 $z-site-head: $z-7;
 // z-8
+$z-lightbox-footer: $z-8;
+$z-lightbox-header: $z-8;
 $z-side-nav-overlay: $z-8;
-$z-lightbox-close-button: $z-8;
 // z-9
 $z-side-nav: $z-9;
 // z-max
@@ -52,8 +57,12 @@ $z-side-nav: $z-9;
 $border-radius-global: rem-calc(2);
 
 // Colors
-$color-gray-light: #d0d0d0;
+
 $color-blue-brand: #006cb0;
+$color-gray-dark: #3D3D3D;
+$color-gray-semi: #999999;
+$color-gray-light: #d0d0d0;
+$color-white: #ffffff;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Module Variables
@@ -66,6 +75,11 @@ $anchor-color-normal: $color-blue-brand;
 $overlay-opacity: .5;
 $border-color-light: $color-gray-light;
 
+$element-active-bg: $color-gray-light;
+
+$modal-background: $color-gray-dark;
+$modal-text-color: $color-white;
+
 $search-box-border-color: $color-gray-light;
 $search-box-text-color: $color-gray-light;
 $spinner-color: $color-blue-brand;
@@ -74,4 +88,4 @@ $side-nav-item-gutter: rem-calc(13);
 $side-nav-width: rem-calc(260);
 $side-nav-offset: $side-nav-width * -1;
 $side-nav-width: $side-nav-width;
-$transition-length: .25s;
+$transition-length: .10s;

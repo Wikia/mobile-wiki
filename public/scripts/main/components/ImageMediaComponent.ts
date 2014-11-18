@@ -43,7 +43,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 			if (media) {
 				return this.getThumbURL(
 					this.get('media').url,
-					Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
+					Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 					this.get('contentWidth'),
 					this.get('computedHeight')
 				);
@@ -68,16 +68,18 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 	 * load an image and run update function when it is loaded
 	 */
 	load: function(): void {
-		var image = new Image();
-
-		image.src = this.get('url');
-
-		if (image.complete) {
-			this.update(image.src);
-		} else {
-			image.addEventListener('load', () => {
+		var url = this.get('url'),
+			image: HTMLImageElement;
+		if (url) {
+			image = new Image()
+			image.src = url;
+			if (image.complete) {
 				this.update(image.src);
-			});
+			} else {
+				image.addEventListener('load', () => {
+					this.update(image.src);
+				});
+			}
 		}
 	},
 

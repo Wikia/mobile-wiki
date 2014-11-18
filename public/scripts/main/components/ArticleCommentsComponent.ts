@@ -8,9 +8,10 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	commentsCount: null,
 	classNames: ['article-comments'],
 	model: null,
+	isCollapsed: true,
 
-	isFirstPage: true,
-	isLastPage: true,
+	nextButtonShown: false,
+	prevButtonShown: false,
 	showComments: Em.computed.bool('page'),
 
 	/**
@@ -37,24 +38,28 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	pageObserver: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
 			var page: any = this.get('page'),
-				count: any = this.get('model.pagesCount'),
+				count: number = this.get('model.pagesCount'),
 				currentPage: any = page,
-				currentPageInteger: number = parseInt(currentPage, 10);
+				currentPageInteger: number,
+				isFirstPage: boolean;
 
 			// since those can be null we intentionally correct the types
 			if (page != null && count != null) {
 				currentPage = Math.max(Math.min(page, count), 1);
 			}
 
+			currentPageInteger = parseInt(currentPage, 10);
+			isFirstPage = currentPageInteger === 1;
+
 			this.setProperties({
-				isFirstPage: currentPageInteger === 1,
-				isLastPage: currentPage === count,
+				nextButtonShown: (isFirstPage || currentPageInteger < count) && count > 1,
+				prevButtonShown: !isFirstPage && (currentPageInteger > 1),
 				page: currentPage
 			});
 
 			this.set('model.page', currentPage);
 		});
-	}.observes('page'),
+	}.observes('page', 'model.comments'),
 
 	/**
 	 * @desc watches changes to model, and scrolls to top of comments
@@ -89,10 +94,12 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		toggleComments: function (): void {
 			this.set('page', this.get('page') ? null : 1);
 
+			this.toggleProperty('isCollapsed');
+
 			M.track({
 				action: M.trackActions.click,
 				category: 'comments',
-				label: this.get('page') ? 'close' : 'open'
+				label: this.get('page') ? 'open' : 'close'
 			});
 		}
 	}

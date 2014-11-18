@@ -4,24 +4,41 @@ table:not(.infobox, .dirbox) {
 
 .article-table {
 	border: 1px solid $border-color-light;
+	border-collapse: collapse;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 
+	table.infobox {
+		th, td {
+			width: 50%;
+		}
+	}
+
+	table:not(.infobox) {
+		th, td {
+			white-space: nowrap;
+		}
+	}
+
 	th, td {
 		padding: 10px;
-		white-space: nowrap;
+
+		figure {
+			margin: 0;
+			display: inline-block;
+
+			figcaption {
+				display: none;
+			}
+		}
 	}
 
 	th {
 		text-align: left;
 		vertical-align: top;
-
-		figure {
-			display: none;
-		}
 	}
 
-	td:not(:last-of-type), th:not(:last-of-type) {
+	td:not(:last-child), th:not(:last-child) {
 		border-right: 1px solid $border-color-light;
 	}
 

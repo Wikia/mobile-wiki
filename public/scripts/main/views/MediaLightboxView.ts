@@ -8,6 +8,10 @@ interface HammerEvent {
 	deltaY: number;
 	scale: number;
 	target: HTMLElement;
+	center: {
+		x: number;
+		y: number;
+	}
 }
 
 interface Window {
@@ -35,6 +39,13 @@ App.MediaLightboxView = App.LightboxView.extend({
 			height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 		};
 	}.property(),
+
+	//Easy to port if we find a way to use enum here
+	screenAreas:  {
+		left: 0,
+		center: 1,
+		right: 2
+	},
 
 	/**
 	 * @desc calculates current scale for zooming
@@ -110,6 +121,51 @@ App.MediaLightboxView = App.LightboxView.extend({
 			return Math.max(value, -max);
 		} else {
 			return Math.min(value, max);
+		}
+	},
+
+	/**
+	 * @desc Checks if a currently displayed media is of a given type
+	 * @param {string} type e.g, image / video
+	 * @returns {boolean}
+	 */
+	isCurrentMediaType: function (type: string): boolean {
+		return this.get('controller').get('currentMedia').type === type;
+	},
+
+	/**
+	 * @desc Checks on which area on the screen an event took place
+	 * @param {HammerEvent} event
+	 * @returns {number}
+	 */
+	getScreenArea: function (event: HammerEvent): number {
+		var x = event.center.x,
+			thirdPartOfScreen = this.get('viewportSize').width / 3;
+
+		if (x < thirdPartOfScreen) {
+			return this.screenAreas.left;
+		} else if (x > 2 * thirdPartOfScreen) {
+			return this.screenAreas.right;
+		} else {
+			return this.screenAreas.center;
+		}
+	},
+
+	/**
+	 * @desc Changes currently displayed item based on a place that was tapped
+	 * Currently 33%-wide sides of the screen trigger the media change
+	 *
+	 * @param {HammerEvent} event
+	 */
+	changeMediaOnTap: function (event: HammerEvent): void {
+		var screenArea = this.getScreenArea(event);
+
+		if (screenArea === this.screenAreas.right) {
+			this.nextMedia();
+		} else if (screenArea === this.screenAreas.left) {
+			this.prevMedia();
+		} else {
+			this.send('toggleUI');
 		}
 	},
 
@@ -189,13 +245,16 @@ App.MediaLightboxView = App.LightboxView.extend({
 			});
 		},
 
-		doubleTap: function () {
-			var scale = this.get('scale') > 1 ? 1 : 3;
+		doubleTap: function (event: HammerEvent) {
+			//allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
+			if (!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center) {
+				var scale = this.get('scale') > 1 ? 1 : 3;
 
-			this.setProperties({
-				scale: scale,
-				lastScale: scale
-			});
+				this.setProperties({
+					scale: scale,
+					lastScale: scale
+				});
+			}
 		},
 
 		tap: function (event: HammerEvent) {
@@ -203,8 +262,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 			if ($target.is('.lightbox-footer')) {
 				this.send('toggleFooter');
-			} else if ($target.is('.close-icon')) {
+			} else if ($target.is('.lightbox-close-wrapper')) {
 				this.get('controller').send('closeLightbox');
+			} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
+				this.changeMediaOnTap(event);
 			} else {
 				this.send('toggleUI');
 			}
@@ -304,6 +365,9 @@ App.MediaLightboxView = App.LightboxView.extend({
 			this.notifyPropertyChange('viewportSize');
 			this.notifyPropertyChange('imageWidth');
 			this.notifyPropertyChange('imageHeight');
+			if (this.get('videoPlayer')) {
+				this.get('videoPlayer').onResize();
+			}
 		};
 
 		//disabled for now, we can make it better when we have time

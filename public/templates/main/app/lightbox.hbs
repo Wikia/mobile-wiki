@@ -1,8 +1,10 @@
 <div {{bind-attr class="view.headerHidden:hidden :lightbox-header"}}>
+	<div class="lightbox-close-wrapper">
+		<svg role="img" class="lightbox-close-button">
+			<use xlink:href="#close"></use>
+		</svg>
+	</div>
 	<div class="lightbox-header-title">{{header}}</div>
-	<svg role="img" class="lightbox-close-button close-icon">
-        <use xlink:href="#close"></use>
-    </svg>
 </div>
 <div class="lightbox-content">
 	<div class="lightbox-content-inner">

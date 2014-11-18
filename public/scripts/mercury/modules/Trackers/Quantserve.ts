@@ -12,18 +12,17 @@ module Mercury.Modules.Trackers {
 		constructor () {
 			window._qevents = [];
 			super();
+			this.usesAdsContext = true;
 		}
 
 		url (): string {
 			return (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js?" + Math.random();
 		}
 
-		trackPageView (): void {
-			var context: typeof Mercury.tracking = Em.get('Mercury.article.adsContext.targeting'),
-				quantcastLabels = '',
+		trackPageView (context: any): void {
+			var quantcastLabels = '',
 				keyValues: string[],
 				keyValue: string[];
-
 
 			if (context && context.wikiCategory) {
 				quantcastLabels += context.wikiCategory;
