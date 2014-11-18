@@ -43,7 +43,7 @@ App.VisibilityStateManager = Em.Object.create({
 			while (i--) {
 				component = components[i];
 
-				if (this.isVisible(component.$(), wBottom, wTop, component.threshold)) {
+				if (component.$() && this.isVisible(component.$(), wBottom, wTop, component.threshold)) {
 					component.send('onVisible');
 					components.splice(i, 1);
 				}

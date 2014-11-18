@@ -1,0 +1,12 @@
+%button-primary {
+	@extend %button-plain;
+	background-color: $primary-color;
+	color: $button-font-color;
+}
+
+%button-primary:active,
+%button-primary:hover,
+%button-primary:focus,
+%button-primary:checked {
+	background-color: $primary-color;
+}
