@@ -28,8 +28,9 @@ you can disable that by running gulp with --nosync parameter
 ##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
 After creating new release branch
 run `./changelog.sh old-release new-release' and copy that to CHANGELOG.md
-Also if you are creating new tag, you should consider reruning it.
-This will get more automated.
+Also if you are creating a new tag, you should consider re runing it.
+
+This *will* get more automated.
 
 ## Testing on devices
 ### Using IP over the same network
