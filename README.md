@@ -26,7 +26,9 @@ on dev environments livereload server runs that reload your web browser on any c
 you can disable that by running gulp with --nosync parameter
 
 ##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
-After creating new release run `./changelog.sh varsion-1 version' and copy that to CHANGELOG.md
+After creating new release branch
+run `./changelog.sh old-release new-release' and copy that to CHANGELOG.md
+Also if you are creating new tag, you should consider reruning it.
 This will get more automated.
 
 ## Testing on devices
