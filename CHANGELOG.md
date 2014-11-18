@@ -1,5 +1,3 @@
-# Mercury Changelog
-
 ## release-8
 * use-shrinkwrap-for-gulp-task: use npm-shrinkwrap
 * [HG-334](https://wikia-inc.atlassian.net/browse/HG-334) Event to track mobile sessions in Mercury
