@@ -88,19 +88,13 @@ App.SmartBannerComponent = Em.Component.extend({
 		return vertical + '-vertical';
 	}.property(),
 
-	hammerOptions: {
-		touchAction: 'auto'
-	},
+	click: function (event: MouseEvent): void {
+		var $target = this.$(event.target);
 
-	gestures: {
-		tap: function (event: HammerEvent): void {
-			var $target = this.$(event.target);
-
-			if ($target.is('.sb-close')) {
-				this.close();
-			} else {
-				this.view();
-			}
+		if ($target.is('.sb-close')) {
+			this.close();
+		} else {
+			this.view();
 		}
 	},
 

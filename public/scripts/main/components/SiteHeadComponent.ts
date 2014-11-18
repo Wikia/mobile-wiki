@@ -12,6 +12,7 @@ App.SiteHeadComponent = Em.Component.extend({
 
 		headroom.destroy();
 		this.initHeadroom();
+		// this property is controlled by SmartBannerComponent and goes through ApplicationController
 	}.observes('smartBannerVisible'),
 
 	options: {
