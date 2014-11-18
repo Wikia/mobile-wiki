@@ -16,7 +16,7 @@
     "ember-hammer": "1.0.0",
     "headroom.js": "0.7.0",
     "fastclick": "1.0.3",
-    "vignette": "wikia/vignette-js"
+    "vignette": "wikia/vignette-js#1.0.0"
   },
   "devDependencies": {
     "ember-qunit": "0.1.8",
