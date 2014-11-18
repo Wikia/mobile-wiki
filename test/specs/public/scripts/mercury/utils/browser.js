@@ -13,6 +13,10 @@ QUnit.test('detection of mobile operating system', function () {
 			{
 				userAgent: 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19',
 				expectedOutput: 'android'
+			},
+			{
+				userAgent: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 820)',
+				expectedOutput: null
 			}
 		],
 		originalNavigator = window.navigator;

@@ -4,9 +4,8 @@
 	border-bottom: rem-calc(2) solid #8ca038;
 	box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.3);
 	display: flex;
-	-webkit-font-smoothing: antialiased;
-	-webkit-transition: height 1s;
 	width: 100%;
+	-webkit-font-smoothing: antialiased;
 
 	&.no-icon {
 		.sb-icon {
@@ -15,17 +14,15 @@
 	}
 }
 
-body {
-	&.android {
-		.smart-banner {
-			height: $smart-banner-android-height;
-		}
+.system-android {
+	.smart-banner {
+		height: $smart-banner-android-height;
 	}
+}
 
-	&.ios {
-		.smart-banner {
-			height: $smart-banner-ios-height;
-		}
+.system-ios {
+	.smart-banner {
+		height: $smart-banner-ios-height;
 	}
 }
 
@@ -43,9 +40,11 @@ body {
 }
 
 .sb-icon {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: rem-calc(46);
+	background: {
+		position: center;
+		repeat: no-repeat;
+		size: rem-calc(46);
+	}
 	height: rem-calc(46);
 	margin: auto 0;
 	width: rem-calc(46);
@@ -126,6 +125,26 @@ body {
 
 //colors from verticals
 .smart-banner {
+	/*
+	Documentation for @for: http://thesassway.com/intermediate/if-for-each-while#for
+
+	In JS it would be:
+
+	for (var i in verticals) {
+		var className = '&.' + verticals[i] + '-vertical',
+			color = verticalColors[i];
+	}
+
+	Generated output is like (for every vertical):
+
+	.smart-banner.comics-vertical {
+		border-bottom-color: #ff5400;
+
+		.sb-button {
+			background-color: #ff5400;
+		}
+	}
+	*/
 	@for $i from 1 through length($verticals) {
 		&.#{nth($verticals, $i)}-vertical {
 			border-bottom-color: nth($vertical-colors, $i);

@@ -24,9 +24,8 @@ App.SiteHeadComponent = Em.Component.extend({
 	},
 
 	offset: function (): number {
-		var system = Mercury.Utils.Browser.getSystem();
 		if (this.get('smartBannerVisible')) {
-			return this.get('options.smartBannerHeight.' + system);
+			return this.get('options.smartBannerHeight.' + Mercury.Utils.Browser.getSystem());
 		}
 		return 0;
 	}.property('smartBannerVisible'),

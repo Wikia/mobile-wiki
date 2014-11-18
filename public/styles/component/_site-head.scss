@@ -28,22 +28,20 @@
 	}
 }
 
-body {
-	&.smart-banner-visible {
+.smart-banner-visible {
+	.headroom-top {
+		position: absolute;
+	}
+
+	&.system-android {
 		.headroom-top {
-			position: absolute;
+			top: $smart-banner-android-height;
 		}
+	}
 
-		&.android {
-			.headroom-top {
-				top: $smart-banner-android-height;
-			}
-		}
-
-		&.ios {
-			.headroom-top {
-				top: $smart-banner-ios-height;
-			}
+	&.system-ios {
+		.headroom-top {
+			top: $smart-banner-ios-height;
 		}
 	}
 }

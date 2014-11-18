@@ -18,14 +18,13 @@ App.SmartBannerComponent = Em.Component.extend({
 	day: 86400000,
 	isVisible: false,
 	smartBannerVisible: Em.computed.alias('isVisible'),
-	noIcon: Em.computed.not('icon'),
 
 	appId: function (): string {
-		return Em.get(this.get('config'), 'appId.' + this.get('system'));
+		return this.get('config.appId.' + this.get('system'));
 	}.property('config', 'system'),
 
 	appScheme: function (): string {
-		return Em.get(this.get('config'), 'appScheme.' + this.get('system'));
+		return this.get('config.appScheme.' + this.get('system'));
 	}.property('config', 'system'),
 
 	config: function (): any {
@@ -36,13 +35,9 @@ App.SmartBannerComponent = Em.Component.extend({
 		return Em.get(Mercury, 'wiki.dbName');
 	}.property(),
 
-	description: function (): string {
-		return Em.get(this.get('config'), 'description');
-	}.property('config'),
+	description: Em.computed.alias('config.description'),
 
-	icon: function (): string {
-		return Em.get(this.get('config'), 'icon');
-	}.property('config'),
+	icon: Em.computed.alias('config.icon'),
 
 	iconStyle: function (): string {
 		return 'background-image: url(%@)'.fmt(this.get('icon'));
@@ -75,13 +70,13 @@ App.SmartBannerComponent = Em.Component.extend({
 		return link;
 	}.property('appId', 'dbName', 'system'),
 
+	noIcon: Em.computed.not('icon'),
+
 	system: function (): string {
 		return Mercury.Utils.Browser.getSystem();
 	}.property(),
 
-	title: function (): string {
-		return Em.get(this.get('config'), 'name');
-	}.property('config'),
+	title: Em.computed.alias('config.name'),
 
 	verticalClass: function (): string {
 		var vertical: string = Em.get(Mercury, 'wiki.vertical');
@@ -110,15 +105,15 @@ App.SmartBannerComponent = Em.Component.extend({
 			!config.disabled &&
 			$.cookie('sb-closed') !== '1'
 		) {
-			this.show();
+			this.set('isVisible', true);
 			this.track(M.trackActions.impression);
 		}
 	},
 
 	close: function (): void {
 		this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
+		this.set('isVisible', false);
 		this.track(M.trackActions.close);
-		this.hide();
 	},
 
 	view: function (): void {
@@ -129,20 +124,10 @@ App.SmartBannerComponent = Em.Component.extend({
 		if (appScheme) {
 			this.tryToOpenApp(appScheme);
 		} else {
-			window.document.location.href = this.get('link');
+			window.open(this.get('link'), '_blank');
 		}
 
-		this.hide();
-	},
-
-	hide: function (): void {
-		Em.$('body').removeClass('smart-banner-visible');
 		this.set('isVisible', false);
-	},
-
-	show: function (): void {
-		Em.$('body').addClass('smart-banner-visible');
-		this.set('isVisible', true);
 	},
 
 	/**
@@ -162,7 +147,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 */
 	fallbackToStore: function (): void {
 		this.track(M.trackActions.install);
-		window.document.location.href = this.get('link');
+		window.open(this.get('link'), '_blank');
 	},
 
 	/**
