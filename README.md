@@ -25,6 +25,10 @@ http://passingcuriosity.com/2013/dnsmasq-dev-osx/
 on dev environments livereload server runs that reload your web browser on any change in public folder
 you can disable that by running gulp with --nosync parameter
 
+##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
+After creating new release run `./changelog.sh varsion-1 version' and copy that to CHANGELOG.md
+This will get more automated.
+
 ## Testing on devices
 ### Using IP over the same network
 To test on your mobile device, connect both your development machine and your device to the same network. You can then visit Mercury on your device by using your machine's IP address (on OS X, you can get that using `ifconfig`). The URL should look something like: `//10.10.10.123:8000/wiki/Foo`. You can't use subdomains with IP addresses, but you can change your test wiki manually by editing your [`wikiFallback`](https://github.com/Wikia/mercury/blob/master/config/localSettings.base.ts#L28).
