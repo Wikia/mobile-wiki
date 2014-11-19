@@ -1,6 +1,6 @@
 // Nothing in this document should be considered permanent
 // Temporary overrides in lieu of final treatments for legacy MW/Wikia views
 
-.navbox {
+.navbox:not(> .article-table) {
 	display: none;
 }

@@ -124,13 +124,16 @@ function routes(server: Hapi.Server) {
 		handler: (request: Hapi.Request, reply: Function) => {
 			var params = {
 					wikiDomain: getWikiDomainName(request.headers.host),
-					articleId: parseInt(request.params.articleId, 10),
+					articleId: parseInt(request.params.articleId, 10) || null,
 					page: parseInt(request.params.page, 10) || 0
 				};
-
-			server.methods.getArticleComments(params, (error: any, result: any) => {
-				reply(error || result);
-			});
+			if (params.articleId === null) {
+				reply(Hapi.error.badRequest('Invalid articleId'));
+			} else {
+				server.methods.getArticleComments(params, (error: any, result: any) => {
+					reply(error || result);
+				});
+			}
 		}
 	});
 

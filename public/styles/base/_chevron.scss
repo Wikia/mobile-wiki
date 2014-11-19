@@ -2,6 +2,6 @@
 	transition: .25s transform ease-in-out;
 }
 
-&:not(.collapsed) .chevron {
+:not(.collapsed) .chevron {
 	transform: scaleY(-1);
 }

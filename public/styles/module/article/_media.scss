@@ -33,11 +33,14 @@ figcaption {
 
 .article-gallery {
 	-webkit-overflow-scrolling: touch;
-	overflow: {
-		x: scroll;
-		y: hidden;
+
+	&:not(.linked-gallery) {
+		overflow: {
+			x: scroll;
+			y: hidden;
+		}
+		white-space: nowrap;
 	}
-	white-space: nowrap;
 
 	img {
 		// Fixes iOS Safari repaint bug when scrolling through gallery
@@ -50,6 +53,46 @@ figcaption {
 	.gallery-video {
 		display: inline-block;
 		position: relative;
+	}
+
+	&.linked-gallery {
+		margin: auto;
+
+		button {
+			@extend %button-primary;
+			padding: rem-calc(10) rem-calc(60);
+			text-transform: uppercase;
+		}
+
+		.chevron {
+			background-color: #fff;
+			height: 20px;
+			bottom: 0;
+			margin-bottom: 50px;
+			right: 0;
+			position: absolute;
+			width: 20px;
+			z-index: $z-1;
+		}
+
+		figcaption {
+			@extend %ellipsis;
+			height: 50px;
+			pointer-events: auto;
+		}
+
+		figure {
+			display: inline-block;
+			margin: 0;
+			position: relative;
+			width: 49%;
+		}
+
+		img {
+			height: 100%;
+			margin-right: 6px;
+			width: 100%;
+		}
 	}
 }
 
