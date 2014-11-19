@@ -101,7 +101,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		//Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
 		if (this.get('system') &&
 			!standalone &&
-			config &&
+			config.name &&
 			!config.disabled &&
 			$.cookie('sb-closed') !== '1'
 		) {
