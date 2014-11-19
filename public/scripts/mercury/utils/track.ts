@@ -67,6 +67,8 @@ module Mercury.Utils {
 			hover: 'hover',
 			// impression of item on page/module
 			impression: 'impression',
+			// App installation
+			install: 'install',
 			// Generic keypress
 			keypress: 'keypress',
 			paginate: 'paginate',

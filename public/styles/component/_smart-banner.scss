@@ -1,0 +1,159 @@
+.smart-banner {
+	// same as public/images/sb-background.png
+	background: #e6e6e6 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAACECAYAAACzmJjeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAx5JREFUeNrs3G1T2kAUgNEAgmArRf//jy3pJDNYQ8x7snvPncnUDx2LyekDhHV3RVHs78el+tMEnt3D16/34+SUwFCPSsDwbVQCBpWAoX1UAgaVgKH9755UAobHOdyPs0rAoBIwqAQMKgGDSsAw1fdTCRhUAgaVgKHHvFSV2DndMNT/zrmCYYJjUAkYVAIGlYBBJWBQCRhUAgaVgGGFx1Uuszu4RDDUU9/OVgkY/s2+etpQCRhUAgaVgEElYFAJGFQCBpWAQSVgWKMSfkkYhi9jKwEYVGLgvEV5blWJ9rmWL8AjvdBSiRYIEZ4mVKIjhKgYVKIBQmQM0SvxDQIMMSvRCAGGWJUor/Xtfhyj3mfoO7luJVBe54/ih5XnMDSfk5y2EugEAYb8K9EZAgx5V6IXBBjyrURvCDDkWYlBEGDIrxIvFYTdUEUmj0qMggDDNJW4bOA8joYAw3SVWHMrgUkgwDD9RVl6K4HJIMCQdiUmhQBDupUoP1S7Tv39YUivEucKwiwP2KRTidkgwJBWJWaFAEM6lZgdAgxpVGIRCDCsO11+SXgxCDCsP21bCTxduApDrEosDgGGbVbiYw0IMGxvrtWxyoYjMGwLwuWhEq/FwtsSwbA9CI9zXLISMKx/z+H9CYRi6UrAsC6Ez6L7zafZKwFDGhD+f8exhyE2hKb7EjAEhzBbJWBIE8IslYAhbQiTVgKG+acEcCuWuYE0qhIwzA/hc+HzPLgSMOQFYVQlYMgTwqBKwJAvhN6VgCF/CPXUWwnsYFjmf99t4+e03krgCMN8U37qeE3o8TZWAoZ4EJ5WAoaYEBorAUNsCF8qAQMIXjOAAMPY+X0/fuX6w8HQfZ6tYIYBBBhAgAEEGEC4RPqBYQABhpbzMefCVRhAgAEEGECAAQQYQIAh9SkB/AEBhi2vYIYBBBhAgAEEGECAAQQYtjDlp47vIMCQ7QpmGECAAQQYQIABBBjGz1v1rsEExxBy4SoMIMAAAgwgwAACDCDA0OMxlvsrnlyu2BisYIYBBBhAgAEEGECA4ekcqncNIATHYOEqDCBsaf4KMABEcw1C3+HBRAAAAABJRU5ErkJggg==') no-repeat right;
+	background-size: auto 100%;
+	border-bottom: rem-calc(2) solid #8ca038;
+	box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.3);
+	display: flex;
+	width: 100%;
+	-webkit-font-smoothing: antialiased;
+
+	&.no-icon {
+		.sb-icon {
+			display: none;
+		}
+	}
+}
+
+.system-android {
+	.smart-banner {
+		height: $smart-banner-android-height;
+	}
+}
+
+.system-ios {
+	.smart-banner {
+		height: $smart-banner-ios-height;
+	}
+}
+
+.sb-close {
+	margin: auto rem-calc(10);
+
+	svg {
+		height: rem-calc(10);
+		pointer-events: none;
+
+		path {
+			fill: #773;
+		}
+	}
+}
+
+.sb-icon {
+	background: {
+		position: center;
+		repeat: no-repeat;
+		size: rem-calc(46);
+	}
+	height: rem-calc(46);
+	margin: auto 0;
+	width: rem-calc(46);
+}
+
+.sb-info {
+	flex: 1;
+	margin: auto rem-calc(10);
+
+	.sb-title {
+		@extend %ellipsis;
+		color: #333;
+		font-size: rem-calc(14);
+		font-weight: bold;
+		line-height: rem-calc(14);
+	}
+
+	.sb-description {
+		@extend %ellipsis;
+		color: #666;
+		font-size: rem-calc(10);
+	}
+
+	.sb-rating {
+		// same as public/images/sb-rating.png
+		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAAAMCAYAAAA02nCNAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAzlJREFUeNqsVlFq20AQHcmuCeRHhkIppNQt9Kc/tU4QB/pv+bc/TU5Q+wSJT2DlBKYnsHOC+gb1b2igLgRCS0tMoGDSSu6b0UjZKF7LFl3YRLb2+b2ZeTu7RJYRDyjA9GjLAUwDs1UCF1CJwVzMWQLn2TjdNbj3mGWEBorddgwgslkC9991urYsKqhdVuQ2LtOKNUoms2wR2jadNqcEy93k/5bBNahCzeVOltSNBQJD21ackylc4NxmCxlFn2Ie5t87uiBv2+N4j1rODRbcUB+fJ8a7uduTH6MVvaO9rFOXA3SvBNPPvWecp64wxyh6RV7lG55u6Qh/ZxvyHcdPoXMBndcU4vPZvYr3Et26Lc3i8u+80fUfMHv5pDBgxEKlWpXkRfQcL3/jh3/qwj8imMcY8ygNRghqRMtHWoUn+INn91JXRMAu5IkD7WgBBixS3SiczMdcXAjhWyRYjBDB9VTnkPGmThSPCNrc7w90TpSPFBeYOhFbR9eMdE1qjrlj2GkEslb8DMCd3B67lsqzyD4EnuSseAKBXDGK6zkbIjCtviQS2LlRuSGS0uRkpAFmfFeSoLlixjnbDxFcwLi8Tk5o5VJ0SiJzOrvSzPcSnbW35Bjv0oQzZ8dZFWD08o7Q/SFVkMWpHVcdi5xUJMaLHxsJ+SKPPeBCy74egO/w7+u77zmJCG6qfDMLnwQoOneNwl0+TGQOx8F/gpu96jtyzO8wT9OC5xttyJZlizm3at/EbhNbQoy9O5OKR4p1s34QWjAcwMfUJbrFUtec2RKi2FCqauhcJriZLSGKm8qWcbN7SkO3tSexW06fQJrkL2g7J6pe3Dv2irq5NOvqeYJlK/PJUHApa3Ol2fLsKp7LWnZcrj/Ca+TJdrlIOJ2k/2xyCgWa+M+YXzG72lsCW1L2uWLYLpxRH72gp5YsunEKkayNpIH56Aszrf66AAOcGnxysKg61ve1sRcFt8/NlDnA5zOncFeyk2XtrVljOpUYE30tU6e74iLETcpnq6lNfc1ke+1FKJI1jBurTX21ZMt6p0lsyz3ngLeT7OmIDtTSQcGFLVS+qW6ZF6qhXXBhmyouVKyvV4dM5z8BBgDHGU9DWuczGwAAAABJRU5ErkJggg==') no-repeat;
+		background-size: contain;
+		height: rem-calc(10);
+		width: rem-calc(56);
+	}
+
+	.sb-in-store {
+		color: #555;
+		font-size: rem-calc(10);
+		font-weight: bold;
+	}
+}
+
+.sb-button {
+	background-color: #8ca038;
+	color: #fff;
+	font-size: rem-calc(12);
+	font-weight: bold;
+	height: rem-calc(25);
+	line-height: rem-calc(25);
+	margin: auto rem-calc(20) auto 0;
+	padding: 0 rem-calc(10);
+	text-decoration: none;
+}
+
+@media #{$landscape} {
+	.smart-banner {
+		border-bottom-width: 1px;
+	}
+
+	.sb-info {
+		.sb-title {
+			font-size: rem-calc(18);
+			line-height: rem-calc(18);
+		}
+
+		.sb-description {
+			font-size: rem-calc(12);
+		}
+
+		.sb-in-store {
+			display: none;
+		}
+	}
+
+	.sb-button {
+		font-size: rem-calc(16);
+		height: rem-calc(38);
+		line-height: rem-calc(38);
+		margin: auto rem-calc(20) auto rem-calc(10);
+		padding: 0 rem-calc(16);
+	}
+}
+
+//colors from verticals
+.smart-banner {
+	/*
+	Documentation for @for: http://thesassway.com/intermediate/if-for-each-while#for
+
+	In JS it would be:
+
+	for (var i in verticals) {
+		var className = '&.' + verticals[i] + '-vertical',
+			color = verticalColors[i];
+	}
+
+	Generated output is like (for every vertical):
+
+	.smart-banner.comics-vertical {
+		border-bottom-color: #ff5400;
+
+		.sb-button {
+			background-color: #ff5400;
+		}
+	}
+	*/
+	@for $i from 1 through length($verticals) {
+		&.#{nth($verticals, $i)}-vertical {
+			border-bottom-color: nth($vertical-colors, $i);
+
+			.sb-button {
+				background-color: nth($vertical-colors, $i);
+			}
+		}
+	}
+}

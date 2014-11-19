@@ -1,6 +1,12 @@
 .page-wrapper {
 	@extend .row;
 
+	margin-top: 50px;
+
+	.mobile-top-leaderboard ~ & {
+		margin-top: 0;
+	}
+
 	.article-body {
 		@extend .small-12;
 		padding: 0 1.125rem;

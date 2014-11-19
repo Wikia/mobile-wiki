@@ -1,13 +1,13 @@
 .ad-slot {
 	text-align: center;
 
-	&.hidden {
-		display: none;
-	}
-
 	div {
 		margin: 0 auto;
 	}
+}
+
+.mobile-top-leaderboard {
+	margin-top: 60px;
 }
 
 .mobile-in-content, .mobile-prefooter {
