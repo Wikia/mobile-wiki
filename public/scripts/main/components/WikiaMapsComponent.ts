@@ -10,6 +10,8 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 	id: null,
 	height: 200,
 
+	caption: Em.computed.alias('title'),
+
 	didInsertElement: function () {
 		//handle click with jquery because the 'normal' way to handle events doesn't work. 
 		this.$().click(() => {
