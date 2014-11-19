@@ -26,12 +26,12 @@ App.ArticleController = Em.ObjectController.extend({
 		articleRendered: function () {
 			if (this.get('file')) {
 				this.send('openLightbox', 'media-lightbox');
-			}
-			if (this.get('map')) {
-				var foundMap = Em.$('a[data-map-id='+this.get('map')+']'),
+			} else if (this.get('map')) {
+				var foundMap = Em.$('a[data-map-id=' + this.get('map') + ']'),
 					title = foundMap.data('map-title'),
 					url = foundMap.data('map-url'),
 					id = foundMap.data('map-id');
+
 				this.send('openLightbox', 'map-lightbox', {
 					title: title,
 					url: url,
