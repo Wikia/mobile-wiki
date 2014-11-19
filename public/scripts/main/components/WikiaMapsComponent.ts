@@ -9,8 +9,9 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 	imageSrc: null,
 	id: null,
 
-	actions: {
-		lightboxOpening: function() {
+	didInsertElement: function () {
+		//handle click with jquery because the 'normal' way to handle events doesn't work. 
+		this.$().click(() => {
 			var url = this.get('url'),
 				id = this.get('id'),
 				title = this.get('title');
@@ -18,19 +19,12 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 			if (url) {
 				Em.Logger.debug('Handling map:', id, 'title:', title);
 
-				this.sendAction('openLightbox', 'map-lightbox', {
+				this.sendAction('click', 'map-lightbox', {
 					title: title,
 					url: url,
 					id: id
-				}); 
+				});
 			}
-		}
-	},
-
-	didInsertElement: function () {
-		//handle click with jquery because the 'normal' way to handle events doesn't work. 
-		this.$().click(() => {
-			this.send('lightboxOpening');
 		});
 	}
 });

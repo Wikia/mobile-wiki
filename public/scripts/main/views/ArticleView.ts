@@ -168,7 +168,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				url: $a.data('map-url'),
 				imageSrc: $img.data('src'),
 				id: $a.data('map-id'),
-				title: $a.data('map-title')
+				title: $a.data('map-title'),
+				click: 'openLightbox'
 			}));
 
 		mapComponent.createElement();
