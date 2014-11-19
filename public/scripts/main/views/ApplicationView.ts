@@ -127,7 +127,7 @@ App.ApplicationView = Em.View.extend({
 
 			if (target) {
 				tagName = target.tagName.toLowerCase();
-				if (tagName === 'img' || tagName === 'figure') {
+				if ((tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0) {
 					this.handleMedia(target);
 				}
 			}
