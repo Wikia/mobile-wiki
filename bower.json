@@ -16,6 +16,7 @@
     "ember-hammer": "1.0.0",
     "headroom.js": "0.7.0",
     "fastclick": "git://github.com/mklucsarits/fastclick.git#1.0.3-wikia",
+    "jquery.cookie": "1.4.1",
     "vignette": "wikia/vignette-js#1.0.0"
   },
   "devDependencies": {

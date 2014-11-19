@@ -1,4 +1,5 @@
 /// <reference path='../app.ts' />
+/// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path='../../../../typings/headroom/headroom.d.ts' />
 'use strict';
 
@@ -18,6 +19,15 @@ interface EventTarget {
 }
 
 App.ApplicationView = Em.View.extend({
+	classNameBindings: ['systemClass', 'smartBannerVisible'],
+
+	systemClass: function (): string {
+		var system: string = Mercury.Utils.Browser.getSystem();
+		return system ? 'system-' + system : '';
+	}.property(),
+
+	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
+
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its
 	 * top, and also so we can scroll back to where it was before we fixed it.
@@ -42,23 +52,6 @@ App.ApplicationView = Em.View.extend({
 			this.handleLink(target);
 		}
 		event.preventDefault();
-	},
-	/**
-	 * @desc Hide top bar when scrolling down. Uses headroom.js plugin. 
-	 * Styles in styles/module/wiki/_site-head.scss and styles/state/_animated.scss
-	 */
-	didInsertElement: function () {
-		var headroom = new Headroom(document.getElementsByClassName('site-head')[0], {
-			classes: {
-				initial: 'headroom',
-				pinned: 'pinned',
-				unpinned: 'un-pinned',
-				top: 'headroom-top',
-				notTop: 'headroom-not-top'
-			}
-		});
-
-		headroom.init(); 
 	},
 
 	handleLink: function (target: HTMLAnchorElement): void {
