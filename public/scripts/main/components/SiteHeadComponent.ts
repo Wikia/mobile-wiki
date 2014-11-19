@@ -7,12 +7,15 @@ App.SiteHeadComponent = Em.Component.extend({
 	tagName: 'nav',
 	headroom: null,
 
+	/**
+	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
+	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
+	 */
 	smartBannerVisibleObserver: function (): void {
 		var headroom = this.get('headroom');
 
 		headroom.destroy();
 		this.initHeadroom();
-		// this property is controlled by SmartBannerComponent and goes through ApplicationController
 	}.observes('smartBannerVisible'),
 
 	options: {
