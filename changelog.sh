@@ -1,4 +1,4 @@
-#/usr/bin
+#!/bin/sh
 
 git --no-pager log origin/release-$1...origin/release-$2 --merges --pretty=format:'* %s: %b' |
 grep 'Merge pull' |
