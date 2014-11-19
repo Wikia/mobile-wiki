@@ -98,7 +98,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		var standalone: any = Em.get(navigator, 'standalone'),
 			config: any = this.get('config');
 
-		//Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
+		// Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
 		if (this.get('system') &&
 			!standalone &&
 			config.name &&
@@ -107,6 +107,8 @@ App.SmartBannerComponent = Em.Component.extend({
 		) {
 			this.set('isVisible', true);
 			this.track(M.trackActions.impression);
+		} else {
+			this.destroy();
 		}
 	},
 
