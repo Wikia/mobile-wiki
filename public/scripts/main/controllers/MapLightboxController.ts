@@ -35,7 +35,10 @@ App.MapLightboxController = App.LightboxController.extend({
 
 	init: function (): void {
 		this._super();
-		this.get('data.id') ? this.set('map', this.get('data.id')) : this.set('map', null);
+
+		if (this.get('data.id')) {
+			this.set('map', this.get('data.id'))
+		}
 	}.observes('data.id').on('init'),
 
 	/**
