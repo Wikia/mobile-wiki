@@ -10,7 +10,11 @@ module.exports = function (language) {
 			translations = require(translationPath);
 			return JSON.stringify(translations);
 		} catch (exception) {
-			Logger.error({lang: lang, path: translationPath}, 'Translation not found');
+			Logger.error({
+				lang: lang,
+				path: translationPath,
+				error: exception.message
+			}, 'Translation not found');
 		}
 	});
 	return JSON.stringify(translations);
