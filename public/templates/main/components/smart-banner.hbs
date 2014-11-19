@@ -1,11 +1,11 @@
 <div class='sb-close' {{action 'close'}}>{{svg 'close' viewBox='0 0 18 18'}}</div>
-<div class='sb-icon' {{bind-attr style=view.iconStyle}}></div>
+<div class='sb-icon' {{bind-attr style=iconStyle}}></div>
 <div class='sb-info'>
-    <div class='sb-title'>{{view.title}}</div>
-    {{#if view.description}}
-        <div class='sb-description'>{{view.description}}</div>
+    <div class='sb-title'>{{title}}</div>
+    {{#if description}}
+        <div class='sb-description'>{{description}}</div>
     {{/if}}
     <div class='sb-rating'></div>
-    <div class='sb-in-store'>{{i18n 'smartbanner-price'}} - {{unbound view.labelInStore}}</div>
+    <div class='sb-in-store'>{{i18n 'smartbanner-price'}} - {{unbound labelInStore}}</div>
 </div>
-<div class='sb-button'>{{unbound view.labelInstall}}</div>
+<div class='sb-button'>{{unbound labelInstall}}</div>
