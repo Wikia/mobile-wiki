@@ -46,10 +46,7 @@ App.MapLightboxController = App.LightboxController.extend({
 	 */
 	reset: function (): void {
 		this.setProperties({
-			data: {
-				title: null,
-				url: null
-			},
+			data: {},
 			map: null
 		});
 
