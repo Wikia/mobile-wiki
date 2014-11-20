@@ -128,13 +128,28 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 		Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout
-		}, (err: any, res: any, payload: any): void => {
+		}, (err: any, response: any, payload: any): void => {
 			if (err) {
 				Logger.error({url: url, error: err}, 'Error fetching url');
 				reject(err);
 			} else {
-				if (res.headers['content-type'].match('application/json')) {
-					payload = JSON.parse(payload);
+				if (response.statusCode !== 200) {
+					Logger.error({
+						url: url,
+						headers: response.headers,
+						statusCode: response.statusCode
+					}, 'Bad HTTP response');
+				} else {
+					if (response.headers['content-type'] &&
+						response.headers['content-type'].match('application/json')) {
+						payload = JSON.parse(payload);
+					} else {
+						Logger.error({
+							url: url,
+							headers: response.headers,
+							statusCode: response.statusCode
+						}, 'Response missing content type')
+					}
 				}
 
 				resolve(payload);
