@@ -3,8 +3,17 @@
 OLD=$(git branch --remote | grep 'release-' | sed 's/.*-//' | sort -r | head -1)
 NEW=$((OLD+1))
 CHANGELOG=CHANGELOG.md
+CURRENTBRANCH=$(git branch | grep '*' |sed 's/* //')
+if [ "$CURRENTBRANCH" != "master" ]; then
+  echo "You are not on master branch do you want to continue? [y/N]"
+  read -e
+  if [ "$REPLY" != "y" ]; then
+	exit 1
+  fi
+fi
+echo run
+exit 1
 
-#TODO: make sure you are on master here
 #git add $CHANGELOG
 #git commit
 #git commit $CHANGELOG -m 'Changelog: release-'$NEW
@@ -19,7 +28,7 @@ echo '' | cat - $CHANGELOG > tmp
 mv tmp $CHANGELOG
 
 #prepend the changelog
-./changelog.sh $OLD $NEW | cat - $CHANGELOG > tmp
+./changelog.sh $OLD | cat - $CHANGELOG > tmp
 mv tmp $CHANGELOG
 
 #prepend release header
