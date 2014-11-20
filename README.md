@@ -2,10 +2,6 @@
 [![Dependency Status](https://david-dm.org/Wikia/mercury.svg)](https://david-dm.org/Wikia/mercury)
 [![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
-## Automatic Setup
-* Run `./install.sh` after cloning this repo
-* Run `npm run dev` to start server and watch files
-
 ## Manual Setup
 * `npm install` will install local dependencies
 * `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies

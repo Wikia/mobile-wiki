@@ -3,16 +3,17 @@
 OLD=$(git branch --remote | grep 'release-' | sed 's/.*-//' | sort -r | head -1)
 NEW=$((OLD+1))
 CHANGELOG=CHANGELOG.md
-CURRENTBRANCH=$(git branch | grep '*' |sed 's/* //')
+CURRENTBRANCH=$(git branch | grep '*' | sed 's/* //')
+
 if [ "$CURRENTBRANCH" != "master" ]; then
   echo "You are not on master branch do you want to continue? [y/N]"
   read -e
+
   if [ "$REPLY" != "y" ]; then
 	exit 1
   fi
 fi
-echo run
-exit 1
+
 
 #git add $CHANGELOG
 #git commit
