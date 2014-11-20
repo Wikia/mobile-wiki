@@ -123,7 +123,7 @@ App.ApplicationView = Em.View.extend({
 					this.handleMedia(target);
 				}
 			}
-		} 
+		}
 	},
 
 	actions: {
