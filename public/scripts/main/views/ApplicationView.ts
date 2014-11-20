@@ -96,8 +96,7 @@ App.ApplicationView = Em.View.extend({
 					category: 'gallery'
 				});
 			}
-		} 
-		else {
+		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
 	},
