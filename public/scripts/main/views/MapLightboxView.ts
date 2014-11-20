@@ -17,7 +17,7 @@ App.MapLightboxView = App.LightboxView.extend({
 		var titleBarHeight = 40,
 			mapHeight = window.innerHeight - titleBarHeight;
 
-		return 'height:%@px;'.fmt(mapHeight);
+		return 'height:%@px;'.fmt(mapHeight.toString());
 	}.property(),
 
 	willDestroyElement: function (): void {
