@@ -148,10 +148,9 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 							url: url,
 							headers: response.headers,
 							statusCode: response.statusCode
-						}, 'Response missing content type')
+						}, 'Response missing content type');
 					}
 				}
-
 				resolve(payload);
 			}
 		});
