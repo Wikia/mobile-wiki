@@ -156,11 +156,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	replaceMapsWithMapComponents: function () {
 		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement) => {
-			this.replaceWithMapComponent(elem);
-		})
+			this.replaceMapWithMapComponent(elem);
+		});
 	},
 
-	replaceWithMapComponent: function (elem: HTMLElement) {
+	replaceMapWithMapComponent: function (elem: HTMLElement) {
 		var $mapPlaceholder = $(elem),
 			$a = $mapPlaceholder.children('a'),
 			$img = $a.children('img'),
