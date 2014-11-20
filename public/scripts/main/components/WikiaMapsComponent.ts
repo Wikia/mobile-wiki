@@ -22,6 +22,11 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 			if (url) {
 				Em.Logger.debug('Handling map:', id, 'title:', title);
 
+				M.track({
+					action: M.trackActions.click,
+					category: 'map'
+				});
+
 				this.sendAction('click', 'map-lightbox', {
 					title: title,
 					url: url,
