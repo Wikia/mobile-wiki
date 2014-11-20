@@ -139,18 +139,19 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						headers: response.headers,
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
-				} else {
-					if (response.headers['content-type'] &&
-						response.headers['content-type'].match('application/json')) {
-						payload = JSON.parse(payload);
-					} else {
-						Logger.error({
-							url: url,
-							headers: response.headers,
-							statusCode: response.statusCode
-						}, 'Response missing content type');
-					}
 				}
+
+				if (response.headers['content-type'] &&
+					response.headers['content-type'].match('application/json')) {
+					payload = JSON.parse(payload);
+				} else {
+					Logger.error({
+						url: url,
+						headers: response.headers,
+						statusCode: response.statusCode
+					}, 'Response missing content type');
+				}
+
 				resolve(payload);
 			}
 		});
