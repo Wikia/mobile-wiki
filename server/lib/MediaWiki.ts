@@ -125,7 +125,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	Logger.debug({url: url}, 'Fetching');
 
 	return new Promise((resolve, reject) => {
-		Wreck.get(url, {
+		var req = Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout
 		}, (err: any, response: any, payload: any): void => {
@@ -155,6 +155,11 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 				resolve(payload);
 			}
 		});
+
+		req.on('error', function (err) {
+			Logger.error({url: url, error: err}, 'Error fetching url');
+			reject(err);
+		})
 	});
 }
 
