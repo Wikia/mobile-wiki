@@ -32,12 +32,8 @@ echo "Commit and push? [Y/n]"
 read -e
 
 if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
-	#prepend new line
-	echo '' | cat - $CHANGELOG > tmp
-	mv tmp $CHANGELOG
-
 	#prepend the changelog
-	echo $CHANGE | cat - $CHANGELOG > tmp
+	echo $CHANGE'\n' | cat - $CHANGELOG > tmp
 	mv tmp $CHANGELOG
 
 	#prepend release header
