@@ -1,3 +1,6 @@
+## release-14 (2014-11-21 22:30)
+* [HG-376](https://wikia-inc.atlassian.net/browse/HG-376) socket hang up issue
+
 ## release-13 (2014-11-21 17:05)
 * Safer-error-code: default to 500 error if non is provided
 * Dont-assume-that-json-is-valid: try catch for JSON.parse in MediaWiki.ts
