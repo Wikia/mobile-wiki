@@ -35,6 +35,26 @@
     "media-video-views_plural_0":"__count__ просмотров",
     "page-not-found-error":"К сожалению, мы не можем найти страницу, которую вы ищете.",
     "page-not-found-message":"Используйте Навигацию или Поиск",
-    "random-page-label":"Случайная статья"
+    "random-page-label":"Случайная статья",
+    "now-label":"now",
+    "seconds-ago-label":"one seconds ago",
+    "seconds-ago-label_plural":"__count__ seconds ago",
+    "minutes-ago-label":"one minute ago",
+    "minutes-ago-label_plural":"__count__ minutes ago",
+    "hours-ago-label":"one hour ago",
+    "hours-ago-label_plural":"__count__ ago ago",
+    "days-ago-label":"one day ago",
+    "days-ago-label_plural":"__count__ days ago",
+    "months-ago-label":"one month ago",
+    "months-ago-label_plural":"__count__ months ago",
+    "years-ago-label":"one year ago",
+    "years-ago-label_plural":"__count__ years ago",
+    "username-anonymous":"A Wikia Contributor",
+    "smartbanner-store-ios":"On the App Store",
+    "smartbanner-store-android":"In Google Play",
+    "smartbanner-install-ios":"Get the app",
+    "smartbanner-install-android":"Install",
+    "smartbanner-price":"FREE",
+    "view-more":"View more"
   }
 }
