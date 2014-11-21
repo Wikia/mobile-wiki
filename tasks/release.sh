@@ -48,4 +48,6 @@ if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
 
 	echo 'git push -u origin release-'$NEW
 	git push -u origin release-$NEW
+	echo 'git push -u origin '$CURRENTBRANCH
+	git push -u origin $CURRENTBRANCH
 fi
