@@ -41,8 +41,8 @@ QUnit.module('GoogleAnalytics tests', {
 		 * Checks if a specific command array appears in the queue
 		 */
 		this.queueContains = function (commandArray) {
-			var count = 0,
-				i, j, contains;
+			var i, j, contains;
+
 			for (i = 0; i < this.queue.length; i++) {
 				if (contains === true) {
 					return true;
@@ -67,34 +67,28 @@ QUnit.test('GoogleAnalytics is compiled into Mercury.Modules.Trackers namespace'
 
 QUnit.test('GoogleAnalytics constructor', function () {
 	new Mercury.Modules.Trackers.GoogleAnalytics();
-	strictEqual(this.queueCount('_setAccount'), 1);
-	strictEqual(this.queueCount('_setSampleRate'), 1);
-	strictEqual(this.queueContains(['_setAccount', Mercury.tracking.ga.primary.id]), true);
-	strictEqual(this.queueContains(['_setSampleRate', Mercury.tracking.ga.primary.sampleRate.toString()]), true);
-	strictEqual(this.queueContains(['mercury._setAccount', Mercury.tracking.ga.mercury.id]), true);
-	strictEqual(this.queueContains(['mercury._setSampleRate', Mercury.tracking.ga.mercury.sampleRate.toString()]), true);
-});
 
-QUnit.test('Special wiki', function () {
-	var tracker = new Mercury.Modules.Trackers.GoogleAnalytics();
-	// Special wiki var is undefined
-	strictEqual(tracker.isSpecialWiki(), false);
-	// false
-	Mercury.wiki.isGASpecialWiki = false;
-	strictEqual(tracker.isSpecialWiki(), false);
-	// true
-	Mercury.wiki.isGASpecialWiki = true;
-	strictEqual(tracker.isSpecialWiki(), true);
+	strictEqual(this.queueCount('_setAccount'), 1);
+	strictEqual(this.queueCount('mercury._setAccount'), 1);
+	strictEqual(this.queueCount('_setSampleRate'), 0);
+	strictEqual(this.queueCount('mercury._setSampleRate'), 0);
+
+	deepEqual(['_setAccount', '123'], this.queue[0]);
+	deepEqual(['mercury._setAccount', '456'], this.queue[1]);
 });
 
 QUnit.test('Track event', function () {
 	var tracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 	tracker.track('category', 'action', 'label', 42, true);
-	strictEqual(this.queueContains(['_trackEvent', 'category', 'action', 'label', 42, true]), true);
+	deepEqual(this.queueContains(['_trackEvent', 'category', 'action', 'label', 42, true]), true);
+	deepEqual(this.queueContains(['special._trackEvent', 'category', 'action', 'label', 42, true]), true);
+	deepEqual(this.queueContains(['mercury._trackEvent', 'category', 'action', 'label', 42, true]), true);
 });
 
 QUnit.test('Track page view', function () {
 	var tracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 	tracker.trackPageView();
-	strictEqual(this.queueContains(['_trackPageView']), true);
+	deepEqual(this.queueContains(['_trackPageView']), true);
+	deepEqual(this.queueContains(['mercury._trackPageView']), true);
+	deepEqual(this.queueContains(['special._trackPageView']), true);
 });
