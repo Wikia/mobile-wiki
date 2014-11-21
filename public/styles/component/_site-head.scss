@@ -12,20 +12,6 @@
 	text-align: center;
 	top: 0;
 	z-index: $z-1;
-
-	.drawer-menu, .user-icon {
-		position: absolute;
-	}
-
-	.drawer-menu {
-		left: 0;
-		top: 0;
-	}
-
-	.user-icon {
-		right: 0;
-		top: 0;
-	}
 }
 
 .smart-banner-visible {

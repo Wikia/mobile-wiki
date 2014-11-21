@@ -12,16 +12,15 @@ interface SearchSuggestionItem {
 	url: string;
 }
 
-/**
- * @desc Controller for the search results. Note that the actual search bar is
- * contained in SideNav, so this is a child of that controller and that
- * controller modifies LocalWikiaSearchController#query through an Ember input binding.
- * This controller is simply made to respond to changes to that property, and update so
- * that its view can display the results of the search.
- */
-App.LocalWikiaSearchController = Em.Controller.extend(Ember.Evented, {
+App.LocalWikiaSearchComponent = Em.Component.extend({
+	classNames: ['local-wikia-search'],
+
 	query: '',
-	// Array<SearchSuggestionItem>, this is what's currently displayed in the search results
+
+	/**
+	 * This is what's currently displayed in the search results
+	 * @member {Array<SearchSuggestionItem>}
+	 */
 	suggestions: [],
 	/**
 	 * Whether or not to show that empty message (should be shown if there is a valid
@@ -129,7 +128,7 @@ App.LocalWikiaSearchController = Em.Controller.extend(Ember.Evented, {
 				this.setSearchSuggestionItems(data.items);
 			}
 			this.cacheResult(query, data.items);
-		// When we get a 404, it means there were no results
+			// When we get a 404, it means there were no results
 		}).fail((reason: any) => {
 			if (query === this.get('query')) {
 				this.setEmptySearchSuggestionItems();
@@ -147,7 +146,7 @@ App.LocalWikiaSearchController = Em.Controller.extend(Ember.Evented, {
 
 	/**
 	 * Methods that modify requestsInProgress to record what requests are currently
- 	 * being executed so we don't do them more than once.
+	 * being executed so we don't do them more than once.
 	 */
 
 	/**
@@ -203,7 +202,7 @@ App.LocalWikiaSearchController = Em.Controller.extend(Ember.Evented, {
 	/**
 	 * @desc caches the provided query/suggestion array pair
 	 * @param query the query string that was used in the search API request
-	 * @param the array of suggestions -- if not provided, then there were zero results
+	 * @param suggestions -- if not provided, then there were zero results
 	 */
 	cacheResult: function (query: string, suggestions?: Array<SearchSuggestionItem>): void {
 		if (this.needToEvict()) {

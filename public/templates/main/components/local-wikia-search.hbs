@@ -1,0 +1,16 @@
+<ul {{action 'collapseSideNav' target="view.parentView"}}>
+	{{#each suggestion in suggestions}}
+		<li>
+		{{#link-to 'article' suggestion.title}}
+			{{suggestion.title}}
+		{{/link-to}}
+		</li>
+	{{else}}
+	{{#if showEmptyMessage}}
+		<li>{{i18n 'search-no-results-msg'}}</li>
+	{{/if}}
+	{{#if isLoadingSearchResults}}
+		<li>{{i18n 'search-loading-msg'}}</li>
+	{{/if}}
+	{{/each}}
+</ul>
