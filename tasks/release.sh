@@ -18,7 +18,7 @@ if [ "$CURRENTBRANCH" != "master" ]; then
 	fi
 fi
 
-CHANGE=$SCRIPT_PATH/changelog.sh $OLD
+CHANGE=$($SCRIPT_PATH/changelog.sh $OLD)
 
 if [ "$CHANGE" == "" ]; then
 	CHANGE='* Only minor fixes'
@@ -26,7 +26,7 @@ fi
 
 echo 'Summary:'
 echo $RELEASEHEADER
-echo $CHANGE
+echo "$CHANGE\n"
 
 echo "Commit and push? [y/N]"
 read -e
@@ -35,7 +35,7 @@ if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
 	TMP=changelog.$RANDOM
 
 	#prepend the changelog
-	echo $CHANGE'\n' | cat - $CHANGELOG > $TMP
+	echo "$CHANGE\n" | cat - $CHANGELOG > $TMP
 	mv $TMP $CHANGELOG
 
 	#prepend release header

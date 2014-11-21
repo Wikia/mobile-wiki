@@ -3,7 +3,7 @@
 if [ "$1" != "" ]; then
   FROM=origin/release-$1
 else
-  FROM=origin/release-$(git branch --remote | grep 'release-' | sed 's/.*-//' | sort -r | head -1)
+  FROM=origin/release-$(git branch --remote | grep 'release-' | sed 's/.*-//' | sort -gr | head -1)
 fi
 
 if [ "$2" != "" ]; then
