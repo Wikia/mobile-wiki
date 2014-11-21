@@ -154,7 +154,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 
 				resolve(payload);
 			}
-		}).on('error', function (error) {
+		}).on('error', function (error: any) {
 			Logger.error({url: url, error: error}, 'Error fetching url');
 			reject(error);
 		})
