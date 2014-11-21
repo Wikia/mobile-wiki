@@ -55,7 +55,7 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	handleLink: function (target: HTMLAnchorElement): void {
-		var matches: Array<string>;
+		var controller: typeof App.ApplicationController;
 
 		Em.Logger.debug('Handling link with href:', target.href);
 
@@ -73,7 +73,10 @@ App.ApplicationView = Em.View.extend({
 			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
 				event.preventDefault();
 
-				this.get('controller').send('handleLink', target);
+				controller = this.get('controller');
+
+				controller.send('closeLightbox');
+				controller.send('handleLink', target);
 			}
 		}
 	},
