@@ -1,6 +1,3 @@
-## release-13 (2014-11-21 14:33)
-
-
 ## release-12
 * [HG-374](https://wikia-inc.atlassian.net/browse/HG-374) Send all GA variables to all accounts
 
