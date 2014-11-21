@@ -61,12 +61,16 @@ module Mercury.Modules.Trackers {
 
 			// Custom variables
 			var adsContext = Mercury.Modules.Ads.getInstance().getContext();
-			this.queue.push(['_setCustomVar', 1, 'DBname', Mercury.wiki.dbName]);
-			this.queue.push(['_setCustomVar', 4, 'Skin', 'mercury', 3]);
-			this.queue.push(['_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]);
+			this.queue.push(
+				['_setCustomVar', 1, 'DBname', Mercury.wiki.dbName],
+				['_setCustomVar', 4, 'Skin', 'mercury', 3],
+				['_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]
+			);
 			if (adsContext) {
-				this.queue.push(['_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical]);
-				this.queue.push(['_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No']);
+				this.queue.push(
+					['_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical],
+					['_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No']
+				);
 			}
 		}
 
@@ -83,8 +87,10 @@ module Mercury.Modules.Trackers {
 				prefix = this.accounts[name].prefix + '.';
 			}
 
-			this.queue.push([prefix + '_setAccount', this.accounts[name].id]);
-			this.queue.push([prefix + '_setSampleRate', this.accounts[name].sampleRate.toString()]);
+			this.queue.push(
+				[prefix + '_setAccount', this.accounts[name].id],
+				[prefix + '_setSampleRate', this.accounts[name].sampleRate.toString()]
+			);
 		}
 
 		/**
