@@ -2,10 +2,6 @@
 [![Dependency Status](https://david-dm.org/Wikia/mercury.svg)](https://david-dm.org/Wikia/mercury)
 [![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
-## Automatic Setup
-* Run `./install.sh` after cloning this repo
-* Run `npm run dev` to start server and watch files
-
 ## Manual Setup
 * `npm install` will install local dependencies
 * `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
@@ -24,6 +20,25 @@ http://passingcuriosity.com/2013/dnsmasq-dev-osx/
 ##Live reload
 on dev environments livereload server runs that reload your web browser on any change in public folder
 you can disable that by running gulp with --nosync parameter
+
+##Releasing
+run `./tasks/release.sh`
+That should:
+
+* generate changelog
+* commit it
+* create new release-X branch
+* push this new release branch to origin
+
+After that you can login to deploy server, and deploy new version
+
+##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
+Change log is automatically generated when running `./tasks/release.sh`
+You can generate changelog manually though like this:
+
+* `./tasks/changelog.sh` - generate change log between latest release and master
+* `./tasks/changelog.sh X` - generate change log between release branch X and master
+* `./tasks/changelog.sh X Y` - generate change log between release branch X and Y
 
 ## Testing on devices
 ### Using IP over the same network
