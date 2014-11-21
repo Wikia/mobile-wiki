@@ -1,3 +1,9 @@
+## release-13 (2014-11-21 17:05)
+* Safer-error-code: default to 500 error if non is provided
+* Dont-assume-that-json-is-valid: try catch for JSON.parse in MediaWiki.ts
+* [HG-346](https://wikia-inc.atlassian.net/browse/HG-346) Clicking a link in a lightbox caption does not close the lightbox
+* Add-changelog: add changelog, and script to generate it semi automatically
+
 ## release-12
 * [HG-374](https://wikia-inc.atlassian.net/browse/HG-374) Send all GA variables to all accounts
 
