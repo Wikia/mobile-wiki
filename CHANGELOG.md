@@ -1,3 +1,30 @@
+## release-12
+* [HG-374](https://wikia-inc.atlassian.net/browse/HG-374) Send all GA variables to all accounts
+
+## release-11
+* [HG-359](https://wikia-inc.atlassian.net/browse/HG-359) Updated translations
+* [HG-367](https://wikia-inc.atlassian.net/browse/HG-367) Update vignette to 1.0.1
+* [HG-370](https://wikia-inc.atlassian.net/browse/HG-370) MW serves error with content which should be parsed
+
+## release-10
+* [HG-370](https://wikia-inc.atlassian.net/browse/HG-370) Add more response logging in MediaWiki.fetch method
+* Fix-close-button-color: Add fill to css, as it got removed from svg
+
+## release-9
+* [HG-355](https://wikia-inc.atlassian.net/browse/HG-355) Semi-transparency missing when side menu is open
+* [HG-359](https://wikia-inc.atlassian.net/browse/HG-359) Fallback to English if translation is not found
+* [HG-110](https://wikia-inc.atlassian.net/browse/HG-110) Custom smart banner
+* [HG-252](https://wikia-inc.atlassian.net/browse/HG-252) Add chrevron to the import; Remove &
+* [HG-339](https://wikia-inc.atlassian.net/browse/HG-339) Use correct version of FastClick
+* [HG-339](https://wikia-inc.atlassian.net/browse/HG-339) Fix transition freezes on iOS8
+* [HG-353](https://wikia-inc.atlassian.net/browse/HG-353) Use correct version of Vignette
+* [HG-332](https://wikia-inc.atlassian.net/browse/HG-332) Linked images
+* [HG-352](https://wikia-inc.atlassian.net/browse/HG-352) Fix table display bugs
+* [HG-336](https://wikia-inc.atlassian.net/browse/HG-336) Validate articleId on getComments
+* fix-master-deps: Glob was not properly version locked and a minor change introduced a
+* [HG-252](https://wikia-inc.atlassian.net/browse/HG-252) Toggle comments chevron 
+* [HG-341](https://wikia-inc.atlassian.net/browse/HG-341) Don't lazyLoad images without url
+
 ## release-8
 * use-shrinkwrap-for-gulp-task: use npm-shrinkwrap
 * [HG-334](https://wikia-inc.atlassian.net/browse/HG-334) Event to track mobile sessions in Mercury
