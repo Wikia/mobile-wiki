@@ -143,7 +143,15 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 
 				if (response.headers['content-type'] &&
 					response.headers['content-type'].match('application/json')) {
-					payload = JSON.parse(payload);
+					try {
+						payload = JSON.parse(payload);
+					} catch (exception: any) {
+						Logger.error({
+							url: url,
+							headers: response.headers,
+							message: exception.message
+						}, 'not parsable json');
+					}
 				} else {
 					Logger.error({
 						url: url,
