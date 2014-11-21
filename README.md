@@ -21,12 +21,24 @@ http://passingcuriosity.com/2013/dnsmasq-dev-osx/
 on dev environments livereload server runs that reload your web browser on any change in public folder
 you can disable that by running gulp with --nosync parameter
 
-##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
-After creating new release branch
-run `./changelog.sh old-release new-release' and copy that to CHANGELOG.md
-Also if you are creating a new tag, you should consider re runing it.
+##Releasing
+run `./tasks/release.sh`
+That should:
 
-This *will* get more automated.
+* generate changelog
+* commit it
+* create new release-X branch
+* push this new release branch to origin
+
+After that you can login to deploy server, and deploy new version
+
+##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
+Change log is automatically generated when running `./tasks/release.sh`
+You can generate changelog manually though like this:
+
+* `./tasks/changelog.sh` - generate change log between latest release and master
+* `./tasks/changelog.sh X` - generate change log between release branch X and master
+* `./tasks/changelog.sh X Y` - generate change log between release branch X and Y
 
 ## Testing on devices
 ### Using IP over the same network
