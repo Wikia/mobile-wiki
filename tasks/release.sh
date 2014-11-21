@@ -18,11 +18,10 @@ if [ "$CURRENTBRANCH" != "master" ]; then
 	fi
 fi
 
-
 CHANGE=$SCRIPT_PATH/changelog.sh $OLD
 
 if [ "$CHANGE" == "" ]; then
-	CHANGE='Only minor fixes'
+	CHANGE='* Only minor fixes'
 fi
 
 echo 'Summary:'

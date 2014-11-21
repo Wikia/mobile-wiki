@@ -16,7 +16,7 @@
 * [HG-110](https://wikia-inc.atlassian.net/browse/HG-110) Custom smart banner
 * [HG-252](https://wikia-inc.atlassian.net/browse/HG-252) Add chrevron to the import; Remove &
 * [HG-339](https://wikia-inc.atlassian.net/browse/HG-339) Use correct version of FastClick
-* [HG-339](https://wikia-inc.atlassian.net/browse/HG-339) Fix transition freezes on iOS8
+* [HG-339](https://nwikia-inc.atlassian.net/browse/HG-339) Fix transition freezes on iOS8
 * [HG-353](https://wikia-inc.atlassian.net/browse/HG-353) Use correct version of Vignette
 * [HG-332](https://wikia-inc.atlassian.net/browse/HG-332) Linked images
 * [HG-352](https://wikia-inc.atlassian.net/browse/HG-352) Fix table display bugs
