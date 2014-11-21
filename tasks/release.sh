@@ -28,17 +28,19 @@ echo 'Summary:'
 echo $RELEASEHEADER
 echo $CHANGE
 
-echo "Commit and push? [Y/n]"
+echo "Commit and push? [y/N]"
 read -e
 
 if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
+	TMP=changelog.$RANDOM
+
 	#prepend the changelog
-	echo $CHANGE'\n' | cat - $CHANGELOG > tmp
-	mv tmp $CHANGELOG
+	echo $CHANGE'\n' | cat - $CHANGELOG > $TMP
+	mv $TMP $CHANGELOG
 
 	#prepend release header
-	echo $RELEASEHEADER | cat - $CHANGELOG > tmp
-	mv tmp $CHANGELOG
+	echo $RELEASEHEADER | cat - $CHANGELOG > $TMP
+	mv $TMP $CHANGELOG
 
 	git add $CHANGELOG
 	git commit $CHANGELOG -m 'Changelog: release-'$NEW
