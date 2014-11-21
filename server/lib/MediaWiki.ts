@@ -145,7 +145,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 					response.headers['content-type'].match('application/json')) {
 					try {
 						payload = JSON.parse(payload);
-					} catch (exception: any) {
+					} catch (exception) {
 						Logger.error({
 							url: url,
 							headers: response.headers,
