@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SCRIPT_PATH=$(dirname `which $0`)
-OLD=$(git branch --remote | grep 'release-' | sed 's/.*-//' | sort -r | head -1)
+OLD=$(git branch --remote | grep 'release-' | sed 's/.*-//' | sort -gr | head -1)
 NEW=$((OLD+1))
 CHANGELOG=CHANGELOG.md
 CURRENTBRANCH=$(git branch | grep '*' | sed 's/* //')
