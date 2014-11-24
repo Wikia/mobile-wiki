@@ -58,7 +58,7 @@ var localSettings: LocalSettings = {
 		}
 	},
 	wikiFallback: 'community',
-	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 2,
+	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000
 };
 
