@@ -12,5 +12,3 @@ gulp.task('build-all', [
 	], function () {
 	return gulp.start('build-templates');
 });
-
-
