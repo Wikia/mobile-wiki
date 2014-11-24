@@ -147,7 +147,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 			}
 
 			resolve(err || payload);
-		})
+		});
 	});
 }
 
