@@ -2,7 +2,7 @@ var gulp = require('gulp'),
 	server = require('gulp-develop-server'),
 	options = require('../options').server;
 
-gulp.task('server', ['build'], function () {
+gulp.task('server', ['build', 'build-templates'], function () {
 	server.listen(options);
 });
 
