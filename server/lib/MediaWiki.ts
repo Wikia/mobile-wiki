@@ -124,7 +124,7 @@ export class ArticleRequest {
 export function fetch (url: string, redirects: number = 1): Promise<any> {
 	Logger.debug({url: url}, 'Fetching');
 
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout,
