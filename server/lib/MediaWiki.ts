@@ -124,14 +124,17 @@ export class ArticleRequest {
 export function fetch (url: string, redirects: number = 1): Promise<any> {
 	Logger.debug({url: url}, 'Fetching');
 
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		Wreck.get(url, {
 			redirects: redirects,
-			timeout: localSettings.backendRequestTimeout
+			timeout: localSettings.backendRequestTimeout,
+			json: true
 		}, (err: any, response: any, payload: any): void => {
 			if (err) {
-				Logger.error({url: url, error: err}, 'Error fetching url');
-				reject(err);
+				Logger.error({
+					url: url,
+					error: err
+				}, 'Error fetching url');
 			} else {
 				if (response.statusCode !== 200) {
 					Logger.error({
@@ -140,20 +143,9 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
 				}
-
-				if (response.headers['content-type'] &&
-					response.headers['content-type'].match('application/json')) {
-					payload = JSON.parse(payload);
-				} else {
-					Logger.error({
-						url: url,
-						headers: response.headers,
-						statusCode: response.statusCode
-					}, 'Response missing content type');
-				}
-
-				resolve(payload);
 			}
+
+			resolve(err || payload);
 		});
 	});
 }

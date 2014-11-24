@@ -2,7 +2,9 @@ language: node_js
 node_js:
 - '0.10'
 install:
-- ./install.sh
+- npm install -g bower jshint gulp
+- npm install
+- bower install
 notifications:
   slack:
     rooms:
