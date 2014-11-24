@@ -133,8 +133,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 			if (err) {
 				Logger.error({
 					url: url,
-					message: err.message,
-					code: err.code
+					error: err
 				}, 'Error fetching url');
 			} else {
 				if (response.statusCode !== 200) {
@@ -147,7 +146,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 			}
 
 			resolve(err || payload);
-		})
+		});
 	});
 }
 
