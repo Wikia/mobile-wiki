@@ -127,11 +127,15 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,
-			timeout: localSettings.backendRequestTimeout
+			timeout: localSettings.backendRequestTimeout,
+			json: true
 		}, (err: any, response: any, payload: any): void => {
 			if (err) {
-				Logger.error({url: url, error: err}, 'Error fetching url');
-				reject(err);
+				Logger.error({
+					url: url,
+					message: err.message,
+					code: err.code
+				}, 'Error fetching url');
 			} else {
 				if (response.statusCode !== 200) {
 					Logger.error({
@@ -140,31 +144,9 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
 				}
-
-				if (response.headers['content-type'] &&
-					response.headers['content-type'].match('application/json')) {
-					try {
-						payload = JSON.parse(payload);
-					} catch (exception) {
-						Logger.error({
-							url: url,
-							headers: response.headers,
-							message: exception.message
-						}, 'not parsable json');
-					}
-				} else {
-					Logger.error({
-						url: url,
-						headers: response.headers,
-						statusCode: response.statusCode
-					}, 'Response missing content type');
-				}
-
-				resolve(payload);
 			}
-		}).on('error', function (error: any) {
-			Logger.error({url: url, error: error}, 'Error fetching url');
-			reject(error);
+
+			resolve(err || payload);
 		})
 	});
 }
