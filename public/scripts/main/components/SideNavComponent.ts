@@ -11,19 +11,24 @@ App.SideNavComponent = Em.Component.extend({
 	searchQuery: '',
 
 	actions: {
-		/**
-		 * Action for 'x' button in search box
-		 */
+		// x button
 		clearSearch: function (): void {
 			this.set('searchQuery', '');
 		},
 
 		collapse: function (): void {
 			this.set('isCollapsed', true);
+			this.send('searchCancel');
 		},
 
 		expand: function (): void {
 			this.set('isCollapsed', false);
+		},
+
+		// cancel button
+		searchCancel: function (): void {
+			this.set('isInSearchMode', false);
+			this.send('clearSearch');
 		},
 
 		searchFocus: function (): void {
@@ -33,9 +38,6 @@ App.SideNavComponent = Em.Component.extend({
 				action: M.trackActions.click,
 				category: 'search'
 			});
-		},
-		searchCancel: function (): void {
-			this.set('isInSearchMode', false);
 		},
 
 		/**

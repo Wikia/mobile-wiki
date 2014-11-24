@@ -10,24 +10,6 @@
 }
 
 .side-nav {
-	// open nav button
-	.nav-container {
-		@extend .touch-active;
-		@extend %pointer;
-		display: inline-block;
-		float: left;
-		height: 50px;
-		padding-top: rem-calc(15);
-		width: rem-calc(60);
-
-		svg {
-			display: block;
-			height: rem-calc(20);
-			margin: auto;
-			width: rem-calc(34);
-		}
-	}
-
 	// overlay
 	.overlay {
 		@extend %pointer;
@@ -45,7 +27,7 @@
 		visibility: hidden;
 	}
 
-	&.slide-into-view  .overlay {
+	&.slide-into-view .overlay {
 		opacity: $overlay-opacity;
 		transition: opacity $transition-length;
 		visibility: visible;

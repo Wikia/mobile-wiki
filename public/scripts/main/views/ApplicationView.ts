@@ -26,7 +26,8 @@ App.ApplicationView = Em.View.extend({
 		return system ? 'system-' + system : '';
 	}.property(),
 
-	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
+	smartBannerVisible: false,
+	sideNavCollapsed: true,
 
 	/**
 	 * Store scroll location so when we set the body to fixed position, we can set its

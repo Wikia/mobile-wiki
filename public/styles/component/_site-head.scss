@@ -43,3 +43,20 @@
 		transform: translateY(-100%);
 	}
 }
+
+.side-nav-toggle {
+	@extend .touch-active;
+	@extend %pointer;
+	display: inline-block;
+	float: left;
+	height: rem-calc(50);
+	padding-top: rem-calc(15);
+	width: rem-calc(60);
+
+	svg {
+		display: block;
+		height: rem-calc(20);
+		margin: auto;
+		width: rem-calc(34);
+	}
+}
