@@ -12,7 +12,8 @@ gulp.task('build', [
 	'vendor',
 	'templates',
 	'locales',
-	'scripts-back'
+	'scripts-back',
+	'build-views'
 ], function(cb) {
 	if (environment.isProduction) {
 		return gulp.src([
