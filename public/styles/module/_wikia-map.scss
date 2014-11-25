@@ -14,8 +14,10 @@
 		font-size: 1.6rem;
 		font-weight: bold;
 		left: 5%;
+		overflow: hidden;
 		position: absolute;
 		text-overflow: ellipsis;
+		white-space: nowrap;
 		width: 90%;
 	}
 
@@ -26,23 +28,23 @@
 		position: absolute;
 		top: 0;
 		width: 100%;
+	}
 
-		.view-map {
-			border: 1px solid white;
-			border-radius: 3px;
-			left: 50%;
-			line-height: 1rem;
-			padding: 8px 11px;
-			position: absolute;
-			top: 50%;
-			transform: translate(-50%, -50%);
+	.view-map {
+		border: 1px solid white;
+		border-radius: 3px;
+		left: 50%;
+		line-height: 1rem;
+		padding: 8px 11px;
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
 
-			svg {
-				fill: white;
-				width: 16px;
-				height: 16px;
-				vertical-align: bottom;
-			}
+		svg {
+			fill: white;
+			width: 16px;
+			height: 16px;
+			vertical-align: bottom;
 		}
 	}
 }
