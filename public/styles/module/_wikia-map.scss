@@ -4,6 +4,7 @@
 
 .wikia-map {
 	color: white;
+	height: auto;
 	position: relative;
 	width: 100%;
 
@@ -32,11 +33,17 @@
 			border-radius: 3px;
 			left: 50%;
 			line-height: 1rem;
-			margin-top: -1rem;
 			padding: 8px 11px;
 			position: absolute;
 			top: 50%;
-			background: url('../svg/main/view-map.svg');
+			transform: translate(-50%, -50%);
+
+			svg {
+				fill: white;
+				width: 16px;
+				height: 16px;
+				vertical-align: bottom;
+			}
 		}
 	}
 }

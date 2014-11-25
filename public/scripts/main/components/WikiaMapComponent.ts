@@ -8,7 +8,6 @@ App.WikiaMapComponent = App.ImageMediaComponent.extend({
 	title: null,
 	imageSrc: null,
 	id: null,
-	height: 200,
 	templateName: 'components/wikia-map',
 
 	caption: Em.computed.alias('title'),
