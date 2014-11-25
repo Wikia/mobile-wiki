@@ -1,3 +1,6 @@
+## release-16 (2014-11-25 13:40)
+* Dont-mark-people-with-cookie: Don't automatically mark people with useskin=mercury
+
 ## release-15 (2014-11-25 13:07)
 * revert-394-revert-393-Use-useskin-mercury: Revert "Revert "change cookie to useskin=mercury""
 * Dont-just-kill-the-server: We should not just kill the server out of the sudden
