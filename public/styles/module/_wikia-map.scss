@@ -1,0 +1,42 @@
+.wikia-interactive-map-link {
+	pointer-events: none;
+}
+
+.wikia-map {
+	color: white;
+	position: relative;
+	width: 100%;
+
+	figcaption {
+		bottom: 0;
+		color: white;
+		font-size: 1.6rem;
+		font-weight: bold;
+		left: 5%;
+		position: absolute;
+		text-overflow: ellipsis;
+		white-space:no-wrap;
+		width: 90%;
+	}
+
+	.view-map-wrapper {
+		background: -webkit-gradient(linear,0% 0%,0% 100%,color-stop(0%,transparent),color-stop(100%,rgba(0,0,0,0.6)));
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+
+		.view-map {
+			border: 1px solid white;
+			border-radius: 3px;
+			left: 50%;
+			line-height: 1rem;
+			margin-top: -1rem;
+			padding: 8px 11px;
+			position: absolute;
+			top: 50%;
+			background: url('../svg/main/view-map.svg');
+		}
+	}
+}
