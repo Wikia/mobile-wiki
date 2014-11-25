@@ -50,11 +50,11 @@ function routes(server: Hapi.Server) {
 		};
 
 	// TODO: Remove the cookie when we handle all traffic
-	server.state('useskin', {
+	server.state('wk_mercury', {
 		// 30 days in millisecons
 		ttl: 2628000000,
 		path: '/',
-		autoValue: 'mercury'
+		autoValue: '1'
 	});
 
 	/**
