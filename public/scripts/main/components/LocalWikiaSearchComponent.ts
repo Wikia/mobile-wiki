@@ -5,18 +5,13 @@
  * Type for search suggestion, as returned by node-side search API
  */
 interface SearchSuggestionItem {
-	id: number;
-	ns: number;
-	quality: number;
 	title: string;
-	url: string;
 }
 
 App.LocalWikiaSearchComponent = Em.Component.extend({
 	classNames: ['local-wikia-search'],
 
 	query: '',
-
 	/**
 	 * This is what's currently displayed in the search results
 	 * @member {Array<SearchSuggestionItem>}
@@ -43,6 +38,12 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	// key: query string, value: Array<SearchSuggestionItem>
 	cachedResults: {},
 
+	actions: {
+		collapseSideNav: function (): void {
+			this.set('sideNavCollapsed', true);
+		}
+	},
+
 	setSearchSuggestionItems: function (suggestions: Array<SearchSuggestionItem>): void {
 		this.set('suggestions', suggestions);
 	},
@@ -56,8 +57,8 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @param query search string
-	 * @return uri to send an ajax request to
+	 * @param {string} query - search string
+	 * @return {string} uri to send an ajax request to
 	 */
 	getSearchURI: function (query: string): string {
 		return App.get('apiBase') + '/search/' + encodeURIComponent(query);
@@ -97,8 +98,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	}.observes('query'),
 
 	/**
-	 * @desc query observer which makes ajax request for search suggestions
-	 * based on query
+	 * @desc query observer which makes ajax request for search suggestions based on query
 	 */
 	searchWithoutDebounce: function (): void {
 		var query: string = this.get('query'),
@@ -151,7 +151,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 
 	/**
 	 * @desc records that we have submitted an ajax request for a query term
-	 * @param the query string that we submitted an ajax request for
+	 * @param {string} query - the query string that we submitted an ajax request for
 	 */
 	startedRequest: function (query: string): void {
 		this.get('requestsInProgress')[query] = true;
@@ -159,7 +159,8 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 
 	/**
 	 * @desc returns whether or not there is a request in progress
-	 * @param query the query to check
+	 * @param {string} query - query the query to check
+	 * @return {boolean}
 	 */
 	requestInProgress: function (query: string): boolean {
 		return this.get('requestsInProgress').hasOwnProperty(query);
@@ -167,7 +168,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 
 	/**
 	 * @desc records that we have finished a request
-	 * @param query the string we searched for that we're now done with
+	 * @param {string} query - query the string we searched for that we're now done with
 	 */
 	endedRequest: function (query: string): void {
 		delete this.get('requestsInProgress')[query];
@@ -182,8 +183,8 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	// Search result cache methods
 
 	/**
-	 * @return whether or not the number of cached results is equal to
-	 * our limit on cached results
+	 * @desc returns whether or not the number of cached results is equal to our limit on cached results
+	 * @return {boolean}
 	 */
 	needToEvict: function (): boolean {
 		return this.cachedResultsQueue.length === this.cachedResultsLimit;
@@ -201,8 +202,8 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 
 	/**
 	 * @desc caches the provided query/suggestion array pair
-	 * @param query the query string that was used in the search API request
-	 * @param suggestions -- if not provided, then there were zero results
+	 * @param {string} query - the query string that was used in the search API request
+	 * @param {Array<SearchSuggestionItem>} suggestions - if not provided, then there were zero results
 	 */
 	cacheResult: function (query: string, suggestions?: Array<SearchSuggestionItem>): void {
 		if (this.needToEvict()) {
@@ -214,15 +215,16 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 
 	/**
 	 * @desc Checks whether the result of the query has been cached
-	 * @param query
+	 * @param {string} query
+	 * @return {boolean}
 	 */
 	hasCachedResult: function (query: string): boolean {
 		return this.get('cachedResults').hasOwnProperty(query);
 	},
 
 	/**
-	 * @param query the query string to search the cache with
-	 * @return the cached result or null if there were no results (type Array<SearchSuggestionItem>|null)
+	 * @param {string} query - the query string to search the cache with
+	 * @return {Array<SearchSuggestionItem>|null} the cached result or null if there were no results
 	 */
 	getCachedResult: function (query: string): any {
 		return this.get('cachedResults')[query];
