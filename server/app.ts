@@ -22,22 +22,18 @@ class App {
 	 * Creates new `hapi` server
 	 */
 	constructor() {
-		var server: Hapi.Server,
-			options: {},
-			//Counter for maxRequestPerChild
-			counter = 0,
-			second = 1000;
-
-		server = hapi.createServer(localSettings.host, localSettings.port, {
-			// ez enable cross origin resource sharing
-			cors: true,
-			cache: this.getCacheSettings(localSettings.cache),
-			state: {
-				cookies: {
-					strictHeader: false
+		//Counter for maxRequestPerChild
+		var counter = 0,
+			server: hapi.Server = hapi.createServer(localSettings.host, localSettings.port, {
+				// ez enable cross origin resource sharing
+				cors: true,
+				cache: this.getCacheSettings(localSettings.cache),
+				state: {
+					cookies: {
+						strictHeader: false
+					}
 				}
-			}
-		});
+			});
 
 		this.setupLogging(server);
 
@@ -67,6 +63,21 @@ class App {
 		server.start(function() {
 			logger.info({url: server.info.uri}, 'Server started');
 			process.send('Server started');
+		});
+
+		server.on('tail', function () {
+			counter++;
+
+			if (counter >= localSettings.maxRequestsPerChild) {
+				//This is a safety net for memory leaks
+				//It restarts child so even if it leaks we are 'safe'
+				server.stop({
+					timeout: localSettings.backendRequestTimeout
+				}, function () {
+					logger.info('Max request per child hit: Server stopped');
+					process.exit(0);
+				});
+			}
 		});
 
 		process.on('message', function(msg: string) {
@@ -120,9 +131,6 @@ class App {
 	 * @param server
 	 */
 	private setupLogging(server: Hapi.Server): void {
-		//Counter for maxRequestPerChild
-		var counter = 0;
-
 		server.on('log', (event: any, tags: Array<string>) => {
 			logger.info({
 				data: event.data,
@@ -138,22 +146,6 @@ class App {
 				referrer: request.info.referrer
 			}, 'Internal error');
 		});
-
-		server.on('tail', function () {
-			counter++;
-
-			if (counter >= localSettings.maxRequestsPerChild) {
-				//This is a safety net for memory leaks
-				//It restarts child so even if it leaks we are 'safe'
-				server.stop({
-					timeout: localSettings.backendRequestTimeout
-				}, function () {
-					logger.info('Max request per child hit: Server stopped');
-					process.exit(0)
-				});
-			}
-		});
-
 
 		server.on('response', (request: Hapi.Request) => {
 			// If there is an errors and headers are not present, set the response time to -1 to make these
