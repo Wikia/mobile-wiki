@@ -124,7 +124,7 @@ export class ArticleRequest {
 export function fetch (url: string, redirects: number = 1): Promise<any> {
 	Logger.debug({url: url}, 'Fetching');
 
-	return new Promise((resolve) => {
+	return new Promise((resolve, reject) => {
 		Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout,
@@ -135,17 +135,19 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 					url: url,
 					error: err
 				}, 'Error fetching url');
+				reject(err);
 			} else {
-				if (response.statusCode !== 200) {
+				if (response.statusCode === 200) {
+					resolve(payload);
+				} else {
 					Logger.error({
 						url: url,
 						headers: response.headers,
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
+					reject(response);
 				}
 			}
-
-			resolve(err || payload);
 		});
 	});
 }
