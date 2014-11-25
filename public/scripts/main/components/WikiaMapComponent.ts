@@ -1,7 +1,7 @@
 /// <reference path="./ImageMediaComponent.ts" />
 'use strict';
 
-App.WikiaMapsComponent = App.ImageMediaComponent.extend({
+App.WikiaMapComponent = App.ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
 
 	url: null,
@@ -9,6 +9,7 @@ App.WikiaMapsComponent = App.ImageMediaComponent.extend({
 	imageSrc: null,
 	id: null,
 	height: 200,
+	layoutName: 'components/media',
 
 	caption: Em.computed.alias('title'),
 
