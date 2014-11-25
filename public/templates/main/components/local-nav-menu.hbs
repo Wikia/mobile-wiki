@@ -15,12 +15,11 @@
 {{/if}}
 {{#each currentMenuItem.children}}
 	{{#if children}}
-	{{!The following li has the 'needsclick' class in order for FastClick to pass a synthetic click to the action}}
-		<li {{action 'changeMenuItem' index on='mouseUp'}} class='needsclick'>
+		<li {{action 'changeMenuItem' index}}>
 			{{unbound text}}
 			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 		</li>
 	{{else}}
-        <li><a {{action 'collapseSideNav' target='view.parentView' on='mouseUp'}} href='{{unbound href}}'>{{unbound text}}</a></li>
+        <li><a {{action 'collapseSideNav'}} href='{{unbound href}}'>{{unbound text}}</a></li>
 	{{/if}}
 {{/each}}

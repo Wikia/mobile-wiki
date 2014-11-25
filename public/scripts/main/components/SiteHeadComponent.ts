@@ -29,6 +29,17 @@ App.SiteHeadComponent = Em.Component.extend({
 	},
 
 	/**
+	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
+	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
+	 */
+	smartBannerVisibleObserver: function (): void {
+		var headroom = this.get('headroom');
+
+		headroom.destroy();
+		this.initHeadroom();
+	}.observes('smartBannerVisible'),
+
+	/**
 	 * @desc Hide top bar when scrolling down. Uses headroom.js plugin.
 	 * Styles in styles/module/wiki/_site-head.scss and styles/state/_animated.scss
 	 */
@@ -51,16 +62,5 @@ App.SiteHeadComponent = Em.Component.extend({
 		headroom.init();
 
 		this.set('headroom', headroom);
-	},
-
-	/**
-	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
-	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
-	 */
-	smartBannerVisibleObserver: function (): void {
-		var headroom = this.get('headroom');
-
-		headroom.destroy();
-		this.initHeadroom();
-	}.observes('smartBannerVisible')
+	}
 });
