@@ -12,19 +12,20 @@ import path = require('path');
 import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
+import cluster = require('cluster');
 
 /**
  * Application class
  */
 class App {
+	//Counter for maxRequestPerChild
+	private counter = 1;
 
 	/**
 	 * Creates new `hapi` server
 	 */
 	constructor() {
-		//Counter for maxRequestPerChild
-		var counter = 0,
-			server: hapi.Server = hapi.createServer(localSettings.host, localSettings.port, {
+		var server: hapi.Server = hapi.createServer(localSettings.host, localSettings.port, {
 				// ez enable cross origin resource sharing
 				cors: true,
 				cache: this.getCacheSettings(localSettings.cache),
@@ -65,17 +66,17 @@ class App {
 			process.send('Server started');
 		});
 
-		server.on('tail', function () {
-			counter++;
+		server.on('tail', () => {
+			this.counter++;
 
-			if (counter >= localSettings.maxRequestsPerChild) {
+			if (this.counter >= localSettings.maxRequestsPerChild) {
 				//This is a safety net for memory leaks
 				//It restarts child so even if it leaks we are 'safe'
 				server.stop({
 					timeout: localSettings.backendRequestTimeout
 				}, function () {
 					logger.info('Max request per child hit: Server stopped');
-					process.exit(0);
+					cluster.worker.kill();
 				});
 			}
 		});
