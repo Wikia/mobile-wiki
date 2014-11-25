@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload;
 
-gulp.task('watch', ['build', 'build-templates'], function () {
+gulp.task('watch', ['build', 'build-views'], function () {
 	log('Watching files');
 
 	if (!gutil.env.nosync) {
@@ -24,7 +24,7 @@ gulp.task('watch', ['build', 'build-templates'], function () {
 		 * when it is changed
 		 */
 		if (event.path.match('baseline.scss')) {
-			gulp.start('build-templates');
+			gulp.start('build-views');
 		}
 	});
 
@@ -33,7 +33,7 @@ gulp.task('watch', ['build', 'build-templates'], function () {
 		paths.scripts.front.files
 	), ['tslint', 'scripts-front']).on('change', function (event) {
 		if (event.path.match('baseline')) {
-			gulp.start('build-templates');
+			gulp.start('build-views');
 		}
 	});
 
@@ -62,9 +62,8 @@ gulp.task('watch', ['build', 'build-templates'], function () {
 		log('File changed:', gutil.colors.green(event.path), 'Restarting server');
 
 		server.restart(function () {
-
 			if (event.path.match('public')) {
-				reload(event.path);
+				reload(path);
 
 				log('Updating browser');
 			}

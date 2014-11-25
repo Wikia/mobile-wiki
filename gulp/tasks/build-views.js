@@ -23,7 +23,7 @@ if (sync) {
 	preprocessContext.browserSync = true;
 }
 
-gulp.task('build-templates', ['scripts-front'], function () {
+gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull
