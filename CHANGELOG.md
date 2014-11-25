@@ -1,3 +1,12 @@
+## release-15 (2014-11-25 13:07)
+* revert-394-revert-393-Use-useskin-mercury: Revert "Revert "change cookie to useskin=mercury""
+* Dont-just-kill-the-server: We should not just kill the server out of the sudden
+* revert-393-Use-useskin-mercury: Revert "change cookie to useskin=mercury"
+* Use-useskin-mercury: change cookie to useskin=mercury
+* Restart-worker-less-often: Node is stable now, lets test if we don't restart it that often
+* Simplify-Mediawiki-fetch: Wreck can parse json on it's own
+* One-worker-by-default: One worker should be enough for development
+
 ## release-14 (2014-11-21 22:30)
 * [HG-376](https://wikia-inc.atlassian.net/browse/HG-376) socket hang up issue
 
