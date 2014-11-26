@@ -1,4 +1,8 @@
 .login {
+	&.external {
+		@extend .touch-active;
+		@extend %pointer;
+	}
 	float: right;
 	height: 36px;
 	margin: 6px 6px 0 0;
