@@ -44,6 +44,7 @@ interface LocalSettings {
 		}
 	};
 	wikiFallback: string;
+	redirectUrlOnNoData: string;
 	workerCount: number;
 	workerDisconnectTimeout: number;
 }

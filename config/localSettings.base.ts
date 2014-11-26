@@ -58,6 +58,7 @@ var localSettings: LocalSettings = {
 		}
 	},
 	wikiFallback: 'community',
+	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000
 };

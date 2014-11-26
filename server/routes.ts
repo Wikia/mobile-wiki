@@ -67,7 +67,7 @@ function routes(server: Hapi.Server) {
 					}, (error: any, result: any = {}) => {
 						var code = 200;
 						if (!result.article.article && !result.wiki.dbName) {
-							reply.redirect('http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia');
+							reply.redirect(localSettings.redirectUrlOnNoData);
 						} else {
 							Tracking.handleResponse(result, request);
 
