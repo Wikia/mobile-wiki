@@ -66,22 +66,26 @@ function routes(server: Hapi.Server) {
 						redirect: request.query.redirect
 					}, (error: any, result: any = {}) => {
 						var code = 200;
-
-						Tracking.handleResponse(result, request);
-
-						if (error) {
-							code = error.code || error.statusCode || 500;
-
-							result.error = JSON.stringify(error);
-						}
-
-						if (result.details && result.details.cleanTitle) {
-							result.displayTitle = result.details.cleanTitle;
+						if (!result.article.article && !result.wiki.dbName) {
+							reply.redirect('http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia');
 						} else {
-							result.displayTitle = request.params.title.replace(/_/g, ' ');
+							Tracking.handleResponse(result, request);
+
+							if (error) {
+								code = error.code || error.statusCode || 500;
+
+								result.error = JSON.stringify(error);
+							}
+
+							if (result.details && result.details.cleanTitle) {
+								result.displayTitle = result.details.cleanTitle;
+							} else {
+								result.displayTitle = request.params.title.replace(/_/g, ' ');
+							}
+
+							reply.view('application', result).code(code);
 						}
 
-						reply.view('application', result).code(code);
 					});
 				} else {
 					//handle links like: {wiki}.wikia.com/wiki

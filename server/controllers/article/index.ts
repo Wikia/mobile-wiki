@@ -39,7 +39,7 @@ function createServerData (): ServerData {
 function createArticleData (payload: any) {
 	var data: any;
 
-	if (payload) {
+	if (payload && payload.article) {
 		data = {
 			content: payload.article.content
 		};

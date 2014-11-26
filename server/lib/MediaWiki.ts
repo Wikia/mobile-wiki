@@ -148,7 +148,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
 
-					resolve(response);
+					resolve(payload);
 				}
 			}
 		});
