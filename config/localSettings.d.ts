@@ -1,10 +1,3 @@
-interface CacheInterface {
-	engine: any;
-	name: string;
-	location?: any;
-	shared?: boolean;
-}
-
 interface LoggerInterface {
 	[key: string]: string
 }
@@ -25,7 +18,6 @@ interface GAAccountMap {
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
-	cache: CacheInterface;
 	environment: any;
 	host: any;
 	loggers: LoggerInterface;
