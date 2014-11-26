@@ -122,9 +122,7 @@ export class ArticleRequest {
  * @param redirects the number of redirects to follow, default 1
  */
 export function fetch (url: string, redirects: number = 1): Promise<any> {
-	Logger.debug({url: url}, 'Fetching');
-
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve: Function, reject: Function) => {
 		Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout,
