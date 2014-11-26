@@ -180,7 +180,7 @@ function routes(server: Hapi.Server) {
 
 			reply('Server status is: OK')
 				.header('X-Memory', String(memoryUsage.rss))
-				.header('X-Uptime', String(~~ process.uptime()))
+				.header('X-Uptime', String(~~process.uptime()))
 				.code(200);
 		}
 	});
