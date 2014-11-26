@@ -30,7 +30,7 @@ export class SearchRequest {
 	 * Default parameters to make the request url clean -- we may
 	 * want to customize later
 	 * @param query Search query
-	 * @returns
+	 * @returns Promise
 	 */
 	searchForQuery (query: string): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {

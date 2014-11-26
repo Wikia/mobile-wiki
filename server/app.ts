@@ -55,7 +55,6 @@ class App {
 
 		server.ext('onPreResponse', this.onPreResponseHandler);
 
-		require('./methods')(server);
 		/*
 		 * Routes
 		 */

@@ -7,6 +7,10 @@ import Utils = require('./lib/Utils');
 import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
+import indexController = require('./controllers/home/index');
+import search = require('./controllers/search');
+import article = require('./controllers/article/index');
+import comments = require('./controllers/article/comments');
 
 var wikiDomains: {
 	[key: string]: string;
@@ -57,7 +61,7 @@ function routes(server: Hapi.Server) {
 	 */
 	function articleHandler(request: Hapi.Request, reply: any) {
 		if (request.params.title || request.path === '/') {
-			server.methods.getPreRenderedData({
+			indexController({
 				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.title,
 				redirect: request.query.redirect
@@ -103,7 +107,7 @@ function routes(server: Hapi.Server) {
 				redirect: request.params.redirect
 			};
 
-			server.methods.getArticleData(params, (error: any, result: any) => {
+			article.createFullArticle(params, (error: any, result: any) => {
 				reply(error || result);
 			});
 		}
@@ -119,10 +123,11 @@ function routes(server: Hapi.Server) {
 					articleId: parseInt(request.params.articleId, 10) || null,
 					page: parseInt(request.params.page, 10) || 0
 				};
+
 			if (params.articleId === null) {
 				reply(Hapi.error.badRequest('Invalid articleId'));
 			} else {
-				server.methods.getArticleComments(params, (error: any, result: any) => {
+				comments.handleRoute(params, (error: any, result: any): void => {
 					reply(error || result);
 				});
 			}
@@ -132,13 +137,13 @@ function routes(server: Hapi.Server) {
 	server.route({
 		method: 'GET',
 		path: localSettings.apiBase + '/search/{query}',
-		handler: (request: any, reply: Function) => {
+		handler: (request: any, reply: Function): void => {
 			var params = {
 				wikiDomain: getWikiDomainName(request.headers.host),
 				query: request.params.query
 			};
 
-			server.methods.searchSuggestions(params, (error: any, result: any) => {
+			search.searchWiki(params, (error: any, result: any) => {
 				reply(error || result);
 			});
 		}
@@ -179,9 +184,10 @@ function routes(server: Hapi.Server) {
 			handler: (request: any, reply: any) => {
 				var path = route.substr(1),
 					url = MediaWiki.createUrl(getWikiDomainName(request.headers.host), path);
+
 				reply.proxy({
 					uri: url,
-					redirects: localSettings.proxyMaxRedirects || 3
+					redirects: localSettings.proxyMaxRedirects
 				});
 			}
 		});

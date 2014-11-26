@@ -13,7 +13,7 @@ import Promise = require('bluebird');
  * @param data Request params
  * @param callback
  */
-export function searchWiki(data: SearchRequestParams, callback: (error: any, data: any) => {}): void {
+export function searchWiki(data: SearchRequestParams, callback: (error: any, data: any) => void): void {
 	var searchReq = new MediaWiki.SearchRequest({
 		wikiDomain: data.wikiDomain
 	});
