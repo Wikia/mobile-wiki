@@ -13,13 +13,6 @@ App.MapLightboxView = App.LightboxView.extend({
 		this._super();
 	},
 
-	style: function (): string {
-		var titleBarHeight = 40,
-			mapHeight = window.innerHeight - titleBarHeight;
-
-		return 'height:%@px;'.fmt(mapHeight.toString());
-	}.property(),
-
 	willDestroyElement: function (): void {
 		this.get('controller').reset();
 
