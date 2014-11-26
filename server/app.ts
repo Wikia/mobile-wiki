@@ -12,32 +12,29 @@ import path = require('path');
 import url = require('url');
 import localSettings = require('../config/localSettings');
 import logger = require('./lib/Logger');
+import cluster = require('cluster');
 
 /**
  * Application class
  */
 class App {
+	//Counter for maxRequestPerChild
+	private counter = 1;
 
 	/**
 	 * Creates new `hapi` server
 	 */
 	constructor() {
-		var server: Hapi.Server,
-			options: {},
-			//Counter for maxRequestPerChild
-			counter = 0,
-			second = 1000;
-
-		server = hapi.createServer(localSettings.host, localSettings.port, {
-			// ez enable cross origin resource sharing
-			cors: true,
-			cache: this.getCacheSettings(localSettings.cache),
-			state: {
-				cookies: {
-					strictHeader: false
+		var server: hapi.Server = hapi.createServer(localSettings.host, localSettings.port, {
+				// ez enable cross origin resource sharing
+				cors: true,
+				cache: this.getCacheSettings(localSettings.cache),
+				state: {
+					cookies: {
+						strictHeader: false
+					}
 				}
-			}
-		});
+			});
 
 		this.setupLogging(server);
 
@@ -69,13 +66,18 @@ class App {
 			process.send('Server started');
 		});
 
-		server.on('response', function () {
-			counter++;
+		server.on('tail', () => {
+			this.counter++;
 
-			if (counter >= localSettings.maxRequestsPerChild) {
+			if (this.counter >= localSettings.maxRequestsPerChild) {
 				//This is a safety net for memory leaks
 				//It restarts child so even if it leaks we are 'safe'
-				process.exit(0);
+				server.stop({
+					timeout: localSettings.backendRequestTimeout
+				}, function () {
+					logger.info('Max request per child hit: Server stopped');
+					cluster.worker.kill();
+				});
 			}
 		});
 
@@ -130,7 +132,6 @@ class App {
 	 * @param server
 	 */
 	private setupLogging(server: Hapi.Server): void {
-
 		server.on('log', (event: any, tags: Array<string>) => {
 			logger.info({
 				data: event.data,
@@ -154,6 +155,7 @@ class App {
 					&& request.response.headers.hasOwnProperty('x-backend-response-time')
 				? parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
 				: -1;
+
 			logger.info({
 				wiki: request.headers.host,
 				code: (<Hapi.Response>request.response).statusCode,

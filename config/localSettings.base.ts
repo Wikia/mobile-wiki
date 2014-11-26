@@ -29,7 +29,7 @@ var localSettings: LocalSettings = {
 		syslog: 'debug'
 	},
 	mediawikiHost: 'your-devbox-name',
-	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 1000,
+	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	port: 8000,
 	proxyMaxRedirects: 3,
 	tracking: {
