@@ -64,13 +64,13 @@ function routes(server: Hapi.Server) {
 						wikiDomain: getWikiDomainName(request.headers.host),
 						title: request.params.title,
 						redirect: request.query.redirect
-					}, (error: any, result: any) => {
+					}, (error: any, result: any = {}) => {
 						var code = 200;
 
 						Tracking.handleResponse(result, request);
 
 						if (error) {
-							code = error.code || 500;
+							code = error.code || error.statusCode || 500;
 
 							result.error = JSON.stringify(error);
 						}

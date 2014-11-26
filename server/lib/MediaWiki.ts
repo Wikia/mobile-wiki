@@ -122,7 +122,10 @@ export class ArticleRequest {
  * @param redirects the number of redirects to follow, default 1
  */
 export function fetch (url: string, redirects: number = 1): Promise<any> {
-	return new Promise((resolve: Function, reject: Function) => {
+	return new Promise((resolve: Function) => {
+		/**
+		 * We can't use reject here as we always want to be able to start the app
+		 */
 		Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout,
@@ -134,7 +137,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 					error: err
 				}, 'Error fetching url');
 
-				reject(err);
+				resolve(err);
 			} else {
 				if (response.statusCode === 200) {
 					resolve(payload);
@@ -145,7 +148,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
 
-					reject(response);
+					resolve(response);
 				}
 			}
 		});

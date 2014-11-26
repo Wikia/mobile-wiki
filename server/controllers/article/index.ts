@@ -100,8 +100,7 @@ export function getData(params: ArticleRequestParams, callback: any, getWikiInfo
 	Promise.all(requests)
 		.spread((article: any, wiki: any = {}) => {
 			callback(article.exception, article.data, wiki.data);
-		})
-		.catch(callback);
+		});
 }
 
 /**
