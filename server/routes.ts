@@ -75,6 +75,12 @@ function routes(server: Hapi.Server) {
 							result.error = JSON.stringify(error);
 						}
 
+						if (result.details && result.details.cleanTitle) {
+							result.displayTitle = result.details.cleanTitle;
+						} else {
+							result.displayTitle = request.params.title.replace(/_/g, ' ');
+						}
+
 						reply.view('application', result).code(code);
 					});
 				} else {
