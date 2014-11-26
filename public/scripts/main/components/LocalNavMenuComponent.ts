@@ -47,7 +47,7 @@ App.LocalNavMenuComponent = Em.Component.extend({
 
 	currentMenuItem: Em.computed.oneWay('menuRoot'),
 
-	parentItem: null,
+	parentItem: Em.computed.alias('currentMenuItem.parent'),
 
 	actions: {
 		/**
@@ -58,7 +58,6 @@ App.LocalNavMenuComponent = Em.Component.extend({
 		changeMenuItem: function (index: number): void {
 			var curr: RootNavItem = this.get('currentMenuItem');
 			this.set('currentMenuItem', curr.children[index]);
-			this.set('parentItem', curr);
 
 			M.track({
 				action: M.trackActions.click,
@@ -73,17 +72,10 @@ App.LocalNavMenuComponent = Em.Component.extend({
 
 		gotoRoot: function (): void {
 			this.set('currentMenuItem', this.get('menuRoot'));
-			this.set('parentItem', null);
 		},
 
 		goBack: function (): void {
 			this.set('currentMenuItem', this.get('parentItem'));
-			// We've made it back to the root of the menu
-			if (this.get('currentMenuItem') === this.get('menuRoot')) {
-				this.set('parentItem', null);
-			} else {
-				this.set('parentItem', this.get('currentMenuItem').parent);
-			}
 		}
 	},
 

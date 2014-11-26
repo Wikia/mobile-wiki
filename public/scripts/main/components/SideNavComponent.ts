@@ -11,7 +11,6 @@ App.SideNavComponent = Em.Component.extend({
 	searchQuery: '',
 
 	actions: {
-		// x button
 		clearSearch: function (): void {
 			this.set('searchQuery', '');
 		},
@@ -25,7 +24,6 @@ App.SideNavComponent = Em.Component.extend({
 			this.set('isCollapsed', false);
 		},
 
-		// cancel button
 		searchCancel: function (): void {
 			this.set('isInSearchMode', false);
 			this.send('clearSearch');
