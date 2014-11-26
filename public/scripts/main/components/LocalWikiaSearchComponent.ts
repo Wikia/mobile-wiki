@@ -41,6 +41,8 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	actions: {
 		collapseSideNav: function (): void {
 			this.set('sideNavCollapsed', true);
+			this.set('isInSearchMode', false);
+			this.set('query', '');
 		}
 	},
 

@@ -150,5 +150,13 @@ App.ApplicationView = Em.View.extend({
 			$body.css('top', -scrollLocation)
 				.addClass('no-scroll');
 		}
-	}
+	},
+
+	sideNavCollapsedObserver: function (): void {
+		if (this.get('sideNavCollapsed')) {
+			this.send('setScrollable');
+		} else {
+			this.send('setUnscrollable');
+		}
+	}.observes('sideNavCollapsed')
 });
