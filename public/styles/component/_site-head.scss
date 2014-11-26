@@ -49,9 +49,9 @@
 	@extend %pointer;
 	display: inline-block;
 	float: left;
-	height: rem-calc(50);
+	height: $icon-site-head-height;
 	padding-top: rem-calc(15);
-	width: rem-calc(60);
+	width: $icon-site-head-width;
 
 	svg {
 		display: block;
