@@ -262,8 +262,6 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 			if ($target.is('.lightbox-footer')) {
 				this.send('toggleFooter');
-			} else if ($target.is('.lightbox-close-wrapper')) {
-				this.get('controller').send('closeLightbox');
 			} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
 				this.changeMediaOnTap(event);
 			} else {
