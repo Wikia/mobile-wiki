@@ -2,8 +2,6 @@
 /**
  * @description ArticleComments controller
  */
-
-import http = require('http');
 import MediaWiki = require('../../lib/MediaWiki');
 
 interface Comment {

@@ -7,7 +7,6 @@ import Utils = require('./lib/Utils');
 import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
-import indexController = require('./controllers/home/index');
 import search = require('./controllers/search');
 import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
@@ -53,67 +52,57 @@ function routes(server: Hapi.Server) {
 			}
 		};
 
-	/**
-	 * Article request handler
-	 *
-	 * @param request Hapi request object
-	 * @param reply Hapi reply function
-	 */
-	function articleHandler(request: Hapi.Request, reply: any) {
-		if (request.params.title || request.path === '/') {
-			indexController({
-				wikiDomain: getWikiDomainName(request.headers.host),
-				title: request.params.title,
-				redirect: request.query.redirect
-			}, (error: any, result: any) => {
-				var code = 200;
-
-				Tracking.handleResponse(result, request);
-
-				if (error) {
-					code = error.code || 500;
-
-					result.error = JSON.stringify(error);
-				}
-
-				reply.view('application', result).code(code);
-			});
-		} else {
-			//handle links like: {wiki}.wikia.com/wiki
-			//Status code 301: Moved permanently
-			reply.redirect('/').code(301);
-		}
-	}
-
 	// all the routes that should resolve to loading single page app entry view
 	indexRoutes.forEach((route: string) => {
 		server.route({
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: articleHandler
+			handler: function articleHandler(request: Hapi.Request, reply: any) {
+				if (request.params.title || request.path === '/') {
+					article.getFull({
+						wikiDomain: getWikiDomainName(request.headers.host),
+						title: request.params.title,
+						redirect: request.query.redirect
+					}, (error: any, result: any) => {
+						var code = 200;
+
+						Tracking.handleResponse(result, request);
+
+						if (error) {
+							code = error.code || 500;
+
+							result.error = JSON.stringify(error);
+						}
+
+						reply.view('application', result).code(code);
+					});
+				} else {
+					//handle links like: {wiki}.wikia.com/wiki
+					//Status code 301: Moved permanently
+					reply.redirect('/').code(301);
+				}
+			}
 		});
 	});
 
-	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
+	// eg. article/muppet/Kermit_the_Frog
 	server.route({
 		method: 'GET',
 		path: localSettings.apiBase + '/article/{articleTitle*}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
-			var params = {
+			article.getData({
 				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
-			};
-
-			article.createFullArticle(params, (error: any, result: any) => {
+			}, (error: any, result: any) => {
 				reply(error || result);
 			});
 		}
 	});
 
-	// eg. http://www.example.com/articleComments/muppet/154
+	// eg. articleComments/muppet/154
 	server.route({
 		method: 'GET',
 		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
@@ -134,6 +123,7 @@ function routes(server: Hapi.Server) {
 		}
 	});
 
+	// eg. search/muppet
 	server.route({
 		method: 'GET',
 		path: localSettings.apiBase + '/search/{query}',
@@ -164,19 +154,7 @@ function routes(server: Hapi.Server) {
 		}
 	});
 
-	// Heartbeat route for monitoring
-	server.route({
-		method: 'GET',
-		path: '/heartbeat',
-		handler: (request: any, reply: Function) => {
-			var memoryUsage = process.memoryUsage();
-			reply('Server status is: OK')
-				.header('X-Memory', String(memoryUsage.rss))
-				.header('X-Uptime', String(~~ process.uptime()))
-				.code(200);
-		}
-	});
-
+	//eg. robots.txt
 	proxyRoutes.forEach((route: string) => {
 		server.route({
 			method: 'GET',
@@ -191,6 +169,20 @@ function routes(server: Hapi.Server) {
 				});
 			}
 		});
+	});
+
+	// Heartbeat route for monitoring
+	server.route({
+		method: 'GET',
+		path: '/heartbeat',
+		handler: (request: any, reply: Function) => {
+			var memoryUsage = process.memoryUsage();
+
+			reply('Server status is: OK')
+				.header('X-Memory', String(memoryUsage.rss))
+				.header('X-Uptime', String(~~ process.uptime()))
+				.code(200);
+		}
 	});
 }
 
