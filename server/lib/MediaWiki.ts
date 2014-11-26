@@ -135,6 +135,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 					url: url,
 					error: err
 				}, 'Error fetching url');
+
 				reject(err);
 			} else {
 				if (response.statusCode === 200) {
@@ -145,6 +146,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						headers: response.headers,
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
+
 					reject(response);
 				}
 			}
