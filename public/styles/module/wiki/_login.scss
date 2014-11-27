@@ -1,6 +1,16 @@
 .login {
+	&.external {
+		@extend .touch-active;
+		@extend %pointer;
+		height: $icon-side-head-height;
+		width: $icon-side-head-with;
+	}
+	&.icon {
+		height: 36px;
+		position: relative;
+		right: 6px;
+		top: 6px;
+		width: 36px;
+	}
 	float: right;
-	height: 36px;
-	margin: 6px 6px 0 0;
-	width: 36px;
 }

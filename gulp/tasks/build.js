@@ -4,8 +4,17 @@ var gulp = require('gulp'),
 	options = require('../options'),
 	paths = require('../paths');
 
-
-gulp.task('build', ['build-all'], function(cb) {
+gulp.task('build', [
+	'node-modules',
+	'sass',
+	'symbols',
+	'images',
+	'vendor',
+	'templates',
+	'locales',
+	'scripts-back',
+	'build-views'
+], function(cb) {
 	if (environment.isProduction) {
 		return gulp.src([
 			paths.base + '/public/**/*.json',

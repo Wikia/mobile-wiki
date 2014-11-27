@@ -39,7 +39,6 @@
     "glob": "4.0.6",
     "gulp": "3.x.x",
     "gulp-autoprefixer": "1.x.x",
-    "gulp-batch": "^1.0.3",
     "gulp-cached": "1.x.x",
     "gulp-concat": "2.x.x",
     "gulp-declare": "^0.3.0",

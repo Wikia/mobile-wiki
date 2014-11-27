@@ -50,7 +50,7 @@
 	transition: transform .5s;
 
 	&.pinned {
-		transform: translateY(0);
+		transform: none;
 	}
 
 	&.un-pinned {

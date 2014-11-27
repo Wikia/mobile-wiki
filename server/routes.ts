@@ -49,14 +49,6 @@ function routes(server: Hapi.Server) {
 			}
 		};
 
-	// TODO: Remove the cookie when we handle all traffic
-	server.state('wk_mercury', {
-		// 30 days in millisecons
-		ttl: 2628000000,
-		path: '/',
-		autoValue: '1'
-	});
-
 	/**
 	 * Article request handler
 	 *
@@ -75,7 +67,7 @@ function routes(server: Hapi.Server) {
 				Tracking.handleResponse(result, request);
 
 				if (error) {
-					code = error.code;
+					code = error.code || 500;
 
 					result.error = JSON.stringify(error);
 				}

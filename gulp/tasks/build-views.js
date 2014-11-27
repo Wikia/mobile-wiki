@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	piper = require('../utils/piper'),
 	paths = require('../paths'),
 	environment = require('../utils/environment'),
-	
+
 	preprocessContext = {
 		base: paths.baseFull
 	},
@@ -23,17 +23,7 @@ if (sync) {
 	preprocessContext.browserSync = true;
 }
 
-gulp.task('build-all', [
-		'node-modules',
-		'sass',
-		'symbols',
-		'images',
-		'vendor',
-		'templates',
-		'locales',
-		'scripts-front',
-		'scripts-back'
-	], function () {
+gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFull
