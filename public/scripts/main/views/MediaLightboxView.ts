@@ -262,9 +262,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 			//TODO: this should be defined in LightboxView, but taps don't bubble...
 			if ($target.is('.lightbox-footer')) {
 				this.send('toggleFooter');
-			} else if ($target.is('.lightbox-close-wrapper')) {
-				this.get('controller').send('closeLightbox');
-			} else if (this.get('isGallery') && this.isCurrentMediaType('image') && !this.get('isZoomed')) {
+			} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
 				this.changeMediaOnTap(event);
 			} else {
 				this.send('toggleUI');
