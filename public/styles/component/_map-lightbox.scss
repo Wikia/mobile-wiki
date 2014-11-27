@@ -1,0 +1,12 @@
+.map-lightbox {
+	z-index: $z-index-map-lightbox;
+
+	iframe.current {
+		border: 0;
+		height: 100%;
+		left: 0;
+		padding-top: 40px;
+		position: absolute;
+		width: 100%;
+	}
+}
