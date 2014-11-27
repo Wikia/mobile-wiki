@@ -28,7 +28,6 @@ class App {
 		var server: hapi.Server = hapi.createServer(localSettings.host, localSettings.port, {
 				// ez enable cross origin resource sharing
 				cors: true,
-				cache: this.getCacheSettings(localSettings.cache),
 				state: {
 					cookies: {
 						strictHeader: false
@@ -55,7 +54,6 @@ class App {
 
 		server.ext('onPreResponse', this.onPreResponseHandler);
 
-		require('./methods')(server);
 		/*
 		 * Routes
 		 */
@@ -93,31 +91,12 @@ class App {
 	}
 
 	/**
-	 * Create caching config object based on caching config
-	 *
-	 * @param {object} cache Cache settings
-	 * @returns {object} Caching config
-	 */
-	private getCacheSettings(cache: CacheInterface): CacheInterface {
-		if (typeof cache === 'object') {
-			cache.engine = require('catbox-' + cache.engine);
-			return cache;
-		}
-		// Fallback to memory
-		logger.warn('No cache settings found. Falling back to memory');
-		return {
-			name: 'appcache',
-			engine: require('catbox-memory')
-		};
-	}
-
-	/**
 	 * Set `X-Backend-Response-Time` header to every response. Value is in ms
 	 *
 	 * @param {object} request
 	 * @param {function} next
 	 */
-	private onPreResponseHandler(request: Hapi.Request, next: Function): void {
+	private onPreResponseHandler(request: hapi.Request, next: Function): void {
 		var response = <Hapi.Response>(request.response),
 			responseTimeSec = (Date.now() - request.info.received) / 1000;
 		if (response && response.header) {
@@ -131,7 +110,7 @@ class App {
 	 *
 	 * @param server
 	 */
-	private setupLogging(server: Hapi.Server): void {
+	private setupLogging(server: hapi.Server): void {
 		server.on('log', (event: any, tags: Array<string>) => {
 			logger.info({
 				data: event.data,
@@ -139,7 +118,7 @@ class App {
 			}, 'Log');
 		});
 
-		server.on('internalError', (request: Hapi.Request, err: Error) => {
+		server.on('internalError', (request: hapi.Request, err: Error) => {
 			logger.error({
 				wiki: request.headers.host,
 				text: err.message,
@@ -148,17 +127,17 @@ class App {
 			}, 'Internal error');
 		});
 
-		server.on('response', (request: Hapi.Request) => {
+		server.on('response', (request: hapi.Request) => {
 			// If there is an errors and headers are not present, set the response time to -1 to make these
 			// errors easy to discover
 			var responseTime = request.response.headers
 					&& request.response.headers.hasOwnProperty('x-backend-response-time')
-				? parseFloat((<Hapi.Response>request.response).headers['x-backend-response-time'])
+				? parseFloat(request.response.headers['x-backend-response-time'])
 				: -1;
 
 			logger.info({
 				wiki: request.headers.host,
-				code: (<Hapi.Response>request.response).statusCode,
+				code: request.response.statusCode,
 				url: url.format(request.url),
 				responseTime: responseTime,
 				referrer: request.info.referrer

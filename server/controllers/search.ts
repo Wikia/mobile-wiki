@@ -13,16 +13,21 @@ import Promise = require('bluebird');
  * @param data Request params
  * @param callback
  */
-export function searchWiki(data: SearchRequestParams, callback: (error: any, data: any) => {}): void {
+export function searchWiki(data: SearchRequestParams, callback: (error: any, data: any) => void): void {
 	var searchReq = new MediaWiki.SearchRequest({
 		wikiDomain: data.wikiDomain
 	});
 
 	searchReq.searchForQuery(data.query)
 		.then((searchResults: any) => {
-			callback(null, searchResults);
+			if (searchResults.exception) {
+				callback(searchResults, null);
+			} else {
+				callback(null, searchResults);
+			}
+
 		})
-		.catch((err: any) => {
-			callback(err, null);
+		.catch((error: any) => {
+			callback(error, null);
 		});
 }

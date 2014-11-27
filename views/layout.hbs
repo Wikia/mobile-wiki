@@ -3,8 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{article.details.cleanTitle}} - {{wiki.siteName}}</title>
+		<title>{{displayTitle}}{{#displayTitle}} - {{/displayTitle}}{{wiki.siteName}}</title>
 		{{#if article.details.abstract}}
+
 		<meta name="description" content="{{article.details.abstract}}">
 		{{/if}}
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
