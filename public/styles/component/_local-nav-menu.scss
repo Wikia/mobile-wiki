@@ -15,32 +15,28 @@
 		font-weight: normal;
 		list-style: none;
 		overflow: hidden;
-		padding: rem-calc(10) $side-nav-item-gutter;
 		position: relative;
 		text-align: left;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
+		a, div {
+			@extend .touch-active;
+			display: inline-block;
+			padding: rem-calc(10) $side-nav-item-gutter;
+			width: 100%;
+		}
+
 		.chevron {
 			float: right;
 			margin-top: rem-calc(8);
 			transform: rotate(-90deg);
-		}
 
-		// TODO: touch states
-		// &:hover, &:active, &:focus {
-		// 	background: yellow;
-		// }
-	}
-
-	// Class for back button li
-	.back {
-		color: #006598;
-
-		.chevron {
-			float: left;
-			margin-right: rem-calc(5);
-			transform: rotate(90deg);
+			&.back {
+				float: left;
+				margin-right: rem-calc(5);
+				transform: rotate(90deg);
+			}
 		}
 	}
 

@@ -29,13 +29,6 @@ App.ApplicationView = Em.View.extend({
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
 
-	/**
-	 * Store scroll location so when we set the body to fixed position, we can set its
-	 * top, and also so we can scroll back to where it was before we fixed it.
-	 * @type int
-	 */
-	scrollLocation: null,
-
 	willInsertElement: function (): void {
 		$('#article-preload').remove();
 	},
@@ -133,23 +126,18 @@ App.ApplicationView = Em.View.extend({
 
 	actions: {
 		setScrollable: function (): void {
-			Em.$('body')
-				.removeClass('no-scroll')
-				.css('top', '');
-
-			window.scrollTo(0, this.get('scrollLocation'));
-			this.set('scrollLocation', null);
+			var $element = $(this.get('element'));
+			$element.off('scroll touchmove mousewheel', this.preventDefault);
 		},
 
 		setUnscrollable: function (): void {
-			var $body = Em.$('body'),
-				scrollLocation = $body.scrollTop();
-
-			this.set('scrollLocation', scrollLocation);
-
-			$body.css('top', -scrollLocation)
-				.addClass('no-scroll');
+			var $element = $(this.get('element'));
+			$element.on('scroll touchmove mousewheel', this.preventDefault);
 		}
+	},
+
+	preventDefault: function (event: Event) {
+		return event.preventDefault();
 	},
 
 	sideNavCollapsedObserver: function (): void {
