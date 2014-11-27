@@ -79,7 +79,7 @@ function routes(server: Hapi.Server) {
 
 							if (result.details && result.details.cleanTitle) {
 								result.displayTitle = result.details.cleanTitle;
-							} else {
+							} else if (request.params.title) {
 								result.displayTitle = request.params.title.replace(/_/g, ' ');
 							}
 
