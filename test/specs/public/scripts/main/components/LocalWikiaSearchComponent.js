@@ -1,4 +1,4 @@
-moduleFor('controller:localWikiaSearch', 'Local Wikia Search Controller', {
+moduleForComponent('localWikiaSearch', 'Local Wikia Search Component', {
 	setup: function () {
 		// Mock some tracking stuff
 		M.track = function () {};
@@ -28,21 +28,21 @@ test('search URI generation', function () {
 });
 
 test('only runs one request for a given query at a time', function () {
-	var ctrl = this.subject(),
+	var component = this.subject(),
 		query = 'query';
 
-	ok(!ctrl.requestInProgress(query),
+	ok(!component.requestInProgress(query),
 		'request is not in progess with startedRequest hasn\'t been called');
-	ctrl.startedRequest(query);
-	ok(ctrl.requestInProgress(query),
+	component.startedRequest(query);
+	ok(component.requestInProgress(query),
 		'request is in progess when startedRequest has been called');
-	ctrl.endedRequest(query);
-	ok(!ctrl.requestInProgress(query),
+	component.endedRequest(query);
+	ok(!component.requestInProgress(query),
 		'request is no longer in progress with endedRequest has been called');
 });
 
 test('cacheResult with one result', function () {
-	var ctrl = this.subject(),
+	var component = this.subject(),
 		query = 'some query',
 		suggestion = {
 			id: 123,
@@ -52,20 +52,20 @@ test('cacheResult with one result', function () {
 		},
 		suggestions = [suggestion];
 
-	ctrl.cacheResult(query, suggestions);
-	ok(ctrl.hasCachedResult(query), 'acknowledges that the result is cached');
-	equal(suggestions, ctrl.getCachedResult(query), 'correct cached value');
+	component.cacheResult(query, suggestions);
+	ok(component.hasCachedResult(query), 'acknowledges that the result is cached');
+	equal(suggestions, component.getCachedResult(query), 'correct cached value');
 });
 
 test('eviction tests', function () {
-	var ctrl = this.subject();
+	var component = this.subject();
 
-	ctrl.set('cachedResultsLimit', 2);
-	ok(!ctrl.needToEvict(), 'needToEvict returns false when cache isn\'t full');
-	ctrl.cacheResult('query1', []);
-	ctrl.cacheResult('query2', []);
-	ok(ctrl.needToEvict(), 'needToEvict returns true when cache is full');
-	ctrl.evictCachedResult();
-	ok(!ctrl.hasCachedResult('query1') && ctrl.hasCachedResult('query2'),
+	component.set('cachedResultsLimit', 2);
+	ok(!component.needToEvict(), 'needToEvict returns false when cache isn\'t full');
+	component.cacheResult('query1', []);
+	component.cacheResult('query2', []);
+	ok(component.needToEvict(), 'needToEvict returns true when cache is full');
+	component.evictCachedResult();
+	ok(!component.hasCachedResult('query1') && component.hasCachedResult('query2'),
 		'evicts first in cached value, keeps others');
 });

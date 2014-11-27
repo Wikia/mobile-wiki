@@ -25,25 +25,68 @@ interface NavItem extends RootNavItem {
 	text: string;
 }
 
-/**
- * @desc Controller for the local nav menu, which facilitates local Wikia
- * navigation. The view for this controller is rendered in SideNavView.
- */
-App.LocalNavMenuController = Em.ObjectController.extend({
-	init: function (): void {
-		/**
-		 * Note: this means that the model is stored directly
-		 * in the Wikia object. We may wish to actually copy it over,
-		 * or removed the reference in the Wikia object to it so that
-		 * this controller has exclusive access to it.
-		 */
-		this.set('model', Mercury.wiki.navData);
-		this.set('menuRoot', {children: this.get('model.navigation.wiki')});
-		this.set('currentMenuItem', this.get('menuRoot'));
-		this.set('parentItem', null);
-		this.injectParentPointersAndIndices();
+App.LocalNavMenuComponent = Em.Component.extend({
+	tagName: 'ul',
+	classNames: ['local-nav-menu'],
 
-		this._super();
+	/**
+	 * Note: this means that the model is stored directly
+	 * in the Wikia object. We may wish to actually copy it over,
+	 * or removed the reference in the Wikia object to it so that
+	 * this component has exclusive access to it.
+	 */
+	model: function (): any {
+		return Mercury.wiki.navData;
+	}.property(),
+
+	menuRoot: function (): RootNavItem {
+		return {
+			children: this.get('model.navigation.wiki')
+		};
+	}.property('model'),
+
+	currentMenuItem: Em.computed.oneWay('menuRoot'),
+
+	parentItem: Em.computed.alias('currentMenuItem.parent'),
+
+	actions: {
+		/**
+		 * @desc Action that changes `currentMenuItem` based on the index of
+		 * `currentMenuItem`'s children
+		 * @param index The index of the item to change to
+		 */
+		changeMenuItem: function (index: number): void {
+			var curr: RootNavItem = this.get('currentMenuItem');
+			this.set('currentMenuItem', curr.children[index]);
+
+			M.track({
+				action: M.trackActions.click,
+				category: 'wiki-nav',
+				label: 'header-' + (index + 1)
+			});
+		},
+
+		collapseSideNav: function (): void {
+			this.set('sideNavCollapsed', true);
+		},
+
+		gotoRoot: function (): void {
+			this.set('currentMenuItem', this.get('menuRoot'));
+		},
+
+		goBack: function (): void {
+			this.set('currentMenuItem', this.get('parentItem'));
+		}
+	},
+
+	sideNavCollapsedObserver: function () {
+		if (this.get('sideNavCollapsed')) {
+			this.send('gotoRoot');
+		}
+	}.observes('sideNavCollapsed'),
+
+	willInsertElement: function (): void {
+		this.injectParentPointersAndIndices();
 	},
 
 	/**
@@ -67,12 +110,12 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 	},
 
 	/**
-	 * Recursive helper for the above function.
+	 * Recursive helper for the `injectParentPointersAndIndices` function.
 	 * @param parent The parent of curr
 	 * @param curr The object to set the parent of, and then recursively
+	 * set the parent of all its children, depth-first
 	 * @param index The index of this item in its parent's children array, because
-	 * 	we need it to link to the correct child
-	 * set the parent of all its children, depth-first.
+	 * we need it to link to the correct child
 	 */
 	injectParentPointersAndIndicesHelper: function (parent: RootNavItem, curr: NavItem, index: number): void {
 		var i: number,
@@ -85,39 +128,6 @@ App.LocalNavMenuController = Em.ObjectController.extend({
 
 		for (i = 0, len = curr.children.length; i < len; i++) {
 			this.injectParentPointersAndIndicesHelper(curr, curr.children[i], i);
-		}
-	},
-
-	actions: {
-		gotoRoot: function (): void {
-			this.set('currentMenuItem', this.get('menuRoot'));
-			this.set('parentItem', null);
-		},
-		goBack: function (): void {
-			this.set('currentMenuItem', this.get('parentItem'));
-			// We've made it back to the root of the menu
-			if (this.get('currentMenuItem') === this.get('menuRoot')) {
-				this.set('parentItem', null);
-			} else {
-				this.set('parentItem', this.get('currentMenuItem').parent);
-			}
-		},
-
-		/**
-		 * @desc Action that changes `currentMenuItem` based on the index of
-		 * `currentMenuItem`'s children
-		 * @param index The index of the item to change to
-		 */
-		changeMenuItem: function (index: number): void {
-			var curr: RootNavItem = this.get('currentMenuItem');
-			this.set('currentMenuItem', curr.children[index]);
-			this.set('parentItem', curr);
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'wiki-nav',
-				label: 'header-' + (index + 1)
-			});
 		}
 	}
 });

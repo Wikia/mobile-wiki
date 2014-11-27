@@ -7,6 +7,9 @@ import Utils = require('./lib/Utils');
 import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
+import search = require('./controllers/search');
+import article = require('./controllers/article/index');
+import comments = require('./controllers/article/comments');
 
 var wikiDomains: {
 	[key: string]: string;
@@ -48,68 +51,68 @@ function routes(server: Hapi.Server) {
 				expiresIn: 60 * second
 			}
 		};
-
-	/**
-	 * Article request handler
-	 *
-	 * @param request Hapi request object
-	 * @param reply Hapi reply function
-	 */
-	function articleHandler(request: Hapi.Request, reply: any) {
-		if (request.params.title || request.path === '/') {
-			server.methods.getPreRenderedData({
-				wikiDomain: getWikiDomainName(request.headers.host),
-				title: request.params.title,
-				redirect: request.query.redirect
-			}, (error: any, result: any) => {
-				var code = 200;
-
-				Tracking.handleResponse(result, request);
-
-				if (error) {
-					code = error.code || 500;
-
-					result.error = JSON.stringify(error);
-				}
-
-				reply.view('application', result).code(code);
-			});
-		} else {
-			//handle links like: {wiki}.wikia.com/wiki
-			//Status code 301: Moved permanently
-			reply.redirect('/').code(301);
-		}
-	}
-
 	// all the routes that should resolve to loading single page app entry view
 	indexRoutes.forEach((route: string) => {
 		server.route({
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: articleHandler
+			handler: function articleHandler(request: Hapi.Request, reply: any) {
+				if (request.params.title || request.path === '/') {
+					article.getFull({
+						wikiDomain: getWikiDomainName(request.headers.host),
+						title: request.params.title,
+						redirect: request.query.redirect
+					}, (error: any, result: any = {}) => {
+						var code = 200;
+						if (!result.article.article && !result.wiki.dbName) {
+							//if we have nothing to show, redirect to our fallback wiki
+							reply.redirect(localSettings.redirectUrlOnNoData);
+						} else {
+							Tracking.handleResponse(result, request);
+
+							if (error) {
+								code = error.code || error.statusCode || 500;
+
+								result.error = JSON.stringify(error);
+							}
+
+							if (result.details && result.details.cleanTitle) {
+								result.displayTitle = result.details.cleanTitle;
+							} else if (request.params.title) {
+								result.displayTitle = request.params.title.replace(/_/g, ' ');
+							}
+
+							reply.view('application', result).code(code);
+						}
+
+					});
+				} else {
+					//handle links like: {wiki}.wikia.com/wiki
+					//Status code 301: Moved permanently
+					reply.redirect('/').code(301);
+				}
+			}
 		});
 	});
 
-	// eg. http://www.example.com/article/muppet/Kermit_the_Frog
+	// eg. article/muppet/Kermit_the_Frog
 	server.route({
 		method: 'GET',
 		path: localSettings.apiBase + '/article/{articleTitle*}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
-			var params = {
+			article.getData({
 				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
-			};
-
-			server.methods.getArticleData(params, (error: any, result: any) => {
+			}, (error: any, result: any) => {
 				reply(error || result);
 			});
 		}
 	});
 
-	// eg. http://www.example.com/articleComments/muppet/154
+	// eg. articleComments/muppet/154
 	server.route({
 		method: 'GET',
 		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
@@ -119,27 +122,33 @@ function routes(server: Hapi.Server) {
 					articleId: parseInt(request.params.articleId, 10) || null,
 					page: parseInt(request.params.page, 10) || 0
 				};
+
 			if (params.articleId === null) {
 				reply(Hapi.error.badRequest('Invalid articleId'));
 			} else {
-				server.methods.getArticleComments(params, (error: any, result: any) => {
+				comments.handleRoute(params, (error: any, result: any): void => {
 					reply(error || result);
 				});
 			}
 		}
 	});
 
+	// eg. search/muppet
 	server.route({
 		method: 'GET',
 		path: localSettings.apiBase + '/search/{query}',
-		handler: (request: any, reply: Function) => {
+		handler: (request: any, reply: Function): void => {
 			var params = {
 				wikiDomain: getWikiDomainName(request.headers.host),
 				query: request.params.query
 			};
 
-			server.methods.searchSuggestions(params, (error: any, result: any) => {
-				reply(error || result);
+			search.searchWiki(params, (error: any, result: any) => {
+				if (error) {
+					reply(error).code(error.exception.code);
+				} else {
+					reply(result);
+				}
 			});
 		}
 	});
@@ -159,19 +168,7 @@ function routes(server: Hapi.Server) {
 		}
 	});
 
-	// Heartbeat route for monitoring
-	server.route({
-		method: 'GET',
-		path: '/heartbeat',
-		handler: (request: any, reply: Function) => {
-			var memoryUsage = process.memoryUsage();
-			reply('Server status is: OK')
-				.header('X-Memory', String(memoryUsage.rss))
-				.header('X-Uptime', String(~~ process.uptime()))
-				.code(200);
-		}
-	});
-
+	//eg. robots.txt
 	proxyRoutes.forEach((route: string) => {
 		server.route({
 			method: 'GET',
@@ -179,12 +176,27 @@ function routes(server: Hapi.Server) {
 			handler: (request: any, reply: any) => {
 				var path = route.substr(1),
 					url = MediaWiki.createUrl(getWikiDomainName(request.headers.host), path);
+
 				reply.proxy({
 					uri: url,
-					redirects: localSettings.proxyMaxRedirects || 3
+					redirects: localSettings.proxyMaxRedirects
 				});
 			}
 		});
+	});
+
+	// Heartbeat route for monitoring
+	server.route({
+		method: 'GET',
+		path: '/heartbeat',
+		handler: (request: any, reply: Function) => {
+			var memoryUsage = process.memoryUsage();
+
+			reply('Server status is: OK')
+				.header('X-Memory', String(memoryUsage.rss))
+				.header('X-Uptime', String(~~process.uptime()))
+				.code(200);
+		}
 	});
 }
 

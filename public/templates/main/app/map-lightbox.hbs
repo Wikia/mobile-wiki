@@ -1,0 +1,5 @@
+{{#if url}}
+	<iframe class='current' {{bind-attr src=url}}></iframe>
+{{else}}
+	{{i18n 'map-lightbox-error'}}
+{{/if}}

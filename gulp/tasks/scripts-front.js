@@ -22,7 +22,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 			'!' + path.join(paths.src, folder, paths.dFiles),
 			path.join(paths.src, folder, paths.files)
 		])
-		.pipe(newer({dest: paths.dest, ext: '.js'}))
+		.pipe(newer(path.join(paths.dest, folder + '.js')))
 		.pipe(ts(tsProjects[folder])).js
 		.on('error', function () {
 			if (gutil.env.testing && environment.isProduction) {
