@@ -51,7 +51,6 @@ function routes(server: Hapi.Server) {
 				expiresIn: 60 * second
 			}
 		};
-
 	// all the routes that should resolve to loading single page app entry view
 	indexRoutes.forEach((route: string) => {
 		server.route({
@@ -67,6 +66,7 @@ function routes(server: Hapi.Server) {
 					}, (error: any, result: any = {}) => {
 						var code = 200;
 						if (!result.article.article && !result.wiki.dbName) {
+							//if we have nothing to show, redirect to our fallback wiki
 							reply.redirect(localSettings.redirectUrlOnNoData);
 						} else {
 							Tracking.handleResponse(result, request);
