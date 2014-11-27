@@ -20,9 +20,14 @@ export function searchWiki(data: SearchRequestParams, callback: (error: any, dat
 
 	searchReq.searchForQuery(data.query)
 		.then((searchResults: any) => {
-			callback(null, searchResults);
+			if (searchResults.exception) {
+				callback(searchResults, null);
+			} else {
+				callback(null, searchResults);
+			}
+
 		})
-		.catch((err: any) => {
-			callback(err, null);
+		.catch((error: any) => {
+			callback(error, null);
 		});
 }

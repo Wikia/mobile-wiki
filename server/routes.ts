@@ -144,7 +144,11 @@ function routes(server: Hapi.Server) {
 			};
 
 			search.searchWiki(params, (error: any, result: any) => {
-				reply(error || result);
+				if (error) {
+					reply(error).code(error.exception.code);
+				} else {
+					reply(result);
+				}
 			});
 		}
 	});
