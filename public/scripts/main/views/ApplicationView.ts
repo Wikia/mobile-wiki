@@ -135,8 +135,8 @@ App.ApplicationView = Em.View.extend({
 		}
 	},
 
-	preventDefault: function (event: Event) {
-		return event.preventDefault();
+	preventDefault: function (event: Event): void {
+		event.preventDefault();
 	},
 
 	sideNavCollapsedObserver: function (): void {
