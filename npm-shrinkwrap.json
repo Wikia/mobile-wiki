@@ -207,7 +207,7 @@
             "mime-db": {
               "version": "1.1.2",
               "from": "mime-db@1.1.2",
-              "resolved": "http://deploy-s3:8888/mime-db/-/mime-db-1.1.2.tgz"
+              "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.1.2.tgz"
             }
           }
         },
