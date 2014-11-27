@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
+/// <reference path="../components/WikiaMapComponent.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -63,6 +64,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
 				this.replaceHeadersWithArticleSectionHeaders();
+				this.replaceMapsWithMapComponents();
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
@@ -150,6 +152,30 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		header.createElement();
 
 		this.$(elem).replaceWith(header.$());
+	},
+
+	replaceMapsWithMapComponents: function () {
+		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement) => {
+			this.replaceMapWithMapComponent(elem);
+		});
+	},
+
+	replaceMapWithMapComponent: function (elem: HTMLElement) {
+		var $mapPlaceholder = $(elem),
+			$a = $mapPlaceholder.children('a'),
+			$img = $a.children('img'),
+			mapComponent = this.createChildView(App.WikiaMapComponent.create({
+				url: $a.data('map-url'),
+				imageSrc: $img.data('src'),
+				id: $a.data('map-id'),
+				title: $a.data('map-title'),
+				click: 'openLightbox'
+			}));
+
+		mapComponent.createElement();
+		$mapPlaceholder.replaceWith(mapComponent.$());
+		//TODO: do it in the nice way
+		mapComponent.trigger('didInsertElement');
 	},
 
 	/**

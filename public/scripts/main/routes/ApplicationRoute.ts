@@ -83,7 +83,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			if (data) {
 				this.controllerFor(lightboxName).set('data', data);
 			}
-
 			return this.render(lightboxName, {
 				into: 'application',
 				outlet: 'lightbox'

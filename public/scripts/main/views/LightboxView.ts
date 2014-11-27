@@ -16,6 +16,20 @@ App.LightboxView = Em.View.extend({
 		touchAction: 'auto'
 	},
 
+	gestures: {
+		tap: function (event: HammerEvent) {
+			var $target = this.$(event.target);
+
+			if ($target.is('.lightbox-footer')) {
+				this.send('toggleFooter');
+			} else if ($target.is('.lightbox-close-wrapper')) {
+				this.get('controller').send('closeLightbox');
+			} else {
+				this.send('toggleUI');
+			}
+		}
+	},
+
 	actions: {
 		toggleFooter: function (): void {
 			this.toggleProperty('lightboxFooterExpanded');

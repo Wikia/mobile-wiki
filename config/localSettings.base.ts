@@ -13,12 +13,6 @@ var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
 	// Default timeout for backend requests
 	backendRequestTimeout: 30000,
-	// Caching settings
-	cache: {
-		name: 'appcache',
-		engine: 'memory' // cache data in [memory|memcached]
-		// location: '127.0.0.1:11211' // Check https://github.com/3rd-Eden/node-memcached#server-locations for ref
-	},
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
@@ -58,6 +52,7 @@ var localSettings: LocalSettings = {
 		}
 	},
 	wikiFallback: 'community',
+	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000
 };

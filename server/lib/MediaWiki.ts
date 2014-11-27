@@ -30,7 +30,7 @@ export class SearchRequest {
 	 * Default parameters to make the request url clean -- we may
 	 * want to customize later
 	 * @param query Search query
-	 * @returns
+	 * @return {Promise<any>}
 	 */
 	searchForQuery (query: string): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {
@@ -60,7 +60,7 @@ export class WikiRequest {
 	/**
 	 * Gets general wiki information
 	 *
-	 * @returns {Promise<any>}
+	 * @return {Promise<any>}
 	 */
 	getWikiVariables (): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/WikiVariables');
@@ -88,7 +88,7 @@ export class ArticleRequest {
 	 *
 	 * @param title
 	 * @param redirect
-	 * @returns {Promise<any>}
+	 * @return {Promise<any>}
 	 */
 	fetch (title: string, redirect: string) {
 		var urlParams: any = {
@@ -120,11 +120,13 @@ export class ArticleRequest {
  *
  * @param url the url to fetch
  * @param redirects the number of redirects to follow, default 1
+ * @return {Promise<any>}
  */
 export function fetch (url: string, redirects: number = 1): Promise<any> {
-	Logger.debug({url: url}, 'Fetching');
-
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve: Function) => {
+		/**
+		 * We can't use reject here as we always want to be able to start the app
+		 */
 		Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout,
@@ -135,7 +137,8 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 					url: url,
 					error: err
 				}, 'Error fetching url');
-				reject(err);
+
+				resolve(err);
 			} else {
 				if (response.statusCode === 200) {
 					resolve(payload);
@@ -145,7 +148,8 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						headers: response.headers,
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
-					reject(response);
+
+					resolve(payload);
 				}
 			}
 		});
@@ -158,7 +162,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
  * @param wikiDomain
  * @param path
  * @param params
- * @returns {string}
+ * @return {string} url
  */
 export function createUrl(wikiDomain: string, path: string, params: any = {}): string {
 	var qsAggregator: string[] = [],

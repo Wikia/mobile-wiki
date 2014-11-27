@@ -78,7 +78,6 @@ App.ApplicationView = Em.View.extend({
 	handleMedia: function (target: HTMLElement): void {
 		var galleryRef = $(target).closest('[data-gallery-ref]').data('gallery-ref'),
 			mediaRef = $(target).closest('[data-ref]').data('ref');
-
 		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 

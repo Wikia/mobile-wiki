@@ -5,6 +5,7 @@
 {{else}}
 <img {{bind-attr src=imageSrc}} {{bind-attr style=style}}>
 {{/if}}
+{{yield}}
 {{#if caption}}
 	<figcaption>
 		{{caption}}
