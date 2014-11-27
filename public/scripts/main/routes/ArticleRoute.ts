@@ -39,8 +39,6 @@ App.ArticleRoute = Em.Route.extend({
 		},
 
 		willTransition: function (transition: EmberStates.Transition) {
-			// dismiss side nav when {{#link-to 'article'}} is called from side nav
-			this.controllerFor('application').send('collapseSideNav');
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');

@@ -1,0 +1,33 @@
+<li class='title'>
+	{{#if parentItem}}
+		{{currentMenuItem.text}}
+	{{else}}
+		{{i18n 'side-nav-menu-label'}}
+	{{/if}}
+</li>
+{{#if parentItem}}
+	<li>
+		<div {{action 'goBack'}}>
+			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron back'}}
+			{{i18n 'navigation-back-label'}}
+		</div>
+	</li>
+{{else}}
+	<li>
+		<a href='/wiki/Special:Random'>{{i18n 'random-page-label'}}</a>
+	</li>
+{{/if}}
+{{#each currentMenuItem.children}}
+	{{#if children}}
+		<li>
+			<div {{action 'changeMenuItem' index}}>
+				{{unbound text}}
+				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+			</div>
+		</li>
+	{{else}}
+        <li>
+			<a {{action 'collapseSideNav'}} href='{{unbound href}}'>{{unbound text}}</a>
+		</li>
+	{{/if}}
+{{/each}}

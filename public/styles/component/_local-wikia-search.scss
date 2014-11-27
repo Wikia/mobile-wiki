@@ -17,12 +17,17 @@
 		border-bottom: rem-calc(1) solid #d0d0d0;
 		font-weight: normal;
 		list-style: none;
-		padding: rem-calc(10) $side-nav-item-gutter;
 		position: relative;
 		text-align: left;
 
 		a {
-			color: #333333;
+			@extend .touch-active;
+		}
+
+		a, span {
+			display: inline-block;
+			padding: rem-calc(10) $side-nav-item-gutter;
+			width: 100%;
 		}
 	}
 
