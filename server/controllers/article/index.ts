@@ -15,6 +15,7 @@ import localSettings = require('../../../config/localSettings');
 interface ServerData {
 	mediawikiDomain: string;
 	apiBase: string;
+	environment: string;
 }
 
 /**
