@@ -16,6 +16,15 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 		return this.get('media').length > this.get('limit');
 	}.property('media', 'limit'),
 
+	/**
+	 * Overwritten method to load just 4 images at the beginning
+	 */
+	load: function (): void {
+		this.setUp();
+		this.loadImages(0, this.limit);
+		this.$().on('scroll', () => this.onScroll);
+	},
+
 	actions: {
 		showMore: function (): void {
 			var previousLimit = this.get('limit'),

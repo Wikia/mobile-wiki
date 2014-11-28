@@ -69,9 +69,6 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		}
 	},
 
-	/**
-	 * load an image and run update function when it is loaded
-	 */
 	load: function (): void {
 		var thisGallery = this.$(),
 			galleryWidth = thisGallery.width(),
@@ -81,25 +78,27 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		this.setUp();
 		this.loadImages(0, maxImages);
 
-		thisGallery.on('scroll', () => {
-			Em.run.debounce(this, () => {
-				var images = thisGallery.find('img:not(.loaded)'),
-					galleryScroll = thisGallery.scrollLeft();
+		thisGallery.on('scroll', () => this.onScroll);
+	},
 
-				if (images.length) {
-					images.each((index: number, image: HTMLImageElement) => {
-						if (image.offsetLeft < galleryWidth + galleryScroll) {
-							this.loadImages(image, maxImages);
-						}
-					});
-				} else {
-					if (this.get('limit') < this.get('galleryLength')) {
-						this.incrementProperty('limit', this.incrementLimitValue);
-					} else {
-						thisGallery.off('scroll');
+	onScroll: function (): void {
+		Em.run.debounce(this, () => {
+			var images = thisGallery.find('img:not(.loaded)'),
+				galleryScroll = thisGallery.scrollLeft();
+
+			if (images.length) {
+				images.each((index: number, image: HTMLImageElement) => {
+					if (image.offsetLeft < galleryWidth + galleryScroll) {
+						this.loadImages(image, maxImages);
 					}
+				});
+			} else {
+				if (this.get('limit') < this.get('galleryLength')) {
+					this.incrementProperty('limit', this.incrementLimitValue);
+				} else {
+					thisGallery.off('scroll');
 				}
-			}, 100);
-		})
+			}
+		}, 100);
 	}
 });
