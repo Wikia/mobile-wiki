@@ -14,7 +14,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 
 	canShowMore: function (): boolean {
 		return this.get('media').length > this.get('limit');
-	},
+	}.property('media', 'limit'),
 
 	actions: {
 		showMore: function (): void {
