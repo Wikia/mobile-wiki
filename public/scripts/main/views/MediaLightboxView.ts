@@ -137,13 +137,14 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 * @param {HammerEvent} event
 	 * @returns {number}
 	 */
-	getScreenArea: function (event: HammerEvent): number {
-		var x = event.center.x,
-			thirdPartOfScreen = this.get('viewportSize').width / 3;
+	getScreenArea: function (event: MouseEvent): number {
+		var viewportWidth = this.get('viewportSize').width,
+			x = event.clientX,
+			thirdPartOfScreen = viewportWidth / 3;
 
 		if (x < thirdPartOfScreen) {
 			return this.screenAreas.left;
-		} else if (x > 2 * thirdPartOfScreen) {
+		} else if (x > viewportWidth - thirdPartOfScreen) {
 			return this.screenAreas.right;
 		} else {
 			return this.screenAreas.center;
@@ -156,7 +157,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 *
 	 * @param {HammerEvent} event
 	 */
-	changeMediaOnTap: function (event: HammerEvent): void {
+	changeMediaOnTap: function (event: MouseEvent): void {
 		var screenArea = this.getScreenArea(event);
 
 		if (screenArea === this.screenAreas.right) {
@@ -216,15 +217,10 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	click: function (event: MouseEvent) {
-		var $target = this.$(event.target);
-
-		//TODO: this should be defined in LightboxView, but taps don't bubble...
-		if ($target.is('.lightbox-footer')) {
-			this.send('toggleFooter');
-		} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
+		if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
 			this.changeMediaOnTap(event);
 		} else {
-			this.send('toggleUI');
+			this._super(event);
 		}
 	},
 
