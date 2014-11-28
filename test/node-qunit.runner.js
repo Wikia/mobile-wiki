@@ -26,19 +26,18 @@ testrunner.setup({
 });
 
 var tests = glob.sync(__dirname + '/specs/server/**/*.js'),
-	source = glob.sync(path.resolve('.') + '/www/server/**/*.js');
+	source = glob.sync(path.resolve('.') + '/www/server/**/*.js'),
+	prepped = source.map(function (path) {
+		var part = 'www/server',
+			file = path.substring(path.indexOf(part) + (part.length + 1));
 
-var prepped = source.map(function (path) {
-	var part = 'www/server',
-		file = path.substring(path.indexOf(part) + (part.length + 1));
-
-	return {
-		code: path,
-		tests: tests.filter(function (test) {
-			return test.match(file);
-		})
-	};
-});
+		return {
+			code: path,
+			tests: tests.filter(function (test) {
+				return test.match(file);
+			})
+		};
+	});
 
 testrunner.run(prepped.filter(function (module) {
 	return module.code.length && module.tests.length;
