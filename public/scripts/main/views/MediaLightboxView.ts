@@ -215,6 +215,19 @@ App.MediaLightboxView = App.LightboxView.extend({
 		this._super(event);
 	},
 
+	click: function (event: MouseEvent) {
+		var $target = this.$(event.target);
+
+		//TODO: this should be defined in LightboxView, but taps don't bubble...
+		if ($target.is('.lightbox-footer')) {
+			this.send('toggleFooter');
+		} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
+			this.changeMediaOnTap(event);
+		} else {
+			this.send('toggleUI');
+		}
+	},
+
 	gestures: {
 		swipeLeft: function (): void {
 			if (this.get('isGallery') && !this.get('isZoomed')) {
@@ -253,19 +266,6 @@ App.MediaLightboxView = App.LightboxView.extend({
 					scale: scale,
 					lastScale: scale
 				});
-			}
-		},
-
-		tap: function (event: HammerEvent) {
-			var $target = this.$(event.target);
-
-			//TODO: this should be defined in LightboxView, but taps don't bubble...
-			if ($target.is('.lightbox-footer')) {
-				this.send('toggleFooter');
-			} else if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
-				this.changeMediaOnTap(event);
-			} else {
-				this.send('toggleUI');
 			}
 		},
 

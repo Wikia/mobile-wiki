@@ -12,21 +12,22 @@ App.LightboxView = Em.View.extend({
 	headerHidden: false,
 	status: 'open',
 
-	hammerOptions: {
-		touchAction: 'auto'
+
+	click: function (event: MouseEvent) {
+		var $target = this.$(event.target);
+
+		if ($target.is('.lightbox-footer')) {
+			this.send('toggleFooter');
+		} else if ($target.is('.lightbox-close-wrapper')) {
+			this.get('controller').send('closeLightbox');
+		} else {
+			this.send('toggleUI');
+		}
 	},
 
-	gestures: {
-		tap: function (event: HammerEvent) {
-			var $target = this.$(event.target);
-
-			if ($target.is('.lightbox-footer')) {
-				this.send('toggleFooter');
-			} else if ($target.is('.lightbox-close-wrapper')) {
-				this.get('controller').send('closeLightbox');
-			} else {
-				this.send('toggleUI');
-			}
+	keyDown: function (event: KeyboardEvent): void {
+		if (event.keyCode === 27) {
+			this.get('controller').send('closeLightbox');
 		}
 	},
 
@@ -49,11 +50,5 @@ App.LightboxView = Em.View.extend({
 
 		//this is needed if view wants to handle keyboard
 		this.$().focus();
-	},
-
-	keyDown: function (event: KeyboardEvent): void {
-		if (event.keyCode === 27) {
-			this.get('controller').send('closeLightbox');
-		}
 	}
 });

@@ -33,21 +33,6 @@ App.ApplicationView = Em.View.extend({
 		$('#article-preload').remove();
 	},
 
-	/**
-	 * Necessary because presently, we open external links in new pages, so if we didn't
-	 * cancel the click event on the current page, then the mouseUp handler would open
-	 * the external link in a new page _and_ the current page would be set to that external link.
-	 */
-	click: function (event: MouseEvent): void {
-		var $closest =  Em.$(event.target).closest('a'),
-			target: EventTarget = $closest.length ? $closest[0] : event.target;
-
-		if (target && target.tagName.toLowerCase() === 'a') {
-			this.handleLink(target);
-		}
-		event.preventDefault();
-	},
-
 	handleLink: function (target: HTMLAnchorElement): void {
 		var controller: typeof App.ApplicationController;
 
@@ -98,29 +83,33 @@ App.ApplicationView = Em.View.extend({
 		}
 	},
 
-	hammerOptions: {
-		touchAction: 'auto'
-	},
+	/**
+	 * Necessary because presently, we open external links in new pages, so if we didn't
+	 * cancel the click event on the current page, then the mouseUp handler would open
+	 * the external link in a new page _and_ the current page would be set to that external link.
+	 */
+	click: function (event: MouseEvent): void {
+		/**
+		 * check if the target has a parent that is an anchor
+		 * We do this for links in the form <a href='...'>Blah <i>Blah</i> Blah</a>,
+		 * because if the user clicks the part of the link in the <i></i> then
+		 * target.tagName will register as 'I' and not 'A'.
+		 */
+		var $closest = Em.$(event.target).closest('a'),
+			target: EventTarget = $closest.length ? $closest[0] : event.target,
+			tagName: string;
 
-	gestures: {
-		tap: function (event: Event): void {
-			/**
-			 * check if the target has a parent that is an anchor
-			 * We do this for links in the form <a href='...'>Blah <i>Blah</i> Blah</a>,
-			 * because if the user clicks the part of the link in the <i></i> then
-			 * target.tagName will register as 'I' and not 'A'.
-			 */
-			var $closest = Em.$(event.target).closest('a'),
-				target: EventTarget = $closest.length ? $closest[0] : event.target,
-				tagName: string;
+		if (target) {
+			tagName = target.tagName.toLowerCase();
 
-			if (target) {
-				tagName = target.tagName.toLowerCase();
-				if ((tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0) {
-					this.handleMedia(target);
-				}
+			if (tagName === 'a') {
+				this.handleLink(<HTMLAnchorElement>target);
+			} else if ((tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0) {
+				this.handleMedia(<HTMLElement>target);
 			}
 		}
+
+		this.preventDefault(event);
 	},
 
 	actions: {
