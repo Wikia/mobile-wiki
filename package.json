@@ -40,7 +40,6 @@
     "gulp-concat": "2.x.x",
     "gulp-declare": "^0.3.0",
     "gulp-develop-server": "^0.2.5",
-    "gulp-filter": "1.x.x",
     "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "1.x.x",
     "gulp-gzip": "0.0.8",
