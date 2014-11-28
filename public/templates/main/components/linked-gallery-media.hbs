@@ -1,7 +1,7 @@
 {{#each media in limitedMedia}}
 	<figure class='linked-gallery-{{unbound media.type}}'>
-		{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 		{{#if media.link}}
+			{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 			<a {{bind-attr href=media.link}} {{action 'clickLinkedImage'}}>
 				<img {{bind-attr src=media.thumbUrl}} {{bind-attr class='media.load:loaded'}} data-gallery-ref='{{unbound media.galleryRef}}'>
 			</a>
