@@ -69,6 +69,9 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		}
 	},
 
+	/**
+	 * Loads media and certain amount of images depending on the gallery width and thumbSize sets also onscroll handler
+	 */
 	load: function (): void {
 		var thisGallery = this.$(),
 			galleryWidth = thisGallery.width(),

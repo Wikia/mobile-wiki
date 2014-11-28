@@ -16,9 +16,30 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 		return this.get('media').length > this.get('limit');
 	}.property('media', 'limit'),
 
+	setUp: function (): void {
+		this._super();
+		this.setProperties({
+			media: this.get('media').sort(this.sortMedia)
+		});
+	},
+
 	/**
-	 * Overwritten method to load just 4 images at the beginning
+	 * Sorts media by a simple criterion: if it's linked or not; use this method as compression function
+	 *
+	 * @param {ArticleMedia} a
+	 * @param {ArticleMedia} b
+	 * @returns {number}
 	 */
+	sortMedia: function (a: ArticleMedia, b: ArticleMedia): number {
+		if( a.link && typeof b.link === 'undefined' ) {
+			return 1;
+		} else if ( b.link && typeof a.link === 'undefined' ) {
+			return -1;
+		}
+
+		return 0;
+	},
+
 	load: function (): void {
 		this.setUp();
 		this.loadImages(0, this.limit);
