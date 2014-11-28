@@ -73,24 +73,24 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	 * Loads media and certain amount of images depending on the gallery width and thumbSize sets also onscroll handler
 	 */
 	load: function (): void {
-		var thisGallery = this.$(),
-			galleryWidth = thisGallery.width(),
-			thumbSize = this.get('thumbSize'),
-			maxImages = Math.ceil(galleryWidth / thumbSize);
+		var thisGallery: JQuery = this.$(),
+			galleryWidth: number = thisGallery.width(),
+			thumbSize: number = this.get('thumbSize'),
+			maxImages: number = Math.ceil(galleryWidth / thumbSize);
 
 		this.setUp();
 		this.loadImages(0, maxImages);
 
-		thisGallery.on('scroll', () => this.onScroll);
+		thisGallery.on('scroll', (thisGallery, galleryWidth, maxImages) => this.onScroll);
 	},
 
-	onScroll: function (): void {
+	onScroll: function (thisGallery: JQuery, galleryWidth: number, maxImages: number): void {
 		Em.run.debounce(this, () => {
 			var images = thisGallery.find('img:not(.loaded)'),
 				galleryScroll = thisGallery.scrollLeft();
 
 			if (images.length) {
-				images.each((index: number, image: HTMLImageElement) => {
+				images.each((index: number, image: HTMLImageElement): void => {
 					if (image.offsetLeft < galleryWidth + galleryScroll) {
 						this.loadImages(image, maxImages);
 					}
