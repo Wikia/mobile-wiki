@@ -1,3 +1,23 @@
+## release-17 (2014-12-01 11:46)
+* fix-zindexes: Little bit of z-index cleanups for lightbox
+* PR-412-quick-fix: Quick fix for #412
+* [HG-408](https://wikia-inc.atlassian.net/browse/HG-408) Improve click responsiveness around the application
+* [HG-418](https://wikia-inc.atlassian.net/browse/HG-418) Various fixes for linked images in Mercury
+* update-deps: Updating server side dependencies
+* [HG-281](https://wikia-inc.atlassian.net/browse/HG-281) Enable minimal-ui for iOS 7.1
+* fix-headroom-chevron-conflict: Use proper z-index for site-head
+* [HG-415](https://wikia-inc.atlassian.net/browse/HG-415) Smart banner's close button wider and easier to tap
+* [HG-411](https://wikia-inc.atlassian.net/browse/HG-411) Fix smart banner styling for Android native browser
+* [HG-309](https://wikia-inc.atlassian.net/browse/HG-309) Use click event to close a lightbox instead of hammer tap
+* [HG-355](https://wikia-inc.atlassian.net/browse/HG-355) Extract side-nav from site-head
+* [HG-205](https://wikia-inc.atlassian.net/browse/HG-205) Simplify server code, make it always return full ember app
+* [HG-221](https://wikia-inc.atlassian.net/browse/HG-221) WikiaMap component and Map in Lightobox
+* Fixes-for-dev-environment: Fixes for dev environment
+* [HG-328](https://wikia-inc.atlassian.net/browse/HG-328)active pseudo class to login anchor in site head
+* [HG-221](https://wikia-inc.atlassian.net/browse/HG-221) Hg 221 Scaling Map Iframe To Viewport Size
+* reject-when-mw-request-failed: Reject when MediaWiki request failed
+* [HG-221](https://wikia-inc.atlassian.net/browse/HG-221) Styling fixes for WikiaMap component
+
 ## release-16 (2014-11-25 13:40)
 * Dont-mark-people-with-cookie: Don't automatically mark people with useskin=mercury
 

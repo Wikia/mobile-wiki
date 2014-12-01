@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "rm -rf www && gulp",
     "start": "rm -rf www && gulp build --type prod --nosync && node www/server/server.js",
-    "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test"
+    "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test",
+    "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test"
   },
   "repository": {
     "type": "git",
@@ -21,26 +22,25 @@
   "private": true,
   "dependencies": {
     "bluebird": "^2.3.11",
-    "bunyan": "^1.2.2",
+    "bunyan": "^1.2.3",
     "bunyan-syslog": "^0.2.2",
     "handlebars": "2.x.x",
     "hapi": "7.x.x",
-    "newrelic": "^1.13.3",
+    "newrelic": "^1.14.0",
     "wreck": "^5.0.1"
   },
   "devDependencies": {
-    "browser-sync": "^1.6.5",
+    "browser-sync": "^1.7.1",
     "bunyan-prettystream": "^0.1.3",
     "ember-handlebars": "^1.2.0",
     "ember-qunit": "0.1.x",
-    "glob": "4.0.6",
+    "glob": "4.2.1",
     "gulp": "3.x.x",
-    "gulp-autoprefixer": "1.x.x",
+    "gulp-autoprefixer": "2.x.x",
     "gulp-cached": "1.x.x",
     "gulp-concat": "2.x.x",
     "gulp-declare": "^0.3.0",
-    "gulp-develop-server": "^0.2.4",
-    "gulp-filter": "1.x.x",
+    "gulp-develop-server": "^0.2.5",
     "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "1.x.x",
     "gulp-gzip": "0.0.8",

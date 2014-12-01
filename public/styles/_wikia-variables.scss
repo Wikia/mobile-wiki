@@ -28,12 +28,8 @@ $z-max : 10000;
 
 // z-min
 // z-1
-$z-lightbox-content-inner: $z-1;
-$z-lightbox-img: $z-1;
-$z-media-lightbox: $z-1;
 $z-spinner-before: $z-1;
 $z-video-provider-ooyala-override: $z-1;
-$z-index-map-lightbox: $z-1;
 // z-2
 $z-spinner-after: $z-2;
 // z-3
@@ -45,6 +41,7 @@ $z-site-head: $z-7;
 // z-8
 $z-lightbox-footer: $z-8;
 $z-lightbox-header: $z-8;
+$z-lightbox-wrapper: $z-8;
 $z-side-nav-overlay: $z-8;
 // z-9
 $z-side-nav: $z-9;
@@ -88,7 +85,6 @@ $spinner-color: $color-blue-brand;
 $side-nav-item-gutter: rem-calc(13);
 $side-nav-width: rem-calc(260);
 $side-nav-offset: $side-nav-width * -1;
-$side-nav-width: $side-nav-width;
 $transition-length: .10s;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,5 +118,5 @@ $smart-banner-ios-height: rem-calc(83);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Site head
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$icon-side-head-with: rem-calc(60);
-$icon-side-head-height: 50px;
+$icon-site-head-width: rem-calc(60);
+$icon-site-head-height: 50px;

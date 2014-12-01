@@ -9,6 +9,7 @@
 	right: 0;
 	top: 0;
 	transition: opacity .3s;
+	z-index: $z-lightbox-wrapper;
 
 	&.opening {
 		opacity: 0;
@@ -39,8 +40,9 @@
 .lightbox-close-wrapper {
 	fill: white;
 	float: right;
+	height: 45px;
 	padding: 13px;
-	width: 40px;
+	width: 45px;
 }
 
 .lightbox-close-button {
@@ -65,10 +67,9 @@
 	}
 
 	img {
-		width: 100%;
 		opacity: 0;
 		transition: .01s opacity .3s;
-		z-index: $z-lightbox-img;
+		width: 100%;
 
 		.open & {
 			opacity: 1;

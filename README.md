@@ -40,6 +40,18 @@ You can generate changelog manually though like this:
 * `./tasks/changelog.sh X` - generate change log between release branch X and master
 * `./tasks/changelog.sh X Y` - generate change log between release branch X and Y
 
+## Unit tests
+
+To run the unit tests run `npm test` in your terminal.
+To generate the code coverage run `npm run coverage`. The reports will be generated in `tests/coverage` subdirectories.
+
+## Updating dependencies
+### Server side
+* (optional) run `npm-check-updates`
+* `npm update`
+* `npm dedupe`
+* `npm shrinkwrap`
+
 ## Testing on devices
 ### Using IP over the same network
 To test on your mobile device, connect both your development machine and your device to the same network. You can then visit Mercury on your device by using your machine's IP address (on OS X, you can get that using `ifconfig`). The URL should look something like: `//10.10.10.123:8000/wiki/Foo`. You can't use subdomains with IP addresses, but you can change your test wiki manually by editing your [`wikiFallback`](https://github.com/Wikia/mercury/blob/master/config/localSettings.base.ts#L28).

@@ -5,23 +5,17 @@
  * Type for search suggestion, as returned by node-side search API
  */
 interface SearchSuggestionItem {
-	id: number;
-	ns: number;
-	quality: number;
 	title: string;
-	url: string;
 }
 
-/**
- * @desc Controller for the search results. Note that the actual search bar is
- * contained in SideNav, so this is a child of that controller and that
- * controller modifies LocalWikiaSearchController#query through an Ember input binding.
- * This controller is simply made to respond to changes to that property, and update so
- * that its view can display the results of the search.
- */
-App.LocalWikiaSearchController = Em.Controller.extend({
+App.LocalWikiaSearchComponent = Em.Component.extend({
+	classNames: ['local-wikia-search'],
+
 	query: '',
-	// Array<SearchSuggestionItem>, this is what's currently displayed in the search results
+	/**
+	 * This is what's currently displayed in the search results
+	 * @member {Array<SearchSuggestionItem>}
+	 */
 	suggestions: [],
 	/**
 	 * Whether or not to show that empty message (should be shown if there is a valid
@@ -44,6 +38,16 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	// key: query string, value: Array<SearchSuggestionItem>
 	cachedResults: {},
 
+	actions: {
+		collapseSideNav: function (): void {
+			this.setProperties({
+				sideNavCollapsed: true,
+				isInSearchMode: false,
+				query: ''
+			});
+		}
+	},
+
 	setSearchSuggestionItems: function (suggestions: Array<SearchSuggestionItem>): void {
 		this.set('suggestions', suggestions);
 	},
@@ -57,8 +61,8 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	},
 
 	/**
-	 * @param query search string
-	 * @return uri to send an ajax request to
+	 * @param {string} query - search string
+	 * @return {string} uri to send an ajax request to
 	 */
 	getSearchURI: function (query: string): string {
 		return App.get('apiBase') + '/search/' + encodeURIComponent(query);
@@ -98,8 +102,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	}.observes('query'),
 
 	/**
-	 * @desc query observer which makes ajax request for search suggestions
-	 * based on query
+	 * @desc query observer which makes ajax request for search suggestions based on query
 	 */
 	searchWithoutDebounce: function (): void {
 		var query: string = this.get('query'),
@@ -129,7 +132,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 				this.setSearchSuggestionItems(data.items);
 			}
 			this.cacheResult(query, data.items);
-		// When we get a 404, it means there were no results
+			// When we get a 404, it means there were no results
 		}).fail((reason: any) => {
 			if (query === this.get('query')) {
 				this.setEmptySearchSuggestionItems();
@@ -147,12 +150,12 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 
 	/**
 	 * Methods that modify requestsInProgress to record what requests are currently
- 	 * being executed so we don't do them more than once.
+	 * being executed so we don't do them more than once.
 	 */
 
 	/**
 	 * @desc records that we have submitted an ajax request for a query term
-	 * @param the query string that we submitted an ajax request for
+	 * @param {string} query - the query string that we submitted an ajax request for
 	 */
 	startedRequest: function (query: string): void {
 		this.get('requestsInProgress')[query] = true;
@@ -160,7 +163,8 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 
 	/**
 	 * @desc returns whether or not there is a request in progress
-	 * @param query the query to check
+	 * @param {string} query - query the query to check
+	 * @return {boolean}
 	 */
 	requestInProgress: function (query: string): boolean {
 		return this.get('requestsInProgress').hasOwnProperty(query);
@@ -168,7 +172,7 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 
 	/**
 	 * @desc records that we have finished a request
-	 * @param query the string we searched for that we're now done with
+	 * @param {string} query - query the string we searched for that we're now done with
 	 */
 	endedRequest: function (query: string): void {
 		delete this.get('requestsInProgress')[query];
@@ -183,8 +187,8 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 	// Search result cache methods
 
 	/**
-	 * @return whether or not the number of cached results is equal to
-	 * our limit on cached results
+	 * @desc returns whether or not the number of cached results is equal to our limit on cached results
+	 * @return {boolean}
 	 */
 	needToEvict: function (): boolean {
 		return this.cachedResultsQueue.length === this.cachedResultsLimit;
@@ -202,8 +206,8 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 
 	/**
 	 * @desc caches the provided query/suggestion array pair
-	 * @param query the query string that was used in the search API request
-	 * @param the array of suggestions -- if not provided, then there were zero results
+	 * @param {string} query - the query string that was used in the search API request
+	 * @param {Array<SearchSuggestionItem>} suggestions - if not provided, then there were zero results
 	 */
 	cacheResult: function (query: string, suggestions?: Array<SearchSuggestionItem>): void {
 		if (this.needToEvict()) {
@@ -215,15 +219,16 @@ App.LocalWikiaSearchController = Em.Controller.extend({
 
 	/**
 	 * @desc Checks whether the result of the query has been cached
-	 * @param query
+	 * @param {string} query
+	 * @return {boolean}
 	 */
 	hasCachedResult: function (query: string): boolean {
 		return this.get('cachedResults').hasOwnProperty(query);
 	},
 
 	/**
-	 * @param query the query string to search the cache with
-	 * @return the cached result or null if there were no results (type Array<SearchSuggestionItem>|null)
+	 * @param {string} query - the query string to search the cache with
+	 * @return {Array<SearchSuggestionItem>|null} the cached result or null if there were no results
 	 */
 	getCachedResult: function (query: string): any {
 		return this.get('cachedResults')[query];

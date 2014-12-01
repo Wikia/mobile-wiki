@@ -2,8 +2,8 @@
 	&.external {
 		@extend .touch-active;
 		@extend %pointer;
-		height: $icon-side-head-height;
-		width: $icon-side-head-with;
+		height: $icon-site-head-height;
+		width: $icon-site-head-width;
 	}
 	&.icon {
 		height: 36px;

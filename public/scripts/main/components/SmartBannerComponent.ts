@@ -17,7 +17,6 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 	day: 86400000,
 	isVisible: false,
-	smartBannerVisible: Em.computed.alias('isVisible'),
 
 	appId: function (): string {
 		return this.get('config.appId.' + this.get('system'));
