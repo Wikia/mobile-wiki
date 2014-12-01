@@ -43,7 +43,7 @@ You can generate changelog manually though like this:
 ## Unit tests
 
 To run the unit tests run `npm test` in your terminal.
-To generate the code coverage run `npm run coverage`.
+To generate the code coverage run `npm run coverage`. The reports will be generated in `tests/coverage` subdirectories.
 
 ## Updating dependencies
 ### Server side
