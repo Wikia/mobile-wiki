@@ -18,9 +18,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 
 	setUp: function (): void {
 		this._super();
-		this.setProperties({
-			media: this.get('media').sort(this.sortMedia)
-		});
+		this.set('media', this.get('media').sort(this.sortMedia));
 	},
 
 	/**
