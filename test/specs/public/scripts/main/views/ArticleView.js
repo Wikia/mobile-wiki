@@ -1,4 +1,4 @@
-moduleFor('view:article', 'Article View`', {
+moduleFor('view:article', 'Article View', {
 	needs: ['controller:article', 'controller:application'],
 	setup: function () {
 		this.view = this.subject();
