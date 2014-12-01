@@ -9,7 +9,7 @@
     "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test",
     "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test"
   },
-  "repository": "git://github.com/Wikia/mobile.git",
+  "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",
   "homepage": "https://github.com/Wikia/mercury",
   "private": true,
