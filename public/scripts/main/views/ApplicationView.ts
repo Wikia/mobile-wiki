@@ -104,12 +104,17 @@ App.ApplicationView = Em.View.extend({
 
 			if (tagName === 'a') {
 				this.handleLink(<HTMLAnchorElement>target);
-			} else if ((tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0) {
+			} else if (this.isMediaElement(target, tagName)) {
 				this.handleMedia(<HTMLElement>target);
 			}
 		}
 
 		this.preventDefault(event);
+	},
+
+	isMediaElement: function(target: EventTarget, tagName: string): boolean {
+		return (tagName === 'img' || tagName === 'figure')
+			&& $(target).children('a').length === 0;
 	},
 
 	actions: {
