@@ -2,6 +2,9 @@
 'use strict';
 
 App.ApplicationController = Em.Controller.extend({
+	smartBannerVisible: false,
+	sideNavCollapsed: true,
+
 	init: function () {
 		this.setProperties({
 			domain: Mercury.wiki.dbName || window.location.href.match(/^https?:\/\/(.*?)\./)[1],

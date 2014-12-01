@@ -26,8 +26,8 @@ App.ApplicationView = Em.View.extend({
 		return system ? 'system-' + system : '';
 	}.property(),
 
-	smartBannerVisible: false,
-	sideNavCollapsed: true,
+	smartBanner: Em.computed.alias('controller.smartBanner'),
+	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
 
 	willInsertElement: function (): void {
 		$('#article-preload').remove();

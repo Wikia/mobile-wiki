@@ -97,11 +97,11 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		},
 
 		expandSideNav: function (): void {
-			this.controllerFor('sideNav').send('expand');
+			this.get('controller').set('sideNavCollapsed', false);
 		},
 
 		collapseSideNav: function (): void {
-			this.controllerFor('sideNav').send('collapse');
+			this.get('controller').set('sideNavCollapsed', true);
 		},
 
 		trackClick: function (category: string, label: string = ''): void {
