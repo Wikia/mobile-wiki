@@ -40,6 +40,11 @@ You can generate changelog manually though like this:
 * `./tasks/changelog.sh X` - generate change log between release branch X and master
 * `./tasks/changelog.sh X Y` - generate change log between release branch X and Y
 
+## Unit tests
+
+To run the unit tests run `npm test` in your terminal.
+To generate the code coverage run `npm run coverage`. The reports will be generated in `tests/coverage` subdirectories.
+
 ## Updating dependencies
 ### Server side
 * (optional) run `npm-check-updates`
