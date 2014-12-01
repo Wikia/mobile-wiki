@@ -47,10 +47,9 @@ To generate the code coverage run `npm run coverage`. The reports will be genera
 
 ## Updating dependencies
 ### Server side
-* (optional) run `npm-check-updates`
+* check for updates or run `npm-check-updates {-u}`
 * `npm update`
-* `npm dedupe`
-* `npm shrinkwrap`
+* test if service runs and serves correct data
 
 ## Testing on devices
 ### Using IP over the same network
