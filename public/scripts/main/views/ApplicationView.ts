@@ -26,7 +26,7 @@ App.ApplicationView = Em.View.extend({
 		return system ? 'system-' + system : '';
 	}.property(),
 
-	smartBanner: Em.computed.alias('controller.smartBanner'),
+	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
 
 	willInsertElement: function (): void {
