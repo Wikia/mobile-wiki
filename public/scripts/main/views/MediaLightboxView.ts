@@ -157,7 +157,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 	 *
 	 * @param {HammerEvent} event
 	 */
-	changeMediaOnTap: function (event: MouseEvent): void {
+	handleClick: function (event: MouseEvent): void {
 		var screenArea = this.getScreenArea(event);
 
 		if (screenArea === this.screenAreas.right) {
@@ -218,7 +218,7 @@ App.MediaLightboxView = App.LightboxView.extend({
 
 	click: function (event: MouseEvent) {
 		if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
-			this.changeMediaOnTap(event);
+			this.handleClick(event);
 		} else {
 			this._super(event);
 		}
