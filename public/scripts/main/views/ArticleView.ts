@@ -207,17 +207,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	handleTables: function (): void {
 		var $tables = this.$('table:not([class*=infobox], .dirbox)'),
-			wrapper: HTMLDivElement,
-			articleWidth: number;
+			wrapper: HTMLDivElement;
 
 		if ($tables.length) {
 			wrapper = document.createElement('div');
-			articleWidth = this.$('.article-body').width();
-
 			wrapper.className = 'article-table';
 
 			$tables
-				.filter((i: number, elm: HTMLTableElement) => elm.scrollWidth > articleWidth)
 				.wrap(wrapper)
 				.css('visibility', 'visible');
 		}
