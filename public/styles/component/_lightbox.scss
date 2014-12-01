@@ -9,6 +9,7 @@
 	right: 0;
 	top: 0;
 	transition: opacity .3s;
+	z-index: $z-lightbox-wrapper;
 
 	&.opening {
 		opacity: 0;
@@ -69,7 +70,6 @@
 		opacity: 0;
 		transition: .01s opacity .3s;
 		width: 100%;
-		z-index: $z-lightbox-img;
 
 		.open & {
 			opacity: 1;
