@@ -13,22 +13,18 @@ test('if changeMediaOnTap changes current media', function () {
 			}
 		}),
 		tapEventRight = {
-			center: {
-				x: 400
-			}
+			clientX: 400
 		},
 		tapEventLeft = {
-			center: {
-				x: 80
-			}
+			clientX: 80
 		},
 		nextMediaWasTapped = false,
 		prevMediaWasTapped = false;
 
-	mediaLightboxView.changeMediaOnTap(tapEventRight);
+	mediaLightboxView.handleClick(tapEventRight);
 	equal(nextMediaWasTapped, true);
 
-	mediaLightboxView.changeMediaOnTap(tapEventLeft);
+	mediaLightboxView.handleClick(tapEventLeft);
 	equal(prevMediaWasTapped, true);
 });
 
@@ -57,19 +53,13 @@ test('if getScreenArea correctly returns screen areas', function () {
 			}
 		}),
 		tapEventRight = {
-			center: {
-				x: 400
-			}
+			clientX: 400
 		},
 		tapEventLeft = {
-			center: {
-				x: 80
-			}
+			clientX: 80
 		},
 		tapEventCenter = {
-			center: {
-				x: 240
-			}
+			clientX: 240
 		},
 		screenArea,
 		screenAreas = mediaLightboxView.get('screenAreas');
