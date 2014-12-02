@@ -206,11 +206,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	handleTables: function (): void {
-		var wrapper = document.createElement('div');
-		wrapper.className = 'article-table';
-		this.$('table:not([class*=infobox], .dirbox)')
-			.wrap(wrapper)
-			.css('visibility', 'visible');
+		var $tables = this.$('table:not([class*=infobox], .dirbox)').not('table table'),
+			wrapper: HTMLDivElement;
+
+		if ($tables.length) {
+			wrapper = document.createElement('div');
+			wrapper.className = 'article-table';
+
+			$tables
+				.wrap(wrapper)
+				.css('visibility', 'visible');
+		}
 	},
 
 	hammerOptions: {

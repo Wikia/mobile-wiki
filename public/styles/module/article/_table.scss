@@ -16,12 +16,6 @@ table:not(.infobox, .dirbox) {
 				width: 50%;
 			}
 		}
-
-		&:not(.infobox) {
-			th, td {
-				white-space: nowrap;
-			}
-		}
 	}
 
 	th, td {
