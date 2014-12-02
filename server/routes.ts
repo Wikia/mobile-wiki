@@ -79,13 +79,8 @@ function routes(server: Hapi.Server) {
 								result.error = JSON.stringify(error);
 							}
 
-							if (result.article && result.article.article.details.cleanTitle) {
-								result.displayTitle = result.details.cleanTitle;
-							} else if (request.params.title) {
-								result.displayTitle = request.params.title.replace(/_/g, ' ');
-							}
-
-							result.canonicalUrl = wikiDomain + '/' + request.params.title.replace(/ /g, '_');
+							result.displayTitle = request.params.title.replace(/_/g, ' ');
+							result.canonicalUrl = result.wiki.basePath + '/' + request.params.title.replace(/ /g, '_');
 
 							reply.view('application', result).code(code);
 						}
