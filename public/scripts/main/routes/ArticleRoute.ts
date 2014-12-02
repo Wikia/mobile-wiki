@@ -19,7 +19,7 @@ App.ArticleRoute = Em.Route.extend({
 		}
 
 		this.transitionTo('article',
-			M.String.sanitize(transition.params.article.title)
+			M.String.sanitize(transition.params.article.title.replace('wiki/', ''))
 		);
 	},
 
