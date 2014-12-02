@@ -21,7 +21,7 @@ http://passingcuriosity.com/2013/dnsmasq-dev-osx/
 on dev environments livereload server runs that reload your web browser on any change in public folder
 you can disable that by running gulp with --nosync parameter
 
-##[Release](one.wikia-inc.com/wiki/Mercury/Release)
+##[Release](https://one.wikia-inc.com/wiki/Mercury/Release)
 
 ##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
 Change log is automatically generated when running `./tasks/release.sh`
