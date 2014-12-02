@@ -36,6 +36,6 @@ test('shouldHandleMedia returns correct value', function () {
 		];
 
 	testCases.forEach(function(testCase) {
-		equal(testCase.expected, appViewMock.shouldHandleMedia(testCase.target, testCase.tagName));
+		equal(appViewMock.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected);
 	});
 });
