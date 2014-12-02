@@ -206,7 +206,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	handleTables: function (): void {
-		var $tables = this.$('table:not([class*=infobox], .dirbox)'),
+		var $tables = this.$('table:not([class*=infobox], .dirbox)').not('table table'),
 			wrapper: HTMLDivElement;
 
 		if ($tables.length) {
