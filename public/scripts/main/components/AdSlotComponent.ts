@@ -14,9 +14,14 @@ App.AdSlotComponent = Em.Component.extend({
 	}.property('name'),
 
 	didInsertElement: function () {
-		Em.Logger.info('Injected ad:', this.get('name'));
+		var showAds = this.get('noAds') !== '1';
 
-		Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
+		if( showAds ) {
+			Em.Logger.info('Injected ad:', this.get('name'));
+			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
+		} else {
+			Em.Logger.info('Ad disabled for ad:', this.get('name'));
+		}
 	},
 
 	willDestroyElement: function() {
