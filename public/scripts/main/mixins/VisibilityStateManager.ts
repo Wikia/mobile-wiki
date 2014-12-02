@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * object that stores visiblity state of components
+ * object that stores visibility state of components
  * and fires onVisible action when a components is becoming visible
  */
 App.VisibilityStateManager = Em.Object.create({
