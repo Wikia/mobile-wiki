@@ -104,12 +104,23 @@ App.ApplicationView = Em.View.extend({
 
 			if (tagName === 'a') {
 				this.handleLink(<HTMLAnchorElement>target);
-			} else if ((tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0) {
+			} else if (this.shouldHandleMedia(target, tagName)) {
 				this.handleMedia(<HTMLElement>target);
 			}
 		}
 
 		this.preventDefault(event);
+	},
+
+	/**
+	 * @desc Returns true if handleMedia() should be executed
+	 * @param {EventTarget} target
+	 * @param {string} tagName clicked tag name
+	 * @returns {boolean}
+	 */
+	shouldHandleMedia: function(target: EventTarget, tagName: string): boolean {
+		return tagName === 'img' || tagName === 'figure'
+			&& $(target).children('a').length === 0;
 	},
 
 	actions: {
