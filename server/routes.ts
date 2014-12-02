@@ -59,8 +59,10 @@ function routes(server: Hapi.Server) {
 			config: config,
 			handler: function articleHandler(request: Hapi.Request, reply: any) {
 				if (request.params.title || request.path === '/') {
+					var wikiDomain = getWikiDomainName(request.headers.host);
+
 					article.getFull({
-						wikiDomain: getWikiDomainName(request.headers.host),
+						wikiDomain: wikiDomain,
 						title: request.params.title,
 						redirect: request.query.redirect
 					}, (error: any, result: any = {}) => {
@@ -77,11 +79,13 @@ function routes(server: Hapi.Server) {
 								result.error = JSON.stringify(error);
 							}
 
-							if (result.details && result.details.cleanTitle) {
+							if (result.article && result.article.article.details.cleanTitle) {
 								result.displayTitle = result.details.cleanTitle;
 							} else if (request.params.title) {
 								result.displayTitle = request.params.title.replace(/_/g, ' ');
 							}
+
+							result.canonicalUrl = wikiDomain + '/' + request.params.title.replace(/ /g, '_');
 
 							reply.view('application', result).code(code);
 						}
