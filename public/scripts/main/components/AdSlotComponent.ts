@@ -13,8 +13,18 @@ App.AdSlotComponent = Em.Component.extend({
 		return this.get('name').toLowerCase().dasherize();
 	}.property('name'),
 
+	showAds: function () {
+		return this.get('noAds') !== '1';
+	}.property('noAds'),
+
+	willInsertElement: function () {
+		if( Mercury.environment === 'dev' && typeof this.get('noAds') === 'undefined' ) {
+			Em.Logger.warn('An ad slot was created without noAds parameter passed:', this.get('name'));
+		}
+	},
+
 	didInsertElement: function () {
-		if( this.get('noAds') !== '1' ) {
+		if( this.get('showAds') ) {
 			Em.Logger.info('Injected ad:', this.get('name'));
 			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
 		} else {
