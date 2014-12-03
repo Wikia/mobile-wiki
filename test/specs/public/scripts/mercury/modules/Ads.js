@@ -62,5 +62,11 @@ QUnit.test('Add/remove slots works', function () {
 	equal(instance.adSlots.length, 1);
 	instance.removeSlot('test1');
 	equal(instance.adSlots.length, 0);
+	instance.addSlot('test1');
+	instance.addSlot('test2');
+	instance.addSlot('test3');
+	equal(instance.adSlots.length, 3);
+	instance.clearSlots();
+	equal(instance.adSlots.length, 0);
 	instance.reload(null);
 });

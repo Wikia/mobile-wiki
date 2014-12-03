@@ -1,4 +1,8 @@
-moduleForComponent('ad-slot');
+moduleForComponent('ad-slot', 'Ad Slot Component', {
+	teardown: function () {
+		Mercury.Modules.Ads.getInstance().clearSlots();
+	}
+});
 
 test('Name lower case', function () {
 	var component = this.subject(),
@@ -38,4 +42,14 @@ test('Component is inserted on page', function () {
 	component.set('name', 'Test ad 1');
 	this.append();
 	equal(Mercury.Modules.Ads.getInstance().adSlots.length, 1, 'Element added to slot');
+});
+
+test('Component is not inserted on page', function () {
+	var component = this.subject();
+	component.setProperties({
+		'name': 'Test ad 1',
+		'noAds': '1'
+	});
+	this.append();
+	equal(Mercury.Modules.Ads.getInstance().adSlots.length, 0, 'Element not added to slot');
 });
