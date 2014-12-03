@@ -99,9 +99,12 @@ class App {
 	private onPreResponseHandler(request: hapi.Request, next: Function): void {
 		var response = <Hapi.Response>(request.response),
 			responseTimeSec = (Date.now() - request.info.received) / 1000;
+
 		if (response && response.header) {
 			response.header('X-Backend-Response-Time', responseTimeSec.toFixed(3));
+			response.header('X-Served-By', localSettings.host || 'mercury');
 		}
+
 		next();
 	}
 
