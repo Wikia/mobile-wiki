@@ -25,7 +25,6 @@ test('Name lower case', function () {
 				description: 'Arabic'
 			}
 		];
-	expect(testCases.length);
 	Ember.run(function () {
 		testCases.forEach(function(testCase) {
 			component.set('name', testCase.name);
@@ -36,7 +35,6 @@ test('Name lower case', function () {
 
 test('Component is inserted on page', function () {
 	var component = this.subject();
-	expect(1);
 	component.set('name', 'Test ad 1');
 	this.append();
 	equal(Mercury.Modules.Ads.getInstance().adSlots.length, 1, 'Element added to slot');
