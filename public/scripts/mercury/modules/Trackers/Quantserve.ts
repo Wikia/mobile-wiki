@@ -20,12 +20,12 @@ module Mercury.Modules.Trackers {
 		}
 
 		trackPageView (context: any): void {
-			var quantcastLabels = '',
+			var quantcastLabels = 'Category.MobileWeb.Mercury',
 				keyValues: string[],
 				keyValue: string[];
 
 			if (context && context.wikiCategory) {
-				quantcastLabels += context.wikiCategory;
+				quantcastLabels += ',' + context.wikiCategory;
 
 				if (context.wikiCustomKeyValues) {
 					keyValues = context.wikiCustomKeyValues.split(';');
