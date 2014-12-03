@@ -20,11 +20,12 @@ QUnit.test('Track page view', function () {
 		},
 		qevents = [{
 			qacct: Mercury.tracking.quantserve,
-			labels: 'category,category.val1,category.val2,category.val3'
+			labels: 'Category.MobileWeb.Mercury,category,category.val1,category.val2,category.val3'
 		}];
 
 	tracker.appendScript = function () {};
 
 	tracker.trackPageView(context);
+	console.log(window._qevents, qevents);
 	deepEqual(window._qevents, qevents);
 });
