@@ -1,6 +1,6 @@
 moduleForComponent('ad-slot', 'Ad Slot Component', {
 	teardown: function () {
-		Mercury.Modules.Ads.getInstance().clearSlots();
+		Mercury.Modules.Ads.getInstance().adSlots = [];
 	}
 });
 

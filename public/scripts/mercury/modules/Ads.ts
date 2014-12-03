@@ -97,13 +97,6 @@ module Mercury.Modules {
 		}
 
 		/**
-		 * Clears all slots - resets adSlots property to an empty array
-		 */
-		public clearSlots (): void {
-			this.adSlots = [];
-		}
-
-		/**
 		 * Retrieves the ads context
 		 *
 		 * @returns {Object|null}
