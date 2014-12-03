@@ -20,7 +20,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		trackPageView (context: any): void {
-			var quantcastLabels = '',
+			var quantcastLabels = 'Category.MobileWeb.Mercury',
 				keyValues: string[],
 				keyValue: string[];
 
