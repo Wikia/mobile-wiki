@@ -68,7 +68,6 @@ module Mercury.Modules.Trackers {
 			if (name !== this.accountPrimary) {
 				prefix = this.accounts[name].prefix + '.';
 			}
-			console.log(prefix);
 
 			this.queue.push(
 				[prefix + '_setAccount', this.accounts[name].id],
