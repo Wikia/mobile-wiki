@@ -36,17 +36,8 @@ module Mercury.Modules {
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
 		public init (adsUrl: string, callback: () => void) {
-			window.gaTrackAdEvent = function (/*arguments for _gaq push*/): void {
-				var args: any,
-					ad_hit_sample: number = 1; //1%
-				if ( Math.random() * 100 <= ad_hit_sample ) {
-					debugger;
-					args = Array.prototype.slice.call( arguments );
-					args.unshift( 'ads._trackEvent' );
-					var x = new Mercury.Modules.Trackers.GoogleAnalytics();
-					x.trackAds.apply(x, args);
-				}
-			};
+			//Required by ads tracking code
+			window.gaTrackAdEvent = this.gaTrackAdEvent;
 			// Load the ads code from MW
 			M.load(adsUrl, () => {
 				require([
@@ -61,6 +52,19 @@ module Mercury.Modules {
 					callback.call(this);
 				});
 			});
+		}
+
+		public function gaTrackAdEvent(/*arguments for _gaq push*/): void {
+			var args: any,
+				ad_hit_sample: number = 1; //1%
+			//Sampling on GA side will kill the performance as we need to allocate object each time we track
+			//ToDo: Optimize object allocation for tracking all events
+			if ( Math.random() * 100 <= ad_hit_sample ) {
+				args = Array.prototype.slice.call( arguments );
+				args.unshift( 'ads._trackEvent' );
+				var GATracker = new Mercury.Modules.Trackers.GoogleAnalytics();
+				GATracker.trackAds.apply(GATracker, args);
+			}
 		}
 
 		private setContext(adsContext: any) {
