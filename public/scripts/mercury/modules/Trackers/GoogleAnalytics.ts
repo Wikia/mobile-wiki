@@ -22,6 +22,7 @@ module Mercury.Modules.Trackers {
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
 		accountMercury = 'mercury';
+		accountAds = 'ads';
 		queue: GoogleAnalyticsCode;
 
 		constructor () {
@@ -34,7 +35,6 @@ module Mercury.Modules.Trackers {
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 				].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
-
 			this.accounts = Mercury.tracking.ga;
 			this.queue = window._gaq || [];
 
@@ -51,6 +51,7 @@ module Mercury.Modules.Trackers {
 			if (this.accounts[this.accountMercury]) {
 				this.initAccount(this.accountMercury, adsContext, domain);
 			}
+			this.initAccount(this.accountAds, adsContext, domain);
 		}
 
 		/**
@@ -67,6 +68,7 @@ module Mercury.Modules.Trackers {
 			if (name !== this.accountPrimary) {
 				prefix = this.accounts[name].prefix + '.';
 			}
+			console.log(prefix);
 
 			this.queue.push(
 				[prefix + '_setAccount', this.accounts[name].id],
@@ -99,7 +101,6 @@ module Mercury.Modules.Trackers {
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
 			this.queue.push(['_trackEvent'].concat(args));
-
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
 			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackEvent'].concat(args));
@@ -107,6 +108,14 @@ module Mercury.Modules.Trackers {
 			if (this.accounts[this.accountMercury]) {
 				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackEvent'].concat(args));
 			}
+		}
+
+		/**
+		 * Tracks an ads-related event
+		 */
+		trackAds (/*Arguments for ads related event*/): void {
+			var args = Array.prototype.slice.call(arguments);
+			this.queue.push(args);
 		}
 
 		/**
