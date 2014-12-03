@@ -44,7 +44,7 @@ figcaption {
 	img {
 		// Fixes iOS Safari repaint bug when scrolling through gallery
 		transform: translate3d(0, 0, 0);
-		height: 195px;
+		height: auto;
 		margin-right: 8px;
 		width: 195px;
 	}
