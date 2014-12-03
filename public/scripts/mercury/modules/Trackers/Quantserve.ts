@@ -25,7 +25,7 @@ module Mercury.Modules.Trackers {
 				keyValue: string[];
 
 			if (context && context.wikiCategory) {
-				quantcastLabels += context.wikiCategory;
+				quantcastLabels += ',' + context.wikiCategory;
 
 				if (context.wikiCustomKeyValues) {
 					keyValues = context.wikiCustomKeyValues.split(';');
