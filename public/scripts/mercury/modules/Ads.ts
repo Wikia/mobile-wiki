@@ -59,13 +59,14 @@ module Mercury.Modules {
 		 */
 		public gaTrackAdEvent(/*arguments from ads tracking request*/): void {
 			var args: any,
-				ad_hit_sample: number = 1; //1%
+				ad_hit_sample: number = 1, //1%
+				GATracker: any;
 			//Sampling on GA side will kill the performance as we need to allocate object each time we track
 			//ToDo: Optimize object allocation for tracking all events
 			if ( Math.random() * 100 <= ad_hit_sample ) {
 				args = Array.prototype.slice.call( arguments );
-				args.unshift( 'ads._trackEvent' );
-				var GATracker = new Mercury.Modules.Trackers.GoogleAnalytics();
+				args.unshift('ads._trackEvent');
+				GATracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 				GATracker.trackAds.apply(GATracker, args);
 			}
 		}
