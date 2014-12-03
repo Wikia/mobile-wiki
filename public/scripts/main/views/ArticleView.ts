@@ -58,22 +58,15 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
-			var model = this.get('controller.model'),
-				showAds = this.get('controller.noAds') !== '1';
+			var model = this.get('controller.model');
 
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
 				this.replaceHeadersWithArticleSectionHeaders();
 				this.replaceMapsWithMapComponents();
-
-				if (showAds) {
-					this.injectAds();
-					this.setupAdsContext(model.get('adsContext'));
-				} else {
-					Em.Logger.info('Dynamically injected ads disabled.');
-				}
-
+				this.injectAds();
+				this.setupAdsContext(model.get('adsContext'));
 				this.jumpToAnchor();
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
@@ -82,7 +75,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 					a: model.title,
 					n: model.ns
 				});
-
 				M.trackPageView(model.get('adsContext.targeting'));
 			}
 		});

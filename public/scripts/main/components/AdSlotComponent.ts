@@ -14,9 +14,7 @@ App.AdSlotComponent = Em.Component.extend({
 	}.property('name'),
 
 	didInsertElement: function () {
-		var showAds = this.get('noAds') !== '1';
-
-		if( showAds ) {
+		if( this.get('noAds') !== '1' ) {
 			Em.Logger.info('Injected ad:', this.get('name'));
 			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
 		} else {

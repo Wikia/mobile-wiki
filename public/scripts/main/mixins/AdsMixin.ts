@@ -13,7 +13,8 @@ App.AdsMixin = Em.Mixin.create({
 
 	appendAd: function (adSlotName: string, place: string, element: JQuery): void {
 		var view = this.createChildView(App.AdSlotComponent, {
-			name: adSlotName
+			name: adSlotName,
+			noAds: this.get('controller.noAds')
 		}).createElement();
 
 		element[place](<string>view.$());
