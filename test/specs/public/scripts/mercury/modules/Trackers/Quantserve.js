@@ -26,6 +26,5 @@ QUnit.test('Track page view', function () {
 	tracker.appendScript = function () {};
 
 	tracker.trackPageView(context);
-	console.log(window._qevents, qevents);
 	deepEqual(window._qevents, qevents);
 });
