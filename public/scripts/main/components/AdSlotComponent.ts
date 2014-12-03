@@ -20,7 +20,7 @@ App.AdSlotComponent = Em.Component.extend({
 			Em.Logger.info('Injected ad:', this.get('name'));
 			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
 		} else {
-			Em.Logger.info('Ad disabled for ad:', this.get('name'));
+			Em.Logger.info('Ad disabled for:', this.get('name'));
 		}
 	},
 
