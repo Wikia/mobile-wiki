@@ -54,7 +54,10 @@ module Mercury.Modules {
 			});
 		}
 
-		public function gaTrackAdEvent(/*arguments for _gaq push*/): void {
+		/**
+		 * Method for sampling and pushing ads-related events
+		 */
+		public gaTrackAdEvent(/*arguments from ads tracking request*/): void {
 			var args: any,
 				ad_hit_sample: number = 1; //1%
 			//Sampling on GA side will kill the performance as we need to allocate object each time we track
