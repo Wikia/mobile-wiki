@@ -9,14 +9,14 @@ App.AdSlotComponent = Em.Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase'],
 
+	name: null,
+	noAds: null,
+
 	nameLowerCase: function () {
 		return this.get('name').toLowerCase().dasherize();
 	}.property('name'),
 
-	showAds: function () {
-		var noAds = this.get('noAds');
-		return !noAds || noAds === '0';
-	}.property('noAds'),
+	showAds: Em.computed.not('noAds'),
 
 	didInsertElement: function () {
 		if (this.get('showAds')) {

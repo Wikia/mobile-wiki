@@ -47,14 +47,14 @@ test('Component behaves correctly depending on noAds value', function () {
 		}, {
 			'properties': {
 				'name': 'Test ad 2',
-				'noAds': '1'
+				'noAds': 1
 			},
 			'expectedLength': 1,
 			'message': 'Element not added to slot because of noAds property value'
 		}, {
 			'properties': {
 				'name': 'Test ad 3',
-				'noAds': '0'
+				'noAds': 0
 			},
 			'expectedLength': 2,
 			'message': 'Element added to slot because of incorrect noAds property value'
