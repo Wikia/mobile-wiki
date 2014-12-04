@@ -111,8 +111,9 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * Tracks an ads-related event
+		 * @arguments set of parameters for ads-related event
 		 */
-		trackAds (/*Arguments for ads related event*/): void {
+		trackAds (): void {
 			var args = Array.prototype.slice.call(arguments);
 			this.queue.push(args);
 		}
