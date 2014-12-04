@@ -6,7 +6,7 @@
 App.ArticleController = Em.ObjectController.extend({
 	needs: ['application'],
 
-	queryParams: ['file', 'commentsPage', 'map', {noAds: 'noads'}],
+	queryParams: ['file', 'map', {noAds: 'noads', commentsPage: 'comments_page'}],
 	file: null,
 	commentsPage: null,
 	map: null,
