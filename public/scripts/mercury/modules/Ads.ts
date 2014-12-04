@@ -56,8 +56,9 @@ module Mercury.Modules {
 
 		/**
 		 * Method for sampling and pushing ads-related events
+		 * @arguments arguments from ads tracking request
 		 */
-		public gaTrackAdEvent(/*arguments from ads tracking request*/): void {
+		public gaTrackAdEvent(): void {
 			var args: any,
 				ad_hit_sample: number = 1, //1%
 				GATracker: any;
