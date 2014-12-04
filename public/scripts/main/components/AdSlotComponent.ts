@@ -14,7 +14,8 @@ App.AdSlotComponent = Em.Component.extend({
 	}.property('name'),
 
 	showAds: function () {
-		return this.get('noAds') !== '1';
+		var noAds = this.get('noAds');
+		return !noAds || noAds === '0';
 	}.property('noAds'),
 
 	didInsertElement: function () {

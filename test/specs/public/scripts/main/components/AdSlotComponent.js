@@ -37,19 +37,57 @@ test('Name lower case', function () {
 	});
 });
 
-test('Component is inserted on page', function () {
-	var component = this.subject();
-	component.set('name', 'Test ad 1');
-	this.append();
-	equal(Mercury.Modules.Ads.getInstance().adSlots.length, 1, 'Element added to slot');
-});
+test('Component behaves correctly depending on noAds value', function () {
+	var testCases = [{
+			'properties': {
+				'name': 'Test ad 1'
+			},
+			'expectedLength': 1,
+			'message': 'Element added to slot because no noAds property was set'
+		}, {
+			'properties': {
+				'name': 'Test ad 2',
+				'noAds': '1'
+			},
+			'expectedLength': 1,
+			'message': 'Element not added to slot because of noAds property value'
+		}, {
+			'properties': {
+				'name': 'Test ad 3',
+				'noAds': '0'
+			},
+			'expectedLength': 2,
+			'message': 'Element added to slot because of incorrect noAds property value'
+		}, {
+			'properties': {
+				'name': 'Test ad 4',
+				'noAds': null
+			},
+			'expectedLength': 3,
+			'message': 'Element added to slot because of null noAds property'
+		}, {
+			'properties': {
+				'name': 'Test ad 5',
+				'noAds': 1
+			},
+			'expectedLength': 3,
+			'message': 'Element not added to slot because of integer noAds property'
+		}, {
+			'properties': {
+				'name': 'Test ad 6',
+				'noAds': 'abc'
+			},
+			'expectedLength': 3,
+			'message': 'Element not added to slot because of noAds property value'
+		}],
+		self = this;
 
-test('Component is not inserted on page', function () {
-	var component = this.subject();
-	component.setProperties({
-		'name': 'Test ad 1',
-		'noAds': '1'
+	Ember.run(function () {
+		testCases.forEach(function(testCase) {
+			var component = self.subject();
+			component.setProperties(testCase.properties);
+			component.didInsertElement();
+			equal(Mercury.Modules.Ads.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
+		});
 	});
-	this.append();
-	equal(Mercury.Modules.Ads.getInstance().adSlots.length, 0, 'Element not added to slot');
 });
