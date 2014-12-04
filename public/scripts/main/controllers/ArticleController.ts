@@ -6,11 +6,11 @@
 App.ArticleController = Em.ObjectController.extend({
 	needs: ['application'],
 
-	queryParams: ['file', 'commentsPage', 'map'],
+	queryParams: ['file', 'commentsPage', 'map', {noAds: 'noads'}],
 	file: null,
 	commentsPage: null,
 	map: null,
-	noAds: Em.computed.alias('controllers.application.noAds'),
+	noAds: null,
 
 	actions: {
 		updateHeaders: function (headers: NodeList): void {
