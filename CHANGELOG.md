@@ -1,3 +1,24 @@
+## release-18 (2014-12-04% 17:05)
+* [HG-427](https://wikia-inc.atlassian.net/browse/HG-427) Use ellipsis for menu items
+* trailing-whitespace-fix: Removed trailing whitespace which was causing TS warning
+* [HG-225](https://wikia-inc.atlassian.net/browse/HG-225) Add caching headers for static assets
+* Add-X-Served-by-header: serve X-Served-By header to responses from Mercury app
+* [HG-435](https://wikia-inc.atlassian.net/browse/HG-435) Fix linked-gallery image height
+* [HG-433](https://wikia-inc.atlassian.net/browse/HG-433) Fixed lazy loading in horizontal galleries
+* [HG-383](https://wikia-inc.atlassian.net/browse/HG-383) All chevrons are rotating properly now
+* [HG-325](https://wikia-inc.atlassian.net/browse/HG-325) Display "A Wikia Contributor" instead of IP in comments
+* [HG-372](https://wikia-inc.atlassian.net/browse/HG-372) SearchSuggestions should not be called with less than 3 letters
+* quantcast-segment: Fix tests (aka 99th commit for 2 line change)
+* quantcast-segment: Add segment label to QuantCast tracking pixel
+* [HG-312](https://wikia-inc.atlassian.net/browse/HG-312) Sanitize size of Ooyala videos
+* [HG-416](https://wikia-inc.atlassian.net/browse/HG-416) Fix galleries in ADB
+* Release-Readme: Release readme
+* [HG-331](https://wikia-inc.atlassian.net/browse/HG-331) Fix for clicking a link in figcaption defect
+* [HG-423](https://wikia-inc.atlassian.net/browse/HG-423) Locking versions in package.json is simplier and is as safe
+* [HG-365](https://wikia-inc.atlassian.net/browse/HG-365) Handle tables with article content differently
+* [HG-424](https://wikia-inc.atlassian.net/browse/HG-424) Removed SideNavController and code that was trying to access it
+* [HG-239](https://wikia-inc.atlassian.net/browse/HG-239) Added coverate command
+* [HG-416](https://wikia-inc.atlassian.net/browse/HG-416) Fix linked images being stretched in ADB\n
 ## release-17 (2014-12-01 11:46)
 * fix-zindexes: Little bit of z-index cleanups for lightbox
 * PR-412-quick-fix: Quick fix for #412
