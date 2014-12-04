@@ -12,6 +12,9 @@ App.AdsMixin = Em.Mixin.create({
 	adViews: <Em.View[]>[],
 
 	appendAd: function (adSlotName: string, place: string, element: JQuery): void {
+		// Keep in mind we always want to pass noAds parameter to the AdSlot component
+		// Right now we've got three ad slots and it doesn't make sense to add assertion
+		// in willInsertElement hook of the component to check if the parameters is really defined
 		var view = this.createChildView(App.AdSlotComponent, {
 			name: adSlotName,
 			noAds: this.get('controller.noAds')
