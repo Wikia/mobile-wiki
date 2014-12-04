@@ -11,6 +11,11 @@ QUnit.module('GoogleAnalytics tests', {
 					prefix: 'mercury',
 					id: '456',
 					sampleRate: 100
+				},
+				ads: {
+					prefix: 'ads',
+					id: '789',
+					sampleRate: 100
 				}
 			}
 		};
