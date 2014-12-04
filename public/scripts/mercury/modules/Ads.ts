@@ -56,12 +56,12 @@ module Mercury.Modules {
 
 		/**
 		 * Method for sampling and pushing ads-related events
-		 * @arguments arguments from ads tracking request
+		 * @arguments coming from ads tracking request
 		 */
 		public gaTrackAdEvent(): void {
 			var args: any,
 				adHitSample: number = 1, //1%
-				GATracker: any;
+				GATracker: Mercury.Modules.Trackers.GoogleAnalytics;
 			//Sampling on GA side will kill the performance as we need to allocate object each time we track
 			//ToDo: Optimize object allocation for tracking all events
 			if ( Math.random() * 100 <= adHitSample ) {
