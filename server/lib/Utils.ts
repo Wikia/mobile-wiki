@@ -21,7 +21,7 @@ module Utils {
 		// 24h
 		standard: 8.64e+7,
 		// 3h
-		short: 1.08e+5 
+		short: 1.08e+5
 	};
 
 	/**
