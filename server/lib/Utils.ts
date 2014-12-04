@@ -15,6 +15,15 @@ module Utils {
 		Testing
 	}
 
+	export var Caching = {
+		// 30 days
+		long: 2.592e+9,
+		// 24h
+		standard: 8.64e+7,
+		// 3h
+		short: 1.08e+5 
+	};
+
 	/**
 	 * @desc Get environment from string
 	 *
