@@ -22,8 +22,10 @@
 
 		a, div {
 			@extend .touch-active;
-			display: inline-block;
+			display: block;
+			overflow: hidden;
 			padding: rem-calc(10) $side-nav-item-gutter;
+			text-overflow: ellipsis;
 			width: 100%;
 		}
 
