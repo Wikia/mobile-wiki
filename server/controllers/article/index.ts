@@ -98,14 +98,23 @@ export function getData(params: ArticleRequestParams, callback: any, getWikiInfo
 		}).getWikiVariables());
 	}
 
-	Promise.all(requests)
-		.spread((article: any, wiki: any = {}) => {
+	Promise.settle(requests)
+		.then((results: Promise.Inspection[]) => {
+			var article: any,
+				wiki: any = {};
+
+			article = results[0].isFulfilled() ? results[0].value() : results[0].reason();
+
+			if (results[1]) {
+				wiki = results[1].isFulfilled() ? results[1].value() : results[1].reason();
+			}
+
 			callback(article.exception, article.data, wiki.data);
 		});
 }
 
 /**
- * Handle Full page data generation
+ * Handle full page data generation
  * @param params
  * @param next
  */
@@ -119,3 +128,39 @@ export function getFull(params: ArticleRequestParams, next: Function): void {
 	}, true);
 }
 
+/**
+ * Get WikiVariables
+ * @param wikiDomain
+ * @param next
+ */
+export function getWikiVariables(wikiDomain: string, next: Function): void {
+	var wikiRequest = new MediaWiki.WikiRequest({
+		wikiDomain: wikiDomain
+	});
+
+	logger.debug({wiki: wikiDomain}, 'Fetching wiki variables');
+
+	wikiRequest
+		.getWikiVariables()
+		.then((wikiVariables: any) => {
+			next(null, wikiVariables.data);
+		}, (error: any) => {
+			next(error, null);
+		});
+}
+
+/**
+ * Handle article page data generation, no need for WikiVariables
+ * @param params
+ * @param wikiVariables
+ * @param next
+ */
+export function getArticle(params: ArticleRequestParams, wikiVariables: any, next: Function): void {
+	getData(params, (error: any, article: any) => {
+		next(error, {
+			server: createServerData(),
+			wiki: createWikiData(wikiVariables),
+			article: createArticleData(article)
+		});
+	}, false);
+}

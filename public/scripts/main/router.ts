@@ -10,11 +10,18 @@ App.Router.map(function () {
 	var articlePath = Em.getWithDefault(Mercury, 'wiki.articlePath', '/wiki/');
 
 	this.route('article', {
+		path: '/'
+	});
+
+	this.route('article', {
 		path: articlePath + '*title'
 	});
+
 	// Route to catch all badly formed URLs, i.e., anything that doesn't match
 	// '/', '/wiki' or '/wiki/title', which are the three cases already handled by existing routes.
-	this.route('notFound', {path: '/*url'});
+	this.route('notFound', {
+		path: '/*url'
+	});
 });
 
 App.Router.reopen({

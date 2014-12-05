@@ -30,6 +30,36 @@ function getWikiDomainName(host: string): string {
 	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(localSettings, host);
 }
 
+function handleArticleLoaded(request: Hapi.Request, reply: any, error: any, result: any = {}) {
+	var code = 200,
+		title: string,
+		articleDetails: any;
+
+	if (!result.article.article && !result.wiki.dbName) {
+		//if we have nothing to show, redirect to our fallback wiki
+		reply.redirect(localSettings.redirectUrlOnNoData);
+	} else {
+		Tracking.handleResponse(result, request);
+
+		if (error) {
+			code = error.code || error.statusCode || 500;
+			result.error = JSON.stringify(error);
+		}
+
+		if (result.article.article.details) {
+			articleDetails = result.article.article.details;
+			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+		} else if (request.params.title) {
+			title = request.params.title.replace(/_/g, ' ');
+		}
+
+		result.displayTitle = title;
+		result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
+
+		reply.view('application', result).code(code);
+	}
+}
+
 /**
  * Adds routes to the server
  *
@@ -39,7 +69,9 @@ function routes(server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
 			'/wiki/{title*}',
-			'/{title*}'
+			'/{title*}',
+			// special case needed for /wiki path
+			'/{title}'
 		],
 		proxyRoutes = [
 			'/favicon.ico',
@@ -51,45 +83,40 @@ function routes(server: Hapi.Server) {
 				expiresIn: 60 * second
 			}
 		};
+
 	// all the routes that should resolve to loading single page app entry view
 	indexRoutes.forEach((route: string) => {
 		server.route({
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: function articleHandler(request: Hapi.Request, reply: any) {
-				if (request.params.title || request.path === '/') {
-					var wikiDomain = getWikiDomainName(request.headers.host);
+			handler: (request: Hapi.Request, reply: any) => {
+				var path: string = request.path,
+					wikiDomain: string = getWikiDomainName(request.headers.host);
 
+				if (path === '/' || path === '/wiki/') {
+					article.getWikiVariables(wikiDomain, (error: any, wikiVariables: any) => {
+						if (error) {
+							// TODO check error.statusCode and react accordingly
+							reply.redirect(localSettings.redirectUrlOnNoData);
+						} else {
+							article.getArticle({
+								wikiDomain: wikiDomain,
+								title: wikiVariables.mainPage,
+								redirect: request.query.redirect
+							}, wikiVariables, (error: any, result: any = {}) => {
+								handleArticleLoaded(request, reply, error, result);
+							});
+						}
+					});
+				} else  {
 					article.getFull({
 						wikiDomain: wikiDomain,
 						title: request.params.title,
 						redirect: request.query.redirect
 					}, (error: any, result: any = {}) => {
-						var code = 200;
-						if (!result.article.article && !result.wiki.dbName) {
-							//if we have nothing to show, redirect to our fallback wiki
-							reply.redirect(localSettings.redirectUrlOnNoData);
-						} else {
-							Tracking.handleResponse(result, request);
-
-							if (error) {
-								code = error.code || error.statusCode || 500;
-
-								result.error = JSON.stringify(error);
-							}
-
-							result.displayTitle = request.params.title.replace(/_/g, ' ');
-							result.canonicalUrl = result.wiki.basePath + '/' + request.params.title.replace(/ /g, '_');
-
-							reply.view('application', result).code(code);
-						}
-
+						handleArticleLoaded(request, reply, error, result);
 					});
-				} else {
-					//handle links like: {wiki}.wikia.com/wiki
-					//Status code 301: Moved permanently
-					reply.redirect('/').code(301);
 				}
 			}
 		});
