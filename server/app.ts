@@ -150,6 +150,7 @@ class App {
 				wiki: request.headers.host,
 				code: request.response.statusCode,
 				url: url.format(request.url),
+				userAgent: request.headers['user-agent'],
 				responseTime: responseTime,
 				referrer: request.info.referrer
 			}, 'Response');
