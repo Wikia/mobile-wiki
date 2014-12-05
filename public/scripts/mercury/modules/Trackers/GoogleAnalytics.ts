@@ -74,7 +74,7 @@ module Mercury.Modules.Trackers {
 				[prefix + '_setDomainName', domain],
 				// Custom variables
 				[prefix + '_setCustomVar', 1, 'DBname', Mercury.wiki.dbName],
-				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 3],
+				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 1],
 				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]
 			);
 
