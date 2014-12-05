@@ -5,7 +5,7 @@ App.ApplicationController = Em.Controller.extend({
 	queryParams: [{noAds: 'noads'}],
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
-	noAds: 0,
+	noAds: '',
 
 	init: function () {
 		this.setProperties({

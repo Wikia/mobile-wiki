@@ -43,42 +43,49 @@ test('Component behaves correctly depending on noAds value', function () {
 				'name': 'Test ad 1'
 			},
 			'expectedLength': 1,
-			'message': 'Element added to slot because no noAds property was set'
+			'message': 'Element added to slot because no noAds property was passed'
 		}, {
 			'properties': {
 				'name': 'Test ad 2',
-				'noAds': 1
+				'noAds': ''
 			},
-			'expectedLength': 1,
-			'message': 'Element not added to slot because of noAds property value'
+			'expectedLength': 2,
+			'message': 'Element added to slot because of noAds property value set to an empty string'
 		}, {
 			'properties': {
 				'name': 'Test ad 3',
-				'noAds': 0
+				'noAds': '0'
 			},
-			'expectedLength': 2,
-			'message': 'Element added to slot because of incorrect noAds property value'
+			'expectedLength': 3,
+			'message': 'Element added to slot because of noAds property value set to \'0\''
 		}, {
 			'properties': {
 				'name': 'Test ad 4',
-				'noAds': null
+				'noAds': 'false'
 			},
 			'expectedLength': 3,
-			'message': 'Element added to slot because of null noAds property'
+			'message': 'Element not added to slot because of noAds property value set to \'false\''
 		}, {
 			'properties': {
 				'name': 'Test ad 5',
-				'noAds': 1
+				'noAds': 'whatever'
 			},
 			'expectedLength': 3,
-			'message': 'Element not added to slot because of integer noAds property'
+			'message': 'Element not added to slot because of noAds property value set to \'whatever\''
 		}, {
 			'properties': {
 				'name': 'Test ad 6',
-				'noAds': 'abc'
+				'noAds': '1'
 			},
 			'expectedLength': 3,
-			'message': 'Element not added to slot because of noAds property value'
+			'message': 'Element not added to slot because of noAds property value set to \'1\''
+		}, {
+			'properties': {
+				'name': 'Test ad 7',
+				'noAds': 'true'
+			},
+			'expectedLength': 3,
+			'message': 'Element not added to slot because of noAds property value set to \'true\''
 		}],
 		self = this;
 

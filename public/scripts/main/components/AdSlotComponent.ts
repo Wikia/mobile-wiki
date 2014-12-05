@@ -10,16 +10,17 @@ App.AdSlotComponent = Em.Component.extend({
 	classNameBindings: ['nameLowerCase'],
 
 	name: null,
-	noAds: null,
+	// noAds is being passed from ApplicationController where it's also casted to a string
+	noAds: '',
 
 	nameLowerCase: function () {
 		return this.get('name').toLowerCase().dasherize();
 	}.property('name'),
 
-	showAds: Em.computed.not('noAds'),
-
 	didInsertElement: function () {
-		if (this.get('showAds')) {
+		var noAds = this.get('noAds');
+
+		if (noAds === '' || noAds === '0') {
 			Em.Logger.info('Injected ad:', this.get('name'));
 			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
 		} else {
