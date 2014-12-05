@@ -43,11 +43,10 @@ module Mercury.Modules {
 
 			// don't attempt to load controls for unsupported player classes
 			if (!playerClassMap[provider]) {
-				this.player = null;
-				return false;
+				this.player = new VideoPlayers.BasePlayer(provider, params);
+			} else {
+				this.player = new players[playerClassStr](provider, params);
 			}
-
-			this.player = new players[playerClassStr](provider, params);
 		}
 
 		setCSSClass () {

@@ -25,7 +25,6 @@ module Mercury.Modules.VideoPlayers {
 			super(provider, params);
 			this.started = false;
 			this.ended = false;
-			this.onResize();
 			this.setupPlayer();
 		}
 
@@ -80,42 +79,6 @@ module Mercury.Modules.VideoPlayers {
 			messageBus.subscribe(window.OO.EVENTS.ADS_PLAYED, 'tracking', () => {
 				this.track('ad-finish');
 			});
-		}
-
-		/**
-		 * Sets CSS width and height for the video container.
-		 */
-		onResize (): void {
-			var $container: JQuery = $('#' + this.containerId),
-				$lightbox: JQuery = $('.lightbox-wrapper'),
-				videoWidth: number = this.params.size.width,
-				videoHeight: number = this.params.size.height,
-				lightboxWidth: number = $lightbox.width(),
-				lightboxHeight: number = $lightbox.height(),
-				targetSize: ContainerSize,
-				sanitizedSize: any;
-
-			targetSize = Mercury.Utils.Calculation.containerSize(
-				lightboxWidth,
-				lightboxHeight,
-				videoWidth,
-				videoHeight
-			);
-
-			// sanitize as our backend sometimes returns size of 0x0
-			if (targetSize.width > 0 && targetSize.height > 0) {
-				sanitizedSize = {
-					width: targetSize.width,
-					height: targetSize.height
-				};
-			} else {
-				sanitizedSize = {
-					width: '100%',
-					height: '100%'
-				};
-			}
-
-			$container.css(sanitizedSize);
 		}
 	}
 }
