@@ -8,7 +8,7 @@ App.ArticleRoute = Em.Route.extend({
 		file: {
 			replace: true
 		},
-		commentsPage: {
+		comments_page: {
 			replace: true
 		}
 	},
