@@ -57,10 +57,12 @@ module Mercury.Modules {
 		/**
 		 * Method for sampling and pushing ads-related events
 		 * @arguments coming from ads tracking request
+		 * It's called by track() method in wikia.tracker fetched from app by ads code
 		 */
 		public gaTrackAdEvent(): void {
 			var args: any,
-				adHitSample: number = 1, //1%
+				//Percentage of all the track requests to go through
+				adHitSample: number = 1,
 				GATracker: Mercury.Modules.Trackers.GoogleAnalytics;
 			//Sampling on GA side will kill the performance as we need to allocate object each time we track
 			//ToDo: Optimize object allocation for tracking all events
