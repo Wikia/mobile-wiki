@@ -1,6 +1,7 @@
 /// <reference path="../../../baseline/mercury.d.ts" />
 /// <reference path="../../utils/track.ts" />
 /// <reference path="../../utils/load.ts" />
+/// <reference path="../../utils/calculation.ts" />
 
 module Mercury.Modules.VideoPlayers {
 	export class BasePlayer {
@@ -33,9 +34,6 @@ module Mercury.Modules.VideoPlayers {
 		 */
 		playerDidLoad (): void {}
 
-		/**
-		 * Abstract method which can be overridden by player if needed
-		 */
 		/**
 		 * Sets CSS width and height for the video container.
 		 */
