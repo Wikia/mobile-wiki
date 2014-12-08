@@ -41,8 +41,8 @@ gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 			assets.restore(),
 			useref(),
 			revReplace(),
-			// Prefix public assets with {{cdnBaseUrl}}
-			replace('/public/', '{{cdnBaseUrl}}/public/'),
+			// Prefix public assets with {{server.cdnBaseUrl}}
+			replace('/public/', '{{server.cdnBaseUrl}}/public/'),
 			minifyHTML()
 		)),
 		gulpif('**/views/**', gulp.dest(paths.views.dest))

@@ -39,4 +39,5 @@ interface LocalSettings {
 	redirectUrlOnNoData: string;
 	workerCount: number;
 	workerDisconnectTimeout: number;
+	cdnBaseUrl: string;
 }
