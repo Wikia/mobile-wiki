@@ -40,8 +40,8 @@ module Mercury.Modules.VideoPlayers {
 		onResize (): void {
 			var $container: JQuery = $('.lightbox-content iframe'),
 				$lightbox: JQuery = $('.lightbox-wrapper'),
-				videoWidth: number = this.params.size.width,
-				videoHeight: number = this.params.size.height,
+				videoWidth: number = $container.width(),
+				videoHeight: number = $container.height(),
 				lightboxWidth: number = $lightbox.width(),
 				lightboxHeight: number = $lightbox.height(),
 				targetSize: any,
