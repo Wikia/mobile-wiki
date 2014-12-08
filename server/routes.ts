@@ -21,7 +21,7 @@ var wikiDomains: {
  * @param {string} host Request host name
  * @returns {string} Host name to use for API
  */
-function getWikiDomainName(host: string): string {
+function getWikiDomainName (host: string): string {
 	var wikiDomain: string;
 
 	host = Utils.clearHost(host);
@@ -30,7 +30,15 @@ function getWikiDomainName(host: string): string {
 	return wikiDomains[host] = wikiDomain ? wikiDomain : Utils.getWikiDomainName(localSettings, host);
 }
 
-function handleArticleLoaded(request: Hapi.Request, reply: any, error: any, result: any = {}) {
+/**
+ * Handles article response from API
+ *
+ * @param {Hapi.Request} request
+ * @param reply
+ * @param error
+ * @param result
+ */
+function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}): void {
 	var code = 200,
 		title: string,
 		articleDetails: any;
@@ -65,12 +73,12 @@ function handleArticleLoaded(request: Hapi.Request, reply: any, error: any, resu
  *
  * @param server
  */
-function routes(server: Hapi.Server) {
+function routes (server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
 			'/wiki/{title*}',
 			'/{title*}',
-			// special case needed for /wiki path
+			// TODO this is special case needed for /wiki path, it should be refactored
 			'/{title}'
 		],
 		proxyRoutes = [
@@ -105,7 +113,7 @@ function routes(server: Hapi.Server) {
 								title: wikiVariables.mainPage,
 								redirect: request.query.redirect
 							}, wikiVariables, (error: any, result: any = {}) => {
-								handleArticleLoaded(request, reply, error, result);
+								onArticleResponse(request, reply, error, result);
 							});
 						}
 					});
@@ -115,7 +123,7 @@ function routes(server: Hapi.Server) {
 						title: request.params.title,
 						redirect: request.query.redirect
 					}, (error: any, result: any = {}) => {
-						handleArticleLoaded(request, reply, error, result);
+						onArticleResponse(request, reply, error, result);
 					});
 				}
 			}
