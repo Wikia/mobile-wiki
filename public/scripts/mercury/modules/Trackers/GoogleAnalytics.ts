@@ -73,15 +73,15 @@ module Mercury.Modules.Trackers {
 				[prefix + '_setSampleRate', this.accounts[name].sampleRate.toString()],
 				[prefix + '_setDomainName', domain],
 				// Custom variables
-				[prefix + '_setCustomVar', 1, 'DBname', Mercury.wiki.dbName],
-				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 1],
-				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]
+				[prefix + '_setCustomVar', 1, 'DBname', Mercury.wiki.dbName, 3],
+				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 3],
+				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3]
 			);
 
 			if (adsContext) {
 				this.queue.push(
-					[prefix + '_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical],
-					[prefix + '_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No']
+					[prefix + '_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical, 3],
+					[prefix + '_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No', 3]
 				);
 			}
 		}
