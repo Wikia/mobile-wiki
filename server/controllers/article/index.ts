@@ -37,7 +37,7 @@ function createServerData (): ServerData {
  * @param payload
  * @returns {}
  */
-function createArticleData (payload: any) {
+function createArticleData (payload: any): any {
 	var data: any;
 
 	if (payload && payload.article) {
@@ -63,7 +63,7 @@ function createArticleData (payload: any) {
  * @param wiki
  * @returns {}
  */
-function createWikiData (wiki: any) {
+function createWikiData (wiki: any): any {
 	return util._extend(
 		{
 			// article data to bootstrap Ember with in first load of application
@@ -83,7 +83,7 @@ function createWikiData (wiki: any) {
  * @param callback
  * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
  */
-export function getData(params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false): void {
+export function getData (params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false): void {
 	var requests = [
 			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
 		];
@@ -135,7 +135,7 @@ export function getData(params: ArticleRequestParams, callback: any, getWikiInfo
  * @param params
  * @param next
  */
-export function getFull(params: ArticleRequestParams, next: Function): void {
+export function getFull (params: ArticleRequestParams, next: Function): void {
 	getData(params, (error: any, article: any, wiki: any) => {
 		next(error, {
 			server: createServerData(),
@@ -150,7 +150,7 @@ export function getFull(params: ArticleRequestParams, next: Function): void {
  * @param wikiDomain
  * @param next
  */
-export function getWikiVariables(wikiDomain: string, next: Function): void {
+export function getWikiVariables (wikiDomain: string, next: Function): void {
 	var wikiRequest = new MediaWiki.WikiRequest({
 		wikiDomain: wikiDomain
 	});
@@ -172,7 +172,7 @@ export function getWikiVariables(wikiDomain: string, next: Function): void {
  * @param wikiVariables
  * @param next
  */
-export function getArticle(params: ArticleRequestParams, wikiVariables: any, next: Function): void {
+export function getArticle (params: ArticleRequestParams, wikiVariables: any, next: Function): void {
 	getData(params, (error: any, article: any) => {
 		next(error, {
 			server: createServerData(),
