@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 	rev = require('gulp-rev'),
 	uglify = require('gulp-uglify'),
 	revReplace = require('gulp-rev-replace'),
+	replace = require('gulp-replace'),
 	piper = require('../utils/piper'),
 	paths = require('../paths'),
 	environment = require('../utils/environment'),
@@ -40,6 +41,8 @@ gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 			assets.restore(),
 			useref(),
 			revReplace(),
+			// Prefix public assets with {{cdnBaseUrl}}
+			replace('/public/', '{{cdnBaseUrl}}/public/'),
 			minifyHTML()
 		)),
 		gulpif('**/views/**', gulp.dest(paths.views.dest))
