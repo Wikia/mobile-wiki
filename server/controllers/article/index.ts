@@ -98,15 +98,32 @@ export function getData(params: ArticleRequestParams, callback: any, getWikiInfo
 		}).getWikiVariables());
 	}
 
+	/**
+	 * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#settle---promise
+	 *
+	 * From Promise.settle documentation:
+	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values)
+	 * return a promise that is fulfilled when all the items in the array are either fulfilled or rejected.
+	 * The fulfillment value is an array of PromiseInspection instances at respective positions in relation
+	 * to the input array. This method is useful for when you have an array of promises and you'd like to know
+	 * when all of them resolve - either by fulfilling of rejecting.
+	 */
 	Promise.settle(requests)
-		.then((results: Promise.Inspection[]) => {
-			var article: any,
+		.then((results: Promise.Inspection<Promise<any>>[]) => {
+			var articlePromise: Promise.Inspection<Promise<any>> = results[0],
+				wikiPromise: Promise.Inspection<Promise<any>> = results[1],
+				article: any,
 				wiki: any = {};
 
-			article = results[0].isFulfilled() ? results[0].value() : results[0].reason();
+			// if promise is fullfilled - use resolved value, if it's not - use rejection reason
+			article = articlePromise.isFulfilled() ?
+				articlePromise.value() :
+				articlePromise.reason();
 
-			if (results[1]) {
-				wiki = results[1].isFulfilled() ? results[1].value() : results[1].reason();
+			if (getWikiInfo) {
+				wiki = wikiPromise.isFulfilled() ?
+					wikiPromise.value() :
+					wikiPromise.reason();
 			}
 
 			callback(article.exception, article.data, wiki.data);
