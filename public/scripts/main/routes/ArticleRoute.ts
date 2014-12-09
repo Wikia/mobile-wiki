@@ -16,7 +16,7 @@ App.ArticleRoute = Em.Route.extend({
 	beforeModel: function (transition: EmberStates.Transition) {
 		var title = transition.params.article.title ?
 			transition.params.article.title.replace('wiki/', ''):
-			Mercury.wiki.mainPage;
+			Mercury.wiki.mainPageTitle;
 
 		if (Mercury.error) {
 			transition.abort();

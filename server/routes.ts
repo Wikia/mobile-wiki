@@ -110,7 +110,7 @@ function routes (server: Hapi.Server) {
 						} else {
 							article.getArticle({
 								wikiDomain: wikiDomain,
-								title: wikiVariables.mainPage,
+								title: wikiVariables.mainPageTitle,
 								redirect: request.query.redirect
 							}, wikiVariables, (error: any, result: any = {}) => {
 								onArticleResponse(request, reply, error, result);
