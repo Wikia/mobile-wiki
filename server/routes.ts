@@ -12,8 +12,17 @@ import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
 
 var wikiDomains: {
-	[key: string]: string;
-} = {};
+		[key: string]: string;
+	} = {},
+	caching = Utils.Caching,
+	cachingEnabled = false,
+	cachingTimes = {
+		article: {
+			cachingPolicy: caching.policy.private,
+			varnihsTTL: caching.interval.standard,
+			browserTTL: ;
+		}
+	}
 
 /**
  * Get cached Media Wiki domain name from the request host
