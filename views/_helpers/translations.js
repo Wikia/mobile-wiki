@@ -4,11 +4,11 @@ module.exports = function (language) {
 	var translations = {},
 		defaultLanguage = 'en';
 
-	[language, defaultLanguage].forEach(function (lang) {
+	[language, defaultLanguage].some(function (lang) {
 		var translationPath = '../../public/locales/' + lang + '/translation.json';
 		try {
 			translations = require(translationPath);
-			return JSON.stringify(translations);
+			return true
 		} catch (exception) {
 			Logger.error({
 				lang: lang,
