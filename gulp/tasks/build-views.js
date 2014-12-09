@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 	replace = require('gulp-replace'),
 	piper = require('../utils/piper'),
 	paths = require('../paths'),
+	options = require('../options'),
 	environment = require('../utils/environment'),
 
 	preprocessContext = {
@@ -41,8 +42,8 @@ gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 			assets.restore(),
 			useref(),
 			revReplace(),
-			// Prefix public assets with {{server.cdnBaseUrl}}
-			replace('/public/', '{{server.cdnBaseUrl}}/public/'),
+			// Used to prefix assets in with CDN prefix
+			gulpif(options.replace.selector, replace(options.replace.find, options.replace.replace)),
 			minifyHTML()
 		)),
 		gulpif('**/views/**', gulp.dest(paths.views.dest))
