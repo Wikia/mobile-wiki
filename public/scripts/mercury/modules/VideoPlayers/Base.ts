@@ -11,6 +11,8 @@ module Mercury.Modules.VideoPlayers {
 		provider: string;
 		resourceURI: string;
 		containerSelector: string = '.lightbox-content-inner > iframe';
+		videoWidth: number;
+		videoHeight: number;
 
 		constructor (provider: string, params: any, selector: string) {
 			if (!provider) {
@@ -19,6 +21,8 @@ module Mercury.Modules.VideoPlayers {
 			this.provider = provider;
 			this.params = params;
 			this.id = params.videoId;
+			this.videoWidth = params.size.width;
+			this.videoHeight = params.size.height;
 		}
 
 		loadPlayer () {
@@ -43,8 +47,8 @@ module Mercury.Modules.VideoPlayers {
 			debugger;
 			var $container: JQuery = $(containerSelector || this.containerSelector),
 				$lightbox: JQuery = $('.lightbox-wrapper'),
-				videoWidth: number = $container.width(),
-				videoHeight: number = $container.height(),
+				videoWidth: number = this.videoWidth,
+				videoHeight: number = this.videoHeight,
 				lightboxWidth: number = $lightbox.width(),
 				lightboxHeight: number = $lightbox.height(),
 				targetSize: any,

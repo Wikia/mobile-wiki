@@ -19,6 +19,7 @@ module Mercury.Modules {
 		player: VideoPlayers.BasePlayer;
 
 		constructor (element: HTMLElement, data: any /* tracking cb */) {
+			debugger;
 			element.innerHTML = data.html;
 			this.element = element;
 			this.data = data;
