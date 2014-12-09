@@ -1,3 +1,12 @@
+## release-20 (2014-12-09 15:23)
+* [HG-458](https://wikia-inc.atlassian.net/browse/HG-458) localization not used and always falling back to English
+* VDNA-run-once-per-session: This should run once per session
+* support-vdna: Support vdna promotion banner
+* set-ga-cv-scope: Set GA custom var scope to the same as wikiamobile skin
+* article-gallery-scrollbar-fix: Fixed permanent horizontal scrollbar for article galleries
+* [HG-421](https://wikia-inc.atlassian.net/browse/HG-421) Add proper strings for polish language
+* ga-visitor-level: Change scoping for customVar 4 in GA to visitor level (from pageview
+
 ## release-19 (2014-12-05 15:17)
 * [HG-125](https://wikia-inc.atlassian.net/browse/HG-125) noads
 * [HG-447](https://wikia-inc.atlassian.net/browse/HG-447) Caching times should be in seconds
