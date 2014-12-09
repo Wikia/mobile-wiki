@@ -64,7 +64,9 @@ function routes(server: Hapi.Server) {
 						title: request.params.title,
 						redirect: request.query.redirect
 					}, (error: any, result: any = {}) => {
-						var code = 200;
+						var code = 200,
+							userDir = 'ltr';
+
 						if (!result.article.article && !result.wiki.dbName) {
 							//if we have nothing to show, redirect to our fallback wiki
 							reply.redirect(localSettings.redirectUrlOnNoData);
@@ -83,7 +85,15 @@ function routes(server: Hapi.Server) {
 								result.displayTitle = request.params.title.replace(/_/g, ' ');
 							}
 
-							reply.view('application', result).code(code);
+							if (result.wiki.language) {
+								userDir = result.wiki.language.userDir;
+								result.rtl = (userDir === 'rtl');
+							}
+
+							reply
+								.view('application', result)
+								.code(code)
+								.header('X-Vary', userDir);
 						}
 
 					});
