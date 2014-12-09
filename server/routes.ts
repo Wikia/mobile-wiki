@@ -31,6 +31,31 @@ function getWikiDomainName (host: string): string {
 }
 
 /**
+ * Prepares article data to be rendered
+ *
+ * @param {Hapi.Request} request
+ * @param result
+ */
+function beforeArticleRender (request: Hapi.Request, result: any): void {
+	var title: string,
+		articleDetails: any;
+
+	if (result.article.details) {
+		articleDetails = result.article.details;
+		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+	} else if (request.params.title) {
+		title = request.params.title.replace(/_/g, ' ');
+	}
+
+	result.displayTitle = title;
+	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
+
+	// we want to return the article content only once - as HTML and not JS variable
+	result.articleContent = result.article.article.content;
+	delete result.article.article.content;
+}
+
+/**
  * Handles article response from API
  *
  * @param {Hapi.Request} request
@@ -39,9 +64,7 @@ function getWikiDomainName (host: string): string {
  * @param result
  */
 function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}): void {
-	var code = 200,
-		title: string,
-		articleDetails: any;
+	var code = 200;
 
 	if (!result.article.article && !result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
@@ -54,16 +77,7 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 			result.error = JSON.stringify(error);
 		}
 
-		if (result.article.details) {
-			articleDetails = result.article.details;
-			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
-		} else if (request.params.title) {
-			title = request.params.title.replace(/_/g, ' ');
-		}
-
-		result.displayTitle = title;
-		result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
-
+		beforeArticleRender(request, result);
 		reply.view('application', result).code(code);
 	}
 }
