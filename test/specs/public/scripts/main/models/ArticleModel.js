@@ -61,7 +61,6 @@ test('getPreloadedData', function () {
 
 	strictEqual(Mercury._state.firstPage, false, 'Mercury object\'s firstPage state flipped to false');
 	deepEqual(data, article, 'article loaded from Mercury object on first page');
-	console.log(Mercury.article);
 	deepEqual(Mercury.article, undefined, 'Mercury.article is set to null');
 });
 
