@@ -55,6 +55,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	didInsertElement: function () {
 		this.get('controller').send('articleRendered');
+
+		/**
+		 * VDNA promotion enabled only on vdna.wikia.com (1066105)
+		 */
+		if (VDNA && [1066105].indexOf(Mercury.wiki.id) !== -1) {
+			VDNA.init();
+		}
 	},
 
 	onArticleChange: function (): void {
@@ -76,13 +83,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 					a: model.title,
 					n: model.ns
 				});
-
-				/**
-				 * VDNA promotion enabled only on vdna.wikia.com (1066105)
-				 */
-				if (VDNA && [1066105].indexOf(Mercury.wiki.id) !== -1) {
-					VDNA.init();
-				}
 
 				M.trackPageView(model.get('adsContext.targeting'));
 			}
