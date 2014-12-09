@@ -83,7 +83,7 @@ module Mercury.Modules.Trackers {
 				// TODO: Currently articles are the only page supported in Mercury
 				[prefix + '_setCustomVar', 8, 'PageType', 'article', 3],
 				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3],
-				[prefix + '_setCustomVar', 9, 'CityId', Mercury.wiki.id, 3],
+				[prefix + '_setCustomVar', 9, 'CityId', String(Mercury.wiki.id), 3],
 				[prefix + '_setCustomVar', 14, 'HasAds', 'Yes', 3],
 				[prefix + '_setCustomVar', 15, 'IsCorporatePage', 'No', 3],
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
