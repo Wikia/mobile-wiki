@@ -14,24 +14,24 @@ module VDNA {
 		setTimeout(
 			function(){
 				var e = function (e: any) {
-					var t = "; " + document.cookie;
-					var n = t.split("; "+e+"=");
+					var t = '; ' + document.cookie;
+					var n = t.split('; '+e+'=');
 					if (n.length == 2)
-						return n.pop().split(";").shift();
+						return n.pop().split(';').shift();
 				};
-				var t = document.createElement("script");
-				var n = document.getElementsByTagName("script")[0];
-				t.src = document.location.protocol + "//embedded.visualdna.com/wikia-marvel/scripts/youni.js?" + Math.floor((new Date).getTime()/36e5);
+				var t = document.createElement('script');
+				var n = document.getElementsByTagName('script')[0];
+				t.src = document.location.protocol + '//embedded.visualdna.com/wikia-marvel/scripts/youni.js?' + Math.floor((new Date).getTime()/36e5);
 				t.async = true;
-				t.type = "text/javascript";
+				t.type = 'text/javascript';
 				n.parentNode.insertBefore(t,n);
-				if (e("MarvelWikiaCampaign") !== "1") {
+				if (e('MarvelWikiaCampaign') !== '1') {
 					var r = new Date;
 					r.setTime(r.getTime()+30*24*60*60*1e3);
-					var i = "expires="+r.toUTCString();
-					document.cookie = "MarvelWikiaCampaign=1; " + i;
+					var i = 'expires='+r.toUTCString();
+					document.cookie = 'MarvelWikiaCampaign=1; ' + i;
 					t.onload = function () {
-						window.VDNATalk.talk("marvel-wiki_new")
+						window.VDNATalk.talk('marvel-wiki_new')
 					}
 				}
 			},
