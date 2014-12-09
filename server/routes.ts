@@ -54,8 +54,8 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 			result.error = JSON.stringify(error);
 		}
 
-		if (result.article.article.details) {
-			articleDetails = result.article.article.details;
+		if (result.article.details) {
+			articleDetails = result.article.details;
 			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
 		} else if (request.params.title) {
 			title = request.params.title.replace(/_/g, ' ');

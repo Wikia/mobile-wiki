@@ -32,65 +32,23 @@ function createServerData (): ServerData {
 }
 
 /**
- * Form the article data
- *
- * @param payload
- * @returns {}
- */
-function createArticleData (payload: any): any {
-	var data: any;
-
-	if (payload && payload.article) {
-		data = {
-			content: payload.article.content
-		};
-		// We're already sending the article body (which can get quite large) back to get rendered in the template,
-		// so let's not send it with the JSON payload either
-		delete payload.article.content;
-	}
-
-	return util._extend(
-		{
-			json: JSON.stringify(payload || {}),
-			article: payload
-		},
-		data
-	);
-}
-
-/**
- * Create wiki data object
- * @param wiki
- * @returns {}
- */
-function createWikiData (wiki: any): any {
-	return util._extend(
-		{
-			// article data to bootstrap Ember with in first load of application
-			json: JSON.stringify(wiki || {})
-		},
-		wiki
-	);
-}
-
-/**
  * Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
  * http://www.wikia.com/api/v1/#!/Articles
  * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
  * article slug name
  *
- * @param params
- * @param callback
- * @param getWikiInfo whether or not to make a WikiRequest to get information about the wiki
+ * @param {ArticleRequestParams} params
+ * @param {Function} callback
+ * @param {boolean} getWikiVariables whether or not to make a WikiRequest to get information about the wiki
  */
-export function getData (params: ArticleRequestParams, callback: any, getWikiInfo: boolean = false): void {
+export function getData (params: ArticleRequestParams, callback: Function, getWikiVariables: boolean = false): void {
 	var requests = [
 			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
 		];
 
 	logger.debug(params, 'Fetching article');
 
-	if (getWikiInfo) {
+	if (getWikiVariables) {
 		logger.debug({wiki: params.wikiDomain}, 'Fetching wiki variables');
 
 		requests.push(new MediaWiki.WikiRequest({
@@ -113,42 +71,42 @@ export function getData (params: ArticleRequestParams, callback: any, getWikiInf
 			var articlePromise: Promise.Inspection<Promise<any>> = results[0],
 				wikiPromise: Promise.Inspection<Promise<any>> = results[1],
 				article: any,
-				wiki: any = {};
+				wikiVariables: any = {};
 
 			// if promise is fullfilled - use resolved value, if it's not - use rejection reason
 			article = articlePromise.isFulfilled() ?
 				articlePromise.value() :
 				articlePromise.reason();
 
-			if (getWikiInfo) {
-				wiki = wikiPromise.isFulfilled() ?
+			if (getWikiVariables) {
+				wikiVariables = wikiPromise.isFulfilled() ?
 					wikiPromise.value() :
 					wikiPromise.reason();
 			}
 
-			callback(article.exception, article.data, wiki.data);
+			callback(article.exception, article.data, wikiVariables.data);
 		});
 }
 
 /**
  * Handle full page data generation
- * @param params
- * @param next
+ * @param {ArticleRequestParams} params
+ * @param {Function} next
  */
 export function getFull (params: ArticleRequestParams, next: Function): void {
-	getData(params, (error: any, article: any, wiki: any) => {
+	getData(params, (error: any, article: any, wikiVariables: any) => {
 		next(error, {
 			server: createServerData(),
-			wiki: createWikiData(wiki),
-			article: createArticleData(article)
+			wiki: wikiVariables || {},
+			article: article || {}
 		});
 	}, true);
 }
 
 /**
  * Get WikiVariables
- * @param wikiDomain
- * @param next
+ * @param {string} wikiDomain
+ * @param {Function} next
  */
 export function getWikiVariables (wikiDomain: string, next: Function): void {
 	var wikiRequest = new MediaWiki.WikiRequest({
@@ -168,16 +126,16 @@ export function getWikiVariables (wikiDomain: string, next: Function): void {
 
 /**
  * Handle article page data generation, no need for WikiVariables
- * @param params
- * @param wikiVariables
- * @param next
+ * @param {ArticleRequestParams} params
+ * @param {*} wikiVariables
+ * @param {Function} next
  */
 export function getArticle (params: ArticleRequestParams, wikiVariables: any, next: Function): void {
 	getData(params, (error: any, article: any) => {
 		next(error, {
 			server: createServerData(),
-			wiki: createWikiData(wikiVariables),
-			article: createArticleData(article)
+			wiki: wikiVariables || {},
+			article: article || {}
 		});
 	}, false);
 }

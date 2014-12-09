@@ -80,7 +80,6 @@ App.ArticleModel.reopenClass({
 		var article = Mercury.article,
 			adsInstance: Mercury.Modules.Ads;
 		Mercury._state.firstPage = false;
-		article.content = $('.article-content').html();
 
 		// Setup ads
 		if (Mercury.adsUrl) {
@@ -122,7 +121,7 @@ App.ArticleModel.reopenClass({
 				var article = source.article;
 
 				data = $.extend(data, {
-					article: article.content || source.content,
+					article: article.content,
 					mediaUsers: article.users,
 					media: App.MediaModel.create({
 						media: article.media
