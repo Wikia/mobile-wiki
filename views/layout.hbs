@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{displayTitle}} - {{wiki.siteName}}</title>
+		<title>{{displayTitle}}{{#displayTitle}} - {{/displayTitle}}{{wiki.siteName}}</title>
 		{{#if article.details.abstract}}
 
 		<meta name="description" content="{{article.details.abstract}}">
