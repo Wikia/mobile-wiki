@@ -8,7 +8,7 @@ module.exports = function (language) {
 		var translationPath = '../../public/locales/' + lang + '/translation.json';
 		try {
 			translations = require(translationPath);
-			return true
+			return true;
 		} catch (exception) {
 			Logger.error({
 				lang: lang,
