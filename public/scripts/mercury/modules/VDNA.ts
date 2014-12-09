@@ -2,13 +2,18 @@
  * This module is intended to live throughout december
  * If this is meant to run longer, please refactor
  */
+
+interface Window {
+	VDNATalk: any;
+}
+
 module VDNA {
 	export function init() {
 
 		// Code from VDNA
 		setTimeout(
 			function(){
-				var e = function (e) {
+				var e = function (e: any) {
 					var t = "; " + document.cookie;
 					var n = t.split("; "+e+"=");
 					if (n.length == 2)
@@ -26,7 +31,7 @@ module VDNA {
 					var i = "expires="+r.toUTCString();
 					document.cookie = "MarvelWikiaCampaign=1; " + i;
 					t.onload = function () {
-						VDNATalk.talk("marvel-wiki_new")
+						window.VDNATalk.talk("marvel-wiki_new")
 					}
 				}
 			},
@@ -34,9 +39,9 @@ module VDNA {
 		);
 
 		var $marvelVDNAImage = $(
-			'<div class="ad-slot"><a href="#"><img src="/public/images/MarvelMobileAsset.jpg" alt="Marvel VDNA"></a></div>'
+			'<div class="ad-slot"><a href="#"><img src="/public/images/MarvelMobileAsset.png" alt="Marvel VDNA"></a></div>'
 		).on('click', function() {
-			VDNATalk.launch('marvel-wiki');
+			window.VDNATalk.launch('marvel-wiki');
 		});
 
 		$('.article-title').after($marvelVDNAImage);
