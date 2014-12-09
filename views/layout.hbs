@@ -5,18 +5,21 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{displayTitle}}{{#displayTitle}} - {{/displayTitle}}{{wiki.siteName}}</title>
 		{{#if article.details.abstract}}
-
 		<meta name="description" content="{{article.details.abstract}}">
 		{{/if}}
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 
-		<!-- build:css /public/styles/app.css -->
-		<link rel="stylesheet" href="/public/styles/app.css">
-		<!-- endbuild -->
+		{{#if rtl}}
+			<!-- build:css /public/styles/app.rtl.css -->
+			<link rel="stylesheet" href="/public/styles/app.rtl.css">
+			<!-- endbuild -->
+		{{else}}
+			<!-- build:css /public/styles/app.css -->
+			<link rel="stylesheet" href="/public/styles/app.css">
+			<!-- endbuild -->
+		{{/if}}
 
-		<style>
-			<!-- @include ../www/public/styles/baseline.css -->
-		</style>
+		<style><!-- @include ../www/public/styles/baseline.css --></style>
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
