@@ -48,9 +48,8 @@ module.exports = {
 		files: '*.svg'
 	},
 	images: {
-		src: 'public/svg/images',
-		dest: basePath + '/public/svg',
-		files: '*.svg'
+		src: ['public/svg/images/*', 'public/images/*'],
+		dest: basePath + '/public/images'
 	},
 	nodeModules: {
 		src: 'node_modules',
