@@ -2,6 +2,7 @@
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
 /// <reference path="../components/WikiaMapComponent.ts" />
+/// <reference path="../../mercury/modules/VDNA.ts" />
 'use strict';
 
 interface HeadersFromDom {
@@ -75,6 +76,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 					a: model.title,
 					n: model.ns
 				});
+
+				/**
+				 * VDNA promotion enabled only on vdna.wikia.com (1066105)
+				 */
+				if (VDNA && [1066105].indexOf(Mercury.wiki.id) !== -1) {
+					VDNA.init();
+				}
+
 				M.trackPageView(model.get('adsContext.targeting'));
 			}
 		});
