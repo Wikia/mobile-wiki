@@ -43,10 +43,11 @@ module Mercury.Modules {
 
 			// don't attempt to load controls for unsupported player classes
 			if (!playerClassMap[provider]) {
-				this.player = new VideoPlayers.BasePlayer(provider, params);
+				this.player = new VideoPlayers.BasePlayer(provider, params, null);
 			} else {
 				this.player = new players[playerClassStr](provider, params);
 			}
+			this.player.onResize(null);
 		}
 
 		setCSSClass () {
@@ -55,7 +56,7 @@ module Mercury.Modules {
 		}
 
 		onResize () {
-			this.player.onResize();
+			this.player.onResize(null);
 		}
 	}
 }

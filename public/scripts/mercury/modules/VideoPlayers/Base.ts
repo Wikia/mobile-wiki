@@ -10,15 +10,15 @@ module Mercury.Modules.VideoPlayers {
 		id: string;
 		provider: string;
 		resourceURI: string;
+		containerSelector: string = '.lightbox-content-inner > iframe';
 
-		constructor (provider: string, params: any) {
+		constructor (provider: string, params: any, selector: string) {
 			if (!provider) {
 				throw new Error('VideoPlayer requires a provider as the first argument');
 			}
 			this.provider = provider;
 			this.params = params;
 			this.id = params.videoId;
-			this.onResize();
 		}
 
 		loadPlayer () {
@@ -32,13 +32,16 @@ module Mercury.Modules.VideoPlayers {
 		 * Intentionally a no-op, documentation that this hook is implemented
 		 * and to not error when called by loadPlayer*
 		 */
-		playerDidLoad (): void {}
+		playerDidLoad (): void {
+			console.log('didLoad');
+		}
 
 		/**
 		 * Sets CSS width and height for the video container.
 		 */
-		onResize (): void {
-			var $container: JQuery = $('.lightbox-content iframe'),
+		onResize (containerSelector: string): void {
+			debugger;
+			var $container: JQuery = $(containerSelector || this.containerSelector),
 				$lightbox: JQuery = $('.lightbox-wrapper'),
 				videoWidth: number = $container.width(),
 				videoHeight: number = $container.height(),

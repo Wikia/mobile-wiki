@@ -23,7 +23,7 @@ module Mercury.Modules.VideoPlayers {
 		ended: boolean;
 
 		constructor (provider: string, params: any) {
-			super(provider, params);
+			super(provider, params, null);
 			this.started = false;
 			this.ended = false;
 			this.bindPlayerEvents();
@@ -66,6 +66,8 @@ module Mercury.Modules.VideoPlayers {
 				this.ended = true;
 			}
 		}
+
+		onResize (): void {}
 
 	}
 }
