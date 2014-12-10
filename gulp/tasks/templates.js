@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	handlebars = require('gulp-handlebars'),
+	compiler = require('ember-template-compiler'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	wrap = require('gulp-wrap'),
@@ -9,20 +9,39 @@ var gulp = require('gulp'),
 	piper = require('../utils/piper'),
 	environment = require('../utils/environment'),
 	paths = require('../paths').templates,
-	path = require('path');
+	path = require('path'),
+	through = require('through2');
+
+
+function compile (options) {
+	// creating a stream through which each file will pass
+	// returning the file stream
+	return through.obj(function(file, enc, done) {
+		if (file.isBuffer()) {
+
+			file.contents = new Buffer(
+				compiler.precompile(file.contents.toString(), false)
+			);
+
+			this.push(file);
+		} else {
+			throw new Error('Flip: Only buffer is supported');
+		}
+
+		return done();
+	});
+}
 
 gulp.task('templates', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
-		handlebars({
-			handlebars: require('ember-handlebars')
-		}),
+		compile(),
 		wrap('Em.Handlebars.template(<%= contents %>)'),
 		declare({
 			root: 'Em.TEMPLATES',
 			noRedeclare: true,
 			processName: function(filePath) {
-				return path.relative(path.join(paths.src, folder), filePath).replace('.js', '');
+				return path.relative(path.join(paths.src, folder), filePath).replace('.hbs', '');
 			}
 		}),
 		concat(folder + '.js'),
