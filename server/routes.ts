@@ -92,8 +92,7 @@ function routes(server: Hapi.Server) {
 
 							reply
 								.view('application', result)
-								.code(code)
-								.header('X-Vary', userDir);
+								.code(code);
 						}
 
 					});
