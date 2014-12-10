@@ -20,25 +20,25 @@ var wikiDomains: {
 			enabled: true,
 			cachingPolicy: Caching.Policy.Private,
 			varnishTTL: Caching.Interval.standard,
-			browserTTL: Caching.Interval.none
+			browserTTL: Caching.Interval.disabled
 		},
 		articleAPI: {
 			enabled: false,
 			cachingPolicy: Caching.Policy.Private,
-			varnishTTL: Caching.Interval.none,
-			browserTTL: Caching.Interval.none
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
 		},
 		commentsAPI: {
 			enabled: false,
 			cachingPolicy: Caching.Policy.Private,
-			varnishTTL: Caching.Interval.none,
-			browserTTL: Caching.Interval.none
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
 		},
 		searchAPI: {
 			enabled: false,
 			cachingPolicy: Caching.Policy.Private,
-			varnishTTL: Caching.Interval.none,
-			browserTTL: Caching.Interval.none
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
 		}
 	};
 

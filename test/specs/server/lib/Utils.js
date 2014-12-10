@@ -191,6 +191,7 @@ test('getEnvironment', function() {
 		}
 	];
 	testCases.forEach(function(testCase) {
-		equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected);
+		equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected,
+			Environment[testCase.expected]);
 	});
 });
