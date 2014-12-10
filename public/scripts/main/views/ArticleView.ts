@@ -57,9 +57,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		this.get('controller').send('articleRendered');
 
 		/**
-		 * VDNA promotion enabled only on vdna.wikia.com (1066105)
+		 * VDNA promotion enabled only on vdna.wikia.com (1066105), marvel.wikia.com (2233)
 		 */
-		if (VDNA && [1066105].indexOf(Mercury.wiki.id) !== -1) {
+		if (VDNA && [1066105, 2233].indexOf(Mercury.wiki.id) !== -1) {
 			VDNA.init();
 		}
 	},
