@@ -36,15 +36,14 @@ module Mercury.Modules.VideoPlayers {
 		 * Intentionally a no-op, documentation that this hook is implemented
 		 * and to not error when called by loadPlayer*
 		 */
-		playerDidLoad (): void {
-			console.log('didLoad');
-		}
+		playerDidLoad (): void {}
 
 		/**
 		 * Sets CSS width and height for the video container.
+		 * Container selector is can be overriden by the inheriting class
+		 * @param {String} containerSelector - JQuery selector of the video container
 		 */
 		onResize (containerSelector: string): void {
-			debugger;
 			var $container: JQuery = $(containerSelector || this.containerSelector),
 				$lightbox: JQuery = $('.lightbox-wrapper'),
 				videoWidth: number = this.videoWidth,
