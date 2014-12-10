@@ -17,7 +17,7 @@ var wikiDomains: {
 	} = {},
 	cachingTimes = {
 		article: {
-			enabled: true,
+			enabled: false,
 			cachingPolicy: Caching.Policy.Private,
 			varnishTTL: Caching.Interval.standard,
 			browserTTL: Caching.Interval.default
