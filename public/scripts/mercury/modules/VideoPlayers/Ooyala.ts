@@ -24,7 +24,7 @@ module Mercury.Modules.VideoPlayers {
 		selector: string;
 
 		constructor (provider: string, params: any) {
-			super(provider, params, null);
+			super(provider, params);
 			this.started = false;
 			this.ended = false;
 			this.selector = '#' + this.containerId;

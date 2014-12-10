@@ -43,7 +43,7 @@ module Mercury.Modules {
 
 			// don't attempt to load controls for unsupported player classes
 			if (!playerClassMap[provider]) {
-				this.player = new VideoPlayers.BasePlayer(provider, params, null);
+				this.player = new VideoPlayers.BasePlayer(provider, params);
 			} else {
 				this.player = new players[playerClassStr](provider, params);
 			}

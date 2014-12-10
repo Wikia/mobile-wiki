@@ -10,11 +10,12 @@ module Mercury.Modules.VideoPlayers {
 		id: string;
 		provider: string;
 		resourceURI: string;
+		//Most common video container selector
 		containerSelector: string = '.lightbox-content-inner > iframe';
 		videoWidth: number;
 		videoHeight: number;
 
-		constructor (provider: string, params: any, selector: string) {
+		constructor (provider: string, params: any) {
 			if (!provider) {
 				throw new Error('VideoPlayer requires a provider as the first argument');
 			}
@@ -46,8 +47,6 @@ module Mercury.Modules.VideoPlayers {
 		onResize (containerSelector: string): void {
 			var $container: JQuery = $(containerSelector || this.containerSelector),
 				$lightbox: JQuery = $('.lightbox-wrapper'),
-				videoWidth: number = this.videoWidth,
-				videoHeight: number = this.videoHeight,
 				lightboxWidth: number = $lightbox.width(),
 				lightboxHeight: number = $lightbox.height(),
 				targetSize: any,
@@ -56,8 +55,8 @@ module Mercury.Modules.VideoPlayers {
 			targetSize = Mercury.Utils.Calculation.containerSize(
 				lightboxWidth,
 				lightboxHeight,
-				videoWidth,
-				videoHeight
+				this.videoWidth,
+				this.videoHeight
 			);
 
 			// sanitize as our backend sometimes returns size of 0x0
