@@ -23,6 +23,12 @@ module Mercury.Modules.VideoPlayers {
 		ended: boolean;
 		containerSelector: string;
 
+		// a bit ambiguous based on legacy return, but the first file is the
+		// Ooyala embedded API, the second is AgeGate
+		public resourceURI = this.params.jsFile[0];
+		// Ooyala JSON payload contains a DOM id
+		public containerId = this.createUniqueId(this.params.playerId);
+
 		constructor (provider: string, params: any) {
 			super(provider, params);
 			this.started = false;
@@ -30,12 +36,6 @@ module Mercury.Modules.VideoPlayers {
 			this.containerSelector = '#' + this.containerId;
 			this.setupPlayer();
 		}
-
-		// a bit ambiguous based on legacy return, but the first file is the
-		// Ooyala embedded API, the second is AgeGate
-		public resourceURI = this.params.jsFile[0];
-		// Ooyala JSON payload contains a DOM id
-		public containerId = this.createUniqueId(this.params.playerId);
 
 		setupPlayer (): void {
 			this.params = $.extend(this.params, {
@@ -57,9 +57,6 @@ module Mercury.Modules.VideoPlayers {
 			this.createPlayer();
 		}
 
-		onResize (): void {
-			super.onResize(this.containerSelector);
-		}
 
 		onCreate (player: any): void {
 			var messageBus = player.mb;

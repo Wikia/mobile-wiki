@@ -44,14 +44,15 @@ module Mercury.Modules.VideoPlayers {
 		 * Container selector is can be overriden by the inheriting class
 		 * @param {String} containerSelector - JQuery selector of the video container
 		 */
-		onResize (containerSelector: string): void {
-			var $container: JQuery = $(containerSelector || this.containerSelector),
+		onResize (containerSelector: string = this.containerSelector): void {
+			var $container: JQuery = $(containerSelector),
 				$lightbox: JQuery = $('.lightbox-wrapper'),
 				lightboxWidth: number = $lightbox.width(),
 				lightboxHeight: number = $lightbox.height(),
 				targetSize: any,
 				sanitizedSize: any;
-
+console.log('asd');
+			debugger;
 			targetSize = Mercury.Utils.Calculation.containerSize(
 				lightboxWidth,
 				lightboxHeight,
