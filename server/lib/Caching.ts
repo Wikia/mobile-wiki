@@ -77,7 +77,7 @@ module Caching {
 	 * @param policy
 	 * @returns {string}
 	 */
-	export function policyString( policy: Policy): string {
+	export function policyString(policy: Policy): string {
 		return Policy[policy].toLowerCase();
 	}
 }
