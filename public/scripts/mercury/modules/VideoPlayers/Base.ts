@@ -51,8 +51,7 @@ module Mercury.Modules.VideoPlayers {
 				lightboxHeight: number = $lightbox.height(),
 				targetSize: any,
 				sanitizedSize: any;
-console.log('asd');
-			debugger;
+
 			targetSize = Mercury.Utils.Calculation.containerSize(
 				lightboxWidth,
 				lightboxHeight,
