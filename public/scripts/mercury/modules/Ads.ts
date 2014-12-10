@@ -59,7 +59,7 @@ module Mercury.Modules {
 		 * @arguments coming from ads tracking request
 		 * It's called by track() method in wikia.tracker fetched from app by ads code
 		 */
-		public gaTrackAdEvent(): void {
+		public gaTrackAdEvent (): void {
 			var args: any,
 				//Percentage of all the track requests to go through
 				adHitSample: number = 1,
@@ -74,7 +74,7 @@ module Mercury.Modules {
 			}
 		}
 
-		private setContext(adsContext: any) {
+		private setContext (adsContext: any) {
 			this.adsContext = adsContext ? adsContext : null;
 		}
 
@@ -97,7 +97,7 @@ module Mercury.Modules {
 		 *
 		 * @returns {string[][]}
 		 */
-		getSlots(): string[][] {
+		getSlots (): string[][] {
 			return <string[][]>$.extend([], this.adSlots);
 		}
 
