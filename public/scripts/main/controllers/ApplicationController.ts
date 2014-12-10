@@ -7,7 +7,7 @@ App.ApplicationController = Em.Controller.extend({
 
 	init: function () {
 		this.setProperties({
-			domain: Em.getWithDefault(Mercury, 'wiki.dbName', window.location.href.match(/^https?:\/\/(.*?)\./)[1]),
+			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			language: Em.get(Mercury, 'wiki.language'),
 			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
 			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
