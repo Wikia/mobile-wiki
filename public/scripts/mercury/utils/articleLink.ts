@@ -65,7 +65,7 @@ module Mercury.Utils {
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
 			 */
-			var article = local.match(/^(\/(a|wiki))?\/([^#]+)(#.*)?$/);
+			var article = local.match(/^(\/(wiki))?\/([^#]+)(#.*)?$/);
 			if (article) {
 				if (article[3] === title && hash) {
 					return {

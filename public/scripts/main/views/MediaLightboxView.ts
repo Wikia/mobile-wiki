@@ -19,7 +19,6 @@ interface Window {
 
 App.MediaLightboxView = App.LightboxView.extend({
 	classNames: ['media-lightbox'],
-	templateName: 'app/media-lightbox',
 	maxZoom: 5,
 	lastX: 0,
 	lastY: 0,

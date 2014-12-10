@@ -11,7 +11,7 @@ Em.Handlebars.registerBoundHelper('i18n', function (value: string, options: any)
 		if (key === 'ns') {
 			namespace = options.hash[key];
 		} else if (key !== 'boundOptions' && options.hash[key]) {
-			params[key] = Em.Handlebars.get(self, String(options.hash[key]), options);
+			params[key] = self[String(options.hash[key])];
 		}
 	});
 
