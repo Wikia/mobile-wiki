@@ -8,6 +8,18 @@ App.ArticleCommentComponent = Em.Component.extend({
 	expanded: false,
 	users: null,
 	comment: null,
+	thumbnailWidth: 480,
+
+	text: function () {
+		var $text = $('<div/>').html(this.get('comment.text')),
+			$figure = $text.find('figure');
+
+		if ($figure.length) {
+			this.convertImages($figure);
+		}
+
+		return $text.html();
+	}.property('comment.text'),
 
 	user: function () {
 		var users = this.get('users');
@@ -31,5 +43,50 @@ App.ArticleCommentComponent = Em.Component.extend({
 		toggleExpand: function () {
 			this.toggleProperty('expanded');
 		}
+	},
+
+	/**
+	 * This is temporary workaround so we can display images in comments.
+	 * It parses <figure> element, gets data-params from <img> and creates new figures based on that.
+	 * Clicking on images will open File page instead of lightbox.
+	 *
+	 * TODO: this should be done properly starting from changing the API response
+	 *
+	 * @param {JQuery} $originalFigure
+	 */
+	convertImages: function ($originalFigure: JQuery): void {
+		var images: any,
+			thumbnailer = Mercury.Modules.Thumbnailer,
+			newFigures: JQuery[] = [];
+
+		try {
+			images = JSON.parse($originalFigure.find('img[data-params]').attr('data-params'));
+
+			images.forEach((image: {name: string; full: string; capt?: string}) => {
+				var thumbnailURL = thumbnailer.getThumbURL(
+						image.full,
+						thumbnailer.mode.scaleToWidth,
+						this.thumbnailWidth,
+						// this is ignored by Vignette, should be optional
+						0
+					),
+					$thumbnail = $('<img/>').attr('src', thumbnailURL),
+					href = Mercury.wiki.articlePath + 'File:' + image.name,
+					$anchor = $('<a/>').attr('href', href).append($thumbnail),
+					$figcaption: JQuery,
+					$figure = $('<figure/>');
+
+				$figure.append($anchor);
+
+				if (image.capt) {
+					$figcaption = $('<figcaption/>').text(image.capt);
+					$figure.append($figcaption);
+				}
+
+				newFigures.push($figure);
+			});
+
+			$originalFigure.replaceWith(newFigures);
+		} catch (exception) {}
 	}
 });
