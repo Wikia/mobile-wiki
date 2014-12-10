@@ -61,32 +61,34 @@ App.ArticleCommentComponent = Em.Component.extend({
 
 		try {
 			images = JSON.parse($originalFigure.find('img[data-params]').attr('data-params'));
+		} catch (exception) {
+			return;
+		}
 
-			images.forEach((image: {name: string; full: string; capt?: string}) => {
-				var thumbnailURL = thumbnailer.getThumbURL(
-						image.full,
-						thumbnailer.mode.scaleToWidth,
-						this.thumbnailWidth,
-						// this is ignored by Vignette, should be optional
-						0
-					),
-					$thumbnail = $('<img/>').attr('src', thumbnailURL),
-					href = Mercury.wiki.articlePath + 'File:' + image.name,
-					$anchor = $('<a/>').attr('href', href).append($thumbnail),
-					$figcaption: JQuery,
-					$figure = $('<figure/>');
+		images.forEach((image: {name: string; full: string; capt?: string}) => {
+			var thumbnailURL = thumbnailer.getThumbURL(
+					image.full,
+					thumbnailer.mode.scaleToWidth,
+					this.thumbnailWidth,
+					// this is ignored by Vignette, should be optional
+					0
+				),
+				$thumbnail = $('<img/>').attr('src', thumbnailURL),
+				href = Mercury.wiki.articlePath + 'File:' + image.name,
+				$anchor = $('<a/>').attr('href', href).append($thumbnail),
+				$figcaption: JQuery,
+				$figure = $('<figure/>');
 
-				$figure.append($anchor);
+			$figure.append($anchor);
 
-				if (image.capt) {
-					$figcaption = $('<figcaption/>').text(image.capt);
-					$figure.append($figcaption);
-				}
+			if (image.capt) {
+				$figcaption = $('<figcaption/>').text(image.capt);
+				$figure.append($figcaption);
+			}
 
-				newFigures.push($figure);
-			});
+			newFigures.push($figure);
+		});
 
-			$originalFigure.replaceWith(newFigures);
-		} catch (exception) {}
+		$originalFigure.replaceWith(newFigures);
 	}
 });
