@@ -32,7 +32,7 @@ module Mercury.Modules {
 
 		loadPlayerClass () {
 			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
-				playerClassStr: string = playerClassMap[provider] + 'Player',
+				playerClassStr: string = (playerClassMap[provider] || 'Base') + 'Player',
 				players: any = VideoPlayers,
 				params: any = $.extend(this.data.jsParams, {
 					size: {
@@ -41,13 +41,7 @@ module Mercury.Modules {
 					}
 				});
 
-			// don't attempt to load controls for unsupported player classes
-			if (playerClassMap[provider]) {
-				this.player = new players[playerClassStr](provider, params);
-			} else {
-				this.player = new players.BasePlayer(provider, params);
-			}
-
+			this.player = new players[playerClassStr](provider, params);
 			this.player.onResize();
 		}
 
