@@ -20,7 +20,7 @@ var wikiDomains: {
 			enabled: true,
 			cachingPolicy: Caching.Policy.Private,
 			varnishTTL: Caching.Interval.standard,
-			browserTTL: Caching.Interval.disabled
+			browserTTL: Caching.Interval.default
 		},
 		articleAPI: {
 			enabled: false,

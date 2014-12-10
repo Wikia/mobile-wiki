@@ -1,8 +1,7 @@
 QUnit.module('lib/Caching');
 
 function newRequest(statusCode) {
-	var statusCode = statusCode,
-		headers = {},
+	var headers = {},
 		setHeader = function (key, value) {
 			headers[key] = value;
 		},
@@ -13,21 +12,21 @@ function newRequest(statusCode) {
 		header: setHeader,
 		getHeaders: getHeaders,
 		statusCode: statusCode
-	}
+	};
 }
 
 test('policyString works', function () {
 	var testCases = [
 		{
-			given: Policy.Private,
+			given: global.Policy.Private,
 			expected: 'private'
 		}, {
-			given: Policy.Public,
+			given: global.Policy.Public,
 			expected: 'public'
 		}
 	];
 	testCases.forEach(function (testCase) {
-		equal(policyString(testCase.given), testCase.expected, Policy[testCase.given]);
+		equal(global.policyString(testCase.given), testCase.expected, global.Policy[testCase.given]);
 	});
 });
 
@@ -38,9 +37,9 @@ test('setResponseCaching works', function () {
 			statusCode: 200,
 			given: {
 				enabled: true,
-				cachingPolicy: Policy.Public,
-				varnishTTL: Interval.disabled,
-				browserTTL: Interval.disabled
+				cachingPolicy: global.Policy.Public,
+				varnishTTL: global.Interval.disabled,
+				browserTTL: global.Interval.disabled
 			},
 			expected: {
 				'Cache-Control': 's-maxage=5'
@@ -50,9 +49,9 @@ test('setResponseCaching works', function () {
 			statusCode: 200,
 			given: {
 				enabled: true,
-				cachingPolicy: Policy.Public,
-				varnishTTL: Interval.short,
-				browserTTL: Interval.disabled
+				cachingPolicy: global.Policy.Public,
+				varnishTTL: global.Interval.short,
+				browserTTL: global.Interval.disabled
 			},
 			expected: {
 				'Cache-Control': 's-maxage=10800'
@@ -62,9 +61,9 @@ test('setResponseCaching works', function () {
 			statusCode: 200,
 			given: {
 				enabled: true,
-				cachingPolicy: Policy.Public,
-				varnishTTL: Interval.short,
-				browserTTL: Interval.default
+				cachingPolicy: global.Policy.Public,
+				varnishTTL: global.Interval.short,
+				browserTTL: global.Interval.default
 			},
 			expected: {
 				'Cache-Control': 's-maxage=10800',
@@ -75,9 +74,9 @@ test('setResponseCaching works', function () {
 			statusCode: 200,
 			given: {
 				enabled: true,
-				cachingPolicy: Policy.Public,
-				varnishTTL: Interval.standard,
-				browserTTL: Interval.short
+				cachingPolicy: global.Policy.Public,
+				varnishTTL: global.Interval.standard,
+				browserTTL: global.Interval.short
 			},
 			expected: {
 				'Cache-Control': 's-maxage=86400',
@@ -88,9 +87,9 @@ test('setResponseCaching works', function () {
 			statusCode: 200,
 			given: {
 				enabled: true,
-				cachingPolicy: Policy.Private,
-				varnishTTL: Interval.disabled,
-				browserTTL: Interval.default
+				cachingPolicy: global.Policy.Private,
+				varnishTTL: global.Interval.disabled,
+				browserTTL: global.Interval.default
 			},
 			expected: {
 				'Cache-Control': 'private, s-maxage=0'
@@ -100,9 +99,9 @@ test('setResponseCaching works', function () {
 			statusCode: 200,
 			given: {
 				enabled: true,
-				cachingPolicy: Policy.Private,
-				varnishTTL: Interval.disabled,
-				browserTTL: Interval.standard
+				cachingPolicy: global.Policy.Private,
+				varnishTTL: global.Interval.disabled,
+				browserTTL: global.Interval.standard
 			},
 			expected: {
 				'Cache-Control': 'private, s-maxage=0',
@@ -113,9 +112,9 @@ test('setResponseCaching works', function () {
 			statusCode: 200,
 			given: {
 				enabled: false,
-				cachingPolicy: Policy.Private,
-				varnishTTL: Interval.disabled,
-				browserTTL: Interval.standard
+				cachingPolicy: global.Policy.Private,
+				varnishTTL: global.Interval.disabled,
+				browserTTL: global.Interval.standard
 			},
 			expected: {},
 			description: 'can be disabled'
@@ -123,17 +122,30 @@ test('setResponseCaching works', function () {
 			statusCode: 404,
 			given: {
 				enabled: false,
-				cachingPolicy: Policy.Private,
-				varnishTTL: Interval.disabled,
-				browserTTL: Interval.standard
+				cachingPolicy: global.Policy.Private,
+				varnishTTL: global.Interval.disabled,
+				browserTTL: global.Interval.standard
 			},
 			expected: {},
-			description: 'id disabled on non 200 response code'
+			description: 'is disabled on non 200 response code'
+		}, {
+			statusCode: 200,
+			given: {
+				enabled: true,
+				cachingPolicy: global.Policy.Public,
+				varnishTTL: global.Interval.standard,
+				browserTTL: global.Interval.default
+			},
+			expected: {
+				'Cache-Control': 's-maxage=86400',
+				'X-Pass-Cache-Control': 'public, max-age=86400'
+			},
+			description: 'default article caching'
 		}
 	];
 	testCases.forEach(function (testCase) {
 		var request = newRequest(testCase.statusCode);
-		setResponseCaching(request, testCase.given);
+		global.setResponseCaching(request, testCase.given);
 		deepEqual(request.getHeaders(), testCase.expected, testCase.description);
 	});
 });

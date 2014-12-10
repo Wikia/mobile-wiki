@@ -50,7 +50,7 @@ module Caching {
 	 * @param cachingSettings
 	 */
 	export function setResponseCaching(response: Hapi.Response, cachingSettings: CachingSettings) {
-		if (cachingSettings && cachingSettings.enabled && response.statusCode == 200) {
+		if (cachingSettings && cachingSettings.enabled && response.statusCode === 200) {
 
 			if (cachingSettings.browserTTL === Interval.default) {
 				cachingSettings.browserTTL = cachingSettings.varnishTTL;
