@@ -42,10 +42,10 @@ module Mercury.Modules {
 				});
 
 			// don't attempt to load controls for unsupported player classes
-			if (!playerClassMap[provider]) {
-				this.player = new players.BasePlayer(provider, params);
-			} else {
+			if (playerClassMap[provider]) {
 				this.player = new players[playerClassStr](provider, params);
+			} else {
+				this.player = new players.BasePlayer(provider, params);
 			}
 
 			this.player.onResize();
