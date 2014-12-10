@@ -49,7 +49,7 @@ module Mercury.Modules.VideoPlayers {
 				$lightbox: JQuery = $('.lightbox-wrapper'),
 				lightboxWidth: number = $lightbox.width(),
 				lightboxHeight: number = $lightbox.height(),
-				targetSize: any,
+				targetSize: ContainerSize,
 				sanitizedSize: any;
 
 			targetSize = Mercury.Utils.Calculation.containerSize(

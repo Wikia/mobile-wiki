@@ -86,4 +86,3 @@ module Mercury.Modules.VideoPlayers {
 		}
 	}
 }
-
