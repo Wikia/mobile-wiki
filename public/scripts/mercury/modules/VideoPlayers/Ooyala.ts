@@ -57,7 +57,6 @@ module Mercury.Modules.VideoPlayers {
 			this.createPlayer();
 		}
 
-
 		onCreate (player: any): void {
 			var messageBus = player.mb;
 
