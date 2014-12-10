@@ -21,13 +21,13 @@ module Mercury.Modules.VideoPlayers {
 	export class OoyalaPlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;
-		selector: string;
+		containerSelector: string;
 
 		constructor (provider: string, params: any) {
 			super(provider, params);
 			this.started = false;
 			this.ended = false;
-			this.selector = '#' + this.containerId;
+			this.containerSelector = '#' + this.containerId;
 			this.setupPlayer();
 		}
 
@@ -58,7 +58,7 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		onResize (): void {
-			super.onResize(this.selector);
+			super.onResize(this.containerSelector);
 		}
 
 		onCreate (player: any): void {
