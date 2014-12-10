@@ -12,7 +12,7 @@
 * [HG-447](https://wikia-inc.atlassian.net/browse/HG-447) Caching times should be in seconds
 * [HG-412](https://wikia-inc.atlassian.net/browse/HG-412) Added User-agent logging
 
-## release-18 (2014-12-04% 17:05)
+## release-18 (2014-12-04 17:05)
 * [HG-427](https://wikia-inc.atlassian.net/browse/HG-427) Use ellipsis for menu items
 * trailing-whitespace-fix: Removed trailing whitespace which was causing TS warning
 * [HG-225](https://wikia-inc.atlassian.net/browse/HG-225) Add caching headers for static assets
