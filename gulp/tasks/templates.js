@@ -18,20 +18,18 @@ function compile (options) {
 	// returning the file stream
 	return through.obj(function(file, enc, done) {
 		if (file.isBuffer()) {
-
 			file.contents = new Buffer(
 				compiler.precompile(file.contents.toString(), false)
 			);
 
 			this.push(file);
 		} else {
-			throw new Error('Flip: Only buffer is supported');
+			throw new Error('Compile hbs: Only buffer is supported');
 		}
 
 		return done();
 	});
 }
-
 gulp.task('templates', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
