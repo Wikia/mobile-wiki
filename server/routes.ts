@@ -4,6 +4,7 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
+import Caching = require('./lib/Caching');
 import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
@@ -12,8 +13,34 @@ import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
 
 var wikiDomains: {
-	[key: string]: string;
-} = {};
+		[key: string]: string;
+	} = {},
+	cachingTimes = {
+		article: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.standard,
+			browserTTL: Caching.Interval.default
+		},
+		articleAPI: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
+		},
+		commentsAPI: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
+		},
+		searchAPI: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
+		}
+	};
 
 /**
  * Get cached Media Wiki domain name from the request host
@@ -66,7 +93,8 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
  * @param result
  */
 function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}): void {
-	var code = 200;
+	var code = 200,
+		response: Hapi.Response;
 
 	if (!result.article.article && !result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
@@ -80,7 +108,10 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 		}
 
 		beforeArticleRender(request, result);
-		reply.view('application', result).code(code);
+
+		response = reply.view('application', result);
+		response.code(code);
+		Caching.setResponseCaching(response, cachingTimes.article);
 	}
 }
 
@@ -103,7 +134,7 @@ function routes (server: Hapi.Server) {
 		],
 		config = {
 			cache: {
-				privacy: 'public',
+				privacy: Caching.policyString(Caching.Policy.Public),
 				expiresIn: 60 * second
 			}
 		};
@@ -152,12 +183,14 @@ function routes (server: Hapi.Server) {
 		path: localSettings.apiBase + '/article/{articleTitle*}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
+			var response: Hapi.Response;
 			article.getData({
 				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
 			}, (error: any, result: any) => {
-				reply(error || result);
+				var response = reply(error || result);
+				Caching.setResponseCaching(response, cachingTimes.articleAPI);
 			});
 		}
 	});
@@ -177,7 +210,8 @@ function routes (server: Hapi.Server) {
 				reply(Hapi.error.badRequest('Invalid articleId'));
 			} else {
 				comments.handleRoute(params, (error: any, result: any): void => {
-					reply(error || result);
+					var response = reply(error || result);
+					Caching.setResponseCaching(response, cachingTimes.commentsAPI);
 				});
 			}
 		}
@@ -194,11 +228,13 @@ function routes (server: Hapi.Server) {
 			};
 
 			search.searchWiki(params, (error: any, result: any) => {
+				var response: Hapi.Response;
 				if (error) {
-					reply(error).code(error.exception.code);
+					response = reply(error).code(error.exception.code);
 				} else {
-					reply(result);
+					response = reply(result);
 				}
+				Caching.setResponseCaching(response, cachingTimes.searchAPI);
 			});
 		}
 	});

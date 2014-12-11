@@ -33,7 +33,7 @@ export class SearchRequest {
 	 * @return {Promise<any>}
 	 */
 	searchForQuery (query: string): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {
+		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/SearchSuggestions', {
 			query: query
 		});
 

@@ -30,6 +30,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	cachedResultsQueue: [],
 	// How many items to store in the cachedResultsQueue
 	cachedResultsLimit: 100,
+	queryMinimalLength: 3,
 	/**
 	 * A set (only keys used) of query strings that are currently being ajax'd so
 	 * we know not to perform another request.
@@ -80,8 +81,8 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 			showEmptyMessage: false
 		});
 
-		// If the query string is empty, return to leave the view blank
-		if (!query) {
+		// If the query string is empty or shorter than the minimal length, return to leave the view blank
+		if (!query || query.length < this.queryMinimalLength) {
 			/**
 			 * Even if there are pending search API ajax requests, we don't care about
 			 * them anymore because the query string has been cleared.

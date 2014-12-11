@@ -6,27 +6,17 @@ $border-color: #d0d0d0;
 	border-bottom: 1px solid $border-color;
 
 	.title {
-		// positioning
-		position: relative;
-
-		// display & box model
+		@extend %button-plain;
+		background: none;
 		display: block;
-
-		// color
-
-		// text
 		font-weight: bold;
 		line-height: 2.4rem;
-		text-transform: uppercase;
-
-		// other
-		cursor: pointer;
-		user-select: none;
-
-		&.text-left {
-			text-align: left;
-			padding-left: rem-calc(15);
+		position: relative;
+		text: {
+			align: left;
+			transform: uppercase;
 		}
+		width: 100%;
 
 		.icon {
 			position: absolute;

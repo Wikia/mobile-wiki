@@ -104,7 +104,7 @@ module Utils {
 		 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
 		 * We just return capture group 1
 		 */
-		regex = /^(?:sandbox\-[^\.]+)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
+		regex = /^(?:sandbox\-[^\.]+)?\.?(.+?)\.(wikia.*|(?:[\d]{1,3}\.){3}[\d]{1,3}\.xip)\.(?:com|local|io)$/;
 		match = hostName.match(regex);
 
 		return getDomainName(localSettings,  match ? match[1] : getFallbackSubDomain(localSettings));

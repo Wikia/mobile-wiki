@@ -81,7 +81,9 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		this.setUp();
 		this.loadImages(0, maxImages);
 
-		thisGallery.on('scroll', (thisGallery, galleryWidth, maxImages) => this.onScroll);
+		thisGallery.on('scroll', () => {
+			this.onScroll(thisGallery, galleryWidth, maxImages);
+		});
 	},
 
 	onScroll: function (thisGallery: JQuery, galleryWidth: number, maxImages: number): void {
