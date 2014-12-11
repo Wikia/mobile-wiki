@@ -74,6 +74,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 					0
 				),
 				$thumbnail = $('<img/>').attr('src', thumbnailURL),
+				// TODO: File namespace should be localized https://wikia-inc.atlassian.net/browse/HG-482
 				href = Mercury.wiki.articlePath + 'File:' + image.name,
 				$anchor = $('<a/>').attr('href', href).append($thumbnail),
 				$figcaption: JQuery,
