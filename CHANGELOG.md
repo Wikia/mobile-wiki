@@ -1,3 +1,10 @@
+## release-21 (2014-12-11 08:13)
+* Update-VDNA: update name of VDNA script
+* VDNA-on-marvel: add VDNA on marvel
+* [HG-377](https://wikia-inc.atlassian.net/browse/HG-377) Switch search suggestions to MercuryAPI
+* [HG-455](https://wikia-inc.atlassian.net/browse/HG-455) cleanTitle was removed as a template variable, but not replaced
+* [HG-421](https://wikia-inc.atlassian.net/browse/HG-421) if you use multiple forms you have to stick to plural_X
+
 ## release-20 (2014-12-09 15:23)
 * [HG-458](https://wikia-inc.atlassian.net/browse/HG-458) localization not used and always falling back to English
 * VDNA-run-once-per-session: This should run once per session
