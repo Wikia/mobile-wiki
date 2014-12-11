@@ -58,6 +58,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 		/**
 		 * VDNA promotion enabled only on vdna.wikia.com (1066105), marvel.wikia.com (2233)
+		 * TODO: Remove once campaign is over
 		 */
 		if (VDNA && [1066105, 2233].indexOf(Mercury.wiki.id) !== -1) {
 			VDNA.init();
