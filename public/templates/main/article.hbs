@@ -1,63 +1,63 @@
-{{#unless error}}
-<section class='article-body'>
-	<h1 class='article-title'>{{cleanTitle}}</h1>
-	{{#if sections.length}}
+{{#if error}}
+	{{render 'not-found'}}
+{{else}}
+	<section class='article-body'>
+		<h1 class='article-title'>{{cleanTitle}}</h1>
+		{{#if sections.length}}
+			{{#collapsible-menu
+				showMenuIcon=true
+				additionalClasses='table-of-contents'
+				tLabel='article-toc-label'
+				ordered=true
+				observe=cleanTitle
+				animSpeed=0
+				trackingEvent='toc'
+			}}
+				{{#each section in sections}}
+				<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
+					<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
+						{{unbound section.name}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a>
+				</li>
+				{{/each}}
+			{{/collapsible-menu}}
+		{{/if}}
+		{{#view 'article-content'}}
+			{{#if article}}
+				{{{article}}}
+			{{else}}
+				{{i18n 'article-empty-label'}}
+			{{/if}}
+		{{/view}}
+	</section>
+	<section class='article-footer'>
+	{{wikia-users
+		users=topContributors
+		classes='contributors'
+		label='article-top-contributors-label'
+		trackingEvent='contributors'
+	}}
+	{{article-comments page=commentsPage articleId=id commentsCount=comments}}
+	{{#if categories}}
 		{{#collapsible-menu
-			showMenuIcon=true
-			additionalClasses='table-of-contents'
-			tLabel='article-toc-label'
-			ordered=true
+			showMenuIcon=false
+			additionalClasses='article-categories-list'
+			tLabel='article-categories-list-label'
+			ordered=false
 			observe=cleanTitle
-			animSpeed=0
-			trackingEvent='toc'
+			animSpeed=controller.controllers.application.globalAnimSpeed
+			trackingEvent='category'
 		}}
-			{{#each section in sections}}
-			<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
-				<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
-					{{unbound section.name}}
-					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-				</a>
-			</li>
+			{{#each category in categories itemController='categoryListItem'}}
+			<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
+				{{category.cleanTitle}}
+				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+			</a></li>
 			{{/each}}
 		{{/collapsible-menu}}
 	{{/if}}
-	{{#view 'article-content'}}
-		{{#if article}}
-			{{{article}}}
-		{{else}}
-			{{i18n 'article-empty-label'}}
-		{{/if}}
-	{{/view}}
-</section>
-<section class='article-footer'>
-{{wikia-users
-	users=topContributors
-	classes='contributors'
-	label='article-top-contributors-label'
-	trackingEvent='contributors'
-}}
-{{article-comments page=commentsPage articleId=id commentsCount=comments}}
-{{#if categories}}
-	{{#collapsible-menu
-		showMenuIcon=false
-		additionalClasses='article-categories-list'
-		tLabel='article-categories-list-label'
-		ordered=false
-		observe=cleanTitle
-		animSpeed=controller.controllers.application.globalAnimSpeed
-		trackingEvent='category'
-	}}
-		{{#each category in categories itemController='categoryListItem'}}
-		<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
-			{{category.cleanTitle}}
-			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-		</a></li>
-		{{/each}}
-	{{/collapsible-menu}}
+	</section>
+	{{content-recommendations pages=relatedPages}}
 {{/if}}
-</section>
-{{content-recommendations pages=relatedPages}}
-{{else}}
-	{{render 'not-found'}}
-{{/unless}}
 {{wikia-footer}}
