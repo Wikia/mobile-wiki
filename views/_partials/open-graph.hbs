@@ -1,0 +1,13 @@
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="{{wiki.siteName}}" />
+<meta property="og:title" content="{{displayTitle}}" />
+
+{{#if article.details.abstract}}
+<meta property="og:description" content="{{article.details.abstract}}" />
+{{/if}}
+
+<meta property="og:url" content="{{canonicalUrl}}" />
+
+{{#if article.details.thumbnail}}
+<meta property="og:image" content="{{article.details.thumbnail}}" />
+{{/if}}
