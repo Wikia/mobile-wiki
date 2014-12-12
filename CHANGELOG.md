@@ -1,3 +1,9 @@
+## release-22 (2014-12-12 10:25)
+* [HG-384](https://wikia-inc.atlassian.net/browse/HG-384) Setup ember article route based on config from MW
+* [HG-133](https://wikia-inc.atlassian.net/browse/HG-133) Add caching routines to Mercury
+* [HG-226](https://wikia-inc.atlassian.net/browse/HG-226) Added support for xip.io subdomains on dev
+* [HG-438](https://wikia-inc.atlassian.net/browse/HG-438) Handle / & /wiki & /wiki/ URLs
+
 ## release-21 (2014-12-11 08:13)
 * Update-VDNA: update name of VDNA script
 * VDNA-on-marvel: add VDNA on marvel
