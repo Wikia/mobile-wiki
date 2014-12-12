@@ -24,12 +24,13 @@ function compile (options) {
 
 			this.push(file);
 		} else {
-			throw new Error('Compile hbs: Only buffer is supported');
+			throw new Error('Failed to compile: ' + file.path + ' template. Please pass a buffer to the compiler');
 		}
 
 		return done();
 	});
 }
+
 gulp.task('templates', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
