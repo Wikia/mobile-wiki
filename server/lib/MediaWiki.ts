@@ -33,7 +33,9 @@ export class SearchRequest {
 	 * @return {Promise<any>}
 	 */
 	searchForQuery (query: string): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/SearchSuggestions', {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getSearchSuggestions',
 			query: query
 		});
 
@@ -63,7 +65,10 @@ export class WikiRequest {
 	 * @return {Promise<any>}
 	 */
 	getWikiVariables (): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/WikiVariables');
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getWikiVariables'
+		});
 
 		return fetch(url);
 	}
@@ -106,7 +111,9 @@ export class ArticleRequest {
 	}
 
 	comments (articleId: number, page: number = 0) {
-		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/ArticleComments', {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getArticleComments',
 			id: articleId,
 			page: page
 		});
