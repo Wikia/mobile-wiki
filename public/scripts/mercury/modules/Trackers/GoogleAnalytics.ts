@@ -75,27 +75,26 @@ module Mercury.Modules.Trackers {
 				// Custom variables
 				[prefix + '_setCustomVar', 1, 'DBname', Mercury.wiki.dbName, 3],
 				[prefix + '_setCustomVar', 2, 'ContentLanguage', Mercury.wiki.language.content, 3],
-				// TODO: this is currently not implemented in Mercury
-				// TODO: [prefix + '_setCustomVar', 3, 'Hub', window.cscoreCat, 3]
 				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 3],
 				// TODO: Currently the only login status is 'anon', in the future 'user' may be an option
 				[prefix + '_setCustomVar', 5, 'LoginStatus', 'anon', 3],
-				// TODO: Currently articles are the only page supported in Mercury
 				[prefix + '_setCustomVar', 8, 'PageType', 'article', 3],
 				[prefix + '_setCustomVar', 9, 'CityId', String(Mercury.wiki.id), 3],
-				[prefix + '_setCustomVar', 14, 'HasAds', 'Yes', 3],
 				[prefix + '_setCustomVar', 15, 'IsCorporatePage', 'No', 3],
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 				// [prefix + '_setCustomVar', 16, 'Krux Segment', getKruxSegment(), 3],
 				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3]
-				// TODO: This is currently not implemented in Mercury
-				// [prefix + '_setCustomVar', 18, 'Categories', /* TODO: implement categories */ , 3]
 			);
 
 			if (adsContext) {
 				this.queue.push(
 					[prefix + '_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical, 3],
 					[prefix + '_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No', 3]
+				);
+			}
+			if (Mercury.wiki.wikiCategories instanceof Array) {
+				this.queue.push(
+					[prefix + '_setCustomVar', 18, 'Categories', Mercury.wiki.wikiCategories.join(',') , 3]
 				);
 			}
 		}
