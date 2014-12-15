@@ -43,7 +43,7 @@ App.AdsMixin = Em.Mixin.create({
 		this.clearAdViews();
 
 		if (showInContent) {
-			this.appendAd(this.adsData.mobileInContent, 'before', $firstSection.parent());
+			this.appendAd(this.adsData.mobileInContent, 'before', $firstSection);
 		}
 
 		if (showPreFooter) {

@@ -49,11 +49,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
+				this.lazyLoadMedia(model.get('media'));
+				this.handleTables();
 				this.replaceMapsWithMapComponents();
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
-				this.lazyLoadMedia(model.get('media'));
-				this.handleTables();
 
 				M.setTrackContext({
 					a: model.title,
