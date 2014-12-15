@@ -7,6 +7,8 @@
 App.AdSlotComponent = Em.Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase'],
+	//This component is created dynamically, and this won't work without it
+	templateName: 'components/ad-slot',
 
 	name: null,
 	// noAds is being passed from ApplicationController where it's also casted to a string
