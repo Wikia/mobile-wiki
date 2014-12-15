@@ -41,6 +41,11 @@ var localSettings: LocalSettings = {
 				prefix: 'mercury',
 				id: 'UA-32132943-5',
 				sampleRate: 100
+			},
+			ads: {
+				prefix: 'ads',
+				id: 'UA-32129071-1',
+				sampleRate: 100
 			}
 		},
 		quantserve: 'p-8bG6eLqkH6Avk',
