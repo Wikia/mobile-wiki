@@ -56,7 +56,7 @@ module Mercury.Utils {
 				}
 			}
 			/**
-			 * Here we test if its an article link. We also have to check for /a/something for the jump links,
+			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
 			 * because the url will be in that form and there will be a hash
 			 * Some wikis, e.g. GTA, have article URLs in the from /something without the /wiki, so the /wiki
 			 * is optional here.
