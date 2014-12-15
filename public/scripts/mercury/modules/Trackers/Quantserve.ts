@@ -19,7 +19,7 @@ module Mercury.Modules.Trackers {
 			return (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js?" + Math.random();
 		}
 
-		trackPageView (context: any): void {
+		trackPageView (): void {
 			var quantcastLabels = ['Category.MobileWeb.Mercury'];
 
 			if (Mercury.wiki.vertical) {
