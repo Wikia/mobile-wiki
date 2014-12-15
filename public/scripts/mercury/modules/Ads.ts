@@ -34,17 +34,21 @@ module Mercury.Modules {
 		public init (adsUrl: string, callback: () => void) {
 			// Load the ads code from MW
 			M.load(adsUrl, () => {
-				require([
-					'ext.wikia.adEngine.adEngine',
-					'ext.wikia.adEngine.adContext',
-					'ext.wikia.adEngine.adConfigMobile'
-				], (adEngineModule: any, adContextModule: any, adConfigMobile: any) => {
-					this.adEngineModule = adEngineModule;
-					this.adContextModule = adContextModule;
-					this.adConfigMobile = adConfigMobile;
-					this.isLoaded = true;
-					callback.call(this);
-				});
+				if (require) {
+					require([
+						'ext.wikia.adEngine.adEngine',
+						'ext.wikia.adEngine.adContext',
+						'ext.wikia.adEngine.adConfigMobile'
+					], (adEngineModule: any, adContextModule: any, adConfigMobile: any) => {
+						this.adEngineModule = adEngineModule;
+						this.adContextModule = adContextModule;
+						this.adConfigMobile = adConfigMobile;
+						this.isLoaded = true;
+						callback.call(this);
+					});
+				} else {
+					Em.Logger.error('Looks like ads asset has not been loaded');
+				}
 			});
 		}
 

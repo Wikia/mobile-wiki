@@ -19,6 +19,8 @@
 			<!-- endbuild -->
 		{{/if}}
 
+		<link rel="canonical" href="{{canonicalUrl}}">
+
 		<style><!-- @include ../www/public/styles/baseline.css --></style>
 
 		<script>
@@ -28,8 +30,8 @@
 			M.provide('ads.slots', []);
 			M.provide('apiBase', '{{{server.apiBase}}}');
 			M.provide('environment', '{{{server.environment}}}');
-			M.provide('wiki', {{{wiki.json}}});
-			M.provide('article', {{{article.json}}});
+			M.provide('wiki', {{{json wiki}}});
+			M.provide('article', {{{json article}}});
 			M.provide('tracking', {{{trackingJson}}});
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
