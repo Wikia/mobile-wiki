@@ -83,7 +83,7 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 
 	if (result.wiki.language) {
 		userDir = result.wiki.language.userDir;
-		result.rtl = (userDir === 'rtl');
+		result.isRtl = (userDir === 'rtl');
 	}
 
 	result.displayTitle = title;
