@@ -56,7 +56,7 @@ module Mercury.Utils {
 				}
 			}
 			/**
-			 * Here we test if its an article link. We also have to check for /a/something for the jump links,
+			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
 			 * because the url will be in that form and there will be a hash
 			 * Some wikis, e.g. GTA, have article URLs in the from /something without the /wiki, so the /wiki
 			 * is optional here.
@@ -65,7 +65,7 @@ module Mercury.Utils {
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
 			 */
-			var article = local.match(/^(\/(a|wiki))?\/([^#]+)(#.*)?$/);
+			var article = local.match(/^(\/(wiki))?\/([^#]+)(#.*)?$/);
 			if (article) {
 				if (article[3] === title && hash) {
 					return {

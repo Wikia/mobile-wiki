@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "ember": "1.8.1",
+    "ember": "1.9.0",
     "foundation": "5.4.6",
     "i18next": "1.7.4",
     "script.js": "2.5.7",
@@ -23,5 +23,8 @@
     "ember-qunit": "0.1.8",
     "sinonjs": "1.10.2",
     "sinon-qunit": "https://github.com/cjohansen/sinon-qunit.git#2.0.0"
+  },
+  "resolutions": {
+    "handlebars": ">= 2.0.0 < 3.0.0"
   }
 }

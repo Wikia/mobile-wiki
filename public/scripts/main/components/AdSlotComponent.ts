@@ -5,7 +5,6 @@
 'use strict';
 
 App.AdSlotComponent = Em.Component.extend({
-	layoutName: 'components/ad-slot',
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase'],
 
