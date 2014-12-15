@@ -12,7 +12,6 @@ var gulp = require('gulp'),
 	path = require('path'),
 	through = require('through2');
 
-
 function compile (options) {
 	// creating a stream through which each file will pass
 	// returning the file stream
