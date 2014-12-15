@@ -40,7 +40,9 @@ gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 			assets.restore(),
 			useref(),
 			revReplace(),
-			minifyHTML()
+			minifyHTML({
+				quotes: true
+			})
 		)),
 		gulpif('**/views/**', gulp.dest(paths.views.dest))
 	);

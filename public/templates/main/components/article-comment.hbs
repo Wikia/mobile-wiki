@@ -5,12 +5,12 @@
 	<span class='timestamp'>{{timeAgo comment.created}}</span>
 	<span class='username'>
 		{{#if user.url}}
-			<a href='{{unbound user.url}}'>{{comment.userName}}</a>
+			<a href='{{unbound user.url}}'>{{unbound userName}}</a>
 		{{else}}
-			{{comment.userName}}
+			{{unbound userName}}
 		{{/if}}
 	</span>
-	{{{comment.text}}}
+	{{{text}}}
 	{{#if comment.comments}}
 		<button class='show-reply-btn' {{action 'toggleExpand'}}>
 			{{i18n 'article-replies-label' count='comment.comments.length'}}

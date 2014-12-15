@@ -57,11 +57,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			}
 
 			if (info.article) {
-				if (info.hash) {
-					App.set('hash', info.hash);
-				}
 				controller.send('changePage', info.article);
-
 			} else if (info.url) {
 				/**
 				 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link

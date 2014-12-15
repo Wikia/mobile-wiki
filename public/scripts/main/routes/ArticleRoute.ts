@@ -8,18 +8,22 @@ App.ArticleRoute = Em.Route.extend({
 		file: {
 			replace: true
 		},
-		commentsPage: {
+		comments_page: {
 			replace: true
 		}
 	},
 
 	beforeModel: function (transition: EmberStates.Transition) {
+		var title = transition.params.article.title ?
+			transition.params.article.title.replace('wiki/', ''):
+			Mercury.wiki.mainPageTitle;
+
 		if (Mercury.error) {
 			transition.abort();
 		}
 
 		this.transitionTo('article',
-			M.String.sanitize(transition.params.article.title)
+			M.String.sanitize(title)
 		);
 	},
 

@@ -92,7 +92,8 @@ module Mercury.Modules.VideoPlayers {
 				videoHeight: number = this.params.size.height,
 				lightboxWidth: number = $lightbox.width(),
 				lightboxHeight: number = $lightbox.height(),
-				targetSize: ContainerSize;
+				targetSize: ContainerSize,
+				sanitizedSize: any;
 
 			targetSize = Mercury.Utils.Calculation.containerSize(
 				lightboxWidth,
@@ -101,10 +102,20 @@ module Mercury.Modules.VideoPlayers {
 				videoHeight
 			);
 
-			$container.css({
-				width: targetSize.width,
-				height: targetSize.height
-			});
+			// sanitize as our backend sometimes returns size of 0x0
+			if (targetSize.width > 0 && targetSize.height > 0) {
+				sanitizedSize = {
+					width: targetSize.width,
+					height: targetSize.height
+				};
+			} else {
+				sanitizedSize = {
+					width: '100%',
+					height: '100%'
+				};
+			}
+
+			$container.css(sanitizedSize);
 		}
 	}
 }

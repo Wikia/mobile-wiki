@@ -6,24 +6,30 @@
 interface Response {
 	data: {
 		details: {
-			revision: {
-				timestamp: number;
-			};
-			comments: any;
 			id: number;
-			ns: string;
 			title: string;
+			ns: string;
+			url: string;
+			revision: {
+				id: number;
+				user: string;
+				user_id: number;
+				timestamp: string;
+			};
+			comments: number;
+			type: string;
+			abstract: string;
+			thumbnail: string;
 		};
 		article: {
 			content: string;
-			user: any;
 			media: any[];
-			users: any[];
+			users: any;
 			categories: any[];
 		};
 		relatedPages: any[];
-		userDetails: any[];
 		topContributors: any[];
+		adsContext: any
 	};
 }
 
@@ -79,7 +85,10 @@ App.ArticleModel.reopenClass({
 	getPreloadedData: function () {
 		var article = Mercury.article,
 			adsInstance: Mercury.Modules.Ads;
+
 		Mercury._state.firstPage = false;
+
+		// On first page load the article content is available only in HTML
 		article.content = $('.article-content').html();
 
 		// Setup ads
