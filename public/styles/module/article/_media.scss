@@ -22,6 +22,29 @@
 			width: auto;
 		}
 	}
+
+	.chevron {
+		background-color: #fff;
+		height: 20px;
+		bottom: 0;
+		margin-bottom: 50px;
+		right: 0;
+		position: absolute;
+		width: 20px;
+		z-index: $z-1;
+	}
+}
+
+.article-image,
+.linked-gallery-image,
+.gallery-video {
+	position: relative;
+
+	figcaption {
+		@extend %ellipsis;
+		height: 50px;
+		pointer-events: auto;
+	}
 }
 
 figcaption {
@@ -51,7 +74,6 @@ figcaption {
 
 	.gallery-video {
 		display: inline-block;
-		position: relative;
 	}
 
 	&.linked-gallery {
@@ -63,27 +85,9 @@ figcaption {
 			text-transform: uppercase;
 		}
 
-		.chevron {
-			background-color: #fff;
-			height: 20px;
-			bottom: 0;
-			margin-bottom: 50px;
-			right: 0;
-			position: absolute;
-			width: 20px;
-			z-index: $z-1;
-		}
-
-		figcaption {
-			@extend %ellipsis;
-			height: 50px;
-			pointer-events: auto;
-		}
-
 		figure {
 			display: inline-block;
 			margin: 0;
-			position: relative;
 			width: 49%;
 			vertical-align: top;
 		}
