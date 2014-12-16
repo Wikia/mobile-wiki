@@ -21,19 +21,21 @@ module Mercury.Modules.VideoPlayers {
 	export class OoyalaPlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;
-		constructor (provider: string, params: any) {
-			super(provider, params);
-			this.started = false;
-			this.ended = false;
-			this.onResize();
-			this.setupPlayer();
-		}
+		containerSelector: string;
 
 		// a bit ambiguous based on legacy return, but the first file is the
 		// Ooyala embedded API, the second is AgeGate
 		public resourceURI = this.params.jsFile[0];
 		// Ooyala JSON payload contains a DOM id
 		public containerId = this.createUniqueId(this.params.playerId);
+
+		constructor (provider: string, params: any) {
+			super(provider, params);
+			this.started = false;
+			this.ended = false;
+			this.containerSelector = '#' + this.containerId;
+			this.setupPlayer();
+		}
 
 		setupPlayer (): void {
 			this.params = $.extend(this.params, {
@@ -81,42 +83,5 @@ module Mercury.Modules.VideoPlayers {
 				this.track('ad-finish');
 			});
 		}
-
-		/**
-		 * Sets CSS width and height for the video container.
-		 */
-		onResize (): void {
-			var $container: JQuery = $('#' + this.containerId),
-				$lightbox: JQuery = $('.lightbox-wrapper'),
-				videoWidth: number = this.params.size.width,
-				videoHeight: number = this.params.size.height,
-				lightboxWidth: number = $lightbox.width(),
-				lightboxHeight: number = $lightbox.height(),
-				targetSize: ContainerSize,
-				sanitizedSize: any;
-
-			targetSize = Mercury.Utils.Calculation.containerSize(
-				lightboxWidth,
-				lightboxHeight,
-				videoWidth,
-				videoHeight
-			);
-
-			// sanitize as our backend sometimes returns size of 0x0
-			if (targetSize.width > 0 && targetSize.height > 0) {
-				sanitizedSize = {
-					width: targetSize.width,
-					height: targetSize.height
-				};
-			} else {
-				sanitizedSize = {
-					width: '100%',
-					height: '100%'
-				};
-			}
-
-			$container.css(sanitizedSize);
-		}
 	}
 }
-
