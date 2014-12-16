@@ -30,6 +30,9 @@ module Mercury.Modules {
 			return !!this.data.provider.toLowerCase().match(name);
 		}
 
+		/**
+		 * Loads player for the video, currently either OoyalaPlayer, YouTubePlayer or BasePlayer (default)
+		 */
 		loadPlayerClass () {
 			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
 				playerClassStr: string = (playerClassMap[provider] || 'Base') + 'Player',
