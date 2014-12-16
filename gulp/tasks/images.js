@@ -1,11 +1,10 @@
 var gulp = require('gulp'),
 	piper = require('../utils/piper'),
-	paths = require('../paths').images,
-	path = require('path');
+	paths = require('../paths').images;
 
 gulp.task('images', function () {
 	return piper(
-		gulp.src(path.join(paths.src, paths.files)),
+		gulp.src(paths.src),
 		gulp.dest(paths.dest)
 	);
 });

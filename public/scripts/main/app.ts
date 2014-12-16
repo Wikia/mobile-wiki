@@ -10,19 +10,13 @@ declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
 		language: Em.getWithDefault(Mercury, 'wiki.language.user', 'en'),
-		apiBase: Mercury.apiBase || '/api/v1',
-		hash: null
+		apiBase: Mercury.apiBase || '/api/v1'
 	});
 
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		var hash: string = window.location.hash,
-			debug: boolean = Mercury.environment === 'dev';
-
-		if (hash.length) {
-			App.set('hash', window.location.hash);
-		}
+		var debug: boolean = Mercury.environment === 'dev';
 
 		// turn on debugging with querystring ?debug=1
 		if (window.location.search.match(/debug=1/)) {

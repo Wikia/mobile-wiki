@@ -1,4 +1,31 @@
-## release-18 (2014-12-04% 17:05)
+## release-22 (2014-12-12 10:25)
+* [HG-384](https://wikia-inc.atlassian.net/browse/HG-384) Setup ember article route based on config from MW
+* [HG-133](https://wikia-inc.atlassian.net/browse/HG-133) Add caching routines to Mercury
+* [HG-226](https://wikia-inc.atlassian.net/browse/HG-226) Added support for xip.io subdomains on dev
+* [HG-438](https://wikia-inc.atlassian.net/browse/HG-438) Handle / & /wiki & /wiki/ URLs
+
+## release-21 (2014-12-11 08:13)
+* Update-VDNA: update name of VDNA script
+* VDNA-on-marvel: add VDNA on marvel
+* [HG-377](https://wikia-inc.atlassian.net/browse/HG-377) Switch search suggestions to MercuryAPI
+* [HG-455](https://wikia-inc.atlassian.net/browse/HG-455) cleanTitle was removed as a template variable, but not replaced
+* [HG-421](https://wikia-inc.atlassian.net/browse/HG-421) if you use multiple forms you have to stick to plural_X
+
+## release-20 (2014-12-09 15:23)
+* [HG-458](https://wikia-inc.atlassian.net/browse/HG-458) localization not used and always falling back to English
+* VDNA-run-once-per-session: This should run once per session
+* support-vdna: Support vdna promotion banner
+* set-ga-cv-scope: Set GA custom var scope to the same as wikiamobile skin
+* article-gallery-scrollbar-fix: Fixed permanent horizontal scrollbar for article galleries
+* [HG-421](https://wikia-inc.atlassian.net/browse/HG-421) Add proper strings for polish language
+* ga-visitor-level: Change scoping for customVar 4 in GA to visitor level (from pageview
+
+## release-19 (2014-12-05 15:17)
+* [HG-125](https://wikia-inc.atlassian.net/browse/HG-125) noads
+* [HG-447](https://wikia-inc.atlassian.net/browse/HG-447) Caching times should be in seconds
+* [HG-412](https://wikia-inc.atlassian.net/browse/HG-412) Added User-agent logging
+
+## release-18 (2014-12-04 17:05)
 * [HG-427](https://wikia-inc.atlassian.net/browse/HG-427) Use ellipsis for menu items
 * trailing-whitespace-fix: Removed trailing whitespace which was causing TS warning
 * [HG-225](https://wikia-inc.atlassian.net/browse/HG-225) Add caching headers for static assets

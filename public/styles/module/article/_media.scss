@@ -5,7 +5,7 @@
 	img {
 		background: {
 			color: rgb(223,223,223);
-			image: url('../svg/brackets.svg');
+			image: url('../images/brackets.svg');
 			position: center;
 			repeat: no-repeat;
 			size: contain;
@@ -35,7 +35,7 @@ figcaption {
 
 	&:not(.linked-gallery) {
 		overflow: {
-			x: scroll;
+			x: auto;
 			y: hidden;
 		}
 		white-space: nowrap;
@@ -99,7 +99,7 @@ figcaption {
 	content: '';
 	display: block;
 	background: {
-		image: url('../svg/play.svg');
+		image: url('../images/play.svg');
 		position: 10px 10px;
 		repeat: no-repeat;
 		size: 45px;

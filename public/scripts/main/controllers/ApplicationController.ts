@@ -2,14 +2,17 @@
 'use strict';
 
 App.ApplicationController = Em.Controller.extend({
+	queryParams: [{noAds: 'noads'}],
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
+	noAds: '',
 
 	init: function () {
 		this.setProperties({
-			domain: Mercury.wiki.dbName || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
-			siteName: Mercury.wiki.siteName || 'Wikia',
-			language: Mercury.wiki.language,
+			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+			language: Em.get(Mercury, 'wiki.language'),
+			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
+			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
 			globalAnimSpeed: 100
 		});
 

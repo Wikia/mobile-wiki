@@ -27,7 +27,10 @@ function resetMercuryBaseline () {
 	M.provide('article.article.categories', []);
 	M.provide('ads.slots', []);
 	M.provide('wiki', {
-		siteName: 'Test Site'
+		siteName: 'Test Site',
+		language: {
+			content: 'en'
+		}
 	});
 }
 
