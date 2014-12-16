@@ -2,29 +2,29 @@
 QUnit.module('Quantserve tests', {
 	setup: function () {
 		Mercury.tracking = {
-			quantserve: '1234',
+			quantserve: '1234'
+		};
+
+		Mercury.wiki = {
+			vertical: 'tv'
 		};
 	}
 });
 
 QUnit.test('Quantserve is compiled into Mercury.Modules.Trackers namespace', function () {
-	ok(Mercury.Modules.Trackers.Quantserve);
-	strictEqual(typeof Mercury.Modules.Trackers.Quantserve, 'function');
+	equal(typeof Mercury.Modules.Trackers.Quantserve, 'function');
 });
 
 QUnit.test('Track page view', function () {
 	var tracker = new Mercury.Modules.Trackers.Quantserve(),
-		context = {
-			wikiCategory: 'category',
-			wikiCustomKeyValues: 'key1=val1;key2=val2;key3=val3'
-		},
 		qevents = [{
 			qacct: Mercury.tracking.quantserve,
-			labels: 'Category.MobileWeb.Mercury,category,category.val1,category.val2,category.val3'
+			labels: 'tv,Category.MobileWeb.Mercury'
 		}];
 
 	tracker.appendScript = function () {};
 
-	tracker.trackPageView(context);
-	deepEqual(window._qevents, qevents);
+	tracker.trackPageView();
+	equal(window._qevents[0].qacct, qevents[0].qacct);
+	equal(window._qevents[0].labels, qevents[0].labels);
 });
