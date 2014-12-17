@@ -2,6 +2,15 @@
 	margin: 40px 0;
 	text-align: center;
 
+	&.visible {
+		img {
+			animation: lazyImage .3s;
+			background: none;
+			height: auto;
+			width: auto;
+		}
+	}
+
 	img {
 		background: {
 			color: rgb(223,223,223);
@@ -14,13 +23,27 @@
 		width: 100%;
 	}
 
-	&.visible {
-		img {
-			animation: lazyImage .3s;
-			background: none;
-			height: auto;
-			width: auto;
-		}
+	.chevron {
+		background-color: #fff;
+		bottom: 0;
+		height: 20px;
+		margin-bottom: 50px;
+		position: absolute;
+		right: 0;
+		width: 20px;
+		z-index: $z-1;
+	}
+}
+
+.article-image,
+.linked-gallery-image,
+.gallery-video {
+	position: relative;
+
+	figcaption {
+		@extend %ellipsis;
+		height: 50px;
+		pointer-events: auto;
 	}
 }
 
@@ -42,16 +65,15 @@ figcaption {
 	}
 
 	img {
-		// Fixes iOS Safari repaint bug when scrolling through gallery
-		transform: translate3d(0, 0, 0);
 		height: auto;
 		margin-right: 8px;
+		// Fixes iOS Safari repaint bug when scrolling through gallery
+		transform: translate3d(0, 0, 0);
 		width: 195px;
 	}
 
 	.gallery-video {
 		display: inline-block;
-		position: relative;
 	}
 
 	&.linked-gallery {
@@ -63,27 +85,9 @@ figcaption {
 			text-transform: uppercase;
 		}
 
-		.chevron {
-			background-color: #fff;
-			height: 20px;
-			bottom: 0;
-			margin-bottom: 50px;
-			right: 0;
-			position: absolute;
-			width: 20px;
-			z-index: $z-1;
-		}
-
-		figcaption {
-			@extend %ellipsis;
-			height: 50px;
-			pointer-events: auto;
-		}
-
 		figure {
 			display: inline-block;
 			margin: 0;
-			position: relative;
 			width: 49%;
 			vertical-align: top;
 		}
@@ -96,8 +100,6 @@ figcaption {
 
 .gallery-video::after,
 .article-video::before {
-	content: '';
-	display: block;
 	background: {
 		image: url('../images/play.svg');
 		position: 10px 10px;
@@ -105,6 +107,8 @@ figcaption {
 		size: 45px;
 	}
 	bottom: 0;
+	content: '';
+	display: block;
 	left: 0;
 	pointer-events: none;
 	position: absolute;

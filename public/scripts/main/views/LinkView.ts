@@ -16,7 +16,7 @@ Em.LinkView.reopen({
 			}
 
 			// trigger the action on the controller
-			this.get('origContext').send(action, this.get('actionParam'));
+			this.get('parentView').get('context').send(action, this.get('actionParam'));
 			return false;
 		}
 

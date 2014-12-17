@@ -1,7 +1,11 @@
 QUnit.module('VideoPlayers.BasePlayer', {
 	setup: function () {
 		var params = {
-			videoId: 666
+			videoId: 666,
+			size: {
+				width: 100,
+				height: 100
+			}
 		};
 		this.player = new Mercury.Modules.VideoPlayers.BasePlayer('base', params);
 	},
@@ -10,7 +14,6 @@ QUnit.module('VideoPlayers.BasePlayer', {
 });
 
 QUnit.test('Player requires a provider', function () {
-	expect(1);
 	var error = new Error('VideoPlayer requires a provider as the first argument');
 	throws(Mercury.Modules.VideoPlayers.BasePlayer, error);
 });

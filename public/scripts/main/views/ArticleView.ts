@@ -17,29 +17,6 @@ interface HTMLElement {
 
 App.ArticleView = Em.View.extend(App.AdsMixin, {
 	classNames: ['article-wrapper'],
-	templateName: 'article/index',
-	/**
-	 * @description Ember does not natively support hashes in the URL, so we must support this functionality
-	 * manually
-	 */
-	jumpToAnchor: function (): void {
-		var hash = App.get('hash'),
-			prevHash: string;
-
-		if (hash) {
-			window.location.hash = hash;
-		}
-
-		// This is a hack to ensure that #hash jump links are preserved when navigating with browser native
-		// "back" button
-		if (!hash && window.location.hash) {
-			prevHash = window.location.hash;
-			window.location.hash = '#top';
-			window.location.hash = prevHash;
-		}
-
-		App.set('hash', null);
-	},
 
 	/**
 	 * willInsertElement
@@ -72,13 +49,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			if (this.get('controller.article') && this.get('controller.article').length > 0) {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
-				this.replaceHeadersWithArticleSectionHeaders();
+				this.lazyLoadMedia(model.get('media'));
+				this.handleTables();
 				this.replaceMapsWithMapComponents();
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
-				this.jumpToAnchor();
-				this.lazyLoadMedia(model.get('media'));
-				this.handleTables();
 
 				M.setTrackContext({
 					a: model.title,
@@ -139,29 +114,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			}
 		}).toArray();
 		this.get('controller').send('updateHeaders', headers);
-	},
-
-	/**
-	 * @desc Calls replaceWithArticleSectionHeader for every h3 (h2's already done in
-	 * loadTableOfContentsData)
-	 */
-	replaceHeadersWithArticleSectionHeaders: function () {
-		this.$('h2,h3').map((i: number, elem: HTMLElement) => {
-			this.replaceWithArticleSectionHeader(elem);
-		});
-	},
-
-	replaceWithArticleSectionHeader: function (elem: HTMLElement) {
-		var header = this.createChildView('ArticleSectionHeader', {
-			context: {
-				tag: elem.tagName,
-				title: elem.id,
-				cleanTitle: elem.textContent
-			}
-		});
-		header.createElement();
-
-		this.$(elem).replaceWith(header.$());
 	},
 
 	replaceMapsWithMapComponents: function () {

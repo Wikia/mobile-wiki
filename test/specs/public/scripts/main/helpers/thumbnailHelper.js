@@ -15,11 +15,13 @@ QUnit.test('Thumbnail helper is registered', function () {
 
 QUnit.test('generate thumbnail with default options', function () {
 	var options = {
-		hash: {}
+		hash: {},
+		data: {isUnbound: true},
+		types: []
 	};
 
 	equal(
-		Em.Handlebars.helpers.thumbnail._rawFunction('http://wikia.com/test.jpg', options),
+		Em.Handlebars.helpers.thumbnail('http://wikia.com/test.jpg', options),
 		'<img src="http://wikia.com/test.jpg/fixed-aspect-ratio/100/100" alt="">'
 	);
 });
@@ -31,11 +33,14 @@ QUnit.test('generate thumbnail with all options given', function () {
 			width: 500,
 			height: 300,
 			alt: 'testing'
-		}
+		},
+		data: {isUnbound: true},
+		types: [],
+		hashTypes: {}
 	};
 
 	equal(
-		Em.Handlebars.helpers.thumbnail._rawFunction('http://wikia.com/test.jpg', options),
+		Em.Handlebars.helpers.thumbnail('http://wikia.com/test.jpg', options),
 		'<img src="http://wikia.com/test.jpg/top-crop/500/300" alt="testing">'
 	);
 });
@@ -44,11 +49,14 @@ QUnit.test('generate thumbnail with invalid mode which should be replaced by def
 	var options = {
 		hash: {
 			mode: 'non-existent'
-		}
+		},
+		data: {isUnbound: true},
+		types: [],
+		hashTypes: {}
 	};
 
 	equal(
-		Em.Handlebars.helpers.thumbnail._rawFunction('http://wikia.com/test.jpg', options),
+		Em.Handlebars.helpers.thumbnail('http://wikia.com/test.jpg', options),
 		'<img src="http://wikia.com/test.jpg/fixed-aspect-ratio/100/100" alt="">'
 	);
 });

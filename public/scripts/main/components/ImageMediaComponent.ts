@@ -5,10 +5,13 @@
 App.ImageMediaComponent = App.MediaComponent.extend({
 	classNames: ['article-image'],
 	classNameBindings: ['visible'],
+	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
 		'emptyGif'
 	),
+
+	link: Em.computed.alias('media.link'),
 
 	/**
 	 * used to set proper height to img tag before it loads
@@ -71,7 +74,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		var url = this.get('url'),
 			image: HTMLImageElement;
 		if (url) {
-			image = new Image()
+			image = new Image();
 			image.src = url;
 			if (image.complete) {
 				this.update(image.src);
