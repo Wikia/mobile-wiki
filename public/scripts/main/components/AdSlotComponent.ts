@@ -1,11 +1,10 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury.d.ts" />
 /// <reference path="../../mercury/modules/Ads.ts" />
-/// <reference path="../../main/mixins/TrackClickMixin.ts" />
 
 'use strict';
 
-App.AdSlotComponent = Em.Component.extend(App.TrackClickMixin, {
+App.AdSlotComponent = Em.Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase'],
 	//This component is created dynamically, and this won't work without it
