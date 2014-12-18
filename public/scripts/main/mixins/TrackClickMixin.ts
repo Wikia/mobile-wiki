@@ -1,14 +1,10 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.BaseComponent = Em.Component.extend({
+App.TrackClickMixin = Em.Mixin.create({
 	actions: {
 		trackClick: function (category: string, label: string = ''): void {
-			M.track({
-				action: M.trackActions.click,
-				category: category,
-				label: label
-			});
+			this.sendAction('trackClick', category, label);
 		}
 	}
 });

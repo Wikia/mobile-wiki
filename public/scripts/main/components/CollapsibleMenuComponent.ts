@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.CollapsibleMenuComponent = App.BaseComponent.extend({
+App.CollapsibleMenuComponent = Em.Component.extend({
 	tagName: 'nav',
 	classNames: ['collapsible-menu'],
 	classNameBindings: ['additionalClasses'],

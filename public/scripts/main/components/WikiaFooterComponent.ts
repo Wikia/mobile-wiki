@@ -1,6 +1,7 @@
+/// <reference path="../../main/mixins/TrackClickMixin.ts" />
 'use strict';
 
-App.WikiaFooterComponent = App.BaseComponent.extend({
+App.WikiaFooterComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['wikia-footer'],
 	tagName: 'footer',
 	links: [
