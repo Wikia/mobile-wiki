@@ -1,3 +1,4 @@
+/// <reference path="../app.ts" />
 'use strict';
 
 App.BaseComponent = Em.Component.extend({
