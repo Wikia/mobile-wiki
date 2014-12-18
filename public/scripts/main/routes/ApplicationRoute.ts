@@ -39,7 +39,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			 */
 			if (trackingCategory) {
 				this.triggerAction({
-					action:'trackClick',
+					action: 'trackClick',
 					target: this,
 					actionContext: trackingCategory
 				});

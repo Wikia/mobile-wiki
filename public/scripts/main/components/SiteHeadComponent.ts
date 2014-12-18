@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/browser.ts" />
+/// <reference path="../../main/mixins/TrackClickMixin.ts" />
 'use strict';
 
-App.SiteHeadComponent = Em.Component.extend({
+App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['site-head'],
 	tagName: 'nav',
 	headroom: null,
