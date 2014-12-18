@@ -2,7 +2,7 @@
 /// <reference path="../../mercury/utils/browser.ts" />
 'use strict';
 
-App.SiteHeadComponent = Em.Component.extend({
+App.SiteHeadComponent = App.BaseComponent.extend({
 	classNames: ['site-head'],
 	tagName: 'nav',
 	headroom: null,
