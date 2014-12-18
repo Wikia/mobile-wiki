@@ -1,6 +1,6 @@
 'use strict';
 
-App.WikiaFooterComponent = Em.Component.extend({
+App.WikiaFooterComponent = App.BaseComponent.extend({
 	classNames: ['wikia-footer'],
 	tagName: 'footer',
 	links: [
