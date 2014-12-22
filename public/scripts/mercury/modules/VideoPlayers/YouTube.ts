@@ -53,6 +53,7 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		onPlayerReady (): void {
+			this.onResize();
 			this.track('player-loaded');
 		}
 
@@ -66,7 +67,6 @@ module Mercury.Modules.VideoPlayers {
 				this.ended = true;
 			}
 		}
-
 	}
 }
 

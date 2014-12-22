@@ -44,7 +44,9 @@ gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 			revReplace(),
 			// Used to prefix assets in with CDN prefix
 			gulpif(options.replace.selector, replace(options.replace.find, options.replace.replace)),
-			minifyHTML()
+			minifyHTML({
+				quotes: true
+			})
 		)),
 		gulpif('**/views/**', gulp.dest(paths.views.dest))
 	);

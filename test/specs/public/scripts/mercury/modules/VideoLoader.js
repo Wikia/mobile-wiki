@@ -37,14 +37,16 @@ QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {
 });
 
 QUnit.test('VideoLoader should have loaded the correct player class', function () {
-	expect(3);
 	equal(this.instance.player.provider, 'youtube');
 
 	this.instance.data.provider = 'ooyala';
 	this.instance.loadPlayerClass();
 	equal(this.instance.player.provider, 'ooyala');
 
+	//Should load base player for unsupported classes
 	this.instance.data.provider = 'realgravity';
 	this.instance.loadPlayerClass();
-	equal(this.instance.player, null, 'Player is not loaded for unsupported classes');
+	equal(this.instance.player.provider, 'realgravity');
+	equal(this.instance.player instanceof Mercury.Modules.VideoPlayers.BasePlayer, true);
+
 });

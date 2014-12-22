@@ -15,15 +15,6 @@ module Utils {
 		Testing
 	}
 
-	export var Caching = {
-		// 30 days in seconds
-		long: 2.592e+6,
-		// 24h in seconds
-		standard: 8.64e+4,
-		// 3h in seconds
-		short: 1.08e+4
-	};
-
 	/**
 	 * @desc Get environment from string
 	 *
@@ -113,7 +104,7 @@ module Utils {
 		 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
 		 * We just return capture group 1
 		 */
-		regex = /^(?:sandbox\-[^\.]+)?\.?(.+?)\.wikia.*\.(?:com|local)$/;
+		regex = /^(?:sandbox\-[^\.]+)?\.?(.+?)\.(wikia.*|(?:[\d]{1,3}\.){3}[\d]{1,3}\.xip)\.(?:com|local|io)$/;
 		match = hostName.match(regex);
 
 		return getDomainName(localSettings,  match ? match[1] : getFallbackSubDomain(localSettings));
@@ -127,6 +118,20 @@ module Utils {
 	 */
 	export function clearHost (host: string): string {
 		return host.split(':')[0]; //get rid of port
+	}
+
+	/**
+	 * @desc Get vertical color from localSettings
+	 *
+	 * @param {LocalSettings} localSettings
+	 * @param {string} vertical
+	 * @return {string}
+	 */
+	export function getVerticalColor (localSettings: LocalSettings, vertical: string): string {
+		if (localSettings.verticalColors.hasOwnProperty(vertical)) {
+			return localSettings.verticalColors[vertical];
+		}
+		return null;
 	}
 }
 

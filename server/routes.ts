@@ -4,6 +4,7 @@ import path = require('path');
 import Hapi = require('hapi');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
+import Caching = require('./lib/Caching');
 import Tracking = require('./lib/Tracking');
 import MediaWiki = require('./lib/MediaWiki');
 import util = require('util');
@@ -12,8 +13,34 @@ import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
 
 var wikiDomains: {
-	[key: string]: string;
-} = {};
+		[key: string]: string;
+	} = {},
+	cachingTimes = {
+		article: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.standard,
+			browserTTL: Caching.Interval.default
+		},
+		articleAPI: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
+		},
+		commentsAPI: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
+		},
+		searchAPI: {
+			enabled: false,
+			cachingPolicy: Caching.Policy.Private,
+			varnishTTL: Caching.Interval.disabled,
+			browserTTL: Caching.Interval.disabled
+		}
+	};
 
 /**
  * Get cached Media Wiki domain name from the request host
@@ -21,7 +48,7 @@ var wikiDomains: {
  * @param {string} host Request host name
  * @returns {string} Host name to use for API
  */
-function getWikiDomainName(host: string): string {
+function getWikiDomainName (host: string): string {
 	var wikiDomain: string;
 
 	host = Utils.clearHost(host);
@@ -31,15 +58,76 @@ function getWikiDomainName(host: string): string {
 }
 
 /**
+ * Prepares article data to be rendered
+ *
+ * @param {Hapi.Request} request
+ * @param result
+ */
+function beforeArticleRender (request: Hapi.Request, result: any): void {
+	var title: string,
+		articleDetails: any;
+
+	if (result.article.details) {
+		articleDetails = result.article.details;
+		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+	} else if (request.params.title) {
+		title = request.params.title.replace(/_/g, ' ');
+	}
+
+	if (result.article.article) {
+		// we want to return the article content only once - as HTML and not JS variable
+		result.articleContent = result.article.article.content;
+		delete result.article.article.content;
+	}
+
+	result.displayTitle = title;
+	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
+	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
+}
+
+/**
+ * Handles article response from API
+ *
+ * @param {Hapi.Request} request
+ * @param reply
+ * @param error
+ * @param result
+ */
+function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}): void {
+	var code = 200,
+		response: Hapi.Response;
+
+	if (!result.article.article && !result.wiki.dbName) {
+		//if we have nothing to show, redirect to our fallback wiki
+		reply.redirect(localSettings.redirectUrlOnNoData);
+	} else {
+		Tracking.handleResponse(result, request);
+
+		if (error) {
+			code = error.code || error.statusCode || 500;
+			result.error = JSON.stringify(error);
+		}
+
+		beforeArticleRender(request, result);
+
+		response = reply.view('application', result);
+		response.code(code);
+		Caching.setResponseCaching(response, cachingTimes.article);
+	}
+}
+
+/**
  * Adds routes to the server
  *
  * @param server
  */
-function routes(server: Hapi.Server) {
+function routes (server: Hapi.Server) {
 	var second = 1000,
 		indexRoutes = [
 			'/wiki/{title*}',
-			'/{title*}'
+			'/{title*}',
+			// TODO this is special case needed for /wiki path, it should be refactored
+			'/{title}'
 		],
 		proxyRoutes = [
 			'/favicon.ico',
@@ -47,50 +135,44 @@ function routes(server: Hapi.Server) {
 		],
 		config = {
 			cache: {
-				privacy: 'public',
+				privacy: Caching.policyString(Caching.Policy.Public),
 				expiresIn: 60 * second
 			}
 		};
+
 	// all the routes that should resolve to loading single page app entry view
 	indexRoutes.forEach((route: string) => {
 		server.route({
 			method: 'GET',
 			path: route,
 			config: config,
-			handler: function articleHandler(request: Hapi.Request, reply: any) {
-				if (request.params.title || request.path === '/') {
+			handler: (request: Hapi.Request, reply: any) => {
+				var path: string = request.path,
+					wikiDomain: string = getWikiDomainName(request.headers.host);
+
+				if (path === '/' || path === '/wiki/') {
+					article.getWikiVariables(wikiDomain, (error: any, wikiVariables: any) => {
+						if (error) {
+							// TODO check error.statusCode and react accordingly
+							reply.redirect(localSettings.redirectUrlOnNoData);
+						} else {
+							article.getArticle({
+								wikiDomain: wikiDomain,
+								title: wikiVariables.mainPageTitle,
+								redirect: request.query.redirect
+							}, wikiVariables, (error: any, result: any = {}) => {
+								onArticleResponse(request, reply, error, result);
+							});
+						}
+					});
+				} else  {
 					article.getFull({
-						wikiDomain: getWikiDomainName(request.headers.host),
+						wikiDomain: wikiDomain,
 						title: request.params.title,
 						redirect: request.query.redirect
 					}, (error: any, result: any = {}) => {
-						var code = 200;
-						if (!result.article.article && !result.wiki.dbName) {
-							//if we have nothing to show, redirect to our fallback wiki
-							reply.redirect(localSettings.redirectUrlOnNoData);
-						} else {
-							Tracking.handleResponse(result, request);
-
-							if (error) {
-								code = error.code || error.statusCode || 500;
-
-								result.error = JSON.stringify(error);
-							}
-
-							if (result.details && result.details.cleanTitle) {
-								result.displayTitle = result.details.cleanTitle;
-							} else if (request.params.title) {
-								result.displayTitle = request.params.title.replace(/_/g, ' ');
-							}
-
-							reply.view('application', result).code(code);
-						}
-
+						onArticleResponse(request, reply, error, result);
 					});
-				} else {
-					//handle links like: {wiki}.wikia.com/wiki
-					//Status code 301: Moved permanently
-					reply.redirect('/').code(301);
 				}
 			}
 		});
@@ -102,12 +184,14 @@ function routes(server: Hapi.Server) {
 		path: localSettings.apiBase + '/article/{articleTitle*}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
+			var response: Hapi.Response;
 			article.getData({
 				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
 			}, (error: any, result: any) => {
-				reply(error || result);
+				var response = reply(error || result);
+				Caching.setResponseCaching(response, cachingTimes.articleAPI);
 			});
 		}
 	});
@@ -127,7 +211,8 @@ function routes(server: Hapi.Server) {
 				reply(Hapi.error.badRequest('Invalid articleId'));
 			} else {
 				comments.handleRoute(params, (error: any, result: any): void => {
-					reply(error || result);
+					var response = reply(error || result);
+					Caching.setResponseCaching(response, cachingTimes.commentsAPI);
 				});
 			}
 		}
@@ -144,11 +229,13 @@ function routes(server: Hapi.Server) {
 			};
 
 			search.searchWiki(params, (error: any, result: any) => {
+				var response: Hapi.Response;
 				if (error) {
-					reply(error).code(error.exception.code);
+					response = reply(error).code(error.exception.code);
 				} else {
-					reply(result);
+					response = reply(result);
 				}
+				Caching.setResponseCaching(response, cachingTimes.searchAPI);
 			});
 		}
 	});

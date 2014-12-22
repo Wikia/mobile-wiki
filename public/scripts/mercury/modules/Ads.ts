@@ -3,6 +3,10 @@
 
 'use strict';
 
+interface Window {
+	gaTrackAdEvent: any
+}
+
 module Mercury.Modules {
 
 	export class Ads {
@@ -32,23 +36,49 @@ module Mercury.Modules {
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
 		public init (adsUrl: string, callback: () => void) {
+			//Required by ads tracking code
+			window.gaTrackAdEvent = this.gaTrackAdEvent;
 			// Load the ads code from MW
 			M.load(adsUrl, () => {
-				require([
-					'ext.wikia.adEngine.adEngine',
-					'ext.wikia.adEngine.adContext',
-					'ext.wikia.adEngine.adConfigMobile'
-				], (adEngineModule: any, adContextModule: any, adConfigMobile: any) => {
-					this.adEngineModule = adEngineModule;
-					this.adContextModule = adContextModule;
-					this.adConfigMobile = adConfigMobile;
-					this.isLoaded = true;
-					callback.call(this);
-				});
+				if (require) {
+					require([
+						'ext.wikia.adEngine.adEngine',
+						'ext.wikia.adEngine.adContext',
+						'ext.wikia.adEngine.adConfigMobile'
+					], (adEngineModule: any, adContextModule: any, adConfigMobile: any) => {
+						this.adEngineModule = adEngineModule;
+						this.adContextModule = adContextModule;
+						this.adConfigMobile = adConfigMobile;
+						this.isLoaded = true;
+						callback.call(this);
+					});
+				} else {
+					Em.Logger.error('Looks like ads asset has not been loaded');
+				}
 			});
 		}
 
-		private setContext(adsContext: any) {
+		/**
+		 * Method for sampling and pushing ads-related events
+		 * @arguments coming from ads tracking request
+		 * It's called by track() method in wikia.tracker fetched from app by ads code
+		 */
+		public gaTrackAdEvent (): void {
+			var args: any,
+				//Percentage of all the track requests to go through
+				adHitSample: number = 1,
+				GATracker: Mercury.Modules.Trackers.GoogleAnalytics;
+			//Sampling on GA side will kill the performance as we need to allocate object each time we track
+			//ToDo: Optimize object allocation for tracking all events
+			if (Math.random() * 100 <= adHitSample) {
+				args = Array.prototype.slice.call(arguments);
+				args.unshift('ads._trackEvent');
+				GATracker = new Mercury.Modules.Trackers.GoogleAnalytics();
+				GATracker.trackAds.apply(GATracker, args);
+			}
+		}
+
+		private setContext (adsContext: any) {
 			this.adsContext = adsContext ? adsContext : null;
 		}
 
@@ -62,7 +92,7 @@ module Mercury.Modules {
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
 				// We need a copy of adSlots as .run destroys it
-				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mobile');
+				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mercury');
 			}
 		}
 
@@ -71,7 +101,7 @@ module Mercury.Modules {
 		 *
 		 * @returns {string[][]}
 		 */
-		getSlots(): string[][] {
+		getSlots (): string[][] {
 			return <string[][]>$.extend([], this.adSlots);
 		}
 

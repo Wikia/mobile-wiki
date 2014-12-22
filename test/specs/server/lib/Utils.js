@@ -137,6 +137,23 @@ test('getWikiName', function () {
 			},
 			expected: 'community.test.wikia-dev.com',
 			description: 'Returns the default sub domain if no host is provided'
+		}, {
+			host: 'muppet.10.10.10.145.xip.io',
+			localSettings: {
+				environment: global.Environment.Dev,
+				mediawikiHost: 'evgeniy'
+			},
+			expected: 'muppet.evgeniy.wikia-dev.com',
+			description: 'Returns proper devbox url if xip.io sub-domain is used'
+
+		}, {
+			host: 'de.muppet.10.10.10.145.xip.io',
+			localSettings: {
+				environment: global.Environment.Dev,
+				mediawikiHost: 'evgeniy'
+			},
+			expected: 'de.muppet.evgeniy.wikia-dev.com',
+			description: 'Returns proper devbox url if xip.io sub-domain is used'
 		}
 	];
 
@@ -191,6 +208,7 @@ test('getEnvironment', function() {
 		}
 	];
 	testCases.forEach(function(testCase) {
-		equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected);
+		equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected,
+			Environment[testCase.expected]);
 	});
 });

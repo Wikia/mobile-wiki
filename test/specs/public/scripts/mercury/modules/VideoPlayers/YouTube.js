@@ -1,7 +1,11 @@
 QUnit.module('VideoPlayers.YouTubePlayer', {
 	setup: function () {
 		var params = {
-			videoId: 666
+			videoId: 666,
+			size: {
+				width: 100,
+				height: 100
+			}
 		};
 		this.player = new Mercury.Modules.VideoPlayers.YouTubePlayer('youtube', params);
 	},

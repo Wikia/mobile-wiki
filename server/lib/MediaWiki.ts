@@ -33,7 +33,9 @@ export class SearchRequest {
 	 * @return {Promise<any>}
 	 */
 	searchForQuery (query: string): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'api/v1/SearchSuggestions/List', {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getSearchSuggestions',
 			query: query
 		});
 
@@ -63,7 +65,10 @@ export class WikiRequest {
 	 * @return {Promise<any>}
 	 */
 	getWikiVariables (): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/WikiVariables');
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getWikiVariables'
+		});
 
 		return fetch(url);
 	}
@@ -106,7 +111,9 @@ export class ArticleRequest {
 	}
 
 	comments (articleId: number, page: number = 0) {
-		var url = createUrl(this.wikiDomain, 'api/v1/Mercury/ArticleComments', {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getArticleComments',
 			id: articleId,
 			page: page
 		});
@@ -123,10 +130,7 @@ export class ArticleRequest {
  * @return {Promise<any>}
  */
 export function fetch (url: string, redirects: number = 1): Promise<any> {
-	return new Promise((resolve: Function) => {
-		/**
-		 * We can't use reject here as we always want to be able to start the app
-		 */
+	return new Promise((resolve: Function, reject: Function) => {
 		Wreck.get(url, {
 			redirects: redirects,
 			timeout: localSettings.backendRequestTimeout,
@@ -138,7 +142,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 					error: err
 				}, 'Error fetching url');
 
-				resolve(err);
+				reject(err);
 			} else {
 				if (response.statusCode === 200) {
 					resolve(payload);
@@ -149,7 +153,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 						statusCode: response.statusCode
 					}, 'Bad HTTP response');
 
-					resolve(payload);
+					reject(payload);
 				}
 			}
 		});
@@ -164,7 +168,7 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
  * @param params
  * @return {string} url
  */
-export function createUrl(wikiDomain: string, path: string, params: any = {}): string {
+export function createUrl (wikiDomain: string, path: string, params: any = {}): string {
 	var qsAggregator: string[] = [],
 		queryParam: string;
 

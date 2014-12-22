@@ -33,7 +33,7 @@ export function handleResponse (result: any, request: Hapi.Request): void {
 		vertical: string;
 
 	try {
-		vertical = result.article.article.adsContext.targeting.wikiVertical;
+		vertical = result.article.adsContext.targeting.wikiVertical;
 	} catch (error) {
 		Logger.error('No vertical set for response');
 

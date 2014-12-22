@@ -22,6 +22,7 @@ module Mercury.Modules.Trackers {
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
 		accountMercury = 'mercury';
+		accountAds = 'ads';
 		queue: GoogleAnalyticsCode;
 
 		constructor () {
@@ -34,7 +35,6 @@ module Mercury.Modules.Trackers {
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 				].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
-
 			this.accounts = Mercury.tracking.ga;
 			this.queue = window._gaq || [];
 
@@ -51,6 +51,7 @@ module Mercury.Modules.Trackers {
 			if (this.accounts[this.accountMercury]) {
 				this.initAccount(this.accountMercury, adsContext, domain);
 			}
+			this.initAccount(this.accountAds, adsContext, domain);
 		}
 
 		/**
@@ -73,15 +74,28 @@ module Mercury.Modules.Trackers {
 				[prefix + '_setSampleRate', this.accounts[name].sampleRate.toString()],
 				[prefix + '_setDomainName', domain],
 				// Custom variables
-				[prefix + '_setCustomVar', 1, 'DBname', Mercury.wiki.dbName],
-				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 1],
-				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical]
+				[prefix + '_setCustomVar', 1, 'DBname', Mercury.wiki.dbName, 3],
+				[prefix + '_setCustomVar', 2, 'ContentLanguage', Mercury.wiki.language.content, 3],
+				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 3],
+				// TODO: Currently the only login status is 'anon', in the future 'user' may be an option
+				[prefix + '_setCustomVar', 5, 'LoginStatus', 'anon', 3],
+				[prefix + '_setCustomVar', 8, 'PageType', 'article', 3],
+				[prefix + '_setCustomVar', 9, 'CityId', String(Mercury.wiki.id), 3],
+				[prefix + '_setCustomVar', 15, 'IsCorporatePage', 'No', 3],
+				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
+				// [prefix + '_setCustomVar', 16, 'Krux Segment', getKruxSegment(), 3],
+				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3]
 			);
 
 			if (adsContext) {
 				this.queue.push(
-					[prefix + '_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical],
-					[prefix + '_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No']
+					[prefix + '_setCustomVar', 3, 'Hub', adsContext.targeting.wikiVertical, 3],
+					[prefix + '_setCustomVar', 14, 'HasAds', adsContext.opts.showAds ? 'Yes' : 'No', 3]
+				);
+			}
+			if (Mercury.wiki.wikiCategories instanceof Array) {
+				this.queue.push(
+					[prefix + '_setCustomVar', 18, 'Categories', Mercury.wiki.wikiCategories.join(',') , 3]
 				);
 			}
 		}
@@ -99,7 +113,6 @@ module Mercury.Modules.Trackers {
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
 			this.queue.push(['_trackEvent'].concat(args));
-
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
 			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackEvent'].concat(args));
@@ -107,6 +120,14 @@ module Mercury.Modules.Trackers {
 			if (this.accounts[this.accountMercury]) {
 				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackEvent'].concat(args));
 			}
+		}
+
+		/**
+		 * Tracks an ads-related event
+		 * @arguments set of parameters for ads-related event
+		 */
+		trackAds (): void {
+			this.queue.push(Array.prototype.slice.call(arguments));
 		}
 
 		/**
