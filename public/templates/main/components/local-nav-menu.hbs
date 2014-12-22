@@ -17,17 +17,17 @@
 		<a href='/wiki/Special:Random'>{{i18n 'random-page-label'}}</a>
 	</li>
 {{/if}}
-{{#each currentMenuItem.children}}
-	{{#if children}}
+{{#each child in currentMenuItem.children}}
+	{{#if child.children}}
 		<li>
-			<div {{action 'changeMenuItem' index}}>
-				{{unbound text}}
+			<div {{action 'changeMenuItem' child.index}}>
+				{{unbound child.text}}
 				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 			</div>
 		</li>
 	{{else}}
         <li>
-			<a {{action 'collapseSideNav'}} href='{{unbound href}}'>{{unbound text}}</a>
+			<a {{action 'collapseSideNav'}} href='{{unbound child.href}}'>{{unbound child.text}}</a>
 		</li>
 	{{/if}}
 {{/each}}

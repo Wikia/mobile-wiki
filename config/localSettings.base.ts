@@ -26,6 +26,7 @@ var localSettings: LocalSettings = {
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	port: 8000,
 	proxyMaxRedirects: 3,
+	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	tracking: {
 		ga: {
 			primary: {
@@ -41,6 +42,11 @@ var localSettings: LocalSettings = {
 				prefix: 'mercury',
 				id: 'UA-32132943-5',
 				sampleRate: 100
+			},
+			ads: {
+				prefix: 'ads',
+				id: 'UA-32129071-1',
+				sampleRate: 100
 			}
 		},
 		quantserve: 'p-8bG6eLqkH6Avk',
@@ -51,8 +57,16 @@ var localSettings: LocalSettings = {
 			c7Value: ''
 		}
 	},
+	verticalColors: {
+		comics: '#ff5400',
+		games: '#94d11f',
+		books: '#ff7f26',
+		movies: '#09d3bf',
+		lifestyle: '#ffd000',
+		music: '#c819ad',
+		tv: '#00b7e0'
+	},
 	wikiFallback: 'community',
-	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000
 };

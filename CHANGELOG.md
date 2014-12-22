@@ -1,3 +1,22 @@
+## release-24 (2014-12-18 12:30)
+* [HG-515](https://wikia-inc.atlassian.net/browse/HG-515) Fix trackClick action for components
+
+## release-23 (2014-12-17 15:22)
+* [HG-468](https://wikia-inc.atlassian.net/browse/HG-468) Single linked images
+* [HG-486](https://wikia-inc.atlassian.net/browse/HG-486) Support theme-color for Android 5
+* [HG-431](https://wikia-inc.atlassian.net/browse/HG-431) Unifying Ooyala logic for resizing videos in Lightbox
+* [HG-386](https://wikia-inc.atlassian.net/browse/HG-386) Fix for tracking ad-related events in Mercury
+* [HG-483](https://wikia-inc.atlassian.net/browse/HG-483) Add wikiCategories to tracking
+* [HG-461](https://wikia-inc.atlassian.net/browse/HG-461) Add meta keywords
+* link-to-helper-fix: Fix for link-to helper
+* Fix-ads: Ads got broken after Ember 1.9 merge
+* [HG-430](https://wikia-inc.atlassian.net/browse/HG-430) Show images in comments
+* [HG-475](https://wikia-inc.atlassian.net/browse/HG-475) Update Ember
+* [HG-459](https://wikia-inc.atlassian.net/browse/HG-459) "GET" as iOS smart banner label
+* [HG-460](https://wikia-inc.atlassian.net/browse/HG-460) Do not remove arbitrary quotes because of meta description
+* Don't-use-api-v1-paths: Use wikia.php for api calls
+* Ads-guard: don't break the app if ads asset has not loaded
+
 ## release-22 (2014-12-12 10:25)
 * [HG-384](https://wikia-inc.atlassian.net/browse/HG-384) Setup ember article route based on config from MW
 * [HG-133](https://wikia-inc.atlassian.net/browse/HG-133) Add caching routines to Mercury

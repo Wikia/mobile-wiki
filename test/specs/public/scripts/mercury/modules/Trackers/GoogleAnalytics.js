@@ -11,6 +11,11 @@ QUnit.module('GoogleAnalytics tests', {
 					prefix: 'mercury',
 					id: '456',
 					sampleRate: 100
+				},
+				ads: {
+					prefix: 'ads',
+					id: '789',
+					sampleRate: 100
 				}
 			}
 		};
@@ -91,4 +96,10 @@ QUnit.test('Track page view', function () {
 	deepEqual(this.queueContains(['_trackPageView']), true);
 	deepEqual(this.queueContains(['mercury._trackPageView']), true);
 	deepEqual(this.queueContains(['special._trackPageView']), true);
+});
+
+QUnit.test('Track ads-related event', function () {
+	var tracker = new Mercury.Modules.Trackers.GoogleAnalytics();
+	tracker.trackAds('ads._trackEvent', 'testCategory', 'testAction', 'testLabel', 0, true);
+	deepEqual(this.queueContains(['ads._trackEvent', 'testCategory', 'testAction', 'testLabel', 0, true]), true);
 });

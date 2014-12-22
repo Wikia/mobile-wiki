@@ -4,7 +4,6 @@
 
 App.MapLightboxView = App.LightboxView.extend({
 	classNames: ['map-lightbox'],
-	templateName: 'app/map-lightbox',
 	status: 'opening',
 
 	didInsertElement: function (): void {

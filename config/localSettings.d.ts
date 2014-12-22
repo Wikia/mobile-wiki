@@ -25,6 +25,7 @@ interface LocalSettings {
 	maxRequestsPerChild: number;
 	port: number;
 	proxyMaxRedirects: number;
+	redirectUrlOnNoData: string;
 	tracking: {
 		ga: GAAccountMap;
 		quantserve: string;
@@ -35,8 +36,8 @@ interface LocalSettings {
 			c7Value: string;
 		}
 	};
+	verticalColors: any;
 	wikiFallback: string;
-	redirectUrlOnNoData: string;
 	workerCount: number;
 	workerDisconnectTimeout: number;
 }
