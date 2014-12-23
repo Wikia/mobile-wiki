@@ -282,6 +282,7 @@ declare module Hapi {
 
 	export class Server {
 		app: any;
+		connection: Function;
 		methods: any;
 		info: {
 			port: number;
