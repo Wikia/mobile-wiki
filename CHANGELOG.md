@@ -1,3 +1,6 @@
+## release-25 (2014-12-23% 14:45)
+* [HG-517](https://wikia-inc.atlassian.net/browse/HG-517) Fix for smart banner close action
+* [HG-303](https://wikia-inc.atlassian.net/browse/HG-303) Send the same labels to Quantserve as WikiaMobile\n
 ## release-24 (2014-12-18 12:30)
 * [HG-515](https://wikia-inc.atlassian.net/browse/HG-515) Fix trackClick action for components
 
