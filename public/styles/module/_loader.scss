@@ -1,8 +1,26 @@
-$spinner-size: 50px;
+$offset: 187;
+$duration: 1.4s;
 
-@keyframes spin {
+@keyframes rotator {
+	from {
+		transform: rotate(0);
+	}
 	to {
-		transform: rotate(360deg);
+		transform: rotate(270deg);
+	}
+}
+
+@keyframes dash {
+	0% {
+		stroke-dashoffset: $offset;
+	}
+	50% {
+		stroke-dashoffset: $offset/4;
+		transform: rotate(135deg);
+	}
+	100% {
+		stroke-dashoffset: $offset;
+		transform: rotate(450deg);
 	}
 }
 
@@ -16,15 +34,25 @@ $spinner-size: 50px;
 	z-index: $z-6;
 }
 
-.loading-overlay .spinner {
-	animation: spin .675s linear 0 infinite normal;
-	border-bottom: 5px solid $spinner-color;
-	border-radius: 80%;
-	border-top: 5px solid $spinner-color;
-	height: $spinner-size;
+.spinner {
+	animation: rotator $duration linear infinite;
 	left: 50%;
 	margin: -25px 0 0 -25px;
 	position: absolute;
 	top: 50%;
-	width: $spinner-size;
+
+	.path {
+		animation: dash $duration ease-in-out infinite;
+
+		@for $i from 1 through length($verticals) {
+			.#{nth($verticals, $i)}-vertical & {
+				stroke: nth($vertical-colors, $i);
+			}
+		}
+		//fallback to brand blue
+		stroke: $spinner-color;
+		stroke-dasharray: $offset;
+		stroke-dashoffset: 0;
+		transform-origin: center;
+	}
 }

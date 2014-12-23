@@ -6,6 +6,7 @@ App.ApplicationController = Em.Controller.extend({
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
 	noAds: '',
+	loading: false,
 
 	init: function () {
 		this.setProperties({
@@ -24,5 +25,13 @@ App.ApplicationController = Em.Controller.extend({
 		});
 
 		this._super();
+	},
+
+	showLoader: function () {
+		this.set('loading', true);
+	},
+
+	hideLoader: function () {
+		this.set('loading', false);
 	}
 });

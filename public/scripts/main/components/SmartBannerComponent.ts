@@ -5,7 +5,7 @@
 
 App.SmartBannerComponent = Em.Component.extend({
 	classNames: ['smart-banner'],
-	classNameBindings: ['noIcon', 'verticalClass'],
+	classNameBindings: ['noIcon'],
 
 	options: {
 		// Language code for App Store
@@ -76,11 +76,6 @@ App.SmartBannerComponent = Em.Component.extend({
 	}.property(),
 
 	title: Em.computed.alias('config.name'),
-
-	verticalClass: function (): string {
-		var vertical: string = Em.get(Mercury, 'wiki.vertical');
-		return vertical + '-vertical';
-	}.property(),
 
 	click: function (event: MouseEvent): void {
 		var $target = this.$(event.target);
