@@ -82,13 +82,33 @@ App.SmartBannerComponent = Em.Component.extend({
 		return vertical + '-vertical';
 	}.property(),
 
+	actions: {
+		close: function (): void {
+			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
+			this.set('isVisible', false);
+			this.track(M.trackActions.close);
+		},
+
+		view: function (): void {
+			var appScheme: string = this.get('appScheme');
+
+			this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
+
+			if (appScheme) {
+				this.tryToOpenApp(appScheme);
+			} else {
+				window.open(this.get('link'), '_blank');
+			}
+
+			this.set('isVisible', false);
+		}
+	},
+
 	click: function (event: MouseEvent): void {
 		var $target = this.$(event.target);
 
-		if ($target.is('.sb-close')) {
-			this.close();
-		} else {
-			this.view();
+		if (!$target.is('.sb-close')) {
+			this.send('view');
 		}
 	},
 
@@ -109,26 +129,6 @@ App.SmartBannerComponent = Em.Component.extend({
 		} else {
 			this.destroy();
 		}
-	},
-
-	close: function (): void {
-		this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-		this.set('isVisible', false);
-		this.track(M.trackActions.close);
-	},
-
-	view: function (): void {
-		var appScheme: string = this.get('appScheme');
-
-		this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
-
-		if (appScheme) {
-			this.tryToOpenApp(appScheme);
-		} else {
-			window.open(this.get('link'), '_blank');
-		}
-
-		this.set('isVisible', false);
 	},
 
 	/**
