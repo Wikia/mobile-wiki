@@ -7,7 +7,6 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 	classNameBindings: ['additionalClasses'],
 	// Begin component property defaults
 	additionalClasses: null,
-	animSpeed: 100,
 	isCollapsed: true,
 	observe: null,
 	ordered: false,
@@ -17,21 +16,6 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 	// End component property
 	actions: {
 		toggleMenu: function (): void {
-			var animSpeed = ~~this.get('animSpeed');
-			if (animSpeed > 0) {
-				// slide transcluded element
-				this.$('.title')
-					.nextAll(':not(script)')
-					// use animSpeed, components have restricted scope and
-					// all relevant data must be explicitly passed into them
-					.slideToggle(animSpeed);
-			} else {
-				// Toggle hide/show only
-				this.$('.title')
-					.nextAll(':not(script)')
-					.toggle();
-			}
-
 			this.toggleProperty('isCollapsed');
 
 			// Track opening and closing menu
@@ -39,7 +23,7 @@ App.CollapsibleMenuComponent = Em.Component.extend({
 				M.track({
 					action: M.trackActions.click,
 					category: this.get('trackingEvent'),
-					label: this.isCollapsed ? 'close' : 'open'
+					label: this.get('isCollapsed') ? 'close' : 'open'
 				});
 			}
 		}

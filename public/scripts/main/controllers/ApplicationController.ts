@@ -12,8 +12,7 @@ App.ApplicationController = Em.Controller.extend({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			language: Em.get(Mercury, 'wiki.language'),
 			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
-			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
-			globalAnimSpeed: 100
+			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
 
 		// This event is for tracking mobile sessions between Mercury and WikiaMobile
