@@ -43,16 +43,24 @@ $duration: 1.4s;
 
 	.path {
 		animation: dash $duration ease-in-out infinite;
+		stroke: $spinner-color;
+		stroke-dasharray: $offset;
+		stroke-dashoffset: 0;
+		transform-origin: center;
 
+		/*
+		Documentation for @for: http://thesassway.com/intermediate/if-for-each-while#for
+		Generated output is like (for every vertical):
+
+		.comics-vertical .path {
+			stroke: color;
+		}
+		*/
 		@for $i from 1 through length($verticals) {
 			.#{nth($verticals, $i)}-vertical & {
 				stroke: nth($vertical-colors, $i);
 			}
 		}
-		//fallback to brand blue
-		stroke: $spinner-color;
-		stroke-dasharray: $offset;
-		stroke-dashoffset: 0;
-		transform-origin: center;
+
 	}
 }
