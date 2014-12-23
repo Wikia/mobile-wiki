@@ -74,17 +74,17 @@ class App {
 			}
 		});
 
-		process.on('message', function(msg: string) {
+		process.on('message', function (msg: string) {
 			if (msg === 'shutdown') {
 				server.stop({
 					timeout: localSettings.workerDisconnectTimeout
-				}, function() {
+				}, function () {
 					logger.info('Server stopped');
 				});
 			}
 		});
 
-		server.start(function() {
+		server.start(function () {
 			logger.info({url: server.info.uri}, 'Server started');
 			process.send('Server started');
 		});
@@ -94,7 +94,7 @@ class App {
 	 * Create new onPreResponseHandler
 	 *
 	 * @param isDevbox
-	 * @returns {function(hapi.Request, Function): void}
+	 * @returns {function (hapi.Request, Function): void}
 	 */
 	private getOnPreResponseHandler(isDevbox: boolean) {
 		return (request: Hapi.Request, reply: any): void => {
