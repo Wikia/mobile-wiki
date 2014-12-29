@@ -92,7 +92,7 @@ module Mercury.Modules {
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
 				// We need a copy of adSlots as .run destroys it
-				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mobile');
+				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mercury');
 			}
 		}
 

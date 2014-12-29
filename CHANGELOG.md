@@ -1,3 +1,10 @@
+## release-25 (2014-12-23 14:45)
+* [HG-517](https://wikia-inc.atlassian.net/browse/HG-517) Fix for smart banner close action
+* [HG-303](https://wikia-inc.atlassian.net/browse/HG-303) Send the same labels to Quantserve as WikiaMobile
+
+## release-24 (2014-12-18 12:30)
+* [HG-515](https://wikia-inc.atlassian.net/browse/HG-515) Fix trackClick action for components
+
 ## release-23 (2014-12-17 15:22)
 * [HG-468](https://wikia-inc.atlassian.net/browse/HG-468) Single linked images
 * [HG-486](https://wikia-inc.atlassian.net/browse/HG-486) Support theme-color for Android 5

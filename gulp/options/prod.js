@@ -46,5 +46,10 @@ module.exports = {
 		gzipOptions: {
 			level: zlib.Z_BEST_COMPRESSION
 		}
+	},
+	replace: {
+		selector: '**/layout.hbs',
+		find: '/public/',
+		replace: '{{server.cdnBaseUrl}}/public/'
 	}
 };

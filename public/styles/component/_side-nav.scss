@@ -28,18 +28,6 @@
 		z-index: $z-side-nav-overlay;
 	}
 
-	&:not(.slide-into-view) .overlay {
-		opacity: 0;
-		transition: visibility 0s $transition-length, opacity $transition-length;
-		visibility: hidden;
-	}
-
-	&.slide-into-view .overlay {
-		opacity: $overlay-opacity;
-		transition: opacity $transition-length;
-		visibility: visible;
-	}
-
 	// slide-out drawer
 	.drawer {
 		background-color: white;
@@ -140,11 +128,31 @@
 		}
 	}
 
-	&:not(.slide-into-view) .drawer {
-		transform: translateX($side-nav-offset);
+	&.collapsed {
+		.drawer {
+			transform: translateX($side-nav-offset);
+
+			@include rtl {
+				transform: translateX(-$side-nav-offset);
+			}
+		}
+
+		.overlay {
+			opacity: 0;
+			transition: visibility 0s $transition-length, opacity $transition-length;
+			visibility: hidden;
+		}
 	}
 
-	&.slide-into-view .drawer {
-		transform: translateX(0);
+	&.slide-into-view {
+		.drawer {
+			transform: translateX(0);
+		}
+
+		.overlay {
+			opacity: $overlay-opacity;
+			transition: opacity $transition-length;
+			visibility: visible;
+		}
 	}
 }
