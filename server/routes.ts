@@ -65,7 +65,8 @@ function getWikiDomainName (host: string): string {
  */
 function beforeArticleRender (request: Hapi.Request, result: any): void {
 	var title: string,
-		articleDetails: any;
+		articleDetails: any,
+		userDir = 'ltr';
 
 	if (result.article.details) {
 		articleDetails = result.article.details;
@@ -78,6 +79,11 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 		// we want to return the article content only once - as HTML and not JS variable
 		result.articleContent = result.article.article.content;
 		delete result.article.article.content;
+	}
+
+	if (result.wiki.language) {
+		userDir = result.wiki.language.userDir;
+		result.isRtl = (userDir === 'rtl');
 	}
 
 	result.displayTitle = title;

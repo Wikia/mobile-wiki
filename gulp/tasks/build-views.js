@@ -7,8 +7,10 @@ var gulp = require('gulp'),
 	rev = require('gulp-rev'),
 	uglify = require('gulp-uglify'),
 	revReplace = require('gulp-rev-replace'),
+	replace = require('gulp-replace'),
 	piper = require('../utils/piper'),
 	paths = require('../paths'),
+	options = require('../options'),
 	environment = require('../utils/environment'),
 
 	preprocessContext = {
@@ -40,6 +42,8 @@ gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 			assets.restore(),
 			useref(),
 			revReplace(),
+			// Used to prefix assets in with CDN prefix
+			gulpif(options.replace.selector, replace(options.replace.find, options.replace.replace)),
 			minifyHTML({
 				quotes: true
 			})

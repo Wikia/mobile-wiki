@@ -2,6 +2,7 @@ var gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	sass = require('gulp-sass'),
 	piper = require('../utils/piper'),
+	flip = require('../utils/flip'),
 	options = require('../options').sass,
 	paths = require('../paths').styles;
 
@@ -14,6 +15,7 @@ gulp.task('sass', function () {
 			cascade: false,
 			map: false
 		}),
+		flip(),
 		gulp.dest(paths.dest)
 	);
 });
