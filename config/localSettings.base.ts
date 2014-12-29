@@ -68,7 +68,9 @@ var localSettings: LocalSettings = {
 	},
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
-	workerDisconnectTimeout: 3000
+	workerDisconnectTimeout: 3000,
+	// CDN prefix with no tailing slash
+	cdnBaseUrl: '//mercury.nocookie.net'
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
