@@ -27,7 +27,8 @@ function createServerData (): ServerData {
 	return {
 		mediawikiDomain: Utils.getWikiDomainName(localSettings),
 		apiBase: localSettings.apiBase,
-		environment: Utils.getEnvironmentString(localSettings.environment)
+		environment: Utils.getEnvironmentString(localSettings.environment),
+		cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
 	};
 }
 
