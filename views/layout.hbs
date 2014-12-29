@@ -13,15 +13,19 @@
 		<meta name="theme-color" content="{{themeColor}}">
 		{{/if}}
 
-		<!-- build:css /public/styles/app.css -->
-		<link rel="stylesheet" href="/public/styles/app.css">
-		<!-- endbuild -->
+		{{#if isRtl}}
+			<!-- build:css /public/styles/app.rtl.css -->
+			<link rel="stylesheet" href="/public/styles/app.rtl.css">
+			<!-- endbuild -->
+		{{else}}
+			<!-- build:css /public/styles/app.css -->
+			<link rel="stylesheet" href="/public/styles/app.css">
+			<!-- endbuild -->
+		{{/if}}
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
-		<style>
-			<!-- @include ../www/public/styles/baseline.css -->
-		</style>
+		<style><!-- @include ../www/public/styles/baseline.css --></style>
 
 		<script>
 			<!-- @include ../www/public/scripts/baseline.js -->
