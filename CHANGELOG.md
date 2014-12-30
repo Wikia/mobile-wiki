@@ -1,3 +1,8 @@
+## release-26 (2014-12-30 12:32)
+* [HG-246](https://wikia-inc.atlassian.net/browse/HG-246) Remove animation on category list, remove anim from collapsible menu.
+* [HG-414](https://wikia-inc.atlassian.net/browse/HG-414) Support for RTL languages
+* [HG-446](https://wikia-inc.atlassian.net/browse/HG-446) Add CDN support for public assets
+
 ## release-25 (2014-12-23 14:45)
 * [HG-517](https://wikia-inc.atlassian.net/browse/HG-517) Fix for smart banner close action
 * [HG-303](https://wikia-inc.atlassian.net/browse/HG-303) Send the same labels to Quantserve as WikiaMobile
