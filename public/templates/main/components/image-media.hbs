@@ -7,6 +7,7 @@
 	<img {{bind-attr src=imageSrc}} {{bind-attr style=style}}>
 {{/if}}{{!-- these comments prevent polluting HTML with whitespaces that caused positioning problems
 --}}{{yield}}{{!--
---}}{{#if caption}}
-	<figcaption>{{caption}}</figcaption>
+--}}
+{{#if caption}}
+	<figcaption>{{{caption}}}</figcaption>
 {{/if}}
