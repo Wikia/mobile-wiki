@@ -62,8 +62,8 @@
     "karma-phantomjs-launcher": "0.x.x",
     "karma-qunit": "0.x.x",
     "multipipe": "^0.1.2",
-    "qunit": "0.x.x",
-    "qunitjs": "git+https://git@github.com/hakubo/node-qunit",
+    "qunit": "git+https://git@github.com/hakubo/node-qunit",
+    "qunitjs": "^1.16.0",
     "through2": "^0.6.3",
     "tslint": "^1.0.1"
   }
