@@ -10,7 +10,6 @@
 				tLabel='article-toc-label'
 				ordered=true
 				observe=cleanTitle
-				animSpeed=0
 				trackingEvent='toc'
 			}}
 				{{#each section in sections}}
@@ -46,7 +45,6 @@
 			tLabel='article-categories-list-label'
 			ordered=false
 			observe=cleanTitle
-			animSpeed=controller.controllers.application.globalAnimSpeed
 			trackingEvent='category'
 		}}
 			{{#each category in categories itemController='categoryListItem'}}
