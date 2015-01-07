@@ -43,16 +43,16 @@
 			{{#if server.mediawikiDomain}}
 			M.provide('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
-            M.provide('query', {{{json query}}});
+			M.provide('query', {{{json query}}});
 		</script>
 
 		<!-- @ifdef browserSync -->
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 
-        {{#unless query.noExternals}}
-		    {{> tracking}}
-        {{/unless}}
+		{{#unless query.noExternals}}
+			{{> tracking}}
+		{{/unless}}
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
@@ -86,8 +86,8 @@
 			<script src="/public/scripts/main.js"></script>
 		<!-- endbuild -->
 
-        {{#unless query.noExternals}}
-		    {{> tracking-pixels}}
-        {{/unless}}
+		{{#unless query.noExternals}}
+			{{> tracking-pixels}}
+		{{/unless}}
 	</body>
 </html>
