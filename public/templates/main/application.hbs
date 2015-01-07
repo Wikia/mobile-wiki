@@ -1,7 +1,7 @@
 {{smart-banner isVisible=view.smartBannerVisible}}
 {{site-head smartBannerVisible=view.smartBannerVisible sideNavCollapsed=view.sideNavCollapsed trackClick='trackClick'}}
 {{side-nav isCollapsed=view.sideNavCollapsed}}
-{{ad-slot name='MOBILE_TOP_LEADERBOARD'}}
+{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
 <div class='page-wrapper' {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
 	<section class='wiki-container'>
 		<h2 class='wiki-title' {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>

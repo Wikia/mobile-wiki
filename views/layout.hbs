@@ -50,9 +50,7 @@
 		<script src="/public/scripts/dev.js"></script>
 		<!-- @endif -->
 
-		{{#unless query.noExternals}}
-			{{> tracking}}
-		{{/unless}}
+		{{> tracking}}
 	</head>
 	<body>
 		<!-- @include ../www/public/svg/main.svg -->
@@ -86,8 +84,6 @@
 			<script src="/public/scripts/main.js"></script>
 		<!-- endbuild -->
 
-		{{#unless query.noExternals}}
-			{{> tracking-pixels}}
-		{{/unless}}
+		{{> tracking-pixels}}
 	</body>
 </html>
