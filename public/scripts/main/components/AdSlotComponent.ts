@@ -17,7 +17,7 @@ App.AdSlotComponent = Em.Component.extend({
 	}.property('name'),
 
 	didInsertElement: function () {
-		if (Em.get(Mercury, 'query.noAds') || Em.get(Mercury, 'query.noExternals')) {
+		if (Em.get(Mercury, 'query.noAds')) {
 			Em.Logger.info('Ad disabled for:', this.get('name'));
 		} else {
 			Em.Logger.info('Injected ad:', this.get('name'));
