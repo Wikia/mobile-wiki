@@ -10,7 +10,6 @@ App.ArticleController = Em.ObjectController.extend({
 	file: null,
 	commentsPage: null,
 	map: null,
-	noAds: Em.computed.alias('controllers.application.noAds'),
 
 	actions: {
 		updateHeaders: function (headers: NodeList): void {
