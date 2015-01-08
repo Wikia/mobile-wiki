@@ -149,7 +149,7 @@
 	}
 	*/
 	@for $i from 1 through length($verticals) {
-		&.#{nth($verticals, $i)}-vertical {
+		.#{nth($verticals, $i)}-vertical & {
 			border-bottom-color: nth($vertical-colors, $i);
 
 			.sb-button {
