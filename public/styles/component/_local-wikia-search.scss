@@ -20,10 +20,6 @@
 		position: relative;
 		text-align: left;
 
-		a {
-			@extend .touch-active;
-		}
-
 		a, span {
 			display: inline-block;
 			padding: rem-calc(10) $side-nav-item-gutter;

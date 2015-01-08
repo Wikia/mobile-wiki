@@ -1,7 +1,5 @@
 .login {
 	&.external {
-		@extend .touch-active;
-		@extend %pointer;
 		height: $icon-site-head-height;
 		width: $icon-site-head-width;
 	}
