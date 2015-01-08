@@ -91,7 +91,7 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	result.query = {
-		noExternals: (request.query.noexternals !== '0' && request.query.noexternals !== '')
+		noExternals: !!(request.query.noexternals && request.query.noexternals !== '0' && request.query.noexternals !== '')
 	};
 }
 
