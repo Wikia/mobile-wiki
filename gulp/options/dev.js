@@ -34,9 +34,9 @@ module.exports = {
 			module: 'commonjs',
 			target: 'es5'
 		},
-		back: {
+		server: {
 			name: 'Mercury back',
-			out: 'docs/back',
+			out: 'docs/server',
 			module: 'commonjs',
 			target: 'es5'
 		}

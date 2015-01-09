@@ -30,7 +30,7 @@ module.exports = {
 	},
 	doc: {
 		front: {},
-		back: {}
+		server: {}
 	},
 	server: {
 		path: paths.server.script,
