@@ -49,7 +49,7 @@ module.exports = {
 	},
 	replace: {
 		selector: '**/layout.hbs',
-		find: '/public/',
-		replace: '{{server.cdnBaseUrl}}/public/'
+		find: '/front/',
+		replace: '{{server.cdnBaseUrl}}/front/'
 	}
 };

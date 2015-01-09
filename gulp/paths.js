@@ -8,22 +8,22 @@ module.exports = {
 	base: basePath,
 	baseFull: path.resolve(basePath),
 	vendor: {
-		src: 'public/vendor/**/*',
-		dest: basePath + '/public/vendor'
+		src: 'front/vendor/**/*',
+		dest: basePath + '/front/vendor'
 	},
 	locales: {
-		src: 'public/locales/**/*.json',
-		dest: basePath + '/public/locales'
+		src: 'front/locales/**/*.json',
+		dest: basePath + '/front/locales'
 	},
 	styles: {
-		src: ['!public/styles/_*.scss', 'public/styles/*.scss'],
-		watch: 'public/styles/**/*.scss',
-		dest: basePath + '/public/styles'
+		src: ['!front/styles/_*.scss', 'front/styles/*.scss'],
+		watch: 'front/styles/**/*.scss',
+		dest: basePath + '/front/styles'
 	},
 	scripts: {
 		front: {
-			src: 'public/scripts',
-			dest: basePath + '/public/scripts',
+			src: 'front/scripts',
+			dest: basePath + '/front/scripts',
 			files: '**/*.ts',
 			dFiles: '**/*.d.ts'
 		},
@@ -38,18 +38,18 @@ module.exports = {
 		dest: basePath + '/views'
 	},
 	templates: {
-		src: 'public/templates',
-		dest: basePath + '/public/templates',
+		src: 'front/templates',
+		dest: basePath + '/front/templates',
 		files: '**/*.hbs'
 	},
 	symbols: {
-		src: 'public/svg/symbols',
-		dest: basePath + '/public/svg',
+		src: 'front/svg/symbols',
+		dest: basePath + '/front/svg',
 		files: '*.svg'
 	},
 	images: {
-		src: ['public/svg/images/*', 'public/images/*'],
-		dest: basePath + '/public/images'
+		src: ['front/svg/images/*', 'front/images/*'],
+		dest: basePath + '/front/images'
 	},
 	nodeModules: {
 		src: 'node_modules',

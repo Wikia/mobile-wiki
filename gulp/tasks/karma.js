@@ -19,11 +19,11 @@ gulp.task('karma', ['fixtures'], function () {
 		paths.scripts.front.dest + '/mercury.js',
 		paths.scripts.front.dest + '/main.js',
 		// qunit helpers must not be included in general components package
-		'public/vendor/ember-qunit/dist/globals/main.js',
+		'front/vendor/ember-qunit/dist/globals/main.js',
 		'test/fixtures/test-fixtures.js',
 		'test/helpers/**/*.js',
-		'test/specs/public/**/*.js',
-		'test/integration/public/**/*.js',
+		'test/specs/front/**/*.js',
+		'test/integration/front/**/*.js',
 	])
 	.pipe(karma({
 		configFile: 'test/karma.conf.js',

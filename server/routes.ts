@@ -250,10 +250,10 @@ function routes (server: Hapi.Server) {
 	// nginx or apache to serve static assets and route the rest of the requests to node.
 	server.route({
 		method: 'GET',
-		path: '/public/{path*}',
+		path: '/front/{path*}',
 		handler: {
 			directory: {
-				path: path.join(__dirname, '../public'),
+				path: path.join(__dirname, '../front'),
 				listing: false,
 				index: false,
 				lookupCompressed: true
