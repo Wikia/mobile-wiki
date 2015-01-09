@@ -55,8 +55,6 @@ App.ApplicationView = Em.View.extend({
 			 * pass it up to handleLink
 			 */
 			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
-				event.preventDefault();
-
 				controller = this.get('controller');
 
 				controller.send('closeLightbox');
