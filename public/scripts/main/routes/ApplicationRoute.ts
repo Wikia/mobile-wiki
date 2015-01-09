@@ -7,22 +7,15 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		return params;
 	},
 
-	hideLoader: function (): void {
-		var view = this.get('loadingView');
-		if (view) {
-			view.destroy();
-		}
-	},
-
 	actions: {
 		loading: function (): void {
-			this.set('loadingView', this.container.lookup('view:loading').append());
+			this.controller.showLoader();
 		},
-		didTransition: function (): void {
-			this.hideLoader();
+		didTransition: function () {
+			this.controller.hideLoader();
 		},
-		error: function (): void {
-			this.hideLoader();
+		error: function () {
+			this.controller.hideLoader();
 		},
 		handleLink: function (target: HTMLAnchorElement): void {
 			var controller = this.controllerFor('article'),

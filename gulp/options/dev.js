@@ -50,5 +50,10 @@ module.exports = {
 	},
 	tslint: {
 		emitError: false
+	},
+	replace: {
+		selector: false,
+		find: '',
+		replace: ''
 	}
 };

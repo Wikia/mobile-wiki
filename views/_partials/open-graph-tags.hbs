@@ -1,0 +1,15 @@
+<meta property='og:type' content='{{#if isMainPage}}website{{else}}article{{/if}}' />
+{{#unless isMainPage}}
+<meta property='og:site_name' content='{{wiki.siteName}}' />
+{{/unless}}
+<meta property='og:title' content='{{#if isMainPage}}{{wiki.siteName}}{{else}}{{displayTitle}}{{/if}}' />
+{{#if article.details.abstract}}
+<meta property='og:description' content='{{article.details.abstract}}' />
+{{/if}}
+<meta property='og:url' content='{{canonicalUrl}}' />
+{{#if article.details.thumbnail}}
+<meta property='og:image' content='{{article.details.thumbnail}}' />
+{{/if}}
+{{#if wiki.facebookAppId}}
+<meta property='fb:app_id' content='{{wiki.facebookAppId}}' prefix='fb: http://www.facebook.com/2008/fbml' />
+{{/if}}

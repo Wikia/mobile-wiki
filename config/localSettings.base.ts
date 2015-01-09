@@ -38,11 +38,6 @@ var localSettings: LocalSettings = {
 				id: 'UA-32132943-1',
 				sampleRate: 100
 			},
-			mercury: {
-				prefix: 'mercury',
-				id: 'UA-32132943-5',
-				sampleRate: 100
-			},
 			ads: {
 				prefix: 'ads',
 				id: 'UA-32129071-1',
@@ -68,7 +63,9 @@ var localSettings: LocalSettings = {
 	},
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
-	workerDisconnectTimeout: 3000
+	workerDisconnectTimeout: 3000,
+	// CDN prefix with no tailing slash
+	cdnBaseUrl: '//mercury.nocookie.net'
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

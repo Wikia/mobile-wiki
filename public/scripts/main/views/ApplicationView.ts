@@ -19,7 +19,12 @@ interface EventTarget {
 }
 
 App.ApplicationView = Em.View.extend({
-	classNameBindings: ['systemClass', 'smartBannerVisible'],
+	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
+
+	verticalClass: function (): string {
+		var vertical: string = Em.get(Mercury, 'wiki.vertical');
+		return vertical + '-vertical';
+	}.property(),
 
 	systemClass: function (): string {
 		var system: string = Mercury.Utils.Browser.getSystem();

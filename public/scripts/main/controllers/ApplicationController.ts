@@ -6,14 +6,14 @@ App.ApplicationController = Em.Controller.extend({
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
 	noAds: '',
+	isLoading: false,
 
 	init: function () {
 		this.setProperties({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			language: Em.get(Mercury, 'wiki.language'),
 			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
-			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
-			globalAnimSpeed: 100
+			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
 
 		// This event is for tracking mobile sessions between Mercury and WikiaMobile
@@ -24,5 +24,13 @@ App.ApplicationController = Em.Controller.extend({
 		});
 
 		this._super();
+	},
+
+	showLoader: function () {
+		this.set('isLoading', true);
+	},
+
+	hideLoader: function () {
+		this.set('isLoading', false);
 	}
 });

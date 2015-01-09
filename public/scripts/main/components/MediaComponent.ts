@@ -84,7 +84,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			var media = this.get('media');
 
 			if (media && typeof media.caption === 'string') {
-				return media.caption.htmlSafe();
+				return media.caption;
 			}
 		}
 	}.property('media'),

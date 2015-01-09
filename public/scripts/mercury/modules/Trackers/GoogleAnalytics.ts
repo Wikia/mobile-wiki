@@ -21,7 +21,6 @@ module Mercury.Modules.Trackers {
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
-		accountMercury = 'mercury';
 		accountAds = 'ads';
 		queue: GoogleAnalyticsCode;
 
@@ -47,10 +46,6 @@ module Mercury.Modules.Trackers {
 				this.initAccount(this.accountSpecial, adsContext, domain);
 			}
 
-			// Mercury-only account
-			if (this.accounts[this.accountMercury]) {
-				this.initAccount(this.accountMercury, adsContext, domain);
-			}
 			this.initAccount(this.accountAds, adsContext, domain);
 		}
 
@@ -117,9 +112,6 @@ module Mercury.Modules.Trackers {
 			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackEvent'].concat(args));
 			}
-			if (this.accounts[this.accountMercury]) {
-				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackEvent'].concat(args));
-			}
 		}
 
 		/**
@@ -139,9 +131,6 @@ module Mercury.Modules.Trackers {
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
 			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
-			}
-			if (this.accounts[this.accountMercury]) {
-				this.queue.push([this.accounts[this.accountMercury].prefix + '._trackPageview']);
 			}
 		}
 	}
