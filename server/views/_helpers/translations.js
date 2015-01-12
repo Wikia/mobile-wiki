@@ -5,7 +5,7 @@ module.exports = function (language) {
 		defaultLanguage = 'en';
 
 	[language, defaultLanguage].some(function (lang) {
-		var translationPath = '../../front/locales/' + lang + '/translation.json';
+		var translationPath = '../../../front/locales/' + lang + '/translation.json';
 		try {
 			translations = require(translationPath);
 			return true;
