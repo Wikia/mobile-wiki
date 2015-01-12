@@ -8,7 +8,7 @@
 
 /* Packages */
 node_modules/
-public/vendor/
+front/vendor/
 
 /* Node/NPM */
 *.log
