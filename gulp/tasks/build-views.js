@@ -28,7 +28,7 @@ if (sync) {
 gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 	return piper(
 		gulp.src(paths.views.src, {
-			base: paths.baseFull
+			base: paths.baseFull + '/server'
 		}),
 		gulpif('**/layout.hbs', preprocess({
 			context: preprocessContext

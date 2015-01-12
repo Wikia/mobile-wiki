@@ -1,4 +1,4 @@
-var Logger = require('../../server/lib/Logger');
+var Logger = require('../../lib/Logger');
 
 module.exports = function (language) {
 	var translations = {},
