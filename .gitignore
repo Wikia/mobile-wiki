@@ -33,3 +33,4 @@ test/fixtures
 
 .idea
 /docs
+*.sublime-*
