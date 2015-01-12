@@ -1,6 +1,8 @@
 .show-reply-btn,
 .page-btn {
 	@extend %button-plain;
+	@extend .touch-active;
+
 	background: rgb(250,250,250);
 	color: $anchor-color-normal;
 	padding: 10px;

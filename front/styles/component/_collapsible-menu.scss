@@ -7,6 +7,8 @@ $border-color: #d0d0d0;
 
 	.title {
 		@extend %button-plain;
+		@extend .touch-active;
+
 		background: none;
 		display: block;
 		font-weight: bold;
@@ -34,12 +36,14 @@ $border-color: #d0d0d0;
 		}
 	}
 
-	ol, ul {
+	//Takes care of hiding a menu
+	.collapsed + ul, .collapsed + ol {
 		display: none;
+	}
 
+	ol, ul {
 		margin: 0;
 		padding: 0;
-
 
 		li {
 			border-top: 1px solid $border-color;

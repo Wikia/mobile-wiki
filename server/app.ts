@@ -7,7 +7,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 	require('newrelic');
 }
 
-import hapi = require('hapi');
+import Hapi = require('hapi');
 import path = require('path');
 import url = require('url');
 import localSettings = require('../config/localSettings');
@@ -28,15 +28,12 @@ class App {
 	 * Creates new `hapi` server
 	 */
 	constructor() {
-		var server: hapi.Server = hapi.createServer(localSettings.host, localSettings.port, {
-				// ez enable cross origin resource sharing
-				cors: true,
-				state: {
-					cookies: {
-						strictHeader: false
-					}
-				}
-			});
+		var server = new Hapi.Server();
+
+		server.connection({
+			host: localSettings.host,
+			port: localSettings.port
+		});
 
 		this.setupLogging(server);
 
@@ -62,11 +59,6 @@ class App {
 		 */
 		require('./routes')(server);
 
-		server.start(function() {
-			logger.info({url: server.info.uri}, 'Server started');
-			process.send('Server started');
-		});
-
 		server.on('tail', () => {
 			this.counter++;
 
@@ -82,14 +74,19 @@ class App {
 			}
 		});
 
-		process.on('message', function(msg: string) {
+		process.on('message', function (msg: string) {
 			if (msg === 'shutdown') {
 				server.stop({
 					timeout: localSettings.workerDisconnectTimeout
-				}, function() {
+				}, function () {
 					logger.info('Server stopped');
 				});
 			}
+		});
+
+		server.start(function () {
+			logger.info({url: server.info.uri}, 'Server started');
+			process.send('Server started');
 		});
 	}
 
@@ -97,10 +94,10 @@ class App {
 	 * Create new onPreResponseHandler
 	 *
 	 * @param isDevbox
-	 * @returns {function(hapi.Request, Function): void}
+	 * @returns {function (hapi.Request, Function): void}
 	 */
 	private getOnPreResponseHandler(isDevbox: boolean) {
-		return (request: hapi.Request, next: Function): void => {
+		return (request: Hapi.Request, reply: any): void => {
 			var response = <Hapi.Response>(request.response),
 				responseTimeSec = (Date.now() - request.info.received) / 1000;
 			// Assets on devbox must not be cached
@@ -117,7 +114,8 @@ class App {
 				response.header('X-Backend-Response-Time', responseTimeSec.toFixed(3));
 				response.header('X-Served-By', localSettings.host || 'mercury');
 			}
-			next();
+
+			reply.continue();
 		};
 	}
 
@@ -126,7 +124,7 @@ class App {
 	 *
 	 * @param server
 	 */
-	private setupLogging(server: hapi.Server): void {
+	private setupLogging(server: Hapi.Server): void {
 		server.on('log', (event: any, tags: Array<string>) => {
 			logger.info({
 				data: event.data,
@@ -134,7 +132,7 @@ class App {
 			}, 'Log');
 		});
 
-		server.on('internalError', (request: hapi.Request, err: Error) => {
+		server.on('internalError', (request: Hapi.Request, err: Error) => {
 			logger.error({
 				wiki: request.headers.host,
 				text: err.message,
@@ -143,7 +141,7 @@ class App {
 			}, 'Internal error');
 		});
 
-		server.on('response', (request: hapi.Request) => {
+		server.on('response', (request: Hapi.Request) => {
 			// If there is an errors and headers are not present, set the response time to -1 to make these
 			// errors easy to discover
 			var responseTime = request.response.headers

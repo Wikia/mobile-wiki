@@ -1,3 +1,17 @@
+## release-27 (2015-01-08 10:56)
+* [HG-373](https://wikia-inc.atlassian.net/browse/HG-373) Add tap states where missing
+* [HG-484](https://wikia-inc.atlassian.net/browse/HG-484) Update dependencies
+* [HG-501](https://wikia-inc.atlassian.net/browse/HG-501) Remove UA-32132943-5 as this is not used
+* [HG-463](https://wikia-inc.atlassian.net/browse/HG-463) Add open graph tags
+* [CE-1187](https://wikia-inc.atlassian.net/browse/CE-1187) Remove VDNA
+* Small-tweaks: Small tweaks
+* [HG-495](https://wikia-inc.atlassian.net/browse/HG-495) Escape caption in template
+
+## release-26 (2014-12-30 12:32)
+* [HG-246](https://wikia-inc.atlassian.net/browse/HG-246) Remove animation on category list, remove anim from collapsible menu.
+* [HG-414](https://wikia-inc.atlassian.net/browse/HG-414) Support for RTL languages
+* [HG-446](https://wikia-inc.atlassian.net/browse/HG-446) Add CDN support for public assets
+
 ## release-25 (2014-12-23 14:45)
 * [HG-517](https://wikia-inc.atlassian.net/browse/HG-517) Fix for smart banner close action
 * [HG-303](https://wikia-inc.atlassian.net/browse/HG-303) Send the same labels to Quantserve as WikiaMobile
