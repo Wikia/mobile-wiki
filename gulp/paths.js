@@ -34,8 +34,8 @@ module.exports = {
 		}
 	},
 	views: {
-		src: 'views/**/*.+(hbs|js)',
-		dest: basePath + '/views'
+		src: 'server/views/**/*.+(hbs|js)',
+		dest: basePath + '/server/views'
 	},
 	templates: {
 		src: 'front/templates',
