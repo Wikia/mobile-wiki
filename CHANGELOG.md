@@ -1,3 +1,10 @@
+## release-28 (2015-01-13 13:11)
+* [HG-444](https://wikia-inc.atlassian.net/browse/HG-444) Support for noexternals=1
+* crowdin-config: Add Crowdin config
+* ignore-sublimetext-project-files: Update .gitignore to include SublimeText project files
+* [HG-495](https://wikia-inc.atlassian.net/browse/HG-495) Whitespace fix
+* [HG-497](https://wikia-inc.atlassian.net/browse/HG-497) Upgrade spinner
+
 ## release-27 (2015-01-08 10:56)
 * [HG-373](https://wikia-inc.atlassian.net/browse/HG-373) Add tap states where missing
 * [HG-484](https://wikia-inc.atlassian.net/browse/HG-484) Update dependencies
