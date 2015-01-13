@@ -12,7 +12,6 @@ var gulp = require('gulp'),
 	paths = require('../paths'),
 	options = require('../options'),
 	environment = require('../utils/environment'),
-
 	preprocessContext = {
 		base: paths.baseFull
 	},
@@ -28,7 +27,7 @@ if (sync) {
 gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 	return piper(
 		gulp.src(paths.views.src, {
-			base: paths.baseFull + '/server'
+			base: paths.baseFullServer
 		}),
 		gulpif('**/layout.hbs', preprocess({
 			context: preprocessContext

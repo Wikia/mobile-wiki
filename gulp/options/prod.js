@@ -18,11 +18,11 @@ module.exports = {
 			declarationFiles: false,
 			sortOutput: true
 		},
-		back: {
+		server: {
 			module: 'commonjs',
 			target: 'es5',
 			emitError: false,
-			outDir: paths.scripts.back.dest,
+			outDir: paths.scripts.server.dest,
 			removeComments: true,
 			noImplicitAny: true,
 			declarationFiles: false

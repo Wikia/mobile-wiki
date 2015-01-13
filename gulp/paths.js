@@ -2,11 +2,15 @@
  * Path list for tasks
  */
 var path = require('path'),
-	basePath = 'www';
+	basePath = 'www',
+	baseServer = basePath + '/server',
+	baseFront = basePath + '/front';
 
 module.exports = {
 	base: basePath,
 	baseFull: path.resolve(basePath),
+	baseFullServer: path.resolve(baseServer),
+	baseFullFront: path.resolve(baseFront),
 	vendor: {
 		src: 'front/vendor/**/*',
 		dest: basePath + '/front/vendor'
@@ -27,7 +31,7 @@ module.exports = {
 			files: '**/*.ts',
 			dFiles: '**/*.d.ts'
 		},
-		back: {
+		server: {
 			src: 'server/**/*.ts',
 			config: 'config/*.ts',
 			dest: basePath
