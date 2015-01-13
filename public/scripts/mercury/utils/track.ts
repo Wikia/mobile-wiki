@@ -113,6 +113,10 @@ module Mercury.Utils {
 			tracker: Mercury.Modules.Trackers.Internal,
 			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
 
+		if (Em.get(Mercury, 'query.noExternals')) {
+			return;
+		}
+
 		params = <TrackingParams>$.extend({
 			ga_action: action,
 			ga_category: category,
@@ -148,6 +152,10 @@ module Mercury.Utils {
 	 */
 	export function trackPageView (adsContext: any) {
 		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
+
+		if (Em.get(Mercury, 'query.noExternals')) {
+			return;
+		}
 
 		Object.keys(trackers).forEach(function (tracker: string) {
 			var trackerInstance = new trackers[tracker]();
