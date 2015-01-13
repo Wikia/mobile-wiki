@@ -7,13 +7,18 @@
 * `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
 * `bower install` will install client dependencies
 * `tsd update` will update typings folder with ambient files
-* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and add your eth0 address as the host, set a port so it looks as follows
+* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the mediawikiHost, port and wikiFallback.
+    The mediawikiHost should be set to you're devbox name without 'dev-' prefix.
+    WikiFallback is useful but is not obligatory.
+
+    File should look like this:
 ``` javascript
     import baseLocalSettings = require('./localSettings.base');
     import Utils = require('../server/lib/Utils');
 
     var localSettings = baseLocalSettings.getSettings({
-        mediawikiHost: 'bogna', #or any other devbox
+        wikiFallback: 'mediawiki119',
+        mediawikiHost: 'joe' #for dev-joe
         port: 8000
     });
 
@@ -21,15 +26,8 @@
 ```
 * run `npm run dev` to start server and watch files
 
-## Setting up hosts
-* For any dev box wiki you'd like to use, setup a line in your /etc/hosts, for example:
-`127.0.0.1    lastofus.wikia-dev.local`
-
-If you're using macos you can setup dns on your machine to have this automatic:
-http://passingcuriosity.com/2013/dnsmasq-dev-osx/
-
 ## Access Mercury
-* After running `npm run dev` open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
+Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
 
 ##Live reload
 on dev environments livereload server runs that reload your web browser on any change in public folder
