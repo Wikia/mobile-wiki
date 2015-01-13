@@ -7,7 +7,18 @@
 * `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
 * `bower install` will install client dependencies
 * `tsd update` will update typings folder with ambient files
-* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and add your eth0 address as the host, set a port
+* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and add your eth0 address as the host, set a port so it looks as follows
+``` javascript
+    import baseLocalSettings = require('./localSettings.base');
+    import Utils = require('../server/lib/Utils');
+
+    var localSettings = baseLocalSettings.getSettings({
+        mediawikiHost: 'bogna', #or any other devbox
+        port: 8000
+    });
+
+    export = localSettings;
+```
 * run `npm run dev` to start server and watch files
 
 ## Setting up hosts
@@ -16,6 +27,9 @@
 
 If you're using macos you can setup dns on your machine to have this automatic:
 http://passingcuriosity.com/2013/dnsmasq-dev-osx/
+
+## Access Mercury
+* After running `npm run dev` open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
 
 ##Live reload
 on dev environments livereload server runs that reload your web browser on any change in public folder
