@@ -45,6 +45,7 @@
 			{{#if server.mediawikiDomain}}
 			M.provide('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
+			M.provide('query', {{{json query}}});
 		</script>
 
 		<!-- @ifdef browserSync -->
