@@ -3,8 +3,8 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
 	newer = require('gulp-newer'),
-	options = require('../options').scripts.back,
-	paths = require('../paths').scripts.back,
+	options = require('../options').scripts.server,
+	paths = require('../paths').scripts.server,
 	tsProject = ts.createProject(options);
 
 gulp.task('scripts-server', ['scripts-config'], function () {

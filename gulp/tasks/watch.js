@@ -37,7 +37,7 @@ gulp.task('watch', ['build', 'build-views'], function () {
 		}
 	});
 
-	gulp.watch([paths.scripts.back.src, paths.config.path + '*.ts'], ['tslint', 'scripts-server']);
+	gulp.watch([paths.scripts.server.src, paths.config.path + '*.ts'], ['tslint', 'scripts-server']);
 
 	gulp.watch(path.join(
 		paths.templates.src,

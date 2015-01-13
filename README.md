@@ -17,7 +17,7 @@ If you're using macos you can setup dns on your machine to have this automatic:
 http://passingcuriosity.com/2013/dnsmasq-dev-osx/
 
 ##Live reload
-on dev environments livereload server runs that reload your web browser on any change in public folder
+on dev environments livereload server runs that reload your web browser on any change in front folder
 you can disable that by running gulp with --nosync parameter
 
 ##[Release](https://one.wikia-inc.com/wiki/Mercury/Release)
