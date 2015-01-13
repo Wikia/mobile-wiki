@@ -1,3 +1,7 @@
+## release-29 (2015-01-13 14:52)
+* [HG-522](https://wikia-inc.atlassian.net/browse/HG-522) Set API timeout to match MediaWiki app's timeout
+* HG-update-readme: Update readme
+
 ## release-28 (2015-01-13 13:11)
 * [HG-444](https://wikia-inc.atlassian.net/browse/HG-444) Support for noexternals=1
 * crowdin-config: Add Crowdin config
