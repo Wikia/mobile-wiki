@@ -16,6 +16,7 @@ declare module Mercury {
 	var tracking: any;
 	var adsUrl: string;
 	var environment: string;
+	var query: any;
 }
 
 declare var M: typeof Mercury.Utils;
