@@ -7,9 +7,9 @@
 * `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
 * `bower install` will install client dependencies
 * `tsd update` will update typings folder with ambient files
-* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the mediawikiHost, port and wikiFallback.
-    The mediawikiHost should be set to you're devbox name without 'dev-' prefix.
-    WikiFallback is useful but is not obligatory.
+* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `mediawikiHost`, `port` and `wikiFallback`.
+    The `mediawikiHost` should be set to you're devbox name without 'dev-' prefix.
+    The `wikiFallback` is useful but is not obligatory.
 
     File should look like this:
 ``` javascript
@@ -24,7 +24,7 @@
 
     export = localSettings;
 ```
-* run `npm run dev` to start server and watch files
+* `npm run dev` to start server and watch files
 
 ## Access Mercury
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
