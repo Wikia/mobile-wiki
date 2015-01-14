@@ -3,8 +3,13 @@
 'use strict';
 
 App.ImageMediaComponent = App.MediaComponent.extend({
+	isSmall: false,
+	smallImageSize: {
+		height: 64,
+		width: 64
+	},
 	classNames: ['article-image'],
-	classNameBindings: ['visible'],
+	classNameBindings: ['visible', 'isSmall'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
@@ -28,7 +33,26 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		}
 
 		return imageHeight;
-	}.property('width', 'height'),
+	}.property('width', 'height', 'contentWidth'),
+
+	/**
+	 * method is run when one of the following properties will change:
+	 * width, height or contentWidth.
+	 * It calls checkIfImageSmall inside run.once() which ensures method will be called only once
+	 * even if all three properties change.
+	 */
+	runOnImageSizeChange: function (): void {
+		Ember.run.once(this, 'checkIfImageSmall')
+	}.observes('width', 'height', 'contentWidth'),
+
+	checkIfImageSmall: function (): void{
+		var imageWidth = this.getWithDefault('width', this.get('contentWidth')),
+			imageHeight = this.get('height');
+
+		if (imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height) {
+			this.set('isSmall', true)
+		}
+	},
 
 	url: function (key: string, value?: string): string {
 		var media: ArticleMedia;

@@ -66,16 +66,23 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	handleMedia: function (target: HTMLElement): void {
-		var galleryRef = $(target).closest('[data-gallery-ref]').data('gallery-ref'),
-			mediaRef = $(target).closest('[data-ref]').data('ref');
+		var $target = $(target),
+			galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
+			mediaRef = $target.closest('[data-ref]').data('ref'),
+			isSmallImage = !!$target.closest('.is-small').length;
+
 		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
-			this.get('controller').send('openLightbox', 'media-lightbox', {
-				mediaRef: mediaRef,
-				galleryRef: galleryRef,
-				target: target
-			});
+			if (!isSmallImage) {
+				this.get('controller').send('openLightbox', 'media-lightbox', {
+					mediaRef: mediaRef,
+					galleryRef: galleryRef,
+					target: target
+				});
+			} else {
+				Em.Logger.debug('Image too small to open in lightbox', target);
+			}
 
 			if (galleryRef >= 0) {
 				M.track({
