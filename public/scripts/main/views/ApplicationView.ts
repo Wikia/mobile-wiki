@@ -68,13 +68,13 @@ App.ApplicationView = Em.View.extend({
 	handleMedia: function (target: HTMLElement): void {
 		var $target = $(target),
 			galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
-			mediaRef = $target.closest('[data-ref]').data('ref'),
-			isSmallImage = !!$target.closest('.is-small').length;
+			mediaObj = $target.closest('[data-ref]'),
+			mediaRef = mediaObj.data('ref');
 
 		if (mediaRef >= 0) {
 			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
-			if (!isSmallImage) {
+			if (!mediaObj.hasClass('is-small')) {
 				this.get('controller').send('openLightbox', 'media-lightbox', {
 					mediaRef: mediaRef,
 					galleryRef: galleryRef,

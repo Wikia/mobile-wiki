@@ -45,7 +45,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		Ember.run.once(this, 'checkIfImageSmall')
 	}.observes('width', 'height', 'contentWidth'),
 
-	checkIfImageSmall: function (): void{
+	checkIfImageSmall: function (): void {
 		var imageWidth = this.getWithDefault('width', this.get('contentWidth')),
 			imageHeight = this.get('height');
 
