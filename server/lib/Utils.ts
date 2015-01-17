@@ -121,12 +121,12 @@ module Utils {
 	}
 
 	/**
-	* @desc Get vertical color from localSettings
-	*
-	* @param {LocalSettings} localSettings
-	* @param {string} vertical
-	* @return {string}
-	*/
+	 * @desc Get vertical color from localSettings
+	 *
+	 * @param {LocalSettings} localSettings
+	 * @param {string} vertical
+	 * @return {string}
+	 */
 	export function getVerticalColor (localSettings: LocalSettings, vertical: string): string {
 		if (localSettings.verticalColors.hasOwnProperty(vertical)) {
 			return localSettings.verticalColors[vertical];
