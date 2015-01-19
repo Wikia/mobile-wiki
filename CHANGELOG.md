@@ -1,3 +1,9 @@
+## release-31 (2015-01-16 13:00)
+* catchpoint-support: Catchpoint support
+
+## release-30 (2015-01-14 14:00)
+* update-dev-dependencies: Update bluebird, hapi and newrelic libraries
+
 ## release-29 (2015-01-13 14:52)
 * [HG-522](https://wikia-inc.atlassian.net/browse/HG-522) Set API timeout to match MediaWiki app's timeout
 * HG-update-readme: Update readme
