@@ -37,13 +37,13 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 
 	/**
 	 * method is run when one of the following properties will change:
-	 * width, height or contentWidth.
+	 * width or height.
 	 * It calls checkIfImageSmall inside run.once() which ensures method will be called only once
 	 * even if all three properties change.
 	 */
-	runOnImageSizeChange: function (): void {
-		Ember.run.once(this, 'checkIfImageSmall')
-	}.observes('width', 'height', 'contentWidth'),
+	imageSizeChangeObserver: function (): void {
+		Em.run.once(this, 'checkIfImageSmall')
+	}.observes('width', 'height'),
 
 	checkIfImageSmall: function (): void {
 		var imageWidth = this.getWithDefault('width', this.get('contentWidth')),
