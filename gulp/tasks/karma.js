@@ -23,14 +23,14 @@ gulp.task('karma', ['fixtures'], function () {
 		'test/fixtures/test-fixtures.js',
 		'test/helpers/**/*.js',
 		'test/specs/front/**/*.js',
-		'test/integration/front/**/*.js',
+		'test/integration/front/**/*.js'
 	])
 	.pipe(karma({
 		configFile: 'test/karma.conf.js',
 		action: gutil.env.action === 'watch' ? gutil.env.action : 'run'
 	}))
 	.on('error', function (error) {
-		throw error;
+		throw new Error(error);
 	});
 
 });
