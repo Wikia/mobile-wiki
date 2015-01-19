@@ -19,3 +19,6 @@ gulp.task('scripts-server', ['scripts-config'], function () {
 		})
 		.pipe(gulp.dest(paths.dest));
 });
+
+//Temporary alias
+gulp.task('scripts-back', ['scripts-server']);
