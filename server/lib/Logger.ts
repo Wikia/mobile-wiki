@@ -29,7 +29,7 @@ module Logger {
 	 * @param minLogLevel
 	 * @returns {{stream: WritableStream, level: string}}
 	 */
-	function createDefaultLogStream(minLogLevel: string = 'info'): BunyanLoggerStream {
+	function createDefaultLogStream (minLogLevel: string = 'info'): BunyanLoggerStream {
 		return {
 			level: minLogLevel,
 			stream: process.stderr
@@ -42,7 +42,7 @@ module Logger {
 	 * @param minLogLevel
 	 * @returns {{level: string, stream: exports}}
 	 */
-	function createConsoleStream(minLogLevel: string): BunyanLoggerStream {
+	function createConsoleStream (minLogLevel: string): BunyanLoggerStream {
 		var PrettyStream = require('bunyan-prettystream'),
 			prettyStdOut = new PrettyStream();
 		prettyStdOut.pipe(process.stdout);
@@ -58,7 +58,7 @@ module Logger {
 	 * @param minLogLevel
 	 * @returns {{level: string, type: string, stream: any}}
 	 */
-	function createSysLogStream(minLogLevel: string): BunyanLoggerStream {
+	function createSysLogStream (minLogLevel: string): BunyanLoggerStream {
 		var bsyslog = require('bunyan-syslog');
 		return {
 			level: minLogLevel,
@@ -76,7 +76,7 @@ module Logger {
 	 * @param loggerConfig
 	 * @returns {BunyanLogger}
 	 */
-	export function createLogger(loggerConfig: LoggerInterface): BunyanLogger {
+	export function createLogger (loggerConfig: LoggerInterface): BunyanLogger {
 		var streams: Array<BunyanLoggerStream> = [];
 		Object.keys(loggerConfig).forEach((loggerType: string) => {
 			if (!availableTargets.hasOwnProperty(loggerType)) {
