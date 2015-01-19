@@ -265,6 +265,20 @@ function routes (server: Hapi.Server) {
 		}
 	});
 
+	//Temporary - will be removed after transition
+	server.route({
+		method: 'GET',
+		path: '/public/{path*}',
+		handler: {
+			directory: {
+				path: path.join(__dirname, '../front'),
+				listing: false,
+				index: false,
+				lookupCompressed: true
+			}
+		}
+	});
+
 	//eg. robots.txt
 	proxyRoutes.forEach((route: string) => {
 		server.route({
