@@ -3,7 +3,6 @@
 'use strict';
 
 App.ImageMediaComponent = App.MediaComponent.extend({
-	isSmall: false,
 	smallImageSize: {
 		height: 64,
 		width: 64
@@ -17,6 +16,14 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 	),
 
 	link: Em.computed.alias('media.link'),
+
+	isSmall: function(): boolean {
+		var imageWidth = this.getWithDefault('width', this.get('contentWidth')),
+			imageHeight = this.get('height');
+
+		return imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
+
+	}.property('width', 'height', 'contentWidth'),
 
 	/**
 	 * used to set proper height to img tag before it loads
@@ -34,25 +41,6 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 
 		return imageHeight;
 	}.property('width', 'height', 'contentWidth'),
-
-	/**
-	 * method is run when one of the following properties will change:
-	 * width or height.
-	 * It calls checkIfImageSmall inside run.once() which ensures method will be called only once
-	 * even if all three properties change.
-	 */
-	imageSizeChangeObserver: function (): void {
-		Em.run.once(this, 'checkIfImageSmall')
-	}.observes('width', 'height'),
-
-	checkIfImageSmall: function (): void {
-		var imageWidth = this.getWithDefault('width', this.get('contentWidth')),
-			imageHeight = this.get('height');
-
-		if (imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height) {
-			this.set('isSmall', true)
-		}
-	},
 
 	url: function (key: string, value?: string): string {
 		var media: ArticleMedia;
