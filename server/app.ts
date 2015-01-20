@@ -94,11 +94,11 @@ class App {
 	 * Create new onPreResponseHandler
 	 *
 	 * @param isDevbox
-	 * @returns {function (hapi.Request, Function): void}
+	 * @returns {function (Hapi.Request, Function): void}
 	 */
 	private getOnPreResponseHandler (isDevbox: boolean) {
 		return (request: Hapi.Request, reply: any): void => {
-			var response = <Hapi.Response>(request.response),
+			var response = request.response,
 				responseTimeSec = (Date.now() - request.info.received) / 1000,
 				responseType = typeof response;
 			// Assets on devbox must not be cached
