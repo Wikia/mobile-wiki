@@ -1,3 +1,6 @@
+## release-33 (2015-01-20 14:00)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Add logging when there is no response object or response.header function
+
 ## release-32 (2015-01-20 13:22)
 * main-page-title-fix: Revert change of place for result.isMainPage check
 * main-page-title-fix: Fixed unhandled TypeError when no title is given
