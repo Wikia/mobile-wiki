@@ -22,7 +22,7 @@ module Utils {
 	 * @param {Environment} fallbackEnvironment Fallback environment
 	 * @returns {Environment}
 	 */
-	export function getEnvironment(environment: string, fallbackEnvironment: Environment = Environment.Dev) {
+	export function getEnvironment (environment: string, fallbackEnvironment: Environment = Environment.Dev) {
 		var environments: {[id: string]: Environment} = {
 			// TODO: Remove `production` environment once all changes are propagated
 			production: Environment.Prod,
@@ -46,7 +46,7 @@ module Utils {
 	 * @param {Environment} environment
 	 * @return {string}
 	 */
-	export function getEnvironmentString(environment: Environment): string {
+	export function getEnvironmentString (environment: Environment): string {
 		return Environment[environment].toLowerCase();
 	}
 
@@ -57,7 +57,7 @@ module Utils {
 	 * @param wikiSubDomain
 	 * @returns {string}
 	 */
-	function getDomainName(localSettings: LocalSettings, wikiSubDomain: string): string {
+	function getDomainName (localSettings: LocalSettings, wikiSubDomain: string): string {
 		if (localSettings.environment === Environment.Sandbox) {
 			return localSettings.host + '.' + wikiSubDomain + '.wikia.com';
 		}
@@ -69,7 +69,7 @@ module Utils {
 	 * @desc Get fallback domain
 	 * @returns {string}
 	 */
-	function getFallbackSubDomain(localSettings: LocalSettings): string {
+	function getFallbackSubDomain (localSettings: LocalSettings): string {
 		return (localSettings.wikiFallback || 'community');
 	}
 

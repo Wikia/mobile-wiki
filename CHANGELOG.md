@@ -1,3 +1,9 @@
+## release-32 (2015-01-20 13:22)
+* main-page-title-fix: Revert change of place for result.isMainPage check
+* main-page-title-fix: Fixed unhandled TypeError when no title is given
+* [HG-488](https://wikia-inc.atlassian.net/browse/HG-488) Use the same meta tag description as MW
+* code-cleanup: Reminder about whitespace
+
 ## release-31 (2015-01-16 13:00)
 * catchpoint-support: Catchpoint support
 

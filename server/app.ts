@@ -96,7 +96,7 @@ class App {
 	 * @param isDevbox
 	 * @returns {function (hapi.Request, Function): void}
 	 */
-	private getOnPreResponseHandler(isDevbox: boolean) {
+	private getOnPreResponseHandler (isDevbox: boolean) {
 		return (request: Hapi.Request, reply: any): void => {
 			var response = <Hapi.Response>(request.response),
 				responseTimeSec = (Date.now() - request.info.received) / 1000;
@@ -124,7 +124,7 @@ class App {
 	 *
 	 * @param server
 	 */
-	private setupLogging(server: Hapi.Server): void {
+	private setupLogging (server: Hapi.Server): void {
 		server.on('log', (event: any, tags: Array<string>) => {
 			logger.info({
 				data: event.data,

@@ -59,6 +59,7 @@ function getWikiDomainName (host: string): string {
 
 /**
  * Prepares article data to be rendered
+ * TODO: clean up this function
  *
  * @param {Hapi.Request} request
  * @param result
@@ -73,6 +74,8 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
 	} else if (request.params.title) {
 		title = request.params.title.replace(/_/g, ' ');
+	} else {
+		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
 	}
 
 	if (result.article.article) {

@@ -49,7 +49,7 @@ module Caching {
 	 * @param response
 	 * @param cachingSettings
 	 */
-	export function setResponseCaching(response: Hapi.Response, cachingSettings: CachingSettings) {
+	export function setResponseCaching (response: Hapi.Response, cachingSettings: CachingSettings) {
 		if (cachingSettings && cachingSettings.enabled && response.statusCode === 200) {
 
 			if (cachingSettings.browserTTL === Interval.default) {
@@ -58,7 +58,7 @@ module Caching {
 			if (cachingSettings.cachingPolicy === Policy.Public) {
 				// Varnish caches for 5 seconds when Apache sends Cache-Control: public, s-maxage=0
 				// perform this logic here
-				if ( cachingSettings.varnishTTL === Interval.disabled ) {
+				if (cachingSettings.varnishTTL === Interval.disabled) {
 					cachingSettings.varnishTTL = 5;
 				}
 				response.header('Cache-Control', 's-maxage=' + cachingSettings.varnishTTL);
@@ -77,7 +77,7 @@ module Caching {
 	 * @param policy
 	 * @returns {string}
 	 */
-	export function policyString(policy: Policy): string {
+	export function policyString (policy: Policy): string {
 		return Policy[policy].toLowerCase();
 	}
 }
