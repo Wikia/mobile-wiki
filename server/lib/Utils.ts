@@ -76,6 +76,7 @@ module Utils {
 	/**
 	 * @desc Generate wiki host name from the request host
 	 *
+	 * @param localSettings
 	 * @param hostName
 	 * @returns {string}
 	 */
