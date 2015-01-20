@@ -59,6 +59,7 @@ function getWikiDomainName (host: string): string {
 
 /**
  * Prepares article data to be rendered
+ * TODO: clean up this function
  *
  * @param {Hapi.Request} request
  * @param result
@@ -75,7 +76,6 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 		title = request.params.title.replace(/_/g, ' ');
 	} else {
 		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
-		result.isMainPage = true;
 	}
 
 	if (result.article.article) {
@@ -90,6 +90,7 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 	}
 
 	result.displayTitle = title;
+	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	result.query = {
