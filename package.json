@@ -63,7 +63,7 @@
     "karma-qunit": "0.x.x",
     "multipipe": "^0.1.2",
     "qunit": "0.x.x",
-    "qunitjs": "^1.16.0",
+    "qunitjs": "1.16.0",
     "through2": "^0.6.3",
     "tslint": "^1.0.1"
   }

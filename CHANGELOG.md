@@ -1,3 +1,7 @@
+## release-34 (2015-01-20 20:50)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Log error details when the response is Boom object
+* [HG-368](https://wikia-inc.atlassian.net/browse/HG-368) Move to Jenkins
+
 ## release-33 (2015-01-20 14:00)
 * [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Add logging when there is no response object or response.header function
 

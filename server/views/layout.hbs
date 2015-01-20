@@ -14,12 +14,12 @@
 		{{/if}}
 
 		{{#if isRtl}}
-			<!-- build:css /public/styles/app.rtl.css -->
-			<link rel="stylesheet" href="/public/styles/app.rtl.css">
+			<!-- build:css /front/styles/app.rtl.css -->
+			<link rel="stylesheet" href="/front/styles/app.rtl.css">
 			<!-- endbuild -->
 		{{else}}
-			<!-- build:css /public/styles/app.css -->
-			<link rel="stylesheet" href="/public/styles/app.css">
+			<!-- build:css /front/styles/app.css -->
+			<link rel="stylesheet" href="/front/styles/app.css">
 			<!-- endbuild -->
 		{{/if}}
 
@@ -27,10 +27,10 @@
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
-		<style><!-- @include ../www/public/styles/baseline.css --></style>
+		<style><!-- @include ../../www/front/styles/baseline.css --></style>
 
 		<script>
-			<!-- @include ../www/public/scripts/baseline.js -->
+			<!-- @include ../../www/front/scripts/baseline.js -->
 			M.provide('_state.translations.{{#if wiki.language.user}}{{wiki.language.user}}{{else}}en{{/if}}', {{{translations wiki.language.user}}});
 			M.provide('_state.firstPage', true);
 			M.provide('ads.slots', []);
@@ -49,41 +49,41 @@
 		</script>
 
 		<!-- @ifdef browserSync -->
-		<script src="/public/scripts/dev.js"></script>
+		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
 		{{> tracking}}
 	</head>
 	<body>
-		<!-- @include ../www/public/svg/main.svg -->
+		<!-- @include ../../www/front/svg/main.svg -->
 
 		<div id="article-preload">
 			{{{content}}}
 		</div>
 
-		<!-- build:js /public/vendor/main.js -->
-			<script src="/public/vendor/script.js/dist/script.js"></script>
-			<script src="/public/vendor/fastclick/lib/fastclick.js"></script>
-			<script src="/public/vendor/jquery/dist/jquery.js"></script>
-			<script src="/public/vendor/hammerjs/hammer.js"></script>
-			<script src="/public/vendor/handlebars/handlebars.runtime.js"></script>
-			<script src="/public/vendor/headroom.js/dist/headroom.js"></script>
-			<script src="/public/vendor/jquery.cookie/jquery.cookie.js"></script>
+		<!-- build:js /front/vendor/main.js -->
+			<script src="/front/vendor/script.js/dist/script.js"></script>
+			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
+			<script src="/front/vendor/jquery/dist/jquery.js"></script>
+			<script src="/front/vendor/hammerjs/hammer.js"></script>
+			<script src="/front/vendor/handlebars/handlebars.runtime.js"></script>
+			<script src="/front/vendor/headroom.js/dist/headroom.js"></script>
+			<script src="/front/vendor/jquery.cookie/jquery.cookie.js"></script>
 			<!-- @if WIKIA_ENVIRONMENT='dev' -->
-			<script src="/public/vendor/ember/ember.js"></script>
+			<script src="/front/vendor/ember/ember.js"></script>
 			<!-- @endif -->
 			<!-- @if WIKIA_ENVIRONMENT!='dev' -->
-			<script src="/public/vendor/ember/ember.prod.js"></script>
+			<script src="/front/vendor/ember/ember.prod.js"></script>
 			<!-- @endif -->
-			<script src="/public/vendor/ember-hammer/ember-hammer.js"></script>
-			<script src="/public/vendor/i18next/i18next.js"></script>
-			<script src="/public/vendor/vignette/dist/vignette.js"></script>
+			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
+			<script src="/front/vendor/i18next/i18next.js"></script>
+			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 		<!-- endbuild -->
 
-		<!-- build:js /public/scripts/combined.js -->
-			<script src="/public/templates/main.js"></script>
-			<script src="/public/scripts/mercury.js"></script>
-			<script src="/public/scripts/main.js"></script>
+		<!-- build:js /front/scripts/combined.js -->
+			<script src="/front/templates/main.js"></script>
+			<script src="/front/scripts/mercury.js"></script>
+			<script src="/front/scripts/main.js"></script>
 		<!-- endbuild -->
 
 		{{> tracking-pixels}}

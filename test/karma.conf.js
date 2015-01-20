@@ -16,13 +16,15 @@ module.exports = function (config) {
 			// source files, that you want to generate coverage for
 			// do not include tests or libraries
 			// (these files will be instrumented by Istanbul)
-			'/**/public/+(**|!vendor)/*.js': ['coverage']
+			'/**/front/scripts/*.js': ['coverage']
 		},
 
 		// optionally, configure the reporter
 		coverageReporter: {
-			type : 'html',
-			dir : 'coverage/'
+			dir : 'coverage/front',
+			reporters: [
+				{ type: 'cobertura', subdir: '.', file: 'cobertura.xml' }
+			]
 		}
 	});
 };

@@ -9,13 +9,24 @@
 // properly
 document.write('<div class="article-content">Test content</div><div id="ember-testing"></div>');
 
+__karma__.loaded = function() {};
+
 var App = window.App;
 
-Ember.run(function () {
-	App.rootElement = '#ember-testing';
-	App.setupForTesting();
-	App.injectTestHelpers();
-	App.reset();
+var karma_started = false;
+
+App.rootElement = '#ember-testing';
+App.setupForTesting();
+App.injectTestHelpers();
+
+App.initializer({
+	name: "Test runner",
+	initialize: function(container, application) {
+		if (!karma_started) {
+			karma_started = true;
+			__karma__.start();
+		}
+	}
 });
 
 emq.globalize();
