@@ -73,6 +73,9 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
 	} else if (request.params.title) {
 		title = request.params.title.replace(/_/g, ' ');
+	} else {
+		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
+		result.isMainPage = true;
 	}
 
 	if (result.article.article) {
@@ -87,7 +90,6 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 	}
 
 	result.displayTitle = title;
-	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	result.query = {
