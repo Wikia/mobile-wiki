@@ -47,9 +47,9 @@ class App {
 			 * Helpers are functions usable from within handlebars templates.
 			 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
 			 */
-			helpersPath: path.join(__dirname, '../views', '_helpers'),
-			path: path.join(__dirname, '../views'),
-			partialsPath: path.join(__dirname, '../views', '_partials')
+			helpersPath: path.join(__dirname, 'views', '_helpers'),
+			path: path.join(__dirname, 'views'),
+			partialsPath: path.join(__dirname, 'views', '_partials')
 		});
 
 		server.ext('onPreResponse', this.getOnPreResponseHandler(this.isDevbox));

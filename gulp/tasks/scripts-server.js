@@ -3,11 +3,11 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
 	newer = require('gulp-newer'),
-	options = require('../options').scripts.back,
-	paths = require('../paths').scripts.back,
+	options = require('../options').scripts.server,
+	paths = require('../paths').scripts.server,
 	tsProject = ts.createProject(options);
 
-gulp.task('scripts-back', ['scripts-config'], function () {
+gulp.task('scripts-server', ['scripts-config'], function () {
 	return gulp.src([paths.src, paths.config], {base: './'})
 		.pipe(newer({dest: paths.dest, ext: '.js'}))
 		.pipe(ts(tsProject)).js
@@ -19,3 +19,6 @@ gulp.task('scripts-back', ['scripts-config'], function () {
 		})
 		.pipe(gulp.dest(paths.dest));
 });
+
+//Temporary alias
+gulp.task('scripts-back', ['scripts-server']);
