@@ -6,6 +6,7 @@
 'use strict';
 
 App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
+
 	tagName: 'figure',
 	classNames: ['media-component'],
 
@@ -25,30 +26,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		large: 900
 	},
 
-	didInsertElement: function (): void {
-		var onResize = () => {
-			this.notifyPropertyChange('contentWidth');
-		};
-
-		$(window).on('resize', onResize);
-		this.set('onResize', onResize);
-
-		this._super();
-	},
-
-	willDestroyElement: function (): void {
-		$(window).off('resize', this.get('onResize'));
-
-		this._super();
-	},
-
-	/**
-	 * @desc content width used to load smaller thumbnails
-	 */
-	contentWidth: function (): number {
-		return $('.article-content').width();
-	}.property(),
-
 	normalizeThumbWidth: function (width: number): number {
 		if (width <= this.thumbSize.small) {
 			return this.thumbSize.small;
@@ -60,7 +37,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	/**
-	 * @desc if image is not thumbnail, returns url to thumbnail with width set to contentWidth
+	 * @desc if image is not thumbnail, returns url to thumbnail with width set to articleWidth
 	 *
 	 * @param {String} url
 	 * @param {String} mode
