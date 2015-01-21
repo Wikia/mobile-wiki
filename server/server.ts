@@ -27,14 +27,14 @@ cluster.setupMaster({
  *
  * @returns {number} Current number of workers
  */
-function numWorkers(): number {
+function numWorkers (): number {
 	return Object.keys(cluster.workers).length;
 }
 
 /**
  * Forks off the workers unless the server is stopping
  */
-function forkNewWorkers(): void {
+function forkNewWorkers (): void {
 	if (!isStopping) {
 		for (var i = numWorkers(); i < localSettings.workerCount; i++) {
 			cluster.fork();
@@ -48,7 +48,7 @@ function forkNewWorkers(): void {
  *
  * @param worker
  */
-function stopWorker(worker: cluster.Worker): void {
+function stopWorker (worker: cluster.Worker): void {
 	logger.info('Stopping worker');
 
 	worker.send('shutdown');
@@ -71,7 +71,7 @@ function stopWorker(worker: cluster.Worker): void {
 /**
  * Stops all the workers at once
  */
-function stopAllWorkers(): void {
+function stopAllWorkers (): void {
 	isStopping = true;
 
 	logger.info('Stopping all workers');

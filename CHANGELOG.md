@@ -1,3 +1,22 @@
+## release-34 (2015-01-20 20:50)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Log error details when the response is Boom object
+* [HG-368](https://wikia-inc.atlassian.net/browse/HG-368) Move to Jenkins
+
+## release-33 (2015-01-20 14:00)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Add logging when there is no response object or response.header function
+
+## release-32 (2015-01-20 13:22)
+* main-page-title-fix: Revert change of place for result.isMainPage check
+* main-page-title-fix: Fixed unhandled TypeError when no title is given
+* [HG-488](https://wikia-inc.atlassian.net/browse/HG-488) Use the same meta tag description as MW
+* code-cleanup: Reminder about whitespace
+
+## release-31 (2015-01-16 13:00)
+* catchpoint-support: Catchpoint support
+
+## release-30 (2015-01-14 14:00)
+* update-dev-dependencies: Update bluebird, hapi and newrelic libraries
+
 ## release-29 (2015-01-13 14:52)
 * [HG-522](https://wikia-inc.atlassian.net/browse/HG-522) Set API timeout to match MediaWiki app's timeout
 * HG-update-readme: Update readme

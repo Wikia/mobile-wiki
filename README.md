@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/Wikia/mercury.svg)](https://travis-ci.org/Wikia/mercury)
 [![Dependency Status](https://david-dm.org/Wikia/mercury.svg)](https://david-dm.org/Wikia/mercury)
 [![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
@@ -30,7 +29,7 @@
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
 
 ##Live reload
-on dev environments livereload server runs that reload your web browser on any change in public folder
+on dev environments livereload server runs that reload your web browser on any change in front folder
 you can disable that by running gulp with --nosync parameter
 
 ##[Release](https://one.wikia-inc.com/wiki/Mercury/Release)

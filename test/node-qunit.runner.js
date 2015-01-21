@@ -5,23 +5,25 @@ var testrunner = require('qunit'),
 testrunner.setup({
 	deps: {
 		path: './www/config/localSettings.js',
-		namespace: 'localSettings' },
+		namespace: 'localSettings'
+	},
 	log: {
 		// log assertions overview
-		assertions: true,
+		assertions: false,
 		// log expected and actual values for failed tests
 		errors: true,
 		// log tests overview
-		tests: true,
+		tests: false,
 		// log summary
-		summary: false,
+		summary: true,
 		// log global summary (all files)
 		globalSummary: false,
 		// log currently testing code file
-		testing: true
+		testing: false
 	},
 	coverage: {
-		dir:'test/coverage/server'
+		dir: 'test/coverage/server',
+		reporters: ['cobertura']
 	}
 });
 

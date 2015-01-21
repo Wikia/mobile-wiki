@@ -1,6 +1,6 @@
 .smart-banner {
 	align-items: center;
-	// same as public/images/sb-background.png
+	// same as front/images/sb-background.png
 	background: #e6e6e6 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAACECAQAAAAZkVBVAAACU0lEQVR4Ae3a0WobQRSDYdkxNk62C6Fpp23atPG+/zuWSHclsNQMK0+Ojt7g478aBtjjAZ/Kj3cKw9ulCV6a4KUJXprgpYl3b4dTGHR3pZrgpQlemuClCV6a4KUJXprgpYn/vgOmMKiJcxg+ZhO8NMFLE7w0wUsTvDTBSxMdb4f7MOiOmMLwdvshm+ClCV6a4KUJXprgpQlemuClic1uj4cw6E5huOUmGnSlm3jGAl3ZJoQgBhRtQgicrmQTQtDMd7IjaLqCTQjBz2BsYsYLFi+D/9PAjN9YvAz+TwNC8DNYmxCCn8HahBD8DNYmhOBnsDYhBD+DtYlHXLD4GaxNCGFUBjUx9UGwMvg/DQjBy+D/NCAEP4O1CSH4GaxNPAnBz+Bs4gsWzc/ga0IIfgZrE0LwM/iaEEIVBjXRA0Eb+o6Y1hD8DNt/GnjG4mewNiGEwgxqQgh1GXQzfuJSnWFGQ8N3/CnMIARNTdRj2AlBu76J0RE+/4NwbRMfEEFNvLoZ/AjaLwODE6FDE+MjdGlifIQuTQx3BzyhaVqPJsZD+HoFwmoTJRDWmyiBsN5ECYT1JqohaD9wGZHh2BFB+4aX0RjOPQHeb6IEwnoTJRDWmyiBsN5EELRbRgjDhBaGGW3bBUELAhcELghcELhBn1k7LwhaELggcEHgguBmOAhhCAbDW7NhQeCCwAWBCwIXBAPDWQi1Gc5ot7ogaEHggsAFYRuGe7QwzGgjLAhaELggcEHggsB1vx0e0Yoz6K15vAVBCwIXBC4I/RjuhFCaQc+sYy8I3F/rf8V7/sJgkgAAAABJRU5ErkJggg==') no-repeat right;
 	background-size: auto 100%;
 	border-bottom: rem-calc(2) solid #8ca038;
@@ -71,7 +71,7 @@
 	}
 
 	.sb-rating {
-		// same as public/images/sb-rating.png
+		// same as front/images/sb-rating.png
 		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAAAMCAMAAAADBIC/AAAAbFBMVEUAAAD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD+jwD6vAD8pgD+jwD8qwD9mgD+kgD9lwD7tAD+lQD6uQD7tgD6vAD9oAD8qAD7rgD7sQD8pgD9nQD8owAw7UwHAAAAE3RSTlMAUBAAIECvYHCf3zDP74+/gAAA+OBiAAAAAXBJREFUeF5NkemWrCAMhDUqIBChJyzuvdz3f8cLYs+QP5zvVKogoSnVQldVP9TU1tANfU1QxKYQ47UmxpqkqmkUNXFWpQCxWtMI1VNoqjXUNTGCvxTuqfL1IfLq8ijr8WKoRgLS4kqBIZVxH5uO9PRM03GafEKfCeeF/2nmPKZ8dp1KZBnXmRolKXq/Pr1fiAEYWrx/bd5Hkoojef/ZT+9DGkvp3Lm9cqcBYLmzBWM0YdOBifOeygWbB7DBZZoXBl0y+jXTP8x/AWy5Op/h2pQgtz8eD6UNNJcxiW+8v3fAM4WQuADGkGwffe9C0Ctdh20hhe+fH4W2bBdo3Vb3+0varduGNwzLPu+H/Wq4betTf4md0ANBSeHxTYuj3727QGdsC03HQfH99bXLGYKj/kZykqzhJWUkrQTS7eMBWyVpLCTJgA1f30RStRj4nUkolCZWUjAvqze3j5lkgUle0KPIY0lxZ06QNMMKjde6bBr+Px0KHQRqUFaTAAAAAElFTkSuQmCC') no-repeat;
 		background-size: contain;
 		height: rem-calc(10);

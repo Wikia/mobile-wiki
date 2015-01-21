@@ -59,6 +59,7 @@ function getWikiDomainName (host: string): string {
 
 /**
  * Prepares article data to be rendered
+ * TODO: clean up this function
  *
  * @param {Hapi.Request} request
  * @param result
@@ -73,6 +74,8 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
 	} else if (request.params.title) {
 		title = request.params.title.replace(/_/g, ' ');
+	} else {
+		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
 	}
 
 	if (result.article.article) {
@@ -254,10 +257,24 @@ function routes (server: Hapi.Server) {
 	// nginx or apache to serve static assets and route the rest of the requests to node.
 	server.route({
 		method: 'GET',
+		path: '/front/{path*}',
+		handler: {
+			directory: {
+				path: path.join(__dirname, '../front'),
+				listing: false,
+				index: false,
+				lookupCompressed: true
+			}
+		}
+	});
+
+	//Temporary - will be removed after transition
+	server.route({
+		method: 'GET',
 		path: '/public/{path*}',
 		handler: {
 			directory: {
-				path: path.join(__dirname, '../public'),
+				path: path.join(__dirname, '../front'),
 				listing: false,
 				index: false,
 				lookupCompressed: true

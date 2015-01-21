@@ -18,7 +18,7 @@ module.exports = {
 			declarationFiles: false,
 			sortOutput: true
 		},
-		back: {
+		server: {
 			module: 'commonjs',
 			target: 'ES5',
 			emitError: false,
@@ -34,9 +34,9 @@ module.exports = {
 			module: 'commonjs',
 			target: 'es5'
 		},
-		back: {
-			name: 'Mercury back',
-			out: 'docs/back',
+		server: {
+			name: 'Mercury server',
+			out: 'docs/server',
 			module: 'commonjs',
 			target: 'es5'
 		}

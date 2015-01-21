@@ -12,18 +12,18 @@ gulp.task('build', [
 	'vendor',
 	'templates',
 	'locales',
-	'scripts-back',
+	'scripts-server',
 	'build-views'
 ], function(cb) {
 	if (environment.isProduction) {
 		return gulp.src([
-			paths.base + '/public/**/*.json',
-			paths.base + '/public/**/*.js',
-			paths.base + '/public/**/*.css',
-			paths.base + '/public/**/*.svg'
+			paths.base + '/front/**/*.json',
+			paths.base + '/front/**/*.js',
+			paths.base + '/front/**/*.css',
+			paths.base + '/front/**/*.svg'
 		])
 			.pipe(gzip(options.gzip))
-			.pipe(gulp.dest(paths.base + '/public'));
+			.pipe(gulp.dest(paths.base + '/front'));
 	}
 	cb();
 });

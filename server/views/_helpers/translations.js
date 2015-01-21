@@ -1,11 +1,11 @@
-var Logger = require('../../server/lib/Logger');
+var Logger = require('../../lib/Logger');
 
 module.exports = function (language) {
 	var translations = {},
 		defaultLanguage = 'en';
 
 	[language, defaultLanguage].some(function (lang) {
-		var translationPath = '../../public/locales/' + lang + '/translation.json';
+		var translationPath = '../../../front/locales/' + lang + '/translation.json';
 		try {
 			translations = require(translationPath);
 			return true;

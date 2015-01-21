@@ -37,7 +37,7 @@ gulp.task('watch', ['build', 'build-views'], function () {
 		}
 	});
 
-	gulp.watch([paths.scripts.back.src, paths.config.path + '*.ts'], ['tslint', 'scripts-back']);
+	gulp.watch([paths.scripts.server.src, paths.config.path + '*.ts'], ['tslint', 'scripts-server']);
 
 	gulp.watch(path.join(
 		paths.templates.src,
@@ -55,9 +55,9 @@ gulp.task('watch', ['build', 'build-views'], function () {
 		paths.base + '/config/*',
 		paths.base + '/server/**/*',
 		paths.base + '/views/**/*',
-		paths.base + '/public/scripts/*.js',
-		paths.base + '/public/styles/*.css',
-		paths.base + '/public/templates/*.js'
+		paths.base + '/front/scripts/*.js',
+		paths.base + '/front/styles/*.css',
+		paths.base + '/front/templates/*.js'
 	]).on('change', function (event) {
 		log('File changed:', gutil.colors.green(event.path), 'Restarting server');
 

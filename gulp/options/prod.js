@@ -18,11 +18,11 @@ module.exports = {
 			declarationFiles: false,
 			sortOutput: true
 		},
-		back: {
+		server: {
 			module: 'commonjs',
 			target: 'es5',
 			emitError: false,
-			outDir: paths.scripts.back.dest,
+			outDir: paths.scripts.server.dest,
 			removeComments: true,
 			noImplicitAny: true,
 			declarationFiles: false
@@ -30,7 +30,7 @@ module.exports = {
 	},
 	doc: {
 		front: {},
-		back: {}
+		server: {}
 	},
 	server: {
 		path: paths.server.script,
@@ -49,7 +49,7 @@ module.exports = {
 	},
 	replace: {
 		selector: '**/layout.hbs',
-		find: '/public/',
-		replace: '{{server.cdnBaseUrl}}/public/'
+		find: '/front/',
+		replace: '{{server.cdnBaseUrl}}/front/'
 	}
 };
