@@ -1,7 +1,11 @@
 {{#if link}}
-	{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 	<a {{bind-attr href=link}} {{action 'clickLinkedImage'}}>
 		<img {{bind-attr src=imageSrc}} {{bind-attr style=style}}>
+		{{#if caption}}
+			{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron moved'}}
+		{{else}}
+			{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
+		{{/if}}
 	</a>
 {{else}}
 	<img {{bind-attr src=imageSrc}} {{bind-attr style=style}}>

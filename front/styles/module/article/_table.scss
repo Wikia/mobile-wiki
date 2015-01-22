@@ -25,6 +25,10 @@ table:not(.infobox, .dirbox) {
 			margin: 0;
 			display: inline-block;
 
+			.chevron.moved {
+				margin-bottom: 0;
+			}
+
 			figcaption {
 				display: none;
 			}
