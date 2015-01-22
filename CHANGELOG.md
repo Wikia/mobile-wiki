@@ -1,3 +1,7 @@
+## release-35 (2015-01-22 15:35)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Improve logging of Hapi events
+* [HG-523](https://wikia-inc.atlassian.net/browse/HG-523) HG-523 Fix multi-line captions in linked galleries
+
 ## release-34 (2015-01-20 20:50)
 * [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Log error details when the response is Boom object
 * [HG-368](https://wikia-inc.atlassian.net/browse/HG-368) Move to Jenkins
