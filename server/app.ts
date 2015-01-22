@@ -114,13 +114,14 @@ class App {
 			}
 
 			if (response && response.header) {
-				response.header('X-Backend-Response-Time', responseTimeSec);
-				response.header('X-Served-By', servedBy);
+				response.header('x-backend-response-time', responseTimeSec);
+				response.header('x-served-by', servedBy);
 			} else if (response.isBoom) {
 				// see https://github.com/hapijs/boom
-				response.output.headers['X-Backend-Response-Time'] = responseTimeSec;
-				response.output.headers['X-Served-By'] = servedBy;
+				response.output.headers['x-backend-response-time'] = responseTimeSec;
+				response.output.headers['x-served-by'] = servedBy;
 
+				// TODO check if this makes sense together with server.on('request-internal')
 				logger.error({
 					message: response.message,
 					code: response.output.statusCode,
@@ -138,24 +139,34 @@ class App {
 	 * @param server
 	 */
 	private setupLogging (server: Hapi.Server): void {
-		server.on('log', (event: any, tags: Array<string>) => {
-			logger.info({
-				data: event.data,
-				tags: tags
-			}, 'Log');
-		});
-
-		server.on('internalError', (request: Hapi.Request, err: Error) => {
+		// Emitted whenever an Internal Server Error (500) error response is sent. Single event per request.
+		server.on('request-error', (request: Hapi.Request, err: Error) => {
 			logger.error({
 				wiki: request.headers.host,
 				text: err.message,
 				url: url.format(request.url),
 				referrer: request.info.referrer
-			}, 'Internal error');
+			}, 'Internal server error');
 		});
 
+		// Request events generated internally by the framework (multiple events per request).
+		server.on('request-internal', (request: Hapi.Request, event: any, tags: any) => {
+			// We exclude implementation tag because it would catch the same error as request-error
+			// but without message explaining what exactly happened
+			if (tags.error && !tags.implementation) {
+				logger.error({
+					wiki: request.headers.host,
+					url: url.format(request.url),
+					referrer: request.info.referrer,
+					eventData: event.data,
+					eventTags: tags
+				}, 'Internal error');
+			}
+		});
+
+		// Emitted after a response to a client request is sent back. Single event per request.
 		server.on('response', (request: Hapi.Request) => {
-			// If there is an errors and headers are not present, set the response time to -1 to make these
+			// If there is an error and headers are not present, set the response time to -1 to make these
 			// errors easy to discover
 			var responseTime = request.response.headers
 					&& request.response.headers.hasOwnProperty('x-backend-response-time')
