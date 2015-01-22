@@ -57,6 +57,8 @@
 		"smartbanner-install-android": "Install",
 		"smartbanner-price": "FREE",
 		"view-more": "View more",
-		"wikia-map-view-map": "View"
+		"wikia-map-view-map": "View",
+		"search-placeholder": "Search",
+		"cancel-label": "Cancel"
 	}
 }
