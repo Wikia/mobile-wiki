@@ -88,6 +88,7 @@ module Mercury.Modules.VideoPlayers {
 
 		track (event = ''): void {
 			return M.track({
+				action: event,
 				label: this.provider,
 				category: 'video-player-' + event
 			});
