@@ -9,7 +9,7 @@ gulp.task('tslint', function () {
 	return piper(
 		gulp.src([
 			paths.scripts.front.src + paths.scripts.front.files,
-			paths.scripts.back.src
+			paths.scripts.server.src
 		]),
 		cache('tslint'),
 		tslint(),

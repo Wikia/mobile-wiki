@@ -8,7 +8,7 @@ module Comscore {
 		return 'wikiacsid_' + vertical.toLowerCase();
 	}
 
-	function getC7ParamAndValue(requestUrl: string, c7Value: string): string {
+	function getC7ParamAndValue (requestUrl: string, c7Value: string): string {
 		var paramAndValue = requestUrl +
 			(requestUrl.indexOf('?') !== -1 ? '&' : '?') +
 			localSettings.tracking.comscore.keyword +

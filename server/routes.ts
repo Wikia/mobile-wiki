@@ -1,7 +1,9 @@
 /// <reference path="../typings/hapi/hapi.d.ts" />
+/// <reference path="../typings/boom/boom.d.ts" />
 
 import path = require('path');
 import Hapi = require('hapi');
+import Boom = require('boom');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
 import Caching = require('./lib/Caching');
@@ -59,6 +61,7 @@ function getWikiDomainName (host: string): string {
 
 /**
  * Prepares article data to be rendered
+ * TODO: clean up this function
  *
  * @param {Hapi.Request} request
  * @param result
@@ -73,6 +76,8 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
 	} else if (request.params.title) {
 		title = request.params.title.replace(/_/g, ' ');
+	} else {
+		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
 	}
 
 	if (result.article.article) {
@@ -90,6 +95,9 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
+	result.query = {
+		noExternals: !!(request.query.noexternals && request.query.noexternals !== '0' && request.query.noexternals !== '')
+	};
 }
 
 /**
@@ -191,13 +199,12 @@ function routes (server: Hapi.Server) {
 		path: localSettings.apiBase + '/article/{articleTitle*}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
-			var response: Hapi.Response;
 			article.getData({
 				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
 			}, (error: any, result: any) => {
-				var response = reply(error || result);
+				var response: Hapi.Response = reply(error || result);
 				Caching.setResponseCaching(response, cachingTimes.articleAPI);
 			});
 		}
@@ -215,7 +222,7 @@ function routes (server: Hapi.Server) {
 				};
 
 			if (params.articleId === null) {
-				reply(Hapi.error.badRequest('Invalid articleId'));
+				reply(Boom.badRequest('Invalid articleId'));
 			} else {
 				comments.handleRoute(params, (error: any, result: any): void => {
 					var response = reply(error || result);
@@ -251,10 +258,24 @@ function routes (server: Hapi.Server) {
 	// nginx or apache to serve static assets and route the rest of the requests to node.
 	server.route({
 		method: 'GET',
+		path: '/front/{path*}',
+		handler: {
+			directory: {
+				path: path.join(__dirname, '../front'),
+				listing: false,
+				index: false,
+				lookupCompressed: true
+			}
+		}
+	});
+
+	//Temporary - will be removed after transition
+	server.route({
+		method: 'GET',
 		path: '/public/{path*}',
 		handler: {
 			directory: {
-				path: path.join(__dirname, '../public'),
+				path: path.join(__dirname, '../front'),
 				listing: false,
 				index: false,
 				lookupCompressed: true

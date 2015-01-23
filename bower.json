@@ -2,9 +2,6 @@
   "name": "public",
   "version": "0.0.1",
   "homepage": "https://github.com/Wikia/mercury",
-  "authors": [
-    "Kenneth Kouot <kenneth@wikia-inc.com>"
-  ],
   "license": "MIT",
   "private": true,
   "dependencies": {

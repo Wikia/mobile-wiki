@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('docs', ['docs-back', 'docs-front']);
+gulp.task('docs', ['docs-server', 'docs-front']);

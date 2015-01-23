@@ -6,7 +6,6 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module Hapi {
-	var error: any;
 	export interface ServerOptions {
 		app?: any;
 //		cache?: string;
@@ -103,10 +102,11 @@ declare module Hapi {
 	}
 
 	export class Pack {
+		require(name: string, options: {}, callback: Function): void;
 		server(host: string, port: number, options: any): void;
 		start(callback: Function): void;
 		stop(options: {}, callback: Function): void;
-		register(plugins: {plugin: any; options: any}, callback: Function): void;
+		register(plugins: any, options?: Object, callback?: Function, state?: Object): void;
 	}
 
 	export interface ServerView {
@@ -282,7 +282,6 @@ declare module Hapi {
 
 	export class Server {
 		app: any;
-		connection: Function;
 		methods: any;
 		info: {
 			port: number;
@@ -310,6 +309,7 @@ declare module Hapi {
 		log(tags: Array<string>, data?: string, timestamp?: number): void;
 		log(tags: string, data?: any, timestamp?: number): void;
 		log(tags: Array<string>, data?: any, timestamp?: number): void;
+		connection(options?: ServerOptions): void;
 		state(name: string, options?: {
 			ttl?: number;
 			isSecure?: boolean;
@@ -457,7 +457,6 @@ declare module Hapi {
 	}
 
 	export function createServer (host: string, port: number, options?: ServerOptions): Server;
-
 }
 
 declare module "hapi" {

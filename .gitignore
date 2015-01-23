@@ -8,13 +8,12 @@
 
 /* Packages */
 node_modules/
-public/vendor/
+front/vendor/
 
 /* Node/NPM */
 *.log
 
 /* Static Assets */
-server/**/*.js
 .tmp/
 www/
 /* Should only commit json files, not compiled js fixtures */

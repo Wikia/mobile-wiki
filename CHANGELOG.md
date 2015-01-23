@@ -1,3 +1,41 @@
+## release-36 (2015-01-23 13:30)
+* hapi-clean-up: Hapi clean up
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Don't parse cookies
+
+## release-35 (2015-01-22 15:35)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Improve logging of Hapi events
+* [HG-523](https://wikia-inc.atlassian.net/browse/HG-523) HG-523 Fix multi-line captions in linked galleries
+
+## release-34 (2015-01-20 20:50)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Log error details when the response is Boom object
+* [HG-368](https://wikia-inc.atlassian.net/browse/HG-368) Move to Jenkins
+
+## release-33 (2015-01-20 14:00)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Add logging when there is no response object or response.header function
+
+## release-32 (2015-01-20 13:22)
+* main-page-title-fix: Revert change of place for result.isMainPage check
+* main-page-title-fix: Fixed unhandled TypeError when no title is given
+* [HG-488](https://wikia-inc.atlassian.net/browse/HG-488) Use the same meta tag description as MW
+* code-cleanup: Reminder about whitespace
+
+## release-31 (2015-01-16 13:00)
+* catchpoint-support: Catchpoint support
+
+## release-30 (2015-01-14 14:00)
+* update-dev-dependencies: Update bluebird, hapi and newrelic libraries
+
+## release-29 (2015-01-13 14:52)
+* [HG-522](https://wikia-inc.atlassian.net/browse/HG-522) Set API timeout to match MediaWiki app's timeout
+* HG-update-readme: Update readme
+
+## release-28 (2015-01-13 13:11)
+* [HG-444](https://wikia-inc.atlassian.net/browse/HG-444) Support for noexternals=1
+* crowdin-config: Add Crowdin config
+* ignore-sublimetext-project-files: Update .gitignore to include SublimeText project files
+* [HG-495](https://wikia-inc.atlassian.net/browse/HG-495) Whitespace fix
+* [HG-497](https://wikia-inc.atlassian.net/browse/HG-497) Upgrade spinner
+
 ## release-27 (2015-01-08 10:56)
 * [HG-373](https://wikia-inc.atlassian.net/browse/HG-373) Add tap states where missing
 * [HG-484](https://wikia-inc.atlassian.net/browse/HG-484) Update dependencies

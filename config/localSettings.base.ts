@@ -12,7 +12,8 @@ import Utils = require('../server/lib/Utils');
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
 	// Default timeout for backend requests
-	backendRequestTimeout: 30000,
+	// This timeout is the same as the MW app timeout
+	backendRequestTimeout: 300000,
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
