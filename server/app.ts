@@ -32,7 +32,15 @@ class App {
 
 		server.connection({
 			host: localSettings.host,
-			port: localSettings.port
+			port: localSettings.port,
+			routes: {
+				state: {
+					// We currently don't use any cookies on server side
+					parse: false
+					// Uncomment this setting if you change the one above as we don't want to fail on invalid cookies
+					//failAction: 'log'
+				}
+			}
 		});
 
 		this.setupLogging(server);
