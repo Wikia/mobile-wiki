@@ -1,3 +1,7 @@
+## release-36 (2015-01-23 13:30)
+* hapi-clean-up: Hapi clean up
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Don't parse cookies
+
 ## release-35 (2015-01-22 15:35)
 * [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Improve logging of Hapi events
 * [HG-523](https://wikia-inc.atlassian.net/browse/HG-523) HG-523 Fix multi-line captions in linked galleries
