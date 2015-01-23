@@ -144,6 +144,18 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.observes('currentMedia').on('init'),
 
 	/**
+	 * closes lightbox when file queryParam is not set
+	 * otherwise tries to open image lightbox with appropriate image
+	 */
+	fileObserver: function (): void {
+		if (this.get('file') == null) {
+			this.send('closeLightbox');
+		} else {
+			this.matchQueryString();
+		}
+	}.observes('file'),
+
+	/**
 	 * returns footer for currentMedia
 	 *
 	 * @return string
