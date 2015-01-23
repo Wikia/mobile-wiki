@@ -373,7 +373,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		this._super();
 	},
 
-	willDestroyElement: function() {
+	willDestroyElement: function (): void {
 		this.get('controller').reset();
 		this.get('_hammerInstance').get('pinch').set({ enable: false });
 

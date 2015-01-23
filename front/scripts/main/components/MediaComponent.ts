@@ -6,7 +6,6 @@
 'use strict';
 
 App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
-
 	tagName: 'figure',
 	classNames: ['media-component'],
 
