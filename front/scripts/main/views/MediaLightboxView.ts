@@ -363,18 +363,20 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		}
 	},
 
-	onLightboxInserted: function (): void {
+	didInsertElement: function (): void {
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
 		this.resetZoom();
-
 		this.get('_hammerInstance').get('pinch').set({ enable: true });
 
-	}.on('didInsertElement'),
+		this._super();
+	},
 
-	onLightboxDestroy: function() {
+	willDestroyElement: function() {
 		this.get('controller').reset();
 		this.get('_hammerInstance').get('pinch').set({ enable: false });
-	}.on('willDestroyElement')
+
+		this._super();
+	}
 });
