@@ -9,8 +9,8 @@ App.SideNavComponent = Em.Component.extend({
 	isCollapsed: true,
 	isInSearchMode: false,
 	searchQuery: '',
-	searchPlaceholder: function () {
-		return i18n.t('app:search-placeholder');
+	searchPlaceholderLabel: function () {
+		return i18n.t('app:search-label');
 	}.property(),
 
 	actions: {
