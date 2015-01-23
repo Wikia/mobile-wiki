@@ -1,13 +1,9 @@
 {{#each media in limitedMedia}}
-	<figure class='linked-gallery-{{unbound media.type}}'>
+	<figure class='{{unbound media.classNames}}'>
 		{{#if media.link}}
 			<a {{bind-attr href=media.link}} {{action 'clickLinkedImage'}}>
 				<img {{bind-attr src=media.thumbUrl}} {{bind-attr class='media.load:loaded'}} data-gallery-ref='{{unbound media.galleryRef}}'>
-				{{#if media.caption}}
-					{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron moved'}}
-				{{else}}
-					{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
-				{{/if}}
+				{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 			</a>
 		{{else}}
 			<img {{bind-attr src=media.thumbUrl}} {{bind-attr class='media.load:loaded'}} data-gallery-ref='{{unbound media.galleryRef}}'>

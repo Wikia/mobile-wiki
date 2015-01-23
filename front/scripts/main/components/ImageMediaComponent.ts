@@ -4,7 +4,7 @@
 
 App.ImageMediaComponent = App.MediaComponent.extend({
 	classNames: ['article-image'],
-	classNameBindings: ['visible'],
+	classNameBindings: ['hasCaption:has-caption', 'visible'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
@@ -66,6 +66,12 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 			'' :
 			'height:%@px;'.fmt(this.get('computedHeight'));
 	}.property('computedHeight', 'visible'),
+
+	hasCaption: function (): boolean {
+		var caption = this.get('media').caption;
+
+		return caption && typeof caption === 'string' && caption.length > 0
+	},
 
 	/**
 	 * load an image and run update function when it is loaded

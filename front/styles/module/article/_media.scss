@@ -32,10 +32,10 @@
 		right: 0;
 		width: 20px;
 		z-index: $z-1;
+	}
 
-		&.moved {
-		  margin-bottom: 50px;
-		}
+	.has-caption .chevron {
+		margin-bottom: 50px;
 	}
 }
 
