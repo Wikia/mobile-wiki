@@ -357,7 +357,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 				//half of - device height minus height of the animated image multiplied by scale
 				top: ((viewportSize.height - ($image.height() * (deviceWidth / width))) / 2) + 'px',
 				left: 0
-			}).one('webkitTransitionEnd, transitioned', function () {
+			}).one('webkitTransitionEnd, transitionend', function () {
 				$imageCopy.remove();
 			});
 		}
