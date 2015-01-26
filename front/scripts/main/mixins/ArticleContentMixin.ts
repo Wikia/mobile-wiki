@@ -39,7 +39,9 @@ App.ArticleContentListeners = Em.Object.create({
 	add: function (container: Em.Component): void {
 		this.containers.push(container);
 		if (!this.initialized) {
-			Em.$(window).on('resize', this._onResize.bind(this));
+			Em.$(window).on('resize', () => {
+				this.onResize
+			});
 			this.articleContentWidth = $(this.articleContentSelector).width();
 			container.set('articleContent.width', this.articleContentWidth);
 			this.initialized = true;
@@ -54,7 +56,7 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
-	_onResize: function (): void {
+	onResize: function (): void {
 		var containers = this.containers,
 			containersCount = containers.length;
 
