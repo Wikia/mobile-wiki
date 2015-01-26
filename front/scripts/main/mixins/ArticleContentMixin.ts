@@ -20,7 +20,7 @@ App.ArticleContentMixin = Em.Mixin.create({
 
 	onWillDestroyElement: function (): void {
 		App.ArticleContentListeners.remove(this);
-	}.on('willDestroyElement')vi
+	}.on('willDestroyElement')
 });
 
 /**
@@ -39,9 +39,7 @@ App.ArticleContentListeners = Em.Object.create({
 	add: function (container: Em.Component): void {
 		this.containers.push(container);
 		if (!this.initialized) {
-			Em.$(window).on('resize', () => {
-				this._onResize();
-			});
+			Em.$(window).on('resize', this._onResize.bind(this));
 			this.articleContentWidth = $(this.articleContentSelector).width();
 			container.set('articleContent.width', this.articleContentWidth);
 			this.initialized = true;
