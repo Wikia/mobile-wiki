@@ -38,11 +38,12 @@
 }
 
 .lightbox-close-wrapper {
+	box-sizing: content-box;
 	fill: white;
 	float: right;
-	height: 45px;
-	padding: 13px;
-	width: 45px;
+	height: 15px;
+	padding: 13px 13px 33px;
+	width: 15px;
 }
 
 .lightbox-close-button {
