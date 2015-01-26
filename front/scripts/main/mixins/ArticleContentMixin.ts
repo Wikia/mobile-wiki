@@ -10,7 +10,7 @@ App.ArticleContentMixin = Em.Mixin.create({
 		App.ArticleContentListeners.add(this);
 	}.on('init'),
 
-	onElementDestroyed: function() {
+	onElementDestroyed: function (): void {
 		App.ArticleContentListeners.remove(this);
 	}.on('willDestroyElement')
 });
@@ -19,6 +19,8 @@ App.ArticleContentListeners = Em.Object.create({
 
 	initialized: false,
 	containers: [],
+	articleContentSelector: '.article-content',
+	articleContentWidth: null,
 
 	add: function (container: Em.Component) :void {
 		this.containers.push(container);
@@ -26,7 +28,8 @@ App.ArticleContentListeners = Em.Object.create({
 			Em.$(window).on('resize', () => {
 				this.onResize()
 			});
-			container.set('articleContent.width', $('.article-content').width());
+			this.articleContentWidth = $(this.articleContentSelector).width();
+			container.set('articleContent.width', this.articleContentWidth);
 			this.initialized = true;
 		}
 	},
@@ -41,13 +44,16 @@ App.ArticleContentListeners = Em.Object.create({
 
 	onResize: function() :void {
 		var containers = this.containers,
-			containersCount = containers.length,
-			freshArticleContentWidth = $('.article-content').width();
+			containersCount = containers.length;
+
+		//We set current width on articleContentWidth so we always keep track of article-content width.
+		//Even if components are no longer registered (for example in case of opening/closing infobox).
+		this.articleContentWidth = $(this.articleContentSelector).width();
 
 		//If some containers are registered it is enough to update value in one of them
 		//because articleContent.width property is shared among all objects which include ArticleContentMixin
 		if (containersCount > 0) {
-			containers[0].set('articleContent.width', freshArticleContentWidth);
+			containers[0].set('articleContent.width', this.articleContentWidth);
 		}
 	}
 });
