@@ -16,13 +16,12 @@ App.ArticleContentMixin = Em.Mixin.create({
 });
 
 App.ArticleContentListeners = Em.Object.create({
-
 	initialized: false,
 	containers: [],
 	articleContentSelector: '.article-content',
 	articleContentWidth: null,
 
-	add: function (container: Em.Component) :void {
+	add: function (container: Em.Component): void {
 		this.containers.push(container);
 		if (!this.initialized) {
 			Em.$(window).on('resize', () => {
@@ -34,7 +33,7 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
-	remove: function(container: Em.Component) :void {
+	remove: function (container: Em.Component): void {
 		var index = this.containers.indexOf(container);
 
 		if (index > -1) {
@@ -42,7 +41,7 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
-	onResize: function() :void {
+	onResize: function (): void {
 		var containers = this.containers,
 			containersCount = containers.length;
 
