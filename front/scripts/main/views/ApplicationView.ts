@@ -33,6 +33,7 @@ App.ApplicationView = Em.View.extend({
 
 	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
+	scrollLocation: null,
 
 	willInsertElement: function (): void {
 		$('#article-preload').remove();
@@ -128,13 +129,22 @@ App.ApplicationView = Em.View.extend({
 
 	actions: {
 		setScrollable: function (): void {
-			var $element = $(this.get('element'));
-			$element.off('scroll touchmove mousewheel', this.preventDefault);
+			Em.$('body')
+				.removeClass('no-scroll')
+				.css('top', '');
+
+			window.scrollTo(0, this.get('scrollLocation'));
+			this.set('scrollLocation', null);
 		},
 
 		setUnscrollable: function (): void {
-			var $element = $(this.get('element'));
-			$element.on('scroll touchmove mousewheel', this.preventDefault);
+			var $body = Em.$('body'),
+				scrollLocation = $body.scrollTop();
+
+			this.set('scrollLocation', scrollLocation);
+
+			$body.css('top', -scrollLocation)
+				.addClass('no-scroll');
 		}
 	},
 
