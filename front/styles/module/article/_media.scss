@@ -40,6 +40,10 @@
 .gallery-video {
 	position: relative;
 
+	&.is-small .chevron {
+		display: none;
+	}
+
 	figcaption {
 		@extend %ellipsis;
 		height: 30px;
