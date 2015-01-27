@@ -69,7 +69,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		},
 
 		openLightbox: function (lightboxName: string, data?: any): void {
-			this.get('controller').set('scrollable', false);
+			this.get('controller').set('noScroll', true);
 
 			if (data) {
 				this.controllerFor(lightboxName).set('data', data);
@@ -82,7 +82,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		},
 
 		closeLightbox: function (): void {
-			this.get('controller').set('scrollable', true);
+			this.get('controller').set('noScroll', false);
 
 			return this.disconnectOutlet({
 				outlet: 'lightbox',

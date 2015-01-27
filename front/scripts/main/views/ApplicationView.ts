@@ -33,7 +33,7 @@ App.ApplicationView = Em.View.extend({
 
 	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
-	scrollable: Em.computed.alias('controller.scrollable'),
+	noScroll: Em.computed.alias('controller.noScroll'),
 	scrollLocation: null,
 
 	willInsertElement: function (): void {
@@ -134,29 +134,29 @@ App.ApplicationView = Em.View.extend({
 
 	sideNavCollapsedObserver: function (): void {
 		if (this.get('sideNavCollapsed')) {
-			this.set('scrollable', true);
+			this.set('noScroll', false);
 		} else {
-			this.set('scrollable', false);
+			this.set('noScroll', true);
 		}
 	}.observes('sideNavCollapsed'),
 
-	scrollableObserver: function (): void {
+	noScrollObserver: function (): void {
 		var $body = Em.$('body'),
 			scrollLocation: number;
 
-		if (this.get('scrollable')) {
-			$body.removeClass('no-scroll')
-				.css('top', '');
-
-			window.scrollTo(0, this.get('scrollLocation'));
-			this.set('scrollLocation', null);
-		} else {
+		if (this.get('noScroll')) {
 			scrollLocation = $body.scrollTop();
 
 			this.set('scrollLocation', scrollLocation);
 
 			$body.css('top', -scrollLocation)
 				.addClass('no-scroll');
+		} else {
+			$body.removeClass('no-scroll')
+				.css('top', '');
+
+			window.scrollTo(0, this.get('scrollLocation'));
+			this.set('scrollLocation', null);
 		}
-	}.observes('scrollable')
+	}.observes('noScroll')
 });
