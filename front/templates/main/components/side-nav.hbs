@@ -6,7 +6,7 @@
 }}
 <div {{bind-attr class=':drawer controller.isInSearchMode:search'}}>
 	<div class='search-container'>
-		{{input placeholder='Search' focus-in='searchFocus' value=searchQuery action='enter'}}
+		{{input placeholder=searchPlaceholderLabel focus-in='searchFocus' value=searchQuery action='enter'}}
 		{{! add action on this svg too because it's stacked on top of the input area}}
 		<svg {{action 'searchFocus'}} viewBox='0 0 14 14' class='icon search-side-menu'>
 			<use xlink:href='#search-side-menu'></use>
@@ -16,7 +16,7 @@
 				<use xlink:href='#close-side-menu'></use>
 			</svg>
 		</div>
-		<div {{action 'searchCancel'}} class='cancel'>Cancel</div>
+		<div {{action 'searchCancel'}} class='cancel'>{{i18n 'cancel-label'}}</div>
 	</div>
 	{{local-wikia-search sideNavCollapsed=isCollapsed query=searchQuery isInSearchMode=isInSearchMode}}
 	{{local-nav-menu sideNavCollapsed=isCollapsed}}
