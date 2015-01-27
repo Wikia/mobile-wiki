@@ -5,7 +5,7 @@
 interface ArticleMedia extends Em.Object {
 	galleryRef: number;
 	thumbUrl: string;
-	classNames: string;
+	captionClass: string;
 }
 
 App.GalleryMediaComponent = App.MediaComponent.extend({
@@ -24,10 +24,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		this.get('media').forEach((media: ArticleMedia, index: number) => {
 			media.galleryRef = index;
 			media.thumbUrl = emptyGif;
-			media.classNames = 'linked-gallery-' + media.type;
-			if (media.caption) {
-				media.classNames += ' has-caption';
-			}
+			media.captionClass = media.caption.length > 0 ? 'has-caption' : '';
 
 			mediaArray.pushObject(Em.Object.create(media));
 		});

@@ -10,6 +10,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 	imageSrc: Em.computed.oneWay(
 		'emptyGif'
 	),
+	hasCaption: Em.computed.notEmpty('media.caption'),
 
 	link: Em.computed.alias('media.link'),
 
@@ -66,12 +67,6 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 			'' :
 			'height:%@px;'.fmt(this.get('computedHeight'));
 	}.property('computedHeight', 'visible'),
-
-	hasCaption: function (): boolean {
-		var caption = this.get('media').caption;
-
-		return caption && typeof caption === 'string' && caption.length > 0
-	},
 
 	/**
 	 * load an image and run update function when it is loaded

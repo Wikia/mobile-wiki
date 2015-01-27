@@ -1,5 +1,5 @@
 {{#each media in limitedMedia}}
-	<figure class='{{unbound media.classNames}}'>
+	<figure class='linked-gallery-{{unbound media.type}} {{unbound media.captionClass}}'>
 		{{#if media.link}}
 			<a {{bind-attr href=media.link}} {{action 'clickLinkedImage'}}>
 				<img {{bind-attr src=media.thumbUrl}} {{bind-attr class='media.load:loaded'}} data-gallery-ref='{{unbound media.galleryRef}}'>
