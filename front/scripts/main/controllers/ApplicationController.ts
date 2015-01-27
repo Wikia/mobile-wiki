@@ -5,6 +5,7 @@ App.ApplicationController = Em.Controller.extend({
 	queryParams: [{noAds: 'noads'}],
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
+	scrollable: true,
 	noAds: '',
 	isLoading: false,
 
