@@ -65,7 +65,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 			return;
 		}
 
-		images.forEach((image: {name: string; full: string; capt?: string}) => {
+		images.forEach((image: {name: string; full: string; capt?: string; type?: string}) => {
 			var thumbnailURL = thumbnailer.getThumbURL(
 					image.full,
 					thumbnailer.mode.scaleToWidth,
@@ -82,6 +82,10 @@ App.ArticleCommentComponent = Em.Component.extend({
 				$anchor = $('<a/>').attr('href', href).append($thumbnail),
 				$figcaption: JQuery,
 				$figure = $('<figure/>');
+
+			if (image.type === 'video') {
+				$figure.addClass('comment-video');
+			}
 
 			$figure.append($anchor);
 

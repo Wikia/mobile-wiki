@@ -100,7 +100,8 @@ figcaption {
 }
 
 .gallery-video::after,
-.article-video::before {
+.article-video::before,
+.comment-video::before {
 	background: {
 		image: url('../images/play.svg');
 		position: 10px 10px;
@@ -150,6 +151,10 @@ figcaption {
 			@extend %ellipsis;
 		}
 	}
+}
+
+.comment-video {
+	position: relative;
 }
 
 @keyframes lazyImage {
