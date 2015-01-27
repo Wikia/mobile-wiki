@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="./MediaComponent.ts" />
+/// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
 interface ArticleMedia extends Em.Object {
@@ -7,7 +8,7 @@ interface ArticleMedia extends Em.Object {
 	thumbUrl: string;
 }
 
-App.GalleryMediaComponent = App.MediaComponent.extend({
+App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	classNames: ['article-gallery'],
 	layoutName: 'components/gallery-media',
 
@@ -30,7 +31,8 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		this.setProperties({
 			media: mediaArray,
 			limit: this.incrementLimitValue,
-			galleryLength: mediaArray.length
+			galleryLength: mediaArray.length,
+			galleryWidth: this.$().width()
 		});
 	},
 
@@ -38,7 +40,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		var limit = this.get('limit');
 
 		if (limit > 0) {
-			return this.get('media').slice(0, limit)
+			return this.get('media').slice(0, limit);
 		}
 
 		return this.get('media');
@@ -82,11 +84,13 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		this.loadImages(0, maxImages);
 
 		thisGallery.on('scroll', () => {
-			this.onScroll(thisGallery, galleryWidth, maxImages);
+			this.onScroll(thisGallery, maxImages);
 		});
 	},
 
-	onScroll: function (thisGallery: JQuery, galleryWidth: number, maxImages: number): void {
+	onScroll: function (thisGallery: JQuery, maxImages: number): void {
+		var galleryWidth = this.get('galleryWidth');
+
 		Em.run.debounce(this, () => {
 			var images = thisGallery.find('img:not(.loaded)'),
 				galleryScroll = thisGallery.scrollLeft();
@@ -105,5 +109,11 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 				}
 			}
 		}, 100);
-	}
+	},
+
+	articleContentWidthObserver: function (): void {
+		if (this.get('_state') === 'hasElement') {
+			this.set('galleryWidth', this.$().width());
+		}
+	}.observes('articleContent.width')
 });
