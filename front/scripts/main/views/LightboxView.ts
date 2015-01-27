@@ -12,7 +12,6 @@ App.LightboxView = Em.View.extend({
 	headerHidden: false,
 	status: 'open',
 
-
 	click: function (event: MouseEvent) {
 		var $target = this.$(event.target);
 
