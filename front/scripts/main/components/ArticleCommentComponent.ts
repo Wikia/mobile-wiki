@@ -15,7 +15,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 			$figure = $text.find('figure');
 
 		if ($figure.length) {
-			this.convertImages($figure);
+			this.convertThumbnails($figure);
 		}
 
 		return $text.html();
@@ -46,28 +46,28 @@ App.ArticleCommentComponent = Em.Component.extend({
 	},
 
 	/**
-	 * This is temporary workaround so we can display images in comments.
+	 * This is temporary workaround so we can display thumbnails in comments.
 	 * It parses <figure> element, gets data-params from <img> and creates new figures based on that.
-	 * Clicking on images will open File page instead of lightbox.
+	 * Clicking on thumbnail will open File page instead of lightbox.
 	 *
 	 * TODO: this should be done properly starting from changing the API response
 	 *
 	 * @param {JQuery} $originalFigure
 	 */
-	convertImages: function ($originalFigure: JQuery): void {
-		var images: any,
+	convertThumbnails: function ($originalFigure: JQuery): void {
+		var thumbnailsData: any,
 			thumbnailer = Mercury.Modules.Thumbnailer,
 			newFigures: JQuery[] = [];
 
 		try {
-			images = JSON.parse($originalFigure.find('img[data-params]').attr('data-params'));
+			thumbnailsData = JSON.parse($originalFigure.find('img[data-params]').attr('data-params'));
 		} catch (exception) {
 			return;
 		}
 
-		images.forEach((image: {name: string; full: string; capt?: string; type?: string}) => {
+		thumbnailsData.forEach((thumbnailData: {name: string; full: string; capt?: string; type?: string}) => {
 			var thumbnailURL = thumbnailer.getThumbURL(
-					image.full,
+					thumbnailData.full,
 					thumbnailer.mode.scaleToWidth,
 					this.thumbnailWidth,
 					// this is ignored by Vignette, should be optional
@@ -77,20 +77,20 @@ App.ArticleCommentComponent = Em.Component.extend({
 				href = '%@%@:%@'.fmt(
 					Em.get(Mercury, 'wiki.articlePath'),
 					Em.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
-					image.name
+					thumbnailData.name
 				),
 				$anchor = $('<a/>').attr('href', href).append($thumbnail),
 				$figcaption: JQuery,
 				$figure = $('<figure/>');
 
-			if (image.type === 'video') {
+			if (thumbnailData.type === 'video') {
 				$figure.addClass('comment-video');
 			}
 
 			$figure.append($anchor);
 
-			if (image.capt) {
-				$figcaption = $('<figcaption/>').text(image.capt);
+			if (thumbnailData.capt) {
+				$figcaption = $('<figcaption/>').text(thumbnailData.capt);
 				$figure.append($figcaption);
 			}
 
