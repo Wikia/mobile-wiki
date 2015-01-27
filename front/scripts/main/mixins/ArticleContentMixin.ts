@@ -27,7 +27,8 @@ App.ArticleContentMixin = Em.Mixin.create({
  * This object keeps track of all components which include ArticleContentMixin.
  * It needed to be created because components can appear and disappear from the page (for example lightbox).
  * In such case mixin alone can't keep track of all objects which include it and is some cases context might be lost.
- * With ArticleContentListeners object we are binding to resize event only once and we update the articleContent.width value in mixin only once.
+ * With ArticleContentListeners object we are binding to resize event only once
+ * and we update the articleContent.width value in mixin only once.
  * @type {Ember.Object}
  */
 App.ArticleContentListeners = Em.Object.create({
@@ -40,7 +41,7 @@ App.ArticleContentListeners = Em.Object.create({
 		this.containers.push(container);
 		if (!this.initialized) {
 			Em.$(window).on('resize', () => {
-				this.onResize
+				this.onResize();
 			});
 			this.articleContentWidth = $(this.articleContentSelector).width();
 			container.set('articleContent.width', this.articleContentWidth);

@@ -280,7 +280,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		}
 	},
 
-	articleContentWidthObserver: function() {
+	articleContentWidthObserver: function (): void {
 		this.notifyPropertyChange('viewportSize');
 		this.notifyPropertyChange('imageWidth');
 		this.notifyPropertyChange('imageHeight');
