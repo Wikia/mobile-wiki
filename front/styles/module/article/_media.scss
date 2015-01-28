@@ -46,8 +46,7 @@
 
 	figcaption {
 		@extend %ellipsis;
-		height: 30px;
-		margin-bottom: 20px;
+		height: 50px;
 		pointer-events: auto;
 	}
 }
@@ -88,6 +87,11 @@ figcaption {
 			@extend %button-primary;
 			padding: rem-calc(10) rem-calc(60);
 			text-transform: uppercase;
+		}
+
+		figcaption {
+			height: 30px;
+			margin-bottom: 20px;
 		}
 
 		figure {
