@@ -55,21 +55,24 @@ To generate the code coverage run `npm run coverage`. The reports will be genera
 
 ## Updating translations
 Localization is handled by i18next JavaScript library and CrowdIn service. i18next is a part (module) of the Mercury and loads files from `front/locales` directory. CrowdIn is an external service which is responsible only for providing translations for the key values from the source file `front/locales/en/translation.json`. Wikia has its own CrowdIn client which is already installed on your dev-box.
+
 ### Uploading new keys/updating key values in the source file
 If during the development process you've added new keys to the `front/locales/en/translation.json` file (the source file), then you have to upload it to CrowdIn to enable the translators to work on the other languages. The same applies if you've changed the values of the existing keys in the source file, as the corresponding values in other languages are being invalidated.
 * go to your dev-box and clone the Mercury project (or just upload the `crowdin.conf` file, but this approach needs more flirting with the configuration, manual updating and command line switches → not recommended)
 * checkout the branch with the desired changes (or just upload the new source file)
 * from the project root directory run `crowdin upload`
+
 ### Checking the translation status
 * from the project root directory run `crowdin translation-status`
 * you can also go to [the project's web page](https://crowdin.com/project/mercury) (more info on access on [Internal](https://one.wikia-inc.com/wiki/Crowdin))
+
 ### Downloading the translations
 * from the project root directory run `crowdin download`
 * be aware that you can use command line switches, few of them control git:
-** `-c` ckeckouts a new branch with a default name and commits the changes
-** `-b` changes the default branch name
-** `-m` adds a message to the commit
-** `-p` pushes the branch to GitHub
+    * `-c` ckeckout a new branch with a default name and commit the changes
+    * `-b` change the default branch name
+    * `-m` add a message to the commit
+    * `-p` push the branch to GitHub
 More details can be found in `README.rst` in the [i18n-tools repository](https://github.com/Wikia/i18n-tools).
 
 ## Testing on devices
