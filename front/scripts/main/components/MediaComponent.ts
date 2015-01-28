@@ -25,13 +25,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		large: 900
 	},
 
-	/**
-	 * @desc content width used to load smaller thumbnails
-	 */
-	contentWidth: function (): number {
-		return $('.article-content').width();
-	}.property(),
-
 	normalizeThumbWidth: function (width: number): number {
 		if (width <= this.thumbSize.small) {
 			return this.thumbSize.small;
@@ -43,7 +36,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	/**
-	 * @desc if image is not thumbnail, returns url to thumbnail with width set to contentWidth
+	 * @desc if image is not thumbnail, returns url to thumbnail with width set to articleWidth
 	 *
 	 * @param {String} url
 	 * @param {String} mode

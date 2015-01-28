@@ -46,6 +46,10 @@ gulp.task('watch', ['build', 'build-views'], function () {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 
+	gulp.watch(paths.locales.src, ['locales']).on('change', function (event) {
+		log('Locales changed:', gutil.colors.green(event.path));
+	});
+
 	gulp.watch([
 		path.join(paths.symbols.src, paths.symbols.files),
 		paths.views.src
@@ -57,7 +61,8 @@ gulp.task('watch', ['build', 'build-views'], function () {
 		paths.base + '/views/**/*',
 		paths.base + '/front/scripts/*.js',
 		paths.base + '/front/styles/*.css',
-		paths.base + '/front/templates/*.js'
+		paths.base + '/front/templates/*.js',
+		paths.base + '/front/locales/**/translate.json'
 	]).on('change', function (event) {
 		log('File changed:', gutil.colors.green(event.path), 'Restarting server');
 
