@@ -1,10 +1,15 @@
 /// <reference path="../app.ts" />
 /// <reference path="./MediaComponent.ts" />
+/// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
-App.ImageMediaComponent = App.MediaComponent.extend({
+App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
+	smallImageSize: {
+		height: 64,
+		width: 64
+	},
 	classNames: ['article-image'],
-	classNameBindings: ['visible'],
+	classNameBindings: ['visible', 'isSmall'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
@@ -13,14 +18,22 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 
 	link: Em.computed.alias('media.link'),
 
+	isSmall: function(): boolean {
+		var imageWidth = this.get('width'),
+			imageHeight = this.get('height');
+
+		return !!imageWidth && imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
+
+	}.property('width', 'height'),
+
 	/**
 	 * used to set proper height to img tag before it loads
 	 * so we have less content jumping around due to lazy loading images
 	 * @return number
 	 */
 	computedHeight: function (): number {
-		var pageWidth = this.get('contentWidth'),
-			imageWidth = this.getWithDefault('width', pageWidth),
+		var pageWidth = this.get('articleContent.width'),
+			imageWidth = this.get('width') || pageWidth,
 			imageHeight = this.get('height');
 
 		if (pageWidth < imageWidth) {
@@ -28,16 +41,15 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 		}
 
 		return imageHeight;
-	}.property('width', 'height'),
+	}.property('width', 'height', 'articleContent.width'),
 
 	url: function (key: string, value?: string): string {
 		var media: ArticleMedia;
-
 		if (value) {
 			return this.getThumbURL(
 				value,
 				Mercury.Modules.Thumbnailer.mode.topCrop,
-				this.get('contentWidth'),
+				this.get('articleContent.width'),
 				this.get('computedHeight')
 			);
 		} else {
@@ -47,7 +59,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 				return this.getThumbURL(
 					this.get('media').url,
 					Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-					this.get('contentWidth'),
+					this.get('articleContent.width'),
 					this.get('computedHeight')
 				);
 			}
@@ -55,7 +67,7 @@ App.ImageMediaComponent = App.MediaComponent.extend({
 
 		//if it got here, that means that we don't have an url for this media
 		//this might happen for example for read more section images
-	}.property('media', 'contentWidth', 'computedHeight'),
+	}.property(),
 
 	/**
 	 * @desc style used on img tag to set height of it before we load an image
