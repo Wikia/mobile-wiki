@@ -24,7 +24,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		this.get('media').forEach((media: ArticleMedia, index: number) => {
 			media.galleryRef = index;
 			media.thumbUrl = emptyGif;
-			media.captionClass = media.caption.length > 0 ? 'has-caption' : '';
+			media.captionClass = media.caption.length > 0 ? ' has-caption' : '';
 
 			mediaArray.pushObject(Em.Object.create(media));
 		});

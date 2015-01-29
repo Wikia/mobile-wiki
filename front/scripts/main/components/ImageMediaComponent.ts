@@ -4,7 +4,7 @@
 
 App.ImageMediaComponent = App.MediaComponent.extend({
 	classNames: ['article-image'],
-	classNameBindings: ['hasCaption:has-caption', 'visible'],
+	classNameBindings: ['hasCaption', 'visible'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
