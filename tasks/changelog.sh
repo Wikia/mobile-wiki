@@ -12,7 +12,7 @@ else
   TO=master
 fi
 
-git --no-pager log $FROM...$TO --merges --pretty=format:'* %s: %b' |
+git --no-pager log $FROM..$TO --merges --pretty=format:'* %s: %b' |
 grep 'Merge pull' |
 sed -e 's/* .*from Wikia\//* /' \
     -e 's/^* \([A-Z]\{2,3\}-[0-9]*\)/* [\1](https:\/\/wikia-inc\.atlassian\.net\/browse\/\1)/' \
