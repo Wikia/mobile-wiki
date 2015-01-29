@@ -1,5 +1,6 @@
 /// <reference path="./LightboxView.ts" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
+/// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
 interface HammerEvent {
@@ -17,7 +18,7 @@ interface Window {
 	scrollY: number;
 }
 
-App.MediaLightboxView = App.LightboxView.extend({
+App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	classNames: ['media-lightbox'],
 	maxZoom: 5,
 	lastX: 0,
@@ -279,6 +280,15 @@ App.MediaLightboxView = App.LightboxView.extend({
 		}
 	},
 
+	articleContentWidthObserver: function (): void {
+		this.notifyPropertyChange('viewportSize');
+		this.notifyPropertyChange('imageWidth');
+		this.notifyPropertyChange('imageHeight');
+		if (this.get('videoPlayer')) {
+			this.get('videoPlayer').onResize();
+		}
+	}.observes('articleContent.width'),
+
 	/**
 	 * @desc 'listens' to scale, newX and newY and returns
 	 * style string for an image, used for scaling and panning
@@ -325,11 +335,11 @@ App.MediaLightboxView = App.LightboxView.extend({
 	animateMedia: function (image?: HTMLElement): void {
 		if (image) {
 			var $image = $(image).find('img'),
-			    offset = $image.offset(),
-			    $imageCopy = $image.clone(),
-			    width = $image.width(),
-			    viewportSize = this.get('viewportSize'),
-			    deviceWidth = viewportSize.width;
+				offset = $image.offset(),
+				$imageCopy = $image.clone(),
+				width = $image.width(),
+				viewportSize = this.get('viewportSize'),
+				deviceWidth = viewportSize.width;
 
 			//initial style, mimic the image that is in page
 			$imageCopy.css({
@@ -354,29 +364,16 @@ App.MediaLightboxView = App.LightboxView.extend({
 	},
 
 	didInsertElement: function (): void {
-		var onResize = () => {
-			this.notifyPropertyChange('viewportSize');
-			this.notifyPropertyChange('imageWidth');
-			this.notifyPropertyChange('imageHeight');
-			if (this.get('videoPlayer')) {
-				this.get('videoPlayer').onResize();
-			}
-		};
-
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
 		this.resetZoom();
-
-		$(window).on('resize', onResize);
-		this.set('onResize', onResize);
 		this.get('_hammerInstance').get('pinch').set({ enable: true });
 
 		this._super();
 	},
 
 	willDestroyElement: function (): void {
-		$(window).off('resize', this.get('onResize'));
 		this.get('controller').reset();
 		this.get('_hammerInstance').get('pinch').set({ enable: false });
 

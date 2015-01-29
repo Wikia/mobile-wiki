@@ -1,3 +1,21 @@
+## release-37 (2015-01-28 17:20)
+* [HG-457](https://wikia-inc.atlassian.net/browse/HG-457) Revert method for setting body unscrollable to the one that was working
+* [HG-489](https://wikia-inc.atlassian.net/browse/HG-489) Add play icon to video thumbnail in comment
+* [HG-540](https://wikia-inc.atlassian.net/browse/HG-540) Fix label on comment replies
+* [HG-539](https://wikia-inc.atlassian.net/browse/HG-539) Fixed problem with handling links when comments are opened
+* [HG-506](https://wikia-inc.atlassian.net/browse/HG-506) Search placeholder and cancel button translations
+* [HG-354](https://wikia-inc.atlassian.net/browse/HG-354) Disable lightbox on small images and hide chevron next to icons
+* [HG-197](https://wikia-inc.atlassian.net/browse/HG-197) Close lightbox on back button
+* [HG-327](https://wikia-inc.atlassian.net/browse/HG-327) Increase the tap area for lightbox close button by 20px
+
+## release-36 (2015-01-23 13:30)
+* hapi-clean-up: Hapi clean up
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Don't parse cookies
+
+## release-35 (2015-01-22 15:35)
+* [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Improve logging of Hapi events
+* [HG-523](https://wikia-inc.atlassian.net/browse/HG-523) HG-523 Fix multi-line captions in linked galleries
+
 ## release-34 (2015-01-20 20:50)
 * [HG-532](https://wikia-inc.atlassian.net/browse/HG-532) Log error details when the response is Boom object
 * [HG-368](https://wikia-inc.atlassian.net/browse/HG-368) Move to Jenkins

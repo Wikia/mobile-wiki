@@ -1,7 +1,9 @@
 /// <reference path="../typings/hapi/hapi.d.ts" />
+/// <reference path="../typings/boom/boom.d.ts" />
 
 import path = require('path');
 import Hapi = require('hapi');
+import Boom = require('boom');
 import localSettings = require('../config/localSettings');
 import Utils = require('./lib/Utils');
 import Caching = require('./lib/Caching');
@@ -197,13 +199,12 @@ function routes (server: Hapi.Server) {
 		path: localSettings.apiBase + '/article/{articleTitle*}',
 		config: config,
 		handler: (request: Hapi.Request, reply: Function) => {
-			var response: Hapi.Response;
 			article.getData({
 				wikiDomain: getWikiDomainName(request.headers.host),
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
 			}, (error: any, result: any) => {
-				var response = reply(error || result);
+				var response: Hapi.Response = reply(error || result);
 				Caching.setResponseCaching(response, cachingTimes.articleAPI);
 			});
 		}
@@ -221,7 +222,7 @@ function routes (server: Hapi.Server) {
 				};
 
 			if (params.articleId === null) {
-				reply(Hapi.error.badRequest('Invalid articleId'));
+				reply(Boom.badRequest('Invalid articleId'));
 			} else {
 				comments.handleRoute(params, (error: any, result: any): void => {
 					var response = reply(error || result);
