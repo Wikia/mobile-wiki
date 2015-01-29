@@ -1,0 +1,11 @@
+{{#unless query.noExternals}}
+	<script>
+		jQuery(function() {
+			jQuery.scrollDepth({
+				eventHandler: function(data) {
+					console.log(data);
+				}
+			});
+		});
+	</script>
+{{/unless}}
