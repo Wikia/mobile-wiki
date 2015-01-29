@@ -9,12 +9,13 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		width: 64
 	},
 	classNames: ['article-image'],
-	classNameBindings: ['visible', 'isSmall'],
+	classNameBindings: ['hasCaption', 'visible', 'isSmall'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
 		'emptyGif'
 	),
+	hasCaption: Em.computed.notEmpty('media.caption'),
 
 	link: Em.computed.alias('media.link'),
 

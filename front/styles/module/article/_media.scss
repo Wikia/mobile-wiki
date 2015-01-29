@@ -27,11 +27,14 @@
 		background-color: #fff;
 		bottom: 0;
 		height: 20px;
-		margin-bottom: 50px;
 		position: absolute;
 		right: 0;
 		width: 20px;
 		z-index: $z-1;
+	}
+
+	.has-caption .chevron {
+		margin-bottom: 50px;
 	}
 }
 
