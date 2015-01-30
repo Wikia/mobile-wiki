@@ -16,7 +16,6 @@ interface ScrollDepth {
 	resetCache(): void;
 }
 
-// TODO: confirm if it's correct way of handling TypeScript error?
 interface JQueryStatic {
 	scrollDepth(options: ScrollDepthOptions): ScrollDepth;
 }
