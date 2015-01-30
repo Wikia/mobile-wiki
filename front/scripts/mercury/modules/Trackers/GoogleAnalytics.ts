@@ -133,5 +133,9 @@ module Mercury.Modules.Trackers {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
 			}
 		}
+
+		getQueue (): GoogleAnalyticsCode {
+			return this.queue;
+		}
 	}
 }

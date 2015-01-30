@@ -22,13 +22,16 @@ interface JQueryStatic {
 
 module Mercury.Modules.Trackers {
 	export class ScrollDepthTracker {
+		gaTracker: GoogleAnalytics;
 		scrollDepth: ScrollDepth;
 
 		constructor () {
+			this.gaTracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 			this.scrollDepth = jQuery.scrollDepth({
 				unattachEventOnceCacheIsFull: false,
-				eventHandler: function(data: ScrollDepthOptions) {
-					console.log(data);
+				eventHandler: (data: ScrollDepthOptions) => {
+					Em.Logger.info('Sending scroll depth tracking');
+					this.gaTracker.getQueue().push(data);
 				}
 			});
 		}
