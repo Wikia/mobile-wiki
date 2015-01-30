@@ -34,7 +34,7 @@ module Mercury.Modules.Trackers {
 			});
 		}
 
-		trackPageView (): void {
+		reset (): void {
 			this.scrollDepth.resetCache();
 		}
 	}

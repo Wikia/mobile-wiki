@@ -32,6 +32,7 @@ interface TrackerInstance {
 	new(): TrackerInstance;
 	track: TrackFunction;
 	trackPageView: (context?: TrackContext) => void;
+	reset(): void;
 	usesAdsContext: boolean;
 }
 
@@ -163,6 +164,28 @@ module Mercury.Utils {
 			if (trackerInstance && trackerInstance.trackPageView) {
 				Em.Logger.info('Track pageView:', tracker);
 				trackerInstance.trackPageView(trackerInstance.usesAdsContext ? adsContext : context);
+			}
+		});
+	}
+
+	/**
+	 * function for aggregating all page tracking that Wikia uses and calling reset method on them
+	 *
+	 * reset is called in ArticleView.onArticleChange
+	 */
+	export function reset () {
+		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
+
+		if (Em.get(Mercury, 'query.noExternals')) {
+			return;
+		}
+
+		Object.keys(trackers).forEach(function (tracker: string) {
+			var trackerInstance = new trackers[tracker]();
+
+			if (trackerInstance && trackerInstance.reset) {
+				Em.Logger.info('Reset tracker state:', tracker);
+				trackerInstance.reset();
 			}
 		});
 	}
