@@ -19,6 +19,7 @@
     "search-no-results-msg":"Niestety, nie znaleźliśmy wyników pasujących do Twojego zapytania!",
     "search-loading-msg":"Ładowanie wyników wyszukiwania...",
     "media-lightbox-error":"Nie znaleziono mediów",
+    "map-lightbox-error":"Nie odnaleziono mapy",
     "comments-prev-button":"Poprzednia strona",
     "comments-next-button":"Następna strona",
     "hub-games":"Gry",
@@ -62,10 +63,11 @@
     "username-anonymous":"A Wikia Contributor",
     "smartbanner-store-ios":"W App Store",
     "smartbanner-store-android":"W Google Play",
-    "smartbanner-install-ios":"Pobierz aplikację",
+    "smartbanner-install-ios":"Pobierz",
     "smartbanner-install-android":"Zainstaluj",
-    "smartbanner-price":"FREE",
+    "smartbanner-price":"Za darmo",
     "view-more":"Zobacz więcej",
+    "wikia-map-view-map":"View",
     "search-label":"Szukaj",
     "cancel-label":"Anuluj"
   }
