@@ -12,8 +12,18 @@ interface ScrollDepthOptions {
 	eventHandler: any;
 }
 
+interface ScrollDepthEventData {
+	event: String;
+	eventCategory: String;
+	eventAction: String;
+	eventLabel: String;
+	eventNonInteraction?: Boolean;
+	eventValue?: Number;
+	eventTiming?: Number;
+}
+
 interface ScrollDepth {
-	resetCache(): void;
+	reset(): void;
 }
 
 interface JQueryStatic {
@@ -29,15 +39,20 @@ module Mercury.Modules.Trackers {
 			this.gaTracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 			this.scrollDepth = jQuery.scrollDepth({
 				unattachEventOnceCacheIsFull: false,
-				eventHandler: (data: ScrollDepthOptions) => {
+				userTiming: false, // if we want to track it we'll need _trackTiming implementation in GoogleAnalytics.ts
+				eventHandler: (data: ScrollDepthEventData) => {
 					Em.Logger.info('Sending scroll depth tracking');
-					this.gaTracker.getQueue().push(data);
+					this.gaTracker.trackAds.apply(this.gaTracker, [
+						data.eventCategory,
+						data.eventAction,
+						data.eventLabel
+					]);
 				}
 			});
 		}
 
 		reset (): void {
-			this.scrollDepth.resetCache();
+			this.scrollDepth.reset();
 		}
 	}
 }
