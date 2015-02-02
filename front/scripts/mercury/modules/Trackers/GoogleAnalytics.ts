@@ -119,7 +119,9 @@ module Mercury.Modules.Trackers {
 		 * @arguments set of parameters for ads-related event
 		 */
 		trackAds (): void {
-			this.queue.push(Array.prototype.slice.call(arguments));
+			var trackingData = Array.prototype.slice.call(arguments);
+			trackingData.unshift('ads._trackEvent');
+			this.queue.push(trackingData);
 		}
 
 		/**
@@ -132,10 +134,6 @@ module Mercury.Modules.Trackers {
 			if (this.accounts[this.accountSpecial]) {
 				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
 			}
-		}
-
-		getQueue (): GoogleAnalyticsCode {
-			return this.queue;
 		}
 	}
 }
