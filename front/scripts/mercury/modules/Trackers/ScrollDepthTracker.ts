@@ -1,4 +1,3 @@
-/// <reference path="../../utils/track.ts" />
 /// <reference path="GoogleAnalytics.ts" />
 
 interface ScrollDepthOptions {
@@ -37,11 +36,15 @@ module Mercury.Modules.Trackers {
 		scrollDepthSample: Number;
 
 		constructor () {
-			this.scrollDepthSample = 5;
+			this.scrollDepthSample = 100;
 			this.gaTracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 			this.scrollDepth = jQuery.scrollDepth({
-				unattachEventOnceCacheIsFull: false,
+				detachEventOnceCacheIsFull: false,
+				percentage: false,
+				pixelDepth: false,
 				userTiming: false, // if we want to track it we'll need _trackTiming implementation in GoogleAnalytics.ts
+				minHeight: 750,
+				threshold: 500,
 				eventHandler: (data: ScrollDepthEventData) => {
 					if ( Math.random() * 100 <= this.scrollDepthSample) {
 						Em.Logger.info('Sending scroll depth tracking');

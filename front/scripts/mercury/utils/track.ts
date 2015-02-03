@@ -95,7 +95,8 @@ module Mercury.Utils {
 		context: TrackContext = {
 			a: null,
 			n: null
-		};
+		},
+		scrollDepthTracker: Mercury.Modules.Trackers.ScrollDepthTracker;
 
 	function pruneParams (params: TrackingParams) {
 		delete params.action;
@@ -167,11 +168,11 @@ module Mercury.Utils {
 			}
 		});
 	}
-	
+
 	export function resetScrollDepthTracker () {
-		// it doesn't really make sense but it works and DOES NOT break tests
-		var scrollDepthTracker: Mercury.Modules.Trackers.ScrollDepthTracker
-			= new Mercury.Modules.Trackers.ScrollDepthTracker();
+		if (!scrollDepthTracker) {
+			scrollDepthTracker = new Mercury.Modules.Trackers.ScrollDepthTracker();
+		}
 		scrollDepthTracker.reset();
 	}
 
