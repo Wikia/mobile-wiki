@@ -1,3 +1,7 @@
+## release-39 (2015-02-04 17:30)
+* [HG-536](https://wikia-inc.atlassian.net/browse/HG-536) Fix loading images in horizontal galleries after window resize
+* HG-update-npm-packages: Update dependencies
+
 ## release-38 (2015-01-30 12:46)
 * fix-changelog-script: Fix changelog.sh
 * [HG-533](https://wikia-inc.atlassian.net/browse/HG-533) Chevron position for linked image without caption
