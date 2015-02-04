@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="./MediaComponent.ts" />
+/// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
 interface ArticleMedia extends Em.Object {
@@ -8,7 +9,7 @@ interface ArticleMedia extends Em.Object {
 	captionClass: string;
 }
 
-App.GalleryMediaComponent = App.MediaComponent.extend({
+App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	classNames: ['article-gallery'],
 	layoutName: 'components/gallery-media',
 
@@ -40,7 +41,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 		var limit = this.get('limit');
 
 		if (limit > 0) {
-			return this.get('media').slice(0, limit)
+			return this.get('media').slice(0, limit);
 		}
 
 		return this.get('media');
@@ -75,37 +76,34 @@ App.GalleryMediaComponent = App.MediaComponent.extend({
 	 * Loads media and certain amount of images depending on the gallery width and thumbSize sets also onscroll handler
 	 */
 	load: function (): void {
-		var thisGallery: JQuery = this.$(),
-			galleryWidth: number = thisGallery.width(),
+		var $this: JQuery = this.$(),
+			galleryWidth: number = $this.width(),
 			thumbSize: number = this.get('thumbSize'),
 			maxImages: number = Math.ceil(galleryWidth / thumbSize);
 
 		this.setUp();
 		this.loadImages(0, maxImages);
 
-		thisGallery.on('scroll', () => {
-			this.onScroll(thisGallery, galleryWidth, maxImages);
+		$this.on('scroll', () => {
+			Em.run.debounce(this, 'onScroll', maxImages, 100);
 		});
 	},
 
-	onScroll: function (thisGallery: JQuery, galleryWidth: number, maxImages: number): void {
-		Em.run.debounce(this, () => {
-			var images = thisGallery.find('img:not(.loaded)'),
-				galleryScroll = thisGallery.scrollLeft();
+	onScroll: function (maxImages: number): void {
+		var $this = this.$(),
+			imagesToLoad = $this.find('img:not(.loaded)'),
+			galleryOffset = $this.scrollLeft() + $this.width();
 
-			if (images.length) {
-				images.each((index: number, image: HTMLImageElement): void => {
-					if (image.offsetLeft < galleryWidth + galleryScroll) {
-						this.loadImages(image, maxImages);
-					}
-				});
-			} else {
-				if (this.get('limit') < this.get('galleryLength')) {
-					this.incrementProperty('limit', this.incrementLimitValue);
-				} else {
-					thisGallery.off('scroll');
+		if (imagesToLoad.length) {
+			imagesToLoad.each((index: number, image: HTMLImageElement): void => {
+				if (image.offsetLeft < galleryOffset) {
+					this.loadImages(image, maxImages);
 				}
-			}
-		}, 100);
+			});
+		} else if (this.get('limit') < this.get('galleryLength')) {
+			this.incrementProperty('limit', this.incrementLimitValue);
+		} else {
+			$this.off('scroll');
+		}
 	}
 });
