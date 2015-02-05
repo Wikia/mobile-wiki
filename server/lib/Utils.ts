@@ -51,25 +51,31 @@ module Utils {
 	}
 
 	/**
-	 * Get domain name for devbox
+	 * Get domain name for devbox or sandbox
 	 *
 	 * @param localSettings
 	 * @param wikiSubDomain
 	 * @returns {string}
 	 */
-	function getDomainName (localSettings: LocalSettings, wikiSubDomain: string): string {
+	function getFallbackDomain (localSettings: LocalSettings, wikiSubDomain: string): string {
 		if (localSettings.environment === Environment.Sandbox) {
 			return localSettings.host + '.' + wikiSubDomain + '.wikia.com';
 		}
-		// Devbox
-		return wikiSubDomain + '.' + localSettings.mediawikiHost + '.wikia-dev.com';
+		// This is specific to the devbox setup
+		// Curl requests will look like muppet.devname.wikia-dev.com so skip the "devname"
+		// Web requests will look like muppet.123.123.123.123.xip.io so add the "devname"
+		if (localSettings.devboxDomain && wikiSubDomain.indexOf(localSettings.devboxDomain) == -1) {
+			return wikiSubDomain + '.' + localSettings.devboxDomain + '.wikia-dev.com';
+		} else {
+			return wikiSubDomain + '.wikia-dev.com';
+		}
 	}
 
 	/**
 	 * @desc Get fallback domain
 	 * @returns {string}
 	 */
-	function getFallbackSubDomain (localSettings: LocalSettings): string {
+	function getFallbackWiki (localSettings: LocalSettings): string {
 		return (localSettings.wikiFallback || 'community');
 	}
 
@@ -95,20 +101,23 @@ module Utils {
 			if (hostName) {
 				return hostName;
 			}
-			return passThroughEnv[environment].replace('%s', getFallbackSubDomain(localSettings));
+			// This fallback is just for mediawikiDomain var in ServerData::createServerData
+			return passThroughEnv[environment].replace('%s', getFallbackWiki(localSettings));
 		}
 
 		/**
+		 * Dynamic environments (sandbox or devbox)
 		 * Capture groups:
 		 * 0. "sandbox-*" (if it's the beginning of the url)
 		 * 1. The wiki name, including language code (i.e. it could be lastofus or de.lastofus)
 		 *    ^ Note: this will match any number of periods in the wiki name, not just one for the language code
+		 *    ^ Note: on the devbox this will match wikiname.devboxname
 		 * We just return capture group 1
 		 */
 		regex = /^(?:sandbox\-[^\.]+)?\.?(.+?)\.(wikia.*|(?:[\d]{1,3}\.){3}[\d]{1,3}\.xip)\.(?:com|local|io)$/;
 		match = hostName.match(regex);
 
-		return getDomainName(localSettings,  match ? match[1] : getFallbackSubDomain(localSettings));
+		return getFallbackDomain(localSettings,  match ? match[1] : getFallbackWiki(localSettings));
 	}
 
 	/**

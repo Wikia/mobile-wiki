@@ -21,7 +21,8 @@ interface LocalSettings {
 	environment: any;
 	host: any;
 	loggers: LoggerInterface;
-	mediawikiHost: string;
+	devboxDomain?: string;
+	consulDomain?: string;
 	maxRequestsPerChild: number;
 	port: number;
 	proxyMaxRedirects: number;

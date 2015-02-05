@@ -44,7 +44,7 @@ function createServerData (): ServerData {
  */
 export function getData (params: ArticleRequestParams, callback: Function, getWikiVariables: boolean = false): void {
 	var requests = [
-			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
+			new MediaWiki.ArticleRequest(params.wikiDomain).article(params.title, params.redirect)
 		];
 
 	logger.debug(params, 'Fetching article');
