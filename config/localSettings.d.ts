@@ -18,11 +18,11 @@ interface GAAccountMap {
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
+	consulDomain?: string;
+	devboxDomain?: string;
 	environment: any;
 	host: any;
 	loggers: LoggerInterface;
-	devboxDomain?: string;
-	consulDomain?: string;
 	maxRequestsPerChild: number;
 	port: number;
 	proxyMaxRedirects: number;
