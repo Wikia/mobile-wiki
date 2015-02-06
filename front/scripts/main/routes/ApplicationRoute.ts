@@ -12,6 +12,10 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			this.controller.showLoader();
 		},
 		didTransition: function () {
+			// Activate any Optimizely experiments for the new route
+			if (window.optimizely) {
+				window.optimizely.push(['activate']);
+			}
 			this.controller.hideLoader();
 		},
 		error: function () {

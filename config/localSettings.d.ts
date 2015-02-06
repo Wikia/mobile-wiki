@@ -23,6 +23,11 @@ interface LocalSettings {
 	loggers: LoggerInterface;
 	mediawikiHost: string;
 	maxRequestsPerChild: number;
+	optimizely?: {
+		enabled: boolean;
+		devScriptUrl: string;
+		scriptUrl: string;
+	};
 	port: number;
 	proxyMaxRedirects: number;
 	redirectUrlOnNoData: string;
