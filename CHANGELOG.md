@@ -1,3 +1,6 @@
+## release-40 (2015-02-09 18:42)
+* CONCF-39: Call preventdefault only when we do something with a click
+
 ## release-39 (2015-02-04 17:30)
 * [HG-536](https://wikia-inc.atlassian.net/browse/HG-536) Fix loading images in horizontal galleries after window resize
 * HG-update-npm-packages: Update dependencies

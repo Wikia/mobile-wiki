@@ -116,12 +116,12 @@ App.ApplicationView = Em.View.extend({
 
 			if (tagName === 'a') {
 				this.handleLink(<HTMLAnchorElement>target);
+				this.preventDefault(event);
 			} else if (this.shouldHandleMedia(target, tagName)) {
 				this.handleMedia(<HTMLElement>target);
+				this.preventDefault(event);
 			}
 		}
-
-		this.preventDefault(event);
 	},
 
 	/**
