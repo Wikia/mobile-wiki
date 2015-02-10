@@ -25,8 +25,9 @@ interface LocalSettings {
 	maxRequestsPerChild: number;
 	optimizely?: {
 		enabled: boolean;
-		devScriptUrl: string;
-		scriptUrl: string;
+		scriptPath: string;
+		devAccount: string;
+		account: string;
 	};
 	port: number;
 	proxyMaxRedirects: number;

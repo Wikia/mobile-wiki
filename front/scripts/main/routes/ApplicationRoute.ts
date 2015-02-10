@@ -2,6 +2,10 @@
 /// <reference path="../../mercury/utils/articleLink.ts" />
 'use strict';
 
+interface Window {
+	optimizely?: any;
+}
+
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 	model: function <T>(params: T): T {
 		return params;
@@ -13,8 +17,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		},
 		didTransition: function () {
 			// Activate any Optimizely experiments for the new route
-			if (window.optimizely) {
-				window.optimizely.push(['activate']);
+			var optimizely = window.optimizely;
+			if (optimizely) {
+				optimizely.push(['activate']);
 			}
 			this.controller.hideLoader();
 		},
