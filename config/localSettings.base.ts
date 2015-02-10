@@ -26,7 +26,7 @@ var localSettings: LocalSettings = {
 	mediawikiHost: 'your-devbox-name',
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
-		enabled: true,
+		enabled: false,
 		scriptPath: '//cdn.optimizely.com/js/',
 		devAccount: '2441440871',
 		account: '2449650414'
