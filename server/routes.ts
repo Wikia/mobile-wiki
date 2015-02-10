@@ -98,10 +98,11 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 	result.query = {
 		noExternals: !!(request.query.noexternals && request.query.noexternals !== '0' && request.query.noexternals !== '')
 	};
+
 	if (localSettings.optimizely.enabled) {
 		result.optimizelyScript = localSettings.optimizely.scriptPath +
-			( localSettings.environment === Utils.Environment.Dev ?
-			localSettings.optimizely.devAccount : localSettings.optimizely.account ) + '.js';
+			(localSettings.environment === Utils.Environment.Dev ?
+			localSettings.optimizely.devAccount : localSettings.optimizely.account) + '.js';
 	}
 }
 
