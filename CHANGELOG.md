@@ -1,3 +1,19 @@
+## release-40 (2015-02-09 18:42)
+* CONCF-39: Call preventdefault only when we do something with a click
+
+## release-39 (2015-02-04 17:30)
+* [HG-536](https://wikia-inc.atlassian.net/browse/HG-536) Fix loading images in horizontal galleries after window resize
+* HG-update-npm-packages: Update dependencies
+
+## release-38 (2015-01-30 12:46)
+* fix-changelog-script: Fix changelog.sh
+* [HG-533](https://wikia-inc.atlassian.net/browse/HG-533) Chevron position for linked image without caption
+* [HG-550](https://wikia-inc.atlassian.net/browse/HG-550) Update Fastclick 1.0.3-wikia -> 1.0.6
+* [HG-523](https://wikia-inc.atlassian.net/browse/HG-523) Fix multi-line captions only for linked galleries
+* i18n-update: I18n update
+* HG-readme-localization-update: Readme file update regarding localization process
+* update-ember-to-1.9.1: Update Ember 1.9.0 -> 1.9.1
+
 ## release-37 (2015-01-28 17:20)
 * [HG-457](https://wikia-inc.atlassian.net/browse/HG-457) Revert method for setting body unscrollable to the one that was working
 * [HG-489](https://wikia-inc.atlassian.net/browse/HG-489) Add play icon to video thumbnail in comment
