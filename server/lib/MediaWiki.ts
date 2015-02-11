@@ -181,9 +181,9 @@ export function createUrl (wikiDomain: string, path: string, params: any = {}): 
 		qsAggregator.push(queryParam);
 	});
 
-	// if consulDomain is defined, override the wikiDomain
-	if (localSettings.consulDomain) {
-		wikiDomain = localSettings.consulDomain;
+	// if mediawikiDomain is defined, override the wikiDomain
+	if (localSettings.mediawikiDomain) {
+		wikiDomain = localSettings.mediawikiDomain;
 	}
 	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 }

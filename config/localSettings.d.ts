@@ -18,7 +18,7 @@ interface GAAccountMap {
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
-	consulDomain?: string;
+	mediawikiDomain?: string;
 	devboxDomain?: string;
 	environment: any;
 	host: any;
