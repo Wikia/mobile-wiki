@@ -135,11 +135,7 @@ module Utils {
 		return null;
 	}
 
-	export function parseIntInObjectValues (obj: any): any {
-		if (obj === {}) {
-			return obj;
-		}
-
+	export function parseQueryParams (obj: any): any {
 		var parsed = {},
 			key,
 			prop;
@@ -147,7 +143,7 @@ module Utils {
 		for (key in obj) {
 			if (obj.hasOwnProperty(key)) {
 				prop = obj[key];
-			parsed[key] = isNaN(+prop) ? prop : +prop;
+			parsed[key.toLowerCase()] = isNaN(+prop) ? prop : +prop;
 			}
 		}
 

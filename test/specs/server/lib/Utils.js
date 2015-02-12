@@ -213,7 +213,7 @@ test('getEnvironment', function() {
 	});
 });
 
-test('parseIntInObjectValues', function () {
+test('parseQueryParams', function () {
 	var testCases,
 		expected;
 
@@ -227,6 +227,6 @@ test('parseIntInObjectValues', function () {
 	expected = ['number', 'string', 'string', 'string'];
 
 	testCases.forEach(function (obj, i) {
-		equal(typeof global.parseIntInObjectValues(obj).foo, expected[i], 'Failed at index of ' + i);
+		equal(typeof global.parseQueryParams(obj).foo, expected[i], 'Failed at index of ' + i);
 	});
 });
