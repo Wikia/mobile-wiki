@@ -9,8 +9,8 @@
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
     The devboxDomain must have your devbox name (without the dev- prefix) in it.
     The `wikiFallback` is useful but is not obligatory.
-    If you want to test with consul, add mediawikiDomain: 'mediawiki.service.consul' or env var:
-    If you want to see debug output add loggers: { console: 'debug' }
+    If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
+    If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
 
     File should look something like this:
 ``` javascript
@@ -32,7 +32,7 @@
 
 ## Access Mercury
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
-curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:8000/wiki/Gonzo"
+$ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:8000/wiki/Gonzo"
 
 ##Live reload
 on dev environments livereload server runs that reload your web browser on any change in front folder
