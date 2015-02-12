@@ -134,6 +134,25 @@ module Utils {
 		}
 		return null;
 	}
+
+	export function parseIntInObjectValues (obj: any): any {
+		if (obj === {}) {
+			return obj;
+		}
+
+		var parsed = {},
+			key,
+			prop;
+
+		for (key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				prop = obj[key];
+			parsed[key] = isNaN(+prop) ? prop : +prop;
+			}
+		}
+
+		return parsed;
+	}
 }
 
 export = Utils;

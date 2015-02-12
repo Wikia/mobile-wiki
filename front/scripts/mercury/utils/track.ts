@@ -113,7 +113,7 @@ module Mercury.Utils {
 			tracker: Mercury.Modules.Trackers.Internal,
 			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
 
-		if (Em.get(Mercury, 'query.noExternals')) {
+		if (Em.get(Mercury, '_state.queryParams.noexternals')) {
 			return;
 		}
 
