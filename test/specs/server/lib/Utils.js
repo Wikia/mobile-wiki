@@ -212,3 +212,21 @@ test('getEnvironment', function() {
 			Environment[testCase.expected]);
 	});
 });
+
+test('parseQueryParams', function () {
+	var testCases,
+		expected;
+
+	testCases = [
+		{foo: '1'},
+		{foo: '"1"'},
+		{foo: '1bar'},
+		{foo: 'bar'},
+	];
+
+	expected = ['number', 'string', 'string', 'string'];
+
+	testCases.forEach(function (obj, i) {
+		equal(typeof global.parseQueryParams(obj).foo, expected[i], 'Failed at index of ' + i);
+	});
+});

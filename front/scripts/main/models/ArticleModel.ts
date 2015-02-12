@@ -92,7 +92,7 @@ App.ArticleModel.reopenClass({
 		article.content = $('.article-content').html();
 
 		// Setup ads
-		if (Mercury.adsUrl && !Em.get(Mercury, 'query.noExternals')) {
+		if (Mercury.adsUrl && !Em.get(Mercury, '_state.queryParams.noexternals')) {
 			adsInstance = Mercury.Modules.Ads.getInstance();
 			adsInstance.init(Mercury.adsUrl, () => {
 				adsInstance.reload(article.adsContext);
