@@ -7,10 +7,10 @@
 * `bower install` will install client dependencies
 * `tsd update` will update typings folder with ambient files
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
-    The devboxDomain must have your devbox name (without the dev- prefix) in it.
-    The `wikiFallback` is useful but is not obligatory.
-    If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
-    If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
+  * The devboxDomain must have your devbox name (without the dev- prefix) in it.
+  * The `wikiFallback` is useful but is not obligatory.
+  * If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
+  * If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
 
     File should look something like this:
 ``` javascript
