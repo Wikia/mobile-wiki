@@ -143,7 +143,7 @@ module Utils {
 		for (key in obj) {
 			if (obj.hasOwnProperty(key)) {
 				prop = obj[key];
-			parsed[key.toLowerCase()] = isNaN(+prop) ? prop : +prop;
+				parsed[key.toLowerCase()] = isNaN(+prop) ? prop : +prop;
 			}
 		}
 
