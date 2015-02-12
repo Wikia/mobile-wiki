@@ -1,7 +1,13 @@
 /**
  * Utility functions
  */
+
 module Utils {
+	export interface SupportedQueryParams {
+		// All query params should be lowercase, with no special delimiter for spaces
+		[idx: string]: any;
+		noexternals?: number;
+	}
 
 	/**
 	 * Environment types
@@ -135,10 +141,10 @@ module Utils {
 		return null;
 	}
 
-	export function parseQueryParams (obj: any): any {
-		var parsed = {},
-			key,
-			prop;
+	export function parseQueryParams (obj: any): SupportedQueryParams {
+		var parsed: SupportedQueryParams = {},
+			key: string,
+			prop: string;
 
 		for (key in obj) {
 			if (obj.hasOwnProperty(key)) {
