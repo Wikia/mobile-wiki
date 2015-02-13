@@ -13,9 +13,7 @@ import search = require('./controllers/search');
 import article = require('./controllers/article/index');
 import comments = require('./controllers/article/comments');
 
-var wikiDomains: {
-		[key: string]: string;
-	} = {},
+var wikiDomains: { [key: string]: string; } = {},
 	cachingTimes = {
 		article: {
 			enabled: false,
