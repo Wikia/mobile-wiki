@@ -36,6 +36,7 @@ module Mercury.Modules.Trackers {
 		scrollDepthSample: Number;
 
 		constructor () {
+			// TODO make it lower after successful QA
 			this.scrollDepthSample = 100;
 			this.gaTracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 			this.scrollDepth = jQuery.scrollDepth({
@@ -46,7 +47,7 @@ module Mercury.Modules.Trackers {
 				minHeight: 750,
 				threshold: 500,
 				eventHandler: (data: ScrollDepthEventData) => {
-					if ( Math.random() * 100 <= this.scrollDepthSample) {
+					if (Math.random() * 100 <= this.scrollDepthSample) {
 						Em.Logger.info('Sending scroll depth tracking');
 						this.gaTracker.trackAds.apply(this.gaTracker, [
 							data.eventCategory,
