@@ -153,7 +153,7 @@ module Mercury.Utils {
 	export function trackPageView (adsContext: any) {
 		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
 
-		if (Em.get(Mercury, 'query.noExternals')) {
+		if (Em.get(Mercury, '_state.queryParams.noexternals')) {
 			return;
 		}
 
