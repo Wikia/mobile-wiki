@@ -33,6 +33,8 @@
 		z-index: $z-1;
 	}
 
+	//First line is for single images
+	//Second is for galleries that have multiple figure tags
   	&.has-caption .chevron,
 	.has-caption .chevron {
 		margin-bottom: 50px;
