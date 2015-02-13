@@ -21,6 +21,10 @@
 		}
 		display: inline-block;
 		width: 100%;
+
+		&.loaded {
+			background: none;
+		}
 	}
 
 	.chevron {
