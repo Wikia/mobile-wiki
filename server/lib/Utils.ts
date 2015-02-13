@@ -1,7 +1,13 @@
 /**
  * Utility functions
  */
+
 module Utils {
+	export interface SupportedQueryParams {
+		// All query params should be lowercase, with no special delimiter for spaces
+		[idx: string]: any;
+		noexternals?: number;
+	}
 
 	/**
 	 * Environment types
@@ -133,6 +139,21 @@ module Utils {
 			return localSettings.verticalColors[vertical];
 		}
 		return null;
+	}
+
+	export function parseQueryParams (obj: any): SupportedQueryParams {
+		var parsed: SupportedQueryParams = {},
+			key: string,
+			prop: string;
+
+		for (key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				prop = obj[key];
+				parsed[key.toLowerCase()] = isNaN(+prop) ? prop : +prop;
+			}
+		}
+
+		return parsed;
 	}
 }
 

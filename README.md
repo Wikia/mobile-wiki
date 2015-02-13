@@ -7,7 +7,7 @@
 * `bower install` will install client dependencies
 * `tsd update` will update typings folder with ambient files
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `mediawikiHost`, `port` and `wikiFallback`.
-    The `mediawikiHost` should be set to you're devbox name without 'dev-' prefix.
+    The `mediawikiHost` should be set to your devbox name without 'dev-' prefix.
     The `wikiFallback` is useful but is not obligatory.
 
     File should look like this:
