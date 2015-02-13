@@ -36,8 +36,7 @@ module Mercury.Modules.Trackers {
 		scrollDepthSample: Number;
 
 		constructor () {
-			// TODO make it lower after successful QA
-			this.scrollDepthSample = 100;
+			this.scrollDepthSample = 0.5;
 			this.gaTracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 			this.scrollDepth = jQuery.scrollDepth({
 				detachEventOnceCacheIsFull: false,
