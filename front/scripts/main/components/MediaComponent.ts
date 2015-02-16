@@ -60,7 +60,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			height = width;
 		}
 
-		return this.thumbnailer.getThumbURL(url, {mode: mode, width: width, height: height});
+		return this.thumbnailer.getThumbURL(url, {
+			mode: mode,
+			width: width,
+			height: height
+		});
 	},
 
 	/**
