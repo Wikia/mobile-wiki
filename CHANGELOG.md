@@ -1,3 +1,14 @@
+## release-41 (2015-02-16 18:15)
+* [CONCF-71](https://wikia-inc.atlassian.net/browse/CONCF-71) Links to non-existing pages render 404 page
+* [CONCF-111](https://wikia-inc.atlassian.net/browse/CONCF-111) Stop escaping already escaped captions
+* [ADEN-1678](https://wikia-inc.atlassian.net/browse/ADEN-1678) ADEN-1678 Scroll depth measurement on mobile
+* fix-single-linked-image-chevron: Fix for chevron position on single linked image with caption
+* [CONCF-109](https://wikia-inc.atlassian.net/browse/CONCF-109) Stop stretching images in lightbox
+* query-params-fix: Use the correct queryParams variable
+* tslint-misplaced-opening-brace: Fix TSLint warning
+* query-params-improvement: Replace current implementation of sending queryParams to client
+* fix-prevent-default: Call event.preventDefault directly
+
 ## release-40 (2015-02-09 18:42)
 * CONCF-39: Call preventdefault only when we do something with a click
 
