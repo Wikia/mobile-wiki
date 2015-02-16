@@ -14,7 +14,7 @@
     "headroom.js": "0.7.0",
     "fastclick": "1.0.6",
     "jquery.cookie": "1.4.1",
-    "vignette": "wikia/vignette-js#1.0.2"
+    "vignette": "wikia/vignette-js#2.0.0"
   },
   "devDependencies": {
     "ember-qunit": "0.1.8",

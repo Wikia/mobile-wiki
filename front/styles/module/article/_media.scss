@@ -2,15 +2,6 @@
 	margin: 40px 0;
 	text-align: center;
 
-	&.visible {
-		img {
-			animation: lazyImage .3s;
-			background: none;
-			height: auto;
-			width: auto;
-		}
-	}
-
 	img {
 		background: {
 			color: rgb(223,223,223);
@@ -21,10 +12,11 @@
 		}
 		display: inline-block;
 		width: 100%;
+	}
 
-		&.loaded {
-			background: none;
-		}
+	.loaded {
+		animation: lazyImage .3s;
+		background: none;
 	}
 
 	.chevron {
@@ -76,7 +68,7 @@ figcaption {
 	}
 
 	img {
-		height: auto;
+		height: 195px;
 		margin-right: 8px;
 		// Fixes iOS Safari repaint bug when scrolling through gallery
 		transform: translate3d(0, 0, 0);
@@ -145,10 +137,8 @@ figcaption {
 		top: 0;
 	}
 
-	&.visible {
-		img {
-			width: 100%;
-		}
+	.loaded {
+		width: 100%;
 	}
 
 	figcaption {
