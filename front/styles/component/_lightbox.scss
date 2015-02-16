@@ -68,9 +68,10 @@
 	}
 
 	img {
+		max-height: 100%;
+		max-width: 100%;
 		opacity: 0;
 		transition: .01s opacity .3s;
-		width: 100%;
 
 		.open & {
 			opacity: 1;
