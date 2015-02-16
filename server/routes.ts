@@ -127,6 +127,31 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 }
 
 /**
+ * Creates response object and sets appropriate status code
+ * If the error is present, wraps it into result.error
+ *
+ * @param error
+ * @param result
+ * @param reply
+ * @returns {Hapi.Response}
+ */
+function createResponse (error: any, result: any, reply: Function): Hapi.Response {
+	var response: Hapi.Response,
+		code = 200;
+
+	result = result || {};
+
+	if (error) {
+		code = error.code || error.exception.code || error.statusCode || 500;
+		result.error = error;
+	}
+
+	response = reply(result);
+	response.code(code);
+	return response;
+}
+
+/**
  * Adds routes to the server
  *
  * @param server
@@ -199,7 +224,7 @@ function routes (server: Hapi.Server) {
 				title: request.params.articleTitle,
 				redirect: request.params.redirect
 			}, (error: any, result: any) => {
-				var response: Hapi.Response = reply(error || result);
+				var response = createResponse(error, result, reply);
 				Caching.setResponseCaching(response, cachingTimes.articleAPI);
 			});
 		}
@@ -220,7 +245,7 @@ function routes (server: Hapi.Server) {
 				reply(Boom.badRequest('Invalid articleId'));
 			} else {
 				comments.handleRoute(params, (error: any, result: any): void => {
-					var response = reply(error || result);
+					var response = createResponse(error, result, reply);
 					Caching.setResponseCaching(response, cachingTimes.commentsAPI);
 				});
 			}
@@ -238,12 +263,7 @@ function routes (server: Hapi.Server) {
 			};
 
 			search.searchWiki(params, (error: any, result: any) => {
-				var response: Hapi.Response;
-				if (error) {
-					response = reply(error).code(error.exception.code);
-				} else {
-					response = reply(result);
-				}
+				var response = createResponse(error, result, reply);
 				Caching.setResponseCaching(response, cachingTimes.searchAPI);
 			});
 		}

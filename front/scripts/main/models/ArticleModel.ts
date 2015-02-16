@@ -76,7 +76,13 @@ App.ArticleModel.reopenClass({
 					resolve(model);
 				},
 				error: (err) => {
-					reject($.extend(err, model));
+					if (err.status === 404) {
+						this.setArticle(model, err.responseJSON);
+						resolve(model);
+					} else {
+						// TODO we currently abort transition when there was an error other than 404
+						reject($.extend(err, model));
+					}
 				}
 			});
 		});
