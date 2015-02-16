@@ -76,7 +76,13 @@ App.ArticleModel.reopenClass({
 					resolve(model);
 				},
 				error: (err) => {
-					reject($.extend(err, model));
+					if (err.status === 404) {
+						this.setArticle(model, err.responseJSON);
+						resolve(model);
+					} else {
+						// TODO we currently abort transition when there was an error other than 404
+						reject($.extend(err, model));
+					}
 				}
 			});
 		});
@@ -92,7 +98,7 @@ App.ArticleModel.reopenClass({
 		article.content = $('.article-content').html();
 
 		// Setup ads
-		if (Mercury.adsUrl && !Em.get(Mercury, 'query.noExternals')) {
+		if (Mercury.adsUrl && !Em.get(Mercury, '_state.queryParams.noexternals')) {
 			adsInstance = Mercury.Modules.Ads.getInstance();
 			adsInstance.init(Mercury.adsUrl, () => {
 				adsInstance.reload(article.adsContext);
