@@ -1,4 +1,5 @@
 ## release-41 (2015-02-16 18:15)
+* jquery-scroll-depth-https: Use https instead of ssh to get jquery-scrolldepth
 * [CONCF-71](https://wikia-inc.atlassian.net/browse/CONCF-71) Links to non-existing pages render 404 page
 * [CONCF-111](https://wikia-inc.atlassian.net/browse/CONCF-111) Stop escaping already escaped captions
 * [ADEN-1678](https://wikia-inc.atlassian.net/browse/ADEN-1678) ADEN-1678 Scroll depth measurement on mobile
