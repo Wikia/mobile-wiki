@@ -52,24 +52,19 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		height: number
 		): string {
 
-		/**
-		 * Don't change url that already point to a thumb
-		 */
-		if (!this.thumbnailer.isThumbnailerUrl(url)) {
-			if (mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
-				width = this.normalizeThumbWidth(width);
-			}
-
-			if (!this.limitHeight) {
-				height = width;
-			}
-
-			url = this.thumbnailer.getThumbURL(url, {
-				mode: mode,
-				width: width,
-				height: height
-			});
+		if (mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
+			width = this.normalizeThumbWidth(width);
 		}
+
+		if (!this.limitHeight) {
+			height = width;
+		}
+
+		url = this.thumbnailer.getThumbURL(url, {
+			mode: mode,
+			width: width,
+			height: height
+		});
 
 		return url;
 	},
