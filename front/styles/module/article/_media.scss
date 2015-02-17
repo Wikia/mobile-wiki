@@ -1,3 +1,5 @@
+$gallery-thumb-size: 195px;
+
 .media-component {
 	margin: 40px 0;
 	text-align: center;
@@ -71,11 +73,11 @@ figcaption {
 	}
 
 	img {
-		height: 195px;
+		height: $gallery-thumb-size;
 		margin-right: 8px;
 		// Fixes iOS Safari repaint bug when scrolling through gallery
 		transform: translate3d(0, 0, 0);
-		width: 195px;
+		width: $gallery-thumb-size;
 	}
 
 	.gallery-video {
