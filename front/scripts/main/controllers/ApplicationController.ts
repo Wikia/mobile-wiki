@@ -8,6 +8,8 @@ App.ApplicationController = Em.Controller.extend({
 	noScroll: false,
 	noAds: '',
 	isLoading: false,
+	spinnerDelay: 100,
+	spinnerTimeout: null,
 
 	init: function () {
 		this.setProperties({
@@ -28,10 +30,13 @@ App.ApplicationController = Em.Controller.extend({
 	},
 
 	showLoader: function () {
-		this.set('isLoading', true);
+		this.set('spinnerTimeout', setTimeout(() => {
+			this.set('isLoading', true)
+		}, this.get('spinnerDelay')));
 	},
 
 	hideLoader: function () {
+		clearTimeout(this.get('spinnerTimeout'));
 		this.set('isLoading', false);
 	}
 });
