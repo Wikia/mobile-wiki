@@ -93,6 +93,12 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	result.queryParams = Utils.parseQueryParams(request.query);
+
+	if (localSettings.optimizely.enabled && !result.queryParams.noexternals) {
+		result.optimizelyScript = localSettings.optimizely.scriptPath +
+			(localSettings.environment === Utils.Environment.Prod ?
+			localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+	}
 }
 
 /**
