@@ -1,10 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
+/// <reference path="../../mercury/utils/variantTesting.ts" />
 'use strict';
-
-interface Window {
-	optimizely?: any;
-}
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 	model: function <T>(params: T): T {
@@ -16,11 +13,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			this.controller.showLoader();
 		},
 		didTransition: function () {
-			// Activate any Optimizely experiments for the new route
-			var optimizely = window.optimizely;
-			if (optimizely) {
-				optimizely.push(['activate']);
-			}
+			// Activate any A/B tests for the new route
+			M.VariantTesting.activate();
 			this.controller.hideLoader();
 		},
 		error: function () {
