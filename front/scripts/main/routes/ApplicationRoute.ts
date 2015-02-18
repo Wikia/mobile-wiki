@@ -43,8 +43,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			 */
 			if (target.className.indexOf('external') > -1) {
 				if (target.href.indexOf('useskin=oasis') > -1) {
-					// If using Oasis skin, remove Mercury cookie
-					document.cookie = 'useskin=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+					// If using Oasis skin, set Mercury cookie
+					document.cookie = 'useskin=oasis; path=/';
 				}
 				return window.location.assign(target.href);
 			}
