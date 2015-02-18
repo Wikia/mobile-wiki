@@ -21,11 +21,14 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
 				trackingCategory = target.dataset.trackingCategory,
-				info = M.getLinkInfo(model.get('basePath'),
+				info = M.getLinkInfo(
+					model.get('basePath'),
 					model.get('title'),
 					target.hash,
 					target.href
-				);
+				),
+				domainNameRegExpMatchArray: any = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
+				domainName: string = domainNameRegExpMatchArray ? domainNameRegExpMatchArray[0] : '.wikia.com';
 
 			/**
 			 * Handle tracking
@@ -43,8 +46,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			 */
 			if (target.className.indexOf('external') > -1) {
 				if (target.href.indexOf('useskin=oasis') > -1) {
-					// If using Oasis skin, set Mercury cookie
-					document.cookie = 'useskin=oasis; path=/';
+					document.cookie = 'useskin=oasis; domain=' + domainName + '; path=/';
 				}
 				return window.location.assign(target.href);
 			}
