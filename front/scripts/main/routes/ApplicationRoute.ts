@@ -27,8 +27,26 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 					target.hash,
 					target.href
 				),
-				domainNameRegExpMatchArray: any = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
-				domainName: string = domainNameRegExpMatchArray ? domainNameRegExpMatchArray[0] : '.wikia.com';
+				domainNameRegExpMatchArray: any,
+				cookieDomain: string,
+				cookiePath: string;
+
+			if (window.Mercury.wiki.cookieDomain) {
+				cookieDomain = window.Mercury.wiki.cookieDomain;
+			} else {
+				domainNameRegExpMatchArray = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname);
+				if (domainNameRegExpMatchArray) {
+					cookieDomain = domainNameRegExpMatchArray[0];
+				} else {
+					cookieDomain = '.wikia.com';
+				}
+			}
+
+			if (window.Mercury.wiki.cookieDomain) {
+				cookiePath = window.Mercury.wiki.cookiePath;
+			} else {
+				cookiePath = '/';
+			}
 
 			/**
 			 * Handle tracking
@@ -46,7 +64,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			 */
 			if (target.className.indexOf('external') > -1) {
 				if (target.href.indexOf('useskin=oasis') > -1) {
-					document.cookie = 'useskin=oasis; domain=' + domainName + '; path=/';
+					document.cookie = 'useskin=oasis; domain=' + cookieDomain + '; path=' + cookiePath;
 				}
 				return window.location.assign(target.href);
 			}
