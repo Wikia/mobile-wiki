@@ -378,14 +378,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		this.set('status', 'open');
 		this.resetZoom();
 
-		var hammer = this.get('_hammerInstance');
-		hammer.get('pan').set({
-			threshold: 0
-		});
-		hammer.get('swipe').set({
-			velocity: 0.1
-		});
-		hammer.get('pinch').set({
+		this.get('_hammerInstance').get('pinch').set({
 			enable: true
 		});
 

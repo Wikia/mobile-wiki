@@ -6,6 +6,12 @@
 
 'use strict';
 
+interface Window {
+	emberHammerOptions: {
+		hammerOptions: any;
+	};
+}
+
 declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
@@ -41,5 +47,14 @@ App.initializer({
 			resStore: Mercury._state.translations,
 			useLocalStorage: false
 		});
+
+		window.emberHammerOptions = {
+			hammerOptions: {
+				//we are using fastclick so this is adviced by ember-hammer lib
+				ignoreEvents: [],
+				swipe_velocity: 0.2,
+				pan_threshold: 0
+			}
+		};
 	}
 });
