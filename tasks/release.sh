@@ -45,9 +45,15 @@ if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
 	git add $CHANGELOG
 	git commit $CHANGELOG -m 'Changelog: release-'$NEW
 	git branch release-$NEW $CURRENTBRANCH
+	git checkout master
+	git merge --no-ff release-$NEW
 
 	echo 'git push -u origin release-'$NEW
 	git push -u origin release-$NEW
+
 	echo 'git push -u origin '$CURRENTBRANCH
 	git push -u origin $CURRENTBRANCH
+
+	echo "git push -u origin master"
+	git push -u origin master
 fi
