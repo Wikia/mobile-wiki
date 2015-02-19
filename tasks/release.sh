@@ -42,12 +42,12 @@ if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
 	echo $RELEASEHEADER | cat - $CHANGELOG > $TMP
 	mv $TMP $CHANGELOG
 
-#	git add $CHANGELOG
-#	git commit $CHANGELOG -m 'Changelog: release-'$NEW
-#	git branch release-$NEW $CURRENTBRANCH
-#
-#	echo 'git push -u origin release-'$NEW
-#	git push -u origin release-$NEW
-#	echo 'git push -u origin '$CURRENTBRANCH
-#	git push -u origin $CURRENTBRANCH
+	git add $CHANGELOG
+	git commit $CHANGELOG -m 'Changelog: release-'$NEW
+	git branch release-$NEW $CURRENTBRANCH
+
+	echo 'git push -u origin release-'$NEW
+	git push -u origin release-$NEW
+	echo 'git push -u origin '$CURRENTBRANCH
+	git push -u origin $CURRENTBRANCH
 fi
