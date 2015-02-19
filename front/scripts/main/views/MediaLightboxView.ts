@@ -1,18 +1,8 @@
 /// <reference path="./LightboxView.ts" />
+/// <reference path="../../../../typings/hammerjs/hammerjs" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
-
-interface HammerEvent {
-	deltaX: number;
-	deltaY: number;
-	scale: number;
-	target: HTMLElement;
-	center: {
-		x: number;
-		y: number;
-	}
-}
 
 interface Window {
 	scrollY: number;
@@ -134,10 +124,10 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 
 	/**
 	 * @desc Checks on which area on the screen an event took place
-	 * @param {HammerEvent} event
+	 * @param {Touch} event
 	 * @returns {number}
 	 */
-	getScreenArea: function (event: MouseEvent): number {
+	getScreenArea: function (event: Touch): number {
 		var viewportWidth = this.get('viewportSize').width,
 			x = event.clientX,
 			thirdPartOfScreen = viewportWidth / 3;
@@ -155,9 +145,9 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	 * @desc Changes currently displayed item based on a place that was tapped
 	 * Currently 33%-wide sides of the screen trigger the media change
 	 *
-	 * @param {HammerEvent} event
+	 * @param {Touch} event
 	 */
-	handleClick: function (event: MouseEvent): void {
+	handleClick: function (event: Touch): void {
 		var screenArea = this.getScreenArea(event);
 
 		if (screenArea === this.screenAreas.right) {
@@ -237,7 +227,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 			}
 		},
 
-		pan: function (event: HammerEvent): void {
+		pan: function (event: HammerInput): void {
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -255,7 +245,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 			});
 		},
 
-		doubleTap: function (event: HammerEvent): void {
+		doubleTap: function (event: HammerInput): void {
 			//allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
 			if (!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center) {
 				var scale = this.get('scale') > 1 ? 1 : 3;
@@ -269,7 +259,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 			}
 		},
 
-		pinchMove: function (event: HammerEvent): void {
+		pinchMove: function (event: HammerInput): void {
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -281,7 +271,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 			this.notifyPropertyChange('style');
 		},
 
-		pinchEnd: function (event: HammerEvent): void {
+		pinchEnd: function (event: HammerInput): void {
 			this.set('lastScale', this.get('lastScale') * event.scale);
 		}
 	},
@@ -309,7 +299,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 				this.get('newY').toFixed(2)
 			);
 		//Performance critical place
-		//We will update property 'manually'
+		//We will update property 'manually' by calling notifyPropertyChange
 	}.property(),
 
 	/**
