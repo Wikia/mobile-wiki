@@ -6,7 +6,7 @@
 
 App.AdSlotComponent = Em.Component.extend({
 	classNames: ['ad-slot-wrapper'],
-	classNameBindings: ['nameLowerCase'],
+	classNameBindings: ['nameLowerCase', 'no-ads'],
 	//This component is created dynamically, and this won't work without it
 	layoutName: 'components/ad-slot',
 
@@ -26,6 +26,7 @@ App.AdSlotComponent = Em.Component.extend({
 			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
 		} else {
 			Em.Logger.info('Ad disabled for:', this.get('name'));
+			this.set('no-ads', true)
 		}
 	},
 
