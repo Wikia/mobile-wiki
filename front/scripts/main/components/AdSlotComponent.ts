@@ -6,13 +6,14 @@
 
 App.AdSlotComponent = Em.Component.extend({
 	classNames: ['ad-slot-wrapper'],
-	classNameBindings: ['nameLowerCase', 'no-ads'],
+	classNameBindings: ['nameLowerCase', 'noAdsClass:no-ads'],
 	//This component is created dynamically, and this won't work without it
 	layoutName: 'components/ad-slot',
 
 	name: null,
 	// noAds is being passed from ApplicationController where it's also casted to a string
 	noAds: '',
+	noAdsClass: false,
 
 	nameLowerCase: function () {
 		return this.get('name').toLowerCase().dasherize();
@@ -26,7 +27,7 @@ App.AdSlotComponent = Em.Component.extend({
 			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
 		} else {
 			Em.Logger.info('Ad disabled for:', this.get('name'));
-			this.set('no-ads', true)
+			this.set('noAdsClass', true)
 		}
 	},
 
