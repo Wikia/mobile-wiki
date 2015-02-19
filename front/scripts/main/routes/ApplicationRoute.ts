@@ -29,7 +29,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 					target.href
 				),
 				// exec() returns an array of matches or null if no match is found.
-				domainNameRegExpMatchArray: any = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
+				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
 				cookieDomain: string = domainNameRegExpMatchArray ? domainNameRegExpMatchArray[0] : '.wikia.com',
 				cookiePath: string = '/',
 				defaultSkin: string = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
