@@ -1,4 +1,4 @@
-## release-42 (2015-02-19 14:59)
+## release-42 (2015-02-19 15:17)
 * [CONCF-82](https://wikia-inc.atlassian.net/browse/CONCF-82) Update release.sh and changelog.sh
 * [CONCF-70](https://wikia-inc.atlassian.net/browse/CONCF-70) Redirect to / when URI is malformed
 * [HG-559](https://wikia-inc.atlassian.net/browse/HG-559) HG-559 Base implementation for Optimizely
