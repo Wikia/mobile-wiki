@@ -30,13 +30,13 @@ App.ApplicationController = Em.Controller.extend({
 	},
 
 	showLoader: function () {
-		this.set('spinnerTimeout', setTimeout(() => {
-			this.set('isLoading', true)
+		this.set('spinnerTimeout', Em.run.later(this, () => {
+			this.set('isLoading', true);
 		}, this.get('spinnerDelay')));
 	},
 
 	hideLoader: function () {
-		clearTimeout(this.get('spinnerTimeout'));
+		Em.run.cancel(this.get('spinnerTimeout'));
 		this.set('isLoading', false);
 	}
 });
