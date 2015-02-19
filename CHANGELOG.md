@@ -1,9 +1,3 @@
-## release-42 (2015-02-19 14:30)
-* [CONCF-70](https://wikia-inc.atlassian.net/browse/CONCF-70) Redirect to / when URI is malformed
-* [HG-559](https://wikia-inc.atlassian.net/browse/HG-559) HG-559 Base implementation for Optimizely
-* [CONCF-121](https://wikia-inc.atlassian.net/browse/CONCF-121) Change 'query' to 'search' in search query
-* update-server-dependencies: Update npm dependencies; fix browser-sync
-
 ## release-41 (2015-02-16 18:15)
 * jquery-scroll-depth-https: Use https instead of ssh to get jquery-scrolldepth
 * [CONCF-71](https://wikia-inc.atlassian.net/browse/CONCF-71) Links to non-existing pages render 404 page
