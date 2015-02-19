@@ -19,7 +19,7 @@ module Mercury.Utils.VariantTesting {
 	 *
 	 * @returns {void}
 	 */
-	export function activate () {
+	export function activate (): void {
 		if (optimizely) {
 			optimizely.push(['activate']);
 		}
@@ -31,7 +31,7 @@ module Mercury.Utils.VariantTesting {
 	 * @param {string} eventName
 	 * @returns {void}
 	 */
-	export function trackEvent (eventName: string) {
+	export function trackEvent (eventName: string): void {
 		if (optimizely) {
 			optimizely.push(['trackEvent', eventName]);
 		}
