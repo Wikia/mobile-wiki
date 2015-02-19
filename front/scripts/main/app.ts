@@ -52,8 +52,8 @@ App.initializer({
 			hammerOptions: {
 				//we are using fastclick so this is adviced by ember-hammer lib
 				ignoreEvents: [],
-				swipe_velocity: 0.2,
-				pan_threshold: 0
+				swipe_velocity: 0.1,
+				pan_threshold: 1
 			}
 		};
 	}
