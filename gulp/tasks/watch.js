@@ -67,7 +67,7 @@ gulp.task('watch', ['build', 'build-views'], function () {
 		log('File changed:', gutil.colors.green(event.path), 'Restarting server');
 
 		server.restart(function () {
-			if (event.path.match('public')) {
+			if (event.path.match('front')) {
 				reload(path);
 
 				log('Updating browser');

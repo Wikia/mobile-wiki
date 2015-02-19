@@ -62,7 +62,23 @@ class App {
 
 		server.ext('onPreResponse', this.getOnPreResponseHandler(this.isDevbox));
 
-		/*
+		/**
+		 * This is the earliest place where we can detect that the request URI was malformed
+		 * (decodeURIComponent failed in hapijs/call lib and 'badrequest' method was set as a special route handler).
+		 *
+		 * When MediaWiki gets request like that it redirects to the main page with code 301.
+		 *
+		 * For now we don't want to send additional request to get title of the main page
+		 * and are redirecting to / which causes user to get the main page eventually.
+		 */
+		server.ext('onPreAuth', (request: Hapi.Request, reply: any): any => {
+			if (request.route.method === 'badrequest') {
+				return reply.redirect('/').permanent(true);
+			}
+			return reply.continue();
+		});
+
+		/**
 		 * Routes
 		 */
 		require('./routes')(server);

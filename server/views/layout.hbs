@@ -52,6 +52,10 @@
 		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
+		{{#if optimizelyScript}}
+			<script src="{{optimizelyScript}}"></script>
+		{{/if}}
+
 		{{> tracking}}
 	</head>
 	<body>
