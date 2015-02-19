@@ -34,8 +34,7 @@ App.WikiaFooterComponent = Em.Component.extend(App.TrackClickMixin, {
 			text: 'hub-lifestyle'
 		},
 		{
-			//TODO: take main skin for a wiki
-			href: '?useskin=oasis',
+			href: '?useskin=' + Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis'),
 			text: 'footer-link-full-site',
 			className: 'spaced'
 		},
