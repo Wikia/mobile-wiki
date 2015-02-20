@@ -1,6 +1,5 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
-/// <reference path="../../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
