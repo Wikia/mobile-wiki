@@ -139,6 +139,7 @@ App.ArticleModel.reopenClass({
 				data = $.extend(data, {
 					article: article.content || source.content,
 					mediaUsers: article.users,
+					type: article.type,
 					media: App.MediaModel.create({
 						media: article.media
 					}),

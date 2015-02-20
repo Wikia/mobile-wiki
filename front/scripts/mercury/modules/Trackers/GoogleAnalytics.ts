@@ -24,7 +24,7 @@ module Mercury.Modules.Trackers {
 		accountAds = 'ads';
 		queue: GoogleAnalyticsCode;
 
-		constructor () {
+		constructor (articleType: string) {
 			var adsContext = Mercury.Modules.Ads.getInstance().getContext(),
 				// All domains that host content for Wikia
 				// Use one of the domains below. If none matches, the tag will fall back to
@@ -38,15 +38,15 @@ module Mercury.Modules.Trackers {
 			this.queue = window._gaq || [];
 
 			// Primary account
-			this.initAccount(this.accountPrimary, adsContext, domain);
+			this.initAccount(this.accountPrimary, adsContext, domain, articleType);
 
 			// Special wikis account
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
 			if (this.accounts[this.accountSpecial]) {
-				this.initAccount(this.accountSpecial, adsContext, domain);
+				this.initAccount(this.accountSpecial, adsContext, domain, articleType);
 			}
 
-			this.initAccount(this.accountAds, adsContext, domain);
+			this.initAccount(this.accountAds, adsContext, domain, articleType);
 		}
 
 		/**
@@ -55,8 +55,9 @@ module Mercury.Modules.Trackers {
 		 * @param {string} name The name of the account as specified in localSettings
 		 * @param {object} adsContext
 		 * @param {string} domain
+		 * @param {string} articleType - type of an article that is coming from WikiaPageType
 		 */
-		initAccount (name: string, adsContext: any, domain: string): void {
+		initAccount (name: string, adsContext: any, domain: string, articleType: string): void {
 			var prefix = '';
 
 			// Primary account should not have a namespace prefix
@@ -79,7 +80,8 @@ module Mercury.Modules.Trackers {
 				[prefix + '_setCustomVar', 15, 'IsCorporatePage', 'No', 3],
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 				// [prefix + '_setCustomVar', 16, 'Krux Segment', getKruxSegment(), 3],
-				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3]
+				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3],
+				[prefix + '_setCustomVar', 19, 'ArticleType', articleType, 3]
 			);
 
 			if (adsContext) {
@@ -127,12 +129,14 @@ module Mercury.Modules.Trackers {
 		/**
 		 * Tracks the current page view
 		 */
-		trackPageView (): void {
+		trackPageView (context: TrackContext): void {
+			var specialAccount = this.accounts[this.accountSpecial];
+
 			this.queue.push(['_trackPageview']);
 
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (this.accounts[this.accountSpecial]) {
-				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
+			if (specialAccount) {
+				this.queue.push([specialAccount.prefix + '._trackPageview']);
 			}
 		}
 	}
