@@ -1,7 +1,7 @@
 /// <reference path="../../baseline/mercury" />
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/string.ts" />
-/// <reference path="../../mercury/modules/Ad$s.ts" />
+/// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
