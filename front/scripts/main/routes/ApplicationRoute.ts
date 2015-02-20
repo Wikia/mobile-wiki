@@ -84,7 +84,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 				this.controllerFor(lightboxName).set('data', data);
 			}
 
-			return this.render(lightboxName, {
+			this.render(lightboxName, {
 				into: 'application',
 				outlet: 'lightbox'
 			});
@@ -93,7 +93,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		closeLightbox: function (): void {
 			this.get('controller').set('noScroll', false);
 
-			return this.disconnectOutlet({
+			this.disconnectOutlet({
 				outlet: 'lightbox',
 				parentView: 'application'
 			});
