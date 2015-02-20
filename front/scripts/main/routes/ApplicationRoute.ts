@@ -30,8 +30,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 				),
 				// exec() returns an array of matches or null if no match is found.
 				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
-				cookieDomain: string = domainNameRegExpMatchArray ? domainNameRegExpMatchArray[0] : '.wikia.com',
-				cookiePath: string = '/',
+				cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
 				defaultSkin: string = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
 			/**
@@ -50,7 +49,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			 */
 			if (target.className.indexOf('external') > -1) {
 				if (target.href.indexOf('useskin=' + defaultSkin) > -1) {
-					document.cookie = 'useskin=' + defaultSkin + '; domain=' + cookieDomain + '; path=' + cookiePath;
+					document.cookie = 'useskin=' + defaultSkin + cookieDomain + '; path=/';
 				}
 				return window.location.assign(target.href);
 			}
