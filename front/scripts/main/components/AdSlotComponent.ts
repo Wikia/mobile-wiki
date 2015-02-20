@@ -26,7 +26,6 @@ App.AdSlotComponent = Em.Component.extend({
 			Em.Logger.info('Ad disabled for:', this.get('name'));
 			return true;
 		}
-		return false;
 	}.property(),
 
 	willDestroyElement: function() {
