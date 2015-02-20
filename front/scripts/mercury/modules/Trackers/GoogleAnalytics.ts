@@ -24,7 +24,7 @@ module Mercury.Modules.Trackers {
 		accountAds = 'ads';
 		queue: GoogleAnalyticsCode;
 
-		constructor (articleType: string) {
+		constructor () {
 			var adsContext = Mercury.Modules.Ads.getInstance().getContext(),
 				// All domains that host content for Wikia
 				// Use one of the domains below. If none matches, the tag will fall back to
@@ -38,15 +38,15 @@ module Mercury.Modules.Trackers {
 			this.queue = window._gaq || [];
 
 			// Primary account
-			this.initAccount(this.accountPrimary, adsContext, domain, articleType);
+			this.initAccount(this.accountPrimary, adsContext, domain);
 
 			// Special wikis account
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
 			if (this.accounts[this.accountSpecial]) {
-				this.initAccount(this.accountSpecial, adsContext, domain, articleType);
+				this.initAccount(this.accountSpecial, adsContext, domain);
 			}
 
-			this.initAccount(this.accountAds, adsContext, domain, articleType);
+			this.initAccount(this.accountAds, adsContext, domain);
 		}
 
 		/**
@@ -55,9 +55,8 @@ module Mercury.Modules.Trackers {
 		 * @param {string} name The name of the account as specified in localSettings
 		 * @param {object} adsContext
 		 * @param {string} domain
-		 * @param {string} articleType - type of an article that is coming from WikiaPageType
 		 */
-		initAccount (name: string, adsContext: any, domain: string, articleType: string): void {
+		initAccount (name: string, adsContext: any, domain: string): void {
 			var prefix = '';
 
 			// Primary account should not have a namespace prefix
