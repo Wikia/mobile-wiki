@@ -167,8 +167,10 @@ App.ArticleModel.reopenClass({
 			}
 		}
 
-		//We need to update global article object
-		//to allow eg. for analytics to take article context from it
+		// We could keep whole article in global but we want to discourage that but
+		// We need to update global article.type
+		// to allow eg. for analytics to use it
+		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
 		M.provide('article.type', data.type);
 		model.setProperties(data);
 	}
