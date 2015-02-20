@@ -81,7 +81,7 @@ module Mercury.Modules.Trackers {
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 				// [prefix + '_setCustomVar', 16, 'Krux Segment', getKruxSegment(), 3],
 				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3],
-				[prefix + '_setCustomVar', 19, 'ArticleType', articleType, 3]
+				[prefix + '_setCustomVar', 19, 'ArticleType', Mercury.article.type, 3]
 			);
 
 			if (adsContext) {
@@ -129,7 +129,7 @@ module Mercury.Modules.Trackers {
 		/**
 		 * Tracks the current page view
 		 */
-		trackPageView (context: TrackContext): void {
+		trackPageView (): void {
 			var specialAccount = this.accounts[this.accountSpecial];
 
 			this.queue.push(['_trackPageview']);

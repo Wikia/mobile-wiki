@@ -51,7 +51,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 					n: model.ns
 				});
 
-				M.trackPageView(model.get('adsContext.targeting'), model.get('type'));
+				M.trackPageView(model.get('adsContext.targeting'));
 				M.resetScrollDepthTracker();
 			}
 		});

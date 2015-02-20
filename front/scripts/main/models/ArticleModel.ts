@@ -105,7 +105,6 @@ App.ArticleModel.reopenClass({
 			});
 		}
 
-		delete Mercury.article;
 		return article;
 	},
 
@@ -166,6 +165,9 @@ App.ArticleModel.reopenClass({
 			}
 		}
 
+		//We need to update global article object
+		//to allow eg. for analytics to take article context from it
+		Mercury.article = data;
 		model.setProperties(data);
 	}
 });
