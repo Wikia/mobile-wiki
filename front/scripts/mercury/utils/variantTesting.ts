@@ -12,14 +12,13 @@ interface Window {
 }
 
 module Mercury.Utils.VariantTesting {
-	var optimizely = window.optimizely;
-
 	/**
 	 * Activates all variant tests for the current page
 	 *
 	 * @returns {void}
 	 */
 	export function activate (): void {
+		var optimizely = window.optimizely;
 		if (optimizely) {
 			optimizely.push(['activate']);
 		}
@@ -32,6 +31,7 @@ module Mercury.Utils.VariantTesting {
 	 * @returns {void}
 	 */
 	export function trackEvent (eventName: string): void {
+		var optimizely = window.optimizely;
 		if (optimizely) {
 			optimizely.push(['trackEvent', eventName]);
 		}
