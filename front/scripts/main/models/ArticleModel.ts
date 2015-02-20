@@ -1,6 +1,7 @@
+/// <reference path="../../baseline/mercury" />
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/string.ts" />
-/// <reference path="../../mercury/modules/Ads.ts" />
+/// <reference path="../../mercury/modules/Ad$s.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
@@ -105,6 +106,7 @@ App.ArticleModel.reopenClass({
 			});
 		}
 
+		delete Mercury.article;
 		return article;
 	},
 
@@ -167,7 +169,7 @@ App.ArticleModel.reopenClass({
 
 		//We need to update global article object
 		//to allow eg. for analytics to take article context from it
-		Mercury.article = data;
+		M.provide('article.type', data.type);
 		model.setProperties(data);
 	}
 });
