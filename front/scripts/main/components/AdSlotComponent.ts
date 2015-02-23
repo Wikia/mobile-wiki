@@ -18,14 +18,17 @@ App.AdSlotComponent = Em.Component.extend({
 
 	// noAds is being passed from ApplicationController
 	noAds: function (key: string, value: any) {
-		if (value === '' || value === '0') {
-			Em.Logger.info('Injected ad:', this.get('name'));
-			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
-			return false;
-		} else {
-			Em.Logger.info('Ad disabled for:', this.get('name'));
-			return true;
+		if (arguments.length > 1) {
+			if (value === '' || value === '0') {
+				Em.Logger.info('Injected ad:', this.get('name'));
+				Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
+				return false;
+			} else {
+				Em.Logger.info('Ad disabled for:', this.get('name'));
+				return true;
+			}
 		}
+		return this.get('noAds')
 	}.property(),
 
 	willDestroyElement: function() {
