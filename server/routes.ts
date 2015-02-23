@@ -99,6 +99,8 @@ function beforeArticleRender (request: Hapi.Request, result: any): void {
 			(localSettings.environment === Utils.Environment.Prod ?
 			localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
 	}
+
+	result.weppyConfig = localSettings.weppy;
 }
 
 /**

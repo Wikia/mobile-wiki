@@ -9,6 +9,7 @@ declare module Mercury {
 	var _state: {
 		firstPage: boolean;
 		translations: any;
+		weppyConfig: any;
 	};
 	var error: any;
 	var wiki: any;
@@ -16,7 +17,6 @@ declare module Mercury {
 	var tracking: any;
 	var adsUrl: string;
 	var environment: string;
-	var query: any;
 }
 
 declare var M: typeof Mercury.Utils;

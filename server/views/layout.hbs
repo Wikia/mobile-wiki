@@ -34,6 +34,7 @@
 			M.provide('_state.translations.{{#if wiki.language.user}}{{wiki.language.user}}{{else}}en{{/if}}', {{{translations wiki.language.user}}});
 			M.provide('_state.firstPage', true);
 			M.provide('_state.queryParams', {{{json queryParams}}});
+			M.provide('_state.weppyConfig', {{{json weppyConfig}}});
 			M.provide('ads.slots', []);
 			M.provide('apiBase', '{{{server.apiBase}}}');
 			M.provide('environment', '{{{server.environment}}}');
@@ -83,6 +84,8 @@
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
+			<script src="/front/vendor/weppy/dist/weppy.js"></script>
+			<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
 		<!-- endbuild -->
 
 		<!-- build:js /front/scripts/combined.js -->

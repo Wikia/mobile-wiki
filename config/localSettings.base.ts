@@ -68,6 +68,12 @@ var localSettings: LocalSettings = {
 		music: '#c819ad',
 		tv: '#00b7e0'
 	},
+	weppy: {
+		enabled: false,
+		host: 'http://speed.wikia.net/__rum',
+		samplingRate: 0.01,
+		aggregationInterval: 1000
+	},
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
