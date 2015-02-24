@@ -17,7 +17,7 @@ App.AdSlotComponent = Em.Component.extend({
 	}.property('name'),
 
 	// noAds is being passed from ApplicationController
-	noAds: function (key: string, value: any) {
+	noAds: function (key?: string, value?: any) {
 		if (arguments.length > 1) {
 			if (value === '' || value === '0') {
 				Em.Logger.info('Injected ad:', this.get('name'));
@@ -28,7 +28,7 @@ App.AdSlotComponent = Em.Component.extend({
 				return true;
 			}
 		}
-		return this.get('noAds')
+		return value;
 	}.property(),
 
 	willDestroyElement: function() {
