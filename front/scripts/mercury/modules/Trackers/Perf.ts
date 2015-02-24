@@ -15,16 +15,21 @@ module Mercury.Modules.Trackers {
 	export class Perf extends BaseTracker {
 		public static depsLoaded: boolean = typeof Weppy === 'function';
 		tracker: any;
+		defaultContext: {
+			skin: string;
+			'user-agent': string;
+		}
 
 		constructor () {
 			this.tracker = Weppy.namespace('mercury');
+			this.defaultContext = {
+				skin: 'mercury',
+				'user-agent': window.navigator.userAgent,
+			}
 			this.tracker.setOptions({
 				host: Mercury._state.weppyConfig.host,
 				transport: 'url',
-				context: {
-					skin: 'mercury',
-					'user-agent': window.navigator.userAgent,
-				},
+				context: this.defaultContext,
 				sample: Mercury._state.weppyConfig.samplingRate,
 				aggregationInterval: Mercury._state.weppyConfig.aggregationInterval
 			});
@@ -40,7 +45,7 @@ module Mercury.Modules.Trackers {
 
 			if (params.context) {
 				trackFn.setOptions({
-					context: params.context
+					context: $.extend(params.context, this.defaultContext)
 				});
 			}
 
