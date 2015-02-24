@@ -8,7 +8,9 @@
 module Mercury.Utils {
 	var instance: Mercury.Modules.Trackers.Perf;
 	export function trackPerf (obj: PerfTrackerParams) {
-		instance = instance || new Mercury.Modules.Trackers.Perf();
-		instance.track(obj);
+		if (Mercury.Modules.Trackers.Perf.depsLoaded) {
+			instance = instance || new Mercury.Modules.Trackers.Perf();
+			instance.track(obj);
+		}
 	}
 }

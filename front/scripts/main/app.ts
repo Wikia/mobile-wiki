@@ -20,6 +20,10 @@ App.initializer({
 	name: 'performanceMonitoring',
 	after: 'preload',
 	initialize () {
+		if (typeof EmPerfSender === 'undefined') {
+			return;
+		}
+
 		EmPerfSender.initialize({
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send (events: any[], metrics: any) {

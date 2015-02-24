@@ -44,6 +44,11 @@ interface LocalSettings {
 	};
 	verticalColors: any;
 	wikiFallback: string;
+	weppy: {
+		host: string;
+		samplingRate: number;
+		aggregationInterval: number;
+	}
 	workerCount: number;
 	workerDisconnectTimeout: number;
 	cdnBaseUrl: string;

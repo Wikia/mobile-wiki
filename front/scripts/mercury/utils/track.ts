@@ -160,11 +160,13 @@ module Mercury.Utils {
 		}
 
 		Object.keys(trackers).forEach(function (tracker: string) {
-			var trackerInstance = new trackers[tracker]();
+			var Tracker = trackers[tracker],
+				instance: TrackerInstance;
 
-			if (trackerInstance && trackerInstance.trackPageView) {
+			if (typeof Tracker.prototype.trackPageView === 'function') {
+				instance = new Tracker();
 				Em.Logger.info('Track pageView:', tracker);
-				trackerInstance.trackPageView(trackerInstance.usesAdsContext ? adsContext : context);
+				instance.trackPageView(instance ? adsContext : context);
 			}
 		});
 	}

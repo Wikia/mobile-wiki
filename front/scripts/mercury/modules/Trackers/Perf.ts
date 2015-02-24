@@ -1,9 +1,6 @@
 /// <reference path="./BaseTracker.ts" />
+/// <reference path="../../../../vendor/weppy/weppy.d.ts" />
 'use strict';
-
-interface Window {
-	Weppy: any;
-}
 
 interface PerfTrackerParams {
 	type: string;
@@ -14,10 +11,9 @@ interface PerfTrackerParams {
 	annotations?: any;
 }
 
-declare var Weppy: any;
-
 module Mercury.Modules.Trackers {
 	export class Perf extends BaseTracker {
+		public static depsLoaded: boolean = typeof Weppy === 'function';
 		tracker: any;
 
 		constructor () {

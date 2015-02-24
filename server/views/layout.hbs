@@ -84,8 +84,11 @@
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
-			<script src="/front/vendor/weppy/dist/weppy.js"></script>
-			<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
+
+			{{#if weppyConfig.enabled}}
+				<script src="/front/vendor/weppy/dist/weppy.js"></script>
+				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
+			{{/if}}
 		<!-- endbuild -->
 
 		<!-- build:js /front/scripts/combined.js -->
