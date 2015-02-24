@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../config/localSettings.d.ts" />
 
 declare var $: JQueryStatic;
 declare var require: (deps: string[], func: Function) => void;
@@ -9,7 +10,7 @@ declare module Mercury {
 	var _state: {
 		firstPage: boolean;
 		translations: any;
-		weppyConfig: any;
+		weppyConfig: WeppyConfig;
 	};
 	var error: any;
 	var wiki: any;
