@@ -34,7 +34,7 @@ module Mercury.Modules.Trackers {
 		track (params: PerfTrackerParams): void {
 			var trackFn = this.tracker;
 
-			if (params.module && typeof params.module === 'string') {
+			if (typeof params.module === 'string') {
 				trackFn = this.tracker.into(params.module);
 			}
 
