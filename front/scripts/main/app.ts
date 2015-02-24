@@ -9,7 +9,6 @@
 
 declare var i18n: I18nextStatic;
 declare var EmPerfSender: any;
-declare var Weppy: any;
 
 var App: any = Em.Application.create({
 		language: Em.getWithDefault(Mercury, 'wiki.language.user', 'en'),
