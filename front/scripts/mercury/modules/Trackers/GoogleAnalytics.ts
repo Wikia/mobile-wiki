@@ -66,7 +66,8 @@ module Mercury.Modules.Trackers {
 				[prefix + '_setCustomVar', 15, 'IsCorporatePage', 'No', 3],
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 				// [prefix + '_setCustomVar', 16, 'Krux Segment', getKruxSegment(), 3],
-				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3]
+				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3],
+				[prefix + '_setCustomVar', 19, 'ArticleType', Mercury.article.type, 3]
 			);
 
 			if (adsContext) {
@@ -115,11 +116,13 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
+			var specialAccount = this.accounts[this.accountSpecial];
+
 			this.queue.push(['_trackPageview']);
 
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (this.accounts[this.accountSpecial]) {
-				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackPageview']);
+			if (specialAccount) {
+				this.queue.push([specialAccount.prefix + '._trackPageview']);
 			}
 		}
 	}

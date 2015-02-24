@@ -1,10 +1,10 @@
 {{#if link}}
 	<a {{bind-attr href=link}} {{action 'clickLinkedImage'}}>
-		<img {{bind-attr src=imageSrc}} {{bind-attr style=style}}>
+		<img {{bind-attr src=imageSrc}} {{bind-attr style=style}} {{bind-attr class=loaded}}>
 		{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 	</a>
 {{else}}
-	<img {{bind-attr src=imageSrc}} {{bind-attr style=style}}>
+	<img {{bind-attr src=imageSrc}} {{bind-attr style=style}} {{bind-attr class=loaded}}>
 {{/if}}{{!-- these comments prevent polluting HTML with whitespaces that caused positioning problems
 --}}{{yield}}{{!--
 --}}{{#if caption}}

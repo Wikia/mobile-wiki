@@ -1,3 +1,7 @@
+## release-43 (2015-02-20 18:18)
+* [CONCF-151](https://wikia-inc.atlassian.net/browse/CONCF-151) Track articleType with GA
+* lightbox-actions-return-void: openLightbox and closeLightbox don't return anything
+
 ## release-42 (2015-02-19 15:17)
 * [CONCF-82](https://wikia-inc.atlassian.net/browse/CONCF-82) Update release.sh and changelog.sh
 * [CONCF-70](https://wikia-inc.atlassian.net/browse/CONCF-70) Redirect to / when URI is malformed
