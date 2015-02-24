@@ -6,6 +6,11 @@
 function resetMercuryBaseline () {
 	var M = window.M;
 	M.provide('_state.firstPage', true);
+	M.provide('_state.weppyConfig', {
+		host: '',
+		samplingRate: 1,
+		aggregationInterval: 1000
+	});
 	M.provide('article.details', {
 		abstract: 'Test abstract',
 		comments: 99,
