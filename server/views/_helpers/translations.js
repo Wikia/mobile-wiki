@@ -2,9 +2,13 @@ var Logger = require('../../lib/Logger');
 
 module.exports = function (language) {
 	var translations = {},
-		defaultLanguage = 'en';
+		fallbackLanguage = language.split('-')[0],
+		defaultLanguage = 'en',
+		foundLanguage = '';
 
-	[language, defaultLanguage].some(function (lang) {
+	[language, fallbackLanguage, defaultLanguage].some(function (lang) {
+		console.log('language:', language)
+
 		var translationPath = '../../../front/locales/' + lang + '/translation.json';
 		try {
 			translations = require(translationPath);
@@ -16,6 +20,8 @@ module.exports = function (language) {
 				error: exception.message
 			}, 'Translation not found');
 		}
+		//foundLanguage = lang;
 	});
+	//return {language: foundLanguage, translated: JSON.stringify(translations)};
 	return JSON.stringify(translations);
 };
