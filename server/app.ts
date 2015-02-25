@@ -31,7 +31,8 @@ class App {
 		var server = new Hapi.Server();
 
 		server.connection({
-			host: localSettings.host,
+			// Hapi ignores host when it's null or undefined but throws exception when it's an empty string
+			host: localSettings.host || null,
 			port: localSettings.port,
 			routes: {
 				state: {

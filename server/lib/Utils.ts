@@ -57,6 +57,19 @@ module Utils {
 	}
 
 	/**
+	 * @desc Strip dev- prefix from devbox domain
+	 *
+	 * @returns {string}
+	 */
+	export function stripDevboxDomain (host: string): string {
+		if (host && host.substring(0, 4) === 'dev-') {
+			host = host.substring(4);
+		}
+
+		return host;
+	}
+
+	/**
 	 * Get domain name for devbox
 	 *
 	 * @param localSettings
