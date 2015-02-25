@@ -8,7 +8,7 @@ CURRENTBRANCH=$(git branch | grep '*' | sed 's/* //')
 DATE=`date -u '+%F% %H:%M'`
 RELEASEHEADER='## release-'$NEW' ('$DATE')'
 
-if [ "$CURRENTBRANCH" != "master" ]; then
+if [ "$CURRENTBRANCH" != "dev" ]; then
 	echo "You are not on master branch do you want to continue? [y/N]"
 	read -e
 
@@ -18,7 +18,7 @@ if [ "$CURRENTBRANCH" != "master" ]; then
 	fi
 fi
 
-CHANGE=$($SCRIPT_PATH/changelog.sh $OLD)
+CHANGE=$($SCRIPT_PATH/changelog.sh)
 
 if [ "$CHANGE" == "" ]; then
 	CHANGE='* Only minor fixes'
@@ -45,9 +45,15 @@ if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
 	git add $CHANGELOG
 	git commit $CHANGELOG -m 'Changelog: release-'$NEW
 	git branch release-$NEW $CURRENTBRANCH
+	git checkout master
+	git merge --no-ff release-$NEW
 
 	echo 'git push -u origin release-'$NEW
 	git push -u origin release-$NEW
+
 	echo 'git push -u origin '$CURRENTBRANCH
 	git push -u origin $CURRENTBRANCH
+
+	echo "git push -u origin master"
+	git push -u origin master
 fi

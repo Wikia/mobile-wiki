@@ -379,7 +379,13 @@ declare module Hapi {
 			req: any; //http.ClientRequest
 			res: any; //http.ClientResponse
 		};
-		route: string;
+		route: {
+			method: string;
+			path: string;
+			vhost: string;
+			realm: any;
+			settings: any;
+		};
 		server: Server;
 		session: any;
 		state: any;

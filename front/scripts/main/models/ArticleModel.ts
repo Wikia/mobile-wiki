@@ -1,3 +1,4 @@
+/// <reference path="../../baseline/mercury" />
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/string.ts" />
 /// <reference path="../../mercury/modules/Ads.ts" />
@@ -139,6 +140,7 @@ App.ArticleModel.reopenClass({
 				data = $.extend(data, {
 					article: article.content || source.content,
 					mediaUsers: article.users,
+					type: article.type,
 					media: App.MediaModel.create({
 						media: article.media
 					}),
@@ -165,6 +167,11 @@ App.ArticleModel.reopenClass({
 			}
 		}
 
+		// We could keep whole article in global but we want to discourage that but
+		// We need to update global article.type
+		// to allow eg. for analytics to use it
+		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
+		M.provide('article.type', data.type);
 		model.setProperties(data);
 	}
 });
