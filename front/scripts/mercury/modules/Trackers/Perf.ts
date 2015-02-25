@@ -17,6 +17,7 @@ module Mercury.Modules.Trackers {
 		tracker: any;
 		defaultContext: {
 			skin: string;
+			url?: string;
 			'user-agent': string;
 		}
 
@@ -43,11 +44,13 @@ module Mercury.Modules.Trackers {
 				trackFn = this.tracker.into(params.module);
 			}
 
-			if (params.context) {
-				trackFn.setOptions({
-					context: $.extend(params.context, this.defaultContext)
-				});
-			}
+			// always set the current URL as part of the context
+			this.defaultContext.url = window.location.href.split('#')[0];
+
+			// update context in Weppy with new URL and any explicitly passed overrides for context
+			trackFn.setOptions({
+				context: $.extend(params.context, this.defaultContext)
+			});
 
 			switch (params.type) {
 				case 'count':
