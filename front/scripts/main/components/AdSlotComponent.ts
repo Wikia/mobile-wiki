@@ -16,22 +16,30 @@ App.AdSlotComponent = Em.Component.extend({
 		return this.get('name').toLowerCase().dasherize();
 	}.property('name'),
 
-	// noAds is being passed from ApplicationController
-	noAds: function (key?: string, value?: any) {
-		if (arguments.length > 1) {
-			if (value === '' || value === '0') {
-				Em.Logger.info('Injected ad:', this.get('name'));
-				Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
-				return false;
-			} else {
-				Em.Logger.info('Ad disabled for:', this.get('name'));
-				return true;
-			}
-		}
-		return value;
+	/**
+	 * noAds is being passed from ApplicationController (queryParams)
+	 * as a string and is converted to boolean here
+	 *
+	 * The same is happening in AdEngine2PageTypeService.class.php
+	 * $wgRequest->getBool('noads', false)
+	 *
+	 * If getter is accessed before setter (before Ember cache is filled with value)
+	 * the default is false (show ads)
+	 */
+	noAds: function (key?: string, value?: any): boolean {
+		return (arguments.length === 2 && value !== '' && value !== '0');
 	}.property(),
 
-	willDestroyElement: function() {
+	didInsertElement: function (): void {
+		if (this.get('noAds') === true) {
+			Em.Logger.info('Ad disabled for:', this.get('name'));
+		} else {
+			Em.Logger.info('Injected ad:', this.get('name'));
+			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
+		}
+	},
+
+	willDestroyElement: function(): void {
 		var name = this.get('name');
 
 		Mercury.Modules.Ads.getInstance().removeSlot(this.get('name'));

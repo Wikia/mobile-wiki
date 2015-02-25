@@ -40,45 +40,51 @@ test('Name lower case', function () {
 test('Component behaves correctly depending on noAds value', function () {
 	var testCases = [{
 			'properties': {
-				'name': 'Test ad 1',
-				'noAds': ''
+				'name': 'Test ad 1'
 			},
 			'expectedLength': 1,
-			'message': 'Element added to slot because of noAds property value set to an empty string'
+			'message': 'Element added to slot because no noAds property was passed'
 		}, {
 			'properties': {
 				'name': 'Test ad 2',
-				'noAds': '0'
+				'noAds': ''
 			},
 			'expectedLength': 2,
-			'message': 'Element added to slot because of noAds property value set to \'0\''
+			'message': 'Element added to slot because of noAds property value set to an empty string'
 		}, {
 			'properties': {
 				'name': 'Test ad 3',
-				'noAds': 'false'
+				'noAds': '0'
 			},
-			'expectedLength': 2,
-			'message': 'Element not added to slot because of noAds property value set to \'false\''
+			'expectedLength': 3,
+			'message': 'Element added to slot because of noAds property value set to \'0\''
 		}, {
 			'properties': {
 				'name': 'Test ad 4',
-				'noAds': 'whatever'
+				'noAds': 'false'
 			},
-			'expectedLength': 2,
-			'message': 'Element not added to slot because of noAds property value set to \'whatever\''
+			'expectedLength': 3,
+			'message': 'Element not added to slot because of noAds property value set to \'false\''
 		}, {
 			'properties': {
 				'name': 'Test ad 5',
-				'noAds': '1'
+				'noAds': 'whatever'
 			},
-			'expectedLength': 2,
-			'message': 'Element not added to slot because of noAds property value set to \'1\''
+			'expectedLength': 3,
+			'message': 'Element not added to slot because of noAds property value set to \'whatever\''
 		}, {
 			'properties': {
 				'name': 'Test ad 6',
+				'noAds': '1'
+			},
+			'expectedLength': 3,
+			'message': 'Element not added to slot because of noAds property value set to \'1\''
+		}, {
+			'properties': {
+				'name': 'Test ad 7',
 				'noAds': 'true'
 			},
-			'expectedLength': 2,
+			'expectedLength': 3,
 			'message': 'Element not added to slot because of noAds property value set to \'true\''
 		}],
 		self = this;
@@ -87,6 +93,7 @@ test('Component behaves correctly depending on noAds value', function () {
 		testCases.forEach(function(testCase) {
 			var component = self.subject();
 			component.setProperties(testCase.properties);
+			component.didInsertElement();
 			equal(Mercury.Modules.Ads.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
 		});
 	});
