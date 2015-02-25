@@ -1,3 +1,9 @@
+## release-44 (2015-02-25 15:23)
+* release-script-windows: Fix release.sh on Windows
+* [CONCF-84](https://wikia-inc.atlassian.net/browse/CONCF-84) Fixed top leaderboard ad height
+* Remove-backround-on-image: Rework how we load thumbnails
+* [CONCF-7](https://wikia-inc.atlassian.net/browse/CONCF-7) CONCF-7 | 'Full site' footer link fix (switches skin to the wiki's default skin)
+
 ## release-43 (2015-02-20 18:18)
 * [CONCF-151](https://wikia-inc.atlassian.net/browse/CONCF-151) Track articleType with GA
 * lightbox-actions-return-void: openLightbox and closeLightbox don't return anything
