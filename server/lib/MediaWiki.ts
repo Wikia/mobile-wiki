@@ -136,7 +136,9 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 			timeout: localSettings.backendRequestTimeout,
 			json: true
 		}, (err: any, response: any, payload: any): void => {
-			if (err) {
+			if (response.statusCode === 200) {
+				resolve(payload);
+			} else if (err) {
 				Logger.error({
 					url: url,
 					error: err
@@ -144,17 +146,24 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 
 				reject(err);
 			} else {
-				if (response.statusCode === 200) {
-					resolve(payload);
-				} else {
-					Logger.error({
-						url: url,
-						headers: response.headers,
-						statusCode: response.statusCode
-					}, 'Bad HTTP response');
-
-					reject(payload);
+				// When an empty response comes (for example 503 from Varnish) make it look same as the MediaWiki one
+				if (payload === null) {
+					payload = {
+						exception: {
+							message: 'Empty response',
+							code: response.statusCode,
+							details: null
+						}
+					};
 				}
+
+				Logger.error({
+					url: url,
+					headers: response.headers,
+					statusCode: response.statusCode
+				}, 'Bad HTTP response');
+
+				reject(payload);
 			}
 		});
 	});
