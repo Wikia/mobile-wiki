@@ -16,30 +16,6 @@ var App: any = Em.Application.create({
 	});
 
 App.initializer({
-	name: 'performanceMonitoring',
-	after: 'preload',
-	initialize () {
-		if (typeof EmPerfSender === 'undefined') {
-			return;
-		}
-
-		EmPerfSender.initialize({
-			// Specify a specific function for EmPerfSender to use when it has captured metrics
-			send (events: any[], metrics: any) {
-				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
-				// is our instance of a Weppy interface
-				M.trackPerf({
-					module: metrics.klass.split('.')[0].toLowerCase(),
-					name: metrics.klass,
-					type: 'timer',
-					value: metrics.duration
-				});
-			}
-		});
-	}
-});
-
-App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
 		var debug: boolean = Mercury.environment === 'dev';
@@ -69,3 +45,29 @@ App.initializer({
 		});
 	}
 });
+
+App.initializer({
+	name: 'performanceMonitoring',
+	after: 'preload',
+	initialize () {
+		if (typeof EmPerfSender === 'undefined') {
+			return;
+		}
+
+		EmPerfSender.initialize({
+			// Specify a specific function for EmPerfSender to use when it has captured metrics
+			send (events: any[], metrics: any) {
+				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
+				// is our instance of a Weppy interface
+				M.trackPerf({
+					module: metrics.klass.split('.')[0].toLowerCase(),
+					name: metrics.klass,
+					type: 'timer',
+					value: metrics.duration
+				});
+			}
+		});
+	}
+});
+
+
