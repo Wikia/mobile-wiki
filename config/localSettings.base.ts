@@ -23,8 +23,7 @@ var localSettings: LocalSettings = {
 	loggers: {
 		syslog: 'debug'
 	},
-	// This should always be overriden by environment variable or localSettings.ts
-	mediawikiHost: Utils.stripDevboxDomain(process.env.HOST || 'OVERRIDE_ME'),
+	mediawikiHost: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
 		enabled: false,
