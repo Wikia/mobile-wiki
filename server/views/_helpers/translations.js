@@ -2,14 +2,16 @@ var Logger = require('../../lib/Logger');
 
 module.exports = function (language) {
 	var translations = {},
+		translationPath,
 		fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
-		foundLanguage = '';
+		foundLanguage = '',
+		response = {};
 
 	[language, fallbackLanguage, defaultLanguage].some(function (lang) {
-		console.log('language:', language)
-
-		var translationPath = '../../../front/locales/' + lang + '/translation.json';
+		foundLanguage = lang;
+		translationPath = '../../../front/locales/' + lang + '/translation.json';
+		
 		try {
 			translations = require(translationPath);
 			return true;
@@ -20,8 +22,8 @@ module.exports = function (language) {
 				error: exception.message
 			}, 'Translation not found');
 		}
-		//foundLanguage = lang;
 	});
-	//return {language: foundLanguage, translated: JSON.stringify(translations)};
-	return JSON.stringify(translations);
+
+	response[foundLanguage] = translations;
+	return response;
 };

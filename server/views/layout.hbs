@@ -31,7 +31,7 @@
 
 		<script>
 			<!-- @include ../../www/front/scripts/baseline.js -->
-			M.provide('_state.translations.en', {{{translations wiki.language.user}}});
+			M.provide('_state.translations', {{{json (translations wiki.language.user)}}});
 			M.provide('_state.firstPage', true);
 			M.provide('_state.queryParams', {{{json queryParams}}});
 			M.provide('ads.slots', []);

@@ -180,6 +180,5 @@ export function createUrl (wikiDomain: string, path: string, params: any = {}): 
 		qsAggregator.push(queryParam);
 	});
 
-	//return 'http://' + 'hkbus.wikia.com' + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 }
