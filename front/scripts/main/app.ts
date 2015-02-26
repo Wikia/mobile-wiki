@@ -9,7 +9,7 @@
 declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
-		language: Em.getWithDefault(Mercury, 'wiki.language.user', 'en'),
+		language: Object.keys(Mercury._state.translations)[0] || 'en',
 		apiBase: Mercury.apiBase || '/api/v1'
 	});
 
