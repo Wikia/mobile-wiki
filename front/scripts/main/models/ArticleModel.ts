@@ -63,7 +63,7 @@ App.ArticleModel.reopenClass({
 	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}) {
 		var model = App.ArticleModel.create(params);
 
-		if (Mercury._state.firstPage) {
+		if (M.state('firstPage')) {
 			this.setArticle(model);
 			return model;
 		}
@@ -93,15 +93,15 @@ App.ArticleModel.reopenClass({
 		var article = Mercury.article,
 			adsInstance: Mercury.Modules.Ads;
 
-		Mercury._state.firstPage = false;
+		M.state('firstPage', false);
 
 		// On first page load the article content is available only in HTML
 		article.content = $('.article-content').html();
 
 		// Setup ads
-		if (Mercury.adsUrl && !Em.get(Mercury, '_state.queryParams.noexternals')) {
+		if (M.state('adsUrl') && !M.state('queryParams.noexternals')) {
 			adsInstance = Mercury.Modules.Ads.getInstance();
-			adsInstance.init(Mercury.adsUrl, () => {
+			adsInstance.init(M.state('adsUrl'), () => {
 				adsInstance.reload(article.adsContext);
 			});
 		}
@@ -171,7 +171,7 @@ App.ArticleModel.reopenClass({
 		// We need to update global article.type
 		// to allow eg. for analytics to use it
 		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
-		M.provide('article.type', data.type);
+		M.state('article.type', data.type);
 		model.setProperties(data);
 	}
 });

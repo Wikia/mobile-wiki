@@ -41,14 +41,47 @@ module Mercury {
 	}
 
 	export module Utils {
-		export function provide(str: string, obj: any) {
+
+		var __state__: any = {};
+
+		function _getState (key: string): any {
+			var parts = key.split('.');
+			if (parts.length > 1) {
+				var i = 0;
+				var value = __state__;
+				while (i < parts.length) {
+					if (!value.hasOwnProperty(parts[i])) {
+						return;
+					}
+					value = value[parts[i]];
+					i++;
+				}
+				return value;
+			}
+			return __state__[key];
+		};
+
+		function _setState (key: string, value: any): any {
+			if (value === undefined || value === null) {
+				throw 'Cannot set property ' + key + ' to ' + value;
+			}
+			return namespacer(key, __state__, value);
+		}
+
+		export function state (key: string, value?: any): any {
+			if (value) {
+				return _setState(key, value);
+			}
+			return _getState(key);
+		}
+
+		export function provide(str: string, obj: any): any {
 			if (typeof str !== 'string') {
 				throw Error('Invalid string supplied to namespacer');
 			}
 			return namespacer(str, 'Mercury', obj);
 		}
 	}
-
 }
 
 // alias M for quick access to utility functions

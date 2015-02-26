@@ -30,7 +30,7 @@ module Mercury.Modules.Trackers {
 			window.__qc = null;
 
 			window._qevents = [{
-				qacct: Mercury.tracking.quantserve,
+				qacct: M.state('tracking.quantserve'),
 				labels: quantcastLabels.join(',')
 			}];
 

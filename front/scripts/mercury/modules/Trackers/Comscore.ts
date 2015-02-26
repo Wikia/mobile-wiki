@@ -17,7 +17,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		trackPageView (): void {
-			var comscore = Mercury.tracking.comscore,
+			var comscore = M.state('tracking.comscore'),
 				id: string =  comscore.id,
 				c7Value: string = comscore.c7Value;
 

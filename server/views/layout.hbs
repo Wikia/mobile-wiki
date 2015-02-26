@@ -31,20 +31,21 @@
 
 		<script>
 			<!-- @include ../../www/front/scripts/baseline.js -->
-			M.provide('_state.translations.{{#if wiki.language.user}}{{wiki.language.user}}{{else}}en{{/if}}', {{{translations wiki.language.user}}});
-			M.provide('_state.firstPage', true);
-			M.provide('_state.queryParams', {{{json queryParams}}});
+			{{#if server.mediawikiDomain}}
+			M.state('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			{{/if}}
+			M.state('apiBase', '{{{server.apiBase}}}' || '/api/v1');
+			M.state('environment', '{{{server.environment}}}');
+			M.state('firstPage', true);
+			M.state('queryParams', {{{json queryParams}}});
+			M.state('tracking', {{{json tracking}}});
+			M.state('translations.{{#if wiki.language.user}}{{wiki.language.user}}{{else}}en{{/if}}', {{{translations wiki.language.user}}});
+			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
-			M.provide('apiBase', '{{{server.apiBase}}}');
-			M.provide('environment', '{{{server.environment}}}');
 			M.provide('wiki', {{{json wiki}}});
 			M.provide('article', {{{json article}}});
-			M.provide('tracking', {{{trackingJson}}});
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
-			{{/if}}
-			{{#if server.mediawikiDomain}}
-			M.provide('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
 		</script>
 

@@ -2,6 +2,7 @@
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 /// <reference path="../baseline/mercury.d.ts" />
+/// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 
 'use strict';
@@ -10,13 +11,13 @@ declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
 		language: Em.getWithDefault(Mercury, 'wiki.language.user', 'en'),
-		apiBase: Mercury.apiBase || '/api/v1'
+		apiBase: M.state('apiBase')
 	});
 
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		var debug: boolean = Mercury.environment === 'dev';
+		var debug: boolean = M.state('environment') === 'dev';
 
 		// turn on debugging with querystring ?debug=1
 		if (window.location.search.match(/debug=1/)) {
@@ -38,7 +39,7 @@ App.initializer({
 			lng: application.get('language'),
 			fallbackLng: 'en',
 			debug: debug,
-			resStore: Mercury._state.translations,
+			resStore: M.state('translations'),
 			useLocalStorage: false
 		});
 	}
