@@ -62,7 +62,7 @@ module Mercury {
 		};
 
 		function _setState (key: string, value: any): any {
-			if (value === undefined || value === null) {
+			if (typeof value === 'undefined') {
 				throw 'Cannot set property ' + key + ' to ' + value;
 			}
 			return namespacer(key, __state__, value);
