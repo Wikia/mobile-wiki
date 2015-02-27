@@ -10,6 +10,14 @@ interface ObjectProperties {
 }
 
 module Mercury {
+	function isPrimitive (val) {
+		var typeOf = typeof val;
+		return (val === null) ||
+				(typeOf === 'string') ||
+				(typeOf === 'number') ||
+				(typeOf === 'boolean') ||
+				(typeOf === 'undefined');
+	}
 
 	function namespacer(str: string, ns: any, val: any, mutable?: boolean): any  {
 		var parts: string[],
@@ -36,7 +44,7 @@ module Mercury {
 		}
 
 		properties = {
-			value: val
+			value: !mutable && !isPrimitive(val) ? Object.freeze(val) : val
 		};
 
 		if (mutable) {
@@ -130,6 +138,7 @@ module Mercury {
 			var props: PropertyDescriptorMap = {};
 			var keys = Object.keys(value);
 			var l = keys.length - 1;
+			var curVal: any;
 
 			if (typeof mutable !== 'boolean') {
 				throw 'Argument 2, mutable, must be a boolean value';
@@ -140,8 +149,9 @@ module Mercury {
 			}
 
 			while (l > -1) {
+				curVal = value[keys[l]]
 				props[keys[l]] = {
-					value: value[keys[l]],
+					value: !mutable && !isPrimitive(curVal) ? Object.freeze(curVal) : curVal,
 					configurable: mutable,
 					enumerable: mutable,
 					writable: mutable
