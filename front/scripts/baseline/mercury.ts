@@ -49,6 +49,7 @@ module Mercury {
 			// if a obj is passed in and loop is assigning last variable in namespace
 			if (i === parts.length - 1) {
 				Object.defineProperty(ns, parts[i], properties);
+				ns = ns[parts[i]];
 			} else {
 				// if namespace doesn't exist, instantiate as empty object
 				ns = ns[parts[i]] = ns[parts[i]] || {};
@@ -96,7 +97,7 @@ module Mercury {
 		 * @param mutable: boolean When set to true, the parameters given to Object.defineProperty are relaxed
 		 * @return any
 		 */
-		export function _setProp (key: string, value: any, mutable: boolean): any {
+		export function _setProp (key: string, value: any, mutable: boolean = false): any {
 			if (typeof value === 'undefined') {
 				throw 'Cannot set property ' + key + ' to ' + value;
 			}
@@ -104,8 +105,8 @@ module Mercury {
 		}
 
 		/**
-		 * prop
-		 *
+		 * M.prop
+		 * @description Combined getter/setter for private __props__
 		 * @param key: string
 		 * @param value?: any
 		 * @param mutable = false
@@ -116,6 +117,40 @@ module Mercury {
 				return _setProp(key, value, mutable);
 			}
 			return _getProp(key);
+		}
+
+		/**
+		 * M.props
+		 * @description Set multiple properties of __props__ at once
+		 * @param value: any
+		 * @param mutable = false
+		 * @return {Object} __props__
+		 */
+		export function props (value: any, mutable = false) {
+			var props: PropertyDescriptorMap = {};
+			var keys = Object.keys(value);
+			var l = keys.length - 1;
+
+			if (typeof mutable !== 'boolean') {
+				throw 'Argument 2, mutable, must be a boolean value';
+			}
+
+			if (typeof value === 'string' || !keys.length) {
+				throw 'Unable to set properties with the supplied value: ' + value + '(' + typeof value + ')';
+			}
+
+			while (l > -1) {
+				props[keys[l]] = {
+					value: value[keys[l]],
+					configurable: mutable,
+					enumerable: mutable,
+					writable: mutable
+				};
+				l--;
+			}
+
+			Object.defineProperties(__props__, props);
+			return value;
 		}
 
 		export function provide(str: string, obj: any): any {
