@@ -11,13 +11,13 @@ declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
 		language: Em.getWithDefault(Mercury, 'wiki.language.user', 'en'),
-		apiBase: M.state('apiBase')
+		apiBase: M.prop('apiBase')
 	});
 
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		var debug: boolean = M.state('environment') === 'dev';
+		var debug: boolean = M.prop('environment') === 'dev';
 
 		// turn on debugging with querystring ?debug=1
 		if (window.location.search.match(/debug=1/)) {
@@ -39,7 +39,7 @@ App.initializer({
 			lng: application.get('language'),
 			fallbackLng: 'en',
 			debug: debug,
-			resStore: M.state('translations'),
+			resStore: M.prop('translations'),
 			useLocalStorage: false
 		});
 	}

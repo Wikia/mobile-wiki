@@ -2,11 +2,19 @@ interface Window {
 	[key: string]: any;
 }
 
+interface ObjectProperties {
+	configurable?: boolean;
+	enumerable?: boolean;
+	writable?: boolean;
+	value: any;
+}
+
 module Mercury {
-	function namespacer(str: string, ns: string, val: any): any;
-	function namespacer(str: string, ns: any, val: any): any  {
+
+	function namespacer(str: string, ns: any, val: any, mutable?: boolean): any  {
 		var parts: string[],
-			i: number;
+			i: number,
+			properties: ObjectProperties;
 
 		if (!str) {
 			parts = [];
@@ -27,10 +35,20 @@ module Mercury {
 			ns = window[ns] = window[ns] || {};
 		}
 
+		properties = {
+			value: val
+		};
+
+		if (mutable) {
+			properties.configurable = true;
+			properties.enumerable = true;
+			properties.writable = true;
+		}
+
 		for (i = 0; i < parts.length; i++) {
 			// if a obj is passed in and loop is assigning last variable in namespace
 			if (i === parts.length - 1) {
-				ns = ns[parts[i]] = val;
+				Object.defineProperty(ns, parts[i], properties);
 			} else {
 				// if namespace doesn't exist, instantiate as empty object
 				ns = ns[parts[i]] = ns[parts[i]] || {};
@@ -42,13 +60,22 @@ module Mercury {
 
 	export module Utils {
 
-		var __state__: any = {};
+		var __props__: any = {};
 
-		function _getState (key: string): any {
-			var parts = key.split('.');
+		/**
+		 * _getProp
+		 * @description Accessor for private __props__ object
+		 * @param key: string A key representing the namespace to set. eg 'foo.bar.baz'
+		 * @return any
+		 */
+		export function _getProp (key: string): any {
+			var parts = key.split('.'),
+				value: any,
+				i: number;
+
 			if (parts.length > 1) {
-				var i = 0;
-				var value = __state__;
+				i = 0;
+				value = __props__;
 				while (i < parts.length) {
 					if (!value.hasOwnProperty(parts[i])) {
 						return;
@@ -58,28 +85,44 @@ module Mercury {
 				}
 				return value;
 			}
-			return __state__[key];
+			return __props__[key];
 		};
 
-		function _setState (key: string, value: any): any {
+		/**
+		 * _setProp
+		 * @description Setter for single properties on the private __props__ object
+		 * @param key: string A key representing the namespace to set. eg 'foo.bar.baz'
+		 * @param value: any Any non-undefined value
+		 * @param mutable: boolean When set to true, the parameters given to Object.defineProperty are relaxed
+		 * @return any
+		 */
+		export function _setProp (key: string, value: any, mutable: boolean): any {
 			if (typeof value === 'undefined') {
 				throw 'Cannot set property ' + key + ' to ' + value;
 			}
-			return namespacer(key, __state__, value);
+			return namespacer(key, __props__, value, mutable);
 		}
 
-		export function state (key: string, value?: any): any {
-			if (value) {
-				return _setState(key, value);
+		/**
+		 * prop
+		 *
+		 * @param key: string
+		 * @param value?: any
+		 * @param mutable = false
+		 * @return any
+		 */
+		export function prop (key: string, value?: any, mutable = false): any {
+			if (typeof value !== 'undefined') {
+				return _setProp(key, value, mutable);
 			}
-			return _getState(key);
+			return _getProp(key);
 		}
 
 		export function provide(str: string, obj: any): any {
 			if (typeof str !== 'string') {
 				throw Error('Invalid string supplied to namespacer');
 			}
-			return namespacer(str, 'Mercury', obj);
+			return namespacer(str, 'Mercury', obj, true);
 		}
 	}
 }

@@ -36,7 +36,7 @@ module Mercury.Modules.Trackers {
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 				].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
-			this.accounts = M.state('tracking.ga');
+			this.accounts = M.prop('tracking.ga');
 			this.queue = window._gaq || [];
 
 			// Primary account
@@ -82,7 +82,7 @@ module Mercury.Modules.Trackers {
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 				// [prefix + '_setCustomVar', 16, 'Krux Segment', getKruxSegment(), 3],
 				[prefix + '_setCustomVar', 17, 'Vertical', Mercury.wiki.vertical, 3],
-				[prefix + '_setCustomVar', 19, 'ArticleType', M.state('article.type'), 3]
+				[prefix + '_setCustomVar', 19, 'ArticleType', M.prop('article.type'), 3]
 			);
 
 			if (adsContext) {
