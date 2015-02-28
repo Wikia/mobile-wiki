@@ -71,7 +71,7 @@ function getFallbackDomain (localSettings: LocalSettings, wikiSubDomain: string)
 	// This is specific to the devbox setup
 	// Curl requests will look like muppet.devname.wikia-dev.com so skip the "devname"
 	// Web requests will look like muppet.123.123.123.123.xip.io so add the "devname"
-	if (localSettings.devboxDomain && wikiSubDomain.indexOf(localSettings.devboxDomain) == -1) {
+	if (localSettings.devboxDomain && wikiSubDomain.indexOf(localSettings.devboxDomain) === -1) {
 		return wikiSubDomain + '.' + localSettings.devboxDomain + '.wikia-dev.com';
 	} else {
 		return wikiSubDomain + '.wikia-dev.com';
@@ -86,7 +86,7 @@ function getFallbackWiki (localSettings: LocalSettings): string {
 	return (localSettings.wikiFallback || 'community');
 }
 
-var wikiDomainsCache: {[key: string]: string;} = {};
+var wikiDomainsCache: { [key: string]: string; } = {};
 /**
  * Get cached Media Wiki domain name from the request host
  *
