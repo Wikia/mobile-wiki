@@ -166,7 +166,7 @@ module Mercury.Utils {
 			if (typeof Tracker.prototype.trackPageView === 'function') {
 				instance = new Tracker();
 				Em.Logger.info('Track pageView:', tracker);
-				instance.trackPageView(instance ? adsContext : context);
+				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 			}
 		});
 	}
