@@ -20,6 +20,7 @@
     "bunyan-syslog": "0.2.2",
     "handlebars": "2.0.0",
     "hapi": "8.2.0",
+    "hoek": "^2.11.1",
     "newrelic": "1.16.2",
     "wreck": "5.2.0"
   },
