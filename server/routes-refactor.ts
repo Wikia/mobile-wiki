@@ -28,16 +28,16 @@ unauthenticatedRoutes = [
 		path: '/robots.txt',
 		handler: require('./facets/operations/proxyMW')
 	},
-	//{
-		//method: 'GET',
-		//path: '/front/{path*}',
-		//handler: require('./facets/operations/assets')
-	//},
-	//{
-		//method: 'GET',
-		//path: '/public/{path*}',
-		//handler: require('./facets/operations/assets')
-	//},
+	{
+		method: 'GET',
+		path: '/front/{path*}',
+		handler: require('./facets/operations/assets')
+	},
+	{
+		method: 'GET',
+		path: '/public/{path*}',
+		handler: require('./facets/operations/assets')
+	},
 	//{
 		//method: 'GET',
 		//path: '/heartbeat',
