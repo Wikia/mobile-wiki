@@ -43,11 +43,11 @@ unauthenticatedRoutes = [
 		path: '/heartbeat',
 		handler: require('./facets/operations/heartbeat')
 	},
-	//{
-		//method: 'GET',
-		//path: localSettings.apiBase + '/article/{articleTitle*}',
-		//handler: require('./facets/article/getArticleJSON')
-	//},
+	{
+		method: 'GET',
+		path: localSettings.apiBase + '/article/{articleTitle*}',
+		handler: require('./facets/api/article').get
+	},
 	//{
 		//method: 'GET',
 		//path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
