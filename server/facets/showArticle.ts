@@ -6,7 +6,6 @@ import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');
 
-export = showArticle;
 
 var cachingTimes = {
 	enabled: false,
@@ -15,7 +14,7 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.default
 };
 
-function showArticle (request: Hapi.Request, reply: Hapi.Response) {
+function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	var path: string = request.path,
 		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host);
 
@@ -120,3 +119,5 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 		Caching.setResponseCaching(response, cachingTimes);
 	}
 }
+
+export = showArticle;
