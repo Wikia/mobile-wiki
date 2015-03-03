@@ -1,7 +1,7 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
 import Article = require('../lib/Article');
-import Utils = require('../lib/Utils-refactor');
+import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');

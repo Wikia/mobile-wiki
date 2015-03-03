@@ -2,7 +2,7 @@
 
 import MW = require('../../lib/MediaWiki');
 import localSettings = require('../../../config/localSettings');
-import Utils = require('../../lib/Utils-refactor');
+import Utils = require('../../lib/Utils');
 
 function proxyMW (request: Hapi.Request, reply: any) {
 	var path = request.path.substr(1),

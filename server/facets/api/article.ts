@@ -1,6 +1,6 @@
 import Article = require('../../lib/Article');
 import Caching = require('../../lib/Caching');
-import Utils = require('../../lib/Utils-refactor');
+import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
 import wrapResult = require('./presenters/resultWrapper');
 

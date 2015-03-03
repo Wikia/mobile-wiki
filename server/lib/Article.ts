@@ -8,7 +8,7 @@
 import util = require('util');
 import Promise = require('bluebird');
 import MediaWiki = require('./MediaWiki');
-import Utils = require('./Utils-refactor');
+import Utils = require('./Utils');
 import logger = require('./Logger');
 import localSettings = require('../../config/localSettings');
 
