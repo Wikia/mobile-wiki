@@ -3,19 +3,17 @@ import localSettings = require('../config/localSettings');
 import Caching = require('./lib/Caching');
 
 var unauthenticatedRoutes: any[],
-	unauthenticatedRouteConfig,
 	authenticatedRoutes: any[],
 	indexRoutePaths: string[],
-	proxyRoutePaths: string[];
-
-unauthenticatedRouteConfig = {
-	config: {
-		cache: {
-			privacy: Caching.policyString(Caching.Policy.Public),
-			expiresIn: 60000
+	proxyRoutePaths: string[],
+	unauthenticatedRouteConfig = {
+		config: {
+			cache: {
+				privacy: Caching.policyString(Caching.Policy.Public),
+				expiresIn: 60000
+			}
 		}
-	}
-};
+	};
 
 unauthenticatedRoutes = [
 	{

@@ -19,7 +19,7 @@ var cacheOptions = {
  * @param error
  * @param result
  */
-export function get (request: Hapi.Request,  reply: Hapi.Response): void {
+export function get (request: Hapi.Request,  reply: any): void {
 	Article.getData({
 		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		title: request.params.articleTitle,
