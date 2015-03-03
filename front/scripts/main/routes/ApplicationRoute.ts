@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
+/// <reference path="../../mercury/utils/variantTesting.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
@@ -12,6 +13,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			this.controller.showLoader();
 		},
 		didTransition: function () {
+			// Activate any A/B tests for the new route
+			M.VariantTesting.activate();
 			this.controller.hideLoader();
 		},
 		error: function () {
@@ -21,11 +24,16 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
 				trackingCategory = target.dataset.trackingCategory,
-				info = M.getLinkInfo(model.get('basePath'),
+				info = M.getLinkInfo(
+					model.get('basePath'),
 					model.get('title'),
 					target.hash,
 					target.href
-				);
+				),
+				// exec() returns an array of matches or null if no match is found.
+				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
+				cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
+				defaultSkin: string = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
 			/**
 			 * Handle tracking
@@ -42,9 +50,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			 * handle links that are external to the application like ?useskin=oasis
 			 */
 			if (target.className.indexOf('external') > -1) {
-				if (target.href.indexOf('useskin=oasis') > -1) {
-					// If using Oasis skin, remove Mercury cookie
-					document.cookie = 'useskin=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+				if (target.href.indexOf('useskin=' + defaultSkin) > -1) {
+					document.cookie = 'useskin=' + defaultSkin + cookieDomain + '; path=/';
 				}
 				return window.location.assign(target.href);
 			}
@@ -75,7 +82,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 				this.controllerFor(lightboxName).set('data', data);
 			}
 
-			return this.render(lightboxName, {
+			this.render(lightboxName, {
 				into: 'application',
 				outlet: 'lightbox'
 			});
@@ -84,7 +91,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		closeLightbox: function (): void {
 			this.get('controller').set('noScroll', false);
 
-			return this.disconnectOutlet({
+			this.disconnectOutlet({
 				outlet: 'lightbox',
 				parentView: 'application'
 			});

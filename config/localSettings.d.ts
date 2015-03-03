@@ -18,11 +18,18 @@ interface GAAccountMap {
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
+	mediawikiDomain?: string;
+	devboxDomain?: string;
 	environment: any;
 	host: any;
 	loggers: LoggerInterface;
-	mediawikiHost: string;
 	maxRequestsPerChild: number;
+	optimizely?: {
+		enabled: boolean;
+		scriptPath: string;
+		devAccount: string;
+		account: string;
+	};
 	port: number;
 	proxyMaxRedirects: number;
 	redirectUrlOnNoData: string;

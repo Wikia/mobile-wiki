@@ -9,7 +9,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		width: 64
 	},
 	classNames: ['article-image'],
-	classNameBindings: ['hasCaption', 'visible', 'isSmall'],
+	classNameBindings: ['hasCaption', 'isSmall'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
@@ -46,6 +46,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 	url: function (key: string, value?: string): string {
 		var media: ArticleMedia;
+
 		if (value) {
 			return this.getThumbURL(
 				value,
@@ -75,10 +76,10 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * so when image loads, browser don't have to resize it
 	 */
 	style: function (): string {
-		return this.get('visible') ?
+		return this.get('loaded') ?
 			'' :
 			'height:%@px;'.fmt(this.get('computedHeight'));
-	}.property('computedHeight', 'visible'),
+	}.property('computedHeight', 'loaded'),
 
 	/**
 	 * load an image and run update function when it is loaded
@@ -107,7 +108,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	update: function (src: string): void {
 		this.setProperties({
 			imageSrc: src,
-			visible: true
+			loaded: true
 		});
 	}
 });
