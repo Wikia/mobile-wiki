@@ -76,7 +76,7 @@ function transformResponse (commentsData: CommentsDataMW): CommentsData {
 	};
 }
 
-export function get (request: Hapi.Request, reply: any) {
+export function get (request: Hapi.Request, reply: any): void {
 	var params = {
 			wikiDomain: Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 			articleId: parseInt(request.params.articleId, 10) || null,

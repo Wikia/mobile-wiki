@@ -4,7 +4,7 @@ import MW = require('../../lib/MediaWiki');
 import localSettings = require('../../../config/localSettings');
 import Utils = require('../../lib/Utils');
 
-function proxyMW (request: Hapi.Request, reply: any) {
+function proxyMW (request: Hapi.Request, reply: any): void {
 	var path = request.path.substr(1),
 		url = MW.createUrl(Utils.getCachedWikiDomainName(localSettings, request.headers.host), path);
 

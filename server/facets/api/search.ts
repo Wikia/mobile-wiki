@@ -11,7 +11,7 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
-export function get (request: Hapi.Request, reply: any) {
+export function get (request: Hapi.Request, reply: any): void {
 	var params = {
 		wikiDomain: Utils.getWikiDomainName(localSettings, request.headers.host),
 		query: request.params.query
