@@ -60,20 +60,20 @@ unauthenticatedRoutes = [
 	//},
 ];
 
-//indexRoutePaths = [
-	//'/wiki/{title*}',
-	//'/{title*}',
-	//// TODO this is special case needed for /wiki path, it should be refactored
-	//'/{title}'
-//];
+indexRoutePaths = [
+	'/wiki/{title*}',
+	'/{title*}',
+	// TODO this is special case needed for /wiki path, it should be refactored
+	'/{title}'
+];
 
-//indexRoutePaths.forEach((path) => {
-	//unauthenticatedRoutes.push({
-		//method: 'GET',
-		//path: path,
-		//handler: require('./facets/article/showArticle')
-	//})
-//});
+indexRoutePaths.forEach((path) => {
+	unauthenticatedRoutes.push({
+		method: 'GET',
+		path: path,
+		handler: require('./facets/showArticle')
+	})
+});
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);
