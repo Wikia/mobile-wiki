@@ -54,11 +54,11 @@ unauthenticatedRoutes = [
 		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
 		handler: require('./facets/api/articleComments').get
 	},
-	//{
-		//method: 'GET',
-		//path: localSettings.apiBase + '/search/{query}',
-		//handler: require('./facets/search/getSearchResults')
-	//},
+	{
+		method: 'GET',
+		path: localSettings.apiBase + '/search/{query}',
+		handler: require('./facets/api/search').get
+	}
 ];
 
 indexRoutePaths = [
