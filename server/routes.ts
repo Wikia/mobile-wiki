@@ -5,7 +5,7 @@ import Caching = require('./lib/Caching');
 
 var unauthenticatedRoutes: any[],
 	authenticatedRoutes: any[],
-	indexRoutePaths: string[],
+	articlePagePaths: string[],
 	proxyRoutePaths: string[],
 	unauthenticatedRouteConfig = {
 		config: {
@@ -60,14 +60,14 @@ unauthenticatedRoutes = [
 	}
 ];
 
-indexRoutePaths = [
+articlePagePaths = [
 	'/wiki/{title*}',
 	'/{title*}',
 	// TODO this is special case needed for /wiki path, it should be refactored
 	'/{title}'
 ];
 
-indexRoutePaths.forEach((path) => {
+articlePagePaths.forEach((path) => {
 	unauthenticatedRoutes.push({
 		method: 'GET',
 		path: path,

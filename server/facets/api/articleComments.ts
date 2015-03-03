@@ -5,7 +5,7 @@ import Caching = require('../../lib/Caching');
 import MW = require('../../lib/MediaWiki');
 import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
-import wrapResult = require('./presenters/resultWrapper');
+import wrapResult = require('./presenters/wrapResult');
 
 interface Comment {
 	id: number;
