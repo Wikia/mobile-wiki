@@ -60,7 +60,8 @@ var cachingTimes = {
  * @param commentsData Article comments payload from API
  * @returns Wrapped Article comments object
  */
-function transformResponse ( commentsData: CommentsDataMW ): CommentsData {
+function transformResponse (commentsData: CommentsDataMW): CommentsData {
+	// TODO: ad hoc response wrapping, normalize across app
 	return {
 		payload: {
 			comments: commentsData.payload.comments,
@@ -81,9 +82,8 @@ export function get (request: Hapi.Request, reply: any) {
 			page: parseInt(request.params.page, 10) || 0
 		};
 
-	console.log(request);
-
 	if (params.articleId === null) {
+		// TODO: ad hoc error handling, use Boom everywhere?
 		reply(Boom.badRequest('Invalid articleId'));
 	} else {
 		new MW.ArticleRequest(params.wikiDomain).comments(
