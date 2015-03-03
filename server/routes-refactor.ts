@@ -48,11 +48,12 @@ unauthenticatedRoutes = [
 		path: localSettings.apiBase + '/article/{articleTitle*}',
 		handler: require('./facets/api/article').get
 	},
-	//{
-		//method: 'GET',
-		//path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
-		//handler: require('./facets/article/getArticleComments')
-	//},
+	{
+		method: 'GET',
+		// TODO: if you call to api/v1/comments/ without supplying an id, this actually calls /api/v1/article
+		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
+		handler: require('./facets/api/articleComments').get
+	},
 	//{
 		//method: 'GET',
 		//path: localSettings.apiBase + '/search/{query}',
@@ -72,7 +73,7 @@ indexRoutePaths.forEach((path) => {
 		method: 'GET',
 		path: path,
 		handler: require('./facets/showArticle')
-	})
+	});
 });
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
