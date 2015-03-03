@@ -1,3 +1,4 @@
+/// <reference path="../typings/hoek/hoek.d.ts" />
 import Hoek = require('hoek');
 import localSettings = require('../config/localSettings');
 import Caching = require('./lib/Caching');

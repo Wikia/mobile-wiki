@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
+/// <reference path="../../../typings/boom/boom.d.ts" />
 import Boom = require('boom');
 import Caching = require('../../lib/Caching');
 import MW = require('../../lib/MediaWiki');
