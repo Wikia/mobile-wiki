@@ -81,7 +81,7 @@ class App {
 		/**
 		 * Routes
 		 */
-		server.route(require('./routes-refactor'));
+		server.route(require('./routes'));
 
 		server.on('tail', () => {
 			this.counter++;
