@@ -19,6 +19,15 @@ var App: any = Em.Application.create({
 		apiBase: Mercury.apiBase || '/api/v1'
 	});
 
+window.emberHammerOptions = {
+	hammerOptions: {
+		//we are using fastclick so this is adviced by ember-hammer lib
+		ignoreEvents: [],
+		swipe_velocity: 0.1,
+		pan_threshold: 1
+	}
+};
+
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
@@ -47,14 +56,5 @@ App.initializer({
 			resStore: Mercury._state.translations,
 			useLocalStorage: false
 		});
-
-		window.emberHammerOptions = {
-			hammerOptions: {
-				//we are using fastclick so this is adviced by ember-hammer lib
-				ignoreEvents: [],
-				swipe_velocity: 0.1,
-				pan_threshold: 1
-			}
-		};
 	}
 });
