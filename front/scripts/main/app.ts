@@ -8,22 +8,24 @@
 
 declare var i18n: I18nextStatic;
 
-var App: any = Em.Application.create({
-		language: Object.keys(Mercury._state.translations)[0] || 'en',
-		apiBase: Mercury.apiBase || '/api/v1'
-	});
+var App: any = Em.Application.create();
 
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		var debug: boolean = Mercury.environment === 'dev';
+		var debug: boolean = Mercury.environment === 'dev',
+			//prevents fail if _state.transitions are empty
+			loadedTranslations = Em.getWithDefault(Mercury, '_state.translations', {}),
+			//loaded language name is the first key of the Mercury.state.translations object
+			loadedLanguage = Object.keys(loadedTranslations)[0];
 
 		// turn on debugging with querystring ?debug=1
 		if (window.location.search.match(/debug=1/)) {
 			debug = true;
 		}
-
 		App.setProperties({
+			apiBase: Mercury.apiBase || '/api/v1',
+			language: loadedLanguage || 'en',
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
 			LOG_TRANSITIONS: debug,
@@ -33,7 +35,7 @@ App.initializer({
 		$('html').removeClass('preload');
 
 		i18n.init({
-			resGetPath: '/front/locales/__lng__/translations.json',
+			resGetPath: '/front/locales/__lng__/translation.json',
 			detectLngQS: 'uselang',
 			lng: application.get('language'),
 			fallbackLng: 'en',
