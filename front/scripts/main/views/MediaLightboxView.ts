@@ -363,13 +363,18 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	},
 
 	didInsertElement: function (): void {
+		var hammerInstance = this.get('_hammerInstance');
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
 		this.resetZoom();
 
-		this.get('_hammerInstance').get('pinch').set({
+		hammerInstance.get('pinch').set({
 			enable: true
+		});
+
+		hammerInstance.get('pan').set({
+			direction: Hammer.DIRECTION_ALL
 		});
 
 		this._super();
