@@ -23,7 +23,7 @@ App.initializer({
 		if (window.location.search.match(/debug=1/)) {
 			debug = true;
 		}
-		
+	
 		App.setProperties({
 			apiBase: Mercury.apiBase || '/api/v1',
 			language: loadedLanguage || 'en',
@@ -41,7 +41,7 @@ App.initializer({
 			lng: application.get('language'),
 			fallbackLng: 'en',
 			debug: debug,
-			resStore: Mercury._state.translations,
+			resStore: loadedTranslations,
 			useLocalStorage: false
 		});
 	}
