@@ -8,7 +8,7 @@ App.ApplicationController = Em.Controller.extend({
 	noScroll: false,
 	noAds: '',
 	isLoading: false,
-	spinnerDelay: 100,
+	spinnerDelay: 300,
 	spinnerTimeout: null,
 
 	init: function () {
@@ -29,10 +29,16 @@ App.ApplicationController = Em.Controller.extend({
 		this._super();
 	},
 
+	/**
+	 * show loader with some small delay
+	 * if we are able to load it under the delay
+	 * perceived speed of applications is better
+	 * if not, small delay will be almost not noticeable
+	 */
 	showLoader: function () {
 		this.set('spinnerTimeout', Em.run.later(this, (): void => {
 			this.set('isLoading', true);
-		}, this.get('spinnerDelay')));
+		}, this.spinnerDelay));
 	},
 
 	hideLoader: function () {
