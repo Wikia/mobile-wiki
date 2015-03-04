@@ -16,197 +16,188 @@ import cluster = require('cluster');
 import Utils = require('./lib/Utils');
 import Caching = require('./lib/Caching');
 
+//Counter for maxRequestPerChild
+var counter = 1;
+var isDevbox: boolean = localSettings.environment === Utils.Environment.Dev;
+
 /**
- * Application class
+ * Creates new `hapi` server
  */
-class App {
-	//Counter for maxRequestPerChild
-	private counter = 1;
-	private isDevbox = localSettings.environment === Utils.Environment.Dev;
+var server = new Hapi.Server();
 
-	/**
-	 * Creates new `hapi` server
+server.connection({
+	host: localSettings.host,
+	port: localSettings.port,
+	routes: {
+		state: {
+			// We currently don't use any cookies on server side
+			parse: false
+			// Uncomment this setting if you change the one above as we don't want to fail on invalid cookies
+			//failAction: 'log'
+		}
+	}
+});
+
+setupLogging(server);
+
+server.views({
+	engines: {
+		hbs: require('handlebars')
+	},
+	isCached: true,
+	layout: true,
+	/*
+	 * Helpers are functions usable from within handlebars templates.
+	 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
 	 */
-	constructor() {
-		var server = new Hapi.Server();
+	helpersPath: path.join(__dirname, 'views', '_helpers'),
+	path: path.join(__dirname, 'views'),
+	partialsPath: path.join(__dirname, 'views', '_partials')
+});
 
-		server.connection({
-			host: localSettings.host,
-			port: localSettings.port,
-			routes: {
-				state: {
-					// We currently don't use any cookies on server side
-					parse: false
-					// Uncomment this setting if you change the one above as we don't want to fail on invalid cookies
-					//failAction: 'log'
-				}
-			}
-		});
+server.ext('onPreResponse', getOnPreResponseHandler(isDevbox));
 
-		this.setupLogging(server);
+/**
+ * This is the earliest place where we can detect that the request URI was malformed
+ * (decodeURIComponent failed in hapijs/call lib and 'badrequest' method was set as a special route handler).
+ *
+ * When MediaWiki gets request like that it redirects to the main page with code 301.
+ *
+ * For now we don't want to send additional request to get title of the main page
+ * and are redirecting to / which causes user to get the main page eventually.
+ */
+server.ext('onPreAuth', (request: Hapi.Request, reply: any): any => {
+	if (request.route.method === 'badrequest') {
+		return reply.redirect('/').permanent(true);
+	}
+	return reply.continue();
+});
 
-		server.views({
-			engines: {
-				hbs: require('handlebars')
-			},
-			isCached: true,
-			layout: true,
-			/*
-			 * Helpers are functions usable from within handlebars templates.
-			 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
-			 */
-			helpersPath: path.join(__dirname, 'views', '_helpers'),
-			path: path.join(__dirname, 'views'),
-			partialsPath: path.join(__dirname, 'views', '_partials')
-		});
+/**
+ * Routes
+ */
+server.route(require('./routes'));
 
-		server.ext('onPreResponse', this.getOnPreResponseHandler(this.isDevbox));
+server.on('tail', () => {
+	counter++;
 
-		/**
-		 * This is the earliest place where we can detect that the request URI was malformed
-		 * (decodeURIComponent failed in hapijs/call lib and 'badrequest' method was set as a special route handler).
-		 *
-		 * When MediaWiki gets request like that it redirects to the main page with code 301.
-		 *
-		 * For now we don't want to send additional request to get title of the main page
-		 * and are redirecting to / which causes user to get the main page eventually.
-		 */
-		server.ext('onPreAuth', (request: Hapi.Request, reply: any): any => {
-			if (request.route.method === 'badrequest') {
-				return reply.redirect('/').permanent(true);
-			}
-			return reply.continue();
-		});
-
-		/**
-		 * Routes
-		 */
-		server.route(require('./routes'));
-
-		server.on('tail', () => {
-			this.counter++;
-
-			if (this.counter >= localSettings.maxRequestsPerChild) {
-				//This is a safety net for memory leaks
-				//It restarts child so even if it leaks we are 'safe'
-				server.stop({
-					timeout: localSettings.backendRequestTimeout
-				}, function () {
-					logger.info('Max request per child hit: Server stopped');
-					cluster.worker.kill();
-				});
-			}
-		});
-
-		process.on('message', function (msg: string) {
-			if (msg === 'shutdown') {
-				server.stop({
-					timeout: localSettings.workerDisconnectTimeout
-				}, function () {
-					logger.info('Server stopped');
-				});
-			}
-		});
-
-		server.start(function () {
-			logger.info({url: server.info.uri}, 'Server started');
-			process.send('Server started');
+	if (counter >= localSettings.maxRequestsPerChild) {
+		//This is a safety net for memory leaks
+		//It restarts child so even if it leaks we are 'safe'
+		server.stop({
+			timeout: localSettings.backendRequestTimeout
+		}, function () {
+			logger.info('Max request per child hit: Server stopped');
+			cluster.worker.kill();
 		});
 	}
+});
 
-	/**
-	 * Create new onPreResponseHandler
-	 *
-	 * @param isDevbox
-	 * @returns {function (Hapi.Request, Function): void}
-	 */
-	private getOnPreResponseHandler (isDevbox: boolean) {
-		return (request: Hapi.Request, reply: any): void => {
-			var response = request.response,
-				responseTimeSec = ((Date.now() - request.info.received) / 1000).toFixed(3),
-				servedBy = localSettings.host || 'mercury';
-
-			// Assets on devbox must not be cached
-			// Variety `file` means response was generated by reply.file() e.g. the directory handler
-			if (!isDevbox && response.variety === 'file') {
-				Caching.setResponseCaching(response, {
-					enabled: true,
-					cachingPolicy: Caching.Policy.Public,
-					varnishTTL: Caching.Interval.long,
-					browserTTL: Caching.Interval.long
-				});
-			}
-
-			if (response && response.header) {
-				response.header('x-backend-response-time', responseTimeSec);
-				response.header('x-served-by', servedBy);
-			} else if (response.isBoom) {
-				// see https://github.com/hapijs/boom
-				response.output.headers['x-backend-response-time'] = responseTimeSec;
-				response.output.headers['x-served-by'] = servedBy;
-
-				// TODO check if this makes sense together with server.on('request-internal')
-				logger.error({
-					message: response.message,
-					code: response.output.statusCode,
-					headers: response.output.headers
-				}, 'Response is Boom object');
-			}
-
-			reply.continue();
-		};
+process.on('message', function (msg: string) {
+	if (msg === 'shutdown') {
+		server.stop({
+			timeout: localSettings.workerDisconnectTimeout
+		}, function () {
+			logger.info('Server stopped');
+		});
 	}
+});
 
-	/**
-	 * Setup logging for Hapi events
-	 *
-	 * @param server
-	 */
-	private setupLogging (server: Hapi.Server): void {
-		// Emitted whenever an Internal Server Error (500) error response is sent. Single event per request.
-		server.on('request-error', (request: Hapi.Request, err: Error) => {
+server.start(function () {
+	logger.info({url: server.info.uri}, 'Server started');
+	process.send('Server started');
+});
+
+/**
+ * Create new onPreResponseHandler
+ *
+ * @param isDevbox
+ * @returns {function (Hapi.Request, Function): void}
+ */
+function getOnPreResponseHandler (isDevbox: boolean) {
+	return (request: Hapi.Request, reply: any): void => {
+		var response = request.response,
+			responseTimeSec = ((Date.now() - request.info.received) / 1000).toFixed(3),
+			servedBy = localSettings.host || 'mercury';
+
+		// Assets on devbox must not be cached
+		// Variety `file` means response was generated by reply.file() e.g. the directory handler
+		if (!isDevbox && response.variety === 'file') {
+			Caching.setResponseCaching(response, {
+				enabled: true,
+				cachingPolicy: Caching.Policy.Public,
+				varnishTTL: Caching.Interval.long,
+				browserTTL: Caching.Interval.long
+			});
+		}
+
+		if (response && response.header) {
+			response.header('x-backend-response-time', responseTimeSec);
+			response.header('x-served-by', servedBy);
+		} else if (response.isBoom) {
+			// see https://github.com/hapijs/boom
+			response.output.headers['x-backend-response-time'] = responseTimeSec;
+			response.output.headers['x-served-by'] = servedBy;
+
+			// TODO check if this makes sense together with server.on('request-internal')
 			logger.error({
-				wiki: request.headers.host,
-				text: err.message,
-				url: url.format(request.url),
-				referrer: request.info.referrer
-			}, 'Internal server error');
-		});
+				message: response.message,
+				code: response.output.statusCode,
+				headers: response.output.headers
+			}, 'Response is Boom object');
+		}
 
-		// Request events generated internally by the framework (multiple events per request).
-		server.on('request-internal', (request: Hapi.Request, event: any, tags: any) => {
-			// We exclude implementation tag because it would catch the same error as request-error
-			// but without message explaining what exactly happened
-			if (tags.error && !tags.implementation) {
-				logger.error({
-					wiki: request.headers.host,
-					url: url.format(request.url),
-					referrer: request.info.referrer,
-					eventData: event.data,
-					eventTags: tags
-				}, 'Internal error');
-			}
-		});
-
-		// Emitted after a response to a client request is sent back. Single event per request.
-		server.on('response', (request: Hapi.Request) => {
-			// If there is an error and headers are not present, set the response time to -1 to make these
-			// errors easy to discover
-			var responseTime = request.response.headers
-					&& request.response.headers.hasOwnProperty('x-backend-response-time')
-				? parseFloat(request.response.headers['x-backend-response-time'])
-				: -1;
-
-			logger.info({
-				wiki: request.headers.host,
-				code: request.response.statusCode,
-				url: url.format(request.url),
-				userAgent: request.headers['user-agent'],
-				responseTime: responseTime,
-				referrer: request.info.referrer
-			}, 'Response');
-		});
-	}
+		reply.continue();
+	};
 }
 
-var app: App = new App();
+/**
+ * Setup logging for Hapi events
+ *
+ * @param server
+ */
+function setupLogging (server: Hapi.Server): void {
+	// Emitted whenever an Internal Server Error (500) error response is sent. Single event per request.
+	server.on('request-error', (request: Hapi.Request, err: Error) => {
+		logger.error({
+			wiki: request.headers.host,
+			text: err.message,
+			url: url.format(request.url),
+			referrer: request.info.referrer
+		}, 'Internal server error');
+	});
+
+	// Request events generated internally by the framework (multiple events per request).
+	server.on('request-internal', (request: Hapi.Request, event: any, tags: any) => {
+		// We exclude implementation tag because it would catch the same error as request-error
+		// but without message explaining what exactly happened
+		if (tags.error && !tags.implementation) {
+			logger.error({
+				wiki: request.headers.host,
+				url: url.format(request.url),
+				referrer: request.info.referrer,
+				eventData: event.data,
+				eventTags: tags
+			}, 'Internal error');
+		}
+	});
+
+	// Emitted after a response to a client request is sent back. Single event per request.
+	server.on('response', (request: Hapi.Request) => {
+		// If there is an error and headers are not present, set the response time to -1 to make these
+		// errors easy to discover
+		var responseTime = request.response.headers
+				&& request.response.headers.hasOwnProperty('x-backend-response-time')
+			? parseFloat(request.response.headers['x-backend-response-time'])
+			: -1;
+
+		logger.info({
+			wiki: request.headers.host,
+			code: request.response.statusCode,
+			url: url.format(request.url),
+			userAgent: request.headers['user-agent'],
+			responseTime: responseTime,
+			referrer: request.info.referrer
+		}, 'Response');
+	});
+}
