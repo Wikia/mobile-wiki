@@ -7,14 +7,14 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 	require('newrelic');
 }
 
+import Caching = require('./lib/Caching');
 import Hapi = require('hapi');
+import Logger = require('./lib/Logger');
+import Utils = require('./lib/Utils');
+import cluster = require('cluster');
+import localSettings = require('../config/localSettings');
 import path = require('path');
 import url = require('url');
-import localSettings = require('../config/localSettings');
-import logger = require('./lib/Logger');
-import cluster = require('cluster');
-import Utils = require('./lib/Utils');
-import Caching = require('./lib/Caching');
 
 //Counter for maxRequestPerChild
 var counter = 1;
@@ -87,7 +87,7 @@ server.on('tail', () => {
 		server.stop({
 			timeout: localSettings.backendRequestTimeout
 		}, function () {
-			logger.info('Max request per child hit: Server stopped');
+			Logger.info('Max request per child hit: Server stopped');
 			cluster.worker.kill();
 		});
 	}
@@ -98,13 +98,13 @@ process.on('message', function (msg: string) {
 		server.stop({
 			timeout: localSettings.workerDisconnectTimeout
 		}, function () {
-			logger.info('Server stopped');
+			Logger.info('Server stopped');
 		});
 	}
 });
 
 server.start(function () {
-	logger.info({url: server.info.uri}, 'Server started');
+	Logger.info({url: server.info.uri}, 'Server started');
 	process.send('Server started');
 });
 
@@ -140,7 +140,7 @@ function getOnPreResponseHandler (isDevbox: boolean) {
 			response.output.headers['x-served-by'] = servedBy;
 
 			// TODO check if this makes sense together with server.on('request-internal')
-			logger.error({
+			Logger.error({
 				message: response.message,
 				code: response.output.statusCode,
 				headers: response.output.headers
@@ -159,7 +159,7 @@ function getOnPreResponseHandler (isDevbox: boolean) {
 function setupLogging (server: Hapi.Server): void {
 	// Emitted whenever an Internal Server Error (500) error response is sent. Single event per request.
 	server.on('request-error', (request: Hapi.Request, err: Error) => {
-		logger.error({
+		Logger.error({
 			wiki: request.headers.host,
 			text: err.message,
 			url: url.format(request.url),
@@ -172,7 +172,7 @@ function setupLogging (server: Hapi.Server): void {
 		// We exclude implementation tag because it would catch the same error as request-error
 		// but without message explaining what exactly happened
 		if (tags.error && !tags.implementation) {
-			logger.error({
+			Logger.error({
 				wiki: request.headers.host,
 				url: url.format(request.url),
 				referrer: request.info.referrer,
@@ -191,7 +191,7 @@ function setupLogging (server: Hapi.Server): void {
 			? parseFloat(request.response.headers['x-backend-response-time'])
 			: -1;
 
-		logger.info({
+		Logger.info({
 			wiki: request.headers.host,
 			code: request.response.statusCode,
 			url: url.format(request.url),
