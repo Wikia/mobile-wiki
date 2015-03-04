@@ -1,16 +1,16 @@
-/// <reference path="../../../typings/hapi/hapi.d.ts" />
-/// <reference path="../../../typings/bluebird/bluebird.d.ts" />
-/// <reference path="../../../typings/mercury/mercury-server.d.ts" />
+/// <reference path="../../typings/hapi/hapi.d.ts" />
+/// <reference path="../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
 /**
  * @description Article controller
  */
 import util = require('util');
 import Promise = require('bluebird');
-import MediaWiki = require('../../lib/MediaWiki');
-import Utils = require('../../lib/Utils');
-import logger = require('../../lib/Logger');
-import localSettings = require('../../../config/localSettings');
+import MediaWiki = require('./MediaWiki');
+import Utils = require('./Utils');
+import logger = require('./Logger');
+import localSettings = require('../../config/localSettings');
 
 interface ServerData {
 	mediawikiDomain: string;
