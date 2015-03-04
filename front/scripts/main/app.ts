@@ -23,6 +23,7 @@ App.initializer({
 		if (window.location.search.match(/debug=1/)) {
 			debug = true;
 		}
+		
 		App.setProperties({
 			apiBase: Mercury.apiBase || '/api/v1',
 			language: loadedLanguage || 'en',
