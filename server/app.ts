@@ -81,7 +81,7 @@ class App {
 		/**
 		 * Routes
 		 */
-		require('./routes')(server);
+		server.route(require('./routes'));
 
 		server.on('tail', () => {
 			this.counter++;

@@ -1,26 +1,24 @@
+/// <reference path="../../typings/hapi/hapi.d.ts" />
+
 /**
  * Caching related routines
  */
 
-interface CacheValue extends Number {}
-
-interface CachingSettings {
-	enabled: boolean;
-	cachingPolicy: Caching.Policy;
-	varnishTTL: CacheValue;
-	browserTTL: CacheValue;
-}
-
-interface Intervals {
-	long: CacheValue;
-	standard: CacheValue;
-	short: CacheValue;
-	disabled: CacheValue;
-	default: CacheValue;
-}
-
 module Caching {
+	export interface Intervals {
+		long: Number;
+		standard: Number;
+		short: Number;
+		disabled: Number;
+		default: Number;
+	}
 
+	export interface CachingSettings {
+		enabled: boolean;
+		cachingPolicy: Caching.Policy;
+		varnishTTL: Number;
+		browserTTL: Number;
+	}
 	// Caching policy
 	export enum Policy {
 		Private,
