@@ -21,6 +21,11 @@ interface LocalSettings {
 	mediawikiDomain?: string;
 	devboxDomain?: string;
 	environment: any;
+	helios: {
+		host: string;
+		id: string;
+		secret: string;
+	};
 	host: any;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;

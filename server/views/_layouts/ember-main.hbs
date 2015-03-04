@@ -27,10 +27,10 @@
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
-		<style><!-- @include ../../www/front/styles/baseline.css --></style>
+		<style><!-- @include ../../../www/front/styles/baseline.css --></style>
 
 		<script>
-			<!-- @include ../../www/front/scripts/baseline.js -->
+			<!-- @include ../../../www/front/scripts/baseline.js -->
 			M.provide('_state.translations.{{#if wiki.language.user}}{{wiki.language.user}}{{else}}en{{/if}}', {{{translations wiki.language.user}}});
 			M.provide('_state.firstPage', true);
 			M.provide('_state.queryParams', {{{json queryParams}}});
@@ -59,7 +59,7 @@
 		{{> tracking}}
 	</head>
 	<body>
-		<!-- @include ../../www/front/svg/main.svg -->
+		<!-- @include ../../../www/front/svg/main.svg -->
 
 		<div id="article-preload">
 			{{{content}}}

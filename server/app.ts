@@ -31,7 +31,6 @@ server.connection({
 	routes: {
 		state: {
 			// We currently don't use any cookies on server side
-			parse: false
 			// Uncomment this setting if you change the one above as we don't want to fail on invalid cookies
 			//failAction: 'log'
 		}
@@ -40,17 +39,69 @@ server.connection({
 
 setupLogging(server);
 
+server.register(require('hapi-auth-cookie'), (err) => {
+	server.auth.strategy('session', 'cookie', {
+		//validateFunc: require('./facets/auth/validate'),
+		password: 'REPLACEWITHSUPERSECRETTHING',
+		cookie: 'sid',
+		redirectTo: '/login',
+		appendNext: 'redirect',
+		isSecure: false
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/test',
+		config: {
+			auth: 'session',
+		},
+		handler (request, reply) {
+			console.log(request.auth);
+			reply(request.auth);
+		}
+	});
+});
+
+server.route({
+	method: ['GET', 'POST'],
+	path: '/login',
+	config: {
+		auth: {
+			mode: 'try',
+			strategy: 'session'
+			},
+			plugins: {
+				'hapi-auth-cookie': {
+					redirectTo: false
+				}
+
+			}
+	},
+	handler: require('./facets/auth/login')
+});
+
+server.route({
+method: 'GET',
+path: '/logout',
+handler (request, reply) {
+	request.auth.session.clear();
+	reply.redirect('/');
+}
+
+});
+
 server.views({
 	engines: {
 		hbs: require('handlebars')
 	},
 	isCached: true,
-	layout: true,
+	layout: 'ember-main',
 	/*
 	 * Helpers are functions usable from within handlebars templates.
 	 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
 	 */
 	helpersPath: path.join(__dirname, 'views', '_helpers'),
+	layoutPath: path.join(__dirname, 'views', '_layouts'),
 	path: path.join(__dirname, 'views'),
 	partialsPath: path.join(__dirname, 'views', '_partials')
 });

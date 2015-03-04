@@ -17,6 +17,12 @@ var localSettings: LocalSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
+	helios: {
+		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
+		host: 'SENSITIVE, DO NOT ADD HERE',
+		secret: 'SENSITIVE, DO NOT ADD HERE',
+		id: 'SENSITIVE, DO NOT ADD HERE'
+	},
 	host: process.env.HOST,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level

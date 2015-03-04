@@ -29,7 +29,7 @@ gulp.task('build-views', ['scripts-front', 'vendor'], function () {
 		gulp.src(paths.views.src, {
 			base: paths.baseFullServer
 		}),
-		gulpif('**/layout.hbs', preprocess({
+		gulpif('**/_layouts/**.hbs', preprocess({
 			context: preprocessContext
 		})),
 		gulpif(environment.isProduction, piper(
