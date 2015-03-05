@@ -57,12 +57,6 @@ unauthenticatedRoutes = [
 		method: 'GET',
 		path: localSettings.apiBase + '/search/{query}',
 		handler: require('./facets/api/search').get
-	},
-	{
-		// Store authentication data after log-in
-		method: 'GET',
-		path: '/auth',
-		handler: require('./facets/auth/handleAuth')
 	}
 ];
 

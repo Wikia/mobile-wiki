@@ -53,7 +53,7 @@ server.register(require('hapi-auth-cookie'), (err) => {
 		method: 'GET',
 		path: '/test',
 		config: {
-			auth: 'session'
+			auth: 'session',
 		},
 		handler (request, reply) {
 			console.log(request.auth);
