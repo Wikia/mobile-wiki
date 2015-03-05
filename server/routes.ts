@@ -107,17 +107,6 @@ unauthenticatedRoutes = [
 	{
 		method: 'POST',
 		path: '/login',
-		config: {
-			auth: {
-				mode: 'try',
-				strategy: 'session'
-				},
-				plugins: {
-					'hapi-auth-cookie': {
-						redirectTo: false
-				}
-			}
-		},
 		handler: require('./facets/auth/login').post
 	},
 	{
