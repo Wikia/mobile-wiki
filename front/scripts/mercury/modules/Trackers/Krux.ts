@@ -31,10 +31,10 @@ module Mercury.Modules.Trackers {
 		trackPageView (): void {
 			var mobileId = 'JTKzTN3f';
 			if (window.Krux.isLoaded) {
-				window.Krux.load(mobileId);
+				window.Krux.load(Mercury.tracking.krux.mobileId);
 			} else {
 				$(window).load(() => {
-					window.Krux.load(mobileId);
+					window.Krux.load(Mercury.tracking.krux.mobileId);
 					window.Krux.isLoaded = true;
 				});
 			}
