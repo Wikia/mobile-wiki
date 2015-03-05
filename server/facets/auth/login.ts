@@ -41,8 +41,11 @@ function login (request, reply) {
 				});
 			}
 
-			request.auth.session.set(response);
-			return reply.redirect(request.query.redirect || '/');
+			return reply.redirect('/auth?' +
+				'user_id=' + response.user_id +
+				'&access_token=' + response.access_token +
+				'&refresh_token=' + response.refresh_token +
+				'&redirect=' + request.query.redirect);
 		});
 	}
 

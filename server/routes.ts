@@ -97,6 +97,12 @@ unauthenticatedRoutes = [
 			console.log(request.auth);
 			reply(request.auth);
 		}
+	},
+	{
+		// Store authentication data after log-in
+		method: 'GET',
+		path: '/auth',
+		handler: require('./facets/auth/handleAuth')
 	}
 ];
 
