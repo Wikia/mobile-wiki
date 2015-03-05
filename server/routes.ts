@@ -89,7 +89,7 @@ unauthenticatedRoutes = [
 		handler: require('./facets/auth/logout')
 	},
 	{
-		method: ['GET', 'POST'],
+		method: 'GET',
 		path: '/login',
 		config: {
 			auth: {
@@ -102,7 +102,23 @@ unauthenticatedRoutes = [
 				}
 			}
 		},
-		handler: require('./facets/auth/login')
+		handler: require('./facets/auth/login').get
+	},
+	{
+		method: 'POST',
+		path: '/login',
+		config: {
+			auth: {
+				mode: 'try',
+				strategy: 'session'
+				},
+				plugins: {
+					'hapi-auth-cookie': {
+						redirectTo: false
+				}
+			}
+		},
+		handler: require('./facets/auth/login').post
 	},
 	{
 		// Store authentication data after log-in

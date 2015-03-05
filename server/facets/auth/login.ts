@@ -60,58 +60,66 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 }
 
 
-function login (request: Hapi.Request, reply: any): void {
-	var method: string = request.method,
-		credentials: any = request.payload,
-		authParams: AuthParams,
-		error: any = {},
-		context: any = {
-			error: null
-		};
-
+export function get (request: Hapi.Request, reply: any): void {
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(request.query.redirect || '/');
 	}
 
-	if (method === 'post') {
-		authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
+	return reply.view('login', null, {
+		layout: 'wikia-static'
+	});
+};
 
-			if (err) {
-				/**
-				 * Forward the error payload, not the entire object as the trace may contain
-				 * sensitive information
-				 */
-				context.error = err.output.payload;
+export function post (request: Hapi.Request, reply: any): void {
+	var credentials: any = request.payload,
+		authParams: AuthParams,
+		requestedWithHeader: string = request.headers['x-requested-with'],
+		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
+		error: any = {},
+		authRedirect: string,
+		context: any = {
+			error: null
+		};
 
-				return reply.view('login', context, {
-					layout: 'wikia-static'
-				// Always set the correct code
-				}).code(err.output.statusCode);
+	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
+
+		if (err) {
+			/**
+			 * Forward the error payload, not the entire object as the trace may contain
+			 * sensitive information
+			 */
+			context.error = err.output.payload;
+
+			if (isAJAX) {
+				return reply(context).code(err.output.statusCode);
 			}
 
-			authParams = {
-				'user_id'       : response.user_id,
-				'access_token'  : response.access_token,
-				'refresh_token' : response.refresh_token
-			};
+			return reply.view('login', context, {
+				layout: 'wikia-static'
+			// Always set the correct code
+			}).code(err.output.statusCode);
+		}
 
-			if (request.query.redirect) {
-				authParams.redirect = request.query.redirect;
-			}
+		authParams = {
+			'user_id'       : response.user_id,
+			'access_token'  : response.access_token,
+			'refresh_token' : response.refresh_token
+		};
 
-			if (credentials.remember) {
-				authParams.remember = '1';
-			}
+		if (request.query.redirect) {
+			authParams.redirect = request.query.redirect;
+		}
 
-			return reply.redirect('/auth?' + qs.stringify(authParams));
-		});
-	}
+		if (credentials.remember) {
+			authParams.remember = '1';
+		}
 
-	if (method === 'get') {
-		return reply.view('login', context, {
-			layout: 'wikia-static'
-		});
-	}
-}
+		authRedirect = '/auth?' + qs.stringify(authParams);
 
-export = login;
+		if (isAJAX) {
+			return reply({authRedirect: authRedirect});
+		}
+
+		return reply.redirect('/auth?' + qs.stringify(authParams));
+	});
+};
