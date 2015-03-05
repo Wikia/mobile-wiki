@@ -51,11 +51,12 @@ App.initializer({
 		$('html').removeClass('preload');
 
 		i18n.init({
-			resGetPath: '/front/locales/__lng__/translation.json',
-			detectLngQS: 'uselang',
-			lng: application.get('language'),
-			fallbackLng: 'en',
 			debug: debug,
+			detectLngQS: 'uselang',
+			fallbackLng: 'en',
+			lng: application.get('language'),
+			lowerCaseLng: true,
+			resGetPath: '/front/locales/__lng__/translation.json',
 			resStore: loadedTranslations,
 			useLocalStorage: false
 		});
