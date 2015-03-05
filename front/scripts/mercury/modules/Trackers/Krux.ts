@@ -29,7 +29,6 @@ module Mercury.Modules.Trackers {
 		* (see Krux.run.js in app repository)
 		*/
 		trackPageView (): void {
-			var mobileId = 'JTKzTN3f';
 			if (window.Krux.isLoaded) {
 				window.Krux.load(Mercury.tracking.krux.mobileId);
 			} else {
