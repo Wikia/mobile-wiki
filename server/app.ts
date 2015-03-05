@@ -39,7 +39,19 @@ server.connection({
 
 setupLogging(server);
 
-server.register(require('hapi-auth-cookie'), (err: any) => {
+var plugins = [
+	{register: require('hapi-auth-cookie')},
+	{register: require('crumb'), options: {
+		cookieOptions: {
+			isSecure: false
+		}
+	}}
+];
+
+server.register(plugins, (err: any) => {
+	if (err) {
+		Logger.error(err);
+	}
 	server.auth.strategy('session', 'cookie', 'required', {
 		appendNext     : 'redirect',
 		clearInvalid   : true,
