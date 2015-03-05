@@ -1,10 +1,9 @@
-/// <reference path="./BaseTracker.ts" />
 'use strict';
 
 interface Window {
 	Krux: {
 		isLoaded?: boolean;
-		load?: (siteId: string) => void;
+		load?: (skinSiteId: string) => void;
 	};
 }
 
@@ -15,16 +14,20 @@ module Mercury.Modules.Trackers {
 			window.Krux = window.Krux || [];
 		}
 
+		/**
+		* @desc Loads Krux.js code which sends tracking data to Krux.
+		* Boolean variable is Loaded is used to determine if it can load
+		* immediately or wait until the window have finished loading (first page load).
+		* mobileId variable is the ID referencing to the mobile site
+		* (see Krux.run.js in app repository)
+		*/
 		trackPageView (): void {
-			var siteId = 'JTKzTN3f';
-			//console.log('window.Krux', window.Krux)
+			var mobileId = 'JTKzTN3f';
 			if (window.Krux.isLoaded) {
-				console.log('Loading Krux code, site id: ' + siteId, 'debug', 'Krux.run.js');
-				window.Krux.load(siteId);
+				window.Krux.load(mobileId);
 			} else {
 				window.addEventListener('load', () => {
-					console.log('Loading Krux code, site id: ' + siteId, 'debug', 'Krux.run.js');
-					window.Krux.load(siteId);
+					window.Krux.load(mobileId);
 					window.Krux.isLoaded = true;
 				});
 			}
