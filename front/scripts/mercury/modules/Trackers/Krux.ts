@@ -3,7 +3,7 @@
 interface Window {
 	/**
 	* isLoaded variable is set on window element not on the
-	* class because Krux here is only the 'fasade' of the real
+	* class because Krux here is only the 'facade' of the real
 	* Krux class and is created on each page load. Assigning
 	* isLoaded to windows allows to keep track on it also
 	* on the consecutive pages.
@@ -23,7 +23,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		* @desc Loads Krux.js code which sends tracking data to Krux.
-		* Boolean variable is Loaded is used to determine if it can load
+		* Boolean variable isLoaded is used to determine if it can load
 		* immediately or wait until the window have finished loading (first page load).
 		* mobileId variable is the ID referencing to the mobile site
 		* (see Krux.run.js in app repository)
