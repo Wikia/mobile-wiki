@@ -64,10 +64,9 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			image.setProperties({
 				thumbUrl: this.getThumbURL(
 					image.get('url'),
-					Mercury.Modules.Thumbnailer.mode.zoomCropDown,
+					Mercury.Modules.Thumbnailer.mode.topCrop,
 					thumbSize,
-					thumbSize
-				),
+					thumbSize),
 				load: true
 			});
 		}
