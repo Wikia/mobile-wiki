@@ -1,18 +1,8 @@
 /// <reference path="./LightboxView.ts" />
+/// <reference path="../../../../typings/hammerjs/hammerjs" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
-
-interface HammerEvent {
-	deltaX: number;
-	deltaY: number;
-	scale: number;
-	target: HTMLElement;
-	center: {
-		x: number;
-		y: number;
-	}
-}
 
 interface Window {
 	scrollY: number;
@@ -73,14 +63,14 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	}.property('image', 'scale'),
 
 	/**
-	 * @desc used to set X boundries for panning image in media lightbox
+	 * @desc used to set X boundaries for panning image in media lightbox
 	 */
 	maxX: function (): number {
 		return Math.abs(this.get('viewportSize').width - this.get('imageWidth')) / 2 / this.get('scale');
 	}.property('viewportSize', 'imageWidth', 'scale'),
 
 	/**
-	 * @desc used to set Y boundries for panning image in media lightbox
+	 * @desc used to set Y boundaries for panning image in media lightbox
 	 */
 	maxY: function (): number {
 		return Math.abs(this.get('viewportSize').height - this.get('imageHeight')) / 2 / this.get('scale');
@@ -90,7 +80,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	 * @desc calculates X for panning with respect to maxX
 	 */
 	newX: function (key: string, value?: number): number {
-		if (value && this.get('imageWidth') > this.get('viewportSize').width) {
+		if (typeof value !== 'undefined' && this.get('imageWidth') > this.get('viewportSize').width) {
 			return this.limit(value, this.get('maxX'));
 		}
 
@@ -101,7 +91,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	 * @desc calculates Y for panning with respect to maxY
 	 */
 	newY: function (key: string, value?: number): number {
-		if (value && this.get('imageHeight') > this.get('viewportSize').height) {
+		if (typeof value !== 'undefined' && this.get('imageHeight') > this.get('viewportSize').height) {
 			return this.limit(value, this.get('maxY'));
 		}
 
@@ -134,10 +124,10 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 
 	/**
 	 * @desc Checks on which area on the screen an event took place
-	 * @param {HammerEvent} event
+	 * @param {Touch} event
 	 * @returns {number}
 	 */
-	getScreenArea: function (event: MouseEvent): number {
+	getScreenArea: function (event: Touch): number {
 		var viewportWidth = this.get('viewportSize').width,
 			x = event.clientX,
 			thirdPartOfScreen = viewportWidth / 3;
@@ -155,9 +145,9 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	 * @desc Changes currently displayed item based on a place that was tapped
 	 * Currently 33%-wide sides of the screen trigger the media change
 	 *
-	 * @param {HammerEvent} event
+	 * @param {Touch} event
 	 */
-	handleClick: function (event: MouseEvent): void {
+	handleClick: function (event: Touch): void {
 		var screenArea = this.getScreenArea(event);
 
 		if (screenArea === this.screenAreas.right) {
@@ -169,9 +159,9 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		}
 	},
 
-	nextMedia: function () {
-		this.get('controller').incrementProperty('currentGalleryRef');
+	nextMedia: function (): void {
 		this.resetZoom();
+		this.get('controller').incrementProperty('currentGalleryRef');
 
 		M.track({
 			action: M.trackActions.paginate,
@@ -180,9 +170,9 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		});
 	},
 
-	prevMedia: function () {
-		this.get('controller').decrementProperty('currentGalleryRef');
+	prevMedia: function (): void {
 		this.resetZoom();
+		this.get('controller').decrementProperty('currentGalleryRef');
 
 		M.track({
 			action: M.trackActions.paginate,
@@ -191,7 +181,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		});
 	},
 
-	resetZoom: function () {
+	resetZoom: function (): void {
 		this.setProperties({
 			scale: 1,
 			lastScale: 1,
@@ -202,7 +192,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		});
 	},
 
-	keyDown: function (event: JQueryEventObject) {
+	keyDown: function (event: JQueryEventObject): void {
 		if (this.get('isGallery')) {
 			if (event.keyCode === 39) {
 				//handle right arrow
@@ -216,7 +206,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		this._super(event);
 	},
 
-	click: function (event: MouseEvent) {
+	click: function (event: MouseEvent): void {
 		if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
 			this.handleClick(event);
 		} else {
@@ -237,23 +227,25 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 			}
 		},
 
-		pan: function (event: HammerEvent): void {
+		pan: function (event: HammerInput): void {
 			var scale = this.get('scale');
 
 			this.setProperties({
 				newX: this.get('lastX') + event.deltaX / scale,
 				newY: this.get('lastY') + event.deltaY / scale
 			});
+
+			this.notifyPropertyChange('style');
 		},
 
-		panEnd: function () {
+		panEnd: function (): void {
 			this.setProperties({
 				lastX: this.get('newX'),
 				lastY: this.get('newY')
 			});
 		},
 
-		doubleTap: function (event: HammerEvent) {
+		doubleTap: function (event: HammerInput): void {
 			//allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
 			if (!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center) {
 				var scale = this.get('scale') > 1 ? 1 : 3;
@@ -262,10 +254,12 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 					scale: scale,
 					lastScale: scale
 				});
+
+				this.notifyPropertyChange('style');
 			}
 		},
 
-		pinchMove: function (event: HammerEvent) {
+		pinchMove: function (event: HammerInput): void {
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -273,9 +267,11 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 				newX: this.get('lastX') + event.deltaX / scale,
 				newY: this.get('lastY') + event.deltaY / scale
 			});
+
+			this.notifyPropertyChange('style');
 		},
 
-		pinchEnd: function (event: HammerEvent) {
+		pinchEnd: function (event: HammerInput): void {
 			this.set('lastScale', this.get('lastScale') * event.scale);
 		}
 	},
@@ -284,6 +280,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		this.notifyPropertyChange('viewportSize');
 		this.notifyPropertyChange('imageWidth');
 		this.notifyPropertyChange('imageHeight');
+
 		if (this.get('videoPlayer')) {
 			this.get('videoPlayer').onResize();
 		}
@@ -301,7 +298,9 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 				this.get('newX').toFixed(2),
 				this.get('newY').toFixed(2)
 			);
-	}.property('scale', 'newX', 'newY'),
+		//Performance critical place
+		//We will update property 'manually' by calling notifyPropertyChange
+	}.property(),
 
 	/**
 	 * @method currentMediaObserver
@@ -364,18 +363,28 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	},
 
 	didInsertElement: function (): void {
+		var hammerInstance = this.get('_hammerInstance');
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
 		this.set('status', 'open');
 		this.resetZoom();
-		this.get('_hammerInstance').get('pinch').set({ enable: true });
+
+		hammerInstance.get('pinch').set({
+			enable: true
+		});
+
+		hammerInstance.get('pan').set({
+			direction: Hammer.DIRECTION_ALL
+		});
 
 		this._super();
 	},
 
 	willDestroyElement: function (): void {
 		this.get('controller').reset();
-		this.get('_hammerInstance').get('pinch').set({ enable: false });
+		this.get('_hammerInstance').get('pinch').set({
+			enable: false
+		});
 
 		this._super();
 	}

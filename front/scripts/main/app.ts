@@ -6,12 +6,27 @@
 
 'use strict';
 
+interface Window {
+	emberHammerOptions: {
+		hammerOptions: any;
+	};
+}
+
 declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
 		language: Em.getWithDefault(Mercury, 'wiki.language.user', 'en'),
 		apiBase: Mercury.apiBase || '/api/v1'
 	});
+
+window.emberHammerOptions = {
+	hammerOptions: {
+		//we are using fastclick so this is adviced by ember-hammer lib
+		ignoreEvents: [],
+		swipe_velocity: 0.1,
+		pan_threshold: 1
+	}
+};
 
 App.initializer({
 	name: 'preload',

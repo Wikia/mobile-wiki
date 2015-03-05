@@ -5,11 +5,11 @@ OLD=$(git branch --remote | grep 'release-' | sed 's/.*-//' | sort -gr | head -1
 NEW=$((OLD+1))
 CHANGELOG=CHANGELOG.md
 CURRENTBRANCH=$(git branch | grep '*' | sed 's/* //')
-DATE=`date -u '+%F% %H:%M'`
+DATE=`date -u '+%F %H:%M'`
 RELEASEHEADER='## release-'$NEW' ('$DATE')'
 
 if [ "$CURRENTBRANCH" != "dev" ]; then
-	echo "You are not on master branch do you want to continue? [y/N]"
+	echo "You are not on dev branch do you want to continue? [y/N]"
 	read -e
 
 	if [ "$REPLY" != "y" ]; then
@@ -26,7 +26,7 @@ fi
 
 echo 'Summary:'
 echo $RELEASEHEADER
-echo "$CHANGE\n"
+echo -e "$CHANGE\n"
 
 echo "Commit and push? [y/N]"
 read -e
@@ -35,7 +35,7 @@ if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
 	TMP=changelog.$RANDOM
 
 	#prepend the changelog
-	echo "$CHANGE\n" | cat - $CHANGELOG > $TMP
+	echo -e "$CHANGE\n" | cat - $CHANGELOG > $TMP
 	mv $TMP $CHANGELOG
 
 	#prepend release header

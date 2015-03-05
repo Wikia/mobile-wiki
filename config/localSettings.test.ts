@@ -5,7 +5,7 @@ import baseLocalSettings = require('./localSettings.base');
 import Utils = require('../server/lib/Utils');
 
 var localSettings = baseLocalSettings.getSettings({
-	mediawikiHost: 'kenneth',
+	devboxDomain: 'kenneth',
 	environment: Utils.Environment.Testing,
 	loggers: {
 		default: 'info'
