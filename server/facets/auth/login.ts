@@ -11,7 +11,8 @@ interface AuthParams {
 	'user_id'       : string;
 	'access_token'  : string;
 	'refresh_token' : string;
-	redirect?       : string;
+	'redirect'?     : string;
+	'remember'?     : string;
 }
 
 interface AuthCallbackFn {
@@ -96,6 +97,10 @@ function login (request: Hapi.Request, reply: any): void {
 
 			if (request.query.redirect) {
 				authParams.redirect = request.query.redirect;
+			}
+
+			if (credentials.remember) {
+				authParams.remember = '1';
 			}
 
 			return reply.redirect('/auth?' + qs.stringify(authParams));
