@@ -39,7 +39,7 @@ server.connection({
 
 setupLogging(server);
 
-server.register(require('hapi-auth-cookie'), (err) => {
+server.register(require('hapi-auth-cookie'), (err: any) => {
 	server.auth.strategy('session', 'cookie', 'required', {
 		appendNext     : 'redirect',
 		clearInvalid   : true,
@@ -66,6 +66,9 @@ server.views({
 	partialsPath: path.join(__dirname, 'views', '_partials')
 });
 
+// instantiate routes
+server.route(require('./routes'));
+
 server.ext('onPreResponse', getOnPreResponseHandler(isDevbox));
 
 /**
@@ -83,11 +86,6 @@ server.ext('onPreAuth', (request: Hapi.Request, reply: any): any => {
 	}
 	return reply.continue();
 });
-
-/**
- * Routes
- */
-server.route(require('./routes'));
 
 server.on('tail', () => {
 	counter++;

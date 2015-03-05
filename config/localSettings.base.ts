@@ -30,7 +30,7 @@ var localSettings: LocalSettings = {
 	loggers: {
 		syslog: 'debug'
 	},
-	devboxDomain: 'your-devbox-name',
+	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
 		enabled: false,
@@ -38,7 +38,7 @@ var localSettings: LocalSettings = {
 		devAccount: '2441440871',
 		account: '2449650414'
 	},
-	port: 8000,
+	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	tracking: {
