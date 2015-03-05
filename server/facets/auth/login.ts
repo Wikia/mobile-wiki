@@ -1,6 +1,8 @@
 /// <reference path='../../../typings/wreck/wreck.d.ts' />
 /// <reference path='../../../config/localSettings.d.ts' />
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
+/// <reference path='../../../typings/boom/boom.d.ts' />
+import Boom = require('boom');
 import Wreck = require('wreck');
 import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
@@ -13,7 +15,7 @@ interface AuthParams {
 }
 
 interface AuthCallbackFn {
-	(error: string, response?: any): Function
+	(error: Boom.BoomError, response?: any): Function
 }
 
 interface HeliosResponse {
@@ -34,9 +36,23 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 		'username'      : username,
 		'password'      : password
 	}), (err: any, response: any, payload: string) => {
-		var parsed: HeliosResponse = JSON.parse(payload);
+		var parsed: HeliosResponse,
+			parseError: Error;
+
+		try {
+			parsed = JSON.parse(payload);
+		} catch (e) {
+			parseError = e;
+		}
+
+		// Detects an error with the connection
+		if (err || parseError) {
+			return callback(err || Boom.wrap(parseError));
+		}
+
+		// Helios sends back a 200 currently, denoting failure only in payload differences here
 		if (parsed.error) {
-			return callback(parsed.error);
+			return callback(Boom.unauthorized(parsed.error + ': ' + parsed['error_description']));
 		}
 		callback(null, parsed);
 	});
@@ -47,20 +63,29 @@ function login (request: Hapi.Request, reply: any): void {
 	var method: string = request.method,
 		credentials: any = request.payload,
 		authParams: AuthParams,
-		error: any = {};
+		error: any = {},
+		context: any = {
+			error: null
+		};
 
 	if (request.auth.isAuthenticated) {
-		console.log('foo', request.query.redirect);
 		return reply.redirect(request.query.redirect || '/');
 	}
 
 	if (method === 'post') {
-		authenticate(credentials.username, credentials.password, (err: string, response: HeliosResponse) => {
+		authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
+
 			if (err) {
-				error.message = err;
-				return reply.view('login', error, {
+				/**
+				 * Forward the error payload, not the entire object as the trace may contain
+				 * sensitive information
+				 */
+				context.error = err.output.payload;
+
+				return reply.view('login', context, {
 					layout: 'wikia-static'
-				});
+				// Always set the correct code
+				}).code(err.output.statusCode);
 			}
 
 			authParams = {
@@ -78,7 +103,7 @@ function login (request: Hapi.Request, reply: any): void {
 	}
 
 	if (method === 'get') {
-		return reply.view('login', null, {
+		return reply.view('login', context, {
 			layout: 'wikia-static'
 		});
 	}
