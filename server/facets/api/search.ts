@@ -25,7 +25,7 @@ export function get (request: Hapi.Request, reply: any): void {
 			var error = result.exception || null;
 			Caching.setResponseCaching(reply(wrapResult(error, result)), cachingTimes);
 		})
-		.catch((error: any) => {
-			reply(error);
+		.catch((err: any) => {
+			reply(err).code(err.exception.code || 500);
 		});
 }
