@@ -1,3 +1,7 @@
+## release-45 (2015-03-05 19:20)
+* fix-statusCode-of-undefined: Check for error before trying to access response which can be undefined
+* search-results-fix: The search API was returning incorrect code when no results were found
+
 ## release-44 (2015-03-05 16:20)
 * revert-563-Remove-backround-on-image: Revert "Rework how we load thumbnails"
 * i18n-update: i18-update | de, es, fr
