@@ -26,6 +26,7 @@ interface LocalSettings {
 		id: string;
 		secret: string;
 	};
+	ironSecret: string;
 	host: any;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;

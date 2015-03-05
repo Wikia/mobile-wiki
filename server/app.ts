@@ -7,14 +7,14 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 	require('newrelic');
 }
 
-import Caching = require('./lib/Caching');
-import Hapi = require('hapi');
-import Logger = require('./lib/Logger');
-import Utils = require('./lib/Utils');
-import cluster = require('cluster');
+import Caching       = require('./lib/Caching');
+import Hapi          = require('hapi');
+import Logger        = require('./lib/Logger');
+import Utils         = require('./lib/Utils');
+import cluster       = require('cluster');
 import localSettings = require('../config/localSettings');
-import path = require('path');
-import url = require('url');
+import path          = require('path');
+import url           = require('url');
 
 //Counter for maxRequestPerChild
 var counter = 1;
@@ -32,7 +32,7 @@ server.connection({
 		state: {
 			// We currently don't use any cookies on server side
 			// Uncomment this setting if you change the one above as we don't want to fail on invalid cookies
-			//failAction: 'log'
+			failAction: 'log'
 		}
 	}
 });
@@ -40,13 +40,13 @@ server.connection({
 setupLogging(server);
 
 server.register(require('hapi-auth-cookie'), (err) => {
-	server.auth.strategy('session', 'cookie', {
-		//validateFunc: require('./facets/auth/validate'),
-		password: 'REPLACEWITHSUPERSECRETTHING',
-		cookie: 'sid',
-		redirectTo: '/login',
-		appendNext: 'redirect',
-		isSecure: false
+	server.auth.strategy('session', 'cookie', 'required', {
+		appendNext     : 'redirect',
+		clearInvalid   : true,
+		cookie         : 'sid',
+		isSecure       : false,
+		password       : localSettings.ironSecret,
+		redirectTo     : '/login'
 	});
 });
 

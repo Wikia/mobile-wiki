@@ -23,6 +23,7 @@ var localSettings: LocalSettings = {
 		secret: 'SENSITIVE, DO NOT ADD HERE',
 		id: 'SENSITIVE, DO NOT ADD HERE'
 	},
+	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	host: process.env.HOST,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level

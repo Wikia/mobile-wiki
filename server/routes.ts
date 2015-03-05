@@ -3,8 +3,16 @@ import Hoek = require('hoek');
 import localSettings = require('../config/localSettings');
 import Caching = require('./lib/Caching');
 
-var unauthenticatedRoutes: any[],
-	authenticatedRoutes: any[],
+interface RouteDefinition {
+	method: string[]|string;
+	path: string;
+	handler: Function;
+	config?: any;
+}
+
+var routes: RouteDefinition[],
+	unauthenticatedRoutes: RouteDefinition[],
+	authenticatedRoutes: RouteDefinition[],
 	articlePagePaths: string[],
 	proxyRoutePaths: string[],
 	unauthenticatedRouteConfig = {
@@ -12,6 +20,15 @@ var unauthenticatedRoutes: any[],
 			cache: {
 				privacy: Caching.policyString(Caching.Policy.Public),
 				expiresIn: 60000
+			},
+			auth: {
+				mode: 'try',
+				strategy: 'session'
+				},
+				plugins: {
+					'hapi-auth-cookie': {
+						redirectTo: false
+				}
 			}
 		}
 	};
@@ -88,17 +105,6 @@ unauthenticatedRoutes = [
 		handler: require('./facets/auth/login')
 	},
 	{
-		method: 'GET',
-		path: '/test',
-		config: {
-			auth: 'session',
-		},
-		handler (request, reply) {
-			console.log(request.auth);
-			reply(request.auth);
-		}
-	},
-	{
 		// Store authentication data after log-in
 		method: 'GET',
 		path: '/auth',
@@ -121,8 +127,21 @@ articlePagePaths.forEach((path) => {
 	});
 });
 
+authenticatedRoutes = [
+	{
+		method: 'GET',
+		path: '/test',
+		// TODO: This is just an example, remove this handler logic from the routes file later
+		handler (request: Hapi.Request, reply: any) {
+			reply(request.auth);
+		}
+	}
+];
+
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);
 });
 
-export = unauthenticatedRoutes;
+routes = unauthenticatedRoutes.concat(authenticatedRoutes);
+
+export = routes;
