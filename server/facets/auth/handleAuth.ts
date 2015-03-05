@@ -1,4 +1,4 @@
-var ttl = 2419200 * 1000; // 4 weeks
+var rememmberMeTTL = 2419200 * 1000; // 4 weeks
 
 /**
  * Stores the user's authentication data, which is passed along from a login request
@@ -19,7 +19,7 @@ function storeAuthentication (request: Hapi.Request, reply: any): void {
 	});
 
 	if (request.query.remember) {
-		request.auth.session.ttl(ttl);
+		request.auth.session.ttl(rememberMeTTL);
 	}
 
 	return reply.redirect(request.query.redirect ? request.query.redirect : '/');
