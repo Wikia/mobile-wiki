@@ -137,15 +137,15 @@ export function fetch (url: string, host: string = '', redirects: number = 1): P
 			timeout: localSettings.backendRequestTimeout,
 			json: true
 		}, (err: any, response: any, payload: any): void => {
-			if (response.statusCode === 200) {
-				resolve(payload);
-			} else if (err) {
+			if (err) {
 				Logger.error({
 					url: url,
 					error: err
 				}, 'Error fetching url');
 
 				reject(err);
+			} else if (response.statusCode === 200) {
+				resolve(payload);
 			} else {
 				// When an empty response comes (for example 503 from Varnish) make it look same as the MediaWiki one
 				if (payload === null) {
