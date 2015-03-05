@@ -42,6 +42,10 @@ unauthenticatedRoutes = [
 		path: '/heartbeat',
 		handler: require('./facets/operations/heartbeat')
 	},
+	/**
+	 * API Routes
+	 * @description The following routes should just be API routes
+	 */
 	{
 		method: 'GET',
 		path: localSettings.apiBase + '/article/{articleTitle*}',
@@ -57,6 +61,42 @@ unauthenticatedRoutes = [
 		method: 'GET',
 		path: localSettings.apiBase + '/search/{query}',
 		handler: require('./facets/api/search').get
+	},
+	/**
+	 * Authentication Routes
+	 * @description The following routes should be related to authentication
+	 */
+	 {
+		method: 'GET',
+		path: '/logout',
+		handler: require('./facets/auth/logout')
+	},
+	{
+		method: ['GET', 'POST'],
+		path: '/login',
+		config: {
+			auth: {
+				mode: 'try',
+				strategy: 'session'
+				},
+				plugins: {
+					'hapi-auth-cookie': {
+						redirectTo: false
+				}
+			}
+		},
+		handler: require('./facets/auth/login')
+	},
+	{
+		method: 'GET',
+		path: '/test',
+		config: {
+			auth: 'session',
+		},
+		handler (request, reply) {
+			console.log(request.auth);
+			reply(request.auth);
+		}
 	}
 ];
 

@@ -48,46 +48,6 @@ server.register(require('hapi-auth-cookie'), (err) => {
 		appendNext: 'redirect',
 		isSecure: false
 	});
-
-	server.route({
-		method: 'GET',
-		path: '/test',
-		config: {
-			auth: 'session',
-		},
-		handler (request, reply) {
-			console.log(request.auth);
-			reply(request.auth);
-		}
-	});
-});
-
-server.route({
-	method: ['GET', 'POST'],
-	path: '/login',
-	config: {
-		auth: {
-			mode: 'try',
-			strategy: 'session'
-			},
-			plugins: {
-				'hapi-auth-cookie': {
-					redirectTo: false
-				}
-
-			}
-	},
-	handler: require('./facets/auth/login')
-});
-
-server.route({
-method: 'GET',
-path: '/logout',
-handler (request, reply) {
-	request.auth.session.clear();
-	reply.redirect('/');
-}
-
 });
 
 server.views({
