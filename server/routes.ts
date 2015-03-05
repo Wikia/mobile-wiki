@@ -114,6 +114,11 @@ unauthenticatedRoutes = [
 		method: 'GET',
 		path: '/auth',
 		handler: require('./facets/auth/handleAuth')
+	},
+	{
+		method: 'GET',
+		path: '/breadcrumb',
+		handler: require('./facets/operations/generateCSRFView')
 	}
 ];
 

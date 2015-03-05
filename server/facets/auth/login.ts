@@ -120,6 +120,6 @@ export function post (request: Hapi.Request, reply: any): void {
 			return reply({authRedirect: authRedirect});
 		}
 
-		return reply.redirect('/auth?' + qs.stringify(authParams));
+		return reply.redirect(authRedirect);
 	});
 };
