@@ -6,7 +6,7 @@ var ttl = 2419200 * 1000; // 4 weeks
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  */
-function storeAuthentication (request: Hapi.Request, reply: Hapi.Response): void {
+function storeAuthentication (request: Hapi.Request, reply: any): void {
 	// If something needed for storing authentication was not sent along, redirect to log-in page
 	if (!request.query.user_id || !request.query.access_token || !request.query.refresh_token) {
 		return reply.redirect('/login');
