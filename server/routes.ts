@@ -24,10 +24,10 @@ var routes: RouteDefinition[],
 			auth: {
 				mode: 'try',
 				strategy: 'session'
-				},
-				plugins: {
-					'hapi-auth-cookie': {
-						redirectTo: false
+			},
+			plugins: {
+				'hapi-auth-cookie': {
+					redirectTo: false
 				}
 			}
 		}

@@ -40,12 +40,17 @@ server.connection({
 setupLogging(server);
 
 var plugins = [
-	{register: require('hapi-auth-cookie')},
-	{register: require('crumb'), options: {
-		cookieOptions: {
-			isSecure: false
+	{
+		register: require('hapi-auth-cookie')
+	},
+	{
+		register: require('crumb'),
+		options: {
+			cookieOptions: {
+				isSecure: false
+			}
 		}
-	}}
+	}
 ];
 
 server.register(plugins, (err: any) => {
