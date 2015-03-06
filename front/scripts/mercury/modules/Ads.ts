@@ -16,7 +16,7 @@ module Mercury.Modules {
 		private adEngineModule: any;
 		private adContextModule: any;
 		private adConfigMobile: any;
-		private adLogicPageViewCounter: {
+		private adLogicPageViewCounterModule: {
 			get (): number;
 			increment (): number;
 		};
@@ -54,12 +54,12 @@ module Mercury.Modules {
 						adEngineModule: any,
 						adContextModule: any,
 						adConfigMobile: any,
-						adLogicPageViewCounter: any
+						adLogicPageViewCounterModule: any
 					) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
 						this.adConfigMobile = adConfigMobile;
-						this.adLogicPageViewCounter = adLogicPageViewCounter;
+						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 						this.isLoaded = true;
 						callback.call(this);
 					});
@@ -99,7 +99,7 @@ module Mercury.Modules {
 
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
-				this.adLogicPageViewCounter.increment();
+				this.adLogicPageViewCounterModule.increment();
 				// We need a copy of adSlots as .run destroys it
 				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mercury');
 			}
