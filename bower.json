@@ -15,7 +15,9 @@
     "fastclick": "1.0.6",
     "jquery.cookie": "1.4.1",
     "scroll-depth": "https://github.com/nandy-andy/jquery-scrolldepth.git#0.8.3",
-    "vignette": "wikia/vignette-js#1.0.2"
+    "vignette": "wikia/vignette-js#1.0.2",
+    "wikia-style-guide": "Wikia/style-guide#~0.2.3",
+    "webcomponentsjs": "~0.5.5"
   },
   "devDependencies": {
     "ember-qunit": "0.1.8",
