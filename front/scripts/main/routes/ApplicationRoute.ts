@@ -102,14 +102,14 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			this.get('controller').set('sideNavCollapsed', false);
 		},
 
-		randomArticle: function () {
+		randomArticle: function (): void {
 			this.get('controller').set('sideNavCollapsed', true);
 			this.send('loading');
 
 			Em.$.ajax({
 				url: App.get('apiBase') + '/randomArticle',
 				dataType: 'json',
-				success: (data) => {
+				success: (data): void => {
 					if (data.title) {
 						this.controllerFor('article').send('changePage', data.title);
 					} else {
@@ -119,7 +119,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 						});
 					}
 				},
-				error: (err) => {
+				error: (err): void => {
 					this.send('error', err);
 				}
 			});

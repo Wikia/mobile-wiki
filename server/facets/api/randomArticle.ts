@@ -20,7 +20,7 @@ export function get (request: Hapi.Request, reply: any): void {
 			wikiDomain: params.wikiDomain
 		})
 		.getRandomArticleName()
-		.then((result: any) => {
+		.then((result: any): void => {
 			var error = result.exception || null,
 				articleId: string;
 
@@ -34,7 +34,7 @@ export function get (request: Hapi.Request, reply: any): void {
 
 			Caching.setResponseCaching(reply(wrapResult(error, result)), cachingTimes);
 		})
-		.catch((err: any) => {
+		.catch((err: any): void => {
 			reply(err).code(err.exception.code || 500);
 		});
 }
