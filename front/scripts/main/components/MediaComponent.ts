@@ -13,7 +13,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	height: null,
 	ref: null,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	loaded: false,
+	visible: false,
 	media: null,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	limitHeight: false,
@@ -60,11 +60,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			height = width;
 		}
 
-		url = this.thumbnailer.getThumbURL(url, {
-			mode: mode,
-			width: width,
-			height: height
-		});
+		if (!this.thumbnailer.isThumbnailerUrl(url)) {
+			url = this.thumbnailer.getThumbURL(url, mode, width, height);
+		}
 
 		return url;
 	},

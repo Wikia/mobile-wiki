@@ -7,6 +7,12 @@
 
 'use strict';
 
+interface Window {
+	emberHammerOptions: {
+		hammerOptions: any;
+	};
+}
+
 declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
@@ -14,10 +20,23 @@ var App: any = Em.Application.create({
 		apiBase: M.prop('apiBase')
 	});
 
+window.emberHammerOptions = {
+	hammerOptions: {
+		//we are using fastclick so this is adviced by ember-hammer lib
+		ignoreEvents: [],
+		swipe_velocity: 0.1,
+		pan_threshold: 1
+	}
+};
+
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
 		var debug: boolean = M.prop('environment') === 'dev';
+			//prevents fail if transitions are empty
+			loadedTranslations = M.prop('translations') || {},
+			//loaded language name is the first key of the Mercury.state.translations object
+			loadedLanguage = Object.keys(loadedTranslations)[0];
 
 		// turn on debugging with querystring ?debug=1
 		if (window.location.search.match(/debug=1/)) {
@@ -25,6 +44,8 @@ App.initializer({
 		}
 
 		App.setProperties({
+			apiBase: Mercury.apiBase || '/api/v1',
+			language: loadedLanguage || 'en',
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
 			LOG_TRANSITIONS: debug,
@@ -34,12 +55,13 @@ App.initializer({
 		$('html').removeClass('preload');
 
 		i18n.init({
-			resGetPath: '/front/locales/__lng__/translations.json',
-			detectLngQS: 'uselang',
-			lng: application.get('language'),
-			fallbackLng: 'en',
 			debug: debug,
-			resStore: M.prop('translations'),
+			detectLngQS: 'uselang',
+			fallbackLng: 'en',
+			lng: application.get('language'),
+			lowerCaseLng: true,
+			resGetPath: '/front/locales/__lng__/translation.json',
+			resStore: loadedTranslations,
 			useLocalStorage: false
 		});
 	}
