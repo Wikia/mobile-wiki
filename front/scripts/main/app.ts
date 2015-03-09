@@ -16,7 +16,7 @@ interface Window {
 declare var i18n: I18nextStatic;
 
 var App: any = Em.Application.create({
-		language: Em.getWithDefault(Mercury, 'wiki.language.user', 'en'),
+		language: M.prop('wikiaLanguage') || 'en',
 		apiBase: M.prop('apiBase')
 	});
 
@@ -32,7 +32,7 @@ window.emberHammerOptions = {
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		var debug: boolean = M.prop('environment') === 'dev';
+		var debug: boolean = M.prop('environment') === 'dev',
 			//prevents fail if transitions are empty
 			loadedTranslations = M.prop('translations') || {},
 			//loaded language name is the first key of the Mercury.state.translations object
