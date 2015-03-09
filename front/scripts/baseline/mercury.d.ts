@@ -12,8 +12,6 @@ declare module Mercury {
 	var adsUrl: string;
 }
 
-declare var M: typeof Mercury.Utils;
-
 interface Location {
 	origin: string;
 }
