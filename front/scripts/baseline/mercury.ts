@@ -10,7 +10,7 @@ interface ObjectProperties {
 }
 
 module Mercury {
-	function isPrimitive (val) {
+	function isPrimitive (val: any) {
 		var typeOf = typeof val;
 		return (val === null) ||
 				(typeOf === 'string') ||
@@ -73,11 +73,12 @@ module Mercury {
 
 		/**
 		 * _getProp
+		 * @private
 		 * @description Accessor for private __props__ object
 		 * @param key: string A key representing the namespace to set. eg 'foo.bar.baz'
 		 * @return any
 		 */
-		export function _getProp (key: string): any {
+		function _getProp (key: string): any {
 			var parts = key.split('.'),
 				value: any,
 				i: number;
@@ -99,13 +100,14 @@ module Mercury {
 
 		/**
 		 * _setProp
+		 * @private
 		 * @description Setter for single properties on the private __props__ object
 		 * @param key: string A key representing the namespace to set. eg 'foo.bar.baz'
 		 * @param value: any Any non-undefined value
 		 * @param mutable: boolean When set to true, the parameters given to Object.defineProperty are relaxed
 		 * @return any
 		 */
-		export function _setProp (key: string, value: any, mutable: boolean = false): any {
+		function _setProp (key: string, value: any, mutable: boolean = false): any {
 			if (typeof value === 'undefined') {
 				throw 'Cannot set property ' + key + ' to ' + value;
 			}
