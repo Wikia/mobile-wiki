@@ -97,12 +97,32 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			});
 		},
 
+		// This is used only in not-found.hbs template
 		expandSideNav: function (): void {
 			this.get('controller').set('sideNavCollapsed', false);
 		},
 
-		collapseSideNav: function (): void {
+		randomArticle: function () {
 			this.get('controller').set('sideNavCollapsed', true);
+			this.send('loading');
+
+			Em.$.ajax({
+				url: App.get('apiBase') + '/randomArticle',
+				dataType: 'json',
+				success: (data) => {
+					if (data.title) {
+						this.controllerFor('article').send('changePage', data.title);
+					} else {
+						this.send('error', {
+							message: 'Data from server doesn\'t include article title',
+							data: data
+						});
+					}
+				},
+				error: (err) => {
+					this.send('error', err);
+				}
+			});
 		},
 
 		trackClick: function (category: string, label: string = ''): void {

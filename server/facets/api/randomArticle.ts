@@ -13,16 +13,25 @@ var cachingTimes = {
 
 export function get (request: Hapi.Request, reply: any): void {
 	var params = {
-		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request.headers.host),
-		query: request.params.query
+		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request.headers.host)
 	};
 
-	new MW.SearchRequest({
+	new MW.RandomArticleRequest({
 			wikiDomain: params.wikiDomain
 		})
-		.searchForQuery(params.query)
+		.getRandomArticleName()
 		.then((result: any) => {
-			var error = result.exception || null;
+			var error = result.exception || null,
+				articleId: string;
+
+			// Clean up the result, we need only a title
+			if (result.query && result.query.pages) {
+				articleId = Object.keys(result.query.pages)[0];
+				result = {
+					title: result.query.pages[articleId]['title']
+				};
+			}
+
 			Caching.setResponseCaching(reply(wrapResult(error, result)), cachingTimes);
 		})
 		.catch((err: any) => {

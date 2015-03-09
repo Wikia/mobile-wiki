@@ -44,6 +44,38 @@ export class SearchRequest {
 }
 
 /**
+ * Wrapper class for making API requests for random article
+ */
+export class RandomArticleRequest {
+	wikiDomain: string;
+
+	/**
+	 * Search request constructor
+	 *
+	 * @param params
+	 */
+	constructor (params: {wikiDomain: string}) {
+		this.wikiDomain = params.wikiDomain;
+	}
+
+	/**
+	 * Gets random article name
+	 *
+	 * @return {Promise<any>}
+	 */
+	getRandomArticleName (): Promise<any> {
+		var url = createUrl(this.wikiDomain, 'api.php', {
+			action: 'query',
+			generator: 'random',
+			grnnamespace: 0,
+			format: 'json'
+		});
+
+		return fetch(url, this.wikiDomain);
+	}
+}
+
+/**
  * @desc a wrapper for making API requests for info about the wiki
  *
  */

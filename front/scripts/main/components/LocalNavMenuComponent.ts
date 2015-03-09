@@ -76,6 +76,10 @@ App.LocalNavMenuComponent = Em.Component.extend({
 
 		goBack: function (): void {
 			this.set('currentMenuItem', this.get('parentItem'));
+		},
+
+		randomArticle: function (): void {
+			this.sendAction('randomArticle');
 		}
 	},
 

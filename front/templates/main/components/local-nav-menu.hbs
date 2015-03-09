@@ -14,7 +14,7 @@
 	</li>
 {{else}}
 	<li>
-		<a href='/wiki/Special:Random'>{{i18n 'random-page-label'}}</a>
+		<div {{action 'randomArticle'}} class="random-article">{{i18n 'random-page-label'}}</div>
 	</li>
 {{/if}}
 {{#each child in currentMenuItem.children}}
