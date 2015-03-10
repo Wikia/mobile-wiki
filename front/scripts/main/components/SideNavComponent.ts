@@ -41,8 +41,8 @@ App.SideNavComponent = Em.Component.extend({
 			});
 		},
 
-		randomArticle: function (): void {
-			this.sendAction('randomArticle');
+		loadRandomArticle: function (): void {
+			this.sendAction('loadRandomArticle');
 		},
 
 		/**

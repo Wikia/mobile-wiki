@@ -44,9 +44,9 @@ export class SearchRequest {
 }
 
 /**
- * Wrapper class for making API requests for random article
+ * Wrapper class for making API requests for random article title
  */
-export class RandomArticleRequest {
+export class ArticleRandomTitleRequest {
 	wikiDomain: string;
 
 	/**
@@ -59,11 +59,11 @@ export class RandomArticleRequest {
 	}
 
 	/**
-	 * Gets random article name
+	 * Gets random article title
 	 *
 	 * @return {Promise<any>}
 	 */
-	getRandomArticleName (): Promise<any> {
+	getArticleRandomTitle (): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'api.php', {
 			action: 'query',
 			generator: 'random',

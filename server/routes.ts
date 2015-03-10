@@ -55,13 +55,13 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/search/{query}',
-		handler: require('./facets/api/search').get
+		path: localSettings.apiBase + '/articleRandomTitle',
+		handler: require('./facets/api/articleRandomTitle').get
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/randomArticle',
-		handler: require('./facets/api/randomArticle').get
+		path: localSettings.apiBase + '/search/{query}',
+		handler: require('./facets/api/search').get
 	}
 ];
 

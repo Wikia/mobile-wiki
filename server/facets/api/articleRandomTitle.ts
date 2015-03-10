@@ -16,19 +16,22 @@ export function get (request: Hapi.Request, reply: any): void {
 		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request.headers.host)
 	};
 
-	new MW.RandomArticleRequest({
+	new MW.ArticleRandomTitleRequest({
 			wikiDomain: params.wikiDomain
 		})
-		.getRandomArticleName()
+		.getArticleRandomTitle()
 		.then((result: any): void => {
 			var error = result.exception || null,
-				articleId: string;
+				articleId: string,
+				pageData: { pageid: number; ns: number; title: string };
 
 			// Clean up the result, we need only a title
 			if (result.query && result.query.pages) {
 				articleId = Object.keys(result.query.pages)[0];
+				pageData = result.query.pages[articleId];
+
 				result = {
-					title: result.query.pages[articleId]['title']
+					title: pageData.title
 				};
 			}
 
