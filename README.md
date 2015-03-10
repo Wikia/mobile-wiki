@@ -91,7 +91,7 @@ To test on your mobile device, connect both your development machine and your de
 ## Troubleshooting
 ### Errors while `npm install`
 #### libsass
-So far, we've encouraged one error connected to compiling `libsass`. It happened on Ubuntu 12.04 (pretty old version but still a LTS version). The issue was connected to outdated g++ compiler. `libsass` requires version 4.8+ and by default Ubuntu 12.04 has 4.6 to update it go to your terminal and manually install g++-4.8:
+So far, we've encountered one error connected to compiling `libsass`. It happened on Ubuntu 12.04 (pretty old version but still a LTS version). The issue was connected to outdated g++ compiler. `libsass` requires version 4.8+ and by default Ubuntu 12.04 has 4.6 to update it go to your terminal and manually install g++-4.8:
 `sudo apt-get remove g++-4.6`
 `sudo apt-get install g++-4.8`
 `sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++`
