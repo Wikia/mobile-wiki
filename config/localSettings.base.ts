@@ -57,6 +57,9 @@ var localSettings: LocalSettings = {
 			id: '6177433',
 			c7: '',
 			c7Value: ''
+		},
+		krux: {
+			mobileId: 'JTKzTN3f'
 		}
 	},
 	verticalColors: {
