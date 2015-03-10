@@ -96,7 +96,7 @@ So far, we've encountered one error connected to compiling `libsass`. It happene
 `sudo apt-get install g++-4.8`
 `sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++`
 #### Debian and its nodejs binary
-Debian (my version `Debian 3.16.7-ckt4-3 (2015-02-03)`) installs node.js interpreter binary as `nodejs` instead of `node` because of name conflicts with other applications. The `/usr/share/doc/nodejs/README.Debian` reads:
+Debian (the issue was found on version: `Debian 3.16.7-ckt4-3 (2015-02-03)`) installs node.js interpreter binary as `nodejs` instead of `node` because of name conflicts with other applications. The `/usr/share/doc/nodejs/README.Debian` reads:
 > nodejs command
 > --------------
 > 
