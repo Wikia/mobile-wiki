@@ -33,7 +33,7 @@ module Mercury.Modules.Trackers {
 		*/
 		trackPageView (): void {
 			if (window.Krux.isLoaded) {
-				window.Krux.load(Mercury.tracking.krux.mobileId);
+				this.loadKrux();
 			} else {
 				$(window).load(() => {
 					this.loadKrux();
@@ -42,7 +42,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		loadKrux (): void {
-			if (window.Krux.length) {
+			if (typeof window.Krux.load === 'function') {
 				window.Krux.load(Mercury.tracking.krux.mobileId);
 				window.Krux.isLoaded = true;
 			}
