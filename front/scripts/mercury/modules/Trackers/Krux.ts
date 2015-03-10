@@ -10,6 +10,7 @@ interface Window {
 	*/
 	Krux: {
 		isLoaded?: boolean;
+		length?: any;
 		load?: (skinSiteId: string) => void;
 	};
 }
@@ -35,14 +36,15 @@ module Mercury.Modules.Trackers {
 				window.Krux.load(Mercury.tracking.krux.mobileId);
 			} else {
 				$(window).load(() => {
-					try {
-						window.Krux.load(Mercury.tracking.krux.mobileId);
-					} catch (err) {
-						console.log("Krux is not set!");
-						return;
-					}
-					window.Krux.isLoaded = true;
+					this.loadKrux();
 				});
+			}
+		}
+
+		loadKrux (): void {
+			if (window.Krux.length) {
+				window.Krux.load(Mercury.tracking.krux.mobileId);
+				window.Krux.isLoaded = true;
 			}
 		}
 	}
