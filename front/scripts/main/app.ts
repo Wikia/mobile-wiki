@@ -1,7 +1,7 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
-/// <reference path="../baseline/mercury.d.ts" />
+/// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 
 'use strict';
@@ -14,7 +14,10 @@ interface Window {
 
 declare var i18n: I18nextStatic;
 
-var App: any = Em.Application.create();
+var App: any = Em.Application.create({
+		language: M.prop('wikiaLanguage') || 'en',
+		apiBase: M.prop('apiBase')
+	});
 
 window.emberHammerOptions = {
 	hammerOptions: {
@@ -28,9 +31,9 @@ window.emberHammerOptions = {
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
-		var debug: boolean = Mercury.environment === 'dev',
-			//prevents fail if _state.transitions are empty
-			loadedTranslations = Em.getWithDefault(Mercury, '_state.translations', {}),
+		var debug: boolean = M.prop('environment') === 'dev',
+			//prevents fail if transitions are empty
+			loadedTranslations = M.prop('translations') || {},
 			//loaded language name is the first key of the Mercury.state.translations object
 			loadedLanguage = Object.keys(loadedTranslations)[0];
 
@@ -38,7 +41,7 @@ App.initializer({
 		if (window.location.search.match(/debug=1/)) {
 			debug = true;
 		}
-	
+
 		App.setProperties({
 			apiBase: Mercury.apiBase || '/api/v1',
 			language: loadedLanguage || 'en',
