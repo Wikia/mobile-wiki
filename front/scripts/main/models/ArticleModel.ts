@@ -92,7 +92,7 @@ App.ArticleModel.reopenClass({
 	getArticleRandomTitle: function (): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
-				url: App.get('apiBase') + '/articleRandomTitle',
+				url: App.get('apiBase') + '/article?random&titleOnly',
 				dataType: 'json',
 				success: (data): void => {
 					if (data.title) {

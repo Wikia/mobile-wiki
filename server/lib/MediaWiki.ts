@@ -44,38 +44,6 @@ export class SearchRequest {
 }
 
 /**
- * Wrapper class for making API requests for random article title
- */
-export class ArticleRandomTitleRequest {
-	wikiDomain: string;
-
-	/**
-	 * Search request constructor
-	 *
-	 * @param params
-	 */
-	constructor (params: {wikiDomain: string}) {
-		this.wikiDomain = params.wikiDomain;
-	}
-
-	/**
-	 * Gets random article title
-	 *
-	 * @return {Promise<any>}
-	 */
-	getArticleRandomTitle (): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'api.php', {
-			action: 'query',
-			generator: 'random',
-			grnnamespace: 0,
-			format: 'json'
-		});
-
-		return fetch(url, this.wikiDomain);
-	}
-}
-
-/**
  * @desc a wrapper for making API requests for info about the wiki
  *
  */
@@ -127,7 +95,7 @@ export class ArticleRequest {
 	 * @param redirect
 	 * @return {Promise<any>}
 	 */
-	article (title: string, redirect: string) {
+	article (title: string, redirect: string): Promise<any> {
 		var urlParams: any = {
 				controller: 'MercuryApi',
 				method: 'getArticle',
@@ -142,12 +110,28 @@ export class ArticleRequest {
 		return fetch(url, this.wikiDomain);
 	}
 
-	comments (articleId: number, page: number = 0) {
+	comments (articleId: number, page: number = 0): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getArticleComments',
 			id: articleId,
 			page: page
+		});
+
+		return fetch(url, this.wikiDomain);
+	}
+
+	/**
+	 * Get random article title
+	 *
+	 * @return {Promise<any>}
+	 */
+	randomTitle (): Promise<any> {
+		var url = createUrl(this.wikiDomain, 'api.php', {
+			action: 'query',
+			generator: 'random',
+			grnnamespace: 0,
+			format: 'json'
 		});
 
 		return fetch(url, this.wikiDomain);
@@ -162,7 +146,7 @@ export class ArticleRequest {
  * @return {Promise<any>}
  */
 export function fetch (url: string, host: string = '', redirects: number = 1): Promise<any> {
-	return new Promise((resolve: Function, reject: Function) => {
+	return new Promise((resolve: Function, reject: Function): void => {
 		Wreck.get(url, {
 			redirects: redirects,
 			headers: { 'Host': host },
@@ -214,7 +198,7 @@ export function createUrl (wikiDomain: string, path: string, params: any = {}): 
 	var qsAggregator: string[] = [],
 		queryParam: string;
 
-	Object.keys(params).forEach(function(key) {
+	Object.keys(params).forEach(function(key): void {
 		queryParam = (typeof params[key] !== 'undefined') ?
 			key + '=' + encodeURIComponent(params[key]) :
 			key;
