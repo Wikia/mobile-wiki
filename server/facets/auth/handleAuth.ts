@@ -1,5 +1,5 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
-var rememberMeTTL = 1.57785e10 // 6 months
+var rememberMeTTL = 1.57785e10; // 6 months
 
 /**
  * Stores the user's authentication data, which is passed along from a login request
