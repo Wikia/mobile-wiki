@@ -43,7 +43,7 @@ module Mercury.Modules.Trackers {
 
 		loadKrux (): void {
 			if (typeof window.Krux.load === 'function') {
-				window.Krux.load(Mercury.tracking.krux.mobileId);
+				window.Krux.load(M.prop('tracking.krux.mobileId'));
 				window.Krux.isLoaded = true;
 			}
 		}
