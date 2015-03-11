@@ -4,7 +4,11 @@
 'use strict';
 
 interface Window {
-	gaTrackAdEvent: any
+	gaTrackAdEvent: any;
+	Krux: {
+		load?: (skinSiteId: string) => void;
+		getParams?: (n: string) => any;
+	};
 }
 
 module Mercury.Modules {
@@ -38,24 +42,41 @@ module Mercury.Modules {
 		public init (adsUrl: string, callback: () => void) {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
+			window.Krux = window.Krux || [];
 			// Load the ads code from MW
 			M.load(adsUrl, () => {
 				if (require) {
 					require([
 						'ext.wikia.adEngine.adEngine',
 						'ext.wikia.adEngine.adContext',
-						'ext.wikia.adEngine.adConfigMobile'
-					], (adEngineModule: any, adContextModule: any, adConfigMobile: any) => {
+						'ext.wikia.adEngine.adConfigMobile',
+						'ext.wikia.krux'
+					], (adEngineModule: any, adContextModule: any, adConfigMobile: any, krux: any) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
 						this.adConfigMobile = adConfigMobile;
+						window.Krux = krux;
 						this.isLoaded = true;
 						callback.call(this);
+						this.loadKrux();
 					});
 				} else {
 					Em.Logger.error('Looks like ads asset has not been loaded');
 				}
 			});
+		}
+
+		/**
+		* @desc Loads Krux.js code which sends tracking data to Krux.
+		* mobileId variable is the ID referencing to the mobile site
+		* (see Krux.run.js in app repository)
+		* check if window.Krux.load() is not undefined is used to to prevent
+		* error when Krux has not been received.
+		*/
+		public loadKrux (): void {
+			if (typeof window.Krux.load === 'function') {
+				window.Krux.load(M.prop('tracking.krux.mobileId'));
+			}
 		}
 
 		/**
