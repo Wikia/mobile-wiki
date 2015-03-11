@@ -59,7 +59,7 @@ test('getPreloadedData', function () {
 	var article = Mercury.article,
 		data = App.ArticleModel.getPreloadedData();
 
-	strictEqual(Mercury._state.firstPage, false, 'Mercury object\'s firstPage state flipped to false');
+	strictEqual(M.prop('firstPage', false), false, 'Mercury object\'s firstPage state flipped to false');
 	deepEqual(data, article, 'article loaded from Mercury object on first page');
 	deepEqual(Mercury.article, undefined, 'Mercury.article is set to null');
 });
@@ -86,12 +86,12 @@ test('find with preloaded data', function () {
 		article: 'article'
 	};
 
-	ok(Mercury._state.firstPage, 'firstPage==true before test, as expected');
+	ok(M.prop('firstPage'), 'firstPage==true before test, as expected');
 	Ember.run(function () {
 		model = App.ArticleModel.find(params);
 	});
 	verifyArticle(model, this.example, this.wikiExample);
-	ok(!Mercury._state.firstPage, 'firstPage==false after test, as expected');
+	ok(!M.prop('firstPage'), 'firstPage==false after test, as expected');
 });
 
 /**

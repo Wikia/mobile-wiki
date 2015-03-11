@@ -44,5 +44,4 @@ export function handleResponse (result: any, request: Hapi.Request): void {
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
-	result.trackingJson = JSON.stringify(tracking);
 }
