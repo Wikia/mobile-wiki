@@ -43,7 +43,7 @@ App.ArticleRoute = Em.Route.extend({
 			if (transition) {
 				transition.abort();
 			}
-			Em.Logger.warn('ArticleRoute error', error);
+			Em.Logger.warn('ArticleRoute error', error.stack || error);
 			return true;
 		},
 
