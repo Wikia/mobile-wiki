@@ -14,10 +14,7 @@ interface Window {
 
 declare var i18n: I18nextStatic;
 
-var App: any = Em.Application.create({
-		language: M.prop('wikiaLanguage') || 'en',
-		apiBase: M.prop('apiBase')
-	});
+var App: any = Em.Application.create();
 
 window.emberHammerOptions = {
 	hammerOptions: {
@@ -43,7 +40,7 @@ App.initializer({
 		}
 
 		App.setProperties({
-			apiBase: Mercury.apiBase || '/api/v1',
+			apiBase: M.prop('apiBase'),
 			language: loadedLanguage || 'en',
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
