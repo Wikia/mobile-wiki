@@ -6,7 +6,6 @@ import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');
 
-
 var cachingTimes = {
 	enabled: false,
 	cachingPolicy: Caching.Policy.Private,

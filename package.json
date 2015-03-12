@@ -18,9 +18,11 @@
     "boom": "2.6.1",
     "bunyan": "1.3.3",
     "bunyan-syslog": "^0.3.0",
+    "crumb": "4.0.3",
     "handlebars": "2.0.0",
     "hapi": "8.2.0",
-    "hoek": "^2.11.1",
+    "hapi-auth-cookie": "2.0.0",
+    "hoek": "2.11.1",
     "newrelic": "1.16.2",
     "wreck": "5.2.0"
   },

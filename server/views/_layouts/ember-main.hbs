@@ -27,10 +27,10 @@
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
-		<style><!-- @include ../../www/front/styles/main/baseline.css --></style>
+		<style><!-- @include ../../../www/front/styles/main/baseline.css --></style>
 
 		<script>
-			<!-- @include ../../www/front/scripts/baseline.js -->
+			<!-- @include ../../../www/front/scripts/baseline.js -->
 			{{#if server.mediawikiDomain}}
 			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
@@ -61,7 +61,7 @@
 		{{> tracking}}
 	</head>
 	<body>
-		<!-- @include ../../www/front/svg/main.svg -->
+		<!-- @include ../../../www/front/svg/main.svg -->
 
 		<div id="article-preload">
 			{{{content}}}
