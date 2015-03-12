@@ -1,15 +1,7 @@
 'use strict';
 
 interface Window {
-	/**
-	* isLoaded variable is set on window element not on the
-	* class because Krux here is only the 'facade' of the real
-	* Krux class and is created on each page load. Assigning
-	* isLoaded to windows allows to keep track on it also
-	* on the consecutive pages.
-	*/
 	Krux: {
-		isLoaded?: boolean;
 		load?: (skinSiteId: string) => void;
 	};
 }
