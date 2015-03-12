@@ -42,7 +42,6 @@ module Mercury.Modules {
 		public init (adsUrl: string, callback: () => void) {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
-			window.Krux = window.Krux || [];
 			// Load the ads code from MW
 			M.load(adsUrl, () => {
 				if (require) {
@@ -50,12 +49,12 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adEngine',
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.adConfigMobile',
-						'ext.wikia.krux'
+						'wikia.krux'
 					], (adEngineModule: any, adContextModule: any, adConfigMobile: any, krux: any) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
 						this.adConfigMobile = adConfigMobile;
-						window.Krux = krux;
+						window.Krux = krux || [];
 						this.isLoaded = true;
 						callback.call(this);
 						this.loadKrux();
