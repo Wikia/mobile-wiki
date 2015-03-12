@@ -29,10 +29,12 @@
 
 		<style><!-- @include ../../www/front/styles/baseline.css --></style>
 
+		{{> media-wiki-globals }}
 		<script>
 			<!-- @include ../../www/front/scripts/baseline.js -->
 			{{#if server.mediawikiDomain}}
 			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			M.prop('resourcesUrl', '//{{server.mediawikiDomain}}/__load/-/cb={{wiki.cacheBuster}}&only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride');
 			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');

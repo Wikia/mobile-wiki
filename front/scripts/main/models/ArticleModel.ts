@@ -101,7 +101,7 @@ App.ArticleModel.reopenClass({
 		// Setup ads
 		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals')) {
 			adsInstance = Mercury.Modules.Ads.getInstance();
-			adsInstance.init(M.prop('adsUrl'), () => {
+			adsInstance.init((): void => {
 				adsInstance.reload(article.adsContext);
 			});
 		}

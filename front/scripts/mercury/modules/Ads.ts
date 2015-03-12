@@ -32,14 +32,13 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
-		 * @param adsUrl Url for the ads script
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
-		public init (adsUrl: string, callback: () => void) {
+		public init (callback: () => void) {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
-			// Load the ads code from MW
-			M.load(adsUrl, () => {
+			// Load the resources and ads code from MW
+			M.load([M.prop('resourcesUrl'), M.prop('adsUrl')], () => {
 				if (require) {
 					require([
 						'ext.wikia.adEngine.adEngine',
@@ -53,7 +52,7 @@ module Mercury.Modules {
 						callback.call(this);
 					});
 				} else {
-					Em.Logger.error('Looks like ads asset has not been loaded');
+					Em.Logger.error('Looks like modil has not been loaded');
 				}
 			});
 		}
