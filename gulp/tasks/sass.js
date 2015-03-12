@@ -11,8 +11,8 @@ var folders = require('gulp-folders'),
 gulp.task('sass', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src([
-			'!' + path.join(paths.src, folder, paths.partials),
-			path.join(paths.src, folder, paths.compile)
+			path.join(paths.src, folder, paths.compile),
+			'!' + path.join(paths.src, folder, paths.partials)
 		]),
 		sass(options),
 		prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], {
