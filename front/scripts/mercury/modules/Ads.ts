@@ -5,10 +5,6 @@
 
 interface Window {
 	gaTrackAdEvent: any;
-	Krux: {
-		load?: (skinSiteId: string) => void;
-		getParams?: (n: string) => any;
-	};
 }
 
 module Mercury.Modules {
@@ -57,25 +53,12 @@ module Mercury.Modules {
 						window.Krux = krux || [];
 						this.isLoaded = true;
 						callback.call(this);
-						this.loadKrux();
+						this.kruxTrackFirstPage();
 					});
 				} else {
 					Em.Logger.error('Looks like ads asset has not been loaded');
 				}
 			});
-		}
-
-		/**
-		* @desc Loads Krux.js code which sends tracking data to Krux.
-		* mobileId variable is the ID referencing to the mobile site
-		* (see Krux.run.js in app repository)
-		* check if window.Krux.load() is not undefined is used to to prevent
-		* error when Krux has not been received.
-		*/
-		public loadKrux (): void {
-			if (window.Krux && typeof window.Krux.load === 'function') {
-				window.Krux.load(M.prop('tracking.krux.mobileId'));
-			}
 		}
 
 		/**
@@ -92,6 +75,17 @@ module Mercury.Modules {
 				GATracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 				GATracker.trackAds.apply(GATracker, arguments);
 			}
+		}
+
+		/**
+		 * Function fired when Krux is ready (see init()).
+		 * Calls the trackPageView() function on Krux instance.
+		 * load() in krux.js (/app) automatically detect that
+		 * there is a first page load (needs to load Krux scripts).
+		 */
+		private kruxTrackFirstPage (): void {
+			var KruxTracker = new Mercury.Modules.Trackers.Krux();
+			KruxTracker.trackPageView();
 		}
 
 		private setContext (adsContext: any) {
