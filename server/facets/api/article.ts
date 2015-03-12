@@ -37,15 +37,16 @@ export function get (request: Hapi.Request,  reply: any): void {
 			wrapResult(error, result);
 			Caching.setResponseCaching(reply(result), randomTitleCachingTimes);
 		});
-	} else {
-		Article.getData({
-			wikiDomain: wikiDomain,
-			title: request.params.articleTitle,
-			redirect: request.params.redirect
-		}, (error: any, result: any): void => {
-			// TODO: Consider normalizing all error handling to Boom
-			wrapResult(error, result);
-			Caching.setResponseCaching(reply(result).code(result.status), cachingTimes);
-		});
+		return;
 	}
+
+	Article.getData({
+		wikiDomain: wikiDomain,
+		title: request.params.articleTitle,
+		redirect: request.params.redirect
+	}, (error: any, result: any): void => {
+		// TODO: Consider normalizing all error handling to Boom
+		wrapResult(error, result);
+		Caching.setResponseCaching(reply(result).code(result.status), cachingTimes);
+	});
 }
