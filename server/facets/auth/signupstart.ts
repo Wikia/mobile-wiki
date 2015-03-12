@@ -5,9 +5,15 @@ function get (request: Hapi.Request, reply: any): void {
 		return reply.redirect(request.query.redirect || '/');
 	}
 
-	return reply.view('signupstart', null, {
-		layout: 'wikia-static'
-	});
+	return reply.view(
+		'signupstart',
+		{
+			title: "Signup"
+		},
+		{
+			layout: 'wikia-static'
+		}
+	);
 }
 
 export = get;

@@ -1,0 +1,68 @@
+body {
+	background-color: #062d50;
+}
+.signup-start {
+	color: #fff;
+	height: 100%;
+	margin: auto;
+	padding: 18px;
+	text-align: center;
+	width: 100%;
+}
+
+a {
+	color: inherit;
+}
+
+button {
+	font-weight: bold;
+	width: 100%;
+}
+
+.auth-options {
+	height: 50%;
+}
+
+.register-message-wrapper {
+	display: table;
+	height: 50%;
+	width: 100%;
+}
+
+.register-message {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.signup-provider-facebook {
+	background-color: #4b6ea8;
+	border: none;
+}
+
+.signup-provider-google {
+	background-color: #dd5e45;
+	border: none;
+}
+
+.signup-provider-email {
+	background-color: Transparent;
+	border-color: #fff;
+}
+
+ul, li {
+	padding: 0;
+	margin: 0;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.sign-in-message {
+	display: inline;
+	padding-right: 0.5rem;
+}
+
+.sign-in, .sign-in-message {
+	font-size: 0.75rem;
+}
