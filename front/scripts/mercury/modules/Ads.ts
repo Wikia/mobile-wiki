@@ -73,7 +73,7 @@ module Mercury.Modules {
 		* error when Krux has not been received.
 		*/
 		public loadKrux (): void {
-			if (typeof window.Krux.load === 'function') {
+			if (window.Krux && typeof window.Krux.load === 'function') {
 				window.Krux.load(M.prop('tracking.krux.mobileId'));
 			}
 		}

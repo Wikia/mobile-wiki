@@ -153,7 +153,8 @@ module Mercury.Utils {
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
 	export function trackPageView (adsContext: any) {
-		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
+		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers'),
+			kruxTracker = new Mercury.Modules.Ads;
 
 		if (M.prop('queryParams.noexternals')) {
 			return;
@@ -167,6 +168,9 @@ module Mercury.Utils {
 				trackerInstance.trackPageView(trackerInstance.usesAdsContext ? adsContext : context);
 			}
 		});
+
+	kruxTracker.loadKrux();
+
 	}
 
 	export function resetScrollDepthTracker () {
