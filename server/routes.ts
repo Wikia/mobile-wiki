@@ -120,8 +120,6 @@ unauthenticatedRoutes = [
 		path: '/breadcrumb',
 		handler: require('./facets/operations/generateCSRFView')
 	},
-
-
 	{
 		method: 'GET',
 		path: '/signupstart',
