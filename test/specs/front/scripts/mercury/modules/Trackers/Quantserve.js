@@ -1,9 +1,9 @@
 /* global Em, _qevents */
 QUnit.module('Quantserve tests', {
 	setup: function () {
-		Mercury.tracking = {
-			quantserve: '1234'
-		};
+
+		// instantiate with mutation because multiple test runs
+		M.prop('tracking.quantserve', '1234', true);
 
 		Mercury.wiki = {
 			vertical: 'tv'
@@ -18,7 +18,7 @@ QUnit.test('Quantserve is compiled into Mercury.Modules.Trackers namespace', fun
 QUnit.test('Track page view', function () {
 	var tracker = new Mercury.Modules.Trackers.Quantserve(),
 		qevents = [{
-			qacct: Mercury.tracking.quantserve,
+			qacct: M.prop('tracking.quantserve'),
 			labels: 'tv,Category.MobileWeb.Mercury'
 		}];
 

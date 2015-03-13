@@ -47,6 +47,9 @@ interface LocalSettings {
 			id: string;
 			c7: string;
 			c7Value: string;
+		};
+		krux: {
+			mobileId: string;
 		}
 	};
 	verticalColors: any;

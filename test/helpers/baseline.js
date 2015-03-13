@@ -5,7 +5,9 @@
 
 function resetMercuryBaseline () {
 	var M = window.M;
-	M.provide('_state.firstPage', true);
+	// initalize firstPage to true, allow mutation
+	M.prop('firstPage', true, true);
+	M.prop('apiBase', '/api/v1');
 	M.provide('article.details', {
 		abstract: 'Test abstract',
 		comments: 99,

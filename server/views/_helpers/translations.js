@@ -6,7 +6,7 @@ module.exports = function (language) {
 		fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		foundLanguage = '',
-		response = {};
+		wrapper = {};
 
 	[language, fallbackLanguage, defaultLanguage].some(function (lang) {
 		foundLanguage = lang;
@@ -24,6 +24,6 @@ module.exports = function (language) {
 		}
 	});
 
-	response[foundLanguage] = translations;
-	return response;
+	wrapper[foundLanguage] = translations;
+	return wrapper;
 };

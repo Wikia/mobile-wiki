@@ -20,9 +20,11 @@ module.exports = {
 		dest: basePath + '/front/locales'
 	},
 	styles: {
-		src: ['!front/styles/_*.scss', 'front/styles/*.scss'],
+		src: 'front/styles',
 		watch: 'front/styles/**/*.scss',
-		dest: basePath + '/front/styles'
+		dest: basePath + '/front/styles',
+		partials: '_*.scss',
+		compile: '*.scss'
 	},
 	scripts: {
 		front: {

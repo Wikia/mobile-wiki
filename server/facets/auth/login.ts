@@ -53,7 +53,9 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 
 		// Helios sends back a 200 currently, denoting failure only in payload differences here
 		if (parsed.error) {
+			/* tslint:disable:no-string-literal */
 			return callback(Boom.unauthorized(parsed.error + ': ' + parsed['error_description']));
+			/* tslint:enable:no-string-literal */
 		}
 		callback(null, parsed);
 	});
