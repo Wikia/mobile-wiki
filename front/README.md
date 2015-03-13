@@ -65,11 +65,27 @@ Place for all svg icons and graphics
       all svg files
 ```
 
-That is compiled to
+That is optimized and compiled to
 
 ```
   svg
     packageName.svg
+```
+
+If you need to use svg as a separate image place it in images folder
+
+```
+  svg
+    images
+      image.svg
+```
+
+this will get copied to
+
+```
+  svg
+    images
+      image.svg
 ```
 
 ## templates
