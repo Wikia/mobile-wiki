@@ -63,15 +63,19 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 
 
 export function get (request: Hapi.Request, reply: any): void {
+	var context;
+
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(request.query.redirect || '/');
 	}
 
-	return reply.view('login', {
-		// TODO: use i18n once it's set up (SOC-526)
+	// TODO: use i18n once it's set up (SOC-526)
+	context = {
 		header: 'Welcome Back!',
 		footer: 'Don\'t have an account? <a href="#">Register now</a>'
-	}, {
+	};
+
+	return reply.view('login', context, {
 		layout: 'wikia-static'
 	});
 };
