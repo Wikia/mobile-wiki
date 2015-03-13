@@ -2,19 +2,19 @@
 	{{#if parentItem}}
 		{{currentMenuItem.text}}
 	{{else}}
-		{{i18n 'side-nav-menu-label'}}
+		{{i18n 'app.side-nav-menu-label'}}
 	{{/if}}
 </li>
 {{#if parentItem}}
 	<li>
 		<div {{action 'goBack'}}>
 			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron back'}}
-			{{i18n 'navigation-back-label'}}
+			{{i18n 'app.navigation-back-label'}}
 		</div>
 	</li>
 {{else}}
 	<li>
-		<a href='/wiki/Special:Random'>{{i18n 'random-page-label'}}</a>
+		<a href='/wiki/Special:Random'>{{i18n 'app.random-page-label'}}</a>
 	</li>
 {{/if}}
 {{#each child in currentMenuItem.children}}

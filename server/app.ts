@@ -50,11 +50,15 @@ var plugins = [
 				isSecure: false
 			}
 		}
+	},
+	{
+		register: require('./i18n-hapi')
 	}
 ];
 
 server.register(plugins, (err: any) => {
 	if (err) {
+		console.log(err);
 		Logger.error(err);
 	}
 	server.auth.strategy('session', 'cookie', 'required', {
