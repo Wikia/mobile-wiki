@@ -1,14 +1,17 @@
 /* global Mercury, _comscore */
 QUnit.module('Comscore tests', {
 	setup: function () {
-		Mercury.tracking = {
-			comscore: {
-				keyword: 'comscorekw',
-				id: '123',
-				c7: 'c7',
-				c7Value: 'c7value'
+		M.props({
+			tracking: {
+				comscore: {
+					keyword: 'comscorekw',
+					id: '123',
+					c7: 'c7',
+					c7Value: 'c7value'
+				}
 			}
-		};
+		// initialize with mutations because tests are run multiple times
+		}, true);
 	}
 });
 
@@ -21,9 +24,9 @@ QUnit.test('Track page view', function () {
 	var tracker = new Mercury.Modules.Trackers.Comscore(),
 		queue = [{
 			c1: '2',
-			c2: Mercury.tracking.comscore.id,
+			c2: M.prop('tracking.comscore.id'),
 			options: {
-				url_append: Mercury.tracking.comscore.keyword + '=' + Mercury.tracking.comscore.c7Value
+				url_append: M.prop('tracking.comscore.keyword') + '=' + M.prop('tracking.comscore.c7Value')
 			}
 		}];
 

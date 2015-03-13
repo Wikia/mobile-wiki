@@ -11,7 +11,7 @@ module Mercury.Utils.Browser {
 	 * @return {string}
 	 */
 	export function getSystem (): string {
-		var ua: string = Em.get(window, 'navigator.userAgent'),
+		var ua: string = window.navigator.userAgent,
 			system: string;
 
 		if (ua.match(/iPad|iPhone|iPod/i) !== null) {
