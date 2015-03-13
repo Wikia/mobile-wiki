@@ -5,11 +5,17 @@
         <meta name="viewport" content="width=device-width">
         <title>Login</title>
 
-		<!-- build:css /front/styles/auth.css -->
-		<link rel="stylesheet" href="/front/styles/auth.css">
-		<!-- endbuild -->
+		<link rel="stylesheet" href="/front/styles/auth/app.css">
     </head>
     <body>
+        {{#if header }}
+            <header class="auth-header">{{{header}}}</header>
+        {{/if}}
+
         {{{content}}}
+
+        {{#if footer }}
+			<footer class="auth-footer">{{{footer}}}</footer>
+        {{/if}}
     </body>
 </html>

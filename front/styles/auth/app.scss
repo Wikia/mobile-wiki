@@ -1,3 +1,37 @@
+@import "../../vendor/wikia-style-guide/dist/css/main.css";
+
 body {
-	background: salmon;
+	display: flex;
+	flex-direction: column;
+}
+
+.auth-header, .auth-footer {
+	background: #092344;
+	color: #FFF;
+	text-align: center;
+}
+
+.auth-header {
+	font-size: 18px;
+	line-height: 22px;
+	margin-bottom: 20px;
+	padding: 24px;
+}
+
+.auth-footer {
+	color: #FFFFFF;
+	font-size: 12px;
+	letter-spacing: 1.5px;
+	line-height: 18px;
+	padding: 15px;
+
+	a {
+		color: inherit;
+		text-transform: uppercase;
+	}
+}
+
+form {
+	// stick the footer to the bottom
+	flex: 1;
 }

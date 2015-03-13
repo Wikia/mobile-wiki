@@ -67,7 +67,11 @@ export function get (request: Hapi.Request, reply: any): void {
 		return reply.redirect(request.query.redirect || '/');
 	}
 
-	return reply.view('login', null, {
+	return reply.view('login', {
+		// TODO: use i18n once it's set up (SOC-526)
+		header: 'Welcome Back!',
+		footer: 'Don\'t have an account? <a href="#">Register now</a>'
+	}, {
 		layout: 'wikia-static'
 	});
 };
