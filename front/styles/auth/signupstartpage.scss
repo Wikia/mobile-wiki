@@ -1,9 +1,17 @@
 body {
 	background-color: #062d50;
 }
+
 .signup-start {
+	background-image: url('/front/images/faniverse-bg-544.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 	color: #fff;
+	display: flex;
+	flex-direction: column;
 	height: 100%;
+	justify-content: flex-end;
 	margin: auto;
 	padding: 18px;
 	text-align: center;
@@ -20,28 +28,33 @@ button {
 }
 
 .auth-options {
-	height: 50%;
+	align-self: flex-end;
+	padding-bottom: 22px;
+	width: 100%;
 }
 
 .register-message-wrapper {
-	display: table;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 	height: 50%;
+	justify-content: center;
 	width: 100%;
 }
 
 .register-message {
 	display: table-cell;
 	vertical-align: middle;
+
+	p {
+		margin-bottom: 15px;
+	}
 }
 
 .signup-provider-facebook {
-	background-color: #4b6ea8;
+	background-color: #38528a;
 	border: none;
-}
-
-.signup-provider-google {
-	background-color: #dd5e45;
-	border: none;
+	margin-bottom: 15px;
 }
 
 .signup-provider-email {
@@ -50,19 +63,31 @@ button {
 }
 
 ul, li {
-	padding: 0;
 	margin: 0;
+	padding: 0;
 }
 
 ul {
 	list-style-type: none;
 }
 
+.sign-in {
+	font-weight: bold;
+}
+
 .sign-in-message {
-	display: inline;
+	display: inline-block;
+	margin-bottom: 0;
 	padding-right: 0.5rem;
 }
 
 .sign-in, .sign-in-message {
 	font-size: 0.75rem;
+}
+
+@media(min-width: 550px) {
+
+	.signup-start {
+		background-image: url('/front/images/faniverse-bg-768.png');
+	}
 }

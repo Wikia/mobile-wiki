@@ -10,6 +10,9 @@ var gulp = require('gulp'),
 gulp.task('symbols', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
+		gulpif('**/wikia-logo-320.svg', piper(
+			gulp.dest(paths.dest)
+		)),
 		svgSymbols(),
 		gulpif('**/*.svg', piper(
 			rename(folder + '.svg'),
