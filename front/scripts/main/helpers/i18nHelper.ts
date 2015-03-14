@@ -18,7 +18,7 @@ var options = arguments[arguments.length - 1],
 	Object.keys(options.hash).forEach((key: string) => {
 		if (key === 'ns') {
 			namespace = options.hash[key];
-		} else if (key !== 'delimiter' && key !== 'boundOptions' && options.hash[key]) {
+		} else if (key !== 'boundOptions' && options.hash[key]) {
 			params[key] = this.get(String(options.hash[key]));
 		}
 	});
