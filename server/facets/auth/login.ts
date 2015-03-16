@@ -67,7 +67,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		return reply.redirect(request.query.redirect || '/');
 	}
 
-	return reply.view('login', null, {
+	return reply.view('login', {title: 'Login'}, {
 		layout: 'wikia-static'
 	});
 };
