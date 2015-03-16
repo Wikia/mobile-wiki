@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
 
-        <title>{{{title}}}</title>
-        <link rel="stylesheet" href="/front/styles/auth/app.css">
-    </head>
-    <body>
-        <div class="auth-wrapper">
-            {{#if exitTo}}
-				<a class="close" href="{{exitTo}}"></a>
-            {{/if}}
+		<title>{{{title}}}</title>
+		<link rel="stylesheet" href="/front/styles/auth/app.css">
+	</head>
+	<body class="auth">
+		{{#if exitTo}}
+		<a class="close" href="{{exitTo}}"></a>
+		{{/if}}
 
-			{{!-- TODO: use i18n for messages once it's set up (SOC-526) --}}
+		{{#unless hideHeader }}
+		{{!-- TODO: use i18n for messages once it's set up (SOC-526) --}}
+		<header class="auth-header">Welcome Back!</header>
+		{{/unless}}
 
-            {{#unless hideHeader }}
-				<header class="auth-header">Welcome Back!</header>
-            {{/unless}}
+		{{{content}}}
 
-            {{{content}}}
-
-            {{#unless hideFooter }}
-				<footer class="auth-footer">Don\'t have an account? <a href="#">Register now</a></footer>
-            {{/unless}}
-        </div>
-    </body>
+		{{#unless hideFooter }}
+		<footer class="auth-footer">Don\'t have an account? <a href="#">Register now</a></footer>
+		{{/unless}}
+	</body>
 </html>

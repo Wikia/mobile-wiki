@@ -1,11 +1,28 @@
 @import "../../vendor/wikia-style-guide/dist/css/main.css";
+@import "../../vendor/wikia-style-guide/src/scss/lib/_settings.scss";
 @import 'landing-page';
 
-.auth-wrapper {
+body {
+	background-color: $color-blue-dark;
+	background-image: url('/front/images/faniverse-bg-544.png');
+	background-position: center center;
+	background-repeat: no-repeat;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
 	width: 100vw;
+	justify-content: flex-end;
+	margin: auto;
+}
+
+a {
+	color: inherit;
+}
+
+button, a.button {
+	font-weight: bold;
+	text-transform: uppercase;
+	width: 100%;
 }
 
 .close {
@@ -24,15 +41,13 @@
 }
 
 .auth-header, .auth-footer {
-	background: #092344;
-	color: #FFF;
+	color: $color-white;
 	text-align: center;
 }
 
 .auth-header {
 	font-size: 1.125rem;
 	line-height: 22px;
-	margin-bottom: 20px;
 	padding: 24px;
 }
 
@@ -49,7 +64,16 @@
 	}
 }
 
-form {
+.auth-content {
+	background-color: $color-white;
 	// stick the footer to the bottom
 	flex: 1;
+	padding: 18px;
+}
+
+@media(min-width: 550px) {
+
+	body {
+		background-image: url('/front/images/faniverse-bg-768.png');
+	}
 }
