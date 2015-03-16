@@ -31,9 +31,6 @@ export enum Environment {
  */
 export function getEnvironment (environment: string, fallbackEnvironment: Environment = Environment.Dev) {
 	var environments: {[id: string]: Environment} = {
-		// TODO: Remove `production` environment once all changes are propagated
-		production: Environment.Prod,
-
 		prod: Environment.Prod,
 		verify: Environment.Verify,
 		preview: Environment.Preview,
