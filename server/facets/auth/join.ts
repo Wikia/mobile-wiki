@@ -6,9 +6,9 @@ function get (request: Hapi.Request, reply: any): void {
 	}
 
 	return reply.view(
-		'signupstart',
+		'landing-page',
 		{
-			title: "Signup"
+			title: "Join Wikia"
 		},
 		{
 			layout: 'wikia-static'

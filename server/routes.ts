@@ -122,8 +122,8 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/signupstart',
-		handler: require('./facets/auth/signupstart')
+		path: '/join',
+		handler: require('./facets/auth/join')
 	},
 ];
 
