@@ -6,7 +6,7 @@ function get (request: Hapi.Request, reply: any): void {
 	}
 
 	return reply.view(
-		'landing-page',
+		'auth-landing-page',
 		{
 			title: "Join Wikia"
 		},

@@ -6,7 +6,6 @@ body {
 	background-image: url('/front/images/faniverse-bg-544.png');
 	background-position: center center;
 	background-repeat: no-repeat;
-	background-size: cover;
 	color: #fff;
 	display: flex;
 	flex-direction: column;
@@ -56,11 +55,21 @@ button {
 	background-color: #38528a;
 	border: none;
 	margin-bottom: 15px;
+
+	&:focus, &:hover {
+		background-color: #1A5EB8;
+	}
 }
 
 .signup-provider-email {
-	background-color: Transparent;
+	background-color: transparent;
 	border-color: #fff;
+
+	&:focus, &:hover {
+		background-color: transparent;
+		border-color: #1A5EB8;
+		color: #1A5EB8;
+	}
 }
 
 ul, li {
