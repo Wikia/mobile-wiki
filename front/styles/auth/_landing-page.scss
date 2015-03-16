@@ -81,14 +81,17 @@ ul {
 	list-style-type: none;
 }
 
-.sign-in {
-	font-weight: bold;
-}
-
 .sign-in-message {
 	display: inline-block;
 	margin-bottom: 0;
-	padding-right: 0.5rem;
+	padding-right: 1.5rem;
+	text-align: right;
+}
+
+.sign-in {
+	font-weight: bold;
+	text-align: left;
+	text-transform: uppercase;
 }
 
 .sign-in, .sign-in-message {
