@@ -29,6 +29,12 @@ interface HeliosResponse {
 	'error_description'? : string;
 }
 
+interface getContext {
+	hideHeader? : boolean;
+	hideFooter? : boolean;
+	exitTo? : string;
+}
+
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
 	Wreck.get(localSettings.helios.host + '/token?' + qs.stringify({
 		'grant_type'    : 'password',
@@ -63,16 +69,15 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 
 
 export function get (request: Hapi.Request, reply: any): void {
-	var context;
+	var context: getContext,
+		redirectUrl: string = request.query.redirect || '/';
 
 	if (request.auth.isAuthenticated) {
-		return reply.redirect(request.query.redirect || '/');
+		return reply.redirect(redirectUrl);
 	}
 
-	// TODO: use i18n once it's set up (SOC-526)
 	context = {
-		header: 'Welcome Back!',
-		footer: 'Don\'t have an account? <a href="#">Register now</a>'
+		exitTo: redirectUrl
 	};
 
 	return reply.view('login', context, {

@@ -1,8 +1,25 @@
 @import "../../vendor/wikia-style-guide/dist/css/main.css";
 
-body {
+.auth-wrapper {
 	display: flex;
 	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+}
+
+.close {
+	color: #FFF;
+	font-size: 25px;
+	font-weight: lighter;
+	line-height: 15px;
+	position: absolute;
+	right: 10px;
+	transform: rotate(45deg);
+	top: 10px;
+
+	&:after {
+		content: '+';
+	}
 }
 
 .auth-header, .auth-footer {
@@ -12,7 +29,7 @@ body {
 }
 
 .auth-header {
-	font-size: 18px;
+	font-size: 1.125rem;
 	line-height: 22px;
 	margin-bottom: 20px;
 	padding: 24px;
@@ -20,7 +37,7 @@ body {
 
 .auth-footer {
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: .75rem;
 	letter-spacing: 1.25px;
 	line-height: 18px;
 	padding: 15px;

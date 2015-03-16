@@ -8,14 +8,22 @@
 		<link rel="stylesheet" href="/front/styles/auth/app.css">
     </head>
     <body>
-        {{#if header }}
-            <header class="auth-header">{{header}}</header>
-        {{/if}}
+        <div class="auth-wrapper">
+            {{#if exitTo}}
+				<a class="close" href="{{exitTo}}"></a>
+            {{/if}}
 
-        {{{content}}}
+			{{!-- TODO: use i18n for messages once it's set up (SOC-526) --}}
 
-        {{#if footer }}
-			<footer class="auth-footer">{{{footer}}}</footer>
-        {{/if}}
+            {{#unless hideHeader }}
+				<header class="auth-header">Welcome Back!</header>
+            {{/unless}}
+
+            {{{content}}}
+
+            {{#unless hideFooter }}
+				<footer class="auth-footer">Don\'t have an account? <a href="#">Register now</a></footer>
+            {{/unless}}
+        </div>
     </body>
 </html>
