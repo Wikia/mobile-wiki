@@ -30,9 +30,10 @@ interface HeliosResponse {
 }
 
 interface getContext {
+	title       : string;
 	hideHeader? : boolean;
 	hideFooter? : boolean;
-	exitTo? : string;
+	exitTo?     : string;
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -77,7 +78,8 @@ export function get (request: Hapi.Request, reply: any): void {
 	}
 
 	context = {
-		exitTo: redirectUrl
+		exitTo: redirectUrl,
+		title: 'Login'
 	};
 
 	return reply.view('login', context, {

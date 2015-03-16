@@ -119,7 +119,12 @@ unauthenticatedRoutes = [
 		method: 'GET',
 		path: '/breadcrumb',
 		handler: require('./facets/operations/generateCSRFView')
-	}
+	},
+	{
+		method: 'GET',
+		path: '/join',
+		handler: require('./facets/auth/join')
+	},
 ];
 
 articlePagePaths = [
