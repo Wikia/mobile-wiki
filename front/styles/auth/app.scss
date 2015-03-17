@@ -1,79 +1,19 @@
-@import "../../vendor/wikia-style-guide/dist/css/main.css";
-@import "../../vendor/wikia-style-guide/src/scss/lib/_settings.scss";
-@import 'landing-page';
+// compiled style guide css and scss variables
+@import '../../vendor/wikia-style-guide/dist/css/main.css';
+@import '../../vendor/wikia-style-guide/src/scss/lib/_settings.scss';
 
-body {
-	background-color: $color-blue-dark;
-	background-image: url('/front/images/faniverse-bg-544.png');
-	background-position: center center;
-	background-repeat: no-repeat;
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100vw;
-	justify-content: flex-end;
-	margin: auto;
-}
+// base
+@import 'base/anchors';
+@import 'base/body';
+@import 'base/buttons';
 
-a {
-	color: inherit;
-}
+// components
+@import 'component/close';
 
-button, a.button {
-	font-weight: bold;
-	text-transform: uppercase;
-	width: 100%;
-}
+// layout
+@import 'layout/content';
+@import 'layout/footer';
+@import 'layout/header';
 
-.close {
-	color: #FFF;
-	font-size: 25px;
-	font-weight: lighter;
-	line-height: 15px;
-	position: absolute;
-	right: 10px;
-	transform: rotate(45deg);
-	top: 10px;
-
-	&:after {
-		content: '+';
-	}
-}
-
-.auth-header, .auth-footer {
-	color: $color-white;
-	text-align: center;
-}
-
-.auth-header {
-	font-size: 1.125rem;
-	line-height: 22px;
-	padding: 24px;
-}
-
-.auth-footer {
-	color: #FFFFFF;
-	font-size: .75rem;
-	letter-spacing: 1.25px;
-	line-height: 18px;
-	padding: 15px;
-
-	a {
-		color: inherit;
-		text-transform: uppercase;
-	}
-}
-
-.auth-content {
-	background-color: $color-white;
-	// stick the footer to the bottom
-	flex: 1;
-	padding: 18px;
-}
-
-@media(min-width: 550px) {
-
-	body {
-		background-image: url('/front/images/faniverse-bg-768.png');
-	}
-}
+// modules
+@import 'module/landing-page';
