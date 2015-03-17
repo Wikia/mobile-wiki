@@ -5,7 +5,7 @@ import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');
-
+import crypto = require('crypto');
 
 var cachingTimes = {
 	enabled: false,
@@ -14,11 +14,30 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.default
 };
 
+function verifyMwHash (parserOutput: string, mwHash: string) {
+	var hmac = crypto.createHmac('sha1', localSettings.mwPreviewSalt),
+		computedHash = hmac.update(parserOutput).digest('hex');
+
+	return (computedHash === mwHash);
+}
+
 function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	var path: string = request.path,
 		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host);
 
-	if (path === '/' || path === '/wiki/') {
+	if (path === '/editor_preview/') {
+		if (!verifyMwHash(request.payload.parserOutput, request.payload.mwHash)) {
+			reply.redirect(localSettings.redirectUrlOnNoData);
+			return;
+		}
+
+		Article.getPreview({
+			wikiDomain: wikiDomain,
+			title: request.payload.title
+		}, JSON.parse(request.payload.parserOutput), (error: any, result: any = {}) => {
+			onArticleResponse(request, reply, error, result);
+		});
+	} else if (path === '/' || path === '/wiki/') {
 		Article.getWikiVariables(wikiDomain, (error: any, wikiVariables: any) => {
 			if (error) {
 				// TODO check error.statusCode and react accordingly

@@ -74,7 +74,7 @@ export function getData (params: ArticleRequestParams, callback: Function, getWi
 				article: any,
 				wikiVariables: any = {};
 
-			// if promise is fullfilled - use resolved value, if it's not - use rejection reason
+			// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 			article = articlePromise.isFulfilled() ?
 				articlePromise.value() :
 				articlePromise.reason();
@@ -102,6 +102,33 @@ export function getFull (params: ArticleRequestParams, next: Function): void {
 			article: article || {}
 		});
 	}, true);
+}
+
+/**
+ * Handle preview page data generation
+ * @param {ArticleRequestParams} params
+ * @param {string} parserOutput
+ * @param {Function} next
+ */
+export function getPreview (params: ArticleRequestParams, parserOutput: any, next: Function): void {
+	getWikiVariables(params.wikiDomain, (error: any, wikiVariables: any) => {
+		var article = {
+			article: parserOutput,
+			adsContext: {},
+			details: {
+				id: 0,
+				title: params.title, //TODO: encode!!!!
+				revision: {},
+				type: 'article'
+			}
+		};
+
+		next(error, {
+			server: createServerData(),
+			wiki: wikiVariables || {},
+			article: article
+		});
+	});
 }
 
 /**
