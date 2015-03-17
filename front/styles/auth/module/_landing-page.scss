@@ -32,28 +32,19 @@
 	margin-bottom: 15px;
 
 	&:focus, &:hover {
-		background-color: #1A5EB8;
+		background-color: $color-blue-light;
 	}
 }
 
 .signup-provider-email {
 	background-color: transparent;
-	border-color: #fff;
+	border-color: $color-white;
 
 	&:focus, &:hover {
 		background-color: transparent;
-		border-color: #1A5EB8;
-		color: #1A5EB8;
+		border-color: $color-blue-light;
+		color: $color-blue-light;
 	}
-}
-
-ul, li {
-	margin: 0;
-	padding: 0;
-}
-
-ul {
-	list-style-type: none;
 }
 
 .sign-in-message {
