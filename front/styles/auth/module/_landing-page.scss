@@ -1,44 +1,19 @@
-body {
-	background-color: #062d50;
-}
-
-.signup-start {
-	background-image: url('/front/images/faniverse-bg-544.png');
-	background-position: center center;
-	background-repeat: no-repeat;
-	color: #fff;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	justify-content: flex-end;
-	margin: auto;
-	padding: 18px;
+.auth-options {
+	align-self: flex-end;
+	color: $color-white;
+	padding: 18px 18px 40px;
 	text-align: center;
 	width: 100%;
 }
 
-a {
-	color: inherit;
-}
-
-button {
-	font-weight: bold;
-	text-transform: uppercase;
-	width: 100%;
-}
-
-.auth-options {
-	align-self: flex-end;
-	padding-bottom: 22px;
-	width: 100%;
-}
-
 .register-message-wrapper {
+	color: $color-white;
 	display: flex;
 	flex: 1;
 	flex-direction: column;
 	height: 50%;
 	justify-content: center;
+	text-align: center;
 	width: 100%;
 }
 
@@ -57,28 +32,19 @@ button {
 	margin-bottom: 15px;
 
 	&:focus, &:hover {
-		background-color: #1A5EB8;
+		background-color: $color-blue-light;
 	}
 }
 
 .signup-provider-email {
 	background-color: transparent;
-	border-color: #fff;
+	border-color: $color-white;
 
 	&:focus, &:hover {
 		background-color: transparent;
-		border-color: #1A5EB8;
-		color: #1A5EB8;
+		border-color: $color-blue-light;
+		color: $color-blue-light;
 	}
-}
-
-ul, li {
-	margin: 0;
-	padding: 0;
-}
-
-ul {
-	list-style-type: none;
 }
 
 .sign-in-message {
@@ -96,11 +62,4 @@ ul {
 
 .sign-in, .sign-in-message {
 	font-size: 0.75rem;
-}
-
-@media(min-width: 550px) {
-
-	.signup-start {
-		background-image: url('/front/images/faniverse-bg-768.png');
-	}
 }

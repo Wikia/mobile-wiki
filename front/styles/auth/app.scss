@@ -1,2 +1,21 @@
-@import "../../vendor/wikia-style-guide/dist/css/main.css";
-@import 'landing-page';
+// compiled style guide css and scss variables
+@import '../../vendor/wikia-style-guide/dist/css/main.css';
+@import '../../vendor/wikia-style-guide/src/scss/lib/_settings.scss';
+
+// base
+@import 'base/anchors';
+@import 'base/body';
+@import 'base/buttons';
+@import 'base/lists';
+
+// components
+@import 'component/close';
+
+// layout
+@import 'layout/content';
+@import 'layout/footer';
+@import 'layout/header';
+@import 'layout/splash';
+
+// modules
+@import 'module/landing-page';
