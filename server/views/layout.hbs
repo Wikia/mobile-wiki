@@ -67,6 +67,13 @@
 			{{{content}}}
 		</div>
 
+        <!--
+        Ember must render out to a specific div above the scripts, otherwise
+        Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
+        DO NOT REMOVE THE FOLLOWING LINE:
+        -->
+        <div id="ember-container"></div>
+
 		<!-- build:js /front/vendor/main.js -->
 			<script src="/front/vendor/script.js/dist/script.js"></script>
 			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
