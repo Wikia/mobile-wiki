@@ -1,0 +1,65 @@
+.auth-options {
+	align-self: flex-end;
+	color: $color-white;
+	padding: 18px 18px 40px;
+	text-align: center;
+	width: 100%;
+}
+
+.register-message-wrapper {
+	color: $color-white;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	height: 50%;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+}
+
+.register-message {
+	display: table-cell;
+	vertical-align: middle;
+
+	p {
+		margin-bottom: 15px;
+	}
+}
+
+.signup-provider-facebook {
+	background-color: #38528a;
+	border: none;
+	margin-bottom: 15px;
+
+	&:focus, &:hover {
+		background-color: $color-blue-light;
+	}
+}
+
+.signup-provider-email {
+	background-color: transparent;
+	border-color: $color-white;
+
+	&:focus, &:hover {
+		background-color: transparent;
+		border-color: $color-blue-light;
+		color: $color-blue-light;
+	}
+}
+
+.sign-in-message {
+	display: inline-block;
+	margin-bottom: 0;
+	padding-right: 1.5rem;
+	text-align: right;
+}
+
+.sign-in {
+	font-weight: bold;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+.sign-in, .sign-in-message {
+	font-size: 0.75rem;
+}

@@ -29,6 +29,14 @@ interface HeliosResponse {
 	'error_description'? : string;
 }
 
+interface getContext {
+	title        : string;
+	hideHeader?  : boolean;
+	hideFooter?  : boolean;
+	exitTo?      : string;
+	bodyClasses? : string;
+}
+
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
 	Wreck.get(localSettings.helios.host + '/token?' + qs.stringify({
 		'grant_type'    : 'password',
@@ -63,11 +71,19 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 
 
 export function get (request: Hapi.Request, reply: any): void {
+	var context: getContext,
+		redirectUrl: string = request.query.redirect || '/';
+
 	if (request.auth.isAuthenticated) {
-		return reply.redirect(request.query.redirect || '/');
+		return reply.redirect(redirectUrl);
 	}
 
-	return reply.view('login', null, {
+	context = {
+		exitTo: redirectUrl,
+		title: 'Login'
+	};
+
+	return reply.view('login', context, {
 		layout: 'wikia-static'
 	});
 };
