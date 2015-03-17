@@ -7,20 +7,20 @@
 		<title>{{{title}}}</title>
 		<link rel="stylesheet" href="/front/styles/auth/app.css">
 	</head>
-	<body class="auth">
+	<body class="auth {{bodyClasses}}">
 		{{#if exitTo}}
 		<a class="close" href="{{exitTo}}"></a>
 		{{/if}}
 
 		{{#unless hideHeader }}
 		{{!-- TODO: use i18n for messages once it's set up (SOC-526) --}}
-		<header class="auth-header">Welcome Back!</header>
+		<header class="auth-header splash splash-top">Welcome Back!</header>
 		{{/unless}}
 
 		{{{content}}}
 
 		{{#unless hideFooter }}
-		<footer class="auth-footer">Don\'t have an account? <a href="#">Register now</a></footer>
+		<footer class="auth-footer splash splash-bottom">Don\'t have an account? <a href="#">Register now</a></footer>
 		{{/unless}}
 	</body>
 </html>

@@ -1,11 +1,12 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 interface getContext {
-	title       : string;
-	loginRoute  : string;
-	hideHeader? : boolean;
-	hideFooter? : boolean;
-	exitTo?     : string;
+	title        : string;
+	loginRoute   : string;
+	hideHeader?  : boolean;
+	hideFooter?  : boolean;
+	exitTo?      : string;
+	bodyClasses? : string;
 }
 
 function get (request: Hapi.Request, reply: any): void {
@@ -21,7 +22,8 @@ function get (request: Hapi.Request, reply: any): void {
 		loginRoute: '/login',
 		hideHeader: true,
 		hideFooter: true,
-		exitTo: redirectUrl
+		exitTo: redirectUrl,
+		bodyClasses: 'splash'
 	};
 
 	return reply.view(

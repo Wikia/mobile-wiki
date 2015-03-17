@@ -30,10 +30,11 @@ interface HeliosResponse {
 }
 
 interface getContext {
-	title       : string;
-	hideHeader? : boolean;
-	hideFooter? : boolean;
-	exitTo?     : string;
+	title        : string;
+	hideHeader?  : boolean;
+	hideFooter?  : boolean;
+	exitTo?      : string;
+	bodyClasses? : string;
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
