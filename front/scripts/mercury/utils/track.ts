@@ -153,17 +153,17 @@ module Mercury.Utils {
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
 	export function trackPageView (adsContext: any) {
-		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
+		var trackers: any = Mercury.Modules.Trackers;
 
 		if (M.prop('queryParams.noexternals')) {
 			return;
 		}
 
 		Object.keys(trackers).forEach(function (tracker: string) {
-			var trackerInstance = new trackers[tracker]();
+			var trackerInstance: TrackerInstance = new trackers[tracker]();
 
 			if (trackerInstance && trackerInstance.trackPageView) {
-				Em.Logger.info('Track pageView:', tracker);
+				console.info('Track pageView:', tracker);
 				trackerInstance.trackPageView(trackerInstance.usesAdsContext ? adsContext : context);
 			}
 		});

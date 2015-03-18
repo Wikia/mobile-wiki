@@ -47,7 +47,7 @@ module Mercury.Modules.Trackers {
 				threshold: 500,
 				eventHandler: (data: ScrollDepthEventData): void => {
 					if (Math.random() * 100 <= this.scrollDepthSample) {
-						Em.Logger.info('Sending scroll depth tracking');
+						console.info('Sending scroll depth tracking');
 						this.gaTracker.trackAds.apply(this.gaTracker, [
 							data.eventCategory,
 							data.eventAction,
