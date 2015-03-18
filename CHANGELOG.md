@@ -1,3 +1,6 @@
+## release-49 (2015-03-18 16:01)
+* Fix for not exporting page view module into Ads.ts
+
 ## release-47 (2015-03-18 14:03)
 * [CONCF-72](https://wikia-inc.atlassian.net/browse/CONCF-72) Increment adLogicPageViewCounter on ads reload
 * [CONCF-220](https://wikia-inc.atlassian.net/browse/CONCF-220) CONCF- 220 Extend full Krux to Mercury
