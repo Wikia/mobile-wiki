@@ -8,9 +8,7 @@
 // base
 @import 'base/anchors';
 @import 'base/lists';
-
 // components
-@import 'component/close';
 
 // layout
 @import 'layout/body';
@@ -20,6 +18,7 @@
 
 // modules
 @import 'module/buttons';
+@import 'module/close';
 @import 'module/landing-page';
 
 // theme
