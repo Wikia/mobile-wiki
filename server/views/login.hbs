@@ -1,10 +1,17 @@
 <section class="auth-content">
     <span>{{json error}}</span>
     <form id="loginForm" action="" method="POST">
-        <input type="text" name="username" id="loginUsername" placeholder="Your username" required />
-        <input type="password" name="password" id="loginPassword" placeholder="Your pw" required />
+        <div class="input-container">
+            <label class="floating-label" for="loginUsername">Username</label>
+            <input type="text" name="username" id="loginUsername" required />
+        </div>
+        <div class="input-container">
+            <label class="floating-label" for="loginPassword">Password</label>
+            <input class="sign-in-password" type="password" name="password" id="loginPassword" required />
+        </div>
+        <a class="forgot-password" href="#">Forgot password?</a>
         <input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
         <input type="checkbox" name="remember"> Remember me<br>
-        <button id="loginSubmit" type="submit">Log in</button>
+        <button class="submit-button" id="loginSubmit" type="submit">Sign in</button>
     </form>
 </section>
