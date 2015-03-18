@@ -2,12 +2,12 @@
     <span>{{json error}}</span>
     <form id="loginForm" action="" method="POST">
         <div class="input-container">
-            <label class="floating-label" for="loginUsername">Username</label>
             <input type="text" name="username" id="loginUsername" required />
+            <label class="floating-label" for="loginUsername">Username</label>
         </div>
         <div class="input-container">
-            <label class="floating-label" for="loginPassword">Password</label>
             <input class="sign-in-password" type="password" name="password" id="loginPassword" required />
+            <label class="floating-label" for="loginPassword">Password</label>
         </div>
         <a class="forgot-password" href="#">Forgot password?</a>
         <input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
