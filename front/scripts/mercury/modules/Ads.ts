@@ -1,5 +1,9 @@
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../baseline/mercury.d.ts" />
+/// <reference path='../../../../typings/jquery/jquery.d.ts' />
+/// <reference path='../../baseline/mercury.d.ts' />
+/// <reference path='./Trackers/Krux.ts' />
+/// <reference path='./Trackers/GoogleAnalytics.ts' />
+/// <reference path='../../baseline/mercury.ts' />
+/// <reference path='../utils/load.ts' />
 
 'use strict';
 
@@ -16,6 +20,10 @@ module Mercury.Modules {
 		private adEngineModule: any;
 		private adContextModule: any;
 		private adConfigMobile: any;
+		private adLogicPageViewCounterModule: {
+			get (): number;
+			increment (): number;
+		};
 		private isLoaded = false;
 
 		/**
@@ -35,7 +43,7 @@ module Mercury.Modules {
 		 * @param adsUrl Url for the ads script
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
-		public init (adsUrl: string, callback: () => void) {
+		public init (adsUrl: string, callback: () => void): void {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
 			// Load the ads code from MW
@@ -45,18 +53,26 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adEngine',
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.adConfigMobile',
+						'ext.wikia.adEngine.adLogicPageViewCounter',
 						'wikia.krux'
-					], (adEngineModule: any, adContextModule: any, adConfigMobile: any, krux: any) => {
+					], (
+						adEngineModule: any,
+						adContextModule: any,
+						adConfigMobile: any,
+						adLogicPageViewCounterModule: any,
+						krux: any
+					) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
 						this.adConfigMobile = adConfigMobile;
+						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 						window.Krux = krux || [];
 						this.isLoaded = true;
 						callback.call(this);
 						this.kruxTrackFirstPage();
 					});
 				} else {
-					Em.Logger.error('Looks like ads asset has not been loaded');
+					console.error('Looks like ads asset has not been loaded');
 				}
 			});
 		}
@@ -88,7 +104,7 @@ module Mercury.Modules {
 			KruxTracker.trackPageView();
 		}
 
-		private setContext (adsContext: any) {
+		private setContext (adsContext: any): void {
 			this.adsContext = adsContext ? adsContext : null;
 		}
 
@@ -96,11 +112,13 @@ module Mercury.Modules {
 		 * Reloads the ads with the provided adsContext
 		 * @param adsContext
 		 */
-		public reload (adsContext: any) {
+		public reload (adsContext: any): void {
 			// Store the context for external reuse
 			this.setContext(adsContext);
+
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
+				this.adLogicPageViewCounterModule.increment();
 				// We need a copy of adSlots as .run destroys it
 				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mercury');
 			}
