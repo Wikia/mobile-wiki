@@ -26,6 +26,7 @@ input.sign-in-password {
 	pointer-events: none;
 	position: absolute;
 	top: 1.25rem;
+	transition: font-size ease-in 0.15s, top ease-in 0.15s;
 }
 
 input[type="text"]:focus  + .floating-label,
