@@ -2,20 +2,28 @@
 @import '../../vendor/wikia-style-guide/dist/css/main.css';
 @import '../../vendor/wikia-style-guide/src/scss/lib/_settings.scss';
 
+// configuration
+@import 'settings';
+
 // base
 @import 'base/anchors';
-@import 'base/body';
-@import 'base/buttons';
 @import 'base/lists';
 
 // components
 @import 'component/close';
 
 // layout
+@import 'layout/body';
 @import 'layout/content';
 @import 'layout/footer';
 @import 'layout/header';
-@import 'layout/splash';
 
 // modules
+@import 'module/buttons';
 @import 'module/landing-page';
+
+// theme
+@import 'theme/auth-footer';
+@import 'theme/auth-header';
+@import 'theme/body';
+@import 'theme/splash';
