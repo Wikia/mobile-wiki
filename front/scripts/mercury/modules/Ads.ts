@@ -1,7 +1,7 @@
 /// <reference path='../../../../typings/jquery/jquery.d.ts' />
 /// <reference path='../../baseline/mercury.d.ts' />
-/// <reference path='./trackers/Krux.ts' />
-/// <reference path='./trackers/GoogleAnalytics.ts' />
+/// <reference path='./Trackers/Krux.ts' />
+/// <reference path='./Trackers/GoogleAnalytics.ts' />
 /// <reference path='../../baseline/mercury.ts' />
 /// <reference path='../utils/load.ts' />
 
