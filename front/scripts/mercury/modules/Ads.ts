@@ -61,6 +61,7 @@ module Mercury.Modules {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
 						this.adConfigMobile = adConfigMobile;
+						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 						window.Krux = krux || [];
 						this.isLoaded = true;
 						callback.call(this);
