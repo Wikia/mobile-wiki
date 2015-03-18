@@ -4,7 +4,7 @@
 'use strict';
 
 interface Window {
-	gaTrackAdEvent: any
+	gaTrackAdEvent: any;
 }
 
 module Mercury.Modules {
@@ -49,7 +49,8 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adEngine',
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.adConfigMobile',
-						'ext.wikia.adEngine.adLogicPageViewCounter'
+						'ext.wikia.adEngine.adLogicPageViewCounter',
+						'wikia.krux'
 					], (
 						adEngineModule: any,
 						adContextModule: any,
@@ -59,9 +60,10 @@ module Mercury.Modules {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
 						this.adConfigMobile = adConfigMobile;
-						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
+						window.Krux = krux || [];
 						this.isLoaded = true;
 						callback.call(this);
+						this.kruxTrackFirstPage();
 					});
 				} else {
 					Em.Logger.error('Looks like ads asset has not been loaded');
@@ -83,6 +85,17 @@ module Mercury.Modules {
 				GATracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 				GATracker.trackAds.apply(GATracker, arguments);
 			}
+		}
+
+		/**
+		 * Function fired when Krux is ready (see init()).
+		 * Calls the trackPageView() function on Krux instance.
+		 * load() in krux.js (/app) automatically detect that
+		 * there is a first page load (needs to load Krux scripts).
+		 */
+		private kruxTrackFirstPage (): void {
+			var KruxTracker = new Mercury.Modules.Trackers.Krux();
+			KruxTracker.trackPageView();
 		}
 
 		private setContext (adsContext: any): void {

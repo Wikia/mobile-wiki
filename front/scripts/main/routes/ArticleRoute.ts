@@ -38,7 +38,7 @@ App.ArticleRoute = Em.Route.extend({
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition) {
 			transition.abort();
-			Em.Logger.warn(error);
+			Em.Logger.warn(error.stack);
 			return true;
 		},
 
