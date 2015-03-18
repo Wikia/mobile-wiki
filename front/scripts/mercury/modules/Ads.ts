@@ -55,7 +55,8 @@ module Mercury.Modules {
 						adEngineModule: any,
 						adContextModule: any,
 						adConfigMobile: any,
-						adLogicPageViewCounterModule: any
+						adLogicPageViewCounterModule: any,
+						krux: any
 					) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
