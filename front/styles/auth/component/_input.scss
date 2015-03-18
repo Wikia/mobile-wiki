@@ -11,8 +11,9 @@ input[type="password"]:focus {
 	border-bottom: 1px solid $color-blue-gray;
 	border-radius: 0;
 	box-shadow: none;
+	height: auto;
 	margin-top: 0;
-	padding: 1.25rem 0 0;
+	padding: 1.25rem 0 0.5rem;
 }
 
 input.sign-in-password {
@@ -24,7 +25,7 @@ input.sign-in-password {
 	padding: 0;
 	pointer-events: none;
 	position: absolute;
-	top: 0.75rem;
+	top: 1.25rem;
 }
 
 input[type="text"]:focus  + .floating-label,
