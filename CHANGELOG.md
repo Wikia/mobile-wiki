@@ -1,3 +1,15 @@
+## release-47 (2015-03-18 14:03)
+* [CONCF-72](https://wikia-inc.atlassian.net/browse/CONCF-72) Increment adLogicPageViewCounter on ads reload
+* [CONCF-220](https://wikia-inc.atlassian.net/browse/CONCF-220) CONCF- 220 Extend full Krux to Mercury
+* gulp-folders-sass: Folderify our gulp sass task
+* [CONCF-81](https://wikia-inc.atlassian.net/browse/CONCF-81) CONCF-81 fix M.prop instead of Mercury.__state
+* state-accessor: Replace all instances of _state access with getters/setters.
+* [CONCF-81](https://wikia-inc.atlassian.net/browse/CONCF-81) Enable Krux on Mercury
+* troubleshooting-update-about-debian: Update README.md
+* [CONCF-78](https://wikia-inc.atlassian.net/browse/CONCF-78) CONCF-78 add delay before showing spinner on page loading
+* [CONCF-144](https://wikia-inc.atlassian.net/browse/CONCF-144) variable name change
+* [CONCF-144](https://wikia-inc.atlassian.net/browse/CONCF-144) Labels are missing for some languages
+
 ## release-45 (2015-03-05 19:20)
 * fix-statusCode-of-undefined: Check for error before trying to access response which can be undefined
 * search-results-fix: The search API was returning incorrect code when no results were found
