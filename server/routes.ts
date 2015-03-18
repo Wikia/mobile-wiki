@@ -61,7 +61,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'POST',
 		path: '/editor_preview/',
-		handler: require('./facets/showArticle')
+		handler: require('./facets/editorPreview')
 	}
 ];
 

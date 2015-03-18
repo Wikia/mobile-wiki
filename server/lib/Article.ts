@@ -105,33 +105,6 @@ export function getFull (params: ArticleRequestParams, next: Function): void {
 }
 
 /**
- * Handle preview page data generation
- * @param {ArticleRequestParams} params
- * @param {string} parserOutput
- * @param {Function} next
- */
-export function getPreview (params: ArticleRequestParams, parserOutput: any, next: Function): void {
-	getWikiVariables(params.wikiDomain, (error: any, wikiVariables: any) => {
-		var article = {
-			article: parserOutput,
-			adsContext: {},
-			details: {
-				id: 0,
-				title: params.title, //TODO: encode!!!!
-				revision: {},
-				type: 'article'
-			}
-		};
-
-		next(error, {
-			server: createServerData(),
-			wiki: wikiVariables || {},
-			article: article
-		});
-	});
-}
-
-/**
  * Get WikiVariables
  * @param {string} wikiDomain
  * @param {Function} next
