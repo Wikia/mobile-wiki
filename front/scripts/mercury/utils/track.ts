@@ -115,7 +115,7 @@ module Mercury.Utils {
 			tracker: Mercury.Modules.Trackers.Internal,
 			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
 
-		if (Em.get(Mercury, '_state.queryParams.noexternals')) {
+		if (M.prop('queryParams.noexternals')) {
 			return;
 		}
 
@@ -155,7 +155,7 @@ module Mercury.Utils {
 	export function trackPageView (adsContext: any) {
 		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
 
-		if (Em.get(Mercury, '_state.queryParams.noexternals')) {
+		if (M.prop('queryParams.noexternals')) {
 			return;
 		}
 

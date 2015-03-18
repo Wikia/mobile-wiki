@@ -14,12 +14,12 @@
 		{{/if}}
 
 		{{#if isRtl}}
-			<!-- build:css /front/styles/app.rtl.css -->
-			<link rel="stylesheet" href="/front/styles/app.rtl.css">
+			<!-- build:css /front/styles/main/app.rtl.css -->
+			<link rel="stylesheet" href="/front/styles/main/app.rtl.css">
 			<!-- endbuild -->
 		{{else}}
-			<!-- build:css /front/styles/app.css -->
-			<link rel="stylesheet" href="/front/styles/app.css">
+			<!-- build:css /front/styles/main/app.css -->
+			<link rel="stylesheet" href="/front/styles/main/app.css">
 			<!-- endbuild -->
 		{{/if}}
 
@@ -27,24 +27,26 @@
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
-		<style><!-- @include ../../www/front/styles/baseline.css --></style>
+		<style><!-- @include ../../www/front/styles/main/baseline.css --></style>
 
 		<script>
 			<!-- @include ../../www/front/scripts/baseline.js -->
-			M.provide('_state.translations.{{#if wiki.language.user}}{{wiki.language.user}}{{else}}en{{/if}}', {{{translations wiki.language.user}}});
-			M.provide('_state.firstPage', true);
-			M.provide('_state.queryParams', {{{json queryParams}}});
+			{{#if server.mediawikiDomain}}
+			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			{{/if}}
+			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
+			M.prop('environment', '{{{server.environment}}}');
+			M.prop('firstPage', true, true);
+			M.prop('queryParams', {{{json queryParams}}});
+			M.prop('tracking', {{{json tracking}}});
+			M.prop('translations', {{{json (translations wiki.language.user)}}});
+			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
+			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
-			M.provide('apiBase', '{{{server.apiBase}}}');
-			M.provide('environment', '{{{server.environment}}}');
 			M.provide('wiki', {{{json wiki}}});
 			M.provide('article', {{{json article}}});
-			M.provide('tracking', {{{trackingJson}}});
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
-			{{/if}}
-			{{#if server.mediawikiDomain}}
-			M.provide('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
 		</script>
 
