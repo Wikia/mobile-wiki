@@ -1,4 +1,4 @@
-function i18nHelper (key, options) {
+function i18nHelper (key: string, options: any): string {
 	var translateWithCache: Function = this.i18n.translateWithCache,
 		params: {[key: string]: string} = {},
 		namespace = '',
