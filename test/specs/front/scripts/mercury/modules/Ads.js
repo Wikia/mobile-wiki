@@ -1,4 +1,9 @@
-QUnit.module('Ads tests');
+QUnit.module('Ads tests', {
+	setup: function () {
+		M.prop('resourcesUrl', 'http://exampleResourcesUrl.com/');
+		M.prop('adsUrl', 'http://exampleAdsUrl.com/')
+	}
+});
 
 QUnit.test('Returns ads instance', function () {
 	ok(Mercury.Modules.Ads);
@@ -8,7 +13,8 @@ QUnit.test('Returns ads instance', function () {
 QUnit.test('Init method works', function() {
 	var calledURL,
 		callbackIsCalled = false,
-		testUrl = 'http://example.com/',
+		testResourcesUrl = 'http://exampleResourcesUrl.com/',
+		testAdsUrl = 'http://exampleAdsUrl.com/',
 		instance = Mercury.Modules.Ads.getInstance(),
 		loadStub = this.stub(M, 'load', function(url, callback) {
 			calledURL = url;
@@ -18,11 +24,12 @@ QUnit.test('Init method works', function() {
 		callback();
 	};
 
-	instance.init(testUrl, function () {
+	instance.init(function () {
 		callbackIsCalled = true;
 	});
 	delete(require);
-	equal(calledURL, testUrl);
+	equal(calledURL[0], testResourcesUrl);
+	equal(calledURL[1], testAdsUrl);
 	equal(callbackIsCalled, true);
 });
 
