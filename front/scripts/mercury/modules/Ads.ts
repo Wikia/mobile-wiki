@@ -52,7 +52,7 @@ module Mercury.Modules {
 						callback.call(this);
 					});
 				} else {
-					Em.Logger.error('Looks like modil has not been loaded');
+					Em.Logger.error('Looks like modules have not been loaded');
 				}
 			});
 		}

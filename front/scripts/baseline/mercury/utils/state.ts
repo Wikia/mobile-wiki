@@ -1,5 +1,6 @@
 /// <reference path='./isPrimitive.ts' />
 /// <reference path='../../mercury.ts' />
+/// <reference path='../../mw.ts' />
 
 interface ObjectProperties {
 	configurable?: boolean;
