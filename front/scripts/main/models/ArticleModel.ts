@@ -91,7 +91,8 @@ App.ArticleModel.reopenClass({
 
 	getPreloadedData: function () {
 		var article = Mercury.article,
-			adsInstance: Mercury.Modules.Ads;
+			adsInstance: Mercury.Modules.Ads,
+			sitewideDisableAdsOnMercury = Em.get(Mercury, 'wiki.sitewideDisableAdsOnMercury');
 
 		M.prop('firstPage', false);
 
@@ -99,7 +100,7 @@ App.ArticleModel.reopenClass({
 		article.content = $('.article-content').html();
 
 		// Setup ads
-		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals')) {
+		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !sitewideDisableAdsOnMercury) {
 			adsInstance = Mercury.Modules.Ads.getInstance();
 			adsInstance.init((): void => {
 				adsInstance.reload(article.adsContext);
