@@ -52,11 +52,14 @@ var plugins = [
 		}
 	},
 	{
-		register: require('./i18n-hapi'),
+		register: require('hapi-i18next'),
 		options: {
 			i18nextOptions: {
 				resGetPath: path.join(__dirname, '..', 'front/locales/__lng__/__ns__.json'),
-				ns: 'main'
+				ns: 'main',
+				useCookie: true,
+				cookieName: 'lang',
+				detectLngFromHeaders: true
 			}
 		}
 	}
