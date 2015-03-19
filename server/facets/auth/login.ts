@@ -29,7 +29,7 @@ interface HeliosResponse {
 	'error_description'? : string;
 }
 
-interface getContext {
+interface LoginViewContext {
 	title        : string;
 	hideHeader?  : boolean;
 	hideFooter?  : boolean;
@@ -71,7 +71,7 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 
 
 export function get (request: Hapi.Request, reply: any): void {
-	var context: getContext,
+	var context: LoginViewContext,
 		redirectUrl: string = request.query.redirect || '/';
 
 	if (request.auth.isAuthenticated) {

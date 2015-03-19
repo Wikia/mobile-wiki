@@ -1,6 +1,6 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
-interface getContext {
+interface JoinViewContext {
 	title        : string;
 	loginRoute   : string;
 	hideHeader?  : boolean;
@@ -10,7 +10,7 @@ interface getContext {
 }
 
 function get (request: Hapi.Request, reply: any): void {
-	var context: getContext,
+	var context: JoinViewContext,
 		redirectUrl: string = request.query.redirect || '/';
 
 	if (request.auth.isAuthenticated) {
