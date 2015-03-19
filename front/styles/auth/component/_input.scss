@@ -30,14 +30,11 @@ input.sign-in-password {
 }
 
 input[type="text"]:focus  + .floating-label,
-input[type="password"]:focus + .floating-label {
-	font-size: 0.75rem;
-	top: 0;
-}
-
+input[type="password"]:focus + .floating-label,
 input[type="text"]:valid  + .floating-label,
 input[type="password"]:valid + .floating-label {
-	display: none;
+	font-size: 0.75rem;
+	top: 0;
 }
 
 input[type="text"]:valid:focus  + .floating-label,
