@@ -38,7 +38,7 @@ module Mercury.Modules {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
 			// Load the resources and ads code from MW
-			M.load([M.prop('resourcesUrl'), M.prop('adsUrl')], () => {
+			M.load(M.prop('adsUrl'), () => {
 				if (require) {
 					require([
 						'ext.wikia.adEngine.adEngine',
@@ -52,7 +52,7 @@ module Mercury.Modules {
 						callback.call(this);
 					});
 				} else {
-					Em.Logger.error('Looks like modules have not been loaded');
+					Em.Logger.error('Looks like Ads modules have not been loaded');
 				}
 			});
 		}

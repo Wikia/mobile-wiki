@@ -33,7 +33,6 @@
 			<!-- @include ../../www/front/scripts/baseline.js -->
 			{{#if server.mediawikiDomain}}
 			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
-			M.prop('resourcesUrl', '//{{server.mediawikiDomain}}/__load/-/cb={{wiki.cacheBuster}}&only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride');
 			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
@@ -87,6 +86,8 @@
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
 		<!-- endbuild -->
+
+		<script src="//{{server.mediawikiDomain}}/__load/-/cb={{wiki.cacheBuster}}&only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride"></script>
 
 		<!-- build:js /front/scripts/combined.js -->
 			<script src="/front/templates/main.js"></script>
