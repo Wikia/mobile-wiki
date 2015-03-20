@@ -140,3 +140,27 @@ export function getArticle (params: ArticleRequestParams, wikiVariables: any, ne
 		});
 	}, false);
 }
+
+export function getArticleRandomTitle (wikiDomain: string, next: Function): void {
+	var articleRequest = new MediaWiki.ArticleRequest(wikiDomain);
+
+	articleRequest
+		.randomTitle()
+		.then((result: any): void => {
+			var articleId: string,
+				pageData: { pageid: number; ns: number; title: string };
+
+			if (result.query && result.query.pages) {
+				articleId = Object.keys(result.query.pages)[0];
+				pageData = result.query.pages[articleId];
+
+				next(null, {
+					title: pageData.title
+				});
+			} else {
+				next(result.error, null);
+			}
+		}, (error: any): void => {
+			next(error, null);
+		});
+}
