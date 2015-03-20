@@ -1,5 +1,6 @@
 /// <reference path="./BaseTracker.ts" />
 /// <reference path="../../../../vendor/weppy/weppy.d.ts" />
+/// <reference path="../../../baseline/mercury/utils/state.ts" />
 'use strict';
 
 interface PerfTrackerParams {
@@ -26,6 +27,7 @@ module Mercury.Modules.Trackers {
 			this.defaultContext = {
 				skin: 'mercury',
 				'user-agent': window.navigator.userAgent,
+				env: M.prop('environment')
 			}
 			this.tracker.setOptions({
 				host: M.prop('weppyConfig').host,
