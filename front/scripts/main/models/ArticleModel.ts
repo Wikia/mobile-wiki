@@ -92,7 +92,7 @@ App.ArticleModel.reopenClass({
 	getPreloadedData: function () {
 		var article = Mercury.article,
 			adsInstance: Mercury.Modules.Ads,
-			instantGlobals = Wikia.InstantGlobals || [];
+			instantGlobals = Wikia.InstantGlobals || {};
 
 		M.prop('firstPage', false);
 
