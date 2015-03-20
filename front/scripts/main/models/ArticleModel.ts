@@ -2,7 +2,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/string.ts" />
 /// <reference path="../../mercury/modules/Ads.ts" />
-/// <reference path="../../mercury/modules/InstantGlobals.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
 interface Response {
@@ -92,7 +91,8 @@ App.ArticleModel.reopenClass({
 
 	getPreloadedData: function () {
 		var article = Mercury.article,
-			instantGlobals: Mercury.Modules.InstantGlobals;
+			adsInstance: Mercury.Modules.Ads,
+			sitewideDisableAdsOnMercury = Em.get(Mercury, 'wiki.sitewideDisableAdsOnMercury');
 
 		M.prop('firstPage', false);
 
@@ -100,9 +100,11 @@ App.ArticleModel.reopenClass({
 		article.content = $('.article-content').html();
 
 		// Setup ads
-		if (M.prop('resourcesUrl') && !M.prop('queryParams.noexternals')) {
-			instantGlobals = Mercury.Modules.InstantGlobals.getInstance();
-			instantGlobals.init(article);
+		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !sitewideDisableAdsOnMercury) {
+			adsInstance = Mercury.Modules.Ads.getInstance();
+			adsInstance.init((): void => {
+				adsInstance.reload(article.adsContext);
+			});
 		}
 
 		delete Mercury.article;
