@@ -7,12 +7,12 @@ function resetMercuryBaseline () {
 	var M = window.M;
 	// initalize firstPage to true, allow mutation
 	M.prop('firstPage', true, true);
-	M.prop('apiBase', '/api/v1');
+	M.prop('apiBase', '/api/v1', true);
 	M.prop('weppyConfig', {
 		host: '',
 		samplingRate: 1,
 		aggregationInterval: 1000
-	});
+	}, true);
 	M.provide('article.details', {
 		abstract: 'Test abstract',
 		comments: 99,
