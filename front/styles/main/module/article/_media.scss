@@ -1,24 +1,26 @@
-$gallery-thumb-size: 195px;
-
 .media-component {
 	margin: 40px 0;
 	text-align: center;
 
+	&.visible {
+		img {
+			animation: lazyImage .3s;
+			background: none;
+			height: auto;
+			width: auto;
+		}
+	}
+
 	img {
 		background: {
 			color: rgb(223,223,223);
-			image: url('../images/brackets.svg');
+			image: url('../../images/brackets.svg');
 			position: center;
 			repeat: no-repeat;
 			size: contain;
 		}
 		display: inline-block;
 		width: 100%;
-	}
-
-	.loaded {
-		animation: lazyImage .3s;
-		background: none;
 	}
 
 	.chevron {
@@ -73,11 +75,11 @@ figcaption {
 	}
 
 	img {
-		height: $gallery-thumb-size;
+		height: auto;
 		margin-right: 8px;
 		// Fixes iOS Safari repaint bug when scrolling through gallery
 		transform: translate3d(0, 0, 0);
-		width: $gallery-thumb-size;
+		width: 195px;
 	}
 
 	.gallery-video {
@@ -107,8 +109,6 @@ figcaption {
 
 		img {
 			margin-right: 6px;
-			width: auto;
-			height: auto;
 		}
 	}
 }
@@ -117,7 +117,7 @@ figcaption {
 .article-video::before,
 .comment-video::before {
 	background: {
-		image: url('../images/play.svg');
+		image: url('../../images/play.svg');
 		position: 10px 10px;
 		repeat: no-repeat;
 		size: 45px;
@@ -144,8 +144,10 @@ figcaption {
 		top: 0;
 	}
 
-	.loaded {
-		width: 100%;
+	&.visible {
+		img {
+			width: 100%;
+		}
 	}
 
 	figcaption {

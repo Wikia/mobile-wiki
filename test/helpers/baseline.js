@@ -5,8 +5,10 @@
 
 function resetMercuryBaseline () {
 	var M = window.M;
-	M.provide('_state.firstPage', true);
-	M.provide('_state.weppyConfig', {
+	// initalize firstPage to true, allow mutation
+	M.prop('firstPage', true, true);
+	M.prop('apiBase', '/api/v1');
+	M.prop('weppyConfig', {
 		host: '',
 		samplingRate: 1,
 		aggregationInterval: 1000

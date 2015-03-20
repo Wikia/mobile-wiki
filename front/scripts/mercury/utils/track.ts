@@ -115,7 +115,7 @@ module Mercury.Utils {
 			tracker: Mercury.Modules.Trackers.Internal,
 			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
 
-		if (Em.get(Mercury, '_state.queryParams.noexternals')) {
+		if (M.prop('queryParams.noexternals')) {
 			return;
 		}
 
@@ -153,9 +153,9 @@ module Mercury.Utils {
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
 	export function trackPageView (adsContext: any) {
-		var trackers: {[name: string]: TrackerInstance} = Em.get('Mercury.Modules.Trackers');
+		var trackers: any = Mercury.Modules.Trackers;
 
-		if (Em.get(Mercury, '_state.queryParams.noexternals')) {
+		if (M.prop('queryParams.noexternals')) {
 			return;
 		}
 
@@ -165,7 +165,7 @@ module Mercury.Utils {
 
 			if (typeof Tracker.prototype.trackPageView === 'function') {
 				instance = new Tracker();
-				Em.Logger.info('Track pageView:', tracker);
+				console.info('Track pageView:', tracker);
 				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 			}
 		});

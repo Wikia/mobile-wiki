@@ -39,7 +39,7 @@ export class SearchRequest {
 			query: query
 		});
 
-		return fetch(url);
+		return fetch(url, this.wikiDomain);
 	}
 }
 
@@ -70,7 +70,7 @@ export class WikiRequest {
 			method: 'getWikiVariables'
 		});
 
-		return fetch(url);
+		return fetch(url, this.wikiDomain);
 	}
 }
 
@@ -95,7 +95,7 @@ export class ArticleRequest {
 	 * @param redirect
 	 * @return {Promise<any>}
 	 */
-	fetch (title: string, redirect: string) {
+	article (title: string, redirect: string): Promise<any> {
 		var urlParams: any = {
 				controller: 'MercuryApi',
 				method: 'getArticle',
@@ -107,10 +107,10 @@ export class ArticleRequest {
 		}
 		url = createUrl(this.wikiDomain, 'wikia.php', urlParams);
 
-		return fetch(url);
+		return fetch(url, this.wikiDomain);
 	}
 
-	comments (articleId: number, page: number = 0) {
+	comments (articleId: number, page: number = 0): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getArticleComments',
@@ -118,7 +118,23 @@ export class ArticleRequest {
 			page: page
 		});
 
-		return fetch(url);
+		return fetch(url, this.wikiDomain);
+	}
+
+	/**
+	 * Get random article title
+	 *
+	 * @return {Promise<any>}
+	 */
+	randomTitle (): Promise<any> {
+		var url = createUrl(this.wikiDomain, 'api.php', {
+			action: 'query',
+			generator: 'random',
+			grnnamespace: 0,
+			format: 'json'
+		});
+
+		return fetch(url, this.wikiDomain);
 	}
 }
 
@@ -129,10 +145,11 @@ export class ArticleRequest {
  * @param redirects the number of redirects to follow, default 1
  * @return {Promise<any>}
  */
-export function fetch (url: string, redirects: number = 1): Promise<any> {
-	return new Promise((resolve: Function, reject: Function) => {
+export function fetch (url: string, host: string = '', redirects: number = 1): Promise<any> {
+	return new Promise((resolve: Function, reject: Function): void => {
 		Wreck.get(url, {
 			redirects: redirects,
+			headers: { 'Host': host },
 			timeout: localSettings.backendRequestTimeout,
 			json: true
 		}, (err: any, response: any, payload: any): void => {
@@ -143,18 +160,27 @@ export function fetch (url: string, redirects: number = 1): Promise<any> {
 				}, 'Error fetching url');
 
 				reject(err);
+			} else if (response.statusCode === 200) {
+				resolve(payload);
 			} else {
-				if (response.statusCode === 200) {
-					resolve(payload);
-				} else {
-					Logger.error({
-						url: url,
-						headers: response.headers,
-						statusCode: response.statusCode
-					}, 'Bad HTTP response');
-
-					reject(payload);
+				// When an empty response comes (for example 503 from Varnish) make it look same as the MediaWiki one
+				if (payload === null) {
+					payload = {
+						exception: {
+							message: 'Empty response',
+							code: response.statusCode,
+							details: null
+						}
+					};
 				}
+
+				Logger.error({
+					url: url,
+					headers: response.headers,
+					statusCode: response.statusCode
+				}, 'Bad HTTP response');
+
+				reject(payload);
 			}
 		});
 	});
@@ -172,7 +198,7 @@ export function createUrl (wikiDomain: string, path: string, params: any = {}): 
 	var qsAggregator: string[] = [],
 		queryParam: string;
 
-	Object.keys(params).forEach(function(key) {
+	Object.keys(params).forEach(function(key): void {
 		queryParam = (typeof params[key] !== 'undefined') ?
 			key + '=' + encodeURIComponent(params[key]) :
 			key;
@@ -180,5 +206,9 @@ export function createUrl (wikiDomain: string, path: string, params: any = {}): 
 		qsAggregator.push(queryParam);
 	});
 
+	// if mediawikiDomain is defined, override the wikiDomain
+	if (localSettings.mediawikiDomain) {
+		wikiDomain = localSettings.mediawikiDomain;
+	}
 	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 }

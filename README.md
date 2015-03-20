@@ -6,18 +6,23 @@
 * `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
 * `bower install` will install client dependencies
 * `tsd update` will update typings folder with ambient files
-* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `mediawikiHost`, `port` and `wikiFallback`.
-    The `mediawikiHost` should be set to your devbox name without 'dev-' prefix.
-    The `wikiFallback` is useful but is not obligatory.
+* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
+  * The devboxDomain must have your devbox name (without the dev- prefix) in it.
+  * The `wikiFallback` is useful but is not obligatory.
+  * If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
+  * If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
 
-    File should look like this:
+    File should look something like this:
 ``` javascript
     import baseLocalSettings = require('./localSettings.base');
     import Utils = require('../server/lib/Utils');
 
     var localSettings = baseLocalSettings.getSettings({
         wikiFallback: 'mediawiki119',
-        mediawikiHost: 'joe' #for dev-joe
+        devboxDomain: 'joe',
+        loggers: {
+            console: 'debug'
+        },
         port: 8000
     });
 
@@ -27,6 +32,7 @@
 
 ## Access Mercury
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
+$ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:8000/wiki/Gonzo"
 
 ##Live reload
 on dev environments livereload server runs that reload your web browser on any change in front folder
@@ -84,7 +90,27 @@ To test on your mobile device, connect both your development machine and your de
 
 ## Troubleshooting
 ### Errors while `npm install`
-So far, we've encouraged one error connected to compiling `libsass`. It happened on Ubuntu 12.04 (pretty old version but still a LTS version). The issue was connected to outdated g++ compiler. `libsass` requires version 4.8+ and by default Ubuntu 12.04 has 4.6 to update it go to your terminal and manually install g++-4.8:
+#### libsass
+So far, we've encountered one error connected to compiling `libsass`. It happened on Ubuntu 12.04 (pretty old version but still a LTS version). The issue was connected to outdated g++ compiler. `libsass` requires version 4.8+ and by default Ubuntu 12.04 has 4.6 to update it go to your terminal and manually install g++-4.8:
 `sudo apt-get remove g++-4.6`
 `sudo apt-get install g++-4.8`
 `sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++`
+#### Debian and its nodejs binary
+Debian (the issue was found on version: `Debian 3.16.7-ckt4-3 (2015-02-03)`) installs node.js interpreter binary as `nodejs` instead of `node` because of name conflicts with other applications. The `/usr/share/doc/nodejs/README.Debian` reads:
+> nodejs command
+> --------------
+> 
+> The upstream name for the Node.js interpreter command is "node".
+> In Debian the interpreter command has been changed to "nodejs".
+> 
+> This was done to prevent a namespace collision: other commands use the same name in their upstreams, such as ax25-node from the "node" package.
+> 
+> Scripts calling Node.js as a shell command must be changed to instead use the "nodejs" command.
+However, changing dependencies scripts does not sound right way. I suggest creating a symlink in `/usr/bin`:
+```sh
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+$ ls /usr/bin/ | grep node
+node
+node-gyp
+nodejs
+```

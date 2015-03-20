@@ -28,11 +28,11 @@ module Mercury.Modules.Trackers {
 				'user-agent': window.navigator.userAgent,
 			}
 			this.tracker.setOptions({
-				host: Mercury._state.weppyConfig.host,
+				host: M.prop('weppyConfig').host,
 				transport: 'url',
 				context: this.defaultContext,
-				sample: Mercury._state.weppyConfig.samplingRate,
-				aggregationInterval: Mercury._state.weppyConfig.aggregationInterval
+				sample: M.prop('weppyConfig').samplingRate,
+				aggregationInterval: M.prop('weppyConfig').aggregationInterval
 			});
 			super();
 		}

@@ -1,3 +1,39 @@
+## release-49 (2015-03-18 16:01)
+* Fix for not exporting page view module into Ads.ts
+
+## release-47 (2015-03-18 14:03)
+* [CONCF-72](https://wikia-inc.atlassian.net/browse/CONCF-72) Increment adLogicPageViewCounter on ads reload
+* [CONCF-220](https://wikia-inc.atlassian.net/browse/CONCF-220) CONCF- 220 Extend full Krux to Mercury
+* gulp-folders-sass: Folderify our gulp sass task
+* [CONCF-81](https://wikia-inc.atlassian.net/browse/CONCF-81) CONCF-81 fix M.prop instead of Mercury.__state
+* state-accessor: Replace all instances of _state access with getters/setters.
+* [CONCF-81](https://wikia-inc.atlassian.net/browse/CONCF-81) Enable Krux on Mercury
+* troubleshooting-update-about-debian: Update README.md
+* [CONCF-78](https://wikia-inc.atlassian.net/browse/CONCF-78) CONCF-78 add delay before showing spinner on page loading
+* [CONCF-144](https://wikia-inc.atlassian.net/browse/CONCF-144) variable name change
+* [CONCF-144](https://wikia-inc.atlassian.net/browse/CONCF-144) Labels are missing for some languages
+
+## release-45 (2015-03-05 19:20)
+* fix-statusCode-of-undefined: Check for error before trying to access response which can be undefined
+* search-results-fix: The search API was returning incorrect code when no results were found
+
+## release-44 (2015-03-05 16:20)
+* revert-563-Remove-backround-on-image: Revert "Rework how we load thumbnails"
+* i18n-update: i18-update | de, es, fr
+* process-env-port: Allow to override mediawikiHost and port with environment variables
+* [HG-502](https://wikia-inc.atlassian.net/browse/HG-502) Hammer improvements
+* handle-empty-response: Fix for crashing after empty response
+* [CONCF-168](https://wikia-inc.atlassian.net/browse/CONCF-168) CONCF-168
+* update-bunyan-syslog: Update bunyan-syslog, previous version incompatible with node 0.12.0
+* hapi-routes-refactor: Hapi Refactor
+* [HG-566](https://wikia-inc.atlassian.net/browse/HG-566) HG-566 Extended Optimizely integration
+* [CONCF-170](https://wikia-inc.atlassian.net/browse/CONCF-170) Unfixed top leaderboard ad height
+* consul: add consul support
+* release-script-windows: Fix release.sh on Windows
+* [CONCF-84](https://wikia-inc.atlassian.net/browse/CONCF-84) Fixed top leaderboard ad height
+* Remove-backround-on-image: Rework how we load thumbnails
+* [CONCF-7](https://wikia-inc.atlassian.net/browse/CONCF-7) CONCF-7 | 'Full site' footer link fix (switches skin to the wiki's default skin)
+
 ## release-43 (2015-02-20 18:18)
 * [CONCF-151](https://wikia-inc.atlassian.net/browse/CONCF-151) Track articleType with GA
 * lightbox-actions-return-void: openLightbox and closeLightbox don't return anything

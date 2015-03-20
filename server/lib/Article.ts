@@ -1,16 +1,16 @@
-/// <reference path="../../../typings/hapi/hapi.d.ts" />
-/// <reference path="../../../typings/bluebird/bluebird.d.ts" />
-/// <reference path="../../../typings/mercury/mercury-server.d.ts" />
+/// <reference path="../../typings/hapi/hapi.d.ts" />
+/// <reference path="../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
 /**
  * @description Article controller
  */
 import util = require('util');
 import Promise = require('bluebird');
-import MediaWiki = require('../../lib/MediaWiki');
-import Utils = require('../../lib/Utils');
-import logger = require('../../lib/Logger');
-import localSettings = require('../../../config/localSettings');
+import MediaWiki = require('./MediaWiki');
+import Utils = require('./Utils');
+import logger = require('./Logger');
+import localSettings = require('../../config/localSettings');
 
 interface ServerData {
 	mediawikiDomain: string;
@@ -44,7 +44,7 @@ function createServerData (): ServerData {
  */
 export function getData (params: ArticleRequestParams, callback: Function, getWikiVariables: boolean = false): void {
 	var requests = [
-			new MediaWiki.ArticleRequest(params.wikiDomain).fetch(params.title, params.redirect)
+			new MediaWiki.ArticleRequest(params.wikiDomain).article(params.title, params.redirect)
 		];
 
 	logger.debug(params, 'Fetching article');
@@ -139,4 +139,28 @@ export function getArticle (params: ArticleRequestParams, wikiVariables: any, ne
 			article: article || {}
 		});
 	}, false);
+}
+
+export function getArticleRandomTitle (wikiDomain: string, next: Function): void {
+	var articleRequest = new MediaWiki.ArticleRequest(wikiDomain);
+
+	articleRequest
+		.randomTitle()
+		.then((result: any): void => {
+			var articleId: string,
+				pageData: { pageid: number; ns: number; title: string };
+
+			if (result.query && result.query.pages) {
+				articleId = Object.keys(result.query.pages)[0];
+				pageData = result.query.pages[articleId];
+
+				next(null, {
+					title: pageData.title
+				});
+			} else {
+				next(result.error, null);
+			}
+		}, (error: any): void => {
+			next(error, null);
+		});
 }

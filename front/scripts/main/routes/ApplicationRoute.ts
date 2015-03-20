@@ -1,10 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
+/// <reference path="../../mercury/utils/variantTesting.ts" />
 'use strict';
-
-interface Window {
-	optimizely?: any;
-}
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 	model: function <T>(params: T): T {
@@ -15,17 +12,17 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		loading: function (): void {
 			this.controller.showLoader();
 		},
+
 		didTransition: function () {
-			// Activate any Optimizely experiments for the new route
-			var optimizely = window.optimizely;
-			if (optimizely) {
-				optimizely.push(['activate']);
-			}
+			// Activate any A/B tests for the new route
+			M.VariantTesting.activate();
 			this.controller.hideLoader();
 		},
+
 		error: function () {
 			this.controller.hideLoader();
 		},
+
 		handleLink: function (target: HTMLAnchorElement): void {
 			var controller = this.controllerFor('article'),
 				model = controller.get('model'),
@@ -81,6 +78,20 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			}
 		},
 
+		loadRandomArticle: function (): void {
+			this.get('controller').set('sideNavCollapsed', true);
+			this.send('loading');
+
+			App.ArticleModel
+				.getArticleRandomTitle()
+				.then((articleTitle: string): void => {
+					this.controllerFor('article').send('changePage', articleTitle);
+				})
+				.catch((err: any): void => {
+					this.send('error', err);
+				});
+		},
+
 		openLightbox: function (lightboxName: string, data?: any): void {
 			this.get('controller').set('noScroll', true);
 
@@ -103,12 +114,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 			});
 		},
 
+		// This is used only in not-found.hbs template
 		expandSideNav: function (): void {
 			this.get('controller').set('sideNavCollapsed', false);
-		},
-
-		collapseSideNav: function (): void {
-			this.get('controller').set('sideNavCollapsed', true);
 		},
 
 		trackClick: function (category: string, label: string = ''): void {

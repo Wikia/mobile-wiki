@@ -79,7 +79,7 @@ test('getWikiName', function () {
 			localSettings: {
 				wikiFallback: null,
 				environment: global.Environment.Dev,
-				mediawikiHost: 'bimbo'
+				devboxDomain: 'bimbo'
 			},
 			expected: 'community.bimbo.wikia-dev.com',
 			description: 'Returns the default sub-domain if the url is wrong'
@@ -88,7 +88,7 @@ test('getWikiName', function () {
 			localSettings: {
 				wikiFallback: null,
 				environment: global.Environment.Dev,
-				mediawikiHost: 'bimbo'
+				devboxDomain: 'bimbo'
 			},
 			expected: 'bg.poznan.bimbo.wikia-dev.com',
 			description: 'Works on .local domains'
@@ -97,7 +97,7 @@ test('getWikiName', function () {
 			localSettings: {
 				wikiFallback: 'glee',
 				environment: global.Environment.Dev,
-				mediawikiHost: 'bimbo'
+				devboxDomain: 'bimbo'
 			},
 			expected: 'glee.bimbo.wikia-dev.com',
 			description: 'Returns the default (from localSettings) sub-domain if the url is wrong'
@@ -126,14 +126,14 @@ test('getWikiName', function () {
 			host: 'glee.wikia-local.com',
 			localSettings: {
 				environment: global.Environment.Dev,
-				mediawikiHost: 'evgeniy'
+				devboxDomain: 'evgeniy'
 			},
 			expected: 'glee.evgeniy.wikia-dev.com',
 			description: 'Returns the devbox url if local is used'
 		}, {
 			localSettings: {
 				environment: global.Environment.Dev,
-				mediawikiHost: 'test'
+				devboxDomain: 'test'
 			},
 			expected: 'community.test.wikia-dev.com',
 			description: 'Returns the default sub domain if no host is provided'
@@ -141,7 +141,7 @@ test('getWikiName', function () {
 			host: 'muppet.10.10.10.145.xip.io',
 			localSettings: {
 				environment: global.Environment.Dev,
-				mediawikiHost: 'evgeniy'
+				devboxDomain: 'evgeniy'
 			},
 			expected: 'muppet.evgeniy.wikia-dev.com',
 			description: 'Returns proper devbox url if xip.io sub-domain is used'
@@ -150,7 +150,7 @@ test('getWikiName', function () {
 			host: 'de.muppet.10.10.10.145.xip.io',
 			localSettings: {
 				environment: global.Environment.Dev,
-				mediawikiHost: 'evgeniy'
+				devboxDomain: 'evgeniy'
 			},
 			expected: 'de.muppet.evgeniy.wikia-dev.com',
 			description: 'Returns proper devbox url if xip.io sub-domain is used'
@@ -182,7 +182,7 @@ test('clearHost', function () {
 test('getEnvironment', function() {
 	var testCases = [
 		{
-			environment: 'production',
+			environment: 'prod',
 			expected: global.Environment.Prod
 		}, {
 			environment: 'verify',

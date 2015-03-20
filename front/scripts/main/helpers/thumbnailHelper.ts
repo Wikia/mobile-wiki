@@ -8,22 +8,33 @@
  */
 Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: any) {
 	var thumbnailer = Mercury.Modules.Thumbnailer,
-		hash: any = options.hash,
-		width: number = hash.width || 100,
-		height: number = hash.height || 100,
+		defaultMode: string = thumbnailer.mode.fixedAspectRatio,
+		defaultWidth: number = 100,
+		defaultHeight: number = 100,
 		mode: string,
-		alt: string = Handlebars.Utils.escapeExpression(hash.alt);
+		width: number,
+		height: number,
+		alt: string;
 
-
-	//If hash.mode is set, check if it is a valid one, use fallback if not
-	//Get keys of thumbnailer.mode, create array with values of that object and check if we have hash.mode in there
-	if (hash.mode && Object.keys(thumbnailer.mode).map(key => thumbnailer.mode[key]).indexOf(hash.mode) > -1) {
-		mode = hash.mode;
-	} else {
-		mode = thumbnailer.mode.fixedAspectRatio;
+	// validate thumbnailer mode
+	if (options.hash.mode) {
+		for (var key in thumbnailer.mode) {
+			if (thumbnailer.mode.hasOwnProperty(key) && thumbnailer.mode[key] === options.hash.mode) {
+				mode = options.hash.mode;
+				break;
+			}
+		}
 	}
 
+	if (typeof mode === 'undefined') {
+		mode = defaultMode;
+	}
+
+	width = Em.getWithDefault(options, 'hash.width', defaultWidth);
+	height = Em.getWithDefault(options, 'hash.height', defaultHeight);
+	alt = Handlebars.Utils.escapeExpression(Em.get(options, 'hash.alt'));
+
 	return new Em.Handlebars.SafeString(
-		'<img src="' + thumbnailer.getThumbURL(url, {mode: mode, width: width, height: height}) + '" alt="' + alt + '">'
+		'<img src="' + thumbnailer.getThumbURL(url, mode, width, height) + '" alt="' + alt + '">'
 	);
 });
