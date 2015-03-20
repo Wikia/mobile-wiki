@@ -4,7 +4,7 @@ input[type='password'],
 input[type='password']:focus {
 	background-color: #fff;
 	border: none;
-	border-bottom: 1px solid $color-blue-gray;
+	border-bottom: 1px solid $label-color-inactive;
 	border-radius: 0;
 	box-shadow: none;
 	height: auto;
@@ -20,7 +20,7 @@ input[type='password']:valid + .floating-label {
 	top: 0;
 }
 
-input[type='text']:valid:focus  + .floating-label,
-input[type='password']:valid:focus + .floating-label {
-	display: block;
+input[type='text']:valid  + .floating-label,
+input[type='password']:valid + .floating-label {
+	color: $label-color-valid;
 }
