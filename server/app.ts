@@ -50,6 +50,18 @@ var plugins = [
 				isSecure: false
 			}
 		}
+	},
+	{
+		register: require('hapi-i18next'),
+		options: {
+			i18nextOptions: {
+				resGetPath: path.join(__dirname, '..', 'front/locales/__lng__/__ns__.json'),
+				ns: 'main',
+				useCookie: true,
+				cookieName: 'lang',
+				detectLngFromHeaders: true
+			}
+		}
 	}
 ];
 
@@ -80,7 +92,13 @@ server.views({
 	helpersPath: path.join(__dirname, 'views', '_helpers'),
 	layoutPath: path.join(__dirname, 'views', '_layouts'),
 	path: path.join(__dirname, 'views'),
-	partialsPath: path.join(__dirname, 'views', '_partials')
+	partialsPath: path.join(__dirname, 'views', '_partials'),
+	context: {
+		i18n: {
+			translateWithCache: server.methods.i18n.translateWithCache,
+			getInstance: server.methods.i18n.getInstance
+		}
+	}
 });
 
 // instantiate routes
