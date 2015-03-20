@@ -1,18 +1,17 @@
 /// <reference path="../app.ts" />
 
 Em.Handlebars.registerBoundHelper('i18n', function () {
-var options = arguments[arguments.length - 1],
-	args = Array.prototype.slice.apply(arguments, [0, -1]),
-	params: {
-		[key: string]: string;
-	} = {},
-	value: string,
-	namespace = 'main';
+	var options = Array.prototype.pop.call(arguments),
+		params: {
+			[key: string]: string;
+		} = {},
+		value: string,
+		namespace = 'main';
 
-	if (args.length > 1) {
-		value = args.join('.');
+	if (arguments.length > 1) {
+		value = Array.prototype.join.call(arguments, '.');
 	} else {
-		value = args[0];
+		value = arguments[0];
 	}
 
 	Object.keys(options.hash).forEach((key: string) => {
