@@ -86,7 +86,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	return reply.view('login', context, {
 		layout: 'wikia-static'
 	});
-};
+}
 
 export function post (request: Hapi.Request, reply: any): void {
 	var credentials: any = request.payload,
@@ -140,4 +140,4 @@ export function post (request: Hapi.Request, reply: any): void {
 
 		return reply.redirect(authRedirect);
 	});
-};
+}

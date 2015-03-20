@@ -16,7 +16,6 @@ var localSettings: LocalSettings = {
 	backendRequestTimeout: 300000,
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
-	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	helios: {
 		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
 		host: 'SENSITIVE, DO NOT ADD HERE',
@@ -24,6 +23,7 @@ var localSettings: LocalSettings = {
 		id: 'SENSITIVE, DO NOT ADD HERE'
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
+	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
