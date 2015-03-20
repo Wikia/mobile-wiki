@@ -18,7 +18,7 @@ class LoginValidator {
 	 * Activates / deactivates submit button in the login form
 	 */
 	onInput = ():void => {
-		if (this.validateIfNotEmpty()) {
+		if (this.isNotEmpty()) {
 			this.activateSubmit();
 		} else {
 			this.deactivateSubmit();
@@ -29,9 +29,9 @@ class LoginValidator {
 	 * Checks if both username and password fields are not empty
 	 * @returns {boolean}
 	 */
-	validateIfNotEmpty = ():boolean => {
-		return !!this.loginUsername.value.length &&
-				this.loginPassword.value.length;
+	isNotEmpty = ():boolean => {
+		return !!(this.loginUsername.value.length &&
+				this.loginPassword.value.length);
 	};
 
 	activateSubmit = ():void => {
