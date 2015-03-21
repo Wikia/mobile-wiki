@@ -20,6 +20,7 @@ module Mercury.Modules.Trackers {
 			skin: string;
 			url?: string;
 			'user-agent': string;
+			env: string;
 		}
 
 		constructor () {
