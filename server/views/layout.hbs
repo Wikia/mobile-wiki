@@ -94,10 +94,10 @@
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
 
-			{{#if weppyConfig.enabled}}
+			<!-- @ifdef ENABLE_WEPPY -->
 				<script src="/front/vendor/weppy/dist/weppy.js"></script>
 				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
-			{{/if}}
+			<!-- @endif -->
 		<!-- endbuild -->
 
 		<!-- build:js /front/scripts/combined.js -->

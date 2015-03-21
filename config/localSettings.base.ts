@@ -6,8 +6,8 @@
  * var localConfig = require('./config').localSettings
  */
 
-import util = require('util');
 import Utils = require('../server/lib/Utils');
+var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
@@ -72,7 +72,7 @@ var localSettings: LocalSettings = {
 		tv: '#00b7e0'
 	},
 	weppy: {
-		enabled: false,
+		enabled: !!process.env.ENABLE_WEPPY,
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.01,
 		aggregationInterval: 1000
@@ -85,5 +85,5 @@ var localSettings: LocalSettings = {
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
-	return util._extend(localSettings, customLocalSet);
+	return deepExtend(localSettings, customLocalSet);
 }
