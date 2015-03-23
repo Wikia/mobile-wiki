@@ -30,8 +30,7 @@ class LoginValidator {
 	 * @returns {boolean}
 	 */
 	isNotEmpty = ():boolean => {
-		return !!(this.loginUsername.value.length &&
-				this.loginPassword.value.length);
+		return !!(this.loginUsername.value.length && this.loginPassword.value.length);
 	};
 
 	activateSubmit = ():void => {
