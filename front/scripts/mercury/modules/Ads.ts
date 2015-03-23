@@ -41,7 +41,7 @@ module Mercury.Modules {
 		 * Initializes the Ad module
 		 *
 		 * @param adsUrl Url for the ads script
-		 * @param callback Callback function to exwecute when the script is loaded
+		 * @param callback Callback function to execute when the script is loaded
 		 */
 		public init (adsUrl: string, callback: () => void): void {
 			//Required by ads tracking code
