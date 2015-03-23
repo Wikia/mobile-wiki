@@ -8,6 +8,14 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		return params;
 	},
 
+	activate: function() {
+		window.openMercuryAdLightbox = (content): void => {
+			// TODO: WIP: right now display first media on the page in lightbox but later on we want to display an ad
+			console.log('content: ', content);
+			this.send('openLightbox', 'media-lightbox', {mediaRef: 0});
+		}
+	},
+
 	actions: {
 		loading: function (): void {
 			this.controller.showLoader();
