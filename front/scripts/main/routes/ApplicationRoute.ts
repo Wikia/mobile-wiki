@@ -9,10 +9,14 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 	},
 
 	activate: function() {
-		window.openMercuryAdLightbox = (content): void => {
-			// TODO: WIP: right now display first media on the page in lightbox but later on we want to display an ad
-			console.log('content: ', content);
-			this.send('openLightbox', 'media-lightbox', {mediaRef: 0});
+		/**
+		 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+		 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+		 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+		 */
+		window.openMercuryAdLightbox = (contents): void => {
+			this.send('openLightbox', 'ads-lightbox', {contents: contents});
 		}
 	},
 
