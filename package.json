@@ -7,7 +7,8 @@
     "dev": "rm -rf www && gulp",
     "start": "rm -rf www && gulp build --type prod --nosync && node www/server/server.js",
     "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test",
-    "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test"
+    "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test",
+    "build": "gulp build --type prod --nosync"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",
