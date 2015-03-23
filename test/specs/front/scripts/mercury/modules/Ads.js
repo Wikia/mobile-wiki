@@ -18,11 +18,12 @@ QUnit.test('Init method works', function() {
 			calledURL = url;
 			callback();
 		});
+
 	require = function(modules, callback){
 		callback();
 	};
 
-	instance.init(function () {
+	instance.init(testAdsUrl, function () {
 		callbackIsCalled = true;
 	});
 	delete(require);
