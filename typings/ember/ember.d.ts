@@ -648,7 +648,7 @@ declare module Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
-        sendAction(action: string, context: any): void;
+        sendAction(action: string, ...contexts: any[]): void;
         targetObject: Controller;
     }
     /**

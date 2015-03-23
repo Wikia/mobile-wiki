@@ -50,7 +50,7 @@ App.ArticleModel = Em.Object.extend({
 });
 
 App.ArticleModel.reopenClass({
-	url: function (params: {title: string; redirect?: string}) {
+	url: function (params: {title: string; redirect?: string}): string {
 		var redirect = '';
 
 		if (params.redirect) {
@@ -60,7 +60,7 @@ App.ArticleModel.reopenClass({
 		return App.get('apiBase') + '/article/' + params.title + redirect;
 	},
 
-	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}) {
+	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
 		var model = App.ArticleModel.create(params);
 
 		if (M.prop('firstPage')) {
@@ -68,15 +68,15 @@ App.ArticleModel.reopenClass({
 			return model;
 		}
 
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
 				url: this.url(params),
 				dataType: 'json',
-				success: (data) => {
+				success: (data): void => {
 					this.setArticle(model, data);
 					resolve(model);
 				},
-				error: (err) => {
+				error: (err): void => {
 					if (err.status === 404) {
 						this.setArticle(model, err.responseJSON);
 						resolve(model);
@@ -89,7 +89,29 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
-	getPreloadedData: function () {
+	getArticleRandomTitle: function (): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax({
+				url: App.get('apiBase') + '/article?random&titleOnly',
+				dataType: 'json',
+				success: (data): void => {
+					if (data.title) {
+						resolve(data.title);
+					} else {
+						reject({
+							message: 'Data from server doesn\'t include article title',
+							data: data
+						});
+					}
+				},
+				error: (err): void => {
+					reject(err);
+				}
+			});
+		});
+	},
+
+	getPreloadedData: function (): any {
 		var article = Mercury.article,
 			adsInstance: Mercury.Modules.Ads;
 
@@ -101,7 +123,7 @@ App.ArticleModel.reopenClass({
 		// Setup ads
 		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals')) {
 			adsInstance = Mercury.Modules.Ads.getInstance();
-			adsInstance.init(M.prop('adsUrl'), () => {
+			adsInstance.init(M.prop('adsUrl'), (): void => {
 				adsInstance.reload(article.adsContext);
 			});
 		}
@@ -110,7 +132,7 @@ App.ArticleModel.reopenClass({
 		return article;
 	},
 
-	setArticle: function (model: typeof App.ArticleModel, source = this.getPreloadedData()) {
+	setArticle: function (model: typeof App.ArticleModel, source = this.getPreloadedData()): void {
 		var data: any = {};
 
 		if (source.error) {
