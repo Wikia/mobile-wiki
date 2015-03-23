@@ -40,12 +40,13 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
+		 * @param adsUrl string url to MW for ads code
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
 		public init (adsUrl: string, callback: () => void): void {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
-			// Load the resources and ads code from MW
+			// Load the ads code from MW
 			M.load(adsUrl, () => {
 				if (require) {
 					require([
