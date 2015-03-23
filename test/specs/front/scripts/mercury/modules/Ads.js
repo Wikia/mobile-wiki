@@ -31,12 +31,12 @@ QUnit.test('Init method works', function() {
 });
 
 QUnit.test('Reload ads works', function () {
-	var adEngineRun = false,
-		testContext = {
+	var testContext = {
 			test: 1
 		},
 		setContextSpy = this.spy(),
 		runSpy = this.spy(),
+		incrementSpy = this.spy(),
 		instance = Mercury.Modules.Ads.getInstance();
 
 	instance.adContextModule = {
@@ -48,16 +48,21 @@ QUnit.test('Reload ads works', function () {
 	instance.adConfigMobile = {
 		test: 2
 	};
+	instance.adLogicPageViewCounterModule = {
+		increment: incrementSpy
+	};
 	instance.adSlots = [
 		['slot1']
 	];
 
 	instance.reload(testContext);
 	ok(setContextSpy.calledWith(testContext));
+	ok(incrementSpy.calledOnce);
 	ok(runSpy.calledWith(instance.adConfigMobile, instance.adSlots, 'queue.mercury'));
 	instance.adContextModule = undefined;
 	instance.adEngineModule = undefined;
 	instance.adConfigMobile = undefined;
+	instance.adLogicPageViewCounterModule = undefined;
 	instance.adSlots = [];
 });
 

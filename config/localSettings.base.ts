@@ -26,7 +26,7 @@ var localSettings: LocalSettings = {
 	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
-		enabled: false,
+		enabled: true,
 		scriptPath: '//cdn.optimizely.com/js/',
 		devAccount: '2441440871',
 		account: '2449650414'
