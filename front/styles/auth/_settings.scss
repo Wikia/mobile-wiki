@@ -1,3 +1,7 @@
+// compiled style guide css and scss variables
+@import '../../vendor/wikia-style-guide/dist/css/main.css';
+@import '../../vendor/wikia-style-guide/src/scss/lib/settings';
+
 $auth-content-background-color: $color-white;
 $body-background-color: $color-blue-dark;
 $body-text-color: $color-gray-dark;
