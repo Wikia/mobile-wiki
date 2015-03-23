@@ -9,18 +9,4 @@ input[type='password']:focus {
 	box-shadow: none;
 	height: auto;
 	margin-top: 0;
-	padding: 1.25rem 0 0.5rem;
-}
-
-input[type='text']:focus  + .floating-label,
-input[type='password']:focus + .floating-label,
-input[type='text']:valid  + .floating-label,
-input[type='password']:valid + .floating-label {
-	font-size: 0.75rem;
-	top: 0;
-}
-
-input[type='text']:valid  + .floating-label,
-input[type='password']:valid + .floating-label {
-	color: $label-color-valid;
 }
