@@ -60,7 +60,7 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'POST',
-		path: '/editor_preview/',
+		path: '/editorPreview/',
 		handler: require('./facets/editorPreview')
 	}
 ];
