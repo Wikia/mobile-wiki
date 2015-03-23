@@ -4,6 +4,8 @@
 			{{outlet}}
 		</section>
 	</div>
+	{{loading-spinner active=isLoading}}
+	{{outlet 'lightbox'}}
 {{else}}
 	{{smart-banner isVisible=view.smartBannerVisible}}
 	{{site-head smartBannerVisible=view.smartBannerVisible sideNavCollapsed=view.sideNavCollapsed trackClick='trackClick'}}
