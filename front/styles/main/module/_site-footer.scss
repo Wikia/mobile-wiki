@@ -1,4 +1,5 @@
 .wikia-footer {
+	@extend %padding-on-sides;
 	@extend .row;
 	background-color: rgb(18, 49, 84);
 	color: white;
