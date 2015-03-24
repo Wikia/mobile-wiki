@@ -83,9 +83,8 @@ If you need to use svg as a separate image place it in images folder
 this will get copied to
 
 ```
-  svg
-    images
-      image.svg
+  images
+    image.svg
 ```
 
 ## templates
