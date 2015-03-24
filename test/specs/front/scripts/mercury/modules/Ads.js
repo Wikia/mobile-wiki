@@ -1,8 +1,4 @@
-QUnit.module('Ads tests', {
-	setup: function () {
-		M.prop('adsUrl', 'http://exampleAdsUrl.com/')
-	}
-});
+QUnit.module('Ads tests');
 
 QUnit.test('Returns ads instance', function () {
 	ok(Mercury.Modules.Ads);
