@@ -1,7 +1,7 @@
 moduleFor('controller:article', 'Article Controller', {
 	needs: ['controller:application'],
 	setup: function () {
-		Mercury._state.firstPage = false;
+		M.prop('firstPage', false);
 	}
 });
 

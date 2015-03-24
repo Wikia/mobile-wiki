@@ -22,6 +22,9 @@ App.ArticleRoute = Em.Route.extend({
 			transition.abort();
 		}
 
+		// If you try to access article with not-yet-sanitized title you can see in logs:
+		// `Transition #1: detected abort.`
+		// This is caused by the transition below but doesn't mean any additional requests.
 		this.transitionTo('article',
 			M.String.sanitize(title)
 		);
@@ -37,8 +40,10 @@ App.ArticleRoute = Em.Route.extend({
 
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition) {
-			transition.abort();
-			Em.Logger.warn(error);
+			if (transition) {
+				transition.abort();
+			}
+			Em.Logger.warn('ArticleRoute error', error.stack || error);
 			return true;
 		},
 
