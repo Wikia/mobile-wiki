@@ -1,21 +1,25 @@
-var gulp = require('gulp'),
+var folders = require('gulp-folders'),
+	gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),
 	sass = require('gulp-sass'),
 	piper = require('../utils/piper'),
 	flip = require('../utils/flip'),
 	options = require('../options').sass,
+	path = require('path'),
 	paths = require('../paths').styles;
 
-gulp.task('sass', function () {
+gulp.task('sass', folders(paths.src, function (folder) {
 	return piper(
-		gulp.src(paths.src),
+		gulp.src([
+			path.join(paths.src, folder, paths.compile),
+			'!' + path.join(paths.src, folder, paths.partials)
+		]),
 		sass(options),
-		//currently support for map is broken
 		prefixer(['last 2 version', '> 1%', 'ie 8', 'ie 7'], {
 			cascade: false,
 			map: false
 		}),
 		flip(),
-		gulp.dest(paths.dest)
+		gulp.dest(path.join(paths.dest, folder))
 	);
-});
+}));

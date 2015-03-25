@@ -14,12 +14,12 @@
 		{{/if}}
 
 		{{#if isRtl}}
-			<!-- build:css /front/styles/app.rtl.css -->
-			<link rel="stylesheet" href="/front/styles/app.rtl.css">
+			<!-- build:css /front/styles/main/app.rtl.css -->
+			<link rel="stylesheet" href="/front/styles/main/app.rtl.css">
 			<!-- endbuild -->
 		{{else}}
-			<!-- build:css /front/styles/app.css -->
-			<link rel="stylesheet" href="/front/styles/app.css">
+			<!-- build:css /front/styles/main/app.css -->
+			<link rel="stylesheet" href="/front/styles/main/app.css">
 			<!-- endbuild -->
 		{{/if}}
 
@@ -27,7 +27,7 @@
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
-		<style><!-- @include ../../www/front/styles/baseline.css --></style>
+		<style><!-- @include ../../www/front/styles/main/baseline.css --></style>
 
 		<script>
 			<!-- @include ../../www/front/scripts/baseline.js -->
@@ -67,6 +67,13 @@
 			{{{content}}}
 		</div>
 
+        <!--
+        Ember must render out to a specific div above the scripts, otherwise
+        Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
+        DO NOT REMOVE THE FOLLOWING LINE:
+        -->
+        <div id="ember-container"></div>
+
 		<!-- build:js /front/vendor/main.js -->
 			<script src="/front/vendor/script.js/dist/script.js"></script>
 			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
@@ -87,7 +94,9 @@
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
 		<!-- endbuild -->
 
-		<script src="//{{server.mediawikiDomain}}/__load/-/cb={{wiki.cacheBuster}}&only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting"></script>
+		<!-- TODO: when this will be on produciton https://github.com/Wikia/app/pull/6784
+			change {{server.mediawikiDomain}} to global one. -->
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting"></script>
 
 		<!-- build:js /front/scripts/combined.js -->
 			<script src="/front/templates/main.js"></script>

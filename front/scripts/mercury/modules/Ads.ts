@@ -1,10 +1,14 @@
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../baseline/mercury.d.ts" />
+/// <reference path='../../../../typings/jquery/jquery.d.ts' />
+/// <reference path='../../baseline/mercury.d.ts' />
+/// <reference path='./Trackers/Krux.ts' />
+/// <reference path='./Trackers/GoogleAnalytics.ts' />
+/// <reference path='../../baseline/mercury.ts' />
+/// <reference path='../utils/load.ts' />
 
 'use strict';
 
 interface Window {
-	gaTrackAdEvent: any
+	gaTrackAdEvent: any;
 }
 
 module Mercury.Modules {
@@ -16,6 +20,10 @@ module Mercury.Modules {
 		private adEngineModule: any;
 		private adContextModule: any;
 		private adConfigMobile: any;
+		private adLogicPageViewCounterModule: {
+			get (): number;
+			increment (): number;
+		};
 		private isLoaded = false;
 
 		/**
@@ -32,27 +40,39 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
+		 * @param adsUrl string url to MW for ads code
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
-		public init (callback: () => void) {
+		public init (adsUrl: string, callback: () => void): void {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
-			// Load the resources and ads code from MW
-			M.load(M.prop('adsUrl'), () => {
+			// Load the ads code from MW
+			M.load(adsUrl, () => {
 				if (require) {
 					require([
 						'ext.wikia.adEngine.adEngine',
 						'ext.wikia.adEngine.adContext',
-						'ext.wikia.adEngine.adConfigMobile'
-					], (adEngineModule: any, adContextModule: any, adConfigMobile: any) => {
+						'ext.wikia.adEngine.adConfigMobile',
+						'ext.wikia.adEngine.adLogicPageViewCounter',
+						'wikia.krux'
+					], (
+						adEngineModule: any,
+						adContextModule: any,
+						adConfigMobile: any,
+						adLogicPageViewCounterModule: any,
+						krux: any
+					) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
 						this.adConfigMobile = adConfigMobile;
+						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
+						window.Krux = krux || [];
 						this.isLoaded = true;
 						callback.call(this);
+						this.kruxTrackFirstPage();
 					});
 				} else {
-					Em.Logger.error('Looks like Ads modules have not been loaded');
+					console.error('Looks like ads asset has not been loaded');
 				}
 			});
 		}
@@ -73,7 +93,18 @@ module Mercury.Modules {
 			}
 		}
 
-		private setContext (adsContext: any) {
+		/**
+		 * Function fired when Krux is ready (see init()).
+		 * Calls the trackPageView() function on Krux instance.
+		 * load() in krux.js (/app) automatically detect that
+		 * there is a first page load (needs to load Krux scripts).
+		 */
+		private kruxTrackFirstPage (): void {
+			var KruxTracker = new Mercury.Modules.Trackers.Krux();
+			KruxTracker.trackPageView();
+		}
+
+		private setContext (adsContext: any): void {
 			this.adsContext = adsContext ? adsContext : null;
 		}
 
@@ -81,11 +112,13 @@ module Mercury.Modules {
 		 * Reloads the ads with the provided adsContext
 		 * @param adsContext
 		 */
-		public reload (adsContext: any) {
+		public reload (adsContext: any): void {
 			// Store the context for external reuse
 			this.setContext(adsContext);
+
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
+				this.adLogicPageViewCounterModule.increment();
 				// We need a copy of adSlots as .run destroys it
 				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mercury');
 			}
