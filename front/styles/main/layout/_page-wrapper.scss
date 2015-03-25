@@ -3,6 +3,18 @@
 
 	margin-top: 50px;
 
+	&.editor-preview {
+		margin-top: 0;
+
+		> .wiki-container {
+			margin-top: 0;
+		}
+
+		footer.wikia-footer {
+			display: none;
+		}
+	}
+
 	.mobile-top-leaderboard ~ & {
 		margin-top: 0;
 	}
