@@ -1,10 +1,10 @@
-<button {{action 'toggleMenu'}} {{bind-attr class=':title isCollapsed:collapsed'}}>
+<a {{action 'toggleMenu'}} {{bind-attr class=':title isCollapsed:collapsed'}} href="#">
 	{{#if showMenuIcon}}
 	{{svg 'toc' viewBox='0 0 18 13' class='icon toc'}}
 	{{/if}}
 	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 	{{i18n tLabel count=tCount}}
-</button>
+</a>
 {{#if ordered}}
 <ol>
 	{{yield}}
