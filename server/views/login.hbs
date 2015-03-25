@@ -1,18 +1,18 @@
 <section class="auth-content">
-    <span>{{json error}}</span>
-    <form id="loginForm" action="" method="POST">
-        <div class="input-container">
-            <input type="text" name="username" id="loginUsername" required />
-            <label class="floating-label" for="loginUsername">Username</label>
-        </div>
-        <div class="input-container">
-            <input class="sign-in-password" type="password" name="password" id="loginPassword" required />
-            <label class="floating-label" for="loginPassword">Password</label>
-        </div>
-        <a class="forgotten-password" href="#" tabindex="-1">Forgot password?</a>
-        <input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
-        <input type="checkbox" name="remember" id="loginRemember">
-        <label for="loginRemember">Remember me</label>
-        <button id="loginSubmit" type="submit" disabled>Sign in</button>
-    </form>
+	<span>{{json error}}</span>
+	<form id="loginForm" action="" method="POST">
+		<div class="input-container">
+			<input type="text" name="username" id="loginUsername" required />
+			<label class="floating-label" for="loginUsername">Username</label>
+		</div>
+		<div class="input-container">
+			<input class="sign-in-password" type="password" name="password" id="loginPassword" required />
+			<label class="floating-label" for="loginPassword">Password</label>
+		</div>
+		<a class="forgotten-password" href="#" tabindex="-1">Forgot password?</a>
+		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
+		<input type="checkbox" name="remember" id="loginRemember">
+		<label for="loginRemember">Remember me</label>
+		<button id="loginSubmit" type="submit" disabled>Sign in</button>
+	</form>
 </section>
