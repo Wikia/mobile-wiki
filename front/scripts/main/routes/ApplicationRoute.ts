@@ -15,7 +15,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
 		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
 		 */
-		window.openMercuryAdLightbox = (contents): void => {
+		window.openMercuryAdLightbox = (contents: any): void => {
 			this.send('openLightbox', 'ads-lightbox', {contents: contents});
 		}
 	},
