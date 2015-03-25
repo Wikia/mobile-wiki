@@ -93,8 +93,10 @@
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
 		<!-- endbuild -->
-
-		<script src="//{{server.mediawikiDomain}}/__load/-/cb={{wiki.cacheBuster}}&only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride"></script>
+		
+		<!-- TODO: when this will be on produciton https://github.com/Wikia/app/pull/6784
+			change {{server.mediawikiDomain}} to global one. -->
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride"></script>
 
 		<!-- build:js /front/scripts/combined.js -->
 			<script src="/front/templates/main.js"></script>
