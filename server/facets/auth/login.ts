@@ -71,7 +71,7 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 }
 
 function getFormError (statusCode: number): String {
-	//TODO i18n the messages
+	//TODO i18n
 	if (statusCode === 401) {
 		return 'Hm, we don\'t recognize these credentials. Please try again or register a new account.';
 	} else {
@@ -103,18 +103,13 @@ export function post (request: Hapi.Request, reply: any): void {
 		authParams: AuthParams,
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
-		error: any = {},
 		authRedirect: string,
 		context: any = {};
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
 		if (err) {
-			/**
-			 * Forward the error payload, not the entire object as the trace may contain
-			 * sensitive information
-			 */
-			context.error = getFormError(err.output.statusCode);
+			context.formError = getFormError(err.output.statusCode);
 
 			if (isAJAX) {
 				return reply(context).code(err.output.statusCode);

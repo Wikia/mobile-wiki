@@ -1,5 +1,4 @@
 <section class="auth-content">
-	<span>{{json error}}</span>
 	<form id="loginForm" action="" method="POST">
 		<div class="input-container">
 			<input type="text" name="username" id="loginUsername" required />
@@ -14,5 +13,10 @@
 		<input type="checkbox" name="remember" id="loginRemember">
 		<label for="loginRemember">Remember me</label>
 		<button id="loginSubmit" type="submit" disabled>Sign in</button>
+		{{#if formError}}
+		<div class="form-error">
+			{{formError}}
+		</div>
+		{{/if}}
 	</form>
 </section>
