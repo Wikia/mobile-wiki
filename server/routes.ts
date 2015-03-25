@@ -110,12 +110,6 @@ unauthenticatedRoutes = [
 		handler: require('./facets/auth/login').post
 	},
 	{
-		// Store authentication data after log-in
-		method: 'GET',
-		path: '/auth',
-		handler: require('./facets/auth/handleAuth')
-	},
-	{
 		method: 'GET',
 		path: '/breadcrumb',
 		handler: require('./facets/operations/generateCSRFView')
