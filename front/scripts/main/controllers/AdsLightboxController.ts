@@ -11,7 +11,7 @@ App.AdsLightboxController = App.LightboxController.extend({
 
 	footerHidden: true,
 
-	header: 'Advertisment',
+	header: 'Advertisement',
 
 	init: function (): void {
 		this._super();
