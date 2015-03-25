@@ -4,13 +4,8 @@ App.AdsLightboxController = App.LightboxController.extend({
 	data: {
 		contents: null
 	},
-
-	contents: Em.computed.alias(
-		'data.contents'
-	),
-
+	contents: Em.computed.alias('data.contents'),
 	footerHidden: true,
-
 	header: 'Advertisement',
 
 	init: function (): void {
