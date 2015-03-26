@@ -1,5 +1,29 @@
+## release-51 (2015-03-26 14:00)
+* revert-gulp-sass-1.3: Downgrade gulp-sass to 1.1.x and revert related changes
+* [CONCF-369](https://wikia-inc.atlassian.net/browse/CONCF-369) Remove Foundation's .row styles from footer
+* [CONCF-166](https://wikia-inc.atlassian.net/browse/CONCF-166) CONCF-166 change bower install to bower update
+* editor-preview-error-improvements: Fixed variable clobbering and use Boom to create error object
+* [CONCF-178](https://wikia-inc.atlassian.net/browse/CONCF-178) CONCF-178 Load InstantGlobals from MediaWiki
+* [CE-1431](https://wikia-inc.atlassian.net/browse/CE-1431) CE-1431 Added /editorPreview/ route to preview given HTML in Mercury skin
+* update-gulp-sass-and-foundation: Update gulp-sass and foundation
+* npm-run-build: add build task to package.json
+* production-for-DT: We need to normalize it for DT before they get updated
+* enable-optimizely: Enable Optimizely in localSettings
+* enable-optimizely: Enable Optimizely
+* [CONCF-83](https://wikia-inc.atlassian.net/browse/CONCF-83) CONCF-83 | change 'production' to 'prod' (continuation)
+* [CONCF-124](https://wikia-inc.atlassian.net/browse/CONCF-124) Use MW API to get a random article name
+* upgrade-gulp-sass: upgrading gulp-sass to fix issues with gulp-build
+* google-pagespeed-adjustments: Add a rootElement for Ember to render into
+* cleanup-mercury-pkg: Cleanup: scripts/mercury
+
+## release-50 (2015-03-17 23:50)
+* Enable Optimizely
+
 ## release-49 (2015-03-18 16:01)
 * Fix for not exporting page view module into Ads.ts
+
+## release-48 (2015-03-18 16:01)
+* Empty release
 
 ## release-47 (2015-03-18 14:03)
 * [CONCF-72](https://wikia-inc.atlassian.net/browse/CONCF-72) Increment adLogicPageViewCounter on ads reload
@@ -12,6 +36,9 @@
 * [CONCF-78](https://wikia-inc.atlassian.net/browse/CONCF-78) CONCF-78 add delay before showing spinner on page loading
 * [CONCF-144](https://wikia-inc.atlassian.net/browse/CONCF-144) variable name change
 * [CONCF-144](https://wikia-inc.atlassian.net/browse/CONCF-144) Labels are missing for some languages
+
+## release-46 (2015-03-18 14:03)
+* Empty release
 
 ## release-45 (2015-03-05 19:20)
 * fix-statusCode-of-undefined: Check for error before trying to access response which can be undefined

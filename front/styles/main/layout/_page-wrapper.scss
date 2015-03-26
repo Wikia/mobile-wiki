@@ -20,9 +20,9 @@
 	}
 
 	.article-body {
-		@extend %padding-on-sides;
 		@extend .small-12;
 
 		overflow-x: hidden;
+		padding: 0 1.125rem;
 	}
 }
