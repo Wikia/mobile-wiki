@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{#displayTitle}}{{displayTitle}} - {{/displayTitle}}{{wiki.siteName}}</title>
-		<meta name="keywords" content="{{#wiki.siteMessage}}{{wiki.siteMessage}},{{/wiki.siteMessage}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
+		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
+		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
 		{{#if article.article.description}}
 			<meta name="description" content="{{article.article.description}}">
 		{{/if}}
