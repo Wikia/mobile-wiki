@@ -125,6 +125,11 @@ unauthenticatedRoutes = [
 		path: '/join',
 		handler: require('./facets/auth/join')
 	},
+	{
+		method: 'POST',
+		path: '/editorPreview/',
+		handler: require('./facets/editorPreview')
+	}
 ];
 
 articlePagePaths = [

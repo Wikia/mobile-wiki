@@ -32,7 +32,6 @@
 
 .comments {
 	@extend %list-reset;
-	@extend %padding-on-sides;
 
 	font-size: rem-calc(13);
 }
