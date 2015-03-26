@@ -40,7 +40,7 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
-		 * @param adsUrl Url for the ads script
+		 * @param adsUrl string url to MW for ads code
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
 		public init (adsUrl: string, callback: () => void): void {
