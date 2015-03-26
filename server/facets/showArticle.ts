@@ -8,8 +8,8 @@ import localSettings = require('../../config/localSettings');
 import prepareArticleData = require('./operations/prepareArticleData');
 
 var cachingTimes = {
-	enabled: false,
-	cachingPolicy: Caching.Policy.Private,
+	enabled: true,
+	cachingPolicy: Caching.Policy.Public,
 	varnishTTL: Caching.Interval.standard,
 	browserTTL: Caching.Interval.default
 };
