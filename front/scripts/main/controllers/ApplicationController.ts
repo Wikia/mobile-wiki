@@ -16,6 +16,7 @@ App.ApplicationController = Em.Controller.extend({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			language: Em.get(Mercury, 'wiki.language'),
 			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
+			siteMessage: Em.get(Mercury, 'wiki.siteMessage'),
 			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
 			editorPreview: Em.get(Mercury, 'article.preview')
 		});
