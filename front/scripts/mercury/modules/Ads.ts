@@ -1,5 +1,9 @@
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../baseline/mercury.d.ts" />
+/// <reference path='../../../../typings/jquery/jquery.d.ts' />
+/// <reference path='../../baseline/mercury.d.ts' />
+/// <reference path='./Trackers/Krux.ts' />
+/// <reference path='./Trackers/GoogleAnalytics.ts' />
+/// <reference path='../../baseline/mercury.ts' />
+/// <reference path='../utils/load.ts' />
 
 'use strict';
 
@@ -36,7 +40,7 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
-		 * @param adsUrl Url for the ads script
+		 * @param adsUrl string url to MW for ads code
 		 * @param callback Callback function to exwecute when the script is loaded
 		 */
 		public init (adsUrl: string, callback: () => void): void {
@@ -68,7 +72,7 @@ module Mercury.Modules {
 						this.kruxTrackFirstPage();
 					});
 				} else {
-					Em.Logger.error('Looks like ads asset has not been loaded');
+					console.error('Looks like ads asset has not been loaded');
 				}
 			});
 		}

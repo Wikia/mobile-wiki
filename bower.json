@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "ember": "1.9.1",
-    "foundation": "5.4.6",
+    "foundation": "5.5.1",
     "i18next": "1.7.4",
     "script.js": "2.5.7",
     "hammerjs": "2.0.4",
