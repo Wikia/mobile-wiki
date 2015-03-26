@@ -69,6 +69,11 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 	});
 }
 
+/**
+ * Obtains a proper message to display in Front-End based on Helios response
+ * @param {number} statusCode
+ * @returns {string}
+ */
 function getFormError (statusCode: number): String {
 	//TODO i18n
 	if (statusCode === 401) {
