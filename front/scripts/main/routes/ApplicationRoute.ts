@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
 /// <reference path="../../mercury/utils/variantTesting.ts" />
 'use strict';
@@ -15,7 +16,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
 		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
 		 */
-		Mercury.Modules.Ads.openLightbox = (contents: any): void => {
+		Mercury.Modules.Ads.getInstance().openLightbox = (contents: any): void => {
 			this.send('openLightbox', 'ads-lightbox', {contents: contents});
 		}
 	},

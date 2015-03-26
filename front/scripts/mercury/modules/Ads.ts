@@ -54,6 +54,7 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.adConfigMobile',
 						'ext.wikia.adEngine.adLogicPageViewCounter',
+						'ext.wikia.adEngine.customAdsLoader',
 						'wikia.krux'
 					], (
 						adEngineModule: any,
@@ -152,6 +153,13 @@ module Mercury.Modules {
 			this.adSlots = $.grep(this.adSlots, (slot) => {
 				return slot[0] && slot[0] === name;
 			}, true);
+		}
+
+		public openLightbox (contents: any): void {
+			/**
+			 * This method is being overwritten in ApplicationRoute for ads needs.
+			 * To learn more check ApplicationRoute.ts file.
+			 */
 		}
 
 		/**
