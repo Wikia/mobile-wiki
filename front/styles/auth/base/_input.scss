@@ -6,7 +6,7 @@ input[type='password']:focus {
 	border: none;
 	border-bottom: 1px solid $label-color-inactive;
 	border-radius: 0;
-	box-shadow: none;
+	box-shadow: 0 0 0 1000px #fff inset !important;
 	height: auto;
 	margin-top: 0;
 }
