@@ -22,6 +22,7 @@ interface LocalSettings {
 	devboxDomain?: string;
 	environment: any;
 	host: any;
+	mwPreviewSalt: string;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;
 	optimizely?: {

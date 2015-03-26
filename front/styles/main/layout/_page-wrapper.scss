@@ -3,13 +3,25 @@
 
 	margin-top: 50px;
 
+	&.editor-preview {
+		margin-top: 0;
+
+		> .wiki-container {
+			margin-top: 0;
+		}
+
+		footer.wikia-footer {
+			display: none;
+		}
+	}
+
 	.mobile-top-leaderboard ~ & {
 		margin-top: 0;
 	}
 
 	.article-body {
+		@extend %padding-on-sides;
 		@extend .small-12;
-		padding: 0 1.125rem;
 
 		overflow-x: hidden;
 	}
