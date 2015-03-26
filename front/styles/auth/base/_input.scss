@@ -1,0 +1,12 @@
+input[type='text'],
+input[type='text']:focus,
+input[type='password'],
+input[type='password']:focus {
+	background-color: #fff;
+	border: none;
+	border-bottom: 1px solid $label-color-inactive;
+	border-radius: 0;
+	box-shadow: none;
+	height: auto;
+	margin-top: 0;
+}
