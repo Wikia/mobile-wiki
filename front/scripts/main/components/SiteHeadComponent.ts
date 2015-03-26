@@ -7,6 +7,9 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['site-head'],
 	tagName: 'nav',
 	headroom: null,
+	joinPathContext: {
+		path: '/join?redirect=' + encodeURIComponent(window.location.href)
+	},
 
 	options: {
 		// keep it consistent with values in _wikia-variables.scss
