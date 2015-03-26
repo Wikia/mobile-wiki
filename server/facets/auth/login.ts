@@ -35,7 +35,6 @@ interface LoginViewContext {
 	hideFooter?  : boolean;
 	exitTo?      : string;
 	bodyClasses? : string;
-	loadScripts? : boolean;
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -89,8 +88,7 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		title: 'Login',
-		loadScripts: true
+		title: 'Login'
 	};
 
 	return reply.view('login', context, {

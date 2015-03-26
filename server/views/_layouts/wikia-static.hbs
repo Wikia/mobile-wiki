@@ -24,10 +24,11 @@
 		{{#unless hideFooter }}
 		<footer class="auth-footer splash splash-bottom">Don\'t have an account? <a href="#">Register now</a></footer>
 		{{/unless}}
-		{{#if loadScripts}}
+
+		{{#unless noScripts}}
 		<!-- build:js /front/scripts/auth.js -->
 		<script src="/front/scripts/auth.js"></script>
 		<!-- endbuild -->
-		{{/if}}
+		{{/unless}}
 	</body>
 </html>

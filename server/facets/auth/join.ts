@@ -7,6 +7,7 @@ interface JoinViewContext {
 	hideFooter?  : boolean;
 	exitTo?      : string;
 	bodyClasses? : string;
+	noScripts?   : boolean;
 }
 
 function get (request: Hapi.Request, reply: any): void {
@@ -23,7 +24,8 @@ function get (request: Hapi.Request, reply: any): void {
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,
-		bodyClasses: 'splash'
+		bodyClasses: 'splash',
+		noScripts: true
 	};
 
 	return reply.view(
