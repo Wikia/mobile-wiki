@@ -2,7 +2,9 @@
 'use strict';
 
 /**
- * Type for search suggestion, as returned by node-side search API
+ * Type for search suggestion
+ * Title is returned by node-side search API
+ * URI is being set in setSearchSuggestionItems method
  */
 interface SearchSuggestionItem {
 	title: string;
