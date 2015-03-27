@@ -8,11 +8,17 @@ module Mercury.Utils.String {
 			.replace(/\s+/g, ' ');
 	}
 
-	export function titleToUri (title: string = ''): string {
-		return encodeURI(
+	export function titleToUri (title: string = '', encodeQuestionMarks = false): string {
+		var uri = encodeURI(
 			title
 				.replace(/\s/g, '_')
 				.replace(/_+/g, '_')
 		);
+
+		if (encodeQuestionMarks) {
+			uri = uri.replace('?', '%3F');
+		}
+
+		return uri;
 	}
 }
