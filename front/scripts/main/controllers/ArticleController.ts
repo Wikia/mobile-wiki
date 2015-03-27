@@ -22,7 +22,7 @@ App.ArticleController = Em.ObjectController.extend({
 			App.VisibilityStateManager.reset();
 			this.set('commentsPage', null);
 			this.set('file', null);
-			this.transitionToRoute('article', title);
+			this.transitionToRoute('article', M.String.titleToUri(title));
 		},
 
 		articleRendered: function () {
