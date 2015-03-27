@@ -25,7 +25,7 @@ module Mercury.Utils {
 	 * go to the link directly. NOTE: url might be a jumplink. Do with that what you will.
 	 */
 	export function getLinkInfo(basePath: string, title: string, hash: string, uri: string): LinkInfo {
-		var localPathMatch = decodeURI(uri).match('^' + window.location.origin + '(.*)$');
+		var localPathMatch = uri.match('^' + window.location.origin + '(.*)$');
 
 		if (localPathMatch) {
 			var local = localPathMatch[1],
