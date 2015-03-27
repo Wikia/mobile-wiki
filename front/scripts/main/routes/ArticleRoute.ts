@@ -19,7 +19,7 @@ App.ArticleRoute = Em.Route.extend({
 		}
 
 		if (!transition.params.article.title) {
-			this.transitionTo('article', Mercury.wiki.mainPageTitle);
+			this.transitionTo('article', M.String.titleToUri(Mercury.wiki.mainPageTitle));
 		}
 	},
 
