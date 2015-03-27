@@ -6,6 +6,7 @@
  */
 interface SearchSuggestionItem {
 	title: string;
+	uri?: string;
 }
 
 App.LocalWikiaSearchComponent = Em.Component.extend({
@@ -50,6 +51,12 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	},
 
 	setSearchSuggestionItems: function (suggestions: Array<SearchSuggestionItem>): void {
+		suggestions.forEach(
+			(suggestion: SearchSuggestionItem, index: number, suggestionsArr: Array<SearchSuggestionItem>): void => {
+				suggestionsArr[index].uri = M.String.titleToUri(suggestion.title);
+			}
+		);
+
 		this.set('suggestions', suggestions);
 	},
 
