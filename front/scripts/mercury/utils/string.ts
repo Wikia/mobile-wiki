@@ -9,7 +9,7 @@ module Mercury.Utils.String {
 	}
 
 	export function titleToUri (title: string = ''): string {
-		return encodeURIComponent(
+		return encodeURI(
 			title
 				.replace(/\s/g, '_')
 				.replace(/_+/g, '_')
