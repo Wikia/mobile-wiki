@@ -4,7 +4,7 @@
 ## Manual Setup
 * `npm install` will install local dependencies
 * `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
-* `bower install` will install client dependencies
+* `bower update` will install and update client dependencies
 * `tsd update` will update typings folder with ambient files
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
   * The devboxDomain must have your devbox name (without the dev- prefix) in it.

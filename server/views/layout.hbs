@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{displayTitle}}{{#displayTitle}} - {{/displayTitle}}{{wiki.siteName}}</title>
-		<meta name="keywords" content="{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
+		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
+		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
 		{{#if article.article.description}}
 			<meta name="description" content="{{article.article.description}}">
 		{{/if}}
@@ -93,6 +93,9 @@
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
 		<!-- endbuild -->
+		
+		<!-- TODO: when https://github.com/Wikia/app/pull/6784 hits production change {{server.mediawikiDomain}} to a shared domain -->
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride"></script>
 
 		<!-- build:js /front/scripts/combined.js -->
 			<script src="/front/templates/main.js"></script>
