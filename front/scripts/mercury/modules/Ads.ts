@@ -54,7 +54,6 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.adConfigMobile',
 						'ext.wikia.adEngine.adLogicPageViewCounter',
-						'ext.wikia.adEngine.customAdsLoader',
 						'wikia.krux'
 					], (
 						adEngineModule: any,
