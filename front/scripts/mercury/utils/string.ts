@@ -15,18 +15,4 @@ module Mercury.Utils.String {
 				.replace(/_+/g, '_')
 		);
 	}
-
-	export function uriToTitle (uri: string = ''): string {
-		var decodedUri: string;
-
-		try {
-			decodedUri = decodeURIComponent(uri);
-		} catch (error) {
-			decodedUri = uri;
-		}
-
-		return decodedUri
-			.replace(/_/g, ' ')
-			.replace(/\s+/g, ' ');
-	}
 }
