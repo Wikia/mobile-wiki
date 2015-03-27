@@ -2,22 +2,30 @@
 'use strict';
 
 module Mercury.Utils.String {
-	/**
-	 * We need to support links like:
-	 * /wiki/Rachel Berry
-	 * /wiki/Rachel  Berry
-	 * /wiki/Rachel__Berry
-	 *
-	 * but we want them to be displayed normalized in URL bar
-	 */
-	export function sanitize (title: string = '') {
-		return decodeURIComponent(title)
-			.replace(/\s/g, '_')
-			.replace(/_+/g, '_');
+	export function normalize (str: string = ''): string {
+		return str
+			.replace(/_/g, ' ')
+			.replace(/\s+/g, ' ');
 	}
 
-	export function normalize (title: string = '') {
-		return decodeURIComponent(title)
+	export function titleToUri (title: string = ''): string {
+		return encodeURIComponent(
+			title
+				.replace(/\s/g, '_')
+				.replace(/_+/g, '_')
+		);
+	}
+
+	export function uriToTitle (uri: string = ''): string {
+		var decodedUri: string;
+
+		try {
+			decodedUri = decodeURIComponent(uri);
+		} catch (error) {
+			decodedUri = uri;
+		}
+
+		return decodedUri
 			.replace(/_/g, ' ')
 			.replace(/\s+/g, ' ');
 	}
