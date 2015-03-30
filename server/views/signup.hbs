@@ -1,0 +1,25 @@
+<section class="auth-content">
+	<span>{{json error}}</span>
+	<form id="signupForm" action="" method="POST">
+		<div class="input-container">
+			<input type="email" name="email" id="signupEmail" required />
+			<label class="floating-label" for="signupEmail">Username</label>
+		</div>
+		<div class="input-container">
+			<input type="text" name="username" id="signupUsername" required />
+			<label class="floating-label" for="signupUsername">Username</label>
+	</div>
+		<div class="input-container">
+			<input type="password" name="password" id="signupPassword" required />
+			<label class="floating-label" for="signupPassword">Password</label>
+		</div>
+		<div class="input-container">
+			<input type="date" name="date" id="signupBirthDate" required />
+			<label class="floating-label" for="signupBirthDate">Password</label>
+		</div>
+		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
+		<input type="checkbox" name="newsletter" id="signupNewsletter">
+		<label for="signupNewsletter">Email me about Wikia news and events</label>
+		<button id="signupSubmit" type="submit" disabled>Register</button>
+	</form>
+</section>

@@ -110,6 +110,11 @@ unauthenticatedRoutes = [
 		handler: require('./facets/auth/login').post
 	},
 	{
+		method: 'GET',
+		path: '/signup',
+		handler: require('./facets/auth/signup').get
+	},
+	{
 		// Store authentication data after log-in
 		method: 'GET',
 		path: '/auth',
