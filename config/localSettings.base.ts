@@ -18,6 +18,8 @@ var localSettings: LocalSettings = {
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
+	// Special salt for accepting HTML from MediaWiki for /editor_preview/
+	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
@@ -26,7 +28,7 @@ var localSettings: LocalSettings = {
 	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
-		enabled: false,
+		enabled: true,
 		scriptPath: '//cdn.optimizely.com/js/',
 		devAccount: '2441440871',
 		account: '2449650414'

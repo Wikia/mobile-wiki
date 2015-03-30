@@ -182,7 +182,7 @@ test('clearHost', function () {
 test('getEnvironment', function() {
 	var testCases = [
 		{
-			environment: 'production',
+			environment: 'prod',
 			expected: global.Environment.Prod
 		}, {
 			environment: 'verify',
