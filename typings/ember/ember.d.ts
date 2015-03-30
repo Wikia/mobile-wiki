@@ -1008,6 +1008,9 @@ declare module Ember {
             constructor(str: string);
             static toString(): string;
         }
+		class Utils {
+			static escapeExpression(str: string): string;
+		}
         function parse(string: string): any;
         function print(ast: any): void;
         var logger: typeof Ember.Logger;
@@ -2236,6 +2239,7 @@ declare module Em {
         var createFrame: typeof Ember.Handlebars.createFrame;
         var Exception: typeof Ember.Handlebars.Exception;
         class SafeString extends Ember.Handlebars.SafeString { }
+        class Utils extends Ember.Handlebars.Utils { }
         var parse: typeof Ember.Handlebars.parse;
         var print: typeof Ember.Handlebars.print;
         var logger: typeof Ember.Handlebars.logger;
