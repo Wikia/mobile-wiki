@@ -75,11 +75,10 @@ function authenticate (username: string, password: string, callback: AuthCallbac
  * @returns {string}
  */
 function getFormError (statusCode: number): String {
-	//TODO i18n
 	if (statusCode === 401) {
-		return 'Hm, we don\'t recognize these credentials. Please try again or register a new account.';
+		return 'auth:login.wrong-credentials';
 	}
-	return 'We\'re sorry, there was an error processing your request. Please try again later.';
+	return 'auth:common.server-error';
 }
 
 export function get (request: Hapi.Request, reply: any): void {
