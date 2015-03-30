@@ -17,6 +17,8 @@
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
+		<style><!-- @include ../../www/front/styles/main/baseline.css --></style>
+
 		{{#if isRtl}}
 			<!-- build:css /front/styles/main/app.rtl.css -->
 			<link rel="stylesheet" href="/front/styles/main/app.rtl.css">
@@ -30,8 +32,6 @@
 		{{#if optimizelyScript}}
 			<script src="{{optimizelyScript}}" defer></script>
 		{{/if}}
-
-		<style><!-- @include ../../www/front/styles/main/baseline.css --></style>
 
 		<script>
 			<!-- @include ../../www/front/scripts/baseline.js -->
