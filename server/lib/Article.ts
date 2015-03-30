@@ -74,7 +74,7 @@ export function getData (params: ArticleRequestParams, callback: Function, getWi
 				article: any,
 				wikiVariables: any = {};
 
-			// if promise is fullfilled - use resolved value, if it's not - use rejection reason
+			// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 			article = articlePromise.isFulfilled() ?
 				articlePromise.value() :
 				articlePromise.reason();

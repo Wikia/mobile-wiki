@@ -441,6 +441,7 @@ declare module Hapi {
 		replacer (method: Function): void;
 		replacer (method: Array<Function>): void;
 		spaces (count: number): void;
+		view (template: string, context?: any, options?: any): Response;
 
 		temporary (isTemporary: boolean): void;
 		permanent (isPermanent: boolean): void;

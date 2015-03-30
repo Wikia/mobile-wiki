@@ -28,6 +28,7 @@ interface LocalSettings {
 	};
 	ironSecret: string;
 	host: any;
+	mwPreviewSalt: string;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;
 	optimizely?: {
