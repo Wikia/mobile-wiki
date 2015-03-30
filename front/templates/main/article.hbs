@@ -2,17 +2,17 @@
 	{{render 'not-found'}}
 {{else}}
 	<section class='article-body'>
-		<h1 class='article-title'>{{cleanTitle}}</h1>
-		{{#if sections.length}}
+		<h1 class='article-title'>{{model.cleanTitle}}</h1>
+		{{#if model.sections.length}}
 			{{#collapsible-menu
 				showMenuIcon=true
 				additionalClasses='table-of-contents'
 				tLabel='article-toc-label'
 				ordered=true
-				observe=cleanTitle
+				observe=model.cleanTitle
 				trackingEvent='toc'
 			}}
-				{{#each section in sections}}
+				{{#each section in model.sections}}
 				<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
 					<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
 						{{unbound section.name}}
@@ -23,8 +23,8 @@
 			{{/collapsible-menu}}
 		{{/if}}
 		{{#view 'article-content'}}
-			{{#if article}}
-				{{{article}}}
+			{{#if model.article}}
+				{{{model.article}}}
 			{{else}}
 				{{i18n 'article-empty-label'}}
 			{{/if}}
@@ -32,22 +32,26 @@
 	</section>
 	<section class='article-footer'>
 	{{wikia-users
-		users=topContributors
+		users=model.topContributors
 		classes='contributors'
 		label='article-top-contributors-label'
 		trackingEvent='contributors'
 	}}
-	{{article-comments page=commentsPage articleId=id commentsCount=comments}}
-	{{#if categories}}
+	{{article-comments
+		page=commentsPage
+		articleId=model.id
+		commentsCount=model.comments
+	}}
+	{{#if model.categories}}
 		{{#collapsible-menu
 			showMenuIcon=false
 			additionalClasses='article-categories-list'
 			tLabel='article-categories-list-label'
 			ordered=false
-			observe=cleanTitle
+			observe=model.cleanTitle
 			trackingEvent='category'
 		}}
-			{{#each category in categories itemController='categoryListItem'}}
+			{{#each category in model.categories itemController='categoryListItem'}}
 			<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
 				{{category.cleanTitle}}
 				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
@@ -56,6 +60,6 @@
 		{{/collapsible-menu}}
 	{{/if}}
 	</section>
-	{{content-recommendations pages=relatedPages}}
+	{{content-recommendations pages=model.relatedPages}}
 {{/if}}
 {{wikia-footer trackClick='trackClick'}}
