@@ -18,6 +18,7 @@ interface GAAccountMap {
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
+	domain: string;
 	mediawikiDomain?: string;
 	devboxDomain?: string;
 	environment: any;
@@ -28,6 +29,7 @@ interface LocalSettings {
 	};
 	ironSecret: string;
 	host: any;
+	mwPreviewSalt: string;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;
 	optimizely?: {

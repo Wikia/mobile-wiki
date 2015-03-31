@@ -110,12 +110,6 @@ unauthenticatedRoutes = [
 		handler: require('./facets/auth/login').post
 	},
 	{
-		// Store authentication data after log-in
-		method: 'GET',
-		path: '/auth',
-		handler: require('./facets/auth/handleAuth')
-	},
-	{
 		method: 'GET',
 		path: '/breadcrumb',
 		handler: require('./facets/operations/generateCSRFView')
@@ -125,6 +119,11 @@ unauthenticatedRoutes = [
 		path: '/join',
 		handler: require('./facets/auth/join')
 	},
+	{
+		method: 'POST',
+		path: '/editorPreview/',
+		handler: require('./facets/editorPreview')
+	}
 ];
 
 articlePagePaths = [

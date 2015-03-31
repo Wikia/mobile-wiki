@@ -14,6 +14,7 @@ var localSettings: LocalSettings = {
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
+	domain: 'wikia.com',
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
@@ -25,6 +26,8 @@ var localSettings: LocalSettings = {
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
+	// Special salt for accepting HTML from MediaWiki for /editor_preview/
+	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
