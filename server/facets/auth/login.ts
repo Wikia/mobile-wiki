@@ -70,11 +70,9 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 }
 
 /**
- * Obtains a proper message to display in Front-End based on Helios response
- * @param {number} statusCode
- * @returns {string}
+ * Obtains i18n key of a proper message to display in Front-End based on Helios response
  */
-function getFormError (statusCode: number): String {
+function getFormErrorKey (statusCode: number): String {
 	if (statusCode === 401) {
 		return 'auth:login.wrong-credentials';
 	}
@@ -108,14 +106,12 @@ export function post (request: Hapi.Request, reply: any): void {
 		error: any = {},
 		redirect: string,
 		rememberMeTTL = 1.57785e10, // 6 months
-		context: any = {
-			error: null
-		};
+		context: any = {};
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
 		if (err) {
-			context.formError = getFormError(err.output.statusCode);
+			context.formErrorKey = getFormErrorKey(err.output.statusCode);
 
 			if (isAJAX) {
 				return reply(context).code(err.output.statusCode);

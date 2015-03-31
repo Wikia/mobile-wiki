@@ -13,9 +13,9 @@
 		<input type="checkbox" name="remember" id="loginRemember">
 		<label for="loginRemember">Remember me</label>
 		<button id="loginSubmit" type="submit" disabled>Sign in</button>
-		{{#if formError}}
+		{{#if formErrorKey}}
 		<small class="error">
-			{{i18n formError}}
+			{{i18n formErrorKey}}
 		</small>
 		{{/if}}
 	</form>
