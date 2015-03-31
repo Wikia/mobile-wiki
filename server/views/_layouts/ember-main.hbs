@@ -57,7 +57,6 @@
 		{{#if optimizelyScript}}
 			<script src="{{optimizelyScript}}"></script>
 		{{/if}}
-
 		{{> tracking}}
 	</head>
 	<body>
@@ -74,7 +73,7 @@
         -->
         <div id="ember-container"></div>
 
-		<!-- build:js /front/vendor/main.js -->
+		<!-- build:js /front/vendor/main.js defer -->
 			<script src="/front/vendor/script.js/dist/script.js"></script>
 			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
 			<script src="/front/vendor/jquery/dist/jquery.js"></script>
@@ -95,9 +94,9 @@
 		<!-- endbuild -->
 		
 		<!-- TODO: when https://github.com/Wikia/app/pull/6784 hits production change {{server.mediawikiDomain}} to a shared domain -->
-		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride"></script>
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride" defer></script>
 
-		<!-- build:js /front/scripts/combined.js -->
+		<!-- build:js /front/scripts/combined.js defer -->
 			<script src="/front/templates/main.js"></script>
 			<script src="/front/scripts/mercury.js"></script>
 			<script src="/front/scripts/main.js"></script>
