@@ -35,7 +35,6 @@ interface LoginViewContext {
 	hideFooter?  : boolean;
 	exitTo?      : string;
 	bodyClasses? : string;
-	loadScripts? : boolean;
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -70,6 +69,16 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 	});
 }
 
+/**
+ * Obtains i18n key of a proper message to display in Front-End based on Helios response
+ */
+function getFormErrorKey (statusCode: number): String {
+	if (statusCode === 401) {
+		return 'auth:login.wrong-credentials';
+	}
+	return 'auth:common.server-error';
+}
+
 export function get (request: Hapi.Request, reply: any): void {
 	var context: LoginViewContext,
 		redirectUrl: string = request.query.redirect || '/';
@@ -80,8 +89,7 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		title: 'Login',
-		loadScripts: true
+		title: 'Login'
 	};
 
 	return reply.view('login', context, {
@@ -94,21 +102,16 @@ export function post (request: Hapi.Request, reply: any): void {
 		authParams: AuthParams,
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
+		authRedirect: string,
 		error: any = {},
 		redirect: string,
 		rememberMeTTL = 1.57785e10, // 6 months
-		context: any = {
-			error: null
-		};
+		context: any = {};
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
 		if (err) {
-			/**
-			 * Forward the error payload, not the entire object as the trace may contain
-			 * sensitive information
-			 */
-			context.error = err.output.payload;
+			context.formErrorKey = getFormErrorKey(err.output.statusCode);
 
 			if (isAJAX) {
 				return reply(context).code(err.output.statusCode);
