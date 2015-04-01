@@ -6,7 +6,8 @@ input[type='password']:focus {
 	border: none;
 	border-bottom: 1px solid $label-color-inactive;
 	border-radius: 0;
-	box-shadow: none;
+	//Fix for yellow background for autofill in webkit browsers
+	box-shadow: 0 0 0 1000px $auth-content-background-color inset;
 	height: auto;
 	margin-top: 0;
 }
