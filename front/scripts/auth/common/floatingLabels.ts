@@ -40,7 +40,3 @@ class FloatingLabels {
 			.addEventListener('blur', this.onBlur.bind(this), true);
 	}
 }
-
-window.document.addEventListener('DOMContentLoaded', function ():void {
-	new FloatingLabels().watch();
-});
