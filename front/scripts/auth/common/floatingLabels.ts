@@ -1,14 +1,10 @@
 /**
- * Main entrypoint for validating user login
+ * Controls floating labels behavior on focus / blur events in input fields
  */
 class FloatingLabels {
 	loginUsername: HTMLInputElement;
 	loginPassword: HTMLInputElement;
 	loginSubmit: HTMLButtonElement;
-
-	constructor() {
-
-	}
 
 	private onFocus (event: Event): void {
 		var element = <HTMLInputElement> event.target,
