@@ -17,21 +17,17 @@ import path          = require('path');
 import url           = require('url');
 
 //Counter for maxRequestPerChild
-var counter = 1;
-var isDevbox: boolean = localSettings.environment === Utils.Environment.Dev;
-
-/**
- * Creates new `hapi` server
- */
-var server = new Hapi.Server();
+var counter = 1,
+	isDevbox: boolean = localSettings.environment === Utils.Environment.Dev,
+	plugins: any,
+	/* Creates new `hapi` server */
+	server = new Hapi.Server();
 
 server.connection({
 	host: localSettings.host,
 	port: localSettings.port,
 	routes: {
 		state: {
-			// We currently don't use any cookies on server side
-			// Uncomment this setting if you change the one above as we don't want to fail on invalid cookies
 			failAction: 'log'
 		}
 	}
@@ -39,7 +35,7 @@ server.connection({
 
 setupLogging(server);
 
-var plugins = [
+plugins = [
 	{
 		register: require('hapi-auth-cookie')
 	},

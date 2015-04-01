@@ -1,3 +1,7 @@
+## release-52 (2015-03-27 11:00)
+* ce-1431-mercury-preview: CE-1431 Use cdnRoot for assets
+* [CONCF-296](https://wikia-inc.atlassian.net/browse/CONCF-296) CONCF-296 add siteMessage to meta tags
+
 ## release-51 (2015-03-26 14:00)
 * revert-gulp-sass-1.3: Downgrade gulp-sass to 1.1.x and revert related changes
 * [CONCF-369](https://wikia-inc.atlassian.net/browse/CONCF-369) Remove Foundation's .row styles from footer

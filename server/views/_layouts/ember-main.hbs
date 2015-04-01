@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{displayTitle}}{{#displayTitle}} - {{/displayTitle}}{{wiki.siteName}}</title>
-		<meta name="keywords" content="{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
+		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
+		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
 		{{#if article.article.description}}
 			<meta name="description" content="{{article.article.description}}">
 		{{/if}}
@@ -57,7 +57,6 @@
 		{{#if optimizelyScript}}
 			<script src="{{optimizelyScript}}"></script>
 		{{/if}}
-
 		{{> tracking}}
 	</head>
 	<body>
@@ -74,7 +73,7 @@
         -->
         <div id="ember-container"></div>
 
-		<!-- build:js /front/vendor/main.js -->
+		<!-- build:js /front/vendor/main.js defer -->
 			<script src="/front/vendor/script.js/dist/script.js"></script>
 			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
 			<script src="/front/vendor/jquery/dist/jquery.js"></script>
@@ -95,9 +94,9 @@
 		<!-- endbuild -->
 		
 		<!-- TODO: when https://github.com/Wikia/app/pull/6784 hits production change {{server.mediawikiDomain}} to a shared domain -->
-		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride"></script>
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride" defer></script>
 
-		<!-- build:js /front/scripts/combined.js -->
+		<!-- build:js /front/scripts/combined.js defer -->
 			<script src="/front/templates/main.js"></script>
 			<script src="/front/scripts/mercury.js"></script>
 			<script src="/front/scripts/main.js"></script>

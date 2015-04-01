@@ -95,7 +95,8 @@ export function post (request: Hapi.Request, reply: any): void {
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		error: any = {},
-		authRedirect: string,
+		redirect: string,
+		rememberMeTTL = 1.57785e10, // 6 months
 		context: any = {
 			error: null
 		};
@@ -119,26 +120,22 @@ export function post (request: Hapi.Request, reply: any): void {
 			}).code(err.output.statusCode);
 		}
 
-		authParams = {
+		redirect = request.query.redirect || '/';
+
+		request.auth.session.set({
 			'user_id'       : response.user_id,
 			'access_token'  : response.access_token,
 			'refresh_token' : response.refresh_token
-		};
-
-		if (request.query.redirect) {
-			authParams.redirect = request.query.redirect;
-		}
+		});
 
 		if (credentials.remember) {
-			authParams.remember = '1';
+			request.auth.session.ttl(rememberMeTTL);
 		}
-
-		authRedirect = '/auth?' + qs.stringify(authParams);
 
 		if (isAJAX) {
-			return reply({authRedirect: authRedirect});
+			return reply({redirect: redirect});
 		}
 
-		return reply.redirect(authRedirect);
+		return reply.redirect(redirect);
 	});
 }
