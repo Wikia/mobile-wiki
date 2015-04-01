@@ -58,3 +58,11 @@ input[type='date'] {
 		}
 	}
 }
+
+.inline-checkbox-wrapper {
+	display: table;
+
+	.inline {
+		display: table-cell;
+	}
+}

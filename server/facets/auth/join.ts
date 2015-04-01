@@ -1,7 +1,7 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 interface JoinViewContext {
-	title        : string;
+	pageTitleKey : string;
 	loginRoute   : string;
 	hideHeader?  : boolean;
 	hideFooter?  : boolean;
@@ -19,7 +19,7 @@ function get (request: Hapi.Request, reply: any): void {
 	}
 
 	context = {
-		title: 'Join Wikia',
+		pageTitleKey: 'auth:landing-page.page-title',
 		loginRoute: '/login',
 		hideHeader: true,
 		hideFooter: true,

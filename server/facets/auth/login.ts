@@ -30,7 +30,7 @@ interface HeliosResponse {
 }
 
 interface LoginViewContext {
-	title        : string;
+	pageTitleKey : string;
 	hideHeader?  : boolean;
 	hideFooter?  : boolean;
 	exitTo?      : string;
@@ -89,7 +89,7 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		title: 'Login'
+		pageTitleKey: 'auth:login.page-title'
 	};
 
 	return reply.view('login', context, {

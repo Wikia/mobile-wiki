@@ -10,8 +10,12 @@
 		</div>
 		<a class="forgotten-password" href="#" tabindex="-1">Forgot password?</a>
 		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
-		<input type="checkbox" name="remember" id="loginRemember">
-		<label for="loginRemember">Remember me</label>
+		<div class="inline-checkbox-wrapper">
+			<input type="checkbox" name="remember" id="loginRemember">
+			<label for="loginRemember" class="inline">
+				{{i18n 'auth:login.remember-me'}}
+			</label>
+		</div>
 		<button id="loginSubmit" type="submit" disabled>Sign in</button>
 		{{#if formErrorKey}}
 		<small class="error">

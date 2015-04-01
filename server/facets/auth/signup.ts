@@ -1,5 +1,5 @@
 interface SignupViewContext {
-	title        : string;
+	pageTitleKey : string;
 	hideHeader?  : boolean;
 	hideFooter?  : boolean;
 	exitTo?      : string;
@@ -17,7 +17,7 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		title: 'Login',
+		pageTitleKey: 'auth:signup.page-title',
 		loadScripts: true,
 		i18nContext: {
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use'
