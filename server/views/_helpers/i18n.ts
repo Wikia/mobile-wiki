@@ -3,12 +3,11 @@ function i18nHelper (key: string, options: any): string {
 		params: {[key: string]: string} = {},
 		namespace = '',
 		instance = this.i18n.getInstance();
-
-	Object.keys(options.hash).forEach((key: string) => {
+	Object.keys(options).forEach((key: string) => {
 		if (key === 'ns') {
-			namespace = options.hash[key] + ':';
+			namespace = options[key] + ':';
 		} else if (options.hasOwnProperty(key)) {
-			params[key] = String(options.hash[key]);
+			params[key] = String(options[key]);
 		}
 	});
 

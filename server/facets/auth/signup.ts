@@ -18,7 +18,10 @@ export function get (request: Hapi.Request, reply: any): void {
 	context = {
 		exitTo: redirectUrl,
 		title: 'Login',
-		loadScripts: true
+		loadScripts: true,
+		i18nContext: {
+			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use'
+		}
 	};
 
 	return reply.view('signup', context, {
