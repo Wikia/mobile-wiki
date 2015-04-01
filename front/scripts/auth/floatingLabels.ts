@@ -34,9 +34,9 @@ class FloatingLabels {
 	 * Starts continuous checking for new input
 	 */
 	public watch (): void {
-		window.document.querySelector('#signupForm')
+		window.document.querySelector('form')
 			.addEventListener('focus', this.onFocus.bind(this), true);
-		window.document.querySelector('#signupForm')
+		window.document.querySelector('form')
 			.addEventListener('blur', this.onBlur.bind(this), true);
 	}
 }
