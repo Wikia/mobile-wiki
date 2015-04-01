@@ -70,7 +70,6 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 	});
 }
 
-
 export function get (request: Hapi.Request, reply: any): void {
 	var context: LoginViewContext,
 		redirectUrl: string = request.query.redirect || '/';
