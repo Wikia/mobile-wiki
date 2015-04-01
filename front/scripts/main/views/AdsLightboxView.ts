@@ -3,6 +3,6 @@
 /// <reference path="./LightboxView.ts" />
 'use strict';
 
-App.MapLightboxView = App.LightboxView.extend(App.LightboxMixin, {
-	classNames: ['map-lightbox']
+App.AdsLightboxView = App.LightboxView.extend(App.LightboxMixin, {
+	classNames: ['ads-lightbox']
 });
