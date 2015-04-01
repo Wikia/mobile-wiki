@@ -4,10 +4,20 @@ input.sign-in-password {
 }
 
 .forgotten-password {
-	color: $forgotten-password-link-color;
+	color: $link-color;
 	display: block;
 	font-size: 0.75rem;
 	margin: 0;
 	text-align: right;
 	width: 100%;
+}
+
+.terms-of-use {
+	display: block;
+	text-align: center;
+	width: 100%;
+
+	>a {
+		color: $link-color;
+	}
 }
