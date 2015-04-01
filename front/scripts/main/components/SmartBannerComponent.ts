@@ -43,11 +43,11 @@ App.SmartBannerComponent = Em.Component.extend({
 	}.property('icon'),
 
 	labelInStore: function (): string {
-		return i18n.t('app:smartbanner-store-' + this.get('system'));
+		return i18n.t('app.smartbanner-store-' + this.get('system'));
 	}.property('system'),
 
 	labelInstall: function (): string {
-		return i18n.t('app:smartbanner-install-' + this.get('system'));
+		return i18n.t('app.smartbanner-install-' + this.get('system'));
 	}.property('system'),
 
 	link: function (): string {

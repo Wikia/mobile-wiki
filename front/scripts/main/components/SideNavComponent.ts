@@ -10,7 +10,7 @@ App.SideNavComponent = Em.Component.extend({
 	isInSearchMode: false,
 	searchQuery: '',
 	searchPlaceholderLabel: function (): string {
-		return i18n.t('app:search-label');
+		return i18n.t('app.search-label');
 	}.property(),
 
 	actions: {
