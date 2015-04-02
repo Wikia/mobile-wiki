@@ -38,6 +38,7 @@
 
 .article-comment {
 	@extend .row;
+	@extend .collapse;
 	margin: rem-calc(20) 0;
 
 	> div {
