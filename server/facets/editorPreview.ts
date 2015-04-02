@@ -1,6 +1,9 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
+/// <reference path="../../typings/boom/boom.d.ts" />
+/// <reference path="../lib/Utils.ts" />
 
 import Article = require('../lib/Article');
+import Boom = require('boom');
 import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
 import verifyMWHash = require('./operations/verifyMWHash');
@@ -13,13 +16,14 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 
 	Article.getWikiVariables(wikiDomain, (error: any, wikiVariables: any) => {
 		var article: any = {},
-			result: any = {},
-			error: any;
+			result: any = {};
 
-		if (verifyMWHash(parserOutput, mwHash)) {
-			article = JSON.parse(parserOutput);
-		} else {
-			error = true;
+		if (!error) {
+			if (verifyMWHash(parserOutput, mwHash)) {
+				article = JSON.parse(parserOutput);
+			} else {
+				error = Boom.forbidden('Failed to verify source');
+			}
 		}
 
 		result = {
@@ -35,6 +39,10 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 				preview: true
 			},
 			wiki: wikiVariables || {},
+			// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
+			server: {
+				cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
+			},
 			error: error
 		};
 

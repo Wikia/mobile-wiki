@@ -1,0 +1,14 @@
+.close {
+	color: #FFF;
+	font-size: 25px;
+	font-weight: lighter;
+	line-height: 15px;
+	position: absolute;
+	right: 10px;
+	transform: rotate(45deg);
+	top: 10px;
+
+	&:after {
+		content: '+';
+	}
+}

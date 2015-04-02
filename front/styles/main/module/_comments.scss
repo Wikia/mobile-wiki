@@ -9,6 +9,10 @@
 	width: 100%;
 }
 
+.show-reply-btn {
+	margin-bottom: 20px;
+}
+
 .show-comments-btn {
 	display: block;
 	background: none;
@@ -32,13 +36,13 @@
 
 .comments {
 	@extend %list-reset;
-	@extend %padding-on-sides;
 
 	font-size: rem-calc(13);
 }
 
 .article-comment {
 	@extend .row;
+	@extend .collapse;
 	margin: rem-calc(20) 0;
 
 	> div {
