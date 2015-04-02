@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-	//TODO this surely can look better
 	compiler = require('../../front/vendor/ember/ember-template-compiler'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
