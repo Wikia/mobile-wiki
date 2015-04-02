@@ -7,7 +7,7 @@
 			{{#collapsible-menu
 				showMenuIcon=true
 				additionalClasses='table-of-contents'
-				tLabel='article-toc-label'
+				tLabel='app.article-toc-label'
 				ordered=true
 				observe=model.cleanTitle
 				trackingEvent='toc'
@@ -26,7 +26,7 @@
 			{{#if model.article}}
 				{{{model.article}}}
 			{{else}}
-				{{i18n 'article-empty-label'}}
+				{{i18n 'app.article-empty-label'}}
 			{{/if}}
 		{{/view}}
 	</section>
@@ -34,7 +34,7 @@
 	{{wikia-users
 		users=model.topContributors
 		classes='contributors'
-		label='article-top-contributors-label'
+		label='app.article-top-contributors-label'
 		trackingEvent='contributors'
 	}}
 	{{article-comments
@@ -46,7 +46,7 @@
 		{{#collapsible-menu
 			showMenuIcon=false
 			additionalClasses='article-categories-list'
-			tLabel='article-categories-list-label'
+			tLabel='app.article-categories-list-label'
 			ordered=false
 			observe=model.cleanTitle
 			trackingEvent='category'

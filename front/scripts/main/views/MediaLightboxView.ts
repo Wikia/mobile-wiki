@@ -2,21 +2,19 @@
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
+/// <reference path="../mixins/LightboxMixin.ts" />
 'use strict';
 
 interface Window {
 	scrollY: number;
 }
 
-App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
+App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.LightboxMixin, {
 	classNames: ['media-lightbox'],
 	maxZoom: 5,
 	lastX: 0,
 	lastY: 0,
 	lastScale: 1,
-	//opening, open
-	//before didInsertElement the lightbox is opening
-	status: 'opening',
 	videoPlayer: null,
 
 	isGallery: Em.computed.alias('controller.isGallery'),
@@ -356,7 +354,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		var hammerInstance = this.get('_hammerInstance');
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
-		this.set('status', 'open');
 		this.resetZoom();
 		this.initVideoPlayer();
 
@@ -372,7 +369,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	},
 
 	willDestroyElement: function (): void {
-		this.get('controller').reset();
 		this.get('_hammerInstance').get('pinch').set({
 			enable: false
 		});

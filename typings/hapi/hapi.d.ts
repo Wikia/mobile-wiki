@@ -139,7 +139,7 @@ declare module Hapi {
 		partialsPath?: string;
 		helpersPath?: string;
 		basePath?: string;
-		layout?: boolean;
+		layout?: boolean|string;
 		layoutPath?: string;
 		layoutKeyword?: string;
 		encoding?: string;
@@ -300,6 +300,7 @@ declare module Hapi {
 			[pluginName: string]: any;
 		};
 
+		register: any;
 		start(callback?: () => void): void;
 		stop(options?: {timeout: number;}, callback?: () => void): void;
 		route(options: RouteOptions): void;

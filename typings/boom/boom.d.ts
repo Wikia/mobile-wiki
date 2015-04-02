@@ -26,6 +26,7 @@ declare module Boom {
 
 	export function forbidden(message?: string, data?: any): BoomError;
 	export function badRequest(message?: string, data?: any): BoomError;
+	export function unauthorized(message?: string, data?: any): BoomError;
 }
 
 declare module "boom" {

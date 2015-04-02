@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+
+		<title>{{{title}}}</title>
+		<!-- build:css /front/styles/auth/app.css -->
+		<link rel="stylesheet" href="/front/styles/auth/app.css">
+		<!-- endbuild -->
+	</head>
+	<body class="auth {{bodyClasses}}">
+		{{#if exitTo}}
+		<a class="close" href="{{exitTo}}"></a>
+		{{/if}}
+
+		{{#unless hideHeader }}
+		{{!-- TODO: use i18n for messages once it's set up (SOC-526) --}}
+		<header class="auth-header splash splash-top">Welcome Back!</header>
+		{{/unless}}
+
+		{{{content}}}
+
+		{{#unless hideFooter }}
+		<footer class="auth-footer splash splash-bottom">Don\'t have an account? <a href="#">Register now</a></footer>
+		{{/unless}}
+
+		{{#unless noScripts}}
+		<!-- build:js /front/scripts/auth.js -->
+		<script src="/front/scripts/auth.js"></script>
+		<!-- endbuild -->
+		{{/unless}}
+	</body>
+</html>

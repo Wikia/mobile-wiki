@@ -40,8 +40,8 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
-		 * @param adsUrl string url to MW for ads code
-		 * @param callback Callback function to exwecute when the script is loaded
+		 * @param adsUrl Url for the ads script
+		 * @param callback Callback function to execute when the script is loaded
 		 */
 		public init (adsUrl: string, callback: () => void): void {
 			//Required by ads tracking code
@@ -152,6 +152,13 @@ module Mercury.Modules {
 			this.adSlots = $.grep(this.adSlots, (slot) => {
 				return slot[0] && slot[0] === name;
 			}, true);
+		}
+
+		public openLightbox (contents: any): void {
+			/**
+			 * This method is being overwritten in ApplicationRoute for ads needs.
+			 * To learn more check ApplicationRoute.ts file.
+			 */
 		}
 
 		/**

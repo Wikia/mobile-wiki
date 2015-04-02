@@ -1,17 +1,18 @@
 var Logger = require('../../lib/Logger');
 
-module.exports = function (language) {
+module.exports = function (language, opts) {
 	var translations = {},
 		translationPath,
 		fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		foundLanguage = '',
+		namespace = opts.hash.ns || 'main',
 		wrapper = {};
 
 	[language, fallbackLanguage, defaultLanguage].some(function (lang) {
 		foundLanguage = lang;
-		translationPath = '../../../front/locales/' + lang + '/translation.json';
-		
+		translationPath = '../../../front/locales/' + lang + '/' + namespace + '.json';
+
 		try {
 			translations = require(translationPath);
 			return true;
@@ -24,6 +25,7 @@ module.exports = function (language) {
 		}
 	});
 
-	wrapper[foundLanguage] = translations;
+	wrapper[foundLanguage] = {};
+	wrapper[foundLanguage][namespace] = translations;
 	return wrapper;
 };
