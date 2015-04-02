@@ -1,5 +1,5 @@
 window.document.addEventListener('DOMContentLoaded', function ():void {
-	new FloatingLabels().watch();
+	new Form().watch();
 
 	//TODO Figure out a nicer way of diving javascripts / recognizing a page type
 	if (document.querySelector('#loginForm')) {

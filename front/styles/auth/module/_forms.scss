@@ -65,6 +65,22 @@ input[type='date'] {
 	width: 20px;
 	position: absolute;
 	right: 5px;
+
+	&.on {
+		opacity: 0.5;
+	}
+}
+
+.dices {
+	&.on {
+		animation: spin 1s linear infinite;
+	}
+}
+
+@keyframes spin {
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .inline-checkbox-wrapper {
