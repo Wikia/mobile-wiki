@@ -1008,9 +1008,9 @@ declare module Ember {
             constructor(str: string);
             static toString(): string;
         }
-		class Utils {
-			static escapeExpression(str: string): string;
-		}
+        class Utils {
+            static escapeExpression(str: string): string;
+        }
         function parse(string: string): any;
         function print(ast: any): void;
         var logger: typeof Ember.Logger;
