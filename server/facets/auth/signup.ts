@@ -1,7 +1,7 @@
 interface SignupViewContext {
 	pageTitleKey : string;
-	hideHeader?  : boolean;
-	hideFooter?  : boolean;
+	header?  : string;
+	footer?  : string;
 	exitTo?      : string;
 	bodyClasses? : string;
 	loadScripts? : boolean;
@@ -17,6 +17,8 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
+		header: 'auth:signup.header',
+		footer: 'auth:signup.footer',
 		pageTitleKey: 'auth:signup.page-title',
 		loadScripts: true,
 		i18nContext: {

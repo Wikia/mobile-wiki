@@ -14,16 +14,16 @@
 		<a class="close" href="{{exitTo}}"></a>
 		{{/if}}
 
-		{{#unless hideHeader }}
+		{{#if header }}
 		{{!-- TODO: use i18n for messages once it's set up (SOC-526) --}}
-		<header class="auth-header splash splash-top">Welcome Back!</header>
-		{{/unless}}
+		<header class="auth-header splash splash-top">{{i18n header}}</header>
+		{{/if}}
 
 		{{{content}}}
 
-		{{#unless hideFooter }}
-		<footer class="auth-footer splash splash-bottom">Don\'t have an account? <a href="/signup">Register now</a></footer>
-		{{/unless}}
+		{{#if footer }}
+		<footer class="auth-footer splash splash-bottom">{{{i18n footer}}}</footer>
+		{{/if}}
 
 		{{#unless noScripts}}
 		<!-- build:js /front/scripts/auth.js -->

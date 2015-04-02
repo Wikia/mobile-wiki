@@ -31,8 +31,8 @@ interface HeliosResponse {
 
 interface LoginViewContext {
 	pageTitleKey : string;
-	hideHeader?  : boolean;
-	hideFooter?  : boolean;
+	header?  : string;
+	footer?  : string;
 	exitTo?      : string;
 	bodyClasses? : string;
 }
@@ -89,6 +89,8 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
+		header: 'auth:login.header',
+		footer: 'auth:login.footer',
 		pageTitleKey: 'auth:login.page-title'
 	};
 
@@ -104,14 +106,18 @@ export function post (request: Hapi.Request, reply: any): void {
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		authRedirect: string,
 		error: any = {},
-		redirect: string,
-		rememberMeTTL = 1.57785e10, // 6 months
-		context: any = {};
+		redirect: string = request.query.redirect || '/',
+		rememberMeTTL = 1.57785e10, // 6 months,
+		context: any = {
+			header: 'auth:login.header',
+			footer: 'auth:login.footer'
+		};
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
 		if (err) {
 			context.formErrorKey = getFormErrorKey(err.output.statusCode);
+			context.exitTo = redirect;
 
 			if (isAJAX) {
 				return reply(context).code(err.output.statusCode);
