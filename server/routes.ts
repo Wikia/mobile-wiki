@@ -21,10 +21,7 @@ var routes: RouteDefinition[],
 				privacy: Caching.policyString(Caching.Policy.Public),
 				expiresIn: 60000
 			},
-			auth: {
-				mode: 'try',
-				strategy: 'session'
-			},
+			auth: false,
 			plugins: {
 				'hapi-auth-cookie': {
 					redirectTo: false
