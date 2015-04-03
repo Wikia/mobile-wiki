@@ -138,16 +138,7 @@ articlePagePaths.forEach((path) => {
 	});
 });
 
-authenticatedRoutes = [
-	{
-		method: 'GET',
-		path: '/test',
-		// TODO: This is just an example, remove this handler logic from the routes file later
-		handler (request: Hapi.Request, reply: any) {
-			reply(request.auth);
-		}
-	}
-];
+authenticatedRoutes = [];
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);
