@@ -14,13 +14,20 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	beforeModel: function (transition: EmberStates.Transition) {
+		var title = transition.params.article.title ?
+			transition.params.article.title.replace('wiki/', ''):
+			Mercury.wiki.mainPageTitle;
+
 		if (Mercury.error) {
 			transition.abort();
 		}
 
-		if (!transition.params.article.title) {
-			this.transitionTo('article', Mercury.wiki.mainPageTitle);
-		}
+		// If you try to access article with not-yet-sanitized title you can see in logs:
+		// `Transition #1: detected abort.`
+		// This is caused by the transition below but doesn't mean any additional requests.
+		this.transitionTo('article',
+			Mercury.Utils.String.sanitize(title)
+		);
 	},
 
 	model: function (params: any) {
