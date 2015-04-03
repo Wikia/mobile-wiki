@@ -45,7 +45,7 @@ var defaultViewContext: LoginViewContext = {
 	title: 'auth:login.login-title',
 	headerText: 'auth:login.welcome-back',
 	footerCallout: 'auth:login.register-callout',
-	footerCalloutLink: 'auth:login.register-link-text'
+	footerCalloutLink: 'auth:login.register-now'
 };
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -83,7 +83,7 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 /**
  * Obtains i18n key of a proper message to display in Front-End based on Helios response
  */
-function getFormErrorKey (statusCode: number): String {
+function getFormErrorKey (statusCode: number): string {
 	if (statusCode === 401) {
 		return 'auth:login.wrong-credentials';
 	}
