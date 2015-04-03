@@ -2,7 +2,6 @@
 'use strict';
 
 module Mercury.Utils.String {
-
 	/**
 	 * We need to support links like:
 	 * /wiki/Rachel Berry

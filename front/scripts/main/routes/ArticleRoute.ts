@@ -26,7 +26,7 @@ App.ArticleRoute = Em.Route.extend({
 		// `Transition #1: detected abort.`
 		// This is caused by the transition below but doesn't mean any additional requests.
 		this.transitionTo('article',
-			Mercury.Utils.String.sanitize(title)
+			M.String.sanitize(title)
 		);
 	},
 
