@@ -30,12 +30,23 @@ interface HeliosResponse {
 }
 
 interface LoginViewContext {
-	title        : string;
-	hideHeader?  : boolean;
-	hideFooter?  : boolean;
-	exitTo?      : string;
-	bodyClasses? : string;
+	title             : string;
+	headerText        : string;
+	footerCallout     : string;
+	footerCalloutLink : string;
+	hideHeader?       : boolean;
+	hideFooter?       : boolean;
+	exitTo?           : string;
+	bodyClasses?      : string;
+	formErrorKey?     : string;
 }
+
+var defaultViewContext: LoginViewContext = {
+	title: 'auth:login.login-title',
+	headerText: 'auth:login.welcome-back',
+	footerCallout: 'auth:login.register-callout',
+	footerCalloutLink: 'auth:login.register-link-text'
+};
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
 	Wreck.get(localSettings.helios.host + '/token?' + qs.stringify({
@@ -80,17 +91,14 @@ function getFormErrorKey (statusCode: number): String {
 }
 
 export function get (request: Hapi.Request, reply: any): void {
-	var context: LoginViewContext,
-		redirectUrl: string = request.query.redirect || '/';
+	var context: LoginViewContext = defaultViewContext,
+		redirect: string = request.query.redirect || '/';
 
 	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirectUrl);
+		return reply.redirect(redirect);
 	}
 
-	context = {
-		exitTo: redirectUrl,
-		title: 'Login'
-	};
+	context.exitTo = redirect;
 
 	return reply.view('login', context, {
 		layout: 'wikia-static'
@@ -99,14 +107,11 @@ export function get (request: Hapi.Request, reply: any): void {
 
 export function post (request: Hapi.Request, reply: any): void {
 	var credentials: any = request.payload,
-		authParams: AuthParams,
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
-		authRedirect: string,
-		error: any = {},
-		redirect: string,
+		redirect: string = request.query.redirect || '/',
 		rememberMeTTL = 1.57785e10, // 6 months
-		context: any = {};
+		context: LoginViewContext = defaultViewContext;
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
@@ -117,13 +122,13 @@ export function post (request: Hapi.Request, reply: any): void {
 				return reply(context).code(err.output.statusCode);
 			}
 
+			context.exitTo = redirect;
+
 			return reply.view('login', context, {
 				layout: 'wikia-static'
-			// Always set the correct code
+			// Always set the correct status code
 			}).code(err.output.statusCode);
 		}
-
-		redirect = request.query.redirect || '/';
 
 		request.auth.session.set({
 			'user_id'       : response.user_id,
