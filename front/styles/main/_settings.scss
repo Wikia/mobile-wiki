@@ -6,11 +6,11 @@
 // FOUNDATION SETTINGS
 //
 
-// This is the default html and body font-size for the base rem value.
-$rem-base: 16px;
-
 // Allows the use of rem-calc() or lower-bound() in your settings
 @import '../../vendor/foundation/scss/foundation/functions';
+
+// Use Wikia style guide settings
+@import '../../vendor/wikia-style-guide/src/scss/lib/settings';
 
 // $experimental: true;
 
@@ -27,11 +27,6 @@ $rem-base: 16px;
 
 // We use this to control whether or not CSS classes come through in the gem files.
 $include-html-classes: false;
-// $include-print-styles: true;
-$include-html-global-classes: true;
-
-// Grid
-$include-html-grid-classes: true;
 
 $column-gutter: rem-calc(40);
 
@@ -39,8 +34,8 @@ $column-gutter: rem-calc(40);
 $body-font-color: rgb(58,58,60);
 
 // We use these as default colors throughout
-$primary-color: #006cb0;
-$secondary-color: #d0d0d0;
+//$primary-color: #006cb0;
+//$secondary-color: #d0d0d0;
 
 // Media Query Ranges
 $small-range: (0em, 40em);
@@ -48,8 +43,6 @@ $medium-range: (40.063em, 64em);
 $large-range: (64.063em, 90em);
 $xlarge-range: (90.063em, 120em);
 $xxlarge-range: (120.063em);
-
-$screen: "only screen";
 
 $landscape: "#{$screen} and (orientation: landscape)";
 $portrait: "#{$screen} and (orientation: portrait)";
@@ -69,12 +62,5 @@ $xlarge-only: "#{$screen} and (min-width:#{lower-bound($xlarge-range)}) and (max
 $xxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)})";
 $xxlarge-only: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)}) and (max-width:#{upper-bound($xxlarge-range)})";
 
-
-
 // We use these to style anchors
-$anchor-text-decoration: none;
 $anchor-font-color: $primary-color;
-// $anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
-
-// We use these to control button text styles.
-$button-font-color: #fff;
