@@ -6,6 +6,10 @@
 	}
 }
 
+.ad-slot[id^="INVISIBLE_"] {
+	display: none !important;
+}
+
 .mobile-top-leaderboard {
 	min-height: 50px;
 	margin-top: 60px;

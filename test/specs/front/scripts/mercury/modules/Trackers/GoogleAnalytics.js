@@ -73,9 +73,7 @@ QUnit.test('GoogleAnalytics constructor', function () {
 	new Mercury.Modules.Trackers.GoogleAnalytics();
 
 	strictEqual(this.queueCount('_setAccount'), 1);
-	strictEqual(this.queueCount('special._setAccount'), 0);
 	strictEqual(this.queueCount('_setSampleRate'), 0);
-	strictEqual(this.queueCount('special._setSampleRate'), 0);
 
 	deepEqual(['_setAccount', '123'], this.queue[0]);
 	deepEqual(['ads._setAccount', '789'], this.queue[1]);
@@ -85,14 +83,12 @@ QUnit.test('Track event', function () {
 	var tracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 	tracker.track('category', 'action', 'label', 42, true);
 	deepEqual(this.queueContains(['_trackEvent', 'category', 'action', 'label', 42, true]), true);
-	deepEqual(this.queueContains(['special._trackEvent', 'category', 'action', 'label', 42, true]), true);
 });
 
 QUnit.test('Track page view', function () {
 	var tracker = new Mercury.Modules.Trackers.GoogleAnalytics();
 	tracker.trackPageView();
 	deepEqual(this.queueContains(['_trackPageView']), true);
-	deepEqual(this.queueContains(['special._trackPageView']), true);
 });
 
 QUnit.test('Track ads-related event', function () {
