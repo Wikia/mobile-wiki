@@ -23,7 +23,7 @@
     "handlebars": "2.0.0",
     "hapi": "8.2.0",
     "hapi-auth-cookie": "2.0.0",
-    "hapi-i18next": "^1.0.2",
+    "hapi-i18next": "^2.0.0",
     "hoek": "2.11.1",
     "i18next": "1.7.10",
     "newrelic": "1.16.2",
