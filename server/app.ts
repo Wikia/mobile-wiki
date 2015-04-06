@@ -56,9 +56,13 @@ plugins = [
 					namespaces: ['main', 'auth'],
 					defaultNs: 'main'
 				},
+				fallbackLng: 'qqx',
+				supportedLngs: ['en', 'es', 'qqx'],
 				useCookie: true,
 				cookieName: 'lang',
-				detectLngFromHeaders: true
+				detectLngFromHeaders: true,
+				detectLngFromQueryString: true,
+				detectLngQS: 'uselang'
 			}
 		}
 	}
