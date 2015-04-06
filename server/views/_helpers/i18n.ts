@@ -13,6 +13,6 @@ function i18nHelper (key: string, options: any): string {
 	});
 
 	return translateWithCache(namespace + key, instance.lng(), params);
-};
+}
 
 export = i18nHelper;
