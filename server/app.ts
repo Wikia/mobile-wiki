@@ -56,7 +56,7 @@ plugins = [
 					namespaces: ['main', 'auth'],
 					defaultNs: 'main'
 				},
-				fallbackLng: 'qqx',
+				fallbackLng: 'qqx', // fallback to message keys
 				supportedLngs: ['en', 'es', 'qqx'],
 				useCookie: true,
 				cookieName: 'lang',
