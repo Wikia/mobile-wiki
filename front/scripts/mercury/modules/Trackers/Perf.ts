@@ -71,6 +71,8 @@ module Mercury.Modules.Trackers {
 				default:
 					throw 'This action not supported in Weppy tracker';
 			}
+
+			trackFn.flush();
 		}
 	}
 }
