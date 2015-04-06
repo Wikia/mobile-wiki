@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "ember": "1.9.1",
-    "foundation": "5.4.6",
+    "foundation": "5.5.1",
     "i18next": "1.7.4",
     "script.js": "2.5.7",
     "hammerjs": "2.0.4",
@@ -17,7 +17,8 @@
     "scroll-depth": "https://github.com/nandy-andy/jquery-scrolldepth.git#0.8.3",
     "weppy": "Wikia/weppy",
     "ember-performance-sender": "1.0.0",
-    "vignette": "wikia/vignette-js#1.0.2"
+    "vignette": "wikia/vignette-js#1.0.2",
+    "wikia-style-guide": "Wikia/style-guide#~0.2.3"
   },
   "devDependencies": {
     "ember-qunit": "0.1.8",

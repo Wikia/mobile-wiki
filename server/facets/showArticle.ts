@@ -5,7 +5,7 @@ import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');
-
+import prepareArticleData = require('./operations/prepareArticleData');
 
 var cachingTimes = {
 	enabled: false,
@@ -45,52 +45,6 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 }
 
 /**
- * Prepares article data to be rendered
- * TODO: clean up this function
- *
- * @param {Hapi.Request} request
- * @param result
- */
-function beforeArticleRender (request: Hapi.Request, result: any): void {
-	var title: string,
-		articleDetails: any,
-		userDir = 'ltr';
-
-	if (result.article.details) {
-		articleDetails = result.article.details;
-		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
-	} else if (request.params.title) {
-		title = request.params.title.replace(/_/g, ' ');
-	} else {
-		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
-	}
-
-	if (result.article.article) {
-		// we want to return the article content only once - as HTML and not JS variable
-		result.articleContent = result.article.article.content;
-		delete result.article.article.content;
-	}
-
-	if (result.wiki.language) {
-		userDir = result.wiki.language.userDir;
-		result.isRtl = (userDir === 'rtl');
-	}
-
-	result.displayTitle = title;
-	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
-	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
-	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
-	result.queryParams = Utils.parseQueryParams(request.query);
-	result.weppyConfig = localSettings.weppy;
-
-	if (localSettings.optimizely.enabled && !result.queryParams.noexternals) {
-		result.optimizelyScript = localSettings.optimizely.scriptPath +
-			(localSettings.environment === Utils.Environment.Prod ?
-			localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
-	}
-}
-
-/**
  * Handles article response from API
  *
  * @param {Hapi.Request} request
@@ -113,10 +67,17 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 			result.error = JSON.stringify(error);
 		}
 
-		beforeArticleRender(request, result);
+		prepareArticleData(request, result);
+
+		if (localSettings.optimizely.enabled && !result.queryParams.noexternals) {
+			result.optimizelyScript = localSettings.optimizely.scriptPath +
+			(localSettings.environment === Utils.Environment.Prod ?
+				localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+		}
 
 		response = reply.view('application', result);
 		response.code(code);
+		response.type('text/html; charset=utf-8');
 		Caching.setResponseCaching(response, cachingTimes);
 	}
 }

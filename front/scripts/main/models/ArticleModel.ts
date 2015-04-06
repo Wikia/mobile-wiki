@@ -93,6 +93,7 @@ App.ArticleModel.reopenClass({
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
 				url: App.get('apiBase') + '/article?random&titleOnly',
+				cache: false,
 				dataType: 'json',
 				success: (data): void => {
 					if (data.title) {
@@ -113,7 +114,8 @@ App.ArticleModel.reopenClass({
 
 	getPreloadedData: function (): any {
 		var article = Mercury.article,
-			adsInstance: Mercury.Modules.Ads;
+			adsInstance: Mercury.Modules.Ads,
+			instantGlobals = Wikia.InstantGlobals || {};
 
 		M.prop('firstPage', false);
 
@@ -121,7 +123,7 @@ App.ArticleModel.reopenClass({
 		article.content = $('.article-content').html();
 
 		// Setup ads
-		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals')) {
+		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
 			adsInstance = Mercury.Modules.Ads.getInstance();
 			adsInstance.init(M.prop('adsUrl'), (): void => {
 				adsInstance.reload(article.adsContext);

@@ -14,10 +14,20 @@ var localSettings: LocalSettings = {
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
+	domain: 'wikia.com',
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
+	helios: {
+		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
+		host: 'SENSITIVE, DO NOT ADD HERE',
+		secret: 'SENSITIVE, DO NOT ADD HERE',
+		id: 'SENSITIVE, DO NOT ADD HERE'
+	},
+	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
+	// Special salt for accepting HTML from MediaWiki for /editor_preview/
+	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
@@ -26,7 +36,7 @@ var localSettings: LocalSettings = {
 	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
-		enabled: !!process.env.ENABLE_OPTIMIZELY,
+		enabled: true,
 		scriptPath: '//cdn.optimizely.com/js/',
 		devAccount: '2441440871',
 		account: '2449650414'
@@ -39,11 +49,6 @@ var localSettings: LocalSettings = {
 			primary: {
 				id: 'UA-32129070-1',
 				sampleRate: 10
-			},
-			special: {
-				prefix: 'special',
-				id: 'UA-32132943-1',
-				sampleRate: 100
 			},
 			ads: {
 				prefix: 'ads',

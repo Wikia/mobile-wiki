@@ -1,0 +1,19 @@
+.splash {
+	background-image: url('/front/images/faniverse-bg-544.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.splash-top {
+	background-position: center top;
+}
+
+.splash-bottom {
+	background-position: center bottom;
+}
+
+@media(min-width: 550px) {
+	.splash {
+		background-image: url('/front/images/faniverse-bg-768.png');
+	}
+}

@@ -127,3 +127,6 @@ interface JQuery {
 }
 
 declare var i18n: I18nextStatic;
+declare module 'i18next' {
+	export = i18n;
+}

@@ -62,7 +62,7 @@ App.initializer({
 			fallbackLng: 'en',
 			lng: application.get('language'),
 			lowerCaseLng: true,
-			resGetPath: '/front/locales/__lng__/translation.json',
+			ns: 'main',
 			resStore: loadedTranslations,
 			useLocalStorage: false
 		});

@@ -1,10 +1,18 @@
 /// <reference path="../app.ts" />
 
-Em.Handlebars.registerBoundHelper('i18n', function (value: string, options: any) {
-	var params: {
+Em.Handlebars.registerBoundHelper('i18n', function () {
+	var options = Array.prototype.pop.call(arguments),
+		params: {
 			[key: string]: string;
 		} = {},
-		namespace = 'app';
+		value: string,
+		namespace = 'main';
+
+	if (arguments.length > 1) {
+		value = Array.prototype.join.call(arguments, '.');
+	} else {
+		value = arguments[0];
+	}
 
 	Object.keys(options.hash).forEach((key: string) => {
 		if (key === 'ns') {

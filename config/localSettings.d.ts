@@ -24,10 +24,18 @@ interface WeppyConfig {
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
+	domain: string;
 	mediawikiDomain?: string;
 	devboxDomain?: string;
 	environment: any;
+	helios: {
+		host: string;
+		id: string;
+		secret: string;
+	};
+	ironSecret: string;
 	host: any;
+	mwPreviewSalt: string;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;
 	optimizely?: {

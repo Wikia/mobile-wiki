@@ -6,6 +6,10 @@
 	}
 }
 
+.ad-slot[id^="INVISIBLE_"] {
+	display: none !important;
+}
+
 .mobile-top-leaderboard {
 	min-height: 50px;
 	margin-top: 60px;
@@ -18,4 +22,8 @@
 
 .no-ads {
 	height: 0;
+}
+
+.wikia-ad-iframe {
+	border: 0;
 }
