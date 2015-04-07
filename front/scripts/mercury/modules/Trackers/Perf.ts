@@ -14,7 +14,11 @@ interface PerfTrackerParams {
 
 module Mercury.Modules.Trackers {
 	export class Perf extends BaseTracker {
-		public static depsLoaded: boolean = typeof Weppy === 'function';
+
+		public static checkDependencies () {
+			return typeof Weppy === 'function';
+		}
+
 		tracker: any;
 		defaultContext: {
 			skin: string;

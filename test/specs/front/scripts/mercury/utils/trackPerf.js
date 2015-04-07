@@ -1,9 +1,9 @@
 QUnit.module('M::trackPerf', {
 	setup: function () {
-		Mercury.Modules.Trackers.Perf.depsLoaded = true;
+		Mercury.Modules.Trackers.Perf.checkDependencies = function () { return true; };
 	},
 	teardown: function () {
-		Mercury.Modules.Trackers.Perf.depsLoaded = false;
+		Mercury.Modules.Trackers.Perf.checkDependencies = function () { return false; };
 	}
 });
 

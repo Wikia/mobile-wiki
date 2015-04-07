@@ -5,7 +5,7 @@ QUnit.test('Class was correctly compiled into Mercury.Modules', function () {
 });
 
 QUnit.test('depsLoaded should initialize as false', function () {
-	equal(Mercury.Modules.Trackers.Perf.depsLoaded, false);
+	equal(Mercury.Modules.Trackers.Perf.checkDependencies(), false);
 });
 
 
