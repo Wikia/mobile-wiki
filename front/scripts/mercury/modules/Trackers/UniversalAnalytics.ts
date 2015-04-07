@@ -100,7 +100,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * Tracks an event, using the parameters native to the GA _trackEvent method
+		 * Tracks an event, using the parameters native to the UA send() method
 		 *
 		 * @see {@link https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiEventTracking}
 		 * @param {string} category Event category.
