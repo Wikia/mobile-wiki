@@ -50,11 +50,6 @@ var localSettings: LocalSettings = {
 				id: 'UA-32129070-1',
 				sampleRate: 10
 			},
-			special: {
-				prefix: 'special',
-				id: 'UA-32132943-1',
-				sampleRate: 100
-			},
 			ads: {
 				prefix: 'ads',
 				id: 'UA-32129071-1',

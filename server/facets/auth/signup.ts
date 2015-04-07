@@ -1,5 +1,5 @@
 interface SignupViewContext {
-	pageTitleKey : string;
+	title : string;
 	header?  : string;
 	footer?  : string;
 	exitTo?      : string;
@@ -19,10 +19,11 @@ export function get (request: Hapi.Request, reply: any): void {
 		exitTo: redirectUrl,
 		header: 'auth:signup.header',
 		footer: 'auth:signup.footer',
-		pageTitleKey: 'auth:signup.page-title',
+		title: 'auth:signup.page-title',
 		loadScripts: true,
 		i18nContext: {
-			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use'
+			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
+			redirectRoute: encodeURIComponent(redirectUrl)
 		}
 	};
 

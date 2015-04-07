@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 
-		<title>{{i18n pageTitleKey}}</title>
+		<title>{{i18n title}}</title>
 		<!-- build:css /front/styles/auth/app.css -->
 		<link rel="stylesheet" href="/front/styles/auth/app.css">
 		<!-- endbuild -->
@@ -14,15 +14,16 @@
 		<a class="close" href="{{exitTo}}"></a>
 		{{/if}}
 
-		{{#if header }}
-		{{!-- TODO: use i18n for messages once it's set up (SOC-526) --}}
-		<header class="auth-header splash splash-top">{{i18n header}}</header>
+		{{#if header}}
+		<header class="auth-header splash splash-top">{{i18n header i18nContext}}</header>
 		{{/if}}
 
 		{{{content}}}
 
-		{{#if footer }}
-		<footer class="auth-footer splash splash-bottom">{{{i18n footer}}}</footer>
+		{{#if footer}}
+		<footer class="auth-footer splash splash-bottom">
+			{{{i18n footer i18nContext}}}
+		</footer>
 		{{/if}}
 
 		{{#unless noScripts}}
