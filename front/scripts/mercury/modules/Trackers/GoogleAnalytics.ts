@@ -6,7 +6,7 @@ interface Window {
 }
 
 interface GAAccount {
-	// namespace prefix for _gaq.push methods, ie. 'special'
+	// namespace prefix for _gaq.push methods, ie. 'ads'
 	prefix?: string;
 	// ie. 'UA-32129070-1'
 	id: string;
@@ -22,7 +22,6 @@ module Mercury.Modules.Trackers {
 	export class GoogleAnalytics {
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
-		accountSpecial = 'special';
 		accountAds = 'ads';
 		queue: GoogleAnalyticsCode;
 
@@ -39,15 +38,7 @@ module Mercury.Modules.Trackers {
 			this.accounts = M.prop('tracking.ga');
 			this.queue = window._gaq || [];
 
-			// Primary account
 			this.initAccount(this.accountPrimary, adsContext, domain);
-
-			// Special wikis account
-			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (this.accounts[this.accountSpecial]) {
-				this.initAccount(this.accountSpecial, adsContext, domain);
-			}
-
 			this.initAccount(this.accountAds, adsContext, domain);
 		}
 
@@ -111,10 +102,6 @@ module Mercury.Modules.Trackers {
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
 			this.queue.push(['_trackEvent'].concat(args));
-			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (this.accounts[this.accountSpecial]) {
-				this.queue.push([this.accounts[this.accountSpecial].prefix + '._trackEvent'].concat(args));
-			}
 		}
 
 		/**
@@ -131,14 +118,7 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
-			var specialAccount = this.accounts[this.accountSpecial];
-
 			this.queue.push(['_trackPageview']);
-
-			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (specialAccount) {
-				this.queue.push([specialAccount.prefix + '._trackPageview']);
-			}
 		}
 	}
 }
