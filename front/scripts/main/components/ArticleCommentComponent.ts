@@ -23,8 +23,9 @@ App.ArticleCommentComponent = Em.Component.extend({
 
 	user: function () {
 		var users = this.get('users');
-
-		return users[this.get('comment.userName')] || {};
+		if (users) {
+			return users[this.get('comment.userName')] || {};
+		}
 	}.property('users'),
 
 	userName: function () {
@@ -33,7 +34,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
 
 		if (regex.test(userName)) {
-			return i18n.t('app:username-anonymous');
+			return i18n.t('app.username-anonymous');
 		} else {
 			return userName;
 		}

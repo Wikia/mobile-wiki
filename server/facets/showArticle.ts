@@ -77,6 +77,7 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 
 		response = reply.view('application', result);
 		response.code(code);
+		response.type('text/html; charset=utf-8');
 		Caching.setResponseCaching(response, cachingTimes);
 	}
 }
