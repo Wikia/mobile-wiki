@@ -11,17 +11,6 @@
 	transition: font-size ease-in 0.15s, top ease-in 0.15s;
 }
 
-input[type='text'],
-input[type='text']:focus,
-input[type='password'],
-input[type='password']:focus,
-input[type='email'],
-input[type='email']:focus,
-input[type='date'],
-input[type='date']:focus {
-	padding: 1.25rem 0 0.5rem;
-}
-
 .floating-label.active {
 	color: $label-color-active;
 	font-size: 0.75rem;
