@@ -3,6 +3,7 @@
 interface JoinViewContext {
 	pageTitleKey : string;
 	loginRoute   : string;
+	signupRoute   : string;
 	hideHeader?  : boolean;
 	hideFooter?  : boolean;
 	exitTo?      : string;
@@ -21,6 +22,7 @@ function get (request: Hapi.Request, reply: any): void {
 	context = {
 		pageTitleKey: 'auth:landing-page.page-title',
 		loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
+		signupRoute: '/signup?redirect=' + encodeURIComponent(redirectUrl),
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,
