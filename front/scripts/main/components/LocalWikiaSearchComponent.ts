@@ -2,10 +2,13 @@
 'use strict';
 
 /**
- * Type for search suggestion, as returned by node-side search API
+ * Type for search suggestion
+ * Title is returned by node-side search API
+ * URI is being set in setSearchSuggestionItems method
  */
 interface SearchSuggestionItem {
 	title: string;
+	uri?: string;
 }
 
 App.LocalWikiaSearchComponent = Em.Component.extend({
@@ -50,6 +53,12 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	},
 
 	setSearchSuggestionItems: function (suggestions: Array<SearchSuggestionItem>): void {
+		suggestions.forEach(
+			(suggestion: SearchSuggestionItem, index: number, suggestionsArr: Array<SearchSuggestionItem>): void => {
+				suggestionsArr[index].uri = M.String.titleToUri(suggestion.title, true);
+			}
+		);
+
 		this.set('suggestions', suggestions);
 	},
 
