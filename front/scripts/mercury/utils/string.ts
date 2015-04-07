@@ -22,11 +22,12 @@ module Mercury.Utils.String {
 			.replace(/\s+/g, ' ');
 	}
 
-	export function titleToUri (title: string = '', encodeQuestionMarks = false): string {
+	export function titleToUri (title: string = '', encodeSpecialChars = false): string {
 		var uri = encodeURI(sanitize(title));
 
-		if (encodeQuestionMarks) {
+		if (encodeSpecialChars) {
 			uri = uri.replace('?', '%3F');
+			uri = uri.replace('%', '%25');
 		}
 
 		return uri;
