@@ -23,8 +23,9 @@ App.ArticleCommentComponent = Em.Component.extend({
 
 	user: function () {
 		var users = this.get('users');
-
-		return users[this.get('comment.userName')] || {};
+		if (users) {
+			return users[this.get('comment.userName')] || {};
+		}
 	}.property('users'),
 
 	userName: function () {

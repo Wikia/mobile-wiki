@@ -35,6 +35,7 @@
 		}
 
 		figcaption {
+			@extend %ellipsis;
 			font-size: .9rem;
 			font-weight: bold;
 			padding: 1rem;
@@ -43,6 +44,7 @@
 			left: 0;
 			position: absolute;
 			pointer-events: none;
+			width: 100%;
 			z-index: 1;
 		}
 	}
