@@ -26,8 +26,9 @@ module Mercury.Utils.String {
 		var uri = encodeURI(sanitize(title));
 
 		if (encodeSpecialChars) {
-			uri = uri.replace('?', '%3F');
-			uri = uri.replace('%', '%25');
+			uri = uri
+				.replace('?', '%3F')
+				.replace('%', '%25');
 		}
 
 		return uri;
