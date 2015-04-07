@@ -40,6 +40,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	result.queryParams = Utils.parseQueryParams(request.query);
+	result.weppyConfig = localSettings.weppy;
 }
 
 export = prepareArticleData;

@@ -19,6 +19,7 @@
     "boom": "2.6.1",
     "bunyan": "1.3.3",
     "bunyan-syslog": "^0.3.0",
+    "deep-extend": "^0.3.2",
     "crumb": "4.0.3",
     "handlebars": "2.0.0",
     "hapi": "8.2.0",
