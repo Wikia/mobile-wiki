@@ -1,6 +1,6 @@
 .wiki-title {
 	@extend %header-section-title;
-	@extend .subtext;
+	font-size: $type-smallest;
 	margin-bottom: rem-calc(20);
 
 	a {
