@@ -1,7 +1,7 @@
 'use strict';
 
 App.ShareFeatureComponent = Em.Component.extend({
-	tagName: 'div'
+	tagName: 'div',
 	classNames: ['share-feature'],
 	didInsertElement: function () {
 		var headroom = new Headroom(this.get('element'), {
