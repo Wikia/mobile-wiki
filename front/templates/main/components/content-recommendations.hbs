@@ -4,7 +4,7 @@
 		<ul>
 			{{#each page in pages}}
 				<li>
-					{{#link-to 'article' page.title bubbles=false data-tracking-category='related'}}
+					{{#link-to 'article' page.title data-tracking-category='related'}}
 						{{image-media url=page.imgUrl caption=page.title height=200 limitHeight=true}}
 					{{/link-to}}
 				</li>
