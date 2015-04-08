@@ -16,7 +16,6 @@ module Mercury.Modules.Trackers {
 	export class UniversalAnalytics {
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
-		accountSpecial = 'special';
 		accountAds = 'ads';
 		trackers: TrackerMap;
 
@@ -35,12 +34,6 @@ module Mercury.Modules.Trackers {
 
 			// Primary account
 			this.initAccount(this.accountPrimary, adsContext, domain);
-
-			// Special wikis account
-			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (this.accounts[this.accountSpecial]) {
-				this.initAccount(this.accountSpecial, adsContext, domain);
-			}
 
 			this.initAccount(this.accountAds, adsContext, domain);
 		}
@@ -116,30 +109,16 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			// We just send the non-sampled data for now
-			// this.trackers[this.accountPrimary].send(
-			// 	'event',
-			// 	{
-			// 		eventCategory: category,
-			// 		eventAction: action,
-			// 		eventLabel: label,
-			// 		eventValue:value,
-			// 		nonInteraction: nonInteractive
-			// 	}
-			// );
-			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (this.accounts[this.accountSpecial]) {
-				this.trackers[this.accountSpecial].send(
-					'event',
-					{
-						eventCategory: category,
-						eventAction: action,
-						eventLabel: label,
-						eventValue:value,
-						nonInteraction: nonInteractive
-					}
-				);
-			}
+			this.trackers[this.accountPrimary].send(
+				'event',
+				{
+					eventCategory: category,
+					eventAction: action,
+					eventLabel: label,
+					eventValue:value,
+					nonInteraction: nonInteractive
+				}
+			);
 		}
 
 		/**
@@ -168,13 +147,7 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
-			// We just send non-sampled data for now
-			// this.trackers[this.accountPrimary].send('pageview');
-
-			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
-			if (this.accounts[this.accountSpecial]) {
-				this.trackers[this.accountSpecial].send('pageview');
-			}
+			this.trackers[this.accountPrimary].send('pageview');
 		}
 	}
 }
