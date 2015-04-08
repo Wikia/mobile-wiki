@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 612 792" style="enable-background:new 0 0 612 792;" xml:space="preserve">
-<g fill="#006cb0">
+<g fill="#3b5998">
 	<path d="M306,107C146.2,107,17,236.2,17,396s129.2,289,289,289s289-129.2,289-289S465.8,107,306,107z M377.4,297.4h-27.2
 	c-22.1,0-25.5,10.2-25.5,25.5v35.7h51l-5.1,54.4h-44.2v137.7H272V413h-45.9v-54.4H272v-39.1c0-45.9,27.2-71.4,66.3-71.4
 	c18.7,0,35.7,1.7,39.1,1.7L377.4,297.4L377.4,297.4z"/>

@@ -8,10 +8,6 @@
 	&.pinned {
 		transform: translateY(-100%);
 	}
-
-	&.un-pinned {
-		transform: none;
-	}
 }
 
 .share-feature .fb {
