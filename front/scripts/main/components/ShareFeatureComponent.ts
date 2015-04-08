@@ -50,7 +50,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 		headroom.init();
 
 		this.set('headroom', headroom);
-	}
+	},
 
 	lineShare: function (): string {
 		return "http://line.me/R/msg/text/?#" + encodeURIComponent(this.get('title')) + "%0D%0A#" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
