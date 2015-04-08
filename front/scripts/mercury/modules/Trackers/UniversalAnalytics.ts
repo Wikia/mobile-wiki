@@ -110,16 +110,17 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			this.trackers[this.accountPrimary].send(
-				'event',
-				{
-					eventCategory: category,
-					eventAction: action,
-					eventLabel: label,
-					eventValue:value,
-					nonInteraction: nonInteractive
-				}
-			);
+			// We just send the non-sampled data for now
+			// this.trackers[this.accountPrimary].send(
+			// 	'event',
+			// 	{
+			// 		eventCategory: category,
+			// 		eventAction: action,
+			// 		eventLabel: label,
+			// 		eventValue:value,
+			// 		nonInteraction: nonInteractive
+			// 	}
+			// );
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
 			if (this.accounts[this.accountSpecial]) {
 				this.trackers[this.accountSpecial].send(
@@ -156,7 +157,8 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
-			this.trackers[this.accountPrimary].send('pageview');
+			// We just send non-sampled data for now
+			// this.trackers[this.accountPrimary].send('pageview');
 
 			// For now, send all wikis to this property. Filtering for Mercury is done on the dashboard side.
 			if (this.accounts[this.accountSpecial]) {
