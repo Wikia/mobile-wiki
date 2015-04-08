@@ -5,19 +5,6 @@ interface Window {
 	_gaq: any[]
 }
 
-interface GAAccount {
-	// namespace prefix for _gaq.push methods, ie. 'ads'
-	prefix?: string;
-	// ie. 'UA-32129070-1'
-	id: string;
-	// sampling percentage, from 1 to 100
-	sampleRate: number;
-}
-
-interface GAAccountMap {
-	[name: string]: GAAccount;
-}
-
 module Mercury.Modules.Trackers {
 	export class GoogleAnalytics {
 		accounts: GAAccountMap;

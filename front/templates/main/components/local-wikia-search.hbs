@@ -1,7 +1,7 @@
 <ul>
 	{{#each suggestion in suggestions}}
 		<li>
-		{{#link-to 'article' suggestion.title action='collapseSideNav'}}
+		{{#link-to 'article' suggestion.uri action='collapseSideNav'}}
 			{{suggestion.title}}
 		{{/link-to}}
 		</li>
