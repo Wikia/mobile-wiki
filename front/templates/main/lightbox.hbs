@@ -10,6 +10,7 @@
 	<div class="lightbox-content-inner">
 		{{yield}}
 	</div>
+	{{loading-spinner active=isLoading overlay=false}}
 </div>
 {{#if footer}}
     <div {{bind-attr class="view.lightboxFooterExpanded view.footerHidden:hidden :lightbox-footer"}}>{{footer}}</div>
