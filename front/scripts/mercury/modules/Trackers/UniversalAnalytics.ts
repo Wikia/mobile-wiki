@@ -6,6 +6,12 @@ interface TrackerMap {
 	[name: string]: UniversalAnalytics.Tracker;
 }
 
+interface TrackerOptions {
+	name: string;
+	allowLinker: boolean;
+	sampleRate: number;
+}
+
 module Mercury.Modules.Trackers {
 	export class UniversalAnalytics {
 		accounts: GAAccountMap;
@@ -47,7 +53,7 @@ module Mercury.Modules.Trackers {
 		 * @param {string} domain
 		 */
 		initAccount (trackerName: string, adsContext: any, domain: string): void {
-			var options, prefix;
+			var options: TrackerOptions, prefix: string;
 
 			options = {
 				name: "",
@@ -102,7 +108,7 @@ module Mercury.Modules.Trackers {
 		/**
 		 * Tracks an event, using the parameters native to the UA send() method
 		 *
-		 * @see {@link https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiEventTracking}
+		 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
 		 * @param {string} category Event category.
 		 * @param {string} action Event action.
 		 * @param {string} label Event label.
@@ -138,9 +144,14 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * Tracks an ads-related event
-		 * @arguments set of parameters for ads-related event
+		 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
+		 * @param {string} category Event category.
+		 * @param {string} action Event action.
+		 * @param {string} label Event label.
+		 * @param {number} value Event value. Has to be an integer.
+		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
-		trackAds (): void {
+		trackAds (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			this.trackers[this.accountAds].send(
 				'event',
 				{
