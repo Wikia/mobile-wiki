@@ -8,18 +8,19 @@
 	&.pinned {
 		transform: translateY(-100%);
 	}
-}
 
-.share-feature .fb {
-	height: 46px;
-	width: 44px;
-}
-.share-feature .line {
-	height: 46px;
-	width: 44px;
-}
-.share-feature .twitter {
-	height: 36px;
-	width: 44px;
-	margin-bottom: 5px;
+	.fb {
+		height: 46px;
+		width: 44px;
+	}
+
+	.line {
+		height: 46px;
+		width: 44px;
+	}
+
+	.twitter {
+		height: 36px;
+		width: 44px;
+		margin-bottom: 5px;
 }
