@@ -56,7 +56,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			media = this.get('media');
 
 			if (media) {
-				return this.getThumbURL(this.get('media').url, {
+				return this.getThumbURL(media.url, {
 					mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 					width: this.get('articleContent.width'),
 					height: this.get('computedHeight')
