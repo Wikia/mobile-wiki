@@ -19,7 +19,7 @@ App.ApplicationController = Em.Controller.extend({
 			siteMessage: Em.get(Mercury, 'wiki.siteMessage'),
 			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
 			editorPreview: Em.get(Mercury, 'article.preview'),
-			shareFeatureAvailable: true /* Em.get(Mercury, 'wiki.language.content') === 'ja' */
+			shareFeatureAvailable: Em.get(Mercury, 'wiki.language.content') === 'ja'
 		});
 
 		// This event is for tracking mobile sessions between Mercury and WikiaMobile
