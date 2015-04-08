@@ -20,12 +20,29 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	isGallery: Em.computed.alias('controller.isGallery'),
 	isZoomed: Em.computed.gt('scale', 1),
 
-	viewportSize: function () {
+	/**
+	 * @desc 'listens' to scale, newX and newY and returns
+	 * style string for an image, used for scaling and panning
+	 */
+	style: Ember.computed((): string => {
+		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
+				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
+			.fmt(
+				this.get('scale').toFixed(2),
+				this.get('newX').toFixed(2),
+				this.get('newY').toFixed(2)
+			);
+		//Performance critical place
+		//We will update property 'manually' by calling notifyPropertyChange
+	}),
+
+
+	viewportSize: Ember.computed(() => {
 		return {
 			width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 			height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 		};
-	}.property(),
+	}),
 
 	//Easy to port if we find a way to use enum here
 	screenAreas:  {
@@ -37,64 +54,64 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	/**
 	 * @desc calculates current scale for zooming
 	 */
-	scale: function (key: string, value?: number): any {
+	scale: Ember.computed((key: string, value?: number): any => {
 		if (value >= 1) {
 			return Math.min(this.maxZoom, value);
 		}
 
 		return 1;
-	}.property(),
+	}),
 
 	/**
 	 * @desc property that holds current image
 	 */
-	image: function (): JQuery {
+	image: Ember.computed((): JQuery => {
 		return this.$('.current');
-	}.property(),
+	}),
 
-	imageWidth: function (): number {
+	imageWidth: Ember.computed('image', 'scale', (): number => {
 		return this.get('image').width() * this.get('scale');
-	}.property('image', 'scale'),
+	}),
 
-	imageHeight: function (): number {
+	imageHeight: Ember.computed('image', 'scale', (): number => {
 		return this.get('image').height() * this.get('scale');
-	}.property('image', 'scale'),
+	}),
 
 	/**
 	 * @desc used to set X boundaries for panning image in media lightbox
 	 */
-	maxX: function (): number {
+	maxX: Ember.computed('viewportSize', 'imageWidth', 'scale', (): number => {
 		return Math.abs(this.get('viewportSize').width - this.get('imageWidth')) / 2 / this.get('scale');
-	}.property('viewportSize', 'imageWidth', 'scale'),
+	}),
 
 	/**
 	 * @desc used to set Y boundaries for panning image in media lightbox
 	 */
-	maxY: function (): number {
+	maxY: Ember.computed('viewportSize', 'imageHeight', 'scale', (): number => {
 		return Math.abs(this.get('viewportSize').height - this.get('imageHeight')) / 2 / this.get('scale');
-	}.property('viewportSize', 'imageHeight', 'scale'),
+	}),
 
 	/**
 	 * @desc calculates X for panning with respect to maxX
 	 */
-	newX: function (key: string, value?: number): number {
+	newX: Ember.computed('viewportSize', 'imageWidth', (key: string, value?: number): number => {
 		if (typeof value !== 'undefined' && this.get('imageWidth') > this.get('viewportSize').width) {
 			return this.limit(value, this.get('maxX'));
 		}
 
 		return 0;
-	}.property('viewportSize', 'imageWidth'),
+	}),
 
 	/**
 	 * @desc calculates Y for panning with respect to maxY
 	 */
-	newY: function (key: string, value?: number): number {
+	newY: Ember.computed('viewportSize', 'imageHeight', (key: string, value?: number): number => {
 		if (typeof value !== 'undefined' && this.get('imageHeight') > this.get('viewportSize').height) {
 			return this.limit(value, this.get('maxY'));
 		}
 
 		return 0;
-	}.property('viewportSize', 'imageHeight'),
+	}),
 
 	/**
 	 * @desc returns limited value for given max ie.
@@ -103,7 +120,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	 * value = -5, max = -6, return -5
 	 * value = -6, max = -3, return -3
 	 */
-	limit: function (value: number, max: number): number {
+	limit (value: number, max: number): number {
 		if (value < 0) {
 			return Math.max(value, -max);
 		} else {
@@ -116,7 +133,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	 * @param {string} type e.g, image / video
 	 * @returns {boolean}
 	 */
-	isCurrentMediaType: function (type: string): boolean {
+	isCurrentMediaType (type: string): boolean {
 		return this.get('controller').get('currentMedia').type === type;
 	},
 
@@ -274,7 +291,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		}
 	},
 
-	articleContentWidthObserver: function (): void {
+	articleContentWidthObserver: Ember.observer('articleContent.width', (): void => {
 		this.notifyPropertyChange('viewportSize');
 		this.notifyPropertyChange('imageWidth');
 		this.notifyPropertyChange('imageHeight');
@@ -282,23 +299,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		if (this.get('videoPlayer')) {
 			this.get('videoPlayer').onResize();
 		}
-	}.observes('articleContent.width'),
-
-	/**
-	 * @desc 'listens' to scale, newX and newY and returns
-	 * style string for an image, used for scaling and panning
-	 */
-	style: function (): string {
-		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
-				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
-			.fmt(
-				this.get('scale').toFixed(2),
-				this.get('newX').toFixed(2),
-				this.get('newY').toFixed(2)
-			);
-		//Performance critical place
-		//We will update property 'manually' by calling notifyPropertyChange
-	}.property(),
+	}),
 
 	/**
 	 * @method initVideoPlayer
