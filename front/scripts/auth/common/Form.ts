@@ -2,9 +2,11 @@
  * Controls floating labels behavior on focus / blur events in input fields
  */
 class Form {
-	loginUsername: HTMLInputElement;
-	loginPassword: HTMLInputElement;
-	loginSubmit: HTMLButtonElement;
+	form: HTMLFormElement;
+
+	constructor (form: Element) {
+		this.form = <HTMLFormElement> form;
+	}
 
 	private onFocus (event: Event): void {
 		var element = <HTMLInputElement> event.target,
@@ -53,9 +55,8 @@ class Form {
 	 * Starts continuous checking for new input
 	 */
 	public watch (): void {
-		var form = window.document.querySelector('form');
-		form.addEventListener('focus', this.onFocus.bind(this), true);
-		form.addEventListener('blur', this.onBlur.bind(this), true);
-		form.addEventListener('click', this.onClick.bind(this));
+		this.form.addEventListener('focus', this.onFocus.bind(this), true);
+		this.form.addEventListener('blur', this.onBlur.bind(this), true);
+		this.form.addEventListener('click', this.onClick.bind(this));
 	}
 }

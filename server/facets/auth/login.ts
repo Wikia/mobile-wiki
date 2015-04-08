@@ -100,7 +100,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		header: 'auth:login.header',
 		footer: 'auth:login.footer',
 		i18nContext: {
-			redirectRoute: encodeURIComponent(redirect),
+			redirectRoute: encodeURIComponent(redirect)
 		},
 		title: 'auth:login.title'
 	};
