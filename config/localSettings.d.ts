@@ -15,6 +15,12 @@ interface GAAccountMap {
 	[name: string]: GAAccount;
 }
 
+interface WeppyConfig {
+	host: string;
+	samplingRate: number;
+	aggregationInterval: number;
+}
+
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
@@ -56,6 +62,7 @@ interface LocalSettings {
 	};
 	verticalColors: any;
 	wikiFallback: string;
+	weppy: WeppyConfig;
 	workerCount: number;
 	workerDisconnectTimeout: number;
 	cdnBaseUrl: string;

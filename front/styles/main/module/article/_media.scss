@@ -35,7 +35,7 @@
 
 	//First line is for single images
 	//Second is for galleries that have multiple figure tags
-  	&.has-caption .chevron,
+	&.has-caption .chevron,
 	.has-caption .chevron {
 		margin-bottom: 50px;
 	}
@@ -97,12 +97,11 @@ figcaption {
 
 		figcaption {
 			height: 30px;
-			margin-bottom: 20px;
 		}
 
 		figure {
 			display: inline-block;
-			margin: 0;
+			margin: 0 0 20px 0;
 			width: 49%;
 			vertical-align: top;
 		}

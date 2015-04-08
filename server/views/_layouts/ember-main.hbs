@@ -40,6 +40,7 @@
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
+			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
@@ -78,11 +79,10 @@
 			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
 			<script src="/front/vendor/jquery/dist/jquery.js"></script>
 			<script src="/front/vendor/hammerjs/hammer.js"></script>
-			<script src="/front/vendor/handlebars/handlebars.runtime.js"></script>
 			<script src="/front/vendor/headroom.js/dist/headroom.js"></script>
 			<script src="/front/vendor/jquery.cookie/jquery.cookie.js"></script>
 			<!-- @if WIKIA_ENVIRONMENT='dev' -->
-			<script src="/front/vendor/ember/ember.js"></script>
+			<script src="/front/vendor/ember/ember.debug.js"></script>
 			<!-- @endif -->
 			<!-- @if WIKIA_ENVIRONMENT!='dev' -->
 			<script src="/front/vendor/ember/ember.prod.js"></script>
@@ -91,6 +91,11 @@
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
+
+			<!-- @ifdef ENABLE_WEPPY -->
+				<script src="/front/vendor/weppy/dist/weppy.js"></script>
+				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
+			<!-- @endif -->
 		<!-- endbuild -->
 
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" defer></script>

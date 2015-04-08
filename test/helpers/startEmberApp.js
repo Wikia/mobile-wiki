@@ -29,7 +29,6 @@ App.initializer({
 	}
 });
 
-emq.globalize();
 setResolver(Ember.DefaultResolver.create({
 	namespace: App
 }));

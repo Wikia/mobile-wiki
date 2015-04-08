@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "ember": "1.9.1",
+    "ember": "1.11.1",
     "foundation": "5.5.1",
     "i18next": "1.7.4",
     "script.js": "2.5.7",
@@ -15,15 +15,14 @@
     "fastclick": "1.0.6",
     "jquery.cookie": "1.4.1",
     "scroll-depth": "https://github.com/nandy-andy/jquery-scrolldepth.git#0.8.3",
+    "weppy": "Wikia/weppy",
+    "ember-performance-sender": "1.0.0",
     "vignette": "wikia/vignette-js#1.0.2",
     "wikia-style-guide": "Wikia/style-guide#~0.2.3"
   },
   "devDependencies": {
-    "ember-qunit": "0.1.8",
-    "sinonjs": "1.10.2",
+    "ember-qunit": "0.3.0",
+    "sinonjs": "1.12.2",
     "sinon-qunit": "https://github.com/cjohansen/sinon-qunit.git#2.0.0"
-  },
-  "resolutions": {
-    "handlebars": ">= 2.0.0 < 3.0.0"
   }
 }
