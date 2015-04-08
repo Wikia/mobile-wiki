@@ -15,6 +15,7 @@ import cluster       = require('cluster');
 import localSettings = require('../config/localSettings');
 import path          = require('path');
 import url           = require('url');
+import fs            = require('fs');
 
 //Counter for maxRequestPerChild
 var counter = 1,
@@ -56,8 +57,8 @@ plugins = [
 					namespaces: ['main', 'auth'],
 					defaultNs: 'main'
 				},
-				fallbackLng: 'qqx', // fallback to message keys
-				supportedLngs: ['en', 'es', 'qqx'],
+				fallbackLng: 'en',
+				supportedLngs: getSupportedLangs(),
 				useCookie: true,
 				cookieName: 'lang',
 				detectLngFromHeaders: true,
@@ -247,4 +248,11 @@ function setupLogging (server: Hapi.Server): void {
 			referrer: request.info.referrer
 		}, 'Response');
 	});
+}
+
+/**
+ * Get list of supported languages based on locales directories
+ */
+function getSupportedLangs(): string[] {
+	return fs.readdirSync('front/locales');
 }
