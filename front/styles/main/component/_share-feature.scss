@@ -9,12 +9,7 @@
 		transform: translateY(-100%);
 	}
 
-	.fb {
-		height: 46px;
-		width: 44px;
-	}
-
-	.line {
+	.fb, .line {
 		height: 46px;
 		width: 44px;
 	}
@@ -23,4 +18,5 @@
 		height: 36px;
 		width: 44px;
 		margin-bottom: 5px;
+	}
 }
