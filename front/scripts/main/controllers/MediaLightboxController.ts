@@ -83,7 +83,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 			return value;
 		} else {
-			return this.get('data.galleryRef') || 0
+			return this.get('data.galleryRef') || 0;
 		}
 	}.property('data.galleryRef'),
 
