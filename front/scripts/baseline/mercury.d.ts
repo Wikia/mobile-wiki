@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../config/localSettings.d.ts" />
 
 declare var $: JQueryStatic;
 declare var require: (deps: string[], func: Function) => void;

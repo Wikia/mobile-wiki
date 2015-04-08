@@ -14,6 +14,7 @@ gulp.task('karma', ['fixtures'], function () {
 		paths.vendor.dest + '/ember/ember.js',
 		paths.vendor.dest + '/i18next/i18next.js',
 		paths.vendor.dest + '/vignette/dist/vignette.js',
+		paths.vendor.dest + '/weppy/dist/weppy.js',
 		paths.templates.dest + '/main.js',
 		paths.scripts.front.dest + '/baseline.js',
 		paths.scripts.front.dest + '/mercury.js',

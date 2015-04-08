@@ -40,6 +40,7 @@
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
+			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
@@ -91,6 +92,11 @@
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
+
+			<!-- @ifdef ENABLE_WEPPY -->
+				<script src="/front/vendor/weppy/dist/weppy.js"></script>
+				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
+			<!-- @endif -->
 		<!-- endbuild -->
 
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" defer></script>
