@@ -1,10 +1,11 @@
 interface SignupViewContext {
-	title : string;
-	header?  : string;
-	footer?  : string;
+	title        : string;
+	header?      : string;
+	footer?      : string;
 	exitTo?      : string;
 	bodyClasses? : string;
 	loadScripts? : boolean;
+	i18nContext? : any;
 }
 
 export function get (request: Hapi.Request, reply: any): void {

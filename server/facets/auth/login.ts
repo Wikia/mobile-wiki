@@ -33,7 +33,6 @@ interface LoginViewContext {
 	header?      : string;
 	footer?      : string;
 	bodyClasses? : string;
-	i18nContext? : string;
 	title        : string;
 	exitTo?      : string;
 	formErrorKey?: string;
@@ -115,8 +114,6 @@ export function post (request: Hapi.Request, reply: any): void {
 	var credentials: any = request.payload,
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
-		authRedirect: string,
-		error: any = {},
 		redirect: string = request.query.redirect || '/',
 		rememberMeTTL = 1.57785e10, // 6 months,
 		context: any = {
