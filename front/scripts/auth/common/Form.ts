@@ -44,7 +44,7 @@ class Form {
 			parentElement = <HTMLElement> element.parentElement;
 			input = <HTMLInputElement> parentElement.querySelector('input');
 			this.togglePasswordInput(input, element);
-		} else if (element.className.match('dices')) {
+		} else if (element.className.match('dice')) {
 			element.classList.toggle('on');
 		}
 	}

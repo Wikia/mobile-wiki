@@ -2,17 +2,17 @@
 	<form id="signupForm" action="" method="POST">
 		<div class="input-container">
 			<input type="email" name="email" id="signupEmail" required />
-			<label class="floating-label" for="signupEmail">{{i18n 'auth:signup.email'}}</label>
+			<label class="floating-label" for="signupEmail">{{i18n "auth:signup.email"}}</label>
 		</div>
 		<div class="input-container">
 			<input type="text" name="username" id="signupUsername" required />
-			<label class="floating-label" for="signupUsername">{{i18n 'auth:common.username'}}</label>
-			<img class='dices' src="/front/images/dice.svg">
+			<label class="floating-label" for="signupUsername">{{i18n "auth:common.username"}}</label>
+			<img class="dice" src="/front/images/dice.svg">
 	</div>
 		<div class="input-container">
 			<input type="text" name="password" id="signupPassword" required />
-			<label class="floating-label" for="signupPassword">{{i18n 'auth:common.password'}}</label>
-			<img class='password-toggler' src="/front/images/eye.svg">
+			<label class="floating-label" for="signupPassword">{{i18n "auth:common.password"}}</label>
+			<img class="password-toggler" src="/front/images/eye.svg">
 		</div>
 		<div class="input-container">
 			<input type="date" name="date" id="signupBirthDate" required />
@@ -22,12 +22,12 @@
 		<div class="inline-checkbox-wrapper">
 			<input type="checkbox" name="newsletter" id="signupNewsletter" class="inline">
 			<label for="signupNewsletter" class="inline">
-				{{i18n 'auth:signup.wikia-newsletter-prompt'}}
+				{{i18n "auth:signup.wikia-newsletter-prompt"}}
 			</label>
 		</div>
-		<button id="signupSubmit" type="submit">{{i18n 'auth:signup.register-action'}}</button>
+		<button id="signupSubmit" type="submit">{{i18n "auth:signup.register-action"}}</button>
 		<small class="terms-of-use">
-			{{{i18n 'auth:signup.terms-of-use' i18nContext}}}
+			{{{i18n "auth:signup.terms-of-use" i18nContext}}}
 		</small>
 	</form>
 </section>
