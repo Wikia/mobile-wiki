@@ -140,7 +140,7 @@ module Mercury.Utils {
 			gaTracker = new trackers.GoogleAnalytics();
 			gaTracker.track(category, actions[action], label, value, true);
 
-			if (Mercury.wiki.analytics.UAEnabled) {
+			if (Mercury.wiki.analytics && Mercury.wiki.analytics.UAEnabled) {
 				uaTracker = new trackers.UniversalAnalytics();
 				uaTracker.track(category, actions[action], label, value, true);
 			}
