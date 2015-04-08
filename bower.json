@@ -17,7 +17,7 @@
     "scroll-depth": "https://github.com/nandy-andy/jquery-scrolldepth.git#0.8.3",
     "weppy": "Wikia/weppy",
     "ember-performance-sender": "1.0.0",
-    "vignette": "wikia/vignette-js#1.0.2",
+    "vignette": "wikia/vignette-js#2.1.1",
     "wikia-style-guide": "Wikia/style-guide#~0.2.3"
   },
   "devDependencies": {

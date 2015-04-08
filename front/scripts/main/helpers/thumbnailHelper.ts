@@ -35,6 +35,10 @@ Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: a
 	alt = Handlebars.Utils.escapeExpression(Em.get(options, 'hash.alt'));
 
 	return new Em.Handlebars.SafeString(
-		'<img src="' + thumbnailer.getThumbURL(url, mode, width, height) + '" alt="' + alt + '">'
+		'<img src="' + thumbnailer.getThumbURL(url, {
+			mode: mode,
+			width: width,
+			height: height
+		}) + '" alt="' + alt + '">'
 	);
 });

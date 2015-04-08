@@ -47,22 +47,20 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	url: function (key: string, value?: string): string {
 		var media: ArticleMedia;
 		if (value) {
-			return this.getThumbURL(
-				value,
-				Mercury.Modules.Thumbnailer.mode.topCrop,
-				this.get('articleContent.width'),
-				this.get('computedHeight')
-			);
+			return this.getThumbURL(value, {
+				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+				width: this.get('articleContent.width'),
+				height: this.get('computedHeight')
+			});
 		} else {
 			media = this.get('media');
 
 			if (media) {
-				return this.getThumbURL(
-					this.get('media').url,
-					Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-					this.get('articleContent.width'),
-					this.get('computedHeight')
-				);
+				return this.getThumbURL(this.get('media').url, {
+					mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
+					width: this.get('articleContent.width'),
+					height: this.get('computedHeight')
+				});
 			}
 		}
 
