@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-	compiler = require('ember-template-compiler'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	wrap = require('gulp-wrap'),
@@ -16,6 +15,9 @@ function compile (options) {
 	// creating a stream through which each file will pass
 	// returning the file stream
 	return through.obj(function(file, enc, done) {
+		// This is not at the top because Mercury-Server Jenkins' job doesn't run bower (file doesn't exist)
+		var compiler = require('../../front/vendor/ember/ember-template-compiler');
+
 		if (file.isBuffer()) {
 			file.contents = new Buffer(
 				compiler.precompile(file.contents.toString(), false)

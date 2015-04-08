@@ -24,7 +24,8 @@ testrunner.setup({
 	coverage: {
 		dir: 'test/coverage/server',
 		reporters: ['cobertura']
-	}
+	},
+	maxBlockDuration: 5000
 });
 
 var tests = glob.sync(__dirname + '/specs/server/**/*.js'),
