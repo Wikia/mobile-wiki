@@ -62,6 +62,10 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 
 	twitterShare: function (): string {
 		return "https://twitter.com/share?url=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
+	}.property('title'),
+
+	googleShare: function (): string {
+		return "https://plus.google.com/share?url=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
 	}.property('title')
 
 });
