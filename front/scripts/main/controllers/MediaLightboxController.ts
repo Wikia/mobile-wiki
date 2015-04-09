@@ -41,11 +41,11 @@ App.MediaLightboxController = App.LightboxController.extend({
 		console.log("moj param powinno byc to samo: ", galleryId)
 
 		function findMediaInGallery (key: number): Function {
-			console.log("tajemniczy key: ", key)
+			console.log("tajemniczy key - INDEX GALERII ######: ", key)
 			return function (galleryMedia: any, galleryKey: number): boolean {
-				console.log("szukam elementu: ", galleryMedia.title)
+				console.log("sprawdzam element: ", galleryMedia.title)
 				console.log("na pozycji ", galleryKey)
-				console.log("file: ", file)
+				console.log("czy równa się file: ", file)
 				if (galleryMedia.title === file) {
 					this.setProperties({
 						currentMediaRef: key,
@@ -60,6 +60,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 
 		function findMedia (media: any, key: number): boolean {
+			console.log("findMedia: ", media.title, "key: ", key);
 			if (Em.isArray(media)) {
 				return media.some(findMediaInGallery(key), this);
 			} else if (media.title === file) {
@@ -73,6 +74,25 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 		if (!Em.isEmpty(file)) {
 			this.get('model').get('media').some(findMedia, this);
+		}
+	},
+
+	findMediaInSpecifiedGallery: function (galleryId: number) {
+		var file = this.get('file');
+		console.log("Szukam pliku: ", file, " w galerii nr: ", galleryId)
+
+		var thisGallery = this.get('model').get('media')[galleryId];
+		console.log("thisGallery: ", thisGallery)
+		for (var i = 0; i < thisGallery.length; i++) {
+			console.log("t", thisGallery[i].title)
+			if (thisGallery[i].title === file) {
+				console.log("znalezłem media na pozycji", i)
+				this.setProperties({
+					currentMediaRef: galleryId,
+					currentGalleryRef: i
+				});
+				return true;
+			}
 		}
 	},
 
@@ -155,13 +175,14 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 * otherwise tries to open image lightbox with appropriate image
 	 */
 	fileObserver: function (): void {
-		//debugger
+		console.log('\n\n\n\n\nNOWy OBRAZEK')
 		if (this.get('file') == null) {
 			this.send('closeLightbox');
-			this.reset();
 		} else {
 			var currentGalleryId = this.get('currentMediaRef');
-			this.matchQueryString(currentGalleryId);
+			console.log("currentGalleryId", currentGalleryId)
+			//this.matchQueryString(currentGalleryId);
+			this.findMediaInSpecifiedGallery(currentGalleryId);
 		}
 	}.observes('file'),
 
