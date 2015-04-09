@@ -98,13 +98,17 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 
 App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
+		console.log("newFromMedia: ", media)
 		if (Em.isArray(media)) {
 			if ((<any>media).some((media: ArticleMedia) => !!media.link)) {
+				console.log("jestem LinkedGalleryMediaComponent")
 				return App.LinkedGalleryMediaComponent.create();
 			} else {
+				console.log("jestem GalleryMediaComponent")
 				return App.GalleryMediaComponent.create();
 			}
 		} else if (media.type === 'video'){
+			console.log("** znalazlem samotne video!")
 			return App.VideoMediaComponent.create();
 		} else {
 			return App.ImageMediaComponent.create();

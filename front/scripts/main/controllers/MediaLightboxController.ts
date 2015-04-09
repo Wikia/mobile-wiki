@@ -26,6 +26,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	),
 
 	init: function (): void {
+		console.log("INIT!")
 		this.matchQueryString();
 
 		this._super();
@@ -34,11 +35,17 @@ App.MediaLightboxController = App.LightboxController.extend({
 	/**
 	 * This function checks if file=* matches any files on a page
 	 */
-	matchQueryString: function (): void {
+	matchQueryString: function (galleryId: number): void {
 		var file = this.get('file');
+		console.log("matchQueryString w galerii o numerze: ", this.get('currentMediaRef'))
+		console.log("moj param powinno byc to samo: ", galleryId)
 
 		function findMediaInGallery (key: number): Function {
+			console.log("tajemniczy key: ", key)
 			return function (galleryMedia: any, galleryKey: number): boolean {
+				console.log("szukam elementu: ", galleryMedia.title)
+				console.log("na pozycji ", galleryKey)
+				console.log("file: ", file)
 				if (galleryMedia.title === file) {
 					this.setProperties({
 						currentMediaRef: key,
@@ -148,10 +155,13 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 * otherwise tries to open image lightbox with appropriate image
 	 */
 	fileObserver: function (): void {
+		//debugger
 		if (this.get('file') == null) {
 			this.send('closeLightbox');
+			this.reset();
 		} else {
-			this.matchQueryString();
+			var currentGalleryId = this.get('currentMediaRef');
+			this.matchQueryString(currentGalleryId);
 		}
 	}.observes('file'),
 
@@ -197,6 +207,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 * sets all properties to their null state
 	 */
 	reset: function (): void {
+		console.log("resetuje propertiesy")
 		this.setProperties({
 			data: {
 				mediaRef: null,
