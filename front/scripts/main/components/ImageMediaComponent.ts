@@ -19,20 +19,20 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 	link: Em.computed.alias('media.link'),
 
-	isSmall: function(): boolean {
+	isSmall: Em.computed('width', 'height', function(): boolean {
 		var imageWidth = this.get('width'),
 			imageHeight = this.get('height');
 
 		return !!imageWidth && imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
 
-	}.property('width', 'height'),
+	}),
 
 	/**
 	 * used to set proper height to img tag before it loads
 	 * so we have less content jumping around due to lazy loading images
 	 * @return number
 	 */
-	computedHeight: function (): number {
+	computedHeight: Em.computed(function (): number {
 		var pageWidth = this.get('articleContent.width'),
 			imageWidth = this.get('width') || pageWidth,
 			imageHeight = this.get('height');
@@ -42,9 +42,9 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		}
 
 		return imageHeight;
-	}.property('width', 'height', 'articleContent.width'),
+	}),
 
-	url: function (key: string, value?: string): string {
+	url: Em.computed(function (key: string, value?: string): string {
 		var media: ArticleMedia;
 		if (value) {
 			return this.getThumbURL(
@@ -68,17 +68,17 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 		//if it got here, that means that we don't have an url for this media
 		//this might happen for example for read more section images
-	}.property(),
+	}),
 
 	/**
 	 * @desc style used on img tag to set height of it before we load an image
 	 * so when image loads, browser don't have to resize it
 	 */
-	style: function (): string {
+	style: Em.computed('computedHeight', 'visible', function (): string {
 		return this.get('visible') ?
 			'' :
 			'height:%@px;'.fmt(this.get('computedHeight'));
-	}.property('computedHeight', 'visible'),
+	}),
 
 	/**
 	 * load an image and run update function when it is loaded

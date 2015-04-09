@@ -1,3 +1,5 @@
+/// <reference path='../../../../typings/ember/ember.d.ts' />
+/// <reference path='../app.ts' />
 'use strict';
 
 /**
@@ -14,13 +16,13 @@ App.ArticleContentMixin = Em.Mixin.create({
 		width: null
 	},
 
-	onInit: function (): void {
+	onInit: Em.observer(function (): void {
 		App.ArticleContentListeners.add(this);
-	}.on('init'),
+	}).on('init'),
 
-	onWillDestroyElement: function (): void {
+	onWillDestroyElement: Em.observer(function (): void {
 		App.ArticleContentListeners.remove(this);
-	}.on('willDestroyElement')
+	}).on('willDestroyElement')
 });
 
 /**

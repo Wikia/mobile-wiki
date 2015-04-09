@@ -56,23 +56,23 @@ App.SideNavComponent = Em.Component.extend({
 		}
 	},
 
-	isCollapsedObserver: function () {
+	isCollapsedObserver: Em.observer('isCollapsed', function () {
 		var trackLabel: string = this.get('isCollapsed') ? 'close' : 'open';
 		M.track({
 			action: M.trackActions.click,
 			category: 'menu',
 			label: trackLabel
 		});
-	}.observes('isCollapsed'),
+	}),
 
 	/**
 	 * Every time we exit search mode, regardless of if it was through the Cancel
 	 * link or through clicking a search result, we want to clear out the query
 	 * so that the search bar will clear.
 	 */
-	isInSearchModeObserver: function () {
+	isInSearchModeObserver: Em.observer('isInSearchMode', function () {
 		if (!this.get('isInSearchMode')) {
 			this.send('clearSearch');
 		}
-	}.observes('isInSearchMode').on('didInsertElement')
+	}).on('didInsertElement')
 });
