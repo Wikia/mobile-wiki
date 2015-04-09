@@ -93,6 +93,6 @@ QUnit.test('Track page view', function () {
 
 QUnit.test('Track ads-related event', function () {
 	var tracker = new Mercury.Modules.Trackers.GoogleAnalytics();
-	tracker.trackAds('testCategory', 'testAction', 'testLabel', 0, true);
+	tracker.trackAds('ads._trackEvent', 'testCategory', 'testAction', 'testLabel', 0, true);
 	deepEqual(this.queueContains(['ads._trackEvent', 'testCategory', 'testAction', 'testLabel', 0, true]), true);
 });
