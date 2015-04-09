@@ -25,4 +25,5 @@ test('action updateHeaders correctly sets sections', function () {
 	ctrl.send('updateHeaders', obj);
 
 	equal(ctrl.get('model').get('sections'), obj);
+	equal(true, false);
 });
