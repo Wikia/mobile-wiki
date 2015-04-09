@@ -21,15 +21,15 @@ interface EventTarget {
 App.ApplicationView = Em.View.extend({
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
-	verticalClass: function (): string {
+	verticalClass: Em.computed(function (): string {
 		var vertical: string = Em.get(Mercury, 'wiki.vertical');
 		return vertical + '-vertical';
-	}.property(),
+	}),
 
-	systemClass: function (): string {
+	systemClass: Em.computed(function (): string {
 		var system: string = Mercury.Utils.Browser.getSystem();
 		return system ? 'system-' + system : '';
-	}.property(),
+	}),
 
 	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
@@ -130,20 +130,20 @@ App.ApplicationView = Em.View.extend({
 	 * @param {string} tagName clicked tag name
 	 * @returns {boolean}
 	 */
-	shouldHandleMedia: function(target: EventTarget, tagName: string): boolean {
+	shouldHandleMedia: function (target: EventTarget, tagName: string): boolean {
 		return tagName === 'img' || tagName === 'figure'
 			&& $(target).children('a').length === 0;
 	},
 
-	sideNavCollapsedObserver: function (): void {
+	sideNavCollapsedObserver: Em.observer('sideNavCollapsed', function (): void {
 		if (this.get('sideNavCollapsed')) {
 			this.set('noScroll', false);
 		} else {
 			this.set('noScroll', true);
 		}
-	}.observes('sideNavCollapsed'),
+	}),
 
-	noScrollObserver: function (): void {
+	noScrollObserver: Em.observer('noScroll', function (): void {
 		var $body = Em.$('body'),
 			scrollLocation: number;
 
@@ -161,5 +161,5 @@ App.ApplicationView = Em.View.extend({
 			window.scrollTo(0, this.get('scrollLocation'));
 			this.set('scrollLocation', null);
 		}
-	}.observes('noScroll')
+	})
 });

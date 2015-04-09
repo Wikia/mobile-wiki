@@ -24,7 +24,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	 * @desc 'listens' to scale, newX and newY and returns
 	 * style string for an image, used for scaling and panning
 	 */
-	style: Ember.computed((): string => {
+	style: Em.computed(function (): string {
 		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
 				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
 			.fmt(
@@ -37,7 +37,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	}),
 
 
-	viewportSize: Ember.computed(() => {
+	viewportSize: Em.computed(function () {
 		return {
 			width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 			height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
@@ -54,7 +54,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	/**
 	 * @desc calculates current scale for zooming
 	 */
-	scale: Ember.computed((key: string, value?: number): any => {
+	scale: Em.computed(function (key: string, value?: number): any {
 		if (value >= 1) {
 			return Math.min(this.maxZoom, value);
 		}
@@ -65,36 +65,36 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	/**
 	 * @desc property that holds current image
 	 */
-	image: Ember.computed((): JQuery => {
+	image: Em.computed(function (): JQuery {
 		return this.$('.current');
 	}),
 
-	imageWidth: Ember.computed('image', 'scale', (): number => {
+	imageWidth: Em.computed('image', 'scale', function (): number {
 		return this.get('image').width() * this.get('scale');
 	}),
 
-	imageHeight: Ember.computed('image', 'scale', (): number => {
+	imageHeight: Em.computed('image', 'scale', function (): number {
 		return this.get('image').height() * this.get('scale');
 	}),
 
 	/**
 	 * @desc used to set X boundaries for panning image in media lightbox
 	 */
-	maxX: Ember.computed('viewportSize', 'imageWidth', 'scale', (): number => {
+	maxX: Em.computed('viewportSize', 'imageWidth', 'scale', function (): number {
 		return Math.abs(this.get('viewportSize').width - this.get('imageWidth')) / 2 / this.get('scale');
 	}),
 
 	/**
 	 * @desc used to set Y boundaries for panning image in media lightbox
 	 */
-	maxY: Ember.computed('viewportSize', 'imageHeight', 'scale', (): number => {
+	maxY: Em.computed('viewportSize', 'imageHeight', 'scale', function (): number {
 		return Math.abs(this.get('viewportSize').height - this.get('imageHeight')) / 2 / this.get('scale');
 	}),
 
 	/**
 	 * @desc calculates X for panning with respect to maxX
 	 */
-	newX: Ember.computed('viewportSize', 'imageWidth', (key: string, value?: number): number => {
+	newX: Em.computed('viewportSize', 'imageWidth', function (key: string, value?: number): number {
 		if (typeof value !== 'undefined' && this.get('imageWidth') > this.get('viewportSize').width) {
 			return this.limit(value, this.get('maxX'));
 		}
@@ -105,7 +105,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	/**
 	 * @desc calculates Y for panning with respect to maxY
 	 */
-	newY: Ember.computed('viewportSize', 'imageHeight', (key: string, value?: number): number => {
+	newY: Em.computed('viewportSize', 'imageHeight', function (key: string, value?: number): number {
 		if (typeof value !== 'undefined' && this.get('imageHeight') > this.get('viewportSize').height) {
 			return this.limit(value, this.get('maxY'));
 		}
@@ -291,7 +291,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		}
 	},
 
-	articleContentWidthObserver: Ember.observer('articleContent.width', (): void => {
+	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
 		this.notifyPropertyChange('viewportSize');
 		this.notifyPropertyChange('imageWidth');
 		this.notifyPropertyChange('imageHeight');
