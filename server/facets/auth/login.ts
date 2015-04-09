@@ -45,7 +45,7 @@ interface LoginViewContext {
 
 var defaultViewContext: LoginViewContext = {
 	title: 'auth:login.login-title',
-	headerText: 'auth:login.welcome-back',
+	headerText: 'auth:login.welcome-back'
 };
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
