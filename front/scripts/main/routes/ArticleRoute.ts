@@ -38,7 +38,7 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
-	afterModel: function (model) {
+	afterModel: function (model: any) {
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 	},
 
