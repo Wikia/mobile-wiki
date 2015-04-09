@@ -8,11 +8,11 @@ import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
 
 interface AuthParams {
-	'user_id'       : string;
-	'access_token'  : string;
-	'refresh_token' : string;
-	'redirect'?     : string;
-	'remember'?     : string;
+	'user_id': string;
+	'access_token': string;
+	'refresh_token': string;
+	'redirect'?: string;
+	'remember'?: string;
 }
 
 interface AuthCallbackFn {
@@ -20,29 +20,32 @@ interface AuthCallbackFn {
 }
 
 interface HeliosResponse {
-	'user_id'            : string;
-	'access_token'       : string;
-	'refresh_token'      : string;
-	'token_type'         : string;
-	'expires_in'         : string;
-	'error'?             : string;
-	'error_description'? : string;
+	'user_id': string;
+	'access_token': string;
+	'refresh_token': string;
+	'token_type': string;
+	'expires_in': string;
+	'error'?: string;
+	'error_description'?: string;
 }
 
 interface LoginViewContext {
-	header?      : string;
-	footer?      : string;
-	bodyClasses? : string;
-	title        : string;
-	exitTo?      : string;
+	hideHeader?: string;
+	hideFooter?: string;
+	bodyClasses?: string;
+	headerText?: string;
+	title: string;
+	exitTo?: string;
 	formErrorKey?: string;
-	i18nContext? : any;
+	i18nContext?: any;
+	footerLinkRoute?: string;
+	footerCalloutText?: string;
+	footerCalloutLink?: string;
 }
 
 var defaultViewContext: LoginViewContext = {
 	title: 'auth:login.login-title',
-	header: 'auth:login.welcome-back',
-	footer: 'auth:login.footer'
+	headerText: 'auth:login.welcome-back',
 };
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -97,12 +100,12 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirect,
-		header: 'auth:login.header',
+		headerText: 'auth:login.welcome-back',
 		footer: 'auth:login.footer',
-		i18nContext: {
-			redirectRoute: encodeURIComponent(redirect)
-		},
-		title: 'auth:login.title'
+		title: 'auth:login.title',
+		footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
+		footerCalloutText: 'auth:login.register-callout-text',
+		footerCalloutLink: 'auth:login.register-callout-link'
 	};
 
 	return reply.view('login', context, {
@@ -119,9 +122,9 @@ export function post (request: Hapi.Request, reply: any): void {
 		context: any = {
 			header: 'auth:login.header',
 			footer: 'auth:login.footer',
-			i18nContext: {
-				redirectRoute: encodeURIComponent(redirect)
-			}
+			footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
+			footerCalloutText: 'auth:login.register-callout-text',
+			footerCalloutLink: 'auth:login.register-callout-link'
 		};
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {

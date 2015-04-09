@@ -14,17 +14,20 @@
 		<a class="close" href="{{exitTo}}"></a>
 		{{/if}}
 
-		{{#if header}}
-		<header class="auth-header splash splash-top">{{i18n header i18nContext}}</header>
-		{{/if}}
+		{{#unless hideHeader}}
+		<header class="auth-header splash splash-top">{{i18n headerText}}</header>
+		{{/unless}}
 
 		{{{content}}}
 
-		{{#if footer}}
+		{{#unless hideFooter}}
 		<footer class="auth-footer splash splash-bottom">
-			{{{i18n footer i18nContext}}}
+			{{i18n footerCalloutText}}
+			<a href="{{footerLinkRoute}}" class="footer-callout-link">
+				{{i18n footerCalloutLink}}
+			</a>
 		</footer>
-		{{/if}}
+		{{/unless}}
 
 		{{#unless noScripts}}
 		<!-- build:js /front/scripts/auth.js -->

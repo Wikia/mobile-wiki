@@ -1,14 +1,14 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 interface JoinViewContext {
-	pageTitleKey : string;
-	loginRoute   : string;
-	signupRoute   : string;
-	hideHeader?  : boolean;
-	hideFooter?  : boolean;
-	exitTo?      : string;
-	bodyClasses? : string;
-	noScripts?   : boolean;
+	pageTitleKey: string;
+	loginRoute: string;
+	signupRoute: string;
+	hideHeader?: boolean;
+	hideFooter?: boolean;
+	exitTo?: string;
+	bodyClasses?: string;
+	noScripts?: boolean;
 }
 
 function get (request: Hapi.Request, reply: any): void {

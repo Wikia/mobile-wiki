@@ -1,11 +1,13 @@
 interface SignupViewContext {
-	title        : string;
-	header?      : string;
-	footer?      : string;
-	exitTo?      : string;
-	bodyClasses? : string;
-	loadScripts? : boolean;
-	i18nContext? : any;
+	title: string;
+	headerText?: string;
+	exitTo?: string;
+	bodyClasses?: string;
+	loadScripts?: boolean;
+	i18nContext?: any;
+	footerLinkRoute?: string;
+	footerCalloutText?: string;
+	footerCalloutLink?: string;
 }
 
 export function get (request: Hapi.Request, reply: any): void {
@@ -18,14 +20,14 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		header: 'auth:signup.header',
+		headerText: 'auth:signup.sign-up-with-email',
 		footer: 'auth:signup.footer',
-		title: 'auth:signup.page-title',
+		title: 'auth:signup.sign-up-with-email',
 		loadScripts: true,
-		i18nContext: {
-			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
-			redirectRoute: encodeURIComponent(redirectUrl)
-		}
+		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
+		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
+		footerCalloutText: 'auth:common.login-callout-text',
+		footerCalloutLink: 'auth:common.login-callout-link'
 	};
 
 	return reply.view('signup', context, {
