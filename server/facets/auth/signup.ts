@@ -1,5 +1,6 @@
 interface SignupViewContext {
 	title        : string;
+	currYear      : number;
 	header?      : string;
 	footer?      : string;
 	exitTo?      : string;
@@ -22,6 +23,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		footer: 'auth:signup.footer',
 		title: 'auth:signup.page-title',
 		loadScripts: true,
+		currYear: new Date().getFullYear(),
 		i18nContext: {
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			redirectRoute: encodeURIComponent(redirectUrl)

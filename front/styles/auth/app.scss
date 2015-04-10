@@ -28,3 +28,10 @@
 @import 'theme/auth-header';
 @import 'theme/body';
 @import 'theme/splash';
+
+// TODO: MOVE THIS
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
