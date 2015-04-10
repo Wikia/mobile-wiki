@@ -35,10 +35,9 @@ App.MediaLightboxController = App.LightboxController.extend({
 	/**
 	 * This function checks if file=* matches any files on a page
 	 */
-	matchQueryString: function (galleryId: number): void {
+	matchQueryString: function (): void {
 		var file = this.get('file');
 		console.log("matchQueryString w galerii o numerze: ", this.get('currentMediaRef'))
-		console.log("moj param powinno byc to samo: ", galleryId)
 
 		function findMediaInGallery (key: number): Function {
 			console.log("tajemniczy key - INDEX GALERII ######: ", key)
@@ -77,26 +76,8 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	},
 
-	findMediaInSpecifiedGallery: function (galleryId: number) {
-		var file = this.get('file');
-		console.log("Szukam pliku: ", file, " w galerii nr: ", galleryId)
-
-		var thisGallery = this.get('model').get('media')[galleryId];
-		console.log("thisGallery: ", thisGallery)
-		for (var i = 0; i < thisGallery.length; i++) {
-			console.log("t", thisGallery[i].title)
-			if (thisGallery[i].title === file) {
-				console.log("znalezłem media na pozycji", i)
-				this.setProperties({
-					currentMediaRef: galleryId,
-					currentGalleryRef: i
-				});
-				return true;
-			}
-		}
-	},
-
 	currentGalleryRef: function (key: string, value?: number): number {
+		console.log('currentGalleryRef')
 		var galleryLength: number;
 
 		if (arguments.length > 1) {
@@ -139,6 +120,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 */
 	currentMedia: function (): ArticleMedia {
 		var current = this.get('current');
+		console.log("DIANANANAAAAAAAAAAAAAAAAAAAAAAAAAAAthis.get('currentGalleryRef'!: ", this.get('currentGalleryRef'))
 
 		if (this.get('isGallery')) {
 			return current[this.get('currentGalleryRef')];
@@ -179,10 +161,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		if (this.get('file') == null) {
 			this.send('closeLightbox');
 		} else {
-			var currentGalleryId = this.get('currentMediaRef');
-			console.log("currentGalleryId", currentGalleryId)
-			//this.matchQueryString(currentGalleryId);
-			this.findMediaInSpecifiedGallery(currentGalleryId);
+			//this.matchQueryString();
 		}
 	}.observes('file'),
 

@@ -146,6 +146,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	 * @param {Touch} event
 	 */
 	handleClick: function (event: Touch): void {
+		console.log("handleClick")
 		var screenArea = this.getScreenArea(event);
 
 		if (screenArea === this.screenAreas.right) {
@@ -158,6 +159,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	},
 
 	nextMedia: function (): void {
+		console.log("nextMedia")
 		this.resetZoom();
 		this.get('controller').incrementProperty('currentGalleryRef');
 
@@ -205,7 +207,9 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	},
 
 	click: function (event: MouseEvent): void {
-		if (this.isCurrentMediaType('image') && !this.get('isZoomed') && this.get('isGallery')) {
+		console.log("/\n\n\n\n\n\n\n\nclick!")
+		//debugger
+		if ( !this.get('isZoomed') && this.get('isGallery')) {
 			this.handleClick(event);
 		} else {
 			this._super(event);
@@ -306,15 +310,21 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	 */
 	initVideoPlayer: function (): void {
 		var currentMedia = this.get('controller.currentMedia');
+		//init video player musi byc wolany takze podczas przechodzenia miedzy obrazkami
+		console.log("currentMedia", currentMedia)
 
 		if (currentMedia && currentMedia.type === 'video') {
+			console.log("initVideoPlayer! current media: ", currentMedia)
+			var element = $('.lightbox-content-inner')[0];
 			Em.run.scheduleOnce('afterRender', this, (): void => {
-				var element = this.$('.lightbox-content-inner')[0];
+				console.log("AFTER RENDER")
+				var element = $('.lightbox-content-inner')[0];
+				console.log("element: ", element)
 
 				this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, currentMedia.embed));
 			});
 		}
-	},
+	}.observes('controller.file'),
 
 	/**
 	 * @desc used to animate image that is in article into a media lightbox
@@ -355,7 +365,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
 		this.resetZoom();
-		this.initVideoPlayer();
+		this.initVideoPlayer(); //<- uwaga!
 
 		hammerInstance.get('pinch').set({
 			enable: true

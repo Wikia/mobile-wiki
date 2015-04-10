@@ -100,16 +100,17 @@ App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (Em.isArray(media)) {
 			if ((<any>media).some((media: ArticleMedia) => !!media.link)) {
-				console.log("jestem LinkedGalleryMediaComponent")
+				console.log("\njestem LinkedGalleryMediaComponent")
 				return App.LinkedGalleryMediaComponent.create();
 			} else {
-				console.log("jestem GalleryMediaComponent")
+				console.log("\njestem GalleryMediaComponent")
 				return App.GalleryMediaComponent.create();
 			}
 		} else if (media.type === 'video'){
-			console.log("** znalazlem samotne video!")
+			console.log("\n** znalazlem samotne video!")
 			return App.VideoMediaComponent.create();
 		} else {
+			console.log("\n** znalazlem samotny obrazek!")
 			return App.ImageMediaComponent.create();
 		}
 	}
