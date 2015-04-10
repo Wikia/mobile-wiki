@@ -11,11 +11,10 @@
 		</div>
 		<a class="forgotten-password" href="#" tabindex="-1">{{i18n "auth:login.forgot-password"}}</a>
 		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
-		<div class="inline-checkbox-wrapper">
+		<label for="loginRemember" class="inline">
 			<input type="checkbox" name="remember" id="loginRemember">
-			<label for="loginRemember" class="inline">
-				{{i18n "auth:login.remember-me-label"}}			</label>
-		</div>
+			{{i18n "auth:login.remember-me-label"}}
+		</label>
 		<button id="loginSubmit" type="submit" disabled>{{i18n "auth:login.submit-text"}}</button>
 		{{#if formErrorKey}}
 		<small class="error">
