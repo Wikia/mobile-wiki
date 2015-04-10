@@ -14,7 +14,6 @@
     "headroom.js": "0.7.0",
     "fastclick": "1.0.6",
     "jquery.cookie": "1.4.1",
-    "scroll-depth": "https://github.com/nandy-andy/jquery-scrolldepth.git#0.8.3",
     "weppy": "Wikia/weppy",
     "ember-performance-sender": "1.1.0",
     "vignette": "wikia/vignette-js#2.1.1",
