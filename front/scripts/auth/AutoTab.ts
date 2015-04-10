@@ -2,6 +2,7 @@ class AutoTab {
 	input: HTMLInputElement;
 	nextInput: Element;
 	max: number;
+	isLast: boolean;
 
 	constructor(input: HTMLInputElement) {
 		var form: HTMLFormElement = input.form,
@@ -10,6 +11,8 @@ class AutoTab {
 
 		this.input = input;
 		this.nextInput = nextInput;
+		this.isLast = !!input.className.match('auto-tab-end');
+
 		this.max = <number> input.dataset.maxLength;
 	}
 
@@ -17,21 +20,27 @@ class AutoTab {
 		this.input.addEventListener('input', this.onInput.bind(this));
 	}
 
-	private onInput(event: Event) {
-		var length, badInput;
+	private onInput() {
+		var badInput: boolean = this.input.validity.badInput;
 
-		badInput = this.input.validity.badInput;
 		if (badInput) {
 			// TODO: show an error message or prevent
 			console.log('There was a bad input, display and error message');
 		}
 
-		length = this.input.value.length;
-		if (length >= this.max) {
-			if (this.nextInput) {
-				this.nextInput.focus();
-			}
+		if (this.shouldTab()) {
+			this.nextInput.focus();
 		}
+	}
+
+	private shouldTab(): boolean {
+		var length = this.input.value.length;
+
+		return (
+			length >= this.max &&
+			this.nextInput &&
+			!this.isLast
+		);
 	}
 
 	/**
@@ -48,7 +57,7 @@ class AutoTab {
 	}
 
 	/**
-	 * Get the input after the current on, if it exists
+	 * Get the input after the current one, if it exists
 	 */
 	private static getNextInput(elements: Array, input: HTMLInputElement): any {
 		var nextInput = null;
