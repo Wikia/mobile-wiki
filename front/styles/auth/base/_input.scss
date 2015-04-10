@@ -5,7 +5,8 @@ input[type='password']:focus,
 input[type='email'],
 input[type='email']:focus,
 input[type='date'],
-input[type='date']:focus {
+input[type='date']:focus,
+.input {
 	background-color: #fff;
 	border: none;
 	border-bottom: 1px solid $label-color-inactive;

@@ -2,18 +2,14 @@ class AutoTab {
 	input: HTMLInputElement;
 	nextInput: Element;
 	max: number;
-	isLast: boolean;
 
-	constructor(input: Element) {
-		this.input = <HTMLInputElement> input;
-		this.nextInput = <HTMLInputElement> input.nextElementSibling;
-		this.isLast = !!input.className.match('auto-tab-end');
+	constructor(input: HTMLInputElement) {
+		var form: HTMLFormElement = input.form,
+			elements: Array = AutoTab.getVisibleFormElements(form),
+			nextInput: any = AutoTab.getNextInput(elements, input);
 
-		console.log(!!input.className.match('auto-tab-end'));
-
-		if (!this.isLast && this.nextInput.nodeName.toLowerCase() !== 'input') {
-			throw new Error('AutoTab inputs must be followed by another HTMLInputElement');
-		}
+		this.input = input;
+		this.nextInput = nextInput;
 		this.max = <number> input.dataset.maxLength;
 	}
 
@@ -32,11 +28,39 @@ class AutoTab {
 
 		length = this.input.value.length;
 		if (length >= this.max) {
-			if (!this.isLast) {
+			if (this.nextInput) {
 				this.nextInput.focus();
-			} else {
-				this.input.value = this.input.value.substr(0, this.max);
 			}
 		}
+	}
+
+	/**
+	 * Get an array of all visible elements in a form
+	 */
+	private static getVisibleFormElements(form): Array {
+		var elements;
+
+		elements = Array.prototype.filter.call(form.elements, function (element) {
+			return element.type !== 'hidden';
+		});
+
+		return elements;
+	}
+
+	/**
+	 * Get the input after the current on, if it exists
+	 */
+	private static getNextInput(elements: Array, input: HTMLInputElement): any {
+		var nextInput = null;
+
+		elements.every(function (element, index) {
+			if (element === input) {
+				nextInput = elements[index + 1];
+				return false;
+			}
+			return true;
+		}, this);
+
+		return nextInput;
 	}
 }

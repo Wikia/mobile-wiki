@@ -1,0 +1,15 @@
+.birthdate-container {
+	input, input:focus {
+		border: none;
+		box-shadow: none;
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+	}
+	.birth-month, .birth-day {
+		width: 30px;
+	}
+	.birth-year {
+		width: 60px;
+	}
+}

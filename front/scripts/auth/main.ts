@@ -1,7 +1,7 @@
 window.document.addEventListener('DOMContentLoaded', function ():void {
 	new Form(window.document.querySelector('form')).watch();
 
-	Array.prototype.forEach.call(document.querySelectorAll('.auto-tab'), function (input: Element) {
+	Array.prototype.forEach.call(document.querySelectorAll('.auto-tab'), function (input: HTMLInputElement) {
 		new AutoTab(input).init();
 	});
 
