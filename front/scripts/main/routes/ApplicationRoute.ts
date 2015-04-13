@@ -107,9 +107,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 
 		openLightbox: function (lightboxName: string, data?: any): void {
 			this.get('controller').set('noScroll', true);
-			console.log("lightboxName", lightboxName)
-			console.log("data", data)
-
 			if (data) {
 				this.controllerFor(lightboxName).set('data', data);
 			}

@@ -37,14 +37,9 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 */
 	matchQueryString: function (): void {
 		var file = this.get('file');
-		console.log("matchQueryString w galerii o numerze: ", this.get('currentMediaRef'))
 
 		function findMediaInGallery (key: number): Function {
-			console.log("tajemniczy key - INDEX GALERII ######: ", key)
 			return function (galleryMedia: any, galleryKey: number): boolean {
-				console.log("sprawdzam element: ", galleryMedia.title)
-				console.log("na pozycji ", galleryKey)
-				console.log("czy równa się file: ", file)
 				if (galleryMedia.title === file) {
 					this.setProperties({
 						currentMediaRef: key,
@@ -59,7 +54,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 
 		function findMedia (media: any, key: number): boolean {
-			console.log("findMedia: ", media.title, "key: ", key);
 			if (Em.isArray(media)) {
 				return media.some(findMediaInGallery(key), this);
 			} else if (media.title === file) {
@@ -151,19 +145,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 		this.set('file', currentMedia.title);
 	}.observes('currentMedia').on('init'),
-
-	/**
-	 * closes lightbox when file queryParam is not set
-	 * otherwise tries to open image lightbox with appropriate image
-	 */
-	fileObserver: function (): void {
-		console.log('\n\n\n\n\nNOWy OBRAZEK')
-		if (this.get('file') == null) {
-			this.send('closeLightbox');
-		} else {
-			//this.matchQueryString();
-		}
-	}.observes('file'),
 
 	/**
 	 * returns footer for currentMedia
