@@ -4,7 +4,7 @@
 
 	&.has-error {
 		input {
-			border-bottom: red;
+			border-bottom-color: $input-border-error-color;
 		}
 	}
 
