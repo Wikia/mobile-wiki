@@ -289,22 +289,23 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 
 	/**
 	 * closes lightbox when file queryParam is not set
-	 * otherwise tries to open image lightbox with appropriate image
+	 * otherwise tries to open media lightbox and decides whether
+	 * to initiate o remove video player slot
 	 */
 	fileObserver: function (): void {
-		var controller: typeof App.ApplicationController;
-		var currentMedia = this.get('controller.currentMedia');
-		console.log("currentMedia", currentMedia)
+		var controller: typeof App.ApplicationController,
+			currentMedia = this.get('controller.currentMedia');
+
+		console.log("fileObserver, currentMedia", currentMedia)
 		if (this.get('controller.file') == null) {
 			controller = this.get('controller');
 			controller.send('closeLightbox');
-		} else {
-			var currentMedia = this.get('controller.currentMedia');
-			if (currentMedia && currentMedia.type === 'video') {
-				this.initVideoPlayer();
-			} else if (currentMedia && currentMedia.type === 'image') {
-				this.removeVideoSlot()
-			}
+			return
+		}
+		if (currentMedia && currentMedia.type === 'video') {
+			this.initVideoPlayer();
+		} else if (currentMedia && currentMedia.type === 'image') {
+			this.replaceVideoSlot();
 		}
 	}.observes('controller.file'),
 
@@ -329,17 +330,11 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	 * @description Used to instantiate a provider specific video player
 	 */
 	initVideoPlayer: function (): void {
-		var currentMedia = this.get('controller.currentMedia');
-		//init video player musi byc wolany takze podczas przechodzenia miedzy obrazkami
+		var currentMedia = this.get('controller.currentMedia'),
+			element: any;
 		if (currentMedia && currentMedia.type === 'video') {
 			console.log("initVideoPlayer! current media: ", currentMedia)
-			var element = $('.lightbox-content-inner')[0];
-			if (!element && currentMedia.type === 'video') {
-				Em.run.scheduleOnce('afterRender', this, (): void => {
-				console.log("AFTER RENDER")
-				var element = $('.lightbox-content-inner')[0];
-				});
-			}
+			element = $('.lightbox-content-inner')[0];
 			console.log("element: ", element)
 			if (element) {
 				this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, currentMedia.embed));
@@ -347,23 +342,29 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		}
 	},
 
+	/**
+	 * @desc Removes added by VideoLoader class to lightbox-content-inner div
+	 * allowing therefore for displaying images again
+	 */
 	removeCSSClass: function (): void {
 		$('.lightbox-content-inner')[0].className = $('.lightbox-content-inner')[0].className.replace(/\b\ video-provider-.*\b/g, '');
 	},
 
-	removeVideoSlot: function (): void {
-		var videoElement = $("div[class*='video-provider']")[0];
+	/**
+	 * @desc Tries to replace video slot (if exists) introduced by previous media
+	 * by properly styled <img> tag.
+	 */
+	replaceVideoSlot: function (): void {
+		var videoElement = $("div[class*='video-provider']")[0],
+			currentMedia: any,
+			imageHTML: string;
 		if (videoElement) {
-			var currentMedia = this.get('controller.currentMedia');
-			var picHTML = '<img class="current" src=' + currentMedia.url + 'style=' + this.style + '>';
-			videoElement.innerHTML = picHTML;
+			currentMedia = this.get('controller.currentMedia');
+			imageHTML = '<img class="current" src=' + currentMedia.url + 'style=' + this.style + '>';
+			videoElement.innerHTML = imageHTML;
 			this.removeCSSClass();
 		}
 	},
-
-	//problem1: video loader jak juz sie pojawi to nie chce zniknac
-	//problem2: przycisk cofnij nie dziala
-	//problem3 observes controller.file uwuchamia sie wiele razy ()
 
 	/**
 	 * @desc used to animate image that is in article into a media lightbox

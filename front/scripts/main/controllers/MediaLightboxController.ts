@@ -26,11 +26,26 @@ App.MediaLightboxController = App.LightboxController.extend({
 	),
 
 	init: function (): void {
-		console.log("INIT!")
 		this.matchQueryString();
 
 		this._super();
 	},
+
+	/**
+	 * @desc If the back button is pressed, we want to close the lightbox.
+	 * In this case file from URL doesn't match with currentMedia.
+	 * Function detects also unexpected inconsistent situations, which
+	 * should not take a place.
+	 */
+	detectBackButtonEffect: function() {
+		var currentMedia = this.get('currentMedia'),
+			file = this.get('file')
+		if (currentMedia) {
+			if (file !== currentMedia.title) {
+				this.send('closeLightbox');
+			}
+		}
+	}.observes('file'),
 
 	/**
 	 * This function checks if file=* matches any files on a page
@@ -71,7 +86,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 	},
 
 	currentGalleryRef: function (key: string, value?: number): number {
-		console.log('currentGalleryRef')
 		var galleryLength: number;
 
 		if (arguments.length > 1) {
@@ -114,7 +128,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 */
 	currentMedia: function (): ArticleMedia {
 		var current = this.get('current');
-		console.log("DIANANANAAAAAAAAAAAAAAAAAAAAAAAAAAAthis.get('currentGalleryRef'!: ", this.get('currentGalleryRef'))
 
 		if (this.get('isGallery')) {
 			return current[this.get('currentGalleryRef')];
@@ -188,14 +201,15 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 * sets all properties to their null state
 	 */
 	reset: function (): void {
-		console.log("resetuje propertiesy")
 		this.setProperties({
 			data: {
 				mediaRef: null,
 				galleryRef: null,
 				target: null
 			},
-			file: null
+			file: null,
+			currentMediaRef: null,
+			currentGalleryRef: null
 		});
 
 		this._super();
