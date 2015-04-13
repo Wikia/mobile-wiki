@@ -1,5 +1,19 @@
 .input-container {
+	padding-bottom: 1rem;
 	position: relative;
+
+	&.has-error {
+		input {
+			border-bottom: red;
+		}
+	}
+
+	.error {
+		margin-bottom: 0;
+		padding-bottom: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
 }
 
 .floating-label {
@@ -50,10 +64,11 @@ input[type='date'] {
 }
 
 .input-container > img {
-	bottom: 8px;
-	width: 20px;
+	height: 1rem;
 	position: absolute;
 	right: 5px;
+	top: 24px;
+	width: 20px;
 
 	&.on {
 		opacity: 0.5;
