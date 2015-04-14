@@ -17,7 +17,6 @@ App.VideoLightboxComponent = Em.Component.extend({
 			element = $('.lightbox-content-inner')[0];
 
 		if (currentMedia && element) {
-			console.log("element: ", element)
 			this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, currentMedia.embed));
 		}
 	}
