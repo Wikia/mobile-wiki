@@ -52,6 +52,16 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 		this.set('headroom', headroom);
 	},
 
+	isJapanese: function (): boolean {
+		var lang = navigator.language || navigator.browserLanguage;
+		if ( lang ) {
+			lang = lang.substr(0, 2);
+		} else {
+			lang = this.get('language.content');
+		}
+		return lang === 'ja';
+	}.property(),
+
 	lineShare: function (): string {
 		return "http://line.me/R/msg/text/?" + encodeURIComponent(this.get('title')) + " " + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
 	}.property('title'),
