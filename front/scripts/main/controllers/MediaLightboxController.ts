@@ -32,12 +32,11 @@ App.MediaLightboxController = App.LightboxController.extend({
 	},
 
 	/**
-	 * @desc If the back button is pressed, we want to close the lightbox.
-	 * In this case file from URL doesn't match with currentMedia.
-	 * Function detects also unexpected inconsistent situations, which
-	 * should not take a place.
+	 * @desc Checks if file from URL match with currentMedia.
+	 * Handles situation when file is empty and when, 
+	 * 'back' button is pressed and other unexpected situations.
 	 */
-	detectBackButtonEffect: function() {
+	fileObserver: function() {
 		var currentMedia = this.get('currentMedia'),
 			file = this.get('file')
 		if (currentMedia) {
@@ -104,13 +103,29 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('data.galleryRef'),
 
 	/**
-	 * check if current displayed media is a gallery
+	 * checks if current displayed media is a gallery
 	 *
 	 * @return boolean
 	 */
 	isGallery: function (): boolean {
 		return Em.isArray(this.get('current'));
 	}.property('current'),
+
+	/**
+	 * checks if current media is a video or image
+	 * and which lightbox component to render
+	 *
+	 * @return string
+	 */
+	lightboxComponent: function (): string {
+		var currentMedia = this.get('currentMedia');
+		if (currentMedia.url) {
+			return currentMedia.type + '-lightbox';
+		}
+		// in case of invalid media assume it was image and display
+		// 'Media not found' will be handled by template
+		return 'image-lightbox';
+	}.property('file'),
 
 	/**
 	 * gets current media from model

@@ -1,0 +1,7 @@
+<div class="lightbox-content-inner">
+{{#if currentMedia.url}}
+	<img class='current' {{bind-attr src=currentMedia.url}} {{bind-attr style=view.style}}>
+{{else}}
+	{{i18n 'app.media-lightbox-error'}}
+{{/if}}
+</div>

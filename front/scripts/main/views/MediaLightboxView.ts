@@ -286,29 +286,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		}
 	}.observes('articleContent.width'),
 
-
-	/**
-	 * closes lightbox when file queryParam is not set
-	 * otherwise tries to open media lightbox and decides whether
-	 * to initiate o remove video player slot
-	 */
-	fileObserver: function (): void {
-		var controller: typeof App.ApplicationController,
-			currentMedia = this.get('controller.currentMedia');
-
-		console.log("fileObserver, currentMedia", currentMedia)
-		if (this.get('controller.file') == null) {
-			controller = this.get('controller');
-			controller.send('closeLightbox');
-			return
-		}
-		if (currentMedia && currentMedia.type === 'video') {
-			this.initVideoPlayer();
-		} else if (currentMedia && currentMedia.type === 'image') {
-			this.replaceVideoSlot();
-		}
-	}.observes('controller.file'),
-
 	/**
 	 * @desc 'listens' to scale, newX and newY and returns
 	 * style string for an image, used for scaling and panning
@@ -324,47 +301,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		//Performance critical place
 		//We will update property 'manually' by calling notifyPropertyChange
 	}.property(),
-
-	/**
-	 * @method initVideoPlayer
-	 * @description Used to instantiate a provider specific video player
-	 */
-	initVideoPlayer: function (): void {
-		var currentMedia = this.get('controller.currentMedia'),
-			element: any;
-		if (currentMedia && currentMedia.type === 'video') {
-			console.log("initVideoPlayer! current media: ", currentMedia)
-			element = $('.lightbox-content-inner')[0];
-			console.log("element: ", element)
-			if (element) {
-				this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, currentMedia.embed));
-			}
-		}
-	},
-
-	/**
-	 * @desc Removes added by VideoLoader class to lightbox-content-inner div
-	 * allowing therefore for displaying images again
-	 */
-	removeCSSClass: function (): void {
-		$('.lightbox-content-inner')[0].className = $('.lightbox-content-inner')[0].className.replace(/\b\ video-provider-.*\b/g, '');
-	},
-
-	/**
-	 * @desc Tries to replace video slot (if exists) introduced by previous media
-	 * by properly styled <img> tag.
-	 */
-	replaceVideoSlot: function (): void {
-		var videoElement = $("div[class*='video-provider']")[0],
-			currentMedia: any,
-			imageHTML: string;
-		if (videoElement) {
-			currentMedia = this.get('controller.currentMedia');
-			imageHTML = '<img class="current" src=' + currentMedia.url + 'style=' + this.style + '>';
-			videoElement.innerHTML = imageHTML;
-			this.removeCSSClass();
-		}
-	},
 
 	/**
 	 * @desc used to animate image that is in article into a media lightbox
@@ -405,7 +341,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
 		this.resetZoom();
-		this.initVideoPlayer();
 
 		hammerInstance.get('pinch').set({
 			enable: true
