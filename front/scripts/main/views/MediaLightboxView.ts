@@ -2,21 +2,19 @@
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
+/// <reference path="../mixins/LightboxMixin.ts" />
 'use strict';
 
 interface Window {
 	scrollY: number;
 }
 
-App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
+App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.LightboxMixin, {
 	classNames: ['media-lightbox'],
 	maxZoom: 5,
 	lastX: 0,
 	lastY: 0,
 	lastScale: 1,
-	//opening, open
-	//before didInsertElement the lightbox is opening
-	status: 'opening',
 	videoPlayer: null,
 
 	isGallery: Em.computed.alias('controller.isGallery'),
@@ -303,29 +301,19 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	}.property(),
 
 	/**
-	 * @method currentMediaObserver
-	 * @description Used to check if media if video after the lightbox current
-	 * view has been updated. This is so that any specific embed markup is loaded
-	 * before we try to instantiate player controls.
-	 */
-	currentMediaObserver: function (): void {
-		var currentMedia = this.get('controller.currentMedia');
-
-		if (currentMedia.type === 'video') {
-			Em.run.scheduleOnce('afterRender', this, (): void => {
-				this.initVideoPlayer(currentMedia);
-			});
-		}
-	}.observes('controller.currentMedia'),
-
-	/**
 	 * @method initVideoPlayer
 	 * @description Used to instantiate a provider specific video player
 	 */
-	initVideoPlayer: function (media: any): void {
-		var element = this.$('.lightbox-content-inner')[0];
+	initVideoPlayer: function (): void {
+		var currentMedia = this.get('controller.currentMedia');
 
-		this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, media.embed));
+		if (currentMedia && currentMedia.type === 'video') {
+			Em.run.scheduleOnce('afterRender', this, (): void => {
+				var element = this.$('.lightbox-content-inner')[0];
+
+				this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, currentMedia.embed));
+			});
+		}
 	},
 
 	/**
@@ -366,8 +354,8 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 		var hammerInstance = this.get('_hammerInstance');
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
-		this.set('status', 'open');
 		this.resetZoom();
+		this.initVideoPlayer();
 
 		hammerInstance.get('pinch').set({
 			enable: true
@@ -381,7 +369,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, {
 	},
 
 	willDestroyElement: function (): void {
-		this.get('controller').reset();
 		this.get('_hammerInstance').get('pinch').set({
 			enable: false
 		});

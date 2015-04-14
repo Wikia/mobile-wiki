@@ -6,16 +6,24 @@
  * var localConfig = require('./config').localSettings
  */
 
-import util = require('util');
 import Utils = require('../server/lib/Utils');
+var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
+	domain: 'wikia.com',
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
+	helios: {
+		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
+		host: 'SENSITIVE, DO NOT ADD HERE',
+		secret: 'SENSITIVE, DO NOT ADD HERE',
+		id: 'SENSITIVE, DO NOT ADD HERE'
+	},
+	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
 	// Special salt for accepting HTML from MediaWiki for /editor_preview/
@@ -41,11 +49,6 @@ var localSettings: LocalSettings = {
 			primary: {
 				id: 'UA-32129070-1',
 				sampleRate: 10
-			},
-			special: {
-				prefix: 'special',
-				id: 'UA-32132943-1',
-				sampleRate: 100
 			},
 			ads: {
 				prefix: 'ads',
@@ -84,6 +87,12 @@ var localSettings: LocalSettings = {
 		music: '#c819ad',
 		tv: '#00b7e0'
 	},
+	weppy: {
+		enabled: !!process.env.ENABLE_WEPPY,
+		host: 'http://speed.wikia.net/__rum',
+		samplingRate: 0.01,
+		aggregationInterval: 1000
+	},
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
@@ -92,5 +101,5 @@ var localSettings: LocalSettings = {
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
-	return util._extend(localSettings, customLocalSet);
+	return deepExtend(localSettings, customLocalSet);
 }

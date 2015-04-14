@@ -13,12 +13,6 @@
 		<meta name="theme-color" content="{{themeColor}}">
 		{{/if}}
 
-		{{> open-graph-tags}}
-
-		<link rel="canonical" href="{{canonicalUrl}}">
-
-		<style><!-- @include ../../www/front/styles/main/baseline.css --></style>
-
 		{{#if isRtl}}
 			<!-- build:css /front/styles/main/app.rtl.css -->
 			<link rel="stylesheet" href="/front/styles/main/app.rtl.css">
@@ -29,12 +23,14 @@
 			<!-- endbuild -->
 		{{/if}}
 
-		{{#if optimizelyScript}}
-			<script src="{{optimizelyScript}}" defer></script>
-		{{/if}}
+		{{> open-graph-tags}}
+
+		<link rel="canonical" href="{{canonicalUrl}}">
+
+		<style><!-- @include ../../../www/front/styles/main/baseline.css --></style>
 
 		<script>
-			<!-- @include ../../www/front/scripts/baseline.js -->
+			<!-- @include ../../../www/front/scripts/baseline.js -->
 			{{#if server.mediawikiDomain}}
 			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
@@ -43,7 +39,8 @@
 			M.prop('firstPage', true, true);
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
-			M.prop('translations', {{{json (translations wiki.language.user)}}});
+			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
+			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
@@ -58,10 +55,13 @@
 		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
+		{{#if optimizelyScript}}
+			<script src="{{optimizelyScript}}"></script>
+		{{/if}}
 		{{> tracking}}
 	</head>
 	<body>
-		<!-- @include ../../www/front/svg/main.svg -->
+		<!-- @include ../../../www/front/svg/main.svg -->
 
 		<div id="article-preload">
 			{{{content}}}
@@ -79,11 +79,10 @@
 			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
 			<script src="/front/vendor/jquery/dist/jquery.js"></script>
 			<script src="/front/vendor/hammerjs/hammer.js"></script>
-			<script src="/front/vendor/handlebars/handlebars.runtime.js"></script>
 			<script src="/front/vendor/headroom.js/dist/headroom.js"></script>
 			<script src="/front/vendor/jquery.cookie/jquery.cookie.js"></script>
 			<!-- @if WIKIA_ENVIRONMENT='dev' -->
-			<script src="/front/vendor/ember/ember.js"></script>
+			<script src="/front/vendor/ember/ember.debug.js"></script>
 			<!-- @endif -->
 			<!-- @if WIKIA_ENVIRONMENT!='dev' -->
 			<script src="/front/vendor/ember/ember.prod.js"></script>
@@ -91,11 +90,13 @@
 			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
-			<script src="/front/vendor/scroll-depth/jquery.scrolldepth.js"></script>
+			<!-- @ifdef ENABLE_WEPPY -->
+				<script src="/front/vendor/weppy/dist/weppy.js"></script>
+				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
+			<!-- @endif -->
 		<!-- endbuild -->
-		
-		<!-- TODO: when https://github.com/Wikia/app/pull/6784 hits production change {{server.mediawikiDomain}} to a shared domain -->
-		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride" defer></script>
+
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" defer></script>
 
 		<!-- build:js /front/scripts/combined.js defer -->
 			<script src="/front/templates/main.js"></script>

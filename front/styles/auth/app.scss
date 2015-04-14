@@ -1,3 +1,29 @@
-body {
-	background: salmon;
-}
+// compiled style guide css and scss variables
+@import '../../vendor/wikia-style-guide/dist/css/main.css';
+
+// configuration
+@import 'settings';
+
+// base
+@import 'base/anchors';
+@import 'base/lists';
+@import 'base/input';
+
+// layout
+@import 'layout/body';
+@import 'layout/content';
+@import 'layout/footer';
+@import 'layout/header';
+
+// modules
+@import 'module/buttons';
+@import 'module/close';
+@import 'module/floating-label';
+@import 'module/landing-page';
+@import 'module/login-page';
+
+// theme
+@import 'theme/auth-footer';
+@import 'theme/auth-header';
+@import 'theme/body';
+@import 'theme/splash';

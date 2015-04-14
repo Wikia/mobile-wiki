@@ -1,11 +1,24 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
 /// <reference path="../../mercury/utils/variantTesting.ts" />
 'use strict';
 
-App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
+App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
 	model: function <T>(params: T): T {
 		return params;
+	},
+
+	activate: function (): void {
+		/**
+		 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+		 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+		 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+		 */
+		Mercury.Modules.Ads.getInstance().openLightbox = (contents: any): void => {
+			this.send('openLightbox', 'ads-lightbox', {contents: contents});
+		}
 	},
 
 	actions: {
@@ -117,14 +130,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		// This is used only in not-found.hbs template
 		expandSideNav: function (): void {
 			this.get('controller').set('sideNavCollapsed', false);
-		},
-
-		trackClick: function (category: string, label: string = ''): void {
-			M.track({
-				action: M.trackActions.click,
-				category: category,
-				label: label
-			});
 		}
 	}
 });

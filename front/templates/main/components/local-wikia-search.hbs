@@ -1,16 +1,16 @@
 <ul>
 	{{#each suggestion in suggestions}}
 		<li>
-		{{#link-to 'article' suggestion.title action='collapseSideNav'}}
+		{{#link-to 'article' suggestion.uri action='collapseSideNav'}}
 			{{suggestion.title}}
 		{{/link-to}}
 		</li>
 	{{else}}
 	{{#if showEmptyMessage}}
-		<li><span>{{i18n 'search-no-results-msg'}}</span></li>
+		<li><span>{{i18n 'app.search-no-results-msg'}}</span></li>
 	{{/if}}
 	{{#if isLoadingSearchResults}}
-		<li><span>{{i18n 'search-loading-msg'}}</span></li>
+		<li><span>{{i18n 'app.search-loading-msg'}}</span></li>
 	{{/if}}
 	{{/each}}
 </ul>

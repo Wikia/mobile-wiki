@@ -15,12 +15,25 @@ interface GAAccountMap {
 	[name: string]: GAAccount;
 }
 
+interface WeppyConfig {
+	host: string;
+	samplingRate: number;
+	aggregationInterval: number;
+}
+
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
+	domain: string;
 	mediawikiDomain?: string;
 	devboxDomain?: string;
 	environment: any;
+	helios: {
+		host: string;
+		id: string;
+		secret: string;
+	};
+	ironSecret: string;
 	host: any;
 	mwPreviewSalt: string;
 	loggers: LoggerInterface;
@@ -50,6 +63,7 @@ interface LocalSettings {
 	};
 	verticalColors: any;
 	wikiFallback: string;
+	weppy: WeppyConfig;
 	workerCount: number;
 	workerDisconnectTimeout: number;
 	cdnBaseUrl: string;
