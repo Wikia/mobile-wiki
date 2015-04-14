@@ -71,11 +71,3 @@ input[type='date']:valid + .floating-label {
 		transform: rotate(360deg);
 	}
 }
-
-.inline-checkbox-wrapper {
-	display: table;
-
-	.inline {
-		display: table-cell;
-	}
-}
