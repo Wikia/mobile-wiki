@@ -4,7 +4,7 @@
 App.VideoLightboxComponent = Em.Component.extend({
 	classNames: ['video-lightbox'],
 
-	didInsertElement: function () {
+	didInsertElement: function (): void {
 		this.initVideoPlayer();
 	},
 
