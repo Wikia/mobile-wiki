@@ -59,15 +59,3 @@ input[type='date'] {
 		opacity: 0.5;
 	}
 }
-
-.dice {
-	&.on {
-		animation: spin 1s linear infinite;
-	}
-}
-
-@keyframes spin {
-	100% {
-		transform: rotate(360deg);
-	}
-}
