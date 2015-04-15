@@ -1,7 +1,7 @@
 QUnit.module('Handlebars thumbnail helper', {
 	setup: function () {
-		sinon.stub(Mercury.Modules.Thumbnailer, 'getThumbURL', function (url, mode, width, height) {
-			return url + '/' + mode + '/' + width + '/' + height;
+		sinon.stub(Mercury.Modules.Thumbnailer, 'getThumbURL', function (url, options) {
+			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 		});
 	},
 	teardown: function () {
