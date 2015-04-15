@@ -9,22 +9,22 @@ class Form {
 	}
 
 	private onFocus (event: Event): void {
-		var element = <HTMLInputElement> event.target,
-			nextElement = <HTMLElement> element.nextElementSibling,
-			parentElement = <HTMLInputElement> element.parentElement;
+		var input = <HTMLInputElement> event.target,
+			label = <HTMLElement> input.nextElementSibling,
+			wrapper = <HTMLInputElement> input.parentElement;
 
-		if (parentElement.className.match('input-container')) {
-			nextElement.classList.add('active');
+		if (wrapper.className.match('input-container')) {
+			label.classList.add('active');
 		}
 	}
 
 	private onBlur (event: Event): void {
-		var element = <HTMLInputElement> event.target,
-			nextElement = <HTMLElement> element.nextElementSibling,
-			parentElement = <HTMLElement> element.parentElement;
+		var input = <HTMLInputElement> event.target,
+			label = <HTMLElement> input.nextElementSibling,
+			wrapper = <HTMLElement> input.parentElement;
 
-		if (parentElement.className.match('input-container') && !element.value) {
-			nextElement.classList.remove('active');
+		if (wrapper.className.match('input-container') && !input.value) {
+			label.classList.remove('active');
 		}
 	}
 
@@ -40,11 +40,11 @@ class Form {
 
 	private onClick (event: Event): void {
 		var element = <HTMLInputElement> event.target,
-			parentElement: HTMLElement,
+			wrapper: HTMLElement,
 			input: HTMLInputElement;
 		if (element.className.match('password-toggler')) {
-			parentElement = <HTMLElement> element.parentElement;
-			input = <HTMLInputElement> parentElement.querySelector('input');
+			wrapper = <HTMLElement> element.parentElement;
+			input = <HTMLInputElement> wrapper.querySelector('input');
 			this.togglePasswordInput(input, element);
 		} else if (element.className.match('dice')) {
 			element.classList.toggle('on');
