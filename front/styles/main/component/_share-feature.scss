@@ -1,0 +1,23 @@
+.share-feature {
+	@extend .site-head;
+	padding-right: 8px;
+	padding-top: 1px;
+	text-align: right;
+	transition: transform .5s;
+
+	&.pinned {
+		transform: translateY(-100%);
+	}
+
+	.fb, .line {
+		height: 46px;
+		width: 44px;
+	}
+
+	.twitter, .google {
+		height: 36px;
+		margin-bottom: 5px;
+		width: 44px;
+	}
+
+}

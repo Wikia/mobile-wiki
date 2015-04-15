@@ -38,6 +38,10 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
+	afterModel: function (model: any) {
+		this.controllerFor('application').set('currentTitle', model.get('title'));
+	},
+
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition) {
 			if (transition) {
