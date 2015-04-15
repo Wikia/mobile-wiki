@@ -36,9 +36,9 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 * Handles situation when file is empty and when, 
 	 * 'back' button is pressed and other unexpected situations.
 	 */
-	fileObserver: function() {
+	fileObserver: function (): void {
 		var currentMedia = this.get('currentMedia'),
-			file = this.get('file')
+			file = this.get('file');
 		if (currentMedia) {
 			if (file !== currentMedia.title) {
 				this.send('closeLightbox');
