@@ -32,22 +32,20 @@ App.MediaLightboxController = App.LightboxController.extend({
 	},
 
 	/**
-	 * @desc Checks if file from URL match with currentMedia.
+	 * @desc Checks if file from URL matches with currentMedia.
 	 * Handles situation when file is empty and when, 
 	 * 'back' button is pressed and other unexpected situations.
 	 */
 	fileObserver: function (): void {
 		var currentMedia = this.get('currentMedia'),
 			file = this.get('file');
-		if (currentMedia) {
-			if (file !== currentMedia.title) {
-				this.send('closeLightbox');
-			}
+		if (currentMedia && currentMedia.title !== file) {
+			this.send('closeLightbox');
 		}
 	}.observes('file'),
 
 	/**
-	 * This function checks if file=* matches any files on a page
+	 * @desc checks if file=* matches any files on a page
 	 */
 	matchQueryString: function (): void {
 		var file = this.get('file');
@@ -103,7 +101,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('data.galleryRef'),
 
 	/**
-	 * checks if current displayed media is a gallery
+	 * @desc checks if current displayed media is a gallery
 	 *
 	 * @return boolean
 	 */
@@ -112,7 +110,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('current'),
 
 	/**
-	 * checks if current media is a video or image
+	 * @desc checks if current media is a video or image
 	 * and which lightbox component to render
 	 *
 	 * @return string
@@ -128,7 +126,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('file'),
 
 	/**
-	 * gets current media from model
+	 * @desc gets current media from model
 	 *
 	 * @return object
 	 */
@@ -137,7 +135,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('model', 'currentMediaRef'),
 
 	/**
-	 * gets current media or current media from gallery
+	 * @desc gets current media or current media from gallery
 	 *
 	 * @return object
 	 */
@@ -160,7 +158,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('isGallery', 'current'),
 
 	/**
-	 * observes curentMedia and updates file property
+	 * @desc observes curentMedia and updates file property
 	 * that is an alias from article file and is a queryParam
 	 */
 	currentMediaObserver: function (): void {
@@ -175,7 +173,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.observes('currentMedia').on('init'),
 
 	/**
-	 * returns footer for currentMedia
+	 * @desc returns footer for currentMedia
 	 *
 	 * @return string
 	 */
@@ -192,7 +190,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('currentMedia'),
 
 	/**
-	 * returns header for gallery
+	 * @desc returns header for gallery
 	 *
 	 * @return string
 	 */
@@ -201,7 +199,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('galleryLength', 'currentGalleryRef'),
 
 	/**
-	 * returns header for currentMedia if it is a gallery
+	 * @desc returns header for currentMedia if it is a gallery
 	 *
 	 * @return string
 	 */
@@ -213,7 +211,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}.property('isGallery', 'galleryHeader'),
 
 	/**
-	 * sets all properties to their null state
+	 * @desc sets all properties to their null state
 	 */
 	reset: function (): void {
 		this.setProperties({

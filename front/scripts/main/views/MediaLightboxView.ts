@@ -205,9 +205,11 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	},
 
 	click: function (event: MouseEvent): void {
-		if ((this.isCurrentMediaType('image') || this.isCurrentMediaType('video')) &&
-			!this.get('isZoomed') && this.get('isGallery')
-		) {
+		var isImage = this.isCurrentMediaType('image'),
+			isVideo = this.isCurrentMediaType('video'),
+			isZoomed = this.get('isZoomed'),
+			isGallery = this.get('isGallery');
+		if ((isImage || isVideo) && !isZoomed && isGallery) {
 			this.handleClick(event);
 		} else {
 			this._super(event);
