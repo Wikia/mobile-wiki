@@ -1,7 +1,7 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 interface JoinViewContext {
-	pageTitleKey: string;
+	title: string;
 	loginRoute: string;
 	signupRoute: string;
 	hideHeader?: boolean;
@@ -20,7 +20,7 @@ function get (request: Hapi.Request, reply: any): void {
 	}
 
 	context = {
-		pageTitleKey: 'auth:landing-page.page-title',
+		title: 'auth:join.title',
 		loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		signupRoute: '/signup?redirect=' + encodeURIComponent(redirectUrl),
 		hideHeader: true,
