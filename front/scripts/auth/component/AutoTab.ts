@@ -21,12 +21,9 @@ class AutoTab {
 	}
 
 	private onInput() {
-		//var badInput: boolean = this.input.validity.badInput;
-		//
-		//if (badInput) {
-		//	// TODO: show an error message or prevent
-		//	console.log('There was a bad input, display and error message');
-		//}
+		if (!this.input.validity.valid) {
+			// TODO: show an error message?
+		}
 
 		if (this.shouldTab()) {
 			this.nextInput.focus();

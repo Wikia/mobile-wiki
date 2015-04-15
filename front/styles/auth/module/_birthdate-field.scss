@@ -7,10 +7,11 @@
 		display: inline-block;
 		height: auto;
 		margin: 0;
-		padding: 0;
+		padding: 0 5px;
+		text-align: center;
 	}
 	.birth-month, .birth-day {
-		width: 25px;
+		width: 30px;
 	}
 	.birth-year {
 		width: 50px;
