@@ -34,7 +34,7 @@ function get (request: Hapi.Request, reply: any): void {
 		'auth-landing-page',
 		context,
 		{
-			layout: 'wikia-static'
+			layout: 'auth'
 		}
 	);
 }

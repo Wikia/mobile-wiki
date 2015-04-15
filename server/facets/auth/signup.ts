@@ -31,6 +31,6 @@ export function get (request: Hapi.Request, reply: any): void {
 	};
 
 	return reply.view('signup', context, {
-		layout: 'wikia-static'
+		layout: 'auth'
 	});
 }
