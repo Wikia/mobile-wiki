@@ -54,7 +54,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 
 	isJapanese: function (): boolean {
 		var lang = navigator.language || navigator.browserLanguage;
-		if ( lang ) {
+		if (lang) {
 			lang = lang.substr(0, 2);
 		} else {
 			lang = this.get('language.content');
