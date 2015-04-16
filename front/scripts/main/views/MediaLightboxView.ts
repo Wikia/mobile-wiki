@@ -303,29 +303,19 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	}.property(),
 
 	/**
-	 * @method currentMediaObserver
-	 * @description Used to check if media if video after the lightbox current
-	 * view has been updated. This is so that any specific embed markup is loaded
-	 * before we try to instantiate player controls.
-	 */
-	currentMediaObserver: function (): void {
-		var currentMedia = this.get('controller.currentMedia');
-
-		if (currentMedia.type === 'video') {
-			Em.run.scheduleOnce('afterRender', this, (): void => {
-				this.initVideoPlayer(currentMedia);
-			});
-		}
-	}.observes('controller.currentMedia'),
-
-	/**
 	 * @method initVideoPlayer
 	 * @description Used to instantiate a provider specific video player
 	 */
-	initVideoPlayer: function (media: any): void {
-		var element = this.$('.lightbox-content-inner')[0];
+	initVideoPlayer: function (): void {
+		var currentMedia = this.get('controller.currentMedia');
 
-		this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, media.embed));
+		if (currentMedia && currentMedia.type === 'video') {
+			Em.run.scheduleOnce('afterRender', this, (): void => {
+				var element = this.$('.lightbox-content-inner')[0];
+
+				this.set('videoPlayer', new Mercury.Modules.VideoLoader(element, currentMedia.embed));
+			});
+		}
 	},
 
 	/**
@@ -367,6 +357,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		//disabled for now, we can make it better when we have time
 		//this.animateMedia(this.get('controller').get('element'));
 		this.resetZoom();
+		this.initVideoPlayer();
 
 		hammerInstance.get('pinch').set({
 			enable: true

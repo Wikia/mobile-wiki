@@ -23,10 +23,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 * events for DOM manipulation
 	 */
 	willInsertElement: function (): void {
-		Em.addObserver(this.get('controller'), 'article', this, this.onArticleChange);
+		Em.addObserver(this.get('controller'), 'model.article', this, this.onArticleChange);
 		// Trigger an article change once on insertion because the first insertion happens after article
 		// state has changed
-		this.get('controller').notifyPropertyChange('article');
+		this.get('controller').notifyPropertyChange('model.article');
 	},
 
 	didInsertElement: function () {
@@ -35,9 +35,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
-			var model = this.get('controller.model');
+			var model = this.get('controller.model'),
+				article = model.get('article');
 
-			if (this.get('controller.article') && this.get('controller.article').length > 0) {
+			if (article && article.length > 0) {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
 				this.lazyLoadMedia(model.get('media'));
@@ -52,7 +53,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				});
 
 				M.trackPageView(model.get('adsContext.targeting'));
-				M.resetScrollDepthTracker();
 			}
 		});
 	},

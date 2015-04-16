@@ -2,8 +2,8 @@
 /// <reference path="../../mercury/utils/string.ts" />
 
 'use strict';
-App.CategoryListItemController = Em.ObjectController.extend({
+App.CategoryListItemController = Em.Controller.extend({
 	cleanTitle: function () {
-		return M.String.normalize(this.get('title').toString());
-	}.property('title')
+		return M.String.normalize(this.get('model.title').toString());
+	}.property('model.title')
 });
