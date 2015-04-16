@@ -5,8 +5,8 @@ import localSettings = require('../../../config/localSettings');
 import wrapResult = require('./presenters/wrapResult');
 
 var cachingTimes = {
-		enabled: false,
-		cachingPolicy: Caching.Policy.Private,
+		enabled: true,
+		cachingPolicy: Caching.Policy.Public,
 		varnishTTL: Caching.Interval.standard,
 		browserTTL: Caching.Interval.default
 	},

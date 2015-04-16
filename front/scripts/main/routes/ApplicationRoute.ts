@@ -4,7 +4,7 @@
 /// <reference path="../../mercury/utils/variantTesting.ts" />
 'use strict';
 
-App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
+App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
 	model: function <T>(params: T): T {
 		return params;
 	},
@@ -130,14 +130,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, {
 		// This is used only in not-found.hbs template
 		expandSideNav: function (): void {
 			this.get('controller').set('sideNavCollapsed', false);
-		},
-
-		trackClick: function (category: string, label: string = ''): void {
-			M.track({
-				action: M.trackActions.click,
-				category: category,
-				label: label
-			});
 		}
 	}
 });

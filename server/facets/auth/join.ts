@@ -20,7 +20,7 @@ function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		title: 'Join Wikia',
-		loginRoute: '/login',
+		loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,

@@ -3,7 +3,7 @@
 /// <reference path="../mixins/VisibilityStateManager.ts" />
 'use strict';
 
-App.ArticleController = Em.ObjectController.extend({
+App.ArticleController = Em.Controller.extend({
 	needs: ['application'],
 
 	queryParams: ['file', 'map', {commentsPage: 'comments_page'}],
