@@ -53,17 +53,20 @@ class BirthdateInput {
 			{
 				name: 'day',
 				maxLength: 2,
-				maxVal: 31
+				maxVal: 31,
+				placeholder: 'DD'
 			},
 			{
 				name: 'month',
 				maxLength: 2,
-				maxVal: 12
+				maxVal: 12,
+				placeholder: 'MM'
 			},
 			{
 				name: 'year',
 				maxLength: 4,
-				maxVal: new Date().getFullYear()
+				maxVal: new Date().getFullYear(),
+				placeholder: 'YYYY'
 			}
 		];
 
@@ -95,6 +98,7 @@ class BirthdateInput {
 		input.className = 'birth-' + options.name + ' auto-tab';
 		input.setAttribute('data-max-length', options.maxLength);
 		input.setAttribute('max', options.maxVal);
+		input.setAttribute('placeholder', options.placeholder);
 		return input;
 	}
 
