@@ -12,7 +12,6 @@ interface AuthParams {
 	'access_token'  : string;
 	'refresh_token' : string;
 	'redirect'?     : string;
-	'remember'?     : string;
 }
 
 interface AuthCallbackFn {
@@ -110,7 +109,6 @@ export function post (request: Hapi.Request, reply: any): void {
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
-		rememberMeTTL = 1.57785e10, // 6 months
 		context: LoginViewContext = defaultViewContext;
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
@@ -135,10 +133,6 @@ export function post (request: Hapi.Request, reply: any): void {
 			'access_token'  : response.access_token,
 			'refresh_token' : response.refresh_token
 		});
-
-		if (credentials.remember) {
-			request.auth.session.ttl(rememberMeTTL);
-		}
 
 		if (isAJAX) {
 			return reply({redirect: redirect});
