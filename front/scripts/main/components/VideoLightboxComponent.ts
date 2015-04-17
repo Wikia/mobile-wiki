@@ -2,19 +2,30 @@
 'use strict';
 
 App.VideoLightboxComponent = Em.Component.extend({
+	classNames: ['lightbox-content-inner'],
 	classNameBindings: ['provider'],
-	provider: null,
 	videoLoader: null,
-	videoPlayerHTML: '',
 
 	didInsertElement: function (): void {
 		this.initVideoPlayer();
-		this.set('provider', 'video-provider-' + this.videoLoader.getProviderName())
+		this.set('provider', 'video-provider-' + this.videoLoader.getProviderName());
 	},
 
 	/**
+	 * @desc Computed property used to set class in template.
+	 * On the first launch this.videoLoader will not exist and it return ''.
+	 * As soon as the videoLoader will be set, the property will be changed.
+	 */
+	provider: function (): string {
+		if (this.videoLoader) {
+			return 'video-provider-' + this.videoLoader.getProviderName();
+		}
+		return '';
+	}.property('videoLoader'),
+
+	/**
 	 * @method initVideoPlayer
-	 * @description Used to instantiate a provider specific video player
+	 * @desc Used to instantiate a video player
 	 */
 	initVideoPlayer: function (): void {
 		var currentMedia = this.get('controller.currentMedia');

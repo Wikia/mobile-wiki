@@ -159,7 +159,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 
 	nextMedia: function (): void {
 		this.resetZoom();
-		//this.get('controller').showLoader();
 		this.get('controller').incrementProperty('currentGalleryRef');
 
 		M.track({
@@ -171,7 +170,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 
 	prevMedia: function (): void {
 		this.resetZoom();
-		//this.get('controller').showLoader();
 		this.get('controller').decrementProperty('currentGalleryRef');
 
 		M.track({

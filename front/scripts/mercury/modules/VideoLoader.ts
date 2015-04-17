@@ -19,7 +19,6 @@ module Mercury.Modules {
 
 		constructor (data: any /* tracking cb */) {
 			this.data = data;
-			//this.setCSSClass();
 			this.loadPlayerClass();
 		}
 
@@ -31,7 +30,7 @@ module Mercury.Modules {
 		 * Loads player for the video, currently either OoyalaPlayer, YouTubePlayer or BasePlayer (default)
 		 */
 		loadPlayerClass () {
-			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider,
+			var provider: string = this.getProviderName(),
 				playerClassStr: string = (playerClassMap[provider] || 'Base') + 'Player',
 				players: any = VideoPlayers,
 				params: any = $.extend(this.data.jsParams, {
@@ -43,11 +42,6 @@ module Mercury.Modules {
 
 			this.player = new players[playerClassStr](provider, params);
 			this.player.onResize();
-		}
-
-		setCSSClass () {
-			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
-			//$(this.element).addClass('video-provider-' + provider);
 		}
 
 		getProviderName () {

@@ -118,7 +118,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 */
 	lightboxComponent: function (): string {
 		var currentMedia = this.get('currentMedia');
-		if (currentMedia.url) {
+		if (currentMedia && currentMedia.url) {
 			return currentMedia.type + '-lightbox';
 		}
 		// in case of invalid media assume it was image and display

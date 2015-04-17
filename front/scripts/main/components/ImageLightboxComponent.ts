@@ -3,36 +3,35 @@
 'use strict';
 
 App.ImageLightboxComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
-	classNames: ['image-lightbox'],
+	classNames: ['lightbox-content-inner'],
 
 	didInsertElement: function (): void {
-		this.showLoader();
-		console.log("img.current: ", this.$().find('img.current'))
-		this.load();
-	},
-
-	/**
-	 * load an image and run update function when it is loaded
-	 */
-	load: function(): void {
 		var currentMedia = this.get('controller.currentMedia');
-		var url = currentMedia.url,
-			image: HTMLImageElement;
-		if (url) {
-			image = new Image();
-			image.src = url;
-			if (image.complete) {
-				this.update(image.src);
-			} else {
-				image.addEventListener('load', () => {
-					this.update(image.src);
-				});
-			}
+		if (currentMedia && currentMedia.url) {
+			this.showLoader();
+			this.load(currentMedia.url);
 		}
 	},
 
 	/**
-	 * updates img with its src and sets media component to visible state
+	 * @desc load an image and run update function when it is loaded
+	 *
+	 * @param url string - url of current image
+	 */
+	load: function(url: string): void {
+		var image: HTMLImageElement = new Image();
+		image.src = url;
+		if (image.complete) {
+			this.update(image.src);
+		} else {
+			image.addEventListener('load', () => {
+				this.update(image.src);
+			});
+		}
+	},
+
+	/**
+	 * @desc updates img with its src and sets media component to visible state
 	 *
 	 * @param src string - src for image
 	 */

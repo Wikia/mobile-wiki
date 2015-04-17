@@ -1,8 +1,6 @@
-<div class='lightbox-content-inner'>
 {{#if currentMedia.url}}
 	<img class='current' {{bind-attr src=imageSrc}} {{bind-attr style=view.style}}>
 {{else}}
 	{{i18n 'app.media-lightbox-error'}}
 {{/if}}
 {{loading-spinner active=isLoading overlay=false}}
-</div>
