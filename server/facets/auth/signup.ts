@@ -20,9 +20,9 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		headerText: 'auth:signup.sign-up-with-email',
+		headerText: 'auth:common.sign-up-with-email',
 		footer: 'auth:signup.footer',
-		title: 'auth:signup.sign-up-with-email',
+		title: 'auth:common.sign-up-with-email',
 		loadScripts: true,
 		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
@@ -31,6 +31,6 @@ export function get (request: Hapi.Request, reply: any): void {
 	};
 
 	return reply.view('signup', context, {
-		layout: 'wikia-static'
+		layout: 'auth'
 	});
 }
