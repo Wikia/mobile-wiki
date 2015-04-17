@@ -14,15 +14,12 @@ module Mercury.Modules {
 	};
 
 	export class VideoLoader {
-		element: HTMLElement;
 		data: any;
 		player: VideoPlayers.BasePlayer;
 
-		constructor (element: HTMLElement, data: any /* tracking cb */) {
-			element.innerHTML = data.html;
-			this.element = element;
+		constructor (data: any /* tracking cb */) {
 			this.data = data;
-			this.setCSSClass();
+			//this.setCSSClass();
 			this.loadPlayerClass();
 		}
 
@@ -50,7 +47,11 @@ module Mercury.Modules {
 
 		setCSSClass () {
 			var provider: string = this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
-			$(this.element).addClass('video-provider-' + provider);
+			//$(this.element).addClass('video-provider-' + provider);
+		}
+
+		getProviderName () {
+			return this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 		}
 
 		onResize () {

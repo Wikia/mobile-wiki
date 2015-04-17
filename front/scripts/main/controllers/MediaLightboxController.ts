@@ -39,6 +39,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	fileObserver: function (): void {
 		var currentMedia = this.get('currentMedia'),
 			file = this.get('file');
+
 		if (currentMedia && currentMedia.title !== file) {
 			this.send('closeLightbox');
 		}

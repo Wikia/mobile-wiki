@@ -1,8 +1,7 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.LightboxController = Em.Controller.extend(App.LoadingSpinnerMixin, {
+App.LightboxController = Em.Controller.extend({
 	header: null,
 	contents: null,
 	footer: null
