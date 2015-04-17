@@ -67,13 +67,10 @@ App.ArticleCommentComponent = Em.Component.extend({
 		}
 
 		thumbnailsData.forEach((thumbnailData: {name: string; full: string; capt?: string; type?: string}) => {
-			var thumbnailURL = thumbnailer.getThumbURL(
-					thumbnailData.full,
-					thumbnailer.mode.scaleToWidth,
-					this.thumbnailWidth,
-					// this is ignored by Vignette, should be optional
-					0
-				),
+			var thumbnailURL = thumbnailer.getThumbURL(thumbnailData.full, {
+					mode: thumbnailer.mode.scaleToWidth,
+					width: this.thumbnailWidth
+				}),
 				$thumbnail = $('<img/>').attr('src', thumbnailURL),
 				href = '%@%@:%@'.fmt(
 					Em.get(Mercury, 'wiki.articlePath'),

@@ -1,6 +1,5 @@
 interface SignupViewContext {
 	title: string;
-	currYear: number;
 	headerText?: string;
 	exitTo?: string;
 	bodyClasses?: string;
@@ -21,10 +20,9 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		currYear: new Date().getFullYear(),
 		headerText: 'auth:signup.sign-up-with-email',
 		footer: 'auth:signup.footer',
-		title: 'auth:signup.sign-up-with-email',
+		title: 'auth:common.sign-up-with-email',
 		loadScripts: true,
 		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
@@ -33,6 +31,6 @@ export function get (request: Hapi.Request, reply: any): void {
 	};
 
 	return reply.view('signup', context, {
-		layout: 'wikia-static'
+		layout: 'auth'
 	});
 }

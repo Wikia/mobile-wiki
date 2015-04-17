@@ -109,7 +109,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	};
 
 	return reply.view('login', context, {
-		layout: 'wikia-static'
+		layout: 'auth'
 	});
 }
 
@@ -140,7 +140,7 @@ export function post (request: Hapi.Request, reply: any): void {
 			context.exitTo = redirect;
 
 			return reply.view('login', context, {
-				layout: 'wikia-static'
+				layout: 'auth'
 			// Always set the correct status code
 			}).code(err.output.statusCode);
 		}

@@ -1,5 +1,7 @@
 .auth-footer {
 	color: $footer-text-color;
+	flex-grow: 0;
+	flex-shrink: 0;
 
 	a {
 		color: inherit;
