@@ -4,52 +4,62 @@ interface DateEndian {
 	Middle: string;
 }
 
+interface InputData {
+	name: string;
+	maxLength: number;
+	maxVal: number;
+	placeholder: string;
+}
+
 class BirthdateInput {
 	el: Element;
 	day: HTMLInputElement;
 	month: HTMLInputElement;
 	year: HTMLInputElement;
-	country: string;
+	locale: string;
+	inputData: Array<InputData>;
 	inputs: Array;
+	endian: string;
+	separator: string;
+	label: HTMLLabelElement;
 
 	/**
 	 * @see http://en.wikipedia.org/wiki/Date_format_by_country
 	 * @see http://grammarpartyblog.com/2011/07/17/one-little-endian-two-little-endians-formatting-dates-across-the-globe/
 	 */
-	static endian: DateEndian = {
+	static endians: DateEndian = {
 		'Big': 'YMD',
 		'Little': 'DMY',
 		'Middle': 'MDY'
 	};
 
 	static map: Object = {
-		'US': BirthdateInput.endian.Middle,
-		'UK': BirthdateInput.endian.Big
+		'US': BirthdateInput.endians.Middle,
+		'UK': BirthdateInput.endians.Big
 	};
 
-	constructor(el: Element, country: string) {
+	constructor(el: Element, locale: string) {
 		this.el = <HTMLInputElement> el;
 		this.day = <HTMLInputElement> el.querySelector('.birth-day');
 		this.month = <HTMLInputElement> el.querySelector('.birth-month');
 		this.year = <HTMLInputElement> el.querySelector('.birth-year');
-		this.country = country;
+		this.locale = locale;
+		this.endian = BirthdateInput.map[this.locale];
+		this.separator = '/';
+		this.label = this.createLabel(this.getLabelText());
+
 	}
 
-	init(): void {
-		this.createInputs();
+	public init(): void {
+		this.setInputData();
+		this.setInputs();
 		this.insertInputs();
+		this.insertLabel();
 		this.initAutoTab();
 	}
 
-	initAutoTab(): void {
-		this.inputs.forEach(function (input: HTMLInputElement) {
-			new AutoTab(input).init();
-		});
-	}
-
-	private createInputs() {
-		var inputs = {},
-			inputData = [
+	private setInputData() {
+		this.inputData = [
 			{
 				name: 'day',
 				maxLength: 2,
@@ -68,26 +78,17 @@ class BirthdateInput {
 				maxVal: new Date().getFullYear(),
 				placeholder: 'YYYY'
 			}
-		];
+		]
+	}
 
-		inputData.forEach(function (data) {
+	private setInputs() {
+		var inputs = {};
+
+		this.inputData.forEach(function (data) {
 			inputs[data.name] = this.createInput(data);
 		}, this);
 
-		this.inputs = this.orderInputsByLocale(inputs, this.country)
-	}
-
-	private insertInputs() {
-		var lastIndex = this.inputs.length - 1,
-			separator = document.createElement('span');
-		separator.innerHTML = '/';
-
-		this.inputs.forEach(function (input, index) {
-			this.el.appendChild(input);
-			if (index < lastIndex) {
-				this.el.appendChild(separator.cloneNode(true));
-			}
-		}, this);
+		this.inputs = this.orderInputsByLocale(inputs)
 	}
 
 	private createInput(options): HTMLInputElement {
@@ -102,21 +103,62 @@ class BirthdateInput {
 		return input;
 	}
 
-	private orderInputsByLocale(inputsObj, locale) {
-		var endian = BirthdateInput.map[locale],
-			inputsArr = [];
+	private orderInputsByLocale(inputsObj) {
+		var inputsArr = [];
 
-		switch(endian) {
-			case BirthdateInput.endian.Big:
+		switch(this.endian) {
+			case BirthdateInput.endians.Big:
 				inputsArr = [inputsObj.year, inputsObj.month, inputsObj.day];
 				break;
-			case BirthdateInput.endian.Middle:
+			case BirthdateInput.endians.Middle:
 				inputsArr = [inputsObj.month, inputsObj.day, inputsObj.year];
 				break;
-			default: // BirthdateInput.endian.Little
+			default: // BirthdateInput.endians.Little
 				inputsArr = [inputsObj.day, inputsObj.month, inputsObj.year];
 				break;
 		}
 		return inputsArr;
+	}
+
+	private insertInputs() {
+		var lastIndex = this.inputs.length - 1,
+			separator = document.createElement('span');
+		separator.innerHTML = this.separator;
+
+		this.inputs.forEach(function (input, index) {
+			this.el.appendChild(input);
+			if (index < lastIndex) {
+				this.el.appendChild(separator.cloneNode(true));
+			}
+		}, this);
+	}
+
+	private createLabel(labelText): HTMLLabelElement {
+		var label = document.createElement('label');
+		label.innerHTML = labelText;
+		return label;
+	}
+
+	private getLabelText():string {
+		var labelMap = {},
+			month = 'MM',
+			year = 'YYYY',
+			day = 'DD';
+
+		labelMap[BirthdateInput.endians.Big] = year + this.separator + month + this.separator + day;
+		labelMap[BirthdateInput.endians.Middle] = month + this.separator + day + this.separator + year;
+		labelMap[BirthdateInput.endians.Little] = day + this.separator + month + this.separator + year;
+
+		return labelMap[this.endian];
+	}
+
+	private insertLabel() {
+		this.el.appendChild(this.label);
+	}
+
+	private initAutoTab(): void {
+		this.inputs.forEach(function (input: HTMLInputElement) {
+			new AutoTab(input).init();
+		});
 	}
 }

@@ -30,7 +30,14 @@
 		{{/unless}}
 
 		{{#unless noScripts}}
+		<script><!-- @include ../../../www/front/scripts/baseline.js --></script>
+		<script><!-- @inlucde../../../www/front/vendor/jquery.cookie/jquery.cookie.js --></script>
+		<script>
+			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
+		</script>
 		<!-- build:js /front/scripts/auth.js -->
+		<script src=""></script>
+		<script src="/front/vendor/i18next/i18next.js"></script>
 		<script src="/front/scripts/auth.js"></script>
 		<!-- endbuild -->
 		{{/unless}}
