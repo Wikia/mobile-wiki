@@ -16,8 +16,9 @@ App.VideoLightboxComponent = Em.Component.extend({
 	 * As soon as the videoLoader will be set, the property will be changed.
 	 */
 	provider: function (): string {
-		if (this.get('videoLoader')) {
-			return 'video-provider-' + this.videoLoader.getProviderName();
+		var videoLoader = this.get('videoLoader');
+		if (videoLoader) {
+			return 'video-provider-' + videoLoader.getProviderName();
 		}
 		return '';
 	}.property('videoLoader'),
