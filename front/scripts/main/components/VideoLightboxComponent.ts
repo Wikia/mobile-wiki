@@ -8,7 +8,6 @@ App.VideoLightboxComponent = Em.Component.extend({
 
 	didInsertElement: function (): void {
 		this.initVideoPlayer();
-		this.set('provider', 'video-provider-' + this.videoLoader.getProviderName());
 	},
 
 	/**
@@ -17,7 +16,7 @@ App.VideoLightboxComponent = Em.Component.extend({
 	 * As soon as the videoLoader will be set, the property will be changed.
 	 */
 	provider: function (): string {
-		if (this.videoLoader) {
+		if (this.get('videoLoader')) {
 			return 'video-provider-' + this.videoLoader.getProviderName();
 		}
 		return '';

@@ -118,13 +118,13 @@ App.MediaLightboxController = App.LightboxController.extend({
 	 */
 	lightboxComponent: function (): string {
 		var currentMedia = this.get('currentMedia');
-		if (currentMedia && currentMedia.url) {
+		if (currentMedia && currentMedia.url && currentMedia.type) {
 			return currentMedia.type + '-lightbox';
 		}
 		// in case of invalid media assume it was image and display
 		// 'Media not found' will be handled by template
 		return 'image-lightbox';
-	}.property('file'),
+	}.property('currentMedia'),
 
 	/**
 	 * @desc gets current media from model
