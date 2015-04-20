@@ -35,34 +35,16 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return this.thumbSize.medium;
 	},
 
-	/**
-	 * @desc if image is not thumbnail, returns url to thumbnail with width set to articleWidth
-	 *
-	 * @param {String} url
-	 * @param {String} mode
-	 * @param {Number} width
-	 * @param {Number} height
-	 *
-	 * @return {String}
-	 */
-	getThumbURL: function (
-		url: string,
-		mode: string,
-		width: number,
-		height: number
-		): string {
-
-		if (mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
-			width = this.normalizeThumbWidth(width);
+	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number}): string {
+		if (options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
+			options.width = this.normalizeThumbWidth(options.width);
 		}
 
 		if (!this.limitHeight) {
-			height = width;
+			options.height = options.width;
 		}
 
-		if (!this.thumbnailer.isThumbnailerUrl(url)) {
-			url = this.thumbnailer.getThumbURL(url, mode, width, height);
-		}
+		url = this.thumbnailer.getThumbURL(url, options);
 
 		return url;
 	},

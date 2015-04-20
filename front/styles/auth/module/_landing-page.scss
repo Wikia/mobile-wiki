@@ -24,6 +24,11 @@
 	p {
 		margin-bottom: 15px;
 	}
+
+	img {
+		height: auto;
+		width: 160px;
+	}
 }
 
 .signup-provider-facebook {
@@ -50,7 +55,6 @@
 .sign-in-message {
 	display: inline-block;
 	margin-bottom: 0;
-	padding-right: 1.5rem;
 	text-align: right;
 }
 
