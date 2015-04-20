@@ -15,7 +15,12 @@
 			<img class="password-toggler" src="/front/images/eye.svg">
 		</div>
 		<div class="input-container">
-			<!--<div class="birthdate-container input"></div>-->
+			<div class="birthdate-container input hide">
+				{{#birthdateInputs}}
+					<input type="number" name="{{name}}" class="birth-{{name}} auto-tab" data-max-length="{{maxLength}}" max="{{max}}" placeholder="{{placeholder}}">
+					<span>{{divider}}</span>
+				{{/birthdateInputs}}
+			</div>
 			<input type="text" name="birthdate" id="signupBirthDate">
 			<label class="floating-label" for="signupBirthDate">Birthdate (MM / DD / YY)</label>
 		</div>
