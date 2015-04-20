@@ -134,6 +134,10 @@ export function post (request: Hapi.Request, reply: any): void {
 			'refresh_token' : response.refresh_token
 		});
 
+		// Set cookie TTL for "remember me" period of 6 months
+		// TODO: Helios service should control the length of auth session
+		request.auth.session.ttl(1.57785e10);
+
 		if (isAJAX) {
 			return reply({redirect: redirect});
 		}
