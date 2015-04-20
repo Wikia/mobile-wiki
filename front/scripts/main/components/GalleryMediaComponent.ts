@@ -62,11 +62,11 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			image = this.get('media').get(galleryRef);
 
 			image.setProperties({
-				thumbUrl: this.getThumbURL(
-					image.get('url'),
-					Mercury.Modules.Thumbnailer.mode.topCrop,
-					thumbSize,
-					thumbSize),
+				thumbUrl: this.getThumbURL(image.get('url'), {
+					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+					width: thumbSize,
+					height: thumbSize
+				}),
 				load: true
 			});
 		}

@@ -6,8 +6,8 @@
  * var localConfig = require('./config').localSettings
  */
 
-import util = require('util');
 import Utils = require('../server/lib/Utils');
+var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
@@ -50,11 +50,6 @@ var localSettings: LocalSettings = {
 				id: 'UA-32129070-1',
 				sampleRate: 10
 			},
-			special: {
-				prefix: 'special',
-				id: 'UA-32132943-1',
-				sampleRate: 100
-			},
 			ads: {
 				prefix: 'ads',
 				id: 'UA-32129071-1',
@@ -81,6 +76,12 @@ var localSettings: LocalSettings = {
 		music: '#c819ad',
 		tv: '#00b7e0'
 	},
+	weppy: {
+		enabled: !!process.env.ENABLE_WEPPY,
+		host: 'http://speed.wikia.net/__rum',
+		samplingRate: 0.01,
+		aggregationInterval: 1000
+	},
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
@@ -89,5 +90,5 @@ var localSettings: LocalSettings = {
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {
-	return util._extend(localSettings, customLocalSet);
+	return deepExtend(localSettings, customLocalSet);
 }

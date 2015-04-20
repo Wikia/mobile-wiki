@@ -3,6 +3,7 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 /// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/utils/track.ts" />
+/// <reference path="../mercury/utils/trackPerf.ts" />
 
 'use strict';
 
@@ -13,6 +14,7 @@ interface Window {
 }
 
 declare var i18n: I18nextStatic;
+declare var EmPerfSender: any;
 
 var App: any = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -66,3 +68,29 @@ App.initializer({
 		});
 	}
 });
+
+App.initializer({
+	name: 'performanceMonitoring',
+	after: 'preload',
+	initialize () {
+		if (typeof EmPerfSender === 'undefined') {
+			return;
+		}
+
+		EmPerfSender.initialize({
+			// Specify a specific function for EmPerfSender to use when it has captured metrics
+			send (events: any[], metrics: any) {
+				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
+				// is our instance of a Weppy interface
+				M.trackPerf({
+					module: metrics.klass.split('.')[0].toLowerCase(),
+					name: metrics.klass,
+					type: 'timer',
+					value: metrics.duration
+				});
+			}
+		});
+	}
+});
+
+

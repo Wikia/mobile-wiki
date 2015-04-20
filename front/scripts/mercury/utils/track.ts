@@ -1,7 +1,6 @@
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../modules/Trackers/Internal.ts" />
 /// <reference path="../modules/Trackers/GoogleAnalytics.ts" />
-/// <reference path="../modules/Trackers/ScrollDepthTracker.ts" />
 
 interface Window {
 	ga: any;
@@ -95,8 +94,7 @@ module Mercury.Utils {
 		context: TrackContext = {
 			a: null,
 			n: null
-		},
-		scrollDepthTracker: Mercury.Modules.Trackers.ScrollDepthTracker;
+		};
 
 	function pruneParams (params: TrackingParams) {
 		delete params.action;
@@ -160,20 +158,15 @@ module Mercury.Utils {
 		}
 
 		Object.keys(trackers).forEach(function (tracker: string) {
-			var trackerInstance: TrackerInstance = new trackers[tracker]();
+			var Tracker = trackers[tracker],
+				instance: TrackerInstance;
 
-			if (trackerInstance && trackerInstance.trackPageView) {
+			if (typeof Tracker.prototype.trackPageView === 'function') {
+				instance = new Tracker();
 				console.info('Track pageView:', tracker);
-				trackerInstance.trackPageView(trackerInstance.usesAdsContext ? adsContext : context);
+				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 			}
 		});
-	}
-
-	export function resetScrollDepthTracker () {
-		if (!scrollDepthTracker) {
-			scrollDepthTracker = new Mercury.Modules.Trackers.ScrollDepthTracker();
-		}
-		scrollDepthTracker.reset();
 	}
 
 	export function setTrackContext(data: TrackContext) {

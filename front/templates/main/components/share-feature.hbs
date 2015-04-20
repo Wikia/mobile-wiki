@@ -1,0 +1,8 @@
+{{#if isJapanese}}
+	<a {{action 'trackClick' 'share' 'line'}} href={{lineShare}}>{{svg 'line' role='img' class='icon line'}}</a>
+{{/if}}
+<a {{action 'trackClick' 'share' 'fb'}} href={{facebookShare}}>{{svg 'fb' role='img' class='icon fb'}}</a>
+<a {{action 'trackClick' 'share' 'twitter'}} href={{twitterShare}}>{{svg 'twitter' role='img' class='icon twitter'}}</a>
+{{#if isJapanese}}
+	<a {{action 'trackClick' 'share' 'google'}} href={{googleShare}}>{{svg 'google' role='img' class='icon google'}}</a>
+{{/if}}
