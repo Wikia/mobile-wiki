@@ -1,7 +1,6 @@
 QUnit.module('VideoLoader tests', {
 	setup: function () {
 		window.$script = function () {};
-		this.ele = document.createElement('div');
 		this.instance = new Mercury.Modules.VideoLoader({
 				provider: 'youtube',
 				jsParams: {
