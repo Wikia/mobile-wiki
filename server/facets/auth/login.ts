@@ -130,8 +130,7 @@ export function post (request: Hapi.Request, reply: any): void {
 
 		request.auth.session.set({
 			'user_id'       : response.user_id,
-			'access_token'  : response.access_token,
-			'refresh_token' : response.refresh_token
+			'access_token'  : response.access_token
 		});
 
 		if (isAJAX) {
