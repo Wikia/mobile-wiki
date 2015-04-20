@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path="../../main/mixins/TrackClickMixin.ts" />
+/// <reference path="../../../../typings/headroom/headroom.d.ts" />
 'use strict';
 
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
@@ -16,23 +17,23 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 		}
 	},
 
-	offset: function (): number {
+	offset: Em.computed('smartBannerVisible', function (): number {
 		if (this.get('smartBannerVisible')) {
 			return this.get('options.smartBannerHeight.' + Mercury.Utils.Browser.getSystem());
 		}
 		return 0;
-	}.property('smartBannerVisible'),
+	}),
 
 	/**
 	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
 	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
 	 */
-	smartBannerVisibleObserver: function (): void {
+	smartBannerVisibleObserver: Em.observer('smartBannerVisible', function (): void {
 		var headroom = this.get('headroom');
 
 		headroom.destroy();
 		this.initHeadroom();
-	}.observes('smartBannerVisible'),
+	}),
 
 	didInsertElement: function () {
 		this.initHeadroom();
@@ -52,7 +53,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 		this.set('headroom', headroom);
 	},
 
-	isJapanese: function (): boolean {
+	isJapanese: Em.computed(function (): boolean {
 		var lang = navigator.language || navigator.browserLanguage;
 		if (lang) {
 			lang = lang.substr(0, 2);
@@ -60,22 +61,21 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 			lang = this.get('language.content');
 		}
 		return lang === 'ja';
-	}.property(),
+	}),
 
-	lineShare: function (): string {
+	lineShare: Em.computed('title', function (): string {
 		return "http://line.me/R/msg/text/?" + encodeURIComponent(this.get('title')) + " " + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
-	}.property('title'),
+	}),
 
-	facebookShare: function (): string {
+	facebookShare: Em.computed('title', function (): string {
 		return "http://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
-	}.property('title'),
+	}),
 
-	twitterShare: function (): string {
+	twitterShare: Em.computed('title', function (): string {
 		return "https://twitter.com/share?url=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
-	}.property('title'),
+	}),
 
-	googleShare: function (): string {
+	googleShare: Em.computed('title', function (): string {
 		return "https://plus.google.com/share?url=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
-	}.property('title')
-
+	})
 });
