@@ -36,6 +36,7 @@ class Form {
 			input.type = 'password';
 			toggler.classList.add('on');
 		}
+		input.focus();
 	}
 
 	private onClick (event: Event): void {

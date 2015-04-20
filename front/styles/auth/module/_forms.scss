@@ -64,10 +64,12 @@ input[type='date'] {
 }
 
 .input-container > img {
+	box-sizing: content-box;
 	height: 1rem;
+	padding: 24px 5px 0 5px;
 	position: absolute;
-	right: 5px;
-	top: 24px;
+	right: 0;
+	top: 0;
 	width: 20px;
 
 	&.on {
