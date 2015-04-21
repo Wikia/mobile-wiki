@@ -12,7 +12,7 @@ App.AdSlotComponent = Em.Component.extend({
 
 	name: null,
 
-	nameLowerCase: Ember.computed('name', function () {
+	nameLowerCase: Em.computed('name', function () {
 		return this.get('name').toLowerCase().dasherize();
 	}),
 
@@ -26,7 +26,7 @@ App.AdSlotComponent = Em.Component.extend({
 	 * If getter is accessed before setter (before Ember cache is filled with value)
 	 * the default is false (show ads)
 	 */
-	noAds: Ember.computed(function (key?: string, value?: any): boolean {
+	noAds: Em.computed(function (key?: string, value?: any): boolean {
 		return (arguments.length === 2 && value !== '' && value !== '0');
 	}),
 
