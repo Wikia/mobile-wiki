@@ -120,7 +120,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	}),
 
-	galleryLength: Em.computed('isGallery', 'current', function	(): number {
+	galleryLength: Em.computed('isGallery', 'current', function (): number {
 		if (this.get('isGallery')) {
 			return this.get('current').length;
 		} else {
