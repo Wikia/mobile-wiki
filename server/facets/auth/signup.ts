@@ -1,3 +1,6 @@
+var i18n = require('i18next');
+var BirthdateInput = require('./BirthdateInput');
+
 interface SignupViewContext {
 	title: string;
 	headerText?: string;
@@ -8,39 +11,6 @@ interface SignupViewContext {
 	footerLinkRoute?: string;
 	footerCalloutText?: string;
 	footerCalloutLink?: string;
-}
-
-interface InputData {
-	name: string;
-	maxLength: number;
-	maxVal: number;
-	placeholder: string;
-}
-
-function getBirthdateInputs():Array<InputData> {
-	return [
-		{
-			name: 'day',
-			maxLength: 2,
-			maxVal: 31,
-			placeholder: 'DD', // todo i18n
-			divider: '/' // todo i18n
-		},
-		{
-			name: 'month',
-			maxLength: 2,
-			maxVal: 12,
-			placeholder: 'MM', // todo i18n
-			divider: '/' // todo i18n
-		},
-		{
-			name: 'year',
-			maxLength: 4,
-			maxVal: new Date().getFullYear(),
-			placeholder: 'YYYY', // todo i18n
-			divider: '/' // todo i18n
-		}
-	];
 }
 
 export function get (request: Hapi.Request, reply: any): void {
@@ -61,7 +31,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		footerCalloutText: 'auth:common.login-callout-text',
 		footerCalloutLink: 'auth:common.login-callout-link',
-		birthdateInputs: getBirthdateInputs()
+		birthdateInputs: new BirthdateInput(i18n.t('auth:date.endian')).getInputData()
 	};
 
 	return reply.view('signup', context, {
