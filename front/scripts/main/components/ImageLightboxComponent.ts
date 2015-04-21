@@ -18,7 +18,7 @@ App.ImageLightboxComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	 *
 	 * @param url string - url of current image
 	 */
-	load: function(url: string): void {
+	load: function (url: string): void {
 		var image: HTMLImageElement = new Image();
 		image.src = url;
 		if (image.complete) {
