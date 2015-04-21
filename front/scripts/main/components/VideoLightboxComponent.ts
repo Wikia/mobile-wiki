@@ -15,13 +15,12 @@ App.VideoLightboxComponent = Em.Component.extend({
 	 * On the first launch this.videoLoader will not exist and it return ''.
 	 * As soon as the videoLoader will be set, the property will be changed.
 	 */
-	provider: function (): string {
-		var videoLoader = this.get('videoLoader');
-		if (videoLoader) {
-			return 'video-provider-' + videoLoader.getProviderName();
+	provider: Em.computed('videoLoader', function (): string {
+		if (this.get('videoLoader')) {
+			return 'video-provider-' + this.videoLoader.getProviderName();
 		}
 		return '';
-	}.property('videoLoader'),
+	}),
 
 	/**
 	 * @method initVideoPlayer
