@@ -17,7 +17,6 @@ module Mercury.Modules {
 		data: any;
 		player: VideoPlayers.BasePlayer;
 
-		/* tracking cb */
 		constructor (data: any) {
 			this.data = data;
 			this.loadPlayerClass();
