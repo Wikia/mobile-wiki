@@ -10,6 +10,7 @@ App.ApplicationController = Em.Controller.extend({
 	isLoading: false,
 	spinnerDelay: 300,
 	spinnerTimeout: null,
+	fullPage: false,
 
 	init: function () {
 		this.setProperties({
