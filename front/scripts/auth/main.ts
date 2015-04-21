@@ -10,8 +10,11 @@
 //});
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement = window.document.querySelector('form');
+	var formElement: HTMLFormElement = <HTMLFormElement> window.document.querySelector('form'),
+		birthdateContainer: HTMLElement = <HTMLElement> formElement.querySelector('.birthdate-container'),
+		fakeBirthdateInput: HTMLInputElement = <HTMLInputElement> birthdateContainer.nextElementSibling;
+
 	new Form(formElement).watch();
-	//new BirthdateInput(window.document.querySelector('.birthdate-container'), 'UK').init();
 	new SubmitValidator(formElement).watch();
+	new BirthdateInput(birthdateContainer, fakeBirthdateInput).init();
 });
