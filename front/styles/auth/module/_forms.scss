@@ -2,13 +2,11 @@
 	padding-bottom: 1rem;
 	position: relative;
 
-	&.has-error {
-		input {
-			border-bottom-color: $input-border-error-color;
-		}
+	input.error {
+		border-bottom-color: $input-border-error-color;
 	}
 
-	.error {
+	small.error {
 		margin-bottom: 0;
 		padding-bottom: 0;
 		padding-left: 0;
