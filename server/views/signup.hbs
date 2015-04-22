@@ -21,8 +21,8 @@
 					<span>{{separator}}</span>
 				{{/birthdateInputs}}
 			</div>
-			<input type="text" name="birthdate" id="signupBirthDate">
-			<label class="floating-label" for="signupBirthDate">Birthdate (MM / DD / YY)</label>
+			<input type="text" name="birthdate" id="signupBirthDate" required>
+			<label class="floating-label" for="signupBirthDate">{{i18n "auth:signup.birthdate-label"}}</label>
 		</div>
 		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
 		<label for="signupNewsletter" class="inline">
