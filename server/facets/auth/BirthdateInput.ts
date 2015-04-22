@@ -1,5 +1,3 @@
-var i18n = require('i18next');
-
 interface DateEndian {
 	Big: string;
 	Little: string;
@@ -22,6 +20,7 @@ interface DateElements {
 class BirthdateInput {
 	inputData: Array<InputData>;
 	endian: string;
+	i18n: any;
 
 	/**
 	 * A date endian is the order in which year, month, and day are displayed
@@ -34,8 +33,9 @@ class BirthdateInput {
 		Middle: 'Middle'
 	};
 
-	constructor(endian: string) {
+	constructor(endian: string, i18n: any) {
 		this.endian = endian;
+		this.i18n = i18n;
 	}
 
 	public getInputData(): Array<InputData> {
@@ -51,22 +51,22 @@ class BirthdateInput {
 				name: 'day',
 				maxLength: 2,
 				maxVal: 31,
-				placeholder: i18n.t('auth:date.day-format'),
-				separator: i18n.t('auth:date.day-separator')
+				placeholder: this.i18n.t('auth:date.day-format'),
+				separator: this.i18n.t('auth:date.day-separator')
 			},
 			'month': {
 				name: 'month',
 				maxLength: 2,
 				maxVal: 12,
-				placeholder: i18n.t('auth:date.month-format'),
-				separator: i18n.t('auth:date.month-separator')
+				placeholder: this.i18n.t('auth:date.month-format'),
+				separator: this.i18n.t('auth:date.month-separator')
 			},
 			'year': {
 				name: 'year',
 				maxLength: 4,
 				maxVal: new Date().getFullYear(),
-				placeholder: i18n.t('auth:date.year-format'),
-				separator: i18n.t('auth:date.year-separator')
+				placeholder: this.i18n.t('auth:date.year-format'),
+				separator: this.i18n.t('auth:date.year-separator')
 			}
 		};
 
@@ -76,7 +76,7 @@ class BirthdateInput {
 	private orderInputDataByLocale(data: DateElements): Array<InputData> {
 		var inputsArr: Array<InputData> = [];
 
-		switch(this.endian) {
+		switch (this.endian) {
 			case this.endians.Big:
 				inputsArr = [data.year, data.month, data.day];
 				break;

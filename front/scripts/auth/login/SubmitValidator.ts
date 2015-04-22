@@ -29,13 +29,9 @@ class SubmitValidator {
 	 * @returns {boolean}
 	 */
 	private areAllFieldsFilled ():boolean {
-		var i;
-		for (i = 0; i < this.inputFields.length; i++) {
-			if (!this.inputFields[i].value) {
-				return false;
-			}
-		}
-		return true;
+		return Array.prototype.every.call(this.inputFields, function (input: HTMLInputElement) {
+			return input.value.length;
+		});
 	}
 
 	private activateSubmit ():void {

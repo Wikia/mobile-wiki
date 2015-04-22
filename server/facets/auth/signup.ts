@@ -1,3 +1,5 @@
+/// <reference path='../../../typings/hapi/hapi.d.ts' />
+
 var i18n = require('i18next');
 var BirthdateInput = require('./BirthdateInput');
 
@@ -31,7 +33,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		footerCalloutText: 'auth:common.login-callout-text',
 		footerCalloutLink: 'auth:common.login-callout-link',
-		birthdateInputs: new BirthdateInput(i18n.t('auth:date.endian')).getInputData()
+		birthdateInputs: new BirthdateInput(i18n.t('auth:date.endian'), i18n).getInputData()
 	};
 
 	return reply.view('signup', context, {

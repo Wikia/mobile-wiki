@@ -8,7 +8,6 @@ class BirthdateInput {
 	}
 
 	public init(): void {
-		alert('init');
 		this.initFocus();
 		this.initBlur();
 		this.initAutoTab();
