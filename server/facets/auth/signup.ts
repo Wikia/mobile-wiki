@@ -25,7 +25,7 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		headerText: 'auth:signup.sign-up-with-email',
+		headerText: 'auth:common.sign-up-with-email',
 		footer: 'auth:signup.footer',
 		title: 'auth:common.sign-up-with-email',
 		loadScripts: true,

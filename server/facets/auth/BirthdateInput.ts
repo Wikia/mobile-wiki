@@ -89,12 +89,6 @@ class BirthdateInput {
 		}
 		return inputsArr;
 	}
-
-	//private initAutoTab(): void {
-	//	this.inputs.forEach(function (input: HTMLInputElement) {
-	//		new AutoTab(input).init();
-	//	});
-	//}
 }
 
 export = BirthdateInput;
