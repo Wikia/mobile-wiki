@@ -11,12 +11,10 @@
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
 	var formElement: HTMLFormElement = <HTMLFormElement> window.document.querySelector('form'),
-		birthdateContainer: HTMLElement = <HTMLElement> formElement.querySelector('.birthdate-container'),
-		fakeBirthdateInput: HTMLInputElement;
+		birthdateContainer: HTMLElement = <HTMLElement> formElement.querySelector('.birthdate-container');
 
 	if (birthdateContainer) {
-		fakeBirthdateInput = <HTMLInputElement> birthdateContainer.nextElementSibling;
-		new BirthdateInput(birthdateContainer, fakeBirthdateInput).init();
+		new BirthdateInput(birthdateContainer, formElement).init();
 	}
 
 	new Form(formElement).watch();

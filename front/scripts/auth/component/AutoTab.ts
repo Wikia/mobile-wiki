@@ -1,18 +1,11 @@
 class AutoTab {
 	input: HTMLInputElement;
-	nextInput: HTMLElement;
+	form: HTMLFormElement;
 	max: number;
-	isLast: boolean;
 
 	constructor(input: HTMLInputElement) {
-		var form: HTMLFormElement = input.form,
-			elements: Array<HTMLElement> = AutoTab.getVisibleFormElements(form),
-			nextInput: any = AutoTab.getNextInput(elements, input);
-
 		this.input = input;
-		this.nextInput = nextInput;
-		this.isLast = !!input.className.match('auto-tab-end');
-
+		this.form = input.form;
 		this.max = parseInt(input.getAttribute('data-max-length'));
 	}
 
@@ -21,46 +14,39 @@ class AutoTab {
 	}
 
 	private onInput() {
+		var nextVisibleInput = this.getNextVisibleInput(),
+			length = this.input.value.length;
+
 		if (!this.input.validity.valid) {
 			// TODO: show an error message?
 		}
 
-		if (this.shouldTab()) {
-			this.nextInput.focus();
+		if (
+			length >= this.max &&
+			nextVisibleInput
+		) {
+			nextVisibleInput.focus();
 		}
 	}
 
-	private shouldTab(): boolean {
-		var length = this.input.value.length;
-
-		return (
-			length >= this.max &&
-			this.nextInput &&
-			!this.isLast
-		);
-	}
-
 	/**
-	 * Get an array of all visible elements in a form
+	 * Get an array of all visible elements in the form
 	 */
-	private static getVisibleFormElements(form: HTMLFormElement): any {
-		var elements: any;
-
-		elements = Array.prototype.filter.call(form.elements, function (element: HTMLInputElement) {
+	private getVisibleElements(): any {
+		return Array.prototype.filter.call(this.form.elements, function (element: HTMLInputElement) {
 			return element.type !== 'hidden';
 		});
-
-		return elements;
 	}
 
 	/**
-	 * Get the input after the current one, if it exists
+	 * Get the non-hidden input following this auto-tab input
 	 */
-	private static getNextInput(elements: Array<any>, input: HTMLInputElement): any {
-		var nextInput: any = null;
+	private getNextVisibleInput() {
+		var elements: any = this.getVisibleElements(),
+			nextInput: any = null;
 
 		elements.every(function (element, index) {
-			if (element === input) {
+			if (element === this.input) {
 				nextInput = elements[index + 1];
 				return false;
 			}
