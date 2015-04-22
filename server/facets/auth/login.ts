@@ -6,6 +6,7 @@ import Boom = require('boom');
 import Wreck = require('wreck');
 import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
+import authUtils = require('../../lib/AuthUtils');
 
 interface AuthParams {
 	'user_id': string;
@@ -29,23 +30,30 @@ interface HeliosResponse {
 }
 
 interface LoginViewContext {
-	hideHeader?: string;
-	hideFooter?: string;
-	bodyClasses?: string;
-	headerText?: string;
 	title: string;
+	headerText: string;
+	footerCallout: string;
+	footerCalloutLink: string;
+	footerHref?: string;
+	forgotPasswordHref?: string;
+	hideHeader?: boolean;
+	hideFooter?: boolean;
 	exitTo?: string;
+	bodyClasses?: string;
 	formErrorKey?: string;
-	i18nContext?: any;
-	footerLinkRoute?: string;
-	footerCalloutText?: string;
-	footerCalloutLink?: string;
 }
 
-var defaultViewContext: LoginViewContext = {
-	title: 'auth:login.login-title',
-	headerText: 'auth:login.welcome-back'
-};
+function getLoginContext (redirect: string): LoginViewContext {
+	return <LoginViewContext> {
+		title: 'auth:login.login-title',
+		headerText: 'auth:login.welcome-back',
+		footerCallout: 'auth:login.register-callout-text',
+		footerCalloutLink: 'auth:login.register-callout-link',
+		exitTo: redirect,
+		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+	};
+}
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
 	Wreck.get(localSettings.helios.host + '/token?' + qs.stringify({
@@ -90,21 +98,12 @@ function getFormErrorKey (statusCode: number): string {
 }
 
 export function get (request: Hapi.Request, reply: any): void {
-	var context: LoginViewContext = defaultViewContext,
-		redirect: string = request.query.redirect || '/';
+	var redirect: string = request.query.redirect || '/',
+		context: LoginViewContext = getLoginContext(redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
 	}
-
-	context = {
-		exitTo: redirect,
-		headerText: 'auth:login.welcome-back',
-		title: 'auth:login.title',
-		footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
-		footerCalloutText: 'auth:login.register-callout-text',
-		footerCalloutLink: 'auth:login.register-callout-link'
-	};
 
 	return reply.view('login', context, {
 		layout: 'auth'
@@ -116,14 +115,8 @@ export function post (request: Hapi.Request, reply: any): void {
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
-		rememberMeTTL = 1.57785e10, // 6 months,
-		context: any = {
-			title: 'auth:login.title',
-			headerText: 'auth:login.welcome-back',
-			footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
-			footerCalloutText: 'auth:login.register-callout-text',
-			footerCalloutLink: 'auth:login.register-callout-link'
-		};
+		rememberMeTTL = 1.57785e10, // 6 months
+		context: LoginViewContext = getLoginContext(redirect);
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
@@ -134,8 +127,6 @@ export function post (request: Hapi.Request, reply: any): void {
 			if (isAJAX) {
 				return reply(context).code(err.output.statusCode);
 			}
-
-			context.exitTo = redirect;
 
 			return reply.view('login', context, {
 				layout: 'auth'

@@ -7,13 +7,8 @@
 <div class="auth-options">
     <ul class="signup-providers">
         <li>
-            <a class="button signup-provider-facebook">
-                {{i18n 'auth:join.connect-with-facebook'}}
-            </a>
-        </li>
-        <li>
-            <a class="button signup-provider-email" href="{{signupRoute}}">
-	            {{i18n 'auth:common.sign-up-with-email'}}
+            <a class="button signup-provider-email" href="{{{signupHref}}}">
+                {{i18n 'auth:common.sign-up-with-email'}}
             </a>
         </li>
     </ul>

@@ -13,7 +13,7 @@ class Form {
 			label = <HTMLElement> input.nextElementSibling,
 			wrapper = <HTMLInputElement> input.parentElement;
 
-		if (wrapper.className.match('input-container')) {
+		if (input.tagName.toLowerCase() === 'input' && wrapper.className.match('input-container')) {
 			label.classList.add('active');
 		}
 	}
@@ -23,7 +23,7 @@ class Form {
 			label = <HTMLElement> input.nextElementSibling,
 			wrapper = <HTMLElement> input.parentElement;
 
-		if (wrapper.className.match('input-container') && !input.value) {
+		if (input.tagName.toLowerCase() === 'input' && wrapper.className.match('input-container') && !input.value) {
 			label.classList.remove('active');
 		}
 	}
