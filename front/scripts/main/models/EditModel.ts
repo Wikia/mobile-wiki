@@ -4,20 +4,48 @@
 /// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 
-
 App.EditModel = Em.Object.extend({
-    wikitext: 'old random wikitext'
+    content: null,
+    timestamp: null
 });
 
 App.EditModel.reopenClass({
     load: function(title: string, sectionIndex: number): Em.RSVP.Promise {
-        console.log("->load", title, sectionIndex);
         var model = App.EditModel.create();
         return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-            setTimeout(function() {
-                model.set('wikitext', "Some ''random'' wikitext");
-                resolve(model);
-            }, 2500);
+            Em.$.ajax({
+                // FIXME: Hardcoded URL
+                url: 'http://visualeditor.inez.wikia-dev.com/api.php',
+                data: {
+                    action: 'query',
+                    prop: 'revisions',
+                    // FIXME: It should be possible to pass props as an array
+                    rvprop: 'content|timestamp',
+                    titles: title,
+                    rvsection: sectionIndex,
+                    format: 'json'
+                },
+                dataType: 'json',
+                success: (resp): void => {
+                    var revision;
+                    if (resp.error) {
+                        reject(resp.error.code);
+                        return;
+                    }
+
+                    // FIXME: MediaWiki API, seriously?
+                    revision = $.map( resp.query.pages, function ( page ) {
+                        return page.revisions[0];
+                    } )[0];
+
+                    model.set('content', revision['*']);
+                    model.set('timestamp', revision.timestamp);
+                    resolve(model);
+                },
+                error: (err): void => {
+                    reject(err);
+                }
+            });
         });
     }
 });
