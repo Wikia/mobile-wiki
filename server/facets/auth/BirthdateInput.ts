@@ -74,16 +74,17 @@ class BirthdateInput {
 	}
 
 	private orderInputDataByLocale(data: DateElements): Array<InputData> {
-		var inputsArr: Array<InputData> = [];
+		var inputsArr: Array<InputData> = [],
+			endian = this.endian.toLowerCase();
 
-		switch (this.endian) {
-			case this.endians.Big:
+		switch (endian) {
+			case this.endians.Big.toLowerCase():
 				inputsArr = [data.year, data.month, data.day];
 				break;
-			case this.endians.Middle:
+			case this.endians.Middle.toLowerCase():
 				inputsArr = [data.month, data.day, data.year];
 				break;
-			default: // this.endians.Little
+			default: // this.endians.Little.toLowerCase()
 				inputsArr = [data.day, data.month, data.year];
 				break;
 		}

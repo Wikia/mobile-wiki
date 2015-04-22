@@ -45,7 +45,7 @@ class AutoTab {
 		var elements: any = this.getVisibleElements(),
 			nextInput: any = null;
 
-		elements.every(function (element, index) {
+		elements.every(function (element: HTMLElement, index: number) {
 			if (element === this.input) {
 				nextInput = elements[index + 1];
 				return false;
