@@ -10,6 +10,7 @@ $border-color: #d0d0d0;
 		@extend .touch-active;
 
 		background: none;
+		color: $body-font-color;
 		display: block;
 		font-weight: bold;
 		line-height: 2.4rem;
