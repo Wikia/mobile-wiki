@@ -1,1 +1,12 @@
+<div class="edit-head">
+	<div class="back">
+	    {{svg 'arrow-left' role='img' class='icon arrow-left'}}
+	</div>
+
+	<button {{action 'publish'}} class="large" style="float: right;">Publish</button>
+
+	<h5 style="margin: 0; line-height: 3.125rem;">
+		Editing: <span style="font-weight: normal;">{{model.title}}</span>
+	</h5>
+</div>
 {{textarea value=model.content}}

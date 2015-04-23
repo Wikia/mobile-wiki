@@ -7,6 +7,9 @@ App.EditController = Em.Controller.extend({
     needs: ['application'],
     init: function() : void {
     },
-    actions: {
-    }
+	actions: {
+		publish: function (): void {
+			console.log('publish', this.model.content);
+		}
+	},
 });

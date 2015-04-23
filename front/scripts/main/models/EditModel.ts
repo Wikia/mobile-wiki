@@ -6,12 +6,16 @@
 
 App.EditModel = Em.Object.extend({
     content: null,
-    timestamp: null
+    timestamp: null,
+    title: null,
+    sectionIndex: null
 });
 
 App.EditModel.reopenClass({
     load: function(title: string, sectionIndex: number): Em.RSVP.Promise {
         var model = App.EditModel.create();
+        model.set('title', title);
+        model.set('sectionIndex', sectionIndex);
         return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
             Em.$.ajax({
                 // FIXME: Hardcoded URL
