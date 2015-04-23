@@ -76,7 +76,7 @@ server.register(plugins, (err: any) => {
 	server.auth.strategy('session', 'cookie', 'required', {
 		appendNext     : 'redirect',
 		clearInvalid   : true,
-		cookie         : 'sid',
+		cookie         : 'access_token',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
 		redirectTo     : '/login'
