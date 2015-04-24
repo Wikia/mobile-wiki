@@ -16,13 +16,17 @@ App.ArticleContentMixin = Em.Mixin.create({
 		width: null
 	},
 
-	onInit: Em.observer(function (): void {
+	init: function (): void {
+		this._super();
+		
 		App.ArticleContentListeners.add(this);
-	}).on('init'),
+	},
 
-	onWillDestroyElement: Em.observer(function (): void {
+	willDestroyElement: function (): void {
+		this._super();
+		
 		App.ArticleContentListeners.remove(this);
-	}).on('willDestroyElement')
+	}
 });
 
 /**
