@@ -1,12 +1,13 @@
 // Instance of collapsible-menu component
 .table-of-contents {
-	font-size: rem-calc(13);
+	font-size: $type-smallest;
 
 	.title {
 		padding: rem-calc(5px) rem-calc(40px);
 	}
 
 	ol {
+		font-size: $type-smallest;
 		list-style: none;
 	}
 }
