@@ -2096,7 +2096,7 @@ declare module Ember {
     function normalizeTuple(target: any, path: string): any[];
     function observer(func: Function, ...args: string[]): Function;
     function observer(prop: string, func: Function): Function;
-	// This is a really a bad signature, but this seems to be the best until spread operator support arrives in 1.5
+    // This is a really a bad signature, but this seems to be the best until spread operator support arrives in 1.5
     function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;

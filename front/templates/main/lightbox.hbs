@@ -7,9 +7,7 @@
 	<div class="lightbox-header-title">{{header}}</div>
 </div>
 <div class="lightbox-content">
-	<div class="lightbox-content-inner">
-		{{yield}}
-	</div>
+	{{component lightboxComponent currentMedia=currentMedia}}
 </div>
 {{#if footer}}
     <div {{bind-attr class="view.lightboxFooterExpanded view.footerHidden:hidden :lightbox-footer"}}>{{footer}}</div>

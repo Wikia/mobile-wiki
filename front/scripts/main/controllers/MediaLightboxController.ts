@@ -32,7 +32,21 @@ App.MediaLightboxController = App.LightboxController.extend({
 	},
 
 	/**
-	 * This function checks if file=* matches any files on a page
+	 * @desc Checks if file from URL matches with currentMedia.
+	 * Handles situation when file is empty and when,
+	 * 'back' button is pressed and other unexpected situations.
+	 */
+	fileObserver: Em.observer('file', function (): void {
+		var currentMedia = this.get('currentMedia'),
+			file = this.get('file');
+
+		if (currentMedia && currentMedia.title !== file) {
+			this.send('closeLightbox');
+		}
+	}),
+
+	/**
+	 * @desc checks if file=* matches any files on a page
 	 */
 	matchQueryString: function (): void {
 		var file = this.get('file');
@@ -83,12 +97,12 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 			return value;
 		} else {
-			return this.get('data.galleryRef') || 0
+			return this.get('data.galleryRef') || 0;
 		}
 	}),
 
 	/**
-	 * check if current displayed media is a gallery
+	 * @desc checks if current displayed media is a gallery
 	 *
 	 * @return boolean
 	 */
@@ -97,7 +111,23 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}),
 
 	/**
-	 * gets current media from model
+	 * @desc checks if current media is a video or image
+	 * and which lightbox component to render
+	 *
+	 * @return string
+	 */
+	lightboxComponent: Em.computed('currentMedia', function (): string {
+		var currentMedia = this.get('currentMedia');
+		if (currentMedia && currentMedia.url && currentMedia.type) {
+			return currentMedia.type + '-lightbox';
+		}
+		// in case of invalid media assume it was image and display
+		// 'Media not found' will be handled by template
+		return 'image-lightbox';
+	}),
+
+	/**
+	 * @desc gets current media from model
 	 *
 	 * @return object
 	 */
@@ -106,7 +136,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}),
 
 	/**
-	 * gets current media or current media from gallery
+	 * @desc gets current media or current media from gallery
 	 *
 	 * @return object
 	 */
@@ -129,7 +159,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}),
 
 	/**
-	 * observes curentMedia and updates file property
+	 * @desc observes curentMedia and updates file property
 	 * that is an alias from article file and is a queryParam
 	 */
 	currentMediaObserver: Em.observer('currentMedia', function (): void {
@@ -144,19 +174,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}).on('init'),
 
 	/**
-	 * closes lightbox when file queryParam is not set
-	 * otherwise tries to open image lightbox with appropriate image
-	 */
-	fileObserver: Em.observer('file', function (): void {
-		if (this.get('file') == null) {
-			this.send('closeLightbox');
-		} else {
-			this.matchQueryString();
-		}
-	}),
-
-	/**
-	 * returns footer for currentMedia
+	 * @desc returns footer for currentMedia
 	 *
 	 * @return string
 	 */
@@ -173,7 +191,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}),
 
 	/**
-	 * returns header for gallery
+	 * @desc returns header for gallery
 	 *
 	 * @return string
 	 */
@@ -182,7 +200,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}),
 
 	/**
-	 * returns header for currentMedia if it is a gallery
+	 * @desc returns header for currentMedia if it is a gallery
 	 *
 	 * @return string
 	 */
@@ -194,7 +212,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 	}),
 
 	/**
-	 * sets all properties to their null state
+	 * @desc sets all properties to their null state
 	 */
 	reset: function (): void {
 		this.setProperties({
@@ -203,7 +221,9 @@ App.MediaLightboxController = App.LightboxController.extend({
 				galleryRef: null,
 				target: null
 			},
-			file: null
+			file: null,
+			currentMediaRef: null,
+			currentGalleryRef: null
 		});
 
 		this._super();
