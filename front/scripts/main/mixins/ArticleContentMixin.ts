@@ -18,13 +18,13 @@ App.ArticleContentMixin = Em.Mixin.create({
 
 	init: function (): void {
 		this._super();
-		
+
 		App.ArticleContentListeners.add(this);
 	},
 
 	willDestroyElement: function (): void {
 		this._super();
-		
+
 		App.ArticleContentListeners.remove(this);
 	}
 });
