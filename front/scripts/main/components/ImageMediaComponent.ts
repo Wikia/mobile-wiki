@@ -32,7 +32,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * so we have less content jumping around due to lazy loading images
 	 * @return number
 	 */
-	computedHeight: Em.computed(function (): number {
+	computedHeight: Em.computed('width', 'height', 'articleContent.width', function (): number {
 		var pageWidth = this.get('articleContent.width'),
 			imageWidth = this.get('width') || pageWidth,
 			imageHeight = this.get('height');
