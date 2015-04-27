@@ -63,7 +63,7 @@ To generate the code coverage run `npm run coverage`. The reports will be genera
 Localization is handled by [i18next](http://i18next.com/) JavaScript library and [CrowdIn](https://crowdin.com/) service. i18next is a part (module) of the Mercury and loads files from `front/locales` directory. CrowdIn is an external service which is responsible only for providing translations for the keys' values from the source file `front/locales/en/<namespace>.json`. Wikia has its own CrowdIn client which is already installed on your dev-box.
 
 ### Uploading new keys/updating key values in the source file
-If during the development process you've added new keys to the `front/locales/en/translation.json` file (the source file), then you have to upload it to CrowdIn to enable the translators to work on the other languages. The same applies if you've changed the values of the existing keys in the source file, as the corresponding values in other languages are being invalidated.
+If during the development process you've added new keys to the `front/locales/en/<namespace>.json` file (the source file), then you have to upload it to CrowdIn to enable the translators to work on the other languages. The same applies if you've changed the values of the existing keys in the source file, as the corresponding values in other languages are being invalidated.
 * go to your dev-box and clone the Mercury project (or just upload the `crowdin.conf` file, but this approach needs more flirting with the configuration, manual updating and command line switches → not recommended)
 * checkout the branch with the desired changes (or just upload the new source file)
 * from the project root directory run `crowdin upload`
