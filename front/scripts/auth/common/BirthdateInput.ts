@@ -1,4 +1,4 @@
-interface FormElements {
+interface FormElements extends HTMLCollection {
 	birthdate: HTMLInputElement;
 	day: HTMLInputElement;
 	month: HTMLInputElement;
@@ -6,7 +6,7 @@ interface FormElements {
 }
 
 class BirthdateInput {
-	el: HTMLElement;
+	wrapper: HTMLElement;
 	fakeInputs: NodeList;
 	day: HTMLInputElement;
 	month: HTMLInputElement;
@@ -17,14 +17,14 @@ class BirthdateInput {
 	realInput: HTMLInputElement;
 
 	constructor(el: HTMLElement, form: HTMLFormElement) {
-		var elements: FormElements = <FormElements> form.elements;
+		var elements: FormElements = <FormElements>form.elements;
 
-		this.el = el;
+		this.wrapper = el;
 		this.realInput = elements.birthdate;
 		this.day = elements.day;
 		this.month = elements.month;
 		this.year = elements.year;
-		this.fakeInputs = this.el.querySelectorAll('input');
+		this.fakeInputs = this.wrapper.querySelectorAll('input');
 	}
 
 	public init(): void {
@@ -34,11 +34,11 @@ class BirthdateInput {
 	}
 
 	private initFocus(): void {
-		var firstInput: HTMLInputElement = <HTMLInputElement> this.fakeInputs[0];
+		var firstInput: HTMLInputElement = <HTMLInputElement>this.fakeInputs[0];
 
 		this.realInput.addEventListener('focus', (() => {
 			this.realInput.type = 'hidden';
-			this.el.classList.remove('hide');
+			this.wrapper.classList.remove('hide');
 			firstInput.focus();
 		}).bind(this));
 	}
@@ -50,7 +50,7 @@ class BirthdateInput {
 	}
 
 	private initBirthdateValue(): void {
-		this.el.addEventListener('input', this.setRealValue.bind(this));
+		this.wrapper.addEventListener('input', this.setRealValue.bind(this));
 	}
 
 	/**

@@ -17,14 +17,7 @@ class AutoTab {
 		var nextVisibleInput = this.getNextVisibleInput(),
 			length = this.input.value.length;
 
-		if (!this.input.validity.valid) {
-			// TODO: show an error message?
-		}
-
-		if (
-			length >= this.max &&
-			nextVisibleInput
-		) {
+		if (length >= this.max && nextVisibleInput) {
 			nextVisibleInput.focus();
 		}
 	}
