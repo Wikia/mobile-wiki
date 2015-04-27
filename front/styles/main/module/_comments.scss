@@ -4,7 +4,7 @@
 	@extend .touch-active;
 
 	background: rgb(250,250,250);
-	color: $anchor-color-normal;
+	color: $anchor-font-color;
 	padding: 10px;
 	width: 100%;
 }
@@ -90,7 +90,7 @@
 	}
 
 	.timestamp {
-		color: $color-gray-semi;
+		color: $color-blue-gray-dark;
 		float: right;
 	}
 

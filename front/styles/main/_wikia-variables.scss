@@ -3,26 +3,6 @@
 // 10,000 foot view.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Z-Index Scale
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Never --ever-- implement z-index that doesn't use this scale, if you have a use-case that
-// for some reason falls out of this scale, ask for guidance before implementing one-offs
-// List all implementations of the z-scale in the next section (after Z-Index Scale
-
-$z-min : -1;
-$z-1   : 100;
-$z-2   : 200;
-$z-3   : 300;
-$z-4   : 400;
-$z-5   : 500;
-$z-6   : 600;
-$z-7   : 700;
-$z-8   : 800;
-$z-9   : 900;
-$z-max : 10000;
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Z-Index Implementations
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,11 +37,9 @@ $border-radius-global: rem-calc(2);
 
 // Colors
 
-$color-blue-brand: #006cb0;
-$color-gray-dark: #3D3D3D;
-$color-gray-semi: #999999;
-$color-gray-light: #d0d0d0;
-$color-white: #ffffff;
+$color-blue-brand: $color-blue-light;
+$color-gray-semi: $color-blue-gray;
+$color-gray-light: $color-blue-gray-light;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Module Variables
@@ -70,7 +48,6 @@ $color-white: #ffffff;
 // All variables should live here to prevent shadowing of variables and provide a central location for developers to
 // quickly modify the application
 
-$anchor-color-normal: $color-blue-brand;
 $overlay-opacity: .5;
 $border-color-light: $color-gray-light;
 
@@ -91,23 +68,15 @@ $transition-length: .10s;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Vertical variables
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$comics-vertical-color: #ff5400;
-$games-vertical-color: #94d11f;
-$books-vertical-color: #ff7f26;
-$movies-vertical-color: #09d3bf;
-$lifestyle-vertical-color: #ffd000;
-$music-vertical-color: #c819ad;
-$tv-vertical-color: #00b7e0;
-
 $verticals: comics games books movies lifestyle music tv;
 $vertical-colors: (
-		$comics-vertical-color
-		$games-vertical-color
-		$books-vertical-color
-		$movies-vertical-color
-		$lifestyle-vertical-color
-		$music-vertical-color
-		$tv-vertical-color
+		$color-hub-comics
+		$color-hub-games
+		$color-hub-books
+		$color-hub-movies
+		$color-hub-lifestyle
+		$color-hub-music
+		$color-hub-tv
 );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

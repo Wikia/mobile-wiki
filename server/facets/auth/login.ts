@@ -117,7 +117,6 @@ export function post (request: Hapi.Request, reply: any): void {
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
-<<<<<<< HEAD
 		rememberMeTTL = 1.57785e10, // 6 months,
 		context: any = {
 			header: 'auth:login.header',
@@ -126,9 +125,6 @@ export function post (request: Hapi.Request, reply: any): void {
 			footerCalloutText: 'auth:login.register-callout-text',
 			footerCalloutLink: 'auth:login.register-callout-link'
 		};
-=======
-		context: LoginViewContext = defaultViewContext;
->>>>>>> dev
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
