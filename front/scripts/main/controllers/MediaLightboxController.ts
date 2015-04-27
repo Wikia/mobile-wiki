@@ -33,7 +33,7 @@ App.MediaLightboxController = App.LightboxController.extend({
 
 	/**
 	 * @desc Checks if file from URL matches with currentMedia.
-	 * Handles situation when file is empty and when, 
+	 * Handles situation when file is empty and when,
 	 * 'back' button is pressed and other unexpected situations.
 	 */
 	fileObserver: Em.observer('file', function (): void {

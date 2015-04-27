@@ -35,15 +35,15 @@ App.LocalNavMenuComponent = Em.Component.extend({
 	 * or removed the reference in the Wikia object to it so that
 	 * this component has exclusive access to it.
 	 */
-	model: function (): any {
+	model: Em.computed(function (): any {
 		return Mercury.wiki.navData;
-	}.property(),
+	}),
 
-	menuRoot: function (): RootNavItem {
+	menuRoot: Em.computed('model', function (): RootNavItem {
 		return {
 			children: this.get('model.navigation.wiki')
 		};
-	}.property('model'),
+	}),
 
 	currentMenuItem: Em.computed.oneWay('menuRoot'),
 
@@ -83,11 +83,11 @@ App.LocalNavMenuComponent = Em.Component.extend({
 		}
 	},
 
-	sideNavCollapsedObserver: function () {
+	sideNavCollapsedObserver: Em.observer('sideNavCollapsed', function () {
 		if (this.get('sideNavCollapsed')) {
 			this.send('gotoRoot');
 		}
-	}.observes('sideNavCollapsed'),
+	}),
 
 	willInsertElement: function (): void {
 		this.injectParentPointersAndIndices();

@@ -16,12 +16,12 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 		}
 	},
 
-	offset: function (): number {
+	offset: Em.computed('smartBannerVisible', function (): number {
 		if (this.get('smartBannerVisible')) {
 			return this.get('options.smartBannerHeight.' + Mercury.Utils.Browser.getSystem());
 		}
 		return 0;
-	}.property('smartBannerVisible'),
+	}),
 
 	actions: {
 		expandSideNav: function (): void {
@@ -33,12 +33,12 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
 	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
 	 */
-	smartBannerVisibleObserver: function (): void {
+	smartBannerVisibleObserver: Em.observer('smartBannerVisible', function (): void {
 		var headroom = this.get('headroom');
 
 		headroom.destroy();
 		this.initHeadroom();
-	}.observes('smartBannerVisible'),
+	}),
 
 	/**
 	 * @desc Hide top bar when scrolling down. Uses headroom.js plugin.
