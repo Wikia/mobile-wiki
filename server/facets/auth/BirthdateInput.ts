@@ -1,7 +1,7 @@
 interface DateEndian {
-	Big: string;
-	Little: string;
-	Middle: string;
+	big: string;
+	little: string;
+	middle: string;
 }
 
 interface InputData {
@@ -28,9 +28,9 @@ class BirthdateInput {
 	 * @see http://grammarpartyblog.com/2011/07/17/one-little-endian-two-little-endians-formatting-dates-across-the-globe/
 	 */
 	endians: DateEndian = {
-		Big: 'Big',
-		Little: 'Little',
-		Middle: 'Middle'
+		big: 'big',
+		little: 'little',
+		middle: 'middle'
 	};
 
 	constructor(endian: string, i18n: any) {
@@ -78,13 +78,13 @@ class BirthdateInput {
 			endian = this.endian.toLowerCase();
 
 		switch (endian) {
-			case this.endians.Big.toLowerCase():
+			case this.endians.big.toLowerCase():
 				inputsArr = [data.year, data.month, data.day];
 				break;
-			case this.endians.Middle.toLowerCase():
+			case this.endians.middle.toLowerCase():
 				inputsArr = [data.month, data.day, data.year];
 				break;
-			default: // this.endians.Little.toLowerCase()
+			default: // this.endians.little.toLowerCase()
 				inputsArr = [data.day, data.month, data.year];
 				break;
 		}
