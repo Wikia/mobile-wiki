@@ -4,3 +4,10 @@
 .navbox:not(> .article-table) {
 	display: none;
 }
+
+/* Polls don't display correctly with style attributes stripped out
+   for mobile experience. Additionally, poll submission is broken in Mercury.
+*/
+.ajax-poll {
+	display: none;
+}

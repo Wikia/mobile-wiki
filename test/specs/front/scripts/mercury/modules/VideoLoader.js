@@ -1,8 +1,7 @@
 QUnit.module('VideoLoader tests', {
 	setup: function () {
 		window.$script = function () {};
-		this.ele = document.createElement('div');
-		this.instance = new Mercury.Modules.VideoLoader(this.ele, {
+		this.instance = new Mercury.Modules.VideoLoader({
 				provider: 'youtube',
 				jsParams: {
 					videoId: 666,
@@ -34,6 +33,22 @@ QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {
 
 	this.instance.data.provider = 'youtube';
 	equal(this.instance.isProvider('ooyala'), false);
+});
+
+QUnit.test('VideoLoader can tell which provider is using', function () {
+	expect(4);
+
+	this.instance.data.provider = 'ooyala/funimation';
+	equal(this.instance.getProviderName(), 'ooyala');
+
+	this.instance.data.provider = 'OOYALA';
+	equal(this.instance.getProviderName(), 'ooyala');
+
+	this.instance.data.provider = 'OoYaLa/randooom';
+	equal(this.instance.getProviderName(), 'ooyala');
+
+	this.instance.data.provider = 'youtube';
+	equal(this.instance.getProviderName(), 'youtube');
 });
 
 QUnit.test('VideoLoader should have loaded the correct player class', function () {

@@ -1,3 +1,42 @@
+## release-57 (2015-04-27 13:20)
+* style-guide-integration: Style guide CSS integration
+* [HG-595](https://wikia-inc.atlassian.net/browse/HG-595) HG-595 fixing access_token cookie setting and removing unused cookie
+* [CONCF-94](https://wikia-inc.atlassian.net/browse/CONCF-94) CONCF-94 beta Spinner in Lightbox galleries and VideoLoader change
+* [CONCF-466](https://wikia-inc.atlassian.net/browse/CONCF-466) Render not-found template when we have 404
+* [HG-595](https://wikia-inc.atlassian.net/browse/HG-595) HG-595 don't set refresh token as cookie
+* aden-1918-fixes-after-clean-up: ADEN-1918 change the name of module to correct one
+* [SOC-657](https://wikia-inc.atlassian.net/browse/SOC-657) Set the auth cookie TTL
+* i18n-helper-fixes: Allowing i18n helper to accept inline params
+* [SOC-657](https://wikia-inc.atlassian.net/browse/SOC-657) Remove 'remember me' code
+
+## release-56 (2015-04-23 11:40 PST)
+* aden-1676-floor-adhesion-mercury: ADEN-1676 Floor adhesion on Mercury
+* aden-1946-paid-asset-drops-for-mercury: ADEN-1946 Paid Asset Drops for Mercury
+
+## release-55 (2015-04-16 13:00)
+* [INT-55](https://wikia-inc.atlassian.net/browse/INT-55) Enable ShareFeature for all languages
+* [SOC-581](https://wikia-inc.atlassian.net/browse/SOC-581) Make footer not overlap content for small viewports
+* hapi-auth: Hapi auth round two
+* cleaning-up-inline-svg-logo: Cleaning up inline svg logo
+* [CONCF-80](https://wikia-inc.atlassian.net/browse/CONCF-80) CONCF-80 | enable caching in Mercury
+* aden-1885-remove-scroll-depth: ADEN-1885 Remove scroll depth
+* [CONCF-300](https://wikia-inc.atlassian.net/browse/CONCF-300) Fix article-top-contributors-label
+* upgrade-ember-performance-sender: Update ember-performance-sender version
+* improve-track-click-mixin: Don't use the TrackClick mixin to send an action, but actually use it to...
+* [INT-53](https://wikia-inc.atlassian.net/browse/INT-53) Added Google Plus to share feature
+* [CONCF-207](https://wikia-inc.atlassian.net/browse/CONCF-207) CONCF-207 Upgrade to vignette-js#2.1.1
+* fix-explicit-type: Minor fix - explicitely specify model type as any
+* [INT-48](https://wikia-inc.atlassian.net/browse/INT-48) (WIP) Initial version of sharing feature in Mercury
+* [SOC-526](https://wikia-inc.atlassian.net/browse/SOC-526) SOC-526 removing buggy qqx functionality
+* [CONCF-114](https://wikia-inc.atlassian.net/browse/CONCF-114) CONCF-114 Ember 1.11
+* [CONCF-208](https://wikia-inc.atlassian.net/browse/CONCF-208) CONCF-208 Spaces in gallery when no caption
+* update-npm-packages: Update npm packages
+* [HG-521](https://wikia-inc.atlassian.net/browse/HG-521) HG-521 Integrate performance monitoring into Ember & persist with Weppy
+* update-hapi-i18next: Update hapi-i18next because previous version did not handle empty header
+* [SOC-526](https://wikia-inc.atlassian.net/browse/SOC-526) Soc 526 enabling query string and cookies for setting lang
+* fix-redirect: Dynamically resolve href for the login flow
+* [SOC-567](https://wikia-inc.atlassian.net/browse/SOC-567) SOC-567 Set New Login redirect on Mercury's Front-End side
+
 ## release-53 (2015-04-07 17:00)
 * [CONCF-126](https://wikia-inc.atlassian.net/browse/CONCF-126) CONCF-126 Support articles with special chars in title
 * fix-figcaption-length: don't let long titles overflow page horizontally

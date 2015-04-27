@@ -29,9 +29,11 @@ class SubmitValidator {
 	 * @returns {boolean}
 	 */
 	private areAllFieldsFilled ():boolean {
-		var i;
+		var i: number,
+			input: HTMLInputElement;
 		for (i = 0; i < this.inputFields.length; i++) {
-			if (!this.inputFields[i].value) {
+			input = <HTMLInputElement> this.inputFields[i];
+			if (!input.value) {
 				return false;
 			}
 		}

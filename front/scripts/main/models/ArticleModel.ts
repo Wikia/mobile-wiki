@@ -78,7 +78,9 @@ App.ArticleModel.reopenClass({
 				},
 				error: (err): void => {
 					if (err.status === 404) {
-						this.setArticle(model, err.responseJSON);
+						this.setArticle(model, {
+							error: err.responseJSON
+						});
 						resolve(model);
 					} else {
 						// TODO we currently abort transition when there was an error other than 404
