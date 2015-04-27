@@ -1,6 +1,7 @@
 .dice {
 	&.on {
 		animation: spin 1s linear infinite;
+		-webkit-transform-origin: 15px 32px;
 	}
 }
 

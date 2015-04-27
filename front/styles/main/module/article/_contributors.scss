@@ -29,10 +29,9 @@
 	}
 
 	.title {
-		@extend .subtext;
+		font-size: $type-smallest;
+		font-weight: bold;
 		margin-left: rem-calc(10);
 		padding-bottom: rem-calc(15);
-		font-weight: bold;
-
 	}
 }

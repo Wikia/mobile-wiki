@@ -1,5 +1,17 @@
 .input-container {
+	padding-bottom: 1rem;
 	position: relative;
+
+	input.error {
+		border-bottom-color: $input-border-error-color;
+	}
+
+	small.error {
+		margin-bottom: 0;
+		padding-bottom: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
 }
 
 .floating-label {
@@ -25,10 +37,13 @@ input[type='date']:valid + .floating-label {
 }
 
 .input-container > img {
-	bottom: 8px;
-	width: 20px;
+	box-sizing: content-box;
+	height: 1rem;
+	padding: 24px 5px 0 5px;
 	position: absolute;
-	right: 5px;
+	right: 0;
+	top: 0;
+	width: 20px;
 
 	&.on {
 		opacity: 0.5;
