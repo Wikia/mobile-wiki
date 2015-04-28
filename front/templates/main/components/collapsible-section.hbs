@@ -4,7 +4,15 @@
 	<div class="section-items">
 		<ul>
 			{{#each item in section.items}}
-				<li class="list-item"><a href="#">{{item.label}} {{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron-horizontal'}}</a></li>
+				<li class="list-item">
+					<a href="{{item.article_local_url}}">
+						{{#if item.image_url}}
+							{{thumbnail item.image_url width=100 height=100 alt=item.title}}
+						{{/if}}
+						{{item.label}}
+						{{svg 'chevron-linked' viewBox='0 0 20 20'}}
+					</a>
+				</li>
 			{{/each}}
 		</ul>
 	</div>

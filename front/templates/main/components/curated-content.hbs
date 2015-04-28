@@ -1,9 +1,9 @@
 {{#if curatedContent.sections }}
-	<div class="curated-content sections">
+	<nav class="curated-content">
 		<ul>
 		{{#each section in curatedContent.sections}}
 			{{ collapsible-section section=section}}
 		{{/each}}
 		</ul>
-	</div>
+	</nav>
 {{/if}}
