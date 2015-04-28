@@ -12,9 +12,9 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	// from showing before "View more" button is clicked
 	incrementLimitValue: 4,
 
-	canShowMore: function (): boolean {
+	canShowMore: Em.computed('media', 'limit', function (): boolean {
 		return this.get('media').length > this.get('limit');
-	}.property('media', 'limit'),
+	}),
 
 	setUp: function (): void {
 		this._super();

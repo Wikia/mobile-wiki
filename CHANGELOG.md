@@ -1,3 +1,7 @@
+## release-56 (2015-04-23 11:40 PST)
+* aden-1676-floor-adhesion-mercury: ADEN-1676 Floor adhesion on Mercury
+* aden-1946-paid-asset-drops-for-mercury: ADEN-1946 Paid Asset Drops for Mercury
+
 ## release-55 (2015-04-16 13:00)
 * [INT-55](https://wikia-inc.atlassian.net/browse/INT-55) Enable ShareFeature for all languages
 * [SOC-581](https://wikia-inc.atlassian.net/browse/SOC-581) Make footer not overlap content for small viewports

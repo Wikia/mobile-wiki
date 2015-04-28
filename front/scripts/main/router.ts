@@ -41,8 +41,8 @@ App.Router.reopen({
 	 * Sets location API depending on user agent with special case for Catchpoint tests
 	 * @see http://emberjs.com/guides/routing/specifying-the-location-api/
 	 */
-	location: function (): string {
+	location: Em.computed(function (): string {
 		var ua = Em.get(window, 'navigator.userAgent');
 		return (ua && ua.match(/Catchpoint/)) ? 'none' : 'history';
-	}.property()
+	})
 });

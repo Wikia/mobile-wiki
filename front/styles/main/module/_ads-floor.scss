@@ -1,0 +1,55 @@
+/**
+ * The lines below are "shared" Wikia/app Oasis skin
+ * (https://github.com/Wikia/app/blob/dev/skins/oasis/css/core/ads-floor.scss)
+ *
+ * The only differences are:
+ * - z-index of #ext-wikia-adEngine-template-footer
+ * - height of .background
+ * - a.close
+ */
+#ext-wikia-adEngine-template-footer {
+	bottom: 0;
+	display: block;
+	position: fixed;
+	width: 100%;
+	z-index: $z-ads-footer;
+
+	a.close {
+		background-color: #000;
+		bottom: 0;
+		display: block;
+		padding: 5px 9px;
+		position: absolute;
+		width: 30px;
+		height: 100%;
+		right: 0;
+
+		.ads-floor-close-button {
+			fill: white;
+			position: relative;
+			height: 12px;
+			outline: none;
+			width: 12px;
+			top: 10px;
+		}
+	}
+
+	.ad {
+		padding-right: 30px;
+	}
+
+	.ad iframe {
+		border: 0;
+		display: block;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.background {
+		background: rgba(0, 0, 0, 0.4);
+		bottom: 0;
+		height: 50px;
+		position: absolute;
+		width: 100%;
+	}
+}
