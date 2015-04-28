@@ -4,5 +4,4 @@
 
 App.CuratedContentComponent = Em.Component.extend({
 	classNames: ['curated-content-component'],
-	layoutName: 'components/curated-content-component',
 });

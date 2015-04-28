@@ -4,7 +4,6 @@
 
 App.CollapsibleSectionComponent = Em.Component.extend({
 	classNames: ['collapsible-section'],
-	layoutName: 'components/collapsible-section-component',
 	isExpanded: false,
 	classNameBindings: ['isExpanded'],
 
