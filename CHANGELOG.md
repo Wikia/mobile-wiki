@@ -1,14 +1,3 @@
-## release-57 (2015-04-27 13:20)
-* style-guide-integration: Style guide CSS integration
-* [HG-595](https://wikia-inc.atlassian.net/browse/HG-595) HG-595 fixing access_token cookie setting and removing unused cookie
-* [CONCF-94](https://wikia-inc.atlassian.net/browse/CONCF-94) CONCF-94 beta Spinner in Lightbox galleries and VideoLoader change
-* [CONCF-466](https://wikia-inc.atlassian.net/browse/CONCF-466) Render not-found template when we have 404
-* [HG-595](https://wikia-inc.atlassian.net/browse/HG-595) HG-595 don't set refresh token as cookie
-* aden-1918-fixes-after-clean-up: ADEN-1918 change the name of module to correct one
-* [SOC-657](https://wikia-inc.atlassian.net/browse/SOC-657) Set the auth cookie TTL
-* i18n-helper-fixes: Allowing i18n helper to accept inline params
-* [SOC-657](https://wikia-inc.atlassian.net/browse/SOC-657) Remove 'remember me' code
-
 ## release-56 (2015-04-23 11:40 PST)
 * aden-1676-floor-adhesion-mercury: ADEN-1676 Floor adhesion on Mercury
 * aden-1946-paid-asset-drops-for-mercury: ADEN-1946 Paid Asset Drops for Mercury
