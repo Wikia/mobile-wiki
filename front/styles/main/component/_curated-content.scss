@@ -1,0 +1,27 @@
+.curated-content {
+	.list-item {
+		list-style: none;
+	}
+
+	.chevron-horizontal {
+		background-color: #fff;
+		height: 20px;
+		width: 20px;
+	}
+
+	.collapsible-section {
+
+		.section-items {
+			display: none;
+		}
+
+		&.is-expanded {
+			.section-items {
+				display: block;
+			}
+			.chevron {
+				transform: rotate(180deg);
+			}
+		}
+	}
+}

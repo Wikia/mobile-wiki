@@ -28,6 +28,7 @@ interface Response {
 			users: any;
 			categories: any[];
 		};
+		curatedContent: any[];
 		relatedPages: any[];
 		topContributors: any[];
 		adsContext: any
@@ -190,6 +191,11 @@ App.ArticleModel.reopenClass({
 			if (source.topContributors) {
 				// Same issue: the response to the ajax should always be valid and not undefined
 				data.topContributors = source.topContributors;
+			}
+
+			if (source.curatedContent) {
+				// Same issue: the response to the ajax should always be valid and not undefined
+				data.curatedContent = source.curatedContent;
 			}
 		}
 

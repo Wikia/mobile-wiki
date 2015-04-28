@@ -4,6 +4,7 @@
 	<section class='article-body'>
 		<h1 class='article-title'>{{model.cleanTitle}}</h1>
 		{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
+		{{curated-content curatedContent=model.curatedContent}}
 		{{#if model.sections.length}}
 			{{#collapsible-menu
 				showMenuIcon=true
