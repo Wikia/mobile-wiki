@@ -8,8 +8,8 @@
 			<input class="sign-in-password" type="text" name="password" id="loginPassword" required />
 			<label class="floating-label" for="loginPassword">{{i18n "auth:login.password-label"}}</label>
 			<img class="password-toggler" src="/front/images/eye.svg">
+			<a class="forgotten-password" href="#" tabindex="-1">{{i18n "auth:login.forgot-password"}}</a>
 		</div>
-		<a class="forgotten-password" href="#" tabindex="-1">{{i18n "auth:login.forgot-password"}}</a>
 		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
 		<button id="loginSubmit" type="submit" disabled>{{i18n 'auth:login.submit-text'}}</button>
 		{{#if formErrorKey}}
