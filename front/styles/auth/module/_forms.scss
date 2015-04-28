@@ -1,3 +1,10 @@
+form {
+	> small.error {
+		color: $input-border-error-color;
+		line-height: 1.25px;
+	}
+}
+
 .input-container {
 	padding-bottom: 1rem;
 	position: relative;
