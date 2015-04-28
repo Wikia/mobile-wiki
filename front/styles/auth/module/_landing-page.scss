@@ -36,7 +36,7 @@
 	border: none;
 	margin-bottom: 15px;
 
-	&:focus, &:hover {
+	&:active, &:hover {
 		background-color: $color-blue-light;
 	}
 }
@@ -45,10 +45,15 @@
 	background-color: transparent;
 	border-color: $color-white;
 
-	&:focus, &:hover {
+	&:active, &:hover {
 		background-color: transparent;
 		border-color: $color-blue-light;
 		color: $color-blue-light;
+	}
+
+	&:visited {
+		border-color: $color-white;
+		color: $color-white;
 	}
 }
 
