@@ -1,5 +1,14 @@
-button, a.button {
+button,
+a.button,
+button[disabled] {
+	background-color: $button-color;
+	border-color: $button-color;
 	font-weight: bold;
 	-webkit-tap-highlight-color: Transparent;
 	width: 100%;
+}
+
+button[disabled] {
+	color: $disabled-button-text-color;
+	opacity: 0.5;
 }
