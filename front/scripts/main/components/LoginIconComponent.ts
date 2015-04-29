@@ -20,7 +20,7 @@ App.LoginIconComponent = Em.Component.extend({
 		}
 	},
 
-	isJapanese: function (): void {
+	isJapanese: function (): boolean {
 		var lang = navigator.language || navigator.browserLanguage;
 		if (lang) {
 			lang = lang.substr(0, 2);
@@ -35,11 +35,10 @@ App.LoginIconComponent = Em.Component.extend({
 	 * @returns {boolean}
 	 */
 	shouldRedirectToNewLogin: function (): boolean {
-		var hostname = window.location.hostname,
-			shouldRedirect = false,
+		var shouldRedirect = false,
 			dbName = Mercury.wiki.dbName;
 
-		this.newLoginWhitelist.forEach((whitelistedDBName) => {
+		this.newLoginWhitelist.forEach((whitelistedDBName: string) => {
 			shouldRedirect = whitelistedDBName === dbName;
 		});
 
