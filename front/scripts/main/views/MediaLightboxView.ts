@@ -1,5 +1,4 @@
 /// <reference path="./LightboxView.ts" />
-/// <reference path="../mixins/ArticleContentMixin.ts" />
 /// <reference path="../mixins/LightboxMixin.ts" />
 'use strict';
 
@@ -7,7 +6,7 @@ interface Window {
 	scrollY: number;
 }
 
-App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.LightboxMixin, {
+App.MediaLightboxView = App.LightboxView.extend(App.LightboxMixin, {
 	classNames: ['media-lightbox'],
 	videoPlayer: null,
 
@@ -107,11 +106,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		this._super(event);
 	},
 
-	/* @desc If this is the image, click event previously
-	 * checked if image isZoomed and prevented this event.
-	 * If this is the video, there is no need to check if
-	 * it is zoomed.
-	 */
 	click: function (event: MouseEvent): void {
 		var isImage = this.isCurrentMediaType('image'),
 			isVideo = this.isCurrentMediaType('video'),
@@ -123,16 +117,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 			this._super(event);
 		}
 	},
-
-	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
-		this.notifyPropertyChange('viewportSize');
-		this.notifyPropertyChange('imageWidth');
-		this.notifyPropertyChange('imageHeight');
-
-		if (this.get('videoPlayer')) {
-			this.get('videoPlayer').onResize();
-		}
-	}),
 
 	/**
 	 * @desc used to animate image that is in article into a media lightbox

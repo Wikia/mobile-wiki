@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/modules/VideoLoader.ts" />
+/// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
-App.VideoLightboxComponent = Em.Component.extend({
+App.VideoLightboxComponent = Em.Component.extend(App.ArticleContentMixin, {
 	classNames: ['lightbox-content-inner'],
 	classNameBindings: ['provider'],
 	videoLoader: null,
@@ -30,5 +31,11 @@ App.VideoLightboxComponent = Em.Component.extend({
 	initVideoPlayer: function (): void {
 		var currentMedia = this.get('controller.currentMedia');
 		this.set('videoLoader', new Mercury.Modules.VideoLoader(currentMedia.embed));
-	}
+	},
+
+	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
+		if (this.get('videoLoader')) {
+			this.get('videoLoader').onResize();
+		}
+	}),
 });

@@ -1,8 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../../../typings/hammerjs/hammerjs" />
+/// <reference path="../mixins/ArticleContentMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.ImageLightboxComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
+App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.LoadingSpinnerMixin, {
 	classNames: ['lightbox-content-inner'],
 	maxZoom: 5,
 	lastX: 0,
@@ -10,14 +12,14 @@ App.ImageLightboxComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	lastScale: 1,
 	isZoomed: Em.computed.gt('scale', 1),
 
-	style: Em.computed(function (): string {
+	style: Em.computed(function (): typeof Handlebars.SafeString {
 		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
 				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
 			.fmt(
 				this.get('scale').toFixed(2),
 				this.get('newX').toFixed(2),
 				this.get('newY').toFixed(2)
-			);
+			).htmlSafe();
 		//Performance critical place
 		//We will update property 'manually' by calling notifyPropertyChange
 	}),
@@ -112,6 +114,12 @@ App.ImageLightboxComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 			return Math.min(value, max);
 		}
 	},
+
+	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
+		this.notifyPropertyChange('viewportSize');
+		this.notifyPropertyChange('imageWidth');
+		this.notifyPropertyChange('imageHeight');
+	}),
 
 	didInsertElement: function (): void {
 		var currentMedia = this.get('controller.currentMedia'),
