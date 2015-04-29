@@ -1,6 +1,4 @@
 /// <reference path="./LightboxView.ts" />
-/// <reference path="../../../../typings/hammerjs/hammerjs" />
-/// <reference path="../../mercury/modules/VideoLoader.ts" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
 /// <reference path="../mixins/LightboxMixin.ts" />
 'use strict';
@@ -11,14 +9,9 @@ interface Window {
 
 App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.LightboxMixin, {
 	classNames: ['media-lightbox'],
-	maxZoom: 5,
-	lastX: 0,
-	lastY: 0,
-	lastScale: 1,
 	videoPlayer: null,
 
 	isGallery: Em.computed.alias('controller.isGallery'),
-	isZoomed: Em.computed.gt('scale', 1),
 
 	viewportSize: Em.computed(function () {
 		return {
@@ -33,17 +26,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		center: 1,
 		right: 2
 	},
-
-	/**
-	 * @desc calculates current scale for zooming
-	 */
-	scale: Em.computed(function (key: string, value?: number): any {
-		if (value >= 1) {
-			return Math.min(this.maxZoom, value);
-		}
-
-		return 1;
-	}),
 
 	/**
 	 * @desc Checks if a currently displayed media is of a given type
@@ -92,7 +74,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	},
 
 	nextMedia: function (): void {
-		//this.resetZoom();
 		this.get('controller').incrementProperty('currentGalleryRef');
 
 		M.track({
@@ -103,7 +84,6 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	},
 
 	prevMedia: function (): void {
-		//this.resetZoom();
 		this.get('controller').decrementProperty('currentGalleryRef');
 
 		M.track({
@@ -128,11 +108,12 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	},
 
 	click: function (event: MouseEvent): void {
+
+		console.log("click MediaLightboxView");
 		var isImage = this.isCurrentMediaType('image'),
 			isVideo = this.isCurrentMediaType('video'),
-			isZoomed = this.get('isZoomed'),
 			isGallery = this.get('isGallery');
-		if ((isImage || isVideo) && !isZoomed && isGallery) {
+		if ((isImage || isVideo) && isGallery) {
 			this.handleClick(event);
 		} else {
 			this._super(event);

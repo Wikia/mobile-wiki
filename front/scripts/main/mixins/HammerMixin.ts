@@ -24,6 +24,19 @@ App.HammerMixin = Em.Mixin.create({
 		});
 	},
 
+
+	click: function (event: MouseEvent): boolean {
+		console.log("click HammerMixin");
+
+		var isZoomed = this.get('isZoomed');
+		console.log("isZoomed: ", isZoomed)
+		if (!isZoomed) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+
 	style: Em.computed(function (): string {
 		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
 				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
