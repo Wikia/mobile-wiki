@@ -8,7 +8,7 @@
 </div>
 <div class="lightbox-content">
 {{#if currentMedia}}
-	{{component lightboxComponent currentMedia=currentMedia style=view.style}}
+	{{component lightboxComponent currentMedia=currentMedia isGallery=isGallery}}
 {{else}}
 	{{yield}}
 {{/if}}

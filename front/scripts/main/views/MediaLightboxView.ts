@@ -25,6 +25,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 	 * style string for an image, used for scaling and panning
 	 */
 	style: Em.computed(function (): string {
+		console.log("ustawiam nowy styl we view")
 		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
 				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
 			.fmt(
@@ -233,6 +234,8 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		}
 	},
 
+	/*
+
 	gestures: {
 		swipeLeft: function (): void {
 			if (this.get('isGallery') && !this.get('isZoomed')) {
@@ -295,7 +298,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		pinchEnd: function (event: HammerInput): void {
 			this.set('lastScale', this.get('lastScale') * event.scale);
 		}
-	},
+	}, */
 
 	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
 		this.notifyPropertyChange('viewportSize');
@@ -347,22 +350,22 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		//this.animateMedia(this.get('controller').get('element'));
 		this.resetZoom();
 
-		hammerInstance.get('pinch').set({
+		/*hammerInstance.get('pinch').set({
 			enable: true
 		});
 
 		hammerInstance.get('pan').set({
 			direction: Hammer.DIRECTION_ALL
 		});
-
+*/
 		this._super();
 	},
 
 	willDestroyElement: function (): void {
-		this.get('_hammerInstance').get('pinch').set({
+		/*this.get('_hammerInstance').get('pinch').set({
 			enable: false
 		});
-
+*/
 		this._super();
 	}
 });
