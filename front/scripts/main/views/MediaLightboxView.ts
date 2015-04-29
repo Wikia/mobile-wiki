@@ -107,12 +107,16 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		this._super(event);
 	},
 
+	/* @desc If this is the image, click event previously
+	 * checked if image isZoomed and prevented this event.
+	 * If this is the video, there is no need to check if
+	 * it is zoomed.
+	 */
 	click: function (event: MouseEvent): void {
-
-		console.log("click MediaLightboxView");
 		var isImage = this.isCurrentMediaType('image'),
 			isVideo = this.isCurrentMediaType('video'),
 			isGallery = this.get('isGallery');
+
 		if ((isImage || isVideo) && isGallery) {
 			this.handleClick(event);
 		} else {

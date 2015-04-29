@@ -24,17 +24,13 @@ App.HammerMixin = Em.Mixin.create({
 		});
 	},
 
-
+	/**
+	 * @desc Handle click and prevent bubbling
+	 * if the image is zoomed
+	 */
 	click: function (event: MouseEvent): boolean {
-		console.log("click HammerMixin");
-
 		var isZoomed = this.get('isZoomed');
-		console.log("isZoomed: ", isZoomed)
-		if (!isZoomed) {
-			return true;
-		} else {
-			return false;
-		}
+		return isZoomed ? false : true;
 	},
 
 	style: Em.computed(function (): string {

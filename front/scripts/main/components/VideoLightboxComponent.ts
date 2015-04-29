@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../mercury/modules/VideoLoader.ts" />
 'use strict';
 
 App.VideoLightboxComponent = Em.Component.extend({
