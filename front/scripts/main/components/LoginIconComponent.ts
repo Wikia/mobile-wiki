@@ -38,8 +38,8 @@ App.LoginIconComponent = Em.Component.extend({
 		var shouldRedirect = false,
 			dbName = Mercury.wiki.dbName;
 
-		this.newLoginWhitelist.forEach((whitelistedDBName: string) => {
-			shouldRedirect = whitelistedDBName === dbName;
+		shouldRedirect = this.newLoginWhitelist.some((whitelistedDBName: string): boolean => {
+			return whitelistedDBName === dbName;
 		});
 
 		if (this.isJapanese()) {
@@ -47,6 +47,5 @@ App.LoginIconComponent = Em.Component.extend({
 		}
 
 		return shouldRedirect;
-
 	}
 });
