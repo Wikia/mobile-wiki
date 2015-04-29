@@ -5,7 +5,49 @@ App.LoginIconComponent = Em.Component.extend({
 	tagName: 'a',
 	classNames: ['external', 'login'],
 
+	newLoginWhitelist: [
+		'clashofclans',
+		'creepypasta',
+		'castleclash',
+		'glee'
+	],
+
 	click: function (): void {
-		window.location.href = '/join?redirect=' + encodeURIComponent(window.location.href);
+		if (this.shouldRedirectToNewLogin()) {
+			window.location.href = '/join?redirect=' + encodeURIComponent(window.location.href);
+		} else {
+			window.location.href = '/Special:UserLogin';
+		}
+	},
+
+	isJapanese: function (): void {
+		var lang = navigator.language || navigator.browserLanguage;
+		if (lang) {
+			lang = lang.substr(0, 2);
+		} else {
+			lang = this.get('language.content');
+		}
+		return lang === 'ja';
+	},
+
+	/**
+	 * Redirects to new login flow if a wiki is japanese / whitelisted above
+	 * @returns {boolean}
+	 */
+	shouldRedirectToNewLogin: function (): boolean {
+		var hostname = window.location.hostname,
+			shouldRedirect = false,
+			dbName = Mercury.wiki.dbName;
+
+		this.newLoginWhitelist.forEach((whitelistedDBName) => {
+			shouldRedirect = whitelistedDBName === dbName;
+		});
+
+		if (this.isJapanese()) {
+			shouldRedirect = true;
+		}
+
+		return shouldRedirect;
+
 	}
 });
