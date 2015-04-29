@@ -1,0 +1,14 @@
+<div {{action "expand" section.title}}>
+	{{#if section.image_url}}
+		{{thumbnail section.image_url width=100 height=100 alt=section.title}}{{section.title}}
+	{{/if}}
+	<div class="section-items">
+		{{#each item in model.sectionItems}}
+			{{#if item.image_url}}
+				{{thumbnail item.image_url width=100 height=100 alt=item.title}}
+			{{/if}}
+			{{item.title}}
+			{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron-horizontal'}}
+		{{/each}}
+	</div>
+</div>

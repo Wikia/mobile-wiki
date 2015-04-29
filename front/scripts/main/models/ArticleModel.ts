@@ -28,7 +28,7 @@ interface Response {
 			users: any;
 			categories: any[];
 		};
-		curatedContent: any[];
+		mainPageData: any[];
 		relatedPages: any[];
 		topContributors: any[];
 		adsContext: any
@@ -41,13 +41,14 @@ App.ArticleModel = Em.Object.extend({
 	categories: [],
 	cleanTitle: null,
 	comments: 0,
+	mainPageData: null,
 	media: [],
 	mediaUsers: [],
 	sections: [],
 	title: null,
 	user: null,
 	users: [],
-	wiki: null
+	wiki: null,
 });
 
 App.ArticleModel.reopenClass({
@@ -193,9 +194,8 @@ App.ArticleModel.reopenClass({
 				data.topContributors = source.topContributors;
 			}
 
-			if (source.curatedContent) {
-				// Same issue: the response to the ajax should always be valid and not undefined
-				data.curatedContent = source.curatedContent;
+			if (source.mainPageData) {
+				data.mainPageData = source.mainPageData;
 			}
 		}
 
