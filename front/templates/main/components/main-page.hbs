@@ -1,11 +1,3 @@
 {{#if mainPageData}}
-	<div class="curated-content">
-		{{#if mainPageData.curatedContent}}
-			<nav>
-				{{#each section in mainPageData.curatedContent.sections}}
-					{{curated-content-section section=section}}
-				{{/each}}
-			</nav>
-		{{/if}}
-	</div>
+	{{curated-content curatedContent=mainPageData.curatedContent}}
 {{/if}}

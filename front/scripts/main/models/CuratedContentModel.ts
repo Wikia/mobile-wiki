@@ -2,16 +2,18 @@
 
 'use strict';
 
-App.CuratedContentSectionModel = Em.Object.extend({
-	sectionItems: [],
+App.CuratedContentModel = Em.Object.extend({
+	activeSectionItems: [],
+	cachedSectionItems: {},
 
 	fetchItemsForSection: function(sectionName: string) : any {
-		if (!this.sectionItems.length) {
+		if (!this.cachedSectionItems[sectionName]) {
 			return new Em.RSVP.Promise((resolve:Function, reject:Function) => {
 				Em.$.ajax({
 					url: App.get('apiBase') + '/curatedContent/' + sectionName,
 					success: (data) => {
-						this.set('sectionItems', data.items);
+						this.set('activeSectionItems', data.items);
+						this.cachedSectionItems[sectionName] = data.items;
 						resolve(this);
 					},
 					error: (data) => {
@@ -19,6 +21,8 @@ App.CuratedContentSectionModel = Em.Object.extend({
 					}
 				});
 			});
+		} else {
+			this.set('activeSectionItems', this.cachedSectionItems[sectionName])
 		}
 	}
 });
