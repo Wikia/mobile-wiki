@@ -26,6 +26,7 @@ var localSettings: LocalSettings = {
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
+	mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
 	// Special salt for accepting HTML from MediaWiki for /editor_preview/
 	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
