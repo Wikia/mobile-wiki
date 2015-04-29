@@ -247,6 +247,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		},
 
 		pan: function (event: HammerInput): void {
+			console.log("pan!!!!!!!!!!!!");
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -265,6 +266,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.ArticleContentMixin, App.Lig
 		},
 
 		doubleTap: function (event: HammerInput): void {
+			console.log("doubletap")
 			//allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
 			if (!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center) {
 				var scale = this.get('scale') > 1 ? 1 : 3;
