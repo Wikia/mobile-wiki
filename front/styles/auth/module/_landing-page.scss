@@ -45,16 +45,17 @@
 	background-color: transparent;
 	border-color: $color-white;
 
+	&:visited {
+		border-color: $color-white;
+		color: $color-white;
+	}
+
 	&:active, &:hover {
 		background-color: transparent;
 		border-color: $color-blue-light;
 		color: $color-blue-light;
 	}
 
-	&:visited {
-		border-color: $color-white;
-		color: $color-white;
-	}
 }
 
 .sign-in-message {

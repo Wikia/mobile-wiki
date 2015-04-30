@@ -100,7 +100,6 @@ export function get (request: Hapi.Request, reply: any): void {
 	context = {
 		exitTo: redirect,
 		headerText: 'auth:login.welcome-back',
-		footer: 'auth:login.footer',
 		title: 'auth:login.title',
 		footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
 		footerCalloutText: 'auth:login.register-callout-text',
@@ -119,8 +118,8 @@ export function post (request: Hapi.Request, reply: any): void {
 		redirect: string = request.query.redirect || '/',
 		rememberMeTTL = 1.57785e10, // 6 months,
 		context: any = {
-			header: 'auth:login.header',
-			footer: 'auth:login.footer',
+			title: 'auth:login.title',
+			headerText: 'auth:login.welcome-back',
 			footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
 			footerCalloutText: 'auth:login.register-callout-text',
 			footerCalloutLink: 'auth:login.register-callout-link'
