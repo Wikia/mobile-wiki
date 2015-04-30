@@ -122,7 +122,7 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	}),
 
 	didInsertElement: function (): void {
-		var currentMedia = this.get('controller.currentMedia'),
+		var currentMedia = this.get('currentMedia'),
 			hammerInstance = this.get('_hammerInstance');
 		if (currentMedia && currentMedia.url) {
 			this.showLoader();
@@ -209,16 +209,12 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	},
 
 	gestures: {
-		swipeLeft: function (): void {
-			if (this.get('isGallery') && !this.get('isZoomed')) {
-				this.nextMedia();
-			}
+		swipeLeft: function (): boolean {
+			return this.get('isZoomed') ? false : true;
 		},
 
-		swipeRight: function (): void {
-			if (this.get('isGallery') && !this.get('isZoomed')) {
-				this.prevMedia();
-			}
+		swipeRight: function (): boolean {
+			return this.get('isZoomed') ? false : true;
 		},
 
 		pan: function (event: HammerInput): void {

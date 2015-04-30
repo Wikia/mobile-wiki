@@ -1,5 +1,6 @@
 /// <reference path="./LightboxView.ts" />
 /// <reference path="../mixins/LightboxMixin.ts" />
+/// <reference path="../../../../typings/hammerjs/hammerjs" />
 'use strict';
 
 interface Window {
@@ -115,6 +116,20 @@ App.MediaLightboxView = App.LightboxView.extend(App.LightboxMixin, {
 			this.handleClick(event);
 		} else {
 			this._super(event);
+		}
+	},
+
+	gestures: {
+		swipeLeft: function (): void {
+			if (this.get('isGallery')) {
+				this.nextMedia();
+			}
+		},
+
+		swipeRight: function (): void {
+			if (this.get('isGallery')) {
+				this.prevMedia();
+			}
 		}
 	},
 
