@@ -1,3 +1,6 @@
+## release-58 (2015-04-30 15:42 PST)
+* [ADEN-1993](https://wikia-inc.atlassian.net/browse/ADEN-1993) ADEN-1993 Fixed ads lightbox styling in Mercury
+
 ## release-57 (2015-04-30 16:00)
 * [HG-613](https://wikia-inc.atlassian.net/browse/HG-613) HG-613 removing redundant button mixins
 * [CONCF-480](https://wikia-inc.atlassian.net/browse/CONCF-480) Set hammerOptions.cssProps.touchCallout to 'default'
