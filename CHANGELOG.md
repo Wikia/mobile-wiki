@@ -10,7 +10,7 @@
 * [HG-625](https://wikia-inc.atlassian.net/browse/HG-625) HG-625 setting helios config vars
 * [HG-604](https://wikia-inc.atlassian.net/browse/HG-604) HG 604 Set custom var 8 at track page view time and also check if it is a main page or not
 * [SOC-694](https://wikia-inc.atlassian.net/browse/SOC-694) SOC-694 UI Fixes After Design Review
-* aden-1993-quick-fix-for-ads-lightbox: ADEN-1993 Fixed ads lightbox styling in Mercury
+* [ADEN-1993](https://wikia-inc.atlassian.net/browse/ADEN-1993) ADEN-1993 Fixed ads lightbox styling in Mercury
 
 ## release-57 (2015-04-30 16:00)
 * [HG-613](https://wikia-inc.atlassian.net/browse/HG-613) HG-613 removing redundant button mixins
