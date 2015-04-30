@@ -1,10 +1,11 @@
 @import '../../vendor/wikia-style-guide/src/scss/lib/settings';
 
 $auth-content-background-color: $color-white;
-$body-background-color: $color-blue-dark;
-$body-text-color: $color-gray-dark;
+$body-background: $color-blue-dark;
 $footer-text-color: $color-white;
-$forgotten-password-link-color: $color-blue-light;
 $header-text-color: $color-white;
+$input-border-error-color: $alert-color;
+$label-color-active: $color-blue-gray-dark;
 $label-color-inactive: $color-blue-gray;
 $label-color-valid: #5BA200;
+$link-color: $color-blue-light;

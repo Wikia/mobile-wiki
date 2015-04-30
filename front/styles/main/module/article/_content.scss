@@ -9,10 +9,13 @@
 		color: $primary-color;
 	}
 
-	// TODO: Are there h1's in articles?
 	h1, h2 {
-		padding-top: rem-calc(40);
 		margin-top: 0;
+		padding-top: rem-calc(40);
+	}
+
+	h3 {
+		padding-top: 1rem;
 	}
 
 	.article-media {

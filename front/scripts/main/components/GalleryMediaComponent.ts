@@ -37,7 +37,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		});
 	},
 
-	limitedMedia: function (): ArticleMedia[] {
+	limitedMedia: Em.computed('media', 'limit', function (): ArticleMedia[] {
 		var limit = this.get('limit');
 
 		if (limit > 0) {
@@ -45,7 +45,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		}
 
 		return this.get('media');
-	}.property('media', 'limit'),
+	}),
 
 	loadImages: function (
 		imageOrGalleryRef: any,

@@ -49,7 +49,10 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return url;
 	},
 
-	caption: function (key: string, value?: string): string {
+	/**
+	 * @desc caption for current media
+	 */
+	caption: Em.computed('media', function (key: string, value?: string): string {
 		if (value) {
 			return value;
 		} else {
@@ -59,7 +62,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 				return media.caption;
 			}
 		}
-	}.property('media'),
+	}),
 
 	actions: {
 		onVisible: function (): void {

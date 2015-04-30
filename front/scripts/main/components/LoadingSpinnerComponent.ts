@@ -2,8 +2,8 @@
 'use strict';
 
 App.LoadingSpinnerComponent = Em.Component.extend({
-	classNames: ['loading-overlay'],
-	classNameBindings: ['hidden'],
+	classNameBindings: ['overlay:loading-overlay', 'hidden'],
 	active: false,
+	overlay: true,
 	hidden: Em.computed.not('active')
 });

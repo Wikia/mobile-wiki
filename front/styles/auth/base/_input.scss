@@ -1,7 +1,11 @@
 input[type='text'],
 input[type='text']:focus,
 input[type='password'],
-input[type='password']:focus {
+input[type='password']:focus,
+input[type='email'],
+input[type='email']:focus,
+input[type='date'],
+input[type='date']:focus {
 	background-color: #fff;
 	border: none;
 	border-bottom: 1px solid $label-color-inactive;
@@ -10,4 +14,10 @@ input[type='password']:focus {
 	box-shadow: 0 0 0 1000px $auth-content-background-color inset;
 	height: auto;
 	margin-top: 0;
+	margin-bottom: 0;
+	padding: 1.25rem 0 0.5rem;
+}
+
+input[type='checkbox'] {
+	margin-bottom: 0;
 }

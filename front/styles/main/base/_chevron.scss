@@ -2,6 +2,9 @@
 	transition: .25s transform ease-in-out;
 }
 
-button:not(.collapsed) .chevron {
-	transform: scaleY(-1);
+.collapsible-menu .title,
+.show-comments-btn {
+	&:not(.collapsed) .chevron {
+		transform: scaleY(-1);
+	}
 }

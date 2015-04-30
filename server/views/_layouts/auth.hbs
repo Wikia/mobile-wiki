@@ -14,15 +14,18 @@
 		<a class="close" href="{{exitTo}}"></a>
 		{{/if}}
 
-		{{#unless hideHeader }}
+		{{#unless hideHeader}}
 		<header class="auth-header splash splash-top">{{i18n headerText}}</header>
 		{{/unless}}
 
 		{{{content}}}
 
-		{{#unless hideFooter }}
+		{{#unless hideFooter}}
 		<footer class="auth-footer splash splash-bottom">
-			{{i18n footerCallout}} <a href="#" class="footer-callout-link">{{i18n footerCalloutLink}}</a>
+			{{i18n footerCalloutText}}
+			<a href="{{footerLinkRoute}}" class="footer-callout-link">
+				{{i18n footerCalloutLink}}
+			</a>
 		</footer>
 		{{/unless}}
 

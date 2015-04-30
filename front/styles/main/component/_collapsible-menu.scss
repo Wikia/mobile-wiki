@@ -6,10 +6,10 @@ $border-color: #d0d0d0;
 	border-bottom: 1px solid $border-color;
 
 	.title {
-		@extend %button-plain;
 		@extend .touch-active;
 
 		background: none;
+		color: $body-font-color;
 		display: block;
 		font-weight: bold;
 		line-height: 2.4rem;

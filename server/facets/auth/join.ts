@@ -1,13 +1,14 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 interface JoinViewContext {
-	title        : string;
-	loginRoute   : string;
-	hideHeader?  : boolean;
-	hideFooter?  : boolean;
-	exitTo?      : string;
-	bodyClasses? : string;
-	noScripts?   : boolean;
+	title: string;
+	loginRoute: string;
+	signupRoute: string;
+	hideHeader?: boolean;
+	hideFooter?: boolean;
+	exitTo?: string;
+	bodyClasses?: string;
+	noScripts?: boolean;
 }
 
 function get (request: Hapi.Request, reply: any): void {
@@ -19,8 +20,9 @@ function get (request: Hapi.Request, reply: any): void {
 	}
 
 	context = {
-		title: 'Join Wikia',
+		title: 'auth:join.title',
 		loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
+		signupRoute: '/signup?redirect=' + encodeURIComponent(redirectUrl),
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,
@@ -32,7 +34,7 @@ function get (request: Hapi.Request, reply: any): void {
 		'auth-landing-page',
 		context,
 		{
-			layout: 'wikia-static'
+			layout: 'auth'
 		}
 	);
 }
