@@ -54,7 +54,6 @@ module Mercury.Modules.Trackers {
 				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 3],
 				// TODO: Currently the only login status is 'anon', in the future 'user' may be an option
 				[prefix + '_setCustomVar', 5, 'LoginStatus', 'anon', 3],
-				[prefix + '_setCustomVar', 8, 'PageType', 'article', 3],
 				[prefix + '_setCustomVar', 9, 'CityId', String(Mercury.wiki.id), 3],
 				[prefix + '_setCustomVar', 15, 'IsCorporatePage', 'No', 3],
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
@@ -88,6 +87,7 @@ module Mercury.Modules.Trackers {
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			var args = Array.prototype.slice.call(arguments);
+
 			this.queue.push(['_trackEvent'].concat(args));
 		}
 
@@ -105,6 +105,16 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
+			var mainPageTitle = Mercury.wiki.mainPageTitle,
+				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle),
+				pageType = ['_setCustomVar', 8, 'PageType', isMainPage ? 'home' : 'article', 3];
+
+			this.queue.push(pageType),
+
+			// Set custom var in ad account as well
+			pageType[0] = this.accounts[this.accountAds].prefix + '.' + pageType[0];
+			this.queue.push(pageType);
+
 			this.queue.push(['_trackPageview']);
 		}
 	}
