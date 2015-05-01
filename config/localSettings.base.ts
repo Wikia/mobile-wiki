@@ -19,9 +19,9 @@ var localSettings: LocalSettings = {
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
 		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
-		host: 'SENSITIVE, DO NOT ADD HERE',
-		secret: 'SENSITIVE, DO NOT ADD HERE',
-		id: 'SENSITIVE, DO NOT ADD HERE'
+		host: process.env.HELIOS_HOST,
+		secret: process.env.HELIOS_SECRET,
+		id: process.env.HELIOS_ID
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
