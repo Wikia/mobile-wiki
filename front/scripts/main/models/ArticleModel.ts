@@ -193,9 +193,8 @@ App.ArticleModel.reopenClass({
 				// Same issue: the response to the ajax should always be valid and not undefined
 				data.topContributors = source.topContributors;
 			}
-
-			if (source.curatedContent) {
-				data.mainPageData = source.curatedContent;
+			if (source.mainPageData) {
+				data.mainPageData = source.mainPageData;
 			}
 		}
 
