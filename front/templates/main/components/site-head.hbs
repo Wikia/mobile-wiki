@@ -1,7 +1,13 @@
 <div {{action 'expandSideNav'}} class='side-nav-toggle'>
     {{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
 </div>
-{{render 'login'}}
+{{#if currentUser.isAuthenticated}}
+	<figure class='avatar'>
+		<img src={{currentUser.model.avatarPath}} alt={{currentUser.model.name}}>
+	</figure>
+{{else}}
+	{{render 'login'}}
+{{/if}}
 <div class='site-logo' {{action 'trackClick' 'wordmark'}}>
     {{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 </div>

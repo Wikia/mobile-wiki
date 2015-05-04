@@ -151,6 +151,8 @@ export function post (request: Hapi.Request, reply: any): void {
 		// TODO: Helios service should control the length of auth session
 		request.auth.session.ttl(1.57785e10);
 
+		reply.state('uid', response.user_id);
+
 		if (isAJAX) {
 			return reply({redirect: redirect});
 		}

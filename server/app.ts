@@ -105,6 +105,9 @@ server.views({
 	}
 });
 
+// Cookies
+server.state('uid', {});
+
 // instantiate routes
 server.route(require('./routes'));
 
