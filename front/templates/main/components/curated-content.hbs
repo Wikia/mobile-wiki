@@ -2,9 +2,10 @@
 	<div class="curated-content">
 		<nav class="grid-sections">
 			{{#each section in curatedContent.sections}}
-				<div {{action "showItems" section.title}}>
+				<div class="curated-item" {{action "showItems" section.title}}>
 					{{#if section.image_url}}
-						{{thumbnail section.image_url width=100 height=100 alt=section.title}}{{section.title}}
+						{{thumbnail section.image_url width=150 height=150 alt=section.title}}
+						<p>{{section.title}}</p>
 					{{/if}}
 				</div>
 			{{/each}}

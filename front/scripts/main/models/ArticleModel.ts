@@ -194,8 +194,8 @@ App.ArticleModel.reopenClass({
 				data.topContributors = source.topContributors;
 			}
 
-			if (source.mainPageData) {
-				data.mainPageData = source.mainPageData;
+			if (source.curatedContent) {
+				data.mainPageData = source.curatedContent;
 			}
 		}
 
