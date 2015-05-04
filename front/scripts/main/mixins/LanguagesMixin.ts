@@ -3,7 +3,7 @@
 
 App.LanguagesMixin = Em.Mixin.create({
 
-	isJapanese: function (): boolean {
+	isJapanese: Ember.computed(function (): boolean {
 		var lang = navigator.language || navigator.browserLanguage;
 		if (lang) {
 			lang = lang.substr(0, 2);
@@ -11,5 +11,5 @@ App.LanguagesMixin = Em.Mixin.create({
 			lang = this.get('language.content');
 		}
 		return lang === 'ja';
-	}.property()
+	})
 });
