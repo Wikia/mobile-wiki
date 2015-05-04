@@ -21,15 +21,16 @@
 	.curated-item {
 		height: 150px;
 		float: left;
+		margin: 2px;
 		position: relative;
 		vertical-align: top;
 		width: 150px;
 	}
 
 	p {
-		color:black;
+		color: white;
 		bottom: 0;
-		margin: 0;
-		position:absolute;
+		margin: 0 0 0 5px;
+		position: absolute;
 	}
 }

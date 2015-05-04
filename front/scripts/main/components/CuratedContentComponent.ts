@@ -7,6 +7,7 @@ App.CuratedContentComponent = Em.Component.extend({
 	section: null,
 	showItems: false,
 	classNameBindings: ['showItems'],
+	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 
 	didInsertElement: function(): void {
 		this.set('model', App.CuratedContentModel.create());

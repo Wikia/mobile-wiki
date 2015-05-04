@@ -4,7 +4,7 @@
 			{{#each section in curatedContent.sections}}
 				<div class="curated-item" {{action "showItems" section.title}}>
 					{{#if section.image_url}}
-						{{thumbnail section.image_url width=150 height=150 alt=section.title}}
+						{{thumbnail section.image_url width=150 height=150 alt=section.title mode=cropMode}}
 						<p>{{section.title}}</p>
 					{{/if}}
 				</div>
