@@ -18,6 +18,11 @@ App.ArticleController = Em.Controller.extend({
 			article.set('sections', headers);
 		},
 
+		edit: function( title: string, sectionIndex: number): void {
+			App.VisibilityStateManager.reset();
+			this.transitionToRoute('edit', title, sectionIndex);
+		},
+
 		changePage: function (title: string): void {
 			App.VisibilityStateManager.reset();
 			this.set('commentsPage', null);

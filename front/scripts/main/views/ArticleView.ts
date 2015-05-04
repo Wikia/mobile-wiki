@@ -39,6 +39,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				article = model.get('article');
 
 			if (article && article.length > 0) {
+				this.setupEditButtons();
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
 				this.lazyLoadMedia(model.get('media'));
@@ -88,6 +89,21 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			document.title = title + ' - ' + Mercury.wiki.siteName;
 		}
 	}),
+
+	setupEditButtons: function() {
+		var _this = this;
+		var $sectionHeaders = this.$(':header[section]');
+		$sectionHeaders.each(function() {
+			var $sectionHeader = $(this);
+			$sectionHeader.on('click', function() {
+				_this.get('controller').send(
+					'edit',
+					_this.get('controller.model.title'),
+					$sectionHeader.attr('section')
+				);
+			});
+		});
+	},
 
 	/**
 	 * @desc Generates table of contents data based on h2 elements in the article

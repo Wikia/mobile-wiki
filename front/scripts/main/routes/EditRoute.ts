@@ -15,6 +15,7 @@ App.EditRoute = Em.Route.extend({
         },
         didTransition: function() {
             this.controllerFor('application').set('fullPage', true);
+            window.scrollTo(0, 0);
             return true;
         }
     }
