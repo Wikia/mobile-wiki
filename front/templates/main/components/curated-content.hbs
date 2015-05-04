@@ -3,9 +3,7 @@
 		<nav class="grid-sections">
 			{{#each section in curatedContent.sections}}
 				<div {{action "showItems" section.title}}>
-					{{#if section.image_url}}
-						{{thumbnail section.image_url width=100 height=100 alt=section.title}}{{section.title}}
-					{{/if}}
+					{{curated-content-item url=section.image_url title=section.title}}
 				</div>
 			{{/each}}
 		</nav>
@@ -13,10 +11,9 @@
 			<div {{action "showGrid"}}>BACK</div>
 			{{#each item in model.activeSectionItems}}
 				{{#if item.image_url}}
-					{{thumbnail item.image_url width=100 height=100 alt=item.title}}
+					{{curated-content-item url=item.image_url title=item.title}}
 				{{/if}}
-				{{item.label}}
-				{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron-horizontal'}}
+				<p>{{item.label}}</p>
 			{{/each}}
 		</nav>
 	</div>
