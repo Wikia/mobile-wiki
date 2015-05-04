@@ -4,10 +4,8 @@
 App.CuratedContentComponent = Em.Component.extend({
 	classNames: ['curated-content'],
 	model: null,
-	section: null,
 	showItems: false,
 	classNameBindings: ['showItems'],
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 
 	didInsertElement: function(): void {
 		this.set('model', App.CuratedContentModel.create());
@@ -15,12 +13,12 @@ App.CuratedContentComponent = Em.Component.extend({
 
 	actions: {
 		showItems: function (sectionName: string): void {
-			this.toggleProperty('showItems');
-			this.model.fetchItemsForSection(sectionName);
+			this.set('showItems', true);
+			this.get('model').fetchItemsForSection(sectionName);
 		},
 
 		showGrid: function(): void {
-			this.toggleProperty('showItems');
+			this.set('showItems', false);
 		}
 	}
 });
