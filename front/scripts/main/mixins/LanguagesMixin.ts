@@ -2,7 +2,6 @@
 'use strict';
 
 App.LanguagesMixin = Em.Mixin.create({
-
 	isJapanese: Ember.computed(function (): boolean {
 		var lang = navigator.language || navigator.browserLanguage;
 		if (lang) {
