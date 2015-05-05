@@ -116,7 +116,7 @@ export function post (request: Hapi.Request, reply: any): void {
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
-		rememberMeTTL = 1.57785e10, // 6 months,
+		ttl = 1.57785e10, // 6 months,
 		context: any = {
 			title: 'auth:login.title',
 			headerText: 'auth:login.welcome-back',
@@ -143,13 +143,17 @@ export function post (request: Hapi.Request, reply: any): void {
 			}).code(err.output.statusCode);
 		}
 
+		// set unencrypted cookie that can be read by all apps (i.e. MW and Mercury) HG-631
+		reply.state('access_token', response.access_token, {ttl: ttl});
+
+		// set session cookie via hapi-auth-cookie
 		request.auth.session.set({
-			'access_token'  : response.access_token
+			'sid'  : response.access_token
 		});
 
 		// Set cookie TTL for "remember me" period of 6 months
 		// TODO: Helios service should control the length of auth session
-		request.auth.session.ttl(1.57785e10);
+		request.auth.session.ttl(ttl);
 
 		if (isAJAX) {
 			return reply({redirect: redirect});
