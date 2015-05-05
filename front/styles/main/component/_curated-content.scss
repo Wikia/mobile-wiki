@@ -1,4 +1,5 @@
 .curated-content {
+	overflow: hidden;
 
 	&.show-items {
 		.grid-sections {
@@ -25,10 +26,15 @@
 		vertical-align: top;
 	}
 
-	p {
-		color: white;
-		bottom: 0;
-		margin: 0 0 0 5px;
-		position: absolute;
+	img {
+		width: 40vw;
+		height: 40vw;
+		background: {
+			color: rgb(223,223,223);
+			image: url('../../images/brackets.svg');
+			position: center;
+			repeat: no-repeat;
+			size: contain;
+		}
 	}
 }

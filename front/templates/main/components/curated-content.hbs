@@ -3,17 +3,14 @@
 		<nav class="grid-sections">
 			{{#each section in curatedContent.sections}}
 				<div {{action "showItems" section.title}}>
-					{{curated-content-item url=section.image_url title=section.title}}
+					{{curated-content-item label=section.title url=section.image_url}}
 				</div>
 			{{/each}}
 		</nav>
 		<nav class="list-items">
 			<div {{action "showGrid"}}>BACK</div>
 			{{#each item in model.activeSectionItems}}
-				{{#if item.image_url}}
-					{{curated-content-item url=item.image_url title=item.title}}
-				{{/if}}
-				<p>{{item.label}}</p>
+				{{curated-content-item label=item.label url=item.image_url}}
 			{{/each}}
 		</nav>
 	</div>
