@@ -76,6 +76,11 @@ unauthenticatedRoutes = [
 		path: localSettings.apiBase + '/search/{query}',
 		handler: require('./facets/api/search').get
 	},
+	{
+		method: 'GET',
+		path: localSettings.apiBase + '/userDetails',
+		handler: require('./facets/api/userDetails').get
+	},
 	/**
 	 * Authentication Routes
 	 * @description The following routes should be related to authentication

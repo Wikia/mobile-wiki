@@ -96,8 +96,8 @@ App.initializer({
 App.initializer({
 	name: 'currentUser',
 	after: 'performanceMonitoring',
-	initialize: (container: any, application: any) => {
-		application.register('currenUser:main', App.CurrentUser);
+	initialize: (container: any, application: any): void => {
+		application.register('currentUser:main', App.CurrentUser);
 		application.inject('controller', 'currentUser', 'currentUser:main');
 	}
 });

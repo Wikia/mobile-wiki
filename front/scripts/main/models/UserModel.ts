@@ -4,20 +4,19 @@
 App.UserModel = Em.Object.extend({
 	avatarPath: null,
 	name: null,
-	userId: null,
-
+	userId: null
 });
 
 App.UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
-	find: function (params: {userId: number; avatarSize?: number}) {
+	find: function (params: {userId: number; avatarSize?: number}): any {
 		var avatarSize: number = params.avatarSize || App.UserModel.defaultAvatarSize,
 			model = App.UserModel.create();
 
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
-				url: App.get('apiBase') + '/User/Details',
+				url: App.get('apiBase') + '/userDetails',
 				dataType: 'json',
 				data: {
 					ids: params.userId,

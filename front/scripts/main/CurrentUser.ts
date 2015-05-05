@@ -1,14 +1,15 @@
 /// <reference path="./app.ts" />
 /// <reference path="./models/UserModel.ts" />
+/// <reference path="../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 'use strict';
 
 App.CurrentUser = Em.Object.extend({
 	model: null,
 
-	init: function () {
+	init: function (): void {
 		var userId = this.get('userId');
 		if (userId !== null) {
-			App.UserModel.find({userId: userId}).then((result: any) => {
+			App.UserModel.find({userId: userId}).then((result: any): void => {
 				this.set('model', result);
 			}, function () {});
 		}
