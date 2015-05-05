@@ -76,7 +76,7 @@ server.register(plugins, (err: any) => {
 	server.auth.strategy('session', 'cookie', 'required', {
 		appendNext     : 'redirect',
 		clearInvalid   : true,
-		cookie         : 'access_token',
+		cookie         : 'sid',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
 		redirectTo     : '/login'
@@ -106,6 +106,10 @@ server.views({
 });
 
 // Cookies
+server.state('access_token', {
+	isHttpOnly: true,
+	clearInvalid: true
+});
 server.state('uid', {});
 
 // instantiate routes
