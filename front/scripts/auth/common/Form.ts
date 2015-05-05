@@ -53,9 +53,26 @@ class Form {
 	}
 
 	/**
+	 * Moves labels up if they were filled by the browser's autofill
+	 */
+	private activateLabels(): void {
+		Array.prototype.forEach.call(
+			this.form.querySelectorAll('input[type=text], input[type=password], input[type=email]'),
+			function (input: HTMLInputElement): void {
+				var label = <HTMLLabelElement> input.nextElementSibling,
+					wrapper = <HTMLElement> input.parentElement;
+				if (input.value && wrapper.className.indexOf('input-container') > -1) {
+					label.classList.add('active');
+				}
+			}
+		)
+	}
+
+	/**
 	 * Starts continuous checking for new input
 	 */
 	public watch (): void {
+		this.activateLabels();
 		this.form.addEventListener('focus', this.onFocus.bind(this), true);
 		this.form.addEventListener('blur', this.onBlur.bind(this), true);
 		this.form.addEventListener('click', this.onClick.bind(this));
