@@ -45,7 +45,7 @@ interface LoginViewContext {
 
 function getLoginContext (redirect: string): LoginViewContext {
 	return <LoginViewContext> {
-		title: 'auth:login.login-title',
+		title: 'auth:login.title',
 		headerText: 'auth:login.welcome-back',
 		footerCallout: 'auth:login.register-callout-text',
 		footerCalloutLink: 'auth:login.register-callout-link',
