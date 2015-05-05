@@ -78,7 +78,7 @@ var localSettings: LocalSettings = {
 		tv: '#00b7e0'
 	},
 	weppy: {
-		enabled: !!process.env.ENABLE_WEPPY,
+		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.01,
 		aggregationInterval: 1000
