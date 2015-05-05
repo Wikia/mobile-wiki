@@ -23,4 +23,3 @@ App.CurrentUser = Em.Object.extend({
 		return cookieUserId > 0 ? cookieUserId : null;
 	}.property()
 });
-
