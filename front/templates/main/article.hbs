@@ -1,67 +1,70 @@
 {{#if model.error}}
 	{{render 'not-found'}}
 {{else}}
-	<section class='article-body'>
-		<h1 class='article-title'>{{model.cleanTitle}}</h1>
-		{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
-		{{main-page mainPageData=model.mainPageData}}
-		{{#if model.sections.length}}
-			{{#collapsible-menu
+	{{#if model.mainPageData}}
+		{{main-page model=model.mainPageData}}
+	{{else}}
+		<section class='article-body'>
+			<h1 class='article-title'>{{model.cleanTitle}}</h1>
+			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
+			{{#if model.sections.length}}
+				{{#collapsible-menu
 				showMenuIcon=true
 				additionalClasses='table-of-contents'
 				tLabel='app.article-toc-label'
 				ordered=true
 				observe=model.cleanTitle
 				trackingEvent='toc'
+				}}
+					{{#each section in model.sections}}
+						<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
+							<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
+								{{unbound section.name}}
+								{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+							</a>
+						</li>
+					{{/each}}
+				{{/collapsible-menu}}
+			{{/if}}
+			{{#view 'article-content'}}
+				{{#if model.article}}
+					{{{model.article}}}
+				{{else}}
+					{{i18n 'app.article-empty-label'}}
+				{{/if}}
+			{{/view}}
+		</section>
+		<section class='article-footer'>
+		{{wikia-users
+			users=model.topContributors
+			classes='contributors'
+			label='app.article-top-contributors-label'
+			trackingEvent='contributors'
+		}}
+		{{article-comments
+			page=commentsPage
+			articleId=model.id
+			commentsCount=model.comments
+		}}
+		{{#if model.categories}}
+			{{#collapsible-menu
+				showMenuIcon=false
+				additionalClasses='article-categories-list'
+				tLabel='app.article-categories-list-label'
+				ordered=false
+				observe=model.cleanTitle
+				trackingEvent='category'
 			}}
-				{{#each section in model.sections}}
-				<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
-					<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
-						{{unbound section.name}}
-						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-					</a>
-				</li>
+				{{#each category in model.categories itemController='categoryListItem'}}
+				<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
+					{{category.cleanTitle}}
+					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+				</a></li>
 				{{/each}}
 			{{/collapsible-menu}}
 		{{/if}}
-		{{#view 'article-content'}}
-			{{#if model.article}}
-				{{{model.article}}}
-			{{else}}
-				{{i18n 'app.article-empty-label'}}
-			{{/if}}
-		{{/view}}
-	</section>
-	<section class='article-footer'>
-	{{wikia-users
-		users=model.topContributors
-		classes='contributors'
-		label='app.article-top-contributors-label'
-		trackingEvent='contributors'
-	}}
-	{{article-comments
-		page=commentsPage
-		articleId=model.id
-		commentsCount=model.comments
-	}}
-	{{#if model.categories}}
-		{{#collapsible-menu
-			showMenuIcon=false
-			additionalClasses='article-categories-list'
-			tLabel='app.article-categories-list-label'
-			ordered=false
-			observe=model.cleanTitle
-			trackingEvent='category'
-		}}
-			{{#each category in model.categories itemController='categoryListItem'}}
-			<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
-				{{category.cleanTitle}}
-				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-			</a></li>
-			{{/each}}
-		{{/collapsible-menu}}
+		</section>
+		{{content-recommendations pages=model.relatedPages}}
 	{{/if}}
-	</section>
-	{{content-recommendations pages=model.relatedPages}}
 {{/if}}
 {{wikia-footer trackClick='trackClick'}}
