@@ -190,7 +190,16 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	},
 
 	hammerOptions: {
-		touchAction: 'auto'
+		touchAction: 'auto',
+		cssProps: {
+			/**
+			 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
+			 * 'default' displays the callout
+			 * 'none' disables the callout
+			 * hammer.js sets it to 'none' by default so we have to override
+			 */
+			touchCallout: 'default'
+		}
 	},
 
 	gestures: {

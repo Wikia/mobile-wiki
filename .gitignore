@@ -30,6 +30,9 @@ test/coverage
 /* fixtures */
 test/fixtures
 
+/* Jenkins Cache */
+.*.md5
+
 .idea
 /docs
 *.sublime-*
