@@ -79,6 +79,7 @@ server.register(plugins, (err: any) => {
 		cookie         : 'sid',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
+		domain         : localSettings.cookieDomain || '.wikia.com',
 		redirectTo     : '/login'
 	});
 });
