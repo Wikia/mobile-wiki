@@ -26,18 +26,17 @@ App.LoginIconComponent = Em.Component.extend(App.LanguagesMixin, {
 	 * @returns {boolean}
 	 */
 	shouldRedirectToNewLogin: function (): boolean {
-		return true;
-		//var shouldRedirect = false,
-		//	dbName = Mercury.wiki.dbName;
-		//
-		//shouldRedirect = this.newLoginWhitelist.some((whitelistedDBName: string): boolean => {
-		//	return whitelistedDBName === dbName;
-		//});
-		//
-		//if (this.get('isJapanese')) {
-		//	shouldRedirect = true;
-		//}
-		//
-		//return shouldRedirect;
+		var shouldRedirect = false,
+			dbName = Mercury.wiki.dbName;
+
+		shouldRedirect = this.newLoginWhitelist.some((whitelistedDBName: string): boolean => {
+			return whitelistedDBName === dbName;
+		});
+
+		if (this.get('isJapanese')) {
+			shouldRedirect = true;
+		}
+
+		return shouldRedirect;
 	}
 });
