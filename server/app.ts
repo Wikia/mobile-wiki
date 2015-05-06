@@ -21,6 +21,7 @@ import fs            = require('fs');
 var counter = 1,
 	isDevbox: boolean = localSettings.environment === Utils.Environment.Dev,
 	plugins: any,
+	cookieDomain: string = localSettings.cookieDomain || '.wikia.com',
 	/* Creates new `hapi` server */
 	server = new Hapi.Server();
 
@@ -79,7 +80,7 @@ server.register(plugins, (err: any) => {
 		cookie         : 'sid',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
-		domain         : localSettings.cookieDomain || '.wikia.com',
+		domain         : cookieDomain,
 		redirectTo     : '/login'
 	});
 });
@@ -109,7 +110,8 @@ server.views({
 // Cookies
 server.state('access_token', {
 	isHttpOnly: true,
-	clearInvalid: true
+	clearInvalid: true,
+	domain: cookieDomain
 });
 
 // instantiate routes
