@@ -11,15 +11,12 @@ interface JoinViewContext {
 	bodyClasses?: string;
 	noScripts?: boolean;
 	signupHref: string;
+	isLoggedIn?: boolean;
 }
 
 function get (request: Hapi.Request, reply: any): void {
 	var context: JoinViewContext,
 		redirectUrl: string = request.query.redirect || '/';
-
-	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirectUrl);
-	}
 
 	context = {
 		title: 'auth:join.title',
@@ -32,6 +29,11 @@ function get (request: Hapi.Request, reply: any): void {
 		noScripts: true,
 		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
 	};
+
+	if (request.auth.isAuthenticated) {
+		context.isLoggedIn = true;
+		//return reply.redirect(redirect);
+	}
 
 	return reply.view(
 		'auth-landing-page',

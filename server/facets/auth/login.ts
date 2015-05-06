@@ -41,6 +41,7 @@ interface LoginViewContext {
 	exitTo?: string;
 	bodyClasses?: string;
 	formErrorKey?: string;
+	isLoggedIn?: boolean;
 }
 
 function getLoginContext (redirect: string): LoginViewContext {
@@ -102,7 +103,8 @@ export function get (request: Hapi.Request, reply: any): void {
 		context: LoginViewContext = getLoginContext(redirect);
 
 	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirect);
+		context.isLoggedIn = true;
+		//return reply.redirect(redirect);
 	}
 
 	return reply.view('login', context, {
