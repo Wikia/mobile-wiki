@@ -4,7 +4,7 @@
 App.CuratedContentComponent = Em.Component.extend({
 	classNames: ['curated-content'],
 	model: null,
-	showItems: Em.computed.oneWay('model.showItems'),
+	showItems: false,
 	classNameBindings: ['showItems'],
 
 	didInsertElement: function(): void {
@@ -13,11 +13,14 @@ App.CuratedContentComponent = Em.Component.extend({
 
 	actions: {
 		showItems: function (sectionName: string): void {
-			this.get('model').fetchItemsForSection(sectionName);
+			this.get('model').fetchItemsForSection(sectionName)
+				.then((): void => {
+					this.set('showItems', true)
+				});
 		},
 
 		showGrid: function(): void {
-			this.get('model').hideItems();
+			this.set('showItems', false);
 		}
 	}
 });

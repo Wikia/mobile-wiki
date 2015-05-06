@@ -15,7 +15,6 @@ App.CuratedContentModel = Em.Object.extend({
 					success: (data) => {
 						this.set('activeSectionItems', data.items);
 						this.cachedSectionItems[sectionName] = data.items;
-						this.set('showItems', true);
 						resolve(this);
 					},
 					error: (data) => {
@@ -24,12 +23,10 @@ App.CuratedContentModel = Em.Object.extend({
 				});
 			});
 		} else {
-			this.set('activeSectionItems', this.cachedSectionItems[sectionName])
-			this.set('showItems', true);
+			return new Em.RSVP.Promise((resolve:Function, reject:Function) => {
+				this.set('activeSectionItems', this.cachedSectionItems[sectionName]);
+				resolve(this);
+			});
 		}
 	},
-
-	hideItems: function(): void {
-		this.set('showItems', false);
-	}
 });
