@@ -7,7 +7,7 @@ import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
 import wrapResult = require('./presenters/wrapResult');
 
-interface SectionItemsMW {
+interface CuratedContentSectionMW {
 	items: {
 		title: string;
 		label: string;
@@ -30,7 +30,7 @@ var cachingTimes = {
  * @param itemsData
  * @returns itemsData with status code
  */
-function transformResponse (itemsData: SectionItemsMW): SectionItemsMW {
+function transformResponse (itemsData: CuratedContentSectionMW): CuratedContentSectionMW {
 	return itemsData;
 }
 
@@ -44,11 +44,11 @@ export function get (request: Hapi.Request, reply: any): void {
 		// TODO: ad hoc error handling, use Boom everywhere?
 		reply(Boom.badRequest('Section not provided'));
 	} else {
-		new MW.ArticleRequest(params.wikiDomain).curatedContentSectionItems(params.sectionName)
-		.then((response: any) => {
+		new MW.ArticleRequest(params.wikiDomain).curatedContentSection(params.sectionName)
+		.then((response: any): void => {
 			reply(transformResponse(response));
 			Caching.setResponseCaching(response, cachingTimes);
-		}, (error: any) => {
+		}, (error: any): void => {
 			var preparedResult: any = wrapResult(error, {});
 			reply(preparedResult).code(preparedResult.status);
 		});

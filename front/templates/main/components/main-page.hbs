@@ -1,3 +1,6 @@
-{{#if mainPageData}}
-	{{curated-content curatedContent=mainPageData.curatedContent}}
+{{#if model.featuredContent}}
+	{{featured-content model=model.featuredContent}}
+{{/if}}
+{{#if model.curatedContent}}
+	{{curated-content model=model.curatedContent}}
 {{/if}}
