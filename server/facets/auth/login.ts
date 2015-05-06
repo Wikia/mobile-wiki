@@ -103,8 +103,11 @@ export function get (request: Hapi.Request, reply: any): void {
 		context: LoginViewContext = getLoginContext(redirect);
 
 	if (request.auth.isAuthenticated) {
+		console.log('login is authenticated');
 		context.isLoggedIn = true;
 		//return reply.redirect(redirect);
+	} else {
+		console.log('login is not authenticated');
 	}
 
 	return reply.view('login', context, {

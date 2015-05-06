@@ -31,8 +31,11 @@ function get (request: Hapi.Request, reply: any): void {
 	};
 
 	if (request.auth.isAuthenticated) {
+		console.log('join is authenticated');
 		context.isLoggedIn = true;
 		//return reply.redirect(redirect);
+	} else {
+		console.log('join is not authenticated');
 	}
 
 	return reply.view(

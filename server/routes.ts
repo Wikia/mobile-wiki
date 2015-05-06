@@ -28,6 +28,17 @@ var routes: RouteDefinition[],
 				}
 			}
 		}
+	},
+	authPageConfig = {
+		auth: {
+			mode: 'try',
+			strategy: 'session'
+		},
+		plugins: {
+			'hapi-auth-cookie': {
+				redirectTo: false
+			}
+		}
 	};
 
 unauthenticatedRoutes = [
@@ -88,17 +99,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/login',
-		config: {
-			auth: {
-				mode: 'try',
-				strategy: 'session'
-				},
-				plugins: {
-					'hapi-auth-cookie': {
-						redirectTo: false
-				}
-			}
-		},
+		config: authPageConfig,
 		handler: require('./facets/auth/login').get
 	},
 	{
@@ -119,6 +120,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/join',
+		config: authPageConfig,
 		handler: require('./facets/auth/join')
 	},
 	{
