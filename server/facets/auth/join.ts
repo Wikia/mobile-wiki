@@ -17,6 +17,10 @@ function get (request: Hapi.Request, reply: any): void {
 	var context: JoinViewContext,
 		redirectUrl: string = request.query.redirect || '/';
 
+	if (request.auth.isAuthenticated) {
+		return reply.redirect(redirect);
+	}
+
 	context = {
 		title: 'auth:join.title',
 		facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
@@ -28,10 +32,6 @@ function get (request: Hapi.Request, reply: any): void {
 		noScripts: true,
 		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
 	};
-
-	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirect);
-	}
 
 	return reply.view(
 		'auth-landing-page',
