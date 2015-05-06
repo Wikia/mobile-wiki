@@ -18,7 +18,7 @@ function get (request: Hapi.Request, reply: any): void {
 		redirectUrl: string = request.query.redirect || '/';
 
 	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirect);
+		return reply.redirect(redirectUrl);
 	}
 
 	context = {
