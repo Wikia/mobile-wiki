@@ -11,7 +11,6 @@ interface JoinViewContext {
 	bodyClasses?: string;
 	noScripts?: boolean;
 	signupHref: string;
-	isLoggedIn?: boolean;
 }
 
 function get (request: Hapi.Request, reply: any): void {
@@ -31,11 +30,7 @@ function get (request: Hapi.Request, reply: any): void {
 	};
 
 	if (request.auth.isAuthenticated) {
-		console.log('join is authenticated');
-		context.isLoggedIn = true;
-		//return reply.redirect(redirect);
-	} else {
-		console.log('join is not authenticated');
+		return reply.redirect(redirect);
 	}
 
 	return reply.view(

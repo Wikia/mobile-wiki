@@ -110,6 +110,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/signup',
+		config: authPageConfig,
 		handler: require('./facets/auth/signup').get
 	},
 	{
