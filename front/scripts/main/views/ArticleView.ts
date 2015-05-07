@@ -23,18 +23,24 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 * events for DOM manipulation
 	 */
 	willInsertElement: function (): void {
-		Em.addObserver(this.get('controller'), 'model.article', this, this.onArticleChange);
+		debugger;
+		Ember.run.scheduleOnce('afterRender', this, this.onArticleChange);
 		// Trigger an article change once on insertion because the first insertion happens after article
 		// state has changed
-		this.get('controller').notifyPropertyChange('model.article');
+		// this.get('controller').notifyPropertyChange('model.article');
 	},
+
+	onModelChange: Em.observer('controller.model.article', function () {
+		if (this.$()) {
+			Ember.run.scheduleOnce('afterRender', this, this.onArticleChange);
+		}
+	}),
 
 	didInsertElement: function () {
 		this.get('controller').send('articleRendered');
 	},
 
 	onArticleChange: function (): void {
-		Em.run.scheduleOnce('afterRender', this, () => {
 			var model = this.get('controller.model'),
 				article = model.get('article');
 
@@ -54,7 +60,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 				M.trackPageView(model.get('adsContext.targeting'));
 			}
-		});
 	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {

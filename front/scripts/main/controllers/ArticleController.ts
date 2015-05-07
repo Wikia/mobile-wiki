@@ -19,10 +19,7 @@ App.ArticleController = Em.Controller.extend({
 		},
 
 		changePage: function (title: string): void {
-			App.VisibilityStateManager.reset();
-			this.set('commentsPage', null);
-			this.set('file', null);
-			this.transitionToRoute('article', title);
+			alert('foo');
 		},
 
 		articleRendered: function () {

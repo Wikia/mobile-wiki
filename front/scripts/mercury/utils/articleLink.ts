@@ -10,6 +10,7 @@ interface LinkInfo {
 	article: string;
 	url: string;
 	hash?: string;
+	route?: string;
 }
 
 module Mercury.Utils {
@@ -41,6 +42,17 @@ module Mercury.Utils {
 				};
 			}
 
+			if (local.charAt(0) === '/' &&
+				local.length > 1 &&
+				!local.match('wiki')) {
+
+				return {
+					article: null,
+					url: null,
+					route: local.slice(1)
+				};
+			}
+
 			for (var ns in namespaces) {
 				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 					continue;
@@ -65,7 +77,7 @@ module Mercury.Utils {
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
 			 */
-			var article = local.match(/^(\/(wiki))?\/([^#]+)(#.*)?$/);
+			var article = local.match(/^(\/(wiki))\/([^#]+)(#.*)?$/);
 			if (article) {
 				if (article[3] === title && hash) {
 					return {
