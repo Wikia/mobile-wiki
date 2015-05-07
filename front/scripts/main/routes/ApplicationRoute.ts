@@ -49,7 +49,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				currentRoute = handlerInfos[handlerInfos.length - 1],
 				title: string,
 				trackingCategory: string,
-				info: string,
+				info: LinkInfo,
 				// exec() returns an array of matches or null if no match is found.
 				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
 				cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
