@@ -27,7 +27,7 @@ interface NavItem extends RootNavItem {
 
 App.LocalNavMenuComponent = Em.Component.extend({
 	tagName: 'ul',
-	classNames: ['local-nav-menu'],
+	classNames: ['local-nav-menu', 'mw-content'],
 
 	/**
 	 * Note: this means that the model is stored directly
