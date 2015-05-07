@@ -6,7 +6,6 @@ App.CuratedContentModel = Em.Object.extend({
 	activeSectionItems: [],
 	cachedSectionItems: {},
 	activeSection: false,
-	showItems: false,
 
 	fetchItemsForSection: function(sectionName: string) : any {
 		this.set('activeSection', sectionName);
@@ -30,5 +29,5 @@ App.CuratedContentModel = Em.Object.extend({
 				resolve(this);
 			});
 		}
-	},
+	}
 });
