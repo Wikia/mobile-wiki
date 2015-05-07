@@ -9,6 +9,8 @@ App.CuratedContentItemComponent = Em.Component.extend({
 	imageUrl: Em.computed.oneWay(
 		'emptyGif'
 	),
+	//@TODO for the purpose of MVP let's make it fixed value, we can adjust later
+	imageSize: 200,
 
 	didInsertElement: function (): void {
 		if (this.get('url')) {
@@ -18,15 +20,12 @@ App.CuratedContentItemComponent = Em.Component.extend({
 
 	lazyLoadImage: function (): void {
 		var options: any = {},
-			viewport: number = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-			imageSize: number = Math.floor(viewport / 100 * 35),
 			imageUrl: string;
 
-		options.width = imageSize;
-		options.height = imageSize;
+		options.width = this.get('imageSize');
+		options.height = this.get('imageSize');
 		options.mode = this.get('cropMode');
 		imageUrl = this.thumbnailer.getThumbURL(this.get('url'), options);
 		this.set('imageUrl', imageUrl);
-		this.set('imageSize', imageSize);
 	},
 });
