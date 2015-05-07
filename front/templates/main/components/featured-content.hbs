@@ -1,0 +1,8 @@
+<nav>
+	{{#each item in model}}
+		{{#if item.image_url}}
+			<img src="{{item.image_url}}">
+		{{/if}}
+		<p>{{item.label}}</p>
+	{{/each}}
+</nav>
