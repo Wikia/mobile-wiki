@@ -35,10 +35,6 @@ App.LoginIconComponent = Em.Component.extend(App.LanguagesMixin, {
 			return whitelistedDBName === dbName;
 		});
 
-		if (this.get('isJapanese')) {
-			shouldRedirect = true;
-		}
-
 		return shouldRedirect;
 	}
 });
