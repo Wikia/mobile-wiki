@@ -18,10 +18,6 @@ App.ArticleController = Em.Controller.extend({
 			article.set('sections', headers);
 		},
 
-		changePage: function (title: string): void {
-			alert('foo');
-		},
-
 		articleRendered: function () {
 			if (this.get('file')) {
 				this.send('openLightbox', 'media-lightbox');

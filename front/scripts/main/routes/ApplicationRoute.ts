@@ -116,7 +116,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			App.ArticleModel
 				.getArticleRandomTitle()
 				.then((articleTitle: string): void => {
-					this.controllerFor('article').send('changePage', articleTitle);
+					this.transitionTo('article', articleTitle);
 				})
 				.catch((err: any): void => {
 					this.send('error', err);

@@ -42,17 +42,6 @@ module Mercury.Utils {
 				};
 			}
 
-			if (local.charAt(0) === '/' &&
-				local.length > 1 &&
-				!local.match('wiki')) {
-
-				return {
-					article: null,
-					url: null,
-					route: local.slice(1)
-				};
-			}
-
 			for (var ns in namespaces) {
 				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 					continue;

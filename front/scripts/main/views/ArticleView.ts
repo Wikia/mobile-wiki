@@ -23,7 +23,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 * events for DOM manipulation
 	 */
 	willInsertElement: function (): void {
-		debugger;
 		Ember.run.scheduleOnce('afterRender', this, this.onArticleChange);
 		// Trigger an article change once on insertion because the first insertion happens after article
 		// state has changed
