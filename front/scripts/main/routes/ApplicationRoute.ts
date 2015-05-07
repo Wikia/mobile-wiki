@@ -47,7 +47,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			// this.router.get('currentState.routerJsState')
 			var handlerInfos = this.router.get('currentState.routerJsState.handlerInfos'),
 				currentRoute = handlerInfos[handlerInfos.length - 1],
-				title, trackingCategory, info,
+				title: string,
+				trackingCategory: string,
+				info: string,
 				// exec() returns an array of matches or null if no match is found.
 				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
 				cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
