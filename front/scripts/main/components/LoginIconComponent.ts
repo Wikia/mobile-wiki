@@ -10,7 +10,8 @@ App.LoginIconComponent = Em.Component.extend(App.LanguagesMixin, {
 		'clashofclans',
 		'creepypasta',
 		'castleclash',
-		'glee'
+		'glee',
+		'mobileregressiontesting'
 	],
 
 	click: function (): void {
