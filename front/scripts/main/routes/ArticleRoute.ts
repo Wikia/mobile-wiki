@@ -21,10 +21,6 @@ App.ArticleRoute = Em.Route.extend({
 		if (Mercury.error) {
 			transition.abort();
 		}
-
-		// If you try to access article with not-yet-sanitized title you can see in logs:
-		// `Transition #1: detected abort.`
-		// This is caused by the transition below but doesn't mean any additional requests.
 	},
 
 	model: function (params: any) {
