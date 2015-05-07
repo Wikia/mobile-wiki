@@ -1,7 +1,7 @@
 {{#if curatedContent}}
 	<div class='curated-content'>
 		<nav class='grid root-sections'>
-			{{#each section in curatedContent.sections}}
+			{{#each section in curatedContent}}
 				<div {{action 'showItems' section}}>
 					{{curated-content-item label=section.title imageUrl=section.image_url}}
 				</div>

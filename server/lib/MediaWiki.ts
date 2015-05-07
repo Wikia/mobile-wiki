@@ -124,8 +124,8 @@ export class ArticleRequest {
 	curatedContentSection (sectionName: string): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
-			method: 'getItemsForCuratedContentSection',
-			sectionName: sectionName
+			method: 'getCuratedContentSection',
+			section: sectionName
 		});
 
 		return fetch(url, this.wikiDomain);
