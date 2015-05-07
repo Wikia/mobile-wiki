@@ -10,7 +10,6 @@ interface LinkInfo {
 	article: string;
 	url: string;
 	hash?: string;
-	route?: string;
 }
 
 module Mercury.Utils {
