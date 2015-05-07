@@ -41,6 +41,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			if (article && article.length > 0) {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
+				this.handlePortableinfoboxes();
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
 				this.replaceMapsWithMapComponents();
@@ -156,6 +157,39 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 						scrollTo.apply($this.find('.infobox-expand')[0]);
 					}
 				});
+		}
+	},
+
+	/**
+	 * @desc handles expanding portable infoboxes
+	 * @todo we should figure out if we can somehow merge this method and handleInfoboxes method
+	 */
+	handlePortableinfoboxes: function () {
+		var collapsedClass = 'collapsed',
+			expandButtonClass = 'portable-infobox-expand-button',
+			minimumHeight = 450,
+			$infoboxes = $('.portable-infobox'),
+			body = window.document.body,
+			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
+			expandButton = '<div class=' + expandButtonClass + '><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>'
+
+		if ($infoboxes.length) {
+			$infoboxes
+				.filter(function (index, element) {
+					console.log(element);
+					return $(element).outerHeight() > minimumHeight;
+				})
+				.addClass(collapsedClass)
+				.append(expandButton)
+				.on('click', function (event) {
+					var $target = $(event.target),
+						$this = $(this);
+
+					if (!$target.is('a') && $this.toggleClass(collapsedClass).hasClass(collapsedClass)) {
+						scrollTo.apply($this.find('.' + expandButtonClass)[0]);
+					}
+				});
+
 		}
 	},
 
