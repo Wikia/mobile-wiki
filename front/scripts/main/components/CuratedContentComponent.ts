@@ -1,25 +1,30 @@
 /// <reference path="../app.ts" />
+///<reference path="../mixins/LoadingSpinnerMixin.ts"/>
+///<reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
-App.CuratedContentComponent = Em.Component.extend({
+App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.TrackClickMixin, {
 	classNames: ['curated-content'],
 	model: null,
 	showItems: false,
-	previousScrollPosition: 0,
 	classNameBindings: ['showItems'],
+	globalNavHeight: 57,
 
 	didInsertElement: function(): void {
 		this.set('model', App.CuratedContentModel.create());
+		this.set('spinnerDelay', 0);
 	},
 
 	actions: {
-		showItems: function (sectionName: string): void {
-			this.get('model').fetchItemsForSection(sectionName)
+		showItems: function (item: any): void {
+			this.showLoader();
+			this.trackClick('curated-content', 'item-click');
+			this.get('model').fetchItemsForSection(item.title)
 				.then((): void => {
+					this.hideLoader();
 					this.set('showItems', true);
-					this.set('previousScrollPosition', window.scrollY);
 					$('html, body').animate({
-						scrollTop: $('.curated-content').offset().top - 57
+						scrollTop: $('.curated-content').offset().top - this.get('globalNavHeight')
 					}, 250);
 				});
 		},
@@ -27,9 +32,6 @@ App.CuratedContentComponent = Em.Component.extend({
 		showGrid: function(): void {
 			this.set('showItems', false);
 			this.get('model').set('activeSection', false);
-			$('html, body').animate({
-				scrollTop: this.get('previousScrollPosition')
-			}, 250);
 		}
 	}
 });
