@@ -5,6 +5,8 @@
 App.LoginIconComponent = Em.Component.extend(App.LanguagesMixin, {
 	tagName: 'a',
 	classNames: ['external', 'login'],
+	//Let's remove this flag once we're good to go with the new login flow
+	newLoginEnabled: false,
 
 	newLoginWhitelist: [
 		'clashofclans',
@@ -14,7 +16,7 @@ App.LoginIconComponent = Em.Component.extend(App.LanguagesMixin, {
 	],
 
 	click: function (): void {
-		if (this.shouldRedirectToNewLogin()) {
+		if (this.newLoginEnabled && this.shouldRedirectToNewLogin()) {
 			window.location.href = '/join?redirect=' + encodeURIComponent(window.location.href);
 		} else {
 			window.location.href = '/Special:UserLogin';
