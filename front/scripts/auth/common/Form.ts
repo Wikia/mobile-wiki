@@ -31,10 +31,10 @@ class Form {
 	private togglePasswordInput (input: HTMLInputElement, toggler: HTMLElement): void {
 		if (input.type === 'password') {
 			input.type = 'text';
-			toggler.classList.remove('on');
+			toggler.classList.add('on');
 		} else {
 			input.type = 'password';
-			toggler.classList.add('on');
+			toggler.classList.remove('on');
 		}
 		input.focus();
 	}
