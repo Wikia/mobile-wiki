@@ -1,40 +1,124 @@
+$image-size: 40vw;
+$image-margin: 5px;
+//times four because image has margin on both sides (left and right)
+$image-horizontal-spacing: $image-margin * 4;
+//TODO This shouldn't have fixed with, enough for MVP
+//needs to revisit the "top bar" with designers
+$back-button-width: 70px;
+
 .curated-content {
 	overflow: hidden;
+	text-align: center;
+
+	.grid {
+		display: inline-block;
+		margin: 0 auto;
+		overflow: hidden;
+		width: calc(80vw + #{$image-horizontal-spacing});
+	}
+
+	.child-sections {
+		display: none;
+	}
 
 	&.show-items {
-		.grid-sections {
+		.root-sections {
 			display: none;
 		}
-		.list-items {
+		.child-sections {
 			display: block;
 		}
 	}
 
-	.list-items {
-		display: none;
-	}
-
-	.chevron-horizontal {
-		height: 20px;
-		width: 20px;
-	}
-
 	.curated-content-item {
 		float: left;
-		margin: 2px;
-		position: relative;
+		margin: $image-margin;
 		vertical-align: top;
 	}
 
-	img {
-		width: 40vw;
-		height: 40vw;
+	.item-figure {
+		cursor: pointer;
+		position: relative;
+	}
+
+	.item-image {
+		width: $image-size;
+		height: $image-size;
 		background: {
 			color: rgb(223,223,223);
 			image: url('../../images/brackets.svg');
 			position: center;
 			repeat: no-repeat;
 			size: contain;
+		}
+	}
+
+	//Reset of default figcaption styles which add 5px bottom padding
+	.item-figcaption {
+		padding: 0;
+	}
+
+	.item-caption {
+		bottom: 0;
+		display: inline-block;
+		position: absolute;
+
+		&.label {
+			left: 0;
+			color: #FFF;
+			padding: 0 10px;
+			width: 70%;
+			text-shadow: 0 0 4px rgba(0,0,0, 0.7);
+		}
+
+		&.grid-icon {
+			width: 30%;
+			height: 30%;
+			background: #006699;
+			border-radius: 100px 0 0;
+			-moz-border-radius: 100px 0 0;
+			-webkit-border-radius: 100px 0 0;
+			right: 0;
+		}
+	}
+
+	.section-top {
+		margin-bottom: 10px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.section-title {
+		font-size: 18px;
+		font-weight: bold;
+		line-height: 26px;
+		overflow: hidden;
+		padding: 0 $back-button-width;
+		position: absolute;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
+		z-index: -100;
+	}
+
+	.section-navigation {
+		cursor: pointer;
+		width: $back-button-width;
+		white-space: nowrap;
+		z-index: 100;
+
+		.back-label {
+			color: #1A5EB8;
+			display: inline-block;
+			float: left;
+			padding-left: 10px;
+		}
+
+		.back-chevron {
+			float: left;
+			height: 20px;
+			transform: rotate(90deg);
+			width: 20px;
 		}
 	}
 }

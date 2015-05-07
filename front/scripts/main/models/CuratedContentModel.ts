@@ -5,9 +5,11 @@
 App.CuratedContentModel = Em.Object.extend({
 	activeSectionItems: [],
 	cachedSectionItems: {},
+	activeSection: false,
 	showItems: false,
 
 	fetchItemsForSection: function(sectionName: string) : any {
+		this.set('activeSection', sectionName);
 		if (!this.cachedSectionItems[sectionName]) {
 			return new Em.RSVP.Promise((resolve:Function, reject:Function) => {
 				Em.$.ajax({

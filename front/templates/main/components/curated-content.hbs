@@ -1,14 +1,20 @@
 {{#if curatedContent}}
 	<div class="curated-content">
-		<nav class="grid-sections">
+		<nav class="grid root-sections">
 			{{#each section in curatedContent.sections}}
 				<div {{action "showItems" section.title}}>
 					{{curated-content-item label=section.title url=section.image_url}}
 				</div>
 			{{/each}}
 		</nav>
-		<nav class="list-items">
-			<div {{action "showGrid"}}>BACK</div>
+		<nav class="grid child-sections">
+			<div class="section-top">
+				<div class="section-navigation" {{action "showGrid"}}>
+					{{svg 'chevron' viewBox='0 0 12 7' class='nav-item back-chevron chevron'}}
+					<div class="back-label">{{i18n 'app.navigation-back-label'}}</div>
+				</div>
+				<div class="section-title">{{model.activeSection}}</div>
+			</div>
 			{{#each item in model.activeSectionItems}}
 				{{curated-content-item label=item.label url=item.image_url}}
 			{{/each}}
