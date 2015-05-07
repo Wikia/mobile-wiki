@@ -61,6 +61,7 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 		reply.redirect(localSettings.redirectUrlOnNoData);
 	} else {
 		Tracking.handleResponse(result, request);
+		result.newLoginEnabled = localSettings.newLoginEnabled;
 
 		if (error) {
 			code = error.code || error.statusCode || 500;
@@ -74,7 +75,6 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 			(localSettings.environment === Utils.Environment.Prod ?
 				localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
 		}
-
 		response = reply.view('application', result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');

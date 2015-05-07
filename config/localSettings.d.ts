@@ -38,6 +38,7 @@ interface LocalSettings {
 	mwPreviewSalt: string;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;
+	newLoginEnabled: boolean;
 	optimizely?: {
 		enabled: boolean;
 		scriptPath: string;
