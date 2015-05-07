@@ -23,42 +23,43 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 * events for DOM manipulation
 	 */
 	willInsertElement: function (): void {
-		Ember.run.scheduleOnce('afterRender', this, this.onArticleChange);
-		// Trigger an article change once on insertion because the first insertion happens after article
-		// state has changed
-		// this.get('controller').notifyPropertyChange('model.article');
+		this.scheduleArticleTransforms();
 	},
 
-	onModelChange: Em.observer('controller.model.article', function () {
+	onModelChange: Em.observer('controller.model.article', function (): void {
 		if (this.$()) {
-			Ember.run.scheduleOnce('afterRender', this, this.onArticleChange);
+			this.scheduleArticleTransforms();
 		}
 	}),
+
+	scheduleArticleTransforms: function (): void {
+		Ember.run.scheduleOnce('afterRender', this, this.onArticleChange);
+	},
 
 	didInsertElement: function () {
 		this.get('controller').send('articleRendered');
 	},
 
 	onArticleChange: function (): void {
-			var model = this.get('controller.model'),
-				article = model.get('article');
+		var model = this.get('controller.model'),
+			article = model.get('article');
 
-			if (article && article.length > 0) {
-				this.loadTableOfContentsData();
-				this.handleInfoboxes();
-				this.lazyLoadMedia(model.get('media'));
-				this.handleTables();
-				this.replaceMapsWithMapComponents();
-				this.injectAds();
-				this.setupAdsContext(model.get('adsContext'));
+		if (article && article.length > 0) {
+			this.loadTableOfContentsData();
+			this.handleInfoboxes();
+			this.lazyLoadMedia(model.get('media'));
+			this.handleTables();
+			this.replaceMapsWithMapComponents();
+			this.injectAds();
+			this.setupAdsContext(model.get('adsContext'));
 
-				M.setTrackContext({
-					a: model.title,
-					n: model.ns
-				});
+			M.setTrackContext({
+				a: model.title,
+				n: model.ns
+			});
 
-				M.trackPageView(model.get('adsContext.targeting'));
-			}
+			M.trackPageView(model.get('adsContext.targeting'));
+		}
 	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {

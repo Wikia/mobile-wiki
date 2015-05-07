@@ -34,6 +34,8 @@ App.ArticleRoute = Em.Route.extend({
 	afterModel: function (model: any) {
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 		App.VisibilityStateManager.reset();
+
+		// Reset query parameters
 		model.set('commentsPage', null);
 		model.set('file', null);
 	},
