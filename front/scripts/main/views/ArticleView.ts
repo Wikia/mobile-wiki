@@ -41,7 +41,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 			if (article && article.length > 0) {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
-				this.handlePortableinfoboxes();
+				this.handlePortableInfoboxes();
 				this.lazyLoadMedia(model.get('media'));
 				this.handleTables();
 				this.replaceMapsWithMapComponents();
@@ -164,7 +164,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	 * @desc handles expanding portable infoboxes
 	 * @todo we should figure out if we can somehow merge this method and handleInfoboxes method
 	 */
-	handlePortableinfoboxes: function () {
+	handlePortableInfoboxes: function () {
 		var collapsedClass = 'collapsed',
 			expandButtonClass = 'portable-infobox-expand-button',
 			minimumHeight = 450,
