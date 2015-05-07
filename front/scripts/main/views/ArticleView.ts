@@ -176,7 +176,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		if ($infoboxes.length) {
 			$infoboxes
 				.filter(function (index, element) {
-					console.log(element);
 					return $(element).outerHeight() > minimumHeight;
 				})
 				.addClass(collapsedClass)
