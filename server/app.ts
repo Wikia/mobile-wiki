@@ -79,7 +79,7 @@ server.register(plugins, (err: any) => {
 		cookie         : 'sid',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
-		domain         : localSettings.cookieDomain,
+		domain         : localSettings.authCookieDomain,
 		redirectTo     : '/login'
 	});
 });
@@ -110,7 +110,7 @@ server.views({
 server.state('access_token', {
 	isHttpOnly: true,
 	clearInvalid: true,
-	domain: localSettings.cookieDomain
+	domain: localSettings.authCookieDomain
 });
 
 // instantiate routes

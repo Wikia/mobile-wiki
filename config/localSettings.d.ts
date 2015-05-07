@@ -27,7 +27,7 @@ interface LocalSettings {
 	domain: string;
 	mediawikiDomain?: string;
 	devboxDomain?: string;
-	cookieDomain?: string;
+	authCookieDomain?: string;
 	environment: any;
 	helios: {
 		host: string;

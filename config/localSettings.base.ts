@@ -35,7 +35,7 @@ var localSettings: LocalSettings = {
 		syslog: 'debug'
 	},
 	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
-	cookieDomian: '.wikia.com',
+	authCookieDomain: '.wikia.com',
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
 		enabled: true,
