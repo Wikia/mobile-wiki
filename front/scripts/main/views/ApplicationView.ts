@@ -41,10 +41,6 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	handleLink: function (target: HTMLAnchorElement): void {
-		if (target.className.match('ember-view')) {
-			return;
-		}
-
 		var controller: typeof App.ApplicationController;
 
 		Em.Logger.debug('Handling link with href:', target.href);

@@ -16,6 +16,8 @@ App.Router.map(function () {
 		path: '/'
 	});
 
+	this.route('test');
+
 	this.route('article', {
 		path: articlePath + '*title'
 	});
