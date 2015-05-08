@@ -1,0 +1,37 @@
+.featured-content {
+	margin-bottom: 20px;
+	position: relative;
+	width: 100%;
+}
+
+.featured-content-item {
+	background: {
+		color: rgb(223,223,223);
+		image: url('../../images/brackets.svg');
+		position: center;
+		repeat: no-repeat;
+		size: contain;
+	}
+
+	img {
+		width: 100%;
+		vertical-align: baseline;
+	}
+
+	figcaption {
+		background: linear-gradient(to top, rgba(0, 0, 0 , .7), rgba(255, 255, 255, 0));
+		bottom: 0;
+		color: white;
+		height: 50px;
+		position: absolute;
+		text-align: center;
+		width: 100%;
+	}
+}
+
+.featured-content-pagination {
+	bottom: 5px;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, 0);
+}
