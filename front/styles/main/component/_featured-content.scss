@@ -13,7 +13,7 @@
 		size: contain;
 	}
 	// keep the 16:9 ratio
-	height: 58.3vw;
+	height: 56.3vw;
 	width: 100vw;
 
 	img {
@@ -22,10 +22,14 @@
 	}
 
 	figcaption {
+		@extend %ellipsis;
+
 		background: linear-gradient(to top, rgba(0, 0, 0 , .7), rgba(255, 255, 255, 0));
 		bottom: 0;
 		color: white;
-		height: 50px;
+		font-size: 28px;
+		height: 120px;
+		padding: 40px 10px 0;
 		position: absolute;
 		text-align: center;
 		width: 100%;
@@ -33,7 +37,7 @@
 }
 
 .featured-content-pagination {
-	bottom: 5px;
+	bottom: 15px;
 	left: 50%;
 	position: absolute;
 	transform: translate(-50%, 0);
