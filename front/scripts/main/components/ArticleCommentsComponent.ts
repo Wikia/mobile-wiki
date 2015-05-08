@@ -6,7 +6,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	page: null,
 	articleId: null,
 	commentsCount: null,
-	classNames: ['article-comments'],
+	classNames: ['article-comments', 'mw-content'],
 	model: null,
 	isCollapsed: true,
 
