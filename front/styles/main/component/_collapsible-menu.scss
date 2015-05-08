@@ -6,7 +6,6 @@ $border-color: #d0d0d0;
 	border-bottom: 1px solid $border-color;
 
 	.title {
-		@extend %button-plain;
 		@extend .touch-active;
 
 		background: none;

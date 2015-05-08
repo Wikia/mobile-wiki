@@ -1,11 +1,9 @@
 .show-reply-btn,
 .page-btn {
-	@extend %button-plain;
 	@extend .touch-active;
 
 	background: rgb(250,250,250);
 	color: $anchor-font-color;
-	padding: 10px;
 	width: 100%;
 }
 

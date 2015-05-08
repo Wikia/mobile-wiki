@@ -1,0 +1,69 @@
+form {
+	> small.error {
+		color: $input-border-error-color;
+		line-height: 1.25rem;
+	}
+}
+
+.input-container {
+	padding-bottom: 1rem;
+	position: relative;
+
+	input.error {
+		border-bottom-color: $input-border-error-color;
+	}
+
+	small.error {
+		margin-bottom: 0;
+		padding-bottom: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.floating-label {
+	color: $color-blue-gray;
+	padding: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 1.25rem;
+	transition: font-size ease-in 0.15s, top ease-in 0.15s;
+}
+
+.floating-label.active {
+	color: $label-color-active;
+	font-size: 0.75rem;
+	top: 0;
+}
+
+input[type='text']:valid  + .floating-label,
+input[type='password']:valid + .floating-label,
+input[type='email']:valid  + .floating-label,
+input[type='date']:valid + .floating-label {
+	color: $label-color-valid;
+}
+
+input[type='date'] {
+	font-size: 0;
+	transition: font-size ease-in 0.15s;
+	line-height: 1rem;
+	&::-webkit-clear-button,
+	&::-webkit-inner-spin-button,
+	&::-webkit-calendar-picker-indicator {
+		visibility: hidden;
+	}
+	&:valid, &:focus {
+		font-size: 1rem;
+		transition: font-size ease-in 0.15s;
+		&::-webkit-datetime-edit-month-field,
+		&::-webkit-datetime-edit-day-field,
+		&::-webkit-datetime-edit-year-field {
+			font-size: 0.75rem;
+		}
+		&::-webkit-clear-button,
+		&::-webkit-inner-spin-button,
+		&::-webkit-calendar-picker-indicator {
+			visibility: visible;
+		}
+	}
+}

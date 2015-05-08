@@ -8,10 +8,10 @@ import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
 
 interface AuthParams {
-	'user_id'       : string;
-	'access_token'  : string;
-	'refresh_token' : string;
-	'redirect'?     : string;
+	'user_id': string;
+	'access_token': string;
+	'refresh_token': string;
+	'redirect'?: string;
 }
 
 interface AuthCallbackFn {
@@ -19,32 +19,32 @@ interface AuthCallbackFn {
 }
 
 interface HeliosResponse {
-	'user_id'            : string;
-	'access_token'       : string;
-	'refresh_token'      : string;
-	'token_type'         : string;
-	'expires_in'         : string;
-	'error'?             : string;
-	'error_description'? : string;
+	'user_id': string;
+	'access_token': string;
+	'refresh_token': string;
+	'token_type': string;
+	'expires_in': string;
+	'error'?: string;
+	'error_description'?: string;
 }
 
 interface LoginViewContext {
-	title             : string;
-	headerText        : string;
-	footerCallout     : string;
-	footerCalloutLink : string;
-	hideHeader?       : boolean;
-	hideFooter?       : boolean;
-	exitTo?           : string;
-	bodyClasses?      : string;
-	formErrorKey?     : string;
+	hideHeader?: string;
+	hideFooter?: string;
+	bodyClasses?: string;
+	headerText?: string;
+	title: string;
+	exitTo?: string;
+	formErrorKey?: string;
+	i18nContext?: any;
+	footerLinkRoute?: string;
+	footerCalloutText?: string;
+	footerCalloutLink?: string;
 }
 
 var defaultViewContext: LoginViewContext = {
 	title: 'auth:login.login-title',
-	headerText: 'auth:login.welcome-back',
-	footerCallout: 'auth:login.register-callout',
-	footerCalloutLink: 'auth:login.register-now'
+	headerText: 'auth:login.welcome-back'
 };
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -97,10 +97,17 @@ export function get (request: Hapi.Request, reply: any): void {
 		return reply.redirect(redirect);
 	}
 
-	context.exitTo = redirect;
+	context = {
+		exitTo: redirect,
+		headerText: 'auth:login.welcome-back',
+		title: 'auth:login.title',
+		footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
+		footerCalloutText: 'auth:login.register-callout-text',
+		footerCalloutLink: 'auth:login.register-callout-link'
+	};
 
 	return reply.view('login', context, {
-		layout: 'wikia-static'
+		layout: 'auth'
 	});
 }
 
@@ -109,12 +116,20 @@ export function post (request: Hapi.Request, reply: any): void {
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
-		context: LoginViewContext = defaultViewContext;
+		ttl = 1.57785e10, // 6 months,
+		context: any = {
+			title: 'auth:login.title',
+			headerText: 'auth:login.welcome-back',
+			footerLinkRoute: '/signup?redirect=' + encodeURIComponent(redirect),
+			footerCalloutText: 'auth:login.register-callout-text',
+			footerCalloutLink: 'auth:login.register-callout-link'
+		};
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
 		if (err) {
 			context.formErrorKey = getFormErrorKey(err.output.statusCode);
+			context.exitTo = redirect;
 
 			if (isAJAX) {
 				return reply(context).code(err.output.statusCode);
@@ -123,18 +138,22 @@ export function post (request: Hapi.Request, reply: any): void {
 			context.exitTo = redirect;
 
 			return reply.view('login', context, {
-				layout: 'wikia-static'
+				layout: 'auth'
 			// Always set the correct status code
 			}).code(err.output.statusCode);
 		}
 
+		// set unencrypted cookie that can be read by all apps (i.e. MW and Mercury) HG-631
+		reply.state('access_token', response.access_token, {ttl: ttl});
+
+		// set session cookie via hapi-auth-cookie
 		request.auth.session.set({
-			'access_token'  : response.access_token
+			'sid'  : response.access_token
 		});
 
 		// Set cookie TTL for "remember me" period of 6 months
 		// TODO: Helios service should control the length of auth session
-		request.auth.session.ttl(1.57785e10);
+		request.auth.session.ttl(ttl);
 
 		if (isAJAX) {
 			return reply({redirect: redirect});

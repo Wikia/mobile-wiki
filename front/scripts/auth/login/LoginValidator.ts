@@ -48,7 +48,3 @@ class LoginValidator {
 			.addEventListener('input', this.onInput.bind(this));
 	}
 }
-
-window.document.addEventListener('DOMContentLoaded', function ():void {
-	new LoginValidator().watch();
-});
