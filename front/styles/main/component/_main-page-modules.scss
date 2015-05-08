@@ -1,0 +1,23 @@
+.main-page-modules {
+	padding: 0 1.125rem;
+}
+
+.trending-articles {
+
+	.trending-article {
+		display: inline-block;
+		position: relative;
+		vertical-align: top;
+	}
+
+	p {
+		color: black;
+		bottom: 0;
+		margin: 5px 0 10px 5px;
+	}
+
+	h4 {
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+	}
+}
