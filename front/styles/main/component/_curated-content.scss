@@ -2,10 +2,7 @@ $image-margin: 5px;
 $back-button-width: 20px;
 
 .curated-content {
-	overflow: hidden;
-
 	.grid {
-		overflow: hidden;
 		margin: 0 auto;
 	}
 
@@ -24,7 +21,7 @@ $back-button-width: 20px;
 	}
 
 	.curated-content-item {
-		float: left;
+		display: inline-block;
 		margin: $image-margin;
 		vertical-align: top;
 	}
@@ -128,5 +125,12 @@ $back-button-width: 20px;
 		white-space: nowrap;
 		width: $back-button-width;
 		z-index: 100;
+	}
+
+	//Ember by default adds div when certain action is bound to an element
+	//we don't want to have div with 100% because we can't style grid elements to be next to each other
+	//using float wouldn't work because items have to be centered.
+	[data-ember-action] {
+		display:inline-block;
 	}
 }
