@@ -62,9 +62,7 @@ $infobox-section-header-background: #e5e5e5;
 
 	.portable-infobox-comparison-set {
 		display: flex;
-		display: -webkit-flex;
 		flex-wrap: wrap;
-		-webkit-flex-wrap: wrap;
 		width: 100%;
 
 		&:not(:first-of-type) {
@@ -76,7 +74,6 @@ $infobox-section-header-background: #e5e5e5;
 		box-sizing: border-box;
 		display: block;
 		flex-basis: 100%;
-		-webkit-flex-basis: 100%;
 		padding: 0;
 		text-align: left;
 		width: 100%;
