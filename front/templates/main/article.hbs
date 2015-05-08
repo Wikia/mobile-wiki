@@ -26,7 +26,7 @@
 					{{/each}}
 				{{/collapsible-menu}}
 			{{/if}}
-			{{#view 'article-content'}}
+			{{#view 'article-content' class='mw-content'}}
 				{{#if model.article}}
 					{{{model.article}}}
 				{{else}}
@@ -36,30 +36,30 @@
 		</section>
 		<section class='article-footer'>
 		{{wikia-users
-			users=model.topContributors
-			classes='contributors'
-			label='app.article-top-contributors-label'
-			trackingEvent='contributors'
+		users=model.topContributors
+		classes='contributors'
+		label='app.article-top-contributors-label'
+		trackingEvent='contributors'
 		}}
 		{{article-comments
-			page=commentsPage
-			articleId=model.id
-			commentsCount=model.comments
+		page=commentsPage
+		articleId=model.id
+		commentsCount=model.comments
 		}}
 		{{#if model.categories}}
 			{{#collapsible-menu
-				showMenuIcon=false
-				additionalClasses='article-categories-list'
-				tLabel='app.article-categories-list-label'
-				ordered=false
-				observe=model.cleanTitle
-				trackingEvent='category'
+			showMenuIcon=false
+			additionalClasses='article-categories-list'
+			tLabel='app.article-categories-list-label'
+			ordered=false
+			observe=model.cleanTitle
+			trackingEvent='category'
 			}}
 				{{#each category in model.categories itemController='categoryListItem'}}
-				<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
-					{{category.cleanTitle}}
-					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-				</a></li>
+						<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
+							{{category.cleanTitle}}
+							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+						</a></li>
 				{{/each}}
 			{{/collapsible-menu}}
 		{{/if}}
