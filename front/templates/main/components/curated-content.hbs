@@ -1,20 +1,23 @@
 {{#if curatedContent}}
-	<div class="curated-content">
-		<nav class="grid-sections">
-			{{#each section in curatedContent.sections}}
-				<div {{action "showItems" section.title}}>
-					{{curated-content-item url=section.image_url title=section.title}}
-				</div>
-			{{/each}}
-		</nav>
-		<nav class="list-items">
-			<div {{action "showGrid"}}>BACK</div>
-			{{#each item in model.activeSectionItems}}
-				{{#if item.image_url}}
-					{{curated-content-item url=item.image_url title=item.title}}
-				{{/if}}
-				<p>{{item.label}}</p>
-			{{/each}}
-		</nav>
-	</div>
+	<nav class='grid root-sections'>
+		{{#each section in curatedContent}}
+			<div {{action 'showItems' section}}>
+				{{curated-content-item label=section.title imageUrl=section.image_url}}
+			</div>
+		{{/each}}
+	</nav>
+	<nav class='grid child-sections'>
+		<div class='section-top'>
+			<div class='section-navigation' {{action 'showGrid'}}>
+				{{svg 'chevron' viewBox='0 0 12 7' class='nav-item back-chevron chevron'}}
+			</div>
+			<div class='section-title'>{{model.activeSection}}</div>
+		</div>
+		{{#each item in model.activeSectionItems}}
+			<a {{action 'trackClick' 'curated-content' 'item-click'}} href='{{item.article_local_url}}'>
+				{{curated-content-item label=item.label imageUrl=item.image_url}}
+			</a>
+		{{/each}}
+	</nav>
 {{/if}}
+{{loading-spinner active=isLoading}}

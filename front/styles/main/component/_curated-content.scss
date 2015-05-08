@@ -1,34 +1,134 @@
+$image-margin: 5px;
+$back-button-width: 20px;
+
 .curated-content {
+	.grid {
+		margin: 0 auto;
+	}
+
+	.child-sections {
+		display: none;
+	}
 
 	&.show-items {
-		.grid-sections {
+		.root-sections {
 			display: none;
 		}
-		.list-items {
+
+		.child-sections {
 			display: block;
 		}
 	}
 
-	.list-items {
-		display: none;
-	}
-
-	.chevron-horizontal {
-		height: 20px;
-		width: 20px;
-	}
-
 	.curated-content-item {
-		float: left;
-		margin: 2px;
-		position: relative;
+		display: inline-block;
+		margin: $image-margin;
 		vertical-align: top;
 	}
 
-	p {
-		color: white;
+	.item-figure {
+		cursor: pointer;
+		position: relative;
+	}
+
+	.item-image {
+		background: {
+			color: rgb(223, 223, 223);
+			image: url('../../images/brackets.svg');
+			position: center;
+			repeat: no-repeat;
+			size: contain;
+		}
+	}
+
+	.item-figcaption {
+		background: linear-gradient(to top, rgba(0, 0, 0 , .7), rgba(255, 255, 255, 0));
 		bottom: 0;
-		margin: 0 0 0 5px;
+		height: 50%;
+		//Reset of default figcaption styles which add 5px bottom padding
+		padding: 0;
 		position: absolute;
+		width: 100%;
+	}
+
+	.item-caption-row {
+		bottom: 0;
+		display: table;
+		position: absolute;
+	}
+
+	.item-caption {
+		&.label {
+			color: #fff;
+			display: table-cell;
+			font-size: 14px;
+			font-weight: bold;
+			left: 0;
+			line-height: 20px;
+			padding: 0 0 10px 10px;
+			vertical-align: bottom;
+			width: 100%;
+			word-break: break-all;
+		}
+
+		&.grid-icon {
+			display: table-cell;
+			vertical-align: bottom;
+
+			.grid-icon-container {
+				background: rgba(0, 0, 0, .4);
+				border-radius: 100px 0 0;
+				height: 50px;
+				right: 0;
+				text-align: center;
+				width: 50px;
+			}
+
+			.category-icon {
+				fill: #fff;
+				height: 17px;
+				margin-left: 10px;
+				margin-top: 21px;
+				width: 17px;
+			}
+		}
+	}
+
+	.section-top {
+		margin-bottom: 10px;
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+	}
+
+	.section-title {
+		font-size: 18px;
+		font-weight: bold;
+		line-height: 26px;
+		overflow: hidden;
+		padding: 0 $back-button-width;
+		position: absolute;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
+		z-index: -100;
+	}
+
+	.section-navigation {
+		cursor: pointer;
+		float: left;
+		height: 20px;
+		margin-left: 10px;
+		transform: rotate(90deg);
+		white-space: nowrap;
+		width: $back-button-width;
+		z-index: 100;
+	}
+
+	//Ember by default adds div when certain action is bound to an element
+	//we don't want to have div with 100% because we can't style grid elements to be next to each other
+	//using float wouldn't work because items have to be centered.
+	[data-ember-action] {
+		display:inline-block;
 	}
 }
