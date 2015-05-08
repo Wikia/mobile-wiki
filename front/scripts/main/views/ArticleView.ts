@@ -28,8 +28,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 	onModelChange: Em.observer('controller.model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
-		// not valid, IE, the view is in the process of getting destroyed and no longer has an element.
-		if (this.$()) {
+		// not valid, IE, the view is in the process of preRender
+		if (this.get('_state') === 'inDOM') {
 			this.scheduleArticleTransforms();
 		}
 	}),
