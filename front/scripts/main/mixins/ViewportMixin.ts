@@ -19,8 +19,7 @@ App.ViewportMixin = Em.Mixin.create({
 	init: function (): void {
 		this._super();
 		if (!this.get('initiated')) {
-			this.set('viewportDimensions.width', Math.max(document.documentElement.clientWidth, window.innerWidth || 0));
-			this.set('viewportDimensions.height', Math.max(document.documentElement.clientHeight, window.innerHeight || 0));
+			this.onResize();
 			Em.$(window).on('resize', () => {
 				this.onResize();
 			});
