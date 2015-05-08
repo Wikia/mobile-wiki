@@ -11,7 +11,7 @@
 
 		// send some variables to qualaroo so we can target our audience
 		_kiq.push(['set', {
-			'optimizelyVariants': ((typeof optimizely === "object" && optimizely.variationMap) ? optimizely.variationMap : {})
+			'optimizelyVariants': (typeof optimizely === "object" ? optimizely.variationMap : {})
 		}]);
 
 	</script>
