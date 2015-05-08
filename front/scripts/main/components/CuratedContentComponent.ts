@@ -25,7 +25,7 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 					this.set('showItems', true);
 					$('html, body').animate({
 						scrollTop: $('.curated-content').offset().top - this.get('globalNavHeight')
-					}, 250);
+					}, 500);
 				});
 		},
 

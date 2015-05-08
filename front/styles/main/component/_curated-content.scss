@@ -1,7 +1,5 @@
-$image-size: 45vw;
-$image-margin: 1vw;
+$image-margin: 5px;
 $back-button-width: 20px;
-$grid-width: 2 * $image-size + 4 * $image-margin;
 
 .curated-content {
 	overflow: hidden;
@@ -9,7 +7,6 @@ $grid-width: 2 * $image-size + 4 * $image-margin;
 	.grid {
 		overflow: hidden;
 		margin: 0 auto;
-		width: $grid-width;
 	}
 
 	.child-sections {
@@ -45,8 +42,6 @@ $grid-width: 2 * $image-size + 4 * $image-margin;
 			repeat: no-repeat;
 			size: contain;
 		}
-		height: $image-size;
-		width: $image-size;
 	}
 
 	.item-figcaption {

@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
+///<reference path="../mixins/ViewportMixin.ts"/>
 'use strict';
 
-App.CuratedContentItemComponent = Em.Component.extend({
+App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	classNames: ['curated-content-item'],
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
@@ -11,12 +12,23 @@ App.CuratedContentItemComponent = Em.Component.extend({
 	),
 	//@TODO for the purpose of MVP let's make it fixed value, we can adjust later
 	imageSize: 200,
+	imageWidth: null,
+
+	willInsertElement: function (): void {
+		var imageWidth = this.get('viewportDimensions.width') / 2 - 20;
+		this.set('imageWidth', imageWidth + 'px');
+	},
 
 	didInsertElement: function (): void {
 		if (this.get('url')) {
 			this.lazyLoadImage();
 		}
 	},
+
+	viewportObserver: function(): void {
+		var imageWidth = this.get('viewportDimensions.width') / 2 - 20;
+		this.set('imageWidth', imageWidth + 'px');
+	}.observes('viewportDimensions.width'),
 
 	lazyLoadImage: function (): void {
 		var options: any = {},
