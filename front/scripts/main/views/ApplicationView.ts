@@ -112,7 +112,6 @@ App.ApplicationView = Em.View.extend({
 			tagName: string;
 
 		if (target && this.isMWContent(target)) {
-			console.log('apply logic');
 			tagName = target.tagName.toLowerCase();
 
 			if (tagName === 'a') {
@@ -122,8 +121,6 @@ App.ApplicationView = Em.View.extend({
 				this.handleMedia(<HTMLElement>target);
 				event.preventDefault();
 			}
-		} else {
-			console.log('don\'t apply logic');
 		}
 	},
 
