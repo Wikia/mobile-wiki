@@ -55,9 +55,7 @@
 		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
-		{{#if optimizelyScript}}
-			<script src="{{optimizelyScript}}"></script>
-		{{/if}}
+		{{> optimizely}}
 		{{> tracking}}
 	</head>
 	<body>
@@ -104,6 +102,7 @@
 			<script src="/front/scripts/main.js"></script>
 		<!-- endbuild -->
 
+		{{> qualaroo}}
 		{{> tracking-pixels}}
 	</body>
 </html>
