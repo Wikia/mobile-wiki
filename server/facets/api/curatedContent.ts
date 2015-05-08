@@ -26,14 +26,6 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
-/**
- * @param itemsData
- * @returns itemsData with status code
- */
-function transformResponse (itemsData: CuratedContentSectionMW): CuratedContentSectionMW {
-	return itemsData;
-}
-
 export function get (request: Hapi.Request, reply: any): void {
 	var params = {
 			wikiDomain: Utils.getCachedWikiDomainName(localSettings, request.headers.host),
@@ -46,7 +38,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	} else {
 		new MW.ArticleRequest(params.wikiDomain).curatedContentSection(params.sectionName)
 		.then((response: any): void => {
-			reply(transformResponse(response));
+			reply(response);
 			Caching.setResponseCaching(response, cachingTimes);
 		}, (error: any): void => {
 			var preparedResult: any = wrapResult(error, {});

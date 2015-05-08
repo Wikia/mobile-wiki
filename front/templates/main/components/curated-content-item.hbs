@@ -1,5 +1,18 @@
-{{#if url}}
-	{{thumbnail url width=imgSize height=imgSize alt=title mode=cropMode}}
-	<p>{{title}}</p>
-{{/if}}
+<figure class='item-figure'>
+	<div class='item-image' style={{style}}>
+	{{#if imageUrl}}
+		{{thumbnail imageUrl width=imageSize height=imageSize alt=label mode=cropMode}}
+	{{/if}}
+	</div>
+	<figcaption class='item-figcaption'>
+		<div class='item-caption-row'>
+		<span class='item-caption label'>{{label}}</span>
+		<span class='item-caption grid-icon'>
+			<div class='grid-icon-container'>
+				{{svg 'category-thumb-icon' role='img' class='category-icon' viewBox='0 0 17 17'}}
+			</div>
+		</span>
+		</div>
+	</figcaption>
+</figure>
 

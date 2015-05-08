@@ -69,10 +69,19 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 
 		prepareArticleData(request, result);
 
-		if (localSettings.optimizely.enabled && !result.queryParams.noexternals) {
-			result.optimizelyScript = localSettings.optimizely.scriptPath +
-			(localSettings.environment === Utils.Environment.Prod ?
-				localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+		// all the third party scripts we don't want to load on noexternals
+		if (!result.queryParams.noexternals) {
+			// optimizely
+			if (localSettings.optimizely.enabled) {
+				result.optimizelyScript = localSettings.optimizely.scriptPath +
+					(localSettings.environment === Utils.Environment.Prod ?
+						localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+			}
+
+			// qualaroo
+			if (localSettings.qualaroo.enabled) {
+				result.qualarooScript = localSettings.qualaroo.scriptUrl;
+			}
 		}
 
 		response = reply.view('application', result);

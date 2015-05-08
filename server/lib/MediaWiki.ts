@@ -125,7 +125,7 @@ export class ArticleRequest {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getCuratedContentSection',
-			sectionName: sectionName
+			section: sectionName
 		});
 
 		return fetch(url, this.wikiDomain);
