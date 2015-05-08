@@ -42,6 +42,10 @@ var localSettings: LocalSettings = {
 		devAccount: '2441440871',
 		account: '2449650414'
 	},
+	qualaroo: {
+		enabled: true,
+		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js',
+	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
