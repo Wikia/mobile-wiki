@@ -168,16 +168,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		var collapsedClass = 'collapsed',
 			expandButtonClass = 'portable-infobox-expand-button',
 			minimumHeight = 450,
-			$infoboxes = $('.portable-infobox'),
+			$infoboxes = this.('.portable-infobox'),
 			body = window.document.body,
 			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
-			expandButton = '<div class=' + expandButtonClass + '><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>'
+			expandButton = '<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>'
 
 		if ($infoboxes.length) {
 			$infoboxes
-				.filter(function (index, element) {
-					return $(element).outerHeight() > minimumHeight;
-				})
+				.filter((index, element) => $(element).outerHeight() > minimumHeight)
 				.addClass(collapsedClass)
 				.append(expandButton)
 				.on('click', function (event) {
