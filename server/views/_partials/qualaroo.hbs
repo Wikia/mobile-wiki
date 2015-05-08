@@ -2,6 +2,18 @@
 	<script>
 		// qualaroo configuration
 		var _kiq = _kiq || [];
+
+		// user identity
+		// TODO when we'll support user login on mercury
+		// if (user_id) {
+		// 	_kiq.push(['identify', user_id]);
+		// }
+
+		// send some variables to qualaroo so we can target our audience
+		_kiq.push(['set', {
+			'optimizelyVariants': ((typeof optimizely === "object" && optimizely.variationMap) ? optimizely.variationMap : {})
+		}]);
+
 	</script>
 	<script src="{{qualarooScript}}" async="true"></script>
 {{/if}}
