@@ -175,10 +175,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 		if ($infoboxes.length) {
 			$infoboxes
-				.filter((index, element) => $(element).outerHeight() > minimumHeight)
+				.filter((index: number, element: any) => $(element).outerHeight() > minimumHeight)
 				.addClass(collapsedClass)
 				.append(expandButton)
-				.on('click', function (event) {
+				.on('click', function (event: any) {
 					var $target = $(event.target),
 						$this = $(this);
 
