@@ -12,11 +12,10 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	),
 	//@TODO for the purpose of MVP let's make it fixed value, we can adjust later
 	imageSize: 200,
-	imageWidth: null,
+	style: null,
 
 	willInsertElement: function (): void {
-		var imageWidth = this.get('viewportDimensions.width') / 2 - 20;
-		this.set('imageWidth', imageWidth + 'px');
+		this.updateImageSize(this.get('viewportDimensions.width'));
 	},
 
 	didInsertElement: function (): void {
@@ -25,10 +24,9 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		}
 	},
 
-	viewportObserver: function(): void {
-		var imageWidth = this.get('viewportDimensions.width') / 2 - 20;
-		this.set('imageWidth', imageWidth + 'px');
-	}.observes('viewportDimensions.width'),
+	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
+		this.updateImageSize(this.get('viewportDimensions.width'));
+	}),
 
 	lazyLoadImage: function (): void {
 		var options: any = {},
@@ -40,4 +38,9 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		imageUrl = this.thumbnailer.getThumbURL(this.get('url'), options);
 		this.set('imageUrl', imageUrl);
 	},
+
+	updateImageSize: function(viewportSize) {
+		var imageWidth = viewportSize / 2 - 20;
+		this.set('style', Em.String.htmlSafe('height: %@px;width: %@px'.fmt(imageWidth, imageWidth)));
+	}
 });
