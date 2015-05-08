@@ -7,7 +7,7 @@ App.CuratedContentModel = Em.Object.extend({
 	cachedSectionItems: {},
 	activeSection: false,
 
-	fetchItemsForSection: function(sectionName: string) : any {
+	fetchItemsForSection: function(sectionName: string) : Em.RSVP.Promise {
 		this.set('activeSection', sectionName);
 		if (!this.cachedSectionItems[sectionName]) {
 			return new Em.RSVP.Promise((resolve:Function, reject:Function) => {
