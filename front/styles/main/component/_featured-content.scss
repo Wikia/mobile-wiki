@@ -12,10 +12,13 @@
 		repeat: no-repeat;
 		size: contain;
 	}
+	// keep the 16:9 ratio
+	height: 58.3vw;
+	width: 100vw;
 
 	img {
-		width: 100%;
 		vertical-align: baseline;
+		width: 100%;
 	}
 
 	figcaption {
