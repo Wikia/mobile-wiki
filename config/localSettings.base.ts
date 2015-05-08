@@ -19,13 +19,14 @@ var localSettings: LocalSettings = {
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
 		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
-		host: 'SENSITIVE, DO NOT ADD HERE',
-		secret: 'SENSITIVE, DO NOT ADD HERE',
-		id: 'SENSITIVE, DO NOT ADD HERE'
+		host: process.env.HELIOS_HOST,
+		secret: process.env.HELIOS_SECRET,
+		id: process.env.HELIOS_ID
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
+	mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
 	// Special salt for accepting HTML from MediaWiki for /editor_preview/
 	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
@@ -77,7 +78,7 @@ var localSettings: LocalSettings = {
 		tv: '#00b7e0'
 	},
 	weppy: {
-		enabled: !!process.env.ENABLE_WEPPY,
+		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.01,
 		aggregationInterval: 1000

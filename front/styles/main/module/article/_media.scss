@@ -89,12 +89,6 @@ figcaption {
 	&.linked-gallery {
 		margin: auto;
 
-		button {
-			@extend %button-primary;
-			padding: rem-calc(10) rem-calc(60);
-			text-transform: uppercase;
-		}
-
 		figcaption {
 			height: 30px;
 		}

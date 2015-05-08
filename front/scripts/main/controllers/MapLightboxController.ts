@@ -33,13 +33,13 @@ App.MapLightboxController = App.LightboxController.extend({
 		'data.title'
 	),
 
-	init: function (): void {
+	init: Em.observer('data.id', function (): void {
 		this._super();
 
 		if (this.get('data.id')) {
 			this.set('map', this.get('data.id'))
 		}
-	}.observes('data.id').on('init'),
+	}).on('init'),
 
 	/**
 	 * sets all properties to their null state
