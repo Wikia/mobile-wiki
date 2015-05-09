@@ -28,11 +28,11 @@ App.FeaturedContentComponent = Em.Component.extend({
 
 	gestures: {
 		swipeLeft: function (): void {
-			this.prevItem();
+			this.nextItem();
 		},
 
 		swipeRight: function (): void {
-			this.nextItem();
+			this.prevItem();
 		},
 	},
 
