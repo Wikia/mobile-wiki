@@ -1,6 +1,8 @@
-{{#if model.featuredContent}}
-	{{featured-content model=model.featuredContent}}
-{{/if}}
-{{#if model.curatedContent}}
-	{{curated-content curatedContent=model.curatedContent}}
-{{/if}}
+<section class='main-page-body mw-content'>
+	{{#if model.featuredContent}}
+		{{featured-content model=model.featuredContent}}
+	{{/if}}
+	{{#if model.curatedContent}}
+		{{curated-content curatedContent=model.curatedContent}}
+	{{/if}}
+</section>
