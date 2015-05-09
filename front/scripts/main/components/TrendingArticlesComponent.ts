@@ -5,8 +5,8 @@
 App.TrendingArticlesComponent = Em.Component.extend({
     classNames: ['trending-articles'],
     cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
-    imgHeight: 150,
-    imgWidth: 250,
+    imageHeight: 150,
+    imageWidth: 250,
     marginOffset: 25,
     viewportTreshold: 450,
 
