@@ -2,6 +2,8 @@
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
 /// <reference path="../components/WikiaMapComponent.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
+
 'use strict';
 
 interface HeadersFromDom {
@@ -14,7 +16,7 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, {
+App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
 
 	/**
@@ -169,7 +171,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	handlePortableInfoboxes: function (): void {
 		var collapsedClass = 'collapsed',
 			expandButtonClass = 'portable-infobox-expand-button',
-			deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width,
+			deviceWidth = this.get('viewportDimensions.width'),
 			minimumHeight = Math.floor(deviceWidth * 16 / 9) + 100,
 			$infoboxes = this.$('.portable-infobox'),
 			body = window.document.body,
