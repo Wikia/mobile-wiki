@@ -47,6 +47,6 @@ Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: a
 	}
 
 	return new Em.Handlebars.SafeString(
-		'<img src="' + src + '" alt="' + alt + '" class="' + className + '">'
+		`<img src="${src}" alt="${alt}" class="${className}">`
 	);
 });

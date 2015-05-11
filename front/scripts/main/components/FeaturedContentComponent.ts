@@ -41,9 +41,9 @@ App.FeaturedContentComponent = Em.Component.extend({
 	},
 
 	markActiveItem: function (): void {
-		var $pagination = this.$().find('.featured-content-pagination');
+		var $pagination = this.$('.featured-content-pagination');
 		$pagination.find('.current').removeClass('current');
-		$pagination.find('li[data-index=' + this.get('currentItemIndex') + ']').addClass('current');
+		$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
 	},
 
 	prevItem: function (): void {
