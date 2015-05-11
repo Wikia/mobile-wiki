@@ -35,12 +35,19 @@ var localSettings: LocalSettings = {
 		syslog: 'debug'
 	},
 	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
+	// auth pages aren't supported on custom domains, so this value should only be used for auth features
+	// once we phase out custom domains, we can change this to "cookieDomain" and use it for more features
+	authCookieDomain: '.wikia.com',
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
 		enabled: true,
 		scriptPath: '//cdn.optimizely.com/js/',
 		devAccount: '2441440871',
 		account: '2449650414'
+	},
+	qualaroo: {
+		enabled: true,
+		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js',
 	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
@@ -78,7 +85,7 @@ var localSettings: LocalSettings = {
 		tv: '#00b7e0'
 	},
 	weppy: {
-		enabled: !!process.env.ENABLE_WEPPY,
+		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.01,
 		aggregationInterval: 1000
