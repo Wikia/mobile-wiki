@@ -45,6 +45,10 @@ interface LocalSettings {
 		devAccount: string;
 		account: string;
 	};
+	qualaroo?: {
+		enabled: boolean;
+		scriptUrl: string;
+	};
 	port: number;
 	proxyMaxRedirects: number;
 	redirectUrlOnNoData: string;

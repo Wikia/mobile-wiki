@@ -45,6 +45,10 @@ var localSettings: LocalSettings = {
 		devAccount: '2441440871',
 		account: '2449650414'
 	},
+	qualaroo: {
+		enabled: true,
+		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js',
+	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
@@ -81,7 +85,7 @@ var localSettings: LocalSettings = {
 		tv: '#00b7e0'
 	},
 	weppy: {
-		enabled: !!process.env.ENABLE_WEPPY,
+		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.01,
 		aggregationInterval: 1000
