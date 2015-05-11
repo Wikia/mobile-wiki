@@ -29,7 +29,12 @@ textarea {
 }
 
 .pencil {
-	width: 2.2rem;
-	height: 2.2rem;
 	float: right;
+	height: 2.2rem;
+	width: 2.2rem;
+	&.zero {
+		position: absolute;
+		right: 1.125rem;
+		top: 1.125rem;
+	}
 }
