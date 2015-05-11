@@ -18,7 +18,7 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	actions: {
 		showItems: function (item: any): void {
 			this.showLoader();
-			this.trackClick('curated-content', 'item-click');
+			this.trackClick('curated-content', 'item-level-0');
 			this.get('model').fetchItemsForSection(item.title)
 				.then((): void => {
 					this.hideLoader();
