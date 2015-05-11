@@ -61,7 +61,6 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 		reply.redirect(localSettings.redirectUrlOnNoData);
 	} else {
 		Tracking.handleResponse(result, request);
-		result.newLoginEnabled = localSettings.newLoginEnabled;
 
 		if (error) {
 			code = error.code || error.statusCode || 500;
