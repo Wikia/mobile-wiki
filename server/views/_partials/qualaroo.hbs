@@ -1,7 +1,15 @@
 {{#if qualarooScript}}
 	<script>
 		// qualaroo configuration
-		var _kiq = _kiq || [];
+		var _kiq = [],
+			qualarooConfig = {};
+
+		(function(){
+			setTimeout(function(){
+				var d = document, f = d.getElementsByTagName('script')[0], s = d.createElement('script');
+				s.type = 'text/javascript'; s.async = true; s.src = '{{qualarooScript}}'; f.parentNode.insertBefore(s, f);
+			}, 1);
+		})();
 
 		// user identity
 		// TODO when we'll support user login on mercury
@@ -10,10 +18,13 @@
 		// }
 
 		// send some variables to qualaroo so we can target our audience
-		_kiq.push(['set', {
-			'optimizelyVariants': (typeof optimizely === "object" ? optimizely.variationMap : {})
-		}]);
+		if (typeof optimizely === "object") {
+			Object.keys(optimizely.variationMap).forEach(function (key) {
+				qualarooConfig['optimizely_' + key] = optimizely.variationMap[key];
+			});
+		}
 
+		// send all configuration
+		_kiq.push(['set', qualarooConfig]);
 	</script>
-	<script src="{{qualarooScript}}" async="true"></script>
 {{/if}}
