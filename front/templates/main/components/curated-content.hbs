@@ -14,7 +14,7 @@
 			<div class='section-title'>{{model.activeSection}}</div>
 		</div>
 		{{#each item in model.activeSectionItems}}
-			<a {{action 'trackClick' 'curated-content' 'item-click'}} href='{{item.article_local_url}}'>
+			<a {{action 'trackClick' 'curated-content' 'item-level-1'}} href='{{item.article_local_url}}'>
 				{{curated-content-item label=item.label imageUrl=item.image_url}}
 			</a>
 		{{/each}}
