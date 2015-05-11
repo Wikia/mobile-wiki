@@ -18,13 +18,13 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	actions: {
 		showItems: function (item: any): void {
 			this.showLoader();
-			this.trackClick('curated-content', 'item-level-0');
+			this.trackClick('modular-main-page', 'curated-content-item-level-0');
 			this.get('model').fetchItemsForSection(item.title)
 				.then((): void => {
 					this.hideLoader();
 					this.set('showItems', true);
 					$('html, body').animate({
-						scrollTop: $('.curated-content').offset().top - this.get('globalNavHeight')
+						scrollTop: this.$().offset().top - this.get('globalNavHeight')
 					}, 500);
 				});
 		},
