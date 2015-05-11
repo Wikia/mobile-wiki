@@ -122,8 +122,6 @@ export function post (request: Hapi.Request, reply: any): void {
 	// add cache buster value to the URL upon successful login
 	successRedirect = redirect + (redirect.indexOf('?') > -1 ? '&' : '?') + 'cb=' + Math.floor(Math.random() * 10000);
 
-	console.log(successRedirect);
-
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
 		if (err) {
