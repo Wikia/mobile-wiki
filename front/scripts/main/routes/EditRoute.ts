@@ -10,7 +10,9 @@ App.EditRoute = Em.Route.extend({
 
     actions: {
         willTransition: function(transition: EmberStates.Transition) {
-            this.controllerFor('application').set('fullPage', false);
+            transition.then(() => {
+                this.controllerFor('application').set('fullPage', false);
+            });
             return true;
         },
         didTransition: function() {

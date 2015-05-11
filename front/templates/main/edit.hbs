@@ -1,5 +1,6 @@
 <div class="edit-head">
-	{{svg 'arrow-left' role='img' class='icon arrow-left'}}
+
+	{{#link-to 'article' model.title}}{{svg 'arrow-left' role='img' class='icon arrow-left'}}{{/link-to}}
 
 	<button {{action 'publish'}} class="large" style="float: right;">Publish</button>
 
