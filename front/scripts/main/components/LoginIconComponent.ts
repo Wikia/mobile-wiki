@@ -17,7 +17,7 @@ App.LoginIconComponent = Em.Component.extend({
 	],
 
 	click: function (): void {
-		if (this.newLoginEnabled && this.shouldRedirectToNewLogin()) {
+		if (this.shouldRedirectToNewLogin()) {
 			window.location.href = '/join?redirect=' + encodeURIComponent(window.location.href);
 		} else {
 			window.location.href = '/Special:UserLogin';
@@ -31,6 +31,10 @@ App.LoginIconComponent = Em.Component.extend({
 	shouldRedirectToNewLogin: function (): boolean {
 		var shouldRedirect = false,
 			dbName = Mercury.wiki.dbName;
+
+		if (!this.newLoginEnabled) {
+			return false;
+		}
 
 		shouldRedirect = this.newLoginWhitelist.some((whitelistedDBName: string): boolean => {
 			return whitelistedDBName === dbName;
