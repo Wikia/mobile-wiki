@@ -36,11 +36,14 @@ App.FeaturedContentComponent = Em.Component.extend({
 		},
 	},
 
-	markActiveItem: Em.observer('currentItemIndex', function (): void {
+	/**
+	 * @desc Keep pagination up to date
+	 */
+	currentItemIndexObserver: Em.observer('currentItemIndex', function (): void {
 		var $pagination = this.$('.featured-content-pagination');
 		$pagination.find('.current').removeClass('current');
 		$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
-	}),
+	}).on('didInsertElement'),
 
 	prevItem: function (): void {
 		if (this.get('currentItemIndex') === 0) {
