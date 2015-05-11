@@ -4,13 +4,14 @@
 'use strict';
 
 App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
-	tagName: 'figure',
+	tagName: 'a',
 	classNames: ['featured-content-item'],
-	attributeBindings: ['style'],
+	attributeBindings: ['href', 'style'],
 
 	cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	imageUrl: Em.computed.oneWay('emptyGif'),
+	href: Em.computed.oneWay('url'),
 	style: null,
 
 	// TODO make it more responsive
