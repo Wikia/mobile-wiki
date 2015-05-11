@@ -36,15 +36,11 @@ App.FeaturedContentComponent = Em.Component.extend({
 		},
 	},
 
-	didInsertElement: function (): void {
-		this.markActiveItem();
-	},
-
-	markActiveItem: function (): void {
+	markActiveItem: Em.observer('currentItemIndex', function (): void {
 		var $pagination = this.$('.featured-content-pagination');
 		$pagination.find('.current').removeClass('current');
 		$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
-	},
+	}),
 
 	prevItem: function (): void {
 		if (this.get('currentItemIndex') === 0) {
@@ -52,8 +48,6 @@ App.FeaturedContentComponent = Em.Component.extend({
 		} else {
 			this.decrementProperty('currentItemIndex');
 		}
-
-		this.markActiveItem();
 	},
 
 	nextItem: function (): void {
@@ -62,7 +56,5 @@ App.FeaturedContentComponent = Em.Component.extend({
 		} else {
 			this.incrementProperty('currentItemIndex');
 		}
-
-		this.markActiveItem();
 	}
 });
