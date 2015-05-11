@@ -2,6 +2,7 @@ $infobox-item-margin: 5px;
 $infobox-section-header-background: #e5e5e5;
 
 .portable-infobox {
+	height: auto;
 	margin-bottom: $infobox-item-margin * 4;
 
 	.portable-infobox-item-margins {
@@ -106,7 +107,6 @@ $infobox-section-header-background: #e5e5e5;
 	}
 
 	&.collapsed {
-		height: 450px;
 		overflow: hidden;
 		position: relative;
 
