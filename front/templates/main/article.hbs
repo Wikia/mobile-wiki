@@ -1,3 +1,10 @@
+{{! FIXME this is a temporary solution, main pages should be decoupled from article}}
+{{#if model.mainPageData}}
+	<h1 class='article-title'>{{siteName}}</h1>
+{{else}}
+	<h2 class='wiki-title' {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
+{{/if}}
+
 {{#if model.error}}
 	{{render 'not-found'}}
 {{else}}

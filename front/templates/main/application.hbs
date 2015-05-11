@@ -15,7 +15,6 @@
 	{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
 	<div class='page-wrapper' {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
 		<section class='wiki-container'>
-			<h2 class='wiki-title' {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
 			{{outlet}}
 		</section>
 	</div>
