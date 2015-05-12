@@ -19,11 +19,12 @@ App.FeaturedContentComponent = Em.Component.extend({
 	model: [],
 
 	currentItem: Em.computed('model', 'currentItemIndex', function (): FeaturedContentItem {
-		return this.get('model')[this.get('currentItemIndex')];
+		//@TODO evaluate better solution
+		return this.getWithDefault('model', [])[this.get('currentItemIndex')];
 	}),
 
 	lastIndex: Em.computed('model', function (): number {
-		return this.get('model').length - 1;
+		return this.getWithDefault('model', []).length - 1;
 	}),
 
 	gestures: {
