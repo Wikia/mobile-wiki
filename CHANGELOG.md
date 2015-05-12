@@ -1,13 +1,16 @@
-## release-57 (2015-04-27 13:20)
-* style-guide-integration: Style guide CSS integration
-* [HG-595](https://wikia-inc.atlassian.net/browse/HG-595) HG-595 fixing access_token cookie setting and removing unused cookie
-* [CONCF-94](https://wikia-inc.atlassian.net/browse/CONCF-94) CONCF-94 beta Spinner in Lightbox galleries and VideoLoader change
-* [CONCF-466](https://wikia-inc.atlassian.net/browse/CONCF-466) Render not-found template when we have 404
-* [HG-595](https://wikia-inc.atlassian.net/browse/HG-595) HG-595 don't set refresh token as cookie
-* aden-1918-fixes-after-clean-up: ADEN-1918 change the name of module to correct one
-* [SOC-657](https://wikia-inc.atlassian.net/browse/SOC-657) Set the auth cookie TTL
-* i18n-helper-fixes: Allowing i18n helper to accept inline params
-* [SOC-657](https://wikia-inc.atlassian.net/browse/SOC-657) Remove 'remember me' code
+## release-57 (2015-04-30 16:00)
+* [HG-613](https://wikia-inc.atlassian.net/browse/HG-613) HG-613 removing redundant button mixins
+* [CONCF-480](https://wikia-inc.atlassian.net/browse/CONCF-480) Set hammerOptions.cssProps.touchCallout to 'default'
+* [CONCF-498](https://wikia-inc.atlassian.net/browse/CONCF-498) CONCF-498
+* [HG-615](https://wikia-inc.atlassian.net/browse/HG-615) HG-615 adding properties to the list-reset scss placeholder to override ...
+* [HG-614](https://wikia-inc.atlassian.net/browse/HG-614) HG-614 fixing button styles for article comments
+* [OPS-6210](https://wikia-inc.atlassian.net/browse/OPS-6210) Jenkins - apply updates to dependencies for tests
+* [HG-596](https://wikia-inc.atlassian.net/browse/HG-596) enables internal varnish for mercury
+* [HG-616](https://wikia-inc.atlassian.net/browse/HG-616) HG-616 Use style guide package with icons removed
+* [HG-589](https://wikia-inc.atlassian.net/browse/HG-589) Move crowdin config to multiple files, for now
+* [HG-603](https://wikia-inc.atlassian.net/browse/HG-603) HG-603 refactor prototype extensions
+* [SOC-474](https://wikia-inc.atlassian.net/browse/SOC-474) SOC-474 Input Errors Front-End for New Login / Signup
+* [SOC-489](https://wikia-inc.atlassian.net/browse/SOC-489) SOC-489 Front-End for the New SignUp Page
 
 ## release-56 (2015-04-23 11:40 PST)
 * aden-1676-floor-adhesion-mercury: ADEN-1676 Floor adhesion on Mercury

@@ -55,9 +55,7 @@
 		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
-		{{#if optimizelyScript}}
-			<script src="{{optimizelyScript}}"></script>
-		{{/if}}
+		{{> optimizely}}
 		{{> tracking}}
 	</head>
 	<body>
@@ -90,7 +88,7 @@
 			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
-			<!-- @ifdef ENABLE_WEPPY -->
+			<!-- @if WIKIA_ENVIRONMENT='prod' -->
 				<script src="/front/vendor/weppy/dist/weppy.js"></script>
 				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
 			<!-- @endif -->
@@ -104,6 +102,7 @@
 			<script src="/front/scripts/main.js"></script>
 		<!-- endbuild -->
 
+		{{> qualaroo}}
 		{{> tracking-pixels}}
 	</body>
 </html>

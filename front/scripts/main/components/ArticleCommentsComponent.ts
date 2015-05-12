@@ -6,7 +6,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	page: null,
 	articleId: null,
 	commentsCount: null,
-	classNames: ['article-comments'],
+	classNames: ['article-comments', 'mw-content'],
 	model: null,
 	isCollapsed: true,
 
@@ -35,7 +35,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 * @desc observes changes to page property, applies limit `1 <= page <= model.pagesCount`
 	 * and updates model, so it can load a page of comments
 	 */
-	pageObserver: function (): void {
+	pageObserver: Em.observer('page', 'model.comments', function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
 			var page: any = this.get('page'),
 				count: number = this.get('model.pagesCount'),
@@ -59,28 +59,28 @@ App.ArticleCommentsComponent = Em.Component.extend({
 
 			this.set('model.page', currentPage);
 		});
-	}.observes('page', 'model.comments'),
+	}),
 
 	/**
 	 * @desc watches changes to model, and scrolls to top of comments
 	 */
-	commentsObserver: function (): void {
+	commentsObserver: Em.observer('model.comments', function (): void {
 		if (this.get('model.comments')) {
 			this.scrollToTop();
 		}
-	}.observes('model.comments'),
+	}),
 
 	/**
 	 * @desc if articleId changes, updates model
 	 */
-	articleIdObserver: function (): void {
+	articleIdObserver: Em.observer('articleId', function (): void {
 		this.setProperties({
 			'model.articleId': this.get('articleId'),
 			page: null
 		});
 
 		this.rerender();
-	}.observes('articleId'),
+	}),
 
 	actions: {
 		nextPage: function (): void {

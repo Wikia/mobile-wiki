@@ -81,7 +81,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	/**
 	 * @desc Wrapper for query observer that also checks the cache
 	 */
-	search: function (): void {
+	search: Em.observer('query', function (): void {
 		var query: string = this.get('query'),
 			cached: any;
 
@@ -109,7 +109,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 			this.set('isLoadingSearchResults', true);
 			Em.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
 		}
-	}.observes('query'),
+	}),
 
 	/**
 	 * @desc query observer which makes ajax request for search suggestions based on query

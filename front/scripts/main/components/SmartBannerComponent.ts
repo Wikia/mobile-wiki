@@ -18,39 +18,39 @@ App.SmartBannerComponent = Em.Component.extend({
 	day: 86400000,
 	isVisible: false,
 
-	appId: function (): string {
+	appId: Em.computed('config', 'system', function (): string {
 		return this.get('config.appId.' + this.get('system'));
-	}.property('config', 'system'),
+	}),
 
-	appScheme: function (): string {
+	appScheme: Em.computed('config', 'system', function (): string {
 		return this.get('config.appScheme.' + this.get('system'));
-	}.property('config', 'system'),
+	}),
 
-	config: function (): any {
+	config: Em.computed(function (): any {
 		return Em.getWithDefault(Mercury, 'wiki.smartBanner', {});
-	}.property(),
+	}),
 
-	dbName: function (): string {
+	dbName: Em.computed(function (): string {
 		return Em.get(Mercury, 'wiki.dbName');
-	}.property(),
+	}),
 
 	description: Em.computed.alias('config.description'),
 
 	icon: Em.computed.alias('config.icon'),
 
-	iconStyle: function (): string {
+	iconStyle: Em.computed('icon', function (): string {
 		return 'background-image: url(%@)'.fmt(this.get('icon'));
-	}.property('icon'),
+	}),
 
-	labelInStore: function (): string {
+	labelInStore: Em.computed('system', function (): string {
 		return i18n.t('app.smartbanner-store-' + this.get('system'));
-	}.property('system'),
+	}),
 
-	labelInstall: function (): string {
+	labelInstall: Em.computed('system', function (): string {
 		return i18n.t('app.smartbanner-install-' + this.get('system'));
-	}.property('system'),
+	}),
 
-	link: function (): string {
+	link: Em.computed('appId', 'dbName', 'system', function (): string {
 		var link: string,
 			appId: string = this.get('appId');
 
@@ -67,13 +67,13 @@ App.SmartBannerComponent = Em.Component.extend({
 		}
 
 		return link;
-	}.property('appId', 'dbName', 'system'),
+	}),
 
 	noIcon: Em.computed.not('icon'),
 
-	system: function (): string {
+	system: Em.computed(function (): string {
 		return Mercury.Utils.Browser.getSystem();
-	}.property(),
+	}),
 
 	title: Em.computed.alias('config.name'),
 
