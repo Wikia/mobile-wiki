@@ -36,9 +36,19 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 	onArticleChange: function (): void {
 		Em.run.scheduleOnce('afterRender', this, () => {
 			var model = this.get('controller.model'),
-				article = model.get('article');
+				article = model.get('article'),
+				isCuratedMainPage = model.get('isCuratedMainPage');
 
-			if (article && article.length > 0) {
+			if (isCuratedMainPage) {
+				this.injectMainPageAds();
+				this.setupAdsContext(model.get('adsContext'));
+				M.setTrackContext({
+					a: model.title,
+					n: model.ns
+				});
+
+				M.trackPageView(model.get('adsContext.targeting'));
+			} else if (article && article.length > 0) {
 				this.loadTableOfContentsData();
 				this.handleInfoboxes();
 				this.lazyLoadMedia(model.get('media'));
@@ -46,7 +56,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 				this.replaceMapsWithMapComponents();
 				this.injectAds();
 				this.setupAdsContext(model.get('adsContext'));
-
 				M.setTrackContext({
 					a: model.title,
 					n: model.ns
