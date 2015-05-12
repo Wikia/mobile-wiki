@@ -1,7 +1,9 @@
-$image-margin: 5px;
+$image-spacing: 5px;
 $back-button-width: 20px;
 
 .curated-content {
+	padding: 0 $image-spacing;
+
 	.grid {
 		margin: 0 auto;
 	}
@@ -20,9 +22,16 @@ $back-button-width: 20px;
 		}
 	}
 
+	.curated-content-item-container {
+		margin: $image-spacing 0;
+
+		&:nth-of-type(even) {
+			float: right;
+		}
+	}
+
 	.curated-content-item {
 		display: inline-block;
-		margin: $image-margin;
 		vertical-align: top;
 	}
 

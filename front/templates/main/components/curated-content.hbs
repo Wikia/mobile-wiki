@@ -1,7 +1,7 @@
 {{#if curatedContent}}
 	<nav class='grid root-sections'>
 		{{#each section in curatedContent}}
-			<div {{action 'showItems' section}}>
+			<div {{action 'showItems' section}} class='curated-content-item-container'>
 				{{curated-content-item label=section.title imageUrl=section.image_url}}
 			</div>
 		{{/each}}
@@ -14,7 +14,7 @@
 			<div class='section-title'>{{model.activeSection}}</div>
 		</div>
 		{{#each item in model.activeSectionItems}}
-			<a {{action 'trackClick' 'curated-content' 'item-level-1'}} href='{{item.article_local_url}}'>
+			<a class='curated-content-item-container' {{action 'trackClick' 'curated-content' 'item-level-1'}} href='{{item.article_local_url}}'>
 				{{curated-content-item label=item.label imageUrl=item.image_url}}
 			</a>
 		{{/each}}
