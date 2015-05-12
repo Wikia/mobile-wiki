@@ -1,7 +1,9 @@
-$image-margin: 5px;
+$image-spacing: 5px;
 $back-button-width: 20px;
 
 .curated-content {
+	padding: 0 $image-spacing;
+
 	.grid {
 		margin: 0 auto;
 	}
@@ -20,9 +22,16 @@ $back-button-width: 20px;
 		}
 	}
 
+	.curated-content-item-container {
+		margin: $image-spacing 0;
+
+		&:nth-of-type(even) {
+			float: right;
+		}
+	}
+
 	.curated-content-item {
 		display: inline-block;
-		margin: $image-margin;
 		vertical-align: top;
 	}
 
@@ -107,22 +116,20 @@ $back-button-width: 20px;
 		line-height: 26px;
 		overflow: hidden;
 		padding: 0 $back-button-width;
-		position: absolute;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		width: 100%;
-		z-index: -100;
 	}
 
 	.section-navigation {
 		cursor: pointer;
-		float: left;
 		height: 20px;
+		left: 0;
 		margin-left: 10px;
+		position: absolute;
 		transform: rotate(90deg);
 		white-space: nowrap;
 		width: $back-button-width;
-		z-index: 100;
 	}
 
 	//Ember by default adds div when certain action is bound to an element
