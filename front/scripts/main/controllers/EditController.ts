@@ -8,6 +8,7 @@ App.EditController = Em.Controller.extend({
 	},
 	actions: {
 		publish: function (): void {
+			this.get('controllers.application').showLoader();
 			App.EditModel.publish(this.model)
 				.then((data: any): void => {
 					this.transitionToRoute('article', this.model.title);
