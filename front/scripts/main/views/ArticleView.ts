@@ -37,14 +37,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	}),
 
 	scheduleArticleTransforms: function (): void {
-		Ember.run.scheduleOnce('afterRender', this, this.onArticleChange);
+		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
 	},
 
 	didInsertElement: function () {
 		this.get('controller').send('articleRendered');
 	},
 
-	onArticleChange: function (): void {
+	articleContentObserver: function (): void {
 		var model = this.get('controller.model'),
 			article = model.get('article');
 
