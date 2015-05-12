@@ -2,6 +2,8 @@
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
 /// <reference path="../components/WikiaMapComponent.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
+
 'use strict';
 
 interface HeadersFromDom {
@@ -14,7 +16,7 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, {
+App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
 
 	/**
@@ -49,6 +51,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 		if (article && article.length > 0) {
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
+			this.handlePortableInfoboxes();
 			this.lazyLoadMedia(model.get('media'));
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
@@ -161,6 +164,42 @@ App.ArticleView = Em.View.extend(App.AdsMixin, {
 
 					if (!$target.is('a') && $this.toggleClass(shortClass).hasClass(shortClass)) {
 						scrollTo.apply($this.find('.infobox-expand')[0]);
+					}
+				});
+		}
+	},
+
+	/**
+	 * @desc handles expanding portable infoboxes
+	 * The minimumHeight took from 9/16 proportions of screen (width * 16 / 9 + 100px). We want to always
+	 * show the image AND some other infobox informations to show that this is infobox, not only an ordinary image.
+	 * @todo we should figure out if we can somehow merge this method and handleInfoboxes method
+	 */
+	handlePortableInfoboxes: function (): void {
+		var collapsedClass = 'collapsed',
+			expandButtonClass = 'portable-infobox-expand-button',
+			deviceWidth = this.get('viewportDimensions.width'),
+			minimumHeight = Math.floor(deviceWidth * 16 / 9) + 100,
+			$infoboxes = this.$('.portable-infobox'),
+			body = window.document.body,
+			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
+			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`
+
+		if ($infoboxes.length) {
+			$infoboxes
+				.filter((index: number, element: JQuery) => $(element).outerHeight() > minimumHeight)
+				.addClass(collapsedClass)
+				.height(minimumHeight)
+				.append(expandButton)
+				.on('click', function (event: JQueryEventObject) {
+					var $target = $(event.target),
+						$this = $(this);
+
+					if (!$target.is('a') && $this.toggleClass(collapsedClass).hasClass(collapsedClass)) {
+						$this.height(minimumHeight);
+						scrollTo.apply($this.find('.' + expandButtonClass)[0]);
+					} else {
+						$this.height('auto');
 					}
 				});
 		}
