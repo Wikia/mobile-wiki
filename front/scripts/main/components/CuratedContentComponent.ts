@@ -32,6 +32,7 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 		showGrid: function(): void {
 			this.set('showItems', false);
 			this.get('model').set('activeSection', false);
+			this.trackClick('modular-main-page', 'curated-content-back');
 		}
 	}
 });
