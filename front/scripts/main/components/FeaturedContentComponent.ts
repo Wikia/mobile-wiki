@@ -37,7 +37,7 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
 	},
 
 	click: function (): void {
-		this.trackClick('modular-main-page', 'featured-content');
+		this.trackClick('modular-main-page', 'featured-content', true);
 	},
 
 	/**
