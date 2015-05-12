@@ -34,7 +34,7 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	injectAds: function (): void {
-		var $firstSection = this.$('h2').first(),
+		var $firstSection = this.$('.article-content > h2').first(),
 			$articleBody = this.$('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			showInContent = firstSectionTop > this.adsData.minZerothSectionLength,
