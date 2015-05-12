@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
+///<reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 interface FeaturedContentItem {
@@ -37,7 +38,7 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
 	},
 
 	click: function (): void {
-		this.trackClick('modular-main-page', 'featured-content', true);
+		this.trackClick('modular-main-page', 'featured-content');
 	},
 
 	/**
