@@ -25,13 +25,6 @@ App.ArticleController = Em.Controller.extend({
 			article.set('sections', headers);
 		},
 
-		changePage: function (title: string): void {
-			App.VisibilityStateManager.reset();
-			this.set('commentsPage', null);
-			this.set('file', null);
-			this.transitionToRoute('article', title);
-		},
-
 		articleRendered: function () {
 			if (this.get('file')) {
 				this.send('openLightbox', 'media-lightbox');
