@@ -74,6 +74,7 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 			(localSettings.environment === Utils.Environment.Prod ?
 				localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
 		}
+
 		response = reply.view('application', result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');
