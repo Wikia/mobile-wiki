@@ -117,11 +117,10 @@ export function post (request: Hapi.Request, reply: any): void {
 		redirect: string = request.query.redirect || '/',
 		successRedirect: string,
 		context: LoginViewContext = getLoginContext(redirect),
-		ttl = 1.57785e10, // 6 months
-		cb: number = Math.floor(Math.random() * 10000);
+		ttl = 1.57785e10; // 6 months
 
 	// add cache buster value to the URL upon successful login
-	successRedirect = redirect + (redirect.indexOf('?') > -1 ? '&' : '?') + 'cb=' + cb;
+	successRedirect = authUtils.getCacheBustedUrl(redirect);
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
