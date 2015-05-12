@@ -45,10 +45,10 @@ interface LoginViewContext {
 
 function getLoginContext (redirect: string): LoginViewContext {
 	return <LoginViewContext> {
-		title: 'auth:login.title',
+		title: 'auth:login.login-title',
 		headerText: 'auth:login.welcome-back',
-		footerCallout: 'auth:login.register-callout-text',
-		footerCalloutLink: 'auth:login.register-callout-link',
+		footerCallout: 'auth:login.register-callout',
+		footerCalloutLink: 'auth:login.register-now',
 		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)

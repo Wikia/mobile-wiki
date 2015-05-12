@@ -39,3 +39,21 @@ test('shouldHandleMedia returns correct value', function () {
 		equal(appViewMock.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected);
 	});
 });
+
+test('isMWContent returns correct value', function () {
+	var appViewMock = this.subject(),
+		testCases = [
+			{
+				target: '<li class="mw-content"></li>',
+				expected: true
+			},
+			{
+				target: '<li></li>',
+				expected: false
+			}
+		];
+
+	testCases.forEach(function(testCase) {
+		equal(appViewMock.isMWContent(testCase.target), testCase.expected);
+	});
+});
