@@ -1,3 +1,17 @@
+## release-58 (2015-05-12 17:40)
+* [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
+* [SOC-660](https://wikia-inc.atlassian.net/browse/SOC-660) SOC-660 Translations for log-in and sign-up pages
+* add-resize-mixin: Resize mixin
+* [CONCF-519](https://wikia-inc.atlassian.net/browse/CONCF-519) CONCF-519 | Implement Qualaroo in Mercury
+* [HG-612](https://wikia-inc.atlassian.net/browse/HG-612) Hg 612 fixing jump-to links in TOC with cb param in query string
+* [HG-624](https://wikia-inc.atlassian.net/browse/HG-624) Hg 624 Enable performance monitoring
+* [HG-640](https://wikia-inc.atlassian.net/browse/HG-640) quick fix for gulp build failing with gulp typescript 2.7
+* [HG-631](https://wikia-inc.atlassian.net/browse/HG-631) HG-631 setting and unsetting unencrypted access_token cookie
+* [HG-625](https://wikia-inc.atlassian.net/browse/HG-625) HG-625 setting helios config vars
+* [HG-604](https://wikia-inc.atlassian.net/browse/HG-604) HG 604 Set custom var 8 at track page view time and also check if it is a main page or not
+* [SOC-694](https://wikia-inc.atlassian.net/browse/SOC-694) SOC-694 UI Fixes After Design Review
+* aden-1993-quick-fix-for-ads-lightbox: ADEN-1993 Fixed ads lightbox styling in Mercury
+
 ## release-57 (2015-04-30 16:00)
 * [HG-613](https://wikia-inc.atlassian.net/browse/HG-613) HG-613 removing redundant button mixins
 * [CONCF-480](https://wikia-inc.atlassian.net/browse/CONCF-480) Set hammerOptions.cssProps.touchCallout to 'default'
