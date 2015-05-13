@@ -19,9 +19,9 @@ var localSettings: LocalSettings = {
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
 		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
-		host: 'SENSITIVE, DO NOT ADD HERE',
-		secret: 'SENSITIVE, DO NOT ADD HERE',
-		id: 'SENSITIVE, DO NOT ADD HERE'
+		host: process.env.HELIOS_HOST,
+		secret: process.env.HELIOS_SECRET,
+		id: process.env.HELIOS_ID
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
@@ -41,6 +41,10 @@ var localSettings: LocalSettings = {
 		scriptPath: '//cdn.optimizely.com/js/',
 		devAccount: '2441440871',
 		account: '2449650414'
+	},
+	qualaroo: {
+		enabled: true,
+		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js',
 	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
@@ -78,7 +82,7 @@ var localSettings: LocalSettings = {
 		tv: '#00b7e0'
 	},
 	weppy: {
-		enabled: !!process.env.ENABLE_WEPPY,
+		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.01,
 		aggregationInterval: 1000
