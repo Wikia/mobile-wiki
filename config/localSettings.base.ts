@@ -61,6 +61,17 @@ var localSettings: LocalSettings = {
 				sampleRate: 100
 			}
 		},
+		ua: {
+			primary: {
+				id: 'UA-32129070-4',
+				sampleRate: 10
+			},
+			ads: {
+				prefix: 'ads',
+				id: 'UA-32129070-4',
+				sampleRate: 100
+			}
+		},
 		quantserve: 'p-8bG6eLqkH6Avk',
 		comscore: {
 			keyword: 'comscorekw',

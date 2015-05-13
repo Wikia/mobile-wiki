@@ -1,10 +1,12 @@
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../modules/Trackers/Internal.ts" />
 /// <reference path="../modules/Trackers/GoogleAnalytics.ts" />
+/// <reference path="../modules/Trackers/UniversalAnalytics.ts" />
 
 interface Window {
 	ga: any;
 	Mercury: any;
+	ua: any;
 }
 
 interface TrackContext {
@@ -105,13 +107,14 @@ module Mercury.Utils {
 
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
-		    action: string = params.action,
-		    category: string = params.category ? 'mercury-' + params.category : null,
-		    label: string = params.label || '',
-		    value: number = params.value || 0,
+			action: string = params.action,
+			category: string = params.category ? 'mercury-' + params.category : null,
+			label: string = params.label || '',
+			value: number = params.value || 0,
 			trackers = Mercury.Modules.Trackers,
 			tracker: Mercury.Modules.Trackers.Internal,
-			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
+			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics,
+			uaTracker: Mercury.Modules.Trackers.UniversalAnalytics;
 
 		if (M.prop('queryParams.noexternals')) {
 			return;
@@ -134,6 +137,11 @@ module Mercury.Utils {
 
 			gaTracker = new trackers.GoogleAnalytics();
 			gaTracker.track(category, actions[action], label, value, true);
+
+			if (Mercury.wiki.analytics && Mercury.wiki.analytics.UAEnabled) {
+				uaTracker = new trackers.UniversalAnalytics();
+				uaTracker.track(category, actions[action], label, value, true);
+			}
 		}
 
 		if (trackingMethod === 'both' || trackingMethod === 'internal') {

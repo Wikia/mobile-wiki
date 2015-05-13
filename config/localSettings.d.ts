@@ -53,6 +53,7 @@ interface LocalSettings {
 	redirectUrlOnNoData: string;
 	tracking: {
 		ga: GAAccountMap;
+		ua: GAAccountMap;
 		quantserve: string;
 		comscore: {
 			keyword: string;
