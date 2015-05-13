@@ -1,4 +1,5 @@
-## release-58 (2015-05-11 17:40)
+## release-58 (2015-05-12 17:40)
+* [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
 * [SOC-660](https://wikia-inc.atlassian.net/browse/SOC-660) SOC-660 Translations for log-in and sign-up pages
 * add-resize-mixin: Resize mixin
 * [CONCF-519](https://wikia-inc.atlassian.net/browse/CONCF-519) CONCF-519 | Implement Qualaroo in Mercury
