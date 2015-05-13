@@ -193,7 +193,8 @@ App.ArticleModel.reopenClass({
 				// Same issue: the response to the ajax should always be valid and not undefined
 				data.topContributors = source.topContributors;
 			}
-			if (source.mainPageData) {
+
+			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
 				data.mainPageData = source.mainPageData;
 				data.isCuratedMainPage = true;
 			}
