@@ -20,7 +20,7 @@ interface TrackingParams {
 	value?: number;
 	category: string;
 	trackingMethod?: string;
-	isInteractive?: boolean;
+	isNonInteractive?: boolean;
 	[idx: string]: any;
 }
 
@@ -102,6 +102,7 @@ module Mercury.Utils {
 		delete params.label;
 		delete params.value;
 		delete params.category;
+		delete params.isNonInteractive;
 	}
 
 	export function track (params: TrackingParams): void {
@@ -110,7 +111,7 @@ module Mercury.Utils {
 			category: string = params.category ? 'mercury-' + params.category : null,
 			label: string = params.label || '',
 			value: number = params.value || 0,
-			isNonInteractive: boolean = !params.isInteractive,
+			isNonInteractive: boolean = params.isNonInteractive !== false,
 			trackers = Mercury.Modules.Trackers,
 			tracker: Mercury.Modules.Trackers.Internal,
 			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
