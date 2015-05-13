@@ -58,8 +58,9 @@ App.AdsMixin = Em.Mixin.create({
 	 * only when trending articles and/or trending videos are loaded.
 	 */
 	injectMainPageAds: function (): void {
-		var showInContent,
+		var showInContent: boolean,
 			$curatedContent = this.$('.curated-content');
+
 		//Curated content section is present - show in content ad
 		showInContent = $curatedContent.length > 0;
 
