@@ -17,7 +17,6 @@ module Mercury.Modules.Trackers {
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountAds = 'ads';
-		trackers: TrackerMap;
 
 		constructor () {
 			var adsContext = Mercury.Modules.Ads.getInstance().getContext(),
@@ -30,7 +29,6 @@ module Mercury.Modules.Trackers {
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 				].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
 			this.accounts = M.prop('tracking.ua');
-			this.trackers = {};
 
 			// Primary account
 			this.initAccount(this.accountPrimary, adsContext, domain);
@@ -65,7 +63,7 @@ module Mercury.Modules.Trackers {
 				options.name = this.accounts[trackerName].prefix;
 			}
 
-			this.trackers[trackerName] = ga.create(this.accounts[trackerName].id, 'auto', options);
+			ga('create', this.accounts[trackerName].id, 'auto', options);
 
 			ga(prefix + 'require', 'linker');
 			if (domain) {
@@ -109,9 +107,10 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			this.trackers[this.accountPrimary].send(
-				'event',
+			ga(
+				'send',
 				{
+					hitType: 'event',
 					eventCategory: category,
 					eventAction: action,
 					eventLabel: label,
@@ -131,9 +130,10 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		trackAds (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			this.trackers[this.accountAds].send(
-				'event',
+			ga(
+				'ads.send',
 				{
+					hitType: 'event',
 					eventCategory: category,
 					eventAction: action,
 					eventLabel: label,
@@ -147,7 +147,7 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
-			this.trackers[this.accountPrimary].send('pageview');
+			ga('send', 'pageview');
 		}
 	}
 }
