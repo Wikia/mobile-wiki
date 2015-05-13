@@ -25,39 +25,46 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	 * events for DOM manipulation
 	 */
 	willInsertElement: function (): void {
-		Em.addObserver(this.get('controller'), 'model.article', this, this.onArticleChange);
-		// Trigger an article change once on insertion because the first insertion happens after article
-		// state has changed
-		this.get('controller').notifyPropertyChange('model.article');
+		this.scheduleArticleTransforms();
+	},
+
+	onModelChange: Em.observer('controller.model.article', function (): void {
+		// This check is here because this observer will actually be called for views wherein the state is actually
+		// not valid, IE, the view is in the process of preRender
+		if (this.get('_state') === 'inDOM') {
+			this.scheduleArticleTransforms();
+		}
+	}),
+
+	scheduleArticleTransforms: function (): void {
+		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
 	},
 
 	didInsertElement: function () {
 		this.get('controller').send('articleRendered');
 	},
 
-	onArticleChange: function (): void {
-		Em.run.scheduleOnce('afterRender', this, () => {
-			var model = this.get('controller.model'),
-				article = model.get('article');
+	articleContentObserver: function (): void {
+		var model = this.get('controller.model'),
+			article = model.get('article');
 
-			if (article && article.length > 0) {
-				this.loadTableOfContentsData();
-				this.handleInfoboxes();
-				this.handlePortableInfoboxes();
-				this.lazyLoadMedia(model.get('media'));
-				this.handleTables();
-				this.replaceMapsWithMapComponents();
-				this.injectAds();
-				this.setupAdsContext(model.get('adsContext'));
+		if (article && article.length > 0) {
+			this.loadTableOfContentsData();
+			this.handleInfoboxes();
+			this.handlePortableInfoboxes();
+			this.lazyLoadMedia(model.get('media'));
+			this.handleTables();
+			this.replaceMapsWithMapComponents();
+			this.injectAds();
+			this.setupAdsContext(model.get('adsContext'));
 
-				M.setTrackContext({
-					a: model.title,
-					n: model.ns
-				});
+			M.setTrackContext({
+				a: model.title,
+				n: model.ns
+			});
 
-				M.trackPageView(model.get('adsContext.targeting'));
-			}
-		});
+			M.trackPageView(model.get('adsContext.targeting'));
+		}
 	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {
