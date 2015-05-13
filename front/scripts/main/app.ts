@@ -82,7 +82,7 @@ App.initializer({
 
 App.initializer({
 	name: 'performanceMonitoring',
-	after: 'optimizelyCuratedMainPageLoader',
+	after: 'preload',
 	initialize () {
 		if (typeof EmPerfSender === 'undefined') {
 			return;
