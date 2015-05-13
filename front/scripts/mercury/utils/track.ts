@@ -3,8 +3,8 @@
 /// <reference path="../modules/Trackers/UniversalAnalytics.ts" />
 
 interface Window {
-	Mercury: any;
 	ga: any;
+	Mercury: any;
 }
 
 interface TrackContext {
