@@ -5,6 +5,7 @@
  */
 
 import url = require('url');
+import querystring = require('querystring');
 
 var wikiaSignupPathname: string = '/Special:UserSignup',
 	wikiaLoginPathname: string = '/Special:UserLogin',
@@ -29,16 +30,12 @@ export function getLoginUrlFromRedirect(redirect: string): string {
 	return url.format(forgotPasswordUrlObj);
 }
 
-export function getCacheBustedUrl(url: string): string {
+export function getCacheBustedUrl(redirect: string): string {
 	var cacheBustedUrlObj = url.parse(redirect),
-	cachebuster = Math.floor(Math.random() * 10000);
+		query = querystring.parse(cacheBustedUrlObj.query);
 
-	if (cacheBustedUrlObj.search) {
-		cacheBustedUrlObj.search += '&cb=';
-	} else {
-		cacheBustedUrlObj.search = 'cb=';
-	}
+	query.cb = Math.floor(Math.random() * 10000);
+	cacheBustedUrlObj.search = querystring.stringify(query);
 
-	cacheBustedUrlObj.search += cachebuster;
 	return url.format(cacheBustedUrlObj);
 }
