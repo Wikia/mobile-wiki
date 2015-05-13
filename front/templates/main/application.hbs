@@ -4,7 +4,6 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{loading-spinner active=isLoading}}
 	{{outlet 'lightbox'}}
 {{else if fullPage}}
 	{{outlet}}
@@ -21,6 +20,6 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{loading-spinner active=isLoading}}
 	{{outlet 'lightbox'}}
 {{/if}}
+{{loading-spinner active=isLoading}}
