@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
+///<reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 interface FeaturedContentItem {
@@ -12,7 +13,7 @@ interface FeaturedContentItem {
 	article_local_url: string;
 }
 
-App.FeaturedContentComponent = Em.Component.extend({
+App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['featured-content'],
 	currentItemIndex: 0,
 	// should it be here?
@@ -35,6 +36,10 @@ App.FeaturedContentComponent = Em.Component.extend({
 		swipeRight: function (): void {
 			this.prevItem();
 		},
+	},
+
+	click: function (): void {
+		this.trackClick('modular-main-page', 'featured-content');
 	},
 
 	/**
