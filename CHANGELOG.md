@@ -1,3 +1,6 @@
+## release-60 (2015-05-13 02:09 PM PST)
+* [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
+
 ## release-59 (2015-05-13 12:45)
 * [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
 * [HG-612](https://wikia-inc.atlassian.net/browse/HG-612) HG-612 Decouple Application and Article
