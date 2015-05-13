@@ -6,7 +6,7 @@
 'use strict';
 
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, {
-	classNames: ['share-feature'],
+	classNames: ['share-feature', 'mw-content'],
 	tagName: 'div',
 	headroom: null,
 
