@@ -120,7 +120,7 @@ export function post (request: Hapi.Request, reply: any): void {
 		ttl = 1.57785e10; // 6 months
 
 	// add cache buster value to the URL upon successful login
-	successRedirect = authUtils.getCacheBustedUrl(redirect);
+	successRedirect = authUtils.getCacheBusterUrl(redirect);
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 

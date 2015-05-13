@@ -30,7 +30,7 @@ export function getLoginUrlFromRedirect(redirect: string): string {
 	return url.format(forgotPasswordUrlObj);
 }
 
-export function getCacheBustedUrl(redirect: string): string {
+export function getCacheBusterUrl(redirect: string): string {
 	var cacheBustedUrlObj = url.parse(redirect),
 		query = querystring.parse(cacheBustedUrlObj.query);
 
