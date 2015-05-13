@@ -2,10 +2,6 @@
 /// <reference path="../../modules/Ads.ts" />
 /// <reference path="../../../baseline/mercury.ts" />
 
-interface TrackerMap {
-	[name: string]: UniversalAnalytics.Tracker;
-}
-
 interface TrackerOptions {
 	name: string;
 	allowLinker: boolean;
