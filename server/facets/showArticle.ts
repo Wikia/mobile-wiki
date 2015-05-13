@@ -80,7 +80,8 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 
 			// qualaroo
 			if (localSettings.qualaroo.enabled) {
-				result.qualarooScript = localSettings.qualaroo.scriptUrl;
+				result.qualarooScript = localSettings.environment === Utils.Environment.Prod ?
+					localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
 			}
 		}
 

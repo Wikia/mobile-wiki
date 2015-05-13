@@ -47,7 +47,8 @@ interface LocalSettings {
 	};
 	qualaroo?: {
 		enabled: boolean;
-		scriptUrl: string;
+		scriptUrlDev: string;
+		scriptUrlProd: string;
 	};
 	port: number;
 	proxyMaxRedirects: number;
