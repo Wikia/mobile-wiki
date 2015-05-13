@@ -993,36 +993,9 @@ declare module Ember {
         static isMethod: boolean;
 
         /**
-        Creates a new subclass.
-        @method extend
-        @static
-        @param {Object} [args] - Object containing values to use within the new class
+        Creates a subclass of the Object class.
         **/
-        static extend<T>(args ?: CoreObjectArguments): T;
-        /**
-        Creates a new subclass.
-        @method extend
-        @static
-        @param {Mixin} [mixins] - One or more Mixin classes
-        @param {Object} [args] - Object containing values to use within the new class
-        **/
-        static extend<T>(mixins?: Mixin, args?: CoreObjectArguments): T;
-
-        /**
-        Creates a new subclass.
-        @method extend
-        @param {Object} [args] - Object containing values to use within the new class
-        Non-static method because Ember classes aren't currently 'real' TypeScript classes.
-        **/
-        extend<T>(args ?: CoreObjectArguments): T;
-        /**
-        Creates a new subclass.
-        @method extend
-        @param {Mixin} [mixins] - One or more Mixin classes
-        @param {Object} [args] - Object containing values to use within the new class
-        Non-static method because Ember classes aren't currently 'real' TypeScript classes.
-        **/
-        extend<T>(mixins ? : Mixin, args ?: CoreObjectArguments): T;
+        static extend<T>(...arguments: CoreObjectArguments[]): T;
 
         /**
         Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
@@ -1301,6 +1274,9 @@ declare module Ember {
         class SafeString {
             constructor(str: string);
             static toString(): string;
+        }
+        class Utils {
+            static escapeExpression(str: string): string;
         }
         function parse(string: string): any;
         function print(ast: any): void;
@@ -2831,6 +2807,7 @@ declare module Ember {
     // ReSharper disable once DuplicatingLocalDeclaration
     var computed: {
         (callback: Function): ComputedProperty;
+        (...args: any[]): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
         and(...args: string[]): ComputedProperty;
         any(...args: string[]): ComputedProperty;
@@ -2883,7 +2860,7 @@ declare module Ember {
     getPath is deprecated since get now supports paths.
     **/
     var getPath: typeof deprecateFunc;
-    function getWithDefault(root: string, key: string, defaultValue: any): any;
+    function getWithDefault(root: any, key: string, defaultValue: any): any;
     function guidFor(obj: any): string;
     function handleErrors(func: Function, context: any): any;
     function hasListeners(context: any, name: string): boolean;
@@ -2916,7 +2893,7 @@ declare module Ember {
     **/
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
-    function observer(func: Function, ...args: string[]): Function;
+    function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;
@@ -3063,6 +3040,7 @@ declare module Em {
         var createFrame: typeof Ember.Handlebars.createFrame;
         var Exception: typeof Ember.Handlebars.Exception;
         class SafeString extends Ember.Handlebars.SafeString { }
+        class Utils extends Ember.Handlebars.Utils { }
         var parse: typeof Ember.Handlebars.parse;
         var print: typeof Ember.Handlebars.print;
         var logger: typeof Ember.Handlebars.logger;
