@@ -14,8 +14,7 @@ App.EditModel.reopenClass({
 	getEditToken: function(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
-				// FIXME: Hardcoded URL
-				url: 'http://visualeditor.inez.wikia-dev.com/api.php',
+				url: Mercury.wiki.basePath + '/api.php',
 				data: {
 					action: 'query',
 					prop: 'info',
@@ -43,8 +42,7 @@ App.EditModel.reopenClass({
 			this.getEditToken(model.title)
 			.then((token: any) => {
 				Em.$.ajax({
-					// FIXME: Hardcoded URL
-					url: 'http://visualeditor.inez.wikia-dev.com/api.php',
+					url: Mercury.wiki.basePath + '/api.php',
 					data: {
 						action: 'edit',
 						title: model.title,
@@ -70,8 +68,7 @@ App.EditModel.reopenClass({
 		});
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			// FIXME: Hardcoded URL
-			Em.$.getJSON('http://visualeditor.inez.wikia-dev.com/api.php', {
+			Em.$.getJSON(Mercury.wiki.basePath + '/api.php', {
 				action: 'query',
 				prop: 'revisions',
 				// FIXME: It should be possible to pass props as an array
