@@ -39,7 +39,7 @@ function get (request: Hapi.Request, reply: any): void {
 		{
 			layout: 'auth'
 		}
-	);
+	).header('Cache-Control', 'private, s-maxage=0, max-age=0, must-revalidate');
 }
 
 export = get;
