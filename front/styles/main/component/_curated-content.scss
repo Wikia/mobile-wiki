@@ -1,5 +1,8 @@
 $image-spacing: 5px;
-$back-button-width: 20px;
+$top-nav-line-height: 26px;
+$back-button-size: $top-nav-line-height;
+$back-button-padding: 10px;
+$back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 
 .curated-content {
 	padding: 0 $image-spacing;
@@ -105,7 +108,6 @@ $back-button-width: 20px;
 
 	.section-top {
 		margin-bottom: 10px;
-		overflow: hidden;
 		position: relative;
 		text-align: center;
 	}
@@ -113,9 +115,9 @@ $back-button-width: 20px;
 	.section-title {
 		font-size: 18px;
 		font-weight: bold;
-		line-height: 26px;
+		line-height: $top-nav-line-height;
 		overflow: hidden;
-		padding: 0 $back-button-width;
+		padding: 0 $back-button-with-padding-size;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		width: 100%;
@@ -123,13 +125,15 @@ $back-button-width: 20px;
 
 	.section-navigation {
 		cursor: pointer;
-		height: 20px;
-		left: 0;
+		height: $back-button-with-padding-size;
+		left: -$back-button-padding;
 		margin-left: 10px;
+		padding: $back-button-padding;
 		position: absolute;
+		top: -$back-button-padding;
 		transform: rotate(90deg);
 		white-space: nowrap;
-		width: $back-button-width;
+		width: $back-button-with-padding-size;
 	}
 
 	//Ember by default adds div when certain action is bound to an element
