@@ -35,6 +35,9 @@ var localSettings: LocalSettings = {
 		syslog: 'debug'
 	},
 	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
+	// auth pages aren't supported on custom domains, so this value should only be used for auth features
+	// once we phase out custom domains, we can change this to "cookieDomain" and use it for more features
+	authCookieDomain: '.wikia.com',
 	maxRequestsPerChild: parseInt(process.env.MAX_REQUEST_PER_CHILD, 10) || 50000,
 	optimizely: {
 		enabled: true,
