@@ -5,7 +5,7 @@
 'use strict';
 
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
-	classNames: ['share-feature'],
+	classNames: ['share-feature', 'mw-content'],
 	tagName: 'div',
 	headroom: null,
 
