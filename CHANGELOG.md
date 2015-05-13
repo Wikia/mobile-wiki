@@ -1,3 +1,9 @@
+## release-59 (2015-05-13 12:45)
+* [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
+* [HG-612](https://wikia-inc.atlassian.net/browse/HG-612) HG-612 Decouple Application and Article
+* [DAT-2770](https://wikia-inc.atlassian.net/browse/DAT-2770) Dat 2770 - add styling support for portable infoboxes in mercury
+* [DAT-2781](https://wikia-inc.atlassian.net/browse/DAT-2781) DAT-2781 adjust infobox height according to device width
+
 ## release-58 (2015-05-12 17:40)
 * [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
 * [SOC-660](https://wikia-inc.atlassian.net/browse/SOC-660) SOC-660 Translations for log-in and sign-up pages
