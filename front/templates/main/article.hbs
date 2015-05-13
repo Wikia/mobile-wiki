@@ -1,5 +1,5 @@
 {{! FIXME this is a temporary solution, main pages should be decoupled from article}}
-{{#if model.mainPageData}}
+{{#if model.isCuratedMainPage}}
 	<h1 class='article-title'>{{siteName}}</h1>
 {{else}}
 	<h2 class='wiki-title' {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
@@ -8,7 +8,7 @@
 {{#if model.error}}
 	{{render 'not-found'}}
 {{else}}
-	{{#if model.mainPageData}}
+	{{#if model.isCuratedMainPage}}
 		{{main-page model=model.mainPageData}}
 	{{else}}
 		<section class='article-body'>
