@@ -195,6 +195,7 @@ App.ArticleModel.reopenClass({
 			}
 			if (source.mainPageData) {
 				data.mainPageData = source.mainPageData;
+				data.isCuratedMainPage = true;
 			}
 		}
 

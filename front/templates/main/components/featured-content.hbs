@@ -1,8 +1,6 @@
-<nav>
-	{{#each item in model}}
-		{{#if item.image_url}}
-			<img src="{{item.image_url}}">
-		{{/if}}
-		<p>{{item.label}}</p>
+{{featured-content-item url=currentItem.article_local_url label=currentItem.label imageUrl=currentItem.image_url}}
+<ul class='featured-content-pagination dot-pagination'>
+	{{#each model as |item index|}}
+		<li data-index='{{index}}'><span></span></li>
 	{{/each}}
-</nav>
+</ul>

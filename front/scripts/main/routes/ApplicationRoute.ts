@@ -30,6 +30,12 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
 			this.controller.hideLoader();
+
+			/*
+			 * This is called after the first route of any application session has loaded
+			 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
+			 */
+			M.prop('firstPage', false);
 		},
 
 		error: function () {
@@ -37,19 +43,31 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {
-			var controller = this.controllerFor('article'),
-				model = controller.get('model'),
-				trackingCategory = target.dataset.trackingCategory,
-				info = M.getLinkInfo(
-					model.get('basePath'),
-					model.get('title'),
-					target.hash,
-					target.href
-				),
+			// Use this to get current route info
+			// this.router.get('currentState.routerJsState')
+			var handlerInfos = this.router.get('currentState.routerJsState.handlerInfos'),
+				currentRoute = handlerInfos[handlerInfos.length - 1],
+				title: string,
+				trackingCategory: string,
+				info: LinkInfo,
 				// exec() returns an array of matches or null if no match is found.
 				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
 				cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
 				defaultSkin: string = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
+
+			if (currentRoute === 'article') {
+				title = this.controllerFor('article').get('model').get('title');
+			} else {
+				title = '';
+			}
+
+			trackingCategory = target.dataset.trackingCategory;
+			info = M.getLinkInfo(
+				Mercury.wiki.basePath,
+				title,
+				target.hash,
+				target.href
+			);
 
 			/**
 			 * Handle tracking
@@ -73,7 +91,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			}
 
 			if (info.article) {
-				controller.send('changePage', info.article);
+				this.transitionTo('article', info.article);
 			} else if (info.url) {
 				/**
 				 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
@@ -98,7 +116,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			App.ArticleModel
 				.getArticleRandomTitle()
 				.then((articleTitle: string): void => {
-					this.controllerFor('article').send('changePage', articleTitle);
+					this.transitionTo('article', articleTitle);
 				})
 				.catch((err: any): void => {
 					this.send('error', err);
