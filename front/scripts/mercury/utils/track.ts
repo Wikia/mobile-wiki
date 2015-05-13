@@ -1,12 +1,10 @@
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../modules/Trackers/Internal.ts" />
-/// <reference path="../modules/Trackers/GoogleAnalytics.ts" />
 /// <reference path="../modules/Trackers/UniversalAnalytics.ts" />
 
 interface Window {
-	ga: any;
 	Mercury: any;
-	ua: any;
+	ga: any;
 }
 
 interface TrackContext {
@@ -113,7 +111,6 @@ module Mercury.Utils {
 			value: number = params.value || 0,
 			trackers = Mercury.Modules.Trackers,
 			tracker: Mercury.Modules.Trackers.Internal,
-			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics,
 			uaTracker: Mercury.Modules.Trackers.UniversalAnalytics;
 
 		if (M.prop('queryParams.noexternals')) {
@@ -135,13 +132,8 @@ module Mercury.Utils {
 				throw new Error('missing required GA params');
 			}
 
-			gaTracker = new trackers.GoogleAnalytics();
-			gaTracker.track(category, actions[action], label, value, true);
-
-			if (Mercury.wiki.analytics && Mercury.wiki.analytics.UAEnabled) {
-				uaTracker = new trackers.UniversalAnalytics();
-				uaTracker.track(category, actions[action], label, value, true);
-			}
+			uaTracker = new trackers.UniversalAnalytics();
+			uaTracker.track(category, actions[action], label, value, true);
 		}
 
 		if (trackingMethod === 'both' || trackingMethod === 'internal') {

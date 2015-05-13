@@ -50,7 +50,7 @@ var localSettings: LocalSettings = {
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	tracking: {
-		ga: {
+		ua: {
 			primary: {
 				id: 'UA-32129070-1',
 				sampleRate: 10
@@ -58,17 +58,6 @@ var localSettings: LocalSettings = {
 			ads: {
 				prefix: 'ads',
 				id: 'UA-32129071-1',
-				sampleRate: 100
-			}
-		},
-		ua: {
-			primary: {
-				id: 'UA-32129070-4',
-				sampleRate: 10
-			},
-			ads: {
-				prefix: 'ads',
-				id: 'UA-32129070-4',
 				sampleRate: 100
 			}
 		},
