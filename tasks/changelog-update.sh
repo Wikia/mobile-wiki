@@ -5,7 +5,7 @@ while getopts ":r:" opt; do
 		r)
 			RELEASE=$OPTARG
 			;;
-		\?)\
+		\?)
 			echo "Invalid option: -$OPTARG"
 			exit 1
 			;;
