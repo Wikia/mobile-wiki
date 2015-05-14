@@ -21,7 +21,7 @@ if [ -z $RELEASE ]; then
 	exit 1
 fi
 
-/bin/bash tasks/changelog-view.sh 1> new 2> /dev/null || /bin/bash changelog-view.sh > new
+/bin/bash tasks/changelog-view.sh 1> new
 
 WORDC=$(wc -w new | tr -d '[:alpha:][:blank:][:punct:]/-')
 DATE=$(date -u +"%Y-%m-%d %H:%M")
@@ -30,8 +30,8 @@ if [ $WORDC -gt 0 ]; then
 	echo "## "$RELEASE" ("$DATE" UTC)" > temp
 	cat new >> temp
 	echo "" >> temp
-	cat ../CHANGELOG.md >> temp
-	mv temp ../CHANGELOG.md	
+	cat CHANGELOG.md >> temp
+	mv temp CHANGELOG.md	
 	rm new
 	echo "Changelog updated"
 else
