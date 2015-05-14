@@ -61,17 +61,16 @@
 			ordered=false
 			observe=model.cleanTitle
 			trackingEvent='category'
-			}}
-				{{#each category in model.categories itemController='categoryListItem'}}
-						<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
-							{{category.cleanTitle}}
-							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-						</a></li>
-				{{/each}}
-			{{/collapsible-menu}}
-		{{/if}}
-		</section>
-		{{content-recommendations pages=model.relatedPages}}
+		}}
+			{{#each category in model.categories itemController='categoryListItem'}}
+			<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.model.url}}' title='{{unbound category.model.title}}'>
+				{{category.cleanTitle}}
+				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+			</a></li>
+			{{/each}}
+		{{/collapsible-menu}}
 	{{/if}}
+	</section>
+	{{content-recommendations pages=model.relatedPages}}
 {{/if}}
 {{wikia-footer trackClick='trackClick'}}

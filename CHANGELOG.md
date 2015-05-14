@@ -1,3 +1,16 @@
+## release-61 (2015-05-14 11:31 AM UTC)
+* [CONCF-520](https://wikia-inc.atlassian.net/browse/CONCF-520) CONCF-520 | Send optimizely data to qualaroo
+* [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
+* new-login-mvp: New Login MVP
+* liz-login-testing: HG-647 adding cb value to url upon login
+* master: sync commits with master
+* new-login-to-dev-integration: New login to dev integration
+* enable_test_wiki: adding mobileregressiontesting to list of loginmvp wikis
+* liz-login-testing: Fixing cookie domain
+* [SOC-750](https://wikia-inc.atlassian.net/browse/SOC-750) SOC-750 Password field should be masked by default
+* [SOC-696](https://wikia-inc.atlassian.net/browse/SOC-696) SOC-696 Fixing Floating Labels bug on pressing "back" button in the browser
+* [SOC-695](https://wikia-inc.atlassian.net/browse/SOC-695) SOC-695 Adding whitelisting for redirects to the new login flow
+
 ## release-60 (2015-05-13 02:09 PM PST)
 * [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
 
