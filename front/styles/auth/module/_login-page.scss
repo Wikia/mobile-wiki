@@ -1,10 +1,5 @@
-//stronger selector to override input[type]
-input.sign-in-password {
-	margin-bottom: 5px;
-}
-
 .forgotten-password {
-	color: $forgotten-password-link-color;
+	color: $link-color;
 	display: block;
 	font-size: 0.75rem;
 	margin: 0;

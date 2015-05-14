@@ -10,7 +10,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	comment: null,
 	thumbnailWidth: 480,
 
-	text: function (): string {
+	text: Em.computed('comment.text', function () {
 		var $text = $('<div/>').html(this.get('comment.text')),
 			$figure = $text.find('figure');
 
@@ -19,17 +19,16 @@ App.ArticleCommentComponent = Em.Component.extend({
 		}
 
 		return $text.html();
-	}.property('comment.text'),
+	}),
 
-	user: function (): any {
+	user: Em.computed('users', function () {
 		var users = this.get('users');
 		if (users) {
 			return users[this.get('comment.userName')] || {};
 		}
-		return {};
-	}.property('users'),
+	}),
 
-	userName: function (): string {
+	userName: Em.computed('comment.userName', function () {
 		// Checks for an IP address to identify an anonymous user. This is very crude and obviously doesn't check IPv6.
 		var userName = this.get('comment.userName'),
 			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
@@ -39,10 +38,10 @@ App.ArticleCommentComponent = Em.Component.extend({
 		} else {
 			return userName;
 		}
-	}.property('comment.userName'),
+	}),
 
 	actions: {
-		toggleExpand: function (): void {
+		toggleExpand: function () {
 			this.toggleProperty('expanded');
 		}
 	},
@@ -68,13 +67,10 @@ App.ArticleCommentComponent = Em.Component.extend({
 		}
 
 		thumbnailsData.forEach((thumbnailData: {name: string; full: string; capt?: string; type?: string}) => {
-			var thumbnailURL = thumbnailer.getThumbURL(
-					thumbnailData.full,
-					thumbnailer.mode.scaleToWidth,
-					this.thumbnailWidth,
-					// this is ignored by Vignette, should be optional
-					0
-				),
+			var thumbnailURL = thumbnailer.getThumbURL(thumbnailData.full, {
+					mode: thumbnailer.mode.scaleToWidth,
+					width: this.thumbnailWidth
+				}),
 				$thumbnail = $('<img/>').attr('src', thumbnailURL),
 				href = '%@%@:%@'.fmt(
 					Em.get(Mercury, 'wiki.articlePath'),

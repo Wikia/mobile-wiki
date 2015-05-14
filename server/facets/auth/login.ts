@@ -6,13 +6,13 @@ import Boom = require('boom');
 import Wreck = require('wreck');
 import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
+import authUtils = require('../../lib/AuthUtils');
 
 interface AuthParams {
-	'user_id'       : string;
-	'access_token'  : string;
-	'refresh_token' : string;
-	'redirect'?     : string;
-	'remember'?     : string;
+	'user_id': string;
+	'access_token': string;
+	'refresh_token': string;
+	'redirect'?: string;
 }
 
 interface AuthCallbackFn {
@@ -20,21 +20,39 @@ interface AuthCallbackFn {
 }
 
 interface HeliosResponse {
-	'user_id'            : string;
-	'access_token'       : string;
-	'refresh_token'      : string;
-	'token_type'         : string;
-	'expires_in'         : string;
-	'error'?             : string;
-	'error_description'? : string;
+	'user_id': string;
+	'access_token': string;
+	'refresh_token': string;
+	'token_type': string;
+	'expires_in': string;
+	'error'?: string;
+	'error_description'?: string;
 }
 
 interface LoginViewContext {
-	title        : string;
-	hideHeader?  : boolean;
-	hideFooter?  : boolean;
-	exitTo?      : string;
-	bodyClasses? : string;
+	title: string;
+	headerText: string;
+	footerCallout: string;
+	footerCalloutLink: string;
+	footerHref?: string;
+	forgotPasswordHref?: string;
+	hideHeader?: boolean;
+	hideFooter?: boolean;
+	exitTo?: string;
+	bodyClasses?: string;
+	formErrorKey?: string;
+}
+
+function getLoginContext (redirect: string): LoginViewContext {
+	return <LoginViewContext> {
+		title: 'auth:login.login-title',
+		headerText: 'auth:login.welcome-back',
+		footerCallout: 'auth:login.register-callout',
+		footerCalloutLink: 'auth:login.register-now',
+		exitTo: redirect,
+		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+	};
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -72,7 +90,7 @@ function authenticate (username: string, password: string, callback: AuthCallbac
 /**
  * Obtains i18n key of a proper message to display in Front-End based on Helios response
  */
-function getFormErrorKey (statusCode: number): String {
+function getFormErrorKey (statusCode: number): string {
 	if (statusCode === 401) {
 		return 'auth:login.wrong-credentials';
 	}
@@ -80,65 +98,62 @@ function getFormErrorKey (statusCode: number): String {
 }
 
 export function get (request: Hapi.Request, reply: any): void {
-	var context: LoginViewContext,
-		redirectUrl: string = request.query.redirect || '/';
+	var redirect: string = request.query.redirect || '/',
+		context: LoginViewContext = getLoginContext(redirect);
 
 	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirectUrl);
+		return reply.redirect(redirect);
 	}
 
-	context = {
-		exitTo: redirectUrl,
-		title: 'Login'
-	};
-
 	return reply.view('login', context, {
-		layout: 'wikia-static'
+		layout: 'auth'
 	});
 }
 
 export function post (request: Hapi.Request, reply: any): void {
 	var credentials: any = request.payload,
-		authParams: AuthParams,
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
-		authRedirect: string,
-		error: any = {},
-		redirect: string,
-		rememberMeTTL = 1.57785e10, // 6 months
-		context: any = {};
+		redirect: string = request.query.redirect || '/',
+		successRedirect: string,
+		context: LoginViewContext = getLoginContext(redirect),
+		ttl = 1.57785e10; // 6 months
+
+	// add cache buster value to the URL upon successful login
+	successRedirect = authUtils.getCacheBusterUrl(redirect);
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
 		if (err) {
 			context.formErrorKey = getFormErrorKey(err.output.statusCode);
+			context.exitTo = redirect;
 
 			if (isAJAX) {
 				return reply(context).code(err.output.statusCode);
 			}
 
 			return reply.view('login', context, {
-				layout: 'wikia-static'
-			// Always set the correct code
+				layout: 'auth'
+			// Always set the correct status code
 			}).code(err.output.statusCode);
 		}
 
-		redirect = request.query.redirect || '/';
+		// set unencrypted cookie that can be read by all apps (i.e. MW and Mercury) HG-631
+		reply.state('access_token', response.access_token, {ttl: ttl});
 
+		// set session cookie via hapi-auth-cookie
 		request.auth.session.set({
-			'user_id'       : response.user_id,
-			'access_token'  : response.access_token,
-			'refresh_token' : response.refresh_token
+			'sid'  : response.access_token
 		});
 
-		if (credentials.remember) {
-			request.auth.session.ttl(rememberMeTTL);
-		}
+		// Set cookie TTL for "remember me" period of 6 months
+		// TODO: Helios service should control the length of auth session
+		request.auth.session.ttl(ttl);
 
 		if (isAJAX) {
-			return reply({redirect: redirect});
+			return reply({redirect: successRedirect});
 		}
 
-		return reply.redirect(redirect);
+		return reply.redirect(successRedirect);
 	});
 }

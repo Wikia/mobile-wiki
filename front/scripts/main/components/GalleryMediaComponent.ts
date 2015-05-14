@@ -37,7 +37,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		});
 	},
 
-	limitedMedia: function (): ArticleMedia[] {
+	limitedMedia: Em.computed('media', 'limit', function (): ArticleMedia[] {
 		var limit = this.get('limit');
 
 		if (limit > 0) {
@@ -45,7 +45,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		}
 
 		return this.get('media');
-	}.property('media', 'limit'),
+	}),
 
 	loadImages: function (
 		imageOrGalleryRef: any,
@@ -62,11 +62,11 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			image = this.get('media').get(galleryRef);
 
 			image.setProperties({
-				thumbUrl: this.getThumbURL(
-					image.get('url'),
-					Mercury.Modules.Thumbnailer.mode.topCrop,
-					thumbSize,
-					thumbSize),
+				thumbUrl: this.getThumbURL(image.get('url'), {
+					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+					width: thumbSize,
+					height: thumbSize
+				}),
 				load: true
 			});
 		}

@@ -52,7 +52,7 @@ module Mercury.Modules {
 					require([
 						'ext.wikia.adEngine.adEngine',
 						'ext.wikia.adEngine.adContext',
-						'ext.wikia.adEngine.adConfigMobile',
+						'ext.wikia.adEngine.config.mobile',
 						'ext.wikia.adEngine.adLogicPageViewCounter',
 						'wikia.krux'
 					], (

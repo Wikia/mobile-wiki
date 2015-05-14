@@ -24,6 +24,11 @@
 	p {
 		margin-bottom: 15px;
 	}
+
+	img {
+		height: auto;
+		width: 160px;
+	}
 }
 
 .signup-provider-facebook {
@@ -31,7 +36,7 @@
 	border: none;
 	margin-bottom: 15px;
 
-	&:focus, &:hover {
+	&:active, &:hover {
 		background-color: $color-blue-light;
 	}
 }
@@ -40,17 +45,22 @@
 	background-color: transparent;
 	border-color: $color-white;
 
-	&:focus, &:hover {
+	&:visited {
+		border-color: $color-white;
+		color: $color-white;
+	}
+
+	&:active, &:hover {
 		background-color: transparent;
 		border-color: $color-blue-light;
 		color: $color-blue-light;
 	}
+
 }
 
 .sign-in-message {
 	display: inline-block;
 	margin-bottom: 0;
-	padding-right: 1.5rem;
 	text-align: right;
 }
 

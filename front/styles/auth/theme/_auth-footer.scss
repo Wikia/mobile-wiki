@@ -1,8 +1,15 @@
 .auth-footer {
 	color: $footer-text-color;
+	flex-grow: 0;
+	flex-shrink: 0;
 
 	a {
 		color: inherit;
+		font-weight: bold;
 		text-transform: uppercase;
 	}
+}
+
+.footer-callout-link {
+	padding-left: 10px;
 }

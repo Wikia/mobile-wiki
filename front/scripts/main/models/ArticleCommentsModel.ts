@@ -9,7 +9,7 @@ App.ArticleCommentsModel = Em.Object.extend({
 	pagesCount: 0,
 	page: 0,
 
-	fetch: function () {
+	fetch: Em.observer('page', 'articleId', function () {
 		var page = this.get('page'),
 			articleId = this.get('articleId');
 
@@ -27,15 +27,15 @@ App.ArticleCommentsModel = Em.Object.extend({
 				});
 			});
 		}
-	}.observes('page', 'articleId'),
+	}),
 
-	reset: function () {
+	reset: Em.observer('articleId', function () {
 		this.setProperties({
 			comments: 0,
 			users: null,
 			pagesCount: 0
 		});
-	}.observes('articleId'),
+	}),
 
 	url: function (articleId: number, page: number = 0) {
 		return App.get('apiBase') + '/article/comments/' + articleId + '/' + page;

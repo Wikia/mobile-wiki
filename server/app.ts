@@ -15,6 +15,7 @@ import cluster       = require('cluster');
 import localSettings = require('../config/localSettings');
 import path          = require('path');
 import url           = require('url');
+import fs            = require('fs');
 
 //Counter for maxRequestPerChild
 var counter = 1,
@@ -56,9 +57,13 @@ plugins = [
 					namespaces: ['main', 'auth'],
 					defaultNs: 'main'
 				},
+				fallbackLng: 'en',
+				supportedLngs: getSupportedLangs(),
 				useCookie: true,
 				cookieName: 'lang',
-				detectLngFromHeaders: true
+				detectLngFromHeaders: true,
+				detectLngFromQueryString: true,
+				detectLngQS: 'uselang'
 			}
 		}
 	}
@@ -74,6 +79,7 @@ server.register(plugins, (err: any) => {
 		cookie         : 'sid',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
+		domain         : localSettings.authCookieDomain,
 		redirectTo     : '/login'
 	});
 });
@@ -98,6 +104,13 @@ server.views({
 			getInstance: server.methods.i18n.getInstance
 		}
 	}
+});
+
+// Cookies
+server.state('access_token', {
+	isHttpOnly: true,
+	clearInvalid: true,
+	domain: localSettings.authCookieDomain
 });
 
 // instantiate routes
@@ -243,4 +256,11 @@ function setupLogging (server: Hapi.Server): void {
 			referrer: request.info.referrer
 		}, 'Response');
 	});
+}
+
+/**
+ * Get list of supported languages based on locales directories
+ */
+function getSupportedLangs(): string[] {
+	return fs.readdirSync('front/locales');
 }

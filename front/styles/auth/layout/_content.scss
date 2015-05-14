@@ -1,6 +1,17 @@
 .auth-content {
 	background-color: $auth-content-background-color;
 	// stick the footer to the bottom
-	flex: 1;
+	flex-grow: 1;
+	flex-shrink: 0;
 	padding: 18px;
+
+	* {
+		-webkit-tap-highlight-color: Transparent;
+	}
+
+	//Temporary changes for the Login MVP
+	form {
+		margin: auto;
+		max-width: 720px;
+	}
 }

@@ -3,7 +3,7 @@
 /// <reference path="../mixins/VisibilityStateManager.ts" />
 'use strict';
 
-App.ArticleController = Em.ObjectController.extend({
+App.ArticleController = Em.Controller.extend({
 	needs: ['application'],
 
 	queryParams: ['file', 'map', {commentsPage: 'comments_page'}],
@@ -12,17 +12,17 @@ App.ArticleController = Em.ObjectController.extend({
 	map: null,
 	noAds: Em.computed.alias('controllers.application.noAds'),
 
+	init: function (): void {
+		this.setProperties({
+			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
+			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+		});
+	},
+
 	actions: {
 		updateHeaders: function (headers: NodeList): void {
 			var article = this.get('model');
 			article.set('sections', headers);
-		},
-
-		changePage: function (title: string): void {
-			App.VisibilityStateManager.reset();
-			this.set('commentsPage', null);
-			this.set('file', null);
-			this.transitionToRoute('article', title);
 		},
 
 		articleRendered: function () {

@@ -27,6 +27,7 @@ interface LocalSettings {
 	domain: string;
 	mediawikiDomain?: string;
 	devboxDomain?: string;
+	authCookieDomain?: string;
 	environment: any;
 	helios: {
 		host: string;
@@ -43,6 +44,11 @@ interface LocalSettings {
 		scriptPath: string;
 		devAccount: string;
 		account: string;
+	};
+	qualaroo?: {
+		enabled: boolean;
+		scriptUrlDev: string;
+		scriptUrlProd: string;
 	};
 	port: number;
 	proxyMaxRedirects: number;

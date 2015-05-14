@@ -28,6 +28,17 @@ var routes: RouteDefinition[],
 				}
 			}
 		}
+	},
+	authPageConfig = {
+		auth: {
+			mode: 'try',
+			strategy: 'session'
+		},
+		plugins: {
+			'hapi-auth-cookie': {
+				redirectTo: false
+			}
+		}
 	};
 
 unauthenticatedRoutes = [
@@ -76,6 +87,11 @@ unauthenticatedRoutes = [
 		path: localSettings.apiBase + '/search/{query}',
 		handler: require('./facets/api/search').get
 	},
+	{
+		method: 'GET',
+		path: localSettings.apiBase + '/curatedContent/{sectionName}',
+		handler: require('./facets/api/curatedContent').get
+	},
 	/**
 	 * Authentication Routes
 	 * @description The following routes should be related to authentication
@@ -88,17 +104,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/login',
-		config: {
-			auth: {
-				mode: 'try',
-				strategy: 'session'
-				},
-				plugins: {
-					'hapi-auth-cookie': {
-						redirectTo: false
-				}
-			}
-		},
+		config: authPageConfig,
 		handler: require('./facets/auth/login').get
 	},
 	{
@@ -108,12 +114,19 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
+		path: '/signup',
+		config: authPageConfig,
+		handler: require('./facets/auth/signup').get
+	},
+	{
+		method: 'GET',
 		path: '/breadcrumb',
 		handler: require('./facets/operations/generateCSRFView')
 	},
 	{
 		method: 'GET',
 		path: '/join',
+		config: authPageConfig,
 		handler: require('./facets/auth/join')
 	},
 	{

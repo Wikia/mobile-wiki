@@ -1,3 +1,99 @@
+## release-62 (2015-05-14 16:52 UTC)
+* track-click-fix: Remove obsolete trackClick='trackClick'
+* [DAT-2788](https://wikia-inc.atlassian.net/browse/DAT-2788) For TOC creation only select H2s that have section attribute specified
+* curated-content: Curated Main Page on Mercury
+* [HG-658](https://wikia-inc.atlassian.net/browse/HG-658) HG-658 Fix category links
+* [HG-660](https://wikia-inc.atlassian.net/browse/HG-660) Fix to PR #791
+* [HG-660](https://wikia-inc.atlassian.net/browse/HG-660) Update changelog script
+* [CONCF-489](https://wikia-inc.atlassian.net/browse/CONCF-489) CONCF-489 Curated Main Page tracking
+* [CONCF-541](https://wikia-inc.atlassian.net/browse/CONCF-541) CONCF-541 | Use Optimizely test to disable CuratedContent
+* [CONCF-535](https://wikia-inc.atlassian.net/browse/CONCF-535) CONCF-535 Add mobileInContent ad to the Curated Main Page
+* quick-fix-featured-content: Quick fix for FeaturedContent when leaving main page
+* curated-content-polishing: Curated content polishing
+* [CONCF-510](https://wikia-inc.atlassian.net/browse/CONCF-510) CONCF-510 Featured content MVP
+* [CONCF-506](https://wikia-inc.atlassian.net/browse/CONCF-506) CONCF-506 Change local branding on curated main pages
+* [CONCF-497](https://wikia-inc.atlassian.net/browse/CONCF-497) CONCF-497 Curated Content on Main Page
+* curated-content-refactor: Refactor the structure of Curated Main Page modules
+* [CONCF-497](https://wikia-inc.atlassian.net/browse/CONCF-497) Concf 497 - initial styling
+
+## release-61 (2015-05-14 11:31 AM UTC)
+* [CONCF-520](https://wikia-inc.atlassian.net/browse/CONCF-520) CONCF-520 | Send optimizely data to qualaroo
+* [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
+* new-login-mvp: New Login MVP
+* liz-login-testing: HG-647 adding cb value to url upon login
+* master: sync commits with master
+* new-login-to-dev-integration: New login to dev integration
+* enable_test_wiki: adding mobileregressiontesting to list of loginmvp wikis
+* liz-login-testing: Fixing cookie domain
+* [SOC-750](https://wikia-inc.atlassian.net/browse/SOC-750) SOC-750 Password field should be masked by default
+* [SOC-696](https://wikia-inc.atlassian.net/browse/SOC-696) SOC-696 Fixing Floating Labels bug on pressing "back" button in the browser
+* [SOC-695](https://wikia-inc.atlassian.net/browse/SOC-695) SOC-695 Adding whitelisting for redirects to the new login flow
+
+## release-60 (2015-05-13 02:09 PM PST)
+* [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
+
+## release-59 (2015-05-13 12:45)
+* [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
+* [HG-612](https://wikia-inc.atlassian.net/browse/HG-612) HG-612 Decouple Application and Article
+* [DAT-2770](https://wikia-inc.atlassian.net/browse/DAT-2770) Dat 2770 - add styling support for portable infoboxes in mercury
+* [DAT-2781](https://wikia-inc.atlassian.net/browse/DAT-2781) DAT-2781 adjust infobox height according to device width
+
+## release-58 (2015-05-12 17:40)
+* [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
+* [SOC-660](https://wikia-inc.atlassian.net/browse/SOC-660) SOC-660 Translations for log-in and sign-up pages
+* add-resize-mixin: Resize mixin
+* [CONCF-519](https://wikia-inc.atlassian.net/browse/CONCF-519) CONCF-519 | Implement Qualaroo in Mercury
+* [HG-612](https://wikia-inc.atlassian.net/browse/HG-612) Hg 612 fixing jump-to links in TOC with cb param in query string
+* [HG-624](https://wikia-inc.atlassian.net/browse/HG-624) Hg 624 Enable performance monitoring
+* [HG-640](https://wikia-inc.atlassian.net/browse/HG-640) quick fix for gulp build failing with gulp typescript 2.7
+* [HG-631](https://wikia-inc.atlassian.net/browse/HG-631) HG-631 setting and unsetting unencrypted access_token cookie
+* [HG-625](https://wikia-inc.atlassian.net/browse/HG-625) HG-625 setting helios config vars
+* [HG-604](https://wikia-inc.atlassian.net/browse/HG-604) HG 604 Set custom var 8 at track page view time and also check if it is a main page or not
+* [SOC-694](https://wikia-inc.atlassian.net/browse/SOC-694) SOC-694 UI Fixes After Design Review
+* [ADEN-1993](https://wikia-inc.atlassian.net/browse/ADEN-1993) ADEN-1993 Fixed ads lightbox styling in Mercury
+
+## release-57 (2015-04-30 16:00)
+* [HG-613](https://wikia-inc.atlassian.net/browse/HG-613) HG-613 removing redundant button mixins
+* [CONCF-480](https://wikia-inc.atlassian.net/browse/CONCF-480) Set hammerOptions.cssProps.touchCallout to 'default'
+* [CONCF-498](https://wikia-inc.atlassian.net/browse/CONCF-498) CONCF-498
+* [HG-615](https://wikia-inc.atlassian.net/browse/HG-615) HG-615 adding properties to the list-reset scss placeholder to override ...
+* [HG-614](https://wikia-inc.atlassian.net/browse/HG-614) HG-614 fixing button styles for article comments
+* [OPS-6210](https://wikia-inc.atlassian.net/browse/OPS-6210) Jenkins - apply updates to dependencies for tests
+* [HG-596](https://wikia-inc.atlassian.net/browse/HG-596) enables internal varnish for mercury
+* [HG-616](https://wikia-inc.atlassian.net/browse/HG-616) HG-616 Use style guide package with icons removed
+* [HG-589](https://wikia-inc.atlassian.net/browse/HG-589) Move crowdin config to multiple files, for now
+* [HG-603](https://wikia-inc.atlassian.net/browse/HG-603) HG-603 refactor prototype extensions
+* [SOC-474](https://wikia-inc.atlassian.net/browse/SOC-474) SOC-474 Input Errors Front-End for New Login / Signup
+* [SOC-489](https://wikia-inc.atlassian.net/browse/SOC-489) SOC-489 Front-End for the New SignUp Page
+
+## release-56 (2015-04-23 11:40 PST)
+* aden-1676-floor-adhesion-mercury: ADEN-1676 Floor adhesion on Mercury
+* aden-1946-paid-asset-drops-for-mercury: ADEN-1946 Paid Asset Drops for Mercury
+
+## release-55 (2015-04-16 13:00)
+* [INT-55](https://wikia-inc.atlassian.net/browse/INT-55) Enable ShareFeature for all languages
+* [SOC-581](https://wikia-inc.atlassian.net/browse/SOC-581) Make footer not overlap content for small viewports
+* hapi-auth: Hapi auth round two
+* cleaning-up-inline-svg-logo: Cleaning up inline svg logo
+* [CONCF-80](https://wikia-inc.atlassian.net/browse/CONCF-80) CONCF-80 | enable caching in Mercury
+* aden-1885-remove-scroll-depth: ADEN-1885 Remove scroll depth
+* [CONCF-300](https://wikia-inc.atlassian.net/browse/CONCF-300) Fix article-top-contributors-label
+* upgrade-ember-performance-sender: Update ember-performance-sender version
+* improve-track-click-mixin: Don't use the TrackClick mixin to send an action, but actually use it to...
+* [INT-53](https://wikia-inc.atlassian.net/browse/INT-53) Added Google Plus to share feature
+* [CONCF-207](https://wikia-inc.atlassian.net/browse/CONCF-207) CONCF-207 Upgrade to vignette-js#2.1.1
+* fix-explicit-type: Minor fix - explicitely specify model type as any
+* [INT-48](https://wikia-inc.atlassian.net/browse/INT-48) (WIP) Initial version of sharing feature in Mercury
+* [SOC-526](https://wikia-inc.atlassian.net/browse/SOC-526) SOC-526 removing buggy qqx functionality
+* [CONCF-114](https://wikia-inc.atlassian.net/browse/CONCF-114) CONCF-114 Ember 1.11
+* [CONCF-208](https://wikia-inc.atlassian.net/browse/CONCF-208) CONCF-208 Spaces in gallery when no caption
+* update-npm-packages: Update npm packages
+* [HG-521](https://wikia-inc.atlassian.net/browse/HG-521) HG-521 Integrate performance monitoring into Ember & persist with Weppy
+* update-hapi-i18next: Update hapi-i18next because previous version did not handle empty header
+* [SOC-526](https://wikia-inc.atlassian.net/browse/SOC-526) Soc 526 enabling query string and cookies for setting lang
+* fix-redirect: Dynamically resolve href for the login flow
+* [SOC-567](https://wikia-inc.atlassian.net/browse/SOC-567) SOC-567 Set New Login redirect on Mercury's Front-End side
+
 ## release-53 (2015-04-07 17:00)
 * [CONCF-126](https://wikia-inc.atlassian.net/browse/CONCF-126) CONCF-126 Support articles with special chars in title
 * fix-figcaption-length: don't let long titles overflow page horizontally

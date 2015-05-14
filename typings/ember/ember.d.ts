@@ -1008,6 +1008,9 @@ declare module Ember {
             constructor(str: string);
             static toString(): string;
         }
+        class Utils {
+            static escapeExpression(str: string): string;
+        }
         function parse(string: string): any;
         function print(ast: any): void;
         var logger: typeof Ember.Logger;
@@ -2004,6 +2007,7 @@ declare module Ember {
     // ReSharper disable once DuplicatingLocalDeclaration
     var computed: {
         (callback: Function): ComputedProperty;
+        (...args: any[]): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
         and(...args: string[]): ComputedProperty;
         any(...args: string[]): ComputedProperty;
@@ -2091,6 +2095,9 @@ declare module Ember {
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
     function observer(func: Function, ...args: string[]): Function;
+    function observer(prop: string, func: Function): Function;
+    // This is a really a bad signature, but this seems to be the best until spread operator support arrives in 1.5
+    function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;
@@ -2236,6 +2243,7 @@ declare module Em {
         var createFrame: typeof Ember.Handlebars.createFrame;
         var Exception: typeof Ember.Handlebars.Exception;
         class SafeString extends Ember.Handlebars.SafeString { }
+        class Utils extends Ember.Handlebars.Utils { }
         var parse: typeof Ember.Handlebars.parse;
         var print: typeof Ember.Handlebars.print;
         var logger: typeof Ember.Handlebars.logger;

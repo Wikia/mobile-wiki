@@ -28,6 +28,7 @@ interface Response {
 			users: any;
 			categories: any[];
 		};
+		mainPageData: any[];
 		relatedPages: any[];
 		topContributors: any[];
 		adsContext: any
@@ -40,13 +41,14 @@ App.ArticleModel = Em.Object.extend({
 	categories: [],
 	cleanTitle: null,
 	comments: 0,
+	mainPageData: null,
 	media: [],
 	mediaUsers: [],
 	sections: [],
 	title: null,
 	user: null,
 	users: [],
-	wiki: null
+	wiki: null,
 });
 
 App.ArticleModel.reopenClass({
@@ -78,7 +80,9 @@ App.ArticleModel.reopenClass({
 				},
 				error: (err): void => {
 					if (err.status === 404) {
-						this.setArticle(model, err.responseJSON);
+						this.setArticle(model, {
+							error: err.responseJSON
+						});
 						resolve(model);
 					} else {
 						// TODO we currently abort transition when there was an error other than 404
@@ -188,6 +192,11 @@ App.ArticleModel.reopenClass({
 			if (source.topContributors) {
 				// Same issue: the response to the ajax should always be valid and not undefined
 				data.topContributors = source.topContributors;
+			}
+
+			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
+				data.mainPageData = source.mainPageData;
+				data.isCuratedMainPage = true;
 			}
 		}
 

@@ -1,13 +1,16 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
+import authUtils = require('../../lib/AuthUtils');
 
 interface JoinViewContext {
-	title        : string;
-	loginRoute   : string;
-	hideHeader?  : boolean;
-	hideFooter?  : boolean;
-	exitTo?      : string;
-	bodyClasses? : string;
-	noScripts?   : boolean;
+	title: string;
+	loginRoute: string;
+	facebookConnectHref: string;
+	hideHeader?: boolean;
+	hideFooter?: boolean;
+	exitTo?: string;
+	bodyClasses?: string;
+	noScripts?: boolean;
+	signupHref: string;
 }
 
 function get (request: Hapi.Request, reply: any): void {
@@ -19,20 +22,22 @@ function get (request: Hapi.Request, reply: any): void {
 	}
 
 	context = {
-		title: 'Join Wikia',
-		loginRoute: '/login',
+		title: 'auth:join.title',
+		facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
+		loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,
 		bodyClasses: 'splash',
-		noScripts: true
+		noScripts: true,
+		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
 	};
 
 	return reply.view(
 		'auth-landing-page',
 		context,
 		{
-			layout: 'wikia-static'
+			layout: 'auth'
 		}
 	);
 }

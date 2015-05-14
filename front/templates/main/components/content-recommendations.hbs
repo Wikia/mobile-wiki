@@ -1,7 +1,7 @@
 {{#if pages.length}}
 	<section class="content-recommendations">
 		<h1>{{i18n 'app.article-suggestions-label'}}</h1>
-		<ul>
+		<ul class="mw-content">
 			{{#each page in pages}}
 				<li>
 					{{#link-to 'article' page.title data-tracking-category='related'}}
