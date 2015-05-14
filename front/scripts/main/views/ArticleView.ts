@@ -106,7 +106,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	 * ToC data from server and render view based on that.
 	 */
 	loadTableOfContentsData: function () {
-		var headers: HeadersFromDom[] = this.$('h2').map((i: number, elem: HTMLElement): HeadersFromDom => {
+		var headers: HeadersFromDom[] = this.$('h2[section]').map((i: number, elem: HTMLElement): HeadersFromDom => {
 			if (elem.textContent) {
 				return {
 					level: elem.tagName,
