@@ -38,15 +38,18 @@ $ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:8000/wiki/Gonzo"
 on dev environments livereload server runs that reload your web browser on any change in front folder
 you can disable that by running gulp with --nosync parameter
 
-##[Release](https://one.wikia-inc.com/wiki/Mercury/Release)
+##[Release procedure](https://one.wikia-inc.com/wiki/Mercury/Release)
 
 ##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
-Change log is automatically generated when running `./tasks/release.sh`
+You can update existing CHANGELOG.md with changes between current branch and master manually though like this:
+
+* `./tasks/changelog-update.sh -r release-xxx' - where xxx is number of latest release
+
 You can generate changelog manually though like this:
 
-* `./tasks/changelog.sh` - generate change log between latest release and master
-* `./tasks/changelog.sh X` - generate change log between release branch X and master
-* `./tasks/changelog.sh X Y` - generate change log between release branch X and Y
+* `./tasks/changelog-view.sh` - generate change log between latest release and master
+* `./tasks/changelog-view.sh X` - generate change log between release branch X and master
+* `./tasks/changelog-view.sh X Y` - generate change log between release branch X and Y
 
 ## Unit tests
 
