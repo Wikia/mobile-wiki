@@ -1,6 +1,6 @@
 /// <reference path='../../../typings/hoek/hoek.d.ts' />
 import Hoek = require('hoek');
-function decodeQueryParams (query: any): any {
+function escapeQueryParams(query: any): any {
 	var keys = Object.keys(query),
 		obj: {[idx: string]: any} = {};
 
@@ -10,4 +10,4 @@ function decodeQueryParams (query: any): any {
 
 	return obj;
 }
-export = decodeQueryParams;
+export = escapeQueryParams;
