@@ -16,12 +16,12 @@
 			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 			{{#if model.sections.length}}
 				{{#collapsible-menu
-				showMenuIcon=true
-				additionalClasses='table-of-contents'
-				tLabel='app.article-toc-label'
-				ordered=true
-				observe=model.cleanTitle
-				trackingEvent='toc'
+					showMenuIcon=true
+					additionalClasses='table-of-contents'
+					tLabel='app.article-toc-label'
+					ordered=true
+					observe=model.cleanTitle
+					trackingEvent='toc'
 				}}
 					{{#each section in model.sections}}
 						<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
@@ -43,34 +43,35 @@
 		</section>
 		<section class='article-footer'>
 		{{wikia-users
-		users=model.topContributors
-		classes='contributors'
-		label='app.article-top-contributors-label'
-		trackingEvent='contributors'
+			users=model.topContributors
+			classes='contributors'
+			label='app.article-top-contributors-label'
+			trackingEvent='contributors'
 		}}
 		{{article-comments
-		page=commentsPage
-		articleId=model.id
-		commentsCount=model.comments
+			page=commentsPage
+			articleId=model.id
+			commentsCount=model.comments
 		}}
 		{{#if model.categories}}
 			{{#collapsible-menu
-			showMenuIcon=false
-			additionalClasses='article-categories-list'
-			tLabel='app.article-categories-list-label'
-			ordered=false
-			observe=model.cleanTitle
-			trackingEvent='category'
-		}}
-			{{#each category in model.categories itemController='categoryListItem'}}
-			<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.model.url}}' title='{{unbound category.model.title}}'>
-				{{category.cleanTitle}}
-				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-			</a></li>
-			{{/each}}
-		{{/collapsible-menu}}
+				showMenuIcon=false
+				additionalClasses='article-categories-list'
+				tLabel='app.article-categories-list-label'
+				ordered=false
+				observe=model.cleanTitle
+				trackingEvent='category'
+			}}
+				{{#each category in model.categories itemController='categoryListItem'}}
+					<li class='mw-content' {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.model.url}}' title='{{unbound category.model.title}}'>
+						{{category.cleanTitle}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a></li>
+				{{/each}}
+			{{/collapsible-menu}}
+		{{/if}}
+		</section>
+		{{content-recommendations pages=model.relatedPages}}
 	{{/if}}
-	</section>
-	{{content-recommendations pages=model.relatedPages}}
 {{/if}}
 {{wikia-footer trackClick='trackClick'}}
