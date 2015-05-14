@@ -1,10 +1,11 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../mercury/utils/browser.ts" />
+/// <reference path="../../main/mixins/LanguagesMixin.ts" />
 /// <reference path="../../main/mixins/TrackClickMixin.ts" />
 /// <reference path="../../../../typings/headroom/headroom.d.ts" />
 'use strict';
 
-App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
+App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, {
 	classNames: ['share-feature', 'mw-content'],
 	tagName: 'div',
 	headroom: null,
@@ -53,15 +54,6 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, {
 		this.set('headroom', headroom);
 	},
 
-	isJapanese: Em.computed(function (): boolean {
-		var lang = navigator.language || navigator.browserLanguage;
-		if (lang) {
-			lang = lang.substr(0, 2);
-		} else {
-			lang = this.get('language.content');
-		}
-		return lang === 'ja';
-	}),
 
 	lineShare: Em.computed('title', function (): string {
 		return "http://line.me/R/msg/text/?" + encodeURIComponent(this.get('title')) + " " + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
