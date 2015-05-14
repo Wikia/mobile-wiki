@@ -46,9 +46,20 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 
 	articleContentObserver: function (): void {
 		var model = this.get('controller.model'),
-			article = model.get('article');
+			article = model.get('article'),
+			isCuratedMainPage = model.get('isCuratedMainPage');
 
-		if (article && article.length > 0) {
+		if (isCuratedMainPage) {
+			this.injectMainPageAds();
+			this.setupAdsContext(model.get('adsContext'));
+			M.setTrackContext({
+				a: model.title,
+				n: model.ns
+			});
+
+			M.trackPageView(model.get('adsContext.targeting'));
+
+		} else if (article && article.length > 0) {
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
@@ -106,7 +117,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	 * ToC data from server and render view based on that.
 	 */
 	loadTableOfContentsData: function () {
-		var headers: HeadersFromDom[] = this.$('h2').map((i: number, elem: HTMLElement): HeadersFromDom => {
+		var headers: HeadersFromDom[] = this.$('h2[section]').map((i: number, elem: HTMLElement): HeadersFromDom => {
 			if (elem.textContent) {
 				return {
 					level: elem.tagName,

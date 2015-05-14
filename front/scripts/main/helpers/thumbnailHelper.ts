@@ -8,9 +8,12 @@
  */
 Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: any) {
 	var thumbnailer = Mercury.Modules.Thumbnailer,
+		className: string = '',
 		defaultMode: string = thumbnailer.mode.fixedAspectRatio,
 		defaultWidth: number = 100,
 		defaultHeight: number = 100,
+		// empty gif
+		src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		mode: string,
 		width: number,
 		height: number,
@@ -33,12 +36,17 @@ Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: a
 	width = Em.getWithDefault(options, 'hash.width', defaultWidth);
 	height = Em.getWithDefault(options, 'hash.height', defaultHeight);
 	alt = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'hash.alt'));
+	className = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'hash.className')) || className;
 
-	return new Em.Handlebars.SafeString(
-		'<img src="' + thumbnailer.getThumbURL(url, {
+	if (url) {
+		src = thumbnailer.getThumbURL(url, {
 			mode: mode,
 			width: width,
 			height: height
-		}) + '" alt="' + alt + '">'
+		});
+	}
+
+	return new Em.Handlebars.SafeString(
+		`<img src="${src}" alt="${alt}" class="${className}">`
 	);
 });
