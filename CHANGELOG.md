@@ -1,4 +1,5 @@
 ## release-62 (2015-05-14 16:52 UTC)
+* [DAT-2788](https://wikia-inc.atlassian.net/browse/DAT-2788) For TOC creation only select H2s that have section attribute specified
 * curated-content: Curated Main Page on Mercury
 * [HG-658](https://wikia-inc.atlassian.net/browse/HG-658) HG-658 Fix category links
 * [HG-660](https://wikia-inc.atlassian.net/browse/HG-660) Fix to PR #791
