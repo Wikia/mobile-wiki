@@ -1,3 +1,7 @@
+## release-63 (2015-05-14 22:49 UTC)
+* content-recommendations-bubbling-fix: Fix content recommendations links
+* [HG-653](https://wikia-inc.atlassian.net/browse/HG-653) HG-653 escape query params before inserting into document
+
 ## release-62 (2015-05-14 16:52 UTC)
 * track-click-fix: Remove obsolete trackClick='trackClick'
 * [DAT-2788](https://wikia-inc.atlassian.net/browse/DAT-2788) For TOC creation only select H2s that have section attribute specified
