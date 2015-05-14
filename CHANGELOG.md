@@ -1,3 +1,21 @@
+## release-62 (2015-05-14 16:52 UTC)
+* track-click-fix: Remove obsolete trackClick='trackClick'
+* [DAT-2788](https://wikia-inc.atlassian.net/browse/DAT-2788) For TOC creation only select H2s that have section attribute specified
+* curated-content: Curated Main Page on Mercury
+* [HG-658](https://wikia-inc.atlassian.net/browse/HG-658) HG-658 Fix category links
+* [HG-660](https://wikia-inc.atlassian.net/browse/HG-660) Fix to PR #791
+* [HG-660](https://wikia-inc.atlassian.net/browse/HG-660) Update changelog script
+* [CONCF-489](https://wikia-inc.atlassian.net/browse/CONCF-489) CONCF-489 Curated Main Page tracking
+* [CONCF-541](https://wikia-inc.atlassian.net/browse/CONCF-541) CONCF-541 | Use Optimizely test to disable CuratedContent
+* [CONCF-535](https://wikia-inc.atlassian.net/browse/CONCF-535) CONCF-535 Add mobileInContent ad to the Curated Main Page
+* quick-fix-featured-content: Quick fix for FeaturedContent when leaving main page
+* curated-content-polishing: Curated content polishing
+* [CONCF-510](https://wikia-inc.atlassian.net/browse/CONCF-510) CONCF-510 Featured content MVP
+* [CONCF-506](https://wikia-inc.atlassian.net/browse/CONCF-506) CONCF-506 Change local branding on curated main pages
+* [CONCF-497](https://wikia-inc.atlassian.net/browse/CONCF-497) CONCF-497 Curated Content on Main Page
+* curated-content-refactor: Refactor the structure of Curated Main Page modules
+* [CONCF-497](https://wikia-inc.atlassian.net/browse/CONCF-497) Concf 497 - initial styling
+
 ## release-61 (2015-05-14 11:31 AM UTC)
 * [CONCF-520](https://wikia-inc.atlassian.net/browse/CONCF-520) CONCF-520 | Send optimizely data to qualaroo
 * [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
