@@ -43,7 +43,7 @@ you can disable that by running gulp with --nosync parameter
 ##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
 You can update existing CHANGELOG.md with changes between current branch and master manually though like this:
 
-* `./tasks/changelog-update.sh -r release-xxx' - where xxx is number of latest release
+* `./tasks/changelog-update.sh -r release-xxx` - where xxx is number of latest release
 
 You can generate changelog manually though like this:
 
