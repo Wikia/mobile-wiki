@@ -8,7 +8,16 @@ App.EditView = Em.View.extend({
 		Em.run.scheduleOnce('afterRender', this, () => {
 			this.adjustTextareaHeight();
 		});
-		// TODO: Call adjustTextareaHeight after resize event and make sure to unsubscribe from that event when destroying the view
+	},
+
+	willInsertElement: function (): void {
+		Em.$(window).on('resize.editor', () => {
+			this.adjustTextareaHeight();
+		});
+	},
+
+	willDestroyElement: function(): void {
+		Em.$(window).off('resize.editor');
 	},
 
 	adjustTextareaHeight: function(): void {
