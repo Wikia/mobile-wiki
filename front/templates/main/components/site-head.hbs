@@ -1,6 +1,7 @@
 <div {{action 'expandSideNav'}} class='side-nav-toggle'>
     {{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
 </div>
+{{!-- This conditional block should be removed for SOC-705 --}}
 {{#if currentUser.isAuthenticated}}
 	<figure class='avatar'>
 		<img src={{currentUser.model.avatarPath}} alt={{currentUser.model.name}}>

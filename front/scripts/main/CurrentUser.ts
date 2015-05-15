@@ -11,7 +11,7 @@ App.CurrentUser = Em.Object.extend({
 		if (userId !== null) {
 			App.UserModel.find({userId: userId}).then((result: any): void => {
 				this.set('model', result);
-			}, function () {});
+			}, (): void => {});
 		}
 		this._super();
 	},

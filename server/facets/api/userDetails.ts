@@ -16,11 +16,13 @@ export function get (request: Hapi.Request, reply: any): void {
 		url = MW.createUrl(wikiDomain, 'api/v1/User/Details', request.query);
 
 	MW.fetch(url, wikiDomain)
-		.then((result: any) => {
+		.then((result: any): void => {
 			var error = result.exception || null;
 			Caching.setResponseCaching(reply(wrapResult(error, result)), cachingTimes);
 		})
-		.catch((err: any) => {
-			reply(err).code(err.exception.code || 500);
+		.catch((err: any): void => {
+			var errorCode = (err && err.exception && err.exception.code) ?
+				err.exception.code : 500;
+			reply(err).code(errorCode);
 		});
 }
