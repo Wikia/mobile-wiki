@@ -13,9 +13,10 @@ interface JoinViewContext {
 	signupHref: string;
 }
 
-function get (request: Hapi.Request, reply: any): void {
+function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: JoinViewContext,
-		redirectUrl: string = request.query.redirect || '/';
+		redirectUrl: string = request.query.redirect || '/',
+		response: Hapi.Response;
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
@@ -33,13 +34,16 @@ function get (request: Hapi.Request, reply: any): void {
 		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
 	};
 
-	return reply.view(
+	response = reply.view(
 		'auth-landing-page',
 		context,
 		{
 			layout: 'auth'
 		}
-	).header('Cache-Control', 'private, s-maxage=0, max-age=0, must-revalidate');
+	);
+
+	authUtils.disableCache(response);
+	return response;
 }
 
 export = get;

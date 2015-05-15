@@ -1,5 +1,5 @@
 /// <reference path='../../typings/node/node.d.ts' />
-
+/// <reference path='../../typings/hapi/hapi.d.ts' />
 /**
  * @description Helper methods for the Auth Flow
  */
@@ -38,4 +38,8 @@ export function getCacheBusterUrl(redirect: string): string {
 	cacheBustedUrlObj.search = querystring.stringify(query);
 
 	return url.format(cacheBustedUrlObj);
+}
+
+export function disableCache (response: Hapi.Response): void {
+	response.header('Cache-Control', 'private, s-maxage=0, max-age=0, must-revalidate');
 }
