@@ -185,7 +185,7 @@ App.ArticleModel.reopenClass({
 				data.relatedPages = source.relatedPages;
 			}
 
-			if (source.adsContext) {
+			if (source.adsContext && source.adsContext.length) {
 				data.adsContext = source.adsContext;
 			}
 
