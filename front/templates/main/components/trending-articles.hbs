@@ -1,9 +1,4 @@
 <h4>{{i18n 'app.trending'}}</h4>
 {{#each article in model}}
-	<div class="trending-article">
-		<a href={{article.article_local_url}}>
-			{{thumbnail article.image_url width=imgWidth height=imgHeight alt=article.title mode=cropMode}}
-			<p>{{article.label}}</p>
-		</a>
-	</div>
+	{{trending-articles-item url=article.article_local_url label=article.label imageUrl=article.image_url}}
 {{/each}}
