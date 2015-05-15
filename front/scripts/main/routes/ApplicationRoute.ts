@@ -111,7 +111,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		loadRandomArticle: function (): void {
 			this.get('controller').set('sideNavCollapsed', true);
-			this.send('loading');
 
 			App.ArticleModel
 				.getArticleRandomTitle()
