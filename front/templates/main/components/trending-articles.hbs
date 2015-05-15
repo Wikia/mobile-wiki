@@ -1,9 +1,9 @@
 <h4>{{i18n 'app.trending'}}</h4>
-{{#each article in model.items}}
+{{#each article in model}}
 	<div class="trending-article">
-		<a href={{article.url}}>
-			{{thumbnail article.thumbnail width=imgWidth height=imgHeight alt=article.title mode=cropMode}}
-			<p>{{article.title}}</p>
+		<a href={{article.article_local_url}}>
+			{{thumbnail article.image_url width=imgWidth height=imgHeight alt=article.title mode=cropMode}}
+			<p>{{article.label}}</p>
 		</a>
 	</div>
 {{/each}}

@@ -1,36 +1,43 @@
 /// <reference path="../app.ts" />
-
+/// <reference path="../mixins/ViewportMixin.ts"/>
+/// <reference path="../../mercury/modules/Thumbnailer.ts" />
 'use strict';
 
-App.TrendingArticlesComponent = Em.Component.extend({
+App.TrendingArticlesComponent = Em.Component.extend(App.ViewportMixin, {
     classNames: ['trending-articles'],
     cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
+	thumbnailer: Mercury.Modules.Thumbnailer,
     imageHeight: 150,
     imageWidth: 250,
     marginOffset: 25,
-    viewportTreshold: 450,
+
+	willInsertElement: function (): void {
+		this.updateImageSize(this.get('viewportDimensions.width'));
+	},
 
     didInsertElement: function(): void {
-        this.imageWidthObserver();
-        Em.$(window).on('resize', () => {
-            this.imageWidthObserver();
-        });
+	    if (this.get('imageUrl')) {
+		    this.lazyLoadImage();
+	    }
     },
 
-    /**
-     * @desc Observes current viewport width and defines how to display the
-     * trending articles - in 2 or in 3 columns
-     */
-    imageWidthObserver: Em.observer('window.innerWidth', 'document.documentElement.clientWidth', function(): void {
-        var viewport = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        this.$('.trending-article').map((i: number, elem: HTMLElement) => {
-            if (viewport > viewportTreshold) {
-                //case for the landscape view - we want to have 3 images in row
-                $(elem).width(Math.floor(viewport / 3 - this.marginOffset))
-            } else {
-                //case for the portrait view - we want to have 2 images in row
-                $(elem).width(Math.floor(viewport / 2 - this.marginOffset))
-            }
-        });
-    })
+	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
+		this.updateImageSize(this.get('viewportDimensions.width'));
+	}),
+
+	lazyLoadImage: function (): void {
+		var options: any = {},
+			thumbUrl: string;
+
+		options.width = this.get('imageSize');
+		options.height = this.get('imageSize');
+		options.mode = this.get('cropMode');
+		thumbUrl = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+		this.set('thumbUrl', thumbUrl);
+	},
+
+	updateImageSize: function(viewportSize: number): void {
+		var imageWidth = String((viewportSize - 20) / 2);
+		this.set('style', Em.String.htmlSafe('height: %@px;width: %@px'.fmt(imageWidth, imageWidth)));
+	}
 });

@@ -39,7 +39,7 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		this.set('thumbUrl', thumbUrl);
 	},
 
-	updateImageSize: function(viewportSize: number) {
+	updateImageSize: function(viewportSize: number): void {
 		var imageWidth = String((viewportSize - 20) / 2);
 		this.set('style', Em.String.htmlSafe('height: %@px;width: %@px'.fmt(imageWidth, imageWidth)));
 	}
