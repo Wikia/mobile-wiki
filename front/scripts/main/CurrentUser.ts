@@ -21,5 +21,9 @@ App.CurrentUser = Em.Object.extend({
 	userId: Em.computed(function (): number {
 		var cookieUserId = ~~$.cookie('wikicitiesUserID');
 		return cookieUserId > 0 ? cookieUserId : null;
-	})
+	}),
+
+	authObserver: Ember.observer('isAuthenticated', function () {
+		M.prop('isAuthenticated', this.get('isAuthenticated'), true);
+	}).on('init')
 });

@@ -37,13 +37,15 @@ module Mercury.Modules.Trackers {
 		 * @param {string} domain
 		 */
 		initAccount (name: string, adsContext: any, domain: string): void {
-			var prefix = '';
+			var prefix = '',
+				loginStatus: string;
 
 			// Primary account should not have a namespace prefix
 			if (name !== this.accountPrimary) {
 				prefix = this.accounts[name].prefix + '.';
 			}
 
+			loginStatus = M.prop('isAuthenticated') ? 'user' : 'anon';
 			this.queue.push(
 				[prefix + '_setAccount', this.accounts[name].id],
 				[prefix + '_setSampleRate', this.accounts[name].sampleRate.toString()],
@@ -52,8 +54,7 @@ module Mercury.Modules.Trackers {
 				[prefix + '_setCustomVar', 1, 'DBname', Mercury.wiki.dbName, 3],
 				[prefix + '_setCustomVar', 2, 'ContentLanguage', Mercury.wiki.language.content, 3],
 				[prefix + '_setCustomVar', 4, 'Skin', 'mercury', 3],
-				// TODO: Currently the only login status is 'anon', in the future 'user' may be an option
-				[prefix + '_setCustomVar', 5, 'LoginStatus', 'anon', 3],
+				[prefix + '_setCustomVar', 5, 'LoginStatus', loginStatus, 3],
 				[prefix + '_setCustomVar', 9, 'CityId', String(Mercury.wiki.id), 3],
 				[prefix + '_setCustomVar', 15, 'IsCorporatePage', 'No', 3],
 				// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
