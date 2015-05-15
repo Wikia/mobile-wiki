@@ -11,15 +11,15 @@ App.CurrentUser = Em.Object.extend({
 		if (userId !== null) {
 			App.UserModel.find({userId: userId}).then((result: any): void => {
 				this.set('model', result);
-			}, (): void => {});
+			});
 		}
 		this._super();
 	},
 
 	isAuthenticated: Em.computed.bool('userId'),
 
-	userId: function (): number {
-		var cookieUserId = ~~$.cookie('uid');
+	userId: Em.computed(function (): number {
+		var cookieUserId = ~~$.cookie('wikicitiesUserID');
 		return cookieUserId > 0 ? cookieUserId : null;
-	}.property()
+	})
 });

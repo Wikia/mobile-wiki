@@ -155,7 +155,7 @@ export function post (request: Hapi.Request, reply: any): void {
 		// TODO: Helios service should control the length of auth session
 		request.auth.session.ttl(ttl);
 
-		reply.state('uid', response.user_id, {ttl: ttl});
+		reply.state('wikicitiesUserID', response.user_id, {ttl: ttl});
 
 		if (isAJAX) {
 			return reply({redirect: redirect});

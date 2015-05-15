@@ -105,12 +105,13 @@ server.views({
 	}
 });
 
-// Cookies
+// Initialize cookies
 server.state('access_token', {
 	isHttpOnly: true,
 	clearInvalid: true
 });
-server.state('uid', {});
+// Contains user ID, same name as cookie from MediaWiki app
+server.state('wikicitiesUserID');
 
 // instantiate routes
 server.route(require('./routes'));
