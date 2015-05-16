@@ -1,17 +1,17 @@
 {{#if commentsCount}}
-	<div {{action 'toggleComments'}} {{bind-attr class=':show-comments-btn :page-btn isCollapsed:collapsed'}}>
+	<div {{action 'toggleComments'}} class='show-comments-btn page-btn {{if isCollapsed 'collapsed'}}'>
 		{{i18n 'app.article-comments-label' count='commentsCount'}}
 		{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 	</div>
 {{/if}}
 {{#if showComments}}
 	{{#if model.comments}}
-		<button {{bind-attr class=':page-btn prevButtonShown::hidden'}} {{action 'prevPage'}}>{{i18n 'app.comments-prev-button'}}</button>
-		<ul {{bind-attr class=':comments commentsHidden:hidden'}}>
+		<button class='page-btn {{if prevButtonShown '' 'hidden'}}' {{action 'prevPage'}}>{{i18n 'app.comments-prev-button'}}</button>
+		<ul class='comments {{if commentsHidden 'hidden'}}'>
 			{{#each comment in model.comments}}
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
-		<button {{bind-attr class=':page-btn nextButtonShown::hidden'}} {{action 'nextPage'}}>{{i18n 'app.comments-next-button'}}</button>
+		<button class='page-btn {{if nextButtonShown '' 'hidden'}}' {{action 'nextPage'}}>{{i18n 'app.comments-next-button'}}</button>
 	{{/if}}
 {{/if}}
