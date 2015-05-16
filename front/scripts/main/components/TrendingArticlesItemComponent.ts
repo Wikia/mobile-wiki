@@ -42,5 +42,6 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 			imageHeight = String(Math.round((imageWidth / 16) * 9));
 
 		this.set('style', Em.String.htmlSafe('height: %@px; width: %@px'.fmt(imageHeight, imageWidth)));
+		this.set('captionStyle', Em.String.htmlSafe('width: %@px'.fmt(imageWidth)));
 	}
 });
