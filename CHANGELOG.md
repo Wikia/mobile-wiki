@@ -1,3 +1,8 @@
+## release-64 (2015-05-15 23:38 UTC)
+* [HG-649](https://wikia-inc.atlassian.net/browse/HG-649) HG-649 Don't add adsContext if it's an empty array
+* [HG-657](https://wikia-inc.atlassian.net/browse/HG-657) Updated types definitions for Ember
+* [HG-666](https://wikia-inc.atlassian.net/browse/HG-666) HG-666 Fix infinite loading spinner
+
 ## release-63 (2015-05-14 22:49 UTC)
 * content-recommendations-bubbling-fix: Fix content recommendations links
 * [HG-653](https://wikia-inc.atlassian.net/browse/HG-653) HG-653 escape query params before inserting into document
