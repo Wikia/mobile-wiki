@@ -44,16 +44,9 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		return imageHeight;
 	}),
 
-	url: Em.computed(function (key: string, value?: string): string {
-		var media: ArticleMedia;
-		if (value) {
-			return this.getThumbURL(value, {
-				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-				width: this.get('articleContent.width'),
-				height: this.get('computedHeight')
-			});
-		} else {
-			media = this.get('media');
+	url: Em.computed({
+		get(): string {
+			var media: ArticleMedia = this.get('media');
 
 			if (media) {
 				return this.getThumbURL(media.url, {
@@ -62,10 +55,17 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 					height: this.get('computedHeight')
 				});
 			}
-		}
 
-		//if it got here, that means that we don't have an url for this media
-		//this might happen for example for read more section images
+			//if it got here, that means that we don't have an url for this media
+			//this might happen for example for read more section images
+		},
+		set(key: string, value: string): string {
+			return this.getThumbURL(value, {
+				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+				width: this.get('articleContent.width'),
+				height: this.get('computedHeight')
+			});
+		}
 	}),
 
 	/**
