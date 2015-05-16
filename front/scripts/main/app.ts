@@ -88,6 +88,41 @@ App.initializer({
 			return;
 		}
 
+		if (window.performance && window.performance.timing) {
+			var times: any = window.performance.timing,
+				events: any[] = [];
+
+			document.onreadystatechange = () => {
+				if (document.readyState === 'complete') {
+					events.push({
+						module: 'App',
+						name: 'domContentLoaded',
+						type: 'timer',
+						value: times.domContentLoadedEventStart - times.domLoading
+					})
+
+					events.push({
+						module: 'App',
+						name: 'domComplete',
+						type: 'timer',
+						value: times.domComplete - times.domLoading
+					})
+
+					events.push({
+						module: 'App',
+						name: 'domInteractive',
+						type: 'timer',
+						value: times.domInteractive - times.domLoading
+					})
+
+					events.forEach((event: any) => {
+						M.trackPerf(event);
+					});
+				}
+
+			};
+		}
+
 		EmPerfSender.initialize({
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send (events: any[], metrics: any) {
