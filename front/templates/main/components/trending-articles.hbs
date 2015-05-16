@@ -2,3 +2,5 @@
 {{#each article in model}}
 	{{trending-articles-item url=article.article_local_url label=article.label imageUrl=article.image_url}}
 {{/each}}
+
+{{! the newline above lets the last inline item to be justified to the right if it's even }}

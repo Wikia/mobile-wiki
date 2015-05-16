@@ -2,12 +2,20 @@ $image-spacing: 5px;
 
 .trending-articles {
 	padding: 0 $image-spacing;
+	line-height: 0;
+	text-align: justify;
+
+	// this pseudoelement lets the last inline item to be justified to the right if it's even
+	&::after {
+		content: '';
+		display: inline-block;
+		width: 100%;
+	}
 
 	h4 {
 		color: $color-blue-light;
 		font-size: 1.25rem;
-		line-height: 2rem;
-		margin: 1rem .5rem;
+		margin: 2rem 0 .5rem;
 		padding: 0 .5rem;
 		text-align: left;
 		text-transform: uppercase;
@@ -15,17 +23,15 @@ $image-spacing: 5px;
 
 	.trending-articles-item {
 		display: inline-block;
-		margin: 1rem 0;
+		margin: 0 0 1rem;
 		vertical-align: top;
-
-		&:nth-of-type(even) {
-			float: right;
-		}
 	}
 
 	.item-figcaption {
-		color: $color-black;
+		color: $color-gray-dark;
+		font-size: .875rem;
 		font-weight: bold;
-		padding: .5rem;
+		line-height: 1.5rem;
+		padding: .25rem;
 	}
 }
