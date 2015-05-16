@@ -1,18 +1,31 @@
+$image-spacing: 5px;
+
 .trending-articles {
+	padding: 0 $image-spacing;
+
+	h4 {
+		color: $color-blue-light;
+		font-size: 1.25rem;
+		line-height: 2rem;
+		margin: 1rem .5rem;
+		padding: 0 .5rem;
+		text-align: left;
+		text-transform: uppercase;
+	}
 
 	.trending-articles-item {
 		display: inline-block;
-		position: relative;
+		margin: 1rem 0;
 		vertical-align: top;
+
+		&:nth-of-type(even) {
+			float: right;
+		}
 	}
 
-	p {
-		color: black;
-		bottom: 0;
-		margin: 5px 0 10px 5px;
-	}
-
-	h4 {
-		text-transform: uppercase;
+	.item-figcaption {
+		color: $color-black;
+		font-weight: bold;
+		padding: .5rem;
 	}
 }

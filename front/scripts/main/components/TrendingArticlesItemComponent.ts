@@ -4,13 +4,17 @@
 'use strict';
 
 App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
+	tagName: 'a',
     classNames: ['trending-articles-item'],
+	attributeBindings: ['href', 'style'],
     cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	thumbUrl: Em.computed.oneWay('emptyGif'),
+	imageUrl: Em.computed.oneWay('emptyGif'),
+	href: Em.computed.oneWay('url'),
     imageHeight: 150,
     imageWidth: 250,
+	style: null,
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
@@ -28,20 +32,18 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 
 	lazyLoadImage: function (): void {
 		var options: any = {},
-			thumbUrl: string;
+			imageUrl: string;
 
 		options.width = this.get('imageWidth');
 		options.height = this.get('imageHeight');
 		options.mode = this.get('cropMode');
-		thumbUrl = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
-		this.set('thumbUrl', thumbUrl);
+		imageUrl = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+		this.set('imageUrl', imageUrl);
 	},
 
 	updateImageSize: function (viewportWidth: number): void {
-		var imageWidth = String((viewportWidth - 20) / 2),
-			imageHeight = String(Math.round((imageWidth / 16) * 9));
+		var componentWidth = String((viewportWidth - 20) / 2);
 
-		this.set('style', Em.String.htmlSafe('height: %@px; width: %@px'.fmt(imageHeight, imageWidth)));
-		this.set('captionStyle', Em.String.htmlSafe('width: %@px'.fmt(imageWidth)));
+		this.set('style', Em.String.htmlSafe('width: %@px'.fmt(componentWidth)));
 	}
 });
