@@ -1,0 +1,6 @@
+{{#each alert in alerts}}
+<div data-alert class="alert-box {{alert.type}}">
+	{{alert.message}}
+	<a href="#" class="close" {{action 'close' alert}}>&times;</a>
+</div>
+{{/each}}

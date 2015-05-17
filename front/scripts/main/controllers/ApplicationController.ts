@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
+/// <reference path="../mixins/AlertNotificationsMixin.ts" />
 'use strict';
 
-App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, {
+App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
 	queryParams: [{noAds: 'noads'}],
 	smartBannerVisible: false,
 	sideNavCollapsed: true,

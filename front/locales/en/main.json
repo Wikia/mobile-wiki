@@ -59,6 +59,7 @@
 		"view-more": "View more",
 		"wikia-map-view-map": "View",
 		"search-label": "Search",
-		"cancel-label": "Cancel"
+		"cancel-label": "Cancel",
+		"edit-success": "Successfully edited page __pageTitle__!"
 	}
 }
