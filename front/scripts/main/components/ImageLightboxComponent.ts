@@ -13,13 +13,15 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	isZoomed: Em.computed.gt('scale', 1),
 
 	style: Em.computed(function (): typeof Handlebars.SafeString {
-		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
-				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
-			.fmt(
-				this.get('scale').toFixed(2),
-				this.get('newX').toFixed(2),
-				this.get('newY').toFixed(2)
-			).htmlSafe();
+		var scale = this.get('scale').toFixed(2),
+			x = this.get('newX').toFixed(2),
+			y = this.get('newY').toFixed(2),
+			transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
+
+		return (
+			'-webkit-' + transform +
+			transform
+		).htmlSafe();
 		//Performance critical place
 		//We will update property 'manually' by calling notifyPropertyChange
 	}),

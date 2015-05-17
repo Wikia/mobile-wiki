@@ -72,10 +72,10 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * @desc style used on img tag to set height of it before we load an image
 	 * so when image loads, browser don't have to resize it
 	 */
-	style: Em.computed('computedHeight', 'visible', function (): string {
-		return this.get('visible') ?
+	style: Em.computed('computedHeight', 'visible', function (): typeof Handlebars.SafeString {
+		return (this.get('visible') ?
 			'' :
-			'height:%@px;'.fmt(this.get('computedHeight'));
+			`height:${this.get('computedHeight')}px;`).htmlSafe();
 	}),
 
 	/**
