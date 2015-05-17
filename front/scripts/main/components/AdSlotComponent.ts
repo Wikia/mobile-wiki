@@ -27,6 +27,9 @@ App.AdSlotComponent = Em.Component.extend({
 	 * the default is false (show ads)
 	 */
 	noAds: Em.computed({
+		get() {
+			return false;
+		},
 		set(key: string, value: string): boolean {
 			return value !== '' && value !== '0'
 		}
