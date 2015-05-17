@@ -23,7 +23,7 @@ App.CurrentUser = Em.Object.extend({
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
-	authObserver: Ember.observer('isAuthenticated', function () {
+	authObserver: Em.observer('isAuthenticated', function () {
 		M.prop('isAuthenticated', this.get('isAuthenticated'), true);
 	}).on('init')
 });
