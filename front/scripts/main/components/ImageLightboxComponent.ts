@@ -75,7 +75,7 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 * @desc used to set X boundaries for panning image in media lightbox
 	 */
 	maxX: Em.computed('viewportSize', 'imageWidth', 'scale', function (): number {
-		return Math.abs(this.get('viewportSize').width - this.get('imageWidth')) / 2 / this.get('scale');
+		return Math.abs(this.get('viewportSize.width') - this.get('imageWidth')) / 2 / this.get('scale');
 	}),
 
 	/**
@@ -93,7 +93,7 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 			return 0;
 		},
 		set (key: string, value: string): number {
-			if (this.get('imageWidth') > this.get('viewportSize').width) {
+			if (this.get('imageWidth') > this.get('viewportSize.width')) {
 				return this.limit(value, this.get('maxX'));
 			}
 
@@ -212,7 +212,7 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 * @returns {number}
 	 */
 	getScreenArea: function (event: Touch): number {
-		var viewportWidth = this.get('viewportSize').width,
+		var viewportWidth = this.get('viewportSize.width'),
 			x = event.clientX,
 			thirdPartOfScreen = viewportWidth / 3;
 
