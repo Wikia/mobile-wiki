@@ -241,7 +241,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 		$polls.each((index: number, script: HTMLScriptElement): void => {
 			// extract ID from script src
 			var idRegEx: RegExp = /(\d+)\.js$/,
-				id: number = parseInt(script.src.match(idRegEx)[1], 10),
+				id: string = script.src.match(idRegEx)[1],
 				html: string;
 
 			// avoid PollDaddy's document.write on subsequent article loads
