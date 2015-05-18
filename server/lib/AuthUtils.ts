@@ -1,5 +1,4 @@
 /// <reference path='../../typings/node/node.d.ts' />
-/// <reference path='../../typings/hapi/hapi.d.ts' />
 /**
  * @description Helper methods for the Auth Flow
  */
