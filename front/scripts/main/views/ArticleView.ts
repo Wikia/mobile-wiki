@@ -236,7 +236,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	 * @see http://static.polldaddy.com/p/8791040.js
 	 */
 	handlePollDaddy: function (): void {
-		var $polls = this.$('.polldaddy-script');
+		var $polls = this.$('script[src*=polldaddy]');
 
 		$polls.each((index: number, script: HTMLScriptElement) => {
 			//extract ID from script src
