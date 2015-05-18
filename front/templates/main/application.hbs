@@ -8,14 +8,13 @@
 	{{outlet 'lightbox'}}
 {{else}}
 	{{smart-banner isVisible=view.smartBannerVisible}}
-	{{site-head smartBannerVisible=view.smartBannerVisible sideNavCollapsed=view.sideNavCollapsed trackClick='trackClick'}}
+	{{site-head smartBannerVisible=view.smartBannerVisible sideNavCollapsed=view.sideNavCollapsed}}
 	{{share-feature smartBannerVisible=view.smartBannerVisible title=currentTitle language=language}}
 	{{side-nav isCollapsed=view.sideNavCollapsed loadRandomArticle='loadRandomArticle'}}
 	{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
 	{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
 	<div class='page-wrapper' {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
 		<section class='wiki-container'>
-			<h2 class='wiki-title' {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
 			{{outlet}}
 		</section>
 	</div>

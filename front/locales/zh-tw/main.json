@@ -17,7 +17,7 @@
     "search-no-results-msg":"對不起，我們找不到任何與您的搜尋匹配的內容！",
     "search-loading-msg":"正在載入搜尋結果…",
     "media-lightbox-error":"無法找到媒體內容",
-    "map-lightbox-error":"Map not found",
+    "map-lightbox-error":"沒有找到地圖",
     "comments-prev-button":"前一頁",
     "comments-next-button":"後一頁",
     "hub-games":"遊戲",
@@ -57,8 +57,8 @@
     "smartbanner-install-android":"安裝",
     "smartbanner-price":"免費",
     "view-more":"查看更多",
-    "wikia-map-view-map":"View",
-    "search-label":"Search",
-    "cancel-label":"Cancel"
+    "wikia-map-view-map":"查看",
+    "search-label":"搜索",
+    "cancel-label":"取消"
   }
 }

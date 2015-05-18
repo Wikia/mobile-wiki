@@ -1,0 +1,141 @@
+$infobox-item-margin: 5px;
+$infobox-section-header-background: #e5e5e5;
+
+.portable-infobox {
+	height: auto;
+	margin: $infobox-item-margin * 4 0;
+
+	.media-component {
+		margin: 0;
+	}
+
+	.portable-infobox-item-margins {
+		padding: $infobox-item-margin $infobox-item-margin * 3 $infobox-item-margin * 2;
+	}
+
+	.portable-infobox-header-background {
+		background-color: $infobox-section-header-background;
+	}
+
+	.portable-infobox-title,
+	.portable-infobox-header {
+		margin: 0;
+	}
+
+	.portable-infobox-title {
+		padding: $infobox-item-margin * 2 0;
+	}
+
+	.portable-infobox-header {
+		padding: $infobox-item-margin 0 0;
+	}
+
+	.portable-infobox-header-font {
+		font-size: 1rem;
+		font-weight: bold;
+		margin-top: 0;
+	}
+
+	.item-type-key-val:not(:last-of-type) {
+		border-bottom: 1px solid $infobox-section-header-background;
+	}
+
+	.portable-infobox-item-label {
+		margin: 0;
+		padding: 0;
+	}
+
+	.portable-infobox-item-value {
+		padding-left: $infobox-item-margin * 2;
+
+		// experiment with removing margins on all children of data value
+		> * {
+			margin: 0;
+		}
+
+		ul,
+		ol {
+			list-style-position: inside;
+		}
+	}
+
+	.portable-infobox-comparison {
+		border-collapse: collapse;
+		margin: 0;
+		width: 100%;
+	}
+
+	.portable-infobox-comparison-set {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+
+		&:not(:first-of-type) {
+			border-bottom: 0;
+		}
+	}
+
+	.portable-infobox-comparison-set-header {
+		box-sizing: border-box;
+		display: block;
+		flex-basis: 100%;
+		padding: 0;
+		text-align: left;
+		width: 100%;
+	}
+
+	.portable-infobox-comparison-item {
+		box-sizing: border-box;
+		display: block;
+		vertical-align: top;
+		width: 50%;
+
+		> * {
+			width: 100%;
+		}
+
+		&:first-of-type {
+			border-right: 1px solid $infobox-section-header-background;
+		}
+
+		.item-type-key-val {
+			border-bottom: 0;
+			padding-right: $infobox-item-margin * 2;
+		}
+	}
+
+	.portable-infobox-footer {
+		font-weight: normal;
+		padding:  $infobox-item-margin * 2 $infobox-item-margin * 3;
+		text-align: center;
+	}
+
+	&.collapsed {
+		overflow: hidden;
+		position: relative;
+
+		.portable-infobox-expand-button {
+			bottom: 0;
+			position: absolute;
+		}
+	}
+
+	&:not(.collapsed) {
+		.portable-infobox-expand-button svg {
+			transform: rotate(180deg);
+		}
+	}
+
+	.portable-infobox-expand-button {
+		background-color: white;
+		box-sizing: border-box;
+		border: 1px solid $infobox-section-header-background;
+		padding: $infobox-item-margin * 2 0;
+		text-align: center;
+		width: 100%;
+
+		svg {
+			height: 12px;
+		}
+	}
+}
