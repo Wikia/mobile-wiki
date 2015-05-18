@@ -6,12 +6,12 @@
 {{/if}}
 {{#if showComments}}
 	{{#if model.comments}}
-		<button class='page-btn {{if prevButtonShown '' 'hidden'}}' {{action 'prevPage'}}>{{i18n 'app.comments-prev-button'}}</button>
+		<button class='page-btn {{unless prevButtonShown 'hidden'}}' {{action 'prevPage'}}>{{i18n 'app.comments-prev-button'}}</button>
 		<ul class='comments {{if commentsHidden 'hidden'}}'>
 			{{#each comment in model.comments}}
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
-		<button class='page-btn {{if nextButtonShown '' 'hidden'}}' {{action 'nextPage'}}>{{i18n 'app.comments-next-button'}}</button>
+		<button class='page-btn {{unless nextButtonShown 'hidden'}}' {{action 'nextPage'}}>{{i18n 'app.comments-next-button'}}</button>
 	{{/if}}
 {{/if}}
