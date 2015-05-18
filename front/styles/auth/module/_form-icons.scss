@@ -28,9 +28,9 @@
 }
 
 .password-toggler {
-	background-image: url('/front/images/eye.svg');
+	background-image: url('/front/images/eye-crossed.svg');
 
 	&.on {
-		background-image: url('/front/images/eye-crossed.svg');
+		background-image: url('/front/images/eye.svg');
 	}
 }

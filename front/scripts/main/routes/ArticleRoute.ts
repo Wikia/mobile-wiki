@@ -25,9 +25,13 @@ App.ArticleRoute = Em.Route.extend({
 		// If you try to access article with not-yet-sanitized title you can see in logs:
 		// `Transition #1: detected abort.`
 		// This is caused by the transition below but doesn't mean any additional requests.
-		this.transitionTo('article',
-			M.String.sanitize(title)
-		);
+		// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
+		// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
+		if (title.match(/\s/)) {
+			this.transitionTo('article',
+				M.String.sanitize(title)
+			);
+		}
 	},
 
 	model: function (params: any) {
@@ -40,6 +44,11 @@ App.ArticleRoute = Em.Route.extend({
 
 	afterModel: function (model: any) {
 		this.controllerFor('application').set('currentTitle', model.get('title'));
+		App.VisibilityStateManager.reset();
+
+		// Reset query parameters
+		model.set('commentsPage', null);
+		model.set('file', null);
 	},
 
 	actions: {

@@ -79,6 +79,7 @@ server.register(plugins, (err: any) => {
 		cookie         : 'sid',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
+		domain         : localSettings.authCookieDomain,
 		redirectTo     : '/login'
 	});
 });
@@ -108,7 +109,8 @@ server.views({
 // Initialize cookies
 server.state('access_token', {
 	isHttpOnly: true,
-	clearInvalid: true
+	clearInvalid: true,
+	domain: localSettings.authCookieDomain
 });
 // Contains user ID, same name as cookie from MediaWiki app
 server.state('wikicitiesUserID', {

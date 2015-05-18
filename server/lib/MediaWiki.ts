@@ -121,6 +121,16 @@ export class ArticleRequest {
 		return fetch(url, this.wikiDomain);
 	}
 
+	curatedContentSection (sectionName: string): Promise<any> {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getCuratedContentSection',
+			section: sectionName
+		});
+
+		return fetch(url, this.wikiDomain);
+	}
+
 	/**
 	 * Get random article title
 	 *

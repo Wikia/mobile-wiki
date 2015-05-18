@@ -20,6 +20,7 @@ interface TrackingParams {
 	value?: number;
 	category: string;
 	trackingMethod?: string;
+	isNonInteractive?: boolean;
 	[idx: string]: any;
 }
 
@@ -101,14 +102,16 @@ module Mercury.Utils {
 		delete params.label;
 		delete params.value;
 		delete params.category;
+		delete params.isNonInteractive;
 	}
 
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
-		    action: string = params.action,
-		    category: string = params.category ? 'mercury-' + params.category : null,
-		    label: string = params.label || '',
-		    value: number = params.value || 0,
+			action: string = params.action,
+			category: string = params.category ? 'mercury-' + params.category : null,
+			label: string = params.label || '',
+			value: number = params.value || 0,
+			isNonInteractive: boolean = params.isNonInteractive !== false,
 			trackers = Mercury.Modules.Trackers,
 			tracker: Mercury.Modules.Trackers.Internal,
 			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
@@ -121,7 +124,8 @@ module Mercury.Utils {
 			ga_action: action,
 			ga_category: category,
 			ga_label: label,
-			ga_value: value
+			ga_value: value,
+			ga_is_nonInteractive: isNonInteractive
 		}, params);
 
 		//We rely on ga_* params in both trackers
@@ -133,7 +137,7 @@ module Mercury.Utils {
 			}
 
 			gaTracker = new trackers.GoogleAnalytics();
-			gaTracker.track(category, actions[action], label, value, true);
+			gaTracker.track(category, actions[action], label, value, isNonInteractive);
 		}
 
 		if (trackingMethod === 'both' || trackingMethod === 'internal') {

@@ -15,6 +15,7 @@ interface Window {
 
 declare var i18n: I18nextStatic;
 declare var EmPerfSender: any;
+declare var optimizely: any;
 
 var App: any = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -66,6 +67,16 @@ App.initializer({
 			resStore: loadedTranslations,
 			useLocalStorage: false
 		});
+	}
+});
+
+App.initializer({
+	name: 'optimizelyCuratedMainPageLoader',
+	after: 'preload',
+	initialize: () => {
+		// 2870342045 -> Experiment ID in Optimizely / Mercury (production)
+		// 1 -> Variation ID that should have CuratedMainPages Enabled
+		M.prop('optimizelyCuratedMainPage', window.optimizely && optimizely.variationMap[2870342045] == 1);
 	}
 });
 
