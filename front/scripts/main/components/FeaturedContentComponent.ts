@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
-///<reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/ThirdsClickMixin.ts"/>
 'use strict';
 
 interface FeaturedContentItem {
@@ -13,7 +14,7 @@ interface FeaturedContentItem {
 	article_local_url: string;
 }
 
-App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
+App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, App.ThirdsClickMixin, {
 	classNames: ['featured-content'],
 	currentItemIndex: 0,
 	// should it be here?
@@ -28,6 +29,16 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
 		return this.getWithDefault('model', []).length - 1;
 	}),
 
+	rightClickHandler: function(): void {
+		this.nextItem();
+	},
+	leftClickHandler: function(): void {
+		this.prevItem();
+	},
+	centerClickHandler: function(): void {
+		this.trackClick('modular-main-page', 'featured-content');
+	},
+
 	gestures: {
 		swipeLeft: function (): void {
 			this.nextItem();
@@ -38,8 +49,8 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
 		},
 	},
 
-	click: function (): void {
-		this.trackClick('modular-main-page', 'featured-content');
+	click: function (event): void {
+		this.thirdsClick(event);
 	},
 
 	/**
