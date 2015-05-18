@@ -238,17 +238,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	handlePollDaddy: function (): void {
 		var $polls = this.$('script[src*=polldaddy]');
 
-		$polls.each((index: number, script: HTMLScriptElement) => {
+		$polls.each((index: number, script: HTMLScriptElement): void => {
 			// extract ID from script src
 			var idRegEx: RegExp = /(\d+)\.js$/,
 				id: number = parseInt(script.src.match(idRegEx)[1], 10),
-				html;
+				html: string;
 
 			// avoid PollDaddy's document.write on subsequent article loads
 			if (!this.$('#PDI_container' + id).length) {
 				html = '<a name="pd_a_' + id + '" style="display: inline; padding: 0px; margin: 0px;"></a>' +
 					'<div class="PDS_Poll" id="PDI_container' + id + '"></div>';
-				$(script).after(html)
+				$(script).after(html);
 			}
 
 			// init PollDaddy
