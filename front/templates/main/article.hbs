@@ -1,69 +1,80 @@
+{{! FIXME this is a temporary solution, main pages should be decoupled from article}}
+{{#if model.isCuratedMainPage}}
+	<h1 class='article-title'>{{siteName}}</h1>
+{{else}}
+	<h2 class='wiki-title' {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
+{{/if}}
+
 {{#if model.error}}
 	{{render 'not-found'}}
 {{else}}
-	{{#link-to 'edit' model.title '0' bubbles=false}}
-		{{svg 'pencil' role='img' class='icon pencil zero'}}
-	{{/link-to}}
-	<section class='article-body'>
-		<h1 class='article-title'>{{model.cleanTitle}}</h1>
-		{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
-		{{#if model.sections.length}}
+	{{#if model.isCuratedMainPage}}
+		{{main-page model=model.mainPageData}}
+	{{else}}
+		{{#link-to 'edit' model.title '0' bubbles=false}}
+			{{svg 'pencil' role='img' class='icon pencil zero'}}
+		{{/link-to}}
+		<section class='article-body'>
+			<h1 class='article-title'>{{model.cleanTitle}}</h1>
+			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
+			{{#if model.sections.length}}
+				{{#collapsible-menu
+					showMenuIcon=true
+					additionalClasses='table-of-contents'
+					tLabel='app.article-toc-label'
+					ordered=true
+					observe=model.cleanTitle
+					trackingEvent='toc'
+				}}
+					{{#each section in model.sections}}
+						<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
+							<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
+								{{unbound section.name}}
+								{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+							</a>
+						</li>
+					{{/each}}
+				{{/collapsible-menu}}
+			{{/if}}
+			{{#view 'article-content' class='mw-content'}}
+				{{#if model.article}}
+					{{{model.article}}}
+				{{else}}
+					{{i18n 'app.article-empty-label'}}
+				{{/if}}
+			{{/view}}
+		</section>
+		<section class='article-footer'>
+		{{wikia-users
+			users=model.topContributors
+			classes='contributors'
+			label='app.article-top-contributors-label'
+			trackingEvent='contributors'
+		}}
+		{{article-comments
+			page=commentsPage
+			articleId=model.id
+			commentsCount=model.comments
+		}}
+		{{#if model.categories}}
 			{{#collapsible-menu
-				showMenuIcon=true
-				additionalClasses='table-of-contents'
-				tLabel='app.article-toc-label'
-				ordered=true
+				showMenuIcon=false
+				additionalClasses='article-categories-list'
+				tLabel='app.article-categories-list-label'
+				ordered=false
 				observe=model.cleanTitle
-				trackingEvent='toc'
+				trackingEvent='category'
 			}}
-				{{#each section in model.sections}}
-				<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
-					<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
-						{{unbound section.name}}
+				{{#each category in model.categories itemController='categoryListItem'}}
+					<li class='mw-content' {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.model.url}}' title='{{unbound category.model.title}}'>
+						{{category.cleanTitle}}
 						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-					</a>
-				</li>
+					</a></li>
 				{{/each}}
 			{{/collapsible-menu}}
 		{{/if}}
-		{{#view 'article-content'}}
-			{{#if model.article}}
-				{{{model.article}}}
-			{{else}}
-				{{i18n 'app.article-empty-label'}}
-			{{/if}}
-		{{/view}}
-	</section>
-	<section class='article-footer'>
-	{{wikia-users
-		users=model.topContributors
-		classes='contributors'
-		label='app.article-top-contributors-label'
-		trackingEvent='contributors'
-	}}
-	{{article-comments
-		page=commentsPage
-		articleId=model.id
-		commentsCount=model.comments
-	}}
-	{{#if model.categories}}
-		{{#collapsible-menu
-			showMenuIcon=false
-			additionalClasses='article-categories-list'
-			tLabel='app.article-categories-list-label'
-			ordered=false
-			observe=model.cleanTitle
-			trackingEvent='category'
-		}}
-			{{#each category in model.categories itemController='categoryListItem'}}
-			<li {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.url}}' title='{{unbound category.title}}'>
-				{{category.cleanTitle}}
-				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-			</a></li>
-			{{/each}}
-		{{/collapsible-menu}}
+		</section>
+		{{content-recommendations pages=model.relatedPages}}
 	{{/if}}
-	</section>
-	{{content-recommendations pages=model.relatedPages}}
 {{/if}}
-{{wikia-footer trackClick='trackClick'}}
+{{wikia-footer}}
