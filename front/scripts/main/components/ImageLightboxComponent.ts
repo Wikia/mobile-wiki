@@ -44,10 +44,10 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 * @desc calculates current scale for zooming
 	 */
 	scale: Em.computed({
-		get() {
+		get(): number {
 			return 1;
 		},
-		set(key: string, value: number) {
+		set(key: string, value: number): number {
 			if (value >= 1) {
 				return Math.min(this.maxZoom, value);
 			}
@@ -87,10 +87,10 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 * @desc calculates X for panning with respect to maxX
 	 */
 	newX: Em.computed('viewportSize', 'imageWidth', {
-		get() {
+		get(): number {
 			return 0;
 		},
-		set (key: string, value: string) {
+		set (key: string, value: string): number {
 			if (this.get('imageWidth') > this.get('viewportSize').width) {
 				return this.limit(value, this.get('maxX'));
 			}
@@ -103,10 +103,10 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 * @desc calculates Y for panning with respect to maxY
 	 */
 	newY: Em.computed('viewportSize', 'imageHeight', {
-		get() {
+		get(): number {
 			return 0;
 		},
-		set (key: string, value: string) {
+		set (key: string, value: string): number {
 			if (this.get('imageHeight') > this.get('viewportSize').height) {
 				return this.limit(value, this.get('maxY'));
 			}
