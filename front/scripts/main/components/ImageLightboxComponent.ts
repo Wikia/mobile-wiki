@@ -51,6 +51,8 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 			if (value >= 1) {
 				return Math.min(this.maxZoom, value);
 			}
+
+			return 1;
 		}
 	}),
 
