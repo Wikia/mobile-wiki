@@ -5,26 +5,26 @@
 
 App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	tagName: 'a',
-    classNames: ['trending-articles-item'],
+	classNames: ['trending-articles-item'],
 	attributeBindings: ['href', 'style'],
-    cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
+	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	imageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
-    imageHeight: 150,
-    imageWidth: 250,
+	imageHeight: 150,
+	imageWidth: 250,
 	style: null,
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	},
 
-    didInsertElement: function (): void {
-	    if (this.get('imageUrl')) {
-		    this.lazyLoadImage();
-	    }
-    },
+	didInsertElement: function (): void {
+		if (this.get('imageUrl')) {
+			this.lazyLoadImage();
+		}
+	},
 
 	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
