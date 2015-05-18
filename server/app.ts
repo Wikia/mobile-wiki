@@ -111,7 +111,9 @@ server.state('access_token', {
 	clearInvalid: true
 });
 // Contains user ID, same name as cookie from MediaWiki app
-server.state('wikicitiesUserID');
+server.state('wikicitiesUserID', {
+	isHttpOnly: true
+});
 
 // instantiate routes
 server.route(require('./routes'));

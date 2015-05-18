@@ -19,7 +19,7 @@ App.CurrentUser = Em.Object.extend({
 	isAuthenticated: Em.computed.bool('userId'),
 
 	userId: Em.computed(function (): number {
-		var cookieUserId = ~~$.cookie('wikicitiesUserID');
+		var cookieUserId = ~~M.prop('userId');
 		return cookieUserId > 0 ? cookieUserId : null;
 	})
 });
