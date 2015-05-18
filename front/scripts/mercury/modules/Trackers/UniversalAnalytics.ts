@@ -148,7 +148,7 @@ module Mercury.Modules.Trackers {
 			ga('set', 'dimension8', isMainPage >= 0 ? 'home' : 'article', 3);
 
 			// Set custom var in ad account as well
-			ga.apply(this.accounts[this.accountAds].prefix + '.set', 'dimension8', isMainPage >= 0 ? 'home' : 'article', 3);
+			ga(this.accounts[this.accountAds].prefix + '.set', 'dimension8', isMainPage >= 0 ? 'home' : 'article', 3);
 
 			ga('send', 'pageview');
 		}
