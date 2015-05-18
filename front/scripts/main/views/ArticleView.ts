@@ -239,16 +239,19 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 		var $polls = this.$('script[src*=polldaddy]');
 
 		$polls.each((index: number, script: HTMLScriptElement) => {
-			//extract ID from script src
-			var srcSplit: Array = script.src.split('/'),
-				id: number = parseInt(srcSplit[srcSplit.length - 1], 10);
+			// extract ID from script src
+			var idRegEx: RegExp = /(\d+)\.js$/,
+				id: number = parseInt(script.src.match(idRegEx)[1], 10),
+				html;
 
 			// avoid PollDaddy's document.write on subsequent article loads
 			if (!this.$('#PDI_container' + id).length) {
-				console.log("MAKE POLL DADDY");
-				$(script).after('<a name="pd_a_' + id + '" style="display: inline; padding: 0px; margin: 0px;"></a><div class="PDS_Poll" id="PDI_container' + id + '"></div>')
+				html = '<a name="pd_a_' + id + '" style="display: inline; padding: 0px; margin: 0px;"></a>' +
+					'<div class="PDS_Poll" id="PDI_container' + id + '"></div>';
+				$(script).after(html)
 			}
 
+			// init PollDaddy
 			window['PDV_go' + id]();
 		});
 	},
