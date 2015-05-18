@@ -17,7 +17,7 @@
     "search-no-results-msg":"申し訳ありません。検索にマッチした結果が見つかりません！",
     "search-loading-msg":"検索結果を読込中...",
     "media-lightbox-error":"メディアが見つかりません",
-    "map-lightbox-error":"Map not found",
+    "map-lightbox-error":"地図が見つかりません",
     "comments-prev-button":"前のページ",
     "comments-next-button":"次のページ",
     "hub-games":"ゲーム",
@@ -51,14 +51,14 @@
     "years-ago-label":"1年前",
     "years-ago-label_plural":"__count__ 年前",
     "username-anonymous":"ウィキアの投稿者",
-    "smartbanner-store-ios":"On the App Store",
-    "smartbanner-store-android":"In Google Play",
+    "smartbanner-store-ios":"App Store",
+    "smartbanner-store-android":"Google Play",
     "smartbanner-install-ios":"アプリをゲット",
     "smartbanner-install-android":"インストール",
     "smartbanner-price":"フリー",
     "view-more":"さらに見る",
-    "wikia-map-view-map":"View",
-    "search-label":"Search",
-    "cancel-label":"Cancel"
+    "wikia-map-view-map":"表示",
+    "search-label":"検索",
+    "cancel-label":"キャンセル"
   }
 }

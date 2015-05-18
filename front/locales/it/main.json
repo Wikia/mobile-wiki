@@ -17,7 +17,7 @@
     "search-no-results-msg":"Siamo spiacenti, non abbiamo trovato nulla che soddisfi la tua ricerca!",
     "search-loading-msg":"Risultati della ricerca in caricamento...",
     "media-lightbox-error":"Media non trovato",
-    "map-lightbox-error":"Map not found",
+    "map-lightbox-error":"Mappa non trovata",
     "comments-prev-button":"Pagina precedente",
     "comments-next-button":"Pagina successiva",
     "hub-games":"Giochi",
@@ -57,8 +57,8 @@
     "smartbanner-install-android":"Installa",
     "smartbanner-price":"GRATIS",
     "view-more":"Mostra di più",
-    "wikia-map-view-map":"View",
-    "search-label":"Search",
-    "cancel-label":"Cancel"
+    "wikia-map-view-map":"Visualizza",
+    "search-label":"Cerca",
+    "cancel-label":"Annulla"
   }
 }
