@@ -1,5 +1,6 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 import authUtils = require('../../lib/AuthUtils');
+import caching = require('../../lib/Caching');
 
 interface JoinViewContext {
 	title: string;
@@ -42,7 +43,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		}
 	);
 
-	authUtils.disableCache(response);
+	caching.disableCache(response);
 	return response;
 }
 

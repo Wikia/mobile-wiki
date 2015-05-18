@@ -39,7 +39,3 @@ export function getCacheBusterUrl(redirect: string): string {
 
 	return url.format(cacheBustedUrlObj);
 }
-
-export function disableCache (response: Hapi.Response): void {
-	response.header('Cache-Control', 'private, s-maxage=0, max-age=0, must-revalidate');
-}
