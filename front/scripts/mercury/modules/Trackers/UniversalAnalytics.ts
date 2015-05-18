@@ -43,7 +43,7 @@ module Mercury.Modules.Trackers {
 			var options: TrackerOptions, prefix: string;
 
 			options = {
-				name: "",
+				name: '',
 				allowLinker: true,
 				sampleRate: this.accounts[trackerName].sampleRate
 			};
