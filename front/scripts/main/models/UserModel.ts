@@ -1,6 +1,11 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface UserModelParams {
+	userId: number;
+	avatarSize?: number;
+}
+
 interface UserProperties {
 	avatarPath: string;
 	name: string;
@@ -16,7 +21,7 @@ App.UserModel = Em.Object.extend({
 App.UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
-	find: function (params: {userId: number; avatarSize?: number}): Em.RSVP.Promise {
+	find: function (params: UserModelParams): Em.RSVP.Promise {
 		var avatarSize: number = params.avatarSize || App.UserModel.defaultAvatarSize,
 			model = App.UserModel.create();
 
