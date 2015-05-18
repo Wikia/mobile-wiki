@@ -20,14 +20,14 @@ export function get (request: Hapi.Request, reply: any): void {
 
 	context = {
 		exitTo: redirectUrl,
-		headerText: 'auth:common.sign-up-with-email',
+		headerText: 'auth:join.sign-up-with-email',
 		footer: 'auth:signup.footer',
-		title: 'auth:common.sign-up-with-email',
+		title: 'auth:join.sign-up-with-email',
 		loadScripts: true,
 		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
-		footerCalloutText: 'auth:common.login-callout-text',
-		footerCalloutLink: 'auth:common.login-callout-link'
+		footerCalloutText: 'auth:common.login-callout',
+		footerCalloutLink: 'auth:common.login-link-text'
 	};
 
 	return reply.view('signup', context, {

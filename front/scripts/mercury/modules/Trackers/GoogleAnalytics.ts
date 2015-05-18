@@ -21,7 +21,7 @@ module Mercury.Modules.Trackers {
 					'wikia.com', 'ffxiclopedia.org', 'jedipedia.de',
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
-				].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
+				].filter((domain: string) => document.location.hostname.indexOf(domain) > -1)[0];
 			this.accounts = M.prop('tracking.ga');
 			this.queue = window._gaq || [];
 
