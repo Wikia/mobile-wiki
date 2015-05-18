@@ -23,7 +23,7 @@ module Mercury.Modules.Trackers {
 					'wikia.com', 'ffxiclopedia.org', 'jedipedia.de',
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
-				].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
+				].filter((domain: string) => document.location.hostname.indexOf(domain) > -1)[0];
 			this.accounts = M.prop('tracking.ua');
 
 			// Primary account
@@ -74,7 +74,6 @@ module Mercury.Modules.Trackers {
 			ga(prefix + 'set', 'dimension5', 'anon');                                           // LoginStatus
 
 			/**** Medium-Priority Custom Dimensions ****/
-			ga(prefix + 'set', 'dimension8', 'article');                                        // PageType
 			ga(prefix + 'set', 'dimension9', String(Mercury.wiki.id));                          // CityId
 			ga(prefix + 'set', 'dimension15', 'No');    // IsCorporatePage
 			// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
@@ -127,7 +126,7 @@ module Mercury.Modules.Trackers {
 		 */
 		trackAds (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			ga(
-				'ads.send',
+				this.accounts[this.accountAds].prefix + '.send',
 				{
 					hitType: 'event',
 					eventCategory: category,
@@ -143,6 +142,14 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
+			var mainPageTitle = Mercury.wiki.mainPageTitle,
+				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle);
+
+			ga('set', 'dimension8', isMainPage >= 0 ? 'home' : 'article', 3);
+
+			// Set custom var in ad account as well
+			ga.apply(this.accounts[this.accountAds].prefix + '.set', 'dimension8', isMainPage >= 0 ? 'home' : 'article', 3);
+
 			ga('send', 'pageview');
 		}
 	}

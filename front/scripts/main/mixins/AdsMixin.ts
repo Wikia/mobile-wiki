@@ -51,6 +51,26 @@ App.AdsMixin = Em.Mixin.create({
 		}
 	},
 
+	/**
+	 * @desc Load ads for main page.
+	 * InContent ad should be displayed below curated content only when it's available.
+	 * Prefooter ad should be loaded above footer
+	 * only when trending articles and/or trending videos are loaded.
+	 */
+	injectMainPageAds: function (): void {
+		var showInContent: boolean,
+			$curatedContent = this.$('.curated-content');
+
+		//Curated content section is present - show in content ad
+		showInContent = $curatedContent.length > 0;
+
+		this.clearAdViews();
+
+		if (showInContent) {
+			this.appendAd(this.adsData.mobileInContent, 'after', $curatedContent);
+		}
+	},
+
 	setupAdsContext: function (adsContext: any): void {
 		Mercury.Modules.Ads.getInstance().reload(adsContext);
 	}
