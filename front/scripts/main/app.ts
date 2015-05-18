@@ -90,34 +90,27 @@ App.initializer({
 
 		if (window.performance && window.performance.timing) {
 			var times: any = window.performance.timing,
-				events: any[] = [];
+				events: PerfTrackerParams[];
+
+			function createEvent (name: string, value: number): PerfTrackerParams {
+				return {
+					module: 'App',
+					name: name,
+					type: 'timer',
+					value: value
+				};
+			}
 
 			document.onreadystatechange = () => {
 				if (document.readyState === 'complete') {
-					events.push({
-						module: 'App',
-						name: 'domContentLoaded',
-						type: 'timer',
-						value: times.domContentLoadedEventStart - times.domLoading
-					})
 
-					events.push({
-						module: 'App',
-						name: 'domComplete',
-						type: 'timer',
-						value: times.domComplete - times.domLoading
-					})
+					events = [
+						['domContentLoaded', times.domContentLoadedEventStart - times.domLoading],
+						['domComplete', times.domContentLoadedEventStart - times.domLoading],
+						['domInteractive', times.domInteractive - times.domLoading]
+					].map((item: PerfTrackerParams) => createEvent.apply(null, item));
 
-					events.push({
-						module: 'App',
-						name: 'domInteractive',
-						type: 'timer',
-						value: times.domInteractive - times.domLoading
-					})
-
-					events.forEach((event: any) => {
-						M.trackPerf(event);
-					});
+					events.forEach(M.trackPerf);
 				}
 
 			};
