@@ -88,6 +88,30 @@ App.initializer({
 			return;
 		}
 
+		if (window.performance && window.performance.timing) {
+			var times: any = window.performance.timing,
+				events: PerfTrackerParams[];
+
+			function createEvent (name: string, value: number): PerfTrackerParams {
+				return {
+					module: 'App',
+					name: name,
+					type: 'timer',
+					value: value
+				};
+			}
+
+			$(() => {
+				events = [
+					['domContentLoaded', times.domContentLoadedEventStart - times.domLoading],
+					['domComplete', times.domContentLoadedEventStart - times.domLoading],
+					['domInteractive', times.domInteractive - times.domLoading]
+				].map((item: PerfTrackerParams) => createEvent.apply(null, item));
+
+				events.forEach(M.trackPerf);
+			});
+		}
+
 		EmPerfSender.initialize({
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send (events: any[], metrics: any) {
@@ -104,4 +128,12 @@ App.initializer({
 	}
 });
 
+App.initializer({
+	name: 'currentUser',
+	after: 'performanceMonitoring',
+	initialize: (container: any, application: any): void => {
+		application.register('currentUser:main', App.CurrentUser);
+		application.inject('controller', 'currentUser', 'currentUser:main');
+	}
+});
 
