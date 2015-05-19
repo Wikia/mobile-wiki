@@ -101,19 +101,15 @@ App.initializer({
 				};
 			}
 
-			document.onreadystatechange = () => {
-				if (document.readyState === 'complete') {
+			$(() => {
+				events = [
+					['domContentLoaded', times.domContentLoadedEventStart - times.domLoading],
+					['domComplete', times.domContentLoadedEventStart - times.domLoading],
+					['domInteractive', times.domInteractive - times.domLoading]
+				].map((item: PerfTrackerParams) => createEvent.apply(null, item));
 
-					events = [
-						['domContentLoaded', times.domContentLoadedEventStart - times.domLoading],
-						['domComplete', times.domContentLoadedEventStart - times.domLoading],
-						['domInteractive', times.domInteractive - times.domLoading]
-					].map((item: PerfTrackerParams) => createEvent.apply(null, item));
-
-					events.forEach(M.trackPerf);
-				}
-
-			};
+				events.forEach(M.trackPerf);
+			});
 		}
 
 		EmPerfSender.initialize({
