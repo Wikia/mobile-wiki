@@ -73,7 +73,7 @@ App.MediaLightboxView = App.LightboxView.extend(App.LightboxMixin, App.ThirdsCli
 			isGallery = this.get('isGallery');
 
 		if ((isImage || isVideo) && isGallery) {
-			this.thirdsClick(event);
+			this.callClickHandler(event);
 		} else {
 			this._super(event);
 		}
