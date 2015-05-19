@@ -1,0 +1,4 @@
+<h4>{{i18n 'app.trending'}} videos</h4>
+{{#each video in model}}
+	{{trending-videos-item url=video.fileUrl label=video.title imageUrl=video.thumbUrl}}
+{{/each}}

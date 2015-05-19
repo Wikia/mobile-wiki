@@ -1,0 +1,24 @@
+$image-spacing: 5px;
+
+.trending {
+	padding: 0 $image-spacing;
+	line-height: 0;
+	text-align: justify;
+
+	h4 {
+		color: $color-blue-light;
+		font-size: 1.25rem;
+		margin: 2rem 0 .5rem;
+		padding: 0 .5rem;
+		text-align: left;
+		text-transform: uppercase;
+	}
+
+	.item-figcaption {
+		color: $color-gray-dark;
+		font-size: .875rem;
+		font-weight: bold;
+		line-height: 1.5rem;
+		padding: .25rem;
+	}
+}
