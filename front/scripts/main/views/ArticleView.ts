@@ -66,6 +66,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 			this.lazyLoadMedia(model.get('media'));
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
+			this.handlePollDaddy();
 			this.injectAds();
 			this.setupAdsContext(model.get('adsContext'));
 
@@ -228,6 +229,31 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 				.wrap(wrapper)
 				.css('visibility', 'visible');
 		}
+	},
+
+	/**
+	 * This is a hack to make PollDaddy work (HG-618)
+	 * @see http://static.polldaddy.com/p/8791040.js
+	 */
+	handlePollDaddy: function (): void {
+		var $polls = this.$('script[src*=polldaddy]');
+
+		$polls.each((index: number, script: HTMLScriptElement): void => {
+			// extract ID from script src
+			var idRegEx: RegExp = /(\d+)\.js$/,
+				id: string = script.src.match(idRegEx)[1],
+				html: string;
+
+			// avoid PollDaddy's document.write on subsequent article loads
+			if (!this.$('#PDI_container' + id).length) {
+				html = '<a name="pd_a_' + id + '" style="display: inline; padding: 0px; margin: 0px;"></a>' +
+					'<div class="PDS_Poll" id="PDI_container' + id + '"></div>';
+				$(script).after(html);
+			}
+
+			// init PollDaddy
+			window['PDV_go' + id]();
+		});
 	},
 
 	hammerOptions: {
