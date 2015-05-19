@@ -141,6 +141,7 @@ App.initializer({
 
 App.initializer({
 	name: 'setupTracking',
+	after: 'currentUser',
 	initialize (container: any, application: typeof App): void {
 		var UA = Mercury.Modules.Trackers.UniversalAnalytics,
 			dimensions: (string|Function)[] = [],
