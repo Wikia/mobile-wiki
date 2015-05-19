@@ -4,6 +4,10 @@
 'use strict';
 
 App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
+	tagName: Em.computed(function (): string {
+		return this.get('model.type') === 'article' ? 'a' : 'div';
+	}),
+	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
 	classNameBindings: ['type'],
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
@@ -16,6 +20,7 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 
 	model: null,
 	type: Em.computed.oneWay('model.type'),
+	href: Em.computed.oneWay('model.url'),
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
