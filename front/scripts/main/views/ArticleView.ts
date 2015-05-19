@@ -31,9 +31,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	onModelChange: Em.observer('controller.model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender
-		if (this.get('_state') === 'inDOM') {
-			this.scheduleArticleTransforms();
-		}
+		this.scheduleArticleTransforms();
 	}),
 
 	scheduleArticleTransforms: function (): void {
@@ -44,7 +42,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 		this.get('controller').send('articleRendered');
 	},
 
-	articleContentObserver: function (): void {
+	articleContentObserver: function (): boolean {
+		if (this.get('_state') !== 'inDOM') {
+			return false;
+		}
+
 		var model = this.get('controller.model'),
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');
@@ -77,6 +79,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 
 			M.trackPageView(model.get('adsContext.targeting'));
 		}
+
+		return true;
 	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {
