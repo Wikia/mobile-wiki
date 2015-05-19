@@ -94,6 +94,11 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
+		path: localSettings.apiBase + '/category/{categoryName}',
+		handler: require('./facets/api/category').get
+	},
+	{
+		method: 'GET',
 		path: localSettings.apiBase + '/userDetails',
 		handler: require('./facets/api/userDetails').get
 	},
