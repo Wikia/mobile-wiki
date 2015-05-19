@@ -12,6 +12,8 @@
 		"article-last-edit_plural_2": "Last edited __count__ weeks ago",
 		"article-categories-list-label": "Categories",
 		"article-top-contributors-label": "Top Contributors of this Article",
+        "articles-label": "Articles",
+        "videos-label": "Videos",
 		"side-nav-menu-label": "Menu",
 		"navigation-back-label": "Back",
 		"search-no-results-msg": "Sorry, we couldn't find anything that matched your search!",
