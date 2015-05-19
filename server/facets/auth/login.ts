@@ -115,8 +115,12 @@ export function post (request: Hapi.Request, reply: any): void {
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
+		successRedirect: string,
 		context: LoginViewContext = getLoginContext(redirect),
-		ttl = 1.57785e10; // 6 months,
+		ttl = 1.57785e10; // 6 months
+
+	// add cache buster value to the URL upon successful login
+	successRedirect = authUtils.getCacheBusterUrl(redirect);
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
 
@@ -147,9 +151,9 @@ export function post (request: Hapi.Request, reply: any): void {
 		request.auth.session.ttl(ttl);
 
 		if (isAJAX) {
-			return reply({redirect: redirect});
+			return reply({redirect: successRedirect});
 		}
 
-		return reply.redirect(redirect);
+		return reply.redirect(successRedirect);
 	});
 }

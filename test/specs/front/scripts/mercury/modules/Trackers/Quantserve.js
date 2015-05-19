@@ -8,6 +8,9 @@ QUnit.module('Quantserve tests', {
 		Mercury.wiki = {
 			vertical: 'tv'
 		};
+	},
+	teardown: function () {
+		resetMercuryBaseline();
 	}
 });
 

@@ -47,13 +47,14 @@ interface LocalSettings {
 	};
 	qualaroo?: {
 		enabled: boolean;
-		scriptUrl: string;
+		scriptUrlDev: string;
+		scriptUrlProd: string;
 	};
 	port: number;
 	proxyMaxRedirects: number;
 	redirectUrlOnNoData: string;
 	tracking: {
-		ga: GAAccountMap;
+		ua: GAAccountMap;
 		quantserve: string;
 		comscore: {
 			keyword: string;
