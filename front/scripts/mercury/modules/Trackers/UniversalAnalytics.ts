@@ -10,11 +10,18 @@ interface TrackerOptions {
 
 module Mercury.Modules.Trackers {
 	export class UniversalAnalytics {
+		static dimensions: (string|Function)[] = [];
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountAds = 'ads';
 
 		constructor () {
+			if (!UniversalAnalytics.dimensions.length) {
+				throw new Error(
+					'Cannot instantiate UA tracker: please provide dimensions using UniversalAnalytics#setDimensions'
+				);
+			}
+
 			var adsContext = Mercury.Modules.Ads.getInstance().getContext(),
 				// All domains that host content for Wikia
 				// Use one of the domains below. If none matches, the tag will fall back to
@@ -24,12 +31,45 @@ module Mercury.Modules.Trackers {
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 				].filter((domain: string) => document.location.hostname.indexOf(domain) > -1)[0];
+
 			this.accounts = M.prop('tracking.ua');
 
 			// Primary account
 			this.initAccount(this.accountPrimary, adsContext, domain);
 
 			this.initAccount(this.accountAds, adsContext, domain);
+		}
+
+
+		/**
+		 * @static
+		 * @description Synchronously sets the UA dimensional context
+		 * @param dimensions {Array} array of dimensions to set, may be strings or functions
+		 * @param overwrite {boolean} set to true to overwrite all preexisting dimensions and unset ones not declared
+		 * @returns {boolean} true if dimensions were successfully set
+		 */
+		public static setDimensions (dimensions: typeof UniversalAnalytics.dimensions, overwrite?: boolean): boolean {
+			if (!dimensions.length) {
+				return false;
+			}
+
+			if (overwrite) {
+				this.dimensions = dimensions;
+			} else {
+				$.extend(this.dimensions, dimensions);
+			}
+
+			return true;
+		}
+
+		/**
+		 * @private
+		 * @description Retrieves string value or invokes function for value
+		 * @returns {string}
+		 */
+		private getDimension (idx: number): string {
+			var dimension = UniversalAnalytics.dimensions[idx];
+			return typeof dimension === 'function' ? dimension() : dimension;
 		}
 
 		/**
@@ -40,7 +80,8 @@ module Mercury.Modules.Trackers {
 		 * @param {string} domain
 		 */
 		initAccount (trackerName: string, adsContext: any, domain: string): void {
-			var options: TrackerOptions, prefix: string;
+			var options: TrackerOptions, prefix: string,
+				dimensionNum: string;
 
 			options = {
 				name: '',
@@ -66,29 +107,8 @@ module Mercury.Modules.Trackers {
 				ga(prefix + 'linker:autoLink', domain);
 			}
 
-			/**** High-Priority Custom Dimensions ****/
-			ga(prefix + 'set', 'dimension1', Mercury.wiki.dbName);                              // DBname
-			ga(prefix + 'set', 'dimension2', Mercury.wiki.language.content);                    // ContentLanguage
-			ga(prefix + 'set', 'dimension4', 'mercury');                                        // Skin
-			// TODO: Currently the only login status is 'anon', in the future 'user' may be an option
-			ga(prefix + 'set', 'dimension5', 'anon');                                           // LoginStatus
-
-			/**** Medium-Priority Custom Dimensions ****/
-			ga(prefix + 'set', 'dimension9', String(Mercury.wiki.id));                          // CityId
-			ga(prefix + 'set', 'dimension15', 'No');    // IsCorporatePage
-			// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
-			// ga(prefix + 'set', 'dimension16', getKruxSegment());                             // Krux Segment
-			ga(prefix + 'set', 'dimension17', Mercury.wiki.vertical);                           // Vertical
-			ga(prefix + 'set', 'dimension19', M.prop('article.type'));                          // ArticleType
-
-			if (adsContext) {
-				ga(prefix + 'set', 'dimension3', adsContext.targeting.wikiVertical);            // Hub
-				ga(prefix + 'set', 'dimension14', adsContext.opts.showAds ? 'Yes' : 'No');      // HasAds
-			}
-
-			if (Mercury.wiki.wikiCategories instanceof Array) {
-				ga(prefix + 'set', 'dimension18', Mercury.wiki.wikiCategories.join(','));       // Categories
-			}
+			UniversalAnalytics.dimensions.forEach((dimension: string|Function, idx: number) =>
+				ga(`${prefix}set`, `dimension${idx}`, this.getDimension(idx)));
 		}
 
 		/**
@@ -142,13 +162,15 @@ module Mercury.Modules.Trackers {
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
-			var mainPageTitle = Mercury.wiki.mainPageTitle,
-				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle);
+			var pageType = this.getDimension(8);
 
-			ga('set', 'dimension8', isMainPage >= 0 ? 'home' : 'article', 3);
+			if (!pageType) {
+				throw new Error('mission page type dimension (#8)');
+			}
 
+			ga('set', 'dimension8', pageType, 3);
 			// Set custom var in ad account as well
-			ga(this.accounts[this.accountAds].prefix + '.set', 'dimension8', isMainPage >= 0 ? 'home' : 'article', 3);
+			ga(this.accounts[this.accountAds].prefix + '.set', pageType, 3);
 
 			ga('send', 'pageview');
 		}
