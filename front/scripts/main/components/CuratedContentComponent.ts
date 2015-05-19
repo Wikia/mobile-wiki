@@ -1,20 +1,8 @@
 /// <reference path="../app.ts" />
 ///<reference path="../mixins/LoadingSpinnerMixin.ts"/>
 ///<reference path="../mixins/TrackClickMixin.ts"/>
+///<reference path="../models/CuratedContentModel.ts"/>
 'use strict';
-
-interface CuratedContentSection {
-	items: CuratedContentItem[];
-	isTopSection: boolean;
-	label?: string;
-}
-
-interface CuratedContentItem {
-	label: string;
-	imageUrl: string;
-	type: string;
-	url?: string;
-}
 
 App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.TrackClickMixin, {
 	classNames: ['curated-content'],

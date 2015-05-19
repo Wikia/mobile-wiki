@@ -42,7 +42,7 @@ App.CuratedContentModel = Em.Object.extend({
 	},
 
 	sanitizeItem: function (rawData: any, sectionType: string): CuratedContentItem {
-		var item;
+		var item: CuratedContentItem;
 
 		if (sectionType === 'topLevelSection') {
 			item = {
