@@ -1,6 +1,6 @@
 /// <reference path="../../../../../typings/google.analytics/ga.d.ts" />
-/// <reference path="../../modules/Ads.ts" />
 /// <reference path="../../../baseline/mercury.ts" />
+/// <reference path="../../../baseline/mercury.d.ts" />
 
 interface TrackerOptions {
 	name: string;
@@ -22,11 +22,10 @@ module Mercury.Modules.Trackers {
 				);
 			}
 
-			var adsContext = Mercury.Modules.Ads.getInstance().getContext(),
 				// All domains that host content for Wikia
 				// Use one of the domains below. If none matches, the tag will fall back to
 				// the default which is 'auto', probably good enough in edge cases.
-				domain: string = [
+			var domain: string = [
 					'wikia.com', 'ffxiclopedia.org', 'jedipedia.de',
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 					'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
@@ -35,9 +34,9 @@ module Mercury.Modules.Trackers {
 			this.accounts = M.prop('tracking.ua');
 
 			// Primary account
-			this.initAccount(this.accountPrimary, adsContext, domain);
+			this.initAccount(this.accountPrimary, domain);
 
-			this.initAccount(this.accountAds, adsContext, domain);
+			this.initAccount(this.accountAds, domain);
 		}
 
 
@@ -76,10 +75,9 @@ module Mercury.Modules.Trackers {
 		 * Initialize an additional account or property
 		 *
 		 * @param {string} name The name of the account as specified in localSettings
-		 * @param {object} adsContext
 		 * @param {string} domain
 		 */
-		initAccount (trackerName: string, adsContext: any, domain: string): void {
+		initAccount (trackerName: string, domain: string): void {
 			var options: TrackerOptions, prefix: string,
 				dimensionNum: string;
 

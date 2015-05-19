@@ -2,6 +2,7 @@
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 /// <reference path="../baseline/mercury.ts" />
+/// <reference path="../mercury/modules/Ads.ts" />
 /// <reference path="../mercury/modules/Trackers/UniversalAnalytics.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 /// <reference path="../mercury/utils/trackPerf.ts" />
