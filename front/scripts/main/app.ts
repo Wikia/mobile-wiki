@@ -105,7 +105,7 @@ App.initializer({
 			$(() => {
 				events = [
 					['domContentLoaded', times.domContentLoadedEventStart - times.domLoading],
-					['domCompvare', times.domContentLoadedEventStart - times.domLoading],
+					['domComplete', times.domContentLoadedEventStart - times.domLoading],
 					['domInteractive', times.domInteractive - times.domLoading]
 				].map((item: PerfTrackerParams) => createEvent.apply(null, item));
 
