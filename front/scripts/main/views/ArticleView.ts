@@ -241,8 +241,24 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 		$polls.each((index: number, script: HTMLScriptElement): void => {
 			// extract ID from script src
 			var idRegEx: RegExp = /(\d+)\.js$/,
-				id: string = script.src.match(idRegEx)[1],
-				html: string;
+				matches: any = script.src.match(idRegEx),
+				id: string,
+				html: string,
+				init: any;
+
+			// something is wrong with poll daddy or UCG.
+			if (!matches || !matches[1]) {
+				Em.Logger.error('Polldaddy script src url not recognized', script.src);
+				return;
+			}
+
+			id = matches[1];
+			init = window['PDV_go' + id];
+
+			if (typeof init !== 'function') {
+				Em.Logger.error('Polldaddy code changed', script.src);
+				return;
+			}
 
 			// avoid PollDaddy's document.write on subsequent article loads
 			if (!this.$('#PDI_container' + id).length) {
@@ -250,9 +266,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 					'<div class="PDS_Poll" id="PDI_container' + id + '"></div>';
 				$(script).after(html);
 			}
-
-			// init PollDaddy
-			window['PDV_go' + id]();
+			init();
 		});
 	},
 
