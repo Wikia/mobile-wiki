@@ -12,8 +12,8 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	imageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
-	imageHeight: 150,
 	imageWidth: 250,
+	imageHeight: Em.computed(function () { return Math.floor(this.get('imageWidth') * 9 / 16); }),
 	style: null,
 
 	willInsertElement: function (): void {
@@ -42,8 +42,11 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	},
 
 	updateImageSize: function (viewportWidth: number): void {
-		var componentWidth = String((viewportWidth - 20) / 2);
+		var imageWidth = Math.floor((viewportWidth - 20) / 2),
+			imageWidthString = String(imageWidth),
+			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
 
-		this.set('style', Em.String.htmlSafe('width: %@px'.fmt(componentWidth)));
+		this.set('style', Em.String.htmlSafe('width: %@px'.fmt(imageWidthString)));
+		this.set('imageStyle', Em.String.htmlSafe('height: %@px'.fmt(imageHeightString)));
 	}
 });

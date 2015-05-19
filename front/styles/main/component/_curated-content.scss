@@ -44,13 +44,7 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 	}
 
 	.item-image {
-		background: {
-			color: rgb(223, 223, 223);
-			image: url('../../images/brackets.svg');
-			position: center;
-			repeat: no-repeat;
-			size: contain;
-		}
+		@include image-placeholder;
 	}
 
 	.item-figcaption {

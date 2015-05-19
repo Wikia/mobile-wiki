@@ -1,0 +1,10 @@
+// Mixin for setting up an image placeholder background
+@mixin image-placeholder {
+	background: {
+		color: rgb(223, 223, 223);
+		image: url('../../images/brackets.svg');
+		position: center;
+		repeat: no-repeat;
+		size: contain;
+	}
+}

@@ -14,6 +14,11 @@ $image-spacing: 5px;
 		text-transform: uppercase;
 	}
 
+	.item-image {
+		@include image-placeholder;
+		line-height: 1.25rem;
+	}
+
 	.item-figcaption {
 		color: $color-gray-dark;
 		font-size: .875rem;
