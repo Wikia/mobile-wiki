@@ -111,7 +111,7 @@ App.ApplicationView = Em.View.extend({
 			target: EventTarget = $anchor.length ? $anchor[0] : event.target,
 			tagName: string;
 
-		if (target && this.isMWContent(target)) {
+		if (target && this.shouldHandleClick(target)) {
 			tagName = target.tagName.toLowerCase();
 
 			if (tagName === 'a') {
@@ -138,8 +138,14 @@ App.ApplicationView = Em.View.extend({
 	/**
 	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
 	 */
-	isMWContent: function (target: EventTarget): boolean {
-		return !!$(target).closest('.mw-content').length;
+	shouldHandleClick: function (target: EventTarget): boolean {
+		var $target = $(target);
+
+		return (
+			$target.closest('.mw-content').length &&
+			// ignore polldaddy content
+			!$target.closest('.PDS_Poll').length
+		);
 	},
 
 	sideNavCollapsedObserver: Em.observer('sideNavCollapsed', function (): void {
