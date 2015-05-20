@@ -1,4 +1,6 @@
 .trending-articles {
+	text-align: justify;
+
 	// this pseudoelement lets the last inline item to be justified to the right if it's even
 	&::after {
 		content: '';
@@ -9,6 +11,6 @@
 
 .trending-articles-item {
 	display: inline-block;
-	margin: 0 0 $paragraph-margin;
+	margin: 0 0 1.5rem;
 	vertical-align: top;
 }
