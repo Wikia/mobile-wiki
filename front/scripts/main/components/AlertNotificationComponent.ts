@@ -15,8 +15,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 
 	didInsertElement: function (): void {
 		this.set('timeout', setTimeout(() => {
-			this.$().remove();
-			this.get('alerts').removeObject(this.get('alert'));
+			this.dismissNotification();
 		}, this.get('notificationExpiry')));
 	},
 
@@ -24,9 +23,13 @@ App.AlertNotificationComponent = Em.Component.extend({
 		clearTimeout(this.get('timeout'));
 	},
 
+	dismissNotification: function (): void {
+		this.get('alerts').removeObject(this.get('alert'));
+	},
+
 	actions: {
 		close: function (): void {
-			this.get('alerts').removeObject(this.get('alert'));
+			this.dismissNotification();
 		}
 	}
 });
