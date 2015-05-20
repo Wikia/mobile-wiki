@@ -16,10 +16,14 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 		return this.get('sectionsStack.lastObject');
 	}),
 
-	didInsertElement: function(): void {
+	didInsertElement: function (): void {
 		this.set('model', App.CuratedContentModel.create());
 		this.set('spinnerDelay', 50);
 		this.createTopLevelSection();
+	},
+
+	willDestroyElement: function (): void {
+		this.sectionsStack.clear();
 	},
 
 	actions: {
@@ -27,31 +31,13 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 			if (item.type === 'section' || item.type === 'category') {
 				this.loadSection(item);
 			} else {
-				this.loadItem(item);
+				this.trackClick('modular-main-page', 'curated-content-item-article');
 			}
 		},
 
 		goBack: function (): void {
-			this.sectionsStack.popObject();
-		},
-
-		showItems: function (item: any): void {
-			this.showLoader();
-			this.trackClick('modular-main-page', 'curated-content-item-level-0', false);
-			this.get('model').fetchItemsForSection(item.title)
-				.then((): void => {
-					this.hideLoader();
-					this.set('showItems', true);
-					$('html, body').animate({
-						scrollTop: this.$().offset().top - this.get('globalNavHeight')
-					}, 500);
-				});
-		},
-
-		showGrid: function(): void {
-			this.set('showItems', false);
-			this.get('model').set('activeSection', false);
 			this.trackClick('modular-main-page', 'curated-content-back');
+			this.sectionsStack.popObject();
 		}
 	},
 
@@ -72,9 +58,12 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	},
 
 	loadSection: function (item: CuratedContentItem): void {
-		var sectionName: string;
+		var sectionName: string,
+			currentLevel = this.get('sectionsStack.length') - 1,
+			nonInteractive = currentLevel > 0;
 
 		this.showLoader();
+		this.trackClick('modular-main-page', 'curated-content-item-level-' + currentLevel, nonInteractive);
 
 		if (item.type === 'section') {
 			sectionName = item.label;
@@ -100,12 +89,8 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 				}, 500);
 			})
 			.catch((): void => {
-				// TODO what now?
+				// TODO what now? should we show an error message?
 				this.hideLoader();
 			});
-	},
-
-	loadItem: function (item: CuratedContentItem): void {
-		console.log('#### LOAD SOME ITEM', item);
 	}
 });

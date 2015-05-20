@@ -4,9 +4,7 @@
 'use strict';
 
 App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
-	tagName: Em.computed(function (): string {
-		return this.get('model.type') === 'article' ? 'a' : 'div';
-	}),
+	tagName: 'a',
 	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
 	classNameBindings: ['type'],
