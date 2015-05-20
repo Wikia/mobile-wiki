@@ -60,6 +60,8 @@
 		"wikia-map-view-map": "View",
 		"search-label": "Search",
 		"cancel-label": "Cancel",
+		"edit-page-heading": "Editing:",
+		"edit-page-publish": "Publish",
 		"edit-success": "Successfully edited page __pageTitle__!"
 	}
 }
