@@ -19,7 +19,7 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{alert-notifications alerts=view.alertNotifications}}
 	{{outlet 'lightbox'}}
 {{/if}}
+{{alert-notifications alerts=view.alertNotifications}}
 {{loading-spinner active=isLoading}}
