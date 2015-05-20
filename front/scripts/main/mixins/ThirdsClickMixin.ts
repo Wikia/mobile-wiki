@@ -6,7 +6,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	rightClickHandler: Em.K,
 	centerClickHandler: Em.K,
 
-	viewportWidth: Em.computed (function(): number {
+	viewportWidth: Em.computed (function (): number {
 		return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	}),
 
