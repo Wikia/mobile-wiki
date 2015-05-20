@@ -59,7 +59,7 @@ plugins = [
 				},
 				fallbackLng: 'en',
 				supportedLngs: getSupportedLangs(),
-				useCookie: true,
+				useCookie: false,
 				cookieName: 'lang',
 				detectLngFromHeaders: true,
 				detectLngFromQueryString: true,
