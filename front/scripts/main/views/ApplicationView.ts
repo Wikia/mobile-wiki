@@ -33,6 +33,7 @@ App.ApplicationView = Em.View.extend({
 
 	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
+	alertNotifications: Em.computed.alias('controller.alertNotifications'),
 	noScroll: Em.computed.alias('controller.noScroll'),
 	scrollLocation: null,
 
