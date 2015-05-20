@@ -21,6 +21,7 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	model: null,
 	type: Em.computed.oneWay('model.type'),
 	href: Em.computed.oneWay('model.url'),
+	isArticle: Em.computed.equal('model.type', 'article'),
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
