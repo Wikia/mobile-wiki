@@ -11,8 +11,9 @@ App.EditController = Em.Controller.extend({
 			this.get('controllers.application').showLoader();
 			App.EditModel.publish(this.model)
 				.then((data: any): void => {
-					this.transitionToRoute('article', this.model.title);
-					this.get('controllers.application').addAlert('success', i18n.t('app.edit-success', {pageTitle: this.model.title}));
+					this.transitionToRoute('article', this.model.title).then(() => {
+						this.get('controllers.application').addAlert('success', i18n.t('app.edit-success', {pageTitle: this.model.title}));
+					})
 				});
 		}
 	},
