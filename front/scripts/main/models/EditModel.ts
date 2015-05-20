@@ -8,9 +8,9 @@ App.EditModel = Em.Object.extend({
 	timestamp: null,
 	title: null,
 	sectionIndex: null,
-	isNotDirty: function () {
+	isNotDirty: Em.computer('content', 'originalContent', function (): boolean {
 		return this.get('content') === this.get('originalContent');
-	}.property('content', 'originalContent')
+	});
 });
 
 App.EditModel.reopenClass({
@@ -88,14 +88,13 @@ App.EditModel.reopenClass({
 				} )[0];
 
 
-				var model = App.EditModel.create({
+				resolve(App.EditModel.create({
 					title: title,
 					sectionIndex: sectionIndex,
 					content: revision['*'],
 					originalContent: revision['*'],
 					timestamp: revision.timestamp
-				});
-				resolve(model);
+				}));
 			})
 			.fail((err): void => {
 				reject(err);
