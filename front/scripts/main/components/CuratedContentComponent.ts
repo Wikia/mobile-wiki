@@ -75,22 +75,26 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 		this.get('model')
 			.fetchItemsForSection(sectionName, item.type)
 			.then((items: CuratedContentItem[]): void => {
-				var section: CuratedContentSection = {
-					label: item.label,
-					items: items,
-					isTopSection: false
-				};
-
-				this.sectionsStack.pushObject(section);
-
-				this.hideLoader();
-				$('html, body').animate({
-					scrollTop: this.$().offset().top - this.get('globalNavHeight')
-				}, 500);
+				this.onSectionLoaded(items, item);
 			})
 			.catch((): void => {
 				// TODO what now? should we show an error message?
 				this.hideLoader();
 			});
+	},
+
+	onSectionLoaded: function (items: CuratedContentItem[], parent: CuratedContentItem): void {
+		var section: CuratedContentSection = {
+			label: parent.label,
+			items: items,
+			isTopSection: false
+		};
+
+		this.sectionsStack.pushObject(section);
+
+		this.hideLoader();
+		$('html, body').animate({
+			scrollTop: this.$().offset().top - this.get('globalNavHeight')
+		}, 500);
 	}
 });
