@@ -28,7 +28,7 @@ App.CuratedContentModel = Em.Object.extend({
 					var sanitizedData: CuratedContentItem[] = [];
 
 					if (data.items) {
-						sanitizedData = data.items.map((item: any) => {
+						sanitizedData = data.items.map((item: any): CuratedContentItem => {
 							return this.sanitizeItem(item, sectionType);
 						});
 					}
