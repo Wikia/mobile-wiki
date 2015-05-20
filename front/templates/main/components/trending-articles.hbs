@@ -1,6 +1,6 @@
 <h4>{{i18n 'app.trending'}}</h4>
 {{#each article in model}}
-	{{trending-articles-item url=article.article_local_url label=article.label imageUrl=article.image_url}}
+	{{trending-articles-item url=article.url title=article.title thumbnail=article.thumbnail}}
 {{/each}}
 
 {{! the newline above lets the last inline item to be justified to the right if it's even }}

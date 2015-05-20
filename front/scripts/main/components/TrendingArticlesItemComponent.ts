@@ -37,12 +37,12 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 		options.width = this.get('imageWidth');
 		options.height = this.get('imageHeight');
 		options.mode = this.get('cropMode');
-		imageUrl = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
-		this.set('imageUrl', imageUrl);
+		imageUrl = this.thumbnailer.getThumbURL(this.get('thumbnail'), options);
+		this.set('thumbnail', imageUrl);
 	},
 
 	updateImageSize: function (viewportWidth: number): void {
-		var componentWidth = String((viewportWidth - 20) / 2);
+		var componentWidth = String(Math.floor((viewportWidth - 20) / 2));
 
 		this.set('style', Em.String.htmlSafe(`width: ${componentWidth}px`));
 	}
