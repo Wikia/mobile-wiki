@@ -26,7 +26,7 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 		}
 	},
 
-	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
+	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	}),
 
@@ -44,6 +44,6 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	updateImageSize: function (viewportWidth: number): void {
 		var componentWidth = String((viewportWidth - 20) / 2);
 
-		this.set('style', Em.String.htmlSafe('width: %@px'.fmt(componentWidth)));
+		this.set('style', Em.String.htmlSafe(`width: ${componentWidth}px`));
 	}
 });
