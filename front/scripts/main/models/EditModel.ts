@@ -10,7 +10,7 @@ App.EditModel = Em.Object.extend({
 	sectionIndex: null,
 	isNotDirty: Em.computed('content', 'originalContent', function (): boolean {
 		return this.get('content') === this.get('originalContent');
-	});
+	})
 });
 
 App.EditModel.reopenClass({
