@@ -12,8 +12,8 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	imageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
-	imageHeight: 150,
 	imageWidth: 250,
+	imageHeight: Em.computed(function (): number { return Math.floor(this.get('imageWidth') * 9 / 16); }),
 	style: null,
 
 	willInsertElement: function (): void {
@@ -31,13 +31,13 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	}),
 
 	lazyLoadImage: function (): void {
-		var options: any = {},
-			imageUrl: string;
+		var options: any = {
+				width: this.get('imageWidth'),
+				height: this.get('imageHeight'),
+				mode: this.get('cropMode')
+			},
+			imageUrl: string = this.thumbnailer.getThumbURL(this.get('thumbnail'), options);
 
-		options.width = this.get('imageWidth');
-		options.height = this.get('imageHeight');
-		options.mode = this.get('cropMode');
-		imageUrl = this.thumbnailer.getThumbURL(this.get('thumbnail'), options);
 		this.set('thumbnail', imageUrl);
 	},
 
