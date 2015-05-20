@@ -43,8 +43,8 @@ module Mercury.Modules.Trackers {
 		/**
 		 * @static
 		 * @description Synchronously sets the UA dimensional context
-		 * @param dimensions {Array} array of dimensions to set, may be strings or functions
-		 * @param overwrite {boolean} set to true to overwrite all preexisting dimensions and unset ones not declared
+		 * @param {Array} dimensions  array of dimensions to set, may be strings or functions
+		 * @param {boolean} overwrite  set to true to overwrite all preexisting dimensions and unset ones not declared
 		 * @returns {boolean} true if dimensions were successfully set
 		 */
 		public static setDimensions (dimensions: typeof UniversalAnalytics.dimensions, overwrite?: boolean): boolean {
@@ -63,6 +63,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @private
+		 * @param {number} index of dimension
 		 * @description Retrieves string value or invokes function for value
 		 * @returns {string}
 		 */
@@ -163,7 +164,7 @@ module Mercury.Modules.Trackers {
 			var pageType = this.getDimension(8);
 
 			if (!pageType) {
-				throw new Error('mission page type dimension (#8)');
+				throw new Error('missing page type dimension (#8)');
 			}
 
 			ga('set', 'dimension8', pageType, 3);
