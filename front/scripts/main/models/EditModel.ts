@@ -4,9 +4,13 @@
 
 App.EditModel = Em.Object.extend({
 	content: null,
+	originalContent: null,
 	timestamp: null,
 	title: null,
-	sectionIndex: null
+	sectionIndex: null,
+	isNotDirty: Em.computed('content', 'originalContent', function (): boolean {
+		return this.get('content') === this.get('originalContent');
+	})
 });
 
 App.EditModel.reopenClass({
@@ -62,11 +66,6 @@ App.EditModel.reopenClass({
 	},
 
 	load: function(title: string, sectionIndex: number): Em.RSVP.Promise {
-		var model = App.EditModel.create({
-			title: title,
-			sectionIndex: sectionIndex
-		});
-
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.getJSON(Mercury.wiki.basePath + '/api.php', {
 				action: 'query',
@@ -88,9 +87,14 @@ App.EditModel.reopenClass({
 					return page.revisions[0];
 				} )[0];
 
-				model.set('content', revision['*']);
-				model.set('timestamp', revision.timestamp);
-				resolve(model);
+
+				resolve(App.EditModel.create({
+					title: title,
+					sectionIndex: sectionIndex,
+					content: revision['*'],
+					originalContent: revision['*'],
+					timestamp: revision.timestamp
+				}));
 			})
 			.fail((err): void => {
 				reject(err);
