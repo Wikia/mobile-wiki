@@ -12,10 +12,11 @@ $image-spacing: 5px;
 		width: 100%;
 	}
 
-	h4 {
+	h2 {
 		color: $color-blue-light;
-		font-size: 1.25rem;
-		margin: 2rem 0 .5rem;
+		font-size: $type-smaller;
+		line-height: $line-height-smaller;
+		margin: $subheader-top-margin 0 $subheader-bottom-margin;
 		padding: 0 .5rem;
 		text-align: left;
 		text-transform: uppercase;
@@ -23,15 +24,15 @@ $image-spacing: 5px;
 
 	.trending-articles-item {
 		display: inline-block;
-		margin: 0 0 1rem;
+		margin: 0 0 $paragraph-margin;
 		vertical-align: top;
 	}
 
 	.item-figcaption {
 		color: $color-gray-dark;
-		font-size: .875rem;
+		font-size: $type-smallest;
 		font-weight: bold;
-		line-height: 1.5rem;
+		line-height: $line-height-smallest;
 		padding: .25rem;
 	}
 }
