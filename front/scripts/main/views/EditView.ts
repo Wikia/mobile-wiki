@@ -16,6 +16,12 @@ App.EditView = Em.View.extend({
 		});
 	},
 
+	didInsertElement: function (): void {
+		this.$('textarea').on('input propertychange', () => {
+			this.$('.edit-head').find('button').prop('disabled', false);
+		});
+	},
+
 	willDestroyElement: function(): void {
 		Em.$(window).off('resize.editor');
 	},
