@@ -13,7 +13,7 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	imageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
 	imageWidth: 250,
-	imageHeight: Em.computed(function () { return Math.floor(this.get('imageWidth') * 9 / 16); }),
+	imageHeight: Em.computed(function (): number { return Math.floor(this.get('imageWidth') * 9 / 16); }),
 	style: null,
 
 	willInsertElement: function (): void {
@@ -26,27 +26,24 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 		}
 	},
 
-	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
+	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	}),
 
 	lazyLoadImage: function (): void {
-		var options: any = {},
-			imageUrl: string;
+		var options: any = {
+				width: this.get('imageWidth'),
+				height: this.get('imageHeight'),
+				mode: this.get('cropMode')
+			},
+			imageUrl: string = this.thumbnailer.getThumbURL(this.get('thumbnail'), options);
 
-		options.width = this.get('imageWidth');
-		options.height = this.get('imageHeight');
-		options.mode = this.get('cropMode');
-		imageUrl = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
-		this.set('imageUrl', imageUrl);
+		this.set('thumbnail', imageUrl);
 	},
 
 	updateImageSize: function (viewportWidth: number): void {
-		var imageWidth = Math.floor((viewportWidth - 20) / 2),
-			imageWidthString = String(imageWidth),
-			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
+		var componentWidth = String(Math.floor((viewportWidth - 20) / 2));
 
-		this.set('style', Em.String.htmlSafe('width: %@px'.fmt(imageWidthString)));
-		this.set('imageStyle', Em.String.htmlSafe('height: %@px'.fmt(imageHeightString)));
+		this.set('style', Em.String.htmlSafe(`width: ${componentWidth}px`));
 	}
 });
