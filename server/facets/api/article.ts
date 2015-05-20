@@ -34,8 +34,8 @@ export function get (request: Hapi.Request,  reply: any): void {
 
 	if (isRequestForRandomTitle(request.query)) {
 		Article.getArticleRandomTitle(wikiDomain, (error: any, result: any): void => {
-			wrapResult(error, result);
-			Caching.setResponseCaching(reply(result), randomTitleCachingTimes);
+			var wrappedResult = wrapResult(error, result);
+			Caching.setResponseCaching(reply(wrappedResult), randomTitleCachingTimes);
 		});
 		return;
 	}
@@ -46,7 +46,7 @@ export function get (request: Hapi.Request,  reply: any): void {
 		redirect: request.params.redirect
 	}, (error: any, result: any): void => {
 		// TODO: Consider normalizing all error handling to Boom
-		wrapResult(error, result);
-		Caching.setResponseCaching(reply(result).code(result.status), cachingTimes);
+		var wrappedResult = wrapResult(error, result);
+		Caching.setResponseCaching(reply(wrappedResult).code(wrappedResult.status), cachingTimes);
 	});
 }
