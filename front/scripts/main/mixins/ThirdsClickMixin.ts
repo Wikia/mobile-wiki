@@ -1,6 +1,10 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface CancellableClickEvent extends MouseEvent, Touch {
+	preventDefault: () => void;
+}
+
 App.ThirdsClickMixin = Em.Mixin.create({
 	leftClickHandler: Em.K,
 	rightClickHandler: Em.K,
@@ -14,9 +18,14 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 * @desc Checks on which area on the screen an event took place
 	 * and calls proper handler
 	 *
-	 * @param {MouseEvent|Touch} event
+	 * @param {CancellableClickEvent} event
+	 * @param {boolean} allowDefault
 	 */
-	callClickHandler: function (event: MouseEvent|Touch): void {
+	callClickHandler: function (event: CancellableClickEvent, allowDefault: boolean = true): void {
+		if (!allowDefault) {
+			event.preventDefault();
+		}
+
 		var viewportWidth = this.get('viewportWidth'),
 			x = event.clientX,
 			thirdPartOfScreen = viewportWidth / 3;
