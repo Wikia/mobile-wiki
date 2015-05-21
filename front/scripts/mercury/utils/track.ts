@@ -105,6 +105,15 @@ module Mercury.Utils {
 		delete params.isNonInteractive;
 	}
 
+	function isSpecialWiki () {
+		try {
+			return Mercury.wiki.isGASpecialWiki;
+		} catch (e) {
+			// Property doesn't exist
+			return false;
+		}
+	}
+
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
 			action: string = params.action,
@@ -136,7 +145,7 @@ module Mercury.Utils {
 				throw new Error('missing required GA params');
 			}
 
-			uaTracker = new trackers.UniversalAnalytics();
+			uaTracker = new trackers.UniversalAnalytics(isSpecialWiki());
 			uaTracker.track(category, actions[action], label, value, isNonInteractive);
 		}
 

@@ -13,9 +13,10 @@ module Mercury.Modules.Trackers {
 		static dimensions: (string|Function)[] = [];
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
+		accountSpecial = 'special';
 		accountAds = 'ads';
 
-		constructor () {
+		constructor (isSpecialWiki = false) {
 			if (!UniversalAnalytics.dimensions.length) {
 				throw new Error(
 					'Cannot instantiate UA tracker: please provide dimensions using UniversalAnalytics#setDimensions'
@@ -37,6 +38,10 @@ module Mercury.Modules.Trackers {
 			this.initAccount(this.accountPrimary, domain);
 
 			this.initAccount(this.accountAds, domain);
+
+			if (isSpecialWiki) {
+				this.initAccount(this.accountSpecial, domain);
+			}
 		}
 
 
