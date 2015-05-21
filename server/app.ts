@@ -58,6 +58,7 @@ plugins = [
 					defaultNs: 'main'
 				},
 				fallbackLng: 'en',
+				supportedLngs: getSupportedLangs(),
 				useCookie: false,
 				detectLngFromHeaders: false,
 				detectLngFromQueryString: true,
