@@ -1,7 +1,6 @@
 <div class="edit-head">
 	{{#link-to 'article' model.title}}{{svg 'arrow-left' role='img' class='icon arrow-left'}}{{/link-to}}
-
-	<button {{action 'publish'}} class="large" style="float: right;" disabled={{model.isNotDirty}}>{{i18n 'app.edit-page-publish'}}</button>
+	<button {{action 'publish'}} class="large" style="float: right;" disabled={{publishDisabled}}>{{i18n 'app.edit-page-publish'}}</button>
 
 	<h5>
 		{{! TODO: Ideally the title would be passed to the message so translators can choose the order (see HG-663) }}
