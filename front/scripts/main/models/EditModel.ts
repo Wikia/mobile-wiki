@@ -58,9 +58,18 @@ App.EditModel.reopenClass({
 					dataType: 'json',
 					method: 'POST',
 					success: (resp): void => {
-						resolve();
+						if (resp && resp.error) {
+							reject(resp.error.code);
+						} else {
+							resolve();
+						}
+					},
+					error: (err): void => {
+						reject(err);
 					}
 				});
+			}, (err: any) => {
+				reject(err);
 			});
 		});
 	},
