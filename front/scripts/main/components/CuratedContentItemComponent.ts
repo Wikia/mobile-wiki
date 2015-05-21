@@ -41,8 +41,8 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 
 	lazyLoadImage: function (): void {
 		var options: any = {
-				width: this.get('imageWidth'),
-				height: this.get('imageHeight'),
+				width: this.get('imageSize'),
+				height: this.get('imageSize'),
 				mode: this.get('cropMode')
 			},
 			thumbUrl: string = this.thumbnailer.getThumbURL(this.get('model.imageUrl'), options);
