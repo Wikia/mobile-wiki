@@ -2,6 +2,8 @@
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 /// <reference path="../baseline/mercury.ts" />
+/// <reference path="../mercury/modules/Ads.ts" />
+/// <reference path="../mercury/modules/Trackers/UniversalAnalytics.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 /// <reference path="../mercury/utils/trackPerf.ts" />
 
@@ -134,6 +136,48 @@ App.initializer({
 	initialize: (container: any, application: any): void => {
 		application.register('currentUser:main', App.CurrentUser);
 		application.inject('controller', 'currentUser', 'currentUser:main');
+	}
+});
+
+App.initializer({
+	name: 'setupTracking',
+	after: 'currentUser',
+	initialize (container: any, application: typeof App): void {
+		var UA = Mercury.Modules.Trackers.UniversalAnalytics,
+			dimensions: (string|Function)[] = [],
+			adsContext = Mercury.Modules.Ads.getInstance().getContext();
+
+		function getPageType () {
+			var mainPageTitle = Mercury.wiki.mainPageTitle,
+				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle);
+
+			return isMainPage >= 0 ? 'home' : 'article';
+		}
+
+		/**** High-Priority Custom Dimensions ****/
+		dimensions[1] = Mercury.wiki.dbName;								 // dbName
+		dimensions[2] = Mercury.wiki.language.content;                    // ContentLanguage
+		dimensions[4] = 'mercury';                                        // Skin
+		// TODO: Currently the only login status is 'anon', in the future 'user' may be an option
+		dimensions[5] = 'anon';                                           // LoginStatus
+		dimensions[9] = String(Mercury.wiki.id);                          // CityId
+		dimensions[8] = getPageType;
+		dimensions[15] = 'No';    // IsCorporatePage
+		// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
+		// ga(prefix + 'set', 'dimension16', getKruxSegment());                             // Krux Segment
+		dimensions[17] = Mercury.wiki.vertical;                           // Vertical
+		dimensions[19] = M.prop('article.type');                          // ArticleType
+
+		if (adsContext) {
+			dimensions[3] = adsContext.targeting.wikiVertical;            // Hub
+			dimensions[14] = adsContext.opts.showAds ? 'Yes' : 'No';      // HasAds
+		}
+
+		if (Mercury.wiki.wikiCategories instanceof Array) {
+			dimensions[18] = Mercury.wiki.wikiCategories.join(',');       // Categories
+		}
+
+		UA.setDimensions(dimensions);
 	}
 });
 
