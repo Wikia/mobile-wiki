@@ -8,8 +8,8 @@ App.EditModel = Em.Object.extend({
 	timestamp: null,
 	title: null,
 	sectionIndex: null,
-	isNotDirty: Em.computed('content', 'originalContent', function (): boolean {
-		return this.get('content') === this.get('originalContent');
+	isDirty: Em.computed('content', 'originalContent', function (): boolean {
+		return this.get('content') !== this.get('originalContent');
 	})
 });
 
