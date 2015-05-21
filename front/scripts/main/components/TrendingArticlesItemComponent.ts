@@ -10,7 +10,7 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	imageUrl: Em.computed.oneWay('emptyGif'),
+	currentlyRenderedImageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
 	imageWidth: 250,
 	imageHeight: Em.computed(function (): number { return Math.floor(this.get('imageWidth') * 9 / 16); }),
@@ -36,9 +36,9 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 				height: this.get('imageHeight'),
 				mode: this.get('cropMode')
 			},
-			imageUrl: string = this.thumbnailer.getThumbURL(this.get('thumbnail'), options);
+			imageUrl: string = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
 
-		this.set('thumbnail', imageUrl);
+		this.set('currentlyRenderedImageUrl', imageUrl);
 	},
 
 	updateImageSize: function (viewportWidth: number): void {
