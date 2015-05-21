@@ -60,7 +60,6 @@ plugins = [
 				fallbackLng: 'en',
 				useCookie: false,
 				detectLngFromHeaders: false,
-				detectLngFromHeaders: false,
 				detectLngFromQueryString: true,
 				detectLngQS: 'uselang'
 			}
