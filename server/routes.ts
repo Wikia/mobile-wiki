@@ -67,6 +67,13 @@ unauthenticatedRoutes = [
 		path: '/heartbeat',
 		handler: require('./facets/operations/heartbeat')
 	},
+	{
+		method: 'GET',
+		path: '/wiki',
+		handler (request, reply) {
+			reply.redirect('/');
+		}
+	},
 	/**
 	 * API Routes
 	 * @description The following routes should just be API routes
