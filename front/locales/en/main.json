@@ -62,6 +62,8 @@
 		"cancel-label": "Cancel",
 		"edit-page-heading": "Editing:",
 		"edit-page-publish": "Publish",
-		"edit-success": "Successfully edited page __pageTitle__!"
+		"edit-success": "Successfully edited page __pageTitle__!",
+		"edit-load-error": "Something went wrong."
+
 	}
 }
