@@ -41,6 +41,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	result.queryParams = Utils.parseQueryParams(request.query);
 	result.weppyConfig = localSettings.weppy;
+	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
 }
 
 export = prepareArticleData;

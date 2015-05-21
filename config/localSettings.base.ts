@@ -47,13 +47,14 @@ var localSettings: LocalSettings = {
 	},
 	qualaroo: {
 		enabled: true,
-		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js',
+		scriptUrlDev:  '//s3.amazonaws.com/ki.js/52510/dlS.js',
+		scriptUrlProd: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
 	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	tracking: {
-		ga: {
+		ua: {
 			primary: {
 				id: 'UA-32129070-1',
 				sampleRate: 10
@@ -61,6 +62,11 @@ var localSettings: LocalSettings = {
 			ads: {
 				prefix: 'ads',
 				id: 'UA-32129071-1',
+				sampleRate: 100
+			},
+			special: {
+				prefix: 'special',
+				id: 'UA-32132943-1',
 				sampleRate: 100
 			}
 		},

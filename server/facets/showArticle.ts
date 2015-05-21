@@ -11,7 +11,7 @@ var cachingTimes = {
 	enabled: true,
 	cachingPolicy: Caching.Policy.Public,
 	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.default
+	browserTTL: Caching.Interval.disabled
 };
 
 function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
@@ -80,7 +80,8 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 
 			// qualaroo
 			if (localSettings.qualaroo.enabled) {
-				result.qualarooScript = localSettings.qualaroo.scriptUrl;
+				result.qualarooScript = localSettings.environment === Utils.Environment.Prod ?
+					localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
 			}
 		}
 

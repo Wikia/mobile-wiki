@@ -1,0 +1,16 @@
+{{#if currentSection}}
+	{{#unless currentSection.isTopSection}}
+		<div class='section-top'>
+			<div class='section-navigation' {{action 'goBack'}}>
+				{{svg 'chevron' viewBox='0 0 12 7' class='nav-item back-chevron chevron'}}
+			</div>
+			<div class='section-title'>{{currentSection.label}}</div>
+		</div>
+	{{/unless}}
+	<nav class='curated-content-items'>
+		{{#each item in currentSection.items}}
+			{{curated-content-item model=item action='clickItem'}}
+		{{/each}}
+	</nav>
+{{/if}}
+{{loading-spinner active=isLoading}}

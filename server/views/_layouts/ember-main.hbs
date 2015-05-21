@@ -37,11 +37,12 @@
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('firstPage', true, true);
-			M.prop('queryParams', {{{json queryParams}}});
+			M.prop('queryParams', {{{json (escapeQueryParams queryParams)}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
 			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
+			M.prop('userId', {{{userId}}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
@@ -59,6 +60,7 @@
 		{{> tracking}}
 	</head>
 	<body>
+		{{> qualaroo}}
 		<!-- @include ../../../www/front/svg/main.svg -->
 
 		<div id="article-preload">
@@ -102,7 +104,6 @@
 			<script src="/front/scripts/main.js"></script>
 		<!-- endbuild -->
 
-		{{> qualaroo}}
 		{{> tracking-pixels}}
 	</body>
 </html>
