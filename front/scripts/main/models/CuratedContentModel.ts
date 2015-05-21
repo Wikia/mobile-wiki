@@ -29,7 +29,7 @@ App.CuratedContentModel = Em.Object.extend({
 
 					if (data.items) {
 						sanitizedData = data.items.map((item: any): CuratedContentItem => {
-							return this.sanitizeItem(item, sectionType);
+							return this.sanitizeItem(item);
 						});
 					}
 					resolve(sanitizedData);
@@ -41,14 +41,13 @@ App.CuratedContentModel = Em.Object.extend({
 		});
 	},
 
-	sanitizeItem: function (rawData: any, sectionType: string): CuratedContentItem {
+	sanitizeItem: function (rawData: any): CuratedContentItem {
 		var item: CuratedContentItem;
 
-		if (sectionType === 'topLevelSection') {
+		if (rawData.type === 'section') {
 			item = {
 				label: rawData.title,
 				imageUrl: rawData.image_url,
-				// Top level section can contain sections only
 				type: 'section'
 			};
 		} else if (rawData.type === 'category') {
