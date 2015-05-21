@@ -1,19 +1,21 @@
 <div class="register-message-wrapper">
-    <div class="register-message">
-	    <img src="/front/images/wikia-logo.svg" alt="Wikia">
-	    <p>{{i18n 'auth:join.join-text'}}</p>
-    </div>
+	<div class="register-message">
+		<img src="/front/images/wikia-logo.svg" alt="Wikia">
+	</div>
+	<div class="register-message">
+		<p>{{{i18n 'auth:join.join-text'}}}</p>
+	</div>
 </div>
 <div class="auth-options">
-    <ul class="signup-providers">
-        <li>
-            <a class="button signup-provider-email" href="{{{signupHref}}}">
-                {{i18n 'auth:join.sign-up-with-email'}}
-            </a>
-        </li>
-    </ul>
-        <p class="sign-in-message">
-            {{i18n 'auth:common.login-callout'}}
-	        <a class="sign-in footer-callout-link" href="{{loginRoute}}">{{i18n 'auth:common.login-link-text'}}</a>
-        </p>
+	<ul class="signup-providers">
+		<li>
+			<a class="button signup-provider-email" href="{{{signupHref}}}">
+				{{i18n 'auth:join.sign-up-with-email'}}
+			</a>
+		</li>
+	</ul>
+		<p class="sign-in-message">
+			{{i18n 'auth:common.login-callout'}}
+			<a class="sign-in footer-callout-link" href="{{loginRoute}}">{{i18n 'auth:common.login-link-text'}}</a>
+		</p>
 </div>

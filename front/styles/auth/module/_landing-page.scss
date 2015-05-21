@@ -1,7 +1,11 @@
+.auth-landing-page {
+	min-height: 360px;
+}
+
 .auth-options {
 	align-self: flex-end;
 	color: $color-white;
-	padding: 18px 18px 40px;
+	padding: 18px 18px 25px;
 	text-align: center;
 	width: 100%;
 }
@@ -18,16 +22,20 @@
 }
 
 .register-message {
-	display: table-cell;
-	vertical-align: middle;
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	height: 100%;
 
 	p {
-		padding-top: 16px;
+		font-size: 2.5rem;
+		margin: 0;
+		line-height: 1.25;
 	}
 
 	img {
 		height: auto;
-		width: 160px;
+		width: 90px;
 	}
 }
 
@@ -60,7 +68,7 @@
 
 .sign-in-message {
 	display: inline-block;
-	margin-bottom: 0;
+	margin: .25rem 0 0;
 	text-align: right;
 }
 

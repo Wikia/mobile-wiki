@@ -28,7 +28,7 @@ function get (request: Hapi.Request, reply: any): void {
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,
-		bodyClasses: 'splash',
+		bodyClasses: 'splash auth-landing-page',
 		noScripts: true,
 		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
 	};
