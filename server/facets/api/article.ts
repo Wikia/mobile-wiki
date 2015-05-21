@@ -8,7 +8,7 @@ var cachingTimes = {
 		enabled: true,
 		cachingPolicy: Caching.Policy.Public,
 		varnishTTL: Caching.Interval.standard,
-		browserTTL: Caching.Interval.default
+		browserTTL: Caching.Interval.disabled
 	},
 	randomTitleCachingTimes = {
 		enabled: false,
