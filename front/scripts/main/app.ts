@@ -78,7 +78,7 @@ App.initializer({
 	initialize: () => {
 		// 2870342045 -> Experiment ID in Optimizely / Mercury (production)
 		// 1 -> Variation ID that should have CuratedMainPages Enabled
-		M.prop('optimizelyCuratedMainPage', window.optimizely && optimizely.variationMap[2870342045] == 1);
+		M.prop('optimizelyCuratedMainPage', (typeof optimizely === "object") && (typeof optimizely.variationMap === "object") && optimizely.variationMap[2870342045] == 1);
 	}
 });
 
