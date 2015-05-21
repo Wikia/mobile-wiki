@@ -58,8 +58,11 @@ App.EditModel.reopenClass({
 					dataType: 'json',
 					method: 'POST',
 					success: (resp: any): void => {
+						//resp = { error: { code: 'autoblockedtext' } };
 						if (resp && resp.edit && resp.edit.result === 'Success') {
-							resolve();
+							setTimeout( function() {
+								resolve();
+							}, 1500 );
 						} else if (resp && resp.error) {
 							reject(resp.error.code);
 						} else {
@@ -98,7 +101,7 @@ App.EditModel.reopenClass({
 					return page.revisions[0];
 				} )[0];
 
-
+				setTimeout( function() {
 				resolve(App.EditModel.create({
 					title: title,
 					sectionIndex: sectionIndex,
@@ -106,6 +109,7 @@ App.EditModel.reopenClass({
 					originalContent: revision['*'],
 					timestamp: revision.timestamp
 				}));
+				}, 1500 );
 			})
 			.fail((err): void => {
 				reject(err);

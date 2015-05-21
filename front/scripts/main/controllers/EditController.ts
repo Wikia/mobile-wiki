@@ -23,12 +23,12 @@ App.EditController = Em.Controller.extend({
 		'protectedpage': 'app.edit-publish-error-protectedpage'
 	},
 
-	handlePublishSuccess (data: any): void => {
+	handlePublishSuccess (data: any): void {
 		this.transitionToRoute('article', this.model.title).then(() => {
 			this.get('controllers.application').addAlert('success', i18n.t('app.edit-success', {pageTitle: this.model.title}));
 			this.set('isPublishing', false);
 		});
-	};
+	},
 
 	handlePublishError (error: any): void {
 		var appController = this.get('controllers.application'),
