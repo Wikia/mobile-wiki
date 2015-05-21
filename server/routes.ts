@@ -70,9 +70,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/wiki',
-		handler (request, reply) {
-			reply.redirect('/');
-		}
+		handler: require('./facets/operations/redirectToRoot')
 	},
 	/**
 	 * API Routes
