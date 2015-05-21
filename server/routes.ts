@@ -146,7 +146,7 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'POST',
-		path: '/editorPreview/',
+		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
 	}
 ];
