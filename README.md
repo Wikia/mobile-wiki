@@ -23,7 +23,7 @@
         loggers: {
             console: 'debug'
         },
-        port: 8000
+        port: 8000 // 7000 if running on devbox
     });
 
     export = localSettings;

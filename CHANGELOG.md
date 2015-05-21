@@ -1,3 +1,20 @@
+## release-66 (2015-05-19 20:21 UTC)
+* feature/performance: Add baseline performance metrics to send to Weppy
+* [HG-618](https://wikia-inc.atlassian.net/browse/HG-618) HG-618 adding error checking
+* [SOC-687](https://wikia-inc.atlassian.net/browse/SOC-687) SOC-687 Show logged-in state in header
+* [HG-618](https://wikia-inc.atlassian.net/browse/HG-618) Hg 618 hacking poll daddy back together again
+* new-translations: New translations
+
+## release-65 (2015-05-18 19:57 UTC)
+* PLATFORM-1103-analytics_switch: Platform-1103 switch to Universal Analytics
+* downgrade-gulp-develop-server: Downgrade gulp-develop-server
+* aden-2030-fix-dynamic-ads-in-mercury: ADEN-2030 Fix ads on Mercury
+
+## release-64 (2015-05-15 23:38 UTC)
+* [HG-649](https://wikia-inc.atlassian.net/browse/HG-649) HG-649 Don't add adsContext if it's an empty array
+* [HG-657](https://wikia-inc.atlassian.net/browse/HG-657) Updated types definitions for Ember
+* [HG-666](https://wikia-inc.atlassian.net/browse/HG-666) HG-666 Fix infinite loading spinner
+
 ## release-63 (2015-05-14 22:49 UTC)
 * content-recommendations-bubbling-fix: Fix content recommendations links
 * [HG-653](https://wikia-inc.atlassian.net/browse/HG-653) HG-653 escape query params before inserting into document

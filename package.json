@@ -42,7 +42,7 @@
     "gulp-cached": "1.x.x",
     "gulp-concat": "2.x.x",
     "gulp-declare": "^0.3.0",
-    "gulp-develop-server": "^0.4.2",
+    "gulp-develop-server": "^0.2.5",
     "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "1.x.x",
     "gulp-gzip": "1.1.0",

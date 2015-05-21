@@ -47,7 +47,7 @@ module Caching {
 	 * @param response
 	 * @param cachingSettings
 	 */
-	export function setResponseCaching (response: Hapi.Response, cachingSettings: CachingSettings) {
+	export function setResponseCaching (response: Hapi.Response, cachingSettings: CachingSettings): void {
 		if (cachingSettings && cachingSettings.enabled && response.statusCode === 200) {
 
 			if (cachingSettings.browserTTL === Interval.default) {

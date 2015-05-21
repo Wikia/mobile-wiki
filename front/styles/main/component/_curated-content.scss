@@ -7,35 +7,18 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 .curated-content {
 	padding: 0 $image-spacing;
 
-	.grid {
+	.curated-content-items {
 		margin: 0 auto;
-	}
-
-	.child-sections {
-		display: none;
-	}
-
-	&.show-items {
-		.root-sections {
-			display: none;
-		}
-
-		.child-sections {
-			display: block;
-		}
-	}
-
-	.curated-content-item-container {
-		margin: $image-spacing 0;
-
-		&:nth-of-type(even) {
-			float: right;
-		}
 	}
 
 	.curated-content-item {
 		display: inline-block;
+		margin: $image-spacing 0;
 		vertical-align: top;
+
+		&:nth-of-type(even) {
+			float: right;
+		}
 	}
 
 	.item-figure {
@@ -96,7 +79,7 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 				width: 50px;
 			}
 
-			.category-icon {
+			svg {
 				fill: #fff;
 				height: 17px;
 				margin-left: 10px;
