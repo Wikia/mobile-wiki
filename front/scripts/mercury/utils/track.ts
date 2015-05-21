@@ -107,7 +107,7 @@ module Mercury.Utils {
 
 	function isSpecialWiki () {
 		try {
-			return Mercury.wiki.isGASpecialWiki;
+			return !!(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
 		} catch (e) {
 			// Property doesn't exist
 			return false;
