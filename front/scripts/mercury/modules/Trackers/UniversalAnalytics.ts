@@ -175,7 +175,7 @@ module Mercury.Modules.Trackers {
 				throw new Error('missing page type dimension (#8)');
 			}
 
-			this.tracked.forEach((account) => {
+			this.tracked.forEach((account: GAAccount) => {
 				var prefix = account.prefix ? account.prefix + '.' : '';
 				ga(`${prefix}set`, 'dimension8', pageType, 3);
 				ga(`${prefix}send`, 'pageview');
