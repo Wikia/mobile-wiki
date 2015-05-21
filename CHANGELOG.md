@@ -1,3 +1,10 @@
+## release-67 (2015-05-21 17:53 UTC)
+* [CONCF-552](https://wikia-inc.atlassian.net/browse/CONCF-552) CONCF-552 Categories as Curated Content sections
+* feature/HG-656-tracking: Feature/hg 656 tracking
+* fixing-forgot-password-link: Fixing forgot-password link
+* fix-wrap-result: Use the returned value from wrapResult method
+* tslint-call-signature: Add check for call-signature to tslint and fix existing signatures
+
 ## release-66 (2015-05-19 20:21 UTC)
 * feature/performance: Add baseline performance metrics to send to Weppy
 * [HG-618](https://wikia-inc.atlassian.net/browse/HG-618) HG-618 adding error checking
