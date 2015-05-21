@@ -60,5 +60,15 @@
     "wikia-map-view-map":"表示",
     "search-label":"検索",
     "cancel-label":"キャンセル"
+    "edit-page-heading":"編集中",
+    "edit-page-publish":"公開",
+    "edit-success":"__pageTitle__の編集が完了しました！",
+    "edit-load-error":"エラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
+    "edit-publish-error":"エラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
+    "edit-publish-error-autoblockedtext":"このIPアドレスは、ブロックされたユーザーによって使用されたため、自動的にブロックがかかっています。",
+    "edit-publish-error-blocked":"編集ができないようブロックされています。",
+    "edit-publish-error-noedit":"このウィキアでページの編集をしていただくための権限をお持ちでないようです。",
+    "edit-publish-error-noedit-anon":"未登録ユーザーはページを編集することができません。",
+    "edit-publish-error-protectedpage":"このページの編集をしていただくための権限をお持ちでないようです。"
   }
 }
