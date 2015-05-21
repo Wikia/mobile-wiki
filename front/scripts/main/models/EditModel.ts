@@ -34,7 +34,9 @@ App.EditModel.reopenClass({
 					} )[0];
 					resolve(edittoken);
 				},
-				error: reject
+				error: (err): void => {
+					reject(err);
+				}
 			});
 		});
 	},
@@ -64,9 +66,13 @@ App.EditModel.reopenClass({
 							reject();
 						}
 					},
-					error: reject
+					error: (err): void => {
+						reject(err);
+					}
 				});
-			}, reject);
+			}, (err: any) => {
+				reject(err);
+			});
 		});
 	},
 
@@ -101,7 +107,9 @@ App.EditModel.reopenClass({
 					timestamp: revision.timestamp
 				}));
 			})
-			.fail(reject);
+			.fail((err): void => {
+				reject(err);
+			});
 		});
 	}
 });
