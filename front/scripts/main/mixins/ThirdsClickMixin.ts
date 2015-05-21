@@ -3,6 +3,7 @@
 
 interface PreventableClickEvent extends MouseEvent, Touch {
 	preventDefault: () => void;
+	stopPropagation: () => void;
 }
 
 App.ThirdsClickMixin = Em.Mixin.create({
@@ -24,6 +25,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	callClickHandler: function (event: PreventableClickEvent, preventDefault: boolean = false): void {
 		if (!!preventDefault) {
 			event.preventDefault();
+			event.stopPropagation();
 		}
 
 		var viewportWidth = this.get('viewportWidth'),
