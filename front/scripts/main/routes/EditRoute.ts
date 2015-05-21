@@ -9,7 +9,7 @@ App.EditRoute = Em.Route.extend({
     },
 
     actions: {
-        error: function(error, transition) {
+        error: function (error: any, transition: EmberStates.Transition) {
             this.controllerFor('application').addAlert('alert', i18n.t('app.edit-load-error'));
             return true;
         },
