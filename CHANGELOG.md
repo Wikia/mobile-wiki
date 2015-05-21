@@ -1,3 +1,7 @@
+## release-68 (2015-05-21 18:47 UTC)
+* [SOC-826](https://wikia-inc.atlassian.net/browse/SOC-826) SOC-826 Disable browser caching for HTML documents
+* feature/HG-690-ga-special-wikis: Add check for GA special wiki
+
 ## release-67 (2015-05-21 17:53 UTC)
 * [CONCF-552](https://wikia-inc.atlassian.net/browse/CONCF-552) CONCF-552 Categories as Curated Content sections
 * feature/HG-656-tracking: Feature/hg 656 tracking
