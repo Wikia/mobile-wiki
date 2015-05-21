@@ -27,7 +27,7 @@ App.EditModel.reopenClass({
 					format: 'json'
 				},
 				dataType: 'json',
-				success: (resp): void => {
+				success: (resp: any): void => {
 					// FIXME: MediaWiki API, seriously?
 					var edittoken = $.map( resp.query.pages, function ( page ) {
 						return page.edittoken;
@@ -55,7 +55,7 @@ App.EditModel.reopenClass({
 					},
 					dataType: 'json',
 					method: 'POST',
-					success: (resp): void => {
+					success: (resp: any): void => {
 						if (resp && resp.edit && resp.edit.result === 'Success') {
 							resolve();
 						} else if (resp && resp.error) {
