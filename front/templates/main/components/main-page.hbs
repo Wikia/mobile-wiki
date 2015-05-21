@@ -5,4 +5,7 @@
 	{{#if model.curatedContent}}
 		{{curated-content topLevelSection=model.curatedContent}}
 	{{/if}}
+	{{#if model.trendingArticles}}
+		{{trending-articles model=model.trendingArticles}}
+	{{/if}}
 </section>

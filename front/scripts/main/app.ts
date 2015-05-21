@@ -76,9 +76,9 @@ App.initializer({
 	name: 'optimizelyCuratedMainPageLoader',
 	after: 'preload',
 	initialize: () => {
-		// 2870342045 -> Experiment ID in Optimizely / Mercury (production)
+		// 2870342045, 2923810390 -> Experiment IDs in Optimizely / Mercury (production / dev)
 		// 1 -> Variation ID that should have CuratedMainPages Enabled
-		M.prop('optimizelyCuratedMainPage', window.optimizely && optimizely.variationMap[2870342045] == 1);
+		M.prop('optimizelyCuratedMainPage', window.optimizely && (optimizely.variationMap[2870342045] == 1 || optimizely.variationMap[2923810390] == 1));
 	}
 });
 
