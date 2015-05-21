@@ -44,6 +44,6 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, {
 	updateImageSize: function (viewportWidth: number): void {
 		var imageHeightString = String(Math.floor((viewportWidth - 10) * 9 / 16));
 
-		this.set('imageStyle', Em.String.htmlSafe('height: %@px'.fmt(imageHeightString)));
+		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px`));
 	}
 });
