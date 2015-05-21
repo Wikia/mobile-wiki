@@ -4,8 +4,6 @@
 
 App.EditController = Em.Controller.extend({
 	needs: ['application'],
-	init: function() : void {
-	},
 	actions: {
 		publish: function (): void {
 			this.get('controllers.application').showLoader();

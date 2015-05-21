@@ -9,6 +9,10 @@ App.EditRoute = Em.Route.extend({
     },
 
     actions: {
+        error: function (error: any, transition: EmberStates.Transition) {
+            this.controllerFor('application').addAlert('alert', i18n.t('app.edit-load-error'));
+            return true;
+        },
         willTransition: function(transition: EmberStates.Transition) {
             transition.then(() => {
                 this.controllerFor('application').set('fullPage', false);
