@@ -11,6 +11,7 @@ interface TrackerOptions {
 module Mercury.Modules.Trackers {
 	export class UniversalAnalytics {
 		static dimensions: (string|Function)[] = [];
+		tracked: GAAccount[] = [];
 		accounts: GAAccountMap;
 		accountPrimary = 'primary';
 		accountSpecial = 'special';
@@ -113,6 +114,8 @@ module Mercury.Modules.Trackers {
 
 			UniversalAnalytics.dimensions.forEach((dimension: string|Function, idx: number) =>
 				ga(`${prefix}set`, `dimension${idx}`, this.getDimension(idx)));
+
+			this.tracked.push(this.accounts[trackerName]);
 		}
 
 		/**
@@ -172,11 +175,12 @@ module Mercury.Modules.Trackers {
 				throw new Error('missing page type dimension (#8)');
 			}
 
-			ga('set', 'dimension8', pageType, 3);
-			// Set custom var in ad account as well
-			ga(this.accounts[this.accountAds].prefix + '.set', pageType, 3);
+			this.tracked.forEach((account) => {
+				var prefix = account.prefix ? account.prefix + '.' : '';
+				ga(`${prefix}set`, 'dimension8', pageType, 3);
+				ga(`${prefix}send`, 'pageview');
+			});
 
-			ga('send', 'pageview');
 		}
 	}
 }

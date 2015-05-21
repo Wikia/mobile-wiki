@@ -175,7 +175,7 @@ module Mercury.Utils {
 				instance: TrackerInstance;
 
 			if (typeof Tracker.prototype.trackPageView === 'function') {
-				instance = new Tracker();
+				instance = new Tracker(isSpecialWiki());
 				console.info('Track pageView:', tracker);
 				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 			}
