@@ -40,6 +40,7 @@
     "radix": true,
     "semicolon": true,
     "triple-equals": [true, "allow-null-check"],
+    "typedef": [true, "call-signature"],
     "variable-name": false,
     "whitespace": [true,
         "check-branch",

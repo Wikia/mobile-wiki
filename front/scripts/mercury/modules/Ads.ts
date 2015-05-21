@@ -1,7 +1,7 @@
 /// <reference path='../../../../typings/jquery/jquery.d.ts' />
 /// <reference path='../../baseline/mercury.d.ts' />
 /// <reference path='./Trackers/Krux.ts' />
-/// <reference path='./Trackers/GoogleAnalytics.ts' />
+/// <reference path='./Trackers/UniversalAnalytics.ts' />
 /// <reference path='../../baseline/mercury.ts' />
 /// <reference path='../utils/load.ts' />
 
@@ -84,11 +84,11 @@ module Mercury.Modules {
 		 */
 		public gaTrackAdEvent (): void {
 			var adHitSample: number = 1, //Percentage of all the track requests to go through
-				GATracker: Mercury.Modules.Trackers.GoogleAnalytics;
+				GATracker: Mercury.Modules.Trackers.UniversalAnalytics;
 			//Sampling on GA side will kill the performance as we need to allocate object each time we track
 			//ToDo: Optimize object allocation for tracking all events
 			if (Math.random() * 100 <= adHitSample) {
-				GATracker = new Mercury.Modules.Trackers.GoogleAnalytics();
+				GATracker = new Mercury.Modules.Trackers.UniversalAnalytics();
 				GATracker.trackAds.apply(GATracker, arguments);
 			}
 		}

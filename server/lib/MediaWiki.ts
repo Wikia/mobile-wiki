@@ -131,6 +131,22 @@ export class ArticleRequest {
 		return fetch(url, this.wikiDomain);
 	}
 
+	category (categoryName: string, thumbSize: { width: number; height: number }): Promise<any> {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'ArticlesApi',
+			method: 'getList',
+			expand: 'true',
+			// Articles and subcategories
+			namespaces: '0,14',
+			abstract: 0,
+			width: thumbSize.width,
+			height: thumbSize.height,
+			category: categoryName
+		});
+
+		return fetch(url, this.wikiDomain);
+	}
+
 	/**
 	 * Get random article title
 	 *

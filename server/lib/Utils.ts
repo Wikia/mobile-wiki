@@ -29,7 +29,7 @@ export enum Environment {
  * @param {Environment} fallbackEnvironment Fallback environment
  * @returns {Environment}
  */
-export function getEnvironment (environment: string, fallbackEnvironment: Environment = Environment.Dev) {
+export function getEnvironment (environment: string, fallbackEnvironment: Environment = Environment.Dev): Environment {
 	var environments: {[id: string]: Environment} = {
 		prod: Environment.Prod,
 		verify: Environment.Verify,

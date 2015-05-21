@@ -39,6 +39,10 @@ function resetMercuryBaseline () {
 			content: 'en'
 		}
 	});
+
+	var dimensions = [];
+	dimensions[8] = 'test/article';
+	Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 }
 
 resetMercuryBaseline();
