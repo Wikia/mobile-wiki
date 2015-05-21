@@ -57,7 +57,7 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, App.Thir
 	},
 
 	click: function (event: MouseEvent|Touch): void {
-		this.callClickHandler(event, false);
+		this.callClickHandler(event, true);
 	},
 
 	/**
