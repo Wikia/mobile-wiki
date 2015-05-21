@@ -13,6 +13,18 @@ interface Window {
 
 module Mercury.Utils.VariantTesting {
 	/**
+	 * Initialize Optimizely with UA
+	 * @returns {void}
+	 */
+	export function initUA (): void {
+		// Optimizely Universal Analytics Integration Code
+		// as per Optimizely suggestion in this article:
+		// https://help.optimizely.com/hc/en-us/articles/200039995-Integrating-Optimizely-with-Google-Universal-Analytics?flash_digest=e09d4e784c1ef44e4f0048f405f9c92396bd65a2
+		window.optimizely = window.optimizely || [];
+		window.optimizely.push('activateUniversalAnalytics');
+	}
+
+	/**
 	 * Activates all variant tests for the current page
 	 *
 	 * @returns {void}
