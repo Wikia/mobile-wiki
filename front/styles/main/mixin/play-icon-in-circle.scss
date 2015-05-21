@@ -1,13 +1,13 @@
 @mixin play-icon-in-circle (
 	$background-diameter,
 	$triangle-base,
-	$triangle-height: round($triangle-base * 1.73 / 2), // sqrt(3) ~ 1.73 → equilateral triangle
+	$triangle-height: round($triangle-base * 1.732 / 2), // sqrt(3) ~ 1.732 → equilateral triangle
 	$background-color: $white,
 	$triangle-color: $color-blue-light,
 	$vertical-shift: 10px,
 	$horizontal-shift: $vertical-shift,
 	$triangle-vertical-shift: ceil(($background-diameter - $triangle-base) / 2),
-	$triangle-horizontal-shift: ceil($background-diameter / 2 - $triangle-height / 3)
+	$triangle-horizontal-shift: round($background-diameter / 2 - $triangle-height * 1.732 / 5)
 ) {
 	&::before,
 	&::after {
