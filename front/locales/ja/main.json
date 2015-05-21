@@ -59,8 +59,8 @@
     "view-more":"さらに見る",
     "wikia-map-view-map":"表示",
     "search-label":"検索",
-    "cancel-label":"キャンセル"
-    "edit-page-heading":"編集中",
+    "cancel-label":"キャンセル",
+    "edit-page-heading":"編集中：",
     "edit-page-publish":"公開",
     "edit-success":"__pageTitle__の編集が完了しました！",
     "edit-load-error":"エラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
