@@ -16,11 +16,7 @@ App.EditController = Em.Controller.extend({
 
 	handlePublishError (error: any): void {
 		var appController = this.get('controllers.application'),
-			errorMsg = 'app.edit-publish-error';
-
-		if (this.errorCodeMap[error]) {
-			errorMsg = this.errorCodeMap[error];
-		}
+			errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error'
 
 		appController.addAlert('alert', i18n.t(errorMsg));
 		appController.hideLoader();

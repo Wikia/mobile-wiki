@@ -34,9 +34,7 @@ App.EditModel.reopenClass({
 					} )[0];
 					resolve(edittoken);
 				},
-				error: (err): void => {
-					reject(err);
-				}
+				error: reject
 			});
 		});
 	},
@@ -58,19 +56,17 @@ App.EditModel.reopenClass({
 					dataType: 'json',
 					method: 'POST',
 					success: (resp): void => {
-						if (resp && resp.error) {
+						if (resp && resp.edit && resp.edit.result === 'Success') {
+							resolve();
+						} else if (resp && resp.error) {
 							reject(resp.error.code);
 						} else {
-							resolve();
+							reject();
 						}
 					},
-					error: (err): void => {
-						reject(err);
-					}
+					error: reject
 				});
-			}, (err: any) => {
-				reject(err);
-			});
+			}, reject);
 		});
 	},
 
@@ -105,9 +101,7 @@ App.EditModel.reopenClass({
 					timestamp: revision.timestamp
 				}));
 			})
-			.fail((err): void => {
-				reject(err);
-			});
+			.fail(reject);
 		});
 	}
 });
