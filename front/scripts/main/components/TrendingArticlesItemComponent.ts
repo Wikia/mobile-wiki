@@ -13,7 +13,9 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, {
 	currentlyRenderedImageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
 	imageWidth: 250,
-	imageHeight: Em.computed(function (): number { return Math.floor(this.get('imageWidth') * 9 / 16); }),
+	imageHeight: Em.computed(function (): number {
+		return Math.floor(this.get('imageWidth') * 9 / 16);
+	}),
 	style: null,
 
 	willInsertElement: function (): void {
