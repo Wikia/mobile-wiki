@@ -16,8 +16,12 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
+App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesMixin, {
 	classNames: ['article-wrapper'],
+
+	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
+		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
+	}),
 
 	/**
 	 * willInsertElement
@@ -62,7 +66,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 			M.trackPageView(model.get('adsContext.targeting'));
 
 		} else if (article && article.length > 0) {
-			this.setupEditButtons();
+			if (this.get('editButtonsVisible')) {
+				this.setupEditButtons();
+			}
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
