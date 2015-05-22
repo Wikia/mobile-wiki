@@ -14,14 +14,17 @@ App.MediaLightboxView = App.LightboxView.extend(App.LightboxMixin, App.ThirdsCli
 
 	isGallery: Em.computed.alias('controller.isGallery'),
 
-	rightClickHandler: function(): void {
+	rightClickHandler: function(): boolean {
 		this.nextMedia();
+		return false;
 	},
-	leftClickHandler: function(): void {
+	leftClickHandler: function(): boolean {
 		this.prevMedia();
+		return false;
 	},
-	centerClickHandler: function(): void {
+	centerClickHandler: function(): boolean {
 		this.send('toggleUI');
+		return false;
 	},
 
 	/**

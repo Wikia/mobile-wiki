@@ -15,6 +15,11 @@ App.ThirdsClickMixin = Em.Mixin.create({
 		return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	}),
 
+	preventDefaultActions: function (event: PreventableClickEvent): void {
+		event.preventDefault();
+		event.stopPropagation();
+	},
+
 	/**
 	 * @desc Checks on which area on the screen an event took place
 	 * and calls proper handler
@@ -23,21 +28,22 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 * @param {boolean} preventDefault
 	 */
 	callClickHandler: function (event: PreventableClickEvent, preventDefault: boolean = false): void {
-		if (!!preventDefault) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-
 		var viewportWidth = this.get('viewportWidth'),
 			x = event.clientX,
 			thirdPartOfScreen = viewportWidth / 3;
 
 		if (x < thirdPartOfScreen) {
-			this.leftClickHandler(event);
+			if (this.leftClickHandler(event) && preventDefault) {
+				this.preventDefaultActions(event);
+			}
 		} else if (x > viewportWidth - thirdPartOfScreen) {
-			this.rightClickHandler(event);
+			if (this.rightClickHandler(event) && preventDefault) {
+				this.preventDefaultActions(event);
+			}
 		} else {
-			this.centerClickHandler(event);
+			if (this.centerClickHandler(event) && preventDefault) {
+				this.preventDefaultActions(event);
+			}
 		}
 	},
 });

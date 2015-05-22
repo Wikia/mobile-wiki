@@ -36,14 +36,17 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, App.Thir
 		return this.getWithDefault('model', []).length - 1;
 	}),
 
-	rightClickHandler: function(): void {
+	rightClickHandler: function(): boolean {
 		this.nextItem();
+		return true;
 	},
-	leftClickHandler: function(): void {
+	leftClickHandler: function(): boolean {
 		this.prevItem();
+		return true;
 	},
-	centerClickHandler: function(): void {
+	centerClickHandler: function(): boolean {
 		this.trackClick('modular-main-page', 'featured-content');
+		return false;
 	},
 
 	gestures: {
