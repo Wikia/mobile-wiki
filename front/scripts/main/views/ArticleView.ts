@@ -19,6 +19,11 @@ interface HTMLElement {
 App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
 
+	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
+		var contentLanguage: string = Em.get(Mercury, 'wiki.language.content');
+		return !this.get('controller.model.isMainPage') && contentLanguage === 'ja';
+	}),
+
 	/**
 	 * willInsertElement
 	 * @description The article view is only inserted once, and then refreshed on new models. Use this hook to bind
@@ -62,7 +67,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 			M.trackPageView(model.get('adsContext.targeting'));
 
 		} else if (article && article.length > 0) {
-			this.setupEditButtons();
+			if (this.get('editButtonsVisible')) {
+				this.setupEditButtons();
+			}
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
