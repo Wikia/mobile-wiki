@@ -37,11 +37,12 @@
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('firstPage', true, true);
-			M.prop('queryParams', {{{json queryParams}}});
+			M.prop('queryParams', {{{json (escapeQueryParams queryParams)}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
 			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
+			M.prop('userId', {{{userId}}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
@@ -55,12 +56,11 @@
 		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
-		{{#if optimizelyScript}}
-			<script src="{{optimizelyScript}}"></script>
-		{{/if}}
+		{{> optimizely}}
 		{{> tracking}}
 	</head>
 	<body>
+		{{> qualaroo}}
 		<!-- @include ../../../www/front/svg/main.svg -->
 
 		<div id="article-preload">
@@ -90,7 +90,7 @@
 			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
-			<!-- @ifdef ENABLE_WEPPY -->
+			<!-- @if WIKIA_ENVIRONMENT='prod' -->
 				<script src="/front/vendor/weppy/dist/weppy.js"></script>
 				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
 			<!-- @endif -->

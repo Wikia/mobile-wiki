@@ -1,3 +1,89 @@
+## release-68 (2015-05-21 18:47 UTC)
+* [SOC-826](https://wikia-inc.atlassian.net/browse/SOC-826) SOC-826 Disable browser caching for HTML documents
+* feature/HG-690-ga-special-wikis: Add check for GA special wiki
+
+## release-67 (2015-05-21 17:53 UTC)
+* [CONCF-552](https://wikia-inc.atlassian.net/browse/CONCF-552) CONCF-552 Categories as Curated Content sections
+* feature/HG-656-tracking: Feature/hg 656 tracking
+* fixing-forgot-password-link: Fixing forgot-password link
+* fix-wrap-result: Use the returned value from wrapResult method
+* tslint-call-signature: Add check for call-signature to tslint and fix existing signatures
+
+## release-66 (2015-05-19 20:21 UTC)
+* feature/performance: Add baseline performance metrics to send to Weppy
+* [HG-618](https://wikia-inc.atlassian.net/browse/HG-618) HG-618 adding error checking
+* [SOC-687](https://wikia-inc.atlassian.net/browse/SOC-687) SOC-687 Show logged-in state in header
+* [HG-618](https://wikia-inc.atlassian.net/browse/HG-618) Hg 618 hacking poll daddy back together again
+* new-translations: New translations
+
+## release-65 (2015-05-18 19:57 UTC)
+* PLATFORM-1103-analytics_switch: Platform-1103 switch to Universal Analytics
+* downgrade-gulp-develop-server: Downgrade gulp-develop-server
+* aden-2030-fix-dynamic-ads-in-mercury: ADEN-2030 Fix ads on Mercury
+
+## release-64 (2015-05-15 23:38 UTC)
+* [HG-649](https://wikia-inc.atlassian.net/browse/HG-649) HG-649 Don't add adsContext if it's an empty array
+* [HG-657](https://wikia-inc.atlassian.net/browse/HG-657) Updated types definitions for Ember
+* [HG-666](https://wikia-inc.atlassian.net/browse/HG-666) HG-666 Fix infinite loading spinner
+
+## release-63 (2015-05-14 22:49 UTC)
+* content-recommendations-bubbling-fix: Fix content recommendations links
+* [HG-653](https://wikia-inc.atlassian.net/browse/HG-653) HG-653 escape query params before inserting into document
+
+## release-62 (2015-05-14 16:52 UTC)
+* track-click-fix: Remove obsolete trackClick='trackClick'
+* [DAT-2788](https://wikia-inc.atlassian.net/browse/DAT-2788) For TOC creation only select H2s that have section attribute specified
+* curated-content: Curated Main Page on Mercury
+* [HG-658](https://wikia-inc.atlassian.net/browse/HG-658) HG-658 Fix category links
+* [HG-660](https://wikia-inc.atlassian.net/browse/HG-660) Fix to PR #791
+* [HG-660](https://wikia-inc.atlassian.net/browse/HG-660) Update changelog script
+* [CONCF-489](https://wikia-inc.atlassian.net/browse/CONCF-489) CONCF-489 Curated Main Page tracking
+* [CONCF-541](https://wikia-inc.atlassian.net/browse/CONCF-541) CONCF-541 | Use Optimizely test to disable CuratedContent
+* [CONCF-535](https://wikia-inc.atlassian.net/browse/CONCF-535) CONCF-535 Add mobileInContent ad to the Curated Main Page
+* quick-fix-featured-content: Quick fix for FeaturedContent when leaving main page
+* curated-content-polishing: Curated content polishing
+* [CONCF-510](https://wikia-inc.atlassian.net/browse/CONCF-510) CONCF-510 Featured content MVP
+* [CONCF-506](https://wikia-inc.atlassian.net/browse/CONCF-506) CONCF-506 Change local branding on curated main pages
+* [CONCF-497](https://wikia-inc.atlassian.net/browse/CONCF-497) CONCF-497 Curated Content on Main Page
+* curated-content-refactor: Refactor the structure of Curated Main Page modules
+* [CONCF-497](https://wikia-inc.atlassian.net/browse/CONCF-497) Concf 497 - initial styling
+
+## release-61 (2015-05-14 11:31 AM UTC)
+* [CONCF-520](https://wikia-inc.atlassian.net/browse/CONCF-520) CONCF-520 | Send optimizely data to qualaroo
+* [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
+* new-login-mvp: New Login MVP
+* liz-login-testing: HG-647 adding cb value to url upon login
+* master: sync commits with master
+* new-login-to-dev-integration: New login to dev integration
+* enable_test_wiki: adding mobileregressiontesting to list of loginmvp wikis
+* liz-login-testing: Fixing cookie domain
+* [SOC-750](https://wikia-inc.atlassian.net/browse/SOC-750) SOC-750 Password field should be masked by default
+* [SOC-696](https://wikia-inc.atlassian.net/browse/SOC-696) SOC-696 Fixing Floating Labels bug on pressing "back" button in the browser
+* [SOC-695](https://wikia-inc.atlassian.net/browse/SOC-695) SOC-695 Adding whitelisting for redirects to the new login flow
+
+## release-60 (2015-05-13 02:09 PM PST)
+* [INT-73](https://wikia-inc.atlassian.net/browse/INT-73) Apply 'mw-content' class to share feature component so it goes through proper click handler
+
+## release-59 (2015-05-13 12:45)
+* [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
+* [HG-612](https://wikia-inc.atlassian.net/browse/HG-612) HG-612 Decouple Application and Article
+* [DAT-2770](https://wikia-inc.atlassian.net/browse/DAT-2770) Dat 2770 - add styling support for portable infoboxes in mercury
+* [DAT-2781](https://wikia-inc.atlassian.net/browse/DAT-2781) DAT-2781 adjust infobox height according to device width
+
+## release-58 (2015-05-12 17:40)
+* [HG-648](https://wikia-inc.atlassian.net/browse/HG-648) HG-648 temporary fix for footer links
+* [SOC-660](https://wikia-inc.atlassian.net/browse/SOC-660) SOC-660 Translations for log-in and sign-up pages
+* add-resize-mixin: Resize mixin
+* [CONCF-519](https://wikia-inc.atlassian.net/browse/CONCF-519) CONCF-519 | Implement Qualaroo in Mercury
+* [HG-612](https://wikia-inc.atlassian.net/browse/HG-612) Hg 612 fixing jump-to links in TOC with cb param in query string
+* [HG-624](https://wikia-inc.atlassian.net/browse/HG-624) Hg 624 Enable performance monitoring
+* [HG-640](https://wikia-inc.atlassian.net/browse/HG-640) quick fix for gulp build failing with gulp typescript 2.7
+* [HG-631](https://wikia-inc.atlassian.net/browse/HG-631) HG-631 setting and unsetting unencrypted access_token cookie
+* [HG-625](https://wikia-inc.atlassian.net/browse/HG-625) HG-625 setting helios config vars
+* [HG-604](https://wikia-inc.atlassian.net/browse/HG-604) HG 604 Set custom var 8 at track page view time and also check if it is a main page or not
+* [SOC-694](https://wikia-inc.atlassian.net/browse/SOC-694) SOC-694 UI Fixes After Design Review
+* [ADEN-1993](https://wikia-inc.atlassian.net/browse/ADEN-1993) ADEN-1993 Fixed ads lightbox styling in Mercury
+
 ## release-57 (2015-04-30 16:00)
 * [HG-613](https://wikia-inc.atlassian.net/browse/HG-613) HG-613 removing redundant button mixins
 * [CONCF-480](https://wikia-inc.atlassian.net/browse/CONCF-480) Set hammerOptions.cssProps.touchCallout to 'default'

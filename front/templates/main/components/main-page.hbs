@@ -1,0 +1,11 @@
+<section class='main-page-body mw-content'>
+	{{#if model.featuredContent}}
+		{{featured-content model=model.featuredContent}}
+	{{/if}}
+	{{#if model.curatedContent}}
+		{{curated-content topLevelSection=model.curatedContent}}
+	{{/if}}
+	{{#if model.trendingArticles}}
+		{{trending-articles model=model.trendingArticles}}
+	{{/if}}
+</section>

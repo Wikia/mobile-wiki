@@ -22,7 +22,13 @@ var counter = 1,
 	isDevbox: boolean = localSettings.environment === Utils.Environment.Dev,
 	plugins: any,
 	/* Creates new `hapi` server */
-	server = new Hapi.Server();
+	server = new Hapi.Server({
+		connections: {
+			router: {
+				stripTrailingSlash: true
+			}
+		}
+	});
 
 server.connection({
 	host: localSettings.host,
@@ -79,6 +85,7 @@ server.register(plugins, (err: any) => {
 		cookie         : 'sid',
 		isSecure       : false,
 		password       : localSettings.ironSecret,
+		domain         : localSettings.authCookieDomain,
 		redirectTo     : '/login'
 	});
 });
@@ -108,10 +115,13 @@ server.views({
 // Initialize cookies
 server.state('access_token', {
 	isHttpOnly: true,
-	clearInvalid: true
+	clearInvalid: true,
+	domain: localSettings.authCookieDomain
 });
 // Contains user ID, same name as cookie from MediaWiki app
-server.state('wikicitiesUserID');
+server.state('wikicitiesUserID', {
+	isHttpOnly: true
+});
 
 // instantiate routes
 server.route(require('./routes'));
@@ -142,24 +152,24 @@ server.on('tail', () => {
 		//It restarts child so even if it leaks we are 'safe'
 		server.stop({
 			timeout: localSettings.backendRequestTimeout
-		}, function () {
+		}, function (): void {
 			Logger.info('Max request per child hit: Server stopped');
 			cluster.worker.kill();
 		});
 	}
 });
 
-process.on('message', function (msg: string) {
+process.on('message', function (msg: string): void {
 	if (msg === 'shutdown') {
 		server.stop({
 			timeout: localSettings.workerDisconnectTimeout
-		}, function () {
+		}, function (): void {
 			Logger.info('Server stopped');
 		});
 	}
 });
 
-server.start(function () {
+server.start(function (): void {
 	Logger.info({url: server.info.uri}, 'Server started');
 	process.send('Server started');
 });
@@ -170,7 +180,7 @@ server.start(function () {
  * @param isDevbox
  * @returns {function (Hapi.Request, Function): void}
  */
-function getOnPreResponseHandler (isDevbox: boolean) {
+function getOnPreResponseHandler (isDevbox: boolean): any {
 	return (request: Hapi.Request, reply: any): void => {
 		var response = request.response,
 			responseTimeSec = ((Date.now() - request.info.received) / 1000).toFixed(3),

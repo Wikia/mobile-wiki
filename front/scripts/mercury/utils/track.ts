@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../modules/Trackers/Internal.ts" />
-/// <reference path="../modules/Trackers/GoogleAnalytics.ts" />
+/// <reference path="../modules/Trackers/UniversalAnalytics.ts" />
 
 interface Window {
 	ga: any;
@@ -20,6 +20,7 @@ interface TrackingParams {
 	value?: number;
 	category: string;
 	trackingMethod?: string;
+	isNonInteractive?: boolean;
 	[idx: string]: any;
 }
 
@@ -101,17 +102,28 @@ module Mercury.Utils {
 		delete params.label;
 		delete params.value;
 		delete params.category;
+		delete params.isNonInteractive;
+	}
+
+	function isSpecialWiki () {
+		try {
+			return !!(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
+		} catch (e) {
+			// Property doesn't exist
+			return false;
+		}
 	}
 
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
-		    action: string = params.action,
-		    category: string = params.category ? 'mercury-' + params.category : null,
-		    label: string = params.label || '',
-		    value: number = params.value || 0,
+			action: string = params.action,
+			category: string = params.category ? 'mercury-' + params.category : null,
+			label: string = params.label || '',
+			value: number = params.value || 0,
+			isNonInteractive: boolean = params.isNonInteractive !== false,
 			trackers = Mercury.Modules.Trackers,
 			tracker: Mercury.Modules.Trackers.Internal,
-			gaTracker: Mercury.Modules.Trackers.GoogleAnalytics;
+			uaTracker: Mercury.Modules.Trackers.UniversalAnalytics;
 
 		if (M.prop('queryParams.noexternals')) {
 			return;
@@ -121,7 +133,8 @@ module Mercury.Utils {
 			ga_action: action,
 			ga_category: category,
 			ga_label: label,
-			ga_value: value
+			ga_value: value,
+			ga_is_nonInteractive: isNonInteractive
 		}, params);
 
 		//We rely on ga_* params in both trackers
@@ -132,8 +145,8 @@ module Mercury.Utils {
 				throw new Error('missing required GA params');
 			}
 
-			gaTracker = new trackers.GoogleAnalytics();
-			gaTracker.track(category, actions[action], label, value, true);
+			uaTracker = new trackers.UniversalAnalytics(isSpecialWiki());
+			uaTracker.track(category, actions[action], label, value, isNonInteractive);
 		}
 
 		if (trackingMethod === 'both' || trackingMethod === 'internal') {
@@ -162,7 +175,7 @@ module Mercury.Utils {
 				instance: TrackerInstance;
 
 			if (typeof Tracker.prototype.trackPageView === 'function') {
-				instance = new Tracker();
+				instance = new Tracker(isSpecialWiki());
 				console.info('Track pageView:', tracker);
 				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 			}

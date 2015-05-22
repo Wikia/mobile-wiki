@@ -27,6 +27,7 @@ interface LocalSettings {
 	domain: string;
 	mediawikiDomain?: string;
 	devboxDomain?: string;
+	authCookieDomain?: string;
 	environment: any;
 	helios: {
 		host: string;
@@ -44,11 +45,16 @@ interface LocalSettings {
 		devAccount: string;
 		account: string;
 	};
+	qualaroo?: {
+		enabled: boolean;
+		scriptUrlDev: string;
+		scriptUrlProd: string;
+	};
 	port: number;
 	proxyMaxRedirects: number;
 	redirectUrlOnNoData: string;
 	tracking: {
-		ga: GAAccountMap;
+		ua: GAAccountMap;
 		quantserve: string;
 		comscore: {
 			keyword: string;

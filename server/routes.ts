@@ -28,6 +28,17 @@ var routes: RouteDefinition[],
 				}
 			}
 		}
+	},
+	authPageConfig = {
+		auth: {
+			mode: 'try',
+			strategy: 'session'
+		},
+		plugins: {
+			'hapi-auth-cookie': {
+				redirectTo: false
+			}
+		}
 	};
 
 unauthenticatedRoutes = [
@@ -56,6 +67,11 @@ unauthenticatedRoutes = [
 		path: '/heartbeat',
 		handler: require('./facets/operations/heartbeat')
 	},
+	{
+		method: 'GET',
+		path: '/wiki',
+		handler: require('./facets/operations/redirectToRoot')
+	},
 	/**
 	 * API Routes
 	 * @description The following routes should just be API routes
@@ -78,6 +94,16 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
+		path: localSettings.apiBase + '/curatedContent/{sectionName}',
+		handler: require('./facets/api/curatedContent').get
+	},
+	{
+		method: 'GET',
+		path: localSettings.apiBase + '/category/{categoryName}',
+		handler: require('./facets/api/category').get
+	},
+	{
+		method: 'GET',
 		path: localSettings.apiBase + '/userDetails',
 		handler: require('./facets/api/userDetails').get
 	},
@@ -93,17 +119,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/login',
-		config: {
-			auth: {
-				mode: 'try',
-				strategy: 'session'
-				},
-				plugins: {
-					'hapi-auth-cookie': {
-						redirectTo: false
-				}
-			}
-		},
+		config: authPageConfig,
 		handler: require('./facets/auth/login').get
 	},
 	{
@@ -114,6 +130,7 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/signup',
+		config: authPageConfig,
 		handler: require('./facets/auth/signup').get
 	},
 	{
@@ -124,11 +141,12 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/join',
+		config: authPageConfig,
 		handler: require('./facets/auth/join')
 	},
 	{
 		method: 'POST',
-		path: '/editorPreview/',
+		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
 	}
 ];

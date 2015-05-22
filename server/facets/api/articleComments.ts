@@ -95,8 +95,8 @@ export function get (request: Hapi.Request, reply: any): void {
 			reply(transformResponse(response));
 			Caching.setResponseCaching(response, cachingTimes);
 		}, (error: any) => {
-			var preparedResult: any = wrapResult(error, {});
-			reply(preparedResult).code(preparedResult.status);
+			var wrappedResult = wrapResult(error, {});
+			reply(wrappedResult).code(wrappedResult.status);
 		});
 	}
 }
