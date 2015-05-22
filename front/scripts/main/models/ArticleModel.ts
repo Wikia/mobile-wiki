@@ -194,7 +194,9 @@ App.ArticleModel.reopenClass({
 				data.topContributors = source.topContributors;
 			}
 
-			data.isMainPage = (model.title === Mercury.wiki.mainPageTitle);
+			if (source.isMainPage) {
+				data.isMainPage = source.isMainPage;
+			}
 
 			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
 				data.mainPageData = source.mainPageData;
