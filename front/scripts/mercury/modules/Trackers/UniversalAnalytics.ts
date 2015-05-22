@@ -41,11 +41,11 @@ module Mercury.Modules.Trackers {
 
 			this.initAccount(this.accountAds, domain);
 
-			Mercury.Utils.VariantTesting.initUA();
-
 			if (isSpecialWiki) {
 				this.initAccount(this.accountSpecial, domain);
 			}
+
+			Mercury.Utils.VariantTesting.initUA();
 		}
 
 
