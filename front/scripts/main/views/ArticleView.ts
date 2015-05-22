@@ -16,12 +16,11 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
+App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesMixin, {
 	classNames: ['article-wrapper'],
 
 	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
-		var contentLanguage: string = Em.get(Mercury, 'wiki.language.content');
-		return !this.get('controller.model.isMainPage') && contentLanguage === 'ja';
+		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
 	/**
