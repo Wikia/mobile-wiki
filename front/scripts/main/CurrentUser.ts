@@ -1,6 +1,5 @@
 /// <reference path="./app.ts" />
 /// <reference path="./models/UserModel.ts" />
-/// <reference path="../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 'use strict';
 
 App.CurrentUser = Em.Object.extend({
@@ -21,9 +20,5 @@ App.CurrentUser = Em.Object.extend({
 	userId: Em.computed(function (): number {
 		var cookieUserId = ~~M.prop('userId');
 		return cookieUserId > 0 ? cookieUserId : null;
-	}),
-
-	authObserver: Em.observer('isAuthenticated', function () {
-		M.prop('isAuthenticated', this.get('isAuthenticated'), true);
-	}).on('init')
+	})
 });

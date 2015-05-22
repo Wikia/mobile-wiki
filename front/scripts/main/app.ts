@@ -158,7 +158,7 @@ App.initializer({
 		dimensions[1] = Mercury.wiki.dbName;                              // dbName
 		dimensions[2] = Mercury.wiki.language.content;                    // ContentLanguage
 		dimensions[4] = 'mercury';                                        // Skin
-		dimensions[5] = M.prop('isAuthenticated') ? 'user' : 'anon';      // LoginStatus
+		dimensions[5] = M.prop('userId') ? 'user' : 'anon';               // LoginStatus
 		dimensions[9] = String(Mercury.wiki.id);                          // CityId
 		dimensions[8] = getPageType;
 		dimensions[15] = 'No';                                            // IsCorporatePage
