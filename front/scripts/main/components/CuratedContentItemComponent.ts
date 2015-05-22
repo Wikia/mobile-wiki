@@ -35,23 +35,24 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		this.sendAction('action', this.get('model'));
 	},
 
-	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
+	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	}),
 
 	lazyLoadImage: function (): void {
-		var options: any = {},
-			thumbUrl: string;
+		var options: any = {
+				width: this.get('imageSize'),
+				height: this.get('imageSize'),
+				mode: this.get('cropMode')
+			},
+			thumbUrl: string = this.thumbnailer.getThumbURL(this.get('model.imageUrl'), options);
 
-		options.width = this.get('imageSize');
-		options.height = this.get('imageSize');
-		options.mode = this.get('cropMode');
-		thumbUrl = this.thumbnailer.getThumbURL(this.get('model.imageUrl'), options);
 		this.set('thumbUrl', thumbUrl);
 	},
 
-	updateImageSize: function(viewportSize: number) {
+	updateImageSize: function (viewportSize: number): void {
 		var imageSize = String((viewportSize - 20) / 2);
-		this.set('style', Em.String.htmlSafe(`height: ${imageSize}px; width: ${imageSize}px`));
+
+		this.set('style', Em.String.htmlSafe(`height: ${imageSize}px; width: ${imageSize}px;`));
 	}
 });
