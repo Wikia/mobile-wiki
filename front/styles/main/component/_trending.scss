@@ -16,7 +16,7 @@ $image-spacing: 5px;
 	}
 
 	.item-image {
-		@include image-placeholder;
+		@extend %image-placeholder;
 		line-height: 1.25rem;
 	}
 
