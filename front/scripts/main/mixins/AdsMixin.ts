@@ -107,7 +107,7 @@ App.AdsMixin = Em.Mixin.create({
 				continue;
 			}
 
-			if (nextAdPosition === undefined || nextAdPosition > headerPosition + minDistanceBetweenAds) {
+			if (!nextAdPosition || nextAdPosition > headerPosition + minDistanceBetweenAds) {
 				// Header is located in the safe spot between previous and next ad
 				goodHeaders.push($headers.eq(i));
 				adsToInject += 1;
