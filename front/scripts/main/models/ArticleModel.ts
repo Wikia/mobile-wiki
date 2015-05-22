@@ -28,6 +28,7 @@ interface Response {
 			users: any;
 			categories: any[];
 		};
+		isMainPage: boolean;
 		mainPageData: any[];
 		relatedPages: any[];
 		topContributors: any[];
@@ -41,6 +42,7 @@ App.ArticleModel = Em.Object.extend({
 	categories: [],
 	cleanTitle: null,
 	comments: 0,
+	isMainPage: false,
 	mainPageData: null,
 	media: [],
 	mediaUsers: [],
