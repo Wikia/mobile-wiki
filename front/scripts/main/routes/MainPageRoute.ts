@@ -4,7 +4,7 @@
 'use strict';
 
 App.MainPageRoute = Em.Route.extend({
-	beforeModel: function (transition: EmberStates.Transition) {
+	beforeModel: function (transition: EmberStates.Transition): void {
 		this.transitionTo('article', Em.get(Mercury, 'wiki.mainPageTitle'));
 	}
 });
