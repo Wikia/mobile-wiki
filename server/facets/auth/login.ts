@@ -41,6 +41,7 @@ interface LoginViewContext {
 	exitTo?: string;
 	bodyClasses?: string;
 	formErrorKey?: string;
+	trackingConfig?: any;
 }
 
 function getLoginContext (redirect: string): LoginViewContext {
@@ -51,7 +52,8 @@ function getLoginContext (redirect: string): LoginViewContext {
 		footerCalloutLink: 'auth:login.register-now',
 		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+		trackingConfig: localSettings.tracking
 	};
 }
 

@@ -8,6 +8,8 @@
 		<!-- build:css /front/styles/auth/app.css -->
 		<link rel="stylesheet" href="/front/styles/auth/app.css">
 		<!-- endbuild -->
+
+		{{> tracking}}
 	</head>
 	<body class="auth {{bodyClasses}}">
 		{{#if exitTo}}
@@ -27,6 +29,19 @@
 		{{/unless}}
 
 		{{#unless noScripts}}
+		<script src="/front/vendor/jquery/dist/jquery.js"></script>
+		<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
+		<!-- build:js /front/scripts/baseline.js -->
+		<script src="/front/scripts/baseline.js"></script>
+		<!-- endbuild -->
+		<!-- build:js /front/scripts/mercury.js -->
+		<script src="/front/scripts/mercury.js"></script>
+		<!-- endbuild -->
+
+		<script>
+			M.prop('tracking', {{{json trackingConfig}}});
+		</script>
+
 		<!-- build:js /front/scripts/auth.js -->
 		<script src="/front/scripts/auth.js"></script>
 		<!-- endbuild -->
