@@ -1,9 +1,10 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/ViewportMixin.ts"/>
 /// <reference path="../../mercury/modules/Thumbnailer.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
-App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, {
+App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.TrackClickMixin, {
 	tagName: 'a',
 	classNames: ['trending-videos-item'],
 	attributeBindings: ['href', 'style'],
@@ -47,5 +48,9 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, {
 		var imageHeightString = String(Math.floor((viewportWidth - 10) * 9 / 16));
 
 		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
+	},
+
+	click: function (): void {
+		this.trackClick('modular-main-page', 'trending-videos');
 	}
 });
