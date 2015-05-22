@@ -80,8 +80,12 @@ App.initializer({
 		// 1 -> Variation ID that should have CuratedMainPages Enabled
 		var optimizelyCuratedMainPage =
 			(typeof optimizely === "object") &&
+			(typeof optimizely.activeExperiments === "object") &&
 			(typeof optimizely.variationMap === "object") &&
-			(optimizely.variationMap[2870342045] == 1 || optimizely.variationMap[2923810390] == 1);
+			(
+				(optimizely.activeExperiments.indexOf('2870342045') !== -1 && optimizely.variationMap[2870342045] == 1) ||
+				(optimizely.activeExperiments.indexOf('2923810390') !== -1 && optimizely.variationMap[2923810390] == 1)
+			);
 
 		M.prop('optimizelyCuratedMainPage', optimizelyCuratedMainPage);
 	}
