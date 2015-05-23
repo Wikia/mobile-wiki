@@ -83,11 +83,12 @@ App.MediaLightboxController = App.LightboxController.extend({
 		}
 	},
 
-	currentGalleryRef: Em.computed('data.galleryRef', function (key: string, value?: number): number {
-		var galleryLength: number;
-
-		if (arguments.length > 1) {
-			galleryLength = this.get('galleryLength') - 1;
+	currentGalleryRef: Em.computed('data.galleryRef', {
+		get(): number {
+			return this.get('data.galleryRef') || 0;
+		},
+		set(key: string, value: number): number {
+			var galleryLength = this.get('galleryLength') - 1;
 
 			if (value < 0) {
 				return galleryLength;
@@ -96,8 +97,6 @@ App.MediaLightboxController = App.LightboxController.extend({
 			}
 
 			return value;
-		} else {
-			return this.get('data.galleryRef') || 0;
 		}
 	}),
 

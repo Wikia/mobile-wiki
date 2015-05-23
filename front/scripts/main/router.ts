@@ -11,8 +11,7 @@ App.Router.map(function () {
 	 */
 	var articlePath = Em.getWithDefault(Mercury, 'wiki.articlePath', '/wiki/').replace(/\/?$/, '/');
 
-	// If user doesn't specify any article we should use 'article' route and not default 'index'
-	this.route('article', {
+	this.route('mainPage', {
 		path: '/'
 	});
 

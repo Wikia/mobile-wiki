@@ -1,4 +1,4 @@
-<div {{bind-attr class="view.headerHidden:hidden :lightbox-header"}}>
+<div class="lightbox-header {{if view.headerHidden 'hidden'}}">
 	<div class="lightbox-close-wrapper" {{action 'closeLightbox'}}>
 		<svg role="img" class="lightbox-close-button">
 			<use xlink:href="#close"></use>
@@ -14,5 +14,5 @@
 {{/if}}
 </div>
 {{#if footer}}
-	<div {{bind-attr class="view.lightboxFooterExpanded view.footerHidden:hidden :lightbox-footer"}}>{{footer}}</div>
+	<div class="lightbox-footer {{view.lightboxFooterExpanded}} {{if view.footerHidden 'hidden'}}">{{footer}}</div>
 {{/if}}
