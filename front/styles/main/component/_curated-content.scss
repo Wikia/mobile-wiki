@@ -5,20 +5,27 @@ $back-button-padding: 10px;
 $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 
 .curated-content {
+	margin: 0 0 2rem;
 	padding: 0 $image-spacing;
 
 	.curated-content-items {
+		line-height: 0;
 		margin: 0 auto;
+		text-align: justify;
+
+		// this pseudoelement lets the last inline item to be justified to the right if it's even
+		&::after {
+			content: '';
+			display: inline-block;
+			width: 100%;
+		}
 	}
 
 	.curated-content-item {
 		display: inline-block;
+		line-height: initial;
 		margin: $image-spacing 0;
 		vertical-align: top;
-
-		&:nth-of-type(even) {
-			float: right;
-		}
 	}
 
 	.item-figure {
@@ -27,13 +34,7 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 	}
 
 	.item-image {
-		background: {
-			color: rgb(223, 223, 223);
-			image: url('../../images/brackets.svg');
-			position: center;
-			repeat: no-repeat;
-			size: contain;
-		}
+		@extend %image-placeholder;
 	}
 
 	.item-figcaption {
@@ -54,12 +55,12 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 
 	.item-caption {
 		&.label {
-			color: #fff;
+			color: $white;
 			display: table-cell;
-			font-size: 14px;
+			font-size: $type-smallest;
 			font-weight: bold;
 			left: 0;
-			line-height: 20px;
+			line-height: $line-height-smallest;
 			padding: 0 0 10px 10px;
 			vertical-align: bottom;
 			width: 100%;
@@ -80,7 +81,7 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 			}
 
 			svg {
-				fill: #fff;
+				fill: $white;
 				height: 17px;
 				margin-left: 10px;
 				margin-top: 21px;
@@ -96,7 +97,7 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 	}
 
 	.section-title {
-		font-size: 18px;
+		font-size: $type-smaller;
 		font-weight: bold;
 		line-height: $top-nav-line-height;
 		overflow: hidden;
@@ -123,6 +124,6 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 	//we don't want to have div with 100% because we can't style grid elements to be next to each other
 	//using float wouldn't work because items have to be centered.
 	[data-ember-action] {
-		display:inline-block;
+		display: inline-block;
 	}
 }

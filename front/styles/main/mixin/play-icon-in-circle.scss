@@ -1,0 +1,37 @@
+@mixin play-icon-in-circle (
+	$background-diameter,
+	$triangle-base,
+	$triangle-height: round($triangle-base * 1.732 / 2), // sqrt(3) ~ 1.732 → equilateral triangle
+	$background-color: $white,
+	$triangle-color: $color-blue-light,
+	$vertical-shift: 10px,
+	$horizontal-shift: $vertical-shift,
+	$triangle-vertical-shift: ceil(($background-diameter - $triangle-base) / 2),
+	$triangle-horizontal-shift: round($background-diameter / 2 - $triangle-height * 1.732 / 5)
+) {
+	&::before,
+	&::after {
+		content: '';
+		display: block;
+		position: absolute;
+	}
+
+	&::before {
+		background-color: $background-color;
+		border-radius: 50%;
+		bottom: $vertical-shift;
+		height: $background-diameter;
+		left: $horizontal-shift;
+		width: $background-diameter;
+	}
+
+	&::after {
+		border: round($triangle-base / 2) solid transparent;
+		border-left-color: $triangle-color;
+		border-left-width: $triangle-height;
+		bottom: $vertical-shift + $triangle-vertical-shift;
+		height: 1px;
+		left: $horizontal-shift + $triangle-horizontal-shift;
+		width: 1px;
+	}
+}

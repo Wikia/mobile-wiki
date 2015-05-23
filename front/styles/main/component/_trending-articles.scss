@@ -1,9 +1,4 @@
-$image-spacing: 5px;
-
 .trending-articles {
-	margin: 2rem 0 0;
-	padding: 0 $image-spacing;
-	line-height: 0;
 	text-align: justify;
 
 	// this pseudoelement lets the last inline item to be justified to the right if it's even
@@ -12,28 +7,10 @@ $image-spacing: 5px;
 		display: inline-block;
 		width: 100%;
 	}
+}
 
-	h2 {
-		color: $color-blue-light;
-		font-size: $type-smaller;
-		line-height: $line-height-smaller;
-		margin: .5rem 0;
-		padding: 0 .5rem;
-		text-align: left;
-		text-transform: uppercase;
-	}
-
-	.trending-articles-item {
-		display: inline-block;
-		margin: 0 0 1.5rem;
-		vertical-align: top;
-	}
-
-	.item-figcaption {
-		color: $color-gray-dark;
-		font-size: $type-smallest;
-		font-weight: bold;
-		line-height: $line-height-smallest;
-		padding: .25rem;
-	}
+.trending-articles-item {
+	display: inline-block;
+	margin: 0 0 1.5rem;
+	vertical-align: top;
 }

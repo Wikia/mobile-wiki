@@ -51,7 +51,7 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	},
 
 	updateImageSize: function (viewportSize: number): void {
-		var imageSize = String((viewportSize - 20) / 2);
+		var imageSize = String(Math.floor((viewportSize - 20) / 2));
 
 		this.set('style', Em.String.htmlSafe(`height: ${imageSize}px; width: ${imageSize}px;`));
 	}
