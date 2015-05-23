@@ -46,7 +46,7 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 			topLevelSectionItems: CuratedContentItem[];
 
 		topLevelSectionItems = this.get('topLevelSection').map((item: any): CuratedContentItem => {
-			return this.get('model').sanitizeItem(item, 'topLevelSection');
+			return this.get('model').sanitizeItem(item);
 		});
 
 		topLevelSection = {
