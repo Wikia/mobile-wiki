@@ -17,8 +17,10 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	}),
 
 	didInsertElement: function (): void {
-		this.set('model', App.CuratedContentModel.create());
-		this.set('spinnerDelay', 50);
+		this.setProperties({
+			model: App.CuratedContentModel.create(),
+			spinnerDelay: 50
+		});
 		this.createTopLevelSection();
 	},
 

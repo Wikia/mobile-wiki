@@ -5,7 +5,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	tagName: 'li',
 	classNames: ['article-comment'],
 
-	expanded: false,
+	isExpanded: false,
 	users: null,
 	comment: null,
 	thumbnailWidth: 480,
@@ -42,7 +42,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 
 	actions: {
 		toggleExpand: function () {
-			this.toggleProperty('expanded');
+			this.toggleProperty('isExpanded');
 		}
 	},
 

@@ -4,7 +4,7 @@
 	This is the element that is slid away
 	If this element has search class, the elements in it will rearrange to be in search mode or whatever
 }}
-<div {{bind-attr class=':drawer controller.isInSearchMode:search'}}>
+<div class='drawer {{if controller.isInSearchMode 'search'}}'>
 	<div class='search-container'>
 		{{input placeholder=searchPlaceholderLabel focus-in='searchFocus' value=searchQuery action='enter'}}
 		{{! add action on this svg too because it's stacked on top of the input area}}

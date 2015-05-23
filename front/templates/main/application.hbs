@@ -1,5 +1,5 @@
 {{#if editorPreview}}
-	<div class="page-wrapper editor-preview" {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
+	<div class="page-wrapper editor-preview" lang={{language.content}} dir={{language.contentDir}}>
 		<section class='wiki-container'>
 			{{outlet}}
 		</section>
@@ -16,7 +16,7 @@
 	{{side-nav isCollapsed=view.sideNavCollapsed loadRandomArticle='loadRandomArticle'}}
 	{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
 	{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
-	<div class='page-wrapper' {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
+	<div class='page-wrapper' lang={{language.content}} dir={{language.contentDir}}>
 		<section class='wiki-container'>
 			{{outlet}}
 		</section>
