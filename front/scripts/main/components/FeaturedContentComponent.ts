@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
-///<reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/ThirdsClickMixin.ts"/>
 'use strict';
 
 interface FeaturedContentItem {
@@ -13,11 +14,18 @@ interface FeaturedContentItem {
 	article_local_url: string;
 }
 
-App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
+App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, App.ThirdsClickMixin, {
 	classNames: ['featured-content'],
 	currentItemIndex: 0,
 	// should it be here?
 	model: [],
+
+	hammerOptions: {
+		swipe_velocity: 0.1,
+		swipe_threshold: 1,
+		pan_velocity: 0.1,
+		pan_threshold: 1
+	},
 
 	currentItem: Em.computed('model', 'currentItemIndex', function (): FeaturedContentItem {
 		//@TODO evaluate better solution
@@ -27,6 +35,19 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
 	lastIndex: Em.computed('model', function (): number {
 		return this.getWithDefault('model', []).length - 1;
 	}),
+
+	rightClickHandler: function(): boolean {
+		this.nextItem();
+		return true;
+	},
+	leftClickHandler: function(): boolean {
+		this.prevItem();
+		return true;
+	},
+	centerClickHandler: function(): boolean {
+		this.trackClick('modular-main-page', 'featured-content');
+		return false;
+	},
 
 	gestures: {
 		swipeLeft: function (): void {
@@ -38,8 +59,8 @@ App.FeaturedContentComponent = Em.Component.extend(App.TrackClickMixin, {
 		},
 	},
 
-	click: function (): void {
-		this.trackClick('modular-main-page', 'featured-content');
+	click: function (event: MouseEvent|Touch): void {
+		this.callClickHandler(event, true);
 	},
 
 	/**
