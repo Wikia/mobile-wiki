@@ -19,9 +19,9 @@ App.Router.map(function () {
 		path: articlePath + '*title'
 	});
 
-    this.route('edit', { // Symbolic link to EditController
-        path: articlePath + 'edit/:title/:sectionIndex'
-    });
+	this.route('edit', { // Symbolic link to EditController
+		path: articlePath + 'edit/:title/:sectionIndex'
+	});
 
 	// We don't want to duplicate the previous route
 	if (articlePath !== '/') {
