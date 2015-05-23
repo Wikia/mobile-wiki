@@ -3,7 +3,7 @@
 
 App.MainPageModel = Em.Object.extend({
 	featuredContent: null,
-	curatedContet: null,
+	curatedContent: null,
 	trendingArticles: null,
 	trendingVideos: null,
 

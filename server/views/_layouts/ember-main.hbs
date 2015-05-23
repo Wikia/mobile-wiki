@@ -42,6 +42,7 @@
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
 			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
+			M.prop('userId', {{{userId}}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});

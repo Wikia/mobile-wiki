@@ -40,7 +40,7 @@ test('shouldHandleMedia returns correct value', function () {
 	});
 });
 
-test('isMWContent returns correct value', function () {
+test('shouldHandleClick returns correct value', function () {
 	var appViewMock = this.subject(),
 		testCases = [
 			{
@@ -50,10 +50,14 @@ test('isMWContent returns correct value', function () {
 			{
 				target: '<li></li>',
 				expected: false
+			},
+			{
+				target: '<div class="PDS_Poll"></div>',
+				expected: false
 			}
 		];
 
 	testCases.forEach(function(testCase) {
-		equal(appViewMock.isMWContent(testCase.target), testCase.expected);
+		equal(appViewMock.shouldHandleClick(testCase.target), testCase.expected);
 	});
 });

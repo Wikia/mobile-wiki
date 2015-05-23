@@ -17,7 +17,7 @@
     "search-no-results-msg":"К сожалению, мы не смогли найти ничего, что соответствует Вашему запросу!",
     "search-loading-msg":"Загрузка результатов поиска...",
     "media-lightbox-error":"Файлы не найдены",
-    "map-lightbox-error":"Map not found",
+    "map-lightbox-error":"Карта не найдена",
     "comments-prev-button":"Предыдущая страница",
     "comments-next-button":"Следующая страница",
     "hub-games":"Игры",
@@ -57,8 +57,8 @@
     "smartbanner-install-android":"Установить",
     "smartbanner-price":"БЕСПЛАТНО",
     "view-more":"Посмотреть ещё",
-    "wikia-map-view-map":"View",
-    "search-label":"Search",
-    "cancel-label":"Cancel"
+    "wikia-map-view-map":"Просмотреть",
+    "search-label":"Поиск",
+    "cancel-label":"Отмена"
   }
 }

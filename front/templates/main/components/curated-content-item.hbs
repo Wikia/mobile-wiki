@@ -1,18 +1,21 @@
 <figure class='item-figure'>
 	<div class='item-image' style='{{style}}'>
-	{{#if imageUrl}}
-		<img src='{{thumbUrl}}' alt='{{label}}'/>
-	{{/if}}
+		{{#if model.imageUrl}}
+			<img src='{{thumbUrl}}' alt='{{model.label}}'/>
+		{{/if}}
 	</div>
 	<figcaption class='item-figcaption'>
 		<div class='item-caption-row'>
-		<span class='item-caption label'>{{label}}</span>
-		<span class='item-caption grid-icon'>
-			<div class='grid-icon-container'>
-				{{svg 'category-thumb-icon' role='img' class='category-icon' viewBox='0 0 17 17'}}
+			<span class='item-caption label'>{{model.label}}</span>
+			<div class='item-caption grid-icon'>
+				<div class='grid-icon-container'>
+					{{#if isArticle}}
+						{{svg 'article-thumb-icon' role='img' viewBox='0 0 17 17'}}
+					{{else}}
+						{{svg 'category-thumb-icon' role='img' viewBox='0 0 17 17'}}
+					{{/if}}
+				</div>
 			</div>
-		</span>
 		</div>
 	</figcaption>
 </figure>
-
