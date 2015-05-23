@@ -4,9 +4,9 @@
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
-App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.TrackClickMixin, {
+App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.TrackClickMixin, {
 	tagName: 'a',
-	classNames: ['trending-articles-item'],
+	classNames: ['trending-videos-item'],
 	attributeBindings: ['href', 'style'],
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
@@ -45,15 +45,12 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 	},
 
 	updateImageSize: function (viewportWidth: number): void {
-		var imageWidth = Math.floor((viewportWidth - 20) / 2),
-			imageWidthString = String(imageWidth),
-			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
+		var imageHeightString = String(Math.floor((viewportWidth - 10) * 9 / 16));
 
-		this.set('style', Em.String.htmlSafe(`width: ${imageWidthString}px;`));
 		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
 	},
 
 	click: function (): void {
-		this.trackClick('modular-main-page', 'trending-articles');
+		this.trackClick('modular-main-page', 'trending-videos');
 	}
 });

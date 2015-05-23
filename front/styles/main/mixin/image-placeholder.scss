@@ -1,0 +1,10 @@
+// placeholder for setting up an image placeholder background
+%image-placeholder {
+	background: {
+		color: $gainsboro;
+		image: url('../../images/brackets.svg');
+		position: center;
+		repeat: no-repeat;
+		size: contain;
+	}
+}
