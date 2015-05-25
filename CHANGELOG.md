@@ -1,3 +1,6 @@
+## release-69 (2015-05-25 15:21 UTC)
+* [DAT-2812](https://wikia-inc.atlassian.net/browse/DAT-2812) DAT-2812 style image caption inside portable infoboxes
+
 ## release-68 (2015-05-21 18:47 UTC)
 * [SOC-826](https://wikia-inc.atlassian.net/browse/SOC-826) SOC-826 Disable browser caching for HTML documents
 * feature/HG-690-ga-special-wikis: Add check for GA special wiki
