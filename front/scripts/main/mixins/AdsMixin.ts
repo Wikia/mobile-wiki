@@ -50,7 +50,7 @@ App.AdsMixin = Em.Mixin.create({
 		view.trigger('didInsertElement');
 	},
 
-	clearAdViews: function() {
+	clearAdViews: function (): void {
 		var adView: Em.View;
 		while (adView = this.adViews.pop()) {
 			adView.destroyElement();
@@ -72,14 +72,14 @@ App.AdsMixin = Em.Mixin.create({
 				// MOBILE_TOP_LEADERBOARD:
 				[0],
 				// in content ads:
-				this.adViews.map(function (adView: Em.View) {
+				this.adViews.map(function (adView: Em.View): number {
 					return adView.$().offset().top;
 				})
 			),
 
 		// Sorted list of top positions of headers:
 			$headers: JQuery = $('.article-content').find('> h2, > h3'),
-			headerPositions = $headers.map(function () {
+			headerPositions = $headers.map(function (): number {
 				return $(this).offset().top;
 			}).get(),
 
