@@ -19,7 +19,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 	},
 
 	willDestroyElement: function (): void {
-		clearTimeout(this.get('timeout'));
+		Em.run.cancel(this.get('timeout'));
 	},
 
 	dismissNotification: function (): void {
