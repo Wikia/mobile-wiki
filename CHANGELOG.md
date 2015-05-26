@@ -1,3 +1,13 @@
+## release-70 (2015-05-26 18:13 UTC)
+* [DAT-2812](https://wikia-inc.atlassian.net/browse/DAT-2812) DAT-2812 style image caption inside portable infoboxes
+* Upgrade-to-Ember-1.12: Upgrade to ember 1.12
+* [CONCF-505](https://wikia-inc.atlassian.net/browse/CONCF-505) CONCF-505 | trending videos for curated content mobile main pages
+* [CONCF-551](https://wikia-inc.atlassian.net/browse/CONCF-551) CONCF-551 Treat top level of curated content as a regular section
+* [CONCF-550](https://wikia-inc.atlassian.net/browse/CONCF-550) CONCF-550 Show pre-footer ad when trending articles and/or videos are present
+* [CONCF-549](https://wikia-inc.atlassian.net/browse/CONCF-549) CONCF-549
+* [HG-668](https://wikia-inc.atlassian.net/browse/HG-668) Hg 668 wiki redirect
+* trending-articles: CONCF-504 Trending articles
+
 ## release-69 (2015-05-25 15:21 UTC)
 * [DAT-2812](https://wikia-inc.atlassian.net/browse/DAT-2812) DAT-2812 style image caption inside portable infoboxes
 
