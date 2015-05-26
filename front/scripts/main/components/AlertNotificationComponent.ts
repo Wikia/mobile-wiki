@@ -3,7 +3,6 @@
 
 App.AlertNotificationComponent = Em.Component.extend({
 	classNames: ['alert-notification', 'alert-box'],
-	tagName: ['div'],
 
 	classNameBindings: ['alert.type'],
 
@@ -14,7 +13,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 	timeout: null,
 
 	didInsertElement: function (): void {
-		this.set('timeout', setTimeout(() => {
+		this.set('timeout', Em.run.later(this, (): void => {
 			this.dismissNotification();
 		}, this.get('notificationExpiry')));
 	},
