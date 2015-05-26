@@ -3,11 +3,13 @@
 	text-align: inherit;
 
 	.arrow-left {
-		border-right: 1px solid $border-color;
+		border-top: 1px solid $border-color;
 		display: block;
 		float: left;
 		height: 3.125rem;
 		margin: auto;
+		padding: 1rem;
+		transform: rotate(90deg);
 		width: 3.125rem;
 	}
 
