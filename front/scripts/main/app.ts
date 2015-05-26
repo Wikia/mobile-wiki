@@ -4,6 +4,7 @@
 /// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/modules/Ads.ts" />
 /// <reference path="../mercury/modules/Trackers/UniversalAnalytics.ts" />
+/// <reference path="../mercury/utils/variantTesting.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 /// <reference path="../mercury/utils/trackPerf.ts" />
 
@@ -185,6 +186,8 @@ App.initializer({
 		if (Mercury.wiki.wikiCategories instanceof Array) {
 			dimensions[18] = Mercury.wiki.wikiCategories.join(',');       // Categories
 		}
+
+		dimensions = Mercury.Utils.VariantTesting.integrateOptimizelyWithUA(dimensions);
 
 		UA.setDimensions(dimensions);
 	}

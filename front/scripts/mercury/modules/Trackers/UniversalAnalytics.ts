@@ -1,7 +1,6 @@
 /// <reference path="../../../../../typings/google.analytics/ga.d.ts" />
 /// <reference path="../../../baseline/mercury.ts" />
 /// <reference path="../../../baseline/mercury.d.ts" />
-/// <reference path="../../utils/variantTesting.ts" />
 
 interface TrackerOptions {
 	name: string;
@@ -44,8 +43,6 @@ module Mercury.Modules.Trackers {
 			if (isSpecialWiki) {
 				this.initAccount(this.accountSpecial, domain);
 			}
-
-			Mercury.Utils.VariantTesting.initUA();
 		}
 
 
@@ -139,7 +136,7 @@ module Mercury.Modules.Trackers {
 					eventCategory: category,
 					eventAction: action,
 					eventLabel: label,
-					eventValue:value,
+					eventValue: value,
 					nonInteraction: nonInteractive
 				}
 			);
@@ -162,7 +159,7 @@ module Mercury.Modules.Trackers {
 					eventCategory: category,
 					eventAction: action,
 					eventLabel: label,
-					eventValue:value,
+					eventValue: value,
 					nonInteraction: nonInteractive
 				}
 			);
@@ -183,7 +180,6 @@ module Mercury.Modules.Trackers {
 				ga(`${prefix}set`, 'dimension8', pageType, 3);
 				ga(`${prefix}send`, 'pageview');
 			});
-
 		}
 	}
 }

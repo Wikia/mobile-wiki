@@ -13,18 +13,6 @@ interface Window {
 
 module Mercury.Utils.VariantTesting {
 	/**
-	 * Initialize Optimizely with UA
-	 * @returns {void}
-	 */
-	export function initUA (): void {
-		// Optimizely Universal Analytics Integration Code
-		// as per Optimizely suggestion in this article:
-		// https://help.optimizely.com/hc/en-us/articles/200039995-Integrating-Optimizely-with-Google-Universal-Analytics?flash_digest=e09d4e784c1ef44e4f0048f405f9c92396bd65a2
-		window.optimizely = window.optimizely || [];
-		window.optimizely.push('activateUniversalAnalytics');
-	}
-
-	/**
 	 * Activates all variant tests for the current page
 	 *
 	 * @returns {void}
@@ -47,6 +35,38 @@ module Mercury.Utils.VariantTesting {
 		if (optimizely) {
 			optimizely.push(['trackEvent', eventName]);
 		}
+	}
+
+	/**
+	 * Integrates Optimizely with Universal Analytics
+	 *
+	 * @param {[]} dimensions
+	 * @returns {[]}
+	 */
+	export function integrateOptimizelyWithUA (dimensions: any[]): any[] {
+		var optimizely = window.optimizely,
+			experimentId: string,
+			dimension: number,
+			experimentName: string,
+			variationName: string;
+
+		if (optimizely) {
+			for (experimentId in optimizely.allExperiments) {
+				if (
+					optimizely.allExperiments.hasOwnProperty(experimentId) &&
+					typeof optimizely.allExperiments[experimentId].universal_analytics === 'object' &&
+					optimizely.allExperiments[experimentId].enabled
+				) {
+					dimension = optimizely.allExperiments[experimentId].universal_analytics.slot;
+					experimentName = optimizely.allExperiments[experimentId].name;
+					variationName = optimizely.variationNamesMap[experimentId];
+
+					dimensions[dimension] = `Optimizely ${experimentName} (${experimentId}): ${variationName}`;
+				}
+			}
+		}
+
+		return dimensions;
 	}
 }
 
