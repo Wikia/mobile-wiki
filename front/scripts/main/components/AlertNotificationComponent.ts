@@ -6,7 +6,6 @@ App.AlertNotificationComponent = Em.Component.extend({
 
 	classNameBindings: ['alert.type'],
 
-	alerts: null,
 	alert: null,
 
 	notificationExpiry: 10000,
@@ -23,7 +22,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 	},
 
 	dismissNotification: function (): void {
-		this.get('alerts').removeObject(this.get('alert'));
+		this.sendAction('action', this.get('alert'));
 	},
 
 	actions: {

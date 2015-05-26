@@ -1,4 +1,4 @@
-moduleForComponent('alert-notification', 'AlertNotificationComponent');
+moduleForComponent('alert-notifications', 'AlertNotificationsComponent');
 
 test('Dismissing alert', function () {
 	var alertOne = { type: 'success', message: 'Success message' },
@@ -7,12 +7,11 @@ test('Dismissing alert', function () {
 			alerts: Ember.A([
 				alertOne,
 				alertTwo
-			]),
-			alert: alertOne
+			])
 		});
 
 	Ember.run(function () {
-		component.send('close');
+		component.send('dismissAlert', alertOne);
 		deepEqual(component.get('alerts'), Ember.A([alertTwo]), 'First alert should be removed');
 	});
 });
