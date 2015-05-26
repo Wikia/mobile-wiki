@@ -9,17 +9,17 @@ App.EditRoute = Em.Route.extend({
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition) {
+		error: function (error: any, transition: EmberStates.Transition): boolean {
 			this.controllerFor('application').addAlert('alert', i18n.t('app.edit-load-error'));
 			return true;
 		},
-		willTransition: function(transition: EmberStates.Transition) {
+		willTransition: function(transition: EmberStates.Transition): boolean {
 			transition.then(() => {
 				this.controllerFor('application').set('fullPage', false);
 			});
 			return true;
 		},
-		didTransition: function() {
+		didTransition: function(): boolean {
 			this.controllerFor('application').set('fullPage', true);
 			window.scrollTo(0, 0);
 			return true;

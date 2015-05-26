@@ -24,8 +24,9 @@ App.EditController = Em.Controller.extend({
 	},
 
 	handlePublishSuccess (data: any): void {
-		this.transitionToRoute('article', this.model.title).then(() => {
-			this.get('controllers.application').addAlert('success', i18n.t('app.edit-success', {pageTitle: this.model.title}));
+		var title = this.get('model.title');
+		this.transitionToRoute('article', title).then((): void => {
+			this.get('controllers.application').addAlert('success', i18n.t('app.edit-success', {pageTitle: title}));
 			this.set('isPublishing', false);
 		});
 	},

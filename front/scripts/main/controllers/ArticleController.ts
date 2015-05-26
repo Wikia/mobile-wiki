@@ -25,7 +25,7 @@ App.ArticleController = Em.Controller.extend({
 			article.set('sections', headers);
 		},
 
-		edit: function( title: string, sectionIndex: number): void {
+		edit: function (title: string, sectionIndex: number): void {
 			App.VisibilityStateManager.reset();
 			this.transitionToRoute('edit', title, sectionIndex);
 		},

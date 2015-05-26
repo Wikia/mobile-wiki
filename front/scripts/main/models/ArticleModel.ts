@@ -196,9 +196,7 @@ App.ArticleModel.reopenClass({
 				data.topContributors = source.topContributors;
 			}
 
-			if (source.isMainPage) {
-				data.isMainPage = source.isMainPage;
-			}
+			data.isMainPage = source.isMainPage || false;
 
 			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
 				data.mainPageData = source.mainPageData;
