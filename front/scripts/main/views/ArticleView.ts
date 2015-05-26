@@ -122,10 +122,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		}
 	}),
 
-	setupEditButtons: function() {
+	setupEditButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
 		var pencil = '<svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg>';
-		this.$(':header[section]').each((i: Number, item: any) => {
+		this.$(':header[section]').each((i: Number, item: any): void => {
 			var $sectionHeader = this.$(item),
 				$pencil = this.$(pencil).appendTo($sectionHeader);
 			$pencil.on('click', () => {

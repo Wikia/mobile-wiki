@@ -28,11 +28,14 @@ App.EditModel.reopenClass({
 				},
 				dataType: 'json',
 				success: (resp: any): void => {
-					// FIXME: MediaWiki API, seriously?
-					var edittoken = $.map( resp.query.pages, function ( page ) {
-						return page.edittoken;
-					} )[0];
-					resolve(edittoken);
+					var pages = Em.get(resp, 'query.pages');
+					if (pages) {
+						// FIXME: MediaWiki API, seriously?
+						var edittoken: string = $.map(pages, (page: any): string => page.edittoken)[0];
+						resolve(edittoken);
+					} else {
+						reject();
+					}
 				},
 				error: (err): void => {
 					reject(err);
@@ -58,11 +61,8 @@ App.EditModel.reopenClass({
 					dataType: 'json',
 					method: 'POST',
 					success: (resp: any): void => {
-						//resp = { error: { code: 'autoblockedtext' } };
 						if (resp && resp.edit && resp.edit.result === 'Success') {
-							setTimeout( function() {
-								resolve();
-							}, 1500 );
+							resolve();
 						} else if (resp && resp.error) {
 							reject(resp.error.code);
 						} else {
@@ -95,21 +95,20 @@ App.EditModel.reopenClass({
 					reject(resp.error.code);
 					return;
 				}
-
-				// FIXME: MediaWiki API, seriously?
-				var revision = $.map( resp.query.pages, function ( page ) {
-					return page.revisions[0];
-				} )[0];
-
-				setTimeout( function() {
-				resolve(App.EditModel.create({
-					title: title,
-					sectionIndex: sectionIndex,
-					content: revision['*'],
-					originalContent: revision['*'],
-					timestamp: revision.timestamp
-				}));
-				}, 1500 );
+				var pages = Em.get(resp, 'query.pages');
+				if (pages) {
+					// FIXME: MediaWiki API, seriously?
+					var revision: any = $.map(pages, (page: any): string => page.revisions[0])[0];
+					resolve(App.EditModel.create({
+						title: title,
+						sectionIndex: sectionIndex,
+						content: revision['*'],
+						originalContent: revision['*'],
+						timestamp: revision.timestamp
+					}));
+				} else {
+					reject();
+				}
 			})
 			.fail((err): void => {
 				reject(err);

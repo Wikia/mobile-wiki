@@ -8,10 +8,7 @@ App.EditController = Em.Controller.extend({
 	isPublishing: false,
 
 	publishDisabled: Em.computed('isPublishing', 'model.isDirty', function (): boolean {
-		if (this.get('isPublishing') === true || this.get('model.isDirty') === false) {
-			return true;
-		}
-		return false;
+		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
 	}),
 
 	// FIXME: Cover more errors
@@ -45,7 +42,7 @@ App.EditController = Em.Controller.extend({
 		publish: function (): void {
 			this.set('isPublishing', true);
 			this.get('controllers.application').showLoader();
-			App.EditModel.publish(this.model).then(
+			App.EditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
