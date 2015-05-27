@@ -25,6 +25,17 @@ App.ArticleController = Em.Controller.extend({
 			article.set('sections', headers);
 		},
 
+		edit: function (title: string, sectionIndex: number): void {
+			App.VisibilityStateManager.reset();
+			this.transitionToRoute('edit', title, sectionIndex);
+			M.track({
+				action: M.trackActions.click,
+				category: 'sectioneditor',
+				label: 'edit',
+				value: sectionIndex
+			});
+		},
+
 		articleRendered: function () {
 			if (this.get('file')) {
 				this.send('openLightbox', 'media-lightbox');
