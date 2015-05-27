@@ -16,7 +16,7 @@ class SubmitValidator {
 	/**
 	 * Activates / deactivates submit button in the login form
 	 */
-	private onInput ():void {
+	private onChange ():void {
 		if (this.areAllFieldsFilled()) {
 			this.activateSubmit();
 		} else {
@@ -52,8 +52,8 @@ class SubmitValidator {
 	 * Starts continuous checking for new input
 	 */
 	public watch (): void {
-		this.onInput();
-		this.form.addEventListener('input', this.onInput.bind(this));
-		this.form.addEventListener('blur', this.onInput.bind(this), true);
+		this.onChange();
+		this.form.addEventListener('change', this.onChange.bind(this));
+		this.form.addEventListener('input', this.onChange.bind(this));
 	}
 }
