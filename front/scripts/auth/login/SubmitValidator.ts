@@ -53,7 +53,7 @@ class SubmitValidator {
 	 */
 	public watch (): void {
 		this.onChange();
-		this.form.addEventListener('change', this.onChange.bind(this));
+		this.form.addEventListener('change', this.onChange.bind(this), true);
 		this.form.addEventListener('input', this.onChange.bind(this));
 	}
 }
