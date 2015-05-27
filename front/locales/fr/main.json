@@ -1,6 +1,6 @@
 {
   "app":{
-    "article-empty-label":"Désolé, il semble que cet article soit vide !",
+    "article-empty-label":"Désolés, il semble que cet article soit vide !",
     "article-toc-label":"Sommaire",
     "article-comments-label":"__count__ commentaire",
     "article-comments-label_plural":"__count__ commentaires",
@@ -11,6 +11,7 @@
     "article-last-edit_plural_0":"Dernière modification cette semaine",
     "article-last-edit_plural_2":"Dernière modification il y a __count__ semaines",
     "article-categories-list-label":"Catégories",
+    "article-top-contributors-label":"Meilleurs contributeurs de cet article",
     "wikia-top-contributors-label":"Meilleurs contributeurs de ce wikia",
     "side-nav-menu-label":"Menu",
     "navigation-back-label":"Retour",
@@ -59,6 +60,16 @@
     "view-more":"Voir plus",
     "wikia-map-view-map":"Afficher",
     "search-label":"Rechercher",
-    "cancel-label":"Annuler"
+    "cancel-label":"Annuler",
+    "edit-page-heading":"Modification :",
+    "edit-page-publish":"Publier",
+    "edit-success":"La page__pageTitle__ a été modifiée avec succès !",
+    "edit-load-error":"Désolés, il y a eu un problème. Merci de réessayer.",
+    "edit-publish-error":"Désolés, il y a eu un problème. Merci de réessayer.",
+    "edit-publish-error-autoblockedtext":"Votre adresse IP a été automatiquement bloquée car elle a été utilisée par un utilisateur bloqué.",
+    "edit-publish-error-blocked":"Vous ne pouvez plus faire de modifications.",
+    "edit-publish-error-noedit":"Vous n'avez pas les permissions nécessaires pour modifier des pages sur ce wikia.",
+    "edit-publish-error-noedit-anon":"Les utilisateurs anonymes ne peuvent pas modifier de pages.",
+    "edit-publish-error-protectedpage":"Vous n'avez pas la permission de modifier cette page."
   }
 }

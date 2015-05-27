@@ -11,6 +11,7 @@
     "article-last-edit_plural_0":"這星期編輯過",
     "article-last-edit_plural_2":"上次編輯在 __count__ 周前",
     "article-categories-list-label":"分類",
+    "article-top-contributors-label":"這篇文章的傑出貢獻者",
     "wikia-top-contributors-label":"這個wiki上最優秀的編輯者",
     "side-nav-menu-label":"選單",
     "navigation-back-label":"返回",
@@ -59,6 +60,16 @@
     "view-more":"查看更多",
     "wikia-map-view-map":"查看",
     "search-label":"搜索",
-    "cancel-label":"取消"
+    "cancel-label":"取消",
+    "edit-page-heading":"編輯：",
+    "edit-page-publish":"發佈",
+    "edit-success":"已編輯成功的頁面 __pageTitle__！",
+    "edit-load-error":"發生錯誤。對不起，請再試一次。",
+    "edit-publish-error":"發生錯誤。對不起，請再試一次。",
+    "edit-publish-error-autoblockedtext":"你的IP地址已被自動阻擋，因為它的使用者是被阻擋的用戶。",
+    "edit-publish-error-blocked":"你無法編輯。",
+    "edit-publish-error-noedit":"你沒有編輯此Wikia頁面的權限。",
+    "edit-publish-error-noedit-anon":"匿名用戶無法編輯頁面。",
+    "edit-publish-error-protectedpage":"你沒有編輯此 Wikia 頁面的權限。"
   }
 }
