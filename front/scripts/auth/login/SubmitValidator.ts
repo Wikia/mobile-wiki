@@ -54,5 +54,6 @@ class SubmitValidator {
 	public watch (): void {
 		this.onInput();
 		this.form.addEventListener('input', this.onInput.bind(this));
+		this.form.addEventListener('blur', this.onInput.bind(this), true);
 	}
 }
