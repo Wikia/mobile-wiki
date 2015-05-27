@@ -50,12 +50,11 @@ module Mercury.Utils.VariantTesting {
 			experimentName: string,
 			variationName: string;
 
-		if (optimizely) {
-			for (experimentId in optimizely.allExperiments) {
+		if (optimizely && optimizely.activeExperiments) {
+			optimizely.activeExperiments.forEach((experimentId: string): void => {
 				if (
 					optimizely.allExperiments.hasOwnProperty(experimentId) &&
-					typeof optimizely.allExperiments[experimentId].universal_analytics === 'object' &&
-					optimizely.allExperiments[experimentId].enabled
+					typeof optimizely.allExperiments[experimentId].universal_analytics === 'object'
 				) {
 					dimension = optimizely.allExperiments[experimentId].universal_analytics.slot;
 					experimentName = optimizely.allExperiments[experimentId].name;
@@ -63,7 +62,7 @@ module Mercury.Utils.VariantTesting {
 
 					dimensions[dimension] = `Optimizely ${experimentName} (${experimentId}): ${variationName}`;
 				}
-			}
+			});
 		}
 
 		return dimensions;
