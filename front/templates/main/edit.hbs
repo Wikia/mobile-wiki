@@ -1,5 +1,7 @@
 <div class="edit-head">
-	{{#link-to 'article' model.title}}{{svg 'chevron' role='img' class='icon arrow-left'}}{{/link-to}}
+	<span {{action 'back'}}>
+		{{svg 'chevron' role='img' class='icon arrow-left'}}
+	</span>
 	<button {{action 'publish'}} class="large" style="float: right;" disabled={{publishDisabled}}>{{i18n 'app.edit-page-publish'}}</button>
 
 	<h5>

@@ -26,6 +26,12 @@ App.EditController = Em.Controller.extend({
 			this.get('controllers.application').addAlert('success', i18n.t('app.edit-success', {pageTitle: title}));
 			this.set('isPublishing', false);
 		});
+
+		M.track({
+			action: M.trackActions.impression,
+			category: 'sectioneditor',
+			label: 'success'
+		});
 	},
 
 	handlePublishError (error: any): void {
@@ -36,6 +42,12 @@ App.EditController = Em.Controller.extend({
 		appController.hideLoader();
 
 		this.set('isPublishing', false);
+
+		M.track({
+			action: M.trackActions.impression,
+			category: 'sectioneditor',
+			label: error || 'edit-publish-error'
+		});
 	},
 
 	actions: {
@@ -46,6 +58,20 @@ App.EditController = Em.Controller.extend({
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
+			M.track({
+				action: M.trackActions.click,
+				category: 'sectioneditor',
+				label: 'publish'
+			});
+		},
+		back: function (): void {
+			this.transitionToRoute('article', this.get('model.title'));
+			M.track({
+				action: M.trackActions.click,
+				category: 'sectioneditor',
+				label: 'back',
+				value: this.get('publishDisabled')
+			});
 		}
 	},
 });
