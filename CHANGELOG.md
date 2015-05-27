@@ -1,3 +1,9 @@
+## release-72 (2015-05-27 17:10 UTC)
+* login-mvp-enabled: Login MVP Release 1
+* release-71: release-71
+* [SOC-811](https://wikia-inc.atlassian.net/browse/SOC-811) SOC-811 Fixing caching issues for i18n on /join page
+* [SOC-745](https://wikia-inc.atlassian.net/browse/SOC-745) SOC-745 Changing hero unit for /join page
+
 ## release-71 (2015-05-27 12:18 UTC)
 * [CONCF-582](https://wikia-inc.atlassian.net/browse/CONCF-582) CONCF-582 | Tell Optimizely to use UA Dimensions
 * fix-curated-content-invalid-typing: Fix curated content invalid typing
