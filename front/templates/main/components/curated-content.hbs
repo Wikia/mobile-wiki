@@ -1,23 +1,18 @@
-{{#if curatedContent}}
-	<nav class='grid root-sections'>
-		{{#each section in curatedContent}}
-			<div {{action 'showItems' section}} class='curated-content-item-container'>
-				{{curated-content-item label=section.title imageUrl=section.image_url}}
-			</div>
-		{{/each}}
-	</nav>
-	<nav class='grid child-sections'>
+{{#if currentSection}}
+	{{#unless currentSection.isTopSection}}
 		<div class='section-top'>
-			<div class='section-navigation' {{action 'showGrid'}}>
+			<div class='section-navigation' {{action 'goBack'}}>
 				{{svg 'chevron' viewBox='0 0 12 7' class='nav-item back-chevron chevron'}}
 			</div>
-			<div class='section-title'>{{model.activeSection}}</div>
+			<div class='section-title'>{{currentSection.label}}</div>
 		</div>
-		{{#each item in model.activeSectionItems}}
-			<a class='curated-content-item-container' {{action 'trackClick' 'modular-main-page' 'curated-content-item-level-1'}} href='{{item.article_local_url}}'>
-				{{curated-content-item label=item.label imageUrl=item.image_url}}
-			</a>
+	{{/unless}}
+	<nav class='curated-content-items'>
+		{{#each item in currentSection.items}}
+			{{curated-content-item model=item action='clickItem'}}
 		{{/each}}
+
+{{! the empty newline above lets the last inline item to be justified to the right if it's even }}
 	</nav>
 {{/if}}
 {{loading-spinner active=isLoading}}

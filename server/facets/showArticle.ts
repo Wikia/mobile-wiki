@@ -11,7 +11,7 @@ var cachingTimes = {
 	enabled: true,
 	cachingPolicy: Caching.Policy.Public,
 	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.default
+	browserTTL: Caching.Interval.disabled
 };
 
 function showArticle (request: Hapi.Request, reply: Hapi.Response): void {

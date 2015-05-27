@@ -105,6 +105,15 @@ module Mercury.Utils {
 		delete params.isNonInteractive;
 	}
 
+	function isSpecialWiki () {
+		try {
+			return !!(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
+		} catch (e) {
+			// Property doesn't exist
+			return false;
+		}
+	}
+
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
 			action: string = params.action,
@@ -136,7 +145,7 @@ module Mercury.Utils {
 				throw new Error('missing required GA params');
 			}
 
-			uaTracker = new trackers.UniversalAnalytics();
+			uaTracker = new trackers.UniversalAnalytics(isSpecialWiki());
 			uaTracker.track(category, actions[action], label, value, isNonInteractive);
 		}
 
@@ -166,7 +175,7 @@ module Mercury.Utils {
 				instance: TrackerInstance;
 
 			if (typeof Tracker.prototype.trackPageView === 'function') {
-				instance = new Tracker();
+				instance = new Tracker(isSpecialWiki());
 				console.info('Track pageView:', tracker);
 				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 			}

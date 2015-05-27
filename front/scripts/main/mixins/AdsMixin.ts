@@ -58,16 +58,22 @@ App.AdsMixin = Em.Mixin.create({
 	 * only when trending articles and/or trending videos are loaded.
 	 */
 	injectMainPageAds: function (): void {
-		var showInContent: boolean,
-			$curatedContent = this.$('.curated-content');
-
-		//Curated content section is present - show in content ad
-		showInContent = $curatedContent.length > 0;
+		var $curatedContent = this.$('.curated-content'),
+			$trendingArticles = this.$('.trending-articles'),
+			$trendingVideos = this.$('.trending-videos'),
+			showInContent = $curatedContent.length > 0,
+			showPreFooter = $trendingArticles.length || $trendingVideos.length,
+			$showPreFooterAfter: JQuery;
 
 		this.clearAdViews();
 
 		if (showInContent) {
 			this.appendAd(this.adsData.mobileInContent, 'after', $curatedContent);
+		}
+
+		if (showPreFooter) {
+			$showPreFooterAfter = $trendingVideos.length ? $trendingVideos : $trendingArticles;
+			this.appendAd(this.adsData.mobilePreFooter, 'after', $showPreFooterAfter);
 		}
 	},
 

@@ -52,15 +52,16 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	/**
 	 * @desc caption for current media
 	 */
-	caption: Em.computed('media', function (key: string, value?: string): string {
-		if (value) {
-			return value;
-		} else {
+	caption: Em.computed('media', {
+		get(): string {
 			var media = this.get('media');
 
 			if (media && typeof media.caption === 'string') {
 				return media.caption;
 			}
+		},
+		set(key: string, value: string): string {
+			return value;
 		}
 	}),
 

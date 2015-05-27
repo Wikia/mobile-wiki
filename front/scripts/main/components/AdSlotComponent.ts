@@ -26,8 +26,13 @@ App.AdSlotComponent = Em.Component.extend({
 	 * If getter is accessed before setter (before Ember cache is filled with value)
 	 * the default is false (show ads)
 	 */
-	noAds: Em.computed(function (key?: string, value?: any): boolean {
-		return (arguments.length === 2 && value !== '' && value !== '0');
+	noAds: Em.computed({
+		get(): boolean {
+			return false;
+		},
+		set(key: string, value: string): boolean {
+			return value !== '' && value !== '0'
+		}
 	}),
 
 	didInsertElement: function (): void {
