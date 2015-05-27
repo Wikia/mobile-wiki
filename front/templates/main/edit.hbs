@@ -2,7 +2,7 @@
 	<span {{action 'back'}}>
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	</span>
-	<button {{action 'publish'}} class="large" style="float: right;" disabled={{publishDisabled}}>{{i18n 'app.edit-page-publish'}}</button>
+	<button {{action 'publish'}} class="large publish" disabled={{publishDisabled}}>{{i18n 'app.edit-page-publish'}}</button>
 
 	<h5>
 		{{! TODO: Ideally the title would be passed to the message so translators can choose the order (see HG-663) }}

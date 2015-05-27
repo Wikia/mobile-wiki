@@ -5,13 +5,13 @@ App.EditView = Em.View.extend({
 	classNames: ['edit-view'],
 	init: function(): void {
 		this._super();
-		Em.run.scheduleOnce('afterRender', this, () => {
+		Em.run.scheduleOnce('afterRender', this, (): void => {
 			this.adjustTextareaHeight();
 		});
 	},
 
 	willInsertElement: function (): void {
-		Em.$(window).on('resize.editor', () => {
+		Em.$(window).on('resize.editor', (): void => {
 			this.adjustTextareaHeight();
 		});
 	},

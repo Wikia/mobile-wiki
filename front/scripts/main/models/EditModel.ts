@@ -28,10 +28,11 @@ App.EditModel.reopenClass({
 				},
 				dataType: 'json',
 				success: (resp: any): void => {
-					var pages = Em.get(resp, 'query.pages');
+					var edittoken: string,
+						pages: any = Em.get(resp, 'query.pages');
 					if (pages) {
 						// FIXME: MediaWiki API, seriously?
-						var edittoken: string = $.map(pages, (page: any): string => page.edittoken)[0];
+						edittoken = pages[Object.keys(pages)[0]].edittoken;
 						resolve(edittoken);
 					} else {
 						reject();
@@ -45,37 +46,37 @@ App.EditModel.reopenClass({
 	},
 
 	publish: function(model: any): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.getEditToken(model.title)
-			.then((token: any) => {
-				Em.$.ajax({
-					url: Mercury.wiki.basePath + '/api.php',
-					data: {
-						action: 'edit',
-						title: model.title,
-						section: model.sectionIndex,
-						text: model.content,
-						token: token,
-						format: 'json'
-					},
-					dataType: 'json',
-					method: 'POST',
-					success: (resp: any): void => {
-						if (resp && resp.edit && resp.edit.result === 'Success') {
-							resolve();
-						} else if (resp && resp.error) {
-							reject(resp.error.code);
-						} else {
-							reject();
+				.then((token: any): void => {
+					Em.$.ajax({
+						url: Mercury.wiki.basePath + '/api.php',
+						data: {
+							action: 'edit',
+							title: model.title,
+							section: model.sectionIndex,
+							text: model.content,
+							token: token,
+							format: 'json'
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (resp: any): void => {
+							if (resp && resp.edit && resp.edit.result === 'Success') {
+								resolve();
+							} else if (resp && resp.error) {
+								reject(resp.error.code);
+							} else {
+								reject();
+							}
+						},
+						error: (err): void => {
+							reject(err);
 						}
-					},
-					error: (err): void => {
-						reject(err);
-					}
+					});
+				}, (err: any) => {
+					reject(err);
 				});
-			}, (err: any) => {
-				reject(err);
-			});
 		});
 	},
 
@@ -91,14 +92,16 @@ App.EditModel.reopenClass({
 				format: 'json'
 			})
 			.done((resp): void => {
+				var pages: any,
+					revision: any;
 				if (resp.error) {
 					reject(resp.error.code);
 					return;
 				}
-				var pages = Em.get(resp, 'query.pages');
+				pages = Em.get(resp, 'query.pages');
 				if (pages) {
 					// FIXME: MediaWiki API, seriously?
-					var revision: any = $.map(pages, (page: any): string => page.revisions[0])[0];
+					revision = pages[Object.keys(pages)[0]].revisions[0];
 					resolve(App.EditModel.create({
 						title: title,
 						sectionIndex: sectionIndex,
