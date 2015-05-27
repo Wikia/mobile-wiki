@@ -41,15 +41,16 @@ you can disable that by running gulp with --nosync parameter
 ##[Release procedure](https://one.wikia-inc.com/wiki/Mercury/Release)
 
 ##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
-You can update existing CHANGELOG.md with changes between current branch and master manually though like this:
+You can update existing CHANGELOG.md with changes between origin/dev and origin/master automatically though like this:
 
 * `./tasks/changelog-update.sh -r release-xxx` - where xxx is number of latest release
 
 You can generate changelog manually though like this:
 
-* `./tasks/changelog-view.sh` - generate change log between latest release and master
-* `./tasks/changelog-view.sh X` - generate change log between release branch X and master
-* `./tasks/changelog-view.sh X Y` - generate change log between release branch X and Y
+* `./tasks/changelog-view.sh` - generate change log between origin/dev and origin/master
+* `./tasks/changelog-view.sh X` - generate change log between X and origin/master
+* `./tasks/changelog-view.sh X Y` - generate change log between X and Y
+As X,Y you can put remote/branch, commit_sha or tag, i.e. origin/dev, ed84ba5 or release-40.001
 
 ## Unit tests
 
