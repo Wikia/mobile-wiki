@@ -30,7 +30,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,
-		bodyClasses: 'splash',
+		bodyClasses: 'splash auth-landing-page',
 		noScripts: true,
 		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
 	};
