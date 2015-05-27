@@ -28,6 +28,12 @@ App.ArticleController = Em.Controller.extend({
 		edit: function (title: string, sectionIndex: number): void {
 			App.VisibilityStateManager.reset();
 			this.transitionToRoute('edit', title, sectionIndex);
+			M.track({
+				action: M.trackActions.click,
+				category: 'sectioneditor',
+				label: 'edit',
+				value: sectionIndex
+			});
 		},
 
 		articleRendered: function () {
