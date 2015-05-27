@@ -59,6 +59,16 @@
     "view-more":"Mostra di più",
     "wikia-map-view-map":"Visualizza",
     "search-label":"Cerca",
-    "cancel-label":"Annulla"
+    "cancel-label":"Annulla",
+    "edit-page-heading":"Modifica:",
+    "edit-page-publish":"Pubblica",
+    "edit-success":"Pagina modificata con successo __pageTitle__!",
+    "edit-load-error":"Qualcosa è andato storto. Riprova.",
+    "edit-publish-error":"Qualcosa è andato storto. Riprova.",
+    "edit-publish-error-autoblockedtext":"Tuo indirizzo IP è stato bloccato automaticamente perché è stato utilizzato da un utente bloccato.",
+    "edit-publish-error-blocked":"Non ti è più permesso fare modifiche.",
+    "edit-publish-error-noedit":"Non hai il permesso di modificare le pagine di questa wikia.",
+    "edit-publish-error-noedit-anon":"Gli utenti anonimi non possono modificare le pagine.",
+    "edit-publish-error-protectedpage":"Non hai il permesso di modificare questa pagina."
   }
 }

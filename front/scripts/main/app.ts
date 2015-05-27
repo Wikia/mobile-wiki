@@ -96,6 +96,15 @@ App.initializer({
 	name: 'performanceMonitoring',
 	after: 'preload',
 	initialize () {
+		function createEvent (name: string, value: number): PerfTrackerParams {
+			return {
+				module: 'App',
+				name: name,
+				type: 'timer',
+				value: value
+			};
+		}
+
 		if (typeof EmPerfSender === 'undefined') {
 			return;
 		}
@@ -103,15 +112,6 @@ App.initializer({
 		if (window.performance && window.performance.timing) {
 			var times: any = window.performance.timing,
 				events: PerfTrackerParams[];
-
-			function createEvent (name: string, value: number): PerfTrackerParams {
-				return {
-					module: 'App',
-					name: name,
-					type: 'timer',
-					value: value
-				};
-			}
 
 			$(() => {
 				events = [
