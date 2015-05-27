@@ -1,3 +1,7 @@
+## release-71 (2015-05-27 12:18 UTC)
+* [CONCF-582](https://wikia-inc.atlassian.net/browse/CONCF-582) CONCF-582 | Tell Optimizely to use UA Dimensions
+* fix-curated-content-invalid-typing: Fix curated content invalid typing
+
 ## release-70 (2015-05-26 18:13 UTC)
 * [DAT-2812](https://wikia-inc.atlassian.net/browse/DAT-2812) DAT-2812 style image caption inside portable infoboxes
 * Upgrade-to-Ember-1.12: Upgrade to ember 1.12
