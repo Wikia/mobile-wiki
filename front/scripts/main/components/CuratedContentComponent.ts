@@ -52,7 +52,8 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 		});
 
 		topLevelSection = {
-			items: topLevelSectionItems
+			items: topLevelSectionItems,
+			isTopSection: true
 		};
 
 		this.sectionsStack.pushObject(topLevelSection);
@@ -87,7 +88,8 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	onSectionLoaded: function (items: CuratedContentItem[], parent: CuratedContentItem): void {
 		var section: CuratedContentSection = {
 			label: parent.label,
-			items: items
+			items: items,
+			isTopSection: false
 		};
 
 		this.sectionsStack.pushObject(section);
