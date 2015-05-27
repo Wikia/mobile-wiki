@@ -177,17 +177,17 @@ export function getVerticalColor (localSettings: LocalSettings, vertical: string
 	return null;
 }
 
-export function parseQueryParams (obj: any): SupportedQueryParams {
+export function parseQueryParams (obj: any, allowedKeys: string[]): SupportedQueryParams {
 	var parsed: SupportedQueryParams = {},
 		key: string,
 		prop: string;
 
-	for (key in obj) {
+	allowedKeys.forEach(key => {
 		if (obj.hasOwnProperty(key)) {
 			prop = obj[key];
 			parsed[key.toLowerCase()] = isNaN(+prop) ? prop : +prop;
 		}
-	}
+	});
 
 	return parsed;
 }
