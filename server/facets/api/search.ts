@@ -22,8 +22,9 @@ export function get (request: Hapi.Request, reply: any): void {
 		})
 		.searchForQuery(params.query)
 		.then((result: any) => {
-			var error = result.exception || null;
-			Caching.setResponseCaching(reply(wrapResult(error, result)), cachingTimes);
+			var error = result.exception || null,
+				wrappedResult = wrapResult(error, result);
+			Caching.setResponseCaching(reply(wrappedResult), cachingTimes);
 		})
 		.catch((err: any) => {
 			reply(err).code(err.exception.code || 500);
