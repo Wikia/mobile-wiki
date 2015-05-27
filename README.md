@@ -50,6 +50,7 @@ You can generate changelog manually though like this:
 * `./tasks/changelog-view.sh` - generate change log between origin/dev and origin/master
 * `./tasks/changelog-view.sh X` - generate change log between X and origin/master
 * `./tasks/changelog-view.sh X Y` - generate change log between X and Y
+
 As X,Y you can put remote/branch, commit_sha or tag, i.e. origin/dev, ed84ba5 or release-40.001
 
 ## Unit tests
