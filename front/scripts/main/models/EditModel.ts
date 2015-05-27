@@ -82,14 +82,18 @@ App.EditModel.reopenClass({
 
 	load: function(title: string, sectionIndex: number): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.getJSON(Mercury.wiki.basePath + '/api.php', {
-				action: 'query',
-				prop: 'revisions',
-				// FIXME: It should be possible to pass props as an array
-				rvprop: 'content|timestamp',
-				titles: title,
-				rvsection: sectionIndex,
-				format: 'json'
+			Em.$.ajax(Mercury.wiki.basePath + '/api.php', {
+				dataType: 'json',
+				cache: false,
+				data: {
+					action: 'query',
+					prop: 'revisions',
+					// FIXME: It should be possible to pass props as an array
+					rvprop: 'content|timestamp',
+					titles: title,
+					rvsection: sectionIndex,
+					format: 'json'
+				}
 			})
 			.done((resp): void => {
 				var pages: any,
