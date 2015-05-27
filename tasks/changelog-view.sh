@@ -16,4 +16,6 @@ git --no-pager log $TO..$FROM --merges --pretty=format:'* %s: %b' |
 grep 'Merge pull' |
 sed -e 's/* .*from Wikia\//* /' \
     -e 's/^* \([A-Z]\{2,5\}-[0-9]*\)/* [\1](https:\/\/wikia-inc\.atlassian\.net\/browse\/\1)/' \
-	-e 's/).*:/)/'
+	-e 's/).*:/)/' |
+grep -vi 'release-'
+
