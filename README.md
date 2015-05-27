@@ -41,7 +41,7 @@ you can disable that by running gulp with --nosync parameter
 ##[Release procedure](https://one.wikia-inc.com/wiki/Mercury/Release)
 
 ##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
-You can update existing CHANGELOG.md with changes between origin/dev and origin/master automatically though like this:
+You can update existing CHANGELOG.md with changes between origin/dev and origin/master manually though like this:
 
 * `./tasks/changelog-update.sh -r release-xxx` - where xxx is number of latest release
 
