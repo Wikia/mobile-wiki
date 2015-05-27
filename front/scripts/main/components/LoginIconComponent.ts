@@ -7,7 +7,7 @@ App.LoginIconComponent = Em.Component.extend({
 	tagName: 'a',
 	classNames: ['external', 'login'],
 	//Let's remove this flag once we're good to go with the new login flow
-	newLoginEnabled: false,
+	newLoginEnabled: true,
 
 	newLoginWhitelist: [
 		'clashofclans',
