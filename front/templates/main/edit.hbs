@@ -1,0 +1,12 @@
+<div class="edit-head">
+	<span {{action 'back'}}>
+		{{svg 'chevron' role='img' class='icon arrow-left'}}
+	</span>
+	<button {{action 'publish'}} class="large publish" disabled={{publishDisabled}}>{{i18n 'app.edit-page-publish'}}</button>
+
+	<h5>
+		{{! TODO: Ideally the title would be passed to the message so translators can choose the order (see HG-663) }}
+		{{i18n 'app.edit-page-heading'}} <span>{{model.title}}</span>
+	</h5>
+</div>
+{{textarea value=model.content}}
