@@ -13,13 +13,15 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	isZoomed: Em.computed.gt('scale', 1),
 
 	style: Em.computed(function (): typeof Handlebars.SafeString {
-		return ('-webkit-transform: scale(%@1) translate3d(%@2px,%@3px,0);' +
-				' transform: scale(%@1) translate3d(%@2px,%@3px,0);')
-			.fmt(
-				this.get('scale').toFixed(2),
-				this.get('newX').toFixed(2),
-				this.get('newY').toFixed(2)
-			).htmlSafe();
+		var scale = this.get('scale').toFixed(2),
+			x = this.get('newX').toFixed(2),
+			y = this.get('newY').toFixed(2),
+			transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
+
+		return (
+			'-webkit-' + transform +
+			transform
+		).htmlSafe();
 		//Performance critical place
 		//We will update property 'manually' by calling notifyPropertyChange
 	}),
@@ -41,12 +43,17 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	/**
 	 * @desc calculates current scale for zooming
 	 */
-	scale: Em.computed(function (key: string, value?: number): any {
-		if (value >= 1) {
-			return Math.min(this.maxZoom, value);
-		}
+	scale: Em.computed({
+		get(): number {
+			return 1;
+		},
+		set(key: string, value: number): number {
+			if (value >= 1) {
+				return Math.min(this.maxZoom, value);
+			}
 
-		return 1;
+			return 1;
+		}
 	}),
 
 	/**
@@ -68,7 +75,7 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 * @desc used to set X boundaries for panning image in media lightbox
 	 */
 	maxX: Em.computed('viewportSize', 'imageWidth', 'scale', function (): number {
-		return Math.abs(this.get('viewportSize').width - this.get('imageWidth')) / 2 / this.get('scale');
+		return Math.abs(this.get('viewportSize.width') - this.get('imageWidth')) / 2 / this.get('scale');
 	}),
 
 	/**
@@ -81,23 +88,33 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	/**
 	 * @desc calculates X for panning with respect to maxX
 	 */
-	newX: Em.computed('viewportSize', 'imageWidth', function (key: string, value?: number): number {
-		if (typeof value !== 'undefined' && this.get('imageWidth') > this.get('viewportSize').width) {
-			return this.limit(value, this.get('maxX'));
-		}
+	newX: Em.computed('viewportSize', 'imageWidth', {
+		get(): number {
+			return 0;
+		},
+		set (key: string, value: string): number {
+			if (this.get('imageWidth') > this.get('viewportSize.width')) {
+				return this.limit(value, this.get('maxX'));
+			}
 
-		return 0;
+			return 0;
+		}
 	}),
 
 	/**
 	 * @desc calculates Y for panning with respect to maxY
 	 */
-	newY: Em.computed('viewportSize', 'imageHeight', function (key: string, value?: number): number {
-		if (typeof value !== 'undefined' && this.get('imageHeight') > this.get('viewportSize').height) {
-			return this.limit(value, this.get('maxY'));
-		}
+	newY: Em.computed('viewportSize', 'imageHeight', {
+		get(): number {
+			return 0;
+		},
+		set (key: string, value: string): number {
+			if (this.get('imageHeight') > this.get('viewportSize').height) {
+				return this.limit(value, this.get('maxY'));
+			}
 
-		return 0;
+			return 0;
+		}
 	}),
 
 	/**
@@ -195,7 +212,7 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 * @returns {number}
 	 */
 	getScreenArea: function (event: Touch): number {
-		var viewportWidth = this.get('viewportSize').width,
+		var viewportWidth = this.get('viewportSize.width'),
 			x = event.clientX,
 			thirdPartOfScreen = viewportWidth / 3;
 

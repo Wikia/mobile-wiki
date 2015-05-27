@@ -1,4 +1,4 @@
-<div {{action 'toggleMenu'}} {{bind-attr class=':title isCollapsed:collapsed'}}>
+<div {{action 'toggleMenu'}} class='{{if isCollapsed 'collapsed'}} title'>
 	{{#if showMenuIcon}}
 	{{svg 'toc' viewBox='0 0 18 13' class='icon toc'}}
 	{{/if}}

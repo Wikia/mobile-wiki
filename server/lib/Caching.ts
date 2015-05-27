@@ -47,7 +47,7 @@ module Caching {
 	 * @param response
 	 * @param cachingSettings
 	 */
-	export function setResponseCaching (response: Hapi.Response, cachingSettings: CachingSettings) {
+	export function setResponseCaching (response: Hapi.Response, cachingSettings: CachingSettings): void {
 		if (cachingSettings && cachingSettings.enabled && response.statusCode === 200) {
 
 			if (cachingSettings.browserTTL === Interval.default) {
@@ -77,6 +77,10 @@ module Caching {
 	 */
 	export function policyString (policy: Policy): string {
 		return Policy[policy].toLowerCase();
+	}
+
+	export function disableCache (response: Hapi.Response): void {
+		response.header('Cache-Control', 'private, s-maxage=0, max-age=0, must-revalidate');
 	}
 }
 

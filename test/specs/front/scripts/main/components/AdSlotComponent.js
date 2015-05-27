@@ -37,7 +37,7 @@ test('Name lower case', function () {
 	});
 });
 
-test('Component behaves correctly depending on noAds value', function () {
+test('behaves correctly depending on noAds value', function () {
 	var testCases = [{
 			'properties': {
 				'name': 'Test ad 1'

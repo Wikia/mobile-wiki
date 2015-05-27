@@ -23,7 +23,10 @@ moduleFor('model:article', 'Article Model', {
 			});
 
 		this.wikiExample = {
-			siteName: 'test'
+			siteName: 'test',
+			language: {
+				content: 'en'
+			}
 		};
 
 		// Preload data into Mercury.article

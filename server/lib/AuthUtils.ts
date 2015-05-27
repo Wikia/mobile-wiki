@@ -1,5 +1,4 @@
 /// <reference path='../../typings/node/node.d.ts' />
-
 /**
  * @description Helper methods for the Auth Flow
  */
@@ -7,8 +6,8 @@
 import url = require('url');
 import querystring = require('querystring');
 
-var wikiaSignupPathname: string = '/Special:UserSignup',
-	wikiaLoginPathname: string = '/Special:UserLogin',
+var wikiaSignupPathname: string = '/wiki/Special:UserSignup',
+	wikiaLoginPathname: string = '/wiki/Special:UserLogin',
 	forgotPasswordSearch: string = '?recover=1';
 
 export function getSignupUrlFromRedirect(redirect: string): string {
