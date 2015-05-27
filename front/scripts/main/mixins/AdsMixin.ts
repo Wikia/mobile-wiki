@@ -11,9 +11,9 @@ App.AdsMixin = Em.Mixin.create({
 		moreInContentAds: {
 			// Enable the extra in content ads on the following wikis:
 			enabled: [
-				'gtawiki',
+				'assassinscreed',
 				'finalfantasy',
-				'enmarveldatabase',
+				'glee',
 				'walkingdead'
 			].indexOf(Em.get(Mercury, 'wiki.dbName')) > -1,
 
