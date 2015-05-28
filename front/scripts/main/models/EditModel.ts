@@ -18,7 +18,7 @@ App.EditModel.reopenClass({
 	getEditToken: function(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
-				url: Mercury.wiki.basePath + '/api.php',
+				url: '/api.php',
 				data: {
 					action: 'query',
 					prop: 'info',
@@ -50,7 +50,7 @@ App.EditModel.reopenClass({
 			this.getEditToken(model.title)
 				.then((token: any): void => {
 					Em.$.ajax({
-						url: Mercury.wiki.basePath + '/api.php',
+						url: '/api.php',
 						data: {
 							action: 'edit',
 							title: model.title,
@@ -82,7 +82,7 @@ App.EditModel.reopenClass({
 
 	load: function(title: string, sectionIndex: number): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(Mercury.wiki.basePath + '/api.php', {
+			Em.$.ajax('/api.php', {
 				dataType: 'json',
 				cache: false,
 				data: {
