@@ -1,3 +1,6 @@
+## release-74 (2015-05-28 18:41 UTC)
+* [INT-90](https://wikia-inc.atlassian.net/browse/INT-90) Position edit button for section zero slightly lower
+
 ## release-73 (2015-05-28 07:38 UTC)
 * [INT-87](https://wikia-inc.atlassian.net/browse/INT-87) Use relative URL to MW api.php. It will get it to work properly on sandbox environment and production, but will not work on localhost
 * [CONCF-601](https://wikia-inc.atlassian.net/browse/CONCF-601) CONCF-601 | fixed default article-top-contributors-label
