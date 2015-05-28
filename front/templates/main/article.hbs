@@ -11,6 +11,11 @@
 	{{#if model.isCuratedMainPage}}
 		{{main-page model=model.mainPageData}}
 	{{else}}
+		{{#if view.editButtonsVisible}}
+			<span {{action 'edit' model.title '0'}}>
+				{{svg 'pencil' role='img' class='icon pencil zero'}}
+			</span>
+		{{/if}}
 		<section class='article-body'>
 			<h1 class='article-title'>{{model.cleanTitle}}</h1>
 			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}

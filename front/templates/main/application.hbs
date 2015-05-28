@@ -4,8 +4,9 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{loading-spinner active=isLoading}}
 	{{outlet 'lightbox'}}
+{{else if fullPage}}
+	{{outlet}}
 {{else}}
 	{{smart-banner isVisible=view.smartBannerVisible}}
 	{{site-head
@@ -21,6 +22,7 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{loading-spinner active=isLoading}}
 	{{outlet 'lightbox'}}
 {{/if}}
+{{alert-notifications alerts=view.alertNotifications}}
+{{loading-spinner active=isLoading}}
