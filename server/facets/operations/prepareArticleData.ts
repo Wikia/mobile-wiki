@@ -13,8 +13,7 @@ import localSettings = require('../../../config/localSettings');
 function prepareArticleData (request: Hapi.Request, result: any): void {
 	var title: string,
 		articleDetails: any,
-		userDir = 'ltr',
-		allowedKeys: string[] = ['noexternals'];
+		userDir = 'ltr';
 
 	if (result.article.details) {
 		articleDetails = result.article.details;
@@ -40,7 +39,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
-	result.queryParams = Utils.parseQueryParams(request.query, allowedKeys);
+	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals']);
 	result.weppyConfig = localSettings.weppy;
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
 }
