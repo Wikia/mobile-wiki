@@ -1,3 +1,6 @@
+## release-75 (2015-05-28 21:11 UTC)
+* [INT-78](https://wikia-inc.atlassian.net/browse/INT-78) In section editor wrap article titles to one line only
+
 ## release-74 (2015-05-28 18:41 UTC)
 * [INT-90](https://wikia-inc.atlassian.net/browse/INT-90) Position edit button for section zero slightly lower
 
