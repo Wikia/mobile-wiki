@@ -1,3 +1,6 @@
+## release-76 (2015-05-28 22:45 UTC)
+* [SOC-850](https://wikia-inc.atlassian.net/browse/SOC-850) SOC-850 & SOC-845 New Login Fixes to cooperate with autofill
+
 ## release-75 (2015-05-28 21:11 UTC)
 * [INT-78](https://wikia-inc.atlassian.net/browse/INT-78) In section editor wrap article titles to one line only
 
