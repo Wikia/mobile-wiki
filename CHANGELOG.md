@@ -1,3 +1,35 @@
+## release-74 (2015-05-28 18:41 UTC)
+* [INT-90](https://wikia-inc.atlassian.net/browse/INT-90) Position edit button for section zero slightly lower
+
+## release-73 (2015-05-28 07:38 UTC)
+* [INT-87](https://wikia-inc.atlassian.net/browse/INT-87) Use relative URL to MW api.php. It will get it to work properly on sandbox environment and production, but will not work on localhost
+* [CONCF-601](https://wikia-inc.atlassian.net/browse/CONCF-601) CONCF-601 | fixed default article-top-contributors-label
+* i18n-update: i18n-update | bulked translations downloaded from Crowdin
+* [INT-58](https://wikia-inc.atlassian.net/browse/INT-58) Initial version of article section editing in Mercury
+* [SOC-818](https://wikia-inc.atlassian.net/browse/SOC-818) SOC-818 | Auth landing page - Change CTA message + move some items
+* [HG-698](https://wikia-inc.atlassian.net/browse/HG-698) HG-698  move function dec out of block scope (strict mode err)
+* changelog-fix: add exception to changelog-view v2
+* [INT-77](https://wikia-inc.atlassian.net/browse/INT-77) GA tracking for section editor specific events
+* [INT-82](https://wikia-inc.atlassian.net/browse/INT-82) (INT-82) Don't display edit buttons on main pages or non-Japanese wikias
+* [INT-81](https://wikia-inc.atlassian.net/browse/INT-81) Disable publish button while publishing
+* [INT-70](https://wikia-inc.atlassian.net/browse/INT-70) (INT-70) Handle errors on publishing an edit
+* [INT-80](https://wikia-inc.atlassian.net/browse/INT-80) Handle edit loading error - when transitiong from article route to edit route
+* [INT-68](https://wikia-inc.atlassian.net/browse/INT-68) (INT-68) Activate publish button after content change
+* [INT-69](https://wikia-inc.atlassian.net/browse/INT-69) (INT-69) Add simple success notification on publish
+* [INT-71](https://wikia-inc.atlassian.net/browse/INT-71) (INT-71) Add i18n for edit page heading and publish button
+* [INT-67](https://wikia-inc.atlassian.net/browse/INT-67) (INT-67) Resize textarea when window size is changed
+* [INT-66](https://wikia-inc.atlassian.net/browse/INT-66) Display loading indicator when saving section edit
+* [INT-72](https://wikia-inc.atlassian.net/browse/INT-72) (INT-72) Fix hardcoded wikia URL in API requests
+
+## release-72 (2015-05-27 17:10 UTC)
+* login-mvp-enabled: Login MVP Release 1
+* [SOC-811](https://wikia-inc.atlassian.net/browse/SOC-811) SOC-811 Fixing caching issues for i18n on /join page
+* [SOC-745](https://wikia-inc.atlassian.net/browse/SOC-745) SOC-745 Changing hero unit for /join page
+
+## release-71 (2015-05-27 12:18 UTC)
+* [CONCF-582](https://wikia-inc.atlassian.net/browse/CONCF-582) CONCF-582 | Tell Optimizely to use UA Dimensions
+* fix-curated-content-invalid-typing: Fix curated content invalid typing
+
 ## release-70 (2015-05-26 18:13 UTC)
 * [DAT-2812](https://wikia-inc.atlassian.net/browse/DAT-2812) DAT-2812 style image caption inside portable infoboxes
 * Upgrade-to-Ember-1.12: Upgrade to ember 1.12

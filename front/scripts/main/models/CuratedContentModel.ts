@@ -2,8 +2,9 @@
 'use strict';
 
 interface CuratedContentSection {
-	label?: string;
 	items: CuratedContentItem[];
+	isTopSection?: boolean;
+	label?: string;
 }
 
 interface CuratedContentItem {

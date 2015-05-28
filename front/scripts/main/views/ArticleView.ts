@@ -16,8 +16,12 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
+App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesMixin, {
 	classNames: ['article-wrapper'],
+
+	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
+		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
+	}),
 
 	/**
 	 * willInsertElement
@@ -31,9 +35,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 	onModelChange: Em.observer('controller.model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender
-		if (this.get('_state') === 'inDOM') {
-			this.scheduleArticleTransforms();
-		}
+		this.scheduleArticleTransforms();
 	}),
 
 	scheduleArticleTransforms: function (): void {
@@ -44,7 +46,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 		this.get('controller').send('articleRendered');
 	},
 
-	articleContentObserver: function (): void {
+	articleContentObserver: function (): boolean {
+		if (this.get('_state') !== 'inDOM') {
+			return false;
+		}
+
 		var model = this.get('controller.model'),
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');
@@ -60,6 +66,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 			M.trackPageView(model.get('adsContext.targeting'));
 
 		} else if (article && article.length > 0) {
+			if (this.get('editButtonsVisible')) {
+				this.setupEditButtons();
+			}
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
@@ -77,6 +86,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 
 			M.trackPageView(model.get('adsContext.targeting'));
 		}
+
+		return true;
 	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {
@@ -112,6 +123,18 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, {
 			$('#meta-description').attr('content', description);
 		}
 	}),
+
+	setupEditButtons: function (): void {
+		// TODO: There should be a helper for generating this HTML
+		var pencil = '<svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg>';
+		this.$(':header[section]').each((i: Number, item: any): void => {
+			var $sectionHeader = this.$(item),
+				$pencil = this.$(pencil).appendTo($sectionHeader);
+			$pencil.on('click', () => {
+				this.get('controller').send('edit', this.get('controller.model.title'), $sectionHeader.attr('section'));
+			});
+		});
+	},
 
 	/**
 	 * @desc Generates table of contents data based on h2 elements in the article

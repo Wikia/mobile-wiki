@@ -1,0 +1,49 @@
+.edit-head {
+	@extend .site-head;
+	text-align: inherit;
+
+	.arrow-left {
+		border-top: 1px solid $border-color;
+		display: block;
+		float: left;
+		height: 3.125rem;
+		margin: auto;
+		padding: 1rem;
+		transform: rotate(90deg);
+		width: 3.125rem;
+	}
+
+	.publish {
+		float: right;
+	}
+
+	h5 {
+		line-height: 3.125rem;
+		margin: 0 0 0 4rem;
+		> span {
+			font-weight: normal;
+		}
+	}
+}
+
+textarea {
+	border: none;
+	height: 50%;
+	left: 0;
+	margin: 0 auto;
+	max-width: 62.5rem;
+	position: absolute;
+	right: 0;
+	top: 3.125rem;
+}
+
+.pencil {
+	float: right;
+	height: 2.2rem;
+	width: 2.2rem;
+	&.zero {
+		position: absolute;
+		right: 1.125rem;
+		top: 3.5rem;
+	}
+}
