@@ -20,6 +20,10 @@
 	h5 {
 		line-height: 3.125rem;
 		margin: 0 0 0 4rem;
+		overflow: hidden;
+		padding-right: 0.875rem;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		> span {
 			font-weight: normal;
 		}
