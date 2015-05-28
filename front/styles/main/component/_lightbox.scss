@@ -1,5 +1,7 @@
 .lightbox-wrapper {
 	-webkit-tap-highlight-color: transparent;
+	//TODO REMOVE
+	background: #000000;
 	bottom: 0;
 	color: $modal-text-color;
 	font-size: 0.8rem;
@@ -53,7 +55,10 @@
 }
 
 .lightbox-content-inner {
+	align-items: center;
+	display: flex;
 	height: 100%;
+	justify-content: center;
 	width: 100%;
 }
 

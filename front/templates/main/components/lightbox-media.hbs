@@ -1,0 +1,5 @@
+{{#if lightboxComponent}}
+	{{component lightboxComponent model=currentMedia header=header footer=footer showError='showError'}}
+{{else}}
+	<p class="lightbox-content-inner">{{i18n 'app.media-lightbox-error'}}</p>
+{{/if}}

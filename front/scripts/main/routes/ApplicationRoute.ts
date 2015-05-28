@@ -17,7 +17,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
 		 */
 		Mercury.Modules.Ads.getInstance().openLightbox = (contents: any): void => {
-			this.send('openLightbox', 'ads-lightbox', {contents: contents});
+			this.send('openLightbox', 'ads', {contents: contents});
 		}
 	},
 
@@ -122,25 +122,19 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				});
 		},
 
-		openLightbox: function (lightboxName: string, data?: any): void {
-			this.get('controller').set('noScroll', true);
-
-			if (data) {
-				this.controllerFor(lightboxName).set('data', data);
-			}
-
-			this.render(lightboxName, {
-				into: 'application',
-				outlet: 'lightbox'
+		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.get('controller').setProperties({
+				lightboxModel: lightboxModel,
+				lightboxType: lightboxType,
+				noScroll: true
 			});
 		},
 
 		closeLightbox: function (): void {
-			this.get('controller').set('noScroll', false);
-
-			this.disconnectOutlet({
-				outlet: 'lightbox',
-				parentView: 'application'
+			this.get('controller').setProperties({
+				lightboxModel: null,
+				lightboxType: null,
+				noScroll: false
 			});
 		},
 

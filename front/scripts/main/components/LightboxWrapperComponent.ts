@@ -1,8 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.LightboxView = Em.View.extend({
-	layoutName: 'lightbox',
+App.LightboxWrapperComponent = Em.Component.extend({
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['status'],
 	attributeBindings: ['tabindex'],
@@ -10,7 +9,20 @@ App.LightboxView = Em.View.extend({
 	lightboxFooterExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
-	status: 'open',
+	header: null,
+	footer: null,
+
+	type: null,
+	model: null,
+
+	status: Em.computed('type', function (): string {
+		return (this.get('type')) ? 'open' : 'hidden';
+	}),
+
+	lightboxComponent: Em.computed('type', function (): string {
+		var type: string = this.get('type');
+		return type ?  'lightbox-' + type : null;
+	}),
 
 	click: function (event: MouseEvent) {
 		var $target = this.$(event.target);
@@ -18,7 +30,7 @@ App.LightboxView = Em.View.extend({
 		if ($target.is('.lightbox-footer')) {
 			this.send('toggleFooter');
 		} else if ($target.is('.lightbox-close-wrapper')) {
-			this.get('controller').send('closeLightbox');
+			this.send('close');
 		} else {
 			this.send('toggleUI');
 		}
@@ -26,11 +38,14 @@ App.LightboxView = Em.View.extend({
 
 	keyDown: function (event: KeyboardEvent): void {
 		if (event.keyCode === 27) {
-			this.get('controller').send('closeLightbox');
+			this.send('close');
 		}
 	},
 
 	actions: {
+		close: function (): void {
+			this.sendAction('closeLightbox');
+		},
 		toggleFooter: function (): void {
 			this.toggleProperty('lightboxFooterExpanded');
 		},
@@ -48,6 +63,7 @@ App.LightboxView = Em.View.extend({
 		});
 
 		//this is needed if view wants to handle keyboard
+		//FIXME doesn't work
 		this.$().focus();
 	}
 });

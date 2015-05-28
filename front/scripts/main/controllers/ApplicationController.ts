@@ -10,6 +10,8 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	noScroll: false,
 	noAds: '',
 	fullPage: false,
+	lightboxType: null,
+	lightboxModel: null,
 
 	init: function () {
 		this.setProperties({

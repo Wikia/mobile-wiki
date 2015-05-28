@@ -1,6 +1,9 @@
-/// <reference path="./LightboxController.ts" />
+/// <reference path="../app.ts" />
+'use strict';
 
-App.AdsLightboxController = App.LightboxController.extend({
+App.LightboxAdsComponent = Em.Component.extend({
+	classNames: ['lightbox-content-inner'],
+
 	data: {
 		contents: null
 	},

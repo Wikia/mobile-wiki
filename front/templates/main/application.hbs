@@ -22,7 +22,7 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{outlet 'lightbox'}}
+	{{lightbox-wrapper type=lightboxType model=lightboxModel closeLightbox='closeLightbox'}}
 {{/if}}
 {{alert-notifications alerts=view.alertNotifications}}
 {{loading-spinner active=isLoading}}

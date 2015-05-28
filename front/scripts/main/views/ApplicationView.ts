@@ -18,7 +18,7 @@ interface EventTarget {
 	tagName: string;
 }
 
-App.ApplicationView = Em.View.extend({
+App.ApplicationView = Em.View.extend(App.ClickHandlerMixin, {
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Em.computed(function (): string {
@@ -66,36 +66,6 @@ App.ApplicationView = Em.View.extend({
 		}
 	},
 
-	handleMedia: function (target: HTMLElement): void {
-		var $target = $(target),
-			galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
-			$mediaElement = $target.closest('[data-ref]'),
-			mediaRef = $mediaElement.data('ref');
-
-		if (mediaRef >= 0) {
-			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
-
-			if (!$mediaElement.hasClass('is-small')) {
-				this.get('controller').send('openLightbox', 'media-lightbox', {
-					mediaRef: mediaRef,
-					galleryRef: galleryRef,
-					target: target
-				});
-			} else {
-				Em.Logger.debug('Image too small to open in lightbox', target);
-			}
-
-			if (galleryRef >= 0) {
-				M.track({
-					action: M.trackActions.click,
-					category: 'gallery'
-				});
-			}
-		} else {
-			Em.Logger.debug('Missing ref on', target);
-		}
-	},
-
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
 	 * cancel the click event on the current page, then the mouseUp handler would open
@@ -118,35 +88,8 @@ App.ApplicationView = Em.View.extend({
 			if (tagName === 'a') {
 				this.handleLink(<HTMLAnchorElement>target);
 				event.preventDefault();
-			} else if (this.shouldHandleMedia(target, tagName)) {
-				this.handleMedia(<HTMLElement>target);
-				event.preventDefault();
 			}
 		}
-	},
-
-	/**
-	 * @desc Returns true if handleMedia() should be executed
-	 * @param {EventTarget} target
-	 * @param {string} tagName clicked tag name
-	 * @returns {boolean}
-	 */
-	shouldHandleMedia: function (target: EventTarget, tagName: string): boolean {
-		return tagName === 'img' || tagName === 'figure'
-			&& $(target).children('a').length === 0;
-	},
-
-	/**
-	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
-	 */
-	shouldHandleClick: function (target: EventTarget): boolean {
-		var $target = $(target);
-
-		return (
-			$target.closest('.mw-content').length &&
-			// ignore polldaddy content
-			!$target.closest('.PDS_Poll').length
-		);
 	},
 
 	sideNavCollapsedObserver: Em.observer('sideNavCollapsed', function (): void {
