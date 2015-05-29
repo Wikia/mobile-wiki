@@ -30,7 +30,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		loadScripts: true,
 		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
-		footerCalloutText: 'auth:common.login-callout',
+		footerCallout: 'auth:common.login-callout',
 		footerCalloutLink: 'auth:common.login-link-text'
 	};
 
