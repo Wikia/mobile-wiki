@@ -11,6 +11,7 @@ App.AdsMixin = Em.Mixin.create({
 		moreInContentAds: {
 			// Enable the extra in content ads on the following wikis:
 			enabled: [
+				'adtest',
 				'assassinscreed',
 				'finalfantasy',
 				'glee',
