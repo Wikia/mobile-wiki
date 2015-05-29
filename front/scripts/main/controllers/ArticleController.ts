@@ -5,11 +5,6 @@
 
 App.ArticleController = Em.Controller.extend({
 	needs: ['application'],
-
-	queryParams: ['file', 'map', {commentsPage: 'comments_page'}],
-	file: null,
-	commentsPage: null,
-	map: null,
 	noAds: Em.computed.alias('controllers.application.noAds'),
 
 	init: function (): void {
@@ -37,20 +32,38 @@ App.ArticleController = Em.Controller.extend({
 		},
 
 		articleRendered: function () {
-			if (this.get('file')) {
-				this.send('openLightbox', 'media');
-			} else if (this.get('map')) {
-				var foundMap = Em.$('a[data-map-id=' + this.get('map') + ']'),
-					title = foundMap.data('map-title'),
-					url = foundMap.data('map-url'),
-					id = foundMap.data('map-id');
+			var queryParams = this.get('controllers.application.lightboxQueryParams'),
+				file = Em.get(queryParams, 'file'),
+				map = Em.get(queryParams, 'map'),
+				mediaModel: typeof App.MediaModel,
+				lightboxMediaRefs: LightboxMediaRefs;
 
-				this.send('openLightbox', 'map', {
-					title: title,
-					url: url,
-					id: id
-				});
+			if (!Em.isEmpty(file)) {
+				mediaModel = this.get('model.media');
+				lightboxMediaRefs = mediaModel.getRefsForLightboxByTitle(M.String.normalize(file));
+				if (!Em.isEmpty(lightboxMediaRefs.mediaRef)) {
+					this.send('openLightbox', 'media', {
+						media: mediaModel,
+						mediaRef: lightboxMediaRefs.mediaRef,
+						galleryRef: lightboxMediaRefs.galleryRef
+					});
+				}
 			}
+
+			//if (this.get('file')) {
+			//	this.send('openLightbox', 'media');
+			//} else if (this.get('map')) {
+			//	var foundMap = Em.$('a[data-map-id=' + this.get('map') + ']'),
+			//		title = foundMap.data('map-title'),
+			//		url = foundMap.data('map-url'),
+			//		id = foundMap.data('map-id');
+			//
+			//	this.send('openLightbox', 'map', {
+			//		title: title,
+			//		url: url,
+			//		id: id
+			//	});
+			//}
 		}
 	}
 });

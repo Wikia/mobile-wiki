@@ -4,14 +4,25 @@
 'use strict';
 
 App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
-	queryParams: [{noAds: 'noads'}],
+	queryParams: ['file', 'map', {
+		commentsPage: 'comments_page',
+		noAds: 'noads'
+	}],
+	commentsPage: null,
+	file: null,
+	map: null,
+	noAds: '',
+
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
 	noScroll: false,
-	noAds: '',
 	fullPage: false,
 	lightboxType: null,
 	lightboxModel: null,
+
+	lightboxQueryParams: Em.computed(function (): any[] {
+		return this.getProperties('file', 'map');
+	}),
 
 	init: function () {
 		this.setProperties({

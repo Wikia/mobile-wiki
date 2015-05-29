@@ -12,7 +12,8 @@
 	{{site-head
 		smartBannerVisible=view.smartBannerVisible
 		sideNavCollapsed=view.sideNavCollapsed
-		currentUser=currentUser}}
+		currentUser=currentUser
+	}}
 	{{share-feature smartBannerVisible=view.smartBannerVisible title=currentTitle language=language}}
 	{{side-nav isCollapsed=view.sideNavCollapsed loadRandomArticle='loadRandomArticle'}}
 	{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
@@ -22,7 +23,12 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{lightbox-wrapper type=lightboxType model=lightboxModel closeLightbox='closeLightbox'}}
+	{{lightbox-wrapper
+		type=lightboxType
+		model=lightboxModel
+		queryParams=lightboxQueryParams
+		closeLightbox='closeLightbox'
+	}}
 {{/if}}
 {{alert-notifications alerts=view.alertNotifications}}
 {{loading-spinner active=isLoading}}

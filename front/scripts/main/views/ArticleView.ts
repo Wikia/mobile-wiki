@@ -331,8 +331,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 				this.get('controller').send('openLightbox', 'media', {
 					media: media,
 					mediaRef: mediaRef,
-					galleryRef: galleryRef,
-					target: target
+					galleryRef: galleryRef
 				});
 			} else {
 				Em.Logger.debug('Image too small to open in lightbox', target);
