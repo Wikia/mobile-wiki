@@ -33,36 +33,36 @@ App.ArticleController = Em.Controller.extend({
 
 		articleRendered: function () {
 			var file = this.get('controllers.application.file'),
-				map = this.get('controllers.application.map'),
-				mediaModel: typeof App.MediaModel,
-				lightboxMediaRefs: LightboxMediaRefs;
+				map = this.get('controllers.application.map');
 
 			if (!Em.isEmpty(file)) {
-				mediaModel = this.get('model.media');
-				lightboxMediaRefs = mediaModel.getRefsForLightboxByTitle(M.String.normalize(file));
-				if (!Em.isEmpty(lightboxMediaRefs.mediaRef)) {
-					this.send('openLightbox', 'media', {
-						media: mediaModel,
-						mediaRef: lightboxMediaRefs.mediaRef,
-						galleryRef: lightboxMediaRefs.galleryRef
-					});
-				}
+				this.openLightboxForMedia(file);
+			} else if (!Em.isEmpty(map)) {
+				this.openLightboxForMap(map);
 			}
-
-			//if (this.get('file')) {
-			//	this.send('openLightbox', 'media');
-			//} else if (this.get('map')) {
-			//	var foundMap = Em.$('a[data-map-id=' + this.get('map') + ']'),
-			//		title = foundMap.data('map-title'),
-			//		url = foundMap.data('map-url'),
-			//		id = foundMap.data('map-id');
-			//
-			//	this.send('openLightbox', 'map', {
-			//		title: title,
-			//		url: url,
-			//		id: id
-			//	});
-			//}
 		}
+	},
+
+	openLightboxForMedia (file: string): void {
+		var mediaModel: typeof App.MediaModel = this.get('model.media'),
+			lightboxMediaRefs = mediaModel.getRefsForLightboxByTitle(M.String.normalize(file));
+
+		if (!Em.isEmpty(lightboxMediaRefs.mediaRef)) {
+			this.send('openLightbox', 'media', {
+				media: mediaModel,
+				mediaRef: lightboxMediaRefs.mediaRef,
+				galleryRef: lightboxMediaRefs.galleryRef
+			});
+		}
+	},
+
+	openLightboxForMap: function (map: string): void {
+		var $map = Em.$(`a[data-map-id=${map}]`);
+
+		this.send('openLightbox', 'map', {
+			title: $map.data('map-title'),
+			url: $map.data('map-url'),
+			id: $map.data('map-id')
+		});
 	}
 });
