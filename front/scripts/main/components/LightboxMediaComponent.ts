@@ -189,10 +189,10 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 
 	setFooter: function (): void {
 		var currentMedia: ArticleMedia = this.get('currentMedia'),
-			footer: string = null;
+			footer: typeof Handlebars.SafeString = null;
 
 		if (currentMedia && currentMedia.caption) {
-			footer = currentMedia.caption;
+			footer = currentMedia.caption.htmlSafe();
 		}
 
 		this.set('footer', footer);
