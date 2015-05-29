@@ -4,6 +4,9 @@
 App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	// FIXME: lightbox-content is duplicated as a temp styling fix
 	classNames: ['lightbox-media', 'lightbox-content'],
+	// This is needed for keyDown event to work
+	attributeBindings: ['tabindex'],
+	tabindex: 0,
 	videoPlayer: null,
 
 	/**
@@ -79,6 +82,11 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		this.setHeader();
 		this.setFooter();
 	}).on('didInsertElement'),
+
+	didInsertElement: function (): void {
+		// This is needed for keyDown event to work
+		this.$().focus();
+	},
 
 	click: function (event: MouseEvent): void {
 		var isImage = this.isCurrentMediaType('image'),

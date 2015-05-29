@@ -4,8 +4,9 @@
 App.LightboxWrapperComponent = Em.Component.extend({
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['status'],
+	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
-	tabindex: 1,
+	tabindex: 0,
 	lightboxFooterExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
@@ -62,8 +63,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 			headerHidden: false
 		});
 
-		//this is needed if view wants to handle keyboard
-		//FIXME doesn't work
+		// This is needed for keyDown event to work
 		this.$().focus();
 	}
 });
