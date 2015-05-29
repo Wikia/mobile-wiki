@@ -6,12 +6,6 @@ import Hoek = require('hoek');
  * Utility functions
  */
 
-export interface SupportedQueryParams {
-	// All query params should be lowercase, with no special delimiter for spaces
-	[idx: string]: any;
-	//noexternals?: number;
-}
-
 /**
  * Environment types
  */
@@ -179,8 +173,8 @@ export function getVerticalColor (localSettings: LocalSettings, vertical: string
 	return null;
 }
 
-export function parseQueryParams (obj: any, allowedKeys: string[]): SupportedQueryParams {
-	var parsed: SupportedQueryParams = {},
+export function parseQueryParams (obj: any, allowedKeys: string[]): any {
+	var parsed: any = {},
 		key: string,
 		rawProp: string,
 		prop: any;
@@ -204,7 +198,6 @@ export function parseQueryParams (obj: any, allowedKeys: string[]): SupportedQue
 			}
 		});
 	}
-
 
 	return parsed;
 }

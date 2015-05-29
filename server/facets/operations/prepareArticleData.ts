@@ -39,6 +39,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
+	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals']);
 	result.weppyConfig = localSettings.weppy;
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
