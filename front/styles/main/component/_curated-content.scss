@@ -64,7 +64,8 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 			padding: 0 0 10px 10px;
 			vertical-align: bottom;
 			width: 100%;
-			word-break: break-all;
+			// should work for WebKit/Blink based browsers http://caniuse.com/#feat=word-break
+			word-break: break-word;
 		}
 
 		&.grid-icon {
