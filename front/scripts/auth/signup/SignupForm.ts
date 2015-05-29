@@ -18,6 +18,29 @@ class SignupForm {
 		return encodedString;
 	}
 
+	private clearValidationErrors() {
+		var errorNodes = this.form.querySelectorAll('.error');
+
+		Array.prototype.forEach.call( errorNodes, function( node: Element ) {
+			node.parentNode.removeChild( node );
+		});
+	}
+
+	private displayValidationError(errors: Array) {
+		Array.prototype.forEach.call( errors, (function( err: Object ) {
+			var errorNode = window.document.createElement('small');
+			errorNode.classList.add('error');
+			errorNode.appendChild(window.document.createTextNode(this.translateValidationError(err.description)));
+			this.form.elements[err.additional.field].parentNode.appendChild(errorNode);
+		}).bind(this));
+	}
+
+	private translateValidationError(errCode: String) {
+		// TODO translate error
+
+		return errCode;
+	}
+
 	private onSubmit(event: Event) {
 		var xhr = new XMLHttpRequest(),
 			data = {
@@ -26,25 +49,33 @@ class SignupForm {
 				'email': this.form.elements['email'].value,
 				'birthdate': this.form.elements['birthdate'].value
 			};
+		// TODO add langCode
 
-		xhr.onreadystatechange = function() {
+		this.clearValidationErrors();
+
+		xhr.onreadystatechange = (function() {
 			if(xhr.readyState < 4) {
 				// TODO throbbing
 				return;
 			}
 
-			if(xhr.status !== 200) {
+			if (xhr.status === 400) {
+				this.displayValidationError(JSON.parse(xhr.responseText).errors);
 				return;
 			}
+			if (xhr.status !== 200) {
 			// TODO error handling
+				alert('some error!')
+				return;
+			}
 
 			// all is well
 			if(xhr.readyState === 4) {
 				alert('signed in correctly');
 			}
-		}
+		}).bind(this);
 
-		xhr.open('POST', ' https://id-dev.wikia-services.com/register', true);
+		xhr.open('POST', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(this.urlEncode(data));
 

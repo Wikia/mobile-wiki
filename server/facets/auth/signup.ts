@@ -1,3 +1,6 @@
+/// <reference path='../../../config/localSettings.d.ts' />
+import localSettings = require('../../../config/localSettings');
+
 interface SignupViewContext {
 	title: string;
 	headerText?: string;
@@ -21,6 +24,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	context = {
 		exitTo: redirectUrl,
 		headerText: 'auth:join.sign-up-with-email',
+		heliosRegistrationURL: localSettings.helios.host + 'register',
 		footer: 'auth:signup.footer',
 		title: 'auth:join.sign-up-with-email',
 		loadScripts: true,
