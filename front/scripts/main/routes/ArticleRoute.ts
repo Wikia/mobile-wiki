@@ -5,9 +5,6 @@
 
 App.ArticleRoute = Em.Route.extend({
 	queryParams: {
-		file: {
-			replace: false
-		},
 		comments_page: {
 			replace: true
 		}

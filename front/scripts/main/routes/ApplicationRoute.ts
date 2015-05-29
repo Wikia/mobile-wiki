@@ -134,6 +134,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.get('controller').setProperties({
 				lightboxModel: null,
 				lightboxType: null,
+				file: null,
+				map: null,
 				noScroll: false
 			});
 		},

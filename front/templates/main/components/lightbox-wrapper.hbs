@@ -8,7 +8,13 @@
 		<div class="lightbox-header-title">{{header}}</div>
 	</div>
 	<div class="lightbox-content">
-		{{component lightboxComponent model=model header=header footer=footer}}
+		{{component lightboxComponent
+			model=model
+			header=header
+			footer=footer
+			queryParamFile=queryParamFile
+			queryParamMap=queryParamMap
+		}}
 	</div>
 	{{#if footer}}
 		<div class="lightbox-footer {{footerExpanded}} {{if footerHidden 'hidden'}}">{{footer}}</div>

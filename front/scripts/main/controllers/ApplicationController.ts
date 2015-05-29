@@ -20,10 +20,6 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	lightboxType: null,
 	lightboxModel: null,
 
-	lightboxQueryParams: Em.computed(function (): any[] {
-		return this.getProperties('file', 'map');
-	}),
-
 	init: function () {
 		this.setProperties({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],

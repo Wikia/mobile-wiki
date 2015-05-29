@@ -32,9 +32,8 @@ App.ArticleController = Em.Controller.extend({
 		},
 
 		articleRendered: function () {
-			var queryParams = this.get('controllers.application.lightboxQueryParams'),
-				file = Em.get(queryParams, 'file'),
-				map = Em.get(queryParams, 'map'),
+			var file = this.get('controllers.application.file'),
+				map = this.get('controllers.application.map'),
 				mediaModel: typeof App.MediaModel,
 				lightboxMediaRefs: LightboxMediaRefs;
 

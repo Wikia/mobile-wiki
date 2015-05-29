@@ -7,6 +7,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
+
 	lightboxFooterExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
@@ -57,12 +58,6 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	},
 
 	didInsertElement: function (): void {
-		this.setProperties({
-			lightboxFooterExpanded: false,
-			footerHidden: false,
-			headerHidden: false
-		});
-
 		// This is needed for keyDown event to work
 		this.$().focus();
 	}
