@@ -157,6 +157,8 @@ App.AdsMixin = Em.Mixin.create({
 
 		if (showMoreInContentAds) {
 			this.injectMoreInContentAds();
+		} else if (this.adsData.moreInContentAds.enabled) {
+			Em.Logger.info('The page is not long enough for extra in content ads: ' + articleBodyHeight);
 		}
 	},
 
