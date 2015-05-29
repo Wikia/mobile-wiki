@@ -136,7 +136,7 @@ module Mercury.Modules.Trackers {
 					eventCategory: category,
 					eventAction: action,
 					eventLabel: label,
-					eventValue:value,
+					eventValue: value,
 					nonInteraction: nonInteractive
 				}
 			);
@@ -159,7 +159,7 @@ module Mercury.Modules.Trackers {
 					eventCategory: category,
 					eventAction: action,
 					eventLabel: label,
-					eventValue:value,
+					eventValue: value,
 					nonInteraction: nonInteractive
 				}
 			);
@@ -180,7 +180,6 @@ module Mercury.Modules.Trackers {
 				ga(`${prefix}set`, 'dimension8', pageType, 3);
 				ga(`${prefix}send`, 'pageview');
 			});
-
 		}
 	}
 }

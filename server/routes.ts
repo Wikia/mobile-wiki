@@ -67,6 +67,11 @@ unauthenticatedRoutes = [
 		path: '/heartbeat',
 		handler: require('./facets/operations/heartbeat')
 	},
+	{
+		method: 'GET',
+		path: '/wiki',
+		handler: require('./facets/operations/redirectToRoot')
+	},
 	/**
 	 * API Routes
 	 * @description The following routes should just be API routes
@@ -141,7 +146,7 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'POST',
-		path: '/editorPreview/',
+		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
 	}
 ];

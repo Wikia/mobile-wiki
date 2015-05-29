@@ -22,7 +22,13 @@ var counter = 1,
 	isDevbox: boolean = localSettings.environment === Utils.Environment.Dev,
 	plugins: any,
 	/* Creates new `hapi` server */
-	server = new Hapi.Server();
+	server = new Hapi.Server({
+		connections: {
+			router: {
+				stripTrailingSlash: true
+			}
+		}
+	});
 
 server.connection({
 	host: localSettings.host,
@@ -59,9 +65,8 @@ plugins = [
 				},
 				fallbackLng: 'en',
 				supportedLngs: getSupportedLangs(),
-				useCookie: true,
-				cookieName: 'lang',
-				detectLngFromHeaders: true,
+				useCookie: false,
+				detectLngFromHeaders: false,
 				detectLngFromQueryString: true,
 				detectLngQS: 'uselang'
 			}

@@ -18,35 +18,34 @@
 		background-color: #000;
 		bottom: 0;
 		display: block;
-		padding: 5px 9px;
+		padding: 13px 9px;
 		position: absolute;
-		width: 30px;
-		height: 100%;
 		right: 0;
+		width: 30px;
 
 		.ads-floor-close-button {
 			fill: white;
-			position: relative;
 			height: 12px;
 			outline: none;
+			position: relative;
+			top: 0;
 			width: 12px;
-			top: 10px;
 		}
 	}
 
 	.ad {
 		padding-right: 30px;
-	}
 
-	.ad iframe {
-		border: 0;
-		display: block;
-		margin: 0 auto;
-		position: relative;
+		 iframe {
+			border: 0;
+			display: block;
+			margin: 0 auto;
+			position: relative;
+			}
 	}
 
 	.background {
-		background: rgba(0, 0, 0, 0.4);
+		background: rgba(0, 0, 0, .4);
 		bottom: 0;
 		height: 50px;
 		position: absolute;

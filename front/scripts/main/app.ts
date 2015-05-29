@@ -4,6 +4,7 @@
 /// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/modules/Ads.ts" />
 /// <reference path="../mercury/modules/Trackers/UniversalAnalytics.ts" />
+/// <reference path="../mercury/utils/variantTesting.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 /// <reference path="../mercury/utils/trackPerf.ts" />
 
@@ -76,9 +77,18 @@ App.initializer({
 	name: 'optimizelyCuratedMainPageLoader',
 	after: 'preload',
 	initialize: () => {
-		// 2870342045 -> Experiment ID in Optimizely / Mercury (production)
+		// 2870342045, 2923810390 -> Experiment IDs in Optimizely / Mercury (production / dev)
 		// 1 -> Variation ID that should have CuratedMainPages Enabled
-		M.prop('optimizelyCuratedMainPage', window.optimizely && optimizely.variationMap[2870342045] == 1);
+		var optimizelyCuratedMainPage =
+			(typeof optimizely === "object") &&
+			(typeof optimizely.activeExperiments === "object") &&
+			(typeof optimizely.variationMap === "object") &&
+			(
+				(optimizely.activeExperiments.indexOf('2870342045') !== -1 && optimizely.variationMap[2870342045] == 1) ||
+				(optimizely.activeExperiments.indexOf('2923810390') !== -1 && optimizely.variationMap[2923810390] == 1)
+			);
+
+		M.prop('optimizelyCuratedMainPage', optimizelyCuratedMainPage);
 	}
 });
 
@@ -86,6 +96,15 @@ App.initializer({
 	name: 'performanceMonitoring',
 	after: 'preload',
 	initialize () {
+		function createEvent (name: string, value: number): PerfTrackerParams {
+			return {
+				module: 'App',
+				name: name,
+				type: 'timer',
+				value: value
+			};
+		}
+
 		if (typeof EmPerfSender === 'undefined') {
 			return;
 		}
@@ -93,15 +112,6 @@ App.initializer({
 		if (window.performance && window.performance.timing) {
 			var times: any = window.performance.timing,
 				events: PerfTrackerParams[];
-
-			function createEvent (name: string, value: number): PerfTrackerParams {
-				return {
-					module: 'App',
-					name: name,
-					type: 'timer',
-					value: value
-				};
-			}
 
 			$(() => {
 				events = [
@@ -176,6 +186,8 @@ App.initializer({
 		if (Mercury.wiki.wikiCategories instanceof Array) {
 			dimensions[18] = Mercury.wiki.wikiCategories.join(',');       // Categories
 		}
+
+		dimensions = Mercury.Utils.VariantTesting.integrateOptimizelyWithUA(dimensions);
 
 		UA.setDimensions(dimensions);
 	}

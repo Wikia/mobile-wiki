@@ -28,6 +28,7 @@ interface Response {
 			users: any;
 			categories: any[];
 		};
+		isMainPage: boolean;
 		mainPageData: any[];
 		relatedPages: any[];
 		topContributors: any[];
@@ -41,6 +42,7 @@ App.ArticleModel = Em.Object.extend({
 	categories: [],
 	cleanTitle: null,
 	comments: 0,
+	isMainPage: false,
 	mainPageData: null,
 	media: [],
 	mediaUsers: [],
@@ -193,6 +195,8 @@ App.ArticleModel.reopenClass({
 				// Same issue: the response to the ajax should always be valid and not undefined
 				data.topContributors = source.topContributors;
 			}
+
+			data.isMainPage = source.isMainPage || false;
 
 			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
 				data.mainPageData = source.mainPageData;
