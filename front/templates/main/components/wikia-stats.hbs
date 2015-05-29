@@ -2,18 +2,18 @@
 	{{#if model.pages}}
 		<div class="wikia-stats-item">
 			<div class="wikia-stats-label">Pages</div>
-			<div class="wikia-stats-value">{{model.pages}}</div>
+			<div class="wikia-stats-value">{{numeral model.pages '0 a'}}</div>
 		</div>
 	{{/if}}
 	{{#if model.videos}}
 		<div class="wikia-stats-item">
 			<div class="wikia-stats-label">Videos</div>
-			<div class="wikia-stats-value">{{model.videos}}</div>
+			<div class="wikia-stats-value">{{numeral model.videos '0 a'}}</div>
 		</div>
 	{{/if}}
 	{{#if model.images}}
 		<div class="wikia-stats-item">
 			<div class="wikia-stats-label">Images</div>
-			<div class="wikia-stats-value">{{model.images}}</div></div>
+			<div class="wikia-stats-value">{{numeral model.images '0 a'}}</div></div>
 	{{/if}}
 </div>
