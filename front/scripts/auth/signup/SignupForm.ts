@@ -1,3 +1,19 @@
+interface HeliosError {
+	description: string;
+	additional: HeliosErrorAdditional;
+}
+
+interface HeliosErrorAdditional {
+	field: string;
+}
+
+interface HeliosRegisterInput {
+	username: string;
+	password: string;
+	email: string;
+	birthdate: string;
+}
+
 class SignupForm {
 	form: HTMLFormElement;
 
@@ -21,13 +37,13 @@ class SignupForm {
 	private clearValidationErrors() {
 		var errorNodes = this.form.querySelectorAll('.error');
 
-		Array.prototype.forEach.call( errorNodes, function( node: Element ) {
+		Array.prototype.forEach.call( errorNodes, function( node: Node ) {
 			node.parentNode.removeChild( node );
 		});
 	}
 
-	private displayValidationError(errors: Array) {
-		Array.prototype.forEach.call( errors, (function( err: Object ) {
+	private displayValidationError(errors: Array<HeliosError>) {
+		Array.prototype.forEach.call( errors, (function( err: HeliosError ) {
 			var errorNode = window.document.createElement('small');
 			errorNode.classList.add('error');
 			errorNode.appendChild(window.document.createTextNode(this.translateValidationError(err.description)));
@@ -43,13 +59,14 @@ class SignupForm {
 
 	private onSubmit(event: Event) {
 		var xhr = new XMLHttpRequest(),
-			data = {
-				'username': this.form.elements['username'].value,
-				'password': this.form.elements['password'].value,
-				'email': this.form.elements['email'].value,
-				'birthdate': this.form.elements['birthdate'].value
+			formElements: HTMLCollection = this.form.elements,
+			data: HeliosRegisterInput = {
+				username: (<HTMLInputElement> formElements.namedItem('username')).value,
+				password: (<HTMLInputElement> formElements.namedItem('password')).value,
+				email: (<HTMLInputElement> formElements.namedItem('email')).value,
+				birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
+				// TODO add langCode
 			};
-		// TODO add langCode
 
 		this.clearValidationErrors();
 
@@ -65,7 +82,7 @@ class SignupForm {
 			}
 			if (xhr.status !== 200) {
 			// TODO error handling
-				alert('some error!')
+				alert('some error!');
 				return;
 			}
 
