@@ -91,7 +91,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			}
 
 			if (info.article) {
-				this.transitionTo('article', info.article);
+				this.transitionTo('article', encodeURIComponent(info.article));
 			} else if (info.url) {
 				/**
 				 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
