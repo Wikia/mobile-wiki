@@ -23,9 +23,9 @@ interface ServerData {
  *
  * @returns ServerData
  */
-function createServerData (): ServerData {
+function createServerData (wikiDomain: string): ServerData {
 	return {
-		mediawikiDomain: Utils.getWikiDomainName(localSettings),
+		mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
 		apiBase: localSettings.apiBase,
 		environment: Utils.getEnvironmentString(localSettings.environment),
 		cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
@@ -97,7 +97,7 @@ export function getData (params: ArticleRequestParams, callback: Function, getWi
 export function getFull (params: ArticleRequestParams, next: Function): void {
 	getData(params, (error: any, article: any, wikiVariables: any) => {
 		next(error, {
-			server: createServerData(),
+			server: createServerData(params.wikiDomain),
 			wiki: wikiVariables || {},
 			article: article || {}
 		});
@@ -134,7 +134,7 @@ export function getWikiVariables (wikiDomain: string, next: Function): void {
 export function getArticle (params: ArticleRequestParams, wikiVariables: any, next: Function): void {
 	getData(params, (error: any, article: any) => {
 		next(error, {
-			server: createServerData(),
+			server: createServerData(params.wikiDomain),
 			wiki: wikiVariables || {},
 			article: article || {}
 		});

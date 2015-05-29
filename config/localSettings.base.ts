@@ -32,7 +32,8 @@ var localSettings: LocalSettings = {
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
-		syslog: 'debug'
+		syslog: 'debug',
+		console: 'debug'
 	},
 	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 	// auth pages aren't supported on custom domains, so this value should only be used for auth features
