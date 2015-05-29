@@ -7,10 +7,21 @@
 */
 module Mercury.Utils {
 	var instance: Mercury.Modules.Trackers.Perf;
-	export function trackPerf (obj: PerfTrackerParams) {
+	function getInstance(): typeof instance {
 		if (Mercury.Modules.Trackers.Perf.checkDependencies()) {
 			instance = instance || new Mercury.Modules.Trackers.Perf();
-			instance.track(obj);
+			return instance;
 		}
+		throw new Error('no instance found');
+	}
+
+	export function trackPerf (obj: PerfTrackerParams): void {
+		return getInstance().track(obj);
+	}
+
+	export function sendPagePerformance(): void {
+		// Initializes Weppy context
+		getInstance();
+		Weppy.sendPagePerformance();
 	}
 }
