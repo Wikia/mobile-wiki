@@ -29,7 +29,16 @@ App.LightboxVideoComponent = Em.Component.extend(App.ArticleContentMixin, {
 	 * @desc Used to instantiate a video player
 	 */
 	initVideoPlayer: function (): void {
-		this.set('videoLoader', new Mercury.Modules.VideoLoader(this.get('model.embed')));
+		var videoLoader = new Mercury.Modules.VideoLoader(this.get('model.embed')),
+			selector = Em.get(videoLoader, 'player.containerSelector');
+
+		// Stop bubbling it up to the lightbox
+		this.$(selector).click(function (): boolean {
+			return false;
+		});
+
+		this.set('videoLoader', videoLoader);
+
 	},
 
 	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
