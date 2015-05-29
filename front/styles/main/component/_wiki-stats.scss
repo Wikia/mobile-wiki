@@ -1,0 +1,23 @@
+.wikia-stats {
+	text-align: center;
+
+	.wikia-stats-container {
+		border-top: 1px solid $color-gray-light;
+		display: inline-table;
+		margin-bottom: 20px;
+	}
+
+	.wikia-stats-item {
+		display: table-cell;
+		padding: 5px 10px;
+	}
+
+	.wikia-stats-label {
+		font-size: 12px;
+		text-transform: uppercase;
+	}
+
+	.wikia-stats-value {
+		font-size: 32px;
+	}
+}
