@@ -15,7 +15,7 @@ module Mercury.Utils {
 		throw new Error('no instance found');
 	}
 
-	export function trackPerf (obj: PerfTrackerParams): void {
+	export function trackPerf(obj: PerfTrackerParams): void {
 		return getInstance().track(obj);
 	}
 
