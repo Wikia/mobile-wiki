@@ -35,7 +35,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 
 	currentGalleryRef: Em.computed('model.media.galleryRef', {
 		get(): number {
-			return this.get('model.media.galleryRef') || 0;
+			return this.get('model.galleryRef') || 0;
 		},
 		set(key: string, value: number): number {
 			var galleryLength = this.get('galleryLength') - 1;
