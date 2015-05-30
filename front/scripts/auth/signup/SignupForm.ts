@@ -52,9 +52,7 @@ class SignupForm {
 	}
 
 	private translateValidationError(errCode: String) {
-		// TODO translate error
-
-		return errCode;
+		return i18n.t(errCode);
 	}
 
 	private onSubmit(event: Event) {
