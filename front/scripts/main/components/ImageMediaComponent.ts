@@ -47,14 +47,14 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	url: Em.computed({
 		get(): string {
 			var media: ArticleMedia = this.get('media'),
-				icon,
-				height,
-				width,
-				mode,
-				limitHeight;
+				icon: boolean,
+				height: number,
+				width: number,
+				mode: string,
+				limitHeight: boolean;
 
 			if (media) {
-				icon = this.infoboxIcon();
+				icon = this.get('isInfoboxIcon');
 				if (icon) {
 					width = this.get('width');
 					mode =  Mercury.Modules.Thumbnailer.mode.fixedAspectRatio;
@@ -93,19 +93,6 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			'' :
 			`height:${this.get('computedHeight')}px;`).htmlSafe();
 	}),
-
-	infoboxIcon: function(): boolean {
-		var media: ArticleMedia = this.get('media'),
-			insideInfobox = $('.portable-infobox').find(this.element).length;
-
-		console.log("insideInfobox: ", insideInfobox);
-		if (!media.context && insideInfobox > 0) {
-			this.set('width', 50);
-			this.set('height', 20);
-			return true;
-		}
-		return false;
-	},
 
 	/**
 	 * load an image and run update function when it is loaded

@@ -49,6 +49,20 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return url;
 	},
 
+	isInfoboxIcon: Em.computed(function(): boolean {
+		var media: ArticleMedia = this.get('media'),
+			insideInfobox = $('.portable-infobox').find(this.element).length;
+
+
+		console.log("isInfoboxIcon");
+		if (!media.context && insideInfobox > 0) {
+			this.set('width', 50);
+			this.set('height', 20);
+			return true;
+		}
+		return false;
+	}),
+
 	/**
 	 * @desc caption for current media
 	 */

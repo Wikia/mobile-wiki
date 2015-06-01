@@ -60,17 +60,32 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 		for (; galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
+			var icon = this.get('isInfoboxIcon'),
+				mode = Mercury.Modules.Thumbnailer.mode.topCrop,
+				limitHeight = false,
+				width = thumbSize,
+				height = thumbSize;
+			console.log("czy ikona?", icon);
+
+			if (icon) {
+				height = 20;
+				width = Math.floor(20 * image.get('width') / image.get('height'));
+				mode =  Mercury.Modules.Thumbnailer.mode.fixedAspectRatio;
+				limitHeight = true;
+			}
 
 			image.setProperties({
 				thumbUrl: this.getThumbURL(image.get('url'), {
-					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-					width: thumbSize,
-					height: thumbSize
+					mode: mode,
+					width: width,
+					height: height,
+					limitHeight: limitHeight
 				}),
 				load: true
 			});
 		}
 	},
+
 
 	/**
 	 * Loads media and certain amount of images depending on the gallery width and thumbSize sets also onscroll handler
