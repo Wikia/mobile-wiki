@@ -2,17 +2,19 @@
 /// <reference path='../mercury/utils/track.ts' />
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement = window.document.querySelector('form');
+	var formElement = window.document.querySelector('form'),
+		UA = Mercury.Modules.Trackers.UniversalAnalytics,
+		dimensions: (string|Function)[] = [];
+
 	new Form(formElement).watch();
 	new SubmitValidator(formElement).watch();
 
-	var UA = Mercury.Modules.Trackers.UniversalAnalytics,
-		dimensions: (string|Function)[] = [];
-
-	dimensions[4] = 'mercury'; // Skin
-	dimensions[5] = 'anon';    // LoginStatus
-	dimensions[15] = 'No';     // IsCorporatePage
-
+	// Skin
+	dimensions[4] = 'mercury';
+	// LoginStatus
+	dimensions[5] = 'anon';
+	// IsCorporatePage
+	dimensions[15] = 'No';
 	UA.setDimensions(dimensions);
 
 	if (window.document.querySelector('small.error') !== null) {
@@ -39,7 +41,7 @@ window.document.querySelector('#loginSubmit').addEventListener('click', function
 });
 
 // Click X to "close" log-in form
-window.document.querySelector('a.close').addEventListener('click', function (): void {
+window.document.querySelector('.close').addEventListener('click', function (): void {
 	Mercury.Utils.track({
 		trackingMethod: 'ga',
 		action: Mercury.Utils.trackActions.close,
@@ -49,7 +51,7 @@ window.document.querySelector('a.close').addEventListener('click', function (): 
 });
 
 // Click "Forgot Password" link
-window.document.querySelector('a.forgotten-password').addEventListener('click', function (): void {
+window.document.querySelector('.forgotten-password').addEventListener('click', function (): void {
 	Mercury.Utils.track({
 		trackingMethod: 'ga',
 		action: Mercury.Utils.trackActions.click,
@@ -59,7 +61,7 @@ window.document.querySelector('a.forgotten-password').addEventListener('click', 
 });
 
 // Click "Register Now" link
-window.document.querySelector('footer .footer-callout-link').addEventListener('click', function (): void {
+window.document.querySelector('.footer-callout-link').addEventListener('click', function (): void {
 	M.track({
 		trackingMethod: 'ga',
 		action: M.trackActions.click,
