@@ -35,12 +35,12 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return this.thumbSize.medium;
 	},
 
-	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number}): string {
+	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number; limitHeight?: boolean}): string {
 		if (options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
 
-		if (!this.limitHeight) {
+		if (!this.get('limitHeight') && !options.limitHeight) {
 			options.height = options.width;
 		}
 
