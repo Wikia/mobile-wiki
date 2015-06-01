@@ -100,9 +100,7 @@ App.initializer({
 			return;
 		}
 
-		$(() => {
-			M.sendPagePerformance();
-		});
+		$(window).load(() => M.sendPagePerformance());
 
 		EmPerfSender.initialize({
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
