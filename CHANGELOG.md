@@ -1,3 +1,6 @@
+## release-77 (2015-05-30 23:24 UTC)
+* [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) Use Weppy#sendPagePerformance instead of gathering metrics manually
+
 ## release-76 (2015-05-28 22:45 UTC)
 * [SOC-850](https://wikia-inc.atlassian.net/browse/SOC-850) SOC-850 & SOC-845 New Login Fixes to cooperate with autofill
 
