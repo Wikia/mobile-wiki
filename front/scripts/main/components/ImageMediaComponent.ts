@@ -44,6 +44,11 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		return imageHeight;
 	}),
 
+	/**
+	 * @desc return the thumbURL for media.
+	 * If media is an icon inside the infobox, width 
+	 * was already set.
+	 */
 	url: Em.computed({
 		get(): string {
 			var media: ArticleMedia = this.get('media'),

@@ -54,20 +54,31 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return url;
 	},
 
-	isInfoboxIcon: Em.computed('media', function(): boolean {
-		var media: ArticleMedia = this.get('media'),
-			insideInfobox = $('.portable-infobox').find(this.element).length,
-			iconHeight: number,
-			width: number;
+	/**
+	 * @desc Determines if current image is an icon placed inside the infobox.
+	 * Icons are commonly used for the money, weight etc. values.
+	 * Main infobox images has the media.context field with 'infobox-big' value.
+	 */
+	isInfoboxIcon: Em.computed('media', {
+		get(): boolean {
+			var media: ArticleMedia = this.get('media'),
+				isInsideInfobox = $('.portable-infobox').find(this.element).length > 0,
+				iconHeight: number,
+				width: number;
 
-		if (!media.context && insideInfobox > 0) {
-			iconHeight = this.get('infoboxIconSize.height');
-			width = Math.floor(iconHeight * this.get('width') / this.get('height'));
-			this.set('height', iconHeight);
-			this.set('width', width);
-			return true;
+			if (media.context !== 'infobox-big' && isInsideInfobox) {
+				iconHeight = this.get('infoboxIconSize.height');
+				width = Math.floor(iconHeight * media.width / media.height);
+				this.set('height', iconHeight);
+				this.set('width', width);
+				return true;
+			}
+			return false;
+		},
+		set(key: string, value: boolean): boolean {
+			this.set('isInfoboxIcon', value)
+			return value;
 		}
-		return false;
 	}),
 
 	/**
