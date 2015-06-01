@@ -48,17 +48,14 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		get(): string {
 			var media: ArticleMedia = this.get('media'),
 				icon: boolean,
-				height: number,
 				width: number,
-				mode: string,
-				limitHeight: boolean;
+				mode: string;
 
 			if (media) {
 				icon = this.get('isInfoboxIcon');
 				if (icon) {
 					width = this.get('width');
-					mode =  Mercury.Modules.Thumbnailer.mode.fixedAspectRatio;
-					limitHeight = true;
+					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 				} else {
 					width = this.get('articleContent.width');
 					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
@@ -67,8 +64,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				return this.getThumbURL(media.url, {
 					mode: mode,
 					width: width,
-					height: this.get('computedHeight'),
-					limitHeight: limitHeight
+					height: this.get('computedHeight')
 				});
 			}
 

@@ -25,6 +25,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		large: 900
 	},
 
+	//icon width depends on it's real dimensions
+	infoboxIconSize: {
+		height: 20
+	},
+
 	normalizeThumbWidth: function (width: number): number {
 		if (width <= this.thumbSize.small) {
 			return this.thumbSize.small;
@@ -35,12 +40,12 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return this.thumbSize.medium;
 	},
 
-	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number; limitHeight?: boolean}): string {
+	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number}): string {
 		if (options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
 
-		if (!this.get('limitHeight') && !options.limitHeight) {
+		if (!this.get('limitHeight')) {
 			options.height = options.width;
 		}
 
@@ -49,15 +54,17 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return url;
 	},
 
-	isInfoboxIcon: Em.computed(function(): boolean {
+	isInfoboxIcon: Em.computed('media', function(): boolean {
 		var media: ArticleMedia = this.get('media'),
-			insideInfobox = $('.portable-infobox').find(this.element).length;
+			insideInfobox = $('.portable-infobox').find(this.element).length,
+			iconHeight: number,
+			width: number;
 
-
-		console.log("isInfoboxIcon");
 		if (!media.context && insideInfobox > 0) {
-			this.set('width', 50);
-			this.set('height', 20);
+			iconHeight = this.get('infoboxIconSize.height');
+			width = Math.floor(iconHeight * this.get('width') / this.get('height'));
+			this.set('height', iconHeight);
+			this.set('width', width);
 			return true;
 		}
 		return false;

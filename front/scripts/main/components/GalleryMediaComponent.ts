@@ -62,24 +62,20 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			image = this.get('media').get(galleryRef);
 			var icon = this.get('isInfoboxIcon'),
 				mode = Mercury.Modules.Thumbnailer.mode.topCrop,
-				limitHeight = false,
 				width = thumbSize,
 				height = thumbSize;
-			console.log("czy ikona?", icon);
 
 			if (icon) {
-				height = 20;
-				width = Math.floor(20 * image.get('width') / image.get('height'));
-				mode =  Mercury.Modules.Thumbnailer.mode.fixedAspectRatio;
-				limitHeight = true;
+				height = this.get('infoboxIconSize.height');
+				width = Math.floor(height * image.get('width') / image.get('height'));
+				mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 			}
 
 			image.setProperties({
 				thumbUrl: this.getThumbURL(image.get('url'), {
 					mode: mode,
 					width: width,
-					height: height,
-					limitHeight: limitHeight
+					height: height
 				}),
 				load: true
 			});
