@@ -156,7 +156,6 @@ export class ArticleRequest {
 		var url = createUrl(this.wikiDomain, 'api.php', {
 			action: 'query',
 			generator: 'random',
-			grnnamespace: 0,
 			format: 'json'
 		});
 
