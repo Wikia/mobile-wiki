@@ -7,6 +7,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	queryParams: [{noAds: 'noads'}],
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
+	userMenuCollapsed: true,
 	noScroll: false,
 	noAds: '',
 	fullPage: false,

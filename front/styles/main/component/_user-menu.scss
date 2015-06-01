@@ -1,0 +1,63 @@
+.user-menu {
+	.overlay {
+		@extend %pointer;
+		@include perfect-square(100%);
+		background-color: black;
+		left: 0;
+		position: fixed;
+		top: 0;
+		z-index: $z-side-nav-overlay;
+	}
+
+	.drawer {
+		list-style: none;
+		overflow: hidden;
+		position: fixed;
+		right: 0;
+		top: 0;
+		transition: height $transition-length;
+		width: 100%;
+		z-index: $z-side-nav;
+
+		li {
+			background-color: #fff;
+			border-bottom: rem-calc(1) solid #d0d0d0;
+		}
+
+		a {
+			@extend .touch-active;
+			display: block;
+			overflow: hidden;
+			padding: rem-calc(10) $side-nav-item-gutter;
+			text-overflow: ellipsis;
+			width: 100%;
+		}
+	}
+
+	&.collapsed {
+		.drawer {
+			height: 0;
+		}
+
+		.overlay {
+			opacity: 0;
+			transition: visibility 0s $transition-length, opacity $transition-length;
+			visibility: hidden;
+		}
+	}
+
+	&.visible {
+		.drawer {
+			// This is an arbitrary number larger than the combined height of the
+			// li children, so that transition animation works. With height: auto,
+			// it wouldn't be guaranteed to work.
+			height: 100px;
+		}
+
+		.overlay {
+			opacity: $overlay-opacity;
+			transition: opacity $transition-length;
+			visibility: visible;
+		}
+	}
+}
