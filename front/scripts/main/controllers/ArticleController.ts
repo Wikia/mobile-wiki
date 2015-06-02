@@ -8,6 +8,7 @@ App.ArticleController = Em.Controller.extend({
 	queryParams: [{
 		commentsPage: 'comments_page'
 	}],
+	commentsPage: null,
 	noAds: Em.computed.alias('controllers.application.noAds'),
 
 	init: function (): void {

@@ -10,7 +10,6 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	queryParams: ['file', 'map', {
 		noAds: 'noads'
 	}],
-	commentsPage: null,
 	file: null,
 	map: null,
 	noAds: '',
