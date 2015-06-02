@@ -215,18 +215,20 @@ test('getEnvironment', function() {
 
 test('parseQueryParams', function () {
 	var testCases,
-		expected;
-
+		allowedKeys;
+	
 	testCases = [
 		{foo: '1'},
-		{foo: '"1"'},
-		{foo: '1bar'},
-		{foo: 'bar'},
+		{allowed: '1'},
+		{allowed: 'false'},
+		{allowed: '</script>'}
 	];
 
-	expected = ['number', 'string', 'string', 'string'];
+	allowedKeys = ['allowed'];
 
-	testCases.forEach(function (obj, i) {
-		equal(typeof global.parseQueryParams(obj).foo, expected[i], 'Failed at index of ' + i);
-	});
+	equal(typeof global.parseQueryParams(testCases[0], allowedKeys).foo, 'undefined', 'Non-whitelisted parameter was passed through');
+	equal(typeof global.parseQueryParams(testCases[1], allowedKeys).allowed, 'number', 'Whitelisted parameter was not passed through');
+	equal(typeof global.parseQueryParams(testCases[2], allowedKeys).allowed, 'boolean', 'Whitelisted parameter was not passed through');
+	equal(typeof global.parseQueryParams(testCases[3], allowedKeys).allowed, 'string', 'Whitelisted parameter was not passed through');
+	equal(global.parseQueryParams(testCases[3], allowedKeys).allowed, '&lt;&#x2f;script&gt;', 'HTML in query not escaped properly');
 });
