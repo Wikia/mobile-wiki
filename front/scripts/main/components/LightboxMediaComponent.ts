@@ -31,12 +31,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	 */
 	currentMedia: Em.computed('current', 'isGallery', 'currentGalleryRef', function (): ArticleMedia {
 		var current = this.get('current');
-
-		if (this.get('isGallery')) {
-			return current[this.get('currentGalleryRef')];
-		} else {
-			return current;
-		}
+		return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
 	}),
 
 	currentGalleryRef: Em.computed('model.galleryRef', {
@@ -57,11 +52,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	}),
 
 	galleryLength: Em.computed('isGallery', 'current', function (): number {
-		if (this.get('isGallery')) {
-			return this.get('current').length;
-		} else {
-			return -1;
-		}
+		return this.get('isGallery') ? this.get('current').length : -1;
 	}),
 
 	/**
