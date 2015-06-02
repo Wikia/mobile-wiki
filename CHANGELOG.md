@@ -1,3 +1,6 @@
+## release-79 (2015-06-02 09:11 UTC)
+* [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) send metrics on window.load
+
 ## release-78 (2015-06-01 16:26 UTC)
 * aden-1773-incremental-ads-on-long-pages: ADEN-1773 Test Loading Incremental Ads on long pages
 * aden-2065-fix-floor-adhesion-styling: ADEN-2065 Fix styling for Floor Adhesion unit with transparency image
