@@ -18,7 +18,7 @@ interface EventTarget {
 	tagName: string;
 }
 
-App.ApplicationView = Em.View.extend(App.ClickHandlerMixin, {
+App.ApplicationView = Em.View.extend({
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Em.computed(function (): string {
@@ -39,31 +39,6 @@ App.ApplicationView = Em.View.extend(App.ClickHandlerMixin, {
 
 	willInsertElement: function (): void {
 		$('#article-preload').remove();
-	},
-
-	handleLink: function (target: HTMLAnchorElement): void {
-		var controller: typeof App.ApplicationController;
-
-		Em.Logger.debug('Handling link with href:', target.href);
-
-		/**
-		 * If either the target or the target's parent is an anchor (and thus target == true),
-		 * then also check if the anchor has an href. If it doesn't we assume there is some other
-		 * handler for it that deals with it based on ID or something and we just skip it.
-		 */
-		if (target && target.href) {
-			/**
-			 * But if it does have an href, we check that it's not the link to expand the comments
-			 * If it's _any_ other link than that comments link, we stop its action and
-			 * pass it up to handleLink
-			 */
-			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
-				controller = this.get('controller');
-
-				controller.send('closeLightbox');
-				controller.send('handleLink', target);
-			}
-		}
 	},
 
 	/**
@@ -118,5 +93,43 @@ App.ApplicationView = Em.View.extend(App.ClickHandlerMixin, {
 			window.scrollTo(0, this.get('scrollLocation'));
 			this.set('scrollLocation', null);
 		}
-	})
+	}),
+
+	/**
+	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
+	 */
+	shouldHandleClick: function (target: EventTarget): boolean {
+		var $target = $(target);
+
+		return (
+			$target.closest('.mw-content').length &&
+				// ignore polldaddy content
+			!$target.closest('.PDS_Poll').length
+		);
+	},
+
+	handleLink: function (target: HTMLAnchorElement): void {
+		var controller: typeof App.ApplicationController;
+
+		Em.Logger.debug('Handling link with href:', target.href);
+
+		/**
+		 * If either the target or the target's parent is an anchor (and thus target == true),
+		 * then also check if the anchor has an href. If it doesn't we assume there is some other
+		 * handler for it that deals with it based on ID or something and we just skip it.
+		 */
+		if (target && target.href) {
+			/**
+			 * But if it does have an href, we check that it's not the link to expand the comments
+			 * If it's _any_ other link than that comments link, we stop its action and
+			 * pass it up to handleLink
+			 */
+			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
+				controller = this.get('controller');
+
+				controller.send('closeLightbox');
+				controller.send('handleLink', target);
+			}
+		}
+	}
 });

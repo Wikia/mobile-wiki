@@ -16,11 +16,69 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.LanguagesMixin, App.ViewportMixin, {
+App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
+
+	hammerOptions: {
+		touchAction: 'auto',
+		cssProps: {
+			/**
+			 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
+			 * 'default' displays the callout
+			 * 'none' disables the callout
+			 * hammer.js sets it to 'none' by default so we have to override
+			 */
+			touchCallout: 'default'
+		}
+	},
+
+	gestures: {
+		swipeLeft: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-table').length) {
+
+				M.track({
+					action: M.trackActions.swipe,
+					category: 'tables'
+				});
+			} else if ($(event.target).parents('.article-gallery').length) {
+				M.track({
+					action: M.trackActions.paginate,
+					category: 'gallery',
+					label: 'next'
+				});
+			}
+		},
+
+		swipeRight: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-gallery').length) {
+				M.track({
+					action: M.trackActions.paginate,
+					category: 'gallery',
+					label: 'previous'
+				});
+			}
+		}
+	},
 
 	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
 		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
+	}),
+
+	onModelChange: Em.observer('controller.model.article', function (): void {
+		// This check is here because this observer will actually be called for views wherein the state is actually
+		// not valid, IE, the view is in the process of preRender
+		this.scheduleArticleTransforms();
+	}),
+
+	modelObserver: Em.observer('controller.model', function (): void {
+		var model = this.get('controller.model');
+
+		if (model) {
+			var title = model.get('cleanTitle');
+			document.title = title + ' - ' + Mercury.wiki.siteName;
+		}
 	}),
 
 	/**
@@ -32,21 +90,29 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 		this.scheduleArticleTransforms();
 	},
 
-	//FIXME: refactor this and ApplicationView#click
+	didInsertElement: function (): void {
+		this.get('controller').send('articleRendered');
+	},
+
+	/**
+	 * @desc Handle clicks on media and bubble up to Application if anything else was clicked
+	 *
+	 * @param event
+	 * @returns {boolean}
+	 */
 	click: function (event: MouseEvent): boolean {
 		var $anchor = Em.$(event.target).closest('a'),
-			target: EventTarget = $anchor.length ? $anchor[0] : event.target,
-			tagName: string;
+			target: EventTarget;
 
-		if (target && this.shouldHandleClick(target)) {
-			tagName = target.tagName.toLowerCase();
+		// Here, we want to handle media only, no links
+		if ($anchor.length === 0) {
+			target = event.target;
 
-			if (tagName === 'a') {
-				// Bubble up to ApplicationView#click
-				return true;
-			} else if (this.shouldHandleMedia(target, tagName)) {
+			if (this.shouldHandleMedia(target, target.tagName.toLowerCase())) {
 				this.handleMedia(<HTMLElement>target);
 				event.preventDefault();
+
+				// Don't bubble up
 				return false;
 			}
 		}
@@ -55,18 +121,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 		return true;
 	},
 
-	onModelChange: Em.observer('controller.model.article', function (): void {
-		// This check is here because this observer will actually be called for views wherein the state is actually
-		// not valid, IE, the view is in the process of preRender
-		this.scheduleArticleTransforms();
-	}),
-
 	scheduleArticleTransforms: function (): void {
 		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
-	},
-
-	didInsertElement: function () {
-		this.get('controller').send('articleRendered');
 	},
 
 	articleContentObserver: function (): boolean {
@@ -113,7 +169,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 		return true;
 	},
 
-	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {
+	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),
 			media = model.find(ref);
 
@@ -128,22 +184,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 		return component.$().attr('data-ref', ref);
 	},
 
-	lazyLoadMedia: function (model: typeof App.ArticleModel) {
+	lazyLoadMedia: function (model: typeof App.ArticleModel): void {
 		var lazyImages = this.$('.article-media');
 
-		lazyImages.each((index: number, element: HTMLImageElement) => {
+		lazyImages.each((index: number, element: HTMLImageElement): void => {
 			this.$(element).replaceWith(this.createMediaComponent(element, model));
 		});
 	},
-
-	modelObserver: Em.observer('controller.model', function (): void {
-		var model = this.get('controller.model');
-
-		if (model) {
-			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + Mercury.wiki.siteName;
-		}
-	}),
 
 	setupEditButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
@@ -151,7 +198,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 		this.$(':header[section]').each((i: Number, item: any): void => {
 			var $sectionHeader = this.$(item),
 				$pencil = this.$(pencil).appendTo($sectionHeader);
-			$pencil.on('click', () => {
+			$pencil.on('click', (): void => {
 				this.get('controller').send('edit', this.get('controller.model.title'), $sectionHeader.attr('section'));
 			});
 		});
@@ -163,7 +210,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
 	 * ToC data from server and render view based on that.
 	 */
-	loadTableOfContentsData: function () {
+	loadTableOfContentsData: function (): void {
 		var headers: HeadersFromDom[] = this.$('h2[section]').map((i: number, elem: HTMLElement): HeadersFromDom => {
 			if (elem.textContent) {
 				return {
@@ -176,17 +223,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 		this.get('controller').send('updateHeaders', headers);
 	},
 
-	replaceMapsWithMapComponents: function () {
-		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement) => {
+	replaceMapsWithMapComponents: function (): void {
+		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement): void => {
 			this.replaceMapWithMapComponent(elem);
 		});
 	},
 
-	replaceMapWithMapComponent: function (elem: HTMLElement) {
+	replaceMapWithMapComponent: function (elem: HTMLElement): void {
 		var $mapPlaceholder = $(elem),
 			$a = $mapPlaceholder.children('a'),
 			$img = $a.children('img'),
-			mapComponent = this.createChildView(App.WikiaMapComponent.create({
+			mapComponent: typeof App.WikiaMapComponent = this.createChildView(App.WikiaMapComponent.create({
 				url: $a.data('map-url'),
 				imageSrc: $img.data('src'),
 				id: $a.data('map-id'),
@@ -203,7 +250,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 	/**
 	 * @desc handles expanding long tables, code taken from WikiaMobile
 	 */
-	handleInfoboxes: function () {
+	handleInfoboxes: function (): void {
 		var shortClass = 'short',
 			$infoboxes = $('table[class*="infobox"] tbody'),
 			body = window.document.body,
@@ -211,12 +258,12 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 
 		if ($infoboxes.length) {
 			$infoboxes
-				.filter(function () {
+				.filter(function (): boolean {
 					return this.rows.length > 6;
 				})
 				.addClass(shortClass)
 				.append('<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></td></tr>')
-				.on('click', function (event) {
+				.on('click', function (event): void {
 					var $target = $(event.target),
 						$this = $(this);
 
@@ -241,7 +288,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 			$infoboxes = this.$('.portable-infobox'),
 			body = window.document.body,
 			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
-			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`
+			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`;
 
 		if ($infoboxes.length) {
 			$infoboxes
@@ -316,6 +363,21 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 		});
 	},
 
+	/**
+	 * @desc Returns true if handleMedia() should be executed
+	 * @param {EventTarget} target
+	 * @param {string} tagName clicked tag name
+	 * @returns {boolean}
+	 */
+	shouldHandleMedia: function (target: EventTarget, tagName: string): boolean {
+		return (tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0;
+	},
+
+	/**
+	 * Opens media lightbox for given target
+	 *
+	 * @param target
+	 */
 	handleMedia: function (target: HTMLElement): void {
 		var $target = $(target),
 			galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
@@ -345,49 +407,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ClickHandlerMixin, App.Langua
 			}
 		} else {
 			Em.Logger.debug('Missing ref on', target);
-		}
-	},
-
-	hammerOptions: {
-		touchAction: 'auto',
-		cssProps: {
-			/**
-			 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
-			 * 'default' displays the callout
-			 * 'none' disables the callout
-			 * hammer.js sets it to 'none' by default so we have to override
-			 */
-			touchCallout: 'default'
-		}
-	},
-
-	gestures: {
-		swipeLeft: function (event: JQueryEventObject): void {
-			// Track swipe events
-			if ($(event.target).parents('.article-table').length) {
-
-				M.track({
-					action: M.trackActions.swipe,
-					category: 'tables'
-				});
-			} else if ($(event.target).parents('.article-gallery').length) {
-				M.track({
-					action: M.trackActions.paginate,
-					category: 'gallery',
-					label: 'next'
-				});
-			}
-		},
-
-		swipeRight: function (event: JQueryEventObject): void {
-			// Track swipe events
-			if ($(event.target).parents('.article-gallery').length) {
-				M.track({
-					action: M.trackActions.paginate,
-					category: 'gallery',
-					label: 'previous'
-				});
-			}
 		}
 	}
 });
