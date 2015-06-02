@@ -8,19 +8,27 @@
 	position: fixed;
 	right: 0;
 	top: 0;
-	transition: opacity .3s;
 	z-index: $z-lightbox-wrapper;
 
-	&.opening {
-		opacity: 0;
-	}
-
 	&.open {
-		opacity: 1;
+		animation: fadeInFromNone .3s;
 	}
 
 	&:focus {
 		outline: 0;
+	}
+}
+
+// This is needed because we can't transform opacity from display: hidden in a regular way
+@keyframes fadeInFromNone {
+	0% {
+		opacity: 0;
+	}
+	1% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
 	}
 }
 
