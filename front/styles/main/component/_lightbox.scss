@@ -104,6 +104,10 @@
 	width: 100%;
 	z-index: $z-lightbox-footer;
 
+	&.expanded {
+		max-height: none;
+	}
+
 	&::after {
 		background: linear-gradient(top, transparent 10%, black 100%);
 		bottom: 0;
@@ -119,8 +123,4 @@
 	p {
 		margin: 0;
 	}
-}
-
-.lightbox-footer-expanded {
-	max-height: none;
 }

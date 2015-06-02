@@ -8,7 +8,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
 
-	lightboxFooterExpanded: false,
+	footerExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
 	header: null,
@@ -49,7 +49,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 			this.sendAction('closeLightbox');
 		},
 		toggleFooter: function (): void {
-			this.toggleProperty('lightboxFooterExpanded');
+			this.toggleProperty('footerExpanded');
 		},
 		toggleUI: function (): void {
 			this.toggleProperty('footerHidden');
