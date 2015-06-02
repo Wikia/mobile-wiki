@@ -19,6 +19,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	},
 
 	isZoomed: Em.computed.gt('scale', 1),
+	loadingError: false,
 
 	/**
 	 * @desc This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
@@ -251,7 +252,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 			});
 
 			image.addEventListener('error', (): void => {
-				this.sendAction('showError');
+				this.set('loadingError', true);
 			});
 		}
 	},

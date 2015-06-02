@@ -127,13 +127,6 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		}
 	},
 
-	actions: {
-		showError: function (): void {
-			//FIXME
-			this.set('lightboxComponent', null);
-		}
-	},
-
 	rightClickHandler: function(): boolean {
 		this.nextMedia();
 		return true;
