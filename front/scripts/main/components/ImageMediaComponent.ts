@@ -53,8 +53,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		get(): string {
 			var media: ArticleMedia = this.get('media'),
 				icon: boolean,
-				width: number,
-				mode: string;
+				mode: string,
+				width: number;
 
 			if (media) {
 				icon = this.get('isInfoboxIcon');

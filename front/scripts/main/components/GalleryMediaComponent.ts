@@ -56,19 +56,19 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				imageOrGalleryRef :
 				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
 			image: ArticleMedia,
-			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1);
+			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1),
+			icon = this.get('isInfoboxIcon'),
+			mode = Mercury.Modules.Thumbnailer.mode.topCrop,
+			width = thumbSize,
+			height = thumbSize;
 
 		for (; galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
-			var icon = this.get('isInfoboxIcon'),
-				mode = Mercury.Modules.Thumbnailer.mode.topCrop,
-				width = thumbSize,
-				height = thumbSize;
 
 			if (icon) {
-				height = this.get('infoboxIconSize.height');
-				width = Math.floor(height * image.get('width') / image.get('height'));
 				mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+				width = Math.floor(height * image.get('width') / image.get('height'));
+				height = this.get('infoboxIconSize.height');
 			}
 
 			image.setProperties({
@@ -81,7 +81,6 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			});
 		}
 	},
-
 
 	/**
 	 * Loads media and certain amount of images depending on the gallery width and thumbSize sets also onscroll handler

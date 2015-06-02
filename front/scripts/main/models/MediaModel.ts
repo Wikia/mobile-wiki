@@ -4,7 +4,7 @@
 interface ArticleMedia {
 	[index: string]: any;
 	caption: string;
-	context: string;
+	context?: string;
 	fileUrl: string;
 	height: number;
 	link: string;
