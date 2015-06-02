@@ -23,7 +23,7 @@ interface ServerData {
  *
  * @returns ServerData
  */
-function createServerData (wikiDomain: string): ServerData {
+function createServerData (wikiDomain: string = ''): ServerData {
 	return {
 		mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
 		apiBase: localSettings.apiBase,
