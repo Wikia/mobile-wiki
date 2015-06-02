@@ -119,7 +119,15 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		if (model) {
 			var title = model.get('cleanTitle');
 			document.title = title + ' - ' + Mercury.wiki.siteName;
-			$('#metaDescription').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
+
+
+			if ($('meta[name="description"]').length == 0) {
+				var metaTag = $(document.createElement('meta'));
+				metaTag.attr('name', 'description');
+				metaTag.insertAfter($('meta[name="keywords"]'));
+			}
+
+			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
 		}
 	}),
 
