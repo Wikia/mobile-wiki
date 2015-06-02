@@ -122,22 +122,18 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				});
 		},
 
+		// We need to proxy these actions because of the way Ember is bubbling them up through routes
+		// see http://emberjs.com/images/template-guide/action-bubbling.png
+		handleLightbox: function () {
+			this.get('controller').send('handleLightbox');
+		},
+
 		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
-			this.get('controller').setProperties({
-				lightboxModel: lightboxModel,
-				lightboxType: lightboxType,
-				noScroll: true
-			});
+			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
 		},
 
 		closeLightbox: function (): void {
-			this.get('controller').setProperties({
-				lightboxModel: null,
-				lightboxType: null,
-				file: null,
-				map: null,
-				noScroll: false
-			});
+			this.get('controller').send('closeLightbox');
 		},
 
 		// This is used only in not-found.hbs template

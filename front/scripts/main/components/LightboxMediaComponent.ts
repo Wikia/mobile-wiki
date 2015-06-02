@@ -15,7 +15,13 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	 * @return object
 	 */
 	current: Em.computed('model.media', 'model.mediaRef', function (): ArticleMedia {
-		return this.get('model.media').find(this.get('model.mediaRef'));
+		var mediaModel: typeof App.MediaModel = this.get('model.media');
+		if (mediaModel instanceof App.MediaModel) {
+			return mediaModel.find(this.get('model.mediaRef'));
+		} else {
+			Em.Logger.error('Media model is not an instance of App.MediaModel');
+			return null;
+		}
 	}),
 
 	/**
@@ -33,7 +39,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		}
 	}),
 
-	currentGalleryRef: Em.computed('model.media.galleryRef', {
+	currentGalleryRef: Em.computed('model.galleryRef', {
 		get(): number {
 			return this.get('model.galleryRef') || 0;
 		},
@@ -160,7 +166,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	},
 
 	nextMedia: function (): void {
-		this.get('controller').incrementProperty('currentGalleryRef');
+		this.incrementProperty('currentGalleryRef');
 
 		M.track({
 			action: M.trackActions.paginate,
@@ -170,7 +176,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	},
 
 	prevMedia: function (): void {
-		this.get('controller').decrementProperty('currentGalleryRef');
+		this.decrementProperty('currentGalleryRef');
 
 		M.track({
 			action: M.trackActions.paginate,

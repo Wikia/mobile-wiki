@@ -21,7 +21,7 @@ App.ClickHandlerMixin = Em.Mixin.create({
 
 		return (
 			$target.closest('.mw-content').length &&
-				// ignore polldaddy content
+			// ignore polldaddy content
 			!$target.closest('.PDS_Poll').length
 		);
 	},

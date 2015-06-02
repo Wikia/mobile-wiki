@@ -5,6 +5,9 @@
 
 App.ArticleController = Em.Controller.extend({
 	needs: ['application'],
+	queryParams: [{
+		commentsPage: 'comments_page'
+	}],
 	noAds: Em.computed.alias('controllers.application.noAds'),
 
 	init: function (): void {
@@ -32,37 +35,7 @@ App.ArticleController = Em.Controller.extend({
 		},
 
 		articleRendered: function () {
-			var file = this.get('controllers.application.file'),
-				map = this.get('controllers.application.map');
-
-			if (!Em.isEmpty(file)) {
-				this.openLightboxForMedia(file);
-			} else if (!Em.isEmpty(map)) {
-				this.openLightboxForMap(map);
-			}
+			this.send('handleLightbox');
 		}
-	},
-
-	openLightboxForMedia (file: string): void {
-		var mediaModel: typeof App.MediaModel = this.get('model.media'),
-			lightboxMediaRefs = mediaModel.getRefsForLightboxByTitle(M.String.normalize(file));
-
-		if (!Em.isEmpty(lightboxMediaRefs.mediaRef)) {
-			this.send('openLightbox', 'media', {
-				media: mediaModel,
-				mediaRef: lightboxMediaRefs.mediaRef,
-				galleryRef: lightboxMediaRefs.galleryRef
-			});
-		}
-	},
-
-	openLightboxForMap: function (map: string): void {
-		var $map = Em.$(`a[data-map-id=${map}]`);
-
-		this.send('openLightbox', 'map', {
-			title: $map.data('map-title'),
-			url: $map.data('map-url'),
-			id: $map.data('map-id')
-		});
 	}
 });
