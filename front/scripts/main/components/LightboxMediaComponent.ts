@@ -2,8 +2,7 @@
 'use strict';
 
 App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
-	// FIXME: lightbox-content is duplicated as a temp styling fix
-	classNames: ['lightbox-media', 'lightbox-content'],
+	classNames: ['lightbox-media', 'lightbox-content-inner'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
