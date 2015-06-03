@@ -80,7 +80,7 @@ module Caching {
 	}
 
 	/**
-	 * Disables use of cache in the responce
+	 * Disables use of cache in the response
 	 * @param response
 	 */
 	export function disableCache (response: Hapi.Response): void {
