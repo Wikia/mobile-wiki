@@ -54,11 +54,7 @@ module Mercury.Modules.Trackers {
 			if (overwrite) {
 				this.dimensions = dimensions;
 			} else {
-				for (var key in dimensions) {
-					if (dimensions.hasOwnProperty(key)) {
-						this.dimensions[key] = dimensions[key];
-					}
-				}
+				$.extend(this.dimensions, dimensions);
 			}
 
 			return true;

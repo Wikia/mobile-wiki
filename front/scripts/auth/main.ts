@@ -1,23 +1,15 @@
 /// <reference path='../baseline/mercury.ts' />
 /// <reference path='../mercury/utils/track.ts' />
 
-window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement = window.document.querySelector('form'),
-		UA = Mercury.Modules.Trackers.UniversalAnalytics,
-		dimensions: (string|Function)[] = [];
-
+(function () {
+document.addEventListener('DOMContentLoaded', function ():void {
+	var formElement = document.querySelector('form');
 	new Form(formElement).watch();
 	new SubmitValidator(formElement).watch();
 
-	// Skin
-	dimensions[4] = 'mercury';
-	// LoginStatus
-	dimensions[5] = 'anon';
-	// IsCorporatePage
-	dimensions[15] = 'No';
-	UA.setDimensions(dimensions);
+	setTrackingDimensions();
 
-	if (window.document.querySelector('small.error') !== null) {
+	if (document.querySelector('small.error') !== null) {
 		// An error occurred while logging in
 		Mercury.Utils.track({
 			trackingMethod: 'ga',
@@ -28,10 +20,21 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 	}
 });
 
+function setTrackingDimensions (): void {
+	var dimensions: (string|Function)[] = [];
+	// Skin
+	dimensions[4] = 'mercury';
+	// LoginStatus
+	dimensions[5] = 'anon';
+	// IsCorporatePage
+	dimensions[15] = 'No';
+	Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
+}
+
 // Event Tracking
 
 // Click "Sign In" button
-window.document.querySelector('#loginSubmit').addEventListener('click', function (): void {
+document.querySelector('#loginSubmit').addEventListener('click', function (): void {
 	Mercury.Utils.track({
 		trackingMethod: 'ga',
 		action: Mercury.Utils.trackActions.click,
@@ -41,7 +44,7 @@ window.document.querySelector('#loginSubmit').addEventListener('click', function
 });
 
 // Click X to "close" log-in form
-window.document.querySelector('.close').addEventListener('click', function (): void {
+document.querySelector('.close').addEventListener('click', function (): void {
 	Mercury.Utils.track({
 		trackingMethod: 'ga',
 		action: Mercury.Utils.trackActions.close,
@@ -51,7 +54,7 @@ window.document.querySelector('.close').addEventListener('click', function (): v
 });
 
 // Click "Forgot Password" link
-window.document.querySelector('.forgotten-password').addEventListener('click', function (): void {
+document.querySelector('.forgotten-password').addEventListener('click', function (): void {
 	Mercury.Utils.track({
 		trackingMethod: 'ga',
 		action: Mercury.Utils.trackActions.click,
@@ -61,7 +64,7 @@ window.document.querySelector('.forgotten-password').addEventListener('click', f
 });
 
 // Click "Register Now" link
-window.document.querySelector('.footer-callout-link').addEventListener('click', function (): void {
+document.querySelector('.footer-callout-link').addEventListener('click', function (): void {
 	M.track({
 		trackingMethod: 'ga',
 		action: M.trackActions.click,
@@ -69,4 +72,5 @@ window.document.querySelector('.footer-callout-link').addEventListener('click', 
 		label: 'register-link'
 	});
 });
+})();
 
