@@ -59,17 +59,17 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			if (media) {
 				icon = this.get('isInfoboxIcon');
 				if (icon) {
-					width = this.get('width');
 					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+					width = this.get('width');
 				} else {
-					width = this.get('articleContent.width');
 					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
+					width = this.get('articleContent.width');
 				}
 
 				return this.getThumbURL(media.url, {
 					mode: mode,
-					width: width,
-					height: this.get('computedHeight')
+					height: this.get('computedHeight'),
+					width: width
 				});
 			}
 
@@ -79,8 +79,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		set(key: string, value: string): string {
 			return this.getThumbURL(value, {
 				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-				width: this.get('articleContent.width'),
-				height: this.get('computedHeight')
+				height: this.get('computedHeight'),
+				width: this.get('articleContent.width')
 			});
 		}
 	}),

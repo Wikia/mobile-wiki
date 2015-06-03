@@ -60,8 +60,8 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			//if this gallery is inside infobox it has to be set of icons
 			setOfIcons = this.isInsideInfobox(),
 			mode = Mercury.Modules.Thumbnailer.mode.topCrop,
-			width = thumbSize,
-			height = thumbSize;
+			height = thumbSize,
+			width = thumbSize;
 
 		for (; galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
@@ -75,8 +75,8 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			image.setProperties({
 				thumbUrl: this.getThumbURL(image.url, {
 					mode: mode,
-					width: width,
-					height: height
+					height: height,
+					width: width
 				}),
 				load: true
 			});

@@ -4,7 +4,6 @@
 interface ArticleMedia {
 	[index: string]: any;
 	caption: string;
-	context?: string;
 	fileUrl: string;
 	height: number;
 	link: string;
@@ -13,6 +12,7 @@ interface ArticleMedia {
 	url: string;
 	user: string;
 	width: number;
+	context?: string;
 }
 
 App.MediaModel = Em.Object.extend({

@@ -82,7 +82,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	}),
 
 	isInsideInfobox: function(): boolean {
-		return $('.portable-infobox').find(this.element).length > 0;
+		return this.$().closest('.portable-infobox').length > 0;
 	},
 
 	/**
