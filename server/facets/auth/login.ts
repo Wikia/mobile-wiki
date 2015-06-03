@@ -101,7 +101,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	var redirect: string = request.query.redirect || '/',
 		context: LoginViewContext = getLoginContext(redirect);
 
-	if (request.auth.isAuthenticated) {
+	if (request.state.access_token) {
 		return reply.redirect(redirect);
 	}
 
