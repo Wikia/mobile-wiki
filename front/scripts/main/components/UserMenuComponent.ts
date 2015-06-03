@@ -2,7 +2,6 @@
 'use strict';
 
 App.UserMenuComponent = Em.Component.extend({
-	tagName: 'div',
 	classNames: ['user-menu'],
 	classNameBindings: ['isCollapsed:collapsed:visible'],
 
