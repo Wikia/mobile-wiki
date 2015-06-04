@@ -1,8 +1,8 @@
 {{svg 'wikia-logo-white' viewBox='0 0 152 42' role='img' class='logo'}}
-<ul class='footer-links mw-content'>
+<ul class='footer-links'>
 	{{#each link in links}}
 		<li class='{{unbound link.className}}'>
-			<a href='{{unbound link.href}}' {{action 'trackClick' 'footer' link.text}} class='external'>{{i18n 'app' link.text}}</a>
+			<a href='{{unbound link.href}}' {{action 'trackClickAndFollow' link.href 'footer' link.text}} class='external'>{{i18n 'app' link.text}}</a>
 		</li>
 	{{/each}}
 </ul>
