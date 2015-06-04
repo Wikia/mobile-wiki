@@ -16,12 +16,21 @@ App.TrackClickMixin = Em.Mixin.create({
 		trackClick: function (category: string, label: string = '', isNonInteractive: boolean = true): void {
 			this.trackClick(category, label, isNonInteractive);
 		},
-		trackClickAndFollow: function (url: string, category: string, label: string = '', isNonInteractive: boolean = true): void {
+		trackClickAndFollow: function (
+			url: string, category: string,
+			label: string = '',
+			isNonInteractive: boolean = true,
+			newTab: boolean = false
+		): void {
 			this.trackClick(category, label, isNonInteractive);
 			if (!url) {
 				throw new Error('trackClickAndFollow needs an href to follow')
 			}
-			window.location.assign(url);
+			if (newTab) {
+				window.open(url);
+			} else {
+				window.location.assign(url);
+			}
 		}
 	}
 });
