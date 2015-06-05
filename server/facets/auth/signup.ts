@@ -6,6 +6,7 @@ interface SignupViewContext {
 	headerText?: string;
 	exitTo?: string;
 	bodyClasses?: string;
+	language: string;
 	loadScripts?: boolean;
 	i18nContext?: any;
 	footerLinkRoute?: string;
@@ -27,6 +28,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		heliosRegistrationURL: localSettings.helios.host + 'register',
 		footer: 'auth:signup.footer',
 		title: 'auth:join.sign-up-with-email',
+		language: request.server.methods.i18n.getInstance().lng(),
 		loadScripts: true,
 		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),

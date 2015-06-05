@@ -77,7 +77,7 @@ class SignupForm {
 	}
 
 	private translateValidationError(errCode: string) {
-		return i18n.t(errCode);
+		return i18n.t('errors.' + errCode);
 	}
 
 	private onSubmit(event: Event) {

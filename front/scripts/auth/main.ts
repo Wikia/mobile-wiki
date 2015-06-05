@@ -1,21 +1,13 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
-
-var resources = <IResourceStore> {
-	en: { translation: {
-		'email_already_exists': 'Email is already registered on Wikia',
-		'email_invalid': 'Email is not valid',
-		'registration_error': 'We can not complete your registration at this time.'
-	} },
-
-	// TODO move to translations file
-};
+declare var translations: any;
+declare var language: string;
 
 i18n.init(<I18nextOptions> {
-	detectLngQS: 'uselang',
 	fallbackLng: 'en',
-	lng: 'en',
+	lng: language,
 	lowerCaseLng: true,
-	resStore: resources,
+	ns: 'auth-front',
+	resStore: translations,
 	useLocalStorage: false,
 });
 
