@@ -16,6 +16,7 @@ interface HeliosRegisterInput {
 
 class SignupForm {
 	form: HTMLFormElement;
+	formValidationErrors: Array<string> = ['email_blocked'];
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -37,21 +38,45 @@ class SignupForm {
 	private clearValidationErrors() {
 		var errorNodes = this.form.querySelectorAll('.error');
 
-		Array.prototype.forEach.call( errorNodes, function( node: Node ) {
-			node.parentNode.removeChild( node );
+		Array.prototype.forEach.call( errorNodes, function( node: HTMLElement ) {
+			if (node.tagName == 'INPUT') {
+				node.classList.remove('error');
+			} else {
+				node.parentNode.removeChild( node );
+			}
 		});
 	}
 
-	private displayValidationError(errors: Array<HeliosError>) {
+	private displayValidationErrors(errors: Array<HeliosError>) {
 		Array.prototype.forEach.call( errors, (function( err: HeliosError ) {
-			var errorNode = window.document.createElement('small');
-			errorNode.classList.add('error');
-			errorNode.appendChild(window.document.createTextNode(this.translateValidationError(err.description)));
-			this.form.elements[err.additional.field].parentNode.appendChild(errorNode);
+			if (this.formValidationErrors.indexOf(err.description) === -1) {
+				this.displayFieldValidationError(err);
+			} else {
+				this.displayFormValidationError();
+			}
 		}).bind(this));
 	}
 
-	private translateValidationError(errCode: String) {
+	private displayFieldValidationError(err: HeliosError) {
+		var errorNode : HTMLElement = this.createValidationErrorHTMLNode(err.description),
+			input : HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field];
+		input.parentNode.appendChild(errorNode);
+		input.classList.add('error');
+	}
+
+	private displayFormValidationError() {
+		var errorNode : HTMLElement = this.createValidationErrorHTMLNode('registration_error');
+		this.form.appendChild(errorNode);
+	}
+
+	private createValidationErrorHTMLNode(errorDescription: string) {
+		var errorNode : HTMLElement = window.document.createElement('small');
+		errorNode.classList.add('error');
+		errorNode.appendChild(window.document.createTextNode(this.translateValidationError(errorDescription)));
+		return errorNode;
+	}
+
+	private translateValidationError(errCode: string) {
 		return i18n.t(errCode);
 	}
 
@@ -75,12 +100,12 @@ class SignupForm {
 			}
 
 			if (xhr.status === 400) {
-				this.displayValidationError(JSON.parse(xhr.responseText).errors);
+				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
 				return;
 			}
+
 			if (xhr.status !== 200) {
-			// TODO error handling
-				alert('some error!');
+				this.displayFormValidationError();
 				return;
 			}
 
