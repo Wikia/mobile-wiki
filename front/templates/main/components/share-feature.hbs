@@ -1,8 +1,16 @@
 {{#if isJapaneseBrowser}}
-	<a {{action 'trackClickAndFollow' lineShare 'share' 'line' true true}} href={{lineShare}}>{{svg 'line' role='img' class='icon line'}}</a>
+	<a target="_blank" {{action 'trackClick' 'share' 'line' true preventDefault=false}} href="{{lineShare}}">
+		{{svg 'line' role='img' class='icon line'}}
+	</a>
 {{/if}}
-<a {{action 'trackClickAndFollow' facebookShare 'share' 'fb' true true}} href={{facebookShare}}>{{svg 'fb' role='img' class='icon fb'}}</a>
-<a {{action 'trackClickAndFollow' twitterShare 'share' 'twitter' true true}} href={{twitterShare}}>{{svg 'twitter' role='img' class='icon twitter'}}</a>
+<a target="_blank" {{action 'trackClick' 'share' 'fb' true preventDefault=false}} href="{{facebookShare}}">
+	{{svg 'fb' role='img' class='icon fb'}}
+</a>
+<a target="_blank" {{action 'trackClick' 'share' 'twitter' true preventDefault=false}} href="{{twitterShare}}">
+	{{svg 'twitter' role='img' class='icon twitter'}}
+</a>
 {{#if isJapaneseBrowser}}
-	<a {{action 'trackClickAndFollow' googleShare 'share' 'google' true true}} href={{googleShare}}>{{svg 'google' role='img' class='icon google'}}</a>
+	<a target="_blank" {{action 'trackClick' 'share' 'google' true preventDefault=false}} href="{{googleShare}}">
+		{{svg 'google' role='img' class='icon google'}}
+	</a>
 {{/if}}
