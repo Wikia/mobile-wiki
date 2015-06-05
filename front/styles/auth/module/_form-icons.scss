@@ -21,12 +21,6 @@
 	}
 }
 
-@keyframes spin {
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
 .password-toggler {
 	background-image: url('/front/images/eye-crossed.svg');
 

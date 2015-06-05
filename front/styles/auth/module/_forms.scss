@@ -67,3 +67,17 @@ input[type='date'] {
 		}
 	}
 }
+
+button[type="submit"].on {
+	&::before {
+		background: url("/front/images/loading.svg") center no-repeat;
+		content: " ";
+		display: block;
+		height: 40px;
+		animation: spin 1s linear infinite;
+	}
+
+	span {
+		display: none;
+	}
+}

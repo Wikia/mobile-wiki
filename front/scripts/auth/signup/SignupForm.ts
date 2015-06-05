@@ -89,15 +89,20 @@ class SignupForm {
 				email: (<HTMLInputElement> formElements.namedItem('email')).value,
 				birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
 				// TODO add langCode
-			};
+			},
+			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button');
 
+		submitButton.setAttribute('disabled', 'disabled');
+		submitButton.classList.add('on');
 		this.clearValidationErrors();
 
 		xhr.onreadystatechange = (function() {
 			if(xhr.readyState < 4) {
-				// TODO throbbing
 				return;
 			}
+
+			submitButton.removeAttribute('disabled');
+			submitButton.classList.remove('on');
 
 			if (xhr.status === 400) {
 				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
