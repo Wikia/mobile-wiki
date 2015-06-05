@@ -153,21 +153,12 @@ export class ArticleRequest {
 	 * @return {Promise<any>}
 	 */
 	randomTitle (): Promise<any> {
-		var url = "";
-		if (this.wikiDomain.indexOf('community') > -1) {
-			url = createUrl(this.wikiDomain, 'api.php', {
-				action: 'query',
-				generator: 'random',
-				format: 'json'
-			});
-		} else {
-			url = createUrl(this.wikiDomain, 'api.php', {
-				action: 'query',
-				generator: 'random',
-				grnnamespace: 0,
-				format: 'json'
-			});
-		}
+		var url = createUrl(this.wikiDomain, 'api.php', {
+			action: 'query',
+			generator: 'random',
+			grnnamespace: 0,
+			format: 'json'
+		});
 
 		return fetch(url, this.wikiDomain);
 	}
