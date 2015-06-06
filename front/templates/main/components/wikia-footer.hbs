@@ -2,7 +2,7 @@
 <ul class="footer-links">
 	{{#each link in links}}
 		<li class="{{unbound link.className}}">
-			<a {{bind-attr href=link.href}} {{action 'trackClick' 'footer' link.text preventDefault=false}}	class="external">
+			<a href="{{unbound link.href}}" {{action 'trackClick' 'footer' link.text preventDefault=false}}	class="external">
 				{{i18n 'app' link.text}}
 			</a>
 		</li>
