@@ -16,7 +16,8 @@ interface HeliosRegisterInput {
 
 class SignupForm {
 	form: HTMLFormElement;
-	formValidationErrors: Array<string> = ['email_blocked'];
+	generalValidationErrors: Array<string> = ['email_blocked', 'username_unavailable', 'birthdate_below_min_age'];
+	generalValidationErrorShown: boolean = false;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -45,14 +46,15 @@ class SignupForm {
 				node.parentNode.removeChild( node );
 			}
 		});
+		this.generalValidationErrorShown = false;
 	}
 
 	private displayValidationErrors(errors: Array<HeliosError>) {
 		Array.prototype.forEach.call( errors, (function( err: HeliosError ) {
-			if (this.formValidationErrors.indexOf(err.description) === -1) {
+			if (this.generalValidationErrors.indexOf(err.description) === -1) {
 				this.displayFieldValidationError(err);
 			} else {
-				this.displayFormValidationError();
+				this.displayGeneralValidationError();
 			}
 		}).bind(this));
 	}
@@ -64,9 +66,12 @@ class SignupForm {
 		input.classList.add('error');
 	}
 
-	private displayFormValidationError() {
-		var errorNode : HTMLElement = this.createValidationErrorHTMLNode('registration_error');
-		this.form.appendChild(errorNode);
+	private displayGeneralValidationError() {
+		if (!this.generalValidationErrorShown) {
+			var errorNode : HTMLElement = this.createValidationErrorHTMLNode('registration_error');
+			this.form.insertBefore(errorNode, this.form.querySelector('#signupNewsletter').parentNode);
+			this.generalValidationErrorShown = true;
+		}
 	}
 
 	private createValidationErrorHTMLNode(errorDescription: string) {
@@ -110,7 +115,7 @@ class SignupForm {
 			}
 
 			if (xhr.status !== 200) {
-				this.displayFormValidationError();
+				this.displayGeneralValidationError();
 				return;
 			}
 
