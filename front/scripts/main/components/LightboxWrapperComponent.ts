@@ -48,6 +48,12 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		close: function (): void {
 			this.sendAction('closeLightbox');
 		},
+		setFooter: function (footer: string): void {
+			this.set('footer', footer);
+		},
+		setHeader: function (header: string): void {
+			this.set('header', header);
+		},
 		toggleFooter: function (): void {
 			this.toggleProperty('footerExpanded');
 		},

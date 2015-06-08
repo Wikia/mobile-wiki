@@ -75,8 +75,8 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	}),
 
 	modelObserver: Em.observer('model', 'currentMedia', function (): void {
-		this.setHeader();
-		this.setFooter();
+		this.updateHeader();
+		this.updateFooter();
 
 		this.set('queryParamFile', M.String.sanitize(this.get('currentMedia.title')));
 	}).on('didInsertElement'),
@@ -168,17 +168,17 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		});
 	},
 
-	setHeader: function (): void {
+	updateHeader: function (): void {
 		var header: string = null;
 
 		if (this.get('isGallery')) {
 			header = (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
 		}
 
-		this.set('header', header);
+		this.sendAction('setHeader', header);
 	},
 
-	setFooter: function (): void {
+	updateFooter: function (): void {
 		var currentMedia: ArticleMedia = this.get('currentMedia'),
 			footer: typeof Handlebars.SafeString = null;
 
@@ -186,6 +186,6 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 			footer = currentMedia.caption.htmlSafe();
 		}
 
-		this.set('footer', footer);
+		this.sendAction('setFooter', footer);
 	}
 });

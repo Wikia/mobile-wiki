@@ -5,6 +5,6 @@ App.LightboxAdsComponent = Em.Component.extend({
 	classNames: ['lightbox-ads', 'lightbox-content-inner'],
 
 	didInsertElement: function (): void {
-		this.set('header', 'Advertisement');
+		this.sendAction('setHeader', 'Advertisement');
 	}
 });
