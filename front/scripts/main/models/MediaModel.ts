@@ -12,6 +12,7 @@ interface ArticleMedia {
 	url: string;
 	user: string;
 	width: number;
+	context?: string;
 }
 
 App.MediaModel = Em.Object.extend({
