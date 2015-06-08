@@ -17,7 +17,7 @@ interface HeliosRegisterInput {
 class SignupForm {
 	form: HTMLFormElement;
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_unavailable', 'birthdate_below_min_age'];
-	generalValidationErrorShown: boolean = false;
+	generalErrorShown: boolean = false;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -46,7 +46,7 @@ class SignupForm {
 				node.parentNode.removeChild( node );
 			}
 		});
-		this.generalValidationErrorShown = false;
+		this.generalErrorShown = false;
 	}
 
 	private displayValidationErrors(errors: Array<HeliosError>) {
@@ -54,7 +54,7 @@ class SignupForm {
 			if (this.generalValidationErrors.indexOf(err.description) === -1) {
 				this.displayFieldValidationError(err);
 			} else {
-				this.displayGeneralValidationError();
+				this.displayGeneralError();
 			}
 		}).bind(this));
 	}
@@ -66,11 +66,11 @@ class SignupForm {
 		input.classList.add('error');
 	}
 
-	private displayGeneralValidationError() {
-		if (!this.generalValidationErrorShown) {
+	private displayGeneralError() {
+		if (!this.generalErrorShown) {
 			var errorNode : HTMLElement = this.createValidationErrorHTMLNode('registration_error');
 			this.form.insertBefore(errorNode, this.form.querySelector('#signupNewsletter').parentNode);
-			this.generalValidationErrorShown = true;
+			this.generalErrorShown = true;
 		}
 	}
 
@@ -115,7 +115,7 @@ class SignupForm {
 			}
 
 			if (xhr.status !== 200) {
-				this.displayGeneralValidationError();
+				this.displayGeneralError();
 				return;
 			}
 
