@@ -5,7 +5,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
 		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
-		<meta name="description" content="{{article.article.description}}">
+		{{#if article.article.description}}
+			<meta name="description" content="{{article.article.description}}">
+		{{/if}}
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 		{{#if themeColor}}
 		<meta name="theme-color" content="{{themeColor}}">

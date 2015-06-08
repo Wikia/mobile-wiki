@@ -115,8 +115,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 
 	modelObserver: Em.observer('controller.model', function (): void {
 		var model = this.get('controller.model');
+
 		if (model) {
-			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
+			var title = model.get('cleanTitle');
+			document.title = title + ' - ' + Mercury.wiki.siteName;
+
+			if ($('meta[name="description"]').length === 0) {
+				var $metaTag = $(document.createElement('meta'));
+				$metaTag.attr('name', 'description');
+				$metaTag.insertAfter($('meta[name="keywords"]'));
+			}
+
 			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
 		}
 	}),
