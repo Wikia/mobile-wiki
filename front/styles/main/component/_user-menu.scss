@@ -19,11 +19,6 @@
 		width: 100%;
 		z-index: $z-side-nav;
 
-		li {
-			background-color: #fff;
-			border-bottom: rem-calc(1) solid #d0d0d0;
-		}
-
 		a {
 			@extend .touch-active;
 			display: block;
@@ -31,6 +26,11 @@
 			padding: rem-calc(10) $side-nav-item-gutter;
 			text-overflow: ellipsis;
 			width: 100%;
+		}
+
+		li {
+			background-color: #fff;
+			border-bottom: rem-calc(1) solid #d0d0d0;
 		}
 	}
 
