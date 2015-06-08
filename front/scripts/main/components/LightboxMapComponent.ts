@@ -5,9 +5,8 @@ App.LightboxMapComponent = Em.Component.extend({
 	classNames: ['lightbox-map', 'lightbox-content-inner'],
 
 	modelObserver: Em.observer('model', function (): void {
-		this.sendAction('setHeader', this.get('model.title'));
-		this.setProperties({
-			queryParamMap: this.get('model.id')
-		});
+		var model = this.get('model');
+		this.sendAction('setHeader', model.title);
+		this.sendAction('setQueryParam', 'map', model.id);
 	}).on('didInsertElement')
 });

@@ -78,7 +78,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		this.updateHeader();
 		this.updateFooter();
 
-		this.set('queryParamFile', M.String.sanitize(this.get('currentMedia.title')));
+		this.sendAction('setQueryParam', 'file', M.String.sanitize(this.get('currentMedia.title')));
 	}).on('didInsertElement'),
 
 	didInsertElement: function (): void {

@@ -54,6 +54,9 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		setHeader: function (header: string): void {
 			this.set('header', header);
 		},
+		setQueryParam: function (name: string, value: any): void {
+			this.sendAction('setQueryParam', name, value);
+		},
 		toggleFooter: function (): void {
 			this.toggleProperty('footerExpanded');
 		},

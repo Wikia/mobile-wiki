@@ -5,7 +5,7 @@
 		</section>
 	</div>
 	{{outlet 'lightbox'}}
-{{else if fullPage}}
+{{elseif fullPage}}
 	{{outlet}}
 {{else}}
 	{{smart-banner isVisible=view.smartBannerVisible}}
@@ -26,9 +26,8 @@
 	{{lightbox-wrapper
 		type=lightboxType
 		model=lightboxModel
-		queryParamFile=file
-		queryParamMap=map
 		closeLightbox='closeLightbox'
+		setQueryParam='setQueryParam'
 	}}
 {{/if}}
 {{alert-notifications alerts=view.alertNotifications}}

@@ -81,6 +81,27 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 				map: null,
 				noScroll: false
 			});
+		},
+
+		/**
+		 * @desc Sets query param with given name to given value. Uses whitelist.
+		 *
+		 * @param name
+		 * @param value
+		 */
+		setQueryParam: function (name: string, value: any): void {
+			var queryParamsWhitelist = ['file', 'map'];
+
+			if (queryParamsWhitelist.indexOf(name) === -1) {
+				Em.Logger.error('Something tried to set query param that is not on the whitelist', {
+					name: name,
+					value: value,
+					whitelist: queryParamsWhitelist
+				});
+				return;
+			}
+
+			this.set(name, value);
 		}
 	},
 
