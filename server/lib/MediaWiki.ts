@@ -11,21 +11,34 @@ import Logger = require('./Logger');
 import Wreck = require('wreck');
 import Promise = require('bluebird');
 
-/**
- * Wrapper class for making API search requests
- */
-export class SearchRequest {
+interface MWRequestParams {
 	wikiDomain: string;
+	headers?: any;
+}
+
+class BaseRequest {
+	wikiDomain: string;
+	headers: any;
 
 	/**
 	 * Search request constructor
 	 *
 	 * @param params
 	 */
-	constructor (params: {wikiDomain: string}) {
+	constructor (params: MWRequestParams) {
 		this.wikiDomain = params.wikiDomain;
+		this.headers = params.headers;
 	}
 
+	fetch(url: string): any {
+		return fetch(url, this.wikiDomain, this.headers);
+	}
+}
+
+/**
+ * Wrapper class for making API search requests
+ */
+export class SearchRequest extends BaseRequest {
 	/**
 	 * Default parameters to make the request url clean -- we may
 	 * want to customize later
@@ -39,7 +52,7 @@ export class SearchRequest {
 			query: query
 		});
 
-		return fetch(url, this.wikiDomain);
+		return this.fetch(url);
 	}
 }
 
@@ -47,18 +60,7 @@ export class SearchRequest {
  * @desc a wrapper for making API requests for info about the wiki
  *
  */
-export class WikiRequest {
-	wikiDomain: string;
-
-	/**
-	 * WikiRequest constructor
-	 *
-	 * @param params
-	 */
-	constructor (params: {wikiDomain: string}) {
-		this.wikiDomain = params.wikiDomain;
-	}
-
+export class WikiRequest extends BaseRequest {
 	/**
 	 * Gets general wiki information
 	 *
@@ -70,24 +72,14 @@ export class WikiRequest {
 			method: 'getWikiVariables'
 		});
 
-		return fetch(url, this.wikiDomain);
+		return this.fetch(url);
 	}
 }
 
 /**
  * Gets article data
  */
-export class ArticleRequest {
-	wikiDomain: string;
-
-	/**
-	 * ArticleRequest constructor
-	 * @param wikiDomain
-	 */
-	constructor (wikiDomain: string) {
-		this.wikiDomain = wikiDomain;
-	}
-
+export class ArticleRequest extends BaseRequest {
 	/**
 	 * Fetch article data
 	 *
@@ -107,7 +99,7 @@ export class ArticleRequest {
 		}
 		url = createUrl(this.wikiDomain, 'wikia.php', urlParams);
 
-		return fetch(url, this.wikiDomain);
+		return this.fetch(url);
 	}
 
 	comments (articleId: number, page: number = 0): Promise<any> {
@@ -118,7 +110,7 @@ export class ArticleRequest {
 			page: page
 		});
 
-		return fetch(url, this.wikiDomain);
+		return this.fetch(url);
 	}
 
 	curatedContentSection (sectionName: string): Promise<any> {
@@ -144,7 +136,7 @@ export class ArticleRequest {
 			category: categoryName
 		});
 
-		return fetch(url, this.wikiDomain);
+		return this.fetch(url);
 	}
 
 	/**
@@ -171,11 +163,12 @@ export class ArticleRequest {
  * @param redirects the number of redirects to follow, default 1
  * @return {Promise<any>}
  */
-export function fetch (url: string, host: string = '', redirects: number = 1): Promise<any> {
+export function fetch (url: string, host: string = '', redirects: number = 1, headers = {}): Promise<any> {
+	var forwardedHeaders = require('deep-extend')(headers, {'Host': host});
 	return new Promise((resolve: Function, reject: Function): void => {
 		Wreck.get(url, {
 			redirects: redirects,
-			headers: { 'Host': host },
+			headers: forwardedHeaders,
 			timeout: localSettings.backendRequestTimeout,
 			json: true
 		}, (err: any, response: any, payload: any): void => {

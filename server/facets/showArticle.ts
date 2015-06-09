@@ -16,29 +16,28 @@ var cachingTimes = {
 
 function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	var path: string = request.path,
-		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host);
+		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+		params = {
+			wikiDomain: wikiDomain,
+			redirect: request.query.redirect
+		},
+		article = new Article.ArticleRequestHelper(params);
+
 
 	if (path === '/' || path === '/wiki/') {
-		Article.getWikiVariables(wikiDomain, (error: any, wikiVariables: any) => {
+		article.getWikiVariables((error: any, wikiVariables: any) => {
 			if (error) {
 				// TODO check error.statusCode and react accordingly
 				reply.redirect(localSettings.redirectUrlOnNoData);
 			} else {
-				Article.getArticle({
-					wikiDomain: wikiDomain,
-					title: wikiVariables.mainPageTitle,
-					redirect: request.query.redirect
-				}, wikiVariables, (error: any, result: any = {}) => {
+				article.setTitle(wikiVariables.mainPageTitle);
+				article.getArticle(wikiVariables, (error: any, result: any = {}) => {
 					onArticleResponse(request, reply, error, result);
 				});
 			}
 		});
 	} else  {
-		Article.getFull({
-			wikiDomain: wikiDomain,
-			title: request.params.title,
-			redirect: request.query.redirect
-		}, (error: any, result: any = {}) => {
+		article.getFull((error: any, result: any = {}) => {
 			onArticleResponse(request, reply, error, result);
 		});
 	}

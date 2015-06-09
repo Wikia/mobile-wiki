@@ -1,7 +1,8 @@
 interface ArticleRequestParams {
 	wikiDomain: string;
-	title: string;
+	title?: string;
 	redirect?: any;
+	headers?: any;
 }
 
 interface SearchRequestParams {
