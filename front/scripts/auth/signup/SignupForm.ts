@@ -23,8 +23,8 @@ class SignupForm {
 		this.form = <HTMLFormElement> form;
 	}
 
-	private urlEncode(object: Object) {
-		var encodedString = '';
+	private urlEncode(object: Object): string {
+		var encodedString: string = '';
 		for (var prop in object) {
 			if (object.hasOwnProperty(prop)) {
 				if (encodedString.length > 0) {
@@ -36,8 +36,8 @@ class SignupForm {
 		return encodedString;
 	}
 
-	private clearValidationErrors() {
-		var errorNodes = this.form.querySelectorAll('.error');
+	private clearValidationErrors(): void {
+		var errorNodes: NodeList = this.form.querySelectorAll('.error');
 
 		Array.prototype.forEach.call( errorNodes, function( node: HTMLElement ) {
 			if (node.tagName == 'INPUT') {
@@ -49,7 +49,7 @@ class SignupForm {
 		this.generalErrorShown = false;
 	}
 
-	private displayValidationErrors(errors: Array<HeliosError>) {
+	private displayValidationErrors(errors: Array<HeliosError>): void {
 		Array.prototype.forEach.call( errors, (function( err: HeliosError ) {
 			if (this.generalValidationErrors.indexOf(err.description) === -1) {
 				this.displayFieldValidationError(err);
@@ -59,33 +59,33 @@ class SignupForm {
 		}).bind(this));
 	}
 
-	private displayFieldValidationError(err: HeliosError) {
-		var errorNode : HTMLElement = this.createValidationErrorHTMLNode(err.description),
-			input : HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field];
+	private displayFieldValidationError(err: HeliosError): void {
+		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
+			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field];
 		input.parentNode.appendChild(errorNode);
 		input.classList.add('error');
 	}
 
-	private displayGeneralError() {
+	private displayGeneralError(): void {
 		if (!this.generalErrorShown) {
-			var errorNode : HTMLElement = this.createValidationErrorHTMLNode('registration_error');
+			var errorNode: HTMLElement = this.createValidationErrorHTMLNode('registration_error');
 			this.form.insertBefore(errorNode, this.form.querySelector('#signupNewsletter').parentNode);
 			this.generalErrorShown = true;
 		}
 	}
 
-	private createValidationErrorHTMLNode(errorDescription: string) {
-		var errorNode : HTMLElement = window.document.createElement('small');
+	private createValidationErrorHTMLNode(errorDescription: string): HTMLElement {
+		var errorNode: HTMLElement = window.document.createElement('small');
 		errorNode.classList.add('error');
 		errorNode.appendChild(window.document.createTextNode(this.translateValidationError(errorDescription)));
 		return errorNode;
 	}
 
-	private translateValidationError(errCode: string) {
+	private translateValidationError(errCode: string): string {
 		return i18n.t('errors.' + errCode);
 	}
 
-	private onSubmit(event: Event) {
+	private onSubmit(event: Event): void {
 		var xhr = new XMLHttpRequest(),
 			formElements: HTMLCollection = this.form.elements,
 			data: HeliosRegisterInput = {
