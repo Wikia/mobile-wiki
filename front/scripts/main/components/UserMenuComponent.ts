@@ -8,7 +8,7 @@ App.UserMenuComponent = Em.Component.extend({
 	isCollapsed: true,
 
 	profileUrl: Em.computed(function (): string {
-		return '//community.wikia.com/wiki/User:' + Em.computed('userName');
+		return '//community.wikia.com/wiki/User:' + this.get('userName');
 	}),
 
 	logoutUrl: '/logout',
