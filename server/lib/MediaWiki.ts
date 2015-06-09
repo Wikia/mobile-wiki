@@ -14,11 +14,13 @@ import Promise = require('bluebird');
 interface MWRequestParams {
 	wikiDomain: string;
 	headers?: any;
+	redirects?: number;
 }
 
 class BaseRequest {
 	wikiDomain: string;
 	headers: any;
+	redirects: any;
 
 	/**
 	 * Search request constructor
@@ -31,7 +33,7 @@ class BaseRequest {
 	}
 
 	fetch(url: string): any {
-		return fetch(url, this.wikiDomain, this.headers);
+		return fetch(url, this.wikiDomain, this.redirects, this.headers);
 	}
 }
 
@@ -120,7 +122,7 @@ export class ArticleRequest extends BaseRequest {
 			section: sectionName
 		});
 
-		return fetch(url, this.wikiDomain);
+		return this.fetch(url);
 	}
 
 	category (categoryName: string, thumbSize: { width: number; height: number }): Promise<any> {
@@ -152,7 +154,7 @@ export class ArticleRequest extends BaseRequest {
 			format: 'json'
 		});
 
-		return fetch(url, this.wikiDomain);
+		return this.fetch(url);
 	}
 }
 
@@ -163,12 +165,13 @@ export class ArticleRequest extends BaseRequest {
  * @param redirects the number of redirects to follow, default 1
  * @return {Promise<any>}
  */
-export function fetch (url: string, host: string = '', redirects: number = 1, headers = {}): Promise<any> {
-	var forwardedHeaders = require('deep-extend')(headers, {'Host': host});
+export function fetch (url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
+	headers.Host = host;
+
 	return new Promise((resolve: Function, reject: Function): void => {
 		Wreck.get(url, {
 			redirects: redirects,
-			headers: forwardedHeaders,
+			headers: headers,
 			timeout: localSettings.backendRequestTimeout,
 			json: true
 		}, (err: any, response: any, payload: any): void => {

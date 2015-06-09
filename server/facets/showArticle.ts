@@ -1,4 +1,5 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
+/// <reference path="../lib/Article.ts" />
 
 import Article = require('../lib/Article');
 import Utils = require('../lib/Utils');
@@ -17,12 +18,19 @@ var cachingTimes = {
 function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	var path: string = request.path,
 		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
-		params = {
+		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			redirect: request.query.redirect
 		},
-		article = new Article.ArticleRequestHelper(params);
+		article: Article.ArticleRequestHelper;
 
+	if (request.state['wikicities_session']) {
+		params.headers = {
+			'wikicities_session': request.state['wikicities_session']
+		};
+	}
+
+	article = new Article.ArticleRequestHelper(params);
 
 	if (path === '/' || path === '/wiki/') {
 		article.getWikiVariables((error: any, wikiVariables: any) => {
@@ -37,6 +45,7 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 			}
 		});
 	} else  {
+		article.setTitle(request.params.title);
 		article.getFull((error: any, result: any = {}) => {
 			onArticleResponse(request, reply, error, result);
 		});

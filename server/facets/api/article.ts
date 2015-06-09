@@ -31,11 +31,19 @@ function isRequestForRandomTitle (query: any): boolean {
  */
 export function get (request: Hapi.Request,  reply: any): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
-		params = {
+		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			title: request.params.articleTitle,
 			redirect: request.params.redirect
 		},
+		article: Article.ArticleRequestHelper;
+
+		if (request.state['wikicities_session']) {
+			params.headers = {
+				'wikicities_session': request.state['wikicities_session']
+			};
+		}
+
 		article = new Article.ArticleRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
