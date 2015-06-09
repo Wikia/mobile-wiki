@@ -1,3 +1,7 @@
+## release-81 (2015-06-09 09:21 UTC)
+* [DAT-2858](https://wikia-inc.atlassian.net/browse/DAT-2858) DAT- 2858
+* [CONCF-553](https://wikia-inc.atlassian.net/browse/CONCF-553) CONCF-553 Add wikia stats module to Curated Main Page
+
 ## release-80 (2015-06-08 09:13 UTC)
 * task-update: change default destination
 * revert-887-HG-686: Revert "HG-686 removed namespace specifier from random page query for…
