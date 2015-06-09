@@ -32,6 +32,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		this.scheduleArticleTransforms();
 	},
 
+	willDestroyElement: function (): void {
+		this.destroy();
+	},
+
 	onModelChange: Em.observer('controller.model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender
@@ -47,8 +51,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 	},
 
 	articleContentObserver: function (): boolean {
+
+		alert('article render');
+
 		if (this.get('_state') !== 'inDOM') {
-			return false;
+		 	return false;
 		}
 
 		var model = this.get('controller.model'),

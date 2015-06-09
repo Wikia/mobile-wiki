@@ -23,6 +23,10 @@ App.Router.map(function () {
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
 
+	this.route('test', { // test route for debugging
+		path: 'test'
+	});
+
 	// We don't want to duplicate the previous route
 	if (articlePath !== '/') {
 		/*
