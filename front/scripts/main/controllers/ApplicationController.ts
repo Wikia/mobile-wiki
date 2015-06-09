@@ -15,7 +15,8 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		this.setProperties({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			language: Em.get(Mercury, 'wiki.language'),
-			editorPreview: Em.get(Mercury, 'article.preview')
+			editorPreview: Em.get(Mercury, 'article.preview'),
+			wikiaHomepageUrl: M.prop('wikiaHomepageUrl')
 		});
 
 		// This event is for tracking mobile sessions between Mercury and WikiaMobile
