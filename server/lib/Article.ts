@@ -3,13 +3,6 @@
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
 /// <reference path="../lib/Utils.ts" />
 
-export interface ArticleRequestParams {
-	wikiDomain: string;
-	title?: string;
-	redirect?: any;
-	headers?: any;
-}
-
 /**
  * @description Article controller
  */

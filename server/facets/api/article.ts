@@ -38,9 +38,9 @@ export function get (request: Hapi.Request,  reply: any): void {
 		},
 		article: Article.ArticleRequestHelper;
 
-		if (request.state['wikicities_session']) {
+		if (request.state.wikicities_session) {
 			params.headers = {
-				'wikicities_session': request.state['wikicities_session']
+				'Cookie': `wikicities_session=${request.state.wikicities_session}`
 			};
 		}
 

@@ -8,3 +8,10 @@ interface ArticleCommentsRequestParams {
 	articleId: number;
 	page: number;
 }
+
+interface ArticleRequestParams {
+	wikiDomain: string;
+	title?: string;
+	redirect?: any;
+	headers?: any;
+}
