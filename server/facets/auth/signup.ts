@@ -1,6 +1,6 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
+/// <reference path='./BirthdateInput.ts' />
 
-var i18n = require('i18next');
 var BirthdateInput = require('./BirthdateInput');
 
 interface SignupViewContext {
@@ -13,11 +13,13 @@ interface SignupViewContext {
 	footerLinkRoute?: string;
 	footerCalloutText?: string;
 	footerCalloutLink?: string;
+	birthdateInputs: Array<InputData>;
 }
 
 export function get (request: Hapi.Request, reply: any): void {
 	var context: SignupViewContext,
-		redirectUrl: string = request.query.redirect || '/';
+		redirectUrl: string = request.query.redirect || '/',
+		i18n = request.server.methods.i18n.getInstance();
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
@@ -32,7 +34,8 @@ export function get (request: Hapi.Request, reply: any): void {
 		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		footerCalloutText: 'auth:common.login-callout',
-		footerCalloutLink: 'auth:common.login-link-text'
+		footerCalloutLink: 'auth:common.login-link-text',
+		birthdateInputs: (new BirthdateInput(i18n.t('auth:date.endian'), i18n)).getInputData()
 	};
 
 	return reply.view('signup', context, {
