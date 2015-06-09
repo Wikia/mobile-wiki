@@ -1,3 +1,17 @@
+## release-81 (2015-06-09 09:21 UTC)
+* [DAT-2858](https://wikia-inc.atlassian.net/browse/DAT-2858) DAT- 2858
+* [CONCF-553](https://wikia-inc.atlassian.net/browse/CONCF-553) CONCF-553 Add wikia stats module to Curated Main Page
+
+## release-80 (2015-06-08 09:13 UTC)
+* task-update: change default destination
+* revert-887-HG-686: Revert "HG-686 removed namespace specifier from random page query for…
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 removed namespace specifier from random page query for community wiki
+* [SOC-748](https://wikia-inc.atlassian.net/browse/SOC-748) SOC-748 Set login status in GA
+* [HG-712](https://wikia-inc.atlassian.net/browse/HG-712) HG-712 mercury_ads_js now pulling from correct wiki domain
+* hotfix/HG-677: encode the whole string instead of just the first char
+* [HG-655](https://wikia-inc.atlassian.net/browse/HG-655) HG-655 Whitelist for query params
+* [HG-718](https://wikia-inc.atlassian.net/browse/HG-718) Update Ember to 1.12.1
+
 ## release-79 (2015-06-02 09:11 UTC)
 * [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) send metrics on window.load
 

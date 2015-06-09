@@ -25,6 +25,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		large: 900
 	},
 
+	//icon width depends on it's real dimensions
+	infoboxIconSize: {
+		height: 20
+	},
+
 	normalizeThumbWidth: function (width: number): number {
 		if (width <= this.thumbSize.small) {
 			return this.thumbSize.small;
@@ -40,13 +45,44 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
 
-		if (!this.limitHeight) {
+		if (!this.get('limitHeight')) {
 			options.height = options.width;
 		}
 
 		url = this.thumbnailer.getThumbURL(url, options);
 
 		return url;
+	},
+
+	/**
+	 * @desc Determines if current image is an icon placed inside the infobox.
+	 * Icons are commonly used for the money, weight etc. values.
+	 * Main infobox images has the media.context field with 'infobox-big' value.
+	 */
+	isInfoboxIcon: Em.computed('media', {
+		get(): boolean {
+			var media: ArticleMedia = this.get('media'),
+				insideInfobox = this.isInsideInfobox(),
+				iconHeight: number,
+				width: number;
+
+			if (media.context !== 'infobox-big' && insideInfobox) {
+				iconHeight = this.get('infoboxIconSize.height');
+				width = Math.floor(iconHeight * media.width / media.height);
+				this.set('height', iconHeight);
+				this.set('width', width);
+				return true;
+			}
+			return false;
+		},
+		set(key: string, value: boolean): boolean {
+			this.set('isInfoboxIcon', value)
+			return value;
+		}
+	}),
+
+	isInsideInfobox: function(): boolean {
+		return this.$().closest('.portable-infobox').length > 0;
 	},
 
 	/**

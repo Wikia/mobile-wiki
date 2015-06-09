@@ -40,7 +40,7 @@ you can disable that by running gulp with --nosync parameter
 
 ##[Release procedure](https://one.wikia-inc.com/wiki/Mercury/Release)
 
-##[CHANGELOG](https://github.com/Wikia/mercury/blob/master/CHANGELOG.md)
+##[CHANGELOG](https://github.com/Wikia/mercury/blob/dev/CHANGELOG.md)
 You can update existing CHANGELOG.md with changes between origin/dev and origin/master manually though like this:
 
 * `./tasks/changelog-update.sh -r release-xxx` - where xxx is number of latest release
@@ -94,7 +94,15 @@ If the translations are downloaded and ready, you can merge in `dev` to the `i18
 To test on your mobile device, connect both your development machine and your device to the same network. You can then visit Mercury on your device by using your machine's IP address (on OS X, you can get that using `ifconfig`). The URL should look something like: `//10.10.10.123:8000/wiki/Foo`. You can't use subdomains with IP addresses, but you can change your test wiki manually by editing your [`wikiFallback`](https://github.com/Wikia/mercury/blob/master/config/localSettings.base.ts#L28).
 
 ## Troubleshooting
-### Errors while `npm install`
+### Errors while running `npm run dev`
+Sometimes it helps to just delete the npm_modules folder and reinstall. 
+```
+rm -rf node_modules
+npm cache clear
+npm install
+```
+
+### Errors while running `npm install`
 #### libsass
 So far, we've encountered one error connected to compiling `libsass`. It happened on Ubuntu 12.04 (pretty old version but still a LTS version). The issue was connected to outdated g++ compiler. `libsass` requires version 4.8+ and by default Ubuntu 12.04 has 4.6 to update it go to your terminal and manually install g++-4.8:
 `sudo apt-get remove g++-4.6`
