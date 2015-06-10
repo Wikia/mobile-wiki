@@ -172,17 +172,3 @@ test('increments / decrements mediaGalleryRef within boundaries', function () {
 	});
 	equal(componentMock.get('currentGalleryRef'), 1);
 });
-
-test('isCurrentMediaType method recognizes media', function () {
-	var componentMock = this.subject({
-		model: model
-	});
-
-	// This would normally be triggered by didInsertElement
-	componentMock.notifyPropertyChange('model');
-
-	Ember.run(function() {
-		componentMock.set('model.mediaRef', 0);
-	});
-	equal(componentMock.isCurrentMediaType('image'), true);
-});
