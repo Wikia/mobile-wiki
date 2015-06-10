@@ -1,3 +1,8 @@
+## release-82 (2015-06-10 07:26 UTC)
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 disabled caching for random page querys
+* [HG-654](https://wikia-inc.atlassian.net/browse/HG-654) Hg 654 remove 'mw-content' from non-mediawiki content wrappers
+* enable-suppressImplicitAnyIndexErrors: Enable suppressImplicitAnyIndexErrors flag
+
 ## release-81 (2015-06-09 09:21 UTC)
 * [DAT-2858](https://wikia-inc.atlassian.net/browse/DAT-2858) DAT- 2858
 * [CONCF-553](https://wikia-inc.atlassian.net/browse/CONCF-553) CONCF-553 Add wikia stats module to Curated Main Page
