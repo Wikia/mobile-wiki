@@ -24,23 +24,16 @@ class SignupForm {
 	}
 
 	private urlEncode(object: Object): string {
-		var encodedString: string = '';
-		for (var prop in object) {
-			if (object.hasOwnProperty(prop)) {
-				if (encodedString.length > 0) {
-					encodedString += '&';
-				}
-				encodedString += encodeURI(prop + '=' + object[prop]);
-			}
-		}
-		return encodedString;
+		return Object.keys(object).map((key: string) =>
+				`${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`
+		).join('&');
 	}
 
 	private clearValidationErrors(): void {
 		var errorNodes: NodeList = this.form.querySelectorAll('.error');
 
-		Array.prototype.forEach.call( errorNodes, function( node: HTMLElement ) {
-			if (node.tagName == 'INPUT') {
+		Array.prototype.forEach.call( errorNodes, (node: HTMLElement): void => {
+			if (node.tagName === 'INPUT') {
 				node.classList.remove('error');
 			} else {
 				node.parentNode.removeChild( node );
@@ -50,13 +43,13 @@ class SignupForm {
 	}
 
 	private displayValidationErrors(errors: Array<HeliosError>): void {
-		Array.prototype.forEach.call( errors, (function( err: HeliosError ) {
+		Array.prototype.forEach.call( errors, (err: HeliosError): void => {
 			if (this.generalValidationErrors.indexOf(err.description) === -1) {
 				this.displayFieldValidationError(err);
 			} else {
 				this.displayGeneralError();
 			}
-		}).bind(this));
+		});
 	}
 
 	private displayFieldValidationError(err: HeliosError): void {
@@ -69,7 +62,7 @@ class SignupForm {
 	private displayGeneralError(): void {
 		if (!this.generalErrorShown) {
 			var errorNode: HTMLElement = this.createValidationErrorHTMLNode('registration_error');
-			this.form.insertBefore(errorNode, this.form.querySelector('#signupNewsletter').parentNode);
+			this.form.insertBefore(errorNode, document.getElementById('signupNewsletter').parentNode);
 			this.generalErrorShown = true;
 		}
 	}
