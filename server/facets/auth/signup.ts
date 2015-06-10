@@ -3,10 +3,10 @@ import localSettings = require('../../../config/localSettings');
 
 interface SignupViewContext {
 	title: string;
+	language: string;
 	headerText?: string;
 	exitTo?: string;
 	bodyClasses?: string;
-	language: string;
 	loadScripts?: boolean;
 	i18nContext?: any;
 	footerLinkRoute?: string;

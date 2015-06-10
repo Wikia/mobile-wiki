@@ -34,6 +34,7 @@ interface LoginViewContext {
 	headerText: string;
 	footerCallout: string;
 	footerCalloutLink: string;
+	language: string;
 	footerHref?: string;
 	forgotPasswordHref?: string;
 	hideHeader?: boolean;
