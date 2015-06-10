@@ -97,7 +97,7 @@ class SignupForm {
 			},
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button');
 
-		submitButton.setAttribute('disabled', 'disabled');
+		submitButton.disabled = true;
 		submitButton.classList.add('on');
 		this.clearValidationErrors();
 
@@ -106,7 +106,7 @@ class SignupForm {
 				return;
 			}
 
-			submitButton.removeAttribute('disabled');
+			submitButton.disabled = false;
 			submitButton.classList.remove('on');
 
 			if (xhr.status === 400) {
