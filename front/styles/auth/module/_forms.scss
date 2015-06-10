@@ -9,7 +9,7 @@ form {
 }
 
 .input-container {
-	min-height: 62px;
+	min-height: 62px; // Height of input + error message to avoid pushing content down when error is displayed
 	padding-bottom: .25rem;
 	position: relative;
 
