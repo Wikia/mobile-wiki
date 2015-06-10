@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 
 import Utils = require('../../lib/Utils');
+import AuthUtils = require('../../lib/AuthUtils');
 import localSettings = require('../../../config/localSettings');
 
 /**
@@ -42,6 +43,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.queryParams = Utils.parseQueryParams(request.query);
 	result.weppyConfig = localSettings.weppy;
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
+	result.loginUrl = AuthUtils.getLoginUrl(request, result);
 }
 
 export = prepareArticleData;

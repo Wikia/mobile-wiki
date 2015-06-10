@@ -38,3 +38,9 @@ export function getCacheBusterUrl(redirect: string): string {
 
 	return url.format(cacheBustedUrlObj);
 }
+
+export function getLoginUrl(request: Hapi.Request, result: any): string {
+	return result.wiki.enableNewAuth ?
+		'/join?redirect=' + request.server.info.uri + request.path :
+		'/wiki/Special:UserLogin';
+}
