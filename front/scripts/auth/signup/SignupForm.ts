@@ -88,36 +88,32 @@ class SignupForm {
 				birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
 				// TODO add langCode
 			},
-			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button');
+			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
+			enableSubmitButton = () => {
+				submitButton.disabled = false;
+				submitButton.classList.remove('on');
+			};
 
 		submitButton.disabled = true;
 		submitButton.classList.add('on');
 		this.clearValidationErrors();
 
-		xhr.onreadystatechange = (function() {
-			if(xhr.readyState < 4) {
-				return;
-			}
+		xhr.onload = (e: Event) => {
+			enableSubmitButton();
 
-			submitButton.disabled = false;
-			submitButton.classList.remove('on');
-
-			if (xhr.status === 400) {
+			if ((<XMLHttpRequest> e.target).status === 400) {
 				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
-				return;
-			}
-
-			if (xhr.status !== 200) {
-				this.displayGeneralError();
-				return;
-			}
-
-			// all is well
-			if(xhr.readyState === 4) {
+			} else {
 				alert('signed in correctly');
 				// TODO handle successful registration
 			}
-		}).bind(this);
+		};
+
+		xhr.onerror = (e: Event) => {
+			enableSubmitButton();
+
+			this.displayGeneralError();
+		};
 
 		xhr.open('POST', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
