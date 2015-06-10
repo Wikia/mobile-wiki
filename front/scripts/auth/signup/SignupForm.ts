@@ -122,7 +122,7 @@ class SignupForm {
 		event.preventDefault();
 	}
 
-	public watch (): void {
+	public watch(): void {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 }
