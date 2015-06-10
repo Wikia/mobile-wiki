@@ -12,10 +12,10 @@
 		</div>
 		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
 		<button id="loginSubmit" type="submit" disabled>{{i18n 'auth:login.submit-text'}}</button>
-		{{#if formErrorKey}}
 		<small class="error">
-			{{i18n formErrorKey}}
+			{{#if formErrorKey}}
+				{{i18n formErrorKey}}
+			{{/if}}
 		</small>
-		{{/if}}
 	</form>
 </section>
