@@ -87,11 +87,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	},
 
 	click: function (event: MouseEvent): void {
-		var isImage = this.isCurrentMediaType('image'),
-			isVideo = this.isCurrentMediaType('video'),
-			isGallery = this.get('isGallery');
-
-		if ((isImage || isVideo) && isGallery) {
+		if (this.get('isGallery')) {
 			this.callClickHandler(event, true);
 		} else {
 			this._super(event);
@@ -137,15 +133,6 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	centerClickHandler: function(): boolean {
 		// Bubble up
 		return false;
-	},
-
-	/**
-	 * @desc Checks if a currently displayed media is of a given type
-	 * @param {string} type e.g, image / video
-	 * @returns {boolean}
-	 */
-	isCurrentMediaType (type: string): boolean {
-		return this.get('currentMedia.type') === type;
 	},
 
 	nextMedia: function (): void {
