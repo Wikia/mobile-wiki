@@ -122,6 +122,7 @@ class SignupForm {
 			// all is well
 			if(xhr.readyState === 4) {
 				alert('signed in correctly');
+				// TODO handle successful registration
 			}
 		}).bind(this);
 
