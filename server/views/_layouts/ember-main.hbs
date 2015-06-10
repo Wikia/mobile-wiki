@@ -37,7 +37,7 @@
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('firstPage', true, true);
-			M.prop('queryParams', {{{json (escapeQueryParams queryParams)}}});
+			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
 			M.prop('weppyConfig', {{{json weppyConfig}}});
@@ -90,6 +90,7 @@
 			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
+			<script src="/front/vendor/numeral/numeral.js"></script>
 			<!-- @if WIKIA_ENVIRONMENT='prod' -->
 				<script src="/front/vendor/weppy/dist/weppy.js"></script>
 				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>

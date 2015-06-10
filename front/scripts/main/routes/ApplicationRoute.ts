@@ -2,6 +2,7 @@
 /// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
 /// <reference path="../../mercury/utils/variantTesting.ts" />
+/// <reference path="../../mercury/utils/string.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
@@ -115,7 +116,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			App.ArticleModel
 				.getArticleRandomTitle()
 				.then((articleTitle: string): void => {
-					this.transitionTo('article', articleTitle);
+					this.transitionTo('article', encodeURIComponent(M.String.sanitize(articleTitle)));
 				})
 				.catch((err: any): void => {
 					this.send('error', err);

@@ -12,6 +12,7 @@ interface ArticleMedia {
 	url: string;
 	user: string;
 	width: number;
+	context?: string;
 }
 
 interface LightboxMediaRefs {
