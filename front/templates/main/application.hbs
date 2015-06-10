@@ -5,7 +5,7 @@
 		</section>
 	</div>
 	{{outlet 'lightbox'}}
-{{elseif fullPage}}
+{{else if fullPage}}
 	{{outlet}}
 {{else}}
 	{{smart-banner isVisible=view.smartBannerVisible}}
