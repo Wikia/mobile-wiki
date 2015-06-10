@@ -19,6 +19,8 @@ App.ArticleRoute = Em.Route.extend({
 			transition.abort();
 		}
 
+		this.controllerFor('application').send('closeLightbox');
+
 		// If you try to access article with not-yet-sanitized title you can see in logs:
 		// `Transition #1: detected abort.`
 		// This is caused by the transition below but doesn't mean any additional requests.
@@ -45,7 +47,6 @@ App.ArticleRoute = Em.Route.extend({
 
 		// Reset query parameters
 		model.set('commentsPage', null);
-		model.set('file', null);
 	},
 
 	actions: {
