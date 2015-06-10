@@ -32,9 +32,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		this.scheduleArticleTransforms();
 	},
 
-	willDestroyElement: function (): void {
-		this.destroy();
-	},
+	// willDestroyElement: function (): void {
+	// 	this.destroy();
+	// },
 
 	onModelChange: Em.observer('controller.model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
@@ -54,9 +54,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 
 		alert('article render');
 
-		if (this.get('_state') !== 'inDOM') {
-		 	return false;
-		}
+		//if (this.get('_state') !== 'inDOM') {
+		// 	return false;
+		//}
 
 		var model = this.get('controller.model'),
 			article = model.get('article'),
