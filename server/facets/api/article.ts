@@ -38,13 +38,13 @@ export function get (request: Hapi.Request,  reply: any): void {
 		},
 		article: Article.ArticleRequestHelper;
 
-		if (request.state.wikicities_session) {
-			params.headers = {
-				'Cookie': `wikicities_session=${request.state.wikicities_session}`
-			};
-		}
+	if (request.state.wikicities_session) {
+		params.headers = {
+			'Cookie': `wikicities_session=${request.state.wikicities_session}`
+		};
+	}
 
-		article = new Article.ArticleRequestHelper(params);
+	article = new Article.ArticleRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
 		article.getArticleRandomTitle((error: any, result: any): void => {
