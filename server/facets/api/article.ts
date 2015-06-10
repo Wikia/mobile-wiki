@@ -35,7 +35,7 @@ export function get (request: Hapi.Request,  reply: any): void {
 	if (isRequestForRandomTitle(request.query)) {
 		Article.getArticleRandomTitle(wikiDomain, (error: any, result: any): void => {
 			var wrappedResult = wrapResult(error, result);
-			Caching.setResponseCaching(reply(wrappedResult), randomTitleCachingTimes);
+			Caching.disableCache(reply(wrappedResult));
 		});
 		return;
 	}
