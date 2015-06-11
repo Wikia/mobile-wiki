@@ -1,3 +1,6 @@
+## release-83 (2015-06-11 07:26 UTC)
+* feature/HG-736: HG-736 Add in support for forwarding headers
+
 ## release-82 (2015-06-10 07:26 UTC)
 * [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 disabled caching for random page querys
 * [HG-654](https://wikia-inc.atlassian.net/browse/HG-654) Hg 654 remove 'mw-content' from non-mediawiki content wrappers
