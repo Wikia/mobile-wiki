@@ -2,9 +2,9 @@
 /// <reference path="../../mercury.d.ts" />
 interface UrlParams {
 	namespace?: string;
-	title?: string;
 	path?: string;
 	query?: any;
+	title?: string;
 	wiki?: string;
 }
 
@@ -24,8 +24,16 @@ module Mercury.Utils {
 	 *
 	 *   {wiki: 'community', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
 	 *   ...returns '//community.wikia.com/wiki/User:JaneDoe/preferences'
+	 *
+	 * @param {object} urlParams
+	 * @config {string} [namespace] MediaWiki article namespace
+	 * @config {string} [path] Additional URL path appended to the end of the URL before the querystring
+	 * @config {object} [query] Querystring data, which is converted to a string and properly escaped
+	 * @config {string} [title] Article title
+	 * @config {string} [wiki] Wiki name, as it would be used as a subdomain
+	 * @returns {string}
 	 */
-	export function buildUrl (urlParams: UrlParams = {}) {
+	export function buildUrl (urlParams: UrlParams = {}): string {
 		// Domain is extracted from basePath wiki variable, removing the *first* subdomain.
 
 		var domain: string,
@@ -40,7 +48,7 @@ module Mercury.Utils {
 		url += '.' + domain;		
 
 		if (urlParams.title) {
-			url += '/wiki/' + (urlParams.namespace ? urlParams.namespace + ':' : '') + urlParams.title;
+			url += Mercury.wiki.articlePath + (urlParams.namespace ? urlParams.namespace + ':' : '') + urlParams.title;
 		}
 
 		if (urlParams.path) {
@@ -49,7 +57,7 @@ module Mercury.Utils {
 
 		if (urlParams.query) {
 			url += '?';
-			url += Object.keys(urlParams.query).map((key: string) =>
+			url += Object.keys(urlParams.query).map((key: string): string =>
 				`${encodeURIComponent(key)}=${encodeURIComponent(urlParams.query[key])}`
 			).join('&');
 		}
@@ -57,4 +65,3 @@ module Mercury.Utils {
 		return url; 
 	}
 }
-
