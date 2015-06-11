@@ -87,9 +87,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 			M.trackPageView(model.get('adsContext.targeting'));
 		}
 
-		// A/B test spinner (HG-727)
-		$('.ab-test-loading-overlay').hide();
-
 		return true;
 	},
 
