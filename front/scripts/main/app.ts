@@ -51,7 +51,6 @@ App.initializer({
 
 		App.setProperties({
 			apiBase: M.prop('apiBase'),
-			wikiaHomepageUrl: M.prop('wikiaHomepageUrl'),
 			language: loadedLanguage || 'en',
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
