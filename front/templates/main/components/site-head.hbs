@@ -7,7 +7,9 @@
 		<img src={{currentUser.model.avatarPath}} alt={{currentUser.model.name}}>
 	</figure>
 {{else}}
-	{{login-icon}}
+	<a href="{{loginHref}}">
+		{{svg 'avatar' viewBox='0 0 24 14' class='icon login'}}
+	</a>
 {{/if}}
 <div class='site-logo' {{action 'trackClick' 'wordmark'}}>
     {{svg 'wikia-logo' role='img' class='icon wikia-logo'}}

@@ -7,6 +7,7 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['site-head'],
 	tagName: 'nav',
 	headroom: null,
+	loginHref: Mercury.Utils.prop('loginUrl'),
 
 	options: {
 		// keep it consistent with values in _wikia-variables.scss
