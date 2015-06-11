@@ -1,40 +1,89 @@
+/* global window, Mercury */
 QUnit.module('Mercury.Utils.buildUrl helper function (loaded with baseline)');
 
-QUnit.test('Domain is correctly extracted from basePath', function () {
+QUnit.test('Wiki subdomain is correctly replaced for each environment host', function () {
+	var context = {
+		location: {
+			protocol: 'http:'
+		}
+	},
 	testCases = [
 		{
-			basePath: 'http://muppet.wikia.com',
-			expectedOutput: '//test.wikia.com'
+			host: 'muppet.wikia.com',
+			expectedOutput: 'http://test.wikia.com'
 		},
 		{
-			basePath: 'http://es.walkingdead.wikia.com',
-			expectedOutput: '//test.wikia.com',
+			host: 'es.walkingdead.wikia.com',
+			expectedOutput: 'http://test.wikia.com',
 		},
 		{
-			basePath: 'http://elderscrolls.mattk.wikia-dev.com',
-			expectedOutput: '//test.mattk.wikia-dev.com'
+			host: 'sandbox-mercury.muppet.wikia.com',
+			expectedOutput: 'http://sandbox-mercury.test.wikia.com'
+		},
+		{
+			host: 'sandbox-mercury.es.walkingdead.wikia.com',
+			expectedOutput: 'http://sandbox-mercury.test.wikia.com'
+		},
+		{
+			host: 'preview.muppet.wikia.com',
+			expectedOutput: 'http://preview.test.wikia.com'
+		},
+		{
+			host: 'preview.es.walkingdead.wikia.com',
+			expectedOutput: 'http://preview.test.wikia.com'
+		},
+			{
+			host: 'verify.muppet.wikia.com',
+			expectedOutput: 'http://verify.test.wikia.com'
+		},
+		{
+			host: 'verify.es.walkingdead.wikia.com',
+			expectedOutput: 'http://verify.test.wikia.com'
+		},
+			{
+			host: 'muppet.mattk.wikia-dev.com',
+			expectedOutput: 'http://test.mattk.wikia-dev.com'
+		},
+		{
+			host: 'es.walkingdead.mattk.wikia-dev.com',
+			expectedOutput: 'http://test.mattk.wikia-dev.com'
+		},
+		{
+			host: 'muppet.127.0.0.1.xip.io:8000',
+			expectedOutput: 'http://test.127.0.0.1.xip.io:8000'
+		},
+		{
+			host: 'es.walkingdead.127.0.0.1.xip.io:8000',
+			expectedOutput: 'http://test.127.0.0.1.xip.io:8000'
+		},
+		{
+			host: 'mercury:8000',
+			expectedOutput: 'http://mercury:8000'
 		}
 	];
 
 	testCases.forEach(function (testCase) {
-		var result;
-		Mercury.wiki.basePath = testCase.basePath;
+		context.location.host = testCase.host;
 		equal(
-			Mercury.Utils.buildUrl({wiki: 'test'}),
+			Mercury.Utils.buildUrl({wiki: 'test'}, context),
 			testCase.expectedOutput
 		);
 	});
 });
 
 QUnit.test('URLs are properly built for given parameters', function () {
-	Mercury.wiki.basePath = 'http://glee.wikia.com';
-	Mercury.wiki.articlePath = '/wiki/';
+	var context = {
+		location: {
+			host: 'glee.wikia.com',
+			protocol: 'http:'
+		}
+	},
 	testCases = [
 		{
 			urlParams: {
 				path: '/login'
 			},
-			expectedOutput: '//www.wikia.com/login'
+			expectedOutput: 'http://www.wikia.com/login'
 		},
 		{
 			urlParams: {
@@ -44,19 +93,19 @@ QUnit.test('URLs are properly built for given parameters', function () {
 					redirect: '/somePage'
 				}
 			},
-			expectedOutput: '//www.wikia.com/login?abc=123&redirect=%2FsomePage'
+			expectedOutput: 'http://www.wikia.com/login?abc=123&redirect=%2FsomePage'
 		},
 		{
 			urlParams: {
 				wiki: 'walkingdead'
 			},
-			expectedOutput: '//walkingdead.wikia.com'
+			expectedOutput: 'http://walkingdead.wikia.com'
 		},
 		{
 			urlParams: {
 				wiki: 'es.walkingdead'
 			},
-			expectedOutput: '//es.walkingdead.wikia.com'
+			expectedOutput: 'http://es.walkingdead.wikia.com'
 		},
 		{
 			urlParams: {
@@ -64,20 +113,22 @@ QUnit.test('URLs are properly built for given parameters', function () {
 				namespace: 'User',
 				title: 'Testusername'
 			},
-			expectedOutput: '//community.wikia.com/wiki/User:Testusername'
+			expectedOutput: 'http://community.wikia.com/wiki/User:Testusername'
 		},
 		{
 			urlParams: {
 				wiki: 'glee',
 				title: 'Jeff'
 			},
-			expectedOutput: '//glee.wikia.com/wiki/Jeff'
+			expectedOutput: 'http://glee.wikia.com/wiki/Jeff'
 		}
 	];
 
+	Mercury.wiki.articlePath = '/wiki/';
+
 	testCases.forEach(function (testCase) {
 		equal(
-			Mercury.Utils.buildUrl(testCase.urlParams),
+			Mercury.Utils.buildUrl(testCase.urlParams, context),
 			testCase.expectedOutput
 		);
 	});

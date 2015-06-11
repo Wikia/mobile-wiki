@@ -31,21 +31,40 @@ module Mercury.Utils {
 	 * @config {object} [query] Querystring data, which is converted to a string and properly escaped
 	 * @config {string} [title] Article title
 	 * @config {string} [wiki] Wiki name, as it would be used as a subdomain
+	 * @param {object} context Window context
 	 * @returns {string}
 	 */
-	export function buildUrl (urlParams: UrlParams = {}): string {
-		// Domain is extracted from basePath wiki variable, removing the *first* subdomain.
-
+	export function buildUrl (urlParams: UrlParams = {}, context: any = window): string {
 		var domain: string,
-			url = '//';
-		if (/wikia-dev\.\w{2,3}($|\/)/.test(Mercury.wiki.basePath)) {
-			domain = Mercury.wiki.basePath.match(/(?!\w+)\.([\w.-]+\.\w{2,3})($|\/)/)[1];
-		} else {
-			domain = Mercury.wiki.basePath.match(/([\w-]+\.\w{2,3})($|\/)/)[1];
+			host: string = context.location.host,
+			match: Array<string>,
+			url = context.location.protocol + '//';
+
+		if (!urlParams.wiki) {
+			// If no wiki subdomain, use www
+			urlParams.wiki = 'www';
 		}
 
-		url += urlParams.wiki ? urlParams.wiki : 'www';
-		url += '.' + domain;		
+		// Here we try to see which environment the host is, and substitute the wiki name accordingly
+		// (1) Sandbox, preview, or verify hosts on wikia.com
+		if ((match = host.match(/^(sandbox-.+?|preview|verify)\.(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+			host = host.replace(match[1] + '.' + match[2], match[1] + '.' + urlParams.wiki);
+		// (2) Production wikia.com
+		} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+			// Domain is specified here in case host subdomain is actually "wiki", "com", etc.
+			host = host.replace(match[1] + '.wikia.com', urlParams.wiki + '.wikia.com');
+		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
+		} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
+			host = host.replace(match[1] + '.' + match[2], urlParams.wiki + '.' + match[2]);
+		// (4) Local environment using 127.0.0.1.xip.io
+		} else if ((match = host.match(/^(.+)\.127\.0\.0\.1\.xip\.io($|\/|:)/)) !== null) {
+			host = host.replace(match[1] + '.127.0.0.1.xip.io', urlParams.wiki + '.127.0.0.1.xip.io');
+		}
+
+		url += host;
+
+		// At this point, in the case of an unknown local host where the wiki is not in the
+		// host string (ie. "mercury:8000"), it will be left unmodified and used as-is.
 
 		if (urlParams.title) {
 			url += Mercury.wiki.articlePath + (urlParams.namespace ? urlParams.namespace + ':' : '') + urlParams.title;
