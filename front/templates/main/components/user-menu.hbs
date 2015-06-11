@@ -1,9 +1,8 @@
 <div {{action 'hide'}} class="overlay"></div>
 <ul class="drawer">
-	<li>
-		<a href="{{profileUrl}}" class="external">{{i18n 'app.user-menu-profile'}}</a>
-	</li>
-	<li>
-		<a href="{{logoutUrl}}" class="external">{{i18n 'app.user-menu-log-out'}}</a>
-	</li>
+	{{#each link in links}}
+		<li>
+			<a href="{{unbound link.href}}" class="external">{{i18n 'app' link.textKey}}</a>
+		</li>
+	{{/each}}
 </ul>

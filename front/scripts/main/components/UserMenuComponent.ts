@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
 'use strict';
 
 App.UserMenuComponent = Em.Component.extend({
@@ -7,11 +8,24 @@ App.UserMenuComponent = Em.Component.extend({
 
 	isCollapsed: true,
 
-	profileUrl: Em.computed(function (): string {
-		return '//community.wikia.com/wiki/User:' + this.get('userName');
+	links: Em.computed(function (): Array<any> {
+		return [
+			{
+				href: M.buildUrl({
+					wiki: 'community',
+					namespace: 'User',
+					title: this.get('userName')
+				}),
+				textKey: 'user-menu-profile'
+			},
+			{
+				href: M.buildUrl({
+					path: '/logout'
+				}),
+				textKey: 'user-menu-log-out'
+			}
+		];
 	}),
-
-	logoutUrl: '/logout',
 
 	actions: {
 		hide: function (): void {
