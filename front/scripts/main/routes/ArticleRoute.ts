@@ -37,6 +37,7 @@ App.ArticleRoute = Em.Route.extend({
 	model: function (params: any) {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
+			description: params.description,
 			title: params.title,
 			wiki: this.controllerFor('application').get('domain')
 		});

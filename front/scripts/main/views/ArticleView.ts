@@ -117,8 +117,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		var model = this.get('controller.model');
 
 		if (model) {
-			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + Mercury.wiki.siteName;
+			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
+			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
 		}
 	}),
 
