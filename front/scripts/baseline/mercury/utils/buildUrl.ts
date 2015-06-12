@@ -3,6 +3,7 @@
 interface UrlParams {
 	namespace?: string;
 	path?: string;
+	protocol?: string;
 	query?: any;
 	title?: string;
 	wiki?: string;
@@ -28,6 +29,7 @@ module Mercury.Utils {
 	 * @param {object} urlParams
 	 * @config {string} [namespace] MediaWiki article namespace
 	 * @config {string} [path] Additional URL path appended to the end of the URL before the querystring
+	 * @config {string} [protocol] Protocol
 	 * @config {object} [query] Querystring data, which is converted to a string and properly escaped
 	 * @config {string} [title] Article title
 	 * @config {string} [wiki] Wiki name, as it would be used as a subdomain
@@ -38,7 +40,13 @@ module Mercury.Utils {
 		var domain: string,
 			host: string = context.location.host,
 			match: Array<string>,
-			url = context.location.protocol + '//';
+			url: string;
+
+		if (!urlParams.protocol) {
+			urlParams.protocol = 'https';
+		}
+
+		url = urlParams.protocol + '://';
 
 		if (!urlParams.wiki) {
 			// If no wiki subdomain, use www
@@ -61,10 +69,9 @@ module Mercury.Utils {
 			host = host.replace(match[1] + '.127.0.0.1.xip.io', urlParams.wiki + '.127.0.0.1.xip.io');
 		}
 
-		url += host;
-
 		// At this point, in the case of an unknown local host where the wiki is not in the
 		// host string (ie. "mercury:8000"), it will be left unmodified and used as-is.
+		url += host;
 
 		if (urlParams.title) {
 			url += Mercury.wiki.articlePath + (urlParams.namespace ? urlParams.namespace + ':' : '') + urlParams.title;
