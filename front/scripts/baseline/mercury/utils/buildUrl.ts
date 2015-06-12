@@ -43,7 +43,7 @@ module Mercury.Utils {
 			url: string;
 
 		if (!urlParams.protocol) {
-			urlParams.protocol = 'https';
+			urlParams.protocol = 'http';
 		}
 
 		url = urlParams.protocol + '://';
