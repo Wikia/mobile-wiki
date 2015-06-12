@@ -1,3 +1,7 @@
+## release-84 (2015-06-12 07:26 UTC)
+* typescript-sourcemaps: Generate TS sourcemaps to allow direct TS debugging in Chrome devtools
+* [HG-605](https://wikia-inc.atlassian.net/browse/HG-605) HG-605 Description meta tag now updates on article change
+
 ## release-83 (2015-06-11 07:26 UTC)
 * feature/HG-736: HG-736 Add in support for forwarding headers
 
