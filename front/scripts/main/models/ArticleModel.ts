@@ -42,6 +42,7 @@ App.ArticleModel = Em.Object.extend({
 	categories: [],
 	cleanTitle: null,
 	comments: 0,
+	description: null,
 	isMainPage: false,
 	mainPageData: null,
 	media: [],
@@ -169,6 +170,7 @@ App.ArticleModel.reopenClass({
 
 				data = $.extend(data, {
 					article: article.content || source.content,
+					description: article.description,
 					mediaUsers: article.users,
 					type: article.type,
 					media: App.MediaModel.create({

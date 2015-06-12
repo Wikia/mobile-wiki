@@ -36,3 +36,6 @@ test/fixtures
 .idea
 /docs
 *.sublime-*
+
+front/scripts/**/*.js
+front/scripts/**/*.js.map
