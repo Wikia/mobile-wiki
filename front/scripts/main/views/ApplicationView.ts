@@ -41,7 +41,7 @@ App.ApplicationView = Em.View.extend({
 		$('#article-preload').remove();
 
 		// A/B test spinner (HG-727)
-		$('.ab-test-loading-overlay').hide();
+		$('.ab-test-loading-overlay').remove();
 	},
 
 	handleLink: function (target: HTMLAnchorElement): void {

@@ -34,11 +34,6 @@ $duration: 1s;
 	z-index: $z-6;
 }
 
-// A/B test (HG-727)
-.ab-test-loading-overlay {
-	display: none;
-}
-
 .spinner {
 	animation: rotator $duration linear infinite;
 	left: 50%;
