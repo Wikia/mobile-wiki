@@ -59,14 +59,14 @@ module Mercury.Utils {
 			host = host.replace(match[1] + '.' + match[2], match[1] + '.' + urlParams.wiki);
 		// (2) Production wikia.com
 		} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
-			// Domain is specified here in case host subdomain is actually "wiki", "com", etc.
+			// Domain is specified here in case subdomain is actually "wiki", "com", etc.
 			host = host.replace(match[1] + '.wikia.com', urlParams.wiki + '.wikia.com');
 		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
 		} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
 			host = host.replace(match[1] + '.' + match[2], urlParams.wiki + '.' + match[2]);
-		// (4) Local environment using 127.0.0.1.xip.io
-		} else if ((match = host.match(/^(.+)\.127\.0\.0\.1\.xip\.io($|\/|:)/)) !== null) {
-			host = host.replace(match[1] + '.127.0.0.1.xip.io', urlParams.wiki + '.127.0.0.1.xip.io');
+		// (4) Environment using xip.io
+		} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
+			host = host.replace(match[1] + '.' + match[2] + '.xip.io', urlParams.wiki + '.' + match[2] + '.xip.io');
 		}
 
 		// At this point, in the case of an unknown local host where the wiki is not in the
