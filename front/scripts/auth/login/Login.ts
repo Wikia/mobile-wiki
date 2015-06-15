@@ -4,22 +4,33 @@ interface LoginCredentials {
 }
 
 interface LoginResponse {
-	'user_id': string;
-	'access_token': string;
-	'refresh_token': string;
-	'token_type': string;
-	'expires_in': string;
-	'error'?: string;
-	'error_description'?: string;
+	user_id: string;
+	access_token: string;
+	refresh_token: string;
+	token_type: string;
+	expires_in: string;
+	error?: string;
+	error_description?: string;
+}
+
+interface FormElements extends HTMLCollection {
+	username: HTMLInputElement;
+	password: HTMLInputElement;
 }
 
 class Login {
 	credentials: LoginCredentials;
 	form: HTMLFormElement;
 	redirect: string;
+	usernameInput: HTMLInputElement;
+	passwordInput: HTMLInputElement;
 
 	constructor (form: Element, redirect: string = '') {
+		var elements: FormElements;
 		this.form = <HTMLFormElement> form;
+		elements = <FormElements> this.form.elements;
+		this.usernameInput = elements.username;
+		this.passwordInput = elements.password;
 		this.redirect = this.appendCachebuster(redirect);
 	}
 
@@ -63,8 +74,8 @@ class Login {
 
 	private getCredentials (): LoginCredentials {
 		return {
-			username: this.form.elements['username'].value,
-			password: this.form.elements['password'].value
+			username: this.usernameInput.value,
+			password: this.passwordInput.value
 		};
 	}
 

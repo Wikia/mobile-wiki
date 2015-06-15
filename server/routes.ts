@@ -123,11 +123,6 @@ unauthenticatedRoutes = [
 		handler: require('./facets/auth/login').get
 	},
 	{
-		method: 'POST',
-		path: '/login',
-		handler: require('./facets/auth/login').post
-	},
-	{
 		method: 'GET',
 		path: '/signup',
 		config: authPageConfig,
