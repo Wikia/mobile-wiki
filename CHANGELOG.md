@@ -1,3 +1,10 @@
+## release-85 (2015-06-15 07:26 UTC)
+* [HG-732](https://wikia-inc.atlassian.net/browse/HG-732)//www.wikia.com
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) Hg 727
+* [HG-750](https://wikia-inc.atlassian.net/browse/HG-750) HG-750 - added GA tracking to random article link
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) HG-727 adding loading graphic for A/B test
+* [CONCF-512](https://wikia-inc.atlassian.net/browse/CONCF-512) CONCF-512 Refactor lightboxes
+
 ## release-84 (2015-06-12 07:26 UTC)
 * typescript-sourcemaps: Generate TS sourcemaps to allow direct TS debugging in Chrome devtools
 * [HG-605](https://wikia-inc.atlassian.net/browse/HG-605) HG-605 Description meta tag now updates on article change
