@@ -18,13 +18,13 @@ module Mercury.Utils {
 	 * Some example parameters and results:
 	 *
 	 *   {path: '/login', query: {redirect: '/somepage'}}
-	 *   ...returns '//www.wikia.com/login?redirect=%2Fsomepage'
+	 *   ...returns 'http://www.wikia.com/login?redirect=%2Fsomepage'
 	 *
 	 *   {wiki: 'glee', title: 'Jeff'}
-	 *   ...returns '//glee.wikia.com/wiki/Jeff'
+	 *   ...returns 'http://glee.wikia.com/wiki/Jeff'
 	 *
 	 *   {wiki: 'community', namespace: 'User', title: 'JaneDoe', path: '/preferences'}
-	 *   ...returns '//community.wikia.com/wiki/User:JaneDoe/preferences'
+	 *   ...returns 'http://community.wikia.com/wiki/User:JaneDoe/preferences'
 	 *
 	 * @param {object} urlParams
 	 * @config {string} [namespace] MediaWiki article namespace
@@ -39,7 +39,6 @@ module Mercury.Utils {
 	export function buildUrl (urlParams: UrlParams = {}, context: any = window): string {
 		var domain: string,
 			host: string = context.location.host,
-			match: Array<string>,
 			url: string;
 
 		if (!urlParams.protocol) {
@@ -53,25 +52,7 @@ module Mercury.Utils {
 			urlParams.wiki = 'www';
 		}
 
-		// Here we try to see which environment the host is, and substitute the wiki name accordingly
-		// (1) Sandbox, preview, or verify hosts on wikia.com
-		if ((match = host.match(/^(sandbox-.+?|preview|verify)\.(.+?)\.wikia\.com($|\/|:)/)) !== null) {
-			host = host.replace(match[1] + '.' + match[2], match[1] + '.' + urlParams.wiki);
-		// (2) Production wikia.com
-		} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
-			// Domain is specified here in case subdomain is actually "wiki", "com", etc.
-			host = host.replace(match[1] + '.wikia.com', urlParams.wiki + '.wikia.com');
-		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
-		} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
-			host = host.replace(match[1] + '.' + match[2], urlParams.wiki + '.' + match[2]);
-		// (4) Environment using xip.io
-		} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
-			host = host.replace(match[1] + '.' + match[2] + '.xip.io', urlParams.wiki + '.' + match[2] + '.xip.io');
-		}
-
-		// At this point, in the case of an unknown local host where the wiki is not in the
-		// host string (ie. "mercury:8000"), it will be left unmodified and used as-is.
-		url += host;
+		url += Mercury.Utils.replaceWikiInHost(host, urlParams.wiki);
 
 		if (urlParams.title) {
 			url += Mercury.wiki.articlePath + (urlParams.namespace ? urlParams.namespace + ':' : '') + urlParams.title;
@@ -89,5 +70,35 @@ module Mercury.Utils {
 		}
 
 		return url; 
+	}
+
+	/**
+	 * Substitutes the wiki name in a host string with a new wiki name
+	 *
+	 * @param {string} host A host string (may include port number) from any Wikia environment
+	 * @param {string} wiki The new wiki, which may contain a language prefix; for example, "glee" or "es.walkingdead"
+	 * @returns {string} New host
+	 */
+	export function replaceWikiInHost (host: string, wiki: string): string {
+		var match: Array<string>;
+
+		// (1) Sandbox, preview, or verify hosts on wikia.com
+		if ((match = host.match(/^(sandbox-.+?|preview|verify)\.(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+			host = host.replace(match[1] + '.' + match[2], match[1] + '.' + wiki);
+		// (2) Production wikia.com
+		} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+			// Domain is specified here in case subdomain is actually "wiki", "com", etc.
+			host = host.replace(match[1] + '.wikia.com', wiki + '.wikia.com');
+		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
+		} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
+			host = host.replace(match[1] + '.' + match[2], wiki + '.' + match[2]);
+		// (4) Environment using xip.io
+		} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
+			host = host.replace(match[1] + '.' + match[2] + '.xip.io', wiki + '.' + match[2] + '.xip.io');
+		}
+
+		// At this point, in the case of an unknown local host where the wiki is not in the
+		// host string (ie. "mercury:8000"), it will be left unmodified and returned as-is.
+		return host;
 	}
 }

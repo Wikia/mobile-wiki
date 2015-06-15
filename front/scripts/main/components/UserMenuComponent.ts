@@ -12,7 +12,7 @@ App.UserMenuComponent = Em.Component.extend({
 		return [
 			{
 				href: M.buildUrl({
-					wiki: 'community',
+					wiki: Mercury.wiki.dbName,
 					namespace: 'User',
 					title: this.get('userName')
 				}),
