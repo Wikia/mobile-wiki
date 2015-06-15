@@ -1,14 +1,11 @@
 /// <reference path="../../config/localSettings.d.ts" />
+/// <reference path="../../typings/hoek/hoek.d.ts" />
+
+import Hoek = require('hoek');
 
 /**
  * Utility functions
  */
-
-export interface SupportedQueryParams {
-	// All query params should be lowercase, with no special delimiter for spaces
-	[idx: string]: any;
-	noexternals?: number;
-}
 
 /**
  * Environment types
@@ -177,16 +174,30 @@ export function getVerticalColor (localSettings: LocalSettings, vertical: string
 	return null;
 }
 
-export function parseQueryParams (obj: any): SupportedQueryParams {
-	var parsed: SupportedQueryParams = {},
+export function parseQueryParams (obj: any, allowedKeys: string[]): any {
+	var parsed: any = {},
 		key: string,
-		prop: string;
+		rawProp: string,
+		prop: any;
 
-	for (key in obj) {
-		if (obj.hasOwnProperty(key)) {
-			prop = obj[key];
-			parsed[key.toLowerCase()] = isNaN(+prop) ? prop : +prop;
-		}
+	if (allowedKeys instanceof Array) {
+		allowedKeys.forEach(key => {
+			if (obj.hasOwnProperty(key)) {
+				rawProp = obj[key];
+
+				if (!isNaN(+rawProp)) {
+					prop = +rawProp;
+				} else if (rawProp.toLowerCase() === 'true') {
+					prop = true;
+				} else if (rawProp.toLowerCase() === 'false') {
+					prop = false;
+				} else {
+					prop = Hoek.escapeHtml(rawProp);
+				}
+
+				parsed[key] = prop;
+			}
+		});
 	}
 
 	return parsed;

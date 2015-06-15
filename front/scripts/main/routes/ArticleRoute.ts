@@ -5,9 +5,6 @@
 
 App.ArticleRoute = Em.Route.extend({
 	queryParams: {
-		file: {
-			replace: false
-		},
 		comments_page: {
 			replace: true
 		}
@@ -21,6 +18,8 @@ App.ArticleRoute = Em.Route.extend({
 		if (Mercury.error) {
 			transition.abort();
 		}
+
+		this.controllerFor('application').send('closeLightbox');
 
 		// If you try to access article with not-yet-sanitized title you can see in logs:
 		// `Transition #1: detected abort.`
@@ -37,6 +36,7 @@ App.ArticleRoute = Em.Route.extend({
 	model: function (params: any) {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
+			description: params.description,
 			title: params.title,
 			wiki: this.controllerFor('application').get('domain')
 		});
@@ -48,7 +48,6 @@ App.ArticleRoute = Em.Route.extend({
 
 		// Reset query parameters
 		model.set('commentsPage', null);
-		model.set('file', null);
 	},
 
 	actions: {

@@ -12,9 +12,10 @@ import prepareArticleData = require('./operations/prepareArticleData');
 function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		parserOutput: string = request.payload.parserOutput,
-		mwHash: string = request.payload.mwHash;
+		mwHash: string = request.payload.mwHash,
+		article = new Article.ArticleRequestHelper({wikiDomain: wikiDomain});
 
-	Article.getWikiVariables(wikiDomain, (error: any, wikiVariables: any) => {
+	article.getWikiVariables((error: any, wikiVariables: any) => {
 		var article: any = {},
 			result: any = {};
 

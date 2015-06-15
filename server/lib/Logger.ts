@@ -13,7 +13,7 @@ interface AvailableTargets {
 	[key: string]: CreateBunyanLoggerStream;
 }
 /**
- * Loogger interface
+ * Logger interface
  */
 module Logger {
 

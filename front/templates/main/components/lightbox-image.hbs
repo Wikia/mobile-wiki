@@ -1,6 +1,6 @@
-{{#if currentMedia.url}}
-	<img class='current' src='{{imageSrc}}' style='{{style}}'>
+{{#unless loadingError}}
+	<img class="current" src="{{imageSrc}}" style={{style}}>
 {{else}}
 	{{i18n 'app.media-lightbox-error'}}
-{{/if}}
+{{/unless}}
 {{loading-spinner active=isLoading overlay=false}}

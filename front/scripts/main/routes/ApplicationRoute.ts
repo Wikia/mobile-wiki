@@ -2,6 +2,7 @@
 /// <reference path="../../mercury/modules/Ads.ts" />
 /// <reference path="../../mercury/utils/articleLink.ts" />
 /// <reference path="../../mercury/utils/variantTesting.ts" />
+/// <reference path="../../mercury/utils/string.ts" />
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
@@ -17,7 +18,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
 		 */
 		Mercury.Modules.Ads.getInstance().openLightbox = (contents: any): void => {
-			this.send('openLightbox', 'ads-lightbox', {contents: contents});
+			this.send('openLightbox', 'ads', {contents: contents});
 		}
 	},
 
@@ -115,33 +116,25 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			App.ArticleModel
 				.getArticleRandomTitle()
 				.then((articleTitle: string): void => {
-					this.transitionTo('article', articleTitle);
+					this.transitionTo('article', encodeURIComponent(M.String.sanitize(articleTitle)));
 				})
 				.catch((err: any): void => {
 					this.send('error', err);
 				});
 		},
 
-		openLightbox: function (lightboxName: string, data?: any): void {
-			this.get('controller').set('noScroll', true);
+		// We need to proxy these actions because of the way Ember is bubbling them up through routes
+		// see http://emberjs.com/images/template-guide/action-bubbling.png
+		handleLightbox: function () {
+			this.get('controller').send('handleLightbox');
+		},
 
-			if (data) {
-				this.controllerFor(lightboxName).set('data', data);
-			}
-
-			this.render(lightboxName, {
-				into: 'application',
-				outlet: 'lightbox'
-			});
+		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
 		},
 
 		closeLightbox: function (): void {
-			this.get('controller').set('noScroll', false);
-
-			this.disconnectOutlet({
-				outlet: 'lightbox',
-				parentView: 'application'
-			});
+			this.get('controller').send('closeLightbox');
 		},
 
 		// This is used only in not-found.hbs template

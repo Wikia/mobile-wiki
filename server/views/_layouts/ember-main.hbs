@@ -5,9 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
 		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
-		{{#if article.article.description}}
-			<meta name="description" content="{{article.article.description}}">
-		{{/if}}
+		<meta name="description" content="{{article.article.description}}">
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 		{{#if themeColor}}
 		<meta name="theme-color" content="{{themeColor}}">
@@ -37,7 +35,7 @@
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('firstPage', true, true);
-			M.prop('queryParams', {{{json (escapeQueryParams queryParams)}}});
+			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
 			M.prop('weppyConfig', {{{json weppyConfig}}});
@@ -62,6 +60,13 @@
 	<body>
 		{{> qualaroo}}
 		<!-- @include ../../../www/front/svg/main.svg -->
+
+		<!-- A/B test (HG-727) -->
+		<div class="loading-overlay ab-test-loading-overlay">
+			<svg class='spinner' width='65' height='65' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'>
+				<circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle>
+			</svg>
+		</div>
 
 		<div id="article-preload">
 			{{{content}}}
@@ -90,6 +95,7 @@
 			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
+			<script src="/front/vendor/numeral/numeral.js"></script>
 			<!-- @if WIKIA_ENVIRONMENT='prod' -->
 				<script src="/front/vendor/weppy/dist/weppy.js"></script>
 				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>

@@ -9,7 +9,8 @@ fi
 if [ "$2" != "" ]; then
   TO=$2
 else
-  TO=origin/master
+  TO=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
+  TO="release-"$TO
 fi
 
 git --no-pager log $TO..$FROM --merges --pretty=tformat:'* %s: %b' |

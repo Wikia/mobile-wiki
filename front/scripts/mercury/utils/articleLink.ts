@@ -28,11 +28,10 @@ module Mercury.Utils {
 		var localPathMatch = uri.match('^' + window.location.origin + '(.*)$');
 
 		if (localPathMatch) {
-			var local = decodeURI(localPathMatch[1]),
+			var local = localPathMatch[1],
 				// Special internal link, we want to treat it as an external. (|| uri.match(/^\/Special:.*/))
 				// NOTE: see below, but we might also have to deal with links in the form /Special:.*
 				namespaces = Mercury.wiki.namespaces;
-
 			//Handle links to main page
 			if (local === '/') {
 				return {
@@ -65,9 +64,17 @@ module Mercury.Utils {
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
 			 */
-			var article = local.match(/^(\/(wiki))?\/([^#]+)(#.*)?$/);
+			var article = local.match(/^(\/(wiki))?\/([^#]+)(#.*)?$/),
+				comparison: string;
+
+			try {
+				comparison = decodeURIComponent(article[3]);
+			} catch (e) {
+				comparison = article[3];
+			}
+
 			if (article) {
-				if (article[3] === title && hash) {
+				if (comparison === title && hash) {
 					return {
 						article: null,
 						url: hash
