@@ -44,38 +44,55 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		return imageHeight;
 	}),
 
-	url: Em.computed(function (key: string, value?: string): string {
-		var media: ArticleMedia;
-		if (value) {
-			return this.getThumbURL(value, {
-				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-				width: this.get('articleContent.width'),
-				height: this.get('computedHeight')
-			});
-		} else {
-			media = this.get('media');
+	/**
+	 * @desc return the thumbURL for media.
+	 * If media is an icon inside the infobox, width 
+	 * was already set.
+	 */
+	url: Em.computed({
+		get(): string {
+			var media: ArticleMedia = this.get('media'),
+				icon: boolean,
+				mode: string,
+				width: number;
 
 			if (media) {
+				icon = this.get('isInfoboxIcon');
+				if (icon) {
+					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+					width = this.get('width');
+				} else {
+					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
+					width = this.get('articleContent.width');
+				}
+
 				return this.getThumbURL(media.url, {
-					mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-					width: this.get('articleContent.width'),
-					height: this.get('computedHeight')
+					mode: mode,
+					height: this.get('computedHeight'),
+					width: width
 				});
 			}
-		}
 
-		//if it got here, that means that we don't have an url for this media
-		//this might happen for example for read more section images
+			//if it got here, that means that we don't have an url for this media
+			//this might happen for example for read more section images
+		},
+		set(key: string, value: string): string {
+			return this.getThumbURL(value, {
+				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+				height: this.get('computedHeight'),
+				width: this.get('articleContent.width')
+			});
+		}
 	}),
 
 	/**
 	 * @desc style used on img tag to set height of it before we load an image
 	 * so when image loads, browser don't have to resize it
 	 */
-	style: Em.computed('computedHeight', 'visible', function (): string {
-		return this.get('visible') ?
+	style: Em.computed('computedHeight', 'visible', function (): typeof Handlebars.SafeString {
+		return (this.get('visible') ?
 			'' :
-			'height:%@px;'.fmt(this.get('computedHeight'));
+			`height:${this.get('computedHeight')}px;`).htmlSafe();
 	}),
 
 	/**

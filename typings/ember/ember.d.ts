@@ -58,7 +58,7 @@ declare module EmberStates {
           @arg {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
-        then(onFulfilled: Function, onRejected: Function, label?: string): Ember.RSVP.Promise;
+        then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -827,7 +827,7 @@ declare module Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
-        sendAction(action: string, context: any): void;
+        sendAction(action: string, ...contexts: any[]): void;
         targetObject: Controller;
     }
     /**

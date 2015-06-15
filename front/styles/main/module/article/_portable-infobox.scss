@@ -7,6 +7,18 @@ $infobox-section-header-background: #e5e5e5;
 
 	.media-component {
 		margin: 0;
+
+		figcaption {
+			font-style: italic;
+			height: auto;
+			padding: $infobox-item-margin $infobox-item-margin * 3;
+		}
+
+		.gallery-image img {
+			background-color: transparent;
+			background-image: none;
+			width: auto;
+		}
 	}
 
 	.portable-infobox-item-margins {

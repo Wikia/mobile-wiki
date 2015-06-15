@@ -1,3 +1,109 @@
+## release-85 (2015-06-15 07:26 UTC)
+* [HG-732](https://wikia-inc.atlassian.net/browse/HG-732)//www.wikia.com
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) Hg 727
+* [HG-750](https://wikia-inc.atlassian.net/browse/HG-750) HG-750 - added GA tracking to random article link
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) HG-727 adding loading graphic for A/B test
+* [CONCF-512](https://wikia-inc.atlassian.net/browse/CONCF-512) CONCF-512 Refactor lightboxes
+
+## release-84 (2015-06-12 07:26 UTC)
+* typescript-sourcemaps: Generate TS sourcemaps to allow direct TS debugging in Chrome devtools
+* [HG-605](https://wikia-inc.atlassian.net/browse/HG-605) HG-605 Description meta tag now updates on article change
+
+## release-83 (2015-06-11 07:26 UTC)
+* feature/HG-736: HG-736 Add in support for forwarding headers
+
+## release-82 (2015-06-10 07:26 UTC)
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 disabled caching for random page querys
+* [HG-654](https://wikia-inc.atlassian.net/browse/HG-654) Hg 654 remove 'mw-content' from non-mediawiki content wrappers
+* enable-suppressImplicitAnyIndexErrors: Enable suppressImplicitAnyIndexErrors flag
+
+## release-81 (2015-06-09 09:21 UTC)
+* [DAT-2858](https://wikia-inc.atlassian.net/browse/DAT-2858) DAT- 2858
+* [CONCF-553](https://wikia-inc.atlassian.net/browse/CONCF-553) CONCF-553 Add wikia stats module to Curated Main Page
+
+## release-80 (2015-06-08 09:13 UTC)
+* task-update: change default destination
+* revert-887-HG-686: Revert "HG-686 removed namespace specifier from random page query for…
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 removed namespace specifier from random page query for community wiki
+* [SOC-748](https://wikia-inc.atlassian.net/browse/SOC-748) SOC-748 Set login status in GA
+* [HG-712](https://wikia-inc.atlassian.net/browse/HG-712) HG-712 mercury_ads_js now pulling from correct wiki domain
+* hotfix/HG-677: encode the whole string instead of just the first char
+* [HG-655](https://wikia-inc.atlassian.net/browse/HG-655) HG-655 Whitelist for query params
+* [HG-718](https://wikia-inc.atlassian.net/browse/HG-718) Update Ember to 1.12.1
+
+## release-79 (2015-06-02 09:11 UTC)
+* [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) send metrics on window.load
+
+## release-78 (2015-06-01 16:26 UTC)
+* aden-1773-incremental-ads-on-long-pages: ADEN-1773 Test Loading Incremental Ads on long pages
+* aden-2065-fix-floor-adhesion-styling: ADEN-2065 Fix styling for Floor Adhesion unit with transparency image
+* [CONCF-603](https://wikia-inc.atlassian.net/browse/CONCF-603) CONCF-603 | Fix for text wrapping in curated content on curated main pages
+
+## release-77 (2015-05-30 23:24 UTC)
+* [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) Use Weppy#sendPagePerformance instead of gathering metrics manually
+
+## release-76 (2015-05-28 22:45 UTC)
+* [SOC-850](https://wikia-inc.atlassian.net/browse/SOC-850) SOC-850 & SOC-845 New Login Fixes to cooperate with autofill
+
+## release-75 (2015-05-28 21:11 UTC)
+* [INT-78](https://wikia-inc.atlassian.net/browse/INT-78) In section editor wrap article titles to one line only
+
+## release-74 (2015-05-28 18:41 UTC)
+* [INT-90](https://wikia-inc.atlassian.net/browse/INT-90) Position edit button for section zero slightly lower
+
+## release-73 (2015-05-28 07:38 UTC)
+* [INT-87](https://wikia-inc.atlassian.net/browse/INT-87) Use relative URL to MW api.php. It will get it to work properly on sandbox environment and production, but will not work on localhost
+* [CONCF-601](https://wikia-inc.atlassian.net/browse/CONCF-601) CONCF-601 | fixed default article-top-contributors-label
+* i18n-update: i18n-update | bulked translations downloaded from Crowdin
+* [INT-58](https://wikia-inc.atlassian.net/browse/INT-58) Initial version of article section editing in Mercury
+* [SOC-818](https://wikia-inc.atlassian.net/browse/SOC-818) SOC-818 | Auth landing page - Change CTA message + move some items
+* [HG-698](https://wikia-inc.atlassian.net/browse/HG-698) HG-698  move function dec out of block scope (strict mode err)
+* changelog-fix: add exception to changelog-view v2
+* [INT-77](https://wikia-inc.atlassian.net/browse/INT-77) GA tracking for section editor specific events
+* [INT-82](https://wikia-inc.atlassian.net/browse/INT-82) (INT-82) Don't display edit buttons on main pages or non-Japanese wikias
+* [INT-81](https://wikia-inc.atlassian.net/browse/INT-81) Disable publish button while publishing
+* [INT-70](https://wikia-inc.atlassian.net/browse/INT-70) (INT-70) Handle errors on publishing an edit
+* [INT-80](https://wikia-inc.atlassian.net/browse/INT-80) Handle edit loading error - when transitiong from article route to edit route
+* [INT-68](https://wikia-inc.atlassian.net/browse/INT-68) (INT-68) Activate publish button after content change
+* [INT-69](https://wikia-inc.atlassian.net/browse/INT-69) (INT-69) Add simple success notification on publish
+* [INT-71](https://wikia-inc.atlassian.net/browse/INT-71) (INT-71) Add i18n for edit page heading and publish button
+* [INT-67](https://wikia-inc.atlassian.net/browse/INT-67) (INT-67) Resize textarea when window size is changed
+* [INT-66](https://wikia-inc.atlassian.net/browse/INT-66) Display loading indicator when saving section edit
+* [INT-72](https://wikia-inc.atlassian.net/browse/INT-72) (INT-72) Fix hardcoded wikia URL in API requests
+
+## release-72 (2015-05-27 17:10 UTC)
+* login-mvp-enabled: Login MVP Release 1
+* [SOC-811](https://wikia-inc.atlassian.net/browse/SOC-811) SOC-811 Fixing caching issues for i18n on /join page
+* [SOC-745](https://wikia-inc.atlassian.net/browse/SOC-745) SOC-745 Changing hero unit for /join page
+
+## release-71 (2015-05-27 12:18 UTC)
+* [CONCF-582](https://wikia-inc.atlassian.net/browse/CONCF-582) CONCF-582 | Tell Optimizely to use UA Dimensions
+* fix-curated-content-invalid-typing: Fix curated content invalid typing
+
+## release-70 (2015-05-26 18:13 UTC)
+* [DAT-2812](https://wikia-inc.atlassian.net/browse/DAT-2812) DAT-2812 style image caption inside portable infoboxes
+* Upgrade-to-Ember-1.12: Upgrade to ember 1.12
+* [CONCF-505](https://wikia-inc.atlassian.net/browse/CONCF-505) CONCF-505 | trending videos for curated content mobile main pages
+* [CONCF-551](https://wikia-inc.atlassian.net/browse/CONCF-551) CONCF-551 Treat top level of curated content as a regular section
+* [CONCF-550](https://wikia-inc.atlassian.net/browse/CONCF-550) CONCF-550 Show pre-footer ad when trending articles and/or videos are present
+* [CONCF-549](https://wikia-inc.atlassian.net/browse/CONCF-549) CONCF-549
+* [HG-668](https://wikia-inc.atlassian.net/browse/HG-668) Hg 668 wiki redirect
+* trending-articles: CONCF-504 Trending articles
+
+## release-69 (2015-05-25 15:21 UTC)
+* [DAT-2812](https://wikia-inc.atlassian.net/browse/DAT-2812) DAT-2812 style image caption inside portable infoboxes
+
+## release-68 (2015-05-21 18:47 UTC)
+* [SOC-826](https://wikia-inc.atlassian.net/browse/SOC-826) SOC-826 Disable browser caching for HTML documents
+* feature/HG-690-ga-special-wikis: Add check for GA special wiki
+
+## release-67 (2015-05-21 17:53 UTC)
+* [CONCF-552](https://wikia-inc.atlassian.net/browse/CONCF-552) CONCF-552 Categories as Curated Content sections
+* feature/HG-656-tracking: Feature/hg 656 tracking
+* fixing-forgot-password-link: Fixing forgot-password link
+* fix-wrap-result: Use the returned value from wrapResult method
+* tslint-call-signature: Add check for call-signature to tslint and fix existing signatures
+
 ## release-66 (2015-05-19 20:21 UTC)
 * feature/performance: Add baseline performance metrics to send to Weppy
 * [HG-618](https://wikia-inc.atlassian.net/browse/HG-618) HG-618 adding error checking

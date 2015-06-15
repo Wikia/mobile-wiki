@@ -1,0 +1,6 @@
+{{#unless loadingError}}
+	<img class="current" src="{{imageSrc}}" style={{style}}>
+{{else}}
+	{{i18n 'app.media-lightbox-error'}}
+{{/unless}}
+{{loading-spinner active=isLoading overlay=false}}

@@ -5,11 +5,10 @@
 
 App.ArticleController = Em.Controller.extend({
 	needs: ['application'],
-
-	queryParams: ['file', 'map', {commentsPage: 'comments_page'}],
-	file: null,
+	queryParams: [{
+		commentsPage: 'comments_page'
+	}],
 	commentsPage: null,
-	map: null,
 	noAds: Em.computed.alias('controllers.application.noAds'),
 
 	init: function (): void {
@@ -25,21 +24,19 @@ App.ArticleController = Em.Controller.extend({
 			article.set('sections', headers);
 		},
 
-		articleRendered: function () {
-			if (this.get('file')) {
-				this.send('openLightbox', 'media-lightbox');
-			} else if (this.get('map')) {
-				var foundMap = Em.$('a[data-map-id=' + this.get('map') + ']'),
-					title = foundMap.data('map-title'),
-					url = foundMap.data('map-url'),
-					id = foundMap.data('map-id');
+		edit: function (title: string, sectionIndex: number): void {
+			App.VisibilityStateManager.reset();
+			this.transitionToRoute('edit', title, sectionIndex);
+			M.track({
+				action: M.trackActions.click,
+				category: 'sectioneditor',
+				label: 'edit',
+				value: sectionIndex
+			});
+		},
 
-				this.send('openLightbox', 'map-lightbox', {
-					title: title,
-					url: url,
-					id: id
-				});
-			}
+		articleRendered: function () {
+			this.send('handleLightbox');
 		}
 	}
 });

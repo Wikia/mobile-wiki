@@ -11,7 +11,7 @@
 		"article-last-edit_plural_0": "Last edited this week",
 		"article-last-edit_plural_2": "Last edited __count__ weeks ago",
 		"article-categories-list-label": "Categories",
-		"article-top-contributors-label": "Top Contributors of this Article",
+		"article-top-contributors-label": "Top Contributors to this article",
 		"side-nav-menu-label": "Menu",
 		"navigation-back-label": "Back",
 		"search-no-results-msg": "Sorry, we couldn't find anything that matched your search!",
@@ -50,6 +50,10 @@
 		"months-ago-label_plural": "__count__ months ago",
 		"years-ago-label": "a year ago",
 		"years-ago-label_plural": "__count__ years ago",
+		"trending-label": "Trending",
+		"videos-label": "Videos",
+		"photos-label": "Photos",
+		"pages-label": "Pages",
 		"username-anonymous": "A Wikia Contributor",
 		"smartbanner-store-ios": "On the App Store",
 		"smartbanner-store-android": "In Google Play",
@@ -59,6 +63,16 @@
 		"view-more": "View more",
 		"wikia-map-view-map": "View",
 		"search-label": "Search",
-		"cancel-label": "Cancel"
+		"cancel-label": "Cancel",
+		"edit-page-heading": "Editing:",
+		"edit-page-publish": "Publish",
+		"edit-success": "Successfully edited page __pageTitle__!",
+		"edit-load-error": "Sorry, it looks like something went wrong. Please try again.",
+		"edit-publish-error": "Sorry, it looks like something went wrong. Please try again.",
+		"edit-publish-error-autoblockedtext": "Your IP address has been blocked automatically, because it was used by a blocked user.",
+		"edit-publish-error-blocked": "You have been blocked from editing.",
+		"edit-publish-error-noedit": "You don't have permission to edit pages on this wikia.",
+		"edit-publish-error-noedit-anon": "Anonymous users can't edit pages.",
+		"edit-publish-error-protectedpage": "You don't have permission to edit this page."
 	}
 }

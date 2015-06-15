@@ -11,6 +11,7 @@ interface Response {
 			title: string;
 			ns: string;
 			url: string;
+			description: string;
 			revision: {
 				id: number;
 				user: string;
@@ -28,6 +29,7 @@ interface Response {
 			users: any;
 			categories: any[];
 		};
+		isMainPage: boolean;
 		mainPageData: any[];
 		relatedPages: any[];
 		topContributors: any[];
@@ -41,6 +43,8 @@ App.ArticleModel = Em.Object.extend({
 	categories: [],
 	cleanTitle: null,
 	comments: 0,
+	description: null,
+	isMainPage: false,
 	mainPageData: null,
 	media: [],
 	mediaUsers: [],
@@ -150,6 +154,9 @@ App.ArticleModel.reopenClass({
 				error: error
 			};
 		} else if (source) {
+			// TODO temporary, remove in CONCF-670
+			var descriptionCopied = false;
+
 			if (source.details) {
 				var details = source.details;
 
@@ -160,6 +167,12 @@ App.ArticleModel.reopenClass({
 					id: details.id,
 					user: details.revision.user_id
 				});
+
+				// TODO temporary, extend with the rest above in CONCF-670
+				if (details.description) {
+					data.description = details.description;
+					descriptionCopied = true;
+				}
 			}
 
 			if (source.article) {
@@ -174,6 +187,11 @@ App.ArticleModel.reopenClass({
 					}),
 					categories: article.categories
 				});
+
+				// TODO temporary, remove in CONCF-670
+				if (!descriptionCopied && article.description) {
+					data.description = article.description;
+				}
 			}
 
 			if (source.relatedPages) {
@@ -194,7 +212,9 @@ App.ArticleModel.reopenClass({
 				data.topContributors = source.topContributors;
 			}
 
-			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
+			data.isMainPage = source.isMainPage || false;
+
+			if (source.mainPageData) {
 				data.mainPageData = source.mainPageData;
 				data.isCuratedMainPage = true;
 			}

@@ -1,0 +1,6 @@
+<h2>{{i18n 'app.trending-label'}}</h2>
+{{#each article in model}}
+	{{trending-articles-item title=article.title url=article.url imageUrl=article.thumbnail}}
+{{/each}}
+
+{{! the empty newline above lets the last inline item to be justified to the right if it's even }}

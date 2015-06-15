@@ -1,26 +1,34 @@
 {{#if editorPreview}}
-	<div class="page-wrapper editor-preview" {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
+	<div class="page-wrapper editor-preview" lang={{language.content}} dir={{language.contentDir}}>
 		<section class='wiki-container'>
 			{{outlet}}
 		</section>
 	</div>
-	{{loading-spinner active=isLoading}}
 	{{outlet 'lightbox'}}
+{{else if fullPage}}
+	{{outlet}}
 {{else}}
 	{{smart-banner isVisible=view.smartBannerVisible}}
 	{{site-head
 		smartBannerVisible=view.smartBannerVisible
 		sideNavCollapsed=view.sideNavCollapsed
-		currentUser=currentUser}}
+		currentUser=currentUser
+	}}
 	{{share-feature smartBannerVisible=view.smartBannerVisible title=currentTitle language=language}}
 	{{side-nav isCollapsed=view.sideNavCollapsed loadRandomArticle='loadRandomArticle'}}
 	{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
 	{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
-	<div class='page-wrapper' {{bind-attr lang=language.content}} {{bind-attr dir=language.contentDir}}>
+	<div class='page-wrapper' lang={{language.content}} dir={{language.contentDir}}>
 		<section class='wiki-container'>
 			{{outlet}}
 		</section>
 	</div>
-	{{loading-spinner active=isLoading}}
-	{{outlet 'lightbox'}}
+	{{lightbox-wrapper
+		type=lightboxType
+		model=lightboxModel
+		closeLightbox='closeLightbox'
+		setQueryParam='setQueryParam'
+	}}
 {{/if}}
+{{alert-notifications alerts=view.alertNotifications}}
+{{loading-spinner active=isLoading}}

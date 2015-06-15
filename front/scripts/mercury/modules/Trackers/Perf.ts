@@ -32,8 +32,9 @@ module Mercury.Modules.Trackers {
 			this.defaultContext = {
 				skin: 'mercury',
 				'user-agent': window.navigator.userAgent,
-				env: M.prop('environment')
-			}
+				env: M.prop('environment'),
+				url: window.location.href.split('#')[0]
+			};
 			this.tracker.setOptions({
 				host: M.prop('weppyConfig').host,
 				transport: 'url',

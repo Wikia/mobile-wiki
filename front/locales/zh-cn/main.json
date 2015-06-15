@@ -11,7 +11,7 @@
     "article-last-edit_plural_0":"这星期进行编辑过",
     "article-last-edit_plural_2":"上次编辑在 __count__ 周前",
     "article-categories-list-label":"类别",
-    "article-top-contributors-label":"本维基最优秀的编辑者",
+    "article-top-contributors-label":"这篇文章的杰出编辑者",
     "side-nav-menu-label":"菜单",
     "navigation-back-label":"返回",
     "search-no-results-msg":"对不起，我们找不到任何与您搜索匹配的内容！",
@@ -59,6 +59,16 @@
     "view-more":"查看更多",
     "wikia-map-view-map":"查看",
     "search-label":"搜索",
-    "cancel-label":"取消"
+    "cancel-label":"取消",
+    "edit-page-heading":"编辑：",
+    "edit-page-publish":"发布",
+    "edit-success":"已编辑成功的页面__pageTitle__!",
+    "edit-load-error":"出现错误。对不起，请再试一次。",
+    "edit-publish-error":"出现错误。对不起，请再试一次。",
+    "edit-publish-error-autoblockedtext":"您的IP地址已被屏蔽，因为它的用户者是被屏蔽的用户。",
+    "edit-publish-error-blocked":"您已被屏蔽，无法进行编辑。",
+    "edit-publish-error-noedit":"您没有编辑Wikia页面的权限。",
+    "edit-publish-error-noedit-anon":"匿名用户无法编辑页面。",
+    "edit-publish-error-protectedpage":"您没有编辑此页面的权限。"
   }
 }
