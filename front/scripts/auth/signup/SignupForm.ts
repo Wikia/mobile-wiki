@@ -23,12 +23,6 @@ class SignupForm {
 		this.form = <HTMLFormElement> form;
 	}
 
-	private urlEncode(object: Object): string {
-		return Object.keys(object).map((key: string) =>
-				`${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`
-		).join('&');
-	}
-
 	private clearValidationErrors(): void {
 		var errorNodes: NodeList = this.form.querySelectorAll('.error');
 
@@ -117,7 +111,7 @@ class SignupForm {
 
 		xhr.open('POST', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhr.send(this.urlEncode(data));
+		xhr.send((new UrlHelper()).urlEncode(data));
 
 		event.preventDefault();
 	}
