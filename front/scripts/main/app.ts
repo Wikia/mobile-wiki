@@ -74,25 +74,6 @@ App.initializer({
 });
 
 App.initializer({
-	name: 'optimizelyCuratedMainPageLoader',
-	after: 'preload',
-	initialize: () => {
-		// 2870342045, 2923810390 -> Experiment IDs in Optimizely / Mercury (production / dev)
-		// 1 -> Variation ID that should have CuratedMainPages Enabled
-		var optimizelyCuratedMainPage =
-			(typeof optimizely === "object") &&
-			(typeof optimizely.activeExperiments === "object") &&
-			(typeof optimizely.variationMap === "object") &&
-			(
-				(optimizely.activeExperiments.indexOf('2870342045') !== -1 && optimizely.variationMap[2870342045] == 1) ||
-				(optimizely.activeExperiments.indexOf('2923810390') !== -1 && optimizely.variationMap[2923810390] == 1)
-			);
-
-		M.prop('optimizelyCuratedMainPage', optimizelyCuratedMainPage);
-	}
-});
-
-App.initializer({
 	name: 'performanceMonitoring',
 	after: 'preload',
 	initialize () {
