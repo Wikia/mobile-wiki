@@ -6,7 +6,7 @@ class AutoTab {
 	constructor(input: HTMLInputElement) {
 		this.input = input;
 		this.form = input.form;
-		this.max = parseInt(input.getAttribute('maxlength'));
+		this.max = parseInt(input.getAttribute('maxlength'), 10);
 	}
 
 	public init(): void {
