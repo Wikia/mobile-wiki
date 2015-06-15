@@ -13,7 +13,8 @@
 		smartBannerVisible=view.smartBannerVisible
 		sideNavCollapsed=view.sideNavCollapsed
 		userMenuCollapsed=view.userMenuCollapsed
-		currentUser=currentUser}}
+		currentUser=currentUser
+	}}
 	{{share-feature smartBannerVisible=view.smartBannerVisible title=currentTitle language=language}}
 	{{side-nav isCollapsed=view.sideNavCollapsed loadRandomArticle='loadRandomArticle'}}
 	{{#if currentUser.isAuthenticated}}
@@ -26,7 +27,12 @@
 			{{outlet}}
 		</section>
 	</div>
-	{{outlet 'lightbox'}}
+	{{lightbox-wrapper
+		type=lightboxType
+		model=lightboxModel
+		closeLightbox='closeLightbox'
+		setQueryParam='setQueryParam'
+	}}
 {{/if}}
 {{alert-notifications alerts=view.alertNotifications}}
 {{loading-spinner active=isLoading}}

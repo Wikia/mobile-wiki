@@ -8,6 +8,8 @@
 {{else}}
 	{{login-icon}}
 {{/if}}
-<div class="site-logo" {{action 'trackClick' 'wordmark'}}>
-    {{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+<div class="site-logo">
+	<a {{action 'trackClick' 'wordmark' preventDefault=false}} href="http://www.wikia.com">
+		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+	</a>
 </div>

@@ -16,7 +16,8 @@ module.exports = {
 			noImplicitAny: true,
 			removeComments: false,
 			declarationFiles: false,
-			sortOutput: true
+			sortOutput: true,
+			suppressImplicitAnyIndexErrors: true
 		},
 		server: {
 			module: 'commonjs',
@@ -24,7 +25,8 @@ module.exports = {
 			emitError: false,
 			noImplicitAny: true,
 			declarationFiles: false,
-			removeComments: false
+			removeComments: false,
+			suppressImplicitAnyIndexErrors: true
 		}
 	},
 	doc: {

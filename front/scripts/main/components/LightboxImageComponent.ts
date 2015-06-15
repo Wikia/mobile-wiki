@@ -4,26 +4,33 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.LoadingSpinnerMixin, {
-	classNames: ['lightbox-content-inner'],
+App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.LoadingSpinnerMixin, {
+	classNames: ['lightbox-image', 'lightbox-content-inner'],
 	maxZoom: 5,
 	lastX: 0,
 	lastY: 0,
 	lastScale: 1,
-	isZoomed: Em.computed.gt('scale', 1),
 
+	//Easy to port if we find a way to use enum here
+	screenAreas:  {
+		left: 0,
+		center: 1,
+		right: 2
+	},
+
+	isZoomed: Em.computed.gt('scale', 1),
+	loadingError: false,
+
+	/**
+	 * @desc This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
+	 */
 	style: Em.computed(function (): typeof Handlebars.SafeString {
 		var scale = this.get('scale').toFixed(2),
 			x = this.get('newX').toFixed(2),
 			y = this.get('newY').toFixed(2),
 			transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
 
-		return (
-			'-webkit-' + transform +
-			transform
-		).htmlSafe();
-		//Performance critical place
-		//We will update property 'manually' by calling notifyPropertyChange
+		return ('-webkit-' + transform + transform).htmlSafe();
 	}),
 
 	viewportSize: Em.computed(function () {
@@ -32,13 +39,6 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 			height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 		};
 	}),
-
-	//Easy to port if we find a way to use enum here
-	screenAreas:  {
-		left: 0,
-		center: 1,
-		right: 2
-	},
 
 	/**
 	 * @desc calculates current scale for zooming
@@ -117,21 +117,6 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 		}
 	}),
 
-	/**
-	 * @desc returns limited value for given max ie.
-	 * value = 5, max = 6, return 5
-	 * value = 6, max = 3, return 3
-	 * value = -5, max = -6, return -5
-	 * value = -6, max = -3, return -3
-	 */
-	limit (value: number, max: number): number {
-		if (value < 0) {
-			return Math.max(value, -max);
-		} else {
-			return Math.min(value, max);
-		}
-	},
-
 	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
 		this.notifyPropertyChange('viewportSize');
 		this.notifyPropertyChange('imageWidth');
@@ -139,12 +124,14 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	}),
 
 	didInsertElement: function (): void {
-		var currentMedia = this.get('currentMedia'),
+		var url = this.get('model.url'),
 			hammerInstance = this.get('_hammerInstance');
-		if (currentMedia && currentMedia.url) {
+
+		if (url) {
 			this.showLoader();
-			this.load(currentMedia.url);
+			this.load(url);
 		}
+
 		this.resetZoom();
 
 		hammerInstance.get('pinch').set({
@@ -156,47 +143,6 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 		});
 	},
 
-	resetZoom: function (): void {
-		this.setProperties({
-			scale: 1,
-			lastScale: 1,
-			newX: 0,
-			newY: 0,
-			lastX: 0,
-			lastY: 0
-		});
-	},
-
-	/**
-	 * @desc load an image and run update function when it is loaded
-	 *
-	 * @param url string - url of current image
-	 */
-	load: function (url: string): void {
-		var image: HTMLImageElement = new Image();
-		image.src = url;
-		if (image.complete) {
-			this.update(image.src);
-		} else {
-			image.addEventListener('load', () => {
-				this.update(image.src);
-			});
-		}
-	},
-
-	/**
-	 * @desc updates img with its src and sets media component to visible state
-	 *
-	 * @param src string - src for image
-	 */
-	update: function (src: string): void {
-		this.setProperties({
-			imageSrc: src,
-			visible: true
-		});
-		this.hideLoader();
-	},
-
 	/**
 	 * @desc Handle click and prevent bubbling
 	 * if the image is zoomed
@@ -204,25 +150,6 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	click: function (event: MouseEvent): boolean {
 		var isZoomed = this.get('isZoomed');
 		return isZoomed ? false : true;
-	},
-
-	/**
-	 * @desc Checks on which area on the screen an event took place
-	 * @param {Touch} event
-	 * @returns {number}
-	 */
-	getScreenArea: function (event: Touch): number {
-		var viewportWidth = this.get('viewportSize.width'),
-			x = event.clientX,
-			thirdPartOfScreen = viewportWidth / 3;
-
-		if (x < thirdPartOfScreen) {
-			return this.screenAreas.left;
-		} else if (x > viewportWidth - thirdPartOfScreen) {
-			return this.screenAreas.right;
-		} else {
-			return this.screenAreas.center;
-		}
 	},
 
 	gestures: {
@@ -280,6 +207,85 @@ App.ImageLightboxComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 
 		pinchEnd: function (event: HammerInput): void {
 			this.set('lastScale', this.get('lastScale') * event.scale);
+		}
+	},
+
+	/**
+	 * @desc returns limited value for given max ie.
+	 * value = 5, max = 6, return 5
+	 * value = 6, max = 3, return 3
+	 * value = -5, max = -6, return -5
+	 * value = -6, max = -3, return -3
+	 */
+	limit (value: number, max: number): number {
+		if (value < 0) {
+			return Math.max(value, -max);
+		} else {
+			return Math.min(value, max);
+		}
+	},
+
+	resetZoom: function (): void {
+		this.setProperties({
+			scale: 1,
+			lastScale: 1,
+			newX: 0,
+			newY: 0,
+			lastX: 0,
+			lastY: 0
+		});
+	},
+
+	/**
+	 * @desc load an image and run update function when it is loaded
+	 *
+	 * @param url string - url of current image
+	 */
+	load: function (url: string): void {
+		var image: HTMLImageElement = new Image();
+		image.src = url;
+		if (image.complete) {
+			this.update(image.src);
+		} else {
+			image.addEventListener('load', (): void => {
+				this.update(image.src);
+			});
+
+			image.addEventListener('error', (): void => {
+				this.set('loadingError', true);
+			});
+		}
+	},
+
+	/**
+	 * @desc updates img with its src and sets media component to visible state
+	 *
+	 * @param src string - src for image
+	 */
+	update: function (src: string): void {
+		this.setProperties({
+			imageSrc: src,
+			visible: true
+		});
+		this.hideLoader();
+	},
+
+	/**
+	 * @desc Checks on which area on the screen an event took place
+	 * @param {Touch} event
+	 * @returns {number}
+	 */
+	getScreenArea: function (event: Touch): number {
+		var viewportWidth = this.get('viewportSize.width'),
+			x = event.clientX,
+			thirdPartOfScreen = viewportWidth / 3;
+
+		if (x < thirdPartOfScreen) {
+			return this.screenAreas.left;
+		} else if (x > viewportWidth - thirdPartOfScreen) {
+			return this.screenAreas.right;
+		} else {
+			return this.screenAreas.center;
 		}
 	}
 });
