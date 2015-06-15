@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-Em.LinkView.reopen({
+Em.LinkComponent.reopen({
 	attributeBindings: ['data-tracking-category'],
 
 	//it allows to use action='x' actionParam='y' in link-to helper
