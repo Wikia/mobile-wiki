@@ -200,7 +200,7 @@ App.ArticleModel.reopenClass({
 
 			data.isMainPage = source.isMainPage || false;
 
-			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
+			if (source.mainPageData) {
 				data.mainPageData = source.mainPageData;
 				data.isCuratedMainPage = true;
 			}
