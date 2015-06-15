@@ -1330,8 +1330,8 @@ declare module Ember {
     var LOG_BINDINGS: boolean;
     var LOG_STACKTRACE_ON_DEPRECATION: boolean;
     var LOG_VERSION: boolean;
-	// TODO this should be adjusted to https://github.com/emberjs/ember.js/blob/e8124a4d76f809b408e8a657f9f5b1b465655f95/packages/ember-routing-views/lib/views/link.js#L40
-	class LinkComponent extends Component { }
+    // TODO this should be adjusted to https://github.com/emberjs/ember.js/blob/e8124a4d76f809b408e8a657f9f5b1b465655f95/packages/ember-routing-views/lib/views/link.js#L40
+    class LinkComponent extends Component { }
     class LinkView extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
