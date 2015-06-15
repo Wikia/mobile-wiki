@@ -1,3 +1,14 @@
+## release-79 (2015-06-02 09:11 UTC)
+* [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) send metrics on window.load
+
+## release-78 (2015-06-01 16:26 UTC)
+* aden-1773-incremental-ads-on-long-pages: ADEN-1773 Test Loading Incremental Ads on long pages
+* aden-2065-fix-floor-adhesion-styling: ADEN-2065 Fix styling for Floor Adhesion unit with transparency image
+* [CONCF-603](https://wikia-inc.atlassian.net/browse/CONCF-603) CONCF-603 | Fix for text wrapping in curated content on curated main pages
+
+## release-77 (2015-05-30 23:24 UTC)
+* [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) Use Weppy#sendPagePerformance instead of gathering metrics manually
+
 ## release-76 (2015-05-28 22:45 UTC)
 * [SOC-850](https://wikia-inc.atlassian.net/browse/SOC-850) SOC-850 & SOC-845 New Login Fixes to cooperate with autofill
 

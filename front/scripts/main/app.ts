@@ -96,33 +96,11 @@ App.initializer({
 	name: 'performanceMonitoring',
 	after: 'preload',
 	initialize () {
-		function createEvent (name: string, value: number): PerfTrackerParams {
-			return {
-				module: 'App',
-				name: name,
-				type: 'timer',
-				value: value
-			};
-		}
-
 		if (typeof EmPerfSender === 'undefined') {
 			return;
 		}
 
-		if (window.performance && window.performance.timing) {
-			var times: any = window.performance.timing,
-				events: PerfTrackerParams[];
-
-			$(() => {
-				events = [
-					['domContentLoaded', times.domContentLoadedEventStart - times.domLoading],
-					['domComplete', times.domContentLoadedEventStart - times.domLoading],
-					['domInteractive', times.domInteractive - times.domLoading]
-				].map((item: PerfTrackerParams) => createEvent.apply(null, item));
-
-				events.forEach(M.trackPerf);
-			});
-		}
+		$(window).load(() => M.sendPagePerformance());
 
 		EmPerfSender.initialize({
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
