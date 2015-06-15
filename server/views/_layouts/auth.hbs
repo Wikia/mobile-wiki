@@ -29,21 +29,16 @@
 		{{/unless}}
 
 		{{#unless noScripts}}
+		<!-- build:js /front/scripts/auth.js -->
 		<script src="/front/vendor/jquery/dist/jquery.js"></script>
-		<!-- build:js /front/scripts/baseline.js -->
 		<script src="/front/scripts/baseline.js"></script>
-		<!-- endbuild -->
-		<!-- build:js /front/scripts/mercury.js -->
 		<script src="/front/scripts/mercury.js"></script>
+		<script src="/front/scripts/auth.js"></script>
 		<!-- endbuild -->
 
 		<script>
 			M.prop('tracking', {{{json trackingConfig}}});
 		</script>
-
-		<!-- build:js /front/scripts/auth.js -->
-		<script src="/front/scripts/auth.js"></script>
-		<!-- endbuild -->
 		{{/unless}}
 	</body>
 </html>
