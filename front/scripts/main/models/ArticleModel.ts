@@ -154,6 +154,9 @@ App.ArticleModel.reopenClass({
 				error: error
 			};
 		} else if (source) {
+			// TODO temporary, remove in CONCF-670
+			var descriptionCopied = false;
+
 			if (source.details) {
 				var details = source.details;
 
@@ -162,9 +165,14 @@ App.ArticleModel.reopenClass({
 					cleanTitle: details.title,
 					comments: details.comments,
 					id: details.id,
-					user: details.revision.user_id,
-					description: details.description
+					user: details.revision.user_id
 				});
+
+				// TODO temporary, extend with the rest above in CONCF-670
+				if (details.description) {
+					data.description = details.description;
+					descriptionCopied = true;
+				}
 			}
 
 			if (source.article) {
@@ -179,6 +187,11 @@ App.ArticleModel.reopenClass({
 					}),
 					categories: article.categories
 				});
+
+				// TODO temporary, remove in CONCF-670
+				if (!descriptionCopied && article.description) {
+					data.description = article.description;
+				}
 			}
 
 			if (source.relatedPages) {
