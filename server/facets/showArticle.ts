@@ -64,7 +64,7 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 	var code = 200,
 		response: Hapi.Response;
 
-	if (!result.article.article && !result.wiki.dbName) {
+	if (!result.article.details && !result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
 	} else {

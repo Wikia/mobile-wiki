@@ -11,6 +11,7 @@ interface Response {
 			title: string;
 			ns: string;
 			url: string;
+			description: string;
 			revision: {
 				id: number;
 				user: string;
@@ -161,7 +162,8 @@ App.ArticleModel.reopenClass({
 					cleanTitle: details.title,
 					comments: details.comments,
 					id: details.id,
-					user: details.revision.user_id
+					user: details.revision.user_id,
+					description: details.description
 				});
 			}
 
@@ -170,7 +172,6 @@ App.ArticleModel.reopenClass({
 
 				data = $.extend(data, {
 					article: article.content || source.content,
-					description: article.description,
 					mediaUsers: article.users,
 					type: article.type,
 					media: App.MediaModel.create({
