@@ -36,8 +36,10 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	smartBannerVisibleObserver: Em.observer('smartBannerVisible', function (): void {
 		var headroom = this.get('headroom');
 
-		headroom.destroy();
-		this.initHeadroom();
+		if (headroom) {
+			headroom.destroy();
+			this.initHeadroom();
+		}
 	}),
 
 	/**
