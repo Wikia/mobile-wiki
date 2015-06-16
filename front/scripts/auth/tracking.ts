@@ -28,7 +28,7 @@
 	}
 
 	// Click "Sign In" button
-	document.querySelector('#loginSubmit').addEventListener('click', (): void => {
+	document.getElementById('loginSubmit').addEventListener('click', (): void => {
 		Mercury.Utils.track({
 			trackingMethod: 'ga',
 			action: Mercury.Utils.trackActions.click,
