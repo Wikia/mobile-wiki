@@ -2,7 +2,7 @@
 while getopts ":u:p:" opt; do
         case $opt in
                 u)
-                        USER=$OPTARG
+                        USERNAME=$OPTARG
                         ;;
 		p)
 			PASSWORD=$OPTARG
@@ -18,7 +18,7 @@ while getopts ":u:p:" opt; do
         esac
 done
 
-if [ $USER -z ]
+if [ $USERNAME -z ]
 then
 echo "Param -u is not set, which is github user username"
 exit 1
@@ -58,7 +58,7 @@ git checkout dev
 git pull --rebase
 git branch -D $BRANCH
 
-curl -u $USER:$PASSWORD --data '{"title": "'$BRANCH'", "head": "Wikia:'$BRANCH'", "base": "dev"}' https://api.github.com/repos/wikia/mercury/pulls > temp
+curl -u $USERNAME:$PASSWORD --data '{"title": "'$BRANCH'", "head": "Wikia:'$BRANCH'", "base": "dev"}' https://api.github.com/repos/wikia/mercury/pulls > temp
 PR_URL=$(cat temp | grep "https://api.github.com/repos/" | grep "pulls" | grep "href" | head -1 | tr -d "[:space:]" | sed -e 's/^.\{8\}//' -e 's/.\{1\}$//')
 echo $PR_URL
 rm temp
