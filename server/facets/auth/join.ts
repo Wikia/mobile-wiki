@@ -18,9 +18,8 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: JoinViewContext,
 		redirectUrl: string = request.query.redirect || '/',
 		response: Hapi.Response;
-	console.log(request.state);
 
-	if (request.state.access_token) {
+	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
 

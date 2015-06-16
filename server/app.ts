@@ -1,6 +1,8 @@
 /// <reference path="../typings/node/node.d.ts" />
 /// <reference path="../typings/hapi/hapi.d.ts" />
 /// <reference path="../config/localSettings.d.ts" />
+/// <reference path='../typings/wreck/wreck.d.ts' />
+/// <reference path='../typings/boom/boom.d.ts' />
 
 // NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
 if (process.env.NEW_RELIC_ENABLED === 'true') {
@@ -16,6 +18,14 @@ import localSettings = require('../config/localSettings');
 import path          = require('path');
 import url           = require('url');
 import fs            = require('fs');
+import Boom          = require('boom');
+import qs            = require('querystring');
+import Wreck         = require('wreck');
+
+interface HeliosInfoResponse {
+	'user_id': string;
+	'error'?: string;
+}
 
 //Counter for maxRequestPerChild
 var counter = 1,
@@ -78,15 +88,48 @@ server.register(plugins, (err: any) => {
 	if (err) {
 		Logger.error(err);
 	}
-	server.auth.strategy('session', 'cookie', 'required', {
-		appendNext     : 'redirect',
-		clearInvalid   : true,
-		cookie         : 'sid',
-		isSecure       : false,
-		password       : localSettings.ironSecret,
-		domain         : localSettings.authCookieDomain,
-		redirectTo     : '/login'
-	});
+
+	var scheme = (server: Hapi.Server, options: any) => {
+		return {
+			authenticate: (request: any, reply: any): void => {
+				var accessToken: string = request.state.access_token;
+
+				if (!accessToken) {
+					return reply(Boom.unauthorized('No access_token'));
+				}
+				Wreck.get(localSettings.helios.host + '/info?' + qs.stringify({
+						'code' : accessToken
+					}), (err: any, response: any, payload: string) => {
+					var parsed: HeliosInfoResponse,
+						parseError: Error;
+
+					try {
+						parsed = JSON.parse(payload);
+					} catch (e) {
+						parseError = e;
+					}
+
+					// Detects an error with the connection
+					if (err || parseError) {
+						Logger.error('Helios connection error: ', {
+							err: err,
+							parseError: parseError
+						});
+						return reply(Boom.unauthorized('Helios connection error'));
+					}
+
+					if (parsed.error) {
+						reply.unstate('access_token');
+						return reply(Boom.unauthorized('Token not autorized by Helios'));
+					}
+					return reply.continue({ credentials: { userId: response.user_id } });
+				});
+			}
+		};
+	};
+
+	server.auth.scheme('helios', scheme);
+	server.auth.strategy('session', 'helios');
 });
 
 server.views({
@@ -111,12 +154,6 @@ server.views({
 	}
 });
 
-// Initialize cookies
-server.state('access_token', {
-	isHttpOnly: true,
-	clearInvalid: true,
-	domain: localSettings.authCookieDomain
-});
 // Contains user ID, same name as cookie from MediaWiki app
 server.state('wikicitiesUserID', {
 	isHttpOnly: true

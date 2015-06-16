@@ -101,7 +101,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	var redirect: string = request.query.redirect || '/',
 		context: LoginViewContext = getLoginContext(redirect);
 
-	if (request.state.access_token) {
+	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
 	}
 
@@ -123,7 +123,6 @@ export function post (request: Hapi.Request, reply: any): void {
 	successRedirect = authUtils.getCacheBusterUrl(redirect);
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
-
 		if (err) {
 			context.formErrorKey = getFormErrorKey(err.output.statusCode);
 			context.exitTo = redirect;
@@ -140,15 +139,6 @@ export function post (request: Hapi.Request, reply: any): void {
 
 		// set unencrypted cookie that can be read by all apps (i.e. MW and Mercury) HG-631
 		reply.state('access_token', response.access_token, {ttl: ttl});
-
-		// set session cookie via hapi-auth-cookie
-		request.auth.session.set({
-			'sid'  : response.access_token
-		});
-
-		// Set cookie TTL for "remember me" period of 6 months
-		// TODO: Helios service should control the length of auth session
-		request.auth.session.ttl(ttl);
 
 		reply.state('wikicitiesUserID', response.user_id, {ttl: ttl});
 
