@@ -30,7 +30,7 @@ echo "Param -p is not set, which is github user password"
 exit 1
 fi
 
-#git checkout dev
+git checkout dev
 git pull --rebase
 git fetch --prune
 git branch -r | awk -F/ '/\/release/{print $2}' | xargs -I {} git push origin :{}
