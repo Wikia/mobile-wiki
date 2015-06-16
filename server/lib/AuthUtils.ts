@@ -43,8 +43,7 @@ export function getLoginUrl(request: Hapi.Request, result: any): string {
 	if (result.wiki.enableNewAuth) {
 		var loginUrlObj = url.parse('/join');
 
-		var redirect = url.parse(request.server.info.uri);
-		redirect.pathname = request.path;
+		var redirect = url.parse(request.server.info.uri + request.path);
 		redirect.search = querystring.stringify(request.query);
 
 		loginUrlObj.search = '?redirect=' + encodeURIComponent(url.format(redirect));
