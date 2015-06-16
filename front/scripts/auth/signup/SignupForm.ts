@@ -16,7 +16,7 @@ interface HeliosRegisterInput {
 
 class SignupForm {
 	form: HTMLFormElement;
-	generalValidationErrors: Array<string> = ['email_blocked', 'username_unavailable', 'birthdate_below_min_age'];
+	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
 
 	constructor(form: Element) {

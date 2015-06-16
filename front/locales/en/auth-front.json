@@ -2,6 +2,11 @@
   "errors" : {
     "email_already_exists": "Email is already registered on Wikia",
     "email_invalid": "Email is not valid",
-    "registration_error": "We can not complete your registration at this time."
+    "registration_error": "We can not complete your registration at this time.",
+    "username_already_exists": "Username is taken",
+    "username_unavailable": "TODO antispoof blocked",
+    "username_ip_address": "TODO username_ip_address",
+    "username_exceeds_max_length": "TODO username_exceeds_max_length 50 chars",
+    "username_illegal_characters": "Username includes invalid characters"
   }
 }
