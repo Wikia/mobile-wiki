@@ -39,7 +39,7 @@ CHANGES=$(git diff --shortstat origin/dev release-$BRANCH | wc -w)
 
 if [ $CHANGES -eq 0 ]
 then
-echo;
+echo
 echo "There is nothing new in dev. Aborting..."
 exit 1
 fi
@@ -50,9 +50,9 @@ BRANCH="release-"$BRANCH
 
 git checkout -b $BRANCH
 
-echo;
+echo
 echo "Created new branch: "$BRANCH
-echo;
+echo
 
 ./tasks/changelog-update.sh -r $BRANCH
 git add CHANGELOG.md
@@ -65,6 +65,7 @@ git branch -D $BRANCH
 
 curl -u $USERNAME:$PASSWORD --data '{"title": "'$BRANCH'", "head": "Wikia:'$BRANCH'", "base": "dev"}' https://api.github.com/repos/wikia/mercury/pulls > temp
 PR="Pull request: #"$(cat temp | grep "https://api.github.com/repos/" | grep "pulls" | grep "href" | head -1 | tr -d "[:space:][:alpha:][:punct:]")
+echo
 echo $PR
 rm temp
 
