@@ -3,8 +3,8 @@
 /// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
-App.VideoLightboxComponent = Em.Component.extend(App.ArticleContentMixin, {
-	classNames: ['lightbox-content-inner'],
+App.LightboxVideoComponent = Em.Component.extend(App.ArticleContentMixin, {
+	classNames: ['lightbox-video', 'lightbox-content-inner'],
 	classNameBindings: ['provider'],
 	videoLoader: null,
 
@@ -29,8 +29,16 @@ App.VideoLightboxComponent = Em.Component.extend(App.ArticleContentMixin, {
 	 * @desc Used to instantiate a video player
 	 */
 	initVideoPlayer: function (): void {
-		var currentMedia = this.get('controller.currentMedia');
-		this.set('videoLoader', new Mercury.Modules.VideoLoader(currentMedia.embed));
+		var videoLoader = new Mercury.Modules.VideoLoader(this.get('model.embed')),
+			selector = Em.get(videoLoader, 'player.containerSelector');
+
+		// Stop bubbling it up to the lightbox
+		this.$(selector).click(function (): boolean {
+			return false;
+		});
+
+		this.set('videoLoader', videoLoader);
+
 	},
 
 	articleContentWidthObserver: Em.observer('articleContent.width', function (): void {

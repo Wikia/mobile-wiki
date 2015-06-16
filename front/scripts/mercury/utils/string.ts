@@ -21,16 +21,4 @@ module Mercury.Utils.String {
 			.replace(/_/g, ' ')
 			.replace(/\s+/g, ' ');
 	}
-
-	export function titleToUri (title: string = '', encodeSpecialChars = false): string {
-		var uri = encodeURI(sanitize(title));
-
-		if (encodeSpecialChars) {
-			uri = uri
-				.replace('?', '%3F')
-				.replace('%', '%25');
-		}
-
-		return uri;
-	}
 }

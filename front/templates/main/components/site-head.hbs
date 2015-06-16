@@ -1,9 +1,9 @@
-<div {{action 'expandSideNav'}} class='side-nav-toggle'>
+<div {{action 'expandSideNav'}} class="side-nav-toggle">
     {{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
 </div>
 {{!-- This conditional block should be removed for SOC-705 --}}
 {{#if currentUser.isAuthenticated}}
-	<figure class='avatar'>
+	<figure class="avatar">
 		<img src={{currentUser.model.avatarPath}} alt={{currentUser.model.name}}>
 	</figure>
 {{else}}
@@ -11,6 +11,8 @@
 		{{svg 'avatar' viewBox='0 0 24 14' class='icon login'}}
 	</a>
 {{/if}}
-<div class='site-logo' {{action 'trackClick' 'wordmark'}}>
-    {{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+<div class="site-logo">
+	<a {{action 'trackClick' 'wordmark' preventDefault=false}} href="http://www.wikia.com">
+		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+	</a>
 </div>

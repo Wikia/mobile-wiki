@@ -79,6 +79,10 @@ module Caching {
 		return Policy[policy].toLowerCase();
 	}
 
+	/**
+	 * Disables use of cache in the response
+	 * @param response
+	 */
 	export function disableCache (response: Hapi.Response): void {
 		response.header('Cache-Control', 'private, s-maxage=0, max-age=0, must-revalidate');
 	}
