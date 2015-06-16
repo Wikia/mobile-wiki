@@ -12,12 +12,12 @@ interface UrlParams {
 module Mercury.Utils {
 	/**
 	 * This function constructs a URL given pieces of a typical Wikia URL. All URL
-	 * parts are optional. Passing in empty params will result in the site home page,
-	 * ie. www.wikia.com.
+	 * parts are optional. Passing in empty params will output the root index URL
+	 * of the current host.
 	 *
 	 * Some example parameters and results:
 	 *
-	 *   {path: '/login', query: {redirect: '/somepage'}}
+	 *   {wiki: 'www', path: '/login', query: {redirect: '/somepage'}}
 	 *   ...returns 'http://www.wikia.com/login?redirect=%2Fsomepage'
 	 *
 	 *   {wiki: 'glee', title: 'Jeff'}
@@ -37,7 +37,7 @@ module Mercury.Utils {
 	 * @returns {string}
 	 */
 	export function buildUrl (urlParams: UrlParams = {}, context: any = window): string {
-		var domain: string,
+		var mediawikiDomain: string = M.prop('mediawikiDomain'),
 			host: string = context.location.host,
 			url: string;
 
@@ -47,12 +47,16 @@ module Mercury.Utils {
 
 		url = urlParams.protocol + '://';
 
-		if (!urlParams.wiki) {
-			// If no wiki subdomain, use www
-			urlParams.wiki = 'www';
+		if (urlParams.wiki) {
+			url += Mercury.Utils.replaceWikiInHost(host, urlParams.wiki);
+		} else {
+			// Use Mediawiki domain if available
+			if (typeof mediawikiDomain !== 'undefined') {
+				url += mediawikiDomain;
+			} else {
+				url += host;
+			}
 		}
-
-		url += Mercury.Utils.replaceWikiInHost(host, urlParams.wiki);
 
 		if (urlParams.title) {
 			url += Mercury.wiki.articlePath + (urlParams.namespace ? urlParams.namespace + ':' : '') + urlParams.title;

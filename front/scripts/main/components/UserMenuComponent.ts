@@ -12,7 +12,6 @@ App.UserMenuComponent = Em.Component.extend({
 		return [
 			{
 				href: M.buildUrl({
-					wiki: Mercury.wiki.dbName,
 					namespace: 'User',
 					title: this.get('userName')
 				}),
@@ -20,7 +19,8 @@ App.UserMenuComponent = Em.Component.extend({
 			},
 			{
 				href: M.buildUrl({
-					path: '/logout'
+					namespace: 'Special',
+					title: 'UserLogout'
 				}),
 				textKey: 'user-menu-log-out'
 			}

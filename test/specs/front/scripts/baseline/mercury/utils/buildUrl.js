@@ -77,13 +77,19 @@ QUnit.test('URLs are properly built for given parameters', function () {
 	},
 	testCases = [
 		{
+			urlParams: undefined,
+			expectedOutput: 'http://glee.wikia.com'			
+		},
+		{
 			urlParams: {
+				wiki: 'www',
 				path: '/login'
 			},
 			expectedOutput: 'http://www.wikia.com/login'
 		},
 		{
 			urlParams: {
+				wiki: 'www',
 				path: '/login',
 				query: {
 					abc: '123',
@@ -129,6 +135,7 @@ QUnit.test('URLs are properly built for given parameters', function () {
 	];
 
 	Mercury.wiki.articlePath = '/wiki/';
+	M.prop('mediawikiDomain', undefined);
 
 	testCases.forEach(function (testCase) {
 		equal(
@@ -136,4 +143,17 @@ QUnit.test('URLs are properly built for given parameters', function () {
 			testCase.expectedOutput
 		);
 	});
+});
+
+QUnit.test('Fall back to mediawikiDomain', function () {
+	var context = {
+		location: {
+			host: '127.0.0.1:8000'
+		}
+	};
+	M.prop('mediawikiDomain', 'adventuretime.mattk.wikia-dev.com');
+	equal(
+		Mercury.Utils.buildUrl({}, context),
+		'http://adventuretime.mattk.wikia-dev.com'
+	);
 });
