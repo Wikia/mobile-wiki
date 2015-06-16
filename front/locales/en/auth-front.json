@@ -7,6 +7,8 @@
     "username_unavailable": "TODO antispoof blocked",
     "username_ip_address": "TODO username_ip_address",
     "username_exceeds_max_length": "TODO username_exceeds_max_length 50 chars",
-    "username_illegal_characters": "Username includes invalid characters"
+    "username_illegal_characters": "Username includes invalid characters",
+    "password_exceeds_max_length": " TODO password_exceeds_max_length 50 chars",
+    "password_equal_name": "TODO password_equal_name"
   }
 }
