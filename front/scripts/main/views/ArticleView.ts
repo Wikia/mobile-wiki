@@ -61,6 +61,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 			isCuratedMainPage = model.get('isCuratedMainPage');
 
 		this.refreshLoginUrl();
+
 		if (isCuratedMainPage) {
 			this.injectMainPageAds();
 			this.setupAdsContext(model.get('adsContext'));
