@@ -62,9 +62,9 @@ class SignupForm {
 	}
 
 	private createValidationErrorHTMLNode(errorDescription: string): HTMLElement {
-		var errorNode: HTMLElement = window.document.createElement('small');
+		var errorNode: HTMLElement = document.createElement('small');
 		errorNode.classList.add('error');
-		errorNode.appendChild(window.document.createTextNode(this.translateValidationError(errorDescription)));
+		errorNode.appendChild(document.createTextNode(this.translateValidationError(errorDescription)));
 		return errorNode;
 	}
 
