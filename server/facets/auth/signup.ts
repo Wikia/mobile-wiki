@@ -2,6 +2,7 @@
 /// <reference path='./BirthdateInput.ts' />
 
 var BirthdateInput = require('./BirthdateInput');
+var dateUtils = require('../../lib/DateUtils');
 
 interface SignupViewContext {
 	title: string;
@@ -19,7 +20,8 @@ interface SignupViewContext {
 export function get (request: Hapi.Request, reply: any): void {
 	var context: SignupViewContext,
 		redirectUrl: string = request.query.redirect || '/',
-		i18n = request.server.methods.i18n.getInstance();
+		i18n = request.server.methods.i18n.getInstance(),
+		lang = i18n.lng();
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
@@ -35,7 +37,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		footerCalloutText: 'auth:common.login-callout',
 		footerCalloutLink: 'auth:common.login-link-text',
-		birthdateInputs: (new BirthdateInput(i18n.t('auth:date.endian'), i18n)).getInputData()
+		birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang))).getInputData()
 	};
 
 	return reply.view('signup', context, {
