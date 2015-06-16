@@ -16,7 +16,7 @@ front/vendor/
 # Static Assets
 .tmp/
 www/
-/* Should only commit json files, not compiled js fixtures */
+# Should only commit json files, not compiled js fixtures
 test/fixtures/**/*.js
 
 # Config
