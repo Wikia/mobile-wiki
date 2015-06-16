@@ -1,5 +1,5 @@
 # Set variables
-while getopts ":e:m:a:c:u:" opt; do
+while getopts ":u:p:g:" opt; do
         case $opt in
                 u)
                         USERNAME=$OPTARG
