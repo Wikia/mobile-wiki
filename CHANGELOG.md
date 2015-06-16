@@ -1,3 +1,8 @@
+## release-86 (2015-06-16 13:21 UTC)
+* [CONCF-669](https://wikia-inc.atlassian.net/browse/CONCF-669) CONCF-669 Add temporary check to not break descriptions on production
+* [CONCF-509](https://wikia-inc.atlassian.net/browse/CONCF-509) CONCF-509 move description to article details
+* [CONCF-649](https://wikia-inc.atlassian.net/browse/CONCF-649) CONCF-649 | Remove Optimizely check for CuratedContent
+
 ## release-85 (2015-06-15 07:26 UTC)
 * [HG-732](https://wikia-inc.atlassian.net/browse/HG-732)//www.wikia.com
 * [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) Hg 727
