@@ -4,12 +4,22 @@
 'use strict';
 
 App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
-	queryParams: [{noAds: 'noads'}],
+	// This has to be here because we need to access media from ArticleController model to open lightbox
+	// TODO: Should be refactored when decoupling article from application
+	needs: ['article'],
+	queryParams: ['file', 'map', {
+		noAds: 'noads'
+	}],
+	file: null,
+	map: null,
+	noAds: '',
+
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
 	noScroll: false,
-	noAds: '',
 	fullPage: false,
+	lightboxType: null,
+	lightboxModel: null,
 
 	init: function () {
 		this.setProperties({
@@ -26,5 +36,106 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		});
 
 		this._super();
+	},
+
+	actions: {
+		/**
+		 * @desc Handles query params that should open a lightbox.
+		 * If you add another param to the app you should modify this function.
+		 */
+		handleLightbox: function () {
+			var file = this.get('file'),
+				map = this.get('map');
+
+			if (!Em.isEmpty(file)) {
+				this.openLightboxForMedia(file);
+			} else if (!Em.isEmpty(map)) {
+				this.openLightboxForMap(map);
+			}
+		},
+
+		/**
+		 * @desc Sets controller properties that are passed to LightboxWrapperComponent.
+		 * Also blocks scrolling.
+		 *
+		 * @param lightboxType
+		 * @param lightboxModel
+		 */
+		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.setProperties({
+				lightboxModel: lightboxModel,
+				lightboxType: lightboxType,
+				noScroll: true
+			});
+		},
+
+		/**
+		 * @desc Resets properties related to lightbox which causes it to close.
+		 * Also unblocks scrolling.
+		 */
+		closeLightbox: function (): void {
+			this.setProperties({
+				lightboxModel: null,
+				lightboxType: null,
+				file: null,
+				map: null,
+				noScroll: false
+			});
+		},
+
+		/**
+		 * @desc Sets query param with given name to given value. Uses whitelist.
+		 *
+		 * @param name
+		 * @param value
+		 */
+		setQueryParam: function (name: string, value: any): void {
+			var queryParamsWhitelist = ['file', 'map'];
+
+			if (queryParamsWhitelist.indexOf(name) === -1) {
+				Em.Logger.error('Something tried to set query param that is not on the whitelist', {
+					name: name,
+					value: value,
+					whitelist: queryParamsWhitelist
+				});
+				return;
+			}
+
+			this.set(name, value);
+		}
+	},
+
+	/**
+	 * @desc Finds media in article model by the file query param and sends proper data to openLightbox action.
+	 * TODO: It currently opens the first found image with the given title (file qp), we should improve it some day.
+	 *
+	 * @param file
+	 */
+	openLightboxForMedia: function (file: string): void {
+		var mediaModel: typeof App.MediaModel = this.get('controllers.article.model.media'),
+			lightboxMediaRefs = mediaModel ? mediaModel.getRefsForLightboxByTitle(M.String.normalize(file)) : null;
+
+		if (!Em.isEmpty(lightboxMediaRefs)) {
+			this.send('openLightbox', 'media', {
+				media: mediaModel,
+				mediaRef: lightboxMediaRefs.mediaRef,
+				galleryRef: lightboxMediaRefs.galleryRef
+			});
+		}
+	},
+
+	/**
+	 * @desc Find the map element in DOM by given map id and sends proper data to openLightbox action.
+	 *
+	 * @param map
+	 */
+	openLightboxForMap: function (map: string): void {
+		var $map = Em.$(`a[data-map-id=${map}]`);
+
+		this.send('openLightbox', 'map', {
+			title: $map.data('map-title'),
+			url: $map.data('map-url'),
+			id: $map.data('map-id')
+		});
 	}
 });

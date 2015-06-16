@@ -20,14 +20,14 @@ App.WikiaMapComponent = App.ImageMediaComponent.extend({
 				title = this.get('title');
 
 			if (url) {
-				Em.Logger.debug('Handling map:', id, 'title:', title);
+				Em.Logger.debug('Handling map with id:', id, 'and title:', title);
 
 				M.track({
 					action: M.trackActions.click,
 					category: 'map'
 				});
 
-				this.sendAction('click', 'map-lightbox', {
+				this.sendAction('click', 'map', {
 					title: title,
 					url: url,
 					id: id

@@ -44,15 +44,32 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		return imageHeight;
 	}),
 
+	/**
+	 * @desc return the thumbURL for media.
+	 * If media is an icon inside the infobox, width 
+	 * was already set.
+	 */
 	url: Em.computed({
 		get(): string {
-			var media: ArticleMedia = this.get('media');
+			var media: ArticleMedia = this.get('media'),
+				icon: boolean,
+				mode: string,
+				width: number;
 
 			if (media) {
+				icon = this.get('isInfoboxIcon');
+				if (icon) {
+					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+					width = this.get('width');
+				} else {
+					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
+					width = this.get('articleContent.width');
+				}
+
 				return this.getThumbURL(media.url, {
-					mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-					width: this.get('articleContent.width'),
-					height: this.get('computedHeight')
+					mode: mode,
+					height: this.get('computedHeight'),
+					width: width
 				});
 			}
 
@@ -62,8 +79,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		set(key: string, value: string): string {
 			return this.getThumbURL(value, {
 				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-				width: this.get('articleContent.width'),
-				height: this.get('computedHeight')
+				height: this.get('computedHeight'),
+				width: this.get('articleContent.width')
 			});
 		}
 	}),

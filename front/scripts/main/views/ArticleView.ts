@@ -16,11 +16,69 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesMixin, {
+App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
+
+	hammerOptions: {
+		touchAction: 'auto',
+		cssProps: {
+			/**
+			 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
+			 * 'default' displays the callout
+			 * 'none' disables the callout
+			 * hammer.js sets it to 'none' by default so we have to override
+			 */
+			touchCallout: 'default'
+		}
+	},
+
+	gestures: {
+		swipeLeft: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-table').length) {
+
+				M.track({
+					action: M.trackActions.swipe,
+					category: 'tables'
+				});
+			} else if ($(event.target).parents('.article-gallery').length) {
+				M.track({
+					action: M.trackActions.paginate,
+					category: 'gallery',
+					label: 'next'
+				});
+			}
+		},
+
+		swipeRight: function (event: JQueryEventObject): void {
+			// Track swipe events
+			if ($(event.target).parents('.article-gallery').length) {
+				M.track({
+					action: M.trackActions.paginate,
+					category: 'gallery',
+					label: 'previous'
+				});
+			}
+		}
+	},
 
 	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
 		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
+	}),
+
+	onModelChange: Em.observer('controller.model.article', function (): void {
+		// This check is here because this observer will actually be called for views wherein the state is actually
+		// not valid, IE, the view is in the process of preRender
+		this.scheduleArticleTransforms();
+	}),
+
+	modelObserver: Em.observer('controller.model', function (): void {
+		var model = this.get('controller.model');
+
+		if (model) {
+			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
+			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
+		}
 	}),
 
 	/**
@@ -32,18 +90,39 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		this.scheduleArticleTransforms();
 	},
 
-	onModelChange: Em.observer('controller.model.article', function (): void {
-		// This check is here because this observer will actually be called for views wherein the state is actually
-		// not valid, IE, the view is in the process of preRender
-		this.scheduleArticleTransforms();
-	}),
+	didInsertElement: function (): void {
+		this.get('controller').send('articleRendered');
+	},
+
+	/**
+	 * @desc Handle clicks on media and bubble up to Application if anything else was clicked
+	 *
+	 * @param event
+	 * @returns {boolean}
+	 */
+	click: function (event: MouseEvent): boolean {
+		var $anchor = Em.$(event.target).closest('a'),
+			target: EventTarget;
+
+		// Here, we want to handle media only, no links
+		if ($anchor.length === 0) {
+			target = event.target;
+
+			if (this.shouldHandleMedia(target, target.tagName.toLowerCase())) {
+				this.handleMedia(<HTMLElement>target);
+				event.preventDefault();
+
+				// Don't bubble up
+				return false;
+			}
+		}
+
+		// Bubble up to ApplicationView#click
+		return true;
+	},
 
 	scheduleArticleTransforms: function (): void {
 		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
-	},
-
-	didInsertElement: function () {
-		this.get('controller').send('articleRendered');
 	},
 
 	articleContentObserver: function (): boolean {
@@ -90,7 +169,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		return true;
 	},
 
-	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel) {
+	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),
 			media = model.find(ref);
 
@@ -105,22 +184,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		return component.$().attr('data-ref', ref);
 	},
 
-	lazyLoadMedia: function (model: typeof App.ArticleModel) {
+	lazyLoadMedia: function (model: typeof App.ArticleModel): void {
 		var lazyImages = this.$('.article-media');
 
-		lazyImages.each((index: number, element: HTMLImageElement) => {
+		lazyImages.each((index: number, element: HTMLImageElement): void => {
 			this.$(element).replaceWith(this.createMediaComponent(element, model));
 		});
 	},
-
-	modelObserver: Em.observer('controller.model', function (): void {
-		var model = this.get('controller.model');
-
-		if (model) {
-			var title = model.get('cleanTitle');
-			document.title = title + ' - ' + Mercury.wiki.siteName;
-		}
-	}),
 
 	setupEditButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
@@ -128,7 +198,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		this.$(':header[section]').each((i: Number, item: any): void => {
 			var $sectionHeader = this.$(item),
 				$pencil = this.$(pencil).appendTo($sectionHeader);
-			$pencil.on('click', () => {
+			$pencil.on('click', (): void => {
 				this.get('controller').send('edit', this.get('controller.model.title'), $sectionHeader.attr('section'));
 			});
 		});
@@ -140,7 +210,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
 	 * ToC data from server and render view based on that.
 	 */
-	loadTableOfContentsData: function () {
+	loadTableOfContentsData: function (): void {
 		var headers: HeadersFromDom[] = this.$('h2[section]').map((i: number, elem: HTMLElement): HeadersFromDom => {
 			if (elem.textContent) {
 				return {
@@ -153,17 +223,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		this.get('controller').send('updateHeaders', headers);
 	},
 
-	replaceMapsWithMapComponents: function () {
-		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement) => {
+	replaceMapsWithMapComponents: function (): void {
+		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement): void => {
 			this.replaceMapWithMapComponent(elem);
 		});
 	},
 
-	replaceMapWithMapComponent: function (elem: HTMLElement) {
+	replaceMapWithMapComponent: function (elem: HTMLElement): void {
 		var $mapPlaceholder = $(elem),
 			$a = $mapPlaceholder.children('a'),
 			$img = $a.children('img'),
-			mapComponent = this.createChildView(App.WikiaMapComponent.create({
+			mapComponent: typeof App.WikiaMapComponent = this.createChildView(App.WikiaMapComponent.create({
 				url: $a.data('map-url'),
 				imageSrc: $img.data('src'),
 				id: $a.data('map-id'),
@@ -180,7 +250,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 	/**
 	 * @desc handles expanding long tables, code taken from WikiaMobile
 	 */
-	handleInfoboxes: function () {
+	handleInfoboxes: function (): void {
 		var shortClass = 'short',
 			$infoboxes = $('table[class*="infobox"] tbody'),
 			body = window.document.body,
@@ -188,12 +258,12 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 
 		if ($infoboxes.length) {
 			$infoboxes
-				.filter(function () {
+				.filter(function (): boolean {
 					return this.rows.length > 6;
 				})
 				.addClass(shortClass)
 				.append('<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></td></tr>')
-				.on('click', function (event) {
+				.on('click', function (event): void {
 					var $target = $(event.target),
 						$this = $(this);
 
@@ -218,7 +288,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 			$infoboxes = this.$('.portable-infobox'),
 			body = window.document.body,
 			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
-			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`
+			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`;
 
 		if ($infoboxes.length) {
 			$infoboxes
@@ -293,46 +363,50 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		});
 	},
 
-	hammerOptions: {
-		touchAction: 'auto',
-		cssProps: {
-			/**
-			 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout
-			 * 'default' displays the callout
-			 * 'none' disables the callout
-			 * hammer.js sets it to 'none' by default so we have to override
-			 */
-			touchCallout: 'default'
-		}
+	/**
+	 * @desc Returns true if handleMedia() should be executed
+	 * @param {EventTarget} target
+	 * @param {string} tagName clicked tag name
+	 * @returns {boolean}
+	 */
+	shouldHandleMedia: function (target: EventTarget, tagName: string): boolean {
+		return (tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0;
 	},
 
-	gestures: {
-		swipeLeft: function (event: JQueryEventObject): void {
-			// Track swipe events
-			if ($(event.target).parents('.article-table').length) {
+	/**
+	 * Opens media lightbox for given target
+	 *
+	 * @param target
+	 */
+	handleMedia: function (target: HTMLElement): void {
+		var $target = $(target),
+			galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
+			$mediaElement = $target.closest('[data-ref]'),
+			mediaRef = $mediaElement.data('ref'),
+			media: typeof App.MediaModel;
 
-				M.track({
-					action: M.trackActions.swipe,
-					category: 'tables'
+		if (mediaRef >= 0) {
+			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
+
+			if (!$mediaElement.hasClass('is-small')) {
+				media = this.get('controller.model.media');
+				this.get('controller').send('openLightbox', 'media', {
+					media: media,
+					mediaRef: mediaRef,
+					galleryRef: galleryRef
 				});
-			} else if ($(event.target).parents('.article-gallery').length) {
+			} else {
+				Em.Logger.debug('Image too small to open in lightbox', target);
+			}
+
+			if (galleryRef >= 0) {
 				M.track({
-					action: M.trackActions.paginate,
-					category: 'gallery',
-					label: 'next'
+					action: M.trackActions.click,
+					category: 'gallery'
 				});
 			}
-		},
-
-		swipeRight: function (event: JQueryEventObject): void {
-			// Track swipe events
-			if ($(event.target).parents('.article-gallery').length) {
-				M.track({
-					action: M.trackActions.paginate,
-					category: 'gallery',
-					label: 'previous'
-				});
-			}
+		} else {
+			Em.Logger.debug('Missing ref on', target);
 		}
 	}
 });

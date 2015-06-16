@@ -87,7 +87,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		// TODO: ad hoc error handling, use Boom everywhere?
 		reply(Boom.badRequest('Invalid articleId'));
 	} else {
-		new MW.ArticleRequest(params.wikiDomain).comments(
+		new MW.ArticleRequest(params).comments(
 			params.articleId,
 			params.page
 		)

@@ -1,6 +1,5 @@
 /// <reference path="./app.ts" />
 /// <reference path="./models/UserModel.ts" />
-/// <reference path="../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 'use strict';
 
 App.CurrentUser = Em.Object.extend({

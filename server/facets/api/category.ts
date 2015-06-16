@@ -27,7 +27,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	if (params.categoryName === null) {
 		reply(Boom.badRequest('Category not provided'));
 	} else {
-		new MW.ArticleRequest(params.wikiDomain)
+		new MW.ArticleRequest(params)
 			.category(params.categoryName, params.thumbSize)
 			.then((response: any): void => {
 				reply(response);
