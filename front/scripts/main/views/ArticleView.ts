@@ -38,6 +38,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 		this.scheduleArticleTransforms();
 	}),
 
+	refreshLoginUrl: function (): void {
+		var loginUrl = '/join?redirect=' + encodeURIComponent(window.location.href);
+		document.querySelector('.login-page-link').setAttribute('href', loginUrl);
+	},
+
 	scheduleArticleTransforms: function (): void {
 		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
 	},
@@ -55,6 +60,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');
 
+		this.refreshLoginUrl();
 		if (isCuratedMainPage) {
 			this.injectMainPageAds();
 			this.setupAdsContext(model.get('adsContext'));
