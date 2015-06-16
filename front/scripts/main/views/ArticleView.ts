@@ -151,7 +151,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
-			this.lazyLoadMedia(model.get('media'));
+			// Make lazy load image processing async so it doesn't hold up DOMContentLoaded
+			setTimeout(this.lazyLoadMedia(model.get('media')), 0);
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
