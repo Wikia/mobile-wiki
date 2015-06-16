@@ -72,16 +72,20 @@ class SignupForm {
 		return i18n.t('errors.' + errCode);
 	}
 
+	private getFormValues(): HeliosRegisterInput {
+		var formElements: HTMLCollection = this.form.elements;
+		return {
+			username: (<HTMLInputElement> formElements.namedItem('username')).value,
+			password: (<HTMLInputElement> formElements.namedItem('password')).value,
+			email: (<HTMLInputElement> formElements.namedItem('email')).value,
+			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
+			// TODO add langCode
+		};
+	}
+
 	private onSubmit(event: Event): void {
 		var xhr = new XMLHttpRequest(),
-			formElements: HTMLCollection = this.form.elements,
-			data: HeliosRegisterInput = {
-				username: (<HTMLInputElement> formElements.namedItem('username')).value,
-				password: (<HTMLInputElement> formElements.namedItem('password')).value,
-				email: (<HTMLInputElement> formElements.namedItem('email')).value,
-				birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
-				// TODO add langCode
-			},
+			data: HeliosRegisterInput = this.getFormValues(),
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
 			enableSubmitButton = () => {
 				submitButton.disabled = false;
@@ -93,19 +97,21 @@ class SignupForm {
 		this.clearValidationErrors();
 
 		xhr.onload = (e: Event) => {
+			var status: number = (<XMLHttpRequest> e.target).status;
 			enableSubmitButton();
 
-			if ((<XMLHttpRequest> e.target).status === 400) {
-				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
-			} else {
+			if (status === 200) {
 				alert('signed in correctly');
 				// TODO handle successful registration
+			} else if (status === 400) {
+				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
+			} else {
+				this.displayGeneralError();
 			}
 		};
 
 		xhr.onerror = (e: Event) => {
 			enableSubmitButton();
-
 			this.displayGeneralError();
 		};
 
