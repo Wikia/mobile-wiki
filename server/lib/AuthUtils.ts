@@ -40,7 +40,17 @@ export function getCacheBusterUrl(redirect: string): string {
 }
 
 export function getLoginUrl(request: Hapi.Request, result: any): string {
-	return result.wiki.enableNewAuth ?
-		'/join?redirect=' + request.server.info.uri + request.path :
-		'/wiki/Special:UserLogin';
+	if (result.wiki.enableNewAuth) {
+		var loginUrlObj = url.parse('/join');
+
+		var redirect = url.parse(request.server.info.uri);
+		redirect.pathname = request.path;
+		redirect.search = querystring.stringify(request.query);
+
+		loginUrlObj.search = '?redirect=' + encodeURIComponent(url.format(redirect));
+		return url.format(loginUrlObj);
+	}
+	else {
+		return '/wiki/Special:UserLogin';
+	}
 }
