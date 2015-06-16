@@ -13,19 +13,12 @@ import Caching       = require('./lib/Caching');
 import Hapi          = require('hapi');
 import Logger        = require('./lib/Logger');
 import Utils         = require('./lib/Utils');
+import HeliosSession = require('./lib/HeliosSession');
 import cluster       = require('cluster');
 import localSettings = require('../config/localSettings');
 import path          = require('path');
 import url           = require('url');
 import fs            = require('fs');
-import Boom          = require('boom');
-import qs            = require('querystring');
-import Wreck         = require('wreck');
-
-interface HeliosInfoResponse {
-	'user_id': string;
-	'error'?: string;
-}
 
 //Counter for maxRequestPerChild
 var counter = 1,
@@ -88,49 +81,10 @@ server.register(plugins, (err: any) => {
 	if (err) {
 		Logger.error(err);
 	}
-
-	var scheme = (server: Hapi.Server, options: any) => {
-		return {
-			authenticate: (request: any, reply: any): void => {
-				var accessToken: string = request.state.access_token;
-
-				if (!accessToken) {
-					return reply(Boom.unauthorized('No access_token'));
-				}
-				Wreck.get(localSettings.helios.host + '/info?' + qs.stringify({
-						'code' : accessToken
-					}), (err: any, response: any, payload: string) => {
-					var parsed: HeliosInfoResponse,
-						parseError: Error;
-
-					try {
-						parsed = JSON.parse(payload);
-					} catch (e) {
-						parseError = e;
-					}
-
-					// Detects an error with the connection
-					if (err || parseError) {
-						Logger.error('Helios connection error: ', {
-							err: err,
-							parseError: parseError
-						});
-						return reply(Boom.unauthorized('Helios connection error'));
-					}
-
-					if (parsed.error) {
-						reply.unstate('access_token');
-						return reply(Boom.unauthorized('Token not authorized by Helios'));
-					}
-					return reply.continue({credentials: {userId: response.user_id}});
-				});
-			}
-		};
-	};
-
-	server.auth.scheme('helios', scheme);
-	server.auth.strategy('session', 'helios');
 });
+
+server.auth.scheme('helios', HeliosSession.scheme);
+server.auth.strategy('session', 'helios');
 
 server.views({
 	engines: {
