@@ -11,6 +11,8 @@ class AutoTab {
 
 	public init(): void {
 		this.input.addEventListener('input', this.onInput.bind(this));
+		//Jump to the next field if the input was autocompleted
+		this.input.addEventListener('change', this.onInput.bind(this));
 	}
 
 	private onInput() {
