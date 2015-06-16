@@ -31,7 +31,7 @@ class Login {
 		elements = <FormElements> this.form.elements;
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
-		this.redirect = this.appendCachebuster(redirect);
+		this.redirect = this.getCachebustedUrl(redirect);
 	}
 
 	public init (): void {
@@ -43,33 +43,32 @@ class Login {
 
 	public onSubmit (): void {
 		var xhr = new XMLHttpRequest(),
-			credentials: LoginCredentials = this.getCredentials(),
-			_this = this;
+			postData: LoginCredentials = this.getCredentials();
 
-		xhr.onload = function (): void {
+		xhr.onload = (): void => {
 			var response: LoginResponse;
 
-			if (this.status !== 200) {
-				return _this.displayError(this.status === 401 ? 'login.wrong-credentials' : 'common.server-error');
+			if (xhr.status !== 200) {
+				return this.displayError(xhr.status === 401 ? 'login.wrong-credentials' : 'common.server-error');
 			}
 
-			response = JSON.parse(this.responseText);
+			response = JSON.parse(xhr.responseText);
 
 			if (response.error) {
 				// Helios may return an error even if the request returns a 200
-				_this.displayError('login.wrong-credentials');
+				this.displayError('login.wrong-credentials');
 			} else {
-				window.location.href = _this.redirect;
+				window.location.href = this.redirect;
 			}
 		};
 
-		xhr.onerror = function (): void {
-			_this.displayError('common.server-error');
+		xhr.onerror = (): void => {
+			this.displayError('common.server-error');
 		};
 
 		xhr.open('post', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhr.send('username=' + encodeURIComponent(credentials.username) + '&password=' + encodeURIComponent(credentials.password));
+		xhr.send((new UrlHelper()).urlEncode(postData));
 	}
 
 	private getCredentials (): LoginCredentials {
@@ -79,13 +78,15 @@ class Login {
 		};
 	}
 
-	private appendCachebuster (path: string): string {
+	private getCachebustedUrl (path: string): string {
 		var query: Array<string>;
 
+		// Fall back to index path as default
 		if (typeof path !== 'string' || path === '') {
 			path = '/';
 		}
 
+		// Match the querystring in the URI path
 		query = path.match(/\?.+/);
 
 		if (query === null) {
