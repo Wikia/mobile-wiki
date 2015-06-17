@@ -12,8 +12,8 @@ class Form {
 
 	private onFocus (event: Event): void {
 		var input: HTMLInputElement = <HTMLInputElement> event.target,
-			wrapper,
-			label;
+			wrapper: HTMLElement,
+			label: HTMLElement;
 
 		if (input.type === 'checkbox') {
 			return;
@@ -33,7 +33,8 @@ class Form {
 			(function (input: HTMLInputElement): void {
 				var wrapper: HTMLElement = this.findWrapper(input),
 					label: HTMLElement = this.findLabel(wrapper);
-				if (!input.classList.contains('fake-input') && wrapper && input.value === '') {
+				if (!input.classList.contains('fake-input') && input.id !== 'signupBirthDate' &&
+					wrapper && input.value === '') {
 					label.classList.remove('active');
 				}
 			}).bind(this)
