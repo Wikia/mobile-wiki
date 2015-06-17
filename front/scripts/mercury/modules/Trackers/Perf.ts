@@ -25,7 +25,7 @@ module Mercury.Modules.Trackers {
 			url?: string;
 			'user-agent': string;
 			env: string;
-		}
+		};
 
 		constructor () {
 			this.tracker = Weppy.namespace('mercury');

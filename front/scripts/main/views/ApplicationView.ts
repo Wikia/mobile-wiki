@@ -44,6 +44,20 @@ App.ApplicationView = Em.View.extend({
 		$('.ab-test-loading-overlay').remove();
 	},
 
+	didInsertElement: function (): void {
+		this.trackFirstContent();
+	},
+
+	trackFirstContent: function () {
+		var timing = Date.now() - performance.timing.fetchStart;
+
+		M.trackPerf({
+			name: 'firstContent',
+			type: 'timer',
+			value: timing
+		});
+	},
+
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
 	 * cancel the click event on the current page, then the mouseUp handler would open
