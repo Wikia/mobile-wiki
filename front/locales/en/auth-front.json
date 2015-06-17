@@ -3,12 +3,12 @@
     "email_already_exists": "Email is already registered on Wikia",
     "email_invalid": "Email is not valid",
     "registration_error": "We can not complete your registration at this time.",
-    "username_already_exists": "Username is taken",
-    "username_unavailable": "TODO antispoof blocked",
-    "username_ip_address": "TODO username_ip_address",
-    "username_exceeds_max_length": "TODO username_exceeds_max_length 50 chars",
-    "username_illegal_characters": "Username includes invalid characters",
-    "password_exceeds_max_length": " TODO password_exceeds_max_length 50 chars",
-    "password_equal_name": "TODO password_equal_name"
+    "username_already_exists": "Someone already has this username. Try a different one!",
+    "username_unavailable": "Oops, your username can only contain letters and numbers. Please try another name.",
+    "username_ip_address": "Oops, your username can only contain letters and numbers. Please try another name.",
+    "username_exceeds_max_length": "Oops, your username can't be more than 50 characters.",
+    "username_illegal_characters": "Oops, your username can only contain letters and numbers. Please try another name.",
+    "password_exceeds_max_length": "Oops, your password is too long. Please choose a password that's 50 characters or less.",
+    "password_equal_name": "Your password must be different from your username."
   }
 }
