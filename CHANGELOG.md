@@ -1,3 +1,7 @@
+## release-87 (2015-06-17 07:26 UTC)
+* [INT-113](https://wikia-inc.atlassian.net/browse/INT-113) Fix problem by using cleanTitle property of ArticleModel instead of just title
+* typescript-sourcemaps-2: Coding standard fixes for TS sourcemaps
+
 ## release-86 (2015-06-16 13:21 UTC)
 * [CONCF-669](https://wikia-inc.atlassian.net/browse/CONCF-669) CONCF-669 Add temporary check to not break descriptions on production
 * [CONCF-509](https://wikia-inc.atlassian.net/browse/CONCF-509) CONCF-509 move description to article details
