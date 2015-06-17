@@ -1,8 +1,8 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 /// <reference path='./BirthdateInput.ts' />
 
-var BirthdateInput = require('./BirthdateInput');
-var dateUtils = require('../../lib/DateUtils');
+import BirthdateInput = require('./BirthdateInput');
+import dateUtils = require('../../lib/DateUtils');
 
 interface SignupViewContext {
 	title: string;
