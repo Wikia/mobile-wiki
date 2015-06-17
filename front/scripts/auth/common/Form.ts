@@ -12,8 +12,15 @@ class Form {
 
 	private onFocus (event: Event): void {
 		var input: HTMLInputElement = <HTMLInputElement> event.target,
-			wrapper: HTMLElement = this.findWrapper(input),
-			label: HTMLElement = this.findLabel(wrapper);
+			wrapper,
+			label;
+
+		if (input.type === 'checkbox') {
+			return;
+		}
+
+		wrapper = <HTMLElement> this.findWrapper(input);
+		label = <HTMLElement> this.findLabel(wrapper);
 
 		if (input.tagName.toLowerCase() === 'input' && wrapper) {
 			label.classList.add('active');
