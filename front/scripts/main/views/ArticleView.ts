@@ -152,7 +152,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
 			// Make lazy load image processing async so it doesn't hold up DOMContentLoaded
-			setTimeout(this.lazyLoadMedia(model.get('media')), 0);
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 4); // Process the first few images synchronously
+			Ember.run.later(this, function() {
+			 	this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the rest async
+			 }, 2000);
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
@@ -185,12 +188,16 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		return component.$().attr('data-ref', ref);
 	},
 
-	lazyLoadMedia: function (model: typeof App.ArticleModel): void {
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, endIndex: number): void {
 		var lazyImages = this.$('.article-media');
 
-		lazyImages.each((index: number, element: HTMLImageElement): void => {
-			this.$(element).replaceWith(this.createMediaComponent(element, model));
-		});
+		if(endIndex == -1 || endIndex > lazyImages.length){
+			endIndex = lazyImages.length;
+		}
+
+		for (var i = 0; i < endIndex; i++) {
+			this.$(lazyImages[i]).replaceWith(this.createMediaComponent(lazyImages[i], model));
+		}
 	},
 
 	setupEditButtons: function (): void {
