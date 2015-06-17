@@ -85,7 +85,7 @@ module Mercury.Utils.VariantTesting {
 	 * @param {string} experimentId
 	 * @returns {[]}
 	 */
-	export function getOptimizelyExperimentVariationNumber (experimentId): string {
+	export function getOptimizelyExperimentVariationNumber (experimentId: string): number {
 		var optimizely = window.optimizely;
 
 		return (optimizely && optimizely.variationMap) ? optimizely.variationMap[experimentId] : null;
@@ -97,7 +97,7 @@ module Mercury.Utils.VariantTesting {
 	 * @param {object} experimentIds contains experimentIdProd and experimentIdDev
 	 * @returns {string} experimentId
 	 */
-	export function getOptimizelyExperimentIdForEnvironment (experimentIds): string {
+	export function getOptimizelyExperimentIdForEnvironment (experimentIds: any): string {
 		var environment = M.prop('environment');
 
 		switch (environment) {
