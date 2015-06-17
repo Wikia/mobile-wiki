@@ -94,11 +94,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		this.get('controller').send('articleRendered');
 	},
 
-	refreshLoginUrl: function (): void {
-		var loginUrl = '/join?redirect=' + encodeURIComponent(window.location.href);
-		document.querySelector('.login-page-link').setAttribute('href', loginUrl);
-	},
-
 	/**
 	 * @desc Handle clicks on media and bubble up to Application if anything else was clicked
 	 *
@@ -138,8 +133,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		var model = this.get('controller.model'),
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');
-
-		this.refreshLoginUrl();
 
 		if (isCuratedMainPage) {
 			this.injectMainPageAds();
