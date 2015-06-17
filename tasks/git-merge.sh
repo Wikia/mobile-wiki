@@ -40,6 +40,5 @@ exit 1
 fi
 
 curl -u $USERNAME:$PASSWORD -X PUT -d '{}' "https://api.github.com/repos/Wikia/mercury/pulls/"$PR
-echo
-echo "Pull request merged"
+echo -e "\nPull request merged"
 
