@@ -99,10 +99,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		document.querySelector('.login-page-link').setAttribute('href', loginUrl);
 	},
 
-	scheduleArticleTransforms: function (): void {
-		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
-	},
-
 	/**
 	 * @desc Handle clicks on media and bubble up to Application if anything else was clicked
 	 *
