@@ -11,11 +11,6 @@
 	{{#if model.isCuratedMainPage}}
 		{{main-page model=model.mainPageData}}
 	{{else}}
-		{{#if view.editButtonsVisible}}
-			<span {{action 'edit' model.cleanTitle '0'}}>
-				{{svg 'pencil' role='img' class='icon pencil zero'}}
-			</span>
-		{{/if}}
 		<section class='article-body'>
 			<h1 class='article-title'>{{model.cleanTitle}}</h1>
 			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
@@ -37,6 +32,11 @@
 						</li>
 					{{/each}}
 				{{/collapsible-menu}}
+			{{/if}}
+			{{#if view.editButtonsVisible}}
+				<span {{action 'edit' model.title '0'}} class='zerobuttonblock'>
+					{{svg 'pencil' role='img' class='icon pencil zero'}}
+				</span>
 			{{/if}}
 			{{#view 'article-content' class='mw-content'}}
 				{{#if model.article}}
