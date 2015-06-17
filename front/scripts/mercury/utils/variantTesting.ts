@@ -67,5 +67,48 @@ module Mercury.Utils.VariantTesting {
 
 		return dimensions;
 	}
+
+	/**
+	 * Get list of Optimizely active experiments
+	 *
+	 * @returns {[]}
+	 */
+	export function getOptimizelyActiveExperimentsList (): string[] {
+		var optimizely = window.optimizely;
+
+		return optimizely ? optimizely.activeExperiments : null;
+	}
+
+	/**
+	 * Get Optimizely variation numbers for given experiment ID
+	 *
+	 * @param {string} experimentId
+	 * @returns {[]}
+	 */
+	export function getOptimizelyExperimentVariationNumber (experimentId): string {
+		var optimizely = window.optimizely;
+
+		return (optimizely && optimizely.variationMap) ? optimizely.variationMap[experimentId] : null;
+	}
+
+	/**
+	 * Get Optimizely experiment ID based on environment the app is running on
+	 *
+	 * @param {object} experimentIds contains experimentIdProd and experimentIdDev
+	 * @returns {string} experimentId
+	 */
+	export function getOptimizelyExperimentIdForEnvironment (experimentIds): string {
+		var environment = M.prop('environment');
+
+		switch (environment) {
+			case 'prod':
+			// TODO: unhardcode it to something like this case Utils.Environment.Prod:
+				return experimentIds.experimentIdProd;
+			case 'dev':
+				return experimentIds.experimentIdDev;
+			default:
+				return null;
+		}
+	}
 }
 
