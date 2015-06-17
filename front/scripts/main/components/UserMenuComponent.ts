@@ -8,7 +8,7 @@ App.UserMenuComponent = Em.Component.extend({
 
 	isCollapsed: true,
 
-	links: Em.computed(function (): Array<any> {
+	links: Em.computed('userName', function (): Array<any> {
 		return [
 			{
 				href: M.buildUrl({
