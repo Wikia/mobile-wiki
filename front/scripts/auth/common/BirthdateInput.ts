@@ -34,13 +34,23 @@ class BirthdateInput {
 	}
 
 	private initFocus(): void {
-		var firstInput: HTMLInputElement = <HTMLInputElement>this.fakeInputs[0];
+		var firstInput: HTMLInputElement = <HTMLInputElement>this.fakeInputs[0],
+			inputContainer = <HTMLElement> this.wrapper.parentElement,
+			target: HTMLElement;
 
-		this.realInput.addEventListener('focus', (() => {
-			this.realInput.type = 'hidden';
-			this.wrapper.classList.remove('hide');
-			firstInput.focus();
-		}).bind(this));
+		inputContainer.addEventListener('focus', (() => {
+			target = <HTMLElement> event.target;
+			if (target === this.realInput) {
+				this.realInput.type = 'hidden';
+				this.wrapper.classList.remove('hide');
+				firstInput.focus();
+			}
+			this.wrapper.classList.add('focused');
+		}).bind(this), true);
+
+		inputContainer.addEventListener('blur', (() => {
+			this.wrapper.classList.remove('focused');
+		}).bind(this), true);
 	}
 
 	private initAutoTab(): void {
