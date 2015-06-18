@@ -50,13 +50,13 @@ module Mercury.Utils.VariantTesting {
 	 */
 	export function integrateOptimizelyWithUA (dimensions: any[]): any[] {
 		var optimizely = window.optimizely,
-			experimentId: string,
+			activeExperiments = this.getActiveExperimentsList(),
 			dimension: number,
 			experimentName: string,
 			variationName: string;
 
-		if (optimizely && optimizely.activeExperiments) {
-			optimizely.activeExperiments.forEach((experimentId: string): void => {
+		if (activeExperiments) {
+			activeExperiments.forEach((experimentId: string): void => {
 				if (
 					optimizely.allExperiments.hasOwnProperty(experimentId) &&
 					typeof optimizely.allExperiments[experimentId].universal_analytics === 'object'
@@ -81,7 +81,7 @@ module Mercury.Utils.VariantTesting {
 	export function getActiveExperimentsList (): string[] {
 		var optimizely = window.optimizely;
 
-		return optimizely ? optimizely.activeExperiments : null;
+		return (optimizely && optimizely.activeExperiments) ? optimizely.activeExperiments : null;
 	}
 
 	/**
@@ -93,7 +93,8 @@ module Mercury.Utils.VariantTesting {
 	export function getExperimentVariationNumberBySingleId (experimentId: string): number {
 		var optimizely = window.optimizely;
 
-		return (optimizely && optimizely.variationMap) ? optimizely.variationMap[experimentId] : null;
+		return (optimizely && optimizely.variationMap && optimizely.variationMap[experimentId]) ?
+			optimizely.variationMap[experimentId] : null;
 	}
 
 	/**
