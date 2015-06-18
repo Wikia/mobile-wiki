@@ -14,7 +14,7 @@ import localSettings = require('../../config/localSettings');
 import Logger        = require('./Logger');
 
 module HeliosSession {
-	export function scheme (server: Hapi.Server, options: any) {
+	export function scheme (server: Hapi.Server, options: any): {authenticate: any} {
 		return {
 			authenticate: (request: any, reply: any): void => {
 				var accessToken: string = request.state.access_token;
@@ -33,7 +33,7 @@ module HeliosSession {
 							'Content-Type': 'application/x-www-form-urlencoded'
 						}
 					},
-					(err: any, response: any, payload: string) => {
+					(err: any, response: any, payload: string): any => {
 						var parsed: HeliosInfoResponse,
 							parseError: Error;
 
