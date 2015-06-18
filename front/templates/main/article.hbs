@@ -12,7 +12,7 @@
 		{{main-page model=model.mainPageData}}
 	{{else}}
 		{{#if view.editButtonsVisible}}
-			<span {{action 'edit' model.title '0'}}>
+			<span {{action 'edit' model.cleanTitle '0'}}>
 				{{svg 'pencil' role='img' class='icon pencil zero'}}
 			</span>
 		{{/if}}

@@ -199,7 +199,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			var $sectionHeader = this.$(item),
 				$pencil = this.$(pencil).appendTo($sectionHeader);
 			$pencil.on('click', (): void => {
-				this.get('controller').send('edit', this.get('controller.model.title'), $sectionHeader.attr('section'));
+				this.get('controller').send('edit', this.get('controller.model.cleanTitle'), $sectionHeader.attr('section'));
 			});
 		});
 	},
