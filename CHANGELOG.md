@@ -1,3 +1,26 @@
+## release-87 (2015-06-17 07:26 UTC)
+* [INT-113](https://wikia-inc.atlassian.net/browse/INT-113) Fix problem by using cleanTitle property of ArticleModel instead of just title
+* typescript-sourcemaps-2: Coding standard fixes for TS sourcemaps
+
+## release-86 (2015-06-16 13:21 UTC)
+* [CONCF-669](https://wikia-inc.atlassian.net/browse/CONCF-669) CONCF-669 Add temporary check to not break descriptions on production
+* [CONCF-509](https://wikia-inc.atlassian.net/browse/CONCF-509) CONCF-509 move description to article details
+* [CONCF-649](https://wikia-inc.atlassian.net/browse/CONCF-649) CONCF-649 | Remove Optimizely check for CuratedContent
+
+## release-85 (2015-06-15 07:26 UTC)
+* [HG-732](https://wikia-inc.atlassian.net/browse/HG-732)//www.wikia.com
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) Hg 727
+* [HG-750](https://wikia-inc.atlassian.net/browse/HG-750) HG-750 - added GA tracking to random article link
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) HG-727 adding loading graphic for A/B test
+* [CONCF-512](https://wikia-inc.atlassian.net/browse/CONCF-512) CONCF-512 Refactor lightboxes
+
+## release-84 (2015-06-12 07:26 UTC)
+* typescript-sourcemaps: Generate TS sourcemaps to allow direct TS debugging in Chrome devtools
+* [HG-605](https://wikia-inc.atlassian.net/browse/HG-605) HG-605 Description meta tag now updates on article change
+
+## release-83 (2015-06-11 07:26 UTC)
+* feature/HG-736: HG-736 Add in support for forwarding headers
+
 ## release-82 (2015-06-10 07:26 UTC)
 * [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 disabled caching for random page querys
 * [HG-654](https://wikia-inc.atlassian.net/browse/HG-654) Hg 654 remove 'mw-content' from non-mediawiki content wrappers

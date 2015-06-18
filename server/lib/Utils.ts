@@ -1,4 +1,5 @@
 /// <reference path="../../config/localSettings.d.ts" />
+/// <reference path="../../typings/hoek/hoek.d.ts" />
 
 import Hoek = require('hoek');
 

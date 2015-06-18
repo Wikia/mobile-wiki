@@ -1,38 +1,42 @@
-/* Misc Files */
+# Misc Files
 .DS_Store
 .sass-cache
 
-/* Editor Files */
+# Editor Files
 *.sw[a-z]
 *.orig
 
-/* Packages */
+# Packages
 node_modules/
 front/vendor/
 
-/* Node/NPM */
+# Node/NPM
 *.log
 
-/* Static Assets */
+# Static Assets
 .tmp/
 www/
-/* Should only commit json files, not compiled js fixtures */
+# Should only commit json files, not compiled js fixtures
 test/fixtures/**/*.js
 
-/* Config */
+# Config
 config/localSettings.ts
 config/localSettings.js
 config/localSettings.example.js
 
-/* coverage */
+# coverage
 test/coverage
 
-/* fixtures */
+# fixtures
 test/fixtures
 
-/* Jenkins Cache */
+# Jenkins Cache
 .*.md5
 
 .idea
 /docs
 *.sublime-*
+
+# Intermediate files from TypeScript compiler
+front/scripts/**/*.js
+front/scripts/**/*.js.map

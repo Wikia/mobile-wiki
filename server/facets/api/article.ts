@@ -30,23 +30,41 @@ function isRequestForRandomTitle (query: any): boolean {
  * @param result
  */
 export function get (request: Hapi.Request,  reply: any): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host);
+	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+		params: ArticleRequestParams = {
+			wikiDomain: wikiDomain,
+			title: request.params.articleTitle,
+			redirect: request.params.redirect
+		},
+		article: Article.ArticleRequestHelper,
+		allowCache = true;
+
+	if (request.state.wikicities_session) {
+		params.headers = {
+			'Cookie': `wikicities_session=${request.state.wikicities_session}`
+		};
+		allowCache = false;
+	}
+
+	article = new Article.ArticleRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
-		Article.getArticleRandomTitle(wikiDomain, (error: any, result: any): void => {
+		article.getArticleRandomTitle((error: any, result: any): void => {
 			var wrappedResult = wrapResult(error, result);
 			Caching.disableCache(reply(wrappedResult));
 		});
 		return;
 	}
 
-	Article.getData({
-		wikiDomain: wikiDomain,
-		title: request.params.articleTitle,
-		redirect: request.params.redirect
-	}, (error: any, result: any): void => {
+	article.getData((error: any, result: any): void => {
 		// TODO: Consider normalizing all error handling to Boom
-		var wrappedResult = wrapResult(error, result);
-		Caching.setResponseCaching(reply(wrappedResult).code(wrappedResult.status), cachingTimes);
+		var wrappedResult = wrapResult(error, result),
+			response = reply(wrappedResult).code(wrappedResult.status);
+
+		if (allowCache) {
+			return Caching.setResponseCaching(response, cachingTimes);
+		}
+
+		Caching.disableCache(response);
 	});
 }

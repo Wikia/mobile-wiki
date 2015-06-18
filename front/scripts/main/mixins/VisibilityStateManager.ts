@@ -1,6 +1,10 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface Window {
+	scrollY: number;
+}
+
 /**
  * object that stores visibility state of components
  * and fires onVisible action when a components is becoming visible

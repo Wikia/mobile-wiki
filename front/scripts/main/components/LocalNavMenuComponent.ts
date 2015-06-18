@@ -25,7 +25,7 @@ interface NavItem extends RootNavItem {
 	text: string;
 }
 
-App.LocalNavMenuComponent = Em.Component.extend({
+App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	tagName: 'ul',
 	classNames: ['local-nav-menu'],
 
@@ -79,6 +79,7 @@ App.LocalNavMenuComponent = Em.Component.extend({
 		},
 
 		loadRandomArticle: function (): void {
+			this.trackClick('randomArticle', 'click')
 			this.sendAction('loadRandomArticle');
 		}
 	},
