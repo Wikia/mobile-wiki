@@ -15,6 +15,8 @@ interface SignupViewContext {
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
 	footerHref?: string;
+	usernameMaxLength?: number;
+	passwordMaxLength?: number;
 }
 
 export function get (request: Hapi.Request, reply: any): void {
@@ -29,6 +31,8 @@ export function get (request: Hapi.Request, reply: any): void {
 		exitTo: redirectUrl,
 		headerText: 'auth:join.sign-up-with-email',
 		heliosRegistrationURL: localSettings.helios.host + 'register',
+		usernameMaxLength: localSettings.helios.usernameMaxLength,
+		passwordMaxLength: localSettings.helios.passwordMaxLength,
 		title: 'auth:join.sign-up-with-email',
 		language: request.server.methods.i18n.getInstance().lng(),
 		loadScripts: true,
