@@ -9,6 +9,8 @@ App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContent
 	classNames: ['featured-content-variation-2'],
 	showChevrons: true,
 
+	screenEdgeWidthRatio: (1 / 6),
+
 	rightClickHandler: function (): boolean {
 		this.nextItem();
 		return true;

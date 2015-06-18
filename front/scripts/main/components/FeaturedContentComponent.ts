@@ -7,6 +7,8 @@
 'use strict';
 
 App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
+	screenEdgeWidthRatio: (1 / 6),
+
 	gestures: {
 		swipeLeft: function (): void {
 			this.nextItem();

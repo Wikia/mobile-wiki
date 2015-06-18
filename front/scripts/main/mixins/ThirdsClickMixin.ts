@@ -15,14 +15,18 @@ App.ThirdsClickMixin = Em.Mixin.create({
 		return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	}),
 
+	/**
+	 * This can be overriden to change how wide should be clickable left and right areas of the element
+	 */
+	screenEdgeWidthRatio: (1 / 3),
+
 	preventDefaultActions: function (event: PreventableClickEvent): void {
 		event.preventDefault();
 		event.stopPropagation();
 	},
 
 	/**
-	 * @desc Checks on which area on the screen an event took place
-	 * and calls proper handler
+	 * @desc Checks on which area on the screen an event took place and calls proper handler
 	 *
 	 * @param {PreventableClickEvent} event
 	 * @param {boolean} preventDefault
@@ -30,13 +34,14 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	callClickHandler: function (event: PreventableClickEvent, preventDefault: boolean = false): void {
 		var viewportWidth = this.get('viewportWidth'),
 			x = event.clientX,
-			thirdPartOfScreen = viewportWidth / 3;
+			screenEdgeWidth = viewportWidth * this.get('screenEdgeWidthRatio'),
+			screenCenterWidth = viewportWidth - screenEdgeWidth * 2;
 
-		if (x < thirdPartOfScreen) {
+		if (x < screenEdgeWidth) {
 			if (this.leftClickHandler(event) && preventDefault) {
 				this.preventDefaultActions(event);
 			}
-		} else if (x > viewportWidth - thirdPartOfScreen) {
+		} else if (x > screenEdgeWidth + screenCenterWidth) {
 			if (this.rightClickHandler(event) && preventDefault) {
 				this.preventDefaultActions(event);
 			}
