@@ -56,7 +56,7 @@ textarea {
 }
 
 .zero-button-wrapper::after {
+	clear: both;
 	content: '';
 	display: block;
-	clear: both;
 }
