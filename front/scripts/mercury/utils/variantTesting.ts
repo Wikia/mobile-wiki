@@ -78,19 +78,19 @@ module Mercury.Utils.VariantTesting {
 	 *
 	 * @returns {[]}
 	 */
-	export function getOptimizelyActiveExperimentsList (): string[] {
+	export function getActiveExperimentsList (): string[] {
 		var optimizely = window.optimizely;
 
 		return optimizely ? optimizely.activeExperiments : null;
 	}
 
 	/**
-	 * Get Optimizely variation numbers for given experiment ID
+	 * Get number of the Optimizely experiment variation the user is running for given experiment ID
 	 *
 	 * @param {string} experimentId
-	 * @returns {[]}
+	 * @returns {number}
 	 */
-	export function getOptimizelyExperimentVariationNumber (experimentId: string): number {
+	export function getExperimentVariationNumberBySingleId (experimentId: string): number {
 		var optimizely = window.optimizely;
 
 		return (optimizely && optimizely.variationMap) ? optimizely.variationMap[experimentId] : null;
@@ -102,7 +102,7 @@ module Mercury.Utils.VariantTesting {
 	 * @param {object} experimentIds contains experimentIdProd and experimentIdDev
 	 * @returns {string} experimentId
 	 */
-	export function getOptimizelyExperimentIdForThisEnvironment (experimentIds: OptimizelyExperimentIds): string {
+	export function getExperimentIdForThisEnvironment (experimentIds: OptimizelyExperimentIds): string {
 		var environment = M.prop('environment');
 
 		switch (environment) {
@@ -114,5 +114,21 @@ module Mercury.Utils.VariantTesting {
 				return null;
 		}
 	}
-}
 
+	/**
+	 * Get Optimizely variation number for given experiment ID based on environment the app is running on
+	 *
+	 * @param {OptimizelyExperimentIds} experimentIds
+	 * @returns {number}
+	 */
+	export function getExperimentVariationNumber (experimentIds: OptimizelyExperimentIds): number {
+		var experimentIdForThisEnv = this.getExperimentIdForThisEnvironment(experimentIds),
+			activeExperimentsList = this.getActiveExperimentsList();
+
+		if (activeExperimentsList && activeExperimentsList.indexOf(experimentIdForThisEnv) !== -1) {
+			return this.getExperimentVariationNumberBySingleId(experimentIdForThisEnv);
+		}
+
+		return null;
+	}
+}

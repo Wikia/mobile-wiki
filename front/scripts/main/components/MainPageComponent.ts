@@ -8,18 +8,9 @@ App.MainPageComponent = Em.Component.extend({
 				prod: '3079180094',
 				dev: '3054131385'
 			},
-			variantTesting = Mercury.Utils.VariantTesting,
-			experimentIdForThisEnv = variantTesting.getOptimizelyExperimentIdForThisEnvironment(experimentIds),
-			activeExperimentsList = variantTesting.getOptimizelyActiveExperimentsList(),
-			variationNumber: number;
-
-		if (activeExperimentsList.indexOf(experimentIdForThisEnv) !== -1) {
-			variationNumber = variantTesting.getOptimizelyExperimentVariationNumber(experimentIdForThisEnv);
-		}
+			variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
 
 		switch (variationNumber) {
-			case 0:
-				return 'featured-content';
 			case 1:
 				return 'featured-content-variation-1';
 			case 2:
