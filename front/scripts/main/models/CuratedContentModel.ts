@@ -20,8 +20,8 @@ App.CuratedContentModel = Em.Object.extend({
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase');
 			url += (sectionType === 'section') ?
-				'/curatedContent/' + sectionName :
-				'/category/' + sectionName;
+				'/curatedContent/' + encodeURIComponent(sectionName) :
+				'/category/' + encodeURIComponent(sectionName);
 
 			Em.$.ajax({
 				url: url,
