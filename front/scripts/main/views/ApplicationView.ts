@@ -107,9 +107,9 @@ App.ApplicationView = Em.View.extend({
 
 		return (
 			$target.closest('.mw-content').length &&
-				// ignore polldaddy content
+			// ignore polldaddy content
 			!$target.closest('.PDS_Poll').length &&
-				// don't need special logic for article references
+			// don't need special logic for article references
 			!isReference
 		);
 	},
@@ -122,7 +122,7 @@ App.ApplicationView = Em.View.extend({
 
 		return !!(
 			$target.closest('.references').length ||
-			$target.closest('.reference').length
+			$target.parent('.reference').length
 		);
 	},
 
