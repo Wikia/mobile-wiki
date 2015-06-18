@@ -1,5 +1,6 @@
 {{#if showChevrons}}
-	{{svg 'chevron-linked' viewBox='0 0 10 20' class='chevron chevron-left'}}
+	{{svg 'chevron-linked' viewBox='0 0 5 20' class='chevron chevron-left'}}
+	{{svg 'chevron-linked' viewBox='0 0 5 20' class='chevron chevron-right'}}
 {{/if}}
 {{featured-content-item url=currentItem.article_local_url label=currentItem.label imageUrl=currentItem.image_url}}
 <ul class='featured-content-pagination dot-pagination'>
@@ -7,6 +8,3 @@
 		<li data-index='{{index}}'><span></span></li>
 	{{/each}}
 </ul>
-{{#if showChevrons}}
-	{{svg 'chevron-linked' viewBox='0 0 10 20' class='chevron chevron-right'}}
-{{/if}}

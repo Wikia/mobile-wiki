@@ -56,3 +56,8 @@
 	position: absolute;
 	transform: translate(-50%, 0);
 }
+
+.featured-content-pagination.dot-pagination .current span {
+	background-color: $white;
+	border-color: $white;
+}
