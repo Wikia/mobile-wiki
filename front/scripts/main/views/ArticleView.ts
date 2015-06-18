@@ -132,7 +132,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 		var model = this.get('controller.model'),
 			article = model.get('article'),
-			isCuratedMainPage = model.get('isCuratedMainPage');
+			isCuratedMainPage = model.get('isCuratedMainPage'),
+			variation: any;
 
 		if (isCuratedMainPage) {
 			this.injectMainPageAds();
@@ -151,11 +152,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
-			// Make lazy load image processing async so it doesn't hold up DOMContentLoaded
-			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 4); // Process the first few images synchronously
-			Ember.run.later(this, function() {
-			 	this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the rest async
-			 }, 2000);
+
+			variation = Mercury.Utils.VariantTesting.getVariation('3066501061');
+
+			if ( variation == 1 ) {
+				Ember.run.later(this, function() {
+			 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images async
+				}, 0);
+			} else {
+				this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images synchronously
+			}
+
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();

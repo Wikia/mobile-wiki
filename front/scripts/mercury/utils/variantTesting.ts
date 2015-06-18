@@ -38,6 +38,20 @@ module Mercury.Utils.VariantTesting {
 	}
 
 	/**
+	 * Gets the variation ID given the current Optimizely experiment ID
+	 *
+	 * @param {string} id
+	 * @returns {number}
+	 */
+	export function getVariation (id: string): number {
+		var optimizely = window.optimizely;
+		if (optimizely) {
+			return optimizely.data.visitor.params['optimizely_x' + id];
+		}
+		return -1;
+	}
+
+	/**
 	 * Integrates Optimizely with Universal Analytics
 	 *
 	 * @param {[]} dimensions
