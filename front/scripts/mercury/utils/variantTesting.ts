@@ -109,6 +109,7 @@ module Mercury.Utils.VariantTesting {
 			case 'prod':
 				return experimentIds.prod;
 			case 'dev':
+			case 'sandbox':
 				return experimentIds.dev;
 			default:
 				return null;
