@@ -1,3 +1,9 @@
+## release-88 (2015-06-18 07:26 UTC)
+* feature-HG-728: Feature hg 728
+* revert-906-SOC-805: Revert "SOC-805 Create CTA to New Login Flow on Wikiamobile"- it has to go after app and config changes
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 Create CTA to New Login Flow on Wikiamobile
+* aden-2023-disable-extra-in-content-ads: ADEN-2023 Disable extra in content ads for now
+
 ## release-87 (2015-06-17 07:26 UTC)
 * [INT-113](https://wikia-inc.atlassian.net/browse/INT-113) Fix problem by using cleanTitle property of ArticleModel instead of just title
 * typescript-sourcemaps-2: Coding standard fixes for TS sourcemaps
