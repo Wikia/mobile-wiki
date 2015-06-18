@@ -97,12 +97,12 @@ module Mercury.Utils.VariantTesting {
 	 * @param {object} experimentIds contains experimentIdProd and experimentIdDev
 	 * @returns {string} experimentId
 	 */
-	export function getOptimizelyExperimentIdForEnvironment (experimentIds: any): string {
+	export function getOptimizelyExperimentIdForThisEnvironment (experimentIds: any): string {
 		var environment = M.prop('environment');
 
 		switch (environment) {
+			// TODO: unhardcode 'prod' and 'dev' to something like this Utils.Environment.Prod
 			case 'prod':
-			// TODO: unhardcode it to something like this case Utils.Environment.Prod:
 				return experimentIds.experimentIdProd;
 			case 'dev':
 				return experimentIds.experimentIdDev;

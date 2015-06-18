@@ -2,11 +2,12 @@
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
 /// <reference path="../mixins/FeaturedContentMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../mixins/ThirdsClickMixin.ts"/>
 /// <reference path="../../mercury/utils/track.ts"/>
 'use strict';
 
-App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
+App.FeaturedContentVariation1Component = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, {
+	classNames: ['featured-content-variation-1'],
+
 	hammerOptions: {
 		swipe_velocity: 0.1,
 		swipe_threshold: 1,
@@ -24,22 +25,7 @@ App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App
 		},
 	},
 
-	rightClickHandler: function(): boolean {
-		this.nextItem();
-		return true;
-	},
-
-	leftClickHandler: function (): boolean {
-		this.prevItem();
-		return true;
-	},
-
-	centerClickHandler: function (): boolean {
+	click: function (): void {
 		this.trackClick('modular-main-page', 'featured-content');
-		return false;
-	},
-
-	click: function (event: MouseEvent|Touch): void {
-		this.callClickHandler(event, true);
 	}
 });

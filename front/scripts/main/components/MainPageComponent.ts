@@ -8,33 +8,26 @@ App.MainPageComponent = Em.Component.extend({
 				'experimentIdProd': '3079180094',
 				'experimentIdDev': '3054131385'
 			},
-			optimizelyExperimentId = Mercury.Utils.VariantTesting.getOptimizelyExperimentIdForEnvironment(optimizelyExperimentIds),
+			optimizelyExperimentIdForThisEnvironment = Mercury.Utils.VariantTesting.getOptimizelyExperimentIdForThisEnvironment(optimizelyExperimentIds),
 			optimizelyActiveExperimentsList = Mercury.Utils.VariantTesting.getOptimizelyActiveExperimentsList(),
 			optimizelyVariationNumber: number;
 
-		if (optimizelyActiveExperimentsList.indexOf(optimizelyExperimentId) !== -1) {
-			optimizelyVariationNumber = Mercury.Utils.VariantTesting.getOptimizelyExperimentVariationNumber(optimizelyExperimentId);
+		if (optimizelyActiveExperimentsList.indexOf(optimizelyExperimentIdForThisEnvironment) !== -1) {
+			optimizelyVariationNumber = Mercury.Utils.VariantTesting.getOptimizelyExperimentVariationNumber(optimizelyExperimentIdForThisEnvironment);
 		}
 
 		switch (optimizelyVariationNumber) {
 			case 0:
-				console.log('original');
-				break;
+				return 'featured-content';
 			case 1:
-				console.log('one');
-				break;
+				return 'featured-content-variation-1';
 			case 2:
-				console.log('two');
-				break;
+				return 'featured-content-variation-2';
 			case 3:
-				console.log('three');
-				break;
+				return 'featured-content-variation-3';
 			default:
-				console.log('default');
-				break;
+				return 'featured-content';
 		}
-
-		return 'featured-content';
 	}),
 
 	didInsertElement: function(): void {
