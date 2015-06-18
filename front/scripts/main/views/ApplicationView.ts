@@ -49,12 +49,9 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	trackFirstContent: function () {
-		var timing = Date.now() - performance.timing.fetchStart;
-
 		M.trackPerf({
 			name: 'firstContent',
-			type: 'timer',
-			value: timing
+			type: 'mark'
 		});
 	},
 
