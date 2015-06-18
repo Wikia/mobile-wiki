@@ -12,7 +12,7 @@ interface FeaturedContentItem {
 }
 
 App.FeaturedContentMixin = Em.Mixin.create({
-	templateName: 'components/featured-content',
+	layoutName: 'components/featured-content',
 	classNames: ['featured-content'],
 	currentItemIndex: 0,
 	// should it be here?
