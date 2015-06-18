@@ -7,7 +7,7 @@
 
 App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
 	classNames: ['featured-content-variation-3'],
-	isCycling: false,
+	isTimeoutHandleSet: false,
 	cycleTimeoutHandle: null,
 	cycleInterval: 6250,
 
@@ -34,17 +34,19 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	},
 
 	cycleThroughItems: function (): void {
-		if (!this.get('isCycling')) {
-			this.set('cycleTimeoutHandle', Em.run.later(this, ():void => {
+		if (!this.get('isTimeoutHandleSet')) {
+			this.set('cycleTimeoutHandle', Em.run.later(this, (): void => {
+				this.set('isTimeoutHandleSet', false);
 				this.nextItem();
 				this.cycleThroughItems();
 			}, this.cycleInterval));
+			this.set('isTimeoutHandleSet', true);
 		}
 	},
 
 	stopCyclingThroughItems: function (): void {
 		Em.run.cancel(this.get('cycleTimeoutHandle'));
-		this.set('isCycling', false);
+		this.set('isTimeoutHandleSet', false);
 	},
 
 	resetCycleTimeout: function (): void {
