@@ -22,32 +22,41 @@ module HeliosSession {
 				if (!accessToken) {
 					return reply(Boom.unauthorized('No access_token'));
 				}
-				Wreck.get(localSettings.helios.host + '/info?' + qs.stringify({
-						'code' : accessToken
-					}), (err: any, response: any, payload: string) => {
-					var parsed: HeliosInfoResponse,
-						parseError: Error;
 
-					try {
-						parsed = JSON.parse(payload);
-					} catch (e) {
-						parseError = e;
-					}
+				Wreck.post(
+					localSettings.helios.host + '/info',
+					{
+						payload: qs.stringify({
+							'code' : accessToken
+						}),
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						}
+					},
+					(err: any, response: any, payload: string) => {
+						var parsed: HeliosInfoResponse,
+							parseError: Error;
 
-					// Detects an error with the connection
-					if (err || parseError) {
-						Logger.error('Helios connection error: ', {
-							err: err,
-							parseError: parseError
-						});
-						return reply(Boom.unauthorized('Helios connection error'));
-					}
+						try {
+							parsed = JSON.parse(payload);
+						} catch (e) {
+							parseError = e;
+						}
 
-					if (parsed.error) {
-						reply.unstate('access_token');
-						return reply(Boom.unauthorized('Token not authorized by Helios'));
-					}
-					return reply.continue({credentials: {userId: response.user_id}});
+						// Detects an error with the connection
+						if (err || parseError) {
+							Logger.error('Helios connection error: ', {
+								err: err,
+								parseError: parseError
+							});
+							return reply(Boom.unauthorized('Helios connection error'));
+						}
+
+						if (parsed.error) {
+//							reply.unstate('access_token');
+							return reply(Boom.unauthorized('Token not authorized by Helios'));
+						}
+						return reply.continue({credentials: {userId: response.user_id}});
 				});
 			}
 		};
