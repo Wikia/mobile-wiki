@@ -38,7 +38,7 @@ class BirthdateInput {
 			inputContainer = <HTMLElement> this.wrapper.parentElement,
 			target: HTMLElement;
 
-		inputContainer.addEventListener('focus', (() => {
+		inputContainer.addEventListener('focus', ((): void => {
 			target = <HTMLElement> event.target;
 			if (target === this.realInput) {
 				this.realInput.type = 'hidden';
@@ -48,7 +48,7 @@ class BirthdateInput {
 			this.wrapper.classList.add('focused');
 		}).bind(this), true);
 
-		inputContainer.addEventListener('blur', (() => {
+		inputContainer.addEventListener('blur', ((): void => {
 			this.wrapper.classList.remove('focused');
 		}).bind(this), true);
 	}
