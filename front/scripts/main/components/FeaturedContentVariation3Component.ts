@@ -10,6 +10,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	isTimeoutHandleSet: false,
 	cycleTimeoutHandle: null,
 	cycleInterval: 6250,
+	showChevrons: true,
 
 	rightClickHandler: function (): boolean {
 		this.nextItem();

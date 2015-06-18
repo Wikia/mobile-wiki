@@ -2,6 +2,22 @@
 	margin-bottom: 20px;
 	position: relative;
 	width: 100%;
+
+	.chevron {
+		fill: $white;
+		height: 100%;
+		position: absolute;
+		top: 0;
+
+		&-left {
+			left: 0;
+			transform: scaleX(-1);
+		}
+
+		&-right {
+			right: 0;
+		}
+	}
 }
 
 .featured-content-item {
