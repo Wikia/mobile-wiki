@@ -7,13 +7,6 @@
 'use strict';
 
 App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
-	hammerOptions: {
-		swipe_velocity: 0.1,
-		swipe_threshold: 1,
-		pan_velocity: 0.1,
-		pan_threshold: 1
-	},
-
 	gestures: {
 		swipeLeft: function (): void {
 			this.nextItem();
