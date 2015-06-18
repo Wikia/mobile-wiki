@@ -11,6 +11,11 @@ interface Window {
 	optimizely?: any;
 }
 
+interface OptimizelyExperimentIds {
+	prod: string;
+	dev: string;
+}
+
 module Mercury.Utils.VariantTesting {
 	/**
 	 * Activates all variant tests for the current page
@@ -97,15 +102,14 @@ module Mercury.Utils.VariantTesting {
 	 * @param {object} experimentIds contains experimentIdProd and experimentIdDev
 	 * @returns {string} experimentId
 	 */
-	export function getOptimizelyExperimentIdForThisEnvironment (experimentIds: any): string {
+	export function getOptimizelyExperimentIdForThisEnvironment (experimentIds: OptimizelyExperimentIds): string {
 		var environment = M.prop('environment');
 
 		switch (environment) {
-			// TODO: unhardcode 'prod' and 'dev' to something like this Utils.Environment.Prod
 			case 'prod':
-				return experimentIds.experimentIdProd;
+				return experimentIds.prod;
 			case 'dev':
-				return experimentIds.experimentIdDev;
+				return experimentIds.dev;
 			default:
 				return null;
 		}

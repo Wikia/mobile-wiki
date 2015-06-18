@@ -4,19 +4,20 @@
 App.MainPageComponent = Em.Component.extend({
 	classNames: ['main-page-modules'],
 	featuredContentComponentVariation: Em.computed(function (): string {
-		var optimizelyExperimentIds = {
-				'experimentIdProd': '3079180094',
-				'experimentIdDev': '3054131385'
+		var experimentIds = {
+				prod: '3079180094',
+				dev: '3054131385'
 			},
-			optimizelyExperimentIdForThisEnvironment = Mercury.Utils.VariantTesting.getOptimizelyExperimentIdForThisEnvironment(optimizelyExperimentIds),
-			optimizelyActiveExperimentsList = Mercury.Utils.VariantTesting.getOptimizelyActiveExperimentsList(),
-			optimizelyVariationNumber: number;
+			variantTesting = Mercury.Utils.VariantTesting,
+			experimentIdForThisEnv = variantTesting.getOptimizelyExperimentIdForThisEnvironment(experimentIds),
+			activeExperimentsList = variantTesting.getOptimizelyActiveExperimentsList(),
+			variationNumber: number;
 
-		if (optimizelyActiveExperimentsList.indexOf(optimizelyExperimentIdForThisEnvironment) !== -1) {
-			optimizelyVariationNumber = Mercury.Utils.VariantTesting.getOptimizelyExperimentVariationNumber(optimizelyExperimentIdForThisEnvironment);
+		if (activeExperimentsList.indexOf(experimentIdForThisEnv) !== -1) {
+			variationNumber = variantTesting.getOptimizelyExperimentVariationNumber(experimentIdForThisEnv);
 		}
 
-		switch (optimizelyVariationNumber) {
+		switch (variationNumber) {
 			case 0:
 				return 'featured-content';
 			case 1:
