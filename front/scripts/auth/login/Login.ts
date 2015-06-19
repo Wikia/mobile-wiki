@@ -42,14 +42,14 @@ class Login {
 			var response: LoginResponse;
 
 			if (xhr.status !== 200) {
-				return this.displayError(xhr.status === 401 ? 'login.wrong-credentials' : 'common.server-error');
+				return this.displayError(xhr.status === 401 ? 'errors.wrong-credentials' : 'common.server-error');
 			}
 
 			response = JSON.parse(xhr.responseText);
 
 			if (response.error) {
 				// Helios may return an error even if the request returns a 200
-				this.displayError('login.wrong-credentials');
+				this.displayError('errors.wrong-credentials');
 			} else {
 				window.location.href = this.redirect;
 			}

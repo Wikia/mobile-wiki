@@ -20,11 +20,16 @@ i18n.init(<I18nextOptions> {
 });
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement = window.document.querySelector('form');
+	var formElement = <HTMLFormElement> window.document.querySelector('form');
+
 	if (formElement) {
 		new Form(formElement).watch();
 		new SubmitValidator(formElement).watch();
-		new Login(formElement).watch();
-		new SignupForm(formElement).watch();
+
+		if (formElement.id === 'loginForm') {
+			new Login(formElement).watch();
+		} else if (formElement.id === 'signupForm') {
+			new SignupForm(formElement).watch();
+		}
 	}
 });
