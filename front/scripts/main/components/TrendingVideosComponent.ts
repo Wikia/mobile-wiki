@@ -4,7 +4,7 @@
 App.TrendingVideosComponent = Em.Component.extend({
 	classNames: ['trending', 'trending-videos'],
 
-	actions:{
+	actions: {
 		openLightbox: function (video: any): void {
 			this.sendAction('openLightbox', video);
 		}
