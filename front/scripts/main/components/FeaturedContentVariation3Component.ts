@@ -10,7 +10,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	isTimeoutHandleSet: false,
 	cycleTimeoutHandle: null,
 	cycleInterval: 6250,
-	showChevrons: true,
+	showChevrons: Em.computed.alias('hasMultipleItems'),
 
 	rightClickHandler: function (): boolean {
 		this.nextItem();
@@ -35,7 +35,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	},
 
 	cycleThroughItems: function (): void {
-		if (!this.get('isTimeoutHandleSet')) {
+		if (this.get('hasMultipleItems') && !this.get('isTimeoutHandleSet')) {
 			this.set('cycleTimeoutHandle', Em.run.later(this, (): void => {
 				this.set('isTimeoutHandleSet', false);
 				this.nextItem();
@@ -46,13 +46,17 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	},
 
 	stopCyclingThroughItems: function (): void {
-		Em.run.cancel(this.get('cycleTimeoutHandle'));
-		this.set('isTimeoutHandleSet', false);
+		if (this.get('hasMultipleItems')) {
+			Em.run.cancel(this.get('cycleTimeoutHandle'));
+			this.set('isTimeoutHandleSet', false);
+		}
 	},
 
 	resetCycleTimeout: function (): void {
-		this.stopCyclingThroughItems();
-		this.cycleThroughItems();
+		if (this.get('hasMultipleItems')) {
+			this.stopCyclingThroughItems();
+			this.cycleThroughItems();
+		}
 	},
 
 	didInsertElement: function (): void {

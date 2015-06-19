@@ -7,7 +7,7 @@
 
 App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
 	classNames: ['featured-content-variation-2'],
-	showChevrons: true,
+	showChevrons: Em.computed.alias('hasMultipleItems'),
 
 	screenEdgeWidthRatio: (1 / 6),
 
