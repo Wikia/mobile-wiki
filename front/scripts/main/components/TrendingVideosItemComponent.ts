@@ -11,7 +11,7 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.Tra
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	href: Em.computed.oneWay('fileUrl'),
+	href: Em.computed.oneWay('video.fileUrl'),
 	imageWidth: 250,
 	imageHeight: Em.computed(function (): number {
 		return Math.floor(this.get('imageWidth') * 9 / 16);
