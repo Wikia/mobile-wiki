@@ -24,11 +24,11 @@ function getLoginContext (request: Hapi.Request, redirect: string): LoginViewCon
 		headerText: 'auth:login.welcome-back',
 		footerCallout: 'auth:login.register-callout',
 		footerCalloutLink: 'auth:login.register-now',
-		heliosLoginURL: localSettings.helios.host + '/token',
-		language: request.server.methods.i18n.getInstance().lng(),
 		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+		heliosLoginURL: localSettings.helios.host + '/token',
+		language: request.server.methods.i18n.getInstance().lng()
 	};
 }
 
@@ -44,4 +44,3 @@ export function get (request: Hapi.Request, reply: any): void {
 		layout: 'auth'
 	});
 }
-

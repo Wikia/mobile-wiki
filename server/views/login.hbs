@@ -2,11 +2,11 @@
 	<form id="loginForm" action="{{heliosLoginURL}}" method="POST">
 		<div class="input-container">
 			<input type="text" name="username" id="loginUsername" required />
-			<label class="floating-label" for="loginUsername">{{i18n "auth:login.username-label"}}</label>
+			<label class="floating-label" for="loginUsername">{{i18n "auth:common.username-label"}}</label>
 		</div>
 		<div class="input-container">
 			<input class="sign-in-password" type="password" name="password" id="loginPassword" autocomplete="off" required />
-			<label class="floating-label" for="loginPassword">{{i18n "auth:login.password-label"}}</label>
+			<label class="floating-label" for="loginPassword">{{i18n "auth:common.password-label"}}</label>
 			<span class="input-icon password-toggler"></span>
 			<a class="forgotten-password" href="{{{forgotPasswordHref}}}" tabindex="-1">{{i18n "auth:login.forgot-password"}}</a>
 		</div>

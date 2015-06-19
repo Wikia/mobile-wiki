@@ -28,8 +28,8 @@
 
 		{{#unless noScripts}}
 		<script>
-			var translations = {{{json (translations language ns='auth')}}},
-				language = {{{json language}}};
+			var translations = {{{json (translations language ns='auth-front')}}},
+					language = {{{json language}}};
 		</script>
 		<script src="/front/vendor/i18next/i18next.min.js"></script>
 		<!-- build:js /front/scripts/auth.js -->
