@@ -8,41 +8,38 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.Tra
 	tagName: 'a',
 	classNames: ['trending-videos-item'],
 	attributeBindings: ['href', 'style'],
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
+	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	currentlyRenderedImageUrl: Em.computed.oneWay('emptyGif'),
-	href: Em.computed.oneWay('url'),
+	href: Em.computed.oneWay('fileUrl'),
 	imageWidth: 250,
 	imageHeight: Em.computed(function (): number {
 		return Math.floor(this.get('imageWidth') * 9 / 16);
 	}),
 	style: null,
+	video: null,
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
-	},
-
-	didInsertElement: function (): void {
-		if (this.get('imageUrl')) {
-			this.lazyLoadImage();
-		}
 	},
 
 	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	}),
 
-	lazyLoadImage: function (): void {
+	thumbUrl: Em.computed('video.url', function (): void {
 		var options: any = {
 				width: this.get('imageWidth'),
 				height: this.get('imageHeight'),
 				mode: this.get('cropMode')
-			},
-			imageUrl: string = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+			};
 
-		this.set('currentlyRenderedImageUrl', imageUrl);
-	},
+		if (this.get('video.url')) {
+			return this.thumbnailer.getThumbURL(this.get('video.url'), options);
+		} else {
+			return this.emptyGif;
+		}
+	}),
 
 	updateImageSize: function (viewportWidth: number): void {
 		var imageHeightString = String(Math.floor((viewportWidth - 10) * 9 / 16));
