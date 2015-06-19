@@ -132,8 +132,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 		var model = this.get('controller.model'),
 			article = model.get('article'),
-			isCuratedMainPage = model.get('isCuratedMainPage'),
-			variation: any;
+			isCuratedMainPage = model.get('isCuratedMainPage');
 
 		if (isCuratedMainPage) {
 			this.injectMainPageAds();
@@ -153,9 +152,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
 
-			variation = Mercury.Utils.VariantTesting.getVariation('3066501061');
-
-			if ( variation == 1 ) {
+			if ( Mercury.Utils.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}) == 1 ) {
 				Ember.run.later(this, function() {
 			 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images async
 				}, 0);
@@ -196,14 +193,15 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, endIndex: number): void {
-		var lazyImages = this.$('.article-media');
+		var $mediaPlaceholders = this.$('.article-media');
 
-		if(endIndex == -1 || endIndex > lazyImages.length){
-			endIndex = lazyImages.length;
+		if (endIndex == -1 || endIndex > $mediaPlaceholders.length) {
+			endIndex = $mediaPlaceholders.length;
 		}
 
+		// This will not iterate over components that were already replaced, since they will no longer have the 'article-media' class
 		for (var i = 0; i < endIndex; i++) {
-			this.$(lazyImages[i]).replaceWith(this.createMediaComponent(lazyImages[i], model));
+			$mediaPlaceholders.eq(i).replaceWith(this.createMediaComponent($mediaPlaceholders[i], model));
 		}
 	},
 
