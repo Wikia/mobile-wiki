@@ -1,3 +1,8 @@
+## release-90 (2015-06-19 16:15 UTC)
+* [SOC-480](https://wikia-inc.atlassian.net/browse/SOC-480) Soc 480 Internationalized birthdate input
+* [SOC-684](https://wikia-inc.atlassian.net/browse/SOC-684) SOC-684 | Registration screen
+* [SOC-878](https://wikia-inc.atlassian.net/browse/SOC-878) SOC-878 Adding active state to birthdate field
+
 ## release-89 (2015-06-19 14:32 UTC)
 * [CONCF-608](https://wikia-inc.atlassian.net/browse/CONCF-608) CONCF-608 encode category and section name before sending to API
 * task-update: Tasks update
