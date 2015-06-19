@@ -7,9 +7,14 @@
 
 App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
 	classNames: ['featured-content-variation-2'],
-	showChevrons: Em.computed.alias('hasMultipleItems'),
+	showChevrons: Em.computed.readOnly('hasMultipleItems'),
 
-	screenEdgeWidthRatio: (1 / 6),
+	screenEdgeWidthRatio: Em.computed('hasMultipleItems', function(): number {
+		if (this.get('hasMultipleItems')) {
+			return (1 / 6);
+		}
+		return 0;
+	}),
 
 	rightClickHandler: function (): boolean {
 		this.nextItem();
