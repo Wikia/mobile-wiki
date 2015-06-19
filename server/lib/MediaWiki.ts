@@ -157,7 +157,7 @@ export class ArticleRequest {
 			action: 'query',
 			generator: 'random',
 			grnnamespace: 0,
-			CB: Date.now(),
+			cb: Date.now(),
 			format: 'json'
 		});
 
