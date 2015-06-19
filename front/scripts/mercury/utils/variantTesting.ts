@@ -93,7 +93,7 @@ module Mercury.Utils.VariantTesting {
 	export function getExperimentVariationNumberBySingleId (experimentId: string): number {
 		var optimizely = window.optimizely;
 
-		return (optimizely && optimizely.variationMap && optimizely.variationMap[experimentId]) ?
+		return (optimizely && optimizely.variationMap && typeof optimizely.variationMap[experimentId] === 'number') ?
 			optimizely.variationMap[experimentId] : null;
 	}
 
