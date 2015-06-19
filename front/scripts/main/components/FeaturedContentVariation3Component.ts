@@ -9,6 +9,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	classNames: ['featured-content-variation-3'],
 	isTimeoutHandleSet: false,
 	cycleTimeoutHandle: null,
+	// This is how long it takes to read the item caption out loud ~2.5 times, based on guidelines from movie credits
 	cycleInterval: 6250,
 	showChevrons: Em.computed.alias('hasMultipleItems'),
 

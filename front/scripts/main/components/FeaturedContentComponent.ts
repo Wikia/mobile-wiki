@@ -7,6 +7,7 @@
 'use strict';
 
 App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
+	// See FeaturedContentMixin
 	screenEdgeWidthRatio: (1 / 6),
 
 	gestures: {

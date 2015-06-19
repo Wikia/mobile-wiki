@@ -16,7 +16,13 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	}),
 
 	/**
-	 * This can be overriden to change how wide should be clickable left and right areas of the element
+	 * This can be overriden to change how wide should be areas that leftClickHandler & rightClickHandler respond to.
+	 * For example if it's 1/5 then:
+	 * - click on the left side (less than 20% of screen width) will trigger leftClickHandler
+	 * - click on the center (between 20% and 80% of screen width) will trigger centerClickHandler
+	 * - click on the right side (more than 80% of screen width) will trigger rightClickHandler
+	 *
+	 * 1/3 means that all three areas are equal.
 	 */
 	screenEdgeWidthRatio: (1 / 3),
 
