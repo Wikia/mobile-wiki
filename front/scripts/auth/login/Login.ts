@@ -79,7 +79,8 @@ class Login {
 	}
 
 	private getCachebustedUrl (path: string): string {
-		var query: Array<string>;
+		var query: Array<string>,
+			cachebustedParam: string;
 
 		// Fall back to index path as default
 		if (typeof path !== 'string' || path === '') {
@@ -89,16 +90,15 @@ class Login {
 		// Match the querystring in the URI path
 		query = path.match(/\?.+/);
 
-		if (query === null) {
-			path += '?';
-		} else if (query[0].match(/cb=/) === null) {
-			path += '&';
-		} else {
-			// Path already contains a cb param in the querystring
-			return path;
-		}
+		cachebustedParam = 'cb=' + new Date().getTime();
 
-		path += 'cb=' + Math.floor(Math.random() * 10000);
+		if (query === null) {
+			path += '?' + cachebustedParam;
+		} else if (query[0].match(/cb=/) === null) {
+			path += '&' + cachebustedParam;
+		} else {
+			path = path.replace(/cb=\d+/, cachebustedParam);
+		}
 		return path;
 	}
 
