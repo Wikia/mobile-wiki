@@ -9,7 +9,7 @@
 	{{render 'not-found'}}
 {{else}}
 	{{#if model.isCuratedMainPage}}
-		{{main-page model=model.mainPageData}}
+		{{main-page model=model.mainPageData openLightbox='openLightbox'}}
 	{{else}}
 		{{#if view.editButtonsVisible}}
 			<span {{action 'edit' model.cleanTitle '0'}}>

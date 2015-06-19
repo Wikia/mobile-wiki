@@ -2,5 +2,11 @@
 'use strict';
 
 App.TrendingVideosComponent = Em.Component.extend({
-	classNames: ['trending', 'trending-videos']
+	classNames: ['trending', 'trending-videos'],
+
+	actions:{
+		openLightbox: function (video: any) {
+			this.sendAction('openLightbox', video)
+		}
+	}
 });
