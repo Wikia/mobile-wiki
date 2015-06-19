@@ -34,14 +34,7 @@ class Login {
 		this.redirect = this.getCachebustedUrl(redirect);
 	}
 
-	public init (): void {
-		this.form.addEventListener('submit', (event: Event): void => {
-			event.preventDefault();
-			this.onSubmit();
-		});
-	}
-
-	public onSubmit (): void {
+	public onSubmit (event: Event): void {
 		var xhr = new XMLHttpRequest(),
 			postData: LoginCredentials = this.getCredentials();
 
@@ -69,6 +62,12 @@ class Login {
 		xhr.open('post', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send((new UrlHelper()).urlEncode(postData));
+
+		event.preventDefault();
+	}
+
+	public watch(): void {
+		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 
 	private getCredentials (): LoginCredentials {
