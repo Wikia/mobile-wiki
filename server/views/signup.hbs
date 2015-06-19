@@ -6,17 +6,23 @@
 		</div>
 		<div class="input-container">
 			<input type="text" name="username" id="signupUsername" required />
-			<label class="floating-label" for="signupUsername">{{i18n "auth:common.username-label"}}</label>
+			<label class="floating-label" for="signupUsername">{{i18n "auth:login.username-label"}}</label>
 			<span class="input-icon dice"></span>
 	</div>
 		<div class="input-container">
 			<input type="password" name="password" id="signupPassword" autocomplete="off" required />
-			<label class="floating-label" for="signupPassword">{{i18n "auth:common.password-label"}}</label>
+			<label class="floating-label" for="signupPassword">{{i18n "auth:login.password-label"}}</label>
 			<span class="input-icon password-toggler"></span>
 		</div>
 		<div class="input-container">
-			<input type="date" name="birthdate" id="signupBirthDate" required />
-			<label class="floating-label" for="signupBirthDate">Birthdate (MM / DD / YY)</label>
+			<div class="birthdate-container input hide">
+				{{#birthdateInputs}}
+					<input type="text" name="{{name}}" class="fake-input birth-{{name}}" maxlength="{{maxLength}}" max="{{maxVal}}" placeholder="{{placeholder}}" required>
+					<span>{{separator}}</span>
+				{{/birthdateInputs}}
+			</div>
+			<input type="text" name="birthdate" id="signupBirthDate" required>
+			<label class="floating-label" for="signupBirthDate">{{i18n "auth:signup.birthdate-label"}}</label>
 		</div>
 		<label for="signupNewsletter" class="inline signup-newsletter-label">
 			<input type="checkbox" name="newsletter" id="signupNewsletter" class="inline">

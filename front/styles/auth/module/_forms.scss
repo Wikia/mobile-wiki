@@ -44,28 +44,17 @@ input[type='date']:valid + .floating-label {
 	color: $label-color-valid;
 }
 
-input[type='date'] {
-	font-size: 0;
-	transition: font-size ease-in 0.15s;
-	line-height: 1rem;
-	&::-webkit-clear-button,
-	&::-webkit-inner-spin-button,
-	&::-webkit-calendar-picker-indicator {
-		visibility: hidden;
-	}
-	&:valid, &:focus {
-		font-size: 1rem;
-		transition: font-size ease-in 0.15s;
-		&::-webkit-datetime-edit-month-field,
-		&::-webkit-datetime-edit-day-field,
-		&::-webkit-datetime-edit-year-field {
-			font-size: 0.75rem;
-		}
-		&::-webkit-clear-button,
-		&::-webkit-inner-spin-button,
-		&::-webkit-calendar-picker-indicator {
-			visibility: visible;
-		}
+.input-container > img {
+	box-sizing: content-box;
+	height: 1rem;
+	padding: 24px 5px 0 5px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20px;
+
+	&.on {
+		opacity: 0.5;
 	}
 }
 

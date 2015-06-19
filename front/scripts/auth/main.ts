@@ -20,7 +20,13 @@ i18n.init(<I18nextOptions> {
 });
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement = window.document.querySelector('form');
+	var formElement: HTMLFormElement = <HTMLFormElement> window.document.querySelector('form'),
+		birthdateContainer: HTMLElement = <HTMLElement> formElement.querySelector('.birthdate-container');
+
+	if (birthdateContainer) {
+		new BirthdateInput(birthdateContainer, formElement).init();
+	}
+
 	if (formElement) {
 		new Form(formElement).watch();
 		new SubmitValidator(formElement).watch();
