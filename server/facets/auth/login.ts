@@ -1,5 +1,6 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 import authUtils = require('../../lib/AuthUtils');
+import localSettings = require('../../../config/localSettings');
 
 interface LoginViewContext {
 	title: string;
@@ -14,6 +15,7 @@ interface LoginViewContext {
 	exitTo?: string;
 	bodyClasses?: string;
 	formErrorKey?: string;
+	heliosLoginURL: string;
 }
 
 function getLoginContext (request: Hapi.Request, redirect: string): LoginViewContext {
@@ -22,6 +24,7 @@ function getLoginContext (request: Hapi.Request, redirect: string): LoginViewCon
 		headerText: 'auth:login.welcome-back',
 		footerCallout: 'auth:login.register-callout',
 		footerCalloutLink: 'auth:login.register-now',
+		heliosLoginURL: localSettings.helios.host + '/token',
 		language: request.server.methods.i18n.getInstance().lng(),
 		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
