@@ -1,3 +1,8 @@
+## release-89 (2015-06-19 14:32 UTC)
+* [CONCF-608](https://wikia-inc.atlassian.net/browse/CONCF-608) CONCF-608 encode category and section name before sending to API
+* task-update: Tasks update
+* [DAT-2897](https://wikia-inc.atlassian.net/browse/DAT-2897) DAT-2897 handle article references
+
 ## release-88 (2015-06-18 07:26 UTC)
 * feature-HG-728: Feature hg 728
 * revert-906-SOC-805: Revert "SOC-805 Create CTA to New Login Flow on Wikiamobile"- it has to go after app and config changes
