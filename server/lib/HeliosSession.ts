@@ -17,23 +17,8 @@ module HeliosSession {
 	export function scheme (server: Hapi.Server, options: any): {authenticate: any} {
 		return {
 			authenticate: (request: any, reply: any): void => {
-				var accessToken: string = request.state.access_token;
-
-				if (!accessToken) {
-					return reply(Boom.unauthorized('No access_token'));
-				}
-
-				Wreck.post(
-					localSettings.helios.host + '/info',
-					{
-						payload: qs.stringify({
-							'code' : accessToken
-						}),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					},
-					(err: any, response: any, payload: string): any => {
+				var accessToken: string = request.state.access_token,
+					callback = (err: any, response: any, payload: string): any => {
 						var parsed: HeliosInfoResponse,
 							parseError: Error;
 
@@ -53,11 +38,28 @@ module HeliosSession {
 						}
 
 						if (parsed.error) {
-//							reply.unstate('access_token');
+							reply.unstate('access_token');
 							return reply(Boom.unauthorized('Token not authorized by Helios'));
 						}
 						return reply.continue({credentials: {userId: response.user_id}});
-				});
+					};
+
+				if (!accessToken) {
+					return reply(Boom.unauthorized('No access_token'));
+				}
+
+				Wreck.post(
+					localSettings.helios.host + '/info',
+					{
+						payload: qs.stringify({
+							'code' : accessToken
+						}),
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						}
+					},
+					callback
+				);
 			}
 		};
 	}
