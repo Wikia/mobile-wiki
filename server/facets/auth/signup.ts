@@ -28,7 +28,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	context = {
 		exitTo: redirectUrl,
 		headerText: 'auth:join.sign-up-with-email',
-		heliosRegistrationURL: localSettings.helios.host + 'register',
+		heliosRegistrationURL: localSettings.helios.host + '/register',
 		title: 'auth:join.sign-up-with-email',
 		language: request.server.methods.i18n.getInstance().lng(),
 		loadScripts: true,
