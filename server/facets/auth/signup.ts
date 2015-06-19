@@ -30,7 +30,7 @@ export function get (request: Hapi.Request, reply: any): void {
 	context = {
 		exitTo: redirectUrl,
 		headerText: 'auth:join.sign-up-with-email',
-		heliosRegistrationURL: localSettings.helios.host + 'register',
+		heliosRegistrationURL: localSettings.helios.host + '/register',
 		usernameMaxLength: localSettings.helios.usernameMaxLength,
 		passwordMaxLength: localSettings.helios.passwordMaxLength,
 		title: 'auth:join.sign-up-with-email',
