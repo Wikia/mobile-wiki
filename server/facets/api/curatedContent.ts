@@ -36,7 +36,7 @@ export function get (request: Hapi.Request, reply: any): void {
 		// TODO: ad hoc error handling, use Boom everywhere?
 		reply(Boom.badRequest('Section not provided'));
 	} else {
-		new MW.ArticleRequest(params.wikiDomain).curatedContentSection(params.sectionName)
+		new MW.ArticleRequest(params).curatedContentSection(params.sectionName)
 		.then((response: any): void => {
 			reply(response);
 			Caching.setResponseCaching(response, cachingTimes);

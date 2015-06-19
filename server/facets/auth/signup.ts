@@ -1,11 +1,14 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 /// <reference path='./BirthdateInput.ts' />
+/// <reference path='../../../config/localSettings.d.ts' />
 
 import BirthdateInput = require('./BirthdateInput');
 import dateUtils = require('../../lib/DateUtils');
+import localSettings = require('../../../config/localSettings');
 
 interface SignupViewContext {
 	title: string;
+	language: string;
 	headerText?: string;
 	exitTo?: string;
 	bodyClasses?: string;
@@ -15,6 +18,8 @@ interface SignupViewContext {
 	footerCalloutText?: string;
 	footerCalloutLink?: string;
 	birthdateInputs: Array<InputData>;
+	heliosRegistrationURL?: string;
+	termsOfUseLink?: string;
 }
 
 export function get (request: Hapi.Request, reply: any): void {
@@ -30,8 +35,9 @@ export function get (request: Hapi.Request, reply: any): void {
 	context = {
 		exitTo: redirectUrl,
 		headerText: 'auth:join.sign-up-with-email',
-		footer: 'auth:signup.footer',
+		heliosRegistrationURL: localSettings.helios.host + '/register',
 		title: 'auth:join.sign-up-with-email',
+		language: request.server.methods.i18n.getInstance().lng(),
 		loadScripts: true,
 		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),

@@ -56,16 +56,27 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				imageOrGalleryRef :
 				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
 			image: ArticleMedia,
-			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1);
+			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1),
+			//if this gallery is inside infobox it has to be set of icons
+			setOfIcons = this.isInsideInfobox(),
+			mode = Mercury.Modules.Thumbnailer.mode.topCrop,
+			height = thumbSize,
+			width = thumbSize;
 
 		for (; galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
 
+			if (setOfIcons) {
+				mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+				height = this.get('infoboxIconSize.height');
+				width = Math.floor(height * image.width / image.height);
+			}
+
 			image.setProperties({
-				thumbUrl: this.getThumbURL(image.get('url'), {
-					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-					width: thumbSize,
-					height: thumbSize
+				thumbUrl: this.getThumbURL(image.url, {
+					mode: mode,
+					height: height,
+					width: width
 				}),
 				load: true
 			});

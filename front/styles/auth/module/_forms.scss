@@ -1,12 +1,16 @@
 form {
-	> small.error {
+	small.error {
 		color: $input-border-error-color;
-		line-height: 1.25rem;
+		line-height: .75rem;
+		margin-bottom: 0;
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 
 .input-container {
-	padding-bottom: 1rem;
+	min-height: 62px; // Height of input + error message to avoid pushing content down when error is displayed
+	padding-bottom: .25rem;
 	position: relative;
 
 	input.error {
@@ -14,10 +18,7 @@ form {
 	}
 
 	small.error {
-		margin-bottom: 0;
 		padding-bottom: 0;
-		padding-left: 0;
-		padding-right: 0;
 	}
 }
 
@@ -54,5 +55,19 @@ input[type='date']:valid + .floating-label {
 
 	&.on {
 		opacity: 0.5;
+	}
+}
+
+button[type="submit"].on {
+	&::before {
+		animation: spin 1s linear infinite;
+		background: url("/front/images/loading.svg") center no-repeat;
+		content: " ";
+		display: block;
+		height: 40px;
+	}
+
+	span {
+		display: none;
 	}
 }

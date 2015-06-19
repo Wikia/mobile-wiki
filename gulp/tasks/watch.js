@@ -31,7 +31,7 @@ gulp.task('watch', ['build', 'build-views'], function () {
 	gulp.watch(path.join(
 		paths.scripts.front.src,
 		paths.scripts.front.files
-	), ['tslint', 'scripts-front']).on('change', function (event) {
+	), ['tslint', 'scripts-front', 'copy-ts-source']).on('change', function (event) {
 		if (event.path.match('baseline')) {
 			gulp.start('build-views');
 		}

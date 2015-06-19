@@ -17,7 +17,8 @@
     "weppy": "Wikia/weppy",
     "ember-performance-sender": "1.1.0",
     "vignette": "wikia/vignette-js#2.1.1",
-    "wikia-style-guide": "Wikia/style-guide#1.0.1"
+    "wikia-style-guide": "Wikia/style-guide#1.0.1",
+    "numeral": "~1.5.3"
   },
   "devDependencies": {
     "ember-qunit": "0.3.0",

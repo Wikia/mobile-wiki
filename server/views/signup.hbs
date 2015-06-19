@@ -1,5 +1,5 @@
 <section class="auth-content">
-	<form id="signupForm" action="" method="POST">
+	<form id="signupForm" action="{{heliosRegistrationURL}}" method="POST">
 		<div class="input-container">
 			<input type="email" name="email" id="signupEmail" required />
 			<label class="floating-label" for="signupEmail">{{i18n "auth:signup.email-label"}}</label>
@@ -24,12 +24,11 @@
 			<input type="text" name="birthdate" id="signupBirthDate" required>
 			<label class="floating-label" for="signupBirthDate">{{i18n "auth:signup.birthdate-label"}}</label>
 		</div>
-		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
-		<label for="signupNewsletter" class="inline">
+		<label for="signupNewsletter" class="inline signup-newsletter-label">
 			<input type="checkbox" name="newsletter" id="signupNewsletter" class="inline">
 			{{i18n "auth:signup.wikia-newsletter-prompt"}}
 		</label>
-		<button id="signupSubmit" type="submit" disabled>{{i18n "auth:signup.register-action"}}</button>
+		<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:signup.register-action"}}</span></button>
 		<small class="terms-of-use">
 			{{i18n "auth:signup.terms-of-use-text"}}
 			<a href="{{{termsOfUseLink}}}" target="_blank">

@@ -1,3 +1,56 @@
+## release-89 (2015-06-19 14:32 UTC)
+* [CONCF-608](https://wikia-inc.atlassian.net/browse/CONCF-608) CONCF-608 encode category and section name before sending to API
+* task-update: Tasks update
+* [DAT-2897](https://wikia-inc.atlassian.net/browse/DAT-2897) DAT-2897 handle article references
+
+## release-88 (2015-06-18 07:26 UTC)
+* feature-HG-728: Feature hg 728
+* revert-906-SOC-805: Revert "SOC-805 Create CTA to New Login Flow on Wikiamobile"- it has to go after app and config changes
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 Create CTA to New Login Flow on Wikiamobile
+* aden-2023-disable-extra-in-content-ads: ADEN-2023 Disable extra in content ads for now
+
+## release-87 (2015-06-17 07:26 UTC)
+* [INT-113](https://wikia-inc.atlassian.net/browse/INT-113) Fix problem by using cleanTitle property of ArticleModel instead of just title
+* typescript-sourcemaps-2: Coding standard fixes for TS sourcemaps
+
+## release-86 (2015-06-16 13:21 UTC)
+* [CONCF-669](https://wikia-inc.atlassian.net/browse/CONCF-669) CONCF-669 Add temporary check to not break descriptions on production
+* [CONCF-509](https://wikia-inc.atlassian.net/browse/CONCF-509) CONCF-509 move description to article details
+* [CONCF-649](https://wikia-inc.atlassian.net/browse/CONCF-649) CONCF-649 | Remove Optimizely check for CuratedContent
+
+## release-85 (2015-06-15 07:26 UTC)
+* [HG-732](https://wikia-inc.atlassian.net/browse/HG-732)//www.wikia.com
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) Hg 727
+* [HG-750](https://wikia-inc.atlassian.net/browse/HG-750) HG-750 - added GA tracking to random article link
+* [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) HG-727 adding loading graphic for A/B test
+* [CONCF-512](https://wikia-inc.atlassian.net/browse/CONCF-512) CONCF-512 Refactor lightboxes
+
+## release-84 (2015-06-12 07:26 UTC)
+* typescript-sourcemaps: Generate TS sourcemaps to allow direct TS debugging in Chrome devtools
+* [HG-605](https://wikia-inc.atlassian.net/browse/HG-605) HG-605 Description meta tag now updates on article change
+
+## release-83 (2015-06-11 07:26 UTC)
+* feature/HG-736: HG-736 Add in support for forwarding headers
+
+## release-82 (2015-06-10 07:26 UTC)
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 disabled caching for random page querys
+* [HG-654](https://wikia-inc.atlassian.net/browse/HG-654) Hg 654 remove 'mw-content' from non-mediawiki content wrappers
+* enable-suppressImplicitAnyIndexErrors: Enable suppressImplicitAnyIndexErrors flag
+
+## release-81 (2015-06-09 09:21 UTC)
+* [DAT-2858](https://wikia-inc.atlassian.net/browse/DAT-2858) DAT- 2858
+* [CONCF-553](https://wikia-inc.atlassian.net/browse/CONCF-553) CONCF-553 Add wikia stats module to Curated Main Page
+
+## release-80 (2015-06-08 09:13 UTC)
+* task-update: change default destination
+* revert-887-HG-686: Revert "HG-686 removed namespace specifier from random page query for…
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 removed namespace specifier from random page query for community wiki
+* [SOC-748](https://wikia-inc.atlassian.net/browse/SOC-748) SOC-748 Set login status in GA
+* [HG-712](https://wikia-inc.atlassian.net/browse/HG-712) HG-712 mercury_ads_js now pulling from correct wiki domain
+* hotfix/HG-677: encode the whole string instead of just the first char
+* [HG-655](https://wikia-inc.atlassian.net/browse/HG-655) HG-655 Whitelist for query params
+* [HG-718](https://wikia-inc.atlassian.net/browse/HG-718) Update Ember to 1.12.1
+
 ## release-79 (2015-06-02 09:11 UTC)
 * [HG-709](https://wikia-inc.atlassian.net/browse/HG-709) send metrics on window.load
 

@@ -34,6 +34,7 @@ interface LoginViewContext {
 	headerText: string;
 	footerCallout: string;
 	footerCalloutLink: string;
+	language: string;
 	footerHref?: string;
 	forgotPasswordHref?: string;
 	hideHeader?: boolean;
@@ -43,12 +44,13 @@ interface LoginViewContext {
 	formErrorKey?: string;
 }
 
-function getLoginContext (redirect: string): LoginViewContext {
+function getLoginContext (request: Hapi.Request, redirect: string): LoginViewContext {
 	return <LoginViewContext> {
 		title: 'auth:login.login-title',
 		headerText: 'auth:login.welcome-back',
 		footerCallout: 'auth:login.register-callout',
 		footerCalloutLink: 'auth:login.register-now',
+		language: request.server.methods.i18n.getInstance().lng(),
 		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
@@ -99,7 +101,7 @@ function getFormErrorKey (statusCode: number): string {
 
 export function get (request: Hapi.Request, reply: any): void {
 	var redirect: string = request.query.redirect || '/',
-		context: LoginViewContext = getLoginContext(redirect);
+		context: LoginViewContext = getLoginContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
@@ -116,7 +118,7 @@ export function post (request: Hapi.Request, reply: any): void {
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
 		successRedirect: string,
-		context: LoginViewContext = getLoginContext(redirect),
+		context: LoginViewContext = getLoginContext(request, redirect),
 		ttl = 1.57785e10; // 6 months
 
 	// add cache buster value to the URL upon successful login
