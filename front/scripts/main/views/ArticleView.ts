@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
+/// <reference path="../components/PortableInfoboxComponent.ts" />
 /// <reference path="../components/WikiaMapComponent.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
 
@@ -150,7 +151,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			}
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
-			this.handlePortableInfoboxes();
+			//this.handlePortableInfoboxes();
+			this.replaceInfoboxesWithInfoboxComponents();
 			this.lazyLoadMedia(model.get('media'));
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
@@ -245,6 +247,27 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		$mapPlaceholder.replaceWith(mapComponent.$());
 		//TODO: do it in the nice way
 		mapComponent.trigger('didInsertElement');
+	},
+
+	replaceInfoboxesWithInfoboxComponents: function(): void {
+		this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
+			this.replaceInfoboxWithInfoboxComponent(elem);
+		});
+	},
+
+	replaceInfoboxWithInfoboxComponent: function(elem: HTMLElement): void {
+		var $infoboxPlaceholder = $(elem),
+			infoboxComponent: typeof App.PortableInfoboxComponent;
+
+		infoboxComponent = this.createChildView(App.PortableInfoboxComponent.create({
+			infoboxHTML: elem.innerHTML,
+			height: $infoboxPlaceholder.outerHeight()
+		}));
+
+		infoboxComponent.createElement();
+		$infoboxPlaceholder.replaceWith(infoboxComponent.$());
+		//TODO: do it in the nice way
+		infoboxComponent.trigger('didInsertElement');
 	},
 
 	/**
