@@ -297,42 +297,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
-	/**
-	 * @desc handles expanding portable infoboxes
-	 * The minimumHeight took from 9/16 proportions of screen (width * 16 / 9 + 100px). We want to always
-	 * show the image AND some other infobox informations to show that this is infobox, not only an ordinary image.
-	 * @todo we should figure out if we can somehow merge this method and handleInfoboxes method
-	 */
-	handlePortableInfoboxes: function (): void {
-		var collapsedClass = 'collapsed',
-			expandButtonClass = 'portable-infobox-expand-button',
-			deviceWidth = this.get('viewportDimensions.width'),
-			minimumHeight = Math.floor(deviceWidth * 16 / 9) + 100,
-			$infoboxes = this.$('.portable-infobox'),
-			body = window.document.body,
-			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
-			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`;
-
-		if ($infoboxes.length) {
-			$infoboxes
-				.filter((index: number, element: JQuery) => $(element).outerHeight() > minimumHeight)
-				.addClass(collapsedClass)
-				.height(minimumHeight)
-				.append(expandButton)
-				.on('click', function (event: JQueryEventObject) {
-					var $target = $(event.target),
-						$this = $(this);
-
-					if (!$target.is('a') && $this.toggleClass(collapsedClass).hasClass(collapsedClass)) {
-						$this.height(minimumHeight);
-						scrollTo.apply($this.find('.' + expandButtonClass)[0]);
-					} else {
-						$this.height('auto');
-					}
-				});
-		}
-	},
-
 	handleTables: function (): void {
 		var $tables = this.$('table:not([class*=infobox], .dirbox)').not('table table'),
 			wrapper: HTMLDivElement;
