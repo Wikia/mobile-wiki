@@ -11,7 +11,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 
 	height: null,
 	infoboxHTML: '',
-	collapsed: null,
+	collapsed: false,
 
 	/**
 	 * @desc determines if this infobox is

@@ -151,7 +151,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			}
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
-			//this.handlePortableInfoboxes();
 			this.replaceInfoboxesWithInfoboxComponents();
 			this.lazyLoadMedia(model.get('media'));
 			this.handleTables();
