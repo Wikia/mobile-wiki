@@ -16,7 +16,7 @@ interface AuthParams {
 }
 
 interface AuthCallbackFn {
-	(error: Boom.BoomError, response?: any): Function
+	(error: Boom.BoomError, response?: any): Function;
 }
 
 interface HeliosResponse {

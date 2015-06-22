@@ -5,7 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
 		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
-		<meta name="description" content="{{article.article.description}}">
+		<!-- TODO: Use article.details.description after CONCF-509 is pushed to app@prod and caches are fresh, see CONCF-670 -->
+		<meta name="description" content="{{#if article.details.description}}{{article.details.description}}{{else}}{{article.article.description}}{{/if}}">
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 		{{#if themeColor}}
 		<meta name="theme-color" content="{{themeColor}}">
@@ -30,6 +31,7 @@
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
 			{{#if server.mediawikiDomain}}
+			M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
 			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
@@ -63,9 +65,7 @@
 
 		<!-- A/B test (HG-727) -->
 		<div class="loading-overlay ab-test-loading-overlay">
-			<svg class='spinner' width='65' height='65' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'>
-				<circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle>
-			</svg>
+			<img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D">
 		</div>
 
 		<div id="article-preload">

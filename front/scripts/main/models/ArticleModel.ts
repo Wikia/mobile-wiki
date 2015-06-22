@@ -11,6 +11,7 @@ interface Response {
 			title: string;
 			ns: string;
 			url: string;
+			description: string;
 			revision: {
 				id: number;
 				user: string;
@@ -153,6 +154,9 @@ App.ArticleModel.reopenClass({
 				error: error
 			};
 		} else if (source) {
+			// TODO temporary, remove in CONCF-670
+			var descriptionCopied = false;
+
 			if (source.details) {
 				var details = source.details;
 
@@ -163,6 +167,12 @@ App.ArticleModel.reopenClass({
 					id: details.id,
 					user: details.revision.user_id
 				});
+
+				// TODO temporary, extend with the rest above in CONCF-670
+				if (details.description) {
+					data.description = details.description;
+					descriptionCopied = true;
+				}
 			}
 
 			if (source.article) {
@@ -170,7 +180,6 @@ App.ArticleModel.reopenClass({
 
 				data = $.extend(data, {
 					article: article.content || source.content,
-					description: article.description,
 					mediaUsers: article.users,
 					type: article.type,
 					media: App.MediaModel.create({
@@ -178,6 +187,11 @@ App.ArticleModel.reopenClass({
 					}),
 					categories: article.categories
 				});
+
+				// TODO temporary, remove in CONCF-670
+				if (!descriptionCopied && article.description) {
+					data.description = article.description;
+				}
 			}
 
 			if (source.relatedPages) {
@@ -200,7 +214,7 @@ App.ArticleModel.reopenClass({
 
 			data.isMainPage = source.isMainPage || false;
 
-			if (source.mainPageData && M.prop('optimizelyCuratedMainPage')) {
+			if (source.mainPageData) {
 				data.mainPageData = source.mainPageData;
 				data.isCuratedMainPage = true;
 			}

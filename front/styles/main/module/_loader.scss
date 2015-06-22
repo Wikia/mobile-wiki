@@ -37,6 +37,16 @@ $duration: 1s;
 // A/B test (HG-727)
 .ab-test-loading-overlay {
 	display: none;
+
+	img {
+		background: url('/front/images/loader.gif') no-repeat;
+		height: 64px;
+		left: 50%;
+		margin: -32px 0 0 -32px;
+		position: absolute;
+		top: 50%;
+		width: 64px;
+	}
 }
 
 .spinner {
