@@ -9,7 +9,7 @@ App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContent
 	classNames: ['featured-content-variation-2'],
 	showChevrons: Em.computed.readOnly('hasMultipleItems'),
 
-	screenEdgeWidthRatio: Em.computed('hasMultipleItems', function(): number {
+	screenEdgeWidthRatio: Em.computed('hasMultipleItems', function (): number {
 		if (this.get('hasMultipleItems')) {
 			return (1 / 6);
 		}

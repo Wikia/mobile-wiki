@@ -12,7 +12,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	// This is how long it takes to read the item caption out loud ~2.5 times, based on guidelines from movie credits
 	cycleInterval: 6250,
 	showChevrons: Em.computed.readOnly('hasMultipleItems'),
-	screenEdgeWidthRatio: Em.computed('hasMultipleItems', function(): number {
+	screenEdgeWidthRatio: Em.computed('hasMultipleItems', function (): number {
 		if (this.get('hasMultipleItems')) {
 			return (1 / 3);
 		}
