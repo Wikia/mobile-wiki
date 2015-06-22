@@ -248,13 +248,13 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		mapComponent.trigger('didInsertElement');
 	},
 
-	replaceInfoboxesWithInfoboxComponents: function(): void {
+	replaceInfoboxesWithInfoboxComponents: function (): void {
 		this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
 			this.replaceInfoboxWithInfoboxComponent(elem);
 		});
 	},
 
-	replaceInfoboxWithInfoboxComponent: function(elem: HTMLElement): void {
+	replaceInfoboxWithInfoboxComponent: function (elem: HTMLElement): void {
 		var $infoboxPlaceholder = $(elem),
 			infoboxComponent: typeof App.PortableInfoboxComponent;
 

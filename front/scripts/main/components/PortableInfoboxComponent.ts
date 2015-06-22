@@ -34,13 +34,13 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * We want to always show the image AND some other infobox informations to
 	 * indicate that this is infobox, not only an ordinary image.
 	 */
-	collapsedHeight: Em.computed('viewportDimensions.width', function() {
+	collapsedHeight: Em.computed('viewportDimensions.width', function (): number {
 		var deviceWidth = this.get('viewportDimensions.width');
 
 		return Math.floor(deviceWidth * 16 / 9) + 100;
 	}),
 
-	handleCollapsing: function(): void {
+	handleCollapsing: function (): void {
 		var collapsedHeight = this.get('collapsedHeight'),
 			$this = this.$();
 
@@ -53,27 +53,25 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * Function is active only for the long infoboxes.
 	 * Changes 'collapsed' property.
 	 */
-	onInfoboxClick: function(): void {
+	onInfoboxClick: function (event: JQueryEventObject): void {
 		var body: HTMLElement,
 			button: HTMLElement,
 			collapsedHeight: number,
 			expandButtonClass: string,
 			scrollTo: (top?: boolean) => void,
 			collapsed = this.get('collapsed'),
-			$target = $(event.target),
-			$this = this.$();
+			$target = $(event.target);
 
 		if (!$target.is('a') && !collapsed) {
 			body = window.document.body;
-			collapsedHeight = this.get('collapsedHeight');
 			expandButtonClass = this.get('expandButtonClass');
 			button = this.$('.' + expandButtonClass)[0];
 			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
-			$this.height(collapsedHeight);
+			this.$().height(this.get('collapsedHeight'));
 			scrollTo.apply(button);
 		} else {
-			$this.height('auto');
+			this.$().height('auto');
 		}
 
 		this.toggleProperty('collapsed');
@@ -83,11 +81,11 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * @desc In case of long infobox, setups click
 	 * handling function to this infobox component.
 	 */
-	didInsertElement: function() {
+	didInsertElement: function () {
 		if (this.get('isLongInfobox')) {
 			this.handleCollapsing();
-			this.$().click(() => {
-				this.onInfoboxClick();
+			this.$().click((event: JQueryEventObject) => {
+				this.onInfoboxClick(event);
 			});
 		}
 	}
