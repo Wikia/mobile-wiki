@@ -22,12 +22,14 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 			wikiDomain: wikiDomain,
 			redirect: request.query.redirect
 		},
-		article: Article.ArticleRequestHelper;
+		article: Article.ArticleRequestHelper,
+		allowCache = true;
 
 	if (request.state.wikicities_session) {
 		params.headers = {
 			'Cookie': `wikicities_session=${request.state.wikicities_session}`
 		};
+		allowCache = false;
 	}
 
 	article = new Article.ArticleRequestHelper(params);
@@ -40,14 +42,14 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 			} else {
 				article.setTitle(wikiVariables.mainPageTitle);
 				article.getArticle(wikiVariables, (error: any, result: any = {}) => {
-					onArticleResponse(request, reply, error, result);
+					onArticleResponse(request, reply, error, result, allowCache);
 				});
 			}
 		});
 	} else  {
 		article.setTitle(request.params.title);
 		article.getFull((error: any, result: any = {}) => {
-			onArticleResponse(request, reply, error, result);
+			onArticleResponse(request, reply, error, result, allowCache);
 		});
 	}
 }
@@ -60,7 +62,7 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
  * @param error
  * @param result
  */
-function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}): void {
+function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true): void {
 	var code = 200,
 		response: Hapi.Response;
 
@@ -96,7 +98,11 @@ function onArticleResponse (request: Hapi.Request, reply: any, error: any, resul
 		response = reply.view('application', result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');
-		Caching.setResponseCaching(response, cachingTimes);
+
+		if (allowCache) {
+			return Caching.setResponseCaching(response, cachingTimes);
+		}
+		return Caching.disableCache(response);
 	}
 }
 

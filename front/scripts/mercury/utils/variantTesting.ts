@@ -11,6 +11,11 @@ interface Window {
 	optimizely?: any;
 }
 
+interface OptimizelyExperimentIds {
+	prod: string;
+	dev: string;
+}
+
 module Mercury.Utils.VariantTesting {
 	/**
 	 * Activates all variant tests for the current page
@@ -45,13 +50,13 @@ module Mercury.Utils.VariantTesting {
 	 */
 	export function integrateOptimizelyWithUA (dimensions: any[]): any[] {
 		var optimizely = window.optimizely,
-			experimentId: string,
+			activeExperiments = this.getActiveExperimentsList(),
 			dimension: number,
 			experimentName: string,
 			variationName: string;
 
-		if (optimizely && optimizely.activeExperiments) {
-			optimizely.activeExperiments.forEach((experimentId: string): void => {
+		if (activeExperiments) {
+			activeExperiments.forEach((experimentId: string): void => {
 				if (
 					optimizely.allExperiments.hasOwnProperty(experimentId) &&
 					typeof optimizely.allExperiments[experimentId].universal_analytics === 'object'
@@ -67,5 +72,65 @@ module Mercury.Utils.VariantTesting {
 
 		return dimensions;
 	}
-}
 
+	/**
+	 * Get list of Optimizely active experiments
+	 *
+	 * @returns {[]}
+	 */
+	export function getActiveExperimentsList (): string[] {
+		var optimizely = window.optimizely;
+
+		return (optimizely && optimizely.activeExperiments) ? optimizely.activeExperiments : null;
+	}
+
+	/**
+	 * Get number of the Optimizely experiment variation the user is running for given experiment ID
+	 *
+	 * @param {string} experimentId
+	 * @returns {number}
+	 */
+	export function getExperimentVariationNumberBySingleId (experimentId: string): number {
+		var optimizely = window.optimizely;
+
+		return (optimizely && optimizely.variationMap && typeof optimizely.variationMap[experimentId] === 'number') ?
+			optimizely.variationMap[experimentId] : null;
+	}
+
+	/**
+	 * Get Optimizely experiment ID based on environment the app is running on
+	 *
+	 * @param {object} experimentIds contains experimentIdProd and experimentIdDev
+	 * @returns {string} experimentId
+	 */
+	export function getExperimentIdForThisEnvironment (experimentIds: OptimizelyExperimentIds): string {
+		var environment = M.prop('environment');
+
+		switch (environment) {
+			case 'prod':
+				return experimentIds.prod;
+			case 'dev':
+			case 'sandbox':
+				return experimentIds.dev;
+			default:
+				return null;
+		}
+	}
+
+	/**
+	 * Get Optimizely variation number for given experiment ID based on environment the app is running on
+	 *
+	 * @param {OptimizelyExperimentIds} experimentIds
+	 * @returns {number}
+	 */
+	export function getExperimentVariationNumber (experimentIds: OptimizelyExperimentIds): number {
+		var experimentIdForThisEnv = this.getExperimentIdForThisEnvironment(experimentIds),
+			activeExperimentsList = this.getActiveExperimentsList();
+
+		if (activeExperimentsList && activeExperimentsList.indexOf(experimentIdForThisEnv) !== -1) {
+			return this.getExperimentVariationNumberBySingleId(experimentIdForThisEnv);
+		}
+
+		return null;
+	}
+}

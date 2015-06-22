@@ -1,29 +1,34 @@
 <section class="auth-content">
-	<form id="signupForm" action="" method="POST">
+	<form id="signupForm" action="{{heliosRegistrationURL}}" method="POST">
 		<div class="input-container">
 			<input type="email" name="email" id="signupEmail" required />
 			<label class="floating-label" for="signupEmail">{{i18n "auth:signup.email-label"}}</label>
 		</div>
 		<div class="input-container">
 			<input type="text" name="username" id="signupUsername" required />
-			<label class="floating-label" for="signupUsername">{{i18n "auth:common.username-label"}}</label>
+			<label class="floating-label" for="signupUsername">{{i18n "auth:login.username-label"}}</label>
 			<span class="input-icon dice"></span>
 	</div>
 		<div class="input-container">
 			<input type="password" name="password" id="signupPassword" autocomplete="off" required />
-			<label class="floating-label" for="signupPassword">{{i18n "auth:common.password-label"}}</label>
+			<label class="floating-label" for="signupPassword">{{i18n "auth:login.password-label"}}</label>
 			<span class="input-icon password-toggler"></span>
 		</div>
 		<div class="input-container">
-			<input type="date" name="date" id="signupBirthDate" required />
-			<label class="floating-label" for="signupBirthDate">Birthdate (MM / DD / YY)</label>
+			<div class="birthdate-container input hide">
+				{{#birthdateInputs}}
+					<input type="text" name="{{name}}" class="fake-input birth-{{name}}" maxlength="{{maxLength}}" max="{{maxVal}}" placeholder="{{placeholder}}" required>
+					<span>{{separator}}</span>
+				{{/birthdateInputs}}
+			</div>
+			<input type="text" name="birthdate" id="signupBirthDate" required>
+			<label class="floating-label" for="signupBirthDate">{{i18n "auth:signup.birthdate-label"}}</label>
 		</div>
-		<input type="hidden" name="crumb" id="crumb" value="{{crumb}}" />
-		<label for="signupNewsletter" class="inline">
+		<label for="signupNewsletter" class="inline signup-newsletter-label">
 			<input type="checkbox" name="newsletter" id="signupNewsletter" class="inline">
 			{{i18n "auth:signup.wikia-newsletter-prompt"}}
 		</label>
-		<button id="signupSubmit" type="submit" disabled>{{i18n "auth:signup.register-action"}}</button>
+		<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:signup.register-action"}}</span></button>
 		<small class="terms-of-use">
 			{{i18n "auth:signup.terms-of-use-text"}}
 			<a href="{{{termsOfUseLink}}}" target="_blank">
