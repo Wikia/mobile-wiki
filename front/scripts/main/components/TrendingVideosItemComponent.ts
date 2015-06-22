@@ -32,10 +32,11 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.Tra
 				width: this.get('imageWidth'),
 				height: this.get('imageHeight'),
 				mode: this.get('cropMode')
-			};
+			},
+			videoUrl: string = this.get('video.url');
 
-		if (this.get('video.url')) {
-			return this.thumbnailer.getThumbURL(this.get('video.url'), options);
+		if (videoUrl) {
+			return this.thumbnailer.getThumbURL(videoUrl, options);
 		} else {
 			return this.emptyGif;
 		}
