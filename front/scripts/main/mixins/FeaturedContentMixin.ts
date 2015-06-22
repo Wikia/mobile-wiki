@@ -14,6 +14,9 @@ interface FeaturedContentItem {
 App.FeaturedContentMixin = Em.Mixin.create({
 	layoutName: 'components/featured-content',
 	classNames: ['featured-content'],
+	hasMultipleItems: Em.computed('model', function (): boolean {
+		return this.getWithDefault('model', []).length > 1;
+	}),
 	currentItemIndex: 0,
 	// should it be here?
 	model: [],
@@ -37,18 +40,22 @@ App.FeaturedContentMixin = Em.Mixin.create({
 	}).on('didInsertElement'),
 
 	prevItem: function (): void {
-		if (this.get('currentItemIndex') === 0) {
-			this.set('currentItemIndex', this.get('lastIndex'));
-		} else {
-			this.decrementProperty('currentItemIndex');
+		if (this.get('hasMultipleItems')) {
+			if (this.get('currentItemIndex') === 0) {
+				this.set('currentItemIndex', this.get('lastIndex'));
+			} else {
+				this.decrementProperty('currentItemIndex');
+			}
 		}
 	},
 
 	nextItem: function (): void {
-		if (this.get('currentItemIndex') >= this.get('lastIndex')) {
-			this.set('currentItemIndex', 0);
-		} else {
-			this.incrementProperty('currentItemIndex');
+		if (this.get('hasMultipleItems')) {
+			if (this.get('currentItemIndex') >= this.get('lastIndex')) {
+				this.set('currentItemIndex', 0);
+			} else {
+				this.incrementProperty('currentItemIndex');
+			}
 		}
 	}
 });

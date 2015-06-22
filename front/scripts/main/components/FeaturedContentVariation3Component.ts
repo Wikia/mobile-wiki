@@ -11,7 +11,13 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	cycleTimeoutHandle: null,
 	// This is how long it takes to read the item caption out loud ~2.5 times, based on guidelines from movie credits
 	cycleInterval: 6250,
-	showChevrons: true,
+	showChevrons: Em.computed.readOnly('hasMultipleItems'),
+	screenEdgeWidthRatio: Em.computed('hasMultipleItems', function (): number {
+		if (this.get('hasMultipleItems')) {
+			return (1 / 6);
+		}
+		return 0;
+	}),
 
 	rightClickHandler: function (): boolean {
 		this.nextItem();
@@ -36,7 +42,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	},
 
 	cycleThroughItems: function (): void {
-		if (!this.get('isTimeoutHandleSet')) {
+		if (this.get('hasMultipleItems') && !this.get('isTimeoutHandleSet')) {
 			this.set('cycleTimeoutHandle', Em.run.later(this, (): void => {
 				this.set('isTimeoutHandleSet', false);
 				this.nextItem();
@@ -47,13 +53,17 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	},
 
 	stopCyclingThroughItems: function (): void {
-		Em.run.cancel(this.get('cycleTimeoutHandle'));
-		this.set('isTimeoutHandleSet', false);
+		if (this.get('hasMultipleItems')) {
+			Em.run.cancel(this.get('cycleTimeoutHandle'));
+			this.set('isTimeoutHandleSet', false);
+		}
 	},
 
 	resetCycleTimeout: function (): void {
-		this.stopCyclingThroughItems();
-		this.cycleThroughItems();
+		if (this.get('hasMultipleItems')) {
+			this.stopCyclingThroughItems();
+			this.cycleThroughItems();
+		}
 	},
 
 	didInsertElement: function (): void {
