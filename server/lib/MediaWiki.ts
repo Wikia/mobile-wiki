@@ -151,6 +151,7 @@ export class ArticleRequest extends BaseRequest {
 			action: 'query',
 			generator: 'random',
 			grnnamespace: 0,
+			cb: Date.now(),
 			format: 'json'
 		});
 

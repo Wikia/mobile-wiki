@@ -16,6 +16,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
+	userMenuCollapsed: true,
 	noScroll: false,
 	fullPage: false,
 	lightboxType: null,
