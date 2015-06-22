@@ -73,6 +73,8 @@
 		"edit-publish-error-blocked": "You have been blocked from editing.",
 		"edit-publish-error-noedit": "You don't have permission to edit pages on this wikia.",
 		"edit-publish-error-noedit-anon": "Anonymous users can't edit pages.",
-		"edit-publish-error-protectedpage": "You don't have permission to edit this page."
+		"edit-publish-error-protectedpage": "You don't have permission to edit this page.",
+		"user-menu-profile": "Profile",
+		"user-menu-log-out": "Log out"
 	}
 }

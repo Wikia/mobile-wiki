@@ -31,6 +31,7 @@
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
 			{{#if server.mediawikiDomain}}
+			M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
 			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
