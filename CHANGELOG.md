@@ -1,3 +1,6 @@
+## release-92 (2015-06-22 10:35 UTC)
+* [SOC-705](https://wikia-inc.atlassian.net/browse/SOC-705) SOC-705 Drop-down menu for logged-in users
+
 ## release-91 (2015-06-22 07:59 UTC)
 * [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 - added cache-buster for internal cache for random page request
 * [HG-764](https://wikia-inc.atlassian.net/browse/HG-764) Add "cookie" to "vary" header

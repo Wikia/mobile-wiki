@@ -1,11 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
-	 viewBox="0 0 20 20" xml:space="preserve">
-<g>
-	<defs>
-		<polyline id="SVGID_1_" points="13.1,10.5 8.8,14.7 9.9,15.8 15.2,10.5 9.9,5.2 8.8,6.3 13.1,10.5"/>
-	</defs>
-	<use xlink:href="#SVGID_1_"/>
-</g>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" xml:space="preserve">
+	<polyline points="13.1,10.5 8.8,14.7 9.9,15.8 15.2,10.5 9.9,5.2 8.8,6.3 13.1,10.5"/>
 </svg>
