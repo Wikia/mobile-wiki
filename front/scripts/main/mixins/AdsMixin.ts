@@ -9,14 +9,8 @@ App.AdsMixin = Em.Mixin.create({
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 		moreInContentAds: {
-			// Enable the extra in content ads on the following wikis:
-			enabled: [
-				'adtest',
-				'assassinscreed',
-				'finalfantasy',
-				'glee',
-				'walkingdead'
-			].indexOf(Em.get(Mercury, 'wiki.dbName')) > -1,
+			// Disable the extra in content ads:
+			enabled: false,
 
 			// Only launch the ads on pages longer than:
 			minPageLength: 5000,

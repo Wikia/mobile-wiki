@@ -1,0 +1,7 @@
+{
+  "errors" : {
+    "email_already_exists": "E-mail jest już zarejestrowany na Wikia",
+    "email_invalid": "Niepoprawny adres e-mail",
+    "registration_error": "Nie możemy w tej chwili zakończyć rejestracji"
+  }
+}
