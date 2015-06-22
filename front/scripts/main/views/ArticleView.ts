@@ -151,15 +151,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
-
-			if ( Mercury.Utils.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}) == 1 ) {
-				Ember.run.later(this, function() {
-			 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images async
-				}, 0);
-			} else {
-				this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images synchronously
-			}
-
+			// ====================================  <-- racing stripes to increase performance
+			this.handleMediaPlaceholderVariations();
+			// ====================================
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
@@ -374,6 +368,36 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			}
 			init();
 		});
+	},
+
+	/**
+	 * Handles the Optimizely variations for testing processing images async
+	 * Variations:
+	 * 	0 (default) => process all synchronously	
+	 *  1			=> process all async
+	 *	2			=> first 10 sync, rest async
+	 *	3			=> first 50 sync, rest async
+	 */
+	handleMediaPlaceholderVariations: function (): void {
+		var optimizelyVariation = Mercury.Utils.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'});
+
+		if ( optimizelyVariation == 1 ) {
+			Ember.run.later(this, function() {
+		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images async
+			}, 0);
+		} else if ( optimizelyVariation == 2 ) {
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 10);
+			Ember.run.later(this, function() {
+		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1);
+			}, 0);
+		} else if ( optimizelyVariation == 3 ) {
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 50);
+			Ember.run.later(this, function() {
+		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1);
+			}, 0);
+		} else {
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images synchronously
+		}
 	},
 
 	/**
