@@ -1,3 +1,7 @@
+## release-91 (2015-06-22 07:59 UTC)
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 - added cache-buster for internal cache for random page request
+* [HG-764](https://wikia-inc.atlassian.net/browse/HG-764) Add "cookie" to "vary" header
+
 ## release-90 (2015-06-19 16:15 UTC)
 * [SOC-480](https://wikia-inc.atlassian.net/browse/SOC-480) Soc 480 Internationalized birthdate input
 * [SOC-684](https://wikia-inc.atlassian.net/browse/SOC-684) SOC-684 | Registration screen
