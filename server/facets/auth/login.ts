@@ -42,6 +42,7 @@ interface LoginViewContext {
 	exitTo?: string;
 	bodyClasses?: string;
 	formErrorKey?: string;
+	trackingConfig?: any;
 }
 
 function getLoginContext (request: Hapi.Request, redirect: string): LoginViewContext {
@@ -53,7 +54,8 @@ function getLoginContext (request: Hapi.Request, redirect: string): LoginViewCon
 		language: request.server.methods.i18n.getInstance().lng(),
 		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+		trackingConfig: localSettings.tracking
 	};
 }
 
