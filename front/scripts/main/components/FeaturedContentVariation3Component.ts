@@ -14,7 +14,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	showChevrons: Em.computed.readOnly('hasMultipleItems'),
 	screenEdgeWidthRatio: Em.computed('hasMultipleItems', function (): number {
 		if (this.get('hasMultipleItems')) {
-			return (1 / 3);
+			return (1 / 6);
 		}
 		return 0;
 	}),
