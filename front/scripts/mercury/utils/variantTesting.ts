@@ -133,5 +133,4 @@ module Mercury.Utils.VariantTesting {
 
 		return null;
 	}
-
 }
