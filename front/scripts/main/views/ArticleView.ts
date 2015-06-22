@@ -373,8 +373,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	/**
 	 * Handles the Optimizely variations for testing processing images async
 	 * Variations:
-	 * 	0 (default) => process all synchronously	
-	 *  1			=> process all async
+	 *	0 (default) => process all synchronously	
+	 *	1			=> process all async
 	 *	2			=> first 10 sync, rest async
 	 *	3			=> first 50 sync, rest async
 	 */
