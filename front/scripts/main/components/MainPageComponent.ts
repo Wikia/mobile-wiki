@@ -2,7 +2,9 @@
 'use strict';
 
 App.MainPageComponent = Em.Component.extend({
-	classNames: ['main-page-modules'],
+	classNames: ['main-page-modules', 'main-page-body', 'mw-content'],
+	tagName: 'section',
+
 	featuredContentComponentVariation: Em.computed(function (): string {
 		var experimentIds = {
 				prod: '3079180094',
