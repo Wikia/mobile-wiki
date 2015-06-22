@@ -381,16 +381,16 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	handleMediaPlaceholderVariations: function (): void {
 		var optimizelyVariation = Mercury.Utils.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'});
 
-		if ( optimizelyVariation == 1 ) {
+		if ( optimizelyVariation === 1 ) {
 			Ember.run.later(this, function() {
 		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images async
 			}, 0);
-		} else if ( optimizelyVariation == 2 ) {
+		} else if ( optimizelyVariation === 2 ) {
 			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 10);
 			Ember.run.later(this, function() {
 		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1);
 			}, 0);
-		} else if ( optimizelyVariation == 3 ) {
+		} else if ( optimizelyVariation === 3 ) {
 			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 50);
 			Ember.run.later(this, function() {
 		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1);
