@@ -1,26 +1,17 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../../../typings/hammerjs/hammerjs" />
 /// <reference path="../mixins/FeaturedContentMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 /// <reference path="../mixins/ThirdsClickMixin.ts"/>
 /// <reference path="../../mercury/utils/track.ts"/>
 'use strict';
 
-App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
-	// See ThirdsClickMixin
+App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
+	classNames: ['featured-content-variation-2'],
+	showChevrons: true,
+
 	screenEdgeWidthRatio: (1 / 6),
 
-	gestures: {
-		swipeLeft: function (): void {
-			this.nextItem();
-		},
-
-		swipeRight: function (): void {
-			this.prevItem();
-		},
-	},
-
-	rightClickHandler: function(): boolean {
+	rightClickHandler: function (): boolean {
 		this.nextItem();
 		return true;
 	},
