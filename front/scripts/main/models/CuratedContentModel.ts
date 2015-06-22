@@ -20,8 +20,10 @@ App.CuratedContentModel = Em.Object.extend({
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase');
 			url += (sectionType === 'section') ?
-				'/curatedContent/' + sectionName :
-				'/category/' + sectionName;
+				//We don't need to wrap it into Try/Catch statement
+				//See: https://github.com/Wikia/mercury/pull/946#issuecomment-113501147
+				'/curatedContent/' + encodeURIComponent(sectionName) :
+				'/category/' + encodeURIComponent(sectionName);
 
 			Em.$.ajax({
 				url: url,

@@ -1,0 +1,7 @@
+{
+  "errors" : {
+    "email_already_exists": "このメールアドレスはウィキアに登録済みです",
+    "email_invalid": "メールアドレスが無効です",
+    "registration_error": "現在、登録を完了できません。"
+  }
+}

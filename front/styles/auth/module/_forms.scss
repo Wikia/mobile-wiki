@@ -1,12 +1,16 @@
 form {
-	> small.error {
+	small.error {
 		color: $input-border-error-color;
-		line-height: 1.25rem;
+		line-height: .75rem;
+		margin-bottom: 0;
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 
 .input-container {
-	padding-bottom: 1rem;
+	min-height: 62px; // Height of input + error message to avoid pushing content down when error is displayed
+	padding-bottom: .25rem;
 	position: relative;
 
 	input.error {
@@ -14,10 +18,7 @@ form {
 	}
 
 	small.error {
-		margin-bottom: 0;
 		padding-bottom: 0;
-		padding-left: 0;
-		padding-right: 0;
 	}
 }
 
@@ -43,27 +44,30 @@ input[type='date']:valid + .floating-label {
 	color: $label-color-valid;
 }
 
-input[type='date'] {
-	font-size: 0;
-	transition: font-size ease-in 0.15s;
-	line-height: 1rem;
-	&::-webkit-clear-button,
-	&::-webkit-inner-spin-button,
-	&::-webkit-calendar-picker-indicator {
-		visibility: hidden;
+.input-container > img {
+	box-sizing: content-box;
+	height: 1rem;
+	padding: 24px 5px 0 5px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20px;
+
+	&.on {
+		opacity: 0.5;
 	}
-	&:valid, &:focus {
-		font-size: 1rem;
-		transition: font-size ease-in 0.15s;
-		&::-webkit-datetime-edit-month-field,
-		&::-webkit-datetime-edit-day-field,
-		&::-webkit-datetime-edit-year-field {
-			font-size: 0.75rem;
-		}
-		&::-webkit-clear-button,
-		&::-webkit-inner-spin-button,
-		&::-webkit-calendar-picker-indicator {
-			visibility: visible;
-		}
+}
+
+button[type="submit"].on {
+	&::before {
+		animation: spin 1s linear infinite;
+		background: url("/front/images/loading.svg") center no-repeat;
+		content: " ";
+		display: block;
+		height: 40px;
+	}
+
+	span {
+		display: none;
 	}
 }
