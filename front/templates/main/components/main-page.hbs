@@ -1,15 +1,15 @@
 {{#if model.wikiaStats}}
-    {{wikia-stats model=model.wikiaStats}}
+	{{wikia-stats model=model.wikiaStats}}
 {{/if}}
 {{#if model.featuredContent}}
-    {{featured-content model=model.featuredContent}}
+	{{component featuredContentComponentVariation model=model.featuredContent}}
 {{/if}}
 {{#if model.curatedContent}}
-    {{curated-content topLevelSection=model.curatedContent}}
+	{{curated-content topLevelSection=model.curatedContent}}
 {{/if}}
 {{#if model.trendingArticles}}
-    {{trending-articles model=model.trendingArticles}}
+	{{trending-articles model=model.trendingArticles}}
 {{/if}}
 {{#if model.trendingVideos}}
-    {{trending-videos model=model.trendingVideos}}
+	{{trending-videos model=model.trendingVideos}}
 {{/if}}

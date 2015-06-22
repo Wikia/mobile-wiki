@@ -11,23 +11,34 @@ class Form {
 	}
 
 	private onFocus (event: Event): void {
-		var input = <HTMLInputElement> event.target,
-			label = <HTMLElement> input.nextElementSibling,
-			wrapper = <HTMLInputElement> input.parentElement;
+		var input: HTMLInputElement = <HTMLInputElement> event.target,
+			wrapper: HTMLElement,
+			label: HTMLElement;
 
-		if (input.tagName.toLowerCase() === 'input' && wrapper.className.match('input-container')) {
+		if (input.type === 'checkbox') {
+			return;
+		}
+
+		wrapper = <HTMLElement> this.findWrapper(input);
+		label = <HTMLElement> this.findLabel(wrapper);
+
+		if (input.tagName.toLowerCase() === 'input' && wrapper) {
 			label.classList.add('active');
 		}
 	}
 
 	private onBlur (event: Event): void {
-		Array.prototype.forEach.call(this.inputs, function (input: HTMLInputElement): void {
-			var label = <HTMLElement> input.nextElementSibling,
-				wrapper = <HTMLElement> input.parentElement;
-			if (wrapper.className.match('input-container') && !input.value) {
-				label.classList.remove('active');
-			}
-		});
+		Array.prototype.forEach.call(
+			this.inputs,
+			(function (input: HTMLInputElement): void {
+				var wrapper: HTMLElement = this.findWrapper(input),
+					label: HTMLElement = this.findLabel(wrapper);
+				if (!input.classList.contains('fake-input') && input.id !== 'signupBirthDate' &&
+					wrapper && input.value === '') {
+					label.classList.remove('active');
+				}
+			}).bind(this)
+		);
 	}
 
 	private togglePasswordInput (input: HTMLInputElement, toggler: HTMLElement): void {
@@ -42,7 +53,7 @@ class Form {
 	}
 
 	private onClick (event: Event): void {
-		var element = <HTMLInputElement> event.target,
+		var element: HTMLInputElement = <HTMLInputElement> event.target,
 			wrapper: HTMLElement,
 			input: HTMLInputElement;
 		if (element.className.match('password-toggler')) {
@@ -60,14 +71,26 @@ class Form {
 	private onChange(): void {
 		Array.prototype.forEach.call(
 			this.inputs,
-			function (input: HTMLInputElement): void {
-				var label = <HTMLLabelElement> input.nextElementSibling,
-					wrapper = <HTMLElement> input.parentElement;
-				if (input.value && wrapper.className.indexOf('input-container') > -1) {
+			(function (input: HTMLInputElement): void {
+				var wrapper: HTMLElement = this.findWrapper(input),
+					label: HTMLElement = this.findLabel(wrapper);
+				if (input.value && wrapper) {
 					label.classList.add('active');
 				}
-			}
+			}).bind(this)
 		)
+	}
+
+	private findWrapper(currentElement: HTMLElement): HTMLElement {
+		while (currentElement && !currentElement.classList.contains('input-container')) {
+			currentElement = <HTMLElement> currentElement.parentElement;
+		}
+
+		return currentElement;
+	}
+
+	private findLabel(container: HTMLElement): HTMLElement {
+		return <HTMLElement> container.querySelector('label');
 	}
 
 	/**
