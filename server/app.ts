@@ -110,7 +110,8 @@ server.views({
 
 // Contains user ID, same name as cookie from MediaWiki app
 server.state('wikicitiesUserID', {
-	isHttpOnly: true
+	isHttpOnly: true,
+	domain: localSettings.authCookieDomain
 });
 
 // instantiate routes
@@ -190,6 +191,7 @@ function getOnPreResponseHandler (isDevbox: boolean): any {
 		if (response && response.header) {
 			response.header('x-backend-response-time', responseTimeSec);
 			response.header('x-served-by', servedBy);
+			response.vary('cookie');
 		} else if (response.isBoom) {
 			// see https://github.com/hapijs/boom
 			response.output.headers['x-backend-response-time'] = responseTimeSec;

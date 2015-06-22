@@ -32,11 +32,11 @@ if [ $WORDC -gt 0 ]; then
 	echo "" >> temp
 	cat CHANGELOG.md >> temp
 	mv temp CHANGELOG.md	
-	rm new
-	echo "Changelog updated"
+	echo -e "\nChangelog updated with:"
+	cat new && echo
 else
-	echo "There are no new commits"
-	rm new
-	exit 1
+	echo -e "\nThere are no new commits"
 fi
+
+rm new
 

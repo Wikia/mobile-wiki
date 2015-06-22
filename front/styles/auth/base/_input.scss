@@ -5,7 +5,8 @@ input[type='password']:focus,
 input[type='email'],
 input[type='email']:focus,
 input[type='date'],
-input[type='date']:focus {
+input[type='date']:focus,
+.input {
 	background-color: #fff;
 	border: none;
 	border-bottom: 1px solid $label-color-inactive;
@@ -16,15 +17,24 @@ input[type='date']:focus {
 	margin-top: 0;
 	margin-bottom: 0;
 	padding: 1.25rem 0 0.5rem;
+	//Unifies border-bottom transition until we backport birthdate field to style-guide
+	transition: box-shadow 0.45s, border-color 0.45s ease-in-out;
 }
 
 input[type='text']:focus,
 input[type='password']:focus,
 input[type='email']:focus,
-input[type='date']:focus {
+input[type='date']:focus,
+.focused {
 	border-bottom: 1px solid $input-color-active;
 }
 
 input[type='checkbox'] {
 	margin-bottom: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
