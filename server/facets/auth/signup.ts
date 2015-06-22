@@ -6,7 +6,7 @@ import BirthdateInput = require('./BirthdateInput');
 import dateUtils = require('../../lib/DateUtils');
 import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
-import deepExtend = require('deep-extend');
+var deepExtend = require('deep-extend');
 
 interface SignupViewContext extends authView.AuthViewContext {
 	headerText?: string;

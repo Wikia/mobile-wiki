@@ -8,7 +8,7 @@ import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
 import authUtils = require('../../lib/AuthUtils');
 import authView = require('./authView');
-import deepExtend = require('deep-extend');
+var deepExtend = require('deep-extend');
 
 interface AuthParams {
 	'user_id': string;
@@ -35,17 +35,6 @@ interface LoginViewContext extends authView.AuthViewContext {
 	headerText: string;
 	forgotPasswordHref?: string;
 	formErrorKey?: string;
-}
-
-function getLoginContext (request: Hapi.Request, redirect: string): LoginViewContext {
-	return <LoginViewContext> {
-		title: 'auth:login.login-title',
-		headerText: 'auth:login.welcome-back',
-		footerCallout: 'auth:login.register-callout',
-		footerCalloutLink: 'auth:login.register-now',
-		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
-	};
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -94,7 +83,14 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
 		context: LoginViewContext = deepExtend(
 			authView.getDefaultContext(request),
-			getLoginContext(request, redirect)
+			{
+				title: 'auth:login.login-title',
+				headerText: 'auth:login.welcome-back',
+				footerCallout: 'auth:login.register-callout',
+				footerCalloutLink: 'auth:login.register-now',
+				footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+				forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+			}
 		);
 
 	if (request.auth.isAuthenticated) {
@@ -110,7 +106,7 @@ export function post (request: Hapi.Request, reply: any): void {
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
 		successRedirect: string,
-		context: LoginViewContext = getLoginContext(request, redirect),
+		context: LoginViewContext,
 		ttl = 1.57785e10; // 6 months
 
 	// add cache buster value to the URL upon successful login
