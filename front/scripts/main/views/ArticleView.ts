@@ -47,10 +47,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.ViewportMixin, App.LanguagesM
 	},
 
 	articleContentObserver: function (): boolean {
-		if (this.get('_state') !== 'inDOM') {
-			return false;
-		}
-
 		var model = this.get('controller.model'),
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');

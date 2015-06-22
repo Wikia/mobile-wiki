@@ -38,11 +38,13 @@
 					{{/each}}
 				{{/collapsible-menu}}
 			{{/if}}
-			{{#if model.article}}
-				{{{model.article}}}
-			{{else}}
-				{{i18n 'app.article-empty-label'}}
-			{{/if}}
+			<article class="article-content mw-content">
+				{{#if model.article}}
+					{{{model.article}}}
+				{{else}}
+					{{i18n 'app.article-empty-label'}}
+				{{/if}}
+			</article>
 		</section>
 		<section class='article-footer'>
 		{{wikia-users
