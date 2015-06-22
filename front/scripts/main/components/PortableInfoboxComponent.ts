@@ -18,7 +18,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * a short one or a long one (needs collapsing)
 	 * @return boolean true if infobox is long
 	 */
-	isLongInfobox: Em.computed({
+	isLongInfobox: Em.computed('collapsedHeight', 'height', {
 		get(): boolean {
 			var collapsedHeight = this.get('collapsedHeight'),
 				height = this.get('height');
