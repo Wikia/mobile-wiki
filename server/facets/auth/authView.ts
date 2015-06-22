@@ -43,7 +43,7 @@ module authView {
 
 	export function getDefaultContext (request: Hapi.Request): AuthViewContext {
 		return {
-			title: undefined,
+			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
 			language: request.server.methods.i18n.getInstance().lng()
