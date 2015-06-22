@@ -1,50 +1,38 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 import authUtils = require('../../lib/AuthUtils');
 import caching = require('../../lib/Caching');
+import authView = require('./authView');
+import deepExtend = require('deep-extend');
 
-interface JoinViewContext {
-	title: string;
+interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
 	facebookConnectHref: string;
-	hideHeader?: boolean;
-	hideFooter?: boolean;
-	exitTo?: string;
-	bodyClasses?: string;
-	noScripts?: boolean;
 	signupHref: string;
 }
 
 function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: JoinViewContext,
-		redirectUrl: string = request.query.redirect || '/',
-		response: Hapi.Response;
+		redirectUrl: string = authView.getRedirectUrl(request);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
 
-	context = {
-		title: 'auth:join.title',
-		facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
-		loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
-		hideHeader: true,
-		hideFooter: true,
-		exitTo: redirectUrl,
-		bodyClasses: 'splash auth-landing-page',
-		noScripts: true,
-		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
-	};
-
-	response = reply.view(
-		'auth-landing-page',
-		context,
+	context = deepExtend(
+		authView.getDefaultContext(request),
 		{
-			layout: 'auth'
+			title: 'auth:join.title',
+			facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
+			loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
+			hideHeader: true,
+			hideFooter: true,
+			bodyClasses: 'splash auth-landing-page',
+			noScripts: true,
+			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
 		}
 	);
 
-	caching.disableCache(response);
-	return response;
+	return authView.view('auth-landing-page', context, request, reply);
 }
 
 export = get;

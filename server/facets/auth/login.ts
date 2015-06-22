@@ -7,6 +7,8 @@ import Wreck = require('wreck');
 import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
 import authUtils = require('../../lib/AuthUtils');
+import authView = require('./authView');
+import deepExtend = require('deep-extend');
 
 interface AuthParams {
 	'user_id': string;
@@ -29,18 +31,9 @@ interface HeliosResponse {
 	'error_description'?: string;
 }
 
-interface LoginViewContext {
-	title: string;
+interface LoginViewContext extends authView.AuthViewContext {
 	headerText: string;
-	footerCallout: string;
-	footerCalloutLink: string;
-	language: string;
-	footerHref?: string;
 	forgotPasswordHref?: string;
-	hideHeader?: boolean;
-	hideFooter?: boolean;
-	exitTo?: string;
-	bodyClasses?: string;
 	formErrorKey?: string;
 }
 
@@ -50,8 +43,6 @@ function getLoginContext (request: Hapi.Request, redirect: string): LoginViewCon
 		headerText: 'auth:login.welcome-back',
 		footerCallout: 'auth:login.register-callout',
 		footerCalloutLink: 'auth:login.register-now',
-		language: request.server.methods.i18n.getInstance().lng(),
-		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
 	};
@@ -99,17 +90,18 @@ function getFormErrorKey (statusCode: number): string {
 	return 'auth:common.server-error';
 }
 
-export function get (request: Hapi.Request, reply: any): void {
-	var redirect: string = request.query.redirect || '/',
-		context: LoginViewContext = getLoginContext(request, redirect);
+export function get (request: Hapi.Request, reply: any): Hapi.Response {
+	var redirect: string = authView.getRedirectUrl(request),
+		context: LoginViewContext = deepExtend(
+			authView.getDefaultContext(request),
+			getLoginContext(request, redirect)
+		);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
 	}
 
-	return reply.view('login', context, {
-		layout: 'auth'
-	});
+	return authView.view('login', context, request, reply);
 }
 
 export function post (request: Hapi.Request, reply: any): void {
