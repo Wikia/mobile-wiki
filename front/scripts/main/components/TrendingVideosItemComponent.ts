@@ -27,13 +27,15 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.Tra
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	}),
 
-	thumbUrl: Em.computed('video.url', function (): void {
+	thumbUrl: Em.computed('video.url', 'video.thumbUrl', function (): void {
 		var options: any = {
 				width: this.get('imageWidth'),
 				height: this.get('imageHeight'),
 				mode: this.get('cropMode')
 			},
-			videoUrl: string = this.get('video.url');
+			//@TODO OR condition should be removed after app@CONCF-673 gets released to production
+			//ETA: 6/25/2015
+			videoUrl: string = this.get('video.url') || this.get('video.thumbUrl');
 
 		if (videoUrl) {
 			return this.thumbnailer.getThumbURL(videoUrl, options);
