@@ -2,7 +2,7 @@
 	{{wikia-stats model=model.wikiaStats}}
 {{/if}}
 {{#if model.featuredContent}}
-	{{featured-content model=model.featuredContent}}
+	{{component featuredContentComponentVariation model=model.featuredContent}}
 {{/if}}
 {{#if model.curatedContent}}
 	{{curated-content topLevelSection=model.curatedContent}}
