@@ -47,9 +47,6 @@ setupLogging(server);
 
 plugins = [
 	{
-		register: require('hapi-auth-cookie')
-	},
-	{
 		register: require('crumb'),
 		options: {
 			cookieOptions: {
