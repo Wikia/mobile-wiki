@@ -187,15 +187,16 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, endIndex: number): void {
-		var $mediaPlaceholders = this.$('.article-media');
+		var $mediaPlaceholders = this.$('.article-media'),
+			index: number;
 
-		if (endIndex == -1 || endIndex > $mediaPlaceholders.length) {
+		if (endIndex === -1 || endIndex > $mediaPlaceholders.length) {
 			endIndex = $mediaPlaceholders.length;
 		}
 
 		// This will not iterate over components that were already replaced, since they will no longer have the 'article-media' class
-		for (var i = 0; i < endIndex; i++) {
-			$mediaPlaceholders.eq(i).replaceWith(this.createMediaComponent($mediaPlaceholders[i], model));
+		for (index = 0; index < endIndex; index++) {
+			$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
 		}
 	},
 
@@ -379,24 +380,27 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	 *	3			=> first 50 sync, rest async
 	 */
 	handleMediaPlaceholderVariations: function (): void {
-		var optimizelyVariation = Mercury.Utils.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'});
+		var optimizelyVariation = M.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}),
+			media = this.get('controller.model').get('media');
 
-		if ( optimizelyVariation === 1 ) {
+		if (optimizelyVariation === 1) {
+			// Process the images async
 			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images async
+		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
 			}, 0);
-		} else if ( optimizelyVariation === 2 ) {
-			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 10);
+		} else if (optimizelyVariation === 2) {
+			this.replaceMediaPlaceholdersWithMediaComponents(media, 10);
 			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1);
+		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
 			}, 0);
-		} else if ( optimizelyVariation === 3 ) {
-			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 50);
+		} else if (optimizelyVariation === 3) {
+			this.replaceMediaPlaceholdersWithMediaComponents(media, 50);
 			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1);
+		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
 			}, 0);
 		} else {
-			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), -1); // Process the images synchronously
+			// Process the images synchronously
+			this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
 		}
 	},
 
