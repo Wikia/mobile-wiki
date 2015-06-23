@@ -18,7 +18,7 @@
 
 	function isJoinPage(): boolean {
 		//Join is the only page without any forms so far
-		return !document.querySelector('form');
+		return document.querySelector('.auth-landing-page');
 	}
 
 	function setTrackingDimensions (): void {
