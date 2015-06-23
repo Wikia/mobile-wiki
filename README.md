@@ -75,12 +75,12 @@ Parameters (order is not important):
 Script creates new release branch from dev (if changes are found), updates changelog, updates package.json, pushes release branch to github and creates pull request to dev.
  As a final result you will receive pull request number:
 
-* `./tasks/git-create.sh -u USERNAME -p PASSWORD` - it will use your USERNAME and PASSWORD to create pull request
+* `./tasks/git-create.sh -u USERNAME` - it will use your USERNAME and it will ask for password to create pull request
 
 ### git-merge.sh
 Merge pull request with specific number:
 
-* `./tasks/git-merge.sh -u USERNAME -p PASSWORD -g PR_NUMBER` - it will use your USERNAME and PASSWORD to merge pull request with PR_NUMBER
+* `./tasks/git-merge.sh -u USERNAME -g PR_NUMBER` - it will use your USERNAME and it will ask for password to merge pull request with PR_NUMBER
 
 ## Unit tests
 
