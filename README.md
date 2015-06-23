@@ -73,7 +73,7 @@ Parameters (order is not important):
 
 ### git-create.sh
 Script creates new release branch from dev (if changes are found), updates changelog, updates package.json, pushes release branch to github and creates pull request to dev.
- As final result you will receive pull request number.
+ As a final result you will receive pull request number:
 
 * `./tasks/git-create.sh -u USERNAME -p PASSWORD` - it will use your USERNAME and PASSWORD to create pull request
 
