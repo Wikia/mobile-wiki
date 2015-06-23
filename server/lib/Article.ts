@@ -36,11 +36,15 @@ export class ArticleRequestHelper {
 	 * @returns ServerData
 	 */
 	private createServerData(wikiDomain: string = ''): ServerData {
+		var env = localSettings.environment;
+
 		return {
 			mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
 			environment: Utils.getEnvironmentString(localSettings.environment),
-			cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
+			cdnBaseUrl: (env === Utils.Environment.Prod) ||
+						(env === Utils.Environment.Sandbox) ?
+						localSettings.cdnBaseUrl : ''
 		};
 	}
 
