@@ -1,7 +1,14 @@
 {
-  "errors" : {
-    "email_already_exists": "已經在wikia上註冊了電子郵件",
-    "email_invalid": "電子郵件無效",
-    "registration_error": "我們暫時無法完成你的註冊"
+  "errors":{
+    "email_already_exists":"已經在wikia上註冊了電子郵件",
+    "email_invalid":"電子郵件無效",
+    "registration_error":"我們暫時無法完成你的註冊",
+    "username_already_exists":"抱歉，此用戶名已經有人使用，改試其他用戶名！",
+    "username_unavailable":"抱歉，你的用戶名只能包含單一字母表中的字母和數字，而且必須包含一個字母。請嘗試另一個用戶名。",
+    "username_ip_address":"抱歉，你的用戶名看起來像一個IP位址。請改用其他用戶名﹝至少要有一個字母﹞。",
+    "username_exceeds_max_length":"抱歉，你的用戶名不能超過50個字元。",
+    "username_illegal_characters":"抱歉，你的用戶名只能包含單一字母表中的字母和數字，而且必須包含一個字母。請嘗試另一個用戶名。",
+    "password_exceeds_max_length":"抱歉，密碼太長。密碼最多可有50個字符。",
+    "password_equal_name":"密碼必須與用戶名不同。"
   }
 }
