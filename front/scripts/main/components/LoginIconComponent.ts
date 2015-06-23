@@ -6,41 +6,12 @@
 App.LoginIconComponent = Em.Component.extend({
 	tagName: 'a',
 	classNames: ['external', 'login'],
-	//Let's remove this flag once we're good to go with the new login flow
-	newLoginEnabled: true,
-
-	newLoginWhitelist: [
-		'clashofclans',
-		'creepypasta',
-		'castleclash',
-		'glee',
-		'mobileregressiontesting'
-	],
 
 	click: function (): void {
-		if (this.shouldRedirectToNewLogin()) {
+		if (Mercury.wiki.enableNewAuth) {
 			window.location.href = '/join?redirect=' + encodeURIComponent(window.location.href);
 		} else {
 			window.location.href = '/Special:UserLogin';
 		}
-	},
-
-	/**
-	 * Redirects to new login flow if a wiki is whitelisted above
-	 * @returns {boolean}
-	 */
-	shouldRedirectToNewLogin: function (): boolean {
-		var shouldRedirect = false,
-			dbName = Mercury.wiki.dbName;
-
-		if (!this.newLoginEnabled) {
-			return false;
-		}
-
-		shouldRedirect = this.newLoginWhitelist.some((whitelistedDBName: string): boolean => {
-			return whitelistedDBName === dbName;
-		});
-
-		return shouldRedirect;
 	}
 });
