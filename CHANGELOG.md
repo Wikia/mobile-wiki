@@ -1,3 +1,12 @@
+## release-93 (2015-06-23 10:59 UTC)
+* [CONCF-674](https://wikia-inc.atlassian.net/browse/CONCF-674) CONCF-674 Open videos in lightbox
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 changes for user login url after reverting the first merge
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - made lazy load image processing async
+* feature-HG-761: HG-761 adding first content perf tracking and sending weppy in dev env
+* [CONCF-673](https://wikia-inc.atlassian.net/browse/CONCF-673) CONCF-673 Use 'standard' video object to render trending videos
+* [CONCF-540](https://wikia-inc.atlassian.net/browse/CONCF-540) CONCF-540 Hide bullet when there is only one element in featured content
+* [CONCF-685](https://wikia-inc.atlassian.net/browse/CONCF-685) CONCF-653 | featured content experiments on curated main pages
+
 ## release-92 (2015-06-22 10:35 UTC)
 * [SOC-705](https://wikia-inc.atlassian.net/browse/SOC-705) SOC-705 Drop-down menu for logged-in users
 
