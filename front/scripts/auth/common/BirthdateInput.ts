@@ -67,6 +67,12 @@ class BirthdateInput {
 	 * Set the value for the input that will ultimately be saved upon form submission
 	 */
 	private setRealValue(): void {
-		this.realInput.value = this.year.value + '-' + this.month.value + '-' + this.day.value;
+		this.realInput.value = this.padleftWithZeros(this.year.value, this.year.maxLength) + '-' +
+			this.padleftWithZeros(this.month.value, this.month.maxLength) + '-' +
+			this.padleftWithZeros(this.day.value, this.day.maxLength);
+	}
+
+	private padleftWithZeros(input: string, length: number): string {
+		return Array(length - input.length + 1).join('0') + input;
 	}
 }
