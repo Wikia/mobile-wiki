@@ -1,7 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
-/// <reference path="../components/MediaComponent.ts" />
-/// <reference path="../components/WikiaMapComponent.ts" />
+/// <reference path="./MediaComponent.ts" />
+/// <reference path="./WikiaMapComponent.ts" />
+/// <reference path="../mixins/AdsMixin.ts" />
+/// <reference path="../mixins/LanguagesMixin.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
 
 'use strict';
@@ -16,7 +18,7 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
+App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
 
 	hammerOptions: {
@@ -62,18 +64,18 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
-	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
-		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
+	editButtonsVisible: Em.computed('model.isMainPage', function (): boolean {
+		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
-	onModelChange: Em.observer('controller.model.article', function (): void {
+	onModelChange: Em.observer('model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender
 		this.scheduleArticleTransforms();
 	}),
 
-	modelObserver: Em.observer('controller.model', function (): void {
-		var model = this.get('controller.model');
+	modelObserver: Em.observer('model', function (): void {
+		var model = this.get('model');
 
 		if (model) {
 			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
@@ -91,7 +93,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	didInsertElement: function (): void {
-		this.get('controller').send('articleRendered');
+		this.sendAction('articleRendered');
 	},
 
 	/**
@@ -130,7 +132,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			return false;
 		}
 
-		var model = this.get('controller.model'),
+		var model = this.get('model'),
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');
 
@@ -207,7 +209,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			var $sectionHeader = this.$(item),
 				$pencil = this.$(pencil).appendTo($sectionHeader);
 			$pencil.on('click', (): void => {
-				this.get('controller').send('edit', this.get('controller.model.cleanTitle'), $sectionHeader.attr('section'));
+				this.sendAction('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
 			});
 		});
 	},
@@ -228,7 +230,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 				};
 			}
 		}).toArray();
-		this.get('controller').send('updateHeaders', headers);
+		this.sendAction('updateHeaders', headers);
 	},
 
 	replaceMapsWithMapComponents: function (): void {
@@ -374,14 +376,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	/**
 	 * Handles the Optimizely variations for testing processing images async
 	 * Variations:
-	 *	0 (default)	=> process all synchronously	
+	 *	0 (default)	=> process all synchronously
 	 *	1			=> process all async
 	 *	2			=> first 10 sync, rest async
 	 *	3			=> first 50 sync, rest async
 	 */
 	handleMediaPlaceholderVariations: function (): void {
 		var optimizelyVariation = M.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}),
-			media = this.get('controller.model').get('media');
+			media = this.get('model.media');
 
 		if (optimizelyVariation === 1) {
 			// Process the images async
@@ -430,8 +432,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
 			if (!$mediaElement.hasClass('is-small')) {
-				media = this.get('controller.model.media');
-				this.get('controller').send('openLightbox', 'media', {
+				media = this.get('model.media');
+				this.sendAction('openLightbox', 'media', {
 					media: media,
 					mediaRef: mediaRef,
 					galleryRef: galleryRef
