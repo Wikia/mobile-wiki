@@ -1,5 +1,5 @@
 <ul>
-	{{#each suggestion in suggestions}}
+	{{#each suggestions as |suggestion|}}
 		<li class="mw-content">
 		{{#link-to 'article' suggestion.uri action='collapseSideNav'}}
 			{{suggestion.title}}

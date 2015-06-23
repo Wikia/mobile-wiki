@@ -1,4 +1,4 @@
-{{#each media in limitedMedia}}
+{{#each limitedMedia as |media|}}
 	<figure class='linked-gallery-{{unbound media.type}}{{unbound media.captionClass}}'>
 		{{#if media.link}}
 			<a href='{{media.link}}' {{action 'clickLinkedImage'}}>

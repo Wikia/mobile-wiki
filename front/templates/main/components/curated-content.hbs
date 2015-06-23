@@ -8,7 +8,7 @@
 		</div>
 	{{/unless}}
 	<nav class='curated-content-items'>
-		{{#each item in currentSection.items}}
+		{{#each currentSection.items as |item|}}
 			{{curated-content-item model=item action='clickItem'}}
 		{{/each}}
 

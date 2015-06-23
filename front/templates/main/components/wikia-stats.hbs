@@ -1,5 +1,5 @@
 <div class="wikia-stats-container">
-	{{#each item in items}}
+	{{#each items as |item|}}
 		{{#if item.value}}
 			<div class="wikia-stats-item">
 				<div class="wikia-stats-label">{{i18n item.label}}</div>

@@ -1,6 +1,6 @@
 {{svg 'wikia-logo-white' viewBox='0 0 152 42' role='img' class='logo'}}
 <ul class="footer-links">
-	{{#each link in links}}
+	{{#each links as |link|}}
 		<li class="{{unbound link.className}}">
 			<a href="{{unbound link.href}}" {{action 'trackClick' 'footer' link.text preventDefault=false}}	class="external">
 				{{i18n 'app' link.text}}

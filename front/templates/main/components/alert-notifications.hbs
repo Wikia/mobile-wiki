@@ -1,3 +1,3 @@
-{{#each alert in alerts}}
+{{#each alerts as |alert|}}
 	{{alert-notification alert=alert action='dismissAlert'}}
 {{/each}}

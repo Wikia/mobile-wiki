@@ -17,7 +17,7 @@
 		<div {{action 'loadRandomArticle'}} class="random-article-link">{{i18n 'app.random-page-label'}}</div>
 	</li>
 {{/if}}
-{{#each child in currentMenuItem.children}}
+{{#each currentMenuItem.children as |child|}}
 	{{#if child.children}}
 		<li>
 			<div {{action 'changeMenuItem' child.index}}>

@@ -8,7 +8,7 @@
 	{{#if model.comments}}
 		<button class='page-btn {{unless prevButtonShown 'hidden'}}' {{action 'prevPage'}}>{{i18n 'app.comments-prev-button'}}</button>
 		<ul class='comments {{if commentsHidden 'hidden'}}'>
-			{{#each comment in model.comments}}
+			{{#each model.comments as |comment|}}
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>
