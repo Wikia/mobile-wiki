@@ -45,6 +45,7 @@ fi
 
 BRANCH=$(echo $BRANCH | sed 's/.\{4\}$//')
 let "BRANCH++"
+BRANCHN=$BRANCH
 BRANCH="release-"$BRANCH
 
 git checkout -b $BRANCH
@@ -53,6 +54,7 @@ echo -e "\nCreated new branch: "$BRANCH"\n"
 ./tasks/changelog-update.sh -r $BRANCH
 git add CHANGELOG.md
 git commit -m "update changelog"
+npm version $BRANCHN".0.0"
 git push origin $BRANCH
 
 git checkout dev
