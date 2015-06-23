@@ -24,6 +24,12 @@ App.MainPageComponent = Em.Component.extend({
 		}
 	}),
 
+	actions: {
+		openLightbox: function (lightboxType: string, lightboxData: any): void {
+			this.sendAction('openLightbox', lightboxType, lightboxData);
+		}
+	},
+
 	didInsertElement: function(): void {
 		M.track({
 			action: M.trackActions.impression,
