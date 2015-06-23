@@ -10,6 +10,7 @@ interface JoinViewContext {
 	hideFooter?: boolean;
 	exitTo?: string;
 	bodyClasses?: string;
+	language?: string;
 	signupHref: string;
 }
 
@@ -30,7 +31,8 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		hideFooter: true,
 		exitTo: redirectUrl,
 		bodyClasses: 'splash auth-landing-page',
-		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
+		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
+		language: request.server.methods.i18n.getInstance().lng()
 	};
 
 	response = reply.view(
