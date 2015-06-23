@@ -67,7 +67,7 @@
 					observe=model.cleanTitle
 					trackingEvent='category'
 				}}
-					{{#each category in model.categories itemController='categoryListItem'}}
+					{{#each model.categories itemController='categoryListItem' as |category|}}
 						<li class='mw-content' {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.model.url}}' title='{{unbound category.model.title}}'>
 							{{category.cleanTitle}}
 							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
