@@ -7,7 +7,7 @@
 
 		if (document.querySelector('small.error') !== null) {
 			// An error occurred while logging in
-			Mercury.Utils.track({
+			M.track({
 				trackingMethod: 'ga',
 				action: Mercury.Utils.trackActions.error,
 				category: 'user-login-mobile',
@@ -35,7 +35,7 @@
 	function setTrackingForLoginPage(): void {
 		// Click "Sign In" button
 		document.getElementById('loginSubmit').addEventListener('click', (): void => {
-			Mercury.Utils.track({
+			M.track({
 				trackingMethod: 'ga',
 				action: Mercury.Utils.trackActions.click,
 				category: 'user-login-mobile',
@@ -45,7 +45,7 @@
 
 		// Click X to "close" log-in form
 		document.querySelector('.close').addEventListener('click', (): void => {
-			Mercury.Utils.track({
+			M.track({
 				trackingMethod: 'ga',
 				action: Mercury.Utils.trackActions.close,
 				category: 'user-login-mobile',
@@ -55,7 +55,7 @@
 
 		// Click "Forgot Password" link
 		document.querySelector('.forgotten-password').addEventListener('click', (): void => {
-			Mercury.Utils.track({
+			M.track({
 				trackingMethod: 'ga',
 				action: Mercury.Utils.trackActions.click,
 				category: 'user-login-mobile',
@@ -85,16 +85,6 @@
 			});
 		});
 
-		// Click "Conect with Facebook" ToDo Update as soon as we implement FB connect
-		document.querySelector('.signup-provider-facebook').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: M.trackActions.click,
-				category: 'user-login-mobile',
-				label: 'connect-facebook-button'
-			});
-		});
-
 		// Click "Sign in" link on the bottom of the page
 		document.querySelector('.footer-callout-link').addEventListener('click', (): void => {
 			M.track({
@@ -107,11 +97,11 @@
 
 		// Click X to "close" /join page
 		document.querySelector('.close').addEventListener('click', (): void => {
-			Mercury.Utils.track({
+			M.track({
 				trackingMethod: 'ga',
 				action: Mercury.Utils.trackActions.close,
 				category: 'user-login-mobile',
-				label: 'close-button'
+				label: 'join-close-button'
 			});
 		});
 	}

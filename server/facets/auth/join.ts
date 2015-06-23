@@ -1,6 +1,7 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 import authUtils = require('../../lib/AuthUtils');
 import caching = require('../../lib/Caching');
+import localSettings = require('../../../config/localSettings');
 
 interface JoinViewContext {
 	title: string;
@@ -12,6 +13,7 @@ interface JoinViewContext {
 	bodyClasses?: string;
 	language?: string;
 	signupHref: string;
+	trackingConfig: any;
 }
 
 function get (request: Hapi.Request, reply: any): Hapi.Response {
@@ -32,7 +34,8 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		exitTo: redirectUrl,
 		bodyClasses: 'splash auth-landing-page',
 		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
-		language: request.server.methods.i18n.getInstance().lng()
+		language: request.server.methods.i18n.getInstance().lng(),
+		trackingConfig: localSettings.tracking
 	};
 
 	response = reply.view(
