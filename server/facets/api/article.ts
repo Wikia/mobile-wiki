@@ -36,12 +36,14 @@ export function get (request: Hapi.Request,  reply: any): void {
 			title: request.params.articleTitle,
 			redirect: request.params.redirect
 		},
-		article: Article.ArticleRequestHelper;
+		article: Article.ArticleRequestHelper,
+		allowCache = true;
 
 	if (request.state.wikicities_session) {
 		params.headers = {
 			'Cookie': `wikicities_session=${request.state.wikicities_session}`
 		};
+		allowCache = false;
 	}
 
 	article = new Article.ArticleRequestHelper(params);
@@ -56,7 +58,13 @@ export function get (request: Hapi.Request,  reply: any): void {
 
 	article.getData((error: any, result: any): void => {
 		// TODO: Consider normalizing all error handling to Boom
-		var wrappedResult = wrapResult(error, result);
-		Caching.setResponseCaching(reply(wrappedResult).code(wrappedResult.status), cachingTimes);
+		var wrappedResult = wrapResult(error, result),
+			response = reply(wrappedResult).code(wrappedResult.status);
+
+		if (allowCache) {
+			return Caching.setResponseCaching(response, cachingTimes);
+		}
+
+		Caching.disableCache(response);
 	});
 }

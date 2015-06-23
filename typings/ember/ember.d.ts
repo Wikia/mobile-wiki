@@ -2827,6 +2827,7 @@ declare module Ember {
         not(dependentKey: string): ComputedProperty;
         notEmpty(dependentKey: string): ComputedProperty;
         oneWay(dependentKey: string): ComputedProperty;
+        readOnly(dependentKey: string): ComputedProperty;
         or(...args: string[]): ComputedProperty;
     };
     // ReSharper disable DuplicatingLocalDeclaration

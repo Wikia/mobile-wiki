@@ -1,3 +1,44 @@
+## release-93 (2015-06-23 10:59 UTC)
+* [CONCF-674](https://wikia-inc.atlassian.net/browse/CONCF-674) CONCF-674 Open videos in lightbox
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 changes for user login url after reverting the first merge
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - made lazy load image processing async
+* feature-HG-761: HG-761 adding first content perf tracking and sending weppy in dev env
+* [CONCF-673](https://wikia-inc.atlassian.net/browse/CONCF-673) CONCF-673 Use 'standard' video object to render trending videos
+* [CONCF-540](https://wikia-inc.atlassian.net/browse/CONCF-540) CONCF-540 Hide bullet when there is only one element in featured content
+* [CONCF-685](https://wikia-inc.atlassian.net/browse/CONCF-685) CONCF-653 | featured content experiments on curated main pages
+
+## release-92 (2015-06-22 10:35 UTC)
+* [SOC-705](https://wikia-inc.atlassian.net/browse/SOC-705) SOC-705 Drop-down menu for logged-in users
+
+## release-91 (2015-06-22 07:59 UTC)
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 - added cache-buster for internal cache for random page request
+* [HG-764](https://wikia-inc.atlassian.net/browse/HG-764) Add "cookie" to "vary" header
+
+## release-90 (2015-06-19 16:15 UTC)
+* [SOC-480](https://wikia-inc.atlassian.net/browse/SOC-480) Soc 480 Internationalized birthdate input
+* [SOC-684](https://wikia-inc.atlassian.net/browse/SOC-684) SOC-684 | Registration screen
+* [SOC-878](https://wikia-inc.atlassian.net/browse/SOC-878) SOC-878 Adding active state to birthdate field
+
+## release-89 (2015-06-19 14:32 UTC)
+* [CONCF-608](https://wikia-inc.atlassian.net/browse/CONCF-608) CONCF-608 encode category and section name before sending to API
+* task-update: Tasks update
+* [DAT-2897](https://wikia-inc.atlassian.net/browse/DAT-2897) DAT-2897 handle article references
+
+## release-88 (2015-06-18 07:26 UTC)
+* feature-HG-728: Feature hg 728
+* revert-906-SOC-805: Revert "SOC-805 Create CTA to New Login Flow on Wikiamobile"- it has to go after app and config changes
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 Create CTA to New Login Flow on Wikiamobile
+* aden-2023-disable-extra-in-content-ads: ADEN-2023 Disable extra in content ads for now
+
+## release-87 (2015-06-17 07:26 UTC)
+* [INT-113](https://wikia-inc.atlassian.net/browse/INT-113) Fix problem by using cleanTitle property of ArticleModel instead of just title
+* typescript-sourcemaps-2: Coding standard fixes for TS sourcemaps
+
+## release-86 (2015-06-16 13:21 UTC)
+* [CONCF-669](https://wikia-inc.atlassian.net/browse/CONCF-669) CONCF-669 Add temporary check to not break descriptions on production
+* [CONCF-509](https://wikia-inc.atlassian.net/browse/CONCF-509) CONCF-509 move description to article details
+* [CONCF-649](https://wikia-inc.atlassian.net/browse/CONCF-649) CONCF-649 | Remove Optimizely check for CuratedContent
+
 ## release-85 (2015-06-15 07:26 UTC)
 * [HG-732](https://wikia-inc.atlassian.net/browse/HG-732)//www.wikia.com
 * [HG-727](https://wikia-inc.atlassian.net/browse/HG-727) Hg 727

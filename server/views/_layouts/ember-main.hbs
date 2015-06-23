@@ -31,6 +31,7 @@
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
 			{{#if server.mediawikiDomain}}
+			M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
 			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
@@ -64,9 +65,7 @@
 
 		<!-- A/B test (HG-727) -->
 		<div class="loading-overlay ab-test-loading-overlay">
-			<svg class='spinner' width='65' height='65' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'>
-				<circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle>
-			</svg>
+			<img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D">
 		</div>
 
 		<div id="article-preload">
@@ -97,10 +96,8 @@
 			<script src="/front/vendor/i18next/i18next.js"></script>
 			<script src="/front/vendor/vignette/dist/vignette.js"></script>
 			<script src="/front/vendor/numeral/numeral.js"></script>
-			<!-- @if WIKIA_ENVIRONMENT='prod' -->
-				<script src="/front/vendor/weppy/dist/weppy.js"></script>
-				<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
-			<!-- @endif -->
+			<script src="/front/vendor/weppy/dist/weppy.js"></script>
+			<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
 		<!-- endbuild -->
 
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" defer></script>

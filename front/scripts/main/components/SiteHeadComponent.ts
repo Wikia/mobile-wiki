@@ -26,6 +26,9 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	actions: {
 		expandSideNav: function (): void {
 			this.set('sideNavCollapsed', false);
+		},
+		showUserMenu: function (): void {
+			this.set('userMenuCollapsed', false);
 		}
 	},
 

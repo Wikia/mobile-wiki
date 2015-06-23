@@ -1,4 +1,4 @@
 <h2>{{i18n 'app.videos-label'}}</h2>
 {{#each video in model}}
-	{{trending-videos-item title=video.title url=video.fileUrl imageUrl=video.thumbUrl duration=video.duration}}
+	{{trending-videos-item video=video action='openLightbox'}}
 {{/each}}

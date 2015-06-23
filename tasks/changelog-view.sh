@@ -3,17 +3,17 @@
 if [ "$1" != "" ]; then
   FROM=$1
 else
-  FROM=origin/dev
+  FROM=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
+  FROM="release-"$FROM
 fi
 
 if [ "$2" != "" ]; then
   TO=$2
 else
-  TO=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
-  TO="release-"$TO
+  TO=HEAD
 fi
 
-git --no-pager log $TO..$FROM --merges --pretty=tformat:'* %s: %b' |
+git --no-pager log $FROM..$TO --merges --pretty=tformat:'* %s: %b' |
 grep 'Merge pull' |
 grep -vi 'from Wikia/release-[0-9]\{1,\}:' |
 sed -e 's/* .*from Wikia\//* /' \

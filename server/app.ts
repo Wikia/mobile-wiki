@@ -1,6 +1,8 @@
 /// <reference path="../typings/node/node.d.ts" />
 /// <reference path="../typings/hapi/hapi.d.ts" />
 /// <reference path="../config/localSettings.d.ts" />
+/// <reference path='../typings/wreck/wreck.d.ts' />
+/// <reference path='../typings/boom/boom.d.ts' />
 
 // NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
 if (process.env.NEW_RELIC_ENABLED === 'true') {
@@ -11,6 +13,7 @@ import Caching       = require('./lib/Caching');
 import Hapi          = require('hapi');
 import Logger        = require('./lib/Logger');
 import Utils         = require('./lib/Utils');
+import HeliosSession = require('./lib/HeliosSession');
 import cluster       = require('cluster');
 import localSettings = require('../config/localSettings');
 import path          = require('path');
@@ -44,9 +47,6 @@ setupLogging(server);
 
 plugins = [
 	{
-		register: require('hapi-auth-cookie')
-	},
-	{
 		register: require('crumb'),
 		options: {
 			cookieOptions: {
@@ -78,16 +78,10 @@ server.register(plugins, (err: any) => {
 	if (err) {
 		Logger.error(err);
 	}
-	server.auth.strategy('session', 'cookie', 'required', {
-		appendNext     : 'redirect',
-		clearInvalid   : true,
-		cookie         : 'sid',
-		isSecure       : false,
-		password       : localSettings.ironSecret,
-		domain         : localSettings.authCookieDomain,
-		redirectTo     : '/login'
-	});
 });
+
+server.auth.scheme('helios', HeliosSession.scheme);
+server.auth.strategy('session', 'helios');
 
 server.views({
 	engines: {
@@ -117,9 +111,11 @@ server.state('access_token', {
 	clearInvalid: true,
 	domain: localSettings.authCookieDomain
 });
+
 // Contains user ID, same name as cookie from MediaWiki app
 server.state('wikicitiesUserID', {
-	isHttpOnly: true
+	isHttpOnly: true,
+	domain: localSettings.authCookieDomain
 });
 
 // instantiate routes
@@ -199,6 +195,7 @@ function getOnPreResponseHandler (isDevbox: boolean): any {
 		if (response && response.header) {
 			response.header('x-backend-response-time', responseTimeSec);
 			response.header('x-served-by', servedBy);
+			response.vary('cookie');
 		} else if (response.isBoom) {
 			// see https://github.com/hapijs/boom
 			response.output.headers['x-backend-response-time'] = responseTimeSec;

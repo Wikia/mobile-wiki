@@ -21,7 +21,13 @@ if [ -z $RELEASE ]; then
 	exit 1
 fi
 
-/bin/bash tasks/changelog-view.sh 1> new
+HEADC=$(cat CHANGELOG.md | grep "## "$RELEASE" " | wc -l)
+
+if [ $HEADC -gt 0 ]; then
+	RELEASE=$RELEASE" hotfix "$HEADC
+fi
+
+./tasks/changelog-view.sh 1> new
 
 WORDC=$(wc -w new | tr -d '[:alpha:][:blank:][:punct:]/-')
 DATE=$(date -u +"%Y-%m-%d %H:%M")
@@ -32,11 +38,11 @@ if [ $WORDC -gt 0 ]; then
 	echo "" >> temp
 	cat CHANGELOG.md >> temp
 	mv temp CHANGELOG.md	
-	rm new
-	echo "Changelog updated"
+	echo -e "\nChangelog updated with:"
+	cat new && echo
 else
-	echo "There are no new commits"
-	rm new
-	exit 1
+	echo -e "\nThere are no new commits"
 fi
+
+rm new
 
