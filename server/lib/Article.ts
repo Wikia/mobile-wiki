@@ -41,7 +41,7 @@ export class ArticleRequestHelper {
 		return {
 			mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
-			environment: Utils.getEnvironmentString(localSettings.environment),
+			environment: Utils.getEnvironmentString(env),
 			cdnBaseUrl: (env === Utils.Environment.Prod) ||
 						(env === Utils.Environment.Sandbox) ?
 						localSettings.cdnBaseUrl : ''
