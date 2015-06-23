@@ -44,6 +44,12 @@ test('getRedirectUrl', function () {
 			expected: '/',
 			description: 'Don\'t allow external domain when current domain is in URL'
 		},
+		{
+			redirect: 'http://wikia.com.google.com/',
+			host: 'wikia.com',
+			expected: '/',
+			description: 'Don\'t allow external domain when current wikia.com is put as subdomain'
+		}
 	];
 
 	testCases.forEach(function (testCase) {

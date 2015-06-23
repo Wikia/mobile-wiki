@@ -35,7 +35,8 @@ module authView {
 	}
 
 	export function getRedirectUrl (request: Hapi.Request): string {
-		var redirectUrl: string = request.query.redirect || '/',
+		var currentHost: string = request.headers.host,
+			redirectUrl: string = request.query.redirect || '/',
 			redirectUrlHost: string = url.parse(redirectUrl).host,
 			whiteListedDomains: Array<string> = ['wikia.com'],
 			isWhiteListedDomain: boolean;
@@ -44,12 +45,12 @@ module authView {
 			return redirectUrl;
 		}
 
-		if (redirectUrlHost.indexOf(request.headers.host) !== -1) {
+		if (redirectUrlHost.indexOf(currentHost, redirectUrlHost.length - currentHost.length) !== -1) {
 			return redirectUrl;
 		}
 
 		isWhiteListedDomain = whiteListedDomains.some((whiteListedDomain: string): boolean => {
-			return redirectUrlHost.indexOf(whiteListedDomain) !== -1;
+			return redirectUrlHost.indexOf(whiteListedDomain, redirectUrlHost.length - whiteListedDomain.length) !== -1;
 		});
 
 		if (isWhiteListedDomain) {
