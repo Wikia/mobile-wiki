@@ -13,8 +13,11 @@ form {
 	padding-bottom: .25rem;
 	position: relative;
 
-	input.error {
-		border-bottom-color: $input-border-error-color;
+	input,
+	.input {
+		&.error {
+			border-bottom-color: $input-border-error-color;
+		}
 	}
 
 	small.error {

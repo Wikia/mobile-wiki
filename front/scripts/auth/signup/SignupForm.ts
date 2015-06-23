@@ -29,6 +29,8 @@ class SignupForm {
 		Array.prototype.forEach.call( errorNodes, (node: HTMLElement): void => {
 			if (node.tagName === 'INPUT') {
 				node.classList.remove('error');
+			} else if (node.classList.contains('input')) {
+				node.classList.remove('error');
 			} else {
 				node.parentNode.removeChild( node );
 			}
@@ -48,9 +50,14 @@ class SignupForm {
 
 	private displayFieldValidationError(err: HeliosError): void {
 		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
-			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field];
+			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field],
+			specialFieldContainer: HTMLElement;
 		input.parentNode.appendChild(errorNode);
-		input.classList.add('error');
+		if (specialFieldContainer = <HTMLElement> (<HTMLElement> input.parentNode).querySelector('.input')) {
+			specialFieldContainer.classList.add('error');
+		} else {
+			input.classList.add('error');
+		}
 	}
 
 	private displayGeneralError(): void {
