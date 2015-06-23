@@ -45,10 +45,22 @@ test('getRedirectUrl', function () {
 			description: 'Don\'t allow external domain when current domain is in URL'
 		},
 		{
-			redirect: 'http://wikia.com.google.com/',
+			redirect: 'http://www.wikia.com.google.com/',
 			host: 'wikia.com',
 			expected: '/',
 			description: 'Don\'t allow external domain when current wikia.com is put as subdomain'
+		},
+		{
+			redirect: 'http://otherdomainwikia.com',
+			host: 'glee.devbox.wikia-dev.com',
+			expected: '/',
+			description: 'Don\'t allow external domain when wikia.com is the last part of an external domain'
+		},
+		{
+			redirect: 'http://otherdomainwikia.com',
+			host: 'wikia.com',
+			expected: '/',
+			description: 'Don\'t allow external domain when wikia.com is the last part of an external domain'
 		}
 	];
 

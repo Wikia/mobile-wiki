@@ -38,14 +38,17 @@ module authView {
 		var currentHost: string = request.headers.host,
 			redirectUrl: string = request.query.redirect || '/',
 			redirectUrlHost: string = url.parse(redirectUrl).host,
-			whiteListedDomains: Array<string> = ['wikia.com'],
+			whiteListedDomains: Array<string> = ['.wikia.com'],
 			isWhiteListedDomain: boolean;
 
 		if (!redirectUrlHost) {
 			return redirectUrl;
 		}
 
-		if (redirectUrlHost.indexOf(currentHost, redirectUrlHost.length - currentHost.length) !== -1) {
+		if (
+			currentHost === redirectUrlHost ||
+			redirectUrlHost.indexOf('.' + currentHost, redirectUrlHost.length - currentHost.length - 1) !== -1
+		) {
 			return redirectUrl;
 		}
 
