@@ -9,6 +9,12 @@ App.LoginIconComponent = Em.Component.extend({
 
 	click: function (): void {
 		if (Mercury.wiki.enableNewAuth) {
+			M.track({
+				trackingMethod: 'ga',
+				action: M.trackActions.click,
+				category: 'user-login-mobile',
+				label: 'join-link'
+			});
 			window.location.href = '/join?redirect=' + encodeURIComponent(window.location.href);
 		} else {
 			window.location.href = '/Special:UserLogin';
