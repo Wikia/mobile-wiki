@@ -18,13 +18,13 @@ while getopts ":u:p:" opt; do
         esac
 done
 
-if [ $USERNAME -z ]
+if [ -z $USERNAME ]
 then
 echo "Param -u is not set, which is github user username"
 exit 1
 fi
 
-if [ $PASSWORD -z ]
+if [ -z $PASSWORD ]
 then
 echo "Param -p is not set, which is github user password"
 exit 1
