@@ -41,11 +41,10 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	}),
 
 	handleCollapsing: function (): void {
-		var collapsedHeight = this.get('collapsedHeight'),
-			$this = this.$();
+		var collapsedHeight = this.get('collapsedHeight');
 
 		this.set('collapsed', true);
-		$this.height(collapsedHeight);
+		this.$().height(collapsedHeight);
 	},
 
 	/**
@@ -56,25 +55,27 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	onInfoboxClick: function (event: JQueryEventObject): void {
 		var body: HTMLElement,
 			button: HTMLElement,
-			collapsedHeight: number,
 			expandButtonClass: string,
 			scrollTo: (top?: boolean) => void,
 			collapsed = this.get('collapsed'),
 			$target = $(event.target);
 
-		if (!$target.is('a') && !collapsed) {
+		if ($target.is('a')) {
+			return;
+		}
+
+		if (!collapsed) {
 			body = window.document.body;
 			expandButtonClass = this.get('expandButtonClass');
 			button = this.$('.' + expandButtonClass)[0];
 			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
-			this.$().height(this.get('collapsedHeight'));
+			this.handleCollapsing();
 			scrollTo.apply(button);
 		} else {
+			this.set('collapsed', false);
 			this.$().height('auto');
 		}
-
-		this.toggleProperty('collapsed');
 	},
 
 	/**
