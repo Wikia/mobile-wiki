@@ -1,3 +1,10 @@
+## release-94 (2015-06-24 10:45 UTC)
+* [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) Replace /front string in templates with cdn path
+* [HG-768](https://wikia-inc.atlassian.net/browse/HG-768) HG-768 adding query string param for bucky sampling
+* [SOC-895](https://wikia-inc.atlassian.net/browse/SOC-895) SOC-895 | Introduce AuthView + canonicalUrl for Auth pages
+* task-update: Task update
+* [SOC-798](https://wikia-inc.atlassian.net/browse/SOC-798) SOC-798 | Introduce Helios authorization
+
 ## release-93 (2015-06-23 10:59 UTC)
 * [CONCF-674](https://wikia-inc.atlassian.net/browse/CONCF-674) CONCF-674 Open videos in lightbox
 * [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 changes for user login url after reverting the first merge

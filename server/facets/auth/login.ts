@@ -7,6 +7,8 @@ import Wreck = require('wreck');
 import localSettings = require('../../../config/localSettings');
 import qs = require('querystring');
 import authUtils = require('../../lib/AuthUtils');
+import authView = require('./authView');
+var deepExtend = require('deep-extend');
 
 interface AuthParams {
 	'user_id': string;
@@ -29,34 +31,10 @@ interface HeliosResponse {
 	'error_description'?: string;
 }
 
-interface LoginViewContext {
-	title: string;
+interface LoginViewContext extends authView.AuthViewContext {
 	headerText: string;
-	footerCallout: string;
-	footerCalloutLink: string;
-	language: string;
-	footerHref?: string;
 	forgotPasswordHref?: string;
-	hideHeader?: boolean;
-	hideFooter?: boolean;
-	exitTo?: string;
-	bodyClasses?: string;
 	formErrorKey?: string;
-	trackingConfig?: any;
-}
-
-function getLoginContext (request: Hapi.Request, redirect: string): LoginViewContext {
-	return <LoginViewContext> {
-		title: 'auth:login.login-title',
-		headerText: 'auth:login.welcome-back',
-		footerCallout: 'auth:login.register-callout',
-		footerCalloutLink: 'auth:login.register-now',
-		language: request.server.methods.i18n.getInstance().lng(),
-		exitTo: redirect,
-		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-		trackingConfig: localSettings.tracking
-	};
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -101,17 +79,30 @@ function getFormErrorKey (statusCode: number): string {
 	return 'auth:common.server-error';
 }
 
-export function get (request: Hapi.Request, reply: any): void {
-	var redirect: string = request.query.redirect || '/',
-		context: LoginViewContext = getLoginContext(request, redirect);
+function getLoginViewContext (request: Hapi.Request, redirect: string): LoginViewContext {
+	return deepExtend(
+		authView.getDefaultContext(request),
+		{
+			title: 'auth:login.login-title',
+			headerText: 'auth:login.welcome-back',
+			footerCallout: 'auth:login.register-callout',
+			footerCalloutLink: 'auth:login.register-now',
+			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+			bodyClasses: 'login-page'
+		}
+	);
+}
+
+export function get (request: Hapi.Request, reply: any): Hapi.Response {
+	var redirect: string = authView.getRedirectUrl(request),
+		context: LoginViewContext = getLoginViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
 	}
 
-	return reply.view('login', context, {
-		layout: 'auth'
-	});
+	return authView.view('login', context, request, reply);
 }
 
 export function post (request: Hapi.Request, reply: any): void {
@@ -120,14 +111,13 @@ export function post (request: Hapi.Request, reply: any): void {
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
 		successRedirect: string,
-		context: LoginViewContext = getLoginContext(request, redirect),
+		context: LoginViewContext = getLoginViewContext(request, redirect),
 		ttl = 1.57785e10; // 6 months
 
 	// add cache buster value to the URL upon successful login
 	successRedirect = authUtils.getCacheBusterUrl(redirect);
 
 	authenticate(credentials.username, credentials.password, (err: Boom.BoomError, response: HeliosResponse) => {
-
 		if (err) {
 			context.formErrorKey = getFormErrorKey(err.output.statusCode);
 			context.exitTo = redirect;
@@ -144,15 +134,6 @@ export function post (request: Hapi.Request, reply: any): void {
 
 		// set unencrypted cookie that can be read by all apps (i.e. MW and Mercury) HG-631
 		reply.state('access_token', response.access_token, {ttl: ttl});
-
-		// set session cookie via hapi-auth-cookie
-		request.auth.session.set({
-			'sid'  : response.access_token
-		});
-
-		// Set cookie TTL for "remember me" period of 6 months
-		// TODO: Helios service should control the length of auth session
-		request.auth.session.ttl(ttl);
 
 		reply.state('wikicitiesUserID', response.user_id, {ttl: ttl});
 

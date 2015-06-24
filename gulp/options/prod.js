@@ -50,8 +50,8 @@ module.exports = {
 		}
 	},
 	replace: {
-		selector: '**/layout.hbs',
+		selector: '**/*.hbs',
 		find: '/front/',
-		replace: '{{server.cdnBaseUrl}}/front/'
+		replace: '{{server.cdnBaseUrl}}/mercury-static/'
 	}
 };

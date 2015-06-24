@@ -40,8 +40,13 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	// the second argument is a whitelist of acceptable parameter names
-	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals']);
+	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
+
 	result.weppyConfig = localSettings.weppy;
+	if (typeof result.queryParams.buckySampling === 'number') {
+		result.weppyConfig.samplingRate = result.queryParams.buckySampling / 100;
+	}
+
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
 }
 
