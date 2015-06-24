@@ -8,11 +8,11 @@ App.LoginIconComponent = Em.Component.extend({
 	classNames: ['external', 'login'],
 
 	click: function (): void {
-		var label,
-			href;
+		var label: string,
+			href: string;
 
 		if (Mercury.wiki.enableNewAuth) {
-			label='join-link';
+			label = 'join-link';
 			href = '/join?redirect=' + encodeURIComponent(window.location.href);
 		} else {
 			label = 'legacy-login-link';
