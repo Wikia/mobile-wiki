@@ -19,7 +19,6 @@ interface FormElements extends HTMLCollection {
 }
 
 class Login {
-	credentials: LoginCredentials;
 	form: HTMLFormElement;
 	redirect: string;
 	usernameInput: HTMLInputElement;

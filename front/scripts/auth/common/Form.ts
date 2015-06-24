@@ -15,7 +15,7 @@ class Form {
 			wrapper: HTMLElement,
 			label: HTMLElement;
 
-		if (input.type === 'checkbox') {
+		if (['checkbox', 'submit'].indexOf(input.type) !== -1) {
 			return;
 		}
 
