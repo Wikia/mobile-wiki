@@ -7,12 +7,7 @@
 
 		if (document.querySelector('small.error') !== null) {
 			// An error occurred while logging in
-			M.track({
-				trackingMethod: 'ga',
-				action: Mercury.Utils.trackActions.error,
-				category: 'user-login-mobile',
-				label: 'login'
-			});
+			track('login', Mercury.Utils.trackActions.error);
 		}
 	});
 
@@ -31,43 +26,57 @@
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
-	function track (element: HTMLElement, label: string, action = Mercury.Utils.trackActions.click): void {
+	function trackClick (element: HTMLElement, label: string, action = Mercury.Utils.trackActions.click): void {
 		if (!element) {
 			return;
 		}
 
 		element.addEventListener('click', function (): void {
-			M.track({
-				trackingMethod: 'ga',
-				action: action,
-				category: 'user-login-mobile',
-				label: label
-			});
+			track(label, action);
 		})
+	}
+
+	function trackSubmit (form: HTMLFormElement, label: string): void {
+		if (!form) {
+			return;
+		}
+
+		form.addEventListener('submit', function (): void {
+			track(label, M.trackActions.submit);
+		});
+	}
+
+	function track (label: string, action: string) {
+		M.track({
+			trackingMethod: 'ga',
+			action: action,
+			category: 'user-login-mobile',
+			label: label
+		});
 	}
 
 	function setTrackingForLoginPage (): void {
 		// Click "Sign In" button
-		track(
-			<HTMLElement> document.getElementById('loginSubmit'),
+		trackSubmit(
+			<HTMLFormElement> document.getElementById('loginForm'),
 			'login-submit'
 		);
 
 		// Click X to "close" log-in form
-		track(
+		trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'login-modal',
 			Mercury.Utils.trackActions.close
 		);
 
 		// Click "Forgot Password" link
-		track(
+		trackClick(
 			<HTMLElement> document.querySelector('.forgotten-password'),
 			'forgot-password-link'
 		);
 
 		// Click "Register Now" link
-		track(
+		trackClick(
 			<HTMLElement> document.querySelector('.footer-callout-link'),
 			'register-link'
 		);
@@ -75,19 +84,19 @@
 
 	function setTrackingForJoinPage(): void {
 		// Click "Register With Email" button
-		track(
+		trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-email'),
 			'register-email-button'
 		);
 
 		// Click "Sign in" link on the bottom of the page
-		track(
+		trackClick(
 			<HTMLElement> document.querySelector('.footer-callout-link'),
 			'sign-in-link'
 		);
 
 		// Click X to "close" /join page
-		track(
+		trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'join-close-button',
 			Mercury.Utils.trackActions.close
