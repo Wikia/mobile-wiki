@@ -2,7 +2,9 @@
 'use strict';
 
 App.MainPageComponent = Em.Component.extend({
-	classNames: ['main-page-modules'],
+	classNames: ['main-page-modules', 'main-page-body', 'mw-content'],
+	tagName: 'section',
+
 	featuredContentComponentVariation: Em.computed(function (): string {
 		var experimentIds = {
 				prod: '3079180094',
@@ -21,6 +23,12 @@ App.MainPageComponent = Em.Component.extend({
 				return 'featured-content';
 		}
 	}),
+
+	actions: {
+		openLightbox: function (lightboxType: string, lightboxData: any): void {
+			this.sendAction('openLightbox', lightboxType, lightboxData);
+		}
+	},
 
 	didInsertElement: function(): void {
 		M.track({
