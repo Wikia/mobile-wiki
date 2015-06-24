@@ -18,8 +18,6 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		return reply.redirect(redirectUrl);
 	}
 
-	console.log(request);
-
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
