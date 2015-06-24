@@ -39,7 +39,8 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			footerCalloutLink: 'auth:common.login-link-text',
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
-			passwordMaxLength: localSettings.helios.passwordMaxLength
+			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			bodyClasses: 'signup-page'
 		}
 	);
 

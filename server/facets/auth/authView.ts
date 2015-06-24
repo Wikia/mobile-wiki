@@ -1,6 +1,7 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 import caching = require('../../lib/Caching');
+import localSettings = require('../../../config/localSettings');
 
 module authView {
 	export interface AuthViewContext {
@@ -16,6 +17,7 @@ module authView {
 		headerText?: string;
 		bodyClasses?: string;
 		noScripts?: boolean;
+		trackingConfig?: any;
 	}
 
 	export function view (template: string, context: AuthViewContext, request: Hapi.Request, reply: any): Hapi.Response {
@@ -46,7 +48,8 @@ module authView {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
-			language: request.server.methods.i18n.getInstance().lng()
+			language: request.server.methods.i18n.getInstance().lng(),
+			trackingConfig: localSettings.tracking
 		};
 	}
 }

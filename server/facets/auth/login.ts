@@ -11,20 +11,25 @@ interface LoginViewContext extends authView.AuthViewContext {
 	heliosLoginURL: string;
 }
 
+function getLoginViewContext (request: Hapi.Request, redirect: string): LoginViewContext {
+	return deepExtend(
+		authView.getDefaultContext(request),
+		{
+			title: 'auth:login.login-title',
+			headerText: 'auth:login.welcome-back',
+			footerCallout: 'auth:login.register-callout',
+			footerCalloutLink: 'auth:login.register-now',
+			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+			bodyClasses: 'login-page',
+			heliosLoginURL: localSettings.helios.host + '/token'
+		}
+	);
+}
+
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
-		context: LoginViewContext = deepExtend(
-			authView.getDefaultContext(request),
-			{
-				title: 'auth:login.login-title',
-				headerText: 'auth:login.welcome-back',
-				footerCallout: 'auth:login.register-callout',
-				footerCalloutLink: 'auth:login.register-now',
-				footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-				forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-				heliosLoginURL: localSettings.helios.host + '/token'
-			}
-		);
+		context: LoginViewContext = getLoginViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
