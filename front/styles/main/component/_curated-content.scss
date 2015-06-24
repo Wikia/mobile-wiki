@@ -3,6 +3,7 @@ $top-nav-line-height: 26px;
 $back-button-size: $top-nav-line-height;
 $back-button-padding: 10px;
 $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
+$grid-icon-size: 22px;
 
 .curated-content {
 	margin: 0 0 2rem;
@@ -76,18 +77,18 @@ $back-button-with-padding-size: $back-button-size + 2 * $back-button-padding;
 				background: rgba(0, 0, 0, .4);
 				border-radius: 100px 0 0;
 				height: 50px;
-				right: 0;
 				text-align: center;
 				width: 50px;
 			}
 
 			svg {
+				bottom: 10px;
 				fill: $white;
-				height: 17px;
-				margin-left: 10px;
-				margin-top: 21px;
+				height: $grid-icon-size;
+				position: absolute;
+				right: 10px;
 				stroke: $white;
-				width: 17px;
+				width: $grid-icon-size;
 			}
 		}
 	}
