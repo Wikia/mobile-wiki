@@ -13,13 +13,14 @@
  * 	<use xlink:href="#chevron"></use>
  * </svg>
  */
-Em.Handlebars.registerHelper('svg', function (name: string, options: any) {
+Em.Handlebars.registerBoundHelper('svg', function (name: any, options: any) {
 	var optionalParams = [
 			'class',
 			'role',
 			'viewBox'
 		],
 		ret = '<svg';
+
 	optionalParams.forEach(function (param: string) {
 		if (param in options.hash) {
 			ret += " " + param + '="' + options.hash[param] + '"';
