@@ -1,3 +1,23 @@
+## release-95 (2015-06-24 12:38 UTC)
+* [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) HG-734 Replace assets path for ember-main.hbs only
+* fix-login-view-context: Always obtain LoginViewContext for /login
+
+## release-94 (2015-06-24 10:45 UTC)
+* [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) Replace /front string in templates with cdn path
+* [HG-768](https://wikia-inc.atlassian.net/browse/HG-768) HG-768 adding query string param for bucky sampling
+* [SOC-895](https://wikia-inc.atlassian.net/browse/SOC-895) SOC-895 | Introduce AuthView + canonicalUrl for Auth pages
+* task-update: Task update
+* [SOC-798](https://wikia-inc.atlassian.net/browse/SOC-798) SOC-798 | Introduce Helios authorization
+
+## release-93 (2015-06-23 10:59 UTC)
+* [CONCF-674](https://wikia-inc.atlassian.net/browse/CONCF-674) CONCF-674 Open videos in lightbox
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 changes for user login url after reverting the first merge
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - made lazy load image processing async
+* feature-HG-761: HG-761 adding first content perf tracking and sending weppy in dev env
+* [CONCF-673](https://wikia-inc.atlassian.net/browse/CONCF-673) CONCF-673 Use 'standard' video object to render trending videos
+* [CONCF-540](https://wikia-inc.atlassian.net/browse/CONCF-540) CONCF-540 Hide bullet when there is only one element in featured content
+* [CONCF-685](https://wikia-inc.atlassian.net/browse/CONCF-685) CONCF-653 | featured content experiments on curated main pages
+
 ## release-92 (2015-06-22 10:35 UTC)
 * [SOC-705](https://wikia-inc.atlassian.net/browse/SOC-705) SOC-705 Drop-down menu for logged-in users
 

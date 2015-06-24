@@ -50,7 +50,10 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.Tra
 		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
 	},
 
-	click: function (): void {
+	click: function (): boolean {
 		this.trackClick('modular-main-page', 'trending-videos');
+
+		this.sendAction('action', this.get('video'));
+		return false;
 	}
 });
