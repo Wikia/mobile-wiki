@@ -15,5 +15,13 @@ App.LoginIconComponent = Em.Component.extend({
 		} else {
 			window.location.href = '/Special:UserLogin';
 		}
+	},
+
+	getUselangParam: function (): string {
+		var lang: string = Mercury.wiki.language.content;
+		if (!lang || lang === 'en') {
+			return ''
+		}
+		return '&uselang=' + encodeURIComponent(lang);
 	}
 });

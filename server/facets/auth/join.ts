@@ -23,7 +23,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		{
 			title: 'auth:join.title',
 			facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
-			loginRoute: authUtils.getNewLoginUrl(request),
+			loginRoute: authUtils.getLoginUrl(request),
 			hideHeader: true,
 			hideFooter: true,
 			bodyClasses: 'splash auth-landing-page',

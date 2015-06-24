@@ -29,11 +29,11 @@ export function getLoginUrlFromRedirect(redirect: string): string {
 	return url.format(forgotPasswordUrlObj);
 }
 
-export function getNewLoginUrl(request: Hapi.Request): string {
+export function getLoginUrl(request: Hapi.Request): string {
 	return '/login' + request.url.search;
 }
 
-export function getNewSignupUrl(request: Hapi.Request): string {
+export function getSignupUrl(request: Hapi.Request): string {
 	return '/signup' + request.url.search;
 }
 
