@@ -35,7 +35,6 @@ interface LoginViewContext extends authView.AuthViewContext {
 	headerText: string;
 	forgotPasswordHref?: string;
 	formErrorKey?: string;
-	trackingConfig?: any;
 }
 
 function authenticate (username: string, password: string, callback: AuthCallbackFn): void {
@@ -90,7 +89,6 @@ function getLoginViewContext (request: Hapi.Request, redirect: string): LoginVie
 			footerCalloutLink: 'auth:login.register-now',
 			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-			trackingConfig: localSettings.tracking,
 			bodyClasses: 'login-page'
 		}
 	);

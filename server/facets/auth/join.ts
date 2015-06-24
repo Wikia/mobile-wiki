@@ -9,7 +9,6 @@ interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
 	facebookConnectHref: string;
 	signupHref: string;
-	trackingConfig: any;
 }
 
 function get (request: Hapi.Request, reply: any): Hapi.Response {
@@ -31,8 +30,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			bodyClasses: 'splash auth-landing-page',
 			noScripts: true,
 			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
-			bodyClasses: 'splash join-page',
-			trackingConfig: localSettings.tracking
+			bodyClasses: 'splash join-page'
 		}
 	);
 
