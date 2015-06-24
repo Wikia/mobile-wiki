@@ -21,7 +21,8 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 				footerCallout: 'auth:login.register-callout',
 				footerCalloutLink: 'auth:login.register-now',
 				footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-				forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+				forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+				heliosLoginURL: localSettings.helios.host + '/token'
 			}
 		);
 
