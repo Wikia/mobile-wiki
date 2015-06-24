@@ -50,12 +50,34 @@ class Login {
 			if (response.error) {
 				// Helios may return an error even if the request returns a 200
 				this.displayError('errors.wrong-credentials');
+
+				// An error occurred while logging in
+				M.track({
+					trackingMethod: 'ga',
+					action: Mercury.Utils.trackActions.error,
+					category: 'user-login-mobile',
+					label: 'login-error'
+				});
 			} else {
+				M.track({
+					trackingMethod: 'ga',
+					action: Mercury.Utils.trackActions.submit,
+					category: 'user-login-mobile',
+					label: 'login-success'
+				});
+
 				window.location.href = this.redirect;
 			}
 		};
 
 		xhr.onerror = (): void => {
+			M.track({
+				trackingMethod: 'ga',
+				action: Mercury.Utils.trackActions.error,
+				category: 'user-login-mobile',
+				label: 'login-server-error'
+			});
+
 			this.displayError('common.server-error');
 		};
 

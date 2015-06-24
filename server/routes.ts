@@ -152,7 +152,7 @@ articlePagePaths.forEach((path) => {
 		method: 'GET',
 		path: path,
 		handler: require('./facets/showArticle'),
-		config:{
+		config: {
 			cache: routeCacheConfig
 		}
 	});
