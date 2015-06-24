@@ -54,6 +54,7 @@ class SignupForm {
 			specialFieldContainer: HTMLElement;
 		input.parentNode.appendChild(errorNode);
 		if (specialFieldContainer = <HTMLElement> (<HTMLElement> input.parentNode).querySelector('.input')) {
+			// Special case when we imitate input on UI using containers. eg. Birthdate input filed
 			specialFieldContainer.classList.add('error');
 		} else {
 			input.classList.add('error');
