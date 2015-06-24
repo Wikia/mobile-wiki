@@ -9,6 +9,7 @@
     "username_exceeds_max_length":"Oops, your username can't be more than 50 characters.",
     "username_illegal_characters":"Oops, your username can only contain letters and numbers from a single alphabet and must include at least one letter. Please try another name.",
     "password_exceeds_max_length":"Oops, your password is too long. Please choose a password that's 50 characters or less.",
-    "password_equal_name":"Your password must be different from your username."
+    "password_equal_name":"Your password must be different from your username.",
+    "wrong-credentials":"Hm, we don't recognize these credentials. Please try again or register a new account."
   }
 }

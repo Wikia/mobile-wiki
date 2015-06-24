@@ -9,6 +9,7 @@
     "username_exceeds_max_length":"Sorry, dein Benutzername darf nicht mehr als 50 Zeichen haben.",
     "username_illegal_characters":"Sorry, dein Benutzername kann nur aus Buchstaben und Zahlen eines einzelnen Alphabets bestehen und es muss mindestens ein Buchstabe darin enthalten sein. Versuche es bitte mit einem anderen Namen.",
     "password_exceeds_max_length":"Sorry, dein Passwort ist zu lang. Verwende bitte ein Passwort, das nicht mehr als 50 Zeichen umfasst.",
-    "password_equal_name":"Dein Passwort und dein Benutzername dürfen nicht übereinstimmen."
+    "password_equal_name":"Dein Passwort und dein Benutzername dürfen nicht übereinstimmen.",
+    "wrong-credentials":"Diese Anmeldedaten sind uns leider nicht bekannt. Versuche es bitte noch einmal oder richte ein neues Benutzerkonto ein."
   }
 }

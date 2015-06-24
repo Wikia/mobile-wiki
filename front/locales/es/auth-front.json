@@ -9,6 +9,7 @@
     "username_exceeds_max_length":"¡Huy! Tu nombre de usuario no puede tener más de 50 caracteres.",
     "username_illegal_characters":"¡Huy! Tu nombre de usuario solo puede contener letras y números a partir de un alfabeto único y debe incluir al menos una letra. Por favor intenta con otro nombre.",
     "password_exceeds_max_length":"¡Huy! Tu contraseña es demasiado larga. Elige una contraseña de 50 caracteres o menos.",
-    "password_equal_name":"Tu contraseña debe ser diferente de tu nombre de usuario."
+    "password_equal_name":"Tu contraseña debe ser diferente de tu nombre de usuario.",
+    "wrong-credentials":"No reconocemos estas credenciales. Por favor inténtalo de nuevo o registra una nueva cuenta."
   }
 }

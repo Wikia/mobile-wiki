@@ -2,6 +2,7 @@
   "errors" : {
     "email_already_exists": "已在Wikia注册了电子邮件",
     "email_invalid": "电子邮件无效",
-    "registration_error": "我们暂时无法完成您的注册"
+    "registration_error": "我们暂时无法完成您的注册",
+    "wrong-credentials":"嗯，我们无法识别这些凭据。请重试或注册一个新账户。"
   }
 }

@@ -9,6 +9,7 @@
     "username_exceeds_max_length":"Opa, seu nome de usuário não pode ter mais de 50 caracteres.",
     "username_illegal_characters":"Opa, seu nome de usuário pode conter somente letras e números de um único alfabeto e deve incluir pelo menos uma letra. Por favor, tente outro nome.",
     "password_exceeds_max_length":"Opa, sua senha é muito longa. Por favor, escolha uma senha de até 50 caracteres.",
-    "password_equal_name":"Sua senha deve ser diferente do seu nome de usuário."
+    "password_equal_name":"Sua senha deve ser diferente do seu nome de usuário.",
+    "wrong-credentials":"Não reconhecemos essas credenciais. Por favor, tente novamente ou registre-se com uma nova conta."
   }
 }

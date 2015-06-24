@@ -9,6 +9,7 @@
     "username_exceeds_max_length":"抱歉，您的用户名不能超过50个字符。",
     "username_illegal_characters":"您的用户名只能包含单一字母表中的字母和数字，而且必须含一个字母。请尝试其他用户名。",
     "password_exceeds_max_length":"抱歉，密码太长。密码最多可有50个字符。",
-    "password_equal_name":"您的密码必须与您的用户名不同。"
+    "password_equal_name":"您的密码必须与您的用户名不同。",
+    "wrong-credentials":"嗯，我们无法识别这些凭据。请重试或注册一个新账户。"
   }
 }
