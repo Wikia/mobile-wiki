@@ -29,6 +29,14 @@ export function getLoginUrlFromRedirect(redirect: string): string {
 	return url.format(forgotPasswordUrlObj);
 }
 
+export function getNewLoginUrl(request: Hapi.Request): string {
+	return '/login' + request.url.search;
+}
+
+export function getNewSignupUrl(request: Hapi.Request): string {
+	return '/signup' + request.url.search;
+}
+
 export function getCacheBusterUrl(redirect: string): string {
 	var cacheBustedUrlObj = url.parse(redirect),
 		query = querystring.parse(cacheBustedUrlObj.query);

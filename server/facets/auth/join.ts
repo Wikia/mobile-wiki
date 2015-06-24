@@ -18,12 +18,14 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		return reply.redirect(redirectUrl);
 	}
 
+	console.log(request);
+
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
 			title: 'auth:join.title',
 			facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
-			loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
+			loginRoute: authUtils.getNewLoginUrl(request),
 			hideHeader: true,
 			hideFooter: true,
 			bodyClasses: 'splash auth-landing-page',
