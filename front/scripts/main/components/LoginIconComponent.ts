@@ -11,7 +11,7 @@ App.LoginIconComponent = Em.Component.extend({
 		if (Mercury.wiki.enableNewAuth) {
 			window.location.href = '/join?redirect=' +
 			encodeURIComponent(window.location.href) +
-			'&uselang=' + Mercury.wiki.language.content || 'en';
+			this.getUselangParam();
 		} else {
 			window.location.href = '/Special:UserLogin';
 		}
