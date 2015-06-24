@@ -130,8 +130,6 @@ export class ArticleRequest extends BaseRequest {
 			controller: 'ArticlesApi',
 			method: 'getList',
 			expand: 'true',
-			// Articles and subcategories
-			namespaces: '0,14',
 			abstract: 0,
 			width: thumbSize.width,
 			height: thumbSize.height,
