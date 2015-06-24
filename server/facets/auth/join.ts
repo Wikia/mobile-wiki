@@ -3,7 +3,7 @@ import authUtils = require('../../lib/AuthUtils');
 import caching = require('../../lib/Caching');
 import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
-import deepExtend = require('deep-extend');
+var deepExtend = require('deep-extend');
 
 interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
