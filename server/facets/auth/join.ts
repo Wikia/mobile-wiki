@@ -32,7 +32,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		hideHeader: true,
 		hideFooter: true,
 		exitTo: redirectUrl,
-		bodyClasses: 'splash auth-landing-page',
+		bodyClasses: 'splash join-page',
 		signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
 		language: request.server.methods.i18n.getInstance().lng(),
 		trackingConfig: localSettings.tracking

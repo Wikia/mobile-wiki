@@ -55,7 +55,8 @@ function getLoginContext (request: Hapi.Request, redirect: string): LoginViewCon
 		exitTo: redirect,
 		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-		trackingConfig: localSettings.tracking
+		trackingConfig: localSettings.tracking,
+		bodyClasses: 'login-page'
 	};
 }
 

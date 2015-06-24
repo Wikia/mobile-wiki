@@ -16,9 +16,8 @@
 		}
 	});
 
-	function isJoinPage(): boolean {
-		//Join is the only page without any forms so far
-		return document.querySelector('.auth-landing-page');
+	function checkPageType (pageType: string): boolean {
+		return (document.body.className.indexOf(pageType) !== -1);
 	}
 
 	function setTrackingDimensions (): void {
@@ -32,84 +31,73 @@
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
+	function track (element: HTMLElement, label: string, action = Mercury.Utils.trackActions.click): void {
+		if (!element) {
+			return;
+		}
+
+		element.addEventListener('click', function (): void {
+			M.track({
+				trackingMethod: 'ga',
+				action: action,
+				category: 'user-login-mobile',
+				label: label
+			});
+		})
+	}
+
 	function setTrackingForLoginPage(): void {
 		// Click "Sign In" button
-		document.getElementById('loginSubmit').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: Mercury.Utils.trackActions.click,
-				category: 'user-login-mobile',
-				label: 'login-submit'
-			});
-		});
+		track(
+			<HTMLElement> document.getElementById('loginSubmit'),
+			'login-submit'
+		);
 
 		// Click X to "close" log-in form
-		document.querySelector('.close').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: Mercury.Utils.trackActions.close,
-				category: 'user-login-mobile',
-				label: 'login-modal'
-			});
-		});
+		track(
+			<HTMLElement> document.querySelector('.close'),
+			'login-modal',
+			Mercury.Utils.trackActions.close
+		);
 
 		// Click "Forgot Password" link
-		document.querySelector('.forgotten-password').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: Mercury.Utils.trackActions.click,
-				category: 'user-login-mobile',
-				label: 'forgot-password-link'
-			});
-		});
+		track(
+			<HTMLElement> document.querySelector('.forgotten-password'),
+			'forgot-password-link'
+		);
 
 		// Click "Register Now" link
-		document.querySelector('.footer-callout-link').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: M.trackActions.click,
-				category: 'user-login-mobile',
-				label: 'register-link'
-			});
-		});
+		track(
+			<HTMLElement> document.querySelector('.footer-callout-link'),
+			'register-link'
+		);
 	}
 
 	function setTrackingForJoinPage(): void {
 		// Click "Register With Email" button
-		document.querySelector('.signup-provider-email').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: M.trackActions.click,
-				category: 'user-login-mobile',
-				label: 'register-email-button'
-			});
-		});
+		track(
+			<HTMLElement> document.querySelector('.signup-provider-email'),
+			'register-email-button'
+		);
 
 		// Click "Sign in" link on the bottom of the page
-		document.querySelector('.footer-callout-link').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga'	,
-				action: M.trackActions.click,
-				category: 'user-login-mobile',
-				label: 'sign-in-link'
-			});
-		});
+		track(
+			<HTMLElement> document.querySelector('.footer-callout-link'),
+			'sign-in-link'
+		);
 
 		// Click X to "close" /join page
-		document.querySelector('.close').addEventListener('click', (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: Mercury.Utils.trackActions.close,
-				category: 'user-login-mobile',
-				label: 'join-close-button'
-			});
-		});
+		track(
+			<HTMLElement> document.querySelector('.close'),
+			'join-close-button',
+			Mercury.Utils.trackActions.close
+		);
 	}
 
 	function init(): void {
-		if (isJoinPage()) {
+		if (checkPageType('join-page')) {
 			setTrackingForJoinPage()
-		} else {
+		} else if (checkPageType('login-page')) {
 			setTrackingForLoginPage();
 		}
 	}

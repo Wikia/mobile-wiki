@@ -43,7 +43,8 @@ export function get (request: Hapi.Request, reply: any): void {
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		footerCallout: 'auth:common.login-callout',
 		footerCalloutLink: 'auth:common.login-link-text',
-		birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData()
+		birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
+		bodyClasses: 'signup-page'
 	};
 
 	return reply.view('signup', context, {
