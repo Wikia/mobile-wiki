@@ -104,7 +104,7 @@ export function post (request: Hapi.Request, reply: any): void {
 	var credentials: any = request.payload,
 		requestedWithHeader: string = request.headers['x-requested-with'],
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
-		redirect: string = request.query.redirect || '/',
+		redirect: string = authView.getRedirectUrl(request),
 		successRedirect: string,
 		context: LoginViewContext,
 		ttl = 1.57785e10; // 6 months
