@@ -185,12 +185,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel): void {
-		var $mediaPlaceholders = this.$('.article-media'),
-			index: number;
+		var $mediaPlaceholders = this.$('.article-media');
 
-		for (index = 0; index < $mediaPlaceholders.length; index++) {
-			$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
-		}
+		$mediaPlaceholders.each((index: number, element: HTMLImageElement): void => {
+				$(element).replaceWith(this.createMediaComponent(element, model));
+		});
 	},
 
 	setupEditButtons: function (): void {
