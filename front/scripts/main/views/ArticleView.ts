@@ -188,7 +188,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		var $mediaPlaceholders = this.$('.article-media');
 
 		$mediaPlaceholders.each((index: number, element: HTMLImageElement): void => {
-				$(element).replaceWith(this.createMediaComponent(element, model));
+			$(element).replaceWith(this.createMediaComponent(element, model));
 		});
 	},
 
