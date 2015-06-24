@@ -47,7 +47,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		result.weppyConfig.samplingRate = result.queryParams.buckySampling / 100;
 	}
 
-	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
+	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : undefined;
 }
 
 export = prepareArticleData;

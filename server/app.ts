@@ -112,12 +112,6 @@ server.state('access_token', {
 	domain: localSettings.authCookieDomain
 });
 
-// Contains user ID, same name as cookie from MediaWiki app
-server.state('wikicitiesUserID', {
-	isHttpOnly: true,
-	domain: localSettings.authCookieDomain
-});
-
 // instantiate routes
 server.route(require('./routes'));
 

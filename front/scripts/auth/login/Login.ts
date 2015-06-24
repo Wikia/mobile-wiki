@@ -87,7 +87,7 @@ class Login {
 		}
 
 		// Match the querystring in the URI path
-		query = <Array> path.match(/\?.+/);
+		query = <string[]> path.match(/\?.+/);
 
 		cachebustedParam = 'cb=' + new Date().getTime();
 
