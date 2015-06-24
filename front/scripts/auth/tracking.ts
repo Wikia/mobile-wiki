@@ -46,7 +46,7 @@
 		})
 	}
 
-	function setTrackingForLoginPage(): void {
+	function setTrackingForLoginPage (): void {
 		// Click "Sign In" button
 		track(
 			<HTMLElement> document.getElementById('loginSubmit'),
@@ -94,7 +94,7 @@
 		);
 	}
 
-	function init(): void {
+	function init (): void {
 		if (checkPageType('join-page')) {
 			setTrackingForJoinPage()
 		} else if (checkPageType('login-page')) {
