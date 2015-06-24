@@ -1,3 +1,7 @@
+## release-95 (2015-06-24 12:38 UTC)
+* [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) HG-734 Replace assets path for ember-main.hbs only
+* fix-login-view-context: Always obtain LoginViewContext for /login
+
 ## release-94 (2015-06-24 10:45 UTC)
 * [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) Replace /front string in templates with cdn path
 * [HG-768](https://wikia-inc.atlassian.net/browse/HG-768) HG-768 adding query string param for bucky sampling
