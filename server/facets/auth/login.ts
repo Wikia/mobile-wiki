@@ -1,46 +1,33 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 import authUtils = require('../../lib/AuthUtils');
 import localSettings = require('../../../config/localSettings');
+import authView = require('./authView');
+var deepExtend = require('deep-extend');
 
-interface LoginViewContext {
-	title: string;
+interface LoginViewContext extends authView.AuthViewContext {
 	headerText: string;
-	footerCallout: string;
-	footerCalloutLink: string;
-	language: string;
-	footerHref?: string;
 	forgotPasswordHref?: string;
-	hideHeader?: boolean;
-	hideFooter?: boolean;
-	exitTo?: string;
-	bodyClasses?: string;
 	formErrorKey?: string;
 	heliosLoginURL: string;
 }
 
-function getLoginContext (request: Hapi.Request, redirect: string): LoginViewContext {
-	return <LoginViewContext> {
-		title: 'auth:login.login-title',
-		headerText: 'auth:login.welcome-back',
-		footerCallout: 'auth:login.register-callout',
-		footerCalloutLink: 'auth:login.register-now',
-		exitTo: redirect,
-		footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-		forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-		heliosLoginURL: localSettings.helios.host + '/token',
-		language: request.server.methods.i18n.getInstance().lng()
-	};
-}
-
-export function get (request: Hapi.Request, reply: any): void {
-	var redirect: string = request.query.redirect || '/',
-		context: LoginViewContext = getLoginContext(request, redirect);
+export function get (request: Hapi.Request, reply: any): Hapi.Response {
+	var redirect: string = authView.getRedirectUrl(request),
+		context: LoginViewContext = deepExtend(
+			authView.getDefaultContext(request),
+			{
+				title: 'auth:login.login-title',
+				headerText: 'auth:login.welcome-back',
+				footerCallout: 'auth:login.register-callout',
+				footerCalloutLink: 'auth:login.register-now',
+				footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+				forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+			}
+		);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
 	}
 
-	return reply.view('login', context, {
-		layout: 'auth'
-	});
+	return authView.view('login', context, request, reply);
 }

@@ -33,6 +33,7 @@ App.ApplicationView = Em.View.extend({
 
 	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
+	userMenuCollapsed: Em.computed.alias('controller.userMenuCollapsed'),
 	alertNotifications: Em.computed.alias('controller.alertNotifications'),
 	noScroll: Em.computed.alias('controller.noScroll'),
 	scrollLocation: null,
@@ -42,6 +43,17 @@ App.ApplicationView = Em.View.extend({
 
 		// A/B test spinner (HG-727)
 		$('.ab-test-loading-overlay').remove();
+	},
+
+	didInsertElement: function (): void {
+		this.trackFirstContent();
+	},
+
+	trackFirstContent: function () {
+		M.trackPerf({
+			name: 'firstContent',
+			type: 'mark'
+		});
 	},
 
 	/**

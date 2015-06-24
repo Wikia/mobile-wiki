@@ -1,48 +1,47 @@
+/// <reference path='../../../typings/hapi/hapi.d.ts' />
+/// <reference path='./BirthdateInput.ts' />
 /// <reference path='../../../config/localSettings.d.ts' />
-import localSettings = require('../../../config/localSettings');
 
-interface SignupViewContext {
-	title: string;
-	language: string;
+import BirthdateInput = require('./BirthdateInput');
+import dateUtils = require('../../lib/DateUtils');
+import localSettings = require('../../../config/localSettings');
+import authView = require('./authView');
+var deepExtend = require('deep-extend');
+
+interface SignupViewContext extends authView.AuthViewContext {
 	headerText?: string;
-	exitTo?: string;
-	bodyClasses?: string;
-	loadScripts?: boolean;
 	i18nContext?: any;
-	footerLinkRoute?: string;
-	footerCalloutText?: string;
-	footerCalloutLink?: string;
+	birthdateInputs: Array<InputData>;
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
-	footerHref?: string;
 	usernameMaxLength?: number;
 	passwordMaxLength?: number;
 }
 
-export function get (request: Hapi.Request, reply: any): void {
+export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: SignupViewContext,
-		redirectUrl: string = request.query.redirect || '/';
+		redirectUrl: string = authView.getRedirectUrl(request),
+		i18n = request.server.methods.i18n.getInstance(),
+		lang = i18n.lng();
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
 
-	context = {
-		exitTo: redirectUrl,
-		headerText: 'auth:join.sign-up-with-email',
-		heliosRegistrationURL: localSettings.helios.host + '/register',
-		usernameMaxLength: localSettings.helios.usernameMaxLength,
-		passwordMaxLength: localSettings.helios.passwordMaxLength,
-		title: 'auth:join.sign-up-with-email',
-		language: request.server.methods.i18n.getInstance().lng(),
-		loadScripts: true,
-		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
-		footerCallout: 'auth:common.login-callout',
-		footerCalloutLink: 'auth:common.login-link-text',
-		footerHref: '/login?redirect=' + encodeURIComponent(redirectUrl)
-	};
+	context = deepExtend(
+		authView.getDefaultContext(request),
+		{
+			headerText: 'auth:join.sign-up-with-email',
+			heliosRegistrationURL: localSettings.helios.host + '/register',
+			title: 'auth:join.sign-up-with-email',
+			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
+			footerCallout: 'auth:common.login-callout',
+			footerCalloutLink: 'auth:common.login-link-text',
+			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
+			usernameMaxLength: localSettings.helios.usernameMaxLength,
+			passwordMaxLength: localSettings.helios.passwordMaxLength
+		}
+	);
 
-	return reply.view('signup', context, {
-		layout: 'auth'
-	});
+	return authView.view('signup', context, request, reply);
 }
