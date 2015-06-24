@@ -1,6 +1,6 @@
 {
   "name": "Mercury",
-  "version": "0.0.0",
+  "version": "94.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
@@ -24,7 +24,6 @@
     "crumb": "4.0.3",
     "handlebars": "2.0.0",
     "hapi": "8.4.0",
-    "hapi-auth-cookie": "2.0.0",
     "hapi-i18next": "2.2.0",
     "hoek": "2.12.0",
     "i18next": "1.7.10",

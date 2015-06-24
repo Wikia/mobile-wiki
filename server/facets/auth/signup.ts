@@ -5,26 +5,20 @@
 import BirthdateInput = require('./BirthdateInput');
 import dateUtils = require('../../lib/DateUtils');
 import localSettings = require('../../../config/localSettings');
+import authView = require('./authView');
+var deepExtend = require('deep-extend');
 
-interface SignupViewContext {
-	title: string;
-	language: string;
+interface SignupViewContext extends authView.AuthViewContext {
 	headerText?: string;
-	exitTo?: string;
-	bodyClasses?: string;
-	loadScripts?: boolean;
 	i18nContext?: any;
-	footerLinkRoute?: string;
-	footerCalloutText?: string;
-	footerCalloutLink?: string;
 	birthdateInputs: Array<InputData>;
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
 }
 
-export function get (request: Hapi.Request, reply: any): void {
+export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: SignupViewContext,
-		redirectUrl: string = request.query.redirect || '/',
+		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance(),
 		lang = i18n.lng();
 
@@ -32,22 +26,19 @@ export function get (request: Hapi.Request, reply: any): void {
 		return reply.redirect(redirectUrl);
 	}
 
-	context = {
-		exitTo: redirectUrl,
-		headerText: 'auth:join.sign-up-with-email',
-		heliosRegistrationURL: localSettings.helios.host + '/register',
-		title: 'auth:join.sign-up-with-email',
-		language: request.server.methods.i18n.getInstance().lng(),
-		loadScripts: true,
-		termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
-		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
-		footerCallout: 'auth:common.login-callout',
-		footerCalloutLink: 'auth:common.login-link-text',
-		birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
-		bodyClasses: 'signup-page'
-	};
+	context = deepExtend(
+		authView.getDefaultContext(request),
+		{
+			headerText: 'auth:join.sign-up-with-email',
+			heliosRegistrationURL: localSettings.helios.host + '/register',
+			title: 'auth:join.sign-up-with-email',
+			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
+			footerCallout: 'auth:common.login-callout',
+			footerCalloutLink: 'auth:common.login-link-text',
+			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
+			bodyClasses: 'signup-page'
+		}
+	);
 
-	return reply.view('signup', context, {
-		layout: 'auth'
-	});
+	return authView.view('signup', context, request, reply);
 }
