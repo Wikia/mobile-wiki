@@ -80,21 +80,25 @@ function getFormErrorKey (statusCode: number): string {
 	return 'auth:common.server-error';
 }
 
+function getLoginViewContext (request: Hapi.Request, redirect: string): LoginViewContext {
+	return deepExtend(
+		authView.getDefaultContext(request),
+		{
+			title: 'auth:login.login-title',
+			headerText: 'auth:login.welcome-back',
+			footerCallout: 'auth:login.register-callout',
+			footerCalloutLink: 'auth:login.register-now',
+			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+			trackingConfig: localSettings.tracking,
+			bodyClasses: 'login-page'
+		}
+	);
+}
+
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
-		context: LoginViewContext = deepExtend(
-			authView.getDefaultContext(request),
-			{
-				title: 'auth:login.login-title',
-				headerText: 'auth:login.welcome-back',
-				footerCallout: 'auth:login.register-callout',
-				footerCalloutLink: 'auth:login.register-now',
-				footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-				forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-				trackingConfig: localSettings.tracking,
-				bodyClasses: 'login-page'
-			}
-		);
+		context: LoginViewContext = getLoginViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
@@ -109,7 +113,7 @@ export function post (request: Hapi.Request, reply: any): void {
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = request.query.redirect || '/',
 		successRedirect: string,
-		context: LoginViewContext,
+		context: LoginViewContext = getLoginViewContext(request, redirect),
 		ttl = 1.57785e10; // 6 months
 
 	// add cache buster value to the URL upon successful login
