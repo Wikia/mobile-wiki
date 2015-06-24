@@ -20,6 +20,7 @@ interface SignupViewContext {
 	birthdateInputs: Array<InputData>;
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
+	trackingConfig?: any;
 }
 
 export function get (request: Hapi.Request, reply: any): void {
@@ -43,7 +44,8 @@ export function get (request: Hapi.Request, reply: any): void {
 		footerLinkRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 		footerCallout: 'auth:common.login-callout',
 		footerCalloutLink: 'auth:common.login-link-text',
-		birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData()
+		birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
+		trackingConfig: localSettings.tracking
 	};
 
 	return reply.view('signup', context, {
