@@ -19,6 +19,7 @@ interface Window {
 declare var i18n: I18nextStatic;
 declare var EmPerfSender: any;
 declare var optimizely: any;
+declare var FastClick: any;
 
 var App: any = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -70,6 +71,10 @@ App.initializer({
 			resStore: loadedTranslations,
 			useLocalStorage: false
 		});
+
+		// FastClick disables the 300ms delay on iOS and some Android devices. It also uses clicks so that
+		// elements have access to :hover state
+		FastClick.attach(document.body);
 	}
 });
 

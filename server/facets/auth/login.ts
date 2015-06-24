@@ -88,7 +88,8 @@ function getLoginViewContext (request: Hapi.Request, redirect: string): LoginVie
 			footerCallout: 'auth:login.register-callout',
 			footerCalloutLink: 'auth:login.register-now',
 			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
-			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect)
+			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+			bodyClasses: 'login-page'
 		}
 	);
 }

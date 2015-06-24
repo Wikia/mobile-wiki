@@ -8,10 +8,24 @@ App.LoginIconComponent = Em.Component.extend({
 	classNames: ['external', 'login'],
 
 	click: function (): void {
+		var label: string,
+			href: string;
+
 		if (Mercury.wiki.enableNewAuth) {
-			window.location.href = '/join?redirect=' + encodeURIComponent(window.location.href);
+			label = 'join-link';
+			href = '/join?redirect=' + encodeURIComponent(window.location.href);
 		} else {
-			window.location.href = '/Special:UserLogin';
+			label = 'legacy-login-link';
+			href = '/Special:UserLogin';
 		}
+
+		M.track({
+			trackingMethod: 'ga',
+			action: M.trackActions.click,
+			category: 'user-login-mobile',
+			label: label
+		});
+
+		window.location.href = href;
 	}
 });
