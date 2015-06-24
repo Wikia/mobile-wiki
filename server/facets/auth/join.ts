@@ -36,7 +36,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		}
 	);
 
-	return authView.view('auth-landing-page', context, request, reply);
+	return authView.view('join-page', context, request, reply);
 }
 
 export = get;
