@@ -41,7 +41,7 @@ module HeliosSession {
 							reply.unstate('access_token');
 							return reply(Boom.unauthorized('Token not authorized by Helios'));
 						}
-						return reply.continue({credentials: {userId: response.user_id}});
+						return reply.continue({credentials: {userId: parsed.user_id}});
 					};
 
 				if (!accessToken) {

@@ -147,6 +147,7 @@ articlePagePaths.forEach((path) => {
 	unauthenticatedRoutes.push({
 		method: 'GET',
 		path: path,
+		config: authPageConfig,
 		handler: require('./facets/showArticle')
 	});
 });
