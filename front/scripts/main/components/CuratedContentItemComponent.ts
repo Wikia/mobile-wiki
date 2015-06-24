@@ -21,6 +21,24 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	href: Em.computed.oneWay('model.url'),
 	isArticle: Em.computed.equal('model.type', 'article'),
 
+	icon: Em.computed('type', function (): string {
+		var type = this.get('type'),
+			typesWithDedicatedIcon = ['category', 'video', 'image', 'blog'],
+			iconType: string;
+
+		if (typesWithDedicatedIcon.indexOf(type) > -1) {
+			iconType = type;
+		} else if (type === 'section') {
+			// Sections uses the same icon as category
+			iconType = 'category';
+		} else {
+			// Default icon
+			iconType = 'article';
+		}
+
+		return 'namespace-' + iconType;
+	}),
+
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	},
