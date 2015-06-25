@@ -37,13 +37,18 @@ class SignupForm {
 	}
 
 	private displayValidationErrors(errors: Array<HeliosError>): void {
+		var errorsDescriptions: Array = [];
+
 		Array.prototype.forEach.call( errors, (err: HeliosError): void => {
+			errorsDescriptions.push(err.description);
 			if (this.generalValidationErrors.indexOf(err.description) === -1) {
 				this.displayFieldValidationError(err);
 			} else {
 				this.displayGeneralError();
 			}
 		});
+
+		this.trackValidationErrors(errorsDescriptions.join(";"));
 	}
 
 	private displayFieldValidationError(err: HeliosError): void {
@@ -81,6 +86,15 @@ class SignupForm {
 			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
 			// TODO add langCode
 		};
+	}
+
+	private trackValidationErrors(errors: string): void {
+		M.track({
+			trackingMethod: 'ga',
+			action: M.trackActions.error,
+			category: 'user-signup-mobile',
+			label: "signupValidationErrors: " + errors,
+		});
 	}
 
 	private onSubmit(event: Event): void {
