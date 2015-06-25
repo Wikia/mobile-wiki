@@ -124,17 +124,38 @@ authenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/join',
-		handler: require('./facets/auth/join')
+		handler: require('./facets/auth/join'),
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
 	},
 	{
 		method: 'GET',
 		path: '/login',
-		handler: require('./facets/auth/login').get
+		handler: require('./facets/auth/login').get,
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
 	},
 	{
 		method: 'GET',
 		path: '/signup',
-		handler: require('./facets/auth/signup').get
+		handler: require('./facets/auth/signup').get,
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
 	},
 
 ];
