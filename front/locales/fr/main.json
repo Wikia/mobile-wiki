@@ -50,6 +50,10 @@
     "months-ago-label_plural":"il y a __count__ mois",
     "years-ago-label":"il y a un an",
     "years-ago-label_plural":"il y a __count__ ans",
+    "trending-label":"Tendance",
+    "videos-label":"Vidéos",
+    "photos-label":"Images",
+    "pages-label":"Pages",
     "username-anonymous":"Un contributeur sur Wikia",
     "smartbanner-store-ios":"Dans l'App Store",
     "smartbanner-store-android":"Sur Google Play",
@@ -69,6 +73,8 @@
     "edit-publish-error-blocked":"Vous ne pouvez plus faire de modifications.",
     "edit-publish-error-noedit":"Vous n'avez pas les permissions nécessaires pour modifier des pages sur ce wikia.",
     "edit-publish-error-noedit-anon":"Les utilisateurs anonymes ne peuvent pas modifier de pages.",
-    "edit-publish-error-protectedpage":"Vous n'avez pas la permission de modifier cette page."
+    "edit-publish-error-protectedpage":"Vous n'avez pas la permission de modifier cette page.",
+    "user-menu-profile":"Profil",
+    "user-menu-log-out":"Se déconnecter"
   }
 }
