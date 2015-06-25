@@ -55,32 +55,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	/**
-	 * @desc Determines if current image is an icon placed inside the infobox.
-	 * Icons are commonly used for the money, weight etc. values.
-	 * Main infobox images has the media.context field with 'infobox-big' value.
-	 */
-	isInfoboxIcon: Em.computed('media', {
-		get(): boolean {
-			var media: ArticleMedia = this.get('media'),
-				iconHeight: number,
-				width: number;
-
-			if (media.context === 'icon') {
-				iconHeight = this.get('infoboxIconSize.height');
-				width = Math.floor(iconHeight * media.width / media.height);
-				this.set('height', iconHeight);
-				this.set('width', width);
-				return true;
-			}
-			return false;
-		},
-		set(key: string, value: boolean): boolean {
-			this.set('isInfoboxIcon', value)
-			return value;
-		}
-	}),
-
-	/**
 	 * @desc caption for current media
 	 */
 	caption: Em.computed('media', {

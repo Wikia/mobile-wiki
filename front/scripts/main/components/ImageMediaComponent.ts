@@ -57,10 +57,9 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				width: number;
 
 			if (media) {
-				icon = this.get('isInfoboxIcon');
-				if (icon) {
+				if (media.context === 'icon') {
 					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
-					width = this.get('width');
+					width = Math.floor(this.get('infoboxIconSize.height') * media.width / media.height);
 				} else {
 					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
 					width = this.get('articleContent.width');
