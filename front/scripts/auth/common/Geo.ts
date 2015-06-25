@@ -10,7 +10,13 @@ class Geo {
 	country: string;
 
 	constructor () {
-		var geoCookie: GeoCookie = Cookie.get(this.cookieName);
-		this.country = geoCookie.country;
+		var geoCookie: string = Cookie.get(this.cookieName),
+			parsedGeoCookie: GeoCookie;
+		try {
+			parsedGeoCookie = JSON.parse(geoCookie);
+		} catch (e) {
+			parsedGeoCookie = {};
+		}
+		this.country = parsedGeoCookie.country;
 	}
 }
