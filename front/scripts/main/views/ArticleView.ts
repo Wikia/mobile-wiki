@@ -151,7 +151,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
-			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'));
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 3);
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
@@ -184,12 +184,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		return component.$().attr('data-ref', ref);
 	},
 
-	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel): void {
-		var $mediaPlaceholders = this.$('.article-media');
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
+		var $mediaPlaceholders = this.$('.article-media'),
+			index: number;
 
-		$mediaPlaceholders.each((index: number, element: HTMLImageElement): void => {
-			$(element).replaceWith(this.createMediaComponent(element, model));
-		});
+		if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
+			numberToProcess = $mediaPlaceholders.length;
+		}
+
+		for (index = 0; index < numberToProcess; index++) {
+		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
+		}
 	},
 
 	setupEditButtons: function (): void {
