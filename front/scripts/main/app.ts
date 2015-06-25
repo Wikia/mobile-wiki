@@ -163,6 +163,8 @@ App.initializer({
 		var geoCookie = $.cookie('Geo');
 		if (geoCookie) {
 			M.prop('geo', JSON.parse(geoCookie));
+		} else {
+			Ember.debug('Geo cookie is not set');
 		}
 	}
 });
