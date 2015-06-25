@@ -12,7 +12,7 @@ App.MainPageRoute = Em.Route.extend({
 		});
 	},
 
-	// TODO: Main page should has his own template, we shouldn't use article template
+	// TODO: Main page should has its own template, we shouldn't use article template
 	renderTemplate: function(controller, model) {
 		this.render('article', {
 			controller: 'article',
