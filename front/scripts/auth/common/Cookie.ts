@@ -14,6 +14,6 @@ class Cookie {
 				return decodeURIComponent(cookie.substring(cookieStart, cookieEnd));
 			}
 		}
-		return '';
+		return null;
 	}
 }

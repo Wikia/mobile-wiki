@@ -15,8 +15,14 @@ class Geo {
 		try {
 			parsedGeoCookie = JSON.parse(geoCookie);
 		} catch (e) {
+			parsedGeoCookie = null;
+		}
+
+		//Cookie can be either parsed incorrectly or set to null
+		if (!parsedGeoCookie) {
 			parsedGeoCookie = {};
 		}
+
 		this.country = parsedGeoCookie.country;
 	}
 
