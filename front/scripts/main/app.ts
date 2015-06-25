@@ -157,8 +157,8 @@ App.initializer({
 });
 
 App.initializer({
-	name: "geo",
-	after: "setupTracking",
+	name: 'geo',
+	after: 'setupTracking',
 	initialize(container: any, application: typeof App): void {
 		var geoCookie = $.cookie('Geo');
 		if (geoCookie) {
