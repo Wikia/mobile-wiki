@@ -35,10 +35,23 @@ class Login {
 
 	public onSubmit (event: Event): void {
 		var xhr = new XMLHttpRequest(),
-			postData: LoginCredentials = this.getCredentials();
+			postData: LoginCredentials = this.getCredentials(),
+			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
+			enableSubmitButton = () => {
+				submitButton.disabled = false;
+				submitButton.classList.remove('on');
+			};
+
+		event.preventDefault();
+		this.clearError();
+		submitButton.disabled = true;
+		submitButton.classList.add('on');
+
 
 		xhr.onload = (): void => {
 			var response: LoginResponse;
+
+			enableSubmitButton();
 
 			if (xhr.status !== 200) {
 				return this.displayError(xhr.status === 401 ? 'errors.wrong-credentials' : 'common.server-error');
@@ -77,14 +90,14 @@ class Login {
 				label: 'login-server-error'
 			});
 
+			enableSubmitButton();
+
 			this.displayError('common.server-error');
 		};
 
 		xhr.open('post', this.form.action, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send((new UrlHelper()).urlEncode(postData));
-
-		event.preventDefault();
 	}
 
 	public watch(): void {
@@ -99,8 +112,17 @@ class Login {
 	}
 
 	private displayError (messageKey: string): void {
-		var errorElement = <HTMLElement> this.form.querySelector('small.error');
+		var errorElement: HTMLElement = document.createElement('small');
+		errorElement.classList.add('error');
 		errorElement.innerHTML = i18n.t(messageKey);
+		this.form.appendChild(errorElement);
+	}
+
+	private clearError (): void {
+		var errorNode: Node = this.form.querySelector('small.error');
+		if (errorNode) {
+			errorNode.parentNode.removeChild(errorNode);
+		}
 	}
 }
 
