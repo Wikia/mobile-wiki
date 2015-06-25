@@ -30,7 +30,7 @@ class Login {
 		elements = <FormElements> this.form.elements;
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
-		this.redirect = this.getCachebustedUrl(redirect);
+		this.redirect = redirect;
 	}
 
 	public onSubmit (event: Event): void {
@@ -96,30 +96,6 @@ class Login {
 			username: this.usernameInput.value,
 			password: this.passwordInput.value
 		};
-	}
-
-	private getCachebustedUrl (path: string): string {
-		var query: Array<string>,
-			cachebustedParam: string;
-
-		// Fall back to index path as default
-		if (typeof path !== 'string' || path === '') {
-			path = '/';
-		}
-
-		// Match the querystring in the URI path
-		query = <string[]> path.match(/\?.+/);
-
-		cachebustedParam = 'cb=' + new Date().getTime();
-
-		if (query === null) {
-			path += '?' + cachebustedParam;
-		} else if (query[0].match(/cb=/) === null) {
-			path += '&' + cachebustedParam;
-		} else {
-			path = path.replace(/cb=\d+/, cachebustedParam);
-		}
-		return path;
 	}
 
 	private displayError (messageKey: string): void {
