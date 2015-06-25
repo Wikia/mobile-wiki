@@ -114,7 +114,9 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	 */
 	openLightboxForMedia: function (file: string): void {
 		var mediaModel: typeof App.MediaModel = this.get('controllers.article.model.media'),
-			lightboxMediaRefs = mediaModel ? mediaModel.getRefsForLightboxByTitle(M.String.normalize(file)) : null;
+			lightboxMediaRefs = mediaModel instanceof App.MediaModel?
+				mediaModel.getRefsForLightboxByTitle(M.String.normalize(file)):
+				null;
 
 		if (!Em.isEmpty(lightboxMediaRefs)) {
 			this.send('openLightbox', 'media', {
@@ -122,6 +124,9 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 				mediaRef: lightboxMediaRefs.mediaRef,
 				galleryRef: lightboxMediaRefs.galleryRef
 			});
+		} else {
+			// If we can't display the lightbox let's remove this param from the URL
+			this.set('file', null);
 		}
 	},
 

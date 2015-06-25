@@ -1,6 +1,7 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 import authUtils = require('../../lib/AuthUtils');
 import caching = require('../../lib/Caching');
+import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend');
 
@@ -26,13 +27,13 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 			hideHeader: true,
 			hideFooter: true,
-			bodyClasses: 'splash auth-landing-page',
 			noScripts: true,
-			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl)
+			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
+			bodyClasses: 'splash join-page'
 		}
 	);
 
-	return authView.view('auth-landing-page', context, request, reply);
+	return authView.view('join-page', context, request, reply);
 }
 
 export = get;

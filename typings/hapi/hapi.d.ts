@@ -335,10 +335,7 @@ declare module Hapi {
 		}): void;
 
 		auth: {
-			scheme(name: string, scheme: {
-				name: string;
-				scheme: (server: Server, options: any) => (authenticate: any, payload: any, response: any) => void;
-			}): void;
+			scheme(name: string, scheme: any): void;
 			strategy: any;
 		};
 		ext(event: string, method: (request: Hapi.Request, next: Function) => void, options?: any): void;
