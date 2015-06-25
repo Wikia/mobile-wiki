@@ -50,7 +50,7 @@ class SignupForm {
 			}
 		});
 
-		this.trackValidationErrors(errorsDescriptions.join(";"));
+		this.trackValidationErrors(errorsDescriptions);
 	}
 
 	private displayFieldValidationError(err: HeliosError): void {
@@ -96,12 +96,12 @@ class SignupForm {
 		};
 	}
 
-	private trackValidationErrors(errors: string): void {
+	private trackValidationErrors(errors: Array<string>): void {
 		M.track({
 			trackingMethod: 'ga',
 			action: M.trackActions.error,
 			category: 'user-signup-mobile',
-			label: 'signupValidationErrors: ' + errors,
+			label: 'signupValidationErrors: ' + errors.join(';'),
 		});
 	}
 
