@@ -18,6 +18,7 @@ interface SignupViewContext extends authView.AuthViewContext {
 	trackingConfig?: any;
 	usernameMaxLength: number;
 	passwordMaxLength: number;
+	langCode: string;
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
@@ -42,7 +43,8 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			bodyClasses: 'signup-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
-			passwordMaxLength: localSettings.helios.passwordMaxLength
+			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			langCode: lang
 		}
 	);
 
