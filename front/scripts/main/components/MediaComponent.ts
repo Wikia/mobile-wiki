@@ -62,11 +62,10 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	isInfoboxIcon: Em.computed('media', {
 		get(): boolean {
 			var media: ArticleMedia = this.get('media'),
-				insideInfobox = this.isInsideInfobox(),
 				iconHeight: number,
 				width: number;
 
-			if (media.context !== 'infobox-big' && insideInfobox) {
+			if (media.context === 'icon') {
 				iconHeight = this.get('infoboxIconSize.height');
 				width = Math.floor(iconHeight * media.width / media.height);
 				this.set('height', iconHeight);
@@ -80,10 +79,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			return value;
 		}
 	}),
-
-	isInsideInfobox: function(): boolean {
-		return this.$().closest('.portable-infobox').length > 0;
-	},
 
 	/**
 	 * @desc caption for current media
