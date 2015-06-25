@@ -14,8 +14,8 @@ interface SignupViewContext extends authView.AuthViewContext {
 	birthdateInputs: Array<InputData>;
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
-	usernameMaxLength?: number;
-	passwordMaxLength?: number;
+	usernameMaxLength: number;
+	passwordMaxLength: number;
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {

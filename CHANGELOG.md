@@ -1,3 +1,8 @@
+## release-96 (2015-06-25 09:59 UTC)
+* [SOC-895](https://wikia-inc.atlassian.net/browse/SOC-895) SOC-896 | Auth pages - Don't allow redirects to external domains
+* [SOC-755](https://wikia-inc.atlassian.net/browse/SOC-755) SOC-753 && SOC-755 Tracking for New Login flow
+* [SOC-896](https://wikia-inc.atlassian.net/browse/SOC-896) SOC-896 | Auth pages - Don't allow redirects to external domains
+
 ## release-95 (2015-06-24 12:38 UTC)
 * [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) HG-734 Replace assets path for ember-main.hbs only
 * fix-login-view-context: Always obtain LoginViewContext for /login
