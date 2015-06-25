@@ -16,7 +16,7 @@ interface HeliosRegisterInput {
 
 class SignupForm {
 	form: HTMLFormElement;
-	generalValidationErrors: Array<string> = ['email_blocked', 'username_unavailable', 'birthdate_below_min_age'];
+	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
 
 	constructor(form: Element) {
@@ -28,6 +28,8 @@ class SignupForm {
 
 		Array.prototype.forEach.call( errorNodes, (node: HTMLElement): void => {
 			if (node.tagName === 'INPUT') {
+				node.classList.remove('error');
+			} else if (node.classList.contains('input')) {
 				node.classList.remove('error');
 			} else {
 				node.parentNode.removeChild( node );
@@ -53,9 +55,15 @@ class SignupForm {
 
 	private displayFieldValidationError(err: HeliosError): void {
 		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
-			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field];
+			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field],
+			specialFieldContainer: HTMLElement;
 		input.parentNode.appendChild(errorNode);
-		input.classList.add('error');
+		if (specialFieldContainer = <HTMLElement> (<HTMLElement> input.parentNode).querySelector('.input')) {
+			// Special case when we imitate input on UI using containers. eg. Birthdate input filed
+			specialFieldContainer.classList.add('error');
+		} else {
+			input.classList.add('error');
+		}
 	}
 
 	private displayGeneralError(): void {
