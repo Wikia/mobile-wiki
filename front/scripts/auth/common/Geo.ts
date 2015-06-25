@@ -19,4 +19,8 @@ class Geo {
 		}
 		this.country = parsedGeoCookie.country;
 	}
+
+	public getCountry (): string {
+		return this.country;
+	}
 }
