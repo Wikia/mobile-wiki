@@ -101,7 +101,7 @@ class SignupForm {
 			trackingMethod: 'ga',
 			action: M.trackActions.error,
 			category: 'user-signup-mobile',
-			label: "signupValidationErrors: " + errors,
+			label: 'signupValidationErrors: ' + errors,
 		});
 	}
 
