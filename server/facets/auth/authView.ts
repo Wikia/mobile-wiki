@@ -2,6 +2,7 @@
 
 import caching = require('../../lib/Caching');
 import localSettings = require('../../../config/localSettings');
+import url = require('url');
 
 module authView {
 	export interface AuthViewContext {
@@ -36,7 +37,33 @@ module authView {
 	}
 
 	export function getRedirectUrl (request: Hapi.Request): string {
-		return request.query.redirect || '/';
+		var currentHost: string = request.headers.host,
+			redirectUrl: string = request.query.redirect || '/',
+			redirectUrlHost: string = url.parse(redirectUrl).host,
+			whiteListedDomains: Array<string> = ['.wikia.com'],
+			isWhiteListedDomain: boolean;
+
+		if (!redirectUrlHost) {
+			return redirectUrl;
+		}
+
+		if (
+			currentHost === redirectUrlHost ||
+			redirectUrlHost.indexOf('.' + currentHost, redirectUrlHost.length - currentHost.length - 1) !== -1
+		) {
+			return redirectUrl;
+		}
+
+		isWhiteListedDomain = whiteListedDomains.some((whiteListedDomain: string): boolean => {
+			return redirectUrlHost.indexOf(whiteListedDomain, redirectUrlHost.length - whiteListedDomain.length) !== -1;
+		});
+
+		if (isWhiteListedDomain) {
+			return redirectUrl;
+		}
+
+		// Not valid domain
+		return '/';
 	}
 
 	export function getCanonicalUrl (request: Hapi.Request): string {
