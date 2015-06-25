@@ -7,8 +7,17 @@ App.MainPageRoute = Em.Route.extend({
 	model: function (params: any) {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
-			title: params.title,
+			title: Mercury.wiki.mainPageTitle,
 			wiki: this.controllerFor('application').get('domain')
+		});
+	},
+
+	// TODO: Main page should has his own template, we shouldn't use article template
+	renderTemplate: function(controller, model) {
+		this.render('article', {
+			controller: 'article',
+			view: 'article',
+			model: model
 		});
 	},
 });
