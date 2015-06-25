@@ -13,6 +13,7 @@ interface CuratedContentItem {
 	type: string;
 	url?: string;
 	categoryName?: string;
+	ns?: number;
 }
 
 App.CuratedContentModel = Em.Object.extend({
@@ -66,6 +67,11 @@ App.CuratedContentModel = Em.Object.extend({
 				imageUrl: rawData.thumbnail,
 				type: rawData.type,
 				url: rawData.url
+			};
+
+			// ArticlesApi doesn't return type for blog posts so we need to look at the namespace
+			if (Em.isEmpty(rawData.type) && rawData.ns === 500) {
+				item.type = 'blog';
 			}
 		}
 
