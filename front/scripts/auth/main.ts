@@ -22,7 +22,6 @@ i18n.init(<I18nextOptions> {
 window.document.addEventListener('DOMContentLoaded', function ():void {
 	var formElement: HTMLFormElement = <HTMLFormElement> window.document.querySelector('form'),
 		birthdateContainer: HTMLElement;
-
 	if (formElement) {
 		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();

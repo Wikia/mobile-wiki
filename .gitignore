@@ -5,6 +5,7 @@
 # Editor Files
 *.sw[a-z]
 *.orig
+tsconfig.json
 
 # Packages
 node_modules/
