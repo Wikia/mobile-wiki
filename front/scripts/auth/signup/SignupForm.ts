@@ -39,7 +39,7 @@ class SignupForm {
 	}
 
 	private displayValidationErrors(errors: Array<HeliosError>): void {
-		var errorsDescriptions: Array = [];
+		var errorsDescriptions: string[] = [];
 
 		Array.prototype.forEach.call( errors, (err: HeliosError): void => {
 			errorsDescriptions.push(err.description);
