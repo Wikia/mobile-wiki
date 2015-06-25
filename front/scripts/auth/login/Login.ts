@@ -30,7 +30,7 @@ class Login {
 		elements = <FormElements> this.form.elements;
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
-		this.redirect = redirect;
+		this.redirect = redirect || '/';
 	}
 
 	public onSubmit (event: Event): void {
@@ -53,45 +53,30 @@ class Login {
 
 			enableSubmitButton();
 
-			if (xhr.status !== 200) {
-				return this.displayError(xhr.status === 401 ? 'errors.wrong-credentials' : 'common.server-error');
+			if (xhr.status === 401) {
+				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
+				return this.displayError('errors.wrong-credentials');
+			} else if (xhr.status !== 200) {
+				this.track('login-server-error', Mercury.Utils.trackActions.error);
+				return this.displayError('common.server-error');
 			}
 
 			response = JSON.parse(xhr.responseText);
 
 			if (response.error) {
 				// Helios may return an error even if the request returns a 200
+				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
 				this.displayError('errors.wrong-credentials');
-
-				// An error occurred while logging in
-				M.track({
-					trackingMethod: 'ga',
-					action: Mercury.Utils.trackActions.error,
-					category: 'user-login-mobile',
-					label: 'login-error'
-				});
 			} else {
-				M.track({
-					trackingMethod: 'ga',
-					action: Mercury.Utils.trackActions.submit,
-					category: 'user-login-mobile',
-					label: 'login-success'
-				});
-
+				this.track('login-success', Mercury.Utils.trackActions.submit);
 				window.location.href = this.redirect;
 			}
 		};
 
 		xhr.onerror = (): void => {
-			M.track({
-				trackingMethod: 'ga',
-				action: Mercury.Utils.trackActions.error,
-				category: 'user-login-mobile',
-				label: 'login-server-error'
-			});
-
 			enableSubmitButton();
 
+			this.track('login-server-error', Mercury.Utils.trackActions.error);
 			this.displayError('common.server-error');
 		};
 
@@ -123,6 +108,15 @@ class Login {
 		if (errorNode) {
 			errorNode.parentNode.removeChild(errorNode);
 		}
+	}
+
+	private track (label: string, action: string): void {
+		M.track({
+			trackingMethod: 'ga',
+			action: action,
+			category: 'user-login-mobile',
+			label: label
+		});
 	}
 }
 
