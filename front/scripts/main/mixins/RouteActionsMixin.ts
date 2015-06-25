@@ -2,7 +2,7 @@
 
 App.RouteActionsMixin = Ember.Mixin.create({
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition) {
+		error: function (error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();
 			}
@@ -12,7 +12,7 @@ App.RouteActionsMixin = Ember.Mixin.create({
 
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
-		didTransition: function () {
+		didTransition: function (): boolean {
 			window.scrollTo(0, 0);
 			// bubble up to application didTransition hook
 			return true;
