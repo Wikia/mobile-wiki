@@ -26,9 +26,13 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	//icon width depends on it's real dimensions
-	infoboxIconSize: {
-		height: 20
-	},
+	iconHeight: 20,
+	iconWidth: Em.computed('media', 'iconHeight', function(): number {
+		var media = this.get('media'),
+			iconHeight = this.get('iconHeight');
+
+		return Math.floor(iconHeight * media.width / media.height);
+	}),
 
 	normalizeThumbWidth: function (width: number): number {
 		if (width <= this.thumbSize.small) {
