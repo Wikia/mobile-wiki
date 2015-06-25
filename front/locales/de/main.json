@@ -11,7 +11,7 @@
     "article-last-edit_plural_0":"Zuletzt diese Woche bearbeitet",
     "article-last-edit_plural_2":"Zuletzt vor __count__ Wochen bearbeitet",
     "article-categories-list-label":"Kategorien",
-    "article-top-contributors-label":"Top-Beitragende in diesem Artikel",
+    "article-top-contributors-label":"Top-Beitragende in diesem Wiki",
     "side-nav-menu-label":"Menü",
     "navigation-back-label":"Zurück",
     "search-no-results-msg":"Tut uns leid, aber es wurde kein Eintrag zu deiner Suche gefunden!",
@@ -50,6 +50,10 @@
     "months-ago-label_plural":"vor __count__ Monaten",
     "years-ago-label":"vor einem Jahr",
     "years-ago-label_plural":"vor __count__ Jahren",
+    "trending-label":"Trends",
+    "videos-label":"Videos",
+    "photos-label":"Fotos",
+    "pages-label":"Seiten",
     "username-anonymous":"Ein Wikia-Nutzer",
     "smartbanner-store-ios":"Im App-Store",
     "smartbanner-store-android":"In Google Play",
@@ -69,6 +73,8 @@
     "edit-publish-error-blocked":"Du wurdest gesperrt und kannst keine Bearbeitungen vornehmen.",
     "edit-publish-error-noedit":"Du hast keine Berechtigung, Seiten in diesem Wikia zu bearbeiten.",
     "edit-publish-error-noedit-anon":"Anonyme Benutzer können keine Seiten bearbeiten.",
-    "edit-publish-error-protectedpage":"Du hast keine Berechtigung, diese Seite zu bearbeiten."
+    "edit-publish-error-protectedpage":"Du hast keine Berechtigung, diese Seite zu bearbeiten.",
+    "user-menu-profile":"Profil",
+    "user-menu-log-out":"Abmelden"
   }
 }

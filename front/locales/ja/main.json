@@ -50,6 +50,10 @@
     "months-ago-label_plural":"__count__ ヶ月前",
     "years-ago-label":"1年前",
     "years-ago-label_plural":"__count__ 年前",
+    "trending-label":"トレンド",
+    "videos-label":"動画",
+    "photos-label":"画像",
+    "pages-label":"ページ",
     "username-anonymous":"ウィキア投稿者",
     "smartbanner-store-ios":"App Store",
     "smartbanner-store-android":"Google Play",
@@ -69,6 +73,8 @@
     "edit-publish-error-blocked":"編集ができないようブロックされています。",
     "edit-publish-error-noedit":"このウィキアでページの編集をしていただくための権限をお持ちでないようです。",
     "edit-publish-error-noedit-anon":"未登録ユーザーはページを編集することができません。",
-    "edit-publish-error-protectedpage":"このページの編集をしていただくための権限をお持ちでないようです。"
+    "edit-publish-error-protectedpage":"このページの編集をしていただくための権限をお持ちでないようです。",
+    "user-menu-profile":"プロフィール",
+    "user-menu-log-out":"ログアウト"
   }
 }

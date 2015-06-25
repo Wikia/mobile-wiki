@@ -50,6 +50,10 @@
     "months-ago-label_plural":"__count__ kuukautta sitten",
     "years-ago-label":"vuosi sitten",
     "years-ago-label_plural":"__count__ vuotta sitten",
+    "trending-label":"Trending",
+    "videos-label":"Videos",
+    "photos-label":"Photos",
+    "pages-label":"Pages",
     "username-anonymous":"Wikia-muokkaaja",
     "smartbanner-store-ios":"App Storessa",
     "smartbanner-store-android":"Google Playssa",
@@ -59,6 +63,18 @@
     "view-more":"Katso lisää",
     "wikia-map-view-map":"View",
     "search-label":"Search",
-    "cancel-label":"Cancel"
+    "cancel-label":"Cancel",
+    "edit-page-heading":"Editing:",
+    "edit-page-publish":"Publish",
+    "edit-success":"Successfully edited page __pageTitle__!",
+    "edit-load-error":"Sorry, it looks like something went wrong. Please try again.",
+    "edit-publish-error":"Sorry, it looks like something went wrong. Please try again.",
+    "edit-publish-error-autoblockedtext":"Your IP address has been blocked automatically, because it was used by a blocked user.",
+    "edit-publish-error-blocked":"You have been blocked from editing.",
+    "edit-publish-error-noedit":"You don't have permission to edit pages on this wikia.",
+    "edit-publish-error-noedit-anon":"Anonymous users can't edit pages.",
+    "edit-publish-error-protectedpage":"You don't have permission to edit this page.",
+    "user-menu-profile":"Profile",
+    "user-menu-log-out":"Log out"
   }
 }
