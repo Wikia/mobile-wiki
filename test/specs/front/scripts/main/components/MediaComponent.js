@@ -1,15 +1,14 @@
 moduleForComponent('media', 'MediaComponent');
 
-test('Is this media inside infobox?', function () {
+test('Is this media an icon?', function () {
 	var component = this.subject(),
 		testCases = [
 			{
 				media: {
-					context: 'infobox-big',
+					context: 'infobox-image',
 					width: 50,
 					height: 50
 				},
-				insideInfobox: true,
 				expected: false,
 				expectedWidth: null,
 				expectedHeight: null,
@@ -17,31 +16,19 @@ test('Is this media inside infobox?', function () {
 			},
 			{
 				media: {
-					context: 'infobox-big',
-					width: 50,
-					height: 50
-				},
-				insideInfobox: false,
-				expected: false,
-				expectedWidth: null,
-				expectedHeight: null,
-				description: 'should hever happen'
-			},
-			{
-				media: {
 					context: '',
 					width: 50,
 					height: 50
 				},
 				insideInfobox: true,
-				expected: true,
-				expectedWidth: 20,
-				expectedHeight: 20,
-				description: 'the icon infobox image'
+				expected: false,
+				expectedWidth: null,
+				expectedHeight: null,
+				description: 'should not happen'
 			},
 			{
 				media: {
-					context: '',
+					context: 'icon',
 					width: 55,
 					height: 13
 				},
@@ -53,7 +40,7 @@ test('Is this media inside infobox?', function () {
 			},
 			{
 				media: {
-					context: '',
+					context: 'icon',
 					width: 18,
 					height: 53
 				},
@@ -65,7 +52,7 @@ test('Is this media inside infobox?', function () {
 			},
 			{
 				media: {
-					context: '',
+					context: 'article-image',
 					width: 50,
 					height: 50
 				},
@@ -77,14 +64,12 @@ test('Is this media inside infobox?', function () {
 			}
 		];
 
-	var isInsideInfobox = sinon.stub(component, 'isInsideInfobox');
 	component.set('infoboxIconSize.height', 20);
 
 	Ember.run(function () {
 		testCases.forEach(function(testCase) {
 			component.set('width', null);
 			component.set('height', null);
-			isInsideInfobox.returns(testCase.insideInfobox);
 			component.set('media', testCase.media);
 
 			equal(component.get('isInfoboxIcon'), testCase.expected, testCase.description);
