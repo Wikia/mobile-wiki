@@ -95,6 +95,8 @@
 	}
 
 	function init (): void {
+		setTrackingDimensions();
+
 		if (checkPageType('join-page')) {
 			setTrackingForJoinPage();
 		} else if (checkPageType('login-page')) {
