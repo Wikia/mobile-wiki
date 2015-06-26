@@ -7,7 +7,6 @@ var deepExtend = require('deep-extend');
 interface LoginViewContext extends authView.AuthViewContext {
 	headerText: string;
 	forgotPasswordHref?: string;
-	formErrorKey?: string;
 	heliosLoginURL: string;
 }
 
