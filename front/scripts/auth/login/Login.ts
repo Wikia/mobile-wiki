@@ -24,13 +24,17 @@ class Login {
 	usernameInput: HTMLInputElement;
 	passwordInput: HTMLInputElement;
 
-	constructor (form: Element, redirect: string = '') {
+	constructor (form: Element) {
 		var elements: FormElements;
 		this.form = <HTMLFormElement> form;
 		elements = <FormElements> this.form.elements;
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
-		this.redirect = redirect || '/';
+		if (window.location.search) {
+			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+			this.redirect = params['redirect'];
+		}
+		this.redirect = this.redirect || '/';
 	}
 
 	public onSubmit (event: Event): void {

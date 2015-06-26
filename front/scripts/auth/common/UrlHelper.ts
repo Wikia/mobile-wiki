@@ -4,4 +4,14 @@ class UrlHelper {
 			`${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`
 		).join('&');
 	}
+
+	public urlDecode(input: string): Object {
+		var queryDict = {};
+		input.split("&").forEach(
+			(item: string): void => {
+				queryDict[decodeURIComponent(item.split("=")[0])] = decodeURIComponent(item.split("=")[1]);
+			}
+		);
+		return queryDict;
+	}
 }
