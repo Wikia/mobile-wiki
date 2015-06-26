@@ -26,8 +26,10 @@ App.MediaModel = Em.Object.extend({
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 */
 	init: function (): void {
-		if (!Ember.isArray(this.get('media'))) {
-			this.set('media', [this.get('media')]);
+		var media = this.get('media');
+
+		if (!Ember.isArray(media)) {
+			this.set('media', [media]);
 		}
 	},
 
