@@ -73,6 +73,7 @@ App.ArticleModel.reopenClass({
 			if (M.prop('firstPage')) {
 				this.setArticle(model);
 				resolve(model);
+				return;
 			}
 
 			Em.$.ajax({
