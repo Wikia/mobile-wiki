@@ -44,10 +44,6 @@ App.ArticleRoute = Em.Route.extend(App.RouteActionsMixin, {
 	},
 
 	afterModel: function (model: typeof App.ArticleModel) {
-		if (model.isMainPage) {
-			this.transitionTo('mainPage', model);
-		}
-
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 		App.VisibilityStateManager.reset();
 
