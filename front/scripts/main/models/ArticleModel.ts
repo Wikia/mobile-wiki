@@ -69,12 +69,12 @@ App.ArticleModel.reopenClass({
 	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
 		var model = App.ArticleModel.create(params);
 
-		if (M.prop('firstPage')) {
-			this.setArticle(model);
-			return model;
-		}
-
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			if (M.prop('firstPage')) {
+				this.setArticle(model);
+				resolve(model);
+			}
+
 			Em.$.ajax({
 				url: this.url(params),
 				dataType: 'json',
@@ -82,7 +82,7 @@ App.ArticleModel.reopenClass({
 					this.setArticle(model, data);
 					resolve(model);
 				},
-				error: (err): void => {
+				error: (err: any): void => {
 					if (err.status === 404) {
 						this.setArticle(model, {
 							error: err.responseJSON

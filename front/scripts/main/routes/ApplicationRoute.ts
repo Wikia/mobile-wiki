@@ -24,13 +24,15 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 	actions: {
 		loading: function (): void {
-			this.controller.showLoader();
+			//FIXME
+			//this.controller.showLoader();
 		},
 
 		didTransition: function () {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
-			this.controller.hideLoader();
+			//FIXME
+			//this.controller.hideLoader();
 
 			/*
 			 * This is called after the first route of any application session has loaded
@@ -40,7 +42,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		error: function () {
-			this.controller.hideLoader();
+			//FIXME
+			//this.controller.hideLoader();
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {

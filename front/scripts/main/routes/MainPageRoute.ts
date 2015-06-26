@@ -4,19 +4,18 @@
 'use strict';
 
 App.MainPageRoute = Em.Route.extend(App.RouteActionsMixin, {
-	model: function (params: any): Em.RSVP.Promise {
-		return App.ArticleModel.find({
-			basePath: Mercury.wiki.basePath,
-			title: Mercury.wiki.mainPageTitle,
-			wiki: this.controllerFor('application').get('domain')
-		});
+	model: function (): Em.RSVP.Promise {
+		return App.MainPageModel.find();
 	},
 
-	// TODO: Main page should has its own template, we shouldn't use article template
 	renderTemplate: function (controller: any, model: typeof App.ArticleModel): void {
-		this.render('article', {
-			view: 'article',
-			model: model
-		});
+		if (model.isCuratedMainPage) {
+			this.render('mainPage');
+		} else {
+			this.render('article', {
+				view: 'article',
+				model: model
+			});
+		}
 	}
 });

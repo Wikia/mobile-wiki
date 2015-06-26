@@ -1,18 +1,15 @@
-{{#if currentSection}}
-	{{#unless currentSection.isTopSection}}
+{{#if model}}
+	{{#unless model.isTopSection}}
 		<div class='section-top'>
-			<div class='section-navigation' {{action 'goBack'}}>
-				{{svg 'chevron' viewBox='0 0 12 7' class='nav-item back-chevron chevron'}}
-			</div>
 			<div class='section-title'>{{currentSection.label}}</div>
 		</div>
 	{{/unless}}
 	<nav class='curated-content-items'>
-		{{#each item in currentSection.items}}
+		{{#each model as |item|}}
 			{{curated-content-item model=item action='clickItem'}}
 		{{/each}}
 
-{{! the empty newline above lets the last inline item to be justified to the right if it's even }}
+	{{! the empty newline above lets the last inline item to be justified to the right if it's even }}
 	</nav>
 {{/if}}
 {{loading-spinner active=isLoading}}

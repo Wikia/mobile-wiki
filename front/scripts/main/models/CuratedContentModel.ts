@@ -15,7 +15,10 @@ interface CuratedContentItem {
 	categoryName?: string;
 }
 
-App.CuratedContentModel = Em.Object.extend({
+// TODO this probably shouldn't be empty
+App.CuratedContentModel = Em.Object.extend();
+
+App.CuratedContentModel.reopenClass({
 	fetchItemsForSection: function (sectionName: string, sectionType = 'section'): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase');
@@ -28,20 +31,25 @@ App.CuratedContentModel = Em.Object.extend({
 			Em.$.ajax({
 				url: url,
 				success: (data: any): void => {
-					var sanitizedData: CuratedContentItem[] = [];
-
-					if (data.items) {
-						sanitizedData = data.items.map((item: any): CuratedContentItem => {
-							return this.sanitizeItem(item);
-						});
-					}
-					resolve(sanitizedData);
+					resolve(App.CuratedContentModel.sanitizeItems(data.items || []));
 				},
 				error: (data: any): void => {
 					reject(data);
 				}
 			});
 		});
+	},
+
+	sanitizeItems: function (rawData): CuratedContentItem[] {
+		var sanitizedItems: CuratedContentItem[] = [];
+
+		if (Em.isArray(rawData)) {
+			sanitizedItems = rawData.map((item: any): CuratedContentItem => {
+				return this.sanitizeItem(item);
+			});
+		}
+
+		return sanitizedItems;
 	},
 
 	sanitizeItem: function (rawData: any): CuratedContentItem {
