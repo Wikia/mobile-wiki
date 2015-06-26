@@ -21,7 +21,7 @@ App.MainPageRoute = Em.Route.extend(App.RouteActionsMixin, {
 
 	actions: {
 		openCuratedContentItem: function(item) {
-			debugger;
+			this.get('controller').send('openCuratedContentItem', item);
 		}
 	}
 });

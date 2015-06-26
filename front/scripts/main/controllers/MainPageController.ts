@@ -5,5 +5,11 @@
 App.MainPageController = Em.Controller.extend({
 	init: function (): void {
 		this.set('siteName', Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'));
+	},
+
+	actions: {
+		openCuratedContentItem: function(item) {
+			debugger;
+		}
 	}
 });

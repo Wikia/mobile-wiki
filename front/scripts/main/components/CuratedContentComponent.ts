@@ -13,7 +13,6 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	actions: {
 		clickItem: function (item: CuratedContentItem): void {
 			if (item.type === 'section' || item.type === 'category') {
-				//this.loadSection(item);
 				this.sendAction('openCuratedContentItem', item)
 			} else {
 				this.trackClick('modular-main-page', 'curated-content-item-article');

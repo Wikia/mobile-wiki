@@ -133,6 +133,11 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
 		},
 
+		openCuratedContentItem: function(item) {
+			debugger;
+			this.get('controller').send('openCuratedContentItem', item);
+		},
+
 		closeLightbox: function (): void {
 			this.get('controller').send('closeLightbox');
 		},

@@ -30,7 +30,8 @@ App.MainPageComponent = Em.Component.extend({
 		},
 
 		openCuratedContentItem: function(item) {
-			this.sendAction('openCuratedContentItem', item)
+			debugger;
+			this.sendAction('openCuratedContentItem', item);
 		}
 	},
 
