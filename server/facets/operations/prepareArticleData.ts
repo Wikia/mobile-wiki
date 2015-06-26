@@ -48,6 +48,9 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	}
 
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
+
+	// Don't load article in SPA source for certain wikis
+	result.asyncArticleLoad = localSettings.asyncArticleLoad.indexOf(result.wiki.dbName) > -1;
 }
 
 export = prepareArticleData;
