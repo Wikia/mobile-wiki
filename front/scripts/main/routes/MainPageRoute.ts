@@ -17,5 +17,11 @@ App.MainPageRoute = Em.Route.extend(App.RouteActionsMixin, {
 				model: model
 			});
 		}
+	},
+
+	actions: {
+		openCuratedContentItem: function(item) {
+			debugger;
+		}
 	}
 });

@@ -5,7 +5,7 @@
 	{{component featuredContentComponentVariation model=model.featuredContent}}
 {{/if}}
 {{#if model.curatedContent}}
-	{{curated-content model=model.curatedContent isTopSection=true}}
+	{{curated-content model=model.curatedContent isTopSection=true openCuratedContentItem='openCuratedContentItem'}}
 {{/if}}
 {{#if model.trendingArticles}}
 	{{trending-articles model=model.trendingArticles}}

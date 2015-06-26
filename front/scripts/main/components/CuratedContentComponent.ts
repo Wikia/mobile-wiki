@@ -10,15 +10,16 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	globalNavHeight: 57,
 	spinnerDelay: 50,
 
-	//actions: {
-	//	clickItem: function (item: CuratedContentItem): void {
-	//		if (item.type === 'section' || item.type === 'category') {
-	//			this.loadSection(item);
-	//		} else {
-	//			this.trackClick('modular-main-page', 'curated-content-item-article');
-	//		}
-	//	}
-	//},
+	actions: {
+		clickItem: function (item: CuratedContentItem): void {
+			if (item.type === 'section' || item.type === 'category') {
+				//this.loadSection(item);
+				this.sendAction('openCuratedContentItem', item)
+			} else {
+				this.trackClick('modular-main-page', 'curated-content-item-article');
+			}
+		}
+	}
 	//
 	//loadSection: function (item: CuratedContentItem): void {
 	//	var sectionName: string,

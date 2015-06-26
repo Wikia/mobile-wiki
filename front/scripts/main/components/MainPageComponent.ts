@@ -27,6 +27,10 @@ App.MainPageComponent = Em.Component.extend({
 	actions: {
 		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
+		},
+
+		openCuratedContentItem: function(item) {
+			this.sendAction('openCuratedContentItem', item)
 		}
 	},
 
