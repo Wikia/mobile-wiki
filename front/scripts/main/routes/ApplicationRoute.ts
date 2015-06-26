@@ -23,13 +23,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 	},
 
 	actions: {
-		//loading: function (): void {
-		//	// the at the time of initial application load, no controller is present yet
-		//	if (this.controller) {
-		//		this.controller.showLoader();
-		//	}
-		//},
-
 		didTransition: function () {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();

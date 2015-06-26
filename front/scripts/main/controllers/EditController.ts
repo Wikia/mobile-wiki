@@ -2,7 +2,7 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-App.EditController = Em.Controller.extend({
+App.EditController = Em.Controller.extend(App.LoadingSpinnerMixin, {
 	needs: ['application'],
 
 	isPublishing: false,
@@ -53,7 +53,7 @@ App.EditController = Em.Controller.extend({
 	actions: {
 		publish: function (): void {
 			this.set('isPublishing', true);
-			//this.get('controllers.application').showLoader();
+			this.showLoader();
 			App.EditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)

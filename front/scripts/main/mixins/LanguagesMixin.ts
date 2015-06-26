@@ -3,7 +3,6 @@
 
 App.LanguagesMixin = Em.Mixin.create({
 	isJapaneseBrowser: Ember.computed(function (): boolean {
-		return true;
 		var lang = navigator.language || navigator.browserLanguage;
 		if (!lang) {
 			return this.get('isJapaneseWikia');
@@ -13,7 +12,6 @@ App.LanguagesMixin = Em.Mixin.create({
 	}),
 
 	isJapaneseWikia: Ember.computed(function (): boolean {
-		return true;
 		return Em.get(Mercury, 'wiki.language.content') === 'ja';
 	})
 });
