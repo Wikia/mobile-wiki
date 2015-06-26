@@ -1,19 +1,13 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 
-App.MainPageSectionRoute = Em.Route.extend({
+App.MainPageCategoryRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
-	},
-
-	serialize: function (model) {
-		return {
-			sectionName: model.get('label')
-		};
+		return App.CuratedContentModel.fetchItemsForSection(params.categoryName, 'category');
 	},
 
 	renderTemplate: function() {
-		this.render('mainPageSection', {into: 'application'});
+		this.render('mainPageCategory', {into: 'application'});
 	},
 
 	actions: {

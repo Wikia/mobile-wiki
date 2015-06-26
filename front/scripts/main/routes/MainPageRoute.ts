@@ -35,9 +35,7 @@ App.MainPageRoute = Em.Route.extend({
 			// bubble up to application didTransition hook
 			return true;
 		},
-
 		openCuratedContentItem: function(item) {
-			debugger;
 			this.get('controller').send('openCuratedContentItem', item);
 		}
 	}

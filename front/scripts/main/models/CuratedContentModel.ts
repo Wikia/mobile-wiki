@@ -31,6 +31,7 @@ App.CuratedContentModel.reopenClass({
 			Em.$.ajax({
 				url: url,
 				success: (data: any): void => {
+					console.log(data);
 					resolve(App.CuratedContentModel.sanitizeItems(data.items || []));
 				},
 				error: (data: any): void => {

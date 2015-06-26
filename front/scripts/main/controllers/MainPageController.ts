@@ -9,7 +9,11 @@ App.MainPageController = Em.Controller.extend({
 
 	actions: {
 		openCuratedContentItem: function(item) {
-			debugger;
+			if (item.type === 'section') {
+				this.transitionToRoute('mainPage.section', item.label);
+			} else if (item.type === 'category') {
+				this.transitionToRoute('mainPage.category', item.label);
+			}
 		}
 	}
 });
