@@ -8,6 +8,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	classNameBindings: ['collapsed'],
 	expandButtonClass: 'portable-infobox-expand-button',
 	layoutName: 'components/portable-infobox',
+	tagName: 'aside',
 
 	button: Em.computed('expandButtonClass', function (): HTMLElement {
 		var expandButtonClass = this.get('expandButtonClass');
