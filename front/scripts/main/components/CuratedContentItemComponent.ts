@@ -4,7 +4,7 @@
 'use strict';
 
 App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
-	tagName: 'a',
+	tagName: 'section',
 	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
 	classNameBindings: ['type'],
