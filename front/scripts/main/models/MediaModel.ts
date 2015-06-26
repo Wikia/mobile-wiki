@@ -21,6 +21,16 @@ interface LightboxMediaRefs {
 }
 
 App.MediaModel = Em.Object.extend({
+
+	/**
+	 * In order to have consistency in input data we are wrapping them into array if they are not
+	 */
+	init: function () {
+		if (! Ember.isArray(this.get('media'))) {
+			this.set('media', [this.get('media')]);
+		}
+	},
+
 	find: function (id: number): ArticleMedia {
 		return this.get('media')[id];
 	},
