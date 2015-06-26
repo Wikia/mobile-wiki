@@ -35,12 +35,10 @@ App.EditController = Em.Controller.extend(App.LoadingSpinnerMixin, {
 	},
 
 	handlePublishError (error: any): void {
-		var appController = this.get('controllers.application'),
-			errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
+		var errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
 
-		appController.addAlert('alert', i18n.t(errorMsg));
-		appController.hideLoader();
-
+		this.get('controllers.application').addAlert('alert', i18n.t(errorMsg));
+		this.hideLoader();
 		this.set('isPublishing', false);
 
 		M.track({

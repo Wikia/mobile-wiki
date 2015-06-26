@@ -26,17 +26,12 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		didTransition: function () {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
-			this.controller.hideLoader();
 
 			/*
 			 * This is called after the first route of any application session has loaded
 			 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 			 */
 			M.prop('firstPage', false);
-		},
-
-		error: function () {
-			this.controller.hideLoader();
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {
