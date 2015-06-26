@@ -9,6 +9,10 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	expandButtonClass: 'portable-infobox-expand-button',
 	layoutName: 'components/portable-infobox',
 
+	button: Em.computed('expandButtonClass', function (): HTMLElement {
+		var expandButtonClass = this.get('expandButtonClass');
+		return this.$('.' + expandButtonClass)[0];
+	}),
 	height: null,
 	infoboxHTML: '',
 	collapsed: false,
@@ -54,8 +58,6 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 */
 	onInfoboxClick: function (event: JQueryEventObject): void {
 		var body: HTMLElement,
-			button: HTMLElement,
-			expandButtonClass: string,
 			scrollTo: (top?: boolean) => void,
 			collapsed = this.get('collapsed'),
 			$target = $(event.target);
@@ -66,12 +68,10 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 
 		if (!collapsed) {
 			body = window.document.body;
-			expandButtonClass = this.get('expandButtonClass');
-			button = this.$('.' + expandButtonClass)[0];
 			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 			this.handleCollapsing();
-			scrollTo.apply(button);
+			scrollTo.apply(this.get('button'));
 		} else {
 			this.set('collapsed', false);
 			this.$().height('auto');
