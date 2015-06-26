@@ -86,9 +86,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	didInsertElement: function () {
 		if (this.get('isLongInfobox')) {
 			this.handleCollapsing();
-			this.$().click((event: JQueryEventObject) => {
-				this.onInfoboxClick(event);
-			});
+			this.$().click(this.onInfoboxClick.bind(this));
 		}
 	}
 });
