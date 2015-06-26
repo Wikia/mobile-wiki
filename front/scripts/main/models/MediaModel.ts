@@ -25,8 +25,8 @@ App.MediaModel = Em.Object.extend({
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 */
-	init: function () {
-		if (! Ember.isArray(this.get('media'))) {
+	init: function (): void {
+		if (!Ember.isArray(this.get('media'))) {
 			this.set('media', [this.get('media')]);
 		}
 	},
