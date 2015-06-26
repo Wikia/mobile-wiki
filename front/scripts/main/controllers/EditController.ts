@@ -53,7 +53,7 @@ App.EditController = Em.Controller.extend({
 	actions: {
 		publish: function (): void {
 			this.set('isPublishing', true);
-			this.get('controllers.application').showLoader();
+			//this.get('controllers.application').showLoader();
 			App.EditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
