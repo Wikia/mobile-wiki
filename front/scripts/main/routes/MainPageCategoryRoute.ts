@@ -3,7 +3,6 @@
 
 App.MainPageCategoryRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		console.log(params);
 		return App.CuratedContentModel.fetchItemsForSection(params.categoryName, 'category');
 	},
 
