@@ -35,8 +35,16 @@ App.MainPageRoute = Em.Route.extend({
 			// bubble up to application didTransition hook
 			return true;
 		},
+
 		openCuratedContentItem: function(item) {
-			this.get('controller').send('openCuratedContentItem', item);
+			var categoryName;
+
+			if (item.type === 'section') {
+				this.transitionTo('mainPage.section', item.label);
+			} else if (item.type === 'category') {
+				categoryName = item.categoryName.substr(item.categoryName.indexOf(':') + 1);
+				this.transitionTo('mainPage.category', categoryName);
+			}
 		}
 	}
 });
