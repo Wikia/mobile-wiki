@@ -21,23 +21,13 @@ var routes: RouteDefinition[],
 				privacy: Caching.policyString(Caching.Policy.Public),
 				expiresIn: 60000
 			},
-			auth: false,
-			plugins: {
-				'hapi-auth-cookie': {
-					redirectTo: false
-				}
-			}
+			auth: false
 		}
 	},
 	authPageConfig = {
 		auth: {
 			mode: 'try',
 			strategy: 'session'
-		},
-		plugins: {
-			'hapi-auth-cookie': {
-				redirectTo: false
-			}
 		}
 	};
 

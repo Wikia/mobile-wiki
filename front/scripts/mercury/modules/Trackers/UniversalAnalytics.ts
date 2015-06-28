@@ -24,9 +24,9 @@ module Mercury.Modules.Trackers {
 				);
 			}
 
-				// All domains that host content for Wikia
-				// Use one of the domains below. If none matches, the tag will fall back to
-				// the default which is 'auto', probably good enough in edge cases.
+			// All domains that host content for Wikia
+			// Use one of the domains below. If none matches, the tag will fall back to
+			// the default which is 'auto', probably good enough in edge cases.
 			var domain: string = [
 					'wikia.com', 'ffxiclopedia.org', 'jedipedia.de',
 					'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
@@ -44,7 +44,6 @@ module Mercury.Modules.Trackers {
 				this.initAccount(this.accountSpecial, domain);
 			}
 		}
-
 
 		/**
 		 * @static

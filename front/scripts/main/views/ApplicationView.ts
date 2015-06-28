@@ -33,6 +33,7 @@ App.ApplicationView = Em.View.extend({
 
 	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
+	userMenuCollapsed: Em.computed.alias('controller.userMenuCollapsed'),
 	alertNotifications: Em.computed.alias('controller.alertNotifications'),
 	noScroll: Em.computed.alias('controller.noScroll'),
 	scrollLocation: null,
@@ -42,6 +43,17 @@ App.ApplicationView = Em.View.extend({
 
 		// A/B test spinner (HG-727)
 		$('.ab-test-loading-overlay').remove();
+	},
+
+	didInsertElement: function (): void {
+		this.trackFirstContent();
+	},
+
+	trackFirstContent: function () {
+		M.trackPerf({
+			name: 'firstContent',
+			type: 'mark'
+		});
 	},
 
 	/**
@@ -102,12 +114,27 @@ App.ApplicationView = Em.View.extend({
 	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
 	 */
 	shouldHandleClick: function (target: EventTarget): boolean {
-		var $target = $(target);
+		var $target: JQuery = $(target),
+			isReference: boolean = this.targetIsReference(target);
 
 		return (
 			$target.closest('.mw-content').length &&
-				// ignore polldaddy content
-			!$target.closest('.PDS_Poll').length
+			// ignore polldaddy content
+			!$target.closest('.PDS_Poll').length &&
+			// don't need special logic for article references
+			!isReference
+		);
+	},
+
+	/**
+	 * Determine if the clicked target is an reference/in references list (in text or at the bottom of article)
+	 */
+	targetIsReference: function (target: EventTarget): boolean {
+		var $target: JQuery = $(target);
+
+		return !!(
+			$target.closest('.references').length ||
+			$target.parent('.reference').length
 		);
 	},
 

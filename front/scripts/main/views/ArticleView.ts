@@ -127,10 +127,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	articleContentObserver: function (): boolean {
-		if (this.get('_state') !== 'inDOM') {
-			return false;
-		}
-
 		var model = this.get('controller.model'),
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');
@@ -152,7 +148,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.replaceInfoboxesWithInfoboxComponents();
-			this.lazyLoadMedia(model.get('media'));
+			// ====================================  <-- racing stripes to increase performance
+			this.handleMediaPlaceholderVariations();
+			// ====================================
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
@@ -185,12 +183,18 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		return component.$().attr('data-ref', ref);
 	},
 
-	lazyLoadMedia: function (model: typeof App.ArticleModel): void {
-		var lazyImages = this.$('.article-media');
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, endIndex: number): void {
+		var $mediaPlaceholders = this.$('.article-media'),
+			index: number;
 
-		lazyImages.each((index: number, element: HTMLImageElement): void => {
-			this.$(element).replaceWith(this.createMediaComponent(element, model));
-		});
+		if (endIndex === -1 || endIndex > $mediaPlaceholders.length) {
+			endIndex = $mediaPlaceholders.length;
+		}
+
+		// This will not iterate over components that were already replaced, since they will no longer have the 'article-media' class
+		for (index = 0; index < endIndex; index++) {
+			$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
+		}
 	},
 
 	setupEditButtons: function (): void {
@@ -347,6 +351,39 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			}
 			init();
 		});
+	},
+
+	/**
+	 * Handles the Optimizely variations for testing processing images async
+	 * Variations:
+	 *	0 (default)	=> process all synchronously	
+	 *	1			=> process all async
+	 *	2			=> first 10 sync, rest async
+	 *	3			=> first 50 sync, rest async
+	 */
+	handleMediaPlaceholderVariations: function (): void {
+		var optimizelyVariation = M.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}),
+			media = this.get('controller.model').get('media');
+
+		if (optimizelyVariation === 1) {
+			// Process the images async
+			Ember.run.later(this, function() {
+		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
+			}, 0);
+		} else if (optimizelyVariation === 2) {
+			this.replaceMediaPlaceholdersWithMediaComponents(media, 10);
+			Ember.run.later(this, function() {
+		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
+			}, 0);
+		} else if (optimizelyVariation === 3) {
+			this.replaceMediaPlaceholdersWithMediaComponents(media, 50);
+			Ember.run.later(this, function() {
+		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
+			}, 0);
+		} else {
+			// Process the images synchronously
+			this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
+		}
 	},
 
 	/**
