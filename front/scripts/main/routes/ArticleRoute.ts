@@ -3,7 +3,7 @@
 
 'use strict';
 
-App.ArticleRoute = Em.Route.extend({
+App.ArticleRoute = Em.Route.extend(App.RouteActionsMixin, {
 	queryParams: {
 		comments_page: {
 			replace: true
@@ -11,15 +11,19 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	beforeModel: function (transition: EmberStates.Transition) {
-		var title = transition.params.article.title ?
-			transition.params.article.title.replace('wiki/', ''):
-			Mercury.wiki.mainPageTitle;
+		var title = transition.params.article.title.replace('wiki/', '');
 
 		if (Mercury.error) {
 			transition.abort();
 		}
 
 		this.controllerFor('application').send('closeLightbox');
+
+		// TODO: Handle main pages which are redirected
+		// Ticket here: https://wikia-inc.atlassian.net/browse/CONCF-735
+		if (title === Mercury.wiki.mainPageTitle) {
+			this.transitionTo('mainPage');
+		}
 
 		// If you try to access article with not-yet-sanitized title you can see in logs:
 		// `Transition #1: detected abort.`
@@ -41,7 +45,7 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
-	afterModel: function (model: any) {
+	afterModel: function (model: typeof App.ArticleModel) {
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 		App.VisibilityStateManager.reset();
 
@@ -50,25 +54,10 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition) {
-			if (transition) {
-				transition.abort();
-			}
-			Em.Logger.warn('ArticleRoute error', error.stack || error);
-			return true;
-		},
-
 		willTransition: function (transition: EmberStates.Transition) {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
-		},
-		// TODO: This currently will scroll to the top even when the app has encountered
-		// an error. Optimally, it would remain in the same place.
-		didTransition: function () {
-			window.scrollTo(0, 0);
-			// bubble up to application didTransition hook
-			return true;
 		}
 	}
 });
