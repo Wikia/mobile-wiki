@@ -29,7 +29,7 @@ App.MainPageSectionRoute = Em.Route.extend({
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
+		error: function (error: any, transition: EmberStates.Transition): void {
 			this.controllerFor('application').addAlert('info', i18n.t('app.section-not-exist'));
 			return this.transitionTo('mainPage');
 		}
