@@ -1,28 +1,14 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
-/// <reference path="../lib/Article.ts" />
 
 import MainPage = require('../lib/MainPage');
 import Utils = require('../lib/Utils');
-import Tracking = require('../lib/Tracking');
-import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');
-import MW = require('../lib/MediaWiki');
-import wrapResult = require('./api/presenters/wrapResult');
-import prepareCategoryData = require('./operations/prepareCategoryData');
-import processCuratedContentData = require('./operations/processCuratedContentData')
-
-
-var cachingTimes = {
-	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
-};
+import processCuratedContentData = require('./operations/processCuratedContentData');
 
 
 function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
-		params = {
+		params: MainPageRequestParams = {
 			wikiDomain: wikiDomain,
 			sectionName: request.params.sectionName || null
 		},
@@ -30,6 +16,13 @@ function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 		allowCache = true;
 
 	mainPage = new MainPage.MainPageRequestHelper(params);
+
+	if (request.state.wikicities_session) {
+		params.headers = {
+			'Cookie': `wikicities_session=${request.state.wikicities_session}`
+		};
+		allowCache = false;
+	}
 
 	mainPage.getWikiVariables((error: any, wikiVariables: any) => {
 		if (error) {

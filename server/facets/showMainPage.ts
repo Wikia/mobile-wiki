@@ -16,8 +16,7 @@ var cachingTimes = {
 };
 
 function showMainPage (request: Hapi.Request, reply: Hapi.Response): void {
-	var path: string = request.path,
-		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			redirect: request.query.redirect
@@ -55,7 +54,9 @@ function showMainPage (request: Hapi.Request, reply: Hapi.Response): void {
  * @param error
  * @param result
  */
-function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true): void {
+function onArticleResponse (
+	request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true
+): void {
 	var code = 200,
 		response: Hapi.Response;
 

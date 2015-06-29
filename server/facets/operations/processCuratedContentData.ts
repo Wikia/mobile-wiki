@@ -2,8 +2,6 @@ import Utils = require('../../lib/Utils');
 import Tracking = require('../../lib/Tracking');
 import Caching = require('../../lib/Caching');
 import localSettings = require('../../../config/localSettings');
-import MW = require('../../lib/MediaWiki');
-import wrapResult = require('../api/presenters/wrapResult');
 
 var cachingTimes = {
 	enabled: true,
@@ -12,6 +10,12 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
+/**
+ * Prepare data for template
+ * @TODO CONCF-761 a lot of this code is duplicated in prepareArticleData.ts. Common part should be extracted
+ * @param request
+ * @param result
+ */
 function prepareData (request: Hapi.Request, result: any): void {
 	var title: string,
 		userDir = 'ltr';
@@ -45,14 +49,19 @@ function prepareData (request: Hapi.Request, result: any): void {
 
 /**
  * Handles category or section response for Curated Main Page from API
+ * @TODO CONCF-761 - part after prepareData is common for Main Page and article
+ * - should be moved to some common piece of code.
+ * Right now article code is inside showArticle.onArticle() and showMainPage.onArticle()
  *
  * @param {Hapi.Request} request
  * @param reply
  * @param error
  * @param result
+ * @param allowCache
  */
-function processCuratedContentData (request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true): void {
-
+function processCuratedContentData (
+	request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true
+): void {
 	var code = 200,
 		response: Hapi.Response,
 		result = result;

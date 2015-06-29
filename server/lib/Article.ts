@@ -5,6 +5,8 @@
 
 /**
  * @description Article controller
+ * @TODO CONCF-761 ArticleRequestHelper and MainPageRequestHelper are sharing couple of functionalities.
+ * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 import util = require('util');
 import Promise = require('bluebird');
