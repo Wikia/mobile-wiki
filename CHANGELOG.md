@@ -1,3 +1,20 @@
+## release-98 (2015-06-29 09:59 UTC)
+* fix-helios-url-for-reg: Change helios url for reg
+* [SOC-517](https://wikia-inc.atlassian.net/browse/SOC-517) SOC-517 | Regitration error translations
+* [HG-688](https://wikia-inc.atlassian.net/browse/HG-688) HG-688 - Rendering twice when changing routes
+* [SOC-515](https://wikia-inc.atlassian.net/browse/SOC-515) Soc 515 | Registration - username and password validation errors
+
+## release-97 (2015-06-26 09:59 UTC)
+* [SOC-934](https://wikia-inc.atlassian.net/browse/SOC-934) SOC-934 Removing dice icon for Signup MVP
+* [CONCF-682](https://wikia-inc.atlassian.net/browse/CONCF-682) CONCF-682 | Internalization update
+* [CONCF-607](https://wikia-inc.atlassian.net/browse/CONCF-607) CONCF-607 Show items from all namespaces in Curated Content
+* [SOC-879](https://wikia-inc.atlassian.net/browse/SOC-879) As a PO, I want to know what errors visitors get on the registration form
+
+## release-96 (2015-06-25 09:59 UTC)
+* [SOC-895](https://wikia-inc.atlassian.net/browse/SOC-895) SOC-896 | Auth pages - Don't allow redirects to external domains
+* [SOC-755](https://wikia-inc.atlassian.net/browse/SOC-755) SOC-753 && SOC-755 Tracking for New Login flow
+* [SOC-896](https://wikia-inc.atlassian.net/browse/SOC-896) SOC-896 | Auth pages - Don't allow redirects to external domains
+
 ## release-95 (2015-06-24 12:38 UTC)
 * [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) HG-734 Replace assets path for ember-main.hbs only
 * fix-login-view-context: Always obtain LoginViewContext for /login
