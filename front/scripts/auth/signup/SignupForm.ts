@@ -138,6 +138,7 @@ class SignupForm {
 		};
 
 		xhr.open('POST', this.form.action, true);
+		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send((new UrlHelper()).urlEncode(data));
 
