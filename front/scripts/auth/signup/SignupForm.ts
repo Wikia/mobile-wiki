@@ -18,9 +18,12 @@ class SignupForm {
 	form: HTMLFormElement;
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
+	marketingOptIn: MarketingOptIn;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
+		this.marketingOptIn = new MarketingOptIn();
+		this.marketingOptIn.init();
 	}
 
 	private clearValidationErrors(): void {
