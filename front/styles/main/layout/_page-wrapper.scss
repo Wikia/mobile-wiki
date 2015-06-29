@@ -23,6 +23,6 @@
 		@extend .small-12;
 
 		overflow-x: hidden;
-		padding: 0 1.125rem;
+		padding: 0 $article-horizontal-padding;
 	}
 }
