@@ -40,7 +40,6 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		if (pageWidth < imageWidth) {
 			return ~~(pageWidth * (imageHeight / imageWidth));
 		}
-
 		return imageHeight;
 	}),
 
@@ -51,23 +50,27 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	url: Em.computed({
 		get(): string {
 			var media: ArticleMedia = this.get('media'),
+				articleWidth: number = this.get('articleContent.width'),
 				mode: string,
 				height: number,
 				width: number;
 
 			if (media) {
+					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
+					height = this.get('computedHeight');
+					width = articleWidth;
+
 				if (media.context === 'icon') {
 					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
-					height = this.get('iconHeight');
 					width = this.get('iconWidth');
-				} else {
-					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
-					width = this.get('articleContent.width');
+				} else if (media.context === 'infobox-image' && height > articleWidth) {
+					mode = Mercury.Modules.Thumbnailer.mode.topCrop;
+					height = width;
 				}
 
 				return this.getThumbURL(media.url, {
 					mode: mode,
-					height: this.get('computedHeight'),
+					height: height,
 					width: width
 				});
 			}
