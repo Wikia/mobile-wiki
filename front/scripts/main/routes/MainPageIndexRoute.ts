@@ -9,6 +9,8 @@ App.MainPageIndexRoute = Em.Route.extend({
 	},
 
 	afterModel: function () {
+		document.title = Em.get(Mercury, 'wiki.mainPageTitle') + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
+
 		this.controllerFor('mainPage').setProperties({
 			isRoot: true,
 			title: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
