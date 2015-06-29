@@ -151,7 +151,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.handlePortableInfoboxes();
-			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 3);
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 4);
+			Ember.run.later(this, () => { this.replaceMediaPlaceholdersWithMediaComponents(model.get('media')) }, 0);
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
