@@ -1,3 +1,9 @@
+## release-98 (2015-06-29 09:59 UTC)
+* fix-helios-url-for-reg: Change helios url for reg
+* [SOC-517](https://wikia-inc.atlassian.net/browse/SOC-517) SOC-517 | Regitration error translations
+* [HG-688](https://wikia-inc.atlassian.net/browse/HG-688) HG-688 - Rendering twice when changing routes
+* [SOC-515](https://wikia-inc.atlassian.net/browse/SOC-515) Soc 515 | Registration - username and password validation errors
+
 ## release-97 (2015-06-26 09:59 UTC)
 * [SOC-934](https://wikia-inc.atlassian.net/browse/SOC-934) SOC-934 Removing dice icon for Signup MVP
 * [CONCF-682](https://wikia-inc.atlassian.net/browse/CONCF-682) CONCF-682 | Internalization update

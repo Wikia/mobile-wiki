@@ -21,6 +21,18 @@ interface LightboxMediaRefs {
 }
 
 App.MediaModel = Em.Object.extend({
+
+	/**
+	 * In order to have consistency in input data we are wrapping them into array if they are not
+	 */
+	init: function (): void {
+		var media = this.get('media');
+
+		if (!Ember.isArray(media)) {
+			this.set('media', [media]);
+		}
+	},
+
 	find: function (id: number): ArticleMedia {
 		return this.get('media')[id];
 	},
