@@ -101,11 +101,15 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	onScroll: function (maxImages: number): void {
 		var $this = this.$(),
 			imagesToLoad = $this.find('img:not(.loaded)'),
-			galleryOffset = $this.scrollLeft() + $this.width();
+			galleryOffset = $this.scrollLeft() + $this.width(),
+			parentInfobox = $this.closest('.portable-infobox')[0],
+			//if gallery is inside the infobox, we have to take into account
+			//the infobox offset as well
+			infoboxOffset = parentInfobox ? parentInfobox.offsetLeft * 2 : 0;
 
 		if (imagesToLoad.length) {
 			imagesToLoad.each((index: number, image: HTMLImageElement): void => {
-				if (image.offsetLeft < galleryOffset) {
+				if (image.offsetLeft < (galleryOffset + infoboxOffset)) {
 					this.loadImages(image, maxImages);
 				}
 			});
