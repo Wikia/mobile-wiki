@@ -25,6 +25,13 @@ App.MainPageCategoryRoute = Em.Route.extend({
 					curatedContent: model
 				}
 			}
-		});
+		})
+	},
+
+	actions: {
+		error: function (error: any, transition: EmberStates.Transition): void {
+			this.controllerFor('application').addAlert('info', i18n.t('app.category-not-exist'));
+			return this.transitionTo('mainPage');
+		}
 	}
 });
