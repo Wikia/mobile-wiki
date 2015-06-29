@@ -31,20 +31,7 @@ App.CuratedContentModel.reopenClass({
 			Em.$.ajax({
 				url: url,
 				success: (data: any): void => {
-					var itemy =
-					[
-							{
-								title: "Category:Locationsdd",
-								label: "Masteries",
-								image_id: 438479,
-								article_id: 2625,
-								type: "category",
-								image_url: "http://static.tomaszn.wikia-dev.com/__cb20150428141358/mlp/images/1/1c/Hamster-on-a-swing-big.jpg",
-								article_local_url: "/wiki/Category:Locations"
-							}
-						]
-					;
-					resolve(App.CuratedContentModel.sanitizeItems(itemy || []));
+					resolve(App.CuratedContentModel.sanitizeItems(data.items || []));
 				},
 				error: (data: any): void => {
 					reject(data);
