@@ -7,7 +7,10 @@ App.MainPageSectionRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
-		this.controllerFor('mainPageSection').set('title', transition.params['mainPage.section'].sectionName);
+		var sectionName = transition.params['mainPage.section'].sectionName;
+
+		document.title = sectionName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
+		this.controllerFor('mainPageSection').set('title', sectionName);
 	},
 
 	serialize: function (model: any) {

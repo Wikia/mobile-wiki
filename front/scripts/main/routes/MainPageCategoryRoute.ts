@@ -7,7 +7,10 @@ App.MainPageCategoryRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
-		this.controllerFor('mainPageCategory').set('title', transition.params['mainPage.category'].categoryName);
+		var categoryName = transition.params['mainPage.category'].categoryName;
+
+		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
+		this.controllerFor('mainPageCategory').set('title', categoryName);
 	},
 
 	renderTemplate: function() {
