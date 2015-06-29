@@ -44,26 +44,22 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	}),
 
 	infoboxImageParams: Em.computed({
-		get(): string {
+		get(): any {
 			var media: ArticleMedia = this.get('media'),
-				articleWidth: number = this.get('articleContent.width'),
-				mode: string,
-				height: number = this.get('computedHeight'),
-				width: number;
-			if (media.context !== 'infobox-image' ) {
-				return false;
-			}
+				articleContentWidth: number = this.get('articleContent.width'),
+				computedHeight: number = this.get('computedHeight'),
+				maximalWidth = Math.floor(media.height * 16 / 9);
 
-			if (height > articleWidth) {
+			//high image
+			if (computedHeight > articleContentWidth) {
 				return {
-					width: articleWidth,
+					width: articleContentWidth,
 					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-					height: articleWidth
+					height: articleContentWidth
 				}
 			}
 
-
-			var maximalWidth = Math.floor(media.height * 16 / 9);
+			//wide image
 			if (media.width > maximalWidth) {
 				return {
 					width: maximalWidth,
@@ -72,10 +68,12 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				}
 			}
 
-			return false;
-		},
-		set(key: string, value: string): string {
-			return value;
+			//normal image
+			return {
+					width: null,
+					mode: null,
+					height: null
+			}
 		}
 	}),
 
@@ -98,11 +96,11 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			if (media.context === 'icon') {
 				mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 				width = this.get('iconWidth');
-			} else if (infoboxImageParams) {
+			} else if (media.context === 'infobox-image') {
 				this.set('limitHeight', true);
-				mode = infoboxImageParams.mode;
-				height = infoboxImageParams.height;
-				width = infoboxImageParams.width;
+				mode = infoboxImageParams.mode || mode;
+				height = infoboxImageParams.height || height;
+				width = infoboxImageParams.width || width;
 			}
 
 			return this.getThumbURL(media.url, {
