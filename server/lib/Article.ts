@@ -169,6 +169,75 @@ export class ArticleRequestHelper {
 	}
 
 	/**
+	 *
+	 * @param callback
+	 * @param getWikiVariables
+	 */
+	getCategoryData(callback: Function, getWikiVariables: boolean = false): void {
+		var requests = [
+				new MediaWiki.ArticleRequest(this.params).category(this.params.categoryName, {
+					width: 300,
+					height: 300
+				})
+			];
+
+		logger.debug(this.params, 'Fetching category data');
+
+		requests.push( new MediaWiki.ArticleRequest(this.params).article(this.params.title, this.params.redirect));
+		logger.debug(this.params, 'Fetching article data');
+
+		if (getWikiVariables) {
+			logger.debug({wiki: this.params.wikiDomain}, 'Fetching wiki variables');
+
+			requests.push(new MediaWiki.WikiRequest({
+				wikiDomain: this.params.wikiDomain
+			}).getWikiVariables());
+		}
+
+		/**
+		 * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#settle---promise
+		 *
+		 * From Promise.settle documentation:
+		 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values)
+		 * return a promise that is fulfilled when all the items in the array are either fulfilled or rejected.
+		 * The fulfillment value is an array of PromiseInspection instances at respective positions in relation
+		 * to the input array. This method is useful for when you have an array of promises and you'd like to know
+		 * when all of them resolve - either by fulfilling of rejecting.
+		 */
+		Promise.settle(requests)
+			.then((results: Promise.Inspection<Promise<any>>[]) => {
+				var categoryPromise: Promise.Inspection<Promise<any>> = results[0],
+					articlePromise: Promise.Inspection<Promise<any>> = results [1],
+					wikiPromise: Promise.Inspection<Promise<any>> = results[2],
+					categoryItems: any,
+					articleData: any,
+					pageData: any = {},
+					wikiVariables: any = {};
+
+				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
+				categoryItems = categoryPromise.isFulfilled() ?
+					categoryPromise.value() :
+					categoryPromise.reason();
+
+				pageData.categoryData = categoryItems;
+
+				if (getWikiVariables) {
+					wikiVariables = wikiPromise.isFulfilled() ?
+						wikiPromise.value() :
+						wikiPromise.reason();
+				}
+
+				articleData = articlePromise.isFulfilled() ?
+					articlePromise.value() :
+					articlePromise.reason();
+
+				pageData.articleData = articleData.data;
+
+				callback(categoryItems.exception, pageData, wikiVariables.data);
+			});
+	}
+
+	/**
 	 * Handle full page data generation
 	 * @param {Function} next
 	 */
@@ -215,13 +284,18 @@ export class ArticleRequestHelper {
 		}, false);
 	}
 
-	/**
-	 * Handle article page data generation, no need for WikiVariables
-	 * @param {*} wikiVariables
-	 * @param {Function} next
-	 */
 	getSection(wikiVariables: any, next: Function): void {
 		this.getSectionData((error: any, pageData: any) => {
+			next(error, {
+				server: this.createServerData(this.params.wikiDomain),
+				wiki: wikiVariables || {},
+				pageData: pageData || {}
+			});
+		}, false);
+	}
+
+	getCategory(wikiVariables: any, next: Function): void {
+		this.getCategoryData((error: any, pageData: any) => {
 			next(error, {
 				server: this.createServerData(this.params.wikiDomain),
 				wiki: wikiVariables || {},

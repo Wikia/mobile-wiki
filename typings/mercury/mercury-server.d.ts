@@ -14,4 +14,6 @@ interface ArticleRequestParams {
 	title?: string;
 	redirect?: any;
 	headers?: any;
+	sectionName?: string;
+	categoryName?: string;
 }
