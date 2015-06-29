@@ -29,7 +29,7 @@ App.MainPageComponent = Em.Component.extend({
 			this.sendAction('openLightbox', lightboxType, lightboxData);
 		},
 
-		openCuratedContentItem: function(item) {
+		openCuratedContentItem: function (item: CuratedContentItem): void {
 			this.sendAction('openCuratedContentItem', item);
 		}
 	},

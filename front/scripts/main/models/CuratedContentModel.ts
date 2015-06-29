@@ -40,7 +40,7 @@ App.CuratedContentModel.reopenClass({
 		});
 	},
 
-	sanitizeItems: function (rawData): CuratedContentItem[] {
+	sanitizeItems: function (rawData: any): CuratedContentItem[] {
 		var sanitizedItems: CuratedContentItem[] = [];
 
 		if (Em.isArray(rawData)) {

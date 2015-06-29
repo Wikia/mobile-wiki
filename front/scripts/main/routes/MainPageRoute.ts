@@ -36,14 +36,17 @@ App.MainPageRoute = Em.Route.extend({
 			return true;
 		},
 
-		openCuratedContentItem: function(item) {
-			var categoryName;
+		openCuratedContentItem: function (item: CuratedContentItem): void {
+			var categoryName: string;
 
 			if (item.type === 'section') {
 				this.transitionTo('mainPage.section', item.label);
 			} else if (item.type === 'category') {
+				// Strip out the category namespace together with the colon
 				categoryName = item.categoryName.substr(item.categoryName.indexOf(':') + 1);
 				this.transitionTo('mainPage.category', categoryName);
+			} else {
+				Em.Logger.error('Can\'t open curated content item with type other than section or category', item);
 			}
 		}
 	}

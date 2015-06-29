@@ -6,7 +6,7 @@ App.MainPageSectionRoute = Em.Route.extend({
 		return App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
 	},
 
-	serialize: function (model) {
+	serialize: function (model: any) {
 		return {
 			sectionName: model.get('label')
 		};
