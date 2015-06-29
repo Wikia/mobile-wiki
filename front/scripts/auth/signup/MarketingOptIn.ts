@@ -28,7 +28,7 @@ class MarketingOptIn {
 		if (this.shouldBeChecked()) {
 			this.checkbox.checked = true;
 		}
-debugger;
+
 		if (this.shouldBeEnabled()) {
 			this.label.classList.remove('hide');
 		}
