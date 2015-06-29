@@ -6,6 +6,10 @@ App.MainPageSectionRoute = Em.Route.extend({
 		return App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
 	},
 
+	afterModel: function (model: any, transition: EmberStates.Transition): void {
+		this.controllerFor('mainPageSection').set('title', transition.params['mainPage.section'].sectionName);
+	},
+
 	serialize: function (model: any) {
 		return {
 			sectionName: model.get('label')

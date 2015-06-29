@@ -6,6 +6,10 @@ App.MainPageCategoryRoute = Em.Route.extend({
 		return App.CuratedContentModel.fetchItemsForSection(params.categoryName, 'category');
 	},
 
+	afterModel: function (model: any, transition: EmberStates.Transition): void {
+		this.controllerFor('mainPageCategory').set('title', transition.params['mainPage.category'].categoryName);
+	},
+
 	renderTemplate: function() {
 		this.render('mainPageCategory', {into: 'application'});
 	},
