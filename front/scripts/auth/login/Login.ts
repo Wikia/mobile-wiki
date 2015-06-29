@@ -85,6 +85,7 @@ class Login {
 		};
 
 		xhr.open('post', this.form.action, true);
+		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send((new UrlHelper()).urlEncode(postData));
 	}
