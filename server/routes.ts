@@ -67,6 +67,11 @@ unauthenticatedRoutes = [
 		path: '/',
 		handler: require('./facets/showMainPage')
 	},
+	{
+		method: 'GET',
+		path: '/main/section/{sectionName*}',
+		handler: require('./facets/showMainPageSection')
+	},
 
 	/**
 	 * API Routes
