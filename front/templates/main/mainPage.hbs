@@ -1,3 +1,12 @@
-<h1 class='article-title'>{{siteName}}</h1>
-{{main-page model=model.mainPageData openLightbox='openLightbox' openCuratedContentItem='openCuratedContentItem'}}
-{{wikia-footer}}
+{{main-page
+	title=siteName
+	mainPageTitle=mainPageTitle
+	siteName=siteName
+	wikiaStats=model.mainPageData.wikiaStats
+	featuredContent=model.mainPageData.featuredContent
+	curatedContent=model.mainPageData.curatedContent
+	trendingArticles=model.mainPageData.trendingArticles
+	trendingVideos=model.mainPageData.trendingVideos
+	openLightbox='openLightbox'
+	openCuratedContentItem='openCuratedContentItem'
+}}

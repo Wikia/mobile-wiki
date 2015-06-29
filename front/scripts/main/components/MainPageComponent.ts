@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.MainPageComponent = Em.Component.extend({
+App.MainPageComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['main-page-modules', 'main-page-body', 'mw-content'],
 	tagName: 'section',
 
