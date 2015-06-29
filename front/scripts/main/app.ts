@@ -157,6 +157,10 @@ App.initializer({
 	}
 });
 
+/**
+ * A "Geo" cookie is set by Fastly on every request.
+ * If you run mercury app on your laptop, the cookie won't be automatically present.
+ */
 App.initializer({
 	name: 'geo',
 	after: 'setupTracking',
