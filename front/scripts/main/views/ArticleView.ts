@@ -308,7 +308,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 					var $target = $(event.target),
 						$this = $(this);
 
-					if (!$target.is('a') && $this.toggleClass(collapsedClass).hasClass(collapsedClass)) {
+					if (!$target.is('a') && !$target.is('button') && $this.toggleClass(collapsedClass).hasClass(collapsedClass)) {
 						$this.height(minimumHeight);
 						scrollTo.apply($this.find('.' + expandButtonClass)[0]);
 					} else {
