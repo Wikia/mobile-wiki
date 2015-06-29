@@ -1,3 +1,9 @@
+## release-97 (2015-06-26 09:59 UTC)
+* [SOC-934](https://wikia-inc.atlassian.net/browse/SOC-934) SOC-934 Removing dice icon for Signup MVP
+* [CONCF-682](https://wikia-inc.atlassian.net/browse/CONCF-682) CONCF-682 | Internalization update
+* [CONCF-607](https://wikia-inc.atlassian.net/browse/CONCF-607) CONCF-607 Show items from all namespaces in Curated Content
+* [SOC-879](https://wikia-inc.atlassian.net/browse/SOC-879) As a PO, I want to know what errors visitors get on the registration form
+
 ## release-96 (2015-06-25 09:59 UTC)
 * [SOC-895](https://wikia-inc.atlassian.net/browse/SOC-895) SOC-896 | Auth pages - Don't allow redirects to external domains
 * [SOC-755](https://wikia-inc.atlassian.net/browse/SOC-755) SOC-753 && SOC-755 Tracking for New Login flow
