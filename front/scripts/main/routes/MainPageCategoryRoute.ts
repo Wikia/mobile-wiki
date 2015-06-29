@@ -3,12 +3,7 @@
 
 App.MainPageCategoryRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		var items = App.CuratedContentModel.fetchItemsForSection(params.categoryName, 'category');
-		items.catch(() => {
-			this.controllerFor('application').addAlert('info', i18n.t('app.category-not-exist'));
-			this.transitionTo('mainPage');
-		});
-		return items;
+		return App.CuratedContentModel.fetchItemsForSection(params.categoryName, 'category');
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
@@ -30,6 +25,13 @@ App.MainPageCategoryRoute = Em.Route.extend({
 					curatedContent: model
 				}
 			}
-		});
+		})
+	},
+
+	actions: {
+		error: function (error: any, transition: EmberStates.Transition): boolean {
+			this.controllerFor('application').addAlert('info', i18n.t('app.category-not-exist'));
+			return this.transitionTo('mainPage');
+		}
 	}
 });

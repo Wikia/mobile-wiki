@@ -3,12 +3,7 @@
 
 App.MainPageSectionRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		var items = App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
-		items.catch(() => {
-			this.controllerFor('application').addAlert('info', i18n.t('app.section-not-exist'));
-			this.transitionTo('mainPage');
-		});
-		return items;
+		return App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
@@ -30,6 +25,13 @@ App.MainPageSectionRoute = Em.Route.extend({
 					curatedContent: model
 				}
 			}
-		});
+		})
+	},
+
+	actions: {
+		error: function (error: any, transition: EmberStates.Transition): boolean {
+			this.controllerFor('application').addAlert('info', i18n.t('app.section-not-exist'));
+			return this.transitionTo('mainPage');
+		}
 	}
 });
