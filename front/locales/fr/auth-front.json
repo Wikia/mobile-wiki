@@ -1,7 +1,14 @@
 {
-  "errors" : {
-    "email_already_exists": "E-mail d'un utilisateur déjà inscrit sur Wikia",
-    "email_invalid": "Adresse e-mail non valide",
-    "registration_error": "Nous ne pouvons pas finaliser votre inscription actuellement"
+  "errors":{
+    "email_already_exists":"E-mail d'un utilisateur déjà inscrit sur Wikia",
+    "email_invalid":"Adresse e-mail non valide",
+    "registration_error":"Nous ne pouvons pas finaliser votre inscription actuellement",
+    "username_already_exists":"Ce nom d'utilisateur est déjà pris. Choisissez-en un autre !",
+    "username_unavailable":"Oups, votre nom d'utilisateur ne peut contenir que des lettres et des chiffres d'un alphabet unique et doit inclure au moins une lettre. Veuillez choisir un autre nom.",
+    "username_ip_address":"Oups, votre nom d'utilisateur ressemble à une adresse IP. Veuillez choisir un autre nom qui contient au moins une lettre.",
+    "username_exceeds_max_length":"Oups, votre nom d'utilisateur ne doit pas dépasser 50 caractères.",
+    "username_illegal_characters":"Oups, votre nom d'utilisateur ne peut contenir que des lettres et des chiffres d'un alphabet unique et doit inclure au moins une lettre. Veuillez choisir un autre nom.",
+    "password_exceeds_max_length":"Oups, votre mot de passe est trop long. Veuillez choisir un mot de passe de 50 caractères ou moins.",
+    "password_equal_name":"Votre mot de passe doit être différent de votre nom d'utilisateur."
   }
 }

@@ -1,7 +1,14 @@
 {
-  "errors" : {
-    "email_already_exists": "已在Wikia注册了电子邮件",
-    "email_invalid": "电子邮件无效",
-    "registration_error": "我们暂时无法完成您的注册"
+  "errors":{
+    "email_already_exists":"已在Wikia注册了电子邮件",
+    "email_invalid":"电子邮件无效",
+    "registration_error":"我们暂时无法完成您的注册",
+    "username_already_exists":"已有人使用此用户名。请尝试其他用户名！",
+    "username_unavailable":"您的用户名只能包含单一字母表中的字母和数字，而且必须含一个字母。请尝试其他用户名。",
+    "username_ip_address":"您的用户名看起来像一个IP地址。请尝试其他用户名（至少含一个字母）。",
+    "username_exceeds_max_length":"抱歉，您的用户名不能超过50个字符。",
+    "username_illegal_characters":"您的用户名只能包含单一字母表中的字母和数字，而且必须含一个字母。请尝试其他用户名。",
+    "password_exceeds_max_length":"抱歉，密码太长。密码最多可有50个字符。",
+    "password_equal_name":"您的密码必须与您的用户名不同。"
   }
 }

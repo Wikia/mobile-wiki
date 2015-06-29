@@ -1,7 +1,14 @@
 {
-  "errors" : {
-    "email_already_exists": "このメールアドレスはウィキアに登録済みです",
-    "email_invalid": "メールアドレスが無効です",
-    "registration_error": "現在、登録を完了できません。"
+  "errors":{
+    "email_already_exists":"このメールアドレスはウィキアに登録済みです",
+    "email_invalid":"メールアドレスが無効です",
+    "registration_error":"現在、登録を完了できません。",
+    "username_already_exists":"このユーザー名はすでに使用されているようです。別の名前をお試しください。",
+    "username_unavailable":"ユーザー名に含めることができるのは、同一体系のアルファベットの文字と数字のみで、文字は1つ以上含める必要があります。別の名前をお試しください。",
+    "username_ip_address":"ユーザー名にIPアドレスを指定しているようです。1つ以上の文字を含む別の名前をお試しください。",
+    "username_exceeds_max_length":"ユーザー名は50文字以下でご指定ください。",
+    "username_illegal_characters":"ユーザー名に含めることができるのは、同一体系のアルファベットの文字と数字のみで、文字は1つ以上含める必要があります。別の名前をお試しください。",
+    "password_exceeds_max_length":"パスワードが長すぎるようです。50文字以下のパスワードをご指定ください。",
+    "password_equal_name":"パスワードとユーザー名を同じにすることはできません。"
   }
 }
