@@ -69,7 +69,7 @@ App.ArticleModel.reopenClass({
 	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
 		var model = App.ArticleModel.create(params);
 
-		if (M.prop('firstPage') && !M.prop('asyncArticleLoad')) {
+		if (M.prop('firstPage') && !M.prop('asyncArticle')) {
 			this.setArticle(model);
 			return model;
 		}

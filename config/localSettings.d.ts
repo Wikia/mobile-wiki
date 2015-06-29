@@ -74,5 +74,5 @@ interface LocalSettings {
 	workerCount: number;
 	workerDisconnectTimeout: number;
 	cdnBaseUrl: string;
-	asyncArticleLoad: string[];
+	asyncArticle: string[];
 }

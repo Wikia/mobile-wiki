@@ -9,7 +9,10 @@
 		<meta name="description" content="{{#if article.details.description}}{{article.details.description}}{{else}}{{article.article.description}}{{/if}}">
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 		{{#if themeColor}}
-		<meta name="theme-color" content="{{themeColor}}">
+			<meta name="theme-color" content="{{themeColor}}">
+		{{/if}}
+		{{#if asyncArticle}}
+			<meta name="fragment" content="!">
 		{{/if}}
 
 		{{#if isRtl}}
@@ -43,7 +46,7 @@
 			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			M.prop('userId', {{{userId}}});
-			M.prop('asyncArticleLoad', {{asyncArticleLoad}});
+			M.prop('asyncArticle', {{asyncArticle}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
@@ -69,7 +72,7 @@
 			<img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D">
 		</div>
 
-		{{#unless asyncArticleLoad}}
+		{{#unless asyncArticle}}
 			<div id="article-preload">
 				{{{content}}}
 			</div>
