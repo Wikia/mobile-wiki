@@ -10,22 +10,21 @@ App.MainPageCategoryRoute = Em.Route.extend({
 		var categoryName = transition.params['mainPage.category'].categoryName;
 
 		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
-		this.controllerFor('mainPageCategory').set('title', categoryName);
+
+		this.controllerFor('mainPage').setProperties({
+			isRoot: false,
+			title: categoryName
+		});
 	},
 
-	renderTemplate: function() {
-		this.render('mainPageCategory', {into: 'application'});
-	},
-
-	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
-			this.controllerFor('application').addAlert('alert', i18n.t('app.edit-load-error'));
-			M.track({
-				action: M.trackActions.impression,
-				category: 'sectioneditor',
-				label: 'edit-load-error'
-			});
-			return true;
-		}
+	renderTemplate: function (controller: any, model: CuratedContentItem[]) {
+		this.render('mainPage', {
+			into: 'application',
+			model: {
+				mainPageData: {
+					curatedContent: model
+				}
+			}
+		});
 	}
 });

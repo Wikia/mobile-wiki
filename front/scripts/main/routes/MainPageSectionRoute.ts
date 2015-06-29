@@ -10,28 +10,21 @@ App.MainPageSectionRoute = Em.Route.extend({
 		var sectionName = transition.params['mainPage.section'].sectionName;
 
 		document.title = sectionName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
-		this.controllerFor('mainPageSection').set('title', sectionName);
+
+		this.controllerFor('mainPage').setProperties({
+			isRoot: false,
+			title: sectionName
+		});
 	},
 
-	serialize: function (model: any) {
-		return {
-			sectionName: model.get('label')
-		};
-	},
-
-	renderTemplate: function() {
-		this.render('mainPageSection', {into: 'application'});
-	},
-
-	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
-			this.controllerFor('application').addAlert('alert', i18n.t('app.edit-load-error'));
-			M.track({
-				action: M.trackActions.impression,
-				category: 'sectioneditor',
-				label: 'edit-load-error'
-			});
-			return true;
-		}
+	renderTemplate: function (controller: any, model: CuratedContentItem[]) {
+		this.render('mainPage', {
+			into: 'application',
+			model: {
+				mainPageData: {
+					curatedContent: model
+				}
+			}
+		});
 	}
 });
