@@ -3,7 +3,12 @@
 
 App.MainPageSectionRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
+		var items = App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
+		items.catch(() => {
+			this.controllerFor('application').addAlert('info', i18n.t('app.section-not-exist'));
+			this.transitionTo('mainPage');
+		});
+		return items;
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
