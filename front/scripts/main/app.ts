@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
+/// <reference path="../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 /// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/modules/Ads.ts" />
 /// <reference path="../mercury/modules/Trackers/UniversalAnalytics.ts" />
