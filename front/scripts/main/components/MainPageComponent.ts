@@ -1,7 +1,9 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/AdsMixin.ts" />
+
 'use strict';
 
-App.MainPageComponent = Em.Component.extend(App.TrackClickMixin, {
+App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 	classNames: ['main-page-modules', 'main-page-body', 'mw-content'],
 	tagName: 'section',
 
@@ -34,11 +36,8 @@ App.MainPageComponent = Em.Component.extend(App.TrackClickMixin, {
 		}
 	},
 
-	didInsertElement: function(): void {
-		M.track({
-			action: M.trackActions.impression,
-			category: 'modular-main-page',
-			label: 'main-page-impression'
-		});
+	didInsertElement: function (): void {
+		this.injectMainPageAds();
+		this.setupAdsContext(this.get('adsContext'));
 	}
 });

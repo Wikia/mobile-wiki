@@ -36,7 +36,7 @@ App.AdsMixin = Em.Mixin.create({
 		// in willInsertElement hook of the component to check if the parameters is really defined
 		var view = this.createChildView(App.AdSlotComponent, {
 			name: adSlotName,
-			noAds: this.get('controller.noAds')
+			noAds: this.get('noAds')
 		});
 
 		Ember.run.schedule('afterRender', this, (): void => {

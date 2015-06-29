@@ -7,14 +7,20 @@ App.MainPageCategoryRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
-		var categoryName = transition.params['mainPage.category'].categoryName;
+		var categoryName = transition.params['mainPage.category'].categoryName,
+			mainPageController = this.controllerFor('mainPage');
 
 		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
-		this.controllerFor('mainPage').setProperties({
+		mainPageController.setProperties({
 			isRoot: false,
 			title: categoryName
 		});
+
+		// If user was previously on the main page this is already set
+		if (!mainPageController.get('adsContext')) {
+			mainPageController.set('adsContext', Em.get(Mercury, 'article.adsContext'));
+		}
 	},
 
 	renderTemplate: function (controller: any, model: CuratedContentItem[]) {

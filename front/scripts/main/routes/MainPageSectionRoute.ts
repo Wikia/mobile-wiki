@@ -7,14 +7,20 @@ App.MainPageSectionRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
-		var sectionName = transition.params['mainPage.section'].sectionName;
+		var sectionName = transition.params['mainPage.section'].sectionName,
+			mainPageController = this.controllerFor('mainPage');
 
 		document.title = sectionName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
-		this.controllerFor('mainPage').setProperties({
+		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionName
 		});
+
+		// If user was previously on the main page this is already set
+		if (!mainPageController.get('adsContext')) {
+			mainPageController.set('adsContext', Em.get(Mercury, 'article.adsContext'));
+		}
 	},
 
 	renderTemplate: function (controller: any, model: CuratedContentItem[]) {

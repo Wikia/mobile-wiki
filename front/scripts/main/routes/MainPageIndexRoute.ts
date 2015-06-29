@@ -8,10 +8,11 @@ App.MainPageIndexRoute = Em.Route.extend({
 		return App.MainPageModel.find();
 	},
 
-	afterModel: function () {
+	afterModel: function (model: typeof App.MainPageModel): void {
 		document.title = Em.get(Mercury, 'wiki.mainPageTitle') + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
 		this.controllerFor('mainPage').setProperties({
+			adsContext: model.get('adsContext'),
 			isRoot: true,
 			title: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
