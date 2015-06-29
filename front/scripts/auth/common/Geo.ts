@@ -8,6 +8,7 @@ class Geo {
 	cookieName: string = 'Geo';
 
 	country: string;
+	continent: string;
 
 	constructor () {
 		var geoCookie: string = Cookie.get(this.cookieName),
@@ -24,9 +25,14 @@ class Geo {
 		}
 
 		this.country = parsedGeoCookie.country;
+		this.continent = parsedGeoCookie.continent;
 	}
 
 	public getCountry (): string {
 		return this.country;
+	}
+
+	public getContinent (): string {
+		return this.continent;
 	}
 }
