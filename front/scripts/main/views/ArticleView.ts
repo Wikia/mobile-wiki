@@ -148,9 +148,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.replaceInfoboxesWithInfoboxComponents();
-			// ====================================  <-- racing stripes to increase performance
-			this.handleMediaPlaceholderVariations();
-			// ====================================
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 4);
+			Ember.run.later(this, () => { this.replaceMediaPlaceholdersWithMediaComponents(model.get('media')) }, 0);
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
@@ -183,17 +182,16 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		return component.$().attr('data-ref', ref);
 	},
 
-	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, endIndex: number): void {
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
 		var $mediaPlaceholders = this.$('.article-media'),
 			index: number;
 
-		if (endIndex === -1 || endIndex > $mediaPlaceholders.length) {
-			endIndex = $mediaPlaceholders.length;
+		if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
+			numberToProcess = $mediaPlaceholders.length;
 		}
 
-		// This will not iterate over components that were already replaced, since they will no longer have the 'article-media' class
-		for (index = 0; index < endIndex; index++) {
-			$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
+		for (index = 0; index < numberToProcess; index++) {
+		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
 		}
 	},
 
@@ -351,39 +349,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			}
 			init();
 		});
-	},
-
-	/**
-	 * Handles the Optimizely variations for testing processing images async
-	 * Variations:
-	 *	0 (default)	=> process all synchronously	
-	 *	1			=> process all async
-	 *	2			=> first 10 sync, rest async
-	 *	3			=> first 50 sync, rest async
-	 */
-	handleMediaPlaceholderVariations: function (): void {
-		var optimizelyVariation = M.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}),
-			media = this.get('controller.model').get('media');
-
-		if (optimizelyVariation === 1) {
-			// Process the images async
-			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-			}, 0);
-		} else if (optimizelyVariation === 2) {
-			this.replaceMediaPlaceholdersWithMediaComponents(media, 10);
-			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-			}, 0);
-		} else if (optimizelyVariation === 3) {
-			this.replaceMediaPlaceholdersWithMediaComponents(media, 50);
-			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-			}, 0);
-		} else {
-			// Process the images synchronously
-			this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-		}
 	},
 
 	/**
