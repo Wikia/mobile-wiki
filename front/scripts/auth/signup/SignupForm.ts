@@ -112,7 +112,7 @@ class SignupForm {
 	}
 
 	private onSubmit(event: Event): void {
-		var xhr = new XMLHttpRequest(),
+		var registrationXhr = new XMLHttpRequest(),
 			data: HeliosRegisterInput = this.getFormValues(),
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
 			enableSubmitButton = () => {
@@ -124,13 +124,13 @@ class SignupForm {
 		submitButton.classList.add('on');
 		this.clearValidationErrors();
 
-		xhr.onload = (e: Event) => {
+		registrationXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
 				// TODO remove this code when SERVICES-377 is fixed
-				var ajaxXhr = new XMLHttpRequest();
-				ajaxXhr.onload = (e: Event) => {
+				var loginXhr = new XMLHttpRequest();
+				loginXhr.onload = (e: Event) => {
 					enableSubmitButton();
 					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
 						window.location.href = this.redirect;
@@ -138,31 +138,31 @@ class SignupForm {
 						this.displayGeneralError();
 					}
 				};
-				ajaxXhr.onerror = (e: Event) => {
+				loginXhr.onerror = (e: Event) => {
 					enableSubmitButton();
 					this.displayGeneralError();
 				};
 
-				ajaxXhr.open('POST', this.form.action.replace('/users', '/token'), true);
-				ajaxXhr.withCredentials = true;
-				ajaxXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				ajaxXhr.send((new UrlHelper()).urlEncode(data));
+				loginXhr.open('POST', this.form.action.replace('/users', '/token'), true);
+				loginXhr.withCredentials = true;
+				loginXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				loginXhr.send((new UrlHelper()).urlEncode(data));
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
+				this.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
 			} else {
 				this.displayGeneralError();
 			}
 		};
 
-		xhr.onerror = (e: Event) => {
+		registrationXhr.onerror = (e: Event) => {
 			enableSubmitButton();
 			this.displayGeneralError();
 		};
 
-		xhr.open('POST', this.form.action, true);
-		xhr.withCredentials = true;
-		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhr.send((new UrlHelper()).urlEncode(data));
+		registrationXhr.open('POST', this.form.action, true);
+		registrationXhr.withCredentials = true;
+		registrationXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		registrationXhr.send((new UrlHelper()).urlEncode(data));
 
 		event.preventDefault();
 	}
