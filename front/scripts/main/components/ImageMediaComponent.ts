@@ -34,15 +34,25 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 */
 	computedHeight: Em.computed('media.width', 'media.height', 'articleContent.width', function (): number {
 		var pageWidth = this.get('articleContent.width'),
-			imageWidth = this.get('media.width'),
+			imageWidth = this.get('media.width')  || pageWidth,
 			imageHeight = this.get('media.height');
 
 		if (pageWidth < imageWidth) {
 			return ~~(pageWidth * (imageHeight / imageWidth));
 		}
+
 		return imageHeight;
 	}),
 
+	/**
+	 * @desc return the params for getThumbURL for infobox image.
+	 * In case of very high or very wide images, crop them properly.
+	 * @return {
+	 *	mode: string crop mode
+	 *  height: number height of image
+	 *  width: number width of image
+	 * }
+	 */
 	infoboxImageParams: Em.computed({
 		get(): any {
 			var media: ArticleMedia = this.get('media'),
@@ -53,40 +63,41 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			//high image
 			if (computedHeight > articleContentWidth) {
 				return {
-					width: articleContentWidth,
 					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-					height: articleContentWidth
+					height: articleContentWidth,
+					width: articleContentWidth
 				}
 			}
 
 			//wide image
 			if (media.width > maximalWidth) {
 				return {
-					width: maximalWidth,
 					mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
-					height: media.height
+					height: media.height,
+					width: maximalWidth
 				}
 			}
 
 			//normal image
 			return {
-					width: null,
-					mode: null,
-					height: null
+				mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
+				height: number = this.get('computedHeight'),
+				width: number = this.get('articleContent.width'),
 			}
 		}
 	}),
 
 	/**
 	 * @desc return the thumbURL for media.
-	 * If media is an icon, use the computed width.
+	 * If media is an icon, use the limited width.
+	 * If media is an infobox image, use specified thumb params.
 	 */
 	url: Em.computed({
 		get(): string {
 			var media: ArticleMedia = this.get('media'),
 				mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-				width: number = this.get('articleContent.width'),
 				height: number = this.get('computedHeight'),
+				width: number = this.get('articleContent.width'),
 				infoboxImageParams = this.get('infoboxImageParams');
 
 			if (!media) {
@@ -98,9 +109,9 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				width = this.get('iconWidth');
 			} else if (media.context === 'infobox-image') {
 				this.set('limitHeight', true);
-				mode = infoboxImageParams.mode || mode;
-				height = infoboxImageParams.height || height;
-				width = infoboxImageParams.width || width;
+				mode = infoboxImageParams.mode;
+				height = infoboxImageParams.height;
+				width = infoboxImageParams.width;
 			}
 
 			return this.getThumbURL(media.url, {
