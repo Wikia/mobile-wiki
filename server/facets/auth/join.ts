@@ -26,7 +26,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			hideHeader: true,
 			hideFooter: true,
 			noScripts: true,
-			signupHref: authUtils.getSignupUrl(request),
+			signupHref: authUtils.getRegisterUrl(request),
 			bodyClasses: 'splash join-page'
 		}
 	);
