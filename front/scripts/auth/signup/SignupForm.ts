@@ -18,9 +18,15 @@ class SignupForm {
 	form: HTMLFormElement;
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
+	redirect: string;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
+		if (window.location.search) {
+			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+			this.redirect = params['redirect'];
+		}
+		this.redirect = this.redirect || '/';
 	}
 
 	private clearValidationErrors(): void {
@@ -123,8 +129,23 @@ class SignupForm {
 			enableSubmitButton();
 
 			if (status === 200) {
-				alert('signed in correctly');
-				// TODO handle successful registration
+				// TODO remove this code when SERVICES-377 is fixed
+				var ajaxXhr = new XMLHttpRequest();
+				ajaxXhr.onload = (e: Event) => {
+					if ((<XMLHttpRequest> e.target).status === 200) {
+						window.location.href = this.redirect;
+					} else {
+						this.displayGeneralError();
+					}
+				};
+				ajaxXhr.onerror = (e: Event) => {
+					this.displayGeneralError();
+				};
+
+				ajaxXhr.open('POST', this.form.action, true);
+				ajaxXhr.withCredentials = true;
+				ajaxXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				ajaxXhr.send((new UrlHelper()).urlEncode(data));
 			} else if (status === 400) {
 				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
 			} else {
@@ -138,6 +159,7 @@ class SignupForm {
 		};
 
 		xhr.open('POST', this.form.action, true);
+		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send((new UrlHelper()).urlEncode(data));
 
