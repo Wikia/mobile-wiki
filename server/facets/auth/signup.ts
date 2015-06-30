@@ -14,6 +14,10 @@ interface SignupViewContext extends authView.AuthViewContext {
 	birthdateInputs: Array<InputData>;
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
+	footerHref?: string;
+	trackingConfig?: any;
+	usernameMaxLength: number;
+	passwordMaxLength: number;
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
@@ -30,13 +34,15 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 		authView.getDefaultContext(request),
 		{
 			headerText: 'auth:join.sign-up-with-email',
-			heliosRegistrationURL: localSettings.helios.host + '/register',
+			heliosRegistrationURL: localSettings.helios.host + '/users',
 			title: 'auth:join.sign-up-with-email',
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.login-callout',
 			footerCalloutLink: 'auth:common.login-link-text',
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
-			bodyClasses: 'signup-page'
+			bodyClasses: 'signup-page',
+			usernameMaxLength: localSettings.helios.usernameMaxLength,
+			passwordMaxLength: localSettings.helios.passwordMaxLength
 		}
 	);
 

@@ -16,7 +16,7 @@ interface HeliosRegisterInput {
 
 class SignupForm {
 	form: HTMLFormElement;
-	generalValidationErrors: Array<string> = ['email_blocked', 'username_unavailable', 'birthdate_below_min_age'];
+	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
 
 	constructor(form: Element) {
@@ -29,6 +29,8 @@ class SignupForm {
 		Array.prototype.forEach.call( errorNodes, (node: HTMLElement): void => {
 			if (node.tagName === 'INPUT') {
 				node.classList.remove('error');
+			} else if (node.classList.contains('input')) {
+				node.classList.remove('error');
 			} else {
 				node.parentNode.removeChild( node );
 			}
@@ -37,20 +39,31 @@ class SignupForm {
 	}
 
 	private displayValidationErrors(errors: Array<HeliosError>): void {
+		var errorsDescriptions: string[] = [];
+
 		Array.prototype.forEach.call( errors, (err: HeliosError): void => {
+			errorsDescriptions.push(err.description);
 			if (this.generalValidationErrors.indexOf(err.description) === -1) {
 				this.displayFieldValidationError(err);
 			} else {
 				this.displayGeneralError();
 			}
 		});
+
+		this.trackValidationErrors(errorsDescriptions);
 	}
 
 	private displayFieldValidationError(err: HeliosError): void {
 		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
-			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field];
+			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field],
+			specialFieldContainer: HTMLElement;
 		input.parentNode.appendChild(errorNode);
-		input.classList.add('error');
+		if (specialFieldContainer = <HTMLElement> (<HTMLElement> input.parentNode).querySelector('.input')) {
+			// Special case when we imitate input on UI using containers. eg. Birthdate input filed
+			specialFieldContainer.classList.add('error');
+		} else {
+			input.classList.add('error');
+		}
 	}
 
 	private displayGeneralError(): void {
@@ -81,6 +94,15 @@ class SignupForm {
 			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
 			// TODO add langCode
 		};
+	}
+
+	private trackValidationErrors(errors: Array<string>): void {
+		M.track({
+			trackingMethod: 'ga',
+			action: M.trackActions.error,
+			category: 'user-signup-mobile',
+			label: 'signupValidationErrors: ' + errors.join(';'),
+		});
 	}
 
 	private onSubmit(event: Event): void {
