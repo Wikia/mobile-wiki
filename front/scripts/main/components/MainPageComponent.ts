@@ -35,17 +35,4 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 			this.sendAction('openCuratedContentItem', item);
 		}
 	},
-
-	didInsertElement: function (): void {
-		// TODO: This should be refactored together with AdEng
-		this.sendAction('setupAds', this.get('adsContext'));
-		this.injectMainPageAds();
-		this.setupAdsContext(this.get('adsContext'));
-		M.setTrackContext({
-			a: this.get('title'),
-			n: this.get('ns')
-		});
-		M.trackPageView(this.get('adsContext.targeting'));
-
-	}
 });
