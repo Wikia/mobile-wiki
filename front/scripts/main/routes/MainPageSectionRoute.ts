@@ -14,13 +14,10 @@ App.MainPageSectionRoute = Em.Route.extend({
 
 		mainPageController.setProperties({
 			isRoot: false,
-			title: sectionName
+			title: sectionName,
+			adsContext: Em.get(Mercury, 'article.adsContext'),
+			ns: Em.get(Mercury, 'article.details.ns')
 		});
-
-		// If user was previously on the main page this is already set
-		if (!mainPageController.get('adsContext')) {
-			mainPageController.set('adsContext', Em.get(Mercury, 'article.adsContext'));
-		}
 	},
 
 	renderTemplate: function (controller: any, model: CuratedContentItem[]) {
