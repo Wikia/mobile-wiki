@@ -3,7 +3,6 @@
 
 interface CuratedContentSection {
 	items: CuratedContentItem[];
-	isTopSection?: boolean;
 	label?: string;
 }
 

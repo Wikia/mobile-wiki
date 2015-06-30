@@ -1,9 +1,4 @@
 {{#if model}}
-	{{#unless model.isTopSection}}
-		<div class='section-top'>
-			<div class='section-title'>{{currentSection.label}}</div>
-		</div>
-	{{/unless}}
 	<nav class='curated-content-items'>
 		{{#each model as |item|}}
 			{{curated-content-item model=item action='clickItem'}}
