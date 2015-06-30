@@ -80,9 +80,9 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 			//normal image
 			return {
-				mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-				height: number = this.get('computedHeight'),
-				width: number = this.get('articleContent.width'),
+				mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
+				height: this.get('computedHeight'),
+				width: this.get('articleContent.width'),
 			}
 		}
 	}),
