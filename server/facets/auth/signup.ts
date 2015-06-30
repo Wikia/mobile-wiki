@@ -14,8 +14,6 @@ interface SignupViewContext extends authView.AuthViewContext {
 	birthdateInputs: Array<InputData>;
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
-	footerHref?: string;
-	trackingConfig?: any;
 	usernameMaxLength: number;
 	passwordMaxLength: number;
 	langCode: string;
@@ -41,10 +39,10 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			footerCallout: 'auth:common.login-callout',
 			footerCalloutLink: 'auth:common.login-link-text',
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
-			bodyClasses: 'signup-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
-			langCode: lang
+			langCode: lang,
+			bodyClasses: 'signup-page'
 		}
 	);
 
