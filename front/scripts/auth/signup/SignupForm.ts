@@ -126,12 +126,12 @@ class SignupForm {
 
 		xhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
-			enableSubmitButton();
 
 			if (status === 200) {
 				// TODO remove this code when SERVICES-377 is fixed
 				var ajaxXhr = new XMLHttpRequest();
 				ajaxXhr.onload = (e: Event) => {
+					enableSubmitButton();
 					if ((<XMLHttpRequest> e.target).status === 200) {
 						window.location.href = this.redirect;
 					} else {
@@ -139,6 +139,7 @@ class SignupForm {
 					}
 				};
 				ajaxXhr.onerror = (e: Event) => {
+					enableSubmitButton();
 					this.displayGeneralError();
 				};
 
