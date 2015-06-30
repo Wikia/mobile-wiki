@@ -10,6 +10,7 @@
     "username_illegal_characters":"Ups, nazwa użytkownika może zawierać tylko litery i cyfry z jednego alfabetu i musi zawierać przynajmniej jedną literę. Spróbuj podać inną nazwę.",
     "password_exceeds_max_length":"Twoje hasło jest zbyt długie. Wybierz hasło, które ma mniej niż 51 znaków.",
     "password_equal_name":"Hasło musi być inne niż nazwa użytkownika.",
+    "birthdate_invalid":"Ups, wygląda na to, że podana data zawiera błąd! Spróbuj ponownie.",
     "wrong-credentials":"Hmm, nie rozpoznaliśmy podanych danych logowania. Spróbuj ponownie lub zarejestruj nowe konto."
   }
 }
