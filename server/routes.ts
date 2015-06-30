@@ -2,6 +2,7 @@
 import Hoek = require('hoek');
 import localSettings = require('../config/localSettings');
 import Caching = require('./lib/Caching');
+import authUtils = require('./lib/AuthUtils');
 
 interface RouteDefinition {
 	method: string[]|string;
@@ -108,9 +109,17 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/login',
+		path: '/signin',
 		config: authPageConfig,
 		handler: require('./facets/auth/login').get
+	},
+	{
+		method: 'GET',
+		path: '/login',
+		config: authPageConfig,
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
+		}
 	},
 	{
 		method: 'POST',
@@ -119,9 +128,17 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/signup',
+		path: '/register',
 		config: authPageConfig,
 		handler: require('./facets/auth/signup').get
+	},
+	{
+		method: 'GET',
+		path: '/signup',
+		config: authPageConfig,
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
+		}
 	},
 	{
 		method: 'GET',
