@@ -4,6 +4,7 @@
 
 import BirthdateInput = require('./BirthdateInput');
 import dateUtils = require('../../lib/DateUtils');
+import authUtils = require('../../lib/AuthUtils');
 import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend');
@@ -39,6 +40,7 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
 			footerCalloutLink: 'auth:common.login-link-text',
+			footerHref: authUtils.getLoginUrl(request),
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
