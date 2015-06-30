@@ -148,8 +148,10 @@ class SignupForm {
 				loginXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				loginXhr.send((new UrlHelper()).urlEncode(data));
 			} else if (status === HttpCodes.BAD_REQUEST) {
+				enableSubmitButton();
 				this.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
 			} else {
+				enableSubmitButton();
 				this.displayGeneralError();
 			}
 		};
