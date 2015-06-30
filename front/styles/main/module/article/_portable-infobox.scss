@@ -1,20 +1,70 @@
 $infobox-item-margin: 5px;
-$infobox-section-header-background: #e5e5e5;
+$infobox-background: $color-blue-gray-light;
+$infobox-section-header-background: $color-blue-gray;
 
 .portable-infobox {
+	background-color: $infobox-background;
 	height: auto;
 	margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
-
-
-
+	// reset inherited margins and paddings
+	.portable-infobox-title,
+	.portable-infobox-header,
+	.portable-infobox-item-label,
+	.portable-infobox-comparison,
+	.portable-infobox-comparison-set-header,
+	.portable-infobox-comparison-item,
 	.media-component {
 		margin: 0;
+		padding: 0;
+	}
 
+	//////////// Specific styles for each of the infobox elements starts here ////////////
+
+	// general classes and rules used across infobox
+	.portable-infobox-item-margins {
+		padding: $infobox-item-margin * 2 $article-horizontal-padding;
+	}
+
+	.portable-infobox-header-background {
+		background-color: $infobox-section-header-background;
+	}
+
+	.portable-infobox-header-font {
+		font-size: 1rem;
+		font-weight: bold;
+		line-height: 150%;
+		margin-top: 0;
+	}
+
+	.item-type-key-val:not(:last-of-type),
+	.item-type-group,
+	.item-type-comparison,
+	.item-type-image figcaption {
+		border-bottom: 1px solid $infobox-section-header-background;
+	}
+
+	> .portable-infobox-item:last-child {
+		border-bottom: 0;
+	}
+
+	.portable-infobox-title,
+	.portable-infobox-header,
+	figcaption {
+		text-align: center;
+	}
+
+	// infobox title
+	.portable-infobox-title {
+		padding: $infobox-item-margin 0;
+	}
+
+	// infobox images
+	.media-component {
 		figcaption {
 			font-style: italic;
 			height: auto;
-			padding: $infobox-item-margin $infobox-item-margin * 3;
+			padding: $infobox-item-margin $article-horizontal-padding $infobox-item-margin * 2;
 		}
 
 		.gallery-image img {
@@ -24,46 +74,33 @@ $infobox-section-header-background: #e5e5e5;
 		}
 	}
 
-	.portable-infobox-item-margins {
-		padding: $infobox-item-margin $infobox-item-margin * 3 $infobox-item-margin * 2;
-	}
+	// infobox data fields in tabular layout
+	> .item-type-key-val,
+	.item-type-group .item-type-key-val {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		overflow: hidden;
+		width: 100%;
 
-	.portable-infobox-header-background {
-		background-color: $infobox-section-header-background;
-	}
+		.portable-infobox-item-label {
+			flex-basis: 34%;
+		}
 
-	.portable-infobox-title,
-	.portable-infobox-header {
-		margin: 0;
-	}
+		.portable-infobox-item-value {
+			padding-left: 0;
+		}
 
-	.portable-infobox-title {
-		padding: $infobox-item-margin * 2 0;
-	}
-
-	.portable-infobox-header {
-		padding: $infobox-item-margin 0 0;
-	}
-
-	.portable-infobox-header-font {
-		font-size: 1rem;
-		font-weight: bold;
-		margin-top: 0;
-	}
-
-	.item-type-key-val:not(:last-of-type) {
-		border-bottom: 1px solid $infobox-section-header-background;
-	}
-
-	.portable-infobox-item-label {
-		margin: 0;
-		padding: 0;
+		.portable-infobox-item-value:not(:first-child) {
+			flex-basis: 66%;
+			padding-left: 10px;
+		}
 	}
 
 	.portable-infobox-item-value {
 		padding-left: $infobox-item-margin * 2;
 
-		// experiment with removing margins on all children of data value
+		// remove margins on all children of data value
 		> * {
 			margin: 0;
 		}
@@ -74,9 +111,9 @@ $infobox-section-header-background: #e5e5e5;
 		}
 	}
 
+	// comparison layout
 	.portable-infobox-comparison {
 		border-collapse: collapse;
-		margin: 0;
 		width: 100%;
 	}
 
@@ -94,7 +131,6 @@ $infobox-section-header-background: #e5e5e5;
 		box-sizing: border-box;
 		display: block;
 		flex-basis: 100%;
-		padding: 0;
 		text-align: left;
 		width: 100%;
 	}
@@ -115,14 +151,38 @@ $infobox-section-header-background: #e5e5e5;
 
 		.item-type-key-val {
 			border-bottom: 0;
-			padding-right: $infobox-item-margin * 2;
+		}
+
+		.portable-infobox-item-value {
+			padding-left: 0;
 		}
 	}
 
+	// infobox footer
 	.portable-infobox-footer {
 		font-weight: normal;
-		padding:  $infobox-item-margin * 2 $infobox-item-margin * 3;
+		padding: $infobox-item-margin * 2 $infobox-item-margin * 3;
 		text-align: center;
+	}
+
+	// styles for infobox collapse / expand UI
+	.portable-infobox-expand-button {
+		background: linear-gradient(to top, $color-blue-gray-light 35%, transparent);
+		border-bottom: 1px solid $infobox-section-header-background;
+		box-sizing: border-box;
+		padding: $infobox-item-margin * 5 0 $infobox-item-margin;
+		text-align: center;
+		width: 100%;
+	}
+
+	.portable-infobox-expand-icon {
+		height: 12px;
+	}
+
+	&:not(.collapsed) {
+		.portable-infobox-expand-icon {
+			transform: rotate(180deg);
+		}
 	}
 
 	&.collapsed {
@@ -131,26 +191,8 @@ $infobox-section-header-background: #e5e5e5;
 
 		.portable-infobox-expand-button {
 			bottom: 0;
+			padding-top: $infobox-item-margin * 10;
 			position: absolute;
-		}
-	}
-
-	&:not(.collapsed) {
-		.portable-infobox-expand-button svg {
-			transform: rotate(180deg);
-		}
-	}
-
-	.portable-infobox-expand-button {
-		background-color: white;
-		box-sizing: border-box;
-		border: 1px solid $infobox-section-header-background;
-		padding: $infobox-item-margin * 2 0;
-		text-align: center;
-		width: 100%;
-
-		svg {
-			height: 12px;
 		}
 	}
 }
