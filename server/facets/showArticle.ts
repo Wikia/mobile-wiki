@@ -61,8 +61,11 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
  * @param reply
  * @param error
  * @param result
+ * @param allowCache
  */
-function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true): void {
+function onArticleResponse (
+	request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true
+): void {
 	var code = 200,
 		response: Hapi.Response;
 

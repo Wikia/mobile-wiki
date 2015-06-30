@@ -63,8 +63,7 @@ function processCuratedContentData (
 	request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true
 ): void {
 	var code = 200,
-		response: Hapi.Response,
-		result = result;
+		response: Hapi.Response;
 
 	result.article = result.pageData.articleData;
 	result.gridData = result.pageData.gridData;
