@@ -57,10 +57,10 @@ class Login {
 
 			enableSubmitButton();
 
-			if (xhr.status === 401) {
+			if (xhr.status === HttpCodes.UNAUTHORIZED) {
 				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
 				return this.displayError('errors.wrong-credentials');
-			} else if (xhr.status !== 200) {
+			} else if (xhr.status !== HttpCodes.OK) {
 				this.track('login-server-error', Mercury.Utils.trackActions.error);
 				return this.displayError('errors.server-error');
 			}

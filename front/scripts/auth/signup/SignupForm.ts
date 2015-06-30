@@ -18,9 +18,15 @@ class SignupForm {
 	form: HTMLFormElement;
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
+	redirect: string;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
+		if (window.location.search) {
+			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+			this.redirect = params['redirect'];
+		}
+		this.redirect = this.redirect || '/';
 	}
 
 	private clearValidationErrors(): void {
@@ -106,7 +112,7 @@ class SignupForm {
 	}
 
 	private onSubmit(event: Event): void {
-		var xhr = new XMLHttpRequest(),
+		var registrationXhr = new XMLHttpRequest(),
 			data: HeliosRegisterInput = this.getFormValues(),
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
 			enableSubmitButton = () => {
@@ -118,29 +124,47 @@ class SignupForm {
 		submitButton.classList.add('on');
 		this.clearValidationErrors();
 
-		xhr.onload = (e: Event) => {
+		registrationXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
-			enableSubmitButton();
 
-			if (status === 200) {
-				alert('signed in correctly');
-				// TODO handle successful registration
-			} else if (status === 400) {
-				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
+			if (status === HttpCodes.OK) {
+				// TODO remove this code when SERVICES-377 is fixed
+				var loginXhr = new XMLHttpRequest();
+				loginXhr.onload = (e: Event) => {
+					enableSubmitButton();
+					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
+						window.location.href = this.redirect;
+					} else {
+						this.displayGeneralError();
+					}
+				};
+				loginXhr.onerror = (e: Event) => {
+					enableSubmitButton();
+					this.displayGeneralError();
+				};
+
+				loginXhr.open('POST', this.form.action.replace('/users', '/token'), true);
+				loginXhr.withCredentials = true;
+				loginXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				loginXhr.send((new UrlHelper()).urlEncode(data));
+			} else if (status === HttpCodes.BAD_REQUEST) {
+				enableSubmitButton();
+				this.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
 			} else {
+				enableSubmitButton();
 				this.displayGeneralError();
 			}
 		};
 
-		xhr.onerror = (e: Event) => {
+		registrationXhr.onerror = (e: Event) => {
 			enableSubmitButton();
 			this.displayGeneralError();
 		};
 
-		xhr.open('POST', this.form.action, true);
-		xhr.withCredentials = true;
-		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhr.send((new UrlHelper()).urlEncode(data));
+		registrationXhr.open('POST', this.form.action, true);
+		registrationXhr.withCredentials = true;
+		registrationXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		registrationXhr.send((new UrlHelper()).urlEncode(data));
 
 		event.preventDefault();
 	}
