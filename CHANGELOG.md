@@ -1,3 +1,11 @@
+## release-99 (2015-06-30 09:59 UTC)
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - slight optimization in replaceMediaPlaceHoldersWithMediaComponents
+* clean-ab-test: HG-727 removing ab test code
+* [CONCF-711](https://wikia-inc.atlassian.net/browse/CONCF-711) CONCF-711 | As a Mercury user I would like to have main page's URLs cut after / so I can access them easily
+* edit-api-url: Make use of buildUrl when constructing API calls
+* portable-infobox-component: Portable infobox component
+* [CONCF-676](https://wikia-inc.atlassian.net/browse/CONCF-676) CONCF-676 | As a developer I would like to have clean code related with videos in Mercury so I can add changes faster
+
 ## release-98 (2015-06-29 09:59 UTC)
 * fix-helios-url-for-reg: Change helios url for reg
 * [SOC-517](https://wikia-inc.atlassian.net/browse/SOC-517) SOC-517 | Regitration error translations
