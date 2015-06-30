@@ -79,6 +79,18 @@ module authView {
 			trackingConfig: localSettings.tracking
 		};
 	}
+
+	export function validateRedirect (request: Hapi.Request, reply: any): any {
+		var queryRedirectUrl = authView.getRedirectUrl(request);
+
+		if (request.query.redirect && queryRedirectUrl !== request.query.redirect) {
+			request.url.query.redirect = queryRedirectUrl;
+			request.url.search = null;
+			return reply.redirect(request.url.format()).takeover();
+		}
+
+		return reply();
+	}
 }
 
 export = authView;
