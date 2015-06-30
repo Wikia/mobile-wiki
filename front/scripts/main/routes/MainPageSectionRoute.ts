@@ -24,7 +24,7 @@ App.MainPageSectionRoute = Em.Route.extend({
 	},
 
 	renderTemplate: function (controller: any, model: CuratedContentItem[]) {
-		this.render('mainPage', {
+		this.render('main-page', {
 			into: 'application',
 			model: {
 				mainPageData: {

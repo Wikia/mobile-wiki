@@ -20,7 +20,7 @@ App.MainPageIndexRoute = Em.Route.extend({
 
 	renderTemplate: function (controller: any, model: typeof App.ArticleModel): void {
 		if (model.isCuratedMainPage) {
-			this.render('mainPage', {
+			this.render('main-page', {
 				controller: 'mainPage',
 				model: model
 			});
