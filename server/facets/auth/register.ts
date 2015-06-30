@@ -4,7 +4,6 @@
 
 import BirthdateInput = require('./BirthdateInput');
 import dateUtils = require('../../lib/DateUtils');
-import authUtils = require('../../lib/AuthUtils');
 import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend'),
