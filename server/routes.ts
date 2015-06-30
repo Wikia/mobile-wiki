@@ -123,14 +123,14 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'POST',
-		path: '/login',
-		handler: require('./facets/auth/login').post
+		path: '/signin',
+		handler: require('./facets/auth/signin').post
 	},
 	{
 		method: 'GET',
 		path: '/register',
 		config: authPageConfig,
-		handler: require('./facets/auth/signup').get
+		handler: require('./facets/auth/register').get
 	},
 	{
 		method: 'GET',

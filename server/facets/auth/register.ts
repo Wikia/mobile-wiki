@@ -10,7 +10,7 @@ import authView = require('./authView');
 var deepExtend = require('deep-extend'),
 	url = require('url');
 
-interface SignupViewContext extends authView.AuthViewContext {
+interface RegisterViewContext extends authView.AuthViewContext {
 	headerText?: string;
 	i18nContext?: any;
 	birthdateInputs: Array<InputData>;
@@ -23,7 +23,7 @@ interface SignupViewContext extends authView.AuthViewContext {
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
-	var context: SignupViewContext,
+	var context: RegisterViewContext,
 		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance(),
 		lang = i18n.lng();
@@ -42,11 +42,11 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			footerCallout: 'auth:common.login-callout',
 			footerCalloutLink: 'auth:common.login-link-text',
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
-			bodyClasses: 'signup-page',
+			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength
 		}
 	);
 
-	return authView.view('signup', context, request, reply);
+	return authView.view('register', context, request, reply);
 }

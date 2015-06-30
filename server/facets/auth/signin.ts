@@ -31,7 +31,7 @@ interface HeliosResponse {
 	'error_description'?: string;
 }
 
-interface LoginViewContext extends authView.AuthViewContext {
+interface SignInViewContext extends authView.AuthViewContext {
 	headerText: string;
 	forgotPasswordHref?: string;
 	formErrorKey?: string;
@@ -79,7 +79,7 @@ function getFormErrorKey (statusCode: number): string {
 	return 'auth:common.server-error';
 }
 
-function getLoginViewContext (request: Hapi.Request, redirect: string): LoginViewContext {
+function getSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
@@ -89,20 +89,20 @@ function getLoginViewContext (request: Hapi.Request, redirect: string): LoginVie
 			footerCalloutLink: 'auth:login.register-now',
 			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-			bodyClasses: 'login-page'
+			bodyClasses: 'signin-page'
 		}
 	);
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
-		context: LoginViewContext = getLoginViewContext(request, redirect);
+		context: SignInViewContext = getSignInViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
 	}
 
-	return authView.view('login', context, request, reply);
+	return authView.view('signin', context, request, reply);
 }
 
 export function post (request: Hapi.Request, reply: any): void {
@@ -111,7 +111,7 @@ export function post (request: Hapi.Request, reply: any): void {
 		isAJAX: boolean = requestedWithHeader && !!requestedWithHeader.match('XMLHttpRequest'),
 		redirect: string = authView.getRedirectUrl(request),
 		successRedirect: string,
-		context: LoginViewContext = getLoginViewContext(request, redirect),
+		context: SignInViewContext = getSignInViewContext(request, redirect),
 		ttl = 1.57785e10; // 6 months
 
 	// add cache buster value to the URL upon successful login
@@ -126,7 +126,7 @@ export function post (request: Hapi.Request, reply: any): void {
 				return reply(context).code(err.output.statusCode);
 			}
 
-			return reply.view('login', context, {
+			return reply.view('signin', context, {
 				layout: 'auth'
 			// Always set the correct status code
 			}).code(err.output.statusCode);

@@ -106,7 +106,7 @@
 	function init (): void {
 		if (checkPageType('join-page')) {
 			setTrackingForJoinPage();
-		} else if (checkPageType('login-page')) {
+		} else if (checkPageType('signin-page')) {
 			setTrackingForLoginPage();
 		}
 	}
