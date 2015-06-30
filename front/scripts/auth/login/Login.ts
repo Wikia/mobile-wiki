@@ -62,7 +62,7 @@ class Login {
 				return this.displayError('errors.wrong-credentials');
 			} else if (xhr.status !== 200) {
 				this.track('login-server-error', Mercury.Utils.trackActions.error);
-				return this.displayError('common.server-error');
+				return this.displayError('errors.server-error');
 			}
 
 			response = JSON.parse(xhr.responseText);
@@ -81,7 +81,7 @@ class Login {
 			enableSubmitButton();
 
 			this.track('login-server-error', Mercury.Utils.trackActions.error);
-			this.displayError('common.server-error');
+			this.displayError('errors.server-error');
 		};
 
 		xhr.open('post', this.form.action, true);
