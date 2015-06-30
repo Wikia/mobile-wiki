@@ -40,9 +40,9 @@ App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
 		var debug: boolean = M.prop('environment') === 'dev',
-			//prevents fail if transitions are empty
+		//prevents fail if transitions are empty
 			loadedTranslations = M.prop('translations') || {},
-			//loaded language name is the first key of the Mercury.state.translations object
+		//loaded language name is the first key of the Mercury.state.translations object
 			loadedLanguage = Object.keys(loadedTranslations)[0];
 
 		// turn on debugging with querystring ?debug=1
@@ -123,9 +123,17 @@ App.initializer({
 
 		function getPageType () {
 			var mainPageTitle = Mercury.wiki.mainPageTitle,
-				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle);
+				pathnameChunks = window.location.pathname.split('/');
 
-			return isMainPage >= 0 ? 'home' : 'article';
+			if (
+				pathnameChunks.indexOf(mainPageTitle) !== -1 ||
+				pathnameChunks.indexOf('main') === 1 ||
+				window.location.pathname === '/'
+			) {
+				return 'home';
+			}
+
+			return 'article';
 		}
 
 		/**** High-Priority Custom Dimensions ****/
