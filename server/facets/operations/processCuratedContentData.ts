@@ -33,7 +33,7 @@ function prepareData (request: Hapi.Request, result: any): void {
 		result.isRtl = (userDir === 'rtl');
 	}
 
-	result.displayTitle = title;
+	result.displayTitle = decodeURIComponent(title);
 	result.isMainPage = true;
 	result.canonicalUrl = result.wiki.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names
