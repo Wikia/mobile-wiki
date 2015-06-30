@@ -26,6 +26,7 @@ App.MainPageCategoryRoute = Em.Route.extend({
 	renderTemplate: function (controller: any, model: CuratedContentItem[]) {
 		this.render('main-page', {
 			into: 'application',
+			controller: 'mainPage',
 			model: {
 				mainPageData: {
 					curatedContent: model
