@@ -104,7 +104,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * the next maxImages amount of images.
 	 * If the gallery element is nested inside other element,
 	 * the position: relative has to be set on .article-gallery in order to assign
-	 * proper offsetParent to tihe image element.
+	 * proper offsetParent to the image element.
 	 */
 	onScroll: function (maxImages: number): void {
 		var $this = this.$(),
