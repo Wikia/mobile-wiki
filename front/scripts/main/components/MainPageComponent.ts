@@ -26,6 +26,22 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
+	/**
+	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
+	 */
+	curatedContentObserver: Em.observer('curatedContent', function (): void {
+		// TODO: This should be refactored, ads should be initialized only once
+		this.sendAction('setupAds', this.get('adsContext'));
+		this.injectMainPageAds();
+		this.setupAdsContext(this.get('adsContext'));
+
+		M.setTrackContext({
+			a: this.get('title'),
+			n: this.get('ns')
+		});
+		M.trackPageView(this.get('adsContext.targeting'));
+	}).on('didInsertElement'),
+
 	actions: {
 		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
@@ -34,5 +50,5 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		openCuratedContentItem: function (item: CuratedContentItem): void {
 			this.sendAction('openCuratedContentItem', item);
 		}
-	},
+	}
 });

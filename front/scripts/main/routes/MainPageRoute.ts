@@ -13,14 +13,10 @@ App.MainPageRoute = Em.Route.extend({
 			return true;
 		},
 
+		// TODO: This currently will scroll to the top even when the app has encountered an error.
+		// Optimally, it would remain in the same place.
 		didTransition: function (): boolean {
 			window.scrollTo(0, 0);
-
-			M.setTrackContext({
-				a: this.get('title'),
-				n: this.get('ns')
-			});
-			M.trackPageView(this.get('adsContext.targeting'));
 
 			// bubble up to application didTransition hook
 			return true;
