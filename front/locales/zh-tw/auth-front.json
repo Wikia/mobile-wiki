@@ -11,6 +11,7 @@
     "password_exceeds_max_length":"抱歉，密碼太長。密碼最多可有50個字符。",
     "password_equal_name":"密碼必須與用戶名不同。",
     "birthdate_invalid":"抱歉，這看上去不是日曆上的日期！請再試一次。",
-    "wrong-credentials":"嗯，我們無法認別這些憑據。請再試一次或註冊一個新帳戶。"
+    "wrong-credentials":"嗯，我們無法認別這些憑據。請再試一次或註冊一個新帳戶。",
+    "server-error":"我們很抱歉，處理您的請求時出錯。請稍後再試。"
   }
 }
