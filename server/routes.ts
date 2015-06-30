@@ -111,7 +111,7 @@ unauthenticatedRoutes = [
 		method: 'GET',
 		path: '/signin',
 		config: authPageConfig,
-		handler: require('./facets/auth/login').get
+		handler: require('./facets/auth/signin').get
 	},
 	{
 		method: 'GET',
