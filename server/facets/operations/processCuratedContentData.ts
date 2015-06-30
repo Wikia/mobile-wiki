@@ -22,8 +22,10 @@ function prepareData (request: Hapi.Request, result: any): void {
 
 	if (request.url.path.indexOf('section') > -1) {
 		title = request.url.path.replace('\/main\/section\/', '');
-	} else if (request.url.path.indexOf('catgory') > -1) {
+		title = title.replace(/%20/g, ' ');
+	} else if (request.url.path.indexOf('category') > -1) {
 		title = request.url.path.replace('\/main\/category\/', '');
+		title = title.replace(/_/g, ' ');
 	} else {
 		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
 	}
@@ -33,7 +35,7 @@ function prepareData (request: Hapi.Request, result: any): void {
 		result.isRtl = (userDir === 'rtl');
 	}
 
-	result.displayTitle = decodeURIComponent(title);
+	result.displayTitle = title;
 	result.isMainPage = true;
 	result.canonicalUrl = result.wiki.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names
