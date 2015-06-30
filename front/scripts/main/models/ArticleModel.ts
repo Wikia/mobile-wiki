@@ -131,15 +131,7 @@ App.ArticleModel.reopenClass({
 		// On first page load the article content is available only in HTML
 		article.content = $('.article-content').html();
 
-		// Setup ads
-		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
-			adsInstance = Mercury.Modules.Ads.getInstance();
-			adsInstance.init(M.prop('adsUrl'), (): void => {
-				adsInstance.reload(article.adsContext);
-			});
-		}
-
-		delete Mercury.article;
+		delete Mercury['article'];
 		return article;
 	},
 

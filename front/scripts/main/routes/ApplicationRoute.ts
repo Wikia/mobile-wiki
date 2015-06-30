@@ -43,6 +43,18 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.controller && this.controller.hideLoader();
 		},
 
+		setupAds: function (adsContext: any): void {
+			var adsInstance: Mercury.Modules.Ads,
+				instantGlobals = Wikia.InstantGlobals || {};
+
+			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
+				adsInstance = Mercury.Modules.Ads.getInstance();
+				adsInstance.init(M.prop('adsUrl'), (): void => {
+					adsInstance.reload(adsContext);
+				});
+			}
+		},
+
 		handleLink: function (target: HTMLAnchorElement): void {
 			// Use this to get current route info
 			// this.router.get('currentState.routerJsState')

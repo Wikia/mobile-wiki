@@ -37,6 +37,8 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 	},
 
 	didInsertElement: function (): void {
+		// TODO: This should be refactored together with AdEng
+		this.sendAction('setupAds', this.get('adsContext'));
 		this.injectMainPageAds();
 		this.setupAdsContext(this.get('adsContext'));
 		M.setTrackContext({
