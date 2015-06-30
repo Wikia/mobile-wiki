@@ -127,12 +127,12 @@ class SignupForm {
 		xhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
-			if (status === 200) {
+			if (status === HttpCodes.OK) {
 				// TODO remove this code when SERVICES-377 is fixed
 				var ajaxXhr = new XMLHttpRequest();
 				ajaxXhr.onload = (e: Event) => {
 					enableSubmitButton();
-					if ((<XMLHttpRequest> e.target).status === 200) {
+					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
 						window.location.href = this.redirect;
 					} else {
 						this.displayGeneralError();
@@ -147,7 +147,7 @@ class SignupForm {
 				ajaxXhr.withCredentials = true;
 				ajaxXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				ajaxXhr.send((new UrlHelper()).urlEncode(data));
-			} else if (status === 400) {
+			} else if (status === HttpCodes.BAD_REQUEST) {
 				this.displayValidationErrors(JSON.parse(xhr.responseText).errors);
 			} else {
 				this.displayGeneralError();
