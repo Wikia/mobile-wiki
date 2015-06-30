@@ -17,17 +17,20 @@ App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContent
 	}),
 
 	rightClickHandler: function (): boolean {
+		Mercury.Utils.VariantTesting.trackEvent('featured-content-next');
 		this.nextItem();
 		return true;
 	},
 
 	leftClickHandler: function (): boolean {
+		Mercury.Utils.VariantTesting.trackEvent('featured-content-prev');
 		this.prevItem();
 		return true;
 	},
 
 	centerClickHandler: function (): boolean {
 		this.trackClick('modular-main-page', 'featured-content');
+		Mercury.Utils.VariantTesting.trackEvent('featured-content-click');
 		return false;
 	},
 
