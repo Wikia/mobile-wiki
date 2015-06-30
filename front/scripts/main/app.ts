@@ -59,8 +59,6 @@ App.initializer({
 			LOG_TRANSITIONS_INTERNAL: debug
 		});
 
-		$('html').removeClass('preload');
-
 		i18n.init({
 			debug: debug,
 			detectLngQS: 'uselang',
