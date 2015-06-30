@@ -74,7 +74,7 @@ function authenticate (username: string, password: string, callback: AuthCallbac
  */
 function getFormErrorKey (statusCode: number): string {
 	if (statusCode === 401) {
-		return 'auth:login.wrong-credentials';
+		return 'auth:signin.wrong-credentials';
 	}
 	return 'auth:common.server-error';
 }
@@ -83,10 +83,10 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
-			title: 'auth:login.login-title',
-			headerText: 'auth:login.welcome-back',
-			footerCallout: 'auth:login.register-callout',
-			footerCalloutLink: 'auth:login.register-now',
+			title: 'auth:signin.signin-title',
+			headerText: 'auth:signin.welcome-back',
+			footerCallout: 'auth:signin.register-callout',
+			footerCalloutLink: 'auth:signin.register-now',
 			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page'

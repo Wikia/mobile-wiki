@@ -39,7 +39,7 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			heliosRegistrationURL: localSettings.helios.host + '/users',
 			title: 'auth:join.sign-up-with-email',
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
-			footerCallout: 'auth:common.login-callout',
+			footerCallout: 'auth:common.signin-callout',
 			footerCalloutLink: 'auth:common.login-link-text',
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			bodyClasses: 'register-page',
