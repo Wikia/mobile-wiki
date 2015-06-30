@@ -142,7 +142,7 @@ class SignupForm {
 					this.displayGeneralError();
 				};
 
-				ajaxXhr.open('POST', this.form.action, true);
+				ajaxXhr.open('POST', this.form.action.replace('/users', '/token'), true);
 				ajaxXhr.withCredentials = true;
 				ajaxXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				ajaxXhr.send((new UrlHelper()).urlEncode(data));
