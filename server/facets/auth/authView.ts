@@ -17,7 +17,6 @@ module authView {
 		footerCalloutLink?: string;
 		headerText?: string;
 		bodyClasses?: string;
-		noScripts?: boolean;
 		trackingConfig?: any;
 	}
 

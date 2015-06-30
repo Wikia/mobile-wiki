@@ -27,7 +27,6 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
 			hideHeader: true,
 			hideFooter: true,
-			noScripts: true,
 			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
 			bodyClasses: 'splash join-page'
 		}
