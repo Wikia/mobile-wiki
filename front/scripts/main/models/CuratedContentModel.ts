@@ -15,7 +15,7 @@ interface CuratedContentItem {
 	ns?: number;
 }
 
-// TODO this probably shouldn't be empty
+// TODO (CONCF-775): This is not what Ember models are supposed be
 App.CuratedContentModel = Em.Object.extend();
 
 App.CuratedContentModel.reopenClass({
@@ -31,7 +31,7 @@ App.CuratedContentModel.reopenClass({
 			Em.$.ajax({
 				url: url,
 				success: (data: any): void => {
-					resolve(App.CuratedContentModel.sanitizeItems(data.items || []));
+					resolve(App.CuratedContentModel.sanitizeItems(data.items));
 				},
 				error: (data: any): void => {
 					reject(data);

@@ -40,9 +40,9 @@ App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
 		var debug: boolean = M.prop('environment') === 'dev',
-		//prevents fail if transitions are empty
+			//prevents fail if transitions are empty
 			loadedTranslations = M.prop('translations') || {},
-		//loaded language name is the first key of the Mercury.state.translations object
+			//loaded language name is the first key of the Mercury.state.translations object
 			loadedLanguage = Object.keys(loadedTranslations)[0];
 
 		// turn on debugging with querystring ?debug=1
@@ -123,6 +123,7 @@ App.initializer({
 			var mainPageTitle = Mercury.wiki.mainPageTitle,
 				pathnameChunks = window.location.pathname.split('/');
 
+			// It won't set correct type for main pages that have / in the title (an edge case)
 			if (
 				pathnameChunks.indexOf(mainPageTitle) !== -1 ||
 				pathnameChunks.indexOf('main') === 1 ||

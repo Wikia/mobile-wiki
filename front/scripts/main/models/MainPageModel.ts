@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-// TODO We should decouple main page data from article but this needs a separate API path
+// TODO (CONCF-761): We should decouple main page data from article but this needs a separate API path
 App.MainPageModel = App.ArticleModel.extend();
 
 App.MainPageModel.reopenClass({
@@ -10,8 +10,7 @@ App.MainPageModel.reopenClass({
 			var articleModel = App.ArticleModel.find({
 				basePath: Em.get(Mercury, 'wiki.basePath'),
 				title: Em.get(Mercury, 'wiki.mainPageTitle'),
-				// TODO extract this
-				wiki: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1]
+				wiki: Em.get(Mercury, 'wiki.dbName')
 			});
 
 			articleModel

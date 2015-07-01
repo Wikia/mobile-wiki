@@ -68,13 +68,13 @@ function processCuratedContentData (
 		response: Hapi.Response;
 
 	result.article = result.pageData.articleData;
-	result.gridData = result.pageData.gridData;
-	delete result.pageData.gridData;
+	result.curatedContent = result.pageData.curatedContent;
+	delete result.pageData.curatedContent;
 
 	if (!result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
-	} else if ((error && error.code === 404) || (!result.gridData.items || result.gridData.items.length < 1)) {
+	} else if ((error && error.code === 404) || (!result.curatedContent.items || result.curatedContent.items.length < 1)) {
 		//if no items inside section or category -> redirect to main page
 		reply.redirect('/');
 	} else {

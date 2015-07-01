@@ -13,13 +13,12 @@ App.MainPageRoute = Em.Route.extend({
 			return true;
 		},
 
-		// TODO: This currently will scroll to the top even when the app has encountered an error.
-		// Optimally, it would remain in the same place.
-		// Ticket: https://wikia-inc.atlassian.net/browse/HG-781
 		didTransition: function (): boolean {
+			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
+			// Optimally, it would remain in the same place.
 			window.scrollTo(0, 0);
 
-			// bubble up to application didTransition hook
+			// bubble up to ApplicationRoute#didTransition
 			return true;
 		},
 

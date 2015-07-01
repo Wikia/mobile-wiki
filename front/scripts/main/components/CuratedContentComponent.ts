@@ -12,15 +12,15 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 
 	actions: {
 		clickItem: function (item: CuratedContentItem): void {
-			if (item.type) {
-				this.trackClick('modular-main-page', `curated-content-item-${item.type}`);
-				if (item.type === 'section' || item.type === 'category') {
+			var itemType = item.type;
+			if (itemType) {
+				this.trackClick('modular-main-page', `curated-content-item-${itemType}`);
+				if (itemType === 'section' || itemType === 'category') {
 					this.sendAction('openCuratedContentItem', item);
 				}
 			} else {
 				this.trackClick('modular-main-page', 'curated-content-item-other');
 			}
-
 		}
 	}
 });

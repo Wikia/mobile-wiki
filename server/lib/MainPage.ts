@@ -57,20 +57,20 @@ export class MainPageRequestHelper {
 	private processRequests(requests: any, callback: Function, getWikiVariables: boolean): void {
 		Promise.settle(requests)
 			.then((results: Promise.Inspection<Promise<any>>[]) => {
-				var gridDataPromise: Promise.Inspection<Promise<any>> = results[0],
+				var curatedContentPromise: Promise.Inspection<Promise<any>> = results[0],
 					articlePromise: Promise.Inspection<Promise<any>> = results [1],
 					wikiPromise: Promise.Inspection<Promise<any>> = results[2],
-					gridData: any,
+					curatedContent: any,
 					articleData: any,
 					pageData: any = {},
 					wikiVariables: any = {};
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
-				gridData = gridDataPromise.isFulfilled() ?
-					gridDataPromise.value() :
-					gridDataPromise.reason();
+				curatedContent = curatedContentPromise.isFulfilled() ?
+					curatedContentPromise.value() :
+					curatedContentPromise.reason();
 
-				pageData.gridData = gridData;
+				pageData.curatedContent = curatedContent;
 
 				if (getWikiVariables) {
 					wikiVariables = wikiPromise.isFulfilled() ?
@@ -84,7 +84,7 @@ export class MainPageRequestHelper {
 
 				pageData.articleData = articleData.data;
 
-				callback(gridData.exception, pageData, wikiVariables.data);
+				callback(curatedContent.exception, pageData, wikiVariables.data);
 			});
 	}
 
