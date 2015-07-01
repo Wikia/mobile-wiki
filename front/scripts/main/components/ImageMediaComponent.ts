@@ -60,7 +60,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * }
 	 */
 	infoboxImageParams: Em.computed({
-		get(): any {
+		get(): thumbnailerParams {
 			var media: ArticleMedia = this.get('media'),
 				articleContentWidth: number = this.get('articleContent.width'),
 				computedHeight: number = this.get('computedHeight'),
