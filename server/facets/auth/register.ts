@@ -15,8 +15,6 @@ interface RegisterViewContext extends authView.AuthViewContext {
 	birthdateInputs: Array<InputData>;
 	heliosRegistrationURL?: string;
 	termsOfUseLink?: string;
-	footerHref?: string;
-	trackingConfig?: any;
 	usernameMaxLength: number;
 	passwordMaxLength: number;
 }
@@ -39,12 +37,12 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			title: 'auth:join.sign-up-with-email',
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
-			footerCalloutLink: 'auth:common.login-link-text',
 			footerHref: authUtils.getLoginUrl(request),
+			footerCalloutLink: 'auth:common.signin-link-text',
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
-			passwordMaxLength: localSettings.helios.passwordMaxLength
+			passwordMaxLength: localSettings.helios.passwordMaxLength,
 		}
 	);
 

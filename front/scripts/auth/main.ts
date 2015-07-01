@@ -26,7 +26,12 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();
 		new SubmitValidator(formElement).watch();
-		new SignupForm(formElement).watch();
+
+		if (formElement.id === 'loginForm') {
+			new Login(formElement).watch();
+		} else if (formElement.id === 'signupForm') {
+			new SignupForm(formElement).watch();
+		}
 	}
 
 	if (birthdateContainer) {
