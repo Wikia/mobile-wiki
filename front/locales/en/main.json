@@ -76,7 +76,7 @@
 		"edit-publish-error-protectedpage": "You don't have permission to edit this page.",
 		"user-menu-profile": "Profile",
 		"user-menu-log-out": "Log out",
-		"category-not-exist": "Category doesn't exist",
-		"section-not-exist": "Section doesn't exist"
+		"curated-content-error-category-not-found": "Category not found",
+		"curated-content-error-section-not-found": "Section not found"
 	}
 }

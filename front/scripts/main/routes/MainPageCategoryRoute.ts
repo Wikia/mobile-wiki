@@ -33,7 +33,7 @@ App.MainPageCategoryRoute = Em.Route.extend({
 
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): void {
-			this.controllerFor('application').addAlert('warning', i18n.t('app.category-not-exist'));
+			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-category-not-found'));
 			return this.transitionTo('mainPage');
 		}
 	}
