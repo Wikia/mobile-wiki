@@ -3,11 +3,18 @@
 /// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
+interface thumbnailerParams {
+	mode: string;
+	height: number;
+	width: number;
+}
+
 App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	smallImageSize: {
 		height: 64,
 		width: 64
 	},
+	imageAspectRatio: 16 / 9,
 	classNames: ['article-image'],
 	classNameBindings: ['hasCaption', 'visible', 'isSmall'],
 	layoutName: 'components/image-media',
@@ -24,7 +31,6 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			imageHeight = this.get('media.height');
 
 		return !!imageWidth && imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
-
 	}),
 
 	/**
@@ -34,7 +40,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 */
 	computedHeight: Em.computed('media.width', 'media.height', 'articleContent.width', function (): number {
 		var pageWidth = this.get('articleContent.width'),
-			imageWidth = this.get('media.width')  || pageWidth,
+			imageWidth = this.get('media.width') || pageWidth,
 			imageHeight = this.get('media.height');
 
 		if (pageWidth < imageWidth) {
@@ -58,7 +64,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			var media: ArticleMedia = this.get('media'),
 				articleContentWidth: number = this.get('articleContent.width'),
 				computedHeight: number = this.get('computedHeight'),
-				maximalWidth = Math.floor(media.height * 16 / 9);
+				maximalWidth: number = ~~(media.height * this.get('imageAspectRatio'));
 
 			//high image
 			if (computedHeight > articleContentWidth) {
@@ -81,8 +87,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			//normal image
 			return {
 				mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-				height: this.get('computedHeight'),
-				width: this.get('articleContent.width'),
+				height: computedHeight,
+				width: articleContentWidth
 			}
 		}
 	}),
@@ -98,7 +104,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 				height: number = this.get('computedHeight'),
 				width: number = this.get('articleContent.width'),
-				infoboxImageParams = this.get('infoboxImageParams');
+				infoboxImageParams: thumbnailerParams;
 
 			if (!media) {
 				return this.get('imageSrc');
@@ -108,6 +114,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 				width = this.get('iconWidth');
 			} else if (media.context === 'infobox-image') {
+				infoboxImageParams = this.get('infoboxImageParams');
 				this.set('limitHeight', true);
 				mode = infoboxImageParams.mode;
 				height = infoboxImageParams.height;
