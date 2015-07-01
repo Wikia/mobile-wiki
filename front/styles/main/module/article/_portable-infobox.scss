@@ -1,7 +1,7 @@
 $infobox-item-margin: 5px;
 $infobox-background: $color-blue-gray-light;
 $infobox-section-header-background: $color-blue-gray;
-$infobox-hero-overlay-color: rgba(0, 0, 0, .5);
+$infobox-hero-overlay-color: rgba(0, 0, 0, .7);
 $infobox-hero-font-color: white;
 
 .portable-infobox {
@@ -67,7 +67,7 @@ $infobox-hero-font-color: white;
 		bottom: 0;
 		left: 0;
 		padding-bottom: $infobox-item-margin * 2;
-		padding-top: $infobox-item-margin * 6;
+		padding-top: $infobox-item-margin * 8;
 		pointer-events: none;
 		position: absolute;
 		width: 100%;
