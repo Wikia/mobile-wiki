@@ -65,7 +65,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		get(): string {
 			var media = this.get('media');
 
-			if (media && typeof media.caption === 'string') {
+			if (media && media.context !== 'infobox-image' && typeof media.caption === 'string') {
 				return media.caption;
 			}
 		},
