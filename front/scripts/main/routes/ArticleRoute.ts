@@ -70,7 +70,7 @@ App.ArticleRoute = Em.Route.extend({
 		// TODO: This currently will scroll to the top even when the app has encountered
 		// an error. Optimally, it would remain in the same place.
 		didTransition: function (): boolean {
-			// TODO: This is here only because we need to load ads resources from MW, should be done automatically
+			// TODO (ADEN-2189): This is here because we need to load ads resources from MW, should be done automatically
 			this.send('setupAds', this.get('controller.model.adsContext'));
 
 			window.scrollTo(0, 0);
