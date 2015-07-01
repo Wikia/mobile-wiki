@@ -119,7 +119,7 @@ App.initializer({
 			dimensions: (string|Function)[] = [],
 			adsContext = Mercury.Modules.Ads.getInstance().getContext();
 
-		function getPageType () {
+		function getPageType (): string {
 			var mainPageTitle = Mercury.wiki.mainPageTitle,
 				pathnameChunks = window.location.pathname.split('/');
 
