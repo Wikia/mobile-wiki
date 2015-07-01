@@ -62,6 +62,7 @@ $infobox-hero-font-color: white;
 	.item-type-hero {
 		position: relative;
 
+		// TODO: should be removed ones the default caption is removed from image in hero
 		figcaption {
 			display: none;
 		}
