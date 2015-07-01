@@ -30,7 +30,7 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
 	 */
 	curatedContentObserver: Em.observer('curatedContent', function (): void {
-		// TODO: This should be refactored, ads should be initialized only once
+		// TODO (ADEN-2189): This should be refactored, ads should be initialized only once
 		this.sendAction('setupAds', this.get('adsContext'));
 		this.injectMainPageAds();
 		this.setupAdsContext(this.get('adsContext'));
