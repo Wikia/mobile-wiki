@@ -2,15 +2,6 @@
 /// <reference path='../mercury/utils/track.ts' />
 
 (function () {
-	document.addEventListener('DOMContentLoaded', (): void => {
-		setTrackingDimensions();
-
-		if (document.querySelector('small.error') !== null) {
-			// An error occurred while logging in
-			track('login', Mercury.Utils.trackActions.error);
-		}
-	});
-
 	function checkPageType (pageType: string): boolean {
 		return (document.body.className.indexOf(pageType) !== -1);
 	}
@@ -104,6 +95,8 @@
 	}
 
 	function init (): void {
+		setTrackingDimensions();
+
 		if (checkPageType('join-page')) {
 			setTrackingForJoinPage();
 		} else if (checkPageType('login-page')) {

@@ -1,3 +1,19 @@
+## release-100 (2015-07-01 10:00 UTC)
+* [HG-782](https://wikia-inc.atlassian.net/browse/HG-782) HG-782 - added state check back
+* [HG-772](https://wikia-inc.atlassian.net/browse/HG-772) HG-772 - fixed table bug
+* [HG-777](https://wikia-inc.atlassian.net/browse/HG-777) HG-777 adding geo cookie reading
+* [SOC-698](https://wikia-inc.atlassian.net/browse/SOC-698) SOC-698 AJAX login initial commit
+* [SOC-917](https://wikia-inc.atlassian.net/browse/SOC-917) SOC-917 | Registration - login and redirect after registration
+* [SOC-913](https://wikia-inc.atlassian.net/browse/SOC-913) SOC-913 | Retire wikicitiesUserID
+
+## release-99 (2015-06-30 09:59 UTC)
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - slight optimization in replaceMediaPlaceHoldersWithMediaComponents
+* clean-ab-test: HG-727 removing ab test code
+* [CONCF-711](https://wikia-inc.atlassian.net/browse/CONCF-711) CONCF-711 | As a Mercury user I would like to have main page's URLs cut after / so I can access them easily
+* edit-api-url: Make use of buildUrl when constructing API calls
+* portable-infobox-component: Portable infobox component
+* [CONCF-676](https://wikia-inc.atlassian.net/browse/CONCF-676) CONCF-676 | As a developer I would like to have clean code related with videos in Mercury so I can add changes faster
+
 ## release-98 (2015-06-29 09:59 UTC)
 * fix-helios-url-for-reg: Change helios url for reg
 * [SOC-517](https://wikia-inc.atlassian.net/browse/SOC-517) SOC-517 | Regitration error translations
