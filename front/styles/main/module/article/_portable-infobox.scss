@@ -1,6 +1,8 @@
 $infobox-item-margin: 5px;
 $infobox-background: $color-blue-gray-light;
 $infobox-section-header-background: $color-blue-gray;
+$infobox-hero-overlay-color: rgba(0, 0, 0, .5);
+$infobox-hero-font-color: white;
 
 .portable-infobox {
 	background-color: $infobox-background;
@@ -14,12 +16,12 @@ $infobox-section-header-background: $color-blue-gray;
 	.portable-infobox-comparison,
 	.portable-infobox-comparison-set-header,
 	.portable-infobox-comparison-item,
+	.portable-infobox-hero-title,
+	.portable-infobox-hero-caption,
 	.media-component {
 		margin: 0;
 		padding: 0;
 	}
-
-	//////////// Specific styles for each of the infobox elements starts here ////////////
 
 	// general classes and rules used across infobox
 	.portable-infobox-item-margins {
@@ -53,6 +55,41 @@ $infobox-section-header-background: $color-blue-gray;
 	figcaption {
 		text-align: center;
 	}
+
+	//////////// Specific styles for each of the infobox elements starts here ////////////
+
+	// infobox hero
+	.item-type-hero {
+		position: relative;
+
+		figcaption {
+			display: none;
+		}
+	}
+
+	.portable-infobox-hero-title-wrapper {
+		background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
+		bottom: 0;
+		left: 0;
+		padding-bottom: $infobox-item-margin * 4;
+		padding-top: $infobox-item-margin * 6;
+		position: absolute;
+		width: 100%;
+		z-index: 1;
+	}
+
+	.portable-infobox-hero-title,
+	.portable-infobox-hero-caption {
+		color: $infobox-hero-font-color;
+	}
+
+	.portable-infobox-hero-caption {
+		font-size: inherit;
+		font-weight: normal;
+		line-height: inherit;
+		padding-top: $infobox-item-margin;
+	}
+
 
 	// infobox title
 	.portable-infobox-title {
