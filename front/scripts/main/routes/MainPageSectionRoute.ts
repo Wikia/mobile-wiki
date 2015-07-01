@@ -33,8 +33,10 @@ App.MainPageSectionRoute = Em.Route.extend({
 
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): void {
-			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-section-not-found'));
-			return this.transitionTo('mainPage');
+			if ( error && error.status === 404 ) {
+				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-section-not-found'));
+				return this.transitionTo('mainPage');
+			}
 		}
 	}
 });
