@@ -27,7 +27,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.controller && this.controller.showLoader();
 		},
 
-		didTransition: function () {
+		didTransition: function (): void {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
 			this.controller && this.controller.hideLoader();
@@ -39,7 +39,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			M.prop('firstPage', false);
 		},
 
-		error: function () {
+		error: function (): void {
 			this.controller && this.controller.hideLoader();
 		},
 
@@ -137,7 +137,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes
 		// see http://emberjs.com/images/template-guide/action-bubbling.png
-		handleLightbox: function () {
+		handleLightbox: function (): void {
 			this.get('controller').send('handleLightbox');
 		},
 

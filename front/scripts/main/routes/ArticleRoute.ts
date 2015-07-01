@@ -10,7 +10,7 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
-	beforeModel: function (transition: EmberStates.Transition) {
+	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
 		if (Mercury.error) {
@@ -37,7 +37,7 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
-	model: function (params: any) {
+	model: function (params: any): Em.RSVP.Promise {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
@@ -45,7 +45,7 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
-	afterModel: function (model: typeof App.ArticleModel) {
+	afterModel: function (model: typeof App.ArticleModel): void {
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 		App.VisibilityStateManager.reset();
 
@@ -54,7 +54,7 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	actions: {
-		willTransition: function (transition: EmberStates.Transition) {
+		willTransition: function (transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');

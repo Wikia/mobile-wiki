@@ -20,7 +20,7 @@ App.MainPageCategoryRoute = Em.Route.extend({
 		});
 	},
 
-	renderTemplate: function (controller: any, model: CuratedContentItem[]) {
+	renderTemplate: function (controller: any, model: CuratedContentItem[]): void {
 		this.render('main-page', {
 			controller: 'mainPage',
 			model: {
