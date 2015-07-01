@@ -2,6 +2,7 @@
 import Hoek = require('hoek');
 import localSettings = require('../config/localSettings');
 import Caching = require('./lib/Caching');
+import authUtils = require('./lib/AuthUtils');
 
 interface RouteDefinition {
 	method: string[]|string;
@@ -135,8 +136,8 @@ authenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/login',
-		handler: require('./facets/auth/login').get,
+		path: '/signin',
+		handler: require('./facets/auth/signin').get,
 		config: {
 			pre: [
 				{
@@ -147,8 +148,8 @@ authenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/signup',
-		handler: require('./facets/auth/signup').get,
+		path: '/register',
+		handler: require('./facets/auth/register').get,
 		config: {
 			pre: [
 				{
@@ -157,7 +158,20 @@ authenticatedRoutes = [
 			]
 		}
 	},
-
+	{
+		method: 'GET',
+		path: '/login',
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
+		}
+	},
+	{
+		method: 'GET',
+		path: '/signup',
+		handler: function (request:Hapi.Request, reply:any):Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
+		}
+	}
 ];
 
 

@@ -4,23 +4,24 @@ import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend');
 
-interface LoginViewContext extends authView.AuthViewContext {
+
+interface SignInViewContext extends authView.AuthViewContext {
 	headerText: string;
 	forgotPasswordHref?: string;
 	heliosLoginURL: string;
 }
 
-function getLoginViewContext (request: Hapi.Request, redirect: string): LoginViewContext {
+function getSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
-			title: 'auth:login.login-title',
-			headerText: 'auth:login.welcome-back',
-			footerCallout: 'auth:login.register-callout',
-			footerCalloutLink: 'auth:login.register-now',
+			title: 'auth:signin.signin-title',
+			headerText: 'auth:signin.welcome-back',
+			footerCallout: 'auth:signin.register-callout',
+			footerCalloutLink: 'auth:signin.register-now',
 			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
-			bodyClasses: 'login-page',
+			bodyClasses: 'signin-page',
 			heliosLoginURL: localSettings.helios.host + '/token'
 		}
 	);
@@ -28,11 +29,11 @@ function getLoginViewContext (request: Hapi.Request, redirect: string): LoginVie
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
-		context: LoginViewContext = getLoginViewContext(request, redirect);
+		context: SignInViewContext = getSignInViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
 	}
 
-	return authView.view('login', context, request, reply);
+	return authView.view('signin', context, request, reply);
 }

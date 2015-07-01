@@ -24,7 +24,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		{
 			title: 'auth:join.title',
 			facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
-			loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
+			loginRoute: '/signin?redirect=' + encodeURIComponent(redirectUrl),
 			hideHeader: true,
 			hideFooter: true,
 			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
