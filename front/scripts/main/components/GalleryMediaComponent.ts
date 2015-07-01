@@ -98,18 +98,22 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		});
 	},
 
+	/**
+	 * Check if the offsetLeft of image is smaller than
+	 * sum of gallery width and its scrollLeft. If so, lazy load
+	 * the next maxImages amount of images.
+	 * If the gallery element is nested inside other element,
+	 * the position: relative has to be set on .article-gallery in order to assign
+	 * proper offsetParent to the image element.
+	 */
 	onScroll: function (maxImages: number): void {
 		var $this = this.$(),
 			imagesToLoad = $this.find('img:not(.loaded)'),
-			galleryOffset = $this.scrollLeft() + $this.width(),
-			parentInfobox = $this.closest('.portable-infobox')[0],
-			//if gallery is inside the infobox, we have to take into account
-			//the infobox offset as well
-			infoboxOffset = parentInfobox ? parentInfobox.offsetLeft * 2 : 0;
+			galleryOffset = $this.scrollLeft() + $this.width();
 
 		if (imagesToLoad.length) {
 			imagesToLoad.each((index: number, image: HTMLImageElement): void => {
-				if (image.offsetLeft < (galleryOffset + infoboxOffset)) {
+				if (image.offsetLeft < galleryOffset) {
 					this.loadImages(image, maxImages);
 				}
 			});
