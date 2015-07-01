@@ -40,9 +40,6 @@ App.ApplicationView = Em.View.extend({
 
 	willInsertElement: function (): void {
 		$('#article-preload').remove();
-
-		// A/B test spinner (HG-727)
-		$('.ab-test-loading-overlay').remove();
 	},
 
 	didInsertElement: function (): void {

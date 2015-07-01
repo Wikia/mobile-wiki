@@ -10,6 +10,12 @@ $infobox-hero-font-color: white;
 	height: auto;
 	margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
+	.article-gallery {
+		/* position:relative needed here for proper setting the
+		* offsetParent property for images in galleries in infoboxes */
+		position: relative;
+	}
+
 	// reset inherited margins and paddings
 	.portable-infobox-title,
 	.portable-infobox-header,
