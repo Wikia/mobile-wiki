@@ -1,9 +1,14 @@
 .terms-of-use {
 	display: block;
+	line-height: 1rem;
 	text-align: center;
 	width: 100%;
 
 	>a {
 		color: $link-color;
 	}
+}
+
+.inline.signup-newsletter-label {
+	margin-bottom: 0.5rem;
 }

@@ -1,3 +1,79 @@
+## release-100 (2015-07-01 10:00 UTC)
+* [HG-782](https://wikia-inc.atlassian.net/browse/HG-782) HG-782 - added state check back
+* [HG-772](https://wikia-inc.atlassian.net/browse/HG-772) HG-772 - fixed table bug
+* [HG-777](https://wikia-inc.atlassian.net/browse/HG-777) HG-777 adding geo cookie reading
+* [SOC-698](https://wikia-inc.atlassian.net/browse/SOC-698) SOC-698 AJAX login initial commit
+* [SOC-917](https://wikia-inc.atlassian.net/browse/SOC-917) SOC-917 | Registration - login and redirect after registration
+* [SOC-913](https://wikia-inc.atlassian.net/browse/SOC-913) SOC-913 | Retire wikicitiesUserID
+
+## release-99 (2015-06-30 09:59 UTC)
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - slight optimization in replaceMediaPlaceHoldersWithMediaComponents
+* clean-ab-test: HG-727 removing ab test code
+* [CONCF-711](https://wikia-inc.atlassian.net/browse/CONCF-711) CONCF-711 | As a Mercury user I would like to have main page's URLs cut after / so I can access them easily
+* edit-api-url: Make use of buildUrl when constructing API calls
+* portable-infobox-component: Portable infobox component
+* [CONCF-676](https://wikia-inc.atlassian.net/browse/CONCF-676) CONCF-676 | As a developer I would like to have clean code related with videos in Mercury so I can add changes faster
+
+## release-98 (2015-06-29 09:59 UTC)
+* fix-helios-url-for-reg: Change helios url for reg
+* [SOC-517](https://wikia-inc.atlassian.net/browse/SOC-517) SOC-517 | Regitration error translations
+* [HG-688](https://wikia-inc.atlassian.net/browse/HG-688) HG-688 - Rendering twice when changing routes
+* [SOC-515](https://wikia-inc.atlassian.net/browse/SOC-515) Soc 515 | Registration - username and password validation errors
+
+## release-97 (2015-06-26 09:59 UTC)
+* [SOC-934](https://wikia-inc.atlassian.net/browse/SOC-934) SOC-934 Removing dice icon for Signup MVP
+* [CONCF-682](https://wikia-inc.atlassian.net/browse/CONCF-682) CONCF-682 | Internalization update
+* [CONCF-607](https://wikia-inc.atlassian.net/browse/CONCF-607) CONCF-607 Show items from all namespaces in Curated Content
+* [SOC-879](https://wikia-inc.atlassian.net/browse/SOC-879) As a PO, I want to know what errors visitors get on the registration form
+
+## release-96 (2015-06-25 09:59 UTC)
+* [SOC-895](https://wikia-inc.atlassian.net/browse/SOC-895) SOC-896 | Auth pages - Don't allow redirects to external domains
+* [SOC-755](https://wikia-inc.atlassian.net/browse/SOC-755) SOC-753 && SOC-755 Tracking for New Login flow
+* [SOC-896](https://wikia-inc.atlassian.net/browse/SOC-896) SOC-896 | Auth pages - Don't allow redirects to external domains
+
+## release-95 (2015-06-24 12:38 UTC)
+* [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) HG-734 Replace assets path for ember-main.hbs only
+* fix-login-view-context: Always obtain LoginViewContext for /login
+
+## release-94 (2015-06-24 10:45 UTC)
+* [HG-734](https://wikia-inc.atlassian.net/browse/HG-734) Replace /front string in templates with cdn path
+* [HG-768](https://wikia-inc.atlassian.net/browse/HG-768) HG-768 adding query string param for bucky sampling
+* [SOC-895](https://wikia-inc.atlassian.net/browse/SOC-895) SOC-895 | Introduce AuthView + canonicalUrl for Auth pages
+* task-update: Task update
+* [SOC-798](https://wikia-inc.atlassian.net/browse/SOC-798) SOC-798 | Introduce Helios authorization
+
+## release-93 (2015-06-23 10:59 UTC)
+* [CONCF-674](https://wikia-inc.atlassian.net/browse/CONCF-674) CONCF-674 Open videos in lightbox
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 changes for user login url after reverting the first merge
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - made lazy load image processing async
+* feature-HG-761: HG-761 adding first content perf tracking and sending weppy in dev env
+* [CONCF-673](https://wikia-inc.atlassian.net/browse/CONCF-673) CONCF-673 Use 'standard' video object to render trending videos
+* [CONCF-540](https://wikia-inc.atlassian.net/browse/CONCF-540) CONCF-540 Hide bullet when there is only one element in featured content
+* [CONCF-685](https://wikia-inc.atlassian.net/browse/CONCF-685) CONCF-653 | featured content experiments on curated main pages
+
+## release-92 (2015-06-22 10:35 UTC)
+* [SOC-705](https://wikia-inc.atlassian.net/browse/SOC-705) SOC-705 Drop-down menu for logged-in users
+
+## release-91 (2015-06-22 07:59 UTC)
+* [HG-686](https://wikia-inc.atlassian.net/browse/HG-686) HG-686 - added cache-buster for internal cache for random page request
+* [HG-764](https://wikia-inc.atlassian.net/browse/HG-764) Add "cookie" to "vary" header
+
+## release-90 (2015-06-19 16:15 UTC)
+* [SOC-480](https://wikia-inc.atlassian.net/browse/SOC-480) Soc 480 Internationalized birthdate input
+* [SOC-684](https://wikia-inc.atlassian.net/browse/SOC-684) SOC-684 | Registration screen
+* [SOC-878](https://wikia-inc.atlassian.net/browse/SOC-878) SOC-878 Adding active state to birthdate field
+
+## release-89 (2015-06-19 14:32 UTC)
+* [CONCF-608](https://wikia-inc.atlassian.net/browse/CONCF-608) CONCF-608 encode category and section name before sending to API
+* task-update: Tasks update
+* [DAT-2897](https://wikia-inc.atlassian.net/browse/DAT-2897) DAT-2897 handle article references
+
+## release-88 (2015-06-18 07:26 UTC)
+* feature-HG-728: Feature hg 728
+* revert-906-SOC-805: Revert "SOC-805 Create CTA to New Login Flow on Wikiamobile"- it has to go after app and config changes
+* [SOC-805](https://wikia-inc.atlassian.net/browse/SOC-805) SOC-805 Create CTA to New Login Flow on Wikiamobile
+* aden-2023-disable-extra-in-content-ads: ADEN-2023 Disable extra in content ads for now
+
 ## release-87 (2015-06-17 07:26 UTC)
 * [INT-113](https://wikia-inc.atlassian.net/browse/INT-113) Fix problem by using cleanTitle property of ArticleModel instead of just title
 * typescript-sourcemaps-2: Coding standard fixes for TS sourcemaps

@@ -1,0 +1,23 @@
+.birthdate-container {
+	display: flex;
+	flex-direction: row;
+	height: 3rem;
+	justify-content: center;
+	padding-bottom: 0;
+
+	input,
+	input:focus {
+		border: none;
+		box-shadow: none;
+		flex: 1;
+		height: auto;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+	}
+
+	span {
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+}

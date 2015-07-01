@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
+/// <reference path="../components/PortableInfoboxComponent.ts" />
 /// <reference path="../components/WikiaMapComponent.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
 
@@ -150,8 +151,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			}
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
-			this.handlePortableInfoboxes();
-			this.lazyLoadMedia(model.get('media'));
+			this.replaceInfoboxesWithInfoboxComponents();
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 4);
+			Ember.run.later(this, () => { this.replaceMediaPlaceholdersWithMediaComponents(model.get('media')) }, 0);
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
@@ -184,12 +186,17 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		return component.$().attr('data-ref', ref);
 	},
 
-	lazyLoadMedia: function (model: typeof App.ArticleModel): void {
-		var lazyImages = this.$('.article-media');
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
+		var $mediaPlaceholders = this.$('.article-media'),
+			index: number;
 
-		lazyImages.each((index: number, element: HTMLImageElement): void => {
-			this.$(element).replaceWith(this.createMediaComponent(element, model));
-		});
+		if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
+			numberToProcess = $mediaPlaceholders.length;
+		}
+
+		for (index = 0; index < numberToProcess; index++) {
+		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
+		}
 	},
 
 	setupEditButtons: function (): void {
@@ -247,6 +254,27 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		mapComponent.trigger('didInsertElement');
 	},
 
+	replaceInfoboxesWithInfoboxComponents: function (): void {
+		this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
+			this.replaceInfoboxWithInfoboxComponent(elem);
+		});
+	},
+
+	replaceInfoboxWithInfoboxComponent: function (elem: HTMLElement): void {
+		var $infoboxPlaceholder = $(elem),
+			infoboxComponent: typeof App.PortableInfoboxComponent;
+
+		infoboxComponent = this.createChildView(App.PortableInfoboxComponent.create({
+			infoboxHTML: elem.innerHTML,
+			height: $infoboxPlaceholder.outerHeight()
+		}));
+
+		infoboxComponent.createElement();
+		$infoboxPlaceholder.replaceWith(infoboxComponent.$());
+		//TODO: do it in the nice way
+		infoboxComponent.trigger('didInsertElement');
+	},
+
 	/**
 	 * @desc handles expanding long tables, code taken from WikiaMobile
 	 */
@@ -274,44 +302,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
-	/**
-	 * @desc handles expanding portable infoboxes
-	 * The minimumHeight took from 9/16 proportions of screen (width * 16 / 9 + 100px). We want to always
-	 * show the image AND some other infobox informations to show that this is infobox, not only an ordinary image.
-	 * @todo we should figure out if we can somehow merge this method and handleInfoboxes method
-	 */
-	handlePortableInfoboxes: function (): void {
-		var collapsedClass = 'collapsed',
-			expandButtonClass = 'portable-infobox-expand-button',
-			deviceWidth = this.get('viewportDimensions.width'),
-			minimumHeight = Math.floor(deviceWidth * 16 / 9) + 100,
-			$infoboxes = this.$('.portable-infobox'),
-			body = window.document.body,
-			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
-			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`;
-
-		if ($infoboxes.length) {
-			$infoboxes
-				.filter((index: number, element: JQuery) => $(element).outerHeight() > minimumHeight)
-				.addClass(collapsedClass)
-				.height(minimumHeight)
-				.append(expandButton)
-				.on('click', function (event: JQueryEventObject) {
-					var $target = $(event.target),
-						$this = $(this);
-
-					if (!$target.is('a') && $this.toggleClass(collapsedClass).hasClass(collapsedClass)) {
-						$this.height(minimumHeight);
-						scrollTo.apply($this.find('.' + expandButtonClass)[0]);
-					} else {
-						$this.height('auto');
-					}
-				});
-		}
-	},
-
 	handleTables: function (): void {
-		var $tables = this.$('table:not([class*=infobox], .dirbox)').not('table table'),
+		var $tables = $('table:not([class*=infobox], .dirbox)').not('table table'),
 			wrapper: HTMLDivElement;
 
 		if ($tables.length) {

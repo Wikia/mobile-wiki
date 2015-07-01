@@ -9,7 +9,7 @@
 	{{render 'not-found'}}
 {{else}}
 	{{#if model.isCuratedMainPage}}
-		{{main-page model=model.mainPageData}}
+		{{main-page model=model.mainPageData openLightbox='openLightbox'}}
 	{{else}}
 		<section class='article-body'>
 			<h1 class='article-title'>{{model.cleanTitle}}</h1>
@@ -38,13 +38,13 @@
 					{{svg 'pencil' role='img' class='icon pencil zero'}}
 				</span>
 			{{/if}}
-			{{#view 'article-content' class='mw-content'}}
+			<article class="article-content mw-content">
 				{{#if model.article}}
 					{{{model.article}}}
 				{{else}}
 					{{i18n 'app.article-empty-label'}}
 				{{/if}}
-			{{/view}}
+			</article>
 		</section>
 		<section class='article-footer'>
 		{{wikia-users

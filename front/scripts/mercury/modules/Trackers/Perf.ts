@@ -8,7 +8,7 @@ interface PerfTrackerParams {
 	context?: any;
 	module?: string;
 	name: string;
-	value: number;
+	value?: number;
 	annotations?: any;
 }
 
@@ -25,7 +25,7 @@ module Mercury.Modules.Trackers {
 			url?: string;
 			'user-agent': string;
 			env: string;
-		}
+		};
 
 		constructor () {
 			this.tracker = Weppy.namespace('mercury');
@@ -70,8 +70,11 @@ module Mercury.Modules.Trackers {
 				case 'timer':
 					trackFn.timer.send(params.name, params.value, params.annotations);
 					break;
+				case 'mark':
+					trackFn.timer.mark(params.name, params.annotations);
+					break;
 				case undefined:
-					throw 'You failed to specify a tracker type.'
+					throw 'You failed to specify a tracker type.';
 					break;
 				default:
 					throw 'This action not supported in Weppy tracker';
