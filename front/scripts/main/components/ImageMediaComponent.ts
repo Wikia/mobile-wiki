@@ -54,9 +54,9 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * @desc return the params for getThumbURL for infobox image.
 	 * In case of very high or very wide images, crop them properly.
 	 * @return {
-	 *	mode: string crop mode
-	 *  height: number height of image
-	 *  width: number width of image
+	 *   mode: string crop mode
+	 *   height: number height of image
+	 *   width: number width of image
 	 * }
 	 */
 	infoboxImageParams: Em.computed({
@@ -64,7 +64,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			var media: ArticleMedia = this.get('media'),
 				articleContentWidth: number = this.get('articleContent.width'),
 				computedHeight: number = this.get('computedHeight'),
-				maximalWidth: number = ~~(media.height * this.get('imageAspectRatio'));
+				maximalWidth: number = Math.floor(media.height * this.get('imageAspectRatio'));
 
 			//high image
 			if (computedHeight > articleContentWidth) {
