@@ -2,7 +2,7 @@
 	<form id="signupForm" action="{{heliosRegistrationURL}}" method="POST">
 		<div class="input-container">
 			<input type="email" name="email" id="signupEmail" required />
-			<label class="floating-label" for="signupEmail">{{i18n "auth:signup.email-label"}}</label>
+			<label class="floating-label" for="signupEmail">{{i18n "auth:register.email-label"}}</label>
 		</div>
 		<div class="input-container">
 			<input type="text" name="username" id="signupUsername" maxlength="{{usernameMaxLength}}" required />
@@ -21,18 +21,18 @@
 				{{/birthdateInputs}}
 			</div>
 			<input type="text" name="birthdate" id="signupBirthDate" required>
-			<label class="floating-label" for="signupBirthDate">{{i18n "auth:signup.birthdate-label"}}</label>
+			<label class="floating-label" for="signupBirthDate">{{i18n "auth:register.birthdate-label"}}</label>
 		</div>
 		<label for="signupNewsletter" class="inline signup-newsletter-label">
 			<input type="checkbox" name="newsletter" id="signupNewsletter" class="inline">
-			{{i18n "auth:signup.wikia-newsletter-prompt"}}
+			{{i18n "auth:register.wikia-newsletter-prompt"}}
 		</label>
 		<input type="hidden" name="langCode" value="{{langCode}}">
-		<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:signup.register-action"}}</span></button>
+		<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:register.register-action"}}</span></button>
 		<small class="terms-of-use">
-			{{i18n "auth:signup.terms-of-use-text"}}
+			{{i18n "auth:register.terms-of-use-text"}}
 			<a href="{{{termsOfUseLink}}}" target="_blank">
-				{{i18n "auth:signup.terms-of-use-link"}}
+				{{i18n "auth:register.terms-of-use-link"}}
 			</a>
 		</small>
 	</form>
