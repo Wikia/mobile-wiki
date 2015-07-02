@@ -78,6 +78,7 @@
 		"user-menu-log-out": "Log out",
 		"curated-content-error-category-not-found": "Category not found",
 		"curated-content-error-section-not-found": "Section not found",
-		"load-more": "Load more"
+		"load-more": "Load more",
+		"something-went-wrong": "Oops! something went wrong"
 	}
 }

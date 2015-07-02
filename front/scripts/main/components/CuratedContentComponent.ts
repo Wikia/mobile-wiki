@@ -28,6 +28,11 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 				.then((data: any) => {
 					this.set('offset', data.offset);
 					this.set('model', this.get('model').pushObjects(data.items));
+				})
+				.catch((reason) => {
+					this.controllerFor('application').addAlert('error', i18n.t('app.something-went-wrong'));
+				})
+				.finally(() => {
 					this.hideLoader();
 				});
 		}
