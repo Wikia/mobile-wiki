@@ -73,6 +73,27 @@
 		);
 	}
 
+	function setTrackingForRegisterPage (): void {
+		// Click "Sign In" button
+		trackSubmit(
+			<HTMLFormElement> document.getElementById('signupForm'),
+			'register-submit'
+		);
+
+		// Click X to "close" log-in form
+		trackClick(
+			<HTMLElement> document.querySelector('.close'),
+			'register-modal',
+			Mercury.Utils.trackActions.close
+		);
+
+		// Click "Register Now" link
+		trackClick(
+			<HTMLElement> document.querySelector('.footer-callout-link'),
+			'signin-link-on-register-page'
+		);
+	}
+
 	function setTrackingForJoinPage(): void {
 		// Click "Register With Email" button
 		trackClick(
@@ -101,6 +122,8 @@
 			setTrackingForJoinPage();
 		} else if (checkPageType('signin-page')) {
 			setTrackingForLoginPage();
+		} else {
+			setTrackingForRegisterPage();
 		}
 	}
 
