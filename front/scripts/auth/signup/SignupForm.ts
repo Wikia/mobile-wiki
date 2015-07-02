@@ -97,7 +97,8 @@ class SignupForm {
 			username: (<HTMLInputElement> formElements.namedItem('username')).value,
 			password: (<HTMLInputElement> formElements.namedItem('password')).value,
 			email: (<HTMLInputElement> formElements.namedItem('email')).value,
-			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
+			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value,
+			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
 			// TODO add langCode
 		};
 	}
