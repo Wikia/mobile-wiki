@@ -27,6 +27,12 @@
 		})
 	}
 
+	function trackPageView (pageType: string) {
+		if (pageType) {
+			track(pageType, M.trackActions.impression);
+		}
+	}
+
 	function trackSubmit (form: HTMLFormElement, label: string): void {
 		if (!form) {
 			return;
@@ -46,7 +52,9 @@
 		});
 	}
 
-	function setTrackingForLoginPage (): void {
+	function setTrackingForSignInPage (): void {
+		//Impression of the /signin page
+		trackPageView('signin-page');
 		// Click "Sign In" button
 		trackSubmit(
 			<HTMLFormElement> document.getElementById('loginForm'),
@@ -74,6 +82,8 @@
 	}
 
 	function setTrackingForRegisterPage (): void {
+		//Impression of the /register page
+		trackPageView('register-page');
 		// Click "Sign In" button
 		trackSubmit(
 			<HTMLFormElement> document.getElementById('signupForm'),
@@ -95,6 +105,8 @@
 	}
 
 	function setTrackingForJoinPage(): void {
+		//Impression of the /join page
+		trackPageView('join-page');
 		// Click "Register With Email" button
 		trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-email'),
@@ -121,7 +133,7 @@
 		if (checkPageType('join-page')) {
 			setTrackingForJoinPage();
 		} else if (checkPageType('signin-page')) {
-			setTrackingForLoginPage();
+			setTrackingForSignInPage();
 		} else {
 			setTrackingForRegisterPage();
 		}
