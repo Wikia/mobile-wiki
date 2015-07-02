@@ -1,3 +1,10 @@
+## release-101 (2015-07-02 10:34 UTC)
+* failed-unit-tests-fix: Fixing unit tests
+* [DAT-2899](https://wikia-inc.atlassian.net/browse/DAT-2899) DAT-2899 refactor icon handling in infoboxes
+* fix-infobox-gallery-button: Infoboxes- don't handle infobox collapsing when clicked on button
+* [SOC-965](https://wikia-inc.atlassian.net/browse/SOC-965) SOC-965 Rename login/signup to signin/register
+* [SOC-563](https://wikia-inc.atlassian.net/browse/SOC-563) SOC-563 Geo-targeting capabilities for New Auth
+
 ## release-100 (2015-07-01 10:00 UTC)
 * [HG-782](https://wikia-inc.atlassian.net/browse/HG-782) HG-782 - added state check back
 * [HG-772](https://wikia-inc.atlassian.net/browse/HG-772) HG-772 - fixed table bug
