@@ -130,4 +130,10 @@ $grid-icon-size: 22px;
 	[data-ember-action] {
 		display: inline-block;
 	}
+
+	.load-more-items {
+		display: block;
+		margin: 0 auto;
+		width: 80%;
+	}
 }

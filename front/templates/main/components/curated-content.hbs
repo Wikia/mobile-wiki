@@ -7,8 +7,8 @@
 	{{! the empty newline above lets the last inline item to be justified to the right if it's even }}
 	</nav>
 	{{#if offset}}
-		<button {{action "loadMore"}}>
-			Load More
+		<button class="load-more-items" {{action 'loadMore'}}>
+			{{i18n 'app.load-more'}}
 		</button>
 	{{/if}}
 {{/if}}

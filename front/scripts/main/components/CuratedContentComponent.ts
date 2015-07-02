@@ -23,13 +23,13 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 			}
 		},
 		loadMore: function(): void {
+			this.showLoader();
 			App.CuratedContentModel.fetchItemsForSection(this.get('title'), 'category', this.get('offset'))
-			.then((data) => {
+				.then((data: any) => {
 					this.set('offset', data.offset);
-					var x = [].pushObjects(data.items);
 					this.set('model', this.get('model').pushObjects(data.items));
-					console.log(x);
-			});
+					this.hideLoader();
+				});
 		}
 	}
 });
