@@ -2,6 +2,7 @@
 import Hoek = require('hoek');
 import localSettings = require('../config/localSettings');
 import Caching = require('./lib/Caching');
+import authUtils = require('./lib/AuthUtils');
 
 interface RouteDefinition {
 	method: string[]|string;
@@ -14,20 +15,22 @@ var routes: RouteDefinition[],
 	unauthenticatedRoutes: RouteDefinition[],
 	authenticatedRoutes: RouteDefinition[],
 	articlePagePaths: string[],
-	proxyRoutePaths: string[],
+	routeCacheConfig = {
+		privacy: Caching.policyString(Caching.Policy.Public),
+		expiresIn: 60000
+	},
 	unauthenticatedRouteConfig = {
 		config: {
-			cache: {
-				privacy: Caching.policyString(Caching.Policy.Public),
-				expiresIn: 60000
-			},
+			cache: routeCacheConfig,
 			auth: false
 		}
 	},
-	authPageConfig = {
-		auth: {
-			mode: 'try',
-			strategy: 'session'
+	authenticatedRouteConfig = {
+		config: {
+			auth: {
+				mode: 'try',
+				strategy: 'session'
+			}
 		}
 	};
 
@@ -97,10 +100,6 @@ unauthenticatedRoutes = [
 		path: localSettings.apiBase + '/userDetails',
 		handler: require('./facets/api/userDetails').get
 	},
-	/**
-	 * Authentication Routes
-	 * @description The following routes should be related to authentication
-	 */
 	 {
 		method: 'GET',
 		path: '/logout',
@@ -108,31 +107,8 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/login',
-		config: authPageConfig,
-		handler: require('./facets/auth/login').get
-	},
-	{
-		method: 'POST',
-		path: '/login',
-		handler: require('./facets/auth/login').post
-	},
-	{
-		method: 'GET',
-		path: '/signup',
-		config: authPageConfig,
-		handler: require('./facets/auth/signup').get
-	},
-	{
-		method: 'GET',
 		path: '/breadcrumb',
 		handler: require('./facets/operations/generateCSRFView')
-	},
-	{
-		method: 'GET',
-		path: '/join',
-		config: authPageConfig,
-		handler: require('./facets/auth/join')
 	},
 	{
 		method: 'POST',
@@ -140,6 +116,64 @@ unauthenticatedRoutes = [
 		handler: require('./facets/editorPreview')
 	}
 ];
+
+authenticatedRoutes = [
+	/**
+	 * Authentication Routes
+	 * @description The following routes should be related to authentication
+	 */
+	{
+		method: 'GET',
+		path: '/join',
+		handler: require('./facets/auth/join'),
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
+	},
+	{
+		method: 'GET',
+		path: '/signin',
+		handler: require('./facets/auth/signin').get,
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
+	},
+	{
+		method: 'GET',
+		path: '/register',
+		handler: require('./facets/auth/register').get,
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
+	},
+	{
+		method: 'GET',
+		path: '/login',
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
+		}
+	},
+	{
+		method: 'GET',
+		path: '/signup',
+		handler: function (request:Hapi.Request, reply:any):Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
+		}
+	}
+];
+
 
 articlePagePaths = [
 	'/wiki/{title*}',
@@ -149,17 +183,21 @@ articlePagePaths = [
 ];
 
 articlePagePaths.forEach((path) => {
-	unauthenticatedRoutes.push({
+	authenticatedRoutes.push({
 		method: 'GET',
 		path: path,
-		handler: require('./facets/showArticle')
+		handler: require('./facets/showArticle'),
+		config: {
+			cache: routeCacheConfig
+		}
 	});
 });
 
-authenticatedRoutes = [];
-
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);
+});
+authenticatedRoutes = authenticatedRoutes.map((route) => {
+	return Hoek.applyToDefaults(authenticatedRouteConfig, route);
 });
 
 routes = unauthenticatedRoutes.concat(authenticatedRoutes);

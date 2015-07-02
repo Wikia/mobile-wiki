@@ -29,7 +29,6 @@
 		</footer>
 		{{/unless}}
 
-		{{#unless noScripts}}
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},
 					language = {{{json language}}};
@@ -45,6 +44,5 @@
 		<script>
 			M.prop('tracking', {{{json trackingConfig}}});
 		</script>
-		{{/unless}}
 	</body>
 </html>

@@ -1,3 +1,11 @@
+## release-100 (2015-07-01 10:00 UTC)
+* [HG-782](https://wikia-inc.atlassian.net/browse/HG-782) HG-782 - added state check back
+* [HG-772](https://wikia-inc.atlassian.net/browse/HG-772) HG-772 - fixed table bug
+* [HG-777](https://wikia-inc.atlassian.net/browse/HG-777) HG-777 adding geo cookie reading
+* [SOC-698](https://wikia-inc.atlassian.net/browse/SOC-698) SOC-698 AJAX login initial commit
+* [SOC-917](https://wikia-inc.atlassian.net/browse/SOC-917) SOC-917 | Registration - login and redirect after registration
+* [SOC-913](https://wikia-inc.atlassian.net/browse/SOC-913) SOC-913 | Retire wikicitiesUserID
+
 ## release-99 (2015-06-30 09:59 UTC)
 * [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - slight optimization in replaceMediaPlaceHoldersWithMediaComponents
 * clean-ab-test: HG-727 removing ab test code
