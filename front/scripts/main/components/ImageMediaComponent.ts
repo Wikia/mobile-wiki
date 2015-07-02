@@ -59,12 +59,13 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 *   width: number width of image
 	 * }
 	 */
-	infoboxImageParams: Em.computed({
+	infoboxImageParams: Em.computed('media', 'articleContent.width', 'computedHeight', 'imageAspectRatio', {
 		get(): thumbnailerParams {
 			var media: ArticleMedia = this.get('media'),
 				articleContentWidth: number = this.get('articleContent.width'),
 				computedHeight: number = this.get('computedHeight'),
-				maximalWidth: number = Math.floor(media.height * this.get('imageAspectRatio'));
+				imageAspectRatio: number = this.get('imageAspectRatio'),
+				maximalWidth: number = Math.floor(media.height * imageAspectRatio);
 
 			//high image
 			if (computedHeight > articleContentWidth) {
@@ -79,8 +80,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			if (media.width > maximalWidth) {
 				return {
 					mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
-					height: media.height,
-					width: maximalWidth
+					height: Math.floor(articleContentWidth / imageAspectRatio),
+					width: articleContentWidth
 				}
 			}
 
