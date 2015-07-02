@@ -1,2 +1,2 @@
 'use strict';
-document.documentElement.className += ' preload';
+// document.documentElement.className += ' preload';
