@@ -73,5 +73,5 @@ App.EditController = Em.Controller.extend({
 				value: this.get('publishDisabled')
 			});
 		}
-	},
+	}
 });
