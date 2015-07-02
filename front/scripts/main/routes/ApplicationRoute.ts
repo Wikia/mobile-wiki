@@ -24,13 +24,13 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 	actions: {
 		loading: function (): void {
-			this.controller.showLoader();
+			this.controller && this.controller.showLoader();
 		},
 
-		didTransition: function () {
+		didTransition: function (): void {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
-			this.controller.hideLoader();
+			this.controller && this.controller.hideLoader();
 
 			/*
 			 * This is called after the first route of any application session has loaded
@@ -39,8 +39,20 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			M.prop('firstPage', false);
 		},
 
-		error: function () {
-			this.controller.hideLoader();
+		error: function (): void {
+			this.controller && this.controller.hideLoader();
+		},
+
+		setupAds: function (adsContext: any): void {
+			var adsInstance: Mercury.Modules.Ads,
+				instantGlobals = Wikia.InstantGlobals || {};
+
+			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
+				adsInstance = Mercury.Modules.Ads.getInstance();
+				adsInstance.init(M.prop('adsUrl'), (): void => {
+					adsInstance.reload(adsContext);
+				});
+			}
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {
@@ -125,7 +137,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes
 		// see http://emberjs.com/images/template-guide/action-bubbling.png
-		handleLightbox: function () {
+		handleLightbox: function (): void {
 			this.get('controller').send('handleLightbox');
 		},
 

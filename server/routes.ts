@@ -65,6 +65,22 @@ unauthenticatedRoutes = [
 		path: '/wiki',
 		handler: require('./facets/operations/redirectToRoot')
 	},
+	{
+		method: 'GET',
+		path: '/',
+		handler: require('./facets/showMainPage')
+	},
+	{
+		method: 'GET',
+		path: '/main/section/{sectionName*}',
+		handler: require('./facets/showMainPageSection')
+	},
+	{
+		method: 'GET',
+		path: '/main/category/{categoryName*}',
+		handler: require('./facets/showMainPageCategory')
+	},
+
 	/**
 	 * API Routes
 	 * @description The following routes should just be API routes

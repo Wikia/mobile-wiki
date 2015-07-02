@@ -60,8 +60,6 @@ App.initializer({
 			LOG_TRANSITIONS_INTERNAL: debug
 		});
 
-		$('html').removeClass('preload');
-
 		i18n.init({
 			debug: debug,
 			detectLngQS: 'uselang',
@@ -122,11 +120,20 @@ App.initializer({
 			dimensions: (string|Function)[] = [],
 			adsContext = Mercury.Modules.Ads.getInstance().getContext();
 
-		function getPageType () {
+		function getPageType (): string {
 			var mainPageTitle = Mercury.wiki.mainPageTitle,
-				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle);
+				pathnameChunks = window.location.pathname.split('/');
 
-			return isMainPage >= 0 ? 'home' : 'article';
+			// It won't set correct type for main pages that have / in the title (an edge case)
+			if (
+				pathnameChunks.indexOf(mainPageTitle) !== -1 ||
+				pathnameChunks.indexOf('main') === 1 ||
+				window.location.pathname === '/'
+			) {
+				return 'home';
+			}
+
+			return 'article';
 		}
 
 		/**** High-Priority Custom Dimensions ****/

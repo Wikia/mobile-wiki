@@ -75,6 +75,8 @@
 		"edit-publish-error-noedit-anon": "Anonymous users can't edit pages.",
 		"edit-publish-error-protectedpage": "You don't have permission to edit this page.",
 		"user-menu-profile": "Profile",
-		"user-menu-log-out": "Log out"
+		"user-menu-log-out": "Log out",
+		"curated-content-error-category-not-found": "Category not found",
+		"curated-content-error-section-not-found": "Section not found"
 	}
 }

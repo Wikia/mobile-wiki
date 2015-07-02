@@ -36,13 +36,17 @@ App.AdsMixin = Em.Mixin.create({
 		// in willInsertElement hook of the component to check if the parameters is really defined
 		var view = this.createChildView(App.AdSlotComponent, {
 			name: adSlotName,
-			noAds: this.get('controller.noAds')
-		}).createElement();
+			noAds: this.get('noAds')
+		});
 
-		element[place](<string>view.$());
-		this.adViews.push(view);
+		Ember.run.schedule('afterRender', this, (): void => {
+			view.createElement();
 
-		view.trigger('didInsertElement');
+			element[place](<string>view.$());
+			this.adViews.push(view);
+
+			view.trigger('didInsertElement');
+		});
 	},
 
 	clearAdViews: function (): void {
@@ -167,7 +171,7 @@ App.AdsMixin = Em.Mixin.create({
 			$trendingArticles = this.$('.trending-articles'),
 			$trendingVideos = this.$('.trending-videos'),
 			showInContent = $curatedContent.length > 0,
-			showPreFooter = $trendingArticles.length || $trendingVideos.length,
+			showPreFooter = !!($trendingArticles.length || $trendingVideos.length),
 			$showPreFooterAfter: JQuery;
 
 		this.clearAdViews();

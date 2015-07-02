@@ -15,9 +15,8 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
-function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
-	var path: string = request.path,
-		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+function showMainPage (request: Hapi.Request, reply: Hapi.Response): void {
+	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			redirect: request.query.redirect
@@ -34,24 +33,17 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 
 	article = new Article.ArticleRequestHelper(params);
 
-	if (path === '/' || path === '/wiki/') {
-		article.getWikiVariables((error: any, wikiVariables: any) => {
-			if (error) {
-				// TODO check error.statusCode and react accordingly
-				reply.redirect(localSettings.redirectUrlOnNoData);
-			} else {
-				article.setTitle(wikiVariables.mainPageTitle);
-				article.getArticle(wikiVariables, (error: any, result: any = {}) => {
-					onArticleResponse(request, reply, error, result, allowCache);
-				});
-			}
-		});
-	} else  {
-		article.setTitle(request.params.title);
-		article.getFull((error: any, result: any = {}) => {
-			onArticleResponse(request, reply, error, result, allowCache);
-		});
-	}
+	article.getWikiVariables((error: any, wikiVariables: any) => {
+		if (error) {
+			// TODO check error.statusCode and react accordingly
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		} else {
+			article.setTitle(wikiVariables.mainPageTitle);
+			article.getArticle(wikiVariables, (error: any, result: any = {}) => {
+				onArticleResponse(request, reply, error, result, allowCache);
+			});
+		}
+	});
 }
 
 /**
@@ -61,7 +53,6 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
  * @param reply
  * @param error
  * @param result
- * @param allowCache
  */
 function onArticleResponse (
 	request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true
@@ -78,6 +69,10 @@ function onArticleResponse (
 		if (error) {
 			code = error.code || error.statusCode || 500;
 			result.error = JSON.stringify(error);
+
+			if (code === 404) {
+				reply.redirect('/');
+			}
 		}
 
 		prepareArticleData(request, result);
@@ -109,4 +104,4 @@ function onArticleResponse (
 	}
 }
 
-export = showArticle;
+export = showMainPage;

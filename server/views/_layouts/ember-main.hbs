@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="{{wiki.language.user}}" dir="{{wiki.language.userDir}}">
+<html lang="{{wiki.language.user}}" dir="{{wiki.language.userDir}}">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,6 +47,9 @@
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
 			M.provide('article', {{{json article}}});
+			{{#if curatedContent}}
+				M.provide('curatedContent', {{{json curatedContent}}});
+			{{/if}}
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
 			{{/if}}
