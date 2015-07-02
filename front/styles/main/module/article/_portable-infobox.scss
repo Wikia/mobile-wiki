@@ -5,6 +5,12 @@ $infobox-section-header-background: #e5e5e5;
 	height: auto;
 	margin: $infobox-item-margin * 4 0;
 
+	.article-gallery {
+		/* position:relative needed here for proper setting the
+		* offsetParent property for images in galleries in infoboxes */
+		position: relative;
+	}
+
 	.media-component {
 		margin: 0;
 
