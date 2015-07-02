@@ -69,6 +69,13 @@ $grid-icon-size: 22px;
 			word-break: break-word;
 		}
 
+		&.clamp {
+			display: -webkit-box;
+			overflow: hidden;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+
 		&.grid-icon {
 			display: table-cell;
 			vertical-align: bottom;
