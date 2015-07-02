@@ -2,5 +2,7 @@
 	{{#if imageUrl}}
 		{{thumbnail imageUrl width=imageWidth height=imageHeight alt=label mode=cropMode}}
 	{{/if}}
-	<figcaption>{{truncate label 48}}</figcaption>
+	<figcaption>
+		<div class="clamp">{{truncate label 48}}</div>
+	</figcaption>
 </figure>

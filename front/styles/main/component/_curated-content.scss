@@ -69,6 +69,10 @@ $grid-icon-size: 22px;
 			word-break: break-word;
 		}
 
+		&.clamp {
+			@include clamp(7);
+			}
+
 		&.grid-icon {
 			display: table-cell;
 			vertical-align: bottom;
