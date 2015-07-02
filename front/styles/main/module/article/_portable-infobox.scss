@@ -19,6 +19,12 @@ $infobox-hero-font-color: white;
 	.portable-infobox-comparison-item,
 	.portable-infobox-hero-title,
 	.portable-infobox-hero-caption,
+	.article-gallery {
+		/* position:relative needed here for proper setting the
+		* offsetParent property for images in galleries in infoboxes */
+		position: relative;
+	}
+
 	.media-component {
 		margin: 0;
 		padding: 0;
