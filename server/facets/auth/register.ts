@@ -42,7 +42,7 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
-			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			passwordMaxLength: localSettings.helios.passwordMaxLength
 		}
 	);
 
