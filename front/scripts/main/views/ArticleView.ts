@@ -128,6 +128,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	articleContentObserver: function (): boolean {
+		if (this.get('_state') !== 'inDOM') {
+			return false;
+		}
+
 		var model = this.get('controller.model'),
 			article = model.get('article'),
 			isCuratedMainPage = model.get('isCuratedMainPage');
@@ -290,7 +294,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	handleTables: function (): void {
-		var $tables = this.$('table:not([class*=infobox], .dirbox)').not('table table'),
+		var $tables = $('table:not([class*=infobox], .dirbox)').not('table table'),
 			wrapper: HTMLDivElement;
 
 		if ($tables.length) {

@@ -7,9 +7,9 @@ class LoginValidator {
 	loginSubmit: HTMLButtonElement;
 
 	constructor() {
-		this.loginUsername = <HTMLInputElement> window.document.querySelector('#loginUsername');
-		this.loginPassword = <HTMLInputElement> window.document.querySelector('#loginPassword');
-		this.loginSubmit = <HTMLButtonElement> window.document.querySelector('#loginSubmit');
+		this.loginUsername = <HTMLInputElement> window.document.getElementById('loginUsername');
+		this.loginPassword = <HTMLInputElement> window.document.getElementById('loginPassword');
+		this.loginSubmit = <HTMLButtonElement> window.document.getElementById('loginSubmit');
 	}
 
 	/**
@@ -44,7 +44,7 @@ class LoginValidator {
 	 */
 	public watch (): void {
 		this.onInput();
-		window.document.querySelector('#loginForm')
+		window.document.getElementById('loginForm')
 			.addEventListener('input', this.onInput.bind(this));
 	}
 }
