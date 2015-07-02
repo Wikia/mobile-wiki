@@ -69,7 +69,7 @@ function processCuratedContentData (
 
 	result.article = result.pageData.articleData;
 	result.curatedContent = result.pageData.curatedContent;
-	delete result.pageData.curatedContent;
+	delete result.pageData;
 
 	if (!result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
