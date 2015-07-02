@@ -21,14 +21,15 @@ export function get (request: Hapi.Request, reply: any): void {
 			thumbSize: request.params.thumbSize || {
 				width: 300,
 				height: 300
-			}
+			},
+			offset: request.params.offset || ''
 		};
 
 	if (params.categoryName === null) {
 		reply(Boom.badRequest('Category not provided'));
 	} else {
 		new MW.ArticleRequest(params)
-			.category(params.categoryName, params.thumbSize)
+			.category(params.categoryName, params.thumbSize, params.offset)
 			.then((response: any): void => {
 				reply(response);
 				Caching.setResponseCaching(response, cachingTimes);

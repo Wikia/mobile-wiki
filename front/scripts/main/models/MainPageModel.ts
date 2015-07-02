@@ -16,7 +16,7 @@ App.MainPageModel.reopenClass({
 			articleModel
 				.then(function (article: typeof App.ArticleModel): void {
 					if (article.isCuratedMainPage) {
-						article.mainPageData.curatedContent = App.CuratedContentModel.sanitizeItems(article.mainPageData.curatedContent);
+						article.mainPageData.curatedContent.items = App.CuratedContentModel.sanitizeItems(article.mainPageData.curatedContent);
 					}
 					resolve(article);
 				})

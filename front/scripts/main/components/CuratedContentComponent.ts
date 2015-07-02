@@ -21,6 +21,15 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 			} else {
 				this.trackClick('modular-main-page', 'curated-content-item-other');
 			}
+		},
+		loadMore: function(): void {
+			App.CuratedContentModel.fetchItemsForSection(this.get('title'), 'category', this.get('offset'))
+			.then((data) => {
+					this.set('offset', data.offset);
+					var x = [].pushObjects(data.items);
+					this.set('model', this.get('model').pushObjects(data.items));
+					console.log(x);
+			});
 		}
 	}
 });

@@ -1,11 +1,6 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface CuratedContentSection {
-	items: CuratedContentItem[];
-	label?: string;
-}
-
 interface CuratedContentItem {
 	label: string;
 	imageUrl: string;
@@ -19,14 +14,17 @@ interface CuratedContentItem {
 App.CuratedContentModel = Em.Object.extend();
 
 App.CuratedContentModel.reopenClass({
-	fetchItemsForSection: function (sectionName: string, sectionType = 'section'): Em.RSVP.Promise {
+	fetchItemsForSection: function (sectionName: string, sectionType = 'section', offset: string = ''): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase');
 			// If this is first PV we have model for curated content already so we don't need to issue another request
 			// When resolving promise we need to set Mercury.curatedContent to undefined
 			// because this data gets outdated on following PVs
 			if (Mercury.curatedContent && Mercury.curatedContent.items) {
-				resolve(App.CuratedContentModel.sanitizeItems(Mercury.curatedContent.items));
+				resolve({
+					items: App.CuratedContentModel.sanitizeItems(Mercury.curatedContent.items),
+					offset: Mercury.curatedContent.offset
+				});
 				M.provide('curatedContent', undefined);
 			} else {
 				url += (sectionType === 'section') ?
@@ -37,8 +35,14 @@ App.CuratedContentModel.reopenClass({
 
 				Em.$.ajax({
 					url: url,
+					data: {
+						offset: offset
+					},
 					success: (data: any): void => {
-						resolve(App.CuratedContentModel.sanitizeItems(data.items));
+						resolve({
+							items: App.CuratedContentModel.sanitizeItems(data.items),
+							offset: data.offset
+						});
 					},
 					error: (data: any): void => {
 						reject(data);

@@ -12,7 +12,8 @@ declare module Mercury {
 	var tracking: any;
 	var adsUrl: string;
 	var curatedContent: {
-		items: any
+		items: any;
+		offset?: string;
 	}
 }
 
