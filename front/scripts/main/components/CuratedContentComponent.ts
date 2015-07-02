@@ -24,6 +24,8 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 		},
 		loadMore: function(): void {
 			this.showLoader();
+			// "category" type is hardcoded because only Categories API supports returning and accepting offset.
+			// And only when offset is returned and set this action can be triggered.
 			App.CuratedContentModel.fetchItemsForSection(this.get('title'), 'category', this.get('offset'))
 				.then((data: any) => {
 					this.set('offset', data.offset);
@@ -31,6 +33,7 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 				})
 				.catch((reason) => {
 					this.controllerFor('application').addAlert('error', i18n.t('app.something-went-wrong'));
+					Ember.debug(reason);
 				})
 				.finally(() => {
 					this.hideLoader();
