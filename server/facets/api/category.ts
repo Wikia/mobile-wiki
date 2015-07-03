@@ -22,7 +22,7 @@ export function get (request: Hapi.Request, reply: any): void {
 				width: 300,
 				height: 300
 			},
-			offset: request.params.offset || ''
+			offset: request.query.offset || ''
 		};
 
 	if (params.categoryName === null) {
