@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 
-Em.Handlebars.registerBoundHelper('truncate', function (string: string, maxLength: number = 48) {
+Em.Handlebars.registerBoundHelper('truncate', function (string: string, maxLength: number = 48): string {
 	var truncatedString: string,
 		lastSpacePosition: number;
 
