@@ -108,10 +108,7 @@ $grid-icon-size: 22px;
 		font-size: $type-smaller;
 		font-weight: bold;
 		line-height: $top-nav-line-height;
-		overflow: hidden;
 		padding: 0 $back-button-with-padding-size;
-		text-overflow: ellipsis;
-		white-space: nowrap;
 		width: 100%;
 	}
 
