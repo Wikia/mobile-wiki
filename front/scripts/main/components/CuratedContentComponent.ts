@@ -27,15 +27,15 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 			// "category" type is hardcoded because only Categories API supports returning and accepting offset.
 			// And only when offset is returned and set this action can be triggered.
 			App.CuratedContentModel.fetchItemsForSection(this.get('title'), 'category', this.get('offset'))
-				.then((data: any) => {
+				.then((data: any): void => {
 					this.set('offset', data.offset);
 					this.set('model', this.get('model').pushObjects(data.items));
 				})
-				.catch((reason: any) => {
+				.catch((reason: any): void => {
 					this.controllerFor('application').addAlert('error', i18n.t('app.curated-content-error-load-more-items'));
 					Em.Logger.error(reason);
 				})
-				.finally(() => {
+				.finally((): void => {
 					this.hideLoader();
 				});
 		}
