@@ -67,6 +67,23 @@ App.CuratedContentModel.reopenClass({
 		});
 	},
 
+	loadMore: function (model: typeof App.CuratedContentModel): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			// Category type is hardcoded because only Categories API supports offset.
+			var newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
+
+			newModelPromise
+				.then(function (newModel: typeof App.CuratedContentModel): void {
+					model.items.pushObjects(newModel.items);
+					model.set('offset', newModel.offset);
+					resolve(model);
+				})
+				.catch(function (reason: any): void {
+					reject(reason);
+				});
+		});
+	},
+
 	sanitizeItems: function (rawData: any): CuratedContentItem[] {
 		var sanitizedItems: CuratedContentItem[] = [];
 
