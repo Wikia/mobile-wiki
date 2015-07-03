@@ -39,7 +39,7 @@ export function getCacheBusterUrl(redirect: string): string {
 	return url.format(cacheBustedUrlObj);
 }
 
-export function getRedirectUrlWithQueryString(route: string, request: Hapi.Request) {
+export function getRedirectUrlWithQueryString(route: string, request: Hapi.Request): string {
 	var redirectUrl = request.url;
 	redirectUrl.pathname = route;
 	return redirectUrl.format();
