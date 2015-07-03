@@ -1,6 +1,6 @@
 $infobox-item-margin: 5px;
 $infobox-background: $color-blue-gray-light;
-$infobox-section-header-background: $color-blue-gray;
+$infobox-section-secondary-background: $color-blue-gray;
 $infobox-hero-overlay-color: rgba(0, 0, 0, .7);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
 $infobox-hero-font-color: white;
@@ -35,11 +35,11 @@ $infobox-hero-font-color: white;
 		padding: $infobox-item-margin * 2 $article-horizontal-padding;
 	}
 
-	.portable-infobox-header-background {
-		background-color: $infobox-section-header-background;
+	.portable-infobox-secondary-background {
+		background-color: $infobox-section-secondary-background;
 	}
 
-	.portable-infobox-header-font {
+	.portable-infobox-secondary-font {
 		font-size: 1rem;
 		font-weight: bold;
 		line-height: 150%;
@@ -50,7 +50,7 @@ $infobox-hero-font-color: white;
 	.item-type-group,
 	.item-type-comparison,
 	.item-type-image figcaption {
-		border-bottom: 1px solid $infobox-section-header-background;
+		border-bottom: 1px solid $infobox-section-secondary-background;
 	}
 
 	> .portable-infobox-item:last-child {
@@ -187,7 +187,7 @@ $infobox-hero-font-color: white;
 		}
 
 		&:first-of-type {
-			border-right: 1px solid $infobox-section-header-background;
+			border-right: 1px solid $infobox-section-secondary-background;
 		}
 
 		.item-type-key-val {
@@ -209,7 +209,7 @@ $infobox-hero-font-color: white;
 	// styles for infobox collapse / expand UI
 	.portable-infobox-expand-button {
 		background: linear-gradient(to top, $color-blue-gray-light 35%, transparent);
-		border-bottom: 1px solid $infobox-section-header-background;
+		border-bottom: 1px solid $infobox-section-secondary-background;
 		box-sizing: border-box;
 		padding: $infobox-item-margin * 5 0 $infobox-item-margin;
 		text-align: center;
