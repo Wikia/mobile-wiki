@@ -1,3 +1,6 @@
+## release-102 (2015-07-03 10:00 UTC)
+* fix-typos-on-dev-branch: Fix small typos on dev
+
 ## release-101 (2015-07-02 10:34 UTC)
 * failed-unit-tests-fix: Fixing unit tests
 * [DAT-2899](https://wikia-inc.atlassian.net/browse/DAT-2899) DAT-2899 refactor icon handling in infoboxes
