@@ -125,7 +125,7 @@ export class ArticleRequest extends BaseRequest {
 		return this.fetch(url);
 	}
 
-	category (categoryName: string, thumbSize: { width: number; height: number }, offset: string = ''): Promise<any> {
+	category (categoryName: string, thumbSize: { width: number; height: number }, offset = ''): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'ArticlesApi',
 			method: 'getList',
