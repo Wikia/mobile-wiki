@@ -71,7 +71,7 @@ $grid-icon-size: 22px;
 
 		&.clamp {
 			@include clamp(7);
-			}
+		}
 
 		&.grid-icon {
 			display: table-cell;
