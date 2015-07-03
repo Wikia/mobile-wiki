@@ -10,6 +10,12 @@ $infobox-hero-font-color: white;
 	height: auto;
 	margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
+	.article-gallery {
+		/* position:relative needed here for proper setting the
+		* offsetParent property for images in galleries in infoboxes */
+		position: relative;
+	}
+
 	// reset inherited margins and paddings
 	.portable-infobox-title,
 	.portable-infobox-header,
@@ -19,12 +25,6 @@ $infobox-hero-font-color: white;
 	.portable-infobox-comparison-item,
 	.portable-infobox-hero-title,
 	.portable-infobox-hero-caption,
-	.article-gallery {
-		/* position:relative needed here for proper setting the
-		* offsetParent property for images in galleries in infoboxes */
-		position: relative;
-	}
-
 	.media-component {
 		margin: 0;
 		padding: 0;
@@ -62,11 +62,6 @@ $infobox-hero-font-color: white;
 	// infobox hero
 	.item-type-hero {
 		position: relative;
-
-		// TODO: should be removed ones the default caption is removed from image in hero
-		figcaption {
-			display: none;
-		}
 	}
 
 	.portable-infobox-hero-title-wrapper {
