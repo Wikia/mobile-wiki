@@ -34,6 +34,7 @@
 		@include clamp(2);
 		bottom: 40px;
 		padding: 0 10px;
+		max-height: 64px;
 		position: absolute;
 		width: 100%;
 	}
