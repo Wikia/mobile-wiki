@@ -139,6 +139,8 @@
 		}
 	}
 
-	init();
+	document.addEventListener('DOMContentLoaded', function (): void {
+		init();
+	});
 })();
 
