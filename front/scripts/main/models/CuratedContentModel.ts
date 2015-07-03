@@ -14,7 +14,7 @@ interface CuratedContentItem {
 App.CuratedContentModel = Em.Object.extend();
 
 App.CuratedContentModel.reopenClass({
-	fetchItemsForSection: function (sectionName: string, sectionType = 'section', offset: string = ''): Em.RSVP.Promise {
+	fetchItemsForSection: function (sectionName: string, sectionType = 'section', offset = ''): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase'),
 				curatedContentGlobal: any = M.prop('curatedContent');
