@@ -1,3 +1,5 @@
+$featured-content-caption-line-height: 32px;
+
 .featured-content {
 	margin-bottom: 20px;
 	position: relative;
@@ -34,7 +36,7 @@
 		@include clamp(2);
 		bottom: 40px;
 		padding: 0 10px;
-		max-height: 64px;
+		max-height: 2 * $featured-content-caption-line-height;
 		position: absolute;
 		width: 100%;
 	}
@@ -50,7 +52,7 @@
 		color: white;
 		font-size: 28px;
 		height: 100px;
-		line-height: initial;
+		line-height: $featured-content-caption-line-height;
 		position: absolute;
 		text-align: center;
 		width: 100%;
