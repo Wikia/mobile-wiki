@@ -31,9 +31,9 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 					this.set('offset', data.offset);
 					this.set('model', this.get('model').pushObjects(data.items));
 				})
-				.catch((reason) => {
-					this.controllerFor('application').addAlert('error', i18n.t('app.something-went-wrong'));
-					Ember.debug(reason);
+				.catch((reason: any) => {
+					this.controllerFor('application').addAlert('error', i18n.t('app.curated-content-error-load-more-items'));
+					Em.Logger.error(reason);
 				})
 				.finally(() => {
 					this.hideLoader();

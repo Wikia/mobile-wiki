@@ -16,16 +16,17 @@ App.CuratedContentModel = Em.Object.extend();
 App.CuratedContentModel.reopenClass({
 	fetchItemsForSection: function (sectionName: string, sectionType = 'section', offset: string = ''): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var url = App.get('apiBase');
+			var url = App.get('apiBase'),
+				curatedContentGlobal: any = M.prop('curatedContent');
 			// If this is first PV we have model for curated content already so we don't need to issue another request
 			// When resolving promise we need to set Mercury.curatedContent to undefined
 			// because this data gets outdated on following PVs
-			if (Mercury.curatedContent && Mercury.curatedContent.items) {
+			if (curatedContentGlobal && curatedContentGlobal.items) {
 				resolve({
-					items: App.CuratedContentModel.sanitizeItems(Mercury.curatedContent.items),
-					offset: Mercury.curatedContent.offset
+					items: App.CuratedContentModel.sanitizeItems(curatedContentGlobal.items),
+					offset: curatedContentGlobal.offset
 				});
-				M.provide('curatedContent', undefined);
+				M.prop('curatedContent', null);
 			} else {
 				url += (sectionType === 'section') ?
 					//We don't need to wrap it into Try/Catch statement

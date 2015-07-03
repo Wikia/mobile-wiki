@@ -48,7 +48,7 @@
 			M.provide('wiki', {{{json wiki}}});
 			M.provide('article', {{{json article}}});
 			{{#if curatedContent}}
-				M.provide('curatedContent', {{{json curatedContent}}});
+				M.prop('curatedContent', {{{json curatedContent}}}, true);
 			{{/if}}
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
