@@ -134,7 +134,7 @@
 			setTrackingForJoinPage();
 		} else if (checkPageType('signin-page')) {
 			setTrackingForSignInPage();
-		} else {
+		} else if (checkPageType('register-page')){
 			setTrackingForRegisterPage();
 		}
 	}
