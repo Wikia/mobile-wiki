@@ -129,7 +129,7 @@ App.ArticleModel.reopenClass({
 		M.prop('firstPage', false);
 
 		// On first page load the article content is available only in HTML
-		article.content = $('.article-content').html();
+		article.content = $('#preloadedContent').html();
 
 		delete Mercury['article'];
 		return article;
