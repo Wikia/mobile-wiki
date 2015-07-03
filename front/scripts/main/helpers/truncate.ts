@@ -12,7 +12,7 @@ Em.Handlebars.registerBoundHelper('truncate', function (string: string, maxLengt
 	lastSpacePosition = truncatedString.lastIndexOf(' ');
 
 	if (lastSpacePosition === maxLength || lastSpacePosition < 0) {
-		return truncatedString;
+		return truncatedString + '…';
 	}
 
 	return truncatedString.substr(0, lastSpacePosition) + '…';
