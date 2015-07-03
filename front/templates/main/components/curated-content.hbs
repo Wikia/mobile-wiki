@@ -1,12 +1,12 @@
-{{#if model}}
+{{#if model.items}}
 	<nav class='curated-content-items'>
-		{{#each model as |item|}}
+		{{#each model.items as |item|}}
 			{{curated-content-item model=item action='clickItem'}}
 		{{/each}}
 
 	{{! the empty newline above lets the last inline item to be justified to the right if it's even }}
 	</nav>
-	{{#if offset}}
+	{{#if model.offset}}
 		<button class="load-more-items" {{action 'loadMore'}}>
 			{{i18n 'app.curated-content-load-more-items'}}
 		</button>

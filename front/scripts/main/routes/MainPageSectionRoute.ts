@@ -3,11 +3,11 @@
 
 App.MainPageSectionRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
+		return App.CuratedContentModel.find(params.sectionName, 'section');
 	},
 
-	afterModel: function (model: any, transition: EmberStates.Transition): void {
-		var sectionName = M.String.normalize(transition.params['mainPage.section'].sectionName),
+	afterModel: function (model: typeof App.CuratedContentModel): void {
+		var sectionName = M.String.normalize(model.title),
 			mainPageController = this.controllerFor('mainPage');
 
 		document.title = sectionName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
@@ -20,13 +20,11 @@ App.MainPageSectionRoute = Em.Route.extend({
 		});
 	},
 
-	renderTemplate: function (controller: any, model: CuratedContentItem[]): void {
+	renderTemplate: function (controller: any, model: typeof App.CuratedContentModel): void {
 		this.render('main-page', {
 			controller: 'mainPage',
 			model: {
-				mainPageData: {
-					curatedContent: model
-				}
+				curatedContent: model
 			}
 		})
 	},

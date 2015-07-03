@@ -10,7 +10,7 @@
 	{{component featuredContentComponentVariation model=featuredContent}}
 {{/if}}
 {{#if curatedContent.items}}
-	{{curated-content model=curatedContent.items offset=curatedContent.offset title=title openCuratedContentItem='openCuratedContentItem'}}
+	{{curated-content model=curatedContent openCuratedContentItem='openCuratedContentItem'}}
 {{/if}}
 {{#if trendingArticles}}
 	{{trending-articles model=trendingArticles}}

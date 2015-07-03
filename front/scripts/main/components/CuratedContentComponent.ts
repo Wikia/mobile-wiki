@@ -6,9 +6,6 @@
 
 App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.TrackClickMixin, {
 	classNames: ['curated-content'],
-	classNameBindings: ['showItems'],
-	globalNavHeight: 57,
-	spinnerDelay: 50,
 
 	actions: {
 		clickItem: function (item: CuratedContentItem): void {

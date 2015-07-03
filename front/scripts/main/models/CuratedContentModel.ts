@@ -10,22 +10,33 @@ interface CuratedContentItem {
 	ns?: number;
 }
 
-// TODO (CONCF-775): This is not what Ember models are supposed be
-App.CuratedContentModel = Em.Object.extend();
+App.CuratedContentModel = Em.Object.extend({
+	title: null,
+	type: null,
+	items: [],
+	offset: null
+});
 
 App.CuratedContentModel.reopenClass({
-	fetchItemsForSection: function (sectionName: string, sectionType = 'section', offset = ''): Em.RSVP.Promise {
+	find: function (sectionName: string, sectionType = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase'),
-				curatedContentGlobal: any = M.prop('curatedContent');
+				curatedContentGlobal: any = M.prop('curatedContent'),
+				params: {offset?: string} = {},
+				modelInstance = App.CuratedContentModel.create({
+					title: sectionName,
+					type: sectionType
+				});
+
 			// If this is first PV we have model for curated content already so we don't need to issue another request
 			// When resolving promise we need to set Mercury.curatedContent to undefined
 			// because this data gets outdated on following PVs
 			if (curatedContentGlobal && curatedContentGlobal.items) {
-				resolve({
+				modelInstance.setProperties({
 					items: App.CuratedContentModel.sanitizeItems(curatedContentGlobal.items),
 					offset: curatedContentGlobal.offset
 				});
+				resolve(modelInstance);
 				M.prop('curatedContent', null);
 			} else {
 				url += (sectionType === 'section') ?
@@ -34,16 +45,19 @@ App.CuratedContentModel.reopenClass({
 					'/curatedContent/' + encodeURIComponent(sectionName) :
 					'/category/' + encodeURIComponent(sectionName);
 
+				if (offset) {
+					params.offset = offset;
+				}
+
 				Em.$.ajax({
 					url: url,
-					data: {
-						offset: offset
-					},
+					data: params,
 					success: (data: any): void => {
-						resolve({
+						modelInstance.setProperties({
 							items: App.CuratedContentModel.sanitizeItems(data.items),
-							offset: data.offset
+							offset: data.offset || null
 						});
+						resolve(modelInstance);
 					},
 					error: (data: any): void => {
 						reject(data);

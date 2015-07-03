@@ -3,11 +3,11 @@
 
 App.MainPageCategoryRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentModel.fetchItemsForSection(params.categoryName, 'category');
+		return App.CuratedContentModel.find(params.categoryName, 'category');
 	},
 
-	afterModel: function (model: any, transition: EmberStates.Transition): void {
-		var categoryName = M.String.normalize(transition.params['mainPage.category'].categoryName),
+	afterModel: function (model: typeof App.CuratedContentModel): void {
+		var categoryName = M.String.normalize(model.title),
 			mainPageController = this.controllerFor('mainPage');
 
 		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
@@ -24,9 +24,7 @@ App.MainPageCategoryRoute = Em.Route.extend({
 		this.render('main-page', {
 			controller: 'mainPage',
 			model: {
-				mainPageData: {
-					curatedContent: model
-				}
+				curatedContent: model
 			}
 		})
 	},
