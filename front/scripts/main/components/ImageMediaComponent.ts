@@ -3,7 +3,7 @@
 /// <reference path="../mixins/ArticleContentMixin.ts" />
 'use strict';
 
-interface thumbnailerParams {
+interface ThumbnailerParams {
 	mode: string;
 	height: number;
 	width: number;
@@ -26,7 +26,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 	link: Em.computed.alias('media.link'),
 
-	isSmall: Em.computed('media.width', 'media.height', function(): boolean {
+	isSmall: Em.computed('media.width', 'media.height', function (): boolean {
 		var imageWidth = this.get('media.width'),
 			imageHeight = this.get('media.height');
 
@@ -53,26 +53,21 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	/**
 	 * @desc return the params for getThumbURL for infobox image.
 	 * In case of very high or very wide images, crop them properly.
-	 * @return {
-	 *   mode: string crop mode
-	 *   height: number height of image
-	 *   width: number width of image
-	 * }
+	 * @return ThumbnailerParams
 	 */
-	infoboxImageParams: Em.computed('media', 'articleContent.width', 'computedHeight', 'imageAspectRatio', {
-		get(): thumbnailerParams {
+	infoboxImageParams: Em.computed('media', 'imageAspectRatio', {
+        get(): ThumbnailerParams {
 			var media: ArticleMedia = this.get('media'),
-				articleContentWidth: number = this.get('articleContent.width'),
-				computedHeight: number = this.get('computedHeight'),
 				imageAspectRatio: number = this.get('imageAspectRatio'),
-				maximalWidth: number = Math.floor(media.height * imageAspectRatio);
+				maximalWidth: number = Math.floor(media.height * imageAspectRatio),
+				windowWidth: number = window.innerWidth;
 
 			//high image
-			if (computedHeight > articleContentWidth) {
+			if (media.height > media.width) {
 				return {
 					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-					height: articleContentWidth,
-					width: articleContentWidth
+					height: windowWidth,
+					width: windowWidth
 				}
 			}
 
@@ -80,16 +75,16 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			if (media.width > maximalWidth) {
 				return {
 					mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
-					height: Math.floor(articleContentWidth / imageAspectRatio),
-					width: articleContentWidth
+					height: Math.floor(windowWidth / imageAspectRatio),
+					width: windowWidth
 				}
 			}
 
 			//normal image
 			return {
 				mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-				height: computedHeight,
-				width: articleContentWidth
+				height: Math.floor(windowWidth * (media.height / media.width)),
+				width: windowWidth
 			}
 		}
 	}),
@@ -101,43 +96,43 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 */
 	url: Em.computed({
 		get(): string {
-			var media: ArticleMedia = this.get('media'),
-				mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-				height: number = this.get('computedHeight'),
-				width: number = this.get('articleContent.width'),
-				infoboxImageParams: thumbnailerParams;
+				var media: ArticleMedia = this.get('media'),
+					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
+					height: number = this.get('computedHeight'),
+					width: number = this.get('articleContent.width'),
+                    infoboxImageParams: ThumbnailerParams;
 
-			if (!media) {
-				return this.get('imageSrc');
+				if (!media) {
+					return this.get('imageSrc');
+				}
+
+				if (media.context === 'icon') {
+					mode = Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+					width = this.get('iconWidth');
+				} else if (media.context === 'infobox-image') {
+					infoboxImageParams = this.get('infoboxImageParams');
+					this.set('limitHeight', true);
+					mode = infoboxImageParams.mode;
+					height = infoboxImageParams.height;
+					width = infoboxImageParams.width;
+				}
+
+				return this.getThumbURL(media.url, {
+					mode: mode,
+					height: height,
+					width: width
+				});
+
+				//if it got here, that means that we don't have an url for this media
+				//this might happen for example for read more section images
+			},
+			set(key: string, value: string): string {
+				return this.getThumbURL(value, {
+					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+					height: this.get('computedHeight'),
+					width: this.get('articleContent.width')
+				});
 			}
-
-			if (media.context === 'icon') {
-				mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
-				width = this.get('iconWidth');
-			} else if (media.context === 'infobox-image') {
-				infoboxImageParams = this.get('infoboxImageParams');
-				this.set('limitHeight', true);
-				mode = infoboxImageParams.mode;
-				height = infoboxImageParams.height;
-				width = infoboxImageParams.width;
-			}
-
-			return this.getThumbURL(media.url, {
-				mode: mode,
-				height: height,
-				width: width
-			});
-
-			//if it got here, that means that we don't have an url for this media
-			//this might happen for example for read more section images
-		},
-		set(key: string, value: string): string {
-			return this.getThumbURL(value, {
-				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-				height: this.get('computedHeight'),
-				width: this.get('articleContent.width')
-			});
-		}
 	}),
 
 	/**
@@ -153,7 +148,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	/**
 	 * load an image and run update function when it is loaded
 	 */
-	load: function(): void {
+	load: function (): void {
 		var url = this.get('url'),
 			image: HTMLImageElement;
 		if (url) {
