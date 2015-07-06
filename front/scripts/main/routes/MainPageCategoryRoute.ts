@@ -5,18 +5,18 @@ App.MainPageCategoryRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
 		return App.CuratedContentModel.find(params.categoryName, 'category');
 	},
-
-	afterModel: function (model: typeof App.CuratedContentModel): void {
-		var categoryName = M.String.normalize(model.title),
-			mainPageController = this.controllerFor('mainPage');
+	afterModel: function (model: any, transition: EmberStates.Transition): void {
+		var categoryName = M.String.normalize(transition.params['mainPage.category'].categoryName),
+			mainPageController = this.controllerFor('mainPage'),
+			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
 
 		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
 		mainPageController.setProperties({
 			isRoot: false,
 			title: categoryName,
-			adsContext: Em.get(Mercury, 'article.adsContext'),
-			ns: Em.get(Mercury, 'article.details.ns')
+			adsContext: adsContext,
+			ns: M.prop('mainPageData.ns')
 		});
 	},
 
