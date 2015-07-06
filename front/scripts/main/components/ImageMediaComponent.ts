@@ -56,7 +56,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * @return ThumbnailerParams
 	 */
 	infoboxImageParams: Em.computed('media', 'imageAspectRatio', {
-        get(): ThumbnailerParams {
+		get(): ThumbnailerParams {
 			var media: ArticleMedia = this.get('media'),
 				imageAspectRatio: number = this.get('imageAspectRatio'),
 				maximalWidth: number = Math.floor(media.height * imageAspectRatio),
