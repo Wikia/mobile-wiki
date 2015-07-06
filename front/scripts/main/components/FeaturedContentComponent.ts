@@ -21,14 +21,14 @@ App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App
 	},
 
 	rightClickHandler: function(): boolean {
-		this.nextItem();
 		M.VariantTesting.trackEvent('featured-content-next');
+		this.nextItem();
 		return true;
 	},
 
 	leftClickHandler: function (): boolean {
-		this.prevItem();
 		M.VariantTesting.trackEvent('featured-content-prev');
+		this.prevItem();
 		return true;
 	},
 
