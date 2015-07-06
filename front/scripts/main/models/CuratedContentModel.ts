@@ -42,8 +42,8 @@ App.CuratedContentModel.reopenClass({
 				url += (sectionType === 'section') ?
 					//We don't need to wrap it into Try/Catch statement
 					//See: https://github.com/Wikia/mercury/pull/946#issuecomment-113501147
-					'/curatedContent/' + encodeURIComponent(sectionName) :
-					'/category/' + encodeURIComponent(sectionName);
+					'/main/section/' + encodeURIComponent(sectionName) :
+					'/main/category/' + encodeURIComponent(sectionName);
 
 				if (offset) {
 					params.offset = offset;

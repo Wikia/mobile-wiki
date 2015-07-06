@@ -103,12 +103,12 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/curatedContent/{sectionName}',
+		path: localSettings.apiBase + '/main/section/{sectionName}',
 		handler: require('./facets/api/curatedContent').get
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/category/{categoryName}',
+		path: localSettings.apiBase + '/main/category/{categoryName}',
 		handler: require('./facets/api/category').get
 	},
 	{
