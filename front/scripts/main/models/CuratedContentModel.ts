@@ -1,11 +1,6 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface CuratedContentSection {
-	items: CuratedContentItem[];
-	label?: string;
-}
-
 interface CuratedContentItem {
 	label: string;
 	imageUrl: string;
@@ -15,36 +10,77 @@ interface CuratedContentItem {
 	ns?: number;
 }
 
-// TODO (CONCF-775): This is not what Ember models are supposed be
-App.CuratedContentModel = Em.Object.extend();
+App.CuratedContentModel = Em.Object.extend({
+	title: null,
+	type: null,
+	items: [],
+	offset: null
+});
 
 App.CuratedContentModel.reopenClass({
-	fetchItemsForSection: function (sectionName: string, sectionType = 'section'): Em.RSVP.Promise {
+	find: function (sectionName: string, sectionType = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var url = App.get('apiBase');
+			var url = App.get('apiBase'),
+				curatedContentGlobal: any = M.prop('curatedContent'),
+				params: {offset?: string} = {},
+				modelInstance = App.CuratedContentModel.create({
+					title: sectionName,
+					type: sectionType
+				});
+
 			// If this is first PV we have model for curated content already so we don't need to issue another request
 			// When resolving promise we need to set Mercury.curatedContent to undefined
 			// because this data gets outdated on following PVs
-			if (Mercury.curatedContent && Mercury.curatedContent.items) {
-				resolve(App.CuratedContentModel.sanitizeItems(Mercury.curatedContent.items));
-				M.provide('curatedContent', undefined);
+			if (curatedContentGlobal && curatedContentGlobal.items) {
+				modelInstance.setProperties({
+					items: App.CuratedContentModel.sanitizeItems(curatedContentGlobal.items),
+					offset: curatedContentGlobal.offset
+				});
+				resolve(modelInstance);
+				M.prop('curatedContent', null);
 			} else {
 				url += (sectionType === 'section') ?
 					//We don't need to wrap it into Try/Catch statement
 					//See: https://github.com/Wikia/mercury/pull/946#issuecomment-113501147
-					'/curatedContent/' + encodeURIComponent(sectionName) :
-					'/category/' + encodeURIComponent(sectionName);
+					'/main/section/' + encodeURIComponent(sectionName) :
+					'/main/category/' + encodeURIComponent(sectionName);
+
+				if (offset) {
+					params.offset = offset;
+				}
 
 				Em.$.ajax({
 					url: url,
+					data: params,
 					success: (data: any): void => {
-						resolve(App.CuratedContentModel.sanitizeItems(data.items));
+						modelInstance.setProperties({
+							items: App.CuratedContentModel.sanitizeItems(data.items),
+							offset: data.offset || null
+						});
+						resolve(modelInstance);
 					},
 					error: (data: any): void => {
 						reject(data);
 					}
 				});
 			}
+		});
+	},
+
+	loadMore: function (model: typeof App.CuratedContentModel): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			// Category type is hardcoded because only Categories API supports offset.
+			var newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
+
+			newModelPromise
+				.then(function (newModel: typeof App.CuratedContentModel): void {
+					model.items.pushObjects(newModel.items);
+					model.set('offset', newModel.offset);
+					resolve(model);
+				})
+				.catch(function (reason: any): void {
+					reject(reason);
+				});
 		});
 	},
 

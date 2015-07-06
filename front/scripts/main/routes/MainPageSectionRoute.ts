@@ -3,7 +3,7 @@
 
 App.MainPageSectionRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentModel.fetchItemsForSection(params.sectionName, 'section');
+		return App.CuratedContentModel.find(params.sectionName, 'section');
 	},
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
@@ -21,23 +21,22 @@ App.MainPageSectionRoute = Em.Route.extend({
 		});
 	},
 
-	renderTemplate: function (controller: any, model: CuratedContentItem[]): void {
+	renderTemplate: function (controller: any, model: typeof App.CuratedContentModel): void {
 		this.render('main-page', {
 			controller: 'mainPage',
 			model: {
-				mainPageData: {
-					curatedContent: model
-				}
+				curatedContent: model
 			}
 		})
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): void {
+		error: function (error: any, transition: EmberStates.Transition): boolean {
 			if ( error && error.status === 404 ) {
 				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-section-not-found'));
 				return this.transitionTo('mainPage');
 			}
+			return true;
 		}
 	}
 });

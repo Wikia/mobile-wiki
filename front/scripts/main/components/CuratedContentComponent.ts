@@ -6,9 +6,6 @@
 
 App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.TrackClickMixin, {
 	classNames: ['curated-content'],
-	classNameBindings: ['showItems'],
-	globalNavHeight: 57,
-	spinnerDelay: 50,
 
 	actions: {
 		clickItem: function (item: CuratedContentItem): void {
@@ -21,6 +18,18 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 			} else {
 				this.trackClick('modular-main-page', 'curated-content-item-other');
 			}
+		},
+		loadMore: function(): void {
+			this.showLoader();
+
+			App.CuratedContentModel.loadMore(this.get('model'))
+				.catch((reason: any): void => {
+					this.controllerFor('application').addAlert('error', i18n.t('app.curated-content-error-load-more-items'));
+					Em.Logger.error(reason);
+				})
+				.finally((): void => {
+					this.hideLoader();
+				});
 		}
 	}
 });

@@ -103,20 +103,20 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/curatedContent/{sectionName}',
-		handler: require('./facets/api/curatedContent').get
+		path: localSettings.apiBase + '/main/section/{sectionName}',
+		handler: require('./facets/api/mainPageSection').get
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/category/{categoryName}',
-		handler: require('./facets/api/category').get
+		path: localSettings.apiBase + '/main/category/{categoryName}',
+		handler: require('./facets/api/mainPageCategory').get
 	},
 	{
 		method: 'GET',
 		path: localSettings.apiBase + '/userDetails',
 		handler: require('./facets/api/userDetails').get
 	},
-	 {
+	{
 		method: 'GET',
 		path: '/logout',
 		handler: require('./facets/auth/logout')
@@ -184,7 +184,7 @@ authenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/signup',
-		handler: function (request: Hapi.Request, reply: any ): Hapi.Response {
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
 			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
 		}
 	}

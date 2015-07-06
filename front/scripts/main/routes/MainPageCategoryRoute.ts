@@ -3,9 +3,8 @@
 
 App.MainPageCategoryRoute = Em.Route.extend({
 	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentModel.fetchItemsForSection(params.categoryName, 'category');
+		return App.CuratedContentModel.find(params.categoryName, 'category');
 	},
-
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
 		var categoryName = M.String.normalize(transition.params['mainPage.category'].categoryName),
 			mainPageController = this.controllerFor('mainPage'),
@@ -25,19 +24,18 @@ App.MainPageCategoryRoute = Em.Route.extend({
 		this.render('main-page', {
 			controller: 'mainPage',
 			model: {
-				mainPageData: {
-					curatedContent: model
-				}
+				curatedContent: model
 			}
 		})
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): void {
+		error: function (error: any, transition: EmberStates.Transition): boolean {
 			if ( error && error.status === 404 ) {
 				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-category-not-found'));
 				return this.transitionTo('mainPage');
 			}
+			return true;
 		}
 	}
 });
