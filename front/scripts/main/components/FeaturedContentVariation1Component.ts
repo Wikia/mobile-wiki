@@ -10,18 +10,18 @@ App.FeaturedContentVariation1Component = Em.Component.extend(App.FeaturedContent
 
 	gestures: {
 		swipeLeft: function (): void {
-			Mercury.Utils.VariantTesting.trackEvent('featured-content-next');
+			M.VariantTesting.trackEvent('featured-content-next');
 			this.nextItem();
 		},
 
 		swipeRight: function (): void {
-			Mercury.Utils.VariantTesting.trackEvent('featured-content-prev');
+			M.VariantTesting.trackEvent('featured-content-prev');
 			this.prevItem();
 		},
 	},
 
 	click: function (): void {
-		Mercury.Utils.VariantTesting.trackEvent('featured-content-click');
+		M.VariantTesting.trackEvent('featured-content-click');
 		this.trackClick('modular-main-page', 'featured-content');
 	}
 });

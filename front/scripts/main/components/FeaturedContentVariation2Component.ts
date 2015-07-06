@@ -17,24 +17,24 @@ App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContent
 	}),
 
 	rightClickHandler: function (): boolean {
-		Mercury.Utils.VariantTesting.trackEvent('featured-content-next');
+		M.VariantTesting.trackEvent('featured-content-next');
 		this.nextItem();
 		return true;
 	},
 
 	leftClickHandler: function (): boolean {
-		Mercury.Utils.VariantTesting.trackEvent('featured-content-prev');
+		M.VariantTesting.trackEvent('featured-content-prev');
 		this.prevItem();
 		return true;
 	},
 
 	centerClickHandler: function (): boolean {
 		this.trackClick('modular-main-page', 'featured-content');
-		Mercury.Utils.VariantTesting.trackEvent('featured-content-click');
+		M.VariantTesting.trackEvent('featured-content-click');
 		return false;
 	},
 
-	click: function (event: MouseEvent|Touch): void {
+	click: function (event: PreventableClickEvent): void {
 		this.callClickHandler(event, true);
 	}
 });
