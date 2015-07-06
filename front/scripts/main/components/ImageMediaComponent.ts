@@ -100,7 +100,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 					height: number = this.get('computedHeight'),
 					width: number = this.get('articleContent.width'),
-                    infoboxImageParams: ThumbnailerParams;
+					infoboxImageParams: ThumbnailerParams;
 
 				if (!media) {
 					return this.get('imageSrc');
