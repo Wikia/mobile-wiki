@@ -62,7 +62,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				maximalWidth: number = Math.floor(media.height * imageAspectRatio),
 				windowWidth: number = window.innerWidth;
 
-			//high image
+			//high image- image higher than square. Make it square.
 			if (media.height > media.width) {
 				return {
 					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
@@ -71,7 +71,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				}
 			}
 
-			//wide image
+			//wide image- image wider than 16:9 aspect ratio. Crop it to have 16:9 ratio.
 			if (media.width > maximalWidth) {
 				return {
 					mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
@@ -80,7 +80,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				}
 			}
 
-			//normal image
+			//normal image- size between the 16:9 ratio and square. 
+			//Compute height with regard to full-screen width of infobox.
 			return {
 				mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 				height: Math.floor(windowWidth * (media.height / media.width)),
