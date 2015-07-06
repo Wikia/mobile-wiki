@@ -31,6 +31,7 @@ $infobox-section-header-background: #e5e5e5;
 		padding: $infobox-item-margin $infobox-item-margin * 3 $infobox-item-margin * 2;
 	}
 
+	// TODO: remove header selector as part of DAT-2909
 	.portable-infobox-header-background,
 	.portable-infobox-secondary-background {
 		background-color: $infobox-section-header-background;
@@ -49,6 +50,7 @@ $infobox-section-header-background: #e5e5e5;
 		padding: $infobox-item-margin 0 0;
 	}
 
+	// TODO: remove header selector as part of DAT-2909
 	.portable-infobox-header-font,
 	.portable-infobox-secondary-font, {
 		font-size: 1rem;
