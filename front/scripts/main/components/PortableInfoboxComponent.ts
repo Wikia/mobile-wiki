@@ -48,6 +48,10 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	handleCollapsing: function (): void {
 		var collapsedHeight = this.get('collapsedHeight');
 
+		console.log('RAFAL_DEBUD ', collapsedHeight);
+
+
+
 		this.set('collapsed', true);
 		this.$().height(collapsedHeight);
 	},
