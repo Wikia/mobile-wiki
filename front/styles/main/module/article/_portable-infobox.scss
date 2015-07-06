@@ -208,7 +208,7 @@ $infobox-hero-font-color: white;
 
 	// styles for infobox collapse / expand UI
 	.portable-infobox-expand-button {
-		background: linear-gradient(to top, $color-blue-gray-light 35%, transparentize($color-blue-gray-light, 1));
+		background: linear-gradient(to top, $infobox-background 35%, transparentize($infobox-background, 1));
 		border-bottom: 1px solid $infobox-section-secondary-background;
 		box-sizing: border-box;
 		padding: $infobox-item-margin * 5 0 $infobox-item-margin;
