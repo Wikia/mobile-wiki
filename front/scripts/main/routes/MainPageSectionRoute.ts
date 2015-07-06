@@ -6,7 +6,7 @@ App.MainPageSectionRoute = Em.Route.extend({
 		return App.CuratedContentModel.find(params.sectionName, 'section');
 	},
 
-		afterModel: function (model: any, transition: EmberStates.Transition): void {
+	afterModel: function (model: any, transition: EmberStates.Transition): void {
 		var sectionName = M.String.normalize(transition.params['mainPage.section'].sectionName),
 			mainPageController = this.controllerFor('mainPage'),
 			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
