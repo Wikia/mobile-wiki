@@ -1,3 +1,6 @@
+## release-103 (2015-07-06 10:00 UTC)
+* [CONCF-681](https://wikia-inc.atlassian.net/browse/CONCF-681) CONCF-681 | truncating displayed labels in Curated Content and Featured Content
+
 ## release-102 (2015-07-03 10:00 UTC)
 * fix-typos-on-dev-branch: Fix small typos on dev
 
