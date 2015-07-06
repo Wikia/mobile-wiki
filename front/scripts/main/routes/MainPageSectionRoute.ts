@@ -6,8 +6,8 @@ App.MainPageSectionRoute = Em.Route.extend({
 		return App.CuratedContentModel.find(params.sectionName, 'section');
 	},
 
-	afterModel: function (model: any, transition: EmberStates.Transition): void {
-		var sectionName = M.String.normalize(transition.params['mainPage.section'].sectionName),
+	afterModel: function (model: any): void {
+		var sectionName = M.String.normalize(decodeURIComponent(model.get('title'))),
 			mainPageController = this.controllerFor('mainPage'),
 			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
 
@@ -31,11 +31,13 @@ App.MainPageSectionRoute = Em.Route.extend({
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
-			if ( error && error.status === 404 ) {
+		error: function (error: any): boolean {
+			if (error && error.status === 404) {
 				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-section-not-found'));
-				return this.transitionTo('mainPage');
+			} else {
+				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
 			}
+			this.transitionTo('mainPage');
 			return true;
 		}
 	}

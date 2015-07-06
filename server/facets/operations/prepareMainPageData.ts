@@ -53,9 +53,7 @@ function prepareMainPageData (request: Hapi.Request, result: any): void {
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
-
 	delete result.adsContext;
-	console.log(result.mainPageData);
 }
 
 export = prepareMainPageData;

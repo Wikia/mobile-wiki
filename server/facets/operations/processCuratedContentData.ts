@@ -21,10 +21,10 @@ function prepareData (request: Hapi.Request, result: any): void {
 		userDir = 'ltr';
 
 	if (request.url.path.indexOf('section') > -1) {
-		title = request.url.path.replace('\/main\/section\/', '');
+		title = decodeURIComponent(request.url.path.replace('\/main\/section\/', ''));
 		title = title.replace(/%20/g, ' ');
 	} else if (request.url.path.indexOf('category') > -1) {
-		title = request.url.path.replace('\/main\/category\/', '');
+		title = decodeURIComponent(request.url.path.replace('\/main\/category\/', ''));
 		title = title.replace(/_/g, ' ');
 	} else {
 		title = result.wiki.mainPageTitle.replace(/_/g, ' ');

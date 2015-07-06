@@ -33,16 +33,16 @@ export function get (request: Hapi.Request, reply: any): void {
 		};
 
 	if (params.sectionName === null) {
-		// TODO: ad hoc error handling, use Boom everywhere?
 		reply(Boom.badRequest('Section not provided'));
 	} else {
-		new MW.ArticleRequest(params).curatedContentSection(params.sectionName)
-		.then((response: any): void => {
-			reply(response);
-			Caching.setResponseCaching(response, cachingTimes);
-		}, (error: any): void => {
-			var wrappedResult = wrapResult(error, {});
-			reply(wrappedResult).code(wrappedResult.status);
-		});
+		new MW.ArticleRequest(params)
+			.curatedContentSection(params.sectionName)
+			.then((response: any): void => {
+				reply(response);
+				Caching.setResponseCaching(response, cachingTimes);
+			}, (error: any): void => {
+				var wrappedResult = wrapResult(error, {});
+				reply(wrappedResult).code(wrappedResult.status);
+			});
 	}
 }

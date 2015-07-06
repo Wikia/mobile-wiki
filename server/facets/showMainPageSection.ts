@@ -5,17 +5,14 @@ import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
 import processCuratedContentData = require('./operations/processCuratedContentData');
 
-
 function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: MainPageRequestParams = {
-			wikiDomain: wikiDomain,
-			sectionName: request.params.sectionName || null
+			sectionName: request.params.sectionName || null,
+			wikiDomain: wikiDomain
 		},
 		mainPage: MainPage.MainPageRequestHelper,
 		allowCache = true;
-
-	mainPage = new MainPage.MainPageRequestHelper(params);
 
 	if (request.state.wikicities_session) {
 		params.headers = {
@@ -24,6 +21,7 @@ function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 		allowCache = false;
 	}
 
+	mainPage = new MainPage.MainPageRequestHelper(params);
 	mainPage.getWikiVariables((error: any, wikiVariables: any) => {
 		if (error) {
 			reply.redirect(localSettings.redirectUrlOnNoData);

@@ -8,16 +8,11 @@ import processCuratedContentData = require('./operations/processCuratedContentDa
 function showCategory (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: MainPageRequestParams = {
+			categoryName: request.params.categoryName,
 			wikiDomain: wikiDomain
 		},
 		mainPage: MainPage.MainPageRequestHelper,
 		allowCache = true;
-
-	if (request.params.categoryName) {
-		params.categoryName = request.params.categoryName.substr(request.params.categoryName.indexOf(':') + 1);
-	} else {
-		params.categoryName = null;
-	}
 
 	if (request.state.wikicities_session) {
 		params.headers = {
@@ -27,7 +22,6 @@ function showCategory (request: Hapi.Request, reply: Hapi.Response): void {
 	}
 
 	mainPage = new MainPage.MainPageRequestHelper(params);
-
 	mainPage.getWikiVariables((error: any, wikiVariables: any) => {
 		if (error) {
 			reply.redirect(localSettings.redirectUrlOnNoData);

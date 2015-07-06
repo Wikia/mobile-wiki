@@ -42,8 +42,8 @@ App.CuratedContentModel.reopenClass({
 				url += (sectionType === 'section') ?
 					//We don't need to wrap it into Try/Catch statement
 					//See: https://github.com/Wikia/mercury/pull/946#issuecomment-113501147
-					'/main/section/' + encodeURIComponent(sectionName) :
-					'/main/category/' + encodeURIComponent(sectionName);
+					'/main/section/' + sectionName :
+					'/main/category/' + sectionName;
 
 				if (offset) {
 					params.offset = offset;
@@ -97,7 +97,9 @@ App.CuratedContentModel.reopenClass({
 	},
 
 	sanitizeItem: function (rawData: any): CuratedContentItem {
-		var item: CuratedContentItem;
+		var item: CuratedContentItem,
+			categoryName: string,
+			articlePath = Em.get(Mercury, 'wiki.articlePath');
 
 		if (rawData.type === 'section') {
 			item = {
@@ -106,11 +108,20 @@ App.CuratedContentModel.reopenClass({
 				type: 'section'
 			};
 		} else if (rawData.type === 'category') {
+			// Only article_local_url is encoded
+			categoryName = (rawData.article_local_url) ? decodeURIComponent(rawData.article_local_url) : rawData.url;
+
+			// Remove /wiki/
+			categoryName = categoryName.replace(articlePath, '');
+
+			// Remove Category: prefix
+			categoryName = categoryName.substr(categoryName.indexOf(':') + 1);
+
 			item = {
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
 				type: 'category',
-				categoryName: rawData.title
+				categoryName: categoryName
 			}
 		} else {
 			item = {
