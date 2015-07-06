@@ -50,6 +50,9 @@
 			{{#if curatedContent}}
 				M.provide('curatedContent', {{{json curatedContent}}});
 			{{/if}}
+			{{#if mainPageData}}
+				M.prop('mainPageData', {{{json mainPageData}}});
+			{{/if}}
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
 			{{/if}}

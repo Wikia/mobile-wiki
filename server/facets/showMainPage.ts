@@ -6,7 +6,7 @@ import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');
-import prepareArticleData = require('./operations/prepareArticleData');
+import prepareMainPageData = require('./operations/prepareMainPageData');
 
 var cachingTimes = {
 	enabled: true,
@@ -53,6 +53,7 @@ function showMainPage (request: Hapi.Request, reply: Hapi.Response): void {
  * @param reply
  * @param error
  * @param result
+ * @param {Boolean} allowCache
  */
 function onArticleResponse (
 	request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true
@@ -75,7 +76,7 @@ function onArticleResponse (
 			}
 		}
 
-		prepareArticleData(request, result);
+		prepareMainPageData(request, result);
 
 		// all the third party scripts we don't want to load on noexternals
 		if (!result.queryParams.noexternals) {

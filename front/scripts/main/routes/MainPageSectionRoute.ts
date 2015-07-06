@@ -8,15 +8,16 @@ App.MainPageSectionRoute = Em.Route.extend({
 
 	afterModel: function (model: any, transition: EmberStates.Transition): void {
 		var sectionName = M.String.normalize(transition.params['mainPage.section'].sectionName),
-			mainPageController = this.controllerFor('mainPage');
+			mainPageController = this.controllerFor('mainPage'),
+			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
 
 		document.title = sectionName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
 		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionName,
-			adsContext: Em.get(Mercury, 'article.adsContext'),
-			ns: Em.get(Mercury, 'article.details.ns')
+			adsContext: adsContext,
+			ns: M.prop('mainPageData.ns')
 		});
 	},
 

@@ -35,6 +35,13 @@ function prepareData (request: Hapi.Request, result: any): void {
 		result.isRtl = (userDir === 'rtl');
 	}
 
+	//@TODO - this part should be removed when we fix API in MW
+	// so it returns adsContext and namespace along with sections/categories list
+	//ticket for fix: CONCF-758
+	result.mainPageData = {};
+	result.mainPageData.adsContext = result.article.adsContext;
+	result.mainPageData.ns = result.article.details.ns;
+
 	result.displayTitle = title;
 	result.isMainPage = true;
 	result.canonicalUrl = result.wiki.basePath + '/';
@@ -102,6 +109,9 @@ function processCuratedContentData (
 					localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
 			}
 		}
+
+		delete result.article.adsContext;
+		delete result.article.details.ns;
 
 		response = reply.view('application', result);
 		response.code(code);
