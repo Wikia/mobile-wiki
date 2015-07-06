@@ -12,10 +12,12 @@ App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App
 
 	gestures: {
 		swipeLeft: function (): void {
+			M.VariantTesting.trackEvent('featured-content-next');
 			this.nextItem();
 		},
 
 		swipeRight: function (): void {
+			M.VariantTesting.trackEvent('featured-content-prev');
 			this.prevItem();
 		},
 	},
