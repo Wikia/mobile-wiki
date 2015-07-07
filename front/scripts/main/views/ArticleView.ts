@@ -133,8 +133,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 
 		var model = this.get('controller.model'),
-			article = model.get('article'),
-			isCuratedMainPage = model.get('isCuratedMainPage');
+			article = model.get('article');
 
 		if (article && article.length > 0) {
 			if (this.get('editButtonsVisible')) {
