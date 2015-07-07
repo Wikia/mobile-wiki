@@ -69,12 +69,13 @@ App.ArticleModel.reopenClass({
 	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
 		var model = App.ArticleModel.create(params);
 
-		if (M.prop('firstPage') && !M.prop('asyncArticle')) {
-			this.setArticle(model);
-			return model;
-		}
-
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			if (M.prop('firstPage') && !M.prop('asyncArticle')) {
+				this.setArticle(model);
+				resolve(model);
+				return;
+			}
+
 			Em.$.ajax({
 				url: this.url(params),
 				dataType: 'json',
@@ -82,7 +83,7 @@ App.ArticleModel.reopenClass({
 					this.setArticle(model, data);
 					resolve(model);
 				},
-				error: (err): void => {
+				error: (err: any): void => {
 					if (err.status === 404) {
 						this.setArticle(model, {
 							error: err.responseJSON
@@ -128,17 +129,9 @@ App.ArticleModel.reopenClass({
 		M.prop('firstPage', false);
 
 		// On first page load the article content is available only in HTML
-		article.content = $('.article-content').html();
+		article.content = $('#preloadedContent').html();
 
-		// Setup ads
-		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
-			adsInstance = Mercury.Modules.Ads.getInstance();
-			adsInstance.init(M.prop('adsUrl'), (): void => {
-				adsInstance.reload(article.adsContext);
-			});
-		}
-
-		delete Mercury.article;
+		delete Mercury['article'];
 		return article;
 	},
 

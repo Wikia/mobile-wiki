@@ -2,6 +2,7 @@
 import Hoek = require('hoek');
 import localSettings = require('../config/localSettings');
 import Caching = require('./lib/Caching');
+import authUtils = require('./lib/AuthUtils');
 
 interface RouteDefinition {
 	method: string[]|string;
@@ -64,6 +65,23 @@ unauthenticatedRoutes = [
 		path: '/wiki',
 		handler: require('./facets/operations/redirectToRoot')
 	},
+	{
+		method: 'GET',
+		path: '/',
+		//Currently / path is not available on production because of redirects from / to /wiki/...
+		handler: require('./facets/showArticle')
+	},
+	{
+		method: 'GET',
+		path: '/main/section/{sectionName*}',
+		handler: require('./facets/showMainPageSection')
+	},
+	{
+		method: 'GET',
+		path: '/main/category/{categoryName*}',
+		handler: require('./facets/showMainPageCategory')
+	},
+
 	/**
 	 * API Routes
 	 * @description The following routes should just be API routes
@@ -86,20 +104,20 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/curatedContent/{sectionName}',
-		handler: require('./facets/api/curatedContent').get
+		path: localSettings.apiBase + '/main/section/{sectionName}',
+		handler: require('./facets/api/mainPageSection').get
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/category/{categoryName}',
-		handler: require('./facets/api/category').get
+		path: localSettings.apiBase + '/main/category/{categoryName}',
+		handler: require('./facets/api/mainPageCategory').get
 	},
 	{
 		method: 'GET',
 		path: localSettings.apiBase + '/userDetails',
 		handler: require('./facets/api/userDetails').get
 	},
-	 {
+	{
 		method: 'GET',
 		path: '/logout',
 		handler: require('./facets/auth/logout')
@@ -135,8 +153,8 @@ authenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/login',
-		handler: require('./facets/auth/login').get,
+		path: '/signin',
+		handler: require('./facets/auth/signin').get,
 		config: {
 			pre: [
 				{
@@ -147,8 +165,8 @@ authenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/signup',
-		handler: require('./facets/auth/signup').get,
+		path: '/register',
+		handler: require('./facets/auth/register').get,
 		config: {
 			pre: [
 				{
@@ -157,7 +175,20 @@ authenticatedRoutes = [
 			]
 		}
 	},
-
+	{
+		method: 'GET',
+		path: '/login',
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
+		}
+	},
+	{
+		method: 'GET',
+		path: '/signup',
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
+		}
+	}
 ];
 
 

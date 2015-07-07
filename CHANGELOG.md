@@ -1,3 +1,22 @@
+## release-104 (2015-07-07 10:50 UTC)
+* enable-new-signup: Enabling New Registration MVP
+* [SOC-997](https://wikia-inc.atlassian.net/browse/SOC-997) SOC-997 Tracking for registration page
+* [DAT-2971](https://wikia-inc.atlassian.net/browse/DAT-2971) DAT-2971 Transitory styles for changes on app side
+* [CONCF-768](https://wikia-inc.atlassian.net/browse/CONCF-768) CONCF-768 add optimizely events for featured content
+
+## release-103 (2015-07-06 10:00 UTC)
+* [CONCF-681](https://wikia-inc.atlassian.net/browse/CONCF-681) CONCF-681 | truncating displayed labels in Curated Content and Featured Content
+
+## release-102 (2015-07-03 10:00 UTC)
+* fix-typos-on-dev-branch: Fix small typos on dev
+
+## release-101 (2015-07-02 10:34 UTC)
+* failed-unit-tests-fix: Fixing unit tests
+* [DAT-2899](https://wikia-inc.atlassian.net/browse/DAT-2899) DAT-2899 refactor icon handling in infoboxes
+* fix-infobox-gallery-button: Infoboxes- don't handle infobox collapsing when clicked on button
+* [SOC-965](https://wikia-inc.atlassian.net/browse/SOC-965) SOC-965 Rename login/signup to signin/register
+* [SOC-563](https://wikia-inc.atlassian.net/browse/SOC-563) SOC-563 Geo-targeting capabilities for New Auth
+
 ## release-100 (2015-07-01 10:00 UTC)
 * [HG-782](https://wikia-inc.atlassian.net/browse/HG-782) HG-782 - added state check back
 * [HG-772](https://wikia-inc.atlassian.net/browse/HG-772) HG-772 - fixed table bug
