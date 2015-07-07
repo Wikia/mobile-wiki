@@ -4,7 +4,5 @@
 
 App.VideoMediaComponent = App.ImageMediaComponent.extend({
 	classNames: ['article-video'],
-	layoutName: 'components/video-media',
-
-	isInfoboxVideo: Em.computed.equal('media.context', 'infobox-video')
+	layoutName: 'components/video-media'
 });
