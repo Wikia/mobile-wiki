@@ -4,17 +4,16 @@ import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
 
 /**
- * Prepares article data to be rendered
- * TODO: clean up this function
- *
+ * Prepares main page data to be rendered
+ * @TODO CONCF-761 - part after prepareData is common for Main Page and article
+ * - should be moved to some common piece of code.
  * @param {Hapi.Request} request
  * @param result
  */
-function prepareArticleData (request: Hapi.Request, result: any): void {
+function prepareMainPageData (request: Hapi.Request, result: any): void {
 	var title: string,
 		articleDetails: any,
-		userDir = 'ltr',
-		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'];
+		userDir = 'ltr';
 
 	if (result.article.details) {
 		articleDetails = result.article.details;
@@ -36,12 +35,16 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		result.isRtl = (userDir === 'rtl');
 	}
 
+	result.mainPageData = {};
+	result.mainPageData.adsContext = result.article.adsContext;
+	result.mainPageData.ns = result.article.details.ns;
+
 	result.displayTitle = title;
 	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	// the second argument is a whitelist of acceptable parameter names
-	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
+	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 
 	result.weppyConfig = localSettings.weppy;
 	if (typeof result.queryParams.buckySampling === 'number') {
@@ -49,19 +52,8 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	}
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
-	result.asyncArticle = shouldAsyncArticle(result);
+
+	delete result.adsContext;
 }
 
-/**
- * (HG-753) This allows for loading article content asynchronously while providing a version of the page with
- * article content that search engines can still crawl.
- * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
- */
-function shouldAsyncArticle(result: any): boolean {
-	var asyncEnabled = localSettings.asyncArticle.indexOf(result.wiki.dbName) > -1,
-		noEscapedFragment = result.queryParams._escaped_fragment_ !== 0;
-
-	return asyncEnabled && noEscapedFragment;
-}
-
-export = prepareArticleData;
+export = prepareMainPageData;

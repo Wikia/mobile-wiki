@@ -7,7 +7,7 @@
 // Add this content to test application bootstrap
 // Writing this element to test runner DOM is required for Ember to bootstrap
 // properly
-document.write('<div class="article-content">Test content</div><div id="ember-testing"></div>');
+document.write('<div class="article-content" id="preloadedContent">Test content</div><div id="ember-testing"></div>');
 
 __karma__.loaded = function() {};
 

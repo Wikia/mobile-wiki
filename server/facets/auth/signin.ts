@@ -19,7 +19,7 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			headerText: 'auth:signin.welcome-back',
 			footerCallout: 'auth:signin.register-callout',
 			footerCalloutLink: 'auth:signin.register-now',
-			footerHref: authUtils.getSignupUrlFromRedirect(redirect),
+			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
 			heliosLoginURL: localSettings.helios.host + '/token'

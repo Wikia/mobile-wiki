@@ -13,6 +13,14 @@ App.Router.map(function () {
 
 	this.route('mainPage', {
 		path: '/'
+	}, function() {
+		this.route('section', {
+			path: '/main/section/:sectionName'
+		});
+
+		this.route('category', {
+			path: '/main/category/:categoryName'
+		});
 	});
 
 	this.route('article', {
