@@ -62,8 +62,8 @@ $minimal-hero-item-height: 110px;
 
 	// infobox hero
 	.item-type-hero {
-		position: relative;
 		min-height: $minimal-hero-item-height;
+		position: relative;
 	}
 
 	.item-type-hero .media-component img {
