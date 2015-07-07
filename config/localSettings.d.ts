@@ -74,4 +74,7 @@ interface LocalSettings {
 	workerCount: number;
 	workerDisconnectTimeout: number;
 	cdnBaseUrl: string;
+	facebook: {
+		appId: number;
+	}
 }
