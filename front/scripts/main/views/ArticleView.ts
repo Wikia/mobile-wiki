@@ -82,7 +82,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
 		}
 	}),
-	
+
 	/**
 	 * willInsertElement
 	 * @description The article view is only inserted once, and then refreshed on new models. Use this hook to bind
