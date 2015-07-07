@@ -4,6 +4,7 @@ $infobox-section-secondary-background: $color-blue-gray;
 $infobox-hero-overlay-color: rgba(0, 0, 0, .7);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
 $infobox-hero-font-color: white;
+$minimal-hero-item-height: 110px;
 
 .portable-infobox {
 	background-color: $infobox-background;
@@ -62,6 +63,7 @@ $infobox-hero-font-color: white;
 	// infobox hero
 	.item-type-hero {
 		position: relative;
+		min-height: $minimal-hero-item-height;
 	}
 
 	.item-type-hero .media-component img {
