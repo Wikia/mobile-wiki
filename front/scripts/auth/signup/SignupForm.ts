@@ -107,8 +107,17 @@ class SignupForm {
 		M.track({
 			trackingMethod: 'ga',
 			action: M.trackActions.error,
-			category: 'user-signup-mobile',
-			label: 'signupValidationErrors: ' + errors.join(';'),
+			category: 'user-login-mobile',
+			label: 'registrationValidationErrors: ' + errors.join(';'),
+		});
+	}
+
+	private trackSuccessfulRegistration() {
+		M.track({
+			trackingMethod: 'ga',
+			action: M.trackActions.success,
+			category: 'user-login-mobile',
+			label: 'successful-registration'
 		});
 	}
 
@@ -134,6 +143,7 @@ class SignupForm {
 				loginXhr.onload = (e: Event) => {
 					enableSubmitButton();
 					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
+						this.trackSuccessfulRegistration();
 						window.location.href = this.redirect;
 					} else {
 						this.displayGeneralError();

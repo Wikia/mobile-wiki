@@ -27,6 +27,12 @@
 		})
 	}
 
+	function trackPageView (pageType: string) {
+		if (pageType) {
+			track(pageType, M.trackActions.impression);
+		}
+	}
+
 	function trackSubmit (form: HTMLFormElement, label: string): void {
 		if (!form) {
 			return;
@@ -46,7 +52,9 @@
 		});
 	}
 
-	function setTrackingForLoginPage (): void {
+	function setTrackingForSignInPage (): void {
+		//Impression of the /signin page
+		trackPageView('signin-page');
 		// Click "Sign In" button
 		trackSubmit(
 			<HTMLFormElement> document.getElementById('loginForm'),
@@ -73,7 +81,32 @@
 		);
 	}
 
+	function setTrackingForRegisterPage (): void {
+		//Impression of the /register page
+		trackPageView('register-page');
+		// Click "Sign In" button
+		trackSubmit(
+			<HTMLFormElement> document.getElementById('signupForm'),
+			'register-submit'
+		);
+
+		// Click X to "close" log-in form
+		trackClick(
+			<HTMLElement> document.querySelector('.close'),
+			'register-modal',
+			Mercury.Utils.trackActions.close
+		);
+
+		// Click "Register Now" link
+		trackClick(
+			<HTMLElement> document.querySelector('.footer-callout-link'),
+			'signin-link-on-register-page'
+		);
+	}
+
 	function setTrackingForJoinPage(): void {
+		//Impression of the /join page
+		trackPageView('join-page');
 		// Click "Register With Email" button
 		trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-email'),
@@ -100,10 +133,14 @@
 		if (checkPageType('join-page')) {
 			setTrackingForJoinPage();
 		} else if (checkPageType('signin-page')) {
-			setTrackingForLoginPage();
+			setTrackingForSignInPage();
+		} else if (checkPageType('register-page')){
+			setTrackingForRegisterPage();
 		}
 	}
 
-	init();
+	document.addEventListener('DOMContentLoaded', function (): void {
+		init();
+	});
 })();
 
