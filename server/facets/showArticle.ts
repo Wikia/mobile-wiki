@@ -62,48 +62,53 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
  * @param error
  * @param result
  */
-function onArticleResponse (request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true): void {
-	var code = 200,
-		response: Hapi.Response;
+function onArticleResponse (
+	request: Hapi.Request,
+	reply: any,
+	error: any,
+	result: any = {},
+	allowCache: boolean = true): void {
+		var code = 200,
+			response: Hapi.Response;
 
-	if (!result.article.details && !result.wiki.dbName) {
-		//if we have nothing to show, redirect to our fallback wiki
-		reply.redirect(localSettings.redirectUrlOnNoData);
-	} else {
-		Tracking.handleResponse(result, request);
+		if (!result.article.details && !result.wiki.dbName) {
+			//if we have nothing to show, redirect to our fallback wiki
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		} else {
+			Tracking.handleResponse(result, request);
 
-		if (error) {
-			code = error.code || error.statusCode || 500;
-			result.error = JSON.stringify(error);
-		}
-
-		prepareArticleData(request, result);
-
-		// all the third party scripts we don't want to load on noexternals
-		if (!result.queryParams.noexternals) {
-			// optimizely
-			if (localSettings.optimizely.enabled) {
-				result.optimizelyScript = localSettings.optimizely.scriptPath +
-					(localSettings.environment === Utils.Environment.Prod ?
-						localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+			if (error) {
+				code = error.code || error.statusCode || 500;
+				result.error = JSON.stringify(error);
 			}
 
-			// qualaroo
-			if (localSettings.qualaroo.enabled) {
-				result.qualarooScript = localSettings.environment === Utils.Environment.Prod ?
-					localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
+			prepareArticleData(request, result);
+
+			// all the third party scripts we don't want to load on noexternals
+			if (!result.queryParams.noexternals) {
+				// optimizely
+				if (localSettings.optimizely.enabled) {
+					result.optimizelyScript = localSettings.optimizely.scriptPath +
+						(localSettings.environment === Utils.Environment.Prod ?
+							localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+				}
+
+				// qualaroo
+				if (localSettings.qualaroo.enabled) {
+					result.qualarooScript = localSettings.environment === Utils.Environment.Prod ?
+						localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
+				}
 			}
-		}
 
-		response = reply.view('application', result);
-		response.code(code);
-		response.type('text/html; charset=utf-8');
+			response = reply.view('application', result);
+			response.code(code);
+			response.type('text/html; charset=utf-8');
 
-		if (allowCache) {
-			return Caching.setResponseCaching(response, cachingTimes);
+			if (allowCache) {
+				return Caching.setResponseCaching(response, cachingTimes);
+			}
+			return Caching.disableCache(response);
 		}
-		return Caching.disableCache(response);
-	}
 }
 
 export = showArticle;
