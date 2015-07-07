@@ -70,7 +70,7 @@ App.ArticleModel.reopenClass({
 		var model = App.ArticleModel.create(params);
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			if (M.prop('firstPage')) {
+			if (M.prop('firstPage') && !M.prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
