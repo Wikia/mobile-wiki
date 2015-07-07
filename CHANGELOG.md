@@ -1,3 +1,9 @@
+## release-104 (2015-07-07 10:50 UTC)
+* enable-new-signup: Enabling New Registration MVP
+* [SOC-997](https://wikia-inc.atlassian.net/browse/SOC-997) SOC-997 Tracking for registration page
+* [DAT-2971](https://wikia-inc.atlassian.net/browse/DAT-2971) DAT-2971 Transitory styles for changes on app side
+* [CONCF-768](https://wikia-inc.atlassian.net/browse/CONCF-768) CONCF-768 add optimizely events for featured content
+
 ## release-103 (2015-07-06 10:00 UTC)
 * [CONCF-681](https://wikia-inc.atlassian.net/browse/CONCF-681) CONCF-681 | truncating displayed labels in Curated Content and Featured Content
 
