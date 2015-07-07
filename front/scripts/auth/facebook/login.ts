@@ -14,9 +14,11 @@ interface HeliosFacebookToken {
 
 class FacebookLogin {
 	redirect: string;
+	loginButton: HTMLAnchorElement;
 
 	public init (loginButton: HTMLAnchorElement) {
-		loginButton.addEventListener('click', function (): void {
+		this.loginButton = loginButton;
+		this.loginButton.addEventListener('click', function (): void {
 			window.FB.login(this.onLogin.bind(this));
 		}.bind(this));
 
@@ -48,14 +50,15 @@ class FacebookLogin {
 			data = <HeliosFacebookToken> {
 				fb_access_token: facebookAuthResponse.accessToken
 			},
-			url = 'https://services.wikia.com/helios/facebook/token';
+			url = loginButton.getAttribute('data-helios-facebook-uri');
 
 		facebookTokenXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-
+				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
+				//assume there's no user associated with the account and go to facebook registration
 
 			} else {
 
