@@ -1,7 +1,9 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/AdsMixin.ts" />
+
 'use strict';
 
-App.MainPageComponent = Em.Component.extend({
+App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 	classNames: ['main-page-modules', 'main-page-body', 'mw-content'],
 	tagName: 'section',
 
@@ -24,17 +26,29 @@ App.MainPageComponent = Em.Component.extend({
 		}
 	}),
 
+	/**
+	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
+	 */
+	curatedContentObserver: Em.observer('curatedContent', function (): void {
+		Em.run.schedule('afterRender', this, (): void => {
+			this.injectMainPageAds();
+			this.setupAdsContext(this.get('adsContext'));
+		});
+
+		M.setTrackContext({
+			a: this.get('title'),
+			n: this.get('ns')
+		});
+		M.trackPageView(this.get('adsContext.targeting'));
+	}).on('didInsertElement'),
+
 	actions: {
 		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
-		}
-	},
+		},
 
-	didInsertElement: function(): void {
-		M.track({
-			action: M.trackActions.impression,
-			category: 'modular-main-page',
-			label: 'main-page-impression'
-		});
+		openCuratedContentItem: function (item: CuratedContentItem): void {
+			this.sendAction('openCuratedContentItem', item);
+		}
 	}
 });

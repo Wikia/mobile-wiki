@@ -15,13 +15,15 @@ QUnit.test('Init method works', function() {
 			callback();
 		});
 
-	require = function(modules, callback){
+	instance.reloadWhenReady = function () {
+		callbackIsCalled = true;
+	};
+
+	require = function (modules, callback){
 		callback();
 	};
 
-	instance.init(testAdsUrl, function () {
-		callbackIsCalled = true;
-	});
+	instance.init(testAdsUrl);
 	delete(require);
 	equal(calledURL, testAdsUrl);
 	equal(callbackIsCalled, true);
