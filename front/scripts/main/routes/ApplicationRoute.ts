@@ -11,14 +11,22 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 	},
 
 	activate: function (): void {
-		/**
-		 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-		 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
-		 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-		 */
-		Mercury.Modules.Ads.getInstance().openLightbox = (contents: any): void => {
-			this.send('openLightbox', 'ads', {contents: contents});
+		var adsInstance: Mercury.Modules.Ads,
+			instantGlobals = Wikia.InstantGlobals || {};
+
+		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
+			adsInstance = Mercury.Modules.Ads.getInstance();
+			adsInstance.init(M.prop('adsUrl'));
+
+			/**
+			 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+			 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+			 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+			 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+			 */
+			adsInstance.openLightbox = (contents: any): void => {
+				this.send('openLightbox', 'ads', {contents: contents});
+			}
 		}
 	},
 
@@ -41,18 +49,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		error: function (): void {
 			this.controller && this.controller.hideLoader();
-		},
-
-		setupAds: function (adsContext: any): void {
-			var adsInstance: Mercury.Modules.Ads,
-				instantGlobals = Wikia.InstantGlobals || {};
-
-			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance = Mercury.Modules.Ads.getInstance();
-				adsInstance.init(M.prop('adsUrl'), (): void => {
-					adsInstance.reload(adsContext);
-				});
-			}
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {

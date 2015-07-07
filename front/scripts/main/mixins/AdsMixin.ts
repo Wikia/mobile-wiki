@@ -39,14 +39,12 @@ App.AdsMixin = Em.Mixin.create({
 			noAds: this.get('noAds')
 		});
 
-		Ember.run.schedule('afterRender', this, (): void => {
-			view.createElement();
+		view.createElement();
 
-			element[place](<string>view.$());
-			this.adViews.push(view);
+		element[place](<string>view.$());
+		this.adViews.push(view);
 
-			view.trigger('didInsertElement');
-		});
+		view.trigger('didInsertElement');
 	},
 
 	clearAdViews: function (): void {
