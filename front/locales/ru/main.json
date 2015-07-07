@@ -75,6 +75,11 @@
     "edit-publish-error-noedit-anon":"Анонимные участники не могут редактировать страницы.",
     "edit-publish-error-protectedpage":"Вы не можете редактировать эту страницу.",
     "user-menu-profile":"Профиль",
-    "user-menu-log-out":"Выйти"
+    "user-menu-log-out":"Выйти",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

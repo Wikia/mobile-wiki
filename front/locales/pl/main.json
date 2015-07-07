@@ -51,8 +51,8 @@
     "years-ago-label":"rok temu",
     "years-ago-label_plural":"__count__ lat(-a) temu",
     "trending-label":"Popularne",
-    "videos-label":"Filmów",
-    "photos-label":"Obrazów",
+    "videos-label":"Filmy",
+    "photos-label":"Obrazy",
     "pages-label":"Stron",
     "username-anonymous":"Użytkownik Wikii",
     "smartbanner-store-ios":"W App Store",
@@ -67,14 +67,19 @@
     "edit-page-heading":"Edycja:",
     "edit-page-publish":"Opublikuj",
     "edit-success":"Dokonałeś edycji strony __pageTitle__!",
-    "edit-load-error":"Wygląda na to, że coś poszło nie tak. Spróbój ponownie.",
-    "edit-publish-error":"Wygląda na to, że coś poszło nie tak. Spróbój ponownie.",
+    "edit-load-error":"Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
+    "edit-publish-error":"Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
     "edit-publish-error-autoblockedtext":"Twój adres IP został automatycznie zablokowany, ponieważ był on używany przez zablokowanego użytkownika.",
     "edit-publish-error-blocked":"Możliwość edycji została zablokowana.",
     "edit-publish-error-noedit":"Nie masz uprawnień do edycji stron na tej wikii.",
     "edit-publish-error-noedit-anon":"Anonimowi użytkownicy nie mogą edytować stron.",
     "edit-publish-error-protectedpage":"Nie posiadasz uprawnień do edytowania tej strony.",
     "user-menu-profile":"Profil",
-    "user-menu-log-out":"Wyloguj"
+    "user-menu-log-out":"Wyloguj",
+    "curated-content-error-other":"Wygląda na to, że coś poszło nie tak. Spróbuj ponownie.",
+    "curated-content-error-category-not-found":"Kategoria nie została znaleziona.",
+    "curated-content-error-section-not-found":"Sekcja nie została znaleziona.",
+    "curated-content-load-more-items":"Załaduj więcej",
+    "curated-content-error-load-more-items":"Niestety, nie udało się załadować kolejnych pozycji."
   }
 }

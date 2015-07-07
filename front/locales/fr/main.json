@@ -75,6 +75,11 @@
     "edit-publish-error-noedit-anon":"Les utilisateurs anonymes ne peuvent pas modifier de pages.",
     "edit-publish-error-protectedpage":"Vous n'avez pas la permission de modifier cette page.",
     "user-menu-profile":"Profil",
-    "user-menu-log-out":"Se déconnecter"
+    "user-menu-log-out":"Se déconnecter",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }
