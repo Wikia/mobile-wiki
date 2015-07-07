@@ -11,6 +11,7 @@ QUnit.module('auth/signup/SignupForm)', {
 		this.signupForm.displayGeneralError = this.generalErrorSpy;
 		this.signupForm.displayFieldValidationError = this.fieldErrorSpy;
 		this.signupForm.trackValidationErrors = function () {};
+		this.signupForm.trackSuccessfulRegistration = function () {};
 		this.signupForm.getFormValues = function () {
 			return {};
 		};
