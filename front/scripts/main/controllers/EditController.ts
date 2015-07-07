@@ -2,7 +2,7 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-App.EditController = Em.Controller.extend(App.LoadingSpinnerMixin, {
+App.EditController = Em.Controller.extend({
 	needs: ['application'],
 
 	isPublishing: false,
@@ -35,10 +35,12 @@ App.EditController = Em.Controller.extend(App.LoadingSpinnerMixin, {
 	},
 
 	handlePublishError (error: any): void {
-		var errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
+		var appController = this.get('controllers.application'),
+			errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
 
-		this.get('controllers.application').addAlert('alert', i18n.t(errorMsg));
-		this.hideLoader();
+		appController.addAlert('alert', i18n.t(errorMsg));
+		appController.hideLoader();
+
 		this.set('isPublishing', false);
 
 		M.track({
@@ -51,7 +53,7 @@ App.EditController = Em.Controller.extend(App.LoadingSpinnerMixin, {
 	actions: {
 		publish: function (): void {
 			this.set('isPublishing', true);
-			this.showLoader();
+			this.get('controllers.application').showLoader();
 			App.EditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
@@ -71,5 +73,5 @@ App.EditController = Em.Controller.extend(App.LoadingSpinnerMixin, {
 				value: this.get('publishDisabled')
 			});
 		}
-	},
+	}
 });
