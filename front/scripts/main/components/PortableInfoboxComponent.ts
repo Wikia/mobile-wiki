@@ -44,11 +44,6 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 			deviceHeight = this.get('viewportDimensions.height'),
 			isLandscape = deviceWidth > deviceHeight;
 
-		console.log('w ', deviceWidth);
-		console.log('h ', deviceHeight);
-		console.log('l ', isLandscape);
-
-
 		return Math.floor(isLandscape ? deviceHeight : deviceWidth * 16 / 9) + 100;
 	}),
 
