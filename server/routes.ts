@@ -68,7 +68,8 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/',
-		handler: require('./facets/showMainPage')
+		//Currently / path is not available on production because of redirects from / to /wiki/...
+		handler: require('./facets/showArticle')
 	},
 	{
 		method: 'GET',
