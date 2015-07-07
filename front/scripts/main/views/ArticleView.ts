@@ -155,6 +155,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 				n: model.ns
 			});
 
+			M.updateTrackedUrl(window.location.href);
 			M.trackPageView(model.get('adsContext.targeting'));
 		}
 

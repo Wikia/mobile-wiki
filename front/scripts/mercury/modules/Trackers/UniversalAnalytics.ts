@@ -165,6 +165,23 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
+		 * Updates current page
+		 *
+		 * from https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications :
+		 * Note: if you send a hit that includes both the location and page fields and the path values are different,
+		 * Google Analytics will use the value specified for the page field.
+		 */
+		updateTrackedUrl (url: string): void {
+			var location: HTMLAnchorElement = document.createElement('a');
+			location.href = url;
+
+			this.tracked.forEach((account: GAAccount) => {
+				var prefix = account.prefix ? account.prefix + '.' : '';
+				ga(`${prefix}set`, 'page', location.pathname);
+			});
+		}
+
+		/**
 		 * Tracks the current page view
 		 */
 		trackPageView (): void {
