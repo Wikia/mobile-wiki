@@ -7,9 +7,21 @@ App.MainPageSectionRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: any): void {
-		var sectionName = M.String.normalize(decodeURIComponent(model.get('title'))),
+		var sectionName: string,
+			title: string = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
 			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
+
+		// WOW!
+		// Ember's RouteRecognizer does decodeURI while processing path.
+		// We need to do it manually for titles passed using transitionTo, see the MainPageRoute.
+		try {
+			sectionName = decodeURIComponent(decodeURI(title));
+		} catch (error) {
+			sectionName = decodeURIComponent(title);
+		}
+
+		sectionName = M.String.normalize(sectionName);
 
 		document.title = sectionName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 

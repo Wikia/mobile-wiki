@@ -8,7 +8,7 @@ import processCuratedContentData = require('./operations/processCuratedContentDa
 function showCategory (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: MainPageRequestParams = {
-			categoryName: request.params.categoryName,
+			categoryName: decodeURIComponent(request.params.categoryName),
 			wikiDomain: wikiDomain
 		},
 		mainPage: MainPage.MainPageRequestHelper,

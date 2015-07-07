@@ -7,9 +7,21 @@ App.MainPageCategoryRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: any): void {
-		var categoryName = M.String.normalize(decodeURIComponent(model.title)),
+		var categoryName: string,
+			title: string = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
 			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
+
+		// WOW!
+		// Ember's RouteRecognizer does decodeURI while processing path.
+		// We need to do it manually for titles passed using transitionTo, see the MainPageRoute.
+		try {
+			categoryName = decodeURIComponent(decodeURI(title));
+		} catch (error) {
+			categoryName = decodeURIComponent(title);
+		}
+
+		categoryName = M.String.normalize(categoryName);
 
 		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
@@ -21,7 +33,7 @@ App.MainPageCategoryRoute = Em.Route.extend({
 		});
 	},
 
-	renderTemplate: function (controller: any, model: CuratedContentItem[]): void {
+	renderTemplate: function (controller: any, model: typeof App.CuratedContentModel): void {
 		this.render('main-page', {
 			controller: 'mainPage',
 			model: {

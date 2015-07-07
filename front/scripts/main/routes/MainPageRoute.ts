@@ -23,10 +23,15 @@ App.MainPageRoute = Em.Route.extend({
 		},
 
 		openCuratedContentItem: function (item: CuratedContentItem): void {
+			/**
+			 * We have to double encode because Ember's RouteRecognizer does decodeURI while processing path.
+			 * If we didn't do encodeURI then it would do decodeURI on a result of our encodeURIComponent
+			 * and the title would be malformed.
+			 */
 			if (item.type === 'section') {
-				this.transitionTo('mainPage.section', encodeURIComponent(item.label));
+				this.transitionTo('mainPage.section', encodeURI(encodeURIComponent(item.label)));
 			} else if (item.type === 'category') {
-				this.transitionTo('mainPage.category', encodeURIComponent(item.categoryName));
+				this.transitionTo('mainPage.category', encodeURI(encodeURIComponent(item.categoryName)));
 			} else {
 				Em.Logger.error('Can\'t open curated content item with type other than section or category', item);
 			}

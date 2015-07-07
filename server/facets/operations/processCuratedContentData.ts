@@ -20,11 +20,15 @@ function prepareData (request: Hapi.Request, result: any): void {
 	var title: string,
 		userDir = 'ltr';
 
+	/**
+	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
+	 * See the MainPageRoute for more details.
+	 */
 	if (request.url.path.indexOf('section') > -1) {
-		title = decodeURIComponent(request.url.path.replace('\/main\/section\/', ''));
+		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')));
 		title = title.replace(/%20/g, ' ');
 	} else if (request.url.path.indexOf('category') > -1) {
-		title = decodeURIComponent(request.url.path.replace('\/main\/category\/', ''));
+		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')));
 		title = title.replace(/_/g, ' ');
 	} else {
 		title = result.wiki.mainPageTitle.replace(/_/g, ' ');

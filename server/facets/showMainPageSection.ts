@@ -8,7 +8,7 @@ import processCuratedContentData = require('./operations/processCuratedContentDa
 function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: MainPageRequestParams = {
-			sectionName: request.params.sectionName || null,
+			sectionName: decodeURIComponent(request.params.sectionName) || null,
 			wikiDomain: wikiDomain
 		},
 		mainPage: MainPage.MainPageRequestHelper,
