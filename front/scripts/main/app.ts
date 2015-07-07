@@ -177,8 +177,8 @@ App.initializer({
 			M.prop('geo', JSON.parse(geoCookie));
 		} else if (M.prop('environment') === 'dev') {
 			M.prop('geo', {
-					country: 'fake-country',
-					continent: 'fake-continent'
+				country: 'fake-country',
+				continent: 'fake-continent'
 			});
 		} else {
 			Ember.debug('Geo cookie is not set');
