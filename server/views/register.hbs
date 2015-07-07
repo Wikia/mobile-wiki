@@ -23,8 +23,9 @@
 			<input type="text" name="birthdate" id="signupBirthDate" required>
 			<label class="floating-label" for="signupBirthDate">{{i18n "auth:register.birthdate-label"}}</label>
 		</div>
-		<label for="signupNewsletter" class="inline signup-newsletter-label">
-			<input type="checkbox" name="newsletter" id="signupNewsletter" class="inline">
+		<label for="signupNewsletter" class="inline signup-newsletter-label hide">
+			<!-- For the MVP we do not have marketing opt-in yet-->
+			<input type="hidden" name="marketingallowed" id="signupNewsletter" class="inline" value="0">
 			{{i18n "auth:register.wikia-newsletter-prompt"}}
 		</label>
 		<input type="hidden" name="langCode" value="{{langCode}}">

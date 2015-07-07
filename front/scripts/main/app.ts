@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
+/// <reference path="../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 /// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/modules/Ads.ts" />
 /// <reference path="../mercury/modules/Trackers/UniversalAnalytics.ts" />
@@ -153,6 +154,23 @@ App.initializer({
 		dimensions = Mercury.Utils.VariantTesting.integrateOptimizelyWithUA(dimensions);
 
 		UA.setDimensions(dimensions);
+	}
+});
+
+/**
+ * A "Geo" cookie is set by Fastly on every request.
+ * If you run mercury app on your laptop, the cookie won't be automatically present.
+ */
+App.initializer({
+	name: 'geo',
+	after: 'setupTracking',
+	initialize(container: any, application: typeof App): void {
+		var geoCookie = $.cookie('Geo');
+		if (geoCookie) {
+			M.prop('geo', JSON.parse(geoCookie));
+		} else {
+			Ember.debug('Geo cookie is not set');
+		}
 	}
 });
 

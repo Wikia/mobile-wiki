@@ -46,21 +46,20 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 	/**
 	 * @desc return the thumbURL for media.
-	 * If media is an icon inside the infobox, width 
-	 * was already set.
+	 * If media is an icon, use the computed width.
 	 */
 	url: Em.computed({
 		get(): string {
 			var media: ArticleMedia = this.get('media'),
-				icon: boolean,
 				mode: string,
+				height: number,
 				width: number;
 
 			if (media) {
-				icon = this.get('isInfoboxIcon');
-				if (icon) {
+				if (media.context === 'icon') {
 					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
-					width = this.get('width');
+					height = this.get('iconHeight');
+					width = this.get('iconWidth');
 				} else {
 					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
 					width = this.get('articleContent.width');
