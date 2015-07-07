@@ -104,7 +104,7 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 						return resolve({'title': addmediatemporary.title});
 					}
 					//If a user inputs an empty image name, then we silently replace it with original file name.
-					var newPhotoTitle;
+					var newPhotoTitle: string;
 					if (model.photoName.trim().length === 0) {
 						newPhotoTitle = model.photoData.name;
 					} else {
