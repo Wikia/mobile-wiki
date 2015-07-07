@@ -128,17 +128,23 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			ga(
-				'send',
-				{
-					hitType: 'event',
-					eventCategory: category,
-					eventAction: action,
-					eventLabel: label,
-					eventValue: value,
-					nonInteraction: nonInteractive
+			this.tracked.forEach((account: GAAccount) => {
+				// skip over ads tracker (as it's handled in self.trackAds)
+				if (account.prefix !== this.accountAds) {
+					var prefix = account.prefix ? account.prefix + '.' : '';
+					ga(
+						`${prefix}send`,
+						{
+							hitType: 'event',
+							eventCategory: category,
+							eventAction: action,
+							eventLabel: label,
+							eventValue: value,
+							nonInteraction: nonInteractive
+						}
+					);
 				}
-			);
+			});
 		}
 
 		/**

@@ -34,7 +34,6 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		this.sendAction('setupAds', this.get('adsContext'));
 
 		Em.run.schedule('afterRender', this, (): void => {
-
 			M.setTrackContext({
 				a: this.get('title'),
 				n: this.get('ns')
@@ -46,7 +45,6 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 			this.injectMainPageAds();
 			this.setupAdsContext(this.get('adsContext'));
 		});
-
 	}).on('didInsertElement'),
 
 	actions: {
