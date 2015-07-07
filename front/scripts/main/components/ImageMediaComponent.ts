@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="./MediaComponent.ts" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
 interface ThumbnailerParams {
@@ -9,7 +10,7 @@ interface ThumbnailerParams {
 	width: number;
 }
 
-App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
+App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App.ViewportMixin, {
 	smallImageSize: {
 		height: 64,
 		width: 64
@@ -60,7 +61,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			var media: ArticleMedia = this.get('media'),
 				imageAspectRatio: number = this.get('imageAspectRatio'),
 				maximalWidth: number = Math.floor(media.height * imageAspectRatio),
-				windowWidth: number = window.innerWidth;
+				windowWidth: number = this.get('viewportDimensions.width');
 
 			//high image- image higher than square. Make it square.
 			if (media.height > media.width) {
