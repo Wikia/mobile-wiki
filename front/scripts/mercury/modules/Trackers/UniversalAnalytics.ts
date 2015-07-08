@@ -129,9 +129,10 @@ module Mercury.Modules.Trackers {
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			this.tracked.forEach((account: GAAccount) => {
+				var prefix;
 				// skip over ads tracker (as it's handled in self.trackAds)
 				if (account.prefix !== this.accountAds) {
-					var prefix = account.prefix ? account.prefix + '.' : '';
+					prefix = account.prefix ? account.prefix + '.' : '';
 					ga(
 						`${prefix}send`,
 						{
