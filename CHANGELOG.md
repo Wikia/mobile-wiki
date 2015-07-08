@@ -1,3 +1,6 @@
+## release-105 hotfix 1 (2015-07-08 10:46 UTC)
+* [HG-753](https://wikia-inc.atlassian.net/browse/HG-753) HG-753 Add asyncArticle to the main page response
+
 ## release-105 (2015-07-08 10:00 UTC)
 * [HG-753](https://wikia-inc.atlassian.net/browse/HG-753) Hg 753 - Adding ability to load first article async
 * [SOC-1005](https://wikia-inc.atlassian.net/browse/SOC-1005) SOC-1005 Trigger number keyboard when b-date input focused
