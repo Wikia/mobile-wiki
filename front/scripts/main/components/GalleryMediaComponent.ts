@@ -57,8 +57,6 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 				~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
 			image: ArticleMedia,
 			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1),
-			//if this gallery is inside infobox it has to be set of icons
-			setOfIcons = this.isInsideInfobox(),
 			mode = Mercury.Modules.Thumbnailer.mode.topCrop,
 			height = thumbSize,
 			width = thumbSize;
@@ -66,10 +64,10 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		for (; galleryRef <= limit; galleryRef++) {
 			image = this.get('media').get(galleryRef);
 
-			if (setOfIcons) {
+			if (image.context === 'icon') {
 				mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
-				height = this.get('infoboxIconSize.height');
-				width = Math.floor(height * image.width / image.height);
+				height = this.get('iconHeight');
+				width = this.get('iconWidth');
 			}
 
 			image.setProperties({
@@ -100,6 +98,14 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		});
 	},
 
+	/**
+	 * Check if the offsetLeft of image is smaller than
+	 * sum of gallery width and its scrollLeft. If so, lazy load
+	 * the next maxImages amount of images.
+	 * If the gallery element is nested inside other element,
+	 * the position: relative has to be set on .article-gallery in order to assign
+	 * proper offsetParent to the image element.
+	 */
 	onScroll: function (maxImages: number): void {
 		var $this = this.$(),
 			imagesToLoad = $this.find('img:not(.loaded)'),
