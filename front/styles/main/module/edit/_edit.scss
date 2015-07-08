@@ -14,8 +14,17 @@ textarea {
 	height: 2.2rem;
 	width: 2.2rem;
 	&.zero {
-		position: absolute;
-		right: 4.1rem;
-		top: 3.5rem;
+		position: relative;
+		right: 0;
 	}
+}
+
+.zero-button-wrapper {
+	padding: 0.1rem;
+}
+
+.zero-button-wrapper::after {
+	clear: both;
+	content: '';
+	display: block;
 }
