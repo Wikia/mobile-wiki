@@ -166,7 +166,8 @@ App.initializer({
 
 /**
  * A "Geo" cookie is set by Fastly on every request.
- * If you run mercury app on your laptop, the cookie won't be automatically present.
+ * If you run mercury app on your laptop (e.g. development), the cookie won't be automatically present; hence,
+ * we set fake geo cookie values for 'dev'.
  */
 App.initializer({
 	name: 'geo',
@@ -177,8 +178,8 @@ App.initializer({
 			M.prop('geo', JSON.parse(geoCookie));
 		} else if (M.prop('environment') === 'dev') {
 			M.prop('geo', {
-				country: 'fake-country',
-				continent: 'fake-continent'
+				country: 'wikia-dev-country',
+				continent: 'wikia-dev-continent'
 			});
 		} else {
 			Ember.debug('Geo cookie is not set');
