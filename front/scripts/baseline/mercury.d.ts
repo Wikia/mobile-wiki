@@ -11,6 +11,10 @@ declare module Mercury {
 	var apiBase: string;
 	var tracking: any;
 	var adsUrl: string;
+	var curatedContent: {
+		items: any;
+		offset?: string;
+	}
 }
 
 interface Location {

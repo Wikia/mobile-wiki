@@ -22,16 +22,8 @@ moduleFor('model:article', 'Article Model', {
 				userDetails: ['someItem', 'yetOneMore']
 			});
 
-		this.wikiExample = {
-			siteName: 'test',
-			language: {
-				content: 'en'
-			}
-		};
-
 		// Preload data into Mercury.article
 		Mercury.article = this.example;
-		Mercury.wiki = this.wikiExample;
 	},
 	teardown: function () {
 		App.reset();
@@ -72,7 +64,7 @@ test('setArticle with preloaded data', function () {
 	var model = this.subject();
 	App.ArticleModel.setArticle(model);
 	// Necessary to set context
-	verifyArticle(model, this.example, this.wikiExample);
+	verifyArticle(model, this.example);
 });
 
 test('setArticle with parametrized data', function () {
@@ -82,25 +74,27 @@ test('setArticle with parametrized data', function () {
 });
 
 test('find with preloaded data', function () {
-	var model, params;
-
-	params = {
-		wiki: 'wiki',
-		article: 'article'
-	};
+	var model,
+		self = this,
+		params = {
+			wiki: 'wiki',
+			article: 'article'
+		};
 
 	ok(M.prop('firstPage'), 'firstPage==true before test, as expected');
 	Ember.run(function () {
 		model = App.ArticleModel.find(params);
 	});
-	verifyArticle(model, this.example, this.wikiExample);
+	model.then(function (resolvedModel) {
+		verifyArticle(resolvedModel, self.example);
+	});
 	ok(!M.prop('firstPage'), 'firstPage==false after test, as expected');
 });
 
 /**
  * @desc Helper function for tests below which checks the validity of the data stored in the model
- * @param {model} The ArticleModel that data has been loaded into which should be tested
- * @param {example} The reference data
+ * @param model The ArticleModel that data has been loaded into which should be tested
+ * @param example The reference data
  */
 function verifyArticle (model, example) {
 	equal(model.get('ns'),

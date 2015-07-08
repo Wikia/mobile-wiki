@@ -54,6 +54,10 @@ $min-hero-item-height: 110px;
 		border-bottom: 1px solid $infobox-section-secondary-background;
 	}
 
+	.portable-infobox-secondary-background {
+		background-color: $infobox-section-header-background;
+	}
+
 	> .portable-infobox-item:last-child {
 		border-bottom: 0;
 	}
@@ -80,6 +84,12 @@ $min-hero-item-height: 110px;
 		position: absolute;
 		width: 100%;
 		z-index: 1;
+	}
+
+	.portable-infobox-secondary-font, {
+		font-size: 1rem;
+		font-weight: bold;
+		margin-top: 0;
 	}
 
 	.portable-infobox-hero-title,
