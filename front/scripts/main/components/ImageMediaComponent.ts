@@ -81,7 +81,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 				}
 			}
 
-			//normal image- size between the 16:9 ratio and square. 
+			//normal image- size between the 16:9 ratio and square.
 			//Compute height with regard to full-screen width of infobox.
 			return {
 				mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
