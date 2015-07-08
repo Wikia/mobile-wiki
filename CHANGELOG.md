@@ -1,3 +1,9 @@
+## release-105 (2015-07-08 10:00 UTC)
+* [HG-753](https://wikia-inc.atlassian.net/browse/HG-753) Hg 753 - Adding ability to load first article async
+* [SOC-1005](https://wikia-inc.atlassian.net/browse/SOC-1005) SOC-1005 Trigger number keyboard when b-date input focused
+* [CONCF-655](https://wikia-inc.atlassian.net/browse/CONCF-655) CONCF-655 CuratedContent as a regular page
+* [CONCF-591](https://wikia-inc.atlassian.net/browse/CONCF-591) CONCF-591 | add load more button for categories
+
 ## release-104 (2015-07-07 10:50 UTC)
 * enable-new-signup: Enabling New Registration MVP
 * [SOC-997](https://wikia-inc.atlassian.net/browse/SOC-997) SOC-997 Tracking for registration page
