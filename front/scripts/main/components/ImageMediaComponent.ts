@@ -111,7 +111,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 				if (media.context === 'icon') {
 					mode = Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 					width = this.get('iconWidth');
-				} else if (media.context === 'infobox-image') {
+				} else if (media.context === 'infobox') {
 					infoboxImageParams = this.get('infoboxImageParams');
 					this.set('limitHeight', true);
 					mode = infoboxImageParams.mode;
