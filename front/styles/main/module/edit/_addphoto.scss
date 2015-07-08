@@ -49,12 +49,6 @@ $upload-icon-size: 2.2rem;
 	position: relative;
 	width: $upload-icon-size;
 
-	&.zero {
-		position: absolute;
-		right: 1.125rem;
-		top: 3.5rem;
-	}
-
 	.icon {
 		height: $upload-icon-size;
 		position:absolute;
