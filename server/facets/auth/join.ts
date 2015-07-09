@@ -24,7 +24,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		authView.getDefaultContext(request),
 		{
 			title: 'auth:join.title',
-			loginRoute: authUtils.getLoginUrl(request),
+			signinRoute: authUtils.getSignInUrl(request),
 			hideHeader: true,
 			hideFooter: true,
 			signupHref: authUtils.getRegisterUrl(request),

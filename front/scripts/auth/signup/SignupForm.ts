@@ -12,6 +12,8 @@ interface HeliosRegisterInput {
 	password: string;
 	email: string;
 	birthdate: string;
+	langCode: string;
+	marketingallowed?: string;
 }
 
 class SignupForm {
@@ -98,8 +100,8 @@ class SignupForm {
 			password: (<HTMLInputElement> formElements.namedItem('password')).value,
 			email: (<HTMLInputElement> formElements.namedItem('email')).value,
 			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value,
+			langCode: (<HTMLInputElement> formElements.namedItem('langCode')).value,
 			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
-			// TODO add langCode
 		};
 	}
 
