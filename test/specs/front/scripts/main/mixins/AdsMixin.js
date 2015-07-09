@@ -1,4 +1,4 @@
-module("AdsMixin");
+moduleFor('mixin:ads', 'AdsMixin');
 
 test('setup ads context', function() {
 	var context = {
