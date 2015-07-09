@@ -24,6 +24,8 @@ class FacebookLogin {
 	}
 
 	public login (): void {
+		this.deactivateButton();
+
 		new FacebookSDK (function (): void {
 			window.FB.login(this.onLogin.bind(this));
 		}.bind(this));
@@ -32,21 +34,27 @@ class FacebookLogin {
 	public onLogin(response: FacebookResponse): void {
 		if (response.status === 'connected') {
 			this.onSuccessfulLogin(response);
-		} else if (response.status === 'not_authorized') {
-			this.onNotAuthorized(response);
 		} else {
 			this.onUnsuccessfulLogin(response);
 		}
+	}
+
+	private activateButton(): void {
+		this.loginButton.classList.remove('on');
+		this.loginButton.classList.remove('disabled');
+	}
+
+	private deactivateButton(): void {
+		this.loginButton.classList.add('on');
+		this.loginButton.classList.add('disabled');
 	}
 
 	private onSuccessfulLogin(response: FacebookResponse): void {
 		this.getHeliosInfoFromFBToken(response.authResponse);
 	}
 
-	private onNotAuthorized(response: FacebookResponse): void {
-	}
-
 	private onUnsuccessfulLogin(response: FacebookResponse): void {
+		this.activateButton();
 	}
 
 	private getHeliosInfoFromFBToken(facebookAuthResponse: FacebookAuthResponse): void {
@@ -65,11 +73,12 @@ class FacebookLogin {
 				//ToDo: assume there's no user associated with the account and go to facebook registration
 			} else {
 				//ToDo: something wrong with Helios backend
+				this.activateButton();
 			}
 		};
 
 		facebookTokenXhr.onerror = (e: Event) => {
-			//ToDo: something wrong with Helios backend
+			this.activateButton();
 		};
 
 		facebookTokenXhr.open('POST', url, true);
