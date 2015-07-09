@@ -17,6 +17,8 @@ class FacebookLogin {
 	loginButton: HTMLAnchorElement;
 
 	public init (loginButton: HTMLAnchorElement) {
+		new FacebookSDK(this.login);
+
 		this.loginButton = loginButton;
 		this.loginButton.addEventListener('click', this.login.bind(this));
 
@@ -24,11 +26,8 @@ class FacebookLogin {
 	}
 
 	public login (): void {
+		window.FB.login(this.onLogin.bind(this));
 		this.deactivateButton();
-
-		new FacebookSDK (function (): void {
-			window.FB.login(this.onLogin.bind(this));
-		}.bind(this));
 	}
 
 	public onLogin(response: FacebookResponse): void {
