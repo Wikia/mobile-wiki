@@ -89,10 +89,12 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	 * events for DOM manipulation
 	 */
 	willInsertElement: function (): void {
+		$('#article-preload').remove();
 		this.scheduleArticleTransforms();
 	},
 
 	didInsertElement: function (): void {
+		window.scrollTo(0, M.prop('scroll'));
 		this.get('controller').send('articleRendered');
 	},
 
