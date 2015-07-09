@@ -1,3 +1,8 @@
+## release-106 (2015-07-09 10:00 UTC)
+* [INT-104](https://wikia-inc.atlassian.net/browse/INT-104) Move section zero edit button to new block
+* [INT-130](https://wikia-inc.atlassian.net/browse/INT-130) Adding country parameter in context for performance data. 
+* [DAT-2952](https://wikia-inc.atlassian.net/browse/DAT-2952) DAT-2952 Infobox image cropping
+
 ## release-105 hotfix 1 (2015-07-08 10:46 UTC)
 * [HG-753](https://wikia-inc.atlassian.net/browse/HG-753) HG-753 Add asyncArticle to the main page response
 

@@ -12,8 +12,10 @@ App.LoginIconComponent = Em.Component.extend({
 			href: string;
 
 		if (Mercury.wiki.enableNewAuth) {
+			href = '/join?redirect=' +
+			encodeURIComponent(window.location.href) +
+			this.getUselangParam();
 			label = 'join-link';
-			href = '/join?redirect=' + encodeURIComponent(window.location.href);
 		} else {
 			label = 'legacy-login-link';
 			href = '/Special:UserLogin';
@@ -27,5 +29,13 @@ App.LoginIconComponent = Em.Component.extend({
 		});
 
 		window.location.href = href;
+	},
+
+	getUselangParam: function (): string {
+		var lang: string = Mercury.wiki.language.content;
+		if (!lang || lang === 'en') {
+			return ''
+		}
+		return '&uselang=' + encodeURIComponent(lang);
 	}
 });
