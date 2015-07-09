@@ -1,4 +1,4 @@
-interface window {
+interface Window {
 	FB?: any;
 	fbAsyncInit?: Function;
 }
