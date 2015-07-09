@@ -45,7 +45,7 @@
 
 	function track (label: string, action: string) {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: action,
 			category: 'user-login-mobile',
 			label: label

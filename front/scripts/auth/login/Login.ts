@@ -117,7 +117,7 @@ class Login {
 
 	private track (label: string, action: string): void {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: action,
 			category: 'user-login-mobile',
 			label: label
