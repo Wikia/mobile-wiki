@@ -15,16 +15,18 @@ interface HeliosFacebookToken {
 class FacebookLogin {
 	redirect: string;
 	loginButton: HTMLAnchorElement;
+	urlHelper: UrlHelper;
 
 	constructor (loginButton: HTMLAnchorElement) {
 		this.loginButton = loginButton;
+		this.urlHelper = new UrlHelper();
 		new FacebookSDK(this.init.bind(this));
 	}
 
 	public init (): void {
 		this.loginButton.addEventListener('click', this.login.bind(this));
 
-		this.redirect = (new UrlHelper()).urlDecode(window.location.search.substr(1))['redirect'] || '/';
+		this.redirect = this.urlHelper.urlDecode(window.location.search.substr(1))['redirect'] || '/';
 	}
 
 	public login (): void {
@@ -85,6 +87,6 @@ class FacebookLogin {
 		facebookTokenXhr.open('POST', url, true);
 		facebookTokenXhr.withCredentials = true;
 		facebookTokenXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		facebookTokenXhr.send((new UrlHelper()).urlEncode(data));
+		facebookTokenXhr.send(this.urlHelper.urlEncode(data));
 	}
 }
