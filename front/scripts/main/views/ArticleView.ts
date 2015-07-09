@@ -212,10 +212,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		this.$(':header[section]').each((i: Number, item: any): void => {
 			var $sectionHeader = this.$(item),
 				$pencil = this.$(pencil),
-				$photo = this.$(photo),
-				sectionHeaderNewWidth = $sectionHeader.width() - 85;
+				$photo = this.$(photo);
 
-			$sectionHeader.css({ display: 'inline-block', width: sectionHeaderNewWidth });
+			$sectionHeader.addClass('short-header');
 			$sectionHeader.after($pencil, $photo);
 		});
 		this.setupButtonsListeners();
@@ -224,12 +223,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	setupButtonsListeners: function () : void {
 		this.$('.article-content')
 			.on('click', '.pencil', (event: JQueryEventObject): void => {
-				var $sectionHeader = $(event.target).parent().prev('h2');
+				var $sectionHeader = $(event.target).parent().prevAll(':header[section]:first');
 				this.get('controller').send('edit', this.get('controller.model.cleanTitle'), $sectionHeader.attr('section'));
-
 			})
 			.on('click', '.upload-photo', (event: JQueryEventObject): void => {
-				var $sectionHeader = $(event.target).parent().prev().prev('h2'),
+				var $sectionHeader = $(event.target).parent().prevAll(':header[section]:first'),
 				    sectionIndex: number = parseInt($sectionHeader.attr('section'), 10);
 				M.track({
 					action: M.trackActions.click,
@@ -240,7 +238,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			})
 			.on('change', '.upload-photo', (event: JQueryEventObject): void => {
 				var $photoUpload = $(event.target).parent(),
-				    sectionIndex: number = parseInt($(event.target).parent().prev().prev('h2').attr('section'), 10);
+				    sectionIndex: number = parseInt($photoUpload.prevAll(':header[section]:first').attr('section'), 10);
 				this.onPhotoIconChange($photoUpload, sectionIndex);
 			});
 	},

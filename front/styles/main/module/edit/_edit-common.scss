@@ -1,3 +1,5 @@
+$contribution-icons-space : 5.2rem;
+
 .contribution-container {
 	text-align: right;
 	width: 100%;
@@ -33,4 +35,9 @@
 			font-weight: normal;
 		}
 	}
+}
+
+.short-header {
+	display: inline-block;
+	width: calc(100% - #{$contribution-icons-space});
 }

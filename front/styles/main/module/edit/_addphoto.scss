@@ -51,7 +51,7 @@ $upload-icon-size: 2.2rem;
 	width: $upload-icon-size;
 
 	&.zero {
-		height: 2.2rem;
+		height: $upload-icon-size;
 		margin-left: 0.55rem;
 	}
 
