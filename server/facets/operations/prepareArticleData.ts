@@ -14,7 +14,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	var title: string,
 		articleDetails: any,
 		userDir = 'ltr',
-		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'];
+		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckySampling'];
 
 	if (result.article.details) {
 		articleDetails = result.article.details;
