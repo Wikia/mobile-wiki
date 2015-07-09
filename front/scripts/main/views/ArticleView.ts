@@ -19,6 +19,7 @@ interface HTMLElement {
 
 App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
+	noAds: Em.computed.alias('controller.noAds'),
 
 	hammerOptions: {
 		touchAction: 'auto',
@@ -132,20 +133,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 
 		var model = this.get('controller.model'),
-			article = model.get('article'),
-			isCuratedMainPage = model.get('isCuratedMainPage');
+			article = model.get('article');
 
-		if (isCuratedMainPage) {
-			this.injectMainPageAds();
-			this.setupAdsContext(model.get('adsContext'));
-			M.setTrackContext({
-				a: model.title,
-				n: model.ns
-			});
-
-			M.trackPageView(model.get('adsContext.targeting'));
-
-		} else if (article && article.length > 0) {
+		if (article && article.length > 0) {
 			if (this.get('editButtonsVisible')) {
 				this.setupEditButtons();
 			}

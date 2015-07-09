@@ -7,6 +7,7 @@ import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
 import localSettings = require('../../config/localSettings');
 import prepareArticleData = require('./operations/prepareArticleData');
+import prepareMainPageData = require('./operations/prepareMainPageData');
 
 var cachingTimes = {
 	enabled: true,
@@ -61,6 +62,7 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
  * @param reply
  * @param error
  * @param result
+ * @param allowCache
  */
 function onArticleResponse (
 	request: Hapi.Request,
@@ -82,7 +84,12 @@ function onArticleResponse (
 				result.error = JSON.stringify(error);
 			}
 
-			prepareArticleData(request, result);
+			// @TODO CONCF-761 decouple logic for main page and article. Move common part to another file.
+			if (result.article.isMainPage) {
+				prepareMainPageData(request, result);
+			} else {
+				prepareArticleData(request, result);
+			}
 
 			// all the third party scripts we don't want to load on noexternals
 			if (!result.queryParams.noexternals) {
