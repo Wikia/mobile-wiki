@@ -10,10 +10,8 @@ var wikiaSignupPathname: string = '/wiki/Special:UserSignup',
 	wikiaLoginPathname: string = '/wiki/Special:UserLogin',
 	forgotPasswordSearch: string = '?recover=1';
 
-export function getSignupUrlFromRedirect(redirect: string): string {
-	var signupUrlObj = url.parse(redirect);
-	signupUrlObj.pathname = wikiaSignupPathname;
-	return url.format(signupUrlObj);
+export function getRegisterUrl(request: Hapi.Request): string {
+	return this.getRedirectUrlWithQueryString('register', request);
 }
 
 export function getForgotPasswordUrlFromRedirect(redirect: string): string {
@@ -23,10 +21,8 @@ export function getForgotPasswordUrlFromRedirect(redirect: string): string {
 	return url.format(forgotPasswordUrlObj);
 }
 
-export function getLoginUrlFromRedirect(redirect: string): string {
-	var forgotPasswordUrlObj = url.parse(redirect);
-	forgotPasswordUrlObj.pathname = wikiaLoginPathname;
-	return url.format(forgotPasswordUrlObj);
+export function getLoginUrl(request: Hapi.Request): string {
+	return this.getRedirectUrlWithQueryString('login', request);
 }
 
 export function getCacheBusterUrl(redirect: string): string {

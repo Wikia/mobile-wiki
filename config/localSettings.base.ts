@@ -103,6 +103,8 @@ var localSettings: LocalSettings = {
 	workerDisconnectTimeout: 3000,
 	// CDN prefix with no tailing slash
 	cdnBaseUrl: '//mercury.nocookie.net',
+	// array of wiki dbnames to load first article async instead of in page source
+	asyncArticle: [],
 	facebook: {
 		appId: 112328095453510
 	}

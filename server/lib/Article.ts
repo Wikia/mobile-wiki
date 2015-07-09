@@ -5,6 +5,8 @@
 
 /**
  * @description Article controller
+ * @TODO CONCF-761 ArticleRequestHelper and MainPageRequestHelper are sharing couple of functionalities.
+ * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 import util = require('util');
 import Promise = require('bluebird');
@@ -12,12 +14,6 @@ import MediaWiki = require('./MediaWiki');
 import Utils = require('./Utils');
 import logger = require('./Logger');
 import localSettings = require('../../config/localSettings');
-
-interface ServerData {
-	mediawikiDomain: string;
-	apiBase: string;
-	environment: string;
-}
 
 export class ArticleRequestHelper {
 	params: ArticleRequestParams;

@@ -75,6 +75,11 @@
     "edit-publish-error-noedit-anon":"匿名用户无法编辑页面。",
     "edit-publish-error-protectedpage":"您没有编辑此页面的权限。",
     "user-menu-profile":"用户信息",
-    "user-menu-log-out":"注销"
+    "user-menu-log-out":"注销",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

@@ -97,7 +97,8 @@ class SignupForm {
 			username: (<HTMLInputElement> formElements.namedItem('username')).value,
 			password: (<HTMLInputElement> formElements.namedItem('password')).value,
 			email: (<HTMLInputElement> formElements.namedItem('email')).value,
-			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
+			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value,
+			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
 			// TODO add langCode
 		};
 	}
@@ -106,8 +107,17 @@ class SignupForm {
 		M.track({
 			trackingMethod: 'ga',
 			action: M.trackActions.error,
-			category: 'user-signup-mobile',
-			label: 'signupValidationErrors: ' + errors.join(';'),
+			category: 'user-login-mobile',
+			label: 'registrationValidationErrors: ' + errors.join(';'),
+		});
+	}
+
+	private trackSuccessfulRegistration() {
+		M.track({
+			trackingMethod: 'ga',
+			action: M.trackActions.success,
+			category: 'user-login-mobile',
+			label: 'successful-registration'
 		});
 	}
 
@@ -133,6 +143,7 @@ class SignupForm {
 				loginXhr.onload = (e: Event) => {
 					enableSubmitButton();
 					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
+						this.trackSuccessfulRegistration();
 						window.location.href = this.redirect;
 					} else {
 						this.displayGeneralError();
