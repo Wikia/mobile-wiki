@@ -18,14 +18,18 @@ class FacebookLogin {
 
 	public init (loginButton: HTMLAnchorElement) {
 		this.loginButton = loginButton;
-		this.loginButton.addEventListener('click', function (): void {
-			window.FB.login(this.onLogin.bind(this));
-		}.bind(this));
+		this.loginButton.addEventListener('click', this.login.bind(this));
 
 		this.redirect = (new UrlHelper()).urlDecode(window.location.search.substr(1))['redirect'] || '/';
 	}
 
-	private onLogin(response: FacebookResponse): void {
+	public login (): void {
+		new FacebookSDK (function (): void {
+			window.FB.login(this.onLogin.bind(this));
+		}.bind(this));
+	}
+
+	public onLogin(response: FacebookResponse): void {
 		if (response.status === 'connected') {
 			this.onSuccessfulLogin(response);
 		} else if (response.status === 'not_authorized') {
