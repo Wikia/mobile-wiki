@@ -14,14 +14,21 @@ App.Router.map(function () {
 	this.route('mainPage', {
 		path: '/'
 	});
-
+/*
 	this.route('article', {
 		path: articlePath + '*title'
 	});
-
+*/
 	this.route('edit', { // Symbolic link to EditController
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
+
+	this.resource('discussion', {path: 'discuss'}, function () {
+		this.resource('forum', {path: ':forumId'}, function () {
+			this.route('thread', {path: ':threadId'});
+		});
+	});
+
 
 	// We don't want to duplicate the previous route
 	if (articlePath !== '/') {

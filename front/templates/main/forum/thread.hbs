@@ -1,0 +1,12 @@
+<h1>Post: {{model.title}}</h1>
+
+<h2>Replies:</h2>
+{{#each item in model._embedded.doc:posts}}
+
+    {{#thread-post
+        authorId=item.creatorId
+        content=item.rawContent
+        timestamp=item.creationDate.epochSecond
+    }}{{/thread-post}}
+    <hr/>
+{{/each}}

@@ -12,9 +12,10 @@ var cachingTimes = {
 };
 
 export function get (request: Hapi.Request, reply: any): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(
+	debugger;
+	var wikiDomain = 'garth.wikia.com', /*Utils.getCachedWikiDomainName(
 			localSettings, request.headers['x-original-host'] || request.headers.host
-		),
+		),*/
 		url = MW.createUrl(wikiDomain, 'api/v1/User/Details', request.query);
 
 	MW.fetch(url, wikiDomain)
