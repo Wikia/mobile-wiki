@@ -9,22 +9,22 @@ textarea {
 	top: 3.125rem;
 }
 
-.pencil {
-	float: right;
-	height: 2.2rem;
+.edit-section {
+	display: inline-block;
+	height: 4.7rem;
+	overflow: hidden;
+	position: relative;
 	width: 2.2rem;
+
 	&.zero {
-		position: relative;
-		right: 0;
+		height: 2.2rem;
 	}
-}
 
-.zero-button-wrapper {
-	padding: 0.1rem;
-}
-
-.zero-button-wrapper::after {
-	clear: both;
-	content: '';
-	display: block;
+	.pencil {
+		bottom: 0;
+		height: 2.2rem;
+		position:absolute;
+		right: 0;
+		width: 2.2rem;
+	}
 }
