@@ -113,6 +113,12 @@
 			'register-email-button'
 		);
 
+		// Click "Connect with Facebook" button
+		trackClick(
+			<HTMLElement> document.querySelector('.signup-provider-facebook'),
+			'facebook-connect-button'
+		);
+
 		// Click "Sign in" link on the bottom of the page
 		trackClick(
 			<HTMLElement> document.querySelector('.footer-callout-link'),
