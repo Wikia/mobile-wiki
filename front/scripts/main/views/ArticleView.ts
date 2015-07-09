@@ -240,7 +240,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			})
 			.on('change', '.upload-photo', (event: JQueryEventObject): void => {
 				var $photoUpload = $(event.target).parent(),
-					sectionIndex: number = parseInt($(event.target).parent().prev().prev('h2').attr('section'), 10);
+				    sectionIndex: number = parseInt($(event.target).parent().prev().prev('h2').attr('section'), 10);
 				this.onPhotoIconChange($photoUpload, sectionIndex);
 			});
 	},
