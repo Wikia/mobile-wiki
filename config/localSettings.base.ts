@@ -102,7 +102,10 @@ var localSettings: LocalSettings = {
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
 	// CDN prefix with no tailing slash
-	cdnBaseUrl: '//mercury.nocookie.net'
+	cdnBaseUrl: '//mercury.nocookie.net',
+	facebook: {
+		appId: 112328095453510
+	}
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

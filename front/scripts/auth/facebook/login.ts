@@ -50,7 +50,7 @@ class FacebookLogin {
 			data = <HeliosFacebookToken> {
 				fb_access_token: facebookAuthResponse.accessToken
 			},
-			url = loginButton.getAttribute('data-helios-facebook-uri');
+			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
 		facebookTokenXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
@@ -58,15 +58,14 @@ class FacebookLogin {
 			if (status === HttpCodes.OK) {
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				//assume there's no user associated with the account and go to facebook registration
-
+				//ToDo: assume there's no user associated with the account and go to facebook registration
 			} else {
-
+				//ToDo: something wrong with Helios backend
 			}
 		};
 
 		facebookTokenXhr.onerror = (e: Event) => {
-
+			//ToDo: something wrong with Helios backend
 		};
 
 		facebookTokenXhr.open('POST', url, true);
