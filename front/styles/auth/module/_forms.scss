@@ -61,16 +61,22 @@ input[type='date']:valid + .floating-label {
 	}
 }
 
-button[type="submit"].on {
+button[type="submit"].on,
+.signup-provider-facebook.on {
+	padding-left: 0;
+	padding-right: 0;
+
 	&::before {
 		animation: spin 1s linear infinite;
 		background: url("/front/images/loading.svg") center no-repeat;
 		content: " ";
 		display: block;
-		height: 40px;
+		position: absolute;
+		width: 100%;
+		height: 100%;
 	}
 
 	span {
-		display: none;
+		visibility: hidden
 	}
 }
