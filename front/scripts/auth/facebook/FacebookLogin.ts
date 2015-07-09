@@ -16,10 +16,12 @@ class FacebookLogin {
 	redirect: string;
 	loginButton: HTMLAnchorElement;
 
-	public init (loginButton: HTMLAnchorElement) {
-		new FacebookSDK(this.login);
-
+	constructor (loginButton: HTMLAnchorElement) {
 		this.loginButton = loginButton;
+		new FacebookSDK(this.init.bind(this));
+	}
+
+	public init (): void {
 		this.loginButton.addEventListener('click', this.login.bind(this));
 
 		this.redirect = (new UrlHelper()).urlDecode(window.location.search.substr(1))['redirect'] || '/';
