@@ -7,8 +7,8 @@ class MarketingOptIn {
 	isJapan: boolean;
 
 	constructor () {
-		this.checkbox = document.getElementById('signupNewsletter');
-		this.label = this.checkbox.parentElement;
+		this.checkbox = <HTMLInputElement> document.getElementById('signupNewsletter');
+		this.label = <HTMLLabelElement> this.checkbox.parentElement;
 		this.Geo = new Geo();
 
 		this.isEurope = this.Geo.getContinent() === 'EU';
