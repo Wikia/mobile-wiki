@@ -37,7 +37,13 @@ $contribution-icons-space : 5.2rem;
 	}
 }
 
+.icon-wrapper {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
 .short-header {
-	display: inline-block;
-	width: calc(100% - #{$contribution-icons-space});
+	padding-right: $contribution-icons-space;
+	position: relative;
 }
