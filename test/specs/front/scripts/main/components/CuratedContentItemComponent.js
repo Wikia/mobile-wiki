@@ -50,11 +50,9 @@ test('computes image style properly', function () {
 	var componentMock = this.subject(),
 		viewportWidth = 400,
 		// Viewport minus 20 and then by half
-		imageWidth = 190,
-		// 16:9 ratio
-		imageHeight = 190;
+		imageSize = 190;
 
 	componentMock.updateImageSize(viewportWidth);
 
-	equal(componentMock.get('style'), 'height: ' + imageHeight + 'px; width: ' + imageWidth + 'px;');
+	equal(componentMock.get('style'), 'height: ' + imageSize + 'px; width: ' + imageSize + 'px;');
 });
