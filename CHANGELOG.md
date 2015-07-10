@@ -1,3 +1,7 @@
+## release-107 (2015-07-10 10:00 UTC)
+* bucky-query-param: fixing bucky sampling query param
+* [SOC-898](https://wikia-inc.atlassian.net/browse/SOC-898) SOC-898 New Registration in wiki language
+
 ## release-106 (2015-07-09 10:00 UTC)
 * [INT-104](https://wikia-inc.atlassian.net/browse/INT-104) Move section zero edit button to new block
 * [INT-130](https://wikia-inc.atlassian.net/browse/INT-130) Adding country parameter in context for performance data. 
