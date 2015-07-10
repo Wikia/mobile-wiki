@@ -1,6 +1,6 @@
 moduleFor('route:mainPage', 'MainPageRoute');
 
-test('opens curated content section', function () {
+test('double encodes the section name and does transition', function () {
 	var routeMock = this.subject();
 
 	routeMock.transitionTo = function (routeName, dynamicSegment) {
@@ -14,7 +14,7 @@ test('opens curated content section', function () {
 	});
 });
 
-test('opens curated content category', function () {
+test('double encodes the category name and does transition', function () {
 	var routeMock = this.subject();
 
 	routeMock.transitionTo = function (routeName, dynamicSegment) {

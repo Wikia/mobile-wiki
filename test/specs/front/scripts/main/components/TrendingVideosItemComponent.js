@@ -1,27 +1,33 @@
 moduleForComponent('trending-videos-item', 'TrendingVideosItemComponent');
 
 test('computes thumb url properly', function () {
-	var componentMock = this.subject();
+	var componentMock = this.subject(),
+		imageWidth = 250,
+		// 16:9 ratio
+		imageHeight = 140;
 
 	componentMock.thumbnailer.getThumbURL = function (url, options) {
 		return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 	};
 
 	componentMock.setProperties({
-		imageWidth: 250,
+		imageWidth: imageWidth,
 		mode: 'top-crop',
 		video: {
 			url: 'http://vignette/image.jpg'
 		}
 	});
 
-	equal(componentMock.get('thumbUrl'), 'http://vignette/image.jpg/top-crop/250/140');
+	equal(componentMock.get('thumbUrl'), 'http://vignette/image.jpg/top-crop/' + imageWidth + '/' + imageHeight);
 });
 
 test('computes image style properly', function () {
-	var componentMock = this.subject();
+	var componentMock = this.subject(),
+		viewportWidth = 400,
+		// Viewport width minus 10 and then calculate 16:9 ratio
+		imageHeight = 219;
 
-	componentMock.updateImageSize(400);
+	componentMock.updateImageSize(viewportWidth);
 
-	equal(componentMock.get('imageStyle'), 'height: 219px;');
+	equal(componentMock.get('imageStyle'), 'height: ' + imageHeight + 'px;');
 });

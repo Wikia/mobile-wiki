@@ -26,10 +26,11 @@ test('returns correct icon name', function () {
 });
 
 test('sets proper url for the image', function () {
-	var componentMock = this.subject();
+	var componentMock = this.subject(),
+		imageSize = 400;
 
 	componentMock.setProperties({
-		imageSize: 400,
+		imageSize: imageSize,
 		cropMode: 'top-crop',
 		model: {
 			imageUrl: 'http://vignette/image.jpg'
@@ -42,13 +43,18 @@ test('sets proper url for the image', function () {
 
 	componentMock.lazyLoadImage();
 
-	equal(componentMock.get('thumbUrl'), 'http://vignette/image.jpg/top-crop/400/400');
+	equal(componentMock.get('thumbUrl'), 'http://vignette/image.jpg/top-crop/' + imageSize + '/' + imageSize);
 });
 
 test('computes image style properly', function () {
-	var componentMock = this.subject();
+	var componentMock = this.subject(),
+		viewportWidth = 400,
+		// Viewport minus 20 and then by half
+		imageWidth = 190,
+		// 16:9 ratio
+		imageHeight = 190;
 
-	componentMock.updateImageSize(400);
+	componentMock.updateImageSize(viewportWidth);
 
-	equal(componentMock.get('style'), 'height: 190px; width: 190px;');
+	equal(componentMock.get('style'), 'height: ' + imageHeight + 'px; width: ' + imageWidth + 'px;');
 });

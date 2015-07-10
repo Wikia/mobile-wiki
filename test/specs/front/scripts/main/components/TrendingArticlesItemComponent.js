@@ -1,10 +1,13 @@
 moduleForComponent('trending-articles-item', 'TrendingArticlesItemComponent');
 
 test('sets proper url for the image', function () {
-	var componentMock = this.subject();
+	var componentMock = this.subject(),
+		imageWidth = 250,
+		// 16:9 ratio
+		imageHeight = 140;
 
 	componentMock.setProperties({
-		imageWidth: 250,
+		imageWidth: imageWidth,
 		cropMode: 'top-crop',
 		imageUrl: 'http://vignette/image.jpg'
 	});
@@ -15,14 +18,22 @@ test('sets proper url for the image', function () {
 
 	componentMock.lazyLoadImage();
 
-	equal(componentMock.get('currentlyRenderedImageUrl'), 'http://vignette/image.jpg/top-crop/250/140');
+	equal(
+		componentMock.get('currentlyRenderedImageUrl'),
+		'http://vignette/image.jpg/top-crop/' + imageWidth + '/' + imageHeight
+	);
 });
 
 test('computes style properly', function () {
-	var componentMock = this.subject();
+	var componentMock = this.subject(),
+		viewportWidth = 400,
+		// Viewport minus 20 and then by half
+		imageWidth = 190,
+		// 16:9 ratio
+		imageHeight = 106;
 
-	componentMock.updateImageSize(400);
+	componentMock.updateImageSize(viewportWidth);
 
-	equal(componentMock.get('style'), 'width: 190px;');
-	equal(componentMock.get('imageStyle'), 'height: 106px;');
+	equal(componentMock.get('style'), 'width: ' + imageWidth + 'px;');
+	equal(componentMock.get('imageStyle'), 'height: ' + imageHeight + 'px;');
 });

@@ -10,9 +10,6 @@ moduleFor('route:mainPageCategory', 'MainPageCategoryRoute', {
 });
 
 test('sets controller properties', function () {
-	// There is so much going on, better to be sure
-	expect(8);
-
 	var routeMock = this.subject(),
 		title = '~`!@#$%^&*() +-={}[]\|;:\'"<>?,./',
 		encodedTitle = '~%60!%40%23%24%25%5E%26*()%20%2B-%3D%7B%7D%5B%5D%7C%3B%3A\'%22%3C%3E%3F%2C.%2F',
