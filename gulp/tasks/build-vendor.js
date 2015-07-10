@@ -14,7 +14,7 @@ gulp.task('build-vendor', ['vendor'], function () {
 			'www/front/vendor/hammerjs/hammer.js',
 			'www/front/vendor/headroom.js/dist/headroom.js',
 			'www/front/vendor/jquery.cookie/jquery.cookie.js',
-			'www/front/vendor/ember/ember.debug.js', // fix
+			(environment.isProduction ? 'www/front/vendor/ember/ember.prod.js' : 'www/front/vendor/ember/ember.debug.js'),
 			'www/front/vendor/ember-hammer/ember-hammer.js',
 			'www/front/vendor/i18next/i18next.js',
 			'www/front/vendor/vignette/dist/vignette.js',
