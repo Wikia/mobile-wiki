@@ -1,3 +1,8 @@
+.contribution-container {
+	text-align: right;
+	width: 100%;
+}
+
 .edit-head {
 	@extend .site-head;
 	text-align: inherit;
@@ -28,4 +33,15 @@
 			font-weight: normal;
 		}
 	}
+}
+
+.icon-wrapper {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.short-header {
+	padding-right: 5.2rem; /* edit/photo icons width (2.2 * 2) + margin (0.8) in between */
+	position: relative;
 }

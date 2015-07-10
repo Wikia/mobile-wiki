@@ -1,3 +1,5 @@
+$upload-icon-size: 2.2rem;
+
 textarea {
 	border: none;
 	height: 50%;
@@ -9,22 +11,23 @@ textarea {
 	top: 3.125rem;
 }
 
-.pencil {
-	float: right;
-	height: 2.2rem;
-	width: 2.2rem;
+.edit-section {
+	display: inline-block;
+	height: 4.7rem;
+	overflow: hidden;
+	position: relative;
+	vertical-align: top;
+	width: $upload-icon-size;
+
 	&.zero {
-		position: relative;
-		right: 0;
+		height: $upload-icon-size;
 	}
-}
 
-.zero-button-wrapper {
-	padding: 0.1rem;
-}
-
-.zero-button-wrapper::after {
-	clear: both;
-	content: '';
-	display: block;
+	.pencil {
+		bottom: 0;
+		height: $upload-icon-size;
+		position:absolute;
+		right: 0;
+		width: $upload-icon-size;
+	}
 }
