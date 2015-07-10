@@ -212,9 +212,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 		this.$(':header[section]').each((i: Number, item: any): void => {
 			var $sectionHeader = this.$(item);
-
-			$sectionHeader.prepend(this.$(iconsWrapper));
-			$sectionHeader.addClass('short-header');
+			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
 		});
 		this.setupButtonsListeners();
 	},
@@ -237,14 +235,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 				});
 			})
 			.on('change', '.upload-photo', (event: JQueryEventObject): void => {
-				var $photoUpload = $(event.target).parent(),
+				var $uploadPhotoContainer = $(event.target).parent(),
 				    sectionIndex: number = parseInt($(event.target).closest(':header[section]').attr('section'), 10);
-				this.onPhotoIconChange($photoUpload, sectionIndex);
+				this.onPhotoIconChange($uploadPhotoContainer, sectionIndex);
 			});
 	},
 
-	onPhotoIconChange: function(photoUpload: JQuery, sectionNumber: number): void {
-		var photoData = (<HTMLInputElement>photoUpload.find('.file-input')[0]).files[0];
+	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
+		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
 		this.get('controller').send('addPhoto', this.get('controller.model.title'), sectionNumber, photoData);
 	},
 
