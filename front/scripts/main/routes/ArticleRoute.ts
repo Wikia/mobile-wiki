@@ -46,6 +46,12 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: typeof App.ArticleModel): void {
+		// if an article is main page, redirect to mainPage route
+		// this will handle accessing /wiki/Main_Page if default main page is different article
+		if (model.isMainPage) {
+			this.transitionTo('mainPage');
+		}
+
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 		App.VisibilityStateManager.reset();
 
