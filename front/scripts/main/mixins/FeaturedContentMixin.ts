@@ -14,20 +14,18 @@ interface FeaturedContentItem {
 App.FeaturedContentMixin = Em.Mixin.create({
 	layoutName: 'components/featured-content',
 	classNames: ['featured-content'],
-	hasMultipleItems: Em.computed('model', function (): boolean {
-		return this.getWithDefault('model', []).length > 1;
-	}),
 	currentItemIndex: 0,
-	// should it be here?
-	model: [],
+
+	hasMultipleItems: Em.computed('model', function (): boolean {
+		return this.get('model.length') > 1;
+	}),
 
 	currentItem: Em.computed('model', 'currentItemIndex', function (): FeaturedContentItem {
-		//@TODO evaluate better solution
-		return this.getWithDefault('model', [])[this.get('currentItemIndex')];
+		return this.get('model')[this.get('currentItemIndex')];
 	}),
 
 	lastIndex: Em.computed('model', function (): number {
-		return this.getWithDefault('model', []).length - 1;
+		return this.get('model.length') - 1;
 	}),
 
 	/**
