@@ -13,6 +13,8 @@ gulp.task('build', [
 	'templates',
 	'locales',
 	'scripts-server',
+	'build-vendor',
+	'build-combined',
 	'build-views'
 ], function(cb) {
 	if (environment.isProduction) {
