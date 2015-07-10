@@ -6,20 +6,22 @@ var gulp = require('gulp'),
 	gulpconcat = require('gulp-concat'),
 	piper = require('../utils/piper');
 
-	gulp.task('build-combined', ['scripts-front', 'templates'], function () {
-		return piper(
-			gulp.src(['www/front/templates/main.js',
-						'www/front/scripts/mercury.js',
-						'www/front/scripts/main.js']),
-			gulpconcat('combined.js'),
-			gulpif(environment.isProduction, piper(
-				uglify(),
-				rev()
-			)),
-			gulp.dest('www/front/scripts'),
-			gulpif(environment.isProduction, piper(
-				rev.manifest(),
-				gulp.dest('www/front/scripts')
-			))
-		);
-	});
+gulp.task('build-combined', ['scripts-front', 'templates'], function () {
+	return piper(
+		gulp.src([
+			'www/front/templates/main.js',
+			'www/front/scripts/mercury.js',
+			'www/front/scripts/main.js'
+		]),
+		gulpconcat('combined.js'),
+		gulpif(environment.isProduction, piper(
+			uglify(),
+			rev()
+		)),
+		gulp.dest('www/front/scripts'),
+		gulpif(environment.isProduction, piper(
+			rev.manifest(),
+			gulp.dest('www/front/scripts')
+		))
+	);
+});

@@ -3,6 +3,7 @@ var gulp = require('gulp'),
 	rev = require('gulp-rev'),
 	gulpconcat = require('gulp-concat'),
 	environment = require('../utils/environment'),
+	uglify = require('gulp-uglify'),
 	piper = require('../utils/piper');
 
 gulp.task('build-vendor', ['vendor'], function () {
@@ -19,9 +20,13 @@ gulp.task('build-vendor', ['vendor'], function () {
 			'www/front/vendor/vignette/dist/vignette.js',
 			'www/front/vendor/numeral/numeral.js',
 			'www/front/vendor/weppy/dist/weppy.js',
-			'www/front/vendor/ember-performance-sender/dist/ember-performance-sender.js']),
+			'www/front/vendor/ember-performance-sender/dist/ember-performance-sender.js'
+		]),
 		gulpconcat('main.js'),
-		gulpif(environment.isProduction, rev()),
+		gulpif(environment.isProduction, piper(
+			uglify(),
+			rev()
+		)),
 		gulp.dest('www/front/vendor'),
 		gulpif(environment.isProduction, piper(
 			rev.manifest(),
