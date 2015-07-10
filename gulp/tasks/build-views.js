@@ -3,12 +3,20 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	minifyHTML = require('gulp-minify-html'),
 	preprocess = require('gulp-preprocess'),
+
+	useref = require('gulp-useref'),
+	rev = require('gulp-rev'),
+	uglify = require('gulp-uglify'),
+
 	revReplace = require('gulp-rev-replace'),
 	replace = require('gulp-replace'),
 	piper = require('../utils/piper'),
 	paths = require('../paths'),
 	options = require('../options'),
 	environment = require('../utils/environment'),
+	assets = useref.assets({
+		searchPath: paths.base
+	}),
 	preprocessContext = {
 		base: paths.baseFull
 	},
@@ -24,11 +32,25 @@ gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-ve
 		gulp.src(paths.views.src, {
 			base: paths.baseFullServer
 		}),
-		gulpif('**/_layouts/**.hbs', preprocess({
-			context: preprocessContext
-		})),
+
+		// These plugins don't like being fed through piper/multipipe
+		gulpif('**/_layouts/**.hbs', preprocess({context: preprocessContext})),
 		gulpif('**/_layouts/**.hbs', revReplace({manifest: manifest})),
-		gulpif('**/_layouts/**.hbs', gulp.dest('www/server/views/_layouts/')),
+
+		// TODO: Leave this in for now to run the normal template based assets pipeline for the duration
+		// of the test
+		gulpif('**/_layouts/auth.hbs', piper(
+			assets,
+			//before running build I can not know what files from vendor to minify
+			gulpif('**/*.js', uglify()),
+			rev(),
+			gulp.dest(paths.base),
+			assets.restore(),
+			useref(),
+			revReplace()
+		)),
+
+		gulpif('**/_layouts/*.hbs', gulp.dest('www/server/views/_layouts')),
 		gulpif(environment.isProduction, piper(
 			// Used to prefix assets in with CDN prefix
 			gulpif(options.replace.selector, replace(options.replace.find, options.replace.replace)),
