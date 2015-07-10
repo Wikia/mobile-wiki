@@ -43,7 +43,7 @@ $upload-icon-size: 2.2rem;
 
 .upload-photo {
 	display: inline-block;
-	height: 4.7rem;
+	height: $upload-icon-size;
 	margin-left: 0.8rem;
 	overflow:hidden;
 	position: relative;
