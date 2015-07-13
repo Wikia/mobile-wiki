@@ -25,6 +25,7 @@ module Mercury.Modules.Trackers {
 			url?: string;
 			'user-agent': string;
 			env: string;
+			country: string;
 		};
 
 		constructor () {
@@ -33,7 +34,8 @@ module Mercury.Modules.Trackers {
 				skin: 'mercury',
 				'user-agent': window.navigator.userAgent,
 				env: M.prop('environment'),
-				url: window.location.href.split('#')[0]
+				url: window.location.href.split('#')[0],
+				country: M.prop('geo.country')
 			};
 			this.tracker.setOptions({
 				host: M.prop('weppyConfig').host,

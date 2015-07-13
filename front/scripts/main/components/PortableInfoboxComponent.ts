@@ -63,7 +63,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 			collapsed = this.get('collapsed'),
 			$target = $(event.target);
 
-		if ($target.is('a')) {
+		if ($target.is('a') || $target.is('button')) {
 			return;
 		}
 

@@ -1,3 +1,52 @@
+## release-106 (2015-07-09 10:00 UTC)
+* [INT-104](https://wikia-inc.atlassian.net/browse/INT-104) Move section zero edit button to new block
+* [INT-130](https://wikia-inc.atlassian.net/browse/INT-130) Adding country parameter in context for performance data. 
+* [DAT-2952](https://wikia-inc.atlassian.net/browse/DAT-2952) DAT-2952 Infobox image cropping
+
+## release-105 hotfix 1 (2015-07-08 10:46 UTC)
+* [HG-753](https://wikia-inc.atlassian.net/browse/HG-753) HG-753 Add asyncArticle to the main page response
+
+## release-105 (2015-07-08 10:00 UTC)
+* [HG-753](https://wikia-inc.atlassian.net/browse/HG-753) Hg 753 - Adding ability to load first article async
+* [SOC-1005](https://wikia-inc.atlassian.net/browse/SOC-1005) SOC-1005 Trigger number keyboard when b-date input focused
+* [CONCF-655](https://wikia-inc.atlassian.net/browse/CONCF-655) CONCF-655 CuratedContent as a regular page
+* [CONCF-591](https://wikia-inc.atlassian.net/browse/CONCF-591) CONCF-591 | add load more button for categories
+
+## release-104 (2015-07-07 10:50 UTC)
+* enable-new-signup: Enabling New Registration MVP
+* [SOC-997](https://wikia-inc.atlassian.net/browse/SOC-997) SOC-997 Tracking for registration page
+* [DAT-2971](https://wikia-inc.atlassian.net/browse/DAT-2971) DAT-2971 Transitory styles for changes on app side
+* [CONCF-768](https://wikia-inc.atlassian.net/browse/CONCF-768) CONCF-768 add optimizely events for featured content
+
+## release-103 (2015-07-06 10:00 UTC)
+* [CONCF-681](https://wikia-inc.atlassian.net/browse/CONCF-681) CONCF-681 | truncating displayed labels in Curated Content and Featured Content
+
+## release-102 (2015-07-03 10:00 UTC)
+* fix-typos-on-dev-branch: Fix small typos on dev
+
+## release-101 (2015-07-02 10:34 UTC)
+* failed-unit-tests-fix: Fixing unit tests
+* [DAT-2899](https://wikia-inc.atlassian.net/browse/DAT-2899) DAT-2899 refactor icon handling in infoboxes
+* fix-infobox-gallery-button: Infoboxes- don't handle infobox collapsing when clicked on button
+* [SOC-965](https://wikia-inc.atlassian.net/browse/SOC-965) SOC-965 Rename login/signup to signin/register
+* [SOC-563](https://wikia-inc.atlassian.net/browse/SOC-563) SOC-563 Geo-targeting capabilities for New Auth
+
+## release-100 (2015-07-01 10:00 UTC)
+* [HG-782](https://wikia-inc.atlassian.net/browse/HG-782) HG-782 - added state check back
+* [HG-772](https://wikia-inc.atlassian.net/browse/HG-772) HG-772 - fixed table bug
+* [HG-777](https://wikia-inc.atlassian.net/browse/HG-777) HG-777 adding geo cookie reading
+* [SOC-698](https://wikia-inc.atlassian.net/browse/SOC-698) SOC-698 AJAX login initial commit
+* [SOC-917](https://wikia-inc.atlassian.net/browse/SOC-917) SOC-917 | Registration - login and redirect after registration
+* [SOC-913](https://wikia-inc.atlassian.net/browse/SOC-913) SOC-913 | Retire wikicitiesUserID
+
+## release-99 (2015-06-30 09:59 UTC)
+* [HG-757](https://wikia-inc.atlassian.net/browse/HG-757) HG-757 - slight optimization in replaceMediaPlaceHoldersWithMediaComponents
+* clean-ab-test: HG-727 removing ab test code
+* [CONCF-711](https://wikia-inc.atlassian.net/browse/CONCF-711) CONCF-711 | As a Mercury user I would like to have main page's URLs cut after / so I can access them easily
+* edit-api-url: Make use of buildUrl when constructing API calls
+* portable-infobox-component: Portable infobox component
+* [CONCF-676](https://wikia-inc.atlassian.net/browse/CONCF-676) CONCF-676 | As a developer I would like to have clean code related with videos in Mercury so I can add changes faster
+
 ## release-98 (2015-06-29 09:59 UTC)
 * fix-helios-url-for-reg: Change helios url for reg
 * [SOC-517](https://wikia-inc.atlassian.net/browse/SOC-517) SOC-517 | Regitration error translations

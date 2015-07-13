@@ -75,6 +75,11 @@
     "edit-publish-error-noedit-anon":"未登録ユーザーはページを編集することができません。",
     "edit-publish-error-protectedpage":"このページの編集をしていただくための権限をお持ちでないようです。",
     "user-menu-profile":"プロフィール",
-    "user-menu-log-out":"ログアウト"
+    "user-menu-log-out":"ログアウト",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

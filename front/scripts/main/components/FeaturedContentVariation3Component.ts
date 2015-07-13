@@ -20,12 +20,14 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	}),
 
 	rightClickHandler: function (): boolean {
+		M.VariantTesting.trackEvent('featured-content-next');
 		this.nextItem();
 		this.resetCycleTimeout();
 		return true;
 	},
 
 	leftClickHandler: function (): boolean {
+		M.VariantTesting.trackEvent('featured-content-prev');
 		this.prevItem();
 		this.resetCycleTimeout();
 		return true;
@@ -34,6 +36,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 	centerClickHandler: function (): boolean {
 		this.stopCyclingThroughItems();
 		this.trackClick('modular-main-page', 'featured-content');
+		M.VariantTesting.trackEvent('featured-content-click');
 		return false;
 	},
 
