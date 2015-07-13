@@ -1,3 +1,6 @@
+## release-109 (2015-07-13 11:54 UTC)
+* [CONCF-852](https://wikia-inc.atlassian.net/browse/CONCF-852) CONCF-852 Stop failing when FeaturedContentMixin has undefined model
+
 ## release-108 (2015-07-11 00:05 UTC)
 * [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - WIP - lazy load all js
 * remove-obsolete-todo: CONCF-735 Remove obsolete TODO
