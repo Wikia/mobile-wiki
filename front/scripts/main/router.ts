@@ -21,6 +21,10 @@ App.Router.map(function () {
 		this.route('category', {
 			path: '/main/category/:categoryName'
 		});
+
+		this.route('edit', {
+			path: '/main/edit'
+		});
 	});
 
 	this.route('article', {
