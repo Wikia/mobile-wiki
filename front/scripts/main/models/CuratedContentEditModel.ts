@@ -20,7 +20,7 @@ App.CuratedContentEditModel.reopenClass({
 					format: 'json'
 				},
 				success: (data: any): void => {
-					modelInstance.set('sections', data.items);
+					modelInstance.set('sections', data.data);
 					resolve(modelInstance);
 				},
 				error: (data: any): void => {
