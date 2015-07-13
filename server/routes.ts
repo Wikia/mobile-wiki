@@ -177,6 +177,18 @@ authenticatedRoutes = [
 	},
 	{
 		method: 'GET',
+		path: '/registerfb',
+		handler: require('./facets/auth/registerfb').get,
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
+	},
+	{
+		method: 'GET',
 		path: '/login',
 		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
 			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
