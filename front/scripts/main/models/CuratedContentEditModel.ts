@@ -20,8 +20,12 @@ App.CuratedContentEditModel.reopenClass({
 					format: 'json'
 				},
 				success: (data: any): void => {
-					modelInstance.set('sections', data.data);
-					resolve(modelInstance);
+					if (Em.isArray(data.data)) {
+						modelInstance.set('sections', data.data);
+						resolve(modelInstance);
+					} else {
+						reject('Invalid data was returned from Curated Content API');
+					}
 				},
 				error: (data: any): void => {
 					reject(data);
