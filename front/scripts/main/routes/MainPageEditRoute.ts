@@ -4,17 +4,12 @@
 'use strict';
 
 App.MainPageEditRoute = Em.Route.extend({
-	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentEditModel.find(params.sectionName, 'section');
+	model: function (): Em.RSVP.Promise {
+		return App.CuratedContentEditModel.find();
 	},
 
-	renderTemplate: function (controller: any, model: typeof App.CuratedContentEditModel): void {
-		this.render('main-page-edit', {
-			controller: 'mainPage',
-			model: {
-				curatedContent: model
-			}
-		})
+	renderTemplate: function (): void {
+		this.render('main-page-edit');
 	},
 
 	actions: {
@@ -24,5 +19,4 @@ App.MainPageEditRoute = Em.Route.extend({
 			return true;
 		}
 	}
-
 });

@@ -43,13 +43,6 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 	}).on('didInsertElement'),
 
 	actions: {
-		edit: function (): void {
-			var model = App.CuratedContentEditModel.find();
-			model.then(function (data) {
-				console.log('### EDIT model', data);
-			});
-		},
-
 		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
 		},
