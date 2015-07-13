@@ -2,14 +2,14 @@
 'use strict';
 
 App.CuratedContentEditModel = Em.Object.extend({
-	sections: []
+	featured: null,
+	regular: null,
+	optional: null
 });
 
 App.CuratedContentEditModel.reopenClass({
 	find: function (): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var modelInstance = App.CuratedContentEditModel.create();
-
 			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
@@ -21,8 +21,7 @@ App.CuratedContentEditModel.reopenClass({
 				},
 				success: (data: any): void => {
 					if (Em.isArray(data.data)) {
-						modelInstance.set('sections', data.data);
-						resolve(modelInstance);
+						resolve(App.CuratedContentEditModel.sanitize(data.data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
@@ -31,6 +30,36 @@ App.CuratedContentEditModel.reopenClass({
 					reject(data);
 				}
 			});
+		});
+	},
+
+	sanitize: function (rawData: any): typeof App.CuratedContentEditModel {
+		var featured = {},
+			regular = {
+				items: {}
+			},
+			optional = {};
+
+		if (rawData.length) {
+			if (rawData[0].featured) {
+				featured = rawData.shift();
+			}
+
+			if (rawData.length) {
+				regular = {
+					items: rawData
+				};
+
+				if (regular.items.slice(-1)[0].title === '') {
+					optional = regular.items.pop();
+				}
+			}
+		}
+
+		return App.CuratedContentEditModel.create({
+			featured: featured,
+			regular: regular,
+			optional: optional
 		});
 	}
 });
