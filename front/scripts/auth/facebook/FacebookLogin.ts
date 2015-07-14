@@ -1,9 +1,9 @@
 interface FacebookResponse {
 	status: string;
-	authResponse: FacebookAuthResponse;
+	authResponse: FacebookAuthData;
 }
 
-interface FacebookAuthResponse {
+interface FacebookAuthData {
 	accessToken: string;
 	expiresIn: number;
 }
@@ -60,10 +60,10 @@ class FacebookLogin {
 		this.activateButton();
 	}
 
-	private getHeliosInfoFromFBToken(facebookAuthResponse: FacebookAuthResponse): void {
+	private getHeliosInfoFromFBToken(facebookAuthData: FacebookAuthData): void {
 		var facebookTokenXhr = new XMLHttpRequest(),
 			data = <HeliosFacebookToken> {
-				fb_access_token: facebookAuthResponse.accessToken
+				fb_access_token: facebookAuthData.accessToken
 			},
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
