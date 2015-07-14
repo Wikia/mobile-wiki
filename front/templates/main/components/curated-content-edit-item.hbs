@@ -1,5 +1,7 @@
 <img src="{{thumbUrl}}" />
-<p>{{title}}</p>
-{{#if model.items}}
-	<p>{{model.items.length}} items</p>
-{{/if}}
+<div class="item-description">
+	<div class="title">{{title}}</div>
+	{{#if model.items}}
+		<div class="subtitle">{{model.items.length}} items</div>
+	{{/if}}
+</div>
