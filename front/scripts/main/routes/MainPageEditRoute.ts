@@ -13,10 +13,6 @@ App.MainPageEditRoute = Em.Route.extend({
 	},
 
 	actions: {
-		openMainPage: function () {
-			this.transitionTo('mainPage');
-		},
-
 		error: function (error: any): boolean {
 			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
 			this.transitionTo('mainPage');

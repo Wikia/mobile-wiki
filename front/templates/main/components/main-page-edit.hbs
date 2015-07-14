@@ -1,7 +1,7 @@
 <div class="edit-head curated-content-edit-head">
-	<span {{action 'openMainPage'}}>
+	{{#link-to 'mainPage' }}
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
-	</span>
+	{{/link-to}}
 	<button {{action 'save'}} class="large publish">Save</button>
 
 	<h5>Edit Main Page</h5>
