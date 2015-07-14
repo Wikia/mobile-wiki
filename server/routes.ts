@@ -139,11 +139,9 @@ unauthenticatedRoutes = [
 		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
 	}, {
-		method: 'get',
+		method: 'GET',
 		path: '/discuss',
-		handler(request, reply) {
-			reply('This works');
-		}
+		handler: require('./facets/api/discuss').get
 	}
 ];
 

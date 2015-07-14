@@ -14,11 +14,11 @@ App.Router.map(function () {
 	this.route('mainPage', {
 		path: '/'
 	});
-/*
+
 	this.route('article', {
 		path: articlePath + '*title'
 	});
-*/
+
 	this.route('edit', { // Symbolic link to EditController
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
