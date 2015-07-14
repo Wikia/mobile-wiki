@@ -29,6 +29,6 @@ class FacebookSDK {
 			});
 
 			onLoad();
-		};
+		}.bind(this);
 	}
 }
