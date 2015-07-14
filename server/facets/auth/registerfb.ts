@@ -18,7 +18,6 @@ interface RegisterFBViewContext extends authView.AuthViewContext {
 	usernameMaxLength: number;
 	passwordMaxLength: number;
 	langCode: string;
-	fbAccessToken: string;
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
@@ -45,7 +44,7 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,
-			fbAccessToken: request.params['fbAccessToken']
+			facebookAppId: localSettings.facebook.appId
 		}
 	);
 
