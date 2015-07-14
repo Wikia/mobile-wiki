@@ -1,3 +1,8 @@
+## release-110 (2015-07-14 10:00 UTC)
+* [INT-102](https://wikia-inc.atlassian.net/browse/INT-102) Add photo to Japanese wikia
+* [INT-140](https://wikia-inc.atlassian.net/browse/INT-140) Edit/Photo icons positioning fix for section header.
+* [INT-117](https://wikia-inc.atlassian.net/browse/INT-117) Photo/Edit icons style change for Japanese Wikia
+
 ## release-109 (2015-07-13 11:54 UTC)
 * [CONCF-852](https://wikia-inc.atlassian.net/browse/CONCF-852) CONCF-852 Stop failing when FeaturedContentMixin has undefined model
 
