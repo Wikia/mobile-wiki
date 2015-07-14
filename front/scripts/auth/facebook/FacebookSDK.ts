@@ -4,6 +4,8 @@ interface Window {
 }
 
 class FacebookSDK {
+
+	version: string = 'v2.2';
 	/**
 	 * Modified code for async download of Facebook SDK javascript
 	 * @param {Function} onLoad
@@ -23,7 +25,7 @@ class FacebookSDK {
 			window.FB.init({
 				appId: M.prop('facebookAppId'),
 				cookie: true,
-				version: 'v2.2'
+				version: this.version
 			});
 
 			onLoad();
