@@ -1,3 +1,11 @@
+<div class="edit-head">
+	<span {{action 'openMainPage'}}>
+		{{svg 'chevron' role='img' class='icon arrow-left'}}
+	</span>
+	<button {{action 'save'}} class="large publish">Save</button>
+
+	<h5>Edit Main Page</h5>
+</div>
 {{curated-content-edit
 	model=model
 }}
