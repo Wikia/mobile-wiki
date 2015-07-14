@@ -1,0 +1,7 @@
+<header>{{title}}</header>
+<p>{{description}}</p>
+<div class="curated-content-edit-items">
+	{{#each model.items as |item|}}
+		{{curated-content-edit-item model=item}}
+	{{/each}}
+</div>
