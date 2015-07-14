@@ -114,9 +114,23 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	 */
 	openLightboxForMedia: function (file: string): void {
 		var mediaModel: typeof App.MediaModel = this.get('controllers.article.model.media'),
-			lightboxMediaRefs = mediaModel instanceof App.MediaModel?
-				mediaModel.getRefsForLightboxByTitle(file):
-				null;
+			lightboxMediaRefs: any;
+
+		try {
+			lightboxMediaRefs = mediaModel.getRefsForLightboxByTitle(file);
+			if(lightboxMediaRefs.mediaRef === null) {
+				throw {
+					name: 'MediaLightboxException',
+					message: 'Invalid file name.'
+				};
+			}
+		} catch (error) {
+			if(error.name === 'MediaLightboxException') {
+				lightboxMediaRefs = mediaModel.getRefsForLightboxByTitle(M.String.normalizeToWhitespace(file));
+			} else {
+				lightboxMediaRefs = null;
+			}
+		}
 
 		if (!Em.isEmpty(lightboxMediaRefs)) {
 			this.send('openLightbox', 'media', {
