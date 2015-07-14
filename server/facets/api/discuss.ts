@@ -16,24 +16,25 @@ export function get (request: Hapi.Request, reply: any): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(
 			localSettings, request.headers['x-original-host'] || request.headers.host
 		),
-		url,
-		article;
+		url: string,
+		article: Article.ArticleRequestHelper;
 
 	article = new Article.ArticleRequestHelper({
 		wikiDomain: wikiDomain
 	});
-	article.getWikiVariables((error: any, wikiVariables: any) => {
+
+	article.getWikiVariables((error: any, wikiVariables: any): void => {
 		if (error) {
 			// ???
 		} else {
 			url = MW.createUrl(localSettings.servicesDomain,
-				localSettings.discussion.baseAPIPath + '/' + wikiVariables.id + '/forums',
+				localSettings.discuss.baseAPIPath + '/' + wikiVariables.id + '/forums',
 				request.query);
 
 			MW.fetch(url)
 				.then((result: any): void => {
 					var error = result.exception || null;
-					Caching.setResponseCaching(reply.view('application', context, options));
+					Caching.setResponseCaching(reply(wrapResult(error, result)), cachingTimes);
 				})
 				.catch((err: any): void => {
 					var errorCode = (err && err.exception && err.exception.code) ?
@@ -41,5 +42,5 @@ export function get (request: Hapi.Request, reply: any): void {
 					reply(err).code(errorCode);
 				});
 		}
-	}
+	});
 }

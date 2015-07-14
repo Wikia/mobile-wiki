@@ -3,10 +3,10 @@ interface LoggerInterface {
 }
 
 interface GAAccount {
-	// namespace prefix for _gaq.push methods, ie. 'special'
-	prefix?: string;
 	// ie. 'UA-32129070-1'
 	id: string;
+	// namespace prefix for _gaq.push methods, ie. 'special'
+	prefix?: string;
 	// sampling percentage, from 1 to 100
 	sampleRate: number;
 }
@@ -16,18 +16,17 @@ interface GAAccountMap {
 }
 
 interface WeppyConfig {
+	aggregationInterval: number;
 	host: string;
 	samplingRate: number;
-	aggregationInterval: number;
 }
 
 interface LocalSettings {
 	apiBase: string;
 	backendRequestTimeout: number;
+	cdnBaseUrl: string;
 	domain: string;
-	mediawikiDomain?: string;
-	devboxDomain?: string;
-	authCookieDomain?: string;
+	discuss?: any; //XXX change to interface
 	environment: any;
 	helios: {
 		host: string;
@@ -36,25 +35,15 @@ interface LocalSettings {
 		usernameMaxLength: number;
 		passwordMaxLength: number;
 	};
-	ironSecret: string;
 	host: any;
+	ironSecret: string;
 	mwPreviewSalt: string;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;
-	optimizely?: {
-		enabled: boolean;
-		scriptPath: string;
-		devAccount: string;
-		account: string;
-	};
-	qualaroo?: {
-		enabled: boolean;
-		scriptUrlDev: string;
-		scriptUrlProd: string;
-	};
 	port: number;
 	proxyMaxRedirects: number;
 	redirectUrlOnNoData: string;
+	servicesDomain: string;
 	tracking: {
 		ua: GAAccountMap;
 		quantserve: string;
@@ -73,5 +62,18 @@ interface LocalSettings {
 	weppy: WeppyConfig;
 	workerCount: number;
 	workerDisconnectTimeout: number;
-	cdnBaseUrl: string;
+	authCookieDomain?: string;
+	devboxDomain?: string;
+	mediawikiDomain?: string;
+	optimizely?: {
+		enabled: boolean;
+		scriptPath: string;
+		devAccount: string;
+		account: string;
+	};
+	qualaroo?: {
+		enabled: boolean;
+		scriptUrlDev: string;
+		scriptUrlProd: string;
+	};
 }
