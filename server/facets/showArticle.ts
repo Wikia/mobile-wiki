@@ -35,7 +35,8 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 
 	article = new Article.ArticleRequestHelper(params);
 
-	if (path === '/' || path === '/wiki/') {
+	// FIXME /main/edit is here temporary
+	if (path === '/' || path === '/wiki/' || path === '/main/edit') {
 		article.getWikiVariables((error: any, wikiVariables: any) => {
 			if (error) {
 				// TODO check error.statusCode and react accordingly
