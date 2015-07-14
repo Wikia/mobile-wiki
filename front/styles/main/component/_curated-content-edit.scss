@@ -1,3 +1,43 @@
-.curated-content-edit {
+$module-padding: .5rem;
+$item-indentation: 1rem;
+$first-level-item-image-size: 5rem;
+$header-padding: 1rem;
+
+.curated-content-edit-head {
+	position: static;
+}
+
+.curated-content-edit-block {
 	background: $color-gray-light;
+	padding: 0 $module-padding;
+
+	header {
+		font-size: larger;
+		font-weight: bold;
+		padding: $header-padding + $module-padding $item-indentation $header-padding;
+	}
+
+	p {
+		margin: 0;
+	}
+}
+
+.curated-content-edit-items {
+	padding: 0 0 $module-padding;
+}
+
+.curated-content-edit-item {
+	background: $color-white;
+	border: 1px solid $color-gray-semi;
+	margin: $module-padding 0 0;
+
+	img {
+		height: $first-level-item-image-size;
+		width: $first-level-item-image-size;
+	}
+
+	p {
+		display: inline-block;
+		font-weight: bold;
+	}
 }

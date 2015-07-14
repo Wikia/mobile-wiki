@@ -1,5 +1,7 @@
 <header>{{title}}</header>
-<p>{{description}}</p>
+{{#if description}}
+	<p>{{description}}</p>
+{{/if}}
 <div class="curated-content-edit-items">
 	{{#each model.items as |item|}}
 		{{curated-content-edit-item model=item}}
