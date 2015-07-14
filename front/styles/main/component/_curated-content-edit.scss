@@ -1,5 +1,7 @@
 $module-padding-horizontal: 1rem;
 $module-padding-vertical: 1.5rem;
+$item-padding-horizontal: 1rem;
+$item-padding-vertical: .5rem;
 $item-image-size: 4rem;
 $image-margin: 1rem;
 
@@ -37,10 +39,16 @@ $image-margin: 1rem;
 	}
 	border-bottom-width: 1px;
 	display: flex;
-	padding: .5rem 1rem;
+	padding: $item-padding-vertical $item-padding-horizontal;
 
 	&:first-child {
 		border-top-width: 1px;
+	}
+
+	button {
+		font-weight: bold;
+		margin: $item-padding-vertical 0;
+		width: 100%;
 	}
 
 	img {
