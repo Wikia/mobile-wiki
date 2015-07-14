@@ -50,13 +50,13 @@ App.MediaModel = Em.Object.extend({
 					return (<ArticleMedia[]>mediaItem).some(findInGallery, {
 						mediaIndex: mediaIndex
 					});
-				} else if ((<ArticleMedia>mediaItem).title === title) {
+				} else if (M.String.normalizeToUnderscore((<ArticleMedia>mediaItem).title) === M.String.normalizeToUnderscore(title)) {
 					mediaRef = mediaIndex;
 					return true;
 				}
 			},
 			findInGallery = function (galleryItem: ArticleMedia, galleryIndex: number): boolean {
-				if (galleryItem.title === title) {
+				if (M.String.normalizeToUnderscore(galleryItem.title) === M.String.normalizeToUnderscore(title)) {
 					mediaRef = this.mediaIndex;
 					galleryRef = galleryIndex;
 					return true;
