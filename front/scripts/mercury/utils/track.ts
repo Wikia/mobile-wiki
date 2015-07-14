@@ -171,7 +171,7 @@ module Mercury.Utils {
 			return;
 		}
 
-		Object.keys(trackers).forEach(function (tracker: string) {
+		Object.keys(trackers).forEach((tracker: string): void => {
 			var Tracker = trackers[tracker],
 				instance: TrackerInstance;
 
@@ -185,14 +185,12 @@ module Mercury.Utils {
 
 	/**
 	 * Function that updates tracker's saved location to given path.
-	 * Tp be called after transition so tracker knows that URL is new.
+	 * To be called after transition so tracker knows that URL is new.
 	 *
 	 * This is essential for UA pageview tracker which get's location
 	 * from window on page load and never updates it (despite changing
 	 * title) - all subsequent events including pageviews are tracked
 	 * for original location.
-	 *
-	 * updateTrackedUrl
 	 */
 	export function updateTrackedUrl (url: string) {
 		var trackers: any = Mercury.Modules.Trackers;
@@ -202,7 +200,7 @@ module Mercury.Utils {
 		}
 		console.info('Tracker update URL:', url);
 
-		Object.keys(trackers).forEach(function (tracker: string) {
+		Object.keys(trackers).forEach((tracker: string): void => {
 			var Tracker = trackers[tracker],
 				instance: TrackerInstance;
 

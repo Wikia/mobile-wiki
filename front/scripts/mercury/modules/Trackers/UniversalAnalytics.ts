@@ -118,6 +118,16 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
+		 * Returns proper prefix for given account
+		 *
+		 * @param {GAAccount} account
+		 * @returns {string}
+		 */
+		private getPrefix(account: GAAccount): string {
+			return account.prefix ? account.prefix + '.' : '';
+		}
+
+		/**
 		 * Tracks an event, using the parameters native to the UA send() method
 		 *
 		 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
@@ -132,10 +142,8 @@ module Mercury.Modules.Trackers {
 				var prefix;
 				// skip over ads tracker (as it's handled in self.trackAds)
 				if (account.prefix !== this.accountAds) {
-					prefix = account.prefix ? account.prefix + '.' : '';
-					ga(
-						`${prefix}send`,
-						{
+					var prefix = this.getPrefix(account);
+					ga(`${prefix}send`, {
 							hitType: 'event',
 							eventCategory: category,
 							eventAction: action,
@@ -158,9 +166,7 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		trackAds (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			ga(
-				this.accounts[this.accountAds].prefix + '.send',
-				{
+			ga(this.accounts[this.accountAds].prefix + '.send', {
 					hitType: 'event',
 					eventCategory: category,
 					eventAction: action,
@@ -183,7 +189,7 @@ module Mercury.Modules.Trackers {
 			location.href = url;
 
 			this.tracked.forEach((account: GAAccount) => {
-				var prefix = account.prefix ? account.prefix + '.' : '';
+				var prefix = this.getPrefix(account);
 				ga(`${prefix}set`, 'page', location.pathname);
 			});
 		}
@@ -199,7 +205,7 @@ module Mercury.Modules.Trackers {
 			}
 
 			this.tracked.forEach((account: GAAccount) => {
-				var prefix = account.prefix ? account.prefix + '.' : '';
+				var prefix = this.getPrefix(account);
 				ga(`${prefix}set`, 'dimension8', pageType, 3);
 				ga(`${prefix}send`, 'pageview');
 			});
