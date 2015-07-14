@@ -2,8 +2,9 @@
 ///<reference path="../models/CuratedContentEditModel.ts"/>
 'use strict';
 
-App.CuratedContentEditComponent = Em.Component.extend({
+App.CuratedContentEditBlockComponent = Em.Component.extend({
 	classNames: ['curated-content-edit-block'],
+	tagName: 'section',
 
 	actions: {
 

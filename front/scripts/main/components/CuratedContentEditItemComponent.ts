@@ -2,7 +2,7 @@
 ///<reference path="../models/CuratedContentEditModel.ts"/>
 'use strict';
 
-App.CuratedContentEditComponent = Em.Component.extend({
+App.CuratedContentEditItemComponent = Em.Component.extend({
 	classNames: ['curated-content-edit-item'],
 
 	actions: {
