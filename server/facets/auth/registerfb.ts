@@ -9,19 +9,20 @@ import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend');
 
-interface RegisterViewContext extends authView.AuthViewContext {
+interface RegisterFBViewContext extends authView.AuthViewContext {
 	headerText?: string;
 	i18nContext?: any;
 	birthdateInputs: Array<InputData>;
-	heliosRegistrationURL?: string;
+	heliosFacebookRegistrationURL?: string;
 	termsOfUseLink?: string;
 	usernameMaxLength: number;
 	passwordMaxLength: number;
 	langCode: string;
+	fbAccessToken: string;
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
-	var context: RegisterViewContext,
+	var context: RegisterFBViewContext,
 		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance(),
 		lang = i18n.lng();
@@ -43,7 +44,8 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			bodyClasses: 'register-fb-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
-			langCode: lang
+			langCode: lang,
+			fbAccessToken: request.params['fbAccessToken']
 		}
 	);
 
