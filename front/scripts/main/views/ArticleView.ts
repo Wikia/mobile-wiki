@@ -94,6 +94,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	didInsertElement: function (): void {
+		$(window).off('scroll.mercury.preload');
 		window.scrollTo(0, M.prop('scroll'));
 		this.get('controller').send('articleRendered');
 	},
