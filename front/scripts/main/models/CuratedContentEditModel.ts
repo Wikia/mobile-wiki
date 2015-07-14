@@ -36,7 +36,7 @@ App.CuratedContentEditModel.reopenClass({
 	sanitize: function (rawData: any): typeof App.CuratedContentEditModel {
 		var featured = {},
 			regular = {
-				items: {}
+				items: []
 			},
 			optional = {};
 
