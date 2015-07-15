@@ -50,6 +50,10 @@
     "months-ago-label_plural":"__count__ месяцев назад",
     "years-ago-label":"один год назад",
     "years-ago-label_plural":"__count__ года назад",
+    "trending-label":"В тренде",
+    "videos-label":"Видео",
+    "photos-label":"Фото",
+    "pages-label":"страницы",
     "username-anonymous":"Анонимный участник",
     "smartbanner-store-ios":"В App Store",
     "smartbanner-store-android":"В Google Play",
@@ -69,6 +73,13 @@
     "edit-publish-error-blocked":"Вы были заблокированы и не можете редактировать страницы Викия.",
     "edit-publish-error-noedit":"Вы не можете редактировать страницы на этой вики.",
     "edit-publish-error-noedit-anon":"Анонимные участники не могут редактировать страницы.",
-    "edit-publish-error-protectedpage":"Вы не можете редактировать эту страницу."
+    "edit-publish-error-protectedpage":"Вы не можете редактировать эту страницу.",
+    "user-menu-profile":"Профиль",
+    "user-menu-log-out":"Выйти",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

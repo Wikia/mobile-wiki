@@ -21,7 +21,9 @@ var localSettings: LocalSettings = {
 		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
 		host: process.env.HELIOS_HOST,
 		secret: process.env.HELIOS_SECRET,
-		id: process.env.HELIOS_ID
+		id: process.env.HELIOS_ID,
+		usernameMaxLength: 50,
+		passwordMaxLength: 50
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
@@ -100,7 +102,9 @@ var localSettings: LocalSettings = {
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
 	// CDN prefix with no tailing slash
-	cdnBaseUrl: '//mercury.nocookie.net'
+	cdnBaseUrl: '//mercury.nocookie.net',
+	// array of wiki dbnames to load first article async instead of in page source
+	asyncArticle: []
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

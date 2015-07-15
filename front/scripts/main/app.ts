@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../typings/ember/ember.d.ts" />
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
+/// <reference path="../../../typings/jquery.cookie/jquery.cookie.d.ts" />
 /// <reference path="../baseline/mercury.ts" />
 /// <reference path="../mercury/modules/Ads.ts" />
 /// <reference path="../mercury/modules/Trackers/UniversalAnalytics.ts" />
@@ -19,6 +20,7 @@ interface Window {
 declare var i18n: I18nextStatic;
 declare var EmPerfSender: any;
 declare var optimizely: any;
+declare var FastClick: any;
 
 var App: any = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -58,8 +60,6 @@ App.initializer({
 			LOG_TRANSITIONS_INTERNAL: debug
 		});
 
-		$('html').removeClass('preload');
-
 		i18n.init({
 			debug: debug,
 			detectLngQS: 'uselang',
@@ -70,6 +70,10 @@ App.initializer({
 			resStore: loadedTranslations,
 			useLocalStorage: false
 		});
+
+		// FastClick disables the 300ms delay on iOS and some Android devices. It also uses clicks so that
+		// elements have access to :hover state
+		FastClick.attach(document.body);
 	}
 });
 
@@ -116,11 +120,20 @@ App.initializer({
 			dimensions: (string|Function)[] = [],
 			adsContext = Mercury.Modules.Ads.getInstance().getContext();
 
-		function getPageType () {
+		function getPageType (): string {
 			var mainPageTitle = Mercury.wiki.mainPageTitle,
-				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle);
+				pathnameChunks = window.location.pathname.split('/');
 
-			return isMainPage >= 0 ? 'home' : 'article';
+			// It won't set correct type for main pages that have / in the title (an edge case)
+			if (
+				pathnameChunks.indexOf(mainPageTitle) !== -1 ||
+				pathnameChunks.indexOf('main') === 1 ||
+				window.location.pathname === '/'
+			) {
+				return 'home';
+			}
+
+			return 'article';
 		}
 
 		/**** High-Priority Custom Dimensions ****/
@@ -148,6 +161,29 @@ App.initializer({
 		dimensions = Mercury.Utils.VariantTesting.integrateOptimizelyWithUA(dimensions);
 
 		UA.setDimensions(dimensions);
+	}
+});
+
+/**
+ * A "Geo" cookie is set by Fastly on every request.
+ * If you run mercury app on your laptop (e.g. development), the cookie won't be automatically present; hence,
+ * we set fake geo cookie values for 'dev'.
+ */
+App.initializer({
+	name: 'geo',
+	after: 'setupTracking',
+	initialize(container: any, application: typeof App): void {
+		var geoCookie = $.cookie('Geo');
+		if (geoCookie) {
+			M.prop('geo', JSON.parse(geoCookie));
+		} else if (M.prop('environment') === 'dev') {
+			M.prop('geo', {
+				country: 'wikia-dev-country',
+				continent: 'wikia-dev-continent'
+			});
+		} else {
+			Ember.debug('Geo cookie is not set');
+		}
 	}
 });
 

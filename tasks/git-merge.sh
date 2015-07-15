@@ -30,6 +30,6 @@ echo "Param -g is not set, which is github pull request number"
 exit 1
 fi
 
-curl -u $USERNAME -X PUT -d '{}' "https://api.github.com/repos/Wikia/mercury/pulls/"$PR
+curl -u $USERNAME -X PUT -d '{}' https://api.github.com/repos/Wikia/mercury/pulls/$PR/merge
 echo -e "\nPull request merged"
 

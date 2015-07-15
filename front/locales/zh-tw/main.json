@@ -50,6 +50,10 @@
     "months-ago-label_plural":"__count__ 個月前",
     "years-ago-label":"一年前",
     "years-ago-label_plural":"__count__ 年前",
+    "trending-label":"熱門瀏覽",
+    "videos-label":"視頻",
+    "photos-label":"圖片",
+    "pages-label":"頁面",
     "username-anonymous":"Wikia用户",
     "smartbanner-store-ios":"在App商店上",
     "smartbanner-store-android":"在Google Play上",
@@ -69,6 +73,13 @@
     "edit-publish-error-blocked":"你無法編輯。",
     "edit-publish-error-noedit":"你沒有編輯此Wikia頁面的權限。",
     "edit-publish-error-noedit-anon":"匿名用戶無法編輯頁面。",
-    "edit-publish-error-protectedpage":"你沒有編輯此 Wikia 頁面的權限。"
+    "edit-publish-error-protectedpage":"你沒有編輯此 Wikia 頁面的權限。",
+    "user-menu-profile":"用戶信息",
+    "user-menu-log-out":"註銷",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

@@ -33,6 +33,8 @@ interface LocalSettings {
 		host: string;
 		id: string;
 		secret: string;
+		usernameMaxLength: number;
+		passwordMaxLength: number;
 	};
 	ironSecret: string;
 	host: any;
@@ -72,4 +74,5 @@ interface LocalSettings {
 	workerCount: number;
 	workerDisconnectTimeout: number;
 	cdnBaseUrl: string;
+	asyncArticle: string[];
 }

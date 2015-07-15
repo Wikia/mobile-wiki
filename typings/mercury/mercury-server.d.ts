@@ -15,3 +15,14 @@ interface ArticleRequestParams {
 	redirect?: any;
 	headers?: any;
 }
+
+interface MainPageRequestParams extends ArticleRequestParams {
+	sectionName?: string;
+	categoryName?: string;
+}
+
+interface ServerData {
+	mediawikiDomain: string;
+	apiBase: string;
+	environment: string;
+}

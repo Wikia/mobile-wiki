@@ -125,17 +125,17 @@ export class ArticleRequest extends BaseRequest {
 		return this.fetch(url);
 	}
 
-	category (categoryName: string, thumbSize: { width: number; height: number }): Promise<any> {
+	category (categoryName: string, thumbSize: { width: number; height: number }, offset = ''): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'ArticlesApi',
 			method: 'getList',
 			expand: 'true',
-			// Articles and subcategories
-			namespaces: '0,14',
 			abstract: 0,
 			width: thumbSize.width,
 			height: thumbSize.height,
-			category: categoryName
+			category: categoryName,
+			offset: offset,
+			limit: 24
 		});
 
 		return this.fetch(url);

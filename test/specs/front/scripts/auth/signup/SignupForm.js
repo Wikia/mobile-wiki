@@ -4,12 +4,17 @@ QUnit.module('auth/signup/SignupForm)', {
 		form.action = '/example/asd';
 		form.appendChild(document.createElement('button'));
 
-		this.generalErrorSpy = sinon.spy(),
+		this.generalErrorSpy = sinon.spy();
 		this.fieldErrorSpy = sinon.spy();
+		this.marketingStub = sinon.stub(window, 'MarketingOptIn').returns({
+			init: Function.prototype
+		});
 
 		this.signupForm = new SignupForm(form);
 		this.signupForm.displayGeneralError = this.generalErrorSpy;
 		this.signupForm.displayFieldValidationError = this.fieldErrorSpy;
+		this.signupForm.trackValidationErrors = function () {};
+		this.signupForm.trackSuccessfulRegistration = function () {};
 		this.signupForm.getFormValues = function () {
 			return {};
 		};
@@ -18,6 +23,7 @@ QUnit.module('auth/signup/SignupForm)', {
 	},
 	teardown: function () {
 		this.server.restore();
+		this.marketingStub.restore();
 		delete this.server;
 	}
 });
@@ -69,7 +75,7 @@ QUnit.test('SignupForm field error', function () {
 QUnit.test('SignupForm field and general error', function () {
 	this.server.respondWith(
 		'/example/asd',
-		[400, {'Content-Type': 'application/json'}, '{"errors": [{"description": "email_already_exists", "additional": {"field": "email"}}, {"description": "username_unavailable", "additional": {"field": "username"}}]}']
+		[400, {'Content-Type': 'application/json'}, '{"errors": [{"description": "email_already_exists", "additional": {"field": "email"}}, {"description": "username_blocked", "additional": {"field": "username"}}]}']
 	);
 
 	this.signupForm.onSubmit(document.createEvent('Event'));

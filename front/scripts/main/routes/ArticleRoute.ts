@@ -10,16 +10,18 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
-	beforeModel: function (transition: EmberStates.Transition) {
-		var title = transition.params.article.title ?
-			transition.params.article.title.replace('wiki/', ''):
-			Mercury.wiki.mainPageTitle;
+	beforeModel: function (transition: EmberStates.Transition):void {
+		var title = transition.params.article.title.replace('wiki/', '');
 
 		if (Mercury.error) {
 			transition.abort();
 		}
 
 		this.controllerFor('application').send('closeLightbox');
+
+		if (title === Mercury.wiki.mainPageTitle) {
+			this.transitionTo('mainPage');
+		}
 
 		// If you try to access article with not-yet-sanitized title you can see in logs:
 		// `Transition #1: detected abort.`
@@ -33,7 +35,7 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
-	model: function (params: any) {
+	model: function (params: any): Em.RSVP.Promise {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
@@ -41,7 +43,13 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
-	afterModel: function (model: any) {
+	afterModel: function (model: typeof App.ArticleModel): void {
+		// if an article is main page, redirect to mainPage route
+		// this will handle accessing /wiki/Main_Page if default main page is different article
+		if (model.isMainPage) {
+			this.transitionTo('mainPage');
+		}
+
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 		App.VisibilityStateManager.reset();
 
@@ -50,25 +58,26 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition) {
-			if (transition) {
-				transition.abort();
-			}
-			Em.Logger.warn('ArticleRoute error', error.stack || error);
-			return true;
-		},
-
-		willTransition: function (transition: EmberStates.Transition) {
+		willTransition: function (transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
 		},
-		// TODO: This currently will scroll to the top even when the app has encountered
-		// an error. Optimally, it would remain in the same place.
-		didTransition: function () {
-			window.scrollTo(0, 0);
-			// bubble up to application didTransition hook
+		error: function (error: any, transition: EmberStates.Transition): boolean {
+			if (transition) {
+				transition.abort();
+			}
+			Em.Logger.warn('Route error', error.stack || error);
 			return true;
-		}
+		},
+
+		didTransition: function (): boolean {
+			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
+			// Optimally, it would remain in the same place.
+			window.scrollTo(0, 0);
+
+			// bubble up to ApplicationRoute#didTransition
+			return true;
+		},
 	}
 });

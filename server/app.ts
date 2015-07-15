@@ -68,7 +68,8 @@ plugins = [
 				useCookie: false,
 				detectLngFromHeaders: false,
 				detectLngFromQueryString: true,
-				detectLngQS: 'uselang'
+				detectLngQS: 'uselang',
+				lowerCaseLng: true
 			}
 		}
 	}
@@ -109,12 +110,6 @@ server.views({
 server.state('access_token', {
 	isHttpOnly: true,
 	clearInvalid: true,
-	domain: localSettings.authCookieDomain
-});
-
-// Contains user ID, same name as cookie from MediaWiki app
-server.state('wikicitiesUserID', {
-	isHttpOnly: true,
 	domain: localSettings.authCookieDomain
 });
 

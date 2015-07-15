@@ -1,6 +1,7 @@
 import dateSettings = require('../../config/dateSettings');
 
-var defaultDateConfig = <DateConfig> dateSettings['en'];
+var defaultLang = 'en',
+	defaultDateConfig = <DateConfig> dateSettings[defaultLang];
 
 function getDateConfigFromLang(lang: string): DateConfig {
 	return dateSettings[lang] || defaultDateConfig;

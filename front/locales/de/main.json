@@ -50,6 +50,10 @@
     "months-ago-label_plural":"vor __count__ Monaten",
     "years-ago-label":"vor einem Jahr",
     "years-ago-label_plural":"vor __count__ Jahren",
+    "trending-label":"Trends",
+    "videos-label":"Videos",
+    "photos-label":"Fotos",
+    "pages-label":"Seiten",
     "username-anonymous":"Ein Wikia-Nutzer",
     "smartbanner-store-ios":"Im App-Store",
     "smartbanner-store-android":"In Google Play",
@@ -69,6 +73,13 @@
     "edit-publish-error-blocked":"Du wurdest gesperrt und kannst keine Bearbeitungen vornehmen.",
     "edit-publish-error-noedit":"Du hast keine Berechtigung, Seiten in diesem Wikia zu bearbeiten.",
     "edit-publish-error-noedit-anon":"Anonyme Benutzer können keine Seiten bearbeiten.",
-    "edit-publish-error-protectedpage":"Du hast keine Berechtigung, diese Seite zu bearbeiten."
+    "edit-publish-error-protectedpage":"Du hast keine Berechtigung, diese Seite zu bearbeiten.",
+    "user-menu-profile":"Profil",
+    "user-menu-log-out":"Abmelden",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

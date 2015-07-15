@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="{{wiki.language.user}}" dir="{{wiki.language.userDir}}">
+<html lang="{{wiki.language.user}}" dir="{{wiki.language.userDir}}">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,10 @@
 		<meta name="description" content="{{#if article.details.description}}{{article.details.description}}{{else}}{{article.article.description}}{{/if}}">
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 		{{#if themeColor}}
-		<meta name="theme-color" content="{{themeColor}}">
+			<meta name="theme-color" content="{{themeColor}}">
+		{{/if}}
+		{{#if asyncArticle}}
+			<meta name="fragment" content="!">
 		{{/if}}
 
 		{{#if isRtl}}
@@ -43,10 +46,17 @@
 			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			M.prop('userId', {{{userId}}});
+			M.prop('asyncArticle', {{asyncArticle}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
 			M.provide('article', {{{json article}}});
+			{{#if curatedContent}}
+				M.prop('curatedContent', {{{json curatedContent}}}, true);
+			{{/if}}
+			{{#if mainPageData}}
+				M.prop('mainPageData', {{{json mainPageData}}});
+			{{/if}}
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
 			{{/if}}
@@ -63,14 +73,11 @@
 		{{> qualaroo}}
 		<!-- @include ../../../www/front/svg/main.svg -->
 
-		<!-- A/B test (HG-727) -->
-		<div class="loading-overlay ab-test-loading-overlay">
-			<img src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D">
-		</div>
-
-		<div id="article-preload">
-			{{{content}}}
-		</div>
+		{{#unless asyncArticle}}
+			<div id="article-preload">
+				{{{content}}}
+			</div>
+		{{/unless}}
 
         <!--
         Ember must render out to a specific div above the scripts, otherwise
@@ -79,35 +86,29 @@
         -->
         <div id="ember-container"></div>
 
-		<!-- build:js /front/vendor/main.js defer -->
-			<script src="/front/vendor/script.js/dist/script.js"></script>
-			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
-			<script src="/front/vendor/jquery/dist/jquery.js"></script>
-			<script src="/front/vendor/hammerjs/hammer.js"></script>
-			<script src="/front/vendor/headroom.js/dist/headroom.js"></script>
-			<script src="/front/vendor/jquery.cookie/jquery.cookie.js"></script>
-			<!-- @if WIKIA_ENVIRONMENT='dev' -->
-			<script src="/front/vendor/ember/ember.debug.js"></script>
-			<!-- @endif -->
-			<!-- @if WIKIA_ENVIRONMENT!='dev' -->
-			<script src="/front/vendor/ember/ember.prod.js"></script>
-			<!-- @endif -->
-			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
-			<script src="/front/vendor/i18next/i18next.js"></script>
-			<script src="/front/vendor/vignette/dist/vignette.js"></script>
-			<script src="/front/vendor/numeral/numeral.js"></script>
-			<script src="/front/vendor/weppy/dist/weppy.js"></script>
-			<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
-		<!-- endbuild -->
+		<script>
+			(function () {
+				function loadError (oError) {
+					throw new URIError("The script " + oError.target.src + " is not accessible.");
+				}
 
-		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" defer></script>
+				function importScript (src, fOnload) {
+					var script = document.createElement("script");
+					script.type = "text\/javascript";
+					script.onerror = loadError;
+					if (fOnload) { script.onload = fOnload; }
+					document.body.appendChild(script);
+					script.src = src;
+				}
 
-		<!-- build:js /front/scripts/combined.js defer -->
-			<script src="/front/templates/main.js"></script>
-			<script src="/front/scripts/mercury.js"></script>
-			<script src="/front/scripts/main.js"></script>
-		<!-- endbuild -->
-
+				document.addEventListener("DOMContentLoaded", function(event) {
+					importScript('/front/vendor/main.js', function () {
+						importScript('/front/scripts/combined.js');
+					}); 
+				});
+			}());
+		</script>
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}
 	</body>
 </html>

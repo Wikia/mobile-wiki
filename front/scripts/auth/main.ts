@@ -22,12 +22,16 @@ i18n.init(<I18nextOptions> {
 window.document.addEventListener('DOMContentLoaded', function ():void {
 	var formElement: HTMLFormElement = <HTMLFormElement> window.document.querySelector('form'),
 		birthdateContainer: HTMLElement;
-
 	if (formElement) {
 		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();
 		new SubmitValidator(formElement).watch();
-		new SignupForm(formElement).watch();
+
+		if (formElement.id === 'loginForm') {
+			new Login(formElement).watch();
+		} else if (formElement.id === 'signupForm') {
+			new SignupForm(formElement).watch();
+		}
 	}
 
 	if (birthdateContainer) {

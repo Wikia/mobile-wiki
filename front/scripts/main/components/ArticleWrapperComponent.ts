@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
 /// <reference path="./MediaComponent.ts" />
+/// <reference path="./PortableInfoboxComponent.ts" />
 /// <reference path="./WikiaMapComponent.ts" />
 /// <reference path="../mixins/AdsMixin.ts" />
 /// <reference path="../mixins/LanguagesMixin.ts" />
@@ -20,6 +21,7 @@ interface HTMLElement {
 
 App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
+	noAds: Em.computed.alias('controller.noAds'),
 
 	hammerOptions: {
 		touchAction: 'auto',
@@ -64,7 +66,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		}
 	},
 
-	editButtonsVisible: Em.computed('model.isMainPage', function (): boolean {
+	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
 		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
@@ -133,29 +135,18 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		}
 
 		var model = this.get('model'),
-			article = model.get('article'),
-			isCuratedMainPage = model.get('isCuratedMainPage');
+			article = model.get('article');
 
-		if (isCuratedMainPage) {
-			this.injectMainPageAds();
-			this.setupAdsContext(model.get('adsContext'));
-			M.setTrackContext({
-				a: model.title,
-				n: model.ns
-			});
-
-			M.trackPageView(model.get('adsContext.targeting'));
-
-		} else if (article && article.length > 0) {
-			if (this.get('editButtonsVisible')) {
-				this.setupEditButtons();
+		if (article && article.length > 0) {
+			if (this.get('contributionFeatureEnabled')) {
+				this.setupContributionButtons();
 			}
+
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
-			this.handlePortableInfoboxes();
-			// ====================================  <-- racing stripes to increase performance
-			this.handleMediaPlaceholderVariations();
-			// ====================================
+			this.replaceInfoboxesWithInfoboxComponents();
+			this.replaceMediaPlaceholdersWithMediaComponents(model.get('media'), 4);
+			Ember.run.later(this, () => { this.replaceMediaPlaceholdersWithMediaComponents(model.get('media')) }, 0);
 			this.handleTables();
 			this.replaceMapsWithMapComponents();
 			this.handlePollDaddy();
@@ -188,30 +179,73 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		return component.$().attr('data-ref', ref);
 	},
 
-	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, endIndex: number): void {
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
 		var $mediaPlaceholders = this.$('.article-media'),
 			index: number;
 
-		if (endIndex === -1 || endIndex > $mediaPlaceholders.length) {
-			endIndex = $mediaPlaceholders.length;
+		if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
+			numberToProcess = $mediaPlaceholders.length;
 		}
 
-		// This will not iterate over components that were already replaced, since they will no longer have the 'article-media' class
-		for (index = 0; index < endIndex; index++) {
-			$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
+		for (index = 0; index < numberToProcess; index++) {
+		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
 		}
 	},
 
-	setupEditButtons: function (): void {
+	setupContributionButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
-		var pencil = '<svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg>';
-		this.$(':header[section]').each((i: Number, item: any): void => {
-			var $sectionHeader = this.$(item),
-				$pencil = this.$(pencil).appendTo($sectionHeader);
-			$pencil.on('click', (): void => {
-				this.sendAction('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
+		var pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
+		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*" capture="camera"/></div>',
+		    iconsWrapper = '<div class="icon-wrapper">' + pencil + photo + '</div>',
+		    $photoZero = this.$('.upload-photo');
+
+		$photoZero
+			.on('change', () => {
+				this.onPhotoIconChange($photoZero, 0);
+			})
+			.on('click', () => {
+				M.track({
+					action: M.trackActions.click,
+					category: 'sectioneditor',
+					label: 'addPhoto',
+					value: 0
+				});
 			});
+
+		this.$(':header[section]').each((i: Number, item: any): void => {
+			var $sectionHeader = this.$(item);
+			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
 		});
+		this.setupButtonsListeners();
+	},
+
+	setupButtonsListeners: function () : void {
+		this.$('.article-content')
+			.on('click', '.pencil', (event: JQueryEventObject): void => {
+				var $sectionHeader = $(event.target).closest(':header[section]');
+				this.get('controller').send('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
+			})
+			.on('click', '.upload-photo', (event: JQueryEventObject): void => {
+				var $sectionHeader = $(event.target).closest(':header[section]'),
+				    sectionIndex: number = parseInt($sectionHeader.attr('section'), 10);
+
+				M.track({
+					action: M.trackActions.click,
+					category: 'sectioneditor',
+					label: 'addPhoto',
+					value: sectionIndex
+				});
+			})
+			.on('change', '.upload-photo', (event: JQueryEventObject): void => {
+				var $uploadPhotoContainer = $(event.target).parent(),
+				    sectionIndex: number = parseInt($(event.target).closest(':header[section]').attr('section'), 10);
+				this.onPhotoIconChange($uploadPhotoContainer, sectionIndex);
+			});
+	},
+
+	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
+		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
+		this.get('controller').send('addPhoto', this.get('controller.model.cleanTitle'), sectionNumber, photoData);
 	},
 
 	/**
@@ -257,6 +291,27 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		mapComponent.trigger('didInsertElement');
 	},
 
+	replaceInfoboxesWithInfoboxComponents: function (): void {
+		this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
+			this.replaceInfoboxWithInfoboxComponent(elem);
+		});
+	},
+
+	replaceInfoboxWithInfoboxComponent: function (elem: HTMLElement): void {
+		var $infoboxPlaceholder = $(elem),
+			infoboxComponent: typeof App.PortableInfoboxComponent;
+
+		infoboxComponent = this.createChildView(App.PortableInfoboxComponent.create({
+			infoboxHTML: elem.innerHTML,
+			height: $infoboxPlaceholder.outerHeight()
+		}));
+
+		infoboxComponent.createElement();
+		$infoboxPlaceholder.replaceWith(infoboxComponent.$());
+		//TODO: do it in the nice way
+		infoboxComponent.trigger('didInsertElement');
+	},
+
 	/**
 	 * @desc handles expanding long tables, code taken from WikiaMobile
 	 */
@@ -284,44 +339,8 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		}
 	},
 
-	/**
-	 * @desc handles expanding portable infoboxes
-	 * The minimumHeight took from 9/16 proportions of screen (width * 16 / 9 + 100px). We want to always
-	 * show the image AND some other infobox informations to show that this is infobox, not only an ordinary image.
-	 * @todo we should figure out if we can somehow merge this method and handleInfoboxes method
-	 */
-	handlePortableInfoboxes: function (): void {
-		var collapsedClass = 'collapsed',
-			expandButtonClass = 'portable-infobox-expand-button',
-			deviceWidth = this.get('viewportDimensions.width'),
-			minimumHeight = Math.floor(deviceWidth * 16 / 9) + 100,
-			$infoboxes = this.$('.portable-infobox'),
-			body = window.document.body,
-			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView,
-			expandButton = `<div class="${expandButtonClass}"><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></div>`;
-
-		if ($infoboxes.length) {
-			$infoboxes
-				.filter((index: number, element: JQuery) => $(element).outerHeight() > minimumHeight)
-				.addClass(collapsedClass)
-				.height(minimumHeight)
-				.append(expandButton)
-				.on('click', function (event: JQueryEventObject) {
-					var $target = $(event.target),
-						$this = $(this);
-
-					if (!$target.is('a') && $this.toggleClass(collapsedClass).hasClass(collapsedClass)) {
-						$this.height(minimumHeight);
-						scrollTo.apply($this.find('.' + expandButtonClass)[0]);
-					} else {
-						$this.height('auto');
-					}
-				});
-		}
-	},
-
 	handleTables: function (): void {
-		var $tables = this.$('table:not([class*=infobox], .dirbox)').not('table table'),
+		var $tables = $('table:not([class*=infobox], .dirbox)').not('table table'),
 			wrapper: HTMLDivElement;
 
 		if ($tables.length) {
@@ -383,7 +402,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 	 */
 	handleMediaPlaceholderVariations: function (): void {
 		var optimizelyVariation = M.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}),
-			media = this.get('model.media');
+			media = this.get('controller.model').get('media');
 
 		if (optimizelyVariation === 1) {
 			// Process the images async
