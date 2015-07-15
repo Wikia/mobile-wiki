@@ -13,7 +13,7 @@ App.Router.map(function () {
 
 	this.route('mainPage', {
 		path: '/'
-	}, function() {
+	}, function () {
 		this.route('section', {
 			path: '/main/section/:sectionName'
 		});
@@ -25,6 +25,15 @@ App.Router.map(function () {
 		this.route('edit', {
 			path: '/main/edit'
 		});
+
+		this.route('editSection', {
+			path: '/main/edit/section/:sectionLabel'
+		});
+
+		// TODO CONCF-806
+		//this.route('editItem', {
+		//	path: '/main/edit/item/:itemLabel'
+		//});
 	});
 
 	this.route('article', {

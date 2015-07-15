@@ -10,6 +10,7 @@ interface CuratedContentEditItemInterface {
 	featured?: string;
 	type?: string;
 	video_info?: any;
+	items?: CuratedContentEditItemInterface[]
 }
 
 App.CuratedContentEditItemComponent = Em.Component.extend({
@@ -42,5 +43,15 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 		}
 
 		return thumbUrl;
-	})
+	}),
+
+	click: function (): void {
+		var model: CuratedContentEditItemInterface = this.get('model');
+
+		if (model.items) {
+			this.sendAction('openSection', model);
+		} else {
+			this.sendAction('editItem', model);
+		}
+	}
 });

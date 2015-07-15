@@ -4,7 +4,11 @@
 {{/if}}
 <div class="curated-content-edit-items">
 	{{#each model.items as |item|}}
-		{{curated-content-edit-item model=item}}
+		{{curated-content-edit-item
+			model=item
+			editItem='editItem'
+			openSection='openSection'
+		}}
 	{{/each}}
 	<div class="curated-content-edit-item">
 		<button>+ add new section</button>

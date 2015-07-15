@@ -13,6 +13,15 @@ App.MainPageEditRoute = Em.Route.extend({
 	},
 
 	actions: {
+		editItem: function (item: CuratedContentEditItemInterface): void {
+			// TODO CONCF-806
+			//this.transitionTo('mainPage.editItem', item);
+		},
+
+		openSection: function (item: CuratedContentEditItemInterface): void {
+			this.transitionTo('mainPage.editSection', item);
+		},
+
 		error: function (error: any): boolean {
 			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
 			this.transitionTo('mainPage');

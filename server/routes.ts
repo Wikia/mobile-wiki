@@ -83,7 +83,8 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: '/main/edit',
+		// We don't care if there is dynamic segment (handled by Ember) but we need to have it here anyway
+		path: '/main/edit/{ignore?}',
 		handler: require('./facets/showArticle')
 	},
 
