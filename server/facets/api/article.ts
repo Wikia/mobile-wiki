@@ -34,8 +34,7 @@ export function get (request: Hapi.Request,  reply: any): void {
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			title: request.params.articleTitle,
-			redirect: request.params.redirect,
-			sections: 'all'
+			redirect: request.params.redirect
 		},
 		article: Article.ArticleRequestHelper,
 		allowCache = true;

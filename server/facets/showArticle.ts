@@ -21,12 +21,17 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
-			redirect: request.query.redirect,
-			// Only request an adequate # of sessions to populate above the fold
-			sections: '0,1,2'
+			redirect: request.query.redirect
 		},
 		article: Article.ArticleRequestHelper,
 		allowCache = true;
+
+	//TODO: This is really only a temporary check while we see if loading a smaller
+	//article has any noticable effect on engagement
+	if (Utils.shouldAsyncArticle(localSettings, request.headers.host)) {
+		// Only request an adequate # of sessions to populate above the fold
+		params.sections = '0,1,2';
+	}
 
 	if (request.state.wikicities_session) {
 		params.headers = {

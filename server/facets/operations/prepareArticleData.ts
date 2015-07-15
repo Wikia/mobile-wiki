@@ -3,6 +3,8 @@
 import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
 
+var shouldAsyncArticle = Utils.shouldAsyncArticle;
+
 /**
  * Prepares article data to be rendered
  * TODO: clean up this function
@@ -49,19 +51,11 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	}
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
-	result.asyncArticle = shouldAsyncArticle(result);
-}
 
-/**
- * (HG-753) This allows for loading article content asynchronously while providing a version of the page with
- * article content that search engines can still crawl.
- * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
- */
-function shouldAsyncArticle(result: any): boolean {
-	var asyncEnabled = localSettings.asyncArticle.indexOf(result.wiki.dbName) > -1,
-		noEscapedFragment = result.queryParams._escaped_fragment_ !== 0;
+	if (request.query._escaped_fragment_ !== 0) {
+		result.asyncArticle = shouldAsyncArticle(localSettings, request.headers.host);
+	};
 
-	return asyncEnabled && noEscapedFragment;
 }
 
 export = prepareArticleData;
