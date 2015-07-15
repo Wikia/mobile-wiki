@@ -29,7 +29,7 @@ App.CuratedContentModel.reopenClass({
 				});
 
 			// If this is first PV we have model for curated content already so we don't need to issue another request
-			// When resolving promise we need to set Mercury.curatedContent to undefined
+			// When resolving promise we need to set Mercury.curatedContent to null
 			// because this data gets outdated on following PVs
 			if (curatedContentGlobal && curatedContentGlobal.items) {
 				modelInstance.setProperties({
