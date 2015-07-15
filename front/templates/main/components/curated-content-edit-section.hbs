@@ -3,6 +3,8 @@
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	{{/link-to}}
 	<h5>{{model.title}}</h5>
+</div>
+<div>
 	<div>
 		<div><img src="{{model.image_url}}"/></div>
 		<div>{{model.title}} {{model.items.length}} items</div>
@@ -10,4 +12,5 @@
 	{{#each model.items as |item|}}
 		{{curated-content-edit-item model=item}}
 	{{/each}}
+	<button>+ add new category</button>
 </div>

@@ -27,9 +27,11 @@ App.CuratedContentEditRoute = Em.Route.extend({
 		 * @returns {boolean}
 		 */
 		willTransition: function(transition: EmberStates.Transition): boolean {
-			transition.then(() => {
-				this.controllerFor('application').set('fullPage', false);
-			});
+			if (transition.targetName.indexOf('curatedContentEdit') < 0) {
+				transition.then(() => {
+					this.controllerFor('application').set('fullPage', false);
+				});
+			}
 			return true;
 		},
 
