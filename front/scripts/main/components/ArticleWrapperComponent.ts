@@ -5,6 +5,7 @@
 /// <reference path="./WikiaMapComponent.ts" />
 /// <reference path="../mixins/AdsMixin.ts" />
 /// <reference path="../mixins/LanguagesMixin.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
 
 'use strict';
@@ -19,9 +20,8 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
+App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMixin, App.TrackClickMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
-	noAds: Em.computed.alias('controller.noAds'),
 
 	hammerOptions: {
 		touchAction: 'auto',
@@ -66,7 +66,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		}
 	},
 
-	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
+	contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
 		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
@@ -245,7 +245,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 
 	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
 		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
-		this.get('controller').send('addPhoto', this.get('controller.model.cleanTitle'), sectionNumber, photoData);
+		this.controllerFor('article').send('addPhoto', this.get('model.cleanTitle'), sectionNumber, photoData);
 	},
 
 	/**
@@ -390,39 +390,6 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 			}
 			init();
 		});
-	},
-
-	/**
-	 * Handles the Optimizely variations for testing processing images async
-	 * Variations:
-	 *	0 (default)	=> process all synchronously
-	 *	1			=> process all async
-	 *	2			=> first 10 sync, rest async
-	 *	3			=> first 50 sync, rest async
-	 */
-	handleMediaPlaceholderVariations: function (): void {
-		var optimizelyVariation = M.VariantTesting.getExperimentVariationNumber({prod: '0', dev: '3066501061'}),
-			media = this.get('controller.model').get('media');
-
-		if (optimizelyVariation === 1) {
-			// Process the images async
-			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-			}, 0);
-		} else if (optimizelyVariation === 2) {
-			this.replaceMediaPlaceholdersWithMediaComponents(media, 10);
-			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-			}, 0);
-		} else if (optimizelyVariation === 3) {
-			this.replaceMediaPlaceholdersWithMediaComponents(media, 50);
-			Ember.run.later(this, function() {
-		 		this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-			}, 0);
-		} else {
-			// Process the images synchronously
-			this.replaceMediaPlaceholdersWithMediaComponents(media, -1);
-		}
 	},
 
 	/**
