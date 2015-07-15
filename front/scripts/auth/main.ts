@@ -31,15 +31,13 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 			new Login(formElement).watch();
 		} else if (formElement.id === 'signupForm') {
 			new SignupForm(formElement).watch();
+		} else if (formElement.id === 'facebookRegistrationForm') {
+			new FacebookRegistration(<HTMLFormElement> document.querySelector('form'));
 		}
 	}
 
 	if (document.body.className.indexOf('join-page') !== -1) {
 		new FacebookLogin(<HTMLAnchorElement> document.querySelector('.signup-provider-facebook'));
-	}
-
-	if (document.body.className.indexOf('register-fb-page') !== -1) {
-		new FacebookRegistration(<HTMLFormElement> document.querySelector('form'));
 	}
 
 	if (birthdateContainer) {

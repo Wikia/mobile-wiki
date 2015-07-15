@@ -35,10 +35,14 @@ class FacebookRegistration {
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
+
+		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 
 	public init (): void {
 		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
+			var status = facebookResponse.status;
+
 			if (status === 'connected') {
 				this.getEmailFromFacebook();
 			}
@@ -51,10 +55,13 @@ class FacebookRegistration {
 
 	private setUpEmailInput (facebookUserData: FacebookUserData): void {
 		var email = facebookUserData.email,
-			emailInput = <HTMLInputElement> this.form.namedItem('email');
+			emailInput = <HTMLInputElement> this.form.elements.namedItem('email'),
+			emailInputLabel: HTMLLabelElement;
 
 		if (email && emailInput) {
 			emailInput.disabled = true;
+			emailInputLabel = <HTMLLabelElement> emailInput.nextElementSibling;
+			emailInputLabel.classList.add('active');
 			emailInput.value = email;
 		}
 	}
