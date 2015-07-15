@@ -50,7 +50,8 @@ App.MediaModel = Em.Object.extend({
 					return (<ArticleMedia[]>mediaItem).some(findInGallery, {
 						mediaIndex: mediaIndex
 					});
-				} else if (M.String.normalizeToUnderscore((<ArticleMedia>mediaItem).title) === M.String.normalizeToUnderscore(title)) {
+				} else if (M.String.normalizeToUnderscore((<ArticleMedia>mediaItem).title) ===
+					M.String.normalizeToUnderscore(title)) {
 					mediaRef = mediaIndex;
 					return true;
 				}
