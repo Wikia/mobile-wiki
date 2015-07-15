@@ -10,7 +10,7 @@ $image-margin: 1rem;
 }
 
 .curated-content-edit-block {
-	background: $color-gray-light;
+	background: $snow;
 
 	header {
 		color: $color-blue-brand;
@@ -33,7 +33,7 @@ $image-margin: 1rem;
 	align-items: center;
 	background: $color-white;
 	border: {
-		color: $color-gray-semi;
+		color: $color-gray-light;
 		style: solid;
 		width: 0;
 	}
