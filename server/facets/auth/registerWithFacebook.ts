@@ -18,6 +18,7 @@ interface RegisterFBViewContext extends authView.AuthViewContext {
 	usernameMaxLength: number;
 	passwordMaxLength: number;
 	langCode: string;
+	defaultBirthdate: string;
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
@@ -44,7 +45,8 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,
-			facebookAppId: localSettings.facebook.appId
+			facebookAppId: localSettings.facebook.appId,
+			defaultBirthdate: "1970-01-01"
 		}
 	);
 

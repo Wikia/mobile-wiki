@@ -79,6 +79,34 @@ class FacebookRegistration {
 		};
 	}
 
+	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string) {
+			var facebookTokenXhr = new XMLHttpRequest(),
+			data = <HeliosFacebookToken> {
+				fb_access_token: facebookToken
+			};
+
+		facebookTokenXhr.onload = (e: Event) => {
+			var status: number = (<XMLHttpRequest> e.target).status;
+
+			if (status === HttpCodes.OK) {
+				window.location.href = this.redirect;
+			} else if (status === HttpCodes.BAD_REQUEST) {
+				//ToDo show the "unable to login" error
+			} else {
+				//ToDo show the "unable to login" error
+			}
+		};
+
+		facebookTokenXhr.onerror = (e: Event) => {
+			//ToDo show the "unable to login" error
+		};
+
+		facebookTokenXhr.open('POST', heliosTokenUrl, true);
+		facebookTokenXhr.withCredentials = true;
+		facebookTokenXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		facebookTokenXhr.send(this.urlHelper.urlEncode(data));
+	}
+
 	public onSubmit (event: Event): void {
 		event.preventDefault();
 
@@ -90,7 +118,7 @@ class FacebookRegistration {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				window.location.href = this.redirect;
+				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				//ToDo: show validation errors
 			} else {

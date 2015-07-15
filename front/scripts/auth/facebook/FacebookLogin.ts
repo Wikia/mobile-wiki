@@ -60,6 +60,19 @@ class FacebookLogin {
 		this.activateButton();
 	}
 
+	private getFacebookRegistrationUrl(): string {
+		var href = window.location.origin + window.location.pathname,
+			search = window.location.search;
+		href = href.replace('/join', '/register');
+		if (search.indexOf('?') !== -1) {
+			search += '&method=facebook';
+		} else {
+			search += '?method=facebook';
+		}
+
+		return href + search;
+	}
+
 	private getHeliosInfoFromFBToken(facebookAuthData: FacebookAuthData): void {
 		var facebookTokenXhr = new XMLHttpRequest(),
 			data = <HeliosFacebookToken> {
@@ -73,7 +86,7 @@ class FacebookLogin {
 			if (status === HttpCodes.OK) {
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				//ToDo: assume there's no user associated with the account and go to facebook registration
+				window.location.href = this.getFacebookRegistrationUrl();
 			} else {
 				//ToDo: something wrong with Helios backend
 				this.activateButton();
