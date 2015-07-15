@@ -12,6 +12,8 @@ interface HeliosRegisterInput {
 	password: string;
 	email: string;
 	birthdate: string;
+	langCode: string;
+	marketingallowed?: string;
 }
 
 class SignupForm {
@@ -97,17 +99,27 @@ class SignupForm {
 			username: (<HTMLInputElement> formElements.namedItem('username')).value,
 			password: (<HTMLInputElement> formElements.namedItem('password')).value,
 			email: (<HTMLInputElement> formElements.namedItem('email')).value,
-			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value
-			// TODO add langCode
+			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value,
+			langCode: (<HTMLInputElement> formElements.namedItem('langCode')).value,
+			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
 		};
 	}
 
 	private trackValidationErrors(errors: Array<string>): void {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: M.trackActions.error,
-			category: 'user-signup-mobile',
-			label: 'signupValidationErrors: ' + errors.join(';'),
+			category: 'user-login-mobile',
+			label: 'registrationValidationErrors: ' + errors.join(';'),
+		});
+	}
+
+	private trackSuccessfulRegistration() {
+		M.track({
+			trackingMethod: 'both',
+			action: M.trackActions.success,
+			category: 'user-login-mobile',
+			label: 'successful-registration'
 		});
 	}
 
@@ -133,6 +145,7 @@ class SignupForm {
 				loginXhr.onload = (e: Event) => {
 					enableSubmitButton();
 					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
+						this.trackSuccessfulRegistration();
 						window.location.href = this.redirect;
 					} else {
 						this.displayGeneralError();

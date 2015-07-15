@@ -60,8 +60,6 @@ App.initializer({
 			LOG_TRANSITIONS_INTERNAL: debug
 		});
 
-		$('html').removeClass('preload');
-
 		i18n.init({
 			debug: debug,
 			detectLngQS: 'uselang',
@@ -122,11 +120,20 @@ App.initializer({
 			dimensions: (string|Function)[] = [],
 			adsContext = Mercury.Modules.Ads.getInstance().getContext();
 
-		function getPageType () {
+		function getPageType (): string {
 			var mainPageTitle = Mercury.wiki.mainPageTitle,
-				isMainPage = window.location.pathname.split('/').indexOf(mainPageTitle);
+				pathnameChunks = window.location.pathname.split('/');
 
-			return isMainPage >= 0 ? 'home' : 'article';
+			// It won't set correct type for main pages that have / in the title (an edge case)
+			if (
+				pathnameChunks.indexOf(mainPageTitle) !== -1 ||
+				pathnameChunks.indexOf('main') === 1 ||
+				window.location.pathname === '/'
+			) {
+				return 'home';
+			}
+
+			return 'article';
 		}
 
 		/**** High-Priority Custom Dimensions ****/
@@ -159,7 +166,8 @@ App.initializer({
 
 /**
  * A "Geo" cookie is set by Fastly on every request.
- * If you run mercury app on your laptop, the cookie won't be automatically present.
+ * If you run mercury app on your laptop (e.g. development), the cookie won't be automatically present; hence,
+ * we set fake geo cookie values for 'dev'.
  */
 App.initializer({
 	name: 'geo',
@@ -168,6 +176,11 @@ App.initializer({
 		var geoCookie = $.cookie('Geo');
 		if (geoCookie) {
 			M.prop('geo', JSON.parse(geoCookie));
+		} else if (M.prop('environment') === 'dev') {
+			M.prop('geo', {
+				country: 'wikia-dev-country',
+				continent: 'wikia-dev-continent'
+			});
 		} else {
 			Ember.debug('Geo cookie is not set');
 		}

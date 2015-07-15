@@ -13,6 +13,14 @@ App.Router.map(function () {
 
 	this.route('mainPage', {
 		path: '/'
+	}, function() {
+		this.route('section', {
+			path: '/main/section/:sectionName'
+		});
+
+		this.route('category', {
+			path: '/main/category/:categoryName'
+		});
 	});
 
 	this.route('article', {
@@ -21,6 +29,10 @@ App.Router.map(function () {
 
 	this.route('edit', { // Symbolic link to EditController
 		path: articlePath + 'edit/:title/:sectionIndex'
+	});
+
+	this.route('addPhoto', { // Symbolic link to AddPhotoController
+		path: articlePath + 'addPhoto/:title'
 	});
 
 	// We don't want to duplicate the previous route

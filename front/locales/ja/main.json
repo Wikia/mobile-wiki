@@ -64,6 +64,13 @@
     "wikia-map-view-map":"表示",
     "search-label":"検索",
     "cancel-label":"キャンセル",
+    "add-photo-page-heading": "画像の追加：",
+    "add-photo-page-add-button": "追加",
+    "add-photo-photo-name": "画像の名前",
+    "add-photo-instruction": "画像はセクションの一番下に挿入されます。",
+    "add-photo-success": "このページに画像が追加されました。",
+    "add-photo-error": "エラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
+    "add-photo-section-title-error": "無効な名前です。",
     "edit-page-heading":"編集中：",
     "edit-page-publish":"公開",
     "edit-success":"__pageTitle__の編集が完了しました！",
@@ -75,6 +82,11 @@
     "edit-publish-error-noedit-anon":"未登録ユーザーはページを編集することができません。",
     "edit-publish-error-protectedpage":"このページの編集をしていただくための権限をお持ちでないようです。",
     "user-menu-profile":"プロフィール",
-    "user-menu-log-out":"ログアウト"
+    "user-menu-log-out":"ログアウト",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

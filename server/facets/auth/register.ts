@@ -4,6 +4,7 @@
 
 import BirthdateInput = require('./BirthdateInput');
 import dateUtils = require('../../lib/DateUtils');
+import authUtils = require('../../lib/AuthUtils');
 import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend');
@@ -16,6 +17,7 @@ interface RegisterViewContext extends authView.AuthViewContext {
 	termsOfUseLink?: string;
 	usernameMaxLength: number;
 	passwordMaxLength: number;
+	langCode: string;
 }
 
 export function get (request: Hapi.Request, reply: any): Hapi.Response {
@@ -36,11 +38,13 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			title: 'auth:join.sign-up-with-email',
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
+			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
 			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			langCode: lang
 		}
 	);
 
