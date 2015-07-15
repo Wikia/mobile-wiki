@@ -34,7 +34,7 @@ test('sets controller properties', function () {
 			}
 		},
 		String: {
-			normalize: function (str) {
+			normalizeToWhitespace: function (str) {
 				return str
 					.replace(/_/g, ' ')
 					.replace(/\s+/g, ' ');
