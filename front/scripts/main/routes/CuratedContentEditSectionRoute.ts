@@ -3,7 +3,13 @@
 
 'use strict';
 
-App.MainPageEditSectionRoute = Em.Route.extend({
+App.CuratedContentEditSectionRoute = Em.Route.extend({
+
+	renderTemplate: function (): void {
+		this.render('curated-content-edit-section');
+	},
+
+
 	serialize: function (model: CuratedContentEditItemInterface) {
 		return {
 			sectionLabel: model.title
@@ -17,7 +23,7 @@ App.MainPageEditSectionRoute = Em.Route.extend({
 	 */
 	beforeModel: function (transition: any) {
 		if (!Em.isArray(transition.intent.contexts)) {
-			this.transitionTo('mainPage.edit');
+			this.transitionTo('curatedContentEdit.index');
 		}
 	}
 });

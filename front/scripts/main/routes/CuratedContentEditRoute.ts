@@ -3,15 +3,7 @@
 
 'use strict';
 
-App.MainPageEditRoute = Em.Route.extend({
-	model: function (): Em.RSVP.Promise {
-		return App.CuratedContentEditModel.find();
-	},
-
-	renderTemplate: function (): void {
-		this.render('main-page-edit');
-	},
-
+App.CuratedContentEditRoute = Em.Route.extend({
 	actions: {
 		editItem: function (item: CuratedContentEditItemInterface): void {
 			// TODO CONCF-806
@@ -19,7 +11,7 @@ App.MainPageEditRoute = Em.Route.extend({
 		},
 
 		openSection: function (item: CuratedContentEditItemInterface): void {
-			this.transitionTo('mainPage.editSection', item);
+			this.transitionTo('curatedContentEdit.section', item);
 		},
 
 		error: function (error: any): boolean {

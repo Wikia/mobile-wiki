@@ -21,13 +21,13 @@ App.Router.map(function () {
 		this.route('category', {
 			path: '/main/category/:categoryName'
 		});
+	});
 
-		this.route('edit', {
-			path: '/main/edit'
-		});
-
-		this.route('editSection', {
-			path: '/main/edit/section/:sectionLabel'
+	this.route('curatedContentEdit', {
+		path: '/main/edit'
+	}, function () {
+		this.route('section', {
+			path: '/section/:sectionLabel'
 		});
 
 		// TODO CONCF-806
