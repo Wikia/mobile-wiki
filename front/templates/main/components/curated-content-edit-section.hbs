@@ -5,12 +5,19 @@
 	<h5>{{model.title}}</h5>
 </div>
 <div>
-	<div>
-		<div><img src="{{model.image_url}}"/></div>
-		<div>{{model.title}} {{model.items.length}} items</div>
+	<div class="section-view">
+		<div class="section-image">
+			<img src="{{thumbUrl}}"/>
+		</div>
+			<div class="section-desc">
+			<div class="section-label">{{model.title}}</div>
+			<div class="section-items-count">{{model.items.length}}items</div>
+		</div>
 	</div>
 	{{#each model.items as |item|}}
 		{{curated-content-edit-item model=item}}
 	{{/each}}
-	<button>+ add new category</button>
+	<div class="curated-content-edit-item">
+		<button class="add-item-btn">+ add new category</button>
+	</div>
 </div>

@@ -4,6 +4,13 @@ $item-padding-horizontal: 1rem;
 $item-padding-vertical: .5rem;
 $item-image-size: 4rem;
 $image-margin: 1rem;
+$image-size: 150px;
+
+.curated-content-edit .add-item-btn {
+	font-weight: bold;
+	margin: $item-padding-vertical 0;
+	width: 100%;
+}
 
 .curated-content-edit-head {
 	position: static;
@@ -45,12 +52,6 @@ $image-margin: 1rem;
 		border-top-width: 1px;
 	}
 
-	button {
-		font-weight: bold;
-		margin: $item-padding-vertical 0;
-		width: 100%;
-	}
-
 	img {
 		height: $item-image-size;
 		margin-right: $image-margin;
@@ -70,5 +71,45 @@ $image-margin: 1rem;
 
 	.subtitle {
 		font-size: .8125rem;
+	}
+}
+
+.section-view {
+	align-items: center;
+	background: #f9f9f9;
+	display: flex;
+	height: $image-size;
+
+	.section-image {
+		text-align: center;
+		width: $image-size;
+
+		img {
+			height: $image-size;
+		}
+	}
+
+	.section-desc {
+		width: calc(100% - #{$image-size});
+		display: flex;
+		flex-direction: column;
+		height: $image-size;
+	}
+
+	.section-label {
+		color: $black;
+		font-size: 18px;
+		font-weight: bold;
+		line-height: 23px;
+		padding: 10px 13px 0;
+		height: $image-size;
+		@include clamp(5)
+	}
+
+	.section-items-count {
+		color: #656e78;
+		font-size: 12px;
+		line-height: 14px;
+		padding: 0 13px 10px;
 	}
 }
