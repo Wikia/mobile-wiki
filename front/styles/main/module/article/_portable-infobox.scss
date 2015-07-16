@@ -70,7 +70,7 @@ $min-hero-item-height: 110px;
 		position: relative;
 	}
 
-	.item-type-hero .media-component img {
+	.item-type-hero > .media-component img {
 		width: 100%;
 	}
 
