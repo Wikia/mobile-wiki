@@ -47,7 +47,7 @@ App.CuratedContentEditModel.reopenClass({
 			optional = {};
 
 		if (rawData.length) {
-			rawData.forEach(function (section) {
+			rawData.forEach(function (section: CuratedContentEditItemInterface) {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.title === '') {
