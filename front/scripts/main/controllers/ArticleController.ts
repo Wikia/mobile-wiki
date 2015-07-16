@@ -35,7 +35,11 @@ App.ArticleController = Em.Controller.extend({
 			});
 		},
 
-		articleRendered: function () {
+		addPhoto: function(title: string, sectionIndex: number, photoData: any): void {
+			this.transitionToRoute('addPhoto', App.AddPhotoModel.load(title, sectionIndex, photoData));
+		},
+
+		articleRendered: function (): void {
 			this.send('handleLightbox');
 		}
 	}

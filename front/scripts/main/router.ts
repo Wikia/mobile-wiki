@@ -44,6 +44,10 @@ App.Router.map(function () {
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
 
+	this.route('addPhoto', { // Symbolic link to AddPhotoController
+		path: articlePath + 'addPhoto/:title'
+	});
+
 	// We don't want to duplicate the previous route
 	if (articlePath !== '/') {
 		/*
