@@ -69,6 +69,22 @@ unauthenticatedRoutes = [
 		method: 'GET',
 		path: '/',
 		//Currently / path is not available on production because of redirects from / to /wiki/...
+		// TODO (CONCF-761): we shouldn't load articles for Curated Main Pages
+		handler: require('./facets/showArticle')
+	},
+	{
+		method: 'GET',
+		// Catch invalid paths and redirect to the main page
+		path: '/main/{invalid}',
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect('/');
+		}
+	},
+	{
+		method: 'GET',
+		// We don't care if there is a dynamic segment, Ember router handles that
+		path: '/main/edit/{ignore?}',
+		// TODO (CONCF-761): we shouldn't load article for Curated Content Tool
 		handler: require('./facets/showArticle')
 	},
 	{
@@ -80,12 +96,6 @@ unauthenticatedRoutes = [
 		method: 'GET',
 		path: '/main/category/{categoryName*}',
 		handler: require('./facets/showMainPageCategory')
-	},
-	{
-		method: 'GET',
-		// We don't care if there is dynamic segment (handled by Ember) but we need to have it here anyway
-		path: '/main/edit/{ignore?}',
-		handler: require('./facets/showArticle')
 	},
 
 	/**

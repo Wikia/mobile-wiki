@@ -34,6 +34,11 @@ App.Router.map(function () {
 		//this.route('editItem', {
 		//	path: '/main/edit/item/:itemLabel'
 		//});
+
+		// When user tries to load invalid path under /main/edit/* we redirect to /main/edit
+		this.route('invalid', {
+			path: '/*url'
+		});
 	});
 
 	this.route('article', {
@@ -50,10 +55,7 @@ App.Router.map(function () {
 
 	// We don't want to duplicate the previous route
 	if (articlePath !== '/') {
-		/*
-		 Route to catch all badly formed URLs, i.e., anything that doesn't match '/', '/wiki' or '/wiki/title',
-		 which are the three cases already handled by existing routes.
-		 */
+		// Route to catch all badly formed URLs
 		this.route('notFound', {
 			path: '/*url'
 		});
