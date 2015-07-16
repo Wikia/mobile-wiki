@@ -115,7 +115,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	openLightboxForMedia: function (file: string): void {
 		var mediaModel: typeof App.MediaModel = this.get('controllers.article.model.media'),
 			lightboxMediaRefs = mediaModel instanceof App.MediaModel?
-				mediaModel.getRefsForLightboxByTitle(M.String.normalize(file)):
+				mediaModel.getRefsForLightboxByTitle(file):
 				null;
 
 		if (!Em.isEmpty(lightboxMediaRefs)) {

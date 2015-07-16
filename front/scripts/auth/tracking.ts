@@ -6,6 +6,20 @@
 		return (document.body.className.indexOf(pageType) !== -1);
 	}
 
+	function setupTracking(): void {
+		//Auth pages live on www.wikia.com and don't have access to WikiVariables
+		//hence there's a need to provide this data inline
+		M.provide('wiki', {
+			id: 80433,
+			dbName: 'wikiaglobal',
+			language: {
+				user: 'en'
+			}
+		});
+
+		setTrackingDimensions();
+	}
+
 	function setTrackingDimensions (): void {
 		var dimensions: (string|Function)[] = [];
 		// Skin
@@ -45,7 +59,7 @@
 
 	function track (label: string, action: string) {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: action,
 			category: 'user-login-mobile',
 			label: label
@@ -128,7 +142,7 @@
 	}
 
 	function init (): void {
-		setTrackingDimensions();
+		setupTracking();
 
 		if (checkPageType('join-page')) {
 			setTrackingForJoinPage();

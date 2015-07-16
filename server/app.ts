@@ -68,7 +68,8 @@ plugins = [
 				useCookie: false,
 				detectLngFromHeaders: false,
 				detectLngFromQueryString: true,
-				detectLngQS: 'uselang'
+				detectLngQS: 'uselang',
+				lowerCaseLng: true
 			}
 		}
 	}
