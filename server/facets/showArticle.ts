@@ -35,7 +35,7 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 
 	article = new Article.ArticleRequestHelper(params);
 
-	// FIXME /main/edit is here temporary
+	// TODO (CONCF-761): /main/edit is here temporary
 	if (path === '/' || path === '/wiki/' || path.indexOf('/main/edit') === 0) {
 		article.getWikiVariables((error: any, wikiVariables: any) => {
 			if (error) {
