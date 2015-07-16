@@ -1,3 +1,8 @@
+/*
+ * symbols
+ * Combines svg files into one, and place it in www/
+ */
+
 var gulp = require('gulp'),
 	svgSymbols = require('gulp-svg-symbols'),
 	folders = require('gulp-folders'),

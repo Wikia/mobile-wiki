@@ -1,3 +1,8 @@
+/*
+ * docs-server
+ * Creates documentation for server scripts
+ */
+
 var gulp = require('gulp'),
 	typedoc = require('gulp-typedoc'),
 	paths = require('../paths'),

@@ -1,3 +1,8 @@
+/*
+ * build
+ * Builds the entire application by invoking the other tasks
+ */
+
 var gulp = require('gulp'),
 	gzip = require('gulp-gzip'),
 	environment = require('../utils/environment'),
