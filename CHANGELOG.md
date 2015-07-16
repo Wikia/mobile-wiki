@@ -1,3 +1,17 @@
+## release-110 (2015-07-14 10:00 UTC)
+* [INT-102](https://wikia-inc.atlassian.net/browse/INT-102) Add photo to Japanese wikia
+* [INT-140](https://wikia-inc.atlassian.net/browse/INT-140) Edit/Photo icons positioning fix for section header.
+* [INT-117](https://wikia-inc.atlassian.net/browse/INT-117) Photo/Edit icons style change for Japanese Wikia
+
+## release-109 (2015-07-13 11:54 UTC)
+* [CONCF-852](https://wikia-inc.atlassian.net/browse/CONCF-852) CONCF-852 Stop failing when FeaturedContentMixin has undefined model
+
+## release-108 (2015-07-11 00:05 UTC)
+* [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - WIP - lazy load all js
+* remove-obsolete-todo: CONCF-735 Remove obsolete TODO
+* [CONCF-735](https://wikia-inc.atlassian.net/browse/CONCF-735) CONCF-735 | Handle redirections from MercuryApi
+* [CONCF-796](https://wikia-inc.atlassian.net/browse/CONCF-796) CONCF-796 Unit tests for Curated Main Pages
+
 ## release-107 (2015-07-10 10:00 UTC)
 * bucky-query-param: fixing bucky sampling query param
 * [SOC-898](https://wikia-inc.atlassian.net/browse/SOC-898) SOC-898 New Registration in wiki language

@@ -21,7 +21,13 @@ App.FeaturedContentMixin = Em.Mixin.create({
 	}),
 
 	currentItem: Em.computed('model', 'currentItemIndex', function (): FeaturedContentItem {
-		return this.get('model')[this.get('currentItemIndex')];
+		var model: FeaturedContentItem[] = this.get('model');
+
+		if (!Em.isEmpty(model)) {
+			return this.get('model')[this.get('currentItemIndex')];
+		}
+
+		return null;
 	}),
 
 	lastIndex: Em.computed('model', function (): number {

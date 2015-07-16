@@ -64,7 +64,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
-	editButtonsVisible: Em.computed('controller.model.isMainPage', function (): boolean {
+	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
 		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
@@ -136,9 +136,10 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			article = model.get('article');
 
 		if (article && article.length > 0) {
-			if (this.get('editButtonsVisible')) {
-				this.setupEditButtons();
+			if (this.get('contributionFeatureEnabled')) {
+				this.setupContributionButtons();
 			}
+
 			this.loadTableOfContentsData();
 			this.handleInfoboxes();
 			this.replaceInfoboxesWithInfoboxComponents();
@@ -189,16 +190,60 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
-	setupEditButtons: function (): void {
+	setupContributionButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
-		var pencil = '<svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg>';
-		this.$(':header[section]').each((i: Number, item: any): void => {
-			var $sectionHeader = this.$(item),
-				$pencil = this.$(pencil).appendTo($sectionHeader);
-			$pencil.on('click', (): void => {
-				this.get('controller').send('edit', this.get('controller.model.cleanTitle'), $sectionHeader.attr('section'));
+		var pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
+		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*" capture="camera"/></div>',
+		    iconsWrapper = '<div class="icon-wrapper">' + pencil + photo + '</div>',
+		    $photoZero = this.$('.upload-photo');
+
+		$photoZero
+			.on('change', () => {
+				this.onPhotoIconChange($photoZero, 0);
+			})
+			.on('click', () => {
+				M.track({
+					action: M.trackActions.click,
+					category: 'sectioneditor',
+					label: 'addPhoto',
+					value: 0
+				});
 			});
+
+		this.$(':header[section]').each((i: Number, item: any): void => {
+			var $sectionHeader = this.$(item);
+			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
 		});
+		this.setupButtonsListeners();
+	},
+
+	setupButtonsListeners: function () : void {
+		this.$('.article-content')
+			.on('click', '.pencil', (event: JQueryEventObject): void => {
+				var $sectionHeader = $(event.target).closest(':header[section]');
+				this.get('controller').send('edit', this.get('controller.model.cleanTitle'), $sectionHeader.attr('section'));
+			})
+			.on('click', '.upload-photo', (event: JQueryEventObject): void => {
+				var $sectionHeader = $(event.target).closest(':header[section]'),
+				    sectionIndex: number = parseInt($sectionHeader.attr('section'), 10);
+
+				M.track({
+					action: M.trackActions.click,
+					category: 'sectioneditor',
+					label: 'addPhoto',
+					value: sectionIndex
+				});
+			})
+			.on('change', '.upload-photo', (event: JQueryEventObject): void => {
+				var $uploadPhotoContainer = $(event.target).parent(),
+				    sectionIndex: number = parseInt($(event.target).closest(':header[section]').attr('section'), 10);
+				this.onPhotoIconChange($uploadPhotoContainer, sectionIndex);
+			});
+	},
+
+	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
+		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
+		this.get('controller').send('addPhoto', this.get('controller.model.title'), sectionNumber, photoData);
 	},
 
 	/**

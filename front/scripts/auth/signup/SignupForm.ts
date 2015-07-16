@@ -107,7 +107,7 @@ class SignupForm {
 
 	private trackValidationErrors(errors: Array<string>): void {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: M.trackActions.error,
 			category: 'user-login-mobile',
 			label: 'registrationValidationErrors: ' + errors.join(';'),
@@ -116,7 +116,7 @@ class SignupForm {
 
 	private trackSuccessfulRegistration() {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: M.trackActions.success,
 			category: 'user-login-mobile',
 			label: 'successful-registration'
