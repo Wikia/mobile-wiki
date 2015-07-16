@@ -175,22 +175,13 @@ authenticatedRoutes = [
 			]
 		}
 	},
-	{
-		method: 'GET',
-		path: '/register/facebook',
-		handler: require('./facets/auth/registerfb').get,
-		config: {
-			pre: [
-				{
-					method: require('./facets/auth/authView').validateRedirect
-				}
-			]
-		}
-	},
+
 	{
 		method: 'GET',
 		path: '/login',
-		handler: require('./facets/auth/registerWithFacebook').get
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
+		}
 	},
 	{
 		method: 'GET',

@@ -20,7 +20,52 @@ interface RegisterViewContext extends authView.AuthViewContext {
 	langCode: string;
 }
 
-export function get (request: Hapi.Request, reply: any): Hapi.Response {
+
+interface RegisterFBViewContext extends authView.AuthViewContext {
+	headerText?: string;
+	i18nContext?: any;
+	birthdateInputs: Array<InputData>;
+	heliosFacebookRegistrationURL?: string;
+	termsOfUseLink?: string;
+	usernameMaxLength: number;
+	passwordMaxLength: number;
+	langCode: string;
+	defaultBirthdate: string;
+}
+
+function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {
+	var context: RegisterFBViewContext,
+		redirectUrl: string = authView.getRedirectUrl(request),
+		i18n = request.server.methods.i18n.getInstance(),
+		lang = i18n.lng();
+
+	if (request.auth.isAuthenticated) {
+		return reply.redirect(redirectUrl);
+	}
+
+	context = deepExtend(
+		authView.getDefaultContext(request),
+		{
+			headerText: 'auth:facebook.register-with-facebook',
+			heliosFacebookRegistrationURL: localSettings.helios.host + '/facebook/users',
+			title: 'auth:join.register-with-facebook',
+			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
+			footerCallout: 'auth:common.signin-callout',
+			footerHref: authUtils.getSignInUrl(request),
+			footerCalloutLink: 'auth:facebook.footer-callout-text',
+			bodyClasses: 'register-fb-page',
+			usernameMaxLength: localSettings.helios.usernameMaxLength,
+			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			langCode: lang,
+			facebookAppId: localSettings.facebook.appId,
+			defaultBirthdate: "1970-01-01"
+		}
+	);
+
+	return authView.view('register-fb', context, request, reply);
+}
+
+function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: RegisterViewContext,
 		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance(),
@@ -49,4 +94,12 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	);
 
 	return authView.view('register', context, request, reply);
+}
+
+export function get (request: Hapi.Request, reply: any): void {
+	if (request.query.method === 'facebook') {
+		getFacebookRegistrationPage(request, reply);
+	} else {
+		getEmailRegistrationPage(request, reply);
+	}
 }
