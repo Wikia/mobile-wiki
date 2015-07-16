@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 gulp.task('build', [
 	'node-modules',
 	'sass',
-	'symbols',
+	'combine-svgs',
 	'images',
 	'vendor',
 	'templates',
