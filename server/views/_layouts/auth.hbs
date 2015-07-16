@@ -18,7 +18,12 @@
 		{{/if}}
 
 		{{#unless hideHeader}}
-		<header class="auth-header splash splash-top">{{i18n headerText}}</header>
+		<header class="auth-header splash splash-top">
+			<h1>{{i18n headerText}}</h1>
+			{{#if headerSlogan}}
+			<p>{{i18n headerSlogan}}</p>
+			{{/if}}
+		</header>
 		{{/unless}}
 
 		{{{content}}}

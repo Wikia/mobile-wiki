@@ -31,6 +31,7 @@ interface RegisterFBViewContext extends authView.AuthViewContext {
 	passwordMaxLength: number;
 	langCode: string;
 	defaultBirthdate: string;
+	headerSlogan: string;
 }
 
 function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {
@@ -46,19 +47,20 @@ function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.R
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
-			headerText: 'auth:facebook.register-with-facebook',
+			headerText: 'auth:fb-register.register-with-facebook',
 			heliosFacebookRegistrationURL: localSettings.helios.host + '/facebook/users',
-			title: 'auth:join.register-with-facebook',
+			title: 'auth:fb-register.register-with-facebook',
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
-			footerCalloutLink: 'auth:facebook.footer-callout-text',
+			footerCalloutLink: 'auth:fb-register.footer-callout-link',
 			bodyClasses: 'register-fb-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,
 			facebookAppId: localSettings.facebook.appId,
-			defaultBirthdate: "1970-01-01"
+			defaultBirthdate: '1970-01-01',
+			headerSlogan: 'auth:fb-register.facebook-registration-info'
 		}
 	);
 
