@@ -9,7 +9,6 @@ App.CuratedContentEditSectionRoute = Em.Route.extend({
 		this.render('curated-content-edit-section');
 	},
 
-
 	serialize: function (model: CuratedContentEditItemInterface) {
 		return {
 			sectionLabel: encodeURIComponent(model.title)

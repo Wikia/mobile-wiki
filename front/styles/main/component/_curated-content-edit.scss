@@ -6,7 +6,7 @@ $item-image-size: 4rem;
 $image-margin: 1rem;
 $image-size: 150px;
 
-.curated-content-edit .add-item-btn {
+.curated-content-edit-add-item-btn {
 	font-weight: bold;
 	margin: $item-padding-vertical 0;
 	width: 100%;
@@ -74,7 +74,7 @@ $image-size: 150px;
 	}
 }
 
-.section-view {
+.curated-content-section-details {
 	align-items: center;
 	background: #f9f9f9;
 	display: flex;
