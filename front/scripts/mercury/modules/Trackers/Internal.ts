@@ -31,7 +31,7 @@ interface InternalTrackingParams extends TrackingParams {
 
 module Mercury.Modules.Trackers {
 	export class Internal {
-		baseUrl: string = 'https://beacon.wikia-services.com/__track/';
+		baseUrl: string = '//beacon.wikia-services.com/__track/';
 		callbackTimeout: number = 200;
 		success: Function;
 		error: Function;
