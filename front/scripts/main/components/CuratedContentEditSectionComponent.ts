@@ -1,13 +1,11 @@
 /// <reference path="../app.ts" />
-///<reference path="CuratedContentEditItemComponent.ts"/>
+///<reference path="CuratedContentEditBlockItemComponent.ts"/>
 'use strict';
 
 App.CuratedContentEditSectionComponent = Em.Component.extend({
-	classNames: ['curated-content-edit'],
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	imageSize: 200,
-
 
 	thumbUrl: Em.computed('model', function (): string {
 		var model: CuratedContentEditItemInterface = this.get('model'),

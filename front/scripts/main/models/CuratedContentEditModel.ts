@@ -33,6 +33,12 @@ App.CuratedContentEditModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @desc Accepts a raw object that comes from CuratedContent API and creates a model that we can use
+	 *
+	 * @param rawData
+	 * @returns {any}
+	 */
 	sanitize: function (rawData: any): typeof App.CuratedContentEditModel {
 		var featured = {},
 			regular = {
@@ -41,19 +47,15 @@ App.CuratedContentEditModel.reopenClass({
 			optional = {};
 
 		if (rawData.length) {
-			if (rawData[0].featured) {
-				featured = rawData.shift();
-			}
-
-			if (rawData.length) {
-				regular = {
-					items: rawData
-				};
-
-				if (regular.items.slice(-1)[0].title === '') {
-					optional = regular.items.pop();
+			rawData.forEach(function (section) {
+				if (section.featured === 'true') {
+					featured = section;
+				} else if (section.title === '') {
+					optional = section;
+				} else {
+					regular.items.push(section);
 				}
-			}
+			});
 		}
 
 		return App.CuratedContentEditModel.create({
