@@ -243,7 +243,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
 		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
-		this.get('controller').send('addPhoto', this.get('controller.model.title'), sectionNumber, photoData);
+		this.get('controller').send('addPhoto', this.get('controller.model.cleanTitle'), sectionNumber, photoData);
 	},
 
 	/**
