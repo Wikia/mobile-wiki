@@ -13,8 +13,8 @@ interface CuratedContentEditItemInterface {
 	items?: CuratedContentEditItemInterface[]
 }
 
-App.CuratedContentEditItemComponent = Em.Component.extend({
-	classNames: ['curated-content-edit-item'],
+App.CuratedContentEditBlockItemComponent = Em.Component.extend({
+	classNames: ['curated-content-edit-block-item'],
 
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,

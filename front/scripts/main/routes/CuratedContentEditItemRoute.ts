@@ -3,14 +3,15 @@
 
 'use strict';
 
-App.CuratedContentEditSectionRoute = Em.Route.extend({
+App.CuratedContentEditItemRoute = Em.Route.extend({
 	renderTemplate: function (): void {
-		this.render('curated-content-edit-section');
+		this.render('curated-content-edit-item');
 	},
 
 	serialize: function (model: CuratedContentEditItemInterface) {
 		return {
-			sectionLabel: encodeURIComponent(model.title)
+			// Sections have titles, section items have labels and titles - we want to show labels for them
+			itemLabel: encodeURIComponent(model.label || model.title)
 		};
 	},
 

@@ -6,8 +6,7 @@
 App.CuratedContentEditRoute = Em.Route.extend({
 	actions: {
 		editItem: function (item: CuratedContentEditItemInterface): void {
-			// TODO CONCF-806
-			//this.transitionTo('mainPage.editItem', item);
+			this.transitionTo('curatedContentEdit.item', item);
 		},
 
 		openSection: function (item: CuratedContentEditItemInterface): void {

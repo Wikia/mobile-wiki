@@ -30,10 +30,9 @@ App.Router.map(function () {
 			path: '/section/:sectionLabel'
 		});
 
-		// TODO CONCF-806
-		//this.route('editItem', {
-		//	path: '/main/edit/item/:itemLabel'
-		//});
+		this.route('item', {
+			path: '/item/:itemLabel'
+		});
 
 		// When user tries to load invalid path under /main/edit/* we redirect to /main/edit
 		this.route('invalid', {
