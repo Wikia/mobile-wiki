@@ -1,14 +1,16 @@
-$infobox-item-margin: 5px;
-$infobox-background: $color-blue-gray-light;
-$infobox-section-secondary-background: $color-blue-gray;
+$infobox-item-margin: 6px;
+$infobox-background: $color-gray-light;
+$infobox-section-secondary-background: $color-blue-gray-light;
 $infobox-hero-overlay-color: rgba(0, 0, 0, .7);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
-$infobox-hero-font-color: white;
+$infobox-hero-font-color: #fff;
 $min-hero-item-height: 110px;
 
 .portable-infobox {
 	background-color: $infobox-background;
+	font-size: 14px;
 	height: auto;
+	line-height: 20px;
 	margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
 	.article-gallery {
@@ -41,9 +43,9 @@ $min-hero-item-height: 110px;
 	}
 
 	.portable-infobox-secondary-font {
-		font-size: 1rem;
+		font-size: inherit;
 		font-weight: bold;
-		line-height: 150%;
+		line-height: inherit;
 		margin-top: 0;
 	}
 
@@ -52,10 +54,6 @@ $min-hero-item-height: 110px;
 	.item-type-comparison,
 	.item-type-image figcaption {
 		border-bottom: 1px solid $infobox-section-secondary-background;
-	}
-
-	.portable-infobox-secondary-background {
-		background-color: $infobox-section-secondary-background;
 	}
 
 	> .portable-infobox-item:last-child {
@@ -86,12 +84,6 @@ $min-hero-item-height: 110px;
 		z-index: 1;
 	}
 
-	.portable-infobox-secondary-font, {
-		font-size: 1rem;
-		font-weight: bold;
-		margin-top: 0;
-	}
-
 	.portable-infobox-hero-title,
 	.portable-infobox-hero-caption {
 		@extend %ellipsis;
@@ -113,6 +105,8 @@ $min-hero-item-height: 110px;
 
 	// infobox title
 	.portable-infobox-title {
+		font-size: 18px;
+		line-height: 28px;
 		padding: $infobox-item-margin 0;
 	}
 
@@ -141,7 +135,7 @@ $min-hero-item-height: 110px;
 		width: 100%;
 
 		.portable-infobox-item-label {
-			flex-basis: 34%;
+			flex-basis: 40%;
 		}
 
 		.portable-infobox-item-value {
@@ -149,8 +143,8 @@ $min-hero-item-height: 110px;
 		}
 
 		.portable-infobox-item-value:not(:first-child) {
-			flex-basis: 66%;
-			padding-left: 10px;
+			flex-basis: 60%;
+			padding-left: 20px;
 		}
 	}
 
