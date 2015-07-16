@@ -76,7 +76,7 @@ $image-size: 150px;
 
 .curated-content-section-details {
 	align-items: center;
-	background: #f9f9f9;
+	background: $snow;
 	display: flex;
 	height: $image-size;
 
@@ -90,24 +90,25 @@ $image-size: 150px;
 	}
 
 	.section-desc {
-		width: calc(100% - #{$image-size});
 		display: flex;
 		flex-direction: column;
 		height: $image-size;
+		width: calc(100% - #{$image-size});
 	}
 
 	.section-label {
+		@include clamp(5);
+
 		color: $black;
 		font-size: 18px;
 		font-weight: bold;
 		height: $image-size;
 		line-height: 23px;
 		padding: 10px 13px 0;
-		@include clamp(5)
 	}
 
 	.section-items-count {
-		color: #656e78;
+		color: $color-blue-gray-dark;
 		font-size: 12px;
 		line-height: 14px;
 		padding: 0 13px 10px;
