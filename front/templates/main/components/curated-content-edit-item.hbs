@@ -1,1 +1,12 @@
-Placeholder
+<form {{action "updateItem" on="submit"}}>
+	<div class="edit-head curated-content-edit-head">
+		{{svg 'chevron' role='img' class='icon arrow-left'}}
+		<h5>{{model.label}}</h5>
+		<button class="curated-content-edit-save-btn" type="submit">Done</button>
+	</div>
+	<div class="curated-content-edit-photo"></div>
+	<label for="label">Enter a display name</label>
+	{{input value=model.label id="label" name="label"}}
+	<label for="page">Enter a page name</label>
+	{{input value=model.title name="page" id="page"}}
+</form>
