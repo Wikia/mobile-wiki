@@ -143,7 +143,7 @@ App.ArticleModel.reopenClass({
 
 			data = {
 				article: error.details,
-				cleanTitle: M.String.normalize(model.title),
+				cleanTitle: M.String.normalizeToWhitespace(model.title),
 				error: error
 			};
 		} else if (source) {

@@ -1,3 +1,16 @@
+## release-112 (2015-07-16 10:00 UTC)
+* [HG-803](https://wikia-inc.atlassian.net/browse/HG-803) HG-803 - un-normalized file name for lightbox handling
+* [HG-810](https://wikia-inc.atlassian.net/browse/HG-810) HG-810 | run build-combined when ts file changes
+* [SOC-560](https://wikia-inc.atlassian.net/browse/SOC-560) SOC-560 Geo-targeted Marketing Opt-In checkbox in Registration Form
+
+## release-111 (2015-07-15 10:00 UTC)
+* [CONCF-857](https://wikia-inc.atlassian.net/browse/CONCF-857) CONCF-857 Add asyncArticle to curated content routes
+* [INT-143](https://wikia-inc.atlassian.net/browse/INT-143) INT-143 Fix bug by properly using cleanTitle instead of title property
+* [HG-809](https://wikia-inc.atlassian.net/browse/HG-809) HG-809 - revison assets in all .hbs files
+* [HG-691](https://wikia-inc.atlassian.net/browse/HG-691) HG-691 setting option to get locale folders names as all lower case
+* fix-for-soc-1017: Use M.provide instead of creating new property on Mercury object
+* [SOC-1017](https://wikia-inc.atlassian.net/browse/SOC-1017) SOC-1017 Enable /both/ as default trackingMethod setting for New Auth
+
 ## release-110 (2015-07-14 10:00 UTC)
 * [INT-102](https://wikia-inc.atlassian.net/browse/INT-102) Add photo to Japanese wikia
 * [INT-140](https://wikia-inc.atlassian.net/browse/INT-140) Edit/Photo icons positioning fix for section header.
