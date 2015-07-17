@@ -1,3 +1,6 @@
+## release-113 (2015-07-17 10:36 UTC)
+* [SOC-1043](https://wikia-inc.atlassian.net/browse/SOC-1043) SOC-1043 Use https url for tracking events internally
+
 ## release-112 (2015-07-16 10:00 UTC)
 * [HG-803](https://wikia-inc.atlassian.net/browse/HG-803) HG-803 - un-normalized file name for lightbox handling
 * [HG-810](https://wikia-inc.atlassian.net/browse/HG-810) HG-810 | run build-combined when ts file changes
