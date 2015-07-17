@@ -52,10 +52,11 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
-	if (request.query._escaped_fragment_ !== 0) {
-		result.asyncArticle = shouldAsyncArticle(localSettings, request.headers.host);
-	};
-
+	result.asyncArticle = (
+		request.query._escaped_fragment_ !== '0' ?
+		shouldAsyncArticle(localSettings, request.headers.host) :
+		false
+	);
 }
 
 export = prepareArticleData;
