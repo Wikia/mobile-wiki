@@ -1,3 +1,8 @@
+/*
+ * typings
+ * Compiles Typescript files
+ */
+
 var gulp = require('gulp'),
 	ts = require('gulp-typescript'),
 	folders = require('gulp-folders'),

@@ -1,3 +1,7 @@
+/*
+ * build-combined
+ * Combines templates/main.js, scripts/mercury.js, and scripts/main.js into scripts/combined.js
+ */
 var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	uglify = require('gulp-uglify'),
