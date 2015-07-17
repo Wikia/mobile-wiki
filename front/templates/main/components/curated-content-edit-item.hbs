@@ -5,10 +5,16 @@
 		<h5>{{item.label}}</h5>
 	</div>
 	<div class="curated-content-edit-photo">
-		<img src="{{item.image_url}}" />
+		<img src="{{imageUrl}}" />
 	</div>
-	<label for="label">Enter a display name</label>
-	{{input value=item.label id="label" name="label"}}
-	<label for="page">Enter a page name</label>
-	{{input value=item.title name="page" id="page"}}
+	<div class="curated-content-input-wrapper">
+		<div class="input-container">
+				{{input value=item.label id="label" name="label" focus-in="checkLabel" focus-out="checkLabel"}}
+				<label class="floating-label" for="label">Enter a display name</label>
+		</div>
+		<div class="input-container">
+			{{input value=item.title id="page" name="page" focus-in="checkPage" focus-out="checkPage"}}
+			<label class="floating-label" for="page">Enter a page name</label>
+		</div>
+	</div>
 </form>

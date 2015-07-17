@@ -121,6 +121,12 @@ $image-size: 150px;
 
 .curated-content-edit-photo {
 	img {
-		width: 100%;
+		display: block;
+		margin: 0 auto;
+		min-width: 50%;
 	}
+}
+
+.curated-content-input-wrapper {
+	padding: 14px 18px;
 }
