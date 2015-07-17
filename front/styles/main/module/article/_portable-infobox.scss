@@ -90,8 +90,8 @@ $hero-caption-line-height: 18px;
 		text-shadow: 0 0 3px $infobox-hero-outline-color;
 
 		a {
-			pointer-events: auto;
 			color: inherit;
+			pointer-events: auto;
 			text-decoration: underline;
 		}
 	}
@@ -181,7 +181,7 @@ $hero-caption-line-height: 18px;
 			border-top: 1px solid $infobox-section-secondary-background;
 			content: '';
 			display: block;
-			margin-bottom: $infobox-item-margin * 2
+			margin-bottom: $infobox-item-margin * 2;
 		}
 	}
 
