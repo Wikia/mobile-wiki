@@ -4,12 +4,6 @@
 'use strict';
 
 App.ArticleRoute = Em.Route.extend({
-	queryParams: {
-		comments_page: {
-			replace: true
-		}
-	},
-
 	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
