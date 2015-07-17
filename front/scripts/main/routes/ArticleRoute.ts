@@ -78,6 +78,6 @@ App.ArticleRoute = Em.Route.extend({
 
 			// bubble up to ApplicationRoute#didTransition
 			return true;
-		},
+		}
 	}
 });
