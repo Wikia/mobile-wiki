@@ -1,6 +1,6 @@
 /*
  * docs-server
- * Creates documentation for server scripts
+ * Creates documentation for server scripts in in mercury/docs/server/
  */
 
 var gulp = require('gulp'),

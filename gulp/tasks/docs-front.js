@@ -1,6 +1,6 @@
-/*
+ /*
  * docs-front
- * Creates documentation for front scripts
+ * Creates documentation for front scripts in mercury/docs/front/
  */
 
 var gulp = require('gulp'),
