@@ -46,12 +46,9 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 	}),
 
 	click: function (): void {
-		var model: CuratedContentEditItemInterface = this.get('model');
+		var model: CuratedContentEditItemInterface = this.get('model'),
+			action = model.items ? 'openSection' : 'editItem';
 
-		if (model.items) {
-			this.sendAction('openSection', model);
-		} else {
-			this.sendAction('editItem', model);
-		}
+		this.sendAction(action, model);
 	}
 });
