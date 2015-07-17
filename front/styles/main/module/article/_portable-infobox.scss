@@ -6,11 +6,19 @@ $infobox-hero-outline-color: rgba(0, 0, 0, .8);
 $infobox-hero-font-color: #fff;
 $min-hero-item-height: 110px;
 
+//fonts used in infobox
+$infobox-title-font-size: 18px;
+$infobox-title-line-height: 28px;
+$label-value-font-size: 14px;
+$label-value-line-height: 20px;
+$hero-caption-font-size: 12px;
+$hero-caption-line-height: 18px;
+
 .portable-infobox {
 	background-color: $infobox-background;
-	font-size: 14px;
+	font-size: $label-value-font-size;
 	height: auto;
-	line-height: 20px;
+	line-height: $label-value-line-height;
 	margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
 	.article-gallery {
@@ -50,19 +58,8 @@ $min-hero-item-height: 110px;
 	}
 
 	.item-type-title {
-		padding-bottom: 7px;
+		padding-bottom: 5px;
 		padding-top: 5px;
-	}
-
-	.item-type-key-val:not(:last-of-type),
-	.item-type-group,
-	.item-type-comparison,
-	.item-type-image figcaption {
-		border-bottom: 1px solid $infobox-section-secondary-background;
-	}
-
-	> .portable-infobox-item:last-child {
-		border-bottom: 0;
 	}
 
 	//////////// Specific styles for each of the infobox elements starts here ////////////
@@ -97,21 +94,23 @@ $min-hero-item-height: 110px;
 
 		a {
 			pointer-events: auto;
+			color: inherit;
+			text-decoration: underline;
 		}
 	}
 
 	.portable-infobox-hero-caption {
-		font-size: inherit;
+		font-size: $hero-caption-font-size;
 		font-weight: normal;
-		line-height: inherit;
+		line-height: $hero-caption-line-height;
 		padding-top: $infobox-item-margin;
 	}
 
 
 	// infobox title
 	.portable-infobox-title {
-		font-size: 18px;
-		line-height: 28px;
+		font-size: $infobox-title-font-size;
+		line-height: $infobox-title-line-height;
 	}
 
 	// infobox images
@@ -176,10 +175,6 @@ $min-hero-item-height: 110px;
 		display: flex;
 		flex-wrap: wrap;
 		width: 100%;
-
-		&:not(:first-of-type) {
-			border-bottom: 0;
-		}
 	}
 
 	.portable-infobox-comparison-set-header {
@@ -204,10 +199,6 @@ $min-hero-item-height: 110px;
 			border-right: 1px solid $infobox-section-secondary-background;
 		}
 
-		.item-type-key-val {
-			border-bottom: 0;
-		}
-
 		.portable-infobox-item-value {
 			padding-left: 0;
 		}
@@ -222,16 +213,22 @@ $min-hero-item-height: 110px;
 
 	// styles for infobox collapse / expand UI
 	.portable-infobox-expand-button {
-		background: linear-gradient(to top, $infobox-background 35%, transparentize($infobox-background, 1));
-		border-bottom: 1px solid $infobox-section-secondary-background;
+		background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
 		box-sizing: border-box;
-		padding: $infobox-item-margin * 5 0 $infobox-item-margin;
+		padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
 		text-align: center;
 		width: 100%;
+
+		&::before {
+			border-top: 1px solid $infobox-section-secondary-background;
+			content: '';
+			display: block;
+			margin-bottom: $infobox-item-margin * 2
+		}
 	}
 
 	.portable-infobox-expand-icon {
-		height: 12px;
+		height: $infobox-item-margin * 2;
 	}
 
 	&:not(.collapsed) {
@@ -246,7 +243,7 @@ $min-hero-item-height: 110px;
 
 		.portable-infobox-expand-button {
 			bottom: 0;
-			padding-top: $infobox-item-margin * 10;
+			padding-top: 45px;
 			position: absolute;
 		}
 	}
