@@ -139,11 +139,13 @@ unauthenticatedRoutes = [
 		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
 	},
+	/*
 	{
 		method: 'GET',
 		path: '/discuss',
 		handler: require('./facets/api/discuss').get
 	}
+	*/
 ];
 
 articlePagePaths = [
