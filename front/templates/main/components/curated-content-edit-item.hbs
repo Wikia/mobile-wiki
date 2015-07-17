@@ -1,14 +1,14 @@
 <form {{action "updateItem" on="submit"}}>
 	<div class="edit-head curated-content-edit-head">
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
-        <button class="large publish curated-content-edit-submit" type="submit">Done</button>
-		<h5>{{model.label}}</h5>
+		<button class="large publish curated-content-edit-submit" type="submit">Done</button>
+		<h5>{{item.label}}</h5>
 	</div>
 	<div class="curated-content-edit-photo">
-        <img src="{{model.image_url}}" />
-    </div>
+		<img src="{{item.image_url}}" />
+	</div>
 	<label for="label">Enter a display name</label>
-	{{input value=model.label id="label" name="label"}}
+	{{input value=item.label id="label" name="label"}}
 	<label for="page">Enter a page name</label>
-	{{input value=model.title name="page" id="page"}}
+	{{input value=item.title name="page" id="page"}}
 </form>
