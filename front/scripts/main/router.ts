@@ -27,11 +27,7 @@ App.Router.map(function () {
 		path: '/main/edit'
 	}, function () {
 		this.route('section', {
-			path: '/section/:sectionLabel'
-		});
-
-		this.route('item', {
-			path: '/item/:itemLabel'
+			path: '/regular/:section'
 		});
 
 		this.route('blockItem', {

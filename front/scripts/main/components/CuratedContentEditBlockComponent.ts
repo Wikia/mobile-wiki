@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
 'use strict';
 interface CuratedContentEditBlockItemInterface {
-	block: string;
+	block?: string;
+	section?: string;
 	item: CuratedContentEditItemInterface
 }
 

@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
+///<reference path="../components/CuratedContentEditBlockComponent.ts"/>
 
 'use strict';
 
@@ -8,10 +9,11 @@ App.CuratedContentEditSectionItemRoute = Em.Route.extend({
 		this.render('curated-content-edit-item');
 	},
 
-	serialize: function (model: CuratedContentEditItemInterface) {
+	serialize: function (model: CuratedContentEditBlockItemInterface) {
 		return {
 			// Sections have titles, section items have labels and titles - we want to show labels for them
-			itemLabel: encodeURIComponent(model.label || model.title)
+			section: encodeURIComponent(model.section),
+			item: encodeURIComponent(model.item.label || model.item.title)
 		};
 	},
 
