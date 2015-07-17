@@ -34,11 +34,11 @@ App.Router.map(function () {
 			path: '/item/:itemLabel'
 		});
 
-		this.route('editBlockItem', {
+		this.route('blockItem', {
 			path: '/:block/:item'
 		});
 
-		this.route('editSectionItem', {
+		this.route('sectionItem', {
 			path: '/regular/:section/:item'
 		});
 
