@@ -5,6 +5,6 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 
 	willInsertElement: function() {
 		this.set('item', this.get('model').item);
+		this.set('block', this.get('model').block);
 	}
-
 });

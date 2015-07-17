@@ -11,9 +11,11 @@ App.CuratedContentEditBlockComponent = Em.Component.extend({
 
 	actions: {
 		editItem: function (item: CuratedContentEditItemInterface): void {
-			var model = this.get('model');
-			if (model.featured) {
-				this.sendAction('editItem', {block: 'featured', item: item});
+			var model = this.get('model'),
+				block = this.get('block');
+
+			if (block) {
+				this.sendAction('editItem', {block: block, item: item});
 			} else {
 				this.sendAction('editItem', item);
 			}
