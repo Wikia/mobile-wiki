@@ -1,0 +1,118 @@
+$module-padding-horizontal: 1rem;
+$module-padding-vertical: 1.5rem;
+$item-padding-horizontal: 1rem;
+$item-padding-vertical: .5rem;
+$item-image-size: 4rem;
+$image-margin: 1rem;
+$image-size: 150px;
+
+.curated-content-edit-add-item-btn {
+	font-weight: bold;
+	margin: $item-padding-vertical 0;
+	width: 100%;
+}
+
+.curated-content-edit-head {
+	position: static;
+}
+
+.curated-content-edit-block {
+	background: $snow;
+
+	header {
+		color: $color-blue-brand;
+		font-size: larger;
+		font-weight: bold;
+		padding: $module-padding-vertical $module-padding-horizontal 0;
+	}
+
+	.block-description {
+		margin: 0;
+		padding: $module-padding-horizontal $module-padding-horizontal 0;
+	}
+}
+
+.curated-content-edit-items {
+	padding-top: $module-padding-vertical;
+}
+
+.curated-content-edit-item {
+	align-items: center;
+	background: $color-white;
+	border: {
+		color: $color-gray-light;
+		style: solid;
+		width: 0;
+	}
+	border-bottom-width: 1px;
+	//iOS can't handle touch events on element if it doesn't have cursor pointer
+	cursor: pointer;
+	display: flex;
+	padding: $item-padding-vertical $item-padding-horizontal;
+
+	&:first-child {
+		border-top-width: 1px;
+	}
+
+	img {
+		height: $item-image-size;
+		margin-right: $image-margin;
+		width: $item-image-size;
+	}
+
+	.item-description {
+		width: calc(100% - #{$item-image-size + $image-margin});
+	}
+
+	.title {
+		font-weight: bold;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.subtitle {
+		font-size: .8125rem;
+	}
+}
+
+.curated-content-section-details {
+	align-items: center;
+	background: $snow;
+	display: flex;
+	height: $image-size;
+
+	.section-image {
+		text-align: center;
+		width: $image-size;
+
+		img {
+			height: $image-size;
+		}
+	}
+
+	.section-desc {
+		display: flex;
+		flex-direction: column;
+		height: $image-size;
+		width: calc(100% - #{$image-size});
+	}
+
+	.section-label {
+		@include clamp(5);
+
+		color: $black;
+		font-size: 18px;
+		font-weight: bold;
+		height: $image-size;
+		line-height: 23px;
+		padding: 10px 13px 0;
+	}
+
+	.section-items-count {
+		color: $color-blue-gray-dark;
+		font-size: 12px;
+		line-height: 14px;
+		padding: 0 13px 10px;
+	}
+}
