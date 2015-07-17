@@ -38,6 +38,14 @@ App.Router.map(function () {
 			path: '/regular/:section/:item'
 		});
 
+		this.route('addSectionItem', {
+			path: '/add/regular/:section'
+		});
+
+		this.route('addBlockItem', {
+			path: '/add/:block'
+		});
+
 		// When user tries to load invalid path under /main/edit/* we redirect to /main/edit
 		this.route('invalid', {
 			path: '/*url'

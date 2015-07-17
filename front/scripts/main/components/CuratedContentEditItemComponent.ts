@@ -22,7 +22,7 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 
 	checkPage: function(value: string): void {
 		var $element = this.$().find('.floating-label[for="page"]');
-		if (value.length) {
+		if (value && value.length) {
 			$element.addClass('active');
 		} else {
 			$element.removeClass('active');
@@ -31,7 +31,7 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 
 	checkLabel: function(value: string): void {
 		var $element = this.$().find('.floating-label[for="label"]');
-		if (value.length) {
+		if (value && value.length) {
 			$element.addClass('active');
 		} else {
 			$element.removeClass('active');
