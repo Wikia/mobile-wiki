@@ -5,11 +5,7 @@
 
 App.CuratedContentEditRoute = Em.Route.extend({
 	actions: {
-		editItem: function (item: CuratedContentEditItemInterface): void {
-			this.transitionTo('curatedContentEdit.item', item);
-		},
-
-		editBlockItem: function(editBlockItem: CuratedContentEditBlockItemInterface): void  {
+		editItem: function(editBlockItem: CuratedContentEditBlockItemInterface): void  {
 			if (editBlockItem.block) {
 				this.transitionTo('curatedContentEdit.blockItem', editBlockItem);
 			} else if (editBlockItem.section) {
