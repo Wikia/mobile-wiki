@@ -31,9 +31,6 @@ $hero-caption-line-height: 18px;
 	.portable-infobox-title,
 	.portable-infobox-header,
 	.portable-infobox-item-label,
-	.portable-infobox-comparison,
-	.portable-infobox-comparison-set-header,
-	.portable-infobox-comparison-item,
 	.portable-infobox-hero-title,
 	.portable-infobox-hero-caption,
 	.media-component {
@@ -162,45 +159,6 @@ $hero-caption-line-height: 18px;
 		ul,
 		ol {
 			list-style-position: inside;
-		}
-	}
-
-	// comparison layout
-	.portable-infobox-comparison {
-		border-collapse: collapse;
-		width: 100%;
-	}
-
-	.portable-infobox-comparison-set {
-		display: flex;
-		flex-wrap: wrap;
-		width: 100%;
-	}
-
-	.portable-infobox-comparison-set-header {
-		box-sizing: border-box;
-		display: block;
-		flex-basis: 100%;
-		text-align: left;
-		width: 100%;
-	}
-
-	.portable-infobox-comparison-item {
-		box-sizing: border-box;
-		display: block;
-		vertical-align: top;
-		width: 50%;
-
-		> * {
-			width: 100%;
-		}
-
-		&:first-of-type {
-			border-right: 1px solid $infobox-section-secondary-background;
-		}
-
-		.portable-infobox-item-value {
-			padding-left: 0;
 		}
 	}
 
