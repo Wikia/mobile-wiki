@@ -149,6 +149,7 @@ $hero-caption-line-height: 18px;
 	}
 
 	.portable-infobox-item-value {
+		font-size: inherit;
 		padding-left: $infobox-item-margin * 2;
 
 		// remove margins on all children of data value
