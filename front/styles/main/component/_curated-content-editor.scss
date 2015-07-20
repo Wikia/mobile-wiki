@@ -122,9 +122,9 @@ $image-size: 150px;
 		right: 1rem;
 
 		svg {
+			fill: $color-blue-dark;
 			height: 1.75rem;
 			width: 1.75rem;
-			fill: $color-blue-dark;
 		}
 	}
 }
@@ -135,6 +135,7 @@ $image-size: 150px;
 
 .curated-content-editor-photo {
 	img {
+		@extend %image-placeholder;
 		display: block;
 		margin: 0 auto;
 		min-width: 50%;
