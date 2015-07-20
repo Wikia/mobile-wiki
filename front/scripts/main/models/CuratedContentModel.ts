@@ -106,8 +106,17 @@ App.CuratedContentModel.reopenClass({
 				type: 'section'
 			};
 		} else if (rawData.type === 'category') {
-			// article_local_url is encoded by MediaWiki
-			categoryName = (rawData.article_local_url) ? decodeURIComponent(rawData.article_local_url) : rawData.url;
+			// MercuryApi (categories for section) returns article_local_url, ArticlesApi (subcategories) returns url
+			if (rawData.article_local_url) {
+				// TODO (CONCF-914): article_local_url is sometimes encoded and sometimes not, to investigate
+				try {
+					categoryName = decodeURIComponent(rawData.article_local_url);
+				} catch (error) {
+					categoryName = rawData.article_local_url;
+				}
+			} else {
+				categoryName = rawData.url;
+			}
 
 			// Remove /wiki/
 			categoryName = categoryName.replace(articlePath, '');
