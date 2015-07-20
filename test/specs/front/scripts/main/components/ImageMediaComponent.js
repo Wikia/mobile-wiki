@@ -11,7 +11,7 @@ test('get params for request to thumbnailer for the TALL infobox image', functio
 				width: 200
 			},
 			expected: {
-				mode: 'top-crop',
+				mode: 'top-crop-down',
 				height: 400,
 				width: 400
 			}

@@ -66,7 +66,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 			//high image- image higher than square. Make it square.
 			if (media.height > media.width) {
 				return {
-					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+					mode: Mercury.Modules.Thumbnailer.mode.topCropDown,
 					height: windowWidth,
 					width: windowWidth
 				}
