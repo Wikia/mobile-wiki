@@ -1,3 +1,8 @@
+## release-114 (2015-07-20 11:50 UTC)
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | handle categories with special characters
+* [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - clean up gulp tasks
+* [CONCF-786](https://wikia-inc.atlassian.net/browse/CONCF-786) CONCF-786 Curated Content Tool first draft
+
 ## release-113 (2015-07-17 10:36 UTC)
 * [SOC-1043](https://wikia-inc.atlassian.net/browse/SOC-1043) SOC-1043 Use https url for tracking events internally
 
