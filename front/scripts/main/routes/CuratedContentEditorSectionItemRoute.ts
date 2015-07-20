@@ -9,7 +9,7 @@ interface CuratedContentEditorSectionItemRouteParamsInterface {
 }
 
 App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
-	serialize: function (model: CuratedContentEditorSectionItemRouteParamsInterface) {
+	serialize: function (model: CuratedContentEditorSectionItemRouteParamsInterface): any {
 		return {
 			section: encodeURIComponent(model.section),
 			// Sections have titles, section items have labels and titles - we want to show labels for them
@@ -22,7 +22,7 @@ App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
 	 *
 	 * @param transition
 	 */
-	beforeModel: function (transition: any) {
+	beforeModel: function (transition: any): void {
 		if (!Em.isArray(transition.intent.contexts)) {
 			this.transitionTo('curatedContentEditor.index');
 		}

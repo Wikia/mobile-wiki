@@ -22,7 +22,7 @@ App.CuratedContentEditorBlockItemRoute = Em.Route.extend({
 	 *
 	 * @param transition
 	 */
-	beforeModel: function (transition: any) {
+	beforeModel: function (transition: any): void {
 		if (!Em.isArray(transition.intent.contexts)) {
 			this.transitionTo('curatedContentEditor.index');
 		}
