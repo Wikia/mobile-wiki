@@ -10,10 +10,13 @@ App.CuratedContentEditBlockItemRoute = Em.Route.extend({
 
 	serialize: function (model: CuratedContentEditBlockItemInterface) {
 		return {
-			// Sections have titles, section items have labels and titles - we want to show labels for them
 			block: model.block,
 			item: encodeURIComponent(model.item.label || model.item.title)
 		};
+	},
+
+	model: function (params: any) {
+		return App.CuratedContentEditItemModel().getItem(params);
 	},
 
 	/**

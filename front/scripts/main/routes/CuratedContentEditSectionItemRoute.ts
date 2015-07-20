@@ -17,6 +17,10 @@ App.CuratedContentEditSectionItemRoute = Em.Route.extend({
 		};
 	},
 
+	model: function (params: any) {
+		return App.CuratedContentEditItemModel().getItem(params);
+	},
+
 	/**
 	 * @desc If model wasn't passed to the route (on page refresh) we redirect to /main/edit
 	 *
