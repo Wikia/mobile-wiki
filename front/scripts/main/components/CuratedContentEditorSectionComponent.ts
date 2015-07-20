@@ -28,7 +28,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend({
 		},
 
 		addItem: function (): void {
-			this.sendAction('addSectionItem', this.get('model.title'));
+			this.sendAction('addItem', this.get('model.title'));
 		}
 	}
 });
