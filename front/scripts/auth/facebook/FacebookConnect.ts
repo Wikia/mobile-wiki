@@ -38,7 +38,8 @@ class FacebookConnect {
 	}
 
 	private getHeliosFacebookConnectUrl(userId: string): string {
-		return this.form.action + userId + '/facebook_app_id/' + M.prop('facebookAppId');
+		return this.form.getAttribute('data-heliosFacebookConnectURL')
+			+ userId + '/facebook_app_id/' + M.prop('facebookAppId');
 	}
 
 	public onLoginSuccess (loginResponse: LoginResponse): void {

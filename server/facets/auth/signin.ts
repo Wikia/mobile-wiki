@@ -38,6 +38,7 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'fb-connect-page',
+			heliosLoginURL: localSettings.helios.host + '/token',
 			heliosFacebookConnectURL: localSettings.helios.host + '/users/',
 			facebookAppId: localSettings.facebook.appId
 		}
