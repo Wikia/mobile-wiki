@@ -23,7 +23,7 @@ App.CuratedContentEditRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEdit.addSectionItem', section);
 		},
 
-		openSection: function (item: CuratedContentEditItemInterface): void {
+		openSection: function (item: CuratedContentEditItemModelInterface): void {
 			this.transitionTo('curatedContentEdit.section', item);
 		},
 

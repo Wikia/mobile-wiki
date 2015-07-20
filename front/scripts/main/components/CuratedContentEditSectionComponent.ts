@@ -7,7 +7,7 @@ App.CuratedContentEditSectionComponent = Em.Component.extend({
 	imageSize: 200,
 
 	thumbUrl: Em.computed('model', function (): string {
-		var model: CuratedContentEditItemInterface = this.get('model'),
+		var model: CuratedContentEditItemModelInterface = this.get('model'),
 			options: any = {
 				width: this.get('imageSize'),
 				height: this.get('imageSize'),
@@ -23,7 +23,7 @@ App.CuratedContentEditSectionComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		editItem: function (item: CuratedContentEditItemInterface): void {
+		editItem: function (item: CuratedContentEditItemModelInterface): void {
 			this.sendAction('editItem', {section: this.get('model').title, item: item});
 		},
 

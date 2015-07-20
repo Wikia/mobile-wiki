@@ -12,13 +12,13 @@ App.CuratedContentEditRowComponent = Em.Component.extend({
 	 * Sections have titles, section items have labels and titles - we want to show labels for them
 	 */
 	title: Em.computed('model', function (): string {
-		var model: CuratedContentEditItemInterface = this.get('model');
+		var model: CuratedContentEditItemModelInterface = this.get('model');
 
 		return model.label || model.title;
 	}),
 
 	thumbUrl: Em.computed('model', function (): string {
-		var model: CuratedContentEditItemInterface = this.get('model'),
+		var model: CuratedContentEditItemModelInterface = this.get('model'),
 			options: any = {
 				width: this.get('imageSize'),
 				height: this.get('imageSize'),
@@ -34,7 +34,7 @@ App.CuratedContentEditRowComponent = Em.Component.extend({
 	}),
 
 	click: function (): void {
-		var model: CuratedContentEditItemInterface = this.get('model');
+		var model: CuratedContentEditItemModelInterface = this.get('model');
 
 		if (model.items) {
 			this.sendAction('openSection', model);

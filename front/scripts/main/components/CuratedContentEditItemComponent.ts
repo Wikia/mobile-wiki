@@ -5,7 +5,7 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 
 	imageUrl: Em.computed('model.item', function (): string {
-		var item: CuratedContentEditItemInterface = this.get('model.item');
+		var item: CuratedContentEditItemModelInterface = this.get('model.item');
 
 		return !Em.isEmpty(item.image_url) ? item.image_url : this.emptyGif;
 	}),

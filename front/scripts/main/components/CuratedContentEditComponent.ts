@@ -5,7 +5,7 @@ App.CuratedContentEditComponent = Em.Component.extend({
 	classNames: ['curated-content-edit'],
 
 	actions: {
-		editItem: function (item: CuratedContentEditItemInterface): void {
+		editItem: function (item: CuratedContentEditItemModelInterface): void {
 			this.sendAction('editItem', item);
 		},
 
@@ -17,7 +17,7 @@ App.CuratedContentEditComponent = Em.Component.extend({
 			this.sendAction('addSectionItem', section);
 		},
 
-		openSection: function (item: CuratedContentEditItemInterface): void {
+		openSection: function (item: CuratedContentEditItemModelInterface): void {
 			this.sendAction('openSection', item);
 		}
 	}

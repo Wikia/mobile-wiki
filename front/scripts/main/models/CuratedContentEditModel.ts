@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface CuratedContentEditItemInterface {
+interface CuratedContentEditItemModelInterface {
 	title: string;
 	label?: string;
 	image_id: number;
@@ -10,7 +10,7 @@ interface CuratedContentEditItemInterface {
 	featured?: string;
 	type?: string;
 	video_info?: any;
-	items?: CuratedContentEditItemInterface[]
+	items?: CuratedContentEditItemModelInterface[]
 }
 
 App.CuratedContentEditModel = Em.Object.extend({
@@ -59,7 +59,7 @@ App.CuratedContentEditModel.reopenClass({
 			optional = {};
 
 		if (rawData.length) {
-			rawData.forEach(function (section: CuratedContentEditItemInterface) {
+			rawData.forEach(function (section: CuratedContentEditItemModelInterface) {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.title === '') {

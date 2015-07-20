@@ -3,7 +3,7 @@
 interface CuratedContentEditBlockItemInterface {
 	block?: string;
 	section?: string;
-	item: CuratedContentEditItemInterface
+	item: CuratedContentEditItemModelInterface
 }
 
 App.CuratedContentEditBlockComponent = Em.Component.extend({
@@ -11,7 +11,7 @@ App.CuratedContentEditBlockComponent = Em.Component.extend({
 	tagName: 'section',
 
 	actions: {
-		editItem: function (item: CuratedContentEditItemInterface): void {
+		editItem: function (item: CuratedContentEditItemModelInterface): void {
 			var model = this.get('model'),
 				block = this.get('block');
 
@@ -29,7 +29,7 @@ App.CuratedContentEditBlockComponent = Em.Component.extend({
 			this.sendAction('addBlockItem', this.get('block'));
 		},
 
-		openSection: function (item: CuratedContentEditItemInterface): void {
+		openSection: function (item: CuratedContentEditItemModelInterface): void {
 			this.sendAction('openSection', item);
 		}
 	}
