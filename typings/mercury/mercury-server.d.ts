@@ -14,7 +14,7 @@ interface ArticleRequestParams {
 	title?: string;
 	redirect?: any;
 	headers?: any;
-	sections?: string|number[];
+	sections?: string;
 }
 
 interface MainPageRequestParams extends ArticleRequestParams {

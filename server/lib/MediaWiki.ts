@@ -89,12 +89,11 @@ export class ArticleRequest extends BaseRequest {
 	 * @param redirect
 	 * @return {Promise<any>}
 	 */
-	article (title: string, redirect: string, sections?: string|number[]): Promise<any> {
+	article (title: string, redirect: string, sections?: string): Promise<any> {
 		var urlParams: any = {
 				controller: 'MercuryApi',
 				method: 'getArticle',
-				title: title,
-
+				title: title
 			},
 			url: string;
 
