@@ -23,5 +23,11 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		if (!Em.isArray(transition.intent.contexts)) {
 			this.transitionTo('curatedContentEditor.index');
 		}
+	},
+
+	actions: {
+		goBack: function (): void {
+			this.transitionTo('curatedContentEditor.index');
+		}
 	}
 });

@@ -44,9 +44,15 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		checkPage: function(value: string): void {
 			this.checkPage(value);
 		},
+
 		checkLabel: function(value: string): void {
 			this.checkLabel(value);
 		},
+
+		goBack: function (): void {
+			this.sendAction('goBack');
+		},
+
 		updateItem: function(): void {
 			debugger;
 			this.sendAction('updateItem', this.get('model'), this.get('block'));

@@ -30,5 +30,13 @@ App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
 
 	renderTemplate: function (): void {
 		this.render('curated-content-editor-item');
+	},
+
+	actions: {
+		goBack: function (): void {
+			// We wouldn't get here without being in section route before. Model is already there so let's reuse it.
+			// Going back cancels all changes made.
+			this.transitionTo('curatedContentEditor.section', this.modelFor('curatedContentEditor.section'));
+		}
 	}
 });

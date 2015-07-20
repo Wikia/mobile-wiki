@@ -1,7 +1,5 @@
 <div class="edit-head curated-content-editor-head">
-	{{#link-to 'curatedContentEditor'}}
-		{{svg 'chevron' role='img' class='icon arrow-left'}}
-	{{/link-to}}
+	<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 	<h5>{{model.title}}</h5>
 </div>
 <div class="curated-content-section-details">
