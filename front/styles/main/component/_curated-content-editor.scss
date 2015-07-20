@@ -122,8 +122,9 @@ $image-size: 150px;
 		right: 1rem;
 
 		svg {
-			height: rem-calc(50);
-			width: rem-calc(50);
+			height: 1.75rem;
+			width: 1.75rem;
+			fill: $color-blue-dark;
 		}
 	}
 }
