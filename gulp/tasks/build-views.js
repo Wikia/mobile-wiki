@@ -1,3 +1,8 @@
+/*
+ * build-views
+ * Processes views and revisions some files
+ */
+
 var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	gutil = require('gulp-util'),

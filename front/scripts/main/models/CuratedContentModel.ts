@@ -106,7 +106,8 @@ App.CuratedContentModel.reopenClass({
 				type: 'section'
 			};
 		} else if (rawData.type === 'category') {
-			categoryName = (rawData.article_local_url) ? rawData.article_local_url : rawData.url;
+			// article_local_url is encoded by MediaWiki
+			categoryName = (rawData.article_local_url) ? decodeURIComponent(rawData.article_local_url) : rawData.url;
 
 			// Remove /wiki/
 			categoryName = categoryName.replace(articlePath, '');

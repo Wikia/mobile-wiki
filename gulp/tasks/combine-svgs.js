@@ -1,3 +1,8 @@
+/*
+ * combine-svgs
+ * Combines svg files into one, and place it in www/
+ */
+
 var gulp = require('gulp'),
 	svgSymbols = require('gulp-svg-symbols'),
 	folders = require('gulp-folders'),
@@ -7,7 +12,7 @@ var gulp = require('gulp'),
 	paths = require('../paths').symbols,
 	path = require('path');
 
-gulp.task('symbols', folders(paths.src, function (folder) {
+gulp.task('combine-svgs', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		svgSymbols(),
