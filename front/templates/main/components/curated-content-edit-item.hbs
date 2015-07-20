@@ -9,11 +9,11 @@
 	</div>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container">
-				{{input value=item.label id="label" name="label" focus-in="checkLabel" focus-out="checkLabel"}}
+				{{input value=item.label id="label" name="label" focus-in="checkLabel" focus-out="checkLabel" key-press="checkLabel"}}
 				<label class="floating-label" for="label">Enter a display name</label>
 		</div>
 		<div class="input-container">
-			{{input value=item.title id="page" name="page" focus-in="checkPage" focus-out="checkPage"}}
+			{{input value=item.title id="page" name="page" focus-in="checkPage" focus-out="checkPage" key-press="checkLabel"}}
 			<label class="floating-label" for="page">Enter a page name</label>
 		</div>
 	</div>

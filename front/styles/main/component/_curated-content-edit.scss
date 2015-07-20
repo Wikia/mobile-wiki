@@ -7,9 +7,10 @@ $image-margin: 1rem;
 $image-size: 150px;
 
 .curated-content-edit-add-item-btn {
+	display: block;
 	font-weight: bold;
-	margin: $item-padding-vertical 0;
-	width: 100%;
+	margin: $item-padding-vertical auto;
+	width: 80%;
 }
 
 .curated-content-edit-head {
