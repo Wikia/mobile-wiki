@@ -14,12 +14,12 @@
 	<div class="curated-content-input-wrapper">
 		{{#if renderLabel}}
 			<div class="input-container">
-				{{input value=model.label id='label' name='label' focus-in='checkLabel' focus-out='checkLabel' key-press='checkLabel'}}
+				{{input value=model.label id='label' name='label' focus-in='checkLabel' focus-out='checkLabel' key-up='checkLabel'}}
 				<label class="floating-label" for="label">Enter a display name</label>
 			</div>
 		{{/if}}
 		<div class="input-container">
-			{{input value=model.title id='page' name='page' focus-in='checkPage' focus-out='checkPage' key-press='checkLabel'}}
+			{{input value=model.title id='page' name='page' focus-in='checkPage' focus-out='checkPage' key-up='checkPage'}}
 			<label class="floating-label" for="page">Enter a page name</label>
 		</div>
 	</div>
