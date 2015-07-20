@@ -30,6 +30,10 @@ App.Router.map(function () {
 			path: '/regular/:section'
 		});
 
+		this.route('editSection', {
+			path: '/regular/:section/edit'
+		});
+
 		this.route('blockItem', {
 			path: '/:block/:item'
 		});

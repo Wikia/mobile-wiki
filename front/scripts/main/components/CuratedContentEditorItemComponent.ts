@@ -10,19 +10,19 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		return !Em.isEmpty(model.image_url) ? model.image_url : this.emptyGif;
 	}),
 
-	displayPageInput: Em.computed('block', function (): boolean {
+	renderLabel: Em.computed('block', function (): boolean {
 			return this.get('block') !== 'regular';
 		}
 	),
 
-	didInsertElement: function() {
+	didInsertElement: function () {
 		var model = this.get('model');
 
 		this.checkPage(model.title);
 		this.checkLabel(model.label);
 	},
 
-	checkPage: function(value: string): void {
+	checkPage: function (value: string): void {
 		var $element = this.$().find('.floating-label[for="page"]');
 		if (value && value.length) {
 			$element.addClass('active');
@@ -31,7 +31,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		}
 	},
 
-	checkLabel: function(value: string): void {
+	checkLabel: function (value: string): void {
 		var $element = this.$().find('.floating-label[for="label"]');
 		if (value && value.length) {
 			$element.addClass('active');
@@ -41,11 +41,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	},
 
 	actions: {
-		checkPage: function(value: string): void {
+		checkPage: function (value: string): void {
 			this.checkPage(value);
 		},
 
-		checkLabel: function(value: string): void {
+		checkLabel: function (value: string): void {
 			this.checkLabel(value);
 		},
 
@@ -53,8 +53,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			this.sendAction('goBack');
 		},
 
-		updateItem: function(): void {
-			debugger;
+		updateItem: function (): void {
 			this.sendAction('updateItem', this.get('model'), this.get('block'));
 		}
 	}

@@ -2,22 +2,26 @@
 	<div class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
-		<h5>{{model.label}}</h5>
+		{{#if renderLabel}}
+			<h5>{{model.label}}</h5>
+		{{else}}
+			<h5>{{model.title}}</h5>
+		{{/if}}
 	</div>
 	<div class="curated-content-editor-photo">
 		<img src="{{imageUrl}}" />
 	</div>
 	<div class="curated-content-input-wrapper">
-		<div class="input-container">
-			{{input value=model.label id='label' name='label' focus-in='checkLabel' focus-out='checkLabel' key-press='checkLabel'}}
-			<label class="floating-label" for="label">Enter a display name</label>
-		</div>
-		{{#if displayPageInput}}
+		{{#if renderLabel}}
 			<div class="input-container">
-				{{input value=model.title id='page' name='page' focus-in='checkPage' focus-out='checkPage' key-press='checkLabel'}}
-				<label class="floating-label" for="page">Enter a page name</label>
+				{{input value=model.label id='label' name='label' focus-in='checkLabel' focus-out='checkLabel' key-press='checkLabel'}}
+				<label class="floating-label" for="label">Enter a display name</label>
 			</div>
 		{{/if}}
+		<div class="input-container">
+			{{input value=model.title id='page' name='page' focus-in='checkPage' focus-out='checkPage' key-press='checkLabel'}}
+			<label class="floating-label" for="page">Enter a page name</label>
+		</div>
 	</div>
 	<a class="curated-content-editor-remove">Delete</a>
 </form>

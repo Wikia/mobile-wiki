@@ -10,7 +10,7 @@
 		<div class="section-label">{{model.title}}</div>
 		<div class="section-items-count">{{model.items.length}} items</div>
 	</div>
-	<a class="section-edit">
+	<a {{action 'editSection'}} class='section-edit'>
 		{{svg 'pen' role='img' class='icon pen'}}
 	</a>
 </div>
