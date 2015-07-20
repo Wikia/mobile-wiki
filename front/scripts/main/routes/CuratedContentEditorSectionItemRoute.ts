@@ -11,8 +11,8 @@ interface CuratedContentEditorSectionItemRouteParamsInterface {
 App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
 	serialize: function (model: CuratedContentEditorSectionItemRouteParamsInterface) {
 		return {
-			// Sections have titles, section items have labels and titles - we want to show labels for them
 			section: encodeURIComponent(model.section),
+			// Sections have titles, section items have labels and titles - we want to show labels for them
 			item: encodeURIComponent(model.item.label || model.item.title)
 		};
 	},
