@@ -29,7 +29,6 @@
 		</footer>
 		{{/unless}}
 
-		{{#unless noScripts}}
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},
 					language = {{{json language}}};
@@ -41,10 +40,8 @@
 		<script src="/front/scripts/mercury.js"></script>
 		<script src="/front/scripts/auth.js"></script>
 		<!-- endbuild -->
-
 		<script>
 			M.prop('tracking', {{{json trackingConfig}}});
 		</script>
-		{{/unless}}
 	</body>
 </html>

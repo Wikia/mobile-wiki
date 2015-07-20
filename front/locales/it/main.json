@@ -74,7 +74,12 @@
     "edit-publish-error-noedit":"Non hai il permesso di modificare le pagine di questa wikia.",
     "edit-publish-error-noedit-anon":"Gli utenti anonimi non possono modificare le pagine.",
     "edit-publish-error-protectedpage":"Non hai il permesso di modificare questa pagina.",
-    "user-menu-profile":"Profile",
-    "user-menu-log-out":"Log out"
+    "user-menu-profile":"Profilo",
+    "user-menu-log-out":"Esci",
+    "curated-content-error-other":"Sorry, it looks like something went wrong. Please try again.",
+    "curated-content-error-category-not-found":"Category not found.",
+    "curated-content-error-section-not-found":"Section not found.",
+    "curated-content-load-more-items":"Load more",
+    "curated-content-error-load-more-items":"Sorry, we couldn't load more items."
   }
 }

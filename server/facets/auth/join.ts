@@ -7,7 +7,6 @@ var deepExtend = require('deep-extend');
 
 interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
-	facebookConnectHref: string;
 	signupHref: string;
 }
 
@@ -23,12 +22,10 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		authView.getDefaultContext(request),
 		{
 			title: 'auth:join.title',
-			facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
-			loginRoute: '/login?redirect=' + encodeURIComponent(redirectUrl),
+			signinRoute: authUtils.getSignInUrl(request),
 			hideHeader: true,
 			hideFooter: true,
-			noScripts: true,
-			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
+			signupHref: authUtils.getRegisterUrl(request),
 			bodyClasses: 'splash join-page'
 		}
 	);

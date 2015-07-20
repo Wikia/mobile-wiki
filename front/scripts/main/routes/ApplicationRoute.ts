@@ -11,26 +11,34 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 	},
 
 	activate: function (): void {
-		/**
-		 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-		 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
-		 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-		 */
-		Mercury.Modules.Ads.getInstance().openLightbox = (contents: any): void => {
-			this.send('openLightbox', 'ads', {contents: contents});
+		var adsInstance: Mercury.Modules.Ads,
+			instantGlobals = Wikia.InstantGlobals || {};
+
+		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
+			adsInstance = Mercury.Modules.Ads.getInstance();
+			adsInstance.init(M.prop('adsUrl'));
+
+			/**
+			 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+			 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+			 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+			 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+			 */
+			adsInstance.openLightbox = (contents: any): void => {
+				this.send('openLightbox', 'ads', {contents: contents});
+			}
 		}
 	},
 
 	actions: {
 		loading: function (): void {
-			this.controller.showLoader();
+			this.controller && this.controller.showLoader();
 		},
 
-		didTransition: function () {
+		didTransition: function (): void {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
-			this.controller.hideLoader();
+			this.controller && this.controller.hideLoader();
 
 			/*
 			 * This is called after the first route of any application session has loaded
@@ -39,8 +47,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			M.prop('firstPage', false);
 		},
 
-		error: function () {
-			this.controller.hideLoader();
+		error: function (): void {
+			this.controller && this.controller.hideLoader();
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {
@@ -125,7 +133,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes
 		// see http://emberjs.com/images/template-guide/action-bubbling.png
-		handleLightbox: function () {
+		handleLightbox: function (): void {
 			this.get('controller').send('handleLightbox');
 		},
 

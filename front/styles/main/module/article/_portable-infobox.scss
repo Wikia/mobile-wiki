@@ -5,6 +5,12 @@ $infobox-section-header-background: #e5e5e5;
 	height: auto;
 	margin: $infobox-item-margin * 4 0;
 
+	.article-gallery {
+		/* position:relative needed here for proper setting the
+		* offsetParent property for images in galleries in infoboxes */
+		position: relative;
+	}
+
 	.media-component {
 		margin: 0;
 
@@ -25,7 +31,9 @@ $infobox-section-header-background: #e5e5e5;
 		padding: $infobox-item-margin $infobox-item-margin * 3 $infobox-item-margin * 2;
 	}
 
-	.portable-infobox-header-background {
+	// TODO: remove header selector as part of DAT-2909
+	.portable-infobox-header-background,
+	.portable-infobox-secondary-background {
 		background-color: $infobox-section-header-background;
 	}
 
@@ -42,7 +50,9 @@ $infobox-section-header-background: #e5e5e5;
 		padding: $infobox-item-margin 0 0;
 	}
 
-	.portable-infobox-header-font {
+	// TODO: remove header selector as part of DAT-2909
+	.portable-infobox-header-font,
+	.portable-infobox-secondary-font, {
 		font-size: 1rem;
 		font-weight: bold;
 		margin-top: 0;

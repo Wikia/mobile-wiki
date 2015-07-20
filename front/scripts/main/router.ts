@@ -13,10 +13,18 @@ App.Router.map(function () {
 
 	this.route('mainPage', {
 		path: '/'
+	}, function() {
+		this.route('section', {
+			path: '/main/section/:sectionName'
+		});
+
+		this.route('category', {
+			path: '/main/category/:categoryName'
+		});
 	});
 
 	this.route('article', {
-		path: articlePath + '*title'
+		path: articlePath + ':title'
 	});
 
 	this.route('edit', { // Symbolic link to EditController
