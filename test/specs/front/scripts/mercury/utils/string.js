@@ -38,6 +38,6 @@ QUnit.test('sanitizing title', function () {
 		];
 
 	testCases.forEach(function(testCase) {
-		equal(string.normalize(testCase.title), testCase.normalize);
+		equal(string.normalizeToWhitespace(testCase.title), testCase.normalize);
 	});
 });

@@ -1,3 +1,8 @@
+/*
+ * build-vendor
+ * Combines vendor scripts into vendor/main.js
+ */
+
 var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	rev = require('gulp-rev'),

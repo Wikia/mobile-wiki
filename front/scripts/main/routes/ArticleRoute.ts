@@ -30,7 +30,7 @@ App.ArticleRoute = Em.Route.extend({
 		// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 		if (title.match(/\s/)) {
 			this.transitionTo('article',
-				M.String.sanitize(title)
+				M.String.normalizeToUnderscore(title)
 			);
 		}
 	},

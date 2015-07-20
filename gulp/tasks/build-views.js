@@ -1,3 +1,8 @@
+/*
+ * build-views
+ * Processes views and revisions some files
+ */
+
 var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	gutil = require('gulp-util'),
@@ -39,7 +44,7 @@ gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-ve
 
 		// TODO: Leave this in for now to run the normal template based assets pipeline for the duration
 		// of the test
-		gulpif('**/_layouts/auth.hbs', piper(
+		gulpif('**/_layouts/*.hbs', piper(
 			assets,
 			//before running build I can not know what files from vendor to minify
 			gulpif('**/*.js', uglify()),

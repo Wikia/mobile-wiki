@@ -1,3 +1,8 @@
+/*
+ * karma
+ * Run unit tests
+ */
+
 var gulp = require('gulp'),
 	karma = require('gulp-karma'),
 	gutil = require('gulp-util'),
