@@ -12,7 +12,9 @@
 		<div class="section-label">{{model.title}}</div>
 		<div class="section-items-count">{{model.items.length}}items</div>
 	</div>
-	<a class="secondary section-edit">EDIT</a>
+	<a class="section-edit">
+		{{svg 'pencil' role='img' class='icon pencil'}}
+	</a>
 </div>
 {{#each model.items as |item|}}
 	{{curated-content-edit-row

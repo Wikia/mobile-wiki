@@ -120,6 +120,11 @@ $image-size: 150px;
 		bottom: 1rem;
 		position: absolute;
 		right: 1rem;
+
+		svg {
+			height: rem-calc(50);
+			width: rem-calc(50);
+		}
 	}
 }
 
@@ -144,3 +149,4 @@ $image-size: 150px;
 	left: 2rem;
 	position: absolute;
 }
+
