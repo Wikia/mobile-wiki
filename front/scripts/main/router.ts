@@ -23,7 +23,7 @@ App.Router.map(function () {
 		});
 	});
 
-	this.route('curatedContentEdit', {
+	this.route('curatedContentEditor', {
 		path: '/main/edit'
 	}, function () {
 		this.route('section', {

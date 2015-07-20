@@ -3,10 +3,10 @@
 
 'use strict';
 
-App.CuratedContentEditIndexRoute = Em.Route.extend({
+App.CuratedContentEditorIndexRoute = Em.Route.extend({
 	renderTemplate: function (): void {
-		this.render('curated-content-edit', {
-			model: this.modelFor('curatedContentEdit')
+		this.render('curated-content-editor', {
+			model: this.modelFor('curatedContentEditor')
 		});
 	},
 });

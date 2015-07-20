@@ -1,13 +1,13 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.CuratedContentEditSectionComponent = Em.Component.extend({
+App.CuratedContentEditorSectionComponent = Em.Component.extend({
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	imageSize: 200,
 
 	thumbUrl: Em.computed('model', function (): string {
-		var model: CuratedContentEditItemModelInterface = this.get('model'),
+		var model: CuratedContentEditorItemInterface = this.get('model'),
 			options: any = {
 				width: this.get('imageSize'),
 				height: this.get('imageSize'),
@@ -23,7 +23,7 @@ App.CuratedContentEditSectionComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		editItem: function (item: CuratedContentEditItemModelInterface): void {
+		editItem: function (item: CuratedContentEditorItemInterface): void {
 			this.sendAction('editItem', {section: this.get('model').title, item: item});
 		},
 

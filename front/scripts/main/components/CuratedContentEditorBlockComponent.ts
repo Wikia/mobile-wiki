@@ -1,17 +1,17 @@
 /// <reference path="../app.ts" />
 'use strict';
-interface CuratedContentEditBlockItemInterface {
+interface CuratedContentEditorBlockItemInterface {
 	block?: string;
 	section?: string;
-	item: CuratedContentEditItemModelInterface
+	item: CuratedContentEditorItemInterface
 }
 
-App.CuratedContentEditBlockComponent = Em.Component.extend({
-	classNames: ['curated-content-edit-block'],
+App.CuratedContentEditorBlockComponent = Em.Component.extend({
+	classNames: ['curated-content-editor-block'],
 	tagName: 'section',
 
 	actions: {
-		editItem: function (item: CuratedContentEditItemModelInterface): void {
+		editItem: function (item: CuratedContentEditorItemInterface): void {
 			var model = this.get('model'),
 				block = this.get('block');
 
@@ -29,7 +29,7 @@ App.CuratedContentEditBlockComponent = Em.Component.extend({
 			this.sendAction('addBlockItem', this.get('block'));
 		},
 
-		openSection: function (item: CuratedContentEditItemModelInterface): void {
+		openSection: function (item: CuratedContentEditorItemInterface): void {
 			this.sendAction('openSection', item);
 		}
 	}

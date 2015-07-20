@@ -1,10 +1,10 @@
 <form {{action "updateItem" on="submit"}}>
-	<div class="edit-head curated-content-edit-head">
+	<div class="edit-head curated-content-editor-head">
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
-		<button class="large publish curated-content-edit-submit" type="submit">Done</button>
+		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
 		<h5>{{item.label}}</h5>
 	</div>
-	<div class="curated-content-edit-photo">
+	<div class="curated-content-editor-photo">
 		<img src="{{imageUrl}}" />
 	</div>
 	<div class="curated-content-input-wrapper">
@@ -19,7 +19,7 @@
 			</div>
 		{{/if}}
 	</div>
-	<a class="curated-content-edit-remove">
+	<a class="curated-content-editor-remove">
 			Delete
 	</a>
 </form>

@@ -3,32 +3,32 @@
 
 'use strict';
 
-App.CuratedContentEditRoute = Em.Route.extend({
+App.CuratedContentEditorRoute = Em.Route.extend({
 	model: function (): Em.RSVP.Promise {
-		return App.CuratedContentEditModel.find();
+		return App.CuratedContentEditorModel.find();
 	},
 
 	actions: {
-		editItem: function(editBlockItem: CuratedContentEditBlockItemInterface): void  {
+		editItem: function(editBlockItem: CuratedContentEditorBlockItemInterface): void  {
 			if (editBlockItem.block) {
-				this.transitionTo('curatedContentEdit.blockItem', editBlockItem);
+				this.transitionTo('curatedContentEditor.blockItem', editBlockItem);
 			} else if (editBlockItem.section) {
-				this.transitionTo('curatedContentEdit.sectionItem', editBlockItem);
+				this.transitionTo('curatedContentEditor.sectionItem', editBlockItem);
 			} else {
 				this.sendAction('error');
 			}
 		},
 
 		addBlockItem: function(block: string): void  {
-			this.transitionTo('curatedContentEdit.addBlockItem', block);
+			this.transitionTo('curatedContentEditor.addBlockItem', block);
 		},
 
 		addSectionItem: function(section: string): void  {
-			this.transitionTo('curatedContentEdit.addSectionItem', section);
+			this.transitionTo('curatedContentEditor.addSectionItem', section);
 		},
 
-		openSection: function (item: CuratedContentEditItemModelInterface): void {
-			this.transitionTo('curatedContentEdit.section', item);
+		openSection: function (item: CuratedContentEditorItemInterface): void {
+			this.transitionTo('curatedContentEditor.section', item);
 		},
 
 		error: function (error: any): boolean {
@@ -44,7 +44,7 @@ App.CuratedContentEditRoute = Em.Route.extend({
 		 * @returns {boolean}
 		 */
 		willTransition: function(transition: EmberStates.Transition): boolean {
-			if (transition.targetName.indexOf('curatedContentEdit') < 0) {
+			if (transition.targetName.indexOf('curatedContentEditor') < 0) {
 				transition.then(() => {
 					this.controllerFor('application').set('fullPage', false);
 				});

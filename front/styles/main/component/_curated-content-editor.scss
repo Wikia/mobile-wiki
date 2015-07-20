@@ -6,18 +6,18 @@ $item-image-size: 4rem;
 $image-margin: 1rem;
 $image-size: 150px;
 
-.curated-content-edit-add-item-btn {
+.curated-content-editor-add-item-btn {
 	display: block;
 	font-weight: bold;
 	margin: $item-padding-vertical auto;
 	width: 80%;
 }
 
-.curated-content-edit-head {
+.curated-content-editor-head {
 	position: static;
 }
 
-.curated-content-edit-block {
+.curated-content-editor-block {
 	background: $snow;
 
 	header {
@@ -33,11 +33,11 @@ $image-size: 150px;
 	}
 }
 
-.curated-content-edit-rows {
+.curated-content-editor-rows {
 	padding-top: $module-padding-vertical;
 }
 
-.curated-content-edit-row {
+.curated-content-editor-row {
 	align-items: center;
 	background: $color-white;
 	border: {
@@ -128,11 +128,11 @@ $image-size: 150px;
 	}
 }
 
-.curated-content-edit-submit {
+.curated-content-editor-submit {
 	margin-bottom: 0;
 }
 
-.curated-content-edit-photo {
+.curated-content-editor-photo {
 	img {
 		display: block;
 		margin: 0 auto;
@@ -144,7 +144,7 @@ $image-size: 150px;
 	padding: 14px 18px;
 }
 
-.curated-content-edit-remove {
+.curated-content-editor-remove {
 	bottom: 2rem;
 	left: 2rem;
 	position: absolute;

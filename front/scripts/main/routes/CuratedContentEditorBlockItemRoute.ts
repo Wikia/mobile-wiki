@@ -3,12 +3,12 @@
 
 'use strict';
 
-App.CuratedContentEditBlockItemRoute = Em.Route.extend({
+App.CuratedContentEditorBlockItemRoute = Em.Route.extend({
 	renderTemplate: function (): void {
-		this.render('curated-content-edit-item');
+		this.render('curated-content-editor-item');
 	},
 
-	serialize: function (model: CuratedContentEditBlockItemInterface) {
+	serialize: function (model: CuratedContentEditorBlockItemInterface) {
 		return {
 			block: model.block,
 			// Sections have titles, section items have labels and titles - we want to show labels for them
@@ -17,19 +17,19 @@ App.CuratedContentEditBlockItemRoute = Em.Route.extend({
 	},
 
 	model: function (params: any) {
-		return App.CuratedContentEditItemModel().getItem(params);
+		return App.CuratedContentEditorItemModel().getItem(params);
 	},
 
 	actions: {
-		updateItem: function (updatedEditItemModel: CuratedContentEditBlockItemInterface) {
+		updateItem: function (updatedEditItemModel: CuratedContentEditorBlockItemInterface) {
 			var block = this.context.block,
 				item = this.context.item,
-				currentModel: typeof App.CuratedContentEditModel = this.modelFor('curatedContentEdit'),
-				updatedModel: typeof App.CuratedContentEditModel;
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				updatedModel: typeof App.CuratedContentEditorModel;
 
-			updatedModel = App.CuratedContentEditModel.updateBlockItem(currentModel, updatedEditItemModel, block, item);
+			updatedModel = App.CuratedContentEditorModel.updateBlockItem(currentModel, updatedEditItemModel, block, item);
 			currentModel.set('model', updatedModel);
-			this.transitionTo('curatedContentEdit.index');
+			this.transitionTo('curatedContentEditor.index');
 		}
 	},
 
@@ -40,7 +40,7 @@ App.CuratedContentEditBlockItemRoute = Em.Route.extend({
 	 */
 	beforeModel: function (transition: any) {
 		if (!Em.isArray(transition.intent.contexts)) {
-			this.transitionTo('curatedContentEdit.index');
+			this.transitionTo('curatedContentEditor.index');
 		}
 	}
 });

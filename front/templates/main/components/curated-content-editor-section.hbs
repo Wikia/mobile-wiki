@@ -1,5 +1,5 @@
-<div class="edit-head curated-content-edit-head">
-	{{#link-to 'curatedContentEdit'}}
+<div class="edit-head curated-content-editor-head">
+	{{#link-to 'curatedContentEditor'}}
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	{{/link-to}}
 	<h5>{{model.title}}</h5>
@@ -17,11 +17,11 @@
 	</a>
 </div>
 {{#each model.items as |item|}}
-	{{curated-content-edit-row
+	{{curated-content-editor-row
 	model=item
 	editItem='editItem'
 	}}
 {{/each}}
-<div class="curated-content-edit-item">
-	<button {{action 'addItem'}} class="curated-content-edit-add-item-btn">+ add new category</button>
+<div class="curated-content-editor-item">
+	<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">+ add new category</button>
 </div>

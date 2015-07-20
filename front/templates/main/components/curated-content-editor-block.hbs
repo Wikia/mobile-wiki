@@ -2,16 +2,16 @@
 {{#if description}}
 	<div class="block-description">{{description}}</div>
 {{/if}}
-<div class="curated-content-edit-rows">
+<div class="curated-content-editor-rows">
 	{{#each model.items as |item|}}
-		{{curated-content-edit-row
+		{{curated-content-editor-row
 			model=item
 			block=block
 			editItem='editItem'
 			openSection='openSection'
 		}}
 	{{/each}}
-	<div class="curated-content-edit-row">
-		<button {{action 'addItem'}} class="curated-content-edit-add-item-btn">+ {{addItemLabel}}</button>
+	<div class="curated-content-editor-row">
+		<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">+ {{addItemLabel}}</button>
 	</div>
 </div>

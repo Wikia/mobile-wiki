@@ -1,11 +1,11 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.CuratedContentEditComponent = Em.Component.extend({
-	classNames: ['curated-content-edit'],
+App.CuratedContentEditorComponent = Em.Component.extend({
+	classNames: ['curated-content-editor'],
 
 	actions: {
-		editItem: function (item: CuratedContentEditItemModelInterface): void {
+		editItem: function (item: CuratedContentEditorItemInterface): void {
 			this.sendAction('editItem', item);
 		},
 
@@ -17,7 +17,7 @@ App.CuratedContentEditComponent = Em.Component.extend({
 			this.sendAction('addSectionItem', section);
 		},
 
-		openSection: function (item: CuratedContentEditItemModelInterface): void {
+		openSection: function (item: CuratedContentEditorItemInterface): void {
 			this.sendAction('openSection', item);
 		}
 	}

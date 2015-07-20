@@ -1,4 +1,4 @@
-<div class="edit-head curated-content-edit-head">
+<div class="edit-head curated-content-editor-head">
 	{{#link-to 'mainPage' }}
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	{{/link-to}}
@@ -6,7 +6,7 @@
 
 	<h5>Edit Main Page</h5>
 </div>
-{{curated-content-edit-block
+{{curated-content-editor-block
 	model=model.featured
 	title='Featured Content'
 	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
@@ -16,7 +16,7 @@
 	block='featured'
 }}
 
-{{curated-content-edit-block
+{{curated-content-editor-block
 	model=model.regular
 	title='Explore the Wiki'
 	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
@@ -27,7 +27,7 @@
 	block='regular'
 }}
 
-{{curated-content-edit-block
+{{curated-content-editor-block
 	model=model.optional
 	title='Optional'
 	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'

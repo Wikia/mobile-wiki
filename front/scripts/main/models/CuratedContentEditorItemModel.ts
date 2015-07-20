@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.CuratedContentEditItemModel = Em.Object.extend({
+App.CuratedContentEditorItemModel = Em.Object.extend({
 	block: null,
 	section: null,
 	item: {
@@ -12,13 +12,13 @@ App.CuratedContentEditItemModel = Em.Object.extend({
 	}
 });
 
-App.CuratedContentEditItemModel.reopenClass({
+App.CuratedContentEditorItemModel.reopenClass({
 	getEmpty: function (params: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise(function (resolve, reject): void {
 			if (params.block) {
-				resolve(App.CuratedContentEditItemModel.create({block: params.block}))
+				resolve(App.CuratedContentEditorItemModel.create({block: params.block}))
 			} else if (params.section) {
-				resolve(App.CuratedContentEditItemModel.create({section: params.section}))
+				resolve(App.CuratedContentEditorItemModel.create({section: params.section}))
 			} else {
 				reject('Invalid parent info passed to Edit Item Model.');
 			}
@@ -28,9 +28,9 @@ App.CuratedContentEditItemModel.reopenClass({
 	getItem: function (params: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise(function (resolve, reject): void {
 			if (params.block) {
-				resolve(App.CuratedContentEditItemModel.create({block: params.block, item: params.item}))
+				resolve(App.CuratedContentEditorItemModel.create({block: params.block, item: params.item}))
 			} else if (params.section) {
-				resolve(App.CuratedContentEditItemModel.create({section: params.section, item: params.item}))
+				resolve(App.CuratedContentEditorItemModel.create({section: params.section, item: params.item}))
 			} else {
 				reject('Invalid parent info passed to Edit Item Model.');
 			}

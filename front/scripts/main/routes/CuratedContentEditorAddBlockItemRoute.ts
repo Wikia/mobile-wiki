@@ -3,12 +3,12 @@
 
 'use strict';
 
-App.CuratedContentEditAddBlockItemRoute = Em.Route.extend({
+App.CuratedContentEditorAddBlockItemRoute = Em.Route.extend({
 	renderTemplate: function (): void {
-		this.render('curated-content-edit-item');
+		this.render('curated-content-editor-item');
 	},
 
 	model: function (params: any) {
-		return App.CuratedContentEditItemModel.getEmpty(params);
+		return App.CuratedContentEditorItemModel.getEmpty(params);
 	},
 });

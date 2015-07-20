@@ -3,12 +3,12 @@
 
 'use strict';
 
-App.CuratedContentEditSectionRoute = Em.Route.extend({
+App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	renderTemplate: function (): void {
-		this.render('curated-content-edit-section');
+		this.render('curated-content-editor-section');
 	},
 
-	serialize: function (model: CuratedContentEditItemModelInterface) {
+	serialize: function (model: CuratedContentEditorItemInterface) {
 		return {
 			section: encodeURIComponent(model.title)
 		};
@@ -21,7 +21,7 @@ App.CuratedContentEditSectionRoute = Em.Route.extend({
 	 */
 	beforeModel: function (transition: any) {
 		if (!Em.isArray(transition.intent.contexts)) {
-			this.transitionTo('curatedContentEdit.index');
+			this.transitionTo('curatedContentEditor.index');
 		}
 	}
 });

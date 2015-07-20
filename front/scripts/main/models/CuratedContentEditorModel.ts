@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface CuratedContentEditItemModelInterface {
+interface CuratedContentEditorItemInterface {
 	title: string;
 	label?: string;
 	image_id: number;
@@ -10,16 +10,16 @@ interface CuratedContentEditItemModelInterface {
 	featured?: string;
 	type?: string;
 	video_info?: any;
-	items?: CuratedContentEditItemModelInterface[]
+	items?: CuratedContentEditorItemInterface[]
 }
 
-App.CuratedContentEditModel = Em.Object.extend({
+App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	regular: null,
 	optional: null
 });
 
-App.CuratedContentEditModel.reopenClass({
+App.CuratedContentEditorModel.reopenClass({
 	find: function (): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
@@ -33,7 +33,7 @@ App.CuratedContentEditModel.reopenClass({
 				},
 				success: (data: any): void => {
 					if (Em.isArray(data.data)) {
-						resolve(App.CuratedContentEditModel.sanitize(data.data));
+						resolve(App.CuratedContentEditorModel.sanitize(data.data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
@@ -51,7 +51,7 @@ App.CuratedContentEditModel.reopenClass({
 	 * @param rawData
 	 * @returns {any}
 	 */
-	sanitize: function (rawData: any): typeof App.CuratedContentEditModel {
+	sanitize: function (rawData: any): typeof App.CuratedContentEditorModel {
 		var featured = {},
 			regular = {
 				items: <any>[]
@@ -59,7 +59,7 @@ App.CuratedContentEditModel.reopenClass({
 			optional = {};
 
 		if (rawData.length) {
-			rawData.forEach(function (section: CuratedContentEditItemModelInterface) {
+			rawData.forEach(function (section: CuratedContentEditorItemInterface) {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.title === '') {
@@ -70,7 +70,7 @@ App.CuratedContentEditModel.reopenClass({
 			});
 		}
 
-		return App.CuratedContentEditModel.create({
+		return App.CuratedContentEditorModel.create({
 			featured: featured,
 			regular: regular,
 			optional: optional
@@ -78,9 +78,9 @@ App.CuratedContentEditModel.reopenClass({
 	},
 
 	updateBlockItem: function (
-		currentModel: typeof App.CuratedContentEditModel, updatedEditBlockItem: CuratedContentEditBlockItemInterface,
-		block: string, item: CuratedContentEditItemInterface
-	): typeof App.CuratedContentEditModel {
+		currentModel: typeof App.CuratedContentEditorModel, updatedEditBlockItem: CuratedContentEditorBlockItemInterface,
+		block: string, item: CuratedContentEditorItemInterface
+	): typeof App.CuratedContentEditorModel {
 		var blockItems = currentModel[block].items,
 			itemToBeUpdatedIndex = blockItems.indexOf(item);
 		blockItems[itemToBeUpdatedIndex] = updatedEditBlockItem.item;
