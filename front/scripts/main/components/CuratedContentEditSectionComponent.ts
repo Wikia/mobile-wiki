@@ -1,5 +1,4 @@
 /// <reference path="../app.ts" />
-///<reference path="CuratedContentEditBlockItemComponent.ts"/>
 'use strict';
 
 App.CuratedContentEditSectionComponent = Em.Component.extend({

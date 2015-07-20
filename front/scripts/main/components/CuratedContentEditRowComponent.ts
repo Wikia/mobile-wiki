@@ -1,20 +1,8 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface CuratedContentEditItemInterface {
-	title: string;
-	label?: string;
-	image_id: number;
-	image_url?: string;
-	article_id?: number;
-	featured?: string;
-	type?: string;
-	video_info?: any;
-	items?: CuratedContentEditItemInterface[]
-}
-
-App.CuratedContentEditBlockItemComponent = Em.Component.extend({
-	classNames: ['curated-content-edit-block-item'],
+App.CuratedContentEditRowComponent = Em.Component.extend({
+	classNames: ['curated-content-edit-row'],
 
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,

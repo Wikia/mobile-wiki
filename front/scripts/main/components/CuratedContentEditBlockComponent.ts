@@ -16,7 +16,10 @@ App.CuratedContentEditBlockComponent = Em.Component.extend({
 				block = this.get('block');
 
 			if (block) {
-				this.sendAction('editItem', {block: block, item: item});
+				this.sendAction('editItem', {
+					block: block,
+					item: item
+				});
 			} else {
 				this.sendAction('editItem', item);
 			}

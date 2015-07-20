@@ -1,6 +1,18 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface CuratedContentEditItemInterface {
+	title: string;
+	label?: string;
+	image_id: number;
+	image_url?: string;
+	article_id?: number;
+	featured?: string;
+	type?: string;
+	video_info?: any;
+	items?: CuratedContentEditItemInterface[]
+}
+
 App.CuratedContentEditModel = Em.Object.extend({
 	featured: null,
 	regular: null,
