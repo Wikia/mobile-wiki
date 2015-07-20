@@ -9,16 +9,16 @@ $min-hero-item-height: 110px;
 //fonts used in infobox
 $infobox-title-font-size: 18px;
 $infobox-title-line-height: 28px;
-$label-value-font-size: 14px;
-$label-value-line-height: 20px;
+$infobox-default-font-size: 14px;
+$infobox-default-line-height: 20px;
 $hero-caption-font-size: 12px;
 $hero-caption-line-height: 18px;
 
 .portable-infobox {
 	background-color: $infobox-background;
-	font-size: $label-value-font-size;
+	font-size: $infobox-default-font-size;
 	height: auto;
-	line-height: $label-value-line-height;
+	line-height: $infobox-default-line-height;
 	margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
 	.article-gallery {
