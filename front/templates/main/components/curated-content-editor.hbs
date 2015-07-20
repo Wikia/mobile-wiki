@@ -1,11 +1,11 @@
-<div class="edit-head curated-content-editor-head">
+<header class="edit-head curated-content-editor-head">
 	{{#link-to 'mainPage' }}
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	{{/link-to}}
 	<button {{action 'save'}} class="large publish">Save</button>
 
-	<h5>Edit Main Page</h5>
-</div>
+	<div class="edit-head-title">Edit Main Page</div>
+</header>
 {{curated-content-editor-block
 	model=model.featured
 	block='featured'

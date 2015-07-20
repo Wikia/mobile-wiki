@@ -1,13 +1,15 @@
 <form {{action 'updateItem' on='submit'}}>
-	<div class="edit-head curated-content-editor-head">
+	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
-		{{#if renderLabel}}
-			<h5>{{model.label}}</h5>
-		{{else}}
-			<h5>{{model.title}}</h5>
-		{{/if}}
-	</div>
+		<div class="edit-head-title">
+			{{#if renderLabel}}
+				{{model.label}}
+			{{else}}
+				{{model.title}}
+			{{/if}}
+		</div>
+	</header>
 	<div class="curated-content-editor-photo">
 		<img src="{{imageUrl}}" />
 	</div>
