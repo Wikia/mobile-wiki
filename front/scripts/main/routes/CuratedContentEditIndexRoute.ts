@@ -4,11 +4,9 @@
 'use strict';
 
 App.CuratedContentEditIndexRoute = Em.Route.extend({
-	model: function (): Em.RSVP.Promise {
-		return App.CuratedContentEditModel.find();
-	},
-
 	renderTemplate: function (): void {
-		this.render('curated-content-edit');
+		this.render('curated-content-edit', {
+			model: this.modelFor('curatedContentEdit')
+		});
 	},
 });

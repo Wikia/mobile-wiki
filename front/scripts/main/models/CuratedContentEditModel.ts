@@ -75,5 +75,16 @@ App.CuratedContentEditModel.reopenClass({
 			regular: regular,
 			optional: optional
 		});
+	},
+
+	updateBlockItem: function (
+		currentModel: typeof App.CuratedContentEditModel, updatedEditBlockItem: CuratedContentEditBlockItemInterface,
+		block: string, item: CuratedContentEditItemInterface
+	): typeof App.CuratedContentEditModel {
+		var blockItems = currentModel[block].items,
+			itemToBeUpdatedIndex = blockItems.indexOf(item);
+		blockItems[itemToBeUpdatedIndex] = updatedEditBlockItem.item;
+
+		return currentModel;
 	}
 });

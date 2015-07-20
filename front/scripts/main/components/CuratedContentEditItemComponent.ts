@@ -50,5 +50,8 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 		checkLabel: function(value: string): void {
 			this.checkLabel(value);
 		},
+		updateItem: function(): void {
+			this.sendAction('updateItem', this.get('model'));
+		}
 	}
 });

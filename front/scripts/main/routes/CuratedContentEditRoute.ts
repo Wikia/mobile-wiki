@@ -4,6 +4,10 @@
 'use strict';
 
 App.CuratedContentEditRoute = Em.Route.extend({
+	model: function (): Em.RSVP.Promise {
+		return App.CuratedContentEditModel.find();
+	},
+
 	actions: {
 		editItem: function(editBlockItem: CuratedContentEditBlockItemInterface): void  {
 			if (editBlockItem.block) {
