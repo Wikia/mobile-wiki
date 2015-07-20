@@ -9,7 +9,7 @@ App.CuratedContentEditAddSectionItemRoute = Em.Route.extend({
 		this.render('curated-content-edit-item');
 	},
 
-	model: function () {
-		return App.CuratedContentEditItemModel.getEmpty();
+	model: function (params: any) {
+		return App.CuratedContentEditItemModel.getEmpty(params);
 	},
 });

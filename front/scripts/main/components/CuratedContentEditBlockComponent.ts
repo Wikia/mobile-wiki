@@ -22,6 +22,10 @@ App.CuratedContentEditBlockComponent = Em.Component.extend({
 			}
 		},
 
+		addItem: function (): void {
+			this.sendAction('addBlockItem', this.get('block'));
+		},
+
 		openSection: function (item: CuratedContentEditItemInterface): void {
 			this.sendAction('openSection', item);
 		}
