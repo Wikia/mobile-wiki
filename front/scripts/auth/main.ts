@@ -28,7 +28,11 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		new SubmitValidator(formElement).watch();
 
 		if (formElement.id === 'loginForm') {
-			new Login(formElement).watch();
+			if (document.body.className.indexOf('fb-connect-page')) {
+				new FacebookConnect(formElement).init();
+			} else {
+				new Login(formElement).watch();
+			}
 		} else if (formElement.id === 'signupForm') {
 			new SignupForm(formElement).watch();
 		} else if (formElement.id === 'facebookRegistrationForm') {

@@ -27,7 +27,7 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 	);
 }
 
-export function get (request: Hapi.Request, reply: any): Hapi.Response {
+function getSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
 		context: SignInViewContext = getSignInViewContext(request, redirect);
 
@@ -36,4 +36,23 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	}
 
 	return authView.view('signin', context, request, reply);
+}
+
+function getFacebookSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
+	var redirect: string = authView.getRedirectUrl(request),
+		context: SignInViewContext = getSignInViewContext(request, redirect);
+
+	if (request.auth.isAuthenticated) {
+		return reply.redirect(redirect);
+	}
+
+	return authView.view('signin-fb', context, request, reply);
+}
+
+export function get (request: Hapi.Request, reply: any): void {
+	if (request.query.method === 'facebook') {
+		getFacebookSignInPage(request, reply);
+	} else {
+		getSignInPage(request, reply);
+	}
 }
