@@ -10,6 +10,11 @@ App.CuratedContentEditItemComponent = Em.Component.extend({
 		return !Em.isEmpty(item.image_url) ? item.image_url : this.emptyGif;
 	}),
 
+	displayPageInput: Em.computed('block', function (): boolean {
+			return this.get('block') !== 'regular';
+		}
+	),
+
 	willInsertElement: function() {
 		this.set('item', this.get('model').item);
 		this.set('block', this.get('model').block);
