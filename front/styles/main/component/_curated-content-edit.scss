@@ -80,6 +80,7 @@ $image-size: 150px;
 	background: $snow;
 	display: flex;
 	height: $image-size;
+	position: relative;
 
 	.section-image {
 		text-align: center;
@@ -113,6 +114,12 @@ $image-size: 150px;
 		font-size: 12px;
 		line-height: 14px;
 		padding: 0 13px 10px;
+	}
+
+	.section-edit {
+		bottom: 1rem;
+		position: absolute;
+		right: 1rem;
 	}
 }
 
