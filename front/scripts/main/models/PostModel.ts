@@ -1,9 +1,9 @@
 /// <reference path="../app.ts" />
 
-App.ThreadModel = Em.Object.extend({
+App.PostModel = Em.Object.extend({
 });
 
-App.ThreadModel.reopenClass({
+App.PostModel.reopenClass({
 	find(wikiId: number, threadId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({

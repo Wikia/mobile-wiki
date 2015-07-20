@@ -2,11 +2,10 @@
 
 <h2>Replies:</h2>
 {{#each item in model._embedded.doc:posts}}
-
-    {{#thread-post
+    {{#post-reply
         authorId=item.creatorId
         content=item.rawContent
         timestamp=item.creationDate.epochSecond
-    }}{{/thread-post}}
+    }}{{/post-reply}}
     <hr/>
 {{/each}}

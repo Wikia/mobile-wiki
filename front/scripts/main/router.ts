@@ -25,9 +25,9 @@ App.Router.map(function () {
 
 	this.resource('discussion', {path: 'discuss'}, function () {
 		this.resource('forum', {path: ':forumId'}, function () {
-			this.route('thread', {path: ':threadId'});
+			this.route('post', {path: ':postId'});
 		});
-	});
+});
 
 
 	// We don't want to duplicate the previous route
