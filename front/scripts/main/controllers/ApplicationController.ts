@@ -9,6 +9,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	needs: ['article'],
 	queryParams: ['file', 'map',
 		{ noAds: 'noads' },
+		// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
 		{ commentsPage: 'comments_page' }
 	],
 	file: null,
