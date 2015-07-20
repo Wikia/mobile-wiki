@@ -10,5 +10,5 @@ App.CuratedContentEditorAddSectionItemRoute = Em.Route.extend({
 
 	model: function (params: any) {
 		return App.CuratedContentEditorItemModel.getEmpty(params);
-	},
+	}
 });
