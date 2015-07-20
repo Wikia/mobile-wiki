@@ -9,22 +9,26 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 	},
 
 	actions: {
-		editItem: function(editBlockItem: CuratedContentEditorBlockItemInterface): void  {
-			if (editBlockItem.block) {
-				this.transitionTo('curatedContentEditor.blockItem', editBlockItem);
-			} else if (editBlockItem.section) {
-				this.transitionTo('curatedContentEditor.sectionItem', editBlockItem);
-			} else {
-				this.sendAction('error');
-			}
-		},
-
-		addBlockItem: function(block: string): void  {
+		addBlockItem: function (block: string): void  {
 			this.transitionTo('curatedContentEditor.addBlockItem', block);
 		},
 
-		addSectionItem: function(section: string): void  {
+		addSectionItem: function (section: string): void  {
 			this.transitionTo('curatedContentEditor.addSectionItem', section);
+		},
+
+		editBlockItem: function (item: CuratedContentEditorItemInterface, block: string): void  {
+			this.transitionTo('curatedContentEditor.blockItem', {
+				item: item,
+				block: block
+			});
+		},
+
+		editSectionItem: function (item: CuratedContentEditorItemInterface, section: string): void  {
+			this.transitionTo('curatedContentEditor.sectionItem', {
+				item: item,
+				section: section
+			});
 		},
 
 		openSection: function (item: CuratedContentEditorItemInterface): void {
@@ -52,7 +56,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			return true;
 		},
 
-		didTransition: function(): boolean {
+		didTransition: function (): boolean {
 			this.controllerFor('application').set('fullPage', true);
 			window.scrollTo(0, 0);
 			return true;

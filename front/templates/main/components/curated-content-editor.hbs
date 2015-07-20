@@ -8,31 +8,31 @@
 </div>
 {{curated-content-editor-block
 	model=model.featured
+	block='featured'
 	title='Featured Content'
 	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
-	editItem='editItem'
-	addBlockItem='addBlockItem'
 	addItemLabel='add new featured content'
-	block='featured'
+	addBlockItem='addBlockItem'
+	editItem='editBlockItem'
 }}
 
 {{curated-content-editor-block
 	model=model.regular
+	block='regular'
 	title='Explore the Wiki'
 	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
 	addItemLabel='add new section'
-	editItem='editItem'
 	addBlockItem='addBlockItem'
+	editItem='editSectionItem'
 	openSection='openSection'
-	block='regular'
 }}
 
 {{curated-content-editor-block
 	model=model.optional
+	block='optional'
 	title='Optional'
 	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
-	editItem='editItem'
-	addBlockItem='addBlockItem'
 	addItemLabel='add category'
-	block='optional'
+	addBlockItem='addBlockItem'
+	editItem='editBlockItem'
 }}

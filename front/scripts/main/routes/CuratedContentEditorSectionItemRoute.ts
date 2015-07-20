@@ -1,24 +1,20 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
-///<reference path="../components/CuratedContentEditorBlockComponent.ts"/>
 
 'use strict';
 
-App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
-	renderTemplate: function (): void {
-		this.render('curated-content-editor-item');
-	},
+interface CuratedContentEditorSectionItemRouteParamsInterface {
+	section: string;
+	item: CuratedContentEditorItemInterface
+}
 
-	serialize: function (model: CuratedContentEditorBlockItemInterface) {
+App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
+	serialize: function (model: CuratedContentEditorSectionItemRouteParamsInterface) {
 		return {
 			// Sections have titles, section items have labels and titles - we want to show labels for them
 			section: encodeURIComponent(model.section),
 			item: encodeURIComponent(model.item.label || model.item.title)
 		};
-	},
-
-	model: function (params: any) {
-		return App.CuratedContentEditorItemModel().getItem(params);
 	},
 
 	/**
@@ -30,5 +26,9 @@ App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
 		if (!Em.isArray(transition.intent.contexts)) {
 			this.transitionTo('curatedContentEditor.index');
 		}
+	},
+
+	renderTemplate: function (): void {
+		this.render('curated-content-editor-item');
 	}
 });

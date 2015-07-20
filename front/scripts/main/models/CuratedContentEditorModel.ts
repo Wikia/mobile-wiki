@@ -1,17 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface CuratedContentEditorItemInterface {
-	title: string;
-	label?: string;
-	image_id: number;
-	image_url?: string;
-	article_id?: number;
-	featured?: string;
-	type?: string;
-	video_info?: any;
-	items?: CuratedContentEditorItemInterface[]
-}
+
 
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
@@ -78,12 +68,16 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	updateBlockItem: function (
-		currentModel: typeof App.CuratedContentEditorModel, updatedEditBlockItem: CuratedContentEditorBlockItemInterface,
-		block: string, item: CuratedContentEditorItemInterface
+		currentModel: typeof App.CuratedContentEditorModel,
+		newItemRawData: any,
+		block: string,
+		oldItem: any
 	): typeof App.CuratedContentEditorModel {
+		debugger;
 		var blockItems = currentModel[block].items,
 			itemToBeUpdatedIndex = blockItems.indexOf(item);
-		blockItems[itemToBeUpdatedIndex] = updatedEditBlockItem.item;
+
+		blockItems[itemToBeUpdatedIndex] = newItemRawData;
 
 		return currentModel;
 	}

@@ -4,10 +4,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	classNames: ['curated-content-editor-item'],
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 
-	imageUrl: Em.computed('model.item', function (): string {
-		var item: CuratedContentEditorItemInterface = this.get('model.item');
+	imageUrl: Em.computed('model', function (): string {
+		var model: CuratedContentEditorItemInterface = this.get('model');
 
-		return !Em.isEmpty(item.image_url) ? item.image_url : this.emptyGif;
+		return !Em.isEmpty(model.image_url) ? model.image_url : this.emptyGif;
 	}),
 
 	displayPageInput: Em.computed('block', function (): boolean {
@@ -15,14 +15,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		}
 	),
 
-	willInsertElement: function() {
-		this.set('item', this.get('model').item);
-		this.set('block', this.get('model').block);
-	},
-
 	didInsertElement: function() {
-		this.checkPage(this.get('item.title'));
-		this.checkLabel(this.get('item.label'));
+		var model = this.get('model');
+
+		this.checkPage(model.title);
+		this.checkLabel(model.label);
 	},
 
 	checkPage: function(value: string): void {
@@ -51,7 +48,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			this.checkLabel(value);
 		},
 		updateItem: function(): void {
-			this.sendAction('updateItem', this.get('model'));
+			debugger;
+			this.sendAction('updateItem', this.get('model'), this.get('block'));
 		}
 	}
 });

@@ -1,6 +1,5 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
-///<reference path="../components/CuratedContentEditorBlockComponent.ts"/>
 
 'use strict';
 
