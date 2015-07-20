@@ -29,7 +29,7 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 
 		if (formElement.id === 'loginForm') {
 			if (document.body.className.indexOf('fb-connect-page')) {
-				new FacebookConnect(formElement).init();
+				new FacebookConnect(formElement);
 			} else {
 				new Login(formElement).watch();
 			}

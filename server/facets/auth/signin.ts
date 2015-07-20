@@ -27,6 +27,23 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 	);
 }
 
+function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
+	return deepExtend(
+		authView.getDefaultContext(request),
+		{
+			title: 'auth:signin.signin-title',
+			headerText: 'auth:signin.welcome-back',
+			footerCallout: 'auth:signin.register-callout',
+			footerCalloutLink: 'auth:signin.register-now',
+			footerHref: authUtils.getRegisterUrl(request),
+			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
+			bodyClasses: 'fb-connect-page',
+			heliosFacebookConnectURL: localSettings.helios.host + '/users/',
+			facebookAppId: localSettings.facebook.appId
+		}
+	);
+}
+
 function getSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
 		context: SignInViewContext = getSignInViewContext(request, redirect);
@@ -40,7 +57,7 @@ function getSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
 
 function getFacebookSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
 	var redirect: string = authView.getRedirectUrl(request),
-		context: SignInViewContext = getSignInViewContext(request, redirect);
+		context: SignInViewContext = getFBSignInViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirect);
