@@ -32,7 +32,7 @@ App.Router.map(function () {
 	});
 
 	this.resource('discussion', {path: 'discuss'}, function () {
-		this.resource('forum', {path: ':forumId'}, function () {
+		this.resource('discussion.forum', {path: ':forumId'}, function () {
 			this.route('post', {path: ':postId'});
 		});
 });

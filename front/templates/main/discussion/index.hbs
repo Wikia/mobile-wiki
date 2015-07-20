@@ -3,6 +3,6 @@
 <h2>Forums:</h2>
 <ul>
 {{#each item in _embedded.doc:forum}}
-    <li>{{#link-to 'forum.index' item.id}}{{item.name}}{{/link-to}} - {{item.postCount}} posts</li>
+    <li>{{#link-to 'discussion.forum.index' item.id}}{{item.name}}{{/link-to}} - {{item.postCount}} posts</li>
 {{/each}}
 </ul>
