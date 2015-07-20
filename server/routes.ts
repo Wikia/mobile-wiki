@@ -182,11 +182,6 @@ authenticatedRoutes = [
 			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
 		}
 	},
-	{
-		method: 'POST',
-		path: '/editorPreview',
-		handler: require('./facets/editorPreview')
-	},
 	/*
 	{
 		method: 'GET',
