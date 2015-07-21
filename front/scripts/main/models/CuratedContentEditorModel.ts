@@ -118,10 +118,20 @@ App.CuratedContentEditorModel.reopenClass({
 		sectionName: string,
 		oldItem: any
 	): typeof App.CuratedContentEditorModel {
-		var sections = currentModel.regular.items;
-		for (var i = 0; i < sections.length; i++) {
+		var sections = currentModel.regular.items,
+			sectionWithItemItems, i;
+
+		for (i = 0; i < sections.length; i++) {
 			if (sections[i].title === sectionName) {
-				sections[i].items.indexOf(oldItem)
+				sectionWithItemItems = sections[i].items;
+				break;
+			}
+		}
+
+		for (i = 0; i < sectionWithItemItems.length; i++) {
+			if (sectionWithItemItems[i].label === oldItem.label) {
+				sectionWithItemItems[i] = newItem;
+				break;
 			}
 		}
 

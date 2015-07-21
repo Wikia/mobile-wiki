@@ -51,6 +51,7 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				updatedModel: typeof App.CuratedContentEditorModel;
 
+			debugger;
 			updatedModel = App.CuratedContentEditorModel.updateSectionItem(currentModel, updatedEditItemModel, section, item);
 			currentModel.set('model', updatedModel);
 
