@@ -1,3 +1,8 @@
+ /*
+ * docs-front
+ * Creates documentation for front scripts in mercury/docs/front/
+ */
+
 var gulp = require('gulp'),
 	typedoc = require('gulp-typedoc'),
 	paths = require('../paths'),

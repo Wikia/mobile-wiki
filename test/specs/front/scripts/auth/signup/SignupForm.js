@@ -4,8 +4,11 @@ QUnit.module('auth/signup/SignupForm)', {
 		form.action = '/example/asd';
 		form.appendChild(document.createElement('button'));
 
-		this.generalErrorSpy = sinon.spy(),
+		this.generalErrorSpy = sinon.spy();
 		this.fieldErrorSpy = sinon.spy();
+		this.marketingStub = sinon.stub(window, 'MarketingOptIn').returns({
+			init: Function.prototype
+		});
 
 		this.signupForm = new SignupForm(form);
 		this.signupForm.displayGeneralError = this.generalErrorSpy;
@@ -20,6 +23,7 @@ QUnit.module('auth/signup/SignupForm)', {
 	},
 	teardown: function () {
 		this.server.restore();
+		this.marketingStub.restore();
 		delete this.server;
 	}
 });

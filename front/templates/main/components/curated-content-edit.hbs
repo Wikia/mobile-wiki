@@ -1,0 +1,34 @@
+<div class="edit-head curated-content-edit-head">
+	{{#link-to 'mainPage' }}
+		{{svg 'chevron' role='img' class='icon arrow-left'}}
+	{{/link-to}}
+	<button {{action 'save'}} class="large publish">Save</button>
+
+	<h5>Edit Main Page</h5>
+</div>
+{{curated-content-edit-block
+	model=model.featured
+	title='Featured Content'
+	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
+	addItemLabel='+ add new featured content'
+	editItem='editItem'
+	openSection='openSection'
+}}
+
+{{curated-content-edit-block
+	model=model.regular
+	title='Explore the Wiki'
+	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
+	addItemLabel='+ add new section'
+	editItem='editItem'
+	openSection='openSection'
+}}
+
+{{curated-content-edit-block
+	model=model.optional
+	title='Optional'
+	description='Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.'
+	addItemLabel='+ add category'
+	editItem='editItem'
+	openSection='openSection'
+}}

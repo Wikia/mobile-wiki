@@ -1,4 +1,4 @@
-module('ThirdsClickMixin');
+moduleFor('mixin:thirdsClick', 'ThirdsClickMixin');
 
 test('calls proper handlers on click', function () {
 	var mock = Em.Object.createWithMixins(App.ThirdsClickMixin, {

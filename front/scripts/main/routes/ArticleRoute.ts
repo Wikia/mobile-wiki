@@ -19,8 +19,6 @@ App.ArticleRoute = Em.Route.extend({
 
 		this.controllerFor('application').send('closeLightbox');
 
-		// TODO: Handle main pages which are redirected
-		// Ticket here: https://wikia-inc.atlassian.net/browse/CONCF-735
 		if (title === Mercury.wiki.mainPageTitle) {
 			this.transitionTo('mainPage');
 		}
@@ -32,7 +30,7 @@ App.ArticleRoute = Em.Route.extend({
 		// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 		if (title.match(/\s/)) {
 			this.transitionTo('article',
-				M.String.sanitize(title)
+				M.String.normalizeToUnderscore(title)
 			);
 		}
 	},
@@ -46,6 +44,12 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: typeof App.ArticleModel): void {
+		// if an article is main page, redirect to mainPage route
+		// this will handle accessing /wiki/Main_Page if default main page is different article
+		if (model.isMainPage) {
+			this.transitionTo('mainPage');
+		}
+
 		this.controllerFor('application').set('currentTitle', model.get('title'));
 		App.VisibilityStateManager.reset();
 
