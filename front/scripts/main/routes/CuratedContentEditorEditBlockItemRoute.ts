@@ -58,7 +58,12 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 
 			updatedModel = App.CuratedContentEditorModel.updateBlockItem(currentModel, updatedEditItemModel, block, oldItem);
 			currentModel.set('model', updatedModel);
-			this.transitionTo('curatedContentEditor.index');
+
+			if (block === 'regular') {
+				this.transitionTo('curatedContentEditor.section', encodeURIComponent(updatedEditItemModel.title));
+			} else {
+				this.transitionTo('curatedContentEditor.index');
+			}
 		}
 	}
 });
