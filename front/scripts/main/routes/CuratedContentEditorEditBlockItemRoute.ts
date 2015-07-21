@@ -50,18 +50,18 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 			}
 		},
 
-		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
+		updateItem: function (newItem: CuratedContentEditorItemInterface) {
 			var block = this.modelFor('curatedContentEditor.editBlockItem').block,
 				oldItem = this.modelFor('curatedContentEditor.editBlockItem').originalItem,
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				updatedModel: typeof App.CuratedContentEditorModel;
-
-			updatedModel = App.CuratedContentEditorModel.updateBlockItem(currentModel, updatedEditItemModel, block, oldItem);
-			currentModel.set('model', updatedModel);
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
 
 			if (block === 'curated') {
-				this.transitionTo('curatedContentEditor.section', encodeURIComponent(updatedEditItemModel.title));
+				this.transitionTo('curatedContentEditor.section', {
+					originalTitle: oldItem.title,
+					data: newItem
+				});
 			} else {
+				App.CuratedContentEditorModel.updateBlockItem(currentModel, newItem, block, oldItem);
 				this.transitionTo('curatedContentEditor.index');
 			}
 		}
