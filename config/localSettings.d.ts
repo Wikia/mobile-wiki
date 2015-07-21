@@ -23,6 +23,7 @@ interface WeppyConfig {
 
 interface LocalSettings {
 	apiBase: string;
+	asyncArticle: string[];
 	backendRequestTimeout: number;
 	cdnBaseUrl: string;
 	domain: string;
