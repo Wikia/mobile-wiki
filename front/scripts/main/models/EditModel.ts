@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury" />
+/// <reference path="../mixins/EditMixin.ts" />
 'use strict';
 
 App.EditModel = Em.Object.extend({
@@ -13,38 +14,7 @@ App.EditModel = Em.Object.extend({
 	})
 });
 
-App.EditModel.reopenClass({
-
-	getEditToken: function(title: string): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
-				url: M.buildUrl({path: '/api.php'}),
-				data: {
-					action: 'query',
-					prop: 'info',
-					titles: title,
-					intoken: 'edit',
-					format: 'json'
-				},
-				dataType: 'json',
-				success: (resp: any): void => {
-					var edittoken: string,
-						pages: any = Em.get(resp, 'query.pages');
-					if (pages) {
-						// FIXME: MediaWiki API, seriously?
-						edittoken = pages[Object.keys(pages)[0]].edittoken;
-						resolve(edittoken);
-					} else {
-						reject();
-					}
-				},
-				error: (err): void => {
-					reject(err);
-				}
-			});
-		});
-	},
-
+App.EditModel.reopenClass(App.EditMixin, {
 	publish: function(model: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.getEditToken(model.title)

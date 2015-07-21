@@ -21,6 +21,7 @@ class SignupForm {
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
 	redirect: string;
+	marketingOptIn: MarketingOptIn;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -29,6 +30,8 @@ class SignupForm {
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
+		this.marketingOptIn = new MarketingOptIn();
+		this.marketingOptIn.init();
 	}
 
 	private clearValidationErrors(): void {
@@ -107,7 +110,7 @@ class SignupForm {
 
 	private trackValidationErrors(errors: Array<string>): void {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: M.trackActions.error,
 			category: 'user-login-mobile',
 			label: 'registrationValidationErrors: ' + errors.join(';'),
@@ -116,7 +119,7 @@ class SignupForm {
 
 	private trackSuccessfulRegistration() {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: M.trackActions.success,
 			category: 'user-login-mobile',
 			label: 'successful-registration'

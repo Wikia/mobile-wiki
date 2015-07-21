@@ -11,13 +11,19 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+	style: null,
+	imageWidth: 250,
+
 	currentlyRenderedImageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
-	imageWidth: 250,
+
 	imageHeight: Em.computed(function (): number {
 		return Math.floor(this.get('imageWidth') * 9 / 16);
 	}),
-	style: null,
+
+	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
+		this.updateImageSize(this.get('viewportDimensions.width'));
+	}),
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
@@ -29,9 +35,9 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 		}
 	},
 
-	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	}),
+	click: function (): void {
+		this.trackClick('modular-main-page', 'trending-articles');
+	},
 
 	lazyLoadImage: function (): void {
 		var options: any = {
@@ -51,9 +57,5 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 
 		this.set('style', Em.String.htmlSafe(`width: ${imageWidthString}px;`));
 		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
-	},
-
-	click: function (): void {
-		this.trackClick('modular-main-page', 'trending-articles');
 	}
 });

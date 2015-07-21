@@ -1,3 +1,45 @@
+## release-114 hotfix 1 (2015-07-20 18:37 UTC)
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) [HOTFIX] CONCF-896 | catch when decodeURIComponent throws
+
+## release-114 (2015-07-20 11:50 UTC)
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | handle categories with special characters
+* [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - clean up gulp tasks
+* [CONCF-786](https://wikia-inc.atlassian.net/browse/CONCF-786) CONCF-786 Curated Content Tool first draft
+
+## release-113 (2015-07-17 10:36 UTC)
+* [SOC-1043](https://wikia-inc.atlassian.net/browse/SOC-1043) SOC-1043 Use https url for tracking events internally
+
+## release-112 (2015-07-16 10:00 UTC)
+* [HG-803](https://wikia-inc.atlassian.net/browse/HG-803) HG-803 - un-normalized file name for lightbox handling
+* [HG-810](https://wikia-inc.atlassian.net/browse/HG-810) HG-810 | run build-combined when ts file changes
+* [SOC-560](https://wikia-inc.atlassian.net/browse/SOC-560) SOC-560 Geo-targeted Marketing Opt-In checkbox in Registration Form
+
+## release-111 (2015-07-15 10:00 UTC)
+* [CONCF-857](https://wikia-inc.atlassian.net/browse/CONCF-857) CONCF-857 Add asyncArticle to curated content routes
+* [INT-143](https://wikia-inc.atlassian.net/browse/INT-143) INT-143 Fix bug by properly using cleanTitle instead of title property
+* [HG-809](https://wikia-inc.atlassian.net/browse/HG-809) HG-809 - revison assets in all .hbs files
+* [HG-691](https://wikia-inc.atlassian.net/browse/HG-691) HG-691 setting option to get locale folders names as all lower case
+* fix-for-soc-1017: Use M.provide instead of creating new property on Mercury object
+* [SOC-1017](https://wikia-inc.atlassian.net/browse/SOC-1017) SOC-1017 Enable /both/ as default trackingMethod setting for New Auth
+
+## release-110 (2015-07-14 10:00 UTC)
+* [INT-102](https://wikia-inc.atlassian.net/browse/INT-102) Add photo to Japanese wikia
+* [INT-140](https://wikia-inc.atlassian.net/browse/INT-140) Edit/Photo icons positioning fix for section header.
+* [INT-117](https://wikia-inc.atlassian.net/browse/INT-117) Photo/Edit icons style change for Japanese Wikia
+
+## release-109 (2015-07-13 11:54 UTC)
+* [CONCF-852](https://wikia-inc.atlassian.net/browse/CONCF-852) CONCF-852 Stop failing when FeaturedContentMixin has undefined model
+
+## release-108 (2015-07-11 00:05 UTC)
+* [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - WIP - lazy load all js
+* remove-obsolete-todo: CONCF-735 Remove obsolete TODO
+* [CONCF-735](https://wikia-inc.atlassian.net/browse/CONCF-735) CONCF-735 | Handle redirections from MercuryApi
+* [CONCF-796](https://wikia-inc.atlassian.net/browse/CONCF-796) CONCF-796 Unit tests for Curated Main Pages
+
+## release-107 (2015-07-10 10:00 UTC)
+* bucky-query-param: fixing bucky sampling query param
+* [SOC-898](https://wikia-inc.atlassian.net/browse/SOC-898) SOC-898 New Registration in wiki language
+
 ## release-106 (2015-07-09 10:00 UTC)
 * [INT-104](https://wikia-inc.atlassian.net/browse/INT-104) Move section zero edit button to new block
 * [INT-130](https://wikia-inc.atlassian.net/browse/INT-130) Adding country parameter in context for performance data. 

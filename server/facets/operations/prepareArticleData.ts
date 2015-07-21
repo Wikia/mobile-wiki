@@ -44,8 +44,8 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 
 	result.weppyConfig = localSettings.weppy;
-	if (typeof result.queryParams.buckySampling === 'number') {
-		result.weppyConfig.samplingRate = result.queryParams.buckySampling / 100;
+	if (typeof result.queryParams.buckysampling === 'number') {
+		result.weppyConfig.samplingRate = result.queryParams.buckysampling / 100;
 	}
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;

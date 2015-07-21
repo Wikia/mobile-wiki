@@ -21,7 +21,7 @@ App.MainPageCategoryRoute = Em.Route.extend({
 			categoryName = decodeURIComponent(title);
 		}
 
-		categoryName = M.String.normalize(categoryName);
+		categoryName = M.String.normalizeToWhitespace(categoryName);
 
 		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
