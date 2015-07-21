@@ -1,3 +1,6 @@
+## release-114 hotfix 1 (2015-07-20 18:37 UTC)
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) [HOTFIX] CONCF-896 | catch when decodeURIComponent throws
+
 ## release-114 (2015-07-20 11:50 UTC)
 * [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | handle categories with special characters
 * [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - clean up gulp tasks
