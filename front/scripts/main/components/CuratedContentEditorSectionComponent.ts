@@ -4,7 +4,7 @@
 App.CuratedContentEditorSectionComponent = Em.Component.extend({
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
-	imageSize: 200,
+	imageSize: 300,
 
 	thumbUrl: Em.computed('model', function (): string {
 		var model: CuratedContentEditorItemInterface = this.get('model'),

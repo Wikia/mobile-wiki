@@ -2,12 +2,20 @@
 'use strict';
 App.CuratedContentEditorItemComponent = Em.Component.extend({
 	classNames: ['curated-content-editor-item'],
-	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
+	thumbnailer: Mercury.Modules.Thumbnailer,
+	imageSize: 200,
 
 	imageUrl: Em.computed('model', function (): string {
-		var model: CuratedContentEditorItemInterface = this.get('model');
+		var model: CuratedContentEditorItemInterface = this.get('model'),
+			options: any = {
+				width: this.get('imageSize'),
+				height: this.get('imageSize'),
+				mode: this.get('cropMode')
+			};
 
-		return !Em.isEmpty(model.image_url) ? model.image_url : this.emptyGif;
+		return !Em.isEmpty(model.image_url) ? this.thumbnailer.getThumbURL(model.image_url, options) : this.emptyGif;
 	}),
 
 	renderLabel: Em.computed('block', function (): boolean {
