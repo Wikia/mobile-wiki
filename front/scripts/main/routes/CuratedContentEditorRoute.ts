@@ -22,10 +22,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		},
 
 		editSectionItem: function (item: CuratedContentEditorItemInterface, section: string): void {
-			this.transitionTo('curatedContentEditor.editSectionItem', {
-				item: item,
-				section: section
-			});
+			this.transitionTo('curatedContentEditor.editSectionItem', section, item.label);
 		},
 
 		openSection: function (item: CuratedContentEditorItemInterface): void {

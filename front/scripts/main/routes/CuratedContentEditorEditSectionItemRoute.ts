@@ -5,18 +5,10 @@
 
 interface CuratedContentEditorEditSectionItemRouteParamsInterface {
 	section: string;
-	item: CuratedContentEditorItemInterface
+	item: string;
 }
 
 App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
-	serialize: function (model: CuratedContentEditorEditSectionItemRouteParamsInterface) {
-		return {
-			// Sections have titles, section items have labels and titles - we want to show labels for them
-			section: encodeURIComponent(model.section),
-			item: encodeURIComponent(model.item.label || model.item.title)
-		};
-	},
-
 	/**
 	 * @desc If model wasn't passed to the route (on page refresh) we redirect to /main/edit
 	 *
@@ -26,6 +18,16 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 		if (!Em.isArray(transition.intent.contexts)) {
 			this.transitionTo('curatedContentEditor.index');
 		}
+	},
+
+	model: function(params: CuratedContentEditorEditSectionItemRouteParamsInterface) {
+		var section = params.section,
+			item = params.item,
+			itemModel = App.CuratedContentEditorModel.getSectionItem(this.modelFor('curatedContentEditor'), section, item);
+		return {
+			section: section,
+			item: itemModel
+		};
 	},
 
 	setupController: function (controller: any, model: any) {
@@ -44,13 +46,14 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 		},
 
 		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
-			var section = this.modelFor('curatedContentEditor.sectionItem').section,
-				item = this.modelFor('curatedContentEditor.sectionItem').originalItem,
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor').get('originalCuratedContent'),
+			var section: string = this.modelFor('curatedContentEditor.editSectionItem').section,
+				item = this.modelFor('curatedContentEditor.editSectionItem').originalItem,
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				updatedModel: typeof App.CuratedContentEditorModel;
 
 			updatedModel = App.CuratedContentEditorModel.updateSectionItem(currentModel, updatedEditItemModel, section, item);
 			currentModel.set('model', updatedModel);
+
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(section));
 		}
 	}

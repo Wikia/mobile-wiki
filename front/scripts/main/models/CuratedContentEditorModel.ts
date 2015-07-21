@@ -129,21 +129,39 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 
-	getBlockItem: function(model, blockName, item) {
+	getBlockItem: function(
+		model: typeof App.CuratedContentEditorModel, blockName: string, itemIdentifier: string
+	): CuratedContentEditorItemInterface {
 		var blockItems = model[blockName].items,
-			ret = {};
-		blockItems.some(function(itemObj) {
-			if ((blockName === 'regular' && itemObj.title === item) || itemObj.label === item) {
-				ret = $.extend({}, itemObj);
+			item: CuratedContentEditorItemInterface = null;
+
+		blockItems.some(function(itemObj: CuratedContentEditorItemInterface) {
+			if ((blockName === 'regular' && itemObj.title === itemIdentifier) || itemObj.label === itemIdentifier) {
+				item = $.extend({}, itemObj);
 				return true;
 			}
 		});
 
-		return ret;
+		return item;
 	},
 
-	getSectionItem: function(model, sectionName, item) {
+	getSectionItem: function(model: typeof App.CuratedContentEditorModel, sectionName: string, itemLabel: string): CuratedContentEditorItemInterface {
+		var sections = model.regular.items,
+			item: CuratedContentEditorItemInterface = null;
 
+		sections.some(function(sectionObj: CuratedContentEditorItemInterface) {
+			if (sectionObj.title === sectionName) {
+				sectionObj.items.some(function(itemObj: CuratedContentEditorItemInterface) {
+					if (itemObj.label == itemLabel) {
+						item = $.extend({}, itemObj);
+						return true;
+					}
+				});
+				return true;
+			}
+		});
+
+		return item;
 	},
 
 

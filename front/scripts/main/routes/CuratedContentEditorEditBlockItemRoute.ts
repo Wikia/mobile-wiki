@@ -9,14 +9,6 @@ interface CuratedContentEditorEditBlockItemRouteParamsInterface {
 }
 
 App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
-	serialize: function (model: CuratedContentEditorEditBlockItemRouteParamsInterface): any {
-		return {
-			block: model.block,
-			// Sections have titles, section items have labels and titles - we want to show labels for them
-			item: encodeURIComponent(model.item.label || model.item.title)
-		};
-	},
-
 	/**
 	 * @desc If model wasn't passed to the route (on page refresh) we redirect to /main/edit
 	 *
@@ -28,7 +20,7 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 		}
 	},
 
-	model: function(params: CuratedContentEditorEditBlockItemRouteParamsInterface) {
+	model: function(params: CuratedContentEditorEditBlockItemRouteParamsInterface): typeof App.CuratedContentEditorItemModel {
 		var block = params.block,
 			item = params.item,
 			itemModel = App.CuratedContentEditorModel.getBlockItem(this.modelFor('curatedContentEditor'), block, item);
@@ -38,7 +30,7 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 		};
 	},
 
-	setupController: function(controller, model) {
+	setupController: function(controller: any, model: typeof App.CuratedContentEditorItemModel) {
 		this._super(controller, model);
 		controller.set('model.originalItem', $.extend({}, model.item));
 	},
