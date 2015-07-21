@@ -3,13 +3,13 @@
 
 'use strict';
 
-interface CuratedContentEditorBlockItemRouteParamsInterface {
+interface CuratedContentEditorEditBlockItemRouteParamsInterface {
 	block: string;
 	item: CuratedContentEditorItemInterface
 }
 
-App.CuratedContentEditorBlockItemRoute = Em.Route.extend({
-	serialize: function (model: CuratedContentEditorBlockItemRouteParamsInterface): any {
+App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
+	serialize: function (model: CuratedContentEditorEditBlockItemRouteParamsInterface): any {
 		return {
 			block: model.block,
 			// Sections have titles, section items have labels and titles - we want to show labels for them

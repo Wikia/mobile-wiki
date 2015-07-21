@@ -30,24 +30,24 @@ App.Router.map(function () {
 			path: '/regular/:section'
 		});
 
-		this.route('editSection', {
-			path: '/regular/:section/edit'
-		});
-
-		this.route('blockItem', {
-			path: '/:block/:item'
-		});
-
-		this.route('sectionItem', {
-			path: '/regular/:section/:item'
+		this.route('addBlockItem', {
+			path: '/:block/add'
 		});
 
 		this.route('addSectionItem', {
 			path: '/regular/:section/add'
 		});
 
-		this.route('addBlockItem', {
-			path: '/:block/add'
+		this.route('editSection', {
+			path: '/regular/:section/edit'
+		});
+
+		this.route('editBlockItem', {
+			path: '/:block/:item/edit'
+		});
+
+		this.route('editSectionItem', {
+			path: '/regular/:section/:item/edit'
 		});
 
 		// When user tries to load invalid path under /main/edit/* we redirect to /main/edit

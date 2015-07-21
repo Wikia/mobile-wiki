@@ -3,13 +3,13 @@
 
 'use strict';
 
-interface CuratedContentEditorSectionItemRouteParamsInterface {
+interface CuratedContentEditorEditSectionItemRouteParamsInterface {
 	section: string;
 	item: CuratedContentEditorItemInterface
 }
 
-App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
-	serialize: function (model: CuratedContentEditorSectionItemRouteParamsInterface): any {
+App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
+	serialize: function (model: CuratedContentEditorEditSectionItemRouteParamsInterface): any {
 		return {
 			section: encodeURIComponent(model.section),
 			// Sections have titles, section items have labels and titles - we want to show labels for them

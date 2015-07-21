@@ -17,6 +17,20 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.addSectionItem', encodeURIComponent(section));
 		},
 
+		editBlockItem: function (item: CuratedContentEditorItemInterface, block: string): void {
+			this.transitionTo('curatedContentEditor.editBlockItem', {
+				item: item,
+				block: block
+			});
+		},
+
+		editSectionItem: function (item: CuratedContentEditorItemInterface, section: string): void {
+			this.transitionTo('curatedContentEditor.editSectionItem', {
+				item: item,
+				section: section
+			});
+		},
+
 		editSection: function (item: CuratedContentEditorItemInterface): void  {
 			this.transitionTo('curatedContentEditor.editSection', {
 				item: item,
@@ -24,21 +38,8 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			});
 		},
 
-		editBlockItem: function (item: CuratedContentEditorItemInterface, block: string): void {
-			this.transitionTo('curatedContentEditor.blockItem', {
-				item: item,
-				block: block
-			});
-		},
-
-		editSectionItem: function (item: CuratedContentEditorItemInterface, section: string): void {
-			this.transitionTo('curatedContentEditor.sectionItem', {
-				item: item,
-				section: section
-			});
-		},
-
 		openSection: function (item: CuratedContentEditorItemInterface): void {
+			// Pass section data as a model for route
 			this.transitionTo('curatedContentEditor.section', item);
 		},
 
