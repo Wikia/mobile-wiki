@@ -5,23 +5,23 @@ App.CuratedContentEditorComponent = Em.Component.extend({
 	classNames: ['curated-content-editor'],
 
 	actions: {
-		addBlockItem: function (block: string): void {
+		addBlockItem(block: string): void {
 			this.sendAction('addBlockItem', block);
 		},
 
-		addSectionItem: function (section: string): void {
+		addSectionItem(section: string): void {
 			this.sendAction('addSectionItem', section);
 		},
 
-		editBlockItem: function (item: CuratedContentEditorItemInterface, block: string): void {
+		editBlockItem(item: CuratedContentEditorItemInterface, block: string): void {
 			this.sendAction('editBlockItem', item, block);
 		},
 
-		editSectionItem: function (item: CuratedContentEditorItemInterface, section: string): void {
+		editSectionItem(item: CuratedContentEditorItemInterface, section: string): void {
 			this.sendAction('editSectionItem', item, section);
 		},
 
-		openSection: function (item: CuratedContentEditorItemInterface): void {
+		openSection(item: CuratedContentEditorItemInterface): void {
 			this.sendAction('openSection', item);
 		}
 	}

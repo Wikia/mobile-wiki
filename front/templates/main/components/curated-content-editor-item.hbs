@@ -16,13 +16,13 @@
 	<div class="curated-content-input-wrapper">
 		{{#if renderLabel}}
 			<div class="input-container">
-				{{input value=model.label id='label' name='label' focus-in='checkLabel' focus-out='checkLabel' key-up='checkLabel'}}
-				<label class="floating-label" for="label">Enter a display name</label>
+				{{input value=model.label id='label' name='label' focus-out="setLabelFocusedOut" focus-in="setLabelFocusedIn"}}
+				<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
 			</div>
 		{{/if}}
 		<div class="input-container">
-			{{input value=model.title id='page' name='page' focus-in='checkPage' focus-out='checkPage' key-up='checkPage'}}
-			<label class="floating-label" for="page">Enter a page name</label>
+			{{input value=model.title id='page' name='page' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
+			<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
 		</div>
 	</div>
 	<a class="curated-content-editor-remove">Delete</a>

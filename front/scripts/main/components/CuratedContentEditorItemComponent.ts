@@ -15,45 +15,37 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		}
 	),
 
-	didInsertElement: function () {
-		var model = this.get('model');
+	isTitleNotEmpty: Em.computed.notEmpty('model.title'),
+	isLabelNotEmpty: Em.computed.notEmpty('model.label'),
 
-		this.checkPage(model.title);
-		this.checkLabel(model.label);
-	},
+	isTitleFocused: false,
+	isLabelFocused: false,
 
-	checkPage: function (value: string): void {
-		var $element = this.$().find('.floating-label[for="page"]');
-		if (value && value.length) {
-			$element.addClass('active');
-		} else {
-			$element.removeClass('active');
-		}
-	},
-
-	checkLabel: function (value: string): void {
-		var $element = this.$().find('.floating-label[for="label"]');
-		if (value && value.length) {
-			$element.addClass('active');
-		} else {
-			$element.removeClass('active');
-		}
-	},
+	isTitleActive: Em.computed.or('isTitleNotEmpty', 'isTitleFocused'),
+	isLabelActive: Em.computed.or('isLabelNotEmpty', 'isLabelFocused'),
 
 	actions: {
-		checkPage: function (value: string): void {
-			this.checkPage(value);
+		setLabelFocusedOut(): void {
+			this.set('isLabelFocused', false);
 		},
 
-		checkLabel: function (value: string): void {
-			this.checkLabel(value);
+		setLabelFocusedIn(): void {
+			this.set('isLabelFocused', true);
 		},
 
-		goBack: function (): void {
+		setTitleFocusedOut(): void {
+			this.set('isTitleFocused', false);
+		},
+
+		setTitleFocusedIn(): void {
+			this.set('isTitleFocused', true);
+		},
+
+		goBack(): void {
 			this.sendAction('goBack');
 		},
 
-		updateItem: function (): void {
+		updateItem(): void {
 			this.sendAction('updateItem', this.get('model'), this.get('block'));
 		}
 	}

@@ -33,7 +33,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend({
 		return thumbUrl;
 	}),
 
-	click: function (): void {
+	click(): void {
 		var model: CuratedContentEditorItemInterface = this.get('model');
 
 		if (model.items) {
