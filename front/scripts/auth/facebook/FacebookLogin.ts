@@ -61,9 +61,8 @@ class FacebookLogin {
 	}
 
 	private getFacebookRegistrationUrl(): string {
-		var href = window.location.origin + window.location.pathname,
+		var href = '/register',
 			search = window.location.search;
-		href = href.replace('/join', '/register');
 		if (search.indexOf('?') !== -1) {
 			search += '&method=facebook';
 		} else {
