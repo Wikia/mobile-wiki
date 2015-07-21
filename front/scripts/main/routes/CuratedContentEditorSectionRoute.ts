@@ -8,7 +8,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		var section = decodeURIComponent(params.section),
 			currentModel = this.modelFor('curatedContentEditor');
 
-		return App.CuratedContentEditorModel.getBlockItem(currentModel, 'regular', section);
+		return App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', section);
 	},
 
 	renderTemplate: function (): void {

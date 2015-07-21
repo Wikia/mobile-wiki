@@ -19,7 +19,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	}),
 
 	renderLabel: Em.computed('block', function (): boolean {
-			return this.get('block') !== 'regular';
+			return this.get('block') !== 'curated';
 		}
 	),
 

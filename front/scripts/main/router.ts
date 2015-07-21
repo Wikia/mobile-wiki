@@ -27,7 +27,7 @@ App.Router.map(function () {
 		path: '/main/edit'
 	}, function () {
 		this.route('section', {
-			path: '/regular/:section'
+			path: '/curated/:section'
 		});
 
 		this.route('addBlockItem', {
@@ -35,7 +35,7 @@ App.Router.map(function () {
 		});
 
 		this.route('addSectionItem', {
-			path: '/regular/:section/add'
+			path: '/curated/:section/add'
 		});
 
 		this.route('editBlockItem', {
@@ -43,7 +43,7 @@ App.Router.map(function () {
 		});
 
 		this.route('editSectionItem', {
-			path: '/regular/:section/:item/edit'
+			path: '/curated/:section/:item/edit'
 		});
 
 		// When user tries to load invalid path under /main/edit/* we redirect to /main/edit
