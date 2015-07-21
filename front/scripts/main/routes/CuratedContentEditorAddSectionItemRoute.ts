@@ -6,7 +6,7 @@
 App.CuratedContentEditorAddSectionItemRoute = Em.Route.extend({
 	model: function (params: any): typeof App.CuratedContentEditorItemModel {
 		return App.CuratedContentEditorItemModel.create({
-			section: params.section
+			section: decodeURIComponent(params.section)
 		});
 	},
 
@@ -17,7 +17,7 @@ App.CuratedContentEditorAddSectionItemRoute = Em.Route.extend({
 	actions: {
 		goBack: function (): void {
 			var section = this.modelFor('curatedContentEditor.addSectionItem').section;
-			this.transitionTo('curatedContentEditor.section', section);
+			this.transitionTo('curatedContentEditor.section', encodeURIComponent(section));
 		},
 
 		updateItem: function (newItem: CuratedContentEditorItemInterface) {

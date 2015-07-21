@@ -21,8 +21,8 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 	},
 
 	model: function(params: CuratedContentEditorEditSectionItemRouteParamsInterface) {
-		var section = params.section,
-			item = params.item,
+		var section = decodeURIComponent(params.section),
+			item = decodeURIComponent(params.item),
 			itemModel = App.CuratedContentEditorModel.getSectionItem(this.modelFor('curatedContentEditor'), section, item);
 		return {
 			section: section,

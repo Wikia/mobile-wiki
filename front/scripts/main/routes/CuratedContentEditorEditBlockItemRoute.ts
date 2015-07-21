@@ -21,8 +21,8 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 	},
 
 	model: function(params: CuratedContentEditorEditBlockItemRouteParamsInterface): typeof App.CuratedContentEditorItemModel {
-		var block = params.block,
-			item = params.item,
+		var block = decodeURIComponent(params.block),
+			item = decodeURIComponent(params.item),
 			itemModel = App.CuratedContentEditorModel.getBlockItem(this.modelFor('curatedContentEditor'), block, item);
 		return {
 			block: block,

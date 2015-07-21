@@ -6,7 +6,7 @@
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	serialize(model: any) {
 		return {
-			section: model.originalTitle
+			section: encodeURIComponent(model.originalTitle)
 		}
 	},
 
