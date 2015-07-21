@@ -137,8 +137,10 @@ $image-size: 150px;
 	img {
 		@extend %image-placeholder;
 		display: block;
+		height: 90vw;
 		margin: 0 auto;
-		width: 90%;
+		max-width: 90%;
+		width: 90vw;
 	}
 }
 
