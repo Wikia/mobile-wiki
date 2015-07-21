@@ -82,13 +82,13 @@ class FacebookRegistration {
 		};
 	}
 
-	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string) {
+	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string): void {
 			var facebookTokenXhr = new XMLHttpRequest(),
 			data = <HeliosFacebookToken> {
 				fb_access_token: facebookToken
 			};
 
-		facebookTokenXhr.onload = (e: Event) => {
+		facebookTokenXhr.onload = (e: Event): void => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
@@ -100,7 +100,7 @@ class FacebookRegistration {
 			}
 		};
 
-		facebookTokenXhr.onerror = (e: Event) => {
+		facebookTokenXhr.onerror = (e: Event): void => {
 			//ToDo show the "unable to login" error
 		};
 

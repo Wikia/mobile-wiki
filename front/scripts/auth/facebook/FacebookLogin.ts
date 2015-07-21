@@ -79,7 +79,7 @@ class FacebookLogin {
 			},
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
-		facebookTokenXhr.onload = (e: Event) => {
+		facebookTokenXhr.onload = (e: Event): void => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
@@ -92,7 +92,7 @@ class FacebookLogin {
 			}
 		};
 
-		facebookTokenXhr.onerror = (e: Event) => {
+		facebookTokenXhr.onerror = (e: Event): void => {
 			this.activateButton();
 		};
 
