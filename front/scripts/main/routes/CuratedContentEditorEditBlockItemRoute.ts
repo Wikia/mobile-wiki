@@ -5,7 +5,7 @@
 
 interface CuratedContentEditorEditBlockItemRouteParamsInterface {
 	block: string;
-	item: CuratedContentEditorItemInterface
+	item: string
 }
 
 App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
@@ -28,7 +28,17 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 		}
 	},
 
-	setupController: function (controller: any, model: any) {
+	model: function(params: CuratedContentEditorEditBlockItemRouteParamsInterface) {
+		var block = params.block,
+			item = params.item,
+			itemModel = App.CuratedContentEditorModel.getBlockItem(this.modelFor('curatedContentEditor'), block, item);
+		return {
+			block: block,
+			item: itemModel
+		};
+	},
+
+	setupController: function(controller, model) {
 		this._super(controller, model);
 		controller.set('model.originalItem', $.extend({}, model.item));
 	},
@@ -43,11 +53,12 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 		},
 
 		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
-			var block = this.modelFor('curatedContentEditor.blockItem').block,
-				item = this.modelFor('curatedContentEditor.blockItem').originalItem,
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor').originalCuratedContent,
+			var block = this.modelFor('curatedContentEditor.editBlockItem').block,
+				item = this.modelFor('curatedContentEditor.editBlockItem').originalItem,
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				updatedModel: typeof App.CuratedContentEditorModel;
 
+			debugger;
 			updatedModel = App.CuratedContentEditorModel.updateBlockItem(currentModel, updatedEditItemModel, block, item);
 			currentModel.set('model', updatedModel);
 			this.transitionTo('curatedContentEditor.index');

@@ -7,6 +7,7 @@ App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	regular: null,
 	optional: null,
+
 });
 
 App.CuratedContentEditorModel.reopenClass({
@@ -73,10 +74,13 @@ App.CuratedContentEditorModel.reopenClass({
 		block: string,
 		oldItem: any
 	): typeof App.CuratedContentEditorModel {
-		var blockItems = currentModel[block].items,
-			itemToBeUpdatedIndex = blockItems.indexOf(oldItem);
+		var blockItems = currentModel[block].items;
 
-		blockItems[itemToBeUpdatedIndex] = newItem;
+		for (var i=0; i<blockItems.length; i++) {
+			if (blockItems[i].label === oldItem.label) {
+				blockItems[i] = newItem;
+			}
+		}
 
 		return currentModel;
 	},
@@ -96,5 +100,25 @@ App.CuratedContentEditorModel.reopenClass({
 		}
 
 		return currentModel;
-	}
+	},
+
+
+	getBlockItem: function(model, blockName, item) {
+		var blockItems = model[blockName].items,
+			ret = {};
+		blockItems.some(function(itemObj) {
+			if (itemObj.label === item) {
+				ret = $.extend({},itemObj);
+				return true;
+			}
+		});
+
+		return ret;
+	},
+
+	getSectionItem: function(model, sectionName, item) {
+
+	},
+
+
 });

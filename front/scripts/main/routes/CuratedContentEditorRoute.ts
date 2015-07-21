@@ -8,11 +8,6 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.find();
 	},
 
-	setupController: function(controller, model): void {
-		this._super(controller, model);
-		controller.set('model.originalCuratedContent', $.extend({}, model));
-	},
-
 	actions: {
 		addBlockItem: function (block: string): void {
 			this.transitionTo('curatedContentEditor.addBlockItem', block);
@@ -23,10 +18,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		},
 
 		editBlockItem: function (item: CuratedContentEditorItemInterface, block: string): void {
-			this.transitionTo('curatedContentEditor.editBlockItem', {
-				item: item,
-				block: block
-			});
+			this.transitionTo('curatedContentEditor.editBlockItem', block, item.label);
 		},
 
 		editSectionItem: function (item: CuratedContentEditorItemInterface, section: string): void {
