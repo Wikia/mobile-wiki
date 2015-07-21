@@ -16,7 +16,7 @@ App.CuratedContentEditorAddSectionItemRoute = Em.Route.extend({
 
 	actions: {
 		goBack: function (): void {
-			var section = encodeURIComponent(this.modelFor('curatedContentEditor.addSectionItem').title);
+			var section = this.modelFor('curatedContentEditor.addSectionItem').section;
 			this.transitionTo('curatedContentEditor.section', section);
 		},
 
