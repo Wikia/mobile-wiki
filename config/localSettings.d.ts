@@ -75,4 +75,7 @@ interface LocalSettings {
 	workerDisconnectTimeout: number;
 	cdnBaseUrl: string;
 	asyncArticle: string[];
+	facebook: {
+		appId: number;
+	};
 }
