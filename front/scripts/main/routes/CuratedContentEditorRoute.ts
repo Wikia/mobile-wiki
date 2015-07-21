@@ -8,6 +8,11 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.find();
 	},
 
+	setupController: function(controller, model): void {
+		this._super(controller, model);
+		controller.set('model.originalCuratedContent', $.extend({}, model));
+	},
+
 	actions: {
 		addBlockItem: function (block: string): void {
 			this.transitionTo('curatedContentEditor.addBlockItem', block);
@@ -44,6 +49,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		},
 
 		error: function (error: any): boolean {
+			Em.Logger.error(error);
 			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
 			this.transitionTo('mainPage');
 			return true;

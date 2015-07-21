@@ -8,11 +8,11 @@ interface CuratedContentEditorEditSectionItemRouteParamsInterface {
 	item: CuratedContentEditorItemInterface
 }
 
-App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
-	serialize: function (model: CuratedContentEditorEditSectionItemRouteParamsInterface): any {
+App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
+	serialize: function (model: CuratedContentEditorEditSectionItemRouteParamsInterface) {
 		return {
-			section: encodeURIComponent(model.section),
 			// Sections have titles, section items have labels and titles - we want to show labels for them
+			section: encodeURIComponent(model.section),
 			item: encodeURIComponent(model.item.label || model.item.title)
 		};
 	},
@@ -28,6 +28,11 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 		}
 	},
 
+	setupController: function (controller: any, model: any) {
+		this._super(controller, model);
+		controller.set('model.originalItem', $.extend({}, model.item));
+	},
+
 	renderTemplate: function (): void {
 		this.render('curated-content-editor-item');
 	},
@@ -37,6 +42,17 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 			// We wouldn't get here without being in section route before. Model is already there so let's reuse it.
 			// Going back cancels all changes made.
 			this.transitionTo('curatedContentEditor.section', this.modelFor('curatedContentEditor.section'));
+		},
+
+		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
+			var section = this.modelFor('curatedContentEditor.sectionItem').section,
+				item = this.modelFor('curatedContentEditor.sectionItem').originalItem,
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor').get('originalCuratedContent'),
+				updatedModel: typeof App.CuratedContentEditorModel;
+
+			updatedModel = App.CuratedContentEditorModel.updateSectionItem(currentModel, updatedEditItemModel, section, item);
+			currentModel.set('model', updatedModel);
+			this.transitionTo('curatedContentEditor.section');
 		}
 	}
 });

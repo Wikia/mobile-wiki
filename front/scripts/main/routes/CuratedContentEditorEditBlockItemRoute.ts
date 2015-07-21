@@ -28,6 +28,11 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 		}
 	},
 
+	setupController: function (controller: any, model: any) {
+		this._super(controller, model);
+		controller.set('model.originalItem', $.extend({}, model.item));
+	},
+
 	renderTemplate: function (): void {
 		this.render('curated-content-editor-item');
 	},
@@ -38,9 +43,9 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 		},
 
 		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
-			var block = this.context.block,
-				item = this.context.item,
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+			var block = this.modelFor('curatedContentEditor.blockItem').block,
+				item = this.modelFor('curatedContentEditor.blockItem').originalItem,
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor').originalCuratedContent,
 				updatedModel: typeof App.CuratedContentEditorModel;
 
 			updatedModel = App.CuratedContentEditorModel.updateBlockItem(currentModel, updatedEditItemModel, block, item);

@@ -45,8 +45,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			this.sendAction('goBack');
 		},
 
-		updateItem(): void {
-			this.sendAction('updateItem', this.get('model'), this.get('block'));
+		updateItem: function(): void {
+			this.sendAction('updateItem', this.get('model'));
 		}
 	}
 });
