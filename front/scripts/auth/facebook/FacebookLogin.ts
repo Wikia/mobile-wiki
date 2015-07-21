@@ -1,6 +1,6 @@
 interface FacebookResponse {
-	status: string;
 	authResponse: FacebookAuthData;
+	status: string;
 }
 
 interface FacebookAuthData {

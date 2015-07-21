@@ -11,13 +11,13 @@ interface FacebookUserData {
 }
 
 interface HeliosFacebookRegistrationData {
-	email: string;
-	username: string;
-	password: string;
 	birthdate: string;
+	email: string;
+	fb_access_token: string;
+	password: string;
+	username: string;
 	langCode?: string;
 	marketingallowed?: string;
-	fb_access_token: string;
 }
 
 class FacebookRegistration {
@@ -25,6 +25,7 @@ class FacebookRegistration {
 	form: HTMLFormElement;
 	redirect: string;
 	urlHelper: UrlHelper;
+	marketingOptIn: MarketingOptIn;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -34,6 +35,8 @@ class FacebookRegistration {
 			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
 			this.redirect = params['redirect'];
 		}
+		this.marketingOptIn = new MarketingOptIn();
+		this.marketingOptIn.init();
 		this.redirect = this.redirect || '/';
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));

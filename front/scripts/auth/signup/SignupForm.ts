@@ -1,6 +1,6 @@
 interface HeliosError {
-	description: string;
 	additional: HeliosErrorAdditional;
+	description: string;
 }
 
 interface HeliosErrorAdditional {
@@ -8,11 +8,11 @@ interface HeliosErrorAdditional {
 }
 
 interface HeliosRegisterInput {
-	username: string;
-	password: string;
-	email: string;
 	birthdate: string;
+	email: string;
 	langCode: string;
+	password: string;
+	username: string;
 	marketingallowed?: string;
 }
 
