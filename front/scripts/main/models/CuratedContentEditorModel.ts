@@ -119,7 +119,7 @@ App.CuratedContentEditorModel.reopenClass({
 		oldItem: any
 	): typeof App.CuratedContentEditorModel {
 		var sections = currentModel.regular.items,
-			sectionWithItemItems, i;
+			sectionWithItemItems: string, i: number;
 
 		for (i = 0; i < sections.length; i++) {
 			if (sections[i].title === sectionName) {
