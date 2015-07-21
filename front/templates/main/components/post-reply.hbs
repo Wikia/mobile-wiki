@@ -1,10 +1,10 @@
 <div class="discussion-reply">
     <div class="discussion-reply-avatar">
-        <img src="{{avatarURL}}" /><br />
-        {{authorName}}
+        <img src="{{author.avatarPath}}" /><br />
+        {{author.name}}
     </div>
     <div class="discussion-reply-meta">
-        Created on: {{createTime}}<br />
+        Created: {{timeAgo timestamp}}<br />
         Upvotes: {{upvoteCount}}<br />
     </div>
     <div class="discussion-reply-content">
