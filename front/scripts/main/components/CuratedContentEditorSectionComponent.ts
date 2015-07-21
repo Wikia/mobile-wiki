@@ -31,8 +31,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend({
 			this.sendAction('editItem', item, this.get('model.title'));
 		},
 
-		editSection(): void {
-			this.sendAction('editSection', this.get('model'));
+		editBlockItem(): void {
+			this.sendAction('editBlockItem', this.get('model'), 'regular');
 		},
 
 		goBack(): void {

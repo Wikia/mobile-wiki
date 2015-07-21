@@ -54,12 +54,11 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 
 		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
 			var block = this.modelFor('curatedContentEditor.editBlockItem').block,
-				item = this.modelFor('curatedContentEditor.editBlockItem').originalItem,
+				oldItem = this.modelFor('curatedContentEditor.editBlockItem').originalItem,
 				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				updatedModel: typeof App.CuratedContentEditorModel;
 
-			debugger;
-			updatedModel = App.CuratedContentEditorModel.updateBlockItem(currentModel, updatedEditItemModel, block, item);
+			updatedModel = App.CuratedContentEditorModel.updateBlockItem(currentModel, updatedEditItemModel, block, oldItem);
 			currentModel.set('model', updatedModel);
 			this.transitionTo('curatedContentEditor.index');
 		}

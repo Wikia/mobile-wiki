@@ -71,13 +71,16 @@ App.CuratedContentEditorModel.reopenClass({
 	updateBlockItem: function (
 		currentModel: typeof App.CuratedContentEditorModel,
 		newItem: CuratedContentEditorItemInterface,
-		block: string,
+		blockName: string,
 		oldItem: any
 	): typeof App.CuratedContentEditorModel {
-		var blockItems = currentModel[block].items;
+		var blockItems = currentModel[blockName].items;
 
 		for (var i=0; i<blockItems.length; i++) {
-			if (blockItems[i].label === oldItem.label) {
+			if (
+				(blockName === 'regular' && blockItems[i].title === oldItem.title)
+				|| (blockName !== 'regular' && blockItems[i].label === oldItem.label)
+			) {
 				blockItems[i] = newItem;
 			}
 		}
@@ -92,7 +95,6 @@ App.CuratedContentEditorModel.reopenClass({
 		oldItem: any
 	): typeof App.CuratedContentEditorModel {
 		var sections = currentModel.regular.items;
-		debugger;
 		for (var i = 0; i < sections.length; i++) {
 			if (sections[i].title === sectionName) {
 				sections[i].items.indexOf(oldItem)
@@ -107,8 +109,8 @@ App.CuratedContentEditorModel.reopenClass({
 		var blockItems = model[blockName].items,
 			ret = {};
 		blockItems.some(function(itemObj) {
-			if (itemObj.label === item) {
-				ret = $.extend({},itemObj);
+			if ((blockName === 'regular' && itemObj.title === item) || itemObj.label === item) {
+				ret = $.extend({}, itemObj);
 				return true;
 			}
 		});
