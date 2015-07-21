@@ -29,8 +29,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		},
 
 		openSection: function (item: CuratedContentEditorItemInterface): void {
-			// Pass section data as a model for route
-			this.transitionTo('curatedContentEditor.section', item);
+			this.transitionTo('curatedContentEditor.section', item.title);
 		},
 
 		error: function (error: any): boolean {

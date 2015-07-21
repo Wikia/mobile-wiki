@@ -49,7 +49,13 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 
 	actions: {
 		goBack: function (): void {
-			this.transitionTo('curatedContentEditor.index');
+			var currentItemModel = this.modelFor('curatedContentEditor.editBlockItem');
+
+			if (currentItemModel.block === 'regular') {
+				this.transitionTo('curatedContentEditor.section', currentItemModel.item.title);
+			} else {
+				this.transitionTo('curatedContentEditor.index');
+			}
 		},
 
 		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {

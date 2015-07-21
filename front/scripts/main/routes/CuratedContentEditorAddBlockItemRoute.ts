@@ -4,8 +4,10 @@
 'use strict';
 
 App.CuratedContentEditorAddBlockItemRoute = Em.Route.extend({
-	model: function (params: any): Em.RSVP.Promise {
-		return App.CuratedContentEditorItemModel.getEmpty(params);
+	model: function (params: any): typeof App.CuratedContentEditorItemModel {
+		return App.CuratedContentEditorItemModel.create({
+			block: params.block
+		});
 	},
 
 	renderTemplate: function (): void {
@@ -14,6 +16,16 @@ App.CuratedContentEditorAddBlockItemRoute = Em.Route.extend({
 
 	actions: {
 		goBack: function (): void {
+			this.transitionTo('curatedContentEditor.index');
+		},
+
+		updateItem: function (newItem: CuratedContentEditorItemInterface) {
+			var block = this.modelFor('curatedContentEditor.addBlockItem').block,
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				updatedModel: typeof App.CuratedContentEditorModel;
+
+			updatedModel = App.CuratedContentEditorModel.addBlockItem(currentModel, newItem, block);
+			currentModel.set('model', updatedModel);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

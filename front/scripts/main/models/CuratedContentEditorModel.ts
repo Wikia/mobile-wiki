@@ -1,8 +1,6 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-
-
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	regular: null,
@@ -66,6 +64,32 @@ App.CuratedContentEditorModel.reopenClass({
 			regular: regular,
 			optional: optional
 		});
+	},
+
+	addBlockItem: function (
+		currentModel: typeof App.CuratedContentEditorModel,
+		newItem: CuratedContentEditorItemInterface,
+		block: string
+	): typeof App.CuratedContentEditorModel {
+		currentModel[block].items.push(newItem);
+
+		return currentModel;
+	},
+
+	addSectionItem: function (
+		currentModel: typeof App.CuratedContentEditorModel,
+		newItem: CuratedContentEditorItemInterface,
+		section: string
+	): typeof App.CuratedContentEditorModel {
+		var sections: CuratedContentEditorItemInterface[] = currentModel.regular.items;
+
+		for (var i = 0; i < sections.length; i++) {
+			if (sections[i].title === section) {
+				sections[i].items.push(newItem);
+			}
+		}
+
+		return currentModel;
 	},
 
 	updateBlockItem: function (

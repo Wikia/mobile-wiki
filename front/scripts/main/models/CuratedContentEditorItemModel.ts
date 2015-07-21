@@ -23,21 +23,3 @@ App.CuratedContentEditorItemModel = Em.Object.extend({
 		image_id: null
 	}
 });
-
-App.CuratedContentEditorItemModel.reopenClass({
-	getEmpty: function (params: any): Em.RSVP.Promise {
-		return new Em.RSVP.Promise(function (resolve, reject): void {
-			if (params.block) {
-				resolve(App.CuratedContentEditorItemModel.create({
-					block: params.block
-				}))
-			} else if (params.section) {
-				resolve(App.CuratedContentEditorItemModel.create({
-					section: params.section
-				}))
-			} else {
-				reject('Invalid parent info passed to Edit Item Model.');
-			}
-		});
-	}
-});

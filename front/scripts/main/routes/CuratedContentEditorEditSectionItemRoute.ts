@@ -8,7 +8,7 @@ interface CuratedContentEditorEditSectionItemRouteParamsInterface {
 	item: CuratedContentEditorItemInterface
 }
 
-App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
+App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 	serialize: function (model: CuratedContentEditorEditSectionItemRouteParamsInterface) {
 		return {
 			// Sections have titles, section items have labels and titles - we want to show labels for them
@@ -39,9 +39,8 @@ App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
 
 	actions: {
 		goBack: function (): void {
-			// We wouldn't get here without being in section route before. Model is already there so let's reuse it.
-			// Going back cancels all changes made.
-			this.transitionTo('curatedContentEditor.section', this.modelFor('curatedContentEditor.section'));
+			var section = encodeURIComponent(this.modelFor('curatedContentEditor.editSectionItem').section);
+			this.transitionTo('curatedContentEditor.section', section);
 		},
 
 		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
@@ -52,7 +51,7 @@ App.CuratedContentEditorSectionItemRoute = Em.Route.extend({
 
 			updatedModel = App.CuratedContentEditorModel.updateSectionItem(currentModel, updatedEditItemModel, section, item);
 			currentModel.set('model', updatedModel);
-			this.transitionTo('curatedContentEditor.section');
+			this.transitionTo('curatedContentEditor.section', encodeURIComponent(section));
 		}
 	}
 });
