@@ -143,8 +143,8 @@
 		//Click on 'connect with facebook'
 		trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-facebook'),
-			'facebook-login-modal',
-			Mercury.Utils.trackActions.open
+			'facebook-login-button',
+			Mercury.Utils.trackActions.click
 		);
 	}
 
