@@ -57,6 +57,7 @@ class FacebookLogin {
 	}
 
 	private onUnsuccessfulLogin(response: FacebookResponse): void {
+		this.track('facebook-login', Mercury.Utils.trackActions.error);
 		this.activateButton();
 	}
 
@@ -81,7 +82,6 @@ class FacebookLogin {
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
 		this.track('facebook-login', Mercury.Utils.trackActions.success);
-
 
 		facebookTokenXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
