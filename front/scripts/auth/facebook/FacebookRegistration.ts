@@ -121,7 +121,7 @@ class FacebookRegistration {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url);
+				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url.replace('/users', '/token'));
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				//ToDo: show validation errors
 			} else {
