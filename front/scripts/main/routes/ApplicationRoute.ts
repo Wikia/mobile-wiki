@@ -6,6 +6,12 @@
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
+	queryParams: {
+		comments_page: {
+			replace: true
+		}
+	},
+
 	model: function <T>(params: T): T {
 		return params;
 	},

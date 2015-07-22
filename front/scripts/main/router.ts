@@ -42,7 +42,7 @@ App.Router.map(function () {
 	});
 
 	this.route('article', {
-		path: articlePath + ':title'
+		path: articlePath + '*title'
 	});
 
 	this.route('edit', { // Symbolic link to EditController
