@@ -4,25 +4,16 @@
 'use strict';
 
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
-	serialize(model: any) {
-		return {
-			section: encodeURIComponent(model.originalLabel)
-		}
-	},
-
-	model(params: any) {
+	model(params: any): any {
 		var section = decodeURIComponent(params.section),
-			currentModel = this.modelFor('curatedContentEditor'),
-			data = App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', section);
+			currentModel = this.modelFor('curatedContentEditor');
 
-		return {
-			originalLabel: section,
-			data: data
-		};
+		return App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', section);
 	},
 
-	renderTemplate(): void {
-		this.render('curated-content-editor-section');
+	setupController(controller: any, model: typeof App.CuratedContentEditorItemModel): void {
+		this._super(controller, model);
+		controller.set('originalSectionLabel', model.label);
 	},
 
 	actions: {
@@ -30,20 +21,23 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		addItem(): void {
-			this.send('addSectionItem', this.modelFor('curatedContentEditor.section').originalLabel);
+		addItem: function (): void  {
+			this.transitionTo('curatedContentEditor.section.addItem');
 		},
 
-		editItem(item: any): void {
-			this.send('editSectionItem', item, this.modelFor('curatedContentEditor.section').originalLabel);
+		editItem: function (item: CuratedContentEditorItemInterface): void {
+			this.transitionTo('curatedContentEditor.section.editItem', encodeURIComponent(item.label));
+		},
+
+		editSection: function (): void {
+			this.transitionTo('curatedContentEditor.section.edit');
 		},
 
 		updateSection(newSection: CuratedContentEditorItemInterface): void {
 			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				originalLabel = this.modelFor('curatedContentEditor.section').originalLabel,
-				originalSection = App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', originalLabel);
+				originalSectionLabel = this.controllerFor('curatedContentEditor.section').get('originalSectionLabel');
 
-			App.CuratedContentEditorModel.updateBlockItem(currentModel, newSection, 'curated', originalSection);
+			App.CuratedContentEditorModel.updateSection(currentModel, newSection, originalSectionLabel);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

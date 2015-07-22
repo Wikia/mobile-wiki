@@ -28,18 +28,18 @@ App.Router.map(function () {
 	}, function () {
 		this.route('section', {
 			path: '/section/:section'
-		});
+		}, function () {
+			this.route('edit', {
+				path: '/edit'
+			});
 
-		this.route('editSection', {
-			path: '/section/:section/edit'
-		});
+			this.route('addItem', {
+				path: '/add'
+			});
 
-		this.route('addSectionItem', {
-			path: '/section/:section/add'
-		});
-
-		this.route('editSectionItem', {
-			path: '/section/:section/:item/edit'
+			this.route('editItem', {
+				path: '/:item/edit'
+			});
 		});
 
 		this.route('addBlockItem', {
