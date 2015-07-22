@@ -58,12 +58,40 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			this.set('isLabelFocused', true);
 		},
 
+		validateLabel(): void {
+			var value = this.get('model.label'),
+				errorMessage: string = null;
+
+			if (value.length === 0) {
+				errorMessage = 'Label is empty';
+			}
+			else if (value.length > 48) {
+				errorMessage = 'Label is too long';
+			}
+
+			this.set('labelErrorMessage', errorMessage);
+		},
+
 		setTitleFocusedOut(): void {
 			this.set('isTitleFocused', false);
 		},
 
 		setTitleFocusedIn(): void {
 			this.set('isTitleFocused', true);
+		},
+
+		validateTitle(): void {
+			var value = this.get('model.title'),
+				errorMessage: string = null;
+
+			if (value.length === 0) {
+				errorMessage = 'Title is empty';
+			}
+			else if (value.length > 48) {
+				errorMessage = 'Title is too long';
+			}
+
+			this.set('titleErrorMessage', errorMessage);
 		},
 
 		goBack(): void {

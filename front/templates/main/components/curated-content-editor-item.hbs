@@ -12,7 +12,16 @@
 	</div>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
-			{{input value=model.label id='label' class=getLabelClasses name='label' focus-out='setLabelFocusedOut' focus-in='setLabelFocusedIn'}}
+			{{input
+				value=model.label
+				id='label'
+				class=getLabelClasses
+				name='label'
+				key-up='validateLabel'
+				key-down='validateLabel'
+				focus-out='setLabelFocusedOut'
+				focus-in='setLabelFocusedIn'
+			}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
@@ -20,7 +29,16 @@
 		</div>
 		{{#unless isSectionView}}
 			<div class="input-container {{if titleErrorMessage 'error'}}">
-				{{input value=model.title id='title' class=getTitleClasses name='title' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
+				{{input
+					value=model.title
+					id='title'
+					class=getTitleClasses
+					name='title'
+					key-up='validateTitle'
+					key-down='validateTitle'
+					focus-out='setTitleFocusedOut'
+					focus-in='setTitleFocusedIn'
+				}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>
 				{{#if titleErrorMessage}}
 					<small class="error">{{titleErrorMessage}}</small>
