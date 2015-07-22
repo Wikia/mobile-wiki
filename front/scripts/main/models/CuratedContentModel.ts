@@ -107,10 +107,10 @@ App.CuratedContentModel.reopenClass({
 			};
 		} else if (rawData.type === 'category') {
 			// MercuryApi (categories for section) returns article_local_url, ArticlesApi (subcategories) returns url
-			if (rawData.article_local_url) {
+			if (rawData.url || rawData.article_local_url) {
 				// TODO (CONCF-914): article_local_url is sometimes encoded and sometimes not, to investigate
 				try {
-					categoryName = decodeURIComponent(rawData.article_local_url);
+					categoryName = rawData.url ? decodeURIComponent(rawData.url): decodeURIComponent(rawData.article_local_url);
 				} catch (error) {
 					categoryName = rawData.article_local_url;
 				}
