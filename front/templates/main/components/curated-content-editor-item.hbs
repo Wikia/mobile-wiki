@@ -1,21 +1,30 @@
 <form {{action 'updateItem' on='submit'}}>
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
+		<button class="large publish curated-content-editor-submit" type="submit" disabled={{if canSave null 'disabled'}}>Done</button>
 		<div class="edit-head-title">{{model.label}}</div>
 	</header>
-	<div class="curated-content-editor-photo">
-		<img src="{{imageUrl}}" />
+	<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}">
+		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
+		{{#if imageErrorMessage}}
+			<small class="error">{{imageErrorMessage}}</small>
+		{{/if}}
 	</div>
 	<div class="curated-content-input-wrapper">
-		<div class="input-container">
-			{{input value=model.label id='label' name='label' action='updateItem' focus-out='setLabelFocusedOut' focus-in='setLabelFocusedIn'}}
-			<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
+		<div class="input-container {{if labelErrorMessage 'error'}}">
+			{{input value=model.label id='label' class=getLabelClasses name='label' action='updateItem' focus-out="setLabelFocusedOut" focus-in="setLabelFocusedIn"}}
+			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
+			{{#if labelErrorMessage}}
+				<small class="error">{{labelErrorMessage}}</small>
+			{{/if}}
 		</div>
 		{{#unless isSectionView}}
-			<div class="input-container">
-				{{input value=model.title id='title' name='title' action='updateItem' focus-out='setTitleFocusedOut' focus-in='setTitleFocusedIn'}}
-				<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
+			<div class="input-container {{if titleErrorMessage 'error'}}">
+				{{input value=model.title id='title' class=getTitleClasses name='title' action='updateItem' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
+				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>
+				{{#if titleErrorMessage}}
+					<small class="error">{{titleErrorMessage}}</small>
+				{{/if}}
 			</div>
 		{{/unless}}
 	</div>

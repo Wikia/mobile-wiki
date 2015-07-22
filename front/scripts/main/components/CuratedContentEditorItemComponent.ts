@@ -29,6 +29,26 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	isTitleActive: Em.computed.or('isTitleNotEmpty', 'isTitleFocused'),
 	isLabelActive: Em.computed.or('isLabelNotEmpty', 'isLabelFocused'),
 
+	labelErrorMessage: null,
+	titleErrorMessage: null,
+	imageErrorMessage: null,
+
+	canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
+			return Em.isEmpty(this.get('labelErrorMessage')) &&
+				Em.isEmpty(this.get('titleErrorMessage')) &&
+				Em.isEmpty(this.get('imageErrorMessage'));
+		}
+	),
+
+	getLabelClasses: Em.computed('labelErrorMessage', function (): string {
+			return Em.isEmpty(this.get('labelErrorMessage')) ? '' : 'error'
+		}
+	),
+	getTitleClasses: Em.computed('titleErrorMessage', function (): string {
+			return Em.isEmpty(this.get('titleErrorMessage')) ? '' : 'error'
+		}
+	),
+
 	actions: {
 		setLabelFocusedOut(): void {
 			this.set('isLabelFocused', false);
@@ -51,7 +71,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		},
 
 		updateItem(): void {
-			this.sendAction('updateItem', this.get('model'));
+			if (this.get('canSave')) {
+				this.sendAction('updateItem', this.get('model'));
+			}
 		},
 
 		deleteItem(): void {
