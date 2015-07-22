@@ -89,7 +89,7 @@ class FacebookRegistration {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				this.track('facebook-login-registration', Mercury.Utils.trackActions.success);
+				this.track('facebook-login-registration-helios', Mercury.Utils.trackActions.success);
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				//ToDo show the "unable to login" error
