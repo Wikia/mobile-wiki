@@ -80,6 +80,9 @@ class FacebookLogin {
 			},
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
+		this.track('facebook-login', Mercury.Utils.trackActions.success);
+
+
 		facebookTokenXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
@@ -101,5 +104,14 @@ class FacebookLogin {
 		facebookTokenXhr.withCredentials = true;
 		facebookTokenXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookTokenXhr.send(this.urlHelper.urlEncode(data));
+	}
+
+	private track (label: string, action: string): void {
+		M.track({
+			trackingMethod: 'both',
+			action: action,
+			category: 'user-login-mobile',
+			label: label
+		});
 	}
 }
