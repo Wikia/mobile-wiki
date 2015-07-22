@@ -1,3 +1,8 @@
+/*
+ * copy-ts-source
+ * Copies typescript to release folder
+ */
+
 var gulp = require('gulp'),
 	environment = require('../utils/environment'),
 	paths = require('../paths').scripts.front,

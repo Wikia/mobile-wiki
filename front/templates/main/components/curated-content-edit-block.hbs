@@ -1,0 +1,16 @@
+<header>{{title}}</header>
+{{#if description}}
+	<div class="block-description">{{description}}</div>
+{{/if}}
+<div class="curated-content-edit-items">
+	{{#each model.items as |item|}}
+		{{curated-content-edit-item
+			model=item
+			editItem='editItem'
+			openSection='openSection'
+		}}
+	{{/each}}
+	<div class="curated-content-edit-item">
+		<button class="curated-content-edit-add-item-btn">{{addItemLabel}}</button>
+	</div>
+</div>

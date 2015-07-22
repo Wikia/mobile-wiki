@@ -1,6 +1,6 @@
 interface FacebookResponse {
-	status: string;
 	authResponse: FacebookAuthData;
+	status: string;
 }
 
 interface FacebookAuthData {
@@ -30,7 +30,7 @@ class FacebookLogin {
 	}
 
 	public login (): void {
-		window.FB.login(this.onLogin.bind(this));
+		window.FB.login(this.onLogin.bind(this), {scope: 'email'});
 		this.deactivateButton();
 	}
 
@@ -61,9 +61,8 @@ class FacebookLogin {
 	}
 
 	private getFacebookRegistrationUrl(): string {
-		var href = window.location.origin + window.location.pathname,
+		var href = '/register',
 			search = window.location.search;
-		href = href.replace('/join', '/register');
 		if (search.indexOf('?') !== -1) {
 			search += '&method=facebook';
 		} else {
@@ -80,7 +79,7 @@ class FacebookLogin {
 			},
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
-		facebookTokenXhr.onload = (e: Event) => {
+		facebookTokenXhr.onload = (e: Event): void => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
@@ -93,7 +92,7 @@ class FacebookLogin {
 			}
 		};
 
-		facebookTokenXhr.onerror = (e: Event) => {
+		facebookTokenXhr.onerror = (e: Event): void => {
 			this.activateButton();
 		};
 
