@@ -35,13 +35,16 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section', section);
 		},
 
-		updateItem(updatedEditItemModel: CuratedContentEditorItemInterface): void {
-			var section: string = this.modelFor('curatedContentEditor.editSectionItem').section,
-				item = this.modelFor('curatedContentEditor.editSectionItem').originalItem,
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
+		updateItem(newItem: CuratedContentEditorItemInterface): void {
+			var sectionModel: any = this.modelFor('curatedContentEditor.section'),
+				sectionData: any = $.extend(true, {}, sectionModel.data),
+				originalItem = this.modelFor('curatedContentEditor.editSectionItem').originalItem;
 
-			App.CuratedContentEditorModel.updateSectionItem(currentModel, updatedEditItemModel, section, item);
-			this.transitionTo('curatedContentEditor.section', encodeURIComponent(section));
+			App.CuratedContentEditorModel.updateSectionItem(sectionData, newItem, originalItem);
+			this.transitionTo('curatedContentEditor.section', {
+				originalLabel: sectionModel.originalLabel,
+				data: sectionData
+			});
 		},
 
 		deleteItem(): void {

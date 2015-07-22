@@ -110,30 +110,19 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	updateSectionItem(
-		currentModel: typeof App.CuratedContentEditorModel,
+		sectionModel: CuratedContentEditorItemInterface,
 		newItem: CuratedContentEditorItemInterface,
-		sectionLabel: string,
 		originalItem: any
-	): typeof App.CuratedContentEditorModel {
-		var sections = currentModel.curated.items,
-			sectionWithItemItems: CuratedContentEditorItemInterface[],
+	): void {
+		var items = sectionModel.items,
 			i: number;
 
-		for (i = 0; i < sections.length; i++) {
-			if (sections[i].label === sectionLabel) {
-				sectionWithItemItems = sections[i].items;
+		for (i = 0; i < items.length; i++) {
+			if (items[i].label === originalItem.label) {
+				items[i] = newItem;
 				break;
 			}
 		}
-
-		for (i = 0; i < sectionWithItemItems.length; i++) {
-			if (sectionWithItemItems[i].label === originalItem.label) {
-				sectionWithItemItems[i] = newItem;
-				break;
-			}
-		}
-
-		return currentModel;
 	},
 
 	getBlockItem(
