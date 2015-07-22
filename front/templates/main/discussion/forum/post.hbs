@@ -1,11 +1,18 @@
-<h1>Post: {{model.title}}</h1>
+<div class="vertical-{{vertical}}">
+	{{#each model._embedded.firstPost as |item index|}}
+	{{post-detail
+		authorId=item.creatorId
+		content=item.rawContent
+		timestamp=item.creationDate.epochSecond
+	}}
+	{{/each}}
 
-<h2>Replies:</h2>
-{{#each item in model._embedded.doc:posts}}
-    {{#post-reply
-        authorId=item.creatorId
-        content=item.rawContent
-        timestamp=item.creationDate.epochSecond
-    }}{{/post-reply}}
-    <hr/>
-{{/each}}
+	{{#each model._embedded.doc:posts as |item index|}}
+		{{post-reply
+			authorId=item.creatorId
+			content=item.rawContent
+			timestamp=item.creationDate.epochSecond
+		}}
+		<hr/>
+	{{/each}}
+</div>
