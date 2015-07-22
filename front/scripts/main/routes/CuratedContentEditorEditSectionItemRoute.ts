@@ -40,21 +40,26 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 	},
 
 	actions: {
-		goBack: function (): void {
+		goBack(): void {
 			var section = encodeURIComponent(this.modelFor('curatedContentEditor.editSectionItem').section);
 			this.transitionTo('curatedContentEditor.section', section);
 		},
 
-		updateItem: function (updatedEditItemModel: CuratedContentEditorItemInterface) {
+		updateItem(updatedEditItemModel: CuratedContentEditorItemInterface) {
 			var section: string = this.modelFor('curatedContentEditor.editSectionItem').section,
 				item = this.modelFor('curatedContentEditor.editSectionItem').originalItem,
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				updatedModel: typeof App.CuratedContentEditorModel;
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
 
-			updatedModel = App.CuratedContentEditorModel.updateSectionItem(currentModel, updatedEditItemModel, section, item);
-			currentModel.set('model', updatedModel);
-
+			App.CuratedContentEditorModel.updateSectionItem(currentModel, updatedEditItemModel, section, item);
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(section));
+		},
+
+		deleteItem(): void {
+			var item = this.modelFor('curatedContentEditor.editSectionItem').originalItem,
+				currentSectionModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor.section').data;
+
+			App.CuratedContentEditorModel.deleteSectionItem(currentSectionModel, item);
+			this.transitionTo('curatedContentEditor.section', encodeURIComponent(currentSectionModel.title));
 		}
 	}
 });

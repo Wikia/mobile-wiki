@@ -138,7 +138,6 @@ App.CuratedContentEditorModel.reopenClass({
 		return currentModel;
 	},
 
-
 	getBlockItem(
 		model: typeof App.CuratedContentEditorModel,
 		blockName: string,
@@ -196,5 +195,22 @@ App.CuratedContentEditorModel.reopenClass({
 				blockItems.splice(i, 1);
 			}
 		}
-	}
+	},
+
+	deleteSectionItem(
+		sectionModel: typeof App.CuratedContentEditorModel,
+		itemToRemoval: CuratedContentEditorItemInterface
+	): typeof App.CuratedContentEditorModel {
+		var items: CuratedContentEditorItemInterface[] = sectionModel.items,
+			i: number;
+
+		for (i = 0; i < items.length; i++) {
+			if (items[i].label === itemToRemoval.label) {
+				items.splice(i, 1);
+				break;
+			}
+		}
+
+		return sectionModel;
+	},
 });
