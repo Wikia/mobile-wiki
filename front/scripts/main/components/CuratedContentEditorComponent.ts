@@ -21,6 +21,10 @@ App.CuratedContentEditorComponent = Em.Component.extend({
 			this.sendAction('editSectionItem', item, section);
 		},
 
+		editSection(item: CuratedContentEditorItemInterface): void {
+			this.sendAction('editSection', item);
+		},
+
 		openSection(item: CuratedContentEditorItemInterface): void {
 			this.sendAction('openSection', item);
 		}

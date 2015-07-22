@@ -4,8 +4,7 @@
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	curated: null,
-	optional: null,
-
+	optional: null
 });
 
 App.CuratedContentEditorModel.reopenClass({
@@ -48,7 +47,7 @@ App.CuratedContentEditorModel.reopenClass({
 			optional = {};
 
 		if (rawData.length) {
-			rawData.forEach(function (section: CuratedContentEditorItemInterface) {
+			rawData.forEach(function (section: CuratedContentEditorItemInterface): void {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.label === '') {
@@ -96,12 +95,13 @@ App.CuratedContentEditorModel.reopenClass({
 		currentModel: typeof App.CuratedContentEditorModel,
 		newItem: CuratedContentEditorItemInterface,
 		blockName: string,
-		oldItem: any
+		originalItem: any
 	): typeof App.CuratedContentEditorModel {
-		var blockItems = currentModel[blockName].items;
+		var blockItems = currentModel[blockName].items,
+			i: number;
 
-		for (var i=0; i<blockItems.length; i++) {
-			if (blockItems[i].label === oldItem.label) {
+		for (i = 0; i < blockItems.length; i++) {
+			if (blockItems[i].label === originalItem.label) {
 				blockItems[i] = newItem;
 			}
 		}
@@ -113,10 +113,11 @@ App.CuratedContentEditorModel.reopenClass({
 		currentModel: typeof App.CuratedContentEditorModel,
 		newItem: CuratedContentEditorItemInterface,
 		sectionLabel: string,
-		oldItem: any
+		originalItem: any
 	): typeof App.CuratedContentEditorModel {
 		var sections = currentModel.curated.items,
-			sectionWithItemItems: CuratedContentEditorItemInterface[], i: number;
+			sectionWithItemItems: CuratedContentEditorItemInterface[],
+			i: number;
 
 		for (i = 0; i < sections.length; i++) {
 			if (sections[i].label === sectionLabel) {
@@ -126,7 +127,7 @@ App.CuratedContentEditorModel.reopenClass({
 		}
 
 		for (i = 0; i < sectionWithItemItems.length; i++) {
-			if (sectionWithItemItems[i].label === oldItem.label) {
+			if (sectionWithItemItems[i].label === originalItem.label) {
 				sectionWithItemItems[i] = newItem;
 				break;
 			}
@@ -143,7 +144,7 @@ App.CuratedContentEditorModel.reopenClass({
 		var blockItems = model[blockName].items,
 			item: CuratedContentEditorItemInterface = null;
 
-		blockItems.some(function(itemObj: CuratedContentEditorItemInterface) {
+		blockItems.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
 			if (itemObj.label === itemLabel) {
 				item = $.extend({}, itemObj);
 				return true;
@@ -161,9 +162,9 @@ App.CuratedContentEditorModel.reopenClass({
 		var sections = model.curated.items,
 			item: CuratedContentEditorItemInterface = null;
 
-		sections.some(function(sectionObj: CuratedContentEditorItemInterface) {
+		sections.some(function (sectionObj: CuratedContentEditorItemInterface): boolean {
 			if (sectionObj.label === sectionLabel) {
-				sectionObj.items.some(function(itemObj: CuratedContentEditorItemInterface) {
+				sectionObj.items.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
 					if (itemObj.label == itemLabel) {
 						item = $.extend({}, itemObj);
 						return true;
@@ -184,7 +185,7 @@ App.CuratedContentEditorModel.reopenClass({
 		var blockItems = model[blockName].items,
 			i: number;
 
-		for (i=0; i<blockItems.length; i++) {
+		for (i = 0; i < blockItems.length; i++) {
 			if (blockItems[i].label === itemToRemoval.label) {
 				blockItems.splice(i, 1);
 			}

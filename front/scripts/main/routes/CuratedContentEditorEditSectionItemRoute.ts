@@ -9,28 +9,18 @@ interface CuratedContentEditorEditSectionItemRouteParamsInterface {
 }
 
 App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
-	/**
-	 * @desc If model wasn't passed to the route (on page refresh) we redirect to /main/edit
-	 *
-	 * @param transition
-	 */
-	beforeModel: function (transition: any): void {
-		if (!Em.isArray(transition.intent.contexts)) {
-			this.transitionTo('curatedContentEditor.index');
-		}
-	},
-
-	model: function(params: CuratedContentEditorEditSectionItemRouteParamsInterface) {
+	model: function (params: CuratedContentEditorEditSectionItemRouteParamsInterface) {
 		var section = decodeURIComponent(params.section),
 			item = decodeURIComponent(params.item),
 			itemModel = App.CuratedContentEditorModel.getSectionItem(this.modelFor('curatedContentEditor'), section, item);
+
 		return {
 			section: section,
 			item: itemModel
 		};
 	},
 
-	setupController: function (controller: any, model: any) {
+	setupController: function (controller: any, model: typeof App.CuratedContentEditorItemModel) {
 		this._super(controller, model);
 		controller.set('model.originalItem', $.extend({}, model.item));
 	},
@@ -45,7 +35,7 @@ App.CuratedContentEditorEditSectionItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section', section);
 		},
 
-		updateItem(updatedEditItemModel: CuratedContentEditorItemInterface) {
+		updateItem(updatedEditItemModel: CuratedContentEditorItemInterface): void {
 			var section: string = this.modelFor('curatedContentEditor.editSectionItem').section,
 				item = this.modelFor('curatedContentEditor.editSectionItem').originalItem,
 				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');

@@ -33,9 +33,9 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		updateSection(newSection: CuratedContentEditorItemInterface): void {
 			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				originalLabel = this.modelFor('curatedContentEditor.section').originalLabel,
-				oldSection = App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', originalLabel);
+				originalSection = App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', originalLabel);
 
-			App.CuratedContentEditorModel.updateBlockItem(currentModel, newSection, 'curated', oldSection);
+			App.CuratedContentEditorModel.updateBlockItem(currentModel, newSection, 'curated', originalSection);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}
