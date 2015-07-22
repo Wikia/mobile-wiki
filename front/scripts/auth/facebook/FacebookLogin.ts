@@ -30,7 +30,7 @@ class FacebookLogin {
 	}
 
 	public login (): void {
-		window.FB.login(this.onLogin.bind(this));
+		window.FB.login(this.onLogin.bind(this), {scope: 'email'});
 		this.deactivateButton();
 	}
 
