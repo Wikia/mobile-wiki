@@ -16,12 +16,12 @@
 	<div class="curated-content-input-wrapper">
 		{{#if isSectionView}}
 			<div class="input-container">
-				{{input value=model.label id='label' name='label' focus-out="setLabelFocusedOut" focus-in="setLabelFocusedIn"}}
+				{{input value=model.label id='label' name='label' action='updateItem' focus-out="setLabelFocusedOut" focus-in="setLabelFocusedIn"}}
 				<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
 			</div>
 		{{/if}}
 		<div class="input-container">
-			{{input value=model.title id='title' name='title' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
+			{{input value=model.title id='title' name='title' action='updateItem' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
 			<label class="floating-label {{if isTitleActive 'title'}}" for="page">Enter a page name</label>
 		</div>
 	</div>
