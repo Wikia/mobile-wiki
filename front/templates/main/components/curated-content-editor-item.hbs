@@ -21,8 +21,8 @@
 			</div>
 		{{/if}}
 		<div class="input-container">
-			{{input value=model.title id='page' name='page' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
-			<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
+			{{input value=model.title id='title' name='title' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
+			<label class="floating-label {{if isTitleActive 'title'}}" for="page">Enter a page name</label>
 		</div>
 	</div>
 	<a {{action 'deleteItem'}} class="curated-content-editor-remove">Delete item</a>
