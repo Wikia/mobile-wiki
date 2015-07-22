@@ -3,7 +3,7 @@
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
 		<div class="edit-head-title">
-			{{#if renderLabel}}
+			{{#if isSectionView}}
 				{{model.label}}
 			{{else}}
 				{{model.title}}
@@ -14,7 +14,7 @@
 		<img src="{{imageUrl}}" />
 	</div>
 	<div class="curated-content-input-wrapper">
-		{{#if renderLabel}}
+		{{#if isSectionView}}
 			<div class="input-container">
 				{{input value=model.label id='label' name='label' focus-out="setLabelFocusedOut" focus-in="setLabelFocusedIn"}}
 				<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
@@ -25,5 +25,5 @@
 			<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
 		</div>
 	</div>
-	<a class="curated-content-editor-remove">Delete item</a>
+	<a {{action 'deleteItem'}} class="curated-content-editor-remove">Delete item</a>
 </form>

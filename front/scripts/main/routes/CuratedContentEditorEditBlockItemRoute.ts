@@ -64,6 +64,15 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 				App.CuratedContentEditorModel.updateBlockItem(currentModel, newItem, block, oldItem);
 				this.transitionTo('curatedContentEditor.index');
 			}
+		},
+
+		deleteItem(deletedItem: CuratedContentEditorItemInterface): void {
+			var block = this.modelFor('curatedContentEditor.editBlockItem').block,
+				oldItem = this.modelFor('curatedContentEditor.editBlockItem').originalItem,
+				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
+
+			App.CuratedContentEditorModel.deleteBlockItem(currentModel, block, oldItem);
+			this.transitionTo('curatedContentEditor.index');
 		}
 	}
 });

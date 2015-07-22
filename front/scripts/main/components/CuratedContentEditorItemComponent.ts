@@ -18,7 +18,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		return !Em.isEmpty(model.image_url) ? this.thumbnailer.getThumbURL(model.image_url, options) : this.emptyGif;
 	}),
 
-	renderLabel: Em.computed('block', function (): boolean {
+	isSectionView: Em.computed('block', function (): boolean {
 			return this.get('block') !== 'curated';
 		}
 	),
@@ -53,8 +53,15 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			this.sendAction('goBack');
 		},
 
-		updateItem: function(): void {
+		updateItem(): void {
 			this.sendAction('updateItem', this.get('model'));
+		},
+
+		deleteItem(): void {
+			if (confirm("Are you sure about removing this item?")) {
+				this.sendAction('deleteItem');
+			}
 		}
+
 	}
 });

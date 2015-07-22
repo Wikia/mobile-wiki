@@ -112,7 +112,7 @@ App.CuratedContentEditorModel.reopenClass({
 		return currentModel;
 	},
 
-	updateSectionItem: function (
+	updateSectionItem(
 		currentModel: typeof App.CuratedContentEditorModel,
 		newItem: CuratedContentEditorItemInterface,
 		sectionName: string,
@@ -139,8 +139,10 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 
-	getBlockItem: function(
-		model: typeof App.CuratedContentEditorModel, blockName: string, itemIdentifier: string
+	getBlockItem(
+		model: typeof App.CuratedContentEditorModel,
+		blockName: string,
+		itemIdentifier: string
 	): CuratedContentEditorItemInterface {
 		var blockItems = model[blockName].items,
 			item: CuratedContentEditorItemInterface = null;
@@ -155,7 +157,11 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	getSectionItem: function(model: typeof App.CuratedContentEditorModel, sectionName: string, itemLabel: string): CuratedContentEditorItemInterface {
+	getSectionItem(
+		model: typeof App.CuratedContentEditorModel,
+		sectionName: string,
+		itemLabel: string
+	): CuratedContentEditorItemInterface {
 		var sections = model.curated.items,
 			item: CuratedContentEditorItemInterface = null;
 
@@ -174,5 +180,21 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
+	deleteBlockItem(
+		model: typeof App.CuratedContentEditorModel,
+		blockName: string,
+		itemToRemoval: CuratedContentEditorItemInterface
+	): void {
+		var blockItems = model[blockName].items,
+			i: number;
 
+		for (i=0; i<blockItems.length; i++) {
+			if (
+				(blockName === 'curated' && blockItems[i].title === itemToRemoval.title)
+				|| (blockName !== 'curated' && blockItems[i].label === itemToRemoval.label)
+			) {
+				blockItems.splice(i, 1);
+			}
+		}
+	}
 });
