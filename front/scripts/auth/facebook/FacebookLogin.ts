@@ -81,12 +81,10 @@ class FacebookLogin {
 			},
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
-		this.track('facebook-login', Mercury.Utils.trackActions.success);
-
 		facebookTokenXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
-
 			if (status === HttpCodes.OK) {
+				this.track('facebook-login-helios', Mercury.Utils.trackActions.success);
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				window.location.href = this.getFacebookRegistrationUrl();
@@ -97,6 +95,7 @@ class FacebookLogin {
 		};
 
 		facebookTokenXhr.onerror = (e: Event) => {
+			this.track('facebook-login-helios', Mercury.Utils.trackActions.error);
 			this.activateButton();
 		};
 
