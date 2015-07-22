@@ -10,28 +10,30 @@ import authView = require('./authView');
 var deepExtend = require('deep-extend');
 
 interface RegisterViewContext extends authView.AuthViewContext {
-	headerText?: string;
-	i18nContext?: any;
 	birthdateInputs: Array<InputData>;
-	heliosRegistrationURL?: string;
-	termsOfUseLink?: string;
-	usernameMaxLength: number;
-	passwordMaxLength: number;
 	langCode: string;
+	passwordMaxLength: number;
+	usernameMaxLength: number;
+	headerText?: string;
+	heliosRegistrationURL?: string;
+	i18nContext?: any;
+	termsOfUseLink?: string;
 }
 
 
 interface RegisterFBViewContext extends authView.AuthViewContext {
-	headerText?: string;
-	i18nContext?: any;
+
 	birthdateInputs: Array<InputData>;
-	heliosFacebookRegistrationURL?: string;
-	termsOfUseLink?: string;
-	usernameMaxLength: number;
-	passwordMaxLength: number;
-	langCode: string;
 	defaultBirthdate: string;
 	headerSlogan: string;
+	langCode: string;
+	passwordMaxLength: number;
+	usernameMaxLength: number;
+	headerText?: string;
+	heliosFacebookRegistrationURL?: string;
+	i18nContext?: any;
+	termsOfUseLink?: string;
+
 }
 
 function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {

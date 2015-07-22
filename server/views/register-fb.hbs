@@ -14,8 +14,7 @@
 			<span class="input-icon password-toggler"></span>
 		</div>
 		<label for="signupNewsletter" class="inline signup-newsletter-label hide">
-			<!-- For the MVP we do not have marketing opt-in yet-->
-			<input type="hidden" name="marketingallowed" id="signupNewsletter" class="inline" value="0">
+			<input type="checkbox" name="marketingallowed" id="signupNewsletter" class="inline">
 			{{i18n "auth:register.wikia-newsletter-prompt"}}
 		</label>
 		<input type="hidden" name="birthdate" value="{{defaultBirthdate}}">

@@ -11,13 +11,13 @@ interface FacebookUserData {
 }
 
 interface HeliosFacebookRegistrationData {
-	email: string;
-	username: string;
-	password: string;
 	birthdate: string;
+	email: string;
+	fb_access_token: string;
+	password: string;
+	username: string;
 	langCode?: string;
 	marketingallowed?: string;
-	fb_access_token: string;
 }
 
 class FacebookRegistration {
@@ -25,6 +25,7 @@ class FacebookRegistration {
 	form: HTMLFormElement;
 	redirect: string;
 	urlHelper: UrlHelper;
+	marketingOptIn: MarketingOptIn;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -34,6 +35,8 @@ class FacebookRegistration {
 			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
 			this.redirect = params['redirect'];
 		}
+		this.marketingOptIn = new MarketingOptIn();
+		this.marketingOptIn.init();
 		this.redirect = this.redirect || '/';
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
@@ -79,13 +82,13 @@ class FacebookRegistration {
 		};
 	}
 
-	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string) {
+	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string): void {
 			var facebookTokenXhr = new XMLHttpRequest(),
 			data = <HeliosFacebookToken> {
 				fb_access_token: facebookToken
 			};
 
-		facebookTokenXhr.onload = (e: Event) => {
+		facebookTokenXhr.onload = (e: Event): void => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
@@ -98,7 +101,7 @@ class FacebookRegistration {
 			}
 		};
 
-		facebookTokenXhr.onerror = (e: Event) => {
+		facebookTokenXhr.onerror = (e: Event): void => {
 			this.track('facebook-login-registration-helios', Mercury.Utils.trackActions.error);
 			//ToDo show the "unable to login" error
 		};
@@ -120,7 +123,7 @@ class FacebookRegistration {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url);
+				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url.replace('/users', '/token'));
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				//ToDo: show validation errors
 			} else {
