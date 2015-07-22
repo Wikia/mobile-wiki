@@ -112,7 +112,7 @@ App.CuratedContentModel.reopenClass({
 
 			// TODO (CONCF-914): article_local_url is sometimes encoded and sometimes not, to investigate
 			try {
-				categoryName = decodeURIComponent(url)
+				categoryName = decodeURIComponent(url);
 			} catch (error) {
 				categoryName = url;
 			}
