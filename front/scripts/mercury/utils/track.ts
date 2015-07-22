@@ -198,7 +198,6 @@ module Mercury.Utils {
 		if (M.prop('queryParams.noexternals')) {
 			return;
 		}
-		console.info('Tracker update URL:', url);
 
 		Object.keys(trackers).forEach((tracker: string): void => {
 			var Tracker = trackers[tracker],
