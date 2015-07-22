@@ -2,9 +2,9 @@
 'use strict';
 
 interface CuratedContentEditorItemInterface {
-	title: string;
-	label?: string;
+	label: string;
 	image_id: number;
+	node_type: string;
 	image_url?: string;
 	article_id?: number;
 	featured?: string;
@@ -17,7 +17,6 @@ App.CuratedContentEditorItemModel = Em.Object.extend({
 	block: null,
 	section: null,
 	item: {
-		title: null,
 		label: null,
 		image_url: null,
 		image_id: null

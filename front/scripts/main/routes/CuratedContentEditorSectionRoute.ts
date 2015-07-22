@@ -6,7 +6,7 @@
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	serialize(model: any) {
 		return {
-			section: encodeURIComponent(model.originalTitle)
+			section: encodeURIComponent(model.originalLabel)
 		}
 	},
 
@@ -16,7 +16,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 			data = App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', section);
 
 		return {
-			originalTitle: section,
+			originalLabel: section,
 			data: data
 		};
 	},
@@ -32,8 +32,8 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 
 		updateSection(newSection: CuratedContentEditorItemInterface): void {
 			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				originalTitle = this.modelFor('curatedContentEditor.section').originalTitle,
-				oldSection = App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', originalTitle);
+				originalLabel = this.modelFor('curatedContentEditor.section').originalLabel,
+				oldSection = App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', originalLabel);
 
 			App.CuratedContentEditorModel.updateBlockItem(currentModel, newSection, 'curated', oldSection);
 			this.transitionTo('curatedContentEditor.index');

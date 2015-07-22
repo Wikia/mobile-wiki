@@ -44,7 +44,7 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 			var currentItemModel = this.modelFor('curatedContentEditor.editBlockItem');
 
 			if (currentItemModel.block === 'curated') {
-				this.transitionTo('curatedContentEditor.section', encodeURIComponent(currentItemModel.originalItem.title));
+				this.transitionTo('curatedContentEditor.section', encodeURIComponent(currentItemModel.originalItem.label));
 			} else {
 				this.transitionTo('curatedContentEditor.index');
 			}
@@ -57,7 +57,7 @@ App.CuratedContentEditorEditBlockItemRoute = Em.Route.extend({
 
 			if (block === 'curated') {
 				this.transitionTo('curatedContentEditor.section', {
-					originalTitle: oldItem.title,
+					originalLabel: oldItem.label,
 					data: newItem
 				});
 			} else {

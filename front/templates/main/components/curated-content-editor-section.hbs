@@ -1,14 +1,14 @@
 <header class="edit-head curated-content-editor-head">
 	<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
     <button {{action 'updateSection'}} class="large publish curated-content-editor-submit" type="submit">Done</button>
-	<div class="edit-head-title">{{model.title}}</div>
+	<div class="edit-head-title">{{model.label}}</div>
 </header>
 <div class="curated-content-section-details">
 	<div class="section-image">
 		<img src="{{thumbUrl}}"/>
 	</div>
 	<div class="section-desc">
-		<div class="section-label">{{model.title}}</div>
+		<div class="section-label">{{model.label}}</div>
 		<div class="section-items-count">{{model.items.length}} items</div>
 	</div>
 	<a {{action 'editBlockItem'}} class='section-edit'>

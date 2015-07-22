@@ -2,28 +2,22 @@
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
-		<div class="edit-head-title">
-			{{#if isSectionView}}
-				{{model.label}}
-			{{else}}
-				{{model.title}}
-			{{/if}}
-		</div>
+		<div class="edit-head-title">{{model.label}}</div>
 	</header>
 	<div class="curated-content-editor-photo">
 		<img src="{{imageUrl}}" />
 	</div>
 	<div class="curated-content-input-wrapper">
-		{{#if isSectionView}}
-			<div class="input-container">
-				{{input value=model.label id='label' name='label' action='updateItem' focus-out="setLabelFocusedOut" focus-in="setLabelFocusedIn"}}
-				<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
-			</div>
-		{{/if}}
 		<div class="input-container">
-			{{input value=model.title id='title' name='title' action='updateItem' focus-out='setTitleFocusedOut' focus-in="setTitleFocusedIn"}}
-			<label class="floating-label {{if isTitleActive 'title'}}" for="page">Enter a page name</label>
+			{{input value=model.label id='label' name='label' action='updateItem' focus-out='setLabelFocusedOut' focus-in='setLabelFocusedIn'}}
+			<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
 		</div>
+		{{#unless isSectionView}}
+			<div class="input-container">
+				{{input value=model.title id='title' name='title' action='updateItem' focus-out='setTitleFocusedOut' focus-in='setTitleFocusedIn'}}
+				<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
+			</div>
+		{{/unless}}
 	</div>
 	<a {{action 'deleteItem'}} class="curated-content-editor-remove">Delete item</a>
 </form>

@@ -8,15 +8,6 @@ App.CuratedContentEditorRowComponent = Em.Component.extend({
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	imageSize: 100,
 
-	/**
-	 * Sections have titles, section items have labels and titles - we want to show labels for them
-	 */
-	title: Em.computed('model', function (): string {
-		var model: CuratedContentEditorItemInterface = this.get('model');
-
-		return model.label || model.title;
-	}),
-
 	thumbUrl: Em.computed('model', function (): string {
 		var model: CuratedContentEditorItemInterface = this.get('model'),
 			options: any = {
@@ -36,7 +27,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend({
 	click(): void {
 		var model: CuratedContentEditorItemInterface = this.get('model');
 
-		if (model.items) {
+		if (model.node_type === 'section') {
 			this.sendAction('openSection', model);
 		} else {
 			this.sendAction('editItem', model);
