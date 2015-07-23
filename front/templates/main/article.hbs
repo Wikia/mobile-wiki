@@ -39,7 +39,10 @@
 		{{/if}}
 		<article class="article-content mw-content">
 			{{#if model.article}}
-				{{{model.article}}}
+				{{article-content
+					article=model.article
+					media=model.media
+				}}
 			{{else}}
 				{{i18n 'app.article-empty-label'}}
 			{{/if}}
