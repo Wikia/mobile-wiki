@@ -6,7 +6,6 @@ App.SideNavComponent = Em.Component.extend({
 	classNames: ['side-nav'],
 	classNameBindings: ['isCollapsed:collapsed:slide-into-view'],
 
-	isCollapsed: true,
 	isInSearchMode: false,
 	searchQuery: '',
 	searchPlaceholderLabel: Em.computed(function (): string {
@@ -19,12 +18,12 @@ App.SideNavComponent = Em.Component.extend({
 		},
 
 		collapse: function (): void {
-			this.set('isCollapsed', true);
+			this.sendAction('toggleVisibility', false);
 			this.send('searchCancel');
 		},
 
 		expand: function (): void {
-			this.set('isCollapsed', false);
+			this.sendAction('toggleVisibility', true);
 		},
 
 		searchCancel: function (): void {

@@ -127,7 +127,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 
 	actions: {
 		expandSideNav: function (): void {
-			this.sendAction('expandSideNav');
+			this.sendAction('toggleSideNav', true);
 		}
 	},
 
