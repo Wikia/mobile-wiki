@@ -1,7 +1,10 @@
+/// <reference path='../../../../typings/ember/ember.d.ts' />
+/// <reference path='../app.ts' />
+
 App.ArticleContentComponent = Em.Component.extend({
 	layoutName: 'components/article-content',
 	article: null,
-	articleContent: Ember.computed('article', function () {
+	articleContent: Em.computed('article', function () {
 		return this.get('article');
 	}),
 
@@ -158,18 +161,19 @@ App.ArticleContentComponent = Em.Component.extend({
 		});
 	},
 
-	onArticleChange: Em.observer('articleContent', function() {
-		var self = this;
-		self.rerender();
-		Em.run.scheduleOnce('afterRender',this,  function () {
-			self.handleTables();
+	articleContentObserver: Em.observer('articleContent', function () {
+		this.rerender();
+
+		Em.run.scheduleOnce('afterRender',this,  () => {
+			this.handleTables();
 			this.handleInfoboxes();
 			this.replaceInfoboxesWithInfoboxComponents();
 			this.replaceMapsWithMapComponents();
 			this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 			this.handlePollDaddy();
-			Ember.run.later(this, () => { this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')) }, 0);
+			Em.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 		});
+
 	}).on('init')
 
 });
