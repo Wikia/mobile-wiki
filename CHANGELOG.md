@@ -1,3 +1,7 @@
+## release-116 (2015-07-23 10:00 UTC)
+* [CONCF-917](https://wikia-inc.atlassian.net/browse/CONCF-917) CONCF-917 fix decoding urls for subcategories
+* [CONCF-889](https://wikia-inc.atlassian.net/browse/CONCF-889) CONCF-889 | As a user I would like to be able to go back from the Mercury main page
+
 ## release-115 (2015-07-22 10:00 UTC)
 * aden-2233-fix-top-leaderboard-over-interstitial: ADEN-2233 Fixed top leaderboard to not cover interstitial ad unit
 * [INT-147](https://wikia-inc.atlassian.net/browse/INT-147) INT-147 Add photo bug on Android/Chrome
