@@ -1,3 +1,12 @@
+## release-117 (2015-07-23 11:36 UTC)
+* [DAT-2909](https://wikia-inc.atlassian.net/browse/DAT-2909) portable infobox - mercury styling
+* [DAT-3001](https://wikia-inc.atlassian.net/browse/DAT-3001) DAT-3001 stretch only main infobox image
+* [DAT-2973](https://wikia-inc.atlassian.net/browse/DAT-2973) DAT-2973 hide caption for videos in infoboxes
+* [DAT-2978](https://wikia-inc.atlassian.net/browse/DAT-2978) add minimal height
+* [DAT-2976](https://wikia-inc.atlassian.net/browse/DAT-2976) Dat 2976 - fix issue with collapsed height being greater then uncollapsed height in landscape mode
+* [DAT-2970](https://wikia-inc.atlassian.net/browse/DAT-2970) DAT-2970
+* [DAT-2969](https://wikia-inc.atlassian.net/browse/DAT-2969) DAT-2969 - fix issue with transparent color in linear gradient on iOS
+
 ## release-116 (2015-07-23 10:00 UTC)
 * [CONCF-917](https://wikia-inc.atlassian.net/browse/CONCF-917) CONCF-917 fix decoding urls for subcategories
 * [CONCF-889](https://wikia-inc.atlassian.net/browse/CONCF-889) CONCF-889 | As a user I would like to be able to go back from the Mercury main page
