@@ -456,7 +456,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 	createAlert: function(model: typeof App.WikiaInYourLangModel): void {
 		var appController = this.get('controller').get('controllers.application');
-		appController.addAlert('', model.message, 60000, {
+		appController.addAlert('', model.message, 60000, true, {
 			onInsertElement: function(alert: any): void {
 				alert.on('click', 'a:not(.close)', (event: any) => {
 					M.track({

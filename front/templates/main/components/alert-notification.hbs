@@ -1,2 +1,6 @@
-{{{alert.message}}}
+{{#if alert.unsafe}}
+    {{{alert.message}}}
+{{else}}
+    {{alert.message}}
+{{/if}}
 <a href="#" class="close" {{action 'close'}}>&times;</a>
