@@ -125,6 +125,12 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		return true;
 	},
 
+	actions: {
+		expandSideNav: function (): void {
+			this.sendAction('expandSideNav');
+		}
+	},
+
 	scheduleArticleTransforms: function (): void {
 		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
 	},
