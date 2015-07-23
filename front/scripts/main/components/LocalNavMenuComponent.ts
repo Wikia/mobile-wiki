@@ -29,20 +29,12 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	tagName: 'ul',
 	classNames: ['local-nav-menu'],
 
-	/**
-	 * Note: this means that the model is stored directly
-	 * in the Wikia object. We may wish to actually copy it over,
-	 * or removed the reference in the Wikia object to it so that
-	 * this component has exclusive access to it.
-	 */
-	model: Em.computed(function (): any {
-		return Mercury.wiki.navData;
-	}),
-
 	menuRoot: Em.computed('model', function (): RootNavItem {
-		return {
-			children: this.get('model.navigation.wiki')
+		var menuRoot = {
+			children: Em.get(Mercury, 'wiki.navData.navigation.wiki')
 		};
+
+		return this.injectParentPointersAndIndices(menuRoot);
 	}),
 
 	currentMenuItem: Em.computed.oneWay('menuRoot'),
@@ -79,7 +71,7 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 		},
 
 		loadRandomArticle: function (): void {
-			this.trackClick('randomArticle', 'click')
+			this.trackClick('randomArticle', 'click');
 			this.sendAction('loadRandomArticle');
 		}
 	},
@@ -90,10 +82,6 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 		}
 	}),
 
-	willInsertElement: function (): void {
-		this.injectParentPointersAndIndices();
-	},
-
 	/**
 	 * @desc function which recursively sets the 'parent' property
 	 * of all of the items in the navData tree. It also sets the index
@@ -103,15 +91,16 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	 * We need this because JSON can store child nav objects,
 	 * but cannot store references to parent objects.
 	 */
-	injectParentPointersAndIndices: function (): void {
-		// topLevel is almost a NavItem but it has no href or text
-		var topLevel: RootNavItem = this.get('menuRoot'),
-			children: Array<NavItem> = topLevel.children || [],
+	injectParentPointersAndIndices: function (topLevel: RootNavItem): RootNavItem {
+		var children: Array<NavItem> = topLevel.children || [],
 			i: number,
 			len = children.length;
+
 		for (i = 0; i < len; i++) {
 			this.injectParentPointersAndIndicesHelper(topLevel, children[i], i);
 		}
+
+		return topLevel;
 	},
 
 	/**
@@ -125,8 +114,10 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	injectParentPointersAndIndicesHelper: function (parent: RootNavItem, curr: NavItem, index: number): void {
 		var i: number,
 			len: number;
+
 		curr.parent = parent;
 		curr.index = index;
+
 		if (!curr.hasOwnProperty('children')) {
 			return;
 		}
