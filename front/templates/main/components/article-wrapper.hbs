@@ -14,7 +14,7 @@
 				observe=model.cleanTitle
 				trackingEvent='toc'
 			}}
-				{{#each section in model.sections}}
+				{{#each model.sections as |section|}}
 					<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
 						<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
 							{{unbound section.name}}
