@@ -1,3 +1,6 @@
+## release-117 hotfix 1 (2015-07-23 20:05 UTC)
+* [HG-794](https://wikia-inc.atlassian.net/browse/HG-794) HG-794 - Fix double render (& table wrapping)
+
 ## release-117 (2015-07-23 11:36 UTC)
 * [DAT-2909](https://wikia-inc.atlassian.net/browse/DAT-2909) portable infobox - mercury styling
 * [DAT-3001](https://wikia-inc.atlassian.net/browse/DAT-3001) DAT-3001 stretch only main infobox image
