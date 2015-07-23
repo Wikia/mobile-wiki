@@ -12,6 +12,8 @@ interface HeliosRegisterInput {
 	password: string;
 	email: string;
 	birthdate: string;
+	langCode: string;
+	marketingallowed?: string;
 }
 
 class SignupForm {
@@ -19,6 +21,7 @@ class SignupForm {
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
 	redirect: string;
+	marketingOptIn: MarketingOptIn;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -27,6 +30,8 @@ class SignupForm {
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
+		this.marketingOptIn = new MarketingOptIn();
+		this.marketingOptIn.init();
 	}
 
 	private clearValidationErrors(): void {
@@ -98,14 +103,14 @@ class SignupForm {
 			password: (<HTMLInputElement> formElements.namedItem('password')).value,
 			email: (<HTMLInputElement> formElements.namedItem('email')).value,
 			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value,
+			langCode: (<HTMLInputElement> formElements.namedItem('langCode')).value,
 			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
-			// TODO add langCode
 		};
 	}
 
 	private trackValidationErrors(errors: Array<string>): void {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: M.trackActions.error,
 			category: 'user-login-mobile',
 			label: 'registrationValidationErrors: ' + errors.join(';'),
@@ -114,7 +119,7 @@ class SignupForm {
 
 	private trackSuccessfulRegistration() {
 		M.track({
-			trackingMethod: 'ga',
+			trackingMethod: 'both',
 			action: M.trackActions.success,
 			category: 'user-login-mobile',
 			label: 'successful-registration'

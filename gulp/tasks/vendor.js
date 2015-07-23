@@ -1,3 +1,8 @@
+/*
+ * vendor
+ * Moves vendor files to www/
+ */
+
 var gulp = require('gulp'),
 	cache = require('gulp-cached'),
 	paths = require('../paths').vendor;

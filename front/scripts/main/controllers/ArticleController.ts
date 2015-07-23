@@ -5,11 +5,8 @@
 
 App.ArticleController = Em.Controller.extend({
 	needs: ['application'],
-	queryParams: [{
-		commentsPage: 'comments_page'
-	}],
-	commentsPage: null,
 	noAds: Em.computed.alias('controllers.application.noAds'),
+	commentsPage: Em.computed.alias('controllers.application.commentsPage'),
 
 	init: function (): void {
 		this.setProperties({
@@ -35,7 +32,11 @@ App.ArticleController = Em.Controller.extend({
 			});
 		},
 
-		articleRendered: function () {
+		addPhoto: function(title: string, sectionIndex: number, photoData: any): void {
+			this.transitionToRoute('addPhoto', App.AddPhotoModel.load(title, sectionIndex, photoData));
+		},
+
+		articleRendered: function (): void {
 			this.send('handleLightbox');
 		}
 	}

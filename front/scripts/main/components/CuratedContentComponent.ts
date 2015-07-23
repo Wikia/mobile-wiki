@@ -19,7 +19,8 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 				this.trackClick('modular-main-page', 'curated-content-item-other');
 			}
 		},
-		loadMore: function(): void {
+
+		loadMore: function (): void {
 			this.showLoader();
 
 			App.CuratedContentModel.loadMore(this.get('model'))

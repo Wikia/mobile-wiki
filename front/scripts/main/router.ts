@@ -13,7 +13,7 @@ App.Router.map(function () {
 
 	this.route('mainPage', {
 		path: '/'
-	}, function() {
+	}, function () {
 		this.route('section', {
 			path: '/main/section/:sectionName'
 		});
@@ -23,20 +23,39 @@ App.Router.map(function () {
 		});
 	});
 
+	this.route('curatedContentEdit', {
+		path: '/main/edit'
+	}, function () {
+		this.route('section', {
+			path: '/section/:sectionLabel'
+		});
+
+		// TODO CONCF-806
+		//this.route('editItem', {
+		//	path: '/main/edit/item/:itemLabel'
+		//});
+
+		// When user tries to load invalid path under /main/edit/* we redirect to /main/edit
+		this.route('invalid', {
+			path: '/*url'
+		});
+	});
+
 	this.route('article', {
-		path: articlePath + ':title'
+		path: articlePath + '*title'
 	});
 
 	this.route('edit', { // Symbolic link to EditController
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
 
+	this.route('addPhoto', { // Symbolic link to AddPhotoController
+		path: articlePath + 'addPhoto/:title'
+	});
+
 	// We don't want to duplicate the previous route
 	if (articlePath !== '/') {
-		/*
-		 Route to catch all badly formed URLs, i.e., anything that doesn't match '/', '/wiki' or '/wiki/title',
-		 which are the three cases already handled by existing routes.
-		 */
+		// Route to catch all badly formed URLs
 		this.route('notFound', {
 			path: '/*url'
 		});

@@ -1,3 +1,8 @@
+/*
+ * node-test-watch
+ * Watches for changes while test is running
+ */
+
 var gulp = require('gulp'),
 	paths = require('../paths'),
 	gutil = require('gulp-util'),
