@@ -1,9 +1,9 @@
-<h2 class='wiki-title' {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
+<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
 {{#if model.error}}
 	{{render 'not-found'}}
 {{else}}
-	<section class='article-body'>
-		<h1 class='article-title'>{{model.cleanTitle}}</h1>
+	<section class="article-body">
+		<h1 class="article-title">{{model.cleanTitle}}</h1>
 		{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 		{{#if model.sections.length}}
 			{{#collapsible-menu
@@ -16,7 +16,7 @@
 			}}
 				{{#each section in model.sections}}
 					<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
-						<a href='#{{unbound section.id}}' title='{{unbound section.name}}'>
+						<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
 							{{unbound section.name}}
 							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 						</a>
@@ -27,7 +27,7 @@
 		{{#if contributionFeatureEnabled}}
 			<div class="contribution-container">
 				<div class="edit-section zero">
-					<span {{action 'edit' model.title '0'}} class='zero-button-wrapper'>
+					<span {{action 'edit' model.title '0'}} class="zero-button-wrapper">
 						{{svg 'pencil' role='img' class='icon pencil'}}
 					</span>
 				</div>
@@ -45,7 +45,7 @@
 			{{/if}}
 		</article>
 	</section>
-	<section class='article-footer'>
+	<section class="article-footer">
 		{{wikia-users
 			users=model.topContributors
 			classes='contributors'
@@ -67,7 +67,7 @@
 				trackingEvent='category'
 			}}
 				{{#each model.categories itemController='categoryListItem' as |category|}}
-					<li class='mw-content' {{action 'trackClick' 'category' 'link'}}><a href='{{unbound category.model.url}}' title='{{unbound category.model.title}}'>
+					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.model.url}}" title="{{unbound category.model.title}}">
 						{{category.cleanTitle}}
 						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 					</a></li>
