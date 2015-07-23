@@ -1,8 +1,8 @@
 moduleForComponent('alert-notifications', 'AlertNotificationsComponent');
 
 test('Dismissing alert', function () {
-	var alertOne = { type: 'success', message: 'Success message' },
-		alertTwo = { type: 'error', message: 'Error message' },
+	var alertOne = { type: 'success', message: 'Success message', callbacks: {} },
+		alertTwo = { type: 'error', message: 'Error message', callbacks: {} },
 		component = this.subject({
 			alerts: Ember.A([
 				alertOne,

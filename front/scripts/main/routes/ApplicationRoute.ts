@@ -40,6 +40,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			M.VariantTesting.activate();
 			this.controller && this.controller.hideLoader();
 
+			// Clear notification alerts for the new route
+			this.controller.get('alertNotifications').clear();
+
 			/*
 			 * This is called after the first route of any application session has loaded
 			 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM

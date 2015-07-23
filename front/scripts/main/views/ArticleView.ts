@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../models/ArticleModel.ts" />
+/// <reference path="../models/WikiaInYourLangModel.ts" />
 /// <reference path="../components/MediaComponent.ts" />
 /// <reference path="../components/PortableInfoboxComponent.ts" />
 /// <reference path="../components/WikiaMapComponent.ts" />
@@ -150,6 +151,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			this.handlePollDaddy();
 			this.injectAds();
 			this.setupAdsContext(model.get('adsContext'));
+			this.handleWikiaInYourLang();
 
 			M.setTrackContext({
 				a: model.title,
@@ -435,5 +437,49 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
+	},
+
+	handleWikiaInYourLang: function(): void {
+		if (this.shouldShowWikiaInYourLang()) {
+			App.WikiaInYourLangModel.check().then(function(model: typeof App.WikiaInYourLangModel): void {
+				if (model.exists) {
+					var appController = this.get('controller').get('controllers.application');
+					appController.addAlert('', model.message, 60000, {
+						onInsertElement: function(alert: any): void {
+							alert.on('click', 'a:not(.close)', (event: any) => {
+								M.track({
+									action: M.trackActions.click,
+									category: 'wikiaInYourLangAlert',
+									label: 'link'
+								});
+							});
+						},
+						dismissAlert: function(): void {
+							var key = 'wikiaInYourLang.alertDismissed',
+							    now = new Date().getTime().toString();
+							window.localStorage.setItem(key, now);
+							M.track({
+								action: M.trackActions.click,
+								category: 'wikiaInYourLangAlert',
+								label: 'close'
+							});
+						}
+					});
+					M.track({
+						action: M.trackActions.impression,
+						category: 'wikiaInYourLangAlert',
+						label: 'shown'
+					});
+				}
+			}.bind(this));
+		}
+	},
+
+	shouldShowWikiaInYourLang: function() : boolean {
+		var key = 'wikiaInYourLang.alertDismissed',
+		    value = window.localStorage.getItem(key),
+		    hasNotCloseWikiaInYourLangAlert = !value || (now - value > 86400000), //1 day 86400000
+		    isJpOnNonJpWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
+		return hasNotCloseWikiaInYourLangAlert && isJpOnNonJpWikia;
 	}
 });
