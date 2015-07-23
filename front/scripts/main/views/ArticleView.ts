@@ -441,30 +441,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 	handleWikiaInYourLang: function(): void {
 		if (this.shouldShowWikiaInYourLang()) {
-			App.WikiaInYourLangModel.check().then(function(model: typeof App.WikiaInYourLangModel): void {
+			App.WikiaInYourLangModel.load().then(function(model: typeof App.WikiaInYourLangModel): void {
 				if (model.exists) {
-					var appController = this.get('controller').get('controllers.application');
-					appController.addAlert('', model.message, 60000, {
-						onInsertElement: function(alert: any): void {
-							alert.on('click', 'a:not(.close)', (event: any) => {
-								M.track({
-									action: M.trackActions.click,
-									category: 'wikiaInYourLangAlert',
-									label: 'link'
-								});
-							});
-						},
-						dismissAlert: function(): void {
-							var key = 'wikiaInYourLang.alertDismissed',
-							    now = new Date().getTime().toString();
-							window.localStorage.setItem(key, now);
-							M.track({
-								action: M.trackActions.click,
-								category: 'wikiaInYourLangAlert',
-								label: 'close'
-							});
-						}
-					});
+					this.createAlert(model);
 					M.track({
 						action: M.trackActions.impression,
 						category: 'wikiaInYourLangAlert',
@@ -475,11 +454,33 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
+	createAlert: function(model: typeof App.WikiaInYourLangModel): void {
+		var appController = this.get('controller').get('controllers.application');
+		appController.addAlert('', model.message, 60000, {
+			onInsertElement: function(alert: any): void {
+				alert.on('click', 'a:not(.close)', (event: any) => {
+					M.track({
+						action: M.trackActions.click,
+						category: 'wikiaInYourLangAlert',
+						label: 'link'
+					});
+				});
+			},
+			onCloseAlert: function(): void {
+				window.localStorage.setItem('wikiaInYourLang.alertDismissed', new Date().getTime().toString());
+				M.track({
+					action: M.trackActions.click,
+					category: 'wikiaInYourLangAlert',
+					label: 'close'
+				});
+			}
+		});
+	},
+
 	shouldShowWikiaInYourLang: function() : boolean {
-		var key = 'wikiaInYourLang.alertDismissed',
-		    value = window.localStorage.getItem(key),
+		var value = window.localStorage.getItem('wikiaInYourLang.alertDismissed'),
 		    now = new Date().getTime(),
-		    hasNotCloseWikiaInYourLangAlert = !value || (now - value > 86400000), //1 day 86400000
+			hasNotCloseWikiaInYourLangAlert = !value || (now - value > 86400000), //1 day 86400000
 		    isJpOnNonJpWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
 		return hasNotCloseWikiaInYourLangAlert && isJpOnNonJpWikia;
 	}

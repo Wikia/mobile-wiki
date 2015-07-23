@@ -11,10 +11,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 	timeout: null,
 
 	didInsertElement: function (): void {
-		var expiry = this.get('alert').notificationExpiry;
-		if (typeof expiry === 'undefined') {
-			expiry = 10000; //default
-		}
+		var expiry = this.get('alert').notificationExpiry || 10000; //Default to 10 seconds.
 
 		if (expiry > 0) {
 			this.set('timeout', Em.run.later(this, (): void => {
@@ -38,6 +35,9 @@ App.AlertNotificationComponent = Em.Component.extend({
 	actions: {
 		close: function (): void {
 			this.dismissNotification();
+			if (typeof this.get('alert').callbacks.onCloseAlert === 'function') {
+				this.get('alert').callbacks.onCloseAlert();
+			}
 		}
 	}
 });
