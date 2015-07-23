@@ -64,15 +64,21 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
+	didInsertElement: function (): void {
+		this.get('controller').send('articleRendered');
+	},
+
+
 	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
 		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
-	onArticleChange: Em.observer('controller.model.article', function (): void {
+	articleObserver: Em.observer('controller.model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender
-		Em.run.scheduleOnce('afterRender', this, this.articleContentObserver);
+		Em.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
 	}).on('willInsertElement'),
+
 
 	modelObserver: Em.observer('controller.model', function (): void {
 		var model = this.get('controller.model');
@@ -82,10 +88,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
 		}
 	}),
-
-	didInsertElement: function (): void {
-		this.get('controller').send('articleRendered');
-	},
 
 	/**
 	 * @desc Handle clicks on media and bubble up to Application if anything else was clicked
@@ -114,7 +116,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		return true;
 	},
 
-	articleContentObserver: function (): boolean {
+	performArticleTransforms: function (): boolean {
 		var model = this.get('controller.model'),
 			article = model.get('article');
 
