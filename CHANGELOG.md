@@ -1,3 +1,13 @@
+## release-115 (2015-07-22 10:00 UTC)
+* aden-2233-fix-top-leaderboard-over-interstitial: ADEN-2233 Fixed top leaderboard to not cover interstitial ad unit
+* [INT-147](https://wikia-inc.atlassian.net/browse/INT-147) INT-147 Add photo bug on Android/Chrome
+* hotfix/HG-793: HG-793 - Use wild card path for article route
+* [HG-669](https://wikia-inc.atlassian.net/browse/HG-669) Hg 669 Fixing article comments query param regression
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | catch when decodeURIComponent throws
+
+## release-114 hotfix 1 (2015-07-20 18:37 UTC)
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) [HOTFIX] CONCF-896 | catch when decodeURIComponent throws
+
 ## release-114 (2015-07-20 11:50 UTC)
 * [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | handle categories with special characters
 * [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - clean up gulp tasks

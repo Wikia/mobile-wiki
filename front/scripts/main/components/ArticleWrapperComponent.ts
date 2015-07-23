@@ -195,7 +195,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 	setupContributionButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
 		var pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
-		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*" capture="camera"/></div>',
+		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*"/></div>',
 		    iconsWrapper = '<div class="icon-wrapper">' + pencil + photo + '</div>',
 		    $photoZero = this.$('.upload-photo');
 
