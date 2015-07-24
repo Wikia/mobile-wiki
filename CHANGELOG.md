@@ -1,3 +1,6 @@
+## release-119 (2015-07-24 14:45 UTC)
+* [SOC-1091](https://wikia-inc.atlassian.net/browse/SOC-1091) SOC-1089 | Add optimizely on auth pages
+
 ## release-117 hotfix 1 (2015-07-23 20:05 UTC)
 * [HG-794](https://wikia-inc.atlassian.net/browse/HG-794) HG-794 - Fix double render (& table wrapping)
 
