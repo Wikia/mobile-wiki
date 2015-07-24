@@ -37,13 +37,10 @@
 				</div>
 			</div>
 		{{/if}}
-		<article class="article-content mw-content">
-			{{#if model.article}}
-				{{{model.article}}}
-			{{else}}
-				{{i18n 'app.article-empty-label'}}
-			{{/if}}
-		</article>
+		{{article-content
+			article=model.article
+			media=model.media
+		}}
 	</section>
 	<section class="article-footer">
 		{{wikia-users
