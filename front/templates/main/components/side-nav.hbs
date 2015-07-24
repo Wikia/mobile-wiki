@@ -18,6 +18,15 @@
 		</div>
 		<div {{action 'searchCancel'}} class='cancel'>{{i18n 'app.cancel-label'}}</div>
 	</div>
-	{{local-wikia-search sideNavCollapsed=isCollapsed query=searchQuery isInSearchMode=isInSearchMode}}
-	{{local-nav-menu sideNavCollapsed=isCollapsed loadRandomArticle='loadRandomArticle'}}
+	{{local-wikia-search
+		sideNavVisible=isVisible
+		query=searchQuery
+		isInSearchMode=isInSearchMode
+		collapseSideNav='collapse'
+	}}
+	{{local-nav-menu
+		sideNavVisible=isVisible
+		loadRandomArticle='loadRandomArticle'
+		collapseSideNav='collapse'
+	}}
 </div>

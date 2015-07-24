@@ -59,7 +59,7 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 		},
 
 		collapseSideNav: function (): void {
-			this.set('sideNavCollapsed', true);
+			this.sendAction('collapseSideNav');
 		},
 
 		gotoRoot: function (): void {
@@ -76,8 +76,8 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 		}
 	},
 
-	sideNavCollapsedObserver: Em.observer('sideNavCollapsed', function () {
-		if (this.get('sideNavCollapsed')) {
+	sideNavVisibleObserver: Em.observer('sideNavVisible', function (): void {
+		if (!this.get('sideNavVisible')) {
 			this.send('gotoRoot');
 		}
 	}),
