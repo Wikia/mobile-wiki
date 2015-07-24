@@ -68,7 +68,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		this.get('controller').send('articleRendered');
 	},
 
-
 	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
 		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
 	}),
@@ -78,7 +77,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		// not valid, IE, the view is in the process of preRender
 		Em.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
 	}).on('willInsertElement'),
-
 
 	modelObserver: Em.observer('controller.model', function (): void {
 		var model = this.get('controller.model');
