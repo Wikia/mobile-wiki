@@ -1,9 +1,25 @@
-$infobox-item-margin: 5px;
-$infobox-section-header-background: #e5e5e5;
+$infobox-item-margin: 6px;
+$infobox-background: $color-gray-light;
+$infobox-section-secondary-background: $color-blue-gray-light;
+$infobox-hero-overlay-color: rgba(0, 0, 0, .6);
+$infobox-hero-outline-color: rgba(0, 0, 0, .8);
+$infobox-hero-font-color: #fff;
+$min-hero-item-height: 110px;
+
+//fonts used in infobox
+$infobox-title-font-size: 18px;
+$infobox-title-line-height: 28px;
+$infobox-default-font-size: 14px;
+$infobox-default-line-height: 20px;
+$hero-caption-font-size: 12px;
+$hero-caption-line-height: 18px;
 
 .portable-infobox {
+	background-color: $infobox-background;
+	font-size: $infobox-default-font-size;
 	height: auto;
-	margin: $infobox-item-margin * 4 0;
+	line-height: $infobox-default-line-height;
+	margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
 	.article-gallery {
 		/* position:relative needed here for proper setting the
@@ -11,13 +27,95 @@ $infobox-section-header-background: #e5e5e5;
 		position: relative;
 	}
 
+	// reset inherited margins and paddings
+	.portable-infobox-title,
+	.portable-infobox-header,
+	.portable-infobox-item-label,
+	.portable-infobox-hero-title,
+	.portable-infobox-hero-caption,
 	.media-component {
 		margin: 0;
+		padding: 0;
+	}
 
+	// general classes and rules used across infobox
+	.portable-infobox-item-margins {
+		padding: $infobox-item-margin * 2 $article-horizontal-padding;
+	}
+
+	.portable-infobox-secondary-background {
+		background-color: $infobox-section-secondary-background;
+	}
+
+	.portable-infobox-secondary-font {
+		font-size: inherit;
+		font-weight: bold;
+		line-height: inherit;
+		margin-top: 0;
+	}
+
+	.item-type-title {
+		padding-bottom: 5px;
+		padding-top: 5px;
+	}
+
+	//////////// Specific styles for each of the infobox elements starts here ////////////
+
+	// infobox hero
+	.item-type-hero {
+		min-height: $min-hero-item-height;
+		position: relative;
+	}
+
+	.item-type-hero > .media-component img {
+		width: 100%;
+	}
+
+	.portable-infobox-hero-title-wrapper {
+		background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
+		bottom: 0;
+		left: 0;
+		padding-bottom: 15px;
+		padding-top: $infobox-item-margin * 8;
+		pointer-events: none;
+		position: absolute;
+		width: 100%;
+		z-index: 1;
+	}
+
+	.portable-infobox-hero-title,
+	.portable-infobox-hero-caption {
+		@extend %ellipsis;
+		color: $infobox-hero-font-color;
+		text-shadow: 0 0 3px $infobox-hero-outline-color;
+
+		a {
+			color: inherit;
+			pointer-events: auto;
+			text-decoration: underline;
+		}
+	}
+
+	.portable-infobox-hero-caption {
+		font-size: $hero-caption-font-size;
+		font-weight: normal;
+		line-height: $hero-caption-line-height;
+		padding-top: $infobox-item-margin;
+	}
+
+
+	// infobox title
+	.portable-infobox-title {
+		font-size: $infobox-title-font-size;
+		line-height: $infobox-title-line-height;
+	}
+
+	// infobox images
+	.media-component {
 		figcaption {
 			font-style: italic;
 			height: auto;
-			padding: $infobox-item-margin $infobox-item-margin * 3;
+			padding: $infobox-item-margin $article-horizontal-padding $infobox-item-margin * 2;
 		}
 
 		.gallery-image img {
@@ -27,109 +125,78 @@ $infobox-section-header-background: #e5e5e5;
 		}
 	}
 
-	.portable-infobox-item-margins {
-		padding: $infobox-item-margin $infobox-item-margin * 3 $infobox-item-margin * 2;
-	}
+	// infobox data fields in tabular layout
+	> .item-type-key-val,
+	.item-type-group .item-type-key-val {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		overflow: hidden;
+		width: 100%;
 
-	// TODO: remove header selector as part of DAT-2909
-	.portable-infobox-header-background,
-	.portable-infobox-secondary-background {
-		background-color: $infobox-section-header-background;
-	}
+		.portable-infobox-item-label {
+			flex-basis: 40%;
+		}
 
-	.portable-infobox-title,
-	.portable-infobox-header {
-		margin: 0;
-	}
+		.portable-infobox-item-value {
+			padding-left: 0;
+		}
 
-	.portable-infobox-title {
-		padding: $infobox-item-margin * 2 0;
-	}
-
-	.portable-infobox-header {
-		padding: $infobox-item-margin 0 0;
-	}
-
-	// TODO: remove header selector as part of DAT-2909
-	.portable-infobox-header-font,
-	.portable-infobox-secondary-font, {
-		font-size: 1rem;
-		font-weight: bold;
-		margin-top: 0;
-	}
-
-	.item-type-key-val:not(:last-of-type) {
-		border-bottom: 1px solid $infobox-section-header-background;
-	}
-
-	.portable-infobox-item-label {
-		margin: 0;
-		padding: 0;
+		.portable-infobox-item-value:not(:first-child) {
+			flex-basis: 60%;
+			padding-left: 20px;
+		}
 	}
 
 	.portable-infobox-item-value {
 		padding-left: $infobox-item-margin * 2;
 
-		// experiment with removing margins on all children of data value
+		// remove margins on all children of data value
 		> * {
 			margin: 0;
 		}
 
+		dl,
+		ol,
 		ul,
-		ol {
+		p {
+			font-size: inherit;
+			line-height: inherit;
 			list-style-position: inside;
 		}
 	}
 
-	.portable-infobox-comparison {
-		border-collapse: collapse;
-		margin: 0;
-		width: 100%;
-	}
-
-	.portable-infobox-comparison-set {
-		display: flex;
-		flex-wrap: wrap;
-		width: 100%;
-
-		&:not(:first-of-type) {
-			border-bottom: 0;
-		}
-	}
-
-	.portable-infobox-comparison-set-header {
-		box-sizing: border-box;
-		display: block;
-		flex-basis: 100%;
-		padding: 0;
-		text-align: left;
-		width: 100%;
-	}
-
-	.portable-infobox-comparison-item {
-		box-sizing: border-box;
-		display: block;
-		vertical-align: top;
-		width: 50%;
-
-		> * {
-			width: 100%;
-		}
-
-		&:first-of-type {
-			border-right: 1px solid $infobox-section-header-background;
-		}
-
-		.item-type-key-val {
-			border-bottom: 0;
-			padding-right: $infobox-item-margin * 2;
-		}
-	}
-
+	// infobox footer
 	.portable-infobox-footer {
 		font-weight: normal;
-		padding:  $infobox-item-margin * 2 $infobox-item-margin * 3;
+		padding: $infobox-item-margin * 2 $infobox-item-margin * 3;
 		text-align: center;
+	}
+
+	// styles for infobox collapse / expand UI
+	.portable-infobox-expand-button {
+		background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
+		box-sizing: border-box;
+		padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
+		text-align: center;
+		width: 100%;
+
+		&::before {
+			border-top: 1px solid $infobox-section-secondary-background;
+			content: '';
+			display: block;
+			margin-bottom: $infobox-item-margin * 2;
+		}
+	}
+
+	.portable-infobox-expand-icon {
+		height: $infobox-item-margin * 2;
+	}
+
+	&:not(.collapsed) {
+		.portable-infobox-expand-icon {
+			transform: rotate(180deg);
+		}
 	}
 
 	&.collapsed {
@@ -138,26 +205,8 @@ $infobox-section-header-background: #e5e5e5;
 
 		.portable-infobox-expand-button {
 			bottom: 0;
+			padding-top: 45px;
 			position: absolute;
-		}
-	}
-
-	&:not(.collapsed) {
-		.portable-infobox-expand-button svg {
-			transform: rotate(180deg);
-		}
-	}
-
-	.portable-infobox-expand-button {
-		background-color: white;
-		box-sizing: border-box;
-		border: 1px solid $infobox-section-header-background;
-		padding: $infobox-item-margin * 2 0;
-		text-align: center;
-		width: 100%;
-
-		svg {
-			height: 12px;
 		}
 	}
 }

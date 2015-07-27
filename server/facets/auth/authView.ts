@@ -1,6 +1,7 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 import caching = require('../../lib/Caching');
+import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
 import url = require('url');
 
@@ -10,6 +11,7 @@ module authView {
 		canonicalUrl: string;
 		language: string;
 		exitTo: string;
+		optimizelyScript: string;
 		hideHeader?: boolean;
 		hideFooter?: boolean;
 		footerHref?: string;
@@ -75,7 +77,10 @@ module authView {
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
 			language: request.server.methods.i18n.getInstance().lng(),
-			trackingConfig: localSettings.tracking
+			trackingConfig: localSettings.tracking,
+			optimizelyScript: localSettings.optimizely.scriptPath +
+				(localSettings.environment === Utils.Environment.Prod ?
+					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js'
 		};
 	}
 
