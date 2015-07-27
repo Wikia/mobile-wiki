@@ -5,7 +5,7 @@
 
 App.CuratedContentEditorRoute = Em.Route.extend({
 	model(): Em.RSVP.Promise {
-		return App.CuratedContentEditorModel.find();
+		return App.CuratedContentEditorModel.load();
 	},
 
 	actions: {

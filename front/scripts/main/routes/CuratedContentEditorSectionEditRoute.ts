@@ -28,11 +28,11 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 
 		// Delete section
 		deleteItem(): void {
-			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+			var rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				controller: any = this.controllerFor('curatedContentEditor.section'),
 				originalSectionLabel: string = controller.get('originalSectionLabel');
 
-			App.CuratedContentEditorModel.deleteSection(currentModel, originalSectionLabel);
+			App.CuratedContentEditorModel.deleteItem(rootModel['curated'], originalSectionLabel);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

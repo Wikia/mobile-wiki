@@ -8,7 +8,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		var item: string = decodeURIComponent(params.item),
 			sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
-		return App.CuratedContentEditorModel.getSectionItem(sectionModel, item);
+		return App.CuratedContentEditorModel.getItem(sectionModel, item);
 	},
 
 	setupController(
@@ -34,7 +34,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
 				originalItemLabel: string = controller.get('originalItemLabel');
 
-			App.CuratedContentEditorModel.updateSectionItem(sectionModel, newItem, originalItemLabel);
+			App.CuratedContentEditorModel.updateItem(sectionModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
@@ -43,7 +43,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
 				originalItemLabel: string = controller.get('originalItemLabel');
 
-			App.CuratedContentEditorModel.deleteSectionItem(sectionModel, originalItemLabel);
+			App.CuratedContentEditorModel.deleteItem(sectionModel, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
 		}
 	}

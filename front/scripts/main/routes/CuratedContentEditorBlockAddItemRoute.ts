@@ -26,15 +26,16 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		done(newItem: typeof App.CuratedContentEditorItemModel) {
+		done(newItem: typeof App.CuratedContentEditorItemModel): void {
 			var block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
+				rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
 
-			App.CuratedContentEditorModel.addBlockItem(currentModel, newItem, block);
+			App.CuratedContentEditorModel.addItem(blockModel, newItem);
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		deleteItem() {
+		deleteItem(): void {
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

@@ -6,9 +6,11 @@
 App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 	model(params: any): typeof App.CuratedContentEditorItemModel {
 		var block: string = params.block,
-			item: string = decodeURIComponent(params.item);
+			item: string = decodeURIComponent(params.item),
+			rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+			blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
 
-		return App.CuratedContentEditorModel.getBlockItem(this.modelFor('curatedContentEditor'), block, item);
+		return App.CuratedContentEditorModel.getItem(blockModel, item);
 	},
 
 	setupController(
@@ -36,19 +38,21 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),
 				originalItemLabel: string = controller.get('originalItemLabel'),
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
+				rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
 
-			App.CuratedContentEditorModel.updateBlockItem(currentModel, newItem, block, originalItemLabel);
+			App.CuratedContentEditorModel.updateItem(blockModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.index');
 		},
 
 		deleteItem(): void {
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),
-				originalItemLabel: string = controller.get('originalItemLabel'),
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
+				item: string = controller.get('originalItemLabel'),
+				rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
 
-			App.CuratedContentEditorModel.deleteBlockItem(currentModel, block, originalItemLabel);
+			App.CuratedContentEditorModel.deleteItem(blockModel, item);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}
