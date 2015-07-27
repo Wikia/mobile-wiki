@@ -1,3 +1,13 @@
+## release-120 (2015-07-27 14:41 UTC)
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 Renaming zh-tw to zh in mercury repository
+* add-explicit-method-param: Add event as explicit method param
+
+## release-119 (2015-07-24 14:45 UTC)
+* [SOC-1091](https://wikia-inc.atlassian.net/browse/SOC-1091) SOC-1089 | Add optimizely on auth pages
+
+## release-117 hotfix 1 (2015-07-23 20:05 UTC)
+* [HG-794](https://wikia-inc.atlassian.net/browse/HG-794) HG-794 - Fix double render (& table wrapping)
+
 ## release-117 (2015-07-23 11:36 UTC)
 * [DAT-2909](https://wikia-inc.atlassian.net/browse/DAT-2909) portable infobox - mercury styling
 * [DAT-3001](https://wikia-inc.atlassian.net/browse/DAT-3001) DAT-3001 stretch only main infobox image

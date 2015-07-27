@@ -38,7 +38,7 @@ class BirthdateInput {
 			inputContainer = <HTMLElement> this.wrapper.parentElement,
 			target: HTMLElement;
 
-		inputContainer.addEventListener('focus', ((): void => {
+		inputContainer.addEventListener('focus', ((event: Event): void => {
 			target = <HTMLElement> event.target;
 			if (target === this.realInput) {
 				this.realInput.type = 'hidden';
