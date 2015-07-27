@@ -38,6 +38,10 @@ App.ApplicationView = Em.View.extend({
 	noScroll: Em.computed.alias('controller.noScroll'),
 	scrollLocation: null,
 
+	willInsertElement: function (): void {
+		$('#article-preload').remove();
+	},
+
 	didInsertElement: function (): void {
 		this.trackFirstContent();
 	},

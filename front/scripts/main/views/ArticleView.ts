@@ -64,11 +64,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
-	didInsertElement: function (): void {
-		this.get('controller').send('articleRendered');
-	},
-
-
 	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
 		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
 	}),
