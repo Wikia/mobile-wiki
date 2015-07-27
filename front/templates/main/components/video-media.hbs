@@ -1,5 +1,7 @@
 <img src='{{imageSrc}}' style='{{style}}'>
-<figcaption>
-	<div>{{media.title}}</div>
-	{{{caption}}}
-</figcaption>
+{{#unless noCaption}}
+	<figcaption>
+		<div>{{media.title}}</div>
+		{{{caption}}}
+	</figcaption>
+{{/unless}}

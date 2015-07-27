@@ -1,3 +1,45 @@
+## release-119 (2015-07-24 14:45 UTC)
+* [SOC-1091](https://wikia-inc.atlassian.net/browse/SOC-1091) SOC-1089 | Add optimizely on auth pages
+
+## release-117 hotfix 1 (2015-07-23 20:05 UTC)
+* [HG-794](https://wikia-inc.atlassian.net/browse/HG-794) HG-794 - Fix double render (& table wrapping)
+
+## release-117 (2015-07-23 11:36 UTC)
+* [DAT-2909](https://wikia-inc.atlassian.net/browse/DAT-2909) portable infobox - mercury styling
+* [DAT-3001](https://wikia-inc.atlassian.net/browse/DAT-3001) DAT-3001 stretch only main infobox image
+* [DAT-2973](https://wikia-inc.atlassian.net/browse/DAT-2973) DAT-2973 hide caption for videos in infoboxes
+* [DAT-2978](https://wikia-inc.atlassian.net/browse/DAT-2978) add minimal height
+* [DAT-2976](https://wikia-inc.atlassian.net/browse/DAT-2976) Dat 2976 - fix issue with collapsed height being greater then uncollapsed height in landscape mode
+* [DAT-2970](https://wikia-inc.atlassian.net/browse/DAT-2970) DAT-2970
+* [DAT-2969](https://wikia-inc.atlassian.net/browse/DAT-2969) DAT-2969 - fix issue with transparent color in linear gradient on iOS
+
+## release-116 (2015-07-23 10:00 UTC)
+* [CONCF-917](https://wikia-inc.atlassian.net/browse/CONCF-917) CONCF-917 fix decoding urls for subcategories
+* [CONCF-889](https://wikia-inc.atlassian.net/browse/CONCF-889) CONCF-889 | As a user I would like to be able to go back from the Mercury main page
+
+## release-115 (2015-07-22 10:00 UTC)
+* aden-2233-fix-top-leaderboard-over-interstitial: ADEN-2233 Fixed top leaderboard to not cover interstitial ad unit
+* [INT-147](https://wikia-inc.atlassian.net/browse/INT-147) INT-147 Add photo bug on Android/Chrome
+* hotfix/HG-793: HG-793 - Use wild card path for article route
+* [HG-669](https://wikia-inc.atlassian.net/browse/HG-669) Hg 669 Fixing article comments query param regression
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | catch when decodeURIComponent throws
+
+## release-114 hotfix 1 (2015-07-20 18:37 UTC)
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) [HOTFIX] CONCF-896 | catch when decodeURIComponent throws
+
+## release-114 (2015-07-20 11:50 UTC)
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | handle categories with special characters
+* [HG-721](https://wikia-inc.atlassian.net/browse/HG-721) HG-721 - clean up gulp tasks
+* [CONCF-786](https://wikia-inc.atlassian.net/browse/CONCF-786) CONCF-786 Curated Content Tool first draft
+
+## release-113 (2015-07-17 10:36 UTC)
+* [SOC-1043](https://wikia-inc.atlassian.net/browse/SOC-1043) SOC-1043 Use https url for tracking events internally
+
+## release-112 (2015-07-16 10:00 UTC)
+* [HG-803](https://wikia-inc.atlassian.net/browse/HG-803) HG-803 - un-normalized file name for lightbox handling
+* [HG-810](https://wikia-inc.atlassian.net/browse/HG-810) HG-810 | run build-combined when ts file changes
+* [SOC-560](https://wikia-inc.atlassian.net/browse/SOC-560) SOC-560 Geo-targeted Marketing Opt-In checkbox in Registration Form
+
 ## release-111 (2015-07-15 10:00 UTC)
 * [CONCF-857](https://wikia-inc.atlassian.net/browse/CONCF-857) CONCF-857 Add asyncArticle to curated content routes
 * [INT-143](https://wikia-inc.atlassian.net/browse/INT-143) INT-143 Fix bug by properly using cleanTitle instead of title property

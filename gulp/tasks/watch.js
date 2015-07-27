@@ -1,3 +1,8 @@
+/*
+ * watch
+ * Rebuilds on file change while server is running
+ */
+
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	server = require('gulp-develop-server'),

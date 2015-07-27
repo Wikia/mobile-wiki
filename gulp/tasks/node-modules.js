@@ -1,3 +1,8 @@
+/*
+ * node-modules
+ * Moves node dependencies into www/
+ */
+
 var gulp = require('gulp'),
 	paths = require('../paths').nodeModules,
 	dependencies = Object.keys(require('../../package').dependencies);
