@@ -11,8 +11,12 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getSectionItem(sectionModel, item);
 	},
 
-	setupController: function (controller: any, model: typeof App.CuratedContentEditorItemModel): void {
-		this._super(controller, model);
+	setupController: function (
+		controller: any,
+		model: typeof App.CuratedContentEditorItemModel,
+		transition: EmberStates.Transition
+	): void {
+		this._super(controller, model, transition);
 		controller.set('originalItemLabel', model.label);
 	},
 

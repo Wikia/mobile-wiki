@@ -16,7 +16,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		model: typeof App.CuratedContentEditorItemModel,
 		transition: EmberStates.Transition
 	): void {
-		this._super(controller, model);
+		this._super(controller, model, transition);
 		controller.setProperties({
 			originalItemLabel: model.label,
 			block: transition.params['curatedContentEditor.blockEditItem'].block

@@ -55,6 +55,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		},
 
 		deleteItem(): void {
+			//@TODO CONCF-956 add translations
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');
 			}

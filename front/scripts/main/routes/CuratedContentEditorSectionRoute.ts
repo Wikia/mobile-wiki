@@ -11,8 +11,12 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', section);
 	},
 
-	setupController(controller: any, model: typeof App.CuratedContentEditorItemModel): void {
-		this._super(controller, model);
+	setupController(
+		controller: any,
+		model: typeof App.CuratedContentEditorItemModel,
+		transition: EmberStates.Transition
+	): void {
+		this._super(controller, model, transition);
 		controller.set('originalSectionLabel', model.label);
 	},
 

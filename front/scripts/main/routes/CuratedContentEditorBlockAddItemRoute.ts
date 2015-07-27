@@ -13,7 +13,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		model: typeof App.CuratedContentEditorItemModel,
 		transition: EmberStates.Transition
 	): void {
-		this._super(controller, model);
+		this._super(controller, model, transition);
 		controller.set('block', transition.params['curatedContentEditor.blockAddItem'].block);
 	},
 
