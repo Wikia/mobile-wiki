@@ -22,6 +22,7 @@ class SignupForm {
 	generalErrorShown: boolean = false;
 	redirect: string;
 	marketingOptIn: MarketingOptIn;
+	termsOfUse: TermsOfUse;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -31,7 +32,9 @@ class SignupForm {
 		}
 		this.redirect = this.redirect || '/';
 		this.marketingOptIn = new MarketingOptIn();
+		this.termsOfUse = new TermsOfUse(this.form);
 		this.marketingOptIn.init();
+		this.termsOfUse.init();
 	}
 
 	private clearValidationErrors(): void {

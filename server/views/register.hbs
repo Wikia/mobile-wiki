@@ -29,9 +29,9 @@
 		</label>
 		<input type="hidden" name="langCode" value="{{langCode}}">
 		<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:register.register-action"}}</span></button>
-		<small class="terms-of-use">
+		<small class="terms-of-use" id="termsOfUse">
 			{{i18n "auth:register.terms-of-use-text"}}
-			<a href="{{{termsOfUseLink}}}" target="_blank">
+			<a href="{{{termsOfUseLink}}}" target="_blank" class="terms-of-use-link">
 				{{i18n "auth:register.terms-of-use-link"}}
 			</a>
 		</small>
