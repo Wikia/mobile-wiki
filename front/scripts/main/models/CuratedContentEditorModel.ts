@@ -139,7 +139,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 		blockItems.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
 			if (itemObj.label === itemLabel) {
-				item = $.extend({}, itemObj);
+				item = $.extend(true, {}, itemObj);
 				return true;
 			}
 		});
@@ -156,7 +156,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 		items.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
 			if (itemObj.label === itemLabel) {
-				item = $.extend({}, itemObj);
+				item = $.extend(true, {}, itemObj);
 				return true;
 			}
 		});
