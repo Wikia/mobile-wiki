@@ -3,5 +3,6 @@
 'use strict';
 
 App.CuratedContentEditorSectionEditItemController = Em.Controller.extend({
-	originalItemLabel: null
+	originalItemLabel: null,
+	otherItemLabels: null
 });

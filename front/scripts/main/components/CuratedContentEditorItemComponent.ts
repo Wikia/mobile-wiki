@@ -60,13 +60,15 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 
 		validateLabel(): void {
 			var value = this.get('model.label'),
+				otherItemLabels = this.get('otherItemLabels'),
 				errorMessage: string = null;
 
 			if (value.length === 0) {
 				errorMessage = 'Label is empty';
-			}
-			else if (value.length > 48) {
+			} else if (value.length > 48) {
 				errorMessage = 'Label is too long';
+			} else if (otherItemLabels.indexOf(value) !== -1) {
+				errorMessage = 'Label is duplicated';
 			}
 
 			this.set('labelErrorMessage', errorMessage);
@@ -86,8 +88,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 
 			if (value.length === 0) {
 				errorMessage = 'Title is empty';
-			}
-			else if (value.length > 48) {
+			} else if (value.length > 48) {
 				errorMessage = 'Title is too long';
 			}
 
