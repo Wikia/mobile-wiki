@@ -13,20 +13,8 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.addBlockItem', block);
 		},
 
-		addSectionItem: function (section: string): void  {
-			this.transitionTo('curatedContentEditor.addSectionItem', encodeURIComponent(section));
-		},
-
 		editBlockItem: function (item: CuratedContentEditorItemInterface, block: string): void {
 			this.transitionTo('curatedContentEditor.editBlockItem', block, encodeURIComponent(item.label));
-		},
-
-		editSectionItem: function (item: CuratedContentEditorItemInterface, section: string): void {
-			this.transitionTo('curatedContentEditor.editSectionItem', encodeURIComponent(section), encodeURIComponent(item.label));
-		},
-
-		editSection: function (item: CuratedContentEditorItemInterface): void {
-			this.transitionTo('curatedContentEditor.editSection', encodeURIComponent(item.label));
 		},
 
 		openSection: function (item: CuratedContentEditorItemInterface): void {
@@ -36,7 +24,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		error: function (error: any): boolean {
 			Em.Logger.error(error);
 			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
-			this.transitionTo('mainPage');
+			this.transitionTo('curatedContentEditor');
 			return true;
 		},
 

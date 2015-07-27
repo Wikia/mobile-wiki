@@ -76,19 +76,10 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	addSectionItem: function (
-		currentModel: typeof App.CuratedContentEditorModel,
-		newItem: CuratedContentEditorItemInterface,
-		section: string
-	): typeof App.CuratedContentEditorModel {
-		var sections: CuratedContentEditorItemInterface[] = currentModel.curated.items;
-
-		for (var i = 0; i < sections.length; i++) {
-			if (sections[i].label === section) {
-				sections[i].items.push(newItem);
-			}
-		}
-
-		return currentModel;
+		sectionModel: CuratedContentEditorItemInterface,
+		newItem: CuratedContentEditorItemInterface
+	): void {
+		sectionModel.items.push(newItem);
 	},
 
 	updateBlockItem: function (
@@ -110,30 +101,34 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	updateSectionItem(
-		currentModel: typeof App.CuratedContentEditorModel,
+		sectionModel: CuratedContentEditorItemInterface,
 		newItem: CuratedContentEditorItemInterface,
-		sectionLabel: string,
-		originalItem: any
-	): typeof App.CuratedContentEditorModel {
+		originalItemLabel: string
+	): void {
+		var items = sectionModel.items,
+			i: number;
+
+		for (i = 0; i < items.length; i++) {
+			if (items[i].label === originalItemLabel) {
+				items[i] = newItem;
+				break;
+			}
+		}
+	},
+
+	updateSection: function (
+		currentModel: typeof App.CuratedContentEditorModel,
+		newSection: CuratedContentEditorItemInterface,
+		originalLabel: any
+	): void {
 		var sections = currentModel.curated.items,
-			sectionWithItemItems: CuratedContentEditorItemInterface[],
 			i: number;
 
 		for (i = 0; i < sections.length; i++) {
-			if (sections[i].label === sectionLabel) {
-				sectionWithItemItems = sections[i].items;
-				break;
+			if (sections[i].label === originalLabel) {
+				sections[i] = newSection;
 			}
 		}
-
-		for (i = 0; i < sectionWithItemItems.length; i++) {
-			if (sectionWithItemItems[i].label === originalItem.label) {
-				sectionWithItemItems[i] = newItem;
-				break;
-			}
-		}
-
-		return currentModel;
 	},
 
 	getBlockItem(
@@ -155,21 +150,15 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	getSectionItem(
-		model: typeof App.CuratedContentEditorModel,
-		sectionLabel: string,
+		sectionModel: CuratedContentEditorItemInterface,
 		itemLabel: string
 	): CuratedContentEditorItemInterface {
-		var sections = model.curated.items,
+		var items = sectionModel.items,
 			item: CuratedContentEditorItemInterface = null;
 
-		sections.some(function (sectionObj: CuratedContentEditorItemInterface): boolean {
-			if (sectionObj.label === sectionLabel) {
-				sectionObj.items.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
-					if (itemObj.label == itemLabel) {
-						item = $.extend({}, itemObj);
-						return true;
-					}
-				});
+		items.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
+			if (itemObj.label === itemLabel) {
+				item = $.extend({}, itemObj);
 				return true;
 			}
 		});
@@ -194,13 +183,13 @@ App.CuratedContentEditorModel.reopenClass({
 
 	deleteSectionItem(
 		sectionModel: typeof App.CuratedContentEditorModel,
-		itemToRemoval: CuratedContentEditorItemInterface
+		itemLabel: string
 	): typeof App.CuratedContentEditorModel {
 		var items: CuratedContentEditorItemInterface[] = sectionModel.items,
 			i: number;
 
 		for (i = 0; i < items.length; i++) {
-			if (items[i].label === itemToRemoval.label) {
+			if (items[i].label === itemLabel) {
 				items.splice(i, 1);
 				break;
 			}
@@ -208,4 +197,18 @@ App.CuratedContentEditorModel.reopenClass({
 
 		return sectionModel;
 	},
+
+	deleteSection(
+		model: typeof App.CuratedContentEditorModel,
+		originalLabel: CuratedContentEditorItemInterface
+	): void {
+		var blockItems = model.curated.items,
+			i: number;
+
+		for (i = 0; i < blockItems.length; i++) {
+			if (blockItems[i].label === originalLabel) {
+				blockItems.splice(i, 1);
+			}
+		}
+	}
 });
