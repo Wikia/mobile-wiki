@@ -1,25 +1,12 @@
 /// <reference path="../app.ts" />
+///<reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 'use strict';
 
-App.CuratedContentEditorSectionComponent = Em.Component.extend({
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
-	thumbnailer: Mercury.Modules.Thumbnailer,
+App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, {
 	imageSize: 300,
 
 	thumbUrl: Em.computed('model', function (): string {
-		var model: typeof App.CuratedContentEditorItemModel = this.get('model'),
-			options: any = {
-				width: this.get('imageSize'),
-				height: this.get('imageSize'),
-				mode: this.get('cropMode')
-			},
-			thumbUrl = '';
-
-		if (!Em.isEmpty(model.image_url)) {
-			thumbUrl = this.thumbnailer.getThumbURL(model.image_url, options);
-		}
-
-		return thumbUrl;
+		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
 	actions: {
