@@ -6,6 +6,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	imageSize: 200,
+	debounceDuration: 250,
 
 	imageUrl: Em.computed('model', function (): string {
 		var model: CuratedContentEditorItemInterface = this.get('model'),
@@ -58,18 +59,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			this.set('isLabelFocused', true);
 		},
 
-		validateLabel(): void {
-			var value = this.get('model.label'),
-				errorMessage: string = null;
-
-			if (value.length === 0) {
-				errorMessage = 'Label is empty';
-			}
-			else if (value.length > 48) {
-				errorMessage = 'Label is too long';
-			}
-
-			this.set('labelErrorMessage', errorMessage);
+		labelInputEventHandler (): void {
+			Em.run.debounce(this, this.validateLabel, this.get('debounceDuration'));
 		},
 
 		setTitleFocusedOut(): void {
@@ -80,18 +71,30 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			this.set('isTitleFocused', true);
 		},
 
-		validateTitle(): void {
-			var value = this.get('model.title'),
-				errorMessage: string = null;
+		titleInputEventHandler (): void {
+			Em.run.debounce(this, this.validateTitle, this.get('debounceDuration'));
 
-			if (value.length === 0) {
-				errorMessage = 'Title is empty';
-			}
-			else if (value.length > 48) {
-				errorMessage = 'Title is too long';
-			}
-
-			this.set('titleErrorMessage', errorMessage);
+			Em.$.ajax({
+				url: M.buildUrl({
+					path: '/wikia.php',
+				}),
+				data: {
+					controller: 'CuratedContentSpecial',
+					method: 'getImage',
+					file: encodeURIComponent(this.get('model.title'))
+				},
+				dataType: 'json',
+				success: (data): void => {
+					if (data.url === '') {
+						this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
+					} else {
+						this.set('imageUrl', data.url);
+					}
+				},
+				error: (err: any): void => {
+					this.set('imageErrorMessage', 'Oops, API Error occured.');
+				}
+			});
 		},
 
 		goBack(): void {
@@ -109,5 +112,37 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 				this.sendAction('deleteItem');
 			}
 		}
-	}
+	},
+
+	validateLabel(): void {
+		console.log('validateLabel');
+
+		var value = this.get('model.label'),
+			errorMessage: string = null;
+
+		if (value.length === 0) {
+			errorMessage = 'Label is empty';
+		}
+		else if (value.length > 48) {
+			errorMessage = 'Label is too long';
+		}
+
+		this.set('labelErrorMessage', errorMessage);
+	},
+
+	validateTitle(): void {
+		console.log('validateTitle');
+
+		var value = this.get('model.title'),
+			errorMessage: string = null;
+
+		if (value.length === 0) {
+			errorMessage = 'Title is empty';
+		}
+		else if (value.length > 48) {
+			errorMessage = 'Title is too long';
+		}
+
+		this.set('titleErrorMessage', errorMessage);
+	},
 });
