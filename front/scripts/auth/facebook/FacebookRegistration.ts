@@ -26,6 +26,7 @@ class FacebookRegistration {
 	redirect: string;
 	urlHelper: UrlHelper;
 	marketingOptIn: MarketingOptIn;
+    formErrors: FormErrors;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -38,6 +39,7 @@ class FacebookRegistration {
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
 		this.redirect = this.redirect || '/';
+        this.formErrors = new FormErrors(this.form);
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
@@ -94,15 +96,15 @@ class FacebookRegistration {
 			if (status === HttpCodes.OK) {
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				//ToDo show the "unable to login" error
+                this.formErrors.displayGeneralError();
 			} else {
-				//ToDo show the "unable to login" error
-			}
+                this.formErrors.displayGeneralError();
+            }
 		};
 
 		facebookTokenXhr.onerror = (e: Event): void => {
-			//ToDo show the "unable to login" error
-		};
+            this.formErrors.displayGeneralError();
+        };
 
 		facebookTokenXhr.open('POST', heliosTokenUrl, true);
 		facebookTokenXhr.withCredentials = true;
@@ -123,14 +125,14 @@ class FacebookRegistration {
 			if (status === HttpCodes.OK) {
 				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url.replace('/users', '/token'));
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				//ToDo: show validation errors
-			} else {
-				//ToDo: show unhealthy backed message
+                this.formErrors.displayValidationErrors(JSON.parse(facebookRegistrationXhr.responseText).errors);
+            } else {
+                this.formErrors.displayGeneralError();
 			}
 		};
 
 		facebookRegistrationXhr.onerror = (e: Event) => {
-			//ToDo: show unhealthy backed message
+            this.formErrors.displayGeneralError();
 		};
 
 		facebookRegistrationXhr.open('POST', url, true);
