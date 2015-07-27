@@ -1,3 +1,8 @@
+/*
+ * tslint
+ * Lints Typescript files
+ */
+
 var gulp = require('gulp'),
 	tslint = require('gulp-tslint'),
 	cache = require('gulp-cached'),

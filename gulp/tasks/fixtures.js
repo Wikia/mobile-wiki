@@ -1,3 +1,8 @@
+/*
+ * fixtures
+ * Moves test fixtures to the correct place
+ */
+
 var gulp = require('gulp'),
 	fixtures2js = require('gulp-fixtures2js');
 

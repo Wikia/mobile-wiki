@@ -6,6 +6,12 @@
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
+	queryParams: {
+		comments_page: {
+			replace: true
+		}
+	},
+
 	model: function <T>(params: T): T {
 		return params;
 	},
@@ -127,7 +133,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			App.ArticleModel
 				.getArticleRandomTitle()
 				.then((articleTitle: string): void => {
-					this.transitionTo('article', encodeURIComponent(M.String.sanitize(articleTitle)));
+					this.transitionTo('article', encodeURIComponent(M.String.normalizeToUnderscore(articleTitle)));
 				})
 				.catch((err: any): void => {
 					this.send('error', err);

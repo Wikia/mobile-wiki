@@ -1,3 +1,8 @@
+/*
+ * scripts-front
+ * Compiles front ts files
+ */
+
 var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),

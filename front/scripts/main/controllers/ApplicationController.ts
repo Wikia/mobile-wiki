@@ -7,12 +7,15 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	// This has to be here because we need to access media from ArticleController model to open lightbox
 	// TODO: Should be refactored when decoupling article from application
 	needs: ['article'],
-	queryParams: ['file', 'map', {
-		noAds: 'noads'
-	}],
+	queryParams: ['file', 'map',
+		{ noAds: 'noads' },
+		// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
+		{ commentsPage: 'comments_page' }
+	],
 	file: null,
 	map: null,
 	noAds: '',
+	commentsPage: null,
 
 	smartBannerVisible: false,
 	sideNavCollapsed: true,
@@ -115,7 +118,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	openLightboxForMedia: function (file: string): void {
 		var mediaModel: typeof App.MediaModel = this.get('controllers.article.model.media'),
 			lightboxMediaRefs = mediaModel instanceof App.MediaModel?
-				mediaModel.getRefsForLightboxByTitle(M.String.normalize(file)):
+				mediaModel.getRefsForLightboxByTitle(file):
 				null;
 
 		if (!Em.isEmpty(lightboxMediaRefs)) {

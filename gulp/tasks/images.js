@@ -1,3 +1,8 @@
+/*
+ * images
+ * Moves image files into www/
+ */
+
 var gulp = require('gulp'),
 	piper = require('../utils/piper'),
 	paths = require('../paths').images;

@@ -1,3 +1,8 @@
+/*
+ * sass
+ * Compiles sass files and move them into www/
+ */
+
 var folders = require('gulp-folders'),
 	gulp = require('gulp'),
 	prefixer = require('gulp-autoprefixer'),

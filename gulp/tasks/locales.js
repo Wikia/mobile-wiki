@@ -1,3 +1,8 @@
+/*
+ * locales
+ * Moves locales files into www/
+ */
+
 var gulp = require('gulp'),
 	paths = require('../paths');
 
