@@ -1,0 +1,39 @@
+{
+  "name": "japan-wikia-homepage",
+  "version": "1.0.0",
+  "description": "Homepage for ja.wikia.com",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "test": "npm test"
+  },
+  "author": "Per Johan Groland <pgroland@wikia-inc.com>",
+  "dependencies": {
+    "bunyan": "*",
+    "bunyan-prettystream": "*",
+    "bunyan-syslog": "*",
+    "good": "^6.3.0",
+    "good-console": "^5.0.2",
+    "handlebars": "^3.0.3",
+    "hapi": "^8.8.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.8.0",
+    "gulp": "*",
+    "gulp-concat": "^2.6.0",
+    "gulp-develop-server": "*",
+    "gulp-folders": "^1.1.0",
+    "gulp-if": "^1.2.5",
+    "gulp-jshint": "^1.11.2",
+    "gulp-newer": "^0.5.1",
+    "gulp-sass": "*",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-tslint": "^3.1.2",
+    "gulp-typescript": "*",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "jshint-stylish": "^2.0.1",
+    "multipipe": "^0.1.2",
+    "pretty-hrtime": "^1.0.0"
+  }
+}
