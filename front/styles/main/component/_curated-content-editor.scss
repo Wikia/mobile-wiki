@@ -136,6 +136,8 @@ $image-size: 150px;
 }
 
 .curated-content-editor-photo {
+	padding-top: 14px;
+
 	img {
 		@extend %image-placeholder;
 		display: block;
@@ -148,13 +150,11 @@ $image-size: 150px;
 
 .curated-content-input-wrapper {
 	padding: 14px 18px;
+	padding-bottom: 0;
 }
 
 .curated-content-editor-remove {
-	bottom: 2rem;
 	color: $alert-color;
-	left: 2rem;
-	position: absolute;
+	padding: 14px 18px;
 	text-transform: uppercase;
 }
-
