@@ -8,7 +8,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
-	setupController: function (
+	setupController(
 		controller: any,
 		model: typeof App.CuratedContentEditorItemModel,
 		transition: EmberStates.Transition
@@ -17,20 +17,24 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		controller.set('block', transition.params['curatedContentEditor.blockAddItem'].block);
 	},
 
-	renderTemplate: function (): void {
+	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
 	actions: {
-		goBack: function (): void {
+		goBack(): void {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		updateItem: function (newItem: typeof App.CuratedContentEditorItemModel) {
+		updateItem(newItem: typeof App.CuratedContentEditorItemModel) {
 			var block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
 				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
 
 			App.CuratedContentEditorModel.addBlockItem(currentModel, newItem, block);
+			this.transitionTo('curatedContentEditor.index');
+		},
+
+		deleteItem() {
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}
