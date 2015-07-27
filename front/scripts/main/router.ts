@@ -42,11 +42,11 @@ App.Router.map(function () {
 			});
 		});
 
-		this.route('addBlockItem', {
+		this.route('blockAddItem', {
 			path: '/:block/add'
 		});
 
-		this.route('editBlockItem', {
+		this.route('blockEditItem', {
 			path: '/:block/:item/edit'
 		});
 

@@ -4,11 +4,8 @@
 'use strict';
 
 App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
-	model: function (params: any): typeof App.CuratedContentEditorItemModel {
-		return App.CuratedContentEditorItemModel.createNew({
-			block: 'curated',
-			section: decodeURIComponent(params.section)
-		});
+	model: function (): typeof App.CuratedContentEditorItemModel {
+		return App.CuratedContentEditorItemModel.createNew();
 	},
 
 	renderTemplate: function (): void {

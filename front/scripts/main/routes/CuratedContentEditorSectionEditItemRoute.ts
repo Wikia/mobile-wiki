@@ -11,18 +11,14 @@ interface CuratedContentEditorEditSectionItemRouteParamsInterface {
 App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 	model: function (params: CuratedContentEditorEditSectionItemRouteParamsInterface) {
 		var item = decodeURIComponent(params.item),
-			sectionModel = this.modelFor('curatedContentEditor.section'),
-			itemModel = App.CuratedContentEditorModel.getSectionItem(sectionModel, item);
+			sectionModel = this.modelFor('curatedContentEditor.section');
 
-		return {
-			section: sectionModel.label, // TODO what is it for?
-			item: itemModel
-		};
+		return App.CuratedContentEditorModel.getSectionItem(sectionModel, item);
 	},
 
-	setupController: function (controller: any, model: typeof App.CuratedContentEditorItemModel) {
+	setupController: function (controller: any, model: typeof App.CuratedContentEditorItemModel): void {
 		this._super(controller, model);
-		controller.set('originalItemLabel', model.item.label);
+		controller.set('originalItemLabel', model.label);
 	},
 
 	renderTemplate: function (): void {

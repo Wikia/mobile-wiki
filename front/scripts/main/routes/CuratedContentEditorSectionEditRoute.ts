@@ -5,13 +5,7 @@
 
 App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 	model: function(): any {
-		var sectionModel = this.modelFor('curatedContentEditor.section');
-
-		return {
-			// TODO: Do we still need to pass the block? If yes, can we move it out from the model?
-			block: 'curated',
-			item: sectionModel
-		};
+		return this.modelFor('curatedContentEditor.section');
 	},
 
 	renderTemplate: function (): void {
@@ -20,10 +14,11 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 
 	actions: {
 		goBack: function (): void {
-			var sectionModel = this.modelFor('curatedContentEditor.section');
+			var sectionModel: CuratedContentEditorItemInterface = this.modelFor('curatedContentEditor.section');
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(sectionModel.label));
 		},
 
+		// Update section
 		updateItem: function (newSection: CuratedContentEditorItemInterface): void {
 			var sectionModel = this.modelFor('curatedContentEditor.section');
 

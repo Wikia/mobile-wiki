@@ -86,18 +86,16 @@ App.CuratedContentEditorModel.reopenClass({
 		currentModel: typeof App.CuratedContentEditorModel,
 		newItem: CuratedContentEditorItemInterface,
 		blockName: string,
-		originalItem: any
-	): typeof App.CuratedContentEditorModel {
+		originalItemLabel: string
+	): void {
 		var blockItems = currentModel[blockName].items,
 			i: number;
 
 		for (i = 0; i < blockItems.length; i++) {
-			if (blockItems[i].label === originalItem.label) {
+			if (blockItems[i].label === originalItemLabel) {
 				blockItems[i] = newItem;
 			}
 		}
-
-		return currentModel;
 	},
 
 	updateSectionItem(
@@ -169,13 +167,13 @@ App.CuratedContentEditorModel.reopenClass({
 	deleteBlockItem(
 		model: typeof App.CuratedContentEditorModel,
 		blockName: string,
-		itemToRemoval: CuratedContentEditorItemInterface
+		itemLabel: string
 	): void {
 		var blockItems = model[blockName].items,
 			i: number;
 
 		for (i = 0; i < blockItems.length; i++) {
-			if (blockItems[i].label === itemToRemoval.label) {
+			if (blockItems[i].label === itemLabel) {
 				blockItems.splice(i, 1);
 			}
 		}
@@ -184,7 +182,7 @@ App.CuratedContentEditorModel.reopenClass({
 	deleteSectionItem(
 		sectionModel: typeof App.CuratedContentEditorModel,
 		itemLabel: string
-	): typeof App.CuratedContentEditorModel {
+	): void {
 		var items: CuratedContentEditorItemInterface[] = sectionModel.items,
 			i: number;
 
@@ -194,19 +192,17 @@ App.CuratedContentEditorModel.reopenClass({
 				break;
 			}
 		}
-
-		return sectionModel;
 	},
 
 	deleteSection(
 		model: typeof App.CuratedContentEditorModel,
-		originalLabel: CuratedContentEditorItemInterface
+		sectionLabel: string
 	): void {
 		var blockItems = model.curated.items,
 			i: number;
 
 		for (i = 0; i < blockItems.length; i++) {
-			if (blockItems[i].label === originalLabel) {
+			if (blockItems[i].label === sectionLabel) {
 				blockItems.splice(i, 1);
 			}
 		}
