@@ -48,15 +48,6 @@ class SignupForm {
 		};
 	}
 
-	private trackValidationErrors(errors: Array<string>): void {
-		M.track({
-			trackingMethod: 'both',
-			action: M.trackActions.error,
-			category: 'user-login-mobile',
-			label: 'registrationValidationErrors: ' + errors.join(';'),
-		});
-	}
-
 	private trackSuccessfulRegistration() {
 		M.track({
 			trackingMethod: 'both',

@@ -37,7 +37,7 @@ class FormErrors {
 		this.trackValidationErrors(errorsDescriptions);
 	}
 
-	private displayFieldValidationError(err: HeliosError): void {
+	public displayFieldValidationError(err: HeliosError): void {
 		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
 			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field],
 			specialFieldContainer: HTMLElement;
