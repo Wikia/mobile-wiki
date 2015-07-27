@@ -11,6 +11,8 @@ interface CuratedContentEditorRawSectionInterface {
 	type?: string;
 }
 
+type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
+
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	curated: null,
@@ -18,7 +20,7 @@ App.CuratedContentEditorModel = Em.Object.extend({
 });
 
 App.CuratedContentEditorModel.reopenClass({
-	load: function (): Em.RSVP.Promise {
+	load(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
 				url: M.buildUrl({
@@ -49,7 +51,7 @@ App.CuratedContentEditorModel.reopenClass({
 	 * @param rawData
 	 * @returns {any}
 	 */
-	sanitize: function (rawData: any): typeof App.CuratedContentEditorModel {
+	sanitize(rawData: any): CuratedContentEditorItemModel {
 		var featured = {},
 			curated = {
 				items: <any>[]
@@ -75,13 +77,10 @@ App.CuratedContentEditorModel.reopenClass({
 		});
 	},
 
-	getItem(
-		parent: typeof App.CuratedContentEditorItemModel,
-		itemLabel: string
-	): typeof App.CuratedContentEditorItemModel {
-		var item: typeof App.CuratedContentEditorItemModel = null;
+	getItem(parent: CuratedContentEditorItemModel, itemLabel: string): CuratedContentEditorItemModel {
+		var item: CuratedContentEditorItemModel = null;
 
-		parent.items.some(function (itemObj: typeof App.CuratedContentEditorItemModel): boolean {
+		parent.items.some(function (itemObj: CuratedContentEditorItemModel): boolean {
 			if (itemObj.label === itemLabel) {
 				item = App.CuratedContentEditorItemModel.createNew(itemObj);
 				return true;
@@ -91,37 +90,27 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	addItem: function (
-		parent: typeof App.CuratedContentEditorItemModel,
-		newItem: typeof App.CuratedContentEditorItemModel
-	): void {
+	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
 		parent.items.push(newItem);
 	},
 
-	updateItem: function (
-		parent: typeof App.CuratedContentEditorItemModel,
-		newItem: typeof App.CuratedContentEditorItemModel,
-		originalItemLabel: string
-	): void {
+	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
 		parent.items.forEach((
-			item: typeof App.CuratedContentEditorItemModel,
+			item: CuratedContentEditorItemModel,
 			index: number,
-			parentItems: typeof App.CuratedContentEditorItemModel[]
+			parentItems: CuratedContentEditorItemModel[]
 		): void => {
-			if (item.label === originalItemLabel) {
+			if (item.label === itemLabel) {
 				parentItems[index] = newItem;
 			}
 		})
 	},
 
-	deleteItem(
-		parent: typeof App.CuratedContentEditorItemModel,
-		itemLabel: string
-	): void {
+	deleteItem(parent: CuratedContentEditorItemModel, itemLabel: string): void {
 		parent.items.forEach((
-				item: typeof App.CuratedContentEditorItemModel,
+				item: CuratedContentEditorItemModel,
 				index: number,
-				parentItems: typeof App.CuratedContentEditorItemModel[]
+				parentItems: CuratedContentEditorItemModel[]
 			): void => {
 			if (item.label === itemLabel) {
 				parentItems.splice(index, 1);

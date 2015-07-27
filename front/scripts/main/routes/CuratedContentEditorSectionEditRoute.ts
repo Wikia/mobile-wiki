@@ -4,7 +4,7 @@
 'use strict';
 
 App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
-	model(): typeof App.CuratedContentEditorItemModel {
+	model(): CuratedContentEditorItemModel {
 		return this.modelFor('curatedContentEditor.section');
 	},
 
@@ -14,13 +14,13 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 
 	actions: {
 		goBack(): void {
-			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(sectionModel.label));
 		},
 
 		// Update section
-		done(newSection: typeof App.CuratedContentEditorItemModel): void {
-			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
+		done(newSection: CuratedContentEditorItemModel): void {
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
 			Em.setProperties(sectionModel, newSection);
 			this.transitionTo('curatedContentEditor.section.index');
@@ -28,7 +28,7 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 
 		// Delete section
 		deleteItem(): void {
-			var rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+			var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				controller: any = this.controllerFor('curatedContentEditor.section'),
 				originalSectionLabel: string = controller.get('originalSectionLabel');
 

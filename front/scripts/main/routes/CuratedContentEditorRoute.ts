@@ -13,7 +13,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.blockAddItem', block);
 		},
 
-		editBlockItem(item: typeof App.CuratedContentEditorItemModel, block: string): void {
+		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
 			this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 		},
 
@@ -21,7 +21,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.sectionAdd');
 		},
 
-		openSection(item: typeof App.CuratedContentEditorItemModel): void {
+		openSection(item: CuratedContentEditorItemModel): void {
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 		},
 

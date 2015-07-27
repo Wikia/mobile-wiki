@@ -4,15 +4,11 @@
 'use strict';
 
 App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
-	model(): typeof App.CuratedContentEditorItemModel {
+	model(): CuratedContentEditorItemModel {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
-	setupController(
-		controller: any,
-		model: typeof App.CuratedContentEditorItemModel,
-		transition: EmberStates.Transition
-	): void {
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		this._super(controller, model, transition);
 		controller.set('block', transition.params['curatedContentEditor.blockAddItem'].block);
 	},
@@ -26,10 +22,10 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		done(newItem: typeof App.CuratedContentEditorItemModel): void {
+		done(newItem: CuratedContentEditorItemModel): void {
 			var block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
-				rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
+				rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				blockModel: CuratedContentEditorItemModel = rootModel[block];
 
 			App.CuratedContentEditorModel.addItem(blockModel, newItem);
 			this.transitionTo('curatedContentEditor.index');

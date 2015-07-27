@@ -14,11 +14,11 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 			this.sendAction('addItem');
 		},
 
-		editItem(item: typeof App.CuratedContentEditorItemModel): void {
+		editItem(item: CuratedContentEditorItemModel): void {
 			this.sendAction('editItem', item);
 		},
 
-		editSection: function (): void {
+		editSection(): void {
 			this.sendAction('editSection', this.get('model'));
 		},
 

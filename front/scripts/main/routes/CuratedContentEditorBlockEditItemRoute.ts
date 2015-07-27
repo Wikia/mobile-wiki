@@ -4,20 +4,16 @@
 'use strict';
 
 App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
-	model(params: any): typeof App.CuratedContentEditorItemModel {
+	model(params: any): CuratedContentEditorItemModel {
 		var block: string = params.block,
 			item: string = decodeURIComponent(params.item),
-			rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-			blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
+			rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+			blockModel: CuratedContentEditorItemModel = rootModel[block];
 
 		return App.CuratedContentEditorModel.getItem(blockModel, item);
 	},
 
-	setupController(
-		controller: any,
-		model: typeof App.CuratedContentEditorItemModel,
-		transition: EmberStates.Transition
-	): void {
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		this._super(controller, model, transition);
 		controller.setProperties({
 			originalItemLabel: model.label,
@@ -34,12 +30,12 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		done(newItem: typeof App.CuratedContentEditorItemModel) {
+		done(newItem: CuratedContentEditorItemModel) {
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),
 				originalItemLabel: string = controller.get('originalItemLabel'),
-				rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
+				rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				blockModel: CuratedContentEditorItemModel = rootModel[block];
 
 			App.CuratedContentEditorModel.updateItem(blockModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.index');
@@ -49,8 +45,8 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),
 				item: string = controller.get('originalItemLabel'),
-				rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				blockModel: typeof App.CuratedContentEditorItemModel = rootModel[block];
+				rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				blockModel: CuratedContentEditorItemModel = rootModel[block];
 
 			App.CuratedContentEditorModel.deleteItem(blockModel, item);
 			this.transitionTo('curatedContentEditor.index');

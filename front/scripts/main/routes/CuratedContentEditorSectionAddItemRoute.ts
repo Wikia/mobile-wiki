@@ -4,7 +4,7 @@
 'use strict';
 
 App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
-	model(): typeof App.CuratedContentEditorItemModel {
+	model(): CuratedContentEditorItemModel {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
@@ -17,8 +17,8 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
-		done(newItem: typeof App.CuratedContentEditorItemModel): void {
-			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
+		done(newItem: CuratedContentEditorItemModel): void {
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
 			App.CuratedContentEditorModel.addItem(sectionModel, newItem);
 			this.transitionTo('curatedContentEditor.section.index');

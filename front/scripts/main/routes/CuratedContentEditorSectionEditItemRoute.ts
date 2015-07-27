@@ -4,18 +4,14 @@
 'use strict';
 
 App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
-	model(params: any): typeof App.CuratedContentEditorItemModel {
+	model(params: any): CuratedContentEditorItemModel {
 		var item: string = decodeURIComponent(params.item),
-			sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
+			sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
 		return App.CuratedContentEditorModel.getItem(sectionModel, item);
 	},
 
-	setupController(
-		controller: any,
-		model: typeof App.CuratedContentEditorItemModel,
-		transition: EmberStates.Transition
-	): void {
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		this._super(controller, model, transition);
 		controller.set('originalItemLabel', model.label);
 	},
@@ -29,8 +25,8 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
-		done(newItem: typeof App.CuratedContentEditorItemModel): void {
-			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
+		done(newItem: CuratedContentEditorItemModel): void {
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
 				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
 				originalItemLabel: string = controller.get('originalItemLabel');
 
@@ -39,7 +35,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		},
 
 		deleteItem(): void {
-			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
 				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
 				originalItemLabel: string = controller.get('originalItemLabel');
 

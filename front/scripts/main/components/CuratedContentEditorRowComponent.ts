@@ -11,7 +11,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentEdi
 	}),
 
 	click(): void {
-		var model: typeof App.CuratedContentEditorItemModel = this.get('model');
+		var model: CuratedContentEditorItemModel = this.get('model');
 
 		if (model.node_type === 'section') {
 			this.sendAction('openSection', model);

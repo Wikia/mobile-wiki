@@ -4,24 +4,20 @@
 'use strict';
 
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
-	serialize(model: typeof App.CuratedContentEditorItemModel): any {
+	serialize(model: CuratedContentEditorItemModel): any {
 		return {
 			section: model.label
 		};
 	},
 
-	model(params: any): typeof App.CuratedContentEditorItemModel {
+	model(params: any): CuratedContentEditorItemModel {
 		var section: string = decodeURIComponent(params.section),
-			rootModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor');
+			rootModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor');
 
 		return App.CuratedContentEditorModel.getItem(rootModel['curated'], section);
 	},
 
-	setupController(
-		controller: any,
-		model: typeof App.CuratedContentEditorItemModel,
-		transition: EmberStates.Transition
-	): void {
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		// If we passed model (not section name) to the route then it's a new section
 		var isNewSection = Em.typeOf(transition.intent.contexts[0]) === 'instance';
 
@@ -38,7 +34,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.addItem');
 		},
 
-		editItem(item: typeof App.CuratedContentEditorItemModel): void {
+		editItem(item: CuratedContentEditorItemModel): void {
 			this.transitionTo('curatedContentEditor.section.editItem', encodeURIComponent(item.label));
 		},
 
@@ -46,8 +42,8 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.edit');
 		},
 
-		done(newSection: typeof App.CuratedContentEditorItemModel): void {
-			var rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+		done(newSection: CuratedContentEditorItemModel): void {
+			var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				controller: any = this.controllerFor('curatedContentEditor.section'),
 				originalSectionLabel: string = controller.get('originalSectionLabel'),
 				isNewSection: boolean = controller.get('isNewSection');

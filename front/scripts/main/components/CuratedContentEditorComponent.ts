@@ -13,15 +13,15 @@ App.CuratedContentEditorComponent = Em.Component.extend({
 			this.sendAction('addSectionItem', section);
 		},
 
-		editBlockItem(item: typeof App.CuratedContentEditorItemModel, block: string): void {
+		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
 			this.sendAction('editBlockItem', item, block);
 		},
 
-		editSectionItem(item: typeof App.CuratedContentEditorItemModel, section: string): void {
+		editSectionItem(item: CuratedContentEditorItemModel, section: string): void {
 			this.sendAction('editSectionItem', item, section);
 		},
 
-		editSection(item: typeof App.CuratedContentEditorItemModel): void {
+		editSection(item: CuratedContentEditorItemModel): void {
 			this.sendAction('editSection', item);
 		},
 
@@ -29,7 +29,7 @@ App.CuratedContentEditorComponent = Em.Component.extend({
 			this.sendAction('addSection');
 		},
 
-		openSection(item: typeof App.CuratedContentEditorItemModel): void {
+		openSection(item: CuratedContentEditorItemModel): void {
 			this.sendAction('openSection', item);
 		}
 	}

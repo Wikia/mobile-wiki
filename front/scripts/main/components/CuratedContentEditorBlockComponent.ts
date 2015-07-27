@@ -10,11 +10,11 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend({
 			this.sendAction('addItem', this.get('block'));
 		},
 
-		editItem(item: typeof App.CuratedContentEditorItemModel): void {
+		editItem(item: CuratedContentEditorItemModel): void {
 			this.sendAction('editItem', item, this.get('block'));
 		},
 
-		openSection(item: typeof App.CuratedContentEditorItemModel): void {
+		openSection(item: CuratedContentEditorItemModel): void {
 			this.sendAction('openSection', item);
 		}
 	}
