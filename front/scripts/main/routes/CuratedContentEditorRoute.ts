@@ -17,6 +17,10 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 		},
 
+		addSection: function (): void {
+			this.transitionTo('curatedContentEditor.sectionAdd');
+		},
+
 		openSection: function (item: CuratedContentEditorItemInterface): void {
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 		},

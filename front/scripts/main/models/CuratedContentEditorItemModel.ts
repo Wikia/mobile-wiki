@@ -16,7 +16,8 @@ interface CuratedContentEditorItemInterface {
 App.CuratedContentEditorItemModel = Em.Object.extend({
 	label: null,
 	image_url: null,
-	image_id: null
+	image_id: null,
+	node_type: null
 });
 
 App.CuratedContentEditorItemModel.reopenClass({

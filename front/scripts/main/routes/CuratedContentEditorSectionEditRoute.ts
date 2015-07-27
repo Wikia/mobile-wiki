@@ -35,8 +35,7 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 		updateItem: function (newSection: CuratedContentEditorItemInterface): void {
 			var sectionModel = this.modelFor('curatedContentEditor.section');
 
-			// TODO update whole model, not just label
-			Em.set(sectionModel, 'label', newSection.label);
+			Em.setProperties(sectionModel, newSection);
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 

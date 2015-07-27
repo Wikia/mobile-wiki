@@ -2,7 +2,7 @@
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 		<button class="large publish curated-content-editor-submit" type="submit" disabled={{if canSave null 'disabled'}}>Done</button>
-		<div class="edit-head-title">{{model.label}}</div>
+		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new{{/if}}</div>
 	</header>
 	<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}">
 		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />

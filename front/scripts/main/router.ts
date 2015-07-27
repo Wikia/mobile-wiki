@@ -42,6 +42,10 @@ App.Router.map(function () {
 			});
 		});
 
+		this.route('sectionAdd', {
+			path: '/curated/add'
+		});
+
 		this.route('blockAddItem', {
 			path: '/:block/add'
 		});
