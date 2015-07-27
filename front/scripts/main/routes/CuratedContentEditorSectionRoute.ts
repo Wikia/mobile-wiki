@@ -21,10 +21,6 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	actions: {
-		goBack(): void {
-			this.transitionTo('curatedContentEditor.index');
-		},
-
 		addItem(): void  {
 			this.transitionTo('curatedContentEditor.section.addItem');
 		},

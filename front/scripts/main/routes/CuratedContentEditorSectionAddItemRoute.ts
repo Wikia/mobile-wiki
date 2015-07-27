@@ -25,7 +25,7 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 		},
 
 		deleteItem(): void {
-			this.transitionTo('curatedContentEditor.section.index');
+			this.send('goBack');
 		}
 	}
 });
