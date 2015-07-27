@@ -4,6 +4,12 @@
 'use strict';
 
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
+	serialize(model: typeof App.CuratedContentEditorItemModel): any {
+		return {
+			section: model.label
+		};
+	},
+
 	model(params: any): typeof App.CuratedContentEditorItemModel {
 		var section: string = decodeURIComponent(params.section),
 			rootModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor');
@@ -16,8 +22,15 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		model: typeof App.CuratedContentEditorItemModel,
 		transition: EmberStates.Transition
 	): void {
+		// If we passed model (not section name) to the route then it's a new section
+		var isNewSection = Em.typeOf(transition.intent.contexts[0]) === 'instance';
+
 		this._super(controller, model, transition);
-		controller.set('originalSectionLabel', model.label);
+
+		controller.setProperties({
+			isNewSection: isNewSection,
+			originalSectionLabel: model.label
+		});
 	},
 
 	actions: {
@@ -36,9 +49,15 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		done(newSection: typeof App.CuratedContentEditorItemModel): void {
 			var rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				controller: any = this.controllerFor('curatedContentEditor.section'),
-				originalSectionLabel: string = controller.get('originalSectionLabel');
+				originalSectionLabel: string = controller.get('originalSectionLabel'),
+				isNewSection: boolean = controller.get('isNewSection');
 
-			App.CuratedContentEditorModel.updateItem(rootModel['curated'], newSection, originalSectionLabel);
+			if (isNewSection) {
+				App.CuratedContentEditorModel.addItem(rootModel['curated'], newSection);
+			} else {
+				App.CuratedContentEditorModel.updateItem(rootModel['curated'], newSection, originalSectionLabel);
+			}
+
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

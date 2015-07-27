@@ -20,11 +20,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		// Update section
 		done(newSection: typeof App.CuratedContentEditorItemModel): void {
-			var rootModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
-
-			App.CuratedContentEditorModel.addItem(rootModel['curated'], newSection);
 			this.transitionTo('curatedContentEditor.section', newSection);
 		},
 
