@@ -52,11 +52,15 @@ App.CuratedContentEditorModel.reopenClass({
 	 * @returns {any}
 	 */
 	sanitize(rawData: any): CuratedContentEditorItemModel {
-		var featured = {},
+		var featured = {
+				items: <any>[]
+			},
 			curated = {
 				items: <any>[]
 			},
-			optional = {};
+			optional = {
+				items: <any>[]
+			};
 
 		if (rawData.length) {
 			rawData.forEach(function (section: CuratedContentEditorRawSectionInterface): void {
