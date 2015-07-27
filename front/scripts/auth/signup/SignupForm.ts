@@ -36,7 +36,6 @@ class SignupForm {
         this.formErrors = new FormErrors(this.form);
 	}
 
-
 	private getFormValues(): HeliosRegisterInput {
 		var formElements: HTMLCollection = this.form.elements;
 		return {
