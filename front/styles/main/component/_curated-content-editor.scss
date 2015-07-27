@@ -46,6 +46,8 @@ $image-size: 150px;
 		width: 0;
 	}
 	border-bottom-width: 1px;
+	//iOS can't handle touch events on element if it doesn't have cursor pointer
+	cursor: pointer;
 	display: flex;
 	padding: $item-padding-vertical $item-padding-horizontal;
 
