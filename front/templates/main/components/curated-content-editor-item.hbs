@@ -1,7 +1,7 @@
 <form {{action 'updateItem' on='submit'}}>
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-		<!--@TODO CONCF-956 add translations to DONE-->
+		{{!-- @TODO CONCF-956 add translations to DONE --}}
 		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
 		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new item{{/if}}</div>
 	</header>
@@ -11,17 +11,17 @@
 	<div class="curated-content-input-wrapper">
 		<div class="input-container">
 			{{input value=model.label id='label' name='label' action='updateItem' focus-out='setLabelFocusedOut' focus-in='setLabelFocusedIn'}}
-			<!--@TODO CONCF-956 add translations to Enter a display name-->
+			{{!-- @TODO CONCF-956 add translations to Enter a display name --}}
 			<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
 		</div>
 		{{#unless isSectionView}}
 			<div class="input-container">
 				{{input value=model.title id='title' name='title' action='updateItem' focus-out='setTitleFocusedOut' focus-in='setTitleFocusedIn'}}
-				<!--@TODO CONCF-956 add translations to Enter a page name-->
+				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
 				<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
 			</div>
 		{{/unless}}
 	</div>
-	<!--@TODO CONCF-956 add translations to Delete item-->
+	{{!-- @TODO CONCF-956 add translations to Delete item --}}
 	<a {{action 'deleteItem'}} class="curated-content-editor-remove">Delete item</a>
 </form>

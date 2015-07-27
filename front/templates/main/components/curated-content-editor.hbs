@@ -2,12 +2,12 @@
 	{{#link-to 'mainPage' }}
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	{{/link-to}}
-	<!--@TODO CONCF-956 add translations to Save-->
+	{{!-- @TODO CONCF-956 add translations to Save --}}
 	<button {{action 'save'}} class="large publish">Save</button>
-	<!--@TODO CONCF-956 to Edit Main Page-->
+	{{!-- @TODO CONCF-956 to Edit Main Page --}}
 	<div class="edit-head-title">Edit Main Page</div>
 </header>
-<!--@TODO CONCF-956 add translations to description, title and addItemLabel-->
+{{!-- @TODO CONCF-956 add translations to description, title and addItemLabel --}}
 {{curated-content-editor-block
 	model=model.featured
 	block='featured'
@@ -17,7 +17,7 @@
 	addItem='addBlockItem'
 	editItem='editBlockItem'
 }}
-<!--@TODO CONCF-956 add translations to description, title and addItemLabel-->
+{{!-- @TODO CONCF-956 add translations to description, title and addItemLabel --}}
 {{curated-content-editor-block
 	model=model.curated
 	block='curated'
@@ -27,7 +27,7 @@
 	addItem='addSection'
 	openSection='openSection'
 }}
-<!--@TODO CONCF-956 add translations to description, title and addItemLabel-->
+{{!-- @TODO CONCF-956 add translations to description, title and addItemLabel --}}
 {{curated-content-editor-block
 	model=model.optional
 	block='optional'
