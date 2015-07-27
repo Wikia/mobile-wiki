@@ -4,12 +4,6 @@
 'use strict';
 
 App.ArticleRoute = Em.Route.extend({
-	queryParams: {
-		comments_page: {
-			replace: true
-		}
-	},
-
 	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
@@ -47,7 +41,7 @@ App.ArticleRoute = Em.Route.extend({
 		// if an article is main page, redirect to mainPage route
 		// this will handle accessing /wiki/Main_Page if default main page is different article
 		if (model.isMainPage) {
-			this.transitionTo('mainPage');
+			this.replaceWith('mainPage');
 		}
 
 		this.controllerFor('application').set('currentTitle', model.get('title'));
@@ -78,6 +72,6 @@ App.ArticleRoute = Em.Route.extend({
 
 			// bubble up to ApplicationRoute#didTransition
 			return true;
-		},
+		}
 	}
 });
