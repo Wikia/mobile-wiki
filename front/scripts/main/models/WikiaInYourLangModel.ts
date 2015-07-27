@@ -4,7 +4,6 @@
 'use strict';
 
 App.WikiaInYourLangModel = Em.Object.extend({
-	exists: null,
 	message: null,
 	nativeDomain: null
 });
@@ -22,16 +21,18 @@ App.WikiaInYourLangModel.reopenClass({
 					targetLanguage: browserLang
 				},
 				function(resp: any): void {
-					var modelInstance = App.WikiaInYourLangModel.create({
-						exists: resp.success
-					});
-					if (modelInstance.exists) {
-						modelInstance.nativeDomain = resp.nativeDomain;
-						modelInstance.message = resp.message;
+					var modelInstance: any = null;
+					if (resp.success) {
+						modelInstance = App.WikiaInYourLangModel.create({
+							nativeDomain: resp.nativeDomain,
+							message: resp.message
+						});
 					}
 					resolve(modelInstance);
 				}
-			);
+			).fail(function(err: any): void {
+				reject(err);
+			});
 		});
 	}
 });

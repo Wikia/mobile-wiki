@@ -441,8 +441,9 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 	handleWikiaInYourLang: function(): void {
 		if (this.shouldShowWikiaInYourLang()) {
-			App.WikiaInYourLangModel.load().then(function(model: typeof App.WikiaInYourLangModel): void {
-				if (model.exists) {
+			App.WikiaInYourLangModel.load()
+			.then(function(model: typeof App.WikiaInYourLangModel): void {
+				if (model) {
 					this.createAlert(model);
 					M.track({
 						action: M.trackActions.impression,
@@ -450,7 +451,14 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 						label: 'shown'
 					});
 				}
-			}.bind(this));
+			}.bind(this),
+			(err: any) => {
+				M.track({
+					action: M.trackActions.impression,
+					category: 'wikiaInYourLangAlert',
+					label: err || 'error'
+				});
+			});
 		}
 	},
 
@@ -477,7 +485,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		});
 	},
 
-	shouldShowWikiaInYourLang: function() : boolean {
+	shouldShowWikiaInYourLang: function(): boolean {
 		var value = window.localStorage.getItem('wikiaInYourLang.alertDismissed'),
 		    now = new Date().getTime(),
 			hasNotCloseWikiaInYourLangAlert = !value || (now - value > 86400000), //1 day 86400000
