@@ -26,7 +26,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		updateItem: function (newItem: CuratedContentEditorItemInterface) {
+		updateItem: function (newItem: typeof App.CuratedContentEditorItemModel) {
 			var block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
 				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
 

@@ -8,7 +8,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	imageSize: 200,
 
 	imageUrl: Em.computed('model', function (): string {
-		var model: CuratedContentEditorItemInterface = this.get('model'),
+		var model: typeof App.CuratedContentEditorItemModel = this.get('model'),
 			options: any = {
 				width: this.get('imageSize'),
 				height: this.get('imageSize'),

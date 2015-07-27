@@ -9,7 +9,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend({
 	imageSize: 100,
 
 	thumbUrl: Em.computed('model', function (): string {
-		var model: CuratedContentEditorItemInterface = this.get('model'),
+		var model: typeof App.CuratedContentEditorItemModel = this.get('model'),
 			options: any = {
 				width: this.get('imageSize'),
 				height: this.get('imageSize'),
@@ -25,7 +25,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend({
 	}),
 
 	click(): void {
-		var model: CuratedContentEditorItemInterface = this.get('model');
+		var model: typeof App.CuratedContentEditorItemModel = this.get('model');
 
 		if (model.node_type === 'section') {
 			this.sendAction('openSection', model);

@@ -1,6 +1,16 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface CuratedContentEditorRawSectionInterface {
+	label: string;
+	image_id: number;
+	node_type: string;
+	items: CuratedContentEditorRawSectionInterface[]
+	image_url?: string;
+	featured?: string;
+	type?: string;
+}
+
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	curated: null,
@@ -47,7 +57,7 @@ App.CuratedContentEditorModel.reopenClass({
 			optional = {};
 
 		if (rawData.length) {
-			rawData.forEach(function (section: CuratedContentEditorItemInterface): void {
+			rawData.forEach(function (section: CuratedContentEditorRawSectionInterface): void {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.label === '') {
@@ -67,24 +77,22 @@ App.CuratedContentEditorModel.reopenClass({
 
 	addBlockItem: function (
 		currentModel: typeof App.CuratedContentEditorModel,
-		newItem: CuratedContentEditorItemInterface,
+		newItem: typeof App.CuratedContentEditorItemModel,
 		block: string
-	): typeof App.CuratedContentEditorModel {
+	): void {
 		currentModel[block].items.push(newItem);
-
-		return currentModel;
 	},
 
 	addSectionItem: function (
-		sectionModel: CuratedContentEditorItemInterface,
-		newItem: CuratedContentEditorItemInterface
+		sectionModel: typeof App.CuratedContentEditorItemModel,
+		newItem: typeof App.CuratedContentEditorItemModel
 	): void {
 		sectionModel.items.push(newItem);
 	},
 
 	updateBlockItem: function (
 		currentModel: typeof App.CuratedContentEditorModel,
-		newItem: CuratedContentEditorItemInterface,
+		newItem: typeof App.CuratedContentEditorItemModel,
 		blockName: string,
 		originalItemLabel: string
 	): void {
@@ -99,8 +107,8 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	updateSectionItem(
-		sectionModel: CuratedContentEditorItemInterface,
-		newItem: CuratedContentEditorItemInterface,
+		sectionModel: typeof App.CuratedContentEditorItemModel,
+		newItem: typeof App.CuratedContentEditorItemModel,
 		originalItemLabel: string
 	): void {
 		var items = sectionModel.items,
@@ -116,7 +124,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	updateSection: function (
 		currentModel: typeof App.CuratedContentEditorModel,
-		newSection: CuratedContentEditorItemInterface,
+		newSection: typeof App.CuratedContentEditorItemModel,
 		originalLabel: any
 	): void {
 		var sections = currentModel.curated.items,
@@ -133,13 +141,13 @@ App.CuratedContentEditorModel.reopenClass({
 		model: typeof App.CuratedContentEditorModel,
 		blockName: string,
 		itemLabel: string
-	): CuratedContentEditorItemInterface {
+	): typeof App.CuratedContentEditorItemModel {
 		var blockItems = model[blockName].items,
-			item: CuratedContentEditorItemInterface = null;
+			item: typeof App.CuratedContentEditorItemModel = null;
 
-		blockItems.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
+		blockItems.some(function (itemObj: typeof App.CuratedContentEditorItemModel): boolean {
 			if (itemObj.label === itemLabel) {
-				item = $.extend(true, {}, itemObj);
+				item = App.CuratedContentEditorItemModel.createNew(itemObj);
 				return true;
 			}
 		});
@@ -148,15 +156,15 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	getSectionItem(
-		sectionModel: CuratedContentEditorItemInterface,
+		sectionModel: typeof App.CuratedContentEditorItemModel,
 		itemLabel: string
-	): CuratedContentEditorItemInterface {
+	): typeof App.CuratedContentEditorItemModel {
 		var items = sectionModel.items,
-			item: CuratedContentEditorItemInterface = null;
+			item: typeof App.CuratedContentEditorItemModel = null;
 
-		items.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
+		items.some(function (itemObj: typeof App.CuratedContentEditorItemModel): boolean {
 			if (itemObj.label === itemLabel) {
-				item = $.extend(true, {}, itemObj);
+				item = App.CuratedContentEditorItemModel.createNew(itemObj);
 				return true;
 			}
 		});
@@ -183,7 +191,7 @@ App.CuratedContentEditorModel.reopenClass({
 		sectionModel: typeof App.CuratedContentEditorModel,
 		itemLabel: string
 	): void {
-		var items: CuratedContentEditorItemInterface[] = sectionModel.items,
+		var items: typeof App.CuratedContentEditorItemModel[] = sectionModel.items,
 			i: number;
 
 		for (i = 0; i < items.length; i++) {

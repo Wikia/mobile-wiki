@@ -3,15 +3,10 @@
 
 'use strict';
 
-interface CuratedContentEditorEditSectionItemRouteParamsInterface {
-	section: string;
-	item: string;
-}
-
 App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
-	model: function (params: CuratedContentEditorEditSectionItemRouteParamsInterface) {
-		var item = decodeURIComponent(params.item),
-			sectionModel = this.modelFor('curatedContentEditor.section');
+	model: function (params: any): typeof App.CuratedContentEditorItemModel {
+		var item: string = decodeURIComponent(params.item),
+			sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
 		return App.CuratedContentEditorModel.getSectionItem(sectionModel, item);
 	},
@@ -30,17 +25,19 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
-		updateItem(newItem: CuratedContentEditorItemInterface): void {
-			var sectionModel = this.modelFor('curatedContentEditor.section'),
-				originalItemLabel = this.controllerFor('curatedContentEditor.section.editItem').get('originalItemLabel');
+		updateItem(newItem: typeof App.CuratedContentEditorItemModel): void {
+			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
+				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
+				originalItemLabel: string = controller.get('originalItemLabel');
 
 			App.CuratedContentEditorModel.updateSectionItem(sectionModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
 		deleteItem(): void {
-			var sectionModel = this.modelFor('curatedContentEditor.section'),
-				originalItemLabel = this.controllerFor('curatedContentEditor.section.editItem').get('originalItemLabel');
+			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
+				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
+				originalItemLabel: string = controller.get('originalItemLabel');
 
 			App.CuratedContentEditorModel.deleteSectionItem(sectionModel, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');

@@ -21,7 +21,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		},
 
 		// Update section
-		updateItem: function (newSection: CuratedContentEditorItemInterface): void {
+		updateItem: function (newSection: typeof App.CuratedContentEditorItemModel): void {
 			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
 
 			App.CuratedContentEditorModel.addBlockItem(currentModel, newSection, 'curated');
