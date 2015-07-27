@@ -8,11 +8,11 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
-	getOtherItemLabels: function (label: string = null): string[] {
-		var sectionModel = this.modelFor('curatedContentEditor.section');
+	getOtherItemLabels: function (): string[] {
+		var items = this.modelFor('curatedContentEditor.section').items;
 
-		return sectionModel.items.map(function(item: CuratedContentEditorItemInterface): string {
-			return (item.label !== label) ? item.label : null;
+		return items.map(function(item: CuratedContentEditorItemInterface): string {
+			return item.label;
 		}).filter(String);
 	},
 

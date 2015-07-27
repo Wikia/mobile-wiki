@@ -17,17 +17,19 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 	},
 
 	getOtherItemLabels: function (label: string = null): string[] {
-		var sectionModel = this.modelFor('curatedContentEditor.section');
+		var items = this.modelFor('curatedContentEditor.section').items;
 
-		return sectionModel.items.map(function(item: CuratedContentEditorItemInterface): string {
+		return items.map(function(item: CuratedContentEditorItemInterface): string {
 			return (item.label !== label) ? item.label : null;
 		}).filter(String);
 	},
 
 	setupController: function (controller: any, model: typeof App.CuratedContentEditorItemModel): void {
 		this._super(controller, model);
-		controller.set('originalItemLabel', model.label);
-		controller.set('otherItemLabels', this.getOtherItemLabels(model.label));
+		controller.setProperties({
+			originalItemLabel: model.label,
+			otherItemLabels: this.getOtherItemLabels(model.label)
+		});
 	},
 
 	renderTemplate: function (): void {

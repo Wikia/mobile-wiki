@@ -16,15 +16,26 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getBlockItem(this.modelFor('curatedContentEditor'), block, item);
 	},
 
+	getOtherItemLabels: function (block: string, label: string = null): string[] {
+		var items = this.modelFor('curatedContentEditor').get(block).items;
+
+		return items.map(function(item: CuratedContentEditorItemInterface): string {
+			return (item.label !== label) ? item.label : null;
+		}).filter(String);
+	},
+
 	setupController: function (
 		controller: any,
 		model: typeof App.CuratedContentEditorItemModel,
 		transition: EmberStates.Transition
 	): void {
+		var block = transition.params['curatedContentEditor.blockEditItem'].block;
+
 		this._super(controller, model);
 		controller.setProperties({
 			originalItemLabel: model.label,
-			block: transition.params['curatedContentEditor.blockEditItem'].block
+			block: block,
+			otherItemLabels: this.getOtherItemLabels(block, model.label)
 		});
 	},
 
