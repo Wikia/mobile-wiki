@@ -1,3 +1,7 @@
+## release-120 (2015-07-27 14:41 UTC)
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 Renaming zh-tw to zh in mercury repository
+* add-explicit-method-param: Add event as explicit method param
+
 ## release-119 (2015-07-24 14:45 UTC)
 * [SOC-1091](https://wikia-inc.atlassian.net/browse/SOC-1091) SOC-1089 | Add optimizely on auth pages
 
