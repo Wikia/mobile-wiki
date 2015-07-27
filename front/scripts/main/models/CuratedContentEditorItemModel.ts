@@ -24,6 +24,8 @@ App.CuratedContentEditorItemModel = Em.Object.extend({
 });
 
 App.CuratedContentEditorItemModel.reopenClass({
+	// Object Model instance is only created once and all create() method invocations return already created object.
+	// Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
 	createNew(params: any): typeof App.CuratedContentEditorItemModel {
 		var modelParams = $.extend(true, {
 			block: null,
