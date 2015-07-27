@@ -5,9 +5,7 @@
 
 App.CuratedContentEditorAddBlockItemRoute = Em.Route.extend({
 	model: function (params: any): typeof App.CuratedContentEditorItemModel {
-		return App.CuratedContentEditorItemModel.create({
-			block: params.block
-		});
+		return App.CuratedContentEditorItemModel.createNew({block: params.block});
 	},
 
 	renderTemplate: function (): void {

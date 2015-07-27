@@ -5,7 +5,8 @@
 
 App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 	model: function (params: any): typeof App.CuratedContentEditorItemModel {
-		return App.CuratedContentEditorItemModel.create({
+		return App.CuratedContentEditorItemModel.createNew({
+			block: 'curated',
 			section: decodeURIComponent(params.section)
 		});
 	},

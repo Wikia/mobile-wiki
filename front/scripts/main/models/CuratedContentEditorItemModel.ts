@@ -22,3 +22,14 @@ App.CuratedContentEditorItemModel = Em.Object.extend({
 		image_id: null
 	}
 });
+
+App.CuratedContentEditorItemModel.reopenClass({
+	createNew(params: any): typeof App.CuratedContentEditorItemModel {
+		var modelParams = $.extend(true, {
+			block: null,
+			section: null,
+			item: {}
+		}, params);
+		return App.CuratedContentEditorItemModel.create(modelParams);
+	}
+});
