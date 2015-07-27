@@ -11,7 +11,6 @@
     "password_exceeds_max_length":"Oups, votre mot de passe est trop long. Veuillez choisir un mot de passe de 50 caractères ou moins.",
     "password_equal_name":"Votre mot de passe doit être différent de votre nom d'utilisateur.",
     "birthdate_invalid":"Oups, il semblerait que cela ne soit pas une date du calendrier. Veuillez recommencer.",
-    "wrong-credentials":"Nous ne reconnaissons pas ces informations. Veuillez réessayer ou créer un nouveau compte.",
-    "server-error":"Une erreur est survenue au cours du traitement de votre requête. Veuillez réessayer ultérieurement."
+    "wrong-credentials":"Nous ne reconnaissons pas ces informations. Veuillez réessayer ou créer un nouveau compte."
   }
 }

@@ -11,7 +11,6 @@
     "password_exceeds_max_length":"Sorry, dein Passwort ist zu lang. Verwende bitte ein Passwort, das nicht mehr als 50 Zeichen umfasst.",
     "password_equal_name":"Dein Passwort und dein Benutzername dürfen nicht übereinstimmen.",
     "birthdate_invalid":"Sorry, das ist kein gültiges Kalenderdatum. Probiere es bitte noch einmal!",
-    "wrong-credentials":"Diese Anmeldedaten sind uns leider nicht bekannt. Versuche es bitte noch einmal oder richte ein neues Benutzerkonto ein.",
-    "server-error":"Es tut uns leid, bei der Verarbeitung deiner Anfrage ist ein Fehler aufgetreten. Bitte versuche es später noch einmal."
+    "wrong-credentials":"Diese Anmeldedaten sind uns leider nicht bekannt. Versuche es bitte noch einmal oder richte ein neues Benutzerkonto ein."
   }
 }

@@ -11,7 +11,6 @@
     "password_exceeds_max_length":"¡Huy! Tu contraseña es demasiado larga. Elige una contraseña de 50 caracteres o menos.",
     "password_equal_name":"Tu contraseña debe ser diferente de tu nombre de usuario.",
     "birthdate_invalid":"¡Huy! Parece que esta no es una fecha calendario. Por favor inténtalo de nuevo.",
-    "wrong-credentials":"No reconocemos estas credenciales. Por favor inténtalo de nuevo o registra una nueva cuenta.",
-    "server-error":"Lo sentimos, hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde."
+    "wrong-credentials":"No reconocemos estas credenciales. Por favor inténtalo de nuevo o registra una nueva cuenta."
   }
 }

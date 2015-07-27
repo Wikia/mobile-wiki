@@ -11,7 +11,6 @@
     "password_exceeds_max_length":"Oops, la tua password è troppo lunga. Per favore, scegli una password che sia al massimo di 50 caratteri.",
     "password_equal_name":"La tua password deve essere diversa dal tuo nome utente.",
     "birthdate_invalid":"Oops! Questa non è una data. Riprova.",
-    "wrong-credentials":"Hmm...queste credenziali non sono state riconosciute. Riprova o iscriviti con un nuovo account.",
-    "server-error":"Ci dispiace ma c'è stato un errore nell'elaborazione della tua richiesta. Riprova più tardi."
+    "wrong-credentials":"Hmm...queste credenziali non sono state riconosciute. Riprova o iscriviti con un nuovo account."
   }
 }

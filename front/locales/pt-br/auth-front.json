@@ -11,7 +11,6 @@
     "password_exceeds_max_length":"Opa, sua senha é muito longa. Por favor, escolha uma senha de até 50 caracteres.",
     "password_equal_name":"Sua senha deve ser diferente do seu nome de usuário.",
     "birthdate_invalid":"Opa, parece que isto não é uma data do calendário! Por favor, tente novamente.",
-    "wrong-credentials":"Não reconhecemos essas credenciais. Por favor, tente novamente ou registre-se com uma nova conta.",
-    "server-error":"Desculpe, houve um erro ao processar seu pedido.  Por favor, tente novamente mais tarde."
+    "wrong-credentials":"Não reconhecemos essas credenciais. Por favor, tente novamente ou registre-se com uma nova conta."
   }
 }
