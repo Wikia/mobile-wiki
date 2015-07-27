@@ -36,12 +36,6 @@ class SignupForm {
         this.formErrors = new FormErrors(this.form);
 	}
 
-	private createValidationErrorHTMLNode(errorDescription: string): HTMLElement {
-		var errorNode: HTMLElement = document.createElement('small');
-		errorNode.classList.add('error');
-		errorNode.appendChild(document.createTextNode(this.formErrors.translateValidationError(errorDescription)));
-		return errorNode;
-	}
 
 	private getFormValues(): HeliosRegisterInput {
 		var formElements: HTMLCollection = this.form.elements;
