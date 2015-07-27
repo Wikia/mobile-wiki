@@ -26,8 +26,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 			this.sendAction('goBack');
 		},
 
-		updateSection(): void {
-			this.sendAction('updateSection', this.get('model'));
+		done(): void {
+			this.sendAction('done', this.get('model'));
 		}
 	}
 });

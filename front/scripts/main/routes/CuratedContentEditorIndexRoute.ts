@@ -4,7 +4,7 @@
 'use strict';
 
 App.CuratedContentEditorIndexRoute = Em.Route.extend({
-	renderTemplate: function (): void {
+	renderTemplate(): void {
 		this.render('curated-content-editor', {
 			model: this.modelFor('curatedContentEditor')
 		});

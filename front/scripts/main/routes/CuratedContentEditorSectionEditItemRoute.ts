@@ -4,14 +4,14 @@
 'use strict';
 
 App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
-	model: function (params: any): typeof App.CuratedContentEditorItemModel {
+	model(params: any): typeof App.CuratedContentEditorItemModel {
 		var item: string = decodeURIComponent(params.item),
 			sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
 		return App.CuratedContentEditorModel.getSectionItem(sectionModel, item);
 	},
 
-	setupController: function (
+	setupController(
 		controller: any,
 		model: typeof App.CuratedContentEditorItemModel,
 		transition: EmberStates.Transition
@@ -20,7 +20,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		controller.set('originalItemLabel', model.label);
 	},
 
-	renderTemplate: function (): void {
+	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
@@ -29,7 +29,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
-		updateItem(newItem: typeof App.CuratedContentEditorItemModel): void {
+		done(newItem: typeof App.CuratedContentEditorItemModel): void {
 			var sectionModel: typeof App.CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
 				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
 				originalItemLabel: string = controller.get('originalItemLabel');

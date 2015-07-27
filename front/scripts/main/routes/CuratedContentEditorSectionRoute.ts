@@ -25,19 +25,19 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		addItem: function (): void  {
+		addItem(): void  {
 			this.transitionTo('curatedContentEditor.section.addItem');
 		},
 
-		editItem: function (item: typeof App.CuratedContentEditorItemModel): void {
+		editItem(item: typeof App.CuratedContentEditorItemModel): void {
 			this.transitionTo('curatedContentEditor.section.editItem', encodeURIComponent(item.label));
 		},
 
-		editSection: function (): void {
+		editSection(): void {
 			this.transitionTo('curatedContentEditor.section.edit');
 		},
 
-		updateSection(newSection: typeof App.CuratedContentEditorItemModel): void {
+		done(newSection: typeof App.CuratedContentEditorItemModel): void {
 			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				controller: any = this.controllerFor('curatedContentEditor.section'),
 				originalSectionLabel: string = controller.get('originalSectionLabel');

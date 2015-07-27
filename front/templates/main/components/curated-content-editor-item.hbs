@@ -1,4 +1,4 @@
-<form {{action 'updateItem' on='submit'}}>
+<form {{action 'done' on='submit'}}>
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 		{{!-- @TODO CONCF-956 add translations to DONE --}}
@@ -10,13 +10,13 @@
 	</div>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container">
-			{{input value=model.label id='label' name='label' action='updateItem' focus-out='setLabelFocusedOut' focus-in='setLabelFocusedIn'}}
+			{{input value=model.label id='label' name='label' action='done' focus-out='setLabelFocusedOut' focus-in='setLabelFocusedIn'}}
 			{{!-- @TODO CONCF-956 add translations to Enter a display name --}}
 			<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
 		</div>
 		{{#unless isSectionView}}
 			<div class="input-container">
-				{{input value=model.title id='title' name='title' action='updateItem' focus-out='setTitleFocusedOut' focus-in='setTitleFocusedIn'}}
+				{{input value=model.title id='title' name='title' action='done' focus-out='setTitleFocusedOut' focus-in='setTitleFocusedIn'}}
 				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
 				<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
 			</div>

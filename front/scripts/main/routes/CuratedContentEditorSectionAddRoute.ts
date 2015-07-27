@@ -4,24 +4,24 @@
 'use strict';
 
 App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
-	model: function (): typeof App.CuratedContentEditorItemModel {
+	model(): typeof App.CuratedContentEditorItemModel {
 		return App.CuratedContentEditorItemModel.createNew({
 			node_type: 'section',
 			items: []
 		});
 	},
 
-	renderTemplate: function (): void {
+	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
 	actions: {
-		goBack: function (): void {
+		goBack(): void {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
 		// Update section
-		updateItem: function (newSection: typeof App.CuratedContentEditorItemModel): void {
+		done(newSection: typeof App.CuratedContentEditorItemModel): void {
 			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
 
 			App.CuratedContentEditorModel.addBlockItem(currentModel, newSection, 'curated');

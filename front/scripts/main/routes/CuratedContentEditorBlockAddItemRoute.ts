@@ -4,7 +4,7 @@
 'use strict';
 
 App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
-	model: function (): typeof App.CuratedContentEditorItemModel {
+	model(): typeof App.CuratedContentEditorItemModel {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
@@ -26,7 +26,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		updateItem(newItem: typeof App.CuratedContentEditorItemModel) {
+		done(newItem: typeof App.CuratedContentEditorItemModel) {
 			var block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
 				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
 
