@@ -95,8 +95,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	},
 
 	validateLabel(): void {
-		console.log('validateLabel');
-
 		var value = this.get('model.label'),
 			errorMessage: string = null;
 
@@ -111,8 +109,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	},
 
 	validateTitle(): void {
-		console.log('validateTitle');
-
 		var value = this.get('model.title'),
 			errorMessage: string = null;
 
@@ -127,8 +123,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	},
 
 	getImage (): void {
-		console.log('getImage');
-
 		Em.$.ajax({
 			url: M.buildUrl({
 				path: '/wikia.php',
