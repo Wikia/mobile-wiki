@@ -63,7 +63,7 @@ App.CuratedContentEditorModel.reopenClass({
 			};
 
 		if (rawData.length) {
-			rawData.forEach(function (section: CuratedContentEditorRawSectionInterface): void {
+			rawData.forEach((section: CuratedContentEditorRawSectionInterface): void => {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.label === '') {
@@ -84,7 +84,7 @@ App.CuratedContentEditorModel.reopenClass({
 	getItem(parent: CuratedContentEditorItemModel, itemLabel: string): CuratedContentEditorItemModel {
 		var item: CuratedContentEditorItemModel = null;
 
-		parent.items.some(function (itemObj: CuratedContentEditorItemModel): boolean {
+		parent.items.some((itemObj: CuratedContentEditorItemModel): boolean => {
 			if (itemObj.label === itemLabel) {
 				item = App.CuratedContentEditorItemModel.createNew(itemObj);
 				return true;
