@@ -9,8 +9,14 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 	},
 
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
+		var block = transition.params['curatedContentEditor.blockAddItem'].block,
+			parentSection = this.modelFor('curatedContentEditor').get(block);
+
 		this._super(controller, model, transition);
-		controller.set('block', transition.params['curatedContentEditor.blockAddItem'].block);
+		controller.setProperties({
+			block,
+			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection)
+		});
 	},
 
 	renderTemplate(): void {

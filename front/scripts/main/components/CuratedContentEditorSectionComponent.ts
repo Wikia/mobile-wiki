@@ -9,6 +9,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
+	notEmptyItems: Em.computed.notEmpty('model.items'),
+
 	actions: {
 		addItem(): void {
 			this.sendAction('addItem');
@@ -27,7 +29,9 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 		},
 
 		done(): void {
-			this.sendAction('done', this.get('model'));
+			if (this.get('notEmptyItems')) {
+				this.sendAction('done', this.get('model'));
+			}
 		}
 	}
 });

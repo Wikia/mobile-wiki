@@ -94,6 +94,12 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
+	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
+		return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
+			return childItem.label !== childLabel ? childItem.label : null
+		}).filter(String);
+	},
+
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
 		parent.items.push(newItem);
 	},

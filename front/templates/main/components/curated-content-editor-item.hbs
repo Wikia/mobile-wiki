@@ -2,24 +2,51 @@
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 		{{!-- @TODO CONCF-956 add translations to DONE --}}
-		<button class="large publish curated-content-editor-submit" type="submit">Done</button>
+		<button class="large publish curated-content-editor-submit" type="submit" disabled={{if canSave null 'disabled'}}>Done</button>
 		{{!-- @TODO CONCF-956 add translations to Create new item --}}
-		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new item{{/if}}</div>
+		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new{{/if}}</div>
 	</header>
-	<div class="curated-content-editor-photo">
-		<img src="{{imageUrl}}" />
+	<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}">
+		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
+		{{#if imageErrorMessage}}
+			<small class="error">{{imageErrorMessage}}</small>
+		{{/if}}
 	</div>
 	<div class="curated-content-input-wrapper">
-		<div class="input-container">
-			{{input value=model.label id='label' name='label' action='done' focus-out='setLabelFocusedOut' focus-in='setLabelFocusedIn'}}
+		<div class="input-container {{if labelErrorMessage 'error'}}">
+			{{input
+				value=model.label
+				id='label'
+				class=labelClass
+				name='label'
+				key-up='validateLabel'
+				key-down='validateLabel'
+				focus-out='setLabelFocusedOut'
+				focus-in='setLabelFocusedIn'
+			}}
 			{{!-- @TODO CONCF-956 add translations to Enter a display name --}}
-			<label class="floating-label {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
+			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
+			{{#if labelErrorMessage}}
+				<small class="error">{{labelErrorMessage}}</small>
+			{{/if}}
 		</div>
 		{{#unless isSectionView}}
-			<div class="input-container">
-				{{input value=model.title id='title' name='title' action='done' focus-out='setTitleFocusedOut' focus-in='setTitleFocusedIn'}}
+			<div class="input-container {{if titleErrorMessage 'error'}}">
+				{{input
+					value=model.title
+					id='title'
+					class=titleClass
+					name='title'
+					key-up='validateTitle'
+					key-down='validateTitle'
+					focus-out='setTitleFocusedOut'
+					focus-in='setTitleFocusedIn'
+				}}
 				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
-				<label class="floating-label {{if isTitleActive 'active'}}" for="page">Enter a page name</label>
+				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>
+				{{#if titleErrorMessage}}
+					<small class="error">{{titleErrorMessage}}</small>
+				{{/if}}
 			</div>
 		{{/unless}}
 	</div>

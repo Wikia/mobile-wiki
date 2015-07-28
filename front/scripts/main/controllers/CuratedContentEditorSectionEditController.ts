@@ -3,5 +3,6 @@
 'use strict';
 
 App.CuratedContentEditorSectionEditController = Em.Controller.extend({
-	block: null
+	block: null,
+	alreadyUsedLabels: []
 });
