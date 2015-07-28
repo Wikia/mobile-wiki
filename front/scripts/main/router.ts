@@ -29,9 +29,7 @@ App.Router.map(function () {
 		this.route('section', {
 			path: '/section/:section'
 		}, function () {
-			this.route('edit', {
-				path: '/edit'
-			});
+			this.route('edit');
 
 			this.route('addItem', {
 				path: '/add'

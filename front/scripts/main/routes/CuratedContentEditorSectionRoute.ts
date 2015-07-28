@@ -18,13 +18,8 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		// If we passed model (not section name) to the route then it's a new section
-		var isNewSection = Em.typeOf(transition.intent.contexts[0]) === 'instance';
-
 		this._super(controller, model, transition);
-
 		controller.setProperties({
-			isNewSection: isNewSection,
 			originalSectionLabel: model.label
 		});
 	},
