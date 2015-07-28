@@ -68,9 +68,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			if (!title || !title.length) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is empty';
-			} else if (title.length > this.get('maxLabelLength')) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Title is too long';
 			}
 
 			this.set('titleErrorMessage', errorMessage);
