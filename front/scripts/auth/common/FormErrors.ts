@@ -2,11 +2,11 @@ class FormErrors {
 	form: HTMLFormElement;
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
-    trackingLabelPrefix: string;
+	trackingLabelPrefix: string;
 
 	constructor (form: HTMLFormElement, trackingLabelPrefix: string) {
 		this.form = form;
-        this.trackingLabelPrefix = trackingLabelPrefix;
+		this.trackingLabelPrefix = trackingLabelPrefix;
 	}
 
 	public clearValidationErrors(): void {

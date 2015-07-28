@@ -96,10 +96,10 @@ class FacebookRegistration {
 			if (status === HttpCodes.OK) {
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
-                this.formErrors.displayGeneralError();
+				this.formErrors.displayGeneralError();
 			} else {
-                this.formErrors.displayGeneralError();
-            }
+				this.formErrors.displayGeneralError();
+			}
 		};
 
 		facebookTokenXhr.onerror = (e: Event): void => {
