@@ -1,0 +1,83 @@
+.discussion-post {
+	background-color: #fff;
+	font-size: $type-smallest;
+
+	.avatar {
+		display: inline-block;
+
+		img {
+			border-color: #ccc;
+			height: 25px;
+			width: 25px;
+		}
+	}
+
+	.post-content {
+		padding: 10px 0;
+	}
+
+	.post-detail {
+		padding: 12px 15px;
+	}
+
+	.timestamp {
+		color: #999;
+	}
+}
+
+.books-vertical {
+	.discussion-post {
+		a {
+			color: $color-hub-books;
+		}
+	}
+}
+
+.comics-vertical {
+	.discussion-post {
+		a {
+			color: $color-hub-comics;
+		}
+	}
+}
+
+.games-vertical {
+	.discussion-post {
+		a {
+			color: $color-hub-games;
+		}
+	}
+}
+
+.lifestyle-vertical {
+	.discussion-post {
+		a {
+			color: $color-hub-lifestyle;
+		}
+	}
+}
+
+.movies-vertical {
+	.discussion-post {
+		a {
+			color: $color-hub-movies;
+		}
+	}
+}
+
+.music-vertical {
+	.discussion-post {
+		a {
+			color: $color-hub-music;
+		}
+	}
+}
+
+.tv-vertical {
+	.discussion-post {
+		a {
+			color: $color-hub-tv;
+		}
+	}
+}
+

@@ -2,9 +2,10 @@
 	<figure class="avatar">
 		<img src="{{author.avatarPath}}" alt="">
 	</figure>
-	<a href="{{profileUrl}}">{{author.name}}</a>
-	&bull;
-	{{timeAgo timestamp}}
+	<a href="{{author.profileUrl}}">{{author.name}}</a>
+	<span class="timestamp">
+		&bull; {{timeAgo timestamp}}
+	</span>
 </div>
 <div class="post-content">
 	{{{content}}}
