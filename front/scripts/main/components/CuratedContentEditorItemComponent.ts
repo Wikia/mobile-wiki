@@ -25,7 +25,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	titleErrorMessage: null,
 	imageErrorMessage: null,
 
-	canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
+	canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', (): boolean => {
 			return Em.isEmpty(this.get('labelErrorMessage')) &&
 				Em.isEmpty(this.get('titleErrorMessage')) &&
 				Em.isEmpty(this.get('imageErrorMessage'));
@@ -46,15 +46,15 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		validateLabel(): void {
-			var value = this.get('model.label'),
-				otherItemLabels = this.get('otherItemLabels'),
+			var label = this.get('model.label'),
+				alreadyUsedLabels = this.get('alreadyUsedLabels'),
 				errorMessage: string = null;
 
-			if (value.length === 0) {
+			if (label.length === 0) {
 				errorMessage = 'Label is empty';
-			} else if (value.length > 48) {
+			} else if (label.length > 48) {
 				errorMessage = 'Label is too long';
-			} else if (otherItemLabels.indexOf(value) !== -1) {
+			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
 				errorMessage = 'Label is duplicated';
 			}
 
@@ -70,12 +70,12 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		validateTitle(): void {
-			var value = this.get('model.title'),
+			var title = this.get('model.title'),
 				errorMessage: string = null;
 
-			if (value.length === 0) {
+			if (title.length === 0) {
 				errorMessage = 'Title is empty';
-			} else if (value.length > 48) {
+			} else if (title.length > 48) {
 				errorMessage = 'Title is too long';
 			}
 
@@ -88,7 +88,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 
 		done(): void {
 			if (this.get('canSave')) {
-				this.sendAction('updateItem', this.get('model'));
+				this.sendAction('done', this.get('model'));
 			}
 		},
 

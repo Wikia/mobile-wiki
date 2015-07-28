@@ -13,7 +13,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getItem(blockModel, item);
 	},
 
-	getOtherItemLabels(block: string, label: string = null): string[] {
+	getAlreadyUsedLabels(block: string, label: string = null): string[] {
 		var items = this.modelFor('curatedContentEditor').get(block).items;
 
 		return items.map((item: CuratedContentEditorItemModel): string => {
@@ -28,7 +28,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		controller.setProperties({
 			originalItemLabel: model.label,
 			block: block,
-			otherItemLabels: this.getOtherItemLabels(block, model.label)
+			alreadyUsedLabels: this.getAlreadyUsedLabels(block, model.label)
 		});
 	},
 

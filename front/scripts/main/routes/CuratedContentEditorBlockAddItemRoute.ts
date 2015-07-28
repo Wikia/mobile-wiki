@@ -8,10 +8,10 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
-	getOtherItemLabels: function (block: string): string[] {
+	getAlreadyUsedLabels: function (block: string): string[] {
 		var items = this.modelFor('curatedContentEditor').get(block).items;
 
-		return items.map((item: CuratedContentEditorItemInterface): string => { return item.label }).filter(String);
+		return items.map((item: CuratedContentEditorItemModel): string => { return item.label }).filter(String);
 	},
 
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
@@ -20,7 +20,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		this._super(controller, model, transition);
 		controller.setProperties({
 			block: block,
-			otherItemLabels: this.getOtherItemLabels(block)
+			alreadyUsedLabels: this.getAlreadyUsedLabels(block)
 		});
 	},
 
