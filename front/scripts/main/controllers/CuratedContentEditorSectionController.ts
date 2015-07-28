@@ -3,6 +3,7 @@
 'use strict';
 
 App.CuratedContentEditorSectionController = Em.Controller.extend({
-	newSection: false,
-	originalSectionLabel: null
+	isNewSection: false,
+	originalSectionLabel: null,
+	queryParams: ['isNewSection']
 });
