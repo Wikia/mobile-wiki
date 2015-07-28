@@ -7,7 +7,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	classNames: ['curated-content-editor-item'],
 	imageSize: 300,
 	maxLabelLength: 48,
-	throttleDuration: 250,
 	debounceDuration: 250,
 
 	imageUrl: Em.computed('model', function (): string {
