@@ -11,9 +11,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 	getOtherItemLabels: function (block: string): string[] {
 		var items = this.modelFor('curatedContentEditor').get(block).items;
 
-		return items.map(function(item: CuratedContentEditorItemInterface): string {
-			return item.label;
-		}).filter(String);
+		return items.map((item: CuratedContentEditorItemInterface): string => { return item.label }).filter(String);
 	},
 
 	setupController: function (

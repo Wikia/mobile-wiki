@@ -19,8 +19,8 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 	getOtherItemLabels: function (block: string, label: string = null): string[] {
 		var items = this.modelFor('curatedContentEditor').get(block).items;
 
-		return items.map(function(item: CuratedContentEditorItemInterface): string {
-			return (item.label !== label) ? item.label : null;
+		return items.map((item: CuratedContentEditorItemInterface): string => {
+			return item.label !== label ? item.label : null
 		}).filter(String);
 	},
 
