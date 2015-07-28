@@ -24,8 +24,7 @@ class FormErrors {
 
 	public displayValidationErrors(errors: Array<HeliosError>): void {
 		var errorsDescriptions: string[] = [];
-
-		Array.prototype.forEach.call( errors, (err: HeliosError): void => {
+		Array.prototype.forEach.call(errors, (err: HeliosError): void => {
 			errorsDescriptions.push(err.description);
 			if (this.generalValidationErrors.indexOf(err.description) === -1) {
 				this.displayFieldValidationError(err);

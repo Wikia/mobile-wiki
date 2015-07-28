@@ -5,14 +5,14 @@ QUnit.module('auth/signup/SignupForm)', {
 		form.appendChild(document.createElement('button'));
 
 		this.generalErrorSpy = sinon.spy();
-		this.fieldErrorSpy = sinon.spy();
+		this.validationErrorsSpy = sinon.spy();
 		this.marketingStub = sinon.stub(window, 'MarketingOptIn').returns({
 			init: Function.prototype
 		});
 		this.formErrorsStub = sinon.stub(window, 'FormErrors').returns({
 			trackValidationErrors: Function.prototype,
 			displayGeneralError: this.generalErrorSpy,
-			displayValidationErrors: this.fieldErrorSpy,
+			displayValidationErrors: this.validationErrorsSpy,
 			clearValidationErrors: Function.prototype,
 			translateValidationError: Function.prototype
 		});
@@ -47,7 +47,7 @@ QUnit.test('SignupForm successful path', function () {
 	this.server.respond();
 
 	ok(this.generalErrorSpy.called === false);
-	ok(this.fieldErrorSpy.called === false);
+	ok(this.validationErrorsSpy.called === false);
 });
 
 QUnit.test('SignupForm general request error', function () {
@@ -60,7 +60,6 @@ QUnit.test('SignupForm general request error', function () {
 	this.server.respond();
 
 	ok(this.generalErrorSpy.calledOnce);
-	ok(this.fieldErrorSpy.called === false);
 });
 
 QUnit.test('SignupForm field error', function () {
@@ -71,10 +70,8 @@ QUnit.test('SignupForm field error', function () {
 
 	this.signupForm.onSubmit(document.createEvent('Event'));
 	this.server.respond();
-	ok(this.generalErrorSpy.called === false);
-	ok(this.fieldErrorSpy.called);
+	ok(this.validationErrorsSpy.called);
 });
-
 
 QUnit.test('SignupForm field and general error', function () {
 	this.server.respondWith(
@@ -85,6 +82,5 @@ QUnit.test('SignupForm field and general error', function () {
 	this.signupForm.onSubmit(document.createEvent('Event'));
 	this.server.respond();
 
-	ok(this.generalErrorSpy.called);
-	ok(this.fieldErrorSpy.called);
+	ok(this.validationErrorsSpy.called);
 });
