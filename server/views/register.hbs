@@ -30,10 +30,8 @@
 		<input type="hidden" name="langCode" value="{{langCode}}">
 		<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:register.register-action"}}</span></button>
 		<small class="terms-of-use">
-			{{i18n "auth:register.terms-of-use-text"}}
-			<a href="{{{termsOfUseLink}}}" target="_blank">
-				{{i18n "auth:register.terms-of-use-link"}}
-			</a>
+			{{i18n "auth:register.terms-of-use-text" }}
+			{{> link-blank linkUrl=termsOfUseLinkUrl linkTitle=termsOfUseLinkTitle}}
 		</small>
 	</form>
 </section>
