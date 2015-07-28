@@ -31,16 +31,11 @@ class SubmitValidator {
 			inputFields: NodeList = this.form.querySelectorAll('input[type=text], ' +
 			'input[type=password], input[type=number], input[type=email], input[type=checkbox]:required');
 
-
-		for (i = 0; i < inputFields.length; i++) {
-			input = <HTMLInputElement> inputFields[i];
-
-			if (!input.value || (input.type == 'checkbox' && !input.checked)) {
-				return false;
-			}
-		}
-		return true;
+		return Array.prototype.slice.call(inputFields, 0).every((input: HTMLInputElement): boolean => {
+			return input.value && !(input.type === 'checkbox' && !input.checked);
+		});
 	}
+
 
 	private activateSubmit ():void {
 		this.submitButton.disabled = false;
