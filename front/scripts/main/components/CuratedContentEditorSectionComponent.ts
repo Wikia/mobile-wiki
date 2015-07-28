@@ -9,6 +9,17 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
+	notEmptyItems: Em.computed.notEmpty('model.items'),
+
+	canSave: Em.computed('notEmptyItems', function (): boolean {
+			return this.get('notEmptyItems');
+		}
+	),
+
+	validateItems(): boolean {
+		return this.get('notEmptyItems');
+	},
+
 	actions: {
 		addItem(): void {
 			this.sendAction('addItem');
@@ -27,7 +38,9 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 		},
 
 		done(): void {
-			this.sendAction('done', this.get('model'));
+			if (this.validateItems()) {
+				this.sendAction('done', this.get('model'));
+			}
 		}
 	}
 });

@@ -1,7 +1,7 @@
 <header class="edit-head curated-content-editor-head">
 	{{#link-to 'curatedContentEditor.index'}}{{svg 'chevron' role='img' class='icon arrow-left'}}{{/link-to}}
 	{{!-- @TODO CONCF-956 add translations to Done --}}
-	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit">Done</button>
+	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit" disabled={{if canSave null 'disabled'}}>Done</button>
 	<div class="edit-head-title">{{model.label}}</div>
 </header>
 <div class="curated-content-section-details">
@@ -17,6 +17,10 @@
 		{{svg 'pen' role='img' class='icon pen'}}
 	</a>
 </div>
+{{#unless notEmptyItems}}
+		{{!-- @TODO CONCF-956 add translations --}}
+    <small class="error">Items are empty!</small>
+{{/unless}}
 {{#each model.items as |item|}}
 	{{curated-content-editor-row
 		model=item
