@@ -50,7 +50,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				alreadyUsedLabels = this.get('alreadyUsedLabels'),
 				errorMessage: string = null;
 
-			if (label.length === 0) {
+			if (!label.length) {
 				errorMessage = 'Label is empty';
 			} else if (label.length > 48) {
 				errorMessage = 'Label is too long';
@@ -73,7 +73,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			var title = this.get('model.title'),
 				errorMessage: string = null;
 
-			if (title.length === 0) {
+			if (!title.length) {
 				errorMessage = 'Title is empty';
 			} else if (title.length > 48) {
 				errorMessage = 'Title is too long';
