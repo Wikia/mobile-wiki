@@ -45,6 +45,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 
 			if (isNewSection) {
 				App.CuratedContentEditorModel.addItem(rootModel['curated'], newSection);
+				controller.set('isNewSection', null);
 			} else {
 				App.CuratedContentEditorModel.updateItem(rootModel['curated'], newSection, originalSectionLabel);
 			}

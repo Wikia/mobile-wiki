@@ -22,7 +22,9 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 
 		done(newSection: CuratedContentEditorItemModel): void {
 			this.transitionTo('curatedContentEditor.section', newSection, {
-				queryParams: {isNewSection: true}
+				queryParams: {
+					isNewSection: true
+				}
 			});
 		},
 
