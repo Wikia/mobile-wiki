@@ -6,17 +6,18 @@ $item-image-size: 4rem;
 $image-margin: 1rem;
 $image-size: 150px;
 
-.curated-content-edit-add-item-btn {
+.curated-content-editor-add-item-btn {
+	display: block;
 	font-weight: bold;
-	margin: $item-padding-vertical 0;
-	width: 100%;
+	margin: $item-padding-vertical auto;
+	width: 80%;
 }
 
-.curated-content-edit-head {
+.curated-content-editor-head {
 	position: static;
 }
 
-.curated-content-edit-block {
+.curated-content-editor-block {
 	background: $snow;
 
 	header {
@@ -32,11 +33,11 @@ $image-size: 150px;
 	}
 }
 
-.curated-content-edit-items {
+.curated-content-editor-rows {
 	padding-top: $module-padding-vertical;
 }
 
-.curated-content-edit-item {
+.curated-content-editor-row {
 	align-items: center;
 	background: $color-white;
 	border: {
@@ -81,6 +82,7 @@ $image-size: 150px;
 	background: $snow;
 	display: flex;
 	height: $image-size;
+	position: relative;
 
 	.section-image {
 		text-align: center;
@@ -115,4 +117,54 @@ $image-size: 150px;
 		line-height: 14px;
 		padding: 0 13px 10px;
 	}
+
+	.section-edit {
+		bottom: 1rem;
+		position: absolute;
+		right: 1rem;
+
+		svg {
+			fill: $color-blue-dark;
+			height: 1.75rem;
+			width: 1.75rem;
+		}
+	}
+}
+
+.curated-content-editor-submit {
+	margin-bottom: 0;
+}
+
+.curated-content-editor-photo {
+	padding-top: 14px;
+
+	img {
+		@extend %image-placeholder;
+		border: 1px solid transparent;
+		display: block;
+		height: 90vw;
+		margin: 0 auto;
+		max-width: 90%;
+		width: 90vw;
+	}
+	&.error {
+		img {
+			border-color: $input-border-error-color;
+		}
+		small.error {
+			margin: 0 auto;
+			max-width: 90%;
+		}
+	}
+}
+
+.curated-content-input-wrapper {
+	padding: 14px 18px;
+	padding-bottom: 0;
+}
+
+.curated-content-editor-remove {
+	color: $alert-color;
+	padding: 14px 18px;
+	text-transform: uppercase;
 }

@@ -1,14 +1,14 @@
-<div class="edit-head">
+<header class="edit-head">
 	<span {{action 'back'}}>
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	</span>
 	<button {{action 'upload'}} class="large publish">{{i18n 'app.add-photo-page-add-button'}}</button>
 
-	<h5>
+	<div class="edit-head-title">
 		{{! TODO: Ideally the title would be passed to the message so translators can choose the order (see HG-663) }}
 		{{i18n 'app.add-photo-page-heading'}} <span>{{model.title}}</span>
-	</h5>
-</div>
+	</div>
+</header>
 <div class="preview-body">
 	<div class="preview-container">
 
