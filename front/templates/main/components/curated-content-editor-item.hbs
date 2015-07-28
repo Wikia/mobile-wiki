@@ -1,8 +1,10 @@
-<form {{action 'updateItem' on='submit'}}>
+<form {{action 'done' on='submit'}}>
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
+		{{!-- @TODO CONCF-956 add translations to DONE --}}
 		<button class="large publish curated-content-editor-submit" type="submit" disabled={{if canSave null 'disabled'}}>Done</button>
-		<div class="edit-head-title">{{model.label}}</div>
+		{{!-- @TODO CONCF-956 add translations to Create new item --}}
+		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new{{/if}}</div>
 	</header>
 	<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}">
 		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
@@ -15,13 +17,14 @@
 			{{input
 				value=model.label
 				id='label'
-				class=getLabelClasses
+				class=labelClass
 				name='label'
 				key-down='labelInputEventHandler'
 				key-up='labelInputEventHandler'
 				focus-out='setLabelFocusedOut'
 				focus-in='setLabelFocusedIn'
 			}}
+			{{!-- @TODO CONCF-956 add translations to Enter a display name --}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
@@ -32,13 +35,14 @@
 				{{input
 					value=model.title
 					id='title'
-					class=getTitleClasses
+					class=titleClass
 					name='title'
 					key-down='titleInputEventHandler'
 					key-up='titleInputEventHandler'
 					focus-out='setTitleFocusedOut'
 					focus-in='setTitleFocusedIn'
 				}}
+				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>
 				{{#if titleErrorMessage}}
 					<small class="error">{{titleErrorMessage}}</small>
@@ -46,5 +50,6 @@
 			</div>
 		{{/unless}}
 	</div>
+	{{!-- @TODO CONCF-956 add translations to Delete item --}}
 	<a {{action 'deleteItem'}} class="curated-content-editor-remove">Delete item</a>
 </form>

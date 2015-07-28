@@ -29,9 +29,7 @@ App.Router.map(function () {
 		this.route('section', {
 			path: '/section/:section'
 		}, function () {
-			this.route('edit', {
-				path: '/edit'
-			});
+			this.route('edit');
 
 			this.route('addItem', {
 				path: '/add'
@@ -42,11 +40,15 @@ App.Router.map(function () {
 			});
 		});
 
-		this.route('addBlockItem', {
+		this.route('sectionAdd', {
+			path: '/curated/add'
+		});
+
+		this.route('blockAddItem', {
 			path: '/:block/add'
 		});
 
-		this.route('editBlockItem', {
+		this.route('blockEditItem', {
 			path: '/:block/:item/edit'
 		});
 

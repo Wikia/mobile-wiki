@@ -1,23 +1,16 @@
 /// <reference path="../app.ts" />
+///<reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+
 'use strict';
-App.CuratedContentEditorItemComponent = Em.Component.extend({
+App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, {
 	classNames: ['curated-content-editor-item'],
-	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
-	thumbnailer: Mercury.Modules.Thumbnailer,
 	imageSize: 300,
+	maxLabelLength: 48,
 	throttleDuration: 250,
 	debounceDuration: 250,
 
 	imageUrl: Em.computed('model', function (): string {
-		var model: CuratedContentEditorItemInterface = this.get('model'),
-			options: any = {
-				width: this.get('imageSize'),
-				height: this.get('imageSize'),
-				mode: this.get('cropMode')
-			};
-
-		return !Em.isEmpty(model.image_url) ? this.thumbnailer.getThumbURL(model.image_url, options) : this.emptyGif;
+		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
 	isSectionView: Em.computed.equal('model.node_type', 'section'),
@@ -42,87 +35,94 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		}
 	),
 
-	getLabelClasses: Em.computed('labelErrorMessage', function (): string {
-			return Em.isEmpty(this.get('labelErrorMessage')) ? '' : 'error'
-		}
-	),
-	getTitleClasses: Em.computed('titleErrorMessage', function (): string {
-			return Em.isEmpty(this.get('titleErrorMessage')) ? '' : 'error'
-		}
-	),
+	errorClass: 'error',
+	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
+	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
+
 
 	actions: {
-		setLabelFocusedOut (): void {
+		setLabelFocusedOut(): void {
+			this.validateLabel();
 			this.set('isLabelFocused', false);
 		},
 
-		setLabelFocusedIn (): void {
+		setLabelFocusedIn(): void {
+			this.validateLabel();
 			this.set('isLabelFocused', true);
 		},
 
-		labelInputEventHandler (): void {
+		validateLabel(): void {
 			Em.run.throttle(this, this.validateLabel, this.get('throttleDuration'));
 		},
 
-		setTitleFocusedOut (): void {
+		setTitleFocusedOut(): void {
+			this.validateTitle();
 			this.set('isTitleFocused', false);
 		},
 
-		setTitleFocusedIn (): void {
+		setTitleFocusedIn(): void {
+			this.validateTitle();
 			this.set('isTitleFocused', true);
 		},
 
-		titleInputEventHandler (): void {
+		validateTitle(): void {
 			Em.run.throttle(this, this.validateTitle, this.get('throttleDuration'));
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
-		goBack (): void {
+		goBack(): void {
 			this.sendAction('goBack');
 		},
 
-		updateItem (): void {
+		done(): void {
 			if (this.get('canSave')) {
-				this.sendAction('updateItem', this.get('model'));
+				this.sendAction('done', this.get('model'));
 			}
 		},
 
-		deleteItem (): void {
+		deleteItem(): void {
+			//@TODO CONCF-956 add translations
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');
 			}
 		}
 	},
 
-	validateLabel (): void {
-		var value = this.get('model.label'),
+	validateLabel(): void {
+		var label = this.get('model.label'),
+			alreadyUsedLabels = this.get('alreadyUsedLabels'),
 			errorMessage: string = null;
 
-		if (value.length === 0) {
+		if (!label || !label.length) {
+			//@TODO CONCF-956 add translations
 			errorMessage = 'Label is empty';
-		}
-		else if (value.length > 48) {
+		} else if (label.length > this.get('maxLabelLength')) {
+			//@TODO CONCF-956 add translations
 			errorMessage = 'Label is too long';
+		} else if (alreadyUsedLabels.indexOf(label) !== -1) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Label is duplicated';
 		}
 
 		this.set('labelErrorMessage', errorMessage);
 	},
 
-	validateTitle (): void {
-		var value = this.get('model.title'),
+	validateTitle(): void {
+		var title = this.get('model.title'),
 			errorMessage: string = null;
 
-		if (value.length === 0) {
+		if (!title || !title.length) {
+			//@TODO CONCF-956 add translations
 			errorMessage = 'Title is empty';
-		}
-		else if (value.length > 48) {
+		} else if (title.length > this.get('maxLabelLength')) {
+			//@TODO CONCF-956 add translations
 			errorMessage = 'Title is too long';
 		}
 
 		this.set('titleErrorMessage', errorMessage);
 	},
 
-	getImage (): void {
+	getImage(): void {
 		Em.$.ajax({
 			url: M.buildUrl({
 				path: '/wikia.php',

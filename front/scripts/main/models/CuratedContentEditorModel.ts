@@ -1,6 +1,18 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface CuratedContentEditorRawSectionInterface {
+	label: string;
+	image_id: number;
+	node_type: string;
+	items: CuratedContentEditorRawSectionInterface[]
+	image_url?: string;
+	featured?: string;
+	type?: string;
+}
+
+type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
+
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	curated: null,
@@ -8,7 +20,7 @@ App.CuratedContentEditorModel = Em.Object.extend({
 });
 
 App.CuratedContentEditorModel.reopenClass({
-	find: function (): Em.RSVP.Promise {
+	load(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
 				url: M.buildUrl({
@@ -39,15 +51,19 @@ App.CuratedContentEditorModel.reopenClass({
 	 * @param rawData
 	 * @returns {any}
 	 */
-	sanitize: function (rawData: any): typeof App.CuratedContentEditorModel {
-		var featured = {},
+	sanitize(rawData: any): CuratedContentEditorItemModel {
+		var featured = {
+				items: <any>[]
+			},
 			curated = {
 				items: <any>[]
 			},
-			optional = {};
+			optional = {
+				items: <any>[]
+			};
 
 		if (rawData.length) {
-			rawData.forEach(function (section: CuratedContentEditorItemInterface): void {
+			rawData.forEach((section: CuratedContentEditorRawSectionInterface): void => {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.label === '') {
@@ -65,83 +81,12 @@ App.CuratedContentEditorModel.reopenClass({
 		});
 	},
 
-	addBlockItem: function (
-		currentModel: typeof App.CuratedContentEditorModel,
-		newItem: CuratedContentEditorItemInterface,
-		block: string
-	): typeof App.CuratedContentEditorModel {
-		currentModel[block].items.push(newItem);
+	getItem(parent: CuratedContentEditorItemModel, itemLabel: string): CuratedContentEditorItemModel {
+		var item: CuratedContentEditorItemModel = null;
 
-		return currentModel;
-	},
-
-	addSectionItem: function (
-		sectionModel: CuratedContentEditorItemInterface,
-		newItem: CuratedContentEditorItemInterface
-	): void {
-		sectionModel.items.push(newItem);
-	},
-
-	updateBlockItem: function (
-		currentModel: typeof App.CuratedContentEditorModel,
-		newItem: CuratedContentEditorItemInterface,
-		blockName: string,
-		originalItem: any
-	): typeof App.CuratedContentEditorModel {
-		var blockItems = currentModel[blockName].items,
-			i: number;
-
-		for (i = 0; i < blockItems.length; i++) {
-			if (blockItems[i].label === originalItem.label) {
-				blockItems[i] = newItem;
-			}
-		}
-
-		return currentModel;
-	},
-
-	updateSectionItem(
-		sectionModel: CuratedContentEditorItemInterface,
-		newItem: CuratedContentEditorItemInterface,
-		originalItemLabel: string
-	): void {
-		var items = sectionModel.items,
-			i: number;
-
-		for (i = 0; i < items.length; i++) {
-			if (items[i].label === originalItemLabel) {
-				items[i] = newItem;
-				break;
-			}
-		}
-	},
-
-	updateSection: function (
-		currentModel: typeof App.CuratedContentEditorModel,
-		newSection: CuratedContentEditorItemInterface,
-		originalLabel: any
-	): void {
-		var sections = currentModel.curated.items,
-			i: number;
-
-		for (i = 0; i < sections.length; i++) {
-			if (sections[i].label === originalLabel) {
-				sections[i] = newSection;
-			}
-		}
-	},
-
-	getBlockItem(
-		model: typeof App.CuratedContentEditorModel,
-		blockName: string,
-		itemLabel: string
-	): CuratedContentEditorItemInterface {
-		var blockItems = model[blockName].items,
-			item: CuratedContentEditorItemInterface = null;
-
-		blockItems.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
+		parent.items.some((itemObj: CuratedContentEditorItemModel): boolean => {
 			if (itemObj.label === itemLabel) {
-				item = $.extend({}, itemObj);
+				item = App.CuratedContentEditorItemModel.createNew(itemObj);
 				return true;
 			}
 		});
@@ -149,66 +94,33 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	getSectionItem(
-		sectionModel: CuratedContentEditorItemInterface,
-		itemLabel: string
-	): CuratedContentEditorItemInterface {
-		var items = sectionModel.items,
-			item: CuratedContentEditorItemInterface = null;
+	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
+		return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
+			return childItem.label !== childLabel ? childItem.label : null
+		}).filter(String);
+	},
 
-		items.some(function (itemObj: CuratedContentEditorItemInterface): boolean {
-			if (itemObj.label === itemLabel) {
-				item = $.extend({}, itemObj);
-				return true;
+	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
+		parent.items.push(newItem);
+	},
+
+	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
+		parent.items.forEach((
+			item: CuratedContentEditorItemModel,
+			index: number,
+			parentItems: CuratedContentEditorItemModel[]
+		): void => {
+			if (item.label === itemLabel) {
+				parentItems[index] = newItem;
 			}
+		})
+	},
+
+	deleteItem(parent: CuratedContentEditorItemModel, itemLabel: string): void {
+		parent.items = parent.items.filter((
+				item: CuratedContentEditorItemModel
+			): boolean => {
+				return item.label !== itemLabel;
 		});
-
-		return item;
-	},
-
-	deleteBlockItem(
-		model: typeof App.CuratedContentEditorModel,
-		blockName: string,
-		itemToRemoval: CuratedContentEditorItemInterface
-	): void {
-		var blockItems = model[blockName].items,
-			i: number;
-
-		for (i = 0; i < blockItems.length; i++) {
-			if (blockItems[i].label === itemToRemoval.label) {
-				blockItems.splice(i, 1);
-			}
-		}
-	},
-
-	deleteSectionItem(
-		sectionModel: typeof App.CuratedContentEditorModel,
-		itemLabel: string
-	): typeof App.CuratedContentEditorModel {
-		var items: CuratedContentEditorItemInterface[] = sectionModel.items,
-			i: number;
-
-		for (i = 0; i < items.length; i++) {
-			if (items[i].label === itemLabel) {
-				items.splice(i, 1);
-				break;
-			}
-		}
-
-		return sectionModel;
-	},
-
-	deleteSection(
-		model: typeof App.CuratedContentEditorModel,
-		originalLabel: CuratedContentEditorItemInterface
-	): void {
-		var blockItems = model.curated.items,
-			i: number;
-
-		for (i = 0; i < blockItems.length; i++) {
-			if (blockItems[i].label === originalLabel) {
-				blockItems.splice(i, 1);
-			}
-		}
 	}
 });

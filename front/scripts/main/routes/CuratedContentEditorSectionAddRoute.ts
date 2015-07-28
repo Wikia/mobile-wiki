@@ -3,14 +3,16 @@
 
 'use strict';
 
-App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
+App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	model(): CuratedContentEditorItemModel {
-		return App.CuratedContentEditorItemModel.createNew();
+		return App.CuratedContentEditorItemModel.createNew({
+			node_type: 'section',
+			items: []
+		});
 	},
 
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var parentSection = this.modelFor('curatedContentEditor.section');
-
+		var parentSection = this.modelFor('curatedContentEditor').get('curated');
 		this._super(controller, model, transition);
 		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection));
 	},
@@ -21,16 +23,16 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 
 	actions: {
 		goBack(): void {
-			this.transitionTo('curatedContentEditor.section.index');
+			this.transitionTo('curatedContentEditor.index');
 		},
 
-		done(newItem: CuratedContentEditorItemModel): void {
-			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
-
-			App.CuratedContentEditorModel.addItem(sectionModel, newItem);
-			this.transitionTo('curatedContentEditor.section.index');
+		done(newSection: CuratedContentEditorItemModel): void {
+			this.transitionTo('curatedContentEditor.section', newSection, {
+				queryParams: {isNewSection: true}
+			});
 		},
 
+		// Delete section
 		deleteItem(): void {
 			this.send('goBack');
 		}

@@ -3,29 +3,25 @@
 
 'use strict';
 
-interface CuratedContentEditorEditSectionItemRouteParamsInterface {
-	section: string;
-	item: string;
-}
-
 App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
-	model: function (params: CuratedContentEditorEditSectionItemRouteParamsInterface) {
-		var item = decodeURIComponent(params.item),
-			sectionModel = this.modelFor('curatedContentEditor.section'),
-			itemModel = App.CuratedContentEditorModel.getSectionItem(sectionModel, item);
+	model(params: any): CuratedContentEditorItemModel {
+		var item: string = decodeURIComponent(params.item),
+			sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
-		return {
-			section: sectionModel.label, // TODO what is it for?
-			item: itemModel
-		};
+		return App.CuratedContentEditorModel.getItem(sectionModel, item);
 	},
 
-	setupController: function (controller: any, model: typeof App.CuratedContentEditorItemModel) {
-		this._super(controller, model);
-		controller.set('originalItemLabel', model.item.label);
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
+		var parentSection = this.modelFor('curatedContentEditor.section');
+
+		this._super(controller, model, transition);
+		controller.setProperties({
+			originalItemLabel: model.label,
+			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection, model.label)
+		});
 	},
 
-	renderTemplate: function (): void {
+	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
@@ -34,19 +30,21 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
-		updateItem(newItem: CuratedContentEditorItemInterface): void {
-			var sectionModel = this.modelFor('curatedContentEditor.section'),
-				originalItemLabel = this.controllerFor('curatedContentEditor.section.editItem').get('originalItemLabel');
+		done(newItem: CuratedContentEditorItemModel): void {
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
+				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
+				originalItemLabel: string = controller.get('originalItemLabel');
 
-			App.CuratedContentEditorModel.updateSectionItem(sectionModel, newItem, originalItemLabel);
+			App.CuratedContentEditorModel.updateItem(sectionModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
 		deleteItem(): void {
-			var sectionModel = this.modelFor('curatedContentEditor.section'),
-				originalItemLabel = this.controllerFor('curatedContentEditor.section.editItem').get('originalItemLabel');
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
+				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
+				originalItemLabel: string = controller.get('originalItemLabel');
 
-			App.CuratedContentEditorModel.deleteSectionItem(sectionModel, originalItemLabel);
+			App.CuratedContentEditorModel.deleteItem(sectionModel, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
 		}
 	}

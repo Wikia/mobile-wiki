@@ -2,7 +2,7 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-App.CuratedContentEditorSectionEditItemController = Em.Controller.extend({
+App.CuratedContentEditorBlockAddItemController = Em.Controller.extend({
 	originalItemLabel: null,
 	alreadyUsedLabels: []
 });
