@@ -30,5 +30,28 @@ App.CuratedContentEditorItemModel.reopenClass({
 		}, params);
 
 		return App.CuratedContentEditorItemModel.create(modelParams);
+	},
+
+	getImage(title: string, size: number): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax({
+				url: M.buildUrl({
+					path: '/wikia.php',
+				}),
+				data: {
+					controller: 'CuratedContent',
+					method: 'getImage',
+					title: title,
+					size: size,
+				},
+				dataType: 'json',
+				success: (data: any): void => {
+					resolve(data);
+				},
+				error: (err: any): void => {
+					reject(err);
+				}
+			});
+		});
 	}
 });

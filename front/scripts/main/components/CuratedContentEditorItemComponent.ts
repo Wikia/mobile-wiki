@@ -143,18 +143,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	},
 
 	getImage(): void {
-		Em.$.ajax({
-			url: M.buildUrl({
-				path: '/wikia.php',
-			}),
-			data: {
-				controller: 'CuratedContent',
-				method: 'getImage',
-				title: this.get('model.title'),
-				size: this.get('imageSize'),
-			},
-			dataType: 'json',
-			success: (data): void => {
+		App.CuratedContentEditorItemModel
+			.getImage(this.get('model.title'), this.get('imageSize'))
+			.then((data: any): void => {
 				if (data.url === '') {
 					//@TODO CONCF-956 add translations
 					this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
@@ -162,15 +153,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 					this.set('imageErrorMessage', null);
 				}
 				this.set('imageUrl', data.url);
-			},
-			error: (err: any): void => {
+			})
+			.catch((): void => {
 				//@TODO CONCF-956 add translations
 				this.set('imageErrorMessage', 'Oops! An API Error occured.');
-			},
-			complete: (): void => {
+			})
+			.finally((): void => {
 				this.hideLoader();
-			}
-		});
+			});
 	},
 
 	getImageDebounced(): void {
