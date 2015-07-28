@@ -4,10 +4,11 @@
 'use strict';
 
 App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
-	model: function (): typeof App.CuratedContentEditorItemModel {
+	model(): CuratedContentEditorItemModel {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
+<<<<<<< HEAD
 	getOtherItemLabels: function (block: string): string[] {
 		var items = this.modelFor('curatedContentEditor').get(block).items;
 
@@ -26,23 +27,33 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 			block: block,
 			otherItemLabels: this.getOtherItemLabels(block)
 		});
+=======
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
+		this._super(controller, model, transition);
+		controller.set('block', transition.params['curatedContentEditor.blockAddItem'].block);
+>>>>>>> origin/CONCF-806
 	},
 
-	renderTemplate: function (): void {
+	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
 	actions: {
-		goBack: function (): void {
+		goBack(): void {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		updateItem: function (newItem: CuratedContentEditorItemInterface) {
+		done(newItem: CuratedContentEditorItemModel): void {
 			var block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
-				currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor');
+				rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				blockModel: CuratedContentEditorItemModel = rootModel[block];
 
-			App.CuratedContentEditorModel.addBlockItem(currentModel, newItem, block);
+			App.CuratedContentEditorModel.addItem(blockModel, newItem);
 			this.transitionTo('curatedContentEditor.index');
+		},
+
+		deleteItem(): void {
+			this.send('goBack');
 		}
 	}
 });

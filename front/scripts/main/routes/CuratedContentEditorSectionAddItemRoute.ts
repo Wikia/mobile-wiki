@@ -4,10 +4,11 @@
 'use strict';
 
 App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
-	model: function (): typeof App.CuratedContentEditorItemModel {
+	model(): CuratedContentEditorItemModel {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
+<<<<<<< HEAD
 	getOtherItemLabels: function (): string[] {
 		var items = this.modelFor('curatedContentEditor.section').items;
 
@@ -20,19 +21,26 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 	},
 
 	renderTemplate: function (): void {
+=======
+	renderTemplate(): void {
+>>>>>>> origin/CONCF-806
 		this.render('curated-content-editor-item');
 	},
 
 	actions: {
-		goBack: function (): void {
+		goBack(): void {
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
-		updateItem: function (newItem: CuratedContentEditorItemInterface) {
-			var sectionModel = this.modelFor('curatedContentEditor.section');
+		done(newItem: CuratedContentEditorItemModel): void {
+			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
-			App.CuratedContentEditorModel.addSectionItem(sectionModel, newItem);
+			App.CuratedContentEditorModel.addItem(sectionModel, newItem);
 			this.transitionTo('curatedContentEditor.section.index');
+		},
+
+		deleteItem(): void {
+			this.send('goBack');
 		}
 	}
 });

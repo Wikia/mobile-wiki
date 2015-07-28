@@ -4,40 +4,56 @@
 'use strict';
 
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
-	model(params: any): any {
-		var section = decodeURIComponent(params.section),
-			currentModel = this.modelFor('curatedContentEditor');
-
-		return App.CuratedContentEditorModel.getBlockItem(currentModel, 'curated', section);
+	serialize(model: CuratedContentEditorItemModel): any {
+		return {
+			section: model.label
+		};
 	},
 
-	setupController(controller: any, model: typeof App.CuratedContentEditorItemModel): void {
-		this._super(controller, model);
-		controller.set('originalSectionLabel', model.label);
+	model(params: any): CuratedContentEditorItemModel {
+		var section: string = decodeURIComponent(params.section),
+			rootModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor');
+
+		return App.CuratedContentEditorModel.getItem(rootModel['curated'], section);
+	},
+
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
+		// If we passed model (not section name) to the route then it's a new section
+		var isNewSection = Em.typeOf(transition.intent.contexts[0]) === 'instance';
+
+		this._super(controller, model, transition);
+
+		controller.setProperties({
+			isNewSection: isNewSection,
+			originalSectionLabel: model.label
+		});
 	},
 
 	actions: {
-		goBack(): void {
-			this.transitionTo('curatedContentEditor.index');
-		},
-
-		addItem: function (): void  {
+		addItem(): void  {
 			this.transitionTo('curatedContentEditor.section.addItem');
 		},
 
-		editItem: function (item: CuratedContentEditorItemInterface): void {
+		editItem(item: CuratedContentEditorItemModel): void {
 			this.transitionTo('curatedContentEditor.section.editItem', encodeURIComponent(item.label));
 		},
 
-		editSection: function (): void {
+		editSection(): void {
 			this.transitionTo('curatedContentEditor.section.edit');
 		},
 
-		updateSection(newSection: CuratedContentEditorItemInterface): void {
-			var currentModel: typeof App.CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				originalSectionLabel = this.controllerFor('curatedContentEditor.section').get('originalSectionLabel');
+		done(newSection: CuratedContentEditorItemModel): void {
+			var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+				controller: any = this.controllerFor('curatedContentEditor.section'),
+				originalSectionLabel: string = controller.get('originalSectionLabel'),
+				isNewSection: boolean = controller.get('isNewSection');
 
-			App.CuratedContentEditorModel.updateSection(currentModel, newSection, originalSectionLabel);
+			if (isNewSection) {
+				App.CuratedContentEditorModel.addItem(rootModel['curated'], newSection);
+			} else {
+				App.CuratedContentEditorModel.updateItem(rootModel['curated'], newSection, originalSectionLabel);
+			}
+
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

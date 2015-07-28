@@ -4,28 +4,28 @@
 'use strict';
 
 App.CuratedContentEditorRoute = Em.Route.extend({
-	model: function (): Em.RSVP.Promise {
-		return App.CuratedContentEditorModel.find();
+	model(): Em.RSVP.Promise {
+		return App.CuratedContentEditorModel.load();
 	},
 
 	actions: {
-		addBlockItem: function (block: string): void {
+		addBlockItem(block: string): void {
 			this.transitionTo('curatedContentEditor.blockAddItem', block);
 		},
 
-		editBlockItem: function (item: CuratedContentEditorItemInterface, block: string): void {
+		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
 			this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 		},
 
-		addSection: function (): void {
+		addSection(): void {
 			this.transitionTo('curatedContentEditor.sectionAdd');
 		},
 
-		openSection: function (item: CuratedContentEditorItemInterface): void {
+		openSection(item: CuratedContentEditorItemModel): void {
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 		},
 
-		error: function (error: any): boolean {
+		error(error: any): boolean {
 			Em.Logger.error(error);
 			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
 			this.transitionTo('curatedContentEditor');
@@ -38,7 +38,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 		 * @param transition
 		 * @returns {boolean}
 		 */
-		willTransition: function(transition: EmberStates.Transition): boolean {
+		willTransition(transition: EmberStates.Transition): boolean {
 			if (transition.targetName.indexOf('curatedContentEditor') < 0) {
 				transition.then(() => {
 					this.controllerFor('application').set('fullPage', false);
@@ -47,7 +47,7 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			return true;
 		},
 
-		didTransition: function (): boolean {
+		didTransition(): boolean {
 			this.controllerFor('application').set('fullPage', true);
 			window.scrollTo(0, 0);
 			return true;
