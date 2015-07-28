@@ -1,3 +1,6 @@
+## release-121 (2015-07-28 10:00 UTC)
+* [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 upping sampling rate
+
 ## release-120 (2015-07-27 14:41 UTC)
 * [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 Renaming zh-tw to zh in mercury repository
 * add-explicit-method-param: Add event as explicit method param
