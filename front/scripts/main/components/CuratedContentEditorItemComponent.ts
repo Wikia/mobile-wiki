@@ -45,8 +45,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	),
 
 	titleObserver: Em.observer('model.title', function (): void {
-			this.validateTitle();
-			this.getImageDebounced();
+			this.set('imageUrl', App.CuratedContentEditorThumbnailMixin.emptyGif);
+
+			if (this.validateTitle()) {
+				this.getImageDebounced();
+			}
 		}
 	),
 
@@ -140,10 +143,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				if (data.url === '') {
 					//@TODO CONCF-956 add translations
 					this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
+					this.set('imageUrl', App.CuratedContentEditorThumbnailMixin.emptyGif);
 				} else {
 					this.set('imageErrorMessage', null);
+					this.set('imageUrl', data.url);
 				}
-				this.set('imageUrl', data.url);
 			})
 			.catch((): void => {
 				//@TODO CONCF-956 add translations
