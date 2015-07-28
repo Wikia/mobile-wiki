@@ -5,7 +5,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
-	imageSize: 200,
+	imageSize: 300,
 	throttleDuration: 250,
 	debounceDuration: 250,
 
@@ -130,8 +130,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			data: {
 				controller: 'CuratedContent',
 				method: 'getImage',
-				file: this.get('model.title'),
-				size: 300
+				title: this.get('model.title'),
+				size: this.get('imageSize'),
 			},
 			dataType: 'json',
 			success: (data): void => {
