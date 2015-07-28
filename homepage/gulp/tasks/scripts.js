@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	gutil = require('gulp-util'),
 	newer = require('gulp-newer'),
-	environment = require('../utils/environment'),
+	environment = require('../../../gulp/utils/environment.js'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.homepage,
 	path = require('path'),
@@ -36,8 +36,8 @@ gulp.task('scripts', ['tslint'], folders(paths.src, function (folder) {
 		.pipe(gulpif(environment.isProduction, uglify()))
 		.pipe(gulpif(!environment.isProduction, sourcemaps.write('.' , {
 			includeContent: true,
-			sourceRoot: '/ja/scripts/',
-			sourceMappingURLPrefix: '/ja/scripts/'
+			sourceRoot: '/scripts/',
+			sourceMappingURLPrefix: '/scripts/'
 		})))
 		.pipe(gulp.dest(paths.dest));
 }));

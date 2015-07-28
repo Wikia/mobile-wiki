@@ -2,7 +2,7 @@
 	Load appropriate options object based on environment
  */
 
-var environment = require('../utils/environment').name;
+var environment = require('../../../gulp/utils/environment.js').name;
 
 try {
 	module.exports = require('./' + environment);

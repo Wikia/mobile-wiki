@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 	path = require('path'),
 	paths = require('../paths').styles.homepage;
 
-gulp.task('sass', function () {
+gulp.task('sass', ['bower'], function () {
 	gulp.src(paths.src)
 	    .pipe(sass().on('error', sass.logError))
 	    .pipe(gulp.dest(paths.dest));

@@ -20,6 +20,7 @@
   "devDependencies": {
     "browser-sync": "^2.8.0",
     "gulp": "*",
+    "gulp-bower": "0.0.10",
     "gulp-concat": "^2.6.0",
     "gulp-develop-server": "*",
     "gulp-folders": "^1.1.0",
