@@ -36,8 +36,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	errorClass: 'error',
 	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
-	
-	validateLabel(): void {
+
+	validateLabel(): boolean {
 		var label = this.get('model.label'),
 			alreadyUsedLabels = this.get('alreadyUsedLabels'),
 			errorMessage: string = null;
@@ -54,21 +54,32 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		}
 
 		this.set('labelErrorMessage', errorMessage);
+
+		return !errorMessage;
 	},
 
-	validateTitle(): void {
-		var title = this.get('model.title'),
+	validateTitle(): boolean {
+		var title: string,
 			errorMessage: string = null;
 
-		if (!title || !title.length) {
-			//@TODO CONCF-956 add translations
-			errorMessage = 'Title is empty';
-		} else if (title.length > this.get('maxLabelLength')) {
-			//@TODO CONCF-956 add translations
-			errorMessage = 'Title is too long';
+		if (!this.get('isSectionView')) {
+			title = this.get('model.title');
+
+			if (!title || !title.length) {
+				//@TODO CONCF-956 add translations
+				errorMessage = 'Title is empty';
+			} else if (title.length > this.get('maxLabelLength')) {
+				//@TODO CONCF-956 add translations
+				errorMessage = 'Title is too long';
+			}
+
+			this.set('titleErrorMessage', errorMessage);
+
+			return !errorMessage;
+		} else {
+			return true;
 		}
 
-		this.set('titleErrorMessage', errorMessage);
 	},
 
 	actions: {
@@ -105,7 +116,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		done(): void {
-			if (this.get('canSave')) {
+			if (this.validateTitle() && this.validateLabel()) {
 				this.sendAction('done', this.get('model'));
 			}
 		},
