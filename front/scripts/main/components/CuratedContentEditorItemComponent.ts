@@ -51,10 +51,13 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				errorMessage: string = null;
 
 			if (!label.length) {
+				//@TODO CONCF-956 add translations
 				errorMessage = 'Label is empty';
 			} else if (label.length > 48) {
+				//@TODO CONCF-956 add translations
 				errorMessage = 'Label is too long';
 			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
+				//@TODO CONCF-956 add translations
 				errorMessage = 'Label is duplicated';
 			}
 
@@ -74,8 +77,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				errorMessage: string = null;
 
 			if (!title.length) {
+				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is empty';
 			} else if (title.length > 48) {
+				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is too long';
 			}
 
