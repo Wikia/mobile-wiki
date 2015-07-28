@@ -11,7 +11,7 @@
     "password_exceeds_max_length": "Password cannot exceed 50 characters",
     "password_equal_name": "Password and username cannot match",
     "birthdate_invalid": "Birthdate isn't a valid date",
-    "wrong-credentials": "Hm, we don't recognize these credentials. Please try again or register a new account.",
-    "server-error": "We're sorry, there was an error processing your request. Please try again later."
+    "wrong-credentials": "We don't recognize these credentials. Try again or register a new account.",
+    "server-error": "There was an error processing your request. Please try again later."
   }
 }
