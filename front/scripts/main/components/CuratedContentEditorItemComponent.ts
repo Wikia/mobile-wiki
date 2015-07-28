@@ -26,7 +26,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	titleErrorMessage: null,
 	imageErrorMessage: null,
 
-	canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', (): boolean => {
+	canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
 			return Em.isEmpty(this.get('labelErrorMessage')) &&
 				Em.isEmpty(this.get('titleErrorMessage')) &&
 				Em.isEmpty(this.get('imageErrorMessage'));
@@ -36,56 +36,68 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	errorClass: 'error',
 	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
+	
+	validateLabel(): void {
+		var label = this.get('model.label'),
+			alreadyUsedLabels = this.get('alreadyUsedLabels'),
+			errorMessage: string = null;
+
+		if (!label || !label.length) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Label is empty';
+		} else if (label.length > this.get('maxLabelLength')) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Label is too long';
+		} else if (alreadyUsedLabels.indexOf(label) !== -1) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Label is duplicated';
+		}
+
+		this.set('labelErrorMessage', errorMessage);
+	},
+
+	validateTitle(): void {
+		var title = this.get('model.title'),
+			errorMessage: string = null;
+
+		if (!title || !title.length) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Title is empty';
+		} else if (title.length > this.get('maxLabelLength')) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Title is too long';
+		}
+
+		this.set('titleErrorMessage', errorMessage);
+	},
 
 	actions: {
 		setLabelFocusedOut(): void {
+			this.validateLabel();
 			this.set('isLabelFocused', false);
 		},
 
 		setLabelFocusedIn(): void {
+			this.validateLabel();
 			this.set('isLabelFocused', true);
 		},
 
 		validateLabel(): void {
-			var label = this.get('model.label'),
-				alreadyUsedLabels = this.get('alreadyUsedLabels'),
-				errorMessage: string = null;
-
-			if (!label.length) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is empty';
-			} else if (label.length > this.get('maxLabelLength')) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is too long';
-			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is duplicated';
-			}
-
-			this.set('labelErrorMessage', errorMessage);
+			this.validateLabel();
 		},
 
 		setTitleFocusedOut(): void {
+			this.validateTitle();
 			this.set('isTitleFocused', false);
 		},
 
 		setTitleFocusedIn(): void {
+			this.validateTitle();
 			this.set('isTitleFocused', true);
 		},
 
 		validateTitle(): void {
-			var title = this.get('model.title'),
-				errorMessage: string = null;
-
-			if (!title.length) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Title is empty';
-			} else if (title.length > this.get('maxLabelLength')) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Title is too long';
-			}
-
-			this.set('titleErrorMessage', errorMessage);
+			this.validateTitle();
 		},
 
 		goBack(): void {

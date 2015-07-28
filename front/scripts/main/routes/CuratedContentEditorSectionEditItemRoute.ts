@@ -11,19 +11,13 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getItem(sectionModel, item);
 	},
 
-	getAlreadyUsedLabels(label: string = null): string[] {
-		var items = this.modelFor('curatedContentEditor.section').items;
-
-		return items.map((item: CuratedContentEditorItemModel): string => {
-			return item.label !== label ? item.label : null
-		}).filter(String);
-	},
-
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
+		var parentSection = this.modelFor('curatedContentEditor.section');
+
 		this._super(controller, model, transition);
 		controller.setProperties({
 			originalItemLabel: model.label,
-			alreadyUsedLabels: this.getAlreadyUsedLabels(model.label)
+			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection, model.label)
 		});
 	},
 

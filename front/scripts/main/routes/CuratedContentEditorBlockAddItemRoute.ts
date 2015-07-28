@@ -8,19 +8,14 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
-	getAlreadyUsedLabels: function (block: string): string[] {
-		var items = this.modelFor('curatedContentEditor').get(block).items;
-
-		return items.map((item: CuratedContentEditorItemModel): string => { return item.label }).filter(String);
-	},
-
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var block = transition.params['curatedContentEditor.blockAddItem'].block;
+		var block = transition.params['curatedContentEditor.blockAddItem'].block,
+			parentSection = this.modelFor('curatedContentEditor').get(block);
 
 		this._super(controller, model, transition);
 		controller.setProperties({
 			block: block,
-			alreadyUsedLabels: this.getAlreadyUsedLabels(block)
+			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection)
 		});
 	},
 

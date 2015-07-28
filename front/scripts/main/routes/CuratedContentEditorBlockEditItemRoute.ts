@@ -13,22 +13,15 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getItem(blockModel, item);
 	},
 
-	getAlreadyUsedLabels(block: string, label: string = null): string[] {
-		var items = this.modelFor('curatedContentEditor').get(block).items;
-
-		return items.map((item: CuratedContentEditorItemModel): string => {
-			return item.label !== label ? item.label : null
-		}).filter(String);
-	},
-
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var block = transition.params['curatedContentEditor.blockEditItem'].block;
+		var block = transition.params['curatedContentEditor.blockEditItem'].block,
+			parentSection = this.modelFor('curatedContentEditor').get(block);
 
 		this._super(controller, model, transition);
 		controller.setProperties({
 			originalItemLabel: model.label,
 			block: block,
-			alreadyUsedLabels: this.getAlreadyUsedLabels(block, model.label)
+			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection, model.label)
 		});
 	},
 

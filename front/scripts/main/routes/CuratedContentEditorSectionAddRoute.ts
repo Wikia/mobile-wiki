@@ -11,15 +11,10 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		});
 	},
 
-	getAlreadyUsedLabels(): string[] {
-		var items = this.modelFor('curatedContentEditor').get('curated').items;
-
-		return items.map((item: CuratedContentEditorItemModel): string => { return item.label }).filter(String);
-	},
-
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
+		var parentSection = this.modelFor('curatedContentEditor').get('curated');
 		this._super(controller, model, transition);
-		controller.set('alreadyUsedLabels', this.getAlreadyUsedLabels());
+		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection));
 	},
 
 	renderTemplate(): void {
