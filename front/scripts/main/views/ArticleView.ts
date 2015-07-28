@@ -313,8 +313,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	shouldShowWikiaInYourLang: function(): boolean {
 		var value = window.localStorage.getItem('wikiaInYourLang.alertDismissed'),
 		    now = new Date().getTime(),
-			hasNotCloseWikiaInYourLangAlert = !value || (now - value > 86400000), //1 day 86400000
+		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
 		    isJpOnNonJpWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
-		return hasNotCloseWikiaInYourLangAlert && isJpOnNonJpWikia;
+		return notDismissed && isJpOnNonJpWikia;
 	}
 });

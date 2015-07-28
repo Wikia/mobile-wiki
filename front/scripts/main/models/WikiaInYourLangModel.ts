@@ -11,7 +11,7 @@ App.WikiaInYourLangModel = Em.Object.extend({
 App.WikiaInYourLangModel.reopenClass({
 	load: function(): Em.RSVP.Promise {
 		var browserLang = navigator.language || navigator.browserLanguage,
-		    model = App.WikiaInYourLangModel.checkCacheForLoad(browserLang); //read from cache
+		    model = App.WikiaInYourLangModel.getFromCache(browserLang); //read from cache
 
 		if (model) {
 			return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
@@ -47,7 +47,7 @@ App.WikiaInYourLangModel.reopenClass({
 		});
 	},
 
-	checkCacheForLoad: function(browserLang: string): typeof App.WikiaInYourLangModel {
+	getFromCache: function(browserLang: string): typeof App.WikiaInYourLangModel {
 		var key = App.WikiaInYourLangModel.getCacheKey(browserLang),
 		    valueJson = JSON.parse(window.localStorage.getItem(key)),
 		    now = new Date().getTime();
@@ -58,6 +58,6 @@ App.WikiaInYourLangModel.reopenClass({
 	},
 
 	getCacheKey: function(lang: string): string {
-		return lang + '-' + window.location.host;
+		return lang + '-WikiaInYourLang';
 	}
 });
