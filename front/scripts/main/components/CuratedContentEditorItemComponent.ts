@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 
 'use strict';
-App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, {
+App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, App.LoadingSpinnerMixin, {
 	classNames: ['curated-content-editor-item'],
 	imageSize: 300,
 	maxLabelLength: 48,
@@ -40,34 +41,37 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
 
+	labelObserver: Em.observer('model.title', function (): void {
+			this.validateLabelThrottled();
+		}
+	),
+
+	titleObserver: Em.observer('model.title', function (): void {
+			this.validateTitleThrottled();
+			this.getImageDebounced();
+			this.showLoader();
+		}
+	),
+
 	actions: {
 		setLabelFocusedOut(): void {
-			this.validateLabel();
+			this.validateLabelThrottled();
 			this.set('isLabelFocused', false);
 		},
 
 		setLabelFocusedIn(): void {
-			this.validateLabel();
+			this.validateLabelThrottled();
 			this.set('isLabelFocused', true);
 		},
 
-		validateLabel(): void {
-			Em.run.throttle(this, this.validateLabel, this.get('throttleDuration'));
-		},
-
 		setTitleFocusedOut(): void {
-			this.validateTitle();
+			this.validateTitleThrottled();
 			this.set('isTitleFocused', false);
 		},
 
 		setTitleFocusedIn(): void {
-			this.validateTitle();
+			this.validateTitleThrottled();
 			this.set('isTitleFocused', true);
-		},
-
-		validateTitle(): void {
-			Em.run.throttle(this, this.validateTitle, this.get('throttleDuration'));
-			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
 		goBack(): void {
@@ -93,7 +97,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			alreadyUsedLabels = this.get('alreadyUsedLabels'),
 			errorMessage: string = null;
 
-		if (!label || !label.length) {
+		if (Em.isEmpty(label)) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Label is empty';
 		} else if (label.length > this.get('maxLabelLength')) {
@@ -107,11 +111,15 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		this.set('labelErrorMessage', errorMessage);
 	},
 
+	validateLabelThrottled(): void {
+		Em.run.throttle(this, this.validateLabel, this.get('throttleDuration'));
+	},
+
 	validateTitle(): void {
 		var title = this.get('model.title'),
 			errorMessage: string = null;
 
-		if (!title || !title.length) {
+		if (Em.isEmpty(title)) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Title is empty';
 		} else if (title.length > this.get('maxLabelLength')) {
@@ -120,6 +128,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		}
 
 		this.set('titleErrorMessage', errorMessage);
+	},
+
+	validateTitleThrottled(): void {
+		Em.run.throttle(this, this.validateTitle, this.get('throttleDuration'));
 	},
 
 	getImage(): void {
@@ -144,7 +156,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			},
 			error: (err: any): void => {
 				this.set('imageErrorMessage', 'Oops! An API Error occured.');
+			},
+			complete: (): void => {
+				this.hideLoader();
 			}
 		});
+	},
+
+	getImageDebounced(): void {
+		Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 	}
 });

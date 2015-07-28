@@ -137,6 +137,7 @@ $image-size: 150px;
 
 .curated-content-editor-photo {
 	padding-top: 14px;
+	position: relative;
 
 	img {
 		@extend %image-placeholder;
@@ -147,11 +148,13 @@ $image-size: 150px;
 		max-width: 90%;
 		width: 90vw;
 	}
+
 	&.error {
 		img {
 			border-color: $input-border-error-color;
 		}
-		small.error {
+
+		small {
 			margin: 0 auto;
 			max-width: 90%;
 		}

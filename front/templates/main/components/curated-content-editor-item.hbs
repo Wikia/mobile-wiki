@@ -11,6 +11,7 @@
 		{{#if imageErrorMessage}}
 			<small class="error">{{imageErrorMessage}}</small>
 		{{/if}}
+		{{loading-spinner active=isLoading overlay=false}}
 	</div>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
@@ -19,8 +20,6 @@
 				id='label'
 				class=labelClass
 				name='label'
-				key-down='labelInputEventHandler'
-				key-up='labelInputEventHandler'
 				focus-out='setLabelFocusedOut'
 				focus-in='setLabelFocusedIn'
 			}}
@@ -37,8 +36,6 @@
 					id='title'
 					class=titleClass
 					name='title'
-					key-down='titleInputEventHandler'
-					key-up='titleInputEventHandler'
 					focus-out='setTitleFocusedOut'
 					focus-in='setTitleFocusedIn'
 				}}
