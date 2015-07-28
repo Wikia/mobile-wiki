@@ -33,7 +33,7 @@ class SignupForm {
 		this.redirect = this.redirect || '/';
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
-        this.formErrors = new FormErrors(this.form);
+        this.formErrors = new FormErrors(this.form, 'registrationValidationErrors');
 	}
 
 	private getFormValues(): HeliosRegisterInput {

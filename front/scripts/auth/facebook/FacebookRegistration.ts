@@ -39,7 +39,7 @@ class FacebookRegistration {
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
 		this.redirect = this.redirect || '/';
-        this.formErrors = new FormErrors(this.form);
+        this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors');
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
