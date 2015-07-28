@@ -40,7 +40,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
-
 	labelObserver: Em.observer('model.title', function (): void {
 			this.validateLabelThrottled();
 		}
@@ -79,7 +78,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		done(): void {
-			if (this.get('canSave')) {
+			if (this.validateTitle() && this.validateLabel()) {
 				this.sendAction('done', this.get('model'));
 			}
 		},
@@ -92,7 +91,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		}
 	},
 
-	validateLabel(): void {
+	validateLabel(): boolean {
 		var label = this.get('model.label'),
 			alreadyUsedLabels = this.get('alreadyUsedLabels'),
 			errorMessage: string = null;
@@ -109,25 +108,35 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		}
 
 		this.set('labelErrorMessage', errorMessage);
+
+		return !errorMessage;
 	},
 
 	validateLabelThrottled(): void {
 		Em.run.throttle(this, this.validateLabel, this.get('throttleDuration'));
 	},
 
-	validateTitle(): void {
-		var title = this.get('model.title'),
+	validateTitle(): boolean {
+		var title: string,
 			errorMessage: string = null;
 
-		if (Em.isEmpty(title)) {
-			//@TODO CONCF-956 add translations
-			errorMessage = 'Title is empty';
-		} else if (title.length > this.get('maxLabelLength')) {
-			//@TODO CONCF-956 add translations
-			errorMessage = 'Title is too long';
-		}
+		if (!this.get('isSectionView')) {
+			title = this.get('model.title');
 
-		this.set('titleErrorMessage', errorMessage);
+			if (Em.isEmpty(title)) {
+				//@TODO CONCF-956 add translations
+				errorMessage = 'Title is empty';
+			} else if (title.length > this.get('maxLabelLength')) {
+				//@TODO CONCF-956 add translations
+				errorMessage = 'Title is too long';
+			}
+
+			this.set('titleErrorMessage', errorMessage);
+
+			return !errorMessage;
+		} else {
+			return true;
+		}
 	},
 
 	validateTitleThrottled(): void {
