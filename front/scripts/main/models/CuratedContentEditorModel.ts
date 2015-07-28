@@ -111,14 +111,10 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	deleteItem(parent: CuratedContentEditorItemModel, itemLabel: string): void {
-		parent.items.forEach((
-				item: CuratedContentEditorItemModel,
-				index: number,
-				parentItems: CuratedContentEditorItemModel[]
-			): void => {
-			if (item.label === itemLabel) {
-				parentItems.splice(index, 1);
-			}
+		parent.items = parent.items.filter((
+				item: CuratedContentEditorItemModel
+			): boolean => {
+				return item.label !== itemLabel;
 		});
 	}
 });
