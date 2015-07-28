@@ -47,7 +47,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	titleObserver: Em.observer('model.title', function (): void {
 			this.set('imageUrl', App.CuratedContentEditorThumbnailMixin.emptyGif);
 
-			if (this.get('model.title') === ''){
+			if (Em.isEmpty(this.get('model.title'))) {
 				this.set('imageErrorMessage', null);
 			}
 
@@ -127,9 +127,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			if (Em.isEmpty(title)) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is empty';
-			} else if (title.length > this.get('maxLabelLength')) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Title is too long';
 			}
 
 			this.set('titleErrorMessage', errorMessage);
