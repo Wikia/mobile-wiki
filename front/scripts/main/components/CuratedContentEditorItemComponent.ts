@@ -134,7 +134,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 				path: '/wikia.php',
 			}),
 			data: {
-				controller: 'CuratedContentSpecial',
+				controller: 'CuratedContent',
 				method: 'getImage',
 				file: this.get('model.title'),
 				size: 300
