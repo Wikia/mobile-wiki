@@ -52,11 +52,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	),
 
 	actions: {
-		setLabelFocusedOut(): void {
+		setLabelFocusedOut (): void {
 			this.set('isLabelFocused', false);
 		},
 
-		setLabelFocusedIn(): void {
+		setLabelFocusedIn (): void {
 			this.set('isLabelFocused', true);
 		},
 
@@ -64,11 +64,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			Em.run.throttle(this, this.validateLabel, this.get('throttleDuration'));
 		},
 
-		setTitleFocusedOut(): void {
+		setTitleFocusedOut (): void {
 			this.set('isTitleFocused', false);
 		},
 
-		setTitleFocusedIn(): void {
+		setTitleFocusedIn (): void {
 			this.set('isTitleFocused', true);
 		},
 
@@ -77,24 +77,24 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
-		goBack(): void {
+		goBack (): void {
 			this.sendAction('goBack');
 		},
 
-		updateItem(): void {
+		updateItem (): void {
 			if (this.get('canSave')) {
 				this.sendAction('updateItem', this.get('model'));
 			}
 		},
 
-		deleteItem(): void {
+		deleteItem (): void {
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');
 			}
 		}
 	},
 
-	validateLabel(): void {
+	validateLabel (): void {
 		var value = this.get('model.label'),
 			errorMessage: string = null;
 
@@ -108,7 +108,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		this.set('labelErrorMessage', errorMessage);
 	},
 
-	validateTitle(): void {
+	validateTitle (): void {
 		var value = this.get('model.title'),
 			errorMessage: string = null;
 
