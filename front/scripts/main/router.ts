@@ -23,17 +23,34 @@ App.Router.map(function () {
 		});
 	});
 
-	this.route('curatedContentEdit', {
+	this.route('curatedContentEditor', {
 		path: '/main/edit'
 	}, function () {
 		this.route('section', {
-			path: '/section/:sectionLabel'
+			path: '/section/:section'
+		}, function () {
+			this.route('edit');
+
+			this.route('addItem', {
+				path: '/add'
+			});
+
+			this.route('editItem', {
+				path: '/:item/edit'
+			});
 		});
 
-		// TODO CONCF-806
-		//this.route('editItem', {
-		//	path: '/main/edit/item/:itemLabel'
-		//});
+		this.route('sectionAdd', {
+			path: '/curated/add'
+		});
+
+		this.route('blockAddItem', {
+			path: '/:block/add'
+		});
+
+		this.route('blockEditItem', {
+			path: '/:block/:item/edit'
+		});
 
 		// When user tries to load invalid path under /main/edit/* we redirect to /main/edit
 		this.route('invalid', {

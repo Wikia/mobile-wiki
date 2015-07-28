@@ -1,0 +1,29 @@
+<header class="edit-head curated-content-editor-head">
+	{{#link-to 'curatedContentEditor.index'}}{{svg 'chevron' role='img' class='icon arrow-left'}}{{/link-to}}
+	{{!-- @TODO CONCF-956 add translations to Done --}}
+	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit">Done</button>
+	<div class="edit-head-title">{{model.label}}</div>
+</header>
+<div class="curated-content-section-details">
+	<div class="section-image">
+		<img src="{{thumbUrl}}"/>
+	</div>
+	<div class="section-desc">
+		<div class="section-label">{{model.label}}</div>
+		{{!-- @TODO CONCF-956 add translations items --}}
+		<div class="section-items-count">{{model.items.length}} items</div>
+	</div>
+	<a {{action 'editSection'}} class='section-edit'>
+		{{svg 'pen' role='img' class='icon pen'}}
+	</a>
+</div>
+{{#each model.items as |item|}}
+	{{curated-content-editor-row
+		model=item
+		editItem='editItem'
+	}}
+{{/each}}
+<div class="curated-content-editor-item">
+	{{!-- @TODO CONCF-956 add translations to + add new category --}}
+	<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">+ add new category</button>
+</div>
