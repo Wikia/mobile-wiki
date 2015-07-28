@@ -46,7 +46,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 
 	titleObserver: Em.observer('model.title', function (): void {
 			this.set('imageUrl', App.CuratedContentEditorThumbnailMixin.emptyGif);
-			this.set('imageErrorMessage', null);
+
+			if (this.get('model.title') === ''){
+				this.set('imageErrorMessage', null);
+			}
 
 			if (this.validateTitle()) {
 				this.getImageDebounced();
