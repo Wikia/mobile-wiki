@@ -41,34 +41,34 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
 	labelObserver: Em.observer('model.label', function (): void {
-			this.validateLabelThrottled();
+			this.validateLabel();
 		}
 	),
 
 	titleObserver: Em.observer('model.title', function (): void {
-			this.validateTitleThrottled();
+			this.validateTitle();
 			this.getImageDebounced();
 		}
 	),
 
 	actions: {
 		setLabelFocusedOut(): void {
-			this.validateLabelThrottled();
+			this.validateLabel();
 			this.set('isLabelFocused', false);
 		},
 
 		setLabelFocusedIn(): void {
-			this.validateLabelThrottled();
+			this.validateLabel();
 			this.set('isLabelFocused', true);
 		},
 
 		setTitleFocusedOut(): void {
-			this.validateTitleThrottled();
+			this.validateTitle();
 			this.set('isTitleFocused', false);
 		},
 
 		setTitleFocusedIn(): void {
-			this.validateTitleThrottled();
+			this.validateTitle();
 			this.set('isTitleFocused', true);
 		},
 
@@ -111,10 +111,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		return !errorMessage;
 	},
 
-	validateLabelThrottled(): void {
-		Em.run.throttle(this, this.validateLabel, this.get('throttleDuration'));
-	},
-
 	validateTitle(): boolean {
 		var title: string,
 			errorMessage: string = null;
@@ -136,10 +132,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		} else {
 			return true;
 		}
-	},
-
-	validateTitleThrottled(): void {
-		Em.run.throttle(this, this.validateTitle, this.get('throttleDuration'));
 	},
 
 	getImage(): void {
