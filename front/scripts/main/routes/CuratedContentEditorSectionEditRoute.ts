@@ -5,7 +5,7 @@
 
 App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 	model(): CuratedContentEditorItemModel {
-		return this.modelFor('curatedContentEditor.section');
+		return $.extend(true, {}, this.modelFor('curatedContentEditor.section'));
 	},
 
 	renderTemplate(): void {
@@ -18,7 +18,6 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(sectionModel.label));
 		},
 
-		// Update section
 		done(newSection: CuratedContentEditorItemModel): void {
 			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
