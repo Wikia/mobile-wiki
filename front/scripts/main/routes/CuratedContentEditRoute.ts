@@ -15,7 +15,7 @@ App.CuratedContentEditRoute = Em.Route.extend({
 		},
 
 		error: function (error: any): boolean {
-			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
+			this.controllerFor('application').addAlert({ type: 'warning', message: i18n.t('app.curated-content-error-other') });
 			this.transitionTo('mainPage');
 			return true;
 		},

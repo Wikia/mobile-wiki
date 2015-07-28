@@ -25,7 +25,9 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 
 			App.CuratedContentModel.loadMore(this.get('model'))
 				.catch((reason: any): void => {
-					this.controllerFor('application').addAlert('error', i18n.t('app.curated-content-error-load-more-items'));
+					this.controllerFor('application').addAlert(
+						{ type: 'error', message: i18n.t('app.curated-content-error-load-more-items') }
+					);
 					Em.Logger.error(reason);
 				})
 				.finally((): void => {

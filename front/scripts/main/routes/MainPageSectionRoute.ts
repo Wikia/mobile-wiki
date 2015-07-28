@@ -39,15 +39,15 @@ App.MainPageSectionRoute = Em.Route.extend({
 			model: {
 				curatedContent: model
 			}
-		})
+		});
 	},
 
 	actions: {
 		error: function (error: any): boolean {
 			if (error && error.status === 404) {
-				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-section-not-found'));
+				this.controllerFor('application').addAlert({ type: 'warning', message: i18n.t('app.curated-content-error-section-not-found') });
 			} else {
-				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
+				this.controllerFor('application').addAlert({ type: 'warning', message: i18n.t('app.curated-content-error-other') });
 			}
 			this.transitionTo('mainPage');
 			return true;

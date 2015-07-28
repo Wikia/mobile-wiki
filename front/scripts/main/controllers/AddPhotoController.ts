@@ -12,7 +12,7 @@ App.AddPhotoController = Em.Controller.extend({
 	handleAddContentSuccess: function(data: any): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
-			this.get('controllers.application').addAlert('success', i18n.t('app.add-photo-success'));
+			this.get('controllers.application').addAlert({ type: 'success', message: i18n.t('app.add-photo-success') });
 		});
 		M.track({
 			action: M.trackActions.impression,
@@ -32,7 +32,7 @@ App.AddPhotoController = Em.Controller.extend({
 		var appController = this.get('controllers.application'),
 			errorMsg = this.errorCodeMap[error] || 'app.add-photo-error';
 
-		appController.addAlert('alert', i18n.t(errorMsg));
+		appController.addAlert({ type: 'alert', message: i18n.t(errorMsg) });
 		appController.hideLoader();
 
 		M.track({

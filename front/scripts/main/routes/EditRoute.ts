@@ -10,7 +10,7 @@ App.EditRoute = Em.Route.extend({
 
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): boolean {
-			this.controllerFor('application').addAlert('alert', i18n.t('app.edit-load-error'));
+			this.controllerFor('application').addAlert({ type: 'alert', message: i18n.t('app.edit-load-error') });
 			M.track({
 				action: M.trackActions.impression,
 				category: 'sectioneditor',

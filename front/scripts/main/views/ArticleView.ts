@@ -288,26 +288,34 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 	},
 
 	createAlert: function(model: typeof App.WikiaInYourLangModel): void {
-		var appController = this.get('controller').get('controllers.application');
-		appController.addAlert('', model.message, 60000, true, {
-			onInsertElement: function(alert: any): void {
-				alert.on('click', 'a:not(.close)', (event: any) => {
+		var appController = this.get('controller').get('controllers.application'),
+		    alertData = {
+			type: '',
+			message: model.message,
+			expiry: 60000,
+			unsafe: true,
+			callbacks: {
+				onInsertElement: function(alert: any): void {
+					alert.on('click', 'a:not(.close)', (event: any) => {
+						M.track({
+							action: M.trackActions.click,
+							category: 'wikiaInYourLangAlert',
+							label: 'link'
+						});
+					});
+				},
+				onCloseAlert: function(): void {
+					window.localStorage.setItem('wikiaInYourLang.alertDismissed', new Date().getTime().toString());
 					M.track({
 						action: M.trackActions.click,
 						category: 'wikiaInYourLangAlert',
-						label: 'link'
+						label: 'close'
 					});
-				});
-			},
-			onCloseAlert: function(): void {
-				window.localStorage.setItem('wikiaInYourLang.alertDismissed', new Date().getTime().toString());
-				M.track({
-					action: M.trackActions.click,
-					category: 'wikiaInYourLangAlert',
-					label: 'close'
-				});
+				}
 			}
-		});
+		    };
+
+		appController.addAlert(alertData);
 	},
 
 	shouldShowWikiaInYourLang: function(): boolean {
