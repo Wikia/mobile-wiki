@@ -6,6 +6,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	imageSize: 200,
+	throttleDuration: 250,
 	debounceDuration: 250,
 
 	imageUrl: Em.computed('model', function (): string {
@@ -60,7 +61,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		},
 
 		labelInputEventHandler (): void {
-			Em.run.debounce(this, this.validateLabel, this.get('debounceDuration'));
+			Em.run.throttle(this, this.validateLabel, this.get('throttleDuration'));
 		},
 
 		setTitleFocusedOut(): void {
@@ -72,29 +73,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		},
 
 		titleInputEventHandler (): void {
-			Em.run.debounce(this, this.validateTitle, this.get('debounceDuration'));
-
-			Em.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php',
-				}),
-				data: {
-					controller: 'CuratedContentSpecial',
-					method: 'getImage',
-					file: encodeURIComponent(this.get('model.title'))
-				},
-				dataType: 'json',
-				success: (data): void => {
-					if (data.url === '') {
-						this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
-					} else {
-						this.set('imageUrl', data.url);
-					}
-				},
-				error: (err: any): void => {
-					this.set('imageErrorMessage', 'Oops, API Error occured.');
-				}
-			});
+			Em.run.throttle(this, this.validateTitle, this.get('throttleDuration'));
+			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
 		goBack(): void {
@@ -145,4 +125,32 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 
 		this.set('titleErrorMessage', errorMessage);
 	},
+
+	getImage (): void {
+		console.log('getImage');
+
+		Em.$.ajax({
+			url: M.buildUrl({
+				path: '/wikia.php',
+			}),
+			data: {
+				controller: 'CuratedContentSpecial',
+				method: 'getImage',
+				file: this.get('model.title'),
+				size: 300
+			},
+			dataType: 'json',
+			success: (data): void => {
+				if (data.url === '') {
+					this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
+				} else {
+					this.set('imageErrorMessage', null);
+				}
+				this.set('imageUrl', data.url);
+			},
+			error: (err: any): void => {
+				this.set('imageErrorMessage', 'Oops! An API Error occured.');
+			}
+		});
+	}
 });
