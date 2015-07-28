@@ -40,7 +40,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
-	labelObserver: Em.observer('model.title', function (): void {
+	labelObserver: Em.observer('model.label', function (): void {
 			this.validateLabelThrottled();
 		}
 	),
@@ -48,7 +48,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	titleObserver: Em.observer('model.title', function (): void {
 			this.validateTitleThrottled();
 			this.getImageDebounced();
-			this.showLoader();
 		}
 	),
 
@@ -157,6 +156,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			dataType: 'json',
 			success: (data): void => {
 				if (data.url === '') {
+					//@TODO CONCF-956 add translations
 					this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
 				} else {
 					this.set('imageErrorMessage', null);
@@ -164,6 +164,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				this.set('imageUrl', data.url);
 			},
 			error: (err: any): void => {
+				//@TODO CONCF-956 add translations
 				this.set('imageErrorMessage', 'Oops! An API Error occured.');
 			},
 			complete: (): void => {
@@ -173,6 +174,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	},
 
 	getImageDebounced(): void {
+		this.showLoader();
 		Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 	}
 });
