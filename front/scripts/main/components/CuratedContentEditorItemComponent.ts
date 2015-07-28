@@ -40,14 +40,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend({
 		}
 	),
 
-	getLabelClasses: Em.computed('labelErrorMessage', function (): string {
-			return Em.isEmpty(this.get('labelErrorMessage')) ? '' : 'error'
-		}
-	),
-	getTitleClasses: Em.computed('titleErrorMessage', function (): string {
-			return Em.isEmpty(this.get('titleErrorMessage')) ? '' : 'error'
-		}
-	),
+	errorClass: 'error',
+	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
+	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
 	actions: {
 		setLabelFocusedOut(): void {
