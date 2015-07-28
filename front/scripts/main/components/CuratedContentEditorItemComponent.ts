@@ -5,6 +5,7 @@
 App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, {
 	classNames: ['curated-content-editor-item'],
 	imageSize: 200,
+	maxLabelLength: 48,
 
 	imageUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
@@ -53,7 +54,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			if (!label.length) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Label is empty';
-			} else if (label.length > 48) {
+			} else if (label.length > this.get('maxLabelLength')) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Label is too long';
 			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
@@ -79,7 +80,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			if (!title.length) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is empty';
-			} else if (title.length > 48) {
+			} else if (title.length > this.get('maxLabelLength')) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is too long';
 			}
