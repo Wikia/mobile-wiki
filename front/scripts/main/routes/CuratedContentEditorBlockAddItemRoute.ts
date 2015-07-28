@@ -8,30 +8,20 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
-<<<<<<< HEAD
 	getOtherItemLabels: function (block: string): string[] {
 		var items = this.modelFor('curatedContentEditor').get(block).items;
 
 		return items.map((item: CuratedContentEditorItemInterface): string => { return item.label }).filter(String);
 	},
 
-	setupController: function (
-		controller: any,
-		model: typeof App.CuratedContentEditorItemModel,
-		transition: EmberStates.Transition
-	): void {
+	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		var block = transition.params['curatedContentEditor.blockAddItem'].block;
 
-		this._super(controller, model);
+		this._super(controller, model, transition);
 		controller.setProperties({
 			block: block,
 			otherItemLabels: this.getOtherItemLabels(block)
 		});
-=======
-	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		this._super(controller, model, transition);
-		controller.set('block', transition.params['curatedContentEditor.blockAddItem'].block);
->>>>>>> origin/CONCF-806
 	},
 
 	renderTemplate(): void {
