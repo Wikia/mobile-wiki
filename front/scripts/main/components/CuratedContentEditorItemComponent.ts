@@ -40,16 +40,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
 	labelObserver: Em.observer('model.label', function (): void {
-			this.validateLabel();
-		}
-	),
+		this.validateLabel();
+	}),
 
 	titleObserver: Em.observer('model.title', function (): void {
-			if (this.validateTitle()) {
-				this.getImageDebounced();
-			}
+		if (this.validateTitle()) {
+			this.getImageDebounced();
 		}
-	),
+	}),
 
 	actions: {
 		setLabelFocusedOut(): void {
@@ -91,10 +89,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	},
 
 	validateImage(): boolean {
-		var imageId = this.get('model.image_id'),
+		var imageId = this.getWithDefault('model.image_id', 0),
 			errorMessage: string = null;
 
-		if (Em.isEmpty(imageId) || imageId === 0) {
+		if (imageId === 0) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Image is empty';
 		}
@@ -140,9 +138,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			this.set('titleErrorMessage', errorMessage);
 
 			return !errorMessage;
-		} else {
-			return true;
 		}
+
+		return true;
 	},
 
 	getImage(): void {
@@ -155,9 +153,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 						this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
 					}
 				} else {
-					this.set('imageErrorMessage', null);
-					this.set('model.image_url', data.url);
-					this.set('model.image_id', data.id);
+					this.setProperties({
+						'imageErrorMessage': null,
+						'model.image_url': data.url,
+						'model.image_id': data.id
+					});
 				}
 			})
 			.catch((): void => {
