@@ -2,11 +2,30 @@
 /// <reference path='../app.ts' />
 
 App.ArticleContentComponent = Em.Component.extend({
-	layoutName: 'components/article-content',
+	tagName: 'article',
+	classNames: ['article-content', 'mw-content'],
+
 	article: null,
-	articleContent: Em.computed('article', function () {
+	media: null,
+
+	articleContent: Em.computed('article', function (): any {
 		return this.get('article');
 	}),
+
+	articleContentObserver: Em.observer('articleContent', function (): void {
+		this.rerender();
+
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			this.handleTables();
+			this.handleInfoboxes();
+			this.replaceInfoboxesWithInfoboxComponents();
+			this.replaceMapsWithMapComponents();
+			this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
+			this.handlePollDaddy();
+			Em.run.later(this, (): void => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
+		});
+
+	}).on('init'),
 
 	handleTables: function (): void {
 		var $tables = this.$().find('table:not([class*=infobox], .dirbox)'),
@@ -159,21 +178,5 @@ App.ArticleContentComponent = Em.Component.extend({
 			}
 			init();
 		});
-	},
-
-	articleContentObserver: Em.observer('articleContent', function () {
-		this.rerender();
-
-		Em.run.scheduleOnce('afterRender',this,  () => {
-			this.handleTables();
-			this.handleInfoboxes();
-			this.replaceInfoboxesWithInfoboxComponents();
-			this.replaceMapsWithMapComponents();
-			this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
-			this.handlePollDaddy();
-			Em.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
-		});
-
-	}).on('init')
-
+	}
 });
