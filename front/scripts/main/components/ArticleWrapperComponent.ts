@@ -174,7 +174,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 				});
 			});
 
-		headers.each((header: ArticleSectionHeader): void => {
+		headers.forEach((header: ArticleSectionHeader): void => {
 			var $sectionHeader = this.$(header.element);
 			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
 		});
