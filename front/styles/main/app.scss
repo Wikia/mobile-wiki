@@ -13,3 +13,7 @@
 @import 'theme/index';
 @import 'component/index';
 @import 'module/index';
+
+// temporary solution while working on styling
+@import '../auth/base/input';
+@import '../auth/module/forms';

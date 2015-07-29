@@ -1,3 +1,20 @@
+## release-122 (2015-07-29 10:00 UTC)
+* [HG-797](https://wikia-inc.atlassian.net/browse/HG-797) mvp implementation of utilizing article sections api
+* [CONCF-918](https://wikia-inc.atlassian.net/browse/CONCF-918) CONCF-918
+* [CONCF-806](https://wikia-inc.atlassian.net/browse/CONCF-806) CONCF-806 As a user I want to have interactive forms on Curated Content Edit tool so I can edit data
+* [CONCF-951](https://wikia-inc.atlassian.net/browse/CONCF-951) CONCF-951 | reset visibility state for old main pages
+* fix-gulp-watch: rebuild templates on watch task
+
+## release-121 (2015-07-28 10:00 UTC)
+* [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 upping sampling rate
+
+## release-120 (2015-07-27 14:41 UTC)
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 Renaming zh-tw to zh in mercury repository
+* add-explicit-method-param: Add event as explicit method param
+
+## release-119 (2015-07-24 14:45 UTC)
+* [SOC-1091](https://wikia-inc.atlassian.net/browse/SOC-1091) SOC-1089 | Add optimizely on auth pages
+
 ## release-117 hotfix 1 (2015-07-23 20:05 UTC)
 * [HG-794](https://wikia-inc.atlassian.net/browse/HG-794) HG-794 - Fix double render (& table wrapping)
 

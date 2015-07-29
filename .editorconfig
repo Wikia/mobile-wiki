@@ -53,3 +53,12 @@ insert_final_newline = true
 max_line_length = 120 # Vim
 trim_trailing_whitespace = true
 break_chained_methods = false
+
+[**.hbs]
+charset = utf-8
+end_of_line = lf
+indent_style = tab
+indent_size = tab
+insert_final_newline = true
+max_line_length = 120 # Vim
+trim_trailing_whitespace = true
