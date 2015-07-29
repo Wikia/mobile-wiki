@@ -77,6 +77,8 @@ App.Router.map(function () {
 			path: '/*url'
 		});
 	}
+
+	this.route('raw');
 });
 
 App.Router.reopen({

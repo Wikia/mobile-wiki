@@ -81,7 +81,16 @@
         -->
 		<div id="ember-container">
 			<div id="article-preload">
-				{{{content}}}
+				<nav class="site-head">
+					<div class="site-logo">
+						<svg role="img" class="icon wikia-logo">
+							<use xlink:href="#wikia-logo"></use>
+						</svg>
+					</div>
+				</nav>
+				<div class="page-wrapper" lang="{{wiki.language.content}}" dir="{{wiki.language.contentDir}}">
+					{{{content}}}
+				</div>
 			</div>
 		</div>
 
@@ -103,7 +112,7 @@
 				document.addEventListener("DOMContentLoaded", function(event) {
 					importScript('/front/vendor/main.js', function () {
 						importScript('/front/scripts/combined.js');
-					}); 
+					});
 				});
 			}());
 		</script>

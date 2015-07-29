@@ -226,9 +226,16 @@ articlePagePaths.forEach((path) => {
 	});
 });
 
+authenticatedRoutes.push({
+	path: '/raw',
+	method: 'GET',
+	handler: require('./facets/showApplication')
+});
+
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);
 });
+
 authenticatedRoutes = authenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(authenticatedRouteConfig, route);
 });
