@@ -8,6 +8,7 @@ class FacebookConnect {
 	redirect: string;
 	urlHelper: UrlHelper;
 	login: Login;
+	formErrors: FormErrors;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -19,6 +20,7 @@ class FacebookConnect {
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
+		this.formErrors = new FormErrors(this.form, 'fbConnectValidationErrors');
 	}
 
 	public init (): void {
@@ -52,15 +54,13 @@ class FacebookConnect {
 
 			if (status === HttpCodes.OK) {
 				window.location.href = this.redirect;
-			} else if (status === HttpCodes.BAD_REQUEST) {
-				//ToDo show the "unable to connect" error
 			} else {
-				//ToDo show the "unable to connect" error
+				this.formErrors.displayGeneralError();
 			}
 		};
 
 		facebookConnectXhr.onerror = (e: Event) => {
-			//ToDo show the "unable to connect" error
+			this.formErrors.displayGeneralError();
 		};
 
 		facebookConnectXhr.open('PUT', url, true);
