@@ -1,6 +1,10 @@
+/*
+ * sass
+ * Compiles sass files
+ */
+
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
-	path = require('path'),
 	paths = require('../paths').styles.homepage;
 
 gulp.task('sass', ['bower'], function () {

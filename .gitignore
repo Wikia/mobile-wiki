@@ -34,9 +34,13 @@ test/fixtures
 # Jenkins Cache
 .*.md5
 
+mercury.iml
 .idea
 /docs
 *.sublime-*
+
+# VS Code project files
+.settings
 
 # Intermediate files from TypeScript compiler
 front/scripts/**/*.js

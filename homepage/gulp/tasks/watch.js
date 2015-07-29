@@ -1,3 +1,8 @@
+/*
+ * watch
+ * Rebuilds on file change while server is running
+ */
+
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	path = require('path'),
@@ -6,7 +11,7 @@ var gulp = require('gulp'),
 	reload = browserSync.reload,
 	paths = require('../paths');
 
-gulp.task('watch', [ 'build' ], function () {
+gulp.task('watch', ['build'], function () {
 	if (!gutil.env.nosync) {
 		browserSync({
 			ghostMode: false,
@@ -25,7 +30,7 @@ gulp.task('watch', [ 'build' ], function () {
 		paths.server.homepage.watch,
 		paths.scripts.homepage.watch,
 		paths.styles.homepage.watch
-	]).on('change', function(event) {
+	]).on('change', function (event) {
 		server.restart(function () {
 			console.log('File changed: ' + gutil.colors.green(event.path) + '\nRestarting server');
 

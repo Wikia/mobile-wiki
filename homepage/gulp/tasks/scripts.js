@@ -1,3 +1,8 @@
+/*
+ * scripts
+ * Compiles client TypeScript files
+ */
+
 var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
@@ -34,7 +39,7 @@ gulp.task('scripts', ['tslint'], folders(paths.src, function (folder) {
 		})
 		.pipe(concat(folder + '.js'))
 		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulpif(!environment.isProduction, sourcemaps.write('.' , {
+		.pipe(gulpif(!environment.isProduction, sourcemaps.write('.', {
 			includeContent: true,
 			sourceRoot: '/scripts/',
 			sourceMappingURLPrefix: '/scripts/'

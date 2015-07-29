@@ -4,15 +4,16 @@
  * @author Per Johan Groland <pgroland@wikia-inc.com>
  */
 
-var path = require('path');
+'use strict';
 
-var assetsHandler = {
-	directory: {
-		path: path.join(__dirname, '../../front'),
-		listing: true,
-		index: true,
-		lookupCompressed: true
-	}
-};
+var path = require('path'),
+	assetsHandler = {
+		directory: {
+			path: path.join(__dirname, '../../front'),
+			listing: true,
+			index: true,
+			lookupCompressed: true
+		}
+	};
 
 module.exports = assetsHandler;
