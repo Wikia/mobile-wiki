@@ -31,6 +31,7 @@ App.ApplicationView = Em.View.extend({
 		return system ? 'system-' + system : '';
 	}),
 
+	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
 	noScroll: Em.computed.alias('controller.noScroll'),
 	scrollLocation: null,
 
