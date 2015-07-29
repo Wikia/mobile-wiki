@@ -20,6 +20,30 @@ App.CuratedContentEditorModel = Em.Object.extend({
 });
 
 App.CuratedContentEditorModel.reopenClass({
+	save(model: CuratedContentEditorModel): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax({
+				url: M.buildUrl({
+					path: '/wikia.php',
+					query: {
+						controller: 'CuratedContentController',
+						method: 'setData'
+					}
+				}),
+				dataType: 'json',
+				method: 'POST',
+				data: this.prepareDataForSave(model),
+				success: (data: any): void => {
+					// TODO: Handle errors
+					console.log(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
+	},
+
 	load(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
@@ -43,6 +67,26 @@ App.CuratedContentEditorModel.reopenClass({
 				}
 			});
 		});
+	},
+
+
+	/**
+	 * @desc Convert CuratedContentEditorItemModel to array known for CuratedContent API
+	 *
+	 * @param model CuratedContentEditorItemModel
+	 * @returns {Array}
+	 */
+	prepareDataForSave(model: CuratedContentEditorItemModel): string[] {
+		var data: string[] = [];
+		data.push(model.featured);
+
+		model.curated.items.forEach((section: string): void => {
+			data.push(section);
+		});
+
+		data.push(model.optional);
+
+		return $.extend(true, {}, {data: data});
 	},
 
 	/**
@@ -101,7 +145,7 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
-		parent.items.push(newItem);
+		parent.items.push(newItem.toJSON());
 	},
 
 	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
@@ -111,7 +155,7 @@ App.CuratedContentEditorModel.reopenClass({
 			parentItems: CuratedContentEditorItemModel[]
 		): void => {
 			if (item.label === itemLabel) {
-				parentItems[index] = newItem;
+				parentItems[index] = newItem.toJSON();
 			}
 		})
 	},

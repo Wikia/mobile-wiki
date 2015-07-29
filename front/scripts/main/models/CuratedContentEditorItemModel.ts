@@ -3,7 +3,7 @@
 
 type CuratedContentEditorItemModel = typeof App.CuratedContentEditorItemModel;
 
-App.CuratedContentEditorItemModel = Em.Object.extend({
+App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	article_id: null,
 	image_id: null,
 	image_url: null,
