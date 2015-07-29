@@ -1575,7 +1575,7 @@ declare module Ember {
         findBy(key: string, value?: string): any;
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
-        indexOf(object: any, startAt: number): number;
+        indexOf(object: any, startAt?: number): number;
         insertAt(idx: number, object: any): any[];
         invoke(methodName: string, ...args: any[]): any[];
         lastIndexOf(object: any, startAt: number): number;
@@ -1591,7 +1591,7 @@ declare module Ember {
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
         removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
-        removeAt(start: number, len: number): any;
+        removeAt(start: number, len?: number): any;
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         replace(idx: number, amt: number, objects: any[]): any;
         reverseObjects(): any[];
