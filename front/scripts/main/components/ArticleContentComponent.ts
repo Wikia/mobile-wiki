@@ -10,22 +10,6 @@ App.ArticleContentComponent = Em.Component.extend({
 	content: null,
 	media: null,
 
-	/**
-	 * This is due to the fact that we send whole article
-	 * as an HTML and then we have to modify it in the DOM
-	 *
-	 * Ember+Glimmer are not fan of this as they would like to have
-	 * full control over the DOM and rendering
-	 *
-	 * In perfect world articles would come as Handlebars templates
-	 * so Ember+Glimmer could handle all the rendering
-	 *
-	 * @param {string} content HTML containing whole article
-	 */
-	hackIntoEmberRendering(content: string) {
-		this.$().html(content);
-	},
-
 	articleContentObserver: Em.observer('content', function (): void {
 		var content = this.get('content');
 
@@ -45,6 +29,22 @@ App.ArticleContentComponent = Em.Component.extend({
 			}
 		});
 	}).on('init'),
+
+	/**
+	 * This is due to the fact that we send whole article
+	 * as an HTML and then we have to modify it in the DOM
+	 *
+	 * Ember+Glimmer are not fan of this as they would like to have
+	 * full control over the DOM and rendering
+	 *
+	 * In perfect world articles would come as Handlebars templates
+	 * so Ember+Glimmer could handle all the rendering
+	 *
+	 * @param {string} content HTML containing whole article
+	 */
+	hackIntoEmberRendering(content: string) {
+		this.$().html(content);
+	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),

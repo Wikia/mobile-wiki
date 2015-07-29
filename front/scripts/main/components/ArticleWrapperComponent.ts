@@ -64,6 +64,8 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 	},
 
 	didInsertElement: function (): void {
+		$(window).off('scroll.mercury.preload');
+		window.scrollTo(0, M.prop('scroll'));
 		this.sendAction('articleRendered');
 	},
 
