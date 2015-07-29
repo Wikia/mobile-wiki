@@ -117,6 +117,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 	},
 
 	actions: {
+		edit: function (title: string, sectionIndex: number): void {
+			this.sendAction('edit', title, sectionIndex);
+		},
+
 		expandSideNav: function (): void {
 			this.sendAction('toggleSideNav', true);
 		},
@@ -182,7 +186,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		this.$('.article-content')
 			.on('click', '.pencil', (event: JQueryEventObject): void => {
 				var $sectionHeader = $(event.target).closest(':header[section]');
-				this.sendAction('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
+				this.send('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
 			})
 			.on('click', '.upload-photo', (event: JQueryEventObject): void => {
 				var $sectionHeader = $(event.target).closest(':header[section]'),

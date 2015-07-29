@@ -27,7 +27,7 @@ App.ArticleController = Em.Controller.extend({
 			});
 		},
 
-		addPhoto: function(title: string, sectionIndex: number, photoData: any): void {
+		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
 			this.transitionToRoute('addPhoto', App.AddPhotoModel.load(title, sectionIndex, photoData));
 		},
 
