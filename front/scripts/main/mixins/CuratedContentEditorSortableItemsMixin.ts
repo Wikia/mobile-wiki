@@ -13,10 +13,10 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create({
 
 			if (offset > 0 && currentItemIndex > 0) {
 				items.removeAt(currentItemIndex);
-				items.insertAt(currentItemIndex - 1, item);
+				items.insertAt(currentItemIndex - offset, item);
 			} else if (offset < 0 && currentItemIndex < items.length - 1) {
 				items.removeAt(currentItemIndex);
-				items.insertAt(currentItemIndex + 1, item);
+				items.insertAt(currentItemIndex + offset, item);
 			}
 		}
 	}
