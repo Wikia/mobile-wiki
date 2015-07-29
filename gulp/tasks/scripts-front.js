@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	folders = require('gulp-folders'),
 	ts = require('gulp-typescript'),
-	sourcemaps = require('gulp-sourcemaps'),
 	concat = require('gulp-concat'),
 	gutil = require('gulp-util'),
 	newer = require('gulp-newer'),
@@ -28,7 +27,6 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 			'!' + path.join(paths.src, folder, paths.dFiles),
 			path.join(paths.src, folder, paths.files)
 		])
-		//.pipe(gulpif(!environment.isProduction, sourcemaps.init()))
 		.pipe(newer(path.join(paths.dest, folder + '.js')))
 		.pipe(ts(tsProjects[folder])).js
 		.on('error', function () {
@@ -39,10 +37,5 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 		})
 		.pipe(concat(folder + '.js'))
 		.pipe(gulpif(environment.isProduction, uglify()))
-		//.pipe(gulpif(!environment.isProduction, sourcemaps.write('.' , {
-		//	includeContent: true,
-		//	sourceRoot: '/front/scripts/',
-		//	sourceMappingURLPrefix: '/front/scripts/'
-		//})))
 		.pipe(gulp.dest(paths.dest));
 }));
