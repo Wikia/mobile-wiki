@@ -11,10 +11,8 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create({
 			var items: Em.NativeArray = this.get('sortableItems'),
 				currentItemIndex = items.indexOf(item);
 
-			if (offset > 0 && currentItemIndex > 0) {
-				items.removeAt(currentItemIndex);
-				items.insertAt(currentItemIndex - offset, item);
-			} else if (offset < 0 && currentItemIndex < items.length - 1) {
+			// Don't move item with index 0 by negative offset and don't move last item by positive offset
+			if ((currentItemIndex > 0 && offset < 0) || (currentItemIndex < items.length - 1 && offset > 0)) {
 				items.removeAt(currentItemIndex);
 				items.insertAt(currentItemIndex + offset, item);
 			}
