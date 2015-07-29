@@ -286,6 +286,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 
 			image.addEventListener('error', (): void => {
 				this.set('loadingError', true);
+				this.hideLoader();
 			});
 		}
 	},
