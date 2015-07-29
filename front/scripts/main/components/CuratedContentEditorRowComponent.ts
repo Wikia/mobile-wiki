@@ -20,11 +20,8 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentEdi
 				this.sendAction('editItem', model);
 			}
 		},
-		moveUp(): void {
-			this.sendAction('moveUp', this.get('model'));
-		},
-		moveDown(): void {
-			this.sendAction('moveDown', this.get('model'));
+		moveBy(offset: number): void {
+			this.sendAction('moveBy', offset, this.get('model'));
 		}
 	}
 });
