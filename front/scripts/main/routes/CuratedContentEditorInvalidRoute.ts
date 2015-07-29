@@ -3,11 +3,11 @@
 
 'use strict';
 
-App.CuratedContentEditInvalidRoute = Em.Route.extend({
+App.CuratedContentEditorInvalidRoute = Em.Route.extend({
 	/**
 	 * When user tries to load invalid path under /main/edit/* we redirect to /main/edit
 	 */
-	beforeModel: function (): void {
-		this.transitionTo('curatedContentEdit');
+	beforeModel(): void {
+		this.transitionTo('curatedContentEditor');
 	}
 });
