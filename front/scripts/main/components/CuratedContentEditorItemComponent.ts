@@ -45,12 +45,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	),
 
 	titleObserver: Em.observer('model.title', function (): void {
-			this.set('imageUrl', App.CuratedContentEditorThumbnailMixin.emptyGif);
-
-			if (Em.isEmpty(this.get('model.title'))) {
-				this.set('imageErrorMessage', null);
-			}
-
 			if (this.validateTitle()) {
 				this.getImageDebounced();
 			}
@@ -83,7 +77,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		done(): void {
-			if (this.validateTitle() && this.validateLabel()) {
+			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				this.sendAction('done', this.get('model'));
 			}
 		},
@@ -94,6 +88,20 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				this.sendAction('deleteItem');
 			}
 		}
+	},
+
+	validateImage(): boolean {
+		var imageId = this.get('model.image_id'),
+			errorMessage: string = null;
+
+		if (Em.isEmpty(imageId) || imageId === 0) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Image is empty';
+		}
+
+		this.set('imageErrorMessage', errorMessage);
+
+		return !errorMessage;
 	},
 
 	validateLabel(): boolean {
@@ -140,14 +148,16 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	getImage(): void {
 		App.CuratedContentEditorItemModel
 			.getImage(this.get('model.title'), this.get('imageSize'))
-			.then((data: any): void => {
+			.then((data: CuratedContentGetImageResponse): void => {
 				if (data.url === '') {
-					//@TODO CONCF-956 add translations
-					this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
-					this.set('imageUrl', App.CuratedContentEditorThumbnailMixin.emptyGif);
+					if (!this.get('model.image_url').length) {
+						//@TODO CONCF-956 add translations
+						this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
+					}
 				} else {
 					this.set('imageErrorMessage', null);
-					this.set('imageUrl', data.url);
+					this.set('model.image_url', data.url);
+					this.set('model.image_id', data.id);
 				}
 			})
 			.catch((): void => {
