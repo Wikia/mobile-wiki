@@ -5,6 +5,7 @@ $item-padding-vertical: .5rem;
 $item-image-size: 4rem;
 $image-margin: 1rem;
 $image-size: 150px;
+$row-height: 5rem;
 
 .curated-content-editor-add-item-btn {
 	display: block;
@@ -37,8 +38,7 @@ $image-size: 150px;
 	padding-top: $module-padding-vertical;
 }
 
-.curated-content-editor-row {
-	align-items: center;
+.curated-content-editor-row-container {
 	background: $color-white;
 	border: {
 		color: $color-gray-light;
@@ -48,12 +48,18 @@ $image-size: 150px;
 	border-bottom-width: 1px;
 	//iOS can't handle touch events on element if it doesn't have cursor pointer
 	cursor: pointer;
-	display: flex;
 	padding: $item-padding-vertical $item-padding-horizontal;
 
 	&:first-child {
 		border-top-width: 1px;
 	}
+}
+
+.curated-content-editor-row {
+	align-items: center;
+	display: inline-flex;
+	height: $row-height;
+	width: calc(90vw - #{$item-padding-horizontal});;
 
 	img {
 		height: $item-image-size;
@@ -167,4 +173,21 @@ $image-size: 150px;
 	color: $alert-color;
 	padding: 14px 18px;
 	text-transform: uppercase;
+}
+
+.navigation {
+	display: inline-block;
+	float: right;
+	height: $row-height;
+	text-align: right;
+	width: calc(8vw - #{$item-padding-horizontal});
+}
+
+.arrow-up, .arrow-down {
+	height: $row-height / 2;
+	width: 1rem;
+}
+
+.arrow-up {
+	transform: rotate(180deg);
 }

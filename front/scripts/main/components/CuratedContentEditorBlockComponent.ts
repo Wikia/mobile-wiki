@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
+///<reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
 'use strict';
 
-App.CuratedContentEditorBlockComponent = Em.Component.extend({
+App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentEditorSortableItemsMixin, {
 	classNames: ['curated-content-editor-block'],
 	tagName: 'section',
 

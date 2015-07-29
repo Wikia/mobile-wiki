@@ -21,10 +21,12 @@
 	{{!-- @TODO CONCF-956 add translations --}}
 	<small class="error">Items are empty!</small>
 {{/unless}}
-{{#each model.items as |item|}}
+{{#each sortableItems as |item|}}
 	{{curated-content-editor-row
 		model=item
 		editItem='editItem'
+		moveUp='moveUp'
+		moveDown='moveDown'
 	}}
 {{/each}}
 <div class="curated-content-editor-item">
