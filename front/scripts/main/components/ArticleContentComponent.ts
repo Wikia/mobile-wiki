@@ -7,25 +7,42 @@ App.ArticleContentComponent = Em.Component.extend({
 	tagName: 'article',
 	classNames: ['article-content', 'mw-content'],
 
-	article: null,
+	content: null,
 	media: null,
 
-	articleContent: Em.computed('article', function (): any {
-		return this.get('article');
-	}),
+	/**
+	 * This is due to the fact that we send whole article
+	 * as an HTML and then we have to modify it in the DOM
+	 *
+	 * Ember+Glimmer are not fan of this as they would like to have
+	 * full control over the DOM and rendering
+	 *
+	 * In perfect world articles would come as Handlebars templates
+	 * so Ember+Glimmer could handle all the rendering
+	 *
+	 * @param {string} content HTML containing whole article
+	 */
+	hackIntoEmberRendering(content: string) {
+		this.$().html(content);
+	},
 
-	articleContentObserver: Em.observer('articleContent', function (): void {
-		this.rerender();
+	articleContentObserver: Em.observer('content', function (): void {
+		var content = this.get('content');
 
-		Em.run.scheduleOnce('afterRender',this, (): void => {
-			this.handleTables();
-			this.handleInfoboxes();
-			this.replaceInfoboxesWithInfoboxComponents();
-			this.replaceMapsWithMapComponents();
-			this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
-			this.handlePollDaddy();
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			if (content) {
+				this.hackIntoEmberRendering(content);
+				this.handleTables();
+				this.handleInfoboxes();
+				this.replaceInfoboxesWithInfoboxComponents();
+				this.replaceMapsWithMapComponents();
+				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
+				this.handlePollDaddy();
 
-			Ember.run.later(this, (): void => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
+				Em.run.later(this, (): void => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
+			} else {
+				this.hackIntoEmberRendering(i18n.t('app.article-empty-label'));
+			}
 		});
 	}).on('init'),
 
@@ -182,7 +199,7 @@ App.ArticleContentComponent = Em.Component.extend({
 	 */
 	handleInfoboxes: function (): void {
 		var shortClass = 'short',
-			$infoboxes = $('table[class*="infobox"] tbody'),
+			$infoboxes = this.$('table[class*="infobox"] tbody'),
 			body = window.document.body,
 			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
@@ -193,7 +210,7 @@ App.ArticleContentComponent = Em.Component.extend({
 				})
 				.addClass(shortClass)
 				.append('<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></td></tr>')
-				.on('click', function (event): void {
+				.on('click', function (event: JQueryEventObject): void {
 					var $target = $(event.target),
 						$this = $(this);
 
@@ -205,17 +222,10 @@ App.ArticleContentComponent = Em.Component.extend({
 	},
 
 	handleTables: function (): void {
-		var $tables = $('table:not([class*=infobox], .dirbox)').not('table table'),
-			wrapper: HTMLDivElement;
-
-		if ($tables.length) {
-			wrapper = document.createElement('div');
-			wrapper.className = 'article-table';
-
-			$tables
-				.wrap(wrapper)
-				.css('visibility', 'visible');
-		}
+		this.$('table:not([class*=infobox], .dirbox)')
+			.not('table table')
+			.css('visibility', 'visible')
+			.wrap('<div class="article-table-wrapper"/>');
 	},
 
 	/**
