@@ -16,6 +16,7 @@ App.ArticleContentComponent = Em.Component.extend({
 		Em.run.scheduleOnce('afterRender', this, (): void => {
 			if (content) {
 				this.hackIntoEmberRendering(content);
+				this.loadTableOfContentsData();
 				this.handleTables();
 				this.handleInfoboxes();
 				this.replaceInfoboxesWithInfoboxComponents();
@@ -46,6 +47,28 @@ App.ArticleContentComponent = Em.Component.extend({
 		this.$().html(content);
 	},
 
+	/**
+	 * @desc Generates table of contents data based on h2 elements in the article
+	 * TODO: Temporary solution for generating Table of Contents
+	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
+	 * ToC data from server and render view based on that.
+	 */
+	loadTableOfContentsData: function (): void {
+		var headers: ArticleSectionHeader[] = this.$('h2[section]').map(
+			(i: number, elem: HTMLElement): ArticleSectionHeader => {
+				if (elem.textContent) {
+					return {
+						element: elem,
+						level: elem.tagName,
+						name: elem.textContent,
+						id: elem.id
+					};
+				}
+			}).toArray();
+
+		this.sendAction('updateHeaders', headers);
+	},
+
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),
 			media = model.find(ref);
@@ -72,81 +95,6 @@ App.ArticleContentComponent = Em.Component.extend({
 		for (index = 0; index < numberToProcess; index++) {
 		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
 		}
-	},
-
-	setupContributionButtons: function (): void {
-		// TODO: There should be a helper for generating this HTML
-		var pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
-		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*"/></div>',
-		    iconsWrapper = '<div class="icon-wrapper">' + pencil + photo + '</div>',
-		    $photoZero = this.$('.upload-photo');
-
-		$photoZero
-			.on('change', () => {
-				this.onPhotoIconChange($photoZero, 0);
-			})
-			.on('click', () => {
-				M.track({
-					action: M.trackActions.click,
-					category: 'sectioneditor',
-					label: 'addPhoto',
-					value: 0
-				});
-			});
-
-		this.$(':header[section]').each((i: Number, item: any): void => {
-			var $sectionHeader = this.$(item);
-			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
-		});
-		this.setupButtonsListeners();
-	},
-
-	setupButtonsListeners: function () : void {
-		this.$('.article-content')
-			.on('click', '.pencil', (event: JQueryEventObject): void => {
-				var $sectionHeader = $(event.target).closest(':header[section]');
-				this.get('controller').send('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
-			})
-			.on('click', '.upload-photo', (event: JQueryEventObject): void => {
-				var $sectionHeader = $(event.target).closest(':header[section]'),
-				    sectionIndex: number = parseInt($sectionHeader.attr('section'), 10);
-
-				M.track({
-					action: M.trackActions.click,
-					category: 'sectioneditor',
-					label: 'addPhoto',
-					value: sectionIndex
-				});
-			})
-			.on('change', '.upload-photo', (event: JQueryEventObject): void => {
-				var $uploadPhotoContainer = $(event.target).parent(),
-				    sectionIndex: number = parseInt($(event.target).closest(':header[section]').attr('section'), 10);
-				this.onPhotoIconChange($uploadPhotoContainer, sectionIndex);
-			});
-	},
-
-	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
-		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
-		this.controllerFor('article').send('addPhoto', this.get('model.cleanTitle'), sectionNumber, photoData);
-	},
-
-	/**
-	 * @desc Generates table of contents data based on h2 elements in the article
-	 * TODO: Temporary solution for generating Table of Contents
-	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
-	 * ToC data from server and render view based on that.
-	 */
-	loadTableOfContentsData: function (): void {
-		var headers: HeadersFromDom[] = this.$('h2[section]').map((i: number, elem: HTMLElement): HeadersFromDom => {
-			if (elem.textContent) {
-				return {
-					level: elem.tagName,
-					name: elem.textContent,
-					id: elem.id
-				};
-			}
-		}).toArray();
-		this.sendAction('updateHeaders', headers);
 	},
 
 	replaceMapsWithMapComponents: function (): void {
@@ -265,52 +213,5 @@ App.ArticleContentComponent = Em.Component.extend({
 			}
 			init();
 		});
-	},
-
-	/**
-	 * @desc Returns true if handleMedia() should be executed
-	 * @param {EventTarget} target
-	 * @param {string} tagName clicked tag name
-	 * @returns {boolean}
-	 */
-	shouldHandleMedia: function (target: EventTarget, tagName: string): boolean {
-		return (tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0;
-	},
-
-	/**
-	 * Opens media lightbox for given target
-	 *
-	 * @param target
-	 */
-	handleMedia: function (target: HTMLElement): void {
-		var $target = $(target),
-			galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
-			$mediaElement = $target.closest('[data-ref]'),
-			mediaRef = $mediaElement.data('ref'),
-			media: typeof App.MediaModel;
-
-		if (mediaRef >= 0) {
-			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
-
-			if (!$mediaElement.hasClass('is-small')) {
-				media = this.get('model.media');
-				this.sendAction('openLightbox', 'media', {
-					media: media,
-					mediaRef: mediaRef,
-					galleryRef: galleryRef
-				});
-			} else {
-				Em.Logger.debug('Image too small to open in lightbox', target);
-			}
-
-			if (galleryRef >= 0) {
-				M.track({
-					action: M.trackActions.click,
-					category: 'gallery'
-				});
-			}
-		} else {
-			Em.Logger.debug('Missing ref on', target);
-		}
 	}
 });

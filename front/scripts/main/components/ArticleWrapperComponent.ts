@@ -7,7 +7,8 @@
 
 'use strict';
 
-interface HeadersFromDom {
+interface ArticleSectionHeader {
+	element: HTMLElement;
 	level: string;
 	name: string;
 	id?: string;
@@ -118,6 +119,14 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 	actions: {
 		expandSideNav: function (): void {
 			this.sendAction('toggleSideNav', true);
+		},
+
+		updateHeaders: function (headers: ArticleSectionHeader[]): void {
+			this.set('headers', headers);
+
+			if (this.get('contributionFeatureEnabled')) {
+				this.setupContributionButtons();
+			}
 		}
 	},
 
@@ -126,11 +135,6 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 			article = model.get('article');
 
 		if (article && article.length > 0) {
-			if (this.get('contributionFeatureEnabled')) {
-				this.setupContributionButtons();
-			}
-
-			this.loadTableOfContentsData();
 			this.injectAds();
 			this.setupAdsContext(model.get('adsContext'));
 
@@ -147,7 +151,8 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 
 	setupContributionButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
-		var pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
+		var headers = this.get('headers'),
+			pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
 		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*"/></div>',
 		    iconsWrapper = '<div class="icon-wrapper">' + pencil + photo + '</div>',
 		    $photoZero = this.$('.upload-photo');
@@ -165,10 +170,11 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 				});
 			});
 
-		this.$(':header[section]').each((i: Number, item: any): void => {
-			var $sectionHeader = this.$(item);
+		headers.each((header: ArticleSectionHeader): void => {
+			var $sectionHeader = this.$(header.element);
 			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
 		});
+
 		this.setupButtonsListeners();
 	},
 
@@ -199,25 +205,6 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
 		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
 		this.sendAction('addPhoto', this.get('model.cleanTitle'), sectionNumber, photoData);
-	},
-
-	/**
-	 * @desc Generates table of contents data based on h2 elements in the article
-	 * TODO: Temporary solution for generating Table of Contents
-	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
-	 * ToC data from server and render view based on that.
-	 */
-	loadTableOfContentsData: function (): void {
-		var headers: HeadersFromDom[] = this.$('h2[section]').map((i: number, elem: HTMLElement): HeadersFromDom => {
-			if (elem.textContent) {
-				return {
-					level: elem.tagName,
-					name: elem.textContent,
-					id: elem.id
-				};
-			}
-		}).toArray();
-		this.sendAction('updateHeaders', headers);
 	},
 
 	/**

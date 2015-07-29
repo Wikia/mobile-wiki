@@ -5,7 +5,7 @@
 	<section class="article-body">
 		<h1 class="article-title">{{model.cleanTitle}}</h1>
 		{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
-		{{#if model.sections.length}}
+		{{#if headers.length}}
 			{{#collapsible-menu
 				showMenuIcon=true
 				additionalClasses='table-of-contents'
@@ -14,7 +14,7 @@
 				observe=model.cleanTitle
 				trackingEvent='toc'
 			}}
-				{{#each model.sections as |section|}}
+				{{#each headers as |section|}}
 					<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
 						<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
 							{{unbound section.name}}
@@ -40,6 +40,7 @@
 		{{article-content
 			content=model.article
 			media=model.media
+			updateHeaders='updateHeaders'
 		}}
 	</section>
 	<section class="article-footer">
