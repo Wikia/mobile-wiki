@@ -46,8 +46,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 				data: {
 					controller: 'CuratedContent',
 					method: 'getImage',
-					title: title,
-					size: size,
+					title,
+					size,
 				},
 				dataType: 'json',
 				success: (data: CuratedContentGetImageResponse): void => {
