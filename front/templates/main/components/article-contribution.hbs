@@ -1,9 +1,9 @@
-<div class="edit-section zero">
-	<span {{action 'edit' model.title '0'}} class='zero-button-wrapper'>
+<div class="edit-section">
+	<span {{action 'edit' model.title}}>
 		{{svg 'pencil' role='img' class='icon pencil'}}
 	</span>
 </div>
-<div class="upload-photo zero">
+<input class="file-input" type="file" accept="image/*" style="display:none;"/>
+<div class="upload-photo" {{action 'upload' on='change' target='view'}}  {{action 'select' target='view' bubbles=true}}>
 	{{svg 'camera' role='img' class='icon camera'}}
-	<input class="file-input" type="file" accept="image/*"/>
 </div>
