@@ -1,9 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-
 'use strict';
-App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, App.LoadingSpinnerMixin, {
+
+App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
 	classNames: ['curated-content-editor-item'],
 	imageSize: 300,
 	maxLabelLength: 48,
@@ -80,7 +81,57 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 
 		done(): void {
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
-				this.sendAction('done', this.get('model'));
+				this.showLoader();
+				App.CuratedContentEditorItemModel.validateItem(this.get('model'), false)
+					.then((data: CuratedContentValidationResponseInterface): void => {
+						if (data.status) {
+							//@TODO CONCF-956 add translations
+							this.addAlert('info', 'Data validated.');
+							this.sendAction('done', this.get('model'));
+						} else {
+							data.error.forEach((error: any) => {
+								switch(error.reason) {
+									case 'articleNotFound':
+										//@TODO CONCF-956 add translations
+										this.set('titleErrorMessage', 'Article not found.');
+										break;
+									case 'emptyLabel':
+									case 'tooLongLabel':
+										this.validateLabel();
+										break;
+									case 'videoNotSupportProvider':
+										//@TODO CONCF-956 add translations
+										this.set('titleErrorMessage', 'This video provider is not supported.');
+										break;
+									case 'notSupportedType':
+										//@TODO CONCF-956 add translations
+										this.set('titleErrorMessage', 'This type is not supported');
+										break;
+									case 'duplicatedLabel':
+										//@TODO CONCF-956 add translations
+										this.set('labelErrorMessage', 'Label is already used elsewhere.');
+										break;
+									case 'noCategoryInTag':
+										//@TODO CONCF-956 add translations
+										this.set('titleErrorMessage', 'Only Categories are accepted.');
+										break;
+									case 'imageMissing':
+										//@TODO CONCF-956 add translations
+										this.set('imageErrorMessage', 'Image is missing');
+										break;
+								}
+							});
+							//@TODO CONCF-956 add translations
+							this.addAlert('alert', 'Please fix errors.');
+						}
+					})
+					.catch((): void => {
+						//@TODO CONCF-956 add translations
+						this.addAlert('alert', 'Something went wrong. Please repeat.');
+					})
+					.finally(():void => {
+						this.hideLoader();
+					});
 			}
 		},
 
@@ -93,10 +144,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	},
 
 	validateImage(): boolean {
-		var imageId = this.get('model.image_id'),
+		var imageId = this.getWithDefault('model.image_id', 0),
 			errorMessage: string = null;
 
-		if (!imageId) {
+		if (imageId === 0) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Image is empty';
 		}
@@ -107,11 +158,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	},
 
 	validateLabel(): boolean {
-		var label = this.get('model.label'),
-			alreadyUsedLabels = this.get('alreadyUsedLabels'),
+		var label = this.getWithDefault('model.label', ''),
+			alreadyUsedLabels = this.getWithDefault('alreadyUsedLabels', []),
 			errorMessage: string = null;
 
-		if (Em.isEmpty(label)) {
+		if (!label.length) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Label is empty';
 		} else if (label.length > this.get('maxLabelLength')) {
@@ -134,7 +185,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		if (!this.get('isSectionView')) {
 			title = this.get('model.title');
 
-			if (Em.isEmpty(title)) {
+			if (!title || !title.length) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is empty';
 			}

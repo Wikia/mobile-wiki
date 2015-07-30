@@ -11,6 +11,11 @@ interface CuratedContentEditorRawSectionInterface {
 	type?: string;
 }
 
+interface CuratedContentValidationResponseInterface {
+	status: boolean;
+	error?: any;
+}
+
 type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
 
 App.CuratedContentEditorModel = Em.Object.extend({

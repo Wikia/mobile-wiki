@@ -58,5 +58,29 @@ App.CuratedContentEditorItemModel.reopenClass({
 				}
 			});
 		});
+	},
+
+	validateItem(item: CuratedContentEditorItemModel, isFeatured: boolean) : Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax({
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'CuratedContentValidator',
+					method: 'validateItem',
+					format: 'json',
+					item: item.toJSON(),
+					isFeatured
+				},
+				dataType: 'json',
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
 	}
 });
