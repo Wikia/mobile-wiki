@@ -1,25 +1,23 @@
 var deepExtend: any = require('deep-extend');
 
-var baseLocaleSettings: LocaleConfig = {},
-	localeSettings: LocaleSettings = {};
-
-baseLocaleSettings = {
-	urls: {
-		'terms-of-use-link-url': 'http://www.wikia.com/Terms_of_Use'
-	},
-	date: {
-		'endian': 'middle',
-		'month-format': 'MM',
-		'month-separator': '/',
-		'day-format': 'DD',
-		'day-separator': '/',
-		'year-format': 'YYYY',
-		'year-separator': ''
+var localeSettings: LocaleSettings = {
+	'en' : {
+		urls: {
+			'terms-of-use-link-url': 'http://www.wikia.com/Terms_of_Use'
+		},
+		date: {
+			'endian': 'middle',
+			'month-format': 'MM',
+			'month-separator': '/',
+			'day-format': 'DD',
+			'day-separator': '/',
+			'year-format': 'YYYY',
+			'year-separator': ''
+		}
 	}
 };
 
-localeSettings['en'] = baseLocaleSettings;
-localeSettings['de'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['de'] = deepExtend({
 	urls: {
 		'terms-of-use-link-url': 'http://www.wikia.com/lalala'
 	},
@@ -32,50 +30,50 @@ localeSettings['de'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'JJJJ',
 		'year-separator': ''
 	}
-});
-localeSettings['en-au'] = deepExtend(baseLocaleSettings['en'], {
+}, localeSettings['en']);
+localeSettings['en-au'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little'
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['en-gb'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['en-gb'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little'
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['en-ie'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['en-ie'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little'
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['en-in'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['en-in'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little'
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['en-nz'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['en-nz'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little'
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['en-za'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['en-za'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little'
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['es'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['es'] = deepExtend({
 	urls :{
 		'terms-of-use-link-url': 'http://es.wikia.com/T%C3%A9rminos_de_Uso'
 	},
@@ -88,9 +86,9 @@ localeSettings['es'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'AAAA',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['es-es'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['es-es'] = deepExtend({
 	urls :{
 		'terms-of-use-link-url': 'http://es.wikia.com/T%C3%A9rminos_de_Uso'
 	},
@@ -103,9 +101,9 @@ localeSettings['es-es'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'AAAA',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['fi'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['fi'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'middle',
@@ -116,9 +114,9 @@ localeSettings['fi'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'YYYY',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['fr'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['fr'] = deepExtend({
 	urls :{
 		'terms-of-use-link-url': 'http://fr.wikia.com/Conditions_d%27utilisation'
 	},
@@ -131,9 +129,9 @@ localeSettings['fr'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'aaaa',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['it'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['it'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little',
@@ -144,9 +142,9 @@ localeSettings['it'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'AAAA',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['ja'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['ja'] = deepExtend({
 	urls :{
 		'terms-of-use-link-url': 'http://ja.wikia.com/%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84'
 	},
@@ -159,9 +157,9 @@ localeSettings['ja'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'XXXX',
 		'year-separator': '年'
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['ko'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['ko'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'middle',
@@ -172,9 +170,9 @@ localeSettings['ko'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'YYYY',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['nl'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['nl'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'middle',
@@ -185,9 +183,9 @@ localeSettings['nl'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'YYYY',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['pl'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['pl'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little',
@@ -198,9 +196,9 @@ localeSettings['pl'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'RRRR',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['pt-br'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['pt-br'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little',
@@ -211,9 +209,9 @@ localeSettings['pt-br'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'AAAA',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['pt-pt'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['pt-pt'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'middle',
@@ -224,9 +222,9 @@ localeSettings['pt-pt'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'YYYY',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['ru'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['ru'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'little',
@@ -237,9 +235,9 @@ localeSettings['ru'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'ГГГГ',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['sv-se'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['sv-se'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'middle',
@@ -250,9 +248,9 @@ localeSettings['sv-se'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'YYYY',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['vi'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['vi'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'middle',
@@ -263,9 +261,9 @@ localeSettings['vi'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': 'YYYY',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['zh'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['zh'] = deepExtend({
 	urls :{
 		'terms-of-use-link-url': 'http://zh.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%9D%A1%E6%AC%BE'
 	},
@@ -278,9 +276,9 @@ localeSettings['zh'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': '年',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['zh-cn'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['zh-cn'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': 'big',
@@ -291,9 +289,9 @@ localeSettings['zh-cn'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': '年',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['zh-hans'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['zh-hans'] = deepExtend({
 	urls :{},
 	date :{
 		'endian': '中间名',
@@ -304,9 +302,9 @@ localeSettings['zh-hans'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': '年',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
-localeSettings['zh-tw'] = deepExtend(baseLocaleSettings['en'], {
+localeSettings['zh-tw'] = deepExtend({
 	urls: {
 		'terms-of-use-link-url': 'http://zh-tw.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%A2%9D%E6%AC%BE'
 	},
@@ -319,6 +317,6 @@ localeSettings['zh-tw'] = deepExtend(baseLocaleSettings['en'], {
 		'year-format': '年',
 		'year-separator': ''
 	}
-});
+}, localeSettings['en']);
 
 export = localeSettings;
