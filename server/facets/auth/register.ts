@@ -29,14 +29,14 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
-console.log(lang)
+
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
 			headerText: 'auth:join.sign-up-with-email',
 			heliosRegistrationURL: localSettings.helios.host + '/users',
 			title: 'auth:join.sign-up-with-email',
-			termsOfUseLink: '<a href="' + localeSettings[lang].urls['termsOfUseLinkUrl'] + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link') + '</a>',
+			termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link') + '</a>',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',

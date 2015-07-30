@@ -1,6 +1,6 @@
 var deepExtend: any = require('deep-extend');
 
-var localeSettings: LocaleSettings = {
+var localeSettings: any = {
 	'en' : {
 		urls: {
 			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use'
