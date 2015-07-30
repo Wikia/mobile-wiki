@@ -107,7 +107,7 @@ localeSettings['es'] = deepExtend(
 	{
 		urls :{
 			'termsOfUseLinkUrl': 'http://es.wikia.com/T%C3%A9rminos_de_Uso',
-			'privacyPolicyLinkUrl': 'http://es.wikia.com/T%C3%A9rminos_de_Uso'
+			'privacyPolicyLinkUrl': 'http://es.wikia.com/Pol%C3%ADtica_de_privacidad'
 		},
 		date: {
 			endian: 'Segundo nombre',
@@ -127,7 +127,7 @@ localeSettings['es-es'] = deepExtend(
 	{
 		urls :{
 			'termsOfUseLinkUrl': 'http://es.wikia.com/T%C3%A9rminos_de_Uso',
-			'privacyPolicyLinkUrl': 'http://es.wikia.com/T%C3%A9rminos_de_Uso'
+			'privacyPolicyLinkUrl': 'http://es.wikia.com/Pol%C3%ADtica_de_privacidad'
 		},
 		date: {
 			endian: 'little',
