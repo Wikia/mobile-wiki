@@ -95,7 +95,7 @@ var localSettings: LocalSettings = {
 	weppy: {
 		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
-		samplingRate: 0.01,
+		samplingRate: 0.1,
 		aggregationInterval: 1000
 	},
 	wikiFallback: 'community',

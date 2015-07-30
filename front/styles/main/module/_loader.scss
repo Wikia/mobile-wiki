@@ -5,6 +5,7 @@ $duration: 1s;
 	from {
 		transform: rotate(0);
 	}
+
 	to {
 		transform: rotate(270deg);
 	}
@@ -14,10 +15,12 @@ $duration: 1s;
 	0% {
 		stroke-dashoffset: $offset;
 	}
+
 	50% {
 		stroke-dashoffset: $offset/4;
 		transform: rotate(135deg);
 	}
+
 	100% {
 		stroke-dashoffset: $offset;
 		transform: rotate(450deg);
@@ -37,7 +40,7 @@ $duration: 1s;
 .spinner {
 	animation: rotator $duration linear infinite;
 	left: 50%;
-	margin: -25px 0 0 -25px;
+	margin: -33px 0 0 -33px;
 	position: absolute;
 	top: 50%;
 

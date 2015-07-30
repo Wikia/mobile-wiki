@@ -18,6 +18,11 @@ App.MainPageIndexRoute = Em.Route.extend({
 			ns: model.get('ns'),
 			title: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
+
+		if (!model.isCuratedMainPage) {
+			// This is needed for articles
+			App.VisibilityStateManager.reset();
+		}
 	},
 
 	renderTemplate: function (controller: any, model: typeof App.MainPageModel): void {

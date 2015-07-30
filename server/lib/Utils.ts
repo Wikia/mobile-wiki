@@ -202,3 +202,12 @@ export function parseQueryParams (obj: any, allowedKeys: string[]): any {
 
 	return parsed;
 }
+
+/**
+ * (HG-753) This allows for loading article content asynchronously while providing a version of the page with
+ * article content that search engines can still crawl.
+ * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
+ */
+export function shouldAsyncArticle(localSettings: LocalSettings, host: string): boolean {
+	return localSettings.asyncArticle.some((communityName: string) => !!host.match(communityName));
+}
