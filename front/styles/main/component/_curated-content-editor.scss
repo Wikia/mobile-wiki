@@ -155,8 +155,8 @@ $image-size: 150px;
 
 		small {
 			background: linear-gradient(to top, rgba(255, 255, 255 , .7), rgba(255, 255, 255, 0));
-			bottom: 0;
-			margin: 0 5vw;
+			bottom: 1px;
+			margin: 0 calc(5vw - 1px);
 			width: 90vw;
 			padding: 5% 0;
 			position: absolute;
