@@ -29,7 +29,7 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
-console.log(lang)
+	
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
