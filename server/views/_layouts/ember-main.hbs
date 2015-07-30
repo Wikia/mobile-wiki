@@ -71,8 +71,8 @@
 	</head>
 	<body>
 		{{> qualaroo}}
-		<!-- @include ../../../www/front/svg/main.svg -->
 
+		<div id="icons"></div>
 
         <!--
         Ember must render out to a specific div above the scripts, otherwise
@@ -100,9 +100,23 @@
 					script.src = src;
 				}
 
+				function importIcons (fOnload) {
+					var ajax = new XMLHttpRequest();
+					ajax.open("GET", "../../../front/svg/main.svg", true);
+					ajax.send();
+					ajax.onload = function(e) {
+						var div = document.getElementById("icons");
+						div.outerHTML = ajax.responseText;
+						if (fOnload) { fOnload(); }
+					}
+					ajax.onerror = loadError;
+				}
+
 				document.addEventListener("DOMContentLoaded", function(event) {
-					importScript('/front/vendor/main.js', function () {
-						importScript('/front/scripts/combined.js');
+					importIcons(function () {
+						importScript('/front/vendor/main.js', function () {
+							importScript('/front/scripts/combined.js');
+						});
 					});
 				});
 			}());
