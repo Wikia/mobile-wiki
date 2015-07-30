@@ -1,3 +1,48 @@
+## release-123 (2015-07-30 10:00 UTC)
+* disablie-source-maps: Disable source maps
+* [HG-820](https://wikia-inc.atlassian.net/browse/HG-820) HG-820 Fix ads MOBILE_IN_CONTENT slot
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 | Update crowdin config for rename ZH i18n files
+
+## release-122 (2015-07-29 10:00 UTC)
+* [HG-797](https://wikia-inc.atlassian.net/browse/HG-797) mvp implementation of utilizing article sections api
+* [CONCF-918](https://wikia-inc.atlassian.net/browse/CONCF-918) CONCF-918
+* [CONCF-806](https://wikia-inc.atlassian.net/browse/CONCF-806) CONCF-806 As a user I want to have interactive forms on Curated Content Edit tool so I can edit data
+* [CONCF-951](https://wikia-inc.atlassian.net/browse/CONCF-951) CONCF-951 | reset visibility state for old main pages
+* fix-gulp-watch: rebuild templates on watch task
+
+## release-121 (2015-07-28 10:00 UTC)
+* [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 upping sampling rate
+
+## release-120 (2015-07-27 14:41 UTC)
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 Renaming zh-tw to zh in mercury repository
+* add-explicit-method-param: Add event as explicit method param
+
+## release-119 (2015-07-24 14:45 UTC)
+* [SOC-1091](https://wikia-inc.atlassian.net/browse/SOC-1091) SOC-1089 | Add optimizely on auth pages
+
+## release-117 hotfix 1 (2015-07-23 20:05 UTC)
+* [HG-794](https://wikia-inc.atlassian.net/browse/HG-794) HG-794 - Fix double render (& table wrapping)
+
+## release-117 (2015-07-23 11:36 UTC)
+* [DAT-2909](https://wikia-inc.atlassian.net/browse/DAT-2909) portable infobox - mercury styling
+* [DAT-3001](https://wikia-inc.atlassian.net/browse/DAT-3001) DAT-3001 stretch only main infobox image
+* [DAT-2973](https://wikia-inc.atlassian.net/browse/DAT-2973) DAT-2973 hide caption for videos in infoboxes
+* [DAT-2978](https://wikia-inc.atlassian.net/browse/DAT-2978) add minimal height
+* [DAT-2976](https://wikia-inc.atlassian.net/browse/DAT-2976) Dat 2976 - fix issue with collapsed height being greater then uncollapsed height in landscape mode
+* [DAT-2970](https://wikia-inc.atlassian.net/browse/DAT-2970) DAT-2970
+* [DAT-2969](https://wikia-inc.atlassian.net/browse/DAT-2969) DAT-2969 - fix issue with transparent color in linear gradient on iOS
+
+## release-116 (2015-07-23 10:00 UTC)
+* [CONCF-917](https://wikia-inc.atlassian.net/browse/CONCF-917) CONCF-917 fix decoding urls for subcategories
+* [CONCF-889](https://wikia-inc.atlassian.net/browse/CONCF-889) CONCF-889 | As a user I would like to be able to go back from the Mercury main page
+
+## release-115 (2015-07-22 10:00 UTC)
+* aden-2233-fix-top-leaderboard-over-interstitial: ADEN-2233 Fixed top leaderboard to not cover interstitial ad unit
+* [INT-147](https://wikia-inc.atlassian.net/browse/INT-147) INT-147 Add photo bug on Android/Chrome
+* hotfix/HG-793: HG-793 - Use wild card path for article route
+* [HG-669](https://wikia-inc.atlassian.net/browse/HG-669) Hg 669 Fixing article comments query param regression
+* [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) CONCF-896 | catch when decodeURIComponent throws
+
 ## release-114 hotfix 1 (2015-07-20 18:37 UTC)
 * [CONCF-896](https://wikia-inc.atlassian.net/browse/CONCF-896) [HOTFIX] CONCF-896 | catch when decodeURIComponent throws
 
