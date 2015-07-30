@@ -73,18 +73,17 @@
 		{{> qualaroo}}
 		<!-- @include ../../../www/front/svg/main.svg -->
 
-		{{#unless asyncArticle}}
-			<div id="article-preload">
-				{{{content}}}
-			</div>
-		{{/unless}}
 
         <!--
         Ember must render out to a specific div above the scripts, otherwise
         Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
         DO NOT REMOVE THE FOLLOWING LINE:
         -->
-        <div id="ember-container"></div>
+		<div id="ember-container">
+			<div id="article-preload">
+				{{{content}}}
+			</div>
+		</div>
 
 		<script>
 			(function () {
