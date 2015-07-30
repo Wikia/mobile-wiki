@@ -20,7 +20,6 @@ var localeSettings: LocaleSettings = {
 
 localeSettings['de'] = deepExtend({
 	urls: {
-		'terms-of-use-link-url': 'http://www.wikia.com/lalala'
 	},
 	date: {
 		'endian': 'little',
