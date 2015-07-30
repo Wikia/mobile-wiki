@@ -6,7 +6,7 @@
 App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.ViewportMixin, {
 	classNames: ['portable-infobox'],
 	classNameBindings: ['collapsed'],
-	expandButtonClass: 'portable-infobox-expand-button',
+	expandButtonClass: 'pi-expand-button',
 	layoutName: 'components/portable-infobox',
 	tagName: 'aside',
 
