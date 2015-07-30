@@ -1,14 +1,18 @@
 .close {
-	color: #FFF;
-	font-size: 40px;
-	font-weight: lighter;
+	box-sizing: content-box;
+	fill: white;
+	float: right;
+	height: 15px;
 	line-height: 15px;
+	padding: 13px 13px 33px;
 	position: absolute;
-	right: 10px;
-	transform: rotate(45deg);
-	top: 10px;
+	right: 0;
+	top: 0;
+	width: 15px;
 
-	&:after {
-		content: '+';
+	> svg {
+		height: 15px;
+		pointer-events: none;
+		width: 15px;
 	}
 }
