@@ -1,10 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/hammerjs/hammerjs" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
-/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.LoadingSpinnerMixin, {
+App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 	classNames: ['lightbox-image', 'lightbox-content-inner'],
 	maxZoom: 5,
 	newX: 0,
@@ -276,7 +275,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	load: function (url: string): void {
 		var image: HTMLImageElement = new Image();
 
-		this.showLoader();
+		this.set('isLoading', true);
 		image.src = url;
 
 		if (image.complete) {
@@ -303,7 +302,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 			imageSrc: src,
 			visible: true
 		});
-		this.hideLoader();
+		this.set('isLoading', false);
 	},
 
 	/**
