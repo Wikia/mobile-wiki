@@ -72,8 +72,6 @@
 	<body>
 		{{> qualaroo}}
 
-		<div id="icons"></div>
-
         <!--
         Ember must render out to a specific div above the scripts, otherwise
         Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
@@ -102,11 +100,12 @@
 
 				function importIcons (fOnload) {
 					var ajax = new XMLHttpRequest();
-					ajax.open("GET", "/front/svg/main.svg", true);
+					ajax.open('GET', '/front/svg/main.svg', true);
 					ajax.send();
 					ajax.onload = function(e) {
-						var div = document.getElementById("icons");
-						div.outerHTML = ajax.responseText;
+						var div = document.createElement('div');
+						div.innerHTML = ajax.responseText;
+						document.body.insertBefore(div.childNodes[0], document.body.firstChild);
 						if (fOnload) { fOnload(); }
 					}
 					ajax.onerror = loadError;
