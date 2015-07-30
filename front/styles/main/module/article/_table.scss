@@ -2,7 +2,7 @@ table:not(.infobox, .dirbox) {
 	visibility: hidden;
 }
 
-.article-table {
+.article-table-wrapper {
 	border: 1px solid $border-color-light;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
@@ -22,8 +22,8 @@ table:not(.infobox, .dirbox) {
 		padding: 10px;
 
 		figure {
-			margin: 0;
 			display: inline-block;
+			margin: 0;
 
 			&.has-caption .chevron {
 				margin-bottom: 0;
