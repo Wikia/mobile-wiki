@@ -17,11 +17,9 @@ function showApplication(request: Hapi.Request, reply: Hapi.Response): void {
 		// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 		result.wiki = response.data;
 		result.server = Utils.createServerData(wikiDomain);
-		result.asyncArticle = Utils.shouldAsyncArticle(localSettings, request.headers.host);
 		result.queryParams = Utils.parseQueryParams(request.query, []);
 		result.weppyConfig = localSettings.weppy;
 		result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
-		result.article = null;
 
 		if (result.wiki.language) {
 			var userDir = result.wiki.language.userDir;
