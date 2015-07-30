@@ -44,7 +44,11 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
-			langCode: lang
+			langCode: lang,
+			pageParams: {
+				termsOfUserLink: 'asdsafa',
+				privacyPolicyLink: 'gdfgjfdgdf'
+			}
 		}
 	);
 

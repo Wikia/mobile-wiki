@@ -1,7 +1,6 @@
+declare var pageParams: any;
+
 class TermsOfUse {
-	termsOfUseContainer: HTMLElement;
-	checkbox: HTMLInputElement;
-	label: HTMLLabelElement;
 	form: HTMLFormElement
 	Geo: Geo;
 	isJapan: boolean;
@@ -19,21 +18,29 @@ class TermsOfUse {
 
 	public init () {
 		if (this.shouldDisplayCheckbox()) {
-			this.termsOfUseContainer = document.getElementById('termsOfUse');
-			this.termsOfUseContainer.style.display = 'none';
+			var checkbox: HTMLInputElement = document.createElement('input'),
+				label: HTMLLabelElement = document.createElement('label');
 
-			this.checkbox = document.createElement('input');
-			this.checkbox.type = 'checkbox';
-			this.checkbox.name = 'termsOfUse';
-			this.checkbox.id = 'termsOfUseCheckbox';
-			this.checkbox.required = true;
-			this.label = document.createElement('label');
-			this.label.appendChild(this.checkbox);
-			this.label.innerHTML += this.termsOfUseContainer.innerHTML;
-			this.label.classList.add('inline');
-			this.label.htmlFor = 'termsOfUseCheckbox';
+			document.getElementById('termsOfUse').style.display = 'none';
 
-			this.form.insertBefore(this.label, document.getElementById('signupSubmit'));
+			checkbox = document.createElement('input');
+			checkbox.type = 'checkbox';
+			checkbox.name = 'termsOfUse';
+			checkbox.id = 'termsOfUseCheckbox';
+			checkbox.required = true;
+			label = document.createElement('label');
+			label.appendChild(checkbox);
+			label.innerHTML += i18n.t(
+				'labels.terms-of-use-and-privacy-policy-text',
+				{
+					termsOfUseLink: pageParams.termsOfUserLink,
+					privacyPolicyLink: pageParams.privacyPolicyLink
+				}
+			);
+			label.classList.add('inline');
+			label.htmlFor = 'termsOfUseCheckbox';
+
+			this.form.insertBefore(label, document.getElementById('signupSubmit'));
 		}
 	}
 }
