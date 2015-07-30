@@ -34,8 +34,7 @@ App.CuratedContentEditorModel.reopenClass({
 				method: 'POST',
 				data: this.prepareDataForSave(model),
 				success: (data: any): void => {
-					// TODO: Handle errors
-					console.log(data);
+					resolve(data);
 				},
 				error: (data: any): void => {
 					reject(data);

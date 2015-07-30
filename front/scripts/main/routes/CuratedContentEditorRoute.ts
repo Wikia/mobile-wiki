@@ -25,10 +25,6 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 		},
 
-		save(): void {
-			App.CuratedContentEditorModel.save(this.modelFor('curatedContentEditor'));
-		},
-
 		error(error: any): boolean {
 			Em.Logger.error(error);
 			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));

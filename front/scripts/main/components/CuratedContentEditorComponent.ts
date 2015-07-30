@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.CuratedContentEditorComponent = Em.Component.extend({
+App.CuratedContentEditorComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	classNames: ['curated-content-editor'],
 
 	actions: {
@@ -22,7 +22,17 @@ App.CuratedContentEditorComponent = Em.Component.extend({
 		},
 
 		save(): void {
-			this.sendAction('save');
+			this.showLoader();
+			App.CuratedContentEditorModel.save(this.get('model'))
+				.then((data: any): void => {
+					//TODO: V
+				})
+				.catch((err: any): void => {
+					//TODO: V
+				})
+				.finally((): void => {
+					this.hideLoader();
+				});
 		}
 	}
 });
