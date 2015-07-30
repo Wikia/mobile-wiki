@@ -18,18 +18,18 @@ App.CuratedContentModel = Em.Object.extend({
 });
 
 App.CuratedContentModel.reopenClass({
-	find: function (sectionName: string, sectionType = 'section', offset: string = null): Em.RSVP.Promise {
+	find: function (title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var url = App.get('apiBase'),
+			var url = App.get('apiBase') + '/main/',
 				curatedContentGlobal: any = M.prop('curatedContent'),
 				params: {offset?: string} = {},
 				modelInstance = App.CuratedContentModel.create({
-					title: sectionName,
-					type: sectionType
+					title,
+					type
 				});
 
 			// If this is first PV we have model for curated content already so we don't need to issue another request
-			// When resolving promise we need to set Mercury.curatedContent to undefined
+			// When resolving promise we need to set Mercury.curatedContent to null
 			// because this data gets outdated on following PVs
 			if (curatedContentGlobal && curatedContentGlobal.items) {
 				modelInstance.setProperties({
@@ -39,16 +39,14 @@ App.CuratedContentModel.reopenClass({
 				resolve(modelInstance);
 				M.prop('curatedContent', null);
 			} else {
-				url += (sectionType === 'section') ?
-					'/main/section/' + sectionName :
-					'/main/category/' + sectionName;
+				url += type + '/' + title;
 
 				if (offset) {
 					params.offset = offset;
 				}
 
 				Em.$.ajax({
-					url: url,
+					url,
 					data: params,
 					success: (data: any): void => {
 						modelInstance.setProperties({
@@ -97,6 +95,7 @@ App.CuratedContentModel.reopenClass({
 	sanitizeItem: function (rawData: any): CuratedContentItem {
 		var item: CuratedContentItem,
 			categoryName: string,
+			url: string,
 			articlePath = Em.get(Mercury, 'wiki.articlePath');
 
 		if (rawData.type === 'section') {
@@ -106,7 +105,15 @@ App.CuratedContentModel.reopenClass({
 				type: 'section'
 			};
 		} else if (rawData.type === 'category') {
-			categoryName = (rawData.article_local_url) ? rawData.article_local_url : rawData.url;
+			// MercuryApi (categories for section) returns article_local_url, ArticlesApi (subcategories) returns url
+			url = rawData.url ? rawData.url : rawData.article_local_url;
+
+			// TODO (CONCF-914): article_local_url is sometimes encoded and sometimes not, to investigate
+			try {
+				categoryName = decodeURIComponent(url);
+			} catch (error) {
+				categoryName = url;
+			}
 
 			// Remove /wiki/
 			categoryName = categoryName.replace(articlePath, '');
@@ -118,7 +125,7 @@ App.CuratedContentModel.reopenClass({
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
 				type: 'category',
-				categoryName: categoryName
+				categoryName
 			}
 		} else {
 			item = {

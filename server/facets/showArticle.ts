@@ -26,6 +26,13 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 		article: Article.ArticleRequestHelper,
 		allowCache = true;
 
+	//TODO: This is really only a temporary check while we see if loading a smaller
+	//article has any noticable effect on engagement
+	if (Utils.shouldAsyncArticle(localSettings, request.headers.host)) {
+		// Only request an adequate # of sessions to populate above the fold
+		params.sections = '0,1,2';
+	}
+
 	if (request.state.wikicities_session) {
 		params.headers = {
 			'Cookie': `wikicities_session=${request.state.wikicities_session}`
@@ -35,7 +42,8 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 
 	article = new Article.ArticleRequestHelper(params);
 
-	if (path === '/' || path === '/wiki/') {
+	// TODO (CONCF-761): /main/edit is here temporary
+	if (path === '/' || path === '/wiki/' || path.indexOf('/main/edit') === 0) {
 		article.getWikiVariables((error: any, wikiVariables: any) => {
 			if (error) {
 				// TODO check error.statusCode and react accordingly

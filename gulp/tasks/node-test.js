@@ -1,3 +1,8 @@
+/*
+ * node-test
+ * Runs node unit tests
+ */
+
 var spawn = require('child_process').spawn,
 	path = require('path'),
 	gulp = require('gulp'),

@@ -3,7 +3,7 @@ moduleForComponent('loading-spinner', 'Loading Spinner Component');
 test('should be hidden by default', function () {
 	var componentMock = this.subject();
 
-	equal(componentMock.get('hidden'), true, 'hidden should be set to true');
+	equal(componentMock.get('isVisible'), false);
 });
 
 test('should be visible if loading param is truthy', function () {
@@ -11,7 +11,7 @@ test('should be visible if loading param is truthy', function () {
 		active: true
 	});
 
-	equal(componentMock.get('hidden'), false, 'hidden should be set to false');
+	equal(componentMock.get('isVisible'), true);
 });
 
 test('should be hidden if loading param is falsy', function () {
@@ -19,5 +19,5 @@ test('should be hidden if loading param is falsy', function () {
 		active: false
 	});
 
-	equal(componentMock.get('hidden'), true, 'hidden should be set to true');
+	equal(componentMock.get('isVisible'), false);
 });

@@ -1,3 +1,8 @@
+/*
+ * server
+ * Builds and starts server
+ */
+
 var gulp = require('gulp'),
 	server = require('gulp-develop-server'),
 	options = require('../options').server;

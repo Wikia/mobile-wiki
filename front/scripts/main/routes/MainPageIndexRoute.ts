@@ -9,7 +9,7 @@ App.MainPageIndexRoute = Em.Route.extend({
 	},
 
 	afterModel: function (model: typeof App.MainPageModel): void {
-		var mainPageTitle = M.String.normalize(Em.get(Mercury, 'wiki.mainPageTitle'));
+		var mainPageTitle = M.String.normalizeToWhitespace(Em.get(Mercury, 'wiki.mainPageTitle'));
 		document.title = mainPageTitle + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
 		this.controllerFor('mainPage').setProperties({
@@ -18,6 +18,11 @@ App.MainPageIndexRoute = Em.Route.extend({
 			ns: model.get('ns'),
 			title: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
+
+		if (!model.isCuratedMainPage) {
+			// This is needed for articles
+			App.VisibilityStateManager.reset();
+		}
 	},
 
 	renderTemplate: function (controller: any, model: typeof App.MainPageModel): void {

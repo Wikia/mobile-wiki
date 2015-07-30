@@ -13,7 +13,9 @@
 @import 'comments';
 @import 'content-recommendations';
 @import 'discussion';
-@import 'edit';
+@import 'edit/edit-common';
+@import 'edit/addphoto';
+@import 'edit/edit';
 @import 'loader';
 @import 'site-footer';
 @import 'wikia-map';

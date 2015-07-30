@@ -6,6 +6,12 @@
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
+	queryParams: {
+		comments_page: {
+			replace: true
+		}
+	},
+
 	model: function <T>(params: T): T {
 		return params;
 	},
@@ -119,12 +125,12 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		loadRandomArticle: function (): void {
-			this.get('controller').set('sideNavCollapsed', true);
+			this.get('controller').send('toggleSideNav', false);
 
 			App.ArticleModel
 				.getArticleRandomTitle()
 				.then((articleTitle: string): void => {
-					this.transitionTo('article', encodeURIComponent(M.String.sanitize(articleTitle)));
+					this.transitionTo('article', encodeURIComponent(M.String.normalizeToUnderscore(articleTitle)));
 				})
 				.catch((err: any): void => {
 					this.send('error', err);
@@ -146,8 +152,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		// This is used only in not-found.hbs template
-		expandSideNav: function (): void {
-			this.get('controller').set('sideNavCollapsed', false);
+		toggleSideNav: function (visible: boolean): void {
+			this.get('controller').set('sideNavVisible', visible);
 		}
 	}
 });

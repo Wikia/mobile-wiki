@@ -16,7 +16,6 @@ App.SmartBannerComponent = Em.Component.extend({
 		daysHiddenAfterView: 30
 	},
 	day: 86400000,
-	isVisible: false,
 
 	appId: Em.computed('config', 'system', function (): string {
 		return this.get('config.appId.' + this.get('system'));
@@ -80,7 +79,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	actions: {
 		close: function (): void {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
-			this.set('isVisible', false);
+			this.sendAction('toggleVisibility', false);
 			this.track(M.trackActions.close);
 		},
 
@@ -95,7 +94,7 @@ App.SmartBannerComponent = Em.Component.extend({
 				window.open(this.get('link'), '_blank');
 			}
 
-			this.set('isVisible', false);
+			this.sendAction('toggleVisibility', false);
 		}
 	},
 
@@ -119,7 +118,7 @@ App.SmartBannerComponent = Em.Component.extend({
 			!config.disabled &&
 			$.cookie('sb-closed') !== '1'
 		) {
-			this.set('isVisible', true);
+			this.sendAction('toggleVisibility', true);
 			this.track(M.trackActions.impression);
 		} else {
 			this.destroy();

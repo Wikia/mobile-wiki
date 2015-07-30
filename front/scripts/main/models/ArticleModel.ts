@@ -48,7 +48,6 @@ App.ArticleModel = Em.Object.extend({
 	mainPageData: null,
 	media: [],
 	mediaUsers: [],
-	sections: [],
 	title: null,
 	user: null,
 	users: [],
@@ -143,7 +142,7 @@ App.ArticleModel.reopenClass({
 
 			data = {
 				article: error.details,
-				cleanTitle: M.String.normalize(model.title),
+				cleanTitle: M.String.normalizeToWhitespace(model.title),
 				error: error
 			};
 		} else if (source) {

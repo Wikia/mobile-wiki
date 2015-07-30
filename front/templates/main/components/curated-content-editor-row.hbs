@@ -1,0 +1,8 @@
+<img src="{{thumbUrl}}" />
+<div class="item-description">
+	<div class="title">{{model.label}}</div>
+	{{#if model.items}}
+		{{!-- @TODO CONCF-956 add translations to items --}}
+		<div class="subtitle">{{model.items.length}} items</div>
+	{{/if}}
+</div>
