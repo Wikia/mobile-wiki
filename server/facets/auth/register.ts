@@ -45,7 +45,7 @@ console.log(lang)
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,
 			pageParams: {
-				termsOfUseLink: '<a href="' + localeSettings[lang].urls['terms-of-use-link-url'] + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
+				termsOfUseLink: '<a href="' + localeSettings[lang].urls['termsOfUseLinkUrl'] + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
 				privacyPolicyLink: '<a href="' + localeSettings[lang].urls['privacyPolicyLinkUrl'] + '" target="_blank">' + i18n.t('auth:register.privacy-policy-link-title') + '</a>'
 			}
 		}

@@ -34,22 +34,22 @@ class BirthdateInput {
 				name: 'day',
 				maxLength: 2,
 				maxVal: 31,
-				placeholder: localeSettings[this.lang].date['day-format'],
-				separator: localeSettings[this.lang].date['day-separator']
+				placeholder: localeSettings[this.lang].date['dayFormat'],
+				separator: localeSettings[this.lang].date['daySeparator']
 			},
 			'month': {
 				name: 'month',
 				maxLength: 2,
 				maxVal: 12,
-				placeholder: localeSettings[this.lang].date['month-format'],
-				separator: localeSettings[this.lang].date['month-separator']
+				placeholder: localeSettings[this.lang].date['monthFormat'],
+				separator: localeSettings[this.lang].date['monthSeparator']
 			},
 			'year': {
 				name: 'year',
 				maxLength: 4,
 				maxVal: new Date().getFullYear(),
-				placeholder: localeSettings[this.lang].date['year-format'],
-				separator: localeSettings[this.lang].date['year-separator']
+				placeholder: localeSettings[this.lang].date['yearFormat'],
+				separator: localeSettings[this.lang].date['yearSeparator']
 			}
 		};
 
