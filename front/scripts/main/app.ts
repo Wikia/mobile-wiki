@@ -91,7 +91,12 @@ App.initializer({
 			return;
 		}
 
-		$(window).load(() => M.sendPagePerformance());
+		// Send page performance stats after window is loaded
+		if (document.readyState === 'complete') {
+			M.sendPagePerformance()
+		} else {
+			$(window).load(() => M.sendPagePerformance());
+		}
 
 		EmPerfSender.initialize({
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
