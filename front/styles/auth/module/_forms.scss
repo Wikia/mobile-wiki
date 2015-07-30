@@ -47,6 +47,10 @@ input[type='date']:valid + .floating-label {
 	color: $label-color-valid;
 }
 
+input:valid + .floating-label.error {
+	color: $input-border-error-color;
+}
+
 .input-container > img {
 	box-sizing: content-box;
 	height: 1rem;
