@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 gulp.task('combine-svgs-common', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
-		gulpif(isNeeded, piper(svgSymbols())),
+		svgSymbols(),
 		gulpif('**/*.svg', piper(
 			rename(folder + '.svg'),
 			gulp.dest(paths.dest)
