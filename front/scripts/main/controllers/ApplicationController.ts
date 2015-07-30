@@ -20,18 +20,11 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	smartBannerVisible: false,
 	sideNavVisible: false,
 	userMenuVisible: false,
-	noScroll: false,
 	fullPage: false,
 	lightboxType: null,
 	lightboxModel: null,
 
-	sideNavCollapsedObserver: Em.observer('sideNavVisible', function (): void {
-		if (this.get('sideNavVisible')) {
-			this.set('noScroll', true);
-		} else {
-			this.set('noScroll', false);
-		}
-	}),
+	noScroll: Em.computed.alias('sideNavVisible'),
 
 	init: function () {
 		this.setProperties({
