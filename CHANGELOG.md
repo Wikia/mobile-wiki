@@ -1,3 +1,8 @@
+## release-123 (2015-07-30 10:00 UTC)
+* disablie-source-maps: Disable source maps
+* [HG-820](https://wikia-inc.atlassian.net/browse/HG-820) HG-820 Fix ads MOBILE_IN_CONTENT slot
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 | Update crowdin config for rename ZH i18n files
+
 ## release-122 (2015-07-29 10:00 UTC)
 * [HG-797](https://wikia-inc.atlassian.net/browse/HG-797) mvp implementation of utilizing article sections api
 * [CONCF-918](https://wikia-inc.atlassian.net/browse/CONCF-918) CONCF-918
