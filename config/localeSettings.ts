@@ -1,25 +1,24 @@
 var deepExtend: any = require('deep-extend');
 
-var baseLocaleSettings: LocaleSettings = {},
+var baseLocaleSettings: LocaleConfig = {},
 	localeSettings: LocaleSettings = {};
 
 baseLocaleSettings = {
-	en: {
-		urls: {
-			'terms-of-use-link-url': 'http://www.wikia.com/Terms_of_Use'
-		},
-		date: {
-			'endian': 'middle',
-			'month-format': 'MM',
-			'month-separator': '/',
-			'day-format': 'DD',
-			'day-separator': '/',
-			'year-format': 'YYYY',
-			'year-separator': ''
-		}
+	urls: {
+		'terms-of-use-link-url': 'http://www.wikia.com/Terms_of_Use'
+	},
+	date: {
+		'endian': 'middle',
+		'month-format': 'MM',
+		'month-separator': '/',
+		'day-format': 'DD',
+		'day-separator': '/',
+		'year-format': 'YYYY',
+		'year-separator': ''
 	}
 };
 
+localeSettings['en'] = baseLocaleSettings;
 localeSettings['de'] = deepExtend(baseLocaleSettings['en'], {
 	urls: {
 		'terms-of-use-link-url': 'http://www.wikia.com/lalala'

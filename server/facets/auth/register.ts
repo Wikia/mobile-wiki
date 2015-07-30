@@ -3,7 +3,7 @@
 /// <reference path='../../../config/localSettings.d.ts' />
 
 import BirthdateInput = require('./BirthdateInput');
-import localeSettings = require('../../config/localeSettings');
+import localeSettings = require('../../../config/localeSettings');
 import authUtils = require('../../lib/AuthUtils');
 import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
@@ -36,11 +36,11 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			headerText: 'auth:join.sign-up-with-email',
 			heliosRegistrationURL: localSettings.helios.host + '/users',
 			title: 'auth:join.sign-up-with-email',
-			termsOfUseLink: '<a href="' + localeSettings.urls[lang]['terms-of-use-link-url'] + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
+			termsOfUseLink: '<a href="' + localeSettings[lang].urls['terms-of-use-link-url'] + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
-			birthdateInputs: (new BirthdateInput(localeSettings.date[lang].endian, lang)).getInputData(),
+			birthdateInputs: (new BirthdateInput(localeSettings[lang].date['endian'], lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
