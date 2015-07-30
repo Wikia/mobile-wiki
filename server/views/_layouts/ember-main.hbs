@@ -102,7 +102,7 @@
 
 				function importIcons (fOnload) {
 					var ajax = new XMLHttpRequest();
-					ajax.open("GET", "../../../front/svg/main.svg", true);
+					ajax.open("GET", "/front/svg/main.svg", true);
 					ajax.send();
 					ajax.onload = function(e) {
 						var div = document.getElementById("icons");
