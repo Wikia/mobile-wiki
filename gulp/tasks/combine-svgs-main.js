@@ -1,6 +1,6 @@
 /*
- * combine-svgs
- * Combines svg files into one, and place it in www/
+ * combine-svgs-main
+ * Combines main app svg files into one, and place it in www/
  */
 
 var gulp = require('gulp'),
