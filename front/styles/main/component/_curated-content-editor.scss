@@ -145,7 +145,6 @@ $image-size: 150px;
 		display: block;
 		height: 90vw;
 		margin: 0 auto;
-		max-width: 90%;
 		width: 90vw;
 	}
 
@@ -157,10 +156,11 @@ $image-size: 150px;
 		small {
 			background: linear-gradient(to top, rgba(255, 255, 255 , .7), rgba(255, 255, 255, 0));
 			bottom: 0;
-			margin: 0 calc(5vw + 1px);
-			max-width: 90%;
-			padding-top: 33%;
+			margin: 0 5vw;
+			width: 90vw;
+			padding: 5% 0;
 			position: absolute;
+			text-align: center;
 		}
 	}
 }

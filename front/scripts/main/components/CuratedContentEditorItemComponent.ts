@@ -63,9 +63,13 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		setTitleFocusedOut(): void {
 			this.validateTitle();
 			this.set('isTitleFocused', false);
+			if (this.get('isLoading')) {
+				this.hideLoader();
+			}
 		},
 
 		setTitleFocusedIn(): void {
+			this.showLoader();
 			this.validateTitle();
 			this.set('isTitleFocused', true);
 		},
@@ -160,7 +164,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 					});
 				}
 			})
-			.catch((err): void => {
+			.catch((err: any): void => {
 				//@TODO CONCF-956 add translations
 				Em.Logger.error(err);
 				this.set('imageErrorMessage', 'Oops! An API Error occured.');
