@@ -9,7 +9,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	maxLabelLength: 48,
 	debounceDuration: 250,
 
-	imageUrl: Em.computed('model', function (): string {
+	imageUrl: Em.computed('model.image_url', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
@@ -147,8 +147,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		App.CuratedContentEditorItemModel
 			.getImage(this.get('model.title'), this.get('imageSize'))
 			.then((data: CuratedContentGetImageResponse): void => {
-				if (data.url === '') {
-					if (!this.get('model.image_url').length) {
+				if (!data.url) {
+					if (!this.get('model.image_url')) {
 						//@TODO CONCF-956 add translations
 						this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
 					}
@@ -160,8 +160,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 					});
 				}
 			})
-			.catch((): void => {
+			.catch((err): void => {
 				//@TODO CONCF-956 add translations
+				Em.Logger.error(err);
 				this.set('imageErrorMessage', 'Oops! An API Error occured.');
 			})
 			.finally((): void => {
