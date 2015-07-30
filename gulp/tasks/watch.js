@@ -56,8 +56,7 @@ gulp.task('watch', ['build', 'build-views'], function () {
 	});
 
 	gulp.watch([
-		path.join(paths.symbols.main.src, paths.symbols.main.files),
-		path.join(paths.symbols.common.src, paths.symbols.common.files),
+		path.join(paths.symbols.src, paths.symbols.files),
 		paths.views.src
 	], ['build']);
 
