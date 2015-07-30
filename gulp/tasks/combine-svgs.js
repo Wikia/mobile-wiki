@@ -1,5 +1,5 @@
 /*
- * combine-svgs-main
+ * combine-svgs
  * Combines svg files into one, and place it in www/
  */
 
