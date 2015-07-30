@@ -150,7 +150,6 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 		var url = this.get('model.url');
 
 		if (url) {
-			this.showLoader();
 			this.load(url);
 		}
 
@@ -276,7 +275,10 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, App.Lo
 	 */
 	load: function (url: string): void {
 		var image: HTMLImageElement = new Image();
+
+		this.showLoader();
 		image.src = url;
+
 		if (image.complete) {
 			this.update(image.src);
 		} else {
