@@ -31,8 +31,10 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		done(): void {
+			var sortableItems;
 			if (this.get('notEmptyItems')) {
-				this.set('model.items', $.extend(true, {}, this.get('sortableItems')));
+				sortableItems = this.get('sortableItems');
+				this.set('model.items', sortableItems.slice(0, sortableItems.length));
 				this.sendAction('done', this.get('model'));
 			}
 		}

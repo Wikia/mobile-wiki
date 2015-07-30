@@ -5,6 +5,7 @@
 App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentEditorSortableItemsMixin, {
 	classNames: ['curated-content-editor-block'],
 	tagName: 'section',
+	persistentSort: true,
 
 	actions: {
 		addItem(): void {
