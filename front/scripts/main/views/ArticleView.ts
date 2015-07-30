@@ -74,7 +74,6 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		Em.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
 	}).on('willInsertElement'),
 
-
 	modelObserver: Em.observer('controller.model', function (): void {
 		var model = this.get('controller.model');
 
