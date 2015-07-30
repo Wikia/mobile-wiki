@@ -18,6 +18,7 @@ var localeSettings: any = {
 };
 
 localeSettings['de'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls: {
@@ -34,6 +35,7 @@ localeSettings['de'] = deepExtend(
 	}
 );
 localeSettings['en-au'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -44,6 +46,7 @@ localeSettings['en-au'] = deepExtend(
 );
 
 localeSettings['en-gb'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -54,6 +57,7 @@ localeSettings['en-gb'] = deepExtend(
 );
 
 localeSettings['en-ie'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -64,6 +68,7 @@ localeSettings['en-ie'] = deepExtend(
 );
 
 localeSettings['en-in'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -74,6 +79,7 @@ localeSettings['en-in'] = deepExtend(
 );
 
 localeSettings['en-nz'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -84,6 +90,7 @@ localeSettings['en-nz'] = deepExtend(
 );
 
 localeSettings['en-za'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -94,6 +101,7 @@ localeSettings['en-za'] = deepExtend(
 );
 
 localeSettings['es'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{
@@ -112,6 +120,7 @@ localeSettings['es'] = deepExtend(
 );
 
 localeSettings['es-es'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{
@@ -130,6 +139,7 @@ localeSettings['es-es'] = deepExtend(
 );
 
 localeSettings['fi'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -146,6 +156,7 @@ localeSettings['fi'] = deepExtend(
 );
 
 localeSettings['fr'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{
@@ -164,6 +175,7 @@ localeSettings['fr'] = deepExtend(
 );
 
 localeSettings['it'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -180,6 +192,7 @@ localeSettings['it'] = deepExtend(
 );
 
 localeSettings['ja'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{
@@ -198,6 +211,7 @@ localeSettings['ja'] = deepExtend(
 );
 
 localeSettings['ko'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -214,6 +228,7 @@ localeSettings['ko'] = deepExtend(
 );
 
 localeSettings['nl'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -230,6 +245,7 @@ localeSettings['nl'] = deepExtend(
 );
 
 localeSettings['pl'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -246,6 +262,7 @@ localeSettings['pl'] = deepExtend(
 );
 
 localeSettings['pt-br'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -262,6 +279,7 @@ localeSettings['pt-br'] = deepExtend(
 );
 
 localeSettings['pt-pt'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -278,6 +296,7 @@ localeSettings['pt-pt'] = deepExtend(
 );
 
 localeSettings['ru'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -294,6 +313,7 @@ localeSettings['ru'] = deepExtend(
 );
 
 localeSettings['sv-se'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -310,6 +330,7 @@ localeSettings['sv-se'] = deepExtend(
 );
 
 localeSettings['vi'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{},
@@ -326,6 +347,7 @@ localeSettings['vi'] = deepExtend(
 );
 
 localeSettings['zh'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{
@@ -344,6 +366,7 @@ localeSettings['zh'] = deepExtend(
 );
 
 localeSettings['zh-hans'] = deepExtend(
+	{},
 	localeSettings['en'],
 	{
 		urls :{
