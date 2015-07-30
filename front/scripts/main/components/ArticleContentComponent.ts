@@ -1,5 +1,6 @@
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/AdsMixin.ts" />
 
 'use strict';
 
@@ -7,10 +8,11 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleContentComponent = Em.Component.extend({
+App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	tagName: 'article',
 	classNames: ['article-content', 'mw-content'],
 
+	adsContext: null,
 	content: null,
 	media: null,
 
@@ -32,6 +34,9 @@ App.ArticleContentComponent = Em.Component.extend({
 			} else {
 				this.hackIntoEmberRendering(i18n.t('app.article-empty-label'));
 			}
+
+			this.injectAds();
+			this.setupAdsContext(this.get('adsContext'));
 		});
 	}).on('init'),
 

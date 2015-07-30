@@ -1,6 +1,5 @@
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/AdsMixin.ts" />
 /// <reference path="../mixins/LanguagesMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
@@ -14,7 +13,7 @@ interface ArticleSectionHeader {
 	id?: string;
 }
 
-App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMixin, App.TrackClickMixin, App.ViewportMixin, {
+App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackClickMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
 
 	hammerOptions: {
@@ -135,9 +134,6 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 			article = model.get('article');
 
 		if (article && article.length > 0) {
-			this.injectAds();
-			this.setupAdsContext(model.get('adsContext'));
-
 			M.setTrackContext({
 				a: model.title,
 				n: model.ns
