@@ -40,7 +40,7 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
-			birthdateInputs: (new BirthdateInput(localeSettings[lang].date['endian'], lang)).getInputData(),
+			birthdateInputs: (new BirthdateInput(localeSettings[lang].date.endian, lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
