@@ -11,13 +11,13 @@ App.AlertNotificationComponent = Em.Component.extend({
 	timeout: null,
 
 	didInsertElement: function (): void {
-		var expiry = this.get('alert').expiry;
+		var expiry = this.get('alert').expiry,
+		    onInsertElement = this.get('alert.callbacks.onInsertElement');
 
 		if (expiry > 0) {
 			this.set('timeout', Em.run.later(this, this.dismissNotification, expiry));
 		}
 
-		var onInsertElement = this.get('alert.callbacks.onInsertElement');
 		if (typeof onInsertElement === 'function') {
 			onInsertElement(this.$());
 		}
@@ -33,8 +33,8 @@ App.AlertNotificationComponent = Em.Component.extend({
 
 	actions: {
 		close: function (): void {
-			this.dismissNotification();
 			var onCloseAlert = this.get('alert.callbacks.onCloseAlert');
+			this.dismissNotification();
 			if (typeof onCloseAlert === 'function') {
 				onCloseAlert();
 			}

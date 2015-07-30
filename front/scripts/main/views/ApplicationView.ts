@@ -1,6 +1,8 @@
 /// <reference path='../app.ts' />
 /// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path='../../../../typings/headroom/headroom.d.ts' />
+/// <reference path="../mixins/LanguagesMixin.ts" />
+
 'use strict';
 
 // TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
@@ -18,7 +20,7 @@ interface EventTarget {
 	tagName: string;
 }
 
-App.ApplicationView = Em.View.extend({
+App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Em.computed(function (): string {
@@ -61,9 +63,10 @@ App.ApplicationView = Em.View.extend({
 
 	didInsertElement: function (): void {
 		this.trackFirstContent();
+		this.handleWikiaInYourLang();
 	},
 
-	trackFirstContent: function () {
+	trackFirstContent: function (): void {
 		M.trackPerf({
 			name: 'firstContent',
 			type: 'mark'
@@ -147,5 +150,67 @@ App.ApplicationView = Em.View.extend({
 				controller.send('handleLink', target);
 			}
 		}
+	},
+
+	handleWikiaInYourLang: function(): void {
+		if (this.shouldShowWikiaInYourLang()) {
+			App.WikiaInYourLangModel.load()
+			.then(function(model: typeof App.WikiaInYourLangModel): void {
+				if (model) {
+					this.createAlert(model);
+					M.track({
+						action: M.trackActions.impression,
+						category: 'wikiaInYourLangAlert',
+						label: 'shown'
+					});
+				}
+			}.bind(this),
+			(err: any) => {
+				M.track({
+					action: M.trackActions.impression,
+					category: 'wikiaInYourLangAlert',
+					label: err || 'error'
+				});
+			});
+		}
+	},
+
+	createAlert: function(model: typeof App.WikiaInYourLangModel): void {
+		var appController = this.get('controller'),
+		    alertData = {
+			type: '',
+			message: model.message,
+			expiry: 60000,
+			unsafe: true,
+			callbacks: {
+				onInsertElement: function(alert: any): void {
+					alert.on('click', 'a:not(.close)', (event: any) => {
+						M.track({
+							action: M.trackActions.click,
+							category: 'wikiaInYourLangAlert',
+							label: 'link'
+						});
+					});
+				},
+				onCloseAlert: function(): void {
+					window.localStorage.setItem('wikiaInYourLang.alertDismissed', new Date().getTime().toString());
+					M.track({
+						action: M.trackActions.click,
+						category: 'wikiaInYourLangAlert',
+						label: 'close'
+					});
+				}
+			}
+		};
+		appController.addAlert(alertData);
+	},
+
+	shouldShowWikiaInYourLang: function(): boolean {
+		var value = window.localStorage.getItem('wikiaInYourLang.alertDismissed'),
+		    now = new Date().getTime(),
+		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
+		    isJpOnNonJpWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
+		console.log('qqq notDiimissed', notDismissed); console.log('qqq isJPOnNonJP', isJpOnNonJpWikia);
+		return notDismissed && isJpOnNonJpWikia;
 	}
 });

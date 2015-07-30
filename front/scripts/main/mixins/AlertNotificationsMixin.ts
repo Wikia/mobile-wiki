@@ -15,9 +15,9 @@ App.AlertNotificationsMixin = Em.Mixin.create({
 	addAlert: function(alertData: AlertData): void {
 		var type = alertData.type,
 		    message = alertData.message,
-		    expiry = alertData.expiry ? alertData.expiry : 10000,
-		    unsafe = alertData.unsafe ? alertData.unsafe : false,
-		    callbacks = alertData.callbacks ? alertData.callbacks : {};
+		    expiry = alertData.expiry || 10000,
+		    unsafe = alertData.unsafe || false,
+		    callbacks = alertData.callbacks || {};
 
 		this.get('alertNotifications').pushObject({
 			type,

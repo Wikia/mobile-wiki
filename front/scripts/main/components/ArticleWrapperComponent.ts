@@ -3,7 +3,6 @@
 /// <reference path="../mixins/LanguagesMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
-// <reference path="../models/WikiaInYourLangModel.ts" />
 
 'use strict';
 
@@ -253,67 +252,5 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 		} else {
 			Em.Logger.debug('Missing ref on', target);
 		}
-	},
-
-	handleWikiaInYourLang: function(): void {
-		if (this.shouldShowWikiaInYourLang()) {
-			App.WikiaInYourLangModel.load()
-			.then(function(model: typeof App.WikiaInYourLangModel): void {
-				if (model) {
-					this.createAlert(model);
-					M.track({
-						action: M.trackActions.impression,
-						category: 'wikiaInYourLangAlert',
-						label: 'shown'
-					});
-				}
-			}.bind(this),
-			(err: any) => {
-				M.track({
-					action: M.trackActions.impression,
-					category: 'wikiaInYourLangAlert',
-					label: err || 'error'
-				});
-			});
-		}
-	},
-
-	createAlert: function(model: typeof App.WikiaInYourLangModel): void {
-		var appController = this.get('controller').get('controllers.application'),
-		    alertData = {
-			type: '',
-			message: model.message,
-			expiry: 60000,
-			unsafe: true,
-			callbacks: {
-				onInsertElement: function(alert: any): void {
-					alert.on('click', 'a:not(.close)', (event: any) => {
-						M.track({
-							action: M.trackActions.click,
-							category: 'wikiaInYourLangAlert',
-							label: 'link'
-						});
-					});
-				},
-				onCloseAlert: function(): void {
-					window.localStorage.setItem('wikiaInYourLang.alertDismissed', new Date().getTime().toString());
-					M.track({
-						action: M.trackActions.click,
-						category: 'wikiaInYourLangAlert',
-						label: 'close'
-					});
-				}
-			}
-		    };
-
-		appController.addAlert(alertData);
-	},
-
-	shouldShowWikiaInYourLang: function(): boolean {
-		var value = window.localStorage.getItem('wikiaInYourLang.alertDismissed'),
-		    now = new Date().getTime(),
-		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
-		    isJpOnNonJpWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
-		return notDismissed && isJpOnNonJpWikia;
 	}
 });
