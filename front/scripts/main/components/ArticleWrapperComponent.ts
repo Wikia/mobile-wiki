@@ -70,8 +70,8 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		this.sendAction('articleRendered');
 	},
 
-	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
-		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
+	contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
+		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
 	articleObserver: Em.observer('model.article', function (): void {
@@ -80,8 +80,8 @@ App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMix
 		Em.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
 	}).on('willInsertElement'),
 
-	modelObserver: Em.observer('controller.model', function (): void {
-		var model = this.get('controller.model');
+	modelObserver: Em.observer('model', function (): void {
+		var model = this.get('model');
 
 		if (model) {
 			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
