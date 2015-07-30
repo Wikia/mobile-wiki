@@ -1,38 +1,87 @@
-/// <reference path='../../../../typings/ember/ember.d.ts' />
-/// <reference path='../app.ts' />
+/// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../app.ts" />
+/// <reference path="../mixins/AdsMixin.ts" />
 
-App.ArticleContentComponent = Em.Component.extend({
-	layoutName: 'components/article-content',
-	article: null,
-	articleContent: Em.computed('article', function () {
-		return this.get('article');
-	}),
+'use strict';
 
-	handleTables: function (): void {
-		var $tables = this.$().find('table:not([class*=infobox], .dirbox)'),
-			wrapper: HTMLDivElement;
+interface HTMLElement {
+	scrollIntoViewIfNeeded: () => void
+}
 
-		if ($tables.length) {
-			wrapper = document.createElement('div');
-			wrapper.className = 'article-table';
+App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
+	tagName: 'article',
+	classNames: ['article-content', 'mw-content'],
 
-			$tables
-				.wrap(wrapper)
-				.css('visibility', 'visible');
+	adsContext: null,
+	content: null,
+	media: null,
+
+	articleContentObserver: Em.observer('content', function (): void {
+		var content = this.get('content');
+
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			if (content) {
+				this.hackIntoEmberRendering(content);
+				this.loadTableOfContentsData();
+				this.handleTables();
+				this.handleInfoboxes();
+				this.replaceInfoboxesWithInfoboxComponents();
+				this.replaceMapsWithMapComponents();
+				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
+				this.handlePollDaddy();
+
+				Em.run.later(this, (): void => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
+			} else {
+				this.hackIntoEmberRendering(i18n.t('app.article-empty-label'));
+			}
+
+			this.injectAds();
+			this.setupAdsContext(this.get('adsContext'));
+		});
+	}).on('init'),
+
+	actions: {
+		openLightbox: function (lightboxType: string, lightboxData: any) {
+			this.sendAction('openLightbox', lightboxType, lightboxData);
 		}
 	},
 
-	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
-		var $mediaPlaceholders = this.$('.article-media'),
-			index: number;
+	/**
+	 * This is due to the fact that we send whole article
+	 * as an HTML and then we have to modify it in the DOM
+	 *
+	 * Ember+Glimmer are not fan of this as they would like to have
+	 * full control over the DOM and rendering
+	 *
+	 * In perfect world articles would come as Handlebars templates
+	 * so Ember+Glimmer could handle all the rendering
+	 *
+	 * @param {string} content HTML containing whole article
+	 */
+	hackIntoEmberRendering(content: string) {
+		this.$().html(content);
+	},
 
-		if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
-			numberToProcess = $mediaPlaceholders.length;
-		}
+	/**
+	 * @desc Generates table of contents data based on h2 elements in the article
+	 * TODO: Temporary solution for generating Table of Contents
+	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
+	 * ToC data from server and render view based on that.
+	 */
+	loadTableOfContentsData: function (): void {
+		var headers: ArticleSectionHeader[] = this.$('h2[section]').map(
+			(i: number, elem: HTMLElement): ArticleSectionHeader => {
+				if (elem.textContent) {
+					return {
+						element: elem,
+						level: elem.tagName,
+						name: elem.textContent,
+						id: elem.id
+					};
+				}
+			}).toArray();
 
-		for (index = 0; index < numberToProcess; index++) {
-		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
-		}
+		this.sendAction('updateHeaders', headers);
 	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
@@ -50,52 +99,17 @@ App.ArticleContentComponent = Em.Component.extend({
 		return component.$().attr('data-ref', ref);
 	},
 
-	/**
-	 * @desc handles expanding long tables, code taken from WikiaMobile
-	 */
-	handleInfoboxes: function (): void {
-		var shortClass = 'short',
-			$infoboxes = $('table[class*="infobox"] tbody'),
-			body = window.document.body,
-			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
+		var $mediaPlaceholders = this.$('.article-media'),
+			index: number;
 
-		if ($infoboxes.length) {
-			$infoboxes
-				.filter(function (): boolean {
-					return this.rows.length > 6;
-				})
-				.addClass(shortClass)
-				.append('<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></td></tr>')
-				.on('click', function (event): void {
-					var $target = $(event.target),
-						$this = $(this);
-
-					if (!$target.is('a') && $this.toggleClass(shortClass).hasClass(shortClass)) {
-						scrollTo.apply($this.find('.infobox-expand')[0]);
-					}
-				});
+		if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
+			numberToProcess = $mediaPlaceholders.length;
 		}
-	},
 
-	replaceInfoboxesWithInfoboxComponents: function (): void {
-		this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
-			this.replaceInfoboxWithInfoboxComponent(elem);
-		});
-	},
-
-	replaceInfoboxWithInfoboxComponent: function (elem: HTMLElement): void {
-		var $infoboxPlaceholder = $(elem),
-			infoboxComponent: typeof App.PortableInfoboxComponent;
-
-		infoboxComponent = this.createChildView(App.PortableInfoboxComponent.create({
-			infoboxHTML: elem.innerHTML,
-			height: $infoboxPlaceholder.outerHeight()
-		}));
-
-		infoboxComponent.createElement();
-		$infoboxPlaceholder.replaceWith(infoboxComponent.$());
-		//TODO: do it in the nice way
-		infoboxComponent.trigger('didInsertElement');
+		for (index = 0; index < numberToProcess; index++) {
+		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
+		}
 	},
 
 	replaceMapsWithMapComponents: function (): void {
@@ -120,6 +134,61 @@ App.ArticleContentComponent = Em.Component.extend({
 		$mapPlaceholder.replaceWith(mapComponent.$());
 		//TODO: do it in the nice way
 		mapComponent.trigger('didInsertElement');
+	},
+
+	replaceInfoboxesWithInfoboxComponents: function (): void {
+		this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
+			this.replaceInfoboxWithInfoboxComponent(elem);
+		});
+	},
+
+	replaceInfoboxWithInfoboxComponent: function (elem: HTMLElement): void {
+		var $infoboxPlaceholder = $(elem),
+			infoboxComponent: typeof App.PortableInfoboxComponent;
+
+		infoboxComponent = this.createChildView(App.PortableInfoboxComponent.create({
+			infoboxHTML: elem.innerHTML,
+			height: $infoboxPlaceholder.outerHeight()
+		}));
+
+		infoboxComponent.createElement();
+		$infoboxPlaceholder.replaceWith(infoboxComponent.$());
+		//TODO: do it in the nice way
+		infoboxComponent.trigger('didInsertElement');
+	},
+
+	/**
+	 * @desc handles expanding long tables, code taken from WikiaMobile
+	 */
+	handleInfoboxes: function (): void {
+		var shortClass = 'short',
+			$infoboxes = this.$('table[class*="infobox"] tbody'),
+			body: HTMLElement = window.document.body,
+			scrollTo: Function = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+
+		if ($infoboxes.length) {
+			$infoboxes
+				.filter(function (): boolean {
+					return this.rows.length > 6;
+				})
+				.addClass(shortClass)
+				.append('<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></td></tr>')
+				.on('click', function (event: JQueryEventObject): void {
+					var $target = $(event.target),
+						$this = $(this);
+
+					if (!$target.is('a') && $this.toggleClass(shortClass).hasClass(shortClass)) {
+						scrollTo.apply($this.find('.infobox-expand')[0]);
+					}
+				});
+		}
+	},
+
+	handleTables: function (): void {
+		this.$('table:not([class*=infobox], .dirbox)')
+			.not('table table')
+			.css('visibility', 'visible')
+			.wrap('<div class="article-table-wrapper"/>');
 	},
 
 	/**
@@ -159,21 +228,5 @@ App.ArticleContentComponent = Em.Component.extend({
 			}
 			init();
 		});
-	},
-
-	articleContentObserver: Em.observer('articleContent', function () {
-		this.rerender();
-
-		Em.run.scheduleOnce('afterRender',this,  () => {
-			this.handleTables();
-			this.handleInfoboxes();
-			this.replaceInfoboxesWithInfoboxComponents();
-			this.replaceMapsWithMapComponents();
-			this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
-			this.handlePollDaddy();
-			Em.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
-		});
-
-	}).on('init')
-
+	}
 });

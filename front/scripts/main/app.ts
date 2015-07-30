@@ -40,6 +40,12 @@ window.emberHammerOptions = {
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
+		var $window = $(window);
+
+		$window.scroll(() => {
+			M.prop('scroll.mercury.preload', $window.scrollTop(), true);
+		});
+
 		var debug: boolean = M.prop('environment') === 'dev',
 			//prevents fail if transitions are empty
 			loadedTranslations = M.prop('translations') || {},

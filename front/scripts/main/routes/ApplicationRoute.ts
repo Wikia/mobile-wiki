@@ -128,7 +128,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		loadRandomArticle: function (): void {
-			this.get('controller').set('sideNavCollapsed', true);
+			this.get('controller').send('toggleSideNav', false);
 
 			App.ArticleModel
 				.getArticleRandomTitle()
@@ -155,8 +155,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		// This is used only in not-found.hbs template
-		expandSideNav: function (): void {
-			this.get('controller').set('sideNavCollapsed', false);
+		toggleSideNav: function (visible: boolean): void {
+			this.get('controller').set('sideNavVisible', visible);
 		}
 	}
 });
