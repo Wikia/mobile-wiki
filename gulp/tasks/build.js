@@ -13,6 +13,7 @@ gulp.task('build', [
 	'node-modules',
 	'sass',
 	'combine-svgs',
+	'combine-auth-svgs',
 	'images',
 	'vendor',
 	'templates',

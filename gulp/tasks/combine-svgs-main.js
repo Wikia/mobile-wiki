@@ -9,10 +9,10 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	rename = require('gulp-rename'),
 	piper = require('../utils/piper'),
-	paths = require('../paths').symbols,
+	paths = require('../paths').symbols.main,
 	path = require('path');
 
-gulp.task('combine-svgs', folders(paths.src, function (folder) {
+gulp.task('combine-svgs-main', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		svgSymbols(),

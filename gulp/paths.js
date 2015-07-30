@@ -49,9 +49,16 @@ module.exports = {
 		files: '**/*.hbs'
 	},
 	symbols: {
-		src: 'front/svg/symbols',
-		dest: basePath + '/front/svg',
-		files: '*.svg'
+		main: {
+			src: 'front/svg/symbols/main',
+			dest: basePath + '/front/svg',
+			files: '*.svg'
+		},
+		common: {
+			src: 'front/svg/symbols/common',
+			dest: basePath + '/front/svg',
+			files: '*.svg'
+		}
 	},
 	images: {
 		src: ['front/svg/images/*', 'front/images/*'],
