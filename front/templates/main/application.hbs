@@ -23,13 +23,13 @@
 		language=language
 	}}
 	{{side-nav
-		isVisible=sideNavVisible
+		shouldBeVisible=sideNavVisible
 		loadRandomArticle='loadRandomArticle'
 		toggleVisibility='toggleSideNav'
 	}}
 	{{#if currentUser.isAuthenticated}}
 		{{user-menu
-			isVisible=userMenuVisible
+			shouldBeVisible=userMenuVisible
 			userName=currentUser.model.name
 			toggleVisibility='toggleUserMenu'
 		}}

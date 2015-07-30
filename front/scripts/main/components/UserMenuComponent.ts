@@ -4,7 +4,7 @@
 
 App.UserMenuComponent = Em.Component.extend({
 	classNames: ['user-menu'],
-	classNameBindings: ['isVisible:visible:collapsed'],
+	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 
 	links: Em.computed('userName', function (): Array<any> {
 		return [

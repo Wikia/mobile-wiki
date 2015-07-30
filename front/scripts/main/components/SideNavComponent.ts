@@ -4,7 +4,7 @@
 App.SideNavComponent = Em.Component.extend({
 	tagName: 'nav',
 	classNames: ['side-nav'],
-	classNameBindings: ['isVisible:slide-into-view:collapsed'],
+	classNameBindings: ['shouldBeVisible:slide-into-view:collapsed'],
 
 	isInSearchMode: false,
 	searchQuery: '',
@@ -55,8 +55,8 @@ App.SideNavComponent = Em.Component.extend({
 		}
 	},
 
-	isVisibleObserver: Em.observer('isVisible', function () {
-		var trackLabel: string = this.get('isVisible') ? 'open' : 'close';
+	shouldBeVisibleObserver: Em.observer('shouldBeVisible', function () {
+		var trackLabel: string = this.get('shouldBeVisible') ? 'open' : 'close';
 		M.track({
 			action: M.trackActions.click,
 			category: 'menu',

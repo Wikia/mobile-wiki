@@ -1,6 +1,6 @@
 {{! Overlay that fades in}}
 <div {{action 'collapse'}} class='overlay'></div>
-{{! 
+{{!
 	This is the element that is slid away
 	If this element has search class, the elements in it will rearrange to be in search mode or whatever
 }}
@@ -19,13 +19,13 @@
 		<div {{action 'searchCancel'}} class='cancel'>{{i18n 'app.cancel-label'}}</div>
 	</div>
 	{{local-wikia-search
-		sideNavVisible=isVisible
+		sideNavVisible=shouldBeVisible
 		query=searchQuery
 		isInSearchMode=isInSearchMode
 		collapseSideNav='collapse'
 	}}
 	{{local-nav-menu
-		sideNavVisible=isVisible
+		sideNavVisible=shouldBeVisible
 		loadRandomArticle='loadRandomArticle'
 		collapseSideNav='collapse'
 	}}
