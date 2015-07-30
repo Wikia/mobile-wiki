@@ -40,6 +40,12 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		});
 	}).on('init'),
 
+	actions: {
+		openLightbox: function (lightboxType: string, lightboxData: any) {
+			this.sendAction('openLightbox', lightboxType, lightboxData);
+		}
+	},
+
 	/**
 	 * This is due to the fact that we send whole article
 	 * as an HTML and then we have to modify it in the DOM

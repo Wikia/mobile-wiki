@@ -120,6 +120,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			this.sendAction('toggleSideNav', true);
 		},
 
+		openLightbox: function (lightboxType: string, lightboxData: any) {
+			this.sendAction('openLightbox', lightboxType, lightboxData);
+		},
+
 		updateHeaders: function (headers: ArticleSectionHeader[]): void {
 			this.set('headers', headers);
 
