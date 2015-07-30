@@ -89,6 +89,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');
 			}
+		},
+
+		fileUpload(files: any[]): void {
+
 		}
 	},
 

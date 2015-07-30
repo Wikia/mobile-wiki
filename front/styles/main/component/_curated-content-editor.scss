@@ -175,3 +175,15 @@ $image-size: 150px;
 	padding: 14px 18px;
 	text-transform: uppercase;
 }
+
+
+.file-upload-input {
+	display: none;
+}
+
+.file-upload-label {
+	position: absolute;
+	top: 14px;
+	width: 100vw;
+	height: 90vw;
+}
