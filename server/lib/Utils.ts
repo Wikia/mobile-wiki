@@ -209,8 +209,5 @@ export function parseQueryParams (obj: any, allowedKeys: string[]): any {
  * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
  */
 export function shouldAsyncArticle(localSettings: LocalSettings, host: string): boolean {
-
-	var ret = localSettings.asyncArticle.some((communityName: string) => !!host.match(communityName));
-	console.log('#####', localSettings.asyncArticle, host, ret);
-	return ret;
+	return localSettings.asyncArticle.some((communityName: string) => !!host.match(communityName));
 }
