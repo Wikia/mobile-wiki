@@ -29,7 +29,7 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
-	
+
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
@@ -39,14 +39,16 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
-			birthdateInputs: (new BirthdateInput(localeSettings[lang].date['endian'], lang)).getInputData(),
+			birthdateInputs: (new BirthdateInput(localeSettings[lang].date.endian, lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,
 			pageParams: {
-				termsOfUseLink: '<a href="' + localeSettings[lang].urls['termsOfUseLinkUrl'] + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
-				privacyPolicyLink: '<a href="' + localeSettings[lang].urls['privacyPolicyLinkUrl'] + '" target="_blank">' + i18n.t('auth:register.privacy-policy-link-title') + '</a>'
+				termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl + '" target="_blank">'
+					+ i18n.t('auth:register.terms-of-use-link-title') + '</a>',
+				privacyPolicyLink: '<a href="' + localeSettings[lang].urls.privacyPolicyLinkUrl + '" target="_blank">'
+					+ i18n.t('auth:register.privacy-policy-link-title') + '</a>'
 			}
 		}
 	);
