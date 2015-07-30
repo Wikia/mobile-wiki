@@ -36,7 +36,6 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			headerText: 'auth:join.sign-up-with-email',
 			heliosRegistrationURL: localSettings.helios.host + '/users',
 			title: 'auth:join.sign-up-with-email',
-			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
@@ -46,8 +45,9 @@ export function get (request: Hapi.Request, reply: any): Hapi.Response {
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,
 			pageParams: {
-				termsOfUserLink: 'asdsafa',
-				privacyPolicyLink: 'gdfgjfdgdf'
+				termsOfUseLink: '<a href="' + i18n.t('auth:register.terms-of-use-link-url') + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
+				// TODO
+				privacyPolicyLink: '<a href="' + i18n.t('auth:register.terms-of-use-link-url') + '" target="_blank">' + i18n.t('auth:register.privacy-policy-link-title') + '</a>'
 			}
 		}
 	);

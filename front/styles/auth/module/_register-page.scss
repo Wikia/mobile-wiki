@@ -5,12 +5,12 @@
 	width: 100%;
 }
 
-.terms-of-use-link {
-	color: $link-color;
-}
-
 label.inline {
 	margin-bottom: 0.5rem;
 	padding-left: 20px;
 	text-indent: -20px;
+}
+
+.terms-of-use a, label.inline a {
+	color: $link-color;
 }

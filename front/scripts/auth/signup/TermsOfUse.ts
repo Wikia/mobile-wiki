@@ -33,7 +33,7 @@ class TermsOfUse {
 			label.innerHTML += i18n.t(
 				'labels.terms-of-use-and-privacy-policy-text',
 				{
-					termsOfUseLink: pageParams.termsOfUserLink,
+					termsOfUseLink: pageParams.termsOfUseLink,
 					privacyPolicyLink: pageParams.privacyPolicyLink
 				}
 			);
