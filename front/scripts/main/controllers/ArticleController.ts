@@ -16,11 +16,6 @@ App.ArticleController = Em.Controller.extend({
 	},
 
 	actions: {
-		updateHeaders: function (headers: NodeList): void {
-			var article = this.get('model');
-			article.set('sections', headers);
-		},
-
 		edit: function (title: string, sectionIndex: number): void {
 			App.VisibilityStateManager.reset();
 			this.transitionToRoute('edit', title, sectionIndex);
@@ -32,7 +27,7 @@ App.ArticleController = Em.Controller.extend({
 			});
 		},
 
-		addPhoto: function(title: string, sectionIndex: number, photoData: any): void {
+		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
 			this.transitionToRoute('addPhoto', App.AddPhotoModel.load(title, sectionIndex, photoData));
 		},
 
