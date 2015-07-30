@@ -14,10 +14,6 @@ interface ArticleSectionHeader {
 	id?: string;
 }
 
-interface HTMLElement {
-	scrollIntoViewIfNeeded: () => void
-}
-
 App.ArticleWrapperComponent = Em.Component.extend(App.AdsMixin, App.LanguagesMixin, App.TrackClickMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
 

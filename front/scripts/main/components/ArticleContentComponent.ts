@@ -3,6 +3,10 @@
 
 'use strict';
 
+interface HTMLElement {
+	scrollIntoViewIfNeeded: () => void
+}
+
 App.ArticleContentComponent = Em.Component.extend({
 	tagName: 'article',
 	classNames: ['article-content', 'mw-content'],
@@ -148,8 +152,8 @@ App.ArticleContentComponent = Em.Component.extend({
 	handleInfoboxes: function (): void {
 		var shortClass = 'short',
 			$infoboxes = this.$('table[class*="infobox"] tbody'),
-			body = window.document.body,
-			scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+			body: HTMLElement = window.document.body,
+			scrollTo: Function = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 		if ($infoboxes.length) {
 			$infoboxes
