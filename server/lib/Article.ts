@@ -55,7 +55,7 @@ export class ArticleRequestHelper {
 	 */
 	getData(callback: Function, getWikiVariables: boolean = false): void {
 		var requests = [
-				new MediaWiki.ArticleRequest(this.params).article(this.params.title, this.params.redirect)
+				new MediaWiki.ArticleRequest(this.params).article(this.params.title, this.params.redirect, this.params.sections)
 			];
 
 		logger.debug(this.params, 'Fetching article');

@@ -18,14 +18,14 @@ App.CuratedContentModel = Em.Object.extend({
 });
 
 App.CuratedContentModel.reopenClass({
-	find: function (sectionName: string, sectionType = 'section', offset: string = null): Em.RSVP.Promise {
+	find: function (title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var url = App.get('apiBase'),
+			var url = App.get('apiBase') + '/main/',
 				curatedContentGlobal: any = M.prop('curatedContent'),
 				params: {offset?: string} = {},
 				modelInstance = App.CuratedContentModel.create({
-					title: sectionName,
-					type: sectionType
+					title,
+					type
 				});
 
 			// If this is first PV we have model for curated content already so we don't need to issue another request
@@ -39,16 +39,14 @@ App.CuratedContentModel.reopenClass({
 				resolve(modelInstance);
 				M.prop('curatedContent', null);
 			} else {
-				url += (sectionType === 'section') ?
-					'/main/section/' + sectionName :
-					'/main/category/' + sectionName;
+				url += type + '/' + title;
 
 				if (offset) {
 					params.offset = offset;
 				}
 
 				Em.$.ajax({
-					url: url,
+					url,
 					data: params,
 					success: (data: any): void => {
 						modelInstance.setProperties({
@@ -127,7 +125,7 @@ App.CuratedContentModel.reopenClass({
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
 				type: 'category',
-				categoryName: categoryName
+				categoryName
 			}
 		} else {
 			item = {
