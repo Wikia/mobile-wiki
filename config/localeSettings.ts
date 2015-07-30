@@ -19,7 +19,6 @@ var localeSettings: LocaleSettings = {
 
 localeSettings['de'] = deepExtend({
 	urls: {
-		'terms-of-use-link-url': 'http://www.wikia.com/lalala'
 	},
 	date: {
 		'endian': 'little',
@@ -265,24 +264,11 @@ localeSettings['vi'] = deepExtend({
 
 localeSettings['zh'] = deepExtend({
 	urls :{
-		'terms-of-use-link-url': 'http://zh.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%9D%A1%E6%AC%BE'
+		'terms-of-use-link-url': 'http://zh-tw.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%A2%9D%E6%AC%BE'
 	},
 	date: {
 		'endian': 'big',
 		'month-format': '曰',
-		'month-separator': '\/',
-		'day-format': '日',
-		'day-separator': '\/',
-		'year-format': '年',
-		'year-separator': ''
-	}
-}, localeSettings['en']);
-
-localeSettings['zh-cn'] = deepExtend({
-	urls :{},
-	date :{
-		'endian': 'big',
-		'month-format': '月',
 		'month-separator': '\/',
 		'day-format': '日',
 		'day-separator': '\/',
@@ -292,25 +278,12 @@ localeSettings['zh-cn'] = deepExtend({
 }, localeSettings['en']);
 
 localeSettings['zh-hans'] = deepExtend({
-	urls :{},
+	urls :{
+		'terms-of-use-link-url': 'http://zh.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%9D%A1%E6%AC%BE'
+	},
 	date :{
 		'endian': '中间名',
 		'month-format': '月',
-		'month-separator': '\/',
-		'day-format': '日',
-		'day-separator': '\/',
-		'year-format': '年',
-		'year-separator': ''
-	}
-}, localeSettings['en']);
-
-localeSettings['zh-tw'] = deepExtend({
-	urls: {
-		'terms-of-use-link-url': 'http://zh-tw.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%A2%9D%E6%AC%BE'
-	},
-	date: {
-		'endian': 'big',
-		'month-format': '曰',
 		'month-separator': '\/',
 		'day-format': '日',
 		'day-separator': '\/',
