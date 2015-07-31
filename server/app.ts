@@ -40,7 +40,8 @@ server.connection({
 		state: {
 			failAction: 'log'
 		}
-	}
+	},
+	cors: true
 });
 
 setupLogging(server);
