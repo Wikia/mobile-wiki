@@ -19,7 +19,7 @@
 </div>
 {{#unless notEmptyItems}}
 	{{!-- @TODO CONCF-956 add translations --}}
-	<small class="error">Items are empty!</small>
+	<small>Items are empty</small>
 {{/unless}}
 {{#each model.items as |item|}}
 	{{curated-content-editor-row

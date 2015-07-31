@@ -1,7 +1,9 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/AlertNotificationsMixin.ts" />
+/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.CuratedContentEditorComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
+App.CuratedContentEditorComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
 	classNames: ['curated-content-editor'],
 
 	actions: {
@@ -24,13 +26,40 @@ App.CuratedContentEditorComponent = Em.Component.extend(App.LoadingSpinnerMixin,
 		save(): void {
 			this.showLoader();
 			App.CuratedContentEditorModel.save(this.get('model'))
-				.then((data: any): void => {
-					//TODO: V
+				.then((data: CuratedContentValidationResponseInterface): void => {
+					if (data.status) {
+						//@TODO CONCF-956 add translations
+						this.addAlert('info', 'Data validated.');
+						this.sendAction('openMainPage');
+					} else {
+						data.error.forEach((error: any) => {
+							switch(error.reason) {
+								// errors that belong to item -> something went very wrong if we have those
+								case 'articleNotFound':
+								case 'emptyLabel':
+								case 'tooLongLabel':
+								case 'videoNotSupportProvider':
+								case 'notSupportedType':
+								case 'duplicatedLabel':
+								case 'noCategoryInTag':
+								case 'imageMissing':
+									//@TODO CONCF-956 add translations
+									this.addAlert('alert', 'Please fix errors inside items.');
+									break;
+								case 'itemsMissing':
+									//@TODO CONCF-956 add translations
+									this.addAlert('alert', 'Please fix errors inside Curated section.');
+							}
+						});
+						//@TODO CONCF-956 add translations
+						this.addAlert('alert', 'Please fix errors.');
+					}
 				})
-				.catch((err: any): void => {
-					//TODO: V
+				.catch((): void => {
+					//@TODO CONCF-956 add translations
+					this.addAlert('alert', 'Something went wrong. Please repeat.');
 				})
-				.finally((): void => {
+				.finally(():void => {
 					this.hideLoader();
 				});
 		}

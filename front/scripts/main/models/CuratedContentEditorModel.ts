@@ -38,7 +38,7 @@ App.CuratedContentEditorModel.reopenClass({
 				dataType: 'json',
 				method: 'POST',
 				data: this.prepareDataForSave(model),
-				success: (data: any): void => {
+				success: (data: CuratedContentValidationResponseInterface): void => {
 					resolve(data);
 				},
 				error: (data: any): void => {
