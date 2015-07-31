@@ -40,7 +40,10 @@ server.connection({
 		state: {
 			failAction: 'log'
 		},
-		cors: true
+		cors: {
+			origin: '*',
+			matchOrigin: true
+		}
 	}
 });
 
