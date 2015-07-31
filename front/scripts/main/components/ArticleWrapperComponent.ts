@@ -116,6 +116,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			this.sendAction('edit', title, sectionIndex);
 		},
 
+		addPhoto: function(title: string, sectionIndex: number, photoData: any): void {
+			this.sendAction('addPhoto', title, sectionIndex, photoData);
+		},
+
 		expandSideNav: function (): void {
 			this.sendAction('toggleSideNav', true);
 		},
