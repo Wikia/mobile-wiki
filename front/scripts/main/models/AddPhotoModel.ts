@@ -101,7 +101,10 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 			this.temporaryUpload(model.photoData)
 				.then((addmediatemporary: any): void => {
 					if (addmediatemporary.tempName === undefined) { //we already have the file. No need to upload.
-						return resolve({'title': addmediatemporary.title});
+						return resolve({
+							title: addmediatemporary.title,
+							url: addmediatemporary.url
+						});
 					}
 					//If a user inputs an empty image name, then we silently replace it with original file name.
 					var newPhotoTitle: string;

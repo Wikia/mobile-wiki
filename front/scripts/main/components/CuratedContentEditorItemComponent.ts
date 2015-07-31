@@ -92,7 +92,23 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		fileUpload(files: any[]): void {
-
+			this.showLoader();
+			App.AddPhotoModel.load('main', null, files[0])
+				.then(function (photoModel) {
+					return App.AddPhotoModel.upload(photoModel);
+				})
+				.then((data: any) => {
+					if (data && data.url) {
+						this.set('imageUrl', this.generateThumbUrl(data.url));
+					}
+				})
+				.catch((err: any) => {
+					Em.Logger.error(err);
+					this.set('imageErrorMessage', 'Oops! An API Error occured.');
+				})
+				.finally(() => {
+					this.hideLoader();
+				});
 		}
 	},
 
