@@ -221,7 +221,7 @@ export function shouldAsyncArticle(localSettings: LocalSettings, host: string): 
  */
 export function createServerData(wikiDomain: string = ''): ServerData {
 	// if no environment, pass dev
-	var env = localSettings.environment || 4;
+	var env = localSettings.environment || Environment.Dev;
 
 	return {
 		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
