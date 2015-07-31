@@ -29,6 +29,9 @@ var counter = 1,
 		connections: {
 			router: {
 				stripTrailingSlash: true
+			},
+			routes: {
+				cors: true
 			}
 		}
 	});
@@ -39,9 +42,6 @@ server.connection({
 	routes: {
 		state: {
 			failAction: 'log'
-		},
-		cors: {
-			origin: '*'
 		}
 	}
 });
