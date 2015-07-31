@@ -3,7 +3,10 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, App.AlertNotificationsMixin, {
+App.CuratedContentEditorSectionComponent = Em.Component.extend(
+	App.AlertNotificationsMixin,
+	App.CuratedContentEditorThumbnailMixin,
+	{
 	imageSize: 300,
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
@@ -28,7 +31,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 		},
 
 		done(): void {
-			var sortableItems:any;
+			var sortableItems: any;
 
 			if (!this.get('notEmptyItems')) {
 				//@TODO CONCF-956 add translations

@@ -4,7 +4,11 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
+App.CuratedContentEditorItemComponent = Em.Component.extend(
+	App.AlertNotificationsMixin,
+	App.CuratedContentEditorThumbnailMixin,
+	App.LoadingSpinnerMixin,
+	{
 	classNames: ['curated-content-editor-item'],
 	imageSize: 300,
 	maxLabelLength: 48,
@@ -144,10 +148,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	},
 
 	validateImage(): boolean {
-		var imageId = this.getWithDefault('model.image_id', 0),
+		var imageId = this.get('model.image_id'),
 			errorMessage: string = null;
 
-		if (imageId === 0) {
+		if (!imageId) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Image is empty';
 		}
@@ -158,11 +162,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	},
 
 	validateLabel(): boolean {
-		var label = this.getWithDefault('model.label', ''),
-			alreadyUsedLabels = this.getWithDefault('alreadyUsedLabels', []),
+		var label = this.get('model.label'),
+			alreadyUsedLabels = this.get('alreadyUsedLabels'),
 			errorMessage: string = null;
 
-		if (!label.length) {
+		if (Em.isEmpty(label)) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Label is empty';
 		} else if (label.length > this.get('maxLabelLength')) {
@@ -185,7 +189,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		if (!this.get('isSectionView')) {
 			title = this.get('model.title');
 
-			if (!title || !title.length) {
+			if (Em.isEmpty(title)) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is empty';
 			}

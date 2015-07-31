@@ -3,7 +3,10 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.CuratedContentEditorComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
+App.CuratedContentEditorComponent = Em.Component.extend(
+	App.AlertNotificationsMixin,
+	App.LoadingSpinnerMixin,
+	{
 	classNames: ['curated-content-editor'],
 
 	actions: {
@@ -48,7 +51,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(App.LoadingSpinnerMixin,
 									break;
 								case 'itemsMissing':
 									//@TODO CONCF-956 add translations
-									this.addAlert('alert', 'Please fix errors inside Curated section.');
+									this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
 							}
 						});
 						//@TODO CONCF-956 add translations
