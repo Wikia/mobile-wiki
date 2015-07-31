@@ -41,8 +41,7 @@ server.connection({
 			failAction: 'log'
 		},
 		cors: {
-			origin: '*',
-			matchOrigin: true
+			origin: '*'
 		}
 	}
 });
