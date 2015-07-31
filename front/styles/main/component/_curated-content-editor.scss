@@ -5,8 +5,10 @@ $item-padding-vertical: .5rem;
 $item-image-size: 4rem;
 $image-margin: 1rem;
 $image-size: 150px;
+$row-height: 5rem;
 
 .curated-content-editor-add-item-btn {
+	cursor: pointer;
 	display: block;
 	font-weight: bold;
 	margin: $item-padding-vertical auto;
@@ -37,8 +39,7 @@ $image-size: 150px;
 	padding-top: $module-padding-vertical;
 }
 
-.curated-content-editor-row {
-	align-items: center;
+.curated-content-editor-row-container {
 	background: $color-white;
 	border: {
 		color: $color-gray-light;
@@ -48,12 +49,18 @@ $image-size: 150px;
 	border-bottom-width: 1px;
 	//iOS can't handle touch events on element if it doesn't have cursor pointer
 	cursor: pointer;
-	display: flex;
 	padding: $item-padding-vertical $item-padding-horizontal;
 
 	&:first-child {
 		border-top-width: 1px;
 	}
+}
+
+.curated-content-editor-row {
+	align-items: center;
+	display: inline-flex;
+	height: $row-height;
+	width: calc(90vw - #{$item-padding-horizontal});;
 
 	img {
 		height: $item-image-size;
@@ -165,6 +172,19 @@ $image-size: 150px;
 	}
 }
 
+.curated-content-editor {
+	.file-upload-input {
+		display: none;
+	}
+
+	.file-upload-label {
+		position: absolute;
+		top: 14px;
+		width: 100vw;
+		height: 90vw;
+	}
+}
+
 .curated-content-input-wrapper {
 	padding: 14px 18px;
 	padding-bottom: 0;
@@ -176,14 +196,19 @@ $image-size: 150px;
 	text-transform: uppercase;
 }
 
-
-.file-upload-input {
-	display: none;
+.navigation {
+	display: inline-block;
+	float: right;
+	height: $row-height;
+	text-align: right;
+	width: calc(8vw - #{$item-padding-horizontal});
 }
 
-.file-upload-label {
-	position: absolute;
-	top: 14px;
-	width: 100vw;
-	height: 90vw;
+.arrow-up, .arrow-down {
+	height: $row-height / 2;
+	width: 1rem;
+}
+
+.arrow-up {
+	transform: rotate(180deg);
 }
