@@ -1,12 +1,16 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
+/// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts" />
+/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
 App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
+	App.CuratedContentEditorSortableItemsMixin,
 	App.CuratedContentEditorThumbnailMixin,
-	{
+	App.LoadingSpinnerMixin,
+{
 	imageSize: 300,
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
@@ -31,11 +35,11 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		done(): void {
-			if (!this.get('notEmptyItems')) {
+			if (this.get('notEmptyItems')) {
+				this.validateAndDone();
+			} else {
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'You need to add some items.');
-			} else {
-				this.validateAndDone();
 			}
 		}
 	},
@@ -54,23 +58,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					this.sendAction('done', this.get('model'));
 				} else {
 					data.error.forEach((error: any) => {
-						switch (error.reason) {
-							// errors that belong to item -> something went very wrong if we have those
-							case 'articleNotFound':
-							case 'emptyLabel':
-							case 'tooLongLabel':
-							case 'videoNotSupportProvider':
-							case 'notSupportedType':
-							case 'duplicatedLabel':
-							case 'noCategoryInTag':
-							case 'imageMissing':
-								//@TODO CONCF-956 add translations
-								this.addAlert('alert', 'Please fix errors inside items.');
-								break;
-							case 'itemsMissing':
-								//@TODO CONCF-956 add translations
-								this.addAlert('alert', 'You need to add some items.');
-						}
+						this.processValidationError(error.reason);
 					});
 				}
 			})
@@ -81,5 +69,25 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			.finally((): void => {
 				this.hideLoader();
 			});
+	},
+
+	processValidationError(reason: string) {
+		switch (reason) {
+			// errors that belong to item -> something went very wrong if we have those
+			case 'articleNotFound':
+			case 'emptyLabel':
+			case 'tooLongLabel':
+			case 'videoNotSupportProvider':
+			case 'notSupportedType':
+			case 'duplicatedLabel':
+			case 'noCategoryInTag':
+			case 'imageMissing':
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'Please fix errors inside items.');
+				break;
+			case 'itemsMissing':
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'You need to add some items.');
+		}
 	}
 });

@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/ObjectUtilitiesMixin.ts" />
 'use strict';
 
 type CuratedContentEditorItemModel = typeof App.CuratedContentEditorItemModel;

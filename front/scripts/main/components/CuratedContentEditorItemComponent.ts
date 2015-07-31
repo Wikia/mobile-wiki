@@ -8,7 +8,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
-	{
+{
 	classNames: ['curated-content-editor-item'],
 	imageSize: 300,
 	maxLabelLength: 48,
@@ -194,36 +194,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 					this.sendAction('done', this.get('model'));
 				} else {
 					data.error.forEach((error: any) => {
-						switch(error.reason) {
-							case 'articleNotFound':
-								//@TODO CONCF-956 add translations
-								this.set('titleErrorMessage', 'Article not found.');
-								break;
-							case 'emptyLabel':
-							case 'tooLongLabel':
-								this.validateLabel();
-								break;
-							case 'videoNotSupportProvider':
-								//@TODO CONCF-956 add translations
-								this.set('titleErrorMessage', 'This video provider is not supported.');
-								break;
-							case 'notSupportedType':
-								//@TODO CONCF-956 add translations
-								this.set('titleErrorMessage', 'This type is not supported');
-								break;
-							case 'duplicatedLabel':
-								//@TODO CONCF-956 add translations
-								this.set('labelErrorMessage', 'Label is already used elsewhere.');
-								break;
-							case 'noCategoryInTag':
-								//@TODO CONCF-956 add translations
-								this.set('titleErrorMessage', 'Only Categories are accepted.');
-								break;
-							case 'imageMissing':
-								//@TODO CONCF-956 add translations
-								this.set('imageErrorMessage', 'Image is missing');
-								break;
-						}
+						this.processValidationError(error.reason);
 					});
 					//@TODO CONCF-956 add translations
 					this.addAlert('alert', 'Please fix errors.');
@@ -236,5 +207,38 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 			.finally(():void => {
 				this.hideLoader();
 			});
+	},
+
+	processValidationError(reason: string) {
+		switch(reason) {
+			case 'articleNotFound':
+				//@TODO CONCF-956 add translations
+				this.set('titleErrorMessage', 'Article not found.');
+				break;
+			case 'emptyLabel':
+			case 'tooLongLabel':
+				this.validateLabel();
+				break;
+			case 'videoNotSupportProvider':
+				//@TODO CONCF-956 add translations
+				this.set('titleErrorMessage', 'This video provider is not supported.');
+				break;
+			case 'notSupportedType':
+				//@TODO CONCF-956 add translations
+				this.set('titleErrorMessage', 'This type is not supported');
+				break;
+			case 'duplicatedLabel':
+				//@TODO CONCF-956 add translations
+				this.set('labelErrorMessage', 'Label is already used elsewhere.');
+				break;
+			case 'noCategoryInTag':
+				//@TODO CONCF-956 add translations
+				this.set('titleErrorMessage', 'Only Categories are accepted.');
+				break;
+			case 'imageMissing':
+				//@TODO CONCF-956 add translations
+				this.set('imageErrorMessage', 'Image is missing');
+				break;
+		}
 	}
 });

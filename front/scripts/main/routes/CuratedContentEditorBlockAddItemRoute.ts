@@ -12,6 +12,8 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		var block = transition.params['curatedContentEditor.blockAddItem'].block,
 			parentSection = this.modelFor('curatedContentEditor').get(block);
 
+		debugger;
+
 		this._super(controller, model, transition);
 		controller.setProperties({
 			block,

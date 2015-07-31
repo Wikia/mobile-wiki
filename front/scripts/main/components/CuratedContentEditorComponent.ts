@@ -6,7 +6,7 @@
 App.CuratedContentEditorComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.LoadingSpinnerMixin,
-	{
+{
 	classNames: ['curated-content-editor'],
 
 	actions: {
@@ -41,23 +41,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 					this.sendAction('openMainPage');
 				} else {
 					data.error.forEach((error: any) => {
-						switch(error.reason) {
-							// errors that belong to item -> something went very wrong if we have those
-							case 'articleNotFound':
-							case 'emptyLabel':
-							case 'tooLongLabel':
-							case 'videoNotSupportProvider':
-							case 'notSupportedType':
-							case 'duplicatedLabel':
-							case 'noCategoryInTag':
-							case 'imageMissing':
-								//@TODO CONCF-956 add translations
-								this.addAlert('alert', 'Please fix errors inside items.');
-								break;
-							case 'itemsMissing':
-								//@TODO CONCF-956 add translations
-								this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
-						}
+						this.processValidationError(error.reason);
 					});
 					//@TODO CONCF-956 add translations
 					this.addAlert('alert', 'Please fix errors.');
@@ -70,5 +54,25 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			.finally(():void => {
 				this.hideLoader();
 			});
+	},
+
+	processValidationError(reason: string) {
+		switch(reason) {
+			// errors that belong to item -> something went very wrong if we have those
+			case 'articleNotFound':
+			case 'emptyLabel':
+			case 'tooLongLabel':
+			case 'videoNotSupportProvider':
+			case 'notSupportedType':
+			case 'duplicatedLabel':
+			case 'noCategoryInTag':
+			case 'imageMissing':
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'Please fix errors inside items.');
+				break;
+			case 'itemsMissing':
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+		}
 	}
 });
