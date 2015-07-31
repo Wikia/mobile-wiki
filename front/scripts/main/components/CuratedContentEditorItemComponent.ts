@@ -1,13 +1,15 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 
 'use strict';
-App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, {
+App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, App.LoadingSpinnerMixin, {
 	classNames: ['curated-content-editor-item'],
-	imageSize: 200,
+	imageSize: 300,
 	maxLabelLength: 48,
+	debounceDuration: 250,
 
-	imageUrl: Em.computed('model', function (): string {
+	imageUrl: Em.computed('model.image_url', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
@@ -37,12 +39,79 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
+	labelObserver: Em.observer('model.label', function (): void {
+		this.validateLabel();
+	}),
+
+	titleObserver: Em.observer('model.title', function (): void {
+		if (this.validateTitle()) {
+			this.getImageDebounced();
+		}
+	}),
+
+	actions: {
+		setLabelFocusedOut(): void {
+			this.validateLabel();
+			this.set('isLabelFocused', false);
+		},
+
+		setLabelFocusedIn(): void {
+			this.validateLabel();
+			this.set('isLabelFocused', true);
+		},
+
+		setTitleFocusedOut(): void {
+			this.validateTitle();
+			this.set('isTitleFocused', false);
+			if (this.get('isLoading')) {
+				this.hideLoader();
+			}
+		},
+
+		setTitleFocusedIn(): void {
+			this.showLoader();
+			this.validateTitle();
+			this.set('isTitleFocused', true);
+		},
+
+		goBack(): void {
+			this.sendAction('goBack');
+		},
+
+		done(): void {
+			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
+				this.sendAction('done', this.get('model'));
+			}
+		},
+
+		deleteItem(): void {
+			//@TODO CONCF-956 add translations
+			if (confirm('Are you sure about removing this item?')) {
+				this.sendAction('deleteItem');
+			}
+		}
+	},
+
+	validateImage(): boolean {
+		var imageId = this.get('model.image_id'),
+			errorMessage: string = null;
+
+		if (!imageId) {
+			//@TODO CONCF-956 add translations
+			errorMessage = 'Image is empty';
+		}
+
+		this.set('imageErrorMessage', errorMessage);
+
+		return !errorMessage;
+	},
+
 	validateLabel(): boolean {
 		var label = this.get('model.label'),
 			alreadyUsedLabels = this.get('alreadyUsedLabels'),
 			errorMessage: string = null;
 
-		if (!label || !label.length) {
+		if (Em.isEmpty(label)) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Label is empty';
 		} else if (label.length > this.get('maxLabelLength')) {
@@ -65,7 +134,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		if (!this.get('isSectionView')) {
 			title = this.get('model.title');
 
-			if (!title || !title.length) {
+			if (Em.isEmpty(title)) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Title is empty';
 			}
@@ -73,56 +142,40 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			this.set('titleErrorMessage', errorMessage);
 
 			return !errorMessage;
-		} else {
-			return true;
 		}
 
+		return true;
 	},
 
-	actions: {
-		setLabelFocusedOut(): void {
-			this.validateLabel();
-			this.set('isLabelFocused', false);
-		},
+	getImage(): void {
+		App.CuratedContentEditorItemModel
+			.getImage(this.get('model.title'), this.get('imageSize'))
+			.then((data: CuratedContentGetImageResponse): void => {
+				if (!data.url) {
+					if (!this.get('model.image_url')) {
+						//@TODO CONCF-956 add translations
+						this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
+					}
+				} else {
+					this.setProperties({
+						'imageErrorMessage': null,
+						'model.image_url': data.url,
+						'model.image_id': data.id
+					});
+				}
+			})
+			.catch((err: any): void => {
+				//@TODO CONCF-956 add translations
+				Em.Logger.error(err);
+				this.set('imageErrorMessage', 'Oops! An API Error occured.');
+			})
+			.finally((): void => {
+				this.hideLoader();
+			});
+	},
 
-		setLabelFocusedIn(): void {
-			this.validateLabel();
-			this.set('isLabelFocused', true);
-		},
-
-		validateLabel(): void {
-			this.validateLabel();
-		},
-
-		setTitleFocusedOut(): void {
-			this.validateTitle();
-			this.set('isTitleFocused', false);
-		},
-
-		setTitleFocusedIn(): void {
-			this.validateTitle();
-			this.set('isTitleFocused', true);
-		},
-
-		validateTitle(): void {
-			this.validateTitle();
-		},
-
-		goBack(): void {
-			this.sendAction('goBack');
-		},
-
-		done(): void {
-			if (this.validateTitle() && this.validateLabel()) {
-				this.sendAction('done', this.get('model'));
-			}
-		},
-
-		deleteItem(): void {
-			//@TODO CONCF-956 add translations
-			if (confirm('Are you sure about removing this item?')) {
-				this.sendAction('deleteItem');
-			}
-		}
+	getImageDebounced(): void {
+		this.showLoader();
+		Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 	}
 });

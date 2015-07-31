@@ -45,10 +45,11 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	actions: {
 		collapseSideNav: function (): void {
 			this.setProperties({
-				sideNavCollapsed: true,
 				isInSearchMode: false,
 				query: ''
 			});
+
+			this.sendAction('collapseSideNav');
 		}
 	},
 

@@ -31,7 +31,7 @@ App.AdSlotComponent = Em.Component.extend({
 			return false;
 		},
 		set(key: string, value: string): boolean {
-			return value !== '' && value !== '0'
+			return value !== '' && value !== '0';
 		}
 	}),
 
