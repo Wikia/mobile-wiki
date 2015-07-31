@@ -99,7 +99,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				})
 				.then((data: any) => {
 					if (data && data.url) {
-						this.set('imageUrl', this.generateThumbUrl(data.url));
+						this.setProperties({
+							'model.image_url': this.generateThumbUrl(data.url),
+							'imageErrorMessage': null,
+							'model.image_id': data.image_id
+						});
 					}
 				})
 				.catch((err: any) => {
