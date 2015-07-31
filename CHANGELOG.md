@@ -1,3 +1,9 @@
+## release-124 (2015-07-31 10:00 UTC)
+* [SOC-1015](https://wikia-inc.atlassian.net/browse/SOC-1015) SOC-1015 Unifying "close" button on Auth pages with the main Mercury app
+* [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 - sending logged_in flag to weppy
+* [HG-740](https://wikia-inc.atlassian.net/browse/HG-740) HG-740 Upgrade to Ember 1.13
+* [CONCF-933](https://wikia-inc.atlassian.net/browse/CONCF-933) CONCF-933 | loading default image for resurce in mobile Curated Content Edit Tool
+
 ## release-123 (2015-07-30 10:00 UTC)
 * disablie-source-maps: Disable source maps
 * [HG-820](https://wikia-inc.atlassian.net/browse/HG-820) HG-820 Fix ads MOBILE_IN_CONTENT slot
