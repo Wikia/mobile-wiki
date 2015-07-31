@@ -21,13 +21,12 @@
 	{{!-- @TODO CONCF-956 add translations --}}
 	<small>Items are empty</small>
 {{/unless}}
-{{#each model.items as |item|}}
+{{#each sortableItems as |item|}}
 	{{curated-content-editor-row
 		model=item
 		editItem='editItem'
+		moveBy='moveBy'
 	}}
 {{/each}}
-<div class="curated-content-editor-item">
-	{{!-- @TODO CONCF-956 add translations to + add new category --}}
-	<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">+ add new category</button>
-</div>
+{{!-- @TODO CONCF-956 add translations to + add new category --}}
+<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">+ add new category</button>

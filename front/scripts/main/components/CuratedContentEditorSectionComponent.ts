@@ -5,11 +5,9 @@
 
 App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, App.AlertNotificationsMixin, {
 	imageSize: 300,
-
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
-
 	notEmptyItems: Em.computed.notEmpty('model.items'),
 
 	actions: {
@@ -30,6 +28,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 		},
 
 		done(): void {
+			var sortableItems:any;
+
 			if (!this.get('notEmptyItems')) {
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'You need to add some items.');
@@ -40,10 +40,12 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 						if (data.status) {
 							//@TODO CONCF-956 add translations
 							this.addAlert('info', 'Data validated.');
+							sortableItems = this.get('sortableItems');
+							this.set('model.items', sortableItems.slice(0, sortableItems.length));
 							this.sendAction('done', this.get('model'));
 						} else {
 							data.error.forEach((error: any) => {
-								switch(error.reason) {
+								switch (error.reason) {
 									// errors that belong to item -> something went very wrong if we have those
 									case 'articleNotFound':
 									case 'emptyLabel':
@@ -67,7 +69,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(App.CuratedConten
 						//@TODO CONCF-956 add translations
 						this.addAlert('alert', 'Something went wrong. Please repeat.');
 					})
-					.finally(():void => {
+					.finally((): void => {
 						this.hideLoader();
 					});
 			}
