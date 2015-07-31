@@ -39,9 +39,9 @@ server.connection({
 	routes: {
 		state: {
 			failAction: 'log'
-		}
-	},
-	cors: true
+		},
+		cors: true
+	}
 });
 
 setupLogging(server);
