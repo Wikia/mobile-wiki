@@ -208,8 +208,8 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 		var value = window.localStorage.getItem(this.getAlertKey()),
 		    now = new Date().getTime(),
 		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
-		    isJpOnNonJpWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
-		return notDismissed && isJpOnNonJpWikia;
+		    isJaOnNonJaWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
+		return notDismissed && isJaOnNonJaWikia;
 	},
 
 	getAlertKey: function(): string {

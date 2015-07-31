@@ -49,12 +49,12 @@ App.WikiaInYourLangModel.reopenClass({
 
 	getFromCache: function(browserLang: string): typeof App.WikiaInYourLangModel {
 		var key = App.WikiaInYourLangModel.getCacheKey(browserLang),
-		    valueJson = JSON.parse(window.localStorage.getItem(key)),
+		    value = JSON.parse(window.localStorage.getItem(key)),
 		    now = new Date().getTime();
-		if (!valueJson || now - valueJson.timestamp > 2592000000) { //we cache 30 days (2592000000)
+		if (!value || now - value.timestamp > 2592000000) { //we cache 30 days (2592000000)
 			return null;
 		}
-		return valueJson.model;
+		return value.model;
 	},
 
 	getCacheKey: function(lang: string): string {
