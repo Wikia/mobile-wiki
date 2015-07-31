@@ -28,7 +28,9 @@ var counter = 1,
 	server = new Hapi.Server({
 		connections: {
 			router: {
-				stripTrailingSlash: true,
+				stripTrailingSlash: true
+			},
+			routes: {
 				cors: true
 			}
 		}
