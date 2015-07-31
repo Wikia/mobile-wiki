@@ -1,16 +1,22 @@
 App.ObjectUtilitiesMixin = Em.Mixin.create({
-	toJSON: function() {
+	toJSON(): any {
 		var value: any,
-			keys: any[] = [];
-		for (var key in this) {
+			keys: any[] = [],
+			key: any;
+
+		for (key in this) {
 			if (this.hasOwnProperty(key)) {
 				value = this[key];
+
+				// ignore useless items
 				if (value === 'toString') {
 					continue;
-				} // ignore useless items
+				}
+
 				if (Ember.typeOf(value) === 'function') {
 					continue;
 				}
+
 				keys.push(key);
 			}
 		}
