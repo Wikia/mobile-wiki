@@ -42,7 +42,8 @@ module Mercury.Modules.Trackers {
 				transport: 'url',
 				context: this.defaultContext,
 				sample: M.prop('weppyConfig').samplingRate,
-				aggregationInterval: M.prop('weppyConfig').aggregationInterval
+				aggregationInterval: M.prop('weppyConfig').aggregationInterval,
+				logged_in: !!M.prop('userId')
 			});
 			super();
 		}

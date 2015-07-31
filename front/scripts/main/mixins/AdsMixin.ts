@@ -131,8 +131,8 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	injectAds: function (): void {
-		var $firstSection = this.$('.article-content > h2').first(),
-			$articleBody = this.$('.article-body'),
+		var $firstSection = this.$().children('h2').first(),
+			$articleBody = $('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
 
