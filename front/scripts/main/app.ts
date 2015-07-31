@@ -92,6 +92,7 @@ App.initializer({
 		}
 
 		// Send page performance stats after window is loaded
+		// Since we load our JS async this code may execute post load event
 		if (document.readyState === 'complete') {
 			M.sendPagePerformance()
 		} else {
