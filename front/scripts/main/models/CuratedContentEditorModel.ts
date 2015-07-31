@@ -75,31 +75,24 @@ App.CuratedContentEditorModel.reopenClass({
 
 
 	/**
-	 * @desc Convert CuratedContentEditorItemModel to array known for CuratedContent API
+	 * @desc Convert CuratedContentEditorModel to structure known by CuratedContent API
 	 *
-	 * @param model CuratedContentEditorItemModel
-	 * @returns {Array}
+	 * @param model CuratedContentEditorModel
+	 * @returns {Object}
 	 */
-	prepareDataForSave(model: CuratedContentEditorItemModel): string[] {
-		var data: string[] = [];
-		data.push(model.featured);
-
-		model.curated.items.forEach((section: string): void => {
-			data.push(section);
-		});
-
-		data.push(model.optional);
-
-		return $.extend(true, {}, {data: data});
+	prepareDataForSave(model: CuratedContentEditorModel): any {
+		return {
+			data: [].concat(model.featured, model.curated.items, model.optional)
+		};
 	},
 
 	/**
 	 * @desc Accepts a raw object that comes from CuratedContent API and creates a model that we can use
 	 *
 	 * @param rawData
-	 * @returns {any}
+	 * @returns {Object}
 	 */
-	sanitize(rawData: any): CuratedContentEditorItemModel {
+	sanitize(rawData: any): CuratedContentEditorModel {
 		var featured = {
 				items: <any>[]
 			},
