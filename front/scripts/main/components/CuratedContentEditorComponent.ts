@@ -4,7 +4,14 @@
 App.CuratedContentEditorComponent = Em.Component.extend({
 	classNames: ['curated-content-editor'],
 
+	isHelpVisible: false,
+	helpText: null,
+
 	actions: {
+		addSection(): void {
+			this.sendAction('addSection');
+		},
+
 		addBlockItem(block: string): void {
 			this.sendAction('addBlockItem', block);
 		},
@@ -13,8 +20,11 @@ App.CuratedContentEditorComponent = Em.Component.extend({
 			this.sendAction('editBlockItem', item, block);
 		},
 
-		addSection(): void {
-			this.sendAction('addSection');
+		showHelp(helpText: string): void {
+			this.setProperties({
+				isHelpVisible: true,
+				helpText: helpText
+			});
 		},
 
 		openSection(item: CuratedContentEditorItemModel): void {

@@ -13,9 +13,11 @@
 	block='featured'
 	title='Featured Content'
 	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
+	helpText='app.curated-content-editor-featured-help'
 	addItemLabel='+ add new featured content'
 	addItem='addBlockItem'
 	editItem='editBlockItem'
+	showHelp='showHelp'
 }}
 {{!-- @TODO CONCF-956 add translations to description, title and addItemLabel --}}
 {{curated-content-editor-block
@@ -23,9 +25,11 @@
 	block='curated'
 	title='Explore the Wiki'
 	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
+	helpText='app.curated-content-editor-curated-help'
 	addItemLabel='+ add new section'
 	addItem='addSection'
 	openSection='openSection'
+	showHelp='showHelp'
 }}
 {{!-- @TODO CONCF-956 add translations to description, title and addItemLabel --}}
 {{curated-content-editor-block
@@ -33,7 +37,13 @@
 	block='optional'
 	title='Optional'
 	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
+	helpText='app.curated-content-editor-optional-help'
 	addItemLabel='+ add category'
 	addItem='addBlockItem'
 	editItem='editBlockItem'
+	showHelp='showHelp'
+}}
+{{modal-dialog
+	content=helpText
+	isVisible=isHelpVisible
 }}

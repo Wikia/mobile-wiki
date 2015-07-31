@@ -16,6 +16,10 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 			this.sendAction('editItem', item, this.get('block'));
 		},
 
+		showHelp(): void {
+			this.sendAction('showHelp', i18n.t(this.get('helpText')));
+		},
+
 		openSection(item: CuratedContentEditorItemModel): void {
 			this.sendAction('openSection', item);
 		}

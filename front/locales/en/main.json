@@ -87,6 +87,9 @@
 		"curated-content-error-category-not-found": "Category not found.",
 		"curated-content-error-section-not-found": "Section not found.", 
 		"curated-content-load-more-items": "Load more",
-		"curated-content-error-load-more-items": "Sorry, we couldn't load more items."
+		"curated-content-error-load-more-items": "Sorry, we couldn't load more items.",
+		"curated-content-editor-featured-help": "This is easy!",
+		"curated-content-editor-curated-help": "This is easy!",
+		"curated-content-editor-optional-help": "This is easy!"
 	}
 }
