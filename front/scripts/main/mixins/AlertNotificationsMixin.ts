@@ -1,27 +1,19 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface AlertData {
-	type: string;
-	message: string;
-	expiry?: number;
-	unsafe?: boolean;
-	callbacks?: any;
-}
-
 App.AlertNotificationsMixin = Em.Mixin.create({
 	alertNotifications: Ember.A(),
 
-	addAlert: function(alertData: AlertData): void {
-		var type = alertData.type,
-		    message = alertData.message,
+	addAlert: function(alertData: AlertNotification): void {
+		var message = alertData.message,
+		    type = alertData.type || '',
 		    expiry = alertData.expiry || 10000,
 		    unsafe = alertData.unsafe || false,
 		    callbacks = alertData.callbacks || {};
 
 		this.get('alertNotifications').pushObject({
-			type,
 			message,
+			type,
 			expiry,
 			unsafe,
 			callbacks

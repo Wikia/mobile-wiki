@@ -178,7 +178,6 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 	createAlert: function(model: typeof App.WikiaInYourLangModel): void {
 		var appController = this.get('controller'),
 		    alertData = {
-			type: '',
 			message: model.message,
 			expiry: 60000,
 			unsafe: true,
@@ -193,7 +192,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 					});
 				},
 				onCloseAlert: function(): void {
-					window.localStorage.setItem('wikiaInYourLang.alertDismissed', new Date().getTime().toString());
+					window.localStorage.setItem(this.getAlertKey(), new Date().getTime().toString());
 					M.track({
 						action: M.trackActions.click,
 						category: 'wikiaInYourLangAlert',
@@ -206,11 +205,14 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 	},
 
 	shouldShowWikiaInYourLang: function(): boolean {
-		var value = window.localStorage.getItem('wikiaInYourLang.alertDismissed'),
+		var value = window.localStorage.getItem(this.getAlertKey()),
 		    now = new Date().getTime(),
 		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
 		    isJpOnNonJpWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
-		console.log('qqq notDiimissed', notDismissed); console.log('qqq isJPOnNonJP', isJpOnNonJpWikia);
 		return notDismissed && isJpOnNonJpWikia;
+	},
+
+	getAlertKey: function(): string {
+		return 'wikiaInYourLang.alertDismissed';
 	}
 });
