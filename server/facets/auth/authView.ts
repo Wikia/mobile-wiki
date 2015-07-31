@@ -31,7 +31,7 @@ module authView {
 		var response: Hapi.Response;
 
 		response = reply.view(
-			template,
+			'auth/' + this.getViewVersion(request) + '/' + template,
 			context,
 			{
 				layout: 'auth'
@@ -100,6 +100,15 @@ module authView {
 		}
 
 		return reply();
+	}
+
+	export function getViewVersion(request: Hapi.Request) {
+		var mobilePattern = /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE|Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
+			ipadPattern = /iPad/;
+		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
+			return 'mobile';
+		}
+		return 'desktop';
 	}
 }
 
