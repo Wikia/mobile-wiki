@@ -85,57 +85,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 
 		done(): void {
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
-				this.showLoader();
-				App.CuratedContentEditorItemModel.validateItem(this.get('model'), false)
-					.then((data: CuratedContentValidationResponseInterface): void => {
-						if (data.status) {
-							//@TODO CONCF-956 add translations
-							this.addAlert('info', 'Data validated.');
-							this.sendAction('done', this.get('model'));
-						} else {
-							data.error.forEach((error: any) => {
-								switch(error.reason) {
-									case 'articleNotFound':
-										//@TODO CONCF-956 add translations
-										this.set('titleErrorMessage', 'Article not found.');
-										break;
-									case 'emptyLabel':
-									case 'tooLongLabel':
-										this.validateLabel();
-										break;
-									case 'videoNotSupportProvider':
-										//@TODO CONCF-956 add translations
-										this.set('titleErrorMessage', 'This video provider is not supported.');
-										break;
-									case 'notSupportedType':
-										//@TODO CONCF-956 add translations
-										this.set('titleErrorMessage', 'This type is not supported');
-										break;
-									case 'duplicatedLabel':
-										//@TODO CONCF-956 add translations
-										this.set('labelErrorMessage', 'Label is already used elsewhere.');
-										break;
-									case 'noCategoryInTag':
-										//@TODO CONCF-956 add translations
-										this.set('titleErrorMessage', 'Only Categories are accepted.');
-										break;
-									case 'imageMissing':
-										//@TODO CONCF-956 add translations
-										this.set('imageErrorMessage', 'Image is missing');
-										break;
-								}
-							});
-							//@TODO CONCF-956 add translations
-							this.addAlert('alert', 'Please fix errors.');
-						}
-					})
-					.catch((): void => {
-						//@TODO CONCF-956 add translations
-						this.addAlert('alert', 'Something went wrong. Please repeat.');
-					})
-					.finally(():void => {
-						this.hideLoader();
-					});
+				this.validateAndDone();
 			}
 		},
 
@@ -232,5 +182,59 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 	getImageDebounced(): void {
 		this.showLoader();
 		Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
+	},
+
+	validateAndDone(): void {
+		this.showLoader();
+		App.CuratedContentEditorItemModel.validateItem(this.get('model'), false)
+			.then((data: CuratedContentValidationResponseInterface): void => {
+				if (data.status) {
+					//@TODO CONCF-956 add translations
+					this.addAlert('info', 'Data validated.');
+					this.sendAction('done', this.get('model'));
+				} else {
+					data.error.forEach((error: any) => {
+						switch(error.reason) {
+							case 'articleNotFound':
+								//@TODO CONCF-956 add translations
+								this.set('titleErrorMessage', 'Article not found.');
+								break;
+							case 'emptyLabel':
+							case 'tooLongLabel':
+								this.validateLabel();
+								break;
+							case 'videoNotSupportProvider':
+								//@TODO CONCF-956 add translations
+								this.set('titleErrorMessage', 'This video provider is not supported.');
+								break;
+							case 'notSupportedType':
+								//@TODO CONCF-956 add translations
+								this.set('titleErrorMessage', 'This type is not supported');
+								break;
+							case 'duplicatedLabel':
+								//@TODO CONCF-956 add translations
+								this.set('labelErrorMessage', 'Label is already used elsewhere.');
+								break;
+							case 'noCategoryInTag':
+								//@TODO CONCF-956 add translations
+								this.set('titleErrorMessage', 'Only Categories are accepted.');
+								break;
+							case 'imageMissing':
+								//@TODO CONCF-956 add translations
+								this.set('imageErrorMessage', 'Image is missing');
+								break;
+						}
+					});
+					//@TODO CONCF-956 add translations
+					this.addAlert('alert', 'Please fix errors.');
+				}
+			})
+			.catch((): void => {
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'Something went wrong. Please repeat.');
+			})
+			.finally(():void => {
+				this.hideLoader();
+			});
 	}
 });

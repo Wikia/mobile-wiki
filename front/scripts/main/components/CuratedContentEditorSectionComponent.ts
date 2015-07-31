@@ -31,51 +31,55 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		done(): void {
-			var sortableItems: any;
-
 			if (!this.get('notEmptyItems')) {
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'You need to add some items.');
 			} else {
-				this.showLoader();
-				App.CuratedContentEditorItemModel.validateSection(this.get('model'))
-					.then((data: CuratedContentValidationResponseInterface): void => {
-						if (data.status) {
-							//@TODO CONCF-956 add translations
-							this.addAlert('info', 'Data validated.');
-							sortableItems = this.get('sortableItems');
-							this.set('model.items', sortableItems.slice(0, sortableItems.length));
-							this.sendAction('done', this.get('model'));
-						} else {
-							data.error.forEach((error: any) => {
-								switch (error.reason) {
-									// errors that belong to item -> something went very wrong if we have those
-									case 'articleNotFound':
-									case 'emptyLabel':
-									case 'tooLongLabel':
-									case 'videoNotSupportProvider':
-									case 'notSupportedType':
-									case 'duplicatedLabel':
-									case 'noCategoryInTag':
-									case 'imageMissing':
-										//@TODO CONCF-956 add translations
-										this.addAlert('alert', 'Please fix errors inside items.');
-										break;
-									case 'itemsMissing':
-										//@TODO CONCF-956 add translations
-										this.addAlert('alert', 'You need to add some items.');
-								}
-							});
-						}
-					})
-					.catch((): void => {
-						//@TODO CONCF-956 add translations
-						this.addAlert('alert', 'Something went wrong. Please repeat.');
-					})
-					.finally((): void => {
-						this.hideLoader();
-					});
+				this.validateAndDone();
 			}
 		}
+	},
+
+	validateAndDone(): void {
+		this.showLoader();
+		App.CuratedContentEditorItemModel.validateSection(this.get('model'))
+			.then((data: CuratedContentValidationResponseInterface): void => {
+				var sortableItems: any;
+
+				if (data.status) {
+					//@TODO CONCF-956 add translations
+					this.addAlert('info', 'Data validated.');
+					sortableItems = this.get('sortableItems');
+					this.set('model.items', sortableItems.slice(0, sortableItems.length));
+					this.sendAction('done', this.get('model'));
+				} else {
+					data.error.forEach((error: any) => {
+						switch (error.reason) {
+							// errors that belong to item -> something went very wrong if we have those
+							case 'articleNotFound':
+							case 'emptyLabel':
+							case 'tooLongLabel':
+							case 'videoNotSupportProvider':
+							case 'notSupportedType':
+							case 'duplicatedLabel':
+							case 'noCategoryInTag':
+							case 'imageMissing':
+								//@TODO CONCF-956 add translations
+								this.addAlert('alert', 'Please fix errors inside items.');
+								break;
+							case 'itemsMissing':
+								//@TODO CONCF-956 add translations
+								this.addAlert('alert', 'You need to add some items.');
+						}
+					});
+				}
+			})
+			.catch((): void => {
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'Something went wrong. Please repeat.');
+			})
+			.finally((): void => {
+				this.hideLoader();
+			});
 	}
 });
