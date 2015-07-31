@@ -104,7 +104,10 @@ var localSettings: LocalSettings = {
 	// CDN prefix with no tailing slash
 	cdnBaseUrl: '//mercury.nocookie.net',
 	// array of wiki dbnames to load first article async instead of in page source
-	asyncArticle: []
+	asyncArticle: [],
+	facebook: {
+		appId: 112328095453510
+	}
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

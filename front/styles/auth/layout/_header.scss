@@ -1,6 +1,21 @@
 .auth-header {
 	font-size: 1.125rem;
 	line-height: 22px;
-	padding: 25px 24px 24px;
+	padding: 25px 24px 0;
 	text-align: center;
+
+	h1 {
+		color: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+		line-height: inherit;
+	}
+}
+
+.register-fb-page {
+	.auth-header {
+		h1 {
+			font-weight: bold;
+		}
+	}
 }

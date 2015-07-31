@@ -191,6 +191,7 @@ authenticatedRoutes = [
 			]
 		}
 	},
+
 	{
 		method: 'GET',
 		path: '/login',
