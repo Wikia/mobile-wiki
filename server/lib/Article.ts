@@ -13,7 +13,6 @@ import Promise = require('bluebird');
 import MediaWiki = require('./MediaWiki');
 import Utils = require('./Utils');
 import logger = require('./Logger');
-import localSettings = require('../../config/localSettings');
 
 export class ArticleRequestHelper {
 	params: ArticleRequestParams;
