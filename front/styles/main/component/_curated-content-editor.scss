@@ -8,6 +8,7 @@ $image-size: 150px;
 $row-height: 5rem;
 
 .curated-content-editor-add-item-btn {
+	cursor: pointer;
 	display: block;
 	font-weight: bold;
 	margin: $item-padding-vertical auto;
