@@ -48,7 +48,6 @@ App.ArticleModel = Em.Object.extend({
 	mainPageData: null,
 	media: [],
 	mediaUsers: [],
-	sections: [],
 	title: null,
 	user: null,
 	users: [],

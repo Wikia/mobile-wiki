@@ -1,0 +1,13 @@
+// Wikia style guide
+@import '../../vendor/wikia-style-guide/src/scss/main';
+
+// Set visual-grid to true for debugging grid
+$visual-grid: false;
+$visual-grid-color: red;
+$visual-grid-index: front;
+$visual-grid-opacity: 0.02;
+
+// Bourbon, Neat and Bitters (http://bourbon.io/)
+@import "../../vendor/bourbon/app/assets/stylesheets/bourbon";
+@import "../../vendor/bitters/app/assets/stylesheets/base";
+@import "../../vendor/neat/app/assets/stylesheets/neat";

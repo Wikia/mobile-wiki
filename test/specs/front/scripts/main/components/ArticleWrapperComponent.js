@@ -1,14 +1,7 @@
-moduleFor('view:article', 'Article View', {
-	needs: ['controller:article', 'controller:application'],
-	setup: function () {
-		this.view = this.subject();
-	},
-	teardown: function () {
-	}
-});
+moduleForComponent('article-wrapper');
 
 test('shouldHandleMedia returns correct value', function () {
-	var articleViewMock = this.subject(),
+	var component = this.subject(),
 		testCases = [
 			{
 				tagName: 'img',
@@ -43,6 +36,6 @@ test('shouldHandleMedia returns correct value', function () {
 		];
 
 	testCases.forEach(function(testCase) {
-		equal(articleViewMock.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected);
+		equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected);
 	});
 });
