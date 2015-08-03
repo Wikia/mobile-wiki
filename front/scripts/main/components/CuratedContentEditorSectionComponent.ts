@@ -51,7 +51,10 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 				var sortableItems: any;
 
 				if (data.status) {
-					sortableItems = this.get('sortableItems');
+					sortableItems = this.get('sortableItems
+					// It's done this way because sortableItems property contains not only items but also meta properties
+					// which we don't want to pass to model.
+					// Slice creates native JS array with only items (without meta properties).
 					this.set('model.items', sortableItems.slice(0, sortableItems.length));
 					this.sendAction('done', this.get('model'));
 				} else {
