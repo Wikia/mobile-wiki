@@ -5,12 +5,12 @@ App.CuratedContentEditorComponent = Em.Component.extend({
 	classNames: ['curated-content-editor'],
 
 	actions: {
-		addSection(): void {
-			this.sendAction('addSection');
-		},
-
 		addBlockItem(block: string): void {
 			this.sendAction('addBlockItem', block);
+		},
+
+		addSection(): void {
+			this.sendAction('addSection');
 		},
 
 		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
