@@ -1,3 +1,8 @@
+/*
+ * watch
+ * Rebuilds on file change while server is running
+ */
+
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	server = require('gulp-develop-server'),
@@ -42,7 +47,7 @@ gulp.task('watch', ['build', 'build-views'], function () {
 	gulp.watch(path.join(
 		paths.templates.src,
 		paths.templates.files
-	), ['templates']).on('change', function (event) {
+	), ['build-combined']).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 

@@ -1,6 +1,6 @@
 {
   "name": "Mercury",
-  "version": "111.0.0",
+  "version": "125.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
@@ -59,7 +59,6 @@
     "gulp-tslint": "1.x.x",
     "gulp-typedoc": "^1.1.0",
     "gulp-typescript": "~2.6.0",
-    "gulp-sourcemaps": "~1.5.2",
     "gulp-uglify": "1.x.x",
     "gulp-useref": "1.x.x",
     "gulp-util": "3.x.x",

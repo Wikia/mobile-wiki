@@ -1,0 +1,15 @@
+{
+  "name": "public",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Wikia/mercury",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "wikia-style-guide": "Wikia/style-guide#1.0.1",
+    "jquery": "2.1.4",
+    "bourbon": "4.2.3",
+    "neat": "1.7.2",
+    "bitters": "1.0.0",
+    "slick.js": "1.5.6"
+  }
+}
