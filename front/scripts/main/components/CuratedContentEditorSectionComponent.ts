@@ -47,13 +47,13 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	validateAndDone(): void {
 		this.showLoader();
 		App.CuratedContentEditorItemModel.validateServerData(this.get('model'), {
-				method: 'validateSectionWithItems'
+				method: 'validateSectionWithItems',
 			})
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				var sortableItems: any;
 
 				if (data.status) {
-					sortableItems = this.get('sortableItems
+					sortableItems = this.get('sortableItems');
 					// It's done this way because sortableItems property contains not only items but also meta properties
 					// which we don't want to pass to model.
 					// Slice creates native JS array with only items (without meta properties).
