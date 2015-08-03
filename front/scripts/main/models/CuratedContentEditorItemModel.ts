@@ -85,7 +85,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 	},
 
-	validateSection(item: CuratedContentEditorItemModel) : Em.RSVP.Promise {
+	validateSectionWithItems(item: CuratedContentEditorItemModel) : Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
 				url: M.buildUrl({

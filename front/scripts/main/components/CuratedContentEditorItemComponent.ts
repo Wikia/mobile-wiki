@@ -196,16 +196,12 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 
 	validateAndDone(): void {
 		this.showLoader();
-		App.CuratedContentEditorItemModel.validateItem(this.get('model'), false)
+		App.CuratedContentEditorItemModel.validateItem(this.get('model'), this.get('isFeatured'))
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
-					//@TODO CONCF-956 add translations
-					this.addAlert('info', 'Data validated.');
 					this.sendAction('done', this.get('model'));
 				} else {
-					data.error.forEach((error: any) => {
-						this.processValidationError(error.reason);
-					});
+					data.error.forEach((error: any) => this.processValidationError(error.reason));
 					//@TODO CONCF-956 add translations
 					this.addAlert('alert', 'Please fix errors.');
 				}
@@ -220,13 +216,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 	},
 
 	processValidationError(reason: string) {
-		switch(reason) {
+		switch (reason) {
 			case 'articleNotFound':
 				//@TODO CONCF-956 add translations
 				this.set('titleErrorMessage', 'Article not found.');
 				break;
 			case 'emptyLabel':
 			case 'tooLongLabel':
+				// error should be displayed with validateLabel method - no need to duplicate messages
 				this.validateLabel();
 				break;
 			case 'videoNotSupportProvider':

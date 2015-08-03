@@ -37,12 +37,10 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
 					//@TODO CONCF-956 add translations
-					this.addAlert('info', 'Data validated.');
+					this.addAlert('info', 'Data saved.');
 					this.sendAction('openMainPage');
 				} else {
-					data.error.forEach((error: any) => {
-						this.processValidationError(error.reason);
-					});
+					data.error.forEach((error: any) => this.processValidationError(error.reason));
 					//@TODO CONCF-956 add translations
 					this.addAlert('alert', 'Please fix errors.');
 				}
@@ -57,8 +55,8 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 	},
 
 	processValidationError(reason: string) {
-		switch(reason) {
-			// errors that belong to item -> something went very wrong if we have those
+		switch (reason) {
+			// if those occur that means user somehow bypassed validation of one or more items earlier
 			case 'articleNotFound':
 			case 'emptyLabel':
 			case 'tooLongLabel':

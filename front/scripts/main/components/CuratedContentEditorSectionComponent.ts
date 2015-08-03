@@ -46,20 +46,16 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 
 	validateAndDone(): void {
 		this.showLoader();
-		App.CuratedContentEditorItemModel.validateSection(this.get('model'))
+		App.CuratedContentEditorItemModel.validateSectionWithItems(this.get('model'))
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				var sortableItems: any;
 
 				if (data.status) {
-					//@TODO CONCF-956 add translations
-					this.addAlert('info', 'Data validated.');
 					sortableItems = this.get('sortableItems');
 					this.set('model.items', sortableItems.slice(0, sortableItems.length));
 					this.sendAction('done', this.get('model'));
 				} else {
-					data.error.forEach((error: any) => {
-						this.processValidationError(error.reason);
-					});
+					data.error.forEach((error: any) => this.processValidationError(error.reason));
 				}
 			})
 			.catch((): void => {
@@ -87,7 +83,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 				break;
 			case 'itemsMissing':
 				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'You need to add some items.');
+				this.addAlert('alert', 'Sections can\'t be empty, please add items to section?');
 		}
 	}
 });
