@@ -226,11 +226,15 @@ articlePagePaths.forEach((path) => {
 	});
 });
 
-authenticatedRoutes.push({
-	path: '/raw',
-	method: 'GET',
-	handler: require('./facets/showApplication')
-});
+// For application routes that are not articles and require the Ember app, push a route object
+// that uses the `showApplication` route handler to get a basic Ember application instance
+// authenticatedRoutes.push({
+	// Discussion route:
+	// commented out for now as it is not ready
+// 	path: '/d',
+// 	method: 'GET',
+// 	handler: require('./facets/showApplication')
+// });
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);

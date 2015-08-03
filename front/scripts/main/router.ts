@@ -78,7 +78,9 @@ App.Router.map(function () {
 		});
 	}
 
-	this.route('raw');
+	// Discussion route:
+	// commented out for now as it is not ready
+	// this.route('discussion', {path: '/d'});
 });
 
 App.Router.reopen({
