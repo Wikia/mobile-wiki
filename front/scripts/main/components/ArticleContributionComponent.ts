@@ -14,7 +14,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 	}),
 
 	articleContentObserver: Em.observer('articleContent', function (): void {
-		this.rerender();
+		// this.rerender();
 		Em.run.scheduleOnce('afterRender', this, (): void => {
 			this.setupContributionButtons();
 		});
@@ -39,7 +39,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 				label: 'edit',
 				value: this.section
 			});
-			this.sendAction('edit-action', this.title, this.section);
+			this.sendAction('edit', this.title, this.section);
 		},
 
 		select: function (): void {
@@ -47,14 +47,14 @@ App.ArticleContributionComponent = Em.Component.extend({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
 				label: 'addPhoto',
-				value: this.sectionIndex
+				value: this.section
 			});
 			this.$('.file-input').click();
 		},
 
 		upload: function(): void {
 			var photoData = this.$('.file-input')[0].files[0];
-			this.sendAction('photo-action', this.title, this.section, photoData);
+			this.sendAction('upload', this.title, this.section, photoData);
 		}
 	}
 });

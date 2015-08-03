@@ -26,7 +26,13 @@
 		{{/if}}
 		{{#if contributionFeatureEnabled}}
 			<div class="contribution-container">
-				{{article-contribution article=model.article section=0 title=model.cleanTitle edit-action="edit" photo-action="addPhoto"}}
+				{{article-contribution 
+				    article=model.article
+				    section=0
+				    title=model.cleanTitle
+				    edit="edit"
+				    upload="addPhoto"
+				}}
 			</div>
 		{{/if}}
 		{{article-content

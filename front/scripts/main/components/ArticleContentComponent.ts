@@ -80,7 +80,6 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 					};
 				}
 			}).toArray();
-
 		this.sendAction('updateHeaders', headers);
 	},
 
