@@ -15,6 +15,9 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	adsContext: null,
 	content: null,
 	media: null,
+	contributionFeatureEnabled: null,
+	cleanTitle: null,
+	headers: null,
 
 	articleContentObserver: Em.observer('content', function (): void {
 		var content = this.get('content');
@@ -62,6 +65,32 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		this.$().html(content);
 	},
 
+	setupContributionButtons: function(): void {
+		var headers = this.get('headers'),
+			$sectionHeader: any = null,
+			contributionComponent: any = null,
+			iconsWrapper = '';
+		headers.forEach((header: ArticleSectionHeader): void => {
+			contributionComponent = this.createArticleContributionComponent();
+			//iconsWrapper = '<div class="icon-wrapper">' + contributionComponent + '</div>';
+			$sectionHeader = this.$(header.element);
+			$sectionHeader.prepend(contributionComponent).addClass('short-header');
+		});
+	},
+
+	createArticleContributionComponent: function(): any{
+		var article = this.get('content'),
+			title = this.get('cleanTitle'),
+			component = this.createChildView(App.ArticleContributionComponent.create({
+				article: article,
+				section: 0, //todo
+				title: title,
+				edit: 'edit',
+				upload: 'addPhoto'
+			}));
+		return component.createElement().$();
+	},
+
 	/**
 	 * @desc Generates table of contents data based on h2 elements in the article
 	 * TODO: Temporary solution for generating Table of Contents
@@ -80,7 +109,12 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 					};
 				}
 			}).toArray();
-		this.sendAction('updateHeaders', headers);
+
+		this.set('headers', headers);
+
+		if (this.get('contributionFeatureEnabled')) {
+			this.setupContributionButtons();
+		}
 	},
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
