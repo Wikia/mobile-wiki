@@ -30,7 +30,9 @@
 	.auth-content {
 		flex-grow: initial;
 		float: left;
-		margin: 25px;// TODO
-		width: 350px;// TODO
+		margin: 25px;
+		min-width: 200px;
+		max-width: 350px;
+		width: calc(50% - 50px);
 	}
 }
