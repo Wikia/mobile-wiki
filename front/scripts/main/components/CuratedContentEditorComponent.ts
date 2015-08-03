@@ -71,6 +71,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			case 'itemsMissing':
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+				break;
 		}
 	}
 });
