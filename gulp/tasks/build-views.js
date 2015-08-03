@@ -31,33 +31,38 @@ if (sync) {
 	preprocessContext.browserSync = true;
 }
 
-gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-vendor', 'build-combined'], function () {
+gulp.task('build-views', ['scripts-front', 'vendor', 'build-vendor', 'build-combined'], function () {
+	// retrieve gulp-rev-replace manifest files that were created with build-combined and build-vendor
 	var manifest = gulp.src(['www/front/vendor/rev-manifest.json', 'www/front/scripts/rev-manifest.json']);
+
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFullServer
 		}),
 
-		// These plugins don't like being fed through piper/multipipe
-		gulpif('**/_layouts/**.hbs', preprocess({context: preprocessContext})),
-		gulpif('**/_layouts/**.hbs', revReplace({manifest: manifest})),
+		// preprocess and revReplace don't like being fed through piper/multipipe
+		gulpif('**/_layouts/*.hbs', preprocess({context: preprocessContext})),
+		// Read JSON manifests written out by rev. Allows replacing file names that were reved prior to the current task
+		gulpif('**/_layouts/*.hbs', revReplace({manifest: manifest})),
 
-		// TODO: Leave this in for now to run the normal template based assets pipeline for the duration
-		// of the test
+
+		// for layouts that aren't ember-main.hbs, use gulp-useref to parse 'build' blocks in hbs source
+		// containing files to optimize.
 		gulpif('**/_layouts/*.hbs', piper(
 			assets,
-			//before running build I can not know what files from vendor to minify
-			gulpif('**/*.js', uglify()),
+			gulpif('**/*.js', gulpif(environment.isProduction, uglify())),
 			rev(),
 			gulp.dest(paths.base),
 			assets.restore(),
 			useref(),
-			gulpif(environment.isProduction, piper(revReplace()))
+			// replace file names for all assets that have been piped through rev
+			revReplace()
 		)),
 
 		gulpif('**/_layouts/*.hbs', gulp.dest('www/server/views/_layouts')),
+
+		// for ember-main.hbs, find the file paths in the template source and replace them for prod CDN
 		gulpif(environment.isProduction, piper(
-			// Used to prefix assets in with CDN prefix
 			gulpif(options.replace.selector, replace(options.replace.find, options.replace.replace)),
 			minifyHTML({
 				quotes: true
