@@ -126,40 +126,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 
 		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
-		},
-
-		updateHeaders: function (headers: ArticleSectionHeader[]): void {
-			this.set('headers', headers);
-
-			if (this.get('contributionFeatureEnabled')) {
-				this.setupContributionButtons();
-			}
 		}
-	},
-
-	setupContributionButtons: function(): void {
-		var headers = this.get('headers'),
-			$sectionHeader: any = null,
-			contributionComponent: any = null,
-			iconsWrapper = '';
-		headers.forEach((header: ArticleSectionHeader): void => {
-			contributionComponent = this.createArticleContributionComponent();
-			iconsWrapper = '<div class="icon-wrapper">' + contributionComponent + '</div>';
-			$sectionHeader = this.$(header.element);
-			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
-		});
-	},
-
-	createArticleContributionComponent: function(): any{
-		var model = this.get('model');
-		var component = this.createChildView(App.ArticleContributionComponent.create({
-			article: model.article,
-			section: 0, //todo
-			title: model.cleanTitle,
-			edit: 'edit',
-			upload: 'addPhoto'
-		}));
-		return component.createElement();
 	},
 
 	performArticleTransforms: function (): boolean {

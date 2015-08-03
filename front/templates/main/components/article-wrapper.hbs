@@ -26,7 +26,7 @@
 		{{/if}}
 		{{#if contributionFeatureEnabled}}
 			<div class="contribution-container">
-				{{article-contribution 
+				{{article-contribution
 				    article=model.article
 				    section=0
 				    title=model.cleanTitle
@@ -40,6 +40,8 @@
 			content=model.article
 			media=model.media
 			noAds=noAds
+			contributionFeatureEnabled=contributionFeatureEnabled
+			cleanTitle=model.cleanTitle
 			openLightbox='openLightbox'
 			updateHeaders='updateHeaders'
 		}}
