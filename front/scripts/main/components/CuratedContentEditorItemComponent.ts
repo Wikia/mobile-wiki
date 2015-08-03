@@ -110,7 +110,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				})
 				.catch((err: any) => {
 					Em.Logger.error(err);
-					this.set('imageErrorMessage', 'Oops! An API Error occured.');
+					this.set('imageErrorMessage', 'app.curated-content-image-upload-error');
 				})
 				.finally(() => {
 					this.hideLoader();
@@ -191,9 +191,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				}
 			})
 			.catch((err: any): void => {
-				//@TODO CONCF-956 add translations
 				Em.Logger.error(err);
-				this.set('imageErrorMessage', 'Oops! An API Error occured.');
+				this.set('imageErrorMessage', 'app.curated-content-image-upload-error');
 			})
 			.finally((): void => {
 				this.hideLoader();
