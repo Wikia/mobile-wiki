@@ -94,9 +94,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		fileUpload(files: any[]): void {
 			this.showLoader();
 			App.AddPhotoModel.load(files[0])
-				.then(function (photoModel: typeof App.AddPhotoModel) {
-					return App.AddPhotoModel.upload(photoModel);
-				})
+				.then((photoModel) => App.AddPhotoModel.upload(photoModel))
 				.then((data: any) => {
 					if (data && data.url && data.article_id) {
 						this.setProperties({
