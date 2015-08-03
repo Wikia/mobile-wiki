@@ -61,19 +61,19 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 	},
 
-	validateItem(item: CuratedContentEditorItemModel, isFeatured: boolean) : Em.RSVP.Promise {
+	validateServerData(item: CuratedContentEditorItemModel, data: any) : Em.RSVP.Promise {
+		data = $.extend({}, data, {
+			controller: 'CuratedContentValidator',
+			item: item.toJSON(),
+			format: 'json'
+		});
+
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
-				data: {
-					controller: 'CuratedContentValidator',
-					method: 'validateItem',
-					format: 'json',
-					item: item.toJSON(),
-					isFeatured
-				},
+				data,
 				dataType: 'json',
 				success: (data: CuratedContentValidationResponseInterface): void => {
 					resolve(data);
@@ -85,26 +85,17 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 	},
 
-	validateSectionWithItems(item: CuratedContentEditorItemModel) : Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'CuratedContentValidator',
-					method: 'validateSection',
-					format: 'json',
-					item: item.toJSON()
-				},
-				dataType: 'json',
-				success: (data: CuratedContentValidationResponseInterface): void => {
-					resolve(data);
-				},
-				error: (data: any): void => {
-					reject(data);
-				}
-			});
+	validateItem(item: CuratedContentEditorItemModel, isFeatured: boolean) : Em.RSVP.Promise {
+		return this.validateServerData(item, {
+			method: 'validateItem',
+			isFeatured
+		});
+	},
+
+	validateSection(item: CuratedContentEditorItemModel, validateItems: boolean) : Em.RSVP.Promise {
+		return this.validateServerData(item ,{
+			method: 'validateSection',
+			validateItems
 		});
 	}
 });

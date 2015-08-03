@@ -92,9 +92,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		done(): void {
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				if (!this.get('isSectionView')) {
-					this.validateAndDone();
+					this.validateAndDone( this.get('model'), { method: 'validateItem', isFeatured: this.get('isFeatured') });
 				} else {
-					this.sendAction('done', this.get('model'));
+					this.validateAndDone( this.get('model'), { method: 'validateSection', validateItems: false });
 				}
 			}
 		},
@@ -194,9 +194,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 	},
 
-	validateAndDone(): void {
+	validateAndDone(item: CuratedContentEditorItemModel, data: any): void {
 		this.showLoader();
-		App.CuratedContentEditorItemModel.validateItem(this.get('model'), this.get('isFeatured'))
+		App.CuratedContentEditorItemModel.validateServerData(item, data)
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
 					this.sendAction('done', this.get('model'));
