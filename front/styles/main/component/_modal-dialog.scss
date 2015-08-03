@@ -1,0 +1,27 @@
+$modal-dialog-margin: 1em;
+
+.modal-dialog {
+	background: rgba(255, 255, 255, .9);
+	height: 100%;
+	left: 0;
+	overflow-y: scroll;
+	padding: $modal-dialog-margin;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: $z-modal-dialog;
+}
+
+.modal-dialog-close {
+	position: absolute;
+	right: $modal-dialog-margin;
+
+	svg {
+		height: 32px;
+		width: 32px;
+	}
+}
+
+.modal-dialog-content {
+	margin-top: 50px;
+}
