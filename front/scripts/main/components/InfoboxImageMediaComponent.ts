@@ -1,6 +1,5 @@
 /// <reference path="../app.ts" />
-/// <reference path="./MediaComponent.ts" />
-/// <reference path="../mixins/ArticleContentMixin.ts" />
+/// <reference path="./ImageMediaComponent.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
