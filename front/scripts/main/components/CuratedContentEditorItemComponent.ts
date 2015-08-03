@@ -110,7 +110,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				})
 				.catch((err: any) => {
 					Em.Logger.error(err);
-					this.set('imageErrorMessage', 'app.curated-content-image-upload-error');
+					this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 				})
 				.finally(() => {
 					this.hideLoader();

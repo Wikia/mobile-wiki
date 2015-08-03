@@ -9,7 +9,7 @@
 	<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}">
 		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
 		{{#if imageErrorMessage}}
-			<small class="error">{{i18n imageErrorMessage}}</small>
+			<small class="error">{{imageErrorMessage}}</small>
 		{{/if}}
 		{{loading-spinner active=isLoading overlay=false}}
 		{{file-input fileUpload='fileUpload'}}
