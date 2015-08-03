@@ -93,7 +93,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 
 		fileUpload(files: any[]): void {
 			this.showLoader();
-			App.AddPhotoModel.load(null, null, files[0])
+			App.AddPhotoModel.load(files[0])
 				.then(function (photoModel: typeof App.AddPhotoModel) {
 					return App.AddPhotoModel.upload(photoModel);
 				})

@@ -26,7 +26,7 @@ App.AddPhotoModel.separateFileNameAndExtension = function(fileName: string): Fil
 };
 
 App.AddPhotoModel.reopenClass(App.EditMixin, {
-	load: function(title: string, sectionIndex: number, photoData: any): Em.RSVP.Promise {
+	load: function(photoData: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var oFReader = new FileReader();
 			oFReader.readAsDataURL(photoData);
@@ -36,8 +36,6 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 				photoExtension = separatedName.extension;
 				resolve(
 					App.AddPhotoModel.create({
-						title: title,
-						sectionIndex: sectionIndex,
 						photoData: photoData,
 						photoImage: oFREvent.target.result,
 						photoName: photoName,
