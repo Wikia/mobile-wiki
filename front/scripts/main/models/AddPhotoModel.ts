@@ -14,14 +14,14 @@ App.AddPhotoModel = Em.Object.extend({
 });
 
 interface FileNameSeparated {
-    name: string;
-    extension: string;
+	name: string;
+	extension: string;
 }
 
 App.AddPhotoModel.separateFileNameAndExtension = function(fileName: string): FileNameSeparated {
 	var name = fileName.substr(0, fileName.lastIndexOf('.')),
-	    extension = fileName.substr(fileName.lastIndexOf('.') + 1),
-	    fileNameSeparated: FileNameSeparated = { name: name, extension: extension };
+		extension = fileName.substr(fileName.lastIndexOf('.') + 1),
+		fileNameSeparated: FileNameSeparated = { name: name, extension: extension };
 	return fileNameSeparated;
 };
 
