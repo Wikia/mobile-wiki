@@ -1,10 +1,12 @@
 {
-	// Wikia .jshintrc
+	// Wikia Mercury .jshintrc
 	// Please keep these in alphabetical order.
 	// Installation instructions and linters for your preferred
 	// IDE/editor here: http://www.jshint.com/install/
 
 	// Enforcing
+
+	"esnext": true,
 	"bitwise": true,
 	"camelcase": true,
 	"curly": true,
@@ -54,20 +56,27 @@
 	"browser": true,
 	"devel": false,
 	"globals": {
-		"mw": false,
-		"mediaWiki": false,
+		"App": false,
+		"Em": false,
+		"Ember": false,
+		"Mercury": false,
+		"QUnit": false,
+		"W": false,
 		"Wikia": false,
-		"define": false,
-		"require": false,
-		"Backbone": false,
-		"Mustache": false,
-		"_": false,
-		"describe": false,
-		"it": false,
+		"andThen": false,
+		"deepEqual": false,
+		"emq": false,
+		"equal": false,
 		"expect": false,
-		"beforeEach": false,
-		"modules": false,
-		"spyOn": false
+		"find": false,
+		"moduleFor": false,
+		"moduleForComponent": false,
+		"ok": false,
+		"setResolver": false,
+		"strictEqual": false,
+		"test": false,
+		"throws": false,
+		"visit": false
 	},
 	"jquery": true,
 	"node": true,
