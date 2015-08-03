@@ -56,7 +56,7 @@ App.ApplicationView = Em.View.extend({
 	}),
 
 	willInsertElement: function (): void {
-		$('#article-preload').remove();
+		$('#preload').remove();
 	},
 
 	didInsertElement: function (): void {

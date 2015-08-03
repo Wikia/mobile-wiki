@@ -1,6 +1,8 @@
 /// <reference path="../../config/localSettings.d.ts" />
 /// <reference path="../../typings/hoek/hoek.d.ts" />
+/// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
+import localSettings = require('../../config/localSettings');
 import Hoek = require('hoek');
 
 /**
@@ -211,3 +213,23 @@ export function parseQueryParams (obj: any, allowedKeys: string[]): any {
 export function shouldAsyncArticle(localSettings: LocalSettings, host: string): boolean {
 	return localSettings.asyncArticle.some((communityName: string) => !!host.match(communityName));
 }
+
+/**
+ * Create server data
+ *
+ * @returns ServerData
+ */
+export function createServerData(wikiDomain: string = ''): ServerData {
+	// if no environment, pass dev
+	var env = localSettings.environment || Environment.Dev;
+
+	return {
+		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
+		apiBase: localSettings.apiBase,
+		environment: getEnvironmentString(env),
+		cdnBaseUrl: (env === Environment.Prod) ||
+					(env === Environment.Sandbox) ?
+					localSettings.cdnBaseUrl : ''
+	};
+}
+
