@@ -152,10 +152,10 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 		}
 	},
 
-	handleWikiaInYourLang: function(): void {
+	handleWikiaInYourLang: function (): void {
 		if (this.shouldShowWikiaInYourLang()) {
 			App.WikiaInYourLangModel.load()
-			.then(function(model: typeof App.WikiaInYourLangModel): void {
+			.then((model: typeof App.WikiaInYourLangModel): void  => {
 				if (model) {
 					this.createAlert(model);
 					M.track({
@@ -164,7 +164,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 						label: 'shown'
 					});
 				}
-			}.bind(this),
+			},
 			(err: any) => {
 				M.track({
 					action: M.trackActions.impression,
@@ -175,7 +175,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 		}
 	},
 
-	createAlert: function(model: typeof App.WikiaInYourLangModel): void {
+	createAlert: function (model: typeof App.WikiaInYourLangModel): void {
 		var appController = this.get('controller'),
 		    alertData = {
 			message: model.message,
@@ -204,7 +204,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 		appController.addAlert(alertData);
 	},
 
-	shouldShowWikiaInYourLang: function(): boolean {
+	shouldShowWikiaInYourLang: function (): boolean {
 		var value = window.localStorage.getItem(this.getAlertKey()),
 		    now = new Date().getTime(),
 		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
@@ -212,7 +212,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 		return notDismissed && isJaOnNonJaWikia;
 	},
 
-	getAlertKey: function(): string {
+	getAlertKey: function (): string {
 		return 'wikiaInYourLang.alertDismissed';
 	}
 });
