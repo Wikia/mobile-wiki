@@ -3,8 +3,10 @@
 'use strict';
 
 App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentEditorSortableItemsMixin, {
-	classNames: ['curated-content-editor-block'],
 	tagName: 'section',
+	classNames: ['curated-content-editor-block'],
+
+	isHelpVisible: false,
 	persistentSort: true,
 
 	actions: {
@@ -16,12 +18,12 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 			this.sendAction('editItem', item, this.get('block'));
 		},
 
-		showHelp(): void {
-			this.sendAction('showHelp', i18n.t(this.get('helpText')));
-		},
-
 		openSection(item: CuratedContentEditorItemModel): void {
 			this.sendAction('openSection', item);
+		},
+
+		showHelp(): void {
+			this.set('isHelpVisible', true);
 		}
 	}
 });

@@ -12,7 +12,6 @@ $modal-dialog-margin: 1em;
 	z-index: $z-modal-dialog;
 }
 
-
 .modal-dialog-close {
 	position: absolute;
 	right: $modal-dialog-margin;
@@ -21,4 +20,8 @@ $modal-dialog-margin: 1em;
 		height: 32px;
 		width: 32px;
 	}
+}
+
+.modal-dialog-content {
+	margin-top: 50px;
 }
