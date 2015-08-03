@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.CollapsibleMenuComponent = Em.Component.extend({
+App.CollapsibleMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	tagName: 'nav',
 	classNames: ['collapsible-menu'],
 	classNameBindings: ['additionalClasses'],

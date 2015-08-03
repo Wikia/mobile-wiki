@@ -1,3 +1,21 @@
+## release-124 (2015-07-31 10:00 UTC)
+* [SOC-1015](https://wikia-inc.atlassian.net/browse/SOC-1015) SOC-1015 Unifying "close" button on Auth pages with the main Mercury app
+* [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 - sending logged_in flag to weppy
+* [HG-740](https://wikia-inc.atlassian.net/browse/HG-740) HG-740 Upgrade to Ember 1.13
+* [CONCF-933](https://wikia-inc.atlassian.net/browse/CONCF-933) CONCF-933 | loading default image for resurce in mobile Curated Content Edit Tool
+
+## release-123 (2015-07-30 10:00 UTC)
+* disablie-source-maps: Disable source maps
+* [HG-820](https://wikia-inc.atlassian.net/browse/HG-820) HG-820 Fix ads MOBILE_IN_CONTENT slot
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 | Update crowdin config for rename ZH i18n files
+
+## release-122 (2015-07-29 10:00 UTC)
+* [HG-797](https://wikia-inc.atlassian.net/browse/HG-797) mvp implementation of utilizing article sections api
+* [CONCF-918](https://wikia-inc.atlassian.net/browse/CONCF-918) CONCF-918
+* [CONCF-806](https://wikia-inc.atlassian.net/browse/CONCF-806) CONCF-806 As a user I want to have interactive forms on Curated Content Edit tool so I can edit data
+* [CONCF-951](https://wikia-inc.atlassian.net/browse/CONCF-951) CONCF-951 | reset visibility state for old main pages
+* fix-gulp-watch: rebuild templates on watch task
+
 ## release-121 (2015-07-28 10:00 UTC)
 * [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 upping sampling rate
 

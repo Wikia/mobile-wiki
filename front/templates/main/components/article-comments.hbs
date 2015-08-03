@@ -1,6 +1,6 @@
 {{#if commentsCount}}
 	<div {{action 'toggleComments'}} class='show-comments-btn page-btn {{if isCollapsed 'collapsed'}}'>
-		{{i18n 'app.article-comments-label' count='commentsCount'}}
+		{{i18n 'app.article-comments-label' count=commentsCount}}
 		{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 	</div>
 {{/if}}
@@ -8,7 +8,7 @@
 	{{#if model.comments}}
 		<button class='page-btn {{unless prevButtonShown 'hidden'}}' {{action 'prevPage'}}>{{i18n 'app.comments-prev-button'}}</button>
 		<ul class='comments {{if commentsHidden 'hidden'}}'>
-			{{#each comment in model.comments}}
+			{{#each model.comments as |comment|}}
 				{{article-comment comment=comment users=model.users}}
 			{{/each}}
 		</ul>

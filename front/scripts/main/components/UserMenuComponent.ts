@@ -4,9 +4,7 @@
 
 App.UserMenuComponent = Em.Component.extend({
 	classNames: ['user-menu'],
-	classNameBindings: ['isCollapsed:collapsed:visible'],
-
-	isCollapsed: true,
+	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 
 	links: Em.computed('userName', function (): Array<any> {
 		return [
@@ -29,7 +27,7 @@ App.UserMenuComponent = Em.Component.extend({
 
 	actions: {
 		hide: function (): void {
-			this.set('isCollapsed', true);
+			this.sendAction('toggleVisibility', false);
 		}
 	}
 });
