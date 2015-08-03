@@ -55,23 +55,13 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 	},
 
 	processValidationError(reason: string) {
-		switch (reason) {
-			// if those occur that means user somehow bypassed validation of one or more items earlier
-			case 'articleNotFound':
-			case 'emptyLabel':
-			case 'tooLongLabel':
-			case 'videoNotSupportProvider':
-			case 'notSupportedType':
-			case 'duplicatedLabel':
-			case 'noCategoryInTag':
-			case 'imageMissing':
-				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Please fix errors inside items.');
-				break;
-			case 'itemsMissing':
-				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
-				break;
+		if (reason === 'itemsMissing') {
+			//@TODO CONCF-956 add translations
+			this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+		} else {
+			// if other items occur that means user somehow bypassed validation of one or more items earlier
+			//@TODO CONCF-956 add translations
+			this.addAlert('alert', 'Please fix errors inside items');
 		}
 	}
 });

@@ -92,9 +92,13 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		done(): void {
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				if (!this.get('isSectionView')) {
-					this.validateAndDone( this.get('model'), { method: 'validateItem', isFeatured: this.get('isFeatured') });
+					this.validateAndDone( this.get('model'),
+						{ method: 'validateItem', isFeaturedItem: this.get('isFeaturedItem') }
+					);
 				} else {
-					this.validateAndDone( this.get('model'), { method: 'validateSection' });
+					this.validateAndDone( this.get('model'),
+						{ method: 'validateSection' }
+					);
 				}
 			}
 		},

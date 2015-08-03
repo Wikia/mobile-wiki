@@ -73,22 +73,13 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	},
 
 	processValidationError(reason: string) {
-		switch (reason) {
-			// errors that belong to item -> something went very wrong if we have those
-			case 'articleNotFound':
-			case 'emptyLabel':
-			case 'tooLongLabel':
-			case 'videoNotSupportProvider':
-			case 'notSupportedType':
-			case 'duplicatedLabel':
-			case 'noCategoryInTag':
-			case 'imageMissing':
-				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Please fix errors inside items');
-				break;
-			case 'itemsMissing':
-				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Sections can\'t be empty, please add items to section');
+		if (reason === 'itemsMissing') {
+			//@TODO CONCF-956 add translations
+			this.addAlert('alert', 'Sections can\'t be empty, please add items to section');
+		} else {
+			// if other items occur that means user somehow bypassed validation of one or more items earlier
+			//@TODO CONCF-956 add translations
+			this.addAlert('alert', 'Please fix errors inside items');
 		}
 	}
 });
