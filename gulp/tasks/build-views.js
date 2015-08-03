@@ -52,7 +52,7 @@ gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-ve
 			gulp.dest(paths.base),
 			assets.restore(),
 			useref(),
-			revReplace()
+			gulpif(environment.isProduction, piper(revReplace()))
 		)),
 
 		gulpif('**/_layouts/*.hbs', gulp.dest('www/server/views/_layouts')),
