@@ -39,7 +39,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 				this.validateAndDone();
 			} else {
 				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'You need to add some items.');
+				this.addAlert('alert', 'Sections can\'t be empty, please add items to section');
 			}
 		}
 	},
@@ -79,11 +79,11 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			case 'noCategoryInTag':
 			case 'imageMissing':
 				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Please fix errors inside items.');
+				this.addAlert('alert', 'Please fix errors inside items');
 				break;
 			case 'itemsMissing':
 				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Sections can\'t be empty, please add items to section?');
+				this.addAlert('alert', 'Sections can\'t be empty, please add items to section');
 		}
 	}
 });
