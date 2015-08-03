@@ -91,8 +91,7 @@ test('get params for request to thumbnailer for the WIDE infobox image', functio
 				url: 'image.com'
 			}
 		},
-		expected = 'image.com/zoom-crop/400/225',
-		spy = sinon.spy(component, "getThumbURL");
+		expected = 'image.com/zoom-crop/400/225';
 
 	Ember.run(function () {
 		component.set('media', data.media);
@@ -114,12 +113,12 @@ test('get params for request to thumbnailer for the NORMAL infobox image', funct
 				url: 'image.com'
 			}
 		},
-		expected = 'image.com/thumbnail-down/400/240',
-		spy = sinon.spy(component, "getThumbURL");
+		expected = 'image.com/thumbnail-down/400/240';
 
 	Ember.run(function () {
 		component.set('media', data.media);
 		component.set('viewportDimensions', viewportDimensions);
+
 		equal(component.get('url'), expected);
 	});
 });
