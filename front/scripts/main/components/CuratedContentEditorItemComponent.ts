@@ -93,8 +93,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 
 		fileUpload(files: any[]): void {
 			this.showLoader();
-			App.AddPhotoModel.load('main', null, files[0])
-				.then(function (photoModel) {
+			App.AddPhotoModel.load(null, null, files[0])
+				.then(function (photoModel: typeof App.AddPhotoModel) {
 					return App.AddPhotoModel.upload(photoModel);
 				})
 				.then((data: any) => {
@@ -102,7 +102,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 						this.setProperties({
 							'model.image_url': this.generateThumbUrl(data.url),
 							'imageErrorMessage': null,
-							'model.image_id': data.image_id
+							// article_id comes from MW because in MW files are like any other articles
+							// so there is no such thing as image_id from MW perspective.
+							'model.image_id': data.article_id
 						});
 					}
 				})
