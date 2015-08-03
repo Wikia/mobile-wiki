@@ -1,21 +1,25 @@
 <div class="post-details">
 	<figure class="avatar">
-		<img src="{{author.avatarPath}}" alt="">
+		<a href="{{author.profileUrl}}">
+			<img src="{{author.avatarPath}}">
+		</a>
 	</figure>
 	<a href="{{author.profileUrl}}">{{author.name}}</a>
 	<span class="timestamp">
 		&bull; {{timeAgo timestamp}}
 	</span>
 </div>
-<div class="post-content">
+<div class="discussion-content">
 	{{{content}}}
 </div>
 <div class="row">
-	<div class="small-5 columns">
-		<img class="icon upvote" alt="">
+	<div class="small-5 columns upvote">
+		{{svg 'upvote' viewBox='0 0 30 30' class='icon upvote'}}
+		{{upvoteCount}}
 	</div>
 	<div class="small-5 columns end">
-		<img class="icon replies" alt="">
+		{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+		{{replyCount}}
 	</div>
 </div>
 

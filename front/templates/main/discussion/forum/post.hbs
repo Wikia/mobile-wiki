@@ -1,17 +1,18 @@
-<div class="vertical-{{vertical}}">
-	{{#each model._embedded.firstPost as |item index|}}
+<div class="discussion-post">
 	{{post-detail
-		authorId=item.creatorId
-		content=item.rawContent
-		timestamp=item.creationDate.epochSecond
+		authorId=model._embedded.firstPost.0.creatorId
+		content=model._embedded.firstPost.0.rawContent
+		timestamp=model._embedded.firstPost.0.creationDate.epochSecond
+		upvoteCount=model.upvoteCount
+		replyCount=model.postCount
 	}}
-	{{/each}}
 
 	{{#each model._embedded.doc:posts as |item index|}}
 		{{post-reply
 			authorId=item.creatorId
 			content=item.rawContent
 			timestamp=item.creationDate.epochSecond
+			upvoteCount=item.upvoteCount
 		}}
 		<hr/>
 	{{/each}}

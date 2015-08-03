@@ -2,7 +2,7 @@
 
 <h2>Posts:</h2>
 <ul>
-    {{#each item in _embedded.doc:threads}}
+    {{#each _embedded.doc:threads as |item|}}
         <li>{{#link-to 'discussion.forum.post' item.id}}{{item._embedded.firstPost.0.rawContent}}{{/link-to}} - {{item.postCount}} replies</li>
     {{/each}}
 </ul>
