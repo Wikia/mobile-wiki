@@ -1330,6 +1330,8 @@ declare module Ember {
     var LOG_BINDINGS: boolean;
     var LOG_STACKTRACE_ON_DEPRECATION: boolean;
     var LOG_VERSION: boolean;
+    // TODO this should be adjusted to https://github.com/emberjs/ember.js/blob/e8124a4d76f809b408e8a657f9f5b1b465655f95/packages/ember-routing-views/lib/views/link.js#L40
+    class LinkComponent extends Component { }
     class LinkView extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -1575,7 +1577,7 @@ declare module Ember {
         findBy(key: string, value?: string): any;
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
-        indexOf(object: any, startAt: number): number;
+        indexOf(object: any, startAt?: number): number;
         insertAt(idx: number, object: any): any[];
         invoke(methodName: string, ...args: any[]): any[];
         lastIndexOf(object: any, startAt: number): number;
@@ -1591,7 +1593,7 @@ declare module Ember {
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
         removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
-        removeAt(start: number, len: number): any;
+        removeAt(start: number, len?: number): any;
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         replace(idx: number, amt: number, objects: any[]): any;
         reverseObjects(): any[];
@@ -3055,6 +3057,7 @@ declare module Em {
     var LOG_BINDINGS: typeof Ember.LOG_BINDINGS;
     var LOG_STACKTRACE_ON_DEPRECATION: typeof Ember.LOG_STACKTRACE_ON_DEPRECATION;
     var LOG_VERSION: typeof Ember.LOG_VERSION;
+    class LinkComponent extends Ember.LinkComponent { }
     class LinkView extends Ember.LinkView { }
     class Location extends Ember.Location { }
     var Logger: typeof Ember.Logger;
