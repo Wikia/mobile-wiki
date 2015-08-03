@@ -1,8 +1,8 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/ViewportMixin.ts" />
+
 'use strict';
 
-App.ModalDialogComponent = Em.Component.extend(App.ViewportMixin, {
+App.ModalDialogComponent = Em.Component.extend({
 	classNames: ['modal-dialog'],
 	isVisible: false,
 
