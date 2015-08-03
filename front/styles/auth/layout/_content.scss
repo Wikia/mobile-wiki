@@ -15,3 +15,21 @@
 		max-width: 720px;
 	}
 }
+
+
+.desktop-view {
+	background-color: $auth-content-background-color;
+	display: flex;
+	flex-direction: row;
+
+	// stick the footer to the bottom
+	flex-grow: 1;
+	justify-content: center;
+
+	.auth-content {
+		flex-grow: initial;
+		float: left;
+		margin: 25px;// TODO
+		width: 350px;// TODO
+	}
+}

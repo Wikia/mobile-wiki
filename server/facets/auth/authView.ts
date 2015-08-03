@@ -16,7 +16,8 @@ module authView {
 		language: string;
 		exitTo: string;
 		optimizelyScript: string;
-		pageParams: PageParams
+		pageParams: PageParams;
+		viewType: string;
 		hideHeader?: boolean;
 		hideFooter?: boolean;
 		footerHref?: string;
@@ -31,7 +32,7 @@ module authView {
 		var response: Hapi.Response;
 
 		response = reply.view(
-			'auth/' + this.getViewVersion(request) + '/' + template,
+			'auth/' + this.getViewType(request) + '/' + template,
 			context,
 			{
 				layout: 'auth'
@@ -86,7 +87,8 @@ module authView {
 			optimizelyScript: localSettings.optimizely.scriptPath +
 				(localSettings.environment === Utils.Environment.Prod ?
 					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
-			pageParams: {}
+			pageParams: {},
+			viewType: this.getViewType(request)
 		};
 	}
 
@@ -102,7 +104,7 @@ module authView {
 		return reply();
 	}
 
-	export function getViewVersion(request: Hapi.Request) {
+	export function getViewType(request: Hapi.Request): string {
 		var mobilePattern = /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE|Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
 			ipadPattern = /iPad/;
 		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
