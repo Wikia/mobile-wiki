@@ -99,9 +99,9 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 	upload: function(model: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.temporaryUpload(model.photoData)
-				.then((addmediatemporary: any): any => {
+				.then((addmediatemporary: any): void => {
 					if (addmediatemporary.tempName === undefined) { //we already have the file. No need to upload.
-						return resolve(addmediatemporary);
+						resolve(addmediatemporary);
 					}
 					//If a user inputs an empty image name, then we silently replace it with original file name.
 					var newPhotoTitle: string;
