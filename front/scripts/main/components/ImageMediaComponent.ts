@@ -33,28 +33,23 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	 * so we have less content jumping around due to lazy loading images
 	 * @return number
 	 */
-	computedHeight: Em.computed('media.width', 'media.height', 'media.context', 'articleContent.width', function (): number {
+	computedHeight: Em.computed('media.width', 'media.height', 'articleContent.width', function (): number {
 		var pageWidth = this.get('articleContent.width'),
 			imageWidth = this.get('media.width') || pageWidth,
-			imageHeight = this.get('media.height'),
-			isInfoboxMedia = (this.get('media.context') === 'infobox'),
-			computedHeight = imageHeight;
+			imageHeight = this.get('media.height');
 
 		if (pageWidth < imageWidth) {
-			computedHeight = Math.floor(pageWidth * (imageHeight / imageWidth));
+			return Math.floor(pageWidth * (imageHeight / imageWidth));
 		}
 
-		return (isInfoboxMedia && pageWidth < computedHeight) ?
-			pageWidth :
-			computedHeight;
+		return imageHeight;
 	}),
 
 	/**
 	 * @desc return the thumbURL for media.
 	 * If media is an icon, use the limited width.
-	 * If media is an infobox image, use specified thumb params.
 	 */
-	url: Em.computed('media', 'computedHeight', 'articleContent.width', 'imageSrc', 'infoboxImageParams', {
+	url: Em.computed('media', 'computedHeight', 'articleContent.width', 'imageSrc', {
 		get(): string {
 				var media: ArticleMedia = this.get('media'),
 					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,

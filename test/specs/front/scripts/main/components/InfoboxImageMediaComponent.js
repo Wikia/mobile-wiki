@@ -1,8 +1,8 @@
 moduleForComponent('infobox-image-media', 'InfoboxImageMediaComponent');
 
-test('computedHeight infobox image 200x1000', function () {
+test('computedHeight TALL infobox image 200x1000', function () {
 	var component = this.subject(),
-			articleContent = {
+			viewportDimensions = {
 				width: 400
 			},
 			media = {
@@ -13,26 +13,26 @@ test('computedHeight infobox image 200x1000', function () {
 
 	Ember.run(function () {
 		component.set('media', media);
-		component.set('articleContent', articleContent);
+		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('computedHeight'), expected);
 	});
 });
 
-test('computedHeight infobox image 1000x200', function () {
+test('computedHeight WIDE infobox image 1000x200', function () {
 	var component = this.subject(),
-			articleContent = {
+			viewportDimensions = {
 				width: 400
 			},
 			media = {
 				height: 200,
 				width: 1000
 			},
-			expected = 80;
+			expected = 225;
 
 	Ember.run(function () {
 		component.set('media', media);
-		component.set('articleContent', articleContent);
+		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('computedHeight'), expected);
 	});
@@ -40,7 +40,7 @@ test('computedHeight infobox image 1000x200', function () {
 
 test('computedHeight infobox image 100x100', function () {
 	var component = this.subject(),
-			articleContent = {
+			viewportDimensions = {
 				width: 400
 			},
 			media = {
@@ -51,7 +51,7 @@ test('computedHeight infobox image 100x100', function () {
 
 	Ember.run(function () {
 		component.set('media', media);
-		component.set('articleContent', articleContent);
+		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('computedHeight'), expected);
 	});
@@ -59,8 +59,8 @@ test('computedHeight infobox image 100x100', function () {
 
 test('get params for request to thumbnailer for the TALL infobox image', function () {
 	var component = this.subject(),
-		window = {
-			innerWidth: 400
+		viewportDimensions = {
+			width: 400
 		},
 		data = {
 			media: {
@@ -69,10 +69,11 @@ test('get params for request to thumbnailer for the TALL infobox image', functio
 				url: 'image.com'
 			},
 		},
-		expected = 'image.com/zoom-crop/';
+		expected = 'image.com/top-crop-down/400/400';
 
 	Ember.run(function () {
 		component.set('media', data.media);
+		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('url'), expected);
 	});
@@ -80,6 +81,9 @@ test('get params for request to thumbnailer for the TALL infobox image', functio
 
 test('get params for request to thumbnailer for the WIDE infobox image', function () {
 	var component = this.subject(),
+		viewportDimensions = {
+			width: 400
+		},
 		data = {
 			media: {
 				height: 600,
@@ -87,10 +91,12 @@ test('get params for request to thumbnailer for the WIDE infobox image', functio
 				url: 'image.com'
 			}
 		},
-		expected = 'image.com/zoom-crop/';
+		expected = 'image.com/zoom-crop/400/225',
+		spy = sinon.spy(component, "getThumbURL");
 
 	Ember.run(function () {
 		component.set('media', data.media);
+		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('url'), expected);
 	});
@@ -98,6 +104,9 @@ test('get params for request to thumbnailer for the WIDE infobox image', functio
 
 test('get params for request to thumbnailer for the NORMAL infobox image', function () {
 	var component = this.subject(),
+		viewportDimensions = {
+			width: 400
+		},
 		data = {
 			media: {
 				height: 600,
@@ -105,11 +114,12 @@ test('get params for request to thumbnailer for the NORMAL infobox image', funct
 				url: 'image.com'
 			}
 		},
-		expected = 'image.com/zoom-crop/';
+		expected = 'image.com/thumbnail-down/400/240',
+		spy = sinon.spy(component, "getThumbURL");
 
 	Ember.run(function () {
 		component.set('media', data.media);
-
+		component.set('viewportDimensions', viewportDimensions);
 		equal(component.get('url'), expected);
 	});
 });
