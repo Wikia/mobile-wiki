@@ -14,8 +14,14 @@
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
 	<body class="auth {{bodyClasses}}">
-		{{#if exitTo}}
-		<a class="close" href="{{exitTo}}"></a>
+	<!-- @include ../../../www/front/svg/common.svg -->
+
+	{{#if exitTo}}
+		<a class="close" href="{{exitTo}}">
+			<svg role="img">
+				<use xlink:href="#close"></use>
+			</svg>
+		</a>
 		{{/if}}
 
 		{{#unless hideHeader}}

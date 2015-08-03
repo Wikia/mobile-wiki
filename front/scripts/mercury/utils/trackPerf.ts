@@ -23,5 +23,7 @@ module Mercury.Utils {
 		// Initializes Weppy context
 		getInstance();
 		Weppy.sendPagePerformance();
+		// used for automation test
+		M.prop('pagePerformanceSent', true);
 	}
 }

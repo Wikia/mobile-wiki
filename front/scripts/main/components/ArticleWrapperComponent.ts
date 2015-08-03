@@ -1,25 +1,20 @@
+/// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../app.ts" />
-/// <reference path="../models/ArticleModel.ts" />
-/// <reference path="../components/MediaComponent.ts" />
-/// <reference path="../components/PortableInfoboxComponent.ts" />
-/// <reference path="../components/WikiaMapComponent.ts" />
+/// <reference path="../mixins/LanguagesMixin.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
 
 'use strict';
 
-interface HeadersFromDom {
+interface ArticleSectionHeader {
+	element: HTMLElement;
 	level: string;
 	name: string;
 	id?: string;
 }
 
-interface HTMLElement {
-	scrollIntoViewIfNeeded: () => void
-}
-
-App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportMixin, {
+App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackClickMixin, App.ViewportMixin, {
 	classNames: ['article-wrapper'],
-	noAds: Em.computed.alias('controller.noAds'),
 
 	hammerOptions: {
 		touchAction: 'auto',
@@ -64,30 +59,30 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		}
 	},
 
-	contributionFeatureEnabled: Em.computed('controller.model.isMainPage', function (): boolean {
-		return !this.get('controller.model.isMainPage') && this.get('isJapaneseWikia');
+	didInsertElement: function (): void {
+		$(window).off('scroll.mercury.preload');
+		window.scrollTo(0, M.prop('scroll'));
+		this.sendAction('articleRendered');
+	},
+
+	contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
+		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
-	articleObserver: Em.observer('controller.model.article', function (): void {
+	articleObserver: Em.observer('model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender
 		Em.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
 	}).on('willInsertElement'),
 
-	modelObserver: Em.observer('controller.model', function (): void {
-		var model = this.get('controller.model');
+	modelObserver: Em.observer('model', function (): void {
+		var model = this.get('model');
 
 		if (model) {
 			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
 			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
 		}
 	}),
-
-	didInsertElement: function (): void {
-		$(window).off('scroll.mercury.preload');
-		window.scrollTo(0, M.prop('scroll'));
-		this.get('controller').send('articleRendered');
-	},
 
 	/**
 	 * @desc Handle clicks on media and bubble up to Application if anything else was clicked
@@ -116,19 +111,33 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		return true;
 	},
 
-	performArticleTransforms: function (): boolean {
-		var model = this.get('controller.model'),
-			article = model.get('article');
+	actions: {
+		edit: function (title: string, sectionIndex: number): void {
+			this.sendAction('edit', title, sectionIndex);
+		},
 
-		if (article && article.length > 0) {
+		expandSideNav: function (): void {
+			this.sendAction('toggleSideNav', true);
+		},
+
+		openLightbox: function (lightboxType: string, lightboxData: any) {
+			this.sendAction('openLightbox', lightboxType, lightboxData);
+		},
+
+		updateHeaders: function (headers: ArticleSectionHeader[]): void {
+			this.set('headers', headers);
+
 			if (this.get('contributionFeatureEnabled')) {
 				this.setupContributionButtons();
 			}
+		}
+	},
 
-			this.loadTableOfContentsData();
-			this.injectAds();
-			this.setupAdsContext(model.get('adsContext'));
+	performArticleTransforms: function (): boolean {
+		var model = this.get('model'),
+			article = model.get('article');
 
+		if (article && article.length > 0) {
 			M.setTrackContext({
 				a: model.title,
 				n: model.ns
@@ -142,7 +151,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 	setupContributionButtons: function (): void {
 		// TODO: There should be a helper for generating this HTML
-		var pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
+		var headers = this.get('headers'),
+			pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
 		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*"/></div>',
 		    iconsWrapper = '<div class="icon-wrapper">' + pencil + photo + '</div>',
 		    $photoZero = this.$('.upload-photo');
@@ -160,10 +170,11 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 				});
 			});
 
-		this.$(':header[section]').each((i: Number, item: any): void => {
-			var $sectionHeader = this.$(item);
+		headers.forEach((header: ArticleSectionHeader): void => {
+			var $sectionHeader = this.$(header.element);
 			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
 		});
+
 		this.setupButtonsListeners();
 	},
 
@@ -171,7 +182,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 		this.$('.article-content')
 			.on('click', '.pencil', (event: JQueryEventObject): void => {
 				var $sectionHeader = $(event.target).closest(':header[section]');
-				this.get('controller').send('edit', this.get('controller.model.cleanTitle'), $sectionHeader.attr('section'));
+				this.send('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
 			})
 			.on('click', '.upload-photo', (event: JQueryEventObject): void => {
 				var $sectionHeader = $(event.target).closest(':header[section]'),
@@ -193,26 +204,7 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 
 	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
 		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
-		this.get('controller').send('addPhoto', this.get('controller.model.cleanTitle'), sectionNumber, photoData);
-	},
-
-	/**
-	 * @desc Generates table of contents data based on h2 elements in the article
-	 * TODO: Temporary solution for generating Table of Contents
-	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
-	 * ToC data from server and render view based on that.
-	 */
-	loadTableOfContentsData: function (): void {
-		var headers: HeadersFromDom[] = this.$('h2[section]').map((i: number, elem: HTMLElement): HeadersFromDom => {
-			if (elem.textContent) {
-				return {
-					level: elem.tagName,
-					name: elem.textContent,
-					id: elem.id
-				};
-			}
-		}).toArray();
-		this.get('controller').send('updateHeaders', headers);
+		this.sendAction('addPhoto', this.get('model.cleanTitle'), sectionNumber, photoData);
 	},
 
 	/**
@@ -241,8 +233,8 @@ App.ArticleView = Em.View.extend(App.AdsMixin, App.LanguagesMixin, App.ViewportM
 			Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
 			if (!$mediaElement.hasClass('is-small')) {
-				media = this.get('controller.model.media');
-				this.get('controller').send('openLightbox', 'media', {
+				media = this.get('model.media');
+				this.sendAction('openLightbox', 'media', {
 					media: media,
 					mediaRef: mediaRef,
 					galleryRef: galleryRef
