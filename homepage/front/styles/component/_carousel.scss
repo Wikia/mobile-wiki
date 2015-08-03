@@ -1,0 +1,6 @@
+
+.categories {
+	@include media($mobile) {
+	  display: none;
+	}
+}

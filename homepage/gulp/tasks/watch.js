@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 	reload = browserSync.reload,
 	paths = require('../paths');
 
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', ['build-combined'], function () {
 	if (!gutil.env.nosync) {
 		browserSync({
 			ghostMode: false,
@@ -26,13 +26,16 @@ gulp.task('watch', ['build'], function () {
 	// Client Scripts
 	gulp.watch(paths.scripts.homepage.watch, ['scripts']);
 
+	// Server Scripts
+	gulp.watch(paths.server.homepage.watch, ['lint']);
+
 	gulp.watch([
 		paths.server.homepage.watch,
 		paths.scripts.homepage.watch,
 		paths.styles.homepage.watch
 	]).on('change', function (event) {
 		server.restart(function () {
-			console.log('File changed: ' + gutil.colors.green(event.path) + '\nRestarting server');
+			console.log('File changed: ' + gutil.colors.green(event.path));
 
 			if (event.path.match('front')) {
 				console.log('Updating browser');

@@ -1,0 +1,47 @@
+.icon {
+  &.login {
+	height: rem-calc(45);
+	padding: rem-calc(12);
+	width: rem-calc(45);
+  }
+
+  &.chevron {
+	height: rem-calc(7);
+	width: rem-calc(12);
+  }
+
+  &.wikia-logo {
+	height: rem-calc(50);
+	width: rem-calc(80);
+  }
+
+  &.toc {
+	height: rem-calc(13);
+	width: rem-calc(18);
+  }
+
+  &.nav {
+	height: rem-calc(20);
+	width: rem-calc(34);
+  }
+
+  &.search {
+	height: rem-calc(14);
+	width: rem-calc(14);
+  }
+
+  &.search-side-menu {
+	height: rem-calc(14);
+	width: rem-calc(13.5);
+  }
+
+  &.close {
+	height: rem-calc(14);
+	width: rem-calc(14);
+  }
+
+  &.close-side-menu {
+	height: rem-calc(15);
+	width: rem-calc(15);
+  }
+}
