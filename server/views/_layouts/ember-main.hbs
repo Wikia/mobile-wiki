@@ -71,6 +71,7 @@
 	</head>
 	<body>
 		{{> qualaroo}}
+		<!-- @include ../../../www/front/svg/common.svg -->
 		<!-- @include ../../../www/front/svg/main.svg -->
 
 
@@ -103,7 +104,7 @@
 				document.addEventListener("DOMContentLoaded", function(event) {
 					importScript('/front/vendor/main.js', function () {
 						importScript('/front/scripts/combined.js');
-					}); 
+					});
 				});
 			}());
 		</script>

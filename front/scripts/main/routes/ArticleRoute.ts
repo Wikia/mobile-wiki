@@ -57,6 +57,7 @@ App.ArticleRoute = Em.Route.extend({
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
 		},
+
 		error: function (error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();
