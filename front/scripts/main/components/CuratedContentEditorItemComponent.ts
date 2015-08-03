@@ -48,9 +48,15 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		this.validateLabel();
 	}),
 
+	titleNotChanged: Em.computed('model.title', function (): boolean {
+			return Em.isEqual(this.get('model.title'), this.get('originalItemTitle'));
+		}
+	),
+
 	titleObserver: Em.observer('model.title', function (): void {
-		if (this.validateTitle()) {
+		if (!this.get('titleNotChanged') && this.validateTitle()) {
 			this.getImageDebounced();
+			this.set('titleNotChanged', false);
 		}
 	}),
 
@@ -85,7 +91,11 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 
 		done(): void {
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
-				this.validateAndDone();
+				if (!this.get('isSectionView')) {
+					this.validateAndDone();
+				} else {
+					this.sendAction('done', this.get('model'));
+				}
 			}
 		},
 
