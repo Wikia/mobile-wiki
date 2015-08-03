@@ -99,7 +99,7 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 	upload: function(model: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.temporaryUpload(model.photoData)
-				.then((addmediatemporary: any): void => {
+				.then((addmediatemporary: any): any => {
 					if (addmediatemporary.tempName === undefined) { //we already have the file. No need to upload.
 						return resolve(addmediatemporary);
 					}
