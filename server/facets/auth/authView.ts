@@ -10,6 +10,9 @@ module authView {
 		[key: string]: string
 	}
 
+	export var VIEW_TYPE_MOBILE = 'mobile';
+	export var VIEW_TYPE_DESKTOP = 'desktop';
+
 	export interface AuthViewContext {
 		title: string;
 		canonicalUrl: string;
@@ -108,9 +111,9 @@ module authView {
 		var mobilePattern = /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE|Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
 			ipadPattern = /iPad/;
 		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
-			return 'mobile';
+			return this.VIEW_TYPE_MOBILE;
 		}
-		return 'desktop';
+		return this.VIEW_TYPE_DESKTOP;
 	}
 }
 

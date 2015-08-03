@@ -73,18 +73,24 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 	var context: RegisterViewContext,
 		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance(),
-		lang = i18n.lng();
+		lang = i18n.lng(),
+		viewType: string = authView.getViewType(request);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
 
+
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
-			headerText: 'auth:join.sign-up-with-email',
+			headerText: (viewType === authView.VIEW_TYPE_MOBILE)
+				? 'auth:join.sign-up-with-email'
+				: 'auth:register.desktop-header',
 			heliosRegistrationURL: localSettings.helios.host + '/users',
-			title: 'auth:join.sign-up-with-email',
+			title: (viewType === authView.VIEW_TYPE_MOBILE)
+				? 'auth:join.sign-up-with-email'
+				: 'auth:register.desktop-header',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
