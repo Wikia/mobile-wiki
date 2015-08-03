@@ -4,16 +4,16 @@
 /// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
-App.InfoboxImageMediaComponent = App.ImageMediaComponent.extend(App.ArticleContentMixin, App.ViewportMixin, {
+App.InfoboxImageMediaComponent = App.ImageMediaComponent.extend(App.ViewportMixin, {
 	imageAspectRatio: 16 / 9,
-	hasCaption: false,
+	caption: false,
 	limitHeight: true,
 	noNormalizeWidth: true,
 	cropMode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 
 	/**
-	 * used to set proper height to img tag before it loads
-	 * so we have less content jumping around due to lazy loading images
+	 * Extended version of ImageMediaComponent#computedHeight.
+	 * Takes into account cropping main infobox images and basing on it's dimensions sets cropping mode.
 	 * @return number
 	 */
 	computedHeight: Em.computed('viewportDimensions.width', 'media.width', 'media.height', function (): number {

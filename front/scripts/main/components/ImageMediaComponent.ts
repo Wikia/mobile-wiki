@@ -9,7 +9,6 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 		height: 64,
 		width: 64
 	},
-	imageAspectRatio: 16 / 9,
 	classNames: ['article-image'],
 	classNameBindings: ['hasCaption', 'visible', 'isSmall'],
 	layoutName: 'components/image-media',
@@ -53,7 +52,6 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 		get(): string {
 				var media: ArticleMedia = this.get('media'),
 					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-					height: number = this.get('computedHeight'),
 					width: number = this.get('articleContent.width');
 
 				if (!media) {
@@ -67,7 +65,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 
 				return this.getThumbURL(media.url, {
 					mode: mode,
-					height: height,
+					height: this.get('computedHeight'),
 					width: width
 				});
 
