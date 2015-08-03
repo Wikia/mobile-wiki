@@ -48,11 +48,15 @@ App.CuratedContentEditorItemModel.reopenClass({
 					controller: 'CuratedContent',
 					method: 'getImage',
 					title,
-					size,
+					size
 				},
 				dataType: 'json',
-				success: resolve,
-				error: reject
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
 			});
 		});
 	},
@@ -71,8 +75,12 @@ App.CuratedContentEditorItemModel.reopenClass({
 				}),
 				data,
 				dataType: 'json',
-				success: resolve,
-				error: reject
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
 			});
 		});
 	}
