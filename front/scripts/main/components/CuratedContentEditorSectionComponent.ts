@@ -47,7 +47,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	validateAndDone(): void {
 		this.showLoader();
 		App.CuratedContentEditorItemModel.validateServerData(this.get('model'), {
-				method: 'validateSection', validateItems: true
+				method: 'validateSectionWithItems'
 			})
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				var sortableItems: any;
