@@ -83,19 +83,5 @@ App.CuratedContentEditorItemModel.reopenClass({
 				}
 			});
 		});
-	},
-
-	validateItem(item: CuratedContentEditorItemModel, isFeatured: boolean) : Em.RSVP.Promise {
-		return this.validateServerData(item, {
-			method: 'validateItem',
-			isFeatured
-		});
-	},
-
-	validateSection(item: CuratedContentEditorItemModel, validateItems: boolean) : Em.RSVP.Promise {
-		return this.validateServerData(item ,{
-			method: 'validateSection',
-			validateItems
-		});
 	}
 });
