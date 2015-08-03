@@ -142,7 +142,7 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
-		parent.items.push(newItem.toJSON());
+		parent.items.push(newItem.toPlainObject());
 	},
 
 	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
@@ -152,7 +152,7 @@ App.CuratedContentEditorModel.reopenClass({
 			parentItems: CuratedContentEditorItemModel[]
 		): void => {
 			if (item.label === itemLabel) {
-				parentItems[index] = newItem.toJSON();
+				parentItems[index] = newItem.toPlainObject();
 			}
 		})
 	},

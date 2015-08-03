@@ -92,13 +92,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		done(): void {
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				if (!this.get('isSectionView')) {
-					this.validateAndDone( this.get('model'),
-						{ method: 'validateItem', isFeaturedItem: this.get('isFeaturedItem') }
-					);
+					this.validateAndDone( this.get('model'), {
+						method: 'validateItem',
+						isFeaturedItem: this.get('isFeaturedItem')
+					});
 				} else {
-					this.validateAndDone( this.get('model'),
-						{ method: 'validateSection' }
-					);
+					this.validateAndDone( this.get('model'), {
+						method: 'validateSection'
+					});
 				}
 			}
 		},
@@ -188,9 +189,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 				Em.Logger.error(err);
 				this.set('imageErrorMessage', 'Oops! An API Error occured.');
 			})
-			.finally((): void => {
-				this.hideLoader();
-			});
+			.finally((): void => this.hideLoader());
 	},
 
 	getImageDebounced(): void {
@@ -214,9 +213,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'Something went wrong. Please repeat.');
 			})
-			.finally(():void => {
-				this.hideLoader();
-			});
+			.finally((): void => this.hideLoader());
 	},
 
 	processValidationError(reason: string) {

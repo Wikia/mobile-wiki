@@ -51,12 +51,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 					size,
 				},
 				dataType: 'json',
-				success: (data: CuratedContentGetImageResponse): void => {
-					resolve(data);
-				},
-				error: (err: any): void => {
-					reject(err);
-				}
+				success: resolve,
+				error: reject
 			});
 		});
 	},
@@ -64,7 +60,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	validateServerData(item: CuratedContentEditorItemModel, data: any) : Em.RSVP.Promise {
 		data = $.extend({}, data, {
 			controller: 'CuratedContentValidator',
-			item: item.toJSON(),
+			item: item.toPlainObject(),
 			format: 'json'
 		});
 
@@ -75,12 +71,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 				}),
 				data,
 				dataType: 'json',
-				success: (data: CuratedContentValidationResponseInterface): void => {
-					resolve(data);
-				},
-				error: (data: any): void => {
-					reject(data);
-				}
+				success: resolve,
+				error: reject
 			});
 		});
 	}

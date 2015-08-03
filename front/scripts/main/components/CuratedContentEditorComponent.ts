@@ -49,9 +49,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'Something went wrong. Please repeat.');
 			})
-			.finally(():void => {
-				this.hideLoader();
-			});
+			.finally((): void => this.hideLoader());
 	},
 
 	processValidationError(reason: string) {
