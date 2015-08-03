@@ -101,10 +101,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 					if (data && data.url && data.article_id) {
 						this.setProperties({
 							'model.image_url': this.generateThumbUrl(data.url),
-							'imageErrorMessage': null,
 							// article_id comes from MW because in MW files are like any other articles
 							// so there is no such thing as image_id from MW perspective.
-							'model.image_id': data.article_id
+							'model.image_id': data.article_id,
+							'imageErrorMessage': null
 						});
 					} else {
 						Em.Logger.error('Image Data Object is malformed. Url or article_id is missing');
