@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload;
 
-gulp.task('watch', ['build', 'build-views'], function () {
+gulp.task('watch', ['build'], function () {
 	log('Watching files');
 
 	if (!gutil.env.nosync) {
