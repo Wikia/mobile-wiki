@@ -1,3 +1,9 @@
+## release-125 (2015-08-03 10:15 UTC)
+* SOC: SOC | Fix polish translations on auth pages
+* [INT-121](https://wikia-inc.atlassian.net/browse/INT-121) Hapi app for Japan homepage with base gulp tasks and TS/SCSS
+* [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 checking if window is loaded before binding event
+* [CONCF-744](https://wikia-inc.atlassian.net/browse/CONCF-744) CONCF-744 add arrows for sorting
+
 ## release-124 (2015-07-31 10:00 UTC)
 * [SOC-1015](https://wikia-inc.atlassian.net/browse/SOC-1015) SOC-1015 Unifying "close" button on Auth pages with the main Mercury app
 * [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 - sending logged_in flag to weppy
