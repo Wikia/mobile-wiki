@@ -29,7 +29,7 @@ class FacebookConnect extends Login {
 
 	private getHeliosFacebookConnectUrl(userId: string): string {
 		return this.form.getAttribute('data-heliosFacebookConnectURL')
-			+ userId + '/facebook_app_id/' + M.prop('facebookAppId');
+			+ userId + '/facebook_app_id/' + window.facebookAppId;
 	}
 
 	public onLoginSuccess (loginResponse: LoginResponse): void {
