@@ -13,7 +13,6 @@ import Promise = require('bluebird');
 import MediaWiki = require('./MediaWiki');
 import Utils = require('./Utils');
 import logger = require('./Logger');
-import localSettings = require('../../config/localSettings');
 
 export class ArticleRequestHelper {
 	params: ArticleRequestParams;
@@ -24,24 +23,6 @@ export class ArticleRequestHelper {
 
 	setTitle(title: string): void {
 		this.params.title = title;
-	}
-
-	/**
-	 * Create server data
-	 *
-	 * @returns ServerData
-	 */
-	private createServerData(wikiDomain: string = ''): ServerData {
-		var env = localSettings.environment;
-
-		return {
-			mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
-			apiBase: localSettings.apiBase,
-			environment: Utils.getEnvironmentString(env),
-			cdnBaseUrl: (env === Utils.Environment.Prod) ||
-						(env === Utils.Environment.Sandbox) ?
-						localSettings.cdnBaseUrl : ''
-		};
 	}
 
 	/**
@@ -107,7 +88,7 @@ export class ArticleRequestHelper {
 	getFull(next: Function): void {
 		this.getData((error: any, article: any, wikiVariables: any) => {
 			next(error, {
-				server: this.createServerData(this.params.wikiDomain),
+				server: Utils.createServerData(this.params.wikiDomain),
 				wiki: wikiVariables || {},
 				article: article || {}
 			});
@@ -140,7 +121,7 @@ export class ArticleRequestHelper {
 	getArticle(wikiVariables: any, next: Function): void {
 		this.getData((error: any, article: any) => {
 			next(error, {
-				server: this.createServerData(this.params.wikiDomain),
+				server: Utils.createServerData(this.params.wikiDomain),
 				wiki: wikiVariables || {},
 				article: article || {}
 			});

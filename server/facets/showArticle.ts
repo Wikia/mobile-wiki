@@ -115,7 +115,7 @@ function onArticleResponse (
 				}
 			}
 
-			response = reply.view('application', result);
+			response = reply.view('article', result);
 			response.code(code);
 			response.type('text/html; charset=utf-8');
 

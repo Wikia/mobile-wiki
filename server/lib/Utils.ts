@@ -1,6 +1,8 @@
 /// <reference path="../../config/localSettings.d.ts" />
 /// <reference path="../../typings/hoek/hoek.d.ts" />
+/// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
+import localSettings = require('../../config/localSettings');
 import Hoek = require('hoek');
 
 /**
