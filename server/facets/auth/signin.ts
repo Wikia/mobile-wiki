@@ -23,7 +23,8 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
 			heliosLoginURL: localSettings.helios.host + '/token',
-			submitText: 'auth:signin.submit-text'
+			submitText: 'auth:signin.submit-text',
+			formId: 'loginForm'
 		}
 	);
 }
@@ -42,7 +43,8 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 			heliosLoginURL: localSettings.helios.host + '/token',
 			heliosFacebookConnectURL: localSettings.helios.host + '/users/',
 			facebookAppId: localSettings.facebook.appId,
-			submitText: 'auth:fb-connect.submit-text'
+			submitText: 'auth:fb-connect.submit-text',
+			formId: 'facebookConnectForm'
 		}
 	);
 }
