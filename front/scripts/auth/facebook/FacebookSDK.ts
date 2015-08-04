@@ -1,6 +1,7 @@
 interface Window {
 	FB?: any;
 	fbAsyncInit?: Function;
+	facebookAppId: string;
 }
 
 class FacebookSDK {
@@ -23,7 +24,7 @@ class FacebookSDK {
 
 		window.fbAsyncInit = function(): void {
 			window.FB.init({
-				appId: M.prop('facebookAppId'),
+				appId: window.facebookAppId,
 				cookie: true,
 				version: this.version
 			});
