@@ -37,7 +37,9 @@
 	{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
 	{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
 	<div class='page-wrapper' lang={{language.content}} dir={{language.contentDir}}>
-		{{outlet}}
+		<section class='wiki-container'>
+			{{outlet}}
+		</section>
 	</div>
 	{{lightbox-wrapper
 		type=lightboxType

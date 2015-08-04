@@ -33,6 +33,10 @@
 
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
+			{{#if server.mediawikiDomain}}
+			M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
+			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('firstPage', true, true);
@@ -42,20 +46,11 @@
 			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			M.prop('userId', {{{userId}}});
+			M.prop('asyncArticle', {{asyncArticle}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
-
-			{{#if server.mediawikiDomain}}
-				M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
-				M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
-			{{/if}}
-			{{#if asyncArticle}}
-				M.prop('asyncArticle', {{asyncArticle}});
-			{{/if}}
-			{{#if article}}
-				M.provide('article', {{{json article}}});
-			{{/if}}
+			M.provide('article', {{{json article}}});
 			{{#if curatedContent}}
 				M.prop('curatedContent', {{{json curatedContent}}}, true);
 			{{/if}}
@@ -63,9 +58,8 @@
 				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
 			{{#if error}}
-				M.provide('error', {{{error}}});
+			M.provide('article.error', {{{error}}});
 			{{/if}}
-
 		</script>
 
 		<!-- @ifdef browserSync -->
@@ -87,17 +81,8 @@
         DO NOT REMOVE THE FOLLOWING LINE:
         -->
 		<div id="ember-container">
-			<div id="preload">
-				<nav class="site-head">
-					<div class="site-logo">
-						<svg role="img" class="icon wikia-logo">
-							<use xlink:href="#wikia-logo"></use>
-						</svg>
-					</div>
-				</nav>
-				<div class="page-wrapper" lang="{{wiki.language.content}}" dir="{{wiki.language.contentDir}}">
-					{{{content}}}
-				</div>
+			<div id="article-preload">
+				{{{content}}}
 			</div>
 		</div>
 

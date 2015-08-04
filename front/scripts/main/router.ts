@@ -77,10 +77,6 @@ App.Router.map(function () {
 			path: '/*url'
 		});
 	}
-
-	// Discussion route:
-	// commented out for now as it is not ready
-	// this.route('discussion', {path: '/d'});
 });
 
 App.Router.reopen({
