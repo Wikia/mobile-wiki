@@ -83,9 +83,8 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		// We don't care if there is a dynamic segment, Ember router handles that
-		path: '/main/edit/{ignore?}',
-		// TODO (CONCF-761): we shouldn't load article for Curated Content Tool
-		handler: require('./facets/showArticle')
+		path: '/main/edit/{ignore*}',
+		handler: require('./facets/showApplication')
 	},
 	{
 		method: 'GET',
