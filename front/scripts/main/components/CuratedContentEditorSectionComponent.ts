@@ -68,7 +68,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					}
 				}
 			})
-			.catch((err): void => {
+			.catch((err: any): void => {
 				Em.Logger.error(err);
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'Something went wrong. Please repeat.');
