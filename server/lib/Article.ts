@@ -13,6 +13,7 @@ import Promise = require('bluebird');
 import MediaWiki = require('./MediaWiki');
 import Utils = require('./Utils');
 import logger = require('./Logger');
+import localSettings = require('../../config/localSettings');
 
 export class ArticleRequestHelper {
 	params: ArticleRequestParams;
@@ -88,7 +89,7 @@ export class ArticleRequestHelper {
 	getFull(next: Function): void {
 		this.getData((error: any, article: any, wikiVariables: any) => {
 			next(error, {
-				server: Utils.createServerData(this.params.wikiDomain),
+				server: Utils.createServerData(localSettings, this.params.wikiDomain),
 				wiki: wikiVariables || {},
 				article: article || {}
 			});
@@ -121,7 +122,7 @@ export class ArticleRequestHelper {
 	getArticle(wikiVariables: any, next: Function): void {
 		this.getData((error: any, article: any) => {
 			next(error, {
-				server: Utils.createServerData(this.params.wikiDomain),
+				server: Utils.createServerData(localSettings, this.params.wikiDomain),
 				wiki: wikiVariables || {},
 				article: article || {}
 			});

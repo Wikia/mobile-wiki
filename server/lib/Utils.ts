@@ -2,7 +2,6 @@
 /// <reference path="../../typings/hoek/hoek.d.ts" />
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
-import localSettings = require('../../config/localSettings');
 import Hoek = require('hoek');
 
 /**
@@ -219,7 +218,7 @@ export function shouldAsyncArticle(localSettings: LocalSettings, host: string): 
  *
  * @returns ServerData
  */
-export function createServerData(wikiDomain: string = ''): ServerData {
+export function createServerData(localSettings: LocalSettings, wikiDomain: string = ''): ServerData {
 	// if no environment, pass dev
 	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
 
