@@ -54,8 +54,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		}
 	},
 
-	didRender: function(): void {
-		// Start observing attributes on rendering
+	didRender(): void {
+		// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 		this.addObserver('model.title', this, this.titleObserver);
 		this.addObserver('model.label', this, this.labelObserver);
 	},
@@ -202,9 +202,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		App.CuratedContentEditorItemModel.validateServerData(item, data)
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
-					// Stop observing attributes
-					this.removeObserver('model.title', this, this.titleObserver);
-					this.removeObserver('model.label', this, this.labelObserver);
 					// "Save"
 					this.sendAction('done', this.get('model'));
 				} else {
