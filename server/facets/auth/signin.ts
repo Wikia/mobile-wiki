@@ -32,7 +32,7 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
-			title: 'auth:signin.signin-title',
+			title: 'auth:join.connect-with-facebook',
 			headerText: 'auth:join.connect-with-facebook',
 			footerCallout: 'auth:signin.register-callout',
 			footerCalloutLink: 'auth:signin.register-now',
