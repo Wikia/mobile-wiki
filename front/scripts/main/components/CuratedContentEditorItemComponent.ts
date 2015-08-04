@@ -207,6 +207,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 						'model.image_url': data.url,
 						'model.image_id': data.id
 					});
+					this.set('resetFileInput', true);
 				}
 			})
 			.catch((err: any): void => {
