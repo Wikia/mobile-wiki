@@ -13,7 +13,7 @@
 		{{> tracking}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
-	<body class="auth {{viewType}} {{bodyClasses}} standalone">
+	<body class="auth {{viewType}} {{bodyClasses}} {{standalonePage}}">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
 		{{#if exitTo}}
@@ -23,7 +23,7 @@
 			</svg>
 		</a>
 		{{/if}}
-		{{#if globalNav}}
+		{{#if standalonePage}}
 		<nav class="global-nav"></nav>
 		{{/if}}
 

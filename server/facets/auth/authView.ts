@@ -18,7 +18,7 @@ module authView {
 		canonicalUrl: string;
 		language: string;
 		exitTo: string;
-		globalNav: boolean;
+		standalonePage: string;
 		optimizelyScript: string;
 		pageParams: PageParams;
 		viewType: string;
@@ -86,7 +86,7 @@ module authView {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
-			globalNav: true,
+			standalonePage: "standalone",
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
