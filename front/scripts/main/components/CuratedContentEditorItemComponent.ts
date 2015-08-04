@@ -89,6 +89,33 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');
 			}
+		},
+
+		fileUpload(files: any[]): void {
+			this.showLoader();
+			App.AddPhotoModel.load(files[0])
+				.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
+				.then((data: any) => {
+					if (data && data.url && data.article_id) {
+						this.setProperties({
+							'model.image_url': this.generateThumbUrl(data.url),
+							// article_id comes from MW because in MW files are like any other articles
+							// so there is no such thing as image_id from MW perspective.
+							'model.image_id': data.article_id,
+							'imageErrorMessage': null
+						});
+					} else {
+						Em.Logger.error('Image Data Object is malformed. Url or article_id is missing');
+						this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
+					}
+				})
+				.catch((err: any) => {
+					Em.Logger.error(err);
+					this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
+				})
+				.finally(() => {
+					this.hideLoader();
+				});
 		}
 	},
 
@@ -165,8 +192,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 				}
 			})
 			.catch((err: any): void => {
-				//@TODO CONCF-956 add translations
 				Em.Logger.error(err);
+				//@TODO CONCF-956 add translations
 				this.set('imageErrorMessage', 'Oops! An API Error occured.');
 			})
 			.finally((): void => {

@@ -58,7 +58,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 	}),
 
 	willInsertElement: function (): void {
-		$('#article-preload').remove();
+		$('#preload').remove();
 	},
 
 	didInsertElement: function (): void {
