@@ -20,6 +20,10 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		return reply.redirect(redirectUrl);
 	}
 
+	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
+		return reply.redirect('/register');
+	}
+
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
