@@ -35,15 +35,15 @@ module Mercury.Modules.Trackers {
 				'user-agent': window.navigator.userAgent,
 				env: M.prop('environment'),
 				url: window.location.href.split('#')[0],
-				country: M.prop('geo.country')
+				country: M.prop('geo.country'),
+				logged_in: !!M.prop('userId')
 			};
 			this.tracker.setOptions({
 				host: M.prop('weppyConfig').host,
 				transport: 'url',
 				context: this.defaultContext,
 				sample: M.prop('weppyConfig').samplingRate,
-				aggregationInterval: M.prop('weppyConfig').aggregationInterval,
-				logged_in: !!M.prop('userId')
+				aggregationInterval: M.prop('weppyConfig').aggregationInterval
 			});
 			super();
 		}
