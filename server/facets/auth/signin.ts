@@ -22,7 +22,8 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
-			heliosLoginURL: localSettings.helios.host + '/token'
+			heliosLoginURL: localSettings.helios.host + '/token',
+			submitText: 'auth:signin.submit-text'
 		}
 	);
 }
@@ -32,7 +33,7 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 		authView.getDefaultContext(request),
 		{
 			title: 'auth:signin.signin-title',
-			headerText: 'auth:signin.welcome-back',
+			headerText: 'auth:join.connect-with-facebook',
 			footerCallout: 'auth:signin.register-callout',
 			footerCalloutLink: 'auth:signin.register-now',
 			footerHref: authUtils.getRegisterUrl(request),
@@ -40,7 +41,8 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 			bodyClasses: 'fb-connect-page',
 			heliosLoginURL: localSettings.helios.host + '/token',
 			heliosFacebookConnectURL: localSettings.helios.host + '/users/',
-			facebookAppId: localSettings.facebook.appId
+			facebookAppId: localSettings.facebook.appId,
+			submitText: 'auth:fb-connect.submit-text'
 		}
 	);
 }
