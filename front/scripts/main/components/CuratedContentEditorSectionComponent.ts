@@ -63,7 +63,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					data.error.forEach((error: any) => this.processValidationError(error.reason));
 				}
 			})
-			.catch((): void => {
+			.catch((err): void => {
+				Em.Logger.error(err);
 				//@TODO CONCF-956 add translations
 				this.addAlert('alert', 'Something went wrong. Please repeat.');
 			})

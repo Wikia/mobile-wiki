@@ -234,8 +234,9 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 					this.addAlert('alert', 'Please fix errors.');
 				}
 			})
-			.catch((): void => {
+			.catch((err): void => {
 				//@TODO CONCF-956 add translations
+				Em.Logger.error(err);
 				this.addAlert('alert', 'Something went wrong. Please repeat.');
 			})
 			.finally((): void => this.hideLoader());
