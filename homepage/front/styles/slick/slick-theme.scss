@@ -1,4 +1,3 @@
-
 // Default Variables
 $slick-font-path: '/vendor/slick.js/slick/fonts/';
 $slick-font-family: 'slick' !default;
@@ -14,184 +13,182 @@ $slick-opacity-on-hover: 1 !default;
 $slick-opacity-not-active: .25 !default;
 
 @function slick-image-url($url) {
-  @if function-exists(image-url) {
-  	@return image-url($url);
-  } @else {
-	  @return url($slick-loader-path + $url);
-  }
+	@if function-exists(image-url) {
+		@return image-url($url);
+	} @else {
+		@return url($slick-loader-path + $url);
+	}
 }
 
 @function slick-font-url($url) {
-  @if function-exists(font-url) {
-  	@return font-url($url);
-  } @else {
-	@return url($slick-font-path + $url);
-  }
+	@if function-exists(font-url) {
+		@return font-url($url);
+	} @else {
+		@return url($slick-font-path + $url);
+	}
 }
 
 /* Slider */
 .slick-list {
-  .slick-loading & {
-	$background-color: white;
-	background: $background-color url('/vendor/slick.js/slick/ajax-loader.gif') center center no-repeat;
-  }
+	.slick-loading & {
+		$background-color: white;
+		background: $background-color url('/vendor/slick.js/slick/ajax-loader.gif') center center no-repeat;
+	}
 }
 
 /* Icons */
 @if $slick-font-family == 'slick' {
-  @font-face {
-	font-family: 'slick';
-	src: slick-font-url('slick.eot');
-	src: slick-font-url('slick.eot?#iefix') format('embedded-opentype'), slick-font-url('slick.woff') format('woff'), slick-font-url('slick.ttf') format('truetype'), slick-font-url('slick.svg#slick') format('svg');
-	font-weight: normal;
-	font-style: normal;
-  }
+	@font-face {
+		font-family: 'slick';
+		src: slick-font-url('slick.eot');
+		src: slick-font-url('slick.eot?#iefix') format('embedded-opentype'), slick-font-url('slick.woff') format('woff'), slick-font-url('slick.ttf') format('truetype'), slick-font-url('slick.svg#slick') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
 }
 
 /* Arrows */
 
 .slick-prev,
 .slick-next {
-  background: transparent;
-  border: 0;
-  color: transparent;
-  cursor: pointer;
-  display: block;
-  font-size: 0;
-  height: 20px;
-  line-height: 0;
-  margin-top: -10px;
-  outline: none;
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  width: 20px;
-
-  &:hover, &:focus {
 	background: transparent;
+	border: 0;
 	color: transparent;
+	cursor: pointer;
+	display: block;
+	font-size: 0;
+	height: 20px;
+	line-height: 0;
+	margin-top: -10px;
 	outline: none;
+	padding: 0;
+	position: absolute;
+	top: 50%;
+	width: 20px;
 
-	&:before {
-	  opacity: $slick-opacity-on-hover;
+	&:hover, &:focus {
+		background: transparent;
+		color: transparent;
+		outline: none;
+
+		&:before {
+			opacity: $slick-opacity-on-hover;
+		}
 	}
-  }
 
-  &.slick-disabled:before {
-	opacity: $slick-opacity-not-active;
-  }
+	&.slick-disabled:before {
+		opacity: $slick-opacity-not-active;
+	}
 }
 
 .slick-prev:before, .slick-next:before {
-  color: $slick-arrow-color;
-  font-family: $slick-font-family;
-  font-size: 20px;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1;
-  opacity: $slick-opacity-default;
+	color: $slick-arrow-color;
+	font-family: $slick-font-family;
+	font-size: 20px;
+	font-smoothing: antialiased;
+	line-height: 1;
+	opacity: $slick-opacity-default;
 }
 
 .slick-prev {
-  left: -25px;
-
-  [dir='rtl'] & {
-	left: auto;
-	right: -25px;
-  }
-
-  &:before {
-	content: $slick-prev-character;
+	left: -25px;
 
 	[dir='rtl'] & {
-	  content: $slick-next-character;
+		left: auto;
+		right: -25px;
 	}
-  }
+
+	&:before {
+		content: $slick-prev-character;
+
+		[dir='rtl'] & {
+			content: $slick-next-character;
+		}
+	}
 }
 
 .slick-next {
-  right: -25px;
-
-  [dir='rtl'] & {
-	left: -25px;
-	right: auto;
-  }
-
-  &:before {
-	content: $slick-next-character;
+	right: -25px;
 
 	[dir='rtl'] & {
-	  content: $slick-prev-character;
+		left: -25px;
+		right: auto;
 	}
-  }
+
+	&:before {
+		content: $slick-next-character;
+
+		[dir='rtl'] & {
+			content: $slick-prev-character;
+		}
+	}
 }
 
 /* Dots */
 
 .slick-slider {
-    margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .slick-dots {
-  bottom: -45px;
-  display: block;
-  list-style: none;
-  padding: 0;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-
-  li {
-	cursor: pointer;
-	display: inline-block;
-	height: 20px;
-	margin: 0 5px;
+	bottom: -45px;
+	display: block;
+	list-style: none;
 	padding: 0;
-	position: relative;
-	width: 20px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
 
-	button {
-	  background: transparent;
-	  border: 0;
-	  color: transparent;
-	  cursor: pointer;
-	  display: block;
-	  font-size: 0;
-	  height: 20px;
-	  line-height: 0;
-	  outline: none;
-	  padding: 5px;
-	  width: 20px;
-
-	  &:hover, &:focus {
-		outline: none;
-
-		&:before {
-		  opacity: $slick-opacity-on-hover;
-		}
-	  }
-
-	  &:before {
-		color: $slick-dot-color;
-		content: $slick-dot-character;
-		font-family: $slick-font-family;
-		font-size: $slick-dot-size;
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-font-smoothing: antialiased;
+	li {
+		cursor: pointer;
+		display: inline-block;
 		height: 20px;
-		left: 0;
-		line-height: 20px;
-		opacity: $slick-opacity-not-active;
-		position: absolute;
-		text-align: center;
-		top: 0;
+		margin: 0 5px;
+		padding: 0;
+		position: relative;
 		width: 20px;
-	  }
-	}
 
-	&.slick-active button:before {
-	  color: $slick-dot-color-active;
-	  opacity: $slick-opacity-default;
+		button {
+			background: transparent;
+			border: 0;
+			color: transparent;
+			cursor: pointer;
+			display: block;
+			font-size: 0;
+			height: 20px;
+			line-height: 0;
+			outline: none;
+			padding: 5px;
+			width: 20px;
+
+			&:hover, &:focus {
+				outline: none;
+
+				&:before {
+					opacity: $slick-opacity-on-hover;
+				}
+			}
+
+			&:before {
+				color: $slick-dot-color;
+				content: $slick-dot-character;
+				font-family: $slick-font-family;
+				font-size: $slick-dot-size;
+				font-smoothing: antialiased;
+				height: 20px;
+				left: 0;
+				line-height: 20px;
+				opacity: $slick-opacity-not-active;
+				position: absolute;
+				text-align: center;
+				top: 0;
+				width: 20px;
+			}
+		}
+
+		&.slick-active button:before {
+			color: $slick-dot-color-active;
+			opacity: $slick-opacity-default;
+		}
 	}
-  }
 }

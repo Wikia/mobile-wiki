@@ -3,10 +3,10 @@
 
 'use strict';
 
+var parallaxWindow : JQuery = $('#js-parallax-window');
+
 $(function() : void {
-	if ($('#js-parallax-window').length) {
-		parallax();
-	}
+	parallax();
 
 	$('.carousel').slick({
 		dots: false,
@@ -19,13 +19,11 @@ $(function() : void {
 });
 
 $(window).scroll(function(e) : void {
-	if ($('#js-parallax-window').length) {
-		parallax();
-	}
+	parallax();
 });
 
 function parallax() : void {
-	if ($('#js-parallax-window').length > 0) {
+	if (parallaxWindow.length > 0) {
 		var plxBackground = $('#js-parallax-background'),
 		    plxWindow = $('#js-parallax-window'),
 		    plxWindowTopToPageTop : number = $(plxWindow).offset().top,
@@ -41,18 +39,18 @@ function parallax() : void {
 	}
 }
 
-$('#search_wikia').click(function(event) : void {
+$('#searchWikia').click(function(event) : void {
 	search();
 	event.preventDefault();
 });
 
-$('#search_wikia_form').submit(function(event) : void {
+$('#searchWikiaForm').submit(function(event) : void {
 	search();
 	event.preventDefault();
 });
 
 function search() : void {
-	var searchText : string = encodeURI($('#search_wikia_text').val()),
+	var searchText : string = encodeURI($('#searchWikiaText').val()),
 		searchUrl : string;
 
 	if (searchText) {

@@ -30,27 +30,27 @@ $desktop: new-breakpoint(min-width 500px);
 @import 'grid/mobile';
 
 @media (min-width: 50em) {
-  @import 'grid/desktop';
+	@import 'grid/desktop';
 }
 
 section {
-  @include outer-container;
-  margin-bottom: 3em;
-  padding-left: 3em;
-  padding-right: 3em;
+	@include outer-container;
+	margin-bottom: 3em;
+	padding-left: 3em;
+	padding-right: 3em;
 
-  @include media($mobile) {
-	padding-left: .1em;
-	padding-right: .1em;
-  }
+	@include media($mobile) {
+		padding-left: .1em;
+		padding-right: .1em;
+	}
 
-  & > code, code.block {
-	display: block;
-  }
+	> code, code.block {
+		display: block;
+	}
 
-  &.parallax {
-	padding-left: 0;
-	padding-right: 0;
-	width: 100%;
-  }
+	&.parallax {
+		padding-left: 0;
+		padding-right: 0;
+		width: 100%;
+	}
 }
