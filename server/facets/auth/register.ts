@@ -99,6 +99,7 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,
+			facebookAppId: localSettings.facebook.appId,
 			pageParams: {
 				termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl + '" target="_blank">'
 					+ i18n.t('auth:register.terms-of-use-link-title') + '</a>',
