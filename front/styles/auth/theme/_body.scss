@@ -1,9 +1,6 @@
-.standalone {
-	body {
-		background-color: $body-background-grey;
-	}
-}
-
 body {
 	background-color: $body-background;
+	&.standalone {
+		background-color: $body-background-grey;
+	}
 }
