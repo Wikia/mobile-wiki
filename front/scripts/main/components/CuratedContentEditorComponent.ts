@@ -40,9 +40,12 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 					this.addAlert('info', 'Data saved.');
 					this.sendAction('openMainPage');
 				} else {
-					data.error.forEach((error: any) => this.processValidationError(error.reason));
-					//@TODO CONCF-956 add translations
-					this.addAlert('alert', 'Please fix errors.');
+					if (data.error) {
+						data.error.forEach((error: any) => this.processValidationError(error.reason));
+					} else {
+						//@TODO CONCF-956 add translations
+						this.addAlert('alert', 'Something went wrong. Please repeat.');
+					}
 				}
 			})
 			.catch((): void => {
