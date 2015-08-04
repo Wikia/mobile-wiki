@@ -3,12 +3,10 @@ interface HeliosFacebookConnectData {
 }
 
 class FacebookConnect extends Login {
-	urlHelper: UrlHelper;
 
 	constructor (form: HTMLFormElement) {
 		super(form);
 		new FacebookSDK(this.init.bind(this));
-		this.urlHelper = new UrlHelper();
 	}
 
 	public init (): void {
