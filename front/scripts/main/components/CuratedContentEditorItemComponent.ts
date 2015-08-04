@@ -67,7 +67,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		setLabelFocusedIn(): void {
-			this.validateLabel();
 			this.set('isLabelFocused', true);
 		},
 
@@ -81,7 +80,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 
 		setTitleFocusedIn(): void {
 			this.showLoader();
-			this.validateTitle();
 			this.set('isTitleFocused', true);
 		},
 
@@ -229,7 +227,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		App.CuratedContentEditorItemModel.validateServerData(item, data)
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
-					// "Save"
 					this.sendAction('done', this.get('model'));
 				} else {
 					data.error.forEach((error: any) => this.processValidationError(error.reason));
