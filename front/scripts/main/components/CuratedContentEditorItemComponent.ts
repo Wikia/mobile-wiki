@@ -44,21 +44,21 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 	labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 	titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
-	labelObserver: Em.observer('model.label', function (): void {
+	labelObserver(): void {
 		this.validateLabel();
-	}),
+	},
 
-	titleNotChanged: Em.computed('model.title', function (): boolean {
-			return Em.isEqual(this.get('model.title'), this.get('originalItemTitle'));
-		}
-	),
-
-	titleObserver: Em.observer('model.title', function (): void {
-		if (!this.get('titleNotChanged') && this.validateTitle()) {
+	titleObserver(): void {
+		if (this.validateTitle()) {
 			this.getImageDebounced();
-			this.set('titleNotChanged', false);
 		}
-	}),
+	},
+
+	didRender: function(): void {
+		// Start observing attributes on rendering
+		this.addObserver('model.title', this, this.titleObserver);
+		this.addObserver('model.label', this, this.labelObserver);
+	},
 
 	actions: {
 		setLabelFocusedOut(): void {
@@ -202,6 +202,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		App.CuratedContentEditorItemModel.validateServerData(item, data)
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
+					// Stop observing attributes
+					this.removeObserver('model.title', this, this.titleObserver);
+					this.removeObserver('model.label', this, this.labelObserver);
+					// "Save"
 					this.sendAction('done', this.get('model'));
 				} else {
 					data.error.forEach((error: any) => this.processValidationError(error.reason));

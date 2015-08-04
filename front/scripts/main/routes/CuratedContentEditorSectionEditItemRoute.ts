@@ -17,7 +17,6 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		this._super(controller, model, transition);
 		controller.setProperties({
 			originalItemLabel: model.label,
-			originalItemTitle: model.title,
 			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection, model.label)
 		});
 	},

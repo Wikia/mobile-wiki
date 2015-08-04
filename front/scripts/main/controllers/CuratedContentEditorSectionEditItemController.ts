@@ -4,6 +4,5 @@
 
 App.CuratedContentEditorSectionEditItemController = Em.Controller.extend({
 	originalItemLabel: null,
-	originalItemTitle: null,
 	alreadyUsedLabels: []
 });
