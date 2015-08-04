@@ -1,23 +1,21 @@
-<div class="wiki-container">
-	{{#unless isRoot}}
-		<h2 class="wiki-title">{{#link-to 'article' mainPageTitle action='trackClick' actionParam='wikiname' alt=siteName}}{{siteName}}{{/link-to}}</h2>
-	{{/unless}}
-	<h1 class="article-title">{{title}}</h1>
-	{{#if wikiaStats}}
-		{{wikia-stats model=wikiaStats}}
-	{{/if}}
-	{{#if featuredContent}}
-		{{component featuredContentComponentVariation model=featuredContent}}
-	{{/if}}
-	{{#if curatedContent}}
-		{{curated-content model=curatedContent openCuratedContentItem='openCuratedContentItem'}}
-	{{/if}}
-	{{#if trendingArticles}}
-		{{trending-articles model=trendingArticles}}
-	{{/if}}
-	{{#if trendingVideos}}
-		{{trending-videos model=trendingVideos openLightbox='openLightbox'}}
-	{{/if}}
+{{#unless isRoot}}
+	<h2 class="wiki-title">{{#link-to 'article' mainPageTitle action='trackClick' actionParam='wikiname' alt=siteName}}{{siteName}}{{/link-to}}</h2>
+{{/unless}}
+<h1 class="article-title">{{title}}</h1>
+{{#if wikiaStats}}
+	{{wikia-stats model=wikiaStats}}
+{{/if}}
+{{#if featuredContent}}
+	{{component featuredContentComponentVariation model=featuredContent}}
+{{/if}}
+{{#if curatedContent}}
+	{{curated-content model=curatedContent openCuratedContentItem='openCuratedContentItem'}}
+{{/if}}
+{{#if trendingArticles}}
+	{{trending-articles model=trendingArticles}}
+{{/if}}
+{{#if trendingVideos}}
+	{{trending-videos model=trendingVideos openLightbox='openLightbox'}}
+{{/if}}
 
-	{{wikia-footer}}
-</div>
+{{wikia-footer}}
