@@ -145,6 +145,13 @@
 			'join-close-button',
 			Mercury.Utils.trackActions.close
 		);
+
+		//Click on 'connect with facebook'
+		trackClick(
+			<HTMLElement> document.querySelector('.signup-provider-facebook'),
+			'facebook-login-button',
+			Mercury.Utils.trackActions.click
+		);
 	}
 
 	function init (): void {
