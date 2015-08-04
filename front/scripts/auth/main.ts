@@ -21,8 +21,7 @@ i18n.init(<I18nextOptions> {
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
 	var formElement: HTMLFormElement = <HTMLFormElement> document.querySelector('form'),
-		birthdateContainer: HTMLElement,
-		signupProviderFacebook: HTMLAnchorElement = <HTMLAnchorElement> document.querySelector('.signup-provider-facebook');
+		birthdateContainer: HTMLElement;
 	if (formElement) {
 		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();
@@ -39,8 +38,8 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		}
 	}
 
-	if (signupProviderFacebook !== null) {
-		new FacebookLogin(signupProviderFacebook);
+	if (document.body.className.indexOf('join-page') !== -1) {
+		new FacebookLogin(<HTMLAnchorElement> document.querySelector('.signup-provider-facebook'));
 	}
 
 	if (birthdateContainer) {
