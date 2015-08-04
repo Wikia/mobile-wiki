@@ -5,10 +5,9 @@ App.ArticleContributionComponent = Em.Component.extend({
 	tagName: 'div',
 	classNames: ['contribution-container'],
 	templateName: 'components/article-contribution',
-
-    article: null,
-    section: null,
-    title: null,
+	article: null,
+	section: null,
+	title: null,
 
 	articleContent: Em.computed('article', function (): any {
 		return this.get('article');
