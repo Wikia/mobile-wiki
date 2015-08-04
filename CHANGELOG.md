@@ -1,3 +1,16 @@
+## release-126 (2015-08-04 10:00 UTC)
+* [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 moving logged_in flag
+* revert-1140-HG-808: Revert "decouple article route from application in ember and hapi"
+* [HG-810](https://wikia-inc.atlassian.net/browse/HG-810) HG-810 - only build old way in prod
+* [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) decouple article route from application in ember and hapi
+* [CONCF-745](https://wikia-inc.atlassian.net/browse/CONCF-745) CONCF-745 Add modal dialog with help text to Curated Content Tool
+
+## release-125 (2015-08-03 10:15 UTC)
+* SOC: SOC | Fix polish translations on auth pages
+* [INT-121](https://wikia-inc.atlassian.net/browse/INT-121) Hapi app for Japan homepage with base gulp tasks and TS/SCSS
+* [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 checking if window is loaded before binding event
+* [CONCF-744](https://wikia-inc.atlassian.net/browse/CONCF-744) CONCF-744 add arrows for sorting
+
 ## release-124 (2015-07-31 10:00 UTC)
 * [SOC-1015](https://wikia-inc.atlassian.net/browse/SOC-1015) SOC-1015 Unifying "close" button on Auth pages with the main Mercury app
 * [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 - sending logged_in flag to weppy

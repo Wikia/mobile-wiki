@@ -19,8 +19,21 @@ $row-height: 5rem;
 	position: static;
 }
 
+.curated-content-editor-help {
+	position: absolute;
+	right: 1em;
+	top: 1em;
+
+	svg {
+		fill: $color-gray-dark;
+		height: 32px;
+		width: 32px;
+	}
+}
+
 .curated-content-editor-block {
 	background: $snow;
+	position: relative;
 
 	header {
 		color: $color-blue-brand;
@@ -169,6 +182,19 @@ $row-height: 5rem;
 			position: absolute;
 			text-align: center;
 		}
+	}
+}
+
+.curated-content-editor-item {
+	.file-upload-input {
+		display: none;
+	}
+
+	.file-upload-label {
+		height: 90vw;
+		position: absolute;
+		top: 14px;
+		width: 100vw;
 	}
 }
 
