@@ -11,7 +11,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 	timeout: null,
 
 	didInsertElement: function (): void {
-		var expiry = this.get('alert').expiry,
+		var expiry = this.get('alert.expiry'),
 		    onInsertElement = this.get('alert.callbacks.onInsertElement');
 
 		if (expiry > 0) {

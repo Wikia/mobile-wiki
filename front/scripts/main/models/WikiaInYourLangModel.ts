@@ -13,12 +13,11 @@ App.WikiaInYourLangModel.reopenClass({
 		var browserLang = navigator.language || navigator.browserLanguage,
 		    model = App.WikiaInYourLangModel.getFromCache(browserLang); //read from cache
 
-		if (model) {
-			return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-				resolve(model);
-			});
-		}
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			if (model) {
+				resolve(model);
+				return;
+			}
 			Em.$.getJSON(
 				M.buildUrl({ path: '/wikia.php' }),
 				{
@@ -26,22 +25,21 @@ App.WikiaInYourLangModel.reopenClass({
 					method: 'getNativeWikiaInfo',
 					format: 'json',
 					targetLanguage: browserLang
-				},
-				function(resp: any): void {
-					var modelInstance: any = null;
-					if (resp.success) {
-						modelInstance = App.WikiaInYourLangModel.create({
-							nativeDomain: resp.nativeDomain,
-							message: resp.message
-						});
-					}
-					window.localStorage.setItem(
-						App.WikiaInYourLangModel.getCacheKey(browserLang),
-						JSON.stringify({ model: modelInstance, timestamp: new Date().getTime() })
-					); //write to cache
-					resolve(modelInstance);
 				}
-			).fail(function(err: any): void {
+			).done((resp: any): void => {
+				var modelInstance: any = null;
+				if (resp.success) {
+					modelInstance = App.WikiaInYourLangModel.create({
+						nativeDomain: resp.nativeDomain,
+						message: resp.message
+					});
+				}
+				window.localStorage.setItem(
+					App.WikiaInYourLangModel.getCacheKey(browserLang),
+					JSON.stringify({ model: modelInstance, timestamp: new Date().getTime() })
+					); //write to cache
+				resolve(modelInstance);
+			}).fail((err: any): void => {
 				reject(err);
 			});
 		});
