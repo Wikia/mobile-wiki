@@ -11,6 +11,7 @@ interface ArticleSectionHeader {
 	level: string;
 	name: string;
 	id?: string;
+	section: string;
 }
 
 App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackClickMixin, App.ViewportMixin, {
@@ -116,7 +117,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			this.sendAction('edit', title, sectionIndex);
 		},
 
-		addPhoto: function(title: string, sectionIndex: number, photoData: any): void {
+		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
 			this.sendAction('addPhoto', title, sectionIndex, photoData);
 		},
 

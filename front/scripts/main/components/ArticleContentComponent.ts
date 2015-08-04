@@ -46,6 +46,14 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	actions: {
 		openLightbox: function (lightboxType: string, lightboxData: any) {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
+		},
+
+		edit: function (title: string, sectionIndex: number): void {
+			this.sendAction('edit', title, sectionIndex);
+		},
+
+		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
+			this.sendAction('addPhoto', title, sectionIndex, photoData);
 		}
 	},
 
@@ -65,28 +73,28 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		this.$().html(content);
 	},
 
-	setupContributionButtons: function(): void {
+	setupContributionButtons: function (): void {
 		var headers = this.get('headers'),
 			$sectionHeader: any = null,
-			contributionComponent: any = null,
-			iconsWrapper = '';
+			contributionComponent: any = null;
+
 		headers.forEach((header: ArticleSectionHeader): void => {
-			contributionComponent = this.createArticleContributionComponent();
-			//iconsWrapper = '<div class="icon-wrapper">' + contributionComponent + '</div>';
+			contributionComponent = this.createArticleContributionComponent(header.section);
 			$sectionHeader = this.$(header.element);
 			$sectionHeader.prepend(contributionComponent).addClass('short-header');
+			contributionComponent.wrap('<div class="icon-wrapper"></div>');
 		});
 	},
 
-	createArticleContributionComponent: function(): any{
+	createArticleContributionComponent: function(section: number): JQuery {
 		var article = this.get('content'),
 			title = this.get('cleanTitle'),
 			component = this.createChildView(App.ArticleContributionComponent.create({
 				article: article,
-				section: 0, //todo
+				section: section,
 				title: title,
 				edit: 'edit',
-				upload: 'addPhoto'
+				addPhoto: 'addPhoto'
 			}));
 		return component.createElement().$();
 	},
@@ -105,7 +113,8 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 						element: elem,
 						level: elem.tagName,
 						name: elem.textContent,
-						id: elem.id
+						id: elem.id,
+						section: $(elem).attr('section')
 					};
 				}
 			}).toArray();

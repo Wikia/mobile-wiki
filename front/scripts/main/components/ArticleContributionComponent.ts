@@ -53,9 +53,9 @@ App.ArticleContributionComponent = Em.Component.extend({
 			this.$('.file-input').click();
 		},
 
-		upload: function(): void {
+		addPhoto: function(): void {
 			var photoData = this.$('.file-input')[0].files[0];
-			this.sendAction('upload', this.title, this.section, photoData);
+			this.sendAction('addPhoto', this.title, this.section, photoData);
 		}
 	}
 });

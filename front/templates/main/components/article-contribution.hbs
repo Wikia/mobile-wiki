@@ -3,7 +3,7 @@
 		{{svg 'pencil' role='img' class='icon pencil'}}
 	</span>
 </div>
-<input class="file-input" type="file" accept="image/*" style="display:none;" {{action 'upload' on='change'}}/>
 <div class="upload-photo" {{action 'select'}}>
 	{{svg 'camera' role='img' class='icon camera'}}
 </div>
+<input class="file-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>
