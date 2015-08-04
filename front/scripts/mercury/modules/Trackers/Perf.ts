@@ -20,7 +20,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		tracker: any;
-		defaultContext: {
+		context: {
 			skin: string;
 			url?: string;
 			'user-agent': string;
@@ -30,7 +30,8 @@ module Mercury.Modules.Trackers {
 
 		constructor () {
 			this.tracker = Weppy.namespace('mercury');
-			this.defaultContext = {
+
+			this.context = {
 				skin: 'mercury',
 				'user-agent': window.navigator.userAgent,
 				env: M.prop('environment'),
@@ -41,7 +42,7 @@ module Mercury.Modules.Trackers {
 			this.tracker.setOptions({
 				host: M.prop('weppyConfig').host,
 				transport: 'url',
-				context: this.defaultContext,
+				context: this.context,
 				sample: M.prop('weppyConfig').samplingRate,
 				aggregationInterval: M.prop('weppyConfig').aggregationInterval
 			});
@@ -56,11 +57,11 @@ module Mercury.Modules.Trackers {
 			}
 
 			// always set the current URL as part of the context
-			this.defaultContext.url = window.location.href.split('#')[0];
+			this.context.url = window.location.href.split('#')[0];
 
 			// update context in Weppy with new URL and any explicitly passed overrides for context
 			trackFn.setOptions({
-				context: $.extend(params.context, this.defaultContext)
+				context: $.extend(params.context, this.context)
 			});
 
 			switch (params.type) {
