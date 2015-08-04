@@ -13,7 +13,7 @@ App.ObjectUtilitiesMixin = Em.Mixin.create({
 					continue;
 				}
 
-				if (Ember.typeOf(value) === 'function') {
+				if (Ember.typeOf(value) === 'function' || typeof value === 'function') {
 					continue;
 				}
 
