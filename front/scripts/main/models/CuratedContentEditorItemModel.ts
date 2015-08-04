@@ -65,6 +65,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 		data = $.extend({}, data, {
 			controller: 'CuratedContentValidator',
 			item: item.toPlainObject(),
+			//item: JSON.parse(JSON.stringify(item)),
 			format: 'json'
 		});
 

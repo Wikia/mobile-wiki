@@ -231,8 +231,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 				} else {
 					if (data.error) {
 						data.error.forEach((error: any) => this.processValidationError(error.reason));
-						//@TODO CONCF-956 add translations
-						this.addAlert('alert', 'Please fix errors.');
 					} else {
 						//@TODO CONCF-956 add translations
 						this.addAlert('alert', 'Something went wrong. Please repeat.');
