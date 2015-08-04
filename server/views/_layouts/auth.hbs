@@ -16,12 +16,15 @@
 	<body class="auth {{viewType}} {{bodyClasses}} standalone">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
-	{{#if exitTo}}
+		{{#if exitTo}}
 		<a class="close" href="{{exitTo}}">
 			<svg role="img">
 				<use xlink:href="#close"></use>
 			</svg>
 		</a>
+		{{/if}}
+		{{#if globalNav}}
+		<nav class="global-nav"></nav>
 		{{/if}}
 
 		{{#unless hideHeader}}
