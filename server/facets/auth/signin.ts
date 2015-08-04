@@ -64,7 +64,7 @@ function getFacebookSignInPage (request: Hapi.Request, reply: any) : Hapi.Respon
 		return reply.redirect(redirect);
 	}
 
-	return authView.view('signin-fb', context, request, reply);
+	return authView.view('signin', context, request, reply);
 }
 
 export function get (request: Hapi.Request, reply: any): void {
