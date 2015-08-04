@@ -41,6 +41,13 @@ class FacebookConnect extends Login {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
+				M.track({
+					trackingMethod: 'both',
+					action: Mercury.Utils.trackActions.success,
+					category: 'user-signup-mobile',
+					label: 'facebook-link-existing'
+				});
+
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				//ToDo show the "unable to connect" error

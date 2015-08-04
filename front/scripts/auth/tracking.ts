@@ -2,6 +2,12 @@
 /// <reference path='../mercury/utils/track.ts' />
 
 (function () {
+	var gaCategory = 'user-login-mobile';
+
+	function setGACategory(gaCat: string): void {
+		gaCategory = gaCat;
+	}
+
 	function checkPageType (pageType: string): boolean {
 		return (document.body.className.indexOf(pageType) !== -1);
 	}
@@ -61,7 +67,7 @@
 		M.track({
 			trackingMethod: 'both',
 			action: action,
-			category: 'user-login-mobile',
+			category: gaCategory,
 			label: label
 		});
 	}
@@ -96,6 +102,7 @@
 	}
 
 	function setTrackingForRegisterPage (): void {
+		setGACategory('user-signup-mobile');
 		//Impression of the /register page
 		trackPageView('register-page');
 		// Click "Sign In" button
@@ -154,6 +161,36 @@
 		);
 	}
 
+	function setTrackingForFBConnectPage () {
+		setGACategory('user-signup-mobile');
+		//Impression of the /signin page
+		trackPageView('signin-page');
+		// Click "Sign In" button
+		trackSubmit(
+			<HTMLFormElement> document.getElementById('facebookConnectForm'),
+			'facebook-connect-submit'
+		);
+
+		// Click X to "close" log-in form
+		trackClick(
+			<HTMLElement> document.querySelector('.close'),
+			'facebook-connect-close-button',
+			Mercury.Utils.trackActions.close
+		);
+
+		// Click "Forgot Password" link
+		trackClick(
+			<HTMLElement> document.querySelector('.forgotten-password'),
+			'facebook-connect-forgot-password-link'
+		);
+
+		// Click "Register Now" link
+		trackClick(
+			<HTMLElement> document.querySelector('.footer-callout-link'),
+			'facebook-connect-register-link'
+		);
+	}
+
 	function init (): void {
 		setupTracking();
 
@@ -163,6 +200,8 @@
 			setTrackingForSignInPage();
 		} else if (checkPageType('register-page')){
 			setTrackingForRegisterPage();
+		} else if (checkPageType('fb-connect-page')) {
+			setTrackingForFBConnectPage();
 		}
 	}
 
