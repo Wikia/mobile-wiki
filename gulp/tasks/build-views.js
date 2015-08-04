@@ -42,8 +42,7 @@ gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-ve
 		gulpif('**/_layouts/**.hbs', preprocess({context: preprocessContext})),
 		gulpif('**/_layouts/**.hbs', revReplace({manifest: manifest})),
 
-		// TODO: Leave this in for now to run the normal template based assets pipeline for the duration
-		// of the test
+		// TODO: Leave this in for now to run the normal template based assets pipeline while we're using async scripts
 		gulpif(environment.isProduction,
 			gulpif('**/_layouts/*.hbs', piper(
 				assets,
