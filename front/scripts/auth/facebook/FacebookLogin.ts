@@ -57,6 +57,7 @@ class FacebookLogin {
 	}
 
 	private onUnsuccessfulLogin(response: FacebookResponse): void {
+		this.track('facebook-login-helios-error', Mercury.Utils.trackActions.error);
 		this.activateButton();
 	}
 
@@ -81,8 +82,9 @@ class FacebookLogin {
 
 		facebookTokenXhr.onload = (e: Event): void => {
 			var status: number = (<XMLHttpRequest> e.target).status;
-
 			if (status === HttpCodes.OK) {
+				this.track('facebook-link-existing', Mercury.Utils.trackActions.success);
+				this.track('facebook-login-helios-success', Mercury.Utils.trackActions.success);
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				window.location.href = this.getFacebookRegistrationUrl();
@@ -93,6 +95,7 @@ class FacebookLogin {
 		};
 
 		facebookTokenXhr.onerror = (e: Event): void => {
+			this.track('facebook-login-helios-error', Mercury.Utils.trackActions.error);
 			this.activateButton();
 		};
 
@@ -100,5 +103,14 @@ class FacebookLogin {
 		facebookTokenXhr.withCredentials = true;
 		facebookTokenXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookTokenXhr.send(this.urlHelper.urlEncode(data));
+	}
+
+	private track (label: string, action: string): void {
+		M.track({
+			trackingMethod: 'both',
+			action: action,
+			category: 'user-login-mobile',
+			label: label
+		});
 	}
 }
