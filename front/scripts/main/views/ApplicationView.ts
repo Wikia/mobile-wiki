@@ -182,7 +182,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 			expiry: 60000,
 			unsafe: true,
 			callbacks: {
-				onInsertElement: function(alert: any): void {
+				onInsertElement: function (alert: any): void {
 					alert.on('click', 'a:not(.close)', (event: any) => {
 						M.track({
 							action: M.trackActions.click,
@@ -191,7 +191,7 @@ App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
 						});
 					});
 				},
-				onCloseAlert: function(): void {
+				onCloseAlert: function (): void {
 					window.localStorage.setItem(this.getAlertKey(), new Date().getTime().toString());
 					M.track({
 						action: M.trackActions.click,

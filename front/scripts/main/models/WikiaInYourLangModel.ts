@@ -27,7 +27,7 @@ App.WikiaInYourLangModel.reopenClass({
 					format: 'json',
 					targetLanguage: browserLang
 				},
-				function(resp: any): void {
+				function (resp: any): void {
 					var modelInstance: any = null;
 					if (resp.success) {
 						modelInstance = App.WikiaInYourLangModel.create({
@@ -41,7 +41,7 @@ App.WikiaInYourLangModel.reopenClass({
 					); //write to cache
 					resolve(modelInstance);
 				}
-			).fail(function(err: any): void {
+			).fail(function (err: any): void {
 				reject(err);
 			});
 		});
