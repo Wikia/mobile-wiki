@@ -2,23 +2,13 @@ interface HeliosFacebookConnectData {
 	fb_access_token: string;
 }
 
-class FacebookConnect {
-
-	form: HTMLFormElement;
-	redirect: string;
+class FacebookConnect extends Login {
 	urlHelper: UrlHelper;
-	login: Login;
 
 	constructor (form: HTMLFormElement) {
+		super(form);
 		new FacebookSDK(this.init.bind(this));
-		this.login = new Login(form);
-		this.form = form;
 		this.urlHelper = new UrlHelper();
-		if (window.location.search) {
-			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
-			this.redirect = params['redirect'];
-		}
-		this.redirect = this.redirect || '/';
 	}
 
 	public init (): void {
@@ -26,7 +16,7 @@ class FacebookConnect {
 			var status = facebookResponse.status;
 
 			if (status === 'connected') {
-				this.login.watch(this.onLoginSuccess.bind(this));
+				this.watch();
 			}
 		}.bind(this));
 	}
