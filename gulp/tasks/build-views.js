@@ -46,17 +46,18 @@ gulp.task('build-views', ['scripts-front', 'vendor', 'build-vendor', 'build-comb
 		gulpif('**/_layouts/*.hbs', revReplace({manifest: manifest})),
 
 
-		// for layouts that aren't ember-main.hbs, use gulp-useref to parse 'build' blocks in hbs source
-		// containing files to optimize.
-		gulpif('**/_layouts/*.hbs', piper(
-			assets,
-			gulpif('**/*.js', gulpif(environment.isProduction, uglify())),
-			rev(),
-			gulp.dest(paths.base),
-			assets.restore(),
-			useref(),
-			// replace file names for all assets that have been piped through rev
-			revReplace()
+		// TODO: Leave this in for now to run the normal template based assets pipeline while we're using async scripts
+		gulpif(environment.isProduction,
+			gulpif('**/_layouts/*.hbs', piper(
+				assets,
+				//before running build I can not know what files from vendor to minify
+				gulpif('**/*.js', uglify()),
+				rev(),
+				gulp.dest(paths.base),
+				assets.restore(),
+				useref(),
+				revReplace()
+			)
 		)),
 
 		gulpif('**/_layouts/*.hbs', gulp.dest('www/server/views/_layouts')),

@@ -12,6 +12,7 @@
 			<small class="error">{{imageErrorMessage}}</small>
 		{{/if}}
 		{{loading-spinner active=isLoading overlay=false}}
+		{{file-input fileUpload='fileUpload'}}
 	</div>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">

@@ -185,6 +185,19 @@ $row-height: 5rem;
 	}
 }
 
+.curated-content-editor-item {
+	.file-upload-input {
+		display: none;
+	}
+
+	.file-upload-label {
+		height: 90vw;
+		position: absolute;
+		top: 14px;
+		width: 100vw;
+	}
+}
+
 .curated-content-input-wrapper {
 	padding: 14px 18px;
 	padding-bottom: 0;
