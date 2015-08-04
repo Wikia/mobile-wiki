@@ -229,9 +229,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 				if (data.status) {
 					this.sendAction('done', this.get('model'));
 				} else {
-					data.error.forEach((error: any) => this.processValidationError(error.reason));
-					//@TODO CONCF-956 add translations
-					this.addAlert('alert', 'Please fix errors.');
+					if (data.error) {
+						data.error.forEach((error: any) => this.processValidationError(error.reason));
+						//@TODO CONCF-956 add translations
+						this.addAlert('alert', 'Please fix errors.');
+					} else {
+						//@TODO CONCF-956 add translations
+						this.addAlert('alert', 'Something went wrong. Please repeat.');
+					}
 				}
 			})
 			.catch((err): void => {

@@ -60,7 +60,12 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					this.set('model.items', sortableItems.slice(0, sortableItems.length));
 					this.sendAction('done', this.get('model'));
 				} else {
-					data.error.forEach((error: any) => this.processValidationError(error.reason));
+					if (data.error) {
+						data.error.forEach((error: any) => this.processValidationError(error.reason));
+					} else {
+						//@TODO CONCF-956 add translations
+						this.addAlert('alert', 'Something went wrong. Please repeat.');
+					}
 				}
 			})
 			.catch((err): void => {
