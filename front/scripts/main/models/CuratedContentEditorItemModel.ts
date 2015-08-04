@@ -61,7 +61,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 	},
 
-	validateServerData(item: CuratedContentEditorItemModel, data: any) : Em.RSVP.Promise {
+	validateServerData(item: CuratedContentEditorItemModel, data: any): Em.RSVP.Promise {
 		data = $.extend({}, data, {
 			controller: 'CuratedContentValidator',
 			item: item.toPlainObject(),
