@@ -22,7 +22,8 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
-			heliosLoginURL: localSettings.helios.host + '/token'
+			heliosLoginURL: localSettings.helios.host + '/token',
+			facebookAppId: localSettings.facebook.appId
 		}
 	);
 }
