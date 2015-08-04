@@ -239,7 +239,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 					}
 				}
 			})
-			.catch((err): void => {
+			.catch((err: any): void => {
 				//@TODO CONCF-956 add translations
 				Em.Logger.error(err);
 				this.addAlert('alert', 'Something went wrong. Please repeat.');
