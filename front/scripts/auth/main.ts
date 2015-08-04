@@ -28,15 +28,13 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		new SubmitValidator(formElement).watch();
 
 		if (formElement.id === 'loginForm') {
-			if (document.body.className.indexOf('fb-connect-page')) {
-				new FacebookConnect(formElement);
-			} else {
-				new Login(formElement).watch();
-			}
+			new Login(formElement).watch();
+		} else if (formElement.id === 'facebookLoginForm') {
+			new FacebookConnect(formElement);
 		} else if (formElement.id === 'signupForm') {
 			new SignupForm(formElement).watch();
 		} else if (formElement.id === 'facebookRegistrationForm') {
-			new FacebookRegistration(<HTMLFormElement> document.querySelector('form'));
+			new FacebookRegistration(formElement);
 		}
 	}
 
