@@ -42,17 +42,18 @@ gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-ve
 		gulpif('**/_layouts/**.hbs', preprocess({context: preprocessContext})),
 		gulpif('**/_layouts/**.hbs', revReplace({manifest: manifest})),
 
-		// TODO: Leave this in for now to run the normal template based assets pipeline for the duration
-		// of the test
-		gulpif('**/_layouts/*.hbs', piper(
-			assets,
-			//before running build I can not know what files from vendor to minify
-			gulpif('**/*.js', uglify()),
-			rev(),
-			gulp.dest(paths.base),
-			assets.restore(),
-			useref(),
-			revReplace()
+		// TODO: Leave this in for now to run the normal template based assets pipeline while we're using async scripts
+		gulpif(environment.isProduction,
+			gulpif('**/_layouts/*.hbs', piper(
+				assets,
+				//before running build I can not know what files from vendor to minify
+				gulpif('**/*.js', uglify()),
+				rev(),
+				gulp.dest(paths.base),
+				assets.restore(),
+				useref(),
+				revReplace()
+			)
 		)),
 
 		gulpif('**/_layouts/*.hbs', gulp.dest('www/server/views/_layouts')),
