@@ -13,7 +13,7 @@ class FacebookConnect extends Login {
 
 	public init (): void {
 		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
-			var status = facebookResponse.status;
+			var status: string = facebookResponse.status;
 
 			if (status === 'connected') {
 				this.watch();
@@ -34,8 +34,8 @@ class FacebookConnect extends Login {
 
 	public onLoginSuccess (loginResponse: LoginResponse): void {
 		var facebookConnectXhr = new XMLHttpRequest(),
-			data = this.getHeliosFacebookConnectData(),
-			url = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
+			data: HeliosFacebookConnectData = this.getHeliosFacebookConnectData(),
+			url: string = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
 
 		facebookConnectXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
