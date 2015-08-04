@@ -37,7 +37,7 @@ class Login {
 		this.redirect = this.redirect || '/';
 	}
 
-	public onSubmit (event: Event, onLoginSuccess: Function): void {
+	public onSubmit (event: Event): void {
 		var xhr = new XMLHttpRequest(),
 			postData: LoginCredentials = this.getCredentials(),
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
@@ -72,7 +72,7 @@ class Login {
 				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
 				this.displayError('errors.wrong-credentials');
 			} else {
-				onLoginSuccess(response);
+				this.onLoginSuccess(response);
 			}
 		};
 
@@ -89,15 +89,13 @@ class Login {
 		xhr.send((new UrlHelper()).urlEncode(postData));
 	}
 
-	public onLoginSuccess() {
+	public onLoginSuccess(loginResponse: LoginResponse): void {
 		this.track('login-success', Mercury.Utils.trackActions.submit);
 		window.location.href = this.redirect;
 	}
 
-	public watch(onLoginSuccess: Function = this.onLoginSuccess): void {
-		this.form.addEventListener('submit', function (e: Event) {
-			this.onSubmit(e, onLoginSuccess);
-		}.bind(this));
+	public watch(): void {
+		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 
 	private getCredentials (): LoginCredentials {
