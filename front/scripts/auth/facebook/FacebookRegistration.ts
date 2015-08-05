@@ -26,7 +26,7 @@ class FacebookRegistration {
 	redirect: string;
 	urlHelper: UrlHelper;
 	marketingOptIn: MarketingOptIn;
-    formErrors: FormErrors;
+	formErrors: FormErrors;
 	termsOfUse: TermsOfUse;
 
 	constructor (form: HTMLFormElement) {
@@ -43,7 +43,7 @@ class FacebookRegistration {
 		this.termsOfUse.init();
 
 		this.redirect = this.redirect || '/';
-        this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors');
+		this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors');
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}

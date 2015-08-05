@@ -83,12 +83,12 @@ class SignupForm {
 						this.trackSuccessfulRegistration();
 						window.location.href = this.redirect;
 					} else {
-                        this.formErrors.displayGeneralError();
+						this.formErrors.displayGeneralError();
 					}
 				};
 				loginXhr.onerror = (e: Event) => {
 					enableSubmitButton();
-                    this.formErrors.displayGeneralError();
+					this.formErrors.displayGeneralError();
 				};
 
 				loginXhr.open('POST', this.form.action.replace('/users', '/token'), true);
@@ -97,16 +97,16 @@ class SignupForm {
 				loginXhr.send((new UrlHelper()).urlEncode(data));
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				enableSubmitButton();
-                this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
+				this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
 			} else {
 				enableSubmitButton();
-                this.formErrors.displayGeneralError();
+				this.formErrors.displayGeneralError();
 			}
 		};
 
 		registrationXhr.onerror = (e: Event) => {
 			enableSubmitButton();
-            this.formErrors.displayGeneralError();
+			this.formErrors.displayGeneralError();
 		};
 
 		registrationXhr.open('POST', this.form.action, true);
