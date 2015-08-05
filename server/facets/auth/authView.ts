@@ -94,7 +94,6 @@ module authView {
 			optimizelyScript: localSettings.optimizely.scriptPath +
 				(localSettings.environment === Utils.Environment.Prod ?
 					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
-			pageParams: {},
 			viewType: viewType,
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
 			pageParams: {
