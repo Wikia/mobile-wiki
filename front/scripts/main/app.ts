@@ -100,8 +100,10 @@ App.initializer({
 		}
 
 		EmPerfSender.initialize({
+			enableLogging: false,
+
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
-			send: function (events: any[], metrics: any) {
+			send (events: any[], metrics: any) {
 				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
 				// is our instance of a Weppy interface
 				M.trackPerf({
@@ -110,10 +112,6 @@ App.initializer({
 					type: 'timer',
 					value: metrics.duration
 				});
-			},
-
-			log: function (message: string) {
-				//do nothing
 			}
 		});
 	}
