@@ -9,6 +9,7 @@ interface SignInViewContext extends authView.AuthViewContext {
 	headerText: string;
 	forgotPasswordHref?: string;
 	heliosLoginURL: string;
+	heliosFacebookURL: string;
 }
 
 function getSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
@@ -26,6 +27,7 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			bodyClasses: 'signin-page',
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
 			heliosLoginURL: localSettings.helios.host + '/token',
+			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
 			facebookAppId: localSettings.facebook.appId
 		}
 	);

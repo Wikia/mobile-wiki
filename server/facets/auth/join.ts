@@ -8,7 +8,7 @@ var deepExtend = require('deep-extend');
 interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
 	signupHref: string;
-	heliosFacebookUri: string;
+	heliosFacebookURL: string;
 	facebookAppId?: number;
 }
 
@@ -33,7 +33,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			hideFooter: true,
 			signupHref: authUtils.getRegisterUrl(request),
 			bodyClasses: 'splash join-page',
-			heliosFacebookUri: localSettings.helios.host + '/facebook/token',
+			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
 			facebookAppId: localSettings.facebook.appId
 		}
 	);

@@ -18,6 +18,7 @@ interface RegisterViewContext extends authView.AuthViewContext {
 	heliosRegistrationURL?: string;
 	i18nContext?: any;
 	termsOfUseLink?: string;
+	heliosFacebookURL: string;
 }
 
 
@@ -88,6 +89,7 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 				? 'auth:join.sign-up-with-email'
 				: 'auth:register.desktop-header',
 			heliosRegistrationURL: localSettings.helios.host + '/users',
+			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
 			title: (viewType === authView.VIEW_TYPE_MOBILE)
 				? 'auth:join.sign-up-with-email'
 				: 'auth:register.desktop-header',
