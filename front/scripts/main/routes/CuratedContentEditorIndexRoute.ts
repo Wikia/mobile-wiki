@@ -25,7 +25,7 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 	 * @returns {JQueryXHR}
 	 */
 	suppressDefineAmd(promise: JQueryXHR) {
-		var oldAmd;
+		var oldAmd: any;
 
 		if (window.define) {
 			oldAmd = define.amd;
