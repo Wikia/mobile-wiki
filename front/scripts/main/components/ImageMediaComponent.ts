@@ -17,7 +17,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 		'emptyGif'
 	),
 
-	hasCaption: Em.computed('media.caption', 'isicon', function (): boolean {
+	hasCaption: Em.computed('media.caption', 'isIcon', function (): boolean {
 		return !this.get('isIcon') && this.get('media.caption').length !== 0;
 	}),
 
