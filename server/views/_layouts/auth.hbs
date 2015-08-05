@@ -13,7 +13,7 @@
 		{{> tracking}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
-	<body class="auth {{viewType}} {{bodyClasses}} {{standalonePage}}">
+	<body class="auth {{viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
 		{{#if exitTo}}

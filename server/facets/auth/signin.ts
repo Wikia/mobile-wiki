@@ -12,6 +12,8 @@ interface SignInViewContext extends authView.AuthViewContext {
 }
 
 function getSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
+	var viewType: string = authView.getViewType(request);
+
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
@@ -22,6 +24,7 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
+			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
 			heliosLoginURL: localSettings.helios.host + '/token',
 			facebookAppId: localSettings.facebook.appId
 		}
