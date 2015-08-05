@@ -23,6 +23,7 @@ class Login {
 	redirect: string;
 	usernameInput: HTMLInputElement;
 	passwordInput: HTMLInputElement;
+	urlHelper: UrlHelper;
 
 	constructor (form: Element) {
 		var elements: FormElements;
@@ -31,9 +32,10 @@ class Login {
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
 		if (window.location.search) {
-			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
 			this.redirect = params['redirect'];
 		}
+		this.urlHelper = new UrlHelper();
 		this.redirect = this.redirect || '/';
 	}
 
@@ -86,7 +88,7 @@ class Login {
 		xhr.open('post', this.form.action, true);
 		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhr.send((new UrlHelper()).urlEncode(postData));
+		xhr.send(this.urlHelper.urlEncode(postData));
 	}
 
 	public onLoginSuccess(loginResponse: LoginResponse): void {
