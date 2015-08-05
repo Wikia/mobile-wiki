@@ -58,7 +58,7 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 		return Em.$.getScript(`${this.cropperPath}/cropper.min.js`);
 	},
 
-	beforeModel(): JQueryXHR {
+	activate(): JQueryXHR {
 		if (!$().cropper || !this.get('loadingCropper')) {
 			return this.suppressDefineAmd(
 				this.loadCropper()
