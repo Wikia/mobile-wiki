@@ -1,6 +1,6 @@
 interface FacebookResponse {
-	status: string;
 	authResponse: FacebookAuthData;
+	status: string;
 }
 
 interface FacebookAuthData {
@@ -60,6 +60,18 @@ class FacebookLogin {
 		this.activateButton();
 	}
 
+	private getFacebookRegistrationUrl(): string {
+		var href = '/register',
+			search = window.location.search;
+		if (search.indexOf('?') !== -1) {
+			search += '&method=facebook';
+		} else {
+			search += '?method=facebook';
+		}
+
+		return href + search;
+	}
+
 	private getHeliosInfoFromFBToken(facebookAuthData: FacebookAuthData): void {
 		var facebookTokenXhr = new XMLHttpRequest(),
 			data = <HeliosFacebookToken> {
@@ -67,20 +79,20 @@ class FacebookLogin {
 			},
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
-		facebookTokenXhr.onload = (e: Event) => {
+		facebookTokenXhr.onload = (e: Event): void => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				//ToDo: assume there's no user associated with the account and go to facebook registration
+				window.location.href = this.getFacebookRegistrationUrl();
 			} else {
 				//ToDo: something wrong with Helios backend
 				this.activateButton();
 			}
 		};
 
-		facebookTokenXhr.onerror = (e: Event) => {
+		facebookTokenXhr.onerror = (e: Event): void => {
 			this.activateButton();
 		};
 

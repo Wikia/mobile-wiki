@@ -31,6 +31,8 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 			new Login(formElement).watch();
 		} else if (formElement.id === 'signupForm') {
 			new SignupForm(formElement).watch();
+		} else if (formElement.id === 'facebookRegistrationForm') {
+			new FacebookRegistration(<HTMLFormElement> document.querySelector('form'));
 		}
 	}
 
