@@ -31,11 +31,12 @@ class Login {
 		elements = <FormElements> this.form.elements;
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
+		this.urlHelper = new UrlHelper();
+
 		if (window.location.search) {
 			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
 			this.redirect = params['redirect'];
 		}
-		this.urlHelper = new UrlHelper();
 		this.redirect = this.redirect || '/';
 	}
 
