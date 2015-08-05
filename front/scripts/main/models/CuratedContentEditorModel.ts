@@ -136,9 +136,12 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
-		return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
-			return childItem.label !== childLabel ? childItem.label : null
-		}).filter(String);
+		if (Array.isArray(parentSection.items)) {
+			return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
+				return childItem.label !== childLabel ? childItem.label : null
+			}).filter(String);
+		}
+		return [];
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
