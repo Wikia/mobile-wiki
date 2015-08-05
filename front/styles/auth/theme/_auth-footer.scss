@@ -1,10 +1,10 @@
 .standalone {
 	.auth-footer {
-		margin: 0px 31px;
-		min-width: 768px;
+		border-color: $border-color;
 		border-style: solid;
-		border-color: $iron;
-		border-width: 0px 1px;
+		border-width: 0 1px;
+		margin: 0 31px;
+		min-width: 768px;
 	}
 }
 .auth-footer {

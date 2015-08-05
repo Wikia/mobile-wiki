@@ -1,10 +1,10 @@
 .standalone {
 	.auth-header {
-		margin: 19px 31px 0px;
-		min-width: 768px;
+		border-color: $color-white;
 		border-style: solid;
-		border-color: $iron;
-		border-width: 1px 1px 0px;
+		border-width: 1px 1px 0;
+		margin: 19px 31px 0;
+		min-width: 768px;
 	}
 }
 
