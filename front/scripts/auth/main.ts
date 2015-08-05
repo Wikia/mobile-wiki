@@ -40,7 +40,7 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		}
 	}
 
-	if (facebookConnectLink !== null) {
+	if (facebookConnectLink) {
 		new FacebookLogin(facebookConnectLink);
 	}
 
