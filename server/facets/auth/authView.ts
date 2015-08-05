@@ -18,6 +18,7 @@ module authView {
 		canonicalUrl: string;
 		language: string;
 		exitTo: string;
+		mainPage: string;
 		standalonePage: string;
 		optimizelyScript: string;
 		pageParams: PageParams;
@@ -87,6 +88,7 @@ module authView {
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
 			standalonePage: "standalone",
+			mainPage: "http://www.wikia.com",
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
