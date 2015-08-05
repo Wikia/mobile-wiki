@@ -14,9 +14,6 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 		});
 	},
 
-	loadingCropper: false,
-	cropperPath: '/front/vendor/cropper/dist',
-
 	/**
 	 * This is needed as by default cropper will initialize itself as module
 	 * if define.amd is truthy
@@ -42,13 +39,16 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 		return promise;
 	},
 
+	cropperLoadingInitialized: false,
+	cropperPath: '/front/vendor/cropper/dist',
+
 	/**
 	 * Loads Cropper css and js
 	 *
 	 * @returns {JQueryXHR}
 	 */
 	loadCropper(): JQueryXHR {
-		this.set('loadingCropper', true);
+		this.set('cropperLoadingInitialized', true);
 
 		$('<link>')
 			.attr({type : 'text/css', rel : 'stylesheet'})
@@ -59,7 +59,7 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 	},
 
 	activate(): JQueryXHR {
-		if (!$().cropper || !this.get('loadingCropper')) {
+		if (!$().cropper || !this.get('cropperLoadingInitialized')) {
 			return this.suppressDefineAmd(
 				this.loadCropper()
 			);
