@@ -22,10 +22,6 @@ declare var EmPerfSender: any;
 declare var optimizely: any;
 declare var FastClick: any;
 
-$.ajaxSetup({
-	cache: true
-});
-
 var App: any = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
 	// putting blocking scripts before our content
@@ -40,6 +36,15 @@ window.emberHammerOptions = {
 		pan_threshold: 1
 	}
 };
+
+App.initializer({
+	name: 'jquery.ajax',
+	initialize () {
+		$.ajaxSetup({
+			cache: true
+		});
+	}
+});
 
 App.initializer({
 	name: 'preload',
