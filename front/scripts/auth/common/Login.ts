@@ -23,6 +23,7 @@ class Login {
 	redirect: string;
 	usernameInput: HTMLInputElement;
 	passwordInput: HTMLInputElement;
+	urlHelper: UrlHelper;
 
 	constructor (form: Element) {
 		var elements: FormElements;
@@ -30,8 +31,10 @@ class Login {
 		elements = <FormElements> this.form.elements;
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
+		this.urlHelper = new UrlHelper();
+
 		if (window.location.search) {
-			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
@@ -72,8 +75,7 @@ class Login {
 				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
 				this.displayError('errors.wrong-credentials');
 			} else {
-				this.track('login-success', Mercury.Utils.trackActions.submit);
-				window.location.href = this.redirect;
+				this.onLoginSuccess(response);
 			}
 		};
 
@@ -87,7 +89,12 @@ class Login {
 		xhr.open('post', this.form.action, true);
 		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhr.send((new UrlHelper()).urlEncode(postData));
+		xhr.send(this.urlHelper.urlEncode(postData));
+	}
+
+	public onLoginSuccess(loginResponse: LoginResponse): void {
+		this.track('login-success', Mercury.Utils.trackActions.submit);
+		window.location.href = this.redirect;
 	}
 
 	public watch(): void {

@@ -1,5 +1,9 @@
 <section class="auth-content">
-	<form id="loginForm" action="{{heliosLoginURL}}" method="POST">
+	{{#if heliosFacebookConnectURL}}
+	<form id="{{formId}}" action="{{heliosLoginURL}}" method="POST" data-heliosFacebookConnectURL="{{heliosFacebookConnectURL}}">
+	{{else}}
+	<form id="{{formId}}" action="{{heliosLoginURL}}" method="POST">
+	{{/if}}
 		<div class="input-container">
 			<input type="text" name="username" id="loginUsername" required />
 			<label class="floating-label" for="loginUsername">{{i18n "auth:common.username-label"}}</label>
@@ -10,6 +14,6 @@
 			<span class="input-icon password-toggler"></span>
 			<a class="forgotten-password" href="{{{forgotPasswordHref}}}" tabindex="-1">{{i18n "auth:signin.forgot-password"}}</a>
 		</div>
-		<button id="loginSubmit" type="submit" disabled><span>{{i18n 'auth:signin.submit-text'}}</span></button>
+		<button id="loginSubmit" type="submit" disabled><span>{{i18n submitText}}</span></button>
 	</form>
 </section>
