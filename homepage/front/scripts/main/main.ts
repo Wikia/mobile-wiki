@@ -6,7 +6,13 @@
 var parallaxWindow : JQuery = $('#js-parallax-window');
 
 $(function() : void {
-	parallax();
+	if (parallaxWindow.length) {
+		parallax();
+
+		$(window).scroll(function(e) : void {
+			parallax();
+		});
+	}
 
 	$('.carousel').slick({
 		dots: false,
@@ -16,10 +22,6 @@ $(function() : void {
 		centerMode: true,
 		variableWidth: false
 	});
-});
-
-$(window).scroll(function(e) : void {
-	parallax();
 });
 
 function parallax() : void {

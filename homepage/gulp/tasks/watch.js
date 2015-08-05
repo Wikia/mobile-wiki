@@ -24,7 +24,7 @@ gulp.task('watch', ['build-combined'], function () {
 	gulp.watch(paths.styles.homepage.watch, ['sass']);
 
 	// Client Scripts
-	gulp.watch(paths.scripts.homepage.watch, ['scripts']);
+	gulp.watch(paths.scripts.homepage.watch, ['build-combined']);
 
 	// Server Scripts
 	gulp.watch(paths.server.homepage.watch, ['lint']);
