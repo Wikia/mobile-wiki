@@ -2,44 +2,25 @@
 /// <reference path='../app.ts' />
 
 App.ArticleContributionComponent = Em.Component.extend({
-	tagName: 'div',
 	classNames: ['contribution-container'],
 	templateName: 'components/article-contribution',
 	article: null,
 	section: null,
 	title: null,
 
-	articleContent: Em.computed('article', function (): any {
-		return this.get('article');
-	}),
-
-	articleContentObserver: Em.observer('articleContent', function (): void {
-		// this.rerender();
-		Em.run.scheduleOnce('afterRender', this, (): void => {
-			this.setupContributionButtons();
-		});
-	}).on('init'),
-
-	setupContributionButtons: function (): void {
-		var $photoIcon = this.$('.upload-photo'),
-		    $editIcon = this.$('.edit-section');
-
-		if (this.section === 0) { //need different html for different styling for section 0
-			$photoIcon.addClass('zero');
-			$editIcon.addClass('zero');
-		}
-	},
+	// articleContent: Em.computed('article', function (): any {
+	// 	return this.get('article');
+	// }),
 
 	actions: {
-		edit: function (title: string): void {
-			//App.VisibilityStateManager.reset(); check if I do not need it anymore
+		edit: function (): void {
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
 				label: 'edit',
-				value: this.section
+				value: this.get('section')
 			});
-			this.sendAction('edit', this.title, this.section);
+			this.sendAction('edit', this.get('title'), this.get('section'));
 		},
 
 		select: function (): void {
@@ -47,14 +28,14 @@ App.ArticleContributionComponent = Em.Component.extend({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
 				label: 'addPhoto',
-				value: this.section
+				value: this.get('section')
 			});
 			this.$('.file-input').click();
 		},
 
 		addPhoto: function(): void {
 			var photoData = this.$('.file-input')[0].files[0];
-			this.sendAction('addPhoto', this.title, this.section, photoData);
+			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 		}
 	}
 });

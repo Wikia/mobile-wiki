@@ -44,7 +44,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	}).on('init'),
 
 	actions: {
-		openLightbox: function (lightboxType: string, lightboxData: any) {
+		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
 		},
 
@@ -69,7 +69,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	 *
 	 * @param {string} content HTML containing whole article
 	 */
-	hackIntoEmberRendering(content: string) {
+	hackIntoEmberRendering(content: string): void {
 		this.$().html(content);
 	},
 
@@ -114,7 +114,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 						level: elem.tagName,
 						name: elem.textContent,
 						id: elem.id,
-						section: $(elem).attr('section')
+						section: elem.getAttribute('section')
 					};
 				}
 			}).toArray();
