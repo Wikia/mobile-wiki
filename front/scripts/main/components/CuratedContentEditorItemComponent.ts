@@ -138,10 +138,10 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 	},
 
 	validateImage(): boolean {
-		var imageId = this.get('model.image_id'),
+		var imageUrl = this.get('model.image_url'),
 			errorMessage: string = null;
 
-		if (!imageId) {
+		if (!imageUrl) {
 			//@TODO CONCF-956 add translations
 			errorMessage = 'Image is empty';
 		}
