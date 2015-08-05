@@ -98,7 +98,6 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 			footerCalloutLink: 'auth:common.signin-link-text',
 			birthdateInputs: (new BirthdateInput(localeSettings[lang].date.endian, lang)).getInputData(),
 			bodyClasses: 'register-page',
-			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,

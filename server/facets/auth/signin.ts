@@ -25,7 +25,6 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
-			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
 			heliosLoginURL: localSettings.helios.host + '/token',
 			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
 			facebookAppId: localSettings.facebook.appId

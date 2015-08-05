@@ -83,6 +83,7 @@ module authView {
 	}
 
 	export function getDefaultContext (request: Hapi.Request): AuthViewContext {
+		var viewType: string = this.getViewType(request);
 		return {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
@@ -95,7 +96,8 @@ module authView {
 				(localSettings.environment === Utils.Environment.Prod ?
 					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
 			pageParams: {},
-			viewType: this.getViewType(request)
+			viewType: viewType,
+			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
 		};
 	}
 
