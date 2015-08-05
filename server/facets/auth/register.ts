@@ -3,7 +3,7 @@
 /// <reference path='../../../config/localSettings.d.ts' />
 
 import BirthdateInput = require('./BirthdateInput');
-import localeSettings = require('../../../config/localeSettings');
+import dateUtils = require('../../lib/DateUtils');
 import authUtils = require('../../lib/AuthUtils');
 import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
@@ -85,11 +85,11 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 			headerText: 'auth:join.sign-up-with-email',
 			heliosRegistrationURL: localSettings.helios.host + '/users',
 			title: 'auth:join.sign-up-with-email',
-			termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl + '" target="_blank">' + i18n.t('auth:register.terms-of-use-link') + '</a>',
+			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
-			birthdateInputs: (new BirthdateInput(localeSettings[lang].date.endian, lang)).getInputData(),
+			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
 			bodyClasses: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
