@@ -1,73 +1,39 @@
 moduleForComponent('image-media', 'ImageMediaComponent');
 
-test('get params for request to thumbnailer for the TALL infobox image', function () {
+test('computedHeight article image 200x1000', function () {
 	var component = this.subject(),
-		window = {
-			innerWidth: 400
-		},
-		data = {
-			media: {
+			articleContent = {
+				width: 400
+			},
+			media = {
 				height: 1000,
 				width: 200
 			},
-			expected: {
-				mode: 'top-crop-down',
-				height: 400,
-				width: 400
-			}
-		};
+			expected = 1000;
 
 	Ember.run(function () {
-		component.set('media', data.media);
+		component.set('media', media);
+		component.set('articleContent', articleContent);
 
-		equal(component.get('infoboxImageParams.mode'), data.expected.mode);
-		equal(component.get('infoboxImageParams.height'), data.expected.height);
-		equal(component.get('infoboxImageParams.width'), data.expected.width);
+		equal(component.get('computedHeight'), expected);
 	});
 });
 
-test('get params for request to thumbnailer for the WIDE infobox image', function () {
+test('computedHeight article image 1000x200', function () {
 	var component = this.subject(),
-		data = {
-			media: {
-				height: 600,
-				width: 1600
+			articleContent = {
+				width: 400
 			},
-			expected: {
-				mode: 'zoom-crop',
-				height: 400 * 9 / 16,
-				width: 400
-			}
-		};
-
-	Ember.run(function () {
-		component.set('media', data.media);
-
-		equal(component.get('infoboxImageParams.mode'), data.expected.mode);
-		equal(component.get('infoboxImageParams.height'), data.expected.height);
-		equal(component.get('infoboxImageParams.width'), data.expected.width);
-	});
-});
-
-test('get params for request to thumbnailer for the NORMAL infobox image', function () {
-	var component = this.subject(),
-		data = {
-			media: {
-				height: 600,
+			media = {
+				height: 200,
 				width: 1000
 			},
-			expected: {
-				mode: 'thumbnail-down',
-				height: 240,
-				width: 400
-			}
-		};
+			expected = 80;
 
 	Ember.run(function () {
-		component.set('media', data.media);
+		component.set('media', media);
+		component.set('articleContent', articleContent);
 
-		equal(component.get('infoboxImageParams.mode'), data.expected.mode);
-		equal(component.get('infoboxImageParams.height'), data.expected.height);
-		equal(component.get('infoboxImageParams.width'), data.expected.width);
+		equal(component.get('computedHeight'), expected);
 	});
 });

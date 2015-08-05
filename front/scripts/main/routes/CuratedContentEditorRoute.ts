@@ -25,6 +25,10 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 		},
 
+		openMainPage(): void {
+			this.transitionTo('mainPage');
+		},
+
 		error(error: any): boolean {
 			Em.Logger.error(error);
 			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));

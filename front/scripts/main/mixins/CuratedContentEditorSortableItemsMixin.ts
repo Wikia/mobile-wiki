@@ -4,7 +4,8 @@
 App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create({
 	persistentSort: false,
 	sortableItems: Em.computed('model.items', function (): any {
-		return Em.A().pushObjects(this.get('model.items'));
+		var items = this.get('model.items') || [];
+		return Em.A().pushObjects(items);
 	}),
 
 	actions: {
