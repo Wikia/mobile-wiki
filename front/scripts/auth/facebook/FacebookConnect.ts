@@ -4,19 +4,24 @@ interface HeliosFacebookConnectData {
 
 class FacebookConnect extends Login {
 	urlHelper: UrlHelper;
+	submitValidator: SubmitValidator;
 
-	constructor (form: HTMLFormElement) {
+	constructor (form: HTMLFormElement, submitValidator: SubmitValidator) {
 		super(form);
 		new FacebookSDK(this.init.bind(this));
 		this.urlHelper = new UrlHelper();
+		this.submitValidator = submitValidator;
 	}
 
 	public init (): void {
 		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
 			var status: string = facebookResponse.status;
-
 			if (status === 'connected') {
 				this.watch();
+			} else {
+				this.displayError('errors.server-error');
+				//FB SDK failed, we won't be able to connect accounts
+				this.submitValidator.disablePermanently();
 			}
 		}.bind(this));
 	}
@@ -50,12 +55,18 @@ class FacebookConnect extends Login {
 
 				window.location.href = this.redirect;
 			} else {
-				this.formErrors.displayGeneralError();
+				M.track({
+					trackingMethod: 'both',
+					action: Mercury.Utils.trackActions.error,
+					category: 'user-signup-mobile',
+					label: 'facebook-link-existing'
+				});
+				this.displayError('errors.server-error');
 			}
 		};
 
 		facebookConnectXhr.onerror = (e: Event) => {
-			this.formErrors.displayGeneralError();
+			this.displayError('errors.server-error');
 		};
 
 		facebookConnectXhr.open('PUT', url, true);

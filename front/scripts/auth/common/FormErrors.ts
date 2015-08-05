@@ -4,7 +4,7 @@ class FormErrors {
 	generalErrorShown: boolean = false;
 	trackingLabelPrefix: string;
 
-	constructor (form: HTMLFormElement, trackingLabelPrefix: string) {
+	constructor (form: HTMLFormElement, trackingLabelPrefix: string = 'formValidationErrors') {
 		this.form = form;
 		this.trackingLabelPrefix = trackingLabelPrefix;
 	}

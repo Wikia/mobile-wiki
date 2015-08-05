@@ -108,7 +108,7 @@ class Login {
 		};
 	}
 
-	private displayError (messageKey: string): void {
+	public displayError (messageKey: string): void {
 		var errorElement: HTMLElement = document.createElement('small');
 		errorElement.classList.add('error');
 		errorElement.innerHTML = i18n.t(messageKey);

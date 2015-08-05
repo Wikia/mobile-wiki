@@ -21,16 +21,18 @@ i18n.init(<I18nextOptions> {
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
 	var formElement: HTMLFormElement = <HTMLFormElement> window.document.querySelector('form'),
-		birthdateContainer: HTMLElement;
+		birthdateContainer: HTMLElement,
+		submitValidator: SubmitValidator;
 	if (formElement) {
 		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();
-		new SubmitValidator(formElement).watch();
+		submitValidator = new SubmitValidator(formElement);
+		submitValidator.watch();
 
 		if (formElement.id === 'loginForm') {
 			new Login(formElement).watch();
 		} else if (formElement.id === 'facebookConnectForm') {
-			new FacebookConnect(formElement);
+			new FacebookConnect(formElement, submitValidator);
 		} else if (formElement.id === 'signupForm') {
 			new SignupForm(formElement).watch();
 		} else if (formElement.id === 'facebookRegistrationForm') {
