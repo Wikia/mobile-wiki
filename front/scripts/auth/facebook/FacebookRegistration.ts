@@ -26,6 +26,7 @@ class FacebookRegistration {
 	redirect: string;
 	urlHelper: UrlHelper;
 	marketingOptIn: MarketingOptIn;
+	termsOfUse: TermsOfUse;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -37,6 +38,8 @@ class FacebookRegistration {
 		}
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
+		this.termsOfUse.init();
+
 		this.redirect = this.redirect || '/';
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));

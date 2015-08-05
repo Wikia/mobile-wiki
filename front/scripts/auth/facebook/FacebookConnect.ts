@@ -2,6 +2,14 @@ interface HeliosFacebookConnectData {
 	fb_access_token: string;
 }
 
+interface PageParams {
+	facebookAppId: number;
+}
+
+interface Window {
+	pageParams: PageParams;
+}
+
 class FacebookConnect extends Login {
 
 	constructor (form: HTMLFormElement) {
@@ -27,7 +35,7 @@ class FacebookConnect extends Login {
 
 	private getHeliosFacebookConnectUrl(userId: string): string {
 		return this.form.getAttribute('data-heliosFacebookConnectURL')
-			+ userId + '/facebook_app_id/' + window.facebookAppId;
+			+ userId + '/facebook_app_id/' + window.pageParams.facebookAppId;
 	}
 
 	public onLoginSuccess (loginResponse: LoginResponse): void {
