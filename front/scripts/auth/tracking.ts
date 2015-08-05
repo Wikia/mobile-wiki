@@ -20,7 +20,7 @@
 		setTrackingDimensions();
 	}
 
-	function getRedirectQueryParam() {
+	function getRedirectQueryParam(name) {
 		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
 			results = regex.exec(location.search);
@@ -36,7 +36,7 @@
 		// IsCorporatePage
 		dimensions[15] = 'No';
 		// newAuthEntryPage
-		dimensions[10] = getRedirectQueryParam();
+		dimensions[10] = getRedirectQueryParam('redirect');
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
