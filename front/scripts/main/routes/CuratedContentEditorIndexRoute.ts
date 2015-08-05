@@ -51,9 +51,9 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 		this.set('loadingCropper', true);
 
 		$('<link>')
-			.appendTo('head')
 			.attr({type : 'text/css', rel : 'stylesheet'})
-			.attr('href', `${this.cropperPath}/cropper.min.css`);
+			.attr('href', `${this.cropperPath}/cropper.min.css`)
+			.appendTo('head');
 
 		return Em.$.getScript(`${this.cropperPath}/cropper.min.js`);
 	},
