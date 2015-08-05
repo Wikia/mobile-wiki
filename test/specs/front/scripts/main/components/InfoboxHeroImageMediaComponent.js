@@ -1,4 +1,4 @@
-moduleForComponent('infobox-image-media', 'InfoboxImageMediaComponent');
+moduleForComponent('infobox-hero-image-media', 'InfoboxHeroImageMediaComponent');
 
 test('computedHeight TALL infobox image 200x1000', function () {
 	var component = this.subject(),
