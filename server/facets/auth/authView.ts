@@ -88,7 +88,6 @@ module authView {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
-			standalonePage: false,
 			mainPage: "http://www.wikia.com",
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
