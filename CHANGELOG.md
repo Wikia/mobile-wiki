@@ -1,3 +1,7 @@
+## release-127 (2015-08-05 10:00 UTC)
+* [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) HG-808
+* [CONCF-741](https://wikia-inc.atlassian.net/browse/CONCF-741) CONCF-741 Add photo upload to the Curated Content Tool
+
 ## release-126 (2015-08-04 10:00 UTC)
 * [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 moving logged_in flag
 * revert-1140-HG-808: Revert "decouple article route from application in ember and hapi"
