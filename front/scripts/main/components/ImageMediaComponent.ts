@@ -4,18 +4,11 @@
 /// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
-interface ThumbnailerParams {
-	mode: string;
-	height: number;
-	width: number;
-}
-
 App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App.ViewportMixin, {
 	smallImageSize: {
 		height: 64,
 		width: 64
 	},
-	imageAspectRatio: 16 / 9,
 	classNames: ['article-image'],
 	classNameBindings: ['hasCaption', 'visible', 'isSmall'],
 	layoutName: 'components/image-media',
@@ -45,64 +38,21 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 			imageHeight = this.get('media.height');
 
 		if (pageWidth < imageWidth) {
-			return ~~(pageWidth * (imageHeight / imageWidth));
+			return Math.floor(pageWidth * (imageHeight / imageWidth));
 		}
 
 		return imageHeight;
 	}),
 
 	/**
-	 * @desc return the params for getThumbURL for infobox image.
-	 * In case of very high or very wide images, crop them properly.
-	 * @return ThumbnailerParams
-	 */
-	infoboxImageParams: Em.computed('media', 'imageAspectRatio', {
-		get(): ThumbnailerParams {
-			var media: ArticleMedia = this.get('media'),
-				imageAspectRatio: number = this.get('imageAspectRatio'),
-				maximalWidth: number = Math.floor(media.height * imageAspectRatio),
-				windowWidth: number = this.get('viewportDimensions.width');
-
-			//high image- image higher than square. Make it square.
-			if (media.height > media.width) {
-				return {
-					mode: Mercury.Modules.Thumbnailer.mode.topCropDown,
-					height: windowWidth,
-					width: windowWidth
-				}
-			}
-
-			//wide image- image wider than 16:9 aspect ratio. Crop it to have 16:9 ratio.
-			if (media.width > maximalWidth) {
-				return {
-					mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
-					height: Math.floor(windowWidth / imageAspectRatio),
-					width: windowWidth
-				}
-			}
-
-			//normal image- size between the 16:9 ratio and square.
-			//Compute height with regard to full-screen width of infobox.
-			return {
-				mode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-				height: Math.floor(windowWidth * (media.height / media.width)),
-				width: windowWidth
-			}
-		}
-	}),
-
-	/**
 	 * @desc return the thumbURL for media.
 	 * If media is an icon, use the limited width.
-	 * If media is an infobox image, use specified thumb params.
 	 */
-	url: Em.computed({
+	url: Em.computed('media', 'computedHeight', 'articleContent.width', 'imageSrc', {
 		get(): string {
 				var media: ArticleMedia = this.get('media'),
 					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-					height: number = this.get('computedHeight'),
-					width: number = this.get('articleContent.width'),
-					infoboxImageParams: ThumbnailerParams;
+					width: number = this.get('articleContent.width');
 
 				if (!media) {
 					return this.get('imageSrc');
@@ -111,17 +61,11 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 				if (media.context === 'icon') {
 					mode = Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 					width = this.get('iconWidth');
-				} else if (media.context === 'infobox') {
-					infoboxImageParams = this.get('infoboxImageParams');
-					this.set('limitHeight', true);
-					mode = infoboxImageParams.mode;
-					height = infoboxImageParams.height;
-					width = infoboxImageParams.width;
 				}
 
 				return this.getThumbURL(media.url, {
 					mode: mode,
-					height: height,
+					height: this.get('computedHeight'),
 					width: width
 				});
 
