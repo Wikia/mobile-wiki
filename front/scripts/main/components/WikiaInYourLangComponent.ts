@@ -40,7 +40,7 @@ App.WikiaInYourLangComponent = Em.Component.extend(App.AlertNotificationsMixin, 
 			expiry: 60000,
 			unsafe: true,
 			callbacks: {
-				onInsertElement: function(alert: any): void {
+				onInsertElement: function (alert: any): void {
 					alert.on('click', 'a:not(.close)', (event: any) => {
 						M.track({
 							action: M.trackActions.click,
@@ -49,7 +49,7 @@ App.WikiaInYourLangComponent = Em.Component.extend(App.AlertNotificationsMixin, 
 						});
 					});
 				},
-				onCloseAlert: function(): void {
+				onCloseAlert: function (): void {
 					window.localStorage.setItem(this.getAlertKey(), new Date().getTime().toString());
 					M.track({
 						action: M.trackActions.click,
