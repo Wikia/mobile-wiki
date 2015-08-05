@@ -29,9 +29,6 @@ var counter = 1,
 		connections: {
 			router: {
 				stripTrailingSlash: true
-			},
-			routes: {
-				cors: true
 			}
 		}
 	});

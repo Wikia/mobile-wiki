@@ -100,7 +100,7 @@
 
 				function importIcons (fOnload) {
 					var ajax = new XMLHttpRequest();
-					ajax.open('GET', '/front/svg/main.svg?cb=' + Math.random(), true);
+					ajax.open('GET', '/front/svg/main.svg?t=' + Date.now(), true);
 					ajax.send();
 					ajax.onload = function(e) {
 						var div = document.createElement('div');
@@ -112,10 +112,9 @@
 				}
 
 				document.addEventListener("DOMContentLoaded", function(event) {
-					importIcons(function () {
-						importScript('/front/vendor/main.js', function () {
-							importScript('/front/scripts/combined.js');
-						});
+					importIcons();
+					importScript('/front/vendor/main.js', function () {
+						importScript('/front/scripts/combined.js');
 					});
 				});
 			}());
