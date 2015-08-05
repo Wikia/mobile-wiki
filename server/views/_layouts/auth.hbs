@@ -16,17 +16,18 @@
 	<body class="auth {{viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
-		{{#if exitTo}}
-		<a class="close" href="{{exitTo}}">
-			<svg role="img">
-				<use xlink:href="#close"></use>
-			</svg>
-		</a>
-		{{/if}}
 		{{#if standalonePage}}
-		<nav class="global-nav">
-			<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
-		</nav>
+			<nav class="global-nav">
+				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
+			</nav>
+		{{else}}
+			{{#if exitTo }}
+			<a class="close" href="{{exitTo}}">
+				<svg role="img">
+					<use xlink:href="#close"></use>
+				</svg>
+			</a>
+			{{/if}}
 		{{/if}}
 
 		{{#unless hideHeader}}
