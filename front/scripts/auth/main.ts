@@ -21,7 +21,8 @@ i18n.init(<I18nextOptions> {
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
 	var formElement: HTMLFormElement = <HTMLFormElement> document.querySelector('form'),
-		birthdateContainer: HTMLElement;
+		birthdateContainer: HTMLElement,
+		bodyClassList = document.body.classList;
 
 	if (formElement) {
 		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
@@ -39,7 +40,10 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		}
 	}
 
-	if (document.body.className.indexOf('join-page') !== -1) {
+	if (
+		bodyClassList.contains('join-page') ||
+		(bodyClassList.contains('desktop') && bodyClassList.contains('signin-page'))
+	) {
 		new FacebookLogin(<HTMLAnchorElement> document.querySelector('.signup-provider-facebook'));
 	}
 
