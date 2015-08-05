@@ -17,6 +17,36 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 	loadingCropper: false,
 	cropperPath: '/front/vendor/cropper/dist',
 
+	/**
+	 * This is needed as by default cropper will initialize itself as module
+	 * if define.amd is truthy
+	 * define.amd might be truthy here if ads code is loaded before
+	 *
+	 * This will be not neeede when we move to module system
+	 *
+	 * @param {JQueryXHR} promise
+	 * @returns {JQueryXHR}
+	 */
+	suppressDefineAmd(promise: JQueryXHR) {
+		var oldAmd;
+
+		if (window.define) {
+			oldAmd = define.amd;
+			define.amd = false;
+
+			return promise.then((): void => {
+				define.amd = oldAmd;
+			});
+		}
+
+		return promise;
+	},
+
+	/**
+	 * Loads Cropper css and js
+	 *
+	 * @returns {JQueryXHR}
+	 */
 	loadCropper(): JQueryXHR {
 		this.set('loadingCropper', true);
 
@@ -30,7 +60,9 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 
 	beforeModel(): JQueryXHR {
 		if (!$().cropper || !this.get('loadingCropper')) {
-			return this.loadCropper();
+			return this.suppressDefineAmd(
+				this.loadCropper()
+			);
 		}
 	}
 });
