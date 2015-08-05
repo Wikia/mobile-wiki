@@ -23,7 +23,6 @@ class Login {
 	redirect: string;
 	usernameInput: HTMLInputElement;
 	passwordInput: HTMLInputElement;
-	standalone: boolean;
 
 	constructor (form: Element) {
 		var elements: FormElements;
@@ -35,7 +34,6 @@ class Login {
 			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
 			this.redirect = params['redirect'];
 		}
-		this.standalone = document.body.classList.contains("standalone");
 		this.redirect = this.redirect || '/';
 	}
 
@@ -124,10 +122,11 @@ class Login {
 	}
 
 	private track (label: string, action: string): void {
+		console.log('user-login-' + pageParams.viewType)
 		M.track({
 			trackingMethod: 'both',
 			action: action,
-			category: 'user-login' + (this.standalone ? 'desktop' : 'mobile'),
+			category: 'user-login-' + pageParams.viewType,
 			label: label
 		});
 	}

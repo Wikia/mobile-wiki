@@ -98,6 +98,9 @@ module authView {
 			pageParams: {},
 			viewType: viewType,
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
+			pageParams: {
+				viewType: viewType
+			}
 		};
 	}
 

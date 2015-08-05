@@ -22,7 +22,6 @@ class SignupForm {
 	generalErrorShown: boolean = false;
 	redirect: string;
 	marketingOptIn: MarketingOptIn;
-	standalone: boolean;
 	termsOfUse: TermsOfUse;
 
 	constructor(form: Element) {
@@ -34,7 +33,6 @@ class SignupForm {
 		this.redirect = this.redirect || '/';
 		this.marketingOptIn = new MarketingOptIn();
 		this.termsOfUse = new TermsOfUse(this.form);
-		this.standalone = document.body.classList.contains("standalone");
 		this.marketingOptIn.init();
 		this.termsOfUse.init();
 	}
@@ -126,7 +124,7 @@ class SignupForm {
 		M.track({
 			trackingMethod: 'both',
 			action: M.trackActions.success,
-			category: 'user-login-' + (this.standalone ? 'desktop' : 'mobile'),
+			category: 'user-login-' + pageParams.viewType,
 			label: 'successful-registration'
 		});
 	}
