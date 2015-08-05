@@ -39,6 +39,7 @@ class FacebookRegistration {
 		}
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
+		this.termsOfUse = new TermsOfUse(this.form);
 		this.termsOfUse.init();
 
 		this.redirect = this.redirect || '/';
