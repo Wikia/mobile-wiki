@@ -6,9 +6,9 @@
 'use strict';
 
 App.WikiaInYourLangComponent = Em.Component.extend(App.AlertNotificationsMixin, App.LanguagesMixin, {
-	classNames: ['wikia-in-your-lang'],
+	alertKey: 'wikiaInYourLang.alertDismissed',
 
-	didInsertElement: function () {
+	didInsertElement: function (): void {
 		this.handleWikiaInYourLang();
 	},
 
@@ -40,7 +40,7 @@ App.WikiaInYourLangComponent = Em.Component.extend(App.AlertNotificationsMixin, 
 			expiry: 60000,
 			unsafe: true,
 			callbacks: {
-				onInsertElement: function (alert: any): void {
+				onInsertElement: (alert: any): void => {
 					alert.on('click', 'a:not(.close)', (event: any) => {
 						M.track({
 							action: M.trackActions.click,
@@ -49,8 +49,8 @@ App.WikiaInYourLangComponent = Em.Component.extend(App.AlertNotificationsMixin, 
 						});
 					});
 				},
-				onCloseAlert: function (): void {
-					window.localStorage.setItem(this.getAlertKey(), new Date().getTime().toString());
+				onCloseAlert: (): void => {
+					window.localStorage.setItem(this.get('alertKey'), new Date().getTime().toString());
 					M.track({
 						action: M.trackActions.click,
 						category: 'wikiaInYourLangAlert',
@@ -63,14 +63,10 @@ App.WikiaInYourLangComponent = Em.Component.extend(App.AlertNotificationsMixin, 
 	},
 
 	shouldShowWikiaInYourLang: function (): boolean {
-		var value = window.localStorage.getItem(this.getAlertKey()),
+		var value = window.localStorage.getItem(this.get('alertKey')),
 		    now = new Date().getTime(),
 		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
 		    isJaOnNonJaWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
 		return notDismissed && isJaOnNonJaWikia;
-	},
-
-	getAlertKey: function (): string {
-		return 'wikiaInYourLang.alertDismissed';
 	}
 });

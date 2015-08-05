@@ -1,7 +1,6 @@
 /// <reference path='../app.ts' />
 /// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path='../../../../typings/headroom/headroom.d.ts' />
-/// <reference path="../mixins/LanguagesMixin.ts" />
 
 'use strict';
 
@@ -20,7 +19,7 @@ interface EventTarget {
 	tagName: string;
 }
 
-App.ApplicationView = Em.View.extend(App.LanguagesMixin, {
+App.ApplicationView = Em.View.extend({
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Em.computed(function (): string {
