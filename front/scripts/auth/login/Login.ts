@@ -96,7 +96,7 @@ class Login {
 
 	public watch(onLoginSuccess: Function = this.onLoginSuccess): void {
 		this.form.addEventListener('submit', function (e: Event) {
-			this.onSubmit(e, onLoginSuccess);
+			this.onSubmit(e, onLoginSuccess.bind(this));
 		}.bind(this));
 	}
 
