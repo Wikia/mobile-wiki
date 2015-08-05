@@ -19,6 +19,7 @@
 .standalone {
 	.desktop-view {
 		margin: 0px 31px;
+		min-width: 768px;
 		border-style: solid;
 		border-color: $iron;
 		border-width: 0px 1px;
