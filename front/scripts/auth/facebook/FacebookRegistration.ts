@@ -26,6 +26,7 @@ class FacebookRegistration {
 	redirect: string;
 	urlHelper: UrlHelper;
 	marketingOptIn: MarketingOptIn;
+	termsOfUse: TermsOfUse;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -37,6 +38,9 @@ class FacebookRegistration {
 		}
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
+		this.termsOfUse = new TermsOfUse(this.form);
+		this.termsOfUse.init();
+
 		this.redirect = this.redirect || '/';
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
@@ -92,6 +96,7 @@ class FacebookRegistration {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
+				this.track('facebook-signup-join-wikia-success', Mercury.Utils.trackActions.success);
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				//ToDo show the "unable to login" error
@@ -101,6 +106,7 @@ class FacebookRegistration {
 		};
 
 		facebookTokenXhr.onerror = (e: Event): void => {
+			this.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
 			//ToDo show the "unable to login" error
 		};
 
@@ -130,6 +136,7 @@ class FacebookRegistration {
 		};
 
 		facebookRegistrationXhr.onerror = (e: Event) => {
+			this.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
 			//ToDo: show unhealthy backed message
 		};
 
@@ -137,5 +144,14 @@ class FacebookRegistration {
 		facebookRegistrationXhr.withCredentials = true;
 		facebookRegistrationXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookRegistrationXhr.send(this.urlHelper.urlEncode(data));
+	}
+
+	private track (label: string, action: string): void {
+		M.track({
+			trackingMethod: 'both',
+			action: action,
+			category: 'user-signup-mobile',
+			label: label
+		});
 	}
 }

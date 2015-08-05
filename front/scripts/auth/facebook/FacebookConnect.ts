@@ -2,31 +2,27 @@ interface HeliosFacebookConnectData {
 	fb_access_token: string;
 }
 
-class FacebookConnect {
+interface PageParams {
+	facebookAppId: number;
+}
 
-	form: HTMLFormElement;
-	redirect: string;
-	urlHelper: UrlHelper;
-	login: Login;
+interface Window {
+	pageParams: PageParams;
+}
+
+class FacebookConnect extends Login {
 
 	constructor (form: HTMLFormElement) {
+		super(form);
 		new FacebookSDK(this.init.bind(this));
-		this.login = new Login(form);
-		this.form = form;
-		this.urlHelper = new UrlHelper();
-		if (window.location.search) {
-			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
-			this.redirect = params['redirect'];
-		}
-		this.redirect = this.redirect || '/';
 	}
 
 	public init (): void {
 		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
-			var status = facebookResponse.status;
+			var status: string = facebookResponse.status;
 
 			if (status === 'connected') {
-				this.login.watch(this.onLoginSuccess.bind(this));
+				this.watch();
 			}
 		}.bind(this));
 	}
@@ -39,18 +35,25 @@ class FacebookConnect {
 
 	private getHeliosFacebookConnectUrl(userId: string): string {
 		return this.form.getAttribute('data-heliosFacebookConnectURL')
-			+ userId + '/facebook_app_id/' + M.prop('facebookAppId');
+			+ userId + '/facebook_app_id/' + window.pageParams.facebookAppId;
 	}
 
 	public onLoginSuccess (loginResponse: LoginResponse): void {
 		var facebookConnectXhr = new XMLHttpRequest(),
-			data = this.getHeliosFacebookConnectData(),
-			url = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
+			data: HeliosFacebookConnectData = this.getHeliosFacebookConnectData(),
+			url: string = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
 
 		facebookConnectXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
+				M.track({
+					trackingMethod: 'both',
+					action: Mercury.Utils.trackActions.success,
+					category: 'user-signup-mobile',
+					label: 'facebook-link-existing'
+				});
+
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				//ToDo show the "unable to connect" error

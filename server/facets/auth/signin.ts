@@ -13,8 +13,6 @@ interface SignInViewContext extends authView.AuthViewContext {
 }
 
 function getSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
-	var viewType: string = authView.getViewType(request);
-
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
@@ -27,7 +25,11 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			bodyClasses: 'signin-page',
 			heliosLoginURL: localSettings.helios.host + '/token',
 			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
-			facebookAppId: localSettings.facebook.appId
+			submitText: 'auth:signin.submit-text',
+			formId: 'loginForm',
+			pageParams: {
+				facebookAppId: localSettings.facebook.appId
+			}
 		}
 	);
 }
@@ -36,8 +38,8 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
-			title: 'auth:signin.signin-title',
-			headerText: 'auth:signin.welcome-back',
+			title: 'auth:common.connect-with-facebook',
+			headerText: 'auth:common.connect-with-facebook',
 			footerCallout: 'auth:signin.register-callout',
 			footerCalloutLink: 'auth:signin.register-now',
 			footerHref: authUtils.getRegisterUrl(request),
@@ -45,7 +47,11 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 			bodyClasses: 'fb-connect-page',
 			heliosLoginURL: localSettings.helios.host + '/token',
 			heliosFacebookConnectURL: localSettings.helios.host + '/users/',
-			facebookAppId: localSettings.facebook.appId
+			submitText: 'auth:fb-connect.submit-text',
+			formId: 'facebookConnectForm',
+			pageParams: {
+				facebookAppId: localSettings.facebook.appId
+			}
 		}
 	);
 }

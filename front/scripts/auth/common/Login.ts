@@ -23,6 +23,7 @@ class Login {
 	redirect: string;
 	usernameInput: HTMLInputElement;
 	passwordInput: HTMLInputElement;
+	urlHelper: UrlHelper;
 
 	constructor (form: Element) {
 		var elements: FormElements;
@@ -30,14 +31,16 @@ class Login {
 		elements = <FormElements> this.form.elements;
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
+		this.urlHelper = new UrlHelper();
+
 		if (window.location.search) {
-			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
 	}
 
-	public onSubmit (event: Event, onLoginSuccess: Function): void {
+	public onSubmit (event: Event): void {
 		var xhr = new XMLHttpRequest(),
 			postData: LoginCredentials = this.getCredentials(),
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
@@ -72,7 +75,7 @@ class Login {
 				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
 				this.displayError('errors.wrong-credentials');
 			} else {
-				onLoginSuccess(response);
+				this.onLoginSuccess(response);
 			}
 		};
 
@@ -86,18 +89,16 @@ class Login {
 		xhr.open('post', this.form.action, true);
 		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhr.send((new UrlHelper()).urlEncode(postData));
+		xhr.send(this.urlHelper.urlEncode(postData));
 	}
 
-	public onLoginSuccess() {
+	public onLoginSuccess(loginResponse: LoginResponse): void {
 		this.track('login-success', Mercury.Utils.trackActions.submit);
 		window.location.href = this.redirect;
 	}
 
-	public watch(onLoginSuccess: Function = this.onLoginSuccess): void {
-		this.form.addEventListener('submit', function (e: Event) {
-			this.onSubmit(e, onLoginSuccess.bind(this));
-		}.bind(this));
+	public watch(): void {
+		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 
 	private getCredentials (): LoginCredentials {
@@ -122,7 +123,6 @@ class Login {
 	}
 
 	private track (label: string, action: string): void {
-		console.log('user-login-' + pageParams.viewType)
 		M.track({
 			trackingMethod: 'both',
 			action: action,
