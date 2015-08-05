@@ -10,13 +10,16 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 		width: 64
 	},
 	classNames: ['article-image'],
-	classNameBindings: ['hasCaption', 'visible', 'isSmall'],
+	classNameBindings: ['hasCaption', 'visible', 'isSmall', 'isIcon'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
 		'emptyGif'
 	),
-	hasCaption: Em.computed.notEmpty('media.caption'),
+
+	hasCaption: Em.computed('media.caption', 'isicon', function (): boolean {
+		return !this.get('isIcon') && this.get('media.caption').length !== 0;
+	}),
 
 	link: Em.computed.alias('media.link'),
 
@@ -26,6 +29,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 
 		return !!imageWidth && imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
 	}),
+
+	isIcon: Em.computed.equal('media.context', 'icon'),
 
 	/**
 	 * used to set proper height to img tag before it loads
