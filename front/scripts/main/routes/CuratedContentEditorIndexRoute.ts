@@ -4,7 +4,11 @@
 'use strict';
 
 interface JQuery {
-	cropper: any
+	cropper: any;
+}
+
+interface Window {
+	define: any;
 }
 
 App.CuratedContentEditorIndexRoute = Em.Route.extend({
@@ -28,11 +32,11 @@ App.CuratedContentEditorIndexRoute = Em.Route.extend({
 		var oldAmd: any;
 
 		if (window.define) {
-			oldAmd = define.amd;
-			define.amd = false;
+			oldAmd = window.define.amd;
+			window.define.amd = false;
 
 			return promise.then((): void => {
-				define.amd = oldAmd;
+				window.define.amd = oldAmd;
 			});
 		}
 
