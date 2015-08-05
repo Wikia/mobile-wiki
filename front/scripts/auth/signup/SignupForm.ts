@@ -20,7 +20,8 @@ class SignupForm {
 	form: HTMLFormElement;
 	redirect: string;
 	marketingOptIn: MarketingOptIn;
-    formErrors: FormErrors;
+	formErrors: FormErrors;
+	termsOfUse: TermsOfUse;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -30,8 +31,10 @@ class SignupForm {
 		}
 		this.redirect = this.redirect || '/';
 		this.marketingOptIn = new MarketingOptIn();
+		this.termsOfUse = new TermsOfUse(this.form);
 		this.marketingOptIn.init();
-        this.formErrors = new FormErrors(this.form, 'registrationValidationErrors');
+		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors');
+		this.termsOfUse.init();
 	}
 
 	private getFormValues(): HeliosRegisterInput {

@@ -24,7 +24,7 @@ class FacebookSDK {
 
 		window.fbAsyncInit = function(): void {
 			window.FB.init({
-				appId: window.facebookAppId,
+				appId: window.pageParams.facebookAppId,
 				cookie: true,
 				version: this.version
 			});

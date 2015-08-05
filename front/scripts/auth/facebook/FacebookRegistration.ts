@@ -27,6 +27,7 @@ class FacebookRegistration {
 	urlHelper: UrlHelper;
 	marketingOptIn: MarketingOptIn;
     formErrors: FormErrors;
+	termsOfUse: TermsOfUse;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -38,6 +39,8 @@ class FacebookRegistration {
 		}
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
+		this.termsOfUse.init();
+
 		this.redirect = this.redirect || '/';
         this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors');
 

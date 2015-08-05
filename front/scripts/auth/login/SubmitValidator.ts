@@ -2,7 +2,6 @@
  * Main entrypoint for validating user login
  */
 class SubmitValidator {
-	inputFields: NodeList;
 	form: HTMLFormElement;
 	submitButton: HTMLButtonElement;
 	isPermanentlyDisabled: boolean = false;
@@ -10,8 +9,6 @@ class SubmitValidator {
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
 		this.submitButton = <HTMLButtonElement> this.form.querySelector('button[type=submit]');
-		this.inputFields = form.querySelectorAll('input[type=text], ' +
-		'input[type=password], input[type=number], input[type=email]');
 	}
 
 	/**
@@ -31,15 +28,15 @@ class SubmitValidator {
 	 */
 	private areAllFieldsFilled ():boolean {
 		var i: number,
-			input: HTMLInputElement;
-		for (i = 0; i < this.inputFields.length; i++) {
-			input = <HTMLInputElement> this.inputFields[i];
-			if (!input.value) {
-				return false;
-			}
-		}
-		return true;
+			input: HTMLInputElement,
+			inputFields: NodeList = this.form.querySelectorAll('input[type=text], ' +
+			'input[type=password], input[type=number], input[type=email], input[type=checkbox]:required');
+
+		return Array.prototype.slice.call(inputFields, 0).every((input: HTMLInputElement): boolean => {
+			return input.value && !(input.type === 'checkbox' && !input.checked);
+		});
 	}
+
 
 	private activateSubmit ():void {
 		this.submitButton.disabled = false;
