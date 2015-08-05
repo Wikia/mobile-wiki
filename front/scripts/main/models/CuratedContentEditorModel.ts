@@ -145,6 +145,8 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
+		//When parent doesn't have items we need to initialize them
+		parent.items = parent.items || [];
 		parent.items.push(newItem.toPlainObject());
 	},
 
