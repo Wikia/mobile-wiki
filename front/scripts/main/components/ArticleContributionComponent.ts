@@ -4,13 +4,8 @@
 App.ArticleContributionComponent = Em.Component.extend({
 	classNames: ['contribution-container'],
 	templateName: 'components/article-contribution',
-	article: null,
 	section: null,
 	title: null,
-
-	// articleContent: Em.computed('article', function (): any {
-	// 	return this.get('article');
-	// }),
 
 	actions: {
 		edit: function (): void {
@@ -33,7 +28,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 			this.$('.file-input').click();
 		},
 
-		addPhoto: function(): void {
+		addPhoto: function (): void {
 			var photoData = this.$('.file-input')[0].files[0];
 			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 		}

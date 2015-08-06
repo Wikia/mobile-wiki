@@ -90,7 +90,6 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		var article = this.get('content'),
 			title = this.get('cleanTitle'),
 			component = this.createChildView(App.ArticleContributionComponent.create({
-				article: article,
 				section: section,
 				title: title,
 				edit: 'edit',
