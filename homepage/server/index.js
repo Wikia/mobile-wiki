@@ -13,6 +13,14 @@ var Hapi = require('hapi'),
 	server = new Hapi.Server();
 
 server.connection({ port: 8111 });
+
+// Initialize cookies
+server.state('access_token', {
+	isHttpOnly: true,
+	clearInvalid: true,
+	domain: '.wikia.com' //TODO: localSettings.authCookieDomain
+});
+
 server.route(routes);
 
 server.views({
@@ -20,8 +28,9 @@ server.views({
 		html: require('handlebars')
 	},
 	path: path.resolve(__dirname, 'views'),
-	layoutPath: path.resolve(__dirname, 'views/layout'),
-	layout: 'default',
+	layoutPath: path.resolve(__dirname, 'views/_layouts'),
+	partialsPath: path.join(__dirname, 'views/_partials'),
+	layout: 'default'
 });
 
 // Console logging
