@@ -190,11 +190,19 @@ $row-height: 5rem;
 		display: none;
 	}
 
-	.file-upload-label {
-		height: 90vw;
+	.image-modal {
 		position: absolute;
-		top: 14px;
-		width: 100vw;
+		background-color: #fff;
+		display: none;
+		z-index: $z-9;
+
+		ul {
+			list-style: none;
+		}
+	}
+
+	&.image-modal-visible .image-modal {
+		display: block;
 	}
 }
 

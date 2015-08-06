@@ -6,13 +6,19 @@
 		{{!-- @TODO CONCF-956 add translations to Create new item --}}
 		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new{{/if}}</div>
 	</header>
-	<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}">
+	<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}" {{action 'showImageModal'}}>
 		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
 		{{#if imageErrorMessage}}
 			<small class="error">{{imageErrorMessage}}</small>
 		{{/if}}
 		{{loading-spinner active=isLoading overlay=false}}
-		{{file-input fileUpload='fileUpload' reset=resetFileInput}}
+	</div>
+	<div class="image-modal">
+		<button {{action 'hideImageModal'}}>x</button>
+		<ul>
+			<li>{{file-input fileUpload='fileUpload' reset=resetFileInput label='Upload image'}}</li>
+			<li>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
+		</ul>
 	</div>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">

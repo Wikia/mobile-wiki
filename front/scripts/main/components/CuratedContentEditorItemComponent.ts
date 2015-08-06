@@ -10,6 +10,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 	App.LoadingSpinnerMixin,
 {
 	classNames: ['curated-content-editor-item'],
+	classNameBindings: ['imageModalVisible'],
 	imageSize: 300,
 	maxLabelLength: 48,
 	debounceDuration: 250,
@@ -134,6 +135,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 				.finally(() => {
 					this.hideLoader();
 				});
+		},
+
+		showImageModal(): void {
+			this.set('imageModalVisible', true);
+		},
+
+		hideImageModal(): void {
+			this.set('imageModalVisible', false);
 		}
 	},
 
