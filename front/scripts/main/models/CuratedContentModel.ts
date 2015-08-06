@@ -5,6 +5,20 @@ interface CuratedContentItem {
 	label: string;
 	imageUrl: string;
 	type: string;
+	imageCrop?: {
+		landscape: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		square: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+	};
 	url?: string;
 	categoryName?: string;
 	ns?: number;
@@ -102,6 +116,7 @@ App.CuratedContentModel.reopenClass({
 			item = {
 				label: rawData.title,
 				imageUrl: rawData.image_url,
+				imageCrop: rawData.image_crop,
 				type: 'section'
 			};
 		} else if (rawData.type === 'category') {
@@ -124,6 +139,7 @@ App.CuratedContentModel.reopenClass({
 			item = {
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
+				imageCrop: rawData.image_crop,
 				type: 'category',
 				categoryName
 			}
@@ -131,6 +147,7 @@ App.CuratedContentModel.reopenClass({
 			item = {
 				label: rawData.title,
 				imageUrl: rawData.thumbnail,
+				imageCrop: rawData.image_crop,
 				type: rawData.type,
 				url: rawData.url
 			};

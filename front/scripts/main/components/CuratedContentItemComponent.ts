@@ -8,7 +8,6 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
 	classNameBindings: ['type'],
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 	thumbUrl: Em.computed.oneWay('emptyGif'),
@@ -61,9 +60,21 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		var options: any = {
 				width: this.get('imageSize'),
 				height: this.get('imageSize'),
-				mode: this.get('cropMode')
 			},
-			thumbUrl: string = this.thumbnailer.getThumbURL(this.get('model.imageUrl'), options);
+			thumbUrl: string,
+			imageCrop = this.get('model.imageCrop.square');
+
+		if (imageCrop) {
+			options.mode = Mercury.Modules.Thumbnailer.mode.windowCrop;
+			options.xOffset1 = imageCrop.x;
+			options.yOffset1 = imageCrop.y;
+			options.xOffset2 = imageCrop.x + imageCrop.width;
+			options.yOffset2 = imageCrop.y + imageCrop.height;
+		} else {
+			options.mode = Mercury.Modules.Thumbnailer.mode.topCrop;
+		}
+
+		thumbUrl = this.thumbnailer.getThumbURL(this.get('model.imageUrl'), options);
 
 		this.set('thumbUrl', thumbUrl);
 	},
