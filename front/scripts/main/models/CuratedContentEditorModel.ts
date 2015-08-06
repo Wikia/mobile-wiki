@@ -1,9 +1,22 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface CuratedContentEditorImageCropCoordsInterface {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+}
+
+interface CuratedContentEditorImageCropsInterface {
+	landscape?: CuratedContentEditorImageCropCoordsInterface;
+	square?: CuratedContentEditorImageCropCoordsInterface;
+}
+
 interface CuratedContentEditorRawSectionInterface {
 	label: string;
 	image_id: number;
+	image_crop?: CuratedContentEditorImageCropsInterface;
 	node_type: string;
 	items: CuratedContentEditorRawSectionInterface[]
 	image_url?: string;
