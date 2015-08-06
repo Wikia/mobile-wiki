@@ -29,9 +29,9 @@ App.initializer({
 	}
 });
 
-setResolver(Ember.DefaultResolver.create({
+setResolver(Em.DefaultResolver.create({
 	namespace: App
 }));
 
 // Don't clutter test log with deprecations
-Ember.deprecate = function(){};
+Em.deprecate = Em.K;
