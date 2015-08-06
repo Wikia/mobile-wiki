@@ -1,3 +1,8 @@
+## release-128 (2015-08-06 10:00 UTC)
+* [INT-134](https://wikia-inc.atlassian.net/browse/INT-134) Initial layout for Japan homepage
+* [CONCF-791](https://wikia-inc.atlassian.net/browse/CONCF-791) CONCF-791 Validate and save Curated Content Tool data
+* [DAT-3024](https://wikia-inc.atlassian.net/browse/DAT-3024) DAT-3024
+
 ## release-127 (2015-08-05 10:00 UTC)
 * [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) HG-808
 * [CONCF-741](https://wikia-inc.atlassian.net/browse/CONCF-741) CONCF-741 Add photo upload to the Curated Content Tool

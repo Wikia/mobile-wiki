@@ -45,7 +45,7 @@ App.CuratedContentModel.reopenClass({
 					params.offset = offset;
 				}
 
-				Em.$.ajax({
+				Em.$.ajax(<JQueryAjaxSettings>{
 					url,
 					data: params,
 					success: (data: any): void => {

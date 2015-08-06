@@ -1,5 +1,130 @@
-{{!< layout/default}}
-{{! The tag above means - insert everything in this file into the {content} of the default.html template }}
+{{> nav}}
 
-<h1>{{title}}</h1>
-<p>{{message}}</p>
+<section class="parallax">
+    <div id="js-parallax-window" class="parallax-window">
+        <div class="parallax-static-content">
+            <div class="parallax-heading">
+                <b>ウィキアって何?</b>
+            </div>
+            <input type="button" value="詳しくはこちら">
+        </div>
+        <div id="js-parallax-background" class="parallax-background"></div>
+    </div>
+</section>
+
+<section class="categories">
+    <h2 class="background"><span>カテゴリー</span></h2>
+    {{> carousel}}
+</section>
+
+<section class="popular">
+    <h2 class="background"><span>人気のあるウィキア</span></h2>
+
+    <div class="grid-items">
+        <a href="javascript:void(0)" class="grid-item grid-item grid-item-image">
+            <img src="http://placehold.it/600x300?text=Placeholder" alt="">
+            <h1>One Piece</h1>
+            <p>
+                ワンピースは、尾田栄一郎による日本の少年漫画。
+            </p>
+        </a>
+        <a href="javascript:void(0)" class="grid-item grid-item-big grid-item-image">
+            <img src="http://placehold.it/600x300?text=Placeholder" alt="">
+            <h1>鉄拳7</h1>
+            <p>
+                鉄拳シリーズとは、バンダイナムコが開発・発売した格闘ゲームのシリーズである。
+            </p>
+        </a>
+        <a href="javascript:void(0)" class="grid-item grid-item-big grid-item-image">
+            <img src="http://placehold.it/600x300?text=Placeholder" alt="">
+            <h1>Wookieepedia</h1>
+            <p>
+                ウーキーペディアは、スター・ウォーズの非営利オンライン百科事典です。
+            </p>
+        </a>
+        <a href="javascript:void(0)" class="grid-item grid-item-image">
+            <img src="http://placehold.it/600x300?text=Placeholder" alt="">
+            <h1>パズドラ</h1>
+            <p>
+                パズル&ドラゴンズはパズルゲームアプリである。
+            </p>
+        </a>
+    </div>
+</section>
+
+<section class="device-background-header">
+        <h2 class="background"><span>明細</span></h2>
+    <p>&nbsp;</p>
+</section>
+
+<section class="device-background">
+    <div class="device-text">
+        <h4>ウィキアについて</h4>
+        <p>簡単で無料にコミュニティーを作れます</p>
+        <p>
+            <input type="button" value="始めてみよう">
+        </p>
+    </div>
+    <div class="device">
+        <div class="screen"></div>
+    </div>
+</section>
+
+<section class="device-background-after">
+    <h2 class="background"><span>ウィキアでやって見よう</span></h2>
+</section>
+
+<div class="cards">
+    <div class="card">
+        <div class="card-header">
+            コミュニティーを作ろう
+        </div>
+        <div class="card-image">
+            <img src="http://placehold.it/800x600?text=Placeholder" alt="">
+        </div>
+        <div class="card-copy">
+            <p>
+                道可道、非常道。名可名、非常名。
+            </p>
+            <p>
+                <input type="button" value="始めてみよう">
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            記事をポストしよう
+        </div>
+        <div class="card-image">
+            <img src="http://placehold.it/800x600?text=Placeholder" alt="">
+        </div>
+        <div class="card-copy">
+            <p>
+                無名天地之始、有名萬物之母。
+            </p>
+            <p>
+                <input type="button" value="始めてみよう">
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            コンテンツをシェアする
+        </div>
+        <div class="card-image">
+            <img src="http://placehold.it/800x600?text=Placeholder" alt="">
+        </div>
+        <div class="card-copy">
+            <p>
+                故常無欲以觀其妙、常有欲以觀其徼。
+            </p>
+            <p>
+                <input type="button" value="始めてみよう">
+            </p>
+        </div>
+    </div>
+</div>
+
+{{> footer}}
