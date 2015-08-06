@@ -26,6 +26,13 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 		article: Article.ArticleRequestHelper,
 		allowCache = true;
 
+	//TODO: This is really only a temporary check while we see if loading a smaller
+	//article has any noticable effect on engagement
+	if (Utils.shouldAsyncArticle(localSettings, request.headers.host)) {
+		// Only request an adequate # of sessions to populate above the fold
+		params.sections = '0,1,2';
+	}
+
 	if (request.state.wikicities_session) {
 		params.headers = {
 			'Cookie': `wikicities_session=${request.state.wikicities_session}`
@@ -108,7 +115,7 @@ function onArticleResponse (
 				}
 			}
 
-			response = reply.view('application', result);
+			response = reply.view('article', result);
 			response.code(code);
 			response.type('text/html; charset=utf-8');
 

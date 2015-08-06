@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload;
 
-gulp.task('watch', ['build', 'build-views'], function () {
+gulp.task('watch', ['build'], function () {
 	log('Watching files');
 
 	if (!gutil.env.nosync) {
@@ -47,7 +47,7 @@ gulp.task('watch', ['build', 'build-views'], function () {
 	gulp.watch(path.join(
 		paths.templates.src,
 		paths.templates.files
-	), ['templates']).on('change', function (event) {
+	), ['build-combined']).on('change', function (event) {
 		log('Template changed:', gutil.colors.green(event.path));
 	});
 

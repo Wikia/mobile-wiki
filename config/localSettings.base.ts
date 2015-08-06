@@ -20,8 +20,6 @@ var localSettings: LocalSettings = {
 	helios: {
 		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
 		host: process.env.HELIOS_HOST,
-		secret: process.env.HELIOS_SECRET,
-		id: process.env.HELIOS_ID,
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},
@@ -95,7 +93,7 @@ var localSettings: LocalSettings = {
 	weppy: {
 		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
-		samplingRate: 0.01,
+		samplingRate: 0.1,
 		aggregationInterval: 1000
 	},
 	wikiFallback: 'community',

@@ -1,0 +1,46 @@
+<header class="edit-head curated-content-editor-head">
+	{{#link-to 'mainPage' }}
+		{{svg 'chevron' role='img' class='icon arrow-left'}}
+	{{/link-to}}
+	{{!-- @TODO CONCF-956 add translations to Save --}}
+	<button {{action 'save'}} class="large publish">Save</button>
+	{{!-- @TODO CONCF-956 to Edit Main Page --}}
+	<div class="edit-head-title">Edit Main Page</div>
+</header>
+{{!-- @TODO CONCF-956 add translations to description, helpText, title and addItemLabel --}}
+{{curated-content-editor-block
+	model=model.featured
+	block='featured'
+	title='Featured Content'
+	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
+	helpText='Lorem ipsum, this is a placeholder for the help text.'
+	addItemLabel='+ add new featured content'
+	addItem='addBlockItem'
+	editItem='editBlockItem'
+	showHelp='showHelp'
+}}
+{{!-- @TODO CONCF-956 add translations to description, helpText, title and addItemLabel --}}
+{{curated-content-editor-block
+	model=model.curated
+	block='curated'
+	title='Explore the Wiki'
+	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
+	helpText='Lorem ipsum, this is a placeholder for the help text.'
+	addItemLabel='+ add new section'
+	addItem='addSection'
+	openSection='openSection'
+	showHelp='showHelp'
+}}
+{{!-- @TODO CONCF-956 add translations to description, helpText, title and addItemLabel --}}
+{{curated-content-editor-block
+	model=model.optional
+	block='optional'
+	title='Optional'
+	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
+	helpText='Lorem ipsum, this is a placeholder for the help text.'
+	addItemLabel='+ add category'
+	addItem='addBlockItem'
+	editItem='editBlockItem'
+	showHelp='showHelp'
+}}
+{{loading-spinner active=isLoading}}

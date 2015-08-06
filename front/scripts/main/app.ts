@@ -40,6 +40,12 @@ window.emberHammerOptions = {
 App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
+		var $window = $(window);
+
+		$window.scroll(() => {
+			M.prop('scroll.mercury.preload', $window.scrollTop(), true);
+		});
+
 		var debug: boolean = M.prop('environment') === 'dev',
 			//prevents fail if transitions are empty
 			loadedTranslations = M.prop('translations') || {},
@@ -85,7 +91,13 @@ App.initializer({
 			return;
 		}
 
-		$(window).load(() => M.sendPagePerformance());
+		// Send page performance stats after window is loaded
+		// Since we load our JS async this code may execute post load event
+		if (document.readyState === 'complete') {
+			M.sendPagePerformance()
+		} else {
+			$(window).load(() => M.sendPagePerformance());
+		}
 
 		EmPerfSender.initialize({
 			// Specify a specific function for EmPerfSender to use when it has captured metrics

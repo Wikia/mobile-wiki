@@ -1,3 +1,45 @@
+## release-127 (2015-08-05 10:00 UTC)
+* [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) HG-808
+* [CONCF-741](https://wikia-inc.atlassian.net/browse/CONCF-741) CONCF-741 Add photo upload to the Curated Content Tool
+
+## release-126 (2015-08-04 10:00 UTC)
+* [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 moving logged_in flag
+* revert-1140-HG-808: Revert "decouple article route from application in ember and hapi"
+* [HG-810](https://wikia-inc.atlassian.net/browse/HG-810) HG-810 - only build old way in prod
+* [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) decouple article route from application in ember and hapi
+* [CONCF-745](https://wikia-inc.atlassian.net/browse/CONCF-745) CONCF-745 Add modal dialog with help text to Curated Content Tool
+
+## release-125 (2015-08-03 10:15 UTC)
+* SOC: SOC | Fix polish translations on auth pages
+* [INT-121](https://wikia-inc.atlassian.net/browse/INT-121) Hapi app for Japan homepage with base gulp tasks and TS/SCSS
+* [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 checking if window is loaded before binding event
+* [CONCF-744](https://wikia-inc.atlassian.net/browse/CONCF-744) CONCF-744 add arrows for sorting
+
+## release-124 (2015-07-31 10:00 UTC)
+* [SOC-1015](https://wikia-inc.atlassian.net/browse/SOC-1015) SOC-1015 Unifying "close" button on Auth pages with the main Mercury app
+* [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 - sending logged_in flag to weppy
+* [HG-740](https://wikia-inc.atlassian.net/browse/HG-740) HG-740 Upgrade to Ember 1.13
+* [CONCF-933](https://wikia-inc.atlassian.net/browse/CONCF-933) CONCF-933 | loading default image for resurce in mobile Curated Content Edit Tool
+
+## release-123 (2015-07-30 10:00 UTC)
+* disablie-source-maps: Disable source maps
+* [HG-820](https://wikia-inc.atlassian.net/browse/HG-820) HG-820 Fix ads MOBILE_IN_CONTENT slot
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 | Update crowdin config for rename ZH i18n files
+
+## release-122 (2015-07-29 10:00 UTC)
+* [HG-797](https://wikia-inc.atlassian.net/browse/HG-797) mvp implementation of utilizing article sections api
+* [CONCF-918](https://wikia-inc.atlassian.net/browse/CONCF-918) CONCF-918
+* [CONCF-806](https://wikia-inc.atlassian.net/browse/CONCF-806) CONCF-806 As a user I want to have interactive forms on Curated Content Edit tool so I can edit data
+* [CONCF-951](https://wikia-inc.atlassian.net/browse/CONCF-951) CONCF-951 | reset visibility state for old main pages
+* fix-gulp-watch: rebuild templates on watch task
+
+## release-121 (2015-07-28 10:00 UTC)
+* [HG-816](https://wikia-inc.atlassian.net/browse/HG-816) HG-816 upping sampling rate
+
+## release-120 (2015-07-27 14:41 UTC)
+* [SOC-1089](https://wikia-inc.atlassian.net/browse/SOC-1089) SOC-1089 Renaming zh-tw to zh in mercury repository
+* add-explicit-method-param: Add event as explicit method param
+
 ## release-119 (2015-07-24 14:45 UTC)
 * [SOC-1091](https://wikia-inc.atlassian.net/browse/SOC-1091) SOC-1089 | Add optimizely on auth pages
 

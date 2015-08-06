@@ -1,0 +1,227 @@
+$module-padding-horizontal: 1rem;
+$module-padding-vertical: 1.5rem;
+$item-padding-horizontal: 1rem;
+$item-padding-vertical: .5rem;
+$item-image-size: 4rem;
+$image-margin: 1rem;
+$image-size: 150px;
+$row-height: 5rem;
+
+.curated-content-editor-add-item-btn {
+	cursor: pointer;
+	display: block;
+	font-weight: bold;
+	margin: $item-padding-vertical auto;
+	width: 80%;
+}
+
+.curated-content-editor-head {
+	position: static;
+}
+
+.curated-content-editor-help {
+	position: absolute;
+	right: 1em;
+	top: 1em;
+
+	svg {
+		fill: $color-gray-dark;
+		height: 32px;
+		width: 32px;
+	}
+}
+
+.curated-content-editor-block {
+	background: $snow;
+	position: relative;
+
+	header {
+		color: $color-blue-brand;
+		font-size: larger;
+		font-weight: bold;
+		padding: $module-padding-vertical $module-padding-horizontal 0;
+	}
+
+	.block-description {
+		margin: 0;
+		padding: $module-padding-horizontal $module-padding-horizontal 0;
+	}
+}
+
+.curated-content-editor-rows {
+	padding-top: $module-padding-vertical;
+}
+
+.curated-content-editor-row-container {
+	background: $color-white;
+	border: {
+		color: $color-gray-light;
+		style: solid;
+		width: 0;
+	}
+	border-bottom-width: 1px;
+	//iOS can't handle touch events on element if it doesn't have cursor pointer
+	cursor: pointer;
+	padding: $item-padding-vertical $item-padding-horizontal;
+
+	&:first-child {
+		border-top-width: 1px;
+	}
+}
+
+.curated-content-editor-row {
+	align-items: center;
+	display: inline-flex;
+	height: $row-height;
+	width: calc(90vw - #{$item-padding-horizontal});;
+
+	img {
+		height: $item-image-size;
+		margin-right: $image-margin;
+		width: $item-image-size;
+	}
+
+	.item-description {
+		width: calc(100% - #{$item-image-size + $image-margin});
+	}
+
+	.title {
+		font-weight: bold;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.subtitle {
+		font-size: .8125rem;
+	}
+}
+
+.curated-content-section-details {
+	align-items: center;
+	background: $snow;
+	display: flex;
+	height: $image-size;
+	position: relative;
+
+	.section-image {
+		text-align: center;
+		width: $image-size;
+
+		img {
+			height: $image-size;
+		}
+	}
+
+	.section-desc {
+		display: flex;
+		flex-direction: column;
+		height: $image-size;
+		width: calc(100% - #{$image-size});
+	}
+
+	.section-label {
+		@include clamp(5);
+
+		color: $black;
+		font-size: 18px;
+		font-weight: bold;
+		height: $image-size;
+		line-height: 23px;
+		padding: 10px 13px 0;
+	}
+
+	.section-items-count {
+		color: $color-blue-gray-dark;
+		font-size: 12px;
+		line-height: 14px;
+		padding: 0 13px 10px;
+	}
+
+	.section-edit {
+		bottom: 1rem;
+		position: absolute;
+		right: 1rem;
+
+		svg {
+			fill: $color-blue-dark;
+			height: 1.75rem;
+			width: 1.75rem;
+		}
+	}
+}
+
+.curated-content-editor-submit {
+	margin-bottom: 0;
+}
+
+.curated-content-editor-photo {
+	padding-top: 14px;
+	position: relative;
+
+	img {
+		@extend %image-placeholder;
+		border: 1px solid transparent;
+		display: block;
+		height: 90vw;
+		margin: 0 auto;
+		width: 90vw;
+	}
+
+	&.error {
+		img {
+			border-color: $input-border-error-color;
+		}
+
+		small {
+			background: linear-gradient(to top, rgba(255, 255, 255 , .7), rgba(255, 255, 255, 0));
+			bottom: 1px;
+			margin: 0 calc(5vw - 1px);
+			width: 90vw;
+			padding: 5% 0;
+			position: absolute;
+			text-align: center;
+		}
+	}
+}
+
+.curated-content-editor-item {
+	.file-upload-input {
+		display: none;
+	}
+
+	.file-upload-label {
+		height: 90vw;
+		position: absolute;
+		top: 14px;
+		width: 100vw;
+	}
+}
+
+.curated-content-input-wrapper {
+	padding: 14px 18px;
+	padding-bottom: 0;
+}
+
+.curated-content-editor-remove {
+	color: $alert-color;
+	padding: 14px 18px;
+	text-transform: uppercase;
+}
+
+.navigation {
+	display: inline-block;
+	float: right;
+	height: $row-height;
+	text-align: right;
+	width: calc(8vw - #{$item-padding-horizontal});
+}
+
+.arrow-up, .arrow-down {
+	height: $row-height / 2;
+	width: 1rem;
+}
+
+.arrow-up {
+	transform: rotate(180deg);
+}
