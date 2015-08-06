@@ -20,8 +20,6 @@ var localSettings: LocalSettings = {
 	helios: {
 		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
 		host: process.env.HELIOS_HOST,
-		secret: process.env.HELIOS_SECRET,
-		id: process.env.HELIOS_ID,
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},
