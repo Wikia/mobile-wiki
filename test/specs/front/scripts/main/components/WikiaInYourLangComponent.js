@@ -1,4 +1,8 @@
 moduleForComponent('wikia-in-your-lang', 'WikiaInYourLangComponent', {
+	setup: function() {
+		window.localStorage.clear();
+	},
+
 	//mock
 	isJapaneseBrowser: function() {
 		return true;
