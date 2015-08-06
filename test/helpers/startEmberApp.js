@@ -32,3 +32,6 @@ App.initializer({
 setResolver(Ember.DefaultResolver.create({
 	namespace: App
 }));
+
+// Don't clutter test log with deprecations
+Ember.deprecate = function(){};
