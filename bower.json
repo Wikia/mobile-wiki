@@ -15,7 +15,7 @@
     "fastclick": "1.0.6",
     "jquery.cookie": "1.4.1",
     "weppy": "Wikia/weppy#0.9.2",
-    "ember-performance-sender": "1.2.1",
+    "ember-performance-sender": "1.1.1",
     "vignette": "wikia/vignette-js#2.1.1",
     "wikia-style-guide": "Wikia/style-guide#1.0.1",
     "numeral": "~1.5.3"
