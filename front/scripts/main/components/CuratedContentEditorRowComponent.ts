@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, {
