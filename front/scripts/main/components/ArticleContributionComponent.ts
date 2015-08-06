@@ -6,6 +6,9 @@ App.ArticleContributionComponent = Em.Component.extend({
 	templateName: 'components/article-contribution',
 	section: null,
 	title: null,
+	fileInputId: Em.computed('section', function(): string {
+		return 'fileUpload'.concat('-', this.get('section'));
+	}),
 
 	actions: {
 		edit: function (): void {
@@ -25,11 +28,11 @@ App.ArticleContributionComponent = Em.Component.extend({
 				label: 'addPhoto',
 				value: this.get('section')
 			});
-			this.$('.file-input').click();
+			this.$('.file-upload-input').click();
 		},
 
 		addPhoto: function (): void {
-			var photoData = this.$('.file-input')[0].files[0];
+			var photoData = this.$('.file-upload-input')[0].files[0];
 			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 		}
 	}
