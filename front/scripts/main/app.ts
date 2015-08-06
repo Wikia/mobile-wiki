@@ -100,7 +100,7 @@ App.initializer({
 		}
 
 		EmPerfSender.initialize({
-			enableLogging: false,
+			enableLogging: (M.prop('environment') === 'dev'),
 
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send (events: any[], metrics: any) {
