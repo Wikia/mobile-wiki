@@ -19,7 +19,7 @@ App.EditModel.reopenClass(App.EditMixin, {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.getEditToken(model.title)
 				.then((token: any): void => {
-					Em.$.ajax({
+					Em.$.ajax(<JQueryAjaxSettings>{
 						url: M.buildUrl({path: '/api.php'}),
 						data: {
 							action: 'edit',
