@@ -3,6 +3,7 @@
 	height: 46px;
 	background-color: $color-white;
 	border-bottom: solid #A9A9A9 2px;
+	flex-shrink: 0;
 }
 a {
 	&.main-page {
