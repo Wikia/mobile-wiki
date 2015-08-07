@@ -13,10 +13,10 @@
 		{{/if}}
 		{{loading-spinner active=isLoading overlay=false}}
 	</div>
-	<div class="image-modal">
-		<button {{action 'hideImageModal'}}>x</button>
-		<ul>
-			<li>{{file-input fileUpload='fileUpload' reset=resetFileInput label='Upload image'}}</li>
+	<div class="image-modal-wrapper {{if imageModalVisible 'visible'}}" >
+		<div class="image-modal-layover" {{action 'hideImageModal'}}></div>
+		<ul class="image-modal">
+			{{file-input tagName='li' fileUpload='fileUpload' reset=resetFileInput label='Upload image'}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
 	</div>
