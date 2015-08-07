@@ -143,26 +143,8 @@ class SignupForm {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				// TODO remove this code when SERVICES-377 is fixed
-				var loginXhr = new XMLHttpRequest();
-				loginXhr.onload = (e: Event) => {
-					enableSubmitButton();
-					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
-						this.trackSuccessfulRegistration();
-						window.location.href = this.redirect;
-					} else {
-						this.displayGeneralError();
-					}
-				};
-				loginXhr.onerror = (e: Event) => {
-					enableSubmitButton();
-					this.displayGeneralError();
-				};
-
-				loginXhr.open('POST', this.form.action.replace('/users', '/token'), true);
-				loginXhr.withCredentials = true;
-				loginXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				loginXhr.send((new UrlHelper()).urlEncode(data));
+				this.trackSuccessfulRegistration();
+				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				enableSubmitButton();
 				this.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
