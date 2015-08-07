@@ -9,7 +9,7 @@ App.CuratedContentEditorLayoutMixin = Em.Mixin.create({
 		return {
 			name: 'curated-content-editor-image-search',
 			previous: this.get('itemFormLayout'),
-			next: this.get('imageCropLayout')
+			next: this.get('itemFormLayout')
 		}
 	}),
 	imageCropLayout: Em.computed('itemFormLayout', 'itemSearchLayout', function() {

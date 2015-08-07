@@ -194,8 +194,10 @@ $row-height: 5rem;
 		align-items: center;
 		bottom: 0;
 		display: none;
+		padding: 10px;
 		position: fixed;
 		top: 0;
+		width: 100%;
 		z-index: $z-1;
 
 		.image-modal {
@@ -203,7 +205,8 @@ $row-height: 5rem;
 			border-radius: 3px;
 			color: $steel;
 			list-style: none;
-			margin: 10px;
+			margin: 0;
+			width: 100%;
 			z-index: $z-2;
 		}
 
