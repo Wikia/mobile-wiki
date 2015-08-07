@@ -45,7 +45,6 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		}),
 
 		getImages(): void {
-
 			this.fetchImagesFromAPI(this.get('searchPhrase'))
 				.then((data: SearchPhotoResponseInterface): void => {
 					if (!data.error) {
@@ -57,7 +56,6 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 								image.thumbnailUrl = this.generateThumbUrl(image.url);
 							});
 							this.set('images', images);
-							this.set('nextBatch', this.get('nextBatch') + 1);
 						}
 					}
 				})
