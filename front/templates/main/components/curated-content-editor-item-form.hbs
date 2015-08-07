@@ -23,12 +23,12 @@
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
 			{{input
-			value=model.label
-			id='label'
-			class=labelClass
-			name='label'
-			focus-out='setLabelFocusedOut'
-			focus-in='setLabelFocusedIn'
+				value=model.label
+				id='label'
+				class=labelClass
+				name='label'
+				focus-out='setLabelFocusedOut'
+				focus-in='setLabelFocusedIn'
 			}}
 			{{!-- @TODO CONCF-956 add translations to Enter a display name --}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
@@ -39,12 +39,12 @@
 		{{#unless isSectionView}}
 			<div class="input-container {{if titleErrorMessage 'error'}}">
 				{{input
-				value=model.title
-				id='title'
-				class=titleClass
-				name='title'
-				focus-out='setTitleFocusedOut'
-				focus-in='setTitleFocusedIn'
+					value=model.title
+					id='title'
+					class=titleClass
+					name='title'
+					focus-out='setTitleFocusedOut'
+					focus-in='setTitleFocusedIn'
 				}}
 				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>

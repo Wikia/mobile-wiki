@@ -88,6 +88,7 @@
 		"curated-content-error-section-not-found": "Section not found.", 
 		"curated-content-load-more-items": "Load more",
 		"curated-content-error-load-more-items": "Sorry, we couldn't load more items.",
-		"curated-content-image-upload-error": "Something went wrong with your upload. Please try again."
+		"curated-content-image-upload-error": "Something went wrong with your upload. Please try again.",
+		"curated-content-editor-no-images-found": ""
 	}
 }

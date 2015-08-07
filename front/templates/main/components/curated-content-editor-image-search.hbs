@@ -6,6 +6,16 @@
 		{{!-- @TODO CONCF-956 add translations to Create new item --}}
 		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new{{/if}}</div>
 	</header>
-	<input placeholder="{{i18n 'app.curated-content-editor-search-image'}}"/>
+	{{input
+		value=searchPhrase
+		id='search'
+		name='search'
+	}}
+	<div class="search-results">
+		{{#each images as |image|}}
+			<img src="{{image.thumbnailUrl}}">
+		{{/each}}
+		{{loading-spinner active=isLoading overlay=false}}
+	</div>
 </form>
 

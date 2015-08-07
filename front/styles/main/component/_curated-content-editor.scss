@@ -262,3 +262,17 @@ $row-height: 5rem;
 .arrow-up {
 	transform: rotate(180deg);
 }
+
+.curated-content-editor-image-search {
+	.search-input {
+		width: 100%;
+	}
+	.search-results {
+		text-align: center;
+		img {
+			width: 30vw;
+			height: 30vw;
+			margin: 1vw;
+		}
+	}
+}
