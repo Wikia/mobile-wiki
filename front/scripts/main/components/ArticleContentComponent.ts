@@ -75,14 +75,14 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 
 	setupContributionButtons: function (): void {
 		var headers = this.get('headers'),
-			$sectionHeader: any = null,
-			contributionComponent: any = null;
+			$sectionHeader: JQuery = null,
+			$contributionComponent: JQuery = null;
 
 		headers.forEach((header: ArticleSectionHeader): void => {
-			contributionComponent = this.createArticleContributionComponent(header.section);
+			$contributionComponent = this.createArticleContributionComponent(header.section);
 			$sectionHeader = this.$(header.element);
-			$sectionHeader.prepend(contributionComponent).addClass('short-header');
-			contributionComponent.wrap('<div class="icon-wrapper"></div>');
+			$sectionHeader.prepend($contributionComponent).addClass('short-header');
+			$contributionComponent.wrap('<div class="icon-wrapper"></div>');
 		});
 	},
 

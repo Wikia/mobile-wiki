@@ -7,5 +7,5 @@
 	<span {{action 'select'}}>
 		{{svg 'camera' role='img' class='icon camera'}}
 	</span>
-	{{file-input fileUpload='addPhoto' reset=true fileInputId=fileInputId }}
+	<input class="file-upload-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>
 </div>
