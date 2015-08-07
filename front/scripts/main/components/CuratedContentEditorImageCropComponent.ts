@@ -52,17 +52,39 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			done(): void {
 				var $imgElement = this.get('$imgElement'),
 					// https://github.com/fengyuanchen/cropper#getdatarounded
-					cropData = $imgElement.cropper('getData', true);
-
-				console.log('CROP DATA:', cropData);
+					cropData = $imgElement.cropper('getData', true),
+					imageCrop = {
+						x: cropData.x,
+						y: cropData.y,
+						width: cropData.width,
+						height: cropData.height
+					};
 
 				this.setProperties({
-				 'model.image_url': this.get('imageProperties.url'),
-				 // article_id comes from MW because in MW files are like any other articles
-				 // so there is no such thing as image_id from MW perspective.
-				 'model.image_id': this.get('imageProperties.article_id'),
-				 'imageErrorMessage': null
-				 });
+					'model.image_url': this.get('imageProperties.url'),
+					// article_id comes from MW because in MW files are like any other articles
+					// so there is no such thing as image_id from MW perspective.
+					'model.image_id': this.get('imageProperties.article_id'),
+					'imageErrorMessage': null
+				});
+
+				switch (this.get('cropperSettings.aspectRatio')) {
+					case 16 / 9:
+						this.setProperties({
+							'model.image_crop': {
+								landscape: imageCrop
+							}
+						});
+						break;
+					case 1:
+						this.setProperties({
+							'model.image_crop': {
+								portrait: imageCrop
+							}
+						});
+						break;
+				}
+
 				this.sendAction('changeLayout', this.get('imageCropLayout.next.name'))
 			}
 		}
