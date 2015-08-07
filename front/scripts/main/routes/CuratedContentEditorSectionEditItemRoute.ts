@@ -46,15 +46,6 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 
 			App.CuratedContentEditorModel.deleteItem(sectionModel, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
-		},
-
-		cropImage(imageUrl: string): void {
-			var controller: any = this.controllerFor('curatedContentEditor.section.editItem'),
-				originalItemLabel: string = controller.get('originalItemLabel');
-			this.transitionTo('curatedContentEditor.image.crop', {
-				imageUrl: imageUrl,
-				item: originalItemLabel
-			});
 		}
 	}
 });

@@ -56,19 +56,6 @@ App.Router.map(function () {
 		this.route('invalid', {
 			path: '/*url'
 		});
-
-		this.route('image', {
-			path: '/image/:item'
-		}, function () {
-			this.route('crop', {
-				path: '/crop'
-			});
-
-			// Future feature
-			/*this.route('search', {
-				path: '/search'
-			});*/
-		});
 	});
 
 	this.route('article', {

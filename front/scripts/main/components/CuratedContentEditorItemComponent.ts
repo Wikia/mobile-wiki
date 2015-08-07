@@ -115,7 +115,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 				.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
 				.then((data: any) => {
 					if (data && data.url && data.article_id) {
-						this.sendAction('cropImage', data.url);
 						this.setProperties({
 							'model.image_url': this.generateThumbUrl(data.url),
 							// article_id comes from MW because in MW files are like any other articles
