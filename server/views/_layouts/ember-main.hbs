@@ -84,7 +84,7 @@
 					var ajax = new XMLHttpRequest();
 					ajax.open('GET', src, true);
 					ajax.send();
-					ajax.onload = function(e) {
+					ajax.onload = function() {
 						var div = document.createElement('div');
 						div.innerHTML = ajax.responseText;
 						document.body.insertBefore(div.childNodes[0], document.body.firstChild);
@@ -92,7 +92,7 @@
 					ajax.onerror = loadError;
 				}
 
-				document.addEventListener("DOMContentLoaded", function(event) {
+				document.addEventListener("DOMContentLoaded", function() {
 					importScript('/front/vendor/main.js', function () {
 						importScript('/front/scripts/combined.js');
 					});
