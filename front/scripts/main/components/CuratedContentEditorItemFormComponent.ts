@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
+/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-///<reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
+
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
