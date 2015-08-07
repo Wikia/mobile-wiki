@@ -38,58 +38,74 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		imageSize: 200,
 		searchLimit: 24,
 		nextBatch: 1,
+		batches: 1,
+		images: [],
 
-		searchPhraseObserver: Ember.observer('searchPhrase', function() {
-			this.showLoader();
-			Em.run.debounce(this, this.getImages, this.get('debounceDuration'));
+		hasNextBatch: Em.computed('batches', 'nextBatch', function() {
+			return this.get('batches') > this.get('nextBatch');
 		}),
+
+		searchPhraseObserver: Em.observer('searchPhrase', function() {
+			this.showLoader();
+			this.setProperties({
+				nextBatch: 1,
+				batches: 1,
+				images: []
+			});
+
+			Em.run.debounce(this, this.getImages, this.debounceDuration);
+		}),
+
+		setImages(fetchedImages: SearchPhotoImageResponseInterface[]) {
+			var images = this.get('images');
+
+			this.set('images',
+				images.concat(
+					fetchedImages.map((image: SearchPhotoImageResponseInterface) => {
+						image.thumbnailUrl = this.generateThumbUrl(image.url);
+
+						return image;
+					})
+				)
+			);
+		},
 
 		getImages(): void {
 			this.fetchImagesFromAPI(this.get('searchPhrase'))
-				.then((data: SearchPhotoResponseInterface): void => {
+				.done((data: SearchPhotoResponseInterface): void => {
 					if (!data.error) {
-						var images = data.response.results.photo.items;
-						if (Em.isEmpty(images)) {
+						var fetchedImages = data.response.results.photo.items;
+
+						if (Em.isEmpty(fetchedImages)) {
 							this.set('searchMessage', 'app.curated-content-editor-no-images-found');
 						} else {
-							images.forEach((image:SearchPhotoImageResponseInterface) => {
-								image.thumbnailUrl = this.generateThumbUrl(image.url);
-							});
-							this.set('images', images);
+							this.setImages(fetchedImages);
+							this.set('batches', data.response.results.photo.batches);
 						}
 					}
 				})
-				.catch((err: any): void => {
+				.fail((err: any): void => {
 					Em.Logger.error(err);
 					//@TODO CONCF-956 add translations
 					this.set('imageErrorMessage', 'Oops! An API Error occured.');
 				})
-				.finally((): void => this.hideLoader());
+				.always((): void => this.hideLoader());
 		},
 
 		fetchImagesFromAPI(searchPhrase: string): Em.RSVP.Promise {
-			return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-				Em.$.ajax({
-					url: M.buildUrl({
-						path: '/api.php',
-					}),
-					data: {
-						format: 'json',
-						action: 'apimediasearch',
-						query: searchPhrase,
-						type: 'photo',
-						batch: this.get('nextBatch'),
-						limit: this.get('searchLimit')
-					},
-					dataType: 'json',
-					success: (data: SearchPhotoResponseInterface): void => {
-						resolve(data);
-					},
-					error: (data: any): void => {
-						reject(data);
-					}
-				});
-			});
+			return Em.$.getJSON(
+				M.buildUrl({
+					path: '/api.php',
+				}),
+				{
+					format: 'json',
+					action: 'apimediasearch',
+					query: searchPhrase,
+					type: 'photo',
+					batch: this.get('nextBatch'),
+					limit: this.searchLimit
+				}
+			);
 		},
 
 		actions: {
@@ -99,6 +115,12 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 			done(): void {
 				this.sendAction('changeLayout', this.get('imageSearchLayout.next.name'))
+			},
+
+			loadMore(): void {
+				this.incrementProperty('nextBatch');
+				this.showLoader();
+				this.getImages();
 			}
 		}
 });

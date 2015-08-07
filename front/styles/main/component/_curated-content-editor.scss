@@ -267,12 +267,23 @@ $row-height: 5rem;
 	.search-input {
 		width: 100%;
 	}
+
 	.search-results {
 		text-align: center;
+
 		img {
-			width: 30vw;
 			height: 30vw;
 			margin: 1vw;
+			width: 30vw;
+		}
+	}
+
+	button {
+		display: none;
+		width: 100%;
+
+		&.visible {
+			display: inline-block;
 		}
 	}
 }
