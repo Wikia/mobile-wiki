@@ -117,13 +117,15 @@ class SignupForm {
 		});
 	}
 
-	private trackSuccessfulRegistration() {
+	private onSuccessfulRegistration() {
 		M.track({
 			trackingMethod: 'both',
 			action: M.trackActions.success,
 			category: 'user-login-mobile',
 			label: 'successful-registration'
 		});
+
+		window.location.href = this.redirect;
 	}
 
 	private onSubmit(event: Event): void {
@@ -143,8 +145,7 @@ class SignupForm {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				this.trackSuccessfulRegistration();
-				window.location.href = this.redirect;
+				this.onSuccessfulRegistration();
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				enableSubmitButton();
 				this.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
