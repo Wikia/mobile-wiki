@@ -48,6 +48,15 @@
 		}
 	}
 
+	.count {
+		color: #999;
+		font-size: $type-min;
+
+		.icon {
+			margin-right: 3px;
+		}
+	}
+
 	.discussion-content {
 		color: $color-gray-dark;
 		padding: 10px 0;
@@ -117,4 +126,3 @@
 		}
 	}
 }
-
