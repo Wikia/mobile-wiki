@@ -4,10 +4,6 @@ App.FileInputComponent = Ember.Component.extend(Ember.Evented, {
 	reset: false,
 	fileInputId: 'fileUpload',
 
-	didInsertElement: function (): void {
-		this.$('.file-upload-input').attr('id', this.get('fileInputId'));
-	},
-
 	resetObserver: Em.observer('reset', function (): void {
 		if (this.get('reset')) {
 			this.$().find('input').val(null);
