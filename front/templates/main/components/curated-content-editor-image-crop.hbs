@@ -1,0 +1,10 @@
+<header class="edit-head curated-content-editor-head">
+	<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
+	{{!-- @TODO CONCF-956 add translations to DONE --}}
+	<button {{action 'done'}} class="large publish curated-content-editor-submit">Done</button>
+	{{!-- @TODO CONCF-956 add translations to Create new item --}}
+	<div class="edit-head-title">Crop image</div>
+</header>
+<div class="curated-content-editor-photo {{if imageErrorMessage 'error'}}">
+	<img src="{{imageProperties.url}}" />
+</div>

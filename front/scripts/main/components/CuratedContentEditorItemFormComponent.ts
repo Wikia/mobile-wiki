@@ -118,13 +118,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
 					.then((data: any) => {
 						if (data && data.url && data.article_id) {
-							this.setProperties({
-								'model.image_url': this.generateThumbUrl(data.url),
-								// article_id comes from MW because in MW files are like any other articles
-								// so there is no such thing as image_id from MW perspective.
-								'model.image_id': data.article_id,
-								'imageErrorMessage': null
-							});
+							this.set('imageCropLayout.previous', this.get('itemFormLayout'));
+							this.set('imageCropLayout.next', this.get('itemFormLayout'));
+							this.set('imageProperties.url', data.url);
+							this.set('imageProperties.article_id', data.article_id);
+							this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 						} else {
 							Em.Logger.error('Image Data Object is malformed. Url or article_id is missing');
 							this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));

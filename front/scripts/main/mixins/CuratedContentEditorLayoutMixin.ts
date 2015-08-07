@@ -20,5 +20,10 @@ App.CuratedContentEditorLayoutMixin = Em.Mixin.create({
 			previous: this.get('itemFormLayout'),
 			next: this.get('itemFormLayout')
 		}
-	})
+	}),
+
+	imageProperties: {
+		url: '',
+		article_id: ''
+	}
 });
