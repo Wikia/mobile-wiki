@@ -17,8 +17,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 
 		// https://github.com/fengyuanchen/cropper#options
 		cropperSettings: {
-			aspectRatio: 16 / 9,
-			background: false,
+			center: false,
 			checkImageOrigin: false,
 			cropBoxMovable: false,
 			cropBoxResizable: false,
@@ -27,10 +26,21 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			highlight: false
 		},
 
-		initCropper: Em.on('didRender', function (): void {
-			var $imgElement = this.$(this.get('imgSelector'));
+		aspectRatio: Em.computed('block', function (): number {
+			return this.get('block') === 'featured' ? 16 / 9 : 1;
+		}),
 
-			$imgElement.cropper(this.get('cropperSettings'));
+		aspectRatioName: Em.computed('block', function (): string {
+			return this.get('block') === 'featured' ? 'landscape' : 'square';
+		}),
+
+		initCropper: Em.on('didRender', function (): void {
+			var $imgElement = this.$(this.get('imgSelector')),
+				settings: any = $.extend(this.get('cropperSettings'), {
+					aspectRatio: this.get('aspectRatio')
+				});
+
+			$imgElement.cropper(settings);
 			this.set('$imgElement', $imgElement);
 		}),
 
