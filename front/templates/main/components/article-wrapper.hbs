@@ -26,12 +26,14 @@
 				{{/collapsible-menu}}
 			{{/if}}
 			{{#if contributionFeatureEnabled}}
+			<div class="top-contribution-container">
 				{{article-contribution
 					section=0
 					title=model.cleanTitle
 					edit='edit'
 					addPhoto='addPhoto'
 				}}
+			</div>
 			{{/if}}
 			{{article-content
 				adsContext=model.adsContext
