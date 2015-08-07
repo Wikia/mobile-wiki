@@ -60,6 +60,41 @@
 			{{#if error}}
 			M.provide('article.error', {{{error}}});
 			{{/if}}
+
+			(function () {
+				function loadError (oError) {
+					throw new URIError("The script " + oError.target.src + " is not accessible.");
+				}
+
+				function importScript (src, fOnload) {
+					var script = document.createElement("script");
+					script.type = "text\/javascript";
+					script.onerror = loadError;
+					if (fOnload) { script.onload = fOnload; }
+					document.body.appendChild(script);
+					script.src = src;
+				}
+
+				function importIcons (fOnload) {
+					var ajax = new XMLHttpRequest();
+					ajax.open('GET', '/front/svg/main.svg', true);
+					ajax.send();
+					ajax.onload = function(e) {
+						var div = document.createElement('div');
+						div.innerHTML = ajax.responseText;
+						document.body.insertBefore(div.childNodes[0], document.body.firstChild);
+						if (fOnload) { fOnload(); }
+					}
+					ajax.onerror = loadError;
+				}
+
+				document.addEventListener("DOMContentLoaded", function(event) {
+					importIcons();
+					importScript('/front/vendor/main.js', function () {
+						importScript('/front/scripts/combined.js');
+					});
+				});
+			}());
 		</script>
 
 		<!-- @ifdef browserSync -->
@@ -83,42 +118,6 @@
 			</div>
 		</div>
 
-		<script>
-			(function () {
-				function loadError (oError) {
-					throw new URIError("The script " + oError.target.src + " is not accessible.");
-				}
-
-				function importScript (src, fOnload) {
-					var script = document.createElement("script");
-					script.type = "text\/javascript";
-					script.onerror = loadError;
-					if (fOnload) { script.onload = fOnload; }
-					document.body.appendChild(script);
-					script.src = src;
-				}
-
-				function importIcons (fOnload) {
-					var ajax = new XMLHttpRequest();
-					ajax.open('GET', '/front/svg/main.svg?t=' + Date.now(), true);
-					ajax.send();
-					ajax.onload = function(e) {
-						var div = document.createElement('div');
-						div.innerHTML = ajax.responseText;
-						document.body.insertBefore(div.childNodes[0], document.body.firstChild);
-						if (fOnload) { fOnload(); }
-					}
-					ajax.onerror = loadError;
-				}
-
-				document.addEventListener("DOMContentLoaded", function(event) {
-					importIcons();
-					importScript('/front/vendor/main.js', function () {
-						importScript('/front/scripts/combined.js');
-					});
-				});
-			}());
-		</script>
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}
 	</body>
