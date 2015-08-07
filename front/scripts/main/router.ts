@@ -70,9 +70,9 @@ App.Router.map(function () {
 		path: articlePath + 'addPhoto/:title'
 	});
 
-	this.resource('discussion', {path: 'd'}, function () {
-		this.resource('discussion.forum', {path: ':forumId'}, function () {
-			this.route('post', {path: ':postId'});
+	this.route('discussion', {path: '/d'}, function () {
+		this.route('forum', {path: '/:forumId'}, function () {
+			this.route('post', {path: '/:postId'});
 		});
 	});
 
