@@ -33,5 +33,5 @@ setResolver(Em.DefaultResolver.create({
 	namespace: App
 }));
 
-// Don't clutter test log with deprecations
+// Set deprecation warning method to Ember's version of noop to declutter test logs
 Em.deprecate = Em.K;
