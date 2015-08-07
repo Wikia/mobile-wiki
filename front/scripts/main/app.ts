@@ -91,9 +91,17 @@ App.initializer({
 			return;
 		}
 
-		$(window).load(() => M.sendPagePerformance());
+		// Send page performance stats after window is loaded
+		// Since we load our JS async this code may execute post load event
+		if (document.readyState === 'complete') {
+			M.sendPagePerformance()
+		} else {
+			$(window).load(() => M.sendPagePerformance());
+		}
 
 		EmPerfSender.initialize({
+			enableLogging: (M.prop('environment') === 'dev'),
+
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send (events: any[], metrics: any) {
 				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
@@ -192,4 +200,3 @@ App.initializer({
 		}
 	}
 });
-

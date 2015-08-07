@@ -33,10 +33,6 @@
 
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
-			{{#if server.mediawikiDomain}}
-			M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
-			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
-			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('firstPage', true, true);
@@ -46,11 +42,20 @@
 			M.prop('weppyConfig', {{{json weppyConfig}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			M.prop('userId', {{{userId}}});
-			M.prop('asyncArticle', {{asyncArticle}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
-			M.provide('article', {{{json article}}});
+
+			{{#if server.mediawikiDomain}}
+				M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
+				M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			{{/if}}
+			{{#if asyncArticle}}
+				M.prop('asyncArticle', {{asyncArticle}});
+			{{/if}}
+			{{#if article}}
+				M.provide('article', {{{json article}}});
+			{{/if}}
 			{{#if curatedContent}}
 				M.prop('curatedContent', {{{json curatedContent}}}, true);
 			{{/if}}
@@ -58,7 +63,7 @@
 				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
 			{{#if error}}
-			M.provide('article.error', {{{error}}});
+				M.provide('error', {{{error}}});
 			{{/if}}
 
 			(function () {
@@ -75,24 +80,24 @@
 					script.src = src;
 				}
 
-				function importIcons (fOnload) {
+				function importIcon (src) {
 					var ajax = new XMLHttpRequest();
-					ajax.open('GET', '/front/svg/main.svg', true);
+					ajax.open('GET', src, true);
 					ajax.send();
 					ajax.onload = function(e) {
 						var div = document.createElement('div');
 						div.innerHTML = ajax.responseText;
 						document.body.insertBefore(div.childNodes[0], document.body.firstChild);
-						if (fOnload) { fOnload(); }
-					}
+					};
 					ajax.onerror = loadError;
 				}
 
 				document.addEventListener("DOMContentLoaded", function(event) {
-					importIcons();
 					importScript('/front/vendor/main.js', function () {
 						importScript('/front/scripts/combined.js');
 					});
+					importIcon('/front/svg/main.svg');
+					importIcon('/front/svg/common.svg');
 				});
 			}());
 		</script>
@@ -113,8 +118,17 @@
         DO NOT REMOVE THE FOLLOWING LINE:
         -->
 		<div id="ember-container">
-			<div id="article-preload">
-				{{{content}}}
+			<div id="preload">
+				<nav class="site-head">
+					<div class="site-logo">
+						<svg role="img" class="icon wikia-logo">
+							<use xlink:href="#wikia-logo"></use>
+						</svg>
+					</div>
+				</nav>
+				<div class="page-wrapper" lang="{{wiki.language.content}}" dir="{{wiki.language.contentDir}}">
+					{{{content}}}
+				</div>
 			</div>
 		</div>
 

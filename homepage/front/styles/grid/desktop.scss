@@ -1,0 +1,7 @@
+
+&.one {
+	div {
+		@include span-columns(6);
+		height: 20em;
+	}
+}
