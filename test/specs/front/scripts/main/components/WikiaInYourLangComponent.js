@@ -13,11 +13,6 @@ moduleForComponent('wikia-in-your-lang', 'WikiaInYourLangComponent', {
 	}
 });
 
-test('shouldShowWikiaInYourLang', function() {
-	var componentMock = this.subject();
-	equal(componentMock.shouldShowWikiaInYourLang(), true, 'should show if never shown + isJaOnNonJaWikia');
-});
-
 test('createAlert', function() {
 	var componentMock = this.subject();
 	equal(componentMock.alertNotifications.length, 0, 'should have no alert');
