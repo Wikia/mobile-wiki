@@ -58,7 +58,8 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 						y: cropData.y,
 						width: cropData.width,
 						height: cropData.height
-					};
+					},
+					model = this.get('model');
 
 				this.setProperties({
 					'model.image_url': this.get('imageProperties.url'),
@@ -68,22 +69,11 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 					'imageErrorMessage': null
 				});
 
-				switch (this.get('cropperSettings.aspectRatio')) {
-					case 16 / 9:
-						this.setProperties({
-							'model.image_crop': {
-								landscape: imageCrop
-							}
-						});
-						break;
-					case 1:
-						this.setProperties({
-							'model.image_crop': {
-								portrait: imageCrop
-							}
-						});
-						break;
+				if (model.image_crop === null) {
+					model.set('image_crop', {});
 				}
+
+				model.image_crop[this.get('aspectRatioName')] = imageCrop;
 
 				this.sendAction('changeLayout', this.get('imageCropLayout.next.name'))
 			}
