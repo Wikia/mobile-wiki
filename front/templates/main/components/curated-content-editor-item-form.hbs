@@ -16,7 +16,7 @@
 	<div class="image-modal-wrapper {{if imageModalVisible 'visible'}}" >
 		<div class="image-modal-layover" {{action 'hideImageModal'}}></div>
 		<ul class="image-modal">
-			{{file-input tagName='li' fileUpload='fileUpload' reset=resetFileInput label='Upload image'}}
+			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label='Upload image' click=(action 'hideImageModal')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
 	</div>
