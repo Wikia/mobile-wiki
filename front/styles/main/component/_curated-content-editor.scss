@@ -204,13 +204,21 @@ $row-height: 5rem;
 			color: $steel;
 			list-style: none;
 			margin: 10px;
-			padding: 10px;
 			z-index: $z-2;
 		}
 
-		li, label {
-			min-height: 2.5rem;
-			padding: .5rem;
+		li {
+			padding: 1rem;
+
+			&:not(:last-child) {
+				border-bottom: 1px $iron solid;
+			}
+		}
+
+		label {
+			color: inherit;
+			font-size: inherit;
+			padding: 0;
 		}
 
 		.image-modal-layover {
