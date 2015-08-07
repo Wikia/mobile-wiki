@@ -23,9 +23,9 @@ gulp.task('combine-svgs', folders(paths.src, function (folder) {
 			rev(),
 			gulp.dest(paths.dest)
 		)),
-		gulpif(true, piper(
+		piper(
 			rev.manifest(),
 			gulp.dest('www/front/svg')
-		))
+		)
 	);
 }));
