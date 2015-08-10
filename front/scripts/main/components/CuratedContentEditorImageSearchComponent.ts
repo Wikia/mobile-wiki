@@ -36,7 +36,8 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	{
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
-		imageSize: 200,
+		imageWidth: 200,
+		imageHeight: 200,
 		searchLimit: 24,
 		nextBatch: 1,
 

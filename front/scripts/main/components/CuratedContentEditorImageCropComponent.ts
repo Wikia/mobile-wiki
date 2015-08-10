@@ -28,14 +28,6 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			highlight: false
 		},
 
-		aspectRatio: Em.computed('block', function (): number {
-			return this.get('block') === 'featured' ? 16 / 9 : 1;
-		}),
-
-		aspectRatioName: Em.computed('block', function (): string {
-			return this.get('block') === 'featured' ? 'landscape' : 'square';
-		}),
-
 		actions: {
 			goBack(): void {
 				this.sendAction('changeLayout', this.get('imageCropLayout.previous'));

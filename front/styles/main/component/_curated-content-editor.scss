@@ -163,9 +163,19 @@ $row-height: 5rem;
 		@extend %image-placeholder;
 		border: 1px solid transparent;
 		display: block;
-		height: 90vw;
 		margin: 0 auto;
 		width: 90vw;
+
+	}
+
+	&.landscape img {
+		// 16:9 ratio
+		height: 51vw;
+	}
+
+	&.square img {
+		// 1:1 ratio
+		height: 90vw;
 	}
 
 	&.error {

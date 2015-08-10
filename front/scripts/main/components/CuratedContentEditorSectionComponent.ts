@@ -11,7 +11,9 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
 {
-	imageSize: 300,
+	imageWidth: 300,
+	imageHeight: 300,
+
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),

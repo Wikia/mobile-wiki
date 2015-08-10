@@ -8,17 +8,20 @@
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
+	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
-	App.CuratedContentEditorLayoutMixin,
 	{
 		classNames: ['curated-content-editor-item'],
-		imageSize: 300,
+		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
 
-		imageUrl: Em.computed('model.image_url', function (): string {
-			return this.generateThumbUrl(this.get('model.image_url'));
+		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
+			var aspectRatioName = this.get('aspectRatioName'),
+				imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
+
+			return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
 		}),
 
 		isSectionView: Em.computed.equal('model.node_type', 'section'),
@@ -212,7 +215,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		getImage(): void {
 			App.CuratedContentEditorItemModel
-				.getImage(this.get('model.title'), this.get('imageSize'))
+				.getImage(this.get('model.title'), this.get('imageWidth'))
 				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
