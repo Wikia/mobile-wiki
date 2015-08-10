@@ -16,11 +16,11 @@ $(function() : void {
 
 	$('.carousel').slick({
 		dots: false,
-		infinite: true,
+		infinite: false,
 		speed: 300,
-		slidesToShow: 3,
-		centerMode: true,
-		variableWidth: false
+		slidesToShow: 2,
+		centerMode: false,
+		variableWidth: true
 	});
 });
 
