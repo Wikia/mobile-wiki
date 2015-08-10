@@ -185,6 +185,12 @@ $row-height: 5rem;
 	}
 }
 
+.curated-content-editor-photo-crop {
+	background: #000;
+	height: calc(100vh - 20px);
+	width: 100vw;
+}
+
 .curated-content-editor-item {
 	.file-upload-input {
 		display: none;

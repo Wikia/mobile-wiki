@@ -12,11 +12,13 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	{
-		imgSelector: '.curated-content-editor-photo > img',
+		imgSelector: '.curated-content-editor-photo-crop > img',
 		$imgElement: null,
 
 		// https://github.com/fengyuanchen/cropper#options
 		cropperSettings: {
+			autoCropArea: 1,
+			background: false,
 			center: false,
 			checkImageOrigin: false,
 			cropBoxMovable: false,
