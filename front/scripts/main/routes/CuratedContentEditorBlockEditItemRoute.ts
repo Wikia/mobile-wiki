@@ -3,9 +3,7 @@
 
 'use strict';
 
-App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend(
-	App.TrackClickMixin,
-	{
+App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 	model(params: any): CuratedContentEditorItemModel {
 		var block: string = params.block,
 			item: string = decodeURIComponent(params.item),
@@ -49,7 +47,6 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend(
 		},
 
 		deleteItem(): void {
-			this.trackClick('curated-content-editor', 'item-delete');
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),
 				item: string = controller.get('originalItemLabel'),

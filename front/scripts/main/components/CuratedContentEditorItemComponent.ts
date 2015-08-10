@@ -105,6 +105,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		deleteItem(): void {
+			var trackLabel = this.get('isSectionView') ? 'section-delete' : 'item-delete';
+			this.trackClick('curated-content-editor', trackLabel );
 			//@TODO CONCF-956 add translations
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');

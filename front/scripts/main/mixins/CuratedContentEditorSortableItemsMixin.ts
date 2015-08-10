@@ -1,4 +1,6 @@
 /// <reference path="../app.ts" />
+/// <reference path="TrackClickMixin.ts"/>
+
 'use strict';
 
 App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
