@@ -8,9 +8,9 @@
 
 App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
+	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
-	App.CuratedContentEditorLayoutMixin,
 	{
 		imgSelector: '.curated-content-editor-photo > img',
 		$imgElement: null,
@@ -36,7 +36,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 
 		actions: {
 			goBack(): void {
-				this.sendAction('changeLayout', this.get('imageCropLayout.previous.name'));
+				this.sendAction('changeLayout', this.get('imageCropLayout.previous'));
 			},
 
 			done(): void {
@@ -47,9 +47,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 
 				model.setProperties({
 					'image_url': this.get('imageProperties.url'),
-					// article_id comes from MW because in MW files are like any other articles
-					// so there is no such thing as image_id from MW perspective.
-					'image_id': this.get('imageProperties.article_id')
+					'image_id': this.get('imageProperties.id')
 				});
 
 				// If user clicks DONE before image is loaded we ignore cropping
@@ -70,7 +68,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 					model.image_crop[this.get('aspectRatioName')] = imageCrop;
 				}
 
-				this.sendAction('changeLayout', this.get('imageCropLayout.next.name'))
+				this.sendAction('changeLayout', this.get('imageCropLayout.next'))
 			}
 		},
 
