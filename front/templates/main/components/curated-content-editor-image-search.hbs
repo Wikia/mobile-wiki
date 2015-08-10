@@ -16,5 +16,6 @@
 		{{/each}}
 		{{loading-spinner active=isLoading overlay=false}}
 	</div>
+	<button {{action 'loadMore'}} class="{{if hasNextBatch 'visible'}}">{{i18n 'app:curated-content-load-more-items'}}</button>
 </form>
 
