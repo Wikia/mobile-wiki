@@ -3,6 +3,7 @@
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 ///<reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
+///<reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
@@ -10,6 +11,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	App.CuratedContentEditorLayoutMixin,
+	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor-item'],
 		imageSize: 300,
