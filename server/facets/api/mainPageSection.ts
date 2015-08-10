@@ -15,7 +15,7 @@ interface CuratedContentSectionMW {
 		article_id: string;
 		type: string;
 		image_url: string;
-		image_crop: {
+		image_crop?: {
 			landscape: {
 				x: number;
 				y: number;

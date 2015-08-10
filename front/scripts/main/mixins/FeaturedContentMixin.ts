@@ -8,7 +8,7 @@ interface FeaturedContentItem {
 	article_id: number;
 	type: string;
 	image_url: string;
-	image_crop: {
+	image_crop?: {
 		landscape: {
 			x: number;
 			y: number;
