@@ -2,14 +2,16 @@
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-///<reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
-///<reference path="../models/SearchImagesModel.ts"/>
+/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
+/// <reference path="../models/SearchImagesModel.ts"/>
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
