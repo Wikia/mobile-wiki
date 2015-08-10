@@ -6,6 +6,7 @@
 App.CuratedContentEditorComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 {
 	classNames: ['curated-content-editor'],
 
@@ -27,6 +28,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		},
 
 		save(): void {
+			this.trackClick('curated-content-editor', 'save');
 			this.validateAndSave();
 		}
 	},
