@@ -85,12 +85,12 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		goBack(): void {
-			this.trackClick('curated-content-editor', 'go-back');
+			this.trackClick('curated-content-editor', 'item-go-back');
 			this.sendAction('goBack');
 		},
 
 		done(): void {
-			this.trackClick('curated-content-editor', 'done');
+			this.trackClick('curated-content-editor', 'item-done');
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				if (this.get('isSectionView')) {
 					this.validateAndDone(this.get('model'), {
@@ -106,7 +106,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		deleteItem(): void {
-			this.trackClick('curated-content-editor', 'delete-item');
+			this.trackClick('curated-content-editor', 'item-delete');
 			//@TODO CONCF-956 add translations
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');
@@ -114,7 +114,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		fileUpload(files: any[]): void {
-			this.trackClick('curated-content-editor', 'file-upload');
+			this.trackClick('curated-content-editor', 'item-file-upload');
 			this.showLoader();
 			App.AddPhotoModel.load(files[0])
 				.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))

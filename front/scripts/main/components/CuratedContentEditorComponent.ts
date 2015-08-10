@@ -12,27 +12,27 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 
 	actions: {
 		addBlockItem(block: string): void {
-			this.trackClick('curated-content-editor', 'add-block-item');
+			this.trackClick('curated-content-editor', 'cc-block-add');
 			this.sendAction('addBlockItem', block);
 		},
 
 		addSection(): void {
-			this.trackClick('curated-content-editor', 'add-section');
+			this.trackClick('curated-content-editor', 'cc-section-add');
 			this.sendAction('addSection');
 		},
 
 		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
-			this.trackClick('curated-content-editor', 'edit-block-item');
+			this.trackClick('curated-content-editor', 'cc-block-edit');
 			this.sendAction('editBlockItem', item, block);
 		},
 
 		openSection(item: CuratedContentEditorItemModel): void {
-			this.trackClick('curated-content-editor', 'open-section');
+			this.trackClick('curated-content-editor', 'cc-section-open');
 			this.sendAction('openSection', item);
 		},
 
 		save(): void {
-			this.trackClick('curated-content-editor', 'save');
+			this.trackClick('curated-content-editor', 'cc-save');
 			this.validateAndSave();
 		}
 	},
