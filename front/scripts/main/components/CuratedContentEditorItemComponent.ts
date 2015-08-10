@@ -85,7 +85,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		goBack(): void {
-			this.trackClick('curated-content-editor', 'item-go-back');
 			this.sendAction('goBack');
 		},
 
@@ -106,7 +105,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		deleteItem(): void {
-			this.trackClick('curated-content-editor', 'item-delete');
 			//@TODO CONCF-956 add translations
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');

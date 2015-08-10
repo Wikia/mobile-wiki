@@ -25,7 +25,6 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 			}
 		},
 		moveBy(offset: number): void {
-			this.trackClick('curated-content-editor', 'item-move');
 			this.sendAction('moveBy', offset, this.get('model'));
 		}
 	}

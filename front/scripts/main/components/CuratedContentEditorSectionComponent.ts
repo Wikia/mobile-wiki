@@ -20,22 +20,18 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 
 	actions: {
 		addItem(): void {
-			this.trackClick('curated-content-editor', 'section-item-add');
 			this.sendAction('addItem');
 		},
 
 		editItem(item: CuratedContentEditorItemModel): void {
-			this.trackClick('curated-content-editor', 'section-item-edit');
 			this.sendAction('editItem', item);
 		},
 
 		editSection(): void {
-			this.trackClick('curated-content-editor', 'section-edit');
 			this.sendAction('editSection', this.get('model'));
 		},
 
 		goBack(): void {
-			this.trackClick('curated-content-editor', 'section-go-back');
 			this.sendAction('goBack');
 		},
 
