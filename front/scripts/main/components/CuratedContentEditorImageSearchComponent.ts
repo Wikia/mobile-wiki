@@ -14,7 +14,7 @@ interface SearchPhotoResponseInterface {
 		};
 		limit: number;
 		batch: number;
-	},
+	};
 	error?: any
 }
 
