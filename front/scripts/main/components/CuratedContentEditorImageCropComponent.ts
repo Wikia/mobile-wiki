@@ -3,6 +3,7 @@
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 
 'use strict';
 
@@ -11,6 +12,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 	{
 		imgSelector: '.curated-content-editor-photo-crop > img',
 		$imgElement: null,
@@ -30,10 +32,12 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 
 		actions: {
 			goBack(): void {
+				this.trackClick('curated-content-editor', 'image-crop-go-back' );
 				this.sendAction('changeLayout', this.get('imageCropLayout.previous'));
 			},
 
 			done(): void {
+				this.trackClick('curated-content-editor', 'image-crop-done' );
 				var $imgElement = this.get('$imgElement'),
 					model = this.get('model'),
 					cropData: any,
