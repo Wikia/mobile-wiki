@@ -1,10 +1,10 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/ViewportMixin.ts"/>
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
+/// <reference path="../mixins/ViewportMixin.ts"/>
 /// <reference path="../../mercury/modules/Thumbnailer.ts"/>
 'use strict';
 
-App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, App.CuratedContentThumbnailMixin, {
+App.CuratedContentItemComponent = Em.Component.extend(App.CuratedContentThumbnailMixin, App.ViewportMixin, {
 	tagName: 'a',
 	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
