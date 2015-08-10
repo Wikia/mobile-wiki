@@ -15,7 +15,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 
 	actions: {
 		itemClick(): void {
-			this.trackClick('curated-content-editor', 'cc-click');
+			this.trackClick('curated-content-editor', 'item-click');
 			var model: CuratedContentEditorItemModel = this.get('model');
 
 			if (model.node_type === 'section') {
@@ -25,7 +25,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 			}
 		},
 		moveBy(offset: number): void {
-			this.trackClick('curated-content-editor', 'cc-move');
+			this.trackClick('curated-content-editor', 'item-move');
 			this.sendAction('moveBy', offset, this.get('model'));
 		}
 	}
