@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
-/// <reference path="../mixins/ViewportMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
 /// <reference path="../../mercury/modules/Thumbnailer.ts" />
 'use strict';
 
@@ -9,8 +9,8 @@ App.FeaturedContentItemComponent = Em.Component.extend(
 	App.ViewportMixin,
 {
 	tagName: 'a',
-	classNames: ['featured-content-item'],
 	attributeBindings: ['href', 'style'],
+	classNames: ['featured-content-item'],
 
 	href: Em.computed.oneWay('model.article_local_url'),
 	style: null,

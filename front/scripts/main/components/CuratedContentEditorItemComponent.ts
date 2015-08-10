@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
-/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
