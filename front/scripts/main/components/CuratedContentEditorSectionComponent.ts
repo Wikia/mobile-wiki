@@ -10,6 +10,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.CuratedContentEditorSortableItemsMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 {
 	imageSize: 300,
 	thumbUrl: Em.computed('model', function (): string {
@@ -19,22 +20,27 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 
 	actions: {
 		addItem(): void {
+			this.trackClick('curated-content-editor', 'add-item');
 			this.sendAction('addItem');
 		},
 
 		editItem(item: CuratedContentEditorItemModel): void {
+			this.trackClick('curated-content-editor', 'edit-item');
 			this.sendAction('editItem', item);
 		},
 
 		editSection(): void {
+			this.trackClick('curated-content-editor', 'edit-section');
 			this.sendAction('editSection', this.get('model'));
 		},
 
 		goBack(): void {
+			this.trackClick('curated-content-editor', 'go-back');
 			this.sendAction('goBack');
 		},
 
 		done(): void {
+			this.trackClick('curated-content-editor', 'done');
 			if (this.get('notEmptyItems')) {
 				this.validateAndDone();
 			} else {

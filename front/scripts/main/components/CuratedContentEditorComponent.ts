@@ -6,27 +6,33 @@
 App.CuratedContentEditorComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 {
 	classNames: ['curated-content-editor'],
 
 	actions: {
 		addBlockItem(block: string): void {
+			this.trackClick('curated-content-editor', 'add-block-item');
 			this.sendAction('addBlockItem', block);
 		},
 
 		addSection(): void {
+			this.trackClick('curated-content-editor', 'add-section');
 			this.sendAction('addSection');
 		},
 
 		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
+			this.trackClick('curated-content-editor', 'edit-block-item');
 			this.sendAction('editBlockItem', item, block);
 		},
 
 		openSection(item: CuratedContentEditorItemModel): void {
+			this.trackClick('curated-content-editor', 'open-section');
 			this.sendAction('openSection', item);
 		},
 
 		save(): void {
+			this.trackClick('curated-content-editor', 'save');
 			this.validateAndSave();
 		}
 	},

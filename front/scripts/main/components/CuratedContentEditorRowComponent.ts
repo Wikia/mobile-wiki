@@ -2,7 +2,10 @@
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 'use strict';
 
-App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentEditorThumbnailMixin, {
+App.CuratedContentEditorRowComponent = Em.Component.extend(
+	App.CuratedContentEditorThumbnailMixin,
+	App.TrackClickMixin,
+	{
 	classNames: ['curated-content-editor-row-container'],
 	imageSize: 100,
 
@@ -12,6 +15,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentEdi
 
 	actions: {
 		itemClick(): void {
+			this.trackClick('curated-content-editor', 'item-click');
 			var model: CuratedContentEditorItemModel = this.get('model');
 
 			if (model.node_type === 'section') {
@@ -21,6 +25,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentEdi
 			}
 		},
 		moveBy(offset: number): void {
+			this.trackClick('curated-content-editor', 'move-by');
 			this.sendAction('moveBy', offset, this.get('model'));
 		}
 	}
