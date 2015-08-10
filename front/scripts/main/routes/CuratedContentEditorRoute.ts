@@ -12,12 +12,12 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 	actions: {
 		addBlockItem(block: string): void {
-			this.trackClick('curated-content-editor', 'block-item-add');
+			this.trackClick('curated-content-editor', 'item-add');
 			this.transitionTo('curatedContentEditor.blockAddItem', block);
 		},
 
 		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
-			this.trackClick('curated-content-editor', 'block-item-edit');
+			this.trackClick('curated-content-editor', 'item-edit');
 			this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 		},
 

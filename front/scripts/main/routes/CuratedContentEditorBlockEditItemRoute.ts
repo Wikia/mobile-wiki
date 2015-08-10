@@ -49,7 +49,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend(
 		},
 
 		deleteItem(): void {
-			this.trackClick('curated-content-editor', 'block-delete');
+			this.trackClick('curated-content-editor', 'item-delete');
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),
 				item: string = controller.get('originalItemLabel'),
