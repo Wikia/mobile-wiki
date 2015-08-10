@@ -30,9 +30,9 @@ interface SearchPhotoImageResponseInterface {
 
 App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
+	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
-	App.CuratedContentEditorLayoutMixin,
 	{
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
@@ -112,7 +112,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 		actions: {
 			goBack(): void {
-				this.sendAction('changeLayout', this.get('imageSearchLayout.previous.name'));
+				this.sendAction('changeLayout', this.get('imageSearchLayout.previous'));
 			},
 
 			select(image: SearchPhotoImageResponseInterface): void {
@@ -121,7 +121,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 					'model.image_id': image.id,
 					'imageErrorMessage': null
 				});
-				this.sendAction('changeLayout', this.get('imageSearchLayout.next.name'));
+				this.sendAction('changeLayout', this.get('imageSearchLayout.next'));
 			},
 
 			loadMore(): void {
