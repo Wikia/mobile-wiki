@@ -1,12 +1,12 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
-/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
 App.CuratedContentEditorItemComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
-	App.CuratedContentEditorThumbnailMixin,
+	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
 {
 	classNames: ['curated-content-editor-item'],

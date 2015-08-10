@@ -1,17 +1,10 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/ViewportMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../../mercury/modules/Thumbnailer.ts" />
-
 'use strict';
 
-interface ImageCropData {
-	x?: number;
-	y?: number;
-	width?: number;
-	height?: number;
-}
-
-App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
+App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, App.CuratedContentThumbnailMixin, {
 	tagName: 'a',
 	classNames: ['featured-content-item'],
 	attributeBindings: ['href', 'style'],
@@ -22,16 +15,11 @@ App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	// TODO make it more responsive
 	imageWidth: 400,
 	imageHeight: 225,
-	imageCropData: Em.computed.oneWay('model.image_crop.landscape'),
+	cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
 	thumbUrl: Em.computed('model', function (): string {
-		return this.setThumbUrl(
+		return this.generateThumbUrl(
 			this.get('model.image_url'),
-			this.get('imageCropData'),
-			{
-				mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
-				width: this.get('imageWidth'),
-				height: this.get('imageHeight')
-			}
+			this.get('model.image_crop.landscape')
 		);
 	}),
 
@@ -50,16 +38,4 @@ App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		var height = String(Math.round((containerWidth / 16) * 9));
 		this.set('style', Em.String.htmlSafe('height: %@px;'.fmt(height)));
 	},
-
-	setThumbUrl: function (imageUrl: string, imageCropData: ImageCropData, options: any): void {
-		if (imageCropData) {
-			options.mode = Mercury.Modules.Thumbnailer.mode.windowCrop;
-			options.xOffset1 = imageCropData.x;
-			options.yOffset1 = imageCropData.y;
-			options.xOffset2 = imageCropData.x + imageCropData.width;
-			options.yOffset2 = imageCropData.y + imageCropData.height;
-		}
-
-		return Mercury.Modules.Thumbnailer.getThumbURL(imageUrl, options);
-	}
 });
