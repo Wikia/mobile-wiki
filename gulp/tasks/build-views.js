@@ -32,7 +32,8 @@ if (sync) {
 }
 
 gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-vendor', 'build-combined'], function () {
-	var manifest = gulp.src(['www/front/vendor/rev-manifest.json', 'www/front/scripts/rev-manifest.json']);
+	var manifest = gulp.src(['www/front/vendor/rev-manifest.json', 'www/front/scripts/rev-manifest.json',
+								'www/front/svg/rev-manifest.json']);
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFullServer

@@ -66,6 +66,40 @@
 				M.provide('error', {{{error}}});
 			{{/if}}
 
+			(function () {
+				function loadError (oError) {
+					throw new URIError("The script " + oError.target.src + " is not accessible.");
+				}
+
+				function importScript (src, fOnload) {
+					var script = document.createElement("script");
+					script.type = "text\/javascript";
+					script.onerror = loadError;
+					if (fOnload) { script.onload = fOnload; }
+					document.body.appendChild(script);
+					script.src = src;
+				}
+
+				function importIcon (src) {
+					var ajax = new XMLHttpRequest();
+					ajax.open('GET', src, true);
+					ajax.send();
+					ajax.onload = function() {
+						var div = document.createElement('div');
+						div.innerHTML = ajax.responseText;
+						document.body.insertBefore(div.childNodes[0], document.body.firstChild);
+					};
+					ajax.onerror = loadError;
+				}
+
+				document.addEventListener("DOMContentLoaded", function() {
+					importScript('/front/vendor/main.js', function () {
+						importScript('/front/scripts/combined.js');
+					});
+					importIcon('/front/svg/main.svg');
+					importIcon('/front/svg/common.svg');
+				});
+			}());
 		</script>
 
 		<!-- @ifdef browserSync -->
@@ -77,9 +111,6 @@
 	</head>
 	<body>
 		{{> qualaroo}}
-		<!-- @include ../../../www/front/svg/common.svg -->
-		<!-- @include ../../../www/front/svg/main.svg -->
-
 
         <!--
         Ember must render out to a specific div above the scripts, otherwise
@@ -101,28 +132,6 @@
 			</div>
 		</div>
 
-		<script>
-			(function () {
-				function loadError (oError) {
-					throw new URIError("The script " + oError.target.src + " is not accessible.");
-				}
-
-				function importScript (src, fOnload) {
-					var script = document.createElement("script");
-					script.type = "text\/javascript";
-					script.onerror = loadError;
-					if (fOnload) { script.onload = fOnload; }
-					document.body.appendChild(script);
-					script.src = src;
-				}
-
-				document.addEventListener("DOMContentLoaded", function(event) {
-					importScript('/front/vendor/main.js', function () {
-						importScript('/front/scripts/combined.js');
-					});
-				});
-			}());
-		</script>
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}
 	</body>
