@@ -94,8 +94,9 @@ App.CuratedContentEditorModel.reopenClass({
 	 */
 	sanitize(rawData: any): CuratedContentEditorModel {
 		/**
-		 * Label has to be initialized with string value because it can't be null.
-		 * If it's null it will fail rendering main page.
+		 * Label inside "optional" has to be initialized with empty string value.
+		 * Code inside CuratedContentController:getSections (MW) decides based on this label
+		 * if it's optional or not. If it's null it will fail rendering main page.
 		 */
 		var featured: any = {
 				items: <any>[],
