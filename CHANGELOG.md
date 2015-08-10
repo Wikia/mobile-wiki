@@ -1,3 +1,12 @@
+## release-130 (2015-08-10 10:00 UTC)
+* [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Truncate helper error handling
+* [DAT-3048](https://wikia-inc.atlassian.net/browse/DAT-3048) DAT-3048 Remove chevrons and captions from linked icons
+* [HG-788](https://wikia-inc.atlassian.net/browse/HG-788) HG-788 - replace inline SVG sprite with requested asset
+* [HG-819](https://wikia-inc.atlassian.net/browse/HG-819) HG-819 - make blockquote styles conform to style guide
+* [HG-838](https://wikia-inc.atlassian.net/browse/HG-838) HG-838 Don't display deprecations when running unit tests
+* remove-pointless-comment: Removing pointless comment
+* speed-up-floating-labels: Speeding up floating labels to look more native
+
 ## release-129 (2015-08-07 10:00 UTC)
 * [SOC-1035](https://wikia-inc.atlassian.net/browse/SOC-1035) SOC-1035 New JA translation for login and registration
 * [HG-667](https://wikia-inc.atlassian.net/browse/HG-667) HG-667 - disable logging for ember performance sender
