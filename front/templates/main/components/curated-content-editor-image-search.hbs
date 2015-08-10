@@ -11,11 +11,13 @@
 	}}
 	<div class="search-results">
 		<p>{{searchMessage}}</p>
-		{{#each images as |image|}}
+		{{#each imagesModel.items as |image|}}
 			<img {{action 'select' image}} src="{{image.thumbnailUrl}}">
 		{{/each}}
 		{{loading-spinner active=isLoading overlay=false}}
 	</div>
-	<button {{action 'loadMore'}} class="{{if hasNextBatch 'visible'}}">{{i18n 'app:curated-content-load-more-items'}}</button>
+	{{#if imagesModel.items}}
+		<button {{action 'loadMore'}} class="{{if imagesModel.hasNextBatch 'visible'}}">{{i18n 'app.curated-content-load-more-items'}}</button>
+	{{/if}}
 </form>
 
