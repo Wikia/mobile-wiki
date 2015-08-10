@@ -14,6 +14,9 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
 
+		searchPlaceholder: Em.computed(function() {
+			return i18n.t('app.curated-content-editor-search-images-placeholder');
+		}),
 		searchPhraseObserver: Em.observer('searchPhrase', function() {
 			this.showLoader();
 
@@ -25,11 +28,11 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		}),
 
 		getNextBatch(): void {
-			this.imagesModel.next()
+			this.get('imagesModel').next()
 				.then((): void => {
 					var message: string = null;
 
-					if (Em.isEmpty(this.imagesModel.items)) {
+					if (Em.isEmpty(this.get('imagesModel').items)) {
 						message = i18n.t('app.curated-content-editor-no-images-found');
 					}
 
@@ -40,7 +43,10 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 					//@TODO CONCF-956 add translations
 					this.set('imageErrorMessage', 'Oops! An API Error occured.');
 				})
-				.finally((): void => this.hideLoader());
+				.finally((): void => {
+				this.hideLoader();
+				this.set('spinnerOverlay', false);
+			});
 		},
 
 		actions: {

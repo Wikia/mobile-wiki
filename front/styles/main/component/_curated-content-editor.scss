@@ -6,6 +6,11 @@ $item-image-size: 4rem;
 $image-margin: 1rem;
 $image-size: 150px;
 $row-height: 5rem;
+$search-results-image-size: 30vw;
+$search-results-image-spacing: 1vw;
+$search-results-horizontal-padding: 2vw;
+$search-image-input-text-padding: $search-results-image-spacing + $search-results-horizontal-padding;
+$search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-padding;
 
 .curated-content-editor-add-item-btn {
 	cursor: pointer;
@@ -268,25 +273,39 @@ $row-height: 5rem;
 
 .curated-content-editor-image-search {
 	.search-input {
+		//Let's make it important so we don't need to override padding for all possible states of inputs
+		padding: $search-image-input-text-padding !important;
+	}
+
+	.search-message {
+		text-align: center;
 		width: 100%;
+
+		&.hidden {
+			display: none;
+		}
 	}
 
 	.search-results {
-		text-align: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		padding: $search-results-horizontal-padding;
 
 		img {
-			height: 30vw;
-			margin: 1vw;
-			width: 30vw;
+			height: $search-results-image-size;
+			margin: $search-results-image-spacing;
+			width: $search-results-image-size;
 		}
 	}
 
 	button {
 		display: none;
-		width: 100%;
+		margin: 0 auto;
+		width: $search-results-load-more-button-width;
 
 		&.visible {
-			display: inline-block;
+			display: block;
 		}
 	}
 }
