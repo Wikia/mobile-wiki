@@ -125,6 +125,8 @@ class FacebookRegistration {
 			data = <HeliosFacebookRegistrationData> this.getHeliosRegistrationDataFromForm(),
 			url = this.form.getAttribute('action');
 
+		this.formErrors.clearValidationErrors();
+
 		facebookRegistrationXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
