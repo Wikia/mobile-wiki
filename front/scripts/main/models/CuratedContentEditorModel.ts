@@ -97,14 +97,14 @@ App.CuratedContentEditorModel.reopenClass({
 		 * Label has to be initialized with string value because it can't be null.
 		 * If it's null it will fail rendering main page.
 		 */
-		var featured = {
+		var featured: any = {
 				items: <any>[],
 				featured: 'true',
 			},
-			curated = {
+			curated: any = {
 				items: <any>[]
 			},
-			optional = {
+			optional: any = {
 				items: <any>[],
 				label: ''
 			};
