@@ -23,12 +23,15 @@ App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	imageWidth: 400,
 	imageHeight: 225,
 	imageCropData: Em.computed.oneWay('model.image_crop.landscape'),
-	imageCropModeDefault: Mercury.Modules.Thumbnailer.mode.zoomCrop,
 	thumbUrl: Em.computed('model', function (): string {
 		return this.setThumbUrl(
 			this.get('model.image_url'),
 			this.get('imageCropData'),
-			this.get('imageCropModeDefault')
+			{
+				mode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
+				width: this.get('imageWidth'),
+				height: this.get('imageHeight')
+			}
 		);
 	}),
 
@@ -48,20 +51,13 @@ App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		this.set('style', Em.String.htmlSafe('height: %@px;'.fmt(height)));
 	},
 
-	setThumbUrl: function (imageUrl: string, imageCropData: ImageCropData, defaultCropMode: string): void {
-		var options: any = {
-				width: this.get('imageWidth'),
-				height: this.get('imageHeight'),
-			};
-
+	setThumbUrl: function (imageUrl: string, imageCropData: ImageCropData, options: any): void {
 		if (imageCropData) {
 			options.mode = Mercury.Modules.Thumbnailer.mode.windowCrop;
 			options.xOffset1 = imageCropData.x;
 			options.yOffset1 = imageCropData.y;
 			options.xOffset2 = imageCropData.x + imageCropData.width;
 			options.yOffset2 = imageCropData.y + imageCropData.height;
-		} else {
-			options.mode = defaultCropMode;
 		}
 
 		return Mercury.Modules.Thumbnailer.getThumbURL(imageUrl, options);

@@ -57,31 +57,32 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	}),
 
 	lazyLoadImage: function (): void {
-		var options: any = {
+		this.set('thumbUrl', this.setThumbUrl(
+			this.get('model.imageUrl'),
+			this.get('model.imageCrop.square'),
+			{
+				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
 				width: this.get('imageSize'),
-				height: this.get('imageSize'),
-			},
-			thumbUrl: string,
-			imageCrop = this.get('model.imageCrop.square');
-
-		if (imageCrop) {
-			options.mode = Mercury.Modules.Thumbnailer.mode.windowCrop;
-			options.xOffset1 = imageCrop.x;
-			options.yOffset1 = imageCrop.y;
-			options.xOffset2 = imageCrop.x + imageCrop.width;
-			options.yOffset2 = imageCrop.y + imageCrop.height;
-		} else {
-			options.mode = Mercury.Modules.Thumbnailer.mode.topCrop;
-		}
-
-		thumbUrl = this.thumbnailer.getThumbURL(this.get('model.imageUrl'), options);
-
-		this.set('thumbUrl', thumbUrl);
+				height: this.get('imageSize')
+			}
+		));
 	},
 
 	updateImageSize: function (viewportSize: number): void {
 		var imageSize = String(Math.floor((viewportSize - 20) / 2));
 
 		this.set('style', Em.String.htmlSafe(`height: ${imageSize}px; width: ${imageSize}px;`));
+	},
+
+	setThumbUrl: function (imageUrl: string, imageCropData: ImageCropData, options: any): void {
+		if (imageCropData) {
+			options.mode = Mercury.Modules.Thumbnailer.mode.windowCrop;
+			options.xOffset1 = imageCropData.x;
+			options.yOffset1 = imageCropData.y;
+			options.xOffset2 = imageCropData.x + imageCropData.width;
+			options.yOffset2 = imageCropData.y + imageCropData.height;
+		}
+
+		return Mercury.Modules.Thumbnailer.getThumbURL(imageUrl, options);
 	}
 });
