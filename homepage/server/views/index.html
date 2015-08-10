@@ -2,8 +2,11 @@
 
 <div class="parallax">
   <div id="js-parallax-window" class="parallax-window">
-    <div class="parallax-static-content">
+    <div class="parallax-static-content" id="parallax-content-1">
       {{>welcome}}
+    </div>
+    <div class="parallax-static-content parallax-hidden-slide" id="parallax-content-2">
+      {{>welcome_details}}
     </div>
     <div id="js-parallax-background" class="parallax-background"></div>
   </div>

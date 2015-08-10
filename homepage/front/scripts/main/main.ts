@@ -46,7 +46,12 @@ $('#beginnersGuide').click(function(event) : void {
 	event.preventDefault();
 });
 
-$('#searchWikiaForm').submit(function(event) : void {
+$('.search-wikia-form').submit(function(event) : void {
+	search();
+	event.preventDefault();
+});
+
+$('.search-wikia').click(function(event) : void {
 	search();
 	event.preventDefault();
 });
@@ -55,6 +60,14 @@ $('#loginLink').click(function(event) : void {
 	if ($(document).width() < 710) {
 		$('.login-box-mobile').toggle();
 	}
+
+	event.preventDefault();
+});
+
+$('#whatIsWikia').click(function(event) : void {
+	$('#parallax-content-1').slideToggle('fast', function() : void {
+		$('#parallax-content-2').slideToggle('fast');
+	});
 
 	event.preventDefault();
 });
