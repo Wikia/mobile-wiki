@@ -114,7 +114,6 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		fileUpload(files: any[]): void {
-			this.trackClick('curated-content-editor', 'item-file-upload');
 			this.showLoader();
 			App.AddPhotoModel.load(files[0])
 				.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
