@@ -112,6 +112,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			fileUpload(files: any[]): void {
+				this.trackClick('curated-content-editor', 'item-file-upload');
 				this.showLoader();
 				App.AddPhotoModel.load(files[0])
 					.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
@@ -139,6 +140,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			showImageModal(): void {
+				this.trackClick('curated-content-editor', 'item-image-upload-modal-visible');
 				this.set('imageModalVisible', true);
 			},
 
@@ -147,6 +149,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			showSearchImageForm(): void {
+				this.trackClick('curated-content-editor', 'item-search-image-form-opened');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
 			}
 		},

@@ -52,10 +52,12 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 		actions: {
 			goBack(): void {
+				this.trackClick('curated-content-editor', 'image-search-go-back');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.previous'));
 			},
 
 			select(image: SearchPhotoImageResponseInterface): void {
+				this.trackClick('curated-content-editor', 'image-from-search-selected');
 				this.setProperties({
 					'model.image_url': image.thumbnailUrl,
 					'model.image_id': image.id,
@@ -65,6 +67,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			},
 
 			loadMore(): void {
+				this.trackClick('curated-content-editor', 'image-search-load-more-clicked');
 				this.set('spinnerOverlay', true);
 				this.showLoader();
 				this.getNextBatch();
