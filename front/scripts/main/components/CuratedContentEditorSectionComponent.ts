@@ -3,6 +3,7 @@
 /// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorSectionComponent = Em.Component.extend(

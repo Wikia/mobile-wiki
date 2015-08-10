@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 
 'use strict';
 

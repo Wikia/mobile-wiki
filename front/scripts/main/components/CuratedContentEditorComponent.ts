@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorComponent = Em.Component.extend(

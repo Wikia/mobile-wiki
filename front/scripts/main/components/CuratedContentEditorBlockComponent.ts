@@ -1,5 +1,6 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorBlockComponent = Em.Component.extend(
