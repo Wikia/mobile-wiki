@@ -9,8 +9,8 @@ interface SearchPhotoResponseInterface {
 		results: {
 			photo: {
 				batches: number;
-				items: SearchPhotoImageResponseInterface[]
-			}
+				items: SearchPhotoImageResponseInterface[];
+			};
 		};
 		limit: number;
 		batch: number;
@@ -25,6 +25,7 @@ interface SearchPhotoImageResponseInterface {
 	width: string;
 	height: string;
 	thumbnailUrl?: string;
+	id: number;
 }
 
 App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
@@ -77,10 +78,11 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 						var fetchedImages = data.response.results.photo.items;
 
 						if (Em.isEmpty(fetchedImages)) {
-							this.set('searchMessage', 'app.curated-content-editor-no-images-found');
+							this.set('searchMessage', i18n.t('app.curated-content-editor-no-images-found'));
 						} else {
 							this.setImages(fetchedImages);
 							this.set('batches', data.response.results.photo.batches);
+							this.set('searchMessage', null);
 						}
 					}
 				})
@@ -113,8 +115,13 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 				this.sendAction('changeLayout', this.get('imageSearchLayout.previous.name'));
 			},
 
-			done(): void {
-				this.sendAction('changeLayout', this.get('imageSearchLayout.next.name'))
+			select(image: SearchPhotoImageResponseInterface): void {
+				this.setProperties({
+					'model.image_url': image.thumbnailUrl,
+					'model.image_id': image.id,
+					'imageErrorMessage': null
+				});
+				this.sendAction('changeLayout', this.get('imageSearchLayout.next.name'));
 			},
 
 			loadMore(): void {
