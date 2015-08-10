@@ -28,7 +28,6 @@ App.ArticleContributionComponent = Em.Component.extend({
 				label: 'addPhoto',
 				value: this.get('section')
 			});
-			this.$('.file-upload-input').click();
 		},
 
 		addPhoto: function (): void {

@@ -73,19 +73,6 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		this.$().html(content);
 	},
 
-	setupContributionButtons: function (): void {
-		var headers = this.get('headers'),
-			$sectionHeader: JQuery = null,
-			$contributionComponent: JQuery = null;
-
-		headers.forEach((header: ArticleSectionHeader): void => {
-			$contributionComponent = this.createArticleContributionComponent(header.section);
-			$sectionHeader = this.$(header.element);
-			$sectionHeader.prepend($contributionComponent).addClass('short-header');
-			$contributionComponent.wrap('<div class="icon-wrapper"></div>');
-		});
-	},
-
 	createArticleContributionComponent: function(section: number): JQuery {
 		var article = this.get('content'),
 			title = this.get('cleanTitle'),
@@ -119,11 +106,22 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 			}).toArray();
 
 		this.set('headers', headers);
-
-		if (this.get('contributionFeatureEnabled')) {
-			this.setupContributionButtons();
-		}
 	},
+
+	headerObserver: Em.observer('headers', function(): void {
+		if (this.get('contributionFeatureEnabled')) {
+			var headers = this.get('headers'),
+			    $sectionHeader: JQuery = null,
+			    $contributionComponent: JQuery = null;
+
+			headers.forEach((header: ArticleSectionHeader): void => {
+				$contributionComponent = this.createArticleContributionComponent(header.section);
+				$sectionHeader = this.$(header.element);
+				$sectionHeader.prepend($contributionComponent).addClass('short-header');
+				$contributionComponent.wrap('<div class="icon-wrapper"></div>');
+			});
+		}
+	}),
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),
