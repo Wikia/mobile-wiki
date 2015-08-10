@@ -1,11 +1,20 @@
 <form {{action 'done' on='submit'}}>
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-		{{!-- @TODO CONCF-956 add translations to DONE --}}
-		<button class="large publish curated-content-editor-submit" type="submit" disabled={{if canSave null 'disabled'}}>Done</button>
 		{{!-- @TODO CONCF-956 add translations to Create new item --}}
 		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new{{/if}}</div>
 	</header>
-	<input placeholder="{{i18n 'app.curated-content-editor-search-image'}}"/>
+	{{input
+		value=searchPhrase
+		id='search'
+		name='search'
+	}}
+	<div class="search-results">
+		<p>{{searchMessage}}</p>
+		{{#each images as |image|}}
+			<img {{action 'select' image}} src="{{image.thumbnailUrl}}">
+		{{/each}}
+		{{loading-spinner active=isLoading overlay=false}}
+	</div>
 </form>
 

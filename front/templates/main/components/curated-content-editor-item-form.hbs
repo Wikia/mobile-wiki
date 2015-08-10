@@ -13,22 +13,22 @@
 		{{/if}}
 		{{loading-spinner active=isLoading overlay=false}}
 	</div>
-	<div class="image-modal">
-		<button {{action 'hideImageModal'}}>x</button>
-		<ul>
-			<li>{{file-input fileUpload='fileUpload' reset=resetFileInput label='Upload image'}}</li>
+	<div class="image-modal-wrapper {{if imageModalVisible 'visible'}}" >
+		<div class="image-modal-layover" {{action 'hideImageModal'}}></div>
+		<ul class="image-modal">
+			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label='Upload image' click=(action 'hideImageModal')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
 	</div>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
 			{{input
-			value=model.label
-			id='label'
-			class=labelClass
-			name='label'
-			focus-out='setLabelFocusedOut'
-			focus-in='setLabelFocusedIn'
+				value=model.label
+				id='label'
+				class=labelClass
+				name='label'
+				focus-out='setLabelFocusedOut'
+				focus-in='setLabelFocusedIn'
 			}}
 			{{!-- @TODO CONCF-956 add translations to Enter a display name --}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">Enter a display name</label>
@@ -39,12 +39,12 @@
 		{{#unless isSectionView}}
 			<div class="input-container {{if titleErrorMessage 'error'}}">
 				{{input
-				value=model.title
-				id='title'
-				class=titleClass
-				name='title'
-				focus-out='setTitleFocusedOut'
-				focus-in='setTitleFocusedIn'
+					value=model.title
+					id='title'
+					class=titleClass
+					name='title'
+					focus-out='setTitleFocusedOut'
+					focus-in='setTitleFocusedIn'
 				}}
 				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>

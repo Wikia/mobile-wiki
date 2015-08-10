@@ -13,7 +13,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentEditorLayoutMixin,
 	{
 		classNames: ['curated-content-editor-item'],
-		classNameBindings: ['imageModalVisible'],
 		imageSize: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,

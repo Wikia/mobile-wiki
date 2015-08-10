@@ -5,6 +5,12 @@ App.CuratedContentEditorLayoutMixin = Em.Mixin.create({
 	itemFormLayout: {
 		name: 'curated-content-editor-item-form'
 	},
+
+	imageProperties: {
+		url: '',
+		article_id: ''
+	},
+
 	imageSearchLayout: Em.computed('itemFormLayout', function() {
 		return {
 			name: 'curated-content-editor-image-search',
@@ -12,6 +18,7 @@ App.CuratedContentEditorLayoutMixin = Em.Mixin.create({
 			next: this.get('imageCropLayout')
 		}
 	}),
+
 	imageCropLayout: Em.computed('itemFormLayout', 'itemSearchLayout', function() {
 		return {
 			//@TODO use correct name
@@ -20,10 +27,5 @@ App.CuratedContentEditorLayoutMixin = Em.Mixin.create({
 			previous: this.get('itemFormLayout'),
 			next: this.get('itemFormLayout')
 		}
-	}),
-
-	imageProperties: {
-		url: '',
-		article_id: ''
-	}
+	})
 });
