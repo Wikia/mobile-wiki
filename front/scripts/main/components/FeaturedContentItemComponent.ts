@@ -38,7 +38,8 @@ App.FeaturedContentItemComponent = Em.Component.extend(
 	 * @desc Keep the 16:9 ratio
 	 */
 	updateContainerHeight: function (containerWidth: number) {
-		var height = String(Math.round((containerWidth / 16) * 9));
-		this.set('style', Em.String.htmlSafe('height: %@px;'.fmt(height)));
+		var containerHeight = String(Math.round((containerWidth / 16) * 9));
+
+		this.set('style', Em.String.htmlSafe(`height: ${containerHeight}px;`));
 	},
 });
