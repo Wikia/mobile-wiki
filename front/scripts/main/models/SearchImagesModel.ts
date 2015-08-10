@@ -60,7 +60,7 @@ App.SearchImagesModel = Em.Object.extend(App.CuratedContentEditorThumbnailMixin,
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			this.fetch()
 				.done((data: SearchImageResponseInterface) => {
-					var items;
+					var items: SearchPhotoImageResponseInterface[];
 
 					if (data.error) {
 						return reject(data.error)
@@ -79,7 +79,7 @@ App.SearchImagesModel = Em.Object.extend(App.CuratedContentEditorThumbnailMixin,
 		})
 	},
 
-	fetch(): Em.RSVP.Promise {
+	fetch(): JQueryXHR {
 		return Em.$.getJSON(
 			M.buildUrl({
 				path: '/api.php',

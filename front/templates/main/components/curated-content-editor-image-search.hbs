@@ -12,7 +12,7 @@
 		placeholder=searchPlaceholder
 	}}
 	<div class="search-results">
-		<p class="search-message {{if images 'hidden'}}">{{searchMessage}}</p>
+		<p class="search-message {{if imagesModel.items 'hidden'}}">{{searchMessage}}</p>
 		{{#each imagesModel.items as |image|}}
 			<img {{action 'select' image}} src="{{image.thumbnailUrl}}">
 		{{/each}}

@@ -13,6 +13,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	{
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
+		spinnerOverlay: false,
 
 		searchPlaceholder: Em.computed(function() {
 			return i18n.t('app.curated-content-editor-search-images-placeholder');
@@ -64,6 +65,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			},
 
 			loadMore(): void {
+				this.set('spinnerOverlay', true);
 				this.showLoader();
 				this.getNextBatch();
 			}
