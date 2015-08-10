@@ -11,7 +11,7 @@ interface SearchPhotoResponseInterface {
 				batches: number;
 				items: SearchPhotoImageResponseInterface[]
 			}
-		},
+		};
 		limit: number;
 		batch: number;
 	},
