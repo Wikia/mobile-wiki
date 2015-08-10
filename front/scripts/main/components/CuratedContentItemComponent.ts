@@ -30,7 +30,7 @@ App.CuratedContentItemComponent = Em.Component.extend(App.CuratedContentThumbnai
 		if (typesWithDedicatedIcon.indexOf(type) > -1) {
 			iconType = type;
 		} else if (type === 'section') {
-			// Sections uses the same icon as category
+			// Sections use the same icons as categories
 			iconType = 'category';
 		} else {
 			// Default icon
