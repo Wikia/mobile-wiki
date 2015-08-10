@@ -34,16 +34,6 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			return this.get('block') === 'featured' ? 'landscape' : 'square';
 		}),
 
-		initCropper: Em.on('didRender', function (): void {
-			var $imgElement = this.$(this.get('imgSelector')),
-				settings: any = $.extend(this.get('cropperSettings'), {
-					aspectRatio: this.get('aspectRatio')
-				});
-
-			$imgElement.cropper(settings);
-			this.set('$imgElement', $imgElement);
-		}),
-
 		actions: {
 			goBack(): void {
 				this.sendAction('changeLayout', this.get('imageCropLayout.previous.name'));
@@ -51,31 +41,80 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 
 			done(): void {
 				var $imgElement = this.get('$imgElement'),
+					model = this.get('model'),
+					cropData: any,
+					imageCrop: any;
+
+				model.setProperties({
+					'image_url': this.get('imageProperties.url'),
+					// article_id comes from MW because in MW files are like any other articles
+					// so there is no such thing as image_id from MW perspective.
+					'image_id': this.get('imageProperties.article_id')
+				});
+
+				// If user clicks DONE before image is loaded we ignore cropping
+				if ($imgElement) {
 					// https://github.com/fengyuanchen/cropper#getdatarounded
-					cropData = $imgElement.cropper('getData', true),
+					cropData = $imgElement.cropper('getData', true);
 					imageCrop = {
 						x: cropData.x,
 						y: cropData.y,
 						width: cropData.width,
 						height: cropData.height
-					},
-					model = this.get('model');
+					};
 
-				this.setProperties({
-					'model.image_url': this.get('imageProperties.url'),
-					// article_id comes from MW because in MW files are like any other articles
-					// so there is no such thing as image_id from MW perspective.
-					'model.image_id': this.get('imageProperties.article_id'),
-					'imageErrorMessage': null
-				});
+					if (model.image_crop === null) {
+						model.set('image_crop', {});
+					}
 
-				if (model.image_crop === null) {
-					model.set('image_crop', {});
+					model.image_crop[this.get('aspectRatioName')] = imageCrop;
 				}
-
-				model.image_crop[this.get('aspectRatioName')] = imageCrop;
 
 				this.sendAction('changeLayout', this.get('imageCropLayout.next.name'))
 			}
+		},
+
+		/**
+		 * @desc Show loading spinner until image is loaded as the cropper can be displayed only after that
+		 */
+		loadImage: Em.on('didRender', function (): void {
+			var url = this.get('imageProperties.url'),
+				image: HTMLImageElement;
+
+			if (url) {
+				this.showLoader();
+
+				image = new Image();
+				image.src = url;
+				if (image.complete) {
+					this.onImageLoaded(image.src);
+				} else {
+					image.addEventListener('load', (): void => {
+						this.onImageLoaded(image.src);
+					});
+				}
+			}
+		}),
+
+		onImageLoaded(url: string): void {
+			// User can browse away from the component before this function is called
+			// Abort when that happens
+			if (this.get('isDestroyed')) {
+				return;
+			}
+
+			this.set('imageUrl', url);
+			Em.run.scheduleOnce('afterRender', this, this.initCropper);
+			this.hideLoader();
+		},
+
+		initCropper(): void {
+			var $imgElement = this.$(this.get('imgSelector')),
+				settings: any = $.extend(this.get('cropperSettings'), {
+					aspectRatio: this.get('aspectRatio')
+				});
+
+			$imgElement.cropper(settings);
+			this.set('$imgElement', $imgElement);
 		}
 });
