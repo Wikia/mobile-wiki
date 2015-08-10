@@ -16,7 +16,6 @@
 		{{/each}}
 		{{loading-spinner active=isLoading overlay=false}}
 	</div>
-	{{!-- @TODO CONCF-956 add translations to Create new item --}}
-	<button {{action 'loadMore'}} class="{{if hasNextBatch 'visible'}}">Load More</button>
+	<button {{action 'loadMore'}} class="{{if hasNextBatch 'visible'}}">{{i18n 'app:curated-content-load-more-items'}}</button>
 </form>
 
