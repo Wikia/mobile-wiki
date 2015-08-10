@@ -6,9 +6,6 @@ App.ArticleContributionComponent = Em.Component.extend({
 	templateName: 'components/article-contribution',
 	section: null,
 	title: null,
-	fileInputId: Em.computed('section', function(): string {
-		return 'fileUpload'.concat('-', this.get('section'));
-	}),
 
 	actions: {
 		edit: function (): void {
