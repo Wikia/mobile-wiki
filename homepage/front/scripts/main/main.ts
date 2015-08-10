@@ -41,12 +41,12 @@ function parallax() : void {
 	}
 }
 
-$('.search-wikia').click(function(event) : void {
-	search();
+$('#beginnersGuide').click(function(event) : void {
+	window.location.href = '/beginners';
 	event.preventDefault();
 });
 
-$('.search-wikia-form').submit(function(event) : void {
+$('#searchWikiaForm').submit(function(event) : void {
 	search();
 	event.preventDefault();
 });
