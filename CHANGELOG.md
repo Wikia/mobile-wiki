@@ -1,3 +1,6 @@
+## release-131 (2015-08-10 15:08 UTC)
+* revert-1146-HG-788: Revert "HG-788 - replace inline SVG sprite with requested asset"
+
 ## release-130 (2015-08-10 10:00 UTC)
 * [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Truncate helper error handling
 * [DAT-3048](https://wikia-inc.atlassian.net/browse/DAT-3048) DAT-3048 Remove chevrons and captions from linked icons
