@@ -2,16 +2,28 @@
 'use strict';
 
 interface ImageCropData {
-	x?: number;
-	y?: number;
-	width?: number;
-	height?: number;
+	x: number;
+	y: number;
+	width: number;
+	height: number;
 }
 
 App.CuratedContentThumbnailMixin = Em.Mixin.create({
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+
+	aspectRatio: Em.computed('block', function (): number {
+		return this.get('block') === 'featured' ? 16 / 9 : 1;
+	}),
+
+	aspectRatioName: Em.computed('block', function (): string {
+		return this.get('block') === 'featured' ? 'landscape' : 'square';
+	}),
+
+	imageHeight: Em.computed('aspectRatio', 'imageWidth', function (): number {
+		return Math.round(this.get('imageWidth') / this.get('aspectRatio'));
+	}),
 
 	generateThumbUrl(imageUrl: string, imageCropData: ImageCropData = null): string {
 		var options: any = {

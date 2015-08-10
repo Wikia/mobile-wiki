@@ -8,15 +8,14 @@ App.CuratedContentItemComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.ViewportMixin,
 {
+	block: 'curated',
 	tagName: 'a',
 	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
 	classNameBindings: ['type'],
 	style: null,
 
-	//@TODO for the purpose of MVP let's make it fixed value, we can adjust later
 	imageWidth: 200,
-	imageHeight: 200,
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbUrl: Em.computed.oneWay('emptyGif'),
 
@@ -64,7 +63,7 @@ App.CuratedContentItemComponent = Em.Component.extend(
 	lazyLoadImage: function (): void {
 		this.set('thumbUrl', this.generateThumbUrl(
 			this.get('model.imageUrl'),
-			this.get('model.imageCrop.square')
+			this.get('model.imageCrop.' + this.get('aspectRatioName'))
 		));
 	},
 

@@ -8,6 +8,7 @@ App.FeaturedContentItemComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.ViewportMixin,
 {
+	block: 'featured',
 	tagName: 'a',
 	attributeBindings: ['href', 'style'],
 	classNames: ['featured-content-item'],
@@ -15,14 +16,12 @@ App.FeaturedContentItemComponent = Em.Component.extend(
 	href: Em.computed.oneWay('model.article_local_url'),
 	style: null,
 
-	// TODO make it more responsive
 	imageWidth: 400,
-	imageHeight: 225,
 	cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(
 			this.get('model.image_url'),
-			this.get('model.image_crop.landscape')
+			this.get('model.image_crop.' + this.get('aspectRatioName'))
 		);
 	}),
 
