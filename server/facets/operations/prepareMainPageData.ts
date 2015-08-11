@@ -47,18 +47,6 @@ function prepareMainPageData (request: Hapi.Request, result: any): void {
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
-	result.openGraph = {
-		type: result.isMainPage ? 'website' : 'article',
-		title: result.isMainPage ? result.wiki.siteName : title
-	};
-	if (result.article.details) {
-		if (result.article.details.abstract) {
-			result.openGraph.description = result.article.details.abstract;
-		}
-		if (result.article.details.thumbnail) {
-			result.openGraph.image = result.article.details.thumbnail;
-		}
-	}
 
 	result.weppyConfig = localSettings.weppy;
 	if (typeof result.queryParams.buckySampling === 'number') {
