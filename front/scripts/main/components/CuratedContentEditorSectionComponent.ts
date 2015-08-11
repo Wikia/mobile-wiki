@@ -68,7 +68,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					this.sendAction('done', this.get('model'));
 				} else {
 					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
+						data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+							=> this.processValidationError(error.reason));
 					} else {
 						//@TODO CONCF-956 add translations
 						this.addAlert('alert', 'Something went wrong. Please repeat.');

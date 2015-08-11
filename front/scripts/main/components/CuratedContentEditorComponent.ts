@@ -44,7 +44,8 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 					this.sendAction('openMainPage');
 				} else {
 					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
+						data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+							=> this.processValidationError(error.type, error.reason));
 					} else {
 						//@TODO CONCF-956 add translations
 						this.addAlert('alert', 'Something went wrong. Please repeat.');
@@ -59,14 +60,19 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			.finally((): void => this.hideLoader());
 	},
 
-	processValidationError(reason: string) {
-		if (reason === 'itemsMissing') {
+	processValidationError(type: string, reason: string) {
+		if (type == 'featured') {
 			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+			this.addAlert('alert', 'Please fix errors inside Featured section.');
 		} else {
-			// if other items occur that means user somehow bypassed validation of one or more items earlier
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside items');
+			if (reason === 'itemsMissing') {
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+			} else {
+				// if other items occur that means user somehow bypassed validation of one or more items earlier
+				//@TODO CONCF-956 add translations
+				this.addAlert('alert', 'Please fix errors inside items');
+			}
 		}
 	}
 });

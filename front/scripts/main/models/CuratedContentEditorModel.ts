@@ -11,9 +11,15 @@ interface CuratedContentEditorRawSectionInterface {
 	type?: string;
 }
 
+interface CuratedContentValidationResponseErrorInterface {
+	target: string;
+	type: string;
+	reason: string;
+}
+
 interface CuratedContentValidationResponseInterface {
 	status: boolean;
-	error?: any;
+	error?: CuratedContentValidationResponseErrorInterface[];
 }
 
 type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
