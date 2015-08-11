@@ -86,7 +86,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		goBack(): void {
-			this.trackClick('curated-content-editor', 'item-edit-go-back');
+			var trackLabel = this.get('isSectionView') ? 'section-edit-go-back' : 'item-edit-go-back';
+			this.trackClick('curated-content-editor', trackLabel);
 			this.sendAction('goBack');
 		},
 
