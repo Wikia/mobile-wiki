@@ -8,21 +8,20 @@ App.CuratedContentItemComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.ViewportMixin,
 {
-	block: 'curated',
 	tagName: 'a',
 	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
 	classNameBindings: ['type'],
 	style: null,
+	href: Em.computed.oneWay('model.url'),
+	type: Em.computed.oneWay('model.type'),
 
+	isArticle: Em.computed.equal('model.type', 'article'),
+
+	block: 'curated',
 	imageWidth: 200,
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbUrl: Em.computed.oneWay('emptyGif'),
-
-	model: null,
-	type: Em.computed.oneWay('model.type'),
-	href: Em.computed.oneWay('model.url'),
-	isArticle: Em.computed.equal('model.type', 'article'),
 
 	icon: Em.computed('type', function (): string {
 		var type = this.get('type'),
