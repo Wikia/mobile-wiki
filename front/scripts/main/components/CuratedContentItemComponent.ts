@@ -1,25 +1,25 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/ViewportMixin.ts"/>
-/// <reference path="../../mercury/modules/Thumbnailer.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
-App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
+App.CuratedContentItemComponent = Em.Component.extend(
+	App.CuratedContentThumbnailMixin,
+	App.ViewportMixin,
+{
 	tagName: 'a',
 	attributeBindings: ['href'],
 	classNames: ['curated-content-item'],
 	classNameBindings: ['type'],
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
-	thumbnailer: Mercury.Modules.Thumbnailer,
-	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	thumbUrl: Em.computed.oneWay('emptyGif'),
-	//@TODO for the purpose of MVP let's make it fixed value, we can adjust later
-	imageSize: 200,
 	style: null,
-
-	model: null,
-	type: Em.computed.oneWay('model.type'),
 	href: Em.computed.oneWay('model.url'),
+	type: Em.computed.oneWay('model.type'),
+
 	isArticle: Em.computed.equal('model.type', 'article'),
+
+	aspectRatio: 1,
+	imageWidth: 200,
+	thumbUrl: Em.computed.oneWay('emptyGif'),
 
 	icon: Em.computed('type', function (): string {
 		var type = this.get('type'),
@@ -29,7 +29,7 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 		if (typesWithDedicatedIcon.indexOf(type) > -1) {
 			iconType = type;
 		} else if (type === 'section') {
-			// Sections uses the same icon as category
+			// Sections use the same icons as categories
 			iconType = 'category';
 		} else {
 			// Default icon
@@ -58,14 +58,10 @@ App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	}),
 
 	lazyLoadImage: function (): void {
-		var options: any = {
-				width: this.get('imageSize'),
-				height: this.get('imageSize'),
-				mode: this.get('cropMode')
-			},
-			thumbUrl: string = this.thumbnailer.getThumbURL(this.get('model.imageUrl'), options);
-
-		this.set('thumbUrl', thumbUrl);
+		this.set('thumbUrl', this.generateThumbUrl(
+			this.get('model.imageUrl'),
+			this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
+		));
 	},
 
 	updateImageSize: function (viewportSize: number): void {

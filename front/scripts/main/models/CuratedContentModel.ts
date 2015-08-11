@@ -19,6 +19,20 @@ interface CuratedContentItem {
 		};
 	};
 	type: string;
+	imageCrop?: {
+		landscape: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		square: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+	};
 	url?: string;
 	categoryName?: string;
 	ns?: number;
@@ -140,7 +154,7 @@ App.CuratedContentModel.reopenClass({
 				imageUrl: rawData.image_url,
 				type: 'category',
 				categoryName
-			}
+			};
 		} else {
 			item = {
 				label: rawData.title,
@@ -153,6 +167,10 @@ App.CuratedContentModel.reopenClass({
 			if (Em.isEmpty(rawData.type) && rawData.ns === 500) {
 				item.type = 'blog';
 			}
+		}
+
+		if (rawData.image_crop) {
+			item.imageCrop = rawData.image_crop;
 		}
 
 		return item;

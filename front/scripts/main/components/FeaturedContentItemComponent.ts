@@ -1,22 +1,28 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/ViewportMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
 /// <reference path="../../mercury/modules/Thumbnailer.ts" />
 'use strict';
 
-App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
+App.FeaturedContentItemComponent = Em.Component.extend(
+	App.CuratedContentThumbnailMixin,
+	App.ViewportMixin,
+{
 	tagName: 'a',
-	classNames: ['featured-content-item'],
 	attributeBindings: ['href', 'style'],
-
-	cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
-	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	imageUrl: Em.computed.oneWay('emptyGif'),
-	href: Em.computed.oneWay('url'),
+	classNames: ['featured-content-item'],
 	style: null,
+	href: Em.computed.oneWay('model.article_local_url'),
 
-	// TODO make it more responsive
+	aspectRatio: 16 / 9,
 	imageWidth: 400,
-	imageHeight: 225,
+	cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
+	thumbUrl: Em.computed('model', function (): string {
+		return this.generateThumbUrl(
+			this.get('model.image_url'),
+			this.get(`model.image_crop.${this.get('aspectRatioName')}`)
+		);
+	}),
 
 	willInsertElement: function (): void {
 		this.updateContainerHeight(this.get('viewportDimensions.width'));
@@ -30,7 +36,8 @@ App.FeaturedContentItemComponent = Em.Component.extend(App.ViewportMixin, {
 	 * @desc Keep the 16:9 ratio
 	 */
 	updateContainerHeight: function (containerWidth: number) {
-		var height = String(Math.round((containerWidth / 16) * 9));
-		this.set('style', Em.String.htmlSafe('height: %@px;'.fmt(height)));
-	}
+		var containerHeight = String(Math.round((containerWidth / 16) * 9));
+
+		this.set('style', Em.String.htmlSafe(`height: ${containerHeight}px;`));
+	},
 });

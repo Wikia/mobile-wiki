@@ -1,13 +1,12 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorRowComponent = Em.Component.extend(
-	App.CuratedContentEditorThumbnailMixin,
-	{
+	App.CuratedContentThumbnailMixin,
+{
 	classNames: ['curated-content-editor-row-container'],
 	imageWidth: 100,
-	imageHeight: 100,
 
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
