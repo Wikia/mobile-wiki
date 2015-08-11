@@ -61,7 +61,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 	},
 
 	processValidationError(type: string, reason: string) {
-		if (type == 'featured') {
+		if (type === 'featured') {
 			//@TODO CONCF-956 add translations
 			this.addAlert('alert', 'Please fix errors inside Featured section.');
 		} else {
