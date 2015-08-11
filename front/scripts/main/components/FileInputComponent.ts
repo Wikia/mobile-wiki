@@ -1,6 +1,4 @@
-/// <reference path='../app.ts' />
-
-App.FileInputComponent = Ember.Component.extend(Ember.Evented, {
+App.FileInputComponent = Em.Component.extend(Em.Evented, {
 	reset: false,
 	fileInputId: 'fileUpload',
 
@@ -13,8 +11,13 @@ App.FileInputComponent = Ember.Component.extend(Ember.Evented, {
 
 	change(event: Event): void {
 		var input: HTMLInputElement = <HTMLInputElement> event.target;
+
 		if (!Em.isEmpty(input.files)) {
 			this.sendAction('fileUpload', input.files);
 		}
+	},
+
+	click(): void {
+		this.sendAction('click');
 	}
 });
