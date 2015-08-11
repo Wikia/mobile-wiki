@@ -4,20 +4,6 @@
 interface CuratedContentItem {
 	label: string;
 	imageUrl: string;
-	imageCrop?: {
-		landscape?: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-		square?: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-	};
 	type: string;
 	imageCrop?: {
 		landscape: {
