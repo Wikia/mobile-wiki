@@ -13,5 +13,8 @@
     "birthdate_invalid":"La fecha de nacimiento no es una fecha válida",
     "wrong-credentials":"No reconocemos estas credenciales. Por favor inténtalo de nuevo o registra una nueva cuenta.",
     "server-error":"Hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"Estoy de acuerdo con __termsOfUseLink__ y __privacyPolicyLink__ (requerido)"
   }
 }

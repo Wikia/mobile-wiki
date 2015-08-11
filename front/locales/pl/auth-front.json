@@ -1,6 +1,6 @@
 {
   "errors":{
-    "email_already_exists":"E-mail jest już zarejestrowany na Wikia",
+    "email_already_exists":"E-mail jest już zarejestrowany na portalu Wikia",
     "email_invalid":"Niepoprawny adres e-mail",
     "registration_error":"Nie możemy w tej chwili ukończyć rejestracji",
     "username_already_exists":"Nazwa użytkownika jest już wykorzystywana",
@@ -13,5 +13,8 @@
     "birthdate_invalid":"Data urodzenia nie jest prawidłowa",
     "wrong-credentials":"Nie rozpoznajemy tych danych uwierzytelniania. Spróbuj ponownie lub zarejestruj nowe konto.",
     "server-error":"Wystąpił błąd podczas przetwarzania twojego żądania. Prosimy spróbować ponownie później."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"Akceptuję __termsOfUseLink__ oraz __privacyPolicyLink__ (wymagane)"
   }
 }

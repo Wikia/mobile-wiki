@@ -13,5 +13,8 @@
     "birthdate_invalid":"Birthdate isn't a valid date",
     "wrong-credentials":"We don't recognize these credentials. Try again or register a new account.",
     "server-error":"There was an error processing your request. Please try again later."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"I agree to __termsOfUseLink__ and __privacyPolicyLink__ (required)"
   }
 }
