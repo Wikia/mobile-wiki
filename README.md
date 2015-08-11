@@ -29,8 +29,8 @@
     export = localSettings;
 ```
 * Start the server and watch files:
-** `npm run local` If running everything locally (e.g. your laptop)
-** `npm run dev` For hosted environments.  Same as 'local' but includes the --nosync paramter to disable live reload
+  * `npm run local` If running everything locally (e.g. your laptop)
+  * `npm run dev` For hosted environments.  Same as 'local' but includes the --nosync paramter to disable live reload
 
 ## Access Mercury
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
