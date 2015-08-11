@@ -90,7 +90,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		done(): void {
-			this.trackClick('curated-content-editor', 'item-done');
+			var trackLabel = this.get('isSectionView') ? 'section-done' : 'item-done';
+			this.trackClick('curated-content-editor', trackLabel);
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				if (this.get('isSectionView')) {
 					this.validateAndDone(this.get('model'), {
