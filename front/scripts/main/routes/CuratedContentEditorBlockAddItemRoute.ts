@@ -40,6 +40,6 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 
 		deleteItem(): void {
 			this.send('goBack');
-		},
+		}
 	}
 });

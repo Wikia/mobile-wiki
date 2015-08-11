@@ -3,7 +3,7 @@
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
@@ -11,6 +11,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor-item'],
 		imageWidth: 300,
@@ -90,10 +91,16 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			goBack(): void {
+				var trackLabel = this.get('isSectionView') ? 'section-edit-go-back' : 'item-edit-go-back';
+				this.trackClick('curated-content-editor', trackLabel);
+
 				this.sendAction('goBack');
 			},
 
 			done(): void {
+				var trackLabel = this.get('isSectionView') ? 'section-edit-done' : 'item-edit-done';
+				this.trackClick('curated-content-editor', trackLabel);
+
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 					if (this.get('isSectionView')) {
 						this.validateAndDone(this.get('model'), {
@@ -109,6 +116,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			deleteItem(): void {
+				var trackLabel = this.get('isSectionView') ? 'section-delete' : 'item-delete';
+				this.trackClick('curated-content-editor', trackLabel );
+
 				//@TODO CONCF-956 add translations
 				if (confirm('Are you sure about removing this item?')) {
 					this.sendAction('deleteItem');
@@ -116,6 +126,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			fileUpload(files: any[]): void {
+				this.trackClick('curated-content-editor', 'item-file-upload');
 				this.showLoader();
 				App.AddPhotoModel.load(files[0])
 					.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
@@ -146,6 +157,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			showImageModal(): void {
+				this.trackClick('curated-content-editor', 'item-image-menu');
 				this.set('imageModalVisible', true);
 			},
 
@@ -154,12 +166,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			showSearchImageForm(): void {
+				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
 			}
 		},
 
 		validateImage(): boolean {
-			var imageUrl = this.get('model.image_url'),
+			var imageUrl: string = this.get('model.image_url'),
 				errorMessage: string = null;
 
 			if (!imageUrl) {
@@ -226,9 +239,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.setProperties({
 							'imageErrorMessage': null,
 							'model.image_url': data.url,
-							'model.image_id': data.id
+							'model.image_id': data.id,
+							'resetFileInput': true
 						});
-						this.set('resetFileInput', true);
 					}
 				})
 				.catch((err: any): void => {
@@ -267,7 +280,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.finally((): void => this.hideLoader());
 		},
 
-		processValidationError(reason: string) {
+		processValidationError(reason: string): void {
 			switch (reason) {
 				case 'articleNotFound':
 					//@TODO CONCF-956 add translations

@@ -1,9 +1,12 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 
 'use strict';
 
-App.CuratedContentEditorRoute = Em.Route.extend({
+App.CuratedContentEditorRoute = Em.Route.extend(
+	App.TrackClickMixin,
+	{
 	model(): Em.RSVP.Promise {
 		return App.CuratedContentEditorModel.load();
 	},
@@ -62,18 +65,22 @@ App.CuratedContentEditorRoute = Em.Route.extend({
 
 	actions: {
 		addBlockItem(block: string): void {
+			this.trackClick('curated-content-editor', 'item-add');
 			this.transitionTo('curatedContentEditor.blockAddItem', block);
 		},
 
 		editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
+			this.trackClick('curated-content-editor', 'item-edit');
 			this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 		},
 
 		addSection(): void {
+			this.trackClick('curated-content-editor', 'section-add');
 			this.transitionTo('curatedContentEditor.sectionAdd');
 		},
 
 		openSection(item: CuratedContentEditorItemModel): void {
+			this.trackClick('curated-content-editor', 'section-open');
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 		},
 

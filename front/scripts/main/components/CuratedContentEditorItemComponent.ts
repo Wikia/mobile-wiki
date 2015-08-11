@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorLayoutMixin, {

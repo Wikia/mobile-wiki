@@ -90,6 +90,7 @@
 		"curated-content-error-load-more-items": "Sorry, we couldn't load more items.",
 		"curated-content-image-upload-error": "Something went wrong with your upload. Please try again.",
 		"curated-content-editor-no-images-found": "No images found",
-		"curated-content-editor-search-image-label": "Search for an image on wikia"
+		"curated-content-editor-search-image-label": "Search for an image on wikia",
+		"curated-content-editor-search-images-placeholder": "Search for images on wikia..."
 	}
 }
