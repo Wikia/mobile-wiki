@@ -44,7 +44,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			select(image: SearchPhotoImageResponseInterface): void {
 				this.trackClick('curated-content-editor', 'image-search-select');
 				this.setProperties({
-					'imageProperties.url': image.thumbnailUrl,
+					'imageProperties.url': image.url,
 					'imageProperties.id': image.id,
 					// Make cropper back button go back here
 					'imageCropLayout.previous': this.get('imageSearchLayout.name')
