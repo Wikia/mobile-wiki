@@ -16,10 +16,6 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	{
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
-		imageWidth: 200,
-		imageHeight: 200,
-		searchLimit: 24,
-		nextBatch: 1,
 		spinnerOverlay: false,
 		searchPlaceholder: Em.computed((): string =>
 			i18n.t('app.curated-content-editor-search-images-placeholder')
