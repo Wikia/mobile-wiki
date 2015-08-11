@@ -1,3 +1,38 @@
+## release-131 (2015-08-10 15:08 UTC)
+* revert-1146-HG-788: Revert "HG-788 - replace inline SVG sprite with requested asset"
+
+## release-130 (2015-08-10 10:00 UTC)
+* [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Truncate helper error handling
+* [DAT-3048](https://wikia-inc.atlassian.net/browse/DAT-3048) DAT-3048 Remove chevrons and captions from linked icons
+* [HG-788](https://wikia-inc.atlassian.net/browse/HG-788) HG-788 - replace inline SVG sprite with requested asset
+* [HG-819](https://wikia-inc.atlassian.net/browse/HG-819) HG-819 - make blockquote styles conform to style guide
+* [HG-838](https://wikia-inc.atlassian.net/browse/HG-838) HG-838 Don't display deprecations when running unit tests
+* remove-pointless-comment: Removing pointless comment
+* speed-up-floating-labels: Speeding up floating labels to look more native
+
+## release-129 (2015-08-07 10:00 UTC)
+* [SOC-1035](https://wikia-inc.atlassian.net/browse/SOC-1035) SOC-1035 New JA translation for login and registration
+* [HG-667](https://wikia-inc.atlassian.net/browse/HG-667) HG-667 - disable logging for ember performance sender
+* add-asserts-for-jquery-ajax-calls: Add assert with type to all jQuery AJAX calls
+* remove-helios-sensitive-data: Remove unused Helios params from typings
+* remove-helios-sensitive-data: Removing unused Helios params from localSettings
+
+## release-128 (2015-08-06 10:00 UTC)
+* [INT-134](https://wikia-inc.atlassian.net/browse/INT-134) Initial layout for Japan homepage
+* [CONCF-791](https://wikia-inc.atlassian.net/browse/CONCF-791) CONCF-791 Validate and save Curated Content Tool data
+* [DAT-3024](https://wikia-inc.atlassian.net/browse/DAT-3024) DAT-3024
+
+## release-127 (2015-08-05 10:00 UTC)
+* [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) HG-808
+* [CONCF-741](https://wikia-inc.atlassian.net/browse/CONCF-741) CONCF-741 Add photo upload to the Curated Content Tool
+
+## release-126 (2015-08-04 10:00 UTC)
+* [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 moving logged_in flag
+* revert-1140-HG-808: Revert "decouple article route from application in ember and hapi"
+* [HG-810](https://wikia-inc.atlassian.net/browse/HG-810) HG-810 - only build old way in prod
+* [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) decouple article route from application in ember and hapi
+* [CONCF-745](https://wikia-inc.atlassian.net/browse/CONCF-745) CONCF-745 Add modal dialog with help text to Curated Content Tool
+
 ## release-125 (2015-08-03 10:15 UTC)
 * SOC: SOC | Fix polish translations on auth pages
 * [INT-121](https://wikia-inc.atlassian.net/browse/INT-121) Hapi app for Japan homepage with base gulp tasks and TS/SCSS

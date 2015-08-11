@@ -14,30 +14,28 @@ App.AddPhotoModel = Em.Object.extend({
 });
 
 interface FileNameSeparated {
-    name: string;
-    extension: string;
+	name: string;
+	extension: string;
 }
 
 App.AddPhotoModel.separateFileNameAndExtension = function(fileName: string): FileNameSeparated {
 	var name = fileName.substr(0, fileName.lastIndexOf('.')),
-	    extension = fileName.substr(fileName.lastIndexOf('.') + 1),
-	    fileNameSeparated: FileNameSeparated = { name: name, extension: extension };
+		extension = fileName.substr(fileName.lastIndexOf('.') + 1),
+		fileNameSeparated: FileNameSeparated = { name: name, extension: extension };
 	return fileNameSeparated;
 };
 
 App.AddPhotoModel.reopenClass(App.EditMixin, {
-	load: function(title: string, sectionIndex: number, photoData: any): Em.RSVP.Promise {
+	load(photoData: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var oFReader = new FileReader();
 			oFReader.readAsDataURL(photoData);
-			oFReader.onload = function(oFREvent: any): void {
+			oFReader.onload = function (oFREvent: any): void {
 				var separatedName = App.AddPhotoModel.separateFileNameAndExtension(photoData.name),
 				photoName = separatedName.name,
 				photoExtension = separatedName.extension;
 				resolve(
 					App.AddPhotoModel.create({
-						title: title,
-						sectionIndex: sectionIndex,
 						photoData: photoData,
 						photoImage: oFREvent.target.result,
 						photoName: photoName,
@@ -45,20 +43,21 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 					})
 				);
 			};
-			oFReader.onerror = function(OFREvent: any): void {
+			oFReader.onerror = function (OFREvent: any): void {
 				reject();
 			};
 		});
 	},
 
-	addToContent: function(uploadedPhotoTitle: any, model: any): Em.RSVP.Promise {
+	addToContent(uploadedPhotoTitle: any, model: any): Em.RSVP.Promise {
 		var photoWikiText = '\n[[File:' + uploadedPhotoTitle + '|thumb]]\n',
 			editData = {
 				action: 'edit',
 				title: model.title,
 				section: model.sectionIndex,
 				format: 'json',
-				appendtext: photoWikiText, //For now, we always add image file at the bottom of section.
+				//For now, we always add image file at the bottom of section.
+				appendtext: photoWikiText,
 				token: ''
 			};
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
@@ -73,9 +72,9 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 		});
 	},
 
-	editContent: function(editData: any): Em.RSVP.Promise {
+	editContent(editData: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({ path: '/api.php' }),
 				dataType: 'json',
 				method: 'POST',
@@ -96,21 +95,26 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 		});
 	},
 
-	upload: function(model: any): Em.RSVP.Promise {
+	upload(model: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.temporaryUpload(model.photoData)
-				.then((addmediatemporary: any): void => {
-					if (addmediatemporary.tempName === undefined) { //we already have the file. No need to upload.
-						return resolve({'title': addmediatemporary.title});
-					}
-					//If a user inputs an empty image name, then we silently replace it with original file name.
+				.then((addMediaTemporary: any): void => {
 					var newPhotoTitle: string;
+
+					//We already have the file. No need to upload.
+					if (addMediaTemporary.tempName === undefined) {
+						resolve(addMediaTemporary);
+						return;
+					}
+
+					//If a user inputs an empty image name, then we silently replace it with original file name.
 					if (model.photoName.trim().length === 0) {
 						newPhotoTitle = model.photoData.name;
 					} else {
 						newPhotoTitle = model.photoName.trim() + '.' + model.photoExtension;
 					}
-					this.permanentUpload(newPhotoTitle, addmediatemporary.tempName)
+
+					this.permanentUpload(newPhotoTitle, addMediaTemporary.tempName)
 						.then(resolve, reject);
 				}, (err: any) => {
 					reject(err);
@@ -118,7 +122,7 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 		});
 	},
 
-	permanentUpload: function(photoTitle: string, tempName: string): Em.RSVP.Promise {
+	permanentUpload(photoTitle: string, tempName: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var params = {
 				action: 'addmediapermanent',
@@ -126,7 +130,7 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 				title: photoTitle,
 				tempName: tempName
 			};
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({ path: '/api.php' }),
 				method: 'POST',
 				data: params,
@@ -146,12 +150,12 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 		});
 	},
 
-	temporaryUpload: function(photoData: any): Em.RSVP.Promise {
+	temporaryUpload(photoData: any): Em.RSVP.Promise {
 		var formData = new FormData();
 		formData.append('file', photoData);
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/api.php',
 					query: {

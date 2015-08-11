@@ -83,9 +83,8 @@ unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		// We don't care if there is a dynamic segment, Ember router handles that
-		path: '/main/edit/{ignore?}',
-		// TODO (CONCF-761): we shouldn't load article for Curated Content Tool
-		handler: require('./facets/showArticle')
+		path: '/main/edit/{ignore*}',
+		handler: require('./facets/showApplication')
 	},
 	{
 		method: 'GET',
@@ -227,9 +226,20 @@ articlePagePaths.forEach((path) => {
 	});
 });
 
+// For application routes that are not articles and require the Ember app, push a route object
+// that uses the `showApplication` route handler to get a basic Ember application instance
+// authenticatedRoutes.push({
+	// Discussion route:
+	// commented out for now as it is not ready
+// 	path: '/d',
+// 	method: 'GET',
+// 	handler: require('./facets/showApplication')
+// });
+
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);
 });
+
 authenticatedRoutes = authenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(authenticatedRouteConfig, route);
 });
