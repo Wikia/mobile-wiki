@@ -108,7 +108,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 
 			this.setProperties({
 				isLoading: false,
-				$imgElement: $imgElement
+				$imgElement
 			});
 		}
 });
