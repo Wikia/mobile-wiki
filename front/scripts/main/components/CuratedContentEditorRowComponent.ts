@@ -4,7 +4,7 @@
 
 App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentThumbnailMixin, {
 	classNames: ['curated-content-editor-row-container'],
-	imageSize: 100,
+	imageWidth: 100,
 
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
