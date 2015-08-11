@@ -70,10 +70,10 @@ App.SearchImagesModel = Em.Object.extend({
 						return reject(data.error)
 					}
 
-					items = data.response.results.photo.items;
+					items = Em.get(data, 'response.results.photo.items');
 
 					if (Em.isEmpty(items)) {
-						reject({
+						return reject({
 							status: 404,
 							statusText: 'empty'
 						});
