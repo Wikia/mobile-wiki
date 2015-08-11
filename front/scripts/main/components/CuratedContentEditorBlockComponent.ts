@@ -1,8 +1,12 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
-App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentEditorSortableItemsMixin, {
+App.CuratedContentEditorBlockComponent = Em.Component.extend(
+	App.CuratedContentEditorSortableItemsMixin,
+	App.TrackClickMixin,
+	{
 	tagName: 'section',
 	classNames: ['curated-content-editor-block'],
 
@@ -23,6 +27,7 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 		},
 
 		showHelp(): void {
+			this.trackClick('curated-content-editor', 'help-show');
 			this.set('isHelpVisible', true);
 		}
 	}
