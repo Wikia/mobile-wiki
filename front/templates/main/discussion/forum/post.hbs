@@ -6,13 +6,17 @@
 		upvoteCount=model.upvoteCount
 		replyCount=model.postCount
 	}}
-
+	{{#if showMore}}
+        <button {{action 'expand'}}>Show More ...</button>
+	{{/if}}
 	{{#each model.replies as |item index|}}
 		{{post-reply
 			authorId=item.creatorId
 			content=item.rawContent
 			timestamp=item.creationDate.epochSecond
 			upvoteCount=item.upvoteCount
+			created=model.firstPost.creationDate.epochSecond
+			timeDiff=item.timeDiff
 		}}
 		<hr/>
 	{{/each}}
