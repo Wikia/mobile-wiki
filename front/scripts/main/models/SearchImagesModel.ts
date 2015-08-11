@@ -28,7 +28,7 @@ interface SearchImageResponseInterface {
 	error?: any
 }
 
-App.SearchImagesModel = Em.Object.extend(App.CuratedContentEditorThumbnailMixin, {
+App.SearchImagesModel = Em.Object.extend({
 	searchLimit: 24,
 	nextBatch: 0,
 	batches: 1,
@@ -42,7 +42,11 @@ App.SearchImagesModel = Em.Object.extend(App.CuratedContentEditorThumbnailMixin,
 		this.set('items',
 			items.concat(
 				fetchedImages.map((image: SearchPhotoImageResponseInterface) => {
-					image.thumbnailUrl = this.generateThumbUrl(image.url);
+					image.thumbnailUrl = Mercury.Modules.Thumbnailer.getThumbURL(image.url, {
+						mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+						width: this.imageSize,
+						height: this.imageSize
+					});
 
 					return image;
 				})
@@ -74,7 +78,7 @@ App.SearchImagesModel = Em.Object.extend(App.CuratedContentEditorThumbnailMixin,
 					resolve(items);
 				})
 				.fail((error: any) => {
-					reject(error)
+					reject(error);
 				});
 		})
 	},
