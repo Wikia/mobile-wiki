@@ -22,11 +22,6 @@ App.LoadingSpinnerMixin = Em.Mixin.create({
 
 	hideLoader: function () {
 		Em.run.cancel(this.get('spinnerTimeout'));
-
-		// User can browse away from component before this function is called (async operations)
-		// Don't fail when that happens
-		if (!this.get('isDestroyed')) {
-			this.set('isLoading', false);
-		}
+		this.set('isLoading', false);
 	}
 });

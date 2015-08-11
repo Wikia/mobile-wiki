@@ -2,7 +2,6 @@
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
-/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 
 'use strict';
@@ -11,11 +10,11 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentEditorThumbnailMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		imgSelector: '.curated-content-editor-photo-crop > img',
 		$imgElement: null,
+		isLoading: false,
 
 		// https://github.com/fengyuanchen/cropper#options
 		cropperSettings: {
@@ -73,35 +72,30 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		/**
 		 * @desc Show loading spinner until image is loaded as the cropper can be displayed only after that
 		 */
-		loadImage: Em.on('didRender', function (): void {
+		loadImage: Em.on('didInitAttrs', function (): void {
 			var url = this.get('imageProperties.url'),
 				image: HTMLImageElement;
 
 			if (url) {
-				this.showLoader();
+				this.set('isLoading', true);
 
 				image = new Image();
+				image.onload = (): void => this.onImageLoaded();
 				image.src = url;
-				if (image.complete) {
-					this.onImageLoaded(image.src);
-				} else {
-					image.addEventListener('load', (): void => {
-						this.onImageLoaded(image.src);
-					});
-				}
 			}
 		}),
 
-		onImageLoaded(url: string): void {
+		onImageLoaded(): void {
 			// User can browse away from the component before this function is called
 			// Abort when that happens
 			if (this.get('isDestroyed')) {
 				return;
 			}
 
-			this.set('imageUrl', url);
+			this.set('imageUrl', this.get('imageProperties.url'));
+
+			// Wait until image is rendered
 			Em.run.scheduleOnce('afterRender', this, this.initCropper);
-			this.hideLoader();
 		},
 
 		initCropper(): void {
@@ -111,6 +105,10 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 				});
 
 			$imgElement.cropper(settings);
-			this.set('$imgElement', $imgElement);
+
+			this.setProperties({
+				isLoading: false,
+				$imgElement: $imgElement
+			});
 		}
 });
