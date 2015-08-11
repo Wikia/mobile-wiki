@@ -13,7 +13,7 @@ App.CuratedContentEditorLayoutMixin = Em.Mixin.create({
 
 	imageSearchLayout: {
 		name: 'curated-content-editor-image-search',
-		next: 'curated-content-editor-item-form',
+		next: 'curated-content-editor-image-crop',
 		previous: 'curated-content-editor-item-form'
 	},
 
