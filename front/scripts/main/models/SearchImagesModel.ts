@@ -33,7 +33,7 @@ App.SearchImagesModel = Em.Object.extend(App.CuratedContentEditorThumbnailMixin,
 	nextBatch: 0,
 	batches: 1,
 	imageSize: 200,
-	searchPhrase: '',
+	searchQuery: '',
 	items: [],
 
 	setItems(fetchedImages: SearchPhotoImageResponseInterface[]) {
@@ -87,7 +87,7 @@ App.SearchImagesModel = Em.Object.extend(App.CuratedContentEditorThumbnailMixin,
 			{
 				format: 'json',
 				action: 'apimediasearch',
-				query: this.get('searchPhrase'),
+				query: this.get('searchQuery'),
 				type: 'photo',
 				batch: this.get('nextBatch'),
 				limit: this.searchLimit

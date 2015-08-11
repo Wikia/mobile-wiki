@@ -19,11 +19,11 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 		searchPlaceholder: i18n.t('app.curated-content-editor-search-images-placeholder'),
 
-		searchPhraseObserver: Em.observer('searchPhrase', function() {
+		searchQueryObserver: Em.observer('searchQuery', function() {
 			this.showLoader();
 
 			this.set('imagesModel', App.SearchImagesModel.create({
-				searchPhrase: this.get('searchPhrase')
+				searchQuery: this.get('searchQuery')
 			}));
 
 			Em.run.debounce(this, this.getNextBatch, this.debounceDuration);
