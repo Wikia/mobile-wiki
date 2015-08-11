@@ -1,8 +1,13 @@
-var mixinMock;
+var mixinMock,
+	originalThumbnailerGetThumbURL = Mercury.Modules.Thumbnailer.getThumbURL;
 
 moduleFor('mixin:curatedContentThumbnail', 'CuratedContentThumbnailMixin', {
 	setup: function () {
 		mixinMock = Em.Object.createWithMixins(App.CuratedContentThumbnailMixin, {});
+	},
+
+	teardown: function () {
+		Mercury.Modules.Thumbnailer.getThumbURL = originalThumbnailerGetThumbURL;
 	}
 });
 
