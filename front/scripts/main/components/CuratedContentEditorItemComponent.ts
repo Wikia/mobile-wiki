@@ -2,12 +2,14 @@
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 {
 	classNames: ['curated-content-editor-item'],
 	imageWidth: 300,
@@ -84,10 +86,14 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		goBack(): void {
+			var trackLabel = this.get('isSectionView') ? 'section-edit-go-back' : 'item-edit-go-back';
+			this.trackClick('curated-content-editor', trackLabel);
 			this.sendAction('goBack');
 		},
 
 		done(): void {
+			var trackLabel = this.get('isSectionView') ? 'section-edit-done' : 'item-edit-done';
+			this.trackClick('curated-content-editor', trackLabel);
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				if (this.get('isSectionView')) {
 					this.validateAndDone(this.get('model'), {
@@ -103,6 +109,8 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		deleteItem(): void {
+			var trackLabel = this.get('isSectionView') ? 'section-delete' : 'item-delete';
+			this.trackClick('curated-content-editor', trackLabel );
 			//@TODO CONCF-956 add translations
 			if (confirm('Are you sure about removing this item?')) {
 				this.sendAction('deleteItem');

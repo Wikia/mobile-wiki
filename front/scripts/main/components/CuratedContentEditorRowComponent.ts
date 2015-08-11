@@ -2,7 +2,9 @@
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 'use strict';
 
-App.CuratedContentEditorRowComponent = Em.Component.extend(App.CuratedContentThumbnailMixin, {
+App.CuratedContentEditorRowComponent = Em.Component.extend(
+	App.CuratedContentThumbnailMixin,
+{
 	classNames: ['curated-content-editor-row-container'],
 	imageWidth: 100,
 
