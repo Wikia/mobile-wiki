@@ -142,7 +142,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			showImageModal(): void {
-				this.trackClick('curated-content-editor', 'item-image-upload-modal-visible');
+				this.trackClick('curated-content-editor', 'item-image-menu');
 				this.set('imageModalVisible', true);
 			},
 
@@ -151,7 +151,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			showSearchImageForm(): void {
-				this.trackClick('curated-content-editor', 'item-search-image-form-opened');
+				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
 			}
 		},

@@ -36,7 +36,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			},
 
 			select(image: SearchPhotoImageResponseInterface): void {
-				this.trackClick('curated-content-editor', 'image-from-search-selected');
+				this.trackClick('curated-content-editor', 'image-search-select');
 				this.setProperties({
 					'model.image_url': image.thumbnailUrl,
 					'model.image_id': image.id,
@@ -46,7 +46,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			},
 
 			loadMore(): void {
-				this.trackClick('curated-content-editor', 'image-search-load-more-clicked');
+				this.trackClick('curated-content-editor', 'image-search-load-more');
 				this.set('spinnerOverlay', true);
 				this.showLoader();
 				this.getNextBatch();
