@@ -1,7 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
 /// <reference path="../mixins/ViewportMixin.ts" />
-/// <reference path="../../mercury/modules/Thumbnailer.ts" />
 'use strict';
 
 App.CuratedContentItemComponent = Em.Component.extend(
@@ -20,7 +19,6 @@ App.CuratedContentItemComponent = Em.Component.extend(
 
 	block: 'curated',
 	imageWidth: 200,
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	thumbUrl: Em.computed.oneWay('emptyGif'),
 
 	icon: Em.computed('type', function (): string {
