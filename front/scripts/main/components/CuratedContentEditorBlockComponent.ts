@@ -23,6 +23,7 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 		},
 
 		showHelp(): void {
+			this.trackClick('curated-content-editor', 'help-show');
 			this.set('isHelpVisible', true);
 		}
 	}

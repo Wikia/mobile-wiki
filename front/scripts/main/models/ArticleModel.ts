@@ -75,7 +75,7 @@ App.ArticleModel.reopenClass({
 				return;
 			}
 
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: this.url(params),
 				dataType: 'json',
 				success: (data): void => {
@@ -99,7 +99,7 @@ App.ArticleModel.reopenClass({
 
 	getArticleRandomTitle: function (): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: App.get('apiBase') + '/article?random&titleOnly',
 				cache: false,
 				dataType: 'json',

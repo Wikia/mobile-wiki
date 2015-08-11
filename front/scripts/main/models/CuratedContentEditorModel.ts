@@ -27,7 +27,7 @@ App.CuratedContentEditorModel = Em.Object.extend({
 App.CuratedContentEditorModel.reopenClass({
 	save(model: CuratedContentEditorModel): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/wikia.php',
 					query: {
@@ -50,7 +50,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	load(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),

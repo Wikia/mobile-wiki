@@ -15,7 +15,7 @@ App.ArticleCommentsModel = Em.Object.extend({
 
 		if (page && page >= 0 && articleId) {
 			return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-				Em.$.ajax({
+				Em.$.ajax(<JQueryAjaxSettings>{
 					url: this.url(articleId, page),
 					success: (data) => {
 						this.setProperties(data.payload);

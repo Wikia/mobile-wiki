@@ -74,7 +74,7 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 
 	editContent(editData: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({ path: '/api.php' }),
 				dataType: 'json',
 				method: 'POST',
@@ -130,7 +130,7 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 				title: photoTitle,
 				tempName: tempName
 			};
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({ path: '/api.php' }),
 				method: 'POST',
 				data: params,
@@ -155,7 +155,7 @@ App.AddPhotoModel.reopenClass(App.EditMixin, {
 		formData.append('file', photoData);
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/api.php',
 					query: {

@@ -40,7 +40,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	getImage(title: string, size: number): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/wikia.php',
 				}),
@@ -69,7 +69,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
