@@ -86,11 +86,12 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 		},
 
 		goBack(): void {
+			this.trackClick('curated-content-editor', 'item-edit-go-back');
 			this.sendAction('goBack');
 		},
 
 		done(): void {
-			var trackLabel = this.get('isSectionView') ? 'section-done' : 'item-done';
+			var trackLabel = this.get('isSectionView') ? 'section-edit-done' : 'item-edit-done';
 			this.trackClick('curated-content-editor', trackLabel);
 			if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 				if (this.get('isSectionView')) {

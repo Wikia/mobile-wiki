@@ -33,6 +33,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		goBack(): void {
+			this.trackClick('curated-content-editor', 'section-go-back');
 			this.sendAction('goBack');
 		},
 

@@ -1,11 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
-/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorRowComponent = Em.Component.extend(
 	App.CuratedContentEditorThumbnailMixin,
-	App.TrackClickMixin,
 	{
 	classNames: ['curated-content-editor-row-container'],
 	imageSize: 100,
@@ -16,7 +14,6 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 
 	actions: {
 		itemClick(): void {
-			this.trackClick('curated-content-editor', 'item-click');
 			var model: CuratedContentEditorItemModel = this.get('model');
 
 			if (model.node_type === 'section') {

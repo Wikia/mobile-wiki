@@ -1,5 +1,5 @@
 <header class="edit-head curated-content-editor-head">
-	{{#link-to 'curatedContentEditor.index'}}{{svg 'chevron' role='img' class='icon arrow-left'}}{{/link-to}}
+	<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
 	{{!-- @TODO CONCF-956 add translations to Done --}}
 	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit" disabled={{if notEmptyItems null 'disabled'}}>Done</button>
 	<div class="edit-head-title">{{model.label}}</div>
