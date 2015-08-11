@@ -25,20 +25,20 @@ App.CuratedContentThumbnailMixin = Em.Mixin.create({
 		return Math.round(this.get('imageWidth') / this.get('aspectRatio'));
 	}),
 
-	generateThumbUrl(imageUrl: string, imageCropData: ImageCropData = null): string {
+	generateThumbUrl(imageUrl: string, imageCrop: ImageCropData = null): string {
 		var options: any = {
-			width: this.get('imageWidth') || this.get('imageSize')
+			width: this.get('imageWidth')
 		};
 
-		if (imageCropData) {
+		if (imageCrop) {
 			options.mode = this.thumbnailer.mode.windowCrop;
-			options.xOffset1 = imageCropData.x;
-			options.yOffset1 = imageCropData.y;
-			options.xOffset2 = imageCropData.x + imageCropData.width;
-			options.yOffset2 = imageCropData.y + imageCropData.height;
+			options.xOffset1 = imageCrop.x;
+			options.yOffset1 = imageCrop.y;
+			options.xOffset2 = imageCrop.x + imageCrop.width;
+			options.yOffset2 = imageCrop.y + imageCrop.height;
 		} else {
 			options.mode = this.get('cropMode');
-			options.height = this.get('imageHeight') || this.get('imageSize');
+			options.height = this.get('imageHeight');
 		}
 
 		return this.thumbnailer.getThumbURL(imageUrl, options);
