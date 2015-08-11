@@ -17,8 +17,8 @@ App.CuratedContentThumbnailMixin = Em.Mixin.create({
 		return this.get('block') === 'featured' ? 16 / 9 : 1;
 	}),
 
-	aspectRatioName: Em.computed('block', function (): string {
-		return this.get('block') === 'featured' ? 'landscape' : 'square';
+	aspectRatioName: Em.computed('aspectRatio', function (): string {
+		return this.get('aspectRatio') === 16 / 9 ? 'landscape' : 'square';
 	}),
 
 	imageHeight: Em.computed('aspectRatio', 'imageWidth', function (): number {

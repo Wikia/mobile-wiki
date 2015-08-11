@@ -23,13 +23,10 @@ test('sets aspectRatio property correctly', function () {
 });
 
 test('sets aspectRatioName property correctly', function () {
-	mixinMock.set('block', 'featured');
+	mixinMock.set('aspectRatio', 16 / 9);
 	equal(mixinMock.get('aspectRatioName'), 'landscape');
 
-	mixinMock.set('block', 'curated');
-	equal(mixinMock.get('aspectRatioName'), 'square');
-
-	mixinMock.set('block', 'optional');
+	mixinMock.set('aspectRatio', 1);
 	equal(mixinMock.get('aspectRatioName'), 'square');
 });
 

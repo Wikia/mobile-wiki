@@ -17,7 +17,7 @@ App.CuratedContentItemComponent = Em.Component.extend(
 
 	isArticle: Em.computed.equal('model.type', 'article'),
 
-	block: 'curated',
+	aspectRatio: 1,
 	imageWidth: 200,
 	thumbUrl: Em.computed.oneWay('emptyGif'),
 
