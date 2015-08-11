@@ -29,28 +29,6 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			Em.run.debounce(this, this.getNextBatch, this.debounceDuration);
 		}),
 
-		getNextBatch(): void {
-			this.get('imagesModel').next()
-				.then((): void => {
-					var message: string = null;
-
-					if (Em.isEmpty(this.get('imagesModel').items)) {
-						message = i18n.t('app.curated-content-editor-no-images-found');
-					}
-
-					this.set('searchMessage', message);
-				})
-				.catch((error: any): void => {
-					Em.Logger.error(error);
-					//@TODO CONCF-956 add translations
-					this.set('imageErrorMessage', 'Oops! An API Error occured.');
-				})
-				.finally((): void => {
-					this.hideLoader();
-					this.set('spinnerOverlay', false);
-				});
-		},
-
 		actions: {
 			goBack(): void {
 				this.trackClick('curated-content-editor', 'image-search-go-back');
@@ -73,5 +51,27 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 				this.showLoader();
 				this.getNextBatch();
 			}
+		},
+
+		getNextBatch(): void {
+			this.get('imagesModel').next()
+				.then((): void => {
+					var message: string = null;
+
+					if (Em.isEmpty(this.get('imagesModel.items'))) {
+						message = i18n.t('app.curated-content-editor-no-images-found');
+					}
+
+					this.set('searchMessage', message);
+				})
+				.catch((error: any): void => {
+					Em.Logger.error(error);
+					//@TODO CONCF-956 add translations
+					this.set('imageErrorMessage', 'Oops! An API Error occured.');
+				})
+				.finally((): void => {
+					this.hideLoader();
+					this.set('spinnerOverlay', false);
+				});
 		}
 });
