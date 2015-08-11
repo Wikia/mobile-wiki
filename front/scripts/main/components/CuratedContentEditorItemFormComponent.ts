@@ -229,7 +229,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		getImage():void {
 			App.CuratedContentEditorItemModel
 				.getImage(this.get('model.title'), this.get('imageWidth'))
-				.then((data:CuratedContentGetImageResponse):void => {
+				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
 							//@TODO CONCF-956 add translations
