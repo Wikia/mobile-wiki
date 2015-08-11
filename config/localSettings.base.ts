@@ -49,7 +49,7 @@ var localSettings: LocalSettings = {
 		scriptUrlDev:  '//s3.amazonaws.com/ki.js/52510/dlS.js',
 		scriptUrlProd: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
 	},
-	port: process.env.PORT || 7000,
+	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
 	redirectUrlOnNoData: 'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia',
 	tracking: {
