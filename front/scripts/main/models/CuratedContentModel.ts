@@ -116,7 +116,6 @@ App.CuratedContentModel.reopenClass({
 			item = {
 				label: rawData.title,
 				imageUrl: rawData.image_url,
-				imageCrop: rawData.image_crop,
 				type: 'section'
 			};
 		} else if (rawData.type === 'category') {
@@ -139,15 +138,13 @@ App.CuratedContentModel.reopenClass({
 			item = {
 				label: rawData.label || rawData.title,
 				imageUrl: rawData.image_url,
-				imageCrop: rawData.image_crop,
 				type: 'category',
 				categoryName
-			}
+			};
 		} else {
 			item = {
 				label: rawData.title,
 				imageUrl: rawData.thumbnail,
-				imageCrop: rawData.image_crop,
 				type: rawData.type,
 				url: rawData.url
 			};
@@ -156,6 +153,10 @@ App.CuratedContentModel.reopenClass({
 			if (Em.isEmpty(rawData.type) && rawData.ns === 500) {
 				item.type = 'blog';
 			}
+		}
+
+		if (rawData.image_crop) {
+			item.imageCrop = rawData.image_crop;
 		}
 
 		return item;
