@@ -14,7 +14,7 @@ App.FeaturedContentItemComponent = Em.Component.extend(
 	style: null,
 	href: Em.computed.oneWay('model.article_local_url'),
 
-	block: 'featured',
+	aspectRatio: 16 / 9,
 	imageWidth: 400,
 	cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
 	thumbUrl: Em.computed('model', function (): string {
