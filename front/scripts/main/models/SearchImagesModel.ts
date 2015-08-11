@@ -36,7 +36,7 @@ App.SearchImagesModel = Em.Object.extend({
 	searchQuery: '',
 	items: [],
 
-	setItems(fetchedImages: SearchPhotoImageResponseInterface[]) {
+	setItems(fetchedImages: SearchPhotoImageResponseInterface[]): void {
 		var items = this.get('items');
 
 		this.set('items',
@@ -54,7 +54,7 @@ App.SearchImagesModel = Em.Object.extend({
 		);
 	},
 
-	hasNextBatch: Em.computed('batches', 'nextBatch', function() {
+	hasNextBatch: Em.computed('batches', 'nextBatch', function(): boolean {
 		return this.get('batches') > this.get('nextBatch');
 	}),
 
@@ -71,6 +71,13 @@ App.SearchImagesModel = Em.Object.extend({
 					}
 
 					items = data.response.results.photo.items;
+
+					if (Em.isEmpty(items)) {
+						reject({
+							status: 404,
+							statusText: 'empty'
+						});
+					}
 
 					this.setItems(items);
 					this.set('batches', data.response.results.photo.batches);

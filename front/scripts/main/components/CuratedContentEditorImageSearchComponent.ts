@@ -57,19 +57,10 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 		getNextBatch(): void {
 			this.get('imagesModel').next()
-				.then((): void => {
-					var message: string = null;
-
-					if (Em.isEmpty(this.get('imagesModel.items'))) {
-						message = i18n.t('app.curated-content-editor-no-images-found');
-					}
-
-					this.set('searchMessage', message);
-				})
 				.catch((error: any): void => {
 					Em.Logger.error(error);
-					//@TODO CONCF-956 add translations
-					this.set('imageErrorMessage', 'Oops! An API Error occured.');
+
+					this.set('searchMessage', i18n.t('app.curated-content-editor-no-images-found'));
 				})
 				.finally((): void => {
 					this.hideLoader();
