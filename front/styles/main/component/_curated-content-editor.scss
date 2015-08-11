@@ -280,10 +280,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	.search-message {
 		text-align: center;
 		width: 100%;
-
-		&.hidden {
-			display: none;
-		}
 	}
 
 	.search-results {

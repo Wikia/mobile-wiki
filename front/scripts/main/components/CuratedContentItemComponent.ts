@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/ViewportMixin.ts"/>
-///<reference path="../../mercury/modules/Thumbnailer.ts"/>
+/// <reference path="../mixins/ViewportMixin.ts"/>
+/// <reference path="../../mercury/modules/Thumbnailer.ts"/>
 'use strict';
 
 App.CuratedContentItemComponent = Em.Component.extend(App.ViewportMixin, {

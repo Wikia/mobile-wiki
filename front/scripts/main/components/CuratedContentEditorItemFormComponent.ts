@@ -2,15 +2,15 @@
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-///<reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
-///<reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
+	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentEditorThumbnailMixin,
 	App.LoadingSpinnerMixin,
-	App.CuratedContentEditorLayoutMixin,
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor-item'],
@@ -157,7 +157,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		validateImage(): boolean {
-			var imageUrl = this.get('model.image_url'),
+			var imageUrl: string = this.get('model.image_url'),
 				errorMessage: string = null;
 
 			if (!imageUrl) {
@@ -224,9 +224,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.setProperties({
 							'imageErrorMessage': null,
 							'model.image_url': data.url,
-							'model.image_id': data.id
+							'model.image_id': data.id,
+							'resetFileInput': true
 						});
-						this.set('resetFileInput', true);
 					}
 				})
 				.catch((err: any): void => {

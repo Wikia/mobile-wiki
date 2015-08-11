@@ -17,9 +17,8 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		debounceDuration: 300,
 		spinnerOverlay: false,
 
-		searchPlaceholder: Em.computed(function() {
-			return i18n.t('app.curated-content-editor-search-images-placeholder');
-		}),
+		searchPlaceholder: i18n.t('app.curated-content-editor-search-images-placeholder'),
+
 		searchPhraseObserver: Em.observer('searchPhrase', function() {
 			this.showLoader();
 
@@ -47,9 +46,9 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 					this.set('imageErrorMessage', 'Oops! An API Error occured.');
 				})
 				.finally((): void => {
-				this.hideLoader();
-				this.set('spinnerOverlay', false);
-			});
+					this.hideLoader();
+					this.set('spinnerOverlay', false);
+				});
 		},
 
 		actions: {
