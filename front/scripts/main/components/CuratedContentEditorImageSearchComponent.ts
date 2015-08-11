@@ -22,13 +22,17 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		),
 
 		searchQueryObserver: Em.observer('searchQuery', function(): void {
-			this.showLoader();
+			var searchQuery: string = this.get('searchQuery');
 
 			this.set('imagesModel', App.SearchImagesModel.create({
-				searchQuery: this.get('searchQuery')
+				searchQuery
 			}));
 
-			Em.run.debounce(this, this.getNextBatch, this.debounceDuration);
+			if (!Em.isEmpty(searchQuery)) {
+				this.showLoader();
+
+				Em.run.debounce(this, this.getNextBatch, this.debounceDuration);
+			}
 		}),
 
 		actions: {
