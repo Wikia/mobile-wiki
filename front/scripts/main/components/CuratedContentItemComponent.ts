@@ -62,7 +62,7 @@ App.CuratedContentItemComponent = Em.Component.extend(
 	lazyLoadImage: function (): void {
 		this.set('thumbUrl', this.generateThumbUrl(
 			this.get('model.imageUrl'),
-			this.get('model.imageCrop.' + this.get('aspectRatioName'))
+			this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
 		));
 	},
 
