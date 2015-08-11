@@ -17,7 +17,9 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		debounceDuration: 300,
 		spinnerOverlay: false,
 
-		searchPlaceholder: i18n.t('app.curated-content-editor-search-images-placeholder'),
+		searchPlaceholder: Em.computed((): string =>
+			i18n.t('app.curated-content-editor-search-images-placeholder')
+		),
 
 		searchQueryObserver: Em.observer('searchQuery', function() {
 			this.showLoader();
