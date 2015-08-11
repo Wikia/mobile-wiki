@@ -14,7 +14,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor-item'],
-		imageSize: 300,
+		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
 
@@ -222,7 +222,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		getImage(): void {
 			App.CuratedContentEditorItemModel
-				.getImage(this.get('model.title'), this.get('imageSize'))
+				.getImage(this.get('model.title'), this.get('imageWidth'))
 				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
