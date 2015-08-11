@@ -265,7 +265,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.finally((): void => this.hideLoader());
 		},
 
-		processValidationError(reason: string) {
+		processValidationError(reason: string): void {
 			switch (reason) {
 				case 'articleNotFound':
 					//@TODO CONCF-956 add translations
