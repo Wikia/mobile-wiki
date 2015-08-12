@@ -50,15 +50,15 @@
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>
 				{{#if suggestionsShown}}
 					<div>
-						{{#unless searchSuggestionsEmptyResultMessage}}
+						{{#if searchSuggestionsResult.length}}
 							<ul>
 							{{#each searchSuggestionsResult as |item|}}
 								<li {{action 'setTitle' item.title}}>{{item.title}}</li>
 							{{/each}}
 							</ul>
 						{{else}}
-							<p>{{searchSuggestionsEmptyResultMessage}}</p>
-						{{/unless}}
+							<p>{{i18n 'app.curated-content-editor-no-articles-found'}}</p>
+						{{/if}}
 					</div>
 				{{/if}}
 				{{#if titleErrorMessage}}
