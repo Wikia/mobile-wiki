@@ -1,3 +1,30 @@
+## release-132 (2015-08-12 10:00 UTC)
+* Revert [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
+* LocalScript: Small change to use --nosync in dev environments
+* [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
+* [HG-825](https://wikia-inc.atlassian.net/browse/HG-825) HG-825 Fix itemController deprecation
+* [CONCF-977](https://wikia-inc.atlassian.net/browse/CONCF-977) CONCF-977 Fix thumbnails in Curated Content Tool
+* break-line-in-register-controller: Break line in registration controller
+* [CONCF-977](https://wikia-inc.atlassian.net/browse/CONCF-977) CONCF-977 | Display correctly cropped thumbnails on Curated Main Page
+* revert-1199-add-default-port: Revert "Changing default port to work better on devboxes"
+* [CONCF-847](https://wikia-inc.atlassian.net/browse/CONCF-847) CONCF-847 Add ability to search for an image from Wikia
+* [CONCF-787](https://wikia-inc.atlassian.net/browse/CONCF-787) CONCF-787 Add tracking in Curated Content Tool
+* add-default-port: Changing default port to work better on devboxes
+* [CONCF-847](https://wikia-inc.atlassian.net/browse/CONCF-847) CONCF-1004 | add load more button
+* [CONCF-847](https://wikia-inc.atlassian.net/browse/CONCF-847) CONCF-1011 | Style popup menu
+
+## release-131 (2015-08-10 15:08 UTC)
+* revert-1146-HG-788: Revert "HG-788 - replace inline SVG sprite with requested asset"
+
+## release-130 (2015-08-10 10:00 UTC)
+* [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Truncate helper error handling
+* [DAT-3048](https://wikia-inc.atlassian.net/browse/DAT-3048) DAT-3048 Remove chevrons and captions from linked icons
+* [HG-788](https://wikia-inc.atlassian.net/browse/HG-788) HG-788 - replace inline SVG sprite with requested asset
+* [HG-819](https://wikia-inc.atlassian.net/browse/HG-819) HG-819 - make blockquote styles conform to style guide
+* [HG-838](https://wikia-inc.atlassian.net/browse/HG-838) HG-838 Don't display deprecations when running unit tests
+* remove-pointless-comment: Removing pointless comment
+* speed-up-floating-labels: Speeding up floating labels to look more native
+
 ## release-129 (2015-08-07 10:00 UTC)
 * [SOC-1035](https://wikia-inc.atlassian.net/browse/SOC-1035) SOC-1035 New JA translation for login and registration
 * [HG-667](https://wikia-inc.atlassian.net/browse/HG-667) HG-667 - disable logging for ember performance sender
