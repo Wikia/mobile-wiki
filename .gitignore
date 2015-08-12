@@ -53,3 +53,4 @@ homepage/front/vendor
 homepage/vendor
 homepage/front/scripts/**/*.js
 homepage/front/scripts/**/*.map
+homepage/config/localSettings.js

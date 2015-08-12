@@ -13,6 +13,7 @@
     "bunyan": "*",
     "bunyan-prettystream": "*",
     "bunyan-syslog": "*",
+    "deep-extend": "^0.4.0",
     "good": "^6.3.0",
     "good-console": "^5.0.2",
     "handlebars": "^3.0.3",
