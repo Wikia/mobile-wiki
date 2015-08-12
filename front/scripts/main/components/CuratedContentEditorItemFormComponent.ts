@@ -36,6 +36,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelErrorMessage: null,
 		titleErrorMessage: null,
 		imageErrorMessage: null,
+		searchSuggestionsEmptyResultMessage: Em.computed('searchSuggestionsResult', function() {
+			return Em.isEmpty(this.get('searchSuggestionsResult')) ? 'No articles found' : null;
+		}),
 
 		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
 				return Em.isEmpty(this.get('labelErrorMessage')) &&
@@ -55,6 +58,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		titleObserver(): void {
 			if (this.validateTitle()) {
 				this.getImageDebounced();
+			}
+
+			if (this.get('isTitleFocused')) {
+				this.set('suggestionsShown', true);
+				this.getSearchSuggestionsDebounced();
 			}
 		},
 
@@ -80,6 +88,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				if (this.get('isLoading')) {
 					this.hideLoader();
 				}
+
+				Em.run.next(this, () => {
+					if (this.get('suggestionsShown')) {
+						this.set('suggestionsShown', false)
+					}
+				})
 			},
 
 			setTitleFocusedIn(): void {
@@ -162,6 +176,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			showSearchImageForm(): void {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
+			},
+
+			setTitle(title: string): void {
+				this.set('model.title', title);
 			}
 		},
 
@@ -306,5 +324,24 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.set('imageErrorMessage', 'Image is missing');
 					break;
 			}
+		},
+
+		getSearchSuggestionsDebounced():void {
+			Em.run.debounce(this, this.getSearchSuggestions, this.get('debounceDuration'));
+		},
+
+		getSearchSuggestions(): any {
+			var title = this.get('model.title');
+			App.CuratedContentEditorItemModel.getSearchSuggestions(title)
+				.then((data: any) => {
+					this.set('searchSuggestionsResult', data.items);
+				})
+				.catch((error: any) => {
+					this.set('searchSuggestionsResult', []);
+					//404 error is returned when no articles were found. No need to log it
+					if (error && error.status !== 404) {
+						Em.Logger.error(error);
+					}
+				})
 		}
 	});

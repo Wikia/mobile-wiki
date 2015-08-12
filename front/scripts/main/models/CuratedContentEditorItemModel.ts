@@ -83,5 +83,31 @@ App.CuratedContentEditorItemModel.reopenClass({
 				}
 			});
 		});
+	},
+
+	getSearchSuggestions(title: string): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			if (!title) {
+				reject();
+				return null;
+			}
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query: title
+				},
+				dataType: 'json',
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
 	}
 });
