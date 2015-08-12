@@ -305,3 +305,36 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		}
 	}
 }
+
+.title.input-container {
+	position: relative;
+}
+
+.title-suggestions-container {
+	background: $white;
+	box-shadow: 0 2px 5px $iron;
+	position: absolute;
+	width: 100%;
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		@extend %ellipsis;
+		border: 1px solid $iron;
+		border-top: none;
+		font-size: 14px;
+		padding: 10px;
+
+		&.message {
+			text-align: center;
+		}
+
+		&.error {
+			color: $alert-color;
+		}
+	}
+}

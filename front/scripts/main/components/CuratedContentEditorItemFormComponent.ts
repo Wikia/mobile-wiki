@@ -4,6 +4,7 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
+///<reference path="../mixins/ViewportMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
@@ -12,6 +13,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
+	App.ViewportMixin,
 	{
 		classNames: ['curated-content-editor-item'],
 		imageWidth: 300,
@@ -48,6 +50,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
+		searchSuggestionsMessage: Em.computed('suggestionsError', function(): string {
+			return this.get('suggestionsError') ?
+				i18n.t('app.curated-content-editor-no-articles-found') :
+				i18n.t('app.curated-content-editor-suggestions-loading');
+		}),
+
 		labelObserver(): void {
 			this.validateLabel();
 		},
@@ -57,11 +65,19 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				this.getImageDebounced();
 			}
 
-			if (this.get('isTitleFocused')) {
+			if (this.get('isTitleFocused') && !Em.isEmpty(this.get('model.title'))) {
+				this.set('searchSuggestionsResult', []);
+				this.set('suggestionsError', false);
 				this.set('searchSuggestionsVisible', true);
 				this.setSearchSuggestionsDebounced();
+			} else {
+				this.set('searchSuggestionsVisible', false);
 			}
 		},
+
+		viewportObserver: Em.observer('viewportDimensions.width', function(): void {
+			this.set('searchSuggestionsVisible', false);
+		}),
 
 		didRender(): void {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
@@ -339,6 +355,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					if (error && error.status !== 404) {
 						Em.Logger.error(error);
 					}
+					this.set('suggestionsError', true);
 				})
 		}
 	});
