@@ -19,7 +19,7 @@
     "vignette": "wikia/vignette-js#2.1.1",
     "wikia-style-guide": "Wikia/style-guide#1.0.1",
     "numeral": "~1.5.3",
-    "cropper": "~0.10.1"
+    "cropper": "~0.11.0"
   },
   "devDependencies": {
     "ember-qunit": "0.3.0",

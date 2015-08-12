@@ -202,8 +202,13 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-photo-crop {
 	background: #000;
-	height: calc(100vh - 20px);
+	height: calc(100vh - 50px);
 	width: 100vw;
+
+	> img {
+		max-height: 100%;
+		max-width: 100%;
+	}
 }
 
 .curated-content-editor-item {
