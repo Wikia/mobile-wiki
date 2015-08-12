@@ -127,6 +127,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 
 		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
+		},
+
+		updateHeaders: function(headers: ArticleSectionHeader[]): void {
+			this.set('headers', headers);
 		}
 	},
 
