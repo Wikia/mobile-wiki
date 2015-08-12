@@ -49,7 +49,8 @@ function prepareMainPageData (request: Hapi.Request, result: any): void {
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {
 		type: result.isMainPage ? 'website' : 'article',
-		title: result.isMainPage ? result.wiki.siteName : title
+		title: result.isMainPage ? result.wiki.siteName : title,
+		url: result.canonicalUrl
 	};
 	if (result.article.details) {
 		if (result.article.details.abstract) {

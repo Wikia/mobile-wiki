@@ -223,8 +223,8 @@ articlePagePaths.forEach((path) => {
 unauthenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
-	path: '/d/{subpaths*}',
-	handler: require('./facets/showApplication')
+	path: '/d/{thing}/{id}/{action?}',
+	handler: require('./facets/api/discussion')
 });
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {

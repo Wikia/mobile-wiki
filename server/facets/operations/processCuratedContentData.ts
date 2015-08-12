@@ -53,7 +53,8 @@ function prepareData (request: Hapi.Request, result: any): void {
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {
 		type: 'website',
-		title: result.wiki.siteName
+		title: result.wiki.siteName,
+		url: result.canonicalUrl
 	};
 	if (result.article.details) {
 		if (result.article.details.abstract) {
