@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp",
-    "test": "npm test"
+    "test": "npm test",
+    "build": "gulp build --type prod",
+    "start": "npm run build && node server/index.js"
   },
   "author": "Per Johan Groland <pgroland@wikia-inc.com>",
   "dependencies": {
