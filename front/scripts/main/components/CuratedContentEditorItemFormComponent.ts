@@ -37,7 +37,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		titleErrorMessage: null,
 		imageErrorMessage: null,
 		searchSuggestionsEmptyResultMessage: Em.computed('searchSuggestionsResult', function() {
-			return Em.isEmpty(this.get('searchSuggestionsResult')) ? 'No articles found' : null;
+			return Em.isEmpty(this.get('searchSuggestionsResult'))
+				? i18n.t('app.curated-content-editor-no-articles-found') : null;
 		}),
 
 		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
