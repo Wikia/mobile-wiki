@@ -36,7 +36,7 @@
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}
 		</div>
-		{{#unless isSectionView}}
+		{{#unless isSection}}
 			<div class="input-container {{if titleErrorMessage 'error'}}">
 				{{input
 					value=model.title
