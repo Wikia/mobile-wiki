@@ -89,7 +89,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			if (!title) {
 				reject();
-				return null;
+				return;
 			}
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({

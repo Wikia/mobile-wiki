@@ -48,7 +48,7 @@
 				}}
 				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>
-				{{#if suggestionsShown}}
+				{{#if searchSuggestionsVisible}}
 					<div>
 						{{#if searchSuggestionsResult.length}}
 							<ul>

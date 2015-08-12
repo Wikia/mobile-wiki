@@ -58,8 +58,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			}
 
 			if (this.get('isTitleFocused')) {
-				this.set('suggestionsShown', true);
-				this.getSearchSuggestionsDebounced();
+				this.set('searchSuggestionsVisible', true);
+				this.setSearchSuggestionsDebounced();
 			}
 		},
 
@@ -86,10 +86,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.hideLoader();
 				}
 
-				Em.run.next(this, () => {
-					if (this.get('suggestionsShown')) {
-						this.set('suggestionsShown', false)
-					}
+				//run.next is used because browser first triggers blur and then click
+				//so search suggestions disappear and click is not triggered
+				Em.run.next(this, (): void => {
+					this.set('searchSuggestionsVisible', false);
 				})
 			},
 
@@ -323,17 +323,17 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			}
 		},
 
-		getSearchSuggestionsDebounced():void {
-			Em.run.debounce(this, this.getSearchSuggestions, this.get('debounceDuration'));
+		setSearchSuggestionsDebounced(): void {
+			Em.run.debounce(this, this.setSearchSuggestions, this.get('debounceDuration'));
 		},
 
-		getSearchSuggestions(): any {
+		setSearchSuggestions(): void {
 			var title = this.get('model.title');
 			App.CuratedContentEditorItemModel.getSearchSuggestions(title)
-				.then((data: any) => {
+				.then((data: any): void => {
 					this.set('searchSuggestionsResult', data.items);
 				})
-				.catch((error: any) => {
+				.catch((error: any): void => {
 					this.set('searchSuggestionsResult', []);
 					//404 error is returned when no articles were found. No need to log it
 					if (error && error.status !== 404) {
