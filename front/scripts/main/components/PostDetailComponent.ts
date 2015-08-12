@@ -5,6 +5,7 @@ App.PostDetailComponent = Em.Component.extend({
 	classNames: ['post-detail'],
 
 	author: null,
+	authorId: null,
 
 	init: function (): void {
 		App.UserModel.find({userId: this.get('authorId')}).then((result: any): any => {
