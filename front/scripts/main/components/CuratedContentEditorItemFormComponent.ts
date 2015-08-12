@@ -240,6 +240,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 							'imageErrorMessage': null,
 							'model.image_url': data.url,
 							'model.image_id': data.id,
+							'model.image_crop': null,
 							'resetFileInput': true
 						});
 					}
