@@ -1,3 +1,6 @@
+//TODO: This file can be removed ones all articles with infoboxes will be purged after relesing DAT-3003
+//TODO: https://wikia-inc.atlassian.net/browse/DAT-3079
+
 $infobox-item-margin: 6px;
 $infobox-background: $color-gray-light;
 $infobox-section-secondary-background: $color-blue-gray-light;
@@ -27,47 +30,51 @@ $hero-caption-line-height: 18px;
 		position: relative;
 	}
 
-	//////////// General classes and rules used across infobox ////////////
-
 	// reset inherited margins and paddings
-	.pi-title,
-	.pi-header,
-	.pi-data-label,
-	.pi-hero-title,
-	.pi-hero-caption,
+	.portable-infobox-title,
+	.portable-infobox-header,
+	.portable-infobox-item-label,
+	.portable-infobox-hero-title,
+	.portable-infobox-hero-caption,
 	.media-component {
 		margin: 0;
 		padding: 0;
 	}
 
-	.pi-item-spacing {
+	// general classes and rules used across infobox
+	.portable-infobox-item-margins {
 		padding: $infobox-item-margin * 2 $article-horizontal-padding;
 	}
 
-	.pi-secondary-background {
+	.portable-infobox-secondary-background {
 		background-color: $infobox-section-secondary-background;
 	}
 
-	.pi-secondary-font {
+	.portable-infobox-secondary-font {
 		font-size: inherit;
 		font-weight: bold;
 		line-height: inherit;
 		margin-top: 0;
 	}
 
+	.item-type-title {
+		padding-bottom: 5px;
+		padding-top: 5px;
+	}
+
 	//////////// Specific styles for each of the infobox elements starts here ////////////
 
 	// infobox hero
-	.pi-hero {
+	.item-type-hero {
 		min-height: $min-hero-item-height;
 		position: relative;
-
-		> .media-component img {
-			width: 100%;
-		}
 	}
 
-	.pi-hero-title-wrapper {
+	.item-type-hero > .media-component img {
+		width: 100%;
+	}
+
+	.portable-infobox-hero-title-wrapper {
 		background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
 		bottom: 0;
 		left: 0;
@@ -79,8 +86,8 @@ $hero-caption-line-height: 18px;
 		z-index: 1;
 	}
 
-	.pi-hero-title,
-	.pi-hero-caption {
+	.portable-infobox-hero-title,
+	.portable-infobox-hero-caption {
 		@extend %ellipsis;
 		color: $infobox-hero-font-color;
 		text-shadow: 0 0 3px $infobox-hero-outline-color;
@@ -92,19 +99,18 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
-	.pi-hero-caption {
+	.portable-infobox-hero-caption {
 		font-size: $hero-caption-font-size;
 		font-weight: normal;
 		line-height: $hero-caption-line-height;
 		padding-top: $infobox-item-margin;
 	}
 
+
 	// infobox title
-	.pi-title {
+	.portable-infobox-title {
 		font-size: $infobox-title-font-size;
 		line-height: $infobox-title-line-height;
-		padding-bottom: 5px;
-		padding-top: 5px;
 	}
 
 	// infobox images
@@ -123,25 +129,30 @@ $hero-caption-line-height: 18px;
 	}
 
 	// infobox data fields in tabular layout
-	.pi-data {
+	> .item-type-key-val,
+	.item-type-group .item-type-key-val {
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: row;
 		overflow: hidden;
 		width: 100%;
-	}
 
-	.pi-data-label {
-		flex-basis: 40%;
-	}
+		.portable-infobox-item-label {
+			flex-basis: 40%;
+		}
 
-	.pi-data-value {
-		padding-left: 0;
+		.portable-infobox-item-value {
+			padding-left: 0;
+		}
 
-		&:not(:first-child) {
+		.portable-infobox-item-value:not(:first-child) {
 			flex-basis: 60%;
 			padding-left: 20px;
 		}
+	}
+
+	.portable-infobox-item-value {
+		padding-left: $infobox-item-margin * 2;
 
 		// remove margins on all children of data value
 		> * {
@@ -158,15 +169,15 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
-	// infobox navigation
-	.pi-navigation {
+	// infobox footer
+	.portable-infobox-footer {
 		font-weight: normal;
 		padding: $infobox-item-margin * 2 $infobox-item-margin * 3;
 		text-align: center;
 	}
 
 	// styles for infobox collapse / expand UI
-	.pi-expand-button {
+	.portable-infobox-expand-button {
 		background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
 		box-sizing: border-box;
 		padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
@@ -181,12 +192,12 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
-	.pi-expand-icon {
+	.portable-infobox-expand-icon {
 		height: $infobox-item-margin * 2;
 	}
 
 	&:not(.collapsed) {
-		.pi-expand-icon {
+		.portable-infobox-expand-icon {
 			transform: rotate(180deg);
 		}
 	}
@@ -195,7 +206,7 @@ $hero-caption-line-height: 18px;
 		overflow: hidden;
 		position: relative;
 
-		.pi-expand-button {
+		.portable-infobox-expand-button {
 			bottom: 0;
 			padding-top: 45px;
 			position: absolute;
