@@ -31,7 +31,7 @@ App.WikiaInYourLangModel.reopenClass({
 				if (resp.success) {
 					modelInstance = App.WikiaInYourLangModel.create({
 						nativeDomain: resp.nativeDomain,
-						message: resp.message
+						message: resp.messageMobile
 					});
 				}
 				window.localStorage.setItem(
