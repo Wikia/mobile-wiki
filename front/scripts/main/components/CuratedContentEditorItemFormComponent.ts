@@ -4,7 +4,6 @@
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../mixins/ViewportMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
@@ -13,7 +12,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
-	App.ViewportMixin,
 	{
 		classNames: ['curated-content-editor-item'],
 		imageWidth: 300,
@@ -88,10 +86,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				this.set('searchSuggestionsVisible', false);
 			}
 		},
-
-		viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-			this.set('searchSuggestionsVisible', false);
-		}),
 
 		didRender(): void {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
