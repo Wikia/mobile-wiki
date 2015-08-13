@@ -51,6 +51,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
 		searchSuggestionsResult: [],
+		/**
+		 * messages used:
+		 * app.curated-content-editor-no-articles-found
+		 * app.curated-content-editor-suggestions-loading
+		 */
 		searchSuggestionsMessage: Em.computed('suggestionsError', function(): string {
 			var msgKey = 'app.curated-content-editor-' + this.get('suggestionsError') ?
 				'no-articles-found' :
