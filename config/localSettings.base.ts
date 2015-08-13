@@ -11,6 +11,7 @@ var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
+	servicesDomain: 'api.wikia-services.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
@@ -21,6 +22,9 @@ var localSettings: LocalSettings = {
 		host: process.env.HELIOS_HOST,
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
+	},
+	discuss: {
+		baseAPIPath: 'discussion',
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
