@@ -53,7 +53,7 @@
 				M.prop('asyncArticle', {{asyncArticle}});
 			{{/if}}
 			{{#if article}}
-				M.prop('firstPage', true, true);
+				M.prop('articleContentPreloadedInDOM', true, true);
 				M.provide('article', {{{json article}}});
 			{{/if}}
 			{{#if curatedContent}}
