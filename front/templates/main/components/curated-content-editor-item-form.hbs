@@ -37,7 +37,7 @@
 			{{/if}}
 		</div>
 		{{#unless isSection}}
-			<div class="input-container {{if titleErrorMessage 'error'}}">
+			<div class="title input-container {{if titleErrorMessage 'error'}}">
 				{{input
 					value=model.title
 					id='title'
@@ -48,6 +48,19 @@
 				}}
 				{{!-- @TODO CONCF-956 add translations to Enter a page name --}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">Enter a page name</label>
+				{{#if searchSuggestionsVisible}}
+					<div class="title-suggestions-container">
+						<ul>
+						{{#if searchSuggestionsResult.length}}
+							{{#each searchSuggestionsResult as |item|}}
+								<li {{action 'setTitle' item.title}}>{{item.title}}</li>
+							{{/each}}
+						{{else}}
+							<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
+						{{/if}}
+						</ul>
+					</div>
+				{{/if}}
 				{{#if titleErrorMessage}}
 					<small class="error">{{titleErrorMessage}}</small>
 				{{/if}}

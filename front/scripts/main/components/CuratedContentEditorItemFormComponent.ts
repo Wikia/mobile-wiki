@@ -21,7 +21,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
 
-		imageUrl: Em.computed('model.image_url', 'model.image_crop', function ():string {
+		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
 			var aspectRatioName = this.get('aspectRatioName'),
 				imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
 
@@ -43,7 +43,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		titleErrorMessage: null,
 		imageErrorMessage: null,
 
-		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function ():boolean {
+		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
 				return Em.isEmpty(this.get('labelErrorMessage')) &&
 					Em.isEmpty(this.get('titleErrorMessage')) &&
 					Em.isEmpty(this.get('imageErrorMessage'));
@@ -54,46 +54,78 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
-		labelObserver():void {
+		searchSuggestionsResult: [],
+		/**
+		 * messages used:
+		 * app.curated-content-editor-no-articles-found
+		 * app.curated-content-editor-suggestions-loading
+		 */
+		searchSuggestionsMessage: Em.computed('suggestionsError', function (): string {
+			var msgSuffix = this.get('suggestionsError') ? 'no-articles-found' : 'suggestions-loading',
+				msgKey = 'app.curated-content-editor-' + msgSuffix;
+
+			return i18n.t(msgKey);
+		}),
+
+		labelObserver(): void {
 			this.validateLabel();
 		},
 
-		titleObserver():void {
+		titleObserver(): void {
+			var title = this.get('model.title');
+
 			if (this.validateTitle()) {
 				this.getImageDebounced();
 			}
+
+			if (this.get('isTitleFocused') && !Em.isEmpty(title) && title.length > 2) {
+				this.setProperties({
+					searchSuggestionsResult: [],
+					suggestionsError: false,
+					searchSuggestionsVisible: true
+				});
+				this.setSearchSuggestionsDebounced();
+			} else {
+				this.set('searchSuggestionsVisible', false);
+			}
 		},
 
-		didRender():void {
+		didRender(): void {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 			this.addObserver('model.title', this, this.titleObserver);
 			this.addObserver('model.label', this, this.labelObserver);
 		},
 
 		actions: {
-			setLabelFocusedOut():void {
+			setLabelFocusedOut(): void {
 				this.validateLabel();
 				this.set('isLabelFocused', false);
 			},
 
-			setLabelFocusedIn():void {
+			setLabelFocusedIn(): void {
 				this.set('isLabelFocused', true);
 			},
 
-			setTitleFocusedOut():void {
+			setTitleFocusedOut(): void {
 				this.validateTitle();
 				this.set('isTitleFocused', false);
 				if (this.get('isLoading')) {
 					this.hideLoader();
 				}
+
+				//run.next is used because browser first triggers blur and then click
+				//so search suggestions disappear and click is not triggered
+				Em.run.next(this, (): void => {
+					this.set('searchSuggestionsVisible', false);
+				})
 			},
 
-			setTitleFocusedIn():void {
+			setTitleFocusedIn(): void {
 				this.showLoader();
 				this.set('isTitleFocused', true);
 			},
 
-			goBack():void {
+			goBack(): void {
 				var trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
 				this.trackClick('curated-content-editor', trackLabel);
 
@@ -128,12 +160,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				}
 			},
 
-			fileUpload(files:any[]):void {
+			fileUpload(files: any[]): void {
 				this.trackClick('curated-content-editor', 'item-file-upload');
 				this.showLoader();
 				App.AddPhotoModel.load(files[0])
-					.then((photoModel:typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
-					.then((data:any) => {
+					.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
+					.then((data: any) => {
 						if (data && data.url && data.article_id) {
 							this.setProperties({
 								'imageProperties.url': data.url,
@@ -150,7 +182,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 							this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 						}
 					})
-					.catch((err:any) => {
+					.catch((err: any) => {
 						Em.Logger.error(err);
 						this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 					})
@@ -159,24 +191,28 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					});
 			},
 
-			showImageModal():void {
+			showImageModal(): void {
 				this.trackClick('curated-content-editor', 'item-image-menu');
 				this.set('imageModalVisible', true);
 			},
 
-			hideImageModal():void {
+			hideImageModal(): void {
 				this.set('imageModalVisible', false);
 			},
 
-			showSearchImageForm():void {
+			showSearchImageForm(): void {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
+			},
+
+			setTitle(title: string): void {
+				this.set('model.title', title);
 			}
 		},
 
-		validateImage():boolean {
-			var imageUrl:string = this.get('model.image_url'),
-				errorMessage:string = null;
+		validateImage(): boolean {
+			var imageUrl: string = this.get('model.image_url'),
+				errorMessage: string = null;
 
 			if (!imageUrl) {
 				//@TODO CONCF-956 add translations
@@ -188,10 +224,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return !errorMessage;
 		},
 
-		validateLabel():boolean {
+		validateLabel(): boolean {
 			var label = this.get('model.label'),
 				alreadyUsedLabels = this.get('alreadyUsedLabels'),
-				errorMessage:string = null;
+				errorMessage: string = null;
 
 			if (Em.isEmpty(label)) {
 				//@TODO CONCF-956 add translations
@@ -209,9 +245,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return !errorMessage;
 		},
 
-		validateTitle():boolean {
-			var title:string,
-				errorMessage:string = null;
+		validateTitle(): boolean {
+			var title: string,
+				errorMessage: string = null;
 
 			if (!this.get('isSection')) {
 				title = this.get('model.title');
@@ -229,7 +265,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return true;
 		},
 
-		getImage():void {
+		getImage(): void {
 			App.CuratedContentEditorItemModel
 				.getImage(this.get('model.title'), this.get('imageWidth'))
 				.then((data: CuratedContentGetImageResponse): void => {
@@ -240,51 +276,51 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						}
 					} else {
 						this.setProperties({
-							'imageErrorMessage': null,
+							imageErrorMessage: null,
+							resetFileInput: true,
 							'model.image_url': data.url,
 							'model.image_id': data.id,
-							'model.image_crop': null,
-							'resetFileInput': true
+							'model.image_crop': null
 						});
 					}
 				})
-				.catch((err:any):void => {
+				.catch((err: any): void => {
 					Em.Logger.error(err);
 					//@TODO CONCF-956 add translations
 					this.set('imageErrorMessage', 'Oops! An API Error occured.');
 				})
-				.finally(():void => this.hideLoader());
+				.finally((): void => this.hideLoader());
 		},
 
-		getImageDebounced():void {
+		getImageDebounced(): void {
 			this.showLoader();
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
-		validateAndDone(item:CuratedContentEditorItemModel, data:any):void {
+		validateAndDone(item: CuratedContentEditorItemModel, data: any): void {
 			this.showLoader();
 			App.CuratedContentEditorItemModel.validateServerData(item, data)
-				.then((data:CuratedContentValidationResponseInterface):void => {
+				.then((data: CuratedContentValidationResponseInterface): void => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
 					} else {
 						if (data.error) {
-							data.error.forEach((error:any) => this.processValidationError(error.reason));
+							data.error.forEach((error: any) => this.processValidationError(error.reason));
 						} else {
 							//@TODO CONCF-956 add translations
 							this.addAlert('alert', 'Something went wrong. Please repeat.');
 						}
 					}
 				})
-				.catch((err:any):void => {
+				.catch((err: any): void => {
 					//@TODO CONCF-956 add translations
 					Em.Logger.error(err);
 					this.addAlert('alert', 'Something went wrong. Please repeat.');
 				})
-				.finally(():void => this.hideLoader());
+				.finally((): void => this.hideLoader());
 		},
 
-		processValidationError(reason:string):void {
+		processValidationError(reason: string): void {
 			switch (reason) {
 				case 'articleNotFound':
 					//@TODO CONCF-956 add translations
@@ -316,6 +352,30 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.set('imageErrorMessage', 'Image is missing');
 					break;
 			}
+		},
+
+		setSearchSuggestionsDebounced(): void {
+			Em.run.debounce(this, this.setSearchSuggestions, this.get('debounceDuration'));
+		},
+
+		setSearchSuggestions(): void {
+			var title = this.get('model.title');
+
+			App.CuratedContentEditorItemModel.getSearchSuggestions(title)
+				.then((data: any): void => {
+					this.set('searchSuggestionsResult', data.items);
+				})
+				.catch((error: any): void => {
+					//404 error is returned when no articles were found. No need to log it
+					if (error && error.status !== 404) {
+						Em.Logger.error(error);
+					}
+
+					this.setProperties({
+						suggestionsError: true,
+						searchSuggestionsResult: []
+					});
+				});
 		}
 	}
 );
