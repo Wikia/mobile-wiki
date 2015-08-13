@@ -51,7 +51,6 @@ function getOpenGraphAttributes (path: string, pathParams: any, wikiVars: any): 
 	// Post
 	if (pathParams.thing === 'p' && pathParams.id) {
 		regexMatch = pathParams.id.match(/^[\w-]*?(\d+)$/);
-console.log('REGEX MATCH', regexMatch);
 		if (regexMatch !== null) {
 			apiUrl = 'http://' + localSettings.servicesDomain + '/'
 				+ localSettings.discuss.baseAPIPath + '/' + wikiVars.id
