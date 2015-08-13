@@ -35,7 +35,6 @@
 			<!-- @include ../../../www/front/scripts/baseline.js -->
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
-			M.prop('firstPage', true, true);
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
@@ -54,6 +53,7 @@
 				M.prop('asyncArticle', {{asyncArticle}});
 			{{/if}}
 			{{#if article}}
+				M.prop('firstPage', true, true);
 				M.provide('article', {{{json article}}});
 			{{/if}}
 			{{#if curatedContent}}
