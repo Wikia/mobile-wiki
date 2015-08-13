@@ -55,9 +55,9 @@
 							{{#each searchSuggestionsResult as |item|}}
 								<li {{action 'setTitle' item.title}}>{{item.title}}</li>
 							{{/each}}
-							{{else}}
-								<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
-							{{/if}}
+						{{else}}
+							<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
+						{{/if}}
 						</ul>
 					</div>
 				{{/if}}

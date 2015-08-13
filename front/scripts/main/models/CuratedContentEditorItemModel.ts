@@ -88,8 +88,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	getSearchSuggestions(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			if (!title) {
-				reject();
-				return;
+				return reject();
 			}
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({

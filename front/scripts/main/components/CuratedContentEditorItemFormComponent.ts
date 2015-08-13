@@ -4,7 +4,7 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
-///<reference path="../mixins/ViewportMixin.ts"/>
+/// <reference path="../mixins/ViewportMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
@@ -50,10 +50,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
+		searchSuggestionsResult: [],
 		searchSuggestionsMessage: Em.computed('suggestionsError', function(): string {
-			return this.get('suggestionsError') ?
-				i18n.t('app.curated-content-editor-no-articles-found') :
-				i18n.t('app.curated-content-editor-suggestions-loading');
+			var msgKey = 'app.curated-content-editor-' + this.get('suggestionsError') ?
+				'no-articles-found' :
+				'suggestions-loading';
+
+			return i18n.t(msgKey);
 		}),
 
 		labelObserver(): void {
@@ -66,9 +69,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			}
 
 			if (this.get('isTitleFocused') && !Em.isEmpty(this.get('model.title'))) {
-				this.set('searchSuggestionsResult', []);
-				this.set('suggestionsError', false);
-				this.set('searchSuggestionsVisible', true);
+				this.setProperties({
+					searchSuggestionsResult: [],
+					suggestionsError: false,
+					searchSuggestionsVisible: true
+				});
 				this.setSearchSuggestionsDebounced();
 			} else {
 				this.set('searchSuggestionsVisible', false);
@@ -262,10 +267,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						}
 					} else {
 						this.setProperties({
-							'imageErrorMessage': null,
+							imageErrorMessage: null,
 							'model.image_url': data.url,
 							'model.image_id': data.id,
-							'resetFileInput': true
+							resetFileInput: true
 						});
 					}
 				})
@@ -345,17 +350,21 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		setSearchSuggestions(): void {
 			var title = this.get('model.title');
+
 			App.CuratedContentEditorItemModel.getSearchSuggestions(title)
 				.then((data: any): void => {
 					this.set('searchSuggestionsResult', data.items);
 				})
 				.catch((error: any): void => {
-					this.set('searchSuggestionsResult', []);
 					//404 error is returned when no articles were found. No need to log it
 					if (error && error.status !== 404) {
 						Em.Logger.error(error);
 					}
-					this.set('suggestionsError', true);
-				})
+
+					this.setProperties({
+						suggestionsError: true,
+						searchSuggestionsResult: []
+					});
+				});
 		}
 	});
