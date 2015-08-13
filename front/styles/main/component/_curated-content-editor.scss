@@ -168,9 +168,19 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		@extend %image-placeholder;
 		border: 1px solid transparent;
 		display: block;
-		height: 90vw;
 		margin: 0 auto;
 		width: 90vw;
+
+	}
+
+	&.landscape img {
+		// 16:9 ratio
+		height: 51vw;
+	}
+
+	&.square img {
+		// 1:1 ratio
+		height: 90vw;
 	}
 
 	&.error {
@@ -187,6 +197,17 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 			text-align: center;
 			width: 90vw;
 		}
+	}
+}
+
+.curated-content-editor-photo-crop {
+	background: #000;
+	height: calc(100vh - 50px);
+	width: 100vw;
+
+	> img {
+		max-height: 100%;
+		max-width: 100%;
 	}
 }
 
