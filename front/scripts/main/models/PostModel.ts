@@ -21,7 +21,8 @@ App.PostModel.reopenClass({
 						replies: data._embedded['doc:posts'],
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
-						postCount: data.postCount
+						postCount: data.postCount,
+						title: data.title
 					});
 					resolve(postInstance);
 				},
