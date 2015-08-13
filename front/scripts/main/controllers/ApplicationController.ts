@@ -75,7 +75,11 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * @param lightboxModel
 		 * @param lightboxVisible
 		 */
-		openLightbox: function (lightboxType: string, lightboxModel?: any, lightboxVisible?: boolean = true): void {
+		openLightbox: function (lightboxType: string, lightboxModel?: any, lightboxVisible?: boolean): void {
+			if (lightboxVisible === undefined) {
+				lightboxVisible = true;
+			}
+
 			this.setProperties({
 				lightboxModel: lightboxModel,
 				lightboxType: lightboxType,
