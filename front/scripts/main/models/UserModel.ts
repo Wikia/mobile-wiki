@@ -27,7 +27,7 @@ App.UserModel.reopenClass({
 			model = App.UserModel.create();
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: App.get('apiBase') + '/userDetails',
 				dataType: 'json',
 				data: {

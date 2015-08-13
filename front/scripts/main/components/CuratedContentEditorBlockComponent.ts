@@ -1,5 +1,5 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentEditorSortableItemsMixin, {
@@ -23,6 +23,7 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 		},
 
 		showHelp(): void {
+			this.trackClick('curated-content-editor', 'help-show');
 			this.set('isHelpVisible', true);
 		}
 	}

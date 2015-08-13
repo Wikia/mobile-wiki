@@ -33,8 +33,6 @@ interface LocalSettings {
 	environment: any;
 	helios: {
 		host: string;
-		id: string;
-		secret: string;
 		usernameMaxLength: number;
 		passwordMaxLength: number;
 	};
