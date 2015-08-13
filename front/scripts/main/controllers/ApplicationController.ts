@@ -76,6 +76,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * @param lightboxVisible
 		 */
 		openLightbox: function (lightboxType: string, lightboxModel?: any, lightboxVisible?: boolean): void {
+			// Show lightbox by default
 			if (lightboxVisible === undefined) {
 				lightboxVisible = true;
 			}
@@ -89,7 +90,8 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		},
 
 		/**
-		 * @desc Sets controller properties that are passed to LightboxWrapperComponent.
+		 * @desc Sets lightbox visibility to true.
+		 * If you use openLightbox with lightboxVisible=false you can use this method to show lightbox.
 		 */
 		showLightbox: function (): void {
 			this.setProperties({
