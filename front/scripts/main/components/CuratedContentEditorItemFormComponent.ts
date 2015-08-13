@@ -71,11 +71,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		titleObserver(): void {
+			var title = this.get('model.title');
+
 			if (this.validateTitle()) {
 				this.getImageDebounced();
 			}
 
-			if (this.get('isTitleFocused') && !Em.isEmpty(this.get('model.title'))) {
+			if (this.get('isTitleFocused') && !Em.isEmpty(title) && title.length > 2) {
 				this.setProperties({
 					searchSuggestionsResult: [],
 					suggestionsError: false,
