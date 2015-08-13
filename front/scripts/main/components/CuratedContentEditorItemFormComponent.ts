@@ -1,8 +1,8 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
+/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
@@ -21,8 +21,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
 
-		imageUrl: Em.computed('model.image_url', function (): string {
-			return this.generateThumbUrl(this.get('model.image_url'));
+		imageUrl: Em.computed('model.image_url', 'model.image_crop', function ():string {
+			var aspectRatioName = this.get('aspectRatioName'),
+				imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
+
+			return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
 		}),
 
 		isSection: Em.computed.equal('model.node_type', 'section'),
@@ -40,7 +43,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		titleErrorMessage: null,
 		imageErrorMessage: null,
 
-		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
+		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function ():boolean {
 				return Em.isEmpty(this.get('labelErrorMessage')) &&
 					Em.isEmpty(this.get('titleErrorMessage')) &&
 					Em.isEmpty(this.get('imageErrorMessage'));
@@ -51,33 +54,33 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
-		labelObserver(): void {
+		labelObserver():void {
 			this.validateLabel();
 		},
 
-		titleObserver(): void {
+		titleObserver():void {
 			if (this.validateTitle()) {
 				this.getImageDebounced();
 			}
 		},
 
-		didRender(): void {
+		didRender():void {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 			this.addObserver('model.title', this, this.titleObserver);
 			this.addObserver('model.label', this, this.labelObserver);
 		},
 
 		actions: {
-			setLabelFocusedOut(): void {
+			setLabelFocusedOut():void {
 				this.validateLabel();
 				this.set('isLabelFocused', false);
 			},
 
-			setLabelFocusedIn(): void {
+			setLabelFocusedIn():void {
 				this.set('isLabelFocused', true);
 			},
 
-			setTitleFocusedOut(): void {
+			setTitleFocusedOut():void {
 				this.validateTitle();
 				this.set('isTitleFocused', false);
 				if (this.get('isLoading')) {
@@ -85,11 +88,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				}
 			},
 
-			setTitleFocusedIn(): void {
+			setTitleFocusedIn():void {
+				this.showLoader();
 				this.set('isTitleFocused', true);
 			},
 
-			goBack(): void {
+			goBack():void {
 				var trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
 				this.trackClick('curated-content-editor', trackLabel);
 
@@ -124,26 +128,29 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				}
 			},
 
-			fileUpload(files: any[]): void {
+			fileUpload(files:any[]):void {
 				this.trackClick('curated-content-editor', 'item-file-upload');
 				this.showLoader();
 				App.AddPhotoModel.load(files[0])
-					.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
-					.then((data: any) => {
+					.then((photoModel:typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
+					.then((data:any) => {
 						if (data && data.url && data.article_id) {
 							this.setProperties({
-								'model.image_url': this.generateThumbUrl(data.url),
+								'imageProperties.url': data.url,
 								// article_id comes from MW because in MW files are like any other articles
 								// so there is no such thing as image_id from MW perspective.
-								'model.image_id': data.article_id,
-								'imageErrorMessage': null
+								'imageProperties.id': data.article_id,
+								// Make cropper back button go back here
+								'imageCropLayout.previous': this.get('itemFormLayout.name')
 							});
+
+							this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 						} else {
 							Em.Logger.error('Image Data Object is malformed. Url or article_id is missing');
 							this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 						}
 					})
-					.catch((err: any) => {
+					.catch((err:any) => {
 						Em.Logger.error(err);
 						this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 					})
@@ -152,24 +159,24 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					});
 			},
 
-			showImageModal(): void {
+			showImageModal():void {
 				this.trackClick('curated-content-editor', 'item-image-menu');
 				this.set('imageModalVisible', true);
 			},
 
-			hideImageModal(): void {
+			hideImageModal():void {
 				this.set('imageModalVisible', false);
 			},
 
-			showSearchImageForm(): void {
+			showSearchImageForm():void {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
 			}
 		},
 
-		validateImage(): boolean {
-			var imageUrl: string = this.get('model.image_url'),
-				errorMessage: string = null;
+		validateImage():boolean {
+			var imageUrl:string = this.get('model.image_url'),
+				errorMessage:string = null;
 
 			if (!imageUrl) {
 				//@TODO CONCF-956 add translations
@@ -181,10 +188,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return !errorMessage;
 		},
 
-		validateLabel(): boolean {
+		validateLabel():boolean {
 			var label = this.get('model.label'),
 				alreadyUsedLabels = this.get('alreadyUsedLabels'),
-				errorMessage: string = null;
+				errorMessage:string = null;
 
 			if (Em.isEmpty(label)) {
 				//@TODO CONCF-956 add translations
@@ -202,9 +209,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return !errorMessage;
 		},
 
-		validateTitle(): boolean {
-			var title: string,
-				errorMessage: string = null;
+		validateTitle():boolean {
+			var title:string,
+				errorMessage:string = null;
 
 			if (!this.get('isSection')) {
 				title = this.get('model.title');
@@ -222,7 +229,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return true;
 		},
 
-		getImage(): void {
+		getImage():void {
 			App.CuratedContentEditorItemModel
 				.getImage(this.get('model.title'), this.get('imageWidth'))
 				.then((data: CuratedContentGetImageResponse): void => {
@@ -236,47 +243,48 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 							'imageErrorMessage': null,
 							'model.image_url': data.url,
 							'model.image_id': data.id,
+							'model.image_crop': null,
 							'resetFileInput': true
 						});
 					}
 				})
-				.catch((err: any): void => {
+				.catch((err:any):void => {
 					Em.Logger.error(err);
 					//@TODO CONCF-956 add translations
 					this.set('imageErrorMessage', 'Oops! An API Error occured.');
 				})
-				.finally((): void => this.hideLoader());
+				.finally(():void => this.hideLoader());
 		},
 
-		getImageDebounced(): void {
+		getImageDebounced():void {
 			this.showLoader();
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
-		validateAndDone(item: CuratedContentEditorItemModel, data: any): void {
+		validateAndDone(item:CuratedContentEditorItemModel, data:any):void {
 			this.showLoader();
 			App.CuratedContentEditorItemModel.validateServerData(item, data)
-				.then((data: CuratedContentValidationResponseInterface): void => {
+				.then((data:CuratedContentValidationResponseInterface):void => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
 					} else {
 						if (data.error) {
-							data.error.forEach((error: any) => this.processValidationError(error.reason));
+							data.error.forEach((error:any) => this.processValidationError(error.reason));
 						} else {
 							//@TODO CONCF-956 add translations
 							this.addAlert('alert', 'Something went wrong. Please repeat.');
 						}
 					}
 				})
-				.catch((err: any): void => {
+				.catch((err:any):void => {
 					//@TODO CONCF-956 add translations
 					Em.Logger.error(err);
 					this.addAlert('alert', 'Something went wrong. Please repeat.');
 				})
-				.finally((): void => this.hideLoader());
+				.finally(():void => this.hideLoader());
 		},
 
-		processValidationError(reason: string): void {
+		processValidationError(reason:string):void {
 			switch (reason) {
 				case 'articleNotFound':
 					//@TODO CONCF-956 add translations
@@ -309,4 +317,5 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					break;
 			}
 		}
-	});
+	}
+);
