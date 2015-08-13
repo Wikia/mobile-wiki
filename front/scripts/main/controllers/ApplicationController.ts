@@ -24,6 +24,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	fullPage: false,
 	lightboxType: null,
 	lightboxModel: null,
+	lightboxHidden: false,
 
 	sideNavCollapsedObserver: Em.observer('sideNavVisible', function (): void {
 		if (this.get('sideNavVisible')) {
@@ -77,6 +78,19 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 			this.setProperties({
 				lightboxModel: lightboxModel,
 				lightboxType: lightboxType,
+				lightboxHidden: !!lightboxModel.hidden,
+				noScroll: !lightboxModel.hidden
+			});
+		},
+
+		/**
+		 * @desc Sets controller properties that are passed to LightboxWrapperComponent.
+		 *
+		 * @param lightboxType
+		 */
+		showLightbox: function (): void {
+			this.setProperties({
+				lightboxHidden: false,
 				noScroll: true
 			});
 		},
@@ -89,6 +103,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 			this.setProperties({
 				lightboxModel: null,
 				lightboxType: null,
+				lightboxHidden: true,
 				file: null,
 				map: null,
 				noScroll: false

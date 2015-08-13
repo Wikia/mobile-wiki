@@ -8,6 +8,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
 
+	hidden: false,
 	footerExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
@@ -17,8 +18,8 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	type: null,
 	model: null,
 
-	status: Em.computed('type', function (): string {
-		return (this.get('type')) ? 'open' : 'hidden';
+	status: Em.computed('type', 'hidden', function (): string {
+		return (this.get('type') && !this.get('hidden')) ? 'open' : 'hidden';
 	}),
 
 	lightboxComponent: Em.computed('type', function (): string {

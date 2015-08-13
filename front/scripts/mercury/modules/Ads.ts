@@ -169,6 +169,13 @@ module Mercury.Modules {
 			 */
 		}
 
+		public showLightbox (): void {
+			/**
+			 * This method is being overwritten in ApplicationRoute for ads needs.
+			 * To learn more check ApplicationRoute.ts file.
+			 */
+		}
+
 		/**
 		 * Retrieves the ads context
 		 *
