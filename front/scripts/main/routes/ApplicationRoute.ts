@@ -30,8 +30,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
 			 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
 			 */
-			adsInstance.openLightbox = (contents: any, hidden?: boolean): void => {
-				this.send('openLightbox', 'ads', {contents: contents, hidden: hidden});
+			adsInstance.openLightbox = (contents: any, lightboxVisible?: boolean): void => {
+				this.send('openLightbox', 'ads', {contents: contents}, lightboxVisible);
 			};
 
 			adsInstance.showLightbox = (): void => {
@@ -147,8 +147,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.get('controller').send('handleLightbox');
 		},
 
-		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
-			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
+		openLightbox: function (lightboxType: string, lightboxModel?: any, lightboxVisible?: boolean): void {
+			this.get('controller').send('openLightbox', lightboxType, lightboxModel, lightboxVisible);
 		},
 
 		showLightbox: function (): void {
