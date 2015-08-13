@@ -18,6 +18,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		maxLabelLength: 48,
 		debounceDuration: 250,
 
+		// Force one way binding
+		model: Em.computed.oneWay('attrs.model'),
+
 		imageUrl: Em.computed('model.image_url', 'model.image_crop', function ():string {
 			var aspectRatioName = this.get('aspectRatioName'),
 				imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
@@ -25,7 +28,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
 		}),
 
-		isSectionView: Em.computed.equal('model.node_type', 'section'),
+		isSection: Em.computed.equal('model.node_type', 'section'),
 
 		isTitleNotEmpty: Em.computed.notEmpty('model.title'),
 		isLabelNotEmpty: Em.computed.notEmpty('model.label'),
@@ -91,18 +94,18 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			goBack():void {
-				var trackLabel = this.get('isSectionView') ? 'section-edit-go-back' : 'item-edit-go-back';
+				var trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
 				this.trackClick('curated-content-editor', trackLabel);
 
 				this.sendAction('goBack');
 			},
 
-			done():void {
-				var trackLabel = this.get('isSectionView') ? 'section-edit-done' : 'item-edit-done';
+			done(): void {
+				var trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
 				this.trackClick('curated-content-editor', trackLabel);
 
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
-					if (this.get('isSectionView')) {
+					if (this.get('isSection')) {
 						this.validateAndDone(this.get('model'), {
 							method: 'validateSection'
 						});
@@ -115,9 +118,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				}
 			},
 
-			deleteItem():void {
-				var trackLabel = this.get('isSectionView') ? 'section-delete' : 'item-delete';
-				this.trackClick('curated-content-editor', trackLabel);
+			deleteItem(): void {
+				var trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
+				this.trackClick('curated-content-editor', trackLabel );
 
 				//@TODO CONCF-956 add translations
 				if (confirm('Are you sure about removing this item?')) {
@@ -210,7 +213,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			var title:string,
 				errorMessage:string = null;
 
-			if (!this.get('isSectionView')) {
+			if (!this.get('isSection')) {
 				title = this.get('model.title');
 
 				if (Em.isEmpty(title)) {
