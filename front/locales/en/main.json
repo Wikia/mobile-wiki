@@ -91,6 +91,8 @@
 		"curated-content-image-upload-error": "Something went wrong with your upload. Please try again.",
 		"curated-content-editor-no-images-found": "No images found",
 		"curated-content-editor-search-image-label": "Search for an image on wikia",
-		"curated-content-editor-search-images-placeholder": "Search for images on wikia..."
+		"curated-content-editor-search-images-placeholder": "Search for images on wikia...",
+		"curated-content-editor-error-no-save-permissions": "You don't have permissions to publish data",
+		"curated-content-editor-error-no-access-permissions": "You don't have permissions to access this page"
 	}
 }
