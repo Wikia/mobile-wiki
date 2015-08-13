@@ -21,13 +21,15 @@
 				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
 			</nav>
 		{{else}}
-			{{#if exitTo }}
+			{{#unless isModal}}
+			{{#if exitTo}}
 			<a class="close" href="{{exitTo}}">
 				<svg role="img">
 					<use xlink:href="#close"></use>
 				</svg>
 			</a>
 			{{/if}}
+			{{/unless}}
 		{{/if}}
 
 		{{#unless hideHeader}}

@@ -30,6 +30,7 @@ module authView {
 		headerText?: string;
 		bodyClasses?: string;
 		trackingConfig?: any;
+		isModal?: boolean;
 	}
 
 	export function view (template: string, context: AuthViewContext, request: Hapi.Request, reply: any): Hapi.Response {
@@ -82,18 +83,20 @@ module authView {
 	}
 
 	export function getDefaultContext (request: Hapi.Request): AuthViewContext {
-		var viewType: string = this.getViewType(request);
+		var viewType: string = this.getViewType(request),
+			isModal: boolean = request.query.modal === '1';
 		return {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
 			mainPage: "http://www.wikia.com",
+			isModal: isModal,
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
 				(localSettings.environment === Utils.Environment.Prod ?
 					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
-			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP),
+			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
 				viewType: viewType
 			}
