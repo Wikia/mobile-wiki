@@ -19,6 +19,10 @@ textarea {
 	vertical-align: top;
 	width: $upload-icon-size;
 
+	&.zero {
+		height: $upload-icon-size;
+	}
+
 	.pencil {
 		bottom: 0;
 		height: $upload-icon-size;

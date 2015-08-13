@@ -2898,6 +2898,7 @@ declare module Ember {
     function normalizeTuple(target: any, path: string): any[];
     function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
+    function on(name: string, callback: Function): void;
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;
     var onError: Error;
@@ -3184,6 +3185,7 @@ declare module Em {
     var normalizeTuple: typeof Ember.normalizeTuple;
     var observer: typeof Ember.observer;
     var observersFor: typeof Ember.observersFor;
+    var on: typeof Ember.on;
     var onLoad: typeof Ember.onLoad;
     var oneWay: typeof Ember.oneWay;
     var onError: typeof Ember.onError;

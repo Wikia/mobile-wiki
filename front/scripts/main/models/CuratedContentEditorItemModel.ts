@@ -7,6 +7,7 @@ type CuratedContentEditorItemModel = typeof App.CuratedContentEditorItemModel;
 App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	article_id: null,
 	image_id: null,
+	image_crop: null,
 	image_url: null,
 	items: null,
 	label: null,
@@ -27,6 +28,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 		var modelParams = $.extend(true, {
 			article_id: null,
 			image_id: null,
+			image_crop: null,
 			image_url: null,
 			items: null,
 			label: null,
