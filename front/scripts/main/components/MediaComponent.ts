@@ -17,6 +17,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	media: null,
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	limitHeight: false,
+	normalizeWidth: true,
 
 	//thumb widths
 	thumbSize: {
@@ -24,8 +25,6 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		medium: 660,
 		large: 900
 	},
-	//if media inside infobox, don't display caption
-	noCaption: Em.computed.equal('media.context', 'infobox'),
 
 	//icon width depends on it's real dimensions
 	iconHeight: 20,
@@ -47,7 +46,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number}): string {
-		if (options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown) {
+		if (options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown && this.get('normalizeWidth')) {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
 
@@ -65,10 +64,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	 */
 	caption: Em.computed('media', {
 		get(): string {
-			var media = this.get('media'),
-				noCaption = this.get('noCaption');
+			var media = this.get('media');
 
-			if (media && typeof media.caption === 'string' && !noCaption) {
+			if (media && typeof media.caption === 'string') {
 				return media.caption;
 			}
 		},
@@ -93,7 +91,9 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 
 App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
-		if (Em.isArray(media)) {
+		if (media.context === 'infobox') {
+			return App.InfoboxHeroImageMediaComponent.create();
+		} else if (Em.isArray(media)) {
 			if ((<any>media).some((media: ArticleMedia) => !!media.link)) {
 				return App.LinkedGalleryMediaComponent.create();
 			} else {

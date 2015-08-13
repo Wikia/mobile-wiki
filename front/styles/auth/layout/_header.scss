@@ -12,7 +12,8 @@
 	}
 }
 
-.register-fb-page {
+.register-fb-page,
+.fb-connect-page {
 	.auth-header {
 		font-weight: bold;
 	}
@@ -35,6 +36,10 @@
 			margin-left: - $circle-logo-size / 2;
 			position: absolute;
 			width: $circle-logo-size;
+		}
+
+		p {
+			line-height: 1.25rem;
 		}
 	}
 }

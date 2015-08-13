@@ -26,6 +26,7 @@ class FacebookRegistration {
 	redirect: string;
 	urlHelper: UrlHelper;
 	marketingOptIn: MarketingOptIn;
+	formErrors: FormErrors;
 	termsOfUse: TermsOfUse;
 
 	constructor (form: HTMLFormElement) {
@@ -42,6 +43,7 @@ class FacebookRegistration {
 		this.termsOfUse.init();
 
 		this.redirect = this.redirect || '/';
+		this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors');
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
@@ -99,15 +101,15 @@ class FacebookRegistration {
 				this.track('facebook-signup-join-wikia-success', Mercury.Utils.trackActions.success);
 				window.location.href = this.redirect;
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				//ToDo show the "unable to login" error
+				this.formErrors.displayGeneralError();
 			} else {
-				//ToDo show the "unable to login" error
+				this.formErrors.displayGeneralError();
 			}
 		};
 
 		facebookTokenXhr.onerror = (e: Event): void => {
+			this.formErrors.displayGeneralError();
 			this.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
-			//ToDo show the "unable to login" error
 		};
 
 		facebookTokenXhr.open('POST', heliosTokenUrl, true);
@@ -123,21 +125,23 @@ class FacebookRegistration {
 			data = <HeliosFacebookRegistrationData> this.getHeliosRegistrationDataFromForm(),
 			url = this.form.getAttribute('action');
 
+		this.formErrors.clearValidationErrors();
+
 		facebookRegistrationXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
 				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url.replace('/users', '/token'));
 			} else if (status === HttpCodes.BAD_REQUEST) {
-				//ToDo: show validation errors
+				this.formErrors.displayValidationErrors(JSON.parse(facebookRegistrationXhr.responseText).errors);
 			} else {
-				//ToDo: show unhealthy backed message
+				this.formErrors.displayGeneralError();
 			}
 		};
 
 		facebookRegistrationXhr.onerror = (e: Event) => {
+			this.formErrors.displayGeneralError();
 			this.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
-			//ToDo: show unhealthy backed message
 		};
 
 		facebookRegistrationXhr.open('POST', url, true);

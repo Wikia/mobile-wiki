@@ -13,5 +13,8 @@
     "birthdate_invalid":"La date de naissance n'est pas valide.",
     "wrong-credentials":"Nous ne reconnaissons pas ces informations. Veuillez réessayer ou créer un nouveau compte.",
     "server-error":"Une erreur est survenue lors du traitement de votre requête. Veuillez réessayer ultérieurement."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"J'accepte les __termsOfUseLink__ et la __privacyPolicyLink__ (obligatoire)"
   }
 }

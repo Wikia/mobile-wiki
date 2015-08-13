@@ -13,5 +13,8 @@
     "birthdate_invalid":"Das Geburtsdatum ist kein gültiges Datum.",
     "wrong-credentials":"Diese Anmeldedaten sind uns leider nicht bekannt. Versuche es noch einmal oder richte ein neues Benutzerkonto ein.",
     "server-error":"Bei der Verarbeitung deiner Anfrage ist ein Fehler aufgetreten. Bitte versuche es später noch einmal."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"Ich stimme den __termsOfUseLink__ und der __privacyPolicyLink__ zu (erforderlich)"
   }
 }

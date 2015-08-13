@@ -1,9 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/ObjectUtilitiesMixin.ts" />
 'use strict';
 
 type CuratedContentEditorItemModel = typeof App.CuratedContentEditorItemModel;
 
-App.CuratedContentEditorItemModel = Em.Object.extend({
+App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	article_id: null,
 	image_id: null,
 	image_url: null,
@@ -39,7 +40,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	getImage(title: string, size: number): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/wikia.php',
 				}),
@@ -47,14 +48,38 @@ App.CuratedContentEditorItemModel.reopenClass({
 					controller: 'CuratedContent',
 					method: 'getImage',
 					title,
-					size,
+					size
 				},
 				dataType: 'json',
-				success: (data: CuratedContentGetImageResponse): void => {
+				success: (data: CuratedContentValidationResponseInterface): void => {
 					resolve(data);
 				},
-				error: (err: any): void => {
-					reject(err);
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
+	},
+
+	validateServerData(item: CuratedContentEditorItemModel, data: any): Em.RSVP.Promise {
+		data = $.extend({}, data, {
+			controller: 'CuratedContentValidator',
+			item: item.toPlainObject(),
+			format: 'json'
+		});
+
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data,
+				dataType: 'json',
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
 				}
 			});
 		});

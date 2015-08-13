@@ -111,6 +111,8 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 			title: (viewType === authView.VIEW_TYPE_MOBILE)
 				? 'auth:join.sign-up-with-email'
 				: 'auth:register.desktop-header',
+			termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl +
+				'" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
