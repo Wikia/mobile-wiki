@@ -26,17 +26,14 @@
 				{{/collapsible-menu}}
 			{{/if}}
 			{{#if contributionFeatureEnabled}}
-				<div class="contribution-container">
-					<div class="edit-section zero">
-						<span {{action 'edit' model.title '0'}} class="zero-button-wrapper">
-							{{svg 'pencil' role='img' class='icon pencil'}}
-						</span>
-					</div>
-					<div class="upload-photo zero">
-						{{svg 'camera' role='img' class='icon camera'}}
-						<input class="file-input" type="file" accept="image/*"/>
-					</div>
-				</div>
+			<div class="top-contribution-container">
+				{{article-contribution
+					section=0
+					title=model.cleanTitle
+					edit='edit'
+					addPhoto='addPhoto'
+				}}
+			</div>
 			{{/if}}
 			{{article-content
 				adsContext=model.adsContext
@@ -45,6 +42,10 @@
 				noAds=noAds
 				openLightbox='openLightbox'
 				updateHeaders='updateHeaders'
+				contributionFeatureEnabled=contributionFeatureEnabled
+				cleanTitle=model.cleanTitle
+				edit='edit'
+				addPhoto='addPhoto'
 			}}
 		</section>
 		<section class="article-footer">
@@ -68,9 +69,9 @@
 					observe=model.cleanTitle
 					trackingEvent='category'
 				}}
-					{{#each model.categories itemController='categoryListItem' as |category|}}
-						<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.model.url}}" title="{{unbound category.model.title}}">
-							{{category.cleanTitle}}
+					{{#each model.categories as |category|}}
+						<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
+							{{unbound category.title}}
 							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 						</a></li>
 					{{/each}}

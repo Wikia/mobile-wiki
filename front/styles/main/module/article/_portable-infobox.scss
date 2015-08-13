@@ -27,51 +27,47 @@ $hero-caption-line-height: 18px;
 		position: relative;
 	}
 
+	//////////// General classes and rules used across infobox ////////////
+
 	// reset inherited margins and paddings
-	.portable-infobox-title,
-	.portable-infobox-header,
-	.portable-infobox-item-label,
-	.portable-infobox-hero-title,
-	.portable-infobox-hero-caption,
+	.pi-title,
+	.pi-header,
+	.pi-data-label,
+	.pi-hero-title,
+	.pi-hero-caption,
 	.media-component {
 		margin: 0;
 		padding: 0;
 	}
 
-	// general classes and rules used across infobox
-	.portable-infobox-item-margins {
+	.pi-item-spacing {
 		padding: $infobox-item-margin * 2 $article-horizontal-padding;
 	}
 
-	.portable-infobox-secondary-background {
+	.pi-secondary-background {
 		background-color: $infobox-section-secondary-background;
 	}
 
-	.portable-infobox-secondary-font {
+	.pi-secondary-font {
 		font-size: inherit;
 		font-weight: bold;
 		line-height: inherit;
 		margin-top: 0;
 	}
 
-	.item-type-title {
-		padding-bottom: 5px;
-		padding-top: 5px;
-	}
-
 	//////////// Specific styles for each of the infobox elements starts here ////////////
 
 	// infobox hero
-	.item-type-hero {
+	.pi-hero {
 		min-height: $min-hero-item-height;
 		position: relative;
+
+		> .media-component img {
+			width: 100%;
+		}
 	}
 
-	.item-type-hero > .media-component img {
-		width: 100%;
-	}
-
-	.portable-infobox-hero-title-wrapper {
+	.pi-hero-title-wrapper {
 		background: linear-gradient(to top, $infobox-hero-overlay-color, transparent);
 		bottom: 0;
 		left: 0;
@@ -83,8 +79,8 @@ $hero-caption-line-height: 18px;
 		z-index: 1;
 	}
 
-	.portable-infobox-hero-title,
-	.portable-infobox-hero-caption {
+	.pi-hero-title,
+	.pi-hero-caption {
 		@extend %ellipsis;
 		color: $infobox-hero-font-color;
 		text-shadow: 0 0 3px $infobox-hero-outline-color;
@@ -96,18 +92,19 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
-	.portable-infobox-hero-caption {
+	.pi-hero-caption {
 		font-size: $hero-caption-font-size;
 		font-weight: normal;
 		line-height: $hero-caption-line-height;
 		padding-top: $infobox-item-margin;
 	}
 
-
 	// infobox title
-	.portable-infobox-title {
+	.pi-title {
 		font-size: $infobox-title-font-size;
 		line-height: $infobox-title-line-height;
+		padding-bottom: 5px;
+		padding-top: 5px;
 	}
 
 	// infobox images
@@ -126,30 +123,25 @@ $hero-caption-line-height: 18px;
 	}
 
 	// infobox data fields in tabular layout
-	> .item-type-key-val,
-	.item-type-group .item-type-key-val {
+	.pi-data {
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: row;
 		overflow: hidden;
 		width: 100%;
+	}
 
-		.portable-infobox-item-label {
-			flex-basis: 40%;
-		}
+	.pi-data-label {
+		flex-basis: 40%;
+	}
 
-		.portable-infobox-item-value {
-			padding-left: 0;
-		}
+	.pi-data-value {
+		padding-left: 0;
 
-		.portable-infobox-item-value:not(:first-child) {
+		&:not(:first-child) {
 			flex-basis: 60%;
 			padding-left: 20px;
 		}
-	}
-
-	.portable-infobox-item-value {
-		padding-left: $infobox-item-margin * 2;
 
 		// remove margins on all children of data value
 		> * {
@@ -166,15 +158,15 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
-	// infobox footer
-	.portable-infobox-footer {
+	// infobox navigation
+	.pi-navigation {
 		font-weight: normal;
 		padding: $infobox-item-margin * 2 $infobox-item-margin * 3;
 		text-align: center;
 	}
 
 	// styles for infobox collapse / expand UI
-	.portable-infobox-expand-button {
+	.pi-expand-button {
 		background: linear-gradient(to top, $infobox-background 55%, transparentize($infobox-background, 1));
 		box-sizing: border-box;
 		padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
@@ -189,12 +181,12 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
-	.portable-infobox-expand-icon {
+	.pi-expand-icon {
 		height: $infobox-item-margin * 2;
 	}
 
 	&:not(.collapsed) {
-		.portable-infobox-expand-icon {
+		.pi-expand-icon {
 			transform: rotate(180deg);
 		}
 	}
@@ -203,7 +195,7 @@ $hero-caption-line-height: 18px;
 		overflow: hidden;
 		position: relative;
 
-		.portable-infobox-expand-button {
+		.pi-expand-button {
 			bottom: 0;
 			padding-top: 45px;
 			position: absolute;

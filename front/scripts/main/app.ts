@@ -38,6 +38,15 @@ window.emberHammerOptions = {
 };
 
 App.initializer({
+	name: 'jquery.ajax',
+	initialize () {
+		$.ajaxSetup({
+			cache: true
+		});
+	}
+});
+
+App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
 		var $window = $(window);
@@ -100,6 +109,8 @@ App.initializer({
 		}
 
 		EmPerfSender.initialize({
+			enableLogging: (M.prop('environment') === 'dev'),
+
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send (events: any[], metrics: any) {
 				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
@@ -198,4 +209,3 @@ App.initializer({
 		}
 	}
 });
-
