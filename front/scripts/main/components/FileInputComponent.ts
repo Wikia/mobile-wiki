@@ -1,7 +1,8 @@
 App.FileInputComponent = Em.Component.extend(Em.Evented, {
 	reset: false,
+	fileInputId: 'fileUpload',
 
-	resetObserver: Em.observer('reset', function() {
+	resetObserver: Em.observer('reset', function (): void {
 		if (this.get('reset')) {
 			this.$().find('input').val(null);
 			this.set('reset', false);

@@ -4,6 +4,20 @@
 interface CuratedContentEditorRawSectionInterface {
 	label: string;
 	image_id: number;
+	image_crop?: {
+		landscape?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		square?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+	};
 	node_type: string;
 	items: CuratedContentEditorRawSectionInterface[]
 	image_url?: string;
