@@ -1,4 +1,5 @@
 ## release-132 (2015-08-12 10:00 UTC)
+* Revert [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
 * LocalScript: Small change to use --nosync in dev environments
 * [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
 * [HG-825](https://wikia-inc.atlassian.net/browse/HG-825) HG-825 Fix itemController deprecation
