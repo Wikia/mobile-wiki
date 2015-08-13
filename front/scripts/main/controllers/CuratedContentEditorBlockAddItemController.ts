@@ -4,5 +4,6 @@
 
 App.CuratedContentEditorBlockAddItemController = Em.Controller.extend({
 	originalItemLabel: null,
+	isFeaturedItem: false,
 	alreadyUsedLabels: []
 });

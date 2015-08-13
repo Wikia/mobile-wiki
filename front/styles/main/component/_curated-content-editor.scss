@@ -6,6 +6,11 @@ $item-image-size: 4rem;
 $image-margin: 1rem;
 $image-size: 150px;
 $row-height: 5rem;
+$search-results-image-size: 30vw;
+$search-results-image-spacing: 1vw;
+$search-results-horizontal-padding: 2vw;
+$search-image-input-text-padding: $search-results-image-spacing + $search-results-horizontal-padding;
+$search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-padding;
 
 .curated-content-editor-add-item-btn {
 	cursor: pointer;
@@ -73,7 +78,7 @@ $row-height: 5rem;
 	align-items: center;
 	display: inline-flex;
 	height: $row-height;
-	width: calc(90vw - #{$item-padding-horizontal});;
+	width: calc(90vw - #{$item-padding-horizontal});
 
 	img {
 		height: $item-image-size;
@@ -163,9 +168,19 @@ $row-height: 5rem;
 		@extend %image-placeholder;
 		border: 1px solid transparent;
 		display: block;
-		height: 90vw;
 		margin: 0 auto;
 		width: 90vw;
+
+	}
+
+	&.landscape img {
+		// 16:9 ratio
+		height: 51vw;
+	}
+
+	&.square img {
+		// 1:1 ratio
+		height: 90vw;
 	}
 
 	&.error {
@@ -177,11 +192,22 @@ $row-height: 5rem;
 			background: linear-gradient(to top, rgba(255, 255, 255 , .7), rgba(255, 255, 255, 0));
 			bottom: 1px;
 			margin: 0 calc(5vw - 1px);
-			width: 90vw;
 			padding: 5% 0;
 			position: absolute;
 			text-align: center;
+			width: 90vw;
 		}
+	}
+}
+
+.curated-content-editor-photo-crop {
+	background: #000;
+	height: calc(100vh - 50px);
+	width: 100vw;
+
+	> img {
+		max-height: 100%;
+		max-width: 100%;
 	}
 }
 
@@ -190,17 +216,57 @@ $row-height: 5rem;
 		display: none;
 	}
 
-	.file-upload-label {
-		height: 90vw;
-		position: absolute;
-		top: 14px;
-		width: 100vw;
+	.image-modal-wrapper {
+		align-items: center;
+		bottom: 0;
+		display: none;
+		padding: 10px;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: $z-1;
+
+		.image-modal {
+			background-color: $white;
+			border-radius: 3px;
+			color: $steel;
+			list-style: none;
+			margin: 0;
+			width: 100%;
+			z-index: $z-2;
+		}
+
+		li {
+			padding: 1rem;
+
+			&:not(:last-child) {
+				border-bottom: 1px $iron solid;
+			}
+		}
+
+		label {
+			color: inherit;
+			font-size: inherit;
+			padding: 0;
+		}
+
+		.image-modal-layover {
+			background-color: rgba(0, 0, 0, .5);
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		&.visible {
+			display: flex;
+		}
 	}
 }
 
 .curated-content-input-wrapper {
-	padding: 14px 18px;
-	padding-bottom: 0;
+	padding: 14px 18px 0;
 }
 
 .curated-content-editor-remove {
@@ -224,4 +290,72 @@ $row-height: 5rem;
 
 .arrow-up {
 	transform: rotate(180deg);
+}
+
+.curated-content-editor-image-search {
+	.search-input {
+		//Let's make it important so we don't need to override padding for all possible states of inputs
+		padding: $search-image-input-text-padding !important;
+	}
+
+	.search-message {
+		text-align: center;
+		width: 100%;
+	}
+
+	.search-results {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		padding: $search-results-horizontal-padding;
+
+		img {
+			height: $search-results-image-size;
+			margin: $search-results-image-spacing;
+			width: $search-results-image-size;
+		}
+	}
+
+	button {
+		display: none;
+		margin: 0 auto;
+		width: $search-results-load-more-button-width;
+
+		&.visible {
+			display: block;
+		}
+	}
+}
+
+.title.input-container {
+	position: relative;
+}
+
+.title-suggestions-container {
+	background: $white;
+	box-shadow: 0 2px 5px $iron;
+	position: absolute;
+	width: 100%;
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		@extend %ellipsis;
+		border: 1px solid $iron;
+		border-top: none;
+		font-size: 14px;
+		padding: 10px;
+
+		&.message {
+			text-align: center;
+		}
+
+		&.error {
+			color: $alert-color;
+		}
+	}
 }

@@ -176,3 +176,15 @@ figcaption {
 iframe {
 	max-width: 100%;
 }
+
+.is-icon {
+	display: inline-block;
+
+	img {
+		margin-right: 6px;
+	}
+
+	.chevron {
+		display: none;
+	}
+}

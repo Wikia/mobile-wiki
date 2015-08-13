@@ -11,7 +11,7 @@ var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
-	servicesDomain: 'api.wikia-services.com',
+	servicesDomain: process.env.WIKIA_ENVIRONMENT === 'prod' ? 'services.wikia.com' : 'services.wikia-dev.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
@@ -19,10 +19,7 @@ var localSettings: LocalSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
 		host: process.env.HELIOS_HOST,
-		secret: process.env.HELIOS_SECRET,
-		id: process.env.HELIOS_ID,
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},

@@ -196,6 +196,13 @@ authenticatedRoutes = [
 		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
 			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
 		}
+	},
+	{
+		method: 'GET',
+		path: '/signup',
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
+		}
 	}
 ];
 

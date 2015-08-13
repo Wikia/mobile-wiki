@@ -4,11 +4,30 @@
 interface CuratedContentEditorRawSectionInterface {
 	label: string;
 	image_id: number;
+	image_crop?: {
+		landscape?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		square?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+	};
 	node_type: string;
 	items: CuratedContentEditorRawSectionInterface[]
 	image_url?: string;
 	featured?: string;
 	type?: string;
+}
+
+interface CuratedContentValidationResponseInterface {
+	status: boolean;
+	error?: any;
 }
 
 type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
@@ -20,9 +39,32 @@ App.CuratedContentEditorModel = Em.Object.extend({
 });
 
 App.CuratedContentEditorModel.reopenClass({
+	save(model: CuratedContentEditorModel): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.buildUrl({
+					path: '/wikia.php',
+					query: {
+						controller: 'CuratedContentController',
+						method: 'setData'
+					}
+				}),
+				dataType: 'json',
+				method: 'POST',
+				data: this.prepareDataForSave(model),
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
+	},
+
 	load(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -45,21 +87,41 @@ App.CuratedContentEditorModel.reopenClass({
 		});
 	},
 
+
+	/**
+	 * @desc Convert CuratedContentEditorModel to structure known by CuratedContent API
+	 *
+	 * @param model CuratedContentEditorModel
+	 * @returns {Object}
+	 */
+	prepareDataForSave(model: CuratedContentEditorModel): any {
+		return {
+			data: [].concat(model.featured, model.curated.items, model.optional)
+		};
+	},
+
 	/**
 	 * @desc Accepts a raw object that comes from CuratedContent API and creates a model that we can use
 	 *
 	 * @param rawData
-	 * @returns {any}
+	 * @returns {Object}
 	 */
-	sanitize(rawData: any): CuratedContentEditorItemModel {
-		var featured = {
+	sanitize(rawData: any): CuratedContentEditorModel {
+		/**
+		 * Label inside "optional" has to be initialized with empty string value.
+		 * Code inside CuratedContentController:getSections (MW) decides based on this label
+		 * if it's optional or not. If it's null it will fail rendering main page.
+		 */
+		var featured: any = {
+				items: <any>[],
+				featured: 'true',
+			},
+			curated: any = {
 				items: <any>[]
 			},
-			curated = {
-				items: <any>[]
-			},
-			optional = {
-				items: <any>[]
+			optional: any = {
+				items: <any>[],
+				label: ''
 			};
 
 		if (rawData.length) {
@@ -95,13 +157,18 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
-		return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
-			return childItem.label !== childLabel ? childItem.label : null
-		}).filter(String);
+		if (Array.isArray(parentSection.items)) {
+			return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
+				return childItem.label !== childLabel ? childItem.label : null
+			}).filter(String);
+		}
+		return [];
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
-		parent.items.push(newItem);
+		//When parent doesn't have items we need to initialize them
+		parent.items = parent.items || [];
+		parent.items.push(newItem.toPlainObject());
 	},
 
 	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
@@ -111,7 +178,7 @@ App.CuratedContentEditorModel.reopenClass({
 			parentItems: CuratedContentEditorItemModel[]
 		): void => {
 			if (item.label === itemLabel) {
-				parentItems[index] = newItem;
+				parentItems[index] = newItem.toPlainObject();
 			}
 		})
 	},

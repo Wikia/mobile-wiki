@@ -24,25 +24,37 @@ interface WeppyConfig {
 interface LocalSettings {
 	apiBase: string;
 	asyncArticle: string[];
+	authCookieDomain?: string;
 	backendRequestTimeout: number;
 	cdnBaseUrl: string;
+	devboxDomain?: string;
 	domain: string;
 	discuss?: any; //XXX change to interface
 	environment: any;
 	helios: {
 		host: string;
-		id: string;
-		secret: string;
 		usernameMaxLength: number;
 		passwordMaxLength: number;
 	};
 	host: any;
 	ironSecret: string;
+	mediawikiDomain?: string;
 	mwPreviewSalt: string;
 	loggers: LoggerInterface;
 	maxRequestsPerChild: number;
+	optimizely?: {
+		enabled: boolean;
+		scriptPath: string;
+		devAccount: string;
+		account: string;
+	};
 	port: number;
 	proxyMaxRedirects: number;
+	qualaroo?: {
+		enabled: boolean;
+		scriptUrlDev: string;
+		scriptUrlProd: string;
+	};
 	redirectUrlOnNoData: string;
 	servicesDomain: string;
 	tracking: {
@@ -63,18 +75,4 @@ interface LocalSettings {
 	weppy: WeppyConfig;
 	workerCount: number;
 	workerDisconnectTimeout: number;
-	authCookieDomain?: string;
-	devboxDomain?: string;
-	mediawikiDomain?: string;
-	optimizely?: {
-		enabled: boolean;
-		scriptPath: string;
-		devAccount: string;
-		account: string;
-	};
-	qualaroo?: {
-		enabled: boolean;
-		scriptUrlDev: string;
-		scriptUrlProd: string;
-	};
 }

@@ -34,11 +34,8 @@
 			toggleVisibility='toggleUserMenu'
 		}}
 	{{/if}}
-	{{#unless noAds}}
-		{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
-		{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
-	{{/unless}}
-
+	{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
+	{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
 	<div class='page-wrapper' lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
