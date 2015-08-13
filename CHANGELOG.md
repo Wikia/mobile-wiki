@@ -1,3 +1,8 @@
+## release-133 (2015-08-13 10:00 UTC)
+* [DAT-3006](https://wikia-inc.atlassian.net/browse/DAT-3006) Dat 3006 - Portable Infobox markup and styles cleanup
+* update-wreck: Update Wreck from 5.4.0 to 6.1.0
+* [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Initialize featured and optional sections with correct data
+
 ## release-132 (2015-08-12 10:00 UTC)
 * Revert [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
 * LocalScript: Small change to use --nosync in dev environments
