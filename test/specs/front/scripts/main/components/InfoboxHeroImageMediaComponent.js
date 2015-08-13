@@ -1,4 +1,16 @@
-moduleForComponent('infobox-hero-image-media', 'InfoboxHeroImageMediaComponent');
+var originalThumbnailerGetThumbURL = Mercury.Modules.Thumbnailer.getThumbURL;
+
+moduleForComponent('infobox-hero-image-media', 'InfoboxHeroImageMediaComponent', {
+	setup: function () {
+		Mercury.Modules.Thumbnailer.getThumbURL = function (url, options) {
+			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
+		}
+	},
+
+	teardown: function () {
+		Mercury.Modules.Thumbnailer.getThumbURL = originalThumbnailerGetThumbURL;
+	}
+});
 
 test('computedHeight TALL infobox image 200x1000', function () {
 	var component = this.subject(),

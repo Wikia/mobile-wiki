@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
-/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
@@ -9,12 +9,12 @@
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLayoutMixin,
-	App.CuratedContentEditorThumbnailMixin,
+	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor-item'],
-		imageSize: 300,
+		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
 
@@ -222,7 +222,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		getImage(): void {
 			App.CuratedContentEditorItemModel
-				.getImage(this.get('model.title'), this.get('imageSize'))
+				.getImage(this.get('model.title'), this.get('imageWidth'))
 				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
