@@ -77,6 +77,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 */
 		openLightbox: function (lightboxType: string, lightboxModel?: any, lightboxVisible?: boolean): void {
 			// Show lightbox by default
+			// lightboxVisible=false is used by Ads Module to prevent showing lightbox when there is no ad to display.
 			if (lightboxVisible === undefined) {
 				lightboxVisible = true;
 			}
