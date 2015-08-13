@@ -5,6 +5,7 @@
 
 App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['site-head'],
+	classNameBindings: ['themeBar'],
 	tagName: 'nav',
 	headroom: null,
 
