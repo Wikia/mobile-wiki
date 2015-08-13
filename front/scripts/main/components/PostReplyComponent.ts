@@ -5,10 +5,12 @@ App.PostReplyComponent = Em.Component.extend({
 	classNames: ['post-reply'],
 
 	author: null,
-	authorUrl: Em.computed('author', function (): string {
-		return M.buildUrl({
-			namespace: 'User',
-			title: this.get('author.name')
+
+	init: function (): void {
+//		App.UserModel.find({userId: this.get('authorId')}).then((result: any): any => {
+		App.UserModel.find({userId: 2035791}).then((result: any): any => {
+			this.set('author', result);
 		});
-	})
+		this._super();
+	}
 });

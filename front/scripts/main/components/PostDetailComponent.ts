@@ -5,10 +5,12 @@ App.PostDetailComponent = Em.Component.extend({
 	classNames: ['post-detail'],
 
 	author: null,
-	authorUrl: Em.computed('author', function (): string {
-		return M.buildUrl({
-			namespace: 'User',
-			title: this.get('author.name')
+	authorId: null,
+
+	init: function (): void {
+		App.UserModel.find({userId: this.get('authorId')}).then((result: any): any => {
+			this.set('author', result);
 		});
-	})
+		this._super();
+	}
 });

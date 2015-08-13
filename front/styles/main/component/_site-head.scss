@@ -13,14 +13,6 @@
 	top: 0;
 	z-index: $z-site-head;
 
-	.site-logo {
-		// These prevent the Wikia logo element from taking up more vertical
-		// space than it should, potentially affecting placement of elements
-		// beneath it.
-		height: rem-calc(50);
-		overflow: hidden;
-	}
-
 	.avatar {
 		float: right;
 		position: relative;
@@ -71,53 +63,5 @@
 	svg {
 		display: block;
 		margin: auto;
-	}
-}
-
-hr.theme {
-	border-width: 0;
-	height: 10px;
-	margin: 0;
-}
-
-.books-vertical {
-	hr.theme {
-		background-color: $color-hub-books;
-	}
-}
-
-.comics-vertical {
-	hr.theme {
-		background-color: $color-hub-comics;
-	}
-}
-
-.games-vertical {
-	hr.theme {
-		background-color: $color-hub-games;
-	}
-}
-
-.lifestyle-vertical {
-	hr.theme {
-		background-color: $color-hub-lifestyle;
-	}
-}
-
-.movies-vertical {
-	hr.theme {
-		background-color: $color-hub-movies;
-	}
-}
-
-.music-vertical {
-	hr.theme {
-		background-color: $color-hub-music;
-	}
-}
-
-.tv-vertical {
-	hr.theme {
-		background-color: $color-hub-tv;
 	}
 }
