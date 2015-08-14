@@ -56,8 +56,7 @@ App.PostModel.reopenClass({
 				dataType: 'json',
 				success: (data: any) => {
 					var replies = data._embedded['doc:posts'],
-						pivotId = replies[0].id,
-						i;
+						pivotId = replies[0].id;
 
 					replies.reverse();
 
