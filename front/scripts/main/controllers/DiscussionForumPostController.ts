@@ -3,11 +3,6 @@
 
 App.DiscussionForumPostController = Em.Controller.extend({
 
-	init: function () {
-		this.controllerFor('application').set('noAds', true);
-	},
-
-	vertical: Em.computed(function (): string { return Mercury.wiki.vertical; }),
 	showMore: Em.computed(function (): boolean {
 			var model = this.get('model');
 
@@ -15,7 +10,7 @@ App.DiscussionForumPostController = Em.Controller.extend({
 	}),
 
 	actions: {
-		expand: function() {
+		expand: function () {
 			var model = this.get('model');
 
 			model.loadNextPage().then(function (){
