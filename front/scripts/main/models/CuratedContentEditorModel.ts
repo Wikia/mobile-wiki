@@ -165,8 +165,10 @@ App.CuratedContentEditorModel.reopenClass({
 	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
 		if (Array.isArray(parentSection.items)) {
 			return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
-				return childItem.label !== childLabel ? childItem.label : null
-			}).filter(String);
+				return typeof childLabel !== 'string' ||
+					childItem.label.toLowerCase() !== childLabel.toLowerCase() ?
+						childItem.label.toLowerCase() : null
+			}).filter(this.isString);
 		}
 		return [];
 	},
@@ -184,12 +186,16 @@ App.CuratedContentEditorModel.reopenClass({
 	getLabels(section: CuratedContentEditorItemModel, labelException: string = null): string[] {
 		if (Array.isArray(section.items)) {
 			return section.items.map((sectionItem: CuratedContentEditorItemModel): void => {
-				if (sectionItem.label !== labelException) {
-					return sectionItem.label;
-				}
-			});
+				return typeof labelException !== 'string' ||
+					sectionItem.label.toLowerCase() !== labelException.toLowerCase() ?
+						sectionItem.label.toLowerCase() : null;
+			}).filter(this.isString);
 		}
 		return [];
+	},
+
+	isString(item: any): boolean {
+		return typeof item === 'string';
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {

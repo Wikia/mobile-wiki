@@ -235,7 +235,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			} else if (label.length > this.get('maxLabelLength')) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Label is too long';
-			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
+			} else if (alreadyUsedLabels.indexOf(label.toLowerCase()) !== -1) {
 				//@TODO CONCF-956 add translations
 				errorMessage = 'Label is duplicated';
 			}
