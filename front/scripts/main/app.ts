@@ -38,6 +38,15 @@ window.emberHammerOptions = {
 };
 
 App.initializer({
+	name: 'jquery.ajax',
+	initialize () {
+		$.ajaxSetup({
+			cache: true
+		});
+	}
+});
+
+App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
 		var $window = $(window);
