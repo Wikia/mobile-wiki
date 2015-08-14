@@ -59,12 +59,6 @@ App.PostModel.reopenClass({
 						pivotId = replies[0].id,
 						i;
 
-					// @todo dev testing remove
-					for (i=0; i<replies.length; i++) {
-						var entry = replies[i];
-						entry.timeDiff = entry.creationDate.epochSecond - data._embedded.firstPost[0].creationDate.epochSecond;
-					}
-
 					replies.reverse();
 
 					postInstance.setProperties({
