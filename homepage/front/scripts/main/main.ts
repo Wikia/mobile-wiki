@@ -41,19 +41,34 @@ function parallax() : void {
 	}
 }
 
-$('#searchWikia').click(function(event) : void {
+$('.search-wikia').click(function(event) : void {
 	search();
 	event.preventDefault();
 });
 
-$('#searchWikiaForm').submit(function(event) : void {
+$('.search-wikia-form').submit(function(event) : void {
 	search();
+	event.preventDefault();
+});
+
+$('#loginLink').click(function(event) : void {
+	if ($(document).width() < 710) {
+		$('.login-box-mobile').toggle();
+	}
+
 	event.preventDefault();
 });
 
 function search() : void {
-	var searchText : string = encodeURI($('#searchWikiaText').val()),
+	var searchText : string,
 		searchUrl : string;
+
+	searchText = encodeURI($('#searchWikiaText').val());
+
+	if (!searchText) {
+		// search button for mobile is different element
+		searchText = encodeURI($('#searchWikiaTextMobile').val());
+	}
 
 	if (searchText) {
 		searchUrl = 'http://ja.wikia.com/Special:Search?search=';
