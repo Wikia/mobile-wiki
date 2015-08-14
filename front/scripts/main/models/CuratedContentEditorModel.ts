@@ -171,6 +171,27 @@ App.CuratedContentEditorModel.reopenClass({
 		return [];
 	},
 
+	getAlreadyUsedNonFeaturedItemsLabels(model: CuratedContentEditorModel, selfLabel: string = null): string[] {
+		var nonFeaturedSectionsItemLabels: string[] = [];
+
+		model.curated.items.forEach((section: CuratedContentEditorItemModel): void => {
+			nonFeaturedSectionsItemLabels = nonFeaturedSectionsItemLabels.concat(this.getLabels(section, selfLabel));
+		});
+
+		return nonFeaturedSectionsItemLabels.concat(this.getLabels(model.optional, selfLabel));
+	},
+
+	getLabels(section: CuratedContentEditorItemModel, labelException: string = null): string[] {
+		if (Array.isArray(section.items)) {
+			return section.items.map((sectionItem: CuratedContentEditorItemModel): void => {
+				if (sectionItem.label !== labelException) {
+					return sectionItem.label;
+				}
+			});
+		}
+		return [];
+	},
+
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
 		//When parent doesn't have items we need to initialize them
 		parent.items = parent.items || [];

@@ -14,7 +14,11 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 
 		this._super(controller, model, transition);
 		controller.setProperties({
-			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection),
+			alreadyUsedLabels: block === 'optional' ?
+				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(
+					this.modelFor('curatedContentEditor')
+				) :
+				App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection),
 			block,
 			isFeaturedItem: block === 'featured'
 		});

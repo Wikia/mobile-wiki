@@ -19,7 +19,12 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 
 		this._super(controller, model, transition);
 		controller.setProperties({
-			alreadyUsedLabels: App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection, model.label),
+			alreadyUsedLabels: block === 'optional' ?
+				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(
+					this.modelFor('curatedContentEditor'),
+					model.label
+				) :
+				App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection, model.label),
 			block,
 			isFeaturedItem: block === 'featured',
 			originalItemLabel: model.label
