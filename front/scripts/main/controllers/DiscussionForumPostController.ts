@@ -13,11 +13,11 @@ App.DiscussionForumPostController = Em.Controller.extend({
 		expand: function () {
 			var model = this.get('model');
 
-			model.loadNextPage().then(function (){
+			model.loadNextPage().then( (): void => {
 				if (model.replies.length >= model.postCount) {
 					this.set('showMore', false);
 				}
-			}.bind(this));
+			} );
 		},
 	}
 });

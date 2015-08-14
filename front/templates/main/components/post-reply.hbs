@@ -2,7 +2,7 @@
 	<div>
 		<div class="upvotes">
 			{{svg 'upvote-reply' viewBox='0 0 30 30' class='icon upvote-reply'}}
-			<small>{{upvoteCount}}</small>
+			<small>{{item.upvoteCount}}</small>
 		</div>
 		<figure class="avatar">
 			<a href="{{author.profileUrl}}">
@@ -13,10 +13,10 @@
 			{{author.name}}
 		</a>
 		<span class="timestamp">
-			&bull; {{timeAgo timestamp}}
+			&bull; {{timeAgo item.creationDate.epochSecond}}
 		</span>
 	</div>
 	<div class="discussion-content">
-		{{{content}}}
+		{{{item.rawContent}}}
 	</div>
 </div>

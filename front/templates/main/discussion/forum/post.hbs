@@ -7,20 +7,13 @@
 		replyCount=model.postCount
 	}}
 	{{#if showMore}}
-        <button {{action 'expand'}} style="width: 100%" class="see-more">
+        <button {{action 'expand'}} class="see-more">
 			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
             View Older Replies
         </button>
 	{{/if}}
 	{{#each model.replies as |item index|}}
-		{{post-reply
-			authorId=item.creatorId
-			content=item.rawContent
-			timestamp=item.creationDate.epochSecond
-			upvoteCount=item.upvoteCount
-			created=model.firstPost.creationDate.epochSecond
-			timeDiff=item.timeDiff
-		}}
+		{{post-reply item=item}}
 		<hr/>
 	{{/each}}
 </div>
