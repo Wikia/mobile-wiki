@@ -20,6 +20,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
+		label: Em.computed('model.label', function() {
+			var modelLabel = this.get('model.label');
+			return modelLabel || i18n.t('app.curated-content-editor-new-item');
+		}),
 
 		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
 			var aspectRatioName = this.get('aspectRatioName'),

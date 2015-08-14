@@ -107,7 +107,7 @@
 		"curated-content-editor-only-categories-supported-error": "Only categories are supported in this section",
 		"curated-content-editor-done": "Done",
 		"curated-content-editor-crop-image": "Crop the image",
-		"curated-content-editor-create-new": "Create new",
+		"curated-content-editor-editing-header": "Editing: __label__",
 		"curated-content-editor-enter-display-name": "Enter a display name",
 		"curated-content-editor-enter-page-name": "Enter a page name",
 		"curated-content-editor-delete-item": "Delete item",
@@ -124,6 +124,7 @@
 		"curated-content-editor-optional-description": "For all categories that don’t make sense grouped with other categories you can place them in the Optional Categories section.",
 		"curated-content-editor-explore-the-wiki": "Explore the Wiki",
 		"curated-content-editor-optional": "Optional",
-		"curated-content-editor-upload-image": "Upload an image"
+		"curated-content-editor-upload-image": "Upload an image",
+		"curated-content-editor-new-item": "New Item"
 	}
 }

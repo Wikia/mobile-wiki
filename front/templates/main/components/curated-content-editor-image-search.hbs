@@ -1,7 +1,7 @@
 <form {{action 'done' on='submit'}}>
 	<header class="edit-head curated-content-editor-head">
 		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}{{i18n 'app.curated-content-editor-create-new'}}{{/if}}</div>
+		<div class="edit-head-title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
 	</header>
 	{{input
 		value=searchQuery
