@@ -1,7 +1,6 @@
 <header class="edit-head curated-content-editor-head">
 	<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-	{{!-- @TODO CONCF-956 add translations to Done --}}
-	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit" disabled={{if notEmptyItems null 'disabled'}}>Done</button>
+	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit" disabled={{if notEmptyItems null 'disabled'}}>{{i18n 'app.curated-content-editor-done'}}</button>
 	<div class="edit-head-title">{{model.label}}</div>
 </header>
 <div class="curated-content-section-details">
@@ -10,8 +9,7 @@
 	</div>
 	<div class="section-desc">
 		<div class="section-label">{{model.label}}</div>
-		{{!-- @TODO CONCF-956 add translations items --}}
-		<div class="section-items-count">{{model.items.length}} items</div>
+		<div class="section-items-count">{{model.items.length}} {{i18n 'app.curated-content-editor-items'}}</div>
 	</div>
 	<a {{action 'editSection'}} class='section-edit'>
 		{{svg 'pen' role='img' class='icon pen'}}
@@ -28,5 +26,4 @@
 		moveBy='moveBy'
 	}}
 {{/each}}
-{{!-- @TODO CONCF-956 add translations to + add new category --}}
-<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">+ add new category</button>
+<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">{{i18n 'app.curated-content-editor-add-category'}}</button>

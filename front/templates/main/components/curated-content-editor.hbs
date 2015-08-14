@@ -2,16 +2,14 @@
 	{{#link-to 'mainPage' }}
 		{{svg 'chevron' role='img' class='icon arrow-left'}}
 	{{/link-to}}
-	{{!-- @TODO CONCF-956 add translations to Save --}}
-	<button {{action 'save'}} class="large publish">Save</button>
-	{{!-- @TODO CONCF-956 to Edit Main Page --}}
-	<div class="edit-head-title">Edit Main Page</div>
+	<button {{action 'save'}} class="large publish">{{i18n 'app.curated-content-editor-publish'}}</button>
+	<div class="edit-head-title">{{i18n 'app.curated-content-editor-edit-main-page'}}</div>
 </header>
 {{!-- @TODO CONCF-956 add translations to description, helpText, title and addItemLabel --}}
 {{curated-content-editor-block
 	model=model.featured
 	block='featured'
-	title='Featured Content'
+	title=(i18n 'app.curated-content-editor-featured-content')
 	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
 	helpText='Lorem ipsum, this is a placeholder for the help text.'
 	addItemLabel='+ add new featured content'

@@ -95,7 +95,6 @@
 		"curated-content-editor-no-articles-found": "No articles found",
 		"curated-content-editor-suggestions-loading": "Loading...",
 		"curated-content-editor-changes-saved": "Your changes have been saved",
-		"curated-content-editor-error-try-again": "Something went wrong. Please try again",
 		"curated-content-editor-image-missing-error": "Please provide an image",
 		"curated-content-editor-missing-label-error": "Label is missing",
 		"curated-content-editor-too-long-label-error": "Labels cannot exceed 48 characters",
@@ -105,6 +104,17 @@
 		"curated-content-editor-article-not-found-error": "Article not found",
 		"curated-content-editor-video-provider-not-supported-error": "This video provider is not supported",
 		"curated-content-editor-unsupported-page-type-error": "This page type is not supported",
-		"curated-content-editor-only-categories-supported-error": "Only categories are supported in this section"
+		"curated-content-editor-only-categories-supported-error": "Only categories are supported in this section",
+		"curated-content-editor-done": "Done",
+		"curated-content-editor-crop-image": "Crop image",
+		"curated-content-editor-create-new": "Create new",
+		"curated-content-editor-enter-display-name": "Enter a display name",
+		"curated-content-editor-enter-page-name": "Enter a page name",
+		"curated-content-editor-delete-item": "Delete item",
+		"curated-content-editor-items": "items",
+		"curated-content-editor-add-category": "+ add category",
+		"curated-content-editor-publish": "Publish",
+		"curated-content-editor-edit-main-page": "Edit Main Page",
+		"curated-content-editor-featured-content": "Featured Content"
 	}
 }

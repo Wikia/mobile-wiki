@@ -70,15 +70,13 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					if (data.error) {
 						data.error.forEach((error: any) => this.processValidationError(error.reason));
 					} else {
-						//@TODO CONCF-956 add translations
-						this.addAlert('alert', 'Something went wrong. Please repeat.');
+						this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 					}
 				}
 			})
 			.catch((err: any): void => {
 				Em.Logger.error(err);
-				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Something went wrong. Please repeat.');
+				this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 			})
 			.finally((): void => this.hideLoader());
 	},

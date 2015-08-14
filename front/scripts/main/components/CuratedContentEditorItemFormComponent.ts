@@ -280,7 +280,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					this.set('imageErrorMessage', i18n.t('curated-content-editor-error-try-again'));
+					this.set('imageErrorMessage', i18n.t('curated-content-error-other'));
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -300,13 +300,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						if (data.error) {
 							data.error.forEach((error: any) => this.processValidationError(error.reason));
 						} else {
-							this.addAlert('alert', i18n.t('curated-content-editor-error-try-again'));
+							this.addAlert('alert', i18n.t('curated-content-error-other'));
 						}
 					}
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					this.addAlert('alert', i18n.t('curated-content-editor-error-try-again'));
+					this.addAlert('alert', i18n.t('curated-content-error-other'));
 				})
 				.finally((): void => this.hideLoader());
 		},
