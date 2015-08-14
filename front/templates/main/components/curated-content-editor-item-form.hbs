@@ -14,7 +14,7 @@
 	<div class="image-modal-wrapper {{if imageModalVisible 'visible'}}" >
 		<div class="image-modal-layover" {{action 'hideImageModal'}}></div>
 		<ul class="image-modal">
-			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label='Upload image' click=(action 'hideImageModal')}}
+			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageModal')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
 	</div>
@@ -63,7 +63,7 @@
 			</div>
 		{{/unless}}
 	</div>
-w	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
+	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
 </form>
 
 
