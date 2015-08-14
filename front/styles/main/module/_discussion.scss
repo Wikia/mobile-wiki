@@ -13,6 +13,15 @@
 		}
 	}
 
+	.see-more {
+		display: inline-block;
+		background-color: #E6E6E6;
+		font-weight: bold;
+		font-size: 10px;
+		color: #16ABC1;
+		border-width: 0;
+	}
+
 	.discussion-reply {
 		.upvotes {
 			float: left;

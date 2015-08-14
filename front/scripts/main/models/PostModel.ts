@@ -14,8 +14,8 @@ App.PostModel = Em.Object.extend({
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
-				url: 'http://api.wikia-services.com' +
-				'/discussion-test/' + this.wikiId + '/threads/' + this.threadId +
+				url: 'https://services.wikia-dev.com' +
+				'/discussion/' + this.wikiId + '/threads/' + this.threadId +
 				'?responseGroup=full' +
 				'&sortDirection=descending' +
 				'&limit=' + this.replyLimit +
@@ -25,15 +25,11 @@ App.PostModel = Em.Object.extend({
 				success: (data: any) => {
 					var newReplies = data._embedded['doc:posts'];
 
-					// @todo dev testing remove
-					for (i=0; i<newReplies.length; i++) {
-						var entry = newReplies[i];
-						entry.timeDiff = entry.creationDate.epochSecond - data._embedded.firstPost[0].creationDate.epochSecond;
-					}
 					newReplies.reverse();
+					newReplies = newReplies.concat(this.replies);
 
 					this.setProperties({
-						replies: newReplies.concat(this.replies),
+						replies: newReplies,
 						page: this.page+1
 					});
 

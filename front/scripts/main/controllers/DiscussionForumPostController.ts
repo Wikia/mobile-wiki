@@ -8,17 +8,21 @@ App.DiscussionForumPostController = Em.Controller.extend({
 	},
 
 	vertical: Em.computed(function (): string { return Mercury.wiki.vertical; }),
-	showMore: true,
+	showMore: Em.computed(function (): boolean {
+			var model = this.get('model');
+
+			return model.replies.length < model.postCount;
+	}),
 
 	actions: {
 		expand: function() {
-//			debugger;
 			var model = this.get('model');
-			model.loadNextPage();
 
-			if (model.replies.length >= model.postCount) {
-				this.set('showMore', false);
-			}
+			model.loadNextPage().then(function (){
+				if (model.replies.length >= model.postCount) {
+					this.set('showMore', false);
+				}
+			}.bind(this));
 		},
 	}
 });
