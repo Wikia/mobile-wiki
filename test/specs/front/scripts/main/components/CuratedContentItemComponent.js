@@ -25,27 +25,6 @@ test('returns correct icon name', function () {
 	equal(componentMock.get('icon'), 'namespace-article');
 });
 
-test('sets proper url for the image', function () {
-	var componentMock = this.subject(),
-		imageSize = 400;
-
-	componentMock.setProperties({
-		imageSize: imageSize,
-		cropMode: 'top-crop',
-		model: {
-			imageUrl: 'http://vignette/image.jpg'
-		}
-	});
-
-	componentMock.thumbnailer.getThumbURL = function (url, options) {
-		return url + '/' + options.mode + '/' + options.width + '/' + options.height;
-	};
-
-	componentMock.lazyLoadImage();
-
-	equal(componentMock.get('thumbUrl'), 'http://vignette/image.jpg/top-crop/' + imageSize + '/' + imageSize);
-});
-
 test('computes image style properly', function () {
 	var componentMock = this.subject(),
 		viewportWidth = 400,

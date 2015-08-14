@@ -1,28 +1,34 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
-/// <reference path="../mixins/CuratedContentEditorThumbnailMixin.ts"/>
-/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
+/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
+/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLayoutMixin,
-	App.CuratedContentEditorThumbnailMixin,
+	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor-item'],
-		imageSize: 300,
+		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
 
-		imageUrl: Em.computed('model.image_url', function (): string {
-			return this.generateThumbUrl(this.get('model.image_url'));
+		// Force one way binding
+		model: Em.computed.oneWay('attrs.model'),
+
+		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
+			var aspectRatioName = this.get('aspectRatioName'),
+				imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
+
+			return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
 		}),
 
-		isSectionView: Em.computed.equal('model.node_type', 'section'),
+		isSection: Em.computed.equal('model.node_type', 'section'),
 
 		isTitleNotEmpty: Em.computed.notEmpty('model.title'),
 		isLabelNotEmpty: Em.computed.notEmpty('model.label'),
@@ -48,13 +54,39 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
+		searchSuggestionsResult: [],
+		/**
+		 * messages used:
+		 * app.curated-content-editor-no-articles-found
+		 * app.curated-content-editor-suggestions-loading
+		 */
+		searchSuggestionsMessage: Em.computed('suggestionsError', function (): string {
+			var msgSuffix = this.get('suggestionsError') ? 'no-articles-found' : 'suggestions-loading',
+				msgKey = 'app.curated-content-editor-' + msgSuffix;
+
+			return i18n.t(msgKey);
+		}),
+
 		labelObserver(): void {
 			this.validateLabel();
 		},
 
 		titleObserver(): void {
+			var title = this.get('model.title');
+
 			if (this.validateTitle()) {
 				this.getImageDebounced();
+			}
+
+			if (this.get('isTitleFocused') && !Em.isEmpty(title) && title.length > 2) {
+				this.setProperties({
+					searchSuggestionsResult: [],
+					suggestionsError: false,
+					searchSuggestionsVisible: true
+				});
+				this.setSearchSuggestionsDebounced();
+			} else {
+				this.set('searchSuggestionsVisible', false);
 			}
 		},
 
@@ -80,6 +112,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				if (this.get('isLoading')) {
 					this.hideLoader();
 				}
+
+				//run.next is used because browser first triggers blur and then click
+				//so search suggestions disappear and click is not triggered
+				Em.run.next(this, (): void => {
+					this.set('searchSuggestionsVisible', false);
+				})
 			},
 
 			setTitleFocusedIn(): void {
@@ -88,18 +126,18 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			goBack(): void {
-				var trackLabel = this.get('isSectionView') ? 'section-edit-go-back' : 'item-edit-go-back';
+				var trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
 				this.trackClick('curated-content-editor', trackLabel);
 
 				this.sendAction('goBack');
 			},
 
 			done(): void {
-				var trackLabel = this.get('isSectionView') ? 'section-edit-done' : 'item-edit-done';
+				var trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
 				this.trackClick('curated-content-editor', trackLabel);
 
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
-					if (this.get('isSectionView')) {
+					if (this.get('isSection')) {
 						this.validateAndDone(this.get('model'), {
 							method: 'validateSection'
 						});
@@ -113,7 +151,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			deleteItem(): void {
-				var trackLabel = this.get('isSectionView') ? 'section-delete' : 'item-delete';
+				var trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
 				this.trackClick('curated-content-editor', trackLabel );
 
 				//@TODO CONCF-956 add translations
@@ -130,12 +168,15 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					.then((data: any) => {
 						if (data && data.url && data.article_id) {
 							this.setProperties({
-								'model.image_url': this.generateThumbUrl(data.url),
+								'imageProperties.url': data.url,
 								// article_id comes from MW because in MW files are like any other articles
 								// so there is no such thing as image_id from MW perspective.
-								'model.image_id': data.article_id,
-								'imageErrorMessage': null
+								'imageProperties.id': data.article_id,
+								// Make cropper back button go back here
+								'imageCropLayout.previous': this.get('itemFormLayout.name')
 							});
+
+							this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 						} else {
 							Em.Logger.error('Image Data Object is malformed. Url or article_id is missing');
 							this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
@@ -162,6 +203,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			showSearchImageForm(): void {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
+			},
+
+			setTitle(title: string): void {
+				this.set('model.title', title);
 			}
 		},
 
@@ -204,7 +249,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			var title: string,
 				errorMessage: string = null;
 
-			if (!this.get('isSectionView')) {
+			if (!this.get('isSection')) {
 				title = this.get('model.title');
 
 				if (Em.isEmpty(title)) {
@@ -222,7 +267,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		getImage(): void {
 			App.CuratedContentEditorItemModel
-				.getImage(this.get('model.title'), this.get('imageSize'))
+				.getImage(this.get('model.title'), this.get('imageWidth'))
 				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
@@ -231,10 +276,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						}
 					} else {
 						this.setProperties({
-							'imageErrorMessage': null,
+							imageErrorMessage: null,
+							resetFileInput: true,
 							'model.image_url': data.url,
 							'model.image_id': data.id,
-							'resetFileInput': true
+							'model.image_crop': null
 						});
 					}
 				})
@@ -307,5 +353,30 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.set('imageErrorMessage', 'Image is missing');
 					break;
 			}
+		},
+
+		setSearchSuggestionsDebounced(): void {
+			Em.run.debounce(this, this.setSearchSuggestions, this.get('debounceDuration'));
+		},
+
+		setSearchSuggestions(): void {
+			var title = this.get('model.title');
+
+			App.CuratedContentEditorItemModel.getSearchSuggestions(title)
+				.then((data: any): void => {
+					this.set('searchSuggestionsResult', data.items);
+				})
+				.catch((error: any): void => {
+					//404 error is returned when no articles were found. No need to log it
+					if (error && error.status !== 404) {
+						Em.Logger.error(error);
+					}
+
+					this.setProperties({
+						suggestionsError: true,
+						searchSuggestionsResult: []
+					});
+				});
 		}
-	});
+	}
+);

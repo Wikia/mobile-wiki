@@ -1,10 +1,11 @@
 {
   "name": "Mercury",
-  "version": "131.0.0",
+  "version": "134.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "dev": "rm -rf www && gulp",
+    "dev": "rm -rf www && gulp --nosync",
+    "local": "rm -rf www && gulp",
     "start": "rm -rf www && npm run build && node www/server/server.js",
     "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test",
     "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test",
@@ -28,7 +29,7 @@
     "hoek": "2.12.0",
     "i18next": "1.7.10",
     "newrelic": "1.18.1",
-    "wreck": "5.4.0"
+    "wreck": "6.1.0"
   },
   "devDependencies": {
     "browser-sync": "^2.5.3",

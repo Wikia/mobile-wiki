@@ -11,6 +11,7 @@ interface ArticleSectionHeader {
 	level: string;
 	name: string;
 	id?: string;
+	section: string;
 }
 
 App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackClickMixin, App.ViewportMixin, {
@@ -116,20 +117,20 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			this.sendAction('edit', title, sectionIndex);
 		},
 
+		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
+			this.sendAction('addPhoto', title, sectionIndex, photoData);
+		},
+
 		expandSideNav: function (): void {
 			this.sendAction('toggleSideNav', true);
 		},
 
-		openLightbox: function (lightboxType: string, lightboxData: any) {
+		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
 		},
 
-		updateHeaders: function (headers: ArticleSectionHeader[]): void {
+		updateHeaders: function(headers: ArticleSectionHeader[]): void {
 			this.set('headers', headers);
-
-			if (this.get('contributionFeatureEnabled')) {
-				this.setupContributionButtons();
-			}
 		}
 	},
 
@@ -147,64 +148,6 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 		}
 
 		return true;
-	},
-
-	setupContributionButtons: function (): void {
-		// TODO: There should be a helper for generating this HTML
-		var headers = this.get('headers'),
-			pencil = '<div class="edit-section"><svg class="icon pencil" role="img"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pencil"></use></svg></div>',
-		    photo = '<div class="upload-photo"><svg class="icon camera" role="img"><use xlink:href="#camera"></use></svg><input class="file-input" type="file" accept="image/*"/></div>',
-		    iconsWrapper = '<div class="icon-wrapper">' + pencil + photo + '</div>',
-		    $photoZero = this.$('.upload-photo');
-
-		$photoZero
-			.on('change', () => {
-				this.onPhotoIconChange($photoZero, 0);
-			})
-			.on('click', () => {
-				M.track({
-					action: M.trackActions.click,
-					category: 'sectioneditor',
-					label: 'addPhoto',
-					value: 0
-				});
-			});
-
-		headers.forEach((header: ArticleSectionHeader): void => {
-			var $sectionHeader = this.$(header.element);
-			$sectionHeader.prepend(iconsWrapper).addClass('short-header');
-		});
-
-		this.setupButtonsListeners();
-	},
-
-	setupButtonsListeners: function () : void {
-		this.$('.article-content')
-			.on('click', '.pencil', (event: JQueryEventObject): void => {
-				var $sectionHeader = $(event.target).closest(':header[section]');
-				this.send('edit', this.get('model.cleanTitle'), $sectionHeader.attr('section'));
-			})
-			.on('click', '.upload-photo', (event: JQueryEventObject): void => {
-				var $sectionHeader = $(event.target).closest(':header[section]'),
-				    sectionIndex: number = parseInt($sectionHeader.attr('section'), 10);
-
-				M.track({
-					action: M.trackActions.click,
-					category: 'sectioneditor',
-					label: 'addPhoto',
-					value: sectionIndex
-				});
-			})
-			.on('change', '.upload-photo', (event: JQueryEventObject): void => {
-				var $uploadPhotoContainer = $(event.target).parent(),
-				    sectionIndex: number = parseInt($(event.target).closest(':header[section]').attr('section'), 10);
-				this.onPhotoIconChange($uploadPhotoContainer, sectionIndex);
-			});
-	},
-
-	onPhotoIconChange: function(uploadPhotoContainer: JQuery, sectionNumber: number): void {
-		var photoData = (<HTMLInputElement>uploadPhotoContainer.find('.file-input')[0]).files[0];
-		this.sendAction('addPhoto', this.get('model.cleanTitle'), sectionNumber, photoData);
 	},
 
 	/**

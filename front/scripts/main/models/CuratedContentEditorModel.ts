@@ -4,6 +4,20 @@
 interface CuratedContentEditorRawSectionInterface {
 	label: string;
 	image_id: number;
+	image_crop?: {
+		landscape?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		square?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+	};
 	node_type: string;
 	items: CuratedContentEditorRawSectionInterface[]
 	image_url?: string;
@@ -99,14 +113,21 @@ App.CuratedContentEditorModel.reopenClass({
 	 * @returns {Object}
 	 */
 	sanitize(rawData: any): CuratedContentEditorModel {
-		var featured = {
+		/**
+		 * Label inside "optional" has to be initialized with empty string value.
+		 * Code inside CuratedContentController:getSections (MW) decides based on this label
+		 * if it's optional or not. If it's null it will fail rendering main page.
+		 */
+		var featured: any = {
+				items: <any>[],
+				featured: 'true',
+			},
+			curated: any = {
 				items: <any>[]
 			},
-			curated = {
-				items: <any>[]
-			},
-			optional = {
-				items: <any>[]
+			optional: any = {
+				items: <any>[],
+				label: ''
 			};
 
 		if (rawData.length) {
