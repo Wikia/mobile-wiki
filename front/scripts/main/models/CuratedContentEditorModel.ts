@@ -162,33 +162,42 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
-		if (Array.isArray(parentSection.items)) {
-			return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
-				return typeof childLabel !== 'string' ||
-					childItem.label.toLowerCase() !== childLabel.toLowerCase() ?
-						childItem.label.toLowerCase() : null
-			}).filter(this.isString);
-		}
-		return [];
+	getAlreadyUsedLabels(sectionOrBlock: CuratedContentEditorItemModel, excludedLabel: string = null): string[] {
+		return this.getLabels(sectionOrBlock, excludedLabel, {isLabelAlreadyExcluded: false}).filter(this.isString);
 	},
 
-	getAlreadyUsedNonFeaturedItemsLabels(model: CuratedContentEditorModel, selfLabel: string = null): string[] {
-		var nonFeaturedSectionsItemLabels: string[] = [];
+	getAlreadyUsedNonFeaturedItemsLabels(block: CuratedContentEditorModel, excludedLabel: string = null): string[] {
+		var nonFeaturedSectionsItemLabels: string[] = [],
+			duplicationInfo = {isLabelAlreadyExcluded: false};
 
-		model.curated.items.forEach((section: CuratedContentEditorItemModel): void => {
-			nonFeaturedSectionsItemLabels = nonFeaturedSectionsItemLabels.concat(this.getLabels(section, selfLabel));
+		block.curated.items.forEach((section: CuratedContentEditorItemModel): void => {
+			nonFeaturedSectionsItemLabels = nonFeaturedSectionsItemLabels.concat(
+				this.getLabels(section, excludedLabel, duplicationInfo)
+			);
 		});
 
-		return nonFeaturedSectionsItemLabels.concat(this.getLabels(model.optional, selfLabel));
+		return nonFeaturedSectionsItemLabels.concat(this.getLabels(block.optional, excludedLabel, duplicationInfo));
 	},
 
-	getLabels(section: CuratedContentEditorItemModel, labelException: string = null): string[] {
+	getLabels(
+		section: CuratedContentEditorItemModel,
+		excludedLabel: string = null,
+		duplicationInfo: {isLabelAlreadyExcluded: boolean;} = {isLabelAlreadyExcluded: false}
+	): string[] {
 		if (Array.isArray(section.items)) {
-			return section.items.map((sectionItem: CuratedContentEditorItemModel): void => {
-				return typeof labelException !== 'string' ||
-					sectionItem.label.toLowerCase() !== labelException.toLowerCase() ?
-						sectionItem.label.toLowerCase() : null;
+			return section.items.map((sectionItem: CuratedContentEditorItemModel): string => {
+				if (
+					!this.isString(excludedLabel) ||
+					duplicationInfo.isLabelAlreadyExcluded ||
+					sectionItem.hasOwnProperty('label') &&
+					this.isString(sectionItem.label) &&
+					sectionItem.label.toLowerCase() !== excludedLabel.toLowerCase()
+				) {
+					return sectionItem.label.toLowerCase()
+				} else {
+					duplicationInfo.isLabelAlreadyExcluded = true;
+					return null;
+				}
 			}).filter(this.isString);
 		}
 		return [];
