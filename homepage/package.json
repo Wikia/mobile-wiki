@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp",
-    "test": "npm test"
+    "test": "npm test",
+    "build": "gulp build --type prod",
+    "start": "npm run build && node server/index.js"
   },
   "author": "Per Johan Groland <pgroland@wikia-inc.com>",
   "dependencies": {
@@ -13,6 +15,7 @@
     "bunyan": "*",
     "bunyan-prettystream": "*",
     "bunyan-syslog": "*",
+    "deep-extend": "^0.4.0",
     "good": "^6.3.0",
     "good-console": "^5.0.2",
     "handlebars": "^3.0.3",
@@ -31,6 +34,7 @@
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.11.2",
     "gulp-newer": "^0.5.1",
+    "gulp-nodemon": "^2.0.3",
     "gulp-sass": "*",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-tslint": "^3.1.2",

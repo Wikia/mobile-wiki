@@ -65,37 +65,6 @@ unauthenticatedRoutes = [
 		path: '/wiki',
 		handler: require('./facets/operations/redirectToRoot')
 	},
-	{
-		method: 'GET',
-		path: '/',
-		//Currently / path is not available on production because of redirects from / to /wiki/...
-		// TODO (CONCF-761): we shouldn't load articles for Curated Main Pages
-		handler: require('./facets/showArticle')
-	},
-	{
-		method: 'GET',
-		// Catch invalid paths and redirect to the main page
-		path: '/main/{invalid}',
-		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
-			return reply.redirect('/');
-		}
-	},
-	{
-		method: 'GET',
-		// We don't care if there is a dynamic segment, Ember router handles that
-		path: '/main/edit/{ignore*}',
-		handler: require('./facets/showApplication')
-	},
-	{
-		method: 'GET',
-		path: '/main/section/{sectionName*}',
-		handler: require('./facets/showMainPageSection')
-	},
-	{
-		method: 'GET',
-		path: '/main/category/{categoryName*}',
-		handler: require('./facets/showMainPageCategory')
-	},
 
 	/**
 	 * API Routes
@@ -190,6 +159,7 @@ authenticatedRoutes = [
 			]
 		}
 	},
+
 	{
 		method: 'GET',
 		path: '/login',
@@ -203,7 +173,53 @@ authenticatedRoutes = [
 		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
 			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
 		}
-	}
+	},
+	{
+		method: 'GET',
+		path: '/',
+		//Currently / path is not available on production because of redirects from / to /wiki/...
+		// TODO (CONCF-761): we shouldn't load articles for Curated Main Pages
+		handler: require('./facets/showArticle'),
+		config: {
+			cache: routeCacheConfig
+		}
+	},
+	{
+		method: 'GET',
+		// Catch invalid paths and redirect to the main page
+		path: '/main/{invalid}',
+		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
+			return reply.redirect('/');
+		},
+		config: {
+			cache: routeCacheConfig
+		}
+	},
+	{
+		method: 'GET',
+		// We don't care if there is a dynamic segment, Ember router handles that
+		path: '/main/edit/{ignore*}',
+		handler: require('./facets/showApplication'),
+		config: {
+			cache: routeCacheConfig
+		}
+	},
+	{
+		method: 'GET',
+		path: '/main/section/{sectionName*}',
+		handler: require('./facets/showMainPageSection'),
+		config: {
+			cache: routeCacheConfig
+		}
+	},
+	{
+		method: 'GET',
+		path: '/main/category/{categoryName*}',
+		handler: require('./facets/showMainPageCategory'),
+		config: {
+			cache: routeCacheConfig
+		}
+	},
 ];
 
 

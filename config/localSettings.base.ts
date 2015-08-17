@@ -11,7 +11,7 @@ var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
-	servicesDomain: 'api.wikia-services.com',
+	servicesDomain: process.env.WIKIA_ENVIRONMENT === 'prod' ? 'services.wikia.com' : 'services.wikia-dev.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
@@ -105,7 +105,10 @@ var localSettings: LocalSettings = {
 	// CDN prefix with no tailing slash
 	cdnBaseUrl: '//mercury.nocookie.net',
 	// array of wiki dbnames to load first article async instead of in page source
-	asyncArticle: []
+	asyncArticle: [],
+	facebook: {
+		appId: 112328095453510
+	}
 };
 
 export function getSettings(customLocalSet: any): LocalSettings {

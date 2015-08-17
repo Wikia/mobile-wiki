@@ -20,6 +20,10 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		searchPlaceholder: Em.computed((): string =>
 			i18n.t('app.curated-content-editor-search-images-placeholder')
 		),
+		label: Em.computed('model.label', function() {
+			var modelLabel = this.get('model.label');
+			return modelLabel || i18n.t('app.curated-content-editor-new-item');
+		}),
 
 		searchQueryObserver: Em.observer('searchQuery', function(): void {
 			var searchQuery: string = this.get('searchQuery');
