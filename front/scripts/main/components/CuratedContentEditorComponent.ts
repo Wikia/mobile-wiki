@@ -50,8 +50,13 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 				}
 			})
 			.catch((err: any): void => {
-				Em.Logger.error(err);
-				this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+				if (err.status === 403) {
+					this.addAlert('warning', i18n.t('app.curated-content-editor-error-no-save-permissions'));
+				} else {
+					Em.Logger.error(err);
+					//@TODO CONCF-956 add translations
+					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+				}
 			})
 			.finally((): void => this.hideLoader());
 	},
