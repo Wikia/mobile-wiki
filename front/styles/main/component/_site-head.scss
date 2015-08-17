@@ -80,44 +80,10 @@ hr.theme {
 	margin: 0;
 }
 
-.books-vertical {
-	hr.theme {
-		background-color: $color-hub-books;
-	}
-}
-
-.comics-vertical {
-	hr.theme {
-		background-color: $color-hub-comics;
-	}
-}
-
-.games-vertical {
-	hr.theme {
-		background-color: $color-hub-games;
-	}
-}
-
-.lifestyle-vertical {
-	hr.theme {
-		background-color: $color-hub-lifestyle;
-	}
-}
-
-.movies-vertical {
-	hr.theme {
-		background-color: $color-hub-movies;
-	}
-}
-
-.music-vertical {
-	hr.theme {
-		background-color: $color-hub-music;
-	}
-}
-
-.tv-vertical {
-	hr.theme {
-		background-color: $color-hub-tv;
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical {
+		hr.theme {
+			background-color: #{nth($vertical-colors, $i)};
+		}
 	}
 }

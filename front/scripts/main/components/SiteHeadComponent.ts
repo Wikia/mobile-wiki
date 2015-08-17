@@ -8,6 +8,7 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNameBindings: ['themeBar'],
 	tagName: 'nav',
 	headroom: null,
+	themeBar: false,
 
 	options: {
 		// keep it consistent with values in _wikia-variables.scss
