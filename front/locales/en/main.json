@@ -113,7 +113,6 @@
 		"curated-content-editor-enter-display-name": "Enter a display name",
 		"curated-content-editor-enter-page-name": "Enter a page name",
 		"curated-content-editor-delete-item": "Delete item",
-		"curated-content-editor-items": "items",
 		"curated-content-editor-add-category": "+ add category",
 		"curated-content-editor-publish": "Publish",
 		"curated-content-editor-edit-main-page": "Edit Main Page",
@@ -133,6 +132,7 @@
 		"curated-content-editor-general-section-error": "Please fix errors in this section.",
 		"curated-content-editor-add-items-message": "Please add items to this section.",
 		"curated-content-editor-missing-items-error": "Sections can't be empty. Please add items to section.",
-		"curated-content-editor-error-inside-items-message": "Please fix errors inside items."
+		"curated-content-editor-error-inside-items-message": "Please fix errors inside items.",
+		"curated-content-editor-items-count": "__count__ items"
 	}
 }

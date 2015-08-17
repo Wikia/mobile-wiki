@@ -3,7 +3,7 @@
 	<div class="item-description">
 		<div class="title">{{model.label}}</div>
 		{{#if model.items}}
-			<div class="subtitle">{{model.items.length}} {{i18n 'app.curated-content-editor-items'}}</div>
+			<div class="subtitle">{{i18n 'app.curated-content-editor-items-count' count=itemsCount}}</div>
 		{{/if}}
 	</div>
 </div>

@@ -8,6 +8,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 	classNames: ['curated-content-editor-row-container'],
 	imageWidth: 100,
 
+	itemsCount: Em.computed.alias('modal.items.length'),
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),

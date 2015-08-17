@@ -18,6 +18,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 	notEmptyItems: Em.computed.notEmpty('model.items'),
+	itemsCount: Em.computed.alias('model.items.length'),
 
 	actions: {
 		addItem(): void {
