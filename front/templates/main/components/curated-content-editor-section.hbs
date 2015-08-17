@@ -9,7 +9,7 @@
 	</div>
 	<div class="section-desc">
 		<div class="section-label">{{model.label}}</div>
-		<div class="section-items-count">{{i18n 'app.curated-content-editor-items-count' count=itemsCount}}</div>
+		<div class="section-items-count">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
 	</div>
 	<a {{action 'editSection'}} class='section-edit'>
 		{{svg 'pen' role='img' class='icon pen'}}
