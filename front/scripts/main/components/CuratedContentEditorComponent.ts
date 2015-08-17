@@ -62,8 +62,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 
 	processValidationError(type: string, reason: string) {
 		if (type === 'featured') {
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside Featured section.');
+			this.addAlert('alert', i18n.t('app.curated-content-editor-error-inside-featured-content'));
 		} else if (reason === 'itemsMissing') {
 			//@TODO CONCF-956 add translations
 			this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
