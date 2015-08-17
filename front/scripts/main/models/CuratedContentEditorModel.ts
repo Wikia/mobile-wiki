@@ -162,25 +162,21 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	getAlreadyUsedLabels(sectionOrBlock: CuratedContentEditorItemModel, excludedLabel: string = null): string[] {
-		return this.getLabels(sectionOrBlock, excludedLabel);
-	},
-
 	getAlreadyUsedNonFeaturedItemsLabels(block: CuratedContentEditorModel, excludedLabel: string = null): string[] {
 		var labels: string[] = [];
 
 		// Labels of section items
 		block.curated.items.forEach((section: CuratedContentEditorItemModel): void => {
-			labels = labels.concat(this.getLabels(section, excludedLabel));
+			labels = labels.concat(this.getAlreadyUsedLabels(section, excludedLabel));
 		});
 
 		// Labels of optional block items
-		labels = labels.concat(this.getLabels(block.optional, excludedLabel));
+		labels = labels.concat(this.getAlreadyUsedLabels(block.optional, excludedLabel));
 
 		return labels;
 	},
 
-	getLabels(
+	getAlreadyUsedLabels(
 		sectionOrBlock: CuratedContentEditorItemModel,
 		excludedLabel: string = null
 	): string[] {
