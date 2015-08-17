@@ -184,12 +184,10 @@ App.CuratedContentEditorModel.reopenClass({
 
 		if (Array.isArray(sectionOrBlock.items)) {
 			labels = sectionOrBlock.items.map((item: CuratedContentEditorItemModel): string => {
-				var itemLabel: string = Em.get(item, 'label') || '',
-					itemLabelLowerCase: string = itemLabel.toLowerCase(),
-					excludedLabelLowerCase: string = excludedLabel ? excludedLabel.toLowerCase() : null;
+				var itemLabel: string = Em.get(item, 'label');
 
-				if (excludedLabel === null || itemLabelLowerCase !== excludedLabelLowerCase) {
-					return itemLabelLowerCase;
+				if (excludedLabel === null || itemLabel !== excludedLabel) {
+					return itemLabel;
 				} else {
 					return null;
 				}

@@ -235,7 +235,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				errorMessage = 'app.curated-content-editor-missing-label-error';
 			} else if (label.length > this.get('maxLabelLength')) {
 				errorMessage = 'app.curated-content-editor-too-long-label-error';
-			} else if (alreadyUsedLabels.indexOf(label.toLowerCase()) !== -1) {
+			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
 				errorMessage = 'app.curated-content-editor-label-in-use-error';
 			}
 
