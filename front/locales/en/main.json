@@ -102,7 +102,6 @@
 		"curated-content-editor-too-long-label-error": "Labels cannot exceed 48 characters",
 		"curated-content-editor-label-in-use-error": "This label is already in use",
 		"curated-content-editor-missing-title-error": "Title is missing",
-		"curated-content-editor-provide-image-message": "Please provide an image",
 		"curated-content-editor-article-not-found-error": "Article not found",
 		"curated-content-editor-video-provider-not-supported-error": "This video provider is not supported",
 		"curated-content-editor-unsupported-page-type-error": "This page type is not supported",

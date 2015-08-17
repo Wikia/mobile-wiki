@@ -269,7 +269,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
-							this.set('imageErrorMessage', i18n.t('app.curated-content-editor-provide-image-message'));
+							this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
 						}
 					} else {
 						this.setProperties({
@@ -337,7 +337,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
 					break;
 				case 'imageMissing':
-					this.set('imageErrorMessage', i18n.t('app.curated-content-editor-provide-image-message'));
+					this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
 					break;
 			}
 		},
