@@ -94,6 +94,9 @@ class Login {
 
 	public onLoginSuccess(loginResponse: LoginResponse): void {
 		this.track('login-success', Mercury.Utils.trackActions.submit);
+		if (isModal) {
+			window.parent.location.reload();
+		}
 		window.location.href = this.redirect;
 	}
 

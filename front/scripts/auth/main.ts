@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 declare var translations: any;
 declare var language: string;
+declare var isModal: boolean;
 
 if (typeof language === 'undefined') {
 	language = '';
@@ -8,6 +9,10 @@ if (typeof language === 'undefined') {
 
 if (typeof translations === 'undefined') {
 	translations = {};
+}
+
+if (typeof isModal === 'undefined') {
+	isModal = false;
 }
 
 i18n.init(<I18nextOptions> {
