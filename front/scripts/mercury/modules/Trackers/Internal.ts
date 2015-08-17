@@ -18,6 +18,7 @@ interface InternalTrackingConfig {
 	beacon: String;
 	// cachebuster
 	cb: Number;
+	redirectUrl?: string;
 }
 
 interface InternalTrackingParams extends TrackingParams {
@@ -46,17 +47,23 @@ module Mercury.Modules.Trackers {
 		}
 
 		static getConfig (): InternalTrackingConfig {
-			var mercury = window.Mercury;
+			var mercury = window.Mercury,
+				config: InternalTrackingConfig = {
+					c: mercury.wiki.id,
+					x: mercury.wiki.dbName,
+					lc: mercury.wiki.language.user,
+					u: 0,
+					s: 'mercury',
+					beacon: '',
+					cb: ~~(Math.random() * 99999)
+				},
+				redirectUrl: string = Mercury.Utils.getQueryParam('redirect');
 
-			return {
-				c: mercury.wiki.id,
-				x: mercury.wiki.dbName,
-				lc: mercury.wiki.language.user,
-				u: 0,
-				s: 'mercury',
-				beacon: '',
-				cb: ~~(Math.random() * 99999)
-			};
+			if (redirectUrl) {
+				config.redirectUrl = redirectUrl;
+			}
+
+			return config;
 		}
 
 		static isPageView (category: string): boolean {
