@@ -162,7 +162,7 @@ module Mercury.Modules {
 			}, true);
 		}
 
-		public openLightbox (contents: any, lightboxVisible?: boolean): void {
+		public createLightbox (contents: any, lightboxVisible?: boolean): void {
 			/**
 			 * This method is being overwritten in ApplicationRoute for ads needs.
 			 * To learn more check ApplicationRoute.ts file.

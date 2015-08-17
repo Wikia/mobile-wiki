@@ -29,8 +29,10 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
 			 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
 			 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+			 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+			 * lightboxVisible=false and then decide if we want to show it.
 			 */
-			adsInstance.openLightbox = (contents: any, lightboxVisible?: boolean): void => {
+			adsInstance.createLightbox = (contents: any, lightboxVisible?: boolean): void => {
 				this.send('openLightbox', 'ads', {contents: contents}, lightboxVisible);
 			};
 
