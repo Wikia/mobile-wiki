@@ -13,12 +13,14 @@ interface Window {
 class FacebookConnect extends Login {
 	urlHelper: UrlHelper;
 	submitValidator: SubmitValidator;
+	tracker: AuthTracker;
 
 	constructor (form: HTMLFormElement, submitValidator: SubmitValidator) {
 		super(form);
 		new FacebookSDK(this.init.bind(this));
 		this.urlHelper = new UrlHelper();
 		this.submitValidator = submitValidator;
+		this.tracker = new AuthTracker('signup');
 	}
 
 	public init (): void {
@@ -54,21 +56,10 @@ class FacebookConnect extends Login {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				M.track({
-					trackingMethod: 'both',
-					action: Mercury.Utils.trackActions.success,
-					category: 'user-signup-' + pageParams.viewType + (isModal ? '-modal' : ''),
-					label: 'facebook-link-existing'
-				});
-
+				this.tracker.track('facebook-link-existing', M.trackActions.success);
 				window.location.href = this.redirect;
 			} else {
-				M.track({
-					trackingMethod: 'both',
-					action: Mercury.Utils.trackActions.error,
-					category: 'user-signup-' + pageParams.viewType + (isModal ? '-modal' : ''),
-					label: 'facebook-link-existing'
-				});
+				this.tracker.track('facebook-link-existing', M.trackActions.error);
 				this.displayError('errors.server-error');
 			}
 		};

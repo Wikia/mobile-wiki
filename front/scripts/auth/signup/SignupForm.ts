@@ -22,6 +22,7 @@ class SignupForm {
 	marketingOptIn: MarketingOptIn;
 	formErrors: FormErrors;
 	termsOfUse: TermsOfUse;
+	tracker: AuthTracker;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -35,6 +36,7 @@ class SignupForm {
 		this.marketingOptIn.init();
 		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors');
 		this.termsOfUse.init();
+		this.tracker = new AuthTracker('signup');
 	}
 
 	private getFormValues(): HeliosRegisterInput {
@@ -50,12 +52,7 @@ class SignupForm {
 	}
 
 	private trackSuccessfulRegistration() {
-		M.track({
-			trackingMethod: 'both',
-			action: M.trackActions.success,
-			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
-			label: 'successful-registration'
-		});
+		this.tracker.track('successful-registration', M.trackActions.success);
 	}
 
 	private onSubmit(event: Event): void {

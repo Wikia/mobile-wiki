@@ -24,6 +24,7 @@ class Login {
 	usernameInput: HTMLInputElement;
 	passwordInput: HTMLInputElement;
 	urlHelper: UrlHelper;
+	tracker: AuthTracker;
 
 	constructor (form: Element) {
 		var elements: FormElements;
@@ -38,6 +39,7 @@ class Login {
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
+		this.tracker = new AuthTracker('login');
 	}
 
 	public onSubmit (event: Event): void {
@@ -61,10 +63,10 @@ class Login {
 			enableSubmitButton();
 
 			if (xhr.status === HttpCodes.UNAUTHORIZED) {
-				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
+				this.tracker.track('login-credentials-error', M.trackActions.error);
 				return this.displayError('errors.wrong-credentials');
 			} else if (xhr.status !== HttpCodes.OK) {
-				this.track('login-server-error', Mercury.Utils.trackActions.error);
+				this.tracker.track('login-server-error', M.trackActions.error);
 				return this.displayError('errors.server-error');
 			}
 
@@ -72,7 +74,7 @@ class Login {
 
 			if (response.error) {
 				// Helios may return an error even if the request returns a 200
-				this.track('login-credentials-error', Mercury.Utils.trackActions.error);
+				this.tracker.track('login-credentials-error', M.trackActions.error);
 				this.displayError('errors.wrong-credentials');
 			} else {
 				this.onLoginSuccess(response);
@@ -82,7 +84,7 @@ class Login {
 		xhr.onerror = (): void => {
 			enableSubmitButton();
 
-			this.track('login-server-error', Mercury.Utils.trackActions.error);
+			this.tracker.track('login-server-error', M.trackActions.error);
 			this.displayError('errors.server-error');
 		};
 
@@ -93,7 +95,7 @@ class Login {
 	}
 
 	public onLoginSuccess(loginResponse: LoginResponse): void {
-		this.track('login-success', Mercury.Utils.trackActions.submit);
+		this.tracker.track('login-success', M.trackActions.submit);
 		if (isModal) {
 			window.parent.location.reload();
 		}
@@ -123,15 +125,6 @@ class Login {
 		if (errorNode) {
 			errorNode.parentNode.removeChild(errorNode);
 		}
-	}
-
-	private track (label: string, action: string): void {
-		M.track({
-			trackingMethod: 'both',
-			action: action,
-			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
-			label: label
-		});
 	}
 }
 

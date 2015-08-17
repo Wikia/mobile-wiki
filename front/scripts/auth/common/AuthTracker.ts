@@ -1,11 +1,15 @@
 class AuthTracker {
 	gaCategory: string;
 
-	constructor (gaCategory: string) {
-		this.gaCategory = gaCategory;
+	constructor (page: string) {
+		this.gaCategory = this.setGaCategory(page);
 	}
 
-	public trackClick (element: HTMLElement, label: string, action = Mercury.Utils.trackActions.click): void {
+	private setGaCategory (page: string):string {
+		return 'user-' + page + '-' + pageParams.viewType + (isModal ? '-modal' : '');
+	}
+
+	public trackClick (element: HTMLElement, label: string, action = M.trackActions.click): void {
 		if (!element) {
 			return;
 		}

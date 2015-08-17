@@ -3,10 +3,12 @@ class FormErrors {
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
 	generalErrorShown: boolean = false;
 	trackingLabelPrefix: string;
+	tracker: AuthTracker;
 
 	constructor (form: HTMLFormElement, trackingLabelPrefix: string = 'formValidationErrors') {
 		this.form = form;
 		this.trackingLabelPrefix = trackingLabelPrefix;
+		this.tracker = new AuthTracker('login');
 	}
 
 	public clearValidationErrors(): void {
@@ -71,11 +73,6 @@ class FormErrors {
 	}
 
 	public trackValidationErrors(errors: Array<string>): void {
-		M.track({
-			trackingMethod: 'both',
-			action: M.trackActions.error,
-			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
-			label: this.trackingLabelPrefix + ': ' + errors.join(';'),
-		});
+		this.tracker.track(this.trackingLabelPrefix + ': ' + errors.join(';'), M.trackActions.error);
 	}
 }
