@@ -16,8 +16,7 @@
 	</a>
 </div>
 {{#unless notEmptyItems}}
-	{{!-- @TODO CONCF-956 add translations --}}
-	<small>Please add items</small>
+	<small>{{i18n 'app.curated-content-editor-add-items-message'}}</small>
 {{/unless}}
 {{#each sortableItems as |item|}}
 	{{curated-content-editor-row

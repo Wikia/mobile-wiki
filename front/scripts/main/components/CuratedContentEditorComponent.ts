@@ -58,12 +58,10 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 
 	processValidationError(reason: string) {
 		if (reason === 'itemsMissing') {
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+			this.addAlert('alert', i18n.t('app.curated-content-editor-missing-items-error'));
 		} else {
 			// if other items occur that means user somehow bypassed validation of one or more items earlier
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside items');
+			this.addAlert('alert', i18n.t('app.curated-content-editor-error-inside-items-message'));
 		}
 	}
 });

@@ -158,8 +158,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				var trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
 				this.trackClick('curated-content-editor', trackLabel );
 
-				//@TODO CONCF-956 add translations
-				if (confirm('Are you sure about removing this item?')) {
+				if (confirm(i18n.t('app.curated-content-editor-remove-item-confirmation'))) {
 					this.sendAction('deleteItem');
 				}
 			},
@@ -284,7 +283,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					this.set('imageErrorMessage', i18n.t('curated-content-error-other'));
+					this.set('imageErrorMessage', i18n.t('app.curated-content-error-other'));
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -304,13 +303,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						if (data.error) {
 							data.error.forEach((error: any) => this.processValidationError(error.reason));
 						} else {
-							this.addAlert('alert', i18n.t('curated-content-error-other'));
+							this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 						}
 					}
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					this.addAlert('alert', i18n.t('curated-content-error-other'));
+					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -332,7 +331,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
 					break;
 				case 'duplicatedLabel':
-					this.set('labelErrorMessage', i18n.t('curated-content-editor-label-in-use-error'));
+					this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
 					break;
 				case 'noCategoryInTag':
 					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
