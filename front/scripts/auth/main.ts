@@ -40,9 +40,9 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		}
 	}
 
-	//if (document.body.className.indexOf('join-page') !== -1) {
-	//	new FacebookLogin(<HTMLAnchorElement> document.querySelector('.signup-provider-facebook'));
-	//}
+	if (document.body.className.indexOf('join-page') !== -1) {
+		new FacebookLogin(<HTMLAnchorElement> document.querySelector('.signup-provider-facebook'));
+	}
 
 	if (birthdateContainer) {
 		new BirthdateInput(birthdateContainer, formElement).init();
