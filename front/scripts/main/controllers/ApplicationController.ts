@@ -73,20 +73,29 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 *
 		 * @param lightboxType
 		 * @param lightboxModel
-		 * @param lightboxVisible
 		 */
-		openLightbox: function (lightboxType: string, lightboxModel?: any, lightboxVisible?: boolean): void {
-			// Show lightbox by default
-			// lightboxVisible=false is used by Ads Module to prevent showing lightbox when there is no ad to display.
-			if (lightboxVisible === undefined) {
-				lightboxVisible = true;
-			}
-
+		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
 			this.setProperties({
-				lightboxModel: lightboxModel,
-				lightboxType: lightboxType,
-				lightboxVisible: lightboxVisible,
-				noScroll: lightboxVisible
+				lightboxModel,
+				lightboxType,
+				lightboxVisible: true,
+				noScroll: true
+			});
+		},
+
+		/**
+		 * @desc Sets lightbox type and model but doesn't show it
+		 * This method is used by Ads Module to prevent showing lightbox when there is no ad to display.
+		 *
+		 * @param lightboxType
+		 * @param lightboxModel
+		 */
+		createHiddenLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.setProperties({
+				lightboxModel,
+				lightboxType,
+				lightboxVisible: false,
+				noScroll: false
 			});
 		},
 

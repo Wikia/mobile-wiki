@@ -33,7 +33,11 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			 * lightboxVisible=false and then decide if we want to show it.
 			 */
 			adsInstance.createLightbox = (contents: any, lightboxVisible?: boolean): void => {
-				this.send('openLightbox', 'ads', {contents: contents}, lightboxVisible);
+				if (lightboxVisible) {
+					this.send('openLightbox', 'ads', {contents});
+				} else {
+					this.send('createHiddenLightbox', 'ads', {contents});
+				}
 			};
 
 			adsInstance.showLightbox = (): void => {
@@ -149,8 +153,12 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.get('controller').send('handleLightbox');
 		},
 
-		openLightbox: function (lightboxType: string, lightboxModel?: any, lightboxVisible?: boolean): void {
-			this.get('controller').send('openLightbox', lightboxType, lightboxModel, lightboxVisible);
+		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
+		},
+
+		createHiddenLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
 		},
 
 		showLightbox: function (): void {
