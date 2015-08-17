@@ -85,6 +85,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		if (reason === 'itemsMissing') {
 			this.addAlert('alert', i18n.t('app.curated-content-editor-empty-section-error'));
 		} else {
+			// if other items occur that means user somehow bypassed validation of one or more items earlier
 			this.addAlert('alert', i18n.t('app.curated-content-editor-general-section-error'));
 		}
 	}
