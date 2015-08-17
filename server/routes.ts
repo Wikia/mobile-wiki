@@ -247,7 +247,7 @@ unauthenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
 	path: '/d/{thing}/{id}/{action?}',
-	handler: require('./facets/api/discussion')
+	handler: require('./facets/showApplication')
 });
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
