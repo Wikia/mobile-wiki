@@ -1,6 +1,9 @@
 /// <reference path="../../baseline/mercury.ts" />
 
 'use strict';
+
+declare var pageParams: any;
+
 // This was disabled for now and should be re-enabled with https://wikia-inc.atlassian.net/browse/SOC-633 when
 // we're ready to launch the new auth pages.
 App.LoginIconComponent = Em.Component.extend({
@@ -24,7 +27,7 @@ App.LoginIconComponent = Em.Component.extend({
 		M.track({
 			trackingMethod: 'ga',
 			action: M.trackActions.click,
-			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
+			category: 'user-login-' + pageParams.viewType,
 			label: label
 		});
 
