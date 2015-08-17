@@ -106,6 +106,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 			}).toArray();
 
 		this.set('headers', headers);
+		this.sendAction('updateHeaders', headers);
 	},
 
 	headerObserver: Em.observer('headers', function(): void {

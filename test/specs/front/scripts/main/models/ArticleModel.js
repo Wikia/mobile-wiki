@@ -49,12 +49,13 @@ test('ArticleModel RESTful URL tests', function () {
 
 test('getPreloadedData', function () {
 	// Already run in wikiaBaseline and the startup callback:
-	// Mercury._state.firstPage = true;
+	// Mercury._state.articleContentPreloadedInDOM = true;
 	// Mercury.article = this.example;
 	var article = Mercury.article,
 		data = App.ArticleModel.getPreloadedData();
 
-	strictEqual(M.prop('firstPage', false), false, 'Mercury object\'s firstPage state flipped to false');
+	strictEqual(M.prop('articleContentPreloadedInDOM', false), false,
+		'Mercury object\'s articleContentPreloadedInDOM state flipped to false');
 	deepEqual(data, article, 'article loaded from Mercury object on first page');
 	deepEqual(Mercury.article, undefined, 'Mercury.article is set to null');
 });
@@ -81,14 +82,14 @@ test('find with preloaded data', function () {
 			article: 'article'
 		};
 
-	ok(M.prop('firstPage'), 'firstPage==true before test, as expected');
+	ok(M.prop('articleContentPreloadedInDOM'), 'articleContentPreloadedInDOM==true before test, as expected');
 	Ember.run(function () {
 		model = App.ArticleModel.find(params);
 	});
 	model.then(function (resolvedModel) {
 		verifyArticle(resolvedModel, self.example);
 	});
-	ok(!M.prop('firstPage'), 'firstPage==false after test, as expected');
+	ok(!M.prop('articleContentPreloadedInDOM'), 'articleContentPreloadedInDOM==false after test, as expected');
 });
 
 /**

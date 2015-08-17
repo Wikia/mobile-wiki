@@ -6,24 +6,22 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	uglify = require('gulp-uglify'),
 	environment = require('../../../gulp/utils/environment.js'),
-	rev = require('gulp-rev'),
 	gulpconcat = require('gulp-concat'),
 	piper = require('../../../gulp/utils/piper');
 
 gulp.task('build-combined', ['scripts'], function () {
+	var src = ['front/js/main.js'];
+
+	if (!environment.isProduction) {
+		src.push('front/js/dev.js');
+	}
+
 	return piper(
-		gulp.src([
-			'front/js/main.js'
-		]),
+		gulp.src(src),
 		gulpconcat('combined.js'),
 		gulpif(environment.isProduction, piper(
-			uglify(),
-			rev()
+			uglify()
 		)),
-		gulp.dest('front/js'),
-		gulpif(environment.isProduction, piper(
-			rev.manifest(),
-			gulp.dest('front/js')
-		))
+		gulp.dest('front/js')
 	);
 });
