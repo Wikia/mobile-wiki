@@ -167,25 +167,31 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	getAlreadyUsedNonFeaturedItemsLabels(block: CuratedContentEditorModel, excludedLabel: string = null): string[] {
-		var nonFeaturedSectionsItemLabels: string[] = [],
+		var labels: string[] = [],
 			duplicationInfo = {isLabelAlreadyExcluded: false};
 
+		// Labels of section items
 		block.curated.items.forEach((section: CuratedContentEditorItemModel): void => {
-			nonFeaturedSectionsItemLabels = nonFeaturedSectionsItemLabels.concat(
+			labels = labels.concat(
 				this.getLabels(section, excludedLabel, duplicationInfo)
 			);
 		});
 
-		return nonFeaturedSectionsItemLabels.concat(this.getLabels(block.optional, excludedLabel, duplicationInfo));
+		// Labels of optional block items
+		labels = labels.concat(this.getLabels(block.optional, excludedLabel, duplicationInfo));
+
+		return labels;
 	},
 
 	getLabels(
-		section: CuratedContentEditorItemModel,
+		sectionOrBlock: CuratedContentEditorItemModel,
 		excludedLabel: string = null,
 		duplicationInfo: {isLabelAlreadyExcluded: boolean;} = {isLabelAlreadyExcluded: false}
 	): string[] {
-		if (Array.isArray(section.items)) {
-			return section.items.map((sectionItem: CuratedContentEditorItemModel): string => {
+		var labels: string[] = [];
+
+		if (Array.isArray(sectionOrBlock.items)) {
+			labels = sectionOrBlock.items.map((sectionItem: CuratedContentEditorItemModel): string => {
 				if (
 					!this.isString(excludedLabel) ||
 					duplicationInfo.isLabelAlreadyExcluded ||
@@ -193,14 +199,15 @@ App.CuratedContentEditorModel.reopenClass({
 					this.isString(sectionItem.label) &&
 					sectionItem.label.toLowerCase() !== excludedLabel.toLowerCase()
 				) {
-					return sectionItem.label.toLowerCase()
+					return sectionItem.label.toLowerCase();
 				} else {
 					duplicationInfo.isLabelAlreadyExcluded = true;
 					return null;
 				}
 			}).filter(this.isString);
 		}
-		return [];
+
+		return labels;
 	},
 
 	isString(item: any): boolean {

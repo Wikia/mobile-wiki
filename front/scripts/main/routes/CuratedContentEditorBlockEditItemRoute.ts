@@ -15,19 +15,14 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		var block = transition.params['curatedContentEditor.blockEditItem'].block,
-			modelForCuratedContentEditor = this.modelFor('curatedContentEditor');
+			rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+			alreadyUsedLabels = (block === 'optional') ?
+				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel, model.label) :
+				App.CuratedContentEditorModel.getAlreadyUsedLabels(rootModel.get(block), model.label);
 
 		this._super(controller, model, transition);
 		controller.setProperties({
-			alreadyUsedLabels: block === 'optional' ?
-				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(
-					modelForCuratedContentEditor,
-					model.label
-				) :
-				App.CuratedContentEditorModel.getAlreadyUsedLabels(
-					modelForCuratedContentEditor.get(block),
-					model.label
-				),
+			alreadyUsedLabels,
 			block,
 			isFeaturedItem: block === 'featured',
 			originalItemLabel: model.label
