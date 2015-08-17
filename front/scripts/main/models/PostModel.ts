@@ -13,7 +13,7 @@ App.PostModel.reopenClass({
 			var postInstance = App.PostModel.create();
 
 			Em.$.ajax({
-				url: `http://api.wikia-services.com/discussion-test/${wikiId}/threads/${threadId}` +
+				url: `https://services.wikia-dev.com/discussion/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&limit=10',
 				dataType: 'json',
 				success: (data: any) => {

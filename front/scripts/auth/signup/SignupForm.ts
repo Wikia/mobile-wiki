@@ -1,6 +1,6 @@
 interface HeliosError {
-	description: string;
 	additional: HeliosErrorAdditional;
+	description: string;
 }
 
 interface HeliosErrorAdditional {
@@ -8,20 +8,20 @@ interface HeliosErrorAdditional {
 }
 
 interface HeliosRegisterInput {
-	username: string;
-	password: string;
-	email: string;
 	birthdate: string;
+	email: string;
 	langCode: string;
+	password: string;
+	username: string;
 	marketingallowed?: string;
 }
 
 class SignupForm {
 	form: HTMLFormElement;
-	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
-	generalErrorShown: boolean = false;
 	redirect: string;
 	marketingOptIn: MarketingOptIn;
+	formErrors: FormErrors;
+	termsOfUse: TermsOfUse;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -31,69 +31,10 @@ class SignupForm {
 		}
 		this.redirect = this.redirect || '/';
 		this.marketingOptIn = new MarketingOptIn();
+		this.termsOfUse = new TermsOfUse(this.form);
 		this.marketingOptIn.init();
-	}
-
-	private clearValidationErrors(): void {
-		var errorNodes: NodeList = this.form.querySelectorAll('.error');
-
-		Array.prototype.forEach.call( errorNodes, (node: HTMLElement): void => {
-			if (node.tagName === 'INPUT') {
-				node.classList.remove('error');
-			} else if (node.classList.contains('input')) {
-				node.classList.remove('error');
-			} else {
-				node.parentNode.removeChild( node );
-			}
-		});
-		this.generalErrorShown = false;
-	}
-
-	private displayValidationErrors(errors: Array<HeliosError>): void {
-		var errorsDescriptions: string[] = [];
-
-		Array.prototype.forEach.call( errors, (err: HeliosError): void => {
-			errorsDescriptions.push(err.description);
-			if (this.generalValidationErrors.indexOf(err.description) === -1) {
-				this.displayFieldValidationError(err);
-			} else {
-				this.displayGeneralError();
-			}
-		});
-
-		this.trackValidationErrors(errorsDescriptions);
-	}
-
-	private displayFieldValidationError(err: HeliosError): void {
-		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
-			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field],
-			specialFieldContainer: HTMLElement;
-		input.parentNode.appendChild(errorNode);
-		if (specialFieldContainer = <HTMLElement> (<HTMLElement> input.parentNode).querySelector('.input')) {
-			// Special case when we imitate input on UI using containers. eg. Birthdate input filed
-			specialFieldContainer.classList.add('error');
-		} else {
-			input.classList.add('error');
-		}
-	}
-
-	private displayGeneralError(): void {
-		if (!this.generalErrorShown) {
-			var errorNode: HTMLElement = this.createValidationErrorHTMLNode('registration_error');
-			this.form.insertBefore(errorNode, document.getElementById('signupNewsletter').parentNode);
-			this.generalErrorShown = true;
-		}
-	}
-
-	private createValidationErrorHTMLNode(errorDescription: string): HTMLElement {
-		var errorNode: HTMLElement = document.createElement('small');
-		errorNode.classList.add('error');
-		errorNode.appendChild(document.createTextNode(this.translateValidationError(errorDescription)));
-		return errorNode;
-	}
-
-	private translateValidationError(errCode: string): string {
-		return i18n.t('errors.' + errCode);
+		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors');
+		this.termsOfUse.init();
 	}
 
 	private getFormValues(): HeliosRegisterInput {
@@ -128,7 +69,7 @@ class SignupForm {
 		window.location.href = this.redirect;
 	}
 
-	private onSubmit(event: Event): void {
+	public onSubmit(event: Event): void {
 		var registrationXhr = new XMLHttpRequest(),
 			data: HeliosRegisterInput = this.getFormValues(),
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
@@ -139,7 +80,7 @@ class SignupForm {
 
 		submitButton.disabled = true;
 		submitButton.classList.add('on');
-		this.clearValidationErrors();
+		this.formErrors.clearValidationErrors();
 
 		registrationXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status;
@@ -148,16 +89,16 @@ class SignupForm {
 				this.onSuccessfulRegistration();
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				enableSubmitButton();
-				this.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
+				this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
 			} else {
 				enableSubmitButton();
-				this.displayGeneralError();
+				this.formErrors.displayGeneralError();
 			}
 		};
 
 		registrationXhr.onerror = (e: Event) => {
 			enableSubmitButton();
-			this.displayGeneralError();
+			this.formErrors.displayGeneralError();
 		};
 
 		registrationXhr.open('POST', this.form.action, true);
