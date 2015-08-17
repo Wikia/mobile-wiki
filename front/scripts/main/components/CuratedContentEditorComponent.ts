@@ -46,6 +46,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 						(error: CuratedContentValidationResponseErrorInterface) =>
 							this.processValidationError(error.type, error.reason)
 					);
+				} else {
 					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 				}
 			})
