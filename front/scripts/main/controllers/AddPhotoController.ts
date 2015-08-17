@@ -6,7 +6,9 @@ App.AddPhotoController = Em.Controller.extend({
 	needs: ['application', 'article'],
 
 	errorCodeMap: {
-		'invalidtitle': 'app.add-photo-section-title-error'
+		'invalidtitle': 'app.add-photo-section-title-error',
+		'noedit': 'app.edit-publish-error-noedit',
+		'noedit-anon': 'app.edit-publish-error-noedit-anon'
 	},
 
 	handleAddContentSuccess: function(data: any): void {
