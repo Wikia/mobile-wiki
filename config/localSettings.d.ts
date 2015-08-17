@@ -75,4 +75,7 @@ interface LocalSettings {
 	weppy: WeppyConfig;
 	workerCount: number;
 	workerDisconnectTimeout: number;
+	facebook: {
+		appId: number;
+	};
 }
