@@ -15,6 +15,9 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	adsContext: null,
 	content: null,
 	media: null,
+	contributionFeatureEnabled: null,
+	cleanTitle: null,
+	headers: null,
 
 	articleContentObserver: Em.observer('content', function (): void {
 		var content = this.get('content');
@@ -41,8 +44,16 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	}).on('init'),
 
 	actions: {
-		openLightbox: function (lightboxType: string, lightboxData: any) {
+		openLightbox: function (lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
+		},
+
+		edit: function (title: string, sectionIndex: number): void {
+			this.sendAction('edit', title, sectionIndex);
+		},
+
+		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
+			this.sendAction('addPhoto', title, sectionIndex, photoData);
 		}
 	},
 
@@ -58,8 +69,20 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	 *
 	 * @param {string} content HTML containing whole article
 	 */
-	hackIntoEmberRendering(content: string) {
+	hackIntoEmberRendering(content: string): void {
 		this.$().html(content);
+	},
+
+	createArticleContributionComponent: function(section: number): JQuery {
+		var article = this.get('content'),
+			title = this.get('cleanTitle'),
+			component = this.createChildView(App.ArticleContributionComponent.create({
+				section: section,
+				title: title,
+				edit: 'edit',
+				addPhoto: 'addPhoto'
+			}));
+		return component.createElement().$();
 	},
 
 	/**
@@ -76,13 +99,30 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 						element: elem,
 						level: elem.tagName,
 						name: elem.textContent,
-						id: elem.id
+						id: elem.id,
+						section: elem.getAttribute('section')
 					};
 				}
 			}).toArray();
 
+		this.set('headers', headers);
 		this.sendAction('updateHeaders', headers);
 	},
+
+	headerObserver: Em.observer('headers', function(): void {
+		if (this.get('contributionFeatureEnabled')) {
+			var headers = this.get('headers'),
+			    $sectionHeader: JQuery = null,
+			    $contributionComponent: JQuery = null;
+
+			headers.forEach((header: ArticleSectionHeader): void => {
+				$contributionComponent = this.createArticleContributionComponent(header.section);
+				$sectionHeader = this.$(header.element);
+				$sectionHeader.prepend($contributionComponent).addClass('short-header');
+				$contributionComponent.wrap('<div class="icon-wrapper"></div>');
+			});
+		}
+	}),
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),

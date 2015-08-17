@@ -9,6 +9,7 @@ interface UserModelParams {
 interface UserProperties {
 	avatarPath: string;
 	name: string;
+	profileUrl: string;
 	userId: number;
 }
 
@@ -54,7 +55,11 @@ App.UserModel.reopenClass({
 		return {
 			name: userData.name,
 			userId: userData.user_id,
-			avatarPath: userData.avatar
+			avatarPath: userData.avatar,
+			profileUrl: M.buildUrl({
+				namespace: 'User',
+				title: userData.name
+			})
 		}
 	}
 });

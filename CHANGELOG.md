@@ -1,3 +1,25 @@
+## release-135 (2015-08-17 10:00 UTC)
+* [CONCF-978](https://wikia-inc.atlassian.net/browse/CONCF-978) CONCF-978 Take into account user's permissions in Curated Content Tool
+
+## release-134 (2015-08-14 10:00 UTC)
+* [INT-160](https://wikia-inc.atlassian.net/browse/INT-160) Config files for Japan homepage
+* [INT-157](https://wikia-inc.atlassian.net/browse/INT-157) Mobile tweaks for nav with search and login window for Japan homepage
+* [INT-139](https://wikia-inc.atlassian.net/browse/INT-139) Company info page for Japan homepage
+* [SOC-1169](https://wikia-inc.atlassian.net/browse/SOC-1169) SOC-1169 Update the API URLs to their new location
+* [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Fix for 'table of contents' disappearing in INT-149 branch.
+* abstract-open-graph: Abstract out Open Graph attributes
+* discuss: mercury automated tests passed.  merging.
+* [CONCF-746](https://wikia-inc.atlassian.net/browse/CONCF-746) CONCF-746 Search suggestions in Curated Content Tool
+* [CONCF-1032](https://wikia-inc.atlassian.net/browse/CONCF-1032) CONCF-1032 Fix titleObserver being called when not supposed to
+* [SOC-992](https://wikia-inc.atlassian.net/browse/SOC-992) SOC-992 Remove technical debt when Helios start setting cookie on registration
+* [CONCF-743](https://wikia-inc.atlassian.net/browse/CONCF-743) CONCF-743 Use jquery.cropper as a cropping tool in Curated Content Tool
+* [SOC-949](https://wikia-inc.atlassian.net/browse/SOC-949) SOC-949
+
+## release-133 (2015-08-13 10:00 UTC)
+* [DAT-3006](https://wikia-inc.atlassian.net/browse/DAT-3006) Dat 3006 - Portable Infobox markup and styles cleanup
+* update-wreck: Update Wreck from 5.4.0 to 6.1.0
+* [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Initialize featured and optional sections with correct data
+
 ## release-132 (2015-08-12 10:00 UTC)
 * Revert [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
 * LocalScript: Small change to use --nosync in dev environments
