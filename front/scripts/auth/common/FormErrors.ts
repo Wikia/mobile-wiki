@@ -74,7 +74,7 @@ class FormErrors {
 		M.track({
 			trackingMethod: 'both',
 			action: M.trackActions.error,
-			category: 'user-login-mobile',
+			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
 			label: this.trackingLabelPrefix + ': ' + errors.join(';'),
 		});
 	}

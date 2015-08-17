@@ -57,7 +57,7 @@ class FacebookConnect extends Login {
 				M.track({
 					trackingMethod: 'both',
 					action: Mercury.Utils.trackActions.success,
-					category: 'user-signup-mobile',
+					category: 'user-signup-' + pageParams.viewType + (isModal ? '-modal' : ''),
 					label: 'facebook-link-existing'
 				});
 
@@ -66,7 +66,7 @@ class FacebookConnect extends Login {
 				M.track({
 					trackingMethod: 'both',
 					action: Mercury.Utils.trackActions.error,
-					category: 'user-signup-mobile',
+					category: 'user-signup-' + pageParams.viewType + (isModal ? '-modal' : ''),
 					label: 'facebook-link-existing'
 				});
 				this.displayError('errors.server-error');

@@ -31,8 +31,12 @@
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
+	function getGaCategory (page: string):string {
+		return 'user-' + page + '-' + pageParams.viewType + (isModal ? '-modal' : '');
+	}
+
 	function setTrackingForSignInPage (): void {
-		var tracker = new AuthTracker('user-login-mobile');
+		var tracker = new AuthTracker(getGaCategory('login'));
 
 		//Impression of the /signin page
 		tracker.trackPageView('signin-page');
@@ -63,7 +67,7 @@
 	}
 
 	function setTrackingForRegisterPage (): void {
-		var tracker = new AuthTracker('user-signup-mobile');
+		var tracker = new AuthTracker(getGaCategory('signup'));
 
 		//Impression of the /register page
 		tracker.trackPageView('register-page');
@@ -88,7 +92,7 @@
 	}
 
 	function setTrackingForJoinPage(): void {
-		var tracker = new AuthTracker('user-login-mobile');
+		var tracker = new AuthTracker(getGaCategory('login'));
 
 		//Impression of the /join page
 		tracker.trackPageView('join-page');
@@ -126,7 +130,7 @@
 	}
 
 	function setTrackingForFBConnectPage () {
-		var tracker = new AuthTracker('user-signup-mobile');
+		var tracker = new AuthTracker(getGaCategory('signup'));
 		//Impression of the /signin page
 		tracker.trackPageView('signin-page');
 		// Click "Sign In" button

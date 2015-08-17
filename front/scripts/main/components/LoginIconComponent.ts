@@ -24,7 +24,7 @@ App.LoginIconComponent = Em.Component.extend({
 		M.track({
 			trackingMethod: 'ga',
 			action: M.trackActions.click,
-			category: 'user-login-mobile',
+			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
 			label: label
 		});
 

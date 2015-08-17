@@ -109,7 +109,7 @@ class FacebookLogin {
 		M.track({
 			trackingMethod: 'both',
 			action: action,
-			category: 'user-login-mobile',
+			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
 			label: label
 		});
 	}

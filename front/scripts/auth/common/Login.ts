@@ -129,7 +129,7 @@ class Login {
 		M.track({
 			trackingMethod: 'both',
 			action: action,
-			category: 'user-login-' + pageParams.viewType,
+			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
 			label: label
 		});
 	}

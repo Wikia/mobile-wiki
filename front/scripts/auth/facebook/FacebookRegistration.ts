@@ -154,7 +154,7 @@ class FacebookRegistration {
 		M.track({
 			trackingMethod: 'both',
 			action: action,
-			category: 'user-signup-mobile',
+			category: 'user-signup-' + pageParams.viewType + (isModal ? '-modal' : ''),
 			label: label
 		});
 	}

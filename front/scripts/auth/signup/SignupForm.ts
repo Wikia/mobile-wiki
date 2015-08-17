@@ -53,7 +53,7 @@ class SignupForm {
 		M.track({
 			trackingMethod: 'both',
 			action: M.trackActions.success,
-			category: 'user-login-' + pageParams.viewType,
+			category: 'user-login-' + pageParams.viewType + (isModal ? '-modal' : ''),
 			label: 'successful-registration'
 		});
 	}
