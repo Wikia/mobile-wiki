@@ -5,10 +5,10 @@ class FormErrors {
 	trackingLabelPrefix: string;
 	tracker: AuthTracker;
 
-	constructor (form: HTMLFormElement, trackingLabelPrefix: string = 'formValidationErrors') {
+	constructor (form: HTMLFormElement, trackingLabelPrefix: string = 'formValidationErrors', page: string = 'signup') {
 		this.form = form;
 		this.trackingLabelPrefix = trackingLabelPrefix;
-		this.tracker = new AuthTracker('login');
+		this.tracker = new AuthTracker(page);
 	}
 
 	public clearValidationErrors(): void {
