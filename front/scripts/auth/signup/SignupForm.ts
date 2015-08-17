@@ -50,7 +50,7 @@ class SignupForm {
 	}
 
 	private getWikiaDomain(): string {
-		var hostParts: [string] = location.host.split('.').reverse();
+		var hostParts: string[] = location.host.split('.').reverse();
 		if (hostParts.length >= 2) {
 			return hostParts[1] + '.' + hostParts[0];
 		}
