@@ -186,11 +186,7 @@ App.CuratedContentEditorModel.reopenClass({
 			labels = sectionOrBlock.items.map((item: CuratedContentEditorItemModel): string => {
 				var itemLabel: string = Em.get(item, 'label');
 
-				if (excludedLabel === null || itemLabel !== excludedLabel) {
-					return itemLabel;
-				} else {
-					return null;
-				}
+				return (excludedLabel === null || itemLabel !== excludedLabel) ? itemLabel : null;
 			}).filter((item: any): boolean => typeof item === 'string');
 		}
 
