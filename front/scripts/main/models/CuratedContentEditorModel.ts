@@ -163,55 +163,44 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	getAlreadyUsedLabels(sectionOrBlock: CuratedContentEditorItemModel, excludedLabel: string = null): string[] {
-		return this.getLabels(sectionOrBlock, excludedLabel, {isLabelAlreadyExcluded: false}).filter(this.isString);
+		return this.getLabels(sectionOrBlock, excludedLabel);
 	},
 
 	getAlreadyUsedNonFeaturedItemsLabels(block: CuratedContentEditorModel, excludedLabel: string = null): string[] {
-		var labels: string[] = [],
-			duplicationInfo = {isLabelAlreadyExcluded: false};
+		var labels: string[] = [];
 
 		// Labels of section items
 		block.curated.items.forEach((section: CuratedContentEditorItemModel): void => {
-			labels = labels.concat(
-				this.getLabels(section, excludedLabel, duplicationInfo)
-			);
+			labels = labels.concat(this.getLabels(section, excludedLabel));
 		});
 
 		// Labels of optional block items
-		labels = labels.concat(this.getLabels(block.optional, excludedLabel, duplicationInfo));
+		labels = labels.concat(this.getLabels(block.optional, excludedLabel));
 
 		return labels;
 	},
 
 	getLabels(
 		sectionOrBlock: CuratedContentEditorItemModel,
-		excludedLabel: string = null,
-		duplicationInfo: {isLabelAlreadyExcluded: boolean;} = {isLabelAlreadyExcluded: false}
+		excludedLabel: string = null
 	): string[] {
 		var labels: string[] = [];
 
 		if (Array.isArray(sectionOrBlock.items)) {
-			labels = sectionOrBlock.items.map((sectionItem: CuratedContentEditorItemModel): string => {
-				if (
-					!this.isString(excludedLabel) ||
-					duplicationInfo.isLabelAlreadyExcluded ||
-					sectionItem.hasOwnProperty('label') &&
-					this.isString(sectionItem.label) &&
-					sectionItem.label.toLowerCase() !== excludedLabel.toLowerCase()
-				) {
-					return sectionItem.label.toLowerCase();
+			labels = sectionOrBlock.items.map((item: CuratedContentEditorItemModel): string => {
+				var itemLabel: string = Em.get(item, 'label') || '',
+					itemLabelLowerCase: string = itemLabel.toLowerCase(),
+					excludedLabelLowerCase: string = excludedLabel ? excludedLabel.toLowerCase() : null;
+
+				if (excludedLabel === null || itemLabelLowerCase !== excludedLabelLowerCase) {
+					return itemLabelLowerCase;
 				} else {
-					duplicationInfo.isLabelAlreadyExcluded = true;
 					return null;
 				}
-			}).filter(this.isString);
+			}).filter((item: any): boolean => typeof item === 'string');
 		}
 
 		return labels;
-	},
-
-	isString(item: any): boolean {
-		return typeof item === 'string';
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
