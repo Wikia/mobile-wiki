@@ -1,3 +1,6 @@
+## release-135 (2015-08-17 10:00 UTC)
+* [CONCF-978](https://wikia-inc.atlassian.net/browse/CONCF-978) CONCF-978 Take into account user's permissions in Curated Content Tool
+
 ## release-134 (2015-08-14 10:00 UTC)
 * [INT-160](https://wikia-inc.atlassian.net/browse/INT-160) Config files for Japan homepage
 * [INT-157](https://wikia-inc.atlassian.net/browse/INT-157) Mobile tweaks for nav with search and login window for Japan homepage
