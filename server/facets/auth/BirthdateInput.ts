@@ -1,4 +1,4 @@
-import localeSettings = require('../../../config/localeSettings');
+import dateUtils = require('../../lib/DateUtils');
 
 class BirthdateInput {
 	inputData: Array<InputData>;
@@ -34,22 +34,22 @@ class BirthdateInput {
 				name: 'day',
 				maxLength: 2,
 				maxVal: 31,
-				placeholder: localeSettings[this.lang].date.dayFormat,
-				separator: localeSettings[this.lang].date.daySeparator
+				placeholder: dateUtils.get('day-format', this.lang),
+				separator: dateUtils.get('day-separator', this.lang)
 			},
 			'month': {
 				name: 'month',
 				maxLength: 2,
 				maxVal: 12,
-				placeholder: localeSettings[this.lang].date.monthFormat,
-				separator: localeSettings[this.lang].date.monthSeparator
+				placeholder: dateUtils.get('month-format', this.lang),
+				separator: dateUtils.get('month-separator', this.lang)
 			},
 			'year': {
 				name: 'year',
 				maxLength: 4,
 				maxVal: new Date().getFullYear(),
-				placeholder: localeSettings[this.lang].date.yearFormat,
-				separator: localeSettings[this.lang].date.yearSeparator
+				placeholder: dateUtils.get('year-format', this.lang),
+				separator: dateUtils.get('year-separator', this.lang)
 			}
 		};
 
