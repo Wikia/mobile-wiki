@@ -1,5 +1,8 @@
-$parallax-window-height: 30em;
-$parallax-background-height: $parallax-window-height * 2;
+$parallax-window-height: 25em;
+
+.parallax {
+	padding-bottom: 2em;
+}
 
 .parallax-window {
 	max-height: $parallax-window-height;
@@ -39,11 +42,12 @@ $parallax-background-height: $parallax-window-height * 2;
 	background-color: $parallax-bacground-color;
 	background-position: top;
 	background-size: cover;
-	height: $parallax-background-height;
+	height: $parallax-window-height * 2;
 	left: 0;
 	position: absolute;
 	top: - $parallax-window-height / 3;
 	width: 100%;
 }
+
 
 // Based on http://codepen.io/skeurentjes/

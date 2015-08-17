@@ -2,7 +2,7 @@
  * Options for prod environment
  */
 
-var zlib = require('zlib' ),
+var zlib = require('zlib'),
 	paths = require('../paths');
 
 module.exports = {

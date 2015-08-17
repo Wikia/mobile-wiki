@@ -1,0 +1,69 @@
+<form {{action 'done' on='submit'}}>
+	<header class="edit-head curated-content-editor-head">
+		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
+		<button class="large publish curated-content-editor-submit" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
+		<div class="edit-head-title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
+	</header>
+	<div class="curated-content-editor-photo {{aspectRatioName}} {{if imageErrorMessage 'error'}}" {{action 'showImageModal'}}>
+		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
+		{{#if imageErrorMessage}}
+			<small class="error">{{imageErrorMessage}}</small>
+		{{/if}}
+		{{loading-spinner active=isLoading overlay=false}}
+	</div>
+	<div class="image-modal-wrapper {{if imageModalVisible 'visible'}}" >
+		<div class="image-modal-layover" {{action 'hideImageModal'}}></div>
+		<ul class="image-modal">
+			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageModal')}}
+			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
+		</ul>
+	</div>
+	<div class="curated-content-input-wrapper">
+		<div class="input-container {{if labelErrorMessage 'error'}}">
+			{{input
+				value=model.label
+				id='label'
+				class=labelClass
+				name='label'
+				focus-out='setLabelFocusedOut'
+				focus-in='setLabelFocusedIn'
+			}}
+			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-display-name'}}</label>
+			{{#if labelErrorMessage}}
+				<small class="error">{{labelErrorMessage}}</small>
+			{{/if}}
+		</div>
+		{{#unless isSection}}
+			<div class="title input-container {{if titleErrorMessage 'error'}}">
+				{{input
+					value=model.title
+					id='title'
+					class=titleClass
+					name='title'
+					focus-out='setTitleFocusedOut'
+					focus-in='setTitleFocusedIn'
+				}}
+				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
+				{{#if searchSuggestionsVisible}}
+					<div class="title-suggestions-container">
+						<ul>
+						{{#if searchSuggestionsResult.length}}
+							{{#each searchSuggestionsResult as |item|}}
+								<li {{action 'setTitle' item.title}}>{{item.title}}</li>
+							{{/each}}
+						{{else}}
+							<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
+						{{/if}}
+						</ul>
+					</div>
+				{{/if}}
+				{{#if titleErrorMessage}}
+					<small class="error">{{titleErrorMessage}}</small>
+				{{/if}}
+			</div>
+		{{/unless}}
+	</div>
+	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
+</form>
+
+

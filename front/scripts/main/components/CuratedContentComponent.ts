@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
-///<reference path="../mixins/LoadingSpinnerMixin.ts"/>
-///<reference path="../mixins/TrackClickMixin.ts"/>
-///<reference path="../models/CuratedContentModel.ts"/>
+/// <reference path="../mixins/LoadingSpinnerMixin.ts"/>
+/// <reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../models/CuratedContentModel.ts"/>
 'use strict';
 
 App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.TrackClickMixin, {

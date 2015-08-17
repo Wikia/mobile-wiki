@@ -1,17 +1,20 @@
 {
   "errors":{
-    "email_already_exists":"E-mail jest już zarejestrowany na Wikia",
+    "email_already_exists":"E-mail jest już zarejestrowany na portalu Wikia",
     "email_invalid":"Niepoprawny adres e-mail",
-    "registration_error":"Nie możemy w tej chwili zakończyć rejestracji",
-    "username_already_exists":"Ktoś już korzysta z tej nazwy użtkownika. Spróbuj wybrać inną!",
-    "username_unavailable":"Ups, nazwa użytkownika może zawierać tylko litery i cyfry z jednego alfabetu i musi zawierać przynajmniej jedną literę. Spróbuj podać inną nazwę.",
-    "username_ip_address":"Ups, nazwa użytkownika wygląda jak adres IP. Spróbuj podać inną nazwę, która zawiera co najmniej jedną literę.",
-    "username_exceeds_max_length":"Ups, nazwa użytkownika nie może być dłuższa niż 50 znaków.",
-    "username_illegal_characters":"Ups, nazwa użytkownika może zawierać tylko litery i cyfry z jednego alfabetu i musi zawierać przynajmniej jedną literę. Spróbuj podać inną nazwę.",
-    "password_exceeds_max_length":"Twoje hasło jest zbyt długie. Wybierz hasło, które ma mniej niż 51 znaków.",
-    "password_equal_name":"Hasło musi być inne niż nazwa użytkownika.",
-    "birthdate_invalid":"Ups, wygląda na to, że podana data zawiera błąd! Spróbuj ponownie.",
-    "wrong-credentials":"Hmm, nie rozpoznaliśmy podanych danych logowania. Spróbuj ponownie lub zarejestruj nowe konto.",
-    "server-error":"Przepraszamy, ale podczas przetwarzania żądania wystąpił błąd. Spróbuj ponownie później."
+    "registration_error":"Nie możemy w tej chwili ukończyć rejestracji",
+    "username_already_exists":"Nazwa użytkownika jest już wykorzystywana",
+    "username_unavailable":"Nazwa użytkownika jest już wykorzystywana lub zawiera nieprawidłowe znaki. Nazwa użytkownika może zawierać litery i cyfry z jednego alfabetu oraz musi zawierać jedną literę.",
+    "username_ip_address":"Nazwa użytkownika musi zawierać przynajmniej jedną literę",
+    "username_exceeds_max_length":"Nazwa użytkownika nie może być dłuższa niż 50 znaków",
+    "username_illegal_characters":"Nazwa użytkownika może zawierać jedynie litery i cyfry z jednego alfabetu oraz musi zawierać jedną literę",
+    "password_exceeds_max_length":"Hasło nie może być dłuższe niż 50 znaków",
+    "password_equal_name":"Hasło i nazwa użytkownika nie mogą być takie same",
+    "birthdate_invalid":"Data urodzenia nie jest prawidłowa",
+    "wrong-credentials":"Nie rozpoznajemy tych danych uwierzytelniania. Spróbuj ponownie lub zarejestruj nowe konto.",
+    "server-error":"Wystąpił błąd podczas przetwarzania twojego żądania. Prosimy spróbować ponownie później."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"Akceptuję __termsOfUseLink__ oraz __privacyPolicyLink__ (wymagane)"
   }
 }

@@ -1,11 +1,13 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
+/// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.LoadingSpinnerMixin,
+	App.TrackClickMixin,
 {
 	classNames: ['curated-content-editor'],
 
@@ -27,6 +29,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		},
 
 		save(): void {
+			this.trackClick('curated-content-editor', 'save');
 			this.validateAndSave();
 		}
 	},
@@ -36,34 +39,33 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		App.CuratedContentEditorModel.save(this.get('model'))
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
-					//@TODO CONCF-956 add translations
-					this.addAlert('info', 'Data saved.');
+					this.addAlert('info', i18n.t('app.curated-content-editor-changes-saved'));
 					this.sendAction('openMainPage');
 				} else {
 					if (data.error) {
 						data.error.forEach((error: any) => this.processValidationError(error.reason));
 					} else {
-						//@TODO CONCF-956 add translations
-						this.addAlert('alert', 'Something went wrong. Please repeat.');
+						this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 					}
 				}
 			})
 			.catch((err: any): void => {
-				//@TODO CONCF-956 add translations
-				Em.Logger.error(err);
-				this.addAlert('alert', 'Something went wrong. Please repeat.');
+				if (err.status === 403) {
+					this.addAlert('warning', i18n.t('app.curated-content-editor-error-no-save-permissions'));
+				} else {
+					Em.Logger.error(err);
+					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+				}
 			})
 			.finally((): void => this.hideLoader());
 	},
 
 	processValidationError(reason: string) {
 		if (reason === 'itemsMissing') {
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+			this.addAlert('alert', i18n.t('app.curated-content-editor-missing-items-error'));
 		} else {
 			// if other items occur that means user somehow bypassed validation of one or more items earlier
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside items');
+			this.addAlert('alert', i18n.t('app.curated-content-editor-error-inside-items-message'));
 		}
 	}
 });

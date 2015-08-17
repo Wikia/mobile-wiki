@@ -16,7 +16,7 @@
 	<body class="auth {{bodyClasses}}">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
-	{{#if exitTo}}
+		{{#if exitTo}}
 		<a class="close" href="{{exitTo}}">
 			<svg role="img">
 				<use xlink:href="#close"></use>
@@ -25,7 +25,12 @@
 		{{/if}}
 
 		{{#unless hideHeader}}
-		<header class="auth-header splash splash-top">{{i18n headerText}}</header>
+		<header class="auth-header splash splash-top">
+			<h1>{{i18n headerText}}</h1>
+			{{#if headerSlogan}}
+			<p>{{i18n headerSlogan}}</p>
+			{{/if}}
+		</header>
 		{{/unless}}
 
 		{{{content}}}
@@ -38,7 +43,8 @@
 
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},
-					language = {{{json language}}};
+					language = {{{json language}}},
+					pageParams = {{{json pageParams}}};
 		</script>
 		<!-- build:js /front/scripts/auth.js -->
 		<script src="/front/vendor/i18next/i18next.min.js"></script>

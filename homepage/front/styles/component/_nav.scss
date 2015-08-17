@@ -1,24 +1,24 @@
 
-header.navigation {
-	$base-border-color: gainsboro !default;
-	$base-border-radius: 3px !default;
-	$action-color: #477DCA !default;
-	$large-screen: 710px;
-	$navigation-padding: 1em;
-	$navigation-background: white;
-	$navigation-color: transparentize($dark-gray, .5);
-	$navigation-color-hover: $dark-gray;
-	$navigation-height: rem-calc(48);
-	$navigation-nav-button-background: $action-color;
-	$navigation-nav-button-background-hover: lighten($navigation-background, 10%);
-	$navigation-nav-button-border: 1px solid lighten($navigation-nav-button-background, 20%);
-	$navigation-search-background: lighten($navigation-background, 5);
-	$navigation-search-border: 1px solid darken($navigation-background, 5);
-	$navigation-active-link-color: transparentize($navigation-background, .5);
-	$navigation-submenu-padding: 1em;
-	$navigation-submenu-width: 12em;
-	$horizontal-bar-mode: $large-screen;
+$base-border-color: gainsboro !default;
+$base-border-radius: 3px !default;
+$action-color: #477DCA !default;
+$large-screen: 710px;
+$navigation-padding: 1em;
+$navigation-background: white;
+$navigation-color: transparentize($dark-gray, .5);
+$navigation-color-hover: $dark-gray;
+$navigation-height: rem-calc(48);
+$navigation-nav-button-background: $action-color;
+$navigation-nav-button-background-hover: lighten($navigation-background, 10%);
+$navigation-nav-button-border: 1px solid lighten($navigation-nav-button-background, 20%);
+$navigation-search-background: lighten($navigation-background, 5);
+$navigation-search-border: 1px solid darken($navigation-background, 5);
+$navigation-active-link-color: transparentize($navigation-background, .5);
+$navigation-submenu-padding: 1em;
+$navigation-submenu-width: 12em;
+$horizontal-bar-mode: $large-screen;
 
+header.navigation {
 	background-color: $navigation-background;
 	border-bottom: 1px solid darken($navigation-background, 10);
 	min-height: $navigation-height;
@@ -28,6 +28,8 @@ header.navigation {
 	.navigation-wrapper {
 		@include clearfix;
 		@include outer-container;
+
+		height: 53px;
 		position: relative;
 		z-index: 9999;
 	}
@@ -87,7 +89,6 @@ header.navigation {
 		overflow: hidden;
 		padding-right: 0;
 		text-align: right;
-		width: 100%;
 		z-index: 9999;
 
 		@include media ($horizontal-bar-mode) {
@@ -148,13 +149,6 @@ header.navigation {
 		> a {
 			padding-right: .6em;
 		}
-
-		> a:after {
-			@include position(absolute, auto -.4em auto auto);
-
-			color: $navigation-color;
-			content: '\25BE';
-		}
 	}
 
 	li.more {
@@ -164,6 +158,11 @@ header.navigation {
 		@include media($horizontal-bar-mode) {
 			padding-right: .8em;
 			position: relative;
+
+			&:focus > .submenu,
+			&:hover > .submenu {
+				display: block;
+			}
 		}
 
 		> a {
@@ -174,10 +173,18 @@ header.navigation {
 				margin-right: $navigation-submenu-padding;
 			}
 		}
+	}
 
-		&:focus > .submenu,
-		&:hover > .submenu {
-			display: block;
+	li.mobile-login {
+		position: absolute;
+		right: -20px;
+		top: -53px;
+
+		@include media($horizontal-bar-mode) {
+			display: none;
+			position: relative;
+			right: auto;
+			top: auto;
 		}
 	}
 
@@ -251,7 +258,6 @@ header.navigation {
 	}
 
 	// Search bar
-
 	.search-bar {
 		$search-bar-border-color: #c5ced9;
 		$search-bar-border: 1px solid $search-bar-border-color;
@@ -310,6 +316,72 @@ header.navigation {
 					height: 12px;
 					opacity: .7;
 				}
+			}
+		}
+	}
+}
+
+// Search bar for Mobile
+.search-bar-mobile {
+	$search-bar-border-color: #c5ced9;
+	$search-bar-border: 1px solid $search-bar-border-color;
+	$search-bar-background: #f2f6fa;
+
+	display: inline-block;
+	float: left;
+	padding: .6em .85em 1.3em .6em;
+	width: 100%;
+
+	@include media($horizontal-bar-mode) {
+		display: none;
+
+		/*
+		position: relative;
+		width: 25em;
+
+		input {
+			box-sizing: border-box;
+			display: block;
+		}
+		*/
+	}
+
+	form {
+		padding-top: .25rem;
+		position: relative;
+
+		input[type=search] {
+			background-color: $search-bar-background;
+			border: $search-bar-border;
+			border-radius: 0;
+			box-sizing: border-box;
+			color: $navigation-color;
+			font-size: .9em;
+			height: rem-calc(32);
+			margin: 0;
+			padding: .5em .8em;
+			width: 100%;
+
+			@include media($horizontal-bar-mode) {
+				height: rem-calc(28);
+				width: 100%;
+			}
+		}
+
+		button[type=button] {
+			@include position(absolute, 0 0 0 null);
+
+			background-color: $search-bar-background;
+			border-radius: 0;
+			height: 1rem;
+			outline: none;
+			padding: 5px 8px;
+			right: .1rem;
+			top: .35rem;
+
+			img {
+				height: 12px;
+				opacity: .7;
 			}
 		}
 	}

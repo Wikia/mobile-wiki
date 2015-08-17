@@ -9,16 +9,17 @@
 var Hapi = require('hapi'),
 	Good = require('good'),
 	path = require('path'),
+	localSettings = require('../config/localSettings').localSettings,
 	routes = require('./routes').routes,
 	server = new Hapi.Server();
 
-server.connection({ port: 8111 });
+server.connection({ port: localSettings.port });
 
 // Initialize cookies
 server.state('access_token', {
 	isHttpOnly: true,
 	clearInvalid: true,
-	domain: '.wikia.com' //TODO: localSettings.authCookieDomain
+	domain: localSettings.authCookieDomain
 });
 
 server.route(routes);
