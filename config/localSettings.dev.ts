@@ -14,9 +14,6 @@ var localSettings = baseLocalSettings.getSettings({
 	helios: {
 		host: 'https://services.wikia-dev.com/auth',
 	},
-	weppy: {
-		enabled: false,
-	},
 	facebook: {
 		appId: 881967318489580
 	},
