@@ -32,7 +32,7 @@ interface LocalSettings {
 	discuss?: any; //XXX change to interface
 	environment: any;
 	helios: {
-		host: string;
+		path: string;
 		usernameMaxLength: number;
 		passwordMaxLength: number;
 	};

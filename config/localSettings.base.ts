@@ -19,7 +19,7 @@ var localSettings: LocalSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		host: 'https://services.wikia.com/auth',
+		path: '/auth',
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},

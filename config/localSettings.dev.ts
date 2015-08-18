@@ -11,9 +11,6 @@ var localSettings = baseLocalSettings.getSettings({
 	},
 	authCookieDomain: '.wikia-dev.com',
 	servicesDomain:'services.wikia-dev.com',
-	helios: {
-		host: 'https://services.wikia-dev.com/auth',
-	},
 	facebook: {
 		appId: 881967318489580
 	},
