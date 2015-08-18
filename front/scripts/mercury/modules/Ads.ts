@@ -166,6 +166,13 @@ module Mercury.Modules {
 		 * This method is being overwritten in ApplicationRoute for ads needs.
 		 * To learn more check ApplicationRoute.ts file.
 		 */
+		public openLightbox (contents: any): void {
+		}
+
+		/**
+		 * This method is being overwritten in ApplicationRoute for ads needs.
+		 * To learn more check ApplicationRoute.ts file.
+		 */
 		public createLightbox (contents: any, lightboxVisible?: boolean): void {
 		}
 
