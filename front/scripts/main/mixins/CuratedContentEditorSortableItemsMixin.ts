@@ -1,14 +1,20 @@
 /// <reference path="../app.ts" />
+/// <reference path="TrackClickMixin.ts"/>
+
 'use strict';
 
-App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create({
+App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
+	App.TrackClickMixin,
+	{
 	persistentSort: false,
 	sortableItems: Em.computed('model.items', function (): any {
-		return Em.A().pushObjects(this.get('model.items'));
+		var items = this.get('model.items') || [];
+		return Em.A().pushObjects(items);
 	}),
 
 	actions: {
 		moveBy(offset: number, item: CuratedContentEditorItemModel): void {
+			this.trackClick('curated-content-editor', 'item-move');
 			var items: Em.NativeArray = this.get('sortableItems'),
 				currentItemIndex = items.indexOf(item);
 

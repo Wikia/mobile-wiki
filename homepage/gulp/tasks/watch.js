@@ -6,12 +6,17 @@
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	path = require('path'),
-    server = require('gulp-develop-server'),
+	nodemon = require('gulp-nodemon'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload,
-	paths = require('../paths');
+	paths = require('../paths'),
+	options = {
+		path: ['server/index.js'],
+		env: process.env,
+		killSignal: 'SIGKILL'
+	};
 
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', ['build-combined'], function () {
 	if (!gutil.env.nosync) {
 		browserSync({
 			ghostMode: false,
@@ -20,24 +25,21 @@ gulp.task('watch', ['build'], function () {
 		});
 	}
 
+	nodemon({
+		script: 'server/index.js',
+		ext: 'js html',
+		env: { 'NODE_ENV': options.env },
+		tasks: ['lint'],
+	}).on('start', function () {
+		reload(path);
+	});
+
 	// Sass
-	gulp.watch(paths.styles.homepage.watch, ['sass']);
+	gulp.watch(paths.styles.homepage.watch, ['sass', browserSync.reload]);
 
 	// Client Scripts
-	gulp.watch(paths.scripts.homepage.watch, ['scripts']);
+	gulp.watch(paths.scripts.homepage.watch, ['build-combined', browserSync.reload]);
 
-	gulp.watch([
-		paths.server.homepage.watch,
-		paths.scripts.homepage.watch,
-		paths.styles.homepage.watch
-	]).on('change', function (event) {
-		server.restart(function () {
-			console.log('File changed: ' + gutil.colors.green(event.path) + '\nRestarting server');
-
-			if (event.path.match('front')) {
-				console.log('Updating browser');
-				reload(path);
-			}
-		});
-	});
+	// Server Scripts
+	gulp.watch(paths.server.homepage.watch, ['lint', browserSync.reload]);
 });

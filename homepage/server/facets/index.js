@@ -6,13 +6,17 @@
 
 'use strict';
 
-function index(request, reply) {
-	var data = {
-		title: 'Wikia Japan Homepage',
-		message: 'Placeholder content'
-	};
+var util = require('../util'),
+    hubConfig = util.readJsonConfigSync('static/hub_config.json');
 
-	return reply.view('index', data);
+function index(request, reply) {
+    var locale = util.getUserLocale(request),
+        data = {
+            title: 'ウィキア・ジャパン',
+            carousel: util.getLocalizedHubData(hubConfig, locale)
+        };
+
+    return reply.view('index', data);
 }
 
 module.exports = index;

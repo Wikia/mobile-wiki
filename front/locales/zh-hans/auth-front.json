@@ -13,5 +13,8 @@
     "birthdate_invalid":"出生日期无效",
     "wrong-credentials":"我们无法识别这些凭据。请再试一次或注册一个新帐户。",
     "server-error":"处理您的请求时出错。请稍后再试。"
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"我同意 __termsOfUseLink__ 和 __privacyPolicyLink__ (必填)"
   }
 }

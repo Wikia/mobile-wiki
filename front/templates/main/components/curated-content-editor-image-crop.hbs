@@ -1,0 +1,9 @@
+<header class="edit-head curated-content-editor-head">
+	<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
+	<button {{action 'done'}} class="large publish curated-content-editor-submit">{{i18n 'app.curated-content-editor-done'}}</button>
+	<div class="edit-head-title">{{i18n 'app.curated-content-editor-crop-image'}}</div>
+</header>
+<div class="curated-content-editor-photo-crop">
+	<img src="{{imageUrl}}" />
+</div>
+{{loading-spinner active=isLoading}}

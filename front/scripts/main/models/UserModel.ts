@@ -9,6 +9,7 @@ interface UserModelParams {
 interface UserProperties {
 	avatarPath: string;
 	name: string;
+	profileUrl: string;
 	userId: number;
 }
 
@@ -26,7 +27,7 @@ App.UserModel.reopenClass({
 			model = App.UserModel.create();
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: App.get('apiBase') + '/userDetails',
 				dataType: 'json',
 				data: {
@@ -54,7 +55,11 @@ App.UserModel.reopenClass({
 		return {
 			name: userData.name,
 			userId: userData.user_id,
-			avatarPath: userData.avatar
+			avatarPath: userData.avatar,
+			profileUrl: M.buildUrl({
+				namespace: 'User',
+				title: userData.name
+			})
 		}
 	}
 });

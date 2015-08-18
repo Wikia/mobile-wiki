@@ -4,6 +4,7 @@
 class SubmitValidator {
 	form: HTMLFormElement;
 	submitButton: HTMLButtonElement;
+	isPermanentlyDisabled: boolean = false;
 
 	constructor(form: Element) {
 		this.form = <HTMLFormElement> form;
@@ -14,7 +15,7 @@ class SubmitValidator {
 	 * Activates / deactivates submit button in the login form
 	 */
 	private onChange ():void {
-		if (this.areAllFieldsFilled()) {
+		if (this.areAllFieldsFilled() && !this.isPermanentlyDisabled) {
 			this.activateSubmit();
 		} else {
 			this.deactivateSubmit();
@@ -43,6 +44,11 @@ class SubmitValidator {
 
 	private deactivateSubmit ():void {
 		this.submitButton.disabled = true;
+	}
+
+	public disablePermanently (): void {
+		this.isPermanentlyDisabled = true;
+		this.deactivateSubmit();
 	}
 
 	/**

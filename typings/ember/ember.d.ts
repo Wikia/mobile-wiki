@@ -1398,7 +1398,7 @@ declare module Ember {
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends Mixin>(args: {}): T;
+        static create<T extends Mixin>(...arguments: CoreObjectArguments[]): T;
         detect(obj: any): boolean;
         reopen<T extends Mixin>(args?: {}): T;
     }
@@ -2898,6 +2898,7 @@ declare module Ember {
     function normalizeTuple(target: any, path: string): any[];
     function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
+    function on(name: string, callback: Function): void;
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;
     var onError: Error;
@@ -3184,6 +3185,7 @@ declare module Em {
     var normalizeTuple: typeof Ember.normalizeTuple;
     var observer: typeof Ember.observer;
     var observersFor: typeof Ember.observersFor;
+    var on: typeof Ember.on;
     var onLoad: typeof Ember.onLoad;
     var oneWay: typeof Ember.oneWay;
     var onError: typeof Ember.onError;

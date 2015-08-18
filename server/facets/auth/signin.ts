@@ -7,6 +7,7 @@ var deepExtend = require('deep-extend');
 
 interface SignInViewContext extends authView.AuthViewContext {
 	headerText: string;
+	headerSlogan?: string;
 	forgotPasswordHref?: string;
 	heliosLoginURL: string;
 }
@@ -42,9 +43,12 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 			bodyClasses: 'fb-connect-page',
 			heliosLoginURL: localSettings.helios.host + '/token',
 			heliosFacebookConnectURL: localSettings.helios.host + '/users/',
-			facebookAppId: localSettings.facebook.appId,
 			submitText: 'auth:fb-connect.submit-text',
-			formId: 'facebookConnectForm'
+			formId: 'facebookConnectForm',
+			headerSlogan: 'auth:fb-connect.facebook-connect-info',
+			pageParams: {
+				facebookAppId: localSettings.facebook.appId
+			}
 		}
 	);
 }

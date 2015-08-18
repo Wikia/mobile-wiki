@@ -30,7 +30,9 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			signupHref: authUtils.getRegisterUrl(request),
 			bodyClasses: 'splash join-page',
 			heliosFacebookUri: localSettings.helios.host + '/facebook/token',
-			facebookAppId: localSettings.facebook.appId
+			pageParams: {
+				facebookAppId: localSettings.facebook.appId
+			}
 		}
 	);
 

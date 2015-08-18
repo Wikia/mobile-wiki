@@ -69,13 +69,13 @@ App.ArticleModel.reopenClass({
 		var model = App.ArticleModel.create(params);
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			if (M.prop('firstPage') && !M.prop('asyncArticle')) {
+			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
 			}
 
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: this.url(params),
 				dataType: 'json',
 				success: (data): void => {
@@ -99,7 +99,7 @@ App.ArticleModel.reopenClass({
 
 	getArticleRandomTitle: function (): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: App.get('apiBase') + '/article?random&titleOnly',
 				cache: false,
 				dataType: 'json',
@@ -125,7 +125,7 @@ App.ArticleModel.reopenClass({
 			adsInstance: Mercury.Modules.Ads,
 			instantGlobals = Wikia.InstantGlobals || {};
 
-		M.prop('firstPage', false);
+		M.prop('articleContentPreloadedInDOM', false);
 
 		// On first page load the article content is available only in HTML
 		article.content = $('#preloadedContent').html();

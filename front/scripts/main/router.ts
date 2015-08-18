@@ -70,6 +70,12 @@ App.Router.map(function () {
 		path: articlePath + 'addPhoto/:title'
 	});
 
+	this.route('discussion', {path: '/d'}, function () {
+		this.route('forum', {path: '/:forumId'}, function () {
+			this.route('post', {path: '/:postId'});
+		});
+	});
+
 	// We don't want to duplicate the previous route
 	if (articlePath !== '/') {
 		// Route to catch all badly formed URLs

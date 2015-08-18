@@ -26,7 +26,7 @@ module.exports = {
     },
     styles: {
         homepage: {
-            src: 'front/styles/**/*.scss',
+            src: 'front/styles/app.scss',
             watch: 'front/styles/**/*.scss',
             dest: 'front/css',
             partials: '_*.scss',
@@ -37,6 +37,20 @@ module.exports = {
         homepage: {
             src: 'front/scripts',
             watch: 'front/scripts/**/*.ts',
+            dest: 'front/js',
+            files: '**/*.ts',
+            dFiles: '**/*.d.ts'
+        },
+        auth: {
+            src: '../front/scripts/auth',
+            watch: '../front/scripts/auth/**/*.ts',
+            dest: 'front/js',
+            files: '**/*.ts',
+            dFiles: '**/*.d.ts'
+        },
+        util: {
+            src: '../front/scripts/mercury/utils',
+            watch: '../front/scripts/mercury/utils/**/*.ts',
             dest: 'front/js',
             files: '**/*.ts',
             dFiles: '**/*.d.ts'
@@ -63,7 +77,7 @@ module.exports = {
     server: {
         homepage: {
             script: 'server/index.js',
-            watch: 'server/**/*.js'
+            watch: 'server/**/*'
         }
     },
     config: {
