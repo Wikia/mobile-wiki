@@ -44,7 +44,7 @@ class FacebookRegistration {
 		this.termsOfUse.init();
 
 		this.redirect = this.redirect || '/';
-		this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors', 'signup');
+		this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors');
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 		this.tracker = new AuthTracker('signup');

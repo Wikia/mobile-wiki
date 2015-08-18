@@ -6,7 +6,7 @@ class AuthTracker {
 	}
 
 	private setGaCategory (page: string): string {
-		return 'user-' + page + '-' + pageParams.viewType + (isModal ? '-modal' : '');
+		return 'user-' + page + '-' + pageParams.viewType + (pageParams.isModal ? '-modal' : '');
 	}
 
 	public trackClick (element: HTMLElement, label: string, action = M.trackActions.click): void {

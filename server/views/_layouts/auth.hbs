@@ -21,7 +21,7 @@
 				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
 			</nav>
 		{{else}}
-			{{#unless isModal}}
+			{{#unless pageParams.isModal}}
 			<a class="close" href="{{exitTo}}">
 				<svg role="img">
 					<use xlink:href="#close"></use>
@@ -50,8 +50,7 @@
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},
 					language = {{{json language}}},
-					pageParams = {{{json pageParams}}},
-					isModal = {{{isModal}}};
+					pageParams = {{{json pageParams}}};
 		</script>
 		<!-- build:js /front/scripts/auth.js -->
 		<script src="/front/vendor/i18next/i18next.min.js"></script>

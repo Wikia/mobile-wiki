@@ -7,7 +7,8 @@ import url = require('url');
 
 module authView {
 	interface PageParams {
-		[key: string]: string
+		isModal: boolean;
+		[key: string]: string;
 	}
 
 	export var VIEW_TYPE_MOBILE = 'mobile';
@@ -30,7 +31,6 @@ module authView {
 		headerText?: string;
 		bodyClasses?: string;
 		trackingConfig?: any;
-		isModal?: boolean;
 	}
 
 	export function view (template: string, context: AuthViewContext, request: Hapi.Request, reply: any): Hapi.Response {
@@ -90,7 +90,6 @@ module authView {
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
 			mainPage: "http://www.wikia.com",
-			isModal: isModal,
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
@@ -98,6 +97,7 @@ module authView {
 					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
+				isModal: isModal,
 				viewType: viewType
 			}
 		};
