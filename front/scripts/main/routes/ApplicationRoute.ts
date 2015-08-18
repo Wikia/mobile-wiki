@@ -39,7 +39,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 			/**
 			 * Temporary method to keep working the interstitial before ADEN-2289 is released.
-			 * @TODO clean up after release
+			 * @TODO clean up after release: ADEN-2347
 			 */
 			adsInstance.openLightbox = (contents: any): void => {
 				this.send('openLightbox', 'ads', {contents});
