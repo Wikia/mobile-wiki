@@ -304,13 +304,19 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 							data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
 								=> this.processValidationError(error.reason));
 						} else {
-							this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+							this.addAlert({
+								message: i18n.t('app.curated-content-error-other'),
+								type: 'alert'
+							});
 						}
 					}
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
 				})
 				.finally((): void => this.hideLoader());
 		},

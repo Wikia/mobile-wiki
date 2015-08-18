@@ -4,10 +4,19 @@
 App.AlertNotificationsMixin = Em.Mixin.create({
 	alertNotifications: Ember.A(),
 
-	addAlert: function (alertType: string, message: string): void {
+	addAlert: function (alertData: AlertNotification): void {
+		var message = alertData.message,
+		    type = alertData.type || '',
+		    expiry = alertData.expiry || 10000,
+		    unsafe = alertData.unsafe || false,
+		    callbacks = alertData.callbacks || {};
+
 		this.get('alertNotifications').pushObject({
-			type: alertType,
-			message: message
+			message,
+			type,
+			expiry,
+			unsafe,
+			callbacks
 		});
 	}
 });
