@@ -6,6 +6,16 @@ QUnit.module('auth/common/FormErrors)', {
 		this.formErrors.trackValidationErrors = Function.prototype;
 		this.formErrors.displayFieldValidationError = sinon.spy();
 		this.formErrors.displayGeneralError = sinon.spy();
+		this.AuthTrackerStub = sinon.stub(window, 'AuthTracker').returns({
+			setGaCategory: Function.prototype,
+			trackClick: Function.prototype,
+			trackPageView: Function.prototype,
+			trackSubmit: Function.prototype,
+			track: Function.prototype
+		});
+	},
+	teardown: function () {
+		this.AuthTrackerStub.restore();
 	}
 });
 
