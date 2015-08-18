@@ -17,6 +17,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		imgSelector: '.curated-content-editor-photo-crop > img',
 		$imgElement: null,
 		isLoading: false,
+		cropperInitialized: false,
 
 		// https://github.com/fengyuanchen/cropper#options
 		cropperSettings: {
@@ -106,12 +107,15 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 					aspectRatio: this.get('aspectRatio')
 				});
 
-			$imgElement.cropper(settings);
+			if (!this.get('cropperInitialized')) {
+				$imgElement.cropper(settings);
 
-			this.setProperties({
-				isLoading: false,
-				$imgElement
-			});
+				this.setProperties({
+					isLoading: false,
+					cropperInitialized: true,
+					$imgElement
+				});
+			}
 		},
 
 		onResize(): void {
@@ -120,9 +124,12 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 					aspectRatio: this.get('aspectRatio')
 				});
 
-			// re-init cropper according to https://github.com/fengyuanchen/cropper/issues/421
-			$imgElement.cropper('destroy');
-			$imgElement.cropper(settings);
+			if (this.get('cropperInitialized')) {
+				// re-init cropper according to https://github.com/fengyuanchen/cropper/issues/421
+				$imgElement.cropper('destroy');
+				$imgElement.cropper(settings);
+			}
+
 		}
 
 });
