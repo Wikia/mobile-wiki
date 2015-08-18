@@ -1,8 +1,8 @@
 interface CookieAttributes {
+	domain?: string;
 	expires?: string;
 	path?: string;
-	domain?: string;
-	secure?: boolean
+	secure?: boolean;
 }
 
 class Cookie {
