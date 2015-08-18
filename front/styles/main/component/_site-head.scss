@@ -13,6 +13,14 @@
 	top: 0;
 	z-index: $z-site-head;
 
+	.site-logo {
+		// These prevent the Wikia logo element from taking up more vertical
+		// space than it should, potentially affecting placement of elements
+		// beneath it.
+		height: rem-calc(50);
+		overflow: hidden;
+	}
+
 	.avatar {
 		float: right;
 		position: relative;
@@ -63,5 +71,19 @@
 	svg {
 		display: block;
 		margin: auto;
+	}
+}
+
+hr.theme {
+	border-width: 0;
+	height: 10px;
+	margin: 0;
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical {
+		hr.theme {
+			background-color: #{nth($vertical-colors, $i)};
+		}
 	}
 }
