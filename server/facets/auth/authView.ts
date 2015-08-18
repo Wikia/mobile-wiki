@@ -6,11 +6,6 @@ import localSettings = require('../../../config/localSettings');
 import url = require('url');
 
 module authView {
-	interface PageParams {
-		isModal: boolean;
-		[key: string]: string;
-	}
-
 	export var VIEW_TYPE_MOBILE = 'mobile';
 	export var VIEW_TYPE_DESKTOP = 'desktop';
 
@@ -22,7 +17,7 @@ module authView {
 		mainPage: string;
 		standalonePage: boolean;
 		optimizelyScript: string;
-		pageParams: PageParams;
+		pageParams: any;
 		hideHeader?: boolean;
 		hideFooter?: boolean;
 		footerHref?: string;
