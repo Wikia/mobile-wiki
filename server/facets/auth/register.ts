@@ -53,7 +53,8 @@ function getDefaultRegistrationContext (request: Hapi.Request, i18n: any): Defau
 				privacyPolicyLink: '<a href="' + localeSettings[lang].urls.privacyPolicyLinkUrl + '" target="_blank">'
 				+ i18n.t('auth:register.privacy-policy-link-title') + '</a>'
 			}
-		})
+		}
+	);
 }
 
 function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {
