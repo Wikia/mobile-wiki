@@ -69,6 +69,8 @@ function prepareData (request: Hapi.Request, result: any): void {
 		result.weppyConfig.samplingRate = result.queryParams.buckySampling / 100;
 	}
 
+	result.localSettings = localSettings;
+
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
 	result.asyncArticle = shouldAsyncArticle(result);
 }
