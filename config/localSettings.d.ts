@@ -45,15 +45,13 @@ interface LocalSettings {
 	optimizely?: {
 		enabled: boolean;
 		scriptPath: string;
-		devAccount: string;
 		account: string;
 	};
 	port: number;
 	proxyMaxRedirects: number;
 	qualaroo?: {
 		enabled: boolean;
-		scriptUrlDev: string;
-		scriptUrlProd: string;
+		scriptUrl: string;
 	};
 	redirectUrlOnNoData: string;
 	servicesDomain: string;

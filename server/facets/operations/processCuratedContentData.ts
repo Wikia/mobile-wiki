@@ -116,14 +116,12 @@ function processCuratedContentData (
 			// optimizely
 			if (localSettings.optimizely.enabled) {
 				result.optimizelyScript = localSettings.optimizely.scriptPath +
-					(localSettings.environment === Utils.Environment.Prod ?
-						localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+					localSettings.optimizely.account + '.js';
 			}
 
 			// qualaroo
 			if (localSettings.qualaroo.enabled) {
-				result.qualarooScript = localSettings.environment === Utils.Environment.Prod ?
-					localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
+				result.qualarooScript = localSettings.qualaroo.scriptUrl;
 			}
 		}
 

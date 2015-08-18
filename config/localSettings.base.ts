@@ -11,7 +11,7 @@ var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
-	servicesDomain: process.env.WIKIA_ENVIRONMENT === 'prod' ? 'services.wikia.com' : 'services.wikia-dev.com',
+	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
@@ -19,7 +19,7 @@ var localSettings: LocalSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		host: process.env.HELIOS_HOST,
+		host: 'https://services.wikia.com/auth',
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},
@@ -45,13 +45,11 @@ var localSettings: LocalSettings = {
 	optimizely: {
 		enabled: true,
 		scriptPath: '//cdn.optimizely.com/js/',
-		devAccount: '2441440871',
 		account: '2449650414'
 	},
 	qualaroo: {
 		enabled: true,
-		scriptUrlDev:  '//s3.amazonaws.com/ki.js/52510/dlS.js',
-		scriptUrlProd: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
+		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
 	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
@@ -94,7 +92,7 @@ var localSettings: LocalSettings = {
 		tv: '#00b7e0'
 	},
 	weppy: {
-		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
+		enabled: true,
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.1,
 		aggregationInterval: 1000
