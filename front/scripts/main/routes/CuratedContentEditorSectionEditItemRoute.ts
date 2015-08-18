@@ -12,8 +12,8 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 	},
 
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var parentController = this.controllerFor('curatedContentEditor.section'),
-			alreadyUsedLabels: string[] = parentController.get('alreadyUsedItemsLabels');
+		var sectionController = this.controllerFor('curatedContentEditor.section'),
+			alreadyUsedLabels: string[] = sectionController.get('alreadyUsedItemsLabels');
 
 		this._super(controller, model, transition);
 		controller.setProperties({
@@ -34,12 +34,12 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		done(newItem: CuratedContentEditorItemModel): void {
 			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
 				originalItemLabel: string = this.get('controller.originalItemLabel'),
-				parentController = this.controllerFor('curatedContentEditor.section'),
-				alreadyUsedLabels: string[] = parentController.get('alreadyUsedItemsLabels'),
+				sectionController = this.controllerFor('curatedContentEditor.section'),
+				alreadyUsedLabels: string[] = sectionController.get('alreadyUsedItemsLabels'),
 				itemIndex = alreadyUsedLabels.indexOf(originalItemLabel);
 
 			alreadyUsedLabels[itemIndex] = newItem.label;
-			parentController.set('alreadyUsedItemsLabels', alreadyUsedLabels);
+			sectionController.set('alreadyUsedItemsLabels', alreadyUsedLabels);
 
 			App.CuratedContentEditorModel.updateItem(sectionModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
