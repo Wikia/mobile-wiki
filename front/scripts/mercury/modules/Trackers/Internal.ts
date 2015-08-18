@@ -1,5 +1,6 @@
 /// <reference path="../../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../utils/track.ts" />
+/// <reference path="../../utils/queryString.ts" />
 
 interface InternalTrackingConfig {
 	// TODO: These are legacy config values that are terse and very coupled with MW, lets see if we can't

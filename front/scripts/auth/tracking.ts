@@ -1,5 +1,7 @@
 /// <reference path='../baseline/mercury.ts' />
 /// <reference path='../mercury/utils/track.ts' />
+/// <reference path='../mercury/utils/queryString.ts' />
+
 
 (function () {
 	function checkPageType (pageType: string): boolean {
