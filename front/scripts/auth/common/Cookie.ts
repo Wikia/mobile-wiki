@@ -1,12 +1,19 @@
+interface CookieAttributes {
+	expires?: string;
+	path?: string;
+	domain?: string;
+	secure?: boolean
+}
+
 class Cookie {
-	static get (cookieName: string): string {
+	static get (name: string): string {
 		var cookie = document.cookie,
 			cookieStart: number,
 			cookieEnd: number;
 		if (cookie.length) {
-			cookieStart = cookie.indexOf(cookieName + '=');
+			cookieStart = cookie.indexOf(name + '=');
 			if (cookieStart != -1) {
-				cookieStart = cookieStart + cookieName.length + 1;
+				cookieStart = cookieStart + name.length + 1;
 				cookieEnd = cookie.indexOf(';', cookieStart);
 				if (cookieEnd == -1) {
 					cookieEnd = cookie.length;
@@ -15,5 +22,19 @@ class Cookie {
 			}
 		}
 		return null;
+	}
+
+	static set (name: string, value: string, attributes: CookieAttributes = {}): any {
+		if (attributes.path === undefined) {
+			attributes.path = '/';
+		}
+
+		return (document.cookie = [
+			name, '=', value,
+			attributes.expires && '; expires=' + attributes.expires,
+			attributes.path    && '; path=' + attributes.path,
+			attributes.domain  && '; domain=' + attributes.domain,
+			attributes.secure ? '; secure' : ''
+		].join(''));
 	}
 }

@@ -65,7 +65,13 @@ class SignupForm {
 			label: 'successful-registration'
 		});
 
-		document.cookie = 'registerSuccess=1; path=/; domain=' + this.getWikiaDomain();
+		Cookie.set(
+			'registerSuccess',
+			'1',
+			{
+				domain: this.getWikiaDomain()
+			}
+		);
 
 		window.location.href = this.redirect;
 	}
