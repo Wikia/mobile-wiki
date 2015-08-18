@@ -21,10 +21,13 @@ class SignupForm {
 	redirect: string;
 	marketingOptIn: MarketingOptIn;
 	formErrors: FormErrors;
+	pageName: string;
 	termsOfUse: TermsOfUse;
 	tracker: AuthTracker;
 
 	constructor(form: Element) {
+		this.pageName = 'signup';
+
 		this.form = <HTMLFormElement> form;
 		if (window.location.search) {
 			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
@@ -34,9 +37,9 @@ class SignupForm {
 		this.marketingOptIn = new MarketingOptIn();
 		this.termsOfUse = new TermsOfUse(this.form);
 		this.marketingOptIn.init();
-		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors', 'signup');
+		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors', this.pageName);
 		this.termsOfUse.init();
-		this.tracker = new AuthTracker('signup');
+		this.tracker = new AuthTracker(this.pageName);
 	}
 
 	private getFormValues(): HeliosRegisterInput {

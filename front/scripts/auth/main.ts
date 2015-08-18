@@ -11,10 +11,6 @@ if (typeof translations === 'undefined') {
 	translations = {};
 }
 
-if (typeof isModal === 'undefined') {
-	isModal = false;
-}
-
 i18n.init(<I18nextOptions> {
 	fallbackLng: 'en',
 	lng: language,

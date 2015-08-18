@@ -5,7 +5,7 @@ class AuthTracker {
 		this.gaCategory = this.setGaCategory(page);
 	}
 
-	private setGaCategory (page: string):string {
+	private setGaCategory (page: string): string {
 		return 'user-' + page + '-' + pageParams.viewType + (isModal ? '-modal' : '');
 	}
 
