@@ -67,7 +67,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					this.sendAction('done', this.get('model'));
 				} else {
 					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
+						data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+							=> this.processValidationError(error.reason));
 					} else {
 						this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 					}
