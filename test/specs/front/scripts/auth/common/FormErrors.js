@@ -13,9 +13,13 @@ QUnit.module('auth/common/FormErrors)', {
 			trackSubmit: Function.prototype,
 			track: Function.prototype
 		});
-		pageParams = {
+		window._pageParams = window.pageParams;
+		window.pageParams = {
 			viewType: 'mobile'
 		};
+	},
+	teardown: function () {
+		window.pageParams = window._pageParams;
 	}
 });
 
