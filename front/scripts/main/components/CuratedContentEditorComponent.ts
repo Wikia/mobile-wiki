@@ -41,12 +41,13 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 				if (data.status) {
 					this.addAlert('info', i18n.t('app.curated-content-editor-changes-saved'));
 					this.sendAction('openMainPage');
+				} else if (data.error) {
+					data.error.forEach(
+						(error: CuratedContentValidationResponseErrorInterface) =>
+							this.processValidationError(error.type, error.reason)
+					);
 				} else {
-					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
-					} else {
-						this.addAlert('alert', i18n.t('app.curated-content-error-other'));
-					}
+					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
 				}
 			})
 			.catch((err: any): void => {
@@ -60,8 +61,10 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			.finally((): void => this.hideLoader());
 	},
 
-	processValidationError(reason: string) {
-		if (reason === 'itemsMissing') {
+	processValidationError(type: string, reason: string) {
+		if (type === 'featured') {
+			this.addAlert('alert', i18n.t('app.curated-content-editor-error-inside-featured-content'));
+		} else if (reason === 'itemsMissing') {
 			this.addAlert('alert', i18n.t('app.curated-content-editor-missing-items-error'));
 		} else {
 			// if other items occur that means user somehow bypassed validation of one or more items earlier
