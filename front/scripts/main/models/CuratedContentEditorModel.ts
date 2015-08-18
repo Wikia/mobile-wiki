@@ -163,17 +163,14 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	getAlreadyUsedNonFeaturedItemsLabels(modelRoot: CuratedContentEditorModel, excludedLabel: string = null): string[] {
-		var labels: string[] = [];
-
-		// Labels of section items
-		modelRoot.curated.items.forEach((section: CuratedContentEditorItemModel): void => {
-			labels = labels.concat(this.getAlreadyUsedLabels(section, excludedLabel));
-		});
-
-		// Labels of optional block items
-		labels = labels.concat(this.getAlreadyUsedLabels(modelRoot.optional, excludedLabel));
-
-		return labels;
+		// Flatten the array
+		return [].concat.apply([], modelRoot.curated.items.map((section: CuratedContentEditorItemModel): string[] =>
+			// Labels of section items
+			this.getAlreadyUsedLabels(section, excludedLabel)
+		).concat(
+			// Labels of optional block items
+			this.getAlreadyUsedLabels(modelRoot.optional, excludedLabel)
+		));
 	},
 
 	getAlreadyUsedLabels(
