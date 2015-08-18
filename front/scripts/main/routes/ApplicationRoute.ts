@@ -37,6 +37,14 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				this.send(actionName, 'ads', {contents});
 			};
 
+			/**
+			 * Temporary method to keep working the interstitial before ADEN-2289 is released.
+			 * @TODO clean up after release
+			 */
+			adsInstance.openLightbox = (contents: any): void => {
+				this.send('openLightbox', 'ads', {contents});
+			};
+
 			adsInstance.showLightbox = (): void => {
 				this.send('showLightbox');
 			};
