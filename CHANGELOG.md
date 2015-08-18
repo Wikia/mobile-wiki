@@ -1,3 +1,11 @@
+## release-136 (2015-08-18 10:00 UTC)
+* missing-semicolon: Adding missing semicolon and breaking line
+* aden-2341-floor-adhesion-styles: ADEN-2341 Fixed floor adhesion styles
+* [CONCF-956](https://wikia-inc.atlassian.net/browse/CONCF-956) CONCF-956 Add translations for Curated Content Tool
+* facebook-auth: New Facebook Authentication for mobile skins
+* [SOC-1016](https://wikia-inc.atlassian.net/browse/SOC-1016) SOC-1016 Add tracking to Facebook connect / registration
+* [SOC-932](https://wikia-inc.atlassian.net/browse/SOC-932) SOC-932 Track clicks on Facebook Connect button
+
 ## release-135 (2015-08-17 10:00 UTC)
 * [CONCF-978](https://wikia-inc.atlassian.net/browse/CONCF-978) CONCF-978 Take into account user's permissions in Curated Content Tool
 
