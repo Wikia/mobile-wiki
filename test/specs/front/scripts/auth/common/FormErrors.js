@@ -13,9 +13,9 @@ QUnit.module('auth/common/FormErrors)', {
 			trackSubmit: Function.prototype,
 			track: Function.prototype
 		});
-	},
-	teardown: function () {
-		this.AuthTrackerStub.restore();
+		pageParams = {
+			viewType: 'mobile'
+		};
 	}
 });
 
