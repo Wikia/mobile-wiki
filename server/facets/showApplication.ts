@@ -7,6 +7,7 @@ import MW = require('../lib/MediaWiki');
 import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
 import OpenGraph = require('../lib/OpenGraph');
+import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
@@ -21,21 +22,24 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
 	wikiVariables.then((response) => {
+		var userDir: string;
 		context.wiki = response.data;
 
 		if (context.wiki.language) {
-			var userDir = context.wiki.language.userDir;
+			userDir = context.wiki.language.userDir;
 			context.isRtl = (userDir === 'rtl');
 		}
 
-		return OpenGraph.getAttributes(request.path, request.params, context.wiki);
+		return OpenGraph.getAttributes(request, context.wiki);
 	}).then((openGraphData: any): void => {
 		// Add OpenGraph attributes to context
 		context.openGraph = openGraphData;
 
 		outputResponse(request, reply, context);
-	}).catch((): void => {
-		// In case of any unforeseeable errors, attempt to output with the context we have so far
+	}).catch((error: any): void => {
+		// `error` could be an object or a string here
+		Logger.warn({error: error}, 'Failed to get complete app view context');
+		// In case of any unforeseeable error, attempt to output with the context we have so far
 		outputResponse(request, reply, context);
 	});
 }
