@@ -3,6 +3,7 @@
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/ViewportMixin.ts"/>
 
 'use strict';
 
@@ -11,6 +12,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
 	App.TrackClickMixin,
+	App.ViewportMixin,
 	{
 		imgSelector: '.curated-content-editor-photo-crop > img',
 		$imgElement: null,
@@ -110,5 +112,17 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 				isLoading: false,
 				$imgElement
 			});
+		},
+
+		onResize(): void {
+			var $imgElement = this.$(this.get('imgSelector')),
+				settings: any = $.extend(this.get('cropperSettings'), {
+					aspectRatio: this.get('aspectRatio')
+				});
+
+			// re-init cropper according to https://github.com/fengyuanchen/cropper/issues/421
+			$imgElement.cropper('destroy');
+			$imgElement.cropper(settings);
 		}
+
 });
