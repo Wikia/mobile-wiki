@@ -20,7 +20,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		cropperInitialized: false,
 
 		// https://github.com/fengyuanchen/cropper#options
-		cropperSettings: {
+		defaultCropperSettings: {
 			autoCropArea: 1,
 			background: false,
 			center: false,
@@ -31,6 +31,11 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			guides: false,
 			highlight: false
 		},
+		currentCropperSettings: Em.computed('aspectRatio', function() {
+			return $.extend(this.get('defaultCropperSettings'), {
+				aspectRatio: this.get('aspectRatio')
+			});
+		}),
 
 		actions: {
 			goBack(): void {
@@ -102,13 +107,10 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		},
 
 		initCropper(): void {
-			var $imgElement = this.$(this.get('imgSelector')),
-				settings: any = $.extend(this.get('cropperSettings'), {
-					aspectRatio: this.get('aspectRatio')
-				});
+			var $imgElement = this.$(this.get('imgSelector'));
 
 			if (!this.get('cropperInitialized')) {
-				$imgElement.cropper(settings);
+				$imgElement.cropper(this.get('currentCropperSettings'));
 
 				this.setProperties({
 					isLoading: false,
@@ -119,15 +121,12 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		},
 
 		onResize(): void {
-			var $imgElement = this.$(this.get('imgSelector')),
-				settings: any = $.extend(this.get('cropperSettings'), {
-					aspectRatio: this.get('aspectRatio')
-				});
+			var $imgElement = this.get('$imgElement');
 
 			if (this.get('cropperInitialized')) {
 				// re-init cropper according to https://github.com/fengyuanchen/cropper/issues/421
 				$imgElement.cropper('destroy');
-				$imgElement.cropper(settings);
+				$imgElement.cropper(this.get('currentCropperSettings'));
 			}
 
 		}
