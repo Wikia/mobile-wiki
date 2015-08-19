@@ -83,7 +83,7 @@ module authView {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
-			mainPage: "http://www.wikia.com",
+			mainPage: 'http://www.wikia.com',
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
@@ -92,7 +92,7 @@ module authView {
 			pageParams: {
 				isModal: isModal,
 				standalone: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
-				viewType: viewType,
+				viewType: viewType
 			}
 		};
 	}
