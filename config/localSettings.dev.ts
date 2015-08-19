@@ -5,7 +5,7 @@ import baseLocalSettings = require('./localSettings.base');
 import Utils = require('../server/lib/Utils');
 var deepExtend: any = require('deep-extend');
 
-var localSettings = baseLocalSettings.getSettings({
+var localSettings = baseLocalSettings.extendSettings({
 	loggers: {
 		default: 'debug'
 	},
@@ -22,6 +22,6 @@ var localSettings = baseLocalSettings.getSettings({
 	},
 });
 
-export function getSettings(customLocalSet: any): LocalSettings {
+export function extendSettings(customLocalSet: any): LocalSettings {
 	return deepExtend(localSettings, customLocalSet);
 }
