@@ -7,7 +7,7 @@ var deepExtend: any = require('deep-extend');
 
 var localSettings = baseLocalSettings.extendSettings({
 	loggers: {
-		default: 'debug'
+		console: 'debug'
 	},
 	authCookieDomain: '.wikia-dev.com',
 	servicesDomain:'services.wikia-dev.com',
