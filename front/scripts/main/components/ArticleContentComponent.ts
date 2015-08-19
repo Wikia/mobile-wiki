@@ -74,6 +74,10 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		this.$().html(content);
 	},
 
+	/**
+	 * Native browser implementation of location hash often gets clobbered by custom rendering,
+	 * so ensure it happens here.
+	 */
 	handleJumpLink(): void {
 		if (window.location.hash) {
 			window.location.assign(window.location.hash);
