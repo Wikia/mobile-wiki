@@ -7,7 +7,7 @@ App.DiscussionForumPostRoute = Em.Route.extend({
 	afterModel (model: typeof App.PostModel): void {
 		var title: string = model.get('title');
 		if (!title) {
-			title = 'Discussion on ' + Mercury.wiki.siteName;
+			title = i18n.t('discussion:open-graph.generic-title', {siteName: Mercury.wiki.siteName});
 		}
 		this.controllerFor('application').set('currentTitle', title);
 	}

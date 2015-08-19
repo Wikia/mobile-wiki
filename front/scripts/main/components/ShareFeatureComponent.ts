@@ -7,7 +7,6 @@
 
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, {
 	classNames: ['share-feature'],
-	tagName: 'div',
 	headroom: null,
 
 	options: {
@@ -25,7 +24,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		return 0;
 	}),
 
-	sharedUrl: Mercury.wiki.basePath + window.location.pathname,
+	sharedUrl: Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname,
 
 	/**
 	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
