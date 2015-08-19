@@ -20,7 +20,6 @@ var localSettings = baseLocalSettings.getSettings({
 	qualaroo: {
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/dlS.js'
 	},
-	//Default option on devboxes
 	port: 7000
 });
 
