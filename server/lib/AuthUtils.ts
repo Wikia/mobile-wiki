@@ -43,5 +43,9 @@ export function getRedirectUrlWithQueryString(route: string, request: Hapi.Reque
 }
 
 export function getHeliosUrl(path: string): string {
-	return 'https://' + localSettings.servicesDomain + localSettings.helios.path + path;
+	return url.format({
+		protocol: 'https',
+		host: localSettings.servicesDomain,
+		pathname: localSettings.helios.path + path
+	});
 }
