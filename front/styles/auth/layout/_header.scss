@@ -43,4 +43,10 @@
 			line-height: 1.25rem;
 		}
 	}
+	&.register-fb-page,
+	&.fb-connect-page {
+		.auth-header {
+			padding-top: 35px;
+		}
+	}
 }
