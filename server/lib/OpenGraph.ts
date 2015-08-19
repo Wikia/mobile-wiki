@@ -46,8 +46,7 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 						openGraphData.title = response.title ? response.title :
 							i18n.t('discussion:open-graph.generic-title', {siteName: wikiVars.siteName});
 						// Keep description to 175 characters or less
-						openGraphData.description = content.length > 175 ?
-							content.substr(0, 172) + '...' : content;
+						openGraphData.description = content.substr(0, 175);
 						openGraphData.image = wikiVars.image;
 						resolve(openGraphData);
 					})
