@@ -17,16 +17,6 @@
 	}
 }
 
-.standalone {
-	.desktop-view {
-		border-color: $border-color;
-		border-style: solid;
-		border-width: 0 1px;
-		margin: 0 31px;
-		min-width: 706px;
-	}
-}
-
 .desktop-view {
 	background-color: $auth-content-background-color;
 	display: flex;
@@ -45,5 +35,27 @@
 		min-width: 200px;
 		max-width: 350px;
 		width: calc(50% - 50px);
+	}
+}
+
+.standalone {
+	.desktop-view {
+		border-color: $border-color;
+		border-style: solid;
+		border-width: 0 1px;
+		margin: 0 31px;
+		min-width: 706px;
+	}
+}
+
+.desktop {
+	.desktop-view {
+		.auth-content {
+			h6 {
+				margin-bottom: 2px;
+			}
+			margin-bottom: 15px;
+			padding-bottom: 0;
+		}
 	}
 }

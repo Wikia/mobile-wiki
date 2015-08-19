@@ -5,10 +5,26 @@
 	width: 100%;
 }
 
-label.inline {
-	margin-bottom: 0.5rem;
-	padding-left: 20px;
-	text-indent: -20px;
+label {
+	&.inline {
+		margin-bottom: .5rem;
+		padding-left: 20px;
+		text-indent: -20px;
+	}
+}
+
+.desktop {
+	.terms-of-use {
+		font-size: 10px;
+	}
+	label {
+		&.inline {
+			font-size: 12px;
+			margin: 2px 0 10px;
+			padding: 5px 0 5px 20px;
+			text-indent: -20px;
+		}
+	}
 }
 
 .terms-of-use a, label.inline a {

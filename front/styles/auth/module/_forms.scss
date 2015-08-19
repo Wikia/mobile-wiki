@@ -24,6 +24,11 @@ form {
 		padding-bottom: 0;
 	}
 }
+.desktop {
+	.input-container {
+		min-height: 58px;
+	}
+}
 
 .floating-label {
 	color: $color-blue-gray;
@@ -69,22 +74,31 @@ input:valid + .floating-label.error {
 	}
 }
 
-button[type="submit"].on,
-.signup-provider-facebook.on {
-	padding-left: 0;
-	padding-right: 0;
+input[type="submit"],
+.signup-provider-facebook {
+	&.on {
+		padding-left: 0;
+		padding-right: 0;
 
-	&::before {
-		animation: spin 1s linear infinite;
-		background: url("/front/images/loading.svg") center no-repeat;
-		content: " ";
-		display: block;
-		height: 100%;
-		position: absolute;
-		width: 100%;
+		&::before {
+			animation: spin 1s linear infinite;
+			background: url("/front/images/loading.svg") center no-repeat;
+			content: " ";
+			display: block;
+			height: 100%;
+			position: absolute;
+			width: 100%;
+		}
+
+		span {
+			visibility: hidden
+		}
+	}
+}
+
+.desktop {
+	input[type="submit"] {
+		margin-bottom: 12px;
 	}
 
-	span {
-		visibility: hidden
-	}
 }
