@@ -76,10 +76,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {
-			// Use this to get current route info
-			// this.router.get('currentState.routerJsState')
-			var handlerInfos = this.router.get('currentState.routerJsState.handlerInfos'),
-				currentRoute = handlerInfos[handlerInfos.length - 1],
+			var currentRoute = this.router.get('currentRouteName'),
 				title: string,
 				trackingCategory: string,
 				info: LinkInfo,
@@ -124,7 +121,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			}
 
 			if (info.article) {
-				this.transitionTo('article', info.article);
+				this.transitionTo('article', info.article + (info.hash ? info.hash : ''));
 			} else if (info.url) {
 				/**
 				 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
