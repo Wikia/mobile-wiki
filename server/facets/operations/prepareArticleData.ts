@@ -2,7 +2,7 @@
 
 import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
-import deepExtend = require('deep-extend');
+var deepExtend = require('deep-extend');
 
 var shouldAsyncArticle = Utils.shouldAsyncArticle;
 
