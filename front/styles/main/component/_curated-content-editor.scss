@@ -57,7 +57,8 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	padding-top: $module-padding-vertical;
 }
 
-.curated-content-editor-row-container {
+.curated-content-editor-row {
+	align-items: center;
 	background: $color-white;
 	border: {
 		color: $color-gray-light;
@@ -67,18 +68,13 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	border-bottom-width: 1px;
 	//iOS can't handle touch events on element if it doesn't have cursor pointer
 	cursor: pointer;
+	display: flex;
+	height: $row-height;
 	padding: $item-padding-vertical $item-padding-horizontal;
 
 	&:first-child {
 		border-top-width: 1px;
 	}
-}
-
-.curated-content-editor-row {
-	align-items: center;
-	display: inline-flex;
-	height: $row-height;
-	width: calc(90vw - #{$item-padding-horizontal});
 
 	img {
 		height: $item-image-size;
@@ -280,11 +276,10 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	float: right;
 	height: $row-height;
 	text-align: right;
-	width: calc(8vw - #{$item-padding-horizontal});
 }
 
-.arrow-up, .arrow-down {
-	height: $row-height / 2;
+.arrow {
+	height: $row-height / 3;
 	width: 1rem;
 }
 
