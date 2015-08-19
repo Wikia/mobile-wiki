@@ -9,7 +9,7 @@
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
   * The devboxDomain must have your devbox name (without the dev- prefix) in it.
   * The `wikiFallback` is useful but is not obligatory.
-  * For dev machines use `localSettings.dev` instead `localSettings.base`
+  * For development use `localSettings.dev` instead `localSettings.base` - see [localSettings](README.md#localsettings)
   * If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
   * If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
 
@@ -32,6 +32,12 @@
 * Start the server and watch files:
   * `npm run local` If running everything locally (e.g. your laptop)
   * `npm run dev` For hosted environments.  Same as 'local' but includes the --nosync paramter to disable [Live Reload](#live-reload)
+
+## localSettings
+`localSettings` is main configuration structure. All application settings should be stored there.
+ * `localSettings.base.ts` - configuration for production environment - used on production and staging
+ * `localSettings.test.ts` - configuration for testing environment - used by Jenkins
+ * `localSettings.dev.ts` - configuration for development environment - used on devboxes - **you should be using this one for development**
 
 ## Access Mercury
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
