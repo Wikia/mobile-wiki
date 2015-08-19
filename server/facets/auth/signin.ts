@@ -23,7 +23,7 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
-			heliosLoginURL: localSettings.helios.host + '/token',
+			heliosLoginURL: authUtils.getHeliosUrl('/token'),
 			submitText: 'auth:signin.submit-text',
 			formId: 'loginForm'
 		}
@@ -41,8 +41,8 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 			footerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'fb-connect-page',
-			heliosLoginURL: localSettings.helios.host + '/token',
-			heliosFacebookConnectURL: localSettings.helios.host + '/users/',
+			heliosLoginURL: authUtils.getHeliosUrl('/token'),
+			heliosFacebookConnectURL: authUtils.getHeliosUrl('/users/'),
 			submitText: 'auth:fb-connect.submit-text',
 			formId: 'facebookConnectForm',
 			headerSlogan: 'auth:fb-connect.facebook-connect-info',

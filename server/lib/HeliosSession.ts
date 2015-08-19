@@ -12,6 +12,7 @@ import qs            = require('querystring');
 import Wreck         = require('wreck');
 import localSettings = require('../../config/localSettings');
 import Logger        = require('./Logger');
+import authUtils     = require('./AuthUtils');
 
 module HeliosSession {
 	export function scheme (server: Hapi.Server, options: any): {authenticate: any} {
@@ -49,7 +50,7 @@ module HeliosSession {
 				}
 
 				Wreck.post(
-					localSettings.helios.host + '/info',
+					authUtils.getHeliosUrl('/info'),
 					{
 						payload: qs.stringify({
 							'code' : accessToken

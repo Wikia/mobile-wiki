@@ -5,6 +5,7 @@
 
 import url = require('url');
 import querystring = require('querystring');
+import localSettings = require('../../config/localSettings');
 
 var wikiaSignupPathname: string = '/wiki/Special:UserSignup',
 	wikiaLoginPathname: string = '/wiki/Special:UserLogin',
@@ -39,4 +40,12 @@ export function getRedirectUrlWithQueryString(route: string, request: Hapi.Reque
 	var redirectUrl = request.url;
 	redirectUrl.pathname = route;
 	return redirectUrl.format();
+}
+
+export function getHeliosUrl(path: string): string {
+	return url.format({
+		protocol: 'https',
+		host: localSettings.servicesDomain,
+		pathname: localSettings.helios.path + path
+	});
 }

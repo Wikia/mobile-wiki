@@ -70,7 +70,7 @@ function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.R
 		getDefaultRegistrationContext(request, i18n),
 		{
 			headerText: 'auth:fb-register.register-with-facebook',
-			heliosFacebookRegistrationURL: localSettings.helios.host + '/facebook/users',
+			heliosFacebookRegistrationURL: authUtils.getHeliosUrl('/facebook/users'),
 			title: 'auth:fb-register.register-with-facebook',
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
@@ -102,7 +102,7 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 		getDefaultRegistrationContext(request, i18n),
 		{
 			headerText: 'auth:join.sign-up-with-email',
-			heliosRegistrationURL: localSettings.helios.host + '/users',
+			heliosRegistrationURL: authUtils.getHeliosUrl('/users'),
 			title: 'auth:join.sign-up-with-email',
 			termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl +
 				'" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',

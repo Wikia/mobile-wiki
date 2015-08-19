@@ -2,6 +2,7 @@ import Utils = require('../../lib/Utils');
 import Tracking = require('../../lib/Tracking');
 import Caching = require('../../lib/Caching');
 import localSettings = require('../../../config/localSettings');
+var deepExtend = require('deep-extend');
 
 var cachingTimes = {
 	enabled: true,
@@ -64,9 +65,11 @@ function prepareData (request: Hapi.Request, result: any): void {
 		}
 	}
 
-	result.weppyConfig = localSettings.weppy;
-	if (typeof result.queryParams.buckySampling === 'number') {
-		result.weppyConfig.samplingRate = result.queryParams.buckySampling / 100;
+	// clone object to avoid overriding real localSettings for futurue requests
+	result.localSettings = deepExtend({}, localSettings);
+
+	if (request.query.buckySampling !== undefined) {
+		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
@@ -116,14 +119,12 @@ function processCuratedContentData (
 			// optimizely
 			if (localSettings.optimizely.enabled) {
 				result.optimizelyScript = localSettings.optimizely.scriptPath +
-					(localSettings.environment === Utils.Environment.Prod ?
-						localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+					localSettings.optimizely.account + '.js';
 			}
 
 			// qualaroo
 			if (localSettings.qualaroo.enabled) {
-				result.qualarooScript = localSettings.environment === Utils.Environment.Prod ?
-					localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
+				result.qualarooScript = localSettings.qualaroo.scriptUrl;
 			}
 		}
 
