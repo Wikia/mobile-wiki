@@ -2,6 +2,7 @@ import Utils = require('../../lib/Utils');
 import Tracking = require('../../lib/Tracking');
 import Caching = require('../../lib/Caching');
 import localSettings = require('../../../config/localSettings');
+import deepExtend = require('deep-extend');
 
 var cachingTimes = {
 	enabled: true,
@@ -65,7 +66,7 @@ function prepareData (request: Hapi.Request, result: any): void {
 	}
 
 	// clone object to avoid overriding real localSettings for futurue requests
-	result.localSettings = JSON.parse(JSON.stringify(localSettings));
+	result.localSettings = deepExtend({}, localSettings);
 
 	if (request.query.buckySampling !== undefined) {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
