@@ -7,7 +7,7 @@ import url = require('url');
 
 module authView {
 	interface PageParams {
-		[key: string]: string
+		[key: string]: string;
 	}
 
 	export interface AuthViewContext {
@@ -16,7 +16,7 @@ module authView {
 		language: string;
 		exitTo: string;
 		optimizelyScript: string;
-		pageParams: PageParams
+		pageParams: PageParams;
 		hideHeader?: boolean;
 		hideFooter?: boolean;
 		footerHref?: string;
@@ -84,8 +84,7 @@ module authView {
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
-				(localSettings.environment === Utils.Environment.Prod ?
-					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
+				localSettings.optimizely.account + '.js',
 			pageParams: {}
 		};
 	}

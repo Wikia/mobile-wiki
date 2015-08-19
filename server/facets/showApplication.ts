@@ -18,7 +18,7 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 	context.server = Utils.createServerData(localSettings, wikiDomain);
 	context.queryParams = Utils.parseQueryParams(request.query, []);
-	context.weppyConfig = localSettings.weppy;
+	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
 	wikiVariables.then((response) => {
