@@ -4,11 +4,36 @@
 interface CuratedContentEditorRawSectionInterface {
 	label: string;
 	image_id: number;
+	image_crop?: {
+		landscape?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		square?: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+	};
 	node_type: string;
 	items: CuratedContentEditorRawSectionInterface[]
 	image_url?: string;
 	featured?: string;
 	type?: string;
+}
+
+interface CuratedContentValidationResponseErrorInterface {
+	target: string;
+	type: string;
+	reason: string;
+}
+
+interface CuratedContentValidationResponseInterface {
+	status: boolean;
+	error?: CuratedContentValidationResponseErrorInterface[];
 }
 
 type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
@@ -20,9 +45,32 @@ App.CuratedContentEditorModel = Em.Object.extend({
 });
 
 App.CuratedContentEditorModel.reopenClass({
+	save(model: CuratedContentEditorModel): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.buildUrl({
+					path: '/wikia.php',
+					query: {
+						controller: 'CuratedContentController',
+						method: 'setData'
+					}
+				}),
+				dataType: 'json',
+				method: 'POST',
+				data: this.prepareDataForSave(model),
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
+	},
+
 	load(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -45,21 +93,41 @@ App.CuratedContentEditorModel.reopenClass({
 		});
 	},
 
+
+	/**
+	 * @desc Convert CuratedContentEditorModel to structure known by CuratedContent API
+	 *
+	 * @param model CuratedContentEditorModel
+	 * @returns {Object}
+	 */
+	prepareDataForSave(model: CuratedContentEditorModel): any {
+		return {
+			data: [].concat(model.featured, model.curated.items, model.optional)
+		};
+	},
+
 	/**
 	 * @desc Accepts a raw object that comes from CuratedContent API and creates a model that we can use
 	 *
 	 * @param rawData
-	 * @returns {any}
+	 * @returns {Object}
 	 */
-	sanitize(rawData: any): CuratedContentEditorItemModel {
-		var featured = {
+	sanitize(rawData: any): CuratedContentEditorModel {
+		/**
+		 * Label inside "optional" has to be initialized with empty string value.
+		 * Code inside CuratedContentController:getSections (MW) decides based on this label
+		 * if it's optional or not. If it's null it will fail rendering main page.
+		 */
+		var featured: any = {
+				items: <any>[],
+				featured: 'true',
+			},
+			curated: any = {
 				items: <any>[]
 			},
-			curated = {
-				items: <any>[]
-			},
-			optional = {
-				items: <any>[]
+			optional: any = {
+				items: <any>[],
+				label: ''
 			};
 
 		if (rawData.length) {
@@ -94,14 +162,38 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
-		return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
-			return childItem.label !== childLabel ? childItem.label : null
-		}).filter(String);
+	getAlreadyUsedNonFeaturedItemsLabels(modelRoot: CuratedContentEditorModel, excludedLabel: string = null): string[] {
+		// Flatten the array
+		return [].concat.apply([], modelRoot.curated.items.map((section: CuratedContentEditorItemModel): string[] =>
+			// Labels of section items
+			this.getAlreadyUsedLabels(section, excludedLabel)
+		).concat(
+			// Labels of optional block items
+			this.getAlreadyUsedLabels(modelRoot.optional, excludedLabel)
+		));
+	},
+
+	getAlreadyUsedLabels(
+		sectionOrBlock: CuratedContentEditorItemModel,
+		excludedLabel: string = null
+	): string[] {
+		var labels: string[] = [];
+
+		if (Array.isArray(sectionOrBlock.items)) {
+			labels = sectionOrBlock.items.map((item: CuratedContentEditorItemModel): string => {
+				var itemLabel: string = Em.get(item, 'label');
+
+				return (excludedLabel === null || itemLabel !== excludedLabel) ? itemLabel : null;
+			}).filter((item: any): boolean => typeof item === 'string');
+		}
+
+		return labels;
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
-		parent.items.push(newItem);
+		//When parent doesn't have items we need to initialize them
+		parent.items = parent.items || [];
+		parent.items.push(newItem.toPlainObject());
 	},
 
 	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
@@ -111,7 +203,7 @@ App.CuratedContentEditorModel.reopenClass({
 			parentItems: CuratedContentEditorItemModel[]
 		): void => {
 			if (item.label === itemLabel) {
-				parentItems[index] = newItem;
+				parentItems[index] = newItem.toPlainObject();
 			}
 		})
 	},

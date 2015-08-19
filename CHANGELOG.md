@@ -1,3 +1,83 @@
+## release-137 (2015-08-19 10:00 UTC)
+* [SOC-884](https://wikia-inc.atlassian.net/browse/SOC-884) SOC-884 Post detail page updates
+* [INT-124](https://wikia-inc.atlassian.net/browse/INT-124) Wikia-In-Your-Language for Mercury
+* aden-2289-fix-hop-in-interstitial: ADEN-2289 Added temporary method to keep working the interstitial
+* aden-2289-hop-in-interstitial: ADEN-2289 Create hidden ads lightbox and show it manually
+* [CONCF-967](https://wikia-inc.atlassian.net/browse/CONCF-967) CONCF-967 Allow title duplicates and disallow label duplicates in Curated Content Tool
+
+## release-136 (2015-08-18 10:00 UTC)
+* missing-semicolon: Adding missing semicolon and breaking line
+* aden-2341-floor-adhesion-styles: ADEN-2341 Fixed floor adhesion styles
+* [CONCF-956](https://wikia-inc.atlassian.net/browse/CONCF-956) CONCF-956 Add translations for Curated Content Tool
+* facebook-auth: New Facebook Authentication for mobile skins
+* [SOC-1016](https://wikia-inc.atlassian.net/browse/SOC-1016) SOC-1016 Add tracking to Facebook connect / registration
+* [SOC-932](https://wikia-inc.atlassian.net/browse/SOC-932) SOC-932 Track clicks on Facebook Connect button
+
+## release-135 (2015-08-17 10:00 UTC)
+* [CONCF-978](https://wikia-inc.atlassian.net/browse/CONCF-978) CONCF-978 Take into account user's permissions in Curated Content Tool
+
+## release-134 (2015-08-14 10:00 UTC)
+* [INT-160](https://wikia-inc.atlassian.net/browse/INT-160) Config files for Japan homepage
+* [INT-157](https://wikia-inc.atlassian.net/browse/INT-157) Mobile tweaks for nav with search and login window for Japan homepage
+* [INT-139](https://wikia-inc.atlassian.net/browse/INT-139) Company info page for Japan homepage
+* [SOC-1169](https://wikia-inc.atlassian.net/browse/SOC-1169) SOC-1169 Update the API URLs to their new location
+* [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Fix for 'table of contents' disappearing in INT-149 branch.
+* abstract-open-graph: Abstract out Open Graph attributes
+* discuss: mercury automated tests passed.  merging.
+* [CONCF-746](https://wikia-inc.atlassian.net/browse/CONCF-746) CONCF-746 Search suggestions in Curated Content Tool
+* [CONCF-1032](https://wikia-inc.atlassian.net/browse/CONCF-1032) CONCF-1032 Fix titleObserver being called when not supposed to
+* [SOC-992](https://wikia-inc.atlassian.net/browse/SOC-992) SOC-992 Remove technical debt when Helios start setting cookie on registration
+* [CONCF-743](https://wikia-inc.atlassian.net/browse/CONCF-743) CONCF-743 Use jquery.cropper as a cropping tool in Curated Content Tool
+* [SOC-949](https://wikia-inc.atlassian.net/browse/SOC-949) SOC-949
+
+## release-133 (2015-08-13 10:00 UTC)
+* [DAT-3006](https://wikia-inc.atlassian.net/browse/DAT-3006) Dat 3006 - Portable Infobox markup and styles cleanup
+* update-wreck: Update Wreck from 5.4.0 to 6.1.0
+* [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Initialize featured and optional sections with correct data
+
+## release-132 (2015-08-12 10:00 UTC)
+* Revert [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
+* LocalScript: Small change to use --nosync in dev environments
+* [INT-149](https://wikia-inc.atlassian.net/browse/INT-149) Refactor article contribution buttons into separate component
+* [HG-825](https://wikia-inc.atlassian.net/browse/HG-825) HG-825 Fix itemController deprecation
+* [CONCF-977](https://wikia-inc.atlassian.net/browse/CONCF-977) CONCF-977 Fix thumbnails in Curated Content Tool
+* break-line-in-register-controller: Break line in registration controller
+* [CONCF-977](https://wikia-inc.atlassian.net/browse/CONCF-977) CONCF-977 | Display correctly cropped thumbnails on Curated Main Page
+* revert-1199-add-default-port: Revert "Changing default port to work better on devboxes"
+* [CONCF-847](https://wikia-inc.atlassian.net/browse/CONCF-847) CONCF-847 Add ability to search for an image from Wikia
+* [CONCF-787](https://wikia-inc.atlassian.net/browse/CONCF-787) CONCF-787 Add tracking in Curated Content Tool
+* add-default-port: Changing default port to work better on devboxes
+* [CONCF-847](https://wikia-inc.atlassian.net/browse/CONCF-847) CONCF-1004 | add load more button
+* [CONCF-847](https://wikia-inc.atlassian.net/browse/CONCF-847) CONCF-1011 | Style popup menu
+
+## release-131 (2015-08-10 15:08 UTC)
+* revert-1146-HG-788: Revert "HG-788 - replace inline SVG sprite with requested asset"
+
+## release-130 (2015-08-10 10:00 UTC)
+* [CONCF-](https://wikia-inc.atlassian.net/browse/CONCF-) Truncate helper error handling
+* [DAT-3048](https://wikia-inc.atlassian.net/browse/DAT-3048) DAT-3048 Remove chevrons and captions from linked icons
+* [HG-788](https://wikia-inc.atlassian.net/browse/HG-788) HG-788 - replace inline SVG sprite with requested asset
+* [HG-819](https://wikia-inc.atlassian.net/browse/HG-819) HG-819 - make blockquote styles conform to style guide
+* [HG-838](https://wikia-inc.atlassian.net/browse/HG-838) HG-838 Don't display deprecations when running unit tests
+* remove-pointless-comment: Removing pointless comment
+* speed-up-floating-labels: Speeding up floating labels to look more native
+
+## release-129 (2015-08-07 10:00 UTC)
+* [SOC-1035](https://wikia-inc.atlassian.net/browse/SOC-1035) SOC-1035 New JA translation for login and registration
+* [HG-667](https://wikia-inc.atlassian.net/browse/HG-667) HG-667 - disable logging for ember performance sender
+* add-asserts-for-jquery-ajax-calls: Add assert with type to all jQuery AJAX calls
+* remove-helios-sensitive-data: Remove unused Helios params from typings
+* remove-helios-sensitive-data: Removing unused Helios params from localSettings
+
+## release-128 (2015-08-06 10:00 UTC)
+* [INT-134](https://wikia-inc.atlassian.net/browse/INT-134) Initial layout for Japan homepage
+* [CONCF-791](https://wikia-inc.atlassian.net/browse/CONCF-791) CONCF-791 Validate and save Curated Content Tool data
+* [DAT-3024](https://wikia-inc.atlassian.net/browse/DAT-3024) DAT-3024
+
+## release-127 (2015-08-05 10:00 UTC)
+* [HG-808](https://wikia-inc.atlassian.net/browse/HG-808) HG-808
+* [CONCF-741](https://wikia-inc.atlassian.net/browse/CONCF-741) CONCF-741 Add photo upload to the Curated Content Tool
+
 ## release-126 (2015-08-04 10:00 UTC)
 * [HG-769](https://wikia-inc.atlassian.net/browse/HG-769) HG-769 moving logged_in flag
 * revert-1140-HG-808: Revert "decouple article route from application in ember and hapi"

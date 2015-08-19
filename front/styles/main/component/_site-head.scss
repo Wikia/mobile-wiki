@@ -2,7 +2,7 @@
 	@extend .row;
 	@extend .small-12;
 	background-color: rgb(255, 255, 255);
-	border-bottom: 1px solid $color-gray-light;
+	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
 	height: rem-calc(50);
 	left: 0;
@@ -12,6 +12,21 @@
 	text-align: center;
 	top: 0;
 	z-index: $z-site-head;
+
+	.site-logo {
+		// These prevent the Wikia logo element from taking up more vertical
+		// space than it should, potentially affecting placement of elements
+		// beneath it.
+		height: rem-calc(50);
+		overflow: hidden;
+	}
+
+	.avatar {
+		float: right;
+		position: relative;
+		right: 6px;
+		top: 6px;
+	}
 }
 
 .smart-banner-visible {
@@ -59,9 +74,16 @@
 	}
 }
 
-.avatar {
-	float: right;
-	position: relative;
-	right: 6px;
-	top: 6px;
+hr.theme {
+	border-width: 0;
+	height: 10px;
+	margin: 0;
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical {
+		hr.theme {
+			background-color: #{nth($vertical-colors, $i)};
+		}
+	}
 }

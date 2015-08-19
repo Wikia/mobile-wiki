@@ -2,6 +2,7 @@
 
 import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
+var deepExtend = require('deep-extend');
 
 var shouldAsyncArticle = Utils.shouldAsyncArticle;
 
@@ -47,10 +48,25 @@ function prepareMainPageData (request: Hapi.Request, result: any): void {
 	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
+	result.openGraph = {
+		type: result.isMainPage ? 'website' : 'article',
+		title: result.isMainPage ? result.wiki.siteName : title,
+		url: result.canonicalUrl
+	};
+	if (result.article.details) {
+		if (result.article.details.abstract) {
+			result.openGraph.description = result.article.details.abstract;
+		}
+		if (result.article.details.thumbnail) {
+			result.openGraph.image = result.article.details.thumbnail;
+		}
+	}
 
-	result.weppyConfig = localSettings.weppy;
-	if (typeof result.queryParams.buckySampling === 'number') {
-		result.weppyConfig.samplingRate = result.queryParams.buckySampling / 100;
+	// clone object to avoid overriding real localSettings for futurue requests
+	result.localSettings = deepExtend({}, localSettings);
+
+	if (request.query.buckySampling !== undefined) {
+		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;

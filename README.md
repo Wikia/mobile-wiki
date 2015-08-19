@@ -9,15 +9,16 @@
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
   * The devboxDomain must have your devbox name (without the dev- prefix) in it.
   * The `wikiFallback` is useful but is not obligatory.
+  * For development use `localSettings.dev` instead `localSettings.base` - see [localSettings](README.md#localsettings)
   * If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
   * If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
 
     File should look something like this:
 ``` javascript
-    import baseLocalSettings = require('./localSettings.base');
+    import devLocalSettings = require('./localSettings.dev');
     import Utils = require('../server/lib/Utils');
 
-    var localSettings = baseLocalSettings.getSettings({
+    var localSettings = devLocalSettings.extendSettings({
         wikiFallback: 'mediawiki119',
         devboxDomain: 'joe',
         loggers: {
@@ -28,15 +29,24 @@
 
     export = localSettings;
 ```
-* `npm run dev` to start server and watch files
+* Start the server and watch files:
+  * `npm run local` If running everything locally (e.g. your laptop)
+  * `npm run dev` For hosted environments.  Same as 'local' but includes the --nosync paramter to disable [Live Reload](#live-reload)
+
+## localSettings
+`localSettings` is main configuration structure. All application settings should be stored there.
+ * `localSettings.base.ts` - configuration for production environment - used on production and staging
+ * `localSettings.test.ts` - configuration for testing environment - used by Jenkins
+ * `localSettings.dev.ts` - configuration for development environment - used on devboxes - **you should be extending this one for development**
 
 ## Access Mercury
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
 $ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:8000/wiki/Gonzo"
 
 ##Live reload
-on dev environments livereload server runs that reload your web browser on any change in front folder
-you can disable that by running gulp with --nosync parameter
+In dev environments the livereload plugin is available when the server is started with `npm run local`.  This will reload your web browser on any change to the `front` folder.
+
+You can disable this behavior by running gulp with --nosync parameter, or as noted previously, by starting the server with `npm run dev`.
 
 ##[Release procedure](https://one.wikia-inc.com/wiki/Mercury/Release)
 
@@ -124,7 +134,7 @@ To test on your mobile device, connect both your development machine and your de
 
 ## Troubleshooting
 ### Errors while running `npm run dev`
-Sometimes it helps to just delete the npm_modules folder and reinstall. 
+Sometimes it helps to just delete the npm_modules folder and reinstall.
 ```
 rm -rf node_modules
 npm cache clear
@@ -141,12 +151,12 @@ So far, we've encountered one error connected to compiling `libsass`. It happene
 Debian (the issue was found on version: `Debian 3.16.7-ckt4-3 (2015-02-03)`) installs node.js interpreter binary as `nodejs` instead of `node` because of name conflicts with other applications. The `/usr/share/doc/nodejs/README.Debian` reads:
 > nodejs command
 > --------------
-> 
+>
 > The upstream name for the Node.js interpreter command is "node".
 > In Debian the interpreter command has been changed to "nodejs".
-> 
+>
 > This was done to prevent a namespace collision: other commands use the same name in their upstreams, such as ax25-node from the "node" package.
-> 
+>
 > Scripts calling Node.js as a shell command must be changed to instead use the "nodejs" command.
 However, changing dependencies scripts does not sound right way. I suggest creating a symlink in `/usr/bin`:
 ```sh

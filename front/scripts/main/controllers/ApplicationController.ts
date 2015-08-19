@@ -24,6 +24,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	fullPage: false,
 	lightboxType: null,
 	lightboxModel: null,
+	lightboxVisible: false,
 
 	sideNavCollapsedObserver: Em.observer('sideNavVisible', function (): void {
 		if (this.get('sideNavVisible')) {
@@ -75,8 +76,36 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 */
 		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
 			this.setProperties({
-				lightboxModel: lightboxModel,
-				lightboxType: lightboxType,
+				lightboxModel,
+				lightboxType,
+				lightboxVisible: true,
+				noScroll: true
+			});
+		},
+
+		/**
+		 * @desc Sets lightbox type and model but doesn't show it
+		 * This method is used by Ads Module to prevent showing lightbox when there is no ad to display.
+		 *
+		 * @param lightboxType
+		 * @param lightboxModel
+		 */
+		createHiddenLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.setProperties({
+				lightboxModel,
+				lightboxType,
+				lightboxVisible: false,
+				noScroll: false
+			});
+		},
+
+		/**
+		 * @desc Sets lightbox visibility to true.
+		 * If you use openLightbox with lightboxVisible=false you can use this method to show lightbox.
+		 */
+		showLightbox: function (): void {
+			this.setProperties({
+				lightboxVisible: true,
 				noScroll: true
 			});
 		},
@@ -89,6 +118,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 			this.setProperties({
 				lightboxModel: null,
 				lightboxType: null,
+				lightboxVisible: false,
 				file: null,
 				map: null,
 				noScroll: false

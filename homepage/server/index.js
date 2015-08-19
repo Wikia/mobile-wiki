@@ -9,10 +9,19 @@
 var Hapi = require('hapi'),
 	Good = require('good'),
 	path = require('path'),
+	localSettings = require('../config/localSettings').localSettings,
 	routes = require('./routes').routes,
 	server = new Hapi.Server();
 
-server.connection({ port: 8111 });
+server.connection({ port: localSettings.port });
+
+// Initialize cookies
+server.state('access_token', {
+	isHttpOnly: true,
+	clearInvalid: true,
+	domain: localSettings.authCookieDomain
+});
+
 server.route(routes);
 
 server.views({
@@ -20,8 +29,9 @@ server.views({
 		html: require('handlebars')
 	},
 	path: path.resolve(__dirname, 'views'),
-	layoutPath: path.resolve(__dirname, 'views/layout'),
-	layout: 'default',
+	layoutPath: path.resolve(__dirname, 'views/_layouts'),
+	partialsPath: path.join(__dirname, 'views/_partials'),
+	layout: 'default'
 });
 
 // Console logging

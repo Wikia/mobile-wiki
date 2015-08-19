@@ -1,6 +1,7 @@
 /// <reference path='../app.ts' />
 /// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path='../../../../typings/headroom/headroom.d.ts' />
+
 'use strict';
 
 // TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
@@ -56,14 +57,14 @@ App.ApplicationView = Em.View.extend({
 	}),
 
 	willInsertElement: function (): void {
-		$('#article-preload').remove();
+		$('#preload').remove();
 	},
 
 	didInsertElement: function (): void {
 		this.trackFirstContent();
 	},
 
-	trackFirstContent: function () {
+	trackFirstContent: function (): void {
 		M.trackPerf({
 			name: 'firstContent',
 			type: 'mark'
