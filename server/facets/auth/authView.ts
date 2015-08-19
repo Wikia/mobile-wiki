@@ -15,7 +15,6 @@ module authView {
 		language: string;
 		exitTo: string;
 		mainPage: string;
-		standalonePage: boolean;
 		optimizelyScript: string;
 		pageParams: any;
 		hideHeader?: boolean;
@@ -90,10 +89,10 @@ module authView {
 			optimizelyScript: localSettings.optimizely.scriptPath +
 				(localSettings.environment === Utils.Environment.Prod ?
 					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
-			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
 				isModal: isModal,
-				viewType: viewType
+				standalone: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
+				viewType: viewType,
 			}
 		};
 	}
