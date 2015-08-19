@@ -1,4 +1,6 @@
-<a class="modal-dialog-close" {{action 'close'}}>{{svg 'close' viewBox='0 0 18 18'}}</a>
-<div class="modal-dialog-content">
-	{{yield}}
+<div class="modal-dialog-wrapper" >
+	<div class="modal-dialog-layover" {{action 'close'}}></div>
+	<ul class="modal-dialog">
+		{{yield}}
+	</ul>
 </div>

@@ -1,27 +1,43 @@
-$modal-dialog-margin: 1em;
-
-.modal-dialog {
-	background: rgba(255, 255, 255, .9);
-	height: 100%;
-	left: 0;
-	overflow-y: scroll;
-	padding: $modal-dialog-margin;
+.modal-dialog-wrapper {
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	padding: 10px;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-modal-dialog;
-}
+	z-index: $z-1;
 
-.modal-dialog-close {
-	position: absolute;
-	right: $modal-dialog-margin;
-
-	svg {
-		height: 32px;
-		width: 32px;
+	.modal-dialog {
+		background-color: $white;
+		border-radius: 3px;
+		color: $steel;
+		list-style: none;
+		margin: 0;
+		width: 100%;
+		z-index: $z-2;
 	}
-}
 
-.modal-dialog-content {
-	margin-top: 50px;
+	li {
+		padding: 1rem;
+
+		&:not(:last-child) {
+			border-bottom: 1px $iron solid;
+		}
+	}
+
+	label {
+		color: inherit;
+		font-size: inherit;
+		padding: 0;
+	}
+
+	.modal-dialog-layover {
+		background-color: rgba(0, 0, 0, .5);
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 }

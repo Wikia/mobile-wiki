@@ -17,6 +17,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
+		imageModalVisible: false,
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
