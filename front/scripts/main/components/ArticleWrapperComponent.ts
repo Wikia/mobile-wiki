@@ -67,7 +67,9 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	},
 
 	contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
-		return !this.get('model.isMainPage') && this.get('isJapaneseWikia') && !Em.get(Mercury, 'wiki.disableAnonymousEditing');
+		return !this.get('model.isMainPage')
+			&& this.get('isJapaneseWikia')
+			&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
 	}),
 
 	articleObserver: Em.observer('model.article', function (): void {
