@@ -2,6 +2,7 @@
 
 import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
+var deepExtend = require('deep-extend');
 
 var shouldAsyncArticle = Utils.shouldAsyncArticle;
 
@@ -46,7 +47,8 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = {
 		type: 'article',
-		title: title
+		title: title,
+		url: result.canonicalUrl
 	};
 	if (result.article.details) {
 		if (result.article.details.abstract) {
@@ -57,9 +59,11 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		}
 	}
 
-	result.weppyConfig = localSettings.weppy;
-	if (typeof result.queryParams.buckysampling === 'number') {
-		result.weppyConfig.samplingRate = result.queryParams.buckysampling / 100;
+	// clone object to avoid overriding real localSettings for futurue requests
+	result.localSettings = deepExtend({}, localSettings);
+
+	if (request.query.buckySampling !== undefined) {
+		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
