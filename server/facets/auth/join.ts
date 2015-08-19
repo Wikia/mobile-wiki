@@ -29,7 +29,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			hideFooter: true,
 			signupHref: authUtils.getRegisterUrl(request),
 			bodyClasses: 'splash join-page',
-			heliosFacebookUri: localSettings.helios.host + '/facebook/token',
+			heliosFacebookUri: authUtils.getHeliosUrl('/facebook/token'),
 			pageParams: {
 				facebookAppId: localSettings.facebook.appId
 			}
