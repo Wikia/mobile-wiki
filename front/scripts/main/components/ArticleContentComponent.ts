@@ -32,6 +32,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 				this.replaceMapsWithMapComponents();
 				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 				this.handlePollDaddy();
+				this.handleJumpLink();
 
 				Em.run.later(this, (): void => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 			} else {
@@ -71,6 +72,12 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	 */
 	hackIntoEmberRendering(content: string): void {
 		this.$().html(content);
+	},
+
+	handleJumpLink(): void {
+		if (window.location.hash) {
+			window.location.assign(window.location.hash);
+		}
 	},
 
 	createArticleContributionComponent: function(section: number): JQuery {
@@ -139,7 +146,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		return component.$().attr('data-ref', ref);
 	},
 
-	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess: number = -1): void {
 		var $mediaPlaceholders = this.$('.article-media'),
 			index: number;
 
