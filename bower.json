@@ -20,7 +20,8 @@
     "wikia-style-guide": "Wikia/style-guide#HG-836-top-bar-v2",
     "numeral": "~1.5.3",
     "cropper": "~0.11.0",
-    "polymer": "Polymer/polymer#~1.1.0"
+    "polymer": "Polymer/polymer#~1.1.0",
+    "webcomponentsjs": "~0.7.11"
   },
   "devDependencies": {
     "ember-qunit": "0.3.0",
