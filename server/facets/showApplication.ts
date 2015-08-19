@@ -18,7 +18,6 @@ function showApplication(request: Hapi.Request, reply: Hapi.Response): void {
 		result.wiki = response.data;
 		result.server = Utils.createServerData(localSettings, wikiDomain);
 		result.queryParams = Utils.parseQueryParams(request.query, []);
-		result.weppyConfig = localSettings.weppy;
 		result.localSettings = localSettings;
 		result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 

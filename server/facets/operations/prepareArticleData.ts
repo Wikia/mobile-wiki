@@ -57,13 +57,12 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		}
 	}
 
-	result.weppyConfig = localSettings.weppy;
+	// clone object to avoid overriding real localSettings for futurue requests
+	result.localSettings = JSON.parse(JSON.stringify(localSettings));
 
-	if (typeof result.queryParams.buckysampling === 'number') {
-		result.weppyConfig.samplingRate = result.queryParams.buckysampling / 100;
+	if (request.query.buckySampling !== undefined) {
+		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
-
-	result.localSettings = localSettings;
 
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
