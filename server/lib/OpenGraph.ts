@@ -27,7 +27,7 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 		i18n = request.server.methods.i18n.getInstance();
 
 	// Discussion post
-	if (request.params.thing === 'p' && request.params.id) {
+	if (request.params.type === 'p' && request.params.id) {
 		// Get post ID, which might be prepended with slug text
 		regexMatch = request.params.id.match(/(\d+)$/);
 		if (regexMatch !== null) {
