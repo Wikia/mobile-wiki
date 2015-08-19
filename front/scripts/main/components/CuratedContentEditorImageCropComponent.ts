@@ -121,12 +121,9 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		},
 
 		onResize(): void {
-			var $imgElement = this.get('$imgElement');
-
 			if (this.get('cropperInitialized')) {
 				// re-init cropper according to https://github.com/fengyuanchen/cropper/issues/421
-				$imgElement.cropper('destroy');
-				$imgElement.cropper(this.get('currentCropperSettings'));
+				this.get('$imgElement').cropper('destroy').cropper();
 			}
 
 		}
