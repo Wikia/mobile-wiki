@@ -14,6 +14,7 @@ class FacebookConnect extends Login {
 	urlHelper: UrlHelper;
 	submitValidator: SubmitValidator;
 	tracker: AuthTracker;
+	utils: Utils;
 
 	constructor (form: HTMLFormElement, submitValidator: SubmitValidator) {
 		super(form);
@@ -57,7 +58,7 @@ class FacebookConnect extends Login {
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', M.trackActions.success);
-				window.location.href = this.redirect;
+				Utils.loadUrl(this.redirect);
 			} else {
 				this.tracker.track('facebook-link-existing', M.trackActions.error);
 				this.displayError('errors.server-error');

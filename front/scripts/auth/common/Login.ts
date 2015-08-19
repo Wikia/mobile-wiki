@@ -96,10 +96,7 @@ class Login {
 
 	public onLoginSuccess(loginResponse: LoginResponse): void {
 		this.tracker.track('login-success', M.trackActions.submit);
-		if (pageParams.isModal) {
-			window.parent.location.reload();
-		}
-		window.location.href = this.redirect;
+		Utils.loadUrl(this.redirect);
 	}
 
 	public watch(): void {

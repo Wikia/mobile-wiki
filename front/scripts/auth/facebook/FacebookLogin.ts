@@ -17,6 +17,7 @@ class FacebookLogin {
 	loginButton: HTMLAnchorElement;
 	urlHelper: UrlHelper;
 	tracker: AuthTracker;
+	utils: Utils;
 
 	constructor (loginButton: HTMLAnchorElement) {
 		this.loginButton = loginButton;
@@ -87,7 +88,7 @@ class FacebookLogin {
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', Mercury.Utils.trackActions.success);
 				this.tracker.track('facebook-login-helios-success', Mercury.Utils.trackActions.success);
-				window.location.href = this.redirect;
+				Utils.loadUrl(this.redirect);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				window.location.href = this.getFacebookRegistrationUrl();
 			} else {

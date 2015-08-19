@@ -24,6 +24,7 @@ class SignupForm {
 	pageName: string;
 	termsOfUse: TermsOfUse;
 	tracker: AuthTracker;
+	utils: Utils;
 
 	constructor(form: Element) {
 		this.pageName = 'signup';
@@ -81,7 +82,7 @@ class SignupForm {
 					enableSubmitButton();
 					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
 						this.trackSuccessfulRegistration();
-						window.location.href = this.redirect;
+						Utils.loadUrl(this.redirect);
 					} else {
 						this.formErrors.displayGeneralError();
 					}
