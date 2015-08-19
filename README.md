@@ -18,7 +18,7 @@
     import devLocalSettings = require('./localSettings.dev');
     import Utils = require('../server/lib/Utils');
 
-    var localSettings = devLocalSettings.getSettings({
+    var localSettings = devLocalSettings.extendSettings({
         wikiFallback: 'mediawiki119',
         devboxDomain: 'joe',
         loggers: {
@@ -37,7 +37,7 @@
 `localSettings` is main configuration structure. All application settings should be stored there.
  * `localSettings.base.ts` - configuration for production environment - used on production and staging
  * `localSettings.test.ts` - configuration for testing environment - used by Jenkins
- * `localSettings.dev.ts` - configuration for development environment - used on devboxes - **you should be using this one for development**
+ * `localSettings.dev.ts` - configuration for development environment - used on devboxes - **you should be extending this one for development**
 
 ## Access Mercury
 Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser

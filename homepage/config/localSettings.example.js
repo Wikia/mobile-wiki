@@ -3,7 +3,7 @@
  */
 
 var baseLocalSettings = require('./localSettings.base'),
-	localSettings = baseLocalSettings.getSettings({
+	localSettings = baseLocalSettings.extendSettings({
 	// Add custom settings here
 });
 

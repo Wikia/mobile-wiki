@@ -109,6 +109,6 @@ var localSettings: LocalSettings = {
 	}
 };
 
-export function getSettings(customLocalSet: any): LocalSettings {
+export function extendSettings(customLocalSet: any): LocalSettings {
 	return deepExtend(localSettings, customLocalSet);
 }
