@@ -26,6 +26,10 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
+	canEdit: Em.computed(function(): boolean {
+		debugger;
+	}),
+
 	/**
 	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
 	 */

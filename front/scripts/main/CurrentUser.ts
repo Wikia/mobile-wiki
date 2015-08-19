@@ -54,7 +54,7 @@ App.CurrentUser = Em.Object.extend({
 		});
 	},
 
-	hasRight(right: string) {
+	hasRight(right: string): boolean {
 		return this.get('rights').indexOf(right) > -1;
 	}
 });

@@ -3,6 +3,9 @@
 		<h2 class="wiki-title">{{#link-to 'article' mainPageTitle action='trackClick' actionParam='wikiname' alt=siteName}}{{siteName}}{{/link-to}}</h2>
 	{{/unless}}
 	<h1 class="article-title">{{title}}</h1>
+	{{#if canEdit}}
+		CAN EDIT!
+	{{/if}}
 	{{#if wikiaStats}}
 		{{wikia-stats model=wikiaStats}}
 	{{/if}}
