@@ -1,3 +1,10 @@
+## release-137 (2015-08-19 10:00 UTC)
+* [SOC-884](https://wikia-inc.atlassian.net/browse/SOC-884) SOC-884 Post detail page updates
+* [INT-124](https://wikia-inc.atlassian.net/browse/INT-124) Wikia-In-Your-Language for Mercury
+* aden-2289-fix-hop-in-interstitial: ADEN-2289 Added temporary method to keep working the interstitial
+* aden-2289-hop-in-interstitial: ADEN-2289 Create hidden ads lightbox and show it manually
+* [CONCF-967](https://wikia-inc.atlassian.net/browse/CONCF-967) CONCF-967 Allow title duplicates and disallow label duplicates in Curated Content Tool
+
 ## release-136 (2015-08-18 10:00 UTC)
 * missing-semicolon: Adding missing semicolon and breaking line
 * aden-2341-floor-adhesion-styles: ADEN-2341 Fixed floor adhesion styles
