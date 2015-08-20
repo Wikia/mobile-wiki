@@ -1,17 +1,14 @@
-$light-blue: #1a5eb8;
-$semi-dark: #39424d;
-
 .modal-dialog-wrapper {
 	align-items: center;
 	bottom: 0;
-	color: $semi-dark;
+	color: $color-gray-dark;
 	display: flex;
 	font-size: 16px;
 	padding: 20px;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-1;
+	z-index: $z-modal-dialog;
 
 	.modal-dialog {
 		background-color: $white;
@@ -31,7 +28,7 @@ $semi-dark: #39424d;
 	}
 
 	&.menu {
-		color: $light-blue;
+		color: $color-blue-light;
 
 		.modal-dialog {
 			padding-bottom: 10px;

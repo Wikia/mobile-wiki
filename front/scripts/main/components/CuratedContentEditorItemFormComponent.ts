@@ -17,7 +17,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
-		imageModalVisible: false,
+		imageMenuVisible: false,
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
@@ -195,13 +195,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					});
 			},
 
-			showImageModal(): void {
+			showImageMenu(): void {
 				this.trackClick('curated-content-editor', 'item-image-menu');
-				this.set('imageModalVisible', true);
+				this.set('imageMenuVisible', true);
 			},
 
-			hideImageModal(): void {
-				this.set('imageModalVisible', false);
+			hideImageMenu(): void {
+				this.set('imageMenuVisible', false);
 			},
 
 			showSearchImageForm(): void {
