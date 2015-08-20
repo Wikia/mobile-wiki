@@ -15,7 +15,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 .curated-content-editor-add-item-btn {
 	display: block;
 	font-weight: bold;
-	margin: $item-padding-vertical auto;
+	margin: .5rem auto 0;
 	width: 80%;
 }
 
@@ -37,6 +37,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-block {
 	background: $snow;
+	padding-bottom: $item-padding-vertical;
 	position: relative;
 
 	header {
