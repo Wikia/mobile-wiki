@@ -25,7 +25,7 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
 			heliosLoginURL: authUtils.getHeliosUrl('/token'),
-			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
+			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
 			submitText: 'auth:signin.submit-text',
 			formId: 'loginForm',
 			pageParams: {

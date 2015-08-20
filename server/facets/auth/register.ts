@@ -108,7 +108,7 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 				? 'auth:join.sign-up-with-email'
 				: 'auth:register.desktop-header',
 			heliosRegistrationURL: authUtils.getHeliosUrl('/users'),
-			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
+			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
 			title: (viewType === authView.VIEW_TYPE_MOBILE)
 				? 'auth:join.sign-up-with-email'
 				: 'auth:register.desktop-header',
