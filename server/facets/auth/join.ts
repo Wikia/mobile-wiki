@@ -14,14 +14,17 @@ interface JoinViewContext extends authView.AuthViewContext {
 
 function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: JoinViewContext,
-		redirectUrl: string = authView.getRedirectUrl(request);
+		redirectUrl: string = authView.getRedirectUrl(request),
+		response: Hapi.Response;
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
 
 	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
-		return reply.redirect('/register');
+		response= reply.redirect('/register');
+		caching.disableCache(response);
+		return response;
 	}
 
 	context = deepExtend(
