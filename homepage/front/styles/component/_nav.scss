@@ -177,7 +177,7 @@ header.navigation {
 
 	li.mobile-login {
 		position: absolute;
-		right: -20px;
+		right: 0;
 		top: -53px;
 
 		@include media($horizontal-bar-mode) {

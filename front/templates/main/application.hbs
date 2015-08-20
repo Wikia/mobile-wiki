@@ -16,6 +16,7 @@
 		currentUser=currentUser
 		toggleSideNav='toggleSideNav'
 		toggleUserMenu='toggleUserMenu'
+		themeBar=themeBar
 	}}
 	{{share-feature
 		smartBannerVisible=smartBannerVisible
@@ -42,9 +43,11 @@
 	{{lightbox-wrapper
 		type=lightboxType
 		model=lightboxModel
+		isVisible=lightboxVisible
 		closeLightbox='closeLightbox'
 		setQueryParam='setQueryParam'
 	}}
 {{/if}}
+{{wikia-in-your-lang}} 
 {{alert-notifications alerts=alertNotifications}}
 {{loading-spinner active=isLoading}}

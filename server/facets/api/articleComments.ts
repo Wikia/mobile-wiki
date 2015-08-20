@@ -12,7 +12,7 @@ interface Comment {
 	text: string;
 	created: number;
 	userName: string;
-	replies?: Comment[]
+	replies?: Comment[];
 }
 
 interface User {
@@ -45,7 +45,7 @@ interface CommentsData {
 		code: number;
 		message?: string;
 		errorName?: string;
-	}
+	};
 }
 
 var cachingTimes = {

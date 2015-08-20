@@ -7,7 +7,7 @@ import url = require('url');
 
 module authView {
 	interface PageParams {
-		[key: string]: string
+		[key: string]: string;
 	}
 
 	export var VIEW_TYPE_MOBILE = 'mobile';
@@ -94,8 +94,7 @@ module authView {
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
-				(localSettings.environment === Utils.Environment.Prod ?
-					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
+				localSettings.optimizely.account + '.js',
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
 				viewType: viewType

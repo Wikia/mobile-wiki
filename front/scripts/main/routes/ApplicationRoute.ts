@@ -29,10 +29,25 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
 			 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
 			 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+			 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+			 * lightboxVisible=false and then decide if we want to show it.
+			 */
+			adsInstance.createLightbox = (contents: any, lightboxVisible?: boolean): void => {
+				var actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+				this.send(actionName, 'ads', {contents});
+			};
+
+			/**
+			 * Temporary method to keep working the interstitial before ADEN-2289 is released.
+			 * @TODO clean up after release: ADEN-2347
 			 */
 			adsInstance.openLightbox = (contents: any): void => {
-				this.send('openLightbox', 'ads', {contents: contents});
-			}
+				this.send('openLightbox', 'ads', {contents});
+			};
+
+			adsInstance.showLightbox = (): void => {
+				this.send('showLightbox');
+			};
 		}
 	},
 
@@ -46,6 +61,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			M.VariantTesting.activate();
 			this.controller && this.controller.hideLoader();
 
+			// Clear notification alerts for the new route
+			this.controller.get('alertNotifications').clear();
+
 			/*
 			 * This is called after the first route of any application session has loaded
 			 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
@@ -58,10 +76,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		handleLink: function (target: HTMLAnchorElement): void {
-			// Use this to get current route info
-			// this.router.get('currentState.routerJsState')
-			var handlerInfos = this.router.get('currentState.routerJsState.handlerInfos'),
-				currentRoute = handlerInfos[handlerInfos.length - 1],
+			var currentRoute = this.router.get('currentRouteName'),
 				title: string,
 				trackingCategory: string,
 				info: LinkInfo,
@@ -106,7 +121,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			}
 
 			if (info.article) {
-				this.transitionTo('article', info.article);
+				this.transitionTo('article', info.article + (info.hash ? info.hash : ''));
 			} else if (info.url) {
 				/**
 				 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
@@ -145,6 +160,14 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
 			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
+		},
+
+		createHiddenLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
+		},
+
+		showLightbox: function (): void {
+			this.get('controller').send('showLightbox');
 		},
 
 		closeLightbox: function (): void {

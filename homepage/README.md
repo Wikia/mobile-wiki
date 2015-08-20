@@ -8,10 +8,10 @@
     The file should look something like this:
 ``` javascript
     var baseLocalSettings = require('./localsettings.base'),
-        localSettings = baseLocalSettings.getSettings({
+        localSettings = baseLocalSettings.extendSettings({
             port: 8111
         });
-    
+
     exports.localSettings = localSettings;
 ```
 
@@ -21,7 +21,7 @@
   * `npm start`
 
 Release mode will minify and obfuscate front end files.
-  
+
 ## Access Homepage
 Open http://localhost:8111 in your browser
 
