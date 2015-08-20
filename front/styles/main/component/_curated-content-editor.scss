@@ -13,7 +13,6 @@ $search-image-input-text-padding: $search-results-image-spacing + $search-result
 $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-padding;
 
 .curated-content-editor-add-item-btn {
-	cursor: pointer;
 	display: block;
 	font-weight: bold;
 	margin: $item-padding-vertical auto;
@@ -66,8 +65,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		width: 0;
 	}
 	border-bottom-width: 1px;
-	//iOS can't handle touch events on element if it doesn't have cursor pointer
-	cursor: pointer;
 	display: flex;
 	height: $row-height;
 	padding: $item-padding-vertical $item-padding-horizontal;
@@ -83,7 +80,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	}
 
 	.item-description {
-		width: calc(100% - #{$item-image-size + $image-margin});
+		flex: 1;
 	}
 
 	.title {
@@ -103,11 +100,9 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	background: $snow;
 	display: flex;
 	height: $image-size;
-	position: relative;
 
 	.section-image {
-		text-align: center;
-		width: $image-size;
+		flex: 0 0 150px;
 
 		img {
 			height: $image-size;
@@ -118,31 +113,30 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		display: flex;
 		flex-direction: column;
 		height: $image-size;
-		width: calc(100% - #{$image-size});
+		flex: 1;
+		justify-content: space-between;
 	}
 
 	.section-label {
 		@include clamp(5);
 
 		color: $black;
-		font-size: 18px;
+		font-size: 1.1rem;
 		font-weight: bold;
-		height: $image-size;
-		line-height: 23px;
+		line-height: 1.4rem;
 		padding: 10px 13px 0;
 	}
 
 	.section-items-count {
 		color: $color-blue-gray-dark;
-		font-size: 12px;
-		line-height: 14px;
+		font-size: .75rem;
+		line-height: .9rem;
 		padding: 0 13px 10px;
 	}
 
 	.section-edit {
-		bottom: 1rem;
-		position: absolute;
-		right: 1rem;
+		align-self: flex-end;
+		padding: 0 13px 10px;
 
 		svg {
 			fill: $color-blue-dark;
@@ -165,8 +159,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		border: 1px solid transparent;
 		display: block;
 		margin: 0 auto;
-		width: 90vw;
-
+		width: 90%;
 	}
 
 	&.landscape img {
@@ -272,10 +265,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .navigation {
-	display: inline-block;
-	float: right;
-	height: $row-height;
-	text-align: right;
+	flex: 0 20px;
 }
 
 .arrow {
