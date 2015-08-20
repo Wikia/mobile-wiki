@@ -28,6 +28,7 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 
 	canEdit: Em.computed(function(): boolean {
 		debugger;
+		//return App.CurrentUser.hasRight('curatedcontent');
 	}),
 
 	/**
