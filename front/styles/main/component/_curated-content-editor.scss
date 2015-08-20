@@ -201,7 +201,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-photo-crop {
-	background: #000;
+	background: $black;
 	height: calc(100vh - 50px);
 	width: 100vw;
 
@@ -307,7 +307,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	li {
 		@extend %ellipsis;
 		border: 1px solid $iron;
-		border-top: none;
+		border-top: 0;
 		font-size: 14px;
 		padding: 10px;
 
