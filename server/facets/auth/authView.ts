@@ -24,6 +24,7 @@ module authView {
 		footerCalloutLink?: string;
 		headerText?: string;
 		bodyClasses?: string;
+		standalone?: boolean;
 		trackingConfig?: any;
 	}
 
@@ -89,9 +90,9 @@ module authView {
 			optimizelyScript: localSettings.optimizely.scriptPath +
 				(localSettings.environment === Utils.Environment.Prod ?
 					localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js',
+			standalone: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
 				isModal: isModal,
-				standalone: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 				viewType: viewType
 			}
 		};

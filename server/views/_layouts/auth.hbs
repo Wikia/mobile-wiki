@@ -13,10 +13,10 @@
 		{{> tracking}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
-	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if pageParams.standalone}}standalone{{/if}}">
+	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalone}}standalone{{/if}}">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
-		{{#if pageParams.standalone}}
+		{{#if standalone}}
 			<nav class="global-nav">
 				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
 			</nav>
