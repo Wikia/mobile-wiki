@@ -14,10 +14,32 @@ interface QueryUserInfoGroupsRightsResponse {
 	}
 }
 
+Em.computed.promise = function (fn) {
+	return Em.computed(function () {
+		var PromisableObjectProxy = Ember.ObjectProxy.extend(Em.PromiseProxyMixin);
+		return PromisableObjectProxy.create({
+			promise: new Ember.RSVP.Promise(fn)
+		});
+	});
+};
+
 App.CurrentUser = Em.Object.extend({
 	model: null,
-	groups: [],
-	rights: [],
+	rights: Em.computed.promise(function (resolve) {
+		Em.$.ajax(<JQueryAjaxSettings>{
+			url: '/api.php',
+			data: {
+				action: 'query',
+				meta: 'userinfo',
+				uiprop: 'rights',
+				format: 'json'
+			},
+			dataType: 'json',
+			success: (result: QueryUserInfoGroupsRightsResponse): void => {
+				resolve(result.query.userinfo.rights);
+			}
+		});
+	}),
 
 	init: function (): void {
 		var userId = this.get('userId');
@@ -26,7 +48,6 @@ App.CurrentUser = Em.Object.extend({
 				this.set('model', result);
 			});
 		}
-		this.getGroupsAndRights();
 		this._super();
 	},
 
@@ -35,26 +56,5 @@ App.CurrentUser = Em.Object.extend({
 	userId: Em.computed(function (): number {
 		var cookieUserId = ~~M.prop('userId');
 		return cookieUserId > 0 ? cookieUserId : null;
-	}),
-
-	getGroupsAndRights(): void {
-		Em.$.ajax(<JQueryAjaxSettings>{
-			url: '/api.php',
-			data: {
-				action: 'query',
-				meta: 'userinfo',
-				uiprop: 'groups|rights',
-				format: 'json'
-			},
-			dataType: 'json',
-			success: (result: QueryUserInfoGroupsRightsResponse): void => {
-				this.set('groups', result.query.userinfo.groups);
-				this.set('rights', result.query.userinfo.rights);
-			}
-		});
-	},
-
-	hasRight(right: string): boolean {
-		return this.get('rights').indexOf(right) > -1;
-	}
+	})
 });

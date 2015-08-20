@@ -26,9 +26,14 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
-	canEdit: Em.computed(function(): boolean {
-		debugger;
-		//return App.CurrentUser.hasRight('curatedcontent');
+	canEdit: Em.computed('currentUser.rights.isFulfilled', function (): boolean {
+		var rightsPromise = this.get('currentUser.rights');
+
+		if (rightsPromise.isFulfilled) {
+			return rightsPromise.get('content').indexOf('curatedcontent') > -1;
+		}
+
+		return false;
 	}),
 
 	/**
