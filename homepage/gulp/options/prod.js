@@ -19,17 +19,26 @@ module.exports = {
 		},
 		server: {
 			module: 'commonjs',
-			target: 'es5',
+			target: 'ES5',
 			emitError: false,
-			outDir: paths.scripts.server.dest,
-			removeComments: true,
 			noImplicitAny: true,
-			declarationFiles: false
+			declarationFiles: false,
+			removeComments: false
 		}
 	},
 	doc: {
-		front: {},
-		server: {}
+		front: {
+			name: 'Homepage front',
+			out: 'docs/front',
+			module: 'commonjs',
+			target: 'es5'
+		},
+		server: {
+			name: 'Homepage server',
+			out: 'docs/server',
+			module: 'commonjs',
+			target: 'es5'
+		}
 	},
 	tslint: {
 		emitError: true

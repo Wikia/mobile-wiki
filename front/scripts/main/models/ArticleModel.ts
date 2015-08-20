@@ -69,7 +69,7 @@ App.ArticleModel.reopenClass({
 		var model = App.ArticleModel.create(params);
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			if (M.prop('firstPage') && !M.prop('asyncArticle')) {
+			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
@@ -125,7 +125,7 @@ App.ArticleModel.reopenClass({
 			adsInstance: Mercury.Modules.Ads,
 			instantGlobals = Wikia.InstantGlobals || {};
 
-		M.prop('firstPage', false);
+		M.prop('articleContentPreloadedInDOM', false);
 
 		// On first page load the article content is available only in HTML
 		article.content = $('#preloadedContent').html();

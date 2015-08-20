@@ -7,6 +7,9 @@ $visual-grid-color: red;
 $visual-grid-index: front;
 $visual-grid-opacity: .02;
 
+// Warnings for Bourbon deprecations
+$disable-warnings: true;
+
 // Bourbon, Neat and Bitters (http://bourbon.io/)
 @import '../../vendor/bourbon/app/assets/stylesheets/bourbon';
 @import '../../vendor/bitters/app/assets/stylesheets/base';
