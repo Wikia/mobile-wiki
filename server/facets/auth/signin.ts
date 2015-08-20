@@ -10,6 +10,7 @@ interface SignInViewContext extends authView.AuthViewContext {
 	headerSlogan?: string;
 	forgotPasswordHref?: string;
 	heliosLoginURL: string;
+	heliosFacebookURL: string;
 }
 
 function getSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
@@ -24,8 +25,12 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
 			heliosLoginURL: authUtils.getHeliosUrl('/token'),
+			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
 			submitText: 'auth:signin.submit-text',
-			formId: 'loginForm'
+			formId: 'loginForm',
+			pageParams: {
+				facebookAppId: localSettings.facebook.appId
+			}
 		}
 	);
 }
@@ -34,8 +39,8 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 	return deepExtend(
 		authView.getDefaultContext(request),
 		{
-			title: 'auth:join.connect-with-facebook',
-			headerText: 'auth:join.connect-with-facebook',
+			title: 'auth:common.connect-with-facebook',
+			headerText: 'auth:common.connect-with-facebook',
 			footerCallout: 'auth:signin.register-callout',
 			footerCalloutLink: 'auth:signin.register-now',
 			footerHref: authUtils.getRegisterUrl(request),
@@ -72,7 +77,7 @@ function getFacebookSignInPage (request: Hapi.Request, reply: any) : Hapi.Respon
 		return reply.redirect(redirect);
 	}
 
-	return authView.view('signin', context, request, reply);
+	return authView.view('signin-fb', context, request, reply);
 }
 
 export function get (request: Hapi.Request, reply: any): void {
