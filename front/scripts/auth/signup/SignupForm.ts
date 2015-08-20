@@ -61,7 +61,7 @@ class SignupForm {
 		M.track({
 			trackingMethod: 'both',
 			action: M.trackActions.success,
-			category: 'user-login-mobile',
+			category: 'user-login-' + pageParams.viewType,
 			label: 'successful-registration'
 		});
 
