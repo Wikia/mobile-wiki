@@ -1,3 +1,8 @@
+## release-139 (2015-08-20 13:47 UTC)
+* [SOC-651](https://wikia-inc.atlassian.net/browse/SOC-651) SOC-651 & SOC-643 register & login on dedicated page
+* [SOC-904](https://wikia-inc.atlassian.net/browse/SOC-904) SOC-904 Do not show header on Auth Pages in modal
+* [SOC-902](https://wikia-inc.atlassian.net/browse/SOC-902) SOC-902 Facebook Registration
+
 ## release-138 (2015-08-20 10:00 UTC)
 * Japan-homepage-hotfix-1: Fix for horizontal scrollbar in mobile view for Japan Homepage
 * [JA-](https://wikia-inc.atlassian.net/browse/JA-) Ja hp contentupdate 1
