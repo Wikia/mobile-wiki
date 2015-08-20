@@ -3,21 +3,18 @@
 
 App.DiscussionForumPostController = Em.Controller.extend({
 
-	showMore: Em.computed(function (): boolean {
-			var model = this.get('model');
+	showMore: Em.computed('model', function (): boolean {
+			var model = this.get('model'),
+				loadedRepliesLength = Em.get(model, 'replies.length');
 
-			return model.replies.length < model.postCount;
+			return loadedRepliesLength < model.postCount;
 	}),
 
 	actions: {
 		expand: function () {
 			var model = this.get('model');
 
-			model.loadNextPage().then( (): void => {
-				if (model.replies.length >= model.postCount) {
-					this.set('showMore', false);
-				}
-			} );
+			model.loadNextPage();
 		},
 	}
 });

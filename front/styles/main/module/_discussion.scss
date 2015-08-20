@@ -14,18 +14,18 @@
 	}
 
 	.see-more {
-		background-color:#E6E6E6;
-		border-width:0;
-		display:inline-block;
-		font-size:10px;
-		font-weight:bold;
-		width:100%;
+		background-color: #E6E6E6;
+		border-width: 0;
+		display: inline-block;
+		font-size: 10px;
+		font-weight: bold;
+		width: 100%;
 	}
 
 	@for $i from 1 through length($verticals) {
 		.#{nth($verticals, $i)}-vertical & {
 			.see-more {
-				color:nth($vertical-colors, $i);
+				color: nth($vertical-colors, $i);
 			}
 		}
 	}
