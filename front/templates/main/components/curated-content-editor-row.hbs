@@ -6,10 +6,10 @@
 	{{/if}}
 </div>
 <div class="navigation">
-	<div {{action 'moveBy' -1}}>
+	<div {{action 'moveBy' -1 bubbles=false}}>
 		{{svg 'chevron' role='img' class='icon arrow arrow-up'}}
 	</div>
-	<div {{action 'moveBy' 1}}>
+	<div {{action 'moveBy' 1 bubbles=false}}>
 		{{svg 'chevron' role='img' class='icon arrow arrow-down'}}
 	</div>
 </div>
