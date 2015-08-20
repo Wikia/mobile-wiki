@@ -1,8 +1,13 @@
+$light-blue: #1a5eb8;
+$semi-dark: #39424d;
+
 .modal-dialog-wrapper {
 	align-items: center;
 	bottom: 0;
+	color: $semi-dark;
 	display: flex;
-	padding: 10px;
+	font-size: 16px;
+	padding: 20px;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -10,26 +15,10 @@
 
 	.modal-dialog {
 		background-color: $white;
-		border-radius: 3px;
-		color: $steel;
-		list-style: none;
-		margin: 0;
+		box-shadow: 0 8px 12px rgba(0, 0, 0, .3);
+		padding: 26px;
 		width: 100%;
 		z-index: $z-2;
-	}
-
-	li {
-		padding: 1rem;
-
-		&:not(:last-child) {
-			border-bottom: 1px $iron solid;
-		}
-	}
-
-	label {
-		color: inherit;
-		font-size: inherit;
-		padding: 0;
 	}
 
 	.modal-dialog-layover {
@@ -39,5 +28,25 @@
 		position: absolute;
 		right: 0;
 		top: 0;
+	}
+
+	&.menu {
+		color: $light-blue;
+
+		.modal-dialog {
+			padding-bottom: 10px;
+			padding-top: 10px;
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+		}
+
+		li {
+			align-items: center;
+			display: flex;
+			min-height: 50px;
+		}
 	}
 }

@@ -11,7 +11,7 @@
 		{{/if}}
 		{{loading-spinner active=isLoading overlay=false}}
 	</div>
-	{{#modal-dialog isVisible=imageModalVisible}}
+	{{#modal-dialog isVisible=imageModalVisible type="menu"}}
 		<ul>
 			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageModal')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>

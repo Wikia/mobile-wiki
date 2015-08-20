@@ -212,6 +212,15 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-item {
+	.file-upload-label {
+		align-items: center;
+		color: inherit;
+		display: flex;
+		font-size: inherit;
+		min-height: inherit;
+		width: 100%;
+	}
+
 	.file-upload-input {
 		display: none;
 	}
