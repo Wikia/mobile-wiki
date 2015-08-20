@@ -32,11 +32,18 @@ class AuthTracker {
 	}
 
 	public track (label: string, action: string) {
-		M.track({
-			trackingMethod: 'both',
-			action: action,
-			category: this.gaCategory,
-			label: label
-		});
+		var trackOptions: TrackingParams = {
+				trackingMethod: 'both',
+				action: action,
+				category: this.gaCategory,
+				label: label
+			},
+			sourceUrl = M.getQueryParam('redirect');
+
+		if (sourceUrl) {
+			trackOptions.sourceUrl = sourceUrl;
+		}
+
+		M.track(trackOptions);
 	}
 }

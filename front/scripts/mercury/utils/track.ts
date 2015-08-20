@@ -21,6 +21,7 @@ interface TrackingParams {
 	category: string;
 	trackingMethod?: string;
 	isNonInteractive?: boolean;
+	sourceUrl?: string;
 	[idx: string]: any;
 }
 

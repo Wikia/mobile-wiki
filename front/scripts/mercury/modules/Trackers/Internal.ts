@@ -19,7 +19,6 @@ interface InternalTrackingConfig {
 	beacon: String;
 	// cachebuster
 	cb: Number;
-	redirectUrl?: string;
 }
 
 interface InternalTrackingParams extends TrackingParams {
@@ -29,6 +28,7 @@ interface InternalTrackingParams extends TrackingParams {
 	a: String;
 	// wgNamespaceNumber
 	n: Number;
+	sourceUrl?: string;
 }
 
 module Mercury.Modules.Trackers {
@@ -57,12 +57,7 @@ module Mercury.Modules.Trackers {
 					s: 'mercury',
 					beacon: '',
 					cb: ~~(Math.random() * 99999)
-				},
-				redirectUrl: string = Mercury.Utils.getQueryParam('redirect');
-
-			if (redirectUrl) {
-				config.redirectUrl = redirectUrl;
-			}
+				};
 
 			return config;
 		}
