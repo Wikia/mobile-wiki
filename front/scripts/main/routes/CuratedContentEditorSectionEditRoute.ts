@@ -9,10 +9,10 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 	},
 
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var parentSection = this.modelFor('curatedContentEditor').get('curated');
-
 		this._super(controller, model, transition);
-		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(parentSection, model.label));
+		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(
+			this.modelFor('curatedContentEditor').get('curated'), model.label)
+		);
 	},
 
 	renderTemplate(): void {

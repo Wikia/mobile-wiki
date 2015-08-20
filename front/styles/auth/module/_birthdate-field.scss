@@ -12,8 +12,10 @@
 		flex: 1;
 		height: auto;
 		margin: 0;
+		min-width: 0;
 		padding: 0;
 		text-align: center;
+		-moz-appearance: textfield;
 	}
 
 	span {

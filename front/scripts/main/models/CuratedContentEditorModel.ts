@@ -25,9 +25,15 @@ interface CuratedContentEditorRawSectionInterface {
 	type?: string;
 }
 
+interface CuratedContentValidationResponseErrorInterface {
+	target: string;
+	type: string;
+	reason: string;
+}
+
 interface CuratedContentValidationResponseInterface {
 	status: boolean;
-	error?: any;
+	error?: CuratedContentValidationResponseErrorInterface[];
 }
 
 type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
@@ -156,13 +162,32 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	getAlreadyUsedLabels(parentSection: CuratedContentEditorItemModel, childLabel: string = null): string[] {
-		if (Array.isArray(parentSection.items)) {
-			return parentSection.items.map((childItem: CuratedContentEditorItemModel): string => {
-				return childItem.label !== childLabel ? childItem.label : null
-			}).filter(String);
+	getAlreadyUsedNonFeaturedItemsLabels(modelRoot: CuratedContentEditorModel, excludedLabel: string = null): string[] {
+		// Flatten the array
+		return [].concat.apply([], modelRoot.curated.items.map((section: CuratedContentEditorItemModel): string[] =>
+			// Labels of section items
+			this.getAlreadyUsedLabels(section, excludedLabel)
+		).concat(
+			// Labels of optional block items
+			this.getAlreadyUsedLabels(modelRoot.optional, excludedLabel)
+		));
+	},
+
+	getAlreadyUsedLabels(
+		sectionOrBlock: CuratedContentEditorItemModel,
+		excludedLabel: string = null
+	): string[] {
+		var labels: string[] = [];
+
+		if (Array.isArray(sectionOrBlock.items)) {
+			labels = sectionOrBlock.items.map((item: CuratedContentEditorItemModel): string => {
+				var itemLabel: string = Em.get(item, 'label');
+
+				return (excludedLabel === null || itemLabel !== excludedLabel) ? itemLabel : null;
+			}).filter((item: any): boolean => typeof item === 'string');
 		}
-		return [];
+
+		return labels;
 	},
 
 	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {

@@ -45,8 +45,10 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			if (this.get('notEmptyItems')) {
 				this.validateAndDone();
 			} else {
-				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Sections can\'t be empty, please add items to section');
+				this.addAlert({
+					message: i18n.t('app.curated-content-editor-empty-section-error'),
+					type: 'alert'
+				});
 			}
 		}
 	},
@@ -68,29 +70,38 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					this.sendAction('done', this.get('model'));
 				} else {
 					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
+						data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+							=> this.processValidationError(error.reason));
 					} else {
-						//@TODO CONCF-956 add translations
-						this.addAlert('alert', 'Something went wrong. Please repeat.');
+						this.addAlert({
+							message: i18n.t('app.curated-content-error-other'),
+							type: 'alert'
+						});
 					}
 				}
 			})
 			.catch((err: any): void => {
 				Em.Logger.error(err);
-				//@TODO CONCF-956 add translations
-				this.addAlert('alert', 'Something went wrong. Please repeat.');
+				this.addAlert({
+					message: i18n.t('app.curated-content-error-other'),
+					type: 'alert'
+				});
 			})
 			.finally((): void => this.hideLoader());
 	},
 
 	processValidationError(reason: string) {
 		if (reason === 'itemsMissing') {
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Sections can\'t be empty, please add items to section');
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-empty-section-error'),
+				type: 'alert'
+			});
 		} else {
 			// if other items occur that means user somehow bypassed validation of one or more items earlier
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside items');
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-general-section-error'),
+				type: 'alert'
+			});
 		}
 	}
 });

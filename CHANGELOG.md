@@ -1,3 +1,38 @@
+## release-139 (2015-08-20 13:47 UTC)
+* [SOC-651](https://wikia-inc.atlassian.net/browse/SOC-651) SOC-651 & SOC-643 register & login on dedicated page
+* [SOC-904](https://wikia-inc.atlassian.net/browse/SOC-904) SOC-904 Do not show header on Auth Pages in modal
+* [SOC-902](https://wikia-inc.atlassian.net/browse/SOC-902) SOC-902 Facebook Registration
+
+## release-138 (2015-08-20 10:00 UTC)
+* Japan-homepage-hotfix-1: Fix for horizontal scrollbar in mobile view for Japan Homepage
+* [JA-](https://wikia-inc.atlassian.net/browse/JA-) Ja hp contentupdate 1
+* [HG-818](https://wikia-inc.atlassian.net/browse/HG-818) Hg 818 fixing named anchor links
+* [HG-829](https://wikia-inc.atlassian.net/browse/HG-829) Hg 829 Adding comments and removing unused gulp task
+* [CONCF-1047](https://wikia-inc.atlassian.net/browse/CONCF-1047) CONCF-1047 | Add re-initialization on resize to cropper tool
+* [SOC-959](https://wikia-inc.atlassian.net/browse/SOC-959) SOC-959 OpenGraph attributes for discussion posts
+* semicolons: Adding missing semicolons
+* separate-dev-config: Update README.md
+* separate-dev-config: Separate localSettings file for dev environment
+* [SOC-601](https://wikia-inc.atlassian.net/browse/SOC-601) SOC-601 | Set cookie on successful account registration
+
+## release-137 (2015-08-19 10:00 UTC)
+* [SOC-884](https://wikia-inc.atlassian.net/browse/SOC-884) SOC-884 Post detail page updates
+* [INT-124](https://wikia-inc.atlassian.net/browse/INT-124) Wikia-In-Your-Language for Mercury
+* aden-2289-fix-hop-in-interstitial: ADEN-2289 Added temporary method to keep working the interstitial
+* aden-2289-hop-in-interstitial: ADEN-2289 Create hidden ads lightbox and show it manually
+* [CONCF-967](https://wikia-inc.atlassian.net/browse/CONCF-967) CONCF-967 Allow title duplicates and disallow label duplicates in Curated Content Tool
+
+## release-136 (2015-08-18 10:00 UTC)
+* missing-semicolon: Adding missing semicolon and breaking line
+* aden-2341-floor-adhesion-styles: ADEN-2341 Fixed floor adhesion styles
+* [CONCF-956](https://wikia-inc.atlassian.net/browse/CONCF-956) CONCF-956 Add translations for Curated Content Tool
+* facebook-auth: New Facebook Authentication for mobile skins
+* [SOC-1016](https://wikia-inc.atlassian.net/browse/SOC-1016) SOC-1016 Add tracking to Facebook connect / registration
+* [SOC-932](https://wikia-inc.atlassian.net/browse/SOC-932) SOC-932 Track clicks on Facebook Connect button
+
+## release-135 (2015-08-17 10:00 UTC)
+* [CONCF-978](https://wikia-inc.atlassian.net/browse/CONCF-978) CONCF-978 Take into account user's permissions in Curated Content Tool
+
 ## release-134 (2015-08-14 10:00 UTC)
 * [INT-160](https://wikia-inc.atlassian.net/browse/INT-160) Config files for Japan homepage
 * [INT-157](https://wikia-inc.atlassian.net/browse/INT-157) Mobile tweaks for nav with search and login window for Japan homepage

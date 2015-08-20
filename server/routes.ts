@@ -159,6 +159,7 @@ authenticatedRoutes = [
 			]
 		}
 	},
+
 	{
 		method: 'GET',
 		path: '/login',
@@ -245,7 +246,7 @@ articlePagePaths.forEach((path) => {
 unauthenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
-	path: '/d/{subpaths*}',
+	path: '/d/{type}/{id}/{action?}',
 	handler: require('./facets/showApplication')
 });
 

@@ -13,19 +13,30 @@
 		{{> tracking}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
-	<body class="auth {{bodyClasses}}">
+	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
-	{{#if exitTo}}
-		<a class="close" href="{{exitTo}}">
-			<svg role="img">
-				<use xlink:href="#close"></use>
-			</svg>
-		</a>
+		{{#if standalonePage}}
+			<nav class="global-nav">
+				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
+			</nav>
+		{{else}}
+			{{#unless isModal}}
+			<a class="close" href="{{exitTo}}">
+				<svg role="img">
+					<use xlink:href="#close"></use>
+				</svg>
+			</a>
+			{{/unless}}
 		{{/if}}
 
 		{{#unless hideHeader}}
-		<header class="auth-header splash splash-top">{{i18n headerText}}</header>
+		<header class="auth-header splash splash-top">
+			<h1>{{i18n headerText}}</h1>
+			{{#if headerSlogan}}
+			<p>{{i18n headerSlogan}}</p>
+			{{/if}}
+		</header>
 		{{/unless}}
 
 		{{{content}}}
@@ -38,7 +49,8 @@
 
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},
-					language = {{{json language}}};
+					language = {{{json language}}},
+					pageParams = {{{json pageParams}}};
 		</script>
 		<!-- build:js /front/scripts/auth.js -->
 		<script src="/front/vendor/i18next/i18next.min.js"></script>
