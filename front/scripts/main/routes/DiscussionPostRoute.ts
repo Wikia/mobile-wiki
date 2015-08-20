@@ -1,8 +1,8 @@
 /// <reference path="../app.ts" />
 
-App.DiscussionForumPostRoute = Em.Route.extend({
+App.DiscussionPostRoute = Em.Route.extend({
 	model (params: any) {
-		return App.PostModel.find(Mercury.wiki.id, params.postId);
+		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
 
 	activate (): void {

@@ -1,19 +1,19 @@
 /// <reference path="../app.ts" />
 
-App.PostModel = Em.Object.extend({
+App.DiscussionPostModel = Em.Object.extend({
 	replies: [],
 	firstPost: null,
 	upvoteCount: 0,
 	postCount: 0
 });
 
-App.PostModel.reopenClass({
+App.DiscussionPostModel.reopenClass({
 	find(wikiId: number, threadId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			var postInstance = App.PostModel.create();
+			var postInstance = App.DiscussionPostModel.create();
 
 			Em.$.ajax({
-				url: `https://services.wikia-dev.com/discussion/${wikiId}/threads/${threadId}` +
+				url: `https://services.wikia.com/discussion/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&limit=10',
 				dataType: 'json',
 				success: (data: any) => {

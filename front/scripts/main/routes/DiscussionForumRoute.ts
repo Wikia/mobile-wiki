@@ -2,6 +2,6 @@
 
 App.DiscussionForumRoute = Em.Route.extend({
 	model (params: any) {
-		return App.ForumModel.find(Mercury.wiki.id, params.forumId);
+		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId);
 	}
 });
