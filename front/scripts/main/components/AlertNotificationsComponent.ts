@@ -1,9 +1,11 @@
 /// <reference path="../app.ts" />
 'use strict';
-
 interface AlertNotification {
-	type: string;
 	message: string;
+	type?: string;
+	expiry?: number;
+	unsafe?: boolean;
+	callbacks?: any;
 }
 
 App.AlertNotificationsComponent = Em.Component.extend({

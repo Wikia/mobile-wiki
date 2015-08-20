@@ -11,6 +11,7 @@ var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
+	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
@@ -18,9 +19,12 @@ var localSettings: LocalSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		host: process.env.HELIOS_HOST,
+		path: '/auth',
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
+	},
+	discuss: {
+		baseAPIPath: 'discussion',
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
@@ -41,13 +45,11 @@ var localSettings: LocalSettings = {
 	optimizely: {
 		enabled: true,
 		scriptPath: '//cdn.optimizely.com/js/',
-		devAccount: '2441440871',
 		account: '2449650414'
 	},
 	qualaroo: {
 		enabled: true,
-		scriptUrlDev:  '//s3.amazonaws.com/ki.js/52510/dlS.js',
-		scriptUrlProd: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
+		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
 	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
@@ -107,6 +109,6 @@ var localSettings: LocalSettings = {
 	}
 };
 
-export function getSettings(customLocalSet: any): LocalSettings {
+export function extendSettings(customLocalSet: any): LocalSettings {
 	return deepExtend(localSettings, customLocalSet);
 }

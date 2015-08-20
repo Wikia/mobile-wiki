@@ -1,16 +1,16 @@
 {{> nav}}
 
-<section class="parallax">
-    <div id="js-parallax-window" class="parallax-window">
-        <div class="parallax-static-content">
-            <div class="parallax-heading">
-                <b>ウィキアって何?</b>
-            </div>
-            <input type="button" value="詳しくはこちら">
-        </div>
-        <div id="js-parallax-background" class="parallax-background"></div>
+<div class="parallax">
+  <div id="js-parallax-window" class="parallax-window">
+    <div class="parallax-static-content" id="parallax-content-1">
+      {{>welcome}}
     </div>
-</section>
+    <div class="parallax-static-content parallax-hidden-slide" id="parallax-content-2">
+      {{>welcome_details}}
+    </div>
+    <div id="js-parallax-background" class="parallax-background"></div>
+  </div>
+</div>
 
 <section class="categories">
     <h2 class="background"><span>カテゴリー</span></h2>
@@ -62,7 +62,7 @@
         <h4>ウィキアについて</h4>
         <p>簡単で無料にコミュニティーを作れます</p>
         <p>
-            <input type="button" value="始めてみよう">
+            <input type="button" value="始めてみよう" id="beginnersGuide">
         </p>
     </div>
     <div class="device">

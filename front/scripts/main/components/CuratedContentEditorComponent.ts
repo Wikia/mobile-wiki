@@ -39,34 +39,57 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		App.CuratedContentEditorModel.save(this.get('model'))
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
-					//@TODO CONCF-956 add translations
-					this.addAlert('info', 'Data saved.');
+					this.addAlert({
+						message: i18n.t('app.curated-content-editor-changes-saved'),
+						type: 'info'
+					});
 					this.sendAction('openMainPage');
+				} else if (data.error) {
+					data.error.forEach(
+						(error: CuratedContentValidationResponseErrorInterface) =>
+							this.processValidationError(error.type, error.reason)
+					);
 				} else {
-					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
-					} else {
-						//@TODO CONCF-956 add translations
-						this.addAlert('alert', 'Something went wrong. Please repeat.');
-					}
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
 				}
 			})
 			.catch((err: any): void => {
-				//@TODO CONCF-956 add translations
-				Em.Logger.error(err);
-				this.addAlert('alert', 'Something went wrong. Please repeat.');
+				if (err.status === 403) {
+					this.addAlert({
+						message: i18n.t('app.curated-content-editor-error-no-save-permissions'),
+						type: 'warning'
+					});
+				} else {
+					Em.Logger.error(err);
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
+				}
 			})
 			.finally((): void => this.hideLoader());
 	},
 
-	processValidationError(reason: string) {
-		if (reason === 'itemsMissing') {
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside Explore the Wiki section.');
+	processValidationError(type: string, reason: string) {
+		if (type === 'featured') {
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-error-inside-featured-content'),
+				type: 'alert'
+			});
+		} else if (reason === 'itemsMissing') {
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-missing-items-error'),
+				type: 'alert'
+			});
 		} else {
 			// if other items occur that means user somehow bypassed validation of one or more items earlier
-			//@TODO CONCF-956 add translations
-			this.addAlert('alert', 'Please fix errors inside items');
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-error-inside-items-message'),
+				type: 'alert'
+			});
 		}
 	}
 });

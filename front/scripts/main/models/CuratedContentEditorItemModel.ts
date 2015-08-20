@@ -7,6 +7,7 @@ type CuratedContentEditorItemModel = typeof App.CuratedContentEditorItemModel;
 App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	article_id: null,
 	image_id: null,
+	image_crop: null,
 	image_url: null,
 	items: null,
 	label: null,
@@ -27,6 +28,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 		var modelParams = $.extend(true, {
 			article_id: null,
 			image_id: null,
+			image_crop: null,
 			image_url: null,
 			items: null,
 			label: null,
@@ -74,6 +76,31 @@ App.CuratedContentEditorItemModel.reopenClass({
 					path: '/wikia.php'
 				}),
 				data,
+				dataType: 'json',
+				success: (data: CuratedContentValidationResponseInterface): void => {
+					resolve(data);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
+	},
+
+	getSearchSuggestions(title: string): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			if (!title) {
+				return reject();
+			}
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query: title
+				},
 				dataType: 'json',
 				success: (data: CuratedContentValidationResponseInterface): void => {
 					resolve(data);

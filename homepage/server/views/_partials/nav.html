@@ -1,26 +1,26 @@
 <header class="navigation" role="banner">
   <div class="navigation-wrapper">
-    <a href="javascript:void(0)" class="logo">
+    <a href="/" class="logo">
       <img src="/vendor/wikia-style-guide/gh-pages/assets/images/wikia_logo.svg" class="icon wikia-logo">
     </a>
     <nav role="navigation">
       <ul id="js-navigation-menu" class="navigation-menu show">
         <li class="nav-link">
           <div class="search-bar">
-            <form role="search" id="searchWikiaForm">
+            <form role="search" id="searchWikiaForm" class="search-wikia-form">
               <input type="search" id="searchWikiaText" placeholder="すべてのウィキアで検索" />
-              <button type="button" id="searchWikia">
+              <button type="button" id="searchWikia" class="search-wikia">
                 <img src="/images/search-icon.png" class="icon search">
               </button>
             </form>
           </div>
         </li>
-        <li class="nav-link more">
-          <img src="/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg" class="icon login">
+        <li class="nav-link more mobile-login">
+          <img src="/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg" class="icon login" id="loginIcon">
 
           <ul class="submenu">
             <li>
-              <div class="loginBox">
+              <div class="login-box">
                 {{> signin }}
               </div>
             </li>
@@ -30,3 +30,15 @@
     </nav>
   </div>
 </header>
+<div class="login-box-mobile">
+  {{> signin }}
+</div>
+
+<div class="search-bar-mobile">
+  <form role="search" id="searchWikiaFormMobile" class="search-wikia-form">
+    <input type="search" id="searchWikiaTextMobile" placeholder="すべてのウィキアで検索" />
+    <button type="button" id="searchWikiaMobile" class="search-wikia">
+      <img src="/images/search-icon.png" class="icon search">
+    </button>
+  </form>
+</div>

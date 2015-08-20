@@ -54,7 +54,8 @@ function getDefaultRegistrationContext (request: Hapi.Request, i18n: any): Defau
 				privacyPolicyLink: '<a href="' + localeSettings[lang].urls.privacyPolicyLinkUrl + '" target="_blank">'
 				+ i18n.t('auth:register.privacy-policy-link-title') + '</a>'
 			}
-		});
+		}
+	);
 }
 
 function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {
@@ -70,7 +71,7 @@ function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.R
 		getDefaultRegistrationContext(request, i18n),
 		{
 			headerText: 'auth:fb-register.register-with-facebook',
-			heliosFacebookRegistrationURL: localSettings.helios.host + '/facebook/users',
+			heliosFacebookRegistrationURL: authUtils.getHeliosUrl('/facebook/users'),
 			title: 'auth:fb-register.register-with-facebook',
 			termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 			footerCallout: 'auth:common.signin-callout',
@@ -106,8 +107,8 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 			headerText: (viewType === authView.VIEW_TYPE_MOBILE)
 				? 'auth:join.sign-up-with-email'
 				: 'auth:register.desktop-header',
-			heliosRegistrationURL: localSettings.helios.host + '/users',
-			heliosFacebookURL: localSettings.helios.host + '/facebook/token',
+			heliosRegistrationURL: authUtils.getHeliosUrl('/users'),
+			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
 			title: (viewType === authView.VIEW_TYPE_MOBILE)
 				? 'auth:join.sign-up-with-email'
 				: 'auth:register.desktop-header',

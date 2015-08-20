@@ -54,12 +54,29 @@ class SignupForm {
 			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
 		};
 	}
-
-	private trackSuccessfulRegistration() {
-		this.tracker.track('successful-registration', M.trackActions.success);
+	private getWikiaDomain(): string {
+		var hostParts: string[] = location.host.split('.').reverse();
+		if (hostParts.length >= 2) {
+			return hostParts[1] + '.' + hostParts[0];
+		}
+		return location.host;
 	}
 
-	private onSubmit(event: Event): void {
+	private onSuccessfulRegistration() {
+		this.tracker.track('successful-registration', M.trackActions.success);
+
+		Cookie.set(
+			'registerSuccess',
+			'1',
+			{
+				domain: this.getWikiaDomain()
+			}
+		);
+
+		Utils.loadUrl(this.redirect);
+	}
+
+	public onSubmit(event: Event): void {
 		var registrationXhr = new XMLHttpRequest(),
 			data: HeliosRegisterInput = this.getFormValues(),
 			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
@@ -76,26 +93,7 @@ class SignupForm {
 			var status: number = (<XMLHttpRequest> e.target).status;
 
 			if (status === HttpCodes.OK) {
-				// TODO remove this code when SERVICES-377 is fixed
-				var loginXhr = new XMLHttpRequest();
-				loginXhr.onload = (e: Event) => {
-					enableSubmitButton();
-					if ((<XMLHttpRequest> e.target).status === HttpCodes.OK) {
-						this.trackSuccessfulRegistration();
-						Utils.loadUrl(this.redirect);
-					} else {
-						this.formErrors.displayGeneralError();
-					}
-				};
-				loginXhr.onerror = (e: Event) => {
-					enableSubmitButton();
-					this.formErrors.displayGeneralError();
-				};
-
-				loginXhr.open('POST', this.form.action.replace('/users', '/token'), true);
-				loginXhr.withCredentials = true;
-				loginXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				loginXhr.send((new UrlHelper()).urlEncode(data));
+				this.onSuccessfulRegistration();
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				enableSubmitButton();
 				this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
