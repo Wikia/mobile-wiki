@@ -24,6 +24,10 @@ $parallax-window-height: 25em;
 	z-index: 9;
 }
 
+.parallax-hidden-slide {
+	display: none;
+}
+
 .parallax-heading {
 	@include media($mobile) {
 		font-size: 3em;
@@ -31,6 +35,28 @@ $parallax-window-height: 25em;
 
 	@include media($desktop) {
 		font-size: 5em;
+	}
+}
+
+.parallax-heading-small {
+	@include media($mobile) {
+		font-size: 1.5em;
+	}
+
+	@include media($desktop) {
+		font-size: 2.5em;
+	}
+}
+
+.parallax-details {
+	@include outer-container;
+	margin-bottom: 3em;
+	padding-left: 3em;
+	padding-right: 3em;
+
+	@include media($mobile) {
+		padding-left: .1em;
+		padding-right: .1em;
 	}
 }
 
