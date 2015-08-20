@@ -31,7 +31,7 @@
 		// IsCorporatePage
 		dimensions[15] = 'No';
 		// newAuthEntryPage
-		dimensions[10] = Mercury.Utils.getQueryParam('redirect');
+		dimensions[10] = M.getQueryParam('redirect');
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
