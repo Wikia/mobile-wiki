@@ -56,7 +56,7 @@ $('.search-wikia').click(function(event) : void {
 	event.preventDefault();
 });
 
-$('#loginLink').click(function(event) : void {
+$('#loginIcon').click(function(event) : void {
 	if ($(document).width() < 710) {
 		$('.login-box-mobile').toggle();
 	}
