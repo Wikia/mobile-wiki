@@ -89,9 +89,20 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		},
 
 		error(error: any): boolean {
-			Em.Logger.error(error);
-			this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
-			this.transitionTo('curatedContentEditor');
+			if (error.status === 403) {
+				this.controllerFor('application').addAlert({
+					message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
+					type: 'warning'
+				});
+				this.transitionTo('mainPage');
+			} else {
+				Em.Logger.error(error);
+				this.controllerFor('application').addAlert({
+					message: i18n.t('app.curated-content-error-other'),
+					type: 'warning'
+				});
+				this.transitionTo('curatedContentEditor');
+			}
 			return true;
 		},
 

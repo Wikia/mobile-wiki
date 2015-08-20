@@ -6,37 +6,37 @@
 			"assets": [
 				{
 					"title": "Comics",
-					"filename": "/images/hubs/wikia-hub-comics-en.png",
+					"filename": "/images/hubs/wikia-hub-comics.png",
 					"url": "http://comicshub.wikia.com/wiki/Comics_Hub"
 				},
 				{
 					"title": "TV",
-					"filename": "/images/hubs/wikia-hub-tv-en.png",
+					"filename": "/images/hubs/wikia-hub-tv.png",
 					"url": "http://tvhub.wikia.com/wiki/TV_Hub"
 				},
 				{
 					"title": "Movies",
-					"filename": "/images/hubs/wikia-hub-movies-en.png",
+					"filename": "/images/hubs/wikia-hub-movies.png",
 					"url": "http://movieshub.wikia.com/wiki/Movies_Hub"
 				},
 				{
 					"title": "Music",
-					"filename": "/images/hubs/wikia-hub-music-en.png",
+					"filename": "/images/hubs/wikia-hub-music.png",
 					"url": "http://musichub.wikia.com/wiki/Music_Hub"
 				},
 				{
 					"title": "Books",
-					"filename": "/images/hubs/wikia-hub-books-en.png",
+					"filename": "/images/hubs/wikia-hub-books.png",
 					"url": "http://bookshub.wikia.com/wiki/Books_Hub"
 				},
 				{
 					"title": "Games",
-					"filename": "/images/hubs/wikia-hub-games-en.png",
+					"filename": "/images/hubs/wikia-hub-games.png",
 					"url": "http://gameshub.wikia.com/wiki/Games_Hub"
 				},
 				{
 					"title": "Lifestyle",
-					"filename": "/images/hubs/wikia-hub-lifestyle-en.png",
+					"filename": "/images/hubs/wikia-hub-lifestyle.png",
 					"url": "http://lifestylehub.wikia.com/wiki/Lifestyle_Hub"
 				}				
 			]
@@ -44,21 +44,41 @@
 		{
 			"locale": "ja",
 			"assets": [
-				{
-					"title": "エンターテイメント",
-					"filename": "/images/hubs/wikia-hub-entertainment-ja.png",
-					"url": "http://ja.entertainmenthub.wikia.com/wiki/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%86%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E3%83%8F%E3%83%96_Wiki"
-				},
-				{
-					"title": "ゲーム",
-					"filename": "/images/hubs/wikia-hub-games-ja.png",
-					"url": "http://ja.videogameshub.wikia.com/wiki/%E3%83%93%E3%83%87%E3%82%AA%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%8F%E3%83%96_Wiki"
-				},
-				{
-					"title": "ライフスタイル",
-					"filename": "/images/hubs/wikia-hub-lifestyle-ja.png",
-					"url": "http://lifestylehub.wikia.com/wiki/Lifestyle_Hub"
-				}				
+              {
+                "title": "ゲーム",
+                "filename": "/images/hubs/wikia-hub-games.png",
+                "url": "http://ja.videogameshub.wikia.com/wiki/%E3%83%93%E3%83%87%E3%82%AA%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%8F%E3%83%96_Wiki"
+              },
+              {
+                "title": "漫画",
+                "filename": "/images/hubs/wikia-hub-comics.png",
+                "url": "http://ja.entertainmenthub.wikia.com/wiki/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%86%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E3%83%8F%E3%83%96_Wiki"
+              },
+              {
+                "title": "テレビ",
+                "filename": "/images/hubs/wikia-hub-tv.png",
+                "url": "http://ja.entertainmenthub.wikia.com/wiki/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%86%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E3%83%8F%E3%83%96_Wiki"
+              },
+              {
+                "title": "映画",
+                "filename": "/images/hubs/wikia-hub-movies.png",
+                "url": "http://ja.entertainmenthub.wikia.com/wiki/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%86%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E3%83%8F%E3%83%96_Wiki"
+              },
+              {
+                "title": "音楽",
+                "filename": "/images/hubs/wikia-hub-music.png",
+                "url": "http://ja.entertainmenthub.wikia.com/wiki/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%86%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E3%83%8F%E3%83%96_Wiki"
+              },
+              {
+                "title": "Books",
+                "filename": "/images/hubs/wikia-hub-books.png",
+                "url": "http://ja.entertainmenthub.wikia.com/wiki/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%86%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E3%83%8F%E3%83%96_Wiki"
+              },
+              {
+                "title": "ライフスタイル",
+                "filename": "/images/hubs/wikia-hub-lifestyle.png",
+                "url": "http://lifestylehub.wikia.com/wiki/Lifestyle_Hub"
+              }
 			]
 		}
 	]

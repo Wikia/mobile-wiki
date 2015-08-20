@@ -20,8 +20,8 @@ var deepExtend = require('deep-extend'),
 		port: process.env.PORT || 8111,
 	};
 
-function getSettings(customLocalSet) {
+function extendSettings(customLocalSet) {
 	return deepExtend(localSettings, customLocalSet);
 }
 
-exports.getSettings = getSettings;
+exports.extendSettings = extendSettings;

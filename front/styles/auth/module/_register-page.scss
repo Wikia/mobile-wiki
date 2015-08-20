@@ -3,12 +3,14 @@
 	line-height: 1rem;
 	text-align: center;
 	width: 100%;
-
-	>a {
-		color: $link-color;
-	}
 }
 
-.inline.signup-newsletter-label {
+label.inline {
 	margin-bottom: 0.5rem;
+	padding-left: 20px;
+	text-indent: -20px;
+}
+
+.terms-of-use a, label.inline a {
+	color: $link-color;
 }
