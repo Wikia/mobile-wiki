@@ -70,6 +70,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
+	uploadFeatureEnabled: function(): boolean {
+		return !Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
+	},
+
 	articleObserver: Em.observer('model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender

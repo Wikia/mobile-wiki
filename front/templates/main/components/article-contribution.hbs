@@ -3,7 +3,7 @@
 		{{svg 'pencil' role='img' class='icon pencil'}}
 	</span>
 </div>
-<div class="upload-photo">
+<div {{bind-attr class=":upload-photo uploadFeatureEnabled()::disabled"}}>
 	<span {{action 'select'}}>
 		{{svg 'camera' role='img' class='icon camera'}}
 	</span>

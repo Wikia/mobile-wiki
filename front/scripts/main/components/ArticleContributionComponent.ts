@@ -3,9 +3,11 @@
 
 App.ArticleContributionComponent = Em.Component.extend({
 	classNames: ['contribution-container'],
+	classNameBindings: ['uploadFeatureEnabled()::no-photo'],
 	templateName: 'components/article-contribution',
 	section: null,
 	title: null,
+	uploadFeatureEnabled: null,
 
 	actions: {
 		edit: function (): void {
