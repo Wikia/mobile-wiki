@@ -6,7 +6,7 @@
 import baseLocalSettings = require('./localSettings.base');
 import Utils = require('../server/lib/Utils');
 
-var localSettings = baseLocalSettings.getSettings({
+var localSettings = baseLocalSettings.extendSettings({
 	// Add custom settings here
 });
 

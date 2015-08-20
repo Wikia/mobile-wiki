@@ -3,6 +3,7 @@
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/ViewportMixin.ts"/>
 
 'use strict';
 
@@ -11,13 +12,15 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
 	App.TrackClickMixin,
+	App.ViewportMixin,
 	{
 		imgSelector: '.curated-content-editor-photo-crop > img',
 		$imgElement: null,
 		isLoading: false,
+		cropperInitialized: false,
 
 		// https://github.com/fengyuanchen/cropper#options
-		cropperSettings: {
+		defaultCropperSettings: {
 			autoCropArea: 1,
 			background: false,
 			center: false,
@@ -28,6 +31,11 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			guides: false,
 			highlight: false
 		},
+		currentCropperSettings: Em.computed('aspectRatio', function() {
+			return $.extend(this.get('defaultCropperSettings'), {
+				aspectRatio: this.get('aspectRatio')
+			});
+		}),
 
 		actions: {
 			goBack(): void {
@@ -99,16 +107,28 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		},
 
 		initCropper(): void {
-			var $imgElement = this.$(this.get('imgSelector')),
-				settings: any = $.extend(this.get('cropperSettings'), {
-					aspectRatio: this.get('aspectRatio')
+			var $imgElement = this.$(this.get('imgSelector'));
+
+			if (!this.get('cropperInitialized')) {
+				$imgElement.cropper(this.get('currentCropperSettings'));
+
+				this.setProperties({
+					isLoading: false,
+					cropperInitialized: true,
+					$imgElement
 				});
+			}
+		},
 
-			$imgElement.cropper(settings);
+		onResize(): void {
+			var $imgElement = this.get('$imgElement');
 
-			this.setProperties({
-				isLoading: false,
-				$imgElement
-			});
+			if (this.get('cropperInitialized')) {
+				// re-init cropper according to https://github.com/fengyuanchen/cropper/issues/421
+				$imgElement.cropper('destroy');
+				$imgElement.cropper(this.get('currentCropperSettings'));
+			}
+
 		}
+
 });

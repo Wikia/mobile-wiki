@@ -52,16 +52,14 @@ test('getLinkInfo article links', function () {
 		'Joel',
 		'David_Michael_Vigil'
 	];
-	expect(tests.length * 2 * 2);
+	expect(tests.length * 2);
 	var prefix = '/wiki/';
 	var cb = function (test) {
-		// 'article' is distinct from the tests, we're transtioning from a different page
+		// 'article' is distinct from the tests, we're transitioning from a different page
 		var res = M.getLinkInfo('http://lastofus.wikia.com', 'article', '', window.location.origin + prefix + test);
 		equal(res.article, test, 'article should match article passed in');
 		equal(res.url, null, 'url should be null');
 	};
-	tests.forEach(cb);
-	prefix = '/';
 	tests.forEach(cb);
 });
 
