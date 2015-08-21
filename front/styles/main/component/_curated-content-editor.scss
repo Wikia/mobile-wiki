@@ -114,8 +114,8 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	.section-desc {
 		display: flex;
 		flex-direction: column;
-		height: $image-size;
 		flex: 1;
+		height: $image-size;
 		justify-content: space-between;
 	}
 
@@ -257,13 +257,12 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	.search-results {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: flex-start;
-		padding: $search-results-horizontal-padding;
+		justify-content: space-around;
 
 		img {
-			height: $search-results-image-size;
-			margin: $search-results-image-spacing;
-			width: $search-results-image-size;
+			height: 100px;
+			padding: 5px;
+			width: 100px;
 		}
 	}
 
