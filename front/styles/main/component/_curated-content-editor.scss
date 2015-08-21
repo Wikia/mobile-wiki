@@ -202,6 +202,9 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-item {
+	//don't show grey overlay on tap
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+
 	.file-upload-input {
 		display: none;
 	}
@@ -320,14 +323,11 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 .title-suggestions-container {
 	background: $white;
 	box-shadow: 0 2px 5px $iron;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	position: absolute;
 	width: 100%;
-
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
 
 	li {
 		@extend %ellipsis;
@@ -335,13 +335,13 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		border-top: none;
 		font-size: 14px;
 		padding: 10px;
+	}
 
-		&.message {
-			text-align: center;
-		}
+	.message {
+		text-align: center;
+	}
 
-		&.error {
-			color: $alert-color;
-		}
+	.error {
+		color: $alert-color;
 	}
 }
