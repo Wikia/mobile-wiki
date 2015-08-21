@@ -58,7 +58,7 @@ App.DiscussionPostModel.reopenClass({
 				dataType: 'json',
 				success: (data: any) => {
 					var replies = data._embedded['doc:posts'],
-						pivotId;
+						pivotId: number;
 
 					// If there are no replies to the first post, 'doc:posts' will not be returned
 					if (replies) {
