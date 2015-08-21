@@ -26,15 +26,7 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
-	canEdit: Em.computed('currentUser.rights.isFulfilled', function (): boolean {
-		var rightsPromise = this.get('currentUser.rights');
-
-		if (rightsPromise.isFulfilled) {
-			return rightsPromise.get('content').indexOf('curatedcontent') > -1;
-		}
-
-		return false;
-	}),
+	curatedContentToolButtonVisible: Em.computed.oneWay('currentUser.rights.curatedcontent'),
 
 	/**
 	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
