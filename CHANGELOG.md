@@ -1,3 +1,9 @@
+## release-140 (2015-08-21 10:00 UTC)
+* [HG-836](https://wikia-inc.atlassian.net/browse/HG-836) mvp implementation of importing web components
+* [CONCF-1058](https://wikia-inc.atlassian.net/browse/CONCF-1058) CONCF-1058 | add modal component to curated content editor and style it
+* [SOC-951](https://wikia-inc.atlassian.net/browse/SOC-951) SOC-951 Allow users to paginate through post replies
+* set-700-to-default-dev-port: Setting :7000 as a default port on dev env
+
 ## release-139 (2015-08-20 13:47 UTC)
 * [SOC-651](https://wikia-inc.atlassian.net/browse/SOC-651) SOC-651 & SOC-643 register & login on dedicated page
 * [SOC-904](https://wikia-inc.atlassian.net/browse/SOC-904) SOC-904 Do not show header on Auth Pages in modal
