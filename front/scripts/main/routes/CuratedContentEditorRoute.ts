@@ -74,7 +74,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		},
 
 		pontoLoadingInitialized: false,
-		pontoPath: '/front/vendor/ponto.js',
+		pontoPath: '/front/vendor/ponto/web/src/ponto.js',
 
 		loadPonto(): JQueryXHR {
 			this.set('pontoLoadingInitialized', true);
