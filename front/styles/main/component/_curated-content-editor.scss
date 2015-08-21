@@ -82,11 +82,10 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 	.item-description {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
-		flex-grow: 1;
 		justify-content: center;
 		line-height: 1.25rem;
-		min-width: 0;
 	}
 
 	.title {
