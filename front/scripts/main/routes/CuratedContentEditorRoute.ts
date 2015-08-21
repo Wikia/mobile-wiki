@@ -113,7 +113,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			 * Called when user clicks on custom back button or after data is saved
 			 * Does transition to the main page or sends a message through Ponto if available
 			 *
-			 * @param saved
+			 * @param dataSaved
 			 */
 			openMainPage(dataSaved: boolean = false): void {
 				var ponto = window.Ponto;
