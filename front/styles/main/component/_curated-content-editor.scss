@@ -71,25 +71,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-row {
-	align-items: center;
-	background: $color-white;
-	border: {
-		color: $color-gray-light;
-		style: solid;
-		width: 0;
-	}
-	border-bottom-width: 1px;
-	//iOS can't handle touch events on element if it doesn't have cursor pointer
-	cursor: pointer;
-	padding: $item-padding-vertical $item-padding-horizontal;
-
-	&:first-child {
-		border-top-width: 1px;
-	}
-}
-
-.curated-content-editor-row {
-	align-items: center;
 	display: flex;
 	height: $row-height;
 
@@ -124,7 +105,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 	.navigation {
 		display: flex;
-		flex: 0 20px;
 		flex-flow: column;
 		justify-content: space-between;
 		padding: 0 $item-padding-horizontal;
@@ -141,6 +121,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 .curated-content-section-details {
 	align-items: center;
 	background: $snow;
+	border-bottom: 1px solid $color-blue-gray-light;
 	display: flex;
 	height: $image-size;
 
