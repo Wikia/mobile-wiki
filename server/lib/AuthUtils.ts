@@ -9,7 +9,7 @@ import localSettings = require('../../config/localSettings');
 
 var wikiaSignupPathname: string = '/wiki/Special:UserSignup',
 	wikiaLoginPathname: string = '/wiki/Special:UserLogin',
-	forgotPasswordSearch: string = '?recover=1';
+	forgotPasswordSearch: string = '?type=forgotPassword';
 
 export function getRegisterUrl(request: Hapi.Request): string {
 	return this.getRedirectUrlWithQueryString('register', request);

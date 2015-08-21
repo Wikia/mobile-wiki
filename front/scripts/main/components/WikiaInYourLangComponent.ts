@@ -65,7 +65,7 @@ App.WikiaInYourLangComponent = Em.Component.extend(App.AlertNotificationsMixin, 
 	shouldShowWikiaInYourLang: function (): boolean {
 		var value = window.localStorage.getItem(this.get('alertKey')),
 		    now = new Date().getTime(),
-		    notDismissed = !value || (now - value > 86400000), //1 day 86400000
+		    notDismissed = !value || (now - value > 2592000000), //30 day 2,592,000,000
 		    isJaOnNonJaWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
 		return notDismissed && isJaOnNonJaWikia;
 	}
