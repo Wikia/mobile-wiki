@@ -47,7 +47,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 .curated-content-editor-block {
 	background-color: $color-white;
 	border-bottom: .5rem solid $color-blue-gray-light;
-	padding-bottom: $item-padding-vertical;
 	position: relative;
 
 	header {
@@ -135,9 +134,9 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 	.section-desc {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
 		height: $image-size;
-		flex: 1;
 		justify-content: space-between;
 	}
 
@@ -226,7 +225,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-item {
 	//don't show grey overlay on tap
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
 	.file-upload-label {
 		align-items: center;
