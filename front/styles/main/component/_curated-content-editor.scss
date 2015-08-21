@@ -90,9 +90,8 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-row {
 	align-items: center;
-	display: inline-flex;
+	display: flex;
 	height: $row-height;
-	width: calc(90vw - #{$item-padding-horizontal});
 
 	img {
 		align-self: center;
