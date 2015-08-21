@@ -2,10 +2,14 @@ $module-padding-horizontal: 1rem;
 $module-padding-vertical: 1.5rem;
 $item-padding-horizontal: 1rem;
 $item-padding-vertical: .5rem;
-$item-image-size: 4rem;
-$image-margin: 1rem;
+$item-description-padding-left: 1.25rem;
+$item-image-size: 3rem;
 $image-size: 150px;
-$row-height: 5rem;
+$row-height: 4rem;
+$item-image-vertical-padding: ($row-height - $item-image-size) / 2;
+$button-padding-horizontal: 1.5rem;
+$button-padding-vertical: .5rem;
+$button-margin-vertical: 1rem;
 $search-results-image-size: 30vw;
 $search-results-image-spacing: 1vw;
 $search-results-horizontal-padding: 2vw;
@@ -16,8 +20,11 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
-	margin: $item-padding-vertical auto;
-	width: 80%;
+	height: auto;
+	line-height: inherit;
+	margin: $button-margin-vertical auto;
+	max-width: calc(100% - #{2 * $item-padding-horizontal});
+	padding: $button-padding-vertical $button-padding-horizontal;
 }
 
 .curated-content-editor-head {
@@ -37,60 +44,55 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-block {
-	background: $snow;
+	background-color: $color-white;
+	border-bottom: 8px solid $color-blue-gray-light;
 	position: relative;
 
 	header {
-		color: $color-blue-brand;
-		font-size: larger;
+		font-size: x-large;
 		font-weight: bold;
 		padding: $module-padding-vertical $module-padding-horizontal 0;
 	}
 
 	.block-description {
+		border-bottom: 1px solid $color-blue-gray-light;
+		font-size: small;
+		line-height: 1.25rem;
 		margin: 0;
-		padding: $module-padding-horizontal $module-padding-horizontal 0;
+		padding: $module-padding-horizontal $module-padding-horizontal $module-padding-vertical;
 	}
-}
 
-.curated-content-editor-rows {
-	padding-top: $module-padding-vertical;
-}
-
-.curated-content-editor-row-container {
-	background: $color-white;
-	border: {
-		color: $color-gray-light;
-		style: solid;
-		width: 0;
-	}
-	border-bottom-width: 1px;
-	//iOS can't handle touch events on element if it doesn't have cursor pointer
-	cursor: pointer;
-	padding: $item-padding-vertical $item-padding-horizontal;
-
-	&:first-child {
-		border-top-width: 1px;
+	header,
+	.block-description {
+		background-color: $snow;
 	}
 }
 
 .curated-content-editor-row {
-	align-items: center;
+	//align-items: center;
 	display: inline-flex;
 	height: $row-height;
-	width: calc(90vw - #{$item-padding-horizontal});
+	width: 100%;
+	//iOS can't handle touch events on element if it doesn't have cursor pointer
+	cursor: pointer;
 
 	img {
-		height: $item-image-size;
-		margin-right: $image-margin;
-		width: $item-image-size;
+		align-self: center;
+		height: $item-image-size + 2 * $item-image-vertical-padding;
+		padding: $item-image-vertical-padding $item-description-padding-left $item-image-vertical-padding $item-padding-horizontal;
+		width: $item-image-size + $item-description-padding-left + $item-padding-horizontal;
 	}
 
 	.item-description {
-		width: calc(100% - #{$item-image-size + $image-margin});
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		justify-content: center;
+		min-width: 0;
 	}
 
 	.title {
+		color: $color-blue-brand;
 		font-weight: bold;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -98,7 +100,21 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	}
 
 	.subtitle {
-		font-size: .8125rem;
+		font-size: .875rem;
+	}
+
+	.navigation {
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+		padding: 0 $item-padding-horizontal;
+	}
+
+	&:not(:last-of-type) {
+		.item-description,
+		.navigation {
+			border-bottom: 1px solid $color-blue-gray-light;
+		}
 	}
 }
 
@@ -236,16 +252,10 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	text-transform: uppercase;
 }
 
-.navigation {
-	display: inline-block;
-	float: right;
-	height: $row-height;
-	text-align: right;
-	width: calc(8vw - #{$item-padding-horizontal});
-}
-
-.arrow-up, .arrow-down {
-	height: $row-height / 2;
+.arrow-up,
+.arrow-down {
+	height: 1rem;
+	margin-top: .25rem;
 	width: 1rem;
 }
 
