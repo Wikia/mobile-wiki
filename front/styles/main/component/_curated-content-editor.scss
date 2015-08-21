@@ -237,6 +237,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 .arrow {
 	height: $row-height / 3;
 	width: 1rem;
+	pointer-events: none;
 }
 
 .arrow-up {
