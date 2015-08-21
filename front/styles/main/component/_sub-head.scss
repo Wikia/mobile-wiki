@@ -53,10 +53,12 @@ $sub-head-height: 50px;
 	border: 0;
 	color: inherit;
 	cursor: pointer;
+	font: inherit;
 	height: inherit;
 	margin: 0;
 	order: 3;
 	padding: 0 13px;
+	text-transform: inherit;
 
 	&[disabled] {
 		background: inherit;
