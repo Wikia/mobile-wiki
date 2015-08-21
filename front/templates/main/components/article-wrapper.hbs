@@ -4,7 +4,12 @@
 		{{render 'not-found'}}
 	{{else}}
 		<section class="article-body">
-			<h1 class="article-title">{{model.cleanTitle}}</h1>
+			<h1 class="article-title">
+				{{model.cleanTitle}}
+				{{#if curatedContentToolButtonVisible}}
+					{{#link-to 'curatedContentEditor' bubbles=false}}{{svg 'pen' role='img' class='icon pencil'}}{{/link-to}}
+				{{/if}}
+			</h1>
 			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 			{{#if headers.length}}
 				{{#collapsible-menu
