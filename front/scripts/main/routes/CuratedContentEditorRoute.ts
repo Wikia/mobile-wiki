@@ -138,7 +138,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 								message: i18n.t('app.curated-content-error-other'),
 								type: 'alert'
 							});
-						}, true);
+						},
+						true
+					);
 				} else {
 					this.transitionTo('mainPage');
 				}
