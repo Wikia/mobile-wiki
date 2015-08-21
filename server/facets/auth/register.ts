@@ -16,6 +16,7 @@ interface RegisterViewContext extends authView.AuthViewContext {
 	heliosRegistrationURL?: string;
 	i18nContext?: any;
 	termsOfUseLink?: string;
+	heliosFacebookURL: string;
 }
 
 
@@ -92,25 +93,42 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 	var context: RegisterViewContext,
 		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance(),
-		lang = i18n.lng();
+		lang = i18n.lng(),
+		viewType: string = authView.getViewType(request);
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
 	}
 
+
 	context = deepExtend(
 		getDefaultRegistrationContext(request, i18n),
 		{
-			headerText: 'auth:join.sign-up-with-email',
+			headerText: (viewType === authView.VIEW_TYPE_MOBILE)
+				? 'auth:join.sign-up-with-email'
+				: 'auth:register.desktop-header',
 			heliosRegistrationURL: authUtils.getHeliosUrl('/users'),
-			title: 'auth:join.sign-up-with-email',
+			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
+			title: (viewType === authView.VIEW_TYPE_MOBILE)
+				? 'auth:join.sign-up-with-email'
+				: 'auth:register.desktop-header',
 			termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl +
 				'" target="_blank">' + i18n.t('auth:register.terms-of-use-link-title') + '</a>',
 			footerCallout: 'auth:common.signin-callout',
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:common.signin-link-text',
-			birthdateInputs: (new BirthdateInput(dateUtils.get('endian', lang), lang)).getInputData(),
-			bodyClasses: 'register-page'
+			birthdateInputs: (new BirthdateInput(localeSettings[lang].date.endian, lang)).getInputData(),
+			bodyClasses: 'register-page',
+			usernameMaxLength: localSettings.helios.usernameMaxLength,
+			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			langCode: lang,
+			pageParams: {
+				termsOfUseLink: '<a href="' + localeSettings[lang].urls.termsOfUseLinkUrl + '" target="_blank">'
+					+ i18n.t('auth:register.terms-of-use-link-title') + '</a>',
+				privacyPolicyLink: '<a href="' + localeSettings[lang].urls.privacyPolicyLinkUrl + '" target="_blank">'
+					+ i18n.t('auth:register.privacy-policy-link-title') + '</a>',
+				facebookAppId: localSettings.facebook.appId
+			}
 		}
 	);
 

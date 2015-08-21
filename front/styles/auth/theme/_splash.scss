@@ -18,3 +18,15 @@
 		background-image: url('/front/images/faniverse-bg-768.png');
 	}
 }
+
+@media(min-width: 1024px) {
+	.splash {
+		background-image: url('/front/images/faniverse-bg-1366.png');
+	}
+}
+
+@media(min-width: 1440px) {
+	.splash {
+		background-image: url('/front/images/faniverse-bg-1920.png');
+	}
+}

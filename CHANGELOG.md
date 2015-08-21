@@ -1,3 +1,20 @@
+## release-139 (2015-08-20 13:47 UTC)
+* [SOC-651](https://wikia-inc.atlassian.net/browse/SOC-651) SOC-651 & SOC-643 register & login on dedicated page
+* [SOC-904](https://wikia-inc.atlassian.net/browse/SOC-904) SOC-904 Do not show header on Auth Pages in modal
+* [SOC-902](https://wikia-inc.atlassian.net/browse/SOC-902) SOC-902 Facebook Registration
+
+## release-138 (2015-08-20 10:00 UTC)
+* Japan-homepage-hotfix-1: Fix for horizontal scrollbar in mobile view for Japan Homepage
+* [JA-](https://wikia-inc.atlassian.net/browse/JA-) Ja hp contentupdate 1
+* [HG-818](https://wikia-inc.atlassian.net/browse/HG-818) Hg 818 fixing named anchor links
+* [HG-829](https://wikia-inc.atlassian.net/browse/HG-829) Hg 829 Adding comments and removing unused gulp task
+* [CONCF-1047](https://wikia-inc.atlassian.net/browse/CONCF-1047) CONCF-1047 | Add re-initialization on resize to cropper tool
+* [SOC-959](https://wikia-inc.atlassian.net/browse/SOC-959) SOC-959 OpenGraph attributes for discussion posts
+* semicolons: Adding missing semicolons
+* separate-dev-config: Update README.md
+* separate-dev-config: Separate localSettings file for dev environment
+* [SOC-601](https://wikia-inc.atlassian.net/browse/SOC-601) SOC-601 | Set cookie on successful account registration
+
 ## release-137 (2015-08-19 10:00 UTC)
 * [SOC-884](https://wikia-inc.atlassian.net/browse/SOC-884) SOC-884 Post detail page updates
 * [INT-124](https://wikia-inc.atlassian.net/browse/INT-124) Wikia-In-Your-Language for Mercury

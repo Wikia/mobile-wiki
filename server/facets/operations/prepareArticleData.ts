@@ -47,7 +47,8 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = {
 		type: 'article',
-		title: title
+		title: title,
+		url: result.canonicalUrl
 	};
 	if (result.article.details) {
 		if (result.article.details.abstract) {

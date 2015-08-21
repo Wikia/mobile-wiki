@@ -4,20 +4,19 @@
 		<button class="large publish curated-content-editor-submit" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
 		<div class="edit-head-title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
 	</header>
-	<div class="curated-content-editor-photo {{aspectRatioName}} {{if imageErrorMessage 'error'}}" {{action 'showImageModal'}}>
+	<div class="curated-content-editor-photo {{aspectRatioName}} {{if imageErrorMessage 'error'}}" {{action 'showImageMenu'}}>
 		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
 		{{#if imageErrorMessage}}
 			<small class="error">{{imageErrorMessage}}</small>
 		{{/if}}
 		{{loading-spinner active=isLoading overlay=false}}
 	</div>
-	<div class="image-modal-wrapper {{if imageModalVisible 'visible'}}" >
-		<div class="image-modal-layover" {{action 'hideImageModal'}}></div>
-		<ul class="image-modal">
-			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageModal')}}
+	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
+		<ul>
+			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
-	</div>
+	{{/modal-dialog}}
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
 			{{input
