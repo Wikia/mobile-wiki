@@ -69,12 +69,11 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-row {
-	//align-items: center;
+	//iOS can't handle touch events on element if it doesn't have cursor pointer
+	cursor: pointer;
 	display: inline-flex;
 	height: $row-height;
 	width: 100%;
-	//iOS can't handle touch events on element if it doesn't have cursor pointer
-	cursor: pointer;
 
 	img {
 		align-self: center;
