@@ -29,6 +29,7 @@
 	}
 
 	.discussion-reply {
+		border-top: 1px solid #ccc;
 		padding-top: 12px;
 
 		.upvotes {
@@ -42,10 +43,6 @@
 				line-height: 10px;
 			}
 		}
-	}
-
-	hr {
-		margin: 0;
 	}
 
 	.icon {
@@ -98,6 +95,10 @@
 			// Constrains content on the forum post list to 3 lines
 			max-height: $line-height-smallest * 3;
 			overflow: hidden;
+		}
+
+		.post-detail {
+			border-top: 1px solid #ccc;
 		}
 	}
 }

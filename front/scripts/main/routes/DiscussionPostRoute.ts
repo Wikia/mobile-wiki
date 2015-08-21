@@ -13,5 +13,20 @@ App.DiscussionPostRoute = Em.Route.extend({
 	deactivate (): void {
 		// Disables vertical-colored theme bar in site-head component
 		this.controllerFor('application').set('themeBar', false);
+	},
+
+	showMore: Em.computed('model', function (): boolean {
+			var model = this.get('model'),
+				loadedRepliesLength = Em.get(model, 'replies.length');
+
+			return loadedRepliesLength < model.postCount;
+	}),
+
+	actions: {
+		expand: function () {
+			var model = this.get('model');
+
+			model.loadNextPage();
+		},
 	}
 });

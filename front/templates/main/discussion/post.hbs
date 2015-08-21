@@ -13,7 +13,6 @@
         </button>
 	{{/if}}
 	{{#each model.replies as |item index|}}
-		<hr>
 		{{post-reply
 			author=item.createdBy
 			content=item.rawContent

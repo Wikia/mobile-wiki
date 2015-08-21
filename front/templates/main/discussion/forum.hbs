@@ -1,8 +1,7 @@
 <div class="discussion forum">
 	{{!-- TODO: Replace this h1 with the real header --}}
-	<h1>Forum: {{name}}</h1>
-	{{#each _embedded.doc:threads as |item|}}
-		<hr>
+	<h1>Forum: {{model.name}}</h1>
+	{{#each model._embedded.doc:threads as |item|}}
 		{{post-detail
 			action="goToPost"
 			postId=item.id

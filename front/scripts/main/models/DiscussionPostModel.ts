@@ -14,7 +14,7 @@ App.DiscussionPostModel = Em.Object.extend({
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
-				url: 'https://services.wikia-dev.com' +
+				url: 'https://services.wikia.com' +
 				'/discussion/' + this.wikiId + '/threads/' + this.threadId +
 				'?responseGroup=full' +
 				'&sortDirection=descending' +
@@ -47,21 +47,25 @@ App.DiscussionPostModel = Em.Object.extend({
 App.DiscussionPostModel.reopenClass({
 	find(wikiId: number, threadId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			var postInstance = App.PostModel.create({
+			var postInstance = App.DiscussionPostModel.create({
 				wikiId: wikiId,
 				threadId: threadId
 			});
 
 			Em.$.ajax({
-				url: `https://services.wikia-dev.com/discussion/${wikiId}/threads/${threadId}` +
+				url: `https://services.wikia.com/discussion/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
 				dataType: 'json',
 				success: (data: any) => {
 					var replies = data._embedded['doc:posts'],
-						pivotId = replies[0].id;
+						pivotId;
 
-					// See note in previous reverse above on why this is necessary
-					replies.reverse();
+					// If there are no replies to the first post, 'doc:posts' will not be returned
+					if (replies) {
+						pivotId = replies[0].id;
+						// See note in previous reverse above on why this is necessary
+						replies.reverse();
+					}
 
 					postInstance.setProperties({
 						replies: replies,
