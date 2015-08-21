@@ -3,17 +3,14 @@
 	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit" disabled={{if notEmptyItems null 'disabled'}}>{{i18n 'app.curated-content-editor-done'}}</button>
 	<div class="edit-head-title">{{model.label}}</div>
 </header>
-<div class="curated-content-section-details">
-	<div class="section-image">
+<div class="curated-content-section-details" {{action 'editSection'}}>
+	<div class="curated-content-section-details--image">
 		<img src="{{thumbUrl}}"/>
 	</div>
-	<div class="section-desc">
-		<div class="section-label">{{model.label}}</div>
-		<div class="section-items-count">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
-	</div>
-	<a {{action 'editSection'}} class='section-edit'>
-		{{svg 'pen' role='img' class='icon pen'}}
-	</a>
+	<div class="curated-content-section-details--description">
+		<div class="curated-content-section-details--label">{{model.label}}</div>
+		<div class="curated-content-section-details--count">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
+  </div>
 </div>
 {{#unless notEmptyItems}}
 	<small>{{i18n 'app.curated-content-editor-add-items-message'}}</small>
