@@ -31,6 +31,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	svg {
 		fill: $color-gray-dark;
 		height: 32px;
+		pointer-events: none;
 		width: 32px;
 	}
 }
@@ -205,7 +206,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	//don't show grey overlay on tap
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 
-	.image-modal-wrapper {
+	.file-upload-label {
 		align-items: center;
 		color: inherit;
 		display: flex;
