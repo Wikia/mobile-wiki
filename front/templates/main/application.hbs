@@ -31,7 +31,7 @@
 	{{#if currentUser.isAuthenticated}}
 		{{user-menu
 			shouldBeVisible=userMenuVisible
-			userName=currentUser.model.name
+			userName=currentUser.name
 			toggleVisibility='toggleUserMenu'
 		}}
 	{{/if}}
@@ -48,6 +48,6 @@
 		setQueryParam='setQueryParam'
 	}}
 {{/if}}
-{{wikia-in-your-lang}} 
+{{wikia-in-your-lang}}
 {{alert-notifications alerts=alertNotifications}}
 {{loading-spinner active=isLoading}}
