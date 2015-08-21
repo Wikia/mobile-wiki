@@ -56,7 +56,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 	.block-description {
 		border-bottom: 1px solid $color-blue-gray-light;
-		font-size: small;
+		font-size: .875rem;
 		line-height: 1.25rem;
 		margin: 0;
 		padding: $module-padding-horizontal $module-padding-horizontal $module-padding-vertical;
@@ -92,6 +92,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 	.title {
 		color: $color-blue-brand;
+		font-size: .875rem;
 		font-weight: bold;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -99,7 +100,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	}
 
 	.subtitle {
-		font-size: .875rem;
+		font-size: .75rem;
 	}
 
 	.navigation {
