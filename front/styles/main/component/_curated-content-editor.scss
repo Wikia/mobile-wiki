@@ -18,7 +18,6 @@ $search-image-input-text-padding: $search-results-image-spacing + $search-result
 $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-padding;
 
 .curated-content-editor-add-item-btn {
-	cursor: pointer;
 	display: block;
 	font-weight: bold;
 	height: auto;
@@ -40,6 +39,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	svg {
 		fill: $color-gray-dark;
 		height: 32px;
+		pointer-events: none;
 		width: 32px;
 	}
 }
@@ -47,6 +47,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 .curated-content-editor-block {
 	background-color: $color-white;
 	border-bottom: .5rem solid $color-blue-gray-light;
+	padding-bottom: $item-padding-vertical;
 	position: relative;
 
 	header {
@@ -70,11 +71,28 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-row {
+	align-items: center;
+	background: $color-white;
+	border: {
+		color: $color-gray-light;
+		style: solid;
+		width: 0;
+	}
+	border-bottom-width: 1px;
 	//iOS can't handle touch events on element if it doesn't have cursor pointer
 	cursor: pointer;
+	padding: $item-padding-vertical $item-padding-horizontal;
+
+	&:first-child {
+		border-top-width: 1px;
+	}
+}
+
+.curated-content-editor-row {
+	align-items: center;
 	display: inline-flex;
 	height: $row-height;
-	width: 100%;
+	width: calc(90vw - #{$item-padding-horizontal});
 
 	img {
 		align-self: center;
@@ -107,6 +125,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 	.navigation {
 		display: flex;
+		flex: 0 20px;
 		flex-flow: column;
 		justify-content: space-between;
 		padding: 0 $item-padding-horizontal;
@@ -125,11 +144,9 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	background: $snow;
 	display: flex;
 	height: $image-size;
-	position: relative;
 
 	.section-image {
-		text-align: center;
-		width: $image-size;
+		flex: 0 0 150px;
 
 		img {
 			height: $image-size;
@@ -140,31 +157,30 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		display: flex;
 		flex-direction: column;
 		height: $image-size;
-		width: calc(100% - #{$image-size});
+		flex: 1;
+		justify-content: space-between;
 	}
 
 	.section-label {
 		@include clamp(5);
 
 		color: $black;
-		font-size: 18px;
+		font-size: 1.1rem;
 		font-weight: bold;
-		height: $image-size;
-		line-height: 23px;
+		line-height: 1.4rem;
 		padding: 10px 13px 0;
 	}
 
 	.section-items-count {
 		color: $color-blue-gray-dark;
-		font-size: 12px;
-		line-height: 14px;
+		font-size: .75rem;
+		line-height: .9rem;
 		padding: 0 13px 10px;
 	}
 
 	.section-edit {
-		bottom: 1rem;
-		position: absolute;
-		right: 1rem;
+		align-self: flex-end;
+		padding: 0 13px 10px;
 
 		svg {
 			fill: $color-blue-dark;
@@ -187,8 +203,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		border: 1px solid transparent;
 		display: block;
 		margin: 0 auto;
-		width: 90vw;
-
+		width: 90%;
 	}
 
 	&.landscape img {
@@ -230,6 +245,9 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-item {
+	//don't show grey overlay on tap
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+
 	.file-upload-label {
 		align-items: center;
 		color: inherit;
@@ -254,8 +272,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	text-transform: uppercase;
 }
 
-.arrow-up,
-.arrow-down {
+.arrow {
 	height: 1rem;
 	margin-top: .25rem;
 	width: 1rem;
@@ -307,14 +324,11 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 .title-suggestions-container {
 	background: $white;
 	box-shadow: 0 2px 5px $iron;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	position: absolute;
 	width: 100%;
-
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
 
 	li {
 		@extend %ellipsis;
@@ -322,13 +336,13 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		border-top: 0;
 		font-size: 14px;
 		padding: 10px;
+	}
 
-		&.message {
-			text-align: center;
-		}
+	.message {
+		text-align: center;
+	}
 
-		&.error {
-			color: $alert-color;
-		}
+	.error {
+		color: $alert-color;
 	}
 }

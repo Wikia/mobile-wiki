@@ -12,16 +12,17 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
-	actions: {
-		itemClick(): void {
-			var model: CuratedContentEditorItemModel = this.get('model');
+	click() {
+		var model: CuratedContentEditorItemModel = this.get('model');
 
-			if (model.node_type === 'section') {
-				this.sendAction('openSection', model);
-			} else {
-				this.sendAction('editItem', model);
-			}
-		},
+		if (model.node_type === 'section') {
+			this.sendAction('openSection', model);
+		} else {
+			this.sendAction('editItem', model);
+		}
+	},
+
+	actions: {
 		moveBy(offset: number): void {
 			this.sendAction('moveBy', offset, this.get('model'));
 		}

@@ -61,7 +61,6 @@
 
 .side-nav-toggle {
 	@extend .touch-active;
-	@extend %pointer;
 	display: inline-block;
 	float: left;
 	height: $icon-site-head-height;
