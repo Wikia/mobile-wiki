@@ -1,5 +1,6 @@
-$module-padding-horizontal: .75rem;
-$module-padding-vertical: 1.5rem;
+$block-padding-horizontal: .75rem;
+$block-padding-vertical: 1.5rem;
+$block-description-padding-vertical: 1rem;
 $item-padding-horizontal: .75rem;
 $item-padding-vertical: .5rem;
 $item-description-padding-left: 1.25rem;
@@ -9,7 +10,7 @@ $row-height: 4rem;
 $item-image-vertical-padding: ($row-height - $item-image-size) / 2;
 $button-padding-horizontal: 1.5rem;
 $button-padding-vertical: .5rem;
-$button-margin-vertical: 1.5rem;
+$button-margin-vertical: 1.25rem;
 $search-results-image-size: 30vw;
 $search-results-image-spacing: 1vw;
 $search-results-horizontal-padding: 2vw;
@@ -45,13 +46,13 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-block {
 	background-color: $color-white;
-	border-bottom: 8px solid $color-blue-gray-light;
+	border-bottom: .5rem solid $color-blue-gray-light;
 	position: relative;
 
 	header {
 		font-size: x-large;
 		font-weight: bold;
-		padding: $module-padding-vertical $module-padding-horizontal 0;
+		padding: $block-padding-vertical $block-padding-horizontal 0;
 	}
 
 	.block-description {
@@ -59,7 +60,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		font-size: .875rem;
 		line-height: 1.25rem;
 		margin-bottom: .5rem;
-		padding: $module-padding-horizontal $module-padding-horizontal $module-padding-vertical;
+		padding: $block-description-padding-vertical $block-padding-horizontal $block-padding-vertical;
 	}
 
 	header,
