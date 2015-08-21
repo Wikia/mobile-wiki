@@ -44,6 +44,8 @@ $sub-head-height: 50px;
 .sub-head--title {
 	flex: 1;
 	order: 2;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
