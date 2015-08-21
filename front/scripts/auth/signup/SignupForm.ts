@@ -49,22 +49,29 @@ class SignupForm {
 		};
 	}
 
-	private trackValidationErrors(errors: Array<string>): void {
-		M.track({
-			trackingMethod: 'both',
-			action: M.trackActions.error,
-			category: 'user-login-mobile',
-			label: 'registrationValidationErrors: ' + errors.join(';'),
-		});
+	private getWikiaDomain(): string {
+		var hostParts: string[] = location.host.split('.').reverse();
+		if (hostParts.length >= 2) {
+			return hostParts[1] + '.' + hostParts[0];
+		}
+		return location.host;
 	}
 
 	private onSuccessfulRegistration() {
 		M.track({
 			trackingMethod: 'both',
 			action: M.trackActions.success,
-			category: 'user-login-mobile',
+			category: 'user-login-' + pageParams.viewType,
 			label: 'successful-registration'
 		});
+
+		Cookie.set(
+			'registerSuccess',
+			'1',
+			{
+				domain: this.getWikiaDomain()
+			}
+		);
 
 		window.location.href = this.redirect;
 	}
