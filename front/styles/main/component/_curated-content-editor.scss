@@ -1,6 +1,6 @@
-$module-padding-horizontal: 1rem;
+$module-padding-horizontal: .75rem;
 $module-padding-vertical: 1.5rem;
-$item-padding-horizontal: 1rem;
+$item-padding-horizontal: .75rem;
 $item-padding-vertical: .5rem;
 $item-description-padding-left: 1.25rem;
 $item-image-size: 3rem;
@@ -58,7 +58,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		border-bottom: 1px solid $color-blue-gray-light;
 		font-size: .875rem;
 		line-height: 1.25rem;
-		margin: 0;
+		margin-bottom: .5rem;
 		padding: $module-padding-horizontal $module-padding-horizontal $module-padding-vertical;
 	}
 
@@ -87,6 +87,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		flex-direction: column;
 		flex-grow: 1;
 		justify-content: center;
+		line-height: 1.25rem;
 		min-width: 0;
 	}
 
