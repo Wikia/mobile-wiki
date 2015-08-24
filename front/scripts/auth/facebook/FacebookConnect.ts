@@ -77,7 +77,7 @@ class FacebookConnect extends Login {
 			this.displayError('errors.server-error');
 		};
 
-		facebookConnectXhr.open('PUT', url, true);
+		facebookConnectXhr.open('POST', url, true);
 		facebookConnectXhr.withCredentials = true;
 		facebookConnectXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookConnectXhr.send(this.urlHelper.urlEncode(data));
