@@ -296,6 +296,10 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	}
 }
 
+.pen {
+	pointer-events: none;
+}
+
 .title.input-container {
 	position: relative;
 }
