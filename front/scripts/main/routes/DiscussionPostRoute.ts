@@ -16,7 +16,7 @@ App.DiscussionPostRoute = Em.Route.extend({
 	},
 
 	showMore: Em.computed('model', function (): boolean {
-			var model = this.get('model'),
+			var model = this.modelFor('discussion.post'),
 				loadedRepliesLength = Em.get(model, 'replies.length');
 
 			return loadedRepliesLength < model.postCount;
