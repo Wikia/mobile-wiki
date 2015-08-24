@@ -7,12 +7,18 @@ App.DiscussionPostRoute = Em.Route.extend({
 
 	activate (): void {
 		// Enables vertical-colored theme bar in site-head component
-		this.controllerFor('application').set('themeBar', true);
+		this.controllerFor('application').setProperties({
+			themeBar: true,
+			enableSharingHeader: true
+		});
 	},
 
 	deactivate (): void {
 		// Disables vertical-colored theme bar in site-head component
-		this.controllerFor('application').set('themeBar', false);
+		this.controllerFor('application').setProperties({
+			themeBar: false,
+			enableSharingHeader: false
+		});
 	},
 
 	showMore: Em.computed('model', function (): boolean {

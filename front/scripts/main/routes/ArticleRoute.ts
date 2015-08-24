@@ -51,6 +51,14 @@ App.ArticleRoute = Em.Route.extend({
 		model.set('commentsPage', null);
 	},
 
+	activate (): void {
+		this.controllerFor('application').set('enableSharingHeader', true);
+	},
+
+	deactivate (): void {
+		this.controllerFor('application').set('enableSharingHeader', false);
+	},
+
 	actions: {
 		willTransition: function (transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like

@@ -4,6 +4,14 @@
 'use strict';
 
 App.MainPageRoute = Em.Route.extend({
+	activate (): void {
+		this.controllerFor('application').set('enableSharingHeader', true);
+	},
+
+	deactivate (): void {
+		this.controllerFor('application').set('enableSharingHeader', false);
+	},
+
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
