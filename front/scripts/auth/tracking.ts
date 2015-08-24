@@ -26,6 +26,8 @@
 		dimensions[4] = 'mercury';
 		// LoginStatus
 		dimensions[5] = 'anon';
+		//Page type
+		dimensions[8] = 'authPage';
 		// IsCorporatePage
 		dimensions[15] = 'No';
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
