@@ -51,7 +51,8 @@ class FacebookConnect extends Login {
 			url: string = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
 
 		facebookConnectXhr.onload = (e: Event) => {
-			var status: number = (<XMLHttpRequest> e.target).status;
+			var status: number = (<XMLHttpRequest> e.target).status,
+				errors: Array<HeliosError>;
 
 			if (status === HttpCodes.OK) {
 				M.track({
@@ -63,13 +64,20 @@ class FacebookConnect extends Login {
 
 				window.location.href = this.redirect;
 			} else {
-				M.track({
-					trackingMethod: 'both',
-					action: Mercury.Utils.trackActions.error,
-					category: 'user-signup-mobile',
-					label: 'facebook-link-existing'
-				});
-				this.displayError('errors.server-error');
+				errors = JSON.parse(facebookConnectXhr.responseText).errors;
+
+				errors.forEach(
+					(item: HeliosError): void => {
+						M.track({
+							trackingMethod: 'both',
+							action: Mercury.Utils.trackActions.error,
+							category: 'user-signup-mobile',
+							label: 'facebook-link-error:' + item.description
+						});
+						this.displayError('errors.' + item.description);
+					}
+				);
+
 			}
 		};
 
