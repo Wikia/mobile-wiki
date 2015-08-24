@@ -1,3 +1,6 @@
+## release-141 (2015-08-24 10:00 UTC)
+* [INT-163](https://wikia-inc.atlassian.net/browse/INT-163) INT-163. Condition is changed from 1 day to 30 days
+
 ## release-140 (2015-08-21 10:00 UTC)
 * [HG-836](https://wikia-inc.atlassian.net/browse/HG-836) mvp implementation of importing web components
 * [CONCF-1058](https://wikia-inc.atlassian.net/browse/CONCF-1058) CONCF-1058 | add modal component to curated content editor and style it
