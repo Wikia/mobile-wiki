@@ -162,9 +162,9 @@ $editor-image-padding: 14px;
 }
 
 .curated-content-editor-photo {
+	background-clip: content-box;
 	padding: $editor-image-padding 0;
 	position: relative;
-	background-clip: content-box;
 
 	&.loaded {
 		background: {
@@ -175,9 +175,9 @@ $editor-image-padding: 14px;
 		background: {
 			color: #e6ebf2;
 			image: url('../../images/add-image.svg');
-			size: 96px;
 			position: center;
 			repeat: no-repeat;
+			size: 96px;
 		}
 	}
 
