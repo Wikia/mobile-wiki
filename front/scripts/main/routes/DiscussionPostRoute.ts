@@ -24,7 +24,7 @@ App.DiscussionPostRoute = Em.Route.extend({
 
 	actions: {
 		expand: function () {
-			var model = this.get('model');
+			var model = this.modelFor('discussion.post');
 
 			model.loadNextPage();
 		},
