@@ -45,7 +45,7 @@
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
 				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
 					{{#each searchSuggestionsResult as |item|}}
-						<li {{action 'setTitle' item.title on='mouseDown'}} class="needsclick">{{item.title}}</li>
+						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
 					{{else}}
 						<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
 					{{/each}}
