@@ -174,7 +174,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	}
 	&.placeholder {
 		background: {
-			color: #e6ebf2;
+			color: $color-blue-gray-light;
 			image: url('../../images/add-image.svg');
 			position: center;
 			repeat: no-repeat;
