@@ -39,7 +39,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	svg {
 		fill: $color-gray-dark;
 		height: 32px;
-		pointer-events: none;
 		width: 32px;
 	}
 }
@@ -252,7 +251,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .arrow {
-	height: 1rem;
+	height: $row-height / 3;
 	margin-top: .25rem;
 	width: 1rem;
 }
@@ -296,7 +295,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	}
 }
 
-.pen {
+.pointer-events-none {
 	pointer-events: none;
 }
 
