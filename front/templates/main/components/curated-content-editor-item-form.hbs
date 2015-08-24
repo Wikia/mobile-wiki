@@ -4,19 +4,6 @@
 		<button class="large publish curated-content-editor-submit" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
 		<div class="edit-head-title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
 	</header>
-	<div class="curated-content-editor-photo {{aspectRatioName}} {{if imageErrorMessage 'error'}}" {{action 'showImageMenu'}}>
-		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
-		{{#if imageErrorMessage}}
-			<small class="error">{{imageErrorMessage}}</small>
-		{{/if}}
-		{{loading-spinner active=isLoading overlay=false}}
-	</div>
-	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
-		<ul>
-			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
-			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
-		</ul>
-	{{/modal-dialog}}
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
 			{{input
@@ -62,6 +49,20 @@
 			</div>
 		{{/unless}}
 	</div>
+	<div class="curated-content-editor-photo {{if model.image_url 'loaded' 'placeholder'}} {{if imageErrorMessage 'error'}}" {{action 'showImageMenu'}}>
+		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
+		{{#if imageErrorMessage}}
+			<small class="error">{{imageErrorMessage}}</small>
+		{{/if}}
+		{{svg 'photo-icon' role='img' class='icon photo-icon'}}
+		{{loading-spinner active=isLoading overlay=false}}
+	</div>
+	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
+		<ul>
+			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
+			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
+		</ul>
+	{{/modal-dialog}}
 	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
 </form>
 
