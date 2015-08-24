@@ -70,11 +70,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
-	curatedContentToolButtonVisible: Em.computed('model.isMainPage', 'currentUser.rights.curatedcontent',
-		function (): boolean {
-			return this.get('model.isMainPage') && this.get('currentUser.rights.curatedcontent');
-		}
-	),
+	curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
 	articleObserver: Em.observer('model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually

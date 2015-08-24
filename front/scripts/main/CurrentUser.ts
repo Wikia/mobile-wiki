@@ -18,14 +18,14 @@ App.CurrentUser = Em.Object.extend({
 	isAuthenticated: Em.computed.bool('userId'),
 
 	userId: Em.computed(function (): number {
-		var cookieUserId = ~~M.prop('userId');
+		var cookieUserId = parseInt(M.prop('userId'), 10);
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
 	init: function (): void {
 		var userId = this.get('userId');
 		if (userId !== null) {
-			App.UserModel.find({userId: userId})
+			App.UserModel.find({userId})
 				.then((result: typeof App.UserModel): void => {
 					this.setProperties(result);
 				})
