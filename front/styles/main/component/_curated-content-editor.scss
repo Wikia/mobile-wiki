@@ -11,6 +11,7 @@ $search-results-image-spacing: 1vw;
 $search-results-horizontal-padding: 2vw;
 $search-image-input-text-padding: $search-results-image-spacing + $search-results-horizontal-padding;
 $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-padding;
+$image-photo-icon-size: 32px;
 
 .curated-content-editor-add-item-btn {
 	cursor: pointer;
@@ -207,10 +208,10 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	.photo-icon {
 		bottom: 13px;
 		fill: $white;
-		height: 32px;
+		height: $image-photo-icon-size;
 		position: absolute;
 		right: 13px;
-		width: 32px;
+		width: $image-photo-icon-size;
 	}
 }
 
@@ -245,8 +246,8 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-remove {
-	display: block;
 	color: $alert-color;
+	display: block;
 	padding: 0 18px;
 	text-transform: uppercase;
 }
