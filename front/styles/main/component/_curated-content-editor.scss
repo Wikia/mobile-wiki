@@ -204,7 +204,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-item {
 	//don't show grey overlay on tap
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-tap-highlight-color: transparent;
 
 	.file-upload-label {
 		align-items: center;
