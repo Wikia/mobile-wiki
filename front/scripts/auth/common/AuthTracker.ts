@@ -20,7 +20,6 @@ class AuthTracker {
 	}
 
 	public trackPageView () {
-		// empty object as we do not use 'a' and 'n' parameters
 		M.trackPageView();
 	}
 
