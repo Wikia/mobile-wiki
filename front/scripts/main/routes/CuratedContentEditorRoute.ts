@@ -152,7 +152,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 						message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
 						type: 'warning'
 					});
-					this.transitionTo('mainPage');
+					this.sendAction('openMainPage');
 				} else {
 					Em.Logger.error(error);
 					this.controllerFor('application').addAlert({
