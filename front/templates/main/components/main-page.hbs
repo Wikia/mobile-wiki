@@ -5,7 +5,12 @@
 	<h1 class="article-title">
 		{{title}}
 		{{#if curatedContentToolButtonVisible}}
-			{{#link-to 'curatedContentEditor' bubbles=false}}{{svg 'pen' role='img' class='icon pencil'}}{{/link-to}}
+			<div>
+				{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+					{{svg 'pen' role='img' class='icon pencil'}}
+					{{i18n 'app.curated-content-edit-main-page'}}
+				{{/link-to}}
+			</div>
 		{{/if}}
 	</h1>
 	{{#if wikiaStats}}
