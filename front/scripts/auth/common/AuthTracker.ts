@@ -16,9 +16,10 @@ class AuthTracker {
 	}
 
 	public trackPageView (pageType: string) {
-		if (pageType) {
-			this.track(pageType, M.trackActions.impression);
-		}
+		M.trackPageView({
+			a: null,
+			n: null
+		});
 	}
 
 	public trackSubmit (form: HTMLFormElement, label: string): void {
