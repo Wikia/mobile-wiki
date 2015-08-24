@@ -11,7 +11,6 @@ $search-results-image-spacing: 1vw;
 $search-results-horizontal-padding: 2vw;
 $search-image-input-text-padding: $search-results-image-spacing + $search-results-horizontal-padding;
 $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-padding;
-$editor-image-padding: 14px;
 
 .curated-content-editor-add-item-btn {
 	cursor: pointer;
@@ -162,8 +161,10 @@ $editor-image-padding: 14px;
 }
 
 .curated-content-editor-photo {
-	background-clip: content-box;
-	padding: $editor-image-padding 0;
+	margin: {
+		bottom: 50px;
+		top: 30px;
+	}
 	position: relative;
 
 	&.loaded {
@@ -195,7 +196,7 @@ $editor-image-padding: 14px;
 
 		small {
 			background: linear-gradient(to top, rgba(255, 255, 255 , .7), rgba(255, 255, 255, 0));
-			bottom: 14px;
+			bottom: 0;
 			margin: 0;
 			padding: 14px;
 			position: absolute;
@@ -204,7 +205,7 @@ $editor-image-padding: 14px;
 		}
 	}
 	.photo-icon {
-		bottom: $editor-image-padding + 8px;
+		bottom: 13px;
 		fill: $white;
 		height: 32px;
 		position: absolute;
@@ -244,8 +245,9 @@ $editor-image-padding: 14px;
 }
 
 .curated-content-editor-remove {
+	display: block;
 	color: $alert-color;
-	padding: 14px 18px;
+	padding: 0 18px;
 	text-transform: uppercase;
 }
 

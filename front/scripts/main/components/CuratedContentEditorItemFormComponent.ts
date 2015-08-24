@@ -26,7 +26,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return modelLabel || i18n.t('app.curated-content-editor-new-item');
 		}),
 
-		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+		/* 16x9 transparent gif */
+		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
 		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
 			if (this.get('model.image_url')) {
 				var aspectRatioName = this.get('aspectRatioName'),
