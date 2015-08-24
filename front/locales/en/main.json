@@ -133,7 +133,6 @@
 		"curated-content-editor-add-items-message": "Please add items to this section.",
 		"curated-content-editor-missing-items-error": "Sections can't be empty. Please add items to section.",
 		"curated-content-editor-error-inside-items-message": "Please fix errors inside items.",
-		"curated-content-editor-items-count": "__count__ items",
-		"curated-content-edit-main-page": "Edit main page"
+		"curated-content-editor-items-count": "__count__ items"
 	}
 }
