@@ -312,3 +312,20 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 		}
 	}
 }
+
+.input-icon {
+	background-position: center 12px;
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	box-sizing: content-box;
+	height: 1.25rem;
+	padding: 20px 5px 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 24px;
+
+	&.info {
+		background-image: url('/front/images/info.svg');
+	}
+}

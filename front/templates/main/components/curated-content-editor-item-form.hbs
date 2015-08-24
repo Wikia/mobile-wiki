@@ -19,6 +19,9 @@
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
 	{{/modal-dialog}}
+	{{#modal-dialog isVisible=isTooltipVisible}}
+		{{i18n tooltipMessageKey}}
+	{{/modal-dialog}}
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
 			{{input
@@ -30,6 +33,7 @@
 				focus-in='setLabelFocusedIn'
 			}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-display-name'}}</label>
+			<span class="input-icon info" {{action 'showTooltip' 'app.curated-content-editor-enter-display-name'}}></span>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}
@@ -45,6 +49,7 @@
 					focus-in='setTitleFocusedIn'
 				}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
+				<span class="input-icon info" {{action 'showTooltip' 'app.curated-content-editor-enter-page-name'}}></span>
 				{{#if searchSuggestionsVisible}}
 					<div class="title-suggestions-container">
 						<ul>
