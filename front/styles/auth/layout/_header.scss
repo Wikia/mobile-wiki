@@ -8,7 +8,8 @@
 		color: inherit;
 		font-size: inherit;
 		font-weight: inherit;
-		line-height: inherit;
+		line-height: 3rem;
+		margin: 0;
 	}
 }
 
@@ -23,8 +24,8 @@
 	.auth-header {
 		font-size: 2.5rem;
 		font-weight: bold;
-		height: 145px;
-		padding: 55px 75px 53px;
+		min-height: 145px;
+		padding: 50px 75px 47px;
 		position: relative;
 
 		&::after {
@@ -41,6 +42,7 @@
 
 		p {
 			line-height: 1.25rem;
+			margin: 1rem 0 0;
 		}
 	}
 	&.register-fb-page,
