@@ -8,7 +8,7 @@ App.ArticleRoute = Em.Route.extend({
 		var title = transition.params.article.title.replace('wiki/', '');
 
 		if (Mercury.error) {
-			transition.abort();
+			this.transitionTo('notFound');
 		}
 
 		this.controllerFor('application').send('closeLightbox');
