@@ -3,7 +3,7 @@
 		<a {{action 'goBack'}} class="sub-head--cancel">
 			{{svg 'back-arrow' role='img' class='icon'}}
 		</a>
-		<button {{action 'save'}} class="sub-head--done" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
+		<button class="sub-head--done" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
 		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
 	</header>
 	<div class="curated-content-editor-photo {{aspectRatioName}} {{if imageErrorMessage 'error'}}" {{action 'showImageModal'}}>
