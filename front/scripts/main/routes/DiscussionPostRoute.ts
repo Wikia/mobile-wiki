@@ -27,6 +27,6 @@ App.DiscussionPostRoute = Em.Route.extend({
 			var model = this.modelFor('discussion.post');
 
 			model.loadNextPage();
-		},
+		}
 	}
 });
