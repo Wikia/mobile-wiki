@@ -1,8 +1,12 @@
 class AuthTracker {
 	gaCategory: string;
 
-	constructor (gaCategory: string) {
+	constructor (gaCategory: string, pageType: string) {
 		this.gaCategory = gaCategory;
+		M.setTrackContext({
+			a: pageType,
+			n: -1
+		});
 	}
 
 	public trackClick (element: HTMLElement, label: string, action = Mercury.Utils.trackActions.click): void {
@@ -15,11 +19,9 @@ class AuthTracker {
 		}.bind(this))
 	}
 
-	public trackPageView (pageType: string) {
-		M.trackPageView({
-			a: null,
-			n: null
-		});
+	public trackPageView () {
+		// empty object as we do not use 'a' and 'n' parameters
+		M.trackPageView();
 	}
 
 	public trackSubmit (form: HTMLFormElement, label: string): void {

@@ -34,10 +34,10 @@
 	}
 
 	function setTrackingForSignInPage (): void {
-		var tracker = new AuthTracker('user-login-mobile');
+		var tracker = new AuthTracker('user-login-mobile', 'signin-page');
 
 		//Impression of the /signin page
-		tracker.trackPageView('signin-page');
+		tracker.trackPageView();
 		// Click "Sign In" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('loginForm'),
@@ -65,10 +65,10 @@
 	}
 
 	function setTrackingForRegisterPage (): void {
-		var tracker = new AuthTracker('user-signup-mobile');
+		var tracker = new AuthTracker('user-signup-mobile', 'register-page');
 
 		//Impression of the /register page
-		tracker.trackPageView('register-page');
+		tracker.trackPageView();
 		// Click "Sign In" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('signupForm'),
@@ -90,10 +90,10 @@
 	}
 
 	function setTrackingForJoinPage(): void {
-		var tracker = new AuthTracker('user-login-mobile');
+		var tracker = new AuthTracker('user-login-mobile', 'join-page');
 
 		//Impression of the /join page
-		tracker.trackPageView('join-page');
+		tracker.trackPageView();
 		// Click "Register With Email" button
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-email'),
@@ -128,9 +128,9 @@
 	}
 
 	function setTrackingForFBConnectPage () {
-		var tracker = new AuthTracker('user-signup-mobile');
+		var tracker = new AuthTracker('user-signup-mobile', 'signin-page');
 		//Impression of the /signin page
-		tracker.trackPageView('signin-page');
+		tracker.trackPageView();
 		// Click "Sign In" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('facebookConnectForm'),
