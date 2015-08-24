@@ -12,7 +12,7 @@
 		<div class="section-items-count">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
 	</div>
 	<a {{action 'editSection'}} class='section-edit'>
-		{{svg 'pen' role='img' class='icon pen'}}
+		{{svg 'pen' role='img' class='icon pen pointer-events-none'}}
 	</a>
 </div>
 {{#unless notEmptyItems}}
