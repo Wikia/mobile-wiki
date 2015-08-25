@@ -131,7 +131,7 @@ App.initializer({
 	after: 'performanceMonitoring',
 	initialize: (container: any, application: any): void => {
 		application.register('currentUser:main', App.CurrentUser);
-		application.inject('controller', 'currentUser', 'currentUser:main');
+		application.inject('component', 'currentUser', 'currentUser:main');
 	}
 });
 

@@ -27,10 +27,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	padding: $button-padding-vertical $button-padding-horizontal;
 }
 
-.curated-content-editor-head {
-	position: static;
-}
-
 .curated-content-editor-help {
 	position: absolute;
 	right: 1em;
@@ -185,13 +181,9 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	}
 }
 
-.curated-content-editor-submit {
-	margin-bottom: 0;
-}
-
 .curated-content-editor-photo {
 	padding-top: 14px;
-	position: relative;
+\	position: relative;
 
 	img {
 		@extend %image-placeholder;
@@ -241,7 +233,11 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-item {
 	//don't show grey overlay on tap
+<<<<<<< HEAD
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+=======
+	-webkit-tap-highlight-color: transparent;
+>>>>>>> origin/dev
 
 	.file-upload-label {
 		align-items: center;
@@ -282,13 +278,12 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	.search-results {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: flex-start;
-		padding: $search-results-horizontal-padding;
+		justify-content: space-around;
 
 		img {
-			height: $search-results-image-size;
-			margin: $search-results-image-spacing;
-			width: $search-results-image-size;
+			height: 100px;
+			padding: 5px;
+			width: 100px;
 		}
 	}
 

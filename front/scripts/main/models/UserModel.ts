@@ -16,7 +16,8 @@ interface UserProperties {
 App.UserModel = Em.Object.extend({
 	avatarPath: null,
 	name: null,
-	userId: null
+	userId: null,
+	rights: null
 });
 
 App.UserModel.reopenClass({
@@ -24,34 +25,43 @@ App.UserModel.reopenClass({
 
 	find: function (params: UserModelParams): Em.RSVP.Promise {
 		var avatarSize: number = params.avatarSize || App.UserModel.defaultAvatarSize,
-			model = App.UserModel.create();
+			modelInstance = App.UserModel.create();
 
+		return App.UserModel.loadDetails(params.userId, avatarSize)
+			.then((userDetails: any): typeof App.UserModel => {
+				var detailsSanitized = App.UserModel.sanitizeDetails(userDetails);
+				return modelInstance.setProperties(detailsSanitized);
+			});
+	},
+
+	loadDetails(userId: number, avatarSize: number): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: App.get('apiBase') + '/userDetails',
-				dataType: 'json',
+				url: M.buildUrl({
+					path: '/wikia.php',
+				}),
 				data: {
-					ids: params.userId,
+					controller: 'UserApi',
+					method: 'getDetails',
+					ids: userId,
 					size: avatarSize
 				},
+				dataType: 'json',
 				success: (result: any): void => {
-					if (result.hasOwnProperty('items') && result.items.constructor === Array) {
-						model.setProperties(App.UserModel.getPropertiesFromData(result.items[0]));
-					}
-					resolve(model);
-				},
-				error: (result: any): void => {
-					if (result.status === 404) {
-						resolve(model);
+					if (Em.isArray(result.items)) {
+						resolve(result.items[0]);
 					} else {
-						reject($.extend(result, model));
+						reject(result);
 					}
+				},
+				error: (err: any): void => {
+					reject(err);
 				}
 			});
 		});
 	},
 
-	getPropertiesFromData: function (userData: any): UserProperties {
+	sanitizeDetails: function (userData: any): UserProperties {
 		return {
 			name: userData.name,
 			userId: userData.user_id,

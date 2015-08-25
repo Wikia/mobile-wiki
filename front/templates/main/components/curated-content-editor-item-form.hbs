@@ -1,8 +1,10 @@
 <form {{action 'done' on='submit'}}>
-	<header class="edit-head curated-content-editor-head">
-		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-		<button class="large publish curated-content-editor-submit" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
-		<div class="edit-head-title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
+	<header class="sub-head">
+		<a {{action 'goBack'}} class="sub-head--cancel">
+			{{svg 'back-arrow' role='img' class='icon'}}
+		</a>
+		<button class="sub-head--done" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
+		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
 	</header>
 	<div class="curated-content-editor-photo {{aspectRatioName}} {{if imageErrorMessage 'error'}}" {{action 'showImageMenu'}}>
 		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
@@ -45,7 +47,7 @@
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
 				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
 					{{#each searchSuggestionsResult as |item|}}
-						<li {{action 'setTitle' item.title on='mouseDown'}} class="needsclick">{{item.title}}</li>
+						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
 					{{else}}
 						<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
 					{{/each}}
