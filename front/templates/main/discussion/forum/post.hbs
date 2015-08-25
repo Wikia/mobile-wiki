@@ -1,15 +1,20 @@
 <div class="discussion-post">
 	{{post-detail
-		authorId=model.firstPost.creatorId
+		author=model.firstPost.createdBy
 		content=model.firstPost.rawContent
 		timestamp=model.firstPost.creationDate.epochSecond
 		upvoteCount=model.upvoteCount
 		replyCount=model.postCount
 	}}
-
+	{{#if showMore}}
+        <button {{action 'expand'}} class="see-more">
+			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+            View Older Replies
+        </button>
+	{{/if}}
 	{{#each model.replies as |item index|}}
 		{{post-reply
-			authorId=item.creatorId
+			author=item.createdBy
 			content=item.rawContent
 			timestamp=item.creationDate.epochSecond
 			upvoteCount=item.upvoteCount

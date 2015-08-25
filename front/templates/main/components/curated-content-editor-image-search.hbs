@@ -1,8 +1,9 @@
 <form {{action 'done' on='submit'}}>
-	<header class="edit-head curated-content-editor-head">
-		<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-		{{!-- @TODO CONCF-956 add translations to Create new item --}}
-		<div class="edit-head-title">{{#if model.label}}{{model.label}}{{else}}Create new{{/if}}</div>
+	<header class="sub-head">
+		<a {{action 'goBack'}} class="sub-head--cancel">
+			{{svg 'back-arrow' role='img' class='icon'}}
+		</a>
+		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
 	</header>
 	{{input
 		value=searchQuery

@@ -1,8 +1,9 @@
-<header class="edit-head curated-content-editor-head">
-	<a {{action 'goBack'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-	{{!-- @TODO CONCF-956 add translations to Done --}}
-	<button {{action 'done'}} class="large publish curated-content-editor-submit" type="submit" disabled={{if notEmptyItems null 'disabled'}}>Done</button>
-	<div class="edit-head-title">{{model.label}}</div>
+<header class="sub-head">
+	<a {{action 'goBack'}} class="sub-head--cancel">
+		{{svg 'back-arrow' role='img' class='icon'}}
+	</a>
+	<button {{action 'done'}} class="sub-head--done" type="submit" disabled={{unless notEmptyItems 'disabled'}}>{{i18n 'app.curated-content-editor-done'}}</button>
+	<div class="sub-head--title">{{model.label}}</div>
 </header>
 <div class="curated-content-section-details">
 	<div class="section-image">
@@ -10,16 +11,14 @@
 	</div>
 	<div class="section-desc">
 		<div class="section-label">{{model.label}}</div>
-		{{!-- @TODO CONCF-956 add translations items --}}
-		<div class="section-items-count">{{model.items.length}} items</div>
+		<div class="section-items-count">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
 	</div>
 	<a {{action 'editSection'}} class='section-edit'>
 		{{svg 'pen' role='img' class='icon pen'}}
 	</a>
 </div>
 {{#unless notEmptyItems}}
-	{{!-- @TODO CONCF-956 add translations --}}
-	<small>Please add items</small>
+	<small>{{i18n 'app.curated-content-editor-add-items-message'}}</small>
 {{/unless}}
 {{#each sortableItems as |item|}}
 	{{curated-content-editor-row
@@ -28,5 +27,4 @@
 		moveBy='moveBy'
 	}}
 {{/each}}
-{{!-- @TODO CONCF-956 add translations to + add new category --}}
-<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">+ add new category</button>
+<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">{{i18n 'app.curated-content-editor-add-category'}}</button>

@@ -3,11 +3,12 @@
 
 App.LightboxWrapperComponent = Em.Component.extend({
 	classNames: ['lightbox-wrapper'],
-	classNameBindings: ['status'],
+	classNameBindings: ['isVisible:open'],
 	// This is needed for keyDown event to work
 	attributeBindings: ['tabindex'],
 	tabindex: 0,
 
+	isVisible: false,
 	footerExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
@@ -16,10 +17,6 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 	type: null,
 	model: null,
-
-	status: Em.computed('type', function (): string {
-		return (this.get('type')) ? 'open' : 'hidden';
-	}),
 
 	lightboxComponent: Em.computed('type', function (): string {
 		var type: string = this.get('type');

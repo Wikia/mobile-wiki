@@ -98,11 +98,6 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/userDetails',
-		handler: require('./facets/api/userDetails').get
-	},
-	{
-		method: 'GET',
 		path: '/logout',
 		handler: require('./facets/auth/logout')
 	},
@@ -159,6 +154,7 @@ authenticatedRoutes = [
 			]
 		}
 	},
+
 	{
 		method: 'GET',
 		path: '/login',
@@ -245,7 +241,7 @@ articlePagePaths.forEach((path) => {
 unauthenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
-	path: '/d/{subpaths*}',
+	path: '/d/{type}/{id}/{action?}',
 	handler: require('./facets/showApplication')
 });
 

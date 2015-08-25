@@ -6,12 +6,14 @@ App.UserMenuComponent = Em.Component.extend({
 	classNames: ['user-menu'],
 	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 
-	links: Em.computed('userName', function (): Array<any> {
+	isVisible: Em.computed.bool('currentUser.isAuthenticated'),
+
+	links: Em.computed('currentUser.name', function (): Array<any> {
 		return [
 			{
 				href: M.buildUrl({
 					namespace: 'User',
-					title: this.get('userName')
+					title: this.get('currentUser.name')
 				}),
 				textKey: 'user-menu-profile'
 			},

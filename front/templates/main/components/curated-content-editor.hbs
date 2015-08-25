@@ -1,44 +1,36 @@
-<header class="edit-head curated-content-editor-head">
-	{{#link-to 'mainPage' }}
-		{{svg 'chevron' role='img' class='icon arrow-left'}}
+<header class="sub-head">
+	{{#link-to 'mainPage' class='sub-head--cancel'}}
+		{{svg 'back-arrow' role='img' class='icon'}}
 	{{/link-to}}
-	{{!-- @TODO CONCF-956 add translations to Save --}}
-	<button {{action 'save'}} class="large publish">Save</button>
-	{{!-- @TODO CONCF-956 to Edit Main Page --}}
-	<div class="edit-head-title">Edit Main Page</div>
+	<button {{action 'save'}} class="sub-head--done">{{i18n 'app.curated-content-editor-publish'}}</button>
+	<div class="sub-head--title">{{i18n 'app.curated-content-editor-edit-main-page'}}</div>
 </header>
-{{!-- @TODO CONCF-956 add translations to description, helpText, title and addItemLabel --}}
 {{curated-content-editor-block
 	model=model.featured
 	block='featured'
-	title='Featured Content'
-	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
-	helpText='Lorem ipsum, this is a placeholder for the help text.'
-	addItemLabel='+ add new featured content'
+	title=(i18n 'app.curated-content-editor-featured-content')
+	description=(i18n 'app.curated-content-editor-featured-description')
+	addItemLabel=(i18n 'app.curated-content-editor-add-featured-content-button')
 	addItem='addBlockItem'
 	editItem='editBlockItem'
 	showHelp='showHelp'
 }}
-{{!-- @TODO CONCF-956 add translations to description, helpText, title and addItemLabel --}}
 {{curated-content-editor-block
 	model=model.curated
 	block='curated'
-	title='Explore the Wiki'
-	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
-	helpText='Lorem ipsum, this is a placeholder for the help text.'
-	addItemLabel='+ add new section'
+	title=(i18n 'app.curated-content-editor-explore-the-wiki')
+	description=(i18n 'app.curated-content-editor-explore-the-wiki-description')
+	addItemLabel=(i18n 'app.curated-content-editor-add-section-button')
 	addItem='addSection'
 	openSection='openSection'
 	showHelp='showHelp'
 }}
-{{!-- @TODO CONCF-956 add translations to description, helpText, title and addItemLabel --}}
 {{curated-content-editor-block
 	model=model.optional
 	block='optional'
-	title='Optional'
-	description='Drag each item into the order you prefer. Tap on the item to reveal configuration options.'
-	helpText='Lorem ipsum, this is a placeholder for the help text.'
-	addItemLabel='+ add category'
+	title=(i18n 'app.curated-content-editor-optional')
+	description=(i18n 'app.curated-content-editor-optional-description')
+	addItemLabel=(i18n 'app.curated-content-editor-add-category')
 	addItem='addBlockItem'
 	editItem='editBlockItem'
 	showHelp='showHelp'

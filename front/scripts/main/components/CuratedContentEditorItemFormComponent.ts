@@ -17,9 +17,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
+		imageMenuVisible: false,
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
+		label: Em.computed('model.label', function() {
+			var modelLabel = this.get('model.label');
+			return modelLabel || i18n.t('app.curated-content-editor-new-item');
+		}),
 
 		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
 			var aspectRatioName = this.get('aspectRatioName'),
@@ -154,8 +159,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				var trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
 				this.trackClick('curated-content-editor', trackLabel );
 
-				//@TODO CONCF-956 add translations
-				if (confirm('Are you sure about removing this item?')) {
+				if (confirm(i18n.t('app.curated-content-editor-remove-item-confirmation'))) {
 					this.sendAction('deleteItem');
 				}
 			},
@@ -191,13 +195,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					});
 			},
 
-			showImageModal(): void {
+			showImageMenu(): void {
 				this.trackClick('curated-content-editor', 'item-image-menu');
-				this.set('imageModalVisible', true);
+				this.set('imageMenuVisible', true);
 			},
 
-			hideImageModal(): void {
-				this.set('imageModalVisible', false);
+			hideImageMenu(): void {
+				this.set('imageMenuVisible', false);
 			},
 
 			showSearchImageForm(): void {
@@ -215,8 +219,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				errorMessage: string = null;
 
 			if (!imageUrl) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Image is empty';
+				errorMessage = i18n.t('app.curated-content-editor-image-missing-error');
 			}
 
 			this.set('imageErrorMessage', errorMessage);
@@ -230,17 +233,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				errorMessage: string = null;
 
 			if (Em.isEmpty(label)) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is empty';
+				errorMessage = 'app.curated-content-editor-missing-label-error';
 			} else if (label.length > this.get('maxLabelLength')) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is too long';
+				errorMessage = 'app.curated-content-editor-too-long-label-error';
 			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is duplicated';
+				errorMessage = 'app.curated-content-editor-label-in-use-error';
 			}
 
-			this.set('labelErrorMessage', errorMessage);
+			this.set('labelErrorMessage', i18n.t(errorMessage));
 
 			return !errorMessage;
 		},
@@ -253,8 +253,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				title = this.get('model.title');
 
 				if (Em.isEmpty(title)) {
-					//@TODO CONCF-956 add translations
-					errorMessage = 'Title is empty';
+					errorMessage = i18n.t('app.curated-content-editor-missing-title-error');
 				}
 
 				this.set('titleErrorMessage', errorMessage);
@@ -271,8 +270,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
-							//@TODO CONCF-956 add translations
-							this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
+							this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
 						}
 					} else {
 						this.setProperties({
@@ -286,8 +284,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					//@TODO CONCF-956 add translations
-					this.set('imageErrorMessage', 'Oops! An API Error occured.');
+					this.set('imageErrorMessage', i18n.t('app.curated-content-error-other'));
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -305,17 +302,22 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.sendAction('done', this.get('model'));
 					} else {
 						if (data.error) {
-							data.error.forEach((error: any) => this.processValidationError(error.reason));
+							data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+								=> this.processValidationError(error.reason));
 						} else {
-							//@TODO CONCF-956 add translations
-							this.addAlert('alert', 'Something went wrong. Please repeat.');
+							this.addAlert({
+								message: i18n.t('app.curated-content-error-other'),
+								type: 'alert'
+							});
 						}
 					}
 				})
 				.catch((err: any): void => {
-					//@TODO CONCF-956 add translations
 					Em.Logger.error(err);
-					this.addAlert('alert', 'Something went wrong. Please repeat.');
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -323,8 +325,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		processValidationError(reason: string): void {
 			switch (reason) {
 				case 'articleNotFound':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'Article not found.');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
 					break;
 				case 'emptyLabel':
 				case 'tooLongLabel':
@@ -332,24 +333,19 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.validateLabel();
 					break;
 				case 'videoNotSupportProvider':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'This video provider is not supported.');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
 					break;
 				case 'notSupportedType':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'This type is not supported');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
 					break;
 				case 'duplicatedLabel':
-					//@TODO CONCF-956 add translations
-					this.set('labelErrorMessage', 'Label is already used elsewhere.');
+					this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
 					break;
 				case 'noCategoryInTag':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'Only Categories are accepted.');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
 					break;
 				case 'imageMissing':
-					//@TODO CONCF-956 add translations
-					this.set('imageErrorMessage', 'Image is missing');
+					this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
 					break;
 			}
 		},
