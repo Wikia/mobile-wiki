@@ -81,17 +81,19 @@ input[type="submit"],
 		padding-right: 0;
 
 		&::before {
+			$spinner-dimension: 28px;
+
 			animation: spin 1s linear infinite;
 			background: url("/front/images/loading.svg") center no-repeat;
 			content: " ";
 			display: block;
-			height: 28px;
+			height: $spinner-dimension;
 			left: 50%;
-			margin-left: -14px;
-			margin-top: -14px;
+			margin-left: -($spinner-dimension/2);
+			margin-top: -($spinner-dimension/2);
 			position: absolute;
 			top: 50%;
-			width: 28px;
+			width: $spinner-dimension;
 		}
 
 		span {
