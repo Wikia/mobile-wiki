@@ -44,13 +44,14 @@
 		border-style: solid;
 		border-width: 0 1px;
 		margin: 0 31px;
-		min-width: 706px;
+		min-width: 768px;
 	}
 }
 
 .desktop {
 	.auth-content {
 		h6 {
+			font-size: 1rem;
 			margin-bottom: 2px;
 		}
 		margin-bottom: 15px;
