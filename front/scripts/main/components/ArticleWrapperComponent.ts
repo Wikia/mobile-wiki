@@ -67,7 +67,9 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	},
 
 	contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
-		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
+		return !this.get('model.isMainPage')
+			&& this.get('isJapaneseWikia')
+			&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
 	}),
 
 	curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
