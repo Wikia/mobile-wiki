@@ -53,7 +53,8 @@ class FacebookConnect extends Login {
 		facebookConnectXhr.onload = (e: Event) => {
 			var status: number = (<XMLHttpRequest> e.target).status,
 				errors: Array<HeliosError>,
-				errorCodesArray: Array<string> = [];
+				errorCodesArray: Array<string> = [],
+				logoutXhr;
 
 			if (status === HttpCodes.OK) {
 				M.track({
@@ -80,6 +81,11 @@ class FacebookConnect extends Login {
 					category: 'user-signup-mobile',
 					label: 'facebook-link-error:' + errorCodesArray.join(';')
 				});
+
+				// Logout user on connection error
+				logoutXhr = new XMLHttpRequest();
+				logoutXhr.open('GET', '/logout', true);
+				logoutXhr.send();
 
 			}
 		};
