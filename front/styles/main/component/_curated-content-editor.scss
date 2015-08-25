@@ -107,11 +107,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 			border-bottom: 1px solid $color-blue-gray-light;
 		}
 	}
-
-	&:first-of-type .arrow-wrapper:first-of-type,
-	&:last-of-type .arrow-wrapper:last-of-type {
-		visibility: hidden;
-	}
 }
 
 .arrow-wrapper {
