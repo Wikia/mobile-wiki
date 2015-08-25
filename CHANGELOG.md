@@ -1,4 +1,5 @@
 ## release-142 (2015-08-25 10:17 UTC)
+* [CONCF-1094](https://wikia-inc.atlassian.net/browse/CONCF-1094) CONCF-1094 | enable button only on allowed wikis
 * facebook-auth: Facebook Authentication Release
 * [SOC-1143](https://wikia-inc.atlassian.net/browse/SOC-1143) SOC-1143 | New validation errors for FB connect
 * polymer-asset: movnig polymer asset loading outside of main app for now
