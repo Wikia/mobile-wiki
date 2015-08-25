@@ -26,6 +26,8 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
+	curatedContentToolButtonVisible: Em.computed.oneWay('currentUser.rights.curatedcontent'),
+
 	/**
 	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
 	 */

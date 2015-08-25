@@ -14,15 +14,10 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 $image-photo-icon-size: 32px;
 
 .curated-content-editor-add-item-btn {
-	cursor: pointer;
 	display: block;
 	font-weight: bold;
 	margin: $item-padding-vertical auto;
 	width: 80%;
-}
-
-.curated-content-editor-head {
-	position: static;
 }
 
 .curated-content-editor-help {
@@ -39,6 +34,7 @@ $image-photo-icon-size: 32px;
 
 .curated-content-editor-block {
 	background: $snow;
+	padding-bottom: $item-padding-vertical;
 	position: relative;
 
 	header {
@@ -58,7 +54,8 @@ $image-photo-icon-size: 32px;
 	padding-top: $module-padding-vertical;
 }
 
-.curated-content-editor-row-container {
+.curated-content-editor-row {
+	align-items: center;
 	background: $color-white;
 	border: {
 		color: $color-gray-light;
@@ -66,20 +63,14 @@ $image-photo-icon-size: 32px;
 		width: 0;
 	}
 	border-bottom-width: 1px;
-	//iOS can't handle touch events on element if it doesn't have cursor pointer
 	cursor: pointer;
+	display: flex;
+	height: $row-height;
 	padding: $item-padding-vertical $item-padding-horizontal;
 
 	&:first-child {
 		border-top-width: 1px;
 	}
-}
-
-.curated-content-editor-row {
-	align-items: center;
-	display: inline-flex;
-	height: $row-height;
-	width: calc(90vw - #{$item-padding-horizontal});
 
 	img {
 		height: $item-image-size;
@@ -88,7 +79,7 @@ $image-photo-icon-size: 32px;
 	}
 
 	.item-description {
-		width: calc(100% - #{$item-image-size + $image-margin});
+		flex: 1;
 	}
 
 	.title {
@@ -108,11 +99,9 @@ $image-photo-icon-size: 32px;
 	background: $snow;
 	display: flex;
 	height: $image-size;
-	position: relative;
 
 	.section-image {
-		text-align: center;
-		width: $image-size;
+		flex: 0 0 150px;
 
 		img {
 			height: $image-size;
@@ -121,33 +110,32 @@ $image-photo-icon-size: 32px;
 
 	.section-desc {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
 		height: $image-size;
-		width: calc(100% - #{$image-size});
+		justify-content: space-between;
 	}
 
 	.section-label {
 		@include clamp(5);
 
 		color: $black;
-		font-size: 18px;
+		font-size: 1.1rem;
 		font-weight: bold;
-		height: $image-size;
-		line-height: 23px;
+		line-height: 1.4rem;
 		padding: 10px 13px 0;
 	}
 
 	.section-items-count {
 		color: $color-blue-gray-dark;
-		font-size: 12px;
-		line-height: 14px;
+		font-size: .75rem;
+		line-height: .9rem;
 		padding: 0 13px 10px;
 	}
 
 	.section-edit {
-		bottom: 1rem;
-		position: absolute;
-		right: 1rem;
+		align-self: flex-end;
+		padding: 0 13px 10px;
 
 		svg {
 			fill: $color-blue-dark;
@@ -155,10 +143,6 @@ $image-photo-icon-size: 32px;
 			width: 1.75rem;
 		}
 	}
-}
-
-.curated-content-editor-submit {
-	margin-bottom: 0;
 }
 
 .curated-content-editor-photo {
@@ -228,6 +212,9 @@ $image-photo-icon-size: 32px;
 }
 
 .curated-content-editor-item {
+	//don't show grey overlay on tap
+	-webkit-tap-highlight-color: transparent;
+
 	.file-upload-label {
 		align-items: center;
 		color: inherit;
@@ -254,15 +241,11 @@ $image-photo-icon-size: 32px;
 }
 
 .navigation {
-	display: inline-block;
-	float: right;
-	height: $row-height;
-	text-align: right;
-	width: calc(8vw - #{$item-padding-horizontal});
+	flex: 0 20px;
 }
 
-.arrow-up, .arrow-down {
-	height: $row-height / 2;
+.arrow {
+	height: $row-height / 3;
 	width: 1rem;
 }
 
@@ -284,13 +267,12 @@ $image-photo-icon-size: 32px;
 	.search-results {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: flex-start;
-		padding: $search-results-horizontal-padding;
+		justify-content: space-around;
 
 		img {
-			height: $search-results-image-size;
-			margin: $search-results-image-spacing;
-			width: $search-results-image-size;
+			height: 100px;
+			padding: 5px;
+			width: 100px;
 		}
 	}
 
@@ -305,6 +287,10 @@ $image-photo-icon-size: 32px;
 	}
 }
 
+.pointer-events-none {
+	pointer-events: none;
+}
+
 .title.input-container {
 	position: relative;
 }
@@ -312,15 +298,12 @@ $image-photo-icon-size: 32px;
 .title-suggestions-container {
 	background: $white;
 	box-shadow: 0 2px 5px $iron;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	position: absolute;
 	width: 100%;
 	z-index: 1;
-
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
 
 	li {
 		@extend %ellipsis;
@@ -328,13 +311,13 @@ $image-photo-icon-size: 32px;
 		border-top: 0;
 		font-size: 14px;
 		padding: 10px;
+	}
 
-		&.message {
-			text-align: center;
-		}
+	.message {
+		text-align: center;
+	}
 
-		&.error {
-			color: $alert-color;
-		}
+	.error {
+		color: $alert-color;
 	}
 }

@@ -95,9 +95,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					suggestionsError: false,
 					searchSuggestionsVisible: true
 				});
+
 				this.setSearchSuggestionsDebounced();
-			} else {
-				this.set('searchSuggestionsVisible', false);
 			}
 		},
 
@@ -105,6 +104,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 			this.addObserver('model.title', this, this.titleObserver);
 			this.addObserver('model.label', this, this.labelObserver);
+		},
+
+		/**
+		 * When user taps/clicks anywhere we want to close
+		 * search suggestions panel
+		 */
+		click(): void {
+			this.set('searchSuggestionsVisible', false);
 		},
 
 		actions: {
@@ -123,12 +130,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				if (this.get('isLoading')) {
 					this.hideLoader();
 				}
-
-				//run.next is used because browser first triggers blur and then click
-				//so search suggestions disappear and click is not triggered
-				Em.run.next(this, (): void => {
-					this.set('searchSuggestionsVisible', false);
-				})
 			},
 
 			setTitleFocusedIn(): void {
@@ -216,7 +217,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			setTitle(title: string): void {
-				this.set('model.title', title);
+				this.setProperties({
+					'model.title': title,
+					searchSuggestionsVisible: false
+				});
 			}
 		},
 
@@ -357,7 +361,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		setSearchSuggestionsDebounced(): void {
-			Em.run.debounce(this, this.setSearchSuggestions, this.get('debounceDuration'));
+			Em.run.debounce(this, this.setSearchSuggestions, this.debounceDuration);
 		},
 
 		setSearchSuggestions(): void {
