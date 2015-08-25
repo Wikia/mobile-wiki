@@ -11,7 +11,8 @@
 	width: 24px;
 
 	&.info {
-		background-image: url('/front/images/info.svg');
+		// TODO: fix Gulp tasks concerning serving images from static domains
+		background-image: url('/mercury-static/images/info.svg');
 	}
 }
 
