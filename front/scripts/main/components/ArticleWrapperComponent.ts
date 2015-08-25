@@ -72,9 +72,9 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
 	}),
 
-	uploadFeatureEnabled: function(): boolean {
+	uploadFeatureEnabled: Em.computed(function(): boolean {
 		return !Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
-	},
+	}),
 
 	curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 

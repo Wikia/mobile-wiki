@@ -3,14 +3,11 @@
 
 App.ArticleContributionComponent = Em.Component.extend({
 	classNames: ['contribution-container'],
-	classNameBindings: ['enableUpload::no-photo'],
+	classNameBindings: ['uploadFeatureEnabled::no-photo'],
 	templateName: 'components/article-contribution',
 	section: null,
 	title: null,
-	uploadFeatureEnabled: null, //function
-	enableUpload: Em.computed('uploadFeatureEnabled', function() {
-		return this.get('uploadFeatureEnabled')();
-	}),
+	uploadFeatureEnabled: null, 
 
 	actions: {
 		edit: function (): void {
