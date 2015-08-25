@@ -54,7 +54,7 @@ class FacebookConnect extends Login {
 			var status: number = (<XMLHttpRequest> e.target).status,
 				errors: Array<HeliosError>,
 				errorCodesArray: Array<string> = [],
-				logoutXhr;
+				logoutXhr: XMLHttpRequest;
 
 			if (status === HttpCodes.OK) {
 				M.track({
