@@ -19,10 +19,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	width: 80%;
 }
 
-.curated-content-editor-head {
-	position: static;
-}
-
 .curated-content-editor-help {
 	position: absolute;
 	right: 1em;
@@ -145,10 +141,6 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 			width: 1.75rem;
 		}
 	}
-}
-
-.curated-content-editor-submit {
-	margin-bottom: 0;
 }
 
 .curated-content-editor-photo {

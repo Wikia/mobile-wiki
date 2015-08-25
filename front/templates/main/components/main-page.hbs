@@ -2,7 +2,17 @@
 	{{#unless isRoot}}
 		<h2 class="wiki-title">{{#link-to 'article' mainPageTitle action='trackClick' actionParam='wikiname' alt=siteName}}{{siteName}}{{/link-to}}</h2>
 	{{/unless}}
-	<h1 class="article-title">{{title}}</h1>
+	<h1 class="article-title">
+		{{title}}
+		{{#if curatedContentToolButtonVisible}}
+			<div>
+				{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+					{{svg 'pen' role='img' class='icon pencil'}}
+					{{i18n 'app.curated-content-edit-main-page'}}
+				{{/link-to}}
+			</div>
+		{{/if}}
+	</h1>
 	{{#if wikiaStats}}
 		{{wikia-stats model=wikiaStats}}
 	{{/if}}

@@ -1,7 +1,7 @@
-<header class="edit-head curated-content-editor-head">
-	<a {{action 'openMainPage'}}>{{svg 'chevron' role='img' class='icon arrow-left'}}</a>
-	<button {{action 'save'}} class="large publish">{{i18n 'app.curated-content-editor-publish'}}</button>
-	<div class="edit-head-title">{{i18n 'app.curated-content-editor-edit-main-page'}}</div>
+<header class="sub-head">
+	<a {{action 'openMainPage'}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+	<button {{action 'save'}} class="sub-head--done">{{i18n 'app.curated-content-editor-publish'}}</button>
+	<div class="sub-head--title">{{i18n 'app.curated-content-editor-edit-main-page'}}</div>
 </header>
 {{curated-content-editor-block
 	model=model.featured
