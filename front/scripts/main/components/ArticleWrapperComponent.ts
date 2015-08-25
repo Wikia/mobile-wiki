@@ -70,6 +70,8 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
 	}),
 
+	curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
+
 	articleObserver: Em.observer('model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
 		// not valid, IE, the view is in the process of preRender
@@ -77,11 +79,13 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	}).on('willInsertElement'),
 
 	modelObserver: Em.observer('model', function (): void {
-		var model = this.get('model');
+		var model = this.get('model'),
+			description: string;
 
 		if (model) {
 			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
-			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
+			description = (typeof model.get('description') === 'undefined') ? '' : model.get('description');
+			$('meta[name="description"]').attr('content', description);
 		}
 	}),
 
