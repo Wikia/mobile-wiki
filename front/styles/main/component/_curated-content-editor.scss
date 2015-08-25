@@ -11,6 +11,7 @@ $search-results-image-spacing: 1vw;
 $search-results-horizontal-padding: 2vw;
 $search-image-input-text-padding: $search-results-image-spacing + $search-results-horizontal-padding;
 $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-padding;
+$image-photo-icon-size: 32px;
 
 .curated-content-editor-add-item-btn {
 	display: block;
@@ -145,41 +146,57 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-photo {
-	padding-top: 14px;
+	margin: {
+		bottom: 50px;
+		top: 30px;
+	}
 	position: relative;
 
+	&.loaded {
+		background: {
+			color: $black;
+		}
+	}
+	&.placeholder {
+		background: {
+			color: $color-blue-gray-light;
+			image: url('../../images/add-image.svg');
+			position: center;
+			repeat: no-repeat;
+			size: 96px;
+		}
+	}
+
 	img {
-		@extend %image-placeholder;
-		border: 1px solid transparent;
 		display: block;
+		height: 56.25vw; /* 16:9 */
 		margin: 0 auto;
-		width: 90%;
-	}
-
-	&.landscape img {
-		// 16:9 ratio
-		height: 51vw;
-	}
-
-	&.square img {
-		// 1:1 ratio
-		height: 90vw;
+		max-width: 100%;
 	}
 
 	&.error {
 		img {
-			border-color: $input-border-error-color;
+			border: 1px solid $input-border-error-color;
 		}
 
 		small {
 			background: linear-gradient(to top, rgba(255, 255, 255 , .7), rgba(255, 255, 255, 0));
 			bottom: 1px;
-			margin: 0 calc(5vw - 1px);
-			padding: 5% 0;
+			left: 1px;
+			margin: 0;
+			padding: 14px;
 			position: absolute;
+			right: 1px;
 			text-align: center;
-			width: 90vw;
 		}
+	}
+	.photo-icon {
+		bottom: 13px;
+		fill: $white;
+		height: $image-photo-icon-size;
+		position: absolute;
+		right: 13px;
+		width: $image-photo-icon-size;
 	}
 }
 
@@ -218,7 +235,8 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 
 .curated-content-editor-remove {
 	color: $alert-color;
-	padding: 14px 18px;
+	display: block;
+	padding: 0 18px;
 	text-transform: uppercase;
 }
 
@@ -285,6 +303,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 	padding: 0;
 	position: absolute;
 	width: 100%;
+	z-index: 1;
 
 	li {
 		@extend %ellipsis;
