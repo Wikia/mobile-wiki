@@ -1,11 +1,16 @@
-$module-padding-horizontal: 1rem;
-$module-padding-vertical: 1.5rem;
-$item-padding-horizontal: 1rem;
+$block-padding-horizontal: .75rem;
+$block-padding-vertical: 1.5rem;
+$block-description-padding-vertical: 1rem;
+$item-padding-horizontal: .75rem;
 $item-padding-vertical: .5rem;
-$item-image-size: 4rem;
-$image-margin: 1rem;
+$item-description-padding-left: 1.25rem;
+$item-image-size: 3rem;
 $image-size: 150px;
-$row-height: 5rem;
+$row-height: 4rem;
+$item-image-vertical-padding: ($row-height - $item-image-size) / 2;
+$button-padding-horizontal: 1.5rem;
+$button-padding-vertical: .5rem;
+$button-margin-vertical: 1.25rem;
 $search-results-image-size: 30vw;
 $search-results-image-spacing: 1vw;
 $search-results-horizontal-padding: 2vw;
@@ -16,8 +21,11 @@ $image-photo-icon-size: 32px;
 .curated-content-editor-add-item-btn {
 	display: block;
 	font-weight: bold;
-	margin: $item-padding-vertical auto;
-	width: 80%;
+	height: auto;
+	line-height: inherit;
+	margin: $button-margin-vertical auto;
+	max-width: calc(100% - #{2 * $item-padding-horizontal});
+	padding: $button-padding-vertical $button-padding-horizontal;
 }
 
 .curated-content-editor-help {
@@ -33,56 +41,52 @@ $image-photo-icon-size: 32px;
 }
 
 .curated-content-editor-block {
-	background: $snow;
-	padding-bottom: $item-padding-vertical;
+	background-color: $color-white;
+	border-bottom: .5rem solid $color-blue-gray-light;
 	position: relative;
 
 	header {
-		color: $color-blue-brand;
-		font-size: larger;
+		font-size: x-large;
 		font-weight: bold;
-		padding: $module-padding-vertical $module-padding-horizontal 0;
+		padding: $block-padding-vertical $block-padding-horizontal 0;
 	}
 
 	.block-description {
-		margin: 0;
-		padding: $module-padding-horizontal $module-padding-horizontal 0;
+		border-bottom: 1px solid $color-blue-gray-light;
+		font-size: .875rem;
+		line-height: 1.25rem;
+		margin-bottom: .5rem;
+		padding: $block-description-padding-vertical $block-padding-horizontal $block-padding-vertical;
 	}
-}
 
-.curated-content-editor-rows {
-	padding-top: $module-padding-vertical;
+	header,
+	.block-description {
+		background-color: $snow;
+	}
 }
 
 .curated-content-editor-row {
-	align-items: center;
-	background: $color-white;
-	border: {
-		color: $color-gray-light;
-		style: solid;
-		width: 0;
-	}
-	border-bottom-width: 1px;
-	cursor: pointer;
 	display: flex;
 	height: $row-height;
-	padding: $item-padding-vertical $item-padding-horizontal;
-
-	&:first-child {
-		border-top-width: 1px;
-	}
 
 	img {
-		height: $item-image-size;
-		margin-right: $image-margin;
-		width: $item-image-size;
+		align-self: center;
+		height: $item-image-size + 2 * $item-image-vertical-padding;
+		padding: $item-image-vertical-padding $item-description-padding-left $item-image-vertical-padding $item-padding-horizontal;
+		width: $item-image-size + $item-description-padding-left + $item-padding-horizontal;
 	}
 
 	.item-description {
+		display: flex;
 		flex: 1;
+		flex-direction: column;
+		justify-content: center;
+		line-height: 1.25rem;
 	}
 
 	.title {
+		color: $color-blue-brand;
+		font-size: .875rem;
 		font-weight: bold;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -90,13 +94,41 @@ $image-photo-icon-size: 32px;
 	}
 
 	.subtitle {
-		font-size: .8125rem;
+		font-size: .75rem;
 	}
+
+	.navigation {
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+	}
+
+	&:not(:last-of-type) {
+		.item-description,
+		.navigation {
+			border-bottom: 1px solid $color-blue-gray-light;
+		}
+	}
+}
+
+.arrow-wrapper {
+	padding: 0 $item-padding-horizontal;
+}
+
+.arrow {
+	height: $row-height / 3;
+	margin-top: .25rem;
+	width: 1rem;
+}
+
+.arrow-up {
+	transform: rotate(180deg);
 }
 
 .curated-content-section-details {
 	align-items: center;
 	background: $snow;
+	border-bottom: 1px solid $color-blue-gray-light;
 	display: flex;
 	height: $image-size;
 
@@ -240,18 +272,6 @@ $image-photo-icon-size: 32px;
 	text-transform: uppercase;
 }
 
-.navigation {
-	flex: 0 20px;
-}
-
-.arrow {
-	height: $row-height / 3;
-	width: 1rem;
-}
-
-.arrow-up {
-	transform: rotate(180deg);
-}
 
 .curated-content-editor-image-search {
 	.search-input {
