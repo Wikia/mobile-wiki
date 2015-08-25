@@ -101,6 +101,14 @@ class Login {
 
 	public watch(): void {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
+
+		// TODO remove when SOC-719 is ready
+		if (pageParams.isModal) {
+			this.form.querySelector('.forgotten-password').addEventListener('click', function(event) {
+				Utils.loadUrl((<HTMLLinkElement> event.target).href);
+				event.preventDefault();
+			});
+		}
 	}
 
 	private getCredentials (): LoginCredentials {
