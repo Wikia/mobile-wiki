@@ -1,5 +1,5 @@
 <header>{{title}}</header>
-<a class="curated-content-editor-help" {{action 'showHelp'}}>{{svg 'help-button' viewBox='0 0 18 18'}}</a>
+<a class="curated-content-editor-help" {{action 'showHelp'}}>{{svg 'help-button' class='pointer-events-none' viewBox='0 0 18 18'}}</a>
 {{#if description}}
 	<div class="block-description">{{description}}</div>
 {{/if}}
@@ -15,5 +15,5 @@
 	<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">{{addItemLabel}}</button>
 </div>
 {{#modal-dialog isVisible=isHelpVisible}}
-	{{helpText}}
+	{{i18n 'app.curated-content-editor-block-help-text'}}
 {{/modal-dialog}}

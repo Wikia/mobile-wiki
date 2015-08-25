@@ -1,18 +1,15 @@
-<div class="curated-content-editor-row" {{action 'itemClick'}}>
-	<img src="{{thumbUrl}}" />
-	<div class="item-description">
-		<div class="title">{{model.label}}</div>
-		{{#if model.items}}
-			{{!-- @TODO CONCF-956 add translations to items --}}
-			<div class="subtitle">{{model.items.length}} items</div>
-		{{/if}}
-	</div>
+<img src="{{thumbUrl}}" {{action 'edit'}}/>
+<div class="item-description" {{action 'edit'}}>
+	<div class="title">{{model.label}}</div>
+	{{#if model.items}}
+		<div class="subtitle">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
+	{{/if}}
 </div>
 <div class="navigation">
-	<div {{action 'moveBy' -1}}>
-		{{svg 'chevron' role='img' class='icon arrow-up'}}
+	<div class="arrow-wrapper" {{action 'moveBy' -1 bubbles=false}}>
+		{{svg 'chevron' role='img' class='icon arrow arrow-up pointer-events-none'}}
 	</div>
-	<div {{action 'moveBy' 1}}>
-		{{svg 'chevron' role='img' class='icon arrow-down'}}
+	<div class="arrow-wrapper" {{action 'moveBy' 1 bubbles=false}}>
+		{{svg 'chevron' role='img' class='icon arrow arrow-down pointer-events-none'}}
 	</div>
 </div>

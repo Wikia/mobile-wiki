@@ -39,14 +39,14 @@
 	}
 }
 
-.signup-provider-facebook {
+.signup-provider-facebook,
+.signup-provider-facebook.disabled,
+.signup-provider-facebook:hover,
+.signup-provider-facebook:visited {
 	background-color: #38528a;
 	border: none;
 	margin-bottom: 15px;
-
-	&:active, &:hover {
-		background-color: $color-blue-light;
-	}
+	opacity: 1;
 }
 
 .signup-provider-email {
@@ -59,9 +59,8 @@
 	}
 
 	&:active, &:hover {
-		background-color: transparent;
-		border-color: $color-blue-light;
-		color: $color-blue-light;
+		background: white;
+		color: $color-blue-dark;
 	}
 
 }

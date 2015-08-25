@@ -6,13 +6,18 @@ App.AddPhotoController = Em.Controller.extend({
 	needs: ['application', 'article'],
 
 	errorCodeMap: {
-		'invalidtitle': 'app.add-photo-section-title-error'
+		'invalidtitle': 'app.add-photo-section-title-error',
+		'noedit': 'app.edit-publish-error-noedit',
+		'noedit-anon': 'app.edit-publish-error-noedit-anon'
 	},
 
 	handleAddContentSuccess: function(data: any): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
-			this.get('controllers.application').addAlert('success', i18n.t('app.add-photo-success'));
+			this.get('controllers.application').addAlert({
+				message: i18n.t('app.add-photo-success'),
+				type: 'success'
+			});
 		});
 		M.track({
 			action: M.trackActions.impression,
@@ -32,7 +37,10 @@ App.AddPhotoController = Em.Controller.extend({
 		var appController = this.get('controllers.application'),
 			errorMsg = this.errorCodeMap[error] || 'app.add-photo-error';
 
-		appController.addAlert('alert', i18n.t(errorMsg));
+		appController.addAlert({
+			message: i18n.t(errorMsg),
+			type: 'alert'
+		});
 		appController.hideLoader();
 
 		M.track({

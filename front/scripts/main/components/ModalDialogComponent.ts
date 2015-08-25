@@ -3,7 +3,9 @@
 'use strict';
 
 App.ModalDialogComponent = Em.Component.extend({
-	classNames: ['modal-dialog'],
+	classNames: ['modal-dialog-wrapper'],
+	classNameBindings: ['type'],
+	type: 'info',
 	isVisible: false,
 
 	actions: {

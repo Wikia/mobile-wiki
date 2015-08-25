@@ -1,6 +1,7 @@
-.discussion-post {
+.discussion {
 	background-color: #fff;
 	font-size: $type-smallest;
+	line-height: $line-height-smallest;
 	padding: 0 15px;
 
 	.avatar {
@@ -13,12 +14,28 @@
 		}
 	}
 
+	.count {
+		color: #999;
+		font-size: $type-min;
+
+		.icon {
+			margin-right: 3px;
+		}
+	}
+
+	.discussion-content {
+		color: $color-gray-dark;
+		margin: 10px 0;
+	}
+
 	.discussion-reply {
+		border-top: 1px solid #ccc;
+		padding-top: 12px;
+
 		.upvotes {
 			float: left;
-			margin-top: -7px;
+			margin: -7px 10px 0 0;
 			text-align: center;
-			width: 30px;
 
 			small {
 				display: block;
@@ -48,81 +65,46 @@
 		}
 	}
 
-	.count {
-		color: #999;
-		font-size: $type-min;
-
-		.icon {
-			margin-right: 3px;
-		}
-	}
-
-	.discussion-content {
-		color: $color-gray-dark;
-		padding: 10px 0;
-	}
-
 	.post-detail {
 		padding: 12px 0;
+	}
+
+	.see-more {
+		background-color: #E6E6E6;
+		border-width: 0;
+		display: inline-block;
+		font-size: 10px;
+		font-weight: bold;
+		width: 100%;
+	}
+
+	@for $i from 1 through length($verticals) {
+		.#{nth($verticals, $i)}-vertical & {
+			.see-more {
+				color: nth($vertical-colors, $i);
+			}
+		}
 	}
 
 	.timestamp {
 		color: #999;
 	}
-}
 
-.books-vertical {
-	.discussion-post {
-		a {
-			color: $color-hub-books;
+	&.forum {
+		.discussion-content {
+			// Constrains content on the forum post list to 3 lines
+			max-height: $line-height-smallest * 3;
+			overflow: hidden;
+		}
+
+		.post-detail {
+			border-top: 1px solid #ccc;
 		}
 	}
 }
 
-.comics-vertical {
-	.discussion-post {
-		a {
-			color: $color-hub-comics;
-		}
-	}
-}
-
-.games-vertical {
-	.discussion-post {
-		a {
-			color: $color-hub-games;
-		}
-	}
-}
-
-.lifestyle-vertical {
-	.discussion-post {
-		a {
-			color: $color-hub-lifestyle;
-		}
-	}
-}
-
-.movies-vertical {
-	.discussion-post {
-		a {
-			color: $color-hub-movies;
-		}
-	}
-}
-
-.music-vertical {
-	.discussion-post {
-		a {
-			color: $color-hub-music;
-		}
-	}
-}
-
-.tv-vertical {
-	.discussion-post {
-		a {
-			color: $color-hub-tv;
-		}
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .discussion a {
+		color: #{nth($vertical-colors, $i)};
 	}
 }

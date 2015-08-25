@@ -31,16 +31,20 @@ if (sync) {
 	preprocessContext.browserSync = true;
 }
 
-gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-vendor', 'build-combined'], function () {
+gulp.task('build-views', ['scripts-front', 'vendor', 'build-vendor', 'build-combined'], function () {
+	// retrieve gulp-rev-replace manifest files that were created with build-combined and build-vendor
 	var manifest = gulp.src(['www/front/vendor/rev-manifest.json', 'www/front/scripts/rev-manifest.json']);
+
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFullServer
 		}),
 
-		// These plugins don't like being fed through piper/multipipe
-		gulpif('**/_layouts/**.hbs', preprocess({context: preprocessContext})),
-		gulpif('**/_layouts/**.hbs', revReplace({manifest: manifest})),
+		// preprocess and revReplace don't like being fed through piper/multipipe
+		gulpif('**/_layouts/*.hbs', preprocess({context: preprocessContext})),
+		// Read JSON manifests written out by rev. Allows replacing file names that were reved prior to the current task
+		gulpif('**/_layouts/*.hbs', revReplace({manifest: manifest})),
+
 
 		// TODO: Leave this in for now to run the normal template based assets pipeline while we're using async scripts
 		gulpif(environment.isProduction,
@@ -57,8 +61,9 @@ gulp.task('build-views', ['scripts-front', 'copy-ts-source', 'vendor', 'build-ve
 		)),
 
 		gulpif('**/_layouts/*.hbs', gulp.dest('www/server/views/_layouts')),
+
+		// for ember-main.hbs, find the file paths in the template source and replace them for prod CDN
 		gulpif(environment.isProduction, piper(
-			// Used to prefix assets in with CDN prefix
 			gulpif(options.replace.selector, replace(options.replace.find, options.replace.replace)),
 			minifyHTML({
 				quotes: true

@@ -2,16 +2,19 @@
   "errors":{
     "email_already_exists":"El correo electrónico ya está registrado en Wikia",
     "email_invalid":"El correo electrónico no es válido",
-    "registration_error":"No podemos completar tu registro en este momento.",
-    "username_already_exists":"Alguien ya tiene este nombre de usuario. ¡Intenta uno diferente!",
-    "username_unavailable":"¡Huy! Tu nombre de usuario solo puede contener letras y números a partir de un alfabeto único y debe incluir al menos una letra. Por favor intenta con otro nombre.",
-    "username_ip_address":"¡Huy! Tu nombre de usuario parece una dirección de IP. Por favor intenta con otro nombre que incluya por lo menos una letra.",
-    "username_exceeds_max_length":"¡Huy! Tu nombre de usuario no puede tener más de 50 caracteres.",
-    "username_illegal_characters":"¡Huy! Tu nombre de usuario solo puede contener letras y números a partir de un alfabeto único y debe incluir al menos una letra. Por favor intenta con otro nombre.",
-    "password_exceeds_max_length":"¡Huy! Tu contraseña es demasiado larga. Elige una contraseña de 50 caracteres o menos.",
-    "password_equal_name":"Tu contraseña debe ser diferente de tu nombre de usuario.",
-    "birthdate_invalid":"¡Huy! Parece que esta no es una fecha calendario. Por favor inténtalo de nuevo.",
+    "registration_error":"No podemos completar tu registro en este momento",
+    "username_already_exists":"El nombre de usuario ya está en uso",
+    "username_unavailable":"El nombre de usuario ya está en uso o tiene caracteres no válidos. El nombre de usuario puede contener letras y números de un alfabeto y debe incluir una letra.",
+    "username_ip_address":"El nombre de usuario debe incluir por lo menos una letra",
+    "username_exceeds_max_length":"El nombre de usuario no puede tener más de 50 caracteres",
+    "username_illegal_characters":"El nombre de usuario puede contener solo letras y números de un alfabeto y debe incluir una letra",
+    "password_exceeds_max_length":"La contraseña no puede tener más de 50 caracteres",
+    "password_equal_name":"El nombre de usuario y la contraseña no pueden coincidir",
+    "birthdate_invalid":"La fecha de nacimiento no es una fecha válida",
     "wrong-credentials":"No reconocemos estas credenciales. Por favor inténtalo de nuevo o registra una nueva cuenta.",
-    "server-error":"Lo sentimos, hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde."
+    "server-error":"Hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"Estoy de acuerdo con __termsOfUseLink__ y __privacyPolicyLink__ (requerido)"
   }
 }
