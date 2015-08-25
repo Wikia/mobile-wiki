@@ -45,19 +45,13 @@
 					focus-in='setTitleFocusedIn'
 				}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
-				{{#if searchSuggestionsVisible}}
-					<div class="title-suggestions-container">
-						<ul>
-						{{#if searchSuggestionsResult.length}}
-							{{#each searchSuggestionsResult as |item|}}
-								<li {{action 'setTitle' item.title}}>{{item.title}}</li>
-							{{/each}}
-						{{else}}
-							<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
-						{{/if}}
-						</ul>
-					</div>
-				{{/if}}
+				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
+					{{#each searchSuggestionsResult as |item|}}
+						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
+					{{else}}
+						<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
+					{{/each}}
+				</ul>
 				{{#if titleErrorMessage}}
 					<small class="error">{{titleErrorMessage}}</small>
 				{{/if}}
