@@ -60,6 +60,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 					width: number = this.get('articleContent.width');
 
+				console.log('RAFAL: ' + width);
+
 				if (!media) {
 					return this.get('imageSrc');
 				}
@@ -79,6 +81,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 				//this might happen for example for read more section images
 			},
 			set(key: string, value: string): string {
+				console.log('RAFAL 2: ' + this.get('articleContent.width'));
 				return this.getThumbURL(value, {
 					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
 					height: this.get('computedHeight'),
