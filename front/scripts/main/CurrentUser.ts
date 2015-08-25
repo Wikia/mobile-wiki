@@ -2,23 +2,78 @@
 /// <reference path="./models/UserModel.ts" />
 'use strict';
 
+interface QueryUserInfoGroupsRightsResponse {
+	query: {
+		userinfo: {
+			anon?: string;
+			id: number;
+			name: string;
+			rights: string[];
+		}
+	}
+}
+
 App.CurrentUser = Em.Object.extend({
-	model: null,
+	rights: {},
+	isAuthenticated: Em.computed.bool('userId'),
+
+	userId: Em.computed(function (): number {
+		var cookieUserId = parseInt(M.prop('userId'), 10);
+		return cookieUserId > 0 ? cookieUserId : null;
+	}),
 
 	init: function (): void {
 		var userId = this.get('userId');
 		if (userId !== null) {
-			App.UserModel.find({userId: userId}).then((result: any): void => {
-				this.set('model', result);
-			});
+			App.UserModel.find({userId})
+				.then((result: typeof App.UserModel): void => {
+					this.setProperties(result);
+				})
+				.catch((err: any): void => {
+					Em.Logger.warn('Couldn\'t load current user model', err);
+				});
+
+			this.loadRights()
+				.then((rightsArray: string[]): void => {
+					var rights = {};
+
+					rightsArray.forEach((right: string): void => {
+						rights[right] = true;
+					});
+
+					this.set('rights', rights);
+				})
+				.catch((err: any): void => {
+					Em.Logger.warn('Couldn\'t load current user rights', err);
+				});
 		}
 		this._super();
 	},
 
-	isAuthenticated: Em.computed.bool('userId'),
+	loadRights(): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: '/api.php',
+				data: {
+					action: 'query',
+					meta: 'userinfo',
+					uiprop: 'rights',
+					format: 'json'
+				},
+				dataType: 'json',
+				success: (result: QueryUserInfoGroupsRightsResponse): void => {
+					var rights = Em.get(result, 'query.userinfo.rights');
 
-	userId: Em.computed(function (): number {
-		var cookieUserId = ~~M.prop('userId');
-		return cookieUserId > 0 ? cookieUserId : null;
-	})
+					if (Em.isArray(rights)) {
+						resolve(rights);
+					} else {
+						reject(result);
+					}
+				},
+				error: (err: any): void => {
+					reject(err);
+				}
+			});
+		});
+	}
 });

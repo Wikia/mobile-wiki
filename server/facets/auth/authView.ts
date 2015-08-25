@@ -89,7 +89,7 @@ module authView {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
-			mainPage: "http://www.wikia.com",
+			mainPage: 'http://www.wikia.com',
 			isModal: isModal,
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
@@ -115,8 +115,8 @@ module authView {
 	}
 
 	export function getViewType(request: Hapi.Request): string {
-		var mobilePattern = /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE|Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
-			ipadPattern = /iPad/;
+		var mobilePattern = localSettings.patterns.mobile,
+			ipadPattern = localSettings.patterns.iPad;
 		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
 			return this.VIEW_TYPE_MOBILE;
 		}
