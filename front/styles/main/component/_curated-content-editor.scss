@@ -5,7 +5,6 @@ $item-padding-horizontal: .75rem;
 $item-padding-vertical: .5rem;
 $item-description-padding-left: 1.25rem;
 $item-image-size: 3rem;
-$image-size: 150px;
 $row-height: 4rem;
 $item-image-vertical-padding: ($row-height - $item-image-size) / 2;
 $button-padding-horizontal: 1.5rem;
@@ -126,55 +125,42 @@ $image-photo-icon-size: 32px;
 }
 
 .curated-content-section-details {
-	align-items: center;
 	background: $snow;
 	border-bottom: 1px solid $color-blue-gray-light;
 	display: flex;
-	height: $image-size;
+}
 
-	.section-image {
-		flex: 0 0 150px;
+.curated-content-section-details--image {
+	flex: 0 0 auto;
+	margin: 13px;
 
-		img {
-			height: $image-size;
-		}
+	img {
+		height: 105px;
+		width: 105px;
 	}
+}
 
-	.section-desc {
-		display: flex;
-		flex: 1;
-		flex-direction: column;
-		height: $image-size;
-		justify-content: space-between;
+.curated-content-section-details--description {
+	flex: 1;
+	margin: {
+		bottom: 20px;
+		left: 4px;
+		right: 13px;
+		top: 20px;
 	}
+}
+.curated-content-section-details--label {
+	@include clamp(5);
 
-	.section-label {
-		@include clamp(5);
-
-		color: $black;
-		font-size: 1.1rem;
-		font-weight: bold;
-		line-height: 1.4rem;
-		padding: 10px 13px 0;
-	}
-
-	.section-items-count {
-		color: $color-blue-gray-dark;
-		font-size: .75rem;
-		line-height: .9rem;
-		padding: 0 13px 10px;
-	}
-
-	.section-edit {
-		align-self: flex-end;
-		padding: 0 13px 10px;
-
-		svg {
-			fill: $color-blue-dark;
-			height: 1.75rem;
-			width: 1.75rem;
-		}
-	}
+	color: $color-blue-brand;
+	font-size: 1.1rem;
+	font-weight: bold;
+	line-height: 1.437rem;
+}
+.curated-content-section-details--count {
+	color: $color-blue-gray-dark;
+	font-size: .75rem;
+	line-height: .875rem;
 }
 
 .curated-content-editor-photo {
