@@ -101,6 +101,14 @@ input[type="submit"],
 }
 
 .desktop {
+	button,
+	.button,
+	input[type="submit"] {
+		min-height:  2.5rem;
+		line-height: 1rem;
+		padding: .75rem;
+	}
+
 	input[type="submit"] {
 		margin-bottom: 12px;
 	}
