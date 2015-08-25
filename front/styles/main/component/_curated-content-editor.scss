@@ -70,6 +70,7 @@ $search-results-load-more-button-width: 100vw - 2 * $search-results-horizontal-p
 }
 
 .curated-content-editor-row {
+	cursor: pointer;
 	display: flex;
 	height: $row-height;
 

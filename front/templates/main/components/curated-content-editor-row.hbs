@@ -1,5 +1,5 @@
-<img src="{{thumbUrl}}" />
-<div class="item-description">
+<img src="{{thumbUrl}}" {{action 'edit'}}/>
+<div class="item-description" {{action 'edit'}}>
 	<div class="title">{{model.label}}</div>
 	{{#if model.items}}
 		<div class="subtitle">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
@@ -13,4 +13,3 @@
 		{{svg 'chevron' role='img' class='icon arrow arrow-down'}}
 	</div>
 </div>
-
