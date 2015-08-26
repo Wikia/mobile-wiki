@@ -34,7 +34,7 @@
 	}
 
 	function setTrackingForSignInPage (): void {
-		var tracker = new AuthTracker('user-login-mobile', 'signin-page');
+		var tracker = new AuthTracker('user-login-mobile', '/signin');
 
 		//Impression of the /signin page
 		tracker.trackPageView();
@@ -65,7 +65,7 @@
 	}
 
 	function setTrackingForRegisterPage (): void {
-		var tracker = new AuthTracker('user-signup-mobile', 'register-page');
+		var tracker = new AuthTracker('user-signup-mobile', '/register');
 
 		//Impression of the /register page
 		tracker.trackPageView();
@@ -90,7 +90,7 @@
 	}
 
 	function setTrackingForJoinPage(): void {
-		var tracker = new AuthTracker('user-login-mobile', 'join-page');
+		var tracker = new AuthTracker('user-login-mobile', '/join');
 
 		//Impression of the /join page
 		tracker.trackPageView();
@@ -128,7 +128,7 @@
 	}
 
 	function setTrackingForFBConnectPage () {
-		var tracker = new AuthTracker('user-signup-mobile', 'signin-page');
+		var tracker = new AuthTracker('user-signup-mobile', '/signin');
 		//Impression of the /signin page
 		tracker.trackPageView();
 		// Click "Sign In" button
