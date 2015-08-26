@@ -29,7 +29,7 @@ module authView {
 		footerCalloutLink?: string;
 		headerText?: string;
 		bodyClasses?: string;
-		pageType: string;
+		pageType?: string;
 		trackingConfig?: any;
 		isModal?: boolean;
 	}
