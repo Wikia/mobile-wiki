@@ -2,10 +2,6 @@
 /// <reference path='../mercury/utils/track.ts' />
 
 (function () {
-	function checkPageType (pageType: string): boolean {
-		return (document.body.className.indexOf(pageType) !== -1);
-	}
-
 	function setupTracking(): void {
 		//Auth pages live on www.wikia.com and don't have access to WikiVariables
 		//hence there's a need to provide this data inline
@@ -189,10 +185,12 @@
 	}
 
 	function init (): void {
-		var pageType: string,
+		var pageType: string ,
 			trackingSets: any;
 
 		setupTracking();
+
+		pageType = document.body.getAttribute('data-page-type');
 
 		trackingSets = {
 			'join-page': setTrackingForJoinPage,
@@ -202,12 +200,11 @@
 			'register-fb-page': setTrackingForFBRegisterPage
 		};
 
-		Object.keys(trackingSets).some(function (pageType) {
-			if (checkPageType(pageType)) {
-				trackingSets[pageType]();
-				return true;
-			}
-		});
+		if (!pageType || !trackingSets[pageType]) {
+			return;
+		}
+
+		trackingSets[pageType]();
 	}
 
 	document.addEventListener('DOMContentLoaded', function (): void {
