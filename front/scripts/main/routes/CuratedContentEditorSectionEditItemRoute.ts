@@ -14,9 +14,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		var sectionController = this.controllerFor('curatedContentEditor.section'),
 			alreadyUsedLabels: string[] = sectionController.get('alreadyUsedItemsLabels').filter(
-				(item: string): boolean => {
-					return item !== model.label;
-				}
+				(item: string): boolean => item !== model.label
 			);
 
 		this._super(controller, model, transition);
