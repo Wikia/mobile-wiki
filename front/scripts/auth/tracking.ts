@@ -185,7 +185,7 @@
 	}
 
 	function init (): void {
-		var pageType: string ,
+		var pageType: string,
 			trackingSets: any;
 
 		setupTracking();
