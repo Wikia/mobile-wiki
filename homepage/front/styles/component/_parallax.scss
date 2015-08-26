@@ -1,5 +1,8 @@
-$parallax-window-height: 30em;
-$parallax-background-height: $parallax-window-height * 2;
+$parallax-window-height: 25em;
+
+.parallax {
+	padding-bottom: 2em;
+}
 
 .parallax-window {
 	max-height: $parallax-window-height;
@@ -19,15 +22,45 @@ $parallax-background-height: $parallax-window-height * 2;
 	padding: 8em 0;
 	position: relative;
 	z-index: 9;
+
+	@include media($mobile) {
+		padding: 6em 0;
+	}
+}
+
+.parallax-hidden-slide {
+	display: none;
 }
 
 .parallax-heading {
 	@include media($mobile) {
-		font-size: 3em;
+		font-size: 2em;
 	}
 
 	@include media($desktop) {
 		font-size: 5em;
+	}
+}
+
+.parallax-heading-small {
+	@include media($mobile) {
+		font-size: 1em;
+	}
+
+	@include media($desktop) {
+		font-size: 2em;
+	}
+}
+
+.parallax-details {
+	@include outer-container;
+	margin-bottom: 3em;
+	padding-left: 3em;
+	padding-right: 3em;
+
+	@include media($mobile) {
+		padding-left: .1em;
+		padding-right: .1em;
 	}
 }
 
@@ -39,11 +72,12 @@ $parallax-background-height: $parallax-window-height * 2;
 	background-color: $parallax-bacground-color;
 	background-position: top;
 	background-size: cover;
-	height: $parallax-background-height;
+	height: $parallax-window-height * 2;
 	left: 0;
 	position: absolute;
 	top: - $parallax-window-height / 3;
 	width: 100%;
 }
+
 
 // Based on http://codepen.io/skeurentjes/

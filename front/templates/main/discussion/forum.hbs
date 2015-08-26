@@ -1,0 +1,15 @@
+<div class="discussion forum">
+	{{!-- TODO: Replace this h1 with the real header --}}
+	<h1>Forum: {{model.name}}</h1>
+	{{#each model._embedded.doc:threads as |item|}}
+		{{post-detail
+			action="goToPost"
+			postId=item.id
+			author=item._embedded.firstPost.0.createdBy
+			content=item._embedded.firstPost.0.rawContent
+			timestamp=item._embedded.firstPost.0.creationDate.epochSecond
+			upvoteCount=item.upvoteCount
+			replyCount=item.postCount
+		}}
+	{{/each}}
+</div>

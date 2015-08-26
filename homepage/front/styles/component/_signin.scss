@@ -1,29 +1,44 @@
 
-.loginBox {
+$large-screen: 710px;
+
+.login-box {
 	$login-box-border: #c8d2d7;
 	$login-background-color: white;
 
 	background-color: $login-background-color;
 	border: 1px solid $login-box-border;
 	list-style: none;
-	padding: rem-calc(20);
-	width: rem-calc(300);
+	padding: rem-calc(20) rem-calc(20) 0;
+	width: rem-calc(360);
 }
 
-.loginFrame {
-	width: rem-calc(260);
+.login-box-mobile {
+	$login-box-border: #c8d2d7;
+	$login-background-color: white;
+
+	background-color: $login-background-color;
+	border: 1px solid $login-box-border;
+	display: none;
+	list-style: none;
+	padding: rem-calc(20) rem-calc(20) 0;
+	width: 100%;
+
+
+	@include media ($large-screen) {
+		display: none;
+	}
 }
 
-.loginIcon {
+.login-icon {
 	&:focus,
-	&:hover .loginPopup {
+	&:hover .login-popup {
 		opacity: 1;
 		visibility: visible;
 	}
 
 }
 
-.loginPopup {
+.login-popup {
 	$navigation-height: 56px;
 	$login-popup-background-color: white;
 	$login-border-color: #c8d2d7;
@@ -87,3 +102,41 @@
 	}
 }
 
+.user-info-box {
+	$login-box-border: #c8d2d7;
+	$login-background-color: white;
+
+	background-color: $login-background-color;
+	border: 1px solid $login-box-border;
+	list-style: none;
+	padding: 0;
+	width: rem-calc(360);
+}
+
+.user-info-box-mobile {
+	$login-box-border: #c8d2d7;
+	$login-background-color: white;
+
+	background-color: $login-background-color;
+	border: 1px solid $login-box-border;
+	display: none;
+	list-style: none;
+	padding: 0;
+	width: 100%;
+
+	@include media ($large-screen) {
+		display: none;
+	}
+}
+
+.user-info-item {
+	$border-color: gainsboro;
+	background-color: rgba(0, 0, 0, 0);
+	border-bottom: 1px solid $border-color;
+	padding: .75em;
+
+	@include media ($large-screen) {
+		border-bottom: 0;
+		padding: 0;
+	}
+}

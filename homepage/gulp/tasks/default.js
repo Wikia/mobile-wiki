@@ -5,4 +5,4 @@
 
 var gulp = require('gulp');
 
-gulp.task('default', ['lint', 'tslint', 'watch', 'server']);
+gulp.task('default', ['sass', 'lint', 'tslint', 'watch']);

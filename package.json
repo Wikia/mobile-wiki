@@ -1,6 +1,6 @@
 {
   "name": "Mercury",
-  "version": "131.0.0",
+  "version": "142.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "hoek": "2.12.0",
     "i18next": "1.7.10",
     "newrelic": "1.18.1",
-    "wreck": "5.4.0"
+    "wreck": "6.1.0"
   },
   "devDependencies": {
     "browser-sync": "^2.5.3",
@@ -63,6 +63,7 @@
     "gulp-uglify": "1.x.x",
     "gulp-useref": "1.x.x",
     "gulp-util": "3.x.x",
+    "gulp-vulcanize": "^6.0.1",
     "gulp-wrap": "^0.11.0",
     "karma": "0.12.x",
     "karma-chrome-launcher": "0.x.x",

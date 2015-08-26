@@ -10,15 +10,12 @@
 	$grid-items-background: $base-background-color;
 	$grid-item-background: desaturate($action-color, 30%);
 	$grid-item-colors: desaturate($action-color, 30%),
-	#3581A5,
-	#5FBEBE,
-	#98C79A,
-	#A7A891,
-	#BDCC97,
-	#979EA0;
+	#3581A5, #5FBEBE, #98C79A, #A7A891, #BDCC97, #979EA0,
+	#3581A5, #98C79A, #A7A891, #5FBEBE, #98C79A, #3581A5,
+	#3581A5, #5FBEBE, #98C79A, #A7A891, #BDCC97, #979EA0;
 	$grid-item-border-size: 9px;
-	$grid-item-columns: 4;
-	$grid-item-big-columns: 8;
+	$grid-item-columns: 3;
+	$grid-item-big-columns: 6;
 	$grid-item-color: white;
 	$grid-item-height: 14em;
 
@@ -37,10 +34,10 @@
 		height: $grid-item-height;
 		outline: none;
 		overflow: hidden;
-		padding: 2em;
+		padding: 1em;
 		text-align: center;
 		text-decoration: none;
-		width: 100%;
+		width: 50%;
 
 		@include media($large-screen) {
 			@include grid-item-columns($grid-item-columns);
@@ -64,17 +61,40 @@
 		}
 	}
 
-	.grid-item img {
-		display: block;
-		height: 5em;
+	.grid-image-large {
+		display: none;
+		height: 10em;
 		margin: auto;
-		margin-bottom: 1em;
+		margin-bottom: .5em;
+		width: 30em;
+
+		@include media($large-screen) {
+			display: block;
+		}
+	}
+
+	.grid-image-small {
+		display: block;
+		height: 10em;
+		margin: auto;
+		margin-bottom: .5em;
+		width: 30em;
+
+		@include media($large-screen) {
+			display: none;
+		}
 	}
 
 	.grid-item h1 {
-		color: $grid-item-color;
-		font-size: 1.3em;
+		background-color: rgba(0, 0, 0, .4);
+		color: white;
+		display: inline;
 		margin-bottom: .4em;
+		padding: .3rem .5rem;
+
+		@include media($large-screen) {
+			font-size: 1.2em;
+		}
 	}
 
 	.grid-item p {
@@ -90,12 +110,6 @@
 	.grid-item-big {
 		@include media($large-screen) {
 			@include grid-item-columns($grid-item-big-columns);
-		}
-
-		p {
-			@include media($medium-screen) {
-				max-width: 60%;
-			}
 		}
 	}
 

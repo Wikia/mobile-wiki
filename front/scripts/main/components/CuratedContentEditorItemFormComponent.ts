@@ -1,8 +1,8 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
+/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
@@ -17,12 +17,29 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
+		imageMenuVisible: false,
 
-		imageUrl: Em.computed('model.image_url', function (): string {
-			return this.generateThumbUrl(this.get('model.image_url'));
+		// Force one way binding
+		model: Em.computed.oneWay('attrs.model'),
+		label: Em.computed('model.label', function() {
+			var modelLabel = this.get('model.label');
+			return modelLabel || i18n.t('app.curated-content-editor-new-item');
 		}),
 
-		isSectionView: Em.computed.equal('model.node_type', 'section'),
+		/* 16x9 transparent gif */
+		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
+		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
+			if (this.get('model.image_url')) {
+				var aspectRatioName = this.get('aspectRatioName'),
+					imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
+
+				return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
+			} else {
+				return this.get('emptyGif');
+			}
+		}),
+
+		isSection: Em.computed.equal('model.node_type', 'section'),
 
 		isTitleNotEmpty: Em.computed.notEmpty('model.title'),
 		isLabelNotEmpty: Em.computed.notEmpty('model.label'),
@@ -48,13 +65,38 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
+		searchSuggestionsResult: [],
+		/**
+		 * messages used:
+		 * app.curated-content-editor-no-articles-found
+		 * app.curated-content-editor-suggestions-loading
+		 */
+		searchSuggestionsMessage: Em.computed('suggestionsError', function (): string {
+			var msgSuffix = this.get('suggestionsError') ? 'no-articles-found' : 'suggestions-loading',
+				msgKey = 'app.curated-content-editor-' + msgSuffix;
+
+			return i18n.t(msgKey);
+		}),
+
 		labelObserver(): void {
 			this.validateLabel();
 		},
 
 		titleObserver(): void {
+			var title = this.get('model.title');
+
 			if (this.validateTitle()) {
 				this.getImageDebounced();
+			}
+
+			if (this.get('isTitleFocused') && !Em.isEmpty(title) && title.length > 2) {
+				this.setProperties({
+					searchSuggestionsResult: [],
+					suggestionsError: false,
+					searchSuggestionsVisible: true
+				});
+
+				this.setSearchSuggestionsDebounced();
 			}
 		},
 
@@ -62,6 +104,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 			this.addObserver('model.title', this, this.titleObserver);
 			this.addObserver('model.label', this, this.labelObserver);
+		},
+
+		/**
+		 * When user taps/clicks anywhere we want to close
+		 * search suggestions panel
+		 */
+		click(): void {
+			this.set('searchSuggestionsVisible', false);
 		},
 
 		actions: {
@@ -88,18 +138,18 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			goBack(): void {
-				var trackLabel = this.get('isSectionView') ? 'section-edit-go-back' : 'item-edit-go-back';
+				var trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
 				this.trackClick('curated-content-editor', trackLabel);
 
 				this.sendAction('goBack');
 			},
 
 			done(): void {
-				var trackLabel = this.get('isSectionView') ? 'section-edit-done' : 'item-edit-done';
+				var trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
 				this.trackClick('curated-content-editor', trackLabel);
 
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
-					if (this.get('isSectionView')) {
+					if (this.get('isSection')) {
 						this.validateAndDone(this.get('model'), {
 							method: 'validateSection'
 						});
@@ -113,11 +163,10 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			deleteItem(): void {
-				var trackLabel = this.get('isSectionView') ? 'section-delete' : 'item-delete';
+				var trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
 				this.trackClick('curated-content-editor', trackLabel );
 
-				//@TODO CONCF-956 add translations
-				if (confirm('Are you sure about removing this item?')) {
+				if (confirm(i18n.t('app.curated-content-editor-remove-item-confirmation'))) {
 					this.sendAction('deleteItem');
 				}
 			},
@@ -130,12 +179,15 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					.then((data: any) => {
 						if (data && data.url && data.article_id) {
 							this.setProperties({
-								'model.image_url': this.generateThumbUrl(data.url),
+								'imageProperties.url': data.url,
 								// article_id comes from MW because in MW files are like any other articles
 								// so there is no such thing as image_id from MW perspective.
-								'model.image_id': data.article_id,
-								'imageErrorMessage': null
+								'imageProperties.id': data.article_id,
+								// Make cropper back button go back here
+								'imageCropLayout.previous': this.get('itemFormLayout.name')
 							});
+
+							this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 						} else {
 							Em.Logger.error('Image Data Object is malformed. Url or article_id is missing');
 							this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
@@ -150,18 +202,25 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					});
 			},
 
-			showImageModal(): void {
+			showImageMenu(): void {
 				this.trackClick('curated-content-editor', 'item-image-menu');
-				this.set('imageModalVisible', true);
+				this.set('imageMenuVisible', true);
 			},
 
-			hideImageModal(): void {
-				this.set('imageModalVisible', false);
+			hideImageMenu(): void {
+				this.set('imageMenuVisible', false);
 			},
 
 			showSearchImageForm(): void {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
+			},
+
+			setTitle(title: string): void {
+				this.setProperties({
+					'model.title': title,
+					searchSuggestionsVisible: false
+				});
 			}
 		},
 
@@ -170,8 +229,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				errorMessage: string = null;
 
 			if (!imageUrl) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Image is empty';
+				errorMessage = i18n.t('app.curated-content-editor-image-missing-error');
 			}
 
 			this.set('imageErrorMessage', errorMessage);
@@ -185,17 +243,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				errorMessage: string = null;
 
 			if (Em.isEmpty(label)) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is empty';
+				errorMessage = 'app.curated-content-editor-missing-label-error';
 			} else if (label.length > this.get('maxLabelLength')) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is too long';
+				errorMessage = 'app.curated-content-editor-too-long-label-error';
 			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
-				//@TODO CONCF-956 add translations
-				errorMessage = 'Label is duplicated';
+				errorMessage = 'app.curated-content-editor-label-in-use-error';
 			}
 
-			this.set('labelErrorMessage', errorMessage);
+			this.set('labelErrorMessage', i18n.t(errorMessage));
 
 			return !errorMessage;
 		},
@@ -204,12 +259,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			var title: string,
 				errorMessage: string = null;
 
-			if (!this.get('isSectionView')) {
+			if (!this.get('isSection')) {
 				title = this.get('model.title');
 
 				if (Em.isEmpty(title)) {
-					//@TODO CONCF-956 add translations
-					errorMessage = 'Title is empty';
+					errorMessage = i18n.t('app.curated-content-editor-missing-title-error');
 				}
 
 				this.set('titleErrorMessage', errorMessage);
@@ -226,22 +280,21 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.then((data: CuratedContentGetImageResponse): void => {
 					if (!data.url) {
 						if (!this.get('model.image_url')) {
-							//@TODO CONCF-956 add translations
-							this.set('imageErrorMessage', 'Please provide an image, as this item has no default.');
+							this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
 						}
 					} else {
 						this.setProperties({
-							'imageErrorMessage': null,
+							imageErrorMessage: null,
+							resetFileInput: true,
 							'model.image_url': data.url,
 							'model.image_id': data.id,
-							'resetFileInput': true
+							'model.image_crop': null
 						});
 					}
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					//@TODO CONCF-956 add translations
-					this.set('imageErrorMessage', 'Oops! An API Error occured.');
+					this.set('imageErrorMessage', i18n.t('app.curated-content-error-other'));
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -259,17 +312,22 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.sendAction('done', this.get('model'));
 					} else {
 						if (data.error) {
-							data.error.forEach((error: any) => this.processValidationError(error.reason));
+							data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+								=> this.processValidationError(error.reason));
 						} else {
-							//@TODO CONCF-956 add translations
-							this.addAlert('alert', 'Something went wrong. Please repeat.');
+							this.addAlert({
+								message: i18n.t('app.curated-content-error-other'),
+								type: 'alert'
+							});
 						}
 					}
 				})
 				.catch((err: any): void => {
-					//@TODO CONCF-956 add translations
 					Em.Logger.error(err);
-					this.addAlert('alert', 'Something went wrong. Please repeat.');
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -277,8 +335,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		processValidationError(reason: string): void {
 			switch (reason) {
 				case 'articleNotFound':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'Article not found.');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
 					break;
 				case 'emptyLabel':
 				case 'tooLongLabel':
@@ -286,25 +343,45 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					this.validateLabel();
 					break;
 				case 'videoNotSupportProvider':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'This video provider is not supported.');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
 					break;
 				case 'notSupportedType':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'This type is not supported');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
 					break;
 				case 'duplicatedLabel':
-					//@TODO CONCF-956 add translations
-					this.set('labelErrorMessage', 'Label is already used elsewhere.');
+					this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
 					break;
 				case 'noCategoryInTag':
-					//@TODO CONCF-956 add translations
-					this.set('titleErrorMessage', 'Only Categories are accepted.');
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
 					break;
 				case 'imageMissing':
-					//@TODO CONCF-956 add translations
-					this.set('imageErrorMessage', 'Image is missing');
+					this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
 					break;
 			}
+		},
+
+		setSearchSuggestionsDebounced(): void {
+			Em.run.debounce(this, this.setSearchSuggestions, this.debounceDuration);
+		},
+
+		setSearchSuggestions(): void {
+			var title = this.get('model.title');
+
+			App.CuratedContentEditorItemModel.getSearchSuggestions(title)
+				.then((data: any): void => {
+					this.set('searchSuggestionsResult', data.items);
+				})
+				.catch((error: any): void => {
+					//404 error is returned when no articles were found. No need to log it
+					if (error && error.status !== 404) {
+						Em.Logger.error(error);
+					}
+
+					this.setProperties({
+						suggestionsError: true,
+						searchSuggestionsResult: []
+					});
+				});
 		}
-	});
+	}
+);

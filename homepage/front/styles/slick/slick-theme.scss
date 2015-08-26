@@ -1,7 +1,7 @@
 // Default Variables
 $slick-font-path: '/vendor/slick.js/slick/fonts/';
 $slick-font-family: 'slick' !default;
-$slick-arrow-color: white !default;
+$slick-arrow-color: #095EA2 !default;
 $slick-dot-color: black !default;
 $slick-dot-color-active: $slick-dot-color !default;
 $slick-prev-character: '←' !default;
@@ -91,11 +91,11 @@ $slick-opacity-not-active: .25 !default;
 }
 
 .slick-prev {
-	left: -25px;
+	left: 0;
 
 	[dir='rtl'] & {
 		left: auto;
-		right: -25px;
+		right: 0;
 	}
 
 	&:before {
@@ -108,10 +108,10 @@ $slick-opacity-not-active: .25 !default;
 }
 
 .slick-next {
-	right: -25px;
+	right: 0;
 
 	[dir='rtl'] & {
-		left: -25px;
+		left: 0;
 		right: auto;
 	}
 
@@ -191,4 +191,10 @@ $slick-opacity-not-active: .25 !default;
 			opacity: $slick-opacity-default;
 		}
 	}
+}
+
+.slider-heading {
+	outline: none;
+	padding-top: 0;
+	text-align: center;
 }

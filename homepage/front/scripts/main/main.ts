@@ -15,12 +15,13 @@ $(function() : void {
 	}
 
 	$('.carousel').slick({
+		arrows: true,
 		dots: false,
-		infinite: true,
+		infinite: false,
 		speed: 300,
-		slidesToShow: 3,
-		centerMode: true,
-		variableWidth: false
+		slidesToShow: 2,
+		centerMode: false,
+		variableWidth: true
 	});
 });
 
@@ -41,19 +42,44 @@ function parallax() : void {
 	}
 }
 
-$('#searchWikia').click(function(event) : void {
+$('#beginnersGuide').click(function(event) : void {
+	window.location.href = '/beginners';
+	event.preventDefault();
+});
+
+$('.search-wikia-form').submit(function(event) : void {
 	search();
 	event.preventDefault();
 });
 
-$('#searchWikiaForm').submit(function(event) : void {
+$('.search-wikia').click(function(event) : void {
 	search();
+	event.preventDefault();
+});
+
+$('#loginIcon').click(function(event) : void {
+	if ($(document).width() < 710) {
+		$('#userInfoToggle').toggle();
+	}
+
+	event.preventDefault();
+});
+
+$('#whatIsWikia').click(function(event) : void {
+	window.location.href = '/beginners';
 	event.preventDefault();
 });
 
 function search() : void {
-	var searchText : string = encodeURI($('#searchWikiaText').val()),
+	var searchText : string,
 		searchUrl : string;
+
+	searchText = encodeURI($('#searchWikiaText').val());
+
+	if (!searchText) {
+		// search button for mobile is different element
+		searchText = encodeURI($('#searchWikiaTextMobile').val());
+	}
 
 	if (searchText) {
 		searchUrl = 'http://ja.wikia.com/Special:Search?search=';
