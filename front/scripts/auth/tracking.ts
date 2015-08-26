@@ -202,12 +202,12 @@
 			'register-fb-page': setTrackingForFBRegisterPage
 		};
 
-		for (pageType in trackingSets) {
-			if (trackingSets.hasOwnProperty(pageType) && checkPageType(pageType)) {
+		Object.keys(trackingSets).some(function (pageType) {
+			if (checkPageType(pageType)) {
 				trackingSets[pageType]();
-				break;
+				return true;
 			}
-		}
+		});
 	}
 
 	document.addEventListener('DOMContentLoaded', function (): void {
