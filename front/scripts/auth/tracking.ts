@@ -129,9 +129,10 @@
 
 	function setTrackingForFBConnectPage () {
 		var tracker = new AuthTracker('user-signup-mobile', '/signin');
+
 		//Impression of the /signin page
 		tracker.trackPageView();
-		// Click "Sign In" button
+		// Click "Connect" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('facebookConnectForm'),
 			'facebook-connect-submit'
@@ -157,17 +158,50 @@
 		);
 	}
 
+	function setTrackingForFBRegisterPage () {
+		var tracker = new AuthTracker('user-signup-mobile', '/register');
+
+		//Impression of the /register page
+		tracker.trackPageView();
+		// Click "Register" button
+		tracker.trackSubmit(
+			<HTMLFormElement> document.getElementById('facebookRegistrationForm'),
+			'facebook-register-submit'
+		);
+
+		// Click X to "close" log-in form
+		tracker.trackClick(
+			<HTMLElement> document.querySelector('.close'),
+			'facebook-register-close-button',
+			M.trackActions.close
+		);
+
+		// Click "Connect it" link
+		tracker.trackClick(
+			<HTMLElement> document.querySelector('.footer-callout-link'),
+			'facebook-register-connect-link'
+		);
+	}
+
 	function init (): void {
+		var pageType: string,
+			trackingSets: any;
+
 		setupTracking();
 
-		if (checkPageType('join-page')) {
-			setTrackingForJoinPage();
-		} else if (checkPageType('signin-page')) {
-			setTrackingForSignInPage();
-		} else if (checkPageType('register-page')){
-			setTrackingForRegisterPage();
-		} else if (checkPageType('fb-connect-page')) {
-			setTrackingForFBConnectPage();
+		trackingSets = {
+			'join-page': setTrackingForJoinPage,
+			'signin-page': setTrackingForSignInPage,
+			'register-page': setTrackingForRegisterPage,
+			'fb-connect-page': setTrackingForFBConnectPage,
+			'register-fb-page': setTrackingForFBRegisterPage
+		};
+
+		for (pageType in trackingSets) {
+			if (trackingSets.hasOwnProperty(pageType) && checkPageType(pageType)) {
+				trackingSets[pageType]();
+				break;
+			}
 		}
 	}
 
