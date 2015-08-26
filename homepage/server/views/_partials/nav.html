@@ -20,9 +20,15 @@
 
           <ul class="submenu">
             <li>
-              <div class="login-box">
-                {{> signin }}
-              </div>
+                {{#if loggedIn}}
+                  <div class="user-info-mobile">
+                    {{>userinfo}}
+                  </div>
+                {{else}}
+                  <div class="login-box">
+                    {{>signin}}
+                  </div>
+                {{/if}}
             </li>
           </ul>
         </li>
@@ -30,9 +36,16 @@
     </nav>
   </div>
 </header>
-<div class="login-box-mobile">
-  {{> signin }}
-</div>
+
+{{#if loggedIn}}
+    <div id="userInfoToggle" class="user-info-box-mobile">
+      {{>userinfo}}
+    </div>
+{{else}}
+  <div id="userInfoToggle" class="login-box-mobile">
+        {{>signin}}
+  </div>
+{{/if}}
 
 <div class="search-bar-mobile">
   <form role="search" id="searchWikiaFormMobile" class="search-wikia-form">
