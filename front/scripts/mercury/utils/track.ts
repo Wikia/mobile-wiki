@@ -163,7 +163,7 @@ module Mercury.Utils {
 	 *
 	 * trackPageView is called in ArticleView.onArticleChange
 	 */
-	export function trackPageView (adsContext: any = context) {
+	export function trackPageView (adsContext: any) {
 		var trackers: any = Mercury.Modules.Trackers;
 
 		if (M.prop('queryParams.noexternals')) {

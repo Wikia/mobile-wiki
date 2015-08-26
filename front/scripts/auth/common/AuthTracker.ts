@@ -20,7 +20,7 @@ class AuthTracker {
 	}
 
 	public trackPageView () {
-		M.trackPageView();
+		M.trackPageView(null);
 	}
 
 	public trackSubmit (form: HTMLFormElement, label: string): void {
