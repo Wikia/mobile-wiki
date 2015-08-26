@@ -24,6 +24,10 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			this.sendAction('editBlockItem', item, block);
 		},
 
+		openMainPage(): void {
+			this.sendAction('openMainPage');
+		},
+
 		openSection(item: CuratedContentEditorItemModel): void {
 			this.sendAction('openSection', item);
 		},
@@ -43,7 +47,8 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 						message: i18n.t('app.curated-content-editor-changes-saved'),
 						type: 'info'
 					});
-					this.sendAction('openMainPage');
+
+					this.sendAction('openMainPage', true);
 				} else if (data.error) {
 					data.error.forEach(
 						(error: CuratedContentValidationResponseErrorInterface) =>

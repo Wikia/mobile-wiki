@@ -59,9 +59,8 @@
 	}
 
 	&:active, &:hover {
-		background-color: transparent;
-		border-color: $color-blue-light;
-		color: $color-blue-light;
+		background: white;
+		color: $color-blue-dark;
 	}
 
 }

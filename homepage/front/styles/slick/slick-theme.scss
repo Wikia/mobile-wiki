@@ -91,11 +91,11 @@ $slick-opacity-not-active: .25 !default;
 }
 
 .slick-prev {
-	left: -25px;
+	left: 0;
 
 	[dir='rtl'] & {
 		left: auto;
-		right: -25px;
+		right: 0;
 	}
 
 	&:before {
@@ -108,10 +108,10 @@ $slick-opacity-not-active: .25 !default;
 }
 
 .slick-next {
-	right: -25px;
+	right: 0;
 
 	[dir='rtl'] & {
-		left: -25px;
+		left: 0;
 		right: auto;
 	}
 
@@ -195,6 +195,6 @@ $slick-opacity-not-active: .25 !default;
 
 .slider-heading {
 	outline: none;
-	padding-top: 1em;
+	padding-top: 0;
 	text-align: center;
 }

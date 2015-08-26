@@ -67,8 +67,16 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	},
 
 	contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
-		return !this.get('model.isMainPage') && this.get('isJapaneseWikia');
+		return !this.get('model.isMainPage')
+			&& this.get('isJapaneseWikia')
+			&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
 	}),
+
+	//TODO: Temporary, remove with CONCF-1095
+	host: window.location.host,
+	isAllowedWikia: Em.computed.match('host', /creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
+	curatedContentToolEnabled: false,
+	curatedContentToolButtonVisible: Em.computed.and('curatedContentToolEnabled', 'isAllowedWikia', 'model.isMainPage', 'currentUser.rights.curatedcontent'),
 
 	articleObserver: Em.observer('model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually
@@ -77,11 +85,13 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	}).on('willInsertElement'),
 
 	modelObserver: Em.observer('model', function (): void {
-		var model = this.get('model');
+		var model = this.get('model'),
+			description: string;
 
 		if (model) {
 			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
-			$('meta[name="description"]').attr('content', (typeof model.get('description') === 'undefined') ? '' : model.get('description'));
+			description = (typeof model.get('description') === 'undefined') ? '' : model.get('description');
+			$('meta[name="description"]').attr('content', description);
 		}
 	}),
 
