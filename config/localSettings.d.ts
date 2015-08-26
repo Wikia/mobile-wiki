@@ -76,4 +76,8 @@ interface LocalSettings {
 	facebook: {
 		appId: number;
 	};
+	patterns: {
+		mobile: RegExp;
+		iPad: RegExp;
+	}
 }

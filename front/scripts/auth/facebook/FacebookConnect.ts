@@ -54,14 +54,33 @@ class FacebookConnect extends Login {
 			url: string = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
 
 		facebookConnectXhr.onload = (e: Event) => {
-			var status: number = (<XMLHttpRequest> e.target).status;
+			var status: number = (<XMLHttpRequest> e.target).status,
+				errors: Array<HeliosError>,
+				errorCodesArray: Array<string> = [],
+				logoutXhr: XMLHttpRequest;
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', M.trackActions.success);
 				Utils.loadUrl(this.redirect);
 			} else {
-				this.tracker.track('facebook-link-existing', M.trackActions.error);
-				this.displayError('errors.server-error');
+				errors = JSON.parse(facebookConnectXhr.responseText).errors;
+
+				errors.forEach(
+					(error: HeliosError): void => {
+						this.displayError('errors.' + error.description);
+						errorCodesArray.push(error.description)
+					}
+				);
+
+				this.tracker.track(
+					'facebook-link-error:' + errorCodesArray.join(';'),
+					M.trackActions.error
+				);
+
+				// Logout user on connection error
+				logoutXhr = new XMLHttpRequest();
+				logoutXhr.open('GET', '/logout', true);
+				logoutXhr.send();
 			}
 		};
 
@@ -69,7 +88,7 @@ class FacebookConnect extends Login {
 			this.displayError('errors.server-error');
 		};
 
-		facebookConnectXhr.open('PUT', url, true);
+		facebookConnectXhr.open('POST', url, true);
 		facebookConnectXhr.withCredentials = true;
 		facebookConnectXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookConnectXhr.send(this.urlHelper.urlEncode(data));
