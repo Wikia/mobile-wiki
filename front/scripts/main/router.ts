@@ -58,6 +58,10 @@ App.Router.map(function () {
 		});
 	});
 
+	this.route('infoboxBuilder', {
+		path: '/infoboxBuilder/:templateName'
+	});
+
 	this.route('article', {
 		path: articlePath + '*title'
 	});
