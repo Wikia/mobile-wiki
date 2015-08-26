@@ -6,16 +6,16 @@ App.DiscussionPostRoute = Em.Route.extend({
 	},
 
 	activate (): void {
-		// Enables vertical-colored theme bar in site-head component
 		this.controllerFor('application').setProperties({
+			// Enables vertical-colored theme bar in site-head component
 			themeBar: true,
 			enableSharingHeader: true
 		});
 	},
 
 	deactivate (): void {
-		// Disables vertical-colored theme bar in site-head component
 		this.controllerFor('application').setProperties({
+			// Disables vertical-colored theme bar in site-head component
 			themeBar: false,
 			enableSharingHeader: false
 		});
@@ -33,6 +33,6 @@ App.DiscussionPostRoute = Em.Route.extend({
 			var model = this.modelFor('discussion.post');
 
 			model.loadNextPage();
-		},
+		}
 	}
 });
