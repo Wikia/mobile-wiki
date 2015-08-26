@@ -38,6 +38,7 @@
 
 		//Impression of the /signin page
 		tracker.trackPageView();
+
 		// Click "Sign In" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('loginForm'),
@@ -69,6 +70,7 @@
 
 		//Impression of the /register page
 		tracker.trackPageView();
+
 		// Click "Sign In" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('signupForm'),
@@ -94,6 +96,7 @@
 
 		//Impression of the /join page
 		tracker.trackPageView();
+
 		// Click "Register With Email" button
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-email'),
@@ -132,6 +135,7 @@
 
 		//Impression of the /signin page
 		tracker.trackPageView();
+
 		// Click "Connect" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('facebookConnectForm'),
@@ -163,6 +167,7 @@
 
 		//Impression of the /register page
 		tracker.trackPageView();
+
 		// Click "Register" button
 		tracker.trackSubmit(
 			<HTMLFormElement> document.getElementById('facebookRegistrationForm'),
