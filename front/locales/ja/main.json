@@ -96,6 +96,7 @@
     "curated-content-editor-error-no-access-permissions":"このページにアクセスする権限をお持ちでないようです",
     "curated-content-editor-no-articles-found":"記事が見つかりませんでした",
     "curated-content-editor-suggestions-loading":"読み込んでいます...",
+    "curated-content-editor-error-inside-featured-content":"注目のコンテンツ内のエラーを修正してください。",
     "curated-content-editor-changes-saved":"変更内容を保存しました",
     "curated-content-editor-image-missing-error":"画像をご指定ください",
     "curated-content-editor-missing-label-error":"ラベルが指定されていません",
@@ -110,7 +111,9 @@
     "curated-content-editor-crop-image":"画像の切り抜き",
     "curated-content-editor-editing-header":"編集中：__label__",
     "curated-content-editor-enter-display-name":"表示名を入力してください",
+    "curated-content-editor-enter-display-name-tooltip":"This is the text that will appear on the main page for this item.",
     "curated-content-editor-enter-page-name":"ページ名を入力してください",
+    "curated-content-editor-enter-page-name-tooltip":"When entering an item in Curated Content use the same format you would use to link to a piece of content on Wikia (e.g. Name_of_article).",
     "curated-content-editor-delete-item":"アイテムを削除",
     "curated-content-editor-add-category":"+カテゴリを追加",
     "curated-content-editor-publish":"公開",
@@ -132,7 +135,6 @@
     "curated-content-editor-add-items-message":"このセクションにアイテムを追加してください。",
     "curated-content-editor-missing-items-error":"セクションを空にすることはできません。セクションにアイテムを追加してください。",
     "curated-content-editor-error-inside-items-message":"アイテム内のエラーを修正してください。",
-    "curated-content-editor-error-inside-featured-content":"注目のコンテンツ内のエラーを修正してください。",
     "curated-content-editor-items-count":"アイテム__count__個"
   }
 }

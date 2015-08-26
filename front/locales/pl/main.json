@@ -96,6 +96,7 @@
     "curated-content-editor-error-no-access-permissions":"Nie masz uprawnień, aby uzyskać dostęp do tej strony",
     "curated-content-editor-no-articles-found":"Nie odnaleziono artykułów",
     "curated-content-editor-suggestions-loading":"Ładowanie...",
+    "curated-content-editor-error-inside-featured-content":"Popraw błędy wewnątrz Wyróżnionej Treści.",
     "curated-content-editor-changes-saved":"Zmiany zostały zapisane",
     "curated-content-editor-image-missing-error":"Dodaj obraz",
     "curated-content-editor-missing-label-error":"Brak etykiety",
@@ -110,7 +111,9 @@
     "curated-content-editor-crop-image":"Wykadruj obraz",
     "curated-content-editor-editing-header":"Edycja: __label__",
     "curated-content-editor-enter-display-name":"Wprowadź nazwę wyświetlaną",
+    "curated-content-editor-enter-display-name-tooltip":"To jest tekst, który pojawi się na stronie głównej dla tego elementu.",
     "curated-content-editor-enter-page-name":"Wprowadź nazwę strony",
+    "curated-content-editor-enter-page-name-tooltip":"Dodając element do Curated Content używaj tego samego formatu, który byłby przez ciebie wykorzystany, aby podlinkować treść na portalu Wikia (np. Tytuł_artykułu).",
     "curated-content-editor-delete-item":"Usuń element",
     "curated-content-editor-add-category":"+ dodaj kategorię",
     "curated-content-editor-publish":"Opublikuj",
@@ -132,7 +135,6 @@
     "curated-content-editor-add-items-message":"Dodaj elementy do tej sekcji.",
     "curated-content-editor-missing-items-error":"Sekcje nie mogą być puste. Dodaj elementy do tej sekcji.",
     "curated-content-editor-error-inside-items-message":"Popraw błędy wewnątrz elementów.",
-    "curated-content-editor-error-inside-featured-content":"Popraw błędy wewnątrz Wyróżnionej Treści.",
     "curated-content-editor-items-count":"__count__ elementy\/elementów"
   }
 }

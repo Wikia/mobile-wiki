@@ -96,6 +96,7 @@
     "curated-content-editor-error-no-access-permissions":"Du hast keine Berechtigung, auf diese Seite zuzugreifen",
     "curated-content-editor-no-articles-found":"Keine Artikel gefunden",
     "curated-content-editor-suggestions-loading":"Wird geladen…",
+    "curated-content-editor-error-inside-featured-content":"Bitte Fehler in empfohlenen Inhalten beheben.",
     "curated-content-editor-changes-saved":"Deine Änderungen wurde gespeichert",
     "curated-content-editor-image-missing-error":"Bitte hinterlege ein Bild",
     "curated-content-editor-missing-label-error":"Beschriftung fehlt",
@@ -110,7 +111,9 @@
     "curated-content-editor-crop-image":"Bild zuschneiden",
     "curated-content-editor-editing-header":"Bearbeiten: __label__",
     "curated-content-editor-enter-display-name":"Anzeigename eingeben",
+    "curated-content-editor-enter-display-name-tooltip":"Dieser Text wird auf der Hauptseite dieses Eintrags erscheinen.",
     "curated-content-editor-enter-page-name":"Seitenname eingeben",
+    "curated-content-editor-enter-page-name-tooltip":"Wenn du in Curated Content einen Eintrag vornimmst, verwende dasselbe Format, das du zur Verlinkung von Inhalten auf Wikia nutzen würdest (z. B. Name_des_Artikels).",
     "curated-content-editor-delete-item":"Eintrag löschen",
     "curated-content-editor-add-category":"+ Kategorie hinzufügen",
     "curated-content-editor-publish":"Veröffentlichen",
@@ -132,7 +135,6 @@
     "curated-content-editor-add-items-message":"Diesem Abschnitt bitte Einträge hinzufügen.",
     "curated-content-editor-missing-items-error":"Abschnitte dürfen nicht leer sein. Bitte füge dem Abschnitt Einträge hinzu.",
     "curated-content-editor-error-inside-items-message":"Bitte Fehler in den Einträgen beheben.",
-    "curated-content-editor-error-inside-featured-content":"Bitte Fehler in empfohlenen Inhalten beheben.",
     "curated-content-editor-items-count":"__count__ Einträge"
   }
 }

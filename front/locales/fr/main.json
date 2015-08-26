@@ -96,6 +96,7 @@
     "curated-content-editor-error-no-access-permissions":"Vous ne disposez pas des droits requis pour accéder à cette page.",
     "curated-content-editor-no-articles-found":"Aucun article",
     "curated-content-editor-suggestions-loading":"Chargement...",
+    "curated-content-editor-error-inside-featured-content":"Veuillez corriger les erreurs dans le contenu à la une.",
     "curated-content-editor-changes-saved":"Les modifications ont été enregistrées.",
     "curated-content-editor-image-missing-error":"Veuillez fournir une image.",
     "curated-content-editor-missing-label-error":"Veuillez spécifier un nom.",
@@ -110,7 +111,9 @@
     "curated-content-editor-crop-image":"Rogner l'image",
     "curated-content-editor-editing-header":"Modification de : __label__",
     "curated-content-editor-enter-display-name":"Entrer un nom d'affichage",
+    "curated-content-editor-enter-display-name-tooltip":"Ce texte apparaîtra sur la page principale de cet élément.",
     "curated-content-editor-enter-page-name":"Entrer un nom de page",
+    "curated-content-editor-enter-page-name-tooltip":"Lorsque vous entrez un élément dans le Contenu de l'application mobile, utilisez le même format que pour créer un lien vers du contenu sur Wikia (par ex. : Nom_article).",
     "curated-content-editor-delete-item":"Supprimer l'élément",
     "curated-content-editor-add-category":"+ catégorie",
     "curated-content-editor-publish":"Publier",
@@ -132,7 +135,6 @@
     "curated-content-editor-add-items-message":"Veuillez ajouter des éléments à cette section.",
     "curated-content-editor-missing-items-error":"Veuillez ajouter des éléments à la section. Elle ne peut pas être vide.",
     "curated-content-editor-error-inside-items-message":"Veuillez corriger les erreurs dans les éléments.",
-    "curated-content-editor-error-inside-featured-content":"Veuillez corriger les erreurs dans le contenu à la une.",
     "curated-content-editor-items-count":"__count__ élément(s)"
   }
 }

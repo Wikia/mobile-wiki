@@ -96,6 +96,7 @@
     "curated-content-editor-error-no-access-permissions":"You don't have permissions to access this page",
     "curated-content-editor-no-articles-found":"No articles found",
     "curated-content-editor-suggestions-loading":"Loading...",
+    "curated-content-editor-error-inside-featured-content":"Please fix errors inside Featured Content.",
     "curated-content-editor-changes-saved":"Your changes have been saved",
     "curated-content-editor-image-missing-error":"Please provide an image",
     "curated-content-editor-missing-label-error":"Label is missing",
@@ -110,7 +111,9 @@
     "curated-content-editor-crop-image":"Crop the image",
     "curated-content-editor-editing-header":"Editing: __label__",
     "curated-content-editor-enter-display-name":"Enter a display name",
+    "curated-content-editor-enter-display-name-tooltip":"This is the text that will appear on the main page for this item.",
     "curated-content-editor-enter-page-name":"Enter a page name",
+    "curated-content-editor-enter-page-name-tooltip":"When entering an item in Curated Content use the same format you would use to link to a piece of content on Wikia (e.g. Name_of_article).",
     "curated-content-editor-delete-item":"Delete item",
     "curated-content-editor-add-category":"+ add category",
     "curated-content-editor-publish":"Publish",
@@ -132,7 +135,6 @@
     "curated-content-editor-add-items-message":"Please add items to this section.",
     "curated-content-editor-missing-items-error":"Sections can't be empty. Please add items to section.",
     "curated-content-editor-error-inside-items-message":"Please fix errors inside items.",
-    "curated-content-editor-error-inside-featured-content":"Please fix errors inside Featured Content.",
     "curated-content-editor-items-count":"__count__ items"
   }
 }

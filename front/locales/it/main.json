@@ -96,6 +96,7 @@
     "curated-content-editor-error-no-access-permissions":"Non hai il permesso di accedere a questa pagina",
     "curated-content-editor-no-articles-found":"Nessun articolo trovato",
     "curated-content-editor-suggestions-loading":"Caricamento...",
+    "curated-content-editor-error-inside-featured-content":"Correggi gli errori in Contenuti in primo piano.",
     "curated-content-editor-changes-saved":"Le modifiche sono state salvate",
     "curated-content-editor-image-missing-error":"Si prega di fornire un'immagine",
     "curated-content-editor-missing-label-error":"Etichetta mancante",
@@ -110,7 +111,9 @@
     "curated-content-editor-crop-image":"Ritaglia l'immagine",
     "curated-content-editor-editing-header":"Modifica: __label__",
     "curated-content-editor-enter-display-name":"Inserisci un nome visualizzato",
+    "curated-content-editor-enter-display-name-tooltip":"Questo è il testo che comparirà sulla pagina principale per questo articolo.",
     "curated-content-editor-enter-page-name":"Inserisci un nome di pagina",
+    "curated-content-editor-enter-page-name-tooltip":"Quando inserisci un elemento in Contenuti curati, usa lo stesso formato che useresti per collegare un nuovo contenuto a Wikia (per es., Titolo_articolo).",
     "curated-content-editor-delete-item":"Elimina elemento",
     "curated-content-editor-add-category":"+ aggiungi categoria",
     "curated-content-editor-publish":"Pubblica",
@@ -132,7 +135,6 @@
     "curated-content-editor-add-items-message":"Aggiungi elementi a questa sezione.",
     "curated-content-editor-missing-items-error":"Le sezioni non possono essere vuote. Aggiungi elementi alla sezione.",
     "curated-content-editor-error-inside-items-message":"Correggi gli errori nei vari elementi.",
-    "curated-content-editor-error-inside-featured-content":"Correggi gli errori in Contenuti in primo piano.",
     "curated-content-editor-items-count":"__count__ elementi"
   }
 }

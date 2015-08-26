@@ -96,6 +96,7 @@
     "curated-content-editor-error-no-access-permissions":"У вас недостаточно прав для доступа к этой странице",
     "curated-content-editor-no-articles-found":"Статьи не найдены",
     "curated-content-editor-suggestions-loading":"Загрузка...",
+    "curated-content-editor-error-inside-featured-content":"Пожалуйста, исправьте ошибки в Избранном контенте.",
     "curated-content-editor-changes-saved":"Ваши правки были сохранены",
     "curated-content-editor-image-missing-error":"Пожалуйста, добавьте изображение",
     "curated-content-editor-missing-label-error":"Отсутствует подпись",
@@ -110,7 +111,9 @@
     "curated-content-editor-crop-image":"Обрезать изображение",
     "curated-content-editor-editing-header":"Редактирование: __label__",
     "curated-content-editor-enter-display-name":"Введите отображаемое название",
+    "curated-content-editor-enter-display-name-tooltip":"This is the text that will appear on the main page for this item.",
     "curated-content-editor-enter-page-name":"Введите название страницы",
+    "curated-content-editor-enter-page-name-tooltip":"When entering an item in Curated Content use the same format you would use to link to a piece of content on Wikia (e.g. Name_of_article).",
     "curated-content-editor-delete-item":"Удалить элемент",
     "curated-content-editor-add-category":"+ добавить категорию",
     "curated-content-editor-publish":"Опубликовать",
@@ -132,7 +135,6 @@
     "curated-content-editor-add-items-message":"Пожалуйста, добавьте элементы в этот раздел.",
     "curated-content-editor-missing-items-error":"Раздел не может быть пустым. Пожалуйста, добавьте элементы в этот раздел.",
     "curated-content-editor-error-inside-items-message":"Пожалуйста, исправьте ошибки в элементах.",
-    "curated-content-editor-error-inside-featured-content":"Пожалуйста, исправьте ошибки в Избранном контенте.",
     "curated-content-editor-items-count":"__count__ элементов"
   }
 }
