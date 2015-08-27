@@ -133,6 +133,11 @@
 		"curated-content-editor-add-items-message": "Please add items to this section.",
 		"curated-content-editor-missing-items-error": "Sections can't be empty. Please add items to section.",
 		"curated-content-editor-error-inside-items-message": "Please fix errors inside items.",
-		"curated-content-editor-items-count": "__count__ items"
+		"curated-content-editor-items-count": "__count__ items",
+	  	"infobox-builder-label-item-default-value": "Label",
+	  	"infobox-builder-data-item-default-value": "Data",
+	  	"infobox-builder-title-item-default-value": "Title",
+	  	"infobox-builder-alt-item-default-value": "Default image alt",
+	  	"infobox-builder-caption-item-default-value": "Default image caption"
 	}
 }
