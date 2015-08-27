@@ -5,7 +5,6 @@
 
 App.InfoboxBuilderRoute = Em.Route.extend({
 	model: function(params: any): Em.RSVP.Promise {
-		console.log("InfoboxBuilderRoute: tytuł", params.templateName);
 		return App.InfoboxBuilderModel.load(params.templateName);
 	},
 
@@ -22,15 +21,8 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			});
 			return true;
 		},
-		willTransition: function(transition: EmberStates.Transition): boolean {
-			transition.then(() => {
-				console.log('Will transition InfoboxBuilder');
-				this.controllerFor('application').set('fullPage', false);
-			});
-			return true;
-		},
 		didTransition: function(): boolean {
-			// EditRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
+			// InfoboxBuilderRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
 			// over whole page (so navigation, share feature, etc. are not displayed). To understand
 			// better take a look at application.hbs.
 			this.controllerFor('application').set('fullPage', true);

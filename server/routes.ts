@@ -201,7 +201,6 @@ authenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		// We don't care if there is a dynamic segment, Ember router handles that
 		path: '/infoboxBuilder/{templateName*}',
 		handler: require('./facets/showApplication'),
 		config: {
