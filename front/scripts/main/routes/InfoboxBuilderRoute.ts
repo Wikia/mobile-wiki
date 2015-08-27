@@ -4,6 +4,10 @@
 'use strict';
 
 App.InfoboxBuilderRoute = Em.Route.extend({
+	renderTemplate(): void {
+		this.render('infobox-builder');
+    },
+
 	model: function(params: any): Em.RSVP.Promise {
 		return App.InfoboxBuilderModel.load(params.templateName);
 	},
