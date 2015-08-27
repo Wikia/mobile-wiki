@@ -17,9 +17,9 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 		'emptyGif'
 	),
 
-	hasCaption: Em.computed('media.caption', 'isIcon', function (): boolean {
+	caption: Em.computed('media.caption', 'isIcon', function (): string|boolean {
 		var caption = this.get('media.caption');
-		return !(this.get('isIcon') || Em.isEmpty(caption));
+		return this.get('isIcon') ? false : caption;
 	}),
 
 	link: Em.computed.alias('media.link'),
@@ -38,10 +38,10 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	 * so we have less content jumping around due to lazy loading images
 	 * @return number
 	 */
-	computedHeight: Em.computed('media.width', 'media.height', 'articleContent.width', function (): number {
+	computedHeight: Em.computed('width', 'height', 'articleContent.width', function (): number {
 		var pageWidth = this.get('articleContent.width'),
-			imageWidth = this.get('media.width') || pageWidth,
-			imageHeight = this.get('media.height');
+			imageWidth = this.get('width') || pageWidth,
+			imageHeight = this.get('height');
 
 		if (pageWidth < imageWidth) {
 			return Math.floor(pageWidth * (imageHeight / imageWidth));
@@ -54,11 +54,13 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	 * @desc return the thumbURL for media.
 	 * If media is an icon, use the limited width.
 	 */
-	url: Em.computed('media', 'computedHeight', 'articleContent.width', 'imageSrc', {
+	url: Em.computed({
 		get(): string {
 				var media: ArticleMedia = this.get('media'),
 					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
 					width: number = this.get('articleContent.width');
+
+				console.log('RAFAL: ' + width);
 
 				if (!media) {
 					return this.get('imageSrc');
@@ -79,6 +81,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 				//this might happen for example for read more section images
 			},
 			set(key: string, value: string): string {
+				console.log('RAFAL 2: ' + this.get('articleContent.width'));
 				return this.getThumbURL(value, {
 					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
 					height: this.get('computedHeight'),
