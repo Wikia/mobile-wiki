@@ -10,7 +10,9 @@ interface DataItem {
 	index: number;
 	defaultValue: string;
 	label: string;
+	position: number;
 	source: string;
+	type: string;
 }
 
 interface ImageItem {
@@ -20,13 +22,17 @@ interface ImageItem {
 	defaultCaption: string;
 	defaultValue: string;
 	index: number;
+	position: number;
 	source: string;
+	type: string;
 }
 
 interface TitleItem {
 	index: number;
 	defaultValue: string;
+	position: number;
 	source: string;
+	type: string;
 }
 
 App.InfoboxBuilderModel = Em.Object.extend({
@@ -40,6 +46,12 @@ App.InfoboxBuilderModel = Em.Object.extend({
 });
 
 App.InfoboxBuilderModel.reopenClass({
+	stateLength: Em.computed('state', {
+		get(): number {
+			return this.get('state').length;
+		}
+	}),
+
 	/**
 	 * add item to infobox state
 	 * @param {DataItem|TitleItem|ImageItem} object
@@ -58,7 +70,9 @@ App.InfoboxBuilderModel.reopenClass({
 			index: i,
 			defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
 			label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
+			position: this.get('stateLength'),
 			source: `data${i}`,
+			type: 'data'
 		});
 	},
 
@@ -75,7 +89,9 @@ App.InfoboxBuilderModel.reopenClass({
 			defaultCaption: i18n.t('app.infobox-builder-caption-item-default-value'),
 			defaultValue: 'path/to/image.jpg',
 			index: i,
+			position: this.get('stateLength'),
 			source: `image${i}`,
+			type: 'image'
 		});
 	},
 
@@ -88,7 +104,9 @@ App.InfoboxBuilderModel.reopenClass({
 		this.addToState({
 			index: i,
 			defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
+			position: this.get('stateLength'),
 			source: `title${i}`,
+			type: 'title'
 		});
 	},
 
@@ -101,12 +119,27 @@ App.InfoboxBuilderModel.reopenClass({
 		return ++this.itemIndex[intexType];
 	},
 
+	/**
+	 * removes item from state for given position
+	 * @param {Number} position
+	 */
+	removeItem(position: number): void {
+		this.state.splice(position, 1);
+	},
+
+	/**
+	 * sets infobox template title
+	 * @param {String} title
+	 */
+	setInfoboxTemplateTitle(title: string): void {
+		this.set('title', title);
+	},
+
 	setupInitialState(): void {
 		this.addTitleItem();
 		this.addImageItem();
 		this.addDataItem();
 	},
-
 
 	load(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
