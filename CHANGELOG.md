@@ -1,3 +1,9 @@
+## release-144 (2015-08-27 11:26 UTC)
+* [CONCF-1089](https://wikia-inc.atlassian.net/browse/CONCF-1089) CONCF-1089 | fix false positive error of already existing label
+* [DAT-3121](https://wikia-inc.atlassian.net/browse/DAT-3121) DAT-3121 Related pages images fix
+* [MAIN-5225](https://wikia-inc.atlassian.net/browse/MAIN-5225) Change mainPage route to the MW main page article route
+* [HG-843](https://wikia-inc.atlassian.net/browse/HG-843) Hg 843
+
 ## release-143 (2015-08-26 13:17 UTC)
 * Japan-HP-Contentupdate-2: INT-162: Featured commmunity panel for Japan Homepage. Content updates
 * [SOC-943](https://wikia-inc.atlassian.net/browse/SOC-943) SOC-943 Post details on forum post listing
