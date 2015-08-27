@@ -6,12 +6,108 @@ interface InfoboxBuilderGetAssetsResponse {
 	templates: string[];
 }
 
+interface DataItem {
+	index: number;
+	defaultValue: string;
+	label: string;
+	source: string;
+}
+
+interface ImageItem {
+	alt: string;
+	caption: string;
+	defaultAlt: string;
+	defaultCaption: string;
+	defaultValue: string;
+	index: number;
+	source: string;
+}
+
+interface TitleItem {
+	index: number;
+	defaultValue: string;
+	source: string;
+}
+
 App.InfoboxBuilderModel = Em.Object.extend({
+	itemIndex: {
+		data: 0,
+		image: 0,
+		title: 0,
+	},
 	state: [],
 	title: null,
 });
 
 App.InfoboxBuilderModel.reopenClass({
+	/**
+	 * add item to infobox state
+	 * @param {DataItem|TitleItem|ImageItem} object
+	 */
+	addToState(object: DataItem|TitleItem|ImageItem): void {
+		this.state.push(object);
+	},
+
+	/**
+	 * add <data> item
+	 */
+	addDataItem() : void {
+		var i = this.increaseItemIndex('data');
+
+		this.addToState({
+			index: i,
+			defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
+			label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
+			source: `data${i}`,
+		});
+	},
+
+	/**
+	 * add <image> item
+	 */
+	addImageItem() : void {
+		var i = this.increaseItemIndex('image');
+
+		this.addToState({
+			alt: `alt${i}`,
+			caption: `caption${i}`,
+			defaultAlt: i18n.t('app.infobox-builder-alt-item-default-value'),
+			defaultCaption: i18n.t('app.infobox-builder-caption-item-default-value'),
+			defaultValue: 'path/to/image.jpg',
+			index: i,
+			source: `image${i}`,
+		});
+	},
+
+	/**
+	 * add <title> item
+	 */
+	addTitleItem() : void {
+		var i = this.increaseItemIndex('title');
+
+		this.addToState({
+			index: i,
+			defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
+			source: `title${i}`,
+		});
+	},
+
+	/**
+	 * increase index for given item type
+	 * @param {String} intexType
+	 * @returns {Number}
+	 */
+	increaseItemIndex(intexType: string): number {
+		return ++this.itemIndex[intexType];
+	},
+
+	setupInitialState(): void {
+		this.addTitleItem();
+		this.addImageItem();
+		this.addDataItem();
+	},
+
+
 	load(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -43,11 +139,12 @@ App.InfoboxBuilderModel.reopenClass({
 	 * @param {InfoboxBuilderGetAssetsResponse} data
 	 */
 	init(data: InfoboxBuilderGetAssetsResponse): void {
-		console.log('works');
-		console.log(data);
-
 		App.InfoboxBuilderModel.setupStyles(data.css);
 		App.InfoboxBuilderModel.compileTemplates(data.templates);
+
+		return App.InfoboxBuilderModel
+			.create()
+			.setupInitialState();
 
 	},
 
@@ -64,7 +161,7 @@ App.InfoboxBuilderModel.reopenClass({
 			}
 		);
 
-		$(html).append('head');
+		$(html).appendTo('head');
 	},
 
 	/**
