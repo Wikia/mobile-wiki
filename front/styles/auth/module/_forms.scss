@@ -81,13 +81,19 @@ input[type="submit"],
 		padding-right: 0;
 
 		&::before {
+			$spinner-dimension: 28px;
+
 			animation: spin 1s linear infinite;
 			background: url("/front/images/loading.svg") center no-repeat;
 			content: " ";
 			display: block;
-			height: 100%;
+			height: $spinner-dimension;
+			left: 50%;
+			margin-left: -($spinner-dimension/2);
+			margin-top: -($spinner-dimension/2);
 			position: absolute;
-			width: 100%;
+			top: 50%;
+			width: $spinner-dimension;
 		}
 
 		span {
@@ -97,6 +103,14 @@ input[type="submit"],
 }
 
 .desktop {
+	button,
+	.button,
+	input[type="submit"] {
+		min-height:  2.5rem;
+		line-height: 1rem;
+		padding: .75rem;
+	}
+
 	input[type="submit"] {
 		margin-bottom: 12px;
 	}
