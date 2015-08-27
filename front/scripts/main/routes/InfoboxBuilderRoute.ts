@@ -3,23 +3,93 @@
 
 'use strict';
 
+interface InfoboxBuilderGetAssetsResponse {
+	css: string[];
+	templates: string[];
+}
+
 App.InfoboxBuilderRoute = Em.Route.extend({
 	renderTemplate(): void {
 		this.render('infobox-builder');
     },
 
+	beforeModel: function(): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			this.loadAssets().then((data: InfoboxBuilderGetAssetsResponse) => {
+				this.setupStyles(data.css);
+				this.setupTemplates(data.templates);
+				resolve();
+			}, (data: string) => {
+				reject(data);
+			});
 
+		});
+	},
 
-	model: function(params: any): Em.RSVP.Promise {
-		this.set('templateName', params.templateName);
-
-		return App.InfoboxBuilderModel.load(params.templateName);
+	model: function(params: any): typeof App.InfoboxBuilderModel {
+		return App.InfoboxBuilderModel.create({title: params.templateName});
 	},
 
 	afterModel: function(model: any): void {
-		model.setInfoboxTemplateTitle(this.get('templateName'));
 		model.setupInitialState();
 		console.log(model);
+	},
+
+	/**
+	 * loads infobox builder assets from MW
+	 * @returns {Em.RSVP.Promise}
+	 */
+	loadAssets(): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'PortableInfoboxBuilderController',
+					method: 'getAssets',
+					format: 'json'
+				},
+				success: (data: InfoboxBuilderGetAssetsResponse): void => {
+					if (data && data.css && data.templates) {
+						resolve(data);
+					} else {
+						reject('Invalid data was returned from Infobox Builder API');
+					}
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
+		});
+	},
+
+	/**
+	 * add oasis portable infobox styles to DOM
+	 * @param {String[]} cssUrls
+	 */
+	setupStyles(cssUrls: string[]): void {
+		var html = '';
+
+		cssUrls.forEach(
+			(url: string): void => {
+				html += `<link type="text/css" rel="stylesheet" href="${url}">`
+			}
+		);
+
+		$(html).appendTo('head');
+	},
+
+	/**
+	 * compitle portable infobox item templates
+	 * @param {String[]} templates
+	 */
+	setupTemplates(templates: string[]): void {
+		var i: number, compiledTemplates: Function[] = [];
+
+		for (i = 0; i < templates.length; i++) {
+			compiledTemplates[i] = Em.Handlebars.compile(templates[i]);
+		}
 	},
 
 	actions: {

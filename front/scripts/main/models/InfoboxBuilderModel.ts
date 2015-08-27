@@ -1,37 +1,38 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface InfoboxBuilderGetAssetsResponse {
-	css: string[];
-	templates: string[];
-}
-
 interface DataItem {
-	index: number;
-	defaultValue: string;
-	label: string;
-	position: number;
-	source: string;
+	data: {
+		index: number;
+		defaultValue: string;
+		label: string;
+		position: number;
+		source: string;
+	};
 	type: string;
 }
 
 interface ImageItem {
-	alt: string;
-	caption: string;
-	defaultAlt: string;
-	defaultCaption: string;
-	defaultValue: string;
-	index: number;
-	position: number;
-	source: string;
+	data: {
+		alt: string;
+		caption: string;
+		defaultAlt: string;
+		defaultCaption: string;
+		defaultValue: string;
+		index: number;
+		position: number;
+		source: string;
+	};
 	type: string;
 }
 
 interface TitleItem {
-	index: number;
-	defaultValue: string;
-	position: number;
-	source: string;
+	data: {
+		index: number;
+		defaultValue: string;
+		position: number;
+		source: string;
+	};
 	type: string;
 }
 
@@ -64,11 +65,13 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		var i = this.increaseItemIndex('data');
 
 		this.addToState({
-			index: i,
-			defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
-			label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
-			position: this.get('stateLength'),
-			source: `data${i}`,
+			data: {
+				index: i,
+				defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
+				label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
+				position: this.get('stateLength'),
+				source: `data${i}`,
+			},
 			type: 'data'
 		});
 	},
@@ -80,14 +83,15 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		var i = this.increaseItemIndex('image');
 
 		this.addToState({
-			alt: `alt${i}`,
-			caption: `caption${i}`,
-			defaultAlt: i18n.t('app.infobox-builder-alt-item-default-value'),
-			defaultCaption: i18n.t('app.infobox-builder-caption-item-default-value'),
-			defaultValue: 'path/to/image.jpg',
-			index: i,
-			position: this.get('stateLength'),
-			source: `image${i}`,
+			data: {alt: `alt${i}`,
+				caption: `caption${i}`,
+				defaultAlt: i18n.t('app.infobox-builder-alt-item-default-value'),
+				defaultCaption: i18n.t('app.infobox-builder-caption-item-default-value'),
+				defaultValue: 'path/to/image.jpg',
+				index: i,
+				position: this.get('stateLength'),
+				source: `image${i}`
+			},
 			type: 'image'
 		});
 	},
@@ -99,10 +103,12 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		var i = this.increaseItemIndex('title');
 
 		this.addToState({
-			index: i,
-			defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
-			position: this.get('stateLength'),
-			source: `title${i}`,
+			data: {
+				index: i,
+				defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
+				position: this.get('stateLength'),
+				source: `title${i}`,
+			},
 			type: 'title'
 		});
 	},
@@ -125,86 +131,11 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * sets infobox template title
-	 * @param {String} title
+	 * setup infobox builder initial state
 	 */
-	setInfoboxTemplateTitle(title: string): void {
-		this.set('title', title);
-	},
-
 	setupInitialState(): void {
 		this.addTitleItem();
 		this.addImageItem();
 		this.addDataItem();
 	},
-});
-
-App.InfoboxBuilderModel.reopenClass({
-	load(title: string): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'PortableInfoboxBuilderController',
-					method: 'getAssets',
-					format: 'json',
-					title: title
-				},
-				success: (data: InfoboxBuilderGetAssetsResponse): void => {
-					if (data) {
-						resolve(App.InfoboxBuilderModel.init(data, title));
-					} else {
-						reject('Invalid data was returned from Infobox Builder API');
-					}
-				},
-				error: (data: any): void => {
-					reject(data);
-				}
-			});
-		});
-	},
-
-	/**
-	 * initualize Infobox Builder UI
-	 * @param {InfoboxBuilderGetAssetsResponse} data
-	 */
-	init(data: InfoboxBuilderGetAssetsResponse, title: string): void {
-		App.InfoboxBuilderModel.setupStyles(data.css);
-		App.InfoboxBuilderModel.compileTemplates(data.templates);
-
-		return App.InfoboxBuilderModel
-			.create();
-			//.setInfoboxTemplateTitle(title)
-			//.setupInitialState();
-	},
-
-	/**
-	 * add oasis portable infobox styles to DOM
-	 * @param {String[]} cssUrls
-	 */
-	setupStyles(cssUrls: string[]): void {
-		var html = '';
-
-		cssUrls.forEach(
-			(url: string): void => {
-				html += `<link type="text/css" rel="stylesheet" href="${url}">`
-			}
-		);
-
-		$(html).appendTo('head');
-	},
-
-	/**
-	 * compitle portable infobox item templates
-	 * @param {String[]} templates
-	 */
-	compileTemplates(templates: string[]): void {
-		var i: number, compiledTemplates: Function[] = [];
-
-		for (i = 0; i < templates.length; i++) {
-			compiledTemplates[i] = Em.Handlebars.compile(templates[i]);
-		}
-	}
 });
