@@ -23,7 +23,6 @@ App.InfoboxBuilderModel.reopenClass({
 					method: 'getAssets',
 					format: 'json',
 					title: title
-
 				},
 				success: (data: InfoboxBuilderGetAssetsResponse): void => {
 					if (data) {
@@ -73,6 +72,10 @@ App.InfoboxBuilderModel.reopenClass({
 	 * @param {String[]} templates
 	 */
 	compileTemplates(templates: string[]): void {
+		var i: number, compiledTemplates: Function[] = [];
 
+		for (i = 0; i < templates.length; i++) {
+			compiledTemplates[i] = Em.Handlebars.compile(templates[i]);
+		}
 	}
 });
