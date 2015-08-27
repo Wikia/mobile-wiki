@@ -42,15 +42,12 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		title: 0,
 	},
 	state: [],
-	title: null,
-});
-
-App.InfoboxBuilderModel.reopenClass({
 	stateLength: Em.computed('state', {
 		get(): number {
 			return this.get('state').length;
 		}
 	}),
+	title: null,
 
 	/**
 	 * add item to infobox state
@@ -140,7 +137,9 @@ App.InfoboxBuilderModel.reopenClass({
 		this.addImageItem();
 		this.addDataItem();
 	},
+});
 
+App.InfoboxBuilderModel.reopenClass({
 	load(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -155,7 +154,7 @@ App.InfoboxBuilderModel.reopenClass({
 				},
 				success: (data: InfoboxBuilderGetAssetsResponse): void => {
 					if (data) {
-						resolve(App.InfoboxBuilderModel.init(data));
+						resolve(App.InfoboxBuilderModel.init(data, title));
 					} else {
 						reject('Invalid data was returned from Infobox Builder API');
 					}
@@ -171,15 +170,14 @@ App.InfoboxBuilderModel.reopenClass({
 	 * initualize Infobox Builder UI
 	 * @param {InfoboxBuilderGetAssetsResponse} data
 	 */
-	init(data: InfoboxBuilderGetAssetsResponse): void {
+	init(data: InfoboxBuilderGetAssetsResponse, title: string): void {
 		App.InfoboxBuilderModel.setupStyles(data.css);
 		App.InfoboxBuilderModel.compileTemplates(data.templates);
 
 		return App.InfoboxBuilderModel
-			.create()
-			.setInfoboxTemplateTitle()
-			.setupInitialState();
-
+			.create();
+			//.setInfoboxTemplateTitle(title)
+			//.setupInitialState();
 	},
 
 	/**

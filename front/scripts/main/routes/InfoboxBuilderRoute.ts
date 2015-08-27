@@ -8,8 +8,18 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		this.render('infobox-builder');
     },
 
+
+
 	model: function(params: any): Em.RSVP.Promise {
+		this.set('templateName', params.templateName);
+
 		return App.InfoboxBuilderModel.load(params.templateName);
+	},
+
+	afterModel: function(model: any): void {
+		model.setInfoboxTemplateTitle(this.get('templateName'));
+		model.setupInitialState();
+		console.log(model);
 	},
 
 	actions: {
