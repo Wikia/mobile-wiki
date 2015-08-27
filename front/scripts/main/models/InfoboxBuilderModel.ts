@@ -177,6 +177,7 @@ App.InfoboxBuilderModel.reopenClass({
 
 		return App.InfoboxBuilderModel
 			.create()
+			.setInfoboxTemplateTitle()
 			.setupInitialState();
 
 	},
