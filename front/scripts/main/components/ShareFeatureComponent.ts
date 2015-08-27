@@ -8,7 +8,12 @@
 
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, App.HeadroomMixin, {
 	classNames: ['share-feature'],
-	tagName: 'div',
+	headroomOptions: {
+		classes: {
+			initial: 'pinned',
+			pinned: 'pinned'
+		}
+	},
 
 	lineShare: Em.computed('title', function (): string {
 		return "http://line.me/R/msg/text/?" + encodeURIComponent(this.get('title')) + " " + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));

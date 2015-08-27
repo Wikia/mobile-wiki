@@ -4,17 +4,15 @@
 App.HeadroomMixin = Em.Mixin.create({
 	headroom: null,
 
-	options: {
-		// keep it consistent with values in _wikia-variables.scss
-		smartBannerHeight: {
-			android: 66,
-			ios: 83
-		}
+	// keep it consistent with values in _wikia-variables.scss
+	smartBannerHeight: {
+		android: 66,
+		ios: 83
 	},
 
 	offset: Em.computed('smartBannerVisible', function (): number {
 		if (this.get('smartBannerVisible')) {
-			return this.get('options.smartBannerHeight.' + Mercury.Utils.Browser.getSystem());
+			return this.get('smartBannerHeight.' + Mercury.Utils.Browser.getSystem());
 		}
 		return 0;
 	}),
@@ -37,17 +35,24 @@ App.HeadroomMixin = Em.Mixin.create({
 	},
 
 	initHeadroom: function (): void {
-		var headroom = new Headroom(this.get('element'), {
-			classes: {
-				initial: 'headroom',
-				pinned: 'pinned',
-				unpinned: 'un-pinned',
-				top: 'headroom-top',
-				notTop: 'headroom-not-top'
-			},
-			offset: this.get('offset')
-		});
+		var headroom: Headroom,
+			options = {
+				classes: {
+					initial: 'headroom',
+					pinned: 'pinned',
+					unpinned: 'un-pinned',
+					top: 'headroom-top',
+					notTop: 'headroom-not-top'
+				},
+				offset: this.get('offset')
+			};
 
+		// If the object using this mixin provides overriding options, merge them with the default
+		if (this.get('headroomOptions')) {
+			options = $.extend(options, this.get('headroomOptions'));
+		}
+
+		headroom = new Headroom(this.get('element'), options);
 		headroom.init();
 
 		this.set('headroom', headroom);
