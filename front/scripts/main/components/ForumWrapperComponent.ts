@@ -35,7 +35,7 @@ App.ForumWrapperComponent = Em.Component.extend({
 		});
 	}),
 
-	// we check if we are at the bottom of the page
+	// Check if scrolling should trigger fetching new posts
 	isScrolledToTrigger: function() {
 		var windowHeight = $(window).height(),
 			triggerDistance = 0.25*windowHeight,
