@@ -101,7 +101,5 @@ App.ArticleContentListeners = Em.Object.create({
 		if (containersCount > 0) {
 			containers[0].set('articleContent.width', this.get('articleContent.width'));
 		}
-
-		console.log(this.get('articleContent.width'));
 	}
 });
