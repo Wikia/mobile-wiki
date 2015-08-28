@@ -46,7 +46,7 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 
 function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: any): void {
 	Tracking.handleResponse(context, request);
-	reply.view('application', context);
+	reply.view('discussions/', context);
 }
 
 export = showApplication;
