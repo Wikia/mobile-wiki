@@ -105,6 +105,7 @@ module Mercury.Modules.Trackers {
 			ga('create', this.accounts[trackerName].id, 'auto', options);
 
 			ga(prefix + 'require', 'linker');
+
 			if (domain) {
 				ga(prefix + 'linker:autoLink', domain);
 			}
