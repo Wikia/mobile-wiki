@@ -118,9 +118,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			openMainPage(dataSaved: boolean = false): void {
 				var ponto = window.Ponto;
 
-				if (dataSaved) {
-					this.set('publish', true);
-				}
+				this.set('publish', !!dataSaved);
 
 				if (ponto && typeof ponto.invoke === 'function') {
 					ponto.invoke(
