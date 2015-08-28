@@ -2,7 +2,6 @@
 	// open nav button
 	.nav-container {
 		@extend .touch-active;
-		@extend %pointer;
 		display: inline-block;
 		float: left;
 		height: 50px;
@@ -19,7 +18,6 @@
 
 	// overlay
 	.overlay {
-		@extend %pointer;
 		@include perfect-square(100%);
 		background-color: black;
 		left: 0;
@@ -39,7 +37,6 @@
 
 		.clear-search-btn {
 			@include perfect-square(45px);
-			cursor: pointer;
 			left: rem-calc(214);
 			padding: {
 				top: rem-calc(11);
@@ -84,7 +81,6 @@
 
 			// Cancel search div
 			.cancel {
-				@extend %pointer;
 				@extend .type-smallest;
 				color: #006598;
 				padding: rem-calc(11) rem-calc(13);

@@ -51,7 +51,10 @@ class FacebookConnect extends Login {
 			url: string = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
 
 		facebookConnectXhr.onload = (e: Event) => {
-			var status: number = (<XMLHttpRequest> e.target).status;
+			var status: number = (<XMLHttpRequest> e.target).status,
+				errors: Array<HeliosError>,
+				errorCodesArray: Array<string> = [],
+				logoutXhr: XMLHttpRequest;
 
 			if (status === HttpCodes.OK) {
 				M.track({
@@ -63,13 +66,27 @@ class FacebookConnect extends Login {
 
 				window.location.href = this.redirect;
 			} else {
+				errors = JSON.parse(facebookConnectXhr.responseText).errors;
+
+				errors.forEach(
+					(error: HeliosError): void => {
+						this.displayError('errors.' + error.description);
+						errorCodesArray.push(error.description)
+					}
+				);
+
 				M.track({
 					trackingMethod: 'both',
 					action: Mercury.Utils.trackActions.error,
 					category: 'user-signup-mobile',
-					label: 'facebook-link-existing'
+					label: 'facebook-link-error:' + errorCodesArray.join(';')
 				});
-				this.displayError('errors.server-error');
+
+				// Logout user on connection error
+				logoutXhr = new XMLHttpRequest();
+				logoutXhr.open('GET', '/logout', true);
+				logoutXhr.send();
+
 			}
 		};
 
@@ -77,7 +94,7 @@ class FacebookConnect extends Login {
 			this.displayError('errors.server-error');
 		};
 
-		facebookConnectXhr.open('PUT', url, true);
+		facebookConnectXhr.open('POST', url, true);
 		facebookConnectXhr.withCredentials = true;
 		facebookConnectXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookConnectXhr.send(this.urlHelper.urlEncode(data));

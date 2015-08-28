@@ -26,6 +26,12 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
+	//TODO: Temporary, remove with CONCF-1095
+	host: window.location.host,
+	isAllowedWikia: Em.computed.match('host', /creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
+	curatedContentToolEnabled: false,
+	curatedContentToolButtonVisible: Em.computed.and('curatedContentToolEnabled', 'isAllowedWikia', 'currentUser.rights.curatedcontent'),
+
 	/**
 	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
 	 */

@@ -1,4 +1,4 @@
-<div class="discussion-post">
+<div class="discussion post">
 	{{post-detail
 		author=model.firstPost.createdBy
 		content=model.firstPost.rawContent
@@ -19,6 +19,5 @@
 			timestamp=item.creationDate.epochSecond
 			upvoteCount=item.upvoteCount
 		}}
-		<hr/>
 	{{/each}}
 </div>

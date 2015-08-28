@@ -15,6 +15,7 @@ $(function() : void {
 	}
 
 	$('.carousel').slick({
+		arrows: true,
 		dots: false,
 		infinite: false,
 		speed: 300,
@@ -58,17 +59,14 @@ $('.search-wikia').click(function(event) : void {
 
 $('#loginIcon').click(function(event) : void {
 	if ($(document).width() < 710) {
-		$('.login-box-mobile').toggle();
+		$('#userInfoToggle').toggle();
 	}
 
 	event.preventDefault();
 });
 
 $('#whatIsWikia').click(function(event) : void {
-	$('#parallax-content-1').slideToggle('fast', function() : void {
-		$('#parallax-content-2').slideToggle('fast');
-	});
-
+	window.location.href = '/beginners';
 	event.preventDefault();
 });
 
