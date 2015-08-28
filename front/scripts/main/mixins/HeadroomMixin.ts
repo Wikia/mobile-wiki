@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path="../../../../typings/headroom/headroom.d.ts" />
 'use strict';
 
