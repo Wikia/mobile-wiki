@@ -42,10 +42,13 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		image: 0,
 		title: 0,
 	},
-	state: [],
-	stateLength: Em.computed('state', {
+	infoboxState: [
+		{data: 'obrazeczek', type: 'image'},
+		{data: 'obrazeczek2', type: 'image'}
+	],
+	stateLength: Em.computed('infoboxState', {
 		get(): number {
-			return this.get('state').length;
+			return this.get('infoboxState').length;
 		}
 	}),
 	title: null,
@@ -55,7 +58,9 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {DataItem|TitleItem|ImageItem} object
 	 */
 	addToState(object: DataItem|TitleItem|ImageItem): void {
-		this.state.push(object);
+
+	//FIXME
+		this.get('infoboxState').push(object);
 	},
 
 	/**
@@ -127,7 +132,9 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {Number} position
 	 */
 	removeItem(position: number): void {
-		this.state.splice(position, 1);
+		var state = this.get('infoboxState');
+		state.splice(position, 1);
+		this.set('infoboxState', state);
 	},
 
 	/**
