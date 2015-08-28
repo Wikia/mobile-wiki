@@ -1,6 +1,7 @@
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/AdsMixin.ts" />
+/// <reference path="../mixins/PollDaddyMixin.ts" />
 
 'use strict';
 
@@ -8,7 +9,7 @@ interface HTMLElement {
 	scrollIntoViewIfNeeded: () => void
 }
 
-App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
+App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMixin, {
 	tagName: 'article',
 	classNames: ['article-content', 'mw-content'],
 
@@ -240,44 +241,5 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 			.not('table table')
 			.css('visibility', 'visible')
 			.wrap('<div class="article-table-wrapper"/>');
-	},
-
-	/**
-	 * This is a hack to make PollDaddy work (HG-618)
-	 * @see http://static.polldaddy.com/p/8791040.js
-	 */
-	handlePollDaddy: function (): void {
-		var $polls = this.$('script[src*=polldaddy]');
-
-		$polls.each((index: number, script: HTMLScriptElement): void => {
-			// extract ID from script src
-			var idRegEx: RegExp = /(\d+)\.js$/,
-				matches: any = script.src.match(idRegEx),
-				id: string,
-				html: string,
-				init: any;
-
-			// something is wrong with poll daddy or UCG.
-			if (!matches || !matches[1]) {
-				Em.Logger.error('Polldaddy script src url not recognized', script.src);
-				return;
-			}
-
-			id = matches[1];
-			init = window['PDV_go' + id];
-
-			if (typeof init !== 'function') {
-				Em.Logger.error('Polldaddy code changed', script.src);
-				return;
-			}
-
-			// avoid PollDaddy's document.write on subsequent article loads
-			if (!this.$('#PDI_container' + id).length) {
-				html = '<a name="pd_a_' + id + '" style="display: inline; padding: 0px; margin: 0px;"></a>' +
-					'<div class="PDS_Poll" id="PDI_container' + id + '"></div>';
-				$(script).after(html);
-			}
-			init();
-		});
 	}
 });
