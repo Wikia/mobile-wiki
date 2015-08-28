@@ -22,13 +22,13 @@ App.PollDaddyMixin = Em.Mixin.create({
 			}
 
 			init = this.getPollDaddyInit(id);
+			this.handlePollDaddyContainer(id, script);
 
 			if (typeof init === 'function') {
-				this.handlePollDaddyContainer(id, script);
 				init();
 			} else {
-				this.handlePollDaddyContainer(id, script);
-				// If the script is in the page source but hasn't executed upon transition, load and execute it now
+				// Script is in the page source but hasn't executed upon transition.
+				// Load and execute it now.
 				M.loadScript(script.src, () => {
 					init = this.getPollDaddyInit(id);
 					if (typeof init === 'function') {
@@ -41,10 +41,12 @@ App.PollDaddyMixin = Em.Mixin.create({
 		});
 	},
 
+	/**
+	 * Dxtract ID from script src
+	 */
 	getPollDaddyId: function (script: HTMLScriptElement): string {
-		// extract ID from script src
 		var idRegEx: RegExp = /(\d+)\.js$/,
-			matches: any = script.src.match(idRegEx);
+			matches: string[] = script.src.match(idRegEx);
 
 		if (matches && matches[1]) {
 			return matches[1];
