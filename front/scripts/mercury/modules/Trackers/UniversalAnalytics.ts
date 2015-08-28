@@ -86,7 +86,7 @@ module Mercury.Modules.Trackers {
 		initAccount (trackerName: string, domain: string): void {
 			var options: TrackerOptions, prefix: string,
 				dimensionNum: string,
-				trackerPrefix;
+				trackerPrefix: string;
 
 			options = {
 				name: '',
