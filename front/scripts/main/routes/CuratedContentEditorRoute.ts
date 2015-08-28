@@ -177,7 +177,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			willTransition(transition: EmberStates.Transition): boolean {
 				var isStayingOnEditor: boolean = transition.targetName.indexOf('curatedContentEditor') > -1;
 
-				if (!isStayingOnEditor && !this.get('publish') && !confirm('You have unsaved changes. Are you sure you want to exit?')) {
+				if (App.CuratedContentEditorModel.isDirty && !isStayingOnEditor && !this.get('publish') && !confirm('You have unsaved changes. Are you sure you want to exit?')) {
 					transition.abort();
 				}
 
