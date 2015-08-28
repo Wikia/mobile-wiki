@@ -13,9 +13,6 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		this.render('infobox-builder');
     },
 
-
-
-
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			if (App.CurrentUser.get('isAuthenticated')) {
