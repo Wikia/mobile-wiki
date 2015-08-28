@@ -41,6 +41,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		isSection: Em.computed.equal('model.node_type', 'section'),
 
+		isTooltipVisible: false,
+
 		isTitleNotEmpty: Em.computed.notEmpty('model.title'),
 		isLabelNotEmpty: Em.computed.notEmpty('model.label'),
 
@@ -220,6 +222,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				this.setProperties({
 					'model.title': title,
 					searchSuggestionsVisible: false
+				});
+			},
+
+			showTooltip(tooltipMessage: string): void {
+				this.trackClick('curated-content-editor', 'tooltip-show');
+				this.setProperties({
+					tooltipMessage,
+					isTooltipVisible: true
 				});
 			}
 		},
