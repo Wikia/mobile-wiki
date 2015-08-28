@@ -7,11 +7,4 @@
 	user-avatar-src="http://img4.wikia.nocookie.net/__cb1372467243/common/avatars/thumb/e/eb/11096997.png/100px-11096997.png.jpg">
 </top-bar>
 
-<h1>Discussions</h1>
-
-<h2>Forums:</h2>
-<ul>
-{{#each _embedded.doc:forum as |item|}}
-    <li>{{#link-to 'discussion.forum.index' item.id}}{{item.name}}{{/link-to}} - {{item.postCount}} posts</li>
-{{/each}}
-</ul>
+{{outlet}}
