@@ -13,26 +13,34 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		this.render('infobox-builder');
     },
 
+
+
+
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			this.loadAssets().then((data: InfoboxBuilderGetAssetsResponse) => {
-				this.setupStyles(data.css);
-				this.setupTemplates(data.templates);
-				resolve();
-			}, (data: string) => {
-				reject(data);
-			});
-
+			if (App.CurrentUser.get('isAuthenticated')) {
+				this.loadAssets().then(
+					(data:InfoboxBuilderGetAssetsResponse) => {
+						this.setupStyles(data.css);
+						this.setupTemplates(data.templates);
+						resolve();
+					}, (data:string) => {
+						reject(data);
+					}
+				);
+			} else {
+				reject();
+			}
 		});
 	},
 
 	model: function(params: any): typeof App.InfoboxBuilderModel {
+		console.log(params);
 		return App.InfoboxBuilderModel.create({title: params.templateName});
 	},
 
 	afterModel: function(model: any): void {
 		model.setupInitialState();
-		console.log(model);
 	},
 
 	/**
