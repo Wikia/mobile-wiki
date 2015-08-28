@@ -15,6 +15,9 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			debugger;
+			console.log(App.CurrentUser.get('isAuthenticated'));
+
 			if (App.CurrentUser.get('isAuthenticated')) {
 				this.loadAssets().then(
 					(data:InfoboxBuilderGetAssetsResponse) => {
