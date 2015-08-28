@@ -4,7 +4,7 @@
 App.ForumWrapperComponent = Em.Component.extend({
 	classNames: ['forum-wrapper'],
 
-	numPosts: 0,
+	postsDisplayed: 0,
 	totalPosts: 0,
 	pageNum: 0,
 	loadingMore: false,
@@ -12,7 +12,7 @@ App.ForumWrapperComponent = Em.Component.extend({
 	actions: {
 		goToPost: function (postId: number): void {
 			this.sendAction('goToPost', postId);
-		},
+		}
 	},
 
 	didScroll: function() {
@@ -26,19 +26,17 @@ App.ForumWrapperComponent = Em.Component.extend({
 	},
 
 	hasMore: function() {
-		return this.totalPosts > this.numPosts;
+		return this.totalPosts > this.postsDisplayed;
 	},
 
-	pageLoaded: Ember.observer('numPosts', function() {
-		this.setProperties({
-			loadingMore: false
-		});
+	pageLoaded: Ember.observer('postsDisplayed', function() {
+		this.set('loadingMore', false);
 	}),
 
 	// Check if scrolling should trigger fetching new posts
 	isScrolledToTrigger: function() {
 		var windowHeight = $(window).height(),
-			triggerDistance = 0.25*windowHeight,
+			triggerDistance = 0.25 * windowHeight,
 			distanceToViewportTop = $(document).height() - windowHeight,
 			viewPortTop = $(document).scrollTop();
 

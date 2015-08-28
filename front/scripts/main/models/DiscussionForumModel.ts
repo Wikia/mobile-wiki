@@ -7,13 +7,9 @@ App.DiscussionForumModel = Em.Object.extend({
 	posts: null,
 	totalPosts: 0,
 
-	hasMore: function(): boolean {
-		return this.totalPosts > this.posts.length;
-	},
-
 	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://services.wikia.com/discussion/' + this.wikiId + '/forums/' + this.forumId +
 					 '?page=' + pageNum,
 				dataType: 'json',
@@ -21,9 +17,7 @@ App.DiscussionForumModel = Em.Object.extend({
 					var newPosts = data._embedded['doc:threads'],
 					    allPosts = this.posts.concat(newPosts);
 
-					this.setProperties({
-						posts: allPosts,
-					});
+					this.set('posts', allPosts);
 
 					resolve(this);
 				},
@@ -41,7 +35,7 @@ App.DiscussionForumModel.reopenClass({
 				forumId: forumId
 			});
 
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: `https://services.wikia.com/discussion/${wikiId}/forums/${forumId}`,
 				dataType: 'json',
 				success: (data: any) => {
