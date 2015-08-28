@@ -5,7 +5,7 @@
 
 App.InfoboxHeroImageMediaComponent = App.ImageMediaComponent.extend(App.ViewportMixin, {
 	imageAspectRatio: 16 / 9,
-	hasCaption: false,
+	caption: false,
 	limitHeight: true,
 	normalizeWidth: false,
 	cropMode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
