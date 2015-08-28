@@ -118,6 +118,10 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			openMainPage(dataSaved: boolean = false): void {
 				var ponto = window.Ponto;
 
+				if (dataSaved) {
+					this.set('publish', true);
+				}
+
 				if (ponto && typeof ponto.invoke === 'function') {
 					ponto.invoke(
 						// AMD module name in app
@@ -171,7 +175,13 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			 * @returns {boolean}
 			 */
 			willTransition(transition: EmberStates.Transition): boolean {
-				if (transition.targetName.indexOf('curatedContentEditor') < 0) {
+				var isStayingOnEditor: boolean = transition.targetName.indexOf('curatedContentEditor') > -1;
+
+				if (!isStayingOnEditor && !this.get('publish') && !confirm('You have unsaved changes. Are you sure you want to exit?')) {
+					transition.abort();
+				}
+
+				if (!isStayingOnEditor) {
 					transition.then(() => {
 						this.controllerFor('application').set('fullPage', false);
 					});
