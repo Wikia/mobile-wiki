@@ -169,17 +169,18 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				data: {
 					controller: 'PortableInfoboxBuilderController',
 					method: 'saveToTemplate',
-					format: 'json',
-					data: this.get('infoboxState')
+					infoboxData: this.get('infoboxState')
+
 				},
+				dataType: 'json',
 				success: (data: SaveStateToTemplateResponse): void => {
 					if (data && data.success) {
-						resolve(data.success);
+						resolve(data);
 					} else {
 						reject(data.errorMessage);
 					}
 				},
-				error: (data: SaveStateToTemplateResponse): void => {
+				error: (data: any): void => {
 					reject(data);
 				}
 			});
