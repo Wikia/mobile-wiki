@@ -80,7 +80,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				position: this.get('stateLength'),
 				source: `data${i}`,
 			},
-			type: 'data'
+			type: 'infobox-data-item'
 		});
 	},
 
@@ -100,7 +100,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				position: this.get('stateLength'),
 				source: `image${i}`
 			},
-			type: 'image'
+			type: 'infobox-image-item'
 		});
 	},
 
@@ -117,7 +117,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				position: this.get('stateLength'),
 				source: `title${i}`,
 			},
-			type: 'title'
+			type: 'infobox-title-item'
 		});
 	},
 
