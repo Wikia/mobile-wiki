@@ -36,16 +36,18 @@ interface TitleItem {
 	type: string;
 }
 
+interface SaveStateToTemplateResponse {
+	success: boolean;
+	errorMessage?: boolean;
+}
+
 App.InfoboxBuilderModel = Em.Object.extend({
 	itemIndex: {
 		data: 0,
 		image: 0,
 		title: 0,
 	},
-	infoboxState: [
-		{data: 'obrazeczek', type: 'image'},
-		{data: 'obrazeczek2', type: 'image'}
-	],
+	infoboxState: [],
 	stateLength: Em.computed('infoboxState', {
 		get(): number {
 			return this.get('infoboxState').length;
@@ -58,9 +60,10 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {DataItem|TitleItem|ImageItem} object
 	 */
 	addToState(object: DataItem|TitleItem|ImageItem): void {
+		var state = this.get('infoboxState');
 
-	//FIXME
-		this.get('infoboxState').push(object);
+		state.push(object);
+		this.set('infoboxState', state)
 	},
 
 	/**
@@ -124,7 +127,13 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @returns {Number}
 	 */
 	increaseItemIndex(intexType: string): number {
-		return ++this.itemIndex[intexType];
+		var indexName = `itemIndex.${intexType}`,
+			index = this.get(indexName);
+
+		index++;
+		this.set(indexName, index);
+
+		return index;
 	},
 
 	/**
@@ -133,6 +142,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 */
 	removeItem(position: number): void {
 		var state = this.get('infoboxState');
+
 		state.splice(position, 1);
 		this.set('infoboxState', state);
 	},
@@ -145,4 +155,34 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		this.addImageItem();
 		this.addDataItem();
 	},
+
+	/**
+	 * saves infobox state to MW template
+	 * @returns {Em.RSVP.Promise}
+	 */
+	saveStateToTemplate(): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'PortableInfoboxBuilderController',
+					method: 'saveToTemplate',
+					format: 'json',
+					data: this.get('infoboxState')
+				},
+				success: (data: SaveStateToTemplateResponse): void => {
+					if (data && data.success) {
+						resolve(data.success);
+					} else {
+						reject(data.errorMessage);
+					}
+				},
+				error: (data: SaveStateToTemplateResponse): void => {
+					reject(data);
+				}
+			});
+		});
+	}
 });
