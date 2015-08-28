@@ -61,6 +61,9 @@
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
 	{{/modal-dialog}}
+	{{#modal-dialog isVisible=isTooltipVisible}}
+		{{tooltipMessage}}
+	{{/modal-dialog}}
 	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
 </form>
 
