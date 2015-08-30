@@ -9,38 +9,40 @@ interface InfoboxBuilderGetAssetsResponse {
 }
 
 App.InfoboxBuilderRoute = Em.Route.extend({
+	templateCompilerLoaded: false,
+	templateCompilerPath: '/front/vendor/ember',
+
 	renderTemplate(): void {
 		this.render('infobox-builder');
-    },
+	},
 
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			debugger;
 			console.log(App.CurrentUser.get('isAuthenticated'));
-
-			if (App.CurrentUser.get('isAuthenticated')) {
+			//if (App.CurrentUser.get('isAuthenticated')) {
 				this.loadAssets().then(
 					(data:InfoboxBuilderGetAssetsResponse) => {
+						console.log("data", data);
 						this.setupStyles(data.css);
-						this.setupTemplates(data.templates);
 						resolve();
 					}, (data:string) => {
 						reject(data);
 					}
 				);
-			} else {
-				reject();
-			}
+			//} else {
+			//	reject();
+			//}
 		});
 	},
 
 	model: function(params: any): typeof App.InfoboxBuilderModel {
-		console.log(params);
-		return App.InfoboxBuilderModel.create({title: params.templateName});
+		var templates = this.get('templates');
+
+		return App.InfoboxBuilderModel.create({title: params.templateName, templates: templates});
 	},
 
 	afterModel: function(model: any): void {
-		model.setupInitialState();
+		//model.setupInitialState();
 	},
 
 	/**
@@ -60,7 +62,11 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 				},
 				success: (data: InfoboxBuilderGetAssetsResponse): void => {
 					if (data && data.css && data.templates) {
-						resolve(data);
+						this.set('templates', data.templates);
+						this.loadTemplateCompiler().then(() => {
+							resolve(data);
+						});
+
 					} else {
 						reject('Invalid data was returned from Infobox Builder API');
 					}
@@ -89,15 +95,11 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	},
 
 	/**
-	 * compitle portable infobox item templates
-	 * @param {String[]} templates
+	 * Load Template Compiler js
+	 * @returns {JQueryXHR}
 	 */
-	setupTemplates(templates: string[]): void {
-		var i: number, compiledTemplates: Function[] = [];
-
-		for (i = 0; i < templates.length; i++) {
-			compiledTemplates[i] = Em.Handlebars.compile(templates[i]);
-		}
+	loadTemplateCompiler(): JQueryXHR {
+		return Em.$.getScript(`${this.templateCompilerPath}/ember-template-compiler.js`);
 	},
 
 	actions: {
@@ -120,6 +122,30 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			this.controllerFor('application').set('fullPage', true);
 			window.scrollTo(0, 0);
 			return true;
+		},
+
+		addDataItem(): void {
+			var model = this.modelFor('infoboxBuilder');
+			return model.addDataItem();
+		},
+
+		addTitleItem(): void {
+			var model = this.modelFor('infoboxBuilder');
+			return model.addTitleItem();
+		},
+
+		addImageItem(): void {
+			var model = this.modelFor('infoboxBuilder');
+			return model.addImageItem();
+		},
+
+		saveTemplate(): void {
+			var model = this.modelFor('infoboxBuilder');
+			return model.saveStateToTemplate();
+		},
+
+		cancel(): void {
+			//close iframe
 		}
 	}
 });

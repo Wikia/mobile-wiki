@@ -2,10 +2,14 @@
 'use strict';
 
 App.InfoboxTitleItemComponent = Em.Component.extend({
-	tmpl: '<p>Jestem templatem skompilowanym title</p>',
+	value: Em.computed('data', function() {
+		return this.get('data.defaultValue') || 'Your Title';
+	}),
 
 	layout: Em.computed(function() {
-		var template = this.get('tmpl');
-		return Em.Handlebars.compile(template);
+		var templates = this.get('templates'),
+			templateText = templates['title'];
+
+		return Em.Handlebars.compile(templateText);
 	})
 });

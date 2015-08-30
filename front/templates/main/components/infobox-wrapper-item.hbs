@@ -1,0 +1,6 @@
+{{#each infoboxState as |element|}}
+	<p>INFOBOX WRAPPER element</p>
+	{{component element.type data=element.data templates=templates}}
+	{{log element}}
+{{/each}}
+<p>INFOBOX WRAPPER ITEM</p>

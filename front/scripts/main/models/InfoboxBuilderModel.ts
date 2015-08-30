@@ -54,6 +54,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		}
 	}),
 	title: null,
+	templates: {},
 
 	/**
 	 * add item to infobox state
@@ -82,6 +83,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			},
 			type: 'infobox-data-item'
 		});
+
+		console.log("Model: data item addded", this.get('infoboxState'));
 	},
 
 	/**
@@ -119,6 +122,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			},
 			type: 'infobox-title-item'
 		});
+
+			console.log("Model: title item addded", this.get('infoboxState'));
 	},
 
 	/**
