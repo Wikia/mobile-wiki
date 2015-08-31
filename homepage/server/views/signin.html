@@ -1,1 +1,5 @@
-{{>signin}}
+{{#if loggedIn}}
+  {{>userinfo}}
+{{else}}
+  {{>signin}}
+{{/if}}

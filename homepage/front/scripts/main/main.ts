@@ -15,12 +15,13 @@ $(function() : void {
 	}
 
 	$('.carousel').slick({
+		arrows: true,
 		dots: false,
-		infinite: true,
+		infinite: false,
 		speed: 300,
-		slidesToShow: 3,
-		centerMode: true,
-		variableWidth: false
+		slidesToShow: 2,
+		centerMode: false,
+		variableWidth: true
 	});
 });
 
@@ -41,8 +42,8 @@ function parallax() : void {
 	}
 }
 
-$('.search-wikia').click(function(event) : void {
-	search();
+$('#beginnersGuide').click(function(event) : void {
+	window.location.href = '/beginners';
 	event.preventDefault();
 });
 
@@ -51,11 +52,21 @@ $('.search-wikia-form').submit(function(event) : void {
 	event.preventDefault();
 });
 
-$('#loginLink').click(function(event) : void {
+$('.search-wikia').click(function(event) : void {
+	search();
+	event.preventDefault();
+});
+
+$('#loginIcon').click(function(event) : void {
 	if ($(document).width() < 710) {
-		$('.login-box-mobile').toggle();
+		$('#userInfoToggle').toggle();
 	}
 
+	event.preventDefault();
+});
+
+$('#whatIsWikia').click(function(event) : void {
+	window.location.href = '/beginners';
 	event.preventDefault();
 });
 

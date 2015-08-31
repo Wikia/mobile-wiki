@@ -13,9 +13,9 @@
 	}}
 	{{site-head
 		smartBannerVisible=smartBannerVisible
-		currentUser=currentUser
 		toggleSideNav='toggleSideNav'
 		toggleUserMenu='toggleUserMenu'
+		themeBar=themeBar
 	}}
 	{{share-feature
 		smartBannerVisible=smartBannerVisible
@@ -27,24 +27,21 @@
 		loadRandomArticle='loadRandomArticle'
 		toggleVisibility='toggleSideNav'
 	}}
-	{{#if currentUser.isAuthenticated}}
-		{{user-menu
-			shouldBeVisible=userMenuVisible
-			userName=currentUser.model.name
-			toggleVisibility='toggleUserMenu'
-		}}
-	{{/if}}
-	{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
-	{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
+	{{user-menu
+		shouldBeVisible=userMenuVisible
+		toggleVisibility='toggleUserMenu'
+	}}
 	<div class='page-wrapper' lang={{language.content}} dir={{language.contentDir}}>
 		{{outlet}}
 	</div>
 	{{lightbox-wrapper
 		type=lightboxType
 		model=lightboxModel
+		isVisible=lightboxVisible
 		closeLightbox='closeLightbox'
 		setQueryParam='setQueryParam'
 	}}
 {{/if}}
+{{wikia-in-your-lang}}
 {{alert-notifications alerts=alertNotifications}}
 {{loading-spinner active=isLoading}}

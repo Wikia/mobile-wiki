@@ -24,6 +24,10 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			this.sendAction('editBlockItem', item, block);
 		},
 
+		openMainPage(): void {
+			this.sendAction('openMainPage');
+		},
+
 		openSection(item: CuratedContentEditorItemModel): void {
 			this.sendAction('openSection', item);
 		},
@@ -39,33 +43,58 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		App.CuratedContentEditorModel.save(this.get('model'))
 			.then((data: CuratedContentValidationResponseInterface): void => {
 				if (data.status) {
-					this.addAlert('info', i18n.t('app.curated-content-editor-changes-saved'));
-					this.sendAction('openMainPage');
+					this.addAlert({
+						message: i18n.t('app.curated-content-editor-changes-saved'),
+						type: 'info'
+					});
+
+					this.sendAction('openMainPage', true);
+				} else if (data.error) {
+					data.error.forEach(
+						(error: CuratedContentValidationResponseErrorInterface) =>
+							this.processValidationError(error.type, error.reason)
+					);
 				} else {
-					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
-					} else {
-						this.addAlert('alert', i18n.t('app.curated-content-error-other'));
-					}
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
 				}
 			})
 			.catch((err: any): void => {
 				if (err.status === 403) {
-					this.addAlert('warning', i18n.t('app.curated-content-editor-error-no-save-permissions'));
+					this.addAlert({
+						message: i18n.t('app.curated-content-editor-error-no-save-permissions'),
+						type: 'warning'
+					});
 				} else {
 					Em.Logger.error(err);
-					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
 				}
 			})
 			.finally((): void => this.hideLoader());
 	},
 
-	processValidationError(reason: string) {
-		if (reason === 'itemsMissing') {
-			this.addAlert('alert', i18n.t('app.curated-content-editor-missing-items-error'));
+	processValidationError(type: string, reason: string) {
+		if (type === 'featured') {
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-error-inside-featured-content'),
+				type: 'alert'
+			});
+		} else if (reason === 'itemsMissing') {
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-missing-items-error'),
+				type: 'alert'
+			});
 		} else {
 			// if other items occur that means user somehow bypassed validation of one or more items earlier
-			this.addAlert('alert', i18n.t('app.curated-content-editor-error-inside-items-message'));
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-error-inside-items-message'),
+				type: 'alert'
+			});
 		}
 	}
 });

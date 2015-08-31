@@ -32,7 +32,7 @@ interface LocalSettings {
 	discuss?: any; //XXX change to interface
 	environment: any;
 	helios: {
-		host: string;
+		path: string;
 		usernameMaxLength: number;
 		passwordMaxLength: number;
 	};
@@ -45,15 +45,13 @@ interface LocalSettings {
 	optimizely?: {
 		enabled: boolean;
 		scriptPath: string;
-		devAccount: string;
 		account: string;
 	};
 	port: number;
 	proxyMaxRedirects: number;
 	qualaroo?: {
 		enabled: boolean;
-		scriptUrlDev: string;
-		scriptUrlProd: string;
+		scriptUrl: string;
 	};
 	redirectUrlOnNoData: string;
 	servicesDomain: string;
@@ -78,4 +76,8 @@ interface LocalSettings {
 	facebook: {
 		appId: number;
 	};
+	patterns: {
+		mobile: RegExp;
+		iPad: RegExp;
+	}
 }

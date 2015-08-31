@@ -14,6 +14,7 @@
 @import 'component/index';
 @import 'module/index';
 
-// temporary solution while working on styling
+// temporary solution while these inputs are not a part of the Style Guide
 @import '../auth/base/input';
 @import '../auth/module/forms';
+@import '../auth/module/form-icons';

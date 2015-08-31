@@ -45,7 +45,10 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			if (this.get('notEmptyItems')) {
 				this.validateAndDone();
 			} else {
-				this.addAlert('alert', i18n.t('app.curated-content-editor-empty-section-error'));
+				this.addAlert({
+					message: i18n.t('app.curated-content-editor-empty-section-error'),
+					type: 'alert'
+				});
 			}
 		}
 	},
@@ -67,25 +70,38 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 					this.sendAction('done', this.get('model'));
 				} else {
 					if (data.error) {
-						data.error.forEach((error: any) => this.processValidationError(error.reason));
+						data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+							=> this.processValidationError(error.reason));
 					} else {
-						this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+						this.addAlert({
+							message: i18n.t('app.curated-content-error-other'),
+							type: 'alert'
+						});
 					}
 				}
 			})
 			.catch((err: any): void => {
 				Em.Logger.error(err);
-				this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+				this.addAlert({
+					message: i18n.t('app.curated-content-error-other'),
+					type: 'alert'
+				});
 			})
 			.finally((): void => this.hideLoader());
 	},
 
 	processValidationError(reason: string) {
 		if (reason === 'itemsMissing') {
-			this.addAlert('alert', i18n.t('app.curated-content-editor-empty-section-error'));
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-empty-section-error'),
+				type: 'alert'
+			});
 		} else {
 			// if other items occur that means user somehow bypassed validation of one or more items earlier
-			this.addAlert('alert', i18n.t('app.curated-content-editor-general-section-error'));
+			this.addAlert({
+				message: i18n.t('app.curated-content-editor-general-section-error'),
+				type: 'alert'
+			});
 		}
 	}
 });

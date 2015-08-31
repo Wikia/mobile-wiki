@@ -16,6 +16,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	content: null,
 	media: null,
 	contributionFeatureEnabled: null,
+	uploadFeatureEnabled: null,
 	cleanTitle: null,
 	headers: null,
 
@@ -32,6 +33,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 				this.replaceMapsWithMapComponents();
 				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 				this.handlePollDaddy();
+				this.handleJumpLink();
 
 				Em.run.later(this, (): void => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 			} else {
@@ -73,6 +75,16 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		this.$().html(content);
 	},
 
+	/**
+	 * Native browser implementation of location hash often gets clobbered by custom rendering,
+	 * so ensure it happens here.
+	 */
+	handleJumpLink(): void {
+		if (window.location.hash) {
+			window.location.assign(window.location.hash);
+		}
+	},
+
 	createArticleContributionComponent: function(section: number): JQuery {
 		var article = this.get('content'),
 			title = this.get('cleanTitle'),
@@ -80,7 +92,8 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 				section: section,
 				title: title,
 				edit: 'edit',
-				addPhoto: 'addPhoto'
+				addPhoto: 'addPhoto',
+				uploadFeatureEnabled: this.get('uploadFeatureEnabled')
 			}));
 		return component.createElement().$();
 	},
@@ -139,7 +152,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 		return component.$().attr('data-ref', ref);
 	},
 
-	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess:number = -1): void {
+	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess: number = -1): void {
 		var $mediaPlaceholders = this.$('.article-media'),
 			index: number;
 

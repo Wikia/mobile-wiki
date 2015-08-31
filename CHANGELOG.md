@@ -1,3 +1,73 @@
+## release-145 (2015-08-28 10:00 UTC)
+* remove-console-logging: Remove console logs for article width
+
+## release-144 (2015-08-27 11:26 UTC)
+* [CONCF-1089](https://wikia-inc.atlassian.net/browse/CONCF-1089) CONCF-1089 | fix false positive error of already existing label
+* [DAT-3121](https://wikia-inc.atlassian.net/browse/DAT-3121) DAT-3121 Related pages images fix
+* [MAIN-5225](https://wikia-inc.atlassian.net/browse/MAIN-5225) Change mainPage route to the MW main page article route
+* [HG-843](https://wikia-inc.atlassian.net/browse/HG-843) Hg 843
+
+## release-143 (2015-08-26 13:17 UTC)
+* Japan-HP-Contentupdate-2: INT-162: Featured commmunity panel for Japan Homepage. Content updates
+* [SOC-943](https://wikia-inc.atlassian.net/browse/SOC-943) SOC-943 Post details on forum post listing
+* typo: fixing-typo
+* [CONCF-1063](https://wikia-inc.atlassian.net/browse/CONCF-1063) CONCF-1063 | Style section template
+* [CONCF-1062](https://wikia-inc.atlassian.net/browse/CONCF-1062) CONCF-1062 | restyled view of /main/edit
+* [CONCF-1064](https://wikia-inc.atlassian.net/browse/CONCF-1064) CONCF-1064 | Re-style Curated Content Editor Form
+* [CONCF-989](https://wikia-inc.atlassian.net/browse/CONCF-989) CONCF-989 Allow Curated Content Tool to be opened in a MediaWiki modal
+* [INT-156](https://wikia-inc.atlassian.net/browse/INT-156) Addphoto/edit for JA wikia in mercury when anonymous edit is disabled. 
+* [CONCF-1087](https://wikia-inc.atlassian.net/browse/CONCF-1087) CONCF-1087 show edit main page on wikis without curated content
+
+## release-142 (2015-08-25 10:17 UTC)
+* [CONCF-1094](https://wikia-inc.atlassian.net/browse/CONCF-1094) CONCF-1094 | enable button only on allowed wikis
+* facebook-auth: Facebook Authentication Release
+* [SOC-1143](https://wikia-inc.atlassian.net/browse/SOC-1143) SOC-1143 | New validation errors for FB connect
+* polymer-asset: movnig polymer asset loading outside of main app for now
+* satisfying-tslint: Moving regex patterns to localSettings and tslint-based fixes
+* [CONCF-979](https://wikia-inc.atlassian.net/browse/CONCF-979) CONCF-979 Add the entry point for Curated Content Tool
+* [CONCF-1059](https://wikia-inc.atlassian.net/browse/CONCF-1059) CONCF-1059 | Style Curated Content header
+
+## release-141 (2015-08-24 10:00 UTC)
+* [INT-163](https://wikia-inc.atlassian.net/browse/INT-163) INT-163. Condition is changed from 1 day to 30 days
+
+## release-140 (2015-08-21 10:00 UTC)
+* [HG-836](https://wikia-inc.atlassian.net/browse/HG-836) mvp implementation of importing web components
+* [CONCF-1058](https://wikia-inc.atlassian.net/browse/CONCF-1058) CONCF-1058 | add modal component to curated content editor and style it
+* [SOC-951](https://wikia-inc.atlassian.net/browse/SOC-951) SOC-951 Allow users to paginate through post replies
+* set-700-to-default-dev-port: Setting :7000 as a default port on dev env
+
+## release-139 (2015-08-20 13:47 UTC)
+* [SOC-651](https://wikia-inc.atlassian.net/browse/SOC-651) SOC-651 & SOC-643 register & login on dedicated page
+* [SOC-904](https://wikia-inc.atlassian.net/browse/SOC-904) SOC-904 Do not show header on Auth Pages in modal
+* [SOC-902](https://wikia-inc.atlassian.net/browse/SOC-902) SOC-902 Facebook Registration
+
+## release-138 (2015-08-20 10:00 UTC)
+* Japan-homepage-hotfix-1: Fix for horizontal scrollbar in mobile view for Japan Homepage
+* [JA-](https://wikia-inc.atlassian.net/browse/JA-) Ja hp contentupdate 1
+* [HG-818](https://wikia-inc.atlassian.net/browse/HG-818) Hg 818 fixing named anchor links
+* [HG-829](https://wikia-inc.atlassian.net/browse/HG-829) Hg 829 Adding comments and removing unused gulp task
+* [CONCF-1047](https://wikia-inc.atlassian.net/browse/CONCF-1047) CONCF-1047 | Add re-initialization on resize to cropper tool
+* [SOC-959](https://wikia-inc.atlassian.net/browse/SOC-959) SOC-959 OpenGraph attributes for discussion posts
+* semicolons: Adding missing semicolons
+* separate-dev-config: Update README.md
+* separate-dev-config: Separate localSettings file for dev environment
+* [SOC-601](https://wikia-inc.atlassian.net/browse/SOC-601) SOC-601 | Set cookie on successful account registration
+
+## release-137 (2015-08-19 10:00 UTC)
+* [SOC-884](https://wikia-inc.atlassian.net/browse/SOC-884) SOC-884 Post detail page updates
+* [INT-124](https://wikia-inc.atlassian.net/browse/INT-124) Wikia-In-Your-Language for Mercury
+* aden-2289-fix-hop-in-interstitial: ADEN-2289 Added temporary method to keep working the interstitial
+* aden-2289-hop-in-interstitial: ADEN-2289 Create hidden ads lightbox and show it manually
+* [CONCF-967](https://wikia-inc.atlassian.net/browse/CONCF-967) CONCF-967 Allow title duplicates and disallow label duplicates in Curated Content Tool
+
+## release-136 (2015-08-18 10:00 UTC)
+* missing-semicolon: Adding missing semicolon and breaking line
+* aden-2341-floor-adhesion-styles: ADEN-2341 Fixed floor adhesion styles
+* [CONCF-956](https://wikia-inc.atlassian.net/browse/CONCF-956) CONCF-956 Add translations for Curated Content Tool
+* facebook-auth: New Facebook Authentication for mobile skins
+* [SOC-1016](https://wikia-inc.atlassian.net/browse/SOC-1016) SOC-1016 Add tracking to Facebook connect / registration
+* [SOC-932](https://wikia-inc.atlassian.net/browse/SOC-932) SOC-932 Track clicks on Facebook Connect button
+
 ## release-135 (2015-08-17 10:00 UTC)
 * [CONCF-978](https://wikia-inc.atlassian.net/browse/CONCF-978) CONCF-978 Take into account user's permissions in Curated Content Tool
 

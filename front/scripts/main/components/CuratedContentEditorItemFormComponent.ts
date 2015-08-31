@@ -17,6 +17,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		imageWidth: 300,
 		maxLabelLength: 48,
 		debounceDuration: 250,
+		imageMenuVisible: false,
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
@@ -25,14 +26,22 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return modelLabel || i18n.t('app.curated-content-editor-new-item');
 		}),
 
+		/* 16x9 transparent gif */
+		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
 		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
-			var aspectRatioName = this.get('aspectRatioName'),
-				imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
+			if (this.get('model.image_url')) {
+				var aspectRatioName = this.get('aspectRatioName'),
+					imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
 
-			return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
+				return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
+			} else {
+				return this.get('emptyGif');
+			}
 		}),
 
 		isSection: Em.computed.equal('model.node_type', 'section'),
+
+		isTooltipVisible: false,
 
 		isTitleNotEmpty: Em.computed.notEmpty('model.title'),
 		isLabelNotEmpty: Em.computed.notEmpty('model.label'),
@@ -88,9 +97,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					suggestionsError: false,
 					searchSuggestionsVisible: true
 				});
+
 				this.setSearchSuggestionsDebounced();
-			} else {
-				this.set('searchSuggestionsVisible', false);
 			}
 		},
 
@@ -98,6 +106,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 			this.addObserver('model.title', this, this.titleObserver);
 			this.addObserver('model.label', this, this.labelObserver);
+		},
+
+		/**
+		 * When user taps/clicks anywhere we want to close
+		 * search suggestions panel
+		 */
+		click(): void {
+			this.set('searchSuggestionsVisible', false);
 		},
 
 		actions: {
@@ -116,12 +132,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				if (this.get('isLoading')) {
 					this.hideLoader();
 				}
-
-				//run.next is used because browser first triggers blur and then click
-				//so search suggestions disappear and click is not triggered
-				Em.run.next(this, (): void => {
-					this.set('searchSuggestionsVisible', false);
-				})
 			},
 
 			setTitleFocusedIn(): void {
@@ -194,13 +204,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					});
 			},
 
-			showImageModal(): void {
+			showImageMenu(): void {
 				this.trackClick('curated-content-editor', 'item-image-menu');
-				this.set('imageModalVisible', true);
+				this.set('imageMenuVisible', true);
 			},
 
-			hideImageModal(): void {
-				this.set('imageModalVisible', false);
+			hideImageMenu(): void {
+				this.set('imageMenuVisible', false);
 			},
 
 			showSearchImageForm(): void {
@@ -209,7 +219,18 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			setTitle(title: string): void {
-				this.set('model.title', title);
+				this.setProperties({
+					'model.title': title,
+					searchSuggestionsVisible: false
+				});
+			},
+
+			showTooltip(tooltipMessage: string): void {
+				this.trackClick('curated-content-editor', 'tooltip-show');
+				this.setProperties({
+					tooltipMessage,
+					isTooltipVisible: true
+				});
 			}
 		},
 
@@ -301,15 +322,22 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.sendAction('done', this.get('model'));
 					} else {
 						if (data.error) {
-							data.error.forEach((error: any) => this.processValidationError(error.reason));
+							data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
+								=> this.processValidationError(error.reason));
 						} else {
-							this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+							this.addAlert({
+								message: i18n.t('app.curated-content-error-other'),
+								type: 'alert'
+							});
 						}
 					}
 				})
 				.catch((err: any): void => {
 					Em.Logger.error(err);
-					this.addAlert('alert', i18n.t('app.curated-content-error-other'));
+					this.addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
 				})
 				.finally((): void => this.hideLoader());
 		},
@@ -343,7 +371,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		setSearchSuggestionsDebounced(): void {
-			Em.run.debounce(this, this.setSearchSuggestions, this.get('debounceDuration'));
+			Em.run.debounce(this, this.setSearchSuggestions, this.debounceDuration);
 		},
 
 		setSearchSuggestions(): void {

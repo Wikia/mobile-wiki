@@ -22,6 +22,9 @@ App.EditMixin = Em.Mixin.create({
 					if (pages) {
 						// FIXME: MediaWiki API, seriously?
 						edittoken = pages[Object.keys(pages)[0]].edittoken;
+						if (edittoken === undefined) {
+							reject('noedit');
+						}
 						resolve(edittoken);
 					} else {
 						reject();

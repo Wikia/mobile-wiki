@@ -15,8 +15,27 @@
 .register-fb-page,
 .fb-connect-page {
 	.auth-header {
-		h1 {
-			font-weight: bold;
+		font-weight: bold;
+	}
+}
+
+.desktop {
+	.auth-header {
+		font-size: 2.5rem;
+		font-weight: bold;
+		padding: 75px 75px 53px;
+		position: relative;
+
+		&::after {
+			background-image: url('/front/images/wikia-logo-circled.svg');
+			bottom: - $circle-logo-size / 2;
+			content: " ";
+			display: block;
+			height: $circle-logo-size;
+			left: 50%;
+			margin-left: - $circle-logo-size / 2;
+			position: absolute;
+			width: $circle-logo-size;
 		}
 
 		p {

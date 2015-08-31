@@ -1,7 +1,14 @@
 <div class="carousel">
-    {{#each carousel}}
-        <a href="{{url}}" class="slide">
-            <img src="{{filename}}">
-        </a>
-    {{/each}}
+  {{#each carousel}}
+  <div>
+    <a href="{{url}}" class="slide">
+      <img src="{{filename}}">
+    </a>
+    <p class="slider-heading">
+      <a href="{{url}}">
+        <b>{{title}}</b>
+      </a>
+    </p>
+  </div>
+  {{/each}}
 </div>

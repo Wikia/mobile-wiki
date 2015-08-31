@@ -20,9 +20,11 @@ i18n.init(<I18nextOptions> {
 });
 
 window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement: HTMLFormElement = <HTMLFormElement> window.document.querySelector('form'),
+	var formElement: HTMLFormElement = <HTMLFormElement> document.querySelector('form'),
+		facebookConnectLink = <HTMLAnchorElement> document.querySelector('.signup-provider-facebook'),
 		birthdateContainer: HTMLElement,
 		submitValidator: SubmitValidator;
+
 	if (formElement) {
 		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();
@@ -36,13 +38,13 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		} else if (formElement.id === 'signupForm') {
 			new SignupForm(formElement).watch();
 		} else if (formElement.id === 'facebookRegistrationForm') {
-			new FacebookRegistration(<HTMLFormElement> document.querySelector('form'));
+			new FacebookRegistration(formElement);
 		}
 	}
 
-	//if (document.body.className.indexOf('join-page') !== -1) {
-	//	new FacebookLogin(<HTMLAnchorElement> document.querySelector('.signup-provider-facebook'));
-	//}
+	if (facebookConnectLink) {
+		new FacebookLogin(facebookConnectLink);
+	}
 
 	if (birthdateContainer) {
 		new BirthdateInput(birthdateContainer, formElement).init();

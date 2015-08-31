@@ -1,0 +1,62 @@
+{
+  "description": "Configuration file for popular wikias",
+  "data": [
+    {
+      "name": "カービ Wiki",
+      "url": "http://ja.kirby.wikia.com/",
+      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+    },
+    {
+      "name": "Wookiepedia",
+      "url": "http://ja.starwars.wikia.com/",
+      "imageBaseUrl": "http://vignette3.wikia.nocookie.net/corporate/images/d/d0/Wikia-Visualization-Main%2Cjastarwars.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/0/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/500/x-offset/0/y-offset/50/window-width/491/window-height/180?path-prefix=ja"
+    },
+    {
+      "name": "東京ゲームショウ",
+      "url": "http://ja.gameshow.wikia.com/",
+      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/00/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+    },
+    {
+      "name": "プリキュア",
+      "url": "http://ja.prettycure.wikia.com/",
+      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+    },
+    {
+      "name": "花火",
+      "url": "http://ja.hanabi.wikia.com/",
+      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+    },
+    {
+      "name": "One Piece",
+      "url": "http://ja.onepiece.wikia.com/",
+      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+    },
+    {
+      "name": "ダークソウル",
+      "url": "http://ja.darksouls.wikia.com/",
+      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+    },
+    {
+      "name": "女神転生",
+      "url": "http://ja.megamitensei.wikia.com/",
+      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/5/52/Wikia-Visualization-Main%2Cjamegamitensei.png/revision/latest/",
+      "imageNarrow": "window-crop/width/480/x-offset/0/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
+      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+    }
+  ],
+  "layout": [ "grid-item", "grid-item-big", "grid-item", "grid-item-big", "grid-item-big", "grid-item", "grid-item-big", "grid-item"]
+}

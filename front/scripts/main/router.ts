@@ -12,7 +12,7 @@ App.Router.map(function () {
 	var articlePath = Em.getWithDefault(Mercury, 'wiki.articlePath', '/wiki/').replace(/\/?$/, '/');
 
 	this.route('mainPage', {
-		path: '/'
+		path: '/wiki/' + Mercury.wiki.mainPageTitle
 	}, function () {
 		this.route('section', {
 			path: '/main/section/:sectionName'
@@ -70,9 +70,15 @@ App.Router.map(function () {
 		path: articlePath + 'addPhoto/:title'
 	});
 
-	this.route('discussion', {path: '/d'}, function () {
-		this.route('forum', {path: '/:forumId'}, function () {
-			this.route('post', {path: '/:postId'});
+	this.route('discussion', {
+		path: '/d'
+	}, function () {
+		this.route('forum', {
+			path: '/f/:forumId'
+		});
+
+		this.route('post', {
+			path: '/p/:postId'
 		});
 	});
 
