@@ -1,0 +1,23 @@
+// compiled style guide css and scss variables
+@import '../../vendor/wikia-style-guide/dist/css/main.css';
+
+// configuration
+@import 'settings';
+
+// base
+@import 'base/anchors';
+
+// layout
+@import 'layout/body';
+@import 'layout/content';
+@import 'layout/footer';
+@import 'layout/header';
+
+// modules
+
+// theme
+@import 'theme/_global-nav';
+@import 'theme/footer';
+@import 'theme/header';
+@import 'theme/body';
+

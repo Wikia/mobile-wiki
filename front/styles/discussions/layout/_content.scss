@@ -1,0 +1,49 @@
+
+.discussions-content {
+	background-color: $content-background-color;
+	// stick the footer to the bottom
+	flex-grow: 1;
+	flex-shrink: 0;
+	padding: 14px 18px;
+
+	* {
+		-webkit-tap-highlight-color: Transparent;
+	}
+
+	//Temporary changes for the Login MVP
+	form {
+		margin: auto;
+		max-width: 720px;
+	}
+}
+
+.standalone {
+	.desktop-view {
+		border-color: $border-color;
+		border-style: solid;
+		border-width: 0 1px;
+		margin: 0 31px;
+		min-width: 706px;
+	}
+}
+
+.desktop-view {
+	background-color: $content-background-color;
+	display: flex;
+	flex-direction: row;
+	flex-shrink: 0;
+
+	// stick the footer to the bottom
+	flex-grow: 1;
+	justify-content: center;
+	padding: 25px 0;
+
+	.discussions-content {
+		flex-grow: initial;
+		float: left;
+		margin: 25px;
+		min-width: 200px;
+		max-width: 350px;
+		width: calc(50% - 50px);
+	}
+}
