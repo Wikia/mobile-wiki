@@ -64,10 +64,15 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 					if (data && data.css && data.templates) {
 						this.set('templates', data.templates);
 						this.loadTemplateCompiler().then(() => {
-							//this.sanitizeTemplate();
-							App.InfoboxTitleItemComponent.layout = Em.Handlebars.compile(data.templates['title']);
-							console.log("templa!", App.InfoboxTitleItemComponent.layout)
-							//App.InfoboxDataItemComponent.layout = Em.Handlebars.compile(data.templates.data);
+							App.InfoboxTitleItemComponent.reopen({
+								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['title']))
+							});
+							App.InfoboxDataItemComponent.reopen({
+								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['data']))
+							});
+							App.InfoboxImageItemComponent.reopen({
+								//layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['image']))
+							});
 							resolve(data);
 						});
 
@@ -81,15 +86,21 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			});
 		});
 	},
-	//
-	//sanitizeTemplate( text ) {
-	//	var pattern = /\{\{#/g/,
-	//		replace = '{{#if ';
-	//
-	//	var a = text.replace(pattern, replace);
-	//	console.log(a);
-	//	return a;
-	//},
+
+	sanitizeTemplate( text: string ): string {
+		var patternOpen = /\{\{#/g,
+			replaceOpen = '{{#if ',
+			patternClose = /\{\{\/.+\}\}/g,
+			replaceClose = '{{/if}}';
+
+		text = text.replace(patternOpen, replaceOpen);
+		text = text.replace(patternClose, replaceClose);
+
+		console.log(text);
+
+		return text;
+	},
+
 	/**
 	 * add oasis portable infobox styles to DOM
 	 * @param {String[]} cssUrls

@@ -3,7 +3,6 @@
 
 App.InfoboxTitleItemComponent = Em.Component.extend({
 	value: Em.computed('data', function() {
-		debugger
 		return this.get('data.defaultValue') || 'Your Title';
 	}),
 
