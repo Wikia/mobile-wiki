@@ -5,15 +5,20 @@
 	text-align: center;
 
 	ul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
 		list-style-type: none;
 		padding: 0;
 	}
 
 	li {
-		display: inline-block;
-		max-width: 300px;
+		display: block;
+		flex-grow: 1;
+		flex-shrink: 0;
 		padding: 0 50px;
 		text-align: left;
+		width: 320px;
 	}
 
 	h6, p {
@@ -26,5 +31,6 @@
 
 	p {
 		margin-top: 0;
+		line-height: 1.125rem;
 	}
 }
