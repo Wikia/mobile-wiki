@@ -1,7 +1,17 @@
 .discussions-footer {
-	background-color: $footer-background-color;
 	font-size: .75rem;
 	line-height: 18px;
 	padding: 15px;
 	text-align: center;
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	li {
+		display: inline-block;
+		max-width: 300px;
+		padding-right: 50px;
+	}
 }
