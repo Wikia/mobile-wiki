@@ -1,5 +1,13 @@
 {
 	"open-graph": {
 		"generic-title": "Discussion on __siteName__"
+	},
+	"splash-page": {
+		"start-discussions-title": "Start Discussions",
+		"start-discussions-text": "Ask a question, share news or just talk with other fans from around the world about your favourite topics!",
+		"upvote-the-best-title": "Upvote the Best",
+		"upvote-the-best-text": "See something you love? Cast your upvote to show your appreciation and influence what's trending.",
+		"share-your-knowledge-title": "Share your knowledge",
+		"share-your-knowledge-text": "Share your favourite discussions with your social networks to bring more fans into the fold."
 	}
 }
