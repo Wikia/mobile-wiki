@@ -5,11 +5,8 @@
 
 App.ArticleController = Em.Controller.extend({
 	needs: ['application'],
-	queryParams: [{
-		commentsPage: 'comments_page'
-	}],
-	commentsPage: null,
 	noAds: Em.computed.alias('controllers.application.noAds'),
+	commentsPage: Em.computed.alias('controllers.application.commentsPage'),
 
 	init: function (): void {
 		this.setProperties({
@@ -19,11 +16,6 @@ App.ArticleController = Em.Controller.extend({
 	},
 
 	actions: {
-		updateHeaders: function (headers: NodeList): void {
-			var article = this.get('model');
-			article.set('sections', headers);
-		},
-
 		edit: function (title: string, sectionIndex: number): void {
 			App.VisibilityStateManager.reset();
 			this.transitionToRoute('edit', title, sectionIndex);
@@ -35,7 +27,20 @@ App.ArticleController = Em.Controller.extend({
 			});
 		},
 
-		articleRendered: function () {
+		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
+			var photoModel = App.AddPhotoModel.load(photoData);
+			//We don't want to hold with transition and wait for a promise to resolve.
+			//Instead we set properties on model after resolving promise and Ember scheduler handles this gracefully.
+			photoModel.then((model: typeof App.AddPhotoModel) => {
+				model.setProperties({
+					title,
+					sectionIndex
+				});
+			});
+			this.transitionToRoute('addPhoto', photoModel);
+		},
+
+		articleRendered: function (): void {
 			this.send('handleLightbox');
 		}
 	}

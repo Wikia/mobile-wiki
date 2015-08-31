@@ -26,13 +26,16 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
+	//TODO: Temporary, remove with CONCF-1095
+	host: window.location.host,
+	isAllowedWikia: Em.computed.match('host', /creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
+	curatedContentToolEnabled: false,
+	curatedContentToolButtonVisible: Em.computed.and('curatedContentToolEnabled', 'isAllowedWikia', 'currentUser.rights.curatedcontent'),
+
 	/**
 	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
 	 */
 	curatedContentObserver: Em.observer('curatedContent', function (): void {
-		// TODO (ADEN-2189): This should be refactored, ads should be initialized only once
-		this.sendAction('setupAds', this.get('adsContext'));
-
 		Em.run.schedule('afterRender', this, (): void => {
 			M.setTrackContext({
 				a: this.get('title'),

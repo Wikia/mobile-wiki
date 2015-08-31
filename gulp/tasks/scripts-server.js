@@ -1,3 +1,8 @@
+/*
+ * scripts-server
+ * Compiles server ts files
+ */
+
 var gulp = require('gulp'),
 	ts = require('gulp-typescript'),
 	gutil = require('gulp-util'),

@@ -1,10 +1,11 @@
 {
   "name": "Mercury",
-  "version": "103.0.0",
+  "version": "145.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "dev": "rm -rf www && gulp",
+    "dev": "rm -rf www && gulp --nosync",
+    "local": "rm -rf www && gulp",
     "start": "rm -rf www && npm run build && node www/server/server.js",
     "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test",
     "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test",
@@ -28,7 +29,7 @@
     "hoek": "2.12.0",
     "i18next": "1.7.10",
     "newrelic": "1.18.1",
-    "wreck": "5.4.0"
+    "wreck": "6.1.0"
   },
   "devDependencies": {
     "browser-sync": "^2.5.3",
@@ -59,10 +60,10 @@
     "gulp-tslint": "1.x.x",
     "gulp-typedoc": "^1.1.0",
     "gulp-typescript": "~2.6.0",
-    "gulp-sourcemaps": "~1.5.2",
     "gulp-uglify": "1.x.x",
     "gulp-useref": "1.x.x",
     "gulp-util": "3.x.x",
+    "gulp-vulcanize": "^6.0.1",
     "gulp-wrap": "^0.11.0",
     "karma": "0.12.x",
     "karma-chrome-launcher": "0.x.x",

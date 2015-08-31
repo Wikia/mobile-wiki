@@ -8,26 +8,44 @@ interface FeaturedContentItem {
 	article_id: number;
 	type: string;
 	image_url: string;
+	image_crop?: {
+		landscape: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		square: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+	};
 	article_local_url: string;
 }
 
 App.FeaturedContentMixin = Em.Mixin.create({
 	layoutName: 'components/featured-content',
 	classNames: ['featured-content'],
-	hasMultipleItems: Em.computed('model', function (): boolean {
-		return this.getWithDefault('model', []).length > 1;
-	}),
 	currentItemIndex: 0,
-	// should it be here?
-	model: [],
+
+	hasMultipleItems: Em.computed('model', function (): boolean {
+		return this.get('model.length') > 1;
+	}),
 
 	currentItem: Em.computed('model', 'currentItemIndex', function (): FeaturedContentItem {
-		//@TODO evaluate better solution
-		return this.getWithDefault('model', [])[this.get('currentItemIndex')];
+		var model: FeaturedContentItem[] = this.get('model');
+
+		if (!Em.isEmpty(model)) {
+			return this.get('model')[this.get('currentItemIndex')];
+		}
+
+		return null;
 	}),
 
 	lastIndex: Em.computed('model', function (): number {
-		return this.getWithDefault('model', []).length - 1;
+		return this.get('model.length') - 1;
 	}),
 
 	/**

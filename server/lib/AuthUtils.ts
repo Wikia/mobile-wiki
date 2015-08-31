@@ -5,15 +5,14 @@
 
 import url = require('url');
 import querystring = require('querystring');
+import localSettings = require('../../config/localSettings');
 
 var wikiaSignupPathname: string = '/wiki/Special:UserSignup',
 	wikiaLoginPathname: string = '/wiki/Special:UserLogin',
-	forgotPasswordSearch: string = '?recover=1';
+	forgotPasswordSearch: string = '?type=forgotPassword';
 
-export function getSignupUrlFromRedirect(redirect: string): string {
-	var signupUrlObj = url.parse(redirect);
-	signupUrlObj.pathname = wikiaSignupPathname;
-	return url.format(signupUrlObj);
+export function getRegisterUrl(request: Hapi.Request): string {
+	return this.getRedirectUrlWithQueryString('register', request);
 }
 
 export function getForgotPasswordUrlFromRedirect(redirect: string): string {
@@ -23,10 +22,8 @@ export function getForgotPasswordUrlFromRedirect(redirect: string): string {
 	return url.format(forgotPasswordUrlObj);
 }
 
-export function getLoginUrlFromRedirect(redirect: string): string {
-	var forgotPasswordUrlObj = url.parse(redirect);
-	forgotPasswordUrlObj.pathname = wikiaLoginPathname;
-	return url.format(forgotPasswordUrlObj);
+export function getSignInUrl(request: Hapi.Request): string {
+	return this.getRedirectUrlWithQueryString('signin', request);
 }
 
 export function getCacheBusterUrl(redirect: string): string {
@@ -43,4 +40,12 @@ export function getRedirectUrlWithQueryString(route: string, request: Hapi.Reque
 	var redirectUrl = request.url;
 	redirectUrl.pathname = route;
 	return redirectUrl.format();
+}
+
+export function getHeliosUrl(path: string): string {
+	return url.format({
+		protocol: 'https',
+		host: localSettings.servicesDomain,
+		pathname: localSettings.helios.path + path
+	});
 }

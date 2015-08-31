@@ -6,7 +6,7 @@
 App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.ViewportMixin, {
 	classNames: ['portable-infobox'],
 	classNameBindings: ['collapsed'],
-	expandButtonClass: 'portable-infobox-expand-button',
+	expandButtonClass: 'pi-expand-button',
 	layoutName: 'components/portable-infobox',
 	tagName: 'aside',
 
@@ -39,10 +39,12 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * We want to always show the image AND some other infobox informations to
 	 * indicate that this is infobox, not only an ordinary image.
 	 */
-	collapsedHeight: Em.computed('viewportDimensions.width', function (): number {
-		var deviceWidth = this.get('viewportDimensions.width');
+	collapsedHeight: Em.computed('viewportDimensions.width', 'viewportDimensions.height', function (): number {
+		var deviceWidth = this.get('viewportDimensions.width'),
+			deviceHeight = this.get('viewportDimensions.height'),
+			isLandscape = deviceWidth > deviceHeight;
 
-		return Math.floor(deviceWidth * 16 / 9) + 100;
+		return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
 	}),
 
 	handleCollapsing: function (): void {

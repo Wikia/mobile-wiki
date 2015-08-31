@@ -9,7 +9,6 @@
 	top: rem-calc(44);
 
 	li {
-		@extend %pointer;
 		border-bottom: rem-calc(1) solid #d0d0d0;
 		color: #333333;
 		font-weight: normal;

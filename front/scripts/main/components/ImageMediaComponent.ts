@@ -1,31 +1,37 @@
 /// <reference path="../app.ts" />
 /// <reference path="./MediaComponent.ts" />
 /// <reference path="../mixins/ArticleContentMixin.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
-App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
+App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App.ViewportMixin, {
 	smallImageSize: {
 		height: 64,
 		width: 64
 	},
 	classNames: ['article-image'],
-	classNameBindings: ['hasCaption', 'visible', 'isSmall'],
+	classNameBindings: ['hasCaption', 'visible', 'isSmall', 'isIcon'],
 	layoutName: 'components/image-media',
 
 	imageSrc: Em.computed.oneWay(
 		'emptyGif'
 	),
-	hasCaption: Em.computed.notEmpty('media.caption'),
+
+	caption: Em.computed('media.caption', 'isIcon', function (): string|boolean {
+		var caption = this.get('media.caption');
+		return this.get('isIcon') ? false : caption;
+	}),
 
 	link: Em.computed.alias('media.link'),
 
-	isSmall: Em.computed('width', 'height', function(): boolean {
-		var imageWidth = this.get('width'),
-			imageHeight = this.get('height');
+	isSmall: Em.computed('media.width', 'media.height', function (): boolean {
+		var imageWidth = this.get('media.width'),
+			imageHeight = this.get('media.height');
 
 		return !!imageWidth && imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
-
 	}),
+
+	isIcon: Em.computed.equal('media.context', 'icon'),
 
 	/**
 	 * used to set proper height to img tag before it loads
@@ -38,7 +44,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 			imageHeight = this.get('height');
 
 		if (pageWidth < imageWidth) {
-			return ~~(pageWidth * (imageHeight / imageWidth));
+			return Math.floor(pageWidth * (imageHeight / imageWidth));
 		}
 
 		return imageHeight;
@@ -46,23 +52,21 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 
 	/**
 	 * @desc return the thumbURL for media.
-	 * If media is an icon, use the computed width.
+	 * If media is an icon, use the limited width.
 	 */
 	url: Em.computed({
 		get(): string {
-			var media: ArticleMedia = this.get('media'),
-				mode: string,
-				height: number,
-				width: number;
+				var media: ArticleMedia = this.get('media'),
+					mode: string = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
+					width: number = this.get('articleContent.width');
 
-			if (media) {
+				if (!media) {
+					return this.get('imageSrc');
+				}
+
 				if (media.context === 'icon') {
-					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
-					height = this.get('iconHeight');
+					mode = Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 					width = this.get('iconWidth');
-				} else {
-					mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown;
-					width = this.get('articleContent.width');
 				}
 
 				return this.getThumbURL(media.url, {
@@ -70,18 +74,17 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 					height: this.get('computedHeight'),
 					width: width
 				});
-			}
 
-			//if it got here, that means that we don't have an url for this media
-			//this might happen for example for read more section images
-		},
-		set(key: string, value: string): string {
-			return this.getThumbURL(value, {
-				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
-				height: this.get('computedHeight'),
-				width: this.get('articleContent.width')
-			});
-		}
+				//if it got here, that means that we don't have an url for this media
+				//this might happen for example for read more section images
+			},
+			set(key: string, value: string): string {
+				return this.getThumbURL(value, {
+					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+					height: this.get('computedHeight'),
+					width: this.get('articleContent.width')
+				});
+			}
 	}),
 
 	/**
@@ -97,7 +100,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	/**
 	 * load an image and run update function when it is loaded
 	 */
-	load: function(): void {
+	load: function (): void {
 		var url = this.get('url'),
 			image: HTMLImageElement;
 		if (url) {

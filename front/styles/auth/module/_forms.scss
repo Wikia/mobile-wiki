@@ -31,7 +31,7 @@ form {
 	pointer-events: none;
 	position: absolute;
 	top: 1.25rem;
-	transition: font-size ease-in 0.15s, top ease-in 0.15s;
+	transition: font-size ease-in 0.1s, top ease-in 0.1s;
 }
 
 .floating-label.active {
@@ -45,6 +45,14 @@ input[type='password']:valid + .floating-label,
 input[type='email']:valid  + .floating-label,
 input[type='date']:valid + .floating-label {
 	color: $label-color-valid;
+}
+
+input:valid + .floating-label.error {
+	color: $input-border-error-color;
+}
+
+.input-password::-ms-clear {
+	display: none;
 }
 
 .input-container > img {
@@ -61,16 +69,22 @@ input[type='date']:valid + .floating-label {
 	}
 }
 
-button[type="submit"].on {
+button[type="submit"].on,
+.signup-provider-facebook.on {
+	padding-left: 0;
+	padding-right: 0;
+
 	&::before {
 		animation: spin 1s linear infinite;
 		background: url("/front/images/loading.svg") center no-repeat;
 		content: " ";
 		display: block;
-		height: 40px;
+		height: 100%;
+		position: absolute;
+		width: 100%;
 	}
 
 	span {
-		display: none;
+		visibility: hidden
 	}
 }

@@ -1,3 +1,8 @@
+/*
+ * scripts-config
+ * Config for compiling ts files
+ */
+
 var fs = require('fs'),
 	gulp = require('gulp'),
 	gutil = require('gulp-util'),

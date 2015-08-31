@@ -1,0 +1,11 @@
+<header class="sub-head">
+	<a {{action 'goBack'}} class="sub-head--cancel">
+		{{svg 'back-arrow' role='img' class='icon'}}
+	</a>
+	<button {{action 'done'}} class="sub-head--done">{{i18n 'app.curated-content-editor-done'}}</button>
+	<div class="sub-head--title">{{i18n 'app.curated-content-editor-crop-image'}}</div>
+</header>
+<div class="curated-content-editor-photo-crop">
+	<img src="{{imageUrl}}" />
+</div>
+{{loading-spinner active=isLoading}}

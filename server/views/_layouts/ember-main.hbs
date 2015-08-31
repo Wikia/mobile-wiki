@@ -5,11 +5,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
 		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
-		<!-- TODO: Use article.details.description after CONCF-509 is pushed to app@prod and caches are fresh, see CONCF-670 -->
-		<meta name="description" content="{{#if article.details.description}}{{article.details.description}}{{else}}{{article.article.description}}{{/if}}">
+		<meta name="description" content="{{article.details.description}}">
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 		{{#if themeColor}}
-		<meta name="theme-color" content="{{themeColor}}">
+			<meta name="theme-color" content="{{themeColor}}">
+		{{/if}}
+		{{#if asyncArticle}}
+			<meta name="fragment" content="!">
 		{{/if}}
 
 		{{#if isRtl}}
@@ -30,23 +32,29 @@
 
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
-			{{#if server.mediawikiDomain}}
-			M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
-			M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
-			{{/if}}
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
 			M.prop('environment', '{{{server.environment}}}');
-			M.prop('firstPage', true, true);
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
 			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
-			M.prop('weppyConfig', {{{json weppyConfig}}});
+			M.prop('weppyConfig', {{{json localSettings.weppy}}});
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			M.prop('userId', {{{userId}}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});
-			M.provide('article', {{{json article}}});
+
+			{{#if server.mediawikiDomain}}
+				M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
+				M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+			{{/if}}
+			{{#if asyncArticle}}
+				M.prop('asyncArticle', {{asyncArticle}});
+			{{/if}}
+			{{#if article}}
+				M.prop('articleContentPreloadedInDOM', true, true);
+				M.provide('article', {{{json article}}});
+			{{/if}}
 			{{#if curatedContent}}
 				M.prop('curatedContent', {{{json curatedContent}}}, true);
 			{{/if}}
@@ -54,8 +62,9 @@
 				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
 			{{#if error}}
-			M.provide('article.error', {{{error}}});
+				M.provide('error', {{{error}}});
 			{{/if}}
+
 		</script>
 
 		<!-- @ifdef browserSync -->
@@ -67,48 +76,53 @@
 	</head>
 	<body>
 		{{> qualaroo}}
+		<!-- @include ../../../www/front/svg/common.svg -->
 		<!-- @include ../../../www/front/svg/main.svg -->
 
-		<div id="article-preload">
-			{{{content}}}
-		</div>
 
         <!--
         Ember must render out to a specific div above the scripts, otherwise
         Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
         DO NOT REMOVE THE FOLLOWING LINE:
         -->
-        <div id="ember-container"></div>
+		<div id="ember-container">
+			<div id="preload">
+				<nav class="site-head">
+					<div class="site-logo">
+						<svg role="img" class="icon wikia-logo">
+							<use xlink:href="#wikia-logo"></use>
+						</svg>
+					</div>
+				</nav>
+				<div class="page-wrapper" lang="{{wiki.language.content}}" dir="{{wiki.language.contentDir}}">
+					{{{content}}}
+				</div>
+			</div>
+		</div>
 
-		<!-- build:js /front/vendor/main.js defer -->
-			<script src="/front/vendor/script.js/dist/script.js"></script>
-			<script src="/front/vendor/fastclick/lib/fastclick.js"></script>
-			<script src="/front/vendor/jquery/dist/jquery.js"></script>
-			<script src="/front/vendor/hammerjs/hammer.js"></script>
-			<script src="/front/vendor/headroom.js/dist/headroom.js"></script>
-			<script src="/front/vendor/jquery.cookie/jquery.cookie.js"></script>
-			<!-- @if WIKIA_ENVIRONMENT='dev' -->
-			<script src="/front/vendor/ember/ember.debug.js"></script>
-			<!-- @endif -->
-			<!-- @if WIKIA_ENVIRONMENT!='dev' -->
-			<script src="/front/vendor/ember/ember.prod.js"></script>
-			<!-- @endif -->
-			<script src="/front/vendor/ember-hammer/ember-hammer.js"></script>
-			<script src="/front/vendor/i18next/i18next.js"></script>
-			<script src="/front/vendor/vignette/dist/vignette.js"></script>
-			<script src="/front/vendor/numeral/numeral.js"></script>
-			<script src="/front/vendor/weppy/dist/weppy.js"></script>
-			<script src="/front/vendor/ember-performance-sender/dist/ember-performance-sender.js"></script>
-		<!-- endbuild -->
+		<script>
+			(function () {
+				function loadError (oError) {
+					throw new URIError("The script " + oError.target.src + " is not accessible.");
+				}
 
-		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" defer></script>
+				function importScript (src, fOnload) {
+					var script = document.createElement("script");
+					script.type = "text\/javascript";
+					script.onerror = loadError;
+					if (fOnload) { script.onload = fOnload; }
+					document.body.appendChild(script);
+					script.src = src;
+				}
 
-		<!-- build:js /front/scripts/combined.js defer -->
-			<script src="/front/templates/main.js"></script>
-			<script src="/front/scripts/mercury.js"></script>
-			<script src="/front/scripts/main.js"></script>
-		<!-- endbuild -->
-
+				document.addEventListener("DOMContentLoaded", function(event) {
+					importScript('/front/vendor/main.js', function () {
+						importScript('/front/scripts/combined.js');
+					});
+				});
+			}());
+		</script>
+		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}
 	</body>
 </html>

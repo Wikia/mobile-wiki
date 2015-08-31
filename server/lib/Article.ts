@@ -27,24 +27,6 @@ export class ArticleRequestHelper {
 	}
 
 	/**
-	 * Create server data
-	 *
-	 * @returns ServerData
-	 */
-	private createServerData(wikiDomain: string = ''): ServerData {
-		var env = localSettings.environment;
-
-		return {
-			mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
-			apiBase: localSettings.apiBase,
-			environment: Utils.getEnvironmentString(env),
-			cdnBaseUrl: (env === Utils.Environment.Prod) ||
-						(env === Utils.Environment.Sandbox) ?
-						localSettings.cdnBaseUrl : ''
-		};
-	}
-
-	/**
 	 * Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
 	 * http://www.wikia.com/api/v1/#!/Articles
 	 * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
@@ -55,7 +37,7 @@ export class ArticleRequestHelper {
 	 */
 	getData(callback: Function, getWikiVariables: boolean = false): void {
 		var requests = [
-				new MediaWiki.ArticleRequest(this.params).article(this.params.title, this.params.redirect)
+				new MediaWiki.ArticleRequest(this.params).article(this.params.title, this.params.redirect, this.params.sections)
 			];
 
 		logger.debug(this.params, 'Fetching article');
@@ -107,7 +89,7 @@ export class ArticleRequestHelper {
 	getFull(next: Function): void {
 		this.getData((error: any, article: any, wikiVariables: any) => {
 			next(error, {
-				server: this.createServerData(this.params.wikiDomain),
+				server: Utils.createServerData(localSettings, this.params.wikiDomain),
 				wiki: wikiVariables || {},
 				article: article || {}
 			});
@@ -140,7 +122,7 @@ export class ArticleRequestHelper {
 	getArticle(wikiVariables: any, next: Function): void {
 		this.getData((error: any, article: any) => {
 			next(error, {
-				server: this.createServerData(this.params.wikiDomain),
+				server: Utils.createServerData(localSettings, this.params.wikiDomain),
 				wiki: wikiVariables || {},
 				article: article || {}
 			});

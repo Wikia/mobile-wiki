@@ -1,3 +1,8 @@
+/*
+ * docs-server
+ * Creates documentation for server scripts in in mercury/docs/server/
+ */
+
 var gulp = require('gulp'),
 	typedoc = require('gulp-typedoc'),
 	paths = require('../paths'),

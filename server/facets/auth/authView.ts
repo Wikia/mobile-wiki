@@ -1,15 +1,27 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 
 import caching = require('../../lib/Caching');
+import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
 import url = require('url');
 
 module authView {
+	interface PageParams {
+		[key: string]: string;
+	}
+
+	export var VIEW_TYPE_MOBILE = 'mobile';
+	export var VIEW_TYPE_DESKTOP = 'desktop';
+
 	export interface AuthViewContext {
 		title: string;
 		canonicalUrl: string;
 		language: string;
 		exitTo: string;
+		mainPage: string;
+		standalonePage: boolean;
+		optimizelyScript: string;
+		pageParams: PageParams;
 		hideHeader?: boolean;
 		hideFooter?: boolean;
 		footerHref?: string;
@@ -18,13 +30,14 @@ module authView {
 		headerText?: string;
 		bodyClasses?: string;
 		trackingConfig?: any;
+		isModal?: boolean;
 	}
 
 	export function view (template: string, context: AuthViewContext, request: Hapi.Request, reply: any): Hapi.Response {
 		var response: Hapi.Response;
 
 		response = reply.view(
-			template,
+			'auth/' + this.getViewType(request) + '/' + template,
 			context,
 			{
 				layout: 'auth'
@@ -70,12 +83,22 @@ module authView {
 	}
 
 	export function getDefaultContext (request: Hapi.Request): AuthViewContext {
+		var viewType: string = this.getViewType(request),
+			isModal: boolean = request.query.modal === '1';
 		return {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
+			mainPage: 'http://www.wikia.com',
+			isModal: isModal,
 			language: request.server.methods.i18n.getInstance().lng(),
-			trackingConfig: localSettings.tracking
+			trackingConfig: localSettings.tracking,
+			optimizelyScript: localSettings.optimizely.scriptPath +
+				localSettings.optimizely.account + '.js',
+			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
+			pageParams: {
+				viewType: viewType
+			}
 		};
 	}
 
@@ -89,6 +112,15 @@ module authView {
 		}
 
 		return reply();
+	}
+
+	export function getViewType(request: Hapi.Request): string {
+		var mobilePattern = localSettings.patterns.mobile,
+			ipadPattern = localSettings.patterns.iPad;
+		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
+			return this.VIEW_TYPE_MOBILE;
+		}
+		return this.VIEW_TYPE_DESKTOP;
 	}
 }
 

@@ -35,8 +35,8 @@ $featured-content-caption-line-height: 32px;
 	.clamp {
 		@include clamp(2);
 		bottom: 40px;
-		padding: 0 10px;
 		max-height: 2 * $featured-content-caption-line-height;
+		padding: 0 10px;
 		position: absolute;
 		width: 100%;
 	}
@@ -49,7 +49,7 @@ $featured-content-caption-line-height: 32px;
 	figcaption {
 		background: linear-gradient(to top, rgba(0, 0, 0 , .7), rgba(255, 255, 255, 0));
 		bottom: 0;
-		color: white;
+		color: $white;
 		font-size: 28px;
 		height: 100px;
 		line-height: $featured-content-caption-line-height;
@@ -64,9 +64,9 @@ $featured-content-caption-line-height: 32px;
 	left: 50%;
 	position: absolute;
 	transform: translate(-50%, 0);
-}
 
-.featured-content-pagination.dot-pagination .current span {
-	background-color: $white;
-	border-color: $white;
+	&.dot-pagination .current span {
+		background-color: $white;
+		border-color: $white;
+	}
 }

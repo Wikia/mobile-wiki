@@ -11,6 +11,7 @@ var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
 	apiBase: '/api/v1',
+	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
@@ -18,12 +19,12 @@ var localSettings: LocalSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		// Never add the host, secret or key here directly, only specify in your localSettings.ts (.gitignored)
-		host: process.env.HELIOS_HOST,
-		secret: process.env.HELIOS_SECRET,
-		id: process.env.HELIOS_ID,
+		path: '/auth',
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
+	},
+	discuss: {
+		baseAPIPath: 'discussion',
 	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
@@ -44,13 +45,11 @@ var localSettings: LocalSettings = {
 	optimizely: {
 		enabled: true,
 		scriptPath: '//cdn.optimizely.com/js/',
-		devAccount: '2441440871',
 		account: '2449650414'
 	},
 	qualaroo: {
 		enabled: true,
-		scriptUrlDev:  '//s3.amazonaws.com/ki.js/52510/dlS.js',
-		scriptUrlProd: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
+		scriptUrl: '//s3.amazonaws.com/ki.js/52510/bgJ.js'
 	},
 	port: process.env.PORT || 8000,
 	proxyMaxRedirects: 3,
@@ -95,16 +94,25 @@ var localSettings: LocalSettings = {
 	weppy: {
 		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
-		samplingRate: 0.01,
+		samplingRate: 0.1,
 		aggregationInterval: 1000
 	},
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
-	// CDN prefix with no tailing slash
-	cdnBaseUrl: '//mercury.nocookie.net'
+	// CDN prefix with no trailing slash
+	cdnBaseUrl: '//mercury.nocookie.net',
+	// array of wiki dbnames to load first article async instead of in page source
+	asyncArticle: [],
+	facebook: {
+		appId: 112328095453510
+	},
+	patterns: {
+		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
+		iPad: /iPad/
+	}
 };
 
-export function getSettings(customLocalSet: any): LocalSettings {
+export function extendSettings(customLocalSet: any): LocalSettings {
 	return deepExtend(localSettings, customLocalSet);
 }

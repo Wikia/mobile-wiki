@@ -24,6 +24,7 @@ module Mercury.Modules {
 			get (): number;
 			increment (): number;
 		};
+		private currentAdsContext: any = null;
 		private isLoaded = false;
 
 		/**
@@ -41,9 +42,8 @@ module Mercury.Modules {
 		 * Initializes the Ad module
 		 *
 		 * @param adsUrl Url for the ads script
-		 * @param callback Callback function to execute when the script is loaded
 		 */
-		public init (adsUrl: string, callback: () => void): void {
+		public init (adsUrl: string): void {
 			//Required by ads tracking code
 			window.gaTrackAdEvent = this.gaTrackAdEvent;
 			// Load the ads code from MW
@@ -68,7 +68,7 @@ module Mercury.Modules {
 						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 						window.Krux = krux || [];
 						this.isLoaded = true;
-						callback.call(this);
+						this.reloadWhenReady();
 						this.kruxTrackFirstPage();
 					});
 				} else {
@@ -115,6 +115,7 @@ module Mercury.Modules {
 		public reload (adsContext: any): void {
 			// Store the context for external reuse
 			this.setContext(adsContext);
+			this.currentAdsContext = adsContext;
 
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
@@ -122,6 +123,13 @@ module Mercury.Modules {
 				// We need a copy of adSlots as .run destroys it
 				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mercury');
 			}
+		}
+
+		/**
+		 * This is callback that is run after script is loaded
+		 */
+		public reloadWhenReady (): void {
+			this.reload(this.currentAdsContext);
 		}
 
 		/**
@@ -154,11 +162,25 @@ module Mercury.Modules {
 			}, true);
 		}
 
+		/**
+		 * This method is being overwritten in ApplicationRoute for ads needs.
+		 * To learn more check ApplicationRoute.ts file.
+		 */
 		public openLightbox (contents: any): void {
-			/**
-			 * This method is being overwritten in ApplicationRoute for ads needs.
-			 * To learn more check ApplicationRoute.ts file.
-			 */
+		}
+
+		/**
+		 * This method is being overwritten in ApplicationRoute for ads needs.
+		 * To learn more check ApplicationRoute.ts file.
+		 */
+		public createLightbox (contents: any, lightboxVisible?: boolean): void {
+		}
+
+		/**
+		 * This method is being overwritten in ApplicationRoute for ads needs.
+		 * To learn more check ApplicationRoute.ts file.
+		 */
+		public showLightbox (): void {
 		}
 
 		/**

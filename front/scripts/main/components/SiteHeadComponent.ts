@@ -5,8 +5,10 @@
 
 App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	classNames: ['site-head'],
+	classNameBindings: ['themeBar'],
 	tagName: 'nav',
 	headroom: null,
+	themeBar: false,
 
 	options: {
 		// keep it consistent with values in _wikia-variables.scss
@@ -25,10 +27,11 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 
 	actions: {
 		expandSideNav: function (): void {
-			this.set('sideNavCollapsed', false);
+			this.sendAction('toggleSideNav', true);
 		},
+
 		showUserMenu: function (): void {
-			this.set('userMenuCollapsed', false);
+			this.sendAction('toggleUserMenu', true);
 		}
 	},
 
@@ -39,8 +42,10 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, {
 	smartBannerVisibleObserver: Em.observer('smartBannerVisible', function (): void {
 		var headroom = this.get('headroom');
 
-		headroom.destroy();
-		this.initHeadroom();
+		if (headroom) {
+			headroom.destroy();
+			this.initHeadroom();
+		}
 	}),
 
 	/**

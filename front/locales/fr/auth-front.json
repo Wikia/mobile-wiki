@@ -1,17 +1,22 @@
 {
   "errors":{
-    "email_already_exists":"E-mail d'un utilisateur déjà inscrit sur Wikia",
+    "email_already_exists":"Adresse e-mail d'un utilisateur déjà inscrit sur Wikia",
     "email_invalid":"Adresse e-mail non valide",
-    "registration_error":"Nous ne pouvons pas finaliser votre inscription actuellement",
-    "username_already_exists":"Ce nom d'utilisateur est déjà pris. Choisissez-en un autre !",
-    "username_unavailable":"Oups, votre nom d'utilisateur ne peut contenir que des lettres et des chiffres d'un alphabet unique et doit inclure au moins une lettre. Veuillez choisir un autre nom.",
-    "username_ip_address":"Oups, votre nom d'utilisateur ressemble à une adresse IP. Veuillez choisir un autre nom qui contient au moins une lettre.",
-    "username_exceeds_max_length":"Oups, votre nom d'utilisateur ne doit pas dépasser 50 caractères.",
-    "username_illegal_characters":"Oups, votre nom d'utilisateur ne peut contenir que des lettres et des chiffres d'un alphabet unique et doit inclure au moins une lettre. Veuillez choisir un autre nom.",
-    "password_exceeds_max_length":"Oups, votre mot de passe est trop long. Veuillez choisir un mot de passe de 50 caractères ou moins.",
-    "password_equal_name":"Votre mot de passe doit être différent de votre nom d'utilisateur.",
-    "birthdate_invalid":"Oups, il semblerait que cela ne soit pas une date du calendrier. Veuillez recommencer.",
+    "registration_error":"Impossible de finaliser l'inscription à l'heure actuelle.",
+    "username_already_exists":"Ce nom d'utilisateur est déjà pris.",
+    "username_unavailable":"Ce nom d'utilisateur est pris ou comporte des caractères non valides. Le nom d'utilisateur ne peut comprendre que des chiffres et des lettres d'un même alphabet et doit inclure au moins une lettre.",
+    "username_ip_address":"Le nom d'utilisateur doit comprendre au moins une lettre.",
+    "username_exceeds_max_length":"Le nom d'utilisateur ne peut pas comprendre plus de 50 caractères.",
+    "username_illegal_characters":"Le nom d'utilisateur ne peut comprendre que des chiffres et des lettres d'un même alphabet et doit inclure au moins une lettre.",
+    "password_exceeds_max_length":"Le mot de passe ne peut pas comprendre plus de 50 caractères.",
+    "password_equal_name":"Le nom d'utilisateur et le mot de passe doivent être différents l'un de l'autre.",
+    "user_already_linked":"Ce compte Wikia est déjà connecté à Facebook.",
+    "fb_account_already_linked":"Ce compte Facebook est déjà connecté à un autre compte d'utilisateur Wikia.",
+    "birthdate_invalid":"La date de naissance n'est pas valide.",
     "wrong-credentials":"Nous ne reconnaissons pas ces informations. Veuillez réessayer ou créer un nouveau compte.",
-    "server-error":"Une erreur est survenue au cours du traitement de votre requête. Veuillez réessayer ultérieurement."
+    "server-error":"Une erreur est survenue lors du traitement de votre requête. Veuillez réessayer ultérieurement."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"J'accepte les __termsOfUseLink__ et la __privacyPolicyLink__ (obligatoire)"
   }
 }

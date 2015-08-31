@@ -38,8 +38,23 @@ window.emberHammerOptions = {
 };
 
 App.initializer({
+	name: 'jquery.ajax',
+	initialize () {
+		$.ajaxSetup({
+			cache: true
+		});
+	}
+});
+
+App.initializer({
 	name: 'preload',
 	initialize: (container: any, application: any) => {
+		var $window = $(window);
+
+		$window.scroll(() => {
+			M.prop('scroll.mercury.preload', $window.scrollTop(), true);
+		});
+
 		var debug: boolean = M.prop('environment') === 'dev',
 			//prevents fail if transitions are empty
 			loadedTranslations = M.prop('translations') || {},
@@ -85,9 +100,17 @@ App.initializer({
 			return;
 		}
 
-		$(window).load(() => M.sendPagePerformance());
+		// Send page performance stats after window is loaded
+		// Since we load our JS async this code may execute post load event
+		if (document.readyState === 'complete') {
+			M.sendPagePerformance()
+		} else {
+			$(window).load(() => M.sendPagePerformance());
+		}
 
 		EmPerfSender.initialize({
+			enableLogging: (M.prop('environment') === 'dev'),
+
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send (events: any[], metrics: any) {
 				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
@@ -108,7 +131,7 @@ App.initializer({
 	after: 'performanceMonitoring',
 	initialize: (container: any, application: any): void => {
 		application.register('currentUser:main', App.CurrentUser);
-		application.inject('controller', 'currentUser', 'currentUser:main');
+		application.inject('component', 'currentUser', 'currentUser:main');
 	}
 });
 
@@ -166,7 +189,8 @@ App.initializer({
 
 /**
  * A "Geo" cookie is set by Fastly on every request.
- * If you run mercury app on your laptop, the cookie won't be automatically present.
+ * If you run mercury app on your laptop (e.g. development), the cookie won't be automatically present; hence,
+ * we set fake geo cookie values for 'dev'.
  */
 App.initializer({
 	name: 'geo',
@@ -175,9 +199,13 @@ App.initializer({
 		var geoCookie = $.cookie('Geo');
 		if (geoCookie) {
 			M.prop('geo', JSON.parse(geoCookie));
+		} else if (M.prop('environment') === 'dev') {
+			M.prop('geo', {
+				country: 'wikia-dev-country',
+				continent: 'wikia-dev-continent'
+			});
 		} else {
 			Ember.debug('Geo cookie is not set');
 		}
 	}
 });
-

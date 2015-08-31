@@ -39,14 +39,12 @@ App.AdsMixin = Em.Mixin.create({
 			noAds: this.get('noAds')
 		});
 
-		Ember.run.schedule('afterRender', this, (): void => {
-			view.createElement();
+		view.createElement();
 
-			element[place](<string>view.$());
-			this.adViews.push(view);
+		element[place](<string>view.$());
+		this.adViews.push(view);
 
-			view.trigger('didInsertElement');
-		});
+		view.trigger('didInsertElement');
 	},
 
 	clearAdViews: function (): void {
@@ -133,8 +131,8 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	injectAds: function (): void {
-		var $firstSection = this.$('.article-content > h2').first(),
-			$articleBody = this.$('.article-body'),
+		var $firstSection = this.$().children('h2').first(),
+			$articleBody = $('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
 

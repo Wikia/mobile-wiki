@@ -17,8 +17,8 @@ Em.Handlebars.registerBoundHelper('i18n', function () {
 	Object.keys(options.hash).forEach((key: string) => {
 		if (key === 'ns') {
 			namespace = options.hash[key];
-		} else if (key !== 'boundOptions' && options.hash[key]) {
-			params[key] = this.get('parentView').get(String(options.hash[key]));
+		} else if (key !== 'boundOptions' && options.hash.hasOwnProperty(key)) {
+			params[key] = String(options.hash[key]);
 		}
 	});
 

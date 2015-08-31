@@ -2,16 +2,21 @@
   "errors":{
     "email_already_exists":"Email is already registered on Wikia",
     "email_invalid":"Email is not valid",
-    "registration_error":"We can not complete your registration at this time.",
-    "username_already_exists":"Someone already has this username. Try a different one!",
-    "username_unavailable":"Oops, your username can only contain letters and numbers from a single alphabet and must include at least one letter. Please try another name.",
-    "username_ip_address":"Oops, your username looks like an IP address. Please try another name that includes at least one letter.",
-    "username_exceeds_max_length":"Oops, your username can't be more than 50 characters.",
-    "username_illegal_characters":"Oops, your username can only contain letters and numbers from a single alphabet and must include at least one letter. Please try another name.",
-    "password_exceeds_max_length":"Oops, your password is too long. Please choose a password that's 50 characters or less.",
-    "password_equal_name":"Your password must be different from your username.",
-    "birthdate_invalid":"Oops, it looks like this is not a calendar date! Please try again.",
-    "wrong-credentials":"Hm, we don't recognize these credentials. Please try again or register a new account.",
-    "server-error":"We're sorry, there was an error processing your request. Please try again later."
+    "registration_error":"We cannot complete your registration at this time",
+    "username_already_exists":"Username is taken",
+    "username_unavailable":"Username is taken or has invalid characters. Username can contain letters and numbers from one alphabet and must include one letter",
+    "username_ip_address":"Username must include at least one letter",
+    "username_exceeds_max_length":"Username cannot exceed 50 characters",
+    "username_illegal_characters":"Username can contain only letters and numbers from one alphabet and must include one letter",
+    "password_exceeds_max_length":"Password cannot exceed 50 characters",
+    "password_equal_name":"Password and username cannot match",
+    "user_already_linked":"This Wikia account is already connected to Facebook",
+    "fb_account_already_linked":"This Facebook account is already connected to another Wikia user account",
+    "birthdate_invalid":"Birthdate isn't a valid date",
+    "wrong-credentials":"We don't recognize these credentials. Try again or register a new account.",
+    "server-error":"There was an error processing your request. Please try again later."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"I agree to __termsOfUseLink__ and __privacyPolicyLink__ (required)"
   }
 }

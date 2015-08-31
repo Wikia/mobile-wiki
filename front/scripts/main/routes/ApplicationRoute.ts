@@ -6,19 +6,48 @@
 'use strict';
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
+	queryParams: {
+		comments_page: {
+			replace: true
+		}
+	},
+
 	model: function <T>(params: T): T {
 		return params;
 	},
 
 	activate: function (): void {
-		/**
-		 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
-		 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
-		 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
-		 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
-		 */
-		Mercury.Modules.Ads.getInstance().openLightbox = (contents: any): void => {
-			this.send('openLightbox', 'ads', {contents: contents});
+		var adsInstance: Mercury.Modules.Ads,
+			instantGlobals = Wikia.InstantGlobals || {};
+
+		if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
+			adsInstance = Mercury.Modules.Ads.getInstance();
+			adsInstance.init(M.prop('adsUrl'));
+
+			/**
+			 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
+			 * It works in similar way on Oasis: we call ads server (DFP) to check if there is targeted ad unit for a user.
+			 * If there is and it's in a form of prestitial/interstitial the ad server calls our exposed JS function to
+			 * display the ad in a form of modal. The ticket connected to the changes: ADEN-1834.
+			 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
+			 * lightboxVisible=false and then decide if we want to show it.
+			 */
+			adsInstance.createLightbox = (contents: any, lightboxVisible?: boolean): void => {
+				var actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+				this.send(actionName, 'ads', {contents});
+			};
+
+			/**
+			 * Temporary method to keep working the interstitial before ADEN-2289 is released.
+			 * @TODO clean up after release: ADEN-2347
+			 */
+			adsInstance.openLightbox = (contents: any): void => {
+				this.send('openLightbox', 'ads', {contents});
+			};
+
+			adsInstance.showLightbox = (): void => {
+				this.send('showLightbox');
+			};
 		}
 	},
 
@@ -32,39 +61,27 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			M.VariantTesting.activate();
 			this.controller && this.controller.hideLoader();
 
+			// Clear notification alerts for the new route
+			this.controller.get('alertNotifications').clear();
+
 			/*
 			 * This is called after the first route of any application session has loaded
 			 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 			 */
-			M.prop('firstPage', false);
+			M.prop('articleContentPreloadedInDOM', false);
 		},
 
 		error: function (): void {
 			this.controller && this.controller.hideLoader();
 		},
 
-		setupAds: function (adsContext: any): void {
-			var adsInstance: Mercury.Modules.Ads,
-				instantGlobals = Wikia.InstantGlobals || {};
-
-			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance = Mercury.Modules.Ads.getInstance();
-				adsInstance.init(M.prop('adsUrl'), (): void => {
-					adsInstance.reload(adsContext);
-				});
-			}
-		},
-
 		handleLink: function (target: HTMLAnchorElement): void {
-			// Use this to get current route info
-			// this.router.get('currentState.routerJsState')
-			var handlerInfos = this.router.get('currentState.routerJsState.handlerInfos'),
-				currentRoute = handlerInfos[handlerInfos.length - 1],
+			var currentRoute = this.router.get('currentRouteName'),
 				title: string,
 				trackingCategory: string,
 				info: LinkInfo,
 				// exec() returns an array of matches or null if no match is found.
-				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
+				domainNameRegExpMatchArray: RegExpExecArray = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
 				cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
 				defaultSkin: string = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
@@ -104,7 +121,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			}
 
 			if (info.article) {
-				this.transitionTo('article', info.article);
+				this.transitionTo('article', info.article + (info.hash ? info.hash : ''));
 			} else if (info.url) {
 				/**
 				 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
@@ -123,12 +140,12 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		loadRandomArticle: function (): void {
-			this.get('controller').set('sideNavCollapsed', true);
+			this.get('controller').send('toggleSideNav', false);
 
 			App.ArticleModel
 				.getArticleRandomTitle()
 				.then((articleTitle: string): void => {
-					this.transitionTo('article', encodeURIComponent(M.String.sanitize(articleTitle)));
+					this.transitionTo('article', encodeURIComponent(M.String.normalizeToUnderscore(articleTitle)));
 				})
 				.catch((err: any): void => {
 					this.send('error', err);
@@ -145,13 +162,21 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
 		},
 
+		createHiddenLightbox: function (lightboxType: string, lightboxModel?: any): void {
+			this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
+		},
+
+		showLightbox: function (): void {
+			this.get('controller').send('showLightbox');
+		},
+
 		closeLightbox: function (): void {
 			this.get('controller').send('closeLightbox');
 		},
 
 		// This is used only in not-found.hbs template
-		expandSideNav: function (): void {
-			this.get('controller').set('sideNavCollapsed', false);
+		toggleSideNav: function (visible: boolean): void {
+			this.get('controller').set('sideNavVisible', visible);
 		}
 	}
 });

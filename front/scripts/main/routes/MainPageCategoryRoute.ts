@@ -21,7 +21,7 @@ App.MainPageCategoryRoute = Em.Route.extend({
 			categoryName = decodeURIComponent(title);
 		}
 
-		categoryName = M.String.normalize(categoryName);
+		categoryName = M.String.normalizeToWhitespace(categoryName);
 
 		document.title = categoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
@@ -39,15 +39,21 @@ App.MainPageCategoryRoute = Em.Route.extend({
 			model: {
 				curatedContent: model
 			}
-		})
+		});
 	},
 
 	actions: {
 		error: function (error: any): boolean {
 			if (error && error.status === 404) {
-				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-category-not-found'));
+				this.controllerFor('application').addAlert({
+					message: i18n.t('app.curated-content-error-category-not-found'),
+					type: 'warning'
+				});
 			} else {
-				this.controllerFor('application').addAlert('warning', i18n.t('app.curated-content-error-other'));
+				this.controllerFor('application').addAlert({
+					message: i18n.t('app.curated-content-error-other'),
+					type: 'warning'
+				});
 			}
 			this.transitionTo('mainPage');
 			return true;

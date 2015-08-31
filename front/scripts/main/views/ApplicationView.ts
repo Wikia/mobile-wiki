@@ -1,6 +1,7 @@
 /// <reference path='../app.ts' />
 /// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path='../../../../typings/headroom/headroom.d.ts' />
+
 'use strict';
 
 // TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
@@ -32,21 +33,38 @@ App.ApplicationView = Em.View.extend({
 	}),
 
 	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
-	sideNavCollapsed: Em.computed.alias('controller.sideNavCollapsed'),
-	userMenuCollapsed: Em.computed.alias('controller.userMenuCollapsed'),
-	alertNotifications: Em.computed.alias('controller.alertNotifications'),
 	noScroll: Em.computed.alias('controller.noScroll'),
 	scrollLocation: null,
 
+	noScrollObserver: Em.observer('noScroll', function (): void {
+		var $body = Em.$('body'),
+			scrollLocation: number;
+
+		if (this.get('noScroll')) {
+			scrollLocation = $body.scrollTop();
+
+			this.set('scrollLocation', scrollLocation);
+
+			$body.css('top', -scrollLocation)
+				.addClass('no-scroll');
+		} else {
+			$body.removeClass('no-scroll')
+				.css('top', '');
+
+			window.scrollTo(0, this.get('scrollLocation'));
+			this.set('scrollLocation', null);
+		}
+	}),
+
 	willInsertElement: function (): void {
-		$('#article-preload').remove();
+		$('#preload').remove();
 	},
 
 	didInsertElement: function (): void {
 		this.trackFirstContent();
 	},
 
-	trackFirstContent: function () {
+	trackFirstContent: function (): void {
 		M.trackPerf({
 			name: 'firstContent',
 			type: 'mark'
@@ -78,34 +96,6 @@ App.ApplicationView = Em.View.extend({
 			}
 		}
 	},
-
-	sideNavCollapsedObserver: Em.observer('sideNavCollapsed', function (): void {
-		if (this.get('sideNavCollapsed')) {
-			this.set('noScroll', false);
-		} else {
-			this.set('noScroll', true);
-		}
-	}),
-
-	noScrollObserver: Em.observer('noScroll', function (): void {
-		var $body = Em.$('body'),
-			scrollLocation: number;
-
-		if (this.get('noScroll')) {
-			scrollLocation = $body.scrollTop();
-
-			this.set('scrollLocation', scrollLocation);
-
-			$body.css('top', -scrollLocation)
-				.addClass('no-scroll');
-		} else {
-			$body.removeClass('no-scroll')
-				.css('top', '');
-
-			window.scrollTo(0, this.get('scrollLocation'));
-			this.set('scrollLocation', null);
-		}
-	}),
 
 	/**
 	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content

@@ -56,7 +56,6 @@
 
 .lightbox-close-button {
 	height: 15px;
-	pointer-events: none;
 	width: 15px;
 }
 
@@ -108,7 +107,7 @@
 	}
 
 	&::after {
-		background: linear-gradient(top, transparent 10%, black 100%);
+		background: linear-gradient(to bottom, transparent 10%, black 100%);
 		bottom: 0;
 		content: '';
 		display: block;

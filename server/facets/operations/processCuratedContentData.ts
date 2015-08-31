@@ -2,6 +2,7 @@ import Utils = require('../../lib/Utils');
 import Tracking = require('../../lib/Tracking');
 import Caching = require('../../lib/Caching');
 import localSettings = require('../../../config/localSettings');
+var deepExtend = require('deep-extend');
 
 var cachingTimes = {
 	enabled: true,
@@ -51,13 +52,29 @@ function prepareData (request: Hapi.Request, result: any): void {
 	result.canonicalUrl = result.wiki.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
+	result.openGraph = {
+		type: 'website',
+		title: result.wiki.siteName,
+		url: result.canonicalUrl
+	};
+	if (result.article.details) {
+		if (result.article.details.abstract) {
+			result.openGraph.description = result.article.details.abstract;
+		}
+		if (result.article.details.thumbnail) {
+			result.openGraph.image = result.article.details.thumbnail;
+		}
+	}
 
-	result.weppyConfig = localSettings.weppy;
-	if (typeof result.queryParams.buckySampling === 'number') {
-		result.weppyConfig.samplingRate = result.queryParams.buckySampling / 100;
+	// clone object to avoid overriding real localSettings for futurue requests
+	result.localSettings = deepExtend({}, localSettings);
+
+	if (request.query.buckySampling !== undefined) {
+		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
+	result.asyncArticle = shouldAsyncArticle(result);
 }
 
 /**
@@ -103,14 +120,12 @@ function processCuratedContentData (
 			// optimizely
 			if (localSettings.optimizely.enabled) {
 				result.optimizelyScript = localSettings.optimizely.scriptPath +
-					(localSettings.environment === Utils.Environment.Prod ?
-						localSettings.optimizely.account : localSettings.optimizely.devAccount) + '.js';
+					localSettings.optimizely.account + '.js';
 			}
 
 			// qualaroo
 			if (localSettings.qualaroo.enabled) {
-				result.qualarooScript = localSettings.environment === Utils.Environment.Prod ?
-					localSettings.qualaroo.scriptUrlProd : localSettings.qualaroo.scriptUrlDev;
+				result.qualarooScript = localSettings.qualaroo.scriptUrl;
 			}
 		}
 
@@ -126,6 +141,18 @@ function processCuratedContentData (
 		}
 		return Caching.disableCache(response);
 	}
+}
+
+/**
+ * (HG-753) This allows for loading article content asynchronously while providing a version of the page with
+ * article content that search engines can still crawl.
+ * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
+ */
+function shouldAsyncArticle(result: any): boolean {
+	var asyncEnabled = localSettings.asyncArticle.indexOf(result.wiki.dbName) > -1,
+		noEscapedFragment = result.queryParams._escaped_fragment_ !== 0;
+
+	return asyncEnabled && noEscapedFragment;
 }
 
 export = processCuratedContentData

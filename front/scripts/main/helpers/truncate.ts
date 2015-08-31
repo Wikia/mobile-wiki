@@ -5,6 +5,11 @@ Em.Handlebars.registerBoundHelper('truncate', function (string: string, maxLengt
 		lastSpacePosition: number,
 		ellipsisCharacter: string = '\u2026';
 
+	if (typeof string !== 'string') {
+		Em.Logger.error(`Truncate helper expected string as a parameter, but ${typeof string} given:`, string);
+		return null;
+	}
+
 	if (string.length <= maxLength) {
 		return string;
 	}

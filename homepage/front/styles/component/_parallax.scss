@@ -1,0 +1,83 @@
+$parallax-window-height: 25em;
+
+.parallax {
+	padding-bottom: 2em;
+}
+
+.parallax-window {
+	max-height: $parallax-window-height;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 100%;
+
+	@include media($mobile) {
+		top: -.5em;
+	}
+}
+
+.parallax-static-content {
+	$parallax-content-color: white;
+	color: $parallax-content-color;
+	padding: 8em 0;
+	position: relative;
+	z-index: 9;
+
+	@include media($mobile) {
+		padding: 6em 0;
+	}
+}
+
+.parallax-hidden-slide {
+	display: none;
+}
+
+.parallax-heading {
+	@include media($mobile) {
+		font-size: 2em;
+	}
+
+	@include media($desktop) {
+		font-size: 5em;
+	}
+}
+
+.parallax-heading-small {
+	@include media($mobile) {
+		font-size: 1em;
+	}
+
+	@include media($desktop) {
+		font-size: 2em;
+	}
+}
+
+.parallax-details {
+	@include outer-container;
+	margin-bottom: 3em;
+	padding-left: 3em;
+	padding-right: 3em;
+
+	@include media($mobile) {
+		padding-left: .1em;
+		padding-right: .1em;
+	}
+}
+
+.parallax-background {
+	$parallax-background-image: '/images/wikia-universe.jpg';
+	$parallax-bacground-color: #081d38;
+
+	background: url($parallax-background-image) repeat;
+	background-color: $parallax-bacground-color;
+	background-position: top;
+	background-size: cover;
+	height: $parallax-window-height * 2;
+	left: 0;
+	position: absolute;
+	top: - $parallax-window-height / 3;
+	width: 100%;
+}
+
+
+// Based on http://codepen.io/skeurentjes/

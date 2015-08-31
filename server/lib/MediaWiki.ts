@@ -89,16 +89,22 @@ export class ArticleRequest extends BaseRequest {
 	 * @param redirect
 	 * @return {Promise<any>}
 	 */
-	article (title: string, redirect: string): Promise<any> {
+	article (title: string, redirect: string, sections?: string): Promise<any> {
 		var urlParams: any = {
 				controller: 'MercuryApi',
 				method: 'getArticle',
 				title: title
 			},
 			url: string;
+
 		if (redirect) {
 			urlParams.redirect = redirect;
 		}
+
+		if (sections) {
+			urlParams.sections = sections;
+		}
+
 		url = createUrl(this.wikiDomain, 'wikia.php', urlParams);
 
 		return this.fetch(url);

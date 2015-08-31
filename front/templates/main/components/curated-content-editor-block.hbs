@@ -1,0 +1,19 @@
+<header>{{title}}</header>
+<a class="curated-content-editor-help" {{action 'showHelp'}}>{{svg 'help-button' class='pointer-events-none' viewBox='0 0 18 18'}}</a>
+{{#if description}}
+	<div class="block-description">{{description}}</div>
+{{/if}}
+<div class="curated-content-editor-rows">
+	{{#each sortableItems as |item|}}
+		{{curated-content-editor-row
+			model=item
+			editItem='editItem'
+			openSection='openSection'
+			moveBy='moveBy'
+		}}
+	{{/each}}
+	<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">{{addItemLabel}}</button>
+</div>
+{{#modal-dialog isVisible=isHelpVisible}}
+	{{i18n 'app.curated-content-editor-block-help-text'}}
+{{/modal-dialog}}

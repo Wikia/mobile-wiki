@@ -7,28 +7,39 @@ var deepExtend = require('deep-extend');
 
 interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
-	facebookConnectHref: string;
 	signupHref: string;
+	heliosFacebookURL: string;
+	facebookAppId?: number;
 }
 
 function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: JoinViewContext,
-		redirectUrl: string = authView.getRedirectUrl(request);
+		redirectUrl: string = authView.getRedirectUrl(request),
+		response: Hapi.Response;
 
 	if (request.auth.isAuthenticated) {
 		return reply.redirect(redirectUrl);
+	}
+
+	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
+		response = reply.redirect('/register');
+		caching.disableCache(response);
+		return response;
 	}
 
 	context = deepExtend(
 		authView.getDefaultContext(request),
 		{
 			title: 'auth:join.title',
-			facebookConnectHref: authUtils.getLoginUrlFromRedirect(redirectUrl),
-			loginRoute: '/signin?redirect=' + encodeURIComponent(redirectUrl),
+			signinRoute: authUtils.getSignInUrl(request),
 			hideHeader: true,
 			hideFooter: true,
-			signupHref: authUtils.getSignupUrlFromRedirect(redirectUrl),
-			bodyClasses: 'splash join-page'
+			signupHref: authUtils.getRegisterUrl(request),
+			bodyClasses: 'splash join-page',
+			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
+			pageParams: {
+				facebookAppId: localSettings.facebook.appId
+			}
 		}
 	);
 
