@@ -1,7 +1,7 @@
 .discussions-footer {
 	font-size: .75rem;
 	line-height: 18px;
-	padding: 15px;
+	padding: 15px 0;
 	text-align: center;
 
 	ul {
@@ -10,13 +10,15 @@
 		flex-wrap: wrap;
 		list-style-type: none;
 		padding: 0;
+		margin: 0;
 	}
 
 	li {
 		display: block;
 		flex-grow: 1;
 		flex-shrink: 0;
-		padding: 0 50px;
+		//90px = 40px of padding and 50px for a bg icon
+		padding: 0 40px 0 90px;
 		text-align: left;
 		width: 320px;
 	}
