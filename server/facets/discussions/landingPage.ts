@@ -1,8 +1,5 @@
-
-
 function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var response: Hapi.Response;
-
 	response = reply.view(
 		'discussions/landing-page',
 		{
