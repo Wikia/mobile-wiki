@@ -64,6 +64,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 					if (data && data.css && data.templates) {
 						this.set('templates', data.templates);
 						this.loadTemplateCompiler().then(() => {
+							this.set('templateCompilerLoaded', true);
 							this.setupComponentTemplates(data.templates);
 							resolve(data);
 						});
@@ -176,11 +177,13 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		},
 
 		saveTemplate(): void {
+			console.log("saving template");
 			var model = this.modelFor('infoboxBuilder');
 			return model.saveStateToTemplate();
 		},
 
 		cancel(): void {
+			console.log("cancel");
 			//close iframe
 		}
 	}

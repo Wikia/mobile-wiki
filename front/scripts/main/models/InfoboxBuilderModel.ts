@@ -7,22 +7,27 @@ interface DataItem {
 		defaultValue: string;
 		label: string;
 		position: number;
-		source: string;
 	};
+	source: string;
 	type: string;
 }
 
 interface ImageItem {
 	data: {
-		alt: string;
+		alt: {
+			source: string;
+			data: {
+				default: string;
+			}
+		};
 		caption: string;
 		defaultAlt: string;
 		defaultCaption: string;
 		defaultValue: string;
 		index: number;
 		position: number;
-		source: string;
 	};
+	source: string;
 	type: string;
 }
 
@@ -31,8 +36,8 @@ interface TitleItem {
 		index: number;
 		defaultValue: string;
 		position: number;
-		source: string;
 	};
+	source: string;
 	type: string;
 }
 
@@ -53,8 +58,6 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			return this.get('infoboxState').length;
 		}
 	}),
-	title: null,
-	templates: {},
 
 	/**
 	 * add item to infobox state

@@ -2,5 +2,11 @@
 'use strict';
 
 App.InfoboxDataItemComponent = Em.Component.extend({
-	tagName: ''
+	tagName: '',
+	value: Em.computed('data', function(){
+		return this.get('data.defaultValue');
+	}),
+	label: Em.computed('data', function(){
+		return this.get('data.label');
+	})
 });
