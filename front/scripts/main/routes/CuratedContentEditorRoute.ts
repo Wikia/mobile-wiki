@@ -176,10 +176,10 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				var isStayingOnEditor: boolean = transition.targetName.indexOf('curatedContentEditor') > -1;
 
 				if (
-					App.CuratedContentEditorModel.isDirty
-					&& !isStayingOnEditor
-					&& !this.get('publish')
-					&& !confirm(i18n.t('app.curated-content-editor-exit-prompt'))
+					App.CuratedContentEditorModel.isDirty &&
+					!isStayingOnEditor &&
+					!this.get('publish') &&
+					!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
 				) {
 					transition.abort();
 				}
@@ -189,6 +189,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 						this.controllerFor('application').set('fullPage', false);
 					});
 				}
+
 				return true;
 			},
 
