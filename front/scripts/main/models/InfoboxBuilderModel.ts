@@ -42,13 +42,13 @@ interface SaveStateToTemplateResponse {
 }
 
 App.InfoboxBuilderModel = Em.Object.extend({
-	itemIndex: {
+	_itemIndex: {
 		data: 0,
 		image: 0,
 		title: 0,
 	},
-	infoboxState: [],
-	stateLength: Em.computed('infoboxState', {
+	infoboxState: Ember.A([]),
+	_stateLength: Em.computed('infoboxState', {
 		get(): number {
 			return this.get('infoboxState').length;
 		}
@@ -61,10 +61,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {DataItem|TitleItem|ImageItem} object
 	 */
 	addToState(object: DataItem|TitleItem|ImageItem): void {
-		var state = this.get('infoboxState');
-
-		state.push(object);
-		this.set('infoboxState', state)
+		this.get('infoboxState').pushObject(object);
 	},
 
 	/**
@@ -78,7 +75,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				index: i,
 				defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
 				label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
-				position: this.get('stateLength'),
+				position: this.get('_stateLength'),
 				source: `data${i}`,
 			},
 			type: 'infobox-data-item'
@@ -100,7 +97,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				defaultCaption: i18n.t('app.infobox-builder-caption-item-default-value'),
 				defaultValue: 'path/to/image.jpg',
 				index: i,
-				position: this.get('stateLength'),
+				position: this.get('_stateLength'),
 				source: `image${i}`
 			},
 			type: 'infobox-image-item'
@@ -117,13 +114,11 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			data: {
 				index: i,
 				defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
-				position: this.get('stateLength'),
+				position: this.get('_stateLength'),
 				source: `title${i}`,
 			},
 			type: 'infobox-title-item'
 		});
-
-			console.log("Model: title item addded", this.get('infoboxState'));
 	},
 
 	/**
@@ -132,13 +127,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @returns {Number}
 	 */
 	increaseItemIndex(intexType: string): number {
-		var indexName = `itemIndex.${intexType}`,
-			index = this.get(indexName);
-
-		index++;
-		this.set(indexName, index);
-
-		return index;
+		return this.incrementProperty(`_itemIndex.${intexType}`);
 	},
 
 	/**
@@ -146,10 +135,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {Number} position
 	 */
 	removeItem(position: number): void {
-		var state = this.get('infoboxState');
-
-		state.splice(position, 1);
-		this.set('infoboxState', state);
+		this.get('infoboxState').removeAt(position);
 	},
 
 	/**
