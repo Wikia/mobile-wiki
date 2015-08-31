@@ -64,6 +64,10 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 					if (data && data.css && data.templates) {
 						this.set('templates', data.templates);
 						this.loadTemplateCompiler().then(() => {
+							//this.sanitizeTemplate();
+							App.InfoboxTitleItemComponent.layout = Em.Handlebars.compile(data.templates['title']);
+							console.log("templa!", App.InfoboxTitleItemComponent.layout)
+							//App.InfoboxDataItemComponent.layout = Em.Handlebars.compile(data.templates.data);
 							resolve(data);
 						});
 
@@ -77,7 +81,15 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			});
 		});
 	},
-
+	//
+	//sanitizeTemplate( text ) {
+	//	var pattern = /\{\{#/g/,
+	//		replace = '{{#if ';
+	//
+	//	var a = text.replace(pattern, replace);
+	//	console.log(a);
+	//	return a;
+	//},
 	/**
 	 * add oasis portable infobox styles to DOM
 	 * @param {String[]} cssUrls

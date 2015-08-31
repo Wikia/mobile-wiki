@@ -3,13 +3,14 @@
 
 App.InfoboxTitleItemComponent = Em.Component.extend({
 	value: Em.computed('data', function() {
+		debugger
 		return this.get('data.defaultValue') || 'Your Title';
 	}),
 
-	layout: Em.computed(function() {
-		var templates = this.get('templates'),
-			templateText = templates['title'];
-
-		return Em.Handlebars.compile(templateText);
-	})
+	//layout: Em.computed(function() {
+	//	var templates = this.get('templates'),
+	//		templateText = templates['title'];
+	//
+	//	return Em.Handlebars.compile(templateText);
+	//})
 });

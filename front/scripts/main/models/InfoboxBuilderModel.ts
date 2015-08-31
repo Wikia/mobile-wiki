@@ -143,8 +143,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 */
 	setupInitialState(): void {
 		this.addTitleItem();
-		this.addImageItem();
-		this.addDataItem();
+		//this.addImageItem();
+		//this.addDataItem();
 	},
 
 	/**
