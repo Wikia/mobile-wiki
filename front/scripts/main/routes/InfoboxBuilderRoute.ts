@@ -94,6 +94,11 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		});
 	},
 
+	/**
+	 * @param text string Moustache template text to
+	 * transfotm to HTMLbars template text
+	 * @returns text string
+	 */
 	sanitizeTemplate( text: string ): string {
 		var patternOpen = /\{\{#/g,
 			replaceOpen = '{{#if ',
@@ -101,7 +106,10 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			replaceClose = '{{/if}}',
 			videoPattern = /\{\{#isVideo\}\}.*\{\{\/isVideo\}\}/;
 
-		return text.replace(videoPattern, '').replace(patternOpen, replaceOpen).replace(patternClose, replaceClose);
+		return text
+			.replace(videoPattern, '')
+			.replace(patternOpen, replaceOpen)
+			.replace(patternClose, replaceClose);
 	},
 
 	/**
@@ -141,6 +149,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			});
 			return true;
 		},
+
 		didTransition: function(): boolean {
 			// InfoboxBuilderRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
 			// over whole page (so navigation, share feature, etc. are not displayed). To understand
@@ -150,19 +159,20 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			return true;
 		},
 
-		addDataItem(): void {
+		addItem(type: string): void {
 			var model = this.modelFor('infoboxBuilder');
-			model.addDataItem();
-		},
 
-		addTitleItem(): void {
-			var model = this.modelFor('infoboxBuilder');
-			model.addTitleItem();
-		},
-
-		addImageItem(): void {
-			var model = this.modelFor('infoboxBuilder');
-			model.addImageItem();
+			switch (type) {
+				case 'data':
+					model.addDataItem();
+					break;
+				case 'title':
+					model.addTitleItem();
+					break;
+				case 'image':
+					model.addImageItem();
+					break;
+			}
 		},
 
 		saveTemplate(): void {

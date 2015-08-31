@@ -1,14 +1,14 @@
 <div class="infobox-builder">
 	{{#infobox-builder-wrapper}}
-		{{#each infoboxState as |element|}}
+		{{#each model.infoboxState as |element|}}
 			{{component element.type value=element.data.defaultValue label=element.data.label}}
 		{{/each}}
 	{{/infobox-builder-wrapper}}
 
 	<div class="infobox-builder-buttons">
-		<button {{action 'addDataItem'}}>{{i18n 'app.add-infobox-data-tag'}}</button>
-		<button {{action 'addTitleItem'}}>{{i18n 'app.add-infobox-title-tag'}}</button>
-		<button {{action 'addImageItem'}}>{{i18n 'app.add-infobox-image-tag'}}</button>
+		<button {{action 'addItem' 'data'}}>{{i18n 'app.add-infobox-data-tag'}}</button>
+		<button {{action 'addItem' 'title'}}>{{i18n 'app.add-infobox-title-tag'}}</button>
+		<button {{action 'addItem' 'image'}}>{{i18n 'app.add-infobox-image-tag'}}</button>
 		<button {{action 'saveTemplate'}}>{{i18n 'app.save-infobox-template'}}</button>
 		<button {{action 'cancel'}}>{{i18n 'app.cancel'}}</button>
 	</div>
