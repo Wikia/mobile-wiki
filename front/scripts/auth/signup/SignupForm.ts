@@ -58,6 +58,8 @@ class SignupForm {
 	}
 
 	private onSuccessfulRegistration(userId: string) {
+		M.provide('userId', userId);
+
 		M.track({
 			trackingMethod: 'both',
 			action: M.trackActions.success,
@@ -77,14 +79,14 @@ class SignupForm {
 			trackingMethod: 'internal',
 			action: M.trackActions.success,
 			category: 'user-registration-session-source',
-			label: userId + '|' + VisitSourceWrapper.sessionVisitSource.get()
+			label: VisitSourceWrapper.sessionVisitSource.get()
 		});
 
 		M.track({
 			trackingMethod: 'internal',
 			action: M.trackActions.success,
 			category: 'user-registration-lifetime-source',
-			label: userId + '|' + VisitSourceWrapper.lifetimeVisitSource.get()
+			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
 
 		window.location.href = this.redirect;
