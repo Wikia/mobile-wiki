@@ -22,7 +22,8 @@
     "cropper": "~0.11.0",
     "ponto": "Wikia/ponto#develop",
     "polymer": "Polymer/polymer#~1.1.0",
-    "webcomponentsjs": "~0.7.11"
+    "webcomponentsjs": "~0.7.11",
+    "visit-source": "Wikia/visit-source#0.1.0"
   },
   "devDependencies": {
     "ember-qunit": "0.3.0",

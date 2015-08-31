@@ -49,4 +49,6 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 	if (birthdateContainer) {
 		new BirthdateInput(birthdateContainer, formElement).init();
 	}
+
+	VisitSourceWrapper.init();
 });

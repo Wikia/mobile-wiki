@@ -97,7 +97,8 @@ module authView {
 				localSettings.optimizely.account + '.js',
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
-				viewType: viewType
+				viewType: viewType,
+				cookieDomain: localSettings.authCookieDomain
 			}
 		};
 	}
