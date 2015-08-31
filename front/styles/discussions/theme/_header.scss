@@ -1,15 +1,7 @@
-.standalone {
-	.auth-header {
-		border-color: $color-white;
-		border-style: solid;
-		border-width: 1px 1px 0;
-		margin: 19px 31px 0;
-		min-width: 706px;
-	}
+.discussions-header {
+	background-color: $header-background-color;
+	left: 0;
+	position: relative;
+	top: 0;
 }
 
-.auth-header {
-	color: $header-text-color;
-	flex-grow: 0;
-	flex-shrink: 0;
-}

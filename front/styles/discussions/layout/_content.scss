@@ -1,49 +1,63 @@
-
 .discussions-content {
-	background-color: $content-background-color;
-	// stick the footer to the bottom
-	flex-grow: 1;
-	flex-shrink: 0;
-	padding: 14px 18px;
+	color: $content-text-color;
+	min-height: 368px;
+	text-align: center;
 
-	* {
-		-webkit-tap-highlight-color: Transparent;
+	.app-download {
+		color: inherit;
+		font-size: 1.3rem;
+		line-height: 1.55rem;
+		margin-top: 13px;
 	}
 
-	//Temporary changes for the Login MVP
-	form {
-		margin: auto;
-		max-width: 720px;
+	ul {
+		margin-top: 30px;
+		margin-bottom: 25px;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
 	}
-}
 
-.standalone {
-	.desktop-view {
-		border-color: $border-color;
-		border-style: solid;
-		border-width: 0 1px;
-		margin: 0 31px;
-		min-width: 706px;
+	.app-button {
+		display: block;
+		flex-grow: 1;
+		flex-shrink: 0;
+		list-style: none;
+		margin-right: 30px;
+
+		&.app-store a {
+			background-repeat: no-repeat;
+			display: inline-block;
+			float: right;
+			height: 45px;
+			overflow: hidden;
+			width: 165px;
+		}
+
+		&.google a {
+			display: inline-block;
+			float: left;
+		}
+		&.google img {
+			height: 42px;
+		}
 	}
-}
 
-.desktop-view {
-	background-color: $content-background-color;
-	display: flex;
-	flex-direction: row;
-	flex-shrink: 0;
+	.app-screen {
+		background-color: $footer-background-color;
+		border-top: solid $border-footer-color 2px;
+		height: 42px;
+		margin-top: 250px;
 
-	// stick the footer to the bottom
-	flex-grow: 1;
-	justify-content: center;
-	padding: 25px 0;
-
-	.discussions-content {
-		flex-grow: initial;
-		float: left;
-		margin: 25px;
-		min-width: 200px;
-		max-width: 350px;
-		width: calc(50% - 50px);
+		span {
+			background-position: center top;
+			background-repeat: no-repeat;
+			border-bottom: solid $border-screens-color 2px;
+			display: inline-block;
+			height: 270px;
+			position: relative;
+			top: -231px;
+			width: 360px;
+		}
 	}
 }
