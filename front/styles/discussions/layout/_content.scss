@@ -1,18 +1,17 @@
 .discussions-content {
+	background-color: $header-background-color;
 	color: $content-text-color;
-	min-height: 368px;
 	text-align: center;
 
 	.app-download {
 		color: inherit;
 		font-size: 1.3rem;
 		line-height: 1.55rem;
-		margin-top: 13px;
+		margin: 13px 15px 0;
 	}
 
 	ul {
-		margin-top: 30px;
-		margin-bottom: 25px;
+		margin: 30px 0 25px;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -23,12 +22,21 @@
 		flex-grow: 1;
 		flex-shrink: 0;
 		list-style: none;
-		margin-right: 30px;
+		width: 165px;
+
+		&.app-store {
+			margin-right: 15px;
+			text-align: right;
+		}
+		&.google {
+			margin-left: 15px;
+			text-align: left;
+		}
 
 		&.app-store a {
+			background-position: right top;
 			background-repeat: no-repeat;
 			display: inline-block;
-			float: right;
 			height: 45px;
 			overflow: hidden;
 			width: 165px;
@@ -36,7 +44,6 @@
 
 		&.google a {
 			display: inline-block;
-			float: left;
 		}
 		&.google img {
 			height: 42px;
