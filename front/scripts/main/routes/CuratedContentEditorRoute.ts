@@ -121,6 +121,13 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				this.set('publish', !!dataSaved);
 
 				if (ponto && typeof ponto.invoke === 'function') {
+
+					if (App.CuratedContentEditorModel.isDirty &&
+						!this.get('publish') &&
+						!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
+					) {
+						return;
+					}
 					ponto.invoke(
 						// AMD module name in app
 						'curatedContentTool.pontoBridge',
@@ -143,7 +150,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 						},
 						true
 					);
-				} else {
+			} else {
 					this.transitionTo('mainPage');
 				}
 			},
