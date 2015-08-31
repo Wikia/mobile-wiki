@@ -46,7 +46,19 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 
 function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: any): void {
 	Tracking.handleResponse(context, request);
-	reply.view('discussions/', context);
+	//reply.view('application', context);
+	reply.view(
+		'discussions/landing-page',
+		{
+			canonicalUrl: 'https://' + request.headers.host + request.path,
+			language: request.server.methods.i18n.getInstance().lng(),
+			mainPage: 'http://www.wikia.com',
+			title: 'The hottest <appname> discussions with the biggest fans.'
+		},
+		{
+			layout: 'discussions'
+		}
+	);
 }
 
 export = showApplication;
