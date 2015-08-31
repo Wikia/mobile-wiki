@@ -16,6 +16,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 	content: null,
 	media: null,
 	contributionFeatureEnabled: null,
+	uploadFeatureEnabled: null,
 	cleanTitle: null,
 	headers: null,
 
@@ -91,7 +92,8 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, {
 				section: section,
 				title: title,
 				edit: 'edit',
-				addPhoto: 'addPhoto'
+				addPhoto: 'addPhoto',
+				uploadFeatureEnabled: this.get('uploadFeatureEnabled')
 			}));
 		return component.createElement().$();
 	},

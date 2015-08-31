@@ -66,6 +66,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 		this.sendAction('articleRendered');
 	},
 
+	uploadFeatureEnabled: Em.computed(function(): boolean {
+		return !Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
+	}),
+
 	contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
 		return !this.get('model.isMainPage')
 			&& this.get('isJapaneseWikia')
@@ -154,6 +158,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 				n: model.ns
 			});
 
+			M.updateTrackedUrl(window.location.href);
 			M.trackPageView(model.get('adsContext.targeting'));
 		}
 

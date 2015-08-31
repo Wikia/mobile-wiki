@@ -1,3 +1,6 @@
+## release-145 (2015-08-28 10:00 UTC)
+* remove-console-logging: Remove console logs for article width
+
 ## release-144 (2015-08-27 11:26 UTC)
 * [CONCF-1089](https://wikia-inc.atlassian.net/browse/CONCF-1089) CONCF-1089 | fix false positive error of already existing label
 * [DAT-3121](https://wikia-inc.atlassian.net/browse/DAT-3121) DAT-3121 Related pages images fix

@@ -4,13 +4,17 @@
 	background-size: 24px 24px;
 	box-sizing: content-box;
 	height: 1.25rem;
-	padding: 20px 5px 0 5px;
+	padding: 20px 5px 0;
 	position: absolute;
 	right: 0;
 	top: 0;
 	width: 24px;
-}
 
+	&.info {
+		// TODO: fix Gulp tasks concerning serving images from static domains
+		background-image: url('/mercury-static/images/info.svg');
+	}
+}
 
 .dice {
 	background-image: url('/front/images/dice.svg');
