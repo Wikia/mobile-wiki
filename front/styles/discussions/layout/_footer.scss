@@ -12,7 +12,19 @@
 	li {
 		display: inline-block;
 		max-width: 300px;
-		padding-right: 50px;
+		padding: 0 50px;
 		text-align: left;
+	}
+
+	h6, p {
+		font-size: 0.875rem;
+	}
+
+	h6 {
+		margin-bottom: 0;
+	}
+
+	p {
+		margin-top: 0;
 	}
 }
