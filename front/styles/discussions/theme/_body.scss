@@ -1,6 +1,3 @@
 body {
-	background-color: $body-background;
-	&.standalone {
-		background-color: $body-background-grey;
-	}
+	background-color: $body-background-color;
 }
