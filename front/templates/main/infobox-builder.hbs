@@ -1,7 +1,8 @@
-{{infobox-wrapper-item
-infoboxState=model.infoboxState
-templates=model.templates
-}}
+{{#infobox-wrapper-item}}
+	{{#each infoboxState as |element|}}
+		{{component element.type value=element.data.defaultValue}}
+	{{/each}}
+{{/infobox-wrapper-item}}
 
 <button {{action 'addDataItem'}}>{{i18n 'app.add-infobox-data-tag'}}</button>
 <button {{action 'addTitleItem'}}>{{i18n 'app.add-infobox-title-tag'}}</button>

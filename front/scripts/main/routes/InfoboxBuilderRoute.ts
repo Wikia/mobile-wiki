@@ -64,11 +64,14 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 					if (data && data.css && data.templates) {
 						this.set('templates', data.templates);
 						this.loadTemplateCompiler().then(() => {
+							App.InfoboxDataItemComponent.reopen({
+								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['data']))
+							});
 							App.InfoboxTitleItemComponent.reopen({
 								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['title']))
 							});
-							App.InfoboxDataItemComponent.reopen({
-								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['data']))
+							App.InfoboxBuilderWrapperComponent.reopen({
+								layout:  Em.Handlebars.compile(data.templates['wrapper'])
 							});
 							App.InfoboxImageItemComponent.reopen({
 								//layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['image']))
