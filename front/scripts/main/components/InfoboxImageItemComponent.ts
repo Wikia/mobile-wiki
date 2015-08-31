@@ -2,6 +2,9 @@
 'use strict';
 
 App.InfoboxImageItemComponent = Em.Component.extend({
-	url: 'https://upload.wikimedia.org/wikipedia/en/6/62/Kermit_the_Frog.jpg',
+	url: 'http://images.fanpop.com/images/image_uploads/Kermit-the-Frog-the-muppets-121870_500_325.jpg',
+	thumbnail: 'http://images.fanpop.com/images/image_uploads/Kermit-the-Frog-the-muppets-121870_500_325.jpg',
+	width: 200,
+	height: 200,
 	tagName: ''
 });
