@@ -64,18 +64,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 					if (data && data.css && data.templates) {
 						this.set('templates', data.templates);
 						this.loadTemplateCompiler().then(() => {
-							App.InfoboxDataItemComponent.reopen({
-								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['data']))
-							});
-							App.InfoboxTitleItemComponent.reopen({
-								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['title']))
-							});
-							App.InfoboxBuilderWrapperComponent.reopen({
-								layout:  Em.Handlebars.compile('<aside class="portable-infobox pi-background">{{yield}}</aside>')
-							});
-							App.InfoboxImageItemComponent.reopen({
-								//layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['image']))
-							});
+							this.setupComponentTemplates(data.templates);
 							resolve(data);
 						});
 
@@ -90,21 +79,29 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		});
 	},
 
+	setupComponentTemplates(templates: Object): void {
+		App.InfoboxDataItemComponent.reopen({
+			layout: Em.Handlebars.compile(this.sanitizeTemplate(templates['data']))
+		});
+		App.InfoboxTitleItemComponent.reopen({
+			layout: Em.Handlebars.compile(this.sanitizeTemplate(templates['title']))
+		});
+		App.InfoboxBuilderWrapperComponent.reopen({
+			layout:  Em.Handlebars.compile('<aside class="portable-infobox pi-background">{{yield}}</aside>')
+		});
+		App.InfoboxImageItemComponent.reopen({
+			//layout: Em.Handlebars.compile(this.sanitizeTemplate(templates['image']))
+		});
+	},
+
 	sanitizeTemplate( text: string ): string {
 		var patternOpen = /\{\{#/g,
 			replaceOpen = '{{#if ',
 			patternClose = /\{\{\/.+\}\}/g,
 			replaceClose = '{{/if}}',
-			videoPattern = '{{#isVideo}} video video-thumbnail small{{/isVideo}}';
+			videoPattern = /\{\{#isVideo\}\}.*\{\{\/isVideo\}\}/;
 
-		text = text.replace(videoPattern, '');
-
-		text = text.replace(patternOpen, replaceOpen);
-		text = text.replace(patternClose, replaceClose);
-
-		console.log(text);
-
-		return text;
+		return text.replace(videoPattern, '').replace(patternOpen, replaceOpen).replace(patternClose, replaceClose);
 	},
 
 	/**
@@ -160,12 +157,12 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 
 		addTitleItem(): void {
 			var model = this.modelFor('infoboxBuilder');
-			return model.addTitleItem();
+			model.addTitleItem();
 		},
 
 		addImageItem(): void {
 			var model = this.modelFor('infoboxBuilder');
-			return model.addImageItem();
+			model.addImageItem();
 		},
 
 		saveTemplate(): void {

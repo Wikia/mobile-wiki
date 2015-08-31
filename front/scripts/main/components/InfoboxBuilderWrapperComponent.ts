@@ -1,4 +1,6 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.InfoboxBuilderWrapperComponent = Em.Component.extend({});
+App.InfoboxBuilderWrapperComponent = Em.Component.extend({
+	tagName: ''
+});

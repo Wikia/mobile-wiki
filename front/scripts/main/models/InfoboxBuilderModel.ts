@@ -80,8 +80,6 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			},
 			type: 'infobox-data-item'
 		});
-
-		console.log("Model: data item addded", this.get('infoboxState'));
 	},
 
 	/**
