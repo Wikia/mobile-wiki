@@ -71,7 +71,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 								layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['title']))
 							});
 							App.InfoboxBuilderWrapperComponent.reopen({
-								layout:  Em.Handlebars.compile(data.templates['wrapper'])
+								layout:  Em.Handlebars.compile('<aside class="portable-infobox pi-background">{{yield}}</aside>')
 							});
 							App.InfoboxImageItemComponent.reopen({
 								//layout: Em.Handlebars.compile(this.sanitizeTemplate(data.templates['image']))
