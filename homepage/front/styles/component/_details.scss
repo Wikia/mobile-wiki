@@ -10,7 +10,7 @@ $large-screen: em(860) !default;
 
 .device-background-after {
 	@include media($large-screen) {
-		margin-bottom: 4em;
+		margin-bottom: 6em;
 	}
 }
 
@@ -33,8 +33,12 @@ $large-screen: em(860) !default;
 	@include background(url($device-image), linear-gradient($gradient-angle, $device-background-bottom, $device-background-top), no-repeat $device-background-top scroll);
 	background-repeat: no-repeat;
 	background-size: cover;
-	min-height: 20em;
+	margin-bottom: 1em;
 	width: 100%;
+
+	@include media($large-screen) {
+		margin-bottom: 10em;
+	}
 
 	.device-text {
 		color: $device-text-color;

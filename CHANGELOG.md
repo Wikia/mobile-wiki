@@ -1,3 +1,32 @@
+## release-145 (2015-08-28 10:00 UTC)
+* remove-console-logging: Remove console logs for article width
+
+## release-144 (2015-08-27 11:26 UTC)
+* [CONCF-1089](https://wikia-inc.atlassian.net/browse/CONCF-1089) CONCF-1089 | fix false positive error of already existing label
+* [DAT-3121](https://wikia-inc.atlassian.net/browse/DAT-3121) DAT-3121 Related pages images fix
+* [MAIN-5225](https://wikia-inc.atlassian.net/browse/MAIN-5225) Change mainPage route to the MW main page article route
+* [HG-843](https://wikia-inc.atlassian.net/browse/HG-843) Hg 843
+
+## release-143 (2015-08-26 13:17 UTC)
+* Japan-HP-Contentupdate-2: INT-162: Featured commmunity panel for Japan Homepage. Content updates
+* [SOC-943](https://wikia-inc.atlassian.net/browse/SOC-943) SOC-943 Post details on forum post listing
+* typo: fixing-typo
+* [CONCF-1063](https://wikia-inc.atlassian.net/browse/CONCF-1063) CONCF-1063 | Style section template
+* [CONCF-1062](https://wikia-inc.atlassian.net/browse/CONCF-1062) CONCF-1062 | restyled view of /main/edit
+* [CONCF-1064](https://wikia-inc.atlassian.net/browse/CONCF-1064) CONCF-1064 | Re-style Curated Content Editor Form
+* [CONCF-989](https://wikia-inc.atlassian.net/browse/CONCF-989) CONCF-989 Allow Curated Content Tool to be opened in a MediaWiki modal
+* [INT-156](https://wikia-inc.atlassian.net/browse/INT-156) Addphoto/edit for JA wikia in mercury when anonymous edit is disabled. 
+* [CONCF-1087](https://wikia-inc.atlassian.net/browse/CONCF-1087) CONCF-1087 show edit main page on wikis without curated content
+
+## release-142 (2015-08-25 10:17 UTC)
+* [CONCF-1094](https://wikia-inc.atlassian.net/browse/CONCF-1094) CONCF-1094 | enable button only on allowed wikis
+* facebook-auth: Facebook Authentication Release
+* [SOC-1143](https://wikia-inc.atlassian.net/browse/SOC-1143) SOC-1143 | New validation errors for FB connect
+* polymer-asset: movnig polymer asset loading outside of main app for now
+* satisfying-tslint: Moving regex patterns to localSettings and tslint-based fixes
+* [CONCF-979](https://wikia-inc.atlassian.net/browse/CONCF-979) CONCF-979 Add the entry point for Curated Content Tool
+* [CONCF-1059](https://wikia-inc.atlassian.net/browse/CONCF-1059) CONCF-1059 | Style Curated Content header
+
 ## release-141 (2015-08-24 10:00 UTC)
 * [INT-163](https://wikia-inc.atlassian.net/browse/INT-163) INT-163. Condition is changed from 1 day to 30 days
 

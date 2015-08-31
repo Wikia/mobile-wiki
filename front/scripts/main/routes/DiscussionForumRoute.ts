@@ -2,6 +2,18 @@
 
 App.DiscussionForumRoute = Em.Route.extend({
 	model (params: any) {
-		return App.ForumModel.find(Mercury.wiki.id, params.forumId);
+		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId);
+	},
+
+	actions: {
+		goToPost: function (postId: number): void {
+			this.transitionTo('discussion.post', postId);
+		},
+
+		loadPage: function (pageNum: number): void {
+			var model = this.modelFor('discussion.forum');
+
+			model.loadPage(pageNum);
+		}
 	}
 });

@@ -1,6 +1,5 @@
 .user-menu {
 	.overlay {
-		@extend %pointer;
 		@include perfect-square(100%);
 		background-color: black;
 		left: 0;
