@@ -94,7 +94,10 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		var patternOpen = /\{\{#/g,
 			replaceOpen = '{{#if ',
 			patternClose = /\{\{\/.+\}\}/g,
-			replaceClose = '{{/if}}';
+			replaceClose = '{{/if}}',
+			videoPattern = '{{#isVideo}} video video-thumbnail small{{/isVideo}}';
+
+		text = text.replace(videoPattern, '');
 
 		text = text.replace(patternOpen, replaceOpen);
 		text = text.replace(patternClose, replaceClose);
