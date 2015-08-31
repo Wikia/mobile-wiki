@@ -18,7 +18,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			console.log(App.CurrentUser.get('isAuthenticated'));
+			//console.log(App.CurrentUser.get('isAuthenticated'));
 			//if (App.CurrentUser.get('isAuthenticated')) {
 				this.loadAssets().then(
 					(data:InfoboxBuilderGetAssetsResponse) => {
@@ -42,7 +42,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	},
 
 	afterModel: function(model: any): void {
-		//model.setupInitialState();
+		model.setupInitialState();
 	},
 
 	/**
@@ -126,7 +126,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 
 		addDataItem(): void {
 			var model = this.modelFor('infoboxBuilder');
-			return model.addDataItem();
+			model.addDataItem();
 		},
 
 		addTitleItem(): void {
