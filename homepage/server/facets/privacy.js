@@ -4,14 +4,13 @@
  * @author Per Johan Groland <pgroland@wikia-inc.com>
  */
 
-var util = require('../util');
+var deepExtend = require('deep-extend'),
+	util = require('../util');
 
 function privacy(request, reply) {
-	var data = {
+	var data = deepExtend({
 		title: 'ウィキア・ジャパン',
-		loggedIn: util.getLoginState(),
-		userName: util.getUserName()
-	};
+	}, util.getGlobalData());
 
 	return reply.view('privacy', data);
 }
