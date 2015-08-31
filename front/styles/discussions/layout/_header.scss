@@ -1,8 +1,8 @@
 .discussions-header {
 	background-color: $content-background-color;;
-	font-size: 1.125rem;
-	line-height: 22px;
-	padding: 25px 24px 0;
+	color: $header-text-color;
+	font-size: 1.5rem;
+	line-height: 1.78rem;
 	text-align: center;
 
 	h1 {
@@ -10,6 +10,14 @@
 		font-size: inherit;
 		font-weight: inherit;
 		line-height: inherit;
+	}
+
+	.app-logo {
+		margin: 35px auto 30px;
+
+		img {
+			border-radius: 6px;
+		}
 	}
 }
 
