@@ -16,20 +16,29 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 		this.render('infobox-builder');
 	},
 
-	beforeModel: function(): void {
-		if (window.self !== window.top && (
-				!window.Ponto || !this.get('pontoLoadingInitialized')
-			)
-		) {
-			this.suppressDefineAmd(
-				this.loadPonto()
-			).then(this.checkContext);
-		}
+	beforeModel: function(): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			if (
+				window.self !== window.top &&
+				(!window.Ponto || !this.get('pontoLoadingInitialized'))
+			) {
+				this.suppressDefineAmd(this.loadPonto())
+					.then(this.checkContext)
+					.then(this.setupInfoboxBuilder)
+					.then(
+						function () {
+							resolve();
+						},
+						function () {
+							reject()
+						}
+					);
+			}
+
+		});
 	},
 
 	model: function(params: any): typeof App.InfoboxBuilderModel {
-		var templates = this.get('templates');
-
 		return App.InfoboxBuilderModel.create({title: params.templateName});
 	},
 
@@ -37,30 +46,44 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 		model.setupInitialState();
 	},
 
-	checkContext(): void {
-		var ponto = window.Ponto;
-		console.log("w checkContext. window.Ponto:", ponto);
-		ponto.invoke('wikia.infoboxBuilder.ponto', 'InfoboxBuilderPonto', null, function (data: any) {
-			this.setupInfoboxBuilder(data);
-		}, this.showPontoError, false);
+	checkContext(): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			var ponto = window.Ponto;
+
+			console.log("w checkContext. window.Ponto:", ponto);
+			ponto.invoke(
+				'wikia.infoboxBuilder.ponto',
+				'isWikiaContext',
+				null,
+				function (data: any):void {
+					resolve(data);
+				},
+				function (data: any):void {
+					reject(data);
+					this.showPontoError(data);
+				},
+				false
+			);
+		});
+
 	},
 
-	setupInfoboxBuilder(data: any): Em.RSVP.Promise|boolean {
-		if (data && data.isWikiaContext && data.isLoggedIn) {
-			return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-				this.loadAssets().then(
-					(data:InfoboxBuilderGetAssetsResponse) => {
-						this.setupStyles(data.css);
-						resolve();
-					}, (data:string) => {
-						reject(data);
-					}
-				);
-			});
-		} else {
-			console.log("We are not in WM context or user has no permissions");
-			return false;
-		}
+	setupInfoboxBuilder(data: any): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			if (data && data.isWikiaContext && data.isLoggedIn) {
+					this.loadAssets().then(
+						(data:InfoboxBuilderGetAssetsResponse) => {
+							this.setupStyles(data.css);
+							resolve();
+						}, (data:string) => {
+							reject(data);
+						}
+					);
+			} else {
+				console.log("We are not in WM context or user has no permissions");
+				reject("We are not in WM context or user has no permissions");
+			}
+		});
 	},
 
 	/**
@@ -120,10 +143,13 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 
 	loadPonto(): JQueryXHR {
 		this.set('pontoLoadingInitialized', true);
+		console.log('will load Ponto');
 
 		return Em.$.getScript(this.pontoPath, (): void => {
 			var ponto = window.Ponto;
-			console.log("ponto w load ponto", ponto);
+			console.log('should be loaded!!!!!');
+			debugger;
+			console.log(ponto);
 
 			if (ponto && typeof ponto.setTarget === 'function') {
 				ponto.setTarget(ponto.TARGET_IFRAME_PARENT, '*');
