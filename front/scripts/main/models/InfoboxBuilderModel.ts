@@ -1,4 +1,5 @@
 /// <reference path="../app.ts" />
+/// <reference path="../../../../typings/ember/ember.d.ts" />
 'use strict';
 
 interface DataItem {
@@ -6,8 +7,11 @@ interface DataItem {
 		defaultValue: string;
 		label: string;
 	};
-	index: number;
-	position: number;
+	infoboxBuilderData: {
+		index: number;
+		position: number;
+		component: string;
+	};
 	source: string;
 	type: string;
 }
@@ -28,8 +32,11 @@ interface ImageItem {
 		};
 		defaultValue: string;
 	};
-	index: number;
-	position: number;
+	infoboxBuilderData: {
+		index: number;
+		position: number;
+		component: string;
+	};
 	source: string;
 	type: string;
 }
@@ -39,8 +46,11 @@ interface TitleItem {
 		defaultValue: string;
 
 	};
-	index: number;
-	position: number;
+	infoboxBuilderData: {
+		index: number;
+		position: number;
+		component: string;
+	};
 	source: string;
 	type: string;
 }
@@ -75,15 +85,19 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * add <data> item
 	 */
 	addDataItem() : void {
-		var i = this.increaseItemIndex('data');
+		var itemType = 'data',
+			i = this.increaseItemIndex('data');
 
 		this.addToState({
 			data: {
 				defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
 				label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
 			},
-			index: i,
-			position: this.get('_stateLength'),
+			infoboxBuilderData: {
+				index: i,
+				position: this.get('_stateLength'),
+				component: this.createComponentName(itemType)
+			},
 			source: `data${i}`,
 			type: 'infobox-data-item'
 		});
@@ -93,7 +107,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * add <image> item
 	 */
 	addImageItem() : void {
-		var i = this.increaseItemIndex('image');
+		var itemType = 'image',
+			i = this.increaseItemIndex(itemType);
 
 		this.addToState({
 			data: {
@@ -107,8 +122,11 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				} ,
 				defaultValue: 'path/to/image.jpg',
 			},
-			index: i,
-			position: this.get('_stateLength'),
+			infoboxBuilderData: {
+				index: i,
+				position: this.get('_stateLength'),
+				component: this.createComponentName(itemType)
+			},
 			source: `image${i}`,
 			type: 'infobox-image-item'
 		});
@@ -118,17 +136,42 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * add <title> item
 	 */
 	addTitleItem() : void {
-		var i = this.increaseItemIndex('title');
+		var itemType = 'title',
+			i = this.increaseItemIndex('title');
 
 		this.addToState({
 			data: {
 				defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
 
 			},
-			index: i,
-			position: this.get('_stateLength'),
+			infoboxBuilderData: {
+				index: i,
+				position: this.get('_stateLength'),
+				component: this.createComponentName(itemType)
+			},
 			source: `title${i}`,
 			type: 'infobox-title-item'
+		});
+	},
+
+	/**
+	 * creates component name for given item type
+	 * @param {String} type
+	 * @returns {String}
+	 */
+	createComponentName(type: string): string {
+		return `infobox-builder-item-${type}`;
+	},
+
+	/**
+	 * cleans up infobox state and returns simple array
+	 * @param {Em.A} state
+	 * @returns {Array}
+	 */
+	prepareStateForSaving(state: Ember.Array): Array {
+		return state.map((item: DataItem|ImageItem|TitleItem) => {
+			delete item.infoboxBuilderData;
+			return item;
 		});
 	},
 
@@ -171,7 +214,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				data: {
 					controller: 'PortableInfoboxBuilderController',
 					method: 'saveToTemplate',
-					infoboxData: this.get('infoboxState')
+					infoboxData: this.prepareStateForSaving(this.get('infoboxState'))
 
 				},
 				dataType: 'json',
