@@ -7,10 +7,14 @@ App.InfoboxBuilderItemImageComponent = Em.Component.extend({
 	width: 270,
 	height: 152,
 	tagName: '',
+	attributeBindings: ['data-position'],
 	alt: Em.computed('data', function() {
 		return this.get('data.alt.defaultValue');
 	}),
 	caption: Em.computed('data', function() {
 		return this.get('data.caption.defaultValue');
+	}),
+	position: Em.computed('infoboxBuilderData', function(){
+		return this.get('infoboxBuilderData.position');
 	}),
 });
