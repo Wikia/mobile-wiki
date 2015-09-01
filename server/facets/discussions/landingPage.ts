@@ -24,7 +24,7 @@ module landingPage {
 			return reply('Not Found').code(404);
 		}
 
-		if (discussionsConfig.domain.indexOf('ja.starwars.wikia.com') !== -1) {
+		if (request.headers.host.indexOf('ja.starwars.wikia.com') !== -1) {
 			request.server.methods.i18n.getInstance().setLng('ja');
 			appStoreLogo = 'http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg';
 			androidLogo = 'https://developer.android.com/images/brand/ja_generic_rgb_wo_45.png';
