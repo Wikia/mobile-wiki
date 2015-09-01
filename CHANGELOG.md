@@ -1,3 +1,13 @@
+## release-147 (2015-09-01 09:59 UTC)
+* move-ad-slots: Move ad slots out of main application template
+* [HG-854](https://wikia-inc.atlassian.net/browse/HG-854) Hg 854 fixing polldaddy after transition
+* [CONCF-1081](https://wikia-inc.atlassian.net/browse/CONCF-1081) CONCF-1081 | Update translations
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Add sandbox config for Japan homepage
+* [XW-184](https://wikia-inc.atlassian.net/browse/XW-184) XW-183 enable main page editor on test wikis on Mercury
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Fixed typo in gulp tasks for Japan HP. Fix for deployment error
+* [XW-75](https://wikia-inc.atlassian.net/browse/XW-75) XW-75 set focus on iframe when entering view with inputs
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Separate gulp tasks for Japan homepage from mercury tasks. 
+
 ## release-146 (2015-08-31 14:05 UTC)
 * revert-1274-move-ad-slots: Revert "Move ads out of application template"
 * [XW-69](https://wikia-inc.atlassian.net/browse/XW-69) Xw 69 show prompt on back click
