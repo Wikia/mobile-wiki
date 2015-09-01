@@ -16,26 +16,15 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 		this.render('infobox-builder');
 	},
 
-	beforeModel: function(): Em.RSVP.Promise {
+	beforeModel: function(): void {
 		if (window.self !== window.top && (
 				!window.Ponto || !this.get('pontoLoadingInitialized')
 			)
 		) {
 			this.suppressDefineAmd(
 				this.loadPonto()
-			);
+			).then(this.checkContext);
 		}
-
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			this.loadAssets().then(
-				(data:InfoboxBuilderGetAssetsResponse) => {
-					this.setupStyles(data.css);
-					resolve();
-				}, (data:string) => {
-					reject(data);
-				}
-			);
-		});
 	},
 
 	model: function(params: any): typeof App.InfoboxBuilderModel {
@@ -46,6 +35,42 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 
 	afterModel: function(model: any): void {
 		model.setupInitialState();
+	},
+
+	checkContext(): void {
+		var ponto = window.Ponto;
+		console.log("w checkContext. window.Ponto:", ponto);
+		ponto.invoke('wikia.infoboxBuilder.ponto', 'InfoboxBuilderPonto', null, function (data: any) {
+			this.setupInfoboxBuilder(data);
+		}, this.showPontoError, false);
+	},
+
+	setupInfoboxBuilder(data: any): Em.RSVP.Promise|boolean {
+		if (data && data.isWikiaContext && data.isLoggedIn) {
+			return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+				this.loadAssets().then(
+					(data:InfoboxBuilderGetAssetsResponse) => {
+						this.setupStyles(data.css);
+						resolve();
+					}, (data:string) => {
+						reject(data);
+					}
+				);
+			});
+		} else {
+			console.log("We are not in WM context or user has no permissions");
+			return false;
+		}
+	},
+
+	/**
+	 * @desc shows error message for ponto communication
+	 * @param {string} message - error message
+	 */
+	showPontoError(message: any) {
+		if (window.console) {
+			window.console.error('Ponto Error', message);
+		}
 	},
 
 	/**
@@ -98,9 +123,12 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 
 		return Em.$.getScript(this.pontoPath, (): void => {
 			var ponto = window.Ponto;
+			console.log("ponto w load ponto", ponto);
 
 			if (ponto && typeof ponto.setTarget === 'function') {
-				ponto.setTarget(ponto.TARGET_IFRAME_PARENT, window.location.origin);
+				ponto.setTarget(ponto.TARGET_IFRAME_PARENT, '*');
+
+				console.log("po set target", ponto);
 			}
 		});
 	},
