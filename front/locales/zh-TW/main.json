@@ -96,7 +96,6 @@
     "curated-content-editor-error-no-access-permissions":"你沒有許權限訪問這個頁面",
     "curated-content-editor-no-articles-found":"沒有找到文章",
     "curated-content-editor-suggestions-loading":"載入中...",
-    "curated-content-editor-error-inside-featured-content":"請修復精選內容部分的錯誤。",
     "curated-content-editor-changes-saved":"已保存所做更改",
     "curated-content-editor-image-missing-error":"請提供圖片",
     "curated-content-editor-missing-label-error":"標簽缺失",
@@ -111,9 +110,7 @@
     "curated-content-editor-crop-image":"裁剪圖片",
     "curated-content-editor-editing-header":"編輯: __label__",
     "curated-content-editor-enter-display-name":"輸入顯示名稱",
-    "curated-content-editor-enter-display-name-tooltip":"This is the text that will appear on the main page for this item.",
     "curated-content-editor-enter-page-name":"輸入頁面名稱",
-    "curated-content-editor-enter-page-name-tooltip":"When entering an item in Curated Content use the same format you would use to link to a piece of content on Wikia (e.g. Name_of_article).",
     "curated-content-editor-delete-item":"刪除項目",
     "curated-content-editor-add-category":"+ 添加類別",
     "curated-content-editor-publish":"發佈",
@@ -135,6 +132,7 @@
     "curated-content-editor-add-items-message":"請將項目添加到這個版塊。",
     "curated-content-editor-missing-items-error":"版塊不能為空。請將項目添加到這個版塊。",
     "curated-content-editor-error-inside-items-message":"請修復各個項目中的錯誤。",
+    "curated-content-editor-error-inside-featured-content":"請修復精選內容部分的錯誤。",
     "curated-content-editor-items-count":"__count__ 個項目"
   }
 }

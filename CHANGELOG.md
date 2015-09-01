@@ -1,3 +1,14 @@
+## release-146 (2015-08-31 14:05 UTC)
+* revert-1274-move-ad-slots: Revert "Move ads out of application template"
+* [XW-69](https://wikia-inc.atlassian.net/browse/XW-69) Xw 69 show prompt on back click
+* [CONCF-670](https://wikia-inc.atlassian.net/browse/CONCF-670) CONCF-670 | Clean up for details.description
+* Japan-Homepage-Karma: Added karma test runner for qunit front tests for Japan homepage
+* [SOC-1143](https://wikia-inc.atlassian.net/browse/SOC-1143) SOC-1143 | Translations for facebook connect
+* [HG-850](https://wikia-inc.atlassian.net/browse/HG-850) HG-850 Implemented inifinite scroll for post list page
+* move-ad-slots: Move ads out of application template
+* [INT-155](https://wikia-inc.atlassian.net/browse/INT-155) Add an option to turn off "upload a photo" from mobile
+* [CONCF-1060](https://wikia-inc.atlassian.net/browse/CONCF-1060) CONCF-1060 | Curated Content Edit Tool — tooltips for form inputs
+
 ## release-145 (2015-08-28 10:00 UTC)
 * remove-console-logging: Remove console logs for article width
 
