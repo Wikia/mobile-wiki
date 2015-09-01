@@ -1,0 +1,19 @@
+@media only screen and (max-width : 768px) {
+	.discussions-header {
+		.wiki-link {
+			display: none;
+		}
+	}
+
+	.discussions-content {
+		.app-button {
+			width: 100%;
+
+			&.app-store,
+			&.google {
+				margin: 5px;
+				text-align: center;
+			}
+		}
+	}
+}

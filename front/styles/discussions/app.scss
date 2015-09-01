@@ -12,10 +12,11 @@
 @import 'layout/content';
 @import 'layout/footer';
 @import 'layout/header';
+@import 'layout/mobile-hack';
 
 // modules
 
 // theme
-@import 'theme/_global-nav';
+@import 'theme/global-nav';
 @import 'theme/footer';
 @import 'theme/header';
