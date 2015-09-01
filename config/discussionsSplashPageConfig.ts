@@ -1,4 +1,4 @@
-var discussionsSplashPageConfig: any = {
+var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 	wikias: [
 		// walkingdead
 		{
