@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
-    <title>ic_upvote copy</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="Community-Connect" sketch:type="MSArtboardGroup" transform="translate(-471.000000, -681.000000)" fill="#1A5EB8">
-            <path d="M495,693 C495,686.372667 489.627333,681 483,681 C476.372667,681 471,686.372667 471,693 C471,699.627667 476.372667,705 483,705 C489.627333,705 495,699.627667 495,693 Z M483.1242,686.4 L477.6,691.9242 L478.9242,693.2484 L482.2164,689.9562 L482.2248,699.7242 L484.0242,699.7242 L484.0242,689.9484 L487.3242,693.2484 L488.6484,691.9242 L483.1242,686.4 Z" id="ic_upvote-copy" sketch:type="MSShapeGroup"></path>
-        </g>
-    </g>
-</svg>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>ic_upvote copy</title><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 6.628 5.373 12 12 12s12-5.372 12-12zM12.124 5.4L6.6 10.924l1.324 1.324 3.292-3.292.01 9.768h1.798V8.948l3.3 3.3 1.324-1.324L12.124 5.4z" fill="#1A5EB8" fill-rule="evenodd"/></svg>

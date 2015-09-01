@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
-    <title>Fill 29 Copy</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="Community-Connect" sketch:type="MSArtboardGroup" transform="translate(-145.000000, -681.000000)" fill="#1A5EB8">
-            <path d="M158.5,691.5 L158.5,681 L155.5,681 L155.5,691.5 L145,691.5 L145,694.5 L155.5,694.5 L155.5,705 L158.5,705 L158.5,694.5 L169,694.5 L169,691.5 L158.5,691.5 Z" id="Fill-29-Copy" sketch:type="MSShapeGroup"></path>
-        </g>
-    </g>
-</svg>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Fill 29 Copy</title><path d="M13.5 10.5V0h-3v10.5H0v3h10.5V24h3V13.5H24v-3H13.5z" fill="#1A5EB8" fill-rule="evenodd"/></svg>
