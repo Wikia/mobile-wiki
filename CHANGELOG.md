@@ -1,3 +1,44 @@
+## release-147 (2015-09-01 09:59 UTC)
+* move-ad-slots: Move ad slots out of main application template
+* [HG-854](https://wikia-inc.atlassian.net/browse/HG-854) Hg 854 fixing polldaddy after transition
+* [CONCF-1081](https://wikia-inc.atlassian.net/browse/CONCF-1081) CONCF-1081 | Update translations
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Add sandbox config for Japan homepage
+* [XW-184](https://wikia-inc.atlassian.net/browse/XW-184) XW-183 enable main page editor on test wikis on Mercury
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Fixed typo in gulp tasks for Japan HP. Fix for deployment error
+* [XW-75](https://wikia-inc.atlassian.net/browse/XW-75) XW-75 set focus on iframe when entering view with inputs
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Separate gulp tasks for Japan homepage from mercury tasks. 
+
+## release-146 (2015-08-31 14:05 UTC)
+* revert-1274-move-ad-slots: Revert "Move ads out of application template"
+* [XW-69](https://wikia-inc.atlassian.net/browse/XW-69) Xw 69 show prompt on back click
+* [CONCF-670](https://wikia-inc.atlassian.net/browse/CONCF-670) CONCF-670 | Clean up for details.description
+* Japan-Homepage-Karma: Added karma test runner for qunit front tests for Japan homepage
+* [SOC-1143](https://wikia-inc.atlassian.net/browse/SOC-1143) SOC-1143 | Translations for facebook connect
+* [HG-850](https://wikia-inc.atlassian.net/browse/HG-850) HG-850 Implemented inifinite scroll for post list page
+* move-ad-slots: Move ads out of application template
+* [INT-155](https://wikia-inc.atlassian.net/browse/INT-155) Add an option to turn off "upload a photo" from mobile
+* [CONCF-1060](https://wikia-inc.atlassian.net/browse/CONCF-1060) CONCF-1060 | Curated Content Edit Tool — tooltips for form inputs
+
+## release-145 (2015-08-28 10:00 UTC)
+* remove-console-logging: Remove console logs for article width
+
+## release-144 (2015-08-27 11:26 UTC)
+* [CONCF-1089](https://wikia-inc.atlassian.net/browse/CONCF-1089) CONCF-1089 | fix false positive error of already existing label
+* [DAT-3121](https://wikia-inc.atlassian.net/browse/DAT-3121) DAT-3121 Related pages images fix
+* [MAIN-5225](https://wikia-inc.atlassian.net/browse/MAIN-5225) Change mainPage route to the MW main page article route
+* [HG-843](https://wikia-inc.atlassian.net/browse/HG-843) Hg 843
+
+## release-143 (2015-08-26 13:17 UTC)
+* Japan-HP-Contentupdate-2: INT-162: Featured commmunity panel for Japan Homepage. Content updates
+* [SOC-943](https://wikia-inc.atlassian.net/browse/SOC-943) SOC-943 Post details on forum post listing
+* typo: fixing-typo
+* [CONCF-1063](https://wikia-inc.atlassian.net/browse/CONCF-1063) CONCF-1063 | Style section template
+* [CONCF-1062](https://wikia-inc.atlassian.net/browse/CONCF-1062) CONCF-1062 | restyled view of /main/edit
+* [CONCF-1064](https://wikia-inc.atlassian.net/browse/CONCF-1064) CONCF-1064 | Re-style Curated Content Editor Form
+* [CONCF-989](https://wikia-inc.atlassian.net/browse/CONCF-989) CONCF-989 Allow Curated Content Tool to be opened in a MediaWiki modal
+* [INT-156](https://wikia-inc.atlassian.net/browse/INT-156) Addphoto/edit for JA wikia in mercury when anonymous edit is disabled. 
+* [CONCF-1087](https://wikia-inc.atlassian.net/browse/CONCF-1087) CONCF-1087 show edit main page on wikis without curated content
+
 ## release-142 (2015-08-25 10:17 UTC)
 * [CONCF-1094](https://wikia-inc.atlassian.net/browse/CONCF-1094) CONCF-1094 | enable button only on allowed wikis
 * facebook-auth: Facebook Authentication Release

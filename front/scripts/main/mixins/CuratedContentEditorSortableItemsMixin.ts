@@ -25,6 +25,7 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
 
 				if (this.get('persistentSort')) {
 					this.set('model.items', this.get('sortableItems').slice(0, items.length));
+					App.CuratedContentEditorModel.isDirty = true;
 				}
 			}
 		}

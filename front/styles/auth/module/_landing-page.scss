@@ -49,6 +49,12 @@
 	opacity: 1;
 }
 
+.desktop {
+	.signup-provider-facebook {
+		margin-top: 14px;
+	}
+}
+
 .signup-provider-email {
 	background-color: transparent;
 	border-color: $color-white;

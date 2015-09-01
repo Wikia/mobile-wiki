@@ -35,6 +35,11 @@ App.DiscussionPostRoute = Em.Route.extend({
 			var model = this.modelFor('discussion.post');
 
 			model.loadNextPage();
+		},
+
+		didTransition(): boolean {
+			window.scrollTo(0, 0);
+			return true;
 		}
 	}
 });
