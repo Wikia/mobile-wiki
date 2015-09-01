@@ -1,7 +1,10 @@
 <div class="infobox-builder">
 	{{#infobox-builder-wrapper}}
 		{{#each model.infoboxState as |element|}}
-			{{component element.type data=element.data}}
+			{{component element.infoboxBuilderData.component
+				data=element.data
+				infoboxBuilderData=element.infoboxBuilderData
+			}}
 		{{/each}}
 	{{/infobox-builder-wrapper}}
 
