@@ -3,7 +3,7 @@
 'use strict';
 
 interface Window {
-	define: any
+	Ponto: any;
 }
 
 /**

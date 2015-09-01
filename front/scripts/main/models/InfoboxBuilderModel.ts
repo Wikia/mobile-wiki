@@ -168,7 +168,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {Em.A} state
 	 * @returns {Array}
 	 */
-	prepareStateForSaving(state: Ember.Array): Array {
+	prepareStateForSaving(state: Ember.Array): Object[] {
 		return state.map((item: DataItem|ImageItem|TitleItem) => {
 			delete item.infoboxBuilderData;
 			return item;

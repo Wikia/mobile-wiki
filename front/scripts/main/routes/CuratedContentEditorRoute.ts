@@ -5,10 +5,6 @@
 
 'use strict';
 
-interface Window {
-	Ponto: any
-}
-
 App.CuratedContentEditorRoute = Em.Route.extend(
 	App.TrackClickMixin,
 	App.AmdMixin,

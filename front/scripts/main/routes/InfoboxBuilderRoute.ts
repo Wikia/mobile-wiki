@@ -4,10 +4,6 @@
 
 'use strict';
 
-interface Window {
-	Ponto: any
-}
-
 interface InfoboxBuilderGetAssetsResponse {
 	css: string[];
 }

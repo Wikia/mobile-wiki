@@ -8,13 +8,19 @@ App.InfoboxBuilderItemImageComponent = Em.Component.extend({
 	height: 152,
 	tagName: '',
 	attributeBindings: ['data-position'],
-	alt: Em.computed('data', function() {
+	alt: Em.computed('data', function (): string {
 		return this.get('data.alt.defaultValue');
 	}),
-	caption: Em.computed('data', function() {
+	caption: Em.computed('data', function (): string {
 		return this.get('data.caption.defaultValue');
 	}),
-	position: Em.computed('infoboxBuilderData', function(){
+	position: Em.computed('infoboxBuilderData', function (){
 		return this.get('infoboxBuilderData.position');
 	}),
+	videoClasses: Em.computed(function (): string {
+		if (this.get('isVideo')) {
+			return 'video video-thumbnail small';
+		}
+		return '';
+	})
 });
