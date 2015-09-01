@@ -1,18 +1,35 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../mixins/AmdMixin.ts"/>
 
 'use strict';
+
+interface Window {
+	Ponto: any
+}
 
 interface InfoboxBuilderGetAssetsResponse {
 	css: string[];
 }
 
-App.InfoboxBuilderRoute = Em.Route.extend({
+App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
+	pontoLoadingInitialized: false,
+	pontoPath: '/front/vendor/ponto/web/src/ponto.js',
+
 	renderTemplate(): void {
 		this.render('infobox-builder');
 	},
 
 	beforeModel: function(): Em.RSVP.Promise {
+		if (window.self !== window.top && (
+				!window.Ponto || !this.get('pontoLoadingInitialized')
+			)
+		) {
+			this.suppressDefineAmd(
+				this.loadPonto()
+			);
+		}
+
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.loadAssets().then(
 				(data:InfoboxBuilderGetAssetsResponse) => {
@@ -78,6 +95,18 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		);
 
 		$(html).appendTo('head');
+	},
+
+	loadPonto(): JQueryXHR {
+		this.set('pontoLoadingInitialized', true);
+
+		return Em.$.getScript(this.pontoPath, (): void => {
+			var ponto = window.Ponto;
+
+			if (ponto && typeof ponto.setTarget === 'function') {
+				ponto.setTarget(ponto.TARGET_IFRAME_PARENT, window.location.origin);
+			}
+		});
 	},
 
 	actions: {

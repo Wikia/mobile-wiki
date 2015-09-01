@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
+/// <reference path="../mixins/AmdMixin.ts"/>
 
 'use strict';
 
@@ -10,6 +11,7 @@ interface Window {
 
 App.CuratedContentEditorRoute = Em.Route.extend(
 	App.TrackClickMixin,
+	App.AmdMixin,
 	{
 		beforeModel(): void {
 			if (!$().cropper || !this.get('cropperLoadingInitialized')) {
@@ -30,28 +32,6 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		model(): Em.RSVP.Promise {
 			return App.CuratedContentEditorModel.load();
-		},
-
-		/**
-		 * This is needed as libs used by us will initialize themself as modules if define.amd is truthy
-		 * define.amd might be truthy here if ads code is loaded before
-		 *
-		 * This will be not needed when we move to module system
-		 *
-		 * @param {JQueryXHR} promise
-		 * @returns {JQueryXHR}
-		 */
-		suppressDefineAmd(promise: JQueryXHR) {
-			var oldAmd: any;
-
-			if (window.define) {
-				oldAmd = window.define.amd;
-				window.define.amd = false;
-
-				promise.then((): void => {
-					window.define.amd = oldAmd;
-				});
-			}
 		},
 
 		cropperLoadingInitialized: false,
