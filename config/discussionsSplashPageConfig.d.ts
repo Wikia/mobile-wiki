@@ -5,7 +5,7 @@ interface DiscussionsSplashPageConfig {
 interface WikiaDiscussionsConfig {
 	android: string;
 	ios: string;
-	url: string;
+	domain: string;
 	icon: string;
 	appScreens: string;
 	appName: string;

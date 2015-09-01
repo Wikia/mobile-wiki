@@ -8,7 +8,7 @@ module landingPage {
 
 	function getConfigFromUrl (url: URL): WikiaDiscussionsConfig {
 		var wikiaConfig = config.wikias.filter(function (wikia: WikiaDiscussionsConfig): boolean {
-			return url.host.indexOf(wikia.url) !== -1;
+			return url.host.indexOf(wikia.domain) !== -1;
 		})[0];
 
 		return wikiaConfig;
@@ -16,15 +16,15 @@ module landingPage {
 
 	export function view (request: Hapi.Request, reply: any): Hapi.Response {
 		var response: Hapi.Response, discussionsConfig: WikiaDiscussionsConfig,
-			androidLogo: string, appStoreLogo: string ;
+			androidLogo: string, appStoreLogo: string;
 
-		discussionsConfig = getConfigFromUrl({host: 'http://fallout.wikia.com'});
+		discussionsConfig = getConfigFromUrl({host: request.headers.host});
 
 		if (!discussionsConfig) {
 			return reply('Not Found').code(404);
 		}
 
-		if (discussionsConfig.url === 'http://ja.starwars.wikia.com/') {
+		if (discussionsConfig.domain === 'ja.starwars.wikia.com') {
 			request.server.methods.i18n.getInstance().setLng('ja');
 			appStoreLogo = 'http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg';
 			androidLogo = 'https://developer.android.com/images/brand/ja_generic_rgb_wo_45.png';
@@ -41,7 +41,8 @@ module landingPage {
 				language: request.server.methods.i18n.getInstance().lng(),
 				mainPage: 'http://www.wikia.com',
 				appStoreLogo: appStoreLogo,
-				androidLogo: androidLogo
+				androidLogo: androidLogo,
+				wikiaUrl: 'http://' + discussionsConfig.domain
 			},
 			{
 				layout: 'discussions'
