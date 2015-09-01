@@ -14,25 +14,35 @@
 	}
 
 	li {
-		display: block;
+		display: flex;
+		flex-direction: row;
 		flex-grow: 1;
 		flex-shrink: 0;
-		//90px = 40px of padding and 50px for a bg icon
-		padding: 0 40px 0 90px;
+		padding: 0 40px;
 		text-align: left;
 		width: 320px;
 	}
 
 	h6, p {
 		font-size: 0.875rem;
+		padding-bottom: 4px;
 	}
 
 	h6 {
-		margin-bottom: 0;
+		margin: 0;
+		line-height: 0.875rem;
 	}
 
 	p {
 		margin-top: 0;
 		line-height: 1.125rem;
+	}
+
+	svg {
+		height: 20px;
+		min-height: 20px;
+		min-width: 20px;
+		margin: 0 10px;
+		width: 20px;
 	}
 }
