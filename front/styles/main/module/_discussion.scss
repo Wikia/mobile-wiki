@@ -95,6 +95,11 @@
 		}
 	}
 
+  	.load-more {
+	  text-align: center;
+	  width: 100%;
+	}
+
 	.post-detail {
 		padding: 12px 0;
 	}
@@ -129,6 +134,7 @@
 
 		.post-detail {
 			border-top: 1px solid #ccc;
+			cursor: pointer;
 
 			&:first-child {
 				border-width: 0;

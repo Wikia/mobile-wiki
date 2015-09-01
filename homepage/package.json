@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp",
-    "test": "npm test",
+    "test": "gulp build --type prod && gulp karma",
     "build": "gulp build --type prod",
     "start": "npm run build && node server/index.js"
   },
@@ -33,6 +33,7 @@
     "gulp-folders": "^1.1.0",
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.11.2",
+    "gulp-karma": "0.0.4",
     "gulp-newer": "^0.5.1",
     "gulp-nodemon": "^2.0.3",
     "gulp-sass": "*",
@@ -42,7 +43,13 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-qunit": "^0.1.5",
     "multipipe": "^0.1.2",
-    "pretty-hrtime": "^1.0.0"
+    "phantomjs": "^1.9.18",
+    "pretty-hrtime": "^1.0.0",
+    "qunitjs": "^1.18.0"
   }
 }
