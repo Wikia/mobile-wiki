@@ -1,5 +1,7 @@
 /// <reference path='../baseline/mercury.ts' />
 /// <reference path='../mercury/utils/track.ts' />
+/// <reference path='../mercury/utils/queryString.ts' />
+
 
 (function () {
 	function checkPageType (pageType: string): boolean {
@@ -28,6 +30,8 @@
 		dimensions[5] = 'anon';
 		// IsCorporatePage
 		dimensions[15] = 'No';
+		// newAuthEntryPage
+		dimensions[10] = M.getQueryParam('redirect');
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
