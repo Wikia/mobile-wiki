@@ -1,11 +1,15 @@
-declare var VisitSource: any;
-
 class VisitSourceWrapper {
-	public static sessionVisitSource: any = new VisitSource('WikiaSessionSource', pageParams.cookieDomain);
-	public static lifetimeVisitSource: any = new VisitSource('WikiaLifetimeSource', pageParams.cookieDomain, false);
+	public static sessionVisitSource: any = (typeof VisitSource !== 'undefined') ?
+		new VisitSource('WikiaSessionSource', pageParams.cookieDomain) :
+		undefined;
+	public static lifetimeVisitSource: any = (typeof VisitSource !== 'undefined') ?
+		new VisitSource('WikiaLifetimeSource', pageParams.cookieDomain, false) :
+		undefined;
 
 	public static init() {
-		this.sessionVisitSource.checkAndStore();
-		this.lifetimeVisitSource.checkAndStore();
+		if (this.sessionVisitSource && this.sessionVisitSource) {
+			this.sessionVisitSource.checkAndStore();
+			this.lifetimeVisitSource.checkAndStore();
+		}
 	}
 }

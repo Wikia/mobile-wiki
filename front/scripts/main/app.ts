@@ -50,8 +50,10 @@ App.initializer({
 App.initializer({
 	name: 'visit-source',
 	initialize () {
-		(new VisitSource('WikiaSessionSource', M.prop('cookieDomain'))).checkAndStore();
-		(new VisitSource('WikiaLifetimeSource', M.prop('cookieDomain'), false)).checkAndStore();
+		if (typeof VisitSource !== 'undefined') {
+			(new VisitSource('WikiaSessionSource', M.prop('cookieDomain'))).checkAndStore();
+			(new VisitSource('WikiaLifetimeSource', M.prop('cookieDomain'), false)).checkAndStore();
+		}
 	}
 });
 

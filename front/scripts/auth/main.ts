@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
 declare var translations: any;
 declare var language: string;
+declare var VisitSource: any;
 
 if (typeof language === 'undefined') {
 	language = '';
@@ -50,5 +51,7 @@ window.document.addEventListener('DOMContentLoaded', function ():void {
 		new BirthdateInput(birthdateContainer, formElement).init();
 	}
 
-	VisitSourceWrapper.init();
+	if (typeof VisitSource !== 'undefined') {
+		VisitSourceWrapper.init();
+	}
 });
