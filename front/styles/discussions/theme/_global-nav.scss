@@ -1,9 +1,10 @@
 .global-nav {
-	height: 46px;
 	background-color: $color-white;
 	border-bottom: solid $border-header-color 2px;
 	flex-shrink: 0;
+	height: 46px;
 }
+
 a {
 	&.main-page {
 		background-image: url("/front/images/wikia-logo-blue.svg");
@@ -13,7 +14,7 @@ a {
 		margin-top: 12px;
 		width: 75px;
 
-		span{
+		span {
 			display: none;
 		}
 	}

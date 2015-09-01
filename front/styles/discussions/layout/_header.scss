@@ -9,8 +9,8 @@
 		font-size: inherit;
 		font-weight: inherit;
 		line-height: inherit;
-		padding: 0;
 		margin: 0 15px;
+		padding: 0;
 	}
 
 	.app-logo {
@@ -24,9 +24,9 @@
 	.wiki-link {
 		background: url('/front/images/back-arrow.svg') left no-repeat;
 		color: $link-color;
+		float: left;
 		font-size: 0.67rem;
 		font-weight: bold;
-		float: left;
 		left: 29px;
 		line-height: 1rem;
 		padding: 0 25px;
