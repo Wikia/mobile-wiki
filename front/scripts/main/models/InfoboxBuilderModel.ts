@@ -3,11 +3,11 @@
 
 interface DataItem {
 	data: {
-		index: number;
 		defaultValue: string;
 		label: string;
-		position: number;
 	};
+	index: number;
+	position: number;
 	source: string;
 	type: string;
 }
@@ -17,26 +17,30 @@ interface ImageItem {
 		alt: {
 			source: string;
 			data: {
-				default: string;
+				defaultValue: string;
 			}
 		};
-		caption: string;
-		defaultAlt: string;
-		defaultCaption: string;
+		caption: {
+			source: string;
+			data: {
+				defaultValue: string;
+			}
+		};
 		defaultValue: string;
-		index: number;
-		position: number;
 	};
+	index: number;
+	position: number;
 	source: string;
 	type: string;
 }
 
 interface TitleItem {
 	data: {
-		index: number;
 		defaultValue: string;
-		position: number;
+
 	};
+	index: number;
+	position: number;
 	source: string;
 	type: string;
 }
@@ -75,12 +79,12 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 		this.addToState({
 			data: {
-				index: i,
 				defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
 				label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
-				position: this.get('_stateLength'),
-				source: `data${i}`,
 			},
+			index: i,
+			position: this.get('_stateLength'),
+			source: `data${i}`,
 			type: 'infobox-data-item'
 		});
 	},
@@ -92,15 +96,20 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		var i = this.increaseItemIndex('image');
 
 		this.addToState({
-			data: {alt: `alt${i}`,
-				caption: `caption${i}`,
-				defaultAlt: i18n.t('app.infobox-builder-alt-item-default-value'),
-				defaultCaption: i18n.t('app.infobox-builder-caption-item-default-value'),
+			data: {
+				alt: {
+					source: `alt${i}`,
+					defaultValue: i18n.t('app.infobox-builder-alt-item-default-value'),
+				},
+				caption: {
+					source: `caption${i}`,
+					defaultValue: i18n.t('app.infobox-builder-caption-item-default-value'),
+				} ,
 				defaultValue: 'path/to/image.jpg',
-				index: i,
-				position: this.get('_stateLength'),
-				source: `image${i}`
 			},
+			index: i,
+			position: this.get('_stateLength'),
+			source: `image${i}`,
 			type: 'infobox-image-item'
 		});
 	},
@@ -113,11 +122,12 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 		this.addToState({
 			data: {
-				index: i,
 				defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
-				position: this.get('_stateLength'),
-				source: `title${i}`,
+
 			},
+			index: i,
+			position: this.get('_stateLength'),
+			source: `title${i}`,
 			type: 'infobox-title-item'
 		});
 	},
