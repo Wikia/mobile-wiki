@@ -1,15 +1,11 @@
 {{top-bar}}
 {{discussion-header}}
-<div class="discussion forum">
-	{{#each model._embedded.doc:threads as |item|}}
-		{{post-detail
-			action="goToPost"
-			postId=item.id
-			author=item._embedded.firstPost.0.createdBy
-			content=item._embedded.firstPost.0.rawContent
-			timestamp=item._embedded.firstPost.0.creationDate.epochSecond
-			upvoteCount=item.upvoteCount
-			replyCount=item.postCount
-		}}
-	{{/each}}
-</div>
+{{forum-wrapper
+	goToPost='goToPost'
+	loadPage='loadPage'
+	name=model.name
+	posts=model.posts
+	postsDisplayed=model.posts.length
+	totalPosts=model.totalPosts
+
+}}

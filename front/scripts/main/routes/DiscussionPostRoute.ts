@@ -1,8 +1,16 @@
 /// <reference path="../app.ts" />
 
 App.DiscussionPostRoute = Em.Route.extend({
-	model (params: any) {
+	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
+	},
+
+	afterModel (model: typeof App.DiscussionPostModel): void {
+		var title: string = model.get('title');
+		if (!title) {
+			title = i18n.t('discussion.share-default-title', {siteName: Mercury.wiki.siteName});
+		}
+		this.controllerFor('application').set('currentTitle', title);
 	},
 
 	activate (): void {
@@ -33,6 +41,11 @@ App.DiscussionPostRoute = Em.Route.extend({
 			var model = this.modelFor('discussion.post');
 
 			model.loadNextPage();
+		},
+
+		didTransition(): boolean {
+			window.scrollTo(0, 0);
+			return true;
 		}
 	}
 });

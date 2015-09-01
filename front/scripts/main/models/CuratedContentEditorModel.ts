@@ -41,7 +41,8 @@ type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
 	curated: null,
-	optional: null
+	optional: null,
+	isDirty: false
 });
 
 App.CuratedContentEditorModel.reopenClass({
@@ -194,6 +195,7 @@ App.CuratedContentEditorModel.reopenClass({
 		//When parent doesn't have items we need to initialize them
 		parent.items = parent.items || [];
 		parent.items.push(newItem.toPlainObject());
+		App.CuratedContentEditorModel.isDirty = true;
 	},
 
 	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
@@ -205,7 +207,8 @@ App.CuratedContentEditorModel.reopenClass({
 			if (item.label === itemLabel) {
 				parentItems[index] = newItem.toPlainObject();
 			}
-		})
+		});
+		App.CuratedContentEditorModel.isDirty = true;
 	},
 
 	deleteItem(parent: CuratedContentEditorItemModel, itemLabel: string): void {
@@ -214,5 +217,6 @@ App.CuratedContentEditorModel.reopenClass({
 			): boolean => {
 				return item.label !== itemLabel;
 		});
+		App.CuratedContentEditorModel.isDirty = true;
 	}
 });

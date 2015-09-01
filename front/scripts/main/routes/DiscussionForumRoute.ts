@@ -18,6 +18,12 @@ App.DiscussionForumRoute = Em.Route.extend({
 		didTransition: function(): boolean {
 			this.controllerFor('application').set('fullPage', true);
 			return true;
+		},
+
+		loadPage: function (pageNum: number): void {
+			var model = this.modelFor('discussion.forum');
+
+			model.loadPage(pageNum);
 		}
 	}
 });
