@@ -3,5 +3,7 @@
 
 App.InfoboxBuilderWrapperComponent = Em.Component.extend({
 	tagName: '',
-	classNameBindings: ['theme', 'layout']
+
+	theme: '',
+	layout: ''
 });
