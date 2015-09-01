@@ -3,31 +3,31 @@
 </nav>
 
 <header class="discussions-header">
-	<a href="{{ discussionsConfig.url }}" title="{{i18n 'discussion:landing-page.to-the-wiki-title'}}" class="wiki-link">{{i18n 'discussion:landing-page.to-the-wiki-title'}}</a>
-	<div class="app-logo"><img src="{{ discussionsConfig.icon }}" alt="{{ discussionsConfig.appName }}"></div>
+	<a href="{{discussionsConfig.url}}" title="{{i18n 'discussion:landing-page.to-the-wiki-title'}}" class="wiki-link">{{i18n 'discussion:landing-page.to-the-wiki-title'}}</a>
+	<div class="app-logo"><img src="{{discussionsConfig.icon}}" alt="{{discussionsConfig.appName}}"></div>
 	<h1>{{i18n 'discussion:landing-page.page-main-header' applicationName=discussionsConfig.appName}}</h1>
 </header>
 
 <div class="discussions-content">
 	<section>
 		<p class="app-download">
-			{{i18n 'discussion:landing-page.download-the-app-header' }}
+			{{i18n 'discussion:landing-page.download-the-app-header'}}
 		</p>
 		<ul>
 			<li class="app-button app-store">
-				<a href="{{ discussionsConfig.ios }}"
+				<a href="{{discussionsConfig.ios}}"
 				   style="background-image: url('http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg');">
 				</a>
 			</li>
 			<li class="app-button google">
-				<a href="{{ discussionsConfig.android }}">
+				<a href="{{discussionsConfig.android}}">
 					<img alt="Get it on Google Play"
 						 src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
 				</a>
 			</li>
 		</ul>
 		<div class="app-screen">
-			<span style="background-image: url('{{ discussionsConfig.appScreens }}');"></span>
+			<span style="background-image: url('{{discussionsConfig.appScreens}}');"></span>
 		</div>
 	</section>
 </div>
