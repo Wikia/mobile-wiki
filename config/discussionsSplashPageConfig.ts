@@ -58,18 +58,18 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			icon: '/front/images/Adventure-Time-Icon.png',
 			appName: 'Adventure Time',
 			appScreens: '/front/images/Phone-Adventure-Time.png'
-		},
-
-		// community connect
-		{
-			// @TODO update when app gets released
-			android: '',
-			ios: '',
-			url: 'http://connect.wikia.com',
-			icon: '/front/images/Community-Connect-App-Icon.png',
-			appName: 'Community Connect',
-			appScreens: '/front/images/Phone-Community-Connect.png'
 		}
+
+		// @TODO update when app gets released
+		// community connect
+		//{
+		//	android: '',
+		//	ios: '',
+		//	url: 'http://connect.wikia.com',
+		//	icon: '/front/images/Community-Connect-App-Icon.png',
+		//	appName: 'Community Connect',
+		//	appScreens: '/front/images/Phone-Community-Connect.png'
+		//}
 	]
 };
 
