@@ -5,40 +5,30 @@
 
 interface InfoboxBuilderGetAssetsResponse {
 	css: string[];
-	templates: string[];
 }
 
 App.InfoboxBuilderRoute = Em.Route.extend({
-	templateCompilerLoaded: false,
-	templateCompilerPath: '/front/vendor/ember',
-
 	renderTemplate(): void {
 		this.render('infobox-builder');
 	},
 
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			//console.log(App.CurrentUser.get('isAuthenticated'));
-			//if (App.CurrentUser.get('isAuthenticated')) {
-				this.loadAssets().then(
-					(data:InfoboxBuilderGetAssetsResponse) => {
-						console.log("data", data);
-						this.setupStyles(data.css);
-						resolve();
-					}, (data:string) => {
-						reject(data);
-					}
-				);
-			//} else {
-			//	reject();
-			//}
+			this.loadAssets().then(
+				(data:InfoboxBuilderGetAssetsResponse) => {
+					this.setupStyles(data.css);
+					resolve();
+				}, (data:string) => {
+					reject(data);
+				}
+			);
 		});
 	},
 
 	model: function(params: any): typeof App.InfoboxBuilderModel {
 		var templates = this.get('templates');
 
-		return App.InfoboxBuilderModel.create({title: params.templateName, templates: templates});
+		return App.InfoboxBuilderModel.create({title: params.templateName});
 	},
 
 	afterModel: function(model: any): void {
@@ -61,8 +51,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 					format: 'json'
 				},
 				success: (data: InfoboxBuilderGetAssetsResponse): void => {
-					if (data && data.css && data.templates) {
-						this.set('templates', data.templates);
+					if (data && data.css) {
 						resolve(data);
 					} else {
 						reject('Invalid data was returned from Infobox Builder API');
@@ -131,7 +120,6 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		},
 
 		saveTemplate(): void {
-			console.log("saving template");
 			var model = this.modelFor('infoboxBuilder');
 			return model.saveStateToTemplate();
 		},
