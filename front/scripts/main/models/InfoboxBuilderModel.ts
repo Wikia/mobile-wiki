@@ -213,7 +213,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				}),
 				data: {
 					controller: 'PortableInfoboxBuilderController',
-					method: 'saveToTemplate',
+					method: 'publish',
 					infoboxData: this.prepareStateForSaving(this.get('infoboxState'))
 
 				},
