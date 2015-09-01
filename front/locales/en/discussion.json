@@ -2,7 +2,10 @@
 	"open-graph": {
 		"generic-title": "Discussion on __siteName__"
 	},
-	"splash-page": {
+	"landing-page": {
+	   	"to-the-wiki-title": "to the Wiki",
+	  	"page-main-header": "The hottest __applicationName__ discussions with the biggest fans.",
+	    "download-the-app-header": "Download the app to join in now!",
 		"start-discussions-title": "Start Discussions",
 		"start-discussions-text": "Ask a question, share news or just talk with other fans from around the world about your favourite topics!",
 		"upvote-the-best-title": "Upvote the Best",
