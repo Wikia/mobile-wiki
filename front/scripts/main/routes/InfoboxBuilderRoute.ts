@@ -63,12 +63,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 				success: (data: InfoboxBuilderGetAssetsResponse): void => {
 					if (data && data.css && data.templates) {
 						this.set('templates', data.templates);
-						this.loadTemplateCompiler().then(() => {
-							this.set('templateCompilerLoaded', true);
-							this.setupComponentTemplates(data.templates);
-							resolve(data);
-						});
-
+						resolve(data);
 					} else {
 						reject('Invalid data was returned from Infobox Builder API');
 					}
@@ -78,39 +73,6 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 				}
 			});
 		});
-	},
-
-	setupComponentTemplates(templates: Object): void {
-		App.InfoboxDataItemComponent.reopen({
-			layout: Em.Handlebars.compile(this.sanitizeTemplate(templates['data']))
-		});
-		App.InfoboxTitleItemComponent.reopen({
-			layout: Em.Handlebars.compile(this.sanitizeTemplate(templates['title']))
-		});
-		App.InfoboxBuilderWrapperComponent.reopen({
-			layout:  Em.Handlebars.compile('<aside class="portable-infobox pi-background">{{yield}}</aside>')
-		});
-		App.InfoboxImageItemComponent.reopen({
-			layout: Em.Handlebars.compile('<figure class="pi-item pi-image"> <a href="{{url}}" class="image image-thumbnail" title="{{alt}}"> <img src="{{thumbnail}}" class="pi-image-thumbnail" alt="{{alt}}" width="{{{width}}}" height="{{{height}}}"/> </a> {{#if caption}}<figcaption class="pi-item-spacing pi-caption">{{{caption}}}</figcaption>{{/if}} </figure>')
-		});
-	},
-
-	/**
-	 * @param text string Moustache template text to
-	 * transfotm to HTMLbars template text
-	 * @returns text string
-	 */
-	sanitizeTemplate( text: string ): string {
-		var patternOpen = /\{\{#/g,
-			replaceOpen = '{{#if ',
-			patternClose = /\{\{\/.+\}\}/g,
-			replaceClose = '{{/if}}',
-			videoPattern = /\{\{#isVideo\}\}.*\{\{\/isVideo\}\}/;
-
-		return text
-			.replace(videoPattern, '')
-			.replace(patternOpen, replaceOpen)
-			.replace(patternClose, replaceClose);
 	},
 
 	/**
@@ -127,14 +89,6 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		);
 
 		$(html).appendTo('head');
-	},
-
-	/**
-	 * Load Template Compiler js
-	 * @returns {JQueryXHR}
-	 */
-	loadTemplateCompiler(): JQueryXHR {
-		return Em.$.getScript(`${this.templateCompilerPath}/ember-template-compiler.js`);
 	},
 
 	actions: {
