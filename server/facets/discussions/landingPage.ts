@@ -7,25 +7,41 @@ module landingPage {
 	}
 
 	function getConfigFromUrl (url: URL): WikiaDiscussionsConfig {
-		var wikiaConfig = config.wikias.filter(function (wikia: WikiaDiscussionsConfig) {
+		var wikiaConfig = config.wikias.filter(function (wikia: WikiaDiscussionsConfig): boolean {
 			return url.host.indexOf(wikia.url) !== -1;
-		})[0] || config.wikias[0];
+		})[0];
 
 		return wikiaConfig;
 	}
 
-	export function view (request: Hapi.Request, reply: Hapi.Response, context: any): Hapi.Response {
-		var response: Hapi.Response, discussionsConfig: WikiaDiscussionsConfig;
+	export function view (request: Hapi.Request, reply: any): Hapi.Response {
+		var response: Hapi.Response, discussionsConfig: WikiaDiscussionsConfig,
+			androidLogo: string, appStoreLogo: string ;
 
 		discussionsConfig = getConfigFromUrl({host: 'http://fallout.wikia.com'});
+
+		if (!discussionsConfig) {
+			return reply('Not Found').code(404);
+		}
+
+		if (discussionsConfig.url === 'http://ja.starwars.wikia.com/') {
+			request.server.methods.i18n.getInstance().setLng('ja');
+			appStoreLogo = 'http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg';
+			androidLogo = 'https://developer.android.com/images/brand/ja_generic_rgb_wo_45.png';
+		} else {
+			appStoreLogo = 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg';
+			androidLogo = 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png';
+		}
 
 		response = reply.view(
 			'discussions/landing-page',
 			{
 				canonicalUrl: 'https://' + request.headers.host + request.path,
+				discussionsConfig: discussionsConfig,
 				language: request.server.methods.i18n.getInstance().lng(),
 				mainPage: 'http://www.wikia.com',
-				discussionsConfig: discussionsConfig
+				appStoreLogo: appStoreLogo,
+				androidLogo: androidLogo
 			},
 			{
 				layout: 'discussions'

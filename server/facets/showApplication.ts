@@ -49,7 +49,7 @@ function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: a
 	Tracking.handleResponse(context, request);
 	//reply.view('application', context);
 
-	landingPage.view(request, reply, context);
+	landingPage.view(request, reply);
 }
 
 export = showApplication;
