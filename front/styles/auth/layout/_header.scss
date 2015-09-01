@@ -6,9 +6,9 @@
 
 	h1 {
 		color: inherit;
+		line-height: inherit;
 		font-size: inherit;
 		font-weight: inherit;
-		line-height: inherit;
 	}
 }
 
@@ -23,8 +23,15 @@
 	.auth-header {
 		font-size: 2.5rem;
 		font-weight: bold;
-		padding: 75px 75px 53px;
+		min-height: 145px;
+		padding: 47px 75px 50px;
 		position: relative;
+
+		h1 {
+			font-size: 2.25rem;
+			line-height: 2.5rem;
+			margin: 0;
+		}
 
 		&::after {
 			background-image: url('/front/images/wikia-logo-circled.svg');
@@ -40,6 +47,13 @@
 
 		p {
 			line-height: 1.25rem;
+			margin: 1rem 0 0;
+		}
+	}
+	&.register-fb-page,
+	&.fb-connect-page {
+		.auth-header {
+			padding-top: 40px;
 		}
 	}
 }

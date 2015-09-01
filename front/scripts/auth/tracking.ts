@@ -1,5 +1,7 @@
 /// <reference path='../baseline/mercury.ts' />
 /// <reference path='../mercury/utils/track.ts' />
+/// <reference path='../mercury/utils/queryString.ts' />
+
 
 (function () {
 	function checkPageType (pageType: string): boolean {
@@ -28,11 +30,13 @@
 		dimensions[5] = 'anon';
 		// IsCorporatePage
 		dimensions[15] = 'No';
+		// newAuthEntryPage
+		dimensions[10] = M.getQueryParam('redirect');
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
 	function setTrackingForSignInPage (): void {
-		var tracker = new AuthTracker('user-login-mobile');
+		var tracker = new AuthTracker('login');
 
 		//Impression of the /signin page
 		tracker.trackPageView('signin-page');
@@ -46,7 +50,7 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'login-modal',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		// Click "Forgot Password" link
@@ -63,7 +67,7 @@
 	}
 
 	function setTrackingForRegisterPage (): void {
-		var tracker = new AuthTracker('user-signup-mobile');
+		var tracker = new AuthTracker('signup');
 
 		//Impression of the /register page
 		tracker.trackPageView('register-page');
@@ -77,7 +81,7 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'register-modal',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		// Click "Register Now" link
@@ -88,7 +92,7 @@
 	}
 
 	function setTrackingForJoinPage(): void {
-		var tracker = new AuthTracker('user-login-mobile');
+		var tracker = new AuthTracker('login');
 
 		//Impression of the /join page
 		tracker.trackPageView('join-page');
@@ -114,19 +118,19 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'join-close-button',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		//Click on 'connect with facebook'
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-facebook'),
 			'facebook-login-button',
-			Mercury.Utils.trackActions.click
+			M.trackActions.click
 		);
 	}
 
 	function setTrackingForFBConnectPage () {
-		var tracker = new AuthTracker('user-signup-mobile');
+		var tracker = new AuthTracker('signup');
 		//Impression of the /signin page
 		tracker.trackPageView('signin-page');
 		// Click "Sign In" button
@@ -139,7 +143,7 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'facebook-connect-close-button',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		// Click "Forgot Password" link
