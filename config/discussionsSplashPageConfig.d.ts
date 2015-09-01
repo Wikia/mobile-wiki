@@ -8,4 +8,5 @@ interface WikiaDiscussionsConfig {
 	url: string;
 	icon: string;
 	appScreens: string;
+	appName: string;
 }
