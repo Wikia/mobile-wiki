@@ -7,7 +7,6 @@
 
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, {
 	classNames: ['share-feature'],
-	tagName: 'div',
 	headroom: null,
 
 	options: {
@@ -24,6 +23,8 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		}
 		return 0;
 	}),
+
+	sharedUrl: Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname,
 
 	/**
 	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
@@ -58,18 +59,18 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 
 
 	lineShare: Em.computed('title', function (): string {
-		return "http://line.me/R/msg/text/?" + encodeURIComponent(this.get('title')) + " " + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
+		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('sharedUrl'));
 	}),
 
-	facebookShare: Em.computed('title', function (): string {
-		return "http://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
+	facebookShare: Em.computed('title', 'sharedUrl', function (): string {
+		return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('sharedUrl'));
 	}),
 
-	twitterShare: Em.computed('title', function (): string {
-		return "https://twitter.com/share?url=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
+	twitterShare: Em.computed('sharedUrl', function (): string {
+		return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
 	}),
 
 	googleShare: Em.computed('title', function (): string {
-		return "https://plus.google.com/share?url=" + encodeURIComponent(Mercury.wiki.basePath + Mercury.wiki.articlePath + this.get('title'));
+		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
 	})
 });

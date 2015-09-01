@@ -73,7 +73,8 @@ App.DiscussionPostModel.reopenClass({
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
 						pivotId: pivotId,
-						page: 0
+						page: 0,
+						title: data.title
 					});
 					resolve(postInstance);
 				},
