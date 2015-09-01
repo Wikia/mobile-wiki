@@ -62,8 +62,9 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 
 		// community connect
 		{
-			android: 'TODO update when app gets released',
-			ios: 'TODO update when app gets released',
+			// @TODO update when app gets released
+			android: '',
+			ios: '',
 			url: 'http://connect.wikia.com',
 			icon: '/front/images/Community-Connect-App-Icon.png',
 			appScreens: '/front/images/Phone-Community-Connect',

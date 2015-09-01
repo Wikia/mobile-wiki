@@ -3,9 +3,9 @@
 </nav>
 
 <header class="discussions-header">
-	<a href="#" title="" class="wiki-link">{{i18n 'discussion:landing-page.to-the-wiki-title'}}</a>
+	<a href="{{ discussionsConfig.url }}" title="" class="wiki-link">{{i18n 'discussion:landing-page.to-the-wiki-title'}}</a>
 	<div class="app-logo"><img src="http://vignette.wikia.nocookie.net/outwiki_image_hosting_00/images/3/37/ios_image-starwars/revision/latest/thumbnail/width/80/height/80" alt="{{applicationName}}"></div>
-	<h1>{{i18n 'discussion:landing-page.page-main-header' applicationName=appName}}</h1>
+	<h1>{{i18n 'discussion:landing-page.page-main-header' applicationName=discussionsConfig.appName}}</h1>
 </header>
 
 <div class="discussions-content">
@@ -15,19 +15,19 @@
 		</p>
 		<ul>
 			<li class="app-button app-store">
-				<a href="https://geo.itunes.apple.com/us/app/wikia-fan-app-for-fallout/id1002376814?mt=8"
-				   style="background-image: url(http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg);">
+				<a href="{{ discussionsConfig.ios }}"
+				   style="background-image: url('http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg');">
 				</a>
 			</li>
 			<li class="app-button google">
-				<a href="https://play.google.com/store/apps/details?id=com.wikia.singlewikia.fallout">
+				<a href="{{ discussionsConfig.android }}">
 					<img alt="Get it on Google Play"
 						 src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
 				</a>
 			</li>
 		</ul>
 		<div class="app-screen">
-			<span style="background-image: url('/front/images/star-wars-screen.png');"></span>
+			<span style="background-image: url('{{ discussionsConfig.appScreens }}');"></span>
 		</div>
 	</section>
 </div>
