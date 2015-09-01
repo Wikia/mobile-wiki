@@ -6,8 +6,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			ios: 'https://itunes.apple.com/us/app/keynote/id920825975',
 			url: 'http://walkingdead.wikia.com',
 			icon: '/front/images/Walking-Dead-Icon.png',
-			appScreens: '/front/images/Phone-Walking-Dead',
-			appName: 'Walking Dead'
+			appName: 'Walking Dead',
+			appScreens: '/front/images/Phone-Walking-Dead.png'
 		},
 
 		// fallout
@@ -16,8 +16,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			ios: 'https://itunes.apple.com/us/app/keynote/id1002376814',
 			url: 'http://fallout.wikia.com/',
 			icon: '/front/images/Fallout-Icon.png',
-			appScreens: '/front/images/Phone-Fallout',
-			appName: 'Fallout'
+			appName: 'Fallout',
+			appScreens: '/front/images/Phone-Fallout.png'
 		},
 
 		// starwars
@@ -26,8 +26,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			ios: 'https://itunes.apple.com/us/app/keynote/id920826902',
 			url: 'http://starwars.wikia.com/',
 			icon: '/front/images/Star-Wars-Icon.png',
-			appScreens: '/front/images/Phone-Star-Wars',
-			appName: 'Star Wars'
+			appName: 'Star Wars',
+			appScreens: '/front/images/Phone-Star-Wars.png'
 		},
 
 		//starwars jp
@@ -36,8 +36,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			ios: 'https://itunes.apple.com/us/app/keynote/id920826902',
 			url: 'http://ja.starwars.wikia.com/',
 			icon: '/front/images/Star-Wars-Icon.png',
-			appScreens: '/front/images/Phone-Star-Wars',
-			appName: 'Star Wars'
+			appName: 'Star Wars',
+			appScreens: '/front/images/Phone-Star-Wars.png'
 		},
 
 		// cocktails
@@ -46,8 +46,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			ios: 'https://itunes.apple.com/us/app/keynote/id912770593',
 			url: 'http://cocktails.wikia.com/',
 			icon: '/front/images/Cocktails-Icon.png',
-			appScreens: '/front/images/Phone-Cocktails',
-			appName: 'Cocktails'
+			appName: 'Cocktails',
+			appScreens: '/front/images/Phone-Cocktails.png'
 		},
 
 		// adventure time
@@ -56,8 +56,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			ios: 'https://itunes.apple.com/us/app/keynote/id951098842',
 			url: 'http://adventuretime.wikia.com',
 			icon: '/front/images/Adventure-Time-Icon.png',
-			appScreens: '/front/images/Phone-Adventure-Time',
-			appName: 'Adventure Time'
+			appName: 'Adventure Time',
+			appScreens: '/front/images/Phone-Adventure-Time.png'
 		},
 
 		// community connect
@@ -67,8 +67,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			ios: '',
 			url: 'http://connect.wikia.com',
 			icon: '/front/images/Community-Connect-App-Icon.png',
-			appScreens: '/front/images/Phone-Community-Connect',
-			appName: 'Community Connect'
+			appName: 'Community Connect',
+			appScreens: '/front/images/Phone-Community-Connect.png'
 		}
 	]
 };
