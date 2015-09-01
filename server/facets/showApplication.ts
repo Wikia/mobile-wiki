@@ -9,6 +9,7 @@ import Tracking = require('../lib/Tracking');
 import OpenGraph = require('../lib/OpenGraph');
 import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
+import landingPage = require('./discussions/landingPage');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
@@ -47,18 +48,8 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: any): void {
 	Tracking.handleResponse(context, request);
 	//reply.view('application', context);
-	reply.view(
-		'discussions/landing-page',
-		{
-			canonicalUrl: 'https://' + request.headers.host + request.path,
-			language: request.server.methods.i18n.getInstance().lng(),
-			mainPage: 'http://www.wikia.com',
-			title: 'The hottest <appname> discussions with the biggest fans.'
-		},
-		{
-			layout: 'discussions'
-		}
-	);
+
+	landingPage.view(request, reply, context);
 }
 
 export = showApplication;
