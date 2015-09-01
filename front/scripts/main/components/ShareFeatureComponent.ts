@@ -1,9 +1,7 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../mercury/utils/browser.ts" />
 /// <reference path="../../main/mixins/LanguagesMixin.ts" />
 /// <reference path="../../main/mixins/TrackClickMixin.ts" />
 /// <reference path="../../main/mixins/HeadroomMixin.ts" />
-/// <reference path="../../../../typings/headroom/headroom.d.ts" />
 'use strict';
 
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, App.HeadroomMixin, {
