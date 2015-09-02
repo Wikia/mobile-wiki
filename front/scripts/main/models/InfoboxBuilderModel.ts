@@ -59,7 +59,8 @@ interface TitleItem {
 
 interface SaveStateToTemplateResponse {
 	success: boolean;
-	errorMessage?: boolean;
+	errors: any[];
+	warnings: any[];
 }
 
 App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
@@ -177,7 +178,7 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	 * @param {Em.Array} state
 	 * @returns string stringified object
 	 */
-	prepareStateForSaving(state: Em.Array): any {
+	prepareStateForSaving(state: Em.Array): string {
 		var plainState = state.map((item: any) => {
 			delete item.infoboxBuilderData;
 			return item;
@@ -232,9 +233,9 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 				method: 'POST',
 				success: (data: SaveStateToTemplateResponse): void => {
 					if (data && data.success) {
-						resolve(data);
+						resolve(this.get('title'));
 					} else {
-						reject(data.errorMessage);
+						reject(data.errors);
 					}
 				},
 				error: (data: any): void => {

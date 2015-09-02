@@ -179,7 +179,25 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 
 		saveTemplate(): void {
 			var model = this.modelFor('infoboxBuilder');
-			return model.saveStateToTemplate();
+			model.saveStateToTemplate().then((title: any) => {
+				return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+					var ponto = window.Ponto;
+
+					ponto.invoke(
+						'wikia.infoboxBuilder.ponto',
+						'redirectToTemplatePage',
+						title,
+						function (data: any):void {
+							resolve(data);
+						},
+						function (data: any):void {
+							reject(data);
+							this.showPontoError(data);
+						},
+						false
+					);
+				});
+			});
 		},
 
 		cancel(): void {
