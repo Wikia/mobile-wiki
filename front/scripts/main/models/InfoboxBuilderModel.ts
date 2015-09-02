@@ -66,7 +66,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		image: 0,
 		title: 0,
 	},
-	infoboxState: Ember.A([]),
+	infoboxState: Em.A([]),
 	_stateLength: Em.computed('infoboxState', {
 		get(): number {
 			return this.get('infoboxState').length;
@@ -168,11 +168,12 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {Em.A} state
 	 * @returns {Array}
 	 */
-	prepareStateForSaving(state: Ember.Array): Object[] {
-		return state.map((item: DataItem|ImageItem|TitleItem) => {
+	prepareStateForSaving(state: Ember.Array): Array {
+		return state.map((item: any) => {
 			delete item.infoboxBuilderData;
-			return item;
-		});
+			return item.toJSON();
+		}).toArray();
+
 	},
 
 	/**
