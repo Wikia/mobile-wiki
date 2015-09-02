@@ -1,13 +1,15 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../mixins/AmdMixin.ts"/>
 
 'use strict';
 
+interface Window {
+	Ponto: any
+}
+
 App.CuratedContentEditorRoute = Em.Route.extend(
 	App.TrackClickMixin,
-	App.AmdMixin,
 	{
 		beforeModel(): void {
 			if (!$().cropper || !this.get('cropperLoadingInitialized')) {
@@ -28,6 +30,28 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		model(): Em.RSVP.Promise {
 			return App.CuratedContentEditorModel.load();
+		},
+
+		/**
+		 * This is needed as libs used by us will initialize themself as modules if define.amd is truthy
+		 * define.amd might be truthy here if ads code is loaded before
+		 *
+		 * This will be not needed when we move to module system
+		 *
+		 * @param {JQueryXHR} promise
+		 * @returns {JQueryXHR}
+		 */
+		suppressDefineAmd(promise: JQueryXHR) {
+			var oldAmd: any;
+
+			if (window.define) {
+				oldAmd = window.define.amd;
+				window.define.amd = false;
+
+				promise.then((): void => {
+					window.define.amd = oldAmd;
+				});
+			}
 		},
 
 		cropperLoadingInitialized: false,
@@ -94,7 +118,16 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			openMainPage(dataSaved: boolean = false): void {
 				var ponto = window.Ponto;
 
+				this.set('publish', !!dataSaved);
+
 				if (ponto && typeof ponto.invoke === 'function') {
+
+					if (App.CuratedContentEditorModel.isDirty &&
+						!this.get('publish') &&
+						!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
+					) {
+						return;
+					}
 					ponto.invoke(
 						// AMD module name in app
 						'curatedContentTool.pontoBridge',
@@ -147,11 +180,23 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			 * @returns {boolean}
 			 */
 			willTransition(transition: EmberStates.Transition): boolean {
-				if (transition.targetName.indexOf('curatedContentEditor') < 0) {
+				var isStayingOnEditor: boolean = transition.targetName.indexOf('curatedContentEditor') > -1;
+
+				if (
+					App.CuratedContentEditorModel.isDirty &&
+					!isStayingOnEditor &&
+					!this.get('publish') &&
+					!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
+				) {
+					transition.abort();
+				}
+
+				if (!isStayingOnEditor) {
 					transition.then(() => {
 						this.controllerFor('application').set('fullPage', false);
 					});
 				}
+
 				return true;
 			},
 
