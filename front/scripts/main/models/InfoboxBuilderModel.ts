@@ -116,11 +116,15 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 			data: {
 				alt: {
 					source: `alt${i}`,
-					defaultValue: i18n.t('app.infobox-builder-alt-item-default-value'),
+					data: {
+						defaultValue: i18n.t('app.infobox-builder-alt-item-default-value'),
+					}
 				},
 				caption: {
 					source: `caption${i}`,
-					defaultValue: i18n.t('app.infobox-builder-caption-item-default-value'),
+					data: {
+						defaultValue: i18n.t('app.infobox-builder-caption-item-default-value'),
+					}
 				} ,
 				defaultValue: 'path/to/image.jpg',
 			},
@@ -166,18 +170,20 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	},
 
 	/**
-	 * cleans up infobox state and returns simple array
-	 * of simple objects
-	 * @param {Em.A} state
-	 * @returns {Array}
+	 * Prepares infobox state to be sent to API.
+	 * The infoboxBuilderData part is needed only on
+	 * client side so remove it and wrap result as data object of the main infobox tag
+	 *
+	 * @param {Em.Array} state
+	 * @returns string stringified object
 	 */
 	prepareStateForSaving(state: Em.Array): any {
-		return state.map((item: any) => {
+		var plainState = state.map((item: any) => {
 			delete item.infoboxBuilderData;
-			item = this.processEmberObject(item);
-
 			return item;
 		}).toArray();
+
+		return JSON.stringify({data: plainState});
 	},
 
 	/**
@@ -220,7 +226,7 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 					controller: 'PortableInfoboxBuilderController',
 					method: 'publish',
 					title: this.get('title'),
-					infoboxData: this.prepareStateForSaving(this.get('infoboxState'))
+					data: this.prepareStateForSaving(this.get('infoboxState'))
 				},
 				dataType: 'json',
 				method: 'POST',
