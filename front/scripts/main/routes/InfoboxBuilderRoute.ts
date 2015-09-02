@@ -22,7 +22,7 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 				window.self !== window.top &&
 				(!window.Ponto || !this.get('pontoLoadingInitialized'))
 			) {
-				this.suppressDefineAmd(this.loadPonto())
+				this.loadPonto()
 					.then(this.checkContext)
 					.then(this.setupInfoboxBuilder)
 					.then(
@@ -50,7 +50,6 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var ponto = window.Ponto;
 
-			console.log("w checkContext. window.Ponto:", ponto);
 			ponto.invoke(
 				'wikia.infoboxBuilder.ponto',
 				'isWikiaContext',
@@ -143,18 +142,12 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 
 	loadPonto(): JQueryXHR {
 		this.set('pontoLoadingInitialized', true);
-		console.log('will load Ponto');
 
 		return Em.$.getScript(this.pontoPath, (): void => {
 			var ponto = window.Ponto;
-			console.log('should be loaded!!!!!');
-			debugger;
-			console.log(ponto);
 
 			if (ponto && typeof ponto.setTarget === 'function') {
 				ponto.setTarget(ponto.TARGET_IFRAME_PARENT, '*');
-
-				console.log("po set target", ponto);
 			}
 		});
 	},
