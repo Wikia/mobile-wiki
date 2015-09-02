@@ -118,6 +118,16 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
+		 * Returns proper prefix for given account
+		 *
+		 * @param {GAAccount} account
+		 * @returns {string}
+		 */
+		private getPrefix(account: GAAccount): string {
+			return account.prefix ? account.prefix + '.' : '';
+		}
+
+		/**
 		 * Tracks an event, using the parameters native to the UA send() method
 		 *
 		 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
@@ -128,17 +138,22 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			ga(
-				'send',
-				{
-					hitType: 'event',
-					eventCategory: category,
-					eventAction: action,
-					eventLabel: label,
-					eventValue: value,
-					nonInteraction: nonInteractive
+			this.tracked.forEach((account: GAAccount) => {
+				var prefix: string;
+				// skip over ads tracker (as it's handled in self.trackAds)
+				if (account.prefix !== this.accountAds) {
+					var prefix = this.getPrefix(account);
+					ga(`${prefix}send`, {
+							hitType: 'event',
+							eventCategory: category,
+							eventAction: action,
+							eventLabel: label,
+							eventValue: value,
+							nonInteraction: nonInteractive
+						}
+					);
 				}
-			);
+			});
 		}
 
 		/**
@@ -151,9 +166,7 @@ module Mercury.Modules.Trackers {
 		 * @param {boolean} nonInteractive Whether event is non-interactive.
 		 */
 		trackAds (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
-			ga(
-				this.accounts[this.accountAds].prefix + '.send',
-				{
+			ga(this.accounts[this.accountAds].prefix + '.send', {
 					hitType: 'event',
 					eventCategory: category,
 					eventAction: action,
@@ -162,6 +175,23 @@ module Mercury.Modules.Trackers {
 					nonInteraction: nonInteractive
 				}
 			);
+		}
+
+		/**
+		 * Updates current page
+		 *
+		 * from https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications :
+		 * Note: if you send a hit that includes both the location and page fields and the path values are different,
+		 * Google Analytics will use the value specified for the page field.
+		 */
+		updateTrackedUrl (url: string): void {
+			var location: HTMLAnchorElement = document.createElement('a');
+			location.href = url;
+
+			this.tracked.forEach((account: GAAccount) => {
+				var prefix = this.getPrefix(account);
+				ga(`${prefix}set`, 'page', location.pathname);
+			});
 		}
 
 		/**
@@ -175,7 +205,7 @@ module Mercury.Modules.Trackers {
 			}
 
 			this.tracked.forEach((account: GAAccount) => {
-				var prefix = account.prefix ? account.prefix + '.' : '';
+				var prefix = this.getPrefix(account);
 				ga(`${prefix}set`, 'dimension8', pageType, 3);
 				ga(`${prefix}send`, 'pageview');
 			});

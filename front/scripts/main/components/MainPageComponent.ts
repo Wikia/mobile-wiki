@@ -36,15 +36,17 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 	 */
 	curatedContentObserver: Em.observer('curatedContent', function (): void {
 		Em.run.schedule('afterRender', this, (): void => {
+			M.setTrackContext({
+				a: this.get('title'),
+				n: this.get('ns')
+			});
+
+			M.updateTrackedUrl(window.location.href);
+			M.trackPageView(this.get('adsContext.targeting'));
+
 			this.injectMainPageAds();
 			this.setupAdsContext(this.get('adsContext'));
 		});
-
-		M.setTrackContext({
-			a: this.get('title'),
-			n: this.get('ns')
-		});
-		M.trackPageView(this.get('adsContext.targeting'));
 	}).on('didInsertElement'),
 
 	actions: {
