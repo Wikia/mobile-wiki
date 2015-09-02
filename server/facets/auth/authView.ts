@@ -28,11 +28,8 @@ module authView {
 		footerCalloutLink?: string;
 		headerText?: string;
 		bodyClasses?: string;
-<<<<<<< HEAD
 		pageType?: string;
-=======
 		standalone?: boolean;
->>>>>>> dev
 		trackingConfig?: any;
 	}
 
