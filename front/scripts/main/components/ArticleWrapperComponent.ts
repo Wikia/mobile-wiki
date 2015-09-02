@@ -76,11 +76,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
 	}),
 
-	//TODO: Temporary, remove with CONCF-1095
+	//TODO: Temporary, remove with CONCF-1095|XW-9
 	host: window.location.host,
 	isAllowedWikia: Em.computed.match('host', /creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
-	curatedContentToolEnabled: false,
-	curatedContentToolButtonVisible: Em.computed.and('curatedContentToolEnabled', 'isAllowedWikia', 'model.isMainPage', 'currentUser.rights.curatedcontent'),
+	curatedContentToolButtonVisible: Em.computed.and('isAllowedWikia', 'model.isMainPage', 'currentUser.rights.curatedcontent'),
 
 	articleObserver: Em.observer('model.article', function (): void {
 		// This check is here because this observer will actually be called for views wherein the state is actually

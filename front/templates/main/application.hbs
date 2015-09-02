@@ -17,11 +17,13 @@
 		toggleUserMenu='toggleUserMenu'
 		themeBar=themeBar
 	}}
-	{{share-feature
-		smartBannerVisible=smartBannerVisible
-		title=currentTitle
-		language=language
-	}}
+	{{#if enableSharingHeader}}
+		{{share-feature
+			smartBannerVisible=smartBannerVisible
+			title=currentTitle
+			language=language
+		}}
+	{{/if}}
 	{{side-nav
 		shouldBeVisible=sideNavVisible
 		loadRandomArticle='loadRandomArticle'

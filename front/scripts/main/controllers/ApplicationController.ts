@@ -25,6 +25,8 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	lightboxType: null,
 	lightboxModel: null,
 	lightboxVisible: false,
+	// Controls the appearance of the share-feature component
+	enableSharingHeader: false,
 
 	sideNavCollapsedObserver: Em.observer('sideNavVisible', function (): void {
 		if (this.get('sideNavVisible')) {
