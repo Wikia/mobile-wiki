@@ -50,7 +50,7 @@ module HeliosSession {
 				}
 
 				Wreck.get(
-					authUtils.getHeliosUrl('/info?code=' + accessToken),
+					authUtils.getHeliosUrl('/info') + '?code=' + accessToken,
 					callback
 				);
 			}
