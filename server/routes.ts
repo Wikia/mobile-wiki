@@ -244,7 +244,7 @@ unauthenticatedRoutes.push({
 	path: '/d/{type}/{id}/{action?}',
 	handler: localSettings.enableDiscussions ?
 		require('./facets/showApplication') :
-		require ('./facets/discussions/landingPage').view
+		require('./facets/discussions/landingPage').view
 });
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
