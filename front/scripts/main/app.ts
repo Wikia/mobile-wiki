@@ -8,6 +8,7 @@
 /// <reference path="../mercury/utils/variantTesting.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 /// <reference path="../mercury/utils/trackPerf.ts" />
+/// <reference path="../../vendor/visit-source/dist/visit-source.d.ts" />
 
 'use strict';
 
@@ -21,7 +22,7 @@ declare var i18n: I18nextStatic;
 declare var EmPerfSender: any;
 declare var optimizely: any;
 declare var FastClick: any;
-declare var VisitSource: any;
+declare var VisitSource: VisitSource;
 
 var App: any = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -50,7 +51,7 @@ App.initializer({
 App.initializer({
 	name: 'visit-source',
 	initialize () {
-		if (typeof VisitSource !== 'undefined') {
+		if (typeof VisitSource === 'function') {
 			(new VisitSource('WikiaSessionSource', M.prop('cookieDomain'))).checkAndStore();
 			(new VisitSource('WikiaLifetimeSource', M.prop('cookieDomain'), false)).checkAndStore();
 		}
