@@ -18,23 +18,17 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			if (
-				window.self !== window.top &&
-				(!window.Ponto || !this.get('pontoLoadingInitialized'))
-			) {
-				this.loadPonto()
-					.then(this.checkContext)
-					.then(this.setupInfoboxBuilder)
-					.then(
-						function () {
-							resolve();
-						},
-						function () {
-							reject()
-						}
-					);
+			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
+				Promise.all([
+						this.loadAssets(),
+						this.loadPonto()
+					])
+					.then(this.setupStyles)
+					.then(this.isWikiaContext)
+					.then(() => {resolve()}, () => {reject()});
+			} else {
+				reject();
 			}
-
 		});
 	},
 
@@ -46,53 +40,32 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 		model.setupInitialState();
 	},
 
-	checkContext(): Em.RSVP.Promise {
+	/**
+	 * @desc checks wikia context using ponto invoke
+	 * @returns {Em.RSVP.Promise}
+	 */
+	isWikiaContext(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var ponto = window.Ponto;
+
+			ponto.setTarget(ponto.TARGET_IFRAME_PARENT, window.location.origin);
 
 			ponto.invoke(
 				'wikia.infoboxBuilder.ponto',
 				'isWikiaContext',
 				null,
-				function (data: any):void {
-					resolve(data);
+				function (data: any): void {
+					if (data && data.isWikiaContext && data.isLoggedIn) {
+						resolve();
+					}
 				},
-				function (data: any):void {
-					reject(data);
+				function (data: any): void {
 					this.showPontoError(data);
+					reject();
 				},
 				false
 			);
 		});
-
-	},
-
-	setupInfoboxBuilder(data: any): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			if (data && data.isWikiaContext && data.isLoggedIn) {
-					this.loadAssets().then(
-						(data:InfoboxBuilderGetAssetsResponse) => {
-							this.setupStyles(data.css);
-							resolve();
-						}, (data:string) => {
-							reject(data);
-						}
-					);
-			} else {
-				console.log("We are not in WM context or user has no permissions");
-				reject("We are not in WM context or user has no permissions");
-			}
-		});
-	},
-
-	/**
-	 * @desc shows error message for ponto communication
-	 * @param {string} message - error message
-	 */
-	showPontoError(message: any) {
-		if (window.console) {
-			window.console.error('Ponto Error', message);
-		}
 	},
 
 	/**
@@ -125,31 +98,44 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 	},
 
 	/**
-	 * add oasis portable infobox styles to DOM
-	 * @param {String[]} cssUrls
+	 * loads ponto and sets ponto target
+	 * @returns {JQueryXHR}
 	 */
-	setupStyles(cssUrls: string[]): void {
-		var html = '';
-
-		cssUrls.forEach(
-			(url: string): void => {
-				html += `<link type="text/css" rel="stylesheet" href="${url}">`
-			}
-		);
-
-		$(html).appendTo('head');
-	},
-
 	loadPonto(): JQueryXHR {
 		this.set('pontoLoadingInitialized', true);
 
-		return Em.$.getScript(this.pontoPath, (): void => {
-			var ponto = window.Ponto;
+		return Em.$.getScript(this.pontoPath);
+	},
 
-			if (ponto && typeof ponto.setTarget === 'function') {
-				ponto.setTarget(ponto.TARGET_IFRAME_PARENT, '*');
-			}
+	/**
+	 * add oasis portable infobox styles to DOM
+	 * @param {Array} promiseResponseArray
+	 * @returns Em.RSVP.Promise
+	 */
+	setupStyles(promiseResponseArray: Array): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function): void => {
+			var html = '';
+
+			promiseResponseArray[0].css.forEach(
+				(url:string):void => {
+					html += `<link type="text/css" rel="stylesheet" href="${url}">`
+				}
+			);
+
+			$(html).appendTo('head');
+
+			resolve(promiseResponseArray);
 		});
+	},
+
+	/**
+	 * @desc shows error message for ponto communication
+	 * @param {string} message - error message
+	 */
+	showPontoError(message: any) {
+		if (window.console) {
+			window.console.error('Ponto Error', message);
+		}
 	},
 
 	actions: {
