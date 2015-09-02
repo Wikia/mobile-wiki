@@ -1,6 +1,8 @@
 .global-nav {
 	background-color: $color-white;
 	border-bottom: solid $border-header-color 2px;
+	display: flex;
+	justify-content: left;
 	flex-shrink: 0;
 	height: 46px;
 }
