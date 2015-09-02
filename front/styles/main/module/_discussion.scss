@@ -1,3 +1,33 @@
+.discussion-header {
+	margin-top: 50px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: $z-site-head;
+
+	&.un-pinned {
+		margin-top: 10px;
+	}
+
+	.header {
+		height: 40px;
+		padding: 0 15px;
+
+		h1 {
+			color: #fff;
+			font-size: $type-smaller;
+			line-height: 40px;
+			margin: 0;
+		}
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .discussion-header .header {
+		background-color: #{nth($vertical-colors, $i)};
+	}
+}
+
 .discussion {
 	background-color: #fff;
 	font-size: $type-smallest;
@@ -65,6 +95,11 @@
 		}
 	}
 
+  	.load-more {
+	  text-align: center;
+	  width: 100%;
+	}
+
 	.post-detail {
 		padding: 12px 0;
 	}
@@ -99,6 +134,11 @@
 
 		.post-detail {
 			border-top: 1px solid #ccc;
+			cursor: pointer;
+
+			&:first-child {
+				border-width: 0;
+			}
 		}
 	}
 }

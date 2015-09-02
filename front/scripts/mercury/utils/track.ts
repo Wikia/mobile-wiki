@@ -21,6 +21,7 @@ interface TrackingParams {
 	category: string;
 	trackingMethod?: string;
 	isNonInteractive?: boolean;
+	sourceUrl?: string;
 	[idx: string]: any;
 }
 
@@ -33,6 +34,7 @@ interface TrackerInstance {
 	new(): TrackerInstance;
 	track: TrackFunction;
 	trackPageView: (context?: TrackContext) => void;
+	updateTrackedUrl: (url: string) => void;
 	usesAdsContext: boolean;
 }
 
@@ -170,7 +172,7 @@ module Mercury.Utils {
 			return;
 		}
 
-		Object.keys(trackers).forEach(function (tracker: string) {
+		Object.keys(trackers).forEach((tracker: string): void => {
 			var Tracker = trackers[tracker],
 				instance: TrackerInstance;
 
@@ -178,6 +180,33 @@ module Mercury.Utils {
 				instance = new Tracker(isSpecialWiki());
 				console.info('Track pageView:', tracker);
 				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
+			}
+		});
+	}
+
+	/**
+	 * Function that updates tracker's saved location to given path.
+	 * To be called after transition so tracker knows that URL is new.
+	 *
+	 * This is essential for UA pageview tracker which get's location
+	 * from window on page load and never updates it (despite changing
+	 * title) - all subsequent events including pageviews are tracked
+	 * for original location.
+	 */
+	export function updateTrackedUrl (url: string) {
+		var trackers: any = Mercury.Modules.Trackers;
+
+		if (M.prop('queryParams.noexternals')) {
+			return;
+		}
+
+		Object.keys(trackers).forEach((tracker: string): void => {
+			var Tracker = trackers[tracker],
+				instance: TrackerInstance;
+
+			if (typeof Tracker.prototype.updateTrackedUrl === 'function') {
+				instance = new Tracker(isSpecialWiki());
+				instance.updateTrackedUrl(url);
 			}
 		});
 	}

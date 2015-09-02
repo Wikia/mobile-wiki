@@ -5,6 +5,7 @@
 /// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 /// <reference path="../models/SearchImagesModel.ts"/>
+///<reference path="../mixins/IEIFrameFocusFixMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
@@ -13,6 +14,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
+	App.IEIFrameFocusFixMixin,
 	{
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,

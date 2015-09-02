@@ -249,6 +249,10 @@ $image-photo-icon-size: 32px;
 
 .curated-content-input-wrapper {
 	padding: 14px 18px 0;
+
+	input[type='text'] {
+		padding-right: 2.125rem;
+	}
 }
 
 .curated-content-editor-remove {

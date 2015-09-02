@@ -150,7 +150,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 						},
 						true
 					);
-				} else {
+			} else {
 					this.transitionTo('mainPage');
 				}
 			},

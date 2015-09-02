@@ -12,7 +12,7 @@ App.Router.map(function () {
 	var articlePath = Em.getWithDefault(Mercury, 'wiki.articlePath', '/wiki/').replace(/\/?$/, '/');
 
 	this.route('mainPage', {
-		path: '/'
+		path: '/wiki/' + Mercury.wiki.mainPageTitle
 	}, function () {
 		this.route('section', {
 			path: '/main/section/:sectionName'

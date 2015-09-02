@@ -8,6 +8,12 @@ App.DiscussionForumRoute = Em.Route.extend({
 	actions: {
 		goToPost: function (postId: number): void {
 			this.transitionTo('discussion.post', postId);
+		},
+
+		loadPage: function (pageNum: number): void {
+			var model = this.modelFor('discussion.forum');
+
+			model.loadPage(pageNum);
 		}
 	}
 });
