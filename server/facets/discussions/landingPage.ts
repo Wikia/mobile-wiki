@@ -34,7 +34,6 @@ module landingPage {
 		response = reply.view(
 			'discussions/landing-page',
 			{
-				title: 'discussion:landing-page.page-main-header',
 				canonicalUrl: 'https://' + request.headers.host + request.path,
 				discussionsConfig: discussionsConfig,
 				language: request.server.methods.i18n.getInstance().lng(),
