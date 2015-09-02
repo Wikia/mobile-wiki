@@ -3,8 +3,8 @@ interface DiscussionsSplashPageConfig {
 }
 
 interface WikiaDiscussionsConfig {
-	android: string;
-	ios: string;
+	androidAppLink: string;
+	iosAppLink: string;
 	domain: string;
 	icon: string;
 	appScreens: string;
