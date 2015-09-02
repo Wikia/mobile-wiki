@@ -187,9 +187,9 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		 */
 		saveTemplate(): void {
 			var model = this.modelFor('infoboxBuilder');
-			model.saveStateToTemplate().then((title) => {
+			model.saveStateToTemplate().then((title: string) => {
 				this.callRedirect(title);
-			}
+			})
 		},
 
 		cancel(): void {
