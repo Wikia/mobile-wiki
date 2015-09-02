@@ -7,11 +7,9 @@ module landingPage {
 	}
 
 	function getConfigFromUrl (url: URL): WikiaDiscussionsConfig {
-		var wikiaConfig = config.wikias.filter(function (wikia: WikiaDiscussionsConfig): boolean {
+		return config.wikias.filter(function (wikia: WikiaDiscussionsConfig): boolean {
 			return url.host.indexOf(wikia.domain) !== -1;
 		})[0];
-
-		return wikiaConfig;
 	}
 
 	export function view (request: Hapi.Request, reply: any): Hapi.Response {
@@ -36,6 +34,7 @@ module landingPage {
 		response = reply.view(
 			'discussions/landing-page',
 			{
+				title: 'discussion:landing-page.page-main-header',
 				canonicalUrl: 'https://' + request.headers.host + request.path,
 				discussionsConfig: discussionsConfig,
 				language: request.server.methods.i18n.getInstance().lng(),
