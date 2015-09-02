@@ -29,7 +29,7 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			domain: 'starwars.wikia.com',
 			icon: '/front/images/Star-Wars-Icon.png',
 			appName: 'Star Wars',
-			appScreens: '/front/images/Phone-Star-Wars.png'
+			appScreens: '/front/images/Phone-Star-Wars.png',
 			language: 'en'
 		},
 
