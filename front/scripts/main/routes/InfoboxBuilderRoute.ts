@@ -112,7 +112,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	 * @returns Em.RSVP.Promise
 	 */
 	setupStyles(promiseResponseArray: Array<any>): Em.RSVP.Promise {
-		return new Em.RSVP.Promise.all((resolve: Function): void => {
+		return new Em.RSVP.Promise((resolve: Function): void => {
 			var html = '';
 
 			promiseResponseArray[0].css.forEach(
