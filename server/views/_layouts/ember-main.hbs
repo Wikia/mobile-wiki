@@ -103,22 +103,10 @@
 
 		<script>
 			(function () {
-				function loadError (oError) {
-					throw new URIError("The script " + oError.target.src + " is not accessible.");
-				}
 
-				function importScript (src, fOnload) {
-					var script = document.createElement("script");
-					script.type = "text\/javascript";
-					script.onerror = loadError;
-					if (fOnload) { script.onload = fOnload; }
-					document.body.appendChild(script);
-					script.src = src;
-				}
-
-				document.addEventListener("DOMContentLoaded", function(event) {
-					importScript('/front/vendor/main.js', function () {
-						importScript('/front/scripts/combined.js');
+				document.addEventListener("DOMContentLoaded", function() {
+					M.loadScript('/front/vendor/main.js', function () {
+						M.loadScript('/front/scripts/combined.js');
 					});
 				});
 			}());

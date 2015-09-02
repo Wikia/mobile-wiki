@@ -60,7 +60,7 @@ plugins = [
 			i18nextOptions: {
 				resGetPath: path.join(__dirname, '..', 'front/locales/__lng__/__ns__.json'),
 				ns: {
-					namespaces: ['main', 'auth'],
+					namespaces: ['main', 'auth', 'discussion'],
 					defaultNs: 'main'
 				},
 				fallbackLng: 'en',

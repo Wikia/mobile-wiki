@@ -13,12 +13,15 @@ interface Window {
 class FacebookConnect extends Login {
 	urlHelper: UrlHelper;
 	submitValidator: SubmitValidator;
+	tracker: AuthTracker;
+	utils: Utils;
 
 	constructor (form: HTMLFormElement, submitValidator: SubmitValidator) {
 		super(form);
 		new FacebookSDK(this.init.bind(this));
 		this.urlHelper = new UrlHelper();
 		this.submitValidator = submitValidator;
+		this.tracker = new AuthTracker('signup');
 	}
 
 	public init (): void {
@@ -57,14 +60,8 @@ class FacebookConnect extends Login {
 				logoutXhr: XMLHttpRequest;
 
 			if (status === HttpCodes.OK) {
-				M.track({
-					trackingMethod: 'both',
-					action: Mercury.Utils.trackActions.success,
-					category: 'user-signup-mobile',
-					label: 'facebook-link-existing'
-				});
-
-				window.location.href = this.redirect;
+				this.tracker.track('facebook-link-existing', M.trackActions.success);
+				Utils.loadUrl(this.redirect);
 			} else {
 				errors = JSON.parse(facebookConnectXhr.responseText).errors;
 
@@ -75,18 +72,15 @@ class FacebookConnect extends Login {
 					}
 				);
 
-				M.track({
-					trackingMethod: 'both',
-					action: Mercury.Utils.trackActions.error,
-					category: 'user-signup-mobile',
-					label: 'facebook-link-error:' + errorCodesArray.join(';')
-				});
+				this.tracker.track(
+					'facebook-link-error:' + errorCodesArray.join(';'),
+					M.trackActions.error
+				);
 
 				// Logout user on connection error
 				logoutXhr = new XMLHttpRequest();
 				logoutXhr.open('GET', '/logout', true);
 				logoutXhr.send();
-
 			}
 		};
 

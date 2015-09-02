@@ -1,5 +1,6 @@
 /// <reference path="../../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../utils/track.ts" />
+/// <reference path="../../utils/queryString.ts" />
 
 interface InternalTrackingConfig {
 	// TODO: These are legacy config values that are terse and very coupled with MW, lets see if we can't
@@ -27,6 +28,7 @@ interface InternalTrackingParams extends TrackingParams {
 	a: String;
 	// wgNamespaceNumber
 	n: Number;
+	sourceUrl?: string;
 }
 
 module Mercury.Modules.Trackers {
@@ -46,17 +48,18 @@ module Mercury.Modules.Trackers {
 		}
 
 		static getConfig (): InternalTrackingConfig {
-			var mercury = window.Mercury;
+			var mercury = window.Mercury,
+				config: InternalTrackingConfig = {
+					c: mercury.wiki.id,
+					x: mercury.wiki.dbName,
+					lc: mercury.wiki.language.user,
+					u: mercury.userId || 0,
+					s: 'mercury',
+					beacon: '',
+					cb: ~~(Math.random() * 99999)
+				};
 
-			return {
-				c: mercury.wiki.id,
-				x: mercury.wiki.dbName,
-				lc: mercury.wiki.language.user,
-				u: mercury.userId || 0,
-				s: 'mercury',
-				beacon: '',
-				cb: ~~(Math.random() * 99999)
-			};
+			return config;
 		}
 
 		static isPageView (category: string): boolean {

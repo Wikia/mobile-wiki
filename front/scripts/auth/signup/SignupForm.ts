@@ -21,9 +21,14 @@ class SignupForm {
 	redirect: string;
 	marketingOptIn: MarketingOptIn;
 	formErrors: FormErrors;
+	pageName: string;
 	termsOfUse: TermsOfUse;
+	tracker: AuthTracker;
+	utils: Utils;
 
 	constructor(form: Element) {
+		this.pageName = 'signup';
+
 		this.form = <HTMLFormElement> form;
 		if (window.location.search) {
 			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
@@ -33,8 +38,9 @@ class SignupForm {
 		this.marketingOptIn = new MarketingOptIn();
 		this.termsOfUse = new TermsOfUse(this.form);
 		this.marketingOptIn.init();
-		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors');
+		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors', this.pageName);
 		this.termsOfUse.init();
+		this.tracker = new AuthTracker(this.pageName);
 	}
 
 	private getFormValues(): HeliosRegisterInput {
@@ -48,7 +54,6 @@ class SignupForm {
 			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
 		};
 	}
-
 	private getWikiaDomain(): string {
 		var hostParts: string[] = location.host.split('.').reverse();
 		if (hostParts.length >= 2) {
@@ -59,13 +64,7 @@ class SignupForm {
 
 	private onSuccessfulRegistration(userId: string) {
 		M.provide('userId', userId);
-
-		M.track({
-			trackingMethod: 'both',
-			action: M.trackActions.success,
-			category: 'user-login-' + pageParams.viewType,
-			label: 'successful-registration'
-		});
+		this.tracker.track('successful-registration', M.trackActions.success);
 
 		Cookie.set(
 			'registerSuccess',
@@ -89,7 +88,7 @@ class SignupForm {
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
 
-		window.location.href = this.redirect;
+		Utils.loadUrl(this.redirect);
 	}
 
 	public onSubmit(event: Event): void {
