@@ -45,7 +45,7 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			android: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.cocktails',
 			ios: 'https://itunes.apple.com/us/app/keynote/id912770593',
 			domain: 'cocktails.wikia.com',
-			icon: '/front/images/Cocktails-Icon.png',
+			icon: '/front/images/Cocktails-App-Icon.png',
 			appName: 'Cocktails',
 			appScreens: '/front/images/Phone-Cocktails.png'
 		},
