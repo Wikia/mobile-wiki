@@ -19,7 +19,7 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 	beforeModel: function(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
-				Promise.all([
+				Em.RSVP.Promise.all([
 						this.loadAssets(),
 						this.loadPonto()
 					])
@@ -112,7 +112,7 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 	 * @param {Array} promiseResponseArray
 	 * @returns Em.RSVP.Promise
 	 */
-	setupStyles(promiseResponseArray: Array): Em.RSVP.Promise {
+	setupStyles(promiseResponseArray: Array<any>): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function): void => {
 			var html = '';
 
