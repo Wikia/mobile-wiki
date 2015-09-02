@@ -1,5 +1,7 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../mixins/ObjectUtilitiesMixin.ts"/>
+
 'use strict';
 
 interface DataItem {
@@ -60,7 +62,7 @@ interface SaveStateToTemplateResponse {
 	errorMessage?: boolean;
 }
 
-App.InfoboxBuilderModel = Em.Object.extend({
+App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	_itemIndex: {
 		data: 0,
 		image: 0,
@@ -99,7 +101,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				component: this.createComponentName(itemType)
 			},
 			source: `data${i}`,
-			type: 'infobox-data-item'
+			type: 'data'
 		});
 	},
 
@@ -128,7 +130,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				component: this.createComponentName(itemType)
 			},
 			source: `image${i}`,
-			type: 'infobox-image-item'
+			type: 'image'
 		});
 	},
 
@@ -150,7 +152,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				component: this.createComponentName(itemType)
 			},
 			source: `title${i}`,
-			type: 'infobox-title-item'
+			type: 'title'
 		});
 	},
 
@@ -165,15 +167,17 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 	/**
 	 * cleans up infobox state and returns simple array
+	 * of simple objects
 	 * @param {Em.A} state
 	 * @returns {Array}
 	 */
-	prepareStateForSaving(state: Ember.Array): Array {
+	prepareStateForSaving(state: Em.Array): any {
 		return state.map((item: any) => {
 			delete item.infoboxBuilderData;
-			return item.toJSON();
-		}).toArray();
+			item = this.processEmberObject(item);
 
+			return item;
+		}).toArray();
 	},
 
 	/**
