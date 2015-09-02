@@ -34,7 +34,7 @@ module landingPage {
 		response = reply.view(
 			'discussions/landing-page',
 			{
-				canonicalUrl: 'https://' + request.headers.host + request.path,
+				canonicalUrl: 'http://' + request.headers.host + request.path,
 				discussionsConfig: discussionsConfig,
 				language: request.server.methods.i18n.getInstance().lng(),
 				mainPage: 'http://www.wikia.com',
