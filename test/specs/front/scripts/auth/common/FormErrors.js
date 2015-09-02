@@ -1,11 +1,25 @@
 QUnit.module('auth/common/FormErrors)', {
 	setup: function () {
 		var form = document.createElement('form');
-
+		this.AuthTrackerStub = sinon.stub(window, 'AuthTracker').returns({
+			setGaCategory: Function.prototype,
+			trackClick: Function.prototype,
+			trackPageView: Function.prototype,
+			trackSubmit: Function.prototype,
+			track: Function.prototype
+		});
 		this.formErrors = new FormErrors(form);
 		this.formErrors.trackValidationErrors = Function.prototype;
 		this.formErrors.displayFieldValidationError = sinon.spy();
 		this.formErrors.displayGeneralError = sinon.spy();
+		window._pageParams = window.pageParams;
+		window.pageParams = {
+			viewType: 'mobile'
+		};
+	},
+	teardown: function () {
+		window.pageParams = window._pageParams;
+		this.AuthTrackerStub.restore();
 	}
 });
 

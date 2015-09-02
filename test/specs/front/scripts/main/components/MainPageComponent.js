@@ -2,6 +2,8 @@ moduleForComponent('main-page', 'MainPageComponent', {
 	setup: function () {
 		M.setTrackContext = function () {};
 		M.trackPageView = function () {};
+		M.trackAds = function () {};
+		M.updateTrackedUrl = function () {};
 	}
 });
 

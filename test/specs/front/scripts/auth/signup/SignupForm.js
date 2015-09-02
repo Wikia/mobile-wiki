@@ -18,19 +18,27 @@ QUnit.module('auth/signup/SignupForm)', {
 			translateValidationError: Function.prototype
 		});
 
+		this.AuthTrackerStub = sinon.stub(window, 'AuthTracker').returns({
+			setGaCategory: Function.prototype,
+			trackClick: Function.prototype,
+			trackPageView: Function.prototype,
+			trackSubmit: Function.prototype,
+			track: Function.prototype
+		});
+
 		this.signupForm = new SignupForm(form);
 		this.signupForm.onSuccessfulRegistration = this.successfulRegistration;
 
 		this.signupForm.getFormValues = function () {
 			return {};
 		};
-
 		this.server = sinon.fakeServer.create();
 	},
 	teardown: function () {
 		this.server.restore();
 		this.marketingStub.restore();
 		this.formErrorsStub.restore();
+		this.AuthTrackerStub.restore();
 		delete this.server;
 	}
 });
