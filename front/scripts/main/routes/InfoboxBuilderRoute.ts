@@ -1,6 +1,5 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/AmdMixin.ts"/>
 
 'use strict';
 
@@ -8,7 +7,7 @@ interface InfoboxBuilderGetAssetsResponse {
 	css: string[];
 }
 
-App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
+App.InfoboxBuilderRoute = Em.Route.extend({
 	pontoLoadingInitialized: false,
 	pontoPath: '/front/vendor/ponto/web/src/ponto.js',
 
@@ -113,7 +112,7 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 	 * @returns Em.RSVP.Promise
 	 */
 	setupStyles(promiseResponseArray: Array<any>): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function): void => {
+		return new Em.RSVP.Promise.all((resolve: Function): void => {
 			var html = '';
 
 			promiseResponseArray[0].css.forEach(
@@ -161,6 +160,11 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 			return true;
 		},
 
+		/**
+		 * @desc Handle the add data, image or title buton and call the proper
+		 * function on model.
+		 * @param string name of item type
+		*/
 		addItem(type: string): void {
 			var model = this.modelFor('infoboxBuilder');
 
@@ -177,32 +181,40 @@ App.InfoboxBuilderRoute = Em.Route.extend(App.AmdMixin, {
 			}
 		},
 
+		/**
+		 * @desc Handle the save template button, call the proper function
+		 * on model and connect with iframe parent to redirect to another page.
+		 */
 		saveTemplate(): void {
 			var model = this.modelFor('infoboxBuilder');
-			model.saveStateToTemplate().then((title: any) => {
-				return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-					var ponto = window.Ponto;
-
-					ponto.invoke(
-						'wikia.infoboxBuilder.ponto',
-						'redirectToTemplatePage',
-						title,
-						function (data: any):void {
-							resolve(data);
-						},
-						function (data: any):void {
-							reject(data);
-							this.showPontoError(data);
-						},
-						false
-					);
-				});
-			});
+			model.saveStateToTemplate().then((title) => {
+				this.callRedirect(title);
+			}
 		},
 
 		cancel(): void {
-			console.log("cancel");
-			//close iframe
+			var model = this.modelFor('infoboxBuilder');
+			this.callRedirect(model.get('title'));
+		},
+
+		callRedirect(title: string): Em.RSVP.Promise {
+			return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+				var ponto = window.Ponto;
+
+				ponto.invoke(
+					'wikia.infoboxBuilder.ponto',
+					'redirectToTemplatePage',
+					title,
+					function(data: any): void {
+						resolve(data);
+					},
+					function(data: any): void {
+						reject(data);
+						this.showPontoError(data);
+					},
+					false
+				);
+			});
 		}
 	}
 });
