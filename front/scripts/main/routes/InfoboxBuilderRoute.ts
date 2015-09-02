@@ -188,33 +188,30 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		saveTemplate(): void {
 			var model = this.modelFor('infoboxBuilder');
 			model.saveStateToTemplate().then((title: string) => {
-				this.callRedirect(title);
-			})
+				return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+					var ponto = window.Ponto;
+
+					ponto.invoke(
+						'wikia.infoboxBuilder.ponto',
+						'redirectToTemplatePage',
+						title,
+						function(data: any): void {
+							resolve(data);
+						},
+						function(data: any): void {
+							reject(data);
+							this.showPontoError(data);
+						},
+						false
+					);
+				});
+			});
 		},
 
 		cancel(): void {
-			var model = this.modelFor('infoboxBuilder');
-			this.callRedirect(model.get('title'));
-		},
-
-		callRedirect(title: string): Em.RSVP.Promise {
-			return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-				var ponto = window.Ponto;
-
-				ponto.invoke(
-					'wikia.infoboxBuilder.ponto',
-					'redirectToTemplatePage',
-					title,
-					function(data: any): void {
-						resolve(data);
-					},
-					function(data: any): void {
-						reject(data);
-						this.showPontoError(data);
-					},
-					false
-				);
-			});
+			console.log("cancel");
+			//maybe some modal "are you sure? You'll lost your work"
+			//redirect to template page
 		}
 	}
 });
