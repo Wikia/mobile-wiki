@@ -9,4 +9,5 @@ interface WikiaDiscussionsConfig {
 	icon: string;
 	appScreens: string;
 	appName: string;
+	language: string;
 }

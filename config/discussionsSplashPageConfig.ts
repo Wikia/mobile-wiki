@@ -7,7 +7,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			domain: 'walkingdead.wikia.com',
 			icon: '/front/images/Walking-Dead-Icon.png',
 			appName: 'Walking Dead',
-			appScreens: '/front/images/Phone-Walking-Dead.png'
+			appScreens: '/front/images/Phone-Walking-Dead.png',
+			language: 'en'
 		},
 
 		// fallout
@@ -17,7 +18,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			domain: 'fallout.wikia.com',
 			icon: '/front/images/Fallout-Icon.png',
 			appName: 'Fallout',
-			appScreens: '/front/images/Phone-Fallout.png'
+			appScreens: '/front/images/Phone-Fallout.png',
+			language: 'en'
 		},
 
 		// starwars
@@ -28,6 +30,7 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			icon: '/front/images/Star-Wars-Icon.png',
 			appName: 'Star Wars',
 			appScreens: '/front/images/Phone-Star-Wars.png'
+			language: 'en'
 		},
 
 		//starwars jp
@@ -37,7 +40,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			domain: 'ja.starwars.wikia.com',
 			icon: '/front/images/Star-Wars-Icon.png',
 			appName: 'Star Wars',
-			appScreens: '/front/images/Phone-Star-Wars.png'
+			appScreens: '/front/images/Phone-Star-Wars.png',
+			language: 'ja'
 		},
 
 		// cocktails
@@ -47,7 +51,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			domain: 'cocktails.wikia.com',
 			icon: '/front/images/Cocktails-App-Icon.png',
 			appName: 'Cocktails',
-			appScreens: '/front/images/Phone-Cocktails.png'
+			appScreens: '/front/images/Phone-Cocktails.png',
+			language: 'en'
 		},
 
 		// adventure time
@@ -57,7 +62,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 			domain: 'adventuretime.wikia.com',
 			icon: '/front/images/Adventure-Time-Icon.png',
 			appName: 'Adventure Time',
-			appScreens: '/front/images/Phone-Adventure-Time.png'
+			appScreens: '/front/images/Phone-Adventure-Time.png',
+			language: 'en'
 		}
 
 		// @TODO update when app gets released
