@@ -37,14 +37,6 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				this.send(actionName, 'ads', {contents});
 			};
 
-			/**
-			 * Temporary method to keep working the interstitial before ADEN-2289 is released.
-			 * @TODO clean up after release: ADEN-2347
-			 */
-			adsInstance.openLightbox = (contents: any): void => {
-				this.send('openLightbox', 'ads', {contents});
-			};
-
 			adsInstance.showLightbox = (): void => {
 				this.send('showLightbox');
 			};
@@ -81,7 +73,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				trackingCategory: string,
 				info: LinkInfo,
 				// exec() returns an array of matches or null if no match is found.
-				domainNameRegExpMatchArray: string[] = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
+				domainNameRegExpMatchArray: RegExpExecArray = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
 				cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
 				defaultSkin: string = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 

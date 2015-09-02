@@ -98,11 +98,6 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/userDetails',
-		handler: require('./facets/api/userDetails').get
-	},
-	{
-		method: 'GET',
 		path: '/logout',
 		handler: require('./facets/auth/logout')
 	},

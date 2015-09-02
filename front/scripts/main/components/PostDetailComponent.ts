@@ -5,10 +5,15 @@ App.PostDetailComponent = Em.Component.extend({
 	classNames: ['post-detail'],
 
 	author: null,
+	postId: null,
 	authorUrl: Em.computed('author', function (): string {
 		return M.buildUrl({
 			namespace: 'User',
 			title: this.get('author.name')
 		});
-	})
+	}),
+
+	click: function (): void {
+		this.sendAction('action', this.get('postId'));
+	}
 });

@@ -1,5 +1,7 @@
 /// <reference path='../baseline/mercury.ts' />
 /// <reference path='../mercury/utils/track.ts' />
+/// <reference path='../mercury/utils/queryString.ts' />
+
 
 (function () {
 	function setupTracking(): void {
@@ -26,6 +28,8 @@
 		dimensions[8] = 'authPage';
 		// IsCorporatePage
 		dimensions[15] = 'No';
+		// newAuthEntryPage
+		dimensions[10] = M.getQueryParam('redirect');
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
@@ -45,7 +49,7 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'login-modal',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		// Click "Forgot Password" link
@@ -77,7 +81,7 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'register-modal',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		// Click "Register Now" link
@@ -115,14 +119,14 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'join-close-button',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		//Click on 'connect with facebook'
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.signup-provider-facebook'),
 			'facebook-login-button',
-			Mercury.Utils.trackActions.click
+			M.trackActions.click
 		);
 	}
 
@@ -142,7 +146,7 @@
 		tracker.trackClick(
 			<HTMLElement> document.querySelector('.close'),
 			'facebook-connect-close-button',
-			Mercury.Utils.trackActions.close
+			M.trackActions.close
 		);
 
 		// Click "Forgot Password" link

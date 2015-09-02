@@ -102,3 +102,41 @@ $large-screen: 710px;
 	}
 }
 
+.user-info-box {
+	$login-box-border: #c8d2d7;
+	$login-background-color: white;
+
+	background-color: $login-background-color;
+	border: 1px solid $login-box-border;
+	list-style: none;
+	padding: 0;
+	width: rem-calc(360);
+}
+
+.user-info-box-mobile {
+	$login-box-border: #c8d2d7;
+	$login-background-color: white;
+
+	background-color: $login-background-color;
+	border: 1px solid $login-box-border;
+	display: none;
+	list-style: none;
+	padding: 0;
+	width: 100%;
+
+	@include media ($large-screen) {
+		display: none;
+	}
+}
+
+.user-info-item {
+	$border-color: gainsboro;
+	background-color: rgba(0, 0, 0, 0);
+	border-bottom: 1px solid $border-color;
+	padding: .75em;
+
+	@include media ($large-screen) {
+		border-bottom: 0;
+		padding: 0;
+	}
+}

@@ -19,9 +19,8 @@ module authView {
 		language: string;
 		exitTo: string;
 		mainPage: string;
-		standalonePage: boolean;
 		optimizelyScript: string;
-		pageParams: PageParams;
+		pageParams: any;
 		hideHeader?: boolean;
 		hideFooter?: boolean;
 		footerHref?: string;
@@ -29,9 +28,12 @@ module authView {
 		footerCalloutLink?: string;
 		headerText?: string;
 		bodyClasses?: string;
+<<<<<<< HEAD
 		pageType?: string;
+=======
+		standalone?: boolean;
+>>>>>>> dev
 		trackingConfig?: any;
-		isModal?: boolean;
 	}
 
 	export function view (template: string, context: AuthViewContext, request: Hapi.Request, reply: any): Hapi.Response {
@@ -90,14 +92,14 @@ module authView {
 			title: null,
 			canonicalUrl: this.getCanonicalUrl(request),
 			exitTo: this.getRedirectUrl(request),
-			mainPage: "http://www.wikia.com",
-			isModal: isModal,
+			mainPage: 'http://www.wikia.com',
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
-				localSettings.optimizely.account + '.js',
+			localSettings.optimizely.account + '.js',
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
+				isModal: isModal,
 				viewType: viewType
 			}
 		};
@@ -116,8 +118,8 @@ module authView {
 	}
 
 	export function getViewType(request: Hapi.Request): string {
-		var mobilePattern = /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE|Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
-			ipadPattern = /iPad/;
+		var mobilePattern = localSettings.patterns.mobile,
+			ipadPattern = localSettings.patterns.iPad;
 		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
 			return this.VIEW_TYPE_MOBILE;
 		}

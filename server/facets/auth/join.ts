@@ -22,7 +22,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 	}
 
 	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
-		response= reply.redirect('/register');
+		response = reply.redirect('/register');
 		caching.disableCache(response);
 		return response;
 	}

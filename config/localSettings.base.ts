@@ -100,12 +100,16 @@ var localSettings: LocalSettings = {
 	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
-	// CDN prefix with no tailing slash
+	// CDN prefix with no trailing slash
 	cdnBaseUrl: '//mercury.nocookie.net',
 	// array of wiki dbnames to load first article async instead of in page source
 	asyncArticle: [],
 	facebook: {
 		appId: 112328095453510
+	},
+	patterns: {
+		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
+		iPad: /iPad/
 	}
 };
 

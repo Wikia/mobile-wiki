@@ -4,7 +4,17 @@
 		{{render 'not-found'}}
 	{{else}}
 		<section class="article-body">
-			<h1 class="article-title">{{model.cleanTitle}}</h1>
+			<h1 class="article-title">
+				{{model.cleanTitle}}
+				{{#if curatedContentToolButtonVisible}}
+					<div>
+						{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+							{{svg 'pen' role='img' class='icon pencil'}}
+							{{i18n 'app.curated-content-editor-edit-main-page'}}
+						{{/link-to}}
+					</div>
+				{{/if}}
+			</h1>
 			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 			{{#if headers.length}}
 				{{#collapsible-menu
@@ -32,6 +42,7 @@
 					title=model.cleanTitle
 					edit='edit'
 					addPhoto='addPhoto'
+					uploadFeatureEnabled=uploadFeatureEnabled
 				}}
 			</div>
 			{{/if}}
@@ -43,6 +54,7 @@
 				openLightbox='openLightbox'
 				updateHeaders='updateHeaders'
 				contributionFeatureEnabled=contributionFeatureEnabled
+				uploadFeatureEnabled=uploadFeatureEnabled
 				cleanTitle=model.cleanTitle
 				edit='edit'
 				addPhoto='addPhoto'
