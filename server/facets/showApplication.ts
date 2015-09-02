@@ -9,7 +9,6 @@ import Tracking = require('../lib/Tracking');
 import OpenGraph = require('../lib/OpenGraph');
 import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
-import landingPage = require('./discussions/landingPage');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
