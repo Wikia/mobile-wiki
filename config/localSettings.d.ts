@@ -79,5 +79,6 @@ interface LocalSettings {
 	patterns: {
 		mobile: RegExp;
 		iPad: RegExp;
-	}
+	};
+	enableDiscussions: boolean;
 }
