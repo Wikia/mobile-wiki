@@ -137,6 +137,30 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		}
 	},
 
+	/**
+	 * @desc shows error message for ponto communication
+	 * @param {string} message - error message
+	 */
+	redirectToTemplatePage(title: string): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			var ponto = window.Ponto;
+
+			ponto.invoke(
+				'wikia.infoboxBuilder.ponto',
+				'redirectToTemplatePage',
+				title,
+				function(data: any): void {
+					resolve(data);
+				},
+				function(data: any): void {
+					reject(data);
+					this.showPontoError(data);
+				},
+				false
+			);
+		});
+	},
+
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): boolean {
 			this.controllerFor('application').addAlert({
@@ -188,30 +212,19 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		saveTemplate(): void {
 			var model = this.modelFor('infoboxBuilder');
 			model.saveStateToTemplate().then((title: string) => {
-				return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-					var ponto = window.Ponto;
-
-					ponto.invoke(
-						'wikia.infoboxBuilder.ponto',
-						'redirectToTemplatePage',
-						title,
-						function(data: any): void {
-							resolve(data);
-						},
-						function(data: any): void {
-							reject(data);
-							this.showPontoError(data);
-						},
-						false
-					);
-				});
+				return this.redirectToTemplatePage(title);
 			});
 		},
 
-		cancel(): void {
-			console.log("cancel");
+		/**
+		 * @desc Handle the cancel button click.
+		 * Connect with iframe parent to redirect to another page.
+		 */
+		cancel(): Em.RSVP.Promise {
+			var title = this.modelFor('infoboxBuilder').get('title');
 			//maybe some modal "are you sure? You'll lost your work"
 			//redirect to template page
+			return this.redirectToTemplatePage(title);
 		}
 	}
 });
