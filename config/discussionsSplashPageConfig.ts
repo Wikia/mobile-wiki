@@ -10,7 +10,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		appName: 'Walking Dead',
 		appScreens: '/front/images/Phone-Walking-Dead.png',
 		language: 'en',
-		wikiId: 13346
+		wikiId: 13346,
+		dbName: 'walkingdead'
 	},
 
 	'fallout' : {
@@ -23,7 +24,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		appName: 'Fallout',
 		appScreens: '/front/images/Phone-Fallout.png',
 		language: 'en',
-		wikiId: 3035
+		wikiId: 3035,
+		dbName: 'fallout'
 	},
 
 	'starwars' : {
@@ -36,7 +38,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		appName: 'Star Wars',
 		appScreens: '/front/images/Phone-Star-Wars.png',
 		language: 'en',
-		wikiId: 147
+		wikiId: 147,
+		dbName: 'starwars'
 	},
 
 	'ja.starwars' : {
@@ -49,7 +52,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		appName: 'Star Wars',
 		appScreens: '/front/images/Phone-Star-Wars.png',
 		language: 'ja',
-		wikiId: '5931'
+		wikiId: 5931,
+		dbName: 'jastarwars'
 	},
 
 	'cocktails' : {
@@ -62,7 +66,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		appName: 'Cocktails',
 		appScreens: '/front/images/Phone-Cocktails.png',
 		language: 'en',
-		wikiId: 8390
+		wikiId: 8390,
+		dbName: 'cocktails'
 	},
 
 	'adventuretime' : {
@@ -75,7 +80,8 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		appName: 'Adventure Time',
 		appScreens: '/front/images/Phone-Adventure-Time.png',
 		language: 'en',
-		wikiId: 24357
+		wikiId: 24357,
+		dbName: 'adventuretimewithfinnandjake'
 	}
 };
 

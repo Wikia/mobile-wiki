@@ -13,4 +13,5 @@ interface WikiaDiscussionsConfig {
 	appName: string;
 	language: string;
 	wikiId: number;
+	dbName: string;
 }
