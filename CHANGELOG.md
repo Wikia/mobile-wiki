@@ -1,3 +1,13 @@
+## release-148 (2015-09-02 09:59 UTC)
+* [HG-852](https://wikia-inc.atlassian.net/browse/HG-852) HG-852 Discussion header
+* [SOC-1109](https://wikia-inc.atlassian.net/browse/SOC-1109) SOC-1109 Add Redirect URL param to tracking data
+* [SOC-883](https://wikia-inc.atlassian.net/browse/SOC-883) SOC-883 Share forum post to social networks
+* [SOC-715](https://wikia-inc.atlassian.net/browse/SOC-715) SOC-715 As a user on desktop, I want to sign in from a modal
+* add-comments-to-ie-fix: Add more comments
+* fixing-discussions-i18n: Registering discussion i18n namespace to make it visible to the app
+* aden-2347-interstitial-clean-up: ADEN-2347 Reverted openLightbox method
+* [SOC-1195](https://wikia-inc.atlassian.net/browse/SOC-1195) SOC-1195 As a user on desktop, I wan to see nice looking FB-connect button when the label on the button takes two lines
+
 ## release-147 (2015-09-01 09:59 UTC)
 * move-ad-slots: Move ad slots out of main application template
 * [HG-854](https://wikia-inc.atlassian.net/browse/HG-854) Hg 854 fixing polldaddy after transition
