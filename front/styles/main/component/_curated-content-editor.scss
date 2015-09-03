@@ -27,13 +27,12 @@ $image-photo-icon-size: 32px;
 	padding: $button-padding-vertical $button-padding-horizontal;
 }
 
-.curated-content-editor-help {
+.curated-content-editor-info {
 	position: absolute;
 	right: 1em;
 	top: 1em;
 
 	svg {
-		fill: $color-gray-dark;
 		height: 32px;
 		width: 32px;
 	}
