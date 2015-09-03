@@ -1,5 +1,5 @@
 interface DiscussionsSplashPageConfig {
-	wikias: WikiaDiscussionsConfig[];
+	[domain: string] : WikiaDiscussionsConfig
 }
 
 interface WikiaDiscussionsConfig {

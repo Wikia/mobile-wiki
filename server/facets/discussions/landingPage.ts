@@ -7,9 +7,14 @@ module landingPage {
 	}
 
 	function getConfigFromUrl (url: URL): WikiaDiscussionsConfig {
-		return config.wikias.filter(function (wikia: WikiaDiscussionsConfig): boolean {
-			return url.host.indexOf(wikia.domain) !== -1;
-		})[0];
+		var domain: string;
+
+		domain = url.host.replace(
+			/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+			"$1"
+		);
+
+		return config[domain];
 	}
 
 	export function view (request: Hapi.Request, reply: any): Hapi.Response {
