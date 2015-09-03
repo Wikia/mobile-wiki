@@ -39,10 +39,12 @@
 	}
 
 	svg {
-		height: 20px;
+		$image-size: 20px;
+
+		height: $image-size;
 		margin: 0 10px;
-		min-height: 20px;
-		min-width: 20px;
-		width: 20px;
+		min-height: $image-size;
+		min-width: $image-size;
+		width: $image-size;
 	}
 }
