@@ -52,6 +52,10 @@
 		document.getElementById('androidLink').addEventListener('click', function () {
 			track('google-play-link');
 		});
+
+		document.querySelector('.wikia-link').addEventListener('click', function () {
+			track('back-to-wikia-link');
+		});
 	}
 
 	document.addEventListener('DOMContentLoaded', function (): void {
