@@ -136,7 +136,8 @@
 		"curated-content-editor-missing-items-error": "Sections can't be empty. Please add items to section.",
 		"curated-content-editor-error-inside-items-message": "Please fix errors inside items.",
 		"curated-content-editor-items-count": "__count__ items",
-		"curated-content-editor-exit-prompt": "You have unsaved changes. Are you sure you want to exit?"
+		"curated-content-editor-exit-prompt": "You have unsaved changes. Are you sure you want to exit?",
+		"curated-content-editor-main-page": "Main Page"
 	},
 	"discussion": {
 		"share-default-title": "Discussion on __siteName__"
