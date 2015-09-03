@@ -11,15 +11,14 @@ module landingPage {
 
 		domain = url.host.replace(
 			/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
-			"$1"
+			'$1'
 		);
 
 		return config[domain];
 	}
 
 	export function view (request: Hapi.Request, reply: any): Hapi.Response {
-		var response: Hapi.Response, discussionsConfig: WikiaDiscussionsConfig,
-			androidLogo: string, appStoreLogo: string;
+		var response: Hapi.Response, discussionsConfig: WikiaDiscussionsConfig;
 
 		discussionsConfig = getConfigFromUrl({host: request.headers.host});
 
@@ -27,14 +26,7 @@ module landingPage {
 			return reply('Not Found').code(404);
 		}
 
-		if (discussionsConfig.language === 'ja') {
-			request.server.methods.i18n.getInstance().setLng('ja');
-			appStoreLogo = 'http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg';
-			androidLogo = 'https://developer.android.com/images/brand/ja_generic_rgb_wo_45.png';
-		} else {
-			appStoreLogo = 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg';
-			androidLogo = 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png';
-		}
+		request.server.methods.i18n.getInstance().setLng(discussionsConfig.language);
 
 		response = reply.view(
 			'discussions/landing-page',
@@ -43,8 +35,6 @@ module landingPage {
 				discussionsConfig: discussionsConfig,
 				language: request.server.methods.i18n.getInstance().lng(),
 				mainPage: 'http://www.wikia.com',
-				appStoreLogo: appStoreLogo,
-				androidLogo: androidLogo,
 				wikiaUrl: 'http://' + discussionsConfig.domain
 			},
 			{

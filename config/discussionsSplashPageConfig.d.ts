@@ -4,7 +4,9 @@ interface DiscussionsSplashPageConfig {
 
 interface WikiaDiscussionsConfig {
 	androidAppLink: string;
+	androidStoreLogo: string;
 	iosAppLink: string;
+	iosStoreLogo: string;
 	domain: string;
 	icon: string;
 	appScreens: string;
