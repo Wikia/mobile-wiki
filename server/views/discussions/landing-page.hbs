@@ -9,27 +9,25 @@
 </header>
 
 <div class="discussions-content">
-	<section>
-		<h2 class="app-download">
-			{{i18n 'discussion:landing-page.download-the-app-header'}}
-		</h2>
-		<ul>
-			<li class="app-button app-store">
-				<a href="{{discussionsConfig.iosAppLink}}"
-				   style="background-image: url('{{discussionsConfig.iosStoreLogo}}');">
-				</a>
-			</li>
-			<li class="app-button google">
-				<a href="{{discussionsConfig.androidAppLink}}">
-					<img alt="{{i18n 'discussion:landing-page.google-play-button-alt'}}"
-						 src="{{discussionsConfig.androidStoreLogo}}" />
-				</a>
-			</li>
-		</ul>
-		<div class="app-screen">
-			<span style="background-image: url('{{discussionsConfig.appScreens}}');"></span>
-		</div>
-	</section>
+	<h2 class="app-download">
+		{{i18n 'discussion:landing-page.download-the-app-header'}}
+	</h2>
+	<ul>
+		<li class="app-button app-store">
+			<a href="{{discussionsConfig.iosAppLink}}"
+			   style="background-image: url('{{discussionsConfig.iosStoreLogo}}');">
+			</a>
+		</li>
+		<li class="app-button google">
+			<a href="{{discussionsConfig.androidAppLink}}">
+				<img alt="{{i18n 'discussion:landing-page.google-play-button-alt'}}"
+					 src="{{discussionsConfig.androidStoreLogo}}" />
+			</a>
+		</li>
+	</ul>
+	<div class="app-screen">
+		<span style="background-image: url('{{discussionsConfig.appScreens}}');"></span>
+	</div>
 </div>
 
 <footer class="discussions-footer">
