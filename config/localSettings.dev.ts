@@ -10,7 +10,7 @@ var localSettings = baseLocalSettings.extendSettings({
 		console: 'debug'
 	},
 	authCookieDomain: '.wikia-dev.com',
-	servicesDomain:'services.wikia-dev.com',
+	servicesDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'services-poz.wikia-dev.com' : 'services.wikia-dev.com',
 	facebook: {
 		appId: 881967318489580
 	},
