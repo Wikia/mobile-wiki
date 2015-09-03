@@ -3,14 +3,11 @@ var config = <DiscussionsSplashPageConfig> require('../../../config/discussionsS
 import localSettings = require('../../../config/localSettings');
 
 module landingPage {
-	interface URL {
-		host: string;
-	}
 
-	function getConfigFromUrl (url: URL): WikiaDiscussionsConfig {
+	function getConfigFromUrl (url: string): WikiaDiscussionsConfig {
 		var domain: string;
 
-		domain = url.host.replace(
+		domain = url.replace(
 			/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
 			'$1'
 		);
@@ -21,7 +18,7 @@ module landingPage {
 	export function view (request: Hapi.Request, reply: any): Hapi.Response {
 		var response: Hapi.Response, discussionsConfig: WikiaDiscussionsConfig;
 
-		discussionsConfig = getConfigFromUrl({host: request.headers.host});
+		discussionsConfig = getConfigFromUrl(request.headers.host);
 
 		if (!discussionsConfig) {
 			return reply('Not Found').code(404);
