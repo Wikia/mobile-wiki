@@ -138,8 +138,8 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @desc shows error message for ponto communication
-	 * @param {string} message - error message
+	 * @desc connects with ponto and redirects to template page
+	 * @param {string} title - title of the template
 	 */
 	redirectToTemplatePage(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
