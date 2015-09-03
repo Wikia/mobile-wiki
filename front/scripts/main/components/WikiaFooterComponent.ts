@@ -50,5 +50,17 @@ App.WikiaFooterComponent = Em.Component.extend(App.TrackClickMixin, {
 			href: '//www.wikia.com/Special:Contact',
 			text: 'footer-link-feedback'
 		}
-	]
+	],
+	actions: {
+		handleFooterLinkClick: function(text: string, href: string) {
+			var pattern = '?useskin=oasis';
+
+			// if link is overwritting skin to oasis, set cookie with skin overwrite for single session
+			if (href.indexOf(pattern) !== -1) {
+				Em.$.cookie('useskin', 'oasis', { expires: 0 });
+			}
+
+			this.sendAction('trackClick', 'footer', text);
+		}
+	}
 });
