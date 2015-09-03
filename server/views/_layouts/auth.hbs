@@ -13,7 +13,7 @@
 		{{> tracking}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
-	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}">
+	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
 	<!-- @include ../../../www/front/svg/common.svg -->
 
 		{{#if standalonePage}}
@@ -21,7 +21,7 @@
 				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
 			</nav>
 		{{else}}
-			{{#unless isModal}}
+			{{#unless pageParams.isModal}}
 			<a class="close" href="{{exitTo}}">
 				<svg role="img">
 					<use xlink:href="#close"></use>
@@ -61,6 +61,7 @@
 		<!-- endbuild -->
 		<script>
 			M.prop('tracking', {{{json trackingConfig}}});
+			M.prop('isGASpecialWiki', true);
 		</script>
 	</body>
 </html>

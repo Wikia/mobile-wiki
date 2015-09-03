@@ -1,3 +1,37 @@
+## release-148 (2015-09-02 09:59 UTC)
+* [HG-852](https://wikia-inc.atlassian.net/browse/HG-852) HG-852 Discussion header
+* [SOC-1109](https://wikia-inc.atlassian.net/browse/SOC-1109) SOC-1109 Add Redirect URL param to tracking data
+* [SOC-883](https://wikia-inc.atlassian.net/browse/SOC-883) SOC-883 Share forum post to social networks
+* [SOC-715](https://wikia-inc.atlassian.net/browse/SOC-715) SOC-715 As a user on desktop, I want to sign in from a modal
+* add-comments-to-ie-fix: Add more comments
+* fixing-discussions-i18n: Registering discussion i18n namespace to make it visible to the app
+* aden-2347-interstitial-clean-up: ADEN-2347 Reverted openLightbox method
+* [SOC-1195](https://wikia-inc.atlassian.net/browse/SOC-1195) SOC-1195 As a user on desktop, I wan to see nice looking FB-connect button when the label on the button takes two lines
+
+## release-147 (2015-09-01 09:59 UTC)
+* move-ad-slots: Move ad slots out of main application template
+* [HG-854](https://wikia-inc.atlassian.net/browse/HG-854) Hg 854 fixing polldaddy after transition
+* [CONCF-1081](https://wikia-inc.atlassian.net/browse/CONCF-1081) CONCF-1081 | Update translations
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Add sandbox config for Japan homepage
+* [XW-184](https://wikia-inc.atlassian.net/browse/XW-184) XW-183 enable main page editor on test wikis on Mercury
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Fixed typo in gulp tasks for Japan HP. Fix for deployment error
+* [XW-75](https://wikia-inc.atlassian.net/browse/XW-75) XW-75 set focus on iframe when entering view with inputs
+* [HP-](https://wikia-inc.atlassian.net/browse/HP-) Separate gulp tasks for Japan homepage from mercury tasks. 
+
+## release-146 (2015-08-31 14:05 UTC)
+* revert-1274-move-ad-slots: Revert "Move ads out of application template"
+* [XW-69](https://wikia-inc.atlassian.net/browse/XW-69) Xw 69 show prompt on back click
+* [CONCF-670](https://wikia-inc.atlassian.net/browse/CONCF-670) CONCF-670 | Clean up for details.description
+* Japan-Homepage-Karma: Added karma test runner for qunit front tests for Japan homepage
+* [SOC-1143](https://wikia-inc.atlassian.net/browse/SOC-1143) SOC-1143 | Translations for facebook connect
+* [HG-850](https://wikia-inc.atlassian.net/browse/HG-850) HG-850 Implemented inifinite scroll for post list page
+* move-ad-slots: Move ads out of application template
+* [INT-155](https://wikia-inc.atlassian.net/browse/INT-155) Add an option to turn off "upload a photo" from mobile
+* [CONCF-1060](https://wikia-inc.atlassian.net/browse/CONCF-1060) CONCF-1060 | Curated Content Edit Tool — tooltips for form inputs
+
+## release-145 (2015-08-28 10:00 UTC)
+* remove-console-logging: Remove console logs for article width
+
 ## release-144 (2015-08-27 11:26 UTC)
 * [CONCF-1089](https://wikia-inc.atlassian.net/browse/CONCF-1089) CONCF-1089 | fix false positive error of already existing label
 * [DAT-3121](https://wikia-inc.atlassian.net/browse/DAT-3121) DAT-3121 Related pages images fix

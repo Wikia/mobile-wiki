@@ -4,6 +4,7 @@
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
+///<reference path="../mixins/IEIFrameFocusFixMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
@@ -12,6 +13,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
+	App.IEIFrameFocusFixMixin,
 	{
 		classNames: ['curated-content-editor-item'],
 		imageWidth: 300,

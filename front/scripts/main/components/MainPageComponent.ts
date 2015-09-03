@@ -26,26 +26,27 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
-	//TODO: Temporary, remove with CONCF-1095
+	//TODO: Temporary, remove with CONCF-1095|XW-9
 	host: window.location.host,
 	isAllowedWikia: Em.computed.match('host', /creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
-	curatedContentToolEnabled: false,
-	curatedContentToolButtonVisible: Em.computed.and('curatedContentToolEnabled', 'isAllowedWikia', 'currentUser.rights.curatedcontent'),
+	curatedContentToolButtonVisible: Em.computed.and('isAllowedWikia', 'currentUser.rights.curatedcontent'),
 
 	/**
 	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
 	 */
 	curatedContentObserver: Em.observer('curatedContent', function (): void {
 		Em.run.schedule('afterRender', this, (): void => {
+			M.setTrackContext({
+				a: this.get('title'),
+				n: this.get('ns')
+			});
+
+			M.updateTrackedUrl(window.location.href);
+			M.trackPageView(this.get('adsContext.targeting'));
+
 			this.injectMainPageAds();
 			this.setupAdsContext(this.get('adsContext'));
 		});
-
-		M.setTrackContext({
-			a: this.get('title'),
-			n: this.get('ns')
-		});
-		M.trackPageView(this.get('adsContext.targeting'));
 	}).on('didInsertElement'),
 
 	actions: {

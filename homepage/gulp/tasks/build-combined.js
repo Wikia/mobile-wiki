@@ -5,9 +5,9 @@
 var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	uglify = require('gulp-uglify'),
-	environment = require('../../../gulp/utils/environment.js'),
+	environment = require('../utils/environment.js'),
 	gulpconcat = require('gulp-concat'),
-	piper = require('../../../gulp/utils/piper');
+	piper = require('../utils/piper');
 
 gulp.task('build-combined', ['scripts'], function () {
 	var src = ['front/js/main.js'];
