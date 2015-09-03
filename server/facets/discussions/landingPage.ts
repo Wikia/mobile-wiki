@@ -15,7 +15,8 @@ module landingPage {
 			'$1'
 		);
 
-		return config[domain];
+		//return config[domain];
+		return config['fallout'];
 	}
 
 	export function view (request: Hapi.Request, reply: any): Hapi.Response {
@@ -37,7 +38,12 @@ module landingPage {
 				language: request.server.methods.i18n.getInstance().lng(),
 				mainPage: 'http://www.wikia.com',
 				wikiaUrl: 'http://' + discussionsConfig.domain,
-				trackingConfig: localSettings.tracking
+				trackingConfig: localSettings.tracking,
+				pageParams: {
+					language: discussionsConfig.language,
+					wikiId: discussionsConfig.wikiId,
+					dbName: discussionsConfig.dbName
+				}
 			},
 			{
 				layout: 'discussions'

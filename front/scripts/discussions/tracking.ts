@@ -2,6 +2,16 @@
 /// <reference path='../mercury/utils/track.ts' />
 /// <reference path='../mercury/utils/queryString.ts' />
 
+interface PageParams {
+	language: string;
+	dbName: string;
+	wikiId: number;
+}
+
+interface Window {
+	pageParams: PageParams;
+}
+
 (function () {
 	function track(label: string, action: string = M.trackActions.click): void {
 		M.track({
@@ -14,10 +24,10 @@
 
 	function setupTracking(): void {
 		M.provide('wiki', {
-			id: M.prop('wikiId'),
-			dbName: 'wikiaglobal',
+			id: window.pageParams.wikiId,
+			dbName: window.pageParams.dbName,
 			language: {
-				user: M.prop('language')
+				user: window.pageParams.language
 			}
 		});
 
