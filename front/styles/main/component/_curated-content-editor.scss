@@ -29,12 +29,13 @@ $image-photo-icon-size: 32px;
 
 .curated-content-editor-info {
 	position: absolute;
-	right: 1em;
-	top: 1em;
+	right: 0;
+	top: .7em;
+	padding: 12px;
 
 	svg {
-		height: 32px;
-		width: 32px;
+		height: 24px;
+		width: 24px;
 	}
 }
 
