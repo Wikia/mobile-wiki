@@ -7,9 +7,9 @@ class VisitSourceWrapper {
 		undefined;
 
 	public static init() {
-		if (this.sessionVisitSource && this.lifetimeVisitSource) {
-			this.sessionVisitSource.checkAndStore();
-			this.lifetimeVisitSource.checkAndStore();
+		if (VisitSourceWrapper.sessionVisitSource && VisitSourceWrapper.lifetimeVisitSource) {
+			VisitSourceWrapper.sessionVisitSource.checkAndStore();
+			VisitSourceWrapper.lifetimeVisitSource.checkAndStore();
 		}
 	}
 }
