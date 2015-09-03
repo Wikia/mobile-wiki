@@ -1,5 +1,6 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 var config = <DiscussionsSplashPageConfig> require('../../../config/discussionsSplashPageConfig');
+import localSettings = require('../../../config/localSettings');
 
 module landingPage {
 	interface URL {
@@ -35,7 +36,8 @@ module landingPage {
 				discussionsConfig: discussionsConfig,
 				language: request.server.methods.i18n.getInstance().lng(),
 				mainPage: 'http://www.wikia.com',
-				wikiaUrl: 'http://' + discussionsConfig.domain
+				wikiaUrl: 'http://' + discussionsConfig.domain,
+				trackingConfig: localSettings.tracking
 			},
 			{
 				layout: 'discussions'

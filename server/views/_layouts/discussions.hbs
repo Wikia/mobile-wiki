@@ -11,10 +11,23 @@
 	<!-- endbuild -->
 
 	<link rel="canonical" href="{{canonicalUrl}}" />
+	{{> tracking}}
 </head>
 <body class="discussions">
 <!-- @include ../../../www/front/svg/discussions.svg -->
 
 {{{content}}}
+
+<!-- build:js /front/scripts/discussions.js -->
+<script src="/front/vendor/jquery/dist/jquery.js"></script>
+<script src="/front/scripts/baseline.js"></script>
+<script src="/front/scripts/mercury.js"></script>
+<script src="/front/scripts/discussions.js"></script>
+<!-- endbuild -->
+<script>
+	M.prop('tracking', {{{json trackingConfig}}});
+	M.prop('wikiId', {{discussionsConfig.wikiId}});
+	M.prop('language', '{{discussionsConfig.language}}');
+</script>
 </body>
 </html>
