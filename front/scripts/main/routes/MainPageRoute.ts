@@ -37,12 +37,12 @@ App.MainPageRoute = Em.Route.extend({
 		if (model.isCuratedMainPage) {
 			this.render('main-page', {
 				controller: 'mainPage',
-				model: model
+				model
 			});
 		} else {
 			this.render('article', {
 				view: 'article',
-				model: model
+				model
 			});
 		}
 	},
