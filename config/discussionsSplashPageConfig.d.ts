@@ -12,4 +12,5 @@ interface WikiaDiscussionsConfig {
 	appScreens: string;
 	appName: string;
 	language: string;
+	wikiId: number;
 }
