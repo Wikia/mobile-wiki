@@ -1,8 +1,12 @@
 class AuthTracker {
 	gaCategory: string;
 
-	constructor (page: string) {
-		this.gaCategory = this.setGaCategory(page);
+	constructor (gaCategory: string, pageType: string) {
+		this.gaCategory = gaCategory;
+		M.setTrackContext({
+			a: pageType,
+			n: -1
+		});
 	}
 
 	private setGaCategory (page: string): string {
@@ -19,10 +23,8 @@ class AuthTracker {
 		}.bind(this))
 	}
 
-	public trackPageView (pageType: string) {
-		if (pageType) {
-			this.track(pageType, M.trackActions.impression);
-		}
+	public trackPageView () {
+		M.trackPageView(null);
 	}
 
 	public trackSubmit (form: HTMLFormElement, label: string): void {

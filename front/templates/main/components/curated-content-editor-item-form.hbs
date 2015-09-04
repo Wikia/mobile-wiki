@@ -17,7 +17,7 @@
 				focus-in='setLabelFocusedIn'
 			}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-display-name'}}</label>
-			<span class="input-icon info" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
+			<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}
@@ -33,7 +33,7 @@
 					focus-in='setTitleFocusedIn'
 				}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
-				<span class="input-icon info" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-page-name-tooltip')}}></span>
+				<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-page-name-tooltip')}}></span>
 				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
 					{{#each searchSuggestionsResult as |item|}}
 						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>

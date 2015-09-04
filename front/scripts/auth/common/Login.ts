@@ -39,7 +39,7 @@ class Login {
 			this.redirect = params['redirect'];
 		}
 		this.redirect = this.redirect || '/';
-		this.tracker = new AuthTracker('login');
+		this.tracker = new AuthTracker('user-login-mobile', '/signin');
 	}
 
 	public onSubmit (event: Event): void {

@@ -40,7 +40,7 @@ class SignupForm {
 		this.marketingOptIn.init();
 		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors', this.pageName);
 		this.termsOfUse.init();
-		this.tracker = new AuthTracker(this.pageName);
+		this.tracker = new AuthTracker('user-signup-mobile', this.pageName);
 	}
 
 	private getFormValues(): HeliosRegisterInput {

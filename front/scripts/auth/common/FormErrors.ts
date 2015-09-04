@@ -8,7 +8,7 @@ class FormErrors {
 	constructor (form: HTMLFormElement, trackingLabelPrefix: string = 'formValidationErrors', page: string = 'signup') {
 		this.form = form;
 		this.trackingLabelPrefix = trackingLabelPrefix;
-		this.tracker = new AuthTracker(page);
+		this.tracker = new AuthTracker('user-signup-mobile', page);
 	}
 
 	public clearValidationErrors(): void {

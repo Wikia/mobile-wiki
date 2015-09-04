@@ -48,7 +48,7 @@ class FacebookRegistration {
 		this.formErrors = new FormErrors(this.form, 'fbRegistrationValidationErrors');
 
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
-		this.tracker = new AuthTracker('signup');
+		this.tracker = new AuthTracker('user-signup-mobile', 'signup');
 	}
 
 	public init (): void {
