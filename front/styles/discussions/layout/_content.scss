@@ -1,6 +1,7 @@
 .discussions-content {
 	background-color: $header-background-color;
 	color: $content-text-color;
+	flex-shrink: 0;
 	text-align: center;
 
 	.app-download {

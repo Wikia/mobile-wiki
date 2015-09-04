@@ -1,5 +1,6 @@
 .discussions-header {
 	color: $header-text-color;
+	flex-shrink: 0;
 	font-size: 1.5rem;
 	line-height: 1.78rem;
 	text-align: center;

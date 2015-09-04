@@ -12,7 +12,7 @@ module landingPage {
 			'$1'
 		);
 
-		return config[domain];
+		return config['fallout'];
 	}
 
 	export function view (request: Hapi.Request, reply: any): Hapi.Response {
