@@ -1,3 +1,9 @@
+## release-150 (2015-09-04 09:59 UTC)
+* [XW-176](https://wikia-inc.atlassian.net/browse/XW-176) XW-176 | Fix icons for tooltips inside CC tool
+* [POZ-](https://wikia-inc.atlassian.net/browse/POZ-) Config for services in POZ datacenter
+* [XW-178](https://wikia-inc.atlassian.net/browse/XW-178) XW-178 change editor's title
+* [XW-71](https://wikia-inc.atlassian.net/browse/XW-71) XW-71 | Increase height
+
 ## relese-149 (2015-09-03 12:20 UTC)
 * fix-helios-session: Fix helios session
 * [HG-837](https://wikia-inc.atlassian.net/browse/HG-837) HG-837 Top Bar MVP v3
