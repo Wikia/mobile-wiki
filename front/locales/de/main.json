@@ -135,6 +135,11 @@
     "curated-content-editor-add-items-message":"Diesem Abschnitt bitte Einträge hinzufügen.",
     "curated-content-editor-missing-items-error":"Abschnitte dürfen nicht leer sein. Bitte füge dem Abschnitt Einträge hinzu.",
     "curated-content-editor-error-inside-items-message":"Bitte Fehler in den Einträgen beheben.",
-    "curated-content-editor-items-count":"__count__ Einträge"
+    "curated-content-editor-items-count":"__count__ Einträge",
+    "curated-content-editor-exit-prompt":"You have unsaved changes. Are you sure you want to exit?",
+    "curated-content-editor-main-page":"Main Page"
+  },
+  "discussion":{
+    "share-default-title":"Discussion on __siteName__"
   }
 }
