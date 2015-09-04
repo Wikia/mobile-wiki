@@ -1,3 +1,10 @@
+## release-151 (2015-09-04 14:56 UTC)
+* [DAT-3201](https://wikia-inc.atlassian.net/browse/DAT-3201) DAT-3201 set single session "useskin=oasis" cookie for footer links
+* [SOC-1165](https://wikia-inc.atlassian.net/browse/SOC-1165) SOC-1165 Discussions Splash Page (hack)
+* [XW-74](https://wikia-inc.atlassian.net/browse/XW-74) XW-74 add crop option to modal
+* [XW-193](https://wikia-inc.atlassian.net/browse/XW-193) enable CCE on selected communities
+* [XW-171](https://wikia-inc.atlassian.net/browse/XW-171) XW-171 load categories and sections under root not main page route
+
 ## release-150 (2015-09-04 09:59 UTC)
 * [XW-176](https://wikia-inc.atlassian.net/browse/XW-176) XW-176 | Fix icons for tooltips inside CC tool
 * [POZ-](https://wikia-inc.atlassian.net/browse/POZ-) Config for services in POZ datacenter
