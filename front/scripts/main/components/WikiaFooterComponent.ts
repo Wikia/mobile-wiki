@@ -54,7 +54,7 @@ App.WikiaFooterComponent = Em.Component.extend(App.TrackClickMixin, {
 	actions: {
 		handleFooterLinkClick: function (text: string, href: string) {
 			if (this.checkLinkForOasisSkinOverwrite(href)) {
-				Em.$.cookie('useskin', 'oasis', {expires: 0});
+				Em.$.cookie('useskin', 'oasis');
 			}
 
 			this.send('trackClick', 'footer', text);
