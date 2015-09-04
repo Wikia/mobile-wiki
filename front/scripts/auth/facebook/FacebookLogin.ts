@@ -23,7 +23,7 @@ class FacebookLogin {
 		this.loginButton = loginButton;
 		this.urlHelper = new UrlHelper();
 		new FacebookSDK(this.init.bind(this));
-		this.tracker = new AuthTracker('login');
+		this.tracker = new AuthTracker('user-login-mobile', 'login');
 	}
 
 	public init (): void {

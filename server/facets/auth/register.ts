@@ -78,6 +78,7 @@ function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.R
 			footerHref: authUtils.getSignInUrl(request),
 			footerCalloutLink: 'auth:fb-register.footer-callout-link',
 			bodyClasses: 'register-fb-page',
+			pageType: 'register-fb-page',
 			facebookAppId: localSettings.facebook.appId,
 			headerSlogan: 'auth:fb-register.facebook-registration-info',
 			pageParams: {
@@ -119,6 +120,7 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 			footerCalloutLink: 'auth:common.signin-link-text',
 			birthdateInputs: (new BirthdateInput(localeSettings[lang].date.endian, lang)).getInputData(),
 			bodyClasses: 'register-page',
+			pageType: 'register-page',
 			usernameMaxLength: localSettings.helios.usernameMaxLength,
 			passwordMaxLength: localSettings.helios.passwordMaxLength,
 			langCode: lang,

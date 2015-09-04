@@ -27,15 +27,15 @@ $image-photo-icon-size: 32px;
 	padding: $button-padding-vertical $button-padding-horizontal;
 }
 
-.curated-content-editor-help {
+.curated-content-editor-info {
 	position: absolute;
-	right: 1em;
-	top: 1em;
+	right: 0;
+	top: .7em;
+	padding: 12px;
 
 	svg {
-		fill: $color-gray-dark;
-		height: 32px;
-		width: 32px;
+		height: 24px;
+		width: 24px;
 	}
 }
 

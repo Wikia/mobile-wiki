@@ -85,7 +85,8 @@ module Mercury.Modules.Trackers {
 		 */
 		initAccount (trackerName: string, domain: string): void {
 			var options: TrackerOptions, prefix: string,
-				dimensionNum: string;
+				dimensionNum: string,
+				trackerPrefix: string;
 
 			options = {
 				name: '',
@@ -96,17 +97,15 @@ module Mercury.Modules.Trackers {
 
 			// Primary account should not have a namespace prefix
 			if (trackerName !== this.accountPrimary) {
-				prefix = this.accounts[trackerName].prefix + '.';
-			}
-
-			// Primary account should not have a namespace prefix
-			if (trackerName !== this.accountPrimary) {
-				options.name = this.accounts[trackerName].prefix;
+				trackerPrefix = this.accounts[trackerName].prefix;
+				prefix = trackerPrefix + '.';
+				options.name = trackerPrefix;
 			}
 
 			ga('create', this.accounts[trackerName].id, 'auto', options);
 
 			ga(prefix + 'require', 'linker');
+
 			if (domain) {
 				ga(prefix + 'linker:autoLink', domain);
 			}

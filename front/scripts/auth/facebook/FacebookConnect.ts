@@ -21,7 +21,7 @@ class FacebookConnect extends Login {
 		new FacebookSDK(this.init.bind(this));
 		this.urlHelper = new UrlHelper();
 		this.submitValidator = submitValidator;
-		this.tracker = new AuthTracker('signup');
+		this.tracker = new AuthTracker('user-login-mobile', 'signup');
 	}
 
 	public init (): void {
