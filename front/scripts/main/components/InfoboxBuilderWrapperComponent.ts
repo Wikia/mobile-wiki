@@ -2,7 +2,7 @@
 'use strict';
 
 App.InfoboxBuilderWrapperComponent = Em.Component.extend({
-	tagName: false,
+	tagName: '',
 
 	theme: '',
 	layout: ''

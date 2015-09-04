@@ -83,6 +83,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 	/**
 	 * add <data> item
+	 * addItem's methods can be refactored when figure out
+	 * stable version of infobox items and params
 	 */
 	addDataItem() : void {
 		var itemType = 'data',
@@ -105,6 +107,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 	/**
 	 * add <image> item
+	 * addItem's methods can be refactored when figure out
+	 * stable version of infobox items and params
 	 */
 	addImageItem() : void {
 		var itemType = 'image',
@@ -138,6 +142,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 	/**
 	 * add <title> item
+	 * addItem's methods can be refactored when figure out
+	 * stable version of infobox items and params
 	 */
 	addTitleItem() : void {
 		var itemType = 'title',

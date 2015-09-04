@@ -2,7 +2,7 @@
 'use strict';
 
 App.InfoboxBuilderItemDataComponent = Em.Component.extend({
-	tagName: false,
+	tagName: '',
 	attributeBindings: ['data-position'],
 
 	label: Ember.computed.alias('data.label'),

@@ -2,7 +2,7 @@
 'use strict';
 
 App.InfoboxBuilderItemImageComponent = Em.Component.extend({
-	tagName: null,
+	tagName: '',
 	url: '',
 	thumbnail: 'http://images.fanpop.com/images/image_uploads/Kermit-the-Frog-the-muppets-121870_500_325.jpg',
 	width: 270,
