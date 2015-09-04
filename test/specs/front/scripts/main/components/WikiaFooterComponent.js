@@ -31,7 +31,7 @@ test('sets cookie if skin is overwritten to oasis', function () {
 	component.send('handleFooterLinkClick', 'test', 'test');
 
 	ok(Em.$.cookie.calledOnce);
-	ok(Em.$.cookie.calledWith('useskin', 'oasis', {expires: 0}));
+	ok(Em.$.cookie.calledWith('useskin', 'oasis'));
 
 	Em.$.cookie.restore();
 });
