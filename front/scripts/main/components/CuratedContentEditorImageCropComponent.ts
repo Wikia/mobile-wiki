@@ -56,8 +56,8 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 					cropData: any,
 					imageCrop: any;
 
-				//Set values on model only if imageProperties are set.
-				//When cropping already added image values on model are already set
+				// Set values on model only if imageProperties are set.
+				// When cropping already added image values on model are already set
 				// - no need to set them to the same ones.
 				if (!Em.isEmpty(imageUrl) && !Em.isEmpty(imageId)) {
 					model.setProperties({
