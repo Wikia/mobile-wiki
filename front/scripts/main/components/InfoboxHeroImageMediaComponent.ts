@@ -8,7 +8,7 @@ App.InfoboxHeroImageMediaComponent = App.ImageMediaComponent.extend(App.Viewport
 	limitHeight: true,
 	normalizeWidth: false,
 	cropMode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-	caption: Em.computed('media', function() {
+	caption: Em.computed('media.caption', 'isHeroImage', function(): string|boolean {
 		return this.get('isHeroImage') ? false : this.get('media.caption');
 	}),
 
