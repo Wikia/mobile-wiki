@@ -12,6 +12,41 @@ App.MainPageRoute = Em.Route.extend({
 		this.controllerFor('application').set('enableSharingHeader', false);
 	},
 
+	model: function (): Em.RSVP.Promise {
+		return App.MainPageModel.find();
+	},
+
+	afterModel: function (model: typeof App.MainPageModel): void {
+		var mainPageTitle = M.String.normalizeToWhitespace(Em.get(Mercury, 'wiki.mainPageTitle'));
+		document.title = mainPageTitle + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
+
+		this.controllerFor('mainPage').setProperties({
+			adsContext: model.get('adsContext'),
+			isRoot: true,
+			ns: model.get('ns'),
+			title: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+		});
+
+		if (!model.isCuratedMainPage) {
+			// This is needed for articles
+			App.VisibilityStateManager.reset();
+		}
+	},
+
+	renderTemplate: function (controller: any, model: typeof App.MainPageModel): void {
+		if (model.isCuratedMainPage) {
+			this.render('main-page', {
+				controller: 'mainPage',
+				model
+			});
+		} else {
+			this.render('article', {
+				view: 'article',
+				model
+			});
+		}
+	},
+
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
@@ -37,9 +72,9 @@ App.MainPageRoute = Em.Route.extend({
 			 * and the title would be malformed.
 			 */
 			if (item.type === 'section') {
-				this.transitionTo('mainPage.section', encodeURI(encodeURIComponent(item.label)));
+				this.transitionTo('mainPageSection', encodeURI(encodeURIComponent(item.label)));
 			} else if (item.type === 'category') {
-				this.transitionTo('mainPage.category', encodeURI(encodeURIComponent(item.categoryName)));
+				this.transitionTo('mainPageCategory', encodeURI(encodeURIComponent(item.categoryName)));
 			} else {
 				Em.Logger.error('Can\'t open curated content item with type other than section or category', item);
 			}
