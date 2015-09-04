@@ -140,9 +140,10 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 
 	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),
-			media = model.find(ref);
+			media = model.find(ref),
+			isHeroImage = $(element).closest('.pi-hero').length > 0;
 
-		var component = this.createChildView(App.MediaComponent.newFromMedia(media), {
+		var component = this.createChildView(App.MediaComponent.newFromMedia(media, isHeroImage), {
 			ref: ref,
 			width: parseInt(element.getAttribute('width'), 10),
 			height: parseInt(element.getAttribute('height'), 10),
