@@ -44,15 +44,18 @@ App.DiscussionForumModel.reopenClass({
 	find (wikiId: number, forumId: number, sortBy: string) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var forumInstance = App.DiscussionForumModel.create({
-				wikiId: wikiId,
-				forumId: forumId
-			});
+					wikiId: wikiId,
+					forumId: forumId
+				}),
+				requestData: any = {};
+
+			if (sortBy) {
+				requestData.sortKey = forumInstance.getSortKey(sortBy);
+			}
 
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: `https://services.wikia.com/discussion/${wikiId}/forums/${forumId}`,
-				data: {
-					sortKey: forumInstance.getSortKey(sortBy)
-				},
+				data: requestData,
 				dataType: 'json',
 				success: (data: any) => {
 					var posts = data._embedded['doc:threads'],
