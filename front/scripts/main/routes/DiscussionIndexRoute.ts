@@ -1,19 +1,9 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/FullPageMixin.ts"/>
+'use strict';
 
-App.DiscussionIndexRoute = Em.Route.extend({
-	model() {
+App.DiscussionIndexRoute = Em.Route.extend(App.FullPageMixin, {
+	model () {
 		return App.DiscussionIndexModel.find(Mercury.wiki.id);
-	},
-	actions: {
-		willTransition: function(transition: EmberStates.Transition): boolean {
-			transition.then(() => {
-				this.controllerFor('application').set('fullPage', false);
-			});
-			return true;
-		},
-		didTransition: function(): boolean {
-			this.controllerFor('application').set('fullPage', true);
-			return true;
-		}
 	}
 });
