@@ -158,6 +158,27 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
+	// infobox horizontal group
+
+	.pi-horizontal-group {
+		border-spacing: 0;
+		table-layout: fixed;
+		text-align: center;
+		width: 100%;
+
+		.pi-header {
+			text-align: left;
+		}
+
+		.pi-horizontal-group-item {
+			vertical-align: top;
+		}
+
+		.pi-data-label {
+			padding-bottom: 0;
+		}
+	}
+
 	// infobox navigation
 	.pi-navigation {
 		font-weight: normal;
