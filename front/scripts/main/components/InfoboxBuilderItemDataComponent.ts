@@ -2,15 +2,12 @@
 'use strict';
 
 App.InfoboxBuilderItemDataComponent = Em.Component.extend({
-	tagName: '',
+	tagName: false,
 	attributeBindings: ['data-position'],
-	label: Em.computed('data', function(){
-		return this.get('data.label');
-	}),
-	value: Em.computed('data', function(){
-		return this.get('data.defaultValue');
-	}),
-	position: Em.computed('infoboxBuilderData', function(){
-		return this.get('infoboxBuilderData.position');
-	}),
+
+	label: Ember.computed.alias('data.label'),
+
+	value: Ember.computed.alias('data.defaultValue'),
+
+	position: Ember.computed.alias('infoboxBuilderData.position')
 });

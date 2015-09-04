@@ -1823,17 +1823,17 @@ declare module Ember {
             */
             finally(callback: Function, label?: string): Promise;
 
-			/**
-			 `all` will contain the array of functions which have to be resolved until
-			 the .then will be called. The promises' eventual values or the
-			 reason why the promise cannot be fulfilled are in the array which is passed as a param
-			 to be used in .then() function
+            /**
+             `all` will contain the array of functions which have to be resolved until
+             the .then will be called. The promises' eventual values or the
+             reason why the promise cannot be fulfilled are in the array which is passed as a param
+             to be used in .then() function
 
-			 @method all
-			 @param {Function[]}
-			 @return {Promise}
-			 */
-			static all(elements: Function[]): Promise;
+             @method all
+             @param {Function[]}
+             @return {Promise}
+             */
+            static all(elements: Function[]): Promise;
         }
     }
     class RenderBuffer {

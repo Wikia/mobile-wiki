@@ -56,6 +56,8 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 				function (data: any): void {
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
+					} else {
+						//show message that no permissions
 					}
 				},
 				function (data: any): void {

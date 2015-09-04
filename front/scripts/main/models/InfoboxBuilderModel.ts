@@ -1,6 +1,5 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/ObjectUtilitiesMixin.ts"/>
 
 'use strict';
 
@@ -63,17 +62,15 @@ interface SaveStateToTemplateResponse {
 	warnings: any[];
 }
 
-App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
+App.InfoboxBuilderModel = Em.Object.extend({
 	_itemIndex: {
 		data: 0,
 		image: 0,
 		title: 0,
 	},
 	infoboxState: Em.A([]),
-	_stateLength: Em.computed('infoboxState', {
-		get(): number {
-			return this.get('infoboxState').length;
-		}
+	_stateLength: Em.computed('infoboxState', function (): number {
+		return this.get('infoboxState').length;
 	}),
 
 	/**
@@ -102,7 +99,7 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 				component: this.createComponentName(itemType)
 			},
 			source: `data${i}`,
-			type: 'data'
+			type: itemType
 		});
 	},
 
@@ -135,7 +132,7 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 				component: this.createComponentName(itemType)
 			},
 			source: `image${i}`,
-			type: 'image'
+			type: itemType
 		});
 	},
 
@@ -157,7 +154,7 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 				component: this.createComponentName(itemType)
 			},
 			source: `title${i}`,
-			type: 'title'
+			type: itemType
 		});
 	},
 
@@ -189,11 +186,11 @@ App.InfoboxBuilderModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 
 	/**
 	 * increase index for given item type
-	 * @param {String} intexType
+	 * @param {String} indexType
 	 * @returns {Number}
 	 */
-	increaseItemIndex(intexType: string): number {
-		return this.incrementProperty(`_itemIndex.${intexType}`);
+	increaseItemIndex(indexType: string): number {
+		return this.incrementProperty(`_itemIndex.${indexType}`);
 	},
 
 	/**
