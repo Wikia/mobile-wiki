@@ -53,7 +53,7 @@ App.WikiaFooterComponent = Em.Component.extend(App.TrackClickMixin, {
 	],
 	actions: {
 		handleFooterLinkClick: function(text: string, href: string) {
-			var pattern = '?useskin=oasis';
+			var pattern = 'useskin=oasis';
 
 			// if link is overwritting skin to oasis, set cookie with skin overwrite for single session
 			if (href.indexOf(pattern) !== -1) {
