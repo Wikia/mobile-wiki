@@ -3,13 +3,13 @@
 /// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
-App.InfoboxHeroImageMediaComponent = App.ImageMediaComponent.extend(App.ViewportMixin, {
+App.InfoboxImageMediaComponent = App.ImageMediaComponent.extend(App.ViewportMixin, {
 	imageAspectRatio: 16 / 9,
 	limitHeight: true,
 	normalizeWidth: false,
 	cropMode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-	caption: Em.computed('media.caption', 'isHeroImage', function(): string|boolean {
-		return this.get('isHeroImage') ? false : this.get('media.caption');
+	caption: Em.computed('media.caption', 'isInfoboxHeroImage', function(): string|boolean {
+		return this.get('isInfoboxHeroImage') ? false : this.get('media.caption');
 	}),
 
 	/**
@@ -32,7 +32,7 @@ App.InfoboxHeroImageMediaComponent = App.ImageMediaComponent.extend(App.Viewport
 
 		//wide image- image wider than 16:9 aspect ratio and inside the HeroImage module
 		//Crop it to have 16:9 ratio.
-		if (imageWidth > maxWidth && this.get('isHeroImage')) {
+		if (imageWidth > maxWidth && this.get('isInfoboxHeroImage')) {
 			this.set('cropMode', Mercury.Modules.Thumbnailer.mode.zoomCrop);
 			return Math.floor(windowWidth / imageAspectRatio);
 		}

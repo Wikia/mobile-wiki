@@ -1,6 +1,6 @@
 var originalThumbnailerGetThumbURL = Mercury.Modules.Thumbnailer.getThumbURL;
 
-moduleForComponent('infobox-hero-image-media', 'InfoboxHeroImageMediaComponent', {
+moduleForComponent('infobox-image-media', 'InfoboxImageMediaComponent', {
 	setup: function () {
 		Mercury.Modules.Thumbnailer.getThumbURL = function (url, options) {
 			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
@@ -21,12 +21,12 @@ test('computedHeight TALL infobox image 200x1000', function () {
 				height: 1000,
 				width: 200
 			},
-			isHeroImage = true,
+			isInfoboxHeroImage = true,
 			expected = 400;
 
 	Ember.run(function () {
 		component.set('media', media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('computedHeight'), expected);
@@ -42,12 +42,12 @@ test('computedHeight WIDE infobox image 1000x200', function () {
 				height: 200,
 				width: 1000
 			},
-			isHeroImage = true,
+			isInfoboxHeroImage = true,
 			expected = 225;
 
 	Ember.run(function () {
 		component.set('media', media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('computedHeight'), expected);
@@ -63,12 +63,12 @@ test('computedHeight infobox image 100x100', function () {
 				height: 100,
 				width: 100
 			},
-			isHeroImage = true,
+			isInfoboxHeroImage = true,
 			expected = 100;
 
 	Ember.run(function () {
 		component.set('media', media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('computedHeight'), expected);
@@ -87,12 +87,12 @@ test('get params for request to thumbnailer for the TALL infobox image', functio
 				url: 'image.com'
 			},
 		},
-		isHeroImage = true,
+		isInfoboxHeroImage = true,
 		expected = 'image.com/top-crop-down/400/400';
 
 	Ember.run(function () {
 		component.set('media', data.media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('url'), expected);
@@ -111,12 +111,12 @@ test('get params for request to thumbnailer for the WIDE infobox image', functio
 				url: 'image.com'
 			}
 		},
-		isHeroImage = true,
+		isInfoboxHeroImage = true,
 		expected = 'image.com/zoom-crop/400/225';
 
 	Ember.run(function () {
 		component.set('media', data.media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('url'), expected);
@@ -135,12 +135,12 @@ test('get params for request to thumbnailer for the NORMAL infobox image', funct
 				url: 'image.com'
 			}
 		},
-		isHeroImage = true,
+		isInfoboxHeroImage = true,
 		expected = 'image.com/thumbnail-down/400/240';
 
 	Ember.run(function () {
 		component.set('media', data.media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('url'), expected);
@@ -159,12 +159,12 @@ test('get params for request to thumbnailer for the TALL infobox image outside H
 				url: 'image.com'
 			},
 		},
-		isHeroImage = false,
+		isInfoboxHeroImage = false,
 		expected = 'image.com/top-crop-down/400/400';
 
 	Ember.run(function () {
 		component.set('media', data.media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('url'), expected);
@@ -183,12 +183,12 @@ test('get params for request to thumbnailer for the WIDE infobox image outside H
 				url: 'image.com'
 			}
 		},
-		isHeroImage = false,
+		isInfoboxHeroImage = false,
 		expected = 'image.com/thumbnail-down/400/150';
 
 	Ember.run(function () {
 		component.set('media', data.media);
-		component.set('isHeroImage', isHeroImage);
+		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
 		equal(component.get('url'), expected);
