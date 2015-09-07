@@ -24,7 +24,6 @@ class SignupForm {
 	pageName: string;
 	termsOfUse: TermsOfUse;
 	tracker: AuthTracker;
-	utils: Utils;
 
 	constructor(form: Element) {
 		this.pageName = 'signup';
@@ -73,7 +72,7 @@ class SignupForm {
 			}
 		);
 
-		Utils.loadUrl(this.redirect);
+		AuthUtils.authSuccessCallback(this.redirect);
 	}
 
 	public onSubmit(event: Event): void {
