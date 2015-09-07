@@ -105,7 +105,7 @@ class Login {
 		// TODO remove when SOC-719 is ready
 		if (pageParams.isModal) {
 			this.form.querySelector('.forgotten-password').addEventListener('click', function(event) {
-				AuthUtils.authSuccessCallback((<HTMLLinkElement> event.target).href);
+				AuthUtils.loadUrl((<HTMLLinkElement> event.target).href);
 				event.preventDefault();
 			});
 		}
