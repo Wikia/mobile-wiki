@@ -23,7 +23,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
-		label: Em.computed('model.label', function() {
+		label: Em.computed('model.label', function(): string {
 			var modelLabel = this.get('model.label');
 			return modelLabel || i18n.t('app.curated-content-editor-new-item');
 		}),
@@ -218,6 +218,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			showSearchImageForm(): void {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
+			},
+
+			cropImage(): void {
+				this.trackClick('curated-content-editor', 'item-crop-image');
+				this.set('imageCropLayout.previous', this.get('itemFormLayout.name'));
+				this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 			},
 
 			setTitle(title: string): void {

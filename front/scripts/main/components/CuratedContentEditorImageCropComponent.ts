@@ -18,6 +18,10 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		$imgElement: null,
 		isLoading: false,
 		cropperInitialized: false,
+		imagePropertiesUrl: Em.computed('imageProperties.url', 'model.image_url', function() {
+			var imagePropertiesUrl = this.get('imageProperties.url');
+			return !Em.isEmpty(imagePropertiesUrl) ? imagePropertiesUrl : this.get('model.image_url');
+		}),
 
 		// https://github.com/fengyuanchen/cropper#options
 		defaultCropperSettings: {
@@ -47,13 +51,20 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 				this.trackClick('curated-content-editor', 'image-crop-done' );
 				var $imgElement = this.get('$imgElement'),
 					model = this.get('model'),
+					imageUrl = this.get('imagePropertiesUrl'),
+					imageId = this.get('imageProperties.id'),
 					cropData: any,
 					imageCrop: any;
 
-				model.setProperties({
-					'image_url': this.get('imageProperties.url'),
-					'image_id': this.get('imageProperties.id')
-				});
+				// Set values on model only if imageProperties are set.
+				// When cropping already added image values on model are already set
+				// - no need to set them to the same ones.
+				if (!Em.isEmpty(imageUrl) && !Em.isEmpty(imageId)) {
+					model.setProperties({
+						'image_url': imageUrl,
+						'image_id': imageId
+					});
+				}
 
 				// If user clicks DONE before image is loaded we ignore cropping
 				if ($imgElement) {
@@ -81,7 +92,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		 * @desc Show loading spinner until image is loaded as the cropper can be displayed only after that
 		 */
 		loadImage: Em.on('didInitAttrs', function (): void {
-			var url = this.get('imageProperties.url'),
+			var url = this.get('imagePropertiesUrl'),
 				image: HTMLImageElement;
 
 			if (url) {
@@ -100,7 +111,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 				return;
 			}
 
-			this.set('imageUrl', this.get('imageProperties.url'));
+			this.set('imageUrl', this.get('imagePropertiesUrl'));
 
 			// Wait until image is rendered
 			Em.run.scheduleOnce('afterRender', this, this.initCropper);
@@ -128,7 +139,5 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 				$imgElement.cropper('destroy');
 				$imgElement.cropper(this.get('currentCropperSettings'));
 			}
-
 		}
-
 });

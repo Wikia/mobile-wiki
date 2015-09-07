@@ -242,7 +242,9 @@ unauthenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
 	path: '/d/{type}/{id}/{action?}',
-	handler: require('./facets/showApplication')
+	handler: localSettings.enableDiscussions ?
+		require('./facets/showApplication') :
+		require('./facets/discussions/landingPage').view
 });
 
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {

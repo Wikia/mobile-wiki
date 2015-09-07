@@ -1,3 +1,24 @@
+## release-151 (2015-09-04 14:56 UTC)
+* [DAT-3201](https://wikia-inc.atlassian.net/browse/DAT-3201) DAT-3201 set single session "useskin=oasis" cookie for footer links
+* [SOC-1165](https://wikia-inc.atlassian.net/browse/SOC-1165) SOC-1165 Discussions Splash Page (hack)
+* [XW-74](https://wikia-inc.atlassian.net/browse/XW-74) XW-74 add crop option to modal
+* [XW-193](https://wikia-inc.atlassian.net/browse/XW-193) enable CCE on selected communities
+* [XW-171](https://wikia-inc.atlassian.net/browse/XW-171) XW-171 load categories and sections under root not main page route
+
+## release-150 (2015-09-04 09:59 UTC)
+* [XW-176](https://wikia-inc.atlassian.net/browse/XW-176) XW-176 | Fix icons for tooltips inside CC tool
+* [POZ-](https://wikia-inc.atlassian.net/browse/POZ-) Config for services in POZ datacenter
+* [XW-178](https://wikia-inc.atlassian.net/browse/XW-178) XW-178 change editor's title
+* [XW-71](https://wikia-inc.atlassian.net/browse/XW-71) XW-71 | Increase height
+
+## relese-149 (2015-09-03 12:20 UTC)
+* fix-helios-session: Fix helios session
+* [HG-837](https://wikia-inc.atlassian.net/browse/HG-837) HG-837 Top Bar MVP v3
+* special-ga-for-auth: Use Special GA account to track 100% events on Auth Pages
+* [SOC-1182](https://wikia-inc.atlassian.net/browse/SOC-1182) SOC-1182 Use trackPageView for impressions of Auth Pages
+* [XW-183](https://wikia-inc.atlassian.net/browse/XW-183) XW-183 | Fix tests
+* fix-ua-tracking: Fix UA tracking
+
 ## release-148 (2015-09-02 09:59 UTC)
 * [HG-852](https://wikia-inc.atlassian.net/browse/HG-852) HG-852 Discussion header
 * [SOC-1109](https://wikia-inc.atlassian.net/browse/SOC-1109) SOC-1109 Add Redirect URL param to tracking data

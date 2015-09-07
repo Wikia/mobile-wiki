@@ -135,6 +135,11 @@
     "curated-content-editor-add-items-message":"Aggiungi elementi a questa sezione.",
     "curated-content-editor-missing-items-error":"Le sezioni non possono essere vuote. Aggiungi elementi alla sezione.",
     "curated-content-editor-error-inside-items-message":"Correggi gli errori nei vari elementi.",
-    "curated-content-editor-items-count":"__count__ elementi"
+    "curated-content-editor-items-count":"__count__ elementi",
+    "curated-content-editor-exit-prompt":"Ci sono modifiche non salvate. Sei sicuro di voler lasciare questa pagina?",
+    "curated-content-editor-main-page":"Pagina principale"
+  },
+  "discussion":{
+    "share-default-title":"Forum su __siteName__"
   }
 }
