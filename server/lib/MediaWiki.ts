@@ -177,6 +177,7 @@ export class ArticleRequest extends BaseRequest {
  */
 export function fetch (url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
 	// Host might get changed when redirected so headers should be updated
+	// TODO: this is a temporary solution to fix additional domains, will be fixed properly in XW-236
 	var beforeRedirect = (redirectMethod: string, statusCode: number, location: string, redirectOptions: any): void => {
 		var redirectHost: string = Url.parse(location).hostname;
 
