@@ -142,6 +142,9 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		var ref = parseInt(element.dataset.ref, 10),
 			media = model.find(ref);
 
+		// set to true if image is rendered as a part of Portable Infobox Hero Element
+		media.isInfoboxHeroImage = $(element).closest('.pi-hero').length > 0;
+
 		var component = this.createChildView(App.MediaComponent.newFromMedia(media), {
 			ref: ref,
 			width: parseInt(element.getAttribute('width'), 10),
