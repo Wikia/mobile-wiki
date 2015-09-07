@@ -143,8 +143,8 @@ $hero-caption-line-height: 18px;
 			padding-left: 20px;
 		}
 
-		// remove margins on all children of data value
-		> * {
+		// remove margins on all elements inside data value
+		* {
 			margin: 0;
 		}
 
