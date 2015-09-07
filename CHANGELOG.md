@@ -1,3 +1,6 @@
+## release-152 (2015-09-07 09:59 UTC)
+* [DAT-3181](https://wikia-inc.atlassian.net/browse/DAT-3181) DAT-3181 add styles for horizontal group
+
 ## release-151 (2015-09-04 14:56 UTC)
 * [DAT-3201](https://wikia-inc.atlassian.net/browse/DAT-3201) DAT-3201 set single session "useskin=oasis" cookie for footer links
 * [SOC-1165](https://wikia-inc.atlassian.net/browse/SOC-1165) SOC-1165 Discussions Splash Page (hack)
