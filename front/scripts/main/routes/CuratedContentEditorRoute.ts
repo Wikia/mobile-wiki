@@ -110,7 +110,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 
 			openMainPage(dataSaved: boolean = false): void {
-				this.openMainPage(dataSaved);
+				this.handleTransitionToMainPage(dataSaved);
 			},
 
 			error(error: any): boolean {
@@ -119,7 +119,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 						message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
 						type: 'warning'
 					});
-					this.openMainPage();
+					this.handleTransitionToMainPage();
 				} else {
 					Em.Logger.error(error);
 					this.controllerFor('application').addAlert({
@@ -171,44 +171,48 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 *
 		 * @param dataSaved
 		 */
-		openMainPage(dataSaved: boolean = false) {
+		handleTransitionToMainPage(dataSaved: boolean = false): void {
 			var ponto = window.Ponto;
 
 			this.set('publish', !!dataSaved);
 
 			if (ponto && typeof ponto.invoke === 'function') {
-
-				if (App.CuratedContentEditorModel.isDirty &&
-					!this.get('publish') &&
-					!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
-				) {
-					return;
-				}
-				ponto.invoke(
-					// AMD module name in app
-					'curatedContentTool.pontoBridge',
-					// Method to invoke
-					'exit',
-					{
-						saved: dataSaved
-					},
-					// We don't care about success callback
-					Em.K,
-					// If something went wrong on the app side then display an error
-					// This shouldn't happen, ever
-					(err: any): void => {
-						Em.Logger.error('Ponto error:', err);
-
-						this.controllerFor('application').addAlert({
-							message: i18n.t('app.curated-content-error-other'),
-							type: 'alert'
-						});
-					},
-					true
-				);
+				this.closeModalUsingPonto(ponto);
 			} else {
 				this.transitionTo('mainPage');
 			}
+		},
 
+		closeModalUsingPonto(ponto): void {
+			var dataSaved = this.get('publish');
+
+			if (App.CuratedContentEditorModel.isDirty &&
+				!dataSaved &&
+				!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
+			) {
+				return;
+			}
+			ponto.invoke(
+				// AMD module name in app
+				'curatedContentTool.pontoBridge',
+				// Method to invoke
+				'exit',
+				{
+					saved: dataSaved
+				},
+				// We don't care about success callback
+				Em.K,
+				// If something went wrong on the app side then display an error
+				// This shouldn't happen, ever
+				(err: any): void => {
+					Em.Logger.error('Ponto error:', err);
+
+					this.controllerFor('application').addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
+				},
+				true
+			);
 		}
 	});
