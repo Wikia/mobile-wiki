@@ -11,7 +11,13 @@ test('reacts on curated content change', function () {
 	var componentMock = this.subject(),
 		adsContext = {
 			valid: true
+		},
+		newAttrs = {
+			adsContext: adsContext,
+			curatedContent: {}
 		};
+
+	expect(2);
 
 	componentMock.injectMainPageAds = function () {
 		ok(true, 'Main page ads injected');
@@ -22,9 +28,10 @@ test('reacts on curated content change', function () {
 	};
 
 	Ember.run(function () {
-		componentMock.setProperties({
-			adsContext: adsContext,
-			curatedContent: {}
+		componentMock.set('attrs', newAttrs);
+
+		componentMock.trigger('didReceiveAttrs', {
+			newAttrs: newAttrs
 		});
 	});
 });
