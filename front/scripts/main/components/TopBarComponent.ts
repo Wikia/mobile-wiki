@@ -5,8 +5,8 @@
 
 App.TopBarComponent = Em.Component.extend(App.HeadroomMixin, {
 	tagName: 'top-bar',
-	attributeBindings: ['logo-src'],
-	
+	attributeBindings: ['logo-src', 'logo-href'],
+
 	isUserLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
 		// HTMLBars attribute binding only removes an attribute if it's value is set to null
 		if (this.get('currentUser.isAuthenticated') === false) {
