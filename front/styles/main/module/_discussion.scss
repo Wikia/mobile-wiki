@@ -92,14 +92,13 @@ $theme-bar-height: 10px;
 
 		img {
 			border-color: #ccc;
-			height: 25px;
-			width: 25px;
 		}
 	}
 
 	.count {
 		color: #999;
 		font-size: $type-min;
+		font-weight: bold;
 
 		.icon {
 			margin-right: 3px;
@@ -115,6 +114,26 @@ $theme-bar-height: 10px;
 		border-top: 1px solid #ccc;
 		padding-top: 12px;
 
+		.author {
+			font-size: $type-min;
+		}
+
+		.avatar {
+			img {
+				height: 30px;
+				width: 30px;
+			}
+		}
+
+		.discussion-content {
+			font-size: $type-min;
+			line-height: $line-height-min;
+		}
+
+		.timestamp {
+			font-size: 10px;
+		}
+
 		.upvotes {
 			float: left;
 			margin: -7px 10px 0 0;
@@ -123,6 +142,7 @@ $theme-bar-height: 10px;
 			small {
 				display: block;
 				font-size: 10px;
+				font-weight: bold;
 				line-height: 10px;
 			}
 		}
@@ -154,7 +174,19 @@ $theme-bar-height: 10px;
 	}
 
 	.post-detail {
+		border-bottom: 1px solid #ccc;
 		padding: 12px 0;
+
+		.avatar {
+			img {
+				height: 40px;
+				width: 40px;
+			}
+		}
+
+		.timestamp {
+			font-size: $type-min;
+		}
 	}
 
 	.see-more {
@@ -176,6 +208,7 @@ $theme-bar-height: 10px;
 
 	.timestamp {
 		color: #999;
+		font-weight: bold;
 	}
 
 	&.forum {
@@ -188,6 +221,7 @@ $theme-bar-height: 10px;
 		}
 
 		.post-detail {
+			border-bottom-width: 0;
 			border-top: 1px solid #ccc;
 			cursor: pointer;
 
