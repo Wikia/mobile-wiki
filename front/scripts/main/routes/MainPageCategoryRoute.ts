@@ -5,12 +5,12 @@
 'use strict';
 
 App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, {
-	model: function (params: any): Em.RSVP.Promise {
+	model(params: any): Em.RSVP.Promise {
 		return App.CuratedContentModel.find(params.categoryName, 'category');
 	},
 
 	actions: {
-		error: function (error: any): boolean {
+		error(error: any): boolean {
 			if (error && error.status === 404) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.curated-content-error-category-not-found'),

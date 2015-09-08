@@ -5,11 +5,11 @@
 'use strict';
 
 App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
-	model: function (): Em.RSVP.Promise {
+	model(): Em.RSVP.Promise {
 		return App.MainPageModel.find();
 	},
 
-	afterModel: function (model: typeof App.MainPageModel): void {
+	afterModel(model: typeof App.MainPageModel): void {
 		var mainPageTitle = M.String.normalizeToWhitespace(Em.get(Mercury, 'wiki.mainPageTitle'));
 		document.title = mainPageTitle + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
 
@@ -26,7 +26,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 		}
 	},
 
-	renderTemplate: function (controller: any, model: typeof App.MainPageModel): void {
+	renderTemplate(controller: any, model: typeof App.MainPageModel): void {
 		if (model.isCuratedMainPage) {
 			this.render('main-page', {
 				controller: 'mainPage',
@@ -41,7 +41,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
+		error(error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();
 			}
@@ -49,7 +49,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 			return true;
 		},
 
-		didTransition: function (): boolean {
+		didTransition(): boolean {
 			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 			// Optimally, it would remain in the same place.
 			window.scrollTo(0, 0);
