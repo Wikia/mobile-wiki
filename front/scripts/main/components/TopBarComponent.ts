@@ -3,7 +3,7 @@
 /// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
 'use strict';
 
-App.TopBarComponent = Em.Component.extend({
+App.TopBarComponent = Em.Component.extend(App.HeadroomMixin, {
 	isUserLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
 		// HTMLBars attribute binding only removes an attribute if it's value is set to null
 		if (this.get('currentUser.isAuthenticated') === false) {
