@@ -31,10 +31,7 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 	isAllowedWikia: Em.computed.match('host', /community\.wikia|spolecznosc|yhteiso|communaute|comunidade|comunidad|creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
 	curatedContentToolButtonVisible: Em.computed.and('isAllowedWikia', 'currentUser.rights.curatedcontent'),
 
-	/**
-	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
-	 */
-	curatedContentObserver: Em.observer('curatedContent', function (): void {
+	didReceiveAttrs: function (): void {
 		Em.run.schedule('afterRender', this, (): void => {
 			M.setTrackContext({
 				a: this.get('title'),
@@ -47,7 +44,7 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 			this.injectMainPageAds();
 			this.setupAdsContext(this.get('adsContext'));
 		});
-	}).on('didInsertElement'),
+	},
 
 	actions: {
 		openLightbox: function (lightboxType: string, lightboxData: any): void {
