@@ -7,7 +7,7 @@ App.DiscussionForumModel = Em.Object.extend({
 	posts: null,
 	totalPosts: 0,
 
-	loadPage (pageNum: number) {
+	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://services.wikia.com/discussion/' + this.wikiId + '/forums/' + this.forumId,
@@ -28,7 +28,7 @@ App.DiscussionForumModel = Em.Object.extend({
 		});
 	},
 
-	getSortKey (sortBy: string): string {
+	getSortKey(sortBy: string): string {
 		switch (sortBy) {
 			case 'latest':
 				return 'creation_date';
@@ -41,7 +41,7 @@ App.DiscussionForumModel = Em.Object.extend({
 });
 
 App.DiscussionForumModel.reopenClass({
-	find (wikiId: number, forumId: number, sortBy: string) {
+	find(wikiId: number, forumId: number, sortBy: string) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var forumInstance = App.DiscussionForumModel.create({
 					wikiId: wikiId,

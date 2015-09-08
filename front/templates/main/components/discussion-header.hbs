@@ -1,6 +1,6 @@
 <div class="header clearfix">
 	<h1 {{action 'hideSortSelector'}}>{{siteName}}</h1>
-	<ul {{action 'hideSortSelector'}} class="sort-select">
+	<ul {{action 'hideSortSelector'}} class="sort-select {{unless sortVisible 'hide'}}">
 		{{#each sortTypes as |item|}}
 			<li {{action 'setSortBy' item.name}}>{{i18n item.messageKey}}</li>
 		{{/each}}

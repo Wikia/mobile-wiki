@@ -4,11 +4,10 @@
 
 App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
 	forumId: null,
-	sortBy: null,
 
-	model (params: any) {
+	model(params: any) {
 		this.set('forumId', params.forumId);
-		this.set('sortBy', params.sortBy);
+		this.controllerFor('discussionForum').set('sortBy', params.sortBy);
 		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
 	},
 
@@ -22,6 +21,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
 		},
 
 		setSortBy: function (sortBy: string): void {
+			this.controllerFor('discussionForum').set('sortBy', sortBy);
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
 		}
 	}

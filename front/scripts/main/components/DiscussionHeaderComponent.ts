@@ -5,8 +5,8 @@
 App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	classNames: ['discussion-header'],
 
-	sortMessageKey: null,
-
+	sortBy: null,
+	sortVisible: false,
 	sortTypes: [
 		{
 			name: 'latest',
@@ -22,38 +22,28 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 		return Em.get(Mercury, 'wiki.siteName');
 	}),
 
-	init: function () {
-		this.set('sortMessageKey', this.getSortMessageKey(this.container.lookup('route:discussion.forum').get('sortBy')));
-		this._super();
-	},
-
-	/**
-	 * Gets i18n message key for sort-by text
-	 * @param {string} sortBy
-	 */
-	getSortMessageKey: function (sortBy: string) {
-		var filtered = this.get('sortTypes').filter((obj: any): boolean => {
-				return obj.name === sortBy;
+	sortMessageKey: Em.computed('sortBy', function (): string {
+		var sortTypes = this.get('sortTypes'),
+			filtered = sortTypes.filter((obj: any): boolean => {
+				return obj.name === this.get('sortBy');
 			});
 
 			return filtered.length ? filtered[0].messageKey :
-				this.get('sortTypes')[0].messageKey;
-	},
+				sortTypes[0].messageKey;
+	}),
 
 	actions: {
-		setSortBy: function (sortBy: string): void {
+		setSortBy(sortBy: string): void {
 			// Send action up to route object
 			this.sendAction('setSortBy', sortBy);
-			// Update the translated sort-by text
-			this.set('sortMessageKey', this.getSortMessageKey(sortBy));
 		},
 
-		showSortSelector: function (): void {
-			this.$('.sort-select').show();
+		showSortSelector(): void {
+			this.set('sortVisible', true);
 		},
 
-		hideSortSelector: function (): void {
-			this.$('.sort-select').hide();
+		hideSortSelector(): void {
+			this.set('sortVisible', false);
 		}
 	}
 });

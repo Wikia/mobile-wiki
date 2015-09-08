@@ -3,7 +3,7 @@
 'use strict';
 
 App.DiscussionIndexRoute = Em.Route.extend(App.FullPageMixin, {
-	model () {
+	model() {
 		return App.DiscussionIndexModel.find(Mercury.wiki.id);
 	}
 });
