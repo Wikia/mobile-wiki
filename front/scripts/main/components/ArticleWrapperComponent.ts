@@ -78,7 +78,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 
 	//TODO: Temporary, remove with CONCF-1095|XW-9
 	host: window.location.host,
-	isAllowedWikia: Em.computed.match('host', /creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
+	isAllowedWikia: Em.computed.match('host', /community\.wikia|spolecznosc|yhteiso|communaute|comunidade|comunidad|creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
 	curatedContentToolButtonVisible: Em.computed.and('isAllowedWikia', 'model.isMainPage', 'currentUser.rights.curatedcontent'),
 
 	articleObserver: Em.observer('model.article', function (): void {

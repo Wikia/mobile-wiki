@@ -111,9 +111,9 @@
     "curated-content-editor-crop-image":"Recortar la imagen",
     "curated-content-editor-editing-header":"Edición: __label__",
     "curated-content-editor-enter-display-name":"Ingresa un nombre para visualización",
-    "curated-content-editor-enter-display-name-tooltip":"This is the text that will appear on the main page for this item.",
+    "curated-content-editor-enter-display-name-tooltip":"Este texto aparecerá en la página principal de este elemento.",
     "curated-content-editor-enter-page-name":"Ingresa un nombre de página",
-    "curated-content-editor-enter-page-name-tooltip":"When entering an item in Curated Content use the same format you would use to link to a piece of content on Wikia (e.g. Name_of_article).",
+    "curated-content-editor-enter-page-name-tooltip":"Al ingresar un elemento en Contenido a cargo, usa el mismo formato que usarías para vincularlo a un contenido en Wikia (por ejemplo, Nombre_del_artículo).",
     "curated-content-editor-delete-item":"Borrar elemento",
     "curated-content-editor-add-category":"+ Añadir categoría",
     "curated-content-editor-publish":"Publicar",
@@ -135,6 +135,11 @@
     "curated-content-editor-add-items-message":"Agrega elementos a esta sección.",
     "curated-content-editor-missing-items-error":"Las secciones no pueden estar vacías. Por favor agrega elementos a la sección.",
     "curated-content-editor-error-inside-items-message":"Arregla los errores dentro de los elementos.",
-    "curated-content-editor-items-count":"__count__ elementos"
+    "curated-content-editor-items-count":"__count__ elementos",
+    "curated-content-editor-exit-prompt":"Tienes cambios sin guardar. ¿Estás seguro que deseas salir?",
+    "curated-content-editor-main-page":"Portada"
+  },
+  "discussion":{
+    "share-default-title":"Discusión en __siteName__"
   }
 }

@@ -92,7 +92,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (media.context === 'infobox') {
-			return App.InfoboxHeroImageMediaComponent.create();
+			return App.InfoboxImageMediaComponent.create();
 		} else if (Em.isArray(media)) {
 			if ((<any>media).some((media: ArticleMedia) => !!media.link)) {
 				return App.LinkedGalleryMediaComponent.create();

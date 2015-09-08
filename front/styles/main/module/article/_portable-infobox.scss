@@ -143,8 +143,8 @@ $hero-caption-line-height: 18px;
 			padding-left: 20px;
 		}
 
-		// remove margins on all children of data value
-		> * {
+		// remove margins on all elements inside data value
+		* {
 			margin: 0;
 		}
 
@@ -155,6 +155,27 @@ $hero-caption-line-height: 18px;
 			font-size: inherit;
 			line-height: inherit;
 			list-style-position: inside;
+		}
+	}
+
+	// infobox horizontal group
+
+	.pi-horizontal-group {
+		border-spacing: 0;
+		table-layout: fixed;
+		text-align: center;
+		width: 100%;
+
+		.pi-header {
+			text-align: left;
+		}
+
+		.pi-horizontal-group-item {
+			vertical-align: top;
+		}
+
+		.pi-data-label {
+			padding-bottom: 0;
 		}
 	}
 
