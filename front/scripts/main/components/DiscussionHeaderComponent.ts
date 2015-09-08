@@ -2,7 +2,7 @@
 /// <reference path="../../main/mixins/HeadroomMixin.ts" />
 'use strict';
 
-App.DiscussionHeaderComponent = Em.Component.extend( {
+App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	classNames: ['discussion-header'],
 
 	sortBy: null,
