@@ -48,10 +48,10 @@
 }
 
 .headroom-not-top {
-	transition: transform .5s linear;
+	transition: transform .5s;
 
 	&.pinned {
-		transform: translateY(0%);
+		transform: none;
 	}
 
 	&.un-pinned {
