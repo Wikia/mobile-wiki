@@ -183,7 +183,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			}
 		},
 
-		closeModalUsingPonto(ponto): void {
+		closeModalUsingPonto(ponto: any): void {
 			var dataSaved = this.get('publish');
 
 			if (App.CuratedContentEditorModel.isDirty &&
