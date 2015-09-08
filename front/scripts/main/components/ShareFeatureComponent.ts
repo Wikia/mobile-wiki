@@ -13,6 +13,8 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		}
 	},
 
+	sharedUrl: Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname,
+
 	lineShare: Em.computed('title', function (): string {
 		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('sharedUrl'));
 	}),
