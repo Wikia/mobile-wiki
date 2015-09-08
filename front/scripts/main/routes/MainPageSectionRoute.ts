@@ -1,45 +1,12 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../mixins/MainPageRouteMixin.ts" />
 
-App.MainPageSectionRoute = Em.Route.extend({
+'use strict';
+
+App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	model: function (params: any): Em.RSVP.Promise {
 		return App.CuratedContentModel.find(params.sectionName, 'section');
-	},
-
-	afterModel: function (model: any): void {
-		var sectionName: string,
-			title: string = model.get('title'),
-			mainPageController = this.controllerFor('mainPage'),
-			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
-
-		// WOW!
-		// Ember's RouteRecognizer does decodeURI while processing path.
-		// We need to do it manually for titles passed using transitionTo, see the MainPageRoute.
-		try {
-			sectionName = decodeURIComponent(decodeURI(title));
-		} catch (error) {
-			sectionName = decodeURIComponent(title);
-		}
-
-		sectionName = M.String.normalizeToWhitespace(sectionName);
-
-		document.title = sectionName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
-
-		mainPageController.setProperties({
-			isRoot: false,
-			title: sectionName,
-			adsContext: adsContext,
-			ns: M.prop('mainPageData.ns')
-		});
-	},
-
-	renderTemplate: function (controller: any, model: typeof App.CuratedContentModel): void {
-		this.render('main-page', {
-			controller: 'mainPage',
-			model: {
-				curatedContent: model
-			}
-		});
 	},
 
 	actions: {
