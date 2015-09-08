@@ -13,7 +13,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		}
 	},
 
-	sharedUrl: Em.computed('controllers.application.title', function (): string {
+	sharedUrl: Em.computed('title', function (): string {
 			return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname;
 		}
 	),
