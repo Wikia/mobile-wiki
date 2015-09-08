@@ -15,17 +15,12 @@ test('reacts on curated content change', function () {
 		newAttrs = {
 			adsContext: adsContext,
 			curatedContent: {}
-		};
+		},
+		injectMainPageAdsSpy = sinon.spy(),
+		setupAdsContextSpy = sinon.spy();
 
-	expect(2);
-
-	componentMock.injectMainPageAds = function () {
-		ok(true, 'Main page ads injected');
-	};
-
-	componentMock.setupAdsContext = function (context) {
-		equal(context, adsContext);
-	};
+	componentMock.injectMainPageAds = injectMainPageAdsSpy;
+	componentMock.setupAdsContext = setupAdsContextSpy;
 
 	Ember.run(function () {
 		componentMock.set('attrs', newAttrs);
@@ -34,4 +29,7 @@ test('reacts on curated content change', function () {
 			newAttrs: newAttrs
 		});
 	});
+
+	ok(injectMainPageAdsSpy.calledOnce);
+	ok(setupAdsContextSpy.calledWith(adsContext))
 });
