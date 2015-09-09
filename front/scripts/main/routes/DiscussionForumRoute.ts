@@ -7,8 +7,12 @@ App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
 
 	model(params: any) {
 		this.set('forumId', params.forumId);
-		this.controllerFor('discussionForum').set('sortBy', params.sortBy);
 		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
+	},
+
+	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
+		this._super(controller, model, transition);
+		controller.set('sortBy', transition.params['discussion.forum'].sortBy);
 	},
 
 	actions: {
