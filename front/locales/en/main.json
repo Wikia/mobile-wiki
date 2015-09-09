@@ -138,7 +138,6 @@
 		"curated-content-editor-items-count": "__count__ items",
 		"curated-content-editor-exit-prompt": "You have unsaved changes. Are you sure you want to exit?",
 		"curated-content-editor-main-page": "Main Page",
-		//infobox builder
 		"infobox-builder-label-item-default-value": "Label",
 		"infobox-builder-data-item-default-value": "Data",
 		"infobox-builder-title-item-default-value": "Title",
