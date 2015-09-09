@@ -111,9 +111,9 @@
     "curated-content-editor-crop-image":"Обрезать изображение",
     "curated-content-editor-editing-header":"Редактирование: __label__",
     "curated-content-editor-enter-display-name":"Введите отображаемое название",
-    "curated-content-editor-enter-display-name-tooltip":"This is the text that will appear on the main page for this item.",
+    "curated-content-editor-enter-display-name-tooltip":"Это текст, который будет отображаться на заглавной странице для этого элемента.",
     "curated-content-editor-enter-page-name":"Введите название страницы",
-    "curated-content-editor-enter-page-name-tooltip":"When entering an item in Curated Content use the same format you would use to link to a piece of content on Wikia (e.g. Name_of_article).",
+    "curated-content-editor-enter-page-name-tooltip":"При добавлении элемента в список лучшего контента, форматируйте текст так же, как вы бы поступили со ссылкой - заменяйте пробелы знаками подчёркивания, (пример - Название_статьи).",
     "curated-content-editor-delete-item":"Удалить элемент",
     "curated-content-editor-add-category":"+ добавить категорию",
     "curated-content-editor-publish":"Опубликовать",
@@ -135,6 +135,11 @@
     "curated-content-editor-add-items-message":"Пожалуйста, добавьте элементы в этот раздел.",
     "curated-content-editor-missing-items-error":"Раздел не может быть пустым. Пожалуйста, добавьте элементы в этот раздел.",
     "curated-content-editor-error-inside-items-message":"Пожалуйста, исправьте ошибки в элементах.",
-    "curated-content-editor-items-count":"__count__ элементов"
+    "curated-content-editor-items-count":"__count__ элементов",
+    "curated-content-editor-exit-prompt":"Имеются несохраненные изменения. Вы уверены, что вы хотите выйти?",
+    "curated-content-editor-main-page":"Заглавная страница"
+  },
+  "discussion":{
+    "share-default-title":"Обсуждение на __siteName__"
   }
 }
