@@ -26,15 +26,9 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
-	//TODO: Temporary, remove with CONCF-1095|XW-9
-	host: window.location.host,
-	isAllowedWikia: Em.computed.match('host', /creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
-	curatedContentToolButtonVisible: Em.computed.and('isAllowedWikia', 'currentUser.rights.curatedcontent'),
+	curatedContentToolButtonVisible: Em.computed.and('currentUser.rights.curatedcontent'),
 
-	/**
-	 * @desc Component is reused so we have to observe on curatedContent to detect transitions between routes
-	 */
-	curatedContentObserver: Em.observer('curatedContent', function (): void {
+	didReceiveAttrs(): void {
 		Em.run.schedule('afterRender', this, (): void => {
 			M.setTrackContext({
 				a: this.get('title'),
@@ -47,14 +41,14 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 			this.injectMainPageAds();
 			this.setupAdsContext(this.get('adsContext'));
 		});
-	}).on('didInsertElement'),
+	},
 
 	actions: {
-		openLightbox: function (lightboxType: string, lightboxData: any): void {
+		openLightbox(lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
 		},
 
-		openCuratedContentItem: function (item: CuratedContentItem): void {
+		openCuratedContentItem(item: CuratedContentItem): void {
 			this.sendAction('openCuratedContentItem', item);
 		}
 	}

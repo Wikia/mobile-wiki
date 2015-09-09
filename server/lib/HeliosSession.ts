@@ -49,16 +49,8 @@ module HeliosSession {
 					return reply(Boom.unauthorized('No access_token'));
 				}
 
-				Wreck.post(
-					authUtils.getHeliosUrl('/info'),
-					{
-						payload: qs.stringify({
-							'code' : accessToken
-						}),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					},
+				Wreck.get(
+					authUtils.getHeliosUrl('/info') + '?code=' + accessToken,
 					callback
 				);
 			}

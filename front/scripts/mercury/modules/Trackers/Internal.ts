@@ -53,7 +53,7 @@ module Mercury.Modules.Trackers {
 					c: mercury.wiki.id,
 					x: mercury.wiki.dbName,
 					lc: mercury.wiki.language.user,
-					u: 0,
+					u: mercury.userId || 0,
 					s: 'mercury',
 					beacon: '',
 					cb: ~~(Math.random() * 99999)

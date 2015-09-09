@@ -50,7 +50,7 @@ QUnit.test('SignupForm is loaded', function () {
 QUnit.test('SignupForm successful path', function () {
 	this.server.respondWith(
 		'/example/asd',
-		[200, {'Content-Type': 'application/json'}, '']
+		[200, {'Content-Type': 'application/json'}, '{"user_id": "123"}']
 	);
 
 	this.signupForm.onSubmit(document.createEvent('Event'));

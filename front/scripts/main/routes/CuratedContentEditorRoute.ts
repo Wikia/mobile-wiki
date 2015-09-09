@@ -109,50 +109,8 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 			},
 
-			/**
-			 * Called when user clicks on custom back button or after data is saved
-			 * Does transition to the main page or sends a message through Ponto if available
-			 *
-			 * @param dataSaved
-			 */
 			openMainPage(dataSaved: boolean = false): void {
-				var ponto = window.Ponto;
-
-				this.set('publish', !!dataSaved);
-
-				if (ponto && typeof ponto.invoke === 'function') {
-
-					if (App.CuratedContentEditorModel.isDirty &&
-						!this.get('publish') &&
-						!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
-					) {
-						return;
-					}
-					ponto.invoke(
-						// AMD module name in app
-						'curatedContentTool.pontoBridge',
-						// Method to invoke
-						'exit',
-						{
-							saved: dataSaved
-						},
-						// We don't care about success callback
-						Em.K,
-						// If something went wrong on the app side then display an error
-						// This shouldn't happen, ever
-						(err: any): void => {
-							Em.Logger.error('Ponto error:', err);
-
-							this.controllerFor('application').addAlert({
-								message: i18n.t('app.curated-content-error-other'),
-								type: 'alert'
-							});
-						},
-						true
-					);
-			} else {
-					this.transitionTo('mainPage');
-				}
+				this.handleTransitionToMainPage(dataSaved);
 			},
 
 			error(error: any): boolean {
@@ -161,7 +119,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 						message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
 						type: 'warning'
 					});
-					this.transitionTo('mainPage');
+					this.handleTransitionToMainPage();
 				} else {
 					Em.Logger.error(error);
 					this.controllerFor('application').addAlert({
@@ -205,5 +163,56 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				window.scrollTo(0, 0);
 				return true;
 			}
+		},
+
+		/**
+		 * Called when user clicks on custom back button or after data is saved
+		 * Does transition to the main page or sends a message through Ponto if available
+		 *
+		 * @param dataSaved
+		 */
+		handleTransitionToMainPage(dataSaved: boolean = false): void {
+			var ponto = window.Ponto;
+
+			this.set('publish', !!dataSaved);
+
+			if (ponto && typeof ponto.invoke === 'function') {
+				this.closeModalUsingPonto(ponto);
+			} else {
+				this.transitionTo('mainPage');
+			}
+		},
+
+		closeModalUsingPonto(ponto: any): void {
+			var dataSaved = this.get('publish');
+
+			if (App.CuratedContentEditorModel.isDirty &&
+				!dataSaved &&
+				!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
+			) {
+				return;
+			}
+			ponto.invoke(
+				// AMD module name in app
+				'curatedContentTool.pontoBridge',
+				// Method to invoke
+				'exit',
+				{
+					saved: dataSaved
+				},
+				// We don't care about success callback
+				Em.K,
+				// If something went wrong on the app side then display an error
+				// This shouldn't happen, ever
+				(err: any): void => {
+					Em.Logger.error('Ponto error:', err);
+
+					this.controllerFor('application').addAlert({
+						message: i18n.t('app.curated-content-error-other'),
+						type: 'alert'
+					});
+				},
+				true
+			);
 		}
 	});

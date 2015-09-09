@@ -110,7 +110,8 @@ var localSettings: LocalSettings = {
 	patterns: {
 		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
 		iPad: /iPad/
-	}
+	},
+	enableDiscussions: false
 };
 
 export function extendSettings(customLocalSet: any): LocalSettings {

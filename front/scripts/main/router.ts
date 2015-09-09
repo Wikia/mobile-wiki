@@ -13,14 +13,14 @@ App.Router.map(function () {
 
 	this.route('mainPage', {
 		path: '/wiki/' + Mercury.wiki.mainPageTitle
-	}, function () {
-		this.route('section', {
-			path: '/main/section/:sectionName'
-		});
+	});
 
-		this.route('category', {
-			path: '/main/category/:categoryName'
-		});
+	this.route('mainPageSection', {
+		path: '/main/section/:sectionName'
+	});
+
+	this.route('mainPageCategory', {
+		path: '/main/category/:categoryName'
 	});
 
 	this.route('curatedContentEditor', {
