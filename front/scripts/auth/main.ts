@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/i18next/i18next.d.ts" />
+/// <reference path="../../vendor/visit-source/dist/visit-source.d.ts" />
 declare var translations: any;
 declare var language: string;
 declare var VisitSource: VisitSource;
