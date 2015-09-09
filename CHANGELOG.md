@@ -1,3 +1,9 @@
+## release-154 (2015-09-09 09:59 UTC)
+* [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 move scrollTop to mixin
+* [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 Fix Curated Main Page navigation
+* [SOC-1251](https://wikia-inc.atlassian.net/browse/SOC-1251) SOC-1251 | Bringing back sharedUrl
+* [XW-240](https://wikia-inc.atlassian.net/browse/XW-240) XW-240 trigger openMainPage method when 403 error on /main/edit
+
 ## release-153 (2015-09-08 09:59 UTC)
 * [XW-230](https://wikia-inc.atlassian.net/browse/XW-230) XW-230 Update Host header when there is a redirect
 * [DAT-3168](https://wikia-inc.atlassian.net/browse/DAT-3168) DAT-3168 remove margins on all elements inside data value
