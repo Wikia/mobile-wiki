@@ -4,6 +4,6 @@
 App.InfoboxBuilderWrapperComponent = Em.Component.extend({
 	tagName: '',
 
-	theme: '',
-	layout: ''
+	infoboxTheme: '',
+	infoboxLayout: ''
 });

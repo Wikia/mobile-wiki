@@ -86,7 +86,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
-	addDataItem() : void {
+	addDataItem(): void {
 		var itemType = 'data',
 			i = this.increaseItemIndex('data');
 
@@ -110,7 +110,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
-	addImageItem() : void {
+	addImageItem(): void {
 		var itemType = 'image',
 			i = this.increaseItemIndex(itemType);
 
@@ -145,7 +145,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
-	addTitleItem() : void {
+	addTitleItem(): void {
 		var itemType = 'title',
 			i = this.increaseItemIndex('title');
 
@@ -241,8 +241,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 						reject(data.errors);
 					}
 				},
-				error: (data: any): void => {
-					reject(data);
+				error: (err: any): void => {
+					reject(err);
 				}
 			});
 		});

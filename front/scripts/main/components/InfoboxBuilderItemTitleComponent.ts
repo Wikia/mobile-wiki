@@ -4,10 +4,6 @@
 App.InfoboxBuilderItemTitleComponent = Em.Component.extend({
 	tagName: '',
 	attributeBindings: ['data-position'],
-	position: Em.computed('infoboxBuilderData', function(){
-		return this.get('infoboxBuilderData.position');
-	}),
-	value: Em.computed('data', function(){
-		return this.get('data.defaultValue');
-	})
+	position: Em.computed.alias('infoboxBuilderData.position'),
+	value: Em.computed.alias('data.defaultValue')
 });
