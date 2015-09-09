@@ -26,10 +26,7 @@ App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
 		}
 	}),
 
-	//TODO: Temporary, remove with CONCF-1095|XW-9
-	host: window.location.host,
-	isAllowedWikia: Em.computed.match('host', /community\.wikia|spolecznosc|yhteiso|communaute|comunidade|comunidad|creepypasta|glee|castle-clash|clashofclans|mobileregressiontesting|concf/),
-	curatedContentToolButtonVisible: Em.computed.and('isAllowedWikia', 'currentUser.rights.curatedcontent'),
+	curatedContentToolButtonVisible: Em.computed.and('currentUser.rights.curatedcontent'),
 
 	didReceiveAttrs(): void {
 		Em.run.schedule('afterRender', this, (): void => {
