@@ -1,3 +1,11 @@
+## release-153 (2015-09-08 09:59 UTC)
+* [XW-230](https://wikia-inc.atlassian.net/browse/XW-230) XW-230 Update Host header when there is a redirect
+* [DAT-3168](https://wikia-inc.atlassian.net/browse/DAT-3168) DAT-3168 remove margins on all elements inside data value
+* [DAT-3142](https://wikia-inc.atlassian.net/browse/DAT-3142) DAT- 3142 scale only infobox hero image
+
+## release-152 (2015-09-07 09:59 UTC)
+* [DAT-3181](https://wikia-inc.atlassian.net/browse/DAT-3181) DAT-3181 add styles for horizontal group
+
 ## release-151 (2015-09-04 14:56 UTC)
 * [DAT-3201](https://wikia-inc.atlassian.net/browse/DAT-3201) DAT-3201 set single session "useskin=oasis" cookie for footer links
 * [SOC-1165](https://wikia-inc.atlassian.net/browse/SOC-1165) SOC-1165 Discussions Splash Page (hack)
