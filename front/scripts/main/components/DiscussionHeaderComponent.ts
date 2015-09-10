@@ -17,10 +17,7 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 			messageKey: 'discussion.sort-by-trending'
 		}
 	],
-
-	siteName: Em.computed(function (): string {
-		return Em.get(Mercury, 'wiki.siteName');
-	}),
+	siteName: Mercury.wiki.siteName,
 
 	sortMessageKey: Em.computed('sortBy', function (): string {
 		var sortTypes = this.get('sortTypes'),
