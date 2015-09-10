@@ -123,6 +123,25 @@ module authView {
 		}
 		return this.VIEW_TYPE_DESKTOP;
 	}
+
+	export function requestAuthenticated(request: Hapi.Request, reply: any, context: AuthViewContext): Hapi.Response {
+		var redirect: string = authView.getRedirectUrl(request),
+			response: Hapi.Response;
+
+		if (context.pageParams.isModal) {
+			response = reply.view(
+				'auth/desktop/modal-message',
+				context,
+				{
+					layout: 'modal-empty'
+				}
+			);
+		} else {
+			response = reply.redirect(redirect);
+		}
+
+		return response;
+	}
 }
 
 export = authView;

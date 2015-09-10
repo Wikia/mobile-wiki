@@ -1,0 +1,7 @@
+<script>
+	if (window.parent) {
+		window.parent.postMessage({isUserAuthorized: true}, window.parent.location.protocol + '//' + location.hostname);
+	} else {
+		window.location.reload();
+	}
+</script>
