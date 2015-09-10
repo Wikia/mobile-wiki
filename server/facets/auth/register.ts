@@ -83,7 +83,7 @@ function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.R
 	);
 
 	if (request.auth.isAuthenticated) {
-		return authView.requestAuthenticated(request, reply, context);
+		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
 
 	return authView.view('register-fb', context, request, reply);
@@ -128,7 +128,7 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 	);
 
 	if (request.auth.isAuthenticated) {
-		return authView.requestAuthenticated(request, reply, context);
+		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
 
 	return authView.view('register', context, request, reply);

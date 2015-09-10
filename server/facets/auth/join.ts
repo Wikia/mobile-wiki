@@ -34,7 +34,7 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 	);
 
 	if (request.auth.isAuthenticated) {
-		return authView.requestAuthenticated(request, reply, context);
+		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
 
 	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {

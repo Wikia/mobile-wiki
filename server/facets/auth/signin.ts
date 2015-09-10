@@ -65,7 +65,7 @@ function getSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
 		context: SignInViewContext = getSignInViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
-		return authView.requestAuthenticated(request, reply, context);
+		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
 
 	return authView.view('signin', context, request, reply);
@@ -76,7 +76,7 @@ function getFacebookSignInPage (request: Hapi.Request, reply: any) : Hapi.Respon
 		context: SignInViewContext = getFBSignInViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
-		return authView.requestAuthenticated(request, reply, context);
+		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
 
 	return authView.view('signin-fb', context, request, reply);

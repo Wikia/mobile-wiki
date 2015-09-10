@@ -124,7 +124,7 @@ module authView {
 		return this.VIEW_TYPE_DESKTOP;
 	}
 
-	export function requestAuthenticated(request: Hapi.Request, reply: any, context: AuthViewContext): Hapi.Response {
+	export function onAuthenticatedRequestReply(request: Hapi.Request, reply: any, context: AuthViewContext): Hapi.Response {
 		var redirect: string = authView.getRedirectUrl(request),
 			response: Hapi.Response;
 
