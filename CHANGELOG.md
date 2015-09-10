@@ -1,3 +1,7 @@
+## release-155 (2015-09-10 09:59 UTC)
+* [XW-9](https://wikia-inc.atlassian.net/browse/XW-9) XW-9 | enable Curated Content Editor site wide
+* [SOC-1079](https://wikia-inc.atlassian.net/browse/SOC-1079) SOC-1079 | VisitSource on authpages and mercury app
+
 ## release-154 (2015-09-09 09:59 UTC)
 * [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 move scrollTop to mixin
 * [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 Fix Curated Main Page navigation
