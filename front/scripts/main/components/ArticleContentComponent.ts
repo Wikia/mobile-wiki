@@ -223,25 +223,31 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 
 	replaceWikiaWidgetWithComponent(elem: HTMLElement): void {
 		var $widgetPlaceholder = $(elem),
-			widgetType = $widgetPlaceholder.data('wikia-widget'),
-			componentName: string,
+			widgetData = $widgetPlaceholder.data(),
+			widgetType = widgetData.wikiaWidget,
+			componentName = this.getWidgetComponentName(widgetType),
 			component: any;
 
-		switch (widgetType) {
-			case 'twitter':
-				componentName = 'WidgetTwitterComponent';
-				break;
-		}
-
-		if (componentName && Em.typeOf(App[componentName]) === 'class') {
+		if (componentName) {
 			component = this.createChildView(App[componentName].create({
 				data: $widgetPlaceholder.data()
 			}));
 			component.createElement();
 			$widgetPlaceholder.replaceWith(component.$());
 			component.trigger('didInsertElement');
+		}
+	},
+
+	getWidgetComponentName(widgetType: string): string {
+		var componentNames = {
+				twitter: 'WidgetTwitterComponent'
+			};
+
+		if (componentNames.hasOwnProperty(widgetType) && Em.typeOf(App[componentNames[widgetType]]) === 'class') {
+			return componentNames[widgetType];
 		} else {
 			Em.Logger.warn(`Can't create widget with type '${widgetType}'`);
+			return null;
 		}
 	},
 
