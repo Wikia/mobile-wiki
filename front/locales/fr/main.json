@@ -111,13 +111,13 @@
     "curated-content-editor-crop-image":"Rogner l'image",
     "curated-content-editor-editing-header":"Modification de : __label__",
     "curated-content-editor-enter-display-name":"Entrer un nom d'affichage",
-    "curated-content-editor-enter-display-name-tooltip":"Ce texte apparaîtra sur la page principale de cet élément.",
+    "curated-content-editor-enter-display-name-tooltip":"Ce texte apparaîtra sur la page d'accueil du wikia",
     "curated-content-editor-enter-page-name":"Entrer un nom de page",
-    "curated-content-editor-enter-page-name-tooltip":"Lorsque vous entrez un élément dans le Contenu de l'application mobile, utilisez le même format que pour créer un lien vers du contenu sur Wikia (par ex. : Nom_article).",
+    "curated-content-editor-enter-page-name-tooltip":"Lorsque vous entrez un élément dans le Contenu de l'application communautaire, utilisez le même format que pour créer un lien vers du contenu sur Wikia (par ex. : Nom_article).",
     "curated-content-editor-delete-item":"Supprimer l'élément",
     "curated-content-editor-add-category":"+ catégorie",
     "curated-content-editor-publish":"Publier",
-    "curated-content-editor-edit-main-page":"Modif. page principale",
+    "curated-content-editor-edit-main-page":"Modification de la page d'accueil",
     "curated-content-editor-featured-content":"Contenu à la une",
     "curated-content-editor-featured-description":"Cette fonctionnalité permet de mettre en valeur un contenu spécifique de la communauté (article, vidéo ou billet de blog, par exemple). Choisissez un contenu pertinent au moment de sa parution et mettez cette section à jour régulièrement.",
     "curated-content-editor-block-help-text":"Faites glisser chaque élément dans l'ordre voulu. Appuyez sur un élément pour afficher ses options de configuration.",
@@ -137,7 +137,7 @@
     "curated-content-editor-error-inside-items-message":"Veuillez corriger les erreurs dans les éléments.",
     "curated-content-editor-items-count":"__count__ élément(s)",
     "curated-content-editor-exit-prompt":"Certaines de vos modifications n'ont pas été enregistrées. Etes-vous certain de vouloir quitter cette page ?",
-    "curated-content-editor-main-page":"Page principale"
+    "curated-content-editor-main-page":"Page d'accueil"
   },
   "discussion":{
     "share-default-title":"Discussion sur __siteName__"
