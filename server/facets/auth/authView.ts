@@ -133,7 +133,7 @@ module authView {
 				'auth/desktop/modal-message',
 				context,
 				{
-					layout: 'modal-empty'
+					layout: 'auth-modal-empty'
 				}
 			);
 		} else {
