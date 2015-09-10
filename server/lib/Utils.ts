@@ -232,3 +232,17 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	};
 }
 
+
+/**
+ * Gets the domain and path for a static asset
+ *
+ * @param {LocalSettings} localSettings
+ * @param {string} wikiDomain
+ * @returns {string}
+ */
+export function getStaticAssetPath(localSettings: LocalSettings, wikiDomain: string): string {
+	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+	return (env === Environment.Prod || env === Environment.Sandbox)
+		? 'http:' + localSettings.cdnBaseUrl + '/mercury-static/'
+		: 'http://' + getCachedWikiDomainName(localSettings, wikiDomain) + '/front/';
+}
