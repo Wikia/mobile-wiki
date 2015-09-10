@@ -1,9 +1,10 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../mixins/FullPageMixin.ts"/>
 
 'use strict';
 
-App.AddPhotoRoute = Em.Route.extend({
+App.AddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): boolean {
 			this.controllerFor('application').addAlert({
@@ -17,17 +18,10 @@ App.AddPhotoRoute = Em.Route.extend({
 			});
 			return true;
 		},
-		willTransition: function(transition: EmberStates.Transition): boolean {
-			transition.then(() => {
-				this.controllerFor('application').set('fullPage', false);
-			});
-			return true;
-		},
 		didTransition: function(): boolean {
 			// AddPhotoRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
 			// over whole page (so navigation, share feature, etc. are not displayed). To understand
 			// better take a look at application.hbs.
-			this.controllerFor('application').set('fullPage', true);
 			window.scrollTo(0, 0);
 			M.track({
 				action: M.trackActions.impression,
