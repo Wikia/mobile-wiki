@@ -1,5 +1,6 @@
 {
   "app":{
+    "wikia-homepage": "http://pt-br.wikia.com/wiki/Wikia_em_Português",
     "article-empty-label":"Desculpe, este artigo parece estar vazio!",
     "article-toc-label":"Tabela de conteúdo",
     "article-comments-label":"__count__ comentário",

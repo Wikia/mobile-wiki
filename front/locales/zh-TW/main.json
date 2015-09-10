@@ -1,5 +1,6 @@
 {
   "app":{
+    "wikia-homepage": "http://zh-tw.wikia.com/wiki/Wikia中文",
     "article-empty-label":"對不起，這篇文章似乎是空的 ！",
     "article-toc-label":"内容列表",
     "article-comments-label":"__count__ 次評論",

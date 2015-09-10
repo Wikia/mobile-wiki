@@ -1,5 +1,6 @@
 {
   "app":{
+    "wikia-homepage": "http://fr.wikia.com/Wikia",
     "article-empty-label":"Désolés, il semble que cet article soit vide !",
     "article-toc-label":"Sommaire",
     "article-comments-label":"__count__ commentaire",

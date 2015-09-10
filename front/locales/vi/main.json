@@ -1,5 +1,6 @@
 {
   "app":{
+    "wikia-homepage": "http://www.wikia.com/Wikia",
     "article-empty-label":"Xin lỗi, bài này có vẻ trống rỗng!",
     "article-toc-label":"Mục lục",
     "article-comments-label":"__count__ bình luận",

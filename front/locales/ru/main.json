@@ -1,5 +1,6 @@
 {
   "app":{
+    "wikia-homepage": "http://ru.wikia.com/Wikia",
     "article-empty-label":"Извините, кажется, эта статья пуста!",
     "article-toc-label":"Содержание",
     "article-comments-label":"__count__ комментарий",
