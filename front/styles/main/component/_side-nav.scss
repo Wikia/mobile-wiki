@@ -54,7 +54,8 @@
 			top: rem-calc(15);
 		}
 
-		input {
+		input,
+		input:focus {
 			@extend .type-smallest;
 			background-color: white;
 			border-color: #d0d0d0;
@@ -65,8 +66,7 @@
 			left: 0;
 			margin: rem-calc(8) rem-calc(13);
 			outline: none;
-			padding-left: rem-calc(95);
-			padding-right: rem-calc(25);
+			padding: 0.5rem rem-calc(25) 0.5rem rem-calc(95)
 			top: 0;
 			width: $side-nav-width - (2 * $side-nav-item-gutter);
 		}
