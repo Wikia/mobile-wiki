@@ -50,12 +50,24 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
 
+		// Sometimes width is null, so we need to make sure it has a value.
+		// I chose 378 because that is the correct size on iPhone 6 Plus
+		options.width = options.width || 378;
+
+		// If there is no restriction on height, make the image square.
+		// Otherwise, make it 16x9
 		if (!this.get('limitHeight')) {
 			options.height = options.width;
+		} else {
+			options.height = (options.width * 9 / 16) | 0;
 		}
 
 		url = this.thumbnailer.getThumbURL(url, options);
 
+		// Currently the cache is acting weirdly, uncomment this line to bypass it
+		// DO NOT USE IN PROD
+		//url += "&replace=true";
+		
 		return url;
 	},
 
