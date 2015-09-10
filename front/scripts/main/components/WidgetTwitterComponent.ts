@@ -31,12 +31,12 @@ App.WidgetTwitterComponent = Em.Component.extend(App.WidgetScriptStateMixin, {
 	},
 
 	createTimeline(): void {
+		var data = this.get('data');
+
 		window.twttr.widgets.createTimeline(
-			this.get('data.widgetId'),
+			data.widgetId,
 			this.$()[0],
-			{
-				screenName: this.get('data.screenName')
-			}
+			data
 		);
 	}
 });
