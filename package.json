@@ -1,6 +1,6 @@
 {
   "name": "Mercury",
-  "version": "151.0.0",
+  "version": "155.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "hoek": "2.12.0",
     "i18next": "1.7.10",
     "newrelic": "1.18.1",
-    "wreck": "6.1.0"
+    "wreck": "rogatty/wreck"
   },
   "devDependencies": {
     "browser-sync": "^2.5.3",

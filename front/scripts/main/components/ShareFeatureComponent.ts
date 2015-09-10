@@ -13,11 +13,16 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		}
 	},
 
-	lineShare: Em.computed('title', function (): string {
+	sharedUrl: Em.computed('title', function (): string {
+			return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname;
+		}
+	),
+
+	lineShare: Em.computed('title', 'sharedUrl', function (): string {
 		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('sharedUrl'));
 	}),
 
-	facebookShare: Em.computed('title', 'sharedUrl', function (): string {
+	facebookShare: Em.computed('sharedUrl', function (): string {
 		return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('sharedUrl'));
 	}),
 
@@ -25,7 +30,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
 	}),
 
-	googleShare: Em.computed('title', function (): string {
+	googleShare: Em.computed('sharedUrl', function (): string {
 		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
 	})
 });
