@@ -123,12 +123,12 @@ module authView {
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
 				localSettings.optimizely.account + '.js',
-			parentOrigin: (isModal ? authView.getOrigin(request) : ''),
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
 				cookieDomain: localSettings.authCookieDomain,
 				isModal: isModal,
-				viewType: viewType
+				viewType: viewType,
+				parentOrigin: (isModal ? authView.getOrigin(request) : ''),
 			}
 		};
 	}
