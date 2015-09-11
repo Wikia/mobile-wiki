@@ -1,0 +1,19 @@
+<div class="infobox-builder">
+	{{#infobox-builder-wrapper}}
+		{{#each model.infoboxState as |element|}}
+			{{component element.infoboxBuilderData.component
+				data=element.data
+				infoboxBuilderData=element.infoboxBuilderData
+			}}
+		{{/each}}
+	{{/infobox-builder-wrapper}}
+
+	<div class="infobox-builder-buttons">
+		<button {{action 'addItem' 'data'}}>{{i18n 'app.add-infobox-data-tag'}}</button>
+		<button {{action 'addItem' 'title'}}>{{i18n 'app.add-infobox-title-tag'}}</button>
+		<button {{action 'addItem' 'image'}}>{{i18n 'app.add-infobox-image-tag'}}</button>
+		<button {{action 'saveTemplate'}}>{{i18n 'app.save-infobox-template'}}</button>
+		<button {{action 'cancel'}}>{{i18n 'app.cancel-label'}}</button>
+	</div>
+</div>
+

@@ -201,6 +201,14 @@ authenticatedRoutes = [
 	},
 	{
 		method: 'GET',
+		path: '/infoboxBuilder/{templateName*}',
+		handler: require('./facets/showApplication'),
+		config: {
+			cache: routeCacheConfig
+		}
+	},
+	{
+		method: 'GET',
 		path: '/main/section/{sectionName*}',
 		handler: require('./facets/showMainPageSection'),
 		config: {
