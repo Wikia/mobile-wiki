@@ -1,7 +1,7 @@
 class AuthUtils {
 
 	public static authSuccessCallback (url?: string): void {
-		if (window.parent && pageParams.isModal) {
+		if (window.parent && pageParams.parentOrigin) {
 			window.parent.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
 			return;
 		} else if (url) {
