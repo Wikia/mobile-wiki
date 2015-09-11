@@ -20,7 +20,8 @@ var localSettings = baseLocalSettings.extendSettings({
 	qualaroo: {
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/dlS.js'
 	},
-	port: 7000
+	port: 7000,
+	enableDiscussions: true
 });
 
 export function extendSettings(customLocalSet: any): LocalSettings {
