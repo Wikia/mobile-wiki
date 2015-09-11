@@ -33,6 +33,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 				this.replaceInfoboxesWithInfoboxComponents();
 				this.replaceMapsWithMapComponents();
 				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
+				this.handleWikiaWidgetWrappers();
 				this.handlePollDaddy();
 				this.handleJumpLink();
 
@@ -212,6 +213,13 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		$infoboxPlaceholder.replaceWith(infoboxComponent.$());
 		//TODO: do it in the nice way
 		infoboxComponent.trigger('didInsertElement');
+	},
+
+	handleWikiaWidgetWrappers(): void {
+		this.$('script[type="x-wikia-widget"]').each(function (): void {
+			var $this = $(this);
+			$this.replaceWith($this.html());
+		});
 	},
 
 	/**
