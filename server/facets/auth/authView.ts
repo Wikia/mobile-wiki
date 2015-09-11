@@ -88,14 +88,11 @@ module authView {
 	}
 
 	export function isWhiteListedDomain (domain: string): boolean {
-		var result: boolean,
-			whiteListedDomains: Array<string> = ['.wikia.com', '.wikia-dev.com'],
+		var whiteListedDomains: Array<string> = ['.wikia.com', '.wikia-dev.com'];
 
-		result = whiteListedDomains.some((whiteListedDomain: string): boolean => {
+		return whiteListedDomains.some((whiteListedDomain: string): boolean => {
 			return domain.indexOf(whiteListedDomain, domain.length - whiteListedDomain.length) !== -1;
 		});
-
-		return result;
 	}
 
 	export function getCurrentOrigin (request: Hapi.Request): string {
