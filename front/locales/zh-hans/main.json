@@ -1,6 +1,6 @@
 {
   "app":{
-    "wikia-homepage": "http://zh.wikia.com/wiki/Wikia中文",
+    "wikia-homepage": "http://zh.wikia.com",
     "article-empty-label":"对不起，这篇文章似乎沒有內容！",
     "article-toc-label":"内容列表",
     "article-comments-label":"__count__ 次评论",
