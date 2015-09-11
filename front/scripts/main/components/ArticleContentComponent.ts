@@ -34,6 +34,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 				this.replaceMapsWithMapComponents();
 				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 				this.replaceWikiaWidgetsWithComponents();
+				this.handleWikiaWidgetWrappers();
 				this.handlePollDaddy();
 				this.handleJumpLink();
 
@@ -249,6 +250,13 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 			Em.Logger.warn(`Can't create widget with type '${widgetType}'`);
 			return null;
 		}
+	},
+
+	handleWikiaWidgetWrappers(): void {
+		this.$('script[type="x-wikia-widget"]').each(function (): void {
+			var $this = $(this);
+			$this.replaceWith($this.html());
+		});
 	},
 
 	/**
