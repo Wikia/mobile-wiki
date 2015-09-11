@@ -235,7 +235,7 @@ $discussion-header-color-text: #fff;
 }
 
 @for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion a {
+	.#{nth($verticals, $i)}-vertical .discussion a, .#{nth($verticals, $i)}-vertical .discussion ::shadow a {
 		color: #{nth($vertical-colors, $i)};
 	}
 }

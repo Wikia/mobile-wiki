@@ -3,8 +3,9 @@ top-bar {
 	direction: ltr;
 	max-width: inherit;
 	z-index: $z-site-head;
-
-	&::shadow .logo {
-		fill: #123154;
-	}
 }
+
+user-status::shadow .drawer ::content li {
+	border-color: $color-blue-gray-light;
+}
+
