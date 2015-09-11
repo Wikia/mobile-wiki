@@ -15,12 +15,15 @@ App.WidgetTwitterComponent = Em.Component.extend(App.WidgetScriptStateMixin, {
 	data: null,
 
 	scriptLoadedObserver: Em.observer('scriptLoaded.twitter', function (): void {
-		if (this.get('scriptLoaded.twitter')) {
-			this.createTimeline();
-		}
+		this.createTimeline();
 	}),
 
 	didInsertElement(): void {
+		this.loadScript();
+		this.createTimeline();
+	},
+
+	loadScript(): void {
 		if (!this.get('scriptLoadInitialized.twitter')) {
 			this.set('scriptLoadInitialized.twitter', true);
 
@@ -31,12 +34,14 @@ App.WidgetTwitterComponent = Em.Component.extend(App.WidgetScriptStateMixin, {
 	},
 
 	createTimeline(): void {
-		var data = this.get('data');
+		if (this.get('scriptLoaded.twitter')) {
+			var data = this.get('data');
 
-		window.twttr.widgets.createTimeline(
-			data.widgetId,
-			this.$()[0],
-			data
-		);
+			window.twttr.widgets.createTimeline(
+				data.widgetId,
+				this.$()[0],
+				data
+			);
+		}
 	}
 });
