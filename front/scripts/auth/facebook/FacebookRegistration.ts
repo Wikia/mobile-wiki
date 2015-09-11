@@ -29,7 +29,6 @@ class FacebookRegistration {
 	formErrors: FormErrors;
 	termsOfUse: TermsOfUse;
 	tracker: AuthTracker;
-	utils: Utils;
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -102,7 +101,7 @@ class FacebookRegistration {
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-signup-join-wikia-success', Mercury.Utils.trackActions.success);
-				Utils.loadUrl(this.redirect);
+				AuthUtils.authSuccessCallback(this.redirect);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				this.formErrors.displayGeneralError();
 			} else {
