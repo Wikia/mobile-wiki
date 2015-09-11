@@ -55,7 +55,7 @@ module authView {
 			redirectUrlHost: string = url.parse(redirectUrl).host;
 
 		if (!redirectUrlHost ||
-			this.domainMachCurrentHost(redirectUrlHost, currentHost) ||
+			this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
 			this.isWhiteListedDomain(redirectUrlHost)
 		) {
 			return redirectUrl;
@@ -71,24 +71,20 @@ module authView {
 			redirectUrlHost: string = url.parse(redirectUrl).host,
 			redirectUrlOrigin: string = url.parse(redirectUrl).protocol + '//' + redirectUrlHost;
 
-		if (!redirectUrlHost) {
-			return this.getCurrentOrigin(request);
-		}
-
-		if (this.domainMachCurrentHost(redirectUrlHost, currentHost) || this.isWhiteListedDomain(redirectUrlHost)) {
+		if (redirectUrlHost && (
+				this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
+				this.isWhiteListedDomain(redirectUrlHost)
+			)
+		) {
 			return redirectUrlOrigin;
 		}
 
 		return this.getCurrentOrigin(request);
 	}
 
-	export function domainMachCurrentHost (domain: string, currentHost: string): boolean {
-		var result: boolean;
-
-		result = currentHost === domain ||
+	export function checkDomainMatchesCurrentHost (domain: string, currentHost: string): boolean {
+		return currentHost === domain ||
 			domain.indexOf('.' + currentHost, domain.length - currentHost.length - 1) !== -1;
-
-		return result;
 	}
 
 	export function isWhiteListedDomain (domain: string): boolean {
@@ -128,7 +124,7 @@ module authView {
 				cookieDomain: localSettings.authCookieDomain,
 				isModal: isModal,
 				viewType: viewType,
-				parentOrigin: (isModal ? authView.getOrigin(request) : '')
+				parentOrigin: (isModal ? authView.getOrigin(request) : undefined)
 			}
 		};
 	}
