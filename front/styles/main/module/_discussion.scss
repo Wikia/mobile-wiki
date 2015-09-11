@@ -1,5 +1,5 @@
 // TODO this height will be different or unused on desktop
-$site-header-height: 46px;
+$site-header-height: 40px;
 $discussion-header-height: 40px;
 $discussion-header-line-height: 45px;
 $theme-bar-height: 10px;
@@ -8,6 +8,7 @@ $discussion-header-color-text: #fff;
 .discussion-header {
 	color: $discussion-header-color-text;
 	margin-top: $site-header-height;
+	max-width: inherit;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -213,7 +214,7 @@ $discussion-header-color-text: #fff;
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height + $theme-bar-height + $site-header-height;
+		margin-top: $discussion-header-height + $theme-bar-height;
 
 		.discussion-content {
 			// Constrains content on the forum post list to 3 lines

@@ -14,7 +14,7 @@ App.DiscussionPostModel = Em.Object.extend({
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
-				url: 'https://services.wikia.com' +
+				url: 'https://services.wikia-dev.com' +
 				'/discussion/' + this.wikiId + '/threads/' + this.threadId +
 				'?responseGroup=full' +
 				'&sortDirection=descending' +
@@ -53,7 +53,7 @@ App.DiscussionPostModel.reopenClass({
 			});
 
 			Em.$.ajax({
-				url: `https://services.wikia.com/discussion/${wikiId}/threads/${threadId}` +
+				url: `https://services.wikia-dev.com/discussion/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
 				dataType: 'json',
 				success: (data: any) => {

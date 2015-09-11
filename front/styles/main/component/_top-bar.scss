@@ -1,10 +1,10 @@
 top-bar {
-	@extend .row;
-	@extend .small-12;
+	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
+	max-width: inherit;
 	z-index: $z-site-head;
 
-	::shadow .logo {
+	&::shadow .logo {
 		fill: #123154;
 	}
 }
