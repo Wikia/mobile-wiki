@@ -163,6 +163,7 @@
 
 	.discussion {
 		background-color: transparent;
+		width: 507px;
 
 		.icon {
 			&.replies {
@@ -179,7 +180,6 @@
 		&.forum {
 			margin-left: auto;
 			margin-right: auto;
-			width: 507px;
 
 			.post-detail {
 				background-color: #fff;
