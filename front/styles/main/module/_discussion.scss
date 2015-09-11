@@ -6,6 +6,7 @@
 
 	.avatar {
 		display: inline-block;
+		margin-right: 5px;
 
 		img {
 			border-color: #ccc;
@@ -152,5 +153,40 @@
 @for $i from 1 through length($verticals) {
 	.#{nth($verticals, $i)}-vertical .discussion a {
 		color: #{nth($vertical-colors, $i)};
+	}
+}
+
+@media #{$xlarge-up} {
+	body {
+		background-color: #f6f6f6;
+	}
+
+	.discussion {
+		background-color: transparent;
+
+		.icon {
+			&.replies {
+				height: 25px;
+				width: 25px;
+			}
+
+			&.upvote {
+				height: 24px;
+				width: 24px;
+			}
+		}
+
+		&.forum {
+			margin-left: auto;
+			margin-right: auto;
+			width: 507px;
+
+			.post-detail {
+				background-color: #fff;
+				border-width: 0;
+				margin-bottom: 5px;
+				padding: 20px 30px;
+			}
+		}
 	}
 }
