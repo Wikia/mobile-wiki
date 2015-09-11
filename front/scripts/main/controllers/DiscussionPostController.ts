@@ -4,7 +4,7 @@
 App.DiscussionPostController = Em.Controller.extend({
 	loadedReplies: null,
 
-	showMore: Em.computed('model', 'loadedReplies', function (): boolean {
+	canShowMore: Em.computed('model', 'loadedReplies', function (): boolean {
 		var model = this.get('model'),
 			loadedReplies = this.get('loadedReplies');
 
@@ -20,10 +20,10 @@ App.DiscussionPostController = Em.Controller.extend({
 		expand: function () {
 			var model = this.get('model');
 
-			model.loadNextPage().then(function (): number {
+			model.loadNextPage().then(() => {
 				var model = this.get('model');
 				this.set('loadedReplies', Em.get(model, 'replies.length'));
-			}.bind(this));
+			});
 		},
 	}
 });
