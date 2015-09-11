@@ -69,7 +69,7 @@ module authView {
 		var currentHost: string = request.headers.host,
 			redirectUrl: string = request.query.redirect || '/',
 			redirectUrlHost: string = url.parse(redirectUrl).host,
-			redirectUrlOrigin: string = url.parse(redirectUrl).protocol + "//" + redirectUrlHost;
+			redirectUrlOrigin: string = url.parse(redirectUrl).protocol + '//' + redirectUrlHost;
 
 		if (!redirectUrlHost) {
 			return this.getCurrentOrigin(request);
@@ -82,7 +82,7 @@ module authView {
 		return this.getCurrentOrigin(request);
 	}
 
-	function domainMachCurrentHost (domain: string, currentHost: string):boolean {
+	export function domainMachCurrentHost (domain: string, currentHost: string): boolean {
 		var result: boolean;
 
 		result = currentHost === domain ||
@@ -91,7 +91,7 @@ module authView {
 		return result;
 	}
 
-	function isWhiteListedDomain (domain: string): boolean {
+	export function isWhiteListedDomain (domain: string): boolean {
 		var result: boolean,
 			whiteListedDomains: Array<string> = ['.wikia.com', '.wikia-dev.com'],
 
@@ -128,7 +128,7 @@ module authView {
 				cookieDomain: localSettings.authCookieDomain,
 				isModal: isModal,
 				viewType: viewType,
-				parentOrigin: (isModal ? authView.getOrigin(request) : ''),
+				parentOrigin: (isModal ? authView.getOrigin(request) : '')
 			}
 		};
 	}
@@ -145,7 +145,7 @@ module authView {
 		return reply();
 	}
 
-	export function getViewType(request: Hapi.Request): string {
+	export function getViewType (request: Hapi.Request): string {
 		var mobilePattern = localSettings.patterns.mobile,
 			ipadPattern = localSettings.patterns.iPad;
 		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
@@ -154,7 +154,9 @@ module authView {
 		return this.VIEW_TYPE_DESKTOP;
 	}
 
-	export function onAuthenticatedRequestReply(request: Hapi.Request, reply: any, context: AuthViewContext): Hapi.Response {
+	export function onAuthenticatedRequestReply (request: Hapi.Request, reply: any,
+												 context: AuthViewContext): Hapi.Response {
+
 		var redirect: string = authView.getRedirectUrl(request),
 			response: Hapi.Response;
 
