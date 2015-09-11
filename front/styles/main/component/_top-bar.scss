@@ -1,0 +1,10 @@
+top-bar {
+	@extend .row;
+	@extend .small-12;
+	direction: ltr;
+	z-index: $z-site-head;
+
+	::shadow .logo {
+		fill: #123154;
+	}
+}
