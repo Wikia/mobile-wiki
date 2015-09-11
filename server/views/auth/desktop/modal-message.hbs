@@ -1,5 +1,5 @@
 <script>
 	if (window.parent) {
-		window.parent.postMessage({isUserAuthorized: true}, window.parent.location.protocol + '//' + location.hostname);
+		window.parent.postMessage({isUserAuthorized: true}, '{{parentOrigin}}');
 	}
 </script>
