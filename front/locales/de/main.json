@@ -1,6 +1,5 @@
 {
   "app":{
-    "wikia-homepage": "http://de.wikia.com",
     "article-empty-label":"Sorry, aber dieser Artikel scheint (noch) nicht zu existieren.",
     "article-toc-label":"Inhaltsverzeichnis",
     "article-comments-label":"__count__ Kommentar",
