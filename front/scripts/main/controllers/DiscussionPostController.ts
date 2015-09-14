@@ -2,18 +2,18 @@
 'use strict';
 
 App.DiscussionPostController = Em.Controller.extend({
-	loadedReplies: null,
+	numRepliesLoaded: null,
 
-	canShowMore: Em.computed('model', 'loadedReplies', function (): boolean {
+	canShowMore: Em.computed('model', 'numRepliesLoaded', function (): boolean {
 		var model = this.get('model'),
-			loadedReplies = this.get('loadedReplies');
+			numRepliesLoaded = this.get('numRepliesLoaded');
 
-		if (loadedReplies === null) {
-			loadedReplies = Em.get(model, 'replies.length');
-			this.set('loadedReplies', loadedReplies);
+		if (numRepliesLoaded === null) {
+			numRepliesLoaded = Em.get(model, 'replies.length');
+			this.set('numRepliesLoaded', numRepliesLoaded);
 		}
 
-		return loadedReplies < model.postCount;
+		return numRepliesLoaded < model.postCount;
 	}),
 
 	actions: {
@@ -22,7 +22,7 @@ App.DiscussionPostController = Em.Controller.extend({
 
 			model.loadNextPage().then(() => {
 				var model = this.get('model');
-				this.set('loadedReplies', Em.get(model, 'replies.length'));
+				this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
 			});
 		},
 	}
