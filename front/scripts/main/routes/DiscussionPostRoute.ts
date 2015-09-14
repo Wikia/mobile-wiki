@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 
-App.DiscussionPostRoute = Em.Route.extend(App.FullPageMixin, {
+App.DiscussionPostRoute = Em.Route.extend({
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
@@ -19,7 +19,8 @@ App.DiscussionPostRoute = Em.Route.extend(App.FullPageMixin, {
 			themeBar: true,
 			enableSharingHeader: true
 		});
-		this._super();
+		// roll out new top-bar component
+		this.controllerFor('application').set('useNewNav', true);
 	},
 
 	deactivate (): void {
@@ -28,7 +29,8 @@ App.DiscussionPostRoute = Em.Route.extend(App.FullPageMixin, {
 			themeBar: false,
 			enableSharingHeader: false
 		});
-		this._super();
+		// roll out new top-bar component
+		this.controllerFor('application').set('useNewNav', false);
 	},
 
 	showMore: Em.computed('model', function (): boolean {

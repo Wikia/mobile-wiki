@@ -2,6 +2,7 @@
 	background-color: #fff;
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
+	max-width: inherit;
 
 	.avatar {
 		display: inline-block;
@@ -149,7 +150,9 @@
 }
 
 @for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion a, .#{nth($verticals, $i)}-vertical .discussion ::shadow a {
-		color: #{nth($vertical-colors, $i)};
+	.#{nth($verticals, $i)}-vertical .discussion {
+		a, ::shadow a {
+			color: #{nth($vertical-colors, $i)};
+		}
 	}
 }

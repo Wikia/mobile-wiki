@@ -1,8 +1,7 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/FullPageMixin.ts"/>
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
+App.DiscussionForumRoute = Em.Route.extend({
 	forumId: null,
 
 	model(params: any) {
@@ -13,6 +12,14 @@ App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
 		this._super(controller, model, transition);
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy);
+	},
+
+	activate() {
+		this.controllerFor('application').set('useNewNav', true);
+	},
+
+	deactivate() {
+		this.controllerFor('application').set('useNewNav', false);
 	},
 
 	actions: {

@@ -4,6 +4,7 @@ $discussion-header-color-text: #fff;
 .discussion-header {
 	color: $discussion-header-color-text;
 	margin-top: $global-nav-height;
+	max-width: inherit;
 	position: fixed;
 	top: 0;
 	width: 100%;
