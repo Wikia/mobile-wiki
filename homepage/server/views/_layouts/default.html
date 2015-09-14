@@ -13,19 +13,6 @@
 
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
 <script src="/vendor/slick.js/slick/slick.min.js"></script>
-<script>
-  // Globals
-  function getGlobals () {
-    return {
-      {{#if loggedIn}}
-        loggedIn: true,
-      {{else}}
-        loggedIn: false,
-      {{/if}}
-      loginUrl: '{{loginUrl}}'.replace(/&amp;/g, '&'),
-      signupUrl: '{{signupUrl}}'.replace(/&amp;/g, '&')
-    };
-  }
-</script>
+<script src="/globals.js"></script>
 <script src="/js/combined.js"></script>
 </body>

@@ -35,11 +35,11 @@ gulp.task('watch', ['build-combined'], function () {
 	});
 
 	// Sass
-	gulp.watch(paths.styles.homepage.watch, ['sass', browserSync.reload]);
+	gulp.watch(paths.styles.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
 
 	// Client Scripts
-	gulp.watch(paths.scripts.homepage.watch, ['build-combined', browserSync.reload]);
+	gulp.watch(paths.scripts.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
 
 	// Server Scripts
-	gulp.watch(paths.server.homepage.watch, ['lint', browserSync.reload]);
+	gulp.watch(paths.server.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
 });
