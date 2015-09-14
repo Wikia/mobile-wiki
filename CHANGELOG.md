@@ -1,3 +1,8 @@
+## release-157 (2015-09-14 09:59 UTC)
+* [SOC-1279](https://wikia-inc.atlassian.net/browse/SOC-1279) SOC-1279 Expose servicesDomain to ember and use for discussion api url
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) HG-848 Discussion header
+* [XW-204](https://wikia-inc.atlassian.net/browse/XW-204) XW-204 Unwrap Wikia widgets
+
 ## release-156 (2015-09-11 09:59 UTC)
 * [XW-275](https://wikia-inc.atlassian.net/browse/XW-275) XW-275 update translations for CuratedContent
 * enable-disc-on-dev: Discussions | Enable discussions by default on dev env
