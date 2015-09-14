@@ -39,7 +39,8 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 			openGraphData.type = 'article';
 			openGraphData.url = wikiVars.basePath + request.path;
 			// Use Wikia logo as default image
-			openGraphData.image = Utils.getStaticAssetPath(localSettings, request.headers.host) + 'images/wikia-mark-128.png';
+			openGraphData.image = 'http:' + Utils.getStaticAssetPath(localSettings, request.headers.host)
+				+ 'images/wikia-mark-128.png';
 
 			return new Promise((resolve: Function, reject: Function): void => {
 				// Fetch discussion post data from the API to complete the OG data
