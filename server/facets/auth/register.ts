@@ -4,7 +4,6 @@
 
 import BirthdateInput = require('./BirthdateInput');
 import authUtils = require('../../lib/AuthUtils');
-import dateUtils = require('../../lib/DateUtils');
 import localSettings = require('../../../config/localSettings');
 import localeSettings = require('../../../config/localeSettings');
 import authView = require('./authView');

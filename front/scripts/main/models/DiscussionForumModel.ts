@@ -10,7 +10,8 @@ App.DiscussionForumModel = Em.Object.extend({
 	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://services.wikia-dev.com/discussion/' + this.wikiId + '/forums/' + this.forumId,
+				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
+					 this.wikiId + '/forums/' + this.forumId,
 				data: {
 					page: pageNum
 				},
@@ -54,7 +55,8 @@ App.DiscussionForumModel.reopenClass({
 			}
 
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: `https://services.wikia-dev.com/discussion/${wikiId}/forums/${forumId}`,
+				url: 'https://' + M.prop('servicesDomain') +
+					 `/discussion/${wikiId}/forums/${forumId}`,
 				data: requestData,
 				dataType: 'json',
 				success: (data: any) => {
@@ -72,5 +74,5 @@ App.DiscussionForumModel.reopenClass({
 				error: (err) => reject(err)
 			});
 		});
-	},
+	}
 });
