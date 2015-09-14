@@ -36,10 +36,9 @@ App.WidgetVKComponent = Em.Component.extend(App.WidgetScriptStateMixin, {
 	createWidget(): void {
 		if (this.get('scriptLoaded.vk')) {
 			var elementId = this.get('elementId'),
-				data = this.get('data'),
-				groupId = this.get('data.groupId');
+				data = this.get('data');
 
-			window.VK.Widgets.Group(elementId, data, groupId);
+			window.VK.Widgets.Group(elementId, data, data.groupId);
 		}
 	}
 });
