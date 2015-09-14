@@ -1,7 +1,5 @@
 /// <reference path="../app.ts" />
 
-type DiscussionForumModel = typeof App.DiscussionForumModel;
-
 App.DiscussionForumModel = Em.Object.extend({
 	wikiId: null,
 	forumId: null,
@@ -46,7 +44,7 @@ App.DiscussionForumModel = Em.Object.extend({
 App.DiscussionForumModel.reopenClass({
 	find(wikiId: number, forumId: number, sortBy: string) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			var forumInstance: DiscussionForumModel = App.DiscussionForumModel.create({
+			var forumInstance = App.DiscussionForumModel.create({
 					wikiId: wikiId,
 					forumId: forumId
 				}),

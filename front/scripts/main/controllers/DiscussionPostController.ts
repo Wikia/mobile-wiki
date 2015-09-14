@@ -5,7 +5,7 @@ App.DiscussionPostController = Em.Controller.extend({
 	numRepliesLoaded: null,
 
 	canShowMore: Em.computed('model', 'numRepliesLoaded', function (): boolean {
-		var model: DiscussionPostModel = this.get('model'),
+		var model = this.get('model'),
 			numRepliesLoaded = this.get('numRepliesLoaded');
 
 		if (numRepliesLoaded === null) {
@@ -18,7 +18,7 @@ App.DiscussionPostController = Em.Controller.extend({
 
 	actions: {
 		expand: function () {
-			var model: DiscussionPostModel = this.get('model');
+			var model = this.get('model');
 
 			model.loadNextPage().then(() => {
 				var model = this.get('model');
