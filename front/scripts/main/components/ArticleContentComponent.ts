@@ -33,6 +33,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 				this.replaceInfoboxesWithInfoboxComponents();
 				this.replaceMapsWithMapComponents();
 				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
+				this.replaceWikiaWidgetsWithComponents();
 				this.handleWikiaWidgetWrappers();
 				this.handlePollDaddy();
 				this.handleJumpLink();
@@ -48,15 +49,15 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 	}).on('init'),
 
 	actions: {
-		openLightbox: function (lightboxType: string, lightboxData: any): void {
+		openLightbox(lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
 		},
 
-		edit: function (title: string, sectionIndex: number): void {
+		edit(title: string, sectionIndex: number): void {
 			this.sendAction('edit', title, sectionIndex);
 		},
 
-		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
+		addPhoto(title: string, sectionIndex: number, photoData: any): void {
 			this.sendAction('addPhoto', title, sectionIndex, photoData);
 		}
 	},
@@ -106,7 +107,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 	 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
 	 * ToC data from server and render view based on that.
 	 */
-	loadTableOfContentsData: function (): void {
+	loadTableOfContentsData(): void {
 		var headers: ArticleSectionHeader[] = this.$('h2[section]').map(
 			(i: number, elem: HTMLElement): ArticleSectionHeader => {
 				if (elem.textContent) {
@@ -139,7 +140,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		}
 	}),
 
-	createMediaComponent: function (element: HTMLElement, model: typeof App.ArticleModel): JQuery {
+	createMediaComponent(element: HTMLElement, model: typeof App.ArticleModel): JQuery {
 		var ref = parseInt(element.dataset.ref, 10),
 			media = model.find(ref);
 
@@ -157,7 +158,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		return component.$().attr('data-ref', ref);
 	},
 
-	replaceMediaPlaceholdersWithMediaComponents: function (model: typeof App.ArticleModel, numberToProcess: number = -1): void {
+	replaceMediaPlaceholdersWithMediaComponents(model: typeof App.ArticleModel, numberToProcess: number = -1): void {
 		var $mediaPlaceholders = this.$('.article-media'),
 			index: number;
 
@@ -170,13 +171,13 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		}
 	},
 
-	replaceMapsWithMapComponents: function (): void {
+	replaceMapsWithMapComponents(): void {
 		this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement): void => {
 			this.replaceMapWithMapComponent(elem);
 		});
 	},
 
-	replaceMapWithMapComponent: function (elem: HTMLElement): void {
+	replaceMapWithMapComponent(elem: HTMLElement): void {
 		var $mapPlaceholder = $(elem),
 			$a = $mapPlaceholder.children('a'),
 			$img = $a.children('img'),
@@ -194,13 +195,13 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		mapComponent.trigger('didInsertElement');
 	},
 
-	replaceInfoboxesWithInfoboxComponents: function (): void {
+	replaceInfoboxesWithInfoboxComponents(): void {
 		this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
 			this.replaceInfoboxWithInfoboxComponent(elem);
 		});
 	},
 
-	replaceInfoboxWithInfoboxComponent: function (elem: HTMLElement): void {
+	replaceInfoboxWithInfoboxComponent(elem: HTMLElement): void {
 		var $infoboxPlaceholder = $(elem),
 			infoboxComponent: typeof App.PortableInfoboxComponent;
 
@@ -215,6 +216,42 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		infoboxComponent.trigger('didInsertElement');
 	},
 
+	replaceWikiaWidgetsWithComponents(): void {
+		this.$('a[data-wikia-widget]').map((i: number, elem: HTMLElement): void => {
+			this.replaceWikiaWidgetWithComponent(elem);
+		});
+	},
+
+	replaceWikiaWidgetWithComponent(elem: HTMLElement): void {
+		var $widgetPlaceholder = $(elem),
+			widgetData = $widgetPlaceholder.data(),
+			widgetType = widgetData.wikiaWidget,
+			componentName = this.getWidgetComponentName(widgetType),
+			component: any;
+
+		if (componentName) {
+			component = this.createChildView(App[componentName].create({
+				data: $widgetPlaceholder.data()
+			}));
+			component.createElement();
+			$widgetPlaceholder.replaceWith(component.$());
+			component.trigger('didInsertElement');
+		}
+	},
+
+	getWidgetComponentName(widgetType: string): string {
+		var componentNames = {
+				twitter: 'WidgetTwitterComponent'
+			};
+
+		if (componentNames.hasOwnProperty(widgetType) && Em.typeOf(App[componentNames[widgetType]]) === 'class') {
+			return componentNames[widgetType];
+		} else {
+			Em.Logger.warn(`Can't create widget with type '${widgetType}'`);
+			return null;
+		}
+	},
+
 	handleWikiaWidgetWrappers(): void {
 		this.$('script[type="x-wikia-widget"]').each(function (): void {
 			var $this = $(this);
@@ -225,7 +262,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 	/**
 	 * @desc handles expanding long tables, code taken from WikiaMobile
 	 */
-	handleInfoboxes: function (): void {
+	handleInfoboxes(): void {
 		var shortClass = 'short',
 			$infoboxes = this.$('table[class*="infobox"] tbody'),
 			body: HTMLElement = window.document.body,
@@ -249,7 +286,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		}
 	},
 
-	handleTables: function (): void {
+	handleTables(): void {
 		this.$('table:not([class*=infobox], .dirbox)')
 			.not('table table')
 			.css('visibility', 'visible')
