@@ -1,8 +1,8 @@
 class AuthUtils {
 
 	public static authSuccessCallback (url?: string): void {
-		if (window.parent) {
-			window.parent.postMessage({isUserAuthorized: true}, window.parent.location.protocol + '//' + location.hostname);
+		if (window.parent && pageParams.parentOrigin) {
+			window.parent.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
 			return;
 		} else if (url) {
 			window.location.href = url;
