@@ -1,3 +1,7 @@
+## release-156 (2015-09-11 09:59 UTC)
+* [XW-275](https://wikia-inc.atlassian.net/browse/XW-275) XW-275 update translations for CuratedContent
+* enable-disc-on-dev: Discussions | Enable discussions by default on dev env
+
 ## release-155 (2015-09-10 09:59 UTC)
 * [XW-9](https://wikia-inc.atlassian.net/browse/XW-9) XW-9 | enable Curated Content Editor site wide
 * [SOC-1079](https://wikia-inc.atlassian.net/browse/SOC-1079) SOC-1079 | VisitSource on authpages and mercury app

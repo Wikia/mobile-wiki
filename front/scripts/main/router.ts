@@ -77,6 +77,10 @@ App.Router.map(function () {
 			path: '/f/:forumId'
 		});
 
+		this.route('forum', {
+			path: '/f/:forumId/:sortBy'
+		});
+
 		this.route('post', {
 			path: '/p/:postId'
 		});
