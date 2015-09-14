@@ -1,3 +1,22 @@
+## release-157 (2015-09-14 09:59 UTC)
+* [SOC-1279](https://wikia-inc.atlassian.net/browse/SOC-1279) SOC-1279 Expose servicesDomain to ember and use for discussion api url
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) HG-848 Discussion header
+* [XW-204](https://wikia-inc.atlassian.net/browse/XW-204) XW-204 Unwrap Wikia widgets
+
+## release-156 (2015-09-11 09:59 UTC)
+* [XW-275](https://wikia-inc.atlassian.net/browse/XW-275) XW-275 update translations for CuratedContent
+* enable-disc-on-dev: Discussions | Enable discussions by default on dev env
+
+## release-155 (2015-09-10 09:59 UTC)
+* [XW-9](https://wikia-inc.atlassian.net/browse/XW-9) XW-9 | enable Curated Content Editor site wide
+* [SOC-1079](https://wikia-inc.atlassian.net/browse/SOC-1079) SOC-1079 | VisitSource on authpages and mercury app
+
+## release-154 (2015-09-09 09:59 UTC)
+* [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 move scrollTop to mixin
+* [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 Fix Curated Main Page navigation
+* [SOC-1251](https://wikia-inc.atlassian.net/browse/SOC-1251) SOC-1251 | Bringing back sharedUrl
+* [XW-240](https://wikia-inc.atlassian.net/browse/XW-240) XW-240 trigger openMainPage method when 403 error on /main/edit
+
 ## release-153 (2015-09-08 09:59 UTC)
 * [XW-230](https://wikia-inc.atlassian.net/browse/XW-230) XW-230 Update Host header when there is a redirect
 * [DAT-3168](https://wikia-inc.atlassian.net/browse/DAT-3168) DAT-3168 remove margins on all elements inside data value
