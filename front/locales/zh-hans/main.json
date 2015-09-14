@@ -136,10 +136,10 @@
     "curated-content-editor-missing-items-error":"版块不能为空。请将项目添加到此版块。",
     "curated-content-editor-error-inside-items-message":"请修复各项目中的错误。",
     "curated-content-editor-items-count":"__count__ 个项目",
-    "curated-content-editor-exit-prompt":"You have unsaved changes. Are you sure you want to exit?",
-    "curated-content-editor-main-page":"Main Page"
+    "curated-content-editor-exit-prompt":"您的更改未保存。确定要退出吗？",
+    "curated-content-editor-main-page":"主页面"
   },
   "discussion":{
-    "share-default-title":"Discussion on __siteName__"
+    "share-default-title":"__siteName__上的讨论"
   }
 }
