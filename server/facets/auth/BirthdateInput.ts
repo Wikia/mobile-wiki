@@ -21,7 +21,7 @@ class BirthdateInput {
 		var langSettings = localeSettings[lang];
 		this.endian = endian;
 		this.lang = lang;
-		this.settings = langSettings ? langSettings.date : localeSettings['en'].date;
+		this.settings = langSettings ? langSettings.date : localeSettings.en.date;
 	}
 
 	public getInputData(): Array<InputData> {
