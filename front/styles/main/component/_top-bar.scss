@@ -3,6 +3,11 @@ top-bar {
 	direction: ltr;
 	max-width: inherit;
 	z-index: $z-site-head;
+
+	&::shadow .inner {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
 }
 
 user-status::shadow .drawer ::content li {

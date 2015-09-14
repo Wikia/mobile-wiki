@@ -1,3 +1,5 @@
+$horizontal-padding: 15px;
+
 .discussion {
 	background-color: #fff;
 	font-size: $type-smallest;
@@ -30,6 +32,8 @@
 	.discussion-reply {
 		border-top: 1px solid #ccc;
 		padding-top: 12px;
+		padding-left: $horizontal-padding;
+		padding-right: $horizontal-padding;
 
 		.author {
 			font-size: $type-min;
@@ -92,7 +96,7 @@
 
 	.post-detail {
 		border-bottom: 1px solid #ccc;
-		padding: 12px 0;
+		padding: 12px $horizontal-padding;
 
 		.avatar {
 			img {

@@ -4,7 +4,8 @@
 	anon-avatar-src="http://wikia.github.io/style-guide/assets/images/icons/icon_avatar.svg"
 	anon-avatar-href="/join"
 	user-logged-in={{isUserLoggedIn}}
-	user-avatar-src="{{currentUser.avatarPath}}">
+	user-avatar-src="{{currentUser.avatarPath}}"
+	user-name="{{currentUser.name}}">
 	{{#each links as |link|}}
 		<li>
 			<a href="{{unbound link.href}}" class="external">{{i18n 'app' link.textKey}}</a>
