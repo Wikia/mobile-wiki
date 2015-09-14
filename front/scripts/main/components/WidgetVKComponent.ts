@@ -12,9 +12,7 @@ interface Window {
 App.WidgetVKComponent = Em.Component.extend(App.WidgetScriptStateMixin, {
 	classNames: ['widget-vk'],
 
-	elementId: null,
-	options: null,
-	groupId: null,
+	data: null,
 
 	scriptLoadedObserver: Em.observer('scriptLoaded.vk', function (): void {
 		this.createWidget();
@@ -37,9 +35,9 @@ App.WidgetVKComponent = Em.Component.extend(App.WidgetScriptStateMixin, {
 
 	createWidget(): void {
 		if (this.get('scriptLoaded.vk')) {
-			var elementId = this.get('elementId');
-			var groupId = this.get('data.groupId');
-			var data = this.get('data');
+			var elementId = this.get('elementId'),
+				data = this.get('data'),
+				groupId = this.get('data.groupId');
 
 			window.VK.Widgets.Group(elementId, data, groupId);
 		}
