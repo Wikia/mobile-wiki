@@ -18,5 +18,7 @@
 }
 
 @media #{$desktop-range} {
-	display: block;
+	.discussion-hero-unit {
+		display: block;
+	}
 }
