@@ -1,5 +1,6 @@
 .discussion-hero-unit {
 	color: #fff;
+	display: none;
 	padding-bottom: 37px;
 	//height of the top-bar = 41 + 37px of internal padding
 	padding-top: 78px;
@@ -14,4 +15,8 @@
 	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
 		background-color: #{nth($vertical-colors, $i)};
 	}
+}
+
+@media #{$desktop-range} {
+	display: block;
 }
