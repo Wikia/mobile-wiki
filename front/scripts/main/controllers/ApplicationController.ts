@@ -27,6 +27,8 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	lightboxVisible: false,
 	// Controls the appearance of the share-feature component
 	enableSharingHeader: false,
+	// For rolling out the new top-bar component for the global nav
+	useNewNav: false,
 
 	sideNavCollapsedObserver: Em.observer('sideNavVisible', function (): void {
 		if (this.get('sideNavVisible')) {

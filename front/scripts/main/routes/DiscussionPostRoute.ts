@@ -1,6 +1,8 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/UseNewNavMixin.ts" />
 
-App.DiscussionPostRoute = Em.Route.extend({
+'use strict';
+App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
@@ -19,6 +21,7 @@ App.DiscussionPostRoute = Em.Route.extend({
 			themeBar: true,
 			enableSharingHeader: true
 		});
+		this._super();
 	},
 
 	deactivate (): void {
@@ -27,6 +30,7 @@ App.DiscussionPostRoute = Em.Route.extend({
 			themeBar: false,
 			enableSharingHeader: false
 		});
+		this._super();
 	},
 
 	actions: {

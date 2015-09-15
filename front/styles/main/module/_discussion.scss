@@ -1,8 +1,10 @@
+$horizontal-padding: 15px;
+
 .discussion {
 	background-color: #fff;
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
-	padding: 0 15px;
+	max-width: inherit;
 
 	.avatar {
 		display: inline-block;
@@ -29,7 +31,11 @@
 
 	.discussion-reply {
 		border-top: 1px solid #ccc;
-		padding-top: 12px;
+		padding: {
+			top: 12px;
+			left: $horizontal-padding;
+			right: $horizontal-padding;
+		}
 
 		.author {
 			font-size: $type-min;
@@ -92,7 +98,7 @@
 
 	.post-detail {
 		border-bottom: 1px solid #ccc;
-		padding: 12px 0;
+		padding: 12px $horizontal-padding;
 
 		.avatar {
 			img {
@@ -129,7 +135,7 @@
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height + $theme-bar-height + $global-nav-height;
+		margin-top: $discussion-header-height + $theme-bar-height;
 
 		.discussion-content {
 			// Constrains content on the forum post list to 3 lines
