@@ -2,7 +2,7 @@
 /// <reference path="../mixins/UseNewNavMixin.ts" />
 
 'use strict';
-App.DiscussionPostRoute = Em.Route.extend({
+App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
