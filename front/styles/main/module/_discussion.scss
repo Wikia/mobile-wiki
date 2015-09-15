@@ -31,9 +31,11 @@ $horizontal-padding: 15px;
 
 	.discussion-reply {
 		border-top: 1px solid #ccc;
-		padding-top: 12px;
-		padding-left: $horizontal-padding;
-		padding-right: $horizontal-padding;
+		padding: {
+			top: 12px;
+			left: $horizontal-padding;
+			right: $horizontal-padding;
+		}
 
 		.author {
 			font-size: $type-min;
