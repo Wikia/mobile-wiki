@@ -67,17 +67,9 @@
 	}
 
 	.icon {
+		height: 20px;
+		width: 20px;
 		vertical-align: middle;
-
-		&.replies {
-			height: 21px;
-			width: 21px;
-		}
-
-		&.upvote {
-			height: 20px;
-			width: 20px;
-		}
 
 		&.upvote-reply {
 			height: 12px;
@@ -166,15 +158,8 @@
 		width: 507px;
 
 		.icon {
-			&.replies {
-				height: 25px;
-				width: 25px;
-			}
-
-			&.upvote {
-				height: 24px;
-				width: 24px;
-			}
+			height: 24px;
+			width: 24px;
 		}
 
 		&.forum {
