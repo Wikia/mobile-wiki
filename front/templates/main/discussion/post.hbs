@@ -9,7 +9,7 @@
 	{{#if canShowMore}}
         <button {{action 'expand'}} class="see-more">
 			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-            View Older Replies
+            {{i18n 'discussion.pagination-post-show-more'}}
         </button>
 	{{/if}}
 	{{#each model.replies as |item index|}}
