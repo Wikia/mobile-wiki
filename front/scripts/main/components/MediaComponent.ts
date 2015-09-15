@@ -46,7 +46,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number}): string {
-		if (options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown && this.get('normalizeWidth')) {
+		if (options.width && options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown && this.get('normalizeWidth')) {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
 
