@@ -18,6 +18,8 @@ var deepExtend = require('deep-extend'),
 		mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
 		//devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 		port: process.env.PORT || 8111,
+		loginUrl: 'https://www.wikia.com/signin?uselang=ja&redirect=http://ja.wikia.com',
+		signupUrl: 'https://www.wikia.com/register?uselang=ja&redirect=http://ja.wikia.com'
 	};
 
 function extendSettings(customLocalSet) {

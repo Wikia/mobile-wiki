@@ -33,20 +33,7 @@ App.DiscussionPostRoute = Em.Route.extend({
 		this._super();
 	},
 
-	showMore: Em.computed('model', function (): boolean {
-			var model = this.modelFor('discussion.post'),
-				loadedRepliesLength = Em.get(model, 'replies.length');
-
-			return loadedRepliesLength < model.postCount;
-	}),
-
 	actions: {
-		expand: function () {
-			var model = this.modelFor('discussion.post');
-
-			model.loadNextPage();
-		},
-
 		didTransition(): boolean {
 			window.scrollTo(0, 0);
 			return true;

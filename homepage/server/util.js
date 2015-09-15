@@ -5,7 +5,8 @@
  */
 
 var fs = require('fs'),
-	path = require('path');
+	path = require('path'),
+	localSettings = require('../config/localSettings').localSettings;
 
 exports.readJsonConfigSync = function (filename) {
 	try {
@@ -32,6 +33,24 @@ exports.getLoginState = function (/*request*/) {
 exports.getUserName = function (/*request*/) {
 	// TODO: Parse access_token cookie form Helios and get user information
 	return 'Test';
+};
+
+exports.getLoginUrl = function () {
+	return localSettings.loginUrl;
+};
+
+exports.getSignupUrl = function () {
+	return localSettings.signupUrl;
+};
+
+// Returns object containing all global data required by all routes
+exports.getGlobalData = function () {
+	return {
+		loginState: this.getLoginState(),
+		userName: this.getUserName(),
+		loginUrl: this.getLoginUrl(),
+		signupUrl: this.getSignupUrl()
+	};
 };
 
 exports.getLocalizedHubData = function (hubConfig, locale) {
