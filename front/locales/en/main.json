@@ -143,5 +143,8 @@
 		"share-default-title": "Discussion on __siteName__",
 		"sort-by-latest": "Latest",
 		"sort-by-trending": "Trending"
+	},
+	"topBar": {
+		"anon-cta": "Sign In"
 	}
 }

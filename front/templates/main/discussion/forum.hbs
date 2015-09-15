@@ -1,15 +1,13 @@
-<div class="discussion">
-	{{discussion-header
-		setSortBy='setSortBy'
-		sortBy=sortBy
-	}}
-	{{forum-wrapper
-		goToPost='goToPost'
-		loadPage='loadPage'
-		name=model.name
-		posts=model.posts
-		postsDisplayed=model.posts.length
-		totalPosts=model.totalPosts
+{{discussion-header
+	setSortBy='setSortBy'
+	sortBy=sortBy
+}}
+{{forum-wrapper
+	goToPost='goToPost'
+	loadPage='loadPage'
+	name=model.name
+	posts=model.posts
+	postsDisplayed=model.posts.length
+	totalPosts=model.totalPosts
 
-	}}
-</div>
+}}

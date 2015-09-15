@@ -154,9 +154,7 @@ $horizontal-padding: 15px;
 }
 
 @for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion {
-		a, ::shadow a {
-			color: #{nth($vertical-colors, $i)};
-		}
+	.#{nth($verticals, $i)}-vertical .discussion a {
+		color: #{nth($vertical-colors, $i)};
 	}
 }
