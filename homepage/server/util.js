@@ -4,8 +4,12 @@
  * @author Per Johan Groland <pgroland@wikia-inc.com>
  */
 
-var fs = require('fs'),
+var Promise = require('bluebird'),
+	fs = require('fs'),
 	path = require('path'),
+	deepExtend = require('deep-extend'),
+	Auth = require('./auth'),
+	auth = new Auth(),
 	localSettings = require('../config/localSettings').localSettings;
 
 exports.readJsonConfigSync = function (filename) {
@@ -25,14 +29,23 @@ exports.getUserLocale = function (/*request*/) {
 	return 'ja';
 };
 
-exports.getLoginState = function (/*request*/) {
-	// TODO: Parse access_token cookie from Helios
-	return false;
-};
+exports.getLoginState = function (request) {
+	console.log('getLoginState');
 
-exports.getUserName = function (/*request*/) {
-	// TODO: Parse access_token cookie form Helios and get user information
-	return 'Test';
+	console.log('STATE:');
+	console.log(request.state);
+	var accessToken = (request.state) ? request.state.access_token : null; // jshint ignore:line
+
+	if (accessToken) {
+		return auth.info(accessToken);
+	} else {
+		return new Promise.Promise(function (resolve, reject) {
+			reject({
+				error: 'not_logged_in',
+				error_description: 'User is not logged in' // jshint ignore:line
+			});
+		});
+	}
 };
 
 exports.getLoginUrl = function () {
@@ -43,14 +56,26 @@ exports.getSignupUrl = function () {
 	return localSettings.signupUrl;
 };
 
-// Returns object containing all global data required by all routes
-exports.getGlobalData = function () {
-	return {
-		loginState: this.getLoginState(),
-		userName: this.getUserName(),
-		loginUrl: this.getLoginUrl(),
-		signupUrl: this.getSignupUrl()
-	};
+// todo: look up this data in user session first
+exports.renderWithGlobalData = function (request, reply, data, view) {
+	function renderView(loggedIn, userName) {
+		var combinedData = deepExtend(data, {
+			loggedIn: loggedIn,
+			userName: userName,
+			loginUrl: localSettings.loginUrl,
+			signupUrl: localSettings.signupUrl
+		});
+
+		reply.view(view, combinedData);
+	}
+
+	this.getLoginState(request).then(function (data) {
+		return auth.getUserName(data);
+	}).then(function (data) {
+		renderView(true, data.value);
+	}).catch(function (/*error*/) {
+		renderView(false, null);
+	});
 };
 
 exports.getLocalizedHubData = function (hubConfig, locale) {

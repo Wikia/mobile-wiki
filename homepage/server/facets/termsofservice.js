@@ -4,15 +4,14 @@
  * @author Per Johan Groland <pgroland@wikia-inc.com>
  */
 
-var deepExtend = require('deep-extend'),
-	util = require('../util');
+var util = require('../util');
 
 function termsOfService(request, reply) {
-	var data = deepExtend({
-		title: 'ウィキア・ジャパン',
-	}, util.getGlobalData());
+	var data = {
+		title: 'ウィキア・ジャパン'
+	};
 
-	return reply.view('termsofservice', data);
+	util.renderWithGlobalData(request, reply, data, 'termsofservice');
 }
 
 module.exports = termsOfService;

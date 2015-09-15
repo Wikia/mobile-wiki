@@ -6,20 +6,19 @@
 
 'use strict';
 
-var deepExtend = require('deep-extend'),
-	util = require('../util'),
+var util = require('../util'),
     hubConfig = util.readJsonConfigSync('static/hub_config.json'),
 	popularItemConfig = util.readJsonConfigSync('static/popular.json');
 
 function index(request, reply) {
-    var locale = util.getUserLocale(request),
-        data = deepExtend({
+	var locale = util.getUserLocale(request),
+		data = {
 			title: 'ウィキア・ジャパン',
 			carousel: util.getLocalizedHubData(hubConfig, locale),
 			popular: util.preprocessPopularData(popularItemConfig)
-		}, util.getGlobalData());
+		};
 
-    return reply.view('index', data);
+	util.renderWithGlobalData(request, reply, data, 'index');
 }
 
 module.exports = index;
