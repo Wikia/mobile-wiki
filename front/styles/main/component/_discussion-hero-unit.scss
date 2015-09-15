@@ -1,5 +1,7 @@
+$discussion-hero-unit-text-color: #fff;
+
 .discussion-hero-unit {
-	color: #fff;
+	color: $discussion-hero-unit-text-color;
 	display: none;
 	padding-bottom: 37px;
 	//height of the top-bar = 41 + 37px of internal padding
@@ -7,7 +9,7 @@
 	text-align: center;
 
 	h1 {
-		color: #fff;
+		color: $discussion-hero-unit-text-color;
 	}
 
 	p {
