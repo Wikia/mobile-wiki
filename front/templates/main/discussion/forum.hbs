@@ -3,7 +3,9 @@
 	setSortBy='setSortBy'
 	sortBy=sortBy
 }}
-{{discussion-hero-unit}}
+{{discussion-hero-unit
+	totalPosts=model.totalPosts
+}}
 {{forum-wrapper
 	goToPost='goToPost'
 	loadPage='loadPage'
@@ -11,5 +13,4 @@
 	posts=model.posts
 	postsDisplayed=model.posts.length
 	totalPosts=model.totalPosts
-
 }}
