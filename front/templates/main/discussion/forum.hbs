@@ -1,7 +1,15 @@
 {{top-bar}}
 {{discussion-header
-	setSortBy='setSortBy'
+	showSortSelector='showSortSelector'
+	hideSortSelector='hideSortSelector'
 	sortBy=sortBy
+	sortMessageKey=sortMessageKey
+}}
+{{discussion-sort
+	setSortBy='setSortBy'
+	isVisible=sortVisible
+	sortBy=sortBy
+	sortTypes=sortTypes
 }}
 {{forum-wrapper
 	goToPost='goToPost'

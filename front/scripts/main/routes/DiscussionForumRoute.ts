@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/FullPageMixin.ts"/>
+/// <reference path="../../main/mixins/FullPageMixin.ts" />
+/// <reference path="../../main/mixins/ViewportMixin.ts" />
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
+App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, App.ViewportMixin, {
 	forumId: null,
 
 	model(params: any) {
@@ -15,6 +16,28 @@ App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy);
 	},
 
+	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
+		this.updateSortVisibility();
+	}),
+
+	updateSortVisibility: function (): void {
+		var controller = this.controllerFor('discussionForum');
+
+		if (this.get('viewportDimensions.width') >= 1064) {
+			controller.setProperties({
+				sortAlwaysVisible: true,
+				sortVisible: true
+			});
+		} else {
+			controller.set('sortAlwaysVisible', false);
+		}
+	},
+
+	activate: function (): void {
+		this.updateSortVisibility();
+		this._super();
+	},
+
 	actions: {
 		goToPost: function (postId: number): void {
 			this.transitionTo('discussion.post', postId);
@@ -25,7 +48,14 @@ App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, {
 		},
 
 		setSortBy: function (sortBy: string): void {
-			this.controllerFor('discussionForum').set('sortBy', sortBy);
+			var controller = this.controllerFor('discussionForum');
+
+			controller.set('sortBy', sortBy);
+
+			if (controller.get('sortAlwaysVisible') !== true) {
+				this.controllerFor('discussionForum').set('sortVisible', false);
+			}
+
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
 		}
 	}
