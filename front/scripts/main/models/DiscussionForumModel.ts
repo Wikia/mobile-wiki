@@ -18,7 +18,7 @@ App.DiscussionForumModel = Em.Object.extend({
 				dataType: 'json',
 				success: (data: any) => {
 					var newPosts = data._embedded['doc:threads'],
-					    allPosts = this.posts.concat(newPosts);
+						allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
 
