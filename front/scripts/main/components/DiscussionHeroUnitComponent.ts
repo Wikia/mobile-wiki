@@ -2,5 +2,5 @@
 'use strict';
 
 App.DiscussionHeroUnitComponent = Em.Component.extend({
-	classNames: ['hero-unit']
+	classNames: ['discussion-hero-unit']
 });
