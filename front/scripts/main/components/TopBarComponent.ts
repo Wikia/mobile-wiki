@@ -5,9 +5,8 @@
 
 App.TopBarComponent = Em.Component.extend(App.HeadroomMixin, {
 	tagName: 'top-bar',
-	attributeBindings: ['logo-href', 'show-user-status'],
-	'logo-href': Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
-	'show-user-status': true,
+	attributeBindings: ['logoHref'],
+	logoHref: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
 	isUserLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
 		// HTMLBars attribute binding only removes an attribute if it's value is set to null
