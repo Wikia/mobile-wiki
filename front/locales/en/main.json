@@ -143,6 +143,7 @@
 		"share-default-title": "Discussion on __siteName__",
 		"sort-by-latest": "Latest",
 		"sort-by-trending": "Trending",
+		"discussions-title": "Discussions",
 		"number-of-posts": "__numberOfPosts__ Posts"
 	}
 }
