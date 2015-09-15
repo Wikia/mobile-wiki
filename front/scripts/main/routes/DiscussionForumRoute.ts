@@ -1,9 +1,9 @@
 /// <reference path="../app.ts" />
-/// <reference path="../../main/mixins/FullPageMixin.ts" />
-/// <reference path="../../main/mixins/ViewportMixin.ts" />
+/// <reference path="../mixins/UseNewNavMixin.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend(App.FullPageMixin, App.ViewportMixin, {
+App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.ViewportMixin, {
 	forumId: null,
 
 	model(params: any) {

@@ -4,10 +4,11 @@ $discussion-header-color-text: #fff;
 .discussion-header {
 	color: $discussion-header-color-text;
 	margin-top: $global-nav-height;
+	max-width: inherit;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-site-head;
+	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
 	&.un-pinned {
 		margin-top: $theme-bar-height;
