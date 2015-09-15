@@ -7,10 +7,6 @@ App.SmartBannerComponent = Em.Component.extend({
 	classNames: ['smart-banner'],
 	classNameBindings: ['noIcon'],
 
-	becameVisible() {
-		this.$().css('display', 'flex');
-	},
-
 	options: {
 		// Language code for App Store
 		appStoreLanguage: 'us',
