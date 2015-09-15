@@ -1,7 +1,6 @@
 .discussion-hero-unit {
 	color: #fff;
 	display: none;
-	font-weight: bold;
 	padding-bottom: 37px;
 	//height of the top-bar = 41 + 37px of internal padding
 	padding-top: 78px;
@@ -9,6 +8,10 @@
 
 	h1 {
 		color: #fff;
+	}
+
+	p {
+		font-weight: bold;
 	}
 }
 
