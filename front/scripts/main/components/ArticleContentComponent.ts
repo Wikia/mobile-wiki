@@ -217,7 +217,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 	},
 
 	replaceWikiaWidgetsWithComponents(): void {
-		this.$('a[data-wikia-widget]').map((i: number, elem: HTMLElement): void => {
+		this.$('a[data-wikia-widget], div[data-wikia-widget]').map((i: number, elem: HTMLElement): void => {
 			this.replaceWikiaWidgetWithComponent(elem);
 		});
 	},
@@ -241,7 +241,8 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 
 	getWidgetComponentName(widgetType: string): string {
 		var componentNames = {
-				twitter: 'WidgetTwitterComponent'
+				twitter: 'WidgetTwitterComponent',
+				vk: 'WidgetVKComponent',
 			};
 
 		if (componentNames.hasOwnProperty(widgetType) && Em.typeOf(App[componentNames[widgetType]]) === 'class') {
