@@ -5,8 +5,8 @@ App.DiscussionPostController = Em.Controller.extend({
 	numRepliesLoaded: null,
 
 	canShowMore: Em.computed('model', 'numRepliesLoaded', function (): boolean {
-		var model = this.get('model'),
-			numRepliesLoaded = this.get('numRepliesLoaded');
+		var model: typeof App.DiscussionPostModel = this.get('model'),
+			numRepliesLoaded: number = this.get('numRepliesLoaded');
 
 		if (numRepliesLoaded === null) {
 			numRepliesLoaded = Em.get(model, 'replies.length');
