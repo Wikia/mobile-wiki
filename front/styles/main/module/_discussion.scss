@@ -1,16 +1,17 @@
 $horizontal-padding: 15px;
 
 .discussion {
-	background-color: #fff;
+	background-color: $color-white;
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
 	max-width: inherit;
 
 	.avatar {
 		display: inline-block;
+		margin-right: 5px;
 
 		img {
-			border-color: #ccc;
+			border-color: $border-color;
 		}
 	}
 
@@ -30,7 +31,7 @@ $horizontal-padding: 15px;
 	}
 
 	.discussion-reply {
-		border-top: 1px solid #ccc;
+		border-top: 1px solid $border-color;
 		padding: {
 			top: 12px;
 			left: $horizontal-padding;
@@ -72,17 +73,9 @@ $horizontal-padding: 15px;
 	}
 
 	.icon {
+		height: 20px;
+		width: 20px;
 		vertical-align: middle;
-
-		&.replies {
-			height: 21px;
-			width: 21px;
-		}
-
-		&.upvote {
-			height: 20px;
-			width: 20px;
-		}
 
 		&.upvote-reply {
 			height: 12px;
@@ -97,7 +90,7 @@ $horizontal-padding: 15px;
 	}
 
 	.post-detail {
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid $border-color;
 		padding: 12px $horizontal-padding;
 
 		.avatar {
@@ -145,7 +138,7 @@ $horizontal-padding: 15px;
 
 		.post-detail {
 			border-bottom-width: 0;
-			border-top: 1px solid #ccc;
+			border-top: 1px solid $border-color;
 			cursor: pointer;
 
 			&:first-child {
@@ -158,5 +151,33 @@ $horizontal-padding: 15px;
 @for $i from 1 through length($verticals) {
 	.#{nth($verticals, $i)}-vertical .discussion a {
 		color: #{nth($vertical-colors, $i)};
+	}
+}
+
+@media #{$desktop-range} {
+	body {
+		background-color: #f6f6f6;
+	}
+
+	.discussion {
+		background-color: transparent;
+		width: 507px;
+
+		.icon {
+			height: 24px;
+			width: 24px;
+		}
+
+		&.forum {
+			margin-left: auto;
+			margin-right: auto;
+
+			.post-detail {
+				background-color: $color-white;
+				border-width: 0;
+				margin-bottom: 5px;
+				padding: 20px 30px;
+			}
+		}
 	}
 }
