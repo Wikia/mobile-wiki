@@ -6,9 +6,11 @@
 	user-logged-in={{isUserLoggedIn}}
 	user-avatar-src="{{currentUser.avatarPath}}"
 	user-name="{{currentUser.name}}">
-	<span class="register-cta-text">
-		<a href="/join">{{i18n 'topBar.anon-cta'}}</a>
-	</span>
+	{{#unless isUserLoggedIn}}
+		<span class="register-cta-text">
+			<a href="/join">{{i18n 'topBar.anon-cta'}}</a>
+		</span>
+	{{/unless}}
 	{{#each links as |link|}}
 		<li>
 			<a href="{{unbound link.href}}" class="external">{{i18n 'app' link.textKey}}</a>
