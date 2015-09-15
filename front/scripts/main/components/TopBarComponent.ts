@@ -6,7 +6,7 @@
 App.TopBarComponent = Em.Component.extend(App.HeadroomMixin, {
 	tagName: 'top-bar',
 	attributeBindings: ['logo-href', 'show-user-status'],
-	'logo-href': '/', // TODO: we'll have to change this to match recent internationalization changes
+	'logo-href': Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 	'show-user-status': true,
 
 	isUserLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
