@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/UseNewNavMixin.ts" />
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend({
+App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
 	forumId: null,
 
 	model(params: any) {
@@ -12,16 +13,6 @@ App.DiscussionForumRoute = Em.Route.extend({
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
 		this._super(controller, model, transition);
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy);
-	},
-
-	activate() {
-		// roll out new top-bar component
-		this.controllerFor('application').set('useNewNav', true);
-	},
-
-	deactivate() {
-		// roll out new top-bar component
-		this.controllerFor('application').set('useNewNav', false);
 	},
 
 	actions: {
