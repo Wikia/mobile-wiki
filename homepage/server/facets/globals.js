@@ -7,8 +7,8 @@
 var util = require('../util');
 
 function globals(request, reply) {
-	var loginUrl = util.getLoginUrl().replace(/&amp;/g, '&'),
-		signupUrl = util.getSignupUrl().replace(/&amp;/g, '&'),
+	var loginUrl = util.getLoginUrl(),
+		signupUrl = util.getSignupUrl(),
 		script = 'function getGlobals () {' +
 			'	return { ' +
 			'		loginUrl: \''  + loginUrl + '\', ' +

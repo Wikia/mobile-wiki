@@ -30,10 +30,6 @@ exports.getUserLocale = function (/*request*/) {
 };
 
 exports.getLoginState = function (request) {
-	console.log('getLoginState');
-
-	console.log('STATE:');
-	console.log(request.state);
 	var accessToken = (request.state) ? request.state.access_token : null; // jshint ignore:line
 
 	if (accessToken) {
@@ -73,7 +69,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 		return auth.getUserName(data);
 	}).then(function (data) {
 		renderView(true, data.value);
-	}).catch(function (/*error*/) {
+	}).catch(function () {
 		renderView(false, null);
 	});
 };
