@@ -58,7 +58,12 @@ $('.search-wikia').click(function(event) : void {
 });
 
 $('#loginIcon').click(function(event) : void {
-	window.location.href = getGlobals().loginUrl;
+	if ($(document).width() < 710) {
+		$('#userInfoToggle').toggle();
+	} else {
+		window.location.href = getGlobals().loginUrl;
+	}
+
 	event.preventDefault();
 });
 
