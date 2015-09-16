@@ -3,6 +3,7 @@
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
 import Hoek = require('hoek');
+import localSettings = require('../../config/localSettings');
 
 /**
  * Utility functions
