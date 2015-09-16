@@ -1,5 +1,6 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
+import Promise = require('bluebird');
 import localSettings = require('../../config/localSettings');
 import MW = require('./MediaWiki');
 import Utils = require('./Utils');
