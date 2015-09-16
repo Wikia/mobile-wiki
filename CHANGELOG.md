@@ -1,3 +1,12 @@
+## release-159 (2015-09-16 09:59 UTC)
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Login state support for Japan homepage
+* Japan-HP-logging: Add bunyan logger for Japan homepage (console and syslog)
+* [INT-187](https://wikia-inc.atlassian.net/browse/INT-187) Japan Homepage content update. Highlighted communities.
+* [HG-839](https://wikia-inc.atlassian.net/browse/HG-839) HG-839 - make sure image width is defined
+* [SOC-1119](https://wikia-inc.atlassian.net/browse/SOC-1119) SOC-1119 Styles for post list on desktop
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) Hg 848 Incorporating Top Bar component into mercury discussion pages
+* [SOC-951](https://wikia-inc.atlassian.net/browse/SOC-951) SOC-951 Add back controller so we can trigger the "show more" button
+
 ## release-158 (2015-09-15 09:59 UTC)
 * [XW-203](https://wikia-inc.atlassian.net/browse/XW-203) XW-203 VK tag support
 * [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Use mercury signin/signup pages for Japan homepage login
