@@ -10,7 +10,9 @@
 	user-name="{{currentUser.name}}">
 	{{#unless isUserLoggedIn}}
 		<span class="register-cta-text">
-			<a href="/join">{{i18n 'topBar.anon-cta'}}</a>
+			<a href="/register">{{i18n 'topBar.register'}}</a>
+			{{i18n 'topBar.cta-separator'}}
+			<a href="/signin">{{i18n 'topBar.login' }}</a>
 		</span>
 	{{/unless}}
 	{{#each links as |link|}}

@@ -145,6 +145,8 @@
 		"sort-by-trending": "Trending"
 	},
 	"topBar": {
-		"anon-cta": "Sign In"
+		"register": "Register",
+		"login": "Login",
+		"cta-separator": "or"
 	}
 }
