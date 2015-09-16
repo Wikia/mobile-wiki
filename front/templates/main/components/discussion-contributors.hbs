@@ -1,0 +1,10 @@
+{{#each latestContributors as |contributor|}}
+	{{discussion-avatar
+		avatarUrl=contributor.avatarUrl
+		authorUrl=contributor.url
+		authorName=contributor.name
+	}}
+{{/each}}
+{{#if additionalContributorsCount}}
+<div class="discussion-contributors-more">+{{additionalContributorsCount}}</div>
+{{/if}}
