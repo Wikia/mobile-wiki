@@ -3,7 +3,6 @@
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
 import Hoek = require('hoek');
-import localSettings = require('../../config/localSettings');
 
 /**
  * Utility functions
@@ -228,11 +227,11 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 		apiBase: localSettings.apiBase,
 		servicesDomain: localSettings.servicesDomain,
 		environment: getEnvironmentString(env),
-		cdnBaseUrl: getCDNBaseUrl()
+		cdnBaseUrl: getCDNBaseUrl(localSettings)
 	};
 }
 
-export function getCDNBaseUrl(): String {
+export function getCDNBaseUrl(localSettings: LocalSettings): String {
 	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
 }
 
