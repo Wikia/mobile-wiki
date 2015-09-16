@@ -7,7 +7,7 @@
 		upvoteCount=model.upvoteCount
 		replyCount=model.postCount
 	}}
-	{{#if showMore}}
+	{{#if canShowMore}}
         <button {{action 'expand'}} class="see-more">
 			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
             View Older Replies

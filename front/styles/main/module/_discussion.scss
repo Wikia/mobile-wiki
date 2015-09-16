@@ -1,8 +1,10 @@
+$horizontal-padding: 15px;
+
 .discussion {
 	background-color: $color-white;
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
-	padding: 0 15px;
+	max-width: inherit;
 
 	.avatar {
 		display: inline-block;
@@ -30,7 +32,11 @@
 
 	.discussion-reply {
 		border-top: 1px solid $border-color;
-		padding-top: 12px;
+		padding: {
+			top: 12px;
+			left: $horizontal-padding;
+			right: $horizontal-padding;
+		}
 
 		.author {
 			font-size: $type-min;
@@ -67,17 +73,9 @@
 	}
 
 	.icon {
+		height: 20px;
+		width: 20px;
 		vertical-align: middle;
-
-		&.replies {
-			height: 21px;
-			width: 21px;
-		}
-
-		&.upvote {
-			height: 20px;
-			width: 20px;
-		}
 
 		&.upvote-reply {
 			height: 12px;
@@ -93,7 +91,7 @@
 
 	.post-detail {
 		border-bottom: 1px solid $border-color;
-		padding: 12px 0;
+		padding: 12px $horizontal-padding;
 
 		.avatar {
 			img {
@@ -130,7 +128,7 @@
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height + $theme-bar-height + $global-nav-height;
+		margin-top: $discussion-header-height + $theme-bar-height;
 
 		.discussion-content {
 			// Constrains content on the forum post list to 3 lines
@@ -166,15 +164,8 @@
 		width: 507px;
 
 		.icon {
-			&.replies {
-				height: 25px;
-				width: 25px;
-			}
-
-			&.upvote {
-				height: 24px;
-				width: 24px;
-			}
+			height: 24px;
+			width: 24px;
 		}
 
 		&.forum {
