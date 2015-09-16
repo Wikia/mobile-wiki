@@ -4,8 +4,6 @@ App.DiscussionForumController = Em.Controller.extend({
 	sortBy: null,
 	// Whether the sort component is currently visible
 	sortVisible: false,
-	// Whether the sort component should always be visible
-	sortAlwaysVisible: false,
 
 	sortTypes: [
 		{
@@ -29,11 +27,11 @@ App.DiscussionForumController = Em.Controller.extend({
 	}),
 
 	actions: {
-		showSortSelector(): void {
+		showSortComponent(): void {
 			this.set('sortVisible', true);
 		},
 
-		hideSortSelector(): void {
+		hideSortComponent(): void {
 			this.set('sortVisible', false);
 		}
 	}

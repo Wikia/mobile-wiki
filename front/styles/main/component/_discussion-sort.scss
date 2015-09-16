@@ -10,6 +10,7 @@
 	text-align: right;
 	top: 5px;
 	width: 110px;
+	z-index: $z-6;
 
 	li {
 		cursor: pointer;
@@ -22,15 +23,6 @@
 	.#{nth($verticals, $i)}-vertical .discussion-sort {
 		color: #{nth($vertical-colors, $i)};
 	}
-
-	@media #{$desktop-range} {
-		.#{nth($verticals, $i)}-vertical .discussion-sort {
-			li.active {
-				color: #{nth($vertical-colors, $i)};
-				border-color: #{nth($vertical-colors, $i)};
-			}
-		}
-	}
 }
 
 @media #{$desktop-range} {
@@ -42,6 +34,13 @@
 		position: static;
 		text-align: center;
 		width: 507px;
+		z-index: auto;
+
+		&.hide {
+			// These are needed to override the hide class
+			display: block !important;
+			visibility: visible;
+		}
 
 		li {
 			border-bottom: 4px solid $border-color;
@@ -51,6 +50,15 @@
 			height: 50px;
 			line-height: 50px;
 			width: 50%;
+		}
+	}
+
+	@for $i from 1 through length($verticals) {
+		.#{nth($verticals, $i)}-vertical .discussion-sort {
+			li.active {
+				color: #{nth($vertical-colors, $i)};
+				border-color: #{nth($vertical-colors, $i)};
+			}
 		}
 	}
 }

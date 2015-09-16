@@ -1,9 +1,8 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/UseNewNavMixin.ts" />
-/// <reference path="../mixins/ViewportMixin.ts" />
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.ViewportMixin, {
+App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
 	forumId: null,
 
 	model(params: any) {
@@ -14,28 +13,6 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.ViewportMixin
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
 		this._super(controller, model, transition);
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy || controller.get('sortTypes')[0].name);
-	},
-
-	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.updateSortVisibility();
-	}),
-
-	updateSortVisibility: function (): void {
-		var controller = this.controllerFor('discussionForum');
-
-		if (this.get('viewportDimensions.width') >= this.get('breakpoints.desktop')) {
-			controller.setProperties({
-				sortAlwaysVisible: true,
-				sortVisible: true
-			});
-		} else {
-			controller.set('sortAlwaysVisible', false);
-		}
-	},
-
-	activate: function (): void {
-		this.updateSortVisibility();
-		this._super();
 	},
 
 	actions: {

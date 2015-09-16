@@ -10,12 +10,12 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	}),
 
 	actions: {
-		showSortSelector(): void {
-			this.sendAction('showSortSelector');
+		showSortComponent(): void {
+			this.sendAction('showSortComponent');
 		},
 
-		hideSortSelector(): void {
-			this.sendAction('hideSortSelector');
+		hideSortComponent(): void {
+			this.sendAction('hideSortComponent');
 		}
 	}
 });

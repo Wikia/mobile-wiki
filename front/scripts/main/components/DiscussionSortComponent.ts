@@ -8,12 +8,15 @@ App.DiscussionSortComponent = Em.Component.extend({
 
 	// Whether the component is currently visible
 	isVisible: false,
+	// jQuery object for this component
+	$discussionSort: null,
 
 	sortByObserver: Em.observer('sortBy', function (): void {
 		this.updateActive();
 	}),
 
 	didInsertElement: function (): void {
+		this.set('$discussionSort', $('.discussion-sort'));
 		this.updateActive();
 		this._super();
 	},
@@ -21,9 +24,13 @@ App.DiscussionSortComponent = Em.Component.extend({
 	updateActive: function (): void {
 		// Add the 'active' CSS class to the sort tab that's active,
 		// but right now this only applies to desktop styling.
-		var $discussionSort = $('.discussion-sort');
+		var $discussionSort: JQuery = this.get('$discussionSort');
 
-		$discussionSort.find('li').removeClass('active');
+		if ($discussionSort === null) {
+			return;
+		}
+
+		$discussionSort.find('li.active').removeClass('active');
 		$discussionSort.find('li[data-type="' + this.get('sortBy') + '"]').addClass('active');
 	},
 
