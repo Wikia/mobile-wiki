@@ -11,7 +11,7 @@
 		replyCount=item.postCount
 		}}
 	{{/each}}
-	{{#if loadingMore}}
+	{{#if isLoading}}
 		<div class="load-more">
 			{{loading-spinner
 				active=isLoading
