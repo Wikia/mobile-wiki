@@ -87,6 +87,7 @@ $horizontal-padding: 15px;
   	.load-more {
 		text-align: center;
 		width: 100%;
+		color: $color-gray-semi;
 	}
 
 	.post-detail {
@@ -120,6 +121,13 @@ $horizontal-padding: 15px;
 				color: nth($vertical-colors, $i);
 			}
 		}
+	}
+
+	.spinner {
+		position: relative;
+		display: block;
+		margin: auto;
+		left: auto;
 	}
 
 	.timestamp {

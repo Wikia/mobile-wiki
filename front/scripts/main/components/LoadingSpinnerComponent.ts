@@ -6,5 +6,14 @@ App.LoadingSpinnerComponent = Em.Component.extend({
 	isVisible: Em.computed.alias('active'),
 
 	active: false,
-	overlay: true
+	overlay: true,
+	radius: 30,
+	strokeWidth: 6,
+
+	fullRadius: Em.computed('radius', function (): number {
+		return this.get('radius') + (this.get('strokeWidth')/2);
+	}),
+	fullDiameter: Em.computed('radius', function (): number {
+		return this.get('radius') * 2 + this.get('strokeWidth');
+	})
 });

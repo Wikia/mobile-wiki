@@ -12,7 +12,14 @@
 		}}
 	{{/each}}
 	{{#if loadingMore}}
-        <div class="load-more">Loading More Posts</div>
+		<div class="load-more">
+			{{loading-spinner
+				active=isLoading
+				overlay=false
+				radius=32
+				strokeWidth=2
+			}}
+			{{i18n 'discussion.load-more-replies'}}
+		</div>
 	{{/if}}
 </div>
-
