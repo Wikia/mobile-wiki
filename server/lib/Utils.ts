@@ -227,9 +227,11 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 		apiBase: localSettings.apiBase,
 		servicesDomain: localSettings.servicesDomain,
 		environment: getEnvironmentString(env),
-		cdnBaseUrl: (env === Environment.Prod) ||
-					(env === Environment.Sandbox) ?
-					localSettings.cdnBaseUrl : ''
+		cdnBaseUrl: getCDNBaseUrl()
 	};
+}
+
+export function getCDNBaseUrl(): String {
+	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
 }
 

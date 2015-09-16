@@ -42,7 +42,7 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 			wiki: wikiVariables || {},
 			// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
 			server: {
-				cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
+				cdnBaseUrl: Utils.getCDNBaseUrl()
 			},
 			error: error
 		};
