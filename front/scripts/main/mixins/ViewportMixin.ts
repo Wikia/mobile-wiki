@@ -14,6 +14,11 @@ App.ViewportMixin = Em.Mixin.create({
 		height: null,
 		width: null
 	},
+	breakpoints: {
+		tablet: 768,
+		desktop: 1064,
+		desktopXL: 1575
+	},
 	initiated: false,
 
 	init: function (): void {

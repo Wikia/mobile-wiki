@@ -22,4 +22,35 @@
 	.#{nth($verticals, $i)}-vertical .discussion-sort {
 		color: #{nth($vertical-colors, $i)};
 	}
+
+	@media #{$desktop-range} {
+		.#{nth($verticals, $i)}-vertical .discussion-sort {
+			li.active {
+				color: #{nth($vertical-colors, $i)};
+				border-color: #{nth($vertical-colors, $i)};
+			}
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-sort {
+		background-color: transparent;
+		box-shadow: none;
+		margin: $global-nav-height auto 10px auto;
+		padding: 0;
+		position: static;
+		text-align: center;
+		width: 507px;
+
+		li {
+			border-bottom: 4px solid $border-color;
+			color: $border-color;
+			float: left;
+			font-size: $type-smaller;
+			height: 50px;
+			line-height: 50px;
+			width: 50%;
+		}
+	}
 }
