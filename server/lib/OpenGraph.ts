@@ -8,6 +8,8 @@ import Utils = require('./Utils');
 interface OpenGraphAttributes {
 	description?: string;
 	image?: string;
+	imageHeight?: number;
+	imageWidth?: number;
 	title: string;
 	type: string;
 	url: string;
@@ -41,7 +43,9 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 			openGraphData.url = wikiVars.basePath + request.path;
 			// Use Wikia logo as default image
 			openGraphData.image = 'http:' + Utils.getStaticAssetPath(localSettings, request.headers.host)
-				+ 'images/wikia-mark-128.png';
+				+ 'images/wikia-mark-1200.jpg';
+			openGraphData.imageWidth = 1200;
+			openGraphData.imageHeight = 1200;
 
 			return new Promise((resolve: Function, reject: Function): void => {
 				// Fetch discussion post data from the API to complete the OG data
@@ -54,6 +58,8 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 						openGraphData.description = content.substr(0, 175);
 						if (wikiVars.image) {
 							openGraphData.image = wikiVars.image;
+							delete openGraphData.imageWidth;
+							delete openGraphData.imageHeight;
 						}
 						resolve(openGraphData);
 					})
