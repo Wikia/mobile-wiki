@@ -23,8 +23,10 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 
 	wikiVariables.then((response) => {
 		var userDir: string;
-		context.wiki = response.data;
 
+		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, response.data);
+
+		context.wiki = response.data;
 		if (context.wiki.language) {
 			userDir = context.wiki.language.userDir;
 			context.isRtl = (userDir === 'rtl');
@@ -36,6 +38,8 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 		context.openGraph = openGraphData;
 
 		outputResponse(request, reply, context);
+	}).catch(Utils.RedirectedToCanonicalHost, (): void => {
+		Logger.info('Redirected to canonical host');
 	}).catch((error: any): void => {
 		// `error` could be an object or a string here
 		Logger.warn({error: error}, 'Failed to get complete app view context');

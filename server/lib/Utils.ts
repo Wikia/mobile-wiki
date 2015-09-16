@@ -1,8 +1,11 @@
 /// <reference path="../../config/localSettings.d.ts" />
+/// <reference path="../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../typings/hoek/hoek.d.ts" />
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
 
 import Hoek = require('hoek');
+import Url = require('url');
+import QueryString = require('querystring');
 
 /**
  * Utility functions
@@ -119,7 +122,7 @@ export function getCachedWikiDomainName (localSettings: LocalSettings, host: str
  */
 export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 	var regex: RegExp,
-		match: string[],
+		match: RegExpMatchArray,
 		environment = localSettings.environment,
 		// For these environments the host name can be passed through
 		passThroughEnv: any = {};
@@ -233,3 +236,25 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	};
 }
 
+export function redirectToCanonicalHostIfNeeded(
+	localSettings: LocalSettings, request: Hapi.Request, reply: Hapi.Response, wikiVariables: any
+): void {
+	var requestedHost = getCachedWikiDomainName(localSettings, request.headers.host),
+		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
+		isDev = localSettings.environment !== Environment.Dev,
+		redirectLocation: string;
+
+	if (/*isDev && */requestedHost !== canonicalHost) {
+		redirectLocation = wikiVariables.basePath + request.path;
+
+		if (Object.keys(request.query).length > 0) {
+			redirectLocation += '?' + QueryString.stringify(request.query);
+		}
+
+		reply.redirect(redirectLocation).permanent(true);
+		throw new RedirectedToCanonicalHost();
+	}
+}
+
+export function RedirectedToCanonicalHost() { }
+RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);

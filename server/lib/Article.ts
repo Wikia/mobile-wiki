@@ -98,20 +98,13 @@ export class ArticleRequestHelper {
 
 	/**
 	 * Get WikiVariables
-	 * @param {Function} next
 	 */
-	getWikiVariables(next: Function): void {
+	getWikiVariables(): any {
 		var wikiRequest = new MediaWiki.WikiRequest(this.params);
 
 		logger.debug(this.params, 'Fetching wiki variables');
 
-		wikiRequest
-			.getWikiVariables()
-			.then((wikiVariables: any) => {
-				next(null, wikiVariables.data);
-			}, (error: any) => {
-				next(error, null);
-			});
+		return wikiRequest.getWikiVariables();
 	}
 
 	/**

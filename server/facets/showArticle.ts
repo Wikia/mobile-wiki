@@ -1,10 +1,12 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 /// <reference path="../lib/Article.ts" />
 
+import Promise = require('bluebird');
 import Article = require('../lib/Article');
-import Utils = require('../lib/Utils');
-import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
+import Logger = require('../lib/Logger');
+import Tracking = require('../lib/Tracking');
+import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
 import prepareArticleData = require('./operations/prepareArticleData');
 import prepareMainPageData = require('./operations/prepareMainPageData');
@@ -42,24 +44,41 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 
 	article = new Article.ArticleRequestHelper(params);
 
-	// TODO (CONCF-761): /main/edit is here temporary
-	if (path === '/' || path === '/wiki/' || path.indexOf('/main/edit') === 0) {
-		article.getWikiVariables((error: any, wikiVariables: any) => {
-			if (error) {
-				// TODO check error.statusCode and react accordingly
-				reply.redirect(localSettings.redirectUrlOnNoData);
-			} else {
+	if (path === '/' || path === '/wiki/') {
+		article
+			.getWikiVariables()
+			.then((data: any): void => {
+				var wikiVariables = data.data;
+
+				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
+
 				article.setTitle(wikiVariables.mainPageTitle);
 				article.getArticle(wikiVariables, (error: any, result: any = {}) => {
 					onArticleResponse(request, reply, error, result, allowCache);
 				});
-			}
-		});
+			})
+			.catch(Utils.RedirectedToCanonicalHost, (): void => {
+				Logger.info('Redirected to canonical host');
+			})
+			.catch((): void => {
+				reply.redirect(localSettings.redirectUrlOnNoData);
+			});
 	} else  {
 		article.setTitle(request.params.title);
-		article.getFull((error: any, result: any = {}) => {
-			onArticleResponse(request, reply, error, result, allowCache);
-		});
+
+
+		// FIXME FIXME FIXME
+		// Unhandled rejection Error
+		Promise.resolve()
+			.then(() => {
+				article.getFull((error: any, result: any = {}) => {
+					Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, result.wiki);
+					onArticleResponse(request, reply, error, result, allowCache);
+				});
+			})
+			.catch(Utils.RedirectedToCanonicalHost, (): void => {
+				Logger.info('Redirected to canonical host');
+			});
 	}
 }
 

@@ -1,5 +1,6 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
+import Logger = require('../lib/Logger');
 import MainPage = require('../lib/MainPage');
 import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
@@ -22,16 +23,24 @@ function showCategory (request: Hapi.Request, reply: Hapi.Response): void {
 	}
 
 	mainPage = new MainPage.MainPageRequestHelper(params);
-	mainPage.getWikiVariables((error: any, wikiVariables: any) => {
-		if (error) {
-			reply.redirect(localSettings.redirectUrlOnNoData);
-		} else {
+	mainPage
+		.getWikiVariables()
+		.then((data: any) => {
+			var wikiVariables = data.data;
+
+			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
+
 			mainPage.setTitle(wikiVariables.mainPageTitle);
 			mainPage.getCategory(wikiVariables, (error: any, result: any = {}) => {
 				processCuratedContentData(request, reply, error, result, allowCache);
 			});
-		}
-	});
+		})
+		.catch(Utils.RedirectedToCanonicalHost, (): void => {
+			Logger.info('Redirected to canonical host');
+		})
+		.catch((): void => {
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		});
 }
 
 export = showCategory;
