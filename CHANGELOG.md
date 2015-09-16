@@ -1,3 +1,10 @@
+## release-158 (2015-09-15 09:59 UTC)
+* [XW-203](https://wikia-inc.atlassian.net/browse/XW-203) XW-203 VK tag support
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Use mercury signin/signup pages for Japan homepage login
+* maintenance: Maintenance | using dot operator for fallback date config
+* [XW-217](https://wikia-inc.atlassian.net/browse/XW-217) XW-217 Twitter tag support
+* date-settings-cleanup: Date settings cleanup
+
 ## release-157 (2015-09-14 09:59 UTC)
 * [SOC-1279](https://wikia-inc.atlassian.net/browse/SOC-1279) SOC-1279 Expose servicesDomain to ember and use for discussion api url
 * [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) HG-848 Discussion header

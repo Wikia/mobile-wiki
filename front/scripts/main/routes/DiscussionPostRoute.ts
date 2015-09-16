@@ -1,6 +1,8 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/UseNewNavMixin.ts" />
 
-App.DiscussionPostRoute = Em.Route.extend({
+'use strict';
+App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
@@ -19,6 +21,7 @@ App.DiscussionPostRoute = Em.Route.extend({
 			themeBar: true,
 			enableSharingHeader: true
 		});
+		this._super();
 	},
 
 	deactivate (): void {
@@ -27,22 +30,10 @@ App.DiscussionPostRoute = Em.Route.extend({
 			themeBar: false,
 			enableSharingHeader: false
 		});
+		this._super();
 	},
 
-	showMore: Em.computed('model', function (): boolean {
-			var model = this.modelFor('discussion.post'),
-				loadedRepliesLength = Em.get(model, 'replies.length');
-
-			return loadedRepliesLength < model.postCount;
-	}),
-
 	actions: {
-		expand: function () {
-			var model = this.modelFor('discussion.post');
-
-			model.loadNextPage();
-		},
-
 		didTransition(): boolean {
 			window.scrollTo(0, 0);
 			return true;

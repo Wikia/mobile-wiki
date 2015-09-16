@@ -13,5 +13,5 @@ App.DiscussionIndexModel.reopenClass({
 				error: (err) => reject(err)
 			});
 		});
-	},
+	}
 });

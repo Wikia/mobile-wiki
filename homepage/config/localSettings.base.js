@@ -13,12 +13,13 @@ var deepExtend = require('deep-extend'),
 			host: process.env.HELIOS_HOST,
 		},
 		host: process.env.HOST,
+		logger: 'syslog',
+		loginUrl: 'https://www.wikia.com/signin?uselang=ja&redirect=http://ja.wikia.com',
 		mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
 		//devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 		port: process.env.PORT || 8111,
-		loginUrl: 'https://www.wikia.com/signin?uselang=ja&redirect=http://ja.wikia.com',
+		servicesUrl: 'https://services.wikia.com/',
 		signupUrl: 'https://www.wikia.com/register?uselang=ja&redirect=http://ja.wikia.com',
-		servicesUrl: 'https://services.wikia.com/'
 	};
 
 function extendSettings(customLocalSet) {
