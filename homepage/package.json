@@ -20,6 +20,7 @@
     "good-console": "^5.0.2",
     "handlebars": "^3.0.3",
     "hapi": "^8.8.0",
+    "hapi-bunyan": "^0.6.0",
     "i18next": "^1.10.4",
     "request": "^2.60.0"
   },
