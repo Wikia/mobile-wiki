@@ -1,3 +1,6 @@
+## release-160 (2015-09-17 09:59 UTC)
+* [HG-846](https://wikia-inc.atlassian.net/browse/HG-846) HG-846 More work on top-bar component in mercury
+
 ## release-159 (2015-09-16 09:59 UTC)
 * [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Login state support for Japan homepage
 * Japan-HP-logging: Add bunyan logger for Japan homepage (console and syslog)
