@@ -96,7 +96,7 @@ class Login {
 
 	public onLoginSuccess(loginResponse: LoginResponse): void {
 		this.tracker.track('login-success', M.trackActions.submit);
-		Utils.loadUrl(this.redirect);
+		AuthUtils.authSuccessCallback(this.redirect);
 	}
 
 	public watch(): void {
@@ -105,7 +105,7 @@ class Login {
 		// TODO remove when SOC-719 is ready
 		if (pageParams.isModal) {
 			this.form.querySelector('.forgotten-password').addEventListener('click', function(event) {
-				Utils.loadUrl((<HTMLLinkElement> event.target).href);
+				AuthUtils.loadUrl((<HTMLLinkElement> event.target).href);
 				event.preventDefault();
 			});
 		}

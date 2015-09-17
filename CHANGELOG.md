@@ -1,3 +1,27 @@
+## release-160 (2015-09-17 09:59 UTC)
+* [HG-846](https://wikia-inc.atlassian.net/browse/HG-846) HG-846 More work on top-bar component in mercury
+
+## release-159 (2015-09-16 09:59 UTC)
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Login state support for Japan homepage
+* Japan-HP-logging: Add bunyan logger for Japan homepage (console and syslog)
+* [INT-187](https://wikia-inc.atlassian.net/browse/INT-187) Japan Homepage content update. Highlighted communities.
+* [HG-839](https://wikia-inc.atlassian.net/browse/HG-839) HG-839 - make sure image width is defined
+* [SOC-1119](https://wikia-inc.atlassian.net/browse/SOC-1119) SOC-1119 Styles for post list on desktop
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) Hg 848 Incorporating Top Bar component into mercury discussion pages
+* [SOC-951](https://wikia-inc.atlassian.net/browse/SOC-951) SOC-951 Add back controller so we can trigger the "show more" button
+
+## release-158 (2015-09-15 09:59 UTC)
+* [XW-203](https://wikia-inc.atlassian.net/browse/XW-203) XW-203 VK tag support
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Use mercury signin/signup pages for Japan homepage login
+* maintenance: Maintenance | using dot operator for fallback date config
+* [XW-217](https://wikia-inc.atlassian.net/browse/XW-217) XW-217 Twitter tag support
+* date-settings-cleanup: Date settings cleanup
+
+## release-157 (2015-09-14 09:59 UTC)
+* [SOC-1279](https://wikia-inc.atlassian.net/browse/SOC-1279) SOC-1279 Expose servicesDomain to ember and use for discussion api url
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) HG-848 Discussion header
+* [XW-204](https://wikia-inc.atlassian.net/browse/XW-204) XW-204 Unwrap Wikia widgets
+
 ## release-156 (2015-09-11 09:59 UTC)
 * [XW-275](https://wikia-inc.atlassian.net/browse/XW-275) XW-275 update translations for CuratedContent
 * enable-disc-on-dev: Discussions | Enable discussions by default on dev env
