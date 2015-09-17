@@ -1,6 +1,7 @@
 /// <reference path="../../config/localSettings.d.ts" />
 /// <reference path="../../typings/hoek/hoek.d.ts" />
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
+/// <reference path="../../typings/hapi/hapi.d.ts" />
 
 import Hoek = require('hoek');
 
@@ -235,7 +236,7 @@ export function getCDNBaseUrl(localSettings: LocalSettings): String {
 	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
 }
 
-export function getHostFromRequest(request: Hapi.Request): String {
+export function getHostFromRequest(request: Hapi.Request): string {
 	return request.headers['x-original-host'] || request.headers['host'];
 }
 
