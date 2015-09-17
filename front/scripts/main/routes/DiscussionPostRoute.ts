@@ -46,6 +46,28 @@ App.DiscussionPostRoute = Em.Route.extend({
 		didTransition(): boolean {
 			window.scrollTo(0, 0);
 			return true;
+		},
+
+		upvote(post: typeof App.DiscussionPostModel): void {
+			var hasUpvoted: boolean = post._embedded.userData[0].hasUpvoted;
+			var method: string = (hasUpvoted ? 'delete' : 'post');
+
+			Em.$.ajax({
+				method: method,
+				url: 'https://' + M.prop('servicesDomain') +
+				'/discussion/' + post.siteId + '/votes/post/' + post.id,
+				dataType: 'json',
+				xhrFields: {
+					withCredentials: true,
+				},
+				success: (data: any) => {
+					Em.set(post, 'upvoteCount', data.upvoteCount);
+					Em.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
+				},
+				error: (err: any) => {
+					// @TODO: handle errors
+				}
+			});
 		}
 	}
 });
