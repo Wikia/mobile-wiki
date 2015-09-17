@@ -1,4 +1,4 @@
-<a {{action 'upvote' post}}>
+<a {{action 'upvote' post firstPost}}>
 	{{#if firstPost}}
 		{{svg 'upvote' viewBox='0 0 30 30' class='icon upvote'}}
 	{{else}}
@@ -6,7 +6,7 @@
 	{{/if}}
 </a>
 {{#if firstPost}}
-	{{upvoteCount}}
+	{{post.upvoteCount}}
 {{else}}
-	<small>{{upvoteCount}}</small>
+	<small>{{post.upvoteCount}}</small>
 {{/if}}

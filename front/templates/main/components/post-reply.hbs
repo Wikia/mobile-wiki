@@ -2,7 +2,6 @@
 	<div>
 		<div class="upvotes">
 			{{discussion-upvote
-				upvoteCount=upvoteCount
 				post=post
 				firstPost=false
 				upvote='upvote'
@@ -10,17 +9,17 @@
 		</div>
 		<figure class="avatar">
 			<a href="{{authorUrl}}">
-				<img src="{{author.avatarUrl}}">
+				<img src="{{post.createdBy.avatarUrl}}">
 			</a>
 		</figure>
 		<a href="{{authorUrl}}" class="author">
-			{{author.name}}
+			{{post.createdBy.name}}
 		</a>
 		<span class="timestamp">
-			&bull; {{timeAgo timestamp}}
+			&bull; {{timeAgo post.creationDate.epochSecond}}
 		</span>
 	</div>
 	<div class="discussion-content">
-		{{{content}}}
+		{{{post.rawContent}}}
 	</div>
 </div>
