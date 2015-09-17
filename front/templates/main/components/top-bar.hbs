@@ -8,13 +8,16 @@
 	user-logged-in={{isUserLoggedIn}}
 	user-avatar-src="{{currentUser.avatarPath}}"
 	user-name="{{currentUser.name}}">
+
 	{{#unless isUserLoggedIn}}
 		<span class="register-cta-text">
-			<a href="/register">{{i18n 'topBar.register'}}</a>
-			{{i18n 'topBar.cta-separator'}}
-			<a href="/signin">{{i18n 'topBar.login' }}</a>
+			{{{i18n 'userStatus.anon-cta'
+				loginLink=loginLink
+				registerLink=registerLink
+			}}}
 		</span>
 	{{/unless}}
+
 	{{#each links as |link|}}
 		<li>
 			<a href="{{unbound link.href}}" class="external">{{i18n 'app' link.textKey}}</a>

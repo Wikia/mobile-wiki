@@ -144,9 +144,9 @@
 		"sort-by-latest": "Latest",
 		"sort-by-trending": "Trending"
 	},
-	"topBar": {
-		"register": "Register",
-		"login": "Login",
-		"cta-separator": "or"
+	"userStatus": {
+		"anon-cta": "__registerLink__ or __loginLink__",
+		"register-text": "Register",
+		"login-text": "Login"
 	}
 }
