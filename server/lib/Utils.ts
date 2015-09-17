@@ -269,5 +269,10 @@ export function redirectToCanonicalHostIfNeeded(
 	}
 }
 
-export function RedirectedToCanonicalHost() { }
+export class RedirectedToCanonicalHost {
+	constructor () {
+		Error.apply(this, arguments);
+	}
+}
+
 RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
