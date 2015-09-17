@@ -236,15 +236,28 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	};
 }
 
+/**
+ * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
+ * If it's a local machine then ignore, no point in redirecting to devbox
+ * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
+ *
+ * @param localSettings
+ * @param request
+ * @param reply
+ * @param wikiVariables
+ * @throws RedirectedToCanonicalHost
+ */
 export function redirectToCanonicalHostIfNeeded(
 	localSettings: LocalSettings, request: Hapi.Request, reply: Hapi.Response, wikiVariables: any
 ): void {
 	var requestedHost = getCachedWikiDomainName(localSettings, request.headers.host),
 		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
-		isDev = localSettings.environment !== Environment.Dev,
+		isDev = localSettings.environment === Environment.Dev,
+		localPattern = /(?:[\d]{1,3}\.){4}xip\.io$/,
+		isLocal = isDev && clearHost(request.headers.host).search(localPattern) !== -1,
 		redirectLocation: string;
 
-	if (/*isDev && */requestedHost !== canonicalHost) {
+	if (!isLocal && requestedHost !== canonicalHost) {
 		redirectLocation = wikiVariables.basePath + request.path;
 
 		if (Object.keys(request.query).length > 0) {
