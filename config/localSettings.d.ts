@@ -81,4 +81,5 @@ interface LocalSettings {
 		iPad: RegExp;
 	};
 	enableDiscussions: boolean;
+	enableAuthLogger: boolean;
 }

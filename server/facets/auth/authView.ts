@@ -121,7 +121,8 @@ module authView {
 				cookieDomain: localSettings.authCookieDomain,
 				isModal: isModal,
 				viewType: viewType,
-				parentOrigin: (isModal ? authView.getOrigin(request) : undefined)
+				parentOrigin: (isModal ? authView.getOrigin(request) : undefined),
+				enableAuthLogger: localSettings.enableAuthLogger
 			}
 		};
 	}

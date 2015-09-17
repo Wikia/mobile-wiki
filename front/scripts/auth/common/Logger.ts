@@ -4,16 +4,23 @@ interface LoggerData {
 	data: any;
 }
 
+interface PageParams {
+	enableAuthLogger: boolean;
+}
+
 class AuthLogger {
 	static baseUrl: string = 'https://services.wikia.com/clickstream/events/social';
+	static isEnabled = window.pageParams.enableAuthLogger;
 
 	static log(data: any, severity: string): void {
-		var loggerXhr = new XMLHttpRequest(),
-			loggerData = AuthLogger.getLoggerData(data, severity);
-		loggerXhr.open('POST', AuthLogger.baseUrl, true);
-		loggerXhr.withCredentials = true;
-		loggerXhr.setRequestHeader('Content-type', 'application/json');
-		loggerXhr.send(loggerData);
+		if (AuthLogger.isEnabled) {
+			var loggerXhr = new XMLHttpRequest(),
+				loggerData = AuthLogger.getLoggerData(data, severity);
+			loggerXhr.open('POST', AuthLogger.baseUrl, true);
+			loggerXhr.withCredentials = true;
+			loggerXhr.setRequestHeader('Content-type', 'application/json');
+			loggerXhr.send(loggerData);
+		}
 	}
 
 	static getLoggerData(data: any, severity: string): LoggerData {
