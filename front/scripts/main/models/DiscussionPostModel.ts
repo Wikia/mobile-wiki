@@ -57,17 +57,18 @@ App.DiscussionPostModel.reopenClass({
 					 `/discussion/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
 				dataType: 'json',
+				xhrFields: {
+					withCredentials: true,
+				},
 				success: (data: any) => {
 					var replies = data._embedded['doc:posts'],
 						pivotId: number;
-
 					// If there are no replies to the first post, 'doc:posts' will not be returned
 					if (replies) {
 						pivotId = replies[0].id;
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
 					}
-
 					postInstance.setProperties({
 						replies: replies,
 						firstPost: data._embedded.firstPost[0],
