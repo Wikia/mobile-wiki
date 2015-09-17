@@ -5,6 +5,8 @@
 		timestamp=model.firstPost.creationDate.epochSecond
 		upvoteCount=model.upvoteCount
 		replyCount=model.postCount
+		post=model.firstPost
+		upvote='upvote'
 	}}
 	{{#if showMore}}
         <button {{action 'expand'}} class="see-more">
@@ -18,6 +20,8 @@
 			content=item.rawContent
 			timestamp=item.creationDate.epochSecond
 			upvoteCount=item.upvoteCount
+			post=item
+			upvote='upvote'
 		}}
 	{{/each}}
 </div>
