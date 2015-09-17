@@ -1,11 +1,10 @@
-interface LoggerData {
-	severity: string;
-	url: string;
-	data: any;
+interface XhrLoggerData {
+	status: number;
+	response: any;
 }
 
 interface ClickStreamPayload {
-	events: LoggerData[];
+	events: any[];
 }
 
 interface PageParams {
@@ -32,10 +31,10 @@ class AuthLogger {
 		return AuthLogger.instance;
 	}
 
-	private log(data: any, severity: string): void {
+	public log(data: any): void {
 		if (this.isEnabled) {
 			var loggerXhr = new XMLHttpRequest(),
-				clickStreamPayload = this.getClickStreamPayload(data, severity);
+				clickStreamPayload = this.getClickStreamPayload(data);
 			loggerXhr.open('POST', this.url, true);
 			loggerXhr.withCredentials = true;
 			loggerXhr.setRequestHeader('Content-Type', 'application/json');
@@ -45,8 +44,8 @@ class AuthLogger {
 		}
 	}
 
-	private getClickStreamPayload(data: any, severity: string): ClickStreamPayload {
-		var events: LoggerData[];
+	private getClickStreamPayload(data: any): ClickStreamPayload {
+		var events: any[];
 
 		if (typeof data === 'array') {
 			events = data;
@@ -59,7 +58,10 @@ class AuthLogger {
 		};
 	}
 
-	public error(data: any): void {
-		this.log(data, 'error');
+	public xhrError(xhr: XMLHttpRequest): void {
+		this.log({
+			status: xhr.status,
+			response: xhr.responseText
+		});
 	}
 }
