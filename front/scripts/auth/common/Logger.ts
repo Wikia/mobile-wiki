@@ -4,19 +4,19 @@ interface LoggerData {
 	data: any;
 }
 
-class Logger {
-	baseUrl: 'https://services.wikia.com/clickstream/events/social';
+class AuthLogger {
+	static baseUrl: string = 'https://services.wikia.com/clickstream/events/social';
 
-	private log(data: any, severity: string): void {
+	static log(data: any, severity: string): void {
 		var loggerXhr = new XMLHttpRequest(),
-			loggerData = this.getLoggerData(data, severity);
-		loggerXhr.open('POST', this.baseUrl, true);
+			loggerData = AuthLogger.getLoggerData(data, severity);
+		loggerXhr.open('POST', AuthLogger.baseUrl, true);
 		loggerXhr.withCredentials = true;
 		loggerXhr.setRequestHeader('Content-type', 'application/json');
 		loggerXhr.send(loggerData);
 	}
 
-	private getLoggerData(data: any, severity: string): LoggerData {
+	static getLoggerData(data: any, severity: string): LoggerData {
 		return {
 			severity: severity,
 			url: window.location.href,
@@ -24,7 +24,7 @@ class Logger {
 		}
 	}
 
-	public error(data: any): void {
-		this.log(data, 'error');
+	static error(data: any): void {
+		AuthLogger.log(data, 'error');
 	}
 }
