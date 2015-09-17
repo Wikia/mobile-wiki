@@ -66,10 +66,19 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	}
 
 	this.getLoginState(request).then(function (data) {
+		request.log('info', 'Got valid access token');
+		request.log(data);
+
 		return auth.getUserName(data);
 	}).then(function (data) {
+		request.log('info', 'Retrieved user name for logged in user)');
+		request.log('info', data);
+
 		renderView(true, data.value);
 	}).catch(function () {
+		request.log('info', 'Access token for user is invalid');
+
+		reply.unstate('access_token');
 		renderView(false, null);
 	});
 };
