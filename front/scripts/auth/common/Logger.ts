@@ -1,13 +1,9 @@
-class ErrorLogger {
+class Logger {
 	baseUrl: 'https://services.wikia.com/clickstream/events/social';
 
 	public log(event: Event): void {
 		var loggerXhr = new XMLHttpRequest(),
-			data: {},
-			enableSubmitButton = () => {
-				submitButton.disabled = false;
-				submitButton.classList.remove('on');
-			};
+			data: {};
 
 		loggerXhr.open('POST', this.baseUrl, true);
 		loggerXhr.withCredentials = true;
