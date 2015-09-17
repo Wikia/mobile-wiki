@@ -6,7 +6,7 @@ import localSettings = require('../../config/localSettings');
 import processCuratedContentData = require('./operations/processCuratedContentData');
 
 function showSection (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers['x-original-host']),
 		params: MainPageRequestParams = {
 			sectionName: decodeURIComponent(request.params.sectionName) || null,
 			wikiDomain: wikiDomain

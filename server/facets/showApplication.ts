@@ -11,7 +11,7 @@ import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers['x-original-host']),
 		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).getWikiVariables(),
 		context: any = {};
 
