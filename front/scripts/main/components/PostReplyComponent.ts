@@ -13,5 +13,10 @@ App.PostReplyComponent = Em.Component.extend({
 			namespace: 'User',
 			title: this.get('author.name')
 		});
-	})
+	}),
+	actions: {
+		upvote(post: typeof App.DiscussionPostModel) {
+			this.sendAction('upvote', post);
+		}
+	}
 });
