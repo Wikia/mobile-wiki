@@ -22,7 +22,8 @@ var localSettings = baseLocalSettings.extendSettings({
 	},
 	port: 7000,
 	enableDiscussions: true,
-	enableAuthLogger: false
+	enableAuthLogger: true,
+	authLoggerUrl: 'https://services.wikia-dev.com/clickstream/events/social'
 });
 
 export function extendSettings(customLocalSet: any): LocalSettings {

@@ -82,4 +82,5 @@ interface LocalSettings {
 	};
 	enableDiscussions: boolean;
 	enableAuthLogger: boolean;
+	authLoggerUrl: string;
 }
