@@ -235,3 +235,7 @@ export function getCDNBaseUrl(localSettings: LocalSettings): String {
 	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
 }
 
+export function getHostFromRequest(request: Hapi.Request): String {
+	return request.headers['x-original-host'] || request.headers['host'];
+}
+

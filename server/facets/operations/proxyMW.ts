@@ -6,7 +6,7 @@ import Utils = require('../../lib/Utils');
 
 function proxyMW (request: Hapi.Request, reply: any): void {
 	var path = request.path.substr(1),
-		url = MW.createUrl(Utils.getCachedWikiDomainName(localSettings, request.headers['x-original-host']), path);
+		url = MW.createUrl(Utils.getCachedWikiDomainName(localSettings, Utils.getHostFromRequest(request)), path);
 
 	reply.proxy({
 		uri: url,
