@@ -3,11 +3,11 @@
 
 App.DiscussionSortComponent = Em.Component.extend({
 	classNames: ['discussion-sort', 'clearfix'],
-	classNameBindings: ['isVisible::hide'],
+	classNameBindings: ['sortVisible::mobile-hidden'],
 	tagName: 'ul',
 
 	// Whether the component is currently visible
-	isVisible: false,
+	sortVisible: false,
 	// jQuery object for this component
 	$discussionSort: null,
 

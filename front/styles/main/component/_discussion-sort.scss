@@ -25,6 +25,12 @@
 	}
 }
 
+@media #{$mobile-range} {
+	.discussion-sort.mobile-hidden {
+		display: none;
+	}
+}
+
 @media #{$desktop-range} {
 	.discussion-sort {
 		background-color: transparent;
@@ -35,12 +41,6 @@
 		text-align: center;
 		width: 507px;
 		z-index: auto;
-
-		&.hide {
-			// These are needed to override the hide class
-			display: block !important;
-			visibility: visible;
-		}
 
 		li {
 			border-bottom: 4px solid $border-color;
