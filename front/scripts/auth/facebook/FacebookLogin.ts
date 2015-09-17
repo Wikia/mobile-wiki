@@ -17,6 +17,7 @@ class FacebookLogin {
 	loginButton: HTMLAnchorElement;
 	urlHelper: UrlHelper;
 	tracker: AuthTracker;
+	authLogger: AuthLogger = AuthLogger.getInstance();
 
 	constructor (loginButton: HTMLAnchorElement) {
 		this.loginButton = loginButton;
@@ -91,13 +92,14 @@ class FacebookLogin {
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				window.location.href = this.getFacebookRegistrationUrl();
 			} else {
-				//ToDo: something wrong with Helios backend
+				this.authLogger.xhrError(facebookTokenXhr);
 				this.activateButton();
 			}
 		};
 
 		facebookTokenXhr.onerror = (e: Event): void => {
 			this.tracker.track('facebook-login-helios-error', M.trackActions.error);
+			this.authLogger.xhrError(facebookTokenXhr);
 			this.activateButton();
 		};
 
