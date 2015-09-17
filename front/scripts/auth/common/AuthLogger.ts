@@ -10,17 +10,33 @@ interface ClickStreamPayload {
 
 interface PageParams {
 	enableAuthLogger: boolean;
+	authLoggerUrl: string;
 }
 
 class AuthLogger {
-	static baseUrl: string = 'https://services.wikia.com/clickstream/events/social';
-	static isEnabled = window.pageParams ? window.pageParams.enableAuthLogger : false;
+	static instance: AuthLogger;
+	isEnabled: boolean = false;
+	url: string;
 
-	static log(data: any, severity: string): void {
-		if (AuthLogger.isEnabled) {
+	constructor () {
+		if (window.pageParams) {
+			this.isEnabled = window.pageParams.enableAuthLogger;
+			this.url = window.pageParams.authLoggerUrl;
+		}
+	}
+
+	static getInstance(): AuthLogger {
+		if (!AuthLogger.instance) {
+			AuthLogger.instance = new AuthLogger();
+		}
+		return AuthLogger.instance;
+	}
+
+	private log(data: any, severity: string): void {
+		if (this.isEnabled) {
 			var loggerXhr = new XMLHttpRequest(),
-				clickStreamPayload = AuthLogger.getClickstreamPayload(data, severity);
-			loggerXhr.open('POST', AuthLogger.baseUrl, true);
+				clickStreamPayload = this.getClickStreamPayload(data, severity);
+			loggerXhr.open('POST', this.url, true);
 			loggerXhr.withCredentials = true;
 			loggerXhr.setRequestHeader('Content-Type', 'application/json');
 			loggerXhr.send(
@@ -29,7 +45,7 @@ class AuthLogger {
 		}
 	}
 
-	static getClickStreamPayload(data: any, severity: string): ClickStreamPayload {
+	private getClickStreamPayload(data: any, severity: string): ClickStreamPayload {
 		var events: LoggerData[];
 
 		if (typeof data === 'array') {
@@ -43,7 +59,7 @@ class AuthLogger {
 		};
 	}
 
-	static error(data: any): void {
-		AuthLogger.log(data, 'error');
+	public error(data: any): void {
+		this.log(data, 'error');
 	}
 }
