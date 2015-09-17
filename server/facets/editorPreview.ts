@@ -15,45 +15,53 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 		mwHash: string = request.payload.mwHash,
 		article = new Article.ArticleRequestHelper({wikiDomain: wikiDomain});
 
-	article.getWikiVariables((error: any, wikiVariables: any) => {
-		var article: any = {},
-			result: any = {};
+	article
+		.getWikiVariables()
+		.then((wikiVariables: any): void => {
+			var article: any = {},
+				result: any;
 
-		if (!error) {
+			wikiVariables = wikiVariables.data;
+
 			if (verifyMWHash(parserOutput, mwHash)) {
 				article = JSON.parse(parserOutput);
 			} else {
-				error = Boom.forbidden('Failed to verify source');
+				throw Boom.forbidden('Failed to verify source');
 			}
-		}
 
-		result = {
-			article: {
-				article: article,
-				adsContext: {},
-				details: {
-					id: 0,
-					title: '',
-					revision: {},
-					type: 'article'
+			result = {
+				article: {
+					article: article,
+					adsContext: {},
+					details: {
+						id: 0,
+						title: '',
+						revision: {},
+						type: 'article'
+					},
+					preview: true
 				},
-				preview: true
-			},
-			wiki: wikiVariables || {},
-			// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
-			server: {
-				cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
-			},
-			error: error
-		};
+				wiki: wikiVariables || {},
+				// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
+				server: {
+					cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
+				}
+			};
 
-		prepareArticleData(request, result);
+			prepareArticleData(request, result);
 
-		// TODO: why is this needed for the images to load?
-		result.tracking = localSettings.tracking;
+			// TODO: why is this needed for the images to load?
+			result.tracking = localSettings.tracking;
 
-		reply.view('application', result);
-	});
+			reply.view('application', result);
+		})
+		.catch((error: any) => {
+			reply.view('application', {
+				error
+			}, {
+				layout: 'empty'
+			});
+		});
 }
 
 export = editorPreview;

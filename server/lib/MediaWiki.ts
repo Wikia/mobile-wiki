@@ -69,7 +69,7 @@ export class WikiRequest extends BaseRequest {
 	 *
 	 * @return {Promise<any>}
 	 */
-	getWikiVariables (): Promise<any> {
+	wikiVariables (): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getWikiVariables'
@@ -88,6 +88,7 @@ export class ArticleRequest extends BaseRequest {
 	 *
 	 * @param title
 	 * @param redirect
+	 * @param sections
 	 * @return {Promise<any>}
 	 */
 	article (title: string, redirect: string, sections?: string): Promise<any> {

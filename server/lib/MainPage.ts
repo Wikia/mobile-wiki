@@ -157,7 +157,7 @@ export class MainPageRequestHelper {
 		logger.debug({wiki: this.params.wikiDomain}, 'Fetching wiki variables');
 		requests.push(new MediaWiki.WikiRequest({
 			wikiDomain: this.params.wikiDomain
-		}).getWikiVariables());
+		}).wikiVariables());
 
 		return requests;
 	}
@@ -189,7 +189,7 @@ export class MainPageRequestHelper {
 
 		logger.debug(this.params, 'Fetching wiki variables');
 
-		return wikiRequest.getWikiVariables();
+		return wikiRequest.wikiVariables();
 	}
 
 	/**

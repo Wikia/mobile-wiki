@@ -9,27 +9,30 @@ var cachingTimes = {
 		cachingPolicy: Caching.Policy.Public,
 		varnishTTL: Caching.Interval.standard,
 		browserTTL: Caching.Interval.disabled
-	},
-	randomTitleCachingTimes = {
-		enabled: false,
-		cachingPolicy: Caching.Policy.Private,
-		varnishTTL: Caching.Interval.disabled,
-		browserTTL: Caching.Interval.disabled
 	};
 
-function isRequestForRandomTitle (query: any): boolean {
+function isRequestForRandomTitle(query: any): boolean {
 	return (typeof query.random !== 'undefined' && typeof query.titleOnly !== 'undefined');
 }
 
+function handleArticleResponse(reply: any, result: any, allowCache: boolean): void {
+	var wrappedResult = wrapResult(result.exception, result.data),
+		response = reply(wrappedResult).code(wrappedResult.status);
+
+	if (allowCache) {
+		return Caching.setResponseCaching(response, cachingTimes);
+	}
+
+	Caching.disableCache(response);
+}
+
 /**
- * get
  * @description Entry point method for getting article API data, a HapiRouteHandler
+ *
  * @param {Hapi.Request} request
  * @param reply
- * @param error
- * @param result
  */
-export function get (request: Hapi.Request,  reply: any): void {
+export function get(request: Hapi.Request, reply: any): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
@@ -56,15 +59,12 @@ export function get (request: Hapi.Request,  reply: any): void {
 		return;
 	}
 
-	article.getData((error: any, result: any): void => {
-		// TODO: Consider normalizing all error handling to Boom
-		var wrappedResult = wrapResult(error, result),
-			response = reply(wrappedResult).code(wrappedResult.status);
-
-		if (allowCache) {
-			return Caching.setResponseCaching(response, cachingTimes);
-		}
-
-		Caching.disableCache(response);
-	});
+	article
+		.getArticle()
+		.then((result: any): void => {
+			handleArticleResponse(reply, result, allowCache);
+		})
+		.catch((result: any): void => {
+			handleArticleResponse(reply, result, allowCache);
+		});
 }

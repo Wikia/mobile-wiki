@@ -47,34 +47,36 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	if (path === '/' || path === '/wiki/') {
 		article
 			.getWikiVariables()
-			.then((data: any): void => {
-				var wikiVariables = data.data;
+			.then((wikiVariables: any): Promise<any> => {
+				wikiVariables = wikiVariables.data;
 
 				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
-
 				article.setTitle(wikiVariables.mainPageTitle);
-				article.getArticle(wikiVariables, (error: any, result: any = {}) => {
-					onArticleResponse(request, reply, error, result, allowCache);
-				});
+
+				return Promise.join(wikiVariables, article.getArticle());
+			})
+			.spread((wikiVariables: any, article: any): void => {
+				article = article.data;
+				onArticleResponse(request, reply, article.exception, {
+					article: article,
+					wiki: wikiVariables
+				}, allowCache);
 			})
 			.catch(Utils.RedirectedToCanonicalHost, (): void => {
 				Logger.info('Redirected to canonical host');
 			})
-			.catch((): void => {
+			.catch((error: any): void => {
+				Logger.error('Error when trying to serve an article', error);
 				reply.redirect(localSettings.redirectUrlOnNoData);
 			});
 	} else  {
 		article.setTitle(request.params.title);
 
-
-		// FIXME FIXME FIXME
-		// Unhandled rejection Error
-		Promise.resolve()
-			.then(() => {
-				article.getFull((error: any, result: any = {}) => {
-					Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, result.wiki);
-					onArticleResponse(request, reply, error, result, allowCache);
-				});
+		article
+			.getFull()
+			.then((result: any) => {
+				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, result.wiki);
+				onArticleResponse(request, reply, result.exception, result, allowCache);
 			})
 			.catch(Utils.RedirectedToCanonicalHost, (): void => {
 				Logger.info('Redirected to canonical host');

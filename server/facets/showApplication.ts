@@ -12,7 +12,7 @@ import localSettings = require('../../config/localSettings');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
-		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).getWikiVariables(),
+		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).wikiVariables(),
 		context: any = {};
 
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
