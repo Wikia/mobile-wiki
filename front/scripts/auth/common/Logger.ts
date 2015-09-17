@@ -10,7 +10,7 @@ interface PageParams {
 
 class AuthLogger {
 	static baseUrl: string = 'https://services.wikia.com/clickstream/events/social';
-	static isEnabled = window.pageParams.enableAuthLogger;
+	static isEnabled = window.pageParams ? window.pageParams.enableAuthLogger : false;
 
 	static log(data: any, severity: string): void {
 		if (AuthLogger.isEnabled) {
@@ -18,7 +18,7 @@ class AuthLogger {
 				loggerData = AuthLogger.getLoggerData(data, severity);
 			loggerXhr.open('POST', AuthLogger.baseUrl, true);
 			loggerXhr.withCredentials = true;
-			loggerXhr.setRequestHeader('Content-type', 'application/json');
+			loggerXhr.setRequestHeader('Content-Type', 'application/json');
 			loggerXhr.send(loggerData);
 		}
 	}
