@@ -1,4 +1,3 @@
-/// <reference path="../mixins/WidgetScriptStateMixin.ts" />
 'use strict';
 
 App.WidgetPolldaddyComponent = Em.Component.extend({
