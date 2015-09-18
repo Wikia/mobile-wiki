@@ -69,7 +69,6 @@ interface LocalSettings {
 		}
 	};
 	verticalColors: any;
-	wikiFallback: string;
 	weppy: WeppyConfig;
 	workerCount: number;
 	workerDisconnectTimeout: number;

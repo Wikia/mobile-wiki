@@ -8,7 +8,6 @@
 * `tsd update` will update typings folder with ambient files
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
   * The devboxDomain must have your devbox name (without the dev- prefix) in it.
-  * The `wikiFallback` is useful but is not obligatory.
   * For development use `localSettings.dev` instead `localSettings.base` - see [localSettings](README.md#localsettings)
   * If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
   * If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
@@ -19,7 +18,6 @@
     import Utils = require('../server/lib/Utils');
 
     var localSettings = devLocalSettings.extendSettings({
-        wikiFallback: 'mediawiki119',
         devboxDomain: 'joe',
         loggers: {
             console: 'debug'
@@ -130,7 +128,7 @@ If the translations are downloaded and ready, you can merge in `dev` to the `i18
 
 ## Testing on devices
 ### Using IP over the same network
-To test on your mobile device, connect both your development machine and your device to the same network. You can then visit Mercury on your device by using your machine's IP address (on OS X, you can get that using `ifconfig`). The URL should look something like: `//10.10.10.123:8000/wiki/Foo`. You can't use subdomains with IP addresses, but you can change your test wiki manually by editing your [`wikiFallback`](https://github.com/Wikia/mercury/blob/master/config/localSettings.base.ts#L28).
+To test on your mobile device, connect both your development machine and your device to the same network. You can then visit Mercury on your device by using your machine's IP address (on OS X, you can get that using `ifconfig`). The URL should look something like: `//muppet.10.10.10.123.xip.io:8000/wiki/Foo`.
 
 ## Troubleshooting
 ### Errors while running `npm run dev`

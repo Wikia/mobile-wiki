@@ -97,7 +97,6 @@ var localSettings: LocalSettings = {
 		samplingRate: 0.1,
 		aggregationInterval: 1000
 	},
-	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
 	// CDN prefix with no trailing slash
