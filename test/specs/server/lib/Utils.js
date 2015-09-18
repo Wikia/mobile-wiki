@@ -17,13 +17,6 @@ test('getWikiName', function () {
 			expected: 'example.com',
 			description: 'Custom URLs on production are passed through'
 		}, {
-			host: 'poznan.wikia.com',
-			localSettings: {
-				environment: global.Environment.Prod
-			},
-			expected: 'poznan.wikia.com',
-			description: 'Works for production sub-domains'
-		} , {
 			host: 'bg.poznan.wikia.com',
 			localSettings: {
 				environment: global.Environment.Prod
@@ -69,7 +62,6 @@ test('getWikiName', function () {
 		} , {
 			host: 'sandbox-test.bg.poznan.wikia.com',
 			localSettings: {
-				host: 'sandbox-test',
 				environment: global.Environment.Sandbox
 			},
 			expected: 'sandbox-test.bg.poznan.wikia.com',
@@ -90,7 +82,7 @@ test('getWikiName', function () {
 				devboxDomain: 'evgeniy'
 			},
 			expected: 'de.muppet.evgeniy.wikia-dev.com',
-			description: 'Returns proper devbox url if xip.io sub-domain is used'
+			description: 'Returns proper devbox url if xip.io sub-domain is used with language'
 		}
 	];
 
