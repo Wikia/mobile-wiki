@@ -32,7 +32,7 @@ exports.getUserLocale = function (/*request*/) {
 exports.getLoginState = function (request) {
 	var accessToken = (request.state) ? request.state.access_token : null; // jshint ignore:line
 
-	if (accessToken) {
+	if (accessToken && typeof(accessToken) !== 'undefined') {
 		return auth.info(accessToken);
 	} else {
 		return new Promise.Promise(function (resolve, reject) {
@@ -66,17 +66,17 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	}
 
 	this.getLoginState(request).then(function (data) {
-		request.log('info', 'Got valid access token');
-		request.log(data);
+		request.log('info', 'Got valid access token (user id: ' + data.user_id + ')');  // jshint ignore:line
 
 		return auth.getUserName(data);
 	}).then(function (data) {
-		request.log('info', 'Retrieved user name for logged in user)');
-		request.log('info', data);
+		request.log('info', 'Retrieved user name for logged in user: ' + data.value);
 
 		renderView(true, data.value);
-	}).catch(function () {
-		request.log('info', 'Access token for user is invalid');
+	}).catch(function (error) {
+		if (error.error !== 'not_logged_in') {
+			request.log('info', 'Access token for user is invalid');
+		}
 
 		reply.unstate('access_token');
 		renderView(false, null);
