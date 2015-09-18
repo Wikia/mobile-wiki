@@ -4,8 +4,9 @@
 App.DiscussionUpvoteComponent = Em.Component.extend({
 	classNames: ['small-5', 'columns', 'upvote', 'count'],
 
+	post: null,
 	classNameBindings: ['hasUpvoted'],
-	hasUpvoted: Em.computed('post', function(): boolean {
+	hasUpvoted: Em.computed('discussion.post', function(): boolean {
 		return this.get('post')._embedded.userData[0].hasUpvoted;
 	}),
 

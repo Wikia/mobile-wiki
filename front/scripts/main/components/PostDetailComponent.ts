@@ -4,7 +4,7 @@
 App.PostDetailComponent = Em.Component.extend({
 	classNames: ['post-detail'],
 
-	authorUrl: Em.computed('post', function (): string {
+	authorUrl: Em.computed('discussion.post', function (): string {
 		return M.buildUrl({
 			namespace: 'User',
 			title: this.get('post').createdBy.name
