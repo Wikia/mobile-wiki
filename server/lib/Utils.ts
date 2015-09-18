@@ -236,6 +236,11 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	};
 }
 
+export function isXipHost(localSettings: LocalSettings, hostName: string): boolean {
+	return localSettings.environment === Environment.Dev &&
+		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1
+}
+
 /**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
  * If it's a local machine then ignore, no point in redirecting to devbox
