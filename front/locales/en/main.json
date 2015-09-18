@@ -143,7 +143,7 @@
 		"share-default-title": "Discussion on __siteName__",
 		"sort-by-latest": "Latest",
 		"sort-by-trending": "Trending",
-		"load-more-replies": "Loading more replies"
+		"loading-more-posts": "Loading more posts"
 	},
 	"topBar": {
 		"anon-cta": "Sign In"
