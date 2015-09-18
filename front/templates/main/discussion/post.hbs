@@ -7,10 +7,10 @@
 		replyCount=model.postCount
 	}}
 	{{#if canShowMore}}
-        <button {{action 'expand'}} class="see-more">
+		<button {{action 'expand'}} class="see-more">
 			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-            {{i18n 'discussion.pagination-post-show-more'}}
-        </button>
+			{{i18n 'discussion.pagination-post-show-more'}}
+		</button>
 	{{/if}}
 	{{#each model.replies as |item index|}}
 		{{post-reply
