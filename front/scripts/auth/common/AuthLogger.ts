@@ -1,6 +1,9 @@
 interface XhrLoggerData {
+	level: string;
 	status: number;
 	response: any;
+	heliosUrl: string;
+	clientUrl: string;
 }
 
 interface ClickStreamPayload {
@@ -12,10 +15,24 @@ interface PageParams {
 	authLoggerUrl: string;
 }
 
+interface XMLHttpRequest {
+	responseUrl: string;
+}
+
 class AuthLogger {
 	static instance: AuthLogger;
 	isEnabled: boolean = false;
 	url: string;
+	static levels: any = {
+		emergency: 'emergency',
+		critical: 'critical',
+		alert: 'alert',
+		error: 'error',
+		warning: 'warning',
+		notice: 'notice',
+		info: 'info',
+		debug: 'debug'
+	};
 
 	constructor () {
 		if (window.pageParams) {
@@ -37,6 +54,9 @@ class AuthLogger {
 				clickStreamPayload: ClickStreamPayload = this.getClickStreamPayload(data);
 			loggerXhr.open('POST', this.url, true);
 			loggerXhr.setRequestHeader('Content-Type', 'application/json');
+			loggerXhr.onload = function (): void {
+				debugger;
+			};
 			loggerXhr.send(
 				JSON.stringify(clickStreamPayload)
 			);
@@ -59,8 +79,12 @@ class AuthLogger {
 
 	public xhrError(xhr: XMLHttpRequest): void {
 		this.log({
+			level: AuthLogger.levels.error,
 			status: xhr.status,
-			response: xhr.responseText
+			response: xhr.responseText,
+			//Might give undefined in ie11
+			heliosUrl: xhr.responseUrl,
+			clientUrl: window.location.href
 		});
 	}
 }
