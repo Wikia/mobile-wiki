@@ -14,8 +14,8 @@ App.DiscussionContributorsComponent = Em.Component.extend({
 	}),
 
 	additionalContributorCount: Em.computed('latestContributors',
-											'totalContributorCount',
-											function () {
+	                                        'totalContributorCount',
+	                                        function () {
 		return this.get('totalContributorCount') - this.get('latestContributors').length
 	})
 });
