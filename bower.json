@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "cropper": "~0.11.0",
-    "ember": "1.13.5",
+    "ember": "1.13.10",
     "ember-hammer": "1.0.1",
     "ember-performance-sender": "1.1.1",
     "fastclick": "1.0.6",
