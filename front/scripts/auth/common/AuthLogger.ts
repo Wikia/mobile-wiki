@@ -45,7 +45,7 @@ class AuthLogger {
 	}
 
 	private getClickStreamPayload(data: any): ClickStreamPayload {
-		var events: any[];
+		var events: any[] = [];
 
 		if (typeof data === 'array') {
 			events = data;

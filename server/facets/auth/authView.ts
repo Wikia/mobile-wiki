@@ -122,7 +122,8 @@ module authView {
 				isModal: isModal,
 				viewType: viewType,
 				parentOrigin: (isModal ? authView.getOrigin(request) : undefined),
-				enableAuthLogger: localSettings.enableAuthLogger
+				enableAuthLogger: localSettings.enableAuthLogger,
+				authLoggerUrl: localSettings.authLoggerUrl
 			}
 		};
 	}
