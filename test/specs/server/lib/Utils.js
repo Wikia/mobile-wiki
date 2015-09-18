@@ -74,69 +74,6 @@ test('getWikiName', function () {
 			},
 			expected: 'sandbox-test.bg.poznan.wikia.com',
 			description: 'Works for sandbox sub-domains with language'
-		} , {
-			host: 'bg.poznan.wikia.locals',
-			localSettings: {
-				wikiFallback: null,
-				environment: global.Environment.Dev,
-				devboxDomain: 'bimbo'
-			},
-			expected: 'community.bimbo.wikia-dev.com',
-			description: 'Returns the default sub-domain if the url is wrong'
-		} , {
-			host: 'bg.poznan.wikia.local',
-			localSettings: {
-				wikiFallback: null,
-				environment: global.Environment.Dev,
-				devboxDomain: 'bimbo'
-			},
-			expected: 'bg.poznan.bimbo.wikia-dev.com',
-			description: 'Works on .local domains'
-		} , {
-			host: 'bg.poznan.wikia.locals',
-			localSettings: {
-				wikiFallback: 'glee',
-				environment: global.Environment.Dev,
-				devboxDomain: 'bimbo'
-			},
-			expected: 'glee.bimbo.wikia-dev.com',
-			description: 'Returns the default (from localSettings) sub-domain if the url is wrong'
-		} , {
-			host: '',
-			localSettings: {
-				environment: global.Environment.Prod
-			},
-			expected: 'community.wikia.com',
-			description: 'Returns the default domain when no domain is provided'
-		}, {
-			host: '',
-			localSettings: {
-				environment: global.Environment.Preview
-			},
-			expected: 'preview.community.wikia.com',
-			description: 'Returns the default domain when no domain is provided on preview'
-		}, {
-			host: '',
-			localSettings: {
-				environment: global.Environment.Verify
-			},
-			expected: 'verify.community.wikia.com',
-			description: 'Returns the default domain when no domain is provided on verify'
-		}, {
-			host: 'glee.wikia-local.com',
-			localSettings: {
-				environment: global.Environment.Dev,
-				devboxDomain: 'evgeniy'
-			},
-			expected: 'glee.evgeniy.wikia-dev.com',
-			description: 'Returns the devbox url if local is used'
-		}, {
-			localSettings: {
-				environment: global.Environment.Dev,
-				devboxDomain: 'test'
-			},
-			expected: 'community.test.wikia-dev.com',
-			description: 'Returns the default sub domain if no host is provided'
 		}, {
 			host: 'muppet.10.10.10.145.xip.io',
 			localSettings: {
