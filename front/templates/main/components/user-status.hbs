@@ -1,0 +1,14 @@
+{{#unless userLoggedIn}}
+	<span class="register-cta-text">
+		{{{i18n 'userStatus.anon-cta'
+			loginLink=loginLink
+			registerLink=registerLink
+		}}}
+	</span>
+{{/unless}}
+
+{{#each links as |link|}}
+	<li>
+		<a href="{{unbound link.href}}" class="external">{{i18n 'app' link.textKey}}</a>
+	</li>
+{{/each}}
