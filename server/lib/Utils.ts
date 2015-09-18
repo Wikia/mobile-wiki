@@ -66,19 +66,6 @@ export function stripDevboxDomain (host: string): string {
 	return host;
 }
 
-/**
- * Get domain name for devbox
- *
- * @param localSettings
- * @param wikiName
- * @returns {string}
- */
-function getDevDomainFromWikiName (localSettings: LocalSettings, wikiName: string): string {
-	return localSettings.devboxDomain ?
-		wikiName + '.' + localSettings.devboxDomain + '.wikia-dev.com' :
-		wikiName + '.wikia-dev.com';
-}
-
 var wikiDomainsCache: { [key: string]: string; } = {};
 /**
  * Get cached Media Wiki domain name from the request host
@@ -104,10 +91,9 @@ export function getCachedWikiDomainName (localSettings: LocalSettings, host: str
  */
 export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 	var regex: RegExp,
-		match: RegExpMatchArray,
-		environment = localSettings.environment;
+		match: RegExpMatchArray;
 
-	if (environment === Environment.Dev && hostName.indexOf('xip.io') > -1) {
+	if (isXipHost(localSettings, hostName)) {
 		/**
 		 * Regular expression for extracting wiki name from hostName.
 		 * Wiki name is used for creating an url to devbox
@@ -118,7 +104,7 @@ export function getWikiDomainName (localSettings: LocalSettings, hostName: strin
 		 */
 		regex = /^\.?(.+?)\.((?:[\d]{1,3}\.){3}[\d]{1,3}\.xip.io)$/;
 		match = hostName.match(regex);
-		return getDevDomainFromWikiName(localSettings,  match ? match[1] : hostName);
+		return match ? match[1] + '.' + localSettings.devboxDomain + '.wikia-dev.com'  : hostName;
 	} else {
 		return hostName;
 	}
