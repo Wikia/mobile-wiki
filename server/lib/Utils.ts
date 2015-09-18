@@ -67,21 +67,16 @@ export function stripDevboxDomain (host: string): string {
 }
 
 /**
- * Get domain name for devbox or sandbox
+ * Get domain name for devbox
  *
  * @param localSettings
- * @param wikiSubDomain
+ * @param wikiName
  * @returns {string}
  */
-function getFallbackDomain (localSettings: LocalSettings, wikiSubDomain: string): string {
-	// This is specific to the devbox setup
-	// Curl requests will look like muppet.devname.wikia-dev.com so skip the "devname"
-	// Web requests will look like muppet.123.123.123.123.xip.io so add the "devname"
-	if (localSettings.devboxDomain && wikiSubDomain.indexOf(localSettings.devboxDomain) === -1) {
-		return wikiSubDomain + '.' + localSettings.devboxDomain + '.wikia-dev.com';
-	} else {
-		return wikiSubDomain + '.wikia-dev.com';
-	}
+function getDevDomainFromWikiName (localSettings: LocalSettings, wikiName: string): string {
+	return localSettings.devboxDomain ?
+		wikiName + '.' + localSettings.devboxDomain + '.wikia-dev.com' :
+		wikiName + '.wikia-dev.com';
 }
 
 var wikiDomainsCache: { [key: string]: string; } = {};
@@ -110,18 +105,20 @@ export function getCachedWikiDomainName (localSettings: LocalSettings, host: str
 export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 	var regex: RegExp,
 		match: RegExpMatchArray,
-		environment = localSettings.environment,
-		// For these environments the host name can be passed through
-		passThroughEnv: any = {};
-
-	passThroughEnv[Environment.Prod] = '%s.wikia.com';
-	passThroughEnv[Environment.Verify] = 'verify.%s.wikia.com';
-	passThroughEnv[Environment.Preview] = 'preview.%s.wikia.com';
+		environment = localSettings.environment;
 
 	if (environment === Environment.Dev && hostName.indexOf('xip.io') > -1) {
+		/**
+		 * Regular expression for extracting wiki name from hostName.
+		 * Wiki name is used for creating an url to devbox
+		 * HostName looks like: mlp.127.0.0.1.xip.io.
+		 * First match contains wiki name which is later used.
+		 *
+		 * @type {RegExp}
+		 */
 		regex = /^\.?(.+?)\.((?:[\d]{1,3}\.){3}[\d]{1,3}\.xip.io)$/;
 		match = hostName.match(regex);
-		return getFallbackDomain(localSettings,  match ? match[1] : '');
+		return getDevDomainFromWikiName(localSettings,  match ? match[1] : hostName);
 	} else {
 		return hostName;
 	}
@@ -153,7 +150,6 @@ export function getVerticalColor (localSettings: LocalSettings, vertical: string
 
 export function parseQueryParams (obj: any, allowedKeys: string[]): any {
 	var parsed: any = {},
-		key: string,
 		rawProp: string,
 		prop: any;
 
