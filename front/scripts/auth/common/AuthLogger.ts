@@ -34,9 +34,8 @@ class AuthLogger {
 	public log(data: any): void {
 		if (this.isEnabled) {
 			var loggerXhr = new XMLHttpRequest(),
-				clickStreamPayload = this.getClickStreamPayload(data);
+				clickStreamPayload: ClickStreamPayload = this.getClickStreamPayload(data);
 			loggerXhr.open('POST', this.url, true);
-			loggerXhr.withCredentials = true;
 			loggerXhr.setRequestHeader('Content-Type', 'application/json');
 			loggerXhr.send(
 				JSON.stringify(clickStreamPayload)
