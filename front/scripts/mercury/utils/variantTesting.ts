@@ -43,6 +43,23 @@ module Mercury.Utils.VariantTesting {
 	}
 
 	/**
+	 * Checks if Optimizely object and its crucial data attributes are available
+	 *
+	 * @returns {boolean}
+	 */
+	export function isOptmizelyLoaded() {
+		var optimizely = window.optimizely;
+
+		return optimizely &&
+			optimizely.activeExperiments &&
+			optimizely.activeExperiments.length > 0 &&
+			typeof optimizely.allExperiments === 'object' &&
+			Object.keys(optimizely.allExperiments).length > 0 &&
+			typeof optimizely.variationNamesMap === 'object' &&
+			Object.keys(optimizely.variationNamesMap).length > 0;
+	}
+
+	/**
 	 * Integrates Optimizely with Universal Analytics
 	 *
 	 * @param {[]} dimensions
@@ -79,9 +96,7 @@ module Mercury.Utils.VariantTesting {
 	 * @returns {[]}
 	 */
 	export function getActiveExperimentsList (): string[] {
-		var optimizely = window.optimizely;
-
-		return (optimizely && optimizely.activeExperiments) ? optimizely.activeExperiments : null;
+		return isOptmizelyLoaded() ? window.optimizely.activeExperiments : null;
 	}
 
 	/**
@@ -93,7 +108,7 @@ module Mercury.Utils.VariantTesting {
 	export function getExperimentVariationNumberBySingleId (experimentId: string): number {
 		var optimizely = window.optimizely;
 
-		return (optimizely && optimizely.variationMap && typeof optimizely.variationMap[experimentId] === 'number') ?
+		return (isOptmizelyLoaded() && typeof optimizely.variationMap[experimentId] === 'number') ?
 			optimizely.variationMap[experimentId] : null;
 	}
 
