@@ -50,7 +50,7 @@ class AuthLogger {
 
 	public log(data: any): void {
 		if (this.isEnabled) {
-			var loggerXhr = new XMLHttpRequest(),
+			var loggerXhr: XMLHttpRequest = new XMLHttpRequest(),
 				clickStreamPayload: ClickStreamPayload = this.getClickStreamPayload(data);
 			loggerXhr.open('POST', this.url, true);
 			loggerXhr.setRequestHeader('Content-Type', 'application/json');
