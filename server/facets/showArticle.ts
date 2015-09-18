@@ -18,7 +18,7 @@ var cachingTimes = {
 
 function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	var path: string = request.path,
-		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, Utils.getHostFromRequest(request)),
+		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			redirect: request.query.redirect

@@ -70,11 +70,11 @@ var wikiDomainsCache: { [key: string]: string; } = {};
 /**
  * Get cached Media Wiki domain name from the request host
  *
- * @param {string} host Request host name
  * @returns {string} Host name to use for API
  */
-export function getCachedWikiDomainName (localSettings: LocalSettings, host: string): string {
-	var wikiDomain: string;
+export function getCachedWikiDomainName (localSettings: LocalSettings, request: Hapi.Request): string {
+	var wikiDomain: string,
+		host = getHostFromRequest(request);
 
 	host = clearHost(host);
 	wikiDomain = wikiDomainsCache[host];
@@ -193,6 +193,17 @@ export function getCDNBaseUrl(localSettings: LocalSettings): String {
 	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
 }
 
+/**
+ * Get Host from request. First check if x-original-host exists.
+ * Header x-original-host is added by Fastly and represents the host name of resource requested by user.
+ * If x-original-host header doesn't exist check host header.
+ * When request goes through Fastly host header contains original host with stripped staging env.
+ * For instance for preview.muppet.wikia.com host is muppet.wikia.com.
+ * When request doesn't go through Fastly (local environment) host header contains original host
+ *
+ * @param request
+ * @returns {string}
+ */
 export function getHostFromRequest(request: Hapi.Request): string {
 	return request.headers['x-original-host'] || request.headers['host'];
 }

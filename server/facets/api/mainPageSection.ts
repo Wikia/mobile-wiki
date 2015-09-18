@@ -42,7 +42,7 @@ var cachingTimes = {
 
 export function get (request: Hapi.Request, reply: any): void {
 	var params = {
-			wikiDomain: Utils.getCachedWikiDomainName(localSettings, Utils.getHostFromRequest(request)),
+			wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
 			sectionName: decodeURIComponent(request.params.sectionName) || null
 		};
 
