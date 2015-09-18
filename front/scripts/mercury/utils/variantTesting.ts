@@ -47,7 +47,7 @@ module Mercury.Utils.VariantTesting {
 	 *
 	 * @returns {boolean}
 	 */
-	export function isOptmizelyLoaded() {
+	export function isOptimizelyLoadedAndActive() {
 		var optimizely = window.optimizely;
 
 		return optimizely &&
@@ -96,7 +96,7 @@ module Mercury.Utils.VariantTesting {
 	 * @returns {[]}
 	 */
 	export function getActiveExperimentsList (): string[] {
-		return isOptmizelyLoaded() ? window.optimizely.activeExperiments : null;
+		return isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
 	}
 
 	/**
@@ -108,7 +108,7 @@ module Mercury.Utils.VariantTesting {
 	export function getExperimentVariationNumberBySingleId (experimentId: string): number {
 		var optimizely = window.optimizely;
 
-		return (isOptmizelyLoaded() && typeof optimizely.variationMap[experimentId] === 'number') ?
+		return (isOptimizelyLoadedAndActive() && typeof optimizely.variationMap[experimentId] === 'number') ?
 			optimizely.variationMap[experimentId] : null;
 	}
 
