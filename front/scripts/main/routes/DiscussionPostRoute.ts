@@ -49,8 +49,14 @@ App.DiscussionPostRoute = Em.Route.extend({
 		},
 
 		upvote(post: typeof App.DiscussionPostModel): void {
-			var hasUpvoted: boolean = post._embedded.userData[0].hasUpvoted;
-			var method: string = (hasUpvoted ? 'delete' : 'post');
+			var hasUpvoted: boolean = post._embedded.userData[0].hasUpvoted,
+			 	method: string = (hasUpvoted ? 'delete' : 'post'),
+				oldUpvoteCount: number = post.upvoteCount;
+
+			// assuming the positive scenario, the change in the front-end is dome here
+			Em.set(post, 'upvoteCount', oldUpvoteCount + (hasUpvoted ? -1 : 1));
+			Em.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
+
 
 			Em.$.ajax({
 				method: method,
@@ -62,10 +68,12 @@ App.DiscussionPostRoute = Em.Route.extend({
 				},
 				success: (data: any) => {
 					Em.set(post, 'upvoteCount', data.upvoteCount);
-					Em.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
 				},
 				error: (err: any) => {
 					// @TODO: handle errors
+
+					Em.set(post, 'upvoteCount', oldUpvoteCount);
+					Em.set(post._embedded.userData[0], 'hasUpvoted', !post._embedded.userData[0].hasUpvoted);
 				}
 			});
 		}
