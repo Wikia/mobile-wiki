@@ -140,6 +140,9 @@
     "curated-content-editor-main-page":"Заглавная страница"
   },
   "discussion":{
-    "share-default-title":"Обсуждение на __siteName__"
+    "pagination-post-show-more":"Просмотр старых ответов",
+    "share-default-title":"Обсуждение на __siteName__",
+    "sort-by-latest":"Последние",
+    "sort-by-trending":"Популярные"
   }
 }

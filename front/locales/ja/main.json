@@ -140,6 +140,9 @@
     "curated-content-editor-main-page":"メインページ"
   },
   "discussion":{
-    "share-default-title":"__siteName__についてのトーク"
+    "pagination-post-show-more":"古い返信を表示",
+    "share-default-title":"__siteName__についてのトーク",
+    "sort-by-latest":"新しい順",
+    "sort-by-trending":"人気順"
   }
 }

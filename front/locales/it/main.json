@@ -140,6 +140,9 @@
     "curated-content-editor-main-page":"Pagina principale"
   },
   "discussion":{
-    "share-default-title":"Forum su __siteName__"
+    "pagination-post-show-more":"Risposte precedenti",
+    "share-default-title":"Forum su __siteName__",
+    "sort-by-latest":"Più recenti",
+    "sort-by-trending":"In Trend"
   }
 }

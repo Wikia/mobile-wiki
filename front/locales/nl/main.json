@@ -140,6 +140,9 @@
     "curated-content-editor-main-page":"Main Page"
   },
   "discussion":{
-    "share-default-title":"Discussion on __siteName__"
+    "pagination-post-show-more":"View Older Replies",
+    "share-default-title":"Discussion on __siteName__",
+    "sort-by-latest":"Latest",
+    "sort-by-trending":"Trending"
   }
 }
