@@ -5,7 +5,6 @@
 'use strict';
 
 
-// TODO: add click tracking for login/reg/join links
 App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 	tagName: 'user-status',
 	attributeBindings: ['anonAvatarSrc', 'anonAvatarHref', 'userLoggedIn', 'userAvatarSrc', 'userName'],
@@ -65,7 +64,7 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 		return `<a href="${href}">${text}</a>`;
 	}),
 
-	links: Em.computed('currentUser.name', function (): Array<any> {
+	userMenuLinks: Em.computed('currentUser.name', function (): Array<any> {
 		return [
 			{
 				href: M.buildUrl({
