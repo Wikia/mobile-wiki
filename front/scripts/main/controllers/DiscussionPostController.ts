@@ -4,6 +4,9 @@
 App.DiscussionPostController = Em.Controller.extend({
 	numRepliesLoaded: null,
 
+	leftRailItems: ['community-badge'],
+	rightRailItems: [],
+
 	canShowMore: Em.computed('model', 'numRepliesLoaded', function (): boolean {
 		var model = this.get('model'),
 			numRepliesLoaded = this.get('numRepliesLoaded');

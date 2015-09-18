@@ -1,0 +1,29 @@
+.three-column {
+	.community-badge {
+		@media #{$xlarge-up} {
+			width: 3 * $column-width-xlarge;
+		}
+		@media #{$xxlarge-up} {
+			width: 3 * $column-width-xxlarge;
+		}
+
+		img {
+			width: 125px;
+		}
+	}
+}
+
+.two-column {
+	.community-badge {
+		@media #{$xlarge-up} {
+			width: 2 * $column-width-xlarge;
+		}
+		@media #{$xxlarge-up} {
+			width: 2 * $column-width-xxlarge;
+		}
+
+		img {
+			width: 79px;
+		}
+	}
+}

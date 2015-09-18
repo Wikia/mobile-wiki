@@ -3,8 +3,16 @@
 
 App.DiscussionRailComponent = Em.Component.extend({
 	classNames: ['rail'],
-	classNameBindings: ['isRight:right', 'isLeft:left'],
+	classNameBindings: [
+		'isRight:right',
+		'isLeft:left',
+		'twoColumn:two-column',
+		'threeColumn:three-column'
+	],
 
 	isRight: false,
-	isLeft: false
+	isLeft: false,
+
+	twoColumn: false,
+	threeColumn: false
 });

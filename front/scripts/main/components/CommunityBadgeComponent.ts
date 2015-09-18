@@ -3,6 +3,7 @@
 
 App.CommunityBadgeComponent = Em.Component.extend({
 	classNames: ['community-badge'],
+
 	wikiImageUrl: Mercury.Modules.Thumbnailer.getThumbURL(
 		Em.getWithDefault(Mercury, 'wiki.image', 'Wikia'),
 		{

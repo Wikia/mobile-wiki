@@ -2,5 +2,6 @@
 
 App.DiscussionForumController = Em.Controller.extend({
 	sortBy: null,
-	rightRailItems: ['community-badge']
+	leftRailItems: ['community-badge'],
+	rightRailItems: []
 });

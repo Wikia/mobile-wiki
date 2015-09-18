@@ -161,6 +161,8 @@ $horizontal-padding: 15px;
 
 	.discussion {
 		background-color: transparent;
+		margin-left: auto;
+		margin-right: auto;
 		width: 507px;
 
 		.icon {
@@ -169,9 +171,6 @@ $horizontal-padding: 15px;
 		}
 
 		&.forum {
-			margin-left: auto;
-			margin-right: auto;
-
 			.post-detail {
 				background-color: $color-white;
 				border-width: 0;

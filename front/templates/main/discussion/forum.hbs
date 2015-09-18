@@ -3,8 +3,14 @@
 	sortBy=sortBy
 }}
 {{discussion-rail
-	railItems=rightRailItems
+	railItems=leftRailItems
 	isLeft=true
+	threeColumn=true
+}}
+{{discussion-rail
+	railItems=rightRailItems
+	isRight=true
+	threeColumn=true
 }}
 {{forum-wrapper
 	goToPost='goToPost'
@@ -14,3 +20,4 @@
 	postsDisplayed=model.posts.length
 	totalPosts=model.totalPosts
 }}
+
