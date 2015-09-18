@@ -65,6 +65,7 @@ export function get(request: Hapi.Request, reply: any): void {
 			handleArticleResponse(reply, result, allowCache);
 		})
 		.catch((result: any): void => {
+			// We already have the logic to handle rejected promise in handleArticleResponse
 			handleArticleResponse(reply, result, allowCache);
 		});
 }
