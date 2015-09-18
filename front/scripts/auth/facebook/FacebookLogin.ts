@@ -91,6 +91,7 @@ class FacebookLogin {
 				this.tracker.track('facebook-login-helios-success', Mercury.Utils.trackActions.success);
 				Utils.loadUrl(this.redirect);
 			} else if (status === HttpCodes.BAD_REQUEST) {
+				this.authLogger.xhrError(facebookTokenXhr);
 				window.location.href = this.getFacebookRegistrationUrl();
 			} else {
 				this.authLogger.xhrError(facebookTokenXhr);
