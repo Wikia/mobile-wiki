@@ -216,7 +216,7 @@ test('getEnvironment', function() {
 test('parseQueryParams', function () {
 	var testCases,
 		allowedKeys;
-	
+
 	testCases = [
 		{foo: '1'},
 		{allowed: '1'},
@@ -231,4 +231,33 @@ test('parseQueryParams', function () {
 	equal(typeof global.parseQueryParams(testCases[2], allowedKeys).allowed, 'boolean', 'Whitelisted parameter was not passed through');
 	equal(typeof global.parseQueryParams(testCases[3], allowedKeys).allowed, 'string', 'Whitelisted parameter was not passed through');
 	equal(global.parseQueryParams(testCases[3], allowedKeys).allowed, '&lt;&#x2f;script&gt;', 'HTML in query not escaped properly');
+});
+
+test('isXipHost', function () {
+	var testCases = [
+		{
+			environment: Environment.Dev,
+			hostName: 'muppet.127.0.0.1.xip.io',
+			expected: true
+		},
+		{
+			environment: Environment.Dev,
+			hostName: 'muppet.igor.wikia-dev.com',
+			expected: false
+		},
+		{
+			environment: Environment.Prod,
+			hostName: 'muppet.127.0.0.1.xip.io',
+			expected: false
+		},
+		{
+			environment: Environment.Dev,
+			hostName: 'muppet.xip.io',
+			expected: false
+		}
+	];
+
+	testCases.forEach(function (testCase) {
+		equal(global.isXipHost({environment: testCase.environment}, testCase.hostName), testCase.expected);
+	});
 });
