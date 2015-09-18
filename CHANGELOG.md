@@ -1,3 +1,14 @@
+## release-161 (2015-09-18 07:59 UTC)
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Fix for user name not showing after logging in
+* Japan-HP-Update-2015.09.17: Japan HP: Updated images for highlighted communities. 
+* [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204) SOC-1204 As a user on desktop I want that the new auth modal replaces the current forced login modal
+* aden-2435-ads-on-event-on-mercury: ADEN-2435 Added new method pushSlotToQueue
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Fixes for logout for Japan HP
+* [SOC-1269](https://wikia-inc.atlassian.net/browse/SOC-1269) SOC-1269 when the user is authenticated auth modal is loading regular wiki page
+
+## release-160 (2015-09-17 09:59 UTC)
+* [HG-846](https://wikia-inc.atlassian.net/browse/HG-846) HG-846 More work on top-bar component in mercury
+
 ## release-159 (2015-09-16 09:59 UTC)
 * [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Login state support for Japan homepage
 * Japan-HP-logging: Add bunyan logger for Japan homepage (console and syslog)
