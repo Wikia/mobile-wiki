@@ -3,6 +3,7 @@
 		<div class="upvotes">
 			{{discussion-upvote
 				post=post
+				hasUpvoted=post._embedded.userData.[0].hasUpvoted
 				firstPost=false
 				upvote='upvote'
 			}}
