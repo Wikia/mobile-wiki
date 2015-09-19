@@ -1,12 +1,12 @@
 $discussion-contributors-background-color: #666;
-$discussion-contributors-border-color: #ccc;
-$discussion-contributors-text-color: #fff;
+$discussion-contributors-border-color: $border-color;
+$discussion-contributors-text-color: $color-white;
 $discussion-contributors-avatar-dimension: 30px;
 
 .discussion-contributors {
 	display: inline;
 
-	.discussion-avatar {
+	.user-avatar {
 		display: inline-block;
 	}
 

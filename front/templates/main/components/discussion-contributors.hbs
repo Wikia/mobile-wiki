@@ -1,8 +1,8 @@
 {{#each latestContributors as |contributor|}}
-	{{discussion-avatar
+	{{user-avatar
 		avatarUrl=contributor.avatarUrl
-		authorUrl=contributor.url
-		authorName=contributor.name
+		profileUrl=contributor.url
+		username=contributor.name
 	}}
 {{/each}}
 {{#if additionalContributorCount}}
