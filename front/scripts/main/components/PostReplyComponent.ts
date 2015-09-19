@@ -5,7 +5,7 @@ App.PostReplyComponent = Em.Component.extend({
 	classNames: ['post-reply'],
 
 	post: null,
-	authorUrl: Em.computed('author', function (): string {
+	authorUrl: Em.computed('post', function (): string {
 		return M.buildUrl({
 			namespace: 'User',
 			title: this.get('post').createdBy.name
