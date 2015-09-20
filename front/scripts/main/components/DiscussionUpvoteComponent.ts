@@ -6,6 +6,9 @@ App.DiscussionUpvoteComponent = Em.Component.extend({
 
 	post: null,
 	classNameBindings: ['hasUpvoted'],
+	hasUpvoted: Em.computed('post._embedded.userData.@each.hasUpvoted', function(): boolean {
+		return this.get('post')._embedded.userData[0].hasUpvoted;
+	}),
 
 	actions: {
 		upvote(post: typeof App.DiscussionPostModel): void {
