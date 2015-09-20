@@ -1,6 +1,8 @@
 /// <reference path="../app.ts" />
 
 App.DiscussionPostRoute = Em.Route.extend({
+	upvotingInProgress: false,
+
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
@@ -51,13 +53,14 @@ App.DiscussionPostRoute = Em.Route.extend({
 		upvote(post: typeof App.DiscussionPostModel): void {
 			var hasUpvoted: boolean,
 				method: string,
-				oldUpvoteCount: number = post.upvoteCount;
+				oldUpvoteCount: number = Em.get(post, 'upvoteCount');
 
-			if (typeof post._embedded.userData === 'undefined') {
+			if (this.upvotingInProgress || Em.get(post._embedded, 'userData') === undefined) {
 				return null;
 			}
 
-			hasUpvoted = post._embedded.userData[0].hasUpvoted;
+			this.upvotingInProgress = true;
+			hasUpvoted = Em.get(post._embedded.userData[0], 'hasUpvoted');
 			method = (hasUpvoted ? 'delete' : 'post');
 
 			// assuming the positive scenario, the change in the front-end is dome here
@@ -72,14 +75,17 @@ App.DiscussionPostRoute = Em.Route.extend({
 				xhrFields: {
 					withCredentials: true,
 				},
-				success: (data: any) => {
+				success: (data: any): void => {
 					Em.set(post, 'upvoteCount', data.upvoteCount);
 				},
-				error: (err: any) => {
+				error: (err: any): void => {
 					// @TODO: handle errors
 
 					Em.set(post, 'upvoteCount', oldUpvoteCount);
-					Em.set(post._embedded.userData[0], 'hasUpvoted', !post._embedded.userData[0].hasUpvoted);
+					Em.set(post._embedded.userData[0], 'hasUpvoted', !Em.get(post._embedded.userData[0], 'hasUpvoted'));
+				},
+				complete: (): void => {
+					this.upvotingInProgress = false;
 				}
 			});
 		}
