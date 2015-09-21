@@ -233,7 +233,7 @@ export function isXipHost(localSettings: LocalSettings, hostName: string): boole
 export function redirectToCanonicalHostIfNeeded(
 	localSettings: LocalSettings, request: Hapi.Request, reply: Hapi.Response, wikiVariables: any
 ): void {
-	var requestedHost = getCachedWikiDomainName(localSettings, request.headers.host),
+	var requestedHost = getCachedWikiDomainName(localSettings, request),
 		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
 		isLocal = isXipHost(localSettings, clearHost(request.headers.host)),
 		redirectLocation: string;
