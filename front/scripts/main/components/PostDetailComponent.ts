@@ -3,6 +3,8 @@
 
 App.PostDetailComponent = Em.Component.extend({
 	classNames: ['post-detail'],
+
+	postId: null,
 	authorUrl: Em.computed('post', function (): string {
 		return M.buildUrl({
 			namespace: 'User',
@@ -11,11 +13,11 @@ App.PostDetailComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		click: function (): void {
-			this.sendAction('action', this.get('post').id);
+		goToPost(postId: number): void {
+			this.sendAction('goToPost', postId);
 		},
 
-		upvote(post: typeof App.DiscussionPostModel) {
+		upvote(post: typeof App.DiscussionPostModel): void {
 			this.sendAction('upvote', post);
 		}
 	}

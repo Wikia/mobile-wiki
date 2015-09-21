@@ -12,7 +12,7 @@ App.PostReplyComponent = Em.Component.extend({
 		});
 	}),
 	actions: {
-		upvote(post: typeof App.DiscussionPostModel) {
+		upvote(post: typeof App.DiscussionPostModel): void {
 			this.sendAction('upvote', post);
 		}
 	}
