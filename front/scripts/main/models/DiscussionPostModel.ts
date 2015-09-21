@@ -83,5 +83,5 @@ App.DiscussionPostModel.reopenClass({
 				error: (err: any) => reject(err)
 			});
 		});
-	},
+	}
 });

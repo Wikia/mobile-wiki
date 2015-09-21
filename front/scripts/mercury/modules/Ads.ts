@@ -26,6 +26,7 @@ module Mercury.Modules {
 		};
 		private currentAdsContext: any = null;
 		private isLoaded = false;
+		private slotsQueue: string[][] = [];
 
 		/**
 		 * Returns instance of Ads object
@@ -116,12 +117,13 @@ module Mercury.Modules {
 			// Store the context for external reuse
 			this.setContext(adsContext);
 			this.currentAdsContext = adsContext;
+			this.slotsQueue = this.getSlots();
 
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
 				this.adLogicPageViewCounterModule.increment();
 				// We need a copy of adSlots as .run destroys it
-				this.adEngineModule.run(this.adConfigMobile, this.getSlots(), 'queue.mercury');
+				this.adEngineModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury');
 			}
 		}
 
@@ -139,6 +141,15 @@ module Mercury.Modules {
 		 */
 		getSlots (): string[][] {
 			return <string[][]>$.extend([], this.adSlots);
+		}
+
+		/**
+		 * Push slot to the current queue (refresh ad in given slot)
+		 *
+		 * @param name name of the slot
+		 */
+		public pushSlotToQueue (name: string): void {
+			this.slotsQueue.push([name]);
 		}
 
 		/**

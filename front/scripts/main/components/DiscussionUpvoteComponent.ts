@@ -2,7 +2,7 @@
 'use strict';
 
 App.DiscussionUpvoteComponent = Em.Component.extend({
-	classNames: ['small-5', 'columns', 'upvote', 'count'],
+	classNames: ['small-4', 'columns', 'upvote', 'count'],
 
 	post: null,
 	classNameBindings: ['hasUpvoted'],
