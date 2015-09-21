@@ -75,7 +75,11 @@ export class WikiRequest extends BaseRequest {
 			method: 'getWikiVariables'
 		});
 
-		return this.fetch(url);
+		return this
+			.fetch(url)
+			.then((wikiVariables: any) => {
+				return Promise.resolve(wikiVariables.data);
+			});
 	}
 }
 

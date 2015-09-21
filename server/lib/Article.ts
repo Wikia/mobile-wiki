@@ -70,7 +70,7 @@ export class ArticleRequestHelper {
 					article: article.data,
 					exception: article.exception,
 					server: Utils.createServerData(localSettings, this.params.wikiDomain),
-					wiki: wikiVariables.data
+					wiki: wikiVariables
 				};
 			});
 	}

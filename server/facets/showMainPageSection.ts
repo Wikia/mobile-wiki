@@ -25,9 +25,7 @@ function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 	mainPage = new MainPage.MainPageRequestHelper(params);
 	mainPage
 		.getWikiVariables()
-		.then((data: any) => {
-			var wikiVariables = data.data;
-
+		.then((wikiVariables: any): void => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
 			mainPage.setTitle(wikiVariables.mainPageTitle);

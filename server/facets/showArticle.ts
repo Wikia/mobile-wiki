@@ -48,8 +48,6 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 		article
 			.getWikiVariables()
 			.then((wikiVariables: any): Promise<any> => {
-				wikiVariables = wikiVariables.data;
-
 				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 				article.setTitle(wikiVariables.mainPageTitle);
 
@@ -58,7 +56,7 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 			.spread((wikiVariables: any, article: any): void => {
 				article = article.data;
 				onArticleResponse(request, reply, article.exception, {
-					article: article,
+					article,
 					wiki: wikiVariables
 				}, allowCache);
 			})

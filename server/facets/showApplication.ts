@@ -21,12 +21,12 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
-	wikiVariables.then((response) => {
+	wikiVariables.then((wikiVariables: any): Promise<any> => {
 		var userDir: string;
 
-		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, response.data);
+		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
-		context.wiki = response.data;
+		context.wiki = wikiVariables;
 		if (context.wiki.language) {
 			userDir = context.wiki.language.userDir;
 			context.isRtl = (userDir === 'rtl');

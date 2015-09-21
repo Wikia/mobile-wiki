@@ -21,8 +21,6 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 			var article: any = {},
 				result: any;
 
-			wikiVariables = wikiVariables.data;
-
 			if (verifyMWHash(parserOutput, mwHash)) {
 				article = JSON.parse(parserOutput);
 			} else {
