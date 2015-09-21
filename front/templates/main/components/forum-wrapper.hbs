@@ -3,11 +3,8 @@
 		{{post-detail
 		action='goToPost'
 		goToPost='goToPost'
-		postId=item.id
-		author=item._embedded.firstPost.0.createdBy
-		content=item._embedded.firstPost.0.rawContent
-		timestamp=item._embedded.firstPost.0.creationDate.epochSecond
-		upvoteCount=item.upvoteCount
+		upvote='upvote'
+		post=item._embedded.firstPost.[0]
 		replyCount=item.postCount
 		}}
 	{{/each}}

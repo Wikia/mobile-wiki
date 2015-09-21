@@ -14,7 +14,8 @@ App.DiscussionUpvoteMixin = Em.Mixin.create({
 			oldUpvoteCount: number = Em.get(post, 'upvoteCount'),
 			postId: number = Em.get(post, 'id');
 
-		if (this.upvotingInProgress[postId] || Em.get(post._embedded, 'userData') === undefined) {
+		if (this.upvotingInProgress[postId] || Em.get(post, '_embedded') === undefined ||
+			Em.get(post._embedded, 'userData') === undefined) {
 			return null;
 		}
 

@@ -12,6 +12,10 @@ App.ForumWrapperComponent = Em.Component.extend({
 	actions: {
 		goToPost: function (postId: number): void {
 			this.sendAction('goToPost', postId);
+		},
+
+		upvote(post: typeof App.DiscussionPostModel) {
+			this.sendAction('upvote', post);
 		}
 	},
 

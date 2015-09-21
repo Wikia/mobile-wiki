@@ -12,8 +12,9 @@ App.PostDetailComponent = Em.Component.extend({
 
 	actions: {
 		click: function (): void {
-			this.sendAction('action', this.get('postId'));
+			this.sendAction('action', this.get('post').id);
 		},
+
 		upvote(post: typeof App.DiscussionPostModel) {
 			this.sendAction('upvote', post);
 		}
