@@ -254,6 +254,11 @@ test('isXipHost', function () {
 			environment: Environment.Dev,
 			hostName: 'muppet.xip.io',
 			expected: false
+		},
+		{
+			environment: Environment.Dev,
+			hostName: 'xip.io.wikia.com',
+			expected: false
 		}
 	];
 
