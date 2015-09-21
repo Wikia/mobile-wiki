@@ -4,6 +4,8 @@
 App.DiscussionContributorsComponent = Em.Component.extend({
 	classNames: ['discussion-contributors'],
 
+	contributors: [],
+
 	maxContributorDisplayCount: 7,
 
 	totalContributorCount: 0,
@@ -16,6 +18,6 @@ App.DiscussionContributorsComponent = Em.Component.extend({
 	additionalContributorCount: Em.computed('latestContributors',
 	                                        'totalContributorCount',
 	                                        function () {
-		return this.get('totalContributorCount') - this.get('latestContributors').length
+		return this.get('totalContributorCount') - this.get('latestContributors.length')
 	})
 });
