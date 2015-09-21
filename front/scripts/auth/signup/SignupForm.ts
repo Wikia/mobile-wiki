@@ -24,7 +24,6 @@ class SignupForm {
 	pageName: string;
 	termsOfUse: TermsOfUse;
 	tracker: AuthTracker;
-	utils: Utils;
 	authLogger: AuthLogger = AuthLogger.getInstance();
 
 	constructor(form: Element) {
@@ -89,7 +88,7 @@ class SignupForm {
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
 
-		Utils.loadUrl(this.redirect);
+		AuthUtils.authSuccessCallback(this.redirect);
 	}
 
 	public onSubmit(event: Event): void {
