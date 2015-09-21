@@ -19,20 +19,21 @@ interface XMLHttpRequest {
 	responseUrl: string;
 }
 
+enum AuthLoggerLevels {
+	Emergency,
+	critical,
+	alert,
+	error,
+	warning,
+	notice,
+	info,
+	debug
+}
+
 class AuthLogger {
 	static instance: AuthLogger;
 	isEnabled: boolean = false;
 	url: string;
-	static levels: any = {
-		emergency: 'emergency',
-		critical: 'critical',
-		alert: 'alert',
-		error: 'error',
-		warning: 'warning',
-		notice: 'notice',
-		info: 'info',
-		debug: 'debug'
-	};
 
 	constructor () {
 		if (window.pageParams) {
@@ -76,7 +77,7 @@ class AuthLogger {
 
 	public xhrError(xhr: XMLHttpRequest): void {
 		this.log({
-			level: AuthLogger.levels.error,
+			level: AuthLoggerLevels.error,
 			status: xhr.status,
 			response: xhr.responseText,
 			//Might give undefined in ie11
