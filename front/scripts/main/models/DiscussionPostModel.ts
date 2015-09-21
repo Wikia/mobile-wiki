@@ -13,7 +13,7 @@ App.DiscussionPostModel = Em.Object.extend({
 
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
 					 this.wikiId + '/threads/' + this.threadId +
 					 '?responseGroup=full' +
@@ -52,7 +52,7 @@ App.DiscussionPostModel.reopenClass({
 				threadId: threadId
 			});
 
-			Em.$.ajax({
+			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://' + M.prop('servicesDomain') +
 					 `/discussion/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
