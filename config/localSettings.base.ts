@@ -97,7 +97,6 @@ var localSettings: LocalSettings = {
 		samplingRate: 0.1,
 		aggregationInterval: 1000
 	},
-	wikiFallback: 'community',
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
 	// CDN prefix with no trailing slash
@@ -111,7 +110,13 @@ var localSettings: LocalSettings = {
 		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
 		iPad: /iPad/
 	},
-	enableDiscussions: false
+	enableDiscussions: false,
+	clickstream: {
+		auth: {
+			enable: true,
+			url: 'https://services.wikia.com/clickstream/events/social'
+		}
+	}
 };
 
 export function extendSettings(customLocalSet: any): LocalSettings {

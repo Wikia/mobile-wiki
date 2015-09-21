@@ -30,6 +30,7 @@ class FacebookRegistration {
 	termsOfUse: TermsOfUse;
 	tracker: AuthTracker;
 	utils: Utils;
+	authLogger: AuthLogger = AuthLogger.getInstance();
 
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
@@ -112,6 +113,8 @@ class FacebookRegistration {
 
 		facebookTokenXhr.onerror = (e: Event): void => {
 			this.formErrors.displayGeneralError();
+			this.authLogger.xhrError(facebookTokenXhr);
+
 			this.tracker.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
 		};
 
@@ -139,11 +142,14 @@ class FacebookRegistration {
 				this.formErrors.displayValidationErrors(JSON.parse(facebookRegistrationXhr.responseText).errors);
 			} else {
 				this.formErrors.displayGeneralError();
+				this.authLogger.xhrError(facebookRegistrationXhr);
 			}
 		};
 
 		facebookRegistrationXhr.onerror = (e: Event) => {
 			this.formErrors.displayGeneralError();
+			this.authLogger.xhrError(facebookRegistrationXhr);
+
 			this.tracker.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
 		};
 

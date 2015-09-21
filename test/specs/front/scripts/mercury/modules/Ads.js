@@ -74,3 +74,11 @@ QUnit.test('Add/remove slots works', function () {
 	equal(instance.adSlots.length, 0);
 	instance.reload(null);
 });
+
+QUnit.test('Push slot to the current queue', function () {
+	var instance = Mercury.Modules.Ads.getInstance();
+	instance.reload(null);
+	equal(instance.slotsQueue.length, 0);
+	instance.pushSlotToQueue('MOBILE_IN_CONTENT');
+	equal(instance.slotsQueue.length, 1);
+});

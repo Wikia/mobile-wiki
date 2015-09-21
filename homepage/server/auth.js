@@ -10,7 +10,14 @@ var Promise = require('bluebird'),
 
 function Auth() {
 	this.baseUrl = localSettings.helios.host;
+	if (this.baseUrl.charAt(this.baseUrl.length - 1) !== '/') {
+		this.baseUrl += '/';
+	}
+
 	this.servicesUrl = localSettings.servicesUrl;
+	if (this.servicesUrl.charAt(this.servicesUrl.length - 1) !== '/') {
+		this.servicesUrl += '/';
+	}
 }
 
 function requestWrapper(url) {

@@ -7,7 +7,7 @@ import localSettings = require('../../config/localSettings');
 import processCuratedContentData = require('./operations/processCuratedContentData');
 
 function showCategory (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		params: MainPageRequestParams = {
 			categoryName: decodeURIComponent(request.params.categoryName),
 			wikiDomain: wikiDomain

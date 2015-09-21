@@ -174,9 +174,7 @@ export class MainPageRequestHelper {
 			mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
 			environment: Utils.getEnvironmentString(env),
-			cdnBaseUrl: (env === Utils.Environment.Prod) ||
-			(env === Utils.Environment.Sandbox) ?
-				localSettings.cdnBaseUrl : ''
+			cdnBaseUrl: Utils.getCDNBaseUrl(localSettings),
 		};
 	}
 

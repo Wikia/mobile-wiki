@@ -10,7 +10,7 @@ import verifyMWHash = require('./operations/verifyMWHash');
 import prepareArticleData = require('./operations/prepareArticleData');
 
 function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		parserOutput: string = request.payload.parserOutput,
 		mwHash: string = request.payload.mwHash,
 		article = new Article.ArticleRequestHelper({wikiDomain: wikiDomain});
@@ -42,7 +42,7 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 				wiki: wikiVariables || {},
 				// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
 				server: {
-					cdnBaseUrl: localSettings.environment === Utils.Environment.Prod ? localSettings.cdnBaseUrl : ''
+					cdnBaseUrl: Utils.getCDNBaseUrl(localSettings)
 				}
 			};
 
