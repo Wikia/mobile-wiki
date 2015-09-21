@@ -72,6 +72,8 @@ module Mercury.Utils.VariantTesting {
 			experimentName: string,
 			variationName: string;
 
+		// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
+		// https://github.com/Wikia/app/blob/XW-6/extensions/wikia/AnalyticsEngine/js/universal_analytics.js#L333
 		if (activeExperiments) {
 			activeExperiments.forEach((experimentId: string): void => {
 				if (
