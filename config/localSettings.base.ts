@@ -112,8 +112,12 @@ var localSettings: LocalSettings = {
 		iPad: /iPad/
 	},
 	enableDiscussions: false,
-	enableAuthLogger: true,
-	authLoggerUrl: 'https://services.wikia.com/clickstream/events/social'
+	clickstream: {
+		auth: {
+			enable: true,
+			url: 'https://services.wikia.com/clickstream/events/social'
+		}
+	}
 };
 
 export function extendSettings(customLocalSet: any): LocalSettings {
