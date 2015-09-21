@@ -9,32 +9,18 @@
 		&bull; {{timeAgo post.creationDate.epochSecond}}
 	</span>
 </div>
-{{#if forumView}}
-	<div class="discussion-content" {{action 'goToPost' postId}}>
-		{{{post.rawContent}}}
-	</div>
-{{else}}
-	<div class="discussion-content">
-		{{{post.rawContent}}}
-	</div>
-{{/if}}
+<div class="discussion-content {{if isDetailsView 'no-pointer'}}" {{action 'goToPost' postId}}>
+	{{{post.rawContent}}}
+</div>
 <div class="row">
 	{{discussion-upvote
 		post=post
 		firstPost=true
 		upvote='upvote'
 	}}
-	{{#if forumView}}
-		<div class="small-4 columns end count" {{action 'goToPost' postId}}>
-			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-			{{replyCount}}
-		</div>
-	{{else}}
-		<div class="small-4 columns end count">
-			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-			{{replyCount}}
-		</div>
-	{{/if}}
-
+	<div class="small-4 columns end count {{if isDetailsView 'no-pointer'}}" {{action 'goToPost' postId}}>
+		{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+		{{replyCount}}
+	</div>
 </div>
 
