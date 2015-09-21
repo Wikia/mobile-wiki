@@ -7,7 +7,7 @@ App.DiscussionUpvoteComponent = Em.Component.extend({
 	post: null,
 	classNameBindings: ['hasUpvoted'],
 	hasUpvoted: Em.computed('post._embedded.userData.@each.hasUpvoted', function(): boolean {
-		if (this.get('post')._embedded.userData === undefined) {
+		if (this.get('post')._embedded === undefined || this.get('post')._embedded.userData === undefined) {
 			return false
 		}
 		return this.get('post')._embedded.userData[0].hasUpvoted;
