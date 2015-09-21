@@ -25,6 +25,7 @@ class Login {
 	passwordInput: HTMLInputElement;
 	urlHelper: UrlHelper;
 	tracker: AuthTracker;
+	authLogger: AuthLogger = AuthLogger.getInstance();
 
 	constructor (form: Element) {
 		var elements: FormElements;
@@ -67,6 +68,7 @@ class Login {
 				return this.displayError('errors.wrong-credentials');
 			} else if (xhr.status !== HttpCodes.OK) {
 				this.tracker.track('login-server-error', M.trackActions.error);
+				this.authLogger.xhrError(xhr);
 				return this.displayError('errors.server-error');
 			}
 
@@ -83,7 +85,7 @@ class Login {
 
 		xhr.onerror = (): void => {
 			enableSubmitButton();
-
+			this.authLogger.xhrError(xhr);
 			this.tracker.track('login-server-error', M.trackActions.error);
 			this.displayError('errors.server-error');
 		};

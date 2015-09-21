@@ -1,3 +1,6 @@
+## release-163 (2015-09-21 07:59 UTC)
+* [XW-199](https://wikia-inc.atlassian.net/browse/XW-199) XW-199 | Add Polldaddy widget
+
 ## release-161 (2015-09-18 07:59 UTC)
 * [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Fix for user name not showing after logging in
 * Japan-HP-Update-2015.09.17: Japan HP: Updated images for highlighted communities. 

@@ -30,7 +30,7 @@ function isRequestForRandomTitle (query: any): boolean {
  * @param result
  */
 export function get (request: Hapi.Request,  reply: any): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			title: request.params.articleTitle,

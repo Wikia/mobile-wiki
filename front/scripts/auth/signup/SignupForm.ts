@@ -25,6 +25,7 @@ class SignupForm {
 	termsOfUse: TermsOfUse;
 	tracker: AuthTracker;
 	utils: Utils;
+	authLogger: AuthLogger = AuthLogger.getInstance();
 
 	constructor(form: Element) {
 		this.pageName = 'signup';
@@ -115,12 +116,14 @@ class SignupForm {
 			} else {
 				enableSubmitButton();
 				this.formErrors.displayGeneralError();
+				this.authLogger.xhrError(registrationXhr);
 			}
 		};
 
 		registrationXhr.onerror = (e: Event) => {
 			enableSubmitButton();
 			this.formErrors.displayGeneralError();
+			this.authLogger.xhrError(registrationXhr);
 		};
 
 		registrationXhr.open('POST', this.form.action, true);
