@@ -177,7 +177,16 @@ export class ArticleRequest extends BaseRequest {
  * @return {Promise<any>}
  */
 export function fetch (url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
-	// Host might get changed when redirected so headers should be updated
+	/**
+	 * We send requests to Consul URL and the target wiki is passed in the Host header.
+	 * When Wreck gets a redirection response it updates URL only, not headers.
+	 * That's why we need to update Host header manually.
+	 *
+	 * @param redirectMethod
+	 * @param statusCode
+	 * @param location
+	 * @param redirectOptions
+	 */
 	var beforeRedirect = (redirectMethod: string, statusCode: number, location: string, redirectOptions: any): void => {
 		var redirectHost: string = Url.parse(location).hostname;
 
