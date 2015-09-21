@@ -43,6 +43,24 @@ module Mercury.Utils.VariantTesting {
 	}
 
 	/**
+	 * Checks if Optimizely object and its crucial data attributes are available
+	 *
+	 * @returns {boolean}
+	 */
+	export function isOptimizelyLoadedAndActive() {
+		var optimizely = window.optimizely;
+
+		return optimizely &&
+			optimizely.activeExperiments &&
+			Array.isArray(optimizely.activeExperiments) &&
+			optimizely.activeExperiments.length > 0 &&
+			typeof optimizely.allExperiments === 'object' &&
+			Object.keys(optimizely.allExperiments).length > 0 &&
+			typeof optimizely.variationNamesMap === 'object' &&
+			Object.keys(optimizely.variationNamesMap).length > 0;
+	}
+
+	/**
 	 * Integrates Optimizely with Universal Analytics
 	 *
 	 * @param {[]} dimensions
@@ -55,6 +73,9 @@ module Mercury.Utils.VariantTesting {
 			experimentName: string,
 			variationName: string;
 
+		// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
+		// isOptimizelyLoadedAndActive function and below
+		// https://github.com/Wikia/app/blob/dev/extensions/wikia/AnalyticsEngine/js/universal_analytics.js
 		if (activeExperiments) {
 			activeExperiments.forEach((experimentId: string): void => {
 				if (
@@ -79,9 +100,7 @@ module Mercury.Utils.VariantTesting {
 	 * @returns {[]}
 	 */
 	export function getActiveExperimentsList (): string[] {
-		var optimizely = window.optimizely;
-
-		return (optimizely && optimizely.activeExperiments) ? optimizely.activeExperiments : null;
+		return isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
 	}
 
 	/**
@@ -93,7 +112,7 @@ module Mercury.Utils.VariantTesting {
 	export function getExperimentVariationNumberBySingleId (experimentId: string): number {
 		var optimizely = window.optimizely;
 
-		return (optimizely && optimizely.variationMap && typeof optimizely.variationMap[experimentId] === 'number') ?
+		return (isOptimizelyLoadedAndActive() && typeof optimizely.variationMap[experimentId] === 'number') ?
 			optimizely.variationMap[experimentId] : null;
 	}
 
