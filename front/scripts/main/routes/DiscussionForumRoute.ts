@@ -27,10 +27,6 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionUpv
 		setSortBy: function (sortBy: string): void {
 			this.controllerFor('discussionForum').set('sortBy', sortBy);
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
-		},
-
-		upvote(post: typeof App.DiscussionPostModel): void {
-			this.upvotePost(post);
 		}
 	}
 });

@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 'use strict';
 
-App.DiscussionUpvoteComponent = Em.Component.extend({
+App.DiscussionUpvoteComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixin, {
 	classNames: ['small-4', 'columns', 'upvote', 'count'],
 
 	post: null,
@@ -11,11 +12,5 @@ App.DiscussionUpvoteComponent = Em.Component.extend({
 			return false
 		}
 		return this.get('post')._embedded.userData[0].hasUpvoted;
-	}),
-
-	actions: {
-		upvote(post: typeof App.DiscussionPostModel): void {
-			this.sendAction('upvote', post);
-		}
-	}
+	})
 });

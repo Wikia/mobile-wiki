@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 'use strict';
 
-App.PostDetailComponent = Em.Component.extend({
+App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixin, {
 	classNames: ['post-detail'],
 
 	postId: null,
@@ -15,10 +16,6 @@ App.PostDetailComponent = Em.Component.extend({
 	actions: {
 		goToPost(postId: number): void {
 			this.sendAction('goToPost', postId);
-		},
-
-		upvote(post: typeof App.DiscussionPostModel): void {
-			this.sendAction('upvote', post);
 		}
 	}
 });

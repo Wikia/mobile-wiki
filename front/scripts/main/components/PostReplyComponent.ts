@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 'use strict';
 
-App.PostReplyComponent = Em.Component.extend({
+App.PostReplyComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixin, {
 	classNames: ['post-reply'],
 
 	post: null,
@@ -10,10 +11,5 @@ App.PostReplyComponent = Em.Component.extend({
 			namespace: 'User',
 			title: this.get('post').createdBy.name
 		});
-	}),
-	actions: {
-		upvote(post: typeof App.DiscussionPostModel): void {
-			this.sendAction('upvote', post);
-		}
-	}
+	})
 });

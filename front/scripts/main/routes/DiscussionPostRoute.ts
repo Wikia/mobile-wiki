@@ -37,10 +37,6 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionUpvo
 		didTransition(): boolean {
 			window.scrollTo(0, 0);
 			return true;
-		},
-
-		upvote(post: typeof App.DiscussionPostModel): void {
-			this.upvotePost(post);
 		}
 	}
 });
