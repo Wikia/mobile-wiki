@@ -1,10 +1,15 @@
 {{#unless userLoggedIn}}
-	<span class="register-cta-text">
+	<span class="show-for-large-up">
 		{{{i18n 'userStatus.anon-cta'
 			loginLink=loginLink
 			registerLink=registerLink
 		}}}
 	</span>
+	<figure class="show-for-medium-down">
+		<a href="{{anonAvatarHref}}">
+			<img src="{{anonAvatarSrc}}">
+		</a>
+	</figure>
 {{/unless}}
 
 {{#each userMenuLinks as |link|}}

@@ -7,11 +7,11 @@
 
 App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 	tagName: 'user-status',
-	attributeBindings: ['anonAvatarSrc', 'anonAvatarHref', 'userLoggedIn', 'userAvatarSrc', 'userName'],
+	attributeBindings: ['userLoggedIn', 'userAvatarSrc', 'userName'],
 	classNames: ['user-status', 'needsclick'],
 	anonAvatarSrc: 'http://wikia.github.io/style-guide/assets/images/icons/icon_avatar.svg',
 
-	userLoggedIn: Em.computed.oneWay('currentUser.isAuthenticated', function () {
+	userLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
 		// HTMLBars attribute binding only removes an attribute if it's value is set to null
 		if (this.get('currentUser.isAuthenticated') === false) {
 			return null;
@@ -19,13 +19,9 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 		return true;
 	}),
 
-	userAvatarSrc: Em.computed.oneWay('currentUser.avatarPath', function (): string {
-		return this.get('currentUser.avatarPath');
-	}),
+	userAvatarSrc: Em.computed.oneWay('currentUser.avatarPath'),
 
-	userName: Em.computed.oneWay('currentUser.avatarPath', function (): string {
-		return this.get('currentUser.name');
-	}),
+	userName: Em.computed.oneWay('currentUser.avatarPath'),
 
 	anonAvatarHref: Em.computed(function (): string {
 		if (Mercury.wiki.enableNewAuth) {
@@ -96,13 +92,17 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 	 * @param event
 	 */
 	click: function (event: Event) {
-		var target: HTMLAnchorElement = <HTMLAnchorElement> event.target;
+		// handle join, register, and login links for anons
+		if (!this.get('userLoggedIn')) {
+			var $target: JQuery = $(event.target).closest('a'),
+				href: string = $target.attr('href');
 
-		// TODO: Add tracking here
+			// TODO: Add tracking here
 
-		if (target.href) {
-			event.preventDefault();
-			window.location.assign(target.href + this.getRedirectString());
+			if (href) {
+				event.preventDefault();
+				window.location.assign(href + this.getRedirectString());
+			}
 		}
 	}
 });
