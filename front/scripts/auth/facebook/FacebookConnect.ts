@@ -76,6 +76,8 @@ class FacebookConnect extends Login {
 					M.trackActions.error
 				);
 
+				this.authLogger.xhrError(facebookConnectXhr);
+
 				// Logout user on connection error
 				logoutXhr = new XMLHttpRequest();
 				logoutXhr.open('GET', '/logout', true);
@@ -85,6 +87,8 @@ class FacebookConnect extends Login {
 
 		facebookConnectXhr.onerror = (e: Event) => {
 			this.displayError('errors.server-error');
+
+			this.authLogger.xhrError(facebookConnectXhr);
 		};
 
 		facebookConnectXhr.open('POST', url, true);
