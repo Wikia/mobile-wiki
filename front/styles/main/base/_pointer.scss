@@ -2,8 +2,4 @@
 // adding cursor: pointer to that element makes it register click events in iOS
 [data-ember-action] {
 	cursor: pointer;
-
-	&.no-pointer {
-		cursor: default;
-	}
 }
