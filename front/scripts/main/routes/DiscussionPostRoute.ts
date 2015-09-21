@@ -2,9 +2,7 @@
 /// <reference path="../mixins/UseNewNavMixin.ts" />
 
 'use strict';
-App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
-	upvotingInProgress: false,
-
+App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionUpvoteMixin, {
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
@@ -42,43 +40,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 		},
 
 		upvote(post: typeof App.DiscussionPostModel): void {
-			var hasUpvoted: boolean,
-				method: string,
-				oldUpvoteCount: number = Em.get(post, 'upvoteCount');
-
-			if (this.upvotingInProgress || Em.get(post._embedded, 'userData') === undefined) {
-				return null;
-			}
-
-			this.upvotingInProgress = true;
-			hasUpvoted = Em.get(post._embedded.userData[0], 'hasUpvoted');
-			method = (hasUpvoted ? 'delete' : 'post');
-
-			// assuming the positive scenario, the change in the front-end is dome here
-			Em.set(post, 'upvoteCount', oldUpvoteCount + (hasUpvoted ? -1 : 1));
-			Em.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
-
-			Em.$.ajax({
-				method: method,
-				url: 'https://' + M.prop('servicesDomain') +
-				'/discussion/' + post.siteId + '/votes/post/' + post.id,
-				dataType: 'json',
-				xhrFields: {
-					withCredentials: true,
-				},
-				success: (data: any): void => {
-					Em.set(post, 'upvoteCount', data.upvoteCount);
-				},
-				error: (err: any): void => {
-					// @TODO: handle errors
-
-					Em.set(post, 'upvoteCount', oldUpvoteCount);
-					Em.set(post._embedded.userData[0], 'hasUpvoted', !Em.get(post._embedded.userData[0], 'hasUpvoted'));
-				},
-				complete: (): void => {
-					this.upvotingInProgress = false;
-				}
-			});
+			this.upvotePost(post);
 		}
 	}
 });
