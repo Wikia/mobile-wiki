@@ -98,6 +98,8 @@ module authView {
 			pageParams: {
 				cookieDomain: localSettings.authCookieDomain,
 				isModal: isModal,
+				enableAuthLogger: localSettings.clickstream.auth.enable,
+				authLoggerUrl: localSettings.clickstream.auth.url,
 				viewType: viewType
 			}
 		};

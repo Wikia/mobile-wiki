@@ -21,6 +21,15 @@ interface WeppyConfig {
 	samplingRate: number;
 }
 
+interface ClickStreamConfig {
+	auth: ClickStreamConfigItem;
+}
+
+interface ClickStreamConfigItem {
+	enable: boolean;
+	url: string;
+}
+
 interface LocalSettings {
 	apiBase: string;
 	asyncArticle: string[];
@@ -81,4 +90,5 @@ interface LocalSettings {
 		iPad: RegExp;
 	};
 	enableDiscussions: boolean;
+	clickstream: ClickStreamConfig;
 }
