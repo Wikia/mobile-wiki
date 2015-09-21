@@ -235,7 +235,7 @@ export function redirectToCanonicalHostIfNeeded(
 ): void {
 	var requestedHost = getCachedWikiDomainName(localSettings, request),
 		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
-		isLocal = isXipHost(localSettings, clearHost(request.headers.host)),
+		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request))),
 		redirectLocation: string;
 
 	if (!isLocal && requestedHost !== canonicalHost) {
