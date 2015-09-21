@@ -11,14 +11,7 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 	classNames: ['user-status', 'needsclick'],
 	anonAvatarSrc: 'http://wikia.github.io/style-guide/assets/images/icons/icon_avatar.svg',
 
-	anonAvatarHref: Em.computed('redirectString', function (): string {
-		if (Mercury.wiki.enableNewAuth) {
-			return '/join' + this.get('redirectString');
-		}
-		return '/Special:UserLogin';
-	}),
-
-	userLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
+	userLoggedIn: Em.computed.oneWay('currentUser.isAuthenticated', function () {
 		// HTMLBars attribute binding only removes an attribute if it's value is set to null
 		if (this.get('currentUser.isAuthenticated') === false) {
 			return null;
@@ -26,30 +19,33 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 		return true;
 	}),
 
-	userAvatarSrc: Em.computed('currentUser.avatarPath', function (): string {
+	userAvatarSrc: Em.computed.oneWay('currentUser.avatarPath', function (): string {
 		return this.get('currentUser.avatarPath');
 	}),
 
-	userName: Em.computed('currentUser.avatarPath', function (): string {
+	userName: Em.computed.oneWay('currentUser.avatarPath', function (): string {
 		return this.get('currentUser.name');
 	}),
 
-	loginHref: Em.computed('redirectString', function (): string {
+	anonAvatarHref: Em.computed(function (): string {
 		if (Mercury.wiki.enableNewAuth) {
-			return '/signin' + this.get('redirectString');
+			return '/join';
 		}
 		return '/Special:UserLogin';
 	}),
 
-	registerHref: Em.computed('redirectString', function (): string {
+	loginHref: Em.computed(function (): string {
 		if (Mercury.wiki.enableNewAuth) {
-			return '/register' + this.get('redirectString');
+			return '/signin';
 		}
-		return '/Special:UserSignup';
+		return '/Special:UserLogin';
 	}),
 
-	redirectString: Em.computed('router.url', function (): string {
-		return '?redirect=' + encodeURIComponent(this.get('router.url')) + this.getUselangParam();
+	registerHref: Em.computed(function (): string {
+		if (Mercury.wiki.enableNewAuth) {
+			return '/register';
+		}
+		return '/Special:UserSignup';
 	}),
 
 	loginLink: Em.computed('loginHref', function () {
@@ -89,5 +85,24 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 			return '';
 		}
 		return '&uselang=' + encodeURIComponent(lang);
+	},
+
+	getRedirectString: function (): string {
+		return '?redirect=' + encodeURIComponent(window.location.href) + this.getUselangParam();
+	},
+
+	/**
+	 * Add redirect URL on click to make sure it accurately reflects current URL
+	 * @param event
+	 */
+	click: function (event: Event) {
+		var target: HTMLAnchorElement = <HTMLAnchorElement> event.target;
+
+		// TODO: Add tracking here
+
+		if (target.href) {
+			event.preventDefault();
+			window.location.assign(target.href + this.getRedirectString());
+		}
 	}
 });
