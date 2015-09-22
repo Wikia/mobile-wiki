@@ -97,7 +97,7 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 			var $target: JQuery = $(event.target).closest('a'),
 				href: string = $target.attr('href');
 
-			// TODO: Add tracking here
+			// TODO: Add tracking here (HG-886)
 
 			if (href) {
 				event.preventDefault();
