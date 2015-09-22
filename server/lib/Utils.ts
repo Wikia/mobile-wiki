@@ -1,9 +1,12 @@
 /// <reference path="../../config/localSettings.d.ts" />
+/// <reference path="../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../typings/hoek/hoek.d.ts" />
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
 import Hoek = require('hoek');
+import Url = require('url');
+import QueryString = require('querystring');
 
 /**
  * Utility functions
@@ -91,7 +94,10 @@ export function getCachedWikiDomainName (localSettings: LocalSettings, request: 
  */
 export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 	var regex: RegExp,
-		match: RegExpMatchArray;
+		match: RegExpMatchArray,
+		environment = localSettings.environment,
+		// For these environments the host name can be passed through
+		passThroughEnv: any = {};
 
 	if (isXipHost(localSettings, hostName)) {
 		/**
@@ -212,3 +218,42 @@ export function isXipHost(localSettings: LocalSettings, hostName: string): boole
 	return localSettings.environment === Environment.Dev &&
 		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1
 }
+
+/**
+ * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
+ * If it's a local machine then ignore, no point in redirecting to devbox
+ * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
+ *
+ * @param localSettings
+ * @param request
+ * @param reply
+ * @param wikiVariables
+ * @throws RedirectedToCanonicalHost
+ */
+export function redirectToCanonicalHostIfNeeded(
+	localSettings: LocalSettings, request: Hapi.Request, reply: Hapi.Response, wikiVariables: any
+): void {
+	var requestedHost = getCachedWikiDomainName(localSettings, request),
+		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
+		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request))),
+		redirectLocation: string;
+
+	if (!isLocal && requestedHost !== canonicalHost) {
+		redirectLocation = wikiVariables.basePath + request.path;
+
+		if (Object.keys(request.query).length > 0) {
+			redirectLocation += '?' + QueryString.stringify(request.query);
+		}
+
+		reply.redirect(redirectLocation).permanent(true);
+		throw new RedirectedToCanonicalHost();
+	}
+}
+
+export class RedirectedToCanonicalHost {
+	constructor () {
+		Error.apply(this, arguments);
+	}
+}
+
+RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);

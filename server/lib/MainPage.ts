@@ -157,7 +157,7 @@ export class MainPageRequestHelper {
 		logger.debug({wiki: this.params.wikiDomain}, 'Fetching wiki variables');
 		requests.push(new MediaWiki.WikiRequest({
 			wikiDomain: this.params.wikiDomain
-		}).getWikiVariables());
+		}).wikiVariables());
 
 		return requests;
 	}
@@ -181,20 +181,13 @@ export class MainPageRequestHelper {
 	/**
 	 * Get WikiVariables
 	 * @TODO CONCF-761 shared between Article.ts and MainPage.ts - should be moved
-	 * @param {Function} next
 	 */
-	getWikiVariables(next: Function): void {
+	getWikiVariables(): any {
 		var wikiRequest = new MediaWiki.WikiRequest(this.params);
 
 		logger.debug(this.params, 'Fetching wiki variables');
 
-		wikiRequest
-			.getWikiVariables()
-			.then((wikiVariables: any) => {
-				next(null, wikiVariables.data);
-			}, (error: any) => {
-				next(error, null);
-			});
+		return wikiRequest.wikiVariables();
 	}
 
 	/**
