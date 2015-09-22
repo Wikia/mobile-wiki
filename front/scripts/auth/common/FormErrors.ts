@@ -20,7 +20,7 @@ class FormErrors {
 			} else if (node.classList.contains('input')) {
 				node.classList.remove('error');
 			} else {
-				node.parentNode.removeChild( node );
+				node.parentNode.removeChild(node);
 			}
 		});
 		this.generalErrorShown = false;

@@ -21,7 +21,13 @@ var localSettings = baseLocalSettings.extendSettings({
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/dlS.js'
 	},
 	port: 7000,
-	enableDiscussions: true
+	enableDiscussions: true,
+	clickstream: {
+		auth: {
+			enable: true,
+			url: 'https://services.wikia-dev.com/clickstream/events/social'
+		}
+	}
 });
 
 export function extendSettings(customLocalSet: any): LocalSettings {
