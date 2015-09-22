@@ -42,7 +42,7 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 			openGraphData.type = 'article';
 			openGraphData.url = wikiVars.basePath + request.path;
 			// Use Wikia logo as default image
-			openGraphData.image = 'http:' + Utils.getStaticAssetPath(localSettings, request.headers.host)
+			openGraphData.image = 'http:' + Utils.getStaticAssetPath(localSettings, request)
 				+ 'images/wikia-mark-1200.jpg';
 			openGraphData.imageWidth = 1200;
 			openGraphData.imageHeight = 1200;
@@ -64,7 +64,6 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 						resolve(openGraphData);
 					})
 					.catch((error: any): void => {
-						// Pass any error from MediaWiki.fetch up the stack
 						reject(error);
 					});
 			});
