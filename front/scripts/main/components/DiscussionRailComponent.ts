@@ -14,5 +14,11 @@ App.DiscussionRailComponent = Em.Component.extend({
 	isLeft: false,
 
 	twoColumn: false,
-	threeColumn: false
+	threeColumn: false,
+
+	actions: {
+		goToMainPage: function (): void {
+			this.sendAction('goToMainPage');
+		}
+	}
 });

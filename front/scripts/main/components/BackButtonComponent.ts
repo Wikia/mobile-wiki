@@ -5,6 +5,6 @@ App.BackButtonComponent = Em.Component.extend({
 	tagName: 'a',
 	classNames: ['back-button'],
 	click: function (): void {
-		window.location.pathname = '/';
+		this.sendAction('goToMainPage');
 	}
 });
