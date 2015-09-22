@@ -24,7 +24,7 @@ App.AlertNotificationsMixin = Em.Mixin.create({
 
 	clearNotifications(): void {
 		var notifications = this.get('alertNotifications'),
-			updatedNotifications = notifications.filter(function(item: AlertNotification): boolean {
+			updatedNotifications = notifications.filter((item: AlertNotification): boolean => {
 				return item.persistent;
 			});
 
