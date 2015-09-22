@@ -14,12 +14,14 @@ App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, {
 			if (error && error.status === 404) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.curated-content-error-section-not-found'),
-					type: 'warning'
+					type: 'warning',
+					persistent: true,
 				});
 			} else {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.curated-content-error-other'),
-					type: 'warning'
+					type: 'warning',
+					persistent: true,
 				});
 			}
 			this.transitionTo('mainPage');

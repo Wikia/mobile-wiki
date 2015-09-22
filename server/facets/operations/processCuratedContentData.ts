@@ -102,15 +102,14 @@ function processCuratedContentData (
 	if (!result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
-	} else if ((error && error.code === 404) || (!result.curatedContent.items || result.curatedContent.items.length < 1)) {
-		//if no items inside section or category -> redirect to main page
-		reply.redirect('/');
 	} else {
 		Tracking.handleResponse(result, request);
 
 		if (error) {
 			code = error.code || error.statusCode || 500;
 			result.error = JSON.stringify(error);
+
+			allowCache = false;
 		}
 
 		prepareData(request, result);

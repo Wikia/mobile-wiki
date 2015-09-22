@@ -11,12 +11,18 @@
 		isVisible=smartBannerVisible
 		toggleVisibility='toggleSmartBanner'
 	}}
-	{{site-head
-		smartBannerVisible=smartBannerVisible
-		toggleSideNav='toggleSideNav'
-		toggleUserMenu='toggleUserMenu'
-		themeBar=themeBar
-	}}
+
+	{{#if useNewNav}}
+		{{top-bar}}
+	{{else}}
+		{{site-head
+			smartBannerVisible=smartBannerVisible
+			toggleSideNav='toggleSideNav'
+			toggleUserMenu='toggleUserMenu'
+			themeBar=themeBar
+		}}
+	{{/if}}
+
 	{{#if enableSharingHeader}}
 		{{share-feature
 			smartBannerVisible=smartBannerVisible

@@ -1,10 +1,12 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 /// <reference path="../lib/Article.ts" />
 
+import Promise = require('bluebird');
 import Article = require('../lib/Article');
-import Utils = require('../lib/Utils');
-import Tracking = require('../lib/Tracking');
 import Caching = require('../lib/Caching');
+import Logger = require('../lib/Logger');
+import Tracking = require('../lib/Tracking');
+import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
 import prepareArticleData = require('./operations/prepareArticleData');
 import prepareMainPageData = require('./operations/prepareMainPageData');
@@ -18,7 +20,7 @@ var cachingTimes = {
 
 function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	var path: string = request.path,
-		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
 			redirect: request.query.redirect
@@ -42,24 +44,41 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 
 	article = new Article.ArticleRequestHelper(params);
 
-	// TODO (CONCF-761): /main/edit is here temporary
-	if (path === '/' || path === '/wiki/' || path.indexOf('/main/edit') === 0) {
-		article.getWikiVariables((error: any, wikiVariables: any) => {
-			if (error) {
-				// TODO check error.statusCode and react accordingly
-				reply.redirect(localSettings.redirectUrlOnNoData);
-			} else {
+	if (path === '/' || path === '/wiki/') {
+		article
+			.getWikiVariables()
+			.then((wikiVariables: any): Promise<any> => {
+				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 				article.setTitle(wikiVariables.mainPageTitle);
-				article.getArticle(wikiVariables, (error: any, result: any = {}) => {
-					onArticleResponse(request, reply, error, result, allowCache);
-				});
-			}
-		});
+
+				return Promise.join(wikiVariables, article.getArticle());
+			})
+			.spread((wikiVariables: any, article: any): void => {
+				article = article.data;
+				onArticleResponse(request, reply, article.exception, {
+					article,
+					wiki: wikiVariables
+				}, allowCache);
+			})
+			.catch(Utils.RedirectedToCanonicalHost, (): void => {
+				Logger.info('Redirected to canonical host');
+			})
+			.catch((error: any): void => {
+				Logger.error('Error when trying to serve an article', error);
+				reply.redirect(localSettings.redirectUrlOnNoData);
+			});
 	} else  {
 		article.setTitle(request.params.title);
-		article.getFull((error: any, result: any = {}) => {
-			onArticleResponse(request, reply, error, result, allowCache);
-		});
+
+		article
+			.getFull()
+			.then((result: any) => {
+				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, result.wiki);
+				onArticleResponse(request, reply, result.exception, result, allowCache);
+			})
+			.catch(Utils.RedirectedToCanonicalHost, (): void => {
+				Logger.info('Redirected to canonical host');
+			});
 	}
 }
 

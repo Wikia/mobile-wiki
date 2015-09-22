@@ -74,5 +74,5 @@ App.DiscussionForumModel.reopenClass({
 				error: (err) => reject(err)
 			});
 		});
-	},
+	}
 });

@@ -11,16 +11,14 @@ var util = require('../util'),
 	popularItemConfig = util.readJsonConfigSync('static/popular.json');
 
 function index(request, reply) {
-    var locale = util.getUserLocale(request),
-        data = {
-            title: 'ウィキア・ジャパン',
-            carousel: util.getLocalizedHubData(hubConfig, locale),
-			popular: util.preprocessPopularData(popularItemConfig),
-			loggedIn: util.getLoginState(),
-			userName: util.getUserName()
-        };
+	var locale = util.getUserLocale(request),
+		data = {
+			title: 'ウィキア・ジャパン',
+			carousel: util.getLocalizedHubData(hubConfig, locale),
+			popular: util.preprocessPopularData(popularItemConfig)
+		};
 
-    return reply.view('index', data);
+	util.renderWithGlobalData(request, reply, data, 'index');
 }
 
 module.exports = index;
