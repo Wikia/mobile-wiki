@@ -36,6 +36,8 @@ interface LocalSettings {
 	authCookieDomain?: string;
 	backendRequestTimeout: number;
 	cdnBaseUrl: string;
+	// TODO: XW-395 Remove deprecated API base after transition to new API base
+	deprecatedApiBase: string;
 	devboxDomain?: string;
 	domain: string;
 	discuss?: any; //XXX change to interface
