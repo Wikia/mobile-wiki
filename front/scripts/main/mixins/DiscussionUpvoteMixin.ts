@@ -36,16 +36,16 @@ App.DiscussionUpvoteMixin = Em.Mixin.create({
 				xhrFields: {
 					withCredentials: true,
 				},
-				success: (data:any):void => {
+				success: (data:any): void => {
 					Em.set(post, 'upvoteCount', data.upvoteCount);
 				},
-				error: (err:any):void => {
+				error: (err:any): void => {
 					// @TODO: handle errors
 
 					Em.set(post, 'upvoteCount', oldUpvoteCount);
 					Em.set(post._embedded.userData[0], 'hasUpvoted', !Em.get(post._embedded.userData[0], 'hasUpvoted'));
 				},
-				complete: ():void => {
+				complete: (): void => {
 					this.upvotingInProgress[postId] = false;
 				}
 			});
