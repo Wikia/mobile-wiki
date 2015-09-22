@@ -29,7 +29,7 @@ function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
 			mainPage.setTitle(wikiVariables.mainPageTitle);
-			mainPage.getCategory(wikiVariables, (error: any, result: any = {}) => {
+			mainPage.getSection(wikiVariables, (error: any, result: any = {}) => {
 				processCuratedContentData(request, reply, error, result, allowCache);
 			});
 		})
