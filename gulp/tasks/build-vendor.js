@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 gulp.task('build-vendor', ['vendor'], function () {
 	return piper(
 		gulp.src([
-			'www/front/vendor/webcomponentsjs/webcomponents-lite.js',
+			'www/front/vendor/webcomponentsjs/webcomponents.js',
 			'www/front/vendor/script.js/dist/script.js',
 			'www/front/vendor/fastclick/lib/fastclick.js',
 			'www/front/vendor/jquery/dist/jquery.js',

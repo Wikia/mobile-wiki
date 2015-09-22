@@ -12,7 +12,9 @@ interface RouteDefinition {
 }
 
 var routes: RouteDefinition[],
+	// routes that don't care if the user is logged in or not, i.e. lazily loaded modules
 	unauthenticatedRoutes: RouteDefinition[],
+	// routes where we want to know the user's auth status
 	authenticatedRoutes: RouteDefinition[],
 	articlePagePaths: string[],
 	routeCacheConfig = {
@@ -238,7 +240,7 @@ articlePagePaths.forEach((path) => {
 
 // For application routes that are not articles and require the Ember app, push a route object
 // that uses the `showApplication` route handler to get a basic Ember application instance
-unauthenticatedRoutes.push({
+authenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
 	path: '/d/{type}/{id}/{action?}',

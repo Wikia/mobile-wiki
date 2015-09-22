@@ -29,6 +29,11 @@ exports.routes = [
 	},
 	{
 		method: 'GET',
+		path: '/logout',
+		handler: require('./facets/logout')
+	},
+	{
+		method: 'GET',
 		path: '/privacy',
 		handler: require('./facets/privacy')
 	},

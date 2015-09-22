@@ -16,7 +16,7 @@ var cachingTimes = {
 
 export function get (request: Hapi.Request, reply: any): void {
 	var params = {
-			wikiDomain: Utils.getCachedWikiDomainName(localSettings, request.headers.host),
+			wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
 			categoryName: decodeURIComponent(request.params.categoryName),
 			thumbSize: request.params.thumbSize || {
 				width: 300,

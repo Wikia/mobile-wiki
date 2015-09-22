@@ -1,3 +1,35 @@
+## release-164 (2015-09-22 10:21 UTC)
+* [XW-236](https://wikia-inc.atlassian.net/browse/XW-236) XW-236 Redirect to canonical host if needed
+* [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204)""
+* [INT-185](https://wikia-inc.atlassian.net/browse/INT-185) INT-185 Internationalization for Wikia homepage link in header
+* [XW-239](https://wikia-inc.atlassian.net/browse/XW-239) XW-239 Handle preview as one of possible envs in mercury
+* [XW-6](https://wikia-inc.atlassian.net/browse/XW-6) XW-6 | common check for crucial attributes of optimizely object
+* [SOC-1268](https://wikia-inc.atlassian.net/browse/SOC-1268) SOC-1268 Clickstream logger for Auth Pages
+* [INT-198](https://wikia-inc.atlassian.net/browse/INT-198) Add extra breakpoint for parallax text. Fix Firefox r…
+
+## release-163 (2015-09-21 07:59 UTC)
+* [XW-199](https://wikia-inc.atlassian.net/browse/XW-199) XW-199 | Add Polldaddy widget
+
+## release-161 (2015-09-18 07:59 UTC)
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Fix for user name not showing after logging in
+* Japan-HP-Update-2015.09.17: Japan HP: Updated images for highlighted communities. 
+* [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204) SOC-1204 As a user on desktop I want that the new auth modal replaces the current forced login modal
+* aden-2435-ads-on-event-on-mercury: ADEN-2435 Added new method pushSlotToQueue
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Fixes for logout for Japan HP
+* [SOC-1269](https://wikia-inc.atlassian.net/browse/SOC-1269) SOC-1269 when the user is authenticated auth modal is loading regular wiki page
+
+## release-160 (2015-09-17 09:59 UTC)
+* [HG-846](https://wikia-inc.atlassian.net/browse/HG-846) HG-846 More work on top-bar component in mercury
+
+## release-159 (2015-09-16 09:59 UTC)
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Login state support for Japan homepage
+* Japan-HP-logging: Add bunyan logger for Japan homepage (console and syslog)
+* [INT-187](https://wikia-inc.atlassian.net/browse/INT-187) Japan Homepage content update. Highlighted communities.
+* [HG-839](https://wikia-inc.atlassian.net/browse/HG-839) HG-839 - make sure image width is defined
+* [SOC-1119](https://wikia-inc.atlassian.net/browse/SOC-1119) SOC-1119 Styles for post list on desktop
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) Hg 848 Incorporating Top Bar component into mercury discussion pages
+* [SOC-951](https://wikia-inc.atlassian.net/browse/SOC-951) SOC-951 Add back controller so we can trigger the "show more" button
+
 ## release-158 (2015-09-15 09:59 UTC)
 * [XW-203](https://wikia-inc.atlassian.net/browse/XW-203) XW-203 VK tag support
 * [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Use mercury signin/signup pages for Japan homepage login
