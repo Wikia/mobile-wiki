@@ -1,3 +1,12 @@
+## release-164 (2015-09-22 10:21 UTC)
+* [XW-236](https://wikia-inc.atlassian.net/browse/XW-236) XW-236 Redirect to canonical host if needed
+* [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204)""
+* [INT-185](https://wikia-inc.atlassian.net/browse/INT-185) INT-185 Internationalization for Wikia homepage link in header
+* [XW-239](https://wikia-inc.atlassian.net/browse/XW-239) XW-239 Handle preview as one of possible envs in mercury
+* [XW-6](https://wikia-inc.atlassian.net/browse/XW-6) XW-6 | common check for crucial attributes of optimizely object
+* [SOC-1268](https://wikia-inc.atlassian.net/browse/SOC-1268) SOC-1268 Clickstream logger for Auth Pages
+* [INT-198](https://wikia-inc.atlassian.net/browse/INT-198) Add extra breakpoint for parallax text. Fix Firefox r…
+
 ## release-163 (2015-09-21 07:59 UTC)
 * [XW-199](https://wikia-inc.atlassian.net/browse/XW-199) XW-199 | Add Polldaddy widget
 
