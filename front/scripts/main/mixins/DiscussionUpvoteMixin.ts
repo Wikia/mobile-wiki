@@ -10,10 +10,10 @@ App.DiscussionUpvoteMixin = Em.Mixin.create({
 
 	actions: {
 		upvote(post: typeof App.DiscussionPostModel): void {
-			var hasUpvoted:boolean,
-				method:string,
-				oldUpvoteCount:number = Em.get(post, 'upvoteCount'),
-				postId:number = Em.get(post, 'id');
+			var hasUpvoted: boolean,
+				method: string,
+				oldUpvoteCount: number = Em.get(post, 'upvoteCount'),
+				postId: number = Em.get(post, 'id');
 
 			if (this.upvotingInProgress[postId] || Em.get(post, '_embedded') === undefined ||
 				Em.get(post._embedded, 'userData') === undefined) {
