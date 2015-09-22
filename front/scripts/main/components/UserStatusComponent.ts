@@ -12,11 +12,11 @@ App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
 	anonAvatarSrc: 'http://wikia.github.io/style-guide/assets/images/icons/icon_avatar.svg',
 
 	userLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
-		// HTMLBars attribute binding only removes an attribute if it's value is set to null
-		if (this.get('currentUser.isAuthenticated') === false) {
-			return null;
+		if (this.get('currentUser.isAuthenticated') === true) {
+			return false;
 		}
-		return true;
+		// HTMLBars attribute binding only removes an attribute if it's value is set to null
+		return null;
 	}),
 
 	userAvatarSrc: Em.computed.oneWay('currentUser.avatarPath'),
