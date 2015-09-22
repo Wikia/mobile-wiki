@@ -2,17 +2,10 @@
 	setSortBy='setSortBy'
 	sortBy=sortBy
 }}
-{{discussion-rail
-	railItems=leftRailItems
-	isLeft=true
-	threeColumn=true
-}}
-{{discussion-rail
-	railItems=rightRailItems
-	isRight=true
-	threeColumn=true
-	goToMainPage='goToMainPage'
-}}
+<div class="rail left three-column">
+	{{community-badge}}
+	{{back-button}}
+</div>
 {{forum-wrapper
 	goToPost='goToPost'
 	loadPage='loadPage'

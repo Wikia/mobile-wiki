@@ -3,8 +3,7 @@
 
 App.BackButtonComponent = Em.Component.extend({
 	tagName: 'a',
-	classNames: ['back-button'],
-	click: function (): void {
-		this.sendAction('goToMainPage');
-	}
+	classNames: ['back-button', 'external'],
+	attributeBindings: ['href'],
+	href: '/'
 });

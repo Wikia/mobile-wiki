@@ -2,6 +2,4 @@
 
 App.DiscussionForumController = Em.Controller.extend({
 	sortBy: null,
-	leftRailItems: ['community-badge', 'back-button'],
-	rightRailItems: []
 });

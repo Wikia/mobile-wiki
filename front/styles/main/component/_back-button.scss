@@ -5,6 +5,7 @@
 	display: flex;
 	font-size: 0.75rem;
 	font-weight: bold;
+	height: 100%;
 	padding: 16px 0;
 	width: 100%;
 
@@ -17,6 +18,7 @@
 
 @for $i from 1 through length($verticals) {
 	.#{nth($verticals, $i)}-vertical .back-button {
+
 		border-color: #{nth($vertical-colors, $i)};
 		color: #{nth($vertical-colors, $i)};
 
