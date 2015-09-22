@@ -1,4 +1,5 @@
 ## release-164 (2015-09-22 10:21 UTC)
+* [XW-236](https://wikia-inc.atlassian.net/browse/XW-236) XW-236 Redirect to canonical host if needed
 * [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204)""
 * [INT-185](https://wikia-inc.atlassian.net/browse/INT-185) INT-185 Internationalization for Wikia homepage link in header
 * [XW-239](https://wikia-inc.atlassian.net/browse/XW-239) XW-239 Handle preview as one of possible envs in mercury
