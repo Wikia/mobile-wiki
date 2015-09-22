@@ -106,7 +106,7 @@ unauthenticatedRoutes = [
 	},
 	{
 		method: 'GET',
-		// TODO: if you call to api/v1/comments/ without supplying an id, this actually calls /api/v1/article
+		// TODO: if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
 		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
 		handler: require('./facets/api/articleComments').get
 	},
