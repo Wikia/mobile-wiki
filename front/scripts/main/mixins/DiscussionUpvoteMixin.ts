@@ -24,7 +24,7 @@ App.DiscussionUpvoteMixin = Em.Mixin.create({
 			hasUpvoted = Em.get(post._embedded.userData[0], 'hasUpvoted');
 			method = (hasUpvoted ? 'delete' : 'post');
 
-			// assuming the positive scenario, the change in the front-end is dome here
+			// assuming the positive scenario, the change in the front-end is done here
 			Em.set(post, 'upvoteCount', oldUpvoteCount + (hasUpvoted ? -1 : 1));
 			Em.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
 
