@@ -54,7 +54,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			this.controller && this.controller.hideLoader();
 
 			// Clear notification alerts for the new route
-			this.controller.get('alertNotifications').clearNotifications();
+			this.controller.clearNotifications();
 
 			/*
 			 * This is called after the first route of any application session has loaded
