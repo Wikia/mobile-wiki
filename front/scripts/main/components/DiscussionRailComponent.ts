@@ -2,7 +2,7 @@
 'use strict';
 
 App.DiscussionRailComponent = Em.Component.extend({
-	classNames: ['rail'],
+	classNames: ['rail', 'mobile-hidden'],
 	classNameBindings: [
 		'isRight:right',
 		'isLeft:left',
