@@ -6,7 +6,7 @@
  */
 App.DiscussionUpvoteActionSendMixin = Em.Mixin.create({
 	actions: {
-		upvote(post: typeof App.DiscussionPostModel): void {
+		upvote(post: any): void {
 			this.sendAction('upvote', post);
 		}
 	}
