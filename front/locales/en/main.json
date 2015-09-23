@@ -147,7 +147,9 @@
 		"infobox-builder-add-title": "Add new title",
 		"infobox-builder-add-image": "Add new image",
 		"infobox-builder-save": "Save infobox template",
-	  	"infobox-builder-remove-item": "Remove infobox item"
+	  	"infobox-builder-remove-item": "Remove infobox item",
+	  	"infobox-builder-move-item-down": "Move Down",
+	  	"infobox-builder-move-item-up": "Move Up"
 	},
 	"discussion": {
 		"share-default-title": "Discussion on __siteName__"
