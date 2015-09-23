@@ -1,7 +1,8 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 'use strict';
 
-App.ForumWrapperComponent = Em.Component.extend({
+App.ForumWrapperComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixin, {
 	classNames: ['forum-wrapper'],
 
 	postsDisplayed: 0,
@@ -12,10 +13,6 @@ App.ForumWrapperComponent = Em.Component.extend({
 	actions: {
 		goToPost(postId: number): void {
 			this.sendAction('goToPost', postId);
-		},
-
-		upvote(post: typeof App.DiscussionPostModel): void {
-			this.sendAction('upvote', post);
 		}
 	},
 
