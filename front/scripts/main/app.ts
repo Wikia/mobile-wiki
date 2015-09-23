@@ -87,7 +87,7 @@ App.initializer({
 			LOG_TRANSITIONS_INTERNAL: debug
 		});
 
-		i18n.init({
+		i18n.init(<I18nextOptions> {
 			debug: debug,
 			detectLngQS: 'uselang',
 			fallbackLng: 'en',

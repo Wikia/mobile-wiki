@@ -69,13 +69,17 @@ export class WikiRequest extends BaseRequest {
 	 *
 	 * @return {Promise<any>}
 	 */
-	getWikiVariables (): Promise<any> {
+	wikiVariables (): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getWikiVariables'
 		});
 
-		return this.fetch(url);
+		return this
+			.fetch(url)
+			.then((wikiVariables: any) => {
+				return Promise.resolve(wikiVariables.data);
+			});
 	}
 }
 
@@ -88,6 +92,7 @@ export class ArticleRequest extends BaseRequest {
 	 *
 	 * @param title
 	 * @param redirect
+	 * @param sections
 	 * @return {Promise<any>}
 	 */
 	article (title: string, redirect: string, sections?: string): Promise<any> {
@@ -176,8 +181,16 @@ export class ArticleRequest extends BaseRequest {
  * @return {Promise<any>}
  */
 export function fetch (url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
-	// Host might get changed when redirected so headers should be updated
-	// TODO: this is a temporary solution to fix additional domains, will be fixed properly in XW-236
+	/**
+	 * We send requests to Consul URL and the target wiki is passed in the Host header.
+	 * When Wreck gets a redirection response it updates URL only, not headers.
+	 * That's why we need to update Host header manually.
+	 *
+	 * @param redirectMethod
+	 * @param statusCode
+	 * @param location
+	 * @param redirectOptions
+	 */
 	var beforeRedirect = (redirectMethod: string, statusCode: number, location: string, redirectOptions: any): void => {
 		var redirectHost: string = Url.parse(location).hostname;
 

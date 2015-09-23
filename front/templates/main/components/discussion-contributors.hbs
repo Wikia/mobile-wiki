@@ -1,0 +1,10 @@
+{{#each latestContributors as |contributor|}}
+	{{user-avatar
+		avatarUrl=contributor.avatarUrl
+		profileUrl=contributor.url
+		username=contributor.name
+	}}
+{{/each}}
+{{#if additionalContributorCount}}
+<div class="discussion-contributors-more">+{{additionalContributorCount}}</div>
+{{/if}}
