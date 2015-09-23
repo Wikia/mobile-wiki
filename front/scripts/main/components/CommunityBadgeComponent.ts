@@ -6,6 +6,11 @@ App.CommunityBadgeComponent = Em.Component.extend({
 	squareDimension: 125,
 
 	wikiImageUrl: Em.computed('squareDimension', function (): string {
+		var imageUrl = Em.getWithDefault(Mercury, 'wiki,image', '');
+		if (imageUrl === '') {
+			return '';
+		}
+
 		return Mercury.Modules.Thumbnailer.getThumbURL(
 			Em.getWithDefault(Mercury, 'wiki.image', 'Wikia'),
 			{

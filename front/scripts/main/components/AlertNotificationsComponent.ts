@@ -6,6 +6,7 @@ interface AlertNotification {
 	expiry?: number;
 	unsafe?: boolean;
 	callbacks?: any;
+	persistent?: boolean;
 }
 
 App.AlertNotificationsComponent = Em.Component.extend({

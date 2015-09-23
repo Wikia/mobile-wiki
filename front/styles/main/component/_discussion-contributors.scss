@@ -1,0 +1,33 @@
+$discussion-contributors-background-color: #666;
+$discussion-contributors-border-color: $border-color;
+$discussion-contributors-text-color: $color-white;
+$discussion-contributors-avatar-dimension: 30px;
+
+.discussion-contributors {
+	display: inline;
+
+	.user-avatar {
+		display: inline-block;
+	}
+
+	.avatar {
+		img {
+			height: $discussion-contributors-avatar-dimension;
+			width: $discussion-contributors-avatar-dimension;
+		}
+	}
+
+	.discussion-contributors-more {
+		background-color: $discussion-contributors-background-color;
+		border: 2px solid $discussion-contributors-border-color;
+		border-radius: 50%;
+		box-sizing: border-box;
+		color: $discussion-contributors-text-color;
+		display: inline-block;
+		font-size: 10px;
+		height: $discussion-contributors-avatar-dimension;
+		padding: 3px 0;
+		text-align: center;
+		width: $discussion-contributors-avatar-dimension;
+	}
+}

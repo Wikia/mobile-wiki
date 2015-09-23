@@ -2,6 +2,10 @@
 	setSortBy='setSortBy'
 	sortBy=sortBy
 }}
+{{discussion-hero-unit
+	numberOfPosts=model.totalPosts
+	name=model.name
+}}
 <div class="rail left three-column">
 	{{community-badge}}
 	{{discussion-back-button}}
@@ -14,4 +18,3 @@
 	postsDisplayed=model.posts.length
 	totalPosts=model.totalPosts
 }}
-
