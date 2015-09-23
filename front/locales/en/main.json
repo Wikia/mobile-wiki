@@ -146,7 +146,8 @@
 		"add-infobox-data-tag": "Add new data item",
 		"add-infobox-title-tag": "Add new title",
 		"add-infobox-image-tag": "Add new image",
-		"save-infobox-template": "Save infobox template"
+		"save-infobox-template": "Save infobox template",
+	  	"remove-infobox-item": "Remove infobox item"
 	},
 	"discussion": {
 		"share-default-title": "Discussion on __siteName__"
