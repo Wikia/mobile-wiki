@@ -1,8 +1,7 @@
 {{discussion-hero-unit}}
-{{discussion-rail
-	railItems=leftRailItems
-	twoColumn=true
-}}
+<div class="rail left two-column">
+	{{community-badge}}
+</div>
 <div class="discussion post small-12 large-8 columns">
 	{{post-detail
 		author=model.firstPost.createdBy
@@ -26,7 +25,3 @@
 		}}
 	{{/each}}
 </div>
-{{discussion-rail
-	railItems=rightRailItems
-	twoColumn=true
-}}

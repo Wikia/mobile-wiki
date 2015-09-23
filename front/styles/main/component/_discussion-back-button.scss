@@ -1,0 +1,29 @@
+.back-button {
+	align-items: center;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	display: flex;
+	font-size: 0.75rem;
+	font-weight: bold;
+	height: 100%;
+	padding: 16px 0;
+	width: 100%;
+
+	svg {
+		height: 16px;
+		margin-right: 14px;
+		width: 16px;
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .back-button {
+
+		border-color: #{nth($vertical-colors, $i)};
+		color: #{nth($vertical-colors, $i)};
+
+		svg {
+			fill: #{nth($vertical-colors, $i)};
+		}
+	}
+}

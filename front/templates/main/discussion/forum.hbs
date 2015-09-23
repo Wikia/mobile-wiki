@@ -6,10 +6,10 @@
 	numberOfPosts=model.totalPosts
 	name=model.name
 }}
-{{discussion-rail
-	railItems=leftRailItems
-	threeColumn=true
-}}
+<div class="rail left three-column">
+	{{community-badge}}
+	{{discussion-back-button}}
+</div>
 {{forum-wrapper
 	goToPost='goToPost'
 	loadPage='loadPage'
@@ -17,8 +17,4 @@
 	posts=model.posts
 	postsDisplayed=model.posts.length
 	totalPosts=model.totalPosts
-}}
-{{discussion-rail
-	railItems=rightRailItems
-	threeColumn=true
 }}
