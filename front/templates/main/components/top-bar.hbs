@@ -1,6 +1,8 @@
 {{svg 'wikia-logo' role='img' class='icon wikia-logo logo-image'}}
+
 <user-status
-	class="user-status"
+	{{! "needsclick" class on the user-status element disables FastClick, which doesn't play well with shadow dom}}
+	class="user-status needsclick"
 	anon-avatar-src="http://wikia.github.io/style-guide/assets/images/icons/icon_avatar.svg"
 	anon-avatar-href="/join"
 	user-logged-in={{isUserLoggedIn}}

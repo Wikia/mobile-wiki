@@ -55,3 +55,9 @@ $discussion-header-color-text: #fff;
 		}
 	}
 }
+
+@media #{$desktop-range} {
+	.discussion-header {
+		display: none;
+	}
+}
