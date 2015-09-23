@@ -22,9 +22,19 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		searchPlaceholder: Em.computed((): string =>
 			i18n.t('app.curated-content-editor-search-images-placeholder')
 		),
-		label: Em.computed('model.label', function() {
+		label: Em.computed('model.label', 'isFeatured', 'isSection', function(): string {
 			var modelLabel = this.get('model.label');
-			return modelLabel || i18n.t('app.curated-content-editor-new-item');
+			if (modelLabel) {
+				return modelLabel;
+			} else {
+				if (this.get('isFeaturedItem')) {
+					return i18n.t('app.curated-content-editor-new-featured-content');
+				} else if (this.get('isSection')) {
+					return i18n.t('app.curated-content-editor-new-section');
+				} else {
+					return i18n.t('app.curated-content-editor-new-category');
+				}
+			}
 		}),
 
 		searchQueryObserver: Em.observer('searchQuery', function(): void {

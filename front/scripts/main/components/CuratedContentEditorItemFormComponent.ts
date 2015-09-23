@@ -23,9 +23,19 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
-		label: Em.computed('model.label', function(): string {
+		label: Em.computed('model.label', 'isFeatured', 'isSection', function(): string {
 			var modelLabel = this.get('model.label');
-			return modelLabel || i18n.t('app.curated-content-editor-new-item');
+			if (modelLabel) {
+				return modelLabel;
+			} else {
+				if (this.get('isFeaturedItem')) {
+					return i18n.t('app.curated-content-editor-new-featured-content');
+				} else if (this.get('isSection')) {
+					return i18n.t('app.curated-content-editor-new-section');
+				} else {
+					return i18n.t('app.curated-content-editor-new-category');
+				}
+			}
 		}),
 
 		/* 16x9 transparent gif */
