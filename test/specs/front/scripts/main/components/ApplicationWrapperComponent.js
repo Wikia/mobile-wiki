@@ -1,7 +1,7 @@
-moduleFor('view:application', 'Application View');
+moduleForComponent('application-wrapper', 'Application Wrapper Component');
 
 test('shouldHandleClick returns correct value', function () {
-	var appViewMock = this.subject(),
+	var component = this.subject(),
 		testCases = [
 			{
 				target: '<li class="mw-content"></li>',
@@ -18,6 +18,6 @@ test('shouldHandleClick returns correct value', function () {
 		];
 
 	testCases.forEach(function(testCase) {
-		equal(appViewMock.shouldHandleClick(testCase.target), testCase.expected);
+		equal(component.shouldHandleClick(testCase.target), testCase.expected);
 	});
 });
