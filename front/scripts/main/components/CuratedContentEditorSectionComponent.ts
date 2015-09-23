@@ -19,6 +19,10 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	}),
 	notEmptyItems: Em.computed.notEmpty('model.items'),
 
+	itemsCountLabel: Em.computed('model.items.length', function (): string {
+		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
+	}),
+
 	actions: {
 		addItem(): void {
 			this.trackClick('curated-content-editor', 'section-item-add');

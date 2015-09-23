@@ -12,6 +12,10 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 
+	itemsCountLabel: Em.computed('model.items.length', function (): string {
+		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
+	}),
+
 	actions: {
 		edit(): void {
 			var model: CuratedContentEditorItemModel = this.get('model');
