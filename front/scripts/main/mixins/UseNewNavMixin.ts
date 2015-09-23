@@ -8,8 +8,10 @@
 App.UseNewNavMixin = Em.Mixin.create({
 	activate: function (): void {
 		this.controllerFor('application').set('useNewNav', true);
+		this._super();
 	},
 	deactivate: function (): void {
 		this.controllerFor('application').set('useNewNav', false);
+		this._super();
 	}
 });
