@@ -7,7 +7,7 @@ function resetMercuryBaseline () {
 	var M = window.M;
 	// initalize articleContentPreloadedInDOM to true, allow mutation
 	M.prop('articleContentPreloadedInDOM', true, true);
-	M.prop('apiBase', '/api/v1', true);
+	M.prop('apiBase', '/api/mercury', true);
 	M.prop('weppyConfig', {
 		host: '',
 		samplingRate: 1,

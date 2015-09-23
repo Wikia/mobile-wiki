@@ -3,8 +3,6 @@ var gutil = require('gulp-util'),
 
 environment = (environment === 'production') ? 'prod' : environment;
 
-process.env.WIKIA_ENVIRONMENT = environment;
-
 module.exports = {
 	name: environment,
 	isProduction: environment === 'prod'
