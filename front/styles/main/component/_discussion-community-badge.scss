@@ -1,30 +1,4 @@
-@media #{$xlarge-up} {
-	.three-column {
-		.community-badge {
-			width: 3 * $column-width-xlarge;
-		}
-	}
-	.two-column {
-		.community-badge {
-			width: 2 * $column-width-xlarge;
-		}
-	}
-}
-
-@media #{$xxlarge-up} {
-	.three-column {
-		.community-badge {
-			width: 3 * $column-width-xxlarge;
-		}
-	}
-	.two-column {
-		.community-badge {
-			width: 2 * $column-width-xxlarge;
-		}
-	}
-}
-
-.three-column {
+.large-3 {
 	.community-badge {
 		img {
 			width: 125px;
@@ -32,7 +6,7 @@
 	}
 }
 
-.two-column {
+.large-2 {
 	.community-badge {
 		img {
 			width: 79px;

@@ -161,14 +161,6 @@ $horizontal-padding: 15px;
 
 	.discussion {
 		background-color: transparent;
-		margin-left: auto;
-		margin-right: auto;
-		width: 507px;
-
-		.icon {
-			height: 24px;
-			width: 24px;
-		}
 
 		&.forum {
 			.post-detail {
@@ -176,7 +168,29 @@ $horizontal-padding: 15px;
 				border-width: 0;
 				margin-bottom: 5px;
 				padding: 20px 30px;
+				width: 507px;
 			}
+		}
+
+		&.post {
+			.post-detail {
+				width: 588px;
+			}
+
+			.post-reply {
+				width: 524px;
+			}
+		}
+
+		.icon {
+			height: 24px;
+			width: 24px;
+		}
+
+		.post-detail,
+		.post-reply {
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
 }

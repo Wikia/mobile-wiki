@@ -1,14 +1,8 @@
 {{discussion-rail
 	railItems=leftRailItems
-	isLeft=true
 	twoColumn=true
 }}
-{{discussion-rail
-	railItems=rightRailItems
-	isRight=true
-	twoColumn=true
-}}
-<div class="discussion post">
+<div class="discussion post small-12 large-8 columns">
 	{{post-detail
 		author=model.firstPost.createdBy
 		content=model.firstPost.rawContent
@@ -31,3 +25,7 @@
 		}}
 	{{/each}}
 </div>
+{{discussion-rail
+	railItems=rightRailItems
+	twoColumn=true
+}}
