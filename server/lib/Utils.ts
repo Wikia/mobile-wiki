@@ -211,9 +211,7 @@ export function getCDNBaseUrl(localSettings: LocalSettings): String {
  * @returns {string}
  */
 export function getHostFromRequest(request: Hapi.Request): string {
-	/* tslint:disable:no-string-literal */
-	return request.headers['x-original-host'] || request.headers['host'];
-	/* tslint:enable:no-string-literal */
+	return request.headers['x-original-host'] || request.headers.host;
 }
 
 export function isXipHost(localSettings: LocalSettings, hostName: string): boolean {
