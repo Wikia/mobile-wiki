@@ -67,11 +67,6 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 	infoboxState: Em.A([]),
 	itemInEditMode: null,
-	itemInEditModePosition: Em.computed('itemInEditMode', 'infoboxState', function(): any {
-		var item = this.get('itemInEditMode');
-
-		return item ? this.get('infoboxState').indexOf(item) : null;
-	}),
 
 	/**
 	 * @desc add item to infobox state
