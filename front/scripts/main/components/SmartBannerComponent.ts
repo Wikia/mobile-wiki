@@ -107,6 +107,8 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 
 	willInsertElement(): void {
+		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
+		// running this just after render is working too
 		Em.run.scheduleOnce('afterRender', this, this.checkForHiding);
 	},
 
