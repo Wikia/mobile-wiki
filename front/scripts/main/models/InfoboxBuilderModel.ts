@@ -194,11 +194,11 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 	/**
 	 * @desc sets item to the edit mode
-	 * @param {DataItem|ImageItem|TitleItem} element
+	 * @param {DataItem|ImageItem|TitleItem} item
 	 * @param {Number} position
 	 */
-	setEditItem(element: DataItem|ImageItem|TitleItem, position: number): void {
-		this.set('itemInEditMode', element);
+	setEditItem(item: DataItem|ImageItem|TitleItem, position: number): void {
+		this.set('itemInEditMode', item);
 		this.set('itemInEditModePosition', position);
 	},
 
@@ -208,6 +208,13 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 */
 	removeItem(position: number): void {
 		this.get('infoboxState').removeAt(position);
+		this.resetEditMode();
+	},
+
+	/**
+	 * @desc resets item in edit mode and its position to null
+	 */
+	resetEditMode(): void {
 		this.set('itemInEditMode', null);
 		this.set('itemInEditModePosition', null);
 	},
