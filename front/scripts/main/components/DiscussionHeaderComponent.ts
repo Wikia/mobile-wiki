@@ -8,14 +8,22 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	siteName: Em.computed(function (): string {
 		return Em.get(Mercury, 'wiki.siteName');
 	}),
+	overlay: null,
+
+	didInsertElement: function () {
+		this.set('overlay', this.element.querySelector('.overlay'));
+		this._super();
+	},
 
 	actions: {
 		showSortComponent(): void {
 			this.sendAction('showSortComponent');
+			this.get('overlay').style.display = 'block';
 		},
 
 		hideSortComponent(): void {
 			this.sendAction('hideSortComponent');
+			this.get('overlay').style.display = 'none';
 		}
 	}
 });

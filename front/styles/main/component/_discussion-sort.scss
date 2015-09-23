@@ -10,7 +10,7 @@
 	text-align: right;
 	top: 5px;
 	width: 110px;
-	z-index: $z-6;
+	z-index: $z-modal-dialog;
 
 	li {
 		cursor: pointer;
@@ -35,7 +35,7 @@
 	.discussion-sort {
 		background-color: transparent;
 		box-shadow: none;
-		margin: $global-nav-height auto 10px auto;
+		margin: 17px auto 10px auto;
 		padding: 0;
 		position: static;
 		text-align: center;
