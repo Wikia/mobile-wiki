@@ -21,9 +21,9 @@
     "script.js": "2.5.7",
     "vignette": "wikia/vignette-js#2.1.1",
     "visit-source": "Wikia/visit-source#0.1.1",
-    "webcomponentsjs": "~0.7.11",
+    "webcomponentsjs": "~0.7.12",
     "weppy": "Wikia/weppy#0.9.2",
-    "wikia-style-guide": "Wikia/style-guide#user-status-tweaks"
+    "wikia-style-guide": "Wikia/style-guide#v1.6.0"
   },
   "devDependencies": {
     "ember-qunit": "0.3.0",
