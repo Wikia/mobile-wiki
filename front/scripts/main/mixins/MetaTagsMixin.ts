@@ -16,9 +16,9 @@
  */
 App.MetaTagsMixin = Em.Mixin.create({
 
-	setMeta(meta): any {
-		var $head, $metaProto, $newMetaValues, selectors, metaTypes;
-		var keys = Object.keys || Em.keys;
+	setMeta(meta: any): any {
+		var $head: any, $metaProto: any, $newMetaValues: any, selectors: any, metaTypes: any;
+		var keys: any = Object.keys || Em.keys;
 
 		// don't set meta if route is no longer active
 		if (!this._routeMetaIsActiveRoute()) {
@@ -30,8 +30,8 @@ App.MetaTagsMixin = Em.Mixin.create({
 		$newMetaValues = [];
 		selectors = [];
 		metaTypes = keys(meta);
-		metaTypes.forEach(function(meta_type) {
-			keys(meta[meta_type]).map(function(key) {
+		metaTypes.forEach(function(meta_type: any) {
+			keys(meta[meta_type]).map(function(key: any) {
 				selectors.push('meta[' + meta_type + '="' + key + '"]');
 				$newMetaValues.push($metaProto.clone().attr(meta_type, key)
 					.attr('content', meta[meta_type][key]));
@@ -42,7 +42,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 	},
 
 	clearMeta(): any {
-		var $head, selectors;
+		var $head: any, selectors: any;
 		selectors = this.get('currentMetaSelectors');
 		if (!selectors) {
 			return;
