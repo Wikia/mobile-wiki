@@ -46,7 +46,9 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 			imageWidthString = String(imageWidth),
 			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
 
-		this.set('style', new Em.Handlebars.SafeString(`width: ${imageWidthString}px;`));
-		this.set('imageStyle', new Em.Handlebars.SafeString(`height: ${imageHeightString}px;`));
+		this.setProperties({
+			style: new Em.Handlebars.SafeString(`width: ${imageWidthString}px;`),
+			imageStyle: new Em.Handlebars.SafeString(`height: ${imageHeightString}px;`)
+		});
 	}
 });
