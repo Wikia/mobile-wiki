@@ -10,9 +10,6 @@ App.DiscussionUpvoteComponentMixin = Em.Mixin.create({
 
 	post: null,
 	hasUpvoted: Em.computed('post._embedded.userData.@each.hasUpvoted', function (): boolean {
-		if (this.get('post._embedded.userData') === undefined) {
-			return false;
-		}
-		return this.get('post')._embedded.userData[0].hasUpvoted;
+		return this.get('post._embedded.userData[0].hasUpvoted');
 	})
 });
