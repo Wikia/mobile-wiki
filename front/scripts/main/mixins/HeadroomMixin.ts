@@ -32,11 +32,11 @@ App.HeadroomMixin = Em.Mixin.create({
 		}
 	}),
 
-	didInsertElement: function () {
+	willInsertElement() {
 		this.initHeadroom();
 	},
 
-	initHeadroom: function (): void {
+	initHeadroom(): void {
 		var headroom: Headroom,
 			options = {
 				classes: {

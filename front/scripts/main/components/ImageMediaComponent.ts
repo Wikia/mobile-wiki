@@ -13,9 +13,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	classNameBindings: ['hasCaption', 'visible', 'isSmall', 'isIcon'],
 	layoutName: 'components/image-media',
 
-	imageSrc: Em.computed.oneWay(
-		'emptyGif'
-	),
+	imageSrc: Em.computed.oneWay('emptyGif'),
 
 	caption: Em.computed('media.caption', 'isIcon', function (): string|boolean {
 		var caption = this.get('media.caption');
@@ -91,7 +89,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	 * @desc style used on img tag to set height of it before we load an image
 	 * so when image loads, browser don't have to resize it
 	 */
-	style: Em.computed('computedHeight', 'visible', function (): typeof Em.Handlebars.SafeString {
+	style: Em.computed('computedHeight', 'visible', function (): Em.Handlebars.SafeString {
 		return new Em.Handlebars.SafeString(this.get('visible') ?
 			'' :
 			`height:${this.get('computedHeight')}px;`);
@@ -100,7 +98,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	/**
 	 * load an image and run update function when it is loaded
 	 */
-	load: function (): void {
+	load(): void {
 		var url = this.get('url'),
 			image: HTMLImageElement;
 		if (url) {
@@ -121,7 +119,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	 *
 	 * @param src string - src for image
 	 */
-	update: function (src: string): void {
+	update(src: string): void {
 		this.setProperties({
 			imageSrc: src,
 			visible: true
