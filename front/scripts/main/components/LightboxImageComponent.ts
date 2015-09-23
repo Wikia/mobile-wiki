@@ -26,7 +26,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 	/**
 	 * @desc This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
 	 */
-	style: Em.computed(function (): typeof Handlebars.SafeString {
+	style: Em.computed(function (): typeof Em.Handlebars.SafeString {
 		var scale = this.get('scale').toFixed(2),
 			x = this.get('newX').toFixed(2),
 			y = this.get('newY').toFixed(2),

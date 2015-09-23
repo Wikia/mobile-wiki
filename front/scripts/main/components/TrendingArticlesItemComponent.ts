@@ -14,46 +14,39 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 	style: null,
 	imageWidth: 250,
 
-	currentlyRenderedImageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
+	currentlyRenderedImageUrl: Em.computed(function (): string {
+		if (this.get('imageUrl')) {
+			var options:any = {
+				width: this.get('imageWidth'),
+				height: this.get('imageHeight'),
+				mode: this.get('cropMode')
+			};
+
+			return this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+		} else {
+			return this.get('emptyGif');
+		}
+	}),
 
 	imageHeight: Em.computed(function (): number {
 		return Math.floor(this.get('imageWidth') * 9 / 16);
 	}),
 
-	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	}),
+	viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+		this.updateImageSize();
+	})),
 
-	willInsertElement: function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-
-		if (this.get('imageUrl')) {
-			this.loadThumbnail();
-		}
-	},
-
-	click: function (): void {
+	click(): void {
 		this.trackClick('modular-main-page', 'trending-articles');
 	},
 
-	loadThumbnail: function (): void {
-		var options: any = {
-				width: this.get('imageWidth'),
-				height: this.get('imageHeight'),
-				mode: this.get('cropMode')
-			},
-			imageUrl: string = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
-
-		this.set('currentlyRenderedImageUrl', imageUrl);
-	},
-
-	updateImageSize: function (viewportWidth: number): void {
+	updateImageSize(viewportWidth: number): void {
 		var imageWidth = Math.floor((viewportWidth - 20) / 2),
 			imageWidthString = String(imageWidth),
 			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
 
-		this.set('style', Em.String.htmlSafe(`width: ${imageWidthString}px;`));
-		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
+		this.set('style', new Em.Handlebars.SafeString(`width: ${imageWidthString}px;`));
+		this.set('imageStyle', new Em.Handlebars.SafeString(`height: ${imageHeightString}px;`));
 	}
 });

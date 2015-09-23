@@ -37,8 +37,8 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	icon: Em.computed.alias('config.icon'),
 
-	iconStyle: Em.computed('icon', function (): string {
-		return 'background-image: url(%@)'.fmt(this.get('icon'));
+	iconStyle: Em.computed('icon', function (): typeof Em.Handlebars.SafeString {
+		return new Em.Handlebars.SafeString('background-image: url(%@)'.fmt(this.get('icon')));
 	}),
 
 	labelInStore: Em.computed('system', function (): string {
