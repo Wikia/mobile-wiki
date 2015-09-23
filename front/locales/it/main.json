@@ -121,7 +121,7 @@
     "curated-content-editor-featured-content":"Contenuti in primo piano",
     "curated-content-editor-featured-description":"I Contenuti in primo piano possono essere utilizzati per evidenziare un contenuto specifico come un articolo, un video o un blog post nella tua community. Idealmente questo contenuto è attuale e rilevante per i tuoi lettori, per cui dovresti aggiornarlo frequentemente.",
     "curated-content-editor-block-help-text":"Trascina ogni elemento nell'ordine che preferisci. Tocca l'elemento per rivelare le opzioni di configurazione.",
-    "curated-content-editor-explore-the-wiki-description":"Le Categorie in primo piano permettono agli utenti di esplorare la tua community a un livello generale usando le categorie Mediawiki. Le categorie andrebbero raggruppate in maniera logica, per es. \"Film\" o \"Fumetti\". Se una categoria non rientra in un gruppo, ti suggeriamo di metterla nella sezione Categorie facoltative di seguito.",
+    "curated-content-editor-featured-categories-description":"Le Categorie in primo piano permettono agli utenti di esplorare la tua community a un livello generale usando le categorie Mediawiki. Le categorie andrebbero raggruppate in maniera logica, per es. \"Film\" o \"Fumetti\". Se una categoria non rientra in un gruppo, ti suggeriamo di metterla nella sezione Categorie facoltative di seguito.",
     "curated-content-editor-add-featured-content-button":"+ aggiungi nuovo contenuto in primo piano",
     "curated-content-editor-add-section-button":"+ aggiungi una nuova sezione",
     "curated-content-editor-optional-description":"Tutte le categorie che non rientrano in altri gruppi di categorie possono andare nella sezione Categorie facoltative.",
