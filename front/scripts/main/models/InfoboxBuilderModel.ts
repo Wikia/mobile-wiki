@@ -67,7 +67,11 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 	infoboxState: Em.A([]),
 	itemInEditMode: null,
-	itemInEditModePosition: null,
+	itemInEditModePosition: Em.computed('itemInEditMode', 'infoboxState', function(): any {
+		var item = this.get('itemInEditMode');
+
+		return item ? this.get('infoboxState').indexOf(item) : null;
+	}),
 
 	/**
 	 * @desc add item to infobox state
@@ -195,26 +199,44 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	/**
 	 * @desc sets item to the edit mode
 	 * @param {DataItem|ImageItem|TitleItem} item
-	 * @param {Number} position
 	 */
-	setEditItem(item: DataItem|ImageItem|TitleItem, position: number): void {
-		this.setProperties({ itemInEditMode: item, itemInEditModePosition: position });
+	setEditItem(item: DataItem|ImageItem|TitleItem): void {
+		this.set('itemInEditMode', item);
 	},
 
 	/**
 	 * @desc removes item from state for given position
-	 * @param {Number} position
+	 * @param {DataItem|ImageItem|TitleItem} item
 	 */
-	removeItem(position: number): void {
-		this.get('infoboxState').removeAt(position);
+	removeItem(item: DataItem|ImageItem|TitleItem): void {
+		this.get('infoboxState').removeObject(item);
 		this.resetEditMode();
+	},
+
+	/**
+	 * @desc moves item in infoboxState by given offset
+	 * @param {Number} offset
+	 * @param {DataItem|ImageItem|TitleItem} item
+	 */
+	moveItem(offset: number, item: DataItem|ImageItem|TitleItem) {
+		var lastItemIndex = this.get('infoboxState').length -1,
+			position = this.get('infoboxState').indexOf(item),
+			newPosition = position + offset;
+
+		if (
+			position > 0 && offset < 0 && newPosition >= 0 ||
+			position < lastItemIndex && offset > 0 && newPosition <= lastItemIndex
+		) {
+			this.get('infoboxState').removeAt(position);
+			this.get('infoboxState').insertAt(newPosition, item);
+		}
 	},
 
 	/**
 	 * @desc resets item in edit mode and its position to null
 	 */
 	resetEditMode(): void {
-		this.setProperties({ itemInEditMode: null, itemInEditModePosition: null });
+		this.set('itemInEditMode', null);
 	},
 
 	/**

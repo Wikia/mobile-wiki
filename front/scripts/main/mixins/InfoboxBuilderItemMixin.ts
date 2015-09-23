@@ -3,12 +3,12 @@
 'use strict';
 
 App.InfoboxBuilderItemMixin = Em.Mixin.create({
-	activeClass: Ember.computed('position', 'activeItemPosition', function(): string {
-		return this.get('position') === this.get('activeItemPosition') ? 'active' : '';
+	activeClass: Ember.computed('item', 'activeItem', function(): string {
+		return this.get('item') === this.get('activeItem') ? 'active' : '';
 	}),
 	actions: {
 		itemClicked: function(): void {
-			this.sendAction('setEditItemAction', this.get('item'), this.get('position'));
+			this.sendAction('setEditItemAction', this.get('item'));
 		}
 	}
 });

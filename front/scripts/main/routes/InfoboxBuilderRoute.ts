@@ -210,22 +210,32 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		/**
 		 * @desc Handles setting item to edit mode and calls proper function on model
 		 * @param {DataItem|ImageItem|TitleItem} item
-		 * @param {Number} position
 		 */
-		setEditItem(item: DataItem|ImageItem|TitleItem, position: number): void {
+		setEditItem(item: DataItem|ImageItem|TitleItem): void {
 			var model = this.modelFor('infoboxBuilder');
 
-			model.setEditItem(item, position);
+			model.setEditItem(item);
 		},
 
 		/**
 		 * @desc Handles removing item and calls proper function on model
-		 * @param {Number} position
+		 * @param {DataItem|ImageItem|TitleItem} item
 		 */
-		removeItem(position: number): void {
+		removeItem(item: DataItem|ImageItem|TitleItem): void {
 			var model = this.modelFor('infoboxBuilder');
 
-			model.removeItem(position);
+			model.removeItem(item);
+		},
+
+		/**
+		 * @desc Handles moving item in the state and calls proper function on model
+		 * @param {Number} offset
+		 * @param {DataItem|ImageItem|TitleItem} item
+		 */
+		moveItem(offset: number, item: DataItem|ImageItem|TitleItem): void {
+			var model = this.modelFor('infoboxBuilder');
+
+			model.moveItem(offset, item);
 		},
 
 		/**
