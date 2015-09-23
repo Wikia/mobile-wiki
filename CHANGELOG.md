@@ -1,3 +1,8 @@
+## release-165 (2015-09-23 07:59 UTC)
+* [XW-63](https://wikia-inc.atlassian.net/browse/XW-63) XW-63 | added /api/mercury path in preparation for deprecation of /api/v1
+* [XW-251](https://wikia-inc.atlassian.net/browse/XW-251) XW-251 | Show a message when user opened a section/category that does not exist
+* [XW-244](https://wikia-inc.atlassian.net/browse/XW-244) XW-244 update ember to 1.13.10
+
 ## release-164 (2015-09-22 10:21 UTC)
 * [XW-236](https://wikia-inc.atlassian.net/browse/XW-236) XW-236 Redirect to canonical host if needed
 * [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204)""
