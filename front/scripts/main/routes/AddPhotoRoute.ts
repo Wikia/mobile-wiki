@@ -5,6 +5,10 @@
 'use strict';
 
 App.AddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
+	renderTemplate(): void {
+		this.render('add-photo');
+	},
+
 	actions: {
 		error: function (error: any, transition: EmberStates.Transition): boolean {
 			this.controllerFor('application').addAlert({
