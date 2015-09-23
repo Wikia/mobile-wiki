@@ -6,11 +6,6 @@
 
 
 App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
-	tagName: 'user-status',
-	attributeBindings: ['userLoggedIn', 'userAvatarSrc', 'userName'],
-	classNames: ['user-status', 'needsclick'],
-	anonAvatarSrc: 'http://wikia.github.io/style-guide/assets/images/icons/icon_avatar.svg',
-
 	userLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
 		if (this.get('currentUser.isAuthenticated') === true) {
 			return false;
