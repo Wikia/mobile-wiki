@@ -209,13 +209,13 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 
 		/**
 		 * @desc Handles setting item to edit mode and calls proper function on model
-		 * @param {DataItem|ImageItem|TitleItem} element
+		 * @param {DataItem|ImageItem|TitleItem} item
 		 * @param {Number} position
 		 */
-		setEditItem(element: DataItem|ImageItem|TitleItem, position: number): void {
+		setEditItem(item: DataItem|ImageItem|TitleItem, position: number): void {
 			var model = this.modelFor('infoboxBuilder');
 
-			model.setEditItem(element, position);
+			model.setEditItem(item, position);
 		},
 
 		/**
