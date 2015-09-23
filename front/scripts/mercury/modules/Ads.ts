@@ -120,7 +120,7 @@ module Mercury.Modules {
 			Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 			GATracker = new Mercury.Modules.Trackers.UniversalAnalytics();
 			GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, false);
-			this.gaTrackAdEvent('ad/sourcepoint/detection', value, '', 0, false);
+			this.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, false);
 			Ads.blocking = value === 'Yes';
 		}
 
