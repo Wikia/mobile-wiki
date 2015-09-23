@@ -10,7 +10,6 @@ interface DataItem {
 	};
 	infoboxBuilderData: {
 		index: number;
-		position: number;
 		component: string;
 	};
 	source: string;
@@ -35,7 +34,6 @@ interface ImageItem {
 	};
 	infoboxBuilderData: {
 		index: number;
-		position: number;
 		component: string;
 	};
 	source: string;
@@ -49,7 +47,6 @@ interface TitleItem {
 	};
 	infoboxBuilderData: {
 		index: number;
-		position: number;
 		component: string;
 	};
 	source: string;
@@ -69,12 +66,11 @@ App.InfoboxBuilderModel = Em.Object.extend({
 		title: 0,
 	},
 	infoboxState: Em.A([]),
-	_stateLength: Em.computed('infoboxState', function (): number {
-		return this.get('infoboxState').length;
-	}),
+	itemInEditMode: null,
+	itemInEditModePosition: null,
 
 	/**
-	 * add item to infobox state
+	 * @desc add item to infobox state
 	 * @param {DataItem|TitleItem|ImageItem} object
 	 */
 	addToState(object: DataItem|TitleItem|ImageItem): void {
@@ -82,7 +78,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * add <data> item
+	 * @desc add <data> item
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
@@ -97,7 +93,6 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			},
 			infoboxBuilderData: {
 				index: i,
-				position: this.get('_stateLength'),
 				component: this.createComponentName(itemType)
 			},
 			source: `data${i}`,
@@ -106,7 +101,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * add <image> item
+	 * @desc add <image> item
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
@@ -132,7 +127,6 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			},
 			infoboxBuilderData: {
 				index: i,
-				position: this.get('_stateLength'),
 				component: this.createComponentName(itemType)
 			},
 			source: `image${i}`,
@@ -141,7 +135,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * add <title> item
+	 * @desc add <title> item
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
@@ -156,7 +150,6 @@ App.InfoboxBuilderModel = Em.Object.extend({
 			},
 			infoboxBuilderData: {
 				index: i,
-				position: this.get('_stateLength'),
 				component: this.createComponentName(itemType)
 			},
 			source: `title${i}`,
@@ -165,7 +158,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * creates component name for given item type
+	 * @desc creates component name for given item type
 	 * @param {String} type
 	 * @returns {String}
 	 */
@@ -174,7 +167,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * Prepares infobox state to be sent to API.
+	 * @desc Prepares infobox state to be sent to API.
 	 * The infoboxBuilderData part is needed only on
 	 * client side so remove it and wrap result as data object of the main infobox tag
 	 *
@@ -191,7 +184,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * increase index for given item type
+	 * @desc increase index for given item type
 	 * @param {String} indexType
 	 * @returns {Number}
 	 */
@@ -200,15 +193,27 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * removes item from state for given position
+	 * @desc sets item to the edit mode
+	 * @param {DataItem|ImageItem|TitleItem} element
+	 * @param {Number} position
+	 */
+	setEditItem(element: DataItem|ImageItem|TitleItem, position: number): void {
+		this.set('itemInEditMode', element);
+		this.set('itemInEditModePosition', position);
+	},
+
+	/**
+	 * @desc removes item from state for given position
 	 * @param {Number} position
 	 */
 	removeItem(position: number): void {
 		this.get('infoboxState').removeAt(position);
+		this.set('itemInEditMode', null);
+		this.set('itemInEditModePosition', null);
 	},
 
 	/**
-	 * setup infobox builder initial state
+	 * @desc setup infobox builder initial state
 	 */
 	setupInitialState(): void {
 		this.addTitleItem();
@@ -217,7 +222,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 
 	/**
-	 * saves infobox state to MW template
+	 * @desc saves infobox state to MW template
 	 * @returns {Em.RSVP.Promise}
 	 */
 	saveStateToTemplate(): Em.RSVP.Promise {
