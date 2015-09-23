@@ -9,7 +9,7 @@ App.PostReplyComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixin
 	authorUrl: Em.computed('post', function (): string {
 		return M.buildUrl({
 			namespace: 'User',
-			title: this.get('post').createdBy.name
+			title: this.get('post.createdBy.name')
 		});
 	})
 });

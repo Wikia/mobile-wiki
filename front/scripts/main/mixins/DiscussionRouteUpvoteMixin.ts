@@ -5,7 +5,7 @@
  * Handles posts upvoting.
  * If the post was upvoted already, the upvote is removed.
  */
-App.DiscussionUpvoteMixin = Em.Mixin.create({
+App.DiscussionRouteUpvoteMixin = Em.Mixin.create({
 	upvotingInProgress: {},
 
 	actions: {

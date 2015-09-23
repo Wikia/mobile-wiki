@@ -1,12 +1,14 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 'use strict';
 
-App.DiscussionUpvoteComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixin, {
+/**
+ * Handles sending upvote action outside from the component.
+ */
+App.DiscussionUpvoteComponentMixin = Em.Mixin.create({
 	classNames: ['small-4', 'columns', 'upvote', 'count'],
+	classNameBindings: ['hasUpvoted'],
 
 	post: null,
-	classNameBindings: ['hasUpvoted'],
 	hasUpvoted: Em.computed('post._embedded.userData.@each.hasUpvoted', function (): boolean {
 		if (this.get('post._embedded.userData') === undefined) {
 			return false;
