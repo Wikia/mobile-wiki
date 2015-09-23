@@ -12,11 +12,9 @@ App.DiscussionUpvoteMixin = Em.Mixin.create({
 		upvote(post: typeof App.DiscussionPostModel): void {
 			var hasUpvoted: boolean,
 				method: string,
-				oldUpvoteCount: number = Em.get(post, 'upvoteCount'),
 				postId: number = Em.get(post, 'id');
 
-			if (this.upvotingInProgress[postId] || Em.get(post, '_embedded') === undefined ||
-				Em.get(post._embedded, 'userData') === undefined) {
+			if (this.upvotingInProgress[postId] || Em.get(post, '_embedded.userData') === undefined) {
 				return null;
 			}
 
@@ -24,26 +22,22 @@ App.DiscussionUpvoteMixin = Em.Mixin.create({
 			hasUpvoted = Em.get(post._embedded.userData[0], 'hasUpvoted');
 			method = (hasUpvoted ? 'delete' : 'post');
 
-			// assuming the positive scenario, the change in the front-end is done here
-			Em.set(post, 'upvoteCount', oldUpvoteCount + (hasUpvoted ? -1 : 1));
+			// the change in the front-end is done here
 			Em.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
 
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: method,
 				url: 'https://' + M.prop('servicesDomain') +
-				'/discussion/' + post.siteId + '/votes/post/' + post.id,
+				'/discussion/' + Em.get(post, 'siteId') + '/votes/post/' + Em.get(post, 'id'),
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
 				},
-				success: (data:any): void => {
+				success: (data: any): void => {
 					Em.set(post, 'upvoteCount', data.upvoteCount);
 				},
-				error: (err:any): void => {
-					// @TODO: handle errors
-
-					Em.set(post, 'upvoteCount', oldUpvoteCount);
-					Em.set(post._embedded.userData[0], 'hasUpvoted', !Em.get(post._embedded.userData[0], 'hasUpvoted'));
+				error: (): void => {
+					Em.set(post._embedded.userData[0], 'hasUpvoted', hasUpvoted)
 				},
 				complete: (): void => {
 					this.upvotingInProgress[postId] = false;
