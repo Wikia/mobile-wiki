@@ -78,7 +78,7 @@ QUnit.test('URLs are properly built for given parameters', function () {
 	testCases = [
 		{
 			urlParams: undefined,
-			expectedOutput: 'http://glee.wikia.com'			
+			expectedOutput: 'http://glee.wikia.com'
 		},
 		{
 			urlParams: {
@@ -131,6 +131,49 @@ QUnit.test('URLs are properly built for given parameters', function () {
 				wiki: 'glee'
 			},
 			expectedOutput: 'https://glee.wikia.com'
+		},
+		{
+			urlParams:{
+				namespace: 'User',
+				title: 'IsDamian??'
+			},
+			expectedOutput: 'http://glee.wikia.com/wiki/User:IsDamian%3F%3F'
+		},
+		{
+			urlParams:{
+				protocol: 'https',
+				namespace: 'Special',
+				title: 'NewFiles'
+			},
+			expectedOutput: 'https://glee.wikia.com/wiki/Special:NewFiles'
+		},
+		{
+			urlParams:{
+				wiki: 'agas',
+				protocol: 'https',
+				path: '/uno/due/tre'
+			},
+			expectedOutput: 'https://agas.wikia.com/uno/due/tre'
+		},
+		{
+			urlParams: {
+				wiki: 'gta',
+				protocol: 'https',
+				path: '/sratatata',
+				query: {
+					simple: 'string',
+					complex: '1yry3!@##@$4234_423 423zo42&56'
+				}
+			},
+			expectedOutput: 'https://gta.wikia.com/sratatata?simple=string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656'
+		},
+		{
+			urlParams:{
+				query: {
+					'Gzeg?zolka': '& &'
+				}
+			},
+			expectedOutput: 'http://glee.wikia.com?Gzeg%3Fzolka=%26%20%26'
 		}
 	];
 
