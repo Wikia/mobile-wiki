@@ -1,16 +1,14 @@
 <div class="infobox-builder">
-	<div class="infobox-builder-preview">
-		{{#infobox-builder-wrapper}}
-			{{#each model.infoboxState as |element index|}}
-				{{component element.infoboxBuilderData.component
-					item=element
-					position=index
-					activeItemPosition=model.itemInEditModePosition
-					setEditItemAction='setEditItem'
-				}}
-			{{/each}}
-		{{/infobox-builder-wrapper}}
-	</div>
+	{{#infobox-builder-wrapper}}
+		{{#each model.infoboxState as |element index|}}
+			{{component element.infoboxBuilderData.component
+				item=element
+				position=index
+				activeItemPosition=model.itemInEditModePosition
+				setEditItemAction='setEditItem'
+			}}
+		{{/each}}
+	{{/infobox-builder-wrapper}}
 
 	<div class="infobox-builder-buttons">
 		<button {{action 'addItem' 'data'}}>{{i18n 'app.add-infobox-data-tag'}}</button>
