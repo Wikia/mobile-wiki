@@ -14,22 +14,24 @@
  *         meta_property_name1: meta_value1
  *         meta_property_name2: meta_value2
  */
+
 App.MetaTagsMixin = Em.Mixin.create({
+	
+	$head: Em.$('head'),
 
 	setMeta(meta: any): any {
-		var $head: any, $metaProto: any, $newMetaValues: any, selectors: any, metaTypes: any;
-		var keys: any = Object.keys || Em.keys;
+		var $head = this.get('$head'),
+			$metaProto = Em.$('<meta></meta>'),
+			$newMetaValues = [],
+			selectors = [],
+			metaTypes = keys(meta),
+			keys: any = Object.keys || Em.keys;
 
 		// don't set meta if route is no longer active
-		if (!this._routeMetaIsActiveRoute()) {
+		if (!this.router.isActive(this.routeName)) {
 			return;
 		}
 
-		$head = this._routeMetaGetHead();
-		$metaProto = Em.$('<meta></meta>');
-		$newMetaValues = [];
-		selectors = [];
-		metaTypes = keys(meta);
 		metaTypes.forEach(function(meta_type: any) {
 			keys(meta[meta_type]).map(function(key: any) {
 				selectors.push('meta[' + meta_type + '="' + key + '"]');
@@ -37,53 +39,54 @@ App.MetaTagsMixin = Em.Mixin.create({
 					.attr('content', meta[meta_type][key]));
 			});
 		});
+
 		$head.append($newMetaValues);
 		this.set('currentMetaSelectors', selectors);
 	},
 
 	clearMeta(): any {
-		var $head: any, selectors: any;
-		selectors = this.get('currentMetaSelectors');
+		var $head = this.get('$head'),
+			selectors = this.get('currentMetaSelectors');
+
 		if (!selectors) {
 			return;
 		}
-		$head = this._routeMetaGetHead();
+
 		$head.find(selectors.join(',')).remove();
+
 		return this.set('currentMetaSelectors', null);
 	},
 
-	_runSetMeta(): any {
+	runSetMeta(): void {
 		var meta = this.get('meta');
+
 		if (typeof meta === 'function') {
 			return this.setMeta(meta.apply(this));
-		}else if (typeof meta === 'object') {
+		} else if (typeof meta === 'object') {
 			return this.setMeta(meta);
 		}
 	},
 
 	actions: {
 		didTransition(): boolean {
-			this._super.apply(this, arguments);
-			Em.run.next(this, this._runSetMeta);
-			return true; // bubble
+			this._super(arguments);
+			Em.run.next(this, this.runSetMeta);
+
+			return true;
 		},
-		willTransition(/* transition */): any {
-			this._super.apply(this, arguments);
+
+		willTransition(): boolean {
+			this._super(arguments);
 			this.clearMeta();
-			return true; // bubble
+
+			return true;
 		},
+
 		resetMeta(): boolean {
 			this.clearMeta();
-			Em.run.next(this, this._runSetMeta);
-			return false; // don't bubble, handled here
+			Em.run.next(this, this.runSetMeta);
+
+			return false;
 		}
 	},
-
-	_routeMetaGetHead(): any {
-		return Em.$('head');
-	},
-
-	_routeMetaIsActiveRoute(): any {
-		return this.router.isActive(this.routeName);
-	}
 });
