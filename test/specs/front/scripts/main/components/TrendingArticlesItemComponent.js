@@ -16,8 +16,6 @@ test('sets proper url for the image', function () {
 		return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 	};
 
-	componentMock.lazyLoadImage();
-
 	equal(
 		componentMock.get('currentlyRenderedImageUrl'),
 		'http://vignette/image.jpg/top-crop/' + imageWidth + '/' + imageHeight
