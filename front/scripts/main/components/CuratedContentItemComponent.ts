@@ -41,11 +41,9 @@ App.CuratedContentItemComponent = Em.Component.extend(
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
-	},
 
-	didInsertElement: function (): void {
 		if (this.get('model.imageUrl')) {
-			this.lazyLoadImage();
+			this.loadThumbnail();
 		}
 	},
 
@@ -57,7 +55,7 @@ App.CuratedContentItemComponent = Em.Component.extend(
 		this.updateImageSize(this.get('viewportDimensions.width'));
 	}),
 
-	lazyLoadImage: function (): void {
+	loadThumbnail: function (): void {
 		this.set('thumbUrl', this.generateThumbUrl(
 			this.get('model.imageUrl'),
 			this.get(`model.imageCrop.${this.get('aspectRatioName')}`)

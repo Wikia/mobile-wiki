@@ -27,11 +27,9 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 
 	willInsertElement: function (): void {
 		this.updateImageSize(this.get('viewportDimensions.width'));
-	},
 
-	didInsertElement: function (): void {
 		if (this.get('imageUrl')) {
-			this.lazyLoadImage();
+			this.loadThumbnail();
 		}
 	},
 
@@ -39,7 +37,7 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 		this.trackClick('modular-main-page', 'trending-articles');
 	},
 
-	lazyLoadImage: function (): void {
+	loadThumbnail: function (): void {
 		var options: any = {
 				width: this.get('imageWidth'),
 				height: this.get('imageHeight'),
