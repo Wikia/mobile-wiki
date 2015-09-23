@@ -117,13 +117,22 @@ export function getWikiDomainName (localSettings: LocalSettings, hostName: strin
 }
 
 /**
- * @desc Removes the port from hostname
+ * @desc Removes the port from hostname as well as ad domain aliases
  *
  * @param {string} host
  * @returns {string}
  */
 export function clearHost (host: string): string {
-	return host.split(':')[0]; //get rid of port
+	var adDomainAliases: Array<string> = [ 'externaltest', 'showcase' ];
+
+	host = host.split(':')[0]; // get rid of port
+	Object.keys(adDomainAliases).forEach(function (key){
+		if (host.indexOf(adDomainAliases[key]) === 0) {
+			host = host.replace(adDomainAliases[key] + '.', ''); // get rid of domain aliases
+		}
+	});
+
+	return host;
 }
 
 /**
