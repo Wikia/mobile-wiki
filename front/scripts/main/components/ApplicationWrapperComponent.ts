@@ -1,6 +1,5 @@
-/// <reference path='../app.ts' />
-/// <reference path="../../mercury/utils/browser.ts" />
-/// <reference path='../../../../typings/headroom/headroom.d.ts' />
+/// <reference path="../../../../typings/ember/ember.d.ts" />
+/// <reference path="../app.ts" />
 
 'use strict';
 
@@ -19,7 +18,7 @@ interface EventTarget {
 	tagName: string;
 }
 
-App.ApplicationView = Em.View.extend({
+App.ApplicationWrapperComponent = Em.Component.extend({
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Em.computed(function (): string {
@@ -32,9 +31,9 @@ App.ApplicationView = Em.View.extend({
 		return system ? 'system-' + system : '';
 	}),
 
-	smartBannerVisible: Em.computed.alias('controller.smartBannerVisible'),
-	noScroll: Em.computed.alias('controller.noScroll'),
+	noScroll: false,
 	scrollLocation: null,
+	smartBannerVisible: false,
 
 	noScrollObserver: Em.observer('noScroll', function (): void {
 		var $body = Em.$('body'),
@@ -106,9 +105,9 @@ App.ApplicationView = Em.View.extend({
 
 		return (
 			$target.closest('.mw-content').length &&
-			// ignore polldaddy content
+				// ignore polldaddy content
 			!$target.closest('.PDS_Poll').length &&
-			// don't need special logic for article references
+				// don't need special logic for article references
 			!isReference
 		);
 	},
@@ -126,8 +125,6 @@ App.ApplicationView = Em.View.extend({
 	},
 
 	handleLink: function (target: HTMLAnchorElement): void {
-		var controller: typeof App.ApplicationController;
-
 		Em.Logger.debug('Handling link with href:', target.href);
 
 		/**
@@ -142,10 +139,8 @@ App.ApplicationView = Em.View.extend({
 			 * pass it up to handleLink
 			 */
 			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
-				controller = this.get('controller');
-
-				controller.send('closeLightbox');
-				controller.send('handleLink', target);
+				this.sendAction('closeLightbox');
+				this.sendAction('handleLink', target);
 			}
 		}
 	}
