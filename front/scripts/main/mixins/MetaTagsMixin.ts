@@ -16,14 +16,14 @@
  */
 
 App.MetaTagsMixin = Em.Mixin.create({
-	
+
 	$head: Em.$('head'),
 
-	setMeta(meta: any): any {
+	setMeta(meta: any): void {
 		var $head = this.get('$head'),
 			$metaProto = Em.$('<meta></meta>'),
-			$newMetaValues = [],
-			selectors = [],
+			$newMetaValues: any[] = [],
+			selectors: any[] = [],
 			metaTypes = keys(meta),
 			keys: any = Object.keys || Em.keys;
 
