@@ -105,9 +105,9 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 
 		return (
 			$target.closest('.mw-content').length &&
-				// ignore polldaddy content
+			// ignore polldaddy content
 			!$target.closest('.PDS_Poll').length &&
-				// don't need special logic for article references
+			// don't need special logic for article references
 			!isReference
 		);
 	},
