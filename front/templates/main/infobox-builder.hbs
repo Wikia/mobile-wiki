@@ -1,19 +1,27 @@
 <div class="infobox-builder">
 	{{#infobox-builder-wrapper}}
-		{{#each model.infoboxState as |element|}}
+		{{#each model.infoboxState as |element index|}}
 			{{component element.infoboxBuilderData.component
-				data=element.data
-				infoboxBuilderData=element.infoboxBuilderData
+				item=element
+				position=index
+				activeItemPosition=model.itemInEditModePosition
+				setEditItemAction='setEditItem'
 			}}
 		{{/each}}
 	{{/infobox-builder-wrapper}}
 
 	<div class="infobox-builder-buttons">
-		<button {{action 'addItem' 'data'}}>{{i18n 'app.add-infobox-data-tag'}}</button>
-		<button {{action 'addItem' 'title'}}>{{i18n 'app.add-infobox-title-tag'}}</button>
-		<button {{action 'addItem' 'image'}}>{{i18n 'app.add-infobox-image-tag'}}</button>
-		<button {{action 'saveTemplate'}}>{{i18n 'app.save-infobox-template'}}</button>
+		<button {{action 'addItem' 'data'}}>{{i18n 'app.infobox-builder-add-data'}}</button>
+		<button {{action 'addItem' 'title'}}>{{i18n 'app.infobox-builder-add-title'}}</button>
+		<button {{action 'addItem' 'image'}}>{{i18n 'app.infobox-builder-add-image'}}</button>
+		<button {{action 'saveTemplate'}}>{{i18n 'app.infobox-builder-save'}}</button>
 		<button {{action 'cancel'}}>{{i18n 'app.cancel-label'}}</button>
 	</div>
+
+	{{infobox-builder-edit-item
+		item=model.itemInEditMode
+		position=model.itemInEditModePosition
+		removeItemAction='removeItem'
+	}}
 </div>
 

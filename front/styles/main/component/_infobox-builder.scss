@@ -1,12 +1,34 @@
 .infobox-builder {
-	margin: auto;
-	max-width: 700px;
 	padding: 50px;
 
 	.infobox-builder-buttons {
 		button {
 			display: block;
 			width: 250px;
+		}
+	}
+}
+
+.infobox-builder-buttons,
+.infobox-builder-preview {
+	display: inline-block;
+	width: 270px;
+}
+
+.infobox-builder-preview {
+	margin: 0 50px 0 300px;
+
+	.portable-infobox {
+		clear: none;
+		float: none;
+		margin: 0;
+
+		> .active {
+			border: 1px solid red;
+
+			&:last-child {
+				border: 1px solid red;
+			}
 		}
 	}
 }

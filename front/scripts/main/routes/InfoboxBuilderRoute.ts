@@ -131,7 +131,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 
 	/**
 	 * @desc shows error message for ponto communication
-	 * @param {string} message - error message
+	 * @param {String} message - error message
 	 */
 	showPontoError(message: any) {
 		if (window.console) {
@@ -141,7 +141,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 
 	/**
 	 * @desc connects with ponto and redirects to template page
-	 * @param {string} title - title of the template
+	 * @param {String} title - title of the template
 	 */
 	redirectToTemplatePage(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
@@ -187,9 +187,9 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @desc Handle the add data, image or title buton and call the proper
+		 * @desc Handles the add data, image or title button and call the proper
 		 * function on model.
-		 * @param string name of item type
+		 * @param {String} type - of item type
 		*/
 		addItem(type: string): void {
 			var model = this.modelFor('infoboxBuilder');
@@ -208,8 +208,29 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @desc Handle the save template button, call the proper function
-		 * on model and connect with iframe parent to redirect to another page.
+		 * @desc Handles setting item to edit mode and calls proper function on model
+		 * @param {DataItem|ImageItem|TitleItem} item
+		 * @param {Number} position
+		 */
+		setEditItem(item: DataItem|ImageItem|TitleItem, position: number): void {
+			var model = this.modelFor('infoboxBuilder');
+
+			model.setEditItem(item, position);
+		},
+
+		/**
+		 * @desc Handles removing item and calls proper function on model
+		 * @param {Number} position
+		 */
+		removeItem(position: number): void {
+			var model = this.modelFor('infoboxBuilder');
+
+			model.removeItem(position);
+		},
+
+		/**
+		 * @desc Handles the save template button, calls the proper function
+		 * on model and connect with <iframe> parent to redirect to another page.
 		 */
 		saveTemplate(): void {
 			var model = this.modelFor('infoboxBuilder');
@@ -219,8 +240,8 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @desc Handle the cancel button click.
-		 * Connect with iframe parent to redirect to another page.
+		 * @desc Handles the cancel button click.
+		 * Connect with <iframe> parent to redirect to another page.
 		 */
 		cancel(): Em.RSVP.Promise {
 			var title = this.modelFor('infoboxBuilder').get('title');
