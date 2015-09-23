@@ -196,7 +196,7 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 }
 
 export function getCDNBaseUrl(localSettings: LocalSettings): String {
-	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
+	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : '';
 }
 
 /**
@@ -211,12 +211,12 @@ export function getCDNBaseUrl(localSettings: LocalSettings): String {
  * @returns {string}
  */
 export function getHostFromRequest(request: Hapi.Request): string {
-	return request.headers['x-original-host'] || request.headers['host'];
+	return request.headers['x-original-host'] || request.headers.host;
 }
 
 export function isXipHost(localSettings: LocalSettings, hostName: string): boolean {
 	return localSettings.environment === Environment.Dev &&
-		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1
+		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
 }
 
 /**
