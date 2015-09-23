@@ -1,0 +1,10 @@
+user-status {
+	::shadow .drawer ::content li {
+		border-color: $color-blue-gray-light;
+	}
+
+	figure img {
+		width: 25px;
+		height: 25px;
+	}
+}
