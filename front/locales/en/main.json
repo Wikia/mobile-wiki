@@ -138,16 +138,16 @@
 		"curated-content-editor-items-count": "__count__ items",
 		"curated-content-editor-exit-prompt": "You have unsaved changes. Are you sure you want to exit?",
 		"curated-content-editor-main-page": "Main Page",
-		"infobox-builder-label-item-default-value": "Label",
-		"infobox-builder-data-item-default-value": "Data",
-		"infobox-builder-title-item-default-value": "Title",
-		"infobox-builder-alt-item-default-value": "Default image alt",
-		"infobox-builder-caption-item-default-value": "Default image caption",
-		"add-infobox-data-tag": "Add new data item",
-		"add-infobox-title-tag": "Add new title",
-		"add-infobox-image-tag": "Add new image",
-		"save-infobox-template": "Save infobox template",
-	  	"remove-infobox-item": "Remove infobox item"
+		"infobox-builder-label-default": "Label",
+		"infobox-builder-data-default": "Data",
+		"infobox-builder-title-default": "Title",
+		"infobox-builder-alt-default": "Default image alt",
+		"infobox-builder-caption-default": "Default image caption",
+		"infobox-builder-add-data": "Add new data item",
+		"infobox-builder-add-title": "Add new title",
+		"infobox-builder-add-image": "Add new image",
+		"infobox-builder-save": "Save infobox template",
+	  	"infobox-builder-remove-item": "Remove infobox item"
 	},
 	"discussion": {
 		"share-default-title": "Discussion on __siteName__"

@@ -88,8 +88,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 		this.addToState({
 			data: {
-				defaultValue: `${i18n.t('app.infobox-builder-data-item-default-value')} ${i}`,
-				label: `${i18n.t('app.infobox-builder-label-item-default-value')} ${i}`,
+				defaultValue: `${i18n.t('app.infobox-builder-data-default')} ${i}`,
+				label: `${i18n.t('app.infobox-builder-label-default')} ${i}`,
 			},
 			infoboxBuilderData: {
 				index: i,
@@ -114,13 +114,13 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				alt: {
 					source: `alt${i}`,
 					data: {
-						defaultValue: i18n.t('app.infobox-builder-alt-item-default-value'),
+						defaultValue: i18n.t('app.infobox-builder-alt-default'),
 					}
 				},
 				caption: {
 					source: `caption${i}`,
 					data: {
-						defaultValue: i18n.t('app.infobox-builder-caption-item-default-value'),
+						defaultValue: i18n.t('app.infobox-builder-caption-default'),
 					}
 				} ,
 				defaultValue: 'path/to/image.jpg',
@@ -145,7 +145,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 		this.addToState({
 			data: {
-				defaultValue: `${i18n.t('app.infobox-builder-title-item-default-value')} ${i}`,
+				defaultValue: `${i18n.t('app.infobox-builder-title-default')} ${i}`,
 
 			},
 			infoboxBuilderData: {
