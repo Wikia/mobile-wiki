@@ -5,7 +5,5 @@
 'use strict';
 
 App.TopBarComponent = Em.Component.extend(App.HeadroomMixin, {
-	tagName: 'top-bar',
-	attributeBindings: ['logoHref'],
 	logoHref: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com')
 });
