@@ -6,13 +6,13 @@ App.CommunityBadgeComponent = Em.Component.extend({
 	squareDimension: 125,
 
 	wikiImageUrl: Em.computed('squareDimension', function (): string {
-		var imageUrl = Em.getWithDefault(Mercury, 'wiki,image', '');
-		if (imageUrl === '') {
+		var imageUrl = Em.get(Mercury, 'wiki.image');
+		if (Em.isEmpty(imageUrl)) {
 			return '';
 		}
 
 		return Mercury.Modules.Thumbnailer.getThumbURL(
-			Em.getWithDefault(Mercury, 'wiki.image', 'Wikia'),
+			imageUrl,
 			{
 				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
 				width: this.get('squareDimension'),
