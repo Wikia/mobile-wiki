@@ -72,7 +72,6 @@ App.HeadroomMixin = Em.Mixin.create({
 				offset
 			};
 
-		// If the object using this mixin provides overriding options, merge them with the default
 		if (headroomOptions) {
 			options = $.extend({}, options, headroomOptions);
 		}
