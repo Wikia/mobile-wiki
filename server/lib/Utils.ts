@@ -126,7 +126,7 @@ export function clearHost (host: string): string {
 	// We use two special domain prefixes for Ad Operation and Sales reasons
 	// They behave similar to our staging prefixes but are not staging machines
 	// Talk to Ad Engineering Team if you want to learn more
-	var adDomainAliases: Array<string> = [ 'externaltest', 'showcase' ];
+	var adDomainAliases: Array<string> = ['externaltest', 'showcase'];
 
 	host = host.split(':')[0]; // get rid of port
 	Object.keys(adDomainAliases).forEach(function (key){
