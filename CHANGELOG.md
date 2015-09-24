@@ -1,3 +1,10 @@
+## release-167 (2015-09-24 13:38 UTC)
+* aden-2464-fix-externaltest-on-mobile: ADEN-2464 Fix externaltest on mobile
+* [SOC-1120](https://wikia-inc.atlassian.net/browse/SOC-1120) SOC-1120 Change styling of discussion post sorting between desktop and mobile
+* [XW-424](https://wikia-inc.atlassian.net/browse/XW-424) XW-424 | Curated Content Tool section item count singular/plural label fix
+* tslint-trailing-comma: allow for trailing comma in ts
+* aden-2466-lightbox-close-button-fix: ADEN-2466 Fix close button in mobile lightbox
+
 ## release-166 (2015-09-24 07:59 UTC)
 * [INT-198](https://wikia-inc.atlassian.net/browse/INT-198) Fix for invisible slider for Japan HP
 * [HG-888](https://wikia-inc.atlassian.net/browse/HG-888) Hg 888 Style guide version
