@@ -4,24 +4,22 @@
 App.ArticleAddPhotoComponent = Em.Component.extend({
 	classNames: ['addphoto-component'],
 
+	track: function (label: string): void {
+		M.track({
+			action: M.trackActions.click,
+			category: 'sectionaddphoto',
+			label: label
+		});
+	},
+
 	actions: {
 		back: function (): void {
 			this.sendAction('back');
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectionaddphoto',
-				label: 'back'
-			});
+			this.track('back');
 		},
 		upload: function (): void {
 			this.sendAction('upload');
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectionaddphoto',
-				label: 'upload'
-			});
+			this.track('upload');
 		}
 	}
 });
