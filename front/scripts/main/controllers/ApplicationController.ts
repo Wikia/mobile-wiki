@@ -25,8 +25,8 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	lightboxType: null,
 	lightboxModel: null,
 	lightboxVisible: false,
-	// Controls the appearance of the share-feature component
-	enableSharingHeader: false,
+	// Controls the appearance of the share-header component
+	enableShareHeader: false,
 	// For rolling out the new top-bar component for the global nav
 	useNewNav: false,
 

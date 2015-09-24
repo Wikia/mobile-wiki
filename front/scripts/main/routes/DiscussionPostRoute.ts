@@ -19,7 +19,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 		this.controllerFor('application').setProperties({
 			// Enables vertical-colored theme bar in site-head component
 			themeBar: true,
-			enableSharingHeader: true
+			enableShareHeader: true
 		});
 		this._super();
 	},
@@ -28,7 +28,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 		this.controllerFor('application').setProperties({
 			// Disables vertical-colored theme bar in site-head component
 			themeBar: false,
-			enableSharingHeader: false
+			enableShareHeader: false
 		});
 		this._super();
 	},
