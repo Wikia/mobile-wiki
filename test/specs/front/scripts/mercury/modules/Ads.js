@@ -45,7 +45,7 @@ QUnit.test('Reload ads works', function () {
 	instance.adEngineModule = {
 		run: runSpy
 	};
-	instance.sourcePointModule = {
+	instance.sourcePointDetectionModule = {
 		initDetection: initDetectionSpy
 	};
 	instance.adConfigMobile = {

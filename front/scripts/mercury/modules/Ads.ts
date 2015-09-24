@@ -20,7 +20,7 @@ module Mercury.Modules {
 		private adsContext: any = null;
 		private adEngineModule: any;
 		private adContextModule: any;
-		private sourcePointModule: {
+		private sourcePointDetectionModule: {
 			initDetection (): void;
 		};
 		private adConfigMobile: any;
@@ -59,19 +59,19 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.config.mobile',
 						'ext.wikia.adEngine.adLogicPageViewCounter',
-						'ext.wikia.adEngine.sourcePoint',
+						'ext.wikia.adEngine.sourcePointDetection',
 						'wikia.krux'
 					], (
 						adEngineModule: any,
 						adContextModule: any,
 						adConfigMobile: any,
 						adLogicPageViewCounterModule: any,
-						sourcePointModule: any,
+						sourcePointDetectionModule: any,
 						krux: any
 					) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
-						this.sourcePointModule = sourcePointModule;
+						this.sourcePointDetectionModule = sourcePointDetectionModule;
 						this.adConfigMobile = adConfigMobile;
 						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 						window.Krux = krux || [];
@@ -154,7 +154,7 @@ module Mercury.Modules {
 				if (Ads.blocking !== null) {
 					this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
 				} else {
-					this.sourcePointModule.initDetection();
+					this.sourcePointDetectionModule.initDetection();
 				}
 				this.adLogicPageViewCounterModule.increment();
 				this.adEngineModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury');
