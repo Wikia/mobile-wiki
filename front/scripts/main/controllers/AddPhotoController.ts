@@ -57,21 +57,10 @@ App.AddPhotoController = Em.Controller.extend({
 				this.handleUploadSuccess.bind(this),
 				this.handleError.bind(this)
 			);
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectionaddphoto',
-				label: 'upload'
-			});
 		},
 
 		back: function (): void {
 			this.transitionToRoute('article', this.get('model.title'));
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectionaddphoto',
-				label: 'back'
-			});
 		}
 	}
 });
