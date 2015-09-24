@@ -17,7 +17,7 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.Tra
 
 	href: Em.computed.oneWay('video.fileUrl'),
 
-	imageHeight: Em.computed(function (): number {
+	imageHeight: Em.computed('imageWidth', function (): number {
 		return Math.floor(this.get('imageWidth') * 9 / 16);
 	}),
 

@@ -170,6 +170,8 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 
 		if (currentMedia && currentMedia.caption) {
 			this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));
+		} else {
+			this.sendAction('setFooter', null);
 		}
 
 	}

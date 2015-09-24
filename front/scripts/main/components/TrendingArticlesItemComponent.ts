@@ -15,7 +15,7 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 	imageWidth: 250,
 
 	href: Em.computed.oneWay('url'),
-	currentlyRenderedImageUrl: Em.computed(function (): string {
+	currentlyRenderedImageUrl: Em.computed('imageUrl', function (): string {
 		if (this.get('imageUrl')) {
 			var options:any = {
 				width: this.get('imageWidth'),
@@ -29,7 +29,7 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 		}
 	}),
 
-	imageHeight: Em.computed(function (): number {
+	imageHeight: Em.computed('imageWidth', function (): number {
 		return Math.floor(this.get('imageWidth') * 9 / 16);
 	}),
 
