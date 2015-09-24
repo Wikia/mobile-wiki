@@ -5,5 +5,7 @@
 
 App.DiscussionUpvoteReplyComponent = Em.Component.extend(
 	App.DiscussionUpvoteComponentMixin,
-	App.DiscussionUpvoteActionSendMixin
+	App.DiscussionUpvoteActionSendMixin, {
+		svgBaseName: 'upvote-reply'
+	}
 );
