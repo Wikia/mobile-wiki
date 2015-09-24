@@ -6,6 +6,7 @@ App.DiscussionForumModel = Em.Object.extend({
 	name: null,
 	posts: null,
 	totalPosts: 0,
+	contributors: [],
 
 	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
@@ -60,10 +61,24 @@ App.DiscussionForumModel.reopenClass({
 				data: requestData,
 				dataType: 'json',
 				success: (data: any) => {
-					var posts = data._embedded['doc:threads'],
+					var contributors = [],
+						posts = data._embedded['doc:threads'],
 						totalPosts = data.threadCount;
 
+					posts.forEach(function (post) {
+						var author;
+						if (post.hasOwnProperty('createdBy')) {
+							author = post.createdBy;
+							author.url = M.buildUrl({
+								namespace: 'User',
+								title: author.name
+							});
+							contributors.push(author)
+						}
+					});
+
 					forumInstance.setProperties({
+						contributors: contributors,
 						name: data.name,
 						posts: posts,
 						totalPosts: totalPosts

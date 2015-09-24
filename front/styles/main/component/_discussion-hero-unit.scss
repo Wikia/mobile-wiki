@@ -1,4 +1,5 @@
 $discussion-hero-unit-text-color: $color-white;
+$discussion-hero-unit-avatar-dimension: 40px;
 
 .discussion-hero-unit {
 	color: $discussion-hero-unit-text-color;
@@ -15,6 +16,22 @@ $discussion-hero-unit-text-color: $color-white;
 	p {
 		font-size: 14px;
 		font-weight: bold;
+	}
+
+	.discussion-contributors {
+		.avatar {
+			img {
+				height: $discussion-hero-unit-avatar-dimension;
+				width: $discussion-hero-unit-avatar-dimension;
+			}
+		}
+
+		.discussion-contributors-more {
+			font-size: rem-calc(12);
+			height: $discussion-hero-unit-avatar-dimension;
+			padding-top: 5px;
+			width: $discussion-hero-unit-avatar-dimension;
+		}
 	}
 }
 
