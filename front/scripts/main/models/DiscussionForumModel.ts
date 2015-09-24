@@ -61,12 +61,12 @@ App.DiscussionForumModel.reopenClass({
 				data: requestData,
 				dataType: 'json',
 				success: (data: any) => {
-					var contributors = [],
+					var contributors: any[] = [],
 						posts = data._embedded['doc:threads'],
 						totalPosts = data.threadCount;
 
-					posts.forEach(function (post) {
-						var author;
+					posts.forEach(function (post: any) {
+						var author: any;
 						if (post.hasOwnProperty('createdBy')) {
 							author = post.createdBy;
 							author.url = M.buildUrl({

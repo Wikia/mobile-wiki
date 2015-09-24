@@ -60,7 +60,7 @@ App.DiscussionPostModel.reopenClass({
 					 '&limit=' + postInstance.replyLimit,
 				dataType: 'json',
 				success: (data: any) => {
-					var contributors = [],
+					var contributors: any[] = [],
 						replies = data._embedded['doc:posts'],
 						pivotId: number;
 
@@ -71,8 +71,8 @@ App.DiscussionPostModel.reopenClass({
 						replies.reverse();
 					}
 
-					replies.forEach(function (reply) {
-						var author;
+					replies.forEach(function (reply: any) {
+						var author: any;
 						if (reply.hasOwnProperty('createdBy')) {
 							author = reply.createdBy;
 							author.url = M.buildUrl({
