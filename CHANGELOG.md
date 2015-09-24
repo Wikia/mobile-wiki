@@ -1,3 +1,18 @@
+## release-166 (2015-09-24 07:59 UTC)
+* [INT-198](https://wikia-inc.atlassian.net/browse/INT-198) Fix for invisible slider for Japan HP
+* [HG-888](https://wikia-inc.atlassian.net/browse/HG-888) Hg 888 Style guide version
+* [SOC-1289](https://wikia-inc.atlassian.net/browse/SOC-1289) SOC-1289 follow-up | Removing discussion hero unit from post-detail page
+* [HG-887](https://wikia-inc.atlassian.net/browse/HG-887) Hg 887 Fixing custom web components in FF
+* [HG-878](https://wikia-inc.atlassian.net/browse/HG-878) HG-878 fixing locale gulp task and top-nav i18n for anons
+* [SOC-1289](https://wikia-inc.atlassian.net/browse/SOC-1289) SOC-1289 Header (hero unit) for desktop posts list page
+* tslint-maintenance-fixes: Maintenance | Fixing tslint warnings
+* [SOC-1329](https://wikia-inc.atlassian.net/browse/SOC-1329) SOC-1329 Adds a contributors component + an standalone avatar component
+
+## release-165 (2015-09-23 07:59 UTC)
+* [XW-63](https://wikia-inc.atlassian.net/browse/XW-63) XW-63 | added /api/mercury path in preparation for deprecation of /api/v1
+* [XW-251](https://wikia-inc.atlassian.net/browse/XW-251) XW-251 | Show a message when user opened a section/category that does not exist
+* [XW-244](https://wikia-inc.atlassian.net/browse/XW-244) XW-244 update ember to 1.13.10
+
 ## release-164 (2015-09-22 10:21 UTC)
 * [XW-236](https://wikia-inc.atlassian.net/browse/XW-236) XW-236 Redirect to canonical host if needed
 * [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204)""

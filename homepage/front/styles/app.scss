@@ -38,6 +38,7 @@ $desktop: new-breakpoint(min-width 500px);
 
 section {
 	@include outer-container;
+	clear: both;
 	margin-bottom: 3em;
 	padding-left: 3em;
 	padding-right: 3em;

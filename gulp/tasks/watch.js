@@ -67,7 +67,7 @@ gulp.task('watch', ['build'], function () {
 		paths.base + '/front/scripts/*.js',
 		paths.base + '/front/styles/*.css',
 		paths.base + '/front/templates/*.js',
-		paths.base + '/front/locales/**/translate.json'
+		paths.base + '/front/locales/**/*.json'
 	]).on('change', function (event) {
 		log('File changed:', gutil.colors.green(event.path), 'Restarting server');
 

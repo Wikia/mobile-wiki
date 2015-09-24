@@ -143,9 +143,12 @@
 	"discussion": {
 		"share-default-title": "Discussion on __siteName__",
 		"sort-by-latest": "Latest",
-		"sort-by-trending": "Trending"
+		"sort-by-trending": "Trending",
+		"number-of-posts": "__numberOfPosts__ Posts"
 	},
-	"topBar": {
-		"anon-cta": "Sign In"
+	"userStatus": {
+		"anon-cta": "__registerLink__ or __loginLink__",
+		"register-text": "Register",
+		"login-text": "Login"
 	}
 }
