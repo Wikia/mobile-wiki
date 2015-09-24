@@ -5,10 +5,12 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 ///<reference path="../mixins/IEIFrameFocusFixMixin.ts"/>
+///<reference path="../mixins/CuratedContentEditorLabelsMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
+	App.CuratedContentEditorLabelsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
@@ -23,20 +25,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
-		label: Em.computed('model.label', 'isFeatured', 'isSection', function(): string {
-			var modelLabel = this.get('model.label');
-			if (modelLabel) {
-				return modelLabel;
-			} else {
-				if (this.get('isFeaturedItem')) {
-					return i18n.t('app.curated-content-editor-new-featured-content');
-				} else if (this.get('isSection')) {
-					return i18n.t('app.curated-content-editor-new-section');
-				} else {
-					return i18n.t('app.curated-content-editor-new-category');
-				}
-			}
-		}),
 
 		/* 16x9 transparent gif */
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',

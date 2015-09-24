@@ -4,7 +4,7 @@
 			{{svg 'back-arrow' role='img' class='icon'}}
 		</a>
 		<button class="sub-head--done" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
-		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
+		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=headerLabel}}</div>
 	</header>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
