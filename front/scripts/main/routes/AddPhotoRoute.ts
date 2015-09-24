@@ -6,7 +6,9 @@
 
 App.AddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 	renderTemplate(): void {
-		this.render('add-photo');
+		this.render('add-photo', {
+			controller: 'addPhoto'
+		});
 	},
 
 	actions: {
