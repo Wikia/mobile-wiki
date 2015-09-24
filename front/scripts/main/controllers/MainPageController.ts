@@ -3,9 +3,9 @@
 'use strict';
 
 App.MainPageController = Em.Controller.extend({
-	needs: ['application'],
+	application: Em.inject.controller(),
 
-	noAds: Em.computed.alias('controllers.application.noAds'),
+	noAds: Em.computed.alias('application.noAds'),
 
 	init: function (): void {
 		this.setProperties({
