@@ -55,9 +55,7 @@ App.HeadroomMixin = Em.Mixin.create({
 				headroom.destroy();
 			}
 
-			if (smartBannerVisible) {
-				this.initHeadroom(headroomOptions, offset);
-			}
+			this.initHeadroom(headroomOptions, offset);
 		}
 	}),
 
