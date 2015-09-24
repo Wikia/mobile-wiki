@@ -142,6 +142,7 @@
 	},
 	"discussion": {
 		"share-default-title": "Discussion on __siteName__",
+		"contributors-title": "All Contributors",
 		"sort-by-latest": "Latest",
 		"sort-by-trending": "Trending",
 		"back-to-wikia-link": "To the Wiki",

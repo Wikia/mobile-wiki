@@ -10,6 +10,7 @@ App.DiscussionPostModel = Em.Object.extend({
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
+	contributors: [],
 
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
@@ -17,7 +18,7 @@ App.DiscussionPostModel = Em.Object.extend({
 				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
 					 this.wikiId + '/threads/' + this.threadId +
 					 '?responseGroup=full' +
-					 '&sortDirection=descending' +
+					 '&sortDirection=descending&sortKey=creation_date' +
 					 '&limit=' + this.replyLimit +
 					 '&pivot=' + this.pivotId +
 					 '&page=' + (this.page + 1),
@@ -55,10 +56,12 @@ App.DiscussionPostModel.reopenClass({
 			Em.$.ajax({
 				url: 'https://' + M.prop('servicesDomain') +
 					 `/discussion/${wikiId}/threads/${threadId}` +
-					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
+					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
+					 '&limit=' + postInstance.replyLimit,
 				dataType: 'json',
 				success: (data: any) => {
-					var replies = data._embedded['doc:posts'],
+					var contributors = [],
+						replies = data._embedded['doc:posts'],
 						pivotId: number;
 
 					// If there are no replies to the first post, 'doc:posts' will not be returned
@@ -68,7 +71,20 @@ App.DiscussionPostModel.reopenClass({
 						replies.reverse();
 					}
 
+					replies.forEach(function (reply) {
+						var author;
+						if (reply.hasOwnProperty('createdBy')) {
+							author = reply.createdBy;
+							author.url = M.buildUrl({
+								namespace: 'User',
+								title: author.name
+							});
+							contributors.push(author)
+						}
+					});
+
 					postInstance.setProperties({
+						contributors: contributors,
 						replies: replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,

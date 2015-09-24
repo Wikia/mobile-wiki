@@ -1,5 +1,11 @@
 <div class="rail left large-2">
 	{{community-badge}}
+	<div class="discussion-contributors-title">{{i18n "discussion.contributors-title"}}</div>
+	{{discussion-contributors
+		contributors=model.contributors
+		maxContributorDisplayCount=7
+		totalContributorCount=model.postCount
+	}}
 </div>
 <div class="rail right large-2">
 </div>
