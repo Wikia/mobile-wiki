@@ -4,6 +4,8 @@
 			{{outlet}}
 		</section>
 	</div>
+{{else if fullPage}}
+	{{outlet}}
 {{else}}
 	{{smart-banner
 		isVisible=smartBannerVisible
