@@ -2,7 +2,7 @@
 <div class="item-description" {{action 'edit'}}>
 	<div class="title">{{model.label}}</div>
 	{{#if model.items}}
-		<div class="subtitle">{{i18n 'app.curated-content-editor-items-count' count=model.items.length}}</div>
+		<div class="subtitle">{{itemsCountLabel}}</div>
 	{{/if}}
 </div>
 <div class="navigation">

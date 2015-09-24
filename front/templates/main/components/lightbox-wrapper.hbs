@@ -1,9 +1,7 @@
 {{#if type}}
 	<div class="lightbox-header {{if headerHidden 'hidden'}}">
 		<div class="lightbox-close-wrapper">
-			<svg role="img" class="lightbox-close-button">
-				<use xlink:href="#close"></use>
-			</svg>
+			{{svg 'close' role='img' class='lightbox-close-button pointer-events-none'}}
 		</div>
 		<div class="lightbox-header-title">{{header}}</div>
 	</div>
