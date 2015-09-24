@@ -1,10 +1,10 @@
 <div>
-	<figure class="avatar">
-		<a href="{{authorUrl}}">
-			<img src="{{author.avatarUrl}}">
-		</a>
-	</figure>
-	<a href="{{authorUrl}}" class="author">{{author.name}}</a>
+	{{user-avatar
+		avatarUrl=author.avatarUrl
+		profileUrl=authorUrl
+		username=author.name
+		displayUsername=true
+	}}
 	<span class="timestamp">
 		&bull; {{timeAgo timestamp}}
 	</span>
