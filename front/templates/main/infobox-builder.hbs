@@ -4,7 +4,7 @@
 			{{component element.infoboxBuilderData.component
 				item=element
 				position=index
-				activeItemPosition=model.itemInEditModePosition
+				activeItem=model.itemInEditMode
 				setEditItemAction='setEditItem'
 			}}
 		{{/each}}
@@ -20,8 +20,8 @@
 
 	{{infobox-builder-edit-item
 		item=model.itemInEditMode
-		position=model.itemInEditModePosition
 		removeItemAction='removeItem'
+		moveItemAction='moveItem'
 	}}
 </div>
 

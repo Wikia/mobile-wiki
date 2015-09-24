@@ -1,3 +1,5 @@
 {{#if item}}
-    <button {{action 'removeItem' position}}>{{i18n 'app.infobox-builder-remove-item'}}</button>
+    <button {{action 'removeItem'}}>{{i18n 'app.infobox-builder-remove-item'}}</button>
+    <button {{action 'moveItemUp'}}>{{i18n 'app.infobox-builder-move-item-up'}}</button>
+    <button {{action 'moveItemDown'}}>{{i18n 'app.infobox-builder-move-item-down'}}</button>
 {{/if}}

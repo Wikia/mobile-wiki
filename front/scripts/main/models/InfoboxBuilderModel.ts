@@ -67,7 +67,6 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	},
 	infoboxState: Em.A([]),
 	itemInEditMode: null,
-	itemInEditModePosition: null,
 
 	/**
 	 * @desc add item to infobox state
@@ -195,26 +194,53 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	/**
 	 * @desc sets item to the edit mode
 	 * @param {DataItem|ImageItem|TitleItem} item
-	 * @param {Number} position
 	 */
-	setEditItem(item: DataItem|ImageItem|TitleItem, position: number): void {
-		this.setProperties({ itemInEditMode: item, itemInEditModePosition: position });
+	setEditItem(item: DataItem|ImageItem|TitleItem): void {
+		this.set('itemInEditMode', item);
 	},
 
 	/**
 	 * @desc removes item from state for given position
-	 * @param {Number} position
+	 * @param {DataItem|ImageItem|TitleItem} item
 	 */
-	removeItem(position: number): void {
-		this.get('infoboxState').removeAt(position);
+	removeItem(item: DataItem|ImageItem|TitleItem): void {
+		this.get('infoboxState').removeObject(item);
 		this.resetEditMode();
+	},
+
+	/**
+	 * @desc moves item in infoboxState by given offset
+	 * @param {Number} offset
+	 * @param {DataItem|ImageItem|TitleItem} item
+	 */
+	moveItem(offset: number, item: DataItem|ImageItem|TitleItem) {
+		var position = this.get('infoboxState').indexOf(item);
+
+		if (this.isValidMove(position, offset)) {
+			this.get('infoboxState').removeAt(position);
+			this.get('infoboxState').insertAt(position + offset, item);
+		}
+	},
+
+	/**
+	 * @desc checks if move is valid based on item current position in the infoboxState and the move offset
+	 * @param {Number} position
+	 * @param {Number} offset
+	 * @returns {Boolean}
+	 */
+	isValidMove(position: number, offset: number): boolean {
+		var lastItemIndex = this.get('infoboxState').length -1,
+			newPosition = position + offset;
+
+		return position > 0 && offset < 0 && newPosition >= 0 ||
+			position < lastItemIndex && offset > 0 && newPosition <= lastItemIndex;
 	},
 
 	/**
 	 * @desc resets item in edit mode and its position to null
 	 */
 	resetEditMode(): void {
-		this.setProperties({ itemInEditMode: null, itemInEditModePosition: null });
+		this.set('itemInEditMode', null);
 	},
 
 	/**
