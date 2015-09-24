@@ -27,7 +27,7 @@ $discussion-hero-unit-avatar-dimension: 40px;
 		}
 
 		.discussion-contributors-more {
-			font-size: rem-calc(12);
+			font-size: $type-min;
 			height: $discussion-hero-unit-avatar-dimension;
 			padding-top: 5px;
 			width: $discussion-hero-unit-avatar-dimension;
