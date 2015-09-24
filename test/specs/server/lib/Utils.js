@@ -101,6 +101,18 @@ test('clearHost', function () {
 			host: 'example.com:8080',
 			expected: 'example.com',
 			description: 'clears the port from the host'
+		} , {
+			host: 'externaltest.muppet.wikia.com',
+			expected: 'muppet.wikia.com',
+			description: 'clears the externaltest ad domain alias'
+		} , {
+			host: 'showcase.muppet.wikia.com',
+			expected: 'muppet.wikia.com',
+			description: 'clears the showcase ad domain alias'
+		} , {
+			host: 'externaltest.muppet.wikia.com:8000',
+			expected: 'muppet.wikia.com',
+			description: 'clears the showcase ad domain alias and port'
 		}
 	];
 	testCases.forEach(function (testCase) {
