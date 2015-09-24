@@ -1,9 +1,12 @@
 /// <reference path="../app.ts" />
 
 App.DiscussionForumController = Em.Controller.extend({
+	needs: 'application',
 	sortBy: null,
 	// Whether the sort component is currently visible
 	sortVisible: false,
+	// TODO: not sure this is always accurate
+	smartBannerVisible: Em.computed.alias('controllers.application.smartBannerVisible'),
 
 	sortTypes: [
 		{

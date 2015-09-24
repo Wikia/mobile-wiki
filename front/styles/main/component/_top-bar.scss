@@ -1,3 +1,6 @@
+.top-bar-component {
+	width: 100%; // needed for headroom js when it sets position to absolute
+}
 top-bar {
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
