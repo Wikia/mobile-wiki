@@ -24,19 +24,19 @@ App.MetaTagsMixin = Em.Mixin.create({
 			$metaProto = Em.$('<meta></meta>'),
 			$newMetaValues: any[] = [],
 			selectors: any[] = [],
-			metaTypes = keys(meta),
-			keys: any = Object.keys || Em.keys;
+			keys: any = Object.keys || Em.keys,
+			metaTypes = keys(meta);
 
 		// don't set meta if route is no longer active
 		if (!this.router.isActive(this.routeName)) {
 			return;
 		}
 
-		metaTypes.forEach(function(meta_type: any) {
-			keys(meta[meta_type]).map(function(key: any) {
-				selectors.push('meta[' + meta_type + '="' + key + '"]');
-				$newMetaValues.push($metaProto.clone().attr(meta_type, key)
-					.attr('content', meta[meta_type][key]));
+		metaTypes.forEach(function(metaType: any) {
+			keys(meta[metaType]).map(function(key: any) {
+				selectors.push('meta[' + metaType + '="' + key + '"]');
+				$newMetaValues.push($metaProto.clone().attr(metaType, key)
+					.attr('content', meta[metaType][key]));
 			});
 		});
 
