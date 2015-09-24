@@ -8,13 +8,17 @@
  * https://www.npmjs.com/package/ember-cli-meta-tags
  *
  * @example How to set meta tags on a route
- *   ExampleRoute = Ember.Route.extend RouteMetaMixin,
- *     meta: ->
- *       return
- *         meta_property_name1: meta_value1
- *         meta_property_name2: meta_value2
+ *
+ *   App.ExampleRoute = Em.Route.extend(App.MetaTagsMixin, {
+ *
+ *   	meta(): any {
+ *		return {
+ *			name: {
+ *				robots: 'noindex, follow'
+ *			}
+ *		};
+ *	 }
  */
-
 App.MetaTagsMixin = Em.Mixin.create({
 
 	$head: Em.$('head'),
@@ -35,8 +39,13 @@ App.MetaTagsMixin = Em.Mixin.create({
 		metaTypes.forEach(function(metaType: any) {
 			keys(meta[metaType]).map(function(key: any) {
 				selectors.push('meta[' + metaType + '="' + key + '"]');
-				$newMetaValues.push($metaProto.clone().attr(metaType, key)
-					.attr('content', meta[metaType][key]));
+				$newMetaValues.push(
+					$metaProto
+						.clone()
+						.attr(metaType, key)
+						.attr('content', meta[metaType][key]
+					)
+				);
 			});
 		});
 
