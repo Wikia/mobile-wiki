@@ -43,8 +43,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 					$metaProto
 						.clone()
 						.attr(metaType, key)
-						.attr('content', meta[metaType][key]
-					)
+						.attr('content', meta[metaType][key])
 				);
 			});
 		});
