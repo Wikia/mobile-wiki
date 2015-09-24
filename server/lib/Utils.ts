@@ -207,6 +207,21 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	};
 }
 
+/**
+ * Gets the domain and path for a static asset
+ *
+ * @param {LocalSettings} localSettings
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+export function getStaticAssetPath(localSettings: LocalSettings, request: Hapi.Request): string {
+	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+	return env !== Environment.Dev
+		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
+		? localSettings.cdnBaseUrl + '/mercury-static/'
+		: '//' + getCachedWikiDomainName(localSettings, request) + '/front/';
+}
+
 export function getCDNBaseUrl(localSettings: LocalSettings): String {
 	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : '';
 }
