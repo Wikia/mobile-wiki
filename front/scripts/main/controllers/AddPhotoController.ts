@@ -3,7 +3,7 @@
 'use strict';
 
 App.AddPhotoController = Em.Controller.extend({
-	needs: ['application', 'article'],
+	application: Em.inject.controller(),
 
 	errorCodeMap: {
 		'invalidtitle': 'app.add-photo-section-title-error',
@@ -14,7 +14,7 @@ App.AddPhotoController = Em.Controller.extend({
 	handleAddContentSuccess: function(data: any): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
-			this.get('controllers.application').addAlert({
+			this.get('application').addAlert({
 				message: i18n.t('app.add-photo-success'),
 				type: 'success'
 			});
@@ -34,7 +34,7 @@ App.AddPhotoController = Em.Controller.extend({
 	},
 
 	handleError: function(error: any): void {
-		var appController = this.get('controllers.application'),
+		var appController = this.get('application'),
 			errorMsg = this.errorCodeMap[error] || 'app.add-photo-error';
 
 		appController.addAlert({
@@ -52,7 +52,7 @@ App.AddPhotoController = Em.Controller.extend({
 
 	actions: {
 		upload: function (): void {
-			this.get('controllers.application').showLoader();
+			this.get('application').showLoader();
 			App.AddPhotoModel.upload(this.get('model')).then(
 				this.handleUploadSuccess.bind(this),
 				this.handleError.bind(this)
