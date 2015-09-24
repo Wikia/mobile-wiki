@@ -4,15 +4,15 @@
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
 }}
+{{discussion-hero-unit
+	numberOfPosts=model.totalPosts
+	name=model.name
+}}
 {{discussion-sort
 	setSortBy='setSortBy'
 	sortVisible=sortVisible
 	sortBy=sortBy
 	sortTypes=sortTypes
-}}
-{{discussion-hero-unit
-	numberOfPosts=model.totalPosts
-	name=model.name
 }}
 <div class="rail left large-3">
 	{{community-badge}}
