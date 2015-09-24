@@ -2,7 +2,7 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-App.AddPhotoController = Em.Controller.extend({
+App.ArticleAddPhotoController = Em.Controller.extend({
 	application: Em.inject.controller(),
 
 	errorCodeMap: {
@@ -27,7 +27,7 @@ App.AddPhotoController = Em.Controller.extend({
 	},
 
 	handleUploadSuccess: function(data: any): void {
-		App.AddPhotoModel.addToContent(data.title, this.get('model')).then(
+		App.ArticleAddPhotoModel.addToContent(data.title, this.get('model')).then(
 			this.handleAddContentSuccess.bind(this),
 			this.handleError.bind(this)
 		);
@@ -53,7 +53,7 @@ App.AddPhotoController = Em.Controller.extend({
 	actions: {
 		upload: function (): void {
 			this.get('application').showLoader();
-			App.AddPhotoModel.upload(this.get('model')).then(
+			App.ArticleAddPhotoModel.upload(this.get('model')).then(
 				this.handleUploadSuccess.bind(this),
 				this.handleError.bind(this)
 			);

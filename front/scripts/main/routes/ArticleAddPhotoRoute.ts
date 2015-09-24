@@ -4,10 +4,10 @@
 
 'use strict';
 
-App.AddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
+App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 	renderTemplate(): void {
-		this.render('add-photo', {
-			controller: 'addPhoto'
+		this.render('article-add-photo', {
+			controller: 'articleAddPhoto'
 		});
 	},
 

@@ -28,16 +28,16 @@ App.ArticleController = Em.Controller.extend({
 		},
 
 		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
-			var photoModel = App.AddPhotoModel.load(photoData);
+			var photoModel = App.ArticleAddPhotoModel.load(photoData);
 			//We don't want to hold with transition and wait for a promise to resolve.
 			//Instead we set properties on model after resolving promise and Ember scheduler handles this gracefully.
-			photoModel.then((model: typeof App.AddPhotoModel) => {
+			photoModel.then((model: typeof App.ArticleAddPhotoModel) => {
 				model.setProperties({
 					title,
 					sectionIndex
 				});
 			});
-			this.transitionToRoute('addPhoto', photoModel);
+			this.transitionToRoute('articleAddPhoto', photoModel);
 		},
 
 		articleRendered: function (): void {
