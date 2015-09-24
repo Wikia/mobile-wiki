@@ -12,8 +12,8 @@ App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTags
 
 	meta(): any {
 		return {
-			'name': {
-				'robots': 'noindex, follow'
+			name: {
+				robots: 'noindex, follow'
 			}
 		};
 	},
