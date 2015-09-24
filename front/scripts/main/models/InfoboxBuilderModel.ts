@@ -214,17 +214,26 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {DataItem|ImageItem|TitleItem} item
 	 */
 	moveItem(offset: number, item: DataItem|ImageItem|TitleItem) {
+		var position = this.get('infoboxState').indexOf(item);
+
+		if (this.isValidMove(position, offset)) {
+			this.get('infoboxState').removeAt(position);
+			this.get('infoboxState').insertAt(position + offset, item);
+		}
+	},
+
+	/**
+	 * @desc checks if move is valid based on item current position in the infoboxState and the move offset
+	 * @param {Number} position
+	 * @param {Number} offset
+	 * @returns {Boolean}
+	 */
+	isValidMove(position: number, offset: number): boolean {
 		var lastItemIndex = this.get('infoboxState').length -1,
-			position = this.get('infoboxState').indexOf(item),
 			newPosition = position + offset;
 
-		if (
-			position > 0 && offset < 0 && newPosition >= 0 ||
-			position < lastItemIndex && offset > 0 && newPosition <= lastItemIndex
-		) {
-			this.get('infoboxState').removeAt(position);
-			this.get('infoboxState').insertAt(newPosition, item);
-		}
+		return position > 0 && offset < 0 && newPosition >= 0 ||
+			position < lastItemIndex && offset > 0 && newPosition <= lastItemIndex;
 	},
 
 	/**
