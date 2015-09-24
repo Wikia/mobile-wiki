@@ -2,6 +2,7 @@
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts" />
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
+/// <reference path="../mixins/CuratedContentEditorLabelsMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
@@ -10,6 +11,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorSortableItemsMixin,
 	App.CuratedContentThumbnailMixin,
+	App.CuratedContentEditorLabelsMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 {
@@ -18,10 +20,6 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		return this.generateThumbUrl(this.get('model.image_url'));
 	}),
 	notEmptyItems: Em.computed.notEmpty('model.items'),
-
-	itemsCountLabel: Em.computed('model.items.length', function (): string {
-		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
-	}),
 
 	actions: {
 		addItem(): void {

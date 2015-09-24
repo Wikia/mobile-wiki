@@ -1,19 +1,17 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
+/// <reference path="../mixins/CuratedContentEditorLabelsMixin.ts" />
 'use strict';
 
 App.CuratedContentEditorRowComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
+	App.CuratedContentEditorLabelsMixin,
 {
 	classNames: ['curated-content-editor-row'],
 	imageWidth: 48,
 
 	thumbUrl: Em.computed('model', function (): string {
 		return this.generateThumbUrl(this.get('model.image_url'));
-	}),
-
-	itemsCountLabel: Em.computed('model.items.length', function (): string {
-		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
 	}),
 
 	actions: {
