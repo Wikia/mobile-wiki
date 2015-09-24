@@ -2,9 +2,9 @@
 'use strict';
 
 App.ArticleAddPhotoComponent = Em.Component.extend({
-	classNames: ['addphoto-component'],
+	classNames: ['article-add-photo-component'],
 
-	track: function (label: string): void {
+	track(label: string): void {
 		M.track({
 			action: M.trackActions.click,
 			category: 'sectionaddphoto',
@@ -13,11 +13,11 @@ App.ArticleAddPhotoComponent = Em.Component.extend({
 	},
 
 	actions: {
-		back: function (): void {
+		back(): void {
 			this.sendAction('back');
 			this.track('back');
 		},
-		upload: function (): void {
+		upload(): void {
 			this.sendAction('upload');
 			this.track('upload');
 		}
