@@ -1,3 +1,20 @@
+## release-167 (2015-09-24 13:38 UTC)
+* aden-2464-fix-externaltest-on-mobile: ADEN-2464 Fix externaltest on mobile
+* [SOC-1120](https://wikia-inc.atlassian.net/browse/SOC-1120) SOC-1120 Change styling of discussion post sorting between desktop and mobile
+* [XW-424](https://wikia-inc.atlassian.net/browse/XW-424) XW-424 | Curated Content Tool section item count singular/plural label fix
+* tslint-trailing-comma: allow for trailing comma in ts
+* aden-2466-lightbox-close-button-fix: ADEN-2466 Fix close button in mobile lightbox
+
+## release-166 (2015-09-24 07:59 UTC)
+* [INT-198](https://wikia-inc.atlassian.net/browse/INT-198) Fix for invisible slider for Japan HP
+* [HG-888](https://wikia-inc.atlassian.net/browse/HG-888) Hg 888 Style guide version
+* [SOC-1289](https://wikia-inc.atlassian.net/browse/SOC-1289) SOC-1289 follow-up | Removing discussion hero unit from post-detail page
+* [HG-887](https://wikia-inc.atlassian.net/browse/HG-887) Hg 887 Fixing custom web components in FF
+* [HG-878](https://wikia-inc.atlassian.net/browse/HG-878) HG-878 fixing locale gulp task and top-nav i18n for anons
+* [SOC-1289](https://wikia-inc.atlassian.net/browse/SOC-1289) SOC-1289 Header (hero unit) for desktop posts list page
+* tslint-maintenance-fixes: Maintenance | Fixing tslint warnings
+* [SOC-1329](https://wikia-inc.atlassian.net/browse/SOC-1329) SOC-1329 Adds a contributors component + an standalone avatar component
+
 ## release-165 (2015-09-23 07:59 UTC)
 * [XW-63](https://wikia-inc.atlassian.net/browse/XW-63) XW-63 | added /api/mercury path in preparation for deprecation of /api/v1
 * [XW-251](https://wikia-inc.atlassian.net/browse/XW-251) XW-251 | Show a message when user opened a section/category that does not exist

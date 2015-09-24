@@ -117,13 +117,25 @@ export function getWikiDomainName (localSettings: LocalSettings, hostName: strin
 }
 
 /**
- * @desc Removes the port from hostname
+ * @desc Removes the port from hostname as well as ad domain aliases
  *
  * @param {string} host
  * @returns {string}
  */
 export function clearHost (host: string): string {
-	return host.split(':')[0]; //get rid of port
+	// We use two special domain prefixes for Ad Operation and Sales reasons
+	// They behave similar to our staging prefixes but are not staging machines
+	// Talk to Ad Engineering Team if you want to learn more
+	var adDomainAliases: Array<string> = ['externaltest', 'showcase'];
+
+	host = host.split(':')[0]; // get rid of port
+	Object.keys(adDomainAliases).forEach(function (key){
+		if (host.indexOf(adDomainAliases[key]) === 0) {
+			host = host.replace(adDomainAliases[key] + '.', ''); // get rid of domain aliases
+		}
+	});
+
+	return host;
 }
 
 /**
@@ -193,6 +205,21 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 		environment: getEnvironmentString(env),
 		cdnBaseUrl: getCDNBaseUrl(localSettings)
 	};
+}
+
+/**
+ * Gets the domain and path for a static asset
+ *
+ * @param {LocalSettings} localSettings
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+export function getStaticAssetPath(localSettings: LocalSettings, request: Hapi.Request): string {
+	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+	return env !== Environment.Dev
+		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
+		? localSettings.cdnBaseUrl + '/mercury-static/'
+		: '//' + getCachedWikiDomainName(localSettings, request) + '/front/';
 }
 
 export function getCDNBaseUrl(localSettings: LocalSettings): String {
