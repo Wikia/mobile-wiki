@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.ArticleAddPhotoComponent = Em.View.extend({
+App.ArticleAddPhotoComponent = Em.Component.extend({
 	classNames: ['addphoto-component'],
 
 	actions: {
