@@ -1,10 +1,18 @@
-{{discussion-header
-	setSortBy='setSortBy'
-	sortBy=sortBy
-}}
 {{discussion-hero-unit
 	numberOfPosts=model.totalPosts
 	name=model.name
+}}
+{{discussion-header
+	showSortComponent='showSortComponent'
+	hideSortComponent='hideSortComponent'
+	sortBy=sortBy
+	sortMessageKey=sortMessageKey
+}}
+{{discussion-sort
+	setSortBy='setSortBy'
+	sortVisible=sortVisible
+	sortBy=sortBy
+	sortTypes=sortTypes
 }}
 {{forum-wrapper
 	goToPost='goToPost'

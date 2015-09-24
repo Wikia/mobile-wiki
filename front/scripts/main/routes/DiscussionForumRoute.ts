@@ -12,7 +12,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
 
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
 		this._super(controller, model, transition);
-		controller.set('sortBy', transition.params['discussion.forum'].sortBy);
+		controller.set('sortBy', transition.params['discussion.forum'].sortBy || controller.get('sortTypes')[0].name);
 	},
 
 	actions: {
@@ -25,7 +25,14 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
 		},
 
 		setSortBy: function (sortBy: string): void {
-			this.controllerFor('discussionForum').set('sortBy', sortBy);
+			var controller = this.controllerFor('discussionForum');
+
+			controller.set('sortBy', sortBy);
+
+			if (controller.get('sortAlwaysVisible') !== true) {
+				this.controllerFor('discussionForum').set('sortVisible', false);
+			}
+
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
 		}
 	}
