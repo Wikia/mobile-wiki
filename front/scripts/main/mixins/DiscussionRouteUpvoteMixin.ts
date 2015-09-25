@@ -20,7 +20,7 @@ App.DiscussionRouteUpvoteMixin = Em.Mixin.create({
 
 			this.upvotingInProgress[postId] = true;
 			hasUpvoted = Em.get(post._embedded.userData[0], 'hasUpvoted');
-			method = (hasUpvoted ? 'delete' : 'post');
+			method = hasUpvoted ? 'delete' : 'post';
 
 			// the change in the front-end is done here
 			Em.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
