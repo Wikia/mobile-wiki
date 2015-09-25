@@ -76,11 +76,12 @@ $horizontal-padding: 15px;
 		height: 20px;
 		width: 20px;
 		vertical-align: middle;
-		&.upvote {
-			fill: #999;
+		&.upvote,
+		&.upvote-reply {
+			fill: $upvote-icon-color;
+			stroke: $upvote-icon-color;
 		}
 		&.upvote-reply {
-			fill: #999;
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
@@ -91,7 +92,8 @@ $horizontal-padding: 15px;
 		.icon {
 			&.upvote,
 			&.upvote-reply {
-				fill: #e3bd00;
+				fill: $upvote-icon-activated-color;
+				stroke: $upvote-icon-activated-color;
 			}
 		}
 	}
