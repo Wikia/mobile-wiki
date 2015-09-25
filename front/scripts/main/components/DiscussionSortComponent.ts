@@ -2,7 +2,7 @@
 'use strict';
 
 App.DiscussionSortComponent = Em.Component.extend({
-	classNames: ['discussion-sort'],
+	classNames: ['discussion-sort', 'clearfix'],
 	classNameBindings: ['sortVisible::mobile-hidden'],
 	tagName: 'ul',
 

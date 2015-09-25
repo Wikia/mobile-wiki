@@ -1,6 +1,5 @@
-<div class="discussion forum">
-	{{#each posts as |item|}}
-		{{post-detail
+{{#each posts as |item|}}
+	{{post-detail
 		action='goToPost'
 		goToPost='goToPost'
 		postId=item.id
@@ -9,10 +8,8 @@
 		timestamp=item._embedded.firstPost.0.creationDate.epochSecond
 		upvoteCount=item.upvoteCount
 		replyCount=item.postCount
-		}}
-	{{/each}}
-	{{#if loadingMore}}
-        <div class="load-more">Loading More Posts</div>
-	{{/if}}
-</div>
-
+	}}
+{{/each}}
+{{#if loadingMore}}
+	<div class="load-more">Loading More Posts</div>
+{{/if}}
