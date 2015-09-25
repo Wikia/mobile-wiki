@@ -4,7 +4,7 @@ $discussion-contributors-text-color: $color-white;
 $discussion-contributors-avatar-dimension: 30px;
 
 .discussion-contributors {
-	display: inline;
+	display: inline-block;
 
 	.user-avatar {
 		display: inline-block;
