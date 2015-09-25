@@ -24,20 +24,16 @@ App.FeaturedContentItemComponent = Em.Component.extend(
 		);
 	}),
 
-	willInsertElement: function (): void {
-		this.updateContainerHeight(this.get('viewportDimensions.width'));
-	},
-
-	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
-		this.updateContainerHeight(this.get('viewportDimensions.width'));
-	}),
+	viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+		this.updateContainerHeight();
+	})),
 
 	/**
 	 * @desc Keep the 16:9 ratio
 	 */
-	updateContainerHeight: function (containerWidth: number) {
-		var containerHeight = String(Math.round((containerWidth / 16) * 9));
+	updateContainerHeight(): void {
+		var containerHeight = String(Math.round((this.get('viewportDimensions.width') / 16) * 9));
 
-		this.set('style', Em.String.htmlSafe(`height: ${containerHeight}px;`));
+		this.set('style', new Em.Handlebars.SafeString(`height: ${containerHeight}px;`));
 	},
 });

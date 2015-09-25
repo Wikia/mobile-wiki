@@ -1,7 +1,11 @@
+.top-bar-component {
+	width: 100%; // needed for headroom js when it sets position to absolute
+}
 top-bar {
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
 	max-width: inherit;
+	position: static;
 	z-index: $z-site-head;
 
 	&::shadow .inner {
@@ -9,8 +13,3 @@ top-bar {
 		padding-right: 15px;
 	}
 }
-
-user-status::shadow .drawer ::content li {
-	border-color: $color-blue-gray-light;
-}
-

@@ -15,9 +15,7 @@
 			<meta name="fragment" content="!">
 		{{/if}}
 
-		<!-- Web components and library import -->
-		<script> window.Polymer = window.Polymer || {}; window.Polymer.dom = 'shadow'; </script>
-		<link rel="import" href="/front/vendor/wikia-style-guide/dist/components/import-built.html" async>
+		{{> web-components}}
 
 		{{#if isRtl}}
 			<!-- build:css /front/styles/main/app.rtl.css -->
@@ -37,7 +35,7 @@
 
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
-			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/v1');
+			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});

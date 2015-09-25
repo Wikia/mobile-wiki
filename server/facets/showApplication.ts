@@ -11,8 +11,10 @@ import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
-		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).getWikiVariables(),
+	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+		//@TODO remove when https://github.com/Wikia/chef-repo/pull/6681 fixed
+		staging = request.headers['x-staging'],
+		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain, staging: staging}).wikiVariables(),
 		context: any = {};
 
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
@@ -21,10 +23,12 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
-	wikiVariables.then((response) => {
+	wikiVariables.then((wikiVariables: any): Promise<any> => {
 		var userDir: string;
-		context.wiki = response.data;
 
+		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
+
+		context.wiki = wikiVariables;
 		if (context.wiki.language) {
 			userDir = context.wiki.language.userDir;
 			context.isRtl = (userDir === 'rtl');
@@ -36,6 +40,8 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 		context.openGraph = openGraphData;
 
 		outputResponse(request, reply, context);
+	}).catch(Utils.RedirectedToCanonicalHost, (): void => {
+		Logger.info('Redirected to canonical host');
 	}).catch((error: any): void => {
 		// `error` could be an object or a string here
 		Logger.warn({error: error}, 'Failed to get complete app view context');

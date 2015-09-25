@@ -430,7 +430,7 @@ declare module Hapi {
 		vary (header: string): void;
 		location (location: string): void;
 		created (location: string): void;
-		redirect (location: string): void;
+		redirect (location: string): Response;
 		encoding (encoding: string): void;
 		charset (charset: string): void;
 		ttl (ttl: number): void;

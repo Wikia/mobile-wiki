@@ -1,11 +1,15 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
+import Promise = require('bluebird');
 import localSettings = require('../../config/localSettings');
 import MW = require('./MediaWiki');
+import Utils = require('./Utils');
 
 interface OpenGraphAttributes {
 	description?: string;
 	image?: string;
+	imageHeight?: number;
+	imageWidth?: number;
 	title: string;
 	type: string;
 	url: string;
@@ -37,6 +41,11 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 
 			openGraphData.type = 'article';
 			openGraphData.url = wikiVars.basePath + request.path;
+			// Use Wikia logo as default image
+			openGraphData.image = 'http:' + Utils.getStaticAssetPath(localSettings, request)
+				+ 'images/wikia-mark-1200.jpg';
+			openGraphData.imageWidth = 1200;
+			openGraphData.imageHeight = 1200;
 
 			return new Promise((resolve: Function, reject: Function): void => {
 				// Fetch discussion post data from the API to complete the OG data
@@ -47,11 +56,14 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 							i18n.t('discussion.share-default-title', {siteName: wikiVars.siteName});
 						// Keep description to 175 characters or less
 						openGraphData.description = content.substr(0, 175);
-						openGraphData.image = wikiVars.image;
+						if (wikiVars.image) {
+							openGraphData.image = wikiVars.image;
+							delete openGraphData.imageWidth;
+							delete openGraphData.imageHeight;
+						}
 						resolve(openGraphData);
 					})
 					.catch((error: any): void => {
-						// Pass any error from MediaWiki.fetch up the stack
 						reject(error);
 					});
 			});

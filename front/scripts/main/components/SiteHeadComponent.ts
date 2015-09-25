@@ -8,7 +8,7 @@ App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, App.HeadroomMix
 	classNameBindings: ['themeBar'],
 	tagName: 'nav',
 	themeBar: false,
-
+	wikiaHomepage: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 	actions: {
 		expandSideNav: function (): void {
 			this.sendAction('toggleSideNav', true);
