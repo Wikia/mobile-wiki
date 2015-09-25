@@ -76,11 +76,23 @@ $horizontal-padding: 15px;
 		height: 20px;
 		width: 20px;
 		vertical-align: middle;
-
+		&.upvote {
+			fill: #999;
+		}
 		&.upvote-reply {
+			fill: #999;
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
+		}
+	}
+
+	.has-upvoted{
+		&.icon {
+			&.upvote,
+			&.upvote-reply {
+				fill: #e3bd00;
+			}
 		}
 	}
 
