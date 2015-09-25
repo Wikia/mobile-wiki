@@ -37,6 +37,14 @@ class BaseRequest {
 	}
 
 	fetch(url: string): any {
+		//@TODO remove when https://github.com/Wikia/chef-repo/pull/6681 fixed
+		if (this.staging) {
+			if (url.indexOf('?') > -1) {
+				url = url + "&staging=" + this.staging
+			} else {
+				url = url + "?staging=" + this.staging
+			}
+		}
 		return fetch(url, this.wikiDomain, this.redirects, this.headers);
 	}
 }
