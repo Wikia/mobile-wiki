@@ -1,24 +1,25 @@
 /// <reference path="../app.ts" />
 
-Em.Handlebars.registerBoundHelper('i18n', function () {
+App.I18nHelper = Em.Helper.helper(function () {
 	var options = Array.prototype.pop.call(arguments),
 		params: {
 			[key: string]: string;
 		} = {},
 		value: string,
-		namespace = 'main';
+		namespace = 'main',
+		segments = arguments[0];
 
-	if (arguments.length > 1) {
-		value = Array.prototype.join.call(arguments, '.');
+	if (segments.length > 1) {
+		value = Array.prototype.join.call(segments, '.');
 	} else {
-		value = arguments[0];
+		value = segments[0];
 	}
 
-	Object.keys(options.hash).forEach((key: string) => {
+	Object.keys(options).forEach((key: string) => {
 		if (key === 'ns') {
-			namespace = options.hash[key];
-		} else if (key !== 'boundOptions' && options.hash.hasOwnProperty(key)) {
-			params[key] = String(options.hash[key]);
+			namespace = options[key];
+		} else if (key !== 'boundOptions' && options.hasOwnProperty(key)) {
+			params[key] = String(options[key]);
 		}
 	});
 
