@@ -5,7 +5,5 @@
 
 App.DiscussionUpvotePostComponent = Em.Component.extend(
 	App.DiscussionUpvoteComponentMixin,
-	App.DiscussionUpvoteActionSendMixin, {
-		svgBaseName: 'upvote'
-	}
+	App.DiscussionUpvoteActionSendMixin
 );

@@ -6,12 +6,13 @@
  */
 App.DiscussionUpvoteComponentMixin = Em.Mixin.create({
 	classNames: ['small-5', 'columns', 'upvote', 'count'],
+	classNameBindings: ['hasUpvoted'],
 
 	post: null,
-	svgName: Em.computed('post._embedded.userData.@each.hasUpvoted', function (): string {
+	hasUpvoted: Em.computed('post._embedded.userData.@each.hasUpvoted', function (): boolean {
 		if (Em.isArray(this.get('post._embedded.userData'))) {
-			return this.svgBaseName + (this.get('post._embedded.userData')[0].hasUpvoted ? '-activated' : '');
+			return this.get('post._embedded.userData')[0].hasUpvoted;
 		}
-		return this.svgBaseName;
+		return false
 	})
 });
