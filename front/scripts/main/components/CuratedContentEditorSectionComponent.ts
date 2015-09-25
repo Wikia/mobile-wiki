@@ -2,6 +2,7 @@
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 /// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts" />
 /// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
+/// <reference path="../mixins/CuratedContentEditorLabelsMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
@@ -10,6 +11,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorSortableItemsMixin,
 	App.CuratedContentThumbnailMixin,
+	App.CuratedContentEditorLabelsMixin,
 	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 {

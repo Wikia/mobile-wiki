@@ -29,6 +29,7 @@ module authView {
 		headerText?: string;
 		bodyClasses?: string;
 		pageType?: string;
+		parentOrigin?: string;
 		standalone?: boolean;
 		trackingConfig?: any;
 	}
@@ -51,26 +52,12 @@ module authView {
 	export function getRedirectUrl (request: Hapi.Request): string {
 		var currentHost: string = request.headers.host,
 			redirectUrl: string = request.query.redirect || '/',
-			redirectUrlHost: string = url.parse(redirectUrl).host,
-			whiteListedDomains: Array<string> = ['.wikia.com'],
-			isWhiteListedDomain: boolean;
+			redirectUrlHost: string = url.parse(redirectUrl).host;
 
-		if (!redirectUrlHost) {
-			return redirectUrl;
-		}
-
-		if (
-			currentHost === redirectUrlHost ||
-			redirectUrlHost.indexOf('.' + currentHost, redirectUrlHost.length - currentHost.length - 1) !== -1
+		if (!redirectUrlHost ||
+			this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
+			this.isWhiteListedDomain(redirectUrlHost)
 		) {
-			return redirectUrl;
-		}
-
-		isWhiteListedDomain = whiteListedDomains.some((whiteListedDomain: string): boolean => {
-			return redirectUrlHost.indexOf(whiteListedDomain, redirectUrlHost.length - whiteListedDomain.length) !== -1;
-		});
-
-		if (isWhiteListedDomain) {
 			return redirectUrl;
 		}
 
@@ -78,8 +65,43 @@ module authView {
 		return '/';
 	}
 
+	export function getOrigin (request: Hapi.Request): string {
+		var currentHost: string = request.headers.host,
+			redirectUrl: string = request.query.redirect || '/',
+			redirectUrlHost: string = url.parse(redirectUrl).host,
+			redirectUrlOrigin: string = url.parse(redirectUrl).protocol + '//' + redirectUrlHost;
+
+		if (redirectUrlHost && (
+				this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
+				this.isWhiteListedDomain(redirectUrlHost)
+			)
+		) {
+			return redirectUrlOrigin;
+		}
+
+		return this.getCurrentOrigin(request);
+	}
+
+	export function checkDomainMatchesCurrentHost (domain: string, currentHost: string): boolean {
+		return currentHost === domain ||
+			domain.indexOf('.' + currentHost, domain.length - currentHost.length - 1) !== -1;
+	}
+
+	export function isWhiteListedDomain (domain: string): boolean {
+		var whiteListedDomains: Array<string> = ['.wikia.com', '.wikia-dev.com'];
+
+		return whiteListedDomains.some((whiteListedDomain: string): boolean => {
+			return domain.indexOf(whiteListedDomain, domain.length - whiteListedDomain.length) !== -1;
+		});
+	}
+
+	export function getCurrentOrigin (request: Hapi.Request): string {
+		// for now the assumption is that there will be https
+		return 'https://' + request.headers.host;
+	}
+
 	export function getCanonicalUrl (request: Hapi.Request): string {
-		return 'https://' + request.headers.host + request.path;
+		return this.getCurrentOrigin(request) + request.path;
 	}
 
 	export function getDefaultContext (request: Hapi.Request): AuthViewContext {
@@ -93,14 +115,15 @@ module authView {
 			language: request.server.methods.i18n.getInstance().lng(),
 			trackingConfig: localSettings.tracking,
 			optimizelyScript: localSettings.optimizely.scriptPath +
-			localSettings.optimizely.account + '.js',
+				localSettings.optimizely.account + '.js',
 			standalonePage: (viewType === authView.VIEW_TYPE_DESKTOP && !isModal),
 			pageParams: {
 				cookieDomain: localSettings.authCookieDomain,
 				isModal: isModal,
 				enableAuthLogger: localSettings.clickstream.auth.enable,
 				authLoggerUrl: localSettings.clickstream.auth.url,
-				viewType: viewType
+				viewType: viewType,
+				parentOrigin: (isModal ? authView.getOrigin(request) : undefined)
 			}
 		};
 	}
@@ -117,13 +140,35 @@ module authView {
 		return reply();
 	}
 
-	export function getViewType(request: Hapi.Request): string {
+	export function getViewType (request: Hapi.Request): string {
 		var mobilePattern = localSettings.patterns.mobile,
 			ipadPattern = localSettings.patterns.iPad;
 		if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
 			return this.VIEW_TYPE_MOBILE;
 		}
 		return this.VIEW_TYPE_DESKTOP;
+	}
+
+	export function onAuthenticatedRequestReply (request: Hapi.Request, reply: any,
+												 context: AuthViewContext): Hapi.Response {
+
+		var redirect: string = authView.getRedirectUrl(request),
+			response: Hapi.Response;
+
+		if (context.pageParams.isModal) {
+
+			response = reply.view(
+				'auth/desktop/modal-message',
+				context,
+				{
+					layout: 'auth-modal-empty'
+				}
+			);
+		} else {
+			response = reply.redirect(redirect);
+		}
+
+		return response;
 	}
 }
 

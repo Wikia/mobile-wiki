@@ -1,9 +1,12 @@
 /// <reference path="../../config/localSettings.d.ts" />
+/// <reference path="../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../typings/hoek/hoek.d.ts" />
 /// <reference path="../../typings/mercury/mercury-server.d.ts" />
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
 import Hoek = require('hoek');
+import Url = require('url');
+import QueryString = require('querystring');
 
 /**
  * Utility functions
@@ -91,7 +94,10 @@ export function getCachedWikiDomainName (localSettings: LocalSettings, request: 
  */
 export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 	var regex: RegExp,
-		match: RegExpMatchArray;
+		match: RegExpMatchArray,
+		environment = localSettings.environment,
+		// For these environments the host name can be passed through
+		passThroughEnv: any = {};
 
 	if (isXipHost(localSettings, hostName)) {
 		/**
@@ -111,13 +117,25 @@ export function getWikiDomainName (localSettings: LocalSettings, hostName: strin
 }
 
 /**
- * @desc Removes the port from hostname
+ * @desc Removes the port from hostname as well as ad domain aliases
  *
  * @param {string} host
  * @returns {string}
  */
 export function clearHost (host: string): string {
-	return host.split(':')[0]; //get rid of port
+	// We use two special domain prefixes for Ad Operation and Sales reasons
+	// They behave similar to our staging prefixes but are not staging machines
+	// Talk to Ad Engineering Team if you want to learn more
+	var adDomainAliases: Array<string> = ['externaltest', 'showcase'];
+
+	host = host.split(':')[0]; // get rid of port
+	Object.keys(adDomainAliases).forEach(function (key): void {
+		if (host.indexOf(adDomainAliases[key]) === 0) {
+			host = host.replace(adDomainAliases[key] + '.', ''); // get rid of domain aliases
+		}
+	});
+
+	return host;
 }
 
 /**
@@ -189,8 +207,23 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	};
 }
 
+/**
+ * Gets the domain and path for a static asset
+ *
+ * @param {LocalSettings} localSettings
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+export function getStaticAssetPath(localSettings: LocalSettings, request: Hapi.Request): string {
+	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+	return env !== Environment.Dev
+		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
+		? localSettings.cdnBaseUrl + '/mercury-static/'
+		: '//' + getCachedWikiDomainName(localSettings, request) + '/front/';
+}
+
 export function getCDNBaseUrl(localSettings: LocalSettings): String {
-	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
+	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : '';
 }
 
 /**
@@ -205,10 +238,49 @@ export function getCDNBaseUrl(localSettings: LocalSettings): String {
  * @returns {string}
  */
 export function getHostFromRequest(request: Hapi.Request): string {
-	return request.headers['x-original-host'] || request.headers['host'];
+	return request.headers['x-original-host'] || request.headers.host;
 }
 
 export function isXipHost(localSettings: LocalSettings, hostName: string): boolean {
 	return localSettings.environment === Environment.Dev &&
-		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1
+		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
 }
+
+/**
+ * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
+ * If it's a local machine then ignore, no point in redirecting to devbox
+ * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
+ *
+ * @param localSettings
+ * @param request
+ * @param reply
+ * @param wikiVariables
+ * @throws RedirectedToCanonicalHost
+ */
+export function redirectToCanonicalHostIfNeeded(
+	localSettings: LocalSettings, request: Hapi.Request, reply: Hapi.Response, wikiVariables: any
+): void {
+	var requestedHost = getCachedWikiDomainName(localSettings, request),
+		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
+		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request))),
+		redirectLocation: string;
+
+	if (!isLocal && requestedHost !== canonicalHost) {
+		redirectLocation = wikiVariables.basePath + request.path;
+
+		if (Object.keys(request.query).length > 0) {
+			redirectLocation += '?' + QueryString.stringify(request.query);
+		}
+
+		reply.redirect(redirectLocation).permanent(true);
+		throw new RedirectedToCanonicalHost();
+	}
+}
+
+export class RedirectedToCanonicalHost {
+	constructor () {
+		Error.apply(this, arguments);
+	}
+}
+
+RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);

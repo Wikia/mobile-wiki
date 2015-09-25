@@ -135,16 +135,20 @@
 		"curated-content-editor-add-items-message": "Please add items to this section.",
 		"curated-content-editor-missing-items-error": "Sections can't be empty. Please add items to section.",
 		"curated-content-editor-error-inside-items-message": "Please fix errors inside items.",
-		"curated-content-editor-items-count": "__count__ items",
+		"curated-content-editor-items-count": "__count__ item",
+		"curated-content-editor-items-count_plural": "__count__ items",
 		"curated-content-editor-exit-prompt": "You have unsaved changes. Are you sure you want to exit?",
 		"curated-content-editor-main-page": "Main Page"
 	},
 	"discussion": {
 		"share-default-title": "Discussion on __siteName__",
 		"sort-by-latest": "Latest",
-		"sort-by-trending": "Trending"
+		"sort-by-trending": "Trending",
+		"number-of-posts": "__numberOfPosts__ Posts"
 	},
-	"topBar": {
-		"anon-cta": "Sign In"
+	"userStatus": {
+		"anon-cta": "__registerLink__ or __loginLink__",
+		"register-text": "Register",
+		"login-text": "Login"
 	}
 }

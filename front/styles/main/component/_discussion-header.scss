@@ -38,6 +38,16 @@ $discussion-header-color-text: #fff;
 		width: 7px;
 	}
 
+	.overlay {
+		@include perfect-square(100%);
+		cursor: default;
+		display: none;
+		left: 0;
+		position: fixed;
+		top: 0;
+		z-index: $z-side-nav-overlay;
+	}
+
 	.sort {
 		cursor: pointer;
 		float: right;
@@ -46,26 +56,6 @@ $discussion-header-color-text: #fff;
 		text-align: right;
 		width: 110px;
 	}
-
-	.sort-select {
-		// This is intentional for theming -- use text color as background color
-		background-color: $discussion-header-color-text;
-		box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-		list-style-type: none;
-		margin: 0;
-		padding: 4px 20px 4px 0;
-		position: absolute;
-		right: 5px;
-		text-align: right;
-		top: 5px;
-		width: 110px;
-
-		li {
-			cursor: pointer;
-			font-size: $type-smallest;
-			line-height: 28px;
-		}
-	}
 }
 
 @for $i from 1 through length($verticals) {
@@ -73,9 +63,11 @@ $discussion-header-color-text: #fff;
 		.header {
 			background-color: #{nth($vertical-colors, $i)};
 		}
+	}
+}
 
-		.sort-select {
-			color: #{nth($vertical-colors, $i)};
-		}
+@media #{$desktop-range} {
+	.discussion-header {
+		display: none;
 	}
 }
