@@ -11,7 +11,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 		'noedit-anon': 'app.edit-publish-error-noedit-anon'
 	},
 
-	handleAddContentSuccess: function(data: any): void {
+	handleAddContentSuccess(): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
 			this.get('application').addAlert({
@@ -51,7 +51,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 	},
 
 	actions: {
-		upload: function (): void {
+		upload(): void {
 			this.get('application').showLoader();
 			App.ArticleAddPhotoModel.upload(this.get('model')).then(
 				this.handleUploadSuccess.bind(this),
@@ -59,7 +59,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 			);
 		},
 
-		back: function (): void {
+		back(): void {
 			this.transitionToRoute('article', this.get('model.title'));
 		}
 	}
