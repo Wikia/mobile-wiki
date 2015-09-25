@@ -6,7 +6,7 @@
  * Use case: {{thumbnail url width=100 height=100 mode=thumbMode alt=name}}
  * Only the first parameter (url) is required, rest is optional
  */
-App.ThumbnailHelper = Em.Helper.helper(function (url: string[], options: any) {
+App.ThumbnailHelper = Em.Helper.helper(function (params: string[], options: any) {
 	var thumbnailer = Mercury.Modules.Thumbnailer,
 		className: string = '',
 		defaultMode: string = thumbnailer.mode.fixedAspectRatio,
@@ -18,7 +18,7 @@ App.ThumbnailHelper = Em.Helper.helper(function (url: string[], options: any) {
 		width: number,
 		height: number,
 		alt: string,
-		imgUrl = url.length > 1 ? url.join('') : url[0];
+		imgUrl = params.length > 1 ? params.join('') : params[0];
 
 	// validate thumbnailer mode
 	if (options.mode) {
