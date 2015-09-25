@@ -2,8 +2,6 @@
 'use strict';
 
 App.ArticleAddPhotoComponent = Em.Component.extend({
-	classNames: ['article-add-photo-component'],
-
 	track(label: string): void {
 		M.track({
 			action: M.trackActions.click,
