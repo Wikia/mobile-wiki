@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury" />
-/// <reference path="../mixins/EditMixin.ts" />
+/// <reference path="../mixins/ArticleEditMixin.ts" />
 /// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
 'use strict';
 
@@ -25,7 +25,7 @@ App.ArticleAddPhotoModel.separateFileNameAndExtension = function(fileName: strin
 	return fileNameSeparated;
 };
 
-App.ArticleAddPhotoModel.reopenClass(App.EditMixin, {
+App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 	load(photoData: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var oFReader = new FileReader();

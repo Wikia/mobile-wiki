@@ -62,7 +62,7 @@ App.Router.map(function () {
 		path: articlePath + '*title'
 	});
 
-	this.route('edit', { // Symbolic link to EditController
+	this.route('articleEdit', {
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
 

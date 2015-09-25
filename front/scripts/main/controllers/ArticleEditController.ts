@@ -2,7 +2,7 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-App.EditController = Em.Controller.extend({
+App.ArticleEditController = Em.Controller.extend({
 	application: Em.inject.controller(),
 
 	isPublishing: false,
@@ -20,7 +20,7 @@ App.EditController = Em.Controller.extend({
 		'protectedpage': 'app.edit-publish-error-protectedpage'
 	},
 
-	handlePublishSuccess (data: any): void {
+	handlePublishSuccess (): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
 			this.get('application').addAlert({
@@ -60,7 +60,7 @@ App.EditController = Em.Controller.extend({
 		publish: function (): void {
 			this.set('isPublishing', true);
 			this.get('application').showLoader();
-			App.EditModel.publish(this.get('model')).then(
+			App.ArticleEditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
