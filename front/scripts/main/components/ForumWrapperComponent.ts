@@ -8,6 +8,8 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	postsDisplayed: 0,
 	totalPosts: 0,
 	pageNum: 0,
+	currentlyLoadingPage: false,
+	isLoading: true,
 
 	actions: {
 		goToPost: function (postId: number): void {
@@ -16,11 +18,10 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	},
 
 	didScroll: function() {
-		if (this.hasMore() && !this.get('isLoading') && this.isScrolledToTrigger()) {
-			// Note that 'isLoading' comes from the LoadingSpinnerMixin mixin
+		if (this.hasMore() && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
 			this.setProperties({
 				pageNum: this.pageNum + 1,
-				isLoading: true,
+				currentlyLoadingPage: true,
 			});
 			this.sendAction('loadPage', this.pageNum);
 		}
@@ -31,7 +32,7 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	},
 
 	pageLoaded: Ember.observer('postsDisplayed', function() {
-		this.set('isLoading', false);
+		this.set('currentlyLoadingPage', false);
 	}),
 
 	// Check if scrolling should trigger fetching new posts
