@@ -5,8 +5,9 @@ $discussion-hero-unit-avatar-dimension: 40px;
 	color: $discussion-hero-unit-text-color;
 	display: none;
 	padding-bottom: 37px;
-	padding-top: $global-nav-height + 37px;
+	padding-top: 37px;
 	text-align: center;
+	width: 100%;
 
 	h1 {
 		color: $discussion-hero-unit-text-color;
@@ -32,6 +33,13 @@ $discussion-hero-unit-avatar-dimension: 40px;
 			padding-top: 5px;
 			width: $discussion-hero-unit-avatar-dimension;
 		}
+	}
+}
+
+.minimized {
+	&.discussion-hero-unit {
+		padding-bottom: 0;
+		padding-top: 25px;
 	}
 }
 

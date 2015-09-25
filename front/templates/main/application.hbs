@@ -39,9 +39,13 @@
 		shouldBeVisible=userMenuVisible
 		toggleVisibility='toggleUserMenu'
 	}}
-	<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+	{{#if discussionLayout}}
 		{{outlet}}
-	</div>
+	{{else}}
+		<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+			{{outlet}}
+		</div>
+	{{/if}}
 	{{lightbox-wrapper
 		type=lightboxType
 		model=lightboxModel

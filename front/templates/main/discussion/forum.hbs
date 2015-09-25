@@ -9,23 +9,25 @@
 	numberOfPosts=model.totalPosts
 	name=model.name
 }}
-{{discussion-sort
-	setSortBy='setSortBy'
-	sortVisible=sortVisible
-	sortBy=sortBy
-	sortTypes=sortTypes
-}}
-<div class="rail left large-3">
-	{{community-badge}}
-	{{discussion-back-button}}
+<div class="discussion-page row">
+	<div class="rail left large-3">
+		{{community-badge}}
+		{{discussion-back-button}}
+	</div>
+	{{discussion-sort
+		setSortBy='setSortBy'
+		sortVisible=sortVisible
+		sortBy=sortBy
+		sortTypes=sortTypes
+	}}
+	{{forum-wrapper
+		goToPost='goToPost'
+		loadPage='loadPage'
+		name=model.name
+		posts=model.posts
+		postsDisplayed=model.posts.length
+		totalPosts=model.totalPosts
+	}}
+	<div class="rail right large-3">
+	</div>
 </div>
-<div class="rail right large-3">
-</div>
-{{forum-wrapper
-	goToPost='goToPost'
-	loadPage='loadPage'
-	name=model.name
-	posts=model.posts
-	postsDisplayed=model.posts.length
-	totalPosts=model.totalPosts
-}}

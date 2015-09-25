@@ -34,6 +34,11 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
 			}
 
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+		},
+		didTransition(): boolean {
+			this.controllerFor('application').set('discussionLayout', true);
+			window.scrollTo(0, 0);
+			return true;
 		}
 	}
 });
