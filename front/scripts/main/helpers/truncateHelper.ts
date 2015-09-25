@@ -1,7 +1,9 @@
 /// <reference path="../app.ts" />
 
-Em.Handlebars.registerBoundHelper('truncate', function (string: string, maxLength: number = 48): string {
-	var truncatedString: string,
+App.TruncateHelper = Em.Helper.helper(function (params: any[]): string {
+	var string = params[0],
+		maxLength = params[1],
+		truncatedString: string,
 		lastSpacePosition: number,
 		ellipsisCharacter: string = '\u2026';
 
