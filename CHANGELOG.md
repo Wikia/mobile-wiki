@@ -1,3 +1,7 @@
+## release-168 (2015-09-25 07:59 UTC)
+* [HG-891](https://wikia-inc.atlassian.net/browse/HG-891) HG-892 fixing top-nav headroom interaction
+* [SOC-959](https://wikia-inc.atlassian.net/browse/SOC-959) SOC-959 Use wordmark as default sharing image
+
 ## release-167 (2015-09-24 13:38 UTC)
 * aden-2464-fix-externaltest-on-mobile: ADEN-2464 Fix externaltest on mobile
 * [SOC-1120](https://wikia-inc.atlassian.net/browse/SOC-1120) SOC-1120 Change styling of discussion post sorting between desktop and mobile
