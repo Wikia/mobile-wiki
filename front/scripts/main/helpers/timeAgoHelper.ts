@@ -9,8 +9,9 @@
  *
  * which returns something like '2 days ago'
  */
-Em.Handlebars.registerBoundHelper('timeAgo', function (unixTimestamp: number) {
-	var fromDate = new Date(unixTimestamp * 1000),
+App.TimeAgoHelper = Em.Helper.helper(function (params: number[]) {
+	var unixTimestamp: number = params[0],
+		fromDate = new Date(unixTimestamp * 1000),
 		interval = M.DateTime.timeAgo(fromDate);
 
 	switch (interval.type) {
@@ -32,4 +33,4 @@ Em.Handlebars.registerBoundHelper('timeAgo', function (unixTimestamp: number) {
 			Em.Logger.error('Unexpected date interval for timestamp', unixTimestamp);
 			return '';
 	}
-})
+});
