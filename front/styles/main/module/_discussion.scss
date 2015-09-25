@@ -87,8 +87,8 @@ $horizontal-padding: 15px;
 		}
 	}
 
-	.has-upvoted{
-		&.icon {
+	.has-upvoted {
+		.icon {
 			&.upvote,
 			&.upvote-reply {
 				fill: #e3bd00;
