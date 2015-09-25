@@ -31,3 +31,19 @@ $discussion-contributors-avatar-dimension: 30px;
 		width: $discussion-contributors-avatar-dimension;
 	}
 }
+
+.rail {
+	.discussion-contributors {
+		display: inline-block;
+		margin-right: 30px;
+	}
+
+	.discussion-contributors-title {
+		color: $oil;
+		font-size: $type-smallest;
+		font-weight: bold;
+		line-height: 18px;
+		margin-top: 40px;
+		margin-bottom: 5px;
+	}
+}
