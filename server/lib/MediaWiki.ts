@@ -16,12 +16,14 @@ interface MWRequestParams {
 	wikiDomain: string;
 	headers?: any;
 	redirects?: number;
+	staging?: string;
 }
 
 class BaseRequest {
 	wikiDomain: string;
 	headers: any;
 	redirects: any;
+	staging: any;
 
 	/**
 	 * Search request constructor
@@ -31,6 +33,7 @@ class BaseRequest {
 	constructor (params: MWRequestParams) {
 		this.wikiDomain = params.wikiDomain;
 		this.headers = params.headers;
+		this.staging = params.staging;
 	}
 
 	fetch(url: string): any {
