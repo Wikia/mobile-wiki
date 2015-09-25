@@ -2,7 +2,7 @@
 'use strict';
 
 App.ForumWrapperComponent = Em.Component.extend({
-	classNames: ['forum-wrapper'],
+	classNames: ['forum-wrapper', 'small-12', 'large-6', 'columns'],
 
 	postsDisplayed: 0,
 	totalPosts: 0,
