@@ -36,7 +36,6 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 	actions: {
 		didTransition(): boolean {
 			this.controllerFor('application').set('noMargins', true);
-			window.scrollTo(0, 0);
 			return true;
 		}
 	}
