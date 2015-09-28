@@ -4,9 +4,15 @@
 
 'use strict';
 
-App.EditRoute = Em.Route.extend(App.FullPageMixin, {
+App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 	model: function(params: any): Em.RSVP.Promise {
-		return App.EditModel.load(params.title, params.sectionIndex);
+		return App.ArticleEditModel.load(params.title, params.sectionIndex);
+	},
+
+	renderTemplate(): void {
+		this.render('article-edit', {
+			controller: 'articleEdit'
+		});
 	},
 
 	actions: {

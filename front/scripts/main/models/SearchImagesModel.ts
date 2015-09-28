@@ -1,6 +1,5 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury" />
-/// <reference path="../mixins/EditMixin.ts" />
 /// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
 'use strict';
 
