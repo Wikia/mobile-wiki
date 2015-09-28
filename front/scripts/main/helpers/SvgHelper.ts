@@ -13,7 +13,7 @@
  * 	<use xlink:href="#chevron"></use>
  * </svg>
  */
-App.SvgHelper = Em.Helper.helper(function (params: string[], options: any) {
+App.SvgHelper = Em.Helper.helper(function (params: string[], options: any): Em.Handlebars.SafeString {
 	var optionalParams = [
 			'class',
 			'role',
@@ -22,7 +22,7 @@ App.SvgHelper = Em.Helper.helper(function (params: string[], options: any) {
 		ret = '<svg',
 		name = params[0];
 
-	optionalParams.forEach(function (param: string) {
+	optionalParams.forEach(function (param: string): void {
 		if (param in options) {
 			ret += " " + param + '="' + options[param] + '"';
 		}

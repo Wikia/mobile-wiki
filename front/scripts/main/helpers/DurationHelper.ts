@@ -3,7 +3,7 @@
 /**
  * @desc Formats a number of seconds into a duration, in the form HH:MM:SS
  */
-App.DurationHelper = Em.Helper.helper(function (params: number[]) {
+App.DurationHelper = Em.Helper.helper(function (params: number[]): string {
 	var value = params[0],
 		hours: number = Math.floor(value / 3600),
 		minutes: number = Math.floor((value - (hours * 3600)) / 60),

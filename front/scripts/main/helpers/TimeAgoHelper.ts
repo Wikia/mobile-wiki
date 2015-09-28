@@ -9,7 +9,7 @@
  *
  * which returns something like '2 days ago'
  */
-App.TimeAgoHelper = Em.Helper.helper(function (params: number[]) {
+App.TimeAgoHelper = Em.Helper.helper(function (params: number[]): string {
 	var unixTimestamp: number = params[0],
 		fromDate = new Date(unixTimestamp * 1000),
 		interval = M.DateTime.timeAgo(fromDate);

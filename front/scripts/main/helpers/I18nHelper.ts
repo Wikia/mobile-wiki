@@ -1,6 +1,6 @@
 /// <reference path="../app.ts" />
 
-App.I18nHelper = Em.Helper.helper(function () {
+App.I18nHelper = Em.Helper.helper(function (): string {
 	var options = Array.prototype.pop.call(arguments),
 		params: {
 			[key: string]: string;
@@ -15,7 +15,7 @@ App.I18nHelper = Em.Helper.helper(function () {
 		value = segments[0];
 	}
 
-	Object.keys(options).forEach((key: string) => {
+	Object.keys(options).forEach((key: string): void => {
 		if (key === 'ns') {
 			namespace = options[key];
 		} else if (key !== 'boundOptions' && options.hasOwnProperty(key)) {
