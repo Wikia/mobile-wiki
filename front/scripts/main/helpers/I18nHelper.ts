@@ -1,27 +1,25 @@
 /// <reference path="../app.ts" />
 
-App.I18nHelper = Em.Helper.helper(function (): string {
-	var options: any = Array.prototype.pop.call(arguments),
-		params: {
+App.I18nHelper = Em.Helper.helper(function (params: any[], options: any): string {
+	var i18nParams: {
 			[key: string]: string;
 		} = {},
 		value: string,
-		namespace: string = 'main',
-		segments: any = arguments[0];
+		namespace: string = 'main';
 
-	if (segments.length > 1) {
-		value = Array.prototype.join.call(segments, '.');
+	if (params.length > 1) {
+		value = Array.prototype.join.call(params, '.');
 	} else {
-		value = segments[0];
+		value = params[0];
 	}
 
 	Object.keys(options).forEach((key: string): void => {
 		if (key === 'ns') {
 			namespace = options[key];
 		} else if (key !== 'boundOptions' && options.hasOwnProperty(key)) {
-			params[key] = String(options[key]);
+			i18nParams[key] = String(options[key]);
 		}
 	});
 
-	return i18n.t(namespace + ':' + value, params);
+	return i18n.t(namespace + ':' + value, i18nParams);
 });
