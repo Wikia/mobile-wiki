@@ -21,5 +21,5 @@ App.I18nHelper = Em.Helper.helper(function (params: any[], options: any): string
 		}
 	});
 
-	return i18n.t(namespace + ':' + value, i18nParams);
+	return i18n.t(`${namespace}:${value}`, i18nParams);
 });

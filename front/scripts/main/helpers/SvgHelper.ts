@@ -24,10 +24,10 @@ App.SvgHelper = Em.Helper.helper(function (params: any[], options: any): Em.Hand
 
 	optionalParams.forEach(function (param: string): void {
 		if (param in options) {
-			ret += " " + param + '="' + options[param] + '"';
+			ret += ` ${param}="${options[param]}"`;
 		}
 	});
-	ret += '><use xlink:href="#' + name + '"></use></svg>';
+	ret += `><use xlink:href="#${name}"></use></svg>`;
 
 	return new Em.Handlebars.SafeString(ret);
 });
