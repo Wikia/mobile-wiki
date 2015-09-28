@@ -32,7 +32,7 @@
 					focus-out='setTitleFocusedOut'
 					focus-in='setTitleFocusedIn'
 				}}
-				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
+				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{pageInputLabel}}</label>
 				<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-page-name-tooltip')}}></span>
 				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
 					{{#each searchSuggestionsResult as |item|}}
