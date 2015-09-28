@@ -1,3 +1,6 @@
+## release-169 hotfix 1 (2015-09-28 11:56 UTC)
+* [XW-442](https://wikia-inc.atlassian.net/browse/XW-442) XW-442 | Fire smartBannerVisibleObserver on willInsertElement
+
 ## release-169 (2015-09-28 07:59 UTC)
 * [INT-204](https://wikia-inc.atlassian.net/browse/INT-204) Add UN Global Goals banner to Japan HP
 * top-nav-width: pulling in updated nav styles
