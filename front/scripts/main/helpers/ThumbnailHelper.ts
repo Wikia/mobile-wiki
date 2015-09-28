@@ -18,7 +18,7 @@ App.ThumbnailHelper = Em.Helper.helper(function (params: any[], options: any): E
 		width: number,
 		height: number,
 		alt: string,
-		imgUrl: string = params.length > 1 ? params.join('') : params[0];
+		imgUrl: string = params.join('');
 
 	// validate thumbnailer mode
 	if (options.mode) {

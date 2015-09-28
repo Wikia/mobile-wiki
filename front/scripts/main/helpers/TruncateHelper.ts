@@ -2,7 +2,7 @@
 
 App.TruncateHelper = Em.Helper.helper(function (params: any[]): string {
 	var string: string = params[0],
-		maxLength: number = params[1],
+		maxLength: number = params[1] || 48,
 		truncatedString: string,
 		lastSpacePosition: number,
 		ellipsisCharacter: string = '\u2026';

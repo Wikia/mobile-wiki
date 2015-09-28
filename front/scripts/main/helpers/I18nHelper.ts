@@ -4,14 +4,8 @@ App.I18nHelper = Em.Helper.helper(function (params: any[], options: any): string
 	var i18nParams: {
 			[key: string]: string;
 		} = {},
-		value: string,
+		value: string = params.join('.'),
 		namespace: string = 'main';
-
-	if (params.length > 1) {
-		value = Array.prototype.join.call(params, '.');
-	} else {
-		value = params[0];
-	}
 
 	Object.keys(options).forEach((key: string): void => {
 		if (key === 'ns') {
