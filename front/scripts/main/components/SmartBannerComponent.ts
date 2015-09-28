@@ -33,12 +33,12 @@ App.SmartBannerComponent = Em.Component.extend({
 		return Em.get(Mercury, 'wiki.dbName');
 	}),
 
-	description: Em.computed.alias('config.description'),
+	description: Em.computed.oneWay('config.description'),
 
-	icon: Em.computed.alias('config.icon'),
+	icon: Em.computed.oneWay('config.icon'),
 
-	iconStyle: Em.computed('icon', function (): string {
-		return 'background-image: url(%@)'.fmt(this.get('icon'));
+	iconStyle: Em.computed('icon', function (): Em.Handlebars.SafeString {
+		return new Em.Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
 	}),
 
 	labelInStore: Em.computed('system', function (): string {
@@ -74,16 +74,16 @@ App.SmartBannerComponent = Em.Component.extend({
 		return Mercury.Utils.Browser.getSystem();
 	}),
 
-	title: Em.computed.alias('config.name'),
+	title: Em.computed.oneWay('config.name'),
 
 	actions: {
-		close: function (): void {
+		close(): void {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 			this.sendAction('toggleVisibility', false);
 			this.track(M.trackActions.close);
 		},
 
-		view: function (): void {
+		view(): void {
 			var appScheme: string = this.get('appScheme');
 
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
@@ -98,7 +98,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		}
 	},
 
-	click: function (event: MouseEvent): void {
+	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
 
 		if (!$target.is('.sb-close')) {
@@ -106,7 +106,13 @@ App.SmartBannerComponent = Em.Component.extend({
 		}
 	},
 
-	didInsertElement: function (): void {
+	willInsertElement(): void {
+		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
+		// running this just after render is working too
+		Em.run.scheduleOnce('afterRender', this, this.checkForHiding);
+	},
+
+	checkForHiding(): void {
 		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
 		var standalone: any = Em.get(navigator, 'standalone'),
 			config: any = this.get('config');
@@ -116,12 +122,12 @@ App.SmartBannerComponent = Em.Component.extend({
 			!standalone &&
 			config.name &&
 			!config.disabled &&
-			$.cookie('sb-closed') !== '1'
+			Em.$.cookie('sb-closed') !== '1'
 		) {
 			this.sendAction('toggleVisibility', true);
 			this.track(M.trackActions.impression);
 		} else {
-			this.destroy();
+			this.set('isVisible', false);
 		}
 	},
 
@@ -130,7 +136,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 *
 	 * @param {string} appScheme
 	 */
-	tryToOpenApp: function (appScheme: string): void {
+	tryToOpenApp(appScheme: string): void {
 		this.track(M.trackActions.open);
 		window.document.location.href = appScheme + '://';
 
@@ -140,7 +146,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	/**
 	 * Open app store
 	 */
-	fallbackToStore: function (): void {
+	fallbackToStore(): void {
 		this.track(M.trackActions.install);
 		window.open(this.get('link'), '_blank');
 	},
@@ -150,7 +156,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 *
 	 * @param {number} days
 	 */
-	setSmartBannerCookie: function (days: number): void {
+	setSmartBannerCookie(days: number): void {
 		var date: Date = new Date();
 		date.setTime(date.getTime() + (days * this.get('day')));
 		$.cookie('sb-closed', 1, {
@@ -159,7 +165,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		});
 	},
 
-	track: function (action: string): void {
+	track(action: string): void {
 		M.track({
 			action: action,
 			category: 'smart-banner',

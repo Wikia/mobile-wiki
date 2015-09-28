@@ -1,9 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury" />
-/// <reference path="../mixins/EditMixin.ts" />
+/// <reference path="../mixins/ArticleEditMixin.ts" />
 'use strict';
 
-App.EditModel = Em.Object.extend({
+App.ArticleEditModel = Em.Object.extend({
 	content: null,
 	originalContent: null,
 	timestamp: null,
@@ -14,7 +14,7 @@ App.EditModel = Em.Object.extend({
 	})
 });
 
-App.EditModel.reopenClass(App.EditMixin, {
+App.ArticleEditModel.reopenClass(App.ArticleEditMixin, {
 	publish: function(model: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.getEditToken(model.title)
@@ -76,7 +76,7 @@ App.EditModel.reopenClass(App.EditMixin, {
 				if (pages) {
 					// FIXME: MediaWiki API, seriously?
 					revision = pages[Object.keys(pages)[0]].revisions[0];
-					resolve(App.EditModel.create({
+					resolve(App.ArticleEditModel.create({
 						title: title,
 						sectionIndex: sectionIndex,
 						content: revision['*'],

@@ -4,13 +4,13 @@
 App.ArticleContributionComponent = Em.Component.extend({
 	classNames: ['contribution-container'],
 	classNameBindings: ['uploadFeatureEnabled::no-photo'],
-	templateName: 'components/article-contribution',
+	layoutName: 'components/article-contribution',
 	section: null,
 	title: null,
-	uploadFeatureEnabled: null, 
+	uploadFeatureEnabled: null,
 
 	actions: {
-		edit: function (): void {
+		edit(): void {
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
@@ -20,7 +20,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 			this.sendAction('edit', this.get('title'), this.get('section'));
 		},
 
-		select: function (): void {
+		select(): void {
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
@@ -29,7 +29,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 			});
 		},
 
-		addPhoto: function (): void {
+		addPhoto(): void {
 			var photoData = this.$('.file-upload-input')[0].files[0];
 			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 		}

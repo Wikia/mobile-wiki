@@ -3,18 +3,18 @@
 
 App.WikiaMapComponent = App.ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
+	templateName: 'components/wikia-map',
 
 	url: null,
 	title: null,
 	imageSrc: null,
 	id: null,
-	templateName: 'components/wikia-map',
 
 	caption: Em.computed.alias('title'),
 
-	didInsertElement: function () {
+	didInsertElement() {
 		//handle click with jquery because the 'normal' way to handle events doesn't work.
-		this.$().click(() => {
+		this.$().click((): void => {
 			var url = this.get('url'),
 				id = this.get('id'),
 				title = this.get('title');
