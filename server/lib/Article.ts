@@ -34,8 +34,7 @@ export class ArticleRequestHelper {
 			new MediaWiki.ArticleRequest(this.params)
 				.article(this.params.title, this.params.redirect, this.params.sections),
 			new MediaWiki.WikiRequest({
-				wikiDomain: this.params.wikiDomain,
-				staging: this.params.staging
+				wikiDomain: this.params.wikiDomain
 			}).wikiVariables()
 		];
 
