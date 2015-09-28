@@ -13,7 +13,9 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		parserOutput: string = request.payload.parserOutput,
 		mwHash: string = request.payload.mwHash,
-		article = new Article.ArticleRequestHelper({wikiDomain: wikiDomain});
+		//@TODO remove when https://github.com/Wikia/chef-repo/pull/6681 fixed
+		staging = request.headers['x-staging'],
+		article = new Article.ArticleRequestHelper({wikiDomain: wikiDomain, staging: staging});
 
 	article
 		.getWikiVariables()

@@ -23,7 +23,9 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain,
-			redirect: request.query.redirect
+			redirect: request.query.redirect,
+			//@TODO remove when https://github.com/Wikia/chef-repo/pull/6681 fixed
+			staging: request.headers['x-staging']
 		},
 		article: Article.ArticleRequestHelper,
 		allowCache = true;
