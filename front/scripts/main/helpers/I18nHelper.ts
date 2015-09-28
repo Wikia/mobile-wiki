@@ -5,7 +5,7 @@ App.I18nHelper = Em.Helper.helper(function (params: any[], options: any): string
 			[key: string]: string;
 		} = {},
 		value: string = params.join('.'),
-		namespace: string = 'main';
+		namespace = 'main';
 
 	Object.keys(options).forEach((key: string): void => {
 		if (key === 'ns') {

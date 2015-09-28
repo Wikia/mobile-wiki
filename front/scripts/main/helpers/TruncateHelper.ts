@@ -5,7 +5,7 @@ App.TruncateHelper = Em.Helper.helper(function (params: any[]): string {
 		maxLength: number = params[1] || 48,
 		truncatedString: string,
 		lastSpacePosition: number,
-		ellipsisCharacter: string = '\u2026';
+		ellipsisCharacter = '\u2026';
 
 	if (typeof string !== 'string') {
 		Em.Logger.error(`Truncate helper expected string as a parameter, but ${typeof string} given:`, string);

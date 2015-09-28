@@ -8,7 +8,7 @@ App.DurationHelper = Em.Helper.helper(function (params: any[]): string {
 		hours: number = Math.floor(value / 3600),
 		minutes: number = Math.floor((value - (hours * 3600)) / 60),
 		seconds: number = Math.floor(value - (hours * 3600) - (minutes * 60)),
-		duration: string = '';
+		duration = '';
 
 	if (hours > 0) {
 		duration += (hours < 10 ? '0' : '') + hours + ':';

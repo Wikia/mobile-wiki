@@ -19,7 +19,7 @@ App.SvgHelper = Em.Helper.helper(function (params: any[], options: any): Em.Hand
 			'role',
 			'viewBox'
 		],
-		ret: string = '<svg',
+		ret = '<svg',
 		name: string = params[0];
 
 	optionalParams.forEach(function (param: string): void {

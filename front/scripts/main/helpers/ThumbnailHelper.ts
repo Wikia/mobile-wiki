@@ -8,12 +8,12 @@
  */
 App.ThumbnailHelper = Em.Helper.helper(function (params: any[], options: any): Em.Handlebars.SafeString {
 	var thumbnailer = Mercury.Modules.Thumbnailer,
-		className: string = '',
+		className = '',
 		defaultMode: string = thumbnailer.mode.fixedAspectRatio,
-		defaultWidth: number = 100,
-		defaultHeight: number = 100,
+		defaultWidth = 100,
+		defaultHeight = 100,
 		// empty gif
-		src: string = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+		src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		mode: string,
 		width: number,
 		height: number,
