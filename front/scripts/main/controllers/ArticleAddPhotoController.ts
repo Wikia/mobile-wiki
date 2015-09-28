@@ -26,14 +26,14 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 		});
 	},
 
-	handleUploadSuccess: function(data: any): void {
+	handleUploadSuccess(data: any): void {
 		App.ArticleAddPhotoModel.addToContent(data.title, this.get('model')).then(
 			this.handleAddContentSuccess.bind(this),
 			this.handleError.bind(this)
 		);
 	},
 
-	handleError: function(error: any): void {
+	handleError(error: any): void {
 		var appController = this.get('application'),
 			errorMsg = this.errorCodeMap[error] || 'app.add-photo-error';
 
