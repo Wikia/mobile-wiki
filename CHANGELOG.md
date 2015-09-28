@@ -1,3 +1,6 @@
+## release-168 hotfix 1 (2015-09-25 14:57 UTC)
+* release-168-redirect-hot-fix: Release 168 redirect hot fix
+
 ## release-168 (2015-09-25 07:59 UTC)
 * [HG-891](https://wikia-inc.atlassian.net/browse/HG-891) HG-892 fixing top-nav headroom interaction
 * [SOC-959](https://wikia-inc.atlassian.net/browse/SOC-959) SOC-959 Use wordmark as default sharing image

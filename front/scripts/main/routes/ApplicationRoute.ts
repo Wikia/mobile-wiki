@@ -61,6 +61,10 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 			 */
 			M.prop('articleContentPreloadedInDOM', false);
+
+			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
+			// Optimally, it would remain in the same place.
+			window.scrollTo(0, 0);
 		},
 
 		error: function (): void {

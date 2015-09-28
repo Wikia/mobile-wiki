@@ -27,11 +27,13 @@ App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 
 		didTransition(): boolean {
 			window.scrollTo(0, 0);
+
 			M.track({
 				action: M.trackActions.impression,
 				category: 'sectionaddphoto',
 				label: 'addphoto-loaded'
 			});
+
 			return true;
 		}
 	}
