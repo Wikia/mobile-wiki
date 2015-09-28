@@ -5,14 +5,20 @@
 	z-index: $z-site-head;
 }
 top-bar {
-	background: $color-white;
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
+	height: $top-bar-height;
 	max-width: inherit;
 	position: static;
 
-	&::shadow .inner {
-		padding-left: 15px;
-		padding-right: 15px;
+	&::shadow {
+		.inner {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.logo-wrapper {
+			line-height: 100%;
+		}
 	}
 }
