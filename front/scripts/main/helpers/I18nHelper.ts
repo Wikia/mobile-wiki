@@ -1,13 +1,13 @@
 /// <reference path="../app.ts" />
 
 App.I18nHelper = Em.Helper.helper(function (): string {
-	var options = Array.prototype.pop.call(arguments),
+	var options: any = Array.prototype.pop.call(arguments),
 		params: {
 			[key: string]: string;
 		} = {},
 		value: string,
-		namespace = 'main',
-		segments = arguments[0];
+		namespace: string = 'main',
+		segments: any = arguments[0];
 
 	if (segments.length > 1) {
 		value = Array.prototype.join.call(segments, '.');

@@ -13,12 +13,12 @@ App.ThumbnailHelper = Em.Helper.helper(function (params: string[], options: any)
 		defaultWidth: number = 100,
 		defaultHeight: number = 100,
 		// empty gif
-		src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+		src: string = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		mode: string,
 		width: number,
 		height: number,
 		alt: string,
-		imgUrl = params.length > 1 ? params.join('') : params[0];
+		imgUrl: string = params.length > 1 ? params.join('') : params[0];
 
 	// validate thumbnailer mode
 	if (options.mode) {

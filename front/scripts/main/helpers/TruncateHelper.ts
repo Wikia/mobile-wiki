@@ -1,8 +1,8 @@
 /// <reference path="../app.ts" />
 
 App.TruncateHelper = Em.Helper.helper(function (params: any[]): string {
-	var string = params[0],
-		maxLength = params[1],
+	var string: string = params[0],
+		maxLength: number = params[1],
 		truncatedString: string,
 		lastSpacePosition: number,
 		ellipsisCharacter: string = '\u2026';

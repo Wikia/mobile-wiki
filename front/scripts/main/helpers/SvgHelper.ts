@@ -14,13 +14,13 @@
  * </svg>
  */
 App.SvgHelper = Em.Helper.helper(function (params: string[], options: any): Em.Handlebars.SafeString {
-	var optionalParams = [
+	var optionalParams: string[] = [
 			'class',
 			'role',
 			'viewBox'
 		],
-		ret = '<svg',
-		name = params[0];
+		ret: string = '<svg',
+		name: string = params[0];
 
 	optionalParams.forEach(function (param: string): void {
 		if (param in options) {

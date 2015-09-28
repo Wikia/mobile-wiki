@@ -4,11 +4,11 @@
  * @desc Formats a number of seconds into a duration, in the form HH:MM:SS
  */
 App.DurationHelper = Em.Helper.helper(function (params: number[]): string {
-	var value = params[0],
+	var value: number = params[0],
 		hours: number = Math.floor(value / 3600),
 		minutes: number = Math.floor((value - (hours * 3600)) / 60),
 		seconds: number = Math.floor(value - (hours * 3600) - (minutes * 60)),
-		duration = '';
+		duration: string = '';
 
 	if (hours > 0) {
 		duration += (hours < 10 ? '0' : '') + hours + ':';

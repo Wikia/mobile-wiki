@@ -11,8 +11,8 @@
  */
 App.TimeAgoHelper = Em.Helper.helper(function (params: number[]): string {
 	var unixTimestamp: number = params[0],
-		fromDate = new Date(unixTimestamp * 1000),
-		interval = M.DateTime.timeAgo(fromDate);
+		fromDate: Date = new Date(unixTimestamp * 1000),
+		interval: TimeAgoResult = M.DateTime.timeAgo(fromDate);
 
 	switch (interval.type) {
 		case M.DateTime.Interval.Now:
