@@ -2,6 +2,7 @@
 'use strict';
 
 App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
+	isCategory: Em.computed.and(Em.computed.not('isFeatured'), Em.computed.not('isSection')),
 	itemsCountLabel: Em.computed('model.items.length', function (): string {
 		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
 	}),
@@ -19,11 +20,11 @@ App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
 			}
 		}
 	}),
-	pageNameLabel: Em.computed('isFeatured', 'isSection', function(): string {
-		if (this.get('isFeaturedItem') || this.get('isSection')) {
-			return i18n.t('app.curated-content-editor-enter-page-name');
-		} else {
+	pageNameLabel: Em.computed('isCategory', function(): string {
+		if (this.get('isCategory')) {
 			return i18n.t('app.curated-content-editor-enter-category-name');
+		} else {
+			return i18n.t('app.curated-content-editor-enter-page-name');
 		}
 	})
 });
