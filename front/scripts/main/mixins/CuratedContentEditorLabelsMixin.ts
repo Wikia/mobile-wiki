@@ -20,6 +20,7 @@ App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
 			}
 		}
 	}),
+
 	pageNameLabel: Em.computed('isCategory', function(): string {
 		if (this.get('isCategory')) {
 			return i18n.t('app.curated-content-editor-enter-category-name');

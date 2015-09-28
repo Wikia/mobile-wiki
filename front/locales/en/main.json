@@ -113,7 +113,7 @@
 		"curated-content-editor-enter-display-name": "Enter a display name",
 		"curated-content-editor-enter-display-name-tooltip": "This is the text that will appear on the main page for this item.",
 		"curated-content-editor-enter-page-name": "Enter a page name",
-		"curated-content-editor-enter-page-name": "Enter a category name",
+		"curated-content-editor-enter-category-name": "Enter a category name",
 		"curated-content-editor-enter-page-name-tooltip": "When entering an item in Curated Content use the same format you would use to link to a piece of content on Wikia (e.g. Name_of_article).",
 		"curated-content-editor-delete-item": "Delete item",
 		"curated-content-editor-add-category": "+ add category",
