@@ -4,9 +4,9 @@
 'use strict';
 
 App.ArticleController = Em.Controller.extend({
-	needs: ['application'],
-	noAds: Em.computed.alias('controllers.application.noAds'),
-	commentsPage: Em.computed.alias('controllers.application.commentsPage'),
+	application: Em.inject.controller(),
+	noAds: Em.computed.alias('application.noAds'),
+	commentsPage: Em.computed.alias('application.commentsPage'),
 
 	init: function (): void {
 		this.setProperties({

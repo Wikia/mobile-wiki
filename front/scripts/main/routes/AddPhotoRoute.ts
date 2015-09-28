@@ -19,7 +19,6 @@ App.AddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 			return true;
 		},
 		didTransition: function(): boolean {
-			window.scrollTo(0, 0);
 			M.track({
 				action: M.trackActions.impression,
 				category: 'sectionaddphoto',

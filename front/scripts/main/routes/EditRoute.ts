@@ -21,10 +21,6 @@ App.EditRoute = Em.Route.extend(App.FullPageMixin, {
 				label: 'edit-load-error'
 			});
 			return true;
-		},
-		didTransition: function(): boolean {
-			window.scrollTo(0, 0);
-			return true;
 		}
 	}
 });

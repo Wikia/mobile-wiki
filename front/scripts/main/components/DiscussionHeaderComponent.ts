@@ -4,46 +4,28 @@
 
 App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	classNames: ['discussion-header'],
-
-	sortBy: null,
-	sortVisible: false,
-	sortTypes: [
-		{
-			name: 'latest',
-			messageKey: 'discussion.sort-by-latest'
-		},
-		{
-			name: 'trending',
-			messageKey: 'discussion.sort-by-trending'
-		}
-	],
+	// TODO: not sure this is always accurate
+	smartBannerVisible: Em.computed.alias('controllers.application.smartBannerVisible'),
 
 	siteName: Em.computed(function (): string {
 		return Em.get(Mercury, 'wiki.siteName');
 	}),
+	overlay: null,
 
-	sortMessageKey: Em.computed('sortBy', function (): string {
-		var sortTypes = this.get('sortTypes'),
-			filtered = sortTypes.filter((obj: any): boolean => {
-				return obj.name === this.get('sortBy');
-			});
-
-			return filtered.length ? filtered[0].messageKey :
-				sortTypes[0].messageKey;
-	}),
+	didInsertElement: function () {
+		this.set('overlay', this.element.querySelector('.overlay'));
+		this._super();
+	},
 
 	actions: {
-		setSortBy(sortBy: string): void {
-			// Send action up to route object
-			this.sendAction('setSortBy', sortBy);
+		showSortComponent(): void {
+			this.sendAction('showSortComponent');
+			this.get('overlay').style.display = 'block';
 		},
 
-		showSortSelector(): void {
-			this.set('sortVisible', true);
-		},
-
-		hideSortSelector(): void {
-			this.set('sortVisible', false);
+		hideSortComponent(): void {
+			this.sendAction('hideSortComponent');
+			this.get('overlay').style.display = 'none';
 		}
 	}
 });

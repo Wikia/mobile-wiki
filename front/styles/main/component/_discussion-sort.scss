@@ -1,0 +1,64 @@
+.discussion-sort {
+	// This is intentional for theming -- use text color as background color
+	background-color: $color-white;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+	list-style-type: none;
+	margin: 0;
+	padding: 4px 20px 4px 0;
+	position: absolute;
+	right: 5px;
+	text-align: right;
+	top: 5px;
+	width: 110px;
+	z-index: $z-modal-dialog;
+
+	li {
+		cursor: pointer;
+		font-size: $type-smallest;
+		line-height: 28px;
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .discussion-sort {
+		color: #{nth($vertical-colors, $i)};
+	}
+}
+
+@media #{$mobile-range} {
+	.discussion-sort.mobile-hidden {
+		display: none;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-sort {
+		background-color: transparent;
+		box-shadow: none;
+		margin: 17px auto 10px auto;
+		padding: 0;
+		position: static;
+		text-align: center;
+		width: 507px;
+		z-index: auto;
+
+		li {
+			border-bottom: 4px solid $border-color;
+			color: $border-color;
+			float: left;
+			font-size: $type-smaller;
+			height: 50px;
+			line-height: 50px;
+			width: 50%;
+		}
+	}
+
+	@for $i from 1 through length($verticals) {
+		.#{nth($verticals, $i)}-vertical .discussion-sort {
+			li.active {
+				color: #{nth($vertical-colors, $i)};
+				border-color: #{nth($vertical-colors, $i)};
+			}
+		}
+	}
+}
