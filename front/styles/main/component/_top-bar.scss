@@ -1,12 +1,15 @@
 .top-bar-component {
+	position: fixed;
+	top: 0;
 	width: 100%; // needed for headroom js when it sets position to absolute
+	z-index: $z-site-head;
 }
 top-bar {
+	background: $color-white;
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
 	max-width: inherit;
 	position: static;
-	z-index: $z-site-head;
 
 	&::shadow .inner {
 		padding-left: 15px;
