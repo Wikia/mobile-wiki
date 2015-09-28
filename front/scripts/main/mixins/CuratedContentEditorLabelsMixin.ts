@@ -2,10 +2,14 @@
 'use strict';
 
 App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
-	isCategory: Em.computed.and(Em.computed.not('isFeatured'), Em.computed.not('isSection')),
+	isCategory: Em.computed('isFeatured', 'isSection', function (): boolean {
+		return !(this.get('isFeatured') || this.get('isSection'));
+	}),
+
 	itemsCountLabel: Em.computed('model.items.length', function (): string {
 		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
 	}),
+
 	headerLabel: Em.computed('model.label', 'isFeatured', 'isSection', function(): string {
 		var modelLabel = this.get('model.label');
 		if (modelLabel) {
