@@ -5,10 +5,10 @@
 'use strict';
 
 
-App.UserStatusComponent = Em.Component.extend(App.HeadroomMixin, {
+App.UserStatusComponent = Em.Component.extend({
 	userLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
 		if (this.get('currentUser.isAuthenticated') === true) {
-			return false;
+			return true;
 		}
 		// HTMLBars attribute binding only removes an attribute if it's value is set to null
 		return null;

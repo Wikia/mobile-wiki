@@ -2,8 +2,8 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-App.AddPhotoController = Em.Controller.extend({
-	needs: ['application', 'article'],
+App.ArticleAddPhotoController = Em.Controller.extend({
+	application: Em.inject.controller(),
 
 	errorCodeMap: {
 		'invalidtitle': 'app.add-photo-section-title-error',
@@ -11,10 +11,10 @@ App.AddPhotoController = Em.Controller.extend({
 		'noedit-anon': 'app.edit-publish-error-noedit-anon'
 	},
 
-	handleAddContentSuccess: function(data: any): void {
+	handleAddContentSuccess(): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
-			this.get('controllers.application').addAlert({
+			this.get('application').addAlert({
 				message: i18n.t('app.add-photo-success'),
 				type: 'success'
 			});
@@ -26,15 +26,15 @@ App.AddPhotoController = Em.Controller.extend({
 		});
 	},
 
-	handleUploadSuccess: function(data: any): void {
-		App.AddPhotoModel.addToContent(data.title, this.get('model')).then(
+	handleUploadSuccess(data: any): void {
+		App.ArticleAddPhotoModel.addToContent(data.title, this.get('model')).then(
 			this.handleAddContentSuccess.bind(this),
 			this.handleError.bind(this)
 		);
 	},
 
-	handleError: function(error: any): void {
-		var appController = this.get('controllers.application'),
+	handleError(error: any): void {
+		var appController = this.get('application'),
 			errorMsg = this.errorCodeMap[error] || 'app.add-photo-error';
 
 		appController.addAlert({
@@ -51,27 +51,16 @@ App.AddPhotoController = Em.Controller.extend({
 	},
 
 	actions: {
-		upload: function (): void {
-			this.get('controllers.application').showLoader();
-			App.AddPhotoModel.upload(this.get('model')).then(
+		upload(): void {
+			this.get('application').showLoader();
+			App.ArticleAddPhotoModel.upload(this.get('model')).then(
 				this.handleUploadSuccess.bind(this),
 				this.handleError.bind(this)
 			);
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectionaddphoto',
-				label: 'upload'
-			});
 		},
 
-		back: function (): void {
+		back(): void {
 			this.transitionToRoute('article', this.get('model.title'));
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectionaddphoto',
-				label: 'back'
-			});
 		}
 	}
 });

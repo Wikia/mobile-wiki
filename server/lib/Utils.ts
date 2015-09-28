@@ -129,7 +129,7 @@ export function clearHost (host: string): string {
 	var adDomainAliases: Array<string> = ['externaltest', 'showcase'];
 
 	host = host.split(':')[0]; // get rid of port
-	Object.keys(adDomainAliases).forEach(function (key){
+	Object.keys(adDomainAliases).forEach(function (key): void {
 		if (host.indexOf(adDomainAliases[key]) === 0) {
 			host = host.replace(adDomainAliases[key] + '.', ''); // get rid of domain aliases
 		}

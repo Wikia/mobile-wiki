@@ -2,8 +2,8 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 'use strict';
 
-App.EditController = Em.Controller.extend({
-	needs: ['application'],
+App.ArticleEditController = Em.Controller.extend({
+	application: Em.inject.controller(),
 
 	isPublishing: false,
 
@@ -20,10 +20,10 @@ App.EditController = Em.Controller.extend({
 		'protectedpage': 'app.edit-publish-error-protectedpage'
 	},
 
-	handlePublishSuccess (data: any): void {
+	handlePublishSuccess (): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
-			this.get('controllers.application').addAlert({
+			this.get('application').addAlert({
 				message: i18n.t('app.edit-success', { pageTitle: title }),
 				type: 'success'
 			});
@@ -38,7 +38,7 @@ App.EditController = Em.Controller.extend({
 	},
 
 	handlePublishError (error: any): void {
-		var appController = this.get('controllers.application'),
+		var appController = this.get('application'),
 			errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
 
 		appController.addAlert({
@@ -59,8 +59,8 @@ App.EditController = Em.Controller.extend({
 	actions: {
 		publish: function (): void {
 			this.set('isPublishing', true);
-			this.get('controllers.application').showLoader();
-			App.EditModel.publish(this.get('model')).then(
+			this.get('application').showLoader();
+			App.ArticleEditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);

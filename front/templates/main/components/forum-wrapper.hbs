@@ -1,6 +1,5 @@
-<div class="discussion forum small-12 large-6 columns">
-	{{#each posts as |item|}}
-		{{post-detail
+{{#each posts as |item|}}
+	{{post-detail
 		action='goToPost'
 		goToPost='goToPost'
 		postId=item.id
@@ -9,10 +8,16 @@
 		timestamp=item._embedded.firstPost.0.creationDate.epochSecond
 		upvoteCount=item.upvoteCount
 		replyCount=item.postCount
-		}}
-	{{/each}}
-	{{#if loadingMore}}
-        <div class="load-more">Loading More Posts</div>
-	{{/if}}
-</div>
-
+	}}
+{{/each}}
+{{#if hasMore}}
+	{{loading-spinner
+		active=isLoading
+		overlay=false
+		radius=32
+		strokeWidth=2
+	}}
+    <div class="load-more">
+		{{i18n 'discussion.loading-more-posts'}}
+	</div>
+{{/if}}
