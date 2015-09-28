@@ -13,7 +13,7 @@
  * 	<use xlink:href="#chevron"></use>
  * </svg>
  */
-App.SvgHelper = Em.Helper.helper(function (params: string[], options: any): Em.Handlebars.SafeString {
+App.SvgHelper = Em.Helper.helper(function (params: any[], options: any): Em.Handlebars.SafeString {
 	var optionalParams: string[] = [
 			'class',
 			'role',

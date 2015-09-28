@@ -6,7 +6,7 @@
  * Use case: {{thumbnail url width=100 height=100 mode=thumbMode alt=name}}
  * Only the first parameter (url) is required, rest is optional
  */
-App.ThumbnailHelper = Em.Helper.helper(function (params: string[], options: any): Em.Handlebars.SafeString {
+App.ThumbnailHelper = Em.Helper.helper(function (params: any[], options: any): Em.Handlebars.SafeString {
 	var thumbnailer = Mercury.Modules.Thumbnailer,
 		className: string = '',
 		defaultMode: string = thumbnailer.mode.fixedAspectRatio,
