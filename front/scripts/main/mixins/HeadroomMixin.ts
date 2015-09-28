@@ -34,30 +34,32 @@ App.HeadroomMixin = Em.Mixin.create({
 		headroomOptions: null,
 	},
 
-	smartBannerVisibleObserver: Em.observer('smartBannerVisible', 'offset', 'headroomOptions', function (): void {
-		var headroom = this.get('headroom'),
-			smartBannerVisible = this.get('smartBannerVisible'),
-			offset = this.get('offset'),
-			headroomOptions = this.get('headroomOptions'),
-			cachedProperties = this.get('cachedProperties');
+	smartBannerVisibleObserver: Em.on('willInsertElement',
+		Em.observer('smartBannerVisible', 'offset', 'headroomOptions', function (): void {
+			var headroom = this.get('headroom'),
+				smartBannerVisible = this.get('smartBannerVisible'),
+				offset = this.get('offset'),
+				headroomOptions = this.get('headroomOptions'),
+				cachedProperties = this.get('cachedProperties');
 
-		if (smartBannerVisible !== cachedProperties.smartBannerVisible ||
-			headroomOptions !== cachedProperties.headroomOptions ||
-			offset !== cachedProperties.offset) {
+			if (smartBannerVisible !== cachedProperties.smartBannerVisible ||
+				headroomOptions !== cachedProperties.headroomOptions ||
+				offset !== cachedProperties.offset) {
 
-			this.set('cachedProperties', {
-				smartBannerVisible,
-				offset,
-				headroomOptions,
-			});
+				this.set('cachedProperties', {
+					smartBannerVisible,
+					offset,
+					headroomOptions,
+				});
 
-			if (headroom) {
-				headroom.destroy();
+				if (headroom) {
+					headroom.destroy();
+				}
+
+				this.initHeadroom(headroomOptions, offset);
 			}
-
-			this.initHeadroom(headroomOptions, offset);
-		}
-	}),
+		})
+	),
 
 	initHeadroom(headroomOptions: any, offset: number): void {
 		var headroom: Headroom,

@@ -160,7 +160,6 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 			didTransition(): boolean {
 				this.controllerFor('application').set('fullPage', true);
-				window.scrollTo(0, 0);
 				return true;
 			}
 		},
