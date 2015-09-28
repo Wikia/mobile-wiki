@@ -1,3 +1,6 @@
+## release-169 hotfix 2 (2015-09-28 18:40 UTC)
+* release-169-fix-trending-articles: [HOTFIX] Fix trending articles images
+
 ## release-169 hotfix 1 (2015-09-28 11:56 UTC)
 * [XW-442](https://wikia-inc.atlassian.net/browse/XW-442) XW-442 | Fire smartBannerVisibleObserver on willInsertElement
 
