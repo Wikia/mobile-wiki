@@ -3,8 +3,9 @@
 /**
  * @desc Formats a number of seconds into a duration, in the form HH:MM:SS
  */
-Em.Handlebars.registerBoundHelper('duration', function (value: number) {
-	var hours: number = Math.floor(value / 3600),
+App.DurationHelper = Em.Helper.helper(function (params: any[]): string {
+	var value: number = params[0],
+		hours: number = Math.floor(value / 3600),
 		minutes: number = Math.floor((value - (hours * 3600)) / 60),
 		seconds: number = Math.floor(value - (hours * 3600) - (minutes * 60)),
 		duration = '';

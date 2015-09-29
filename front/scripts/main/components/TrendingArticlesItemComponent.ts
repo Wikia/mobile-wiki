@@ -41,8 +41,9 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 		this.trackClick('modular-main-page', 'trending-articles');
 	},
 
-	updateImageSize(viewportWidth: number): void {
-		var imageWidth = Math.floor((viewportWidth - 20) / 2),
+	updateImageSize(): void {
+		var viewportWidth: number = this.get('viewportDimensions.width'),
+			imageWidth = Math.floor((viewportWidth - 20) / 2),
 			imageWidthString = String(imageWidth),
 			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
 

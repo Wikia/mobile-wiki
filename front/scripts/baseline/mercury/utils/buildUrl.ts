@@ -31,7 +31,7 @@ module Mercury.Utils {
 	 * @config {string} [path] Additional URL path appended to the end of the URL before the querystring
 	 * @config {string} [protocol] Protocol
 	 * @config {object} [query] Querystring data, which is converted to a string and properly escaped
-	 * @config {string} [title] Article title
+	 * @config {string} [title] Article title - value of the parameter will be encoded
 	 * @config {string} [wiki] Wiki name, as it would be used as a subdomain
 	 * @param {object} context Window context
 	 * @returns {string}
@@ -59,7 +59,8 @@ module Mercury.Utils {
 		}
 
 		if (urlParams.title) {
-			url += Mercury.wiki.articlePath + (urlParams.namespace ? urlParams.namespace + ':' : '') + urlParams.title;
+			url += Mercury.wiki.articlePath + (urlParams.namespace ? urlParams.namespace + ':' : '') +
+				encodeURIComponent(urlParams.title);
 		}
 
 		if (urlParams.path) {
@@ -73,7 +74,7 @@ module Mercury.Utils {
 			).join('&');
 		}
 
-		return url; 
+		return url;
 	}
 
 	/**
