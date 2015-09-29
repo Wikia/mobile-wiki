@@ -28,9 +28,9 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.Dis
 		}
 	},
 
-	hasMore: function() {
+	hasMore: Em.computed(function() {
 		return this.totalPosts > this.postsDisplayed;
-	},
+	}),
 
 	pageLoaded: Ember.observer('postsDisplayed', function() {
 		this.set('currentlyLoadingPage', false);
