@@ -22,6 +22,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	userMenuVisible: false,
 	noScroll: false,
 	fullPage: false,
+	noMargins: false,
 	lightboxType: null,
 	lightboxModel: null,
 	lightboxVisible: false,
