@@ -4,8 +4,7 @@
 'use strict';
 
 App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.DiscussionUpvoteActionSendMixin, {
-	classNames: ['forum-wrapper'],
-
+	classNames: ['forum-wrapper', 'discussion', 'forum'],
 	postsDisplayed: 0,
 	totalPosts: 0,
 	pageNum: 0,
@@ -19,7 +18,7 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.Dis
 	},
 
 	didScroll: function() {
-		if (this.hasMore() && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
+		if (this.get('hasMore') && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
 			this.setProperties({
 				pageNum: this.pageNum + 1,
 				currentlyLoadingPage: true,
@@ -28,9 +27,9 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.Dis
 		}
 	},
 
-	hasMore: function() {
-		return this.totalPosts > this.postsDisplayed;
-	},
+	hasMore: Em.computed('totalPosts', 'postsDisplayed', function (): boolean {
+		return this.get('totalPosts') > this.get('postsDisplayed');
+	}),
 
 	pageLoaded: Ember.observer('postsDisplayed', function() {
 		this.set('currentlyLoadingPage', false);

@@ -35,6 +35,10 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 			}
 
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+		},
+		didTransition(): boolean {
+			this.controllerFor('application').set('noMargins', true);
+			return true;
 		}
 	}
 });

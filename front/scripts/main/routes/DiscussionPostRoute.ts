@@ -32,5 +32,12 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 			enableShareHeader: false
 		});
 		this._super();
+	},
+
+	actions: {
+		didTransition(): boolean {
+			this.controllerFor('application').set('noMargins', true);
+			return true;
+		}
 	}
 });
