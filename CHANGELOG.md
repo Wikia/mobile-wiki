@@ -1,6 +1,13 @@
 ## release-170 (2015-09-29 09:39 UTC)
 * [XW-343](https://wikia-inc.atlassian.net/browse/XW-343) XW-343 Add missing attributes
 * [XW-417](https://wikia-inc.atlassian.net/browse/XW-417) XW-417 Revert hotfix as there is a proper fix now on VCL
+* [INT-212](https://wikia-inc.atlassian.net/browse/INT-212) Don't return failure message when invalid cookie is set (Jap…
+* [SOC-1122](https://wikia-inc.atlassian.net/browse/SOC-1122) SOC-1122 Finished implementing "load more" spinner
+* change-tabs-to-spaces-in-locale: Change tabs to spaces to make it compliant with rest of the files from Crowdin
+* add-json-to-editorconfig: Add **.json to .editorconfig
+* [XW-343](https://wikia-inc.atlassian.net/browse/XW-343) XW-343 Stop using Ember.View
+* [XW-435](https://wikia-inc.atlassian.net/browse/XW-435) XW-435 Use layoutName instead of deprecated templateName
+* [XW-213](https://wikia-inc.atlassian.net/browse/XW-213) XW-213 | Add noindex, follow to section/category pages on CMP
 
 ## release-169 hotfix 2 (2015-09-28 18:40 UTC)
 * release-169-fix-trending-articles: [HOTFIX] Fix trending articles images
