@@ -1,10 +1,9 @@
 <div class="discussion post">
 	{{post-detail
-		author=model.firstPost.createdBy
-		content=model.firstPost.rawContent
-		timestamp=model.firstPost.creationDate.epochSecond
-		upvoteCount=model.upvoteCount
 		replyCount=model.postCount
+		post=model.firstPost
+		isDetailsView=true
+		upvote='upvote'
 	}}
 	{{#if canShowMore}}
         <button {{action 'expand'}} class="see-more">
@@ -14,10 +13,8 @@
 	{{/if}}
 	{{#each model.replies as |item index|}}
 		{{post-reply
-			author=item.createdBy
-			content=item.rawContent
-			timestamp=item.creationDate.epochSecond
-			upvoteCount=item.upvoteCount
+			post=item
+			upvote='upvote'
 		}}
 	{{/each}}
 </div>

@@ -198,7 +198,6 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	return {
 		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 		apiBase: localSettings.apiBase,
-		servicesDomain: localSettings.servicesDomain,
 		environment: getEnvironmentString(env),
 		cdnBaseUrl: getCDNBaseUrl(localSettings)
 	};
