@@ -118,7 +118,7 @@
     "curated-content-editor-featured-content":"精選內容",
     "curated-content-editor-featured-description":"精選內容可以用來突出顯示與你的社區相關的某一特定内容，如一篇文章、 一段視頻或一篇部落格文章。內容最好及時並與讀者相關，而且應經常更新。",
     "curated-content-editor-block-help-text":"按你喜歡的順序拖放將每個項目。點擊項目以顯示配置選項。",
-    "curated-content-editor-explore-the-wiki-description":"精選類別讓用戶可以通過Mediawiki類別大致了解你的社區。各個類別應按邏輯分類，如分爲\"電影\"或\"漫畫\"等類別。如果某個類別不適合於歸入任何類別，建議將其放在下面的可選類別部分。",
+    "curated-content-editor-featured-categories-description":"精選類別讓用戶可以通過Mediawiki類別大致了解你的社區。各個類別應按邏輯分類，如分爲\"電影\"或\"漫畫\"等類別。如果某個類別不適合於歸入任何類別，建議將其放在下面的可選類別部分。",
     "curated-content-editor-add-featured-content-button":"+ 添加新的精選內容",
     "curated-content-editor-add-section-button":"+ 添加新的版塊",
     "curated-content-editor-optional-description":"對於不適合與其他類別歸于一類的所有類別，可以將其放在可選類別部分。",
