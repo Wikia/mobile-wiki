@@ -1,10 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
+App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.DiscussionUpvoteActionSendMixin, {
 	classNames: ['forum-wrapper', 'discussion', 'forum'],
-
 	postsDisplayed: 0,
 	totalPosts: 0,
 	pageNum: 0,
@@ -12,7 +12,7 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	isLoading: true,
 
 	actions: {
-		goToPost: function (postId: number): void {
+		goToPost(postId: number): void {
 			this.sendAction('goToPost', postId);
 		}
 	},

@@ -1,24 +1,37 @@
 <div>
 	<figure class="avatar">
 		<a href="{{authorUrl}}">
-			<img src="{{author.avatarUrl}}">
+			<img src="{{post.createdBy.avatarUrl}}">
 		</a>
 	</figure>
-	<a href="{{authorUrl}}" class="author">{{author.name}}</a>
+	<a href="{{authorUrl}}" class="author">{{post.createdBy.name}}</a>
 	<span class="timestamp">
-		&bull; {{timeAgo timestamp}}
+		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
 </div>
-<div class="discussion-content">
-	{{{content}}}
-</div>
+{{#if isDetailsView}}
+	<div class="discussion-content">
+		{{{post.rawContent}}}
+	</div>
+{{else}}
+	<div class="discussion-content" {{action 'goToPost' postId}}>
+		{{{post.rawContent}}}
+	</div>
+{{/if}}
 <div class="row">
-	<div class="small-5 columns upvote count">
-		{{svg 'upvote' viewBox='0 0 30 30' class='icon upvote'}}
-		{{upvoteCount}}
-	</div>
-	<div class="small-5 columns end count">
-		{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-		{{replyCount}}
-	</div>
+	{{discussion-upvote-post
+		post=post
+		upvote='upvote'
+	}}
+	{{#if isDetailsView}}
+		<div class="small-5 columns end count">
+			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+			{{replyCount}}
+		</div>
+	{{else}}
+		<div class="small-5 columns end count" {{action 'goToPost' postId}}>
+			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+			{{replyCount}}
+		</div>
+	{{/if}}
 </div>

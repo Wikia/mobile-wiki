@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/UseNewNavMixin.ts" />
+/// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
+App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
 	forumId: null,
 
 	model(params: any) {

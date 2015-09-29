@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"メインページの編集",
     "curated-content-editor-featured-content":"注目のコンテンツ",
     "curated-content-editor-featured-description":"注目のコンテンツでは、記事、動画、ブログの記事など、コミュニティの特定のコンテンツをハイライトして紹介することができます。注目のコンテンツで紹介する内容は閲覧者にとってタイムリーでコミュニティとの関連性の高いものにし、頻繁に更新するようにしましょう。",
-    "curated-content-editor-block-help-text":"項目が好きな順序になるように、各項目をドラッグします。項目をタップすると設定オプションが表示されます。",
-    "curated-content-editor-explore-the-wiki-description":"注目のカテゴリでは、Mediawikiのカテゴリを使ってコミュニティのコンテンツを閲覧することができます。カテゴリは「映画」や「マンガ」など、わかりやすいセクションごとにグループ化しましょう。どのグループにも当てはまらないカテゴリは、この下の「その他のカテゴリ」セクションに含めることをおすすめします。",
+    "curated-content-editor-block-help-text":"各項目を好みの順序に移動します。項目の横の矢印をタップすると、順序を変更できます。",
+    "curated-content-editor-featured-categories-description":"注目のカテゴリでは、Mediawikiのカテゴリを使ってコミュニティのコンテンツを閲覧することができます。カテゴリは「映画」や「マンガ」など、わかりやすいセクションごとにグループ化しましょう。どのグループにも当てはまらないカテゴリは、この下の「その他のカテゴリ」セクションに含めることをおすすめします。",
     "curated-content-editor-add-featured-content-button":"＋注目のコンテンツを追加",
     "curated-content-editor-add-section-button":"＋新しいセクションを追加",
     "curated-content-editor-optional-description":"他のカテゴリと一緒にグループ化できないカテゴリはすべて、「その他のカテゴリ」セクションに含めましょう。",
-    "curated-content-editor-explore-the-wiki":"コミュニティのコンテンツ",
+    "curated-content-editor-featured-categories":"注目のカテゴリ",
     "curated-content-editor-optional":"その他のカテゴリ",
     "curated-content-editor-upload-image":"画像をアップロード",
-    "curated-content-editor-new-item":"新しい項目",
     "curated-content-editor-empty-section-error":"セクションを空白にすることはできません。このセクションに項目を追加してください。",
     "curated-content-editor-remove-item-confirmation":"この項目を削除してよろしいですか？",
     "curated-content-editor-general-section-error":"このセクションのエラーを修正してください。",
     "curated-content-editor-add-items-message":"このセクションに項目を追加してください。",
     "curated-content-editor-missing-items-error":"セクションを空にすることはできません。セクションに項目を追加してください。",
     "curated-content-editor-error-inside-items-message":"アイテム内のエラーを修正してください。",
-    "curated-content-editor-items-count":"項目 __count__個",
+    "curated-content-editor-items-count":"項目__count__個",
+    "curated-content-editor-items-count_plural":"項目 __count__個",
     "curated-content-editor-exit-prompt":"保存されていない変更があります。本当に終了しますか？",
-    "curated-content-editor-main-page":"メインページ"
+    "curated-content-editor-main-page":"メインページ",
+    "curated-content-editor-new-featured-content":"新しい注目のコンテンツ",
+    "curated-content-editor-new-section":"新しいセクション",
+    "curated-content-editor-new-category":"新しいカテゴリ"
   },
   "discussion":{
-    "share-default-title":"__siteName__についてのトーク"
+    "share-default-title":"__siteName__についてのトーク",
+    "sort-by-latest":"新しい順",
+    "sort-by-trending":"人気順",
+    "number-of-posts":"投稿__numberOfPosts__件"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__または__loginLink__",
+    "register-text":"登録",
+    "login-text":"ログイン"
   }
 }

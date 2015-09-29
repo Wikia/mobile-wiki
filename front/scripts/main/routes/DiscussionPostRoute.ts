@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/UseNewNavMixin.ts" />
+/// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
 
 'use strict';
-App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
+App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
@@ -19,7 +20,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 		this.controllerFor('application').setProperties({
 			// Enables vertical-colored theme bar in site-head component
 			themeBar: true,
-			enableSharingHeader: true
+			enableShareHeader: true
 		});
 		this._super();
 	},
@@ -28,7 +29,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 		this.controllerFor('application').setProperties({
 			// Disables vertical-colored theme bar in site-head component
 			themeBar: false,
-			enableSharingHeader: false
+			enableShareHeader: false
 		});
 		this._super();
 	},
