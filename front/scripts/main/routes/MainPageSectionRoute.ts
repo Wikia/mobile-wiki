@@ -1,12 +1,21 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../../../typings/ember/ember.d.ts" />
 /// <reference path="../mixins/MainPageRouteMixin.ts" />
+/// <reference path="../mixins/MetaTagsMixin.ts"/>
 
 'use strict';
 
-App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, {
+App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsMixin, {
 	model(params: any): Em.RSVP.Promise {
 		return App.CuratedContentModel.find(params.sectionName, 'section');
+	},
+
+	meta(): any {
+		return {
+			name: {
+				robots: 'noindex, follow'
+			}
+		};
 	},
 
 	actions: {

@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"Edycja strony głównej",
     "curated-content-editor-featured-content":"Wyróżniona treść",
     "curated-content-editor-featured-description":"Wyróżniona Treść może być wykorzystana do wyróżnienia określonej treści w twojej społeczności, takiej jak artykuł, wideo lub blog post. Najlepiej jeśli ta treść jest aktualna i istotna dla czytelników i powinna być często aktualizowana.",
-    "curated-content-editor-block-help-text":"Przeciągnij elementy by ustawić je w kolejności, która tobie odpowiada. Dotknij element, aby wyświetlić opcje konfiguracji.",
-    "curated-content-editor-explore-the-wiki-description":"Wyróżnione Kategorie pozwalają użytkownikom poznać twoją społeczności dogłębnie za pomocą kategorii Mediawiki. Kategorie powinny być pogrupowane w logiczne sekcje takie jak \"Filmy\" lub \"Komiksy\". Jeśli Kategoria nie pasuje jako część grupy proponujemy umieszczenie jej poniżej w sekcji Opcjonalnie Kategorie.",
+    "curated-content-editor-block-help-text":"Move each item into the order you prefer. Tap on the arrows next to the item to change the order.",
+    "curated-content-editor-featured-categories-description":"Wyróżnione Kategorie pozwalają użytkownikom poznać twoją społeczności dogłębnie za pomocą kategorii Mediawiki. Kategorie powinny być pogrupowane w logiczne sekcje takie jak \"Filmy\" lub \"Komiksy\". Jeśli Kategoria nie pasuje jako część grupy proponujemy umieszczenie jej poniżej w sekcji Opcjonalnie Kategorie.",
     "curated-content-editor-add-featured-content-button":"+ dodaj nową wyróżnioną treść",
     "curated-content-editor-add-section-button":"+ dodaj nową sekcję",
     "curated-content-editor-optional-description":"Dla wszystkich kategorii, których zgrupowanie z innymi kategoriami nie ma sensu, możesz umieścić je w sekcji Opcjonalne kategorie.",
-    "curated-content-editor-explore-the-wiki":"Poznaj Wiki",
+    "curated-content-editor-featured-categories":"Wyróżnione Kategorie",
     "curated-content-editor-optional":"Opcjonalne kategorie",
     "curated-content-editor-upload-image":"Prześlij obraz",
-    "curated-content-editor-new-item":"Nowy element",
     "curated-content-editor-empty-section-error":"Sekcje nie mogą być puste. Dodaj elementy do tej sekcji.",
     "curated-content-editor-remove-item-confirmation":"Czy na pewno chcesz usunąć ten element?",
     "curated-content-editor-general-section-error":"Popraw błędy w tej sekcji.",
     "curated-content-editor-add-items-message":"Dodaj elementy do tej sekcji.",
     "curated-content-editor-missing-items-error":"Sekcje nie mogą być puste. Dodaj elementy do tej sekcji.",
     "curated-content-editor-error-inside-items-message":"Popraw błędy wewnątrz elementów.",
-    "curated-content-editor-items-count":"__count__ elementy\/elementów",
+    "curated-content-editor-items-count":"__count__ element",
+    "curated-content-editor-items-count_plural":"__count__ elementy\/-ów",
     "curated-content-editor-exit-prompt":"Masz niezapisane zmiany. Na pewno chcesz wyjść?",
-    "curated-content-editor-main-page":"Strona główna"
+    "curated-content-editor-main-page":"Strona główna",
+    "curated-content-editor-new-featured-content":"Nowa Wyróżniona Treść",
+    "curated-content-editor-new-section":"Nowa sekcja",
+    "curated-content-editor-new-category":"Nowa kategoria"
   },
   "discussion":{
-    "share-default-title":"Dyskusja na __siteName__"
+    "share-default-title":"Dyskusja na __siteName__",
+    "sort-by-latest":"Najnowsze",
+    "sort-by-trending":"Popularne",
+    "number-of-posts":"__numberOfPosts__ Posts"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__ or __loginLink__",
+    "register-text":"Register",
+    "login-text":"Login"
   }
 }

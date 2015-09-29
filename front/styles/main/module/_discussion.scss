@@ -100,6 +100,7 @@ $horizontal-padding: 15px;
 	}
 
   	.load-more {
+		color: $color-gray-semi;
 		text-align: center;
 		width: 100%;
 	}
@@ -135,6 +136,13 @@ $horizontal-padding: 15px;
 				color: nth($vertical-colors, $i);
 			}
 		}
+	}
+
+	.spinner {
+		display: block;
+		left: auto;
+		margin: auto;
+		position: relative;
 	}
 
 	.timestamp {
@@ -186,6 +194,7 @@ $horizontal-padding: 15px;
 		&.forum {
 			margin-left: auto;
 			margin-right: auto;
+			margin-top: 0;
 
 			.post-detail {
 				background-color: $color-white;

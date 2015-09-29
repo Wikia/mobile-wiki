@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"Править Заглавную страницу",
     "curated-content-editor-featured-content":"Избранный Контент",
     "curated-content-editor-featured-description":"Избранный Контент может использоваться для акцентирования важной части содержимого на вашей вики: избранных статей, видео или записей в блоге. Предполагается, что этот контент касается текущих событий на вики и предоставляет читателям важную информацию, поэтому его важно часто обновлять.",
-    "curated-content-editor-block-help-text":"Разместите пункты в том порядке, какой вам нравится. Нажмите на пункт, чтобы открыть меню настройки.",
-    "curated-content-editor-explore-the-wiki-description":"Избранные Категории дадут пользователям возможность удобной навигации по вашему сообществу при помощи категорий MediaWiki. Категории следует объединять в логические группы (например, \"Фильмы\" или \"Комиксы\"). Если категорию сложно отнести к какой-либо группе, мы советуем добавить её в группу Дополнительные Категории, которая находится ниже.",
+    "curated-content-editor-block-help-text":"Разместите элементы в том порядке, какой вам нравится. Нажмите на стрелки рядом с элементом, чтобы изменить его положение.",
+    "curated-content-editor-featured-categories-description":"Избранные Категории дадут пользователям возможность удобной навигации по вашему сообществу при помощи категорий MediaWiki. Категории следует объединять в логические группы (например, \"Фильмы\" или \"Комиксы\"). Если категорию сложно отнести к какой-либо группе, мы советуем добавить её в группу Дополнительные Категории, которая находится ниже.",
     "curated-content-editor-add-featured-content-button":"+ добавить новый избранный контент",
     "curated-content-editor-add-section-button":"+ добавить новую секцию",
     "curated-content-editor-optional-description":"В секцию Дополнительные Категории можно поместить те категории, которые нельзя сгруппировать с другими категориями по смыслу.",
-    "curated-content-editor-explore-the-wiki":"Ознакомьтесь с вики",
+    "curated-content-editor-featured-categories":"Избранные Категории",
     "curated-content-editor-optional":"Дополнительные Категории",
     "curated-content-editor-upload-image":"Загрузить изображение",
-    "curated-content-editor-new-item":"Новый пункт",
     "curated-content-editor-empty-section-error":"Раздел не может быть пустым. Пожалуйста, добавьте пункты в этот раздел.",
     "curated-content-editor-remove-item-confirmation":"Вы уверенны, что хотите удалить этот пункт?",
     "curated-content-editor-general-section-error":"Пожалуйста, исправьте ошибки в этой секции.",
     "curated-content-editor-add-items-message":"Пожалуйста, добавьте пункты в эту секцию.",
     "curated-content-editor-missing-items-error":"Секция не может быть пустой. Пожалуйста, добавьте пункты в эту секцию.",
     "curated-content-editor-error-inside-items-message":"Пожалуйста, исправьте ошибки в пунктах.",
-    "curated-content-editor-items-count":"__count__ пунктов",
+    "curated-content-editor-items-count":"__count__ пункт",
+    "curated-content-editor-items-count_plural":"__count__ пунктов",
     "curated-content-editor-exit-prompt":"Имеются несохраненные изменения. Вы уверены, что вы хотите выйти?",
-    "curated-content-editor-main-page":"Заглавная страница"
+    "curated-content-editor-main-page":"Заглавная страница",
+    "curated-content-editor-new-featured-content":"Новый Избранный контент",
+    "curated-content-editor-new-section":"Новый раздел",
+    "curated-content-editor-new-category":"Новая категория"
   },
   "discussion":{
-    "share-default-title":"Обсуждение на __siteName__"
+    "share-default-title":"Обсуждение на __siteName__",
+    "sort-by-latest":"Последние",
+    "sort-by-trending":"Популярные",
+    "number-of-posts":"__numberOfPosts__ записей"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__ или __loginLink__",
+    "register-text":"Зарегистрироваться",
+    "login-text":"Войти"
   }
 }

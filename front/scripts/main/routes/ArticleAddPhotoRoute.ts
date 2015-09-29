@@ -4,9 +4,15 @@
 
 'use strict';
 
-App.AddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
+App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
+	renderTemplate(): void {
+		this.render('article-add-photo', {
+			controller: 'articleAddPhoto'
+		});
+	},
+
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
+		error(error: any, transition: EmberStates.Transition): boolean {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.addphoto-load-error'),
 				type: 'alert'
@@ -18,13 +24,16 @@ App.AddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 			});
 			return true;
 		},
-		didTransition: function(): boolean {
+
+		didTransition(): boolean {
 			window.scrollTo(0, 0);
+
 			M.track({
 				action: M.trackActions.impression,
 				category: 'sectionaddphoto',
 				label: 'addphoto-loaded'
 			});
+
 			return true;
 		}
 	}
