@@ -2,8 +2,8 @@
 'use strict';
 
 App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
-	isCategory: Em.computed('isFeatured', 'isSection', function (): boolean {
-		return !(this.get('isFeatured') || this.get('isSection'));
+	isCategory: Em.computed('isFeaturedItem', 'isSection', function (): boolean {
+		return !(this.get('isFeaturedItem') || this.get('isSection'));
 	}),
 
 	itemsCountLabel: Em.computed('model.items.length', function (): string {
