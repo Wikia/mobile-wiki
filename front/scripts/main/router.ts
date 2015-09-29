@@ -62,11 +62,11 @@ App.Router.map(function () {
 		path: articlePath + '*title'
 	});
 
-	this.route('edit', { // Symbolic link to EditController
+	this.route('articleEdit', {
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
 
-	this.route('addPhoto', { // Symbolic link to AddPhotoController
+	this.route('articleAddPhoto', {
 		path: articlePath + 'addPhoto/:title'
 	});
 

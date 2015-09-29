@@ -89,8 +89,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 	},
 
 	createArticleContributionComponent: function(section: number): JQuery {
-		var article = this.get('content'),
-			title = this.get('cleanTitle'),
+		var title = this.get('cleanTitle'),
 			component = this.createChildView(App.ArticleContributionComponent.create({
 				section: section,
 				title: title,
