@@ -46,9 +46,12 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	},
 
 	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number}): string {
-		if (options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown && this.get('normalizeWidth')) {
+		if (options.width && options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown && this.get('normalizeWidth')) {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
+
+		// Sometimes width is null, so we need to make sure it has a value.
+		options.width = options.width || this.thumbSize.small;
 
 		if (!this.get('limitHeight')) {
 			options.height = options.width;
@@ -92,7 +95,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 App.MediaComponent.reopenClass({
 	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
 		if (media.context === 'infobox') {
-			return App.InfoboxHeroImageMediaComponent.create();
+			return App.InfoboxImageMediaComponent.create();
 		} else if (Em.isArray(media)) {
 			if ((<any>media).some((media: ArticleMedia) => !!media.link)) {
 				return App.LinkedGalleryMediaComponent.create();

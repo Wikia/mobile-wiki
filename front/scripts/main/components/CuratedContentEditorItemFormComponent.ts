@@ -5,10 +5,12 @@
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 ///<reference path="../mixins/IEIFrameFocusFixMixin.ts"/>
+///<reference path="../mixins/CuratedContentEditorLabelsMixin.ts"/>
 'use strict';
 
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
+	App.CuratedContentEditorLabelsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
 	App.LoadingSpinnerMixin,
@@ -23,10 +25,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
-		label: Em.computed('model.label', function() {
-			var modelLabel = this.get('model.label');
-			return modelLabel || i18n.t('app.curated-content-editor-new-item');
-		}),
 
 		/* 16x9 transparent gif */
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
@@ -178,7 +176,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			fileUpload(files: any[]): void {
 				this.trackClick('curated-content-editor', 'item-file-upload');
 				this.showLoader();
-				App.AddPhotoModel.load(files[0])
+				App.ArticleAddPhotoModel.load(files[0])
 					.then((photoModel: typeof App.AddPhotoModel) => App.AddPhotoModel.upload(photoModel))
 					.then((data: any) => {
 						if (data && data.url && data.article_id) {
@@ -218,6 +216,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			showSearchImageForm(): void {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
+			},
+
+			cropImage(): void {
+				this.trackClick('curated-content-editor', 'item-crop-image');
+				this.set('imageCropLayout.previous', this.get('itemFormLayout.name'));
+				this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 			},
 
 			setTitle(title: string): void {

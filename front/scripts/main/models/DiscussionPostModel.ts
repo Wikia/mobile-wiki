@@ -14,13 +14,13 @@ App.DiscussionPostModel = Em.Object.extend({
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax({
-				url: 'https://services.wikia.com' +
-				'/discussion/' + this.wikiId + '/threads/' + this.threadId +
-				'?responseGroup=full' +
-				'&sortDirection=descending' +
-				'&limit=' + this.replyLimit +
-				'&pivot=' + this.pivotId +
-				'&page=' + (this.page+1),
+				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
+					 this.wikiId + '/threads/' + this.threadId +
+					 '?responseGroup=full' +
+					 '&sortDirection=descending' +
+					 '&limit=' + this.replyLimit +
+					 '&pivot=' + this.pivotId +
+					 '&page=' + (this.page + 1),
 				dataType: 'json',
 				success: (data: any) => {
 					var newReplies = data._embedded['doc:posts'];
@@ -53,7 +53,8 @@ App.DiscussionPostModel.reopenClass({
 			});
 
 			Em.$.ajax({
-				url: `https://services.wikia.com/discussion/${wikiId}/threads/${threadId}` +
+				url: 'https://' + M.prop('servicesDomain') +
+					 `/discussion/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
 				dataType: 'json',
 				success: (data: any) => {
@@ -81,5 +82,5 @@ App.DiscussionPostModel.reopenClass({
 				error: (err: any) => reject(err)
 			});
 		});
-	},
+	}
 });

@@ -118,7 +118,7 @@
     "curated-content-editor-featured-content":"Contenido destacado",
     "curated-content-editor-featured-description":"El contenido destacado se puede usar para resaltar un contenido específico en tu comunidad como un artículo, video o publicación en blog. Idealmente, este contenido es oportuno y pertinente para tus lectores, y debe actualizarse con frecuencia.",
     "curated-content-editor-block-help-text":"Arrastra cada elemento en el orden que prefieras. Toca el elemento para revelar las opciones de configuración.",
-    "curated-content-editor-explore-the-wiki-description":"Las categorías destacadas permiten a tus usuarios explorar tu comunidad a un alto nivel, mediante el uso de categorías de Mediawiki. Las categorías deben agruparse en secciones lógicas como \"Películas\" o Comics\". Si la categoría no funciona como parte de un grupo, sugerimos que la coloques en la sección de Categorías opcionales, abajo.",
+    "curated-content-editor-featured-categories-description":"Las categorías destacadas permiten a tus usuarios explorar tu comunidad a un alto nivel, mediante el uso de categorías de Mediawiki. Las categorías deben agruparse en secciones lógicas como \"Películas\" o Comics\". Si la categoría no funciona como parte de un grupo, sugerimos que la coloques en la sección de Categorías opcionales, abajo.",
     "curated-content-editor-add-featured-content-button":"+ Añadir nuevo contenido destacado",
     "curated-content-editor-add-section-button":"+ Añadir nueva sección",
     "curated-content-editor-optional-description":"Para todas las categorías que no tienen sentido agrupadas con otras categorías, puedes colocarlas en la sección de categorías opcionales.",

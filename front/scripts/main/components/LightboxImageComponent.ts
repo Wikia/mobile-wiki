@@ -26,7 +26,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 	/**
 	 * @desc This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
 	 */
-	style: Em.computed(function (): typeof Handlebars.SafeString {
+	style: Em.computed(function (): Em.Handlebars.SafeString {
 		var scale = this.get('scale').toFixed(2),
 			x = this.get('newX').toFixed(2),
 			y = this.get('newY').toFixed(2),
@@ -145,7 +145,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 		this.notifyPropertyChange('imageHeight');
 	}),
 
-	urlObserver: Em.observer('model.url', function (): void {
+	loadUrl(): void {
 		var url = this.get('model.url');
 
 		if (url) {
@@ -153,6 +153,10 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 		}
 
 		this.resetZoom();
+	},
+
+	urlObserver: Em.observer('model.url', function() {
+		this.loadUrl();
 	}),
 
 	didInsertElement: function (): void {
@@ -165,6 +169,8 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 		hammerInstance.get('pan').set({
 			direction: Hammer.DIRECTION_ALL
 		});
+
+		this.loadUrl();
 	},
 
 	/**

@@ -4,7 +4,6 @@
 
 import BirthdateInput = require('./BirthdateInput');
 import authUtils = require('../../lib/AuthUtils');
-import dateUtils = require('../../lib/DateUtils');
 import localSettings = require('../../../config/localSettings');
 import localeSettings = require('../../../config/localeSettings');
 import authView = require('./authView');
@@ -60,12 +59,7 @@ function getDefaultRegistrationContext (request: Hapi.Request, i18n: any): Defau
 
 function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: RegisterFBViewContext,
-		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance();
-
-	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirectUrl);
-	}
 
 	context = deepExtend(
 		getDefaultRegistrationContext(request, i18n),
@@ -87,20 +81,18 @@ function getFacebookRegistrationPage (request: Hapi.Request, reply: any): Hapi.R
 		}
 	);
 
+	if (request.auth.isAuthenticated) {
+		return authView.onAuthenticatedRequestReply(request, reply, context);
+	}
+
 	return authView.view('register-fb', context, request, reply);
 }
 
 function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: RegisterViewContext,
-		redirectUrl: string = authView.getRedirectUrl(request),
 		i18n = request.server.methods.i18n.getInstance(),
 		lang = i18n.lng(),
 		viewType: string = authView.getViewType(request);
-
-	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirectUrl);
-	}
-
 
 	context = deepExtend(
 		getDefaultRegistrationContext(request, i18n),
@@ -133,6 +125,10 @@ function getEmailRegistrationPage (request: Hapi.Request, reply: any): Hapi.Resp
 			}
 		}
 	);
+
+	if (request.auth.isAuthenticated) {
+		return authView.onAuthenticatedRequestReply(request, reply, context);
+	}
 
 	return authView.view('register', context, request, reply);
 }

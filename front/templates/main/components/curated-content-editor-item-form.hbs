@@ -4,7 +4,7 @@
 			{{svg 'back-arrow' role='img' class='icon'}}
 		</a>
 		<button class="sub-head--done" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
-		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=label}}</div>
+		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=headerLabel}}</div>
 	</header>
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
@@ -17,7 +17,7 @@
 				focus-in='setLabelFocusedIn'
 			}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-display-name'}}</label>
-			<span class="input-icon info" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
+			<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}
@@ -33,7 +33,7 @@
 					focus-in='setTitleFocusedIn'
 				}}
 				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
-				<span class="input-icon info" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-page-name-tooltip')}}></span>
+				<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-page-name-tooltip')}}></span>
 				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
 					{{#each searchSuggestionsResult as |item|}}
 						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
@@ -57,6 +57,7 @@
 	</div>
 	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
 		<ul>
+			<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
 			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>

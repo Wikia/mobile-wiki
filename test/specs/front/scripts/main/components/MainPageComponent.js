@@ -8,23 +8,29 @@ moduleForComponent('main-page', 'MainPageComponent', {
 });
 
 test('reacts on curated content change', function () {
-	var componentMock = this.subject(),
+	var self = this,
 		adsContext = {
 			valid: true
-		};
-
-	componentMock.injectMainPageAds = function () {
-		ok(true, 'Main page ads injected');
-	};
-
-	componentMock.setupAdsContext = function (context) {
-		equal(context, adsContext);
-	};
+		},
+		injectMainPageAdsSpy = sinon.spy(),
+		setupAdsContextSpy = sinon.spy(),
+		component;
 
 	Ember.run(function () {
-		componentMock.setProperties({
-			adsContext: adsContext,
-			curatedContent: {}
+		// This has to be wrapped in Ember.run because didReceiveAttrs uses Em.run.schedule
+		// and it's called when the component is created by .subject()
+		component = self.subject({
+			attrs: {
+				adsContext: adsContext,
+				curatedContent: {}
+			}
 		});
+
+		component.injectMainPageAds = injectMainPageAdsSpy;
+		component.setupAdsContext = setupAdsContextSpy;
 	});
+
+	ok(injectMainPageAdsSpy.calledOnce);
+	ok(setupAdsContextSpy.calledOnce);
+	ok(setupAdsContextSpy.calledWith(adsContext))
 });

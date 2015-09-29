@@ -1,3 +1,145 @@
+## release-170 (2015-09-29 09:39 UTC)
+* [XW-343](https://wikia-inc.atlassian.net/browse/XW-343) XW-343 Add missing attributes
+* [XW-417](https://wikia-inc.atlassian.net/browse/XW-417) XW-417 Revert hotfix as there is a proper fix now on VCL
+* [INT-212](https://wikia-inc.atlassian.net/browse/INT-212) Don't return failure message when invalid cookie is set (Jap…
+* [SOC-1122](https://wikia-inc.atlassian.net/browse/SOC-1122) SOC-1122 Finished implementing "load more" spinner
+* change-tabs-to-spaces-in-locale: Change tabs to spaces to make it compliant with rest of the files from Crowdin
+* add-json-to-editorconfig: Add **.json to .editorconfig
+* [XW-343](https://wikia-inc.atlassian.net/browse/XW-343) XW-343 Stop using Ember.View
+* [XW-435](https://wikia-inc.atlassian.net/browse/XW-435) XW-435 Use layoutName instead of deprecated templateName
+* [XW-213](https://wikia-inc.atlassian.net/browse/XW-213) XW-213 | Add noindex, follow to section/category pages on CMP
+
+## release-169 hotfix 2 (2015-09-28 18:40 UTC)
+* release-169-fix-trending-articles: [HOTFIX] Fix trending articles images
+
+## release-169 hotfix 1 (2015-09-28 11:56 UTC)
+* [XW-442](https://wikia-inc.atlassian.net/browse/XW-442) XW-442 | Fire smartBannerVisibleObserver on willInsertElement
+
+## release-169 (2015-09-28 07:59 UTC)
+* [INT-204](https://wikia-inc.atlassian.net/browse/INT-204) Add UN Global Goals banner to Japan HP
+* top-nav-width: pulling in updated nav styles
+* [XW-417](https://wikia-inc.atlassian.net/browse/XW-417) Xw 417 | pass staging to MWRequest
+* [XW-290](https://wikia-inc.atlassian.net/browse/XW-290) XW-290 | Brazilian Portuguese served for canonical Portuguese
+* missing-type: Add missing type to Utils.ts:clearHost
+* [XW-347](https://wikia-inc.atlassian.net/browse/XW-347) XW-347 | Don't modify element twice before render
+* [XW-105](https://wikia-inc.atlassian.net/browse/XW-105) XW-105 | replace controller#needs with Em.inject.controller()
+
+## release-168 hotfix 1 (2015-09-25 14:57 UTC)
+* release-168-redirect-hot-fix: Release 168 redirect hot fix
+
+## release-168 (2015-09-25 07:59 UTC)
+* [HG-891](https://wikia-inc.atlassian.net/browse/HG-891) HG-892 fixing top-nav headroom interaction
+* [SOC-959](https://wikia-inc.atlassian.net/browse/SOC-959) SOC-959 Use wordmark as default sharing image
+
+## release-167 (2015-09-24 13:38 UTC)
+* aden-2464-fix-externaltest-on-mobile: ADEN-2464 Fix externaltest on mobile
+* [SOC-1120](https://wikia-inc.atlassian.net/browse/SOC-1120) SOC-1120 Change styling of discussion post sorting between desktop and mobile
+* [XW-424](https://wikia-inc.atlassian.net/browse/XW-424) XW-424 | Curated Content Tool section item count singular/plural label fix
+* tslint-trailing-comma: allow for trailing comma in ts
+* aden-2466-lightbox-close-button-fix: ADEN-2466 Fix close button in mobile lightbox
+
+## release-166 (2015-09-24 07:59 UTC)
+* [INT-198](https://wikia-inc.atlassian.net/browse/INT-198) Fix for invisible slider for Japan HP
+* [HG-888](https://wikia-inc.atlassian.net/browse/HG-888) Hg 888 Style guide version
+* [SOC-1289](https://wikia-inc.atlassian.net/browse/SOC-1289) SOC-1289 follow-up | Removing discussion hero unit from post-detail page
+* [HG-887](https://wikia-inc.atlassian.net/browse/HG-887) Hg 887 Fixing custom web components in FF
+* [HG-878](https://wikia-inc.atlassian.net/browse/HG-878) HG-878 fixing locale gulp task and top-nav i18n for anons
+* [SOC-1289](https://wikia-inc.atlassian.net/browse/SOC-1289) SOC-1289 Header (hero unit) for desktop posts list page
+* tslint-maintenance-fixes: Maintenance | Fixing tslint warnings
+* [SOC-1329](https://wikia-inc.atlassian.net/browse/SOC-1329) SOC-1329 Adds a contributors component + an standalone avatar component
+
+## release-165 (2015-09-23 07:59 UTC)
+* [XW-63](https://wikia-inc.atlassian.net/browse/XW-63) XW-63 | added /api/mercury path in preparation for deprecation of /api/v1
+* [XW-251](https://wikia-inc.atlassian.net/browse/XW-251) XW-251 | Show a message when user opened a section/category that does not exist
+* [XW-244](https://wikia-inc.atlassian.net/browse/XW-244) XW-244 update ember to 1.13.10
+
+## release-164 (2015-09-22 10:21 UTC)
+* [XW-236](https://wikia-inc.atlassian.net/browse/XW-236) XW-236 Redirect to canonical host if needed
+* [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204)""
+* [INT-185](https://wikia-inc.atlassian.net/browse/INT-185) INT-185 Internationalization for Wikia homepage link in header
+* [XW-239](https://wikia-inc.atlassian.net/browse/XW-239) XW-239 Handle preview as one of possible envs in mercury
+* [XW-6](https://wikia-inc.atlassian.net/browse/XW-6) XW-6 | common check for crucial attributes of optimizely object
+* [SOC-1268](https://wikia-inc.atlassian.net/browse/SOC-1268) SOC-1268 Clickstream logger for Auth Pages
+* [INT-198](https://wikia-inc.atlassian.net/browse/INT-198) Add extra breakpoint for parallax text. Fix Firefox r…
+
+## release-163 (2015-09-21 07:59 UTC)
+* [XW-199](https://wikia-inc.atlassian.net/browse/XW-199) XW-199 | Add Polldaddy widget
+
+## release-161 (2015-09-18 07:59 UTC)
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Fix for user name not showing after logging in
+* Japan-HP-Update-2015.09.17: Japan HP: Updated images for highlighted communities. 
+* [SOC-1204](https://wikia-inc.atlassian.net/browse/SOC-1204) SOC-1204 As a user on desktop I want that the new auth modal replaces the current forced login modal
+* aden-2435-ads-on-event-on-mercury: ADEN-2435 Added new method pushSlotToQueue
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Fixes for logout for Japan HP
+* [SOC-1269](https://wikia-inc.atlassian.net/browse/SOC-1269) SOC-1269 when the user is authenticated auth modal is loading regular wiki page
+
+## release-160 (2015-09-17 09:59 UTC)
+* [HG-846](https://wikia-inc.atlassian.net/browse/HG-846) HG-846 More work on top-bar component in mercury
+
+## release-159 (2015-09-16 09:59 UTC)
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Login state support for Japan homepage
+* Japan-HP-logging: Add bunyan logger for Japan homepage (console and syslog)
+* [INT-187](https://wikia-inc.atlassian.net/browse/INT-187) Japan Homepage content update. Highlighted communities.
+* [HG-839](https://wikia-inc.atlassian.net/browse/HG-839) HG-839 - make sure image width is defined
+* [SOC-1119](https://wikia-inc.atlassian.net/browse/SOC-1119) SOC-1119 Styles for post list on desktop
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) Hg 848 Incorporating Top Bar component into mercury discussion pages
+* [SOC-951](https://wikia-inc.atlassian.net/browse/SOC-951) SOC-951 Add back controller so we can trigger the "show more" button
+
+## release-158 (2015-09-15 09:59 UTC)
+* [XW-203](https://wikia-inc.atlassian.net/browse/XW-203) XW-203 VK tag support
+* [INT-136](https://wikia-inc.atlassian.net/browse/INT-136) Use mercury signin/signup pages for Japan homepage login
+* maintenance: Maintenance | using dot operator for fallback date config
+* [XW-217](https://wikia-inc.atlassian.net/browse/XW-217) XW-217 Twitter tag support
+* date-settings-cleanup: Date settings cleanup
+
+## release-157 (2015-09-14 09:59 UTC)
+* [SOC-1279](https://wikia-inc.atlassian.net/browse/SOC-1279) SOC-1279 Expose servicesDomain to ember and use for discussion api url
+* [HG-848](https://wikia-inc.atlassian.net/browse/HG-848) HG-848 Discussion header
+* [XW-204](https://wikia-inc.atlassian.net/browse/XW-204) XW-204 Unwrap Wikia widgets
+
+## release-156 (2015-09-11 09:59 UTC)
+* [XW-275](https://wikia-inc.atlassian.net/browse/XW-275) XW-275 update translations for CuratedContent
+* enable-disc-on-dev: Discussions | Enable discussions by default on dev env
+
+## release-155 (2015-09-10 09:59 UTC)
+* [XW-9](https://wikia-inc.atlassian.net/browse/XW-9) XW-9 | enable Curated Content Editor site wide
+* [SOC-1079](https://wikia-inc.atlassian.net/browse/SOC-1079) SOC-1079 | VisitSource on authpages and mercury app
+
+## release-154 (2015-09-09 09:59 UTC)
+* [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 move scrollTop to mixin
+* [XW-242](https://wikia-inc.atlassian.net/browse/XW-242) XW-242 Fix Curated Main Page navigation
+* [SOC-1251](https://wikia-inc.atlassian.net/browse/SOC-1251) SOC-1251 | Bringing back sharedUrl
+* [XW-240](https://wikia-inc.atlassian.net/browse/XW-240) XW-240 trigger openMainPage method when 403 error on /main/edit
+
+## release-153 (2015-09-08 09:59 UTC)
+* [XW-230](https://wikia-inc.atlassian.net/browse/XW-230) XW-230 Update Host header when there is a redirect
+* [DAT-3168](https://wikia-inc.atlassian.net/browse/DAT-3168) DAT-3168 remove margins on all elements inside data value
+* [DAT-3142](https://wikia-inc.atlassian.net/browse/DAT-3142) DAT- 3142 scale only infobox hero image
+
+## release-152 (2015-09-07 09:59 UTC)
+* [DAT-3181](https://wikia-inc.atlassian.net/browse/DAT-3181) DAT-3181 add styles for horizontal group
+
+## release-151 (2015-09-04 14:56 UTC)
+* [DAT-3201](https://wikia-inc.atlassian.net/browse/DAT-3201) DAT-3201 set single session "useskin=oasis" cookie for footer links
+* [SOC-1165](https://wikia-inc.atlassian.net/browse/SOC-1165) SOC-1165 Discussions Splash Page (hack)
+* [XW-74](https://wikia-inc.atlassian.net/browse/XW-74) XW-74 add crop option to modal
+* [XW-193](https://wikia-inc.atlassian.net/browse/XW-193) enable CCE on selected communities
+* [XW-171](https://wikia-inc.atlassian.net/browse/XW-171) XW-171 load categories and sections under root not main page route
+
+## release-150 (2015-09-04 09:59 UTC)
+* [XW-176](https://wikia-inc.atlassian.net/browse/XW-176) XW-176 | Fix icons for tooltips inside CC tool
+* [POZ-](https://wikia-inc.atlassian.net/browse/POZ-) Config for services in POZ datacenter
+* [XW-178](https://wikia-inc.atlassian.net/browse/XW-178) XW-178 change editor's title
+* [XW-71](https://wikia-inc.atlassian.net/browse/XW-71) XW-71 | Increase height
+
+## relese-149 (2015-09-03 12:20 UTC)
+* fix-helios-session: Fix helios session
+* [HG-837](https://wikia-inc.atlassian.net/browse/HG-837) HG-837 Top Bar MVP v3
+* special-ga-for-auth: Use Special GA account to track 100% events on Auth Pages
+* [SOC-1182](https://wikia-inc.atlassian.net/browse/SOC-1182) SOC-1182 Use trackPageView for impressions of Auth Pages
+* [XW-183](https://wikia-inc.atlassian.net/browse/XW-183) XW-183 | Fix tests
+* fix-ua-tracking: Fix UA tracking
+
 ## release-148 (2015-09-02 09:59 UTC)
 * [HG-852](https://wikia-inc.atlassian.net/browse/HG-852) HG-852 Discussion header
 * [SOC-1109](https://wikia-inc.atlassian.net/browse/SOC-1109) SOC-1109 Add Redirect URL param to tracking data

@@ -19,7 +19,16 @@ App.CuratedContentItemComponent = Em.Component.extend(
 
 	aspectRatio: 1,
 	imageWidth: 200,
-	thumbUrl: Em.computed.oneWay('emptyGif'),
+	thumbUrl: Em.computed('model', function (): string {
+			if (this.get('model.imageUrl')) {
+				return this.generateThumbUrl(
+					this.get('model.imageUrl'),
+					this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
+				);
+			} else {
+				return this.get('emptyGif');
+			}
+	}),
 
 	icon: Em.computed('type', function (): string {
 		var type = this.get('type'),
@@ -39,34 +48,17 @@ App.CuratedContentItemComponent = Em.Component.extend(
 		return 'namespace-' + iconType;
 	}),
 
-	willInsertElement: function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	},
+	viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+		this.updateImageSize();
+	})),
 
-	didInsertElement: function (): void {
-		if (this.get('model.imageUrl')) {
-			this.lazyLoadImage();
-		}
-	},
-
-	click: function (): void {
+	click(): void {
 		this.sendAction('action', this.get('model'));
 	},
 
-	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	}),
+	updateImageSize(): void {
+		var imageSize = String(Math.floor((this.get('viewportDimensions.width') - 20) / 2));
 
-	lazyLoadImage: function (): void {
-		this.set('thumbUrl', this.generateThumbUrl(
-			this.get('model.imageUrl'),
-			this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
-		));
+		this.set('style', new Em.Handlebars.SafeString(`height: ${imageSize}px; width: ${imageSize}px;`));
 	},
-
-	updateImageSize: function (viewportSize: number): void {
-		var imageSize = String(Math.floor((viewportSize - 20) / 2));
-
-		this.set('style', Em.String.htmlSafe(`height: ${imageSize}px; width: ${imageSize}px;`));
-	}
 });

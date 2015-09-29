@@ -1,17 +1,8 @@
-<link rel="import" href="/front/vendor/polymer/polymer.html">
-<link rel="import" href="/front/vendor/wikia-style-guide/dist/components/top-bar/top-bar.html">
-<top-bar
-	logo-src="/front/vendor/wikia-style-guide/dist/svg/wikia_logo.svg"
-	user-logged-in="false"
-	show-user-status="true"
-	user-avatar-src="http://img4.wikia.nocookie.net/__cb1372467243/common/avatars/thumb/e/eb/11096997.png/100px-11096997.png.jpg">
-</top-bar>
-
 <h1>Discussions</h1>
 
 <h2>Forums:</h2>
 <ul>
 {{#each _embedded.doc:forum as |item|}}
-    <li>{{#link-to 'discussion.forum.index' item.id}}{{item.name}}{{/link-to}} - {{item.postCount}} posts</li>
+	<li>{{#link-to 'discussion.forum.index' item.id}}{{item.name}}{{/link-to}} - {{item.postCount}} posts</li>
 {{/each}}
 </ul>

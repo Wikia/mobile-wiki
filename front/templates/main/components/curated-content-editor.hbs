@@ -1,7 +1,7 @@
 <header class="sub-head">
 	<a {{action 'openMainPage'}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
 	<button {{action 'save'}} class="sub-head--done">{{i18n 'app.curated-content-editor-publish'}}</button>
-	<div class="sub-head--title">{{i18n 'app.curated-content-editor-edit-main-page'}}</div>
+	<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=(i18n 'app.curated-content-editor-main-page')}}</div>
 </header>
 {{curated-content-editor-block
 	model=model.featured
@@ -16,8 +16,8 @@
 {{curated-content-editor-block
 	model=model.curated
 	block='curated'
-	title=(i18n 'app.curated-content-editor-explore-the-wiki')
-	description=(i18n 'app.curated-content-editor-explore-the-wiki-description')
+	title=(i18n 'app.curated-content-editor-featured-categories')
+	description=(i18n 'app.curated-content-editor-featured-categories-description')
 	addItemLabel=(i18n 'app.curated-content-editor-add-section-button')
 	addItem='addSection'
 	openSection='openSection'

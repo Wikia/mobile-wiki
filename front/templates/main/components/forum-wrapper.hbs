@@ -1,6 +1,4 @@
 <div class="discussion forum">
-	{{!-- TODO: Replace this h1 with the real header --}}
-    <h1>Forum: {{name}}</h1>
 	{{#each posts as |item|}}
 		{{post-detail
 		action='goToPost'
@@ -13,8 +11,15 @@
 		replyCount=item.postCount
 		}}
 	{{/each}}
-	{{#if loadingMore}}
-        <div class="load-more">Loading More Posts</div>
+	{{#if hasMore}}
+		{{loading-spinner
+			active=isLoading
+			overlay=false
+			radius=32
+			strokeWidth=2
+		}}
+        <div class="load-more">
+			{{i18n 'discussion.loading-more-posts'}}
+		</div>
 	{{/if}}
 </div>
-

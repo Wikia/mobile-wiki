@@ -121,7 +121,7 @@
     "curated-content-editor-featured-content":"Conteúdo destacado",
     "curated-content-editor-featured-description":"O conteúdo destacado pode ser usado para realçar um trecho específico de conteúdo em sua comunidade, como um artigo, um vídeo ou um post. Idealmente este conteúdo é apropriado e relevante para seus leitores e deve ser atualizado frequentemente.",
     "curated-content-editor-block-help-text":"Arraste cada item na ordem que você preferir. Toque no item para revelar as opções de configuração.",
-    "curated-content-editor-explore-the-wiki-description":"As categorias destacadas permitem que seus usuários explorem sua comunidade em profundidade através do uso de categorias Mediawiki. As categorias devem ser agrupadas em seções lógicas como \"Filmes\" ou \"Quadrinhos\". Se uma categoria não funcionar como parte de um grupo sugerimos colocá-la na seção categorias opcionais abaixo.",
+    "curated-content-editor-featured-categories-description":"As categorias destacadas permitem que seus usuários explorem sua comunidade em profundidade através do uso de categorias Mediawiki. As categorias devem ser agrupadas em seções lógicas como \"Filmes\" ou \"Quadrinhos\". Se uma categoria não funcionar como parte de um grupo sugerimos colocá-la na seção categorias opcionais abaixo.",
     "curated-content-editor-add-featured-content-button":"+ Adicionar novo conteúdo destacado:",
     "curated-content-editor-add-section-button":"+ Adicionar nova seção",
     "curated-content-editor-optional-description":"Para todas as categorias que não fazem sentido agrupadas com outras, você pode colocá-las na seção categorias opcionais.",
@@ -135,6 +135,11 @@
     "curated-content-editor-add-items-message":"Por favor, adicione itens a esta seção.",
     "curated-content-editor-missing-items-error":"As seções não podem estar vazias. Por favor, adicione itens a esta seção.",
     "curated-content-editor-error-inside-items-message":"Por favor, corrija os erros dentro dos itens.",
-    "curated-content-editor-items-count":"__count__ itens"
+    "curated-content-editor-items-count":"__count__ itens",
+    "curated-content-editor-exit-prompt":"Você tem alterações não salvas. Tem certeza que deseja sair?",
+    "curated-content-editor-main-page":"Página principal"
+  },
+  "discussion":{
+    "share-default-title":"Discussão em __siteName__"
   }
 }

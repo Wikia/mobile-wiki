@@ -10,7 +10,7 @@ var localSettings = baseLocalSettings.extendSettings({
 		console: 'debug'
 	},
 	authCookieDomain: '.wikia-dev.com',
-	servicesDomain:'services.wikia-dev.com',
+	servicesDomain: (process.env.WIKIA_DATACENTER === 'poz') ? 'services-poz.wikia-dev.com' : 'services.wikia-dev.com',
 	facebook: {
 		appId: 881967318489580
 	},
@@ -20,7 +20,14 @@ var localSettings = baseLocalSettings.extendSettings({
 	qualaroo: {
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/dlS.js'
 	},
-	port: 7000
+	port: 7000,
+	enableDiscussions: true,
+	clickstream: {
+		auth: {
+			enable: true,
+			url: 'https://services.wikia-dev.com/clickstream/events/social'
+		}
+	}
 });
 
 export function extendSettings(customLocalSet: any): LocalSettings {

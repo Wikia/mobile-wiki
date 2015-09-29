@@ -27,28 +27,18 @@ export class ArticleRequestHelper {
 	}
 
 	/**
-	 * Handler for /article/{wiki}/{articleId} -- Currently calls to Wikia public JSON api for article:
-	 * http://www.wikia.com/api/v1/#!/Articles
-	 * This API is really not sufficient for semantic routes, so we'll need some what of retrieving articles by using the
-	 * article slug name
-	 *
-	 * @param {Function} callback
-	 * @param {boolean} getWikiVariables whether or not to make a WikiRequest to get information about the wiki
+	 * Gets wiki variables and article, returns a promise which is resolved with object containing all the data.
 	 */
-	getData(callback: Function, getWikiVariables: boolean = false): void {
+	getFull(): Promise<any> {
 		var requests = [
-				new MediaWiki.ArticleRequest(this.params).article(this.params.title, this.params.redirect, this.params.sections)
-			];
-
-		logger.debug(this.params, 'Fetching article');
-
-		if (getWikiVariables) {
-			logger.debug({wiki: this.params.wikiDomain}, 'Fetching wiki variables');
-
-			requests.push(new MediaWiki.WikiRequest({
+			new MediaWiki.ArticleRequest(this.params)
+				.article(this.params.title, this.params.redirect, this.params.sections),
+			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
-			}).getWikiVariables());
-		}
+			}).wikiVariables()
+		];
+
+		logger.debug(this.params, 'Fetching wiki variables and article');
 
 		/**
 		 * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#settle---promise
@@ -60,73 +50,51 @@ export class ArticleRequestHelper {
 		 * to the input array. This method is useful for when you have an array of promises and you'd like to know
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
-		Promise.settle(requests)
+		return Promise.settle(requests)
 			.then((results: Promise.Inspection<Promise<any>>[]) => {
 				var articlePromise: Promise.Inspection<Promise<any>> = results[0],
 					wikiPromise: Promise.Inspection<Promise<any>> = results[1],
 					article: any,
-					wikiVariables: any = {};
+					wikiVariables: any;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 				article = articlePromise.isFulfilled() ?
 					articlePromise.value() :
 					articlePromise.reason();
 
-				if (getWikiVariables) {
-					wikiVariables = wikiPromise.isFulfilled() ?
-						wikiPromise.value() :
-						wikiPromise.reason();
-				}
+				wikiVariables = wikiPromise.isFulfilled() ?
+					wikiPromise.value() :
+					wikiPromise.reason();
 
-				callback(article.exception, article.data, wikiVariables.data);
+				return {
+					article: article.data,
+					exception: article.exception,
+					server: Utils.createServerData(localSettings, this.params.wikiDomain),
+					wiki: wikiVariables
+				};
 			});
 	}
 
 	/**
-	 * Handle full page data generation
-	 * @param {Function} next
+	 * Gets wiki variables, returns a promise which is resolved with the data.
 	 */
-	getFull(next: Function): void {
-		this.getData((error: any, article: any, wikiVariables: any) => {
-			next(error, {
-				server: Utils.createServerData(localSettings, this.params.wikiDomain),
-				wiki: wikiVariables || {},
-				article: article || {}
-			});
-		}, true);
-	}
-
-	/**
-	 * Get WikiVariables
-	 * @param {Function} next
-	 */
-	getWikiVariables(next: Function): void {
+	getWikiVariables(): Promise<any> {
 		var wikiRequest = new MediaWiki.WikiRequest(this.params);
 
 		logger.debug(this.params, 'Fetching wiki variables');
 
-		wikiRequest
-			.getWikiVariables()
-			.then((wikiVariables: any) => {
-				next(null, wikiVariables.data);
-			}, (error: any) => {
-				next(error, null);
-			});
+		return wikiRequest.wikiVariables();
 	}
 
 	/**
-	 * Handle article page data generation, no need for WikiVariables
-	 * @param {*} wikiVariables
-	 * @param {Function} next
+	 * Gets article, returns a promise which is resolved with the data.
 	 */
-	getArticle(wikiVariables: any, next: Function): void {
-		this.getData((error: any, article: any) => {
-			next(error, {
-				server: Utils.createServerData(localSettings, this.params.wikiDomain),
-				wiki: wikiVariables || {},
-				article: article || {}
-			});
-		}, false);
+	getArticle(): Promise<any> {
+		var articleRequest = new MediaWiki.ArticleRequest(this.params);
+
+		logger.debug(this.params, 'Fetching article');
+
+		return articleRequest.article(this.params.title, this.params.redirect, this.params.sections);
 	}
 
 	getArticleRandomTitle(next: Function): void {
@@ -140,7 +108,7 @@ export class ArticleRequestHelper {
 
 				if (result.query && result.query.pages) {
 					articleId = Object.keys(result.query.pages)[0];
-					pageData = result.query.pages[articleId];
+					pageData = <any>result.query.pages[articleId];
 
 					next(null, {
 						title: pageData.title

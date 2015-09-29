@@ -1,0 +1,31 @@
+$discussion-hero-unit-text-color: $color-white;
+
+.discussion-hero-unit {
+	color: $discussion-hero-unit-text-color;
+	display: none;
+	padding-bottom: 37px;
+	padding-top: $global-nav-height + 37px;
+	text-align: center;
+
+	h1 {
+		color: $discussion-hero-unit-text-color;
+		font-size: 48px;
+	}
+
+	p {
+		font-size: 14px;
+		font-weight: bold;
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
+		background-color: #{nth($vertical-colors, $i)};
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-hero-unit {
+		display: block;
+	}
+}

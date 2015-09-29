@@ -10,6 +10,7 @@ import localSettings = require('../../config/localSettings');
 import Logger = require('./Logger');
 import Wreck = require('wreck');
 import Promise = require('bluebird');
+import Url = require('url');
 
 interface MWRequestParams {
 	wikiDomain: string;
@@ -68,13 +69,17 @@ export class WikiRequest extends BaseRequest {
 	 *
 	 * @return {Promise<any>}
 	 */
-	getWikiVariables (): Promise<any> {
+	wikiVariables (): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getWikiVariables'
 		});
 
-		return this.fetch(url);
+		return this
+			.fetch(url)
+			.then((wikiVariables: any) => {
+				return Promise.resolve(wikiVariables.data);
+			});
 	}
 }
 
@@ -87,6 +92,7 @@ export class ArticleRequest extends BaseRequest {
 	 *
 	 * @param title
 	 * @param redirect
+	 * @param sections
 	 * @return {Promise<any>}
 	 */
 	article (title: string, redirect: string, sections?: string): Promise<any> {
@@ -169,10 +175,30 @@ export class ArticleRequest extends BaseRequest {
  * Fetch http resource
  *
  * @param url the url to fetch
+ * @param host
  * @param redirects the number of redirects to follow, default 1
+ * @param headers
  * @return {Promise<any>}
  */
 export function fetch (url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
+	/**
+	 * We send requests to Consul URL and the target wiki is passed in the Host header.
+	 * When Wreck gets a redirection response it updates URL only, not headers.
+	 * That's why we need to update Host header manually.
+	 *
+	 * @param redirectMethod
+	 * @param statusCode
+	 * @param location
+	 * @param redirectOptions
+	 */
+	var beforeRedirect = (redirectMethod: string, statusCode: number, location: string, redirectOptions: any): void => {
+		var redirectHost: string = Url.parse(location).hostname;
+
+		if (redirectHost) {
+			redirectOptions.headers.Host = redirectHost;
+		}
+	};
+
 	headers.Host = host;
 
 	return new Promise((resolve: Function, reject: Function): void => {
@@ -180,7 +206,8 @@ export function fetch (url: string, host: string = '', redirects: number = 1, he
 			redirects: redirects,
 			headers: headers,
 			timeout: localSettings.backendRequestTimeout,
-			json: true
+			json: true,
+			beforeRedirect: beforeRedirect
 		}, (err: any, response: any, payload: any): void => {
 			if (err) {
 				Logger.error({
