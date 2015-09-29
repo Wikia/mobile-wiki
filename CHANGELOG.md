@@ -1,3 +1,21 @@
+## release-169 hotfix 2 (2015-09-28 18:40 UTC)
+* release-169-fix-trending-articles: [HOTFIX] Fix trending articles images
+
+## release-169 hotfix 1 (2015-09-28 11:56 UTC)
+* [XW-442](https://wikia-inc.atlassian.net/browse/XW-442) XW-442 | Fire smartBannerVisibleObserver on willInsertElement
+
+## release-169 (2015-09-28 07:59 UTC)
+* [INT-204](https://wikia-inc.atlassian.net/browse/INT-204) Add UN Global Goals banner to Japan HP
+* top-nav-width: pulling in updated nav styles
+* [XW-417](https://wikia-inc.atlassian.net/browse/XW-417) Xw 417 | pass staging to MWRequest
+* [XW-290](https://wikia-inc.atlassian.net/browse/XW-290) XW-290 | Brazilian Portuguese served for canonical Portuguese
+* missing-type: Add missing type to Utils.ts:clearHost
+* [XW-347](https://wikia-inc.atlassian.net/browse/XW-347) XW-347 | Don't modify element twice before render
+* [XW-105](https://wikia-inc.atlassian.net/browse/XW-105) XW-105 | replace controller#needs with Em.inject.controller()
+
+## release-168 hotfix 1 (2015-09-25 14:57 UTC)
+* release-168-redirect-hot-fix: Release 168 redirect hot fix
+
 ## release-168 (2015-09-25 07:59 UTC)
 * [HG-891](https://wikia-inc.atlassian.net/browse/HG-891) HG-892 fixing top-nav headroom interaction
 * [SOC-959](https://wikia-inc.atlassian.net/browse/SOC-959) SOC-959 Use wordmark as default sharing image

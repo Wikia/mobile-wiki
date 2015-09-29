@@ -16,7 +16,7 @@ App.ViewportMixin = Em.Mixin.create({
 	},
 	initiated: false,
 
-	init: function (): void {
+	init(): void {
 		this._super();
 		if (!this.get('initiated')) {
 			this.onResize();
@@ -27,8 +27,12 @@ App.ViewportMixin = Em.Mixin.create({
 		}
 	},
 
-	onResize: function (): void {
-		this.set('viewportDimensions.width', Math.max(document.documentElement.clientWidth, window.innerWidth || 0));
-		this.set('viewportDimensions.height', Math.max(document.documentElement.clientHeight, window.innerHeight || 0));
+	onResize(): void {
+		if (!this.get('isDestroyed')) {
+			this.setProperties({
+				'viewportDimensions.width': Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+				'viewportDimensions.height': Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+			});
+		}
 	}
 });

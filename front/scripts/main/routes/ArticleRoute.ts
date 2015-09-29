@@ -77,15 +77,6 @@ App.ArticleRoute = Em.Route.extend({
 			}
 			Em.Logger.warn('Route error', error.stack || error);
 			return true;
-		},
-
-		didTransition: function (): boolean {
-			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
-			// Optimally, it would remain in the same place.
-			window.scrollTo(0, 0);
-
-			// bubble up to ApplicationRoute#didTransition
-			return true;
 		}
 	}
 });

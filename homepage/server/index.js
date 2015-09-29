@@ -13,7 +13,14 @@ var Hapi = require('hapi'),
 	logger = require('./logger'),
 	server = new Hapi.Server();
 
-server.connection({ port: localSettings.port });
+server.connection({
+	port: localSettings.port,
+	routes: {
+		state: {
+			failAction: 'log'
+		}
+	}
+});
 
 // Initialize cookies
 server.state('access_token', {

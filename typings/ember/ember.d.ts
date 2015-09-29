@@ -2875,6 +2875,7 @@ declare module Ember {
     function hasOwnProperty(prop: string): boolean;
     function immediateObserver(func: Function, ...propertyNames: any[]): Function;
     var imports: {};
+    var inject: any;
     function inspect(obj: any): string;
     function instrument(name: string, payload: any, callback: Function, binding: any): void;
     function isArray(obj: any): boolean;
@@ -3167,6 +3168,7 @@ declare module Em {
     var hasOwnProperty: typeof Ember.hasOwnProperty;
     var immediateObserver: typeof Ember.immediateObserver;
     var imports: typeof Ember.imports;
+    var inject: typeof Ember.inject;
     var inspect: typeof Ember.inspect;
     var instrument: typeof Ember.instrument;
     var isArray: typeof Ember.isArray;
