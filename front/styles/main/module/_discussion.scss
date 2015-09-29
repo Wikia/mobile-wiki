@@ -79,20 +79,21 @@ $horizontal-padding: 15px;
 		&.upvote,
 		&.upvote-reply {
 			fill: $upvote-icon-color;
-			stroke: $upvote-icon-color;
 		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
+			stroke: $upvote-icon-color;
 		}
 	}
 
 	.has-upvoted {
 		.icon {
-			&.upvote,
-			&.upvote-reply {
+			&.upvote {
 				fill: $upvote-icon-activated-color;
+			}
+			&.upvote-reply {
 				stroke: $upvote-icon-activated-color;
 			}
 		}
