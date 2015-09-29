@@ -1,3 +1,7 @@
+## release-170 (2015-09-29 09:39 UTC)
+* [XW-343](https://wikia-inc.atlassian.net/browse/XW-343) XW-343 Add missing attributes
+* [XW-417](https://wikia-inc.atlassian.net/browse/XW-417) XW-417 Revert hotfix as there is a proper fix now on VCL
+
 ## release-169 hotfix 2 (2015-09-28 18:40 UTC)
 * release-169-fix-trending-articles: [HOTFIX] Fix trending articles images
 
