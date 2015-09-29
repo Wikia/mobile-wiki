@@ -94,10 +94,7 @@ export function getCachedWikiDomainName (localSettings: LocalSettings, request: 
  */
 export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 	var regex: RegExp,
-		match: RegExpMatchArray,
-		environment = localSettings.environment,
-		// For these environments the host name can be passed through
-		passThroughEnv: any = {};
+		match: RegExpMatchArray;
 
 	if (isXipHost(localSettings, hostName)) {
 		/**
@@ -129,7 +126,7 @@ export function clearHost (host: string): string {
 	var adDomainAliases: Array<string> = ['externaltest', 'showcase'];
 
 	host = host.split(':')[0]; // get rid of port
-	Object.keys(adDomainAliases).forEach(function (key){
+	Object.keys(adDomainAliases).forEach(function (key): void {
 		if (host.indexOf(adDomainAliases[key]) === 0) {
 			host = host.replace(adDomainAliases[key] + '.', ''); // get rid of domain aliases
 		}
@@ -201,7 +198,6 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 	return {
 		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 		apiBase: localSettings.apiBase,
-		servicesDomain: localSettings.servicesDomain,
 		environment: getEnvironmentString(env),
 		cdnBaseUrl: getCDNBaseUrl(localSettings)
 	};

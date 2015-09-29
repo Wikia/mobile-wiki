@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"Hauptseite bearbeiten",
     "curated-content-editor-featured-content":"Empfohlene Inhalte",
     "curated-content-editor-featured-description":"Empfohlene Inhalte können dazu verwendet werden, bestimmte Inhalte in deiner Community, wie Artikel, Videos oder Blogbeiträge zu markieren. Idealerweise sind diese Inhalte aktuell und von Relevanz für deine Leser. Außerdem sollten sie häufig aktualisiert werden.",
-    "curated-content-editor-block-help-text":"Ziehe die Einträge in der von dir bevorzugten Reihenfolge herüber. Tippe auf einen Eintrag, um dir die Konfigurationsmöglichkeiten anzusehen.",
-    "curated-content-editor-explore-the-wiki-description":"Mithilfe empfohlener Kategorien können die Benutzer deine Community auf hohem Level unter Verwendung der Mediawiki-Kategorien erforschen. Kategorien sollten in logische Gruppen wie „Filme\" oder „Comics\" aufgeteilt werden. Wenn eine Kategorie nicht in eine bestimmte Gruppe passt, empfehlen wir, sie dem nachfolgenden Abschnitt „Optionale Kategorien\" zuzuordnen.",
+    "curated-content-editor-block-help-text":"Verschiebe jeden Eintrag in der von dir bevorzugten Reihenfolge. Tippe auf die Pfeile neben dem Eintrag, um die Reihenfolge zu ändern.",
+    "curated-content-editor-featured-categories-description":"Mithilfe empfohlener Kategorien können die Benutzer deine Community auf hohem Level unter Verwendung der Mediawiki-Kategorien erforschen. Kategorien sollten in logische Gruppen wie „Filme“ oder „Comics“ aufgeteilt werden. Wenn eine Kategorie nicht in eine bestimmte Gruppe passt, empfehlen wir, sie dem nachfolgenden Abschnitt „Optionale Kategorien“ zuzuordnen.",
     "curated-content-editor-add-featured-content-button":"+ neue empfohlene Inhalte hinzufügen",
     "curated-content-editor-add-section-button":"+ neuen Abschnitt hinzufügen",
     "curated-content-editor-optional-description":"Du kannst alle Kategorien, bei denen es nicht sinnvoll erscheint, sie mit anderen Kategorien zu gruppieren, dem Abschnitt „Optionale Kategorien\" zuordnen.",
-    "curated-content-editor-explore-the-wiki":"Das Wikia erkunden",
+    "curated-content-editor-featured-categories":"Empfohlene Kategorien",
     "curated-content-editor-optional":"Optionale Kategorien",
     "curated-content-editor-upload-image":"Bild hochladen",
-    "curated-content-editor-new-item":"Neuer Eintrag",
     "curated-content-editor-empty-section-error":"Abschnitte dürfen nicht leer sein. Bitte füge diesem Abschnitt Einträge hinzu.",
     "curated-content-editor-remove-item-confirmation":"Bist du sicher, dass du diesen Eintrag löschen möchtest?",
     "curated-content-editor-general-section-error":"Bitte Fehler in diesem Abschnitt beheben.",
     "curated-content-editor-add-items-message":"Diesem Abschnitt bitte Einträge hinzufügen.",
     "curated-content-editor-missing-items-error":"Abschnitte dürfen nicht leer sein. Bitte füge dem Abschnitt Einträge hinzu.",
     "curated-content-editor-error-inside-items-message":"Bitte Fehler in den Einträgen beheben.",
-    "curated-content-editor-items-count":"__count__ Einträge",
+    "curated-content-editor-items-count":"__count__ Eintrag",
+    "curated-content-editor-items-count_plural":"__count__ Einträge",
     "curated-content-editor-exit-prompt":"Die Änderungen wurden noch nicht gespeichert. Bist du sicher, dass du die Seite verlassen möchtest?",
-    "curated-content-editor-main-page":"Hauptseite"
+    "curated-content-editor-main-page":"Hauptseite",
+    "curated-content-editor-new-featured-content":"Neue empfohlene Inhalte",
+    "curated-content-editor-new-section":"Neuer Ordner",
+    "curated-content-editor-new-category":"Neue Kategorie"
   },
   "discussion":{
-    "share-default-title":"Diskussion in __siteName__"
+    "share-default-title":"Diskussion in __siteName__",
+    "sort-by-latest":"Neueste",
+    "sort-by-trending":"Trends",
+    "number-of-posts":"__numberOfPosts__ Beiträge"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__ oder __loginLink__",
+    "register-text":"Registrieren",
+    "login-text":"Anmelden"
   }
 }

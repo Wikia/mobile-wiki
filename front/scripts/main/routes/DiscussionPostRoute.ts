@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/UseNewNavMixin.ts" />
+/// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
 
 'use strict';
-App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
+App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
 	model (params: any): Em.RSVP.Promise {
 		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
@@ -31,12 +32,5 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, {
 			enableShareHeader: false
 		});
 		this._super();
-	},
-
-	actions: {
-		didTransition(): boolean {
-			window.scrollTo(0, 0);
-			return true;
-		}
 	}
 });

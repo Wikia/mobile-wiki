@@ -1,22 +1,24 @@
 <div class="discussion-reply">
 	<div>
 		<div class="upvotes">
-			{{svg 'upvote-reply' viewBox='0 0 30 30' class='icon upvote-reply'}}
-			<small>{{upvoteCount}}</small>
+			{{discussion-upvote-reply
+				post=post
+				upvote='upvote'
+			}}
 		</div>
 		<figure class="avatar">
 			<a href="{{authorUrl}}">
-				<img src="{{author.avatarUrl}}">
+				<img src="{{post.createdBy.avatarUrl}}">
 			</a>
 		</figure>
 		<a href="{{authorUrl}}" class="author">
-			{{author.name}}
+			{{post.createdBy.name}}
 		</a>
 		<span class="timestamp">
-			&bull; {{timeAgo timestamp}}
+			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
 	</div>
 	<div class="discussion-content">
-		{{{content}}}
+		{{{post.rawContent}}}
 	</div>
 </div>

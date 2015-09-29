@@ -14,48 +14,42 @@ App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.T
 	style: null,
 	imageWidth: 250,
 
-	currentlyRenderedImageUrl: Em.computed.oneWay('emptyGif'),
 	href: Em.computed.oneWay('url'),
-
-	imageHeight: Em.computed(function (): number {
-		return Math.floor(this.get('imageWidth') * 9 / 16);
-	}),
-
-	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	}),
-
-	willInsertElement: function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	},
-
-	didInsertElement: function (): void {
+	currentlyRenderedImageUrl: Em.computed('imageUrl', function (): string {
 		if (this.get('imageUrl')) {
-			this.lazyLoadImage();
-		}
-	},
-
-	click: function (): void {
-		this.trackClick('modular-main-page', 'trending-articles');
-	},
-
-	lazyLoadImage: function (): void {
-		var options: any = {
+			var options:any = {
 				width: this.get('imageWidth'),
 				height: this.get('imageHeight'),
 				mode: this.get('cropMode')
-			},
-			imageUrl: string = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+			};
 
-		this.set('currentlyRenderedImageUrl', imageUrl);
+			return this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+		} else {
+			return this.get('emptyGif');
+		}
+	}),
+
+	imageHeight: Em.computed('imageWidth', function (): number {
+		return Math.floor(this.get('imageWidth') * 9 / 16);
+	}),
+
+	viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+		this.updateImageSize();
+	})),
+
+	click(): void {
+		this.trackClick('modular-main-page', 'trending-articles');
 	},
 
-	updateImageSize: function (viewportWidth: number): void {
-		var imageWidth = Math.floor((viewportWidth - 20) / 2),
+	updateImageSize(): void {
+		var viewportWidth: number = this.get('viewportDimensions.width'),
+			imageWidth = Math.floor((viewportWidth - 20) / 2),
 			imageWidthString = String(imageWidth),
 			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
 
-		this.set('style', Em.String.htmlSafe(`width: ${imageWidthString}px;`));
-		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
+		this.setProperties({
+			style: new Em.Handlebars.SafeString(`width: ${imageWidthString}px;`),
+			imageStyle: new Em.Handlebars.SafeString(`height: ${imageHeightString}px;`)
+		});
 	}
 });

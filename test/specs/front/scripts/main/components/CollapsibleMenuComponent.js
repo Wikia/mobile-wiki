@@ -1,12 +1,4 @@
-moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent', {
-	setup: function () {
-		var self = this;
-		// Mock transclusion of element to be slide toggled
-		Ember.run(function () {
-			self.$().append('<ol></ol>');
-		});
-	}
-});
+moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent');
 
 test('Beginning state', function () {
 	var component = this.subject();

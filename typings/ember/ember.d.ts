@@ -1300,6 +1300,11 @@ declare module Ember {
         static isClass: boolean;
         static isMethod: boolean;
     }
+
+    class Helper {
+        static helper(helper: Function): string;
+    }
+
     class HistoryLocation extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -2870,6 +2875,7 @@ declare module Ember {
     function hasOwnProperty(prop: string): boolean;
     function immediateObserver(func: Function, ...propertyNames: any[]): Function;
     var imports: {};
+    var inject: any;
     function inspect(obj: any): string;
     function instrument(name: string, payload: any, callback: Function, binding: any): void;
     function isArray(obj: any): boolean;
@@ -3051,6 +3057,7 @@ declare module Em {
         var log: typeof Ember.Handlebars.log;
     }
     class HashLocation extends Ember.HashLocation { }
+    class Helper extends Ember.Helper { }
     class HistoryLocation extends Ember.HistoryLocation { }
     var IS_BINDING: typeof Ember.IS_BINDING;
     class Instrumentation extends Ember.Instrumentation { }
@@ -3161,6 +3168,7 @@ declare module Em {
     var hasOwnProperty: typeof Ember.hasOwnProperty;
     var immediateObserver: typeof Ember.immediateObserver;
     var imports: typeof Ember.imports;
+    var inject: typeof Ember.inject;
     var inspect: typeof Ember.inspect;
     var instrument: typeof Ember.instrument;
     var isArray: typeof Ember.isArray;
