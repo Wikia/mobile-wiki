@@ -38,7 +38,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		}
 	}),
 
-	init() {
+	init(): void {
 		this.setProperties({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			language: Em.get(Mercury, 'wiki.language'),
@@ -92,7 +92,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 *
 		 * @param target
 		 */
-		handleLink(target: HTMLAnchorElement) {
+		handleLink(target: HTMLAnchorElement): void {
 			this.get('target').send('handleLink', target);
 		},
 
@@ -100,7 +100,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * @desc Handles query params that should open a lightbox.
 		 * If you add another param to the app you should modify this function.
 		 */
-		handleLightbox() {
+		handleLightbox(): void {
 			var file = this.get('file'),
 				map = this.get('map');
 
@@ -114,7 +114,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		/**
 		 * @desc Bubbles up to ApplicationRoute
 		 */
-		loadRandomArticle() {
+		loadRandomArticle(): void {
 			this.get('target').send('loadRandomArticle');
 		},
 

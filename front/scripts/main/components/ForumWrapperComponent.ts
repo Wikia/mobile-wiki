@@ -18,7 +18,7 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.Dis
 		}
 	},
 
-	didScroll() {
+	didScroll(): void {
 		if (this.hasMore() && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
 			this.setProperties({
 				pageNum: this.pageNum + 1,
@@ -28,16 +28,16 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.Dis
 		}
 	},
 
-	hasMore() {
+	hasMore(): boolean {
 		return this.totalPosts > this.postsDisplayed;
 	},
 
-	pageLoaded: Ember.observer('postsDisplayed', function() {
+	pageLoaded: Ember.observer('postsDisplayed', function (): void {
 		this.set('currentlyLoadingPage', false);
 	}),
 
 	// Check if scrolling should trigger fetching new posts
-	isScrolledToTrigger() {
+	isScrolledToTrigger(): boolean {
 		var windowHeight = $(window).height(),
 			triggerDistance = 0.25 * windowHeight,
 			distanceToViewportTop = $(document).height() - windowHeight,

@@ -23,7 +23,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		return type ?  'lightbox-' + type : null;
 	}),
 
-	click(event: MouseEvent) {
+	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
 
 		if ($target.is('.lightbox-footer')) {

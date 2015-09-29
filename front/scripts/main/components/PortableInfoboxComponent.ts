@@ -85,7 +85,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * @desc In case of long infobox, setups click
 	 * handling function to this infobox component.
 	 */
-	didInsertElement() {
+	didInsertElement(): void {
 		if (this.get('isLongInfobox')) {
 			this.handleCollapsing();
 			this.$().click(this.onInfoboxClick.bind(this));

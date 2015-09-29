@@ -41,7 +41,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		toggleExpand() {
+		toggleExpand(): void {
 			this.toggleProperty('isExpanded');
 		}
 	},

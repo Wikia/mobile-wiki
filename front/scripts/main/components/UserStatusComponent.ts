@@ -86,7 +86,7 @@ App.UserStatusComponent = Em.Component.extend({
 	 * Add redirect URL on click to make sure it accurately reflects current URL
 	 * @param event
 	 */
-	click(event: Event) {
+	click(event: Event): void {
 		// handle join, register, and login links for anons
 		if (!this.get('userLoggedIn')) {
 			var $target: JQuery = $(event.target).closest('a'),

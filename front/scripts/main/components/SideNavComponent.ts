@@ -50,7 +50,7 @@ App.SideNavComponent = Em.Component.extend({
 		 * Temporary solution for enter on search, will be refactored to be a route in mercury
 		 * @param value of input
 		 */
-		enter(value = '') {
+		enter(value = ''): void {
 			window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
 		}
 	},
