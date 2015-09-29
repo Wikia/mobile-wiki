@@ -13,7 +13,7 @@ App.PostDetailComponent = Em.Component.extend({
 		});
 	}),
 
-	click: function (): void {
+	click(): void {
 		this.sendAction('action', this.get('postId'));
 	}
 });

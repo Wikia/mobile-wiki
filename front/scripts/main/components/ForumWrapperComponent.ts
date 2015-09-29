@@ -12,12 +12,12 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	isLoading: true,
 
 	actions: {
-		goToPost: function (postId: number): void {
+		goToPost(postId: number): void {
 			this.sendAction('goToPost', postId);
 		}
 	},
 
-	didScroll: function() {
+	didScroll() {
 		if (this.hasMore() && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
 			this.setProperties({
 				pageNum: this.pageNum + 1,
@@ -27,7 +27,7 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 		}
 	},
 
-	hasMore: function() {
+	hasMore() {
 		return this.totalPosts > this.postsDisplayed;
 	},
 
@@ -36,7 +36,7 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 	}),
 
 	// Check if scrolling should trigger fetching new posts
-	isScrolledToTrigger: function() {
+	isScrolledToTrigger() {
 		var windowHeight = $(window).height(),
 			triggerDistance = 0.25 * windowHeight,
 			distanceToViewportTop = $(document).height() - windowHeight,
@@ -45,11 +45,11 @@ App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
 		return distanceToViewportTop - viewPortTop < triggerDistance;
 	},
 
-	didInsertElement: function() {
+	didInsertElement(): void {
 		$(window).on('scroll', this.didScroll.bind(this));
 	},
 
-	willDestroyElement: function() {
+	willDestroyElement(): void {
 		$(window).off('scroll', this.didScroll.bind(this));
 	}
 });

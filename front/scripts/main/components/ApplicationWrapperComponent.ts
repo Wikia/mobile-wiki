@@ -55,15 +55,15 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 		}
 	}),
 
-	willInsertElement: function (): void {
+	willInsertElement(): void {
 		$('#preload').remove();
 	},
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		this.trackFirstContent();
 	},
 
-	trackFirstContent: function (): void {
+	trackFirstContent(): void {
 		M.trackPerf({
 			name: 'firstContent',
 			type: 'mark'
@@ -75,7 +75,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	 * cancel the click event on the current page, then the mouseUp handler would open
 	 * the external link in a new page _and_ the current page would be set to that external link.
 	 */
-	click: function (event: MouseEvent): void {
+	click(event: MouseEvent): void {
 		/**
 		 * check if the target has a parent that is an anchor
 		 * We do this for links in the form <a href='...'>Blah <i>Blah</i> Blah</a>,
@@ -99,7 +99,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	/**
 	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
 	 */
-	shouldHandleClick: function (target: EventTarget): boolean {
+	shouldHandleClick(target: EventTarget): boolean {
 		var $target: JQuery = $(target),
 			isReference: boolean = this.targetIsReference(target);
 
@@ -115,7 +115,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	/**
 	 * Determine if the clicked target is an reference/in references list (in text or at the bottom of article)
 	 */
-	targetIsReference: function (target: EventTarget): boolean {
+	targetIsReference(target: EventTarget): boolean {
 		var $target: JQuery = $(target);
 
 		return !!(
@@ -124,7 +124,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 		);
 	},
 
-	handleLink: function (target: HTMLAnchorElement): void {
+	handleLink(target: HTMLAnchorElement): void {
 		Em.Logger.debug('Handling link with href:', target.href);
 
 		/**
