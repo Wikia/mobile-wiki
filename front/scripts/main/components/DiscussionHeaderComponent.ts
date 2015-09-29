@@ -12,6 +12,8 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	}),
 	overlay: null,
 
+	headroomEnabled: true,
+
 	didInsertElement: function () {
 		this.set('overlay', this.element.querySelector('.overlay'));
 		this._super();
