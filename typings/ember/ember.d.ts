@@ -1300,6 +1300,11 @@ declare module Ember {
         static isClass: boolean;
         static isMethod: boolean;
     }
+
+    class Helper {
+        static helper(helper: Function): string;
+    }
+
     class HistoryLocation extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -3052,6 +3057,7 @@ declare module Em {
         var log: typeof Ember.Handlebars.log;
     }
     class HashLocation extends Ember.HashLocation { }
+    class Helper extends Ember.Helper { }
     class HistoryLocation extends Ember.HistoryLocation { }
     var IS_BINDING: typeof Ember.IS_BINDING;
     class Instrumentation extends Ember.Instrumentation { }

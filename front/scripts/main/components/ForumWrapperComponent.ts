@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 /// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 'use strict';
 
-App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, {
+App.ForumWrapperComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.DiscussionUpvoteActionSendMixin, {
 	classNames: ['forum-wrapper'],
 
 	postsDisplayed: 0,

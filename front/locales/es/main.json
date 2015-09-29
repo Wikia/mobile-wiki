@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"Editar la portada",
     "curated-content-editor-featured-content":"Contenido destacado",
     "curated-content-editor-featured-description":"El contenido destacado se puede usar para resaltar un contenido específico en tu comunidad como un artículo, video o entrada de blog. Idealmente, este contenido es oportuno y pertinente para tus lectores, y debe actualizarse con frecuencia.",
-    "curated-content-editor-block-help-text":"Arrastra cada elemento en el orden que prefieras. Toca el elemento para revelar las opciones de configuración.",
-    "curated-content-editor-explore-the-wiki-description":"Las categorías destacadas permiten a tus usuarios explorar tu comunidad a un alto nivel, mediante el uso de categorías de Mediawiki. Las categorías deben agruparse en secciones lógicas como \"Películas\" o \"Comics\". Si la categoría no funciona como parte de un grupo, sugerimos que la coloques en la sección de Categorías opcionales, en la parte de abajo.",
+    "curated-content-editor-block-help-text":"Mueve cada elemento en el orden que prefieras. Toque las flechas que se encuentran al costado del elemento para cambiar el orden.",
+    "curated-content-editor-featured-categories-description":"Las categorías destacadas permiten a tus usuarios explorar tu comunidad a un alto nivel, mediante el uso de categorías de Mediawiki. Las categorías deben agruparse en secciones lógicas como \"Películas\" o \"Comics\". Si la categoría no funciona como parte de un grupo, sugerimos que la coloques en la sección de Categorías opcionales, en la parte de abajo.",
     "curated-content-editor-add-featured-content-button":"+ Añadir nuevo contenido destacado",
     "curated-content-editor-add-section-button":"+ Añadir nueva sección",
     "curated-content-editor-optional-description":"Para todas las categorías que no tienen sentido agruparlas con otras categorías, puedes colocarlas en la sección de categorías opcionales.",
-    "curated-content-editor-explore-the-wiki":"Explorar la wikia",
+    "curated-content-editor-featured-categories":"Categorías destacadas",
     "curated-content-editor-optional":"Categorías opcionales",
     "curated-content-editor-upload-image":"Subir una imagen",
-    "curated-content-editor-new-item":"Elemento nuevo",
     "curated-content-editor-empty-section-error":"Las secciones no pueden estar vacías. Por favor agrega artículos a esta sección.",
     "curated-content-editor-remove-item-confirmation":"¿Estás seguro de que quieres borrar este elemento?",
     "curated-content-editor-general-section-error":"Arregla los errores en esta sección.",
     "curated-content-editor-add-items-message":"Agrega elementos a esta sección.",
     "curated-content-editor-missing-items-error":"Las secciones no pueden estar vacías. Por favor agrega elementos a la sección.",
     "curated-content-editor-error-inside-items-message":"Arregla los errores dentro de los elementos.",
-    "curated-content-editor-items-count":"__count__ elementos",
+    "curated-content-editor-items-count":"__count__ elemento",
+    "curated-content-editor-items-count_plural":"__count__ elementos",
     "curated-content-editor-exit-prompt":"Tienes cambios sin guardar. ¿Estás seguro que deseas salir?",
-    "curated-content-editor-main-page":"Portada"
+    "curated-content-editor-main-page":"Portada",
+    "curated-content-editor-new-featured-content":"Nuevo contenido destacado",
+    "curated-content-editor-new-section":"Nueva sección",
+    "curated-content-editor-new-category":"Nueva categoría"
   },
   "discussion":{
-    "share-default-title":"Discusión en __siteName__"
+    "share-default-title":"Discusión en __siteName__",
+    "sort-by-latest":"Más recientes",
+    "sort-by-trending":"Tendencias",
+    "number-of-posts":"__numberOfPosts__ publicaciones"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__ o __loginLink__",
+    "register-text":"Registrarse",
+    "login-text":"Iniciar sesión"
   }
 }
