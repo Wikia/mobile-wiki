@@ -11,6 +11,9 @@
 		{{#if themeColor}}
 			<meta name="theme-color" content="{{themeColor}}">
 		{{/if}}
+		{{#if wiki.specialRobotPolicy}}
+			<meta name="robots" content="{{wiki.specialRobotPolicy}}">
+		{{/if}}
 		{{#if asyncArticle}}
 			<meta name="fragment" content="!">
 		{{/if}}
