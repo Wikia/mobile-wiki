@@ -8,12 +8,9 @@ import processCuratedContentData = require('./operations/processCuratedContentDa
 
 function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
-		//@TODO remove when https://github.com/Wikia/chef-repo/pull/6681 fixed
-		staging = request.headers['x-staging'],
 		params: MainPageRequestParams = {
 			sectionName: decodeURIComponent(request.params.sectionName) || null,
-			wikiDomain: wikiDomain,
-			staging: staging
+			wikiDomain: wikiDomain
 		},
 		mainPage: MainPage.MainPageRequestHelper,
 		allowCache = true;

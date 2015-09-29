@@ -12,9 +12,7 @@ import localSettings = require('../../config/localSettings');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
-		//@TODO remove when https://github.com/Wikia/chef-repo/pull/6681 fixed
-		staging = request.headers['x-staging'],
-		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain, staging: staging}).wikiVariables(),
+		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).wikiVariables(),
 		context: any = {};
 
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData

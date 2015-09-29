@@ -1,10 +1,10 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury" />
-/// <reference path="../mixins/EditMixin.ts" />
+/// <reference path="../mixins/ArticleEditMixin.ts" />
 /// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
 'use strict';
 
-App.AddPhotoModel = Em.Object.extend({
+App.ArticleAddPhotoModel = Em.Object.extend({
 	title: null,
 	sectionIndex: null,
 	photoData: null,
@@ -18,24 +18,24 @@ interface FileNameSeparated {
 	extension: string;
 }
 
-App.AddPhotoModel.separateFileNameAndExtension = function(fileName: string): FileNameSeparated {
+App.ArticleAddPhotoModel.separateFileNameAndExtension = function(fileName: string): FileNameSeparated {
 	var name = fileName.substr(0, fileName.lastIndexOf('.')),
 		extension = fileName.substr(fileName.lastIndexOf('.') + 1),
 		fileNameSeparated: FileNameSeparated = { name: name, extension: extension };
 	return fileNameSeparated;
 };
 
-App.AddPhotoModel.reopenClass(App.EditMixin, {
+App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 	load(photoData: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var oFReader = new FileReader();
 			oFReader.readAsDataURL(photoData);
 			oFReader.onload = function (oFREvent: any): void {
-				var separatedName = App.AddPhotoModel.separateFileNameAndExtension(photoData.name),
+				var separatedName = App.ArticleAddPhotoModel.separateFileNameAndExtension(photoData.name),
 				photoName = separatedName.name,
 				photoExtension = separatedName.extension;
 				resolve(
-					App.AddPhotoModel.create({
+					App.ArticleAddPhotoModel.create({
 						photoData: photoData,
 						photoImage: oFREvent.target.result,
 						photoName: photoName,

@@ -127,7 +127,7 @@ App.SmartBannerComponent = Em.Component.extend({
 			this.sendAction('toggleVisibility', true);
 			this.track(M.trackActions.impression);
 		} else {
-			this.destroy();
+			this.set('isVisible', false);
 		}
 	},
 
