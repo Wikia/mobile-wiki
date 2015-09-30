@@ -16,6 +16,7 @@ interface QueryUserInfoGroupsRightsResponse {
 App.CurrentUser = Em.Object.extend({
 	rights: {},
 	isAuthenticated: Em.computed.bool('userId'),
+	language: null,
 
 	userId: Em.computed(function (): number {
 		var cookieUserId = parseInt(M.prop('userId'), 10);
@@ -33,7 +34,7 @@ App.CurrentUser = Em.Object.extend({
 					Em.Logger.warn('Couldn\'t load current user model', err);
 				});
 
-			this.loadRights()
+			this.loadUserData()
 				.then((rightsArray: string[]): void => {
 					var rights = {};
 
@@ -50,7 +51,7 @@ App.CurrentUser = Em.Object.extend({
 		this._super();
 	},
 
-	loadRights(): Em.RSVP.Promise {
+	loadUserData(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: '/api.php',
@@ -63,6 +64,9 @@ App.CurrentUser = Em.Object.extend({
 				dataType: 'json',
 				success: (result: QueryUserInfoGroupsRightsResponse): void => {
 					var rights = Em.get(result, 'query.userinfo.rights');
+
+					this.language = Em.getWithDefault(result, 'query.userinfo.options.language', 'en');
+					M.prop('userLanguage', this.language);
 
 					if (Em.isArray(rights)) {
 						resolve(rights);
