@@ -148,6 +148,10 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				});
 		},
 
+		search: function (searchString : string) {
+			this.transitionTo('searchResults', {queryParams: {q: searchString}});
+		},
+
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes
 		// see http://emberjs.com/images/template-guide/action-bubbling.png
 		handleLightbox: function (): void {
