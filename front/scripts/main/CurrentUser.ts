@@ -58,7 +58,7 @@ App.CurrentUser = Em.Object.extend({
 				data: {
 					action: 'query',
 					meta: 'userinfo',
-					uiprop: 'rights',
+					uiprop: 'rights|options',
 					format: 'json'
 				},
 				dataType: 'json',
