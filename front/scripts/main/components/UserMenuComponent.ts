@@ -28,7 +28,7 @@ App.UserMenuComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		hide: function (): void {
+		hide(): void {
 			this.sendAction('toggleVisibility', false);
 		}
 	}

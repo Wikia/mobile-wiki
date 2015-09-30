@@ -26,7 +26,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 */
 	screenEdgeWidthRatio: (1 / 3),
 
-	preventDefaultActions: function (event: PreventableClickEvent): void {
+	preventDefaultActions(event: PreventableClickEvent): void {
 		event.preventDefault();
 		event.stopPropagation();
 	},
@@ -37,7 +37,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 * @param {PreventableClickEvent} event
 	 * @param {boolean} preventDefault
 	 */
-	callClickHandler: function (event: PreventableClickEvent, preventDefault: boolean = false): void {
+	callClickHandler(event: PreventableClickEvent, preventDefault: boolean = false): void {
 		var viewportWidth = this.get('viewportWidth'),
 			x = event.clientX,
 			screenEdgeWidth = viewportWidth * this.get('screenEdgeWidthRatio'),

@@ -18,7 +18,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	limit: 2,
 	incrementLimitValue: 10,
 
-	setUp: function (): void {
+	setUp(): void {
 		var mediaArray = Em.A(),
 			emptyGif = this.get('emptyGif');
 
@@ -47,7 +47,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 		return this.get('media');
 	}),
 
-	loadImages: function (
+	loadImages(
 		imageOrGalleryRef: any,
 		limit: number = 2,
 		thumbSize: number = this.get('thumbSize')
@@ -84,7 +84,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	/**
 	 * Loads media and certain amount of images depending on the gallery width and thumbSize sets also onscroll handler
 	 */
-	load: function (): void {
+	load(): void {
 		var $this: JQuery = this.$(),
 			galleryWidth: number = $this.width(),
 			thumbSize: number = this.get('thumbSize'),
@@ -106,7 +106,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, {
 	 * the position: relative has to be set on .article-gallery in order to assign
 	 * proper offsetParent to the image element.
 	 */
-	onScroll: function (maxImages: number): void {
+	onScroll(maxImages: number): void {
 		var $this = this.$(),
 			imagesToLoad = $this.find('img:not(.loaded)'),
 			galleryOffset = $this.scrollLeft() + $this.width();
