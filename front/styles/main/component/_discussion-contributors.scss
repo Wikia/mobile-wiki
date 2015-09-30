@@ -32,6 +32,12 @@ $discussion-contributors-avatar-dimension: 30px;
 	}
 }
 
+.discussion-contributors-mobile {
+	background-color: $vapor;
+	border: none;
+	padding: 14px 9px;
+}
+
 .rail {
 	.discussion-contributors {
 		display: inline-block;

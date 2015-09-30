@@ -20,6 +20,13 @@
 			upvoteCount=model.upvoteCount
 			upvote='upvote'
 		}}
+		<div class="desktop-hidden discussion-contributors-mobile">
+			{{discussion-contributors
+				contributors=model.contributors
+				maxContributorDisplayCount=7
+				totalContributorCount=model.postCount
+			}}
+		</div>
 		{{#if canShowMore}}
 	        <button {{action 'expand'}} class="see-more">
 				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
