@@ -1,25 +1,20 @@
-<div class="discussion forum">
-	{{#each posts as |item|}}
-		{{post-detail
-		action='goToPost'
+{{#each posts as |item|}}
+	{{post-detail
 		goToPost='goToPost'
+		upvote='upvote'
+		post=item._embedded.firstPost.[0]
 		postId=item.id
-		author=item._embedded.firstPost.0.createdBy
-		content=item._embedded.firstPost.0.rawContent
-		timestamp=item._embedded.firstPost.0.creationDate.epochSecond
-		upvoteCount=item.upvoteCount
 		replyCount=item.postCount
-		}}
-	{{/each}}
-	{{#if hasMore}}
-		{{loading-spinner
-			active=isLoading
-			overlay=false
-			radius=32
-			strokeWidth=2
-		}}
-        <div class="load-more">
-			{{i18n 'discussion.loading-more-posts'}}
-		</div>
-	{{/if}}
-</div>
+	}}
+{{/each}}
+{{#if hasMore}}
+	{{loading-spinner
+		active=isLoading
+		overlay=false
+		radius=32
+		strokeWidth=2
+	}}
+    <div class="load-more">
+		{{i18n 'discussion.loading-more-posts'}}
+	</div>
+{{/if}}

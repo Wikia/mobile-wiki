@@ -25,8 +25,8 @@
 		}}
 	{{/if}}
 
-	{{#if enableSharingHeader}}
-		{{share-feature
+	{{#if enableShareHeader}}
+		{{share-header
 			smartBannerVisible=smartBannerVisible
 			title=currentTitle
 			language=language
@@ -41,9 +41,13 @@
 		shouldBeVisible=userMenuVisible
 		toggleVisibility=attrs.toggleUserMenu
 	}}
-	<div class='page-wrapper' lang={{language.content}} dir={{language.contentDir}}>
+	{{#if noMargins}}
 		{{outlet}}
-	</div>
+	{{else}}
+        <div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+			{{outlet}}
+        </div>
+	{{/if}}
 	{{lightbox-wrapper
 		type=lightboxType
 		model=lightboxModel

@@ -11,6 +11,9 @@
 		{{#if themeColor}}
 			<meta name="theme-color" content="{{themeColor}}">
 		{{/if}}
+		{{#if wiki.specialRobotPolicy}}
+			<meta name="robots" content="{{wiki.specialRobotPolicy}}">
+		{{/if}}
 		{{#if asyncArticle}}
 			<meta name="fragment" content="!">
 		{{/if}}
@@ -44,7 +47,7 @@
 			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
 			M.prop('userId', {{{userId}}});
 			M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
-			M.prop('servicesDomain', '{{{server.servicesDomain}}}' || 'services.wikia.com');
+			M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
 			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
 			M.provide('ads.slots', []);
 			M.provide('wiki', {{{json wiki}}});

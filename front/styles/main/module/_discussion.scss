@@ -1,5 +1,9 @@
 $horizontal-padding: 15px;
 
+.discussion-page {
+	width: 100%;
+}
+
 .discussion {
 	background-color: $color-white;
 	font-size: $type-smallest;
@@ -76,11 +80,26 @@ $horizontal-padding: 15px;
 		height: 20px;
 		width: 20px;
 		vertical-align: middle;
-
+		&.upvote,
+		&.upvote-reply {
+			fill: $upvote-icon-color;
+		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
+			stroke: $upvote-icon-color;
+		}
+	}
+
+	.has-upvoted {
+		.icon {
+			&.upvote {
+				fill: $upvote-icon-activated-color;
+			}
+			&.upvote-reply {
+				stroke: $upvote-icon-activated-color;
+			}
 		}
 	}
 
@@ -169,12 +188,6 @@ $horizontal-padding: 15px;
 
 	.discussion {
 		background-color: transparent;
-		width: 507px;
-
-		.icon {
-			height: 24px;
-			width: 24px;
-		}
 
 		&.forum {
 			margin-left: auto;
@@ -186,7 +199,29 @@ $horizontal-padding: 15px;
 				border-width: 0;
 				margin-bottom: 5px;
 				padding: 20px 30px;
+				width: 507px;
 			}
+		}
+
+		&.post {
+			.post-detail {
+				width: 588px;
+			}
+
+			.post-reply {
+				width: 524px;
+			}
+		}
+
+		.icon {
+			height: 24px;
+			width: 24px;
+		}
+
+		.post-detail,
+		.post-reply {
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
 }
