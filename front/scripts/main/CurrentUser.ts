@@ -34,7 +34,7 @@ App.CurrentUser = Em.Object.extend({
 					Em.Logger.warn('Couldn\'t load current user model', err);
 				});
 
-			this.loadUserData()
+			this.loadUserInfo()
 				.then((rightsArray: string[]): void => {
 					var rights = {};
 
@@ -51,7 +51,7 @@ App.CurrentUser = Em.Object.extend({
 		this._super();
 	},
 
-	loadUserData(): Em.RSVP.Promise {
+	loadUserInfo(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: '/api.php',
