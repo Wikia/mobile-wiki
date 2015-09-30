@@ -5,6 +5,8 @@ import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend');
 
+import url = require('url');
+
 interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
 	signupHref: string;
@@ -38,7 +40,8 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 	}
 
 	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
-		response = reply.redirect('/register');
+		request.url.pathname = '/register';
+		response = reply.redirect(url.format(request.url));
 		caching.disableCache(response);
 		return response;
 	}
