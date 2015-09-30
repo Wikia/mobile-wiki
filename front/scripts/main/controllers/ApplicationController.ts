@@ -136,6 +136,15 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		},
 
 		/**
+		 * @desc Bubbles up to ApplicationRoute
+		 *
+		 * @param searchString
+		 */
+		search: function (searchString : string) {
+			this.get('target').send('search', searchString);
+		},
+
+		/**
 		 * @desc Sets query param with given name to given value. Uses whitelist.
 		 *
 		 * @param name
