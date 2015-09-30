@@ -22,11 +22,12 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	userMenuVisible: false,
 	noScroll: false,
 	fullPage: false,
+	noMargins: false,
 	lightboxType: null,
 	lightboxModel: null,
 	lightboxVisible: false,
-	// Controls the appearance of the share-feature component
-	enableSharingHeader: false,
+	// Controls the appearance of the share-header component
+	enableShareHeader: false,
 	// For rolling out the new top-bar component for the global nav
 	useNewNav: false,
 
@@ -132,6 +133,15 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 				lightboxVisible: true,
 				noScroll: true
 			});
+		},
+
+		/**
+		 * @desc Bubbles up to ApplicationRoute
+		 *
+		 * @param searchString
+		 */
+		search: function (searchString : string) {
+			this.get('target').send('search', searchString);
 		},
 
 		/**

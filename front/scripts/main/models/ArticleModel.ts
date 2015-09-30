@@ -183,6 +183,9 @@ App.ArticleModel.reopenClass({
 			}
 
 			if (source.adsContext) {
+				if (source.adsContext.targeting) {
+					source.adsContext.targeting.mercuryPageCategories = data.categories;
+				}
 				data.adsContext = source.adsContext;
 			}
 

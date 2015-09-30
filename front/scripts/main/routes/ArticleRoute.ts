@@ -57,11 +57,11 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	activate (): void {
-		this.controllerFor('application').set('enableSharingHeader', true);
+		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	deactivate (): void {
-		this.controllerFor('application').set('enableSharingHeader', false);
+		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	actions: {
