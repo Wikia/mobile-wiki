@@ -60,6 +60,9 @@ App.DiscussionForumModel.reopenClass({
 					 `/discussion/${wikiId}/forums/${forumId}`,
 				data: requestData,
 				dataType: 'json',
+				xhrFields: {
+					withCredentials: true,
+				},
 				success: (data: any) => {
 					var contributors: any[] = [],
 						posts = data._embedded['doc:threads'],

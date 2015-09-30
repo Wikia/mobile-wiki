@@ -1,8 +1,10 @@
 <div class="discussion-reply">
 	<div>
 		<div class="upvotes">
-			{{svg 'upvote-reply' viewBox='0 0 30 30' class='icon upvote-reply'}}
-			<small>{{upvoteCount}}</small>
+			{{discussion-upvote-reply
+				post=post
+				upvote='upvote'
+			}}
 		</div>
 		{{user-avatar
 			avatarUrl=author.avatarUrl
@@ -11,10 +13,10 @@
 			displayUsername=true
 		}}
 		<span class="timestamp">
-			&bull; {{timeAgo timestamp}}
+			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
 	</div>
 	<div class="discussion-content">
-		{{{content}}}
+		{{{post.rawContent}}}
 	</div>
 </div>

@@ -17,3 +17,17 @@
 		}
 	}
 }
+
+.community-badge {
+	img {
+		-webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+		-moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+	}
+
+	p {
+		color: #666666;
+		font-size: 1.5rem;
+		line-height: 1.25;
+	}
+}
