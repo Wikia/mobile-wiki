@@ -55,7 +55,7 @@ App.ArticleModel = Em.Object.extend({
 });
 
 App.ArticleModel.reopenClass({
-	url: function (params: {title: string; redirect?: string}): string {
+	url(params: {title: string; redirect?: string}): string {
 		var redirect = '';
 
 		if (params.redirect) {
@@ -65,7 +65,7 @@ App.ArticleModel.reopenClass({
 		return App.get('apiBase') + '/article/' + params.title + redirect;
 	},
 
-	find: function (params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
+	find(params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
 		var model = App.ArticleModel.create(params);
 
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
@@ -97,7 +97,7 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
-	getArticleRandomTitle: function (): Em.RSVP.Promise {
+	getArticleRandomTitle(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: App.get('apiBase') + '/article?random&titleOnly',
@@ -120,7 +120,7 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
-	getPreloadedData: function (): any {
+	getPreloadedData(): any {
 		var article = Mercury.article,
 			adsInstance: Mercury.Modules.Ads,
 			instantGlobals = Wikia.InstantGlobals || {};
@@ -134,7 +134,7 @@ App.ArticleModel.reopenClass({
 		return article;
 	},
 
-	setArticle: function (model: typeof App.ArticleModel, source = this.getPreloadedData()): void {
+	setArticle(model: typeof App.ArticleModel, source = this.getPreloadedData()): void {
 		var data: any = {};
 
 		if (source.error) {
@@ -183,6 +183,9 @@ App.ArticleModel.reopenClass({
 			}
 
 			if (source.adsContext) {
+				if (source.adsContext.targeting) {
+					source.adsContext.targeting.mercuryPageCategories = data.categories;
+				}
 				data.adsContext = source.adsContext;
 			}
 

@@ -4,7 +4,7 @@
 'use strict';
 
 App.NotFoundRoute = Em.Route.extend({
-	beforeModel: function (transition: EmberStates.Transition): void {
+	beforeModel(transition: EmberStates.Transition): void {
 		this.transitionTo('article', transition.params.notFound.url);
 	}
 });

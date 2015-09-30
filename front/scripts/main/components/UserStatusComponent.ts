@@ -70,7 +70,7 @@ App.UserStatusComponent = Em.Component.extend({
 		];
 	}),
 
-	getUselangParam: function (): string {
+	getUselangParam(): string {
 		var lang: string = Em.get(Mercury, 'wiki.language.content');
 		if (!lang || lang === 'en') {
 			return '';
@@ -78,7 +78,7 @@ App.UserStatusComponent = Em.Component.extend({
 		return '&uselang=' + encodeURIComponent(lang);
 	},
 
-	getRedirectString: function (): string {
+	getRedirectString(): string {
 		return '?redirect=' + encodeURIComponent(window.location.href) + this.getUselangParam();
 	},
 
@@ -86,7 +86,7 @@ App.UserStatusComponent = Em.Component.extend({
 	 * Add redirect URL on click to make sure it accurately reflects current URL
 	 * @param event
 	 */
-	click: function (event: Event) {
+	click(event: Event): void {
 		// handle join, register, and login links for anons
 		if (!this.get('userLoggedIn')) {
 			var $target: JQuery = $(event.target).closest('a'),

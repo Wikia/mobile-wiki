@@ -16,7 +16,7 @@ App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
+		error(error: any, transition: EmberStates.Transition): boolean {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.edit-load-error'),
 				type: 'alert'
