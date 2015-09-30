@@ -28,6 +28,7 @@ interface Response {
 			media: any[];
 			users: any;
 			categories: any[];
+			redirectEmptyTarget: boolean;
 		};
 		isMainPage: boolean;
 		mainPageData: any[];
@@ -169,7 +170,8 @@ App.ArticleModel.reopenClass({
 					media: App.MediaModel.create({
 						media: article.media
 					}),
-					categories: article.categories
+					categories: article.categories,
+					redirectEmptyTarget: source.redirectEmptyTarget
 				});
 			}
 
