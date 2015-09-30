@@ -20,7 +20,7 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 	hideShareTimeout: null,
 
 	// URL passed to the ShareFeatureComponent for sharing a post
-	sharedUrl: Em.computed(function () {
+	sharedUrl: Em.computed('postId', function () {
 		return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)
 			+ '/d/p/' + this.get('postId');
 	}),
