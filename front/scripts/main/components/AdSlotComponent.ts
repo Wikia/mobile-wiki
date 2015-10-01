@@ -35,7 +35,7 @@ App.AdSlotComponent = Em.Component.extend({
 		}
 	}),
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		if (this.get('noAds') === true) {
 			Em.Logger.info('Ad disabled for:', this.get('name'));
 		} else {
@@ -44,7 +44,7 @@ App.AdSlotComponent = Em.Component.extend({
 		}
 	},
 
-	willDestroyElement: function(): void {
+	willDestroyElement(): void {
 		var name = this.get('name');
 
 		Mercury.Modules.Ads.getInstance().removeSlot(this.get('name'));
