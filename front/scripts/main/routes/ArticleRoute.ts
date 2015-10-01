@@ -57,7 +57,7 @@ App.ArticleRoute = Em.Route.extend({
 		// Reset query parameters
 		model.set('commentsPage', null);
 
-		this.set('redirectEmptyTarget', model.redirectEmptyTarget);
+		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
 	activate (): void {

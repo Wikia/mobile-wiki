@@ -171,7 +171,7 @@ App.ArticleModel.reopenClass({
 						media: article.media
 					}),
 					categories: article.categories,
-					redirectEmptyTarget: source.redirectEmptyTarget
+					redirectEmptyTarget: source.redirectEmptyTarget || false
 				});
 			}
 
