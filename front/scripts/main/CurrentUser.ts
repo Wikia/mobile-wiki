@@ -36,8 +36,8 @@ App.CurrentUser = Em.Object.extend({
 				});
 
 			this.loadUserInfo()
-				.then(this.loadUserLanguage)
-				.then(this.loadUserRights)
+				.then(this.loadUserLanguage.bind(this))
+				.then(this.loadUserRights.bind(this))
 				.catch((err: any): void => {
 					Em.Logger.warn('Couldn\'t load current user rights', err);
 				});
@@ -46,20 +46,20 @@ App.CurrentUser = Em.Object.extend({
 	},
 
 	loadUserLanguage(result: QueryUserInfoGroupsRightsResponse): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve:Function, reject:Function):void => {
+		return new Em.RSVP.Promise(function (resolve: Function, reject: Function): void {
 			var language = Em.getWithDefault(result, 'query.userinfo.options.language', 'en');
 
 			this.set('language', language);
 			M.prop('userLanguage', this.language);
 
 			resolve(result);
-		});
+		}.bind(this));
 	},
 
 	loadUserRights(result: QueryUserInfoGroupsRightsResponse): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+		return new Em.RSVP.Promise(function (resolve: Function, reject: Function): void {
 			var rightsArray = Em.get(result, 'query.userinfo.rights'),
-				rights: {};
+				rights = {};
 
 			if (!Em.isArray(rightsArray)) {
 				reject(result);
@@ -72,7 +72,7 @@ App.CurrentUser = Em.Object.extend({
 			this.set('rights', rights);
 
 			resolve(result);
-		});
+		}.bind(this));
 	},
 
 	loadUserInfo(): Em.RSVP.Promise {
