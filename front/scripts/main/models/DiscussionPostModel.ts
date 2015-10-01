@@ -81,7 +81,7 @@ App.DiscussionPostModel.reopenClass({
 								namespace: 'User',
 								title: author.name
 							});
-							contributors.push(author)
+							contributors.push(author);
 						}
 					});
 

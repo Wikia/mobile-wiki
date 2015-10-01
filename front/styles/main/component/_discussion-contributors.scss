@@ -33,7 +33,7 @@ $discussion-contributors-avatar-dimension: 30px;
 }
 
 .discussion-contributors-mobile {
-	background-color: $vapor;
+	background-color: #F6F6F6;
 	border: none;
 	padding: 14px 9px;
 }
@@ -45,7 +45,7 @@ $discussion-contributors-avatar-dimension: 30px;
 	}
 
 	.discussion-contributors-title {
-		color: $oil;
+		color: #333;
 		font-size: $type-smallest;
 		font-weight: bold;
 		line-height: 18px;
