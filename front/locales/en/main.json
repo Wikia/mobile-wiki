@@ -147,7 +147,9 @@
 		"sort-by-latest": "Latest",
 		"sort-by-trending": "Trending",
 		"loading-more-posts": "Loading more posts",
-		"number-of-posts": "__numberOfPosts__ Posts"
+		"number-of-posts": "__numberOfPosts__ Posts",
+		"error-cant-connect": "Can't connect, please try again.",
+		"action-retry-title": "Click to retry"
 	},
 	"userStatus": {
 		"anon-cta": "__registerLink__ or __loginLink__",

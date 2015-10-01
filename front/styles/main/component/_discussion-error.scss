@@ -1,0 +1,34 @@
+.discussion-error {
+	left: 0;
+	margin-top: 44px;
+	min-height: 130px;
+	position: relative;
+	top: 0;
+
+	.error-content {
+		$width: 310px;
+
+		background-color: $color-white;
+		border-radius: 8px;
+		color: #999;
+		font-size: rem-calc(14);
+		left: 50%;
+		margin-left: -$width/2;
+		padding: 24px 35px 21px;
+		position: absolute;
+		text-align: center;
+		width: $width;
+
+		.retry {
+			display: block;
+			font-size: rem-calc(12);
+			color: #333;
+
+			.icon-retry {
+				height: 16px;
+				vertical-align: text-bottom;
+				width: 14px;
+			}
+		}
+	}
+}
