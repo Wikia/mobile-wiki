@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 
 App.DiscussionForumController = Em.Controller.extend({
-	needs: 'application',
+	application: Em.inject.controller(),
 	sortBy: null,
 	// Whether the sort component is currently visible
 	sortVisible: false,
