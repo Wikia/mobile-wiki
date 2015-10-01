@@ -11,7 +11,7 @@ $discussion-header-color-text: #fff;
 	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
 	&.un-pinned {
-		margin-top: $theme-bar-height;
+		margin-top: $theme-bar-height + $top-bar-height;
 	}
 
 	.header {
