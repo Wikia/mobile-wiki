@@ -19,7 +19,7 @@ var cachingTimes = {
  */
 function prepareData (request: Hapi.Request, result: any): void {
 	var title: string,
-		userDir = 'ltr';
+		contentDir = 'ltr';
 
 	/**
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
@@ -36,8 +36,8 @@ function prepareData (request: Hapi.Request, result: any): void {
 	}
 
 	if (result.wiki.language) {
-		userDir = result.wiki.language.userDir;
-		result.isRtl = (userDir === 'rtl');
+		contentDir = result.wiki.language.contentDir;
+		result.isRtl = (contentDir === 'rtl');
 	}
 
 	//@TODO - this part should be removed when we fix API in MW
