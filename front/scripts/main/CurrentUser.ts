@@ -39,7 +39,7 @@ App.CurrentUser = Em.Object.extend({
 				.then(this.loadUserLanguage.bind(this))
 				.then(this.loadUserRights.bind(this))
 				.catch((err: any): void => {
-					Em.Logger.warn('Couldn\'t load current user rights', err);
+					Em.Logger.warn('Couldn\'t load current user info', err);
 				});
 		}
 		this._super();
