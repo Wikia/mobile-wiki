@@ -18,11 +18,11 @@
     var baseLocalSettingPath: string = process.env.WIKIA_ENVIRONMENT === 'dev' ? './localSettings.dev' : './localSettings.base',
         baseLocalSettings = require(baseLocalSettingPath),
         localSettings = baseLocalSettings.extendSettings({
-        devboxDomain: 'joe',
-        loggers: {
-            console: 'debug'
-        },
-        port: 8000 // 7000 if running on devbox
+            devboxDomain: 'joe',
+            loggers: {
+                console: 'debug'
+            },
+            port: 8000 // 7000 if running on devbox
     });
 
     export = localSettings;
