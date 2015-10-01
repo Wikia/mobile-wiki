@@ -4,7 +4,9 @@ user-status {
 	font-size: 14px;
 
 	&::shadow .drawer {
-		top: 36px;
+		@media #{$large-up}{
+			top: 36px;
+		}
 
 		::content li {
 			border-color: $color-blue-gray-light;

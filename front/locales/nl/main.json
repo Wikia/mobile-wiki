@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"Edit Main Page",
     "curated-content-editor-featured-content":"Featured Content",
     "curated-content-editor-featured-description":"Featured Content can be used to highlight a specific piece of content on your community such as an article, video, or blog post. Ideally this content is timely and relevant to your readers and should be updated frequently.",
-    "curated-content-editor-block-help-text":"Drag each item into the order you prefer. Tap on the item to reveal configuration options.",
-    "curated-content-editor-explore-the-wiki-description":"Featured Categories allow your users to explore your community at a high level through the use of Mediawiki categories. Categories should be grouped together into logical sections such as “Films” or “Comics”. If a category doesn’t work as part of a group we suggest placing it in the Optional Categories section below.",
+    "curated-content-editor-block-help-text":"Move each item into the order you prefer. Tap on the arrows next to the item to change the order.",
+    "curated-content-editor-featured-categories-description":"Featured Categories allow your users to explore your community at a high level through the use of Mediawiki categories. Categories should be grouped together into logical sections such as “Films” or “Comics”. If a category doesn’t work as part of a group we suggest placing it in the Optional Categories section below.",
     "curated-content-editor-add-featured-content-button":"+ add new featured content",
     "curated-content-editor-add-section-button":"+ add new section",
     "curated-content-editor-optional-description":"For all categories that don’t make sense grouped with other categories you can place them in the Optional Categories section.",
-    "curated-content-editor-explore-the-wiki":"Explore the Wiki",
+    "curated-content-editor-featured-categories":"Featured Categories",
     "curated-content-editor-optional":"Optional Categories",
     "curated-content-editor-upload-image":"Upload an image",
-    "curated-content-editor-new-item":"New Item",
     "curated-content-editor-empty-section-error":"Sections can't be empty. Please add items to this section.",
     "curated-content-editor-remove-item-confirmation":"Are you sure you want to delete this item?",
     "curated-content-editor-general-section-error":"Please fix errors in this section.",
     "curated-content-editor-add-items-message":"Please add items to this section.",
     "curated-content-editor-missing-items-error":"Sections can't be empty. Please add items to section.",
     "curated-content-editor-error-inside-items-message":"Please fix errors inside items.",
-    "curated-content-editor-items-count":"__count__ items",
+    "curated-content-editor-items-count":"__count__ item",
+    "curated-content-editor-items-count_plural":"__count__ items",
     "curated-content-editor-exit-prompt":"You have unsaved changes. Are you sure you want to exit?",
-    "curated-content-editor-main-page":"Main Page"
+    "curated-content-editor-main-page":"Main Page",
+    "curated-content-editor-new-featured-content":"New Featured Content",
+    "curated-content-editor-new-section":"New Section",
+    "curated-content-editor-new-category":"New Category"
   },
   "discussion":{
-    "share-default-title":"Discussion on __siteName__"
+    "share-default-title":"Discussion on __siteName__",
+    "sort-by-latest":"Latest",
+    "sort-by-trending":"Trending",
+    "number-of-posts":"__numberOfPosts__ Posts"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__ or __loginLink__",
+    "register-text":"Register",
+    "login-text":"Login"
   }
 }

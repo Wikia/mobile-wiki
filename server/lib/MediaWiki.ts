@@ -16,14 +16,12 @@ interface MWRequestParams {
 	wikiDomain: string;
 	headers?: any;
 	redirects?: number;
-	staging?: string;
 }
 
 class BaseRequest {
 	wikiDomain: string;
 	headers: any;
 	redirects: any;
-	staging: any;
 
 	/**
 	 * Search request constructor
@@ -33,18 +31,9 @@ class BaseRequest {
 	constructor (params: MWRequestParams) {
 		this.wikiDomain = params.wikiDomain;
 		this.headers = params.headers;
-		this.staging = params.staging;
 	}
 
 	fetch(url: string): any {
-		//@TODO remove when https://github.com/Wikia/chef-repo/pull/6681 fixed
-		if (this.staging) {
-			if (url.indexOf('?') > -1) {
-				url += "&staging=" + this.staging;
-			} else {
-				url += "?staging=" + this.staging;
-			}
-		}
 		return fetch(url, this.wikiDomain, this.redirects, this.headers);
 	}
 }

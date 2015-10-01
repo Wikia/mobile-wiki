@@ -13,7 +13,7 @@ App.TrackClickMixin = Em.Mixin.create({
 	},
 
 	actions: {
-		trackClick: function (category: string, label: string = '', isNonInteractive: boolean = true): void {
+		trackClick(category: string, label: string = '', isNonInteractive: boolean = true): void {
 			this.trackClick(category, label, isNonInteractive);
 		}
 	}

@@ -16,13 +16,13 @@ App.ArticleContentMixin = Em.Mixin.create({
 		width: null
 	},
 
-	init: function (): void {
+	init(): void {
 		this._super();
 
 		App.ArticleContentListeners.add(this);
 	},
 
-	willDestroyElement: function (): void {
+	willDestroyElement(): void {
 		this._super();
 
 		App.ArticleContentListeners.remove(this);
@@ -51,7 +51,7 @@ App.ArticleContentListeners = Em.Object.create({
 	 *
 	 * @return {JQuery}
 	 */
-	getArticleContentElement: function (): JQuery {
+	getArticleContentElement(): JQuery {
 		var articleContentElement: JQuery = this.get('articleContentElement');
 		if (articleContentElement !== null) {
 			return articleContentElement;
@@ -62,7 +62,7 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
-	add: function (container: Em.Component): void {
+	add(container: Em.Component): void {
 		var articleContentWidth: number;
 
 		this.containers.push(container);
@@ -80,7 +80,7 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
-	remove: function (container: Em.Component): void {
+	remove(container: Em.Component): void {
 		var index = this.containers.indexOf(container);
 
 		if (index > -1) {
@@ -88,7 +88,7 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
-	onResize: function (): void {
+	onResize(): void {
 		var containers = this.containers,
 			containersCount = containers.length;
 

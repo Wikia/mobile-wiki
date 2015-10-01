@@ -35,7 +35,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return Math.floor(iconHeight * media.width / media.height);
 	}),
 
-	normalizeThumbWidth: function (width: number): number {
+	normalizeThumbWidth(width: number): number {
 		if (width <= this.thumbSize.small) {
 			return this.thumbSize.small;
 		} else if (width <= this.thumbSize.medium) {
@@ -45,7 +45,7 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 		return this.thumbSize.medium;
 	},
 
-	getThumbURL: function (url: string, options: {mode: string; width: number; height?: number}): string {
+	getThumbURL(url: string, options: {mode: string; width: number; height?: number}): string {
 		if (options.width && options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown && this.get('normalizeWidth')) {
 			options.width = this.normalizeThumbWidth(options.width);
 		}
@@ -79,11 +79,11 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 	}),
 
 	actions: {
-		onVisible: function (): void {
+		onVisible(): void {
 			this.load();
 		},
 
-		clickLinkedImage: function (): void {
+		clickLinkedImage(): void {
 			M.track({
 				action: M.trackActions.click,
 				category: 'linked-image'
@@ -93,8 +93,8 @@ App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
 });
 
 App.MediaComponent.reopenClass({
-	newFromMedia: function (media: ArticleMedia): typeof App.MediaComponent {
-		if (media.context === 'infobox') {
+	newFromMedia(media: ArticleMedia): typeof App.MediaComponent {
+		if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
 			return App.InfoboxImageMediaComponent.create();
 		} else if (Em.isArray(media)) {
 			if ((<any>media).some((media: ArticleMedia) => !!media.link)) {

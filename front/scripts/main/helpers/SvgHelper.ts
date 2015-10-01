@@ -13,19 +13,21 @@
  * 	<use xlink:href="#chevron"></use>
  * </svg>
  */
-Em.Handlebars.registerBoundHelper('svg', function (name: string, options: any) {
-	var optionalParams = [
+App.SvgHelper = Em.Helper.helper(function (params: any[], options: any): Em.Handlebars.SafeString {
+	var optionalParams: string[] = [
 			'class',
 			'role',
 			'viewBox'
 		],
-		ret = '<svg';
+		ret = '<svg',
+		name: string = params[0];
 
-	optionalParams.forEach(function (param: string) {
-		if (param in options.hash) {
-			ret += " " + param + '="' + options.hash[param] + '"';
+	optionalParams.forEach(function (param: string): void {
+		if (param in options) {
+			ret += ` ${param}="${options[param]}"`;
 		}
 	});
-	ret += '><use xlink:href="#' + name + '"></use></svg>';
+	ret += `><use xlink:href="#${name}"></use></svg>`;
+
 	return new Em.Handlebars.SafeString(ret);
 });

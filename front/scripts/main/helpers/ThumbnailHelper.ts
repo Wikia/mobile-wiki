@@ -6,24 +6,25 @@
  * Use case: {{thumbnail url width=100 height=100 mode=thumbMode alt=name}}
  * Only the first parameter (url) is required, rest is optional
  */
-Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: any) {
+App.ThumbnailHelper = Em.Helper.helper(function (params: any[], options: any): Em.Handlebars.SafeString {
 	var thumbnailer = Mercury.Modules.Thumbnailer,
-		className: string = '',
+		className = '',
 		defaultMode: string = thumbnailer.mode.fixedAspectRatio,
-		defaultWidth: number = 100,
-		defaultHeight: number = 100,
+		defaultWidth = 100,
+		defaultHeight = 100,
 		// empty gif
 		src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		mode: string,
 		width: number,
 		height: number,
-		alt: string;
+		alt: string,
+		imgUrl: string = params.join('');
 
 	// validate thumbnailer mode
-	if (options.hash.mode) {
+	if (options.mode) {
 		for (var key in thumbnailer.mode) {
-			if (thumbnailer.mode.hasOwnProperty(key) && thumbnailer.mode[key] === options.hash.mode) {
-				mode = options.hash.mode;
+			if (thumbnailer.mode.hasOwnProperty(key) && thumbnailer.mode[key] === options.mode) {
+				mode = options.mode;
 				break;
 			}
 		}
@@ -35,11 +36,11 @@ Em.Handlebars.registerBoundHelper('thumbnail', function (url: string, options: a
 
 	width = Em.getWithDefault(options, 'hash.width', defaultWidth);
 	height = Em.getWithDefault(options, 'hash.height', defaultHeight);
-	alt = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'hash.alt'));
-	className = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'hash.className')) || className;
+	alt = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'alt'));
+	className = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'className')) || className;
 
-	if (url) {
-		src = thumbnailer.getThumbURL(url, {
+	if (imgUrl) {
+		src = thumbnailer.getThumbURL(imgUrl, {
 			mode: mode,
 			width: width,
 			height: height

@@ -8,7 +8,7 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 	classNames: ['curated-content'],
 
 	actions: {
-		clickItem: function (item: CuratedContentItem): void {
+		clickItem(item: CuratedContentItem): void {
 			var itemType = item.type;
 			if (itemType) {
 				this.trackClick('modular-main-page', `curated-content-item-${itemType}`);
@@ -20,7 +20,7 @@ App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.T
 			}
 		},
 
-		loadMore: function (): void {
+		loadMore(): void {
 			this.showLoader();
 
 			App.CuratedContentModel.loadMore(this.get('model'))

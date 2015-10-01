@@ -4,6 +4,7 @@
 	width: 100%; // needed for headroom js when it sets position to absolute
 	z-index: $z-site-head;
 }
+
 top-bar {
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
@@ -19,6 +20,10 @@ top-bar {
 
 		.logo-wrapper {
 			line-height: 100%;
+		}
+
+		::content .wikia-logo {
+			height: 2rem;
 		}
 	}
 }

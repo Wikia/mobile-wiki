@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"Modification de la page d'accueil",
     "curated-content-editor-featured-content":"Contenu à la une",
     "curated-content-editor-featured-description":"Cette fonctionnalité permet de mettre en valeur un contenu spécifique de la communauté (article, vidéo ou billet de blog, par exemple). Choisissez un contenu pertinent au moment de sa parution et mettez cette section à jour régulièrement.",
-    "curated-content-editor-block-help-text":"Faites glisser chaque élément dans l'ordre voulu. Appuyez sur un élément pour afficher ses options de configuration.",
-    "curated-content-editor-explore-the-wiki-description":"Les catégories à la une permettent aux utilisateurs de survoler la communauté à l'aide des catégories Mediawiki. Regroupez-les de façon logique (par exemple, dans des sections \"Films\" ou \"Bandes dessinées\"). Si une catégorie ne correspond à aucun groupe, il est suggéré de la placer dans la section Catégories en option ci-dessous.",
+    "curated-content-editor-block-help-text":"Vous pouvez déplacer les éléments dans l'ordre que vous voulez. Appuyez sur les flèches d'un élément pour le faire monter ou descendre.",
+    "curated-content-editor-featured-categories-description":"Les catégories à la une permettent aux utilisateurs de survoler la communauté à l'aide des catégories Mediawiki. Regroupez-les de façon logique (par exemple, dans des sections \"Films\" ou \"Bandes dessinées\"). Si une catégorie ne correspond à aucun groupe, il est suggéré de la placer dans la section Catégories en option ci-dessous.",
     "curated-content-editor-add-featured-content-button":"+ nouveau contenu à la une",
     "curated-content-editor-add-section-button":"+ nouvelle section",
     "curated-content-editor-optional-description":"Vous pouvez placer toutes les catégories ne correspondant à aucun groupe dans la section Catégories en option.",
-    "curated-content-editor-explore-the-wiki":"Exploration du Wikia",
+    "curated-content-editor-featured-categories":"Catégories à la une",
     "curated-content-editor-optional":"Catégories en option",
     "curated-content-editor-upload-image":"Importer une image",
-    "curated-content-editor-new-item":"Nouvel élément",
     "curated-content-editor-empty-section-error":"Veuillez ajouter des éléments à la section. Elle ne peut pas être vide.",
     "curated-content-editor-remove-item-confirmation":"Voulez-vous vraiment supprimer cet élément ?",
     "curated-content-editor-general-section-error":"Veuillez corriger les erreurs dans cette section.",
     "curated-content-editor-add-items-message":"Veuillez ajouter des éléments à cette section.",
     "curated-content-editor-missing-items-error":"Veuillez ajouter des éléments à la section. Elle ne peut pas être vide.",
     "curated-content-editor-error-inside-items-message":"Veuillez corriger les erreurs dans les éléments.",
-    "curated-content-editor-items-count":"__count__ élément(s)",
+    "curated-content-editor-items-count":"__count__ élément",
+    "curated-content-editor-items-count_plural":"__count__ éléments",
     "curated-content-editor-exit-prompt":"Certaines de vos modifications n'ont pas été enregistrées. Etes-vous certain de vouloir quitter cette page ?",
-    "curated-content-editor-main-page":"Page d'accueil"
+    "curated-content-editor-main-page":"Page d'accueil",
+    "curated-content-editor-new-featured-content":"Nouveau contenu à la une",
+    "curated-content-editor-new-section":"Nouvelle section",
+    "curated-content-editor-new-category":"Nouvelle catégorie"
   },
   "discussion":{
-    "share-default-title":"Discussion sur __siteName__"
+    "share-default-title":"Discussion sur __siteName__",
+    "sort-by-latest":"Récentes",
+    "sort-by-trending":"Tendance",
+    "number-of-posts":"__numberOfPosts__ publications"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__ ou __loginLink__",
+    "register-text":"S'inscrire",
+    "login-text":"Se connecter"
   }
 }

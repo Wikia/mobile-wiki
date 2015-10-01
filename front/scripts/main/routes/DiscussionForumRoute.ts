@@ -1,8 +1,9 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/UseNewNavMixin.ts" />
+/// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
+App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
 	forumId: null,
 
 	model(params: any) {
@@ -16,15 +17,15 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
 	},
 
 	actions: {
-		goToPost: function (postId: number): void {
+		goToPost(postId: number): void {
 			this.transitionTo('discussion.post', postId);
 		},
 
-		loadPage: function (pageNum: number): void {
+		loadPage(pageNum: number): void {
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
-		setSortBy: function (sortBy: string): void {
+		setSortBy(sortBy: string): void {
 			var controller = this.controllerFor('discussionForum');
 
 			controller.set('sortBy', sortBy);
@@ -34,6 +35,10 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, {
 			}
 
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+		},
+		didTransition(): boolean {
+			this.controllerFor('application').set('noMargins', true);
+			return true;
 		}
 	}
 });
