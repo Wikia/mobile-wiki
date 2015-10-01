@@ -5,6 +5,7 @@
 
 App.HeadroomMixin = Em.Mixin.create({
 	headroom: null,
+	headroomEnabled: true,
 
 	// keep it consistent with values in _wikia-variables.scss
 	smartBannerHeight: {
