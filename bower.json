@@ -23,7 +23,7 @@
     "visit-source": "Wikia/visit-source#0.1.1",
     "webcomponentsjs": "~0.7.12",
     "weppy": "Wikia/weppy#0.9.2",
-    "wikia-style-guide": "Wikia/style-guide#v1.7.0"
+    "wikia-style-guide": "Wikia/style-guide#v1.7.1"
   },
   "devDependencies": {
     "ember-qunit": "0.3.0",
