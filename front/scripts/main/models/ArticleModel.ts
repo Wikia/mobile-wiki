@@ -28,13 +28,13 @@ interface Response {
 			media: any[];
 			users: any;
 			categories: any[];
-			redirectEmptyTarget: boolean;
 		};
 		isMainPage: boolean;
 		mainPageData: any[];
 		relatedPages: any[];
 		topContributors: any[];
-		adsContext: any
+		adsContext: any;
+		redirectEmptyTarget: boolean;
 	};
 }
 
