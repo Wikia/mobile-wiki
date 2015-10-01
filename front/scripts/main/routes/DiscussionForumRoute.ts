@@ -7,8 +7,15 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	forumId: null,
 
 	model(params: any) {
+		var modelPromise: any;
+
 		this.set('forumId', params.forumId);
-		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
+		modelPromise = App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
+		return modelPromise.then(null, function (reason: any) {
+				this.route.controllerFor('discussionForum').set('connectionError', true);
+				return true;
+			}.bind({route: this})
+		);
 	},
 
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
