@@ -2,7 +2,7 @@
 /// <reference path="./models/UserModel.ts" />
 'use strict';
 
-interface QueryUserInfoGroupsRightsResponse {
+interface QueryUserInfoResponse {
 	query: {
 		userinfo: {
 			anon?: string;
@@ -45,19 +45,19 @@ App.CurrentUser = Em.Object.extend({
 		this._super();
 	},
 
-	loadUserLanguage(result: QueryUserInfoGroupsRightsResponse): Em.RSVP.Promise {
-		return new Em.RSVP.Promise(function (resolve: Function, reject: Function): void {
+	loadUserLanguage(result: QueryUserInfoResponse): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var language = Em.getWithDefault(result, 'query.userinfo.options.language', 'en');
 
 			this.set('language', language);
 			M.prop('userLanguage', language);
 
 			resolve(result);
-		}.bind(this));
+		});
 	},
 
-	loadUserRights(result: QueryUserInfoGroupsRightsResponse): Em.RSVP.Promise {
-		return new Em.RSVP.Promise(function (resolve: Function, reject: Function): void {
+	loadUserRights(result: QueryUserInfoResponse): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var rightsArray = Em.get(result, 'query.userinfo.rights'),
 				rights = {};
 
@@ -72,7 +72,7 @@ App.CurrentUser = Em.Object.extend({
 			this.set('rights', rights);
 
 			resolve(result);
-		}.bind(this));
+		});
 	},
 
 	loadUserInfo(): Em.RSVP.Promise {
@@ -86,7 +86,7 @@ App.CurrentUser = Em.Object.extend({
 					format: 'json'
 				},
 				dataType: 'json',
-				success: (result: QueryUserInfoGroupsRightsResponse): void => {
+				success: (result: QueryUserInfoResponse): void => {
 					resolve(result);
 				},
 				error: (err: any): void => {
