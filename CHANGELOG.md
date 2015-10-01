@@ -1,3 +1,12 @@
+## release-172 (2015-10-01 07:59 UTC)
+* [HG-893](https://wikia-inc.atlassian.net/browse/HG-893) Hg 893 Top-bar design review fixes
+* [XW-472](https://wikia-inc.atlassian.net/browse/XW-472) XW-472 rename AddPhotoModel to ArticleAddPhotoModel
+* [SOC-1355](https://wikia-inc.atlassian.net/browse/SOC-1355) SOC-1355 | Auth fix redirect from /join to /register
+* new-methods-definition: Maintenance | New methods definition syntax
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Add search action
+* aden-2476-cat-targeting-param-on-mercury: ADEN-2476 | Expose article categories to adsContext
+* [DAT-3294](https://wikia-inc.atlassian.net/browse/DAT-3294) DAT-3294 add infobox-hero-image context handling
+
 ## release-171 (2015-09-30 07:59 UTC)
 * [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Add route for showing google custom search results in Mercury
 * [SOC-1294](https://wikia-inc.atlassian.net/browse/SOC-1294) SOC-1294 Implement rails and the wiki badge

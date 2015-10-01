@@ -128,9 +128,9 @@ module Mercury.Utils.VariantTesting {
 		switch (environment) {
 			case 'prod':
 			case 'preview':
+			case 'sandbox':
 				return experimentIds.prod;
 			case 'dev':
-			case 'sandbox':
 				return experimentIds.dev;
 			default:
 				return null;
