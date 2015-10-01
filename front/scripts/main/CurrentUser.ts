@@ -50,7 +50,7 @@ App.CurrentUser = Em.Object.extend({
 			var language = Em.getWithDefault(result, 'query.userinfo.options.language', 'en');
 
 			this.set('language', language);
-			M.prop('userLanguage', this.language);
+			M.prop('userLanguage', language);
 
 			resolve(result);
 		}.bind(this));
