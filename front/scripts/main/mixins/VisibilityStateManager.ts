@@ -23,7 +23,7 @@ App.VisibilityStateManager = Em.Object.create({
 	 * @param threshold makes viewport virtually bigger
 	 * @returns {boolean}
 	 */
-	isVisible: function (element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
+	isVisible(element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
 		var top = element.offset().top - threshold,
 			bottom = top + element.height() + threshold;
 
@@ -33,7 +33,7 @@ App.VisibilityStateManager = Em.Object.create({
 	/**
 	 * @desc runs a loop over this.components and check if they are visible
 	 */
-	check: function () {
+	check(): void {
 		var components = this.components,
 			i = components.length,
 			component: any,
@@ -58,7 +58,7 @@ App.VisibilityStateManager = Em.Object.create({
 		}
 	},
 
-	checkDebounced: function () {
+	checkDebounced(): void {
 		Em.run.debounce(this, this.check, 50);
 	},
 
@@ -66,7 +66,7 @@ App.VisibilityStateManager = Em.Object.create({
 	 * @desc adds component to components array and initializes scroll listener
 	 * @param component
 	 */
-	add: function (component: Em.Component) {
+	add(component: Em.Component): void {
 
 		this.components.push(component);
 
@@ -81,7 +81,7 @@ App.VisibilityStateManager = Em.Object.create({
 	/**
 	 * @desc resets state, used in ArticleController on a page change
 	 */
-	reset: function () {
+	reset(): void {
 		this.components.length = 0;
 		this.initialized = false;
 	}

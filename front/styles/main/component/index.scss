@@ -1,5 +1,6 @@
 // file order is intended here - put new entries at the bottom
 @import 'site-head';
+@import 'share-header';
 @import 'share-feature';
 @import 'smart-banner';
 @import 'side-nav';
@@ -27,3 +28,5 @@
 @import 'discussion-hero-unit';
 @import 'user-avatar';
 @import 'discussion-contributors';
+@import 'discussion-community-badge';
+@import 'discussion-back-button';

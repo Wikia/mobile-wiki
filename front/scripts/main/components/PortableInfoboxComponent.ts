@@ -47,7 +47,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 		return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
 	}),
 
-	handleCollapsing: function (): void {
+	handleCollapsing(): void {
 		var collapsedHeight = this.get('collapsedHeight');
 
 		this.set('collapsed', true);
@@ -59,7 +59,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * Function is active only for the long infoboxes.
 	 * Changes 'collapsed' property.
 	 */
-	onInfoboxClick: function (event: JQueryEventObject): void {
+	onInfoboxClick(event: JQueryEventObject): void {
 		var body: HTMLElement,
 			scrollTo: (top?: boolean) => void,
 			collapsed = this.get('collapsed'),
@@ -85,7 +85,7 @@ App.PortableInfoboxComponent = Em.Component.extend(App.ArticleContentMixin, App.
 	 * @desc In case of long infobox, setups click
 	 * handling function to this infobox component.
 	 */
-	didInsertElement: function () {
+	didInsertElement(): void {
 		if (this.get('isLongInfobox')) {
 			this.handleCollapsing();
 			this.$().click(this.onInfoboxClick.bind(this));

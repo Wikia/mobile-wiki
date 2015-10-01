@@ -13,25 +13,25 @@ App.SideNavComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		clearSearch: function (): void {
+		clearSearch(): void {
 			this.set('searchQuery', '');
 		},
 
-		collapse: function (): void {
+		collapse(): void {
 			this.sendAction('toggleVisibility', false);
 			this.send('searchCancel');
 		},
 
-		expand: function (): void {
+		expand(): void {
 			this.sendAction('toggleVisibility', true);
 		},
 
-		searchCancel: function (): void {
+		searchCancel(): void {
 			this.set('isInSearchMode', false);
 			this.send('clearSearch');
 		},
 
-		searchFocus: function (): void {
+		searchFocus(): void {
 			this.set('isInSearchMode', true);
 			// Track when search is opened
 			M.track({
@@ -40,7 +40,7 @@ App.SideNavComponent = Em.Component.extend({
 			});
 		},
 
-		loadRandomArticle: function (): void {
+		loadRandomArticle(): void {
 			this.sendAction('loadRandomArticle');
 		},
 
@@ -50,7 +50,7 @@ App.SideNavComponent = Em.Component.extend({
 		 * Temporary solution for enter on search, will be refactored to be a route in mercury
 		 * @param value of input
 		 */
-		enter: function (value = '') {
+		enter(value = ''): void {
 			window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
 		}
 	},

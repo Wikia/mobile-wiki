@@ -6,6 +6,7 @@ $discussion-hero-unit-text-color: $color-white;
 	padding-bottom: 37px;
 	padding-top: 37px;
 	text-align: center;
+	width: 100%;
 
 	h1 {
 		color: $discussion-hero-unit-text-color;
@@ -15,6 +16,13 @@ $discussion-hero-unit-text-color: $color-white;
 	p {
 		font-size: 14px;
 		font-weight: bold;
+	}
+}
+
+.minimized {
+	&.discussion-hero-unit {
+		padding-bottom: 0;
+		padding-top: 25px;
 	}
 }
 

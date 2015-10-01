@@ -120,26 +120,37 @@
     "curated-content-editor-edit-main-page":"Modifica pagina principale",
     "curated-content-editor-featured-content":"Contenuti in primo piano",
     "curated-content-editor-featured-description":"I Contenuti in primo piano possono essere utilizzati per evidenziare un contenuto specifico come un articolo, un video o un blog post nella tua community. Idealmente questo contenuto è attuale e rilevante per i tuoi lettori, per cui dovresti aggiornarlo frequentemente.",
-    "curated-content-editor-block-help-text":"Trascina ogni elemento nell'ordine che preferisci. Tocca l'elemento per rivelare le opzioni di configurazione.",
-    "curated-content-editor-explore-the-wiki-description":"Le Categorie in primo piano permettono agli utenti di esplorare la tua community a un livello generale usando le categorie Mediawiki. Le categorie andrebbero raggruppate in maniera logica, per es. \"Film\" o \"Fumetti\". Se una categoria non rientra in un gruppo, ti suggeriamo di metterla nella sezione Categorie facoltative di seguito.",
+    "curated-content-editor-block-help-text":"Sposta ogni elemento nell'ordine che preferisci toccando sulle frecce che lo accompagnano.",
+    "curated-content-editor-featured-categories-description":"Le Categorie in primo piano permettono agli utenti di esplorare la tua community a un livello generale usando le categorie Mediawiki. Le categorie andrebbero raggruppate in maniera logica, per es. \"Film\" o \"Fumetti\". Se una categoria non rientra in un gruppo, ti suggeriamo di metterla nella sezione Categorie facoltative di seguito.",
     "curated-content-editor-add-featured-content-button":"+ aggiungi nuovo contenuto in primo piano",
     "curated-content-editor-add-section-button":"+ aggiungi una nuova sezione",
     "curated-content-editor-optional-description":"Tutte le categorie che non rientrano in altri gruppi di categorie possono andare nella sezione Categorie facoltative.",
-    "curated-content-editor-explore-the-wiki":"Esplora la Wiki",
+    "curated-content-editor-featured-categories":"Categorie in primo piano",
     "curated-content-editor-optional":"Categorie facoltative",
     "curated-content-editor-upload-image":"Carica un'immagine",
-    "curated-content-editor-new-item":"Nuovo elemento",
     "curated-content-editor-empty-section-error":"Le sezioni non possono essere vuote. Aggiungi elementi a questa sezione.",
     "curated-content-editor-remove-item-confirmation":"Sei sicuro di voler eliminare questo elemento?",
     "curated-content-editor-general-section-error":"Correggi gli errori in questa sezione.",
     "curated-content-editor-add-items-message":"Aggiungi elementi a questa sezione.",
     "curated-content-editor-missing-items-error":"Le sezioni non possono essere vuote. Aggiungi elementi alla sezione.",
     "curated-content-editor-error-inside-items-message":"Correggi gli errori nei vari elementi.",
-    "curated-content-editor-items-count":"__count__ elementi",
+    "curated-content-editor-items-count":"__count__ elemento",
+    "curated-content-editor-items-count_plural":"__count__ elementi",
     "curated-content-editor-exit-prompt":"Ci sono modifiche non salvate. Sei sicuro di voler lasciare questa pagina?",
-    "curated-content-editor-main-page":"Pagina principale"
+    "curated-content-editor-main-page":"Pagina principale",
+    "curated-content-editor-new-featured-content":"Nuovo contenuto in primo piano",
+    "curated-content-editor-new-section":"Nuova sezione",
+    "curated-content-editor-new-category":"Nuova categoria"
   },
   "discussion":{
-    "share-default-title":"Forum su __siteName__"
+    "share-default-title":"Forum su __siteName__",
+    "sort-by-latest":"Più recenti",
+    "sort-by-trending":"In Trend",
+    "number-of-posts":"__numberOfPosts__ Post"
+  },
+  "userStatus":{
+    "anon-cta":"__registerLink__ o __loginLink__",
+    "register-text":"Iscriviti",
+    "login-text":"Accedi"
   }
 }

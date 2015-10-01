@@ -159,7 +159,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 		this.loadUrl();
 	}),
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		var hammerInstance = this.get('_hammerInstance');
 
 		hammerInstance.get('pinch').set({
@@ -177,21 +177,21 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 	 * @desc Handle click and prevent bubbling
 	 * if the image is zoomed
 	 */
-	click: function (event: MouseEvent): boolean {
+	click(event: MouseEvent): boolean {
 		var isZoomed = this.get('isZoomed');
 		return isZoomed ? false : true;
 	},
 
 	gestures: {
-		swipeLeft: function (): boolean {
+		swipeLeft(): boolean {
 			return this.get('isZoomed') ? false : true;
 		},
 
-		swipeRight: function (): boolean {
+		swipeRight(): boolean {
 			return this.get('isZoomed') ? false : true;
 		},
 
-		pan: function (event: HammerInput): void {
+		pan(event: HammerInput): void {
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -202,14 +202,14 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 			this.notifyPropertyChange('style');
 		},
 
-		panEnd: function (): void {
+		panEnd(): void {
 			this.setProperties({
 				lastX: this.get('newX'),
 				lastY: this.get('newY')
 			});
 		},
 
-		doubleTap: function (event: HammerInput): void {
+		doubleTap(event: HammerInput): void {
 			var scale: number;
 
 			// Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
@@ -230,7 +230,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 			this.notifyPropertyChange('style');
 		},
 
-		pinchMove: function (event: HammerInput): void {
+		pinchMove(event: HammerInput): void {
 			var scale = this.get('scale');
 
 			this.setProperties({
@@ -242,7 +242,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 			this.notifyPropertyChange('style');
 		},
 
-		pinchEnd: function (event: HammerInput): void {
+		pinchEnd(event: HammerInput): void {
 			this.set('lastScale', this.get('lastScale') * event.scale);
 		}
 	},
@@ -262,7 +262,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 		}
 	},
 
-	resetZoom: function (): void {
+	resetZoom(): void {
 		this.setProperties({
 			scale: 1,
 			lastScale: 1,
@@ -278,7 +278,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 	 *
 	 * @param url string - url of current image
 	 */
-	load: function (url: string): void {
+	load(url: string): void {
 		var image: HTMLImageElement = new Image();
 
 		this.set('isLoading', true);
@@ -303,7 +303,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 	 *
 	 * @param src string - src for image
 	 */
-	update: function (src: string): void {
+	update(src: string): void {
 		this.setProperties({
 			imageSrc: src,
 			visible: true
@@ -316,7 +316,7 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 	 * @param {HammerInput} event
 	 * @returns {number}
 	 */
-	getScreenArea: function (event: HammerInput): number {
+	getScreenArea(event: HammerInput): number {
 		var viewportWidth = this.get('viewportSize.width'),
 			x = event.center.x,
 			thirdPartOfScreen = viewportWidth / 3;

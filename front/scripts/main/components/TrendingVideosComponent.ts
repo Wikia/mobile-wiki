@@ -5,7 +5,7 @@ App.TrendingVideosComponent = Em.Component.extend({
 	classNames: ['trending', 'trending-videos'],
 
 	actions: {
-		openLightbox: function (video: any): void {
+		openLightbox(video: any): void {
 			var mediaModel = App.MediaModel.create({
 				media: video
 			});

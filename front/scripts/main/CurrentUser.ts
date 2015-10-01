@@ -22,7 +22,7 @@ App.CurrentUser = Em.Object.extend({
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
-	init: function (): void {
+	init(): void {
 		var userId = this.get('userId');
 		if (userId !== null) {
 			App.UserModel.find({userId})

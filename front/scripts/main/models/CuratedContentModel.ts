@@ -32,7 +32,7 @@ App.CuratedContentModel = Em.Object.extend({
 });
 
 App.CuratedContentModel.reopenClass({
-	find: function (title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
+	find(title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase') + '/main/',
 				curatedContentGlobal: any = M.prop('curatedContent'),
@@ -77,7 +77,7 @@ App.CuratedContentModel.reopenClass({
 		});
 	},
 
-	loadMore: function (model: typeof App.CuratedContentModel): Em.RSVP.Promise {
+	loadMore(model: typeof App.CuratedContentModel): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			// Category type is hardcoded because only Categories API supports offset.
 			var newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
@@ -94,7 +94,7 @@ App.CuratedContentModel.reopenClass({
 		});
 	},
 
-	sanitizeItems: function (rawData: any): CuratedContentItem[] {
+	sanitizeItems(rawData: any): CuratedContentItem[] {
 		var sanitizedItems: CuratedContentItem[] = [];
 
 		if (Em.isArray(rawData)) {
@@ -106,7 +106,7 @@ App.CuratedContentModel.reopenClass({
 		return sanitizedItems;
 	},
 
-	sanitizeItem: function (rawData: any): CuratedContentItem {
+	sanitizeItem(rawData: any): CuratedContentItem {
 		var item: CuratedContentItem,
 			categoryName: string,
 			url: string,
