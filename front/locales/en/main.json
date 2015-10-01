@@ -12,6 +12,7 @@
 		"article-last-edit_plural_2": "Last edited __count__ weeks ago",
 		"article-categories-list-label": "Categories",
 		"article-top-contributors-label": "Top Contributors to this article",
+		"article-redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
 		"side-nav-menu-label": "Menu",
 		"navigation-back-label": "Back",
 		"search-no-results-msg": "Sorry, we couldn't find anything that matched your search!",
