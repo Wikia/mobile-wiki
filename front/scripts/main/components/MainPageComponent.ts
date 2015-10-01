@@ -4,7 +4,7 @@
 'use strict';
 
 App.MainPageComponent = Em.Component.extend(App.AdsMixin, App.TrackClickMixin, {
-	classNames: ['main-page-modules', 'main-page-body', 'mw-content'],
+	classNames: ['main-page-modules', 'main-page-body'],
 	tagName: 'section',
 
 	featuredContentComponentVariation: Em.computed(function (): string {

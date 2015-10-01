@@ -5,7 +5,7 @@
 'use strict';
 
 App.CuratedContentComponent = Em.Component.extend(App.LoadingSpinnerMixin, App.TrackClickMixin, {
-	classNames: ['curated-content'],
+	classNames: ['curated-content', 'mw-content'],
 
 	actions: {
 		clickItem(item: CuratedContentItem): void {
