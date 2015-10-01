@@ -1,9 +1,19 @@
 user-status {
-	::shadow .drawer ::content li {
-		border-color: $color-blue-gray-light;
+	padding-right: 15px;
+	margin-right: -15px;
+	font-size: 14px;
+
+	&::shadow .drawer {
+		@media #{$large-up}{
+			top: 36px;
+		}
+
+		::content li {
+			border-color: $color-blue-gray-light;
+		}
 	}
 
-	// extra specificity of .login.icon as well as position:static can be removed once new nav is rolled out site wide.
+	// extra specificity of .login.icon and `position: static` can be removed once new nav is rolled out site wide.
 	figure svg, .login.icon {
 		width: 25px;
 		height: 25px;

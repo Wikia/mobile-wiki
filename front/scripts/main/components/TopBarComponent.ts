@@ -4,7 +4,7 @@
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
 'use strict';
 
-App.TopBarComponent = Em.Component.extend(App.HeadroomMixin, {
+App.TopBarComponent = Em.Component.extend({
 	classNames: ['top-bar-component'],
 	logoHref: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com')
 });
