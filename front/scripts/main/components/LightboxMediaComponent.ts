@@ -74,17 +74,14 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		return currentMedia && currentMedia.url && currentMedia.type ? 'lightbox-' + currentMedia.type : null;
 	}),
 
-	modelObserver: Em.observer('model', 'currentMedia', function (): void {
-		this.updateHeader();
-		this.updateFooter();
+	modelObserver: Em.on('didInsertElement',
+		Em.observer('model', 'currentMedia', function (): void {
+			this.updateHeader();
+			this.updateFooter();
 
-		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
-	}).on('didInsertElement'),
-
-	didInsertElement(): void {
-		// This is needed for keyDown event to work
-		this.$().focus();
-	},
+			this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
+		})
+	),
 
 	click(event: MouseEvent): void {
 		if (this.get('isGallery')) {
@@ -126,10 +123,12 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		this.nextMedia();
 		return true;
 	},
+
 	leftClickHandler(): boolean {
 		this.prevMedia();
 		return true;
 	},
+
 	centerClickHandler(): boolean {
 		// Bubble up
 		return false;
@@ -162,17 +161,20 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 			header = (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
 		}
 
-		this.sendAction('setHeader', header);
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			this.sendAction('setHeader', header);
+		});
 	},
 
 	updateFooter(): void {
 		var currentMedia: ArticleMedia = this.get('currentMedia');
 
-		if (currentMedia && currentMedia.caption) {
-			this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));
-		} else {
-			this.sendAction('setFooter', null);
-		}
-
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			if (currentMedia && currentMedia.caption) {
+				this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));
+			} else {
+				this.sendAction('setFooter', null);
+			}
+		});
 	}
 });
