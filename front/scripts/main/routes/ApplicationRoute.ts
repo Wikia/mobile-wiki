@@ -7,7 +7,7 @@
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
 	queryParams: {
-		comments_page: {
+		commentsPage: {
 			replace: true
 		}
 	},
