@@ -5,11 +5,11 @@
 
 App.MainPageRouteMixin = Em.Mixin.create({
 	activate(): void {
-		this.controllerFor('application').set('enableSharingHeader', true);
+		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	deactivate(): void {
-		this.controllerFor('application').set('enableSharingHeader', false);
+		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	afterModel(model: any): void {
@@ -49,15 +49,6 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	},
 
 	actions: {
-		didTransition(): boolean {
-			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
-			// Optimally, it would remain in the same place.
-			window.scrollTo(0, 0);
-
-			// bubble up to ApplicationRoute#didTransition
-			return true;
-		},
-
 		openCuratedContentItem(item: CuratedContentItem): void {
 			/**
 			 * We have to double encode because Ember's RouteRecognizer does decodeURI while processing path.

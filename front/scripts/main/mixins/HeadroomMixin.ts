@@ -5,6 +5,7 @@
 
 App.HeadroomMixin = Em.Mixin.create({
 	headroom: null,
+	headroomEnabled: true,
 
 	// keep it consistent with values in _wikia-variables.scss
 	smartBannerHeight: {
@@ -22,21 +23,49 @@ App.HeadroomMixin = Em.Mixin.create({
 	/**
 	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
 	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
+	 *
+	 * We're cacheing values, because we want to re-initialize Headroom only when those are changed
+	 * and only once - without cache'ing smartBannerVisibleObserver is fiering for each component
+	 * it's included in - at the time of writing this it's TWO TIMES
 	 */
-	smartBannerVisibleObserver: Em.observer('smartBannerVisible', function (): void {
-		var headroom = this.get('headroom');
 
-		if (headroom) {
-			headroom.destroy();
-			this.initHeadroom();
-		}
-	}),
-
-	didInsertElement: function () {
-		this.initHeadroom();
+	cachedProperties: {
+		smartBannerVisible: null,
+		offset: null,
+		headroomOptions: null,
 	},
 
-	initHeadroom: function (): void {
+	smartBannerVisibleObserver: Em.on('willInsertElement',
+		Em.observer('smartBannerVisible', 'offset', 'headroomOptions', function (): void {
+			var headroom = this.get('headroom'),
+				smartBannerVisible = this.get('smartBannerVisible'),
+				offset = this.get('offset'),
+				headroomOptions = this.get('headroomOptions'),
+				cachedProperties = this.get('cachedProperties');
+
+			if (smartBannerVisible !== cachedProperties.smartBannerVisible ||
+				headroomOptions !== cachedProperties.headroomOptions ||
+				offset !== cachedProperties.offset) {
+
+				this.set('cachedProperties', {
+					smartBannerVisible,
+					offset,
+					headroomOptions,
+				});
+
+				if (headroom) {
+					headroom.destroy();
+				}
+
+				this.initHeadroom(headroomOptions, offset);
+			}
+		})
+	),
+
+	initHeadroom(headroomOptions: any, offset: number): void {
+		if (this.get('headroomEnabled') === false) {
+			return;
+		}
 		var headroom: Headroom,
 			options = {
 				classes: {
@@ -46,12 +75,11 @@ App.HeadroomMixin = Em.Mixin.create({
 					top: 'headroom-top',
 					notTop: 'headroom-not-top'
 				},
-				offset: this.get('offset')
+				offset
 			};
 
-		// If the object using this mixin provides overriding options, merge them with the default
-		if (this.get('headroomOptions')) {
-			options = $.extend(options, this.get('headroomOptions'));
+		if (headroomOptions) {
+			options = $.extend({}, options, headroomOptions);
 		}
 
 		headroom = new Headroom(this.get('element'), options);

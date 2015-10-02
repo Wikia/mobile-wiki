@@ -10,11 +10,11 @@ test('url creates valid url to a resource', function () {
 	expect(5);
 	var model = this.subject();
 
-	equal(model.url(1, 0), '/api/v1/article/comments/1/0');
-	equal(model.url(1, 1), '/api/v1/article/comments/1/1');
-	equal(model.url(1, 2), '/api/v1/article/comments/1/2');
-	equal(model.url(5, 0), '/api/v1/article/comments/5/0');
-	equal(model.url(90, 90), '/api/v1/article/comments/90/90');
+	equal(model.url(1, 0), '/api/mercury/article/comments/1/0');
+	equal(model.url(1, 1), '/api/mercury/article/comments/1/1');
+	equal(model.url(1, 2), '/api/mercury/article/comments/1/2');
+	equal(model.url(5, 0), '/api/mercury/article/comments/5/0');
+	equal(model.url(90, 90), '/api/mercury/article/comments/90/90');
 });
 
 test('reset, resets model properties', function () {

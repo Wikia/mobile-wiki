@@ -81,12 +81,12 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
 	}).on('didInsertElement'),
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		// This is needed for keyDown event to work
 		this.$().focus();
 	},
 
-	click: function (event: MouseEvent): void {
+	click(event: MouseEvent): void {
 		if (this.get('isGallery')) {
 			this.callClickHandler(event, true);
 		} else {
@@ -94,7 +94,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		}
 	},
 
-	keyDown: function (event: JQueryEventObject): void {
+	keyDown(event: JQueryEventObject): void {
 		if (this.get('isGallery')) {
 			if (event.keyCode === 39) {
 				//handle right arrow
@@ -109,33 +109,33 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	},
 
 	gestures: {
-		swipeLeft: function (): void {
+		swipeLeft(): void {
 			if (this.get('isGallery')) {
 				this.nextMedia();
 			}
 		},
 
-		swipeRight: function (): void {
+		swipeRight(): void {
 			if (this.get('isGallery')) {
 				this.prevMedia();
 			}
 		}
 	},
 
-	rightClickHandler: function(): boolean {
+	rightClickHandler(): boolean {
 		this.nextMedia();
 		return true;
 	},
-	leftClickHandler: function(): boolean {
+	leftClickHandler(): boolean {
 		this.prevMedia();
 		return true;
 	},
-	centerClickHandler: function(): boolean {
+	centerClickHandler(): boolean {
 		// Bubble up
 		return false;
 	},
 
-	nextMedia: function (): void {
+	nextMedia(): void {
 		this.incrementProperty('currentGalleryRef');
 
 		M.track({
@@ -145,7 +145,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		});
 	},
 
-	prevMedia: function (): void {
+	prevMedia(): void {
 		this.decrementProperty('currentGalleryRef');
 
 		M.track({
@@ -155,7 +155,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		});
 	},
 
-	updateHeader: function (): void {
+	updateHeader(): void {
 		var header: string = null;
 
 		if (this.get('isGallery')) {
@@ -165,14 +165,14 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		this.sendAction('setHeader', header);
 	},
 
-	updateFooter: function (): void {
-		var currentMedia: ArticleMedia = this.get('currentMedia'),
-			footer: typeof Handlebars.SafeString = null;
+	updateFooter(): void {
+		var currentMedia: ArticleMedia = this.get('currentMedia');
 
 		if (currentMedia && currentMedia.caption) {
-			footer = currentMedia.caption.htmlSafe();
+			this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));
+		} else {
+			this.sendAction('setFooter', null);
 		}
 
-		this.sendAction('setFooter', footer);
 	}
 });

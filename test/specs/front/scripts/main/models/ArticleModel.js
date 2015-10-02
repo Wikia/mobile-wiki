@@ -42,7 +42,7 @@ test('ArticleModel RESTful URL tests', function () {
 	expect(tests.length);
 	tests.forEach(function (test) {
 		var url = App.ArticleModel.url(test);
-		var expected = '/api/v1/article/' + test.title;
+		var expected = '/api/mercury/article/' + test.title;
 		equal(url, expected, 'url returned"' + url + '", expected ' + expected);
 	});
 });

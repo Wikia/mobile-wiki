@@ -1,0 +1,56 @@
+$discussion-hero-unit-text-color: $color-white;
+$discussion-hero-unit-avatar-dimension: 40px;
+
+.discussion-hero-unit {
+	color: $discussion-hero-unit-text-color;
+	display: none;
+	padding-bottom: 37px;
+	padding-top: 37px;
+	text-align: center;
+	width: 100%;
+
+	h1 {
+		color: $discussion-hero-unit-text-color;
+		font-size: 48px;
+	}
+
+	p {
+		font-size: 14px;
+		font-weight: bold;
+	}
+
+	.discussion-contributors {
+		.avatar {
+			img {
+				height: $discussion-hero-unit-avatar-dimension;
+				width: $discussion-hero-unit-avatar-dimension;
+			}
+		}
+
+		.discussion-contributors-more {
+			font-size: $type-min;
+			height: $discussion-hero-unit-avatar-dimension;
+			padding-top: 5px;
+			width: $discussion-hero-unit-avatar-dimension;
+		}
+	}
+}
+
+.minimized {
+	&.discussion-hero-unit {
+		padding-bottom: 0;
+		padding-top: 25px;
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
+		background-color: #{nth($vertical-colors, $i)};
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-hero-unit {
+		display: block;
+	}
+}

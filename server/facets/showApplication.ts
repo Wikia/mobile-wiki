@@ -11,8 +11,8 @@ import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request.headers.host),
-		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).getWikiVariables(),
+	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).wikiVariables(),
 		context: any = {};
 
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
@@ -21,13 +21,15 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
-	wikiVariables.then((response) => {
-		var userDir: string;
-		context.wiki = response.data;
+	wikiVariables.then((wikiVariables: any): Promise<any> => {
+		var contentDir: string;
 
+		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
+
+		context.wiki = wikiVariables;
 		if (context.wiki.language) {
-			userDir = context.wiki.language.userDir;
-			context.isRtl = (userDir === 'rtl');
+			contentDir = context.wiki.language.contentDir;
+			context.isRtl = (contentDir === 'rtl');
 		}
 
 		return OpenGraph.getAttributes(request, context.wiki);
@@ -36,6 +38,8 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 		context.openGraph = openGraphData;
 
 		outputResponse(request, reply, context);
+	}).catch(Utils.RedirectedToCanonicalHost, (): void => {
+		Logger.info('Redirected to canonical host');
 	}).catch((error: any): void => {
 		// `error` could be an object or a string here
 		Logger.warn({error: error}, 'Failed to get complete app view context');

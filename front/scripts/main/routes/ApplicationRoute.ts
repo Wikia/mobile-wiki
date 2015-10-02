@@ -44,30 +44,34 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 	},
 
 	actions: {
-		loading: function (): void {
+		loading(): void {
 			this.controller && this.controller.showLoader();
 		},
 
-		didTransition: function (): void {
+		didTransition(): void {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
 			this.controller && this.controller.hideLoader();
 
 			// Clear notification alerts for the new route
-			this.controller.get('alertNotifications').clear();
+			this.controller.clearNotifications();
 
 			/*
 			 * This is called after the first route of any application session has loaded
 			 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 			 */
 			M.prop('articleContentPreloadedInDOM', false);
+
+			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
+			// Optimally, it would remain in the same place.
+			window.scrollTo(0, 0);
 		},
 
-		error: function (): void {
+		error(): void {
 			this.controller && this.controller.hideLoader();
 		},
 
-		handleLink: function (target: HTMLAnchorElement): void {
+		handleLink(target: HTMLAnchorElement): void {
 			var currentRoute = this.router.get('currentRouteName'),
 				title: string,
 				trackingCategory: string,
@@ -131,7 +135,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			}
 		},
 
-		loadRandomArticle: function (): void {
+		loadRandomArticle(): void {
 			this.get('controller').send('toggleSideNav', false);
 
 			App.ArticleModel
@@ -144,30 +148,34 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				});
 		},
 
+		search: function (searchString : string) {
+			this.transitionTo('searchResults', {queryParams: {q: searchString}});
+		},
+
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes
 		// see http://emberjs.com/images/template-guide/action-bubbling.png
-		handleLightbox: function (): void {
+		handleLightbox(): void {
 			this.get('controller').send('handleLightbox');
 		},
 
-		openLightbox: function (lightboxType: string, lightboxModel?: any): void {
+		openLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
 		},
 
-		createHiddenLightbox: function (lightboxType: string, lightboxModel?: any): void {
+		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
 		},
 
-		showLightbox: function (): void {
+		showLightbox(): void {
 			this.get('controller').send('showLightbox');
 		},
 
-		closeLightbox: function (): void {
+		closeLightbox(): void {
 			this.get('controller').send('closeLightbox');
 		},
 
 		// This is used only in not-found.hbs template
-		toggleSideNav: function (visible: boolean): void {
+		toggleSideNav(visible: boolean): void {
 			this.get('controller').set('sideNavVisible', visible);
 		}
 	}

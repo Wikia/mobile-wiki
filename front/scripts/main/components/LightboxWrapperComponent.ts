@@ -23,7 +23,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		return type ?  'lightbox-' + type : null;
 	}),
 
-	click: function (event: MouseEvent) {
+	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
 
 		if ($target.is('.lightbox-footer')) {
@@ -35,14 +35,14 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		}
 	},
 
-	keyDown: function (event: KeyboardEvent): void {
+	keyDown(event: KeyboardEvent): void {
 		if (event.keyCode === 27) {
 			this.send('close');
 		}
 	},
 
 	actions: {
-		close: function (): void {
+		close(): void {
 			this.setProperties({
 				footer: null,
 				header: null,
@@ -50,25 +50,25 @@ App.LightboxWrapperComponent = Em.Component.extend({
 			});
 			this.sendAction('closeLightbox');
 		},
-		setFooter: function (footer: string): void {
+		setFooter(footer: string): void {
 			this.set('footer', footer);
 		},
-		setHeader: function (header: string): void {
+		setHeader(header: string): void {
 			this.set('header', header);
 		},
-		setQueryParam: function (name: string, value: any): void {
+		setQueryParam(name: string, value: any): void {
 			this.sendAction('setQueryParam', name, value);
 		},
-		toggleFooter: function (): void {
+		toggleFooter(): void {
 			this.toggleProperty('footerExpanded');
 		},
-		toggleUI: function (): void {
+		toggleUI(): void {
 			this.toggleProperty('footerHidden');
 			this.toggleProperty('headerHidden');
 		}
 	},
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		// This is needed for keyDown event to work
 		this.$().focus();
 	}

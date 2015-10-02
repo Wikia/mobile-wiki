@@ -62,12 +62,16 @@ App.Router.map(function () {
 		path: articlePath + '*title'
 	});
 
-	this.route('edit', { // Symbolic link to EditController
+	this.route('articleEdit', {
 		path: articlePath + 'edit/:title/:sectionIndex'
 	});
 
-	this.route('addPhoto', { // Symbolic link to AddPhotoController
+	this.route('articleAddPhoto', {
 		path: articlePath + 'addPhoto/:title'
+	});
+
+	this.route('searchResults', {
+		path: '/search'
 	});
 
 	this.route('discussion', {
@@ -75,6 +79,10 @@ App.Router.map(function () {
 	}, function () {
 		this.route('forum', {
 			path: '/f/:forumId'
+		});
+
+		this.route('forum', {
+			path: '/f/:forumId/:sortBy'
 		});
 
 		this.route('post', {

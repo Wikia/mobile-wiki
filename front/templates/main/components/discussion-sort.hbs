@@ -1,0 +1,3 @@
+{{#each sortTypes as |item|}}
+	<li {{action 'setSortBy' item.name}} data-type="{{item.name}}">{{i18n item.messageKey}}</li>
+{{/each}}

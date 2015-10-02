@@ -14,7 +14,6 @@ class FacebookConnect extends Login {
 	urlHelper: UrlHelper;
 	submitValidator: SubmitValidator;
 	tracker: AuthTracker;
-	utils: Utils;
 
 	constructor (form: HTMLFormElement, submitValidator: SubmitValidator) {
 		super(form);
@@ -61,7 +60,7 @@ class FacebookConnect extends Login {
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', M.trackActions.success);
-				Utils.loadUrl(this.redirect);
+				AuthUtils.authSuccessCallback(this.redirect);
 			} else {
 				errors = JSON.parse(facebookConnectXhr.responseText).errors;
 
@@ -77,6 +76,8 @@ class FacebookConnect extends Login {
 					M.trackActions.error
 				);
 
+				this.authLogger.xhrError(facebookConnectXhr);
+
 				// Logout user on connection error
 				logoutXhr = new XMLHttpRequest();
 				logoutXhr.open('GET', '/logout', true);
@@ -86,6 +87,8 @@ class FacebookConnect extends Login {
 
 		facebookConnectXhr.onerror = (e: Event) => {
 			this.displayError('errors.server-error');
+
+			this.authLogger.xhrError(facebookConnectXhr);
 		};
 
 		facebookConnectXhr.open('POST', url, true);

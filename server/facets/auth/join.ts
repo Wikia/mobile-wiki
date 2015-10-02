@@ -5,6 +5,8 @@ import localSettings = require('../../../config/localSettings');
 import authView = require('./authView');
 var deepExtend = require('deep-extend');
 
+import url = require('url');
+
 interface JoinViewContext extends authView.AuthViewContext {
 	loginRoute: string;
 	signupHref: string;
@@ -14,18 +16,7 @@ interface JoinViewContext extends authView.AuthViewContext {
 
 function get (request: Hapi.Request, reply: any): Hapi.Response {
 	var context: JoinViewContext,
-		redirectUrl: string = authView.getRedirectUrl(request),
 		response: Hapi.Response;
-
-	if (request.auth.isAuthenticated) {
-		return reply.redirect(redirectUrl);
-	}
-
-	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
-		response = reply.redirect('/register');
-		caching.disableCache(response);
-		return response;
-	}
 
 	context = deepExtend(
 		authView.getDefaultContext(request),
@@ -43,6 +34,17 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 			}
 		}
 	);
+
+	if (request.auth.isAuthenticated) {
+		return authView.onAuthenticatedRequestReply(request, reply, context);
+	}
+
+	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
+		request.url.pathname = '/register';
+		response = reply.redirect(url.format(request.url));
+		caching.disableCache(response);
+		return response;
+	}
 
 	return authView.view('join-page', context, request, reply);
 }

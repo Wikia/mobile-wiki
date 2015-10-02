@@ -19,7 +19,7 @@ var cachingTimes = {
  */
 function prepareData (request: Hapi.Request, result: any): void {
 	var title: string,
-		userDir = 'ltr';
+		contentDir = 'ltr';
 
 	/**
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
@@ -36,8 +36,8 @@ function prepareData (request: Hapi.Request, result: any): void {
 	}
 
 	if (result.wiki.language) {
-		userDir = result.wiki.language.userDir;
-		result.isRtl = (userDir === 'rtl');
+		contentDir = result.wiki.language.contentDir;
+		result.isRtl = (contentDir === 'rtl');
 	}
 
 	//@TODO - this part should be removed when we fix API in MW
@@ -102,15 +102,14 @@ function processCuratedContentData (
 	if (!result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
-	} else if ((error && error.code === 404) || (!result.curatedContent.items || result.curatedContent.items.length < 1)) {
-		//if no items inside section or category -> redirect to main page
-		reply.redirect('/');
 	} else {
 		Tracking.handleResponse(result, request);
 
 		if (error) {
 			code = error.code || error.statusCode || 500;
 			result.error = JSON.stringify(error);
+
+			allowCache = false;
 		}
 
 		prepareData(request, result);

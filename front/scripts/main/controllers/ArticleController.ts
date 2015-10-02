@@ -4,11 +4,11 @@
 'use strict';
 
 App.ArticleController = Em.Controller.extend({
-	needs: ['application'],
-	noAds: Em.computed.alias('controllers.application.noAds'),
-	commentsPage: Em.computed.alias('controllers.application.commentsPage'),
+	application: Em.inject.controller(),
+	noAds: Em.computed.alias('application.noAds'),
+	commentsPage: Em.computed.alias('application.commentsPage'),
 
-	init: function (): void {
+	init(): void {
 		this.setProperties({
 			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
 			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
@@ -16,9 +16,9 @@ App.ArticleController = Em.Controller.extend({
 	},
 
 	actions: {
-		edit: function (title: string, sectionIndex: number): void {
+		edit(title: string, sectionIndex: number): void {
 			App.VisibilityStateManager.reset();
-			this.transitionToRoute('edit', title, sectionIndex);
+			this.transitionToRoute('articleEdit', title, sectionIndex);
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
@@ -27,20 +27,20 @@ App.ArticleController = Em.Controller.extend({
 			});
 		},
 
-		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
-			var photoModel = App.AddPhotoModel.load(photoData);
+		addPhoto(title: string, sectionIndex: number, photoData: any): void {
+			var photoModel = App.ArticleAddPhotoModel.load(photoData);
 			//We don't want to hold with transition and wait for a promise to resolve.
 			//Instead we set properties on model after resolving promise and Ember scheduler handles this gracefully.
-			photoModel.then((model: typeof App.AddPhotoModel) => {
+			photoModel.then((model: typeof App.ArticleAddPhotoModel) => {
 				model.setProperties({
 					title,
 					sectionIndex
 				});
 			});
-			this.transitionToRoute('addPhoto', photoModel);
+			this.transitionToRoute('articleAddPhoto', photoModel);
 		},
 
-		articleRendered: function (): void {
+		articleRendered(): void {
 			this.send('handleLightbox');
 		}
 	}

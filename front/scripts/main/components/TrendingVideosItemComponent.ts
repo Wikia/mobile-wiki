@@ -7,17 +7,17 @@
 App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.TrackClickMixin, {
 	tagName: 'a',
 	classNames: ['trending-videos-item'],
-	attributeBindings: ['href', 'style'],
+	attributeBindings: ['href'],
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	style: null,
+	imageStyle: null,
 	video: null,
 	imageWidth: 250,
 
 	href: Em.computed.oneWay('video.fileUrl'),
 
-	imageHeight: Em.computed(function (): number {
+	imageHeight: Em.computed('imageWidth', function (): number {
 		return Math.floor(this.get('imageWidth') * 9 / 16);
 	}),
 
@@ -36,24 +36,20 @@ App.TrendingVideosItemComponent = Em.Component.extend(App.ViewportMixin, App.Tra
 		}
 	}),
 
-	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	}),
+	viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+		this.updateImageSize();
+	})),
 
-	willInsertElement: function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	},
-
-	click: function (): boolean {
+	click(): boolean {
 		this.trackClick('modular-main-page', 'trending-videos');
 
 		this.sendAction('action', this.get('video'));
 		return false;
 	},
 
-	updateImageSize: function (viewportWidth: number): void {
-		var imageHeightString = String(Math.floor((viewportWidth - 10) * 9 / 16));
+	updateImageSize(): void {
+		var imageHeightString = String(Math.floor((this.get('viewportDimensions.width') - 10) * 9 / 16));
 
-		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
+		this.set('imageStyle', new Em.Handlebars.SafeString(`height: ${imageHeightString}px;`));
 	}
 });

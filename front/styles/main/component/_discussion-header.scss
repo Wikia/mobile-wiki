@@ -1,0 +1,73 @@
+$discussion-header-line-height: 45px;
+$discussion-header-color-text: #fff;
+
+.discussion-header {
+	color: $discussion-header-color-text;
+	margin-top: $top-bar-height;
+	max-width: inherit;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
+
+	&.un-pinned {
+		margin-top: $theme-bar-height + $top-bar-height;
+	}
+
+	.header {
+		height: $discussion-header-height;
+		overflow: hidden;
+		padding: 0 15px;
+	}
+
+	h1 {
+		color: $discussion-header-color-text;
+		float: left;
+		font-size: $type-smaller;
+		line-height: $discussion-header-line-height;
+		margin: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		width: 180px;
+	}
+
+	.icon.dropdown {
+		height: 4px;
+		margin-left: 5px;
+		vertical-align: middle;
+		width: 7px;
+	}
+
+	.overlay {
+		@include perfect-square(100%);
+		cursor: default;
+		display: none;
+		left: 0;
+		position: fixed;
+		top: 0;
+		z-index: $z-side-nav-overlay;
+	}
+
+	.sort {
+		cursor: pointer;
+		float: right;
+		font-size: $type-smallest;
+		line-height: $discussion-header-line-height;
+		text-align: right;
+		width: 110px;
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .discussion-header {
+		.header {
+			background-color: #{nth($vertical-colors, $i)};
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-header {
+		display: none;
+	}
+}
