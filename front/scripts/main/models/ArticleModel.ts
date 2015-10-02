@@ -33,7 +33,8 @@ interface Response {
 		mainPageData: any[];
 		relatedPages: any[];
 		topContributors: any[];
-		adsContext: any
+		adsContext: any;
+		redirectEmptyTarget: boolean;
 	};
 }
 
@@ -169,7 +170,8 @@ App.ArticleModel.reopenClass({
 					media: App.MediaModel.create({
 						media: article.media
 					}),
-					categories: article.categories
+					categories: article.categories,
+					redirectEmptyTarget: source.redirectEmptyTarget || false
 				});
 			}
 

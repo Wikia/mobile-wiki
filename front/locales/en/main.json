@@ -4,6 +4,7 @@
     "article-toc-label": "Table of Contents",
     "article-comments-label": "__count__ comment",
     "article-comments-label_plural": "__count__ comments",
+    "article-redirect-empty-target": "The link you followed is a redirect, but the page it directs to does not exist.",
     "article-replies-label": "View __count__ reply",
     "article-replies-label_plural": "View __count__ replies",
     "article-suggestions-label": "Read More",
