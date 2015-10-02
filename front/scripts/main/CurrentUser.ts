@@ -39,18 +39,28 @@ App.CurrentUser = Em.Object.extend({
 				.then(this.loadUserLanguage.bind(this))
 				.then(this.loadUserRights.bind(this))
 				.catch((err: any): void => {
+					this.setUserLanguage();
 					Em.Logger.warn('Couldn\'t load current user info', err);
 				});
+		} else {
+			this.setUserLanguage();
 		}
 		this._super();
 	},
 
+	setUserLanguage(userLang: string = null): void {
+		var contentLanguage = Em.getWithDefault(Mercury, 'wiki.language.content', 'en'),
+			userLanguage = userLang || contentLanguage;
+
+		this.set('language', userLanguage);
+		M.prop('userLanguage', userLanguage);
+	},
+
 	loadUserLanguage(result: QueryUserInfoResponse): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var language = Em.getWithDefault(result, 'query.userinfo.options.language', 'en');
+			var userLanguage = Em.get(result, 'query.userinfo.options.language');
 
-			this.set('language', language);
-			M.prop('userLanguage', language);
+			this.setUserLanguage(userLanguage);
 
 			resolve(result);
 		});
