@@ -52,19 +52,22 @@ App.SideNavComponent = Em.Component.extend({
 		 * @param value of input
 		 */
 		enter(value = ''): void {
-			var experimentIds = { // Experiment id from Optimizely
+			// Experiment id from Optimizely
+			var experimentIds = {
 					prod: '3571301500',
 					dev: '3579160288'
 				},
 				variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
 
-			if (variationNumber && variationNumber === 2) { // Use Google Search
+			// Use Google Search
+			if (variationNumber === 2) {
 				// Hide SideNav
 				this.sendAction('toggleVisibility', false);
 				this.send('searchCancel');
 
 				this.sendAction('search', value);
-			} else { // Use Wikia Search
+				// Use Wikia Search
+			} else {
 				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
 			}
 		}
