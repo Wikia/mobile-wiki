@@ -2,7 +2,7 @@
 'use strict';
 
 App.TrendingVideosComponent = Em.Component.extend({
-	classNames: ['trending', 'trending-videos'],
+	classNames: ['trending', 'trending-videos', 'mw-content'],
 
 	actions: {
 		openLightbox(video: any): void {
