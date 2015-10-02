@@ -16,7 +16,7 @@ App.UserStatusComponent = Em.Component.extend({
 
 	userAvatarSrc: Em.computed.oneWay('currentUser.avatarPath'),
 
-	userName: Em.computed.oneWay('currentUser.avatarPath'),
+	userName: Em.computed.oneWay('currentUser.name'),
 
 	anonAvatarHref: Em.computed(function (): string {
 		if (Mercury.wiki.enableNewAuth) {

@@ -1,3 +1,22 @@
+## release-173 (2015-10-02 07:59 UTC)
+* top-bar-bugs: changing auth wording
+* top-bar-bugs: fixing user name in top bar
+* [HG-879](https://wikia-inc.atlassian.net/browse/HG-879) HG-879 - redo theme bar behavior to match design spec
+* sg-version: bumping style guide version
+* [SOC-1291](https://wikia-inc.atlassian.net/browse/SOC-1291) SOC-1291 Use of contributors component and avatar component
+* optimizely-sandbox-fix: Adjusted SPA code, because sandboxes are serving prod Optimizely script
+* ember-hammer-upstream: Use ember-hammer upstream
+* [XW-422](https://wikia-inc.atlassian.net/browse/XW-422) XW-422 send data using post method
+
+## release-172 (2015-10-01 07:59 UTC)
+* [HG-893](https://wikia-inc.atlassian.net/browse/HG-893) Hg 893 Top-bar design review fixes
+* [XW-472](https://wikia-inc.atlassian.net/browse/XW-472) XW-472 rename AddPhotoModel to ArticleAddPhotoModel
+* [SOC-1355](https://wikia-inc.atlassian.net/browse/SOC-1355) SOC-1355 | Auth fix redirect from /join to /register
+* new-methods-definition: Maintenance | New methods definition syntax
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Add search action
+* aden-2476-cat-targeting-param-on-mercury: ADEN-2476 | Expose article categories to adsContext
+* [DAT-3294](https://wikia-inc.atlassian.net/browse/DAT-3294) DAT-3294 add infobox-hero-image context handling
+
 ## release-171 (2015-09-30 07:59 UTC)
 * [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Add route for showing google custom search results in Mercury
 * [SOC-1294](https://wikia-inc.atlassian.net/browse/SOC-1294) SOC-1294 Implement rails and the wiki badge
