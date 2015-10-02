@@ -27,7 +27,7 @@ interface FeaturedContentItem {
 
 App.FeaturedContentMixin = Em.Mixin.create({
 	layoutName: 'components/featured-content',
-	classNames: ['featured-content'],
+	classNames: ['featured-content', 'mw-content'],
 	currentItemIndex: 0,
 
 	hasMultipleItems: Em.computed('model', function (): boolean {
