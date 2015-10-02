@@ -5,7 +5,6 @@ App.DiscussionForumController = Em.Controller.extend({
 	sortBy: null,
 	// Whether the sort component is currently visible
 	sortVisible: false,
-	connectionError: null,
 
 	sortTypes: [
 		{

@@ -4,8 +4,10 @@
 App.DiscussionConnectionErrorComponent = Em.Component.extend({
 	classNames: ['discussion-error'],
 
-	refreshPath: Em.computed(function() {
-		return location.pathname;
-	})
+	actions: {
+		retry: function (): void {
+			this.sendAction('retry');
+		}
+	}
 
 });

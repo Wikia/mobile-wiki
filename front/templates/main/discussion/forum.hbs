@@ -1,5 +1,7 @@
-{{#if connectionError}}
-	{{discussion-connection-error}}
+{{#if model.connectionError}}
+	{{discussion-connection-error
+		retry='retry'
+	}}
 {{else}}
 	{{discussion-hero-unit
 		numberOfPosts=model.totalPosts

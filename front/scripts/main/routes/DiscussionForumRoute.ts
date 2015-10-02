@@ -8,14 +8,8 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 
 	model(params: any) {
 		var modelPromise: any;
-
 		this.set('forumId', params.forumId);
-		modelPromise = App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
-		return modelPromise.then(null, function (reason: any) {
-				this.route.controllerFor('discussionForum').set('connectionError', true);
-				return true;
-			}.bind({route: this})
-		);
+		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
 	},
 
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
@@ -30,6 +24,10 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 
 		loadPage: function (pageNum: number): void {
 			this.modelFor('discussion.forum').loadPage(pageNum);
+		},
+
+		retry: function (): void {
+			this.refresh();
 		},
 
 		setSortBy: function (sortBy: string): void {

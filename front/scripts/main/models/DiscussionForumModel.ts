@@ -6,6 +6,7 @@ App.DiscussionForumModel = Em.Object.extend({
 	name: null,
 	posts: null,
 	totalPosts: 0,
+	connectionError: null,
 
 	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
@@ -74,7 +75,10 @@ App.DiscussionForumModel.reopenClass({
 
 					resolve(forumInstance);
 				},
-				error: (err) => reject(err)
+				error: (err) => {
+					forumInstance.set('connectionError', true);
+					resolve(forumInstance);
+				}
 			});
 		});
 	}
