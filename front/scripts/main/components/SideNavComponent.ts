@@ -59,15 +59,15 @@ App.SideNavComponent = Em.Component.extend({
 				},
 				variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
 
-			// Use Google Search
 			if (variationNumber === 2) {
+				// Use Google Search
 				// Hide SideNav
 				this.sendAction('toggleVisibility', false);
 				this.send('searchCancel');
 
 				this.sendAction('search', value);
-				// Use Wikia Search
 			} else {
+				// Use Wikia Search
 				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
 			}
 		}

@@ -149,13 +149,8 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		search: function (searchString : string) {
-			// Only search in current community
-			var basePath : string  = Em.get(Mercury, 'wiki.basePath');
-			basePath = basePath.replace(/.*?:\/\//g, ""); // remove protocol from basePath
-
 			this.transitionTo('searchResults', {queryParams: {
 				q: searchString,
-				site: basePath
 			}});
 		},
 

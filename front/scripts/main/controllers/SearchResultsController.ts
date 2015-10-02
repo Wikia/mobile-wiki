@@ -3,7 +3,6 @@
 'use strict';
 
 App.SearchResultsController = Em.Controller.extend({
-	queryParams: ['q', 'site'],
+	queryParams: ['q'],
 	q: null,
-	site: null,
 });
