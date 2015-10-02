@@ -5,7 +5,9 @@ App.SearchResultsRoute = Em.Route.extend({
 	// Don't let the script to start loading multiple times (user opens the route, goes back, opens it again)
 	googleCustomSearchLoadingInitialized: false,
 
-	// Return a promise and resolve only after script is loaded - this way the route won't load before it happens
+	/*
+	 * @desc Return a promise and resolve only after script is loaded - this way the route won't load before it happens
+	 */
 	beforeModel(): Em.RSVP.Promise {
 		if (!this.get('googleCustomSearchLoadingInitialized')) {
 			return this.loadGoogleCustomSearch();
