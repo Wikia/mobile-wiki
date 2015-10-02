@@ -1,3 +1,6 @@
+## release-173 hotfix 1 (2015-10-02 15:30 UTC)
+* [XW-461](https://wikia-inc.atlassian.net/browse/XW-461) XW-461 add mw-content class to all modules on main page
+
 ## release-173 (2015-10-02 07:59 UTC)
 * top-bar-bugs: changing auth wording
 * top-bar-bugs: fixing user name in top bar
