@@ -11,7 +11,8 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 
 	afterModel(model: typeof App.MainPageModel): void {
 		var mainPageTitle = M.String.normalizeToWhitespace(Em.get(Mercury, 'wiki.mainPageTitle'));
-		document.title = mainPageTitle + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
+		document.title = mainPageTitle + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia') +
+			' - ' + i18n.t('app.wikia-pagetitle');
 
 		this.controllerFor('mainPage').setProperties({
 			adsContext: model.get('adsContext'),
