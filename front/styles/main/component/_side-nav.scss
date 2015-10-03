@@ -6,7 +6,7 @@
 	// overlay
 	.overlay {
 		@include perfect-square(100%);
-		background-color: $modal-background;
+		background-color: $overlay-color;
 		left: 0;
 		position: fixed;
 		top: 0;
