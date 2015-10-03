@@ -19,7 +19,7 @@
 	// overlay
 	.overlay {
 		@include perfect-square(100%);
-		background-color: black;
+		background-color: $modal-background;
 		left: 0;
 		position: fixed;
 		top: 0;
@@ -28,7 +28,7 @@
 
 	// slide-out drawer
 	.drawer {
-		background-color: white;
+		background-color: $color-white;
 		height: 100%;
 		position: fixed;
 		top: 0;
@@ -42,16 +42,14 @@
 
 		.clear-search-btn {
 			@include perfect-square(45px);
-			display: none;
 			padding: {
-				top: rem-calc(11);
 				left: rem-calc(20);
+				top: rem-calc(11);
 			}
 			position: absolute;
 			right: 0;
 			top: 0;
 			user-select: none;
-			visibility: hidden;
 		}
 
 		.icon.search-side-menu {
@@ -62,42 +60,37 @@
 
 		input,
 		input:focus {
-			@extend .type-smallest;
-			background-color: white;
-			border-color: #d0d0d0;
+			background-color: $color-white;
+			border: 1px solid $search-box-border-color;
 			border-radius: $border-radius-global;
-			border: rem-calc(1) solid $search-box-border-color;
-			float: left;
 			height: rem-calc(28);
 			left: 0;
 			margin: rem-calc(8) rem-calc(13);
 			outline: none;
 			padding: {
-				bottom: 0.5rem;
+				bottom: .5rem;
 				left: rem-calc(95);
 				right: rem-calc(25);
-				top: 0.5rem;;
+				top: .5rem;
 			}
 			top: 0;
 			width: calc(100% - #{2 * $side-nav-item-gutter});
 		}
 
 		.search-container {
-			border-bottom: rem-calc(1) solid #d0d0d0;
+			border-bottom: 1px solid $color-gray-semi;
 			display: flex;
+			height: rem-calc(45);
 			left: 0;
 			position: absolute;
 			right: 0;
-			text-align: left;
-			height: rem-calc(45);
+		}
 
-			// Cancel search div
-			.cancel {
-				@extend .type-smallest;
-				color: #006598;
-				padding: rem-calc(11) rem-calc(13);
-				right: 0;
-			}
+		// Cancel search div
+		.cancel {
+			color: $link-color;
+			padding: rem-calc(11) rem-calc(13);
+			right: 0;
 		}
 
 		::placeholder {
@@ -105,17 +98,8 @@
 		}
 
 		&.search {
-			overflow: {
-				x: hidden;
-				y: auto;
-			}
 			visibility: visible;
 			width: 100%;
-
-			.clear-search-btn {
-				display: initial;
-				visibility: visible;
-			}
 
 			.icon.search-side-menu {
 				left: rem-calc(20);
@@ -133,7 +117,10 @@
 
 			.cancel {
 				display: none;
-				visibility: hidden;
+			}
+
+			.clear-search-btn {
+				display: none;
 			}
 		}
 	}
