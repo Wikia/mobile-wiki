@@ -1,19 +1,6 @@
 .side-nav {
-	// open nav button
-	.nav-container {
-		@extend .touch-active;
-		display: inline-block;
-		float: left;
-		height: 50px;
-		padding-top: rem-calc(15);
-		width: rem-calc(60);
-
-		svg {
-			display: block;
-			height: rem-calc(20);
-			margin: auto;
-			width: rem-calc(34);
-		}
+	svg {
+		pointer-events: none;
 	}
 
 	// overlay
@@ -66,7 +53,7 @@
 			padding: {
 				bottom: .5rem;
 				left: rem-calc(95);
-				right: rem-calc(25);
+				right: rem-calc(40);
 				top: .5rem;
 			}
 			width: calc(100% - #{2 * $side-nav-item-gutter});
@@ -77,15 +64,16 @@
 		}
 
 		.clear-search-btn {
-			@include perfect-square(45px);
+			height: 100%;
 			padding: {
-				left: rem-calc(20);
-				top: rem-calc(11);
+				left: rem-calc(15);
+				top: rem-calc(12);
 			}
 			position: absolute;
 			right: 0;
 			top: 0;
 			user-select: none;
+			width: rem-calc(40);
 		}
 
 		// Cancel search div
