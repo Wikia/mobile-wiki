@@ -29,6 +29,10 @@
 				vertical-align: text-bottom;
 				width: 14px;
 			}
+			&:hover .icon-retry {
+				transform: rotate(360deg);
+				transition: all 0.3s ease-in-out 0s;
+			}
 		}
 	}
 }
