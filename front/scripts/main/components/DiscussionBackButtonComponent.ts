@@ -3,7 +3,13 @@
 
 App.DiscussionBackButtonComponent = Em.Component.extend({
 	tagName: 'a',
-	classNames: ['back-button', 'external'],
+	classNames: ['back-button'],
 	attributeBindings: ['href'],
-	href: '/'
+	href: null,
+	label: '',
+
+	click: function ():void {
+		console.log("DiscussionBackButtonComponent sendAction");
+		this.sendAction('setLocation');
+	}
 });

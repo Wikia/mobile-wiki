@@ -4,3 +4,9 @@
 	}
 }
 
+$discussion-rail-separator-color: #e6e6e6;
+
+.rail .separator {
+	border-top: 1px solid $discussion-rail-separator-color;
+	width: 210px;
+}

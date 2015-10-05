@@ -8,6 +8,11 @@
 <div class="discussion-page row">
 	<div class="rail large-2 columns">
 		{{community-badge}}
+		{{discussion-back-button
+			setLocation='goToForum'
+			label='discussion.back-to-discussions-link'
+		}}
+        <div class="separator"></div>
 		<div class="discussion-contributors-title">{{i18n "discussion.contributors-title"}}</div>
 		{{discussion-contributors
 			contributors=model.contributors
