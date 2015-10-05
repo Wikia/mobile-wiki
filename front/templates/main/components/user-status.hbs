@@ -11,16 +11,16 @@
 			</li>
 		{{/each}}
 	{{else}}
-		<span class="show-for-large-up">
+		<figure>
+			<a href="{{anonAvatarHref}}">
+				{{svg 'avatar' role='img' class='icon login'}}
+			</a>
+		</figure>
+		<span class="register-cta">
 			{{{i18n 'userStatus.anon-cta'
 				loginLink=loginLink
 				registerLink=registerLink
 			}}}
 		</span>
-		<figure class="show-for-medium-down">
-			<a href="{{anonAvatarHref}}">
-				{{svg 'avatar' role='img' class='icon login'}}
-			</a>
-		</figure>
 	{{/if}}
 </user-status>

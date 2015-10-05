@@ -1,2 +1,7 @@
 <h1>{{name}}</h1>
 <p>{{i18n 'discussion.number-of-posts' numberOfPosts=numberOfPosts}}</p>
+{{discussion-contributors
+	contributors=contributors
+	maxContributorDisplayCount=6
+	totalContributorCount=numberOfPosts
+}}

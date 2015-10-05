@@ -31,7 +31,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	},
 
 	gestures: {
-		swipeLeft: function (event: JQueryEventObject): void {
+		swipeLeft(event: JQueryEventObject): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-table').length) {
 
@@ -48,7 +48,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			}
 		},
 
-		swipeRight: function (event: JQueryEventObject): void {
+		swipeRight(event: JQueryEventObject): void {
 			// Track swipe events
 			if ($(event.target).parents('.article-gallery').length) {
 				M.track({
@@ -60,7 +60,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 		}
 	},
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		$(window).off('scroll.mercury.preload');
 		window.scrollTo(0, M.prop('scroll'));
 		this.sendAction('articleRendered');
@@ -101,7 +101,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	 * @param event
 	 * @returns {boolean}
 	 */
-	click: function (event: MouseEvent): boolean {
+	click(event: MouseEvent): boolean {
 		var $anchor = Em.$(event.target).closest('a'),
 			target: EventTarget;
 
@@ -123,28 +123,28 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	},
 
 	actions: {
-		edit: function (title: string, sectionIndex: number): void {
+		edit(title: string, sectionIndex: number): void {
 			this.sendAction('edit', title, sectionIndex);
 		},
 
-		addPhoto: function (title: string, sectionIndex: number, photoData: any): void {
+		addPhoto(title: string, sectionIndex: number, photoData: any): void {
 			this.sendAction('addPhoto', title, sectionIndex, photoData);
 		},
 
-		expandSideNav: function (): void {
+		expandSideNav(): void {
 			this.sendAction('toggleSideNav', true);
 		},
 
-		openLightbox: function (lightboxType: string, lightboxData: any): void {
+		openLightbox(lightboxType: string, lightboxData: any): void {
 			this.sendAction('openLightbox', lightboxType, lightboxData);
 		},
 
-		updateHeaders: function(headers: ArticleSectionHeader[]): void {
+		updateHeaders(headers: ArticleSectionHeader[]): void {
 			this.set('headers', headers);
 		}
 	},
 
-	performArticleTransforms: function (): boolean {
+	performArticleTransforms(): boolean {
 		var model = this.get('model'),
 			article = model.get('article');
 
@@ -167,7 +167,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	 * @param {string} tagName clicked tag name
 	 * @returns {boolean}
 	 */
-	shouldHandleMedia: function (target: EventTarget, tagName: string): boolean {
+	shouldHandleMedia(target: EventTarget, tagName: string): boolean {
 		return (tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0;
 	},
 
@@ -176,7 +176,7 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	 *
 	 * @param target
 	 */
-	handleMedia: function (target: HTMLElement): void {
+	handleMedia(target: HTMLElement): void {
 		var $target = $(target),
 			galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
 			$mediaElement = $target.closest('[data-ref]'),

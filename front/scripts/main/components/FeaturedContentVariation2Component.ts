@@ -16,25 +16,25 @@ App.FeaturedContentVariation2Component = Em.Component.extend(App.FeaturedContent
 		return 0;
 	}),
 
-	rightClickHandler: function (): boolean {
+	rightClickHandler(): boolean {
 		M.VariantTesting.trackEvent('featured-content-next');
 		this.nextItem();
 		return true;
 	},
 
-	leftClickHandler: function (): boolean {
+	leftClickHandler(): boolean {
 		M.VariantTesting.trackEvent('featured-content-prev');
 		this.prevItem();
 		return true;
 	},
 
-	centerClickHandler: function (): boolean {
+	centerClickHandler(): boolean {
 		this.trackClick('modular-main-page', 'featured-content');
 		M.VariantTesting.trackEvent('featured-content-click');
 		return false;
 	},
 
-	click: function (event: PreventableClickEvent): void {
+	click(event: PreventableClickEvent): void {
 		this.callClickHandler(event, true);
 	}
 });

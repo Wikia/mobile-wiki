@@ -16,7 +16,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 		return this.get('media').length > this.get('limit');
 	}),
 
-	setUp: function (): void {
+	setUp(): void {
 		this._super();
 		this.set('media', this.get('media').sort(this.sortMedia));
 	},
@@ -28,7 +28,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	 * @param {ArticleMedia} b
 	 * @returns {number}
 	 */
-	sortMedia: function (a: ArticleMedia, b: ArticleMedia): number {
+	sortMedia(a: ArticleMedia, b: ArticleMedia): number {
 		if( a.link && typeof b.link === 'undefined' ) {
 			return 1;
 		} else if ( b.link && typeof a.link === 'undefined' ) {
@@ -38,14 +38,14 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 		return 0;
 	},
 
-	load: function (): void {
+	load(): void {
 		this.setUp();
 		this.loadImages(0, this.limit);
 		this.$().on('scroll', () => this.onScroll);
 	},
 
 	actions: {
-		showMore: function (): void {
+		showMore(): void {
 			var previousLimit = this.get('limit'),
 				mediaLength = this.get('media').length;
 			this.set('limit', mediaLength);

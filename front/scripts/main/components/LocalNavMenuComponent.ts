@@ -47,7 +47,7 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 		 * `currentMenuItem`'s children
 		 * @param index The index of the item to change to
 		 */
-		changeMenuItem: function (index: number): void {
+		changeMenuItem(index: number): void {
 			var curr: RootNavItem = this.get('currentMenuItem');
 			this.set('currentMenuItem', curr.children[index]);
 
@@ -58,19 +58,19 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 			});
 		},
 
-		collapseSideNav: function (): void {
+		collapseSideNav(): void {
 			this.sendAction('collapseSideNav');
 		},
 
-		gotoRoot: function (): void {
+		gotoRoot(): void {
 			this.set('currentMenuItem', this.get('menuRoot'));
 		},
 
-		goBack: function (): void {
+		goBack(): void {
 			this.set('currentMenuItem', this.get('parentItem'));
 		},
 
-		loadRandomArticle: function (): void {
+		loadRandomArticle(): void {
 			this.trackClick('randomArticle', 'click');
 			this.sendAction('loadRandomArticle');
 		}
@@ -91,7 +91,7 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	 * We need this because JSON can store child nav objects,
 	 * but cannot store references to parent objects.
 	 */
-	injectParentPointersAndIndices: function (topLevel: RootNavItem): RootNavItem {
+	injectParentPointersAndIndices(topLevel: RootNavItem): RootNavItem {
 		var children: Array<NavItem> = topLevel.children || [],
 			i: number,
 			len = children.length;
@@ -111,7 +111,7 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	 * @param index The index of this item in its parent's children array, because
 	 * we need it to link to the correct child
 	 */
-	injectParentPointersAndIndicesHelper: function (parent: RootNavItem, curr: NavItem, index: number): void {
+	injectParentPointersAndIndicesHelper(parent: RootNavItem, curr: NavItem, index: number): void {
 		var i: number,
 			len: number;
 
