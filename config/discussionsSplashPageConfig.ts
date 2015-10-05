@@ -82,6 +82,48 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		language: 'en',
 		wikiId: 24357,
 		dbName: 'adventuretimewithfinnandjake'
+	},
+
+	'hawaiifiveo' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.hawaiifiveo',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikia-fan-app-for-hawaii-five-o/id998461510',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'hawaiifiveo.wikia.com',
+		icon: '/front/images/Hawaii-Five-O-App-Icon.png',
+		appName: 'Hawaii Five O',
+		appScreens: '/front/images/Phone-Hawaii-Five-O.png',
+		language: 'en',
+		wikiId: 119235,
+		dbName: 'hawaiifiveo'
+	},
+
+	'thehungergames' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.hungergames',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikia-fan-app-for-hunger-games/id920825903',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'thehungergames.wikia.com',
+		icon: '/front/images/Hunger-Games-App-Icon.png',
+		appName: 'Hunger Games',
+		appScreens: '/front/images/Phone-Hunger-Games.png',
+		language: 'en',
+		wikiId: 35171,
+		dbName: 'thehungergames'
+	},
+
+	'onedirection' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.onedirection',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/pl/app/wikia-fan-app-for-one-direction/id963580330',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'onedirection.wikia.com',
+		icon: '/front/images/Hunger-Games-App-Icon.png',
+		appName: 'One Direction',
+		appScreens: '/front/images/Phone-Hunger-Games.png',
+		language: 'en',
+		wikiId: 203914,
+		dbName: 'onedirection'
 	}
 };
 
