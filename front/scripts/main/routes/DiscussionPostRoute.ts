@@ -40,7 +40,6 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 			return true;
 		},
 		goToForum: function (forumId: number): void {
-			console.log("DiscussionPostRoute goToForum");
 			this.transitionTo('discussion.forum', forumId);
 		},
 	}
