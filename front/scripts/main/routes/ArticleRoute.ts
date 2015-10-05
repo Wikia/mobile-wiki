@@ -75,13 +75,14 @@ App.ArticleRoute = Em.Route.extend({
 			this.notifyPropertyChange('cleanTitle');
 		},
 
-		didTransition(): void {
+		didTransition(): boolean {
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.article-redirect-empty-target'),
 					type: 'warning'
 				});
 			}
+			return true;
 		},
 
 		error(error: any, transition: EmberStates.Transition): boolean {
