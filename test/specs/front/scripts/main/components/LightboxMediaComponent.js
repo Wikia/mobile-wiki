@@ -1,6 +1,8 @@
 var model;
 
 moduleForComponent('lightbox-media', 'LightboxMediaComponent', {
+	unit: true,
+
 	setup: function () {
 		M.track = function () {};
 

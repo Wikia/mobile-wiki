@@ -1,6 +1,7 @@
 var originalMediaModel;
 
 moduleForComponent('trending-videos', 'TrendingVideosComponent', {
+	unit: true,
 	setup: function () {
 		originalMediaModel = App.MediaModel;
 

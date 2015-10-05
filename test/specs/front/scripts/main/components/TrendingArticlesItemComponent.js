@@ -1,4 +1,6 @@
-moduleForComponent('trending-articles-item', 'TrendingArticlesItemComponent');
+moduleForComponent('trending-articles-item', 'TrendingArticlesItemComponent', {
+	unit: true
+});
 
 test('sets proper url for the image', function () {
 	var componentMock = this.subject(),

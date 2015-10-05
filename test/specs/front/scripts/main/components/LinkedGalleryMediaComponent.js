@@ -1,4 +1,6 @@
-moduleForComponent('linked-gallery-media', 'Linked Gallery Media Component');
+moduleForComponent('linked-gallery-media', 'LinkedGalleryMediaComponent', {
+	unit: true
+});
 
 test('sorts media items correctly', function () {
 	var mediaMock = [

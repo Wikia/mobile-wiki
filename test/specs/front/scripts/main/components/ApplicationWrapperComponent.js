@@ -1,4 +1,6 @@
-moduleForComponent('application-wrapper', 'Application Wrapper Component');
+moduleForComponent('application-wrapper', 'ApplicationWrapperComponent', {
+	unit: true
+});
 
 test('shouldHandleClick returns correct value', function () {
 	var component = this.subject(),
