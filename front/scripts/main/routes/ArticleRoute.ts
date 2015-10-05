@@ -4,6 +4,8 @@
 'use strict';
 
 App.ArticleRoute = Em.Route.extend({
+	redirectEmptyTarget: false,
+
 	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
@@ -34,7 +36,7 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
-	model: function (params: any): Em.RSVP.Promise {
+	model(params: any): Em.RSVP.Promise {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
@@ -42,7 +44,7 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
-	afterModel: function (model: typeof App.ArticleModel): void {
+	afterModel(model: typeof App.ArticleModel): void {
 		// if an article is main page, redirect to mainPage route
 		// this will handle accessing /wiki/Main_Page if default main page is different article
 		if (model.isMainPage) {
@@ -54,24 +56,36 @@ App.ArticleRoute = Em.Route.extend({
 
 		// Reset query parameters
 		model.set('commentsPage', null);
+
+		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
 	activate (): void {
-		this.controllerFor('application').set('enableSharingHeader', true);
+		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	deactivate (): void {
-		this.controllerFor('application').set('enableSharingHeader', false);
+		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	actions: {
-		willTransition: function (transition: EmberStates.Transition): void {
+		willTransition(transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
 		},
 
-		error: function (error: any, transition: EmberStates.Transition): boolean {
+		didTransition(): boolean {
+			if (this.get('redirectEmptyTarget')) {
+				this.controllerFor('application').addAlert({
+					message: i18n.t('app.article-redirect-empty-target'),
+					type: 'warning'
+				});
+			}
+			return true;
+		},
+
+		error(error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();
 			}

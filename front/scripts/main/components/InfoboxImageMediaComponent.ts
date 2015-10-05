@@ -8,7 +8,7 @@ App.InfoboxImageMediaComponent = App.ImageMediaComponent.extend(App.ViewportMixi
 	limitHeight: true,
 	normalizeWidth: false,
 	cropMode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
-	isInfoboxHeroImage: Em.computed.alias('media.isInfoboxHeroImage'),
+	isInfoboxHeroImage: Em.computed.equal('media.context', 'infobox-hero-image'),
 
 	caption: Em.computed('media.caption', 'isInfoboxHeroImage', function(): string|boolean {
 		return this.get('isInfoboxHeroImage') ? false : this.get('media.caption');
@@ -19,7 +19,7 @@ App.InfoboxImageMediaComponent = App.ImageMediaComponent.extend(App.ViewportMixi
 	 * Takes into account cropping main infobox images and basing on it's dimensions sets cropping mode.
 	 * @return number
 	 */
-	computedHeight: Em.computed('viewportDimensions.width', 'media.width', 'media.height', function (): number {
+	computedHeight: Em.computed('viewportDimensions.width', 'media.width', 'media.height', 'isInfoboxHeroImage', function (): number {
 		var windowWidth: number = this.get('viewportDimensions.width'),
 			imageAspectRatio: number = this.get('imageAspectRatio'),
 			imageWidth: number = this.get('media.width') || windowWidth,

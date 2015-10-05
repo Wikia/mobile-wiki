@@ -16,7 +16,7 @@ var shouldAsyncArticle = Utils.shouldAsyncArticle;
 function prepareArticleData (request: Hapi.Request, result: any): void {
 	var title: string,
 		articleDetails: any,
-		userDir = 'ltr',
+		contentDir = 'ltr',
 		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'];
 
 	if (result.article.details) {
@@ -35,8 +35,8 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	}
 
 	if (result.wiki.language) {
-		userDir = result.wiki.language.userDir;
-		result.isRtl = (userDir === 'rtl');
+		contentDir = result.wiki.language.contentDir;
+		result.isRtl = (contentDir === 'rtl');
 	}
 
 	result.displayTitle = title;

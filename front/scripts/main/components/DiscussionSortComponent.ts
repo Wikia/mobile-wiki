@@ -15,13 +15,13 @@ App.DiscussionSortComponent = Em.Component.extend({
 		this.updateActive();
 	}),
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		this.set('$discussionSort', $('.discussion-sort'));
 		this.updateActive();
 		this._super();
 	},
 
-	updateActive: function (): void {
+	updateActive(): void {
 		// Add the 'active' CSS class to the sort tab that's active,
 		// but right now this only applies to desktop styling.
 		var $discussionSort: JQuery = this.get('$discussionSort');

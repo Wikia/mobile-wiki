@@ -3,29 +3,41 @@
 		retry='retry'
 	}}
 {{else}}
-	{{discussion-hero-unit
-		numberOfPosts=model.totalPosts
-		name=model.name
-	}}
 	{{discussion-header
+		showContent=true
 		showSortComponent='showSortComponent'
 		hideSortComponent='hideSortComponent'
 		sortBy=sortBy
 		sortMessageKey=sortMessageKey
 	}}
-	{{discussion-sort
-		setSortBy='setSortBy'
-		sortVisible=sortVisible
-		sortBy=sortBy
-		sortTypes=sortTypes
-	}}
-	{{forum-wrapper
-		goToPost='goToPost'
-		loadPage='loadPage'
-		upvote='upvote'
+	{{discussion-hero-unit
+		contributors=model.contributors
+		numberOfPosts=model.totalPosts
 		name=model.name
-		posts=model.posts
-		postsDisplayed=model.posts.length
-		totalPosts=model.totalPosts
 	}}
+	<div class="discussion-page row">
+		<div class="rail large-3 columns">
+			{{community-badge}}
+			{{discussion-back-button}}
+		</div>
+		<div class="small-12 large-6 columns">
+			{{discussion-sort
+				setSortBy='setSortBy'
+				sortVisible=sortVisible
+				sortBy=sortBy
+				sortTypes=sortTypes
+			}}
+			{{forum-wrapper
+				goToPost='goToPost'
+				loadPage='loadPage'
+				upvote='upvote'
+				name=model.name
+				posts=model.posts
+				postsDisplayed=model.posts.length
+				totalPosts=model.totalPosts
+			}}
+		</div>
+		<div class="rail large-3 columns">
+		</div>
+	</div>
 {{/if}}

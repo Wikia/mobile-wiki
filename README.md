@@ -8,21 +8,21 @@
 * `tsd update` will update typings folder with ambient files
 * Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
   * The devboxDomain must have your devbox name (without the dev- prefix) in it.
-  * For development use `localSettings.dev` instead `localSettings.base` - see [localSettings](README.md#localsettings)
   * If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
   * If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
 
     File should look something like this:
 ``` javascript
-    import devLocalSettings = require('./localSettings.dev');
     import Utils = require('../server/lib/Utils');
 
-    var localSettings = devLocalSettings.extendSettings({
-        devboxDomain: 'joe',
-        loggers: {
-            console: 'debug'
-        },
-        port: 8000 // 7000 if running on devbox
+    var baseLocalSettingPath: string = process.env.WIKIA_ENVIRONMENT === 'dev' ? './localSettings.dev' : './localSettings.base',
+        baseLocalSettings = require(baseLocalSettingPath),
+        localSettings = baseLocalSettings.extendSettings({
+            devboxDomain: 'joe',
+            loggers: {
+                console: 'debug'
+            },
+            port: 8000 // 7000 if running on devbox
     });
 
     export = localSettings;

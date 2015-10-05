@@ -3,6 +3,7 @@
 App.DiscussionForumController = Em.Controller.extend({
 	application: Em.inject.controller(),
 	sortBy: null,
+
 	// Whether the sort component is currently visible
 	sortVisible: false,
 

@@ -18,19 +18,19 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	},
 
 	actions: {
-		goToPost: function (postId: number): void {
+		goToPost(postId: number): void {
 			this.transitionTo('discussion.post', postId);
 		},
 
-		loadPage: function (pageNum: number): void {
+		loadPage(pageNum: number): void {
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
-		retry: function (): void {
+		retry(): void {
 			this.refresh();
 		},
 
-		setSortBy: function (sortBy: string): void {
+		setSortBy(sortBy: string): void {
 			var controller = this.controllerFor('discussionForum');
 
 			controller.set('sortBy', sortBy);
@@ -40,6 +40,11 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 			}
 
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+		},
+
+		didTransition(): boolean {
+			this.controllerFor('application').set('noMargins', true);
+			return true;
 		}
 	}
 });

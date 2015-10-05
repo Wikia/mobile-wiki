@@ -23,7 +23,7 @@ App.UserModel = Em.Object.extend({
 App.UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
-	find: function (params: UserModelParams): Em.RSVP.Promise {
+	find(params: UserModelParams): Em.RSVP.Promise {
 		var avatarSize: number = params.avatarSize || App.UserModel.defaultAvatarSize,
 			modelInstance = App.UserModel.create();
 
@@ -61,7 +61,7 @@ App.UserModel.reopenClass({
 		});
 	},
 
-	sanitizeDetails: function (userData: any): UserProperties {
+	sanitizeDetails(userData: any): UserProperties {
 		return {
 			name: userData.name,
 			userId: userData.user_id,

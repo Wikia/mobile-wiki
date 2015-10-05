@@ -15,7 +15,7 @@ App.CollapsibleMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 	trackingEvent: null,
 	// End component property
 	actions: {
-		toggleMenu: function (): void {
+		toggleMenu(): void {
 			this.toggleProperty('isCollapsed');
 
 			// Track opening and closing menu
@@ -28,13 +28,13 @@ App.CollapsibleMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 			}
 		}
 	},
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		Em.addObserver(this, 'observe', this, this.titleDidChange);
 	},
-	willDestroyElement: function (): void {
+	willDestroyElement(): void {
 		Em.removeObserver(this, 'observe', this, this.titleDidChange);
 	},
-	titleDidChange: function (): void {
+	titleDidChange(): void {
 		if (!this.get('isCollapsed')) {
 			this.set('isCollapsed', true);
 		}
