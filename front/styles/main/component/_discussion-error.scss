@@ -18,20 +18,38 @@
 		position: absolute;
 		text-align: center;
 		width: $width;
+	}
+	.retry {
+		display: block;
+		font-size: rem-calc(12);
+		color: #333;
 
+		.icon-retry {
+			height: 16px;
+			vertical-align: text-bottom;
+			width: 14px;
+		}
+		&:hover .icon-retry {
+			transform: rotate(360deg);
+			transition: all 0.3s ease-in-out 0s;
+		}
+		.desktop {
+			display: none;
+		}
+		.mobile {
+			display: inline;
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-error {
 		.retry {
-			display: block;
-			font-size: rem-calc(12);
-			color: #333;
-
-			.icon-retry {
-				height: 16px;
-				vertical-align: text-bottom;
-				width: 14px;
+			.desktop {
+				display: inline;
 			}
-			&:hover .icon-retry {
-				transform: rotate(360deg);
-				transition: all 0.3s ease-in-out 0s;
+			.mobile {
+				display: none;
 			}
 		}
 	}

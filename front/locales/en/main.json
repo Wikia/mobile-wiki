@@ -152,7 +152,8 @@
     "back-to-wikia-link": "To the Wiki",
     "number-of-posts": "__numberOfPosts__ Posts",
     "error-cant-connect": "Can't connect, please try again.",
-    "action-retry-title": "Click to retry"
+    "action-retry-title-desktop": "Click to retry",
+    "action-retry-title-mobile": "Tap to retry"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",
