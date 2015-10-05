@@ -38,7 +38,10 @@ App.DiscussionPostModel = Em.Object.extend({
 
 					resolve(this);
 				},
-				error: (err: any) => reject(err)
+				error: () => {
+					this.set('connectionError', true);
+					resolve(this);
+				}
 			});
 		});
 	}
@@ -80,7 +83,10 @@ App.DiscussionPostModel.reopenClass({
 					});
 					resolve(postInstance);
 				},
-				error: (err: any) => reject(err)
+				error: () => {
+					postInstance.set('connectionError', true);
+					resolve(postInstance);
+				}
 			});
 		});
 	}

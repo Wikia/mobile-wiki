@@ -1,20 +1,26 @@
-<div class="discussion post">
-	{{post-detail
-		replyCount=model.postCount
-		post=model.firstPost
-		isDetailsView=true
-		upvote='upvote'
+{{#if model.connectionError}}
+	{{discussion-connection-error
+		retry='retry'
 	}}
-	{{#if canShowMore}}
-        <button {{action 'expand'}} class="see-more">
-			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-            View Older Replies
-        </button>
-	{{/if}}
-	{{#each model.replies as |item index|}}
-		{{post-reply
-			post=item
+{{else}}
+	<div class="discussion post">
+		{{post-detail
+			replyCount=model.postCount
+			post=model.firstPost
+			isDetailsView=true
 			upvote='upvote'
 		}}
-	{{/each}}
-</div>
+		{{#if canShowMore}}
+			<button {{action 'expand'}} class="see-more">
+				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+				View Older Replies
+			</button>
+		{{/if}}
+		{{#each model.replies as |item index|}}
+			{{post-reply
+				post=item
+				upvote='upvote'
+			}}
+		{{/each}}
+	</div>
+{{/if}}

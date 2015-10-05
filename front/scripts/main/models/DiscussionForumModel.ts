@@ -25,7 +25,10 @@ App.DiscussionForumModel = Em.Object.extend({
 
 					resolve(this);
 				},
-				error: (err: any) => reject(err)
+				error: () => {
+					this.set('connectionError', true);
+					resolve(this);
+				}
 			});
 		});
 	},
@@ -75,7 +78,7 @@ App.DiscussionForumModel.reopenClass({
 
 					resolve(forumInstance);
 				},
-				error: (err) => {
+				error: () => {
 					forumInstance.set('connectionError', true);
 					resolve(forumInstance);
 				}
