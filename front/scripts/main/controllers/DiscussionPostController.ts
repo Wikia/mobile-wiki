@@ -26,7 +26,7 @@ App.DiscussionPostController = Em.Controller.extend({
 				this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
 			});
 		},
-		goToForum: function () {
+		goToForum(): void {
 			var model = this.get('model'),
 				forumId = Em.get(model, 'forumId');
 
