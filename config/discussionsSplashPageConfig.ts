@@ -118,9 +118,9 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		iosAppLink: 'https://itunes.apple.com/pl/app/wikia-fan-app-for-one-direction/id963580330',
 		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'onedirection.wikia.com',
-		icon: '/front/images/Hunger-Games-App-Icon.png',
+		icon: '/front/images/One-Direction-App-Icon.png',
 		appName: 'One Direction',
-		appScreens: '/front/images/Phone-Hunger-Games.png',
+		appScreens: '/front/images/Phone-One-Direction.png',
 		language: 'en',
 		wikiId: 203914,
 		dbName: 'onedirection'
