@@ -1,10 +1,10 @@
 <div>
-	<figure class="avatar">
-		<a href="{{authorUrl}}">
-			<img src="{{post.createdBy.avatarUrl}}">
-		</a>
-	</figure>
-	<a href="{{authorUrl}}" class="author">{{post.createdBy.name}}</a>
+	{{user-avatar
+		avatarUrl=author.avatarUrl
+		displayUsername=true
+		profileUrl=authorUrl
+		username=author.name
+	}}
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>

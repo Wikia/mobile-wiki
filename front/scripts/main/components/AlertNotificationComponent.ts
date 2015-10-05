@@ -10,7 +10,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 
 	timeout: null,
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		var expiry = this.get('alert.expiry'),
 		    onInsertElement = this.get('alert.callbacks.onInsertElement');
 
@@ -23,16 +23,16 @@ App.AlertNotificationComponent = Em.Component.extend({
 		}
 	},
 
-	willDestroyElement: function (): void {
+	willDestroyElement(): void {
 		Em.run.cancel(this.get('timeout'));
 	},
 
-	dismissNotification: function (): void {
+	dismissNotification(): void {
 		this.sendAction('action', this.get('alert'));
 	},
 
 	actions: {
-		close: function (): void {
+		close(): void {
 			var onCloseAlert = this.get('alert.callbacks.onCloseAlert');
 			this.dismissNotification();
 			if (typeof onCloseAlert === 'function') {

@@ -30,7 +30,7 @@ App.AdsMixin = Em.Mixin.create({
 	},
 	adViews: <Em.View[]>[],
 
-	appendAd: function (adSlotName: string, place: string, element: JQuery): void {
+	appendAd(adSlotName: string, place: string, element: JQuery): void {
 		// Keep in mind we always want to pass noAds parameter to the AdSlot component
 		// Right now we've got three ad slots and it doesn't make sense to add assertion
 		// in willInsertElement hook of the component to check if the parameters is really defined
@@ -47,7 +47,7 @@ App.AdsMixin = Em.Mixin.create({
 		view.trigger('didInsertElement');
 	},
 
-	clearAdViews: function (): void {
+	clearAdViews(): void {
 		var adView: Em.View;
 		while (adView = this.adViews.pop()) {
 			adView.destroyElement();
@@ -57,7 +57,7 @@ App.AdsMixin = Em.Mixin.create({
 	/**
 	 * Inject MOBILE_IN_CONTENT_EXTRA_* ads on selected wikis
 	 */
-	injectMoreInContentAds: function (): void {
+	injectMoreInContentAds(): void {
 		var config = this.adsData.moreInContentAds,
 			minDistanceBetweenAds = config.minOffsetDiffBetweenAds,
 			expectedAdHeight = config.adHeight,
@@ -130,7 +130,7 @@ App.AdsMixin = Em.Mixin.create({
 		}
 	},
 
-	injectAds: function (): void {
+	injectAds(): void {
 		var $firstSection = this.$().children('h2').first(),
 			$articleBody = $('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
@@ -164,7 +164,7 @@ App.AdsMixin = Em.Mixin.create({
 	 * Prefooter ad should be loaded above footer
 	 * only when trending articles and/or trending videos are loaded.
 	 */
-	injectMainPageAds: function (): void {
+	injectMainPageAds(): void {
 		var $curatedContent = this.$('.curated-content'),
 			$trendingArticles = this.$('.trending-articles'),
 			$trendingVideos = this.$('.trending-videos'),
@@ -184,7 +184,7 @@ App.AdsMixin = Em.Mixin.create({
 		}
 	},
 
-	setupAdsContext: function (adsContext: any): void {
+	setupAdsContext(adsContext: any): void {
 		Mercury.Modules.Ads.getInstance().reload(adsContext);
 	}
 });

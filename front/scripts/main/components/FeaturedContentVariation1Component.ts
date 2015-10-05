@@ -9,18 +9,18 @@ App.FeaturedContentVariation1Component = Em.Component.extend(App.FeaturedContent
 	classNames: ['featured-content-variation-1'],
 
 	gestures: {
-		swipeLeft: function (): void {
+		swipeLeft(): void {
 			M.VariantTesting.trackEvent('featured-content-next');
 			this.nextItem();
 		},
 
-		swipeRight: function (): void {
+		swipeRight(): void {
 			M.VariantTesting.trackEvent('featured-content-prev');
 			this.prevItem();
 		},
 	},
 
-	click: function (): void {
+	click(): void {
 		M.VariantTesting.trackEvent('featured-content-click');
 		this.trackClick('modular-main-page', 'featured-content');
 	}

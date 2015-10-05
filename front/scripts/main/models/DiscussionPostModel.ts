@@ -10,6 +10,7 @@ App.DiscussionPostModel = Em.Object.extend({
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
+	contributors: [],
 
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
@@ -17,7 +18,7 @@ App.DiscussionPostModel = Em.Object.extend({
 				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
 					 this.wikiId + '/threads/' + this.threadId +
 					 '?responseGroup=full' +
-					 '&sortDirection=descending' +
+					 '&sortDirection=descending&sortKey=creation_date' +
 					 '&limit=' + this.replyLimit +
 					 '&pivot=' + this.pivotId +
 					 '&page=' + (this.page + 1),
@@ -55,13 +56,15 @@ App.DiscussionPostModel.reopenClass({
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://' + M.prop('servicesDomain') +
 					 `/discussion/${wikiId}/threads/${threadId}` +
-					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
+					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
+					 '&limit=' + postInstance.replyLimit,
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
 				},
 				success: (data: any) => {
-					var replies = data._embedded['doc:posts'],
+					var contributors: any[] = [],
+						replies = data._embedded['doc:posts'],
 						pivotId: number;
 					// If there are no replies to the first post, 'doc:posts' will not be returned
 					if (replies) {
@@ -69,7 +72,21 @@ App.DiscussionPostModel.reopenClass({
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
 					}
+
+					replies.forEach(function (reply: any) {
+						var author: any;
+						if (reply.hasOwnProperty('createdBy')) {
+							author = reply.createdBy;
+							author.url = M.buildUrl({
+								namespace: 'User',
+								title: author.name
+							});
+							contributors.push(author);
+						}
+					});
+
 					postInstance.setProperties({
+						contributors: contributors,
 						replies: replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,

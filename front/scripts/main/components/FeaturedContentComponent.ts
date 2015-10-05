@@ -11,36 +11,36 @@ App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App
 	screenEdgeWidthRatio: (1 / 6),
 
 	gestures: {
-		swipeLeft: function (): void {
+		swipeLeft(): void {
 			M.VariantTesting.trackEvent('featured-content-next');
 			this.nextItem();
 		},
 
-		swipeRight: function (): void {
+		swipeRight(): void {
 			M.VariantTesting.trackEvent('featured-content-prev');
 			this.prevItem();
 		},
 	},
 
-	rightClickHandler: function(): boolean {
+	rightClickHandler(): boolean {
 		M.VariantTesting.trackEvent('featured-content-next');
 		this.nextItem();
 		return true;
 	},
 
-	leftClickHandler: function (): boolean {
+	leftClickHandler(): boolean {
 		M.VariantTesting.trackEvent('featured-content-prev');
 		this.prevItem();
 		return true;
 	},
 
-	centerClickHandler: function (): boolean {
+	centerClickHandler(): boolean {
 		this.trackClick('modular-main-page', 'featured-content');
 		M.VariantTesting.trackEvent('featured-content-click');
 		return false;
 	},
 
-	click: function (event: PreventableClickEvent): void {
+	click(event: PreventableClickEvent): void {
 		this.callClickHandler(event, true);
 	}
 });

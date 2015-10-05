@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{wiki.language.user}}" dir="{{wiki.language.userDir}}">
+<html lang="{{wiki.language.content}}" dir="{{wiki.language.contentDir}}">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,9 +42,9 @@
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
-			M.prop('translations', {{{json (translations wiki.language.user ns='main')}}});
+			M.prop('translations', {{{json (translations wiki.language.content ns='main')}}});
 			M.prop('weppyConfig', {{{json localSettings.weppy}}});
-			M.prop('wikiaLanguage', '{{{wiki.language.user}}}');
+			M.prop('wikiaLanguage', '{{{wiki.language.content}}}');
 			M.prop('userId', {{{userId}}});
 			M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 			M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
