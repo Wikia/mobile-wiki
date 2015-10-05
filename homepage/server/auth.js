@@ -55,7 +55,7 @@ Auth.prototype.login = function (username, password) {
 
 Auth.prototype.info = function (token) {
 	var url = this.baseUrl + 'info?' +
-		'code=' + token;
+		'code=' + token + '&noblockcheck=1';
 
 	return requestWrapper(url);
 };
