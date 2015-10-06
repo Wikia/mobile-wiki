@@ -15,6 +15,7 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 
 	// Whether the component is displayed on the post details discussion page
 	isDetailsView: false,
+	isShareFeatureVisible: false,
 
 	// Timeout used for auto-hiding the sharing icons
 	hideShareTimeout: null,
@@ -39,20 +40,18 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 		},
 
 		toggleShareComponent(): void {
-			var $shareFeature = this.$('.share-feature');
-
-			if ($shareFeature.is(':visible')) {
-				$shareFeature.hide();
+			if (this.get('isShareFeatureVisible')) {
+				this.set('isShareFeatureVisible', false);
 			} else {
-				$shareFeature.show();
+				this.set('isShareFeatureVisible', true);
 				this.hideShareTimeout = Em.run.later(this, function () {
-					$shareFeature.hide();
+					this.set('isShareFeatureVisible', false);
 				}, 5000);
 			}
 		},
 
 		hideShareComponent(): void {
-			this.$('.share-feature').hide();
+			this.set('isShareFeatureVisible', false);
 		},
 
 		cancelHideShareComponent(): void {
