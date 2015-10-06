@@ -121,6 +121,10 @@ $horizontal-padding: 15px;
 
 		.share {
 			text-align: right;
+
+			> * {
+				float: right;
+			}
 		}
 
 		.timestamp {

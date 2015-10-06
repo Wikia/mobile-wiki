@@ -38,8 +38,15 @@
 		{{#if isDetailsView}}
 			{{share-feature sharedUrl=sharedUrl}}
 		{{else}}
-			{{share-feature sharedUrl=sharedUrl isVisible=false}}
-			{{svg 'share' class='icon toggle-share'}}
+			<span {{action 'toggleShareComponent'}}>
+				{{svg 'share' class='icon toggle-share'}}
+			</span>
+			{{share-feature
+				sharedUrl=sharedUrl
+				isVisible=false
+				onMouseEnter=(action 'cancelHideShareComponent')
+				onMouseLeave=(action 'hideShareComponent')
+			}}
 		{{/if}}
 	</div>
 </div>

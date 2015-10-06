@@ -25,36 +25,9 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 			+ '/d/p/' + this.get('postId');
 	}),
 
-	showShareComponent: ($shareFeature: JQuery) => {
-		$shareFeature.show();
-		this.hideShareTimeout = window.setTimeout(() => {
-			$shareFeature.hide();
-		}, 5000);
-	},
-
-	didInsertElement: function () {
+	willDestroyElement(): void {
 		if (!this.get('isDetailsView')) {
-			var $shareFeature = this.$('.share-feature');
-
-			this.$('.toggle-share')
-				.on('mouseenter', () => { this.showShareComponent($shareFeature); })
-				.on('click', () => { this.showShareComponent($shareFeature); });
-
-			$shareFeature
-				.on('mouseenter', () => {
-					window.clearTimeout(this.hideShareTimeout);
-				})
-				.on('mouseleave', () => {
-					$shareFeature.hide();
-				});
-		}
-
-		this._super();
-	},
-
-	willDestroyElement: function () {
-		if (!this.get('isDetailsView')) {
-			this.$('.toggle-share, .share-feature').off();
+			this.$('.toggle-share').off();
 		}
 
 		this._super();
@@ -63,6 +36,27 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 	actions: {
 		goToPost(postId: number): void {
 			this.sendAction('goToPost', postId);
+		},
+
+		toggleShareComponent(): void {
+			var $shareFeature = this.$('.share-feature');
+
+			if ($shareFeature.is(':visible')) {
+				$shareFeature.hide();
+			} else {
+				$shareFeature.show();
+				this.hideShareTimeout = Em.run.later(this, function () {
+					$shareFeature.hide();
+				}, 5000);
+			}
+		},
+
+		hideShareComponent(): void {
+			this.$('.share-feature').hide();
+		},
+
+		cancelHideShareComponent(): void {
+			Em.run.cancel(this.hideShareTimeout);
 		}
 	}
 });
