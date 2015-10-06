@@ -15,6 +15,7 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 
 	// Whether the component is displayed on the post details discussion page
 	isDetailsView: false,
+	// Whether the share-feature component is visible inside this component
 	isShareFeatureVisible: false,
 
 	// Timeout used for auto-hiding the sharing icons
@@ -25,14 +26,6 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 		return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)
 			+ '/d/p/' + this.get('postId');
 	}),
-
-	willDestroyElement(): void {
-		if (!this.get('isDetailsView')) {
-			this.$('.toggle-share').off();
-		}
-
-		this._super();
-	},
 
 	actions: {
 		goToPost(postId: number): void {
