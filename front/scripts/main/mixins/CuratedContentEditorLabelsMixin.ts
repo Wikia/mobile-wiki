@@ -10,7 +10,7 @@ App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
 		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
 	}),
 
-	headerLabel: Em.computed('model.label', 'isFeatured', 'isSection', function(): string {
+	headerLabel: Em.computed('model.label', 'isFeatured', 'isSection', function (): string {
 		var modelLabel = this.get('model.label');
 		if (modelLabel) {
 			return modelLabel;
@@ -25,7 +25,7 @@ App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
 		}
 	}),
 
-	pageNameLabel: Em.computed('isCategory', function(): string {
+	pageNameLabel: Em.computed('isCategory', function (): string {
 		if (this.get('isCategory')) {
 			return i18n.t('app.curated-content-editor-enter-category-name');
 		} else {
