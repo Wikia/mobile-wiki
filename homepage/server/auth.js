@@ -9,15 +9,16 @@ var Promise = require('bluebird'),
 	localSettings = require('../config/localSettings').localSettings;
 
 function Auth() {
-	this.baseUrl = localSettings.helios.host;
-	if (this.baseUrl.charAt(this.baseUrl.length - 1) !== '/') {
-		this.baseUrl += '/';
+	function appendSlash(str) {
+		if (str.charAt(str.length - 1) !== '/') {
+			str += '/';
+		}
+		return str;
 	}
 
-	this.servicesUrl = localSettings.servicesUrl;
-	if (this.servicesUrl.charAt(this.servicesUrl.length - 1) !== '/') {
-		this.servicesUrl += '/';
-	}
+	this.baseUrl = appendSlash(localSettings.helios.host);
+	this.servicesUrl = appendSlash(localSettings.servicesUrl);
+	this.apiUrl = appendSlash(localSettings.apiUrl);
 }
 
 function requestWrapper(url) {
@@ -60,9 +61,8 @@ Auth.prototype.info = function (token) {
 	return requestWrapper(url);
 };
 
-Auth.prototype.validateUser = function (username) {
-	var url = this.baseUrl + 'username/validation?' +
-		'username=' + username;
+Auth.prototype.getUserInfo = function (heliosInfoResponse) {
+	var url = this.apiUrl + 'User/Details/?ids=' + heliosInfoResponse.user_id; // jshint ignore:line
 
 	return requestWrapper(url);
 };

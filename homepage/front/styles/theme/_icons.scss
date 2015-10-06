@@ -1,7 +1,8 @@
 .icon {
-	&.login {
+	&.avatar {
+		border-radius: 50%;
 		height: rem-calc(45);
-		padding: rem-calc(12);
+		padding: rem-calc(6);
 		width: rem-calc(45);
 	}
 
@@ -10,14 +11,20 @@
 		width: rem-calc(12);
 	}
 
-	&.wikia-logo {
-		height: rem-calc(50);
-		width: rem-calc(80);
+	&.close {
+		height: rem-calc(14);
+		width: rem-calc(14);
 	}
 
-	&.toc {
-		height: rem-calc(13);
-		width: rem-calc(18);
+	&.close-side-menu {
+		height: rem-calc(15);
+		width: rem-calc(15);
+	}
+
+	&.login {
+		height: rem-calc(45);
+		padding: rem-calc(6);
+		width: rem-calc(45);
 	}
 
 	&.nav {
@@ -35,13 +42,13 @@
 		width: rem-calc(13.5);
 	}
 
-	&.close {
-		height: rem-calc(14);
-		width: rem-calc(14);
+	&.toc {
+		height: rem-calc(13);
+		width: rem-calc(18);
 	}
 
-	&.close-side-menu {
-		height: rem-calc(15);
-		width: rem-calc(15);
+	&.wikia-logo {
+		height: rem-calc(50);
+		width: rem-calc(80);
 	}
 }
