@@ -25,5 +25,12 @@ App.DiscussionPostController = Em.Controller.extend({
 				this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
 			});
 		},
+
+		/**
+		 * @desc Bubbles up to DiscussionPostRoute
+		 */
+		retry(): void {
+			this.get('target').send('retry');
+		}
 	}
 });

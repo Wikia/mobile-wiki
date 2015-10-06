@@ -1,6 +1,6 @@
 {{#if model.connectionError}}
 	{{discussion-connection-error
-		retry='retry'
+		retry=(action 'retry')
 	}}
 {{else}}
 	{{discussion-header
