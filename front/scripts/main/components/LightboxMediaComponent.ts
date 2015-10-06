@@ -74,14 +74,18 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		return currentMedia && currentMedia.url && currentMedia.type ? 'lightbox-' + currentMedia.type : null;
 	}),
 
-	modelObserver: Em.on('didInsertElement',
-		Em.observer('model', 'currentMedia', function (): void {
-			this.updateHeader();
-			this.updateFooter();
+	modelObserver: Em.observer('model', 'currentMedia', function (): void {
+		this.updateState();
+	}),
 
-			this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
-		})
-	),
+	didInsertElement(): void {
+		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
+		// This isn't allowed by Ember to do on didInsertElement
+		// That's why we need to schedule it in the afterRender queue
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			this.updateState();
+		});
+	},
 
 	click(event: MouseEvent): void {
 		if (this.get('isGallery')) {
@@ -154,6 +158,13 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		});
 	},
 
+	updateState(): void {
+		this.updateHeader();
+		this.updateFooter();
+
+		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
+	},
+
 	updateHeader(): void {
 		var header: string = null;
 
@@ -161,20 +172,16 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 			header = (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
 		}
 
-		Em.run.scheduleOnce('afterRender', this, (): void => {
-			this.sendAction('setHeader', header);
-		});
+		this.sendAction('setHeader', header);
 	},
 
 	updateFooter(): void {
 		var currentMedia: ArticleMedia = this.get('currentMedia');
 
-		Em.run.scheduleOnce('afterRender', this, (): void => {
-			if (currentMedia && currentMedia.caption) {
-				this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));
-			} else {
-				this.sendAction('setFooter', null);
-			}
-		});
+		if (currentMedia && currentMedia.caption) {
+			this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));
+		} else {
+			this.sendAction('setFooter', null);
+		}
 	}
 });
