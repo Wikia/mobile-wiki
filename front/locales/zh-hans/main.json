@@ -149,11 +149,8 @@
   },
   "discussion":{
     "share-default-title":"__siteName__上的讨论",
-    "contributors-title":"所有贡献者",
     "sort-by-latest":"最新",
     "sort-by-trending":"热门浏览",
-    "loading-more-posts":"下载更多帖子",
-    "back-to-wikia-link":"返回维基",
     "number-of-posts":"__numberOfPosts__条帖子"
   },
   "userStatus":{

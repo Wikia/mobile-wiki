@@ -149,16 +149,13 @@
   },
   "discussion":{
     "share-default-title":"Discussion on __siteName__",
-    "contributors-title":"All Contributors",
     "sort-by-latest":"Latest",
     "sort-by-trending":"Trending",
-    "loading-more-posts":"Loading more posts",
-    "back-to-wikia-link":"To the Wiki",
     "number-of-posts":"__numberOfPosts__ Posts"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",
     "register-text":"Register",
-    "login-text":"Sign In"
+    "login-text":"Login"
   }
 }

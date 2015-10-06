@@ -149,16 +149,13 @@
   },
   "discussion":{
     "share-default-title":"__siteName__上的討論",
-    "contributors-title":"所有貢獻者",
     "sort-by-latest":"最新話題",
     "sort-by-trending":"熱門瀏覽",
-    "loading-more-posts":"載入更多帖子",
-    "back-to-wikia-link":"返回Wiki",
     "number-of-posts":"__numberOfPosts__條帖子"
   },
   "userStatus":{
     "anon-cta":"__registerLink__或__loginLink__",
     "register-text":"註冊",
-    "login-text":"登入"
+    "login-text":"登錄"
   }
 }

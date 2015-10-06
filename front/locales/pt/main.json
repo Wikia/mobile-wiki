@@ -149,11 +149,8 @@
   },
   "discussion":{
     "share-default-title":"Discussão em __siteName__",
-    "contributors-title":"Todos os colaboradores",
     "sort-by-latest":"Mais recentes",
     "sort-by-trending":"Tendências",
-    "loading-more-posts":"Carregando mais posts",
-    "back-to-wikia-link":"Voltar para Wikia",
     "number-of-posts":"__numberOfPosts__ Posts"
   },
   "userStatus":{
