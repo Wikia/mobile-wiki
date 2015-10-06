@@ -8,7 +8,7 @@
 	.error-content {
 		$width: 310px;
 
-		background-color: $color-white;
+		background-color: $discussion-error-bg-color;
 		border-radius: 8px;
 		color: $discussion-error-text-color;
 		font-size: rem-calc(14);
@@ -37,7 +37,7 @@
 			display: none;
 		}
 		.mobile {
-			display: inline;
+			display: inline-block;
 		}
 	}
 }
@@ -46,7 +46,7 @@
 	.discussion-error {
 		.retry {
 			.desktop {
-				display: inline;
+				display: inline-block;
 			}
 			.mobile {
 				display: none;
