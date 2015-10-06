@@ -7,7 +7,6 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	forumId: null,
 
 	model(params: any) {
-		var modelPromise: any;
 		this.set('forumId', params.forumId);
 		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
 	},
