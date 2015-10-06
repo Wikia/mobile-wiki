@@ -151,7 +151,7 @@
     "loading-more-posts": "Loading more posts",
     "back-to-wikia-link": "To the Wiki",
     "number-of-posts": "__numberOfPosts__ Posts",
-    "error-cant-connect": "Can't connect, please try again.",
+    "connection-error": "Can't connect, please try again.",
     "action-retry-title-desktop": "Click to retry",
     "action-retry-title-mobile": "Tap to retry"
   },
