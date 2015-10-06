@@ -5,7 +5,7 @@
 
 // bigText JQuery plugin
 interface JQuery {
-	bigText(options : any) : any;
+	bigText(options: any): any;
 }
 
 var parallaxWindow : JQuery = $('#js-parallax-window');
@@ -30,8 +30,9 @@ $(function() : void {
 	});
 
 	// Dynamically adjust text size to show community title without text break
-	$('.grid-heading').bigText({maximumFontSize: 20, verticalAlign: 'top'});
-	$('.grid-heading').css({padding: '.1rem'});
+	var headings = $('.grid-heading');
+	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
+	headings.css({padding: '.1rem'});
 });
 
 function parallax() : void {
