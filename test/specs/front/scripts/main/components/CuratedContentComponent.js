@@ -1,5 +1,6 @@
 moduleForComponent('curated-content', 'CuratedContentComponent', {
 	unit: true,
+
 	setup: function () {
 		M.track = function () {};
 	}
