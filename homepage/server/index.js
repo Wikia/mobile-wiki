@@ -41,11 +41,11 @@ server.route(routes);
 
 server.views({
 	engines: {
-		html: require('handlebars')
+		hbs: require('handlebars')
 	},
 	path: path.resolve(__dirname, 'views'),
 	layoutPath: path.resolve(__dirname, 'views/_layouts'),
-	partialsPath: path.join(__dirname, 'views/_partials'),
+	partialsPath: [path.join(__dirname, 'views/_partials'), path.join(__dirname, '../../server/views/_partials')],
 	layout: 'default'
 });
 
