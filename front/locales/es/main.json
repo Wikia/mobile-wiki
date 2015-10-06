@@ -55,7 +55,7 @@
     "videos-label":"Vídeos",
     "photos-label":"Fotos",
     "pages-label":"Páginas",
-    "username-anonymous":"Un colaborador de Wikia",
+    "username-anonymous":"Un editor de Wikia",
     "smartbanner-store-ios":"En la App Store",
     "smartbanner-store-android":"En Google Play",
     "smartbanner-install-ios":"BAJAR",
@@ -149,8 +149,11 @@
   },
   "discussion":{
     "share-default-title":"Discusión en __siteName__",
+    "contributors-title":"Todos los editores",
     "sort-by-latest":"Más recientes",
     "sort-by-trending":"Tendencias",
+    "loading-more-posts":"Cargando más publicaciones",
+    "back-to-wikia-link":"A la wikia",
     "number-of-posts":"__numberOfPosts__ publicaciones"
   },
   "userStatus":{

@@ -149,13 +149,16 @@
   },
   "discussion":{
     "share-default-title":"Обсуждение на __siteName__",
+    "contributors-title":"All Contributors",
     "sort-by-latest":"Последние",
     "sort-by-trending":"Популярные",
+    "loading-more-posts":"Загрузка сообщений",
+    "back-to-wikia-link":"Назад на вики",
     "number-of-posts":"__numberOfPosts__ записей"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",
     "register-text":"Зарегистрироваться",
-    "login-text":"Войти"
+    "login-text":"Sign In"
   }
 }

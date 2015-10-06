@@ -4,7 +4,7 @@
     "article-toc-label":"目次",
     "article-comments-label":"__count__件のコメント",
     "article-comments-label_plural":"__count__件のコメント",
-    "article-redirect-empty-target":"The link you followed is a redirect, but the page it directs to does not exist.",
+    "article-redirect-empty-target":"クリックしたリンクはリダイレクトですが、リンク先のページが存在しないようです。",
     "article-replies-label":"__count__件の返信を閲覧",
     "article-replies-label_plural":"__count__件の返信を閲覧",
     "article-suggestions-label":"もっと読む",
@@ -96,7 +96,7 @@
     "curated-content-editor-error-no-save-permissions":"データを保存する権限をお持ちでないようです",
     "curated-content-editor-error-no-access-permissions":"このページにアクセスする権限をお持ちでないようです",
     "curated-content-editor-no-articles-found":"記事が見つかりませんでした",
-    "curated-content-editor-no-categories-found":"No categories found",
+    "curated-content-editor-no-categories-found":"カテゴリーが見つかりません。",
     "curated-content-editor-suggestions-loading":"読み込んでいます...",
     "curated-content-editor-error-inside-featured-content":"注目のコンテンツ内に修正が必要な箇所があります。",
     "curated-content-editor-changes-saved":"変更内容を保存しました",
@@ -149,13 +149,16 @@
   },
   "discussion":{
     "share-default-title":"__siteName__についてのトーク",
+    "contributors-title":"All Contributors",
     "sort-by-latest":"新しい順",
     "sort-by-trending":"人気順",
+    "loading-more-posts":"他の投稿を読み込んでいます",
+    "back-to-wikia-link":"ウィキアに戻る",
     "number-of-posts":"投稿__numberOfPosts__件"
   },
   "userStatus":{
     "anon-cta":"__registerLink__または__loginLink__",
     "register-text":"登録",
-    "login-text":"ログイン"
+    "login-text":"Sign In"
   }
 }

@@ -149,8 +149,11 @@
   },
   "discussion":{
     "share-default-title":"Diskussion in __siteName__",
+    "contributors-title":"Alle Beitragenden",
     "sort-by-latest":"Neueste",
     "sort-by-trending":"Trends",
+    "loading-more-posts":"Mehr Beiträge laden",
+    "back-to-wikia-link":"Zum Wiki",
     "number-of-posts":"__numberOfPosts__ Beiträge"
   },
   "userStatus":{
