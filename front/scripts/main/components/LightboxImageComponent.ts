@@ -294,23 +294,21 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 			});
 
 			image.addEventListener('error', (): void => {
-				this.update(null);
+				this.update('', true);
 			});
 		}
 	},
 
 	/**
-	 * @desc Updates img with its src and sets media component to visible state
-	 * If null is given it means that error occured when trying to load the image
+	 * @desc Updates img with its src or displays error
 	 *
 	 * @param {string} imageSrc
+	 * @param {boolean} loadingError
 	 */
-	update(imageSrc: string): void {
-		var loadingError = (imageSrc === null);
-
+	update(imageSrc: string, loadingError: boolean = false): void {
 		if (!this.get('isDestroyed')) {
 			this.setProperties({
-				imageSrc: imageSrc || '',
+				imageSrc,
 				isLoading: false,
 				loadingError,
 				visible: true
