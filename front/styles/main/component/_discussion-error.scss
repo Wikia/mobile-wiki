@@ -10,7 +10,7 @@
 
 		background-color: $color-white;
 		border-radius: 8px;
-		color: #999;
+		color: $discussion-error-text-color;
 		font-size: rem-calc(14);
 		left: 50%;
 		margin-left: -$width/2;
@@ -20,9 +20,9 @@
 		width: $width;
 	}
 	.retry {
+		color: $discussion-error-link-color;
 		display: block;
 		font-size: rem-calc(12);
-		color: #333;
 
 		.icon-retry {
 			height: 16px;
