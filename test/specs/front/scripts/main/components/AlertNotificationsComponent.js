@@ -1,4 +1,6 @@
-moduleForComponent('alert-notifications', 'AlertNotificationsComponent');
+moduleForComponent('alert-notifications', 'AlertNotificationsComponent', {
+	unit: true
+});
 
 test('Dismissing alert', function () {
 	var alertOne = { type: 'success', message: 'Success message', callbacks: {} },
