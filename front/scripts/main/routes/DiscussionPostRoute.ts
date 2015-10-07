@@ -39,6 +39,10 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 			this.refresh();
 		},
 
+		allDiscussions(): void {
+			this.transitionTo('discussion.index');
+		},
+
 		didTransition(): boolean {
 			this.controllerFor('application').set('noMargins', true);
 			return true;

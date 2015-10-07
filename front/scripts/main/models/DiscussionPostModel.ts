@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionPostModel = Em.Object.extend({
+App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
 	threadId: null,
 	pivotId: null,
@@ -11,6 +12,7 @@ App.DiscussionPostModel = Em.Object.extend({
 	postCount: 0,
 	page: 0,
 	connectionError: null,
+	notFoundError: null,
 	contributors: [],
 
 	loadNextPage() {
@@ -40,8 +42,8 @@ App.DiscussionPostModel = Em.Object.extend({
 
 					resolve(this);
 				},
-				error: () => {
-					this.set('connectionError', true);
+				error: (err: any) => {
+					this.setErrorProperty(err, this);
 					resolve(this);
 				}
 			});
@@ -101,8 +103,8 @@ App.DiscussionPostModel.reopenClass({
 					});
 					resolve(postInstance);
 				},
-				error: () => {
-					postInstance.set('connectionError', true);
+				error: (err: any) => {
+					postInstance.setErrorProperty(err, postInstance);
 					resolve(postInstance);
 				}
 			});

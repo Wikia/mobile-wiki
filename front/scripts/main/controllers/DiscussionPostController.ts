@@ -31,6 +31,10 @@ App.DiscussionPostController = Em.Controller.extend({
 		 */
 		retry(): void {
 			this.get('target').send('retry');
+		},
+
+		allDiscussions(): void {
+			this.get('target').send('allDiscussions');
 		}
 	}
 });

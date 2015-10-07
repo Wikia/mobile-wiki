@@ -42,6 +42,13 @@ App.DiscussionForumController = Em.Controller.extend({
 		 */
 		retry(): void {
 			this.get('target').send('retry');
+		},
+
+		/**
+		 * @desc Bubbles up to DiscussionForumRoute
+		 */
+		allDiscussions(): void {
+			this.get('target').send('allDiscussions');
 		}
 	}
 });

@@ -29,6 +29,10 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 			this.refresh();
 		},
 
+		allDiscussions(): void {
+			this.transitionTo('discussion');
+		},
+
 		setSortBy(sortBy: string): void {
 			var controller = this.controllerFor('discussionForum');
 

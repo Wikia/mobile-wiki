@@ -2,6 +2,10 @@
 	{{discussion-connection-error
 		retry=(action 'retry')
 	}}
+{{else if model.notFoundError}}
+	{{discussion-not-found-error
+		allDiscussions=(action 'allDiscussions')
+	}}
 {{else}}
 	{{discussion-header
 		showContent=true
