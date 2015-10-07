@@ -27,6 +27,10 @@ App.PostDetailComponent = Em.Component.extend(App.DiscussionUpvoteActionSendMixi
 			+ '/d/p/' + this.get('postId');
 	}),
 
+	willDestroyElement(): void {
+		Em.run.cancel(this.hideShareTimeout);
+	},
+
 	actions: {
 		goToPost(postId: number): void {
 			this.sendAction('goToPost', postId);
