@@ -41,7 +41,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 			imageWidth = this.get('width') || pageWidth,
 			imageHeight = this.get('height');
 
-		if (pageWidth < imageWidth) {
+		if (!Em.isEmpty(imageHeight) && pageWidth < imageWidth) {
 			return Math.floor(pageWidth * (imageHeight / imageWidth));
 		}
 
@@ -90,9 +90,13 @@ App.ImageMediaComponent = App.MediaComponent.extend(App.ArticleContentMixin, App
 	 * so when image loads, browser don't have to resize it
 	 */
 	style: Em.computed('computedHeight', 'visible', function (): Em.Handlebars.SafeString {
-		return new Em.Handlebars.SafeString(this.get('visible') ?
-			'' :
-			`height:${this.get('computedHeight')}px;`);
+		var computedHeight = this.get('computedHeight'),
+			visible = this.get('visible'),
+			style = (visible || Em.isEmpty(computedHeight)) ?
+				'' :
+				`height:${computedHeight}px;`;
+
+		return new Em.Handlebars.SafeString(style);
 	}),
 
 	/**
