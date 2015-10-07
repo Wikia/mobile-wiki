@@ -6,7 +6,7 @@
 	top: 0;
 
 	.error-content {
-		$width: 310px;
+		$width: 400px;
 
 		background-color: $discussion-error-bg-color;
 		border-radius: 8px;
@@ -19,38 +19,21 @@
 		text-align: center;
 		width: $width;
 	}
-	.retry {
+	.action-item {
 		color: $discussion-error-link-color;
 		display: block;
 		font-size: rem-calc(12);
 
+		.icon-back,
 		.icon-retry {
 			height: 16px;
 			vertical-align: text-bottom;
 			width: 14px;
 		}
+
 		&:hover .icon-retry {
 			transform: rotate(360deg);
 			transition: all 0.3s ease-in-out 0s;
-		}
-		.desktop {
-			display: none;
-		}
-		.mobile {
-			display: inline-block;
-		}
-	}
-}
-
-@media #{$desktop-range} {
-	.discussion-error {
-		.retry {
-			.desktop {
-				display: inline-block;
-			}
-			.mobile {
-				display: none;
-			}
 		}
 	}
 }

@@ -1,7 +1,7 @@
 <div class="error-content">
 	{{i18n 'discussion.connection-error'}}
-	<a class="retry" {{action attrs.retry}} >{{svg 'icon-retry' role='img' class='icon-retry'}}
-		<span class="desktop">{{i18n 'discussion.action-retry-title-desktop'}}</span>
-		<span class="mobile">{{i18n 'discussion.action-retry-title-mobile'}}</span>
+	<a class="action-item" {{action attrs.retry}} >{{svg 'icon-retry' role='img' class='icon-retry'}}
+		<span class="mobile-hidden">{{i18n 'discussion.action-retry-title-desktop'}}</span>
+		<span class="desktop-hidden">{{i18n 'discussion.action-retry-title-mobile'}}</span>
 	</a>
 </div>
