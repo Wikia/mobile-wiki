@@ -1,3 +1,10 @@
+## release-174 (2015-10-05 07:59 UTC)
+* [XW-229](https://wikia-inc.atlassian.net/browse/XW-229) XW-229 bubble didTransition to applicationRoute from articleRoute
+* [MAIN-5471](https://wikia-inc.atlassian.net/browse/MAIN-5471) MAIN-5471 | Load dev config on devboxes at default
+* [XW-461](https://wikia-inc.atlassian.net/browse/XW-461) XW-461 add mw-content class to all modules on main page
+* [XW-229](https://wikia-inc.atlassian.net/browse/XW-229) XW-229 show message when article redirects to empty title
+* [XW-287](https://wikia-inc.atlassian.net/browse/XW-287) XW-287 Load User Language through userinfo call, not through WikiVariables
+
 ## release-173 hotfix 1 (2015-10-02 15:30 UTC)
 * [XW-461](https://wikia-inc.atlassian.net/browse/XW-461) XW-461 add mw-content class to all modules on main page
 

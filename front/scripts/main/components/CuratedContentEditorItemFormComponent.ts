@@ -67,6 +67,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
+		pageNameTooltip: Em.computed('isCategory', function(): string {
+			if (this.get('isCategory')) {
+				return i18n.t('app.curated-content-editor-enter-category-name-tooltip');
+			} else {
+				return i18n.t('app.curated-content-editor-enter-page-name-tooltip');
+			}
+		}),
+
 		searchSuggestionsResult: [],
 		/**
 		 * messages used:
@@ -74,10 +82,15 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		 * app.curated-content-editor-suggestions-loading
 		 */
 		searchSuggestionsMessage: Em.computed('suggestionsError', function (): string {
-			var msgSuffix = this.get('suggestionsError') ? 'no-articles-found' : 'suggestions-loading',
-				msgKey = 'app.curated-content-editor-' + msgSuffix;
-
-			return i18n.t(msgKey);
+			if (this.get('suggestionsError')) {
+				if (this.get('isCategory')) {
+					return i18n.t('app.curated-content-editor-no-categories-found');
+				} else {
+					return i18n.t('app.curated-content-editor-no-articles-found');
+				}
+			} else {
+				return i18n.t('app.curated-content-editor-suggestions-loading');
+			}
 		}),
 
 		labelObserver(): void {
@@ -279,7 +292,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				title = this.get('model.title');
 
 				if (Em.isEmpty(title)) {
-					errorMessage = i18n.t('app.curated-content-editor-missing-title-error');
+					if (this.get('isCategory')) {
+						errorMessage = i18n.t('app.curated-content-editor-missing-category-title-error');
+					} else {
+						errorMessage = i18n.t('app.curated-content-editor-missing-page-title-error');
+					}
 				}
 
 				this.set('titleErrorMessage', errorMessage);

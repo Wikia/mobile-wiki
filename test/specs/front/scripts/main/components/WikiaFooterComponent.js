@@ -1,6 +1,8 @@
 'use strict';
 
-moduleForComponent('wikia-footer', 'WikiaFooterComponent');
+moduleForComponent('wikia-footer', 'WikiaFooterComponent', {
+	unit: true
+});
 
 test('checkLinkForOasisSkinOverwrite returns true if skin is overwritten to oasis', function () {
 	var component = this.subject(),

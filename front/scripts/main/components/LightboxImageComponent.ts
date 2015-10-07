@@ -170,7 +170,9 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 			direction: Hammer.DIRECTION_ALL
 		});
 
-		this.loadUrl();
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			this.loadUrl();
+		});
 	},
 
 	/**
@@ -292,23 +294,26 @@ App.LightboxImageComponent = Em.Component.extend(App.ArticleContentMixin, {
 			});
 
 			image.addEventListener('error', (): void => {
-				this.set('loadingError', true);
-				this.hideLoader();
+				this.update('', true);
 			});
 		}
 	},
 
 	/**
-	 * @desc updates img with its src and sets media component to visible state
+	 * @desc Updates img with its src or displays error
 	 *
-	 * @param src string - src for image
+	 * @param {string} imageSrc
+	 * @param {boolean} loadingError
 	 */
-	update(src: string): void {
-		this.setProperties({
-			imageSrc: src,
-			visible: true
-		});
-		this.set('isLoading', false);
+	update(imageSrc: string, loadingError: boolean = false): void {
+		if (!this.get('isDestroyed')) {
+			this.setProperties({
+				imageSrc,
+				isLoading: false,
+				loadingError,
+				visible: true
+			});
+		}
 	},
 
 	/**

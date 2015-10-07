@@ -45,13 +45,31 @@ App.SideNavComponent = Em.Component.extend({
 		},
 
 		/**
-		 * TODO: Refactor, use api
+		 * @desc Handler for enter in search box
 		 *
-		 * Temporary solution for enter on search, will be refactored to be a route in mercury
+		 * Running A/B test to switch between using MediaWiki Special:Search and Google Custom Search
+		 *
 		 * @param value of input
 		 */
 		enter(value = ''): void {
-			window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
+			// Experiment id from Optimizely
+			var experimentIds = {
+					prod: '3571301500',
+					dev: '3579160288'
+				},
+				variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
+
+			if (variationNumber === 2) {
+				// Use Google Search
+				// Hide SideNav
+				this.sendAction('toggleVisibility', false);
+				this.send('searchCancel');
+
+				this.sendAction('search', value);
+			} else {
+				// Use Wikia Search
+				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
+			}
 		}
 	},
 

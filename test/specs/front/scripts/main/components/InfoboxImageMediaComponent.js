@@ -1,6 +1,8 @@
 var originalThumbnailerGetThumbURL = Mercury.Modules.Thumbnailer.getThumbURL;
 
 moduleForComponent('infobox-image-media', 'InfoboxImageMediaComponent', {
+	unit: true,
+
 	setup: function () {
 		Mercury.Modules.Thumbnailer.getThumbURL = function (url, options) {
 			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
