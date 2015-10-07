@@ -69,14 +69,12 @@ App.DiscussionForumModel.reopenClass({
 						totalPosts = data.threadCount;
 
 					posts.forEach(function (post: any) {
-						var author: any;
 						if (post.hasOwnProperty('createdBy')) {
-							author = post.createdBy;
-							author.url = M.buildUrl({
+							post.createdBy.profileUrl = M.buildUrl({
 								namespace: 'User',
-								title: author.name
+								title: post.createdBy.name
 							});
-							contributors.push(author);
+							contributors.push(post.createdBy);
 						}
 					});
 
