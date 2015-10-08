@@ -51,9 +51,9 @@
       "imageWide": "wide.jpg"
     },
     {
-      "name": "#GLOBALGOALS",
-      "url": "http://ja.community.wikia.com/wiki/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%96%E3%83%AD%E3%82%B0:Charicocco/GlobalGoals:_%E3%81%BF%E3%81%AA%E3%81%95%E3%82%93%E3%81%AB%E4%BC%9D%E3%81%88%E3%81%A6%E3%81%84%E3%81%8D%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8",
-      "imageBaseUrl": "/images/communities/globalgoal-",
+      "name": "One Piece",
+      "url": "http://ja.onepiece.wikia.com/",
+      "imageBaseUrl": "/images/communities/onepiece-",
       "imageNarrow": "narrow.jpg",
       "imageWide": "wide.jpg"
     }

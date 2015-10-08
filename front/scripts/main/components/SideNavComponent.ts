@@ -13,25 +13,25 @@ App.SideNavComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		clearSearch: function (): void {
+		clearSearch(): void {
 			this.set('searchQuery', '');
 		},
 
-		collapse: function (): void {
+		collapse(): void {
 			this.sendAction('toggleVisibility', false);
 			this.send('searchCancel');
 		},
 
-		expand: function (): void {
+		expand(): void {
 			this.sendAction('toggleVisibility', true);
 		},
 
-		searchCancel: function (): void {
+		searchCancel(): void {
 			this.set('isInSearchMode', false);
 			this.send('clearSearch');
 		},
 
-		searchFocus: function (): void {
+		searchFocus(): void {
 			this.set('isInSearchMode', true);
 			// Track when search is opened
 			M.track({
@@ -40,18 +40,36 @@ App.SideNavComponent = Em.Component.extend({
 			});
 		},
 
-		loadRandomArticle: function (): void {
+		loadRandomArticle(): void {
 			this.sendAction('loadRandomArticle');
 		},
 
 		/**
-		 * TODO: Refactor, use api
+		 * @desc Handler for enter in search box
 		 *
-		 * Temporary solution for enter on search, will be refactored to be a route in mercury
+		 * Running A/B test to switch between using MediaWiki Special:Search and Google Custom Search
+		 *
 		 * @param value of input
 		 */
-		enter: function (value = '') {
-			window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
+		enter(value = ''): void {
+			// Experiment id from Optimizely
+			var experimentIds = {
+					prod: '3571301500',
+					dev: '3579160288'
+				},
+				variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
+
+			if (variationNumber === 1) {
+				// Use Google Search
+				// Hide SideNav
+				this.sendAction('toggleVisibility', false);
+				this.send('searchCancel');
+
+				this.sendAction('search', value);
+			} else {
+				// Use Wikia Search
+				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
+			}
 		}
 	},
 

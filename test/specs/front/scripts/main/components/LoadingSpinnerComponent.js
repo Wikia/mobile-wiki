@@ -1,4 +1,6 @@
-moduleForComponent('loading-spinner', 'Loading Spinner Component');
+moduleForComponent('loading-spinner', 'LoadingSpinnerComponent', {
+	unit: true
+});
 
 test('should be hidden by default', function () {
 	var componentMock = this.subject();

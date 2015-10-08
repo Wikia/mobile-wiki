@@ -8,7 +8,7 @@ App.LightboxVideoComponent = Em.Component.extend(App.ArticleContentMixin, {
 	classNameBindings: ['provider'],
 	videoLoader: null,
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		this.initVideoPlayer();
 	},
 
@@ -28,7 +28,7 @@ App.LightboxVideoComponent = Em.Component.extend(App.ArticleContentMixin, {
 	 * @method initVideoPlayer
 	 * @desc Used to instantiate a video player
 	 */
-	initVideoPlayer: function (): void {
+	initVideoPlayer(): void {
 		var videoLoader = new Mercury.Modules.VideoLoader(this.get('model.embed')),
 			selector = Em.get(videoLoader, 'player.containerSelector');
 

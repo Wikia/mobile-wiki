@@ -27,7 +27,7 @@ interface FeaturedContentItem {
 
 App.FeaturedContentMixin = Em.Mixin.create({
 	layoutName: 'components/featured-content',
-	classNames: ['featured-content'],
+	classNames: ['featured-content', 'mw-content'],
 	currentItemIndex: 0,
 
 	hasMultipleItems: Em.computed('model', function (): boolean {
@@ -57,7 +57,7 @@ App.FeaturedContentMixin = Em.Mixin.create({
 		$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
 	}).on('didInsertElement'),
 
-	prevItem: function (): void {
+	prevItem(): void {
 		if (this.get('hasMultipleItems')) {
 			if (this.get('currentItemIndex') === 0) {
 				this.set('currentItemIndex', this.get('lastIndex'));
@@ -67,7 +67,7 @@ App.FeaturedContentMixin = Em.Mixin.create({
 		}
 	},
 
-	nextItem: function (): void {
+	nextItem(): void {
 		if (this.get('hasMultipleItems')) {
 			if (this.get('currentItemIndex') >= this.get('lastIndex')) {
 				this.set('currentItemIndex', 0);

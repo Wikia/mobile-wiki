@@ -17,7 +17,7 @@ App.DiscussionPostController = Em.Controller.extend({
 	}),
 
 	actions: {
-		expand: function () {
+		expand(): void {
 			var model = this.get('model');
 
 			model.loadNextPage().then(() => {

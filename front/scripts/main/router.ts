@@ -70,6 +70,10 @@ App.Router.map(function () {
 		path: articlePath + 'addPhoto/:title'
 	});
 
+	this.route('searchResults', {
+		path: '/search'
+	});
+
 	this.route('discussion', {
 		path: '/d'
 	}, function () {

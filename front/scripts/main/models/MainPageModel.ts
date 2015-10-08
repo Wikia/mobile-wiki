@@ -7,7 +7,7 @@ App.MainPageModel = App.ArticleModel.extend({
 });
 
 App.MainPageModel.reopenClass({
-	find: function (): Em.RSVP.Promise {
+	find(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var modelPromise = App.ArticleModel.find({
 				basePath: Em.get(Mercury, 'wiki.basePath'),

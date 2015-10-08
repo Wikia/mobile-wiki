@@ -75,18 +75,19 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	}),
 
 	modelObserver: Em.observer('model', 'currentMedia', function (): void {
-		this.updateHeader();
-		this.updateFooter();
+		this.updateState();
+	}),
 
-		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
-	}).on('didInsertElement'),
-
-	didInsertElement: function (): void {
-		// This is needed for keyDown event to work
-		this.$().focus();
+	didInsertElement(): void {
+		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
+		// This isn't allowed by Ember to do on didInsertElement
+		// That's why we need to schedule it in the afterRender queue
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			this.updateState();
+		});
 	},
 
-	click: function (event: MouseEvent): void {
+	click(event: MouseEvent): void {
 		if (this.get('isGallery')) {
 			this.callClickHandler(event, true);
 		} else {
@@ -94,7 +95,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		}
 	},
 
-	keyDown: function (event: JQueryEventObject): void {
+	keyDown(event: JQueryEventObject): void {
 		if (this.get('isGallery')) {
 			if (event.keyCode === 39) {
 				//handle right arrow
@@ -109,33 +110,35 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	},
 
 	gestures: {
-		swipeLeft: function (): void {
+		swipeLeft(): void {
 			if (this.get('isGallery')) {
 				this.nextMedia();
 			}
 		},
 
-		swipeRight: function (): void {
+		swipeRight(): void {
 			if (this.get('isGallery')) {
 				this.prevMedia();
 			}
 		}
 	},
 
-	rightClickHandler: function(): boolean {
+	rightClickHandler(): boolean {
 		this.nextMedia();
 		return true;
 	},
-	leftClickHandler: function(): boolean {
+
+	leftClickHandler(): boolean {
 		this.prevMedia();
 		return true;
 	},
-	centerClickHandler: function(): boolean {
+
+	centerClickHandler(): boolean {
 		// Bubble up
 		return false;
 	},
 
-	nextMedia: function (): void {
+	nextMedia(): void {
 		this.incrementProperty('currentGalleryRef');
 
 		M.track({
@@ -145,7 +148,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		});
 	},
 
-	prevMedia: function (): void {
+	prevMedia(): void {
 		this.decrementProperty('currentGalleryRef');
 
 		M.track({
@@ -155,7 +158,14 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		});
 	},
 
-	updateHeader: function (): void {
+	updateState(): void {
+		this.updateHeader();
+		this.updateFooter();
+
+		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
+	},
+
+	updateHeader(): void {
 		var header: string = null;
 
 		if (this.get('isGallery')) {
@@ -165,7 +175,7 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		this.sendAction('setHeader', header);
 	},
 
-	updateFooter: function (): void {
+	updateFooter(): void {
 		var currentMedia: ArticleMedia = this.get('currentMedia');
 
 		if (currentMedia && currentMedia.caption) {
@@ -173,6 +183,5 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		} else {
 			this.sendAction('setFooter', null);
 		}
-
 	}
 });

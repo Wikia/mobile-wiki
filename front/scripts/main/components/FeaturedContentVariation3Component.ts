@@ -19,32 +19,32 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 		return 0;
 	}),
 
-	rightClickHandler: function (): boolean {
+	rightClickHandler(): boolean {
 		M.VariantTesting.trackEvent('featured-content-next');
 		this.nextItem();
 		this.resetCycleTimeout();
 		return true;
 	},
 
-	leftClickHandler: function (): boolean {
+	leftClickHandler(): boolean {
 		M.VariantTesting.trackEvent('featured-content-prev');
 		this.prevItem();
 		this.resetCycleTimeout();
 		return true;
 	},
 
-	centerClickHandler: function (): boolean {
+	centerClickHandler(): boolean {
 		this.stopCyclingThroughItems();
 		this.trackClick('modular-main-page', 'featured-content');
 		M.VariantTesting.trackEvent('featured-content-click');
 		return false;
 	},
 
-	click: function (event: MouseEvent|Touch): void {
+	click(event: MouseEvent|Touch): void {
 		this.callClickHandler(event, true);
 	},
 
-	cycleThroughItems: function (): void {
+	cycleThroughItems(): void {
 		if (this.get('hasMultipleItems') && !this.get('isTimeoutHandleSet')) {
 			this.set('cycleTimeoutHandle', Em.run.later(this, (): void => {
 				this.set('isTimeoutHandleSet', false);
@@ -55,25 +55,25 @@ App.FeaturedContentVariation3Component = Em.Component.extend(App.FeaturedContent
 		}
 	},
 
-	stopCyclingThroughItems: function (): void {
+	stopCyclingThroughItems(): void {
 		if (this.get('hasMultipleItems')) {
 			Em.run.cancel(this.get('cycleTimeoutHandle'));
 			this.set('isTimeoutHandleSet', false);
 		}
 	},
 
-	resetCycleTimeout: function (): void {
+	resetCycleTimeout(): void {
 		if (this.get('hasMultipleItems')) {
 			this.stopCyclingThroughItems();
 			this.cycleThroughItems();
 		}
 	},
 
-	didInsertElement: function (): void {
+	didInsertElement(): void {
 		this.cycleThroughItems();
 	},
 
-	willDestroyElement: function (): void {
+	willDestroyElement(): void {
 		this.stopCyclingThroughItems();
 	}
 });

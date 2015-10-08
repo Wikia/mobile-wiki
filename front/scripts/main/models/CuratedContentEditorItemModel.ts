@@ -76,6 +76,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 					path: '/wikia.php'
 				}),
 				data,
+				method: 'POST',
 				dataType: 'json',
 				success: (data: CuratedContentValidationResponseInterface): void => {
 					resolve(data);

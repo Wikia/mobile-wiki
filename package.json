@@ -1,6 +1,6 @@
 {
   "name": "Mercury",
-  "version": "170.0.0",
+  "version": "174.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
@@ -29,11 +29,10 @@
     "hoek": "2.12.0",
     "i18next": "1.7.10",
     "newrelic": "1.18.1",
-    "wreck": "rogatty/wreck"
+    "wreck": "6.3.0"
   },
   "devDependencies": {
     "browser-sync": "^2.5.3",
-    "ember-qunit": "0.2.x",
     "ember-template-compiler": "^1.9.0-alpha",
     "flipcss": "^0.2.8",
     "glob": "^4.3.5",

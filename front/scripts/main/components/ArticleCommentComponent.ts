@@ -41,7 +41,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		toggleExpand: function () {
+		toggleExpand(): void {
 			this.toggleProperty('isExpanded');
 		}
 	},
@@ -55,7 +55,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	 *
 	 * @param {JQuery} $originalFigure
 	 */
-	convertThumbnails: function ($originalFigure: JQuery): void {
+	convertThumbnails($originalFigure: JQuery): void {
 		var thumbnailsData: any,
 			thumbnailer = Mercury.Modules.Thumbnailer,
 			newFigures: JQuery[] = [];

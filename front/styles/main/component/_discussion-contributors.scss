@@ -4,7 +4,7 @@ $discussion-contributors-text-color: $color-white;
 $discussion-contributors-avatar-dimension: 30px;
 
 .discussion-contributors {
-	display: inline;
+	display: inline-block;
 
 	.user-avatar {
 		display: inline-block;
@@ -26,8 +26,30 @@ $discussion-contributors-avatar-dimension: 30px;
 		display: inline-block;
 		font-size: 10px;
 		height: $discussion-contributors-avatar-dimension;
-		padding: 3px 0;
+		padding: 0;
 		text-align: center;
 		width: $discussion-contributors-avatar-dimension;
+	}
+}
+
+.discussion-contributors-mobile {
+	background-color: #F6F6F6;
+	border: none;
+	padding: 14px 9px;
+}
+
+.rail {
+	.discussion-contributors {
+		display: inline-block;
+		margin-right: 30px;
+	}
+
+	.discussion-contributors-title {
+		color: #333;
+		font-size: $type-smallest;
+		font-weight: bold;
+		line-height: 18px;
+		margin-top: 40px;
+		margin-bottom: 5px;
 	}
 }

@@ -52,7 +52,7 @@ module Mercury.Modules.Trackers {
 				config: InternalTrackingConfig = {
 					c: mercury.wiki.id,
 					x: mercury.wiki.dbName,
-					lc: mercury.wiki.language.user,
+					lc: mercury.wiki.language.content,
 					u: mercury.userId || 0,
 					s: 'mercury',
 					beacon: '',

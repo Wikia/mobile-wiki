@@ -57,7 +57,7 @@ App.ArticleEditController = Em.Controller.extend({
 	},
 
 	actions: {
-		publish: function (): void {
+		publish(): void {
 			this.set('isPublishing', true);
 			this.get('application').showLoader();
 			App.ArticleEditModel.publish(this.get('model')).then(
@@ -70,7 +70,7 @@ App.ArticleEditController = Em.Controller.extend({
 				label: 'publish'
 			});
 		},
-		back: function (): void {
+		back(): void {
 			this.transitionToRoute('article', this.get('model.title'));
 			M.track({
 				action: M.trackActions.click,

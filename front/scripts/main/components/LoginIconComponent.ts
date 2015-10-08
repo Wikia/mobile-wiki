@@ -8,7 +8,7 @@ App.LoginIconComponent = Em.Component.extend({
 	tagName: 'a',
 	classNames: ['external', 'login'],
 
-	click: function (): void {
+	click(): void {
 		var label: string,
 			href: string;
 
@@ -32,7 +32,7 @@ App.LoginIconComponent = Em.Component.extend({
 		window.location.href = href;
 	},
 
-	getUselangParam: function (): string {
+	getUselangParam(): string {
 		var lang: string = Mercury.wiki.language.content;
 		if (!lang || lang === 'en') {
 			return ''

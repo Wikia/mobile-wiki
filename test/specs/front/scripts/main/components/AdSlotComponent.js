@@ -1,4 +1,5 @@
-moduleForComponent('ad-slot', 'Ad Slot Component', {
+moduleForComponent('ad-slot', 'AdSlotComponent', {
+	unit: true,
 	teardown: function () {
 		Mercury.Modules.Ads.getInstance().adSlots = [];
 	}

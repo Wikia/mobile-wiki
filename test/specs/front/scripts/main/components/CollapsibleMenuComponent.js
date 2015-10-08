@@ -1,4 +1,6 @@
-moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent');
+moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent', {
+	unit: true
+});
 
 test('Beginning state', function () {
 	var component = this.subject();

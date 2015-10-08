@@ -12,7 +12,9 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	}),
 	overlay: null,
 
-	didInsertElement: function () {
+	showContent: true,
+
+	didInsertElement(): void {
 		this.set('overlay', this.element.querySelector('.overlay'));
 		this._super();
 	},

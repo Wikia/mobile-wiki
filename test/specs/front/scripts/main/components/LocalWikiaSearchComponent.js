@@ -1,4 +1,6 @@
-moduleForComponent('localWikiaSearch', 'Local Wikia Search Component', {
+moduleForComponent('localWikiaSearch', 'LocalWikiaSearchComponent', {
+	unit: true,
+
 	setup: function () {
 		// Mock some tracking stuff
 		M.track = function () {};

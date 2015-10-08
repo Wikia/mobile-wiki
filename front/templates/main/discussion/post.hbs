@@ -1,20 +1,54 @@
-<div class="discussion post">
-	{{post-detail
-		replyCount=model.postCount
-		post=model.firstPost
-		isDetailsView=true
-		upvote='upvote'
-	}}
-	{{#if canShowMore}}
-        <button {{action 'expand'}} class="see-more">
-			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-            View Older Replies
-        </button>
-	{{/if}}
-	{{#each model.replies as |item index|}}
-		{{post-reply
-			post=item
+{{discussion-header
+	showContent=false
+	headroomEnabled=false
+}}
+
+<div class="minimized discussion-hero-unit"></div>
+
+<div class="discussion-page row">
+	<div class="rail large-2 columns">
+		{{community-badge}}
+		<div class="discussion-contributors-title">{{i18n "discussion.contributors-title"}}</div>
+		{{discussion-contributors
+			contributors=model.contributors
+			maxContributorDisplayCount=7
+			totalContributorCount=model.postCount
+		}}
+	</div>
+	<div class="discussion post small-12 large-8 columns">
+		{{post-detail
+			author=model.firstPost.createdBy
+			isDetailsView=true
+			post=model.firstPost
+			replyCount=model.postCount
+			timestamp=model.firstPost.creationDate.epochSecond
+			upvoteCount=model.upvoteCount
 			upvote='upvote'
 		}}
-	{{/each}}
+		<div class="desktop-hidden discussion-contributors-mobile">
+			{{discussion-contributors
+				contributors=model.contributors
+				maxContributorDisplayCount=7
+				totalContributorCount=model.postCount
+			}}
+		</div>
+		{{#if canShowMore}}
+	        <button {{action 'expand'}} class="see-more">
+				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+	            View Older Replies
+	        </button>
+		{{/if}}
+		{{#each model.replies as |item index|}}
+			{{post-reply
+				post=item
+				author=item.createdBy
+				content=item.rawContent
+				timestamp=item.creationDate.epochSecond
+				upvoteCount=item.upvoteCount
+				upvote='upvote'
+			}}
+		{{/each}}
+	</div>
+	<div class="rail large-2 columns">
+	</div>
 </div>
