@@ -39,7 +39,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 			this.refresh();
 		},
 
-		allDiscussions(): void {
+		goToAllDiscussions(): void {
 			this.transitionTo('discussion.index');
 		},
 

@@ -47,8 +47,8 @@ App.DiscussionForumController = Em.Controller.extend({
 		/**
 		 * @desc Bubbles up to DiscussionForumRoute
 		 */
-		allDiscussions(): void {
-			this.get('target').send('allDiscussions');
+		goToAllDiscussions(): void {
+			this.get('target').send('goToAllDiscussions');
 		}
 	}
 });

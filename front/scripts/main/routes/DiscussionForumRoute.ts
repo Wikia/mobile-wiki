@@ -29,7 +29,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 			this.refresh();
 		},
 
-		allDiscussions(): void {
+		goToAllDiscussions(): void {
 			this.transitionTo('discussion');
 		},
 
