@@ -25,11 +25,11 @@ module Mercury.Modules {
 		};
 		private adConfigMobile: any;
 		private adLogicPageViewCounterModule: {
-			get (): number;
-			increment (): number;
+			get(): number;
+			increment(): number;
 		};
 		private adMercuryListenerModule: {
-			startOnLoadQueue (): void;
+			startOnLoadQueue(): void;
 		};
 		private currentAdsContext: any = null;
 		private isLoaded = false;
