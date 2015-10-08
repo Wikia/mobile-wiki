@@ -31,7 +31,7 @@ App.LocalNavMenuComponent = Em.Component.extend(App.TrackClickMixin, {
 
 	menuRoot: Em.computed('model', function (): RootNavItem {
 		var menuRoot = {
-			children: Em.get(Mercury, 'wiki.navData.navigation.wiki')
+			children: Em.get(Mercury, 'wiki.navigation')
 		};
 
 		return this.injectParentPointersAndIndices(menuRoot);
