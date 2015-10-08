@@ -21,7 +21,7 @@ module Mercury.Modules {
 		private adEngineModule: any;
 		private adContextModule: any;
 		private sourcePointDetectionModule: {
-			initDetection (): void;
+			initDetection(): void;
 		};
 		private adConfigMobile: any;
 		private adLogicPageViewCounterModule: {
