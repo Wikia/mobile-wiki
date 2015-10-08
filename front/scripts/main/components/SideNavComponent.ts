@@ -59,7 +59,7 @@ App.SideNavComponent = Em.Component.extend({
 				},
 				variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
 
-			if (variationNumber === 2) {
+			if (variationNumber === 1) {
 				// Use Google Search
 				// Hide SideNav
 				this.sendAction('toggleVisibility', false);
