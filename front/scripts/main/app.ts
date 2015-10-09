@@ -61,14 +61,14 @@ App.initializer({
 App.initializer({
 	name: 'optimizely',
 	initialize () {
-		App.deferReadiness();
+		var optimizelyScript =  M.prop('optimizelyScript');
 
-		if (M.prop('optimizelyScript') !== undefined && !M.getQueryParam('noexternals')) {
-			Em.$.getScript(M.prop('optimizelyScript')).then(
-				App.advanceReadiness()
-			);
-		} else {
-			App.advanceReadiness();
+		if (!Em.isEmpty(optimizelyScript) && !M.getQueryParam('noexternals')) {
+			App.deferReadiness();
+
+			Em.$.getScript(optimizelyScript).always(() => {
+				App.advanceReadiness();
+			});
 		}
 	}
 });
