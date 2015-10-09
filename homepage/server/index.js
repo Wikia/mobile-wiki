@@ -45,7 +45,7 @@ server.views({
 	},
 	path: path.resolve(__dirname, 'views'),
 	layoutPath: path.resolve(__dirname, 'views/_layouts'),
-	partialsPath: [path.join(__dirname, 'views/_partials'), path.join(__dirname, '../../server/views/_partials')],
+	partialsPath: path.join(__dirname, 'views/_partials'),
 	layout: 'default'
 });
 
