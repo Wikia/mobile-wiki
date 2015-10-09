@@ -54,6 +54,8 @@ $color-gray-semi: $color-blue-gray;
 // quickly modify the application
 
 $overlay-opacity: .5;
+$overlay-color: $color-black;
+
 $border-color-light: $color-gray-light;
 
 $element-active-bg: $color-gray-light;
@@ -61,14 +63,14 @@ $element-active-bg: $color-gray-light;
 $modal-background: $color-gray-dark;
 $modal-text-color: $color-white;
 
-$search-box-border-color: $color-gray-light;
-$search-box-text-color: $color-gray-light;
+$search-box-border-color: $color-blue-gray-light;
+$search-box-text-color: $color-blue-gray;
 $spinner-color: $color-blue-brand;
 
 $side-nav-item-gutter: rem-calc(13);
 $side-nav-width: rem-calc(260);
 $side-nav-offset: $side-nav-width * -1;
-$transition-length: .10s;
+$transition-length: .1s;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Vertical variables

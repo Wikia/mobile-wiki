@@ -20,11 +20,6 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	 * @member {Array<SearchSuggestionItem>}
 	 */
 	suggestions: [],
-	/**
-	 * Whether or not to show that empty message (should be shown if there is a valid
-	 * query term but no results)
-	 */
-	showEmptyMessage: false,
 	// Whether or not to display the loading search results message (en: 'Loading...')
 	isLoadingSearchResults: false,
 	// in ms
@@ -66,8 +61,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	setEmptySearchSuggestionItems(): void {
 		this.setProperties({
 			suggestions: [],
-			isLoadingSearchResults: false,
-			showEmptyMessage: true
+			isLoadingSearchResults: false
 		});
 	},
 
@@ -86,10 +80,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 		var query: string = this.get('query'),
 			cached: any;
 
-		this.setProperties({
-			suggestions: [],
-			showEmptyMessage: false
-		});
+		this.set('suggestions', []);
 
 		// If the query string is empty or shorter than the minimal length, return to leave the view blank
 		if (!query || query.length < this.queryMinimalLength) {

@@ -1,4 +1,6 @@
-moduleForComponent('article-wrapper');
+moduleForComponent('article-wrapper', 'ArticleWrapperComponent', {
+	unit: true
+});
 
 test('shouldHandleMedia returns correct value', function () {
 	var component = this.subject(),
