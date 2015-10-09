@@ -9,6 +9,57 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	title: '',
 	sharedUrl: null,
 
+	socialNetworks: {
+		'en': [
+			'facebook',
+			'twitter',
+			'reddit',
+			'tumblr'
+		],
+		'jp': [
+			'facebook',
+			'twitter',
+			'g+',
+			'line'
+		],
+		'pt-br': [
+			'facebook',
+			'twitter',
+			'reddit',
+			'tumblr'
+		],
+		'zh': [
+			'facebook',
+			'weibo'
+		],
+		'de': [
+			'facebook',
+			'twitter',
+			'tumblr'
+		],
+		'fr': [
+			'facebook',
+			'twitter'
+		],
+		'es': [
+			'facebook',
+			'twitter',
+			'meneame',
+			'tumblr'
+		],
+		'ru': [
+			'vk',
+			'facebook',
+			'odnoklassniki'
+		],
+		'pl': [
+			'facebook',
+			'twitter',
+			'nk.pl',
+			'wykop'
+		]
+	},
+
 	didInsertElement: function (): void {
 		if (this.get('sharedUrl') === null) {
 			// If not set, the shared URL is the current page
