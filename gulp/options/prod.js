@@ -51,7 +51,7 @@ module.exports = {
 	},
 	replace: {
 		selector: {
-			layouts: '**/_layouts/*.hbs',
+			layouts: '**/_layouts/ember-main.hbs',
 			partials: '**/_partials/*.hbs'
 		},
 		find: '/front/',
