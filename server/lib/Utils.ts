@@ -199,7 +199,11 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 		apiBase: localSettings.apiBase,
 		environment: getEnvironmentString(env),
-		cdnBaseUrl: getCDNBaseUrl(localSettings)
+		cdnBaseUrl: getCDNBaseUrl(localSettings),
+		optimizelyScript:
+			(localSettings.optimizely.enabled) ?
+			localSettings.optimizely.scriptPath + localSettings.optimizely.account + '.js' :
+			undefined
 	};
 }
 

@@ -59,7 +59,23 @@ App.initializer({
 });
 
 App.initializer({
+	name: 'optimizely',
+	initialize () {
+		App.deferReadiness();
+
+		if (M.prop('optimizelyScript') !== undefined && !M.getQueryParam('noexternals')) {
+			Em.$.getScript(M.prop('optimizelyScript')).then(
+				App.advanceReadiness()
+			);
+		} else {
+			App.advanceReadiness();
+		}
+	}
+});
+
+App.initializer({
 	name: 'preload',
+	after: 'optimizely',
 	initialize: (container: any, application: any) => {
 		var $window = $(window);
 
