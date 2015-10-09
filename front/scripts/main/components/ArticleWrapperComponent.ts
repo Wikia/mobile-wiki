@@ -63,7 +63,10 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 	didInsertElement(): void {
 		$(window).off('scroll.mercury.preload');
 		window.scrollTo(0, M.prop('scroll'));
-		this.sendAction('articleRendered');
+
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			this.sendAction('articleRendered');
+		});
 	},
 
 	uploadFeatureEnabled: Em.computed(function(): boolean {

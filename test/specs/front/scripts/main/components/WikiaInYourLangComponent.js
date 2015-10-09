@@ -1,4 +1,6 @@
 moduleForComponent('wikia-in-your-lang', 'WikiaInYourLangComponent', {
+	unit: true,
+
 	setup: function() {
 		window.localStorage.clear();
 	},

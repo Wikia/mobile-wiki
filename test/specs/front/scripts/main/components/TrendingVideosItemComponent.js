@@ -1,4 +1,6 @@
-moduleForComponent('trending-videos-item', 'TrendingVideosItemComponent');
+moduleForComponent('trending-videos-item', 'TrendingVideosItemComponent', {
+	unit: true
+});
 
 test('computes thumb url properly', function () {
 	var componentMock = this.subject(),

@@ -1,48 +1,51 @@
-var mixinMock;
+var mixin;
 
 moduleFor('mixin:featuredContent', 'FeaturedContentMixin', {
 	setup: function () {
-		mixinMock = Em.Object.createWithMixins(App.FeaturedContentMixin, {
+		var mixinClass = Ember.Object.extend(App.FeaturedContentMixin);
+
+		mixin = mixinClass.create({
 			// We don't want to test jQuery DOM manipulation here
-			currentItemIndexObserver: function () {}
+			currentItemIndexObserver: function () {
+			}
 		});
 	}
 });
 
 test('detects if there are multiple items in the model', function () {
-	mixinMock.set('model', [{
+	mixin.set('model', [{
 		title: 'Item 1'
 	}]);
-	equal(mixinMock.get('hasMultipleItems'), false);
+	equal(mixin.get('hasMultipleItems'), false);
 
-	mixinMock.set('model', [{
+	mixin.set('model', [{
 		title: 'Item 1'
 	}, {
 		title: 'Item 2'
 	}]);
-	equal(mixinMock.get('hasMultipleItems'), true);
+	equal(mixin.get('hasMultipleItems'), true);
 });
 
 test('returns the current item', function () {
-	mixinMock.set('model', [{
+	mixin.set('model', [{
 		title: 'Item 1'
 	}, {
 		title: 'Item 2'
 	}]);
 
-	mixinMock.set('currentItemIndex', 0);
-	deepEqual(mixinMock.get('currentItem'), {
+	mixin.set('currentItemIndex', 0);
+	deepEqual(mixin.get('currentItem'), {
 		title: 'Item 1'
 	});
 
-	mixinMock.set('currentItemIndex', 1);
-	deepEqual(mixinMock.get('currentItem'), {
+	mixin.set('currentItemIndex', 1);
+	deepEqual(mixin.get('currentItem'), {
 		title: 'Item 2'
 	});
 });
 
 test('sets proper index in the prevItem function', function () {
-	mixinMock.set('model', [{
+	mixin.set('model', [{
 		title: 'Item 1'
 	}, {
 		title: 'Item 2'
@@ -50,18 +53,18 @@ test('sets proper index in the prevItem function', function () {
 		title: 'Item 3'
 	}]);
 
-	mixinMock.prevItem();
-	equal(mixinMock.get('currentItemIndex'), 2);
+	mixin.prevItem();
+	equal(mixin.get('currentItemIndex'), 2);
 
-	mixinMock.prevItem();
-	equal(mixinMock.get('currentItemIndex'), 1);
+	mixin.prevItem();
+	equal(mixin.get('currentItemIndex'), 1);
 
-	mixinMock.prevItem();
-	equal(mixinMock.get('currentItemIndex'), 0);
+	mixin.prevItem();
+	equal(mixin.get('currentItemIndex'), 0);
 });
 
 test('sets proper index in the nextItem function', function () {
-	mixinMock.set('model', [{
+	mixin.set('model', [{
 		title: 'Item 1'
 	}, {
 		title: 'Item 2'
@@ -69,12 +72,12 @@ test('sets proper index in the nextItem function', function () {
 		title: 'Item 3'
 	}]);
 
-	mixinMock.nextItem();
-	equal(mixinMock.get('currentItemIndex'), 1);
+	mixin.nextItem();
+	equal(mixin.get('currentItemIndex'), 1);
 
-	mixinMock.nextItem();
-	equal(mixinMock.get('currentItemIndex'), 2);
+	mixin.nextItem();
+	equal(mixin.get('currentItemIndex'), 2);
 
-	mixinMock.nextItem();
-	equal(mixinMock.get('currentItemIndex'), 0);
+	mixin.nextItem();
+	equal(mixin.get('currentItemIndex'), 0);
 });

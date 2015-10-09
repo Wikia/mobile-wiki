@@ -75,15 +75,16 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 	}),
 
 	modelObserver: Em.observer('model', 'currentMedia', function (): void {
-		this.updateHeader();
-		this.updateFooter();
-
-		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
-	}).on('didInsertElement'),
+		this.updateState();
+	}),
 
 	didInsertElement(): void {
-		// This is needed for keyDown event to work
-		this.$().focus();
+		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
+		// This isn't allowed by Ember to do on didInsertElement
+		// That's why we need to schedule it in the afterRender queue
+		Em.run.scheduleOnce('afterRender', this, (): void => {
+			this.updateState();
+		});
 	},
 
 	click(event: MouseEvent): void {
@@ -126,10 +127,12 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		this.nextMedia();
 		return true;
 	},
+
 	leftClickHandler(): boolean {
 		this.prevMedia();
 		return true;
 	},
+
 	centerClickHandler(): boolean {
 		// Bubble up
 		return false;
@@ -155,6 +158,13 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		});
 	},
 
+	updateState(): void {
+		this.updateHeader();
+		this.updateFooter();
+
+		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
+	},
+
 	updateHeader(): void {
 		var header: string = null;
 
@@ -173,6 +183,5 @@ App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
 		} else {
 			this.sendAction('setFooter', null);
 		}
-
 	}
 });

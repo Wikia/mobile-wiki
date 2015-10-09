@@ -1,4 +1,6 @@
-moduleForComponent('featured-content-item', 'FeaturedContentItemComponent');
+moduleForComponent('featured-content-item', 'FeaturedContentItemComponent', {
+	unit: true
+});
 
 test('computes container height properly', function () {
 	var componentMock = this.subject(),

@@ -41,7 +41,7 @@ server.route(routes);
 
 server.views({
 	engines: {
-		html: require('handlebars')
+		hbs: require('handlebars')
 	},
 	path: path.resolve(__dirname, 'views'),
 	layoutPath: path.resolve(__dirname, 'views/_layouts'),
