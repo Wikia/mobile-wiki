@@ -4,7 +4,9 @@
 
 App.DiscussionIndexRoute = Em.Route.extend(App.UseNewNavMixin, {
 	beforeModel(): void {
-		this.transitionTo('discussion.forum', Mercury.wiki.id, 'latest');
+		var controller = this.controllerFor('discussionForum');
+
+		this.transitionTo('discussion.forum', Mercury.wiki.id, controller.get('sortTypes')[0].name);
 	},
 
 	model() {
