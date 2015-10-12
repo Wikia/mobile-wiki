@@ -45,6 +45,7 @@ class SignupForm {
 
 	private getFormValues(): HeliosRegisterInput {
 		var formElements: HTMLCollection = this.form.elements;
+
 		return {
 			username: (<HTMLInputElement> formElements.namedItem('username')).value,
 			password: (<HTMLInputElement> formElements.namedItem('password')).value,

@@ -1,4 +1,6 @@
 moduleForComponent('main-page', 'MainPageComponent', {
+	unit: true,
+
 	setup: function () {
 		M.setTrackContext = function () {};
 		M.trackPageView = function () {};

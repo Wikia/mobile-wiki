@@ -7,7 +7,7 @@
 
 App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMixin, {
 	queryParams: {
-		comments_page: {
+		commentsPage: {
 			replace: true
 		}
 	},
@@ -149,7 +149,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		search: function (searchString : string) {
-			this.transitionTo('searchResults', {queryParams: {q: searchString}});
+			this.transitionTo('searchResults', {queryParams: {
+				q: searchString,
+			}});
 		},
 
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes

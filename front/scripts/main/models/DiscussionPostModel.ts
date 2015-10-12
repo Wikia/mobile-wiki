@@ -93,6 +93,7 @@ App.DiscussionPostModel.reopenClass({
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
+						id: data.id,
 						pivotId: pivotId,
 						page: 0,
 						title: data.title
