@@ -14,6 +14,9 @@
 		{{svg 'google' role='img' class='icon google'}}
 	</a>
 {{/if}}
+{{#each item in currentSocialNetworks}}}
+	<a {{action 'shareLink' item}} target="_blank" >
+		{{svg '' role='img' class='icon'}}
+	</a>
+{{/each}}
 
-
-{{#each 
