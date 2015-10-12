@@ -4,11 +4,5 @@
 	</a>
 </figure>
 {{#if displayUsername}}
-<a href="{{profileUrl}}" class="avatar-username">
-	{{#if truncateNameLength}}
-		{{truncate username truncateNameLength}}
-	{{else}}
-		{{username}}
-	{{/if}}
-</a>
+<a href="{{profileUrl}}" class="avatar-username">{{username}}</a>
 {{/if}}
