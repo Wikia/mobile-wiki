@@ -2,6 +2,8 @@
 'use strict';
 
 App.LanguagesMixin = Em.Mixin.create({
+	defaultLanguage: 'en',
+
 	isJapaneseBrowser: Em.computed(function (): boolean {
 		var lang = navigator.language || navigator.browserLanguage;
 		if (!lang) {
@@ -15,24 +17,24 @@ App.LanguagesMixin = Em.Mixin.create({
 		return Em.get(Mercury, 'wiki.language.content') === 'ja';
 	}),
 
-	browserLanguage: Em.computed(function (): string {
-		var lang = navigator.browserLanguage || navigator.browserLanguage;
+	getBrowserLanguage(): string {
+		var lang = navigator.language || navigator.browserLanguage;
 		if (!lang) {
-			return 'en';
-		}else{
-			lang= lang.dasherize();
-			if(lang!='pt-br'){
+			return this.get('defaultLanguage');
+		} else {
+			lang = lang.dasherize();
+			if (lang !== 'pt-br') {
 				lang = lang.split('-')[0];
 			}
 			return lang;
 		}
-	}),
+	},
 
 	getLanguage(): string {
-		if (Em.get('currentUser', 'isAuthenticated')){
+		if (Em.get('currentUser', 'isAuthenticated')) {
 			return Em.get('currentUser', 'language');
-		}else{
-			return this.browserLanguage;
+		} else {
+			return this.getBrowserLanguage();
 		}
 	}
 

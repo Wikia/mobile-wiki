@@ -71,10 +71,10 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		this._super();
 	},
 
-	currentSocialNetworks: Em.computed(function() {
-		var lang= this.getLanguage(),
+	currentSocialNetworks: Em.computed(function () {
+		var lang = this.getLanguage(),
 			socialNetworks= this.get('socialNetworks');
-		return socialNetworks[lang] ? socialNetworks[lang]:'en' ;
+		return socialNetworks[lang] ? socialNetworks[lang] : socialNetworks['en'] ;
 	}),
 
 	lineShare: Em.computed('title', 'sharedUrl', function (): string {
