@@ -15,8 +15,8 @@
 	</a>
 {{/if}}
 
-{{#each item in socialNetworks}}}
-	<a {{bind-attr class=item.name}} {{bind-attr href=item.sharedUrl}}>
+{{#each socialNetworks as |item|}}
+	<a class={{item.name}} href={{item.sharedUrl}}>
 		{{svg item role='img' class='icon'}}
 	</a>
 {{/each}}

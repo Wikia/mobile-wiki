@@ -69,25 +69,29 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 				return Em.getWithDefault(Mercury, 'wiki.basePath',
 					window.location.origin) + window.location.pathname;
 			}));
+
+			this.setCurrentSocialNetworks();
 		}
 		this._super();
 	},
 
-	currentSocialNetworks: Em.computed(function () {
+	setCurrentSocialNetworks(): void {
 		var lang = this.getLanguage(),
 			allSocialNetworkNames= this.get('socialNetworkNames'),
 			socialNetworkNames = allSocialNetworkNames[lang] ? allSocialNetworkNames[lang] : allSocialNetworkNames['en'],
-			socialNetworks = {};
+			socialNetworks = [];
 
-		socialNetworkNames.forEach((socialNetworkName): void => {
-			socialNetworks[socialNetworkName] = {
+		debugger;
+
+		socialNetworkNames.forEach((socialNetworkName: string): void => {
+			socialNetworks.push({
 				name: socialNetworkName,
 				sharedUrl: this.get(socialNetworkName)
-			};
+			})
 		});
 
 		this.set('socialNetworks', socialNetworks);
-	}),
+	},
 
 	line: Em.computed('title', 'sharedUrl', function (): string {
 		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('sharedUrl'));
