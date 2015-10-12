@@ -64,7 +64,8 @@ gulp.task('build-views', ['scripts-front', 'vendor', 'build-vendor', 'build-comb
 
 		// for ember-main.hbs, find the file paths in the template source and replace them for prod CDN
 		gulpif(environment.isProduction, piper(
-			gulpif(options.replace.selector, replace(options.replace.find, options.replace.replace)),
+			gulpif(options.replace.selector.layouts, replace(options.replace.find, options.replace.replace)),
+			gulpif(options.replace.selector.partials, replace(options.replace.find, options.replace.replace)),
 			minifyHTML({
 				quotes: true
 			})
