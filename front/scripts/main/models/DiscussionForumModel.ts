@@ -93,7 +93,6 @@ App.DiscussionForumModel.reopenClass({
 						posts: posts,
 						totalPosts: totalPosts
 					});
-
 					resolve(forumInstance);
 				},
 				error: (err: any) => {

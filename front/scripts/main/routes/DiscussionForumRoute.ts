@@ -6,14 +6,20 @@
 App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
 	forumId: null,
 
+	defaultSortType: null,
+
 	model(params: any) {
+		var sortBy: string;
 		this.set('forumId', params.forumId);
-		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
+
+		sortBy = params.sortBy || this.defaultSortType;
+		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
 	},
 
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
 		this._super(controller, model, transition);
-		controller.set('sortBy', transition.params['discussion.forum'].sortBy || controller.get('sortTypes')[0].name);
+		this.defaultSortType = controller.get('sortTypes')[0].name;
+		controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 	},
 
 	actions: {
@@ -30,7 +36,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 		},
 
 		goToAllDiscussions(): void {
-			this.transitionTo('discussion');
+			this.transitionTo('discussion.index');
 		},
 
 		setSortBy(sortBy: string): void {
