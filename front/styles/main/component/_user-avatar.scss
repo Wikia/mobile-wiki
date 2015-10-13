@@ -2,9 +2,14 @@
 	display: inline-block;
 
 	.avatar-username {
+		font-size: $type-min;
+	}
+}
+
+@media #{$mobile-range} {
+	.user-avatar .avatar-username {
 		@extend %ellipsis;
 		display: inline-block;
-		font-size: $type-min;
 		max-width: 140px;
 		vertical-align: middle;
 	}
