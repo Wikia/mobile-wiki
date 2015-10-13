@@ -25,8 +25,11 @@ module Mercury.Modules {
 		};
 		private adConfigMobile: any;
 		private adLogicPageViewCounterModule: {
-			get (): number;
-			increment (): number;
+			get(): number;
+			increment(): number;
+		};
+		private adMercuryListenerModule: {
+			startOnLoadQueue(): void;
 		};
 		private currentAdsContext: any = null;
 		private isLoaded = false;
@@ -60,6 +63,7 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.config.mobile',
 						'ext.wikia.adEngine.adLogicPageViewCounter',
 						'ext.wikia.adEngine.sourcePointDetection',
+						'ext.wikia.adEngine.mobile.mercuryListener',
 						'wikia.krux'
 					], (
 						adEngineModule: any,
@@ -67,6 +71,7 @@ module Mercury.Modules {
 						adConfigMobile: any,
 						adLogicPageViewCounterModule: any,
 						sourcePointDetectionModule: any,
+						adMercuryListener: any,
 						krux: any
 					) => {
 						this.adEngineModule = adEngineModule;
@@ -74,6 +79,7 @@ module Mercury.Modules {
 						this.sourcePointDetectionModule = sourcePointDetectionModule;
 						this.adConfigMobile = adConfigMobile;
 						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
+						this.adMercuryListenerModule = adMercuryListener;
 						window.Krux = krux || [];
 						this.isLoaded = true;
 						this.addDetectionListeners();
@@ -166,6 +172,11 @@ module Mercury.Modules {
 		 */
 		public reloadWhenReady (): void {
 			this.reload(this.currentAdsContext);
+			this.onLoad();
+		}
+
+		private onLoad (): void {
+			this.adMercuryListenerModule.startOnLoadQueue();
 		}
 
 		/**
