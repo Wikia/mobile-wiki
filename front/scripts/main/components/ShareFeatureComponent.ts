@@ -9,9 +9,9 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	title: '',
 	sharedUrl: null,
 
-	socialNetworks: [],
+	currentSocialNetworks: [],
 
-	socialNetworkNames: {
+	socialNetworks: {
 		'en': [
 			'facebook',
 			'twitter',
@@ -57,7 +57,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		'pl': [
 			'facebook',
 			'twitter',
-			'nk.pl',
+			'nk',
 			'wykop'
 		]
 	},
@@ -77,73 +77,80 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 
 	setCurrentSocialNetworks(): void {
 		var lang = this.getLanguage(),
-			allSocialNetworkNames= this.get('socialNetworkNames'),
-			socialNetworkNames = allSocialNetworkNames[lang] ? allSocialNetworkNames[lang] : allSocialNetworkNames['en'],
-			socialNetworks = [];
+			socialNetworks = this.get('socialNetworks'),
+			currentSocialNetworks = socialNetworks[lang] ? socialNetworks[lang] : socialNetworks['en'];
 
-		debugger;
-
-		socialNetworkNames.forEach((socialNetworkName: string): void => {
-			socialNetworks.push({
-				name: socialNetworkName,
-				sharedUrl: this.get(socialNetworkName)
-			})
-		});
-
-		this.set('socialNetworks', socialNetworks);
+		this.set('currentSocialNetworks', currentSocialNetworks);
 	},
 
-	line: Em.computed('title', 'sharedUrl', function (): string {
+	line(): string {
 		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('sharedUrl'));
-	}),
+	},
 
-	facebook: Em.computed('sharedUrl', function (): string {
+	facebook(): string {
 		return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('sharedUrl'));
-	}),
+	},
 
-	twitter: Em.computed('sharedUrl', function (): string {
+	twitter(): string {
 		return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
-	}),
+	},
 
-	google: Em.computed('sharedUrl', function (): string {
+	google(): string {
 		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
-	}),
+	},
 
-	reddit: Em.computed('title', 'sharedUrl', function (): string {
+	reddit(): string {
 		return 'http://www.reddit.com/submit?url=' + encodeURIComponent(this.get('sharedUrl')) + '&title='
 			+ encodeURIComponent(this.get('title'));
-	}),
+	},
 
-	tumblr: Em.computed('title', 'sharedUrl', function (): string {
+	tumblr(): string {
 		return 'http://www.tumblr.com/share/link?url=' + encodeURIComponent(this.get('sharedUrl')) + '&name='
 			+ encodeURIComponent(this.get('title'));
-	}),
+	},
 
-	weibo: Em.computed('title', 'sharedUrl', function (): string {
+	weibo(): string {
 		return 'http://service.weibo.com/share/share.php?url=' + encodeURIComponent(this.get('sharedUrl')) + '&title='
 			+ encodeURIComponent(this.get('title'));
-	}),
+	},
 
-	vk: Em.computed('title', 'sharedUrl', function (): string {
+	vk(): string {
 		return 'http://vk.com/share.php?url=' + encodeURIComponent(this.get('sharedUrl')) + '&title='
 			+ encodeURIComponent(this.get('title'));
-	}),
+	},
 
-	ondoklassniki: Em.computed('title', 'sharedUrl', function (): string {
+	odnoklassniki(): string {
 		return 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl='
 			+ encodeURIComponent(this.get('sharedUrl'));
-	}),
+	},
 
-	nk: Em.computed('title', 'sharedUrl', function (): string {
+	nk(): string {
 		return 'http://nk.pl/sledzik?shout=' + encodeURIComponent(this.get('sharedUrl'));
-	}),
+	},
 
-	wykop: Em.computed('title', 'sharedUrl', function (): string {
-		return ' http://www.wykop.pl/dodaj/link/?url=' + encodeURIComponent(this.get('sharedUrl')) + '&title='
+	wykop(): string {
+		return 'http://www.wykop.pl/dodaj/link/?url=' + encodeURIComponent(this.get('sharedUrl')) + '&title='
 			+ encodeURIComponent(this.get('title'));
-	}),
+	},
 
-	meneame: Em.computed('title', 'sharedUrl', function (): string {
+	meneame(): string {
 		return 'https://www.meneame.net/submit.php?url=' + encodeURIComponent(this.get('sharedUrl'));
-	}),
+	},
+
+	actions: {
+		share: function (network: string): void {
+			var urlGetter: Function = this.get(network),
+				link: string;
+
+			if (typeof urlGetter !== 'function') {
+				return;
+			}
+
+			link = urlGetter.bind(this)();
+
+			if (typeof link === 'string') {
+				window.open(link);
+			}
+		}
+	}
 });
