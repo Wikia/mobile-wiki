@@ -88,10 +88,11 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		}
 	},
 
-	createArticleContributionComponent: function(section: number): JQuery {
+	createArticleContributionComponent: function(section: number, sectionId: string): JQuery {
 		var title = this.get('cleanTitle'),
 			component = this.createChildView(App.ArticleContributionComponent.create({
 				section: section,
+				sectionId: sectionId,
 				title: title,
 				edit: 'edit',
 				addPhoto: 'addPhoto',
@@ -131,7 +132,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 			    $contributionComponent: JQuery = null;
 
 			headers.forEach((header: ArticleSectionHeader): void => {
-				$contributionComponent = this.createArticleContributionComponent(header.section);
+				$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
 				$sectionHeader = this.$(header.element);
 				$sectionHeader.prepend($contributionComponent).addClass('short-header');
 				$contributionComponent.wrap('<div class="icon-wrapper"></div>');
