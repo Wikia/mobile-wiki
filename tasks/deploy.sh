@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variables
-while getopts ":e:m:a:c:u:" opt; do
+while getopts ":e:m:a:c:u:f" opt; do
 	case $opt in
 		e)
 			ENVIRONMENT=$OPTARG
@@ -17,6 +17,9 @@ while getopts ":e:m:a:c:u:" opt; do
 			;;
 		u)
 			USERNAME=$OPTARG"@"
+			;;
+		f)
+			FORCE="--force"
 			;;
 		\?)
 			echo "Invalid option: -$OPTARG"
@@ -40,7 +43,7 @@ fi
 if [ ! -z "$MERCURY" ]
 then
 	ssh $USERNAME"deploy-s3" dt -y lock -t mercury:$ENVIRONMENT --release
-	ssh $USERNAME"deploy-s3" dt -y prep -e $ENVIRONMENT -a mercury -r mercury@$MERCURY
+	ssh $USERNAME"deploy-s3" dt -y prep -e $ENVIRONMENT -a mercury -r mercury@$MERCURY $FORCE
 	ssh $USERNAME"deploy-s3" dt -y push -e $ENVIRONMENT -a mercury
 fi
 
@@ -60,7 +63,7 @@ fi
 if [ ! -z "$BRANCH" ]
 then
 	ssh $USERNAME"deploy-s3" dt -y lock -t wikia:$ENVIRONMENT --release
-	ssh $USERNAME"deploy-s3" dt -y prep -e $ENVIRONMENT -a wikia $BRANCH
+	ssh $USERNAME"deploy-s3" dt -y prep -e $ENVIRONMENT -a wikia $BRANCH $FORCE
 	ssh $USERNAME"deploy-s3" dt -y push -e $ENVIRONMENT -a wikia
 fi
 
