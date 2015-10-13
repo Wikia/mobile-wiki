@@ -74,12 +74,9 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 		var userName, avatarUrl;
 
 		// Data is in first element of items array. In case of error, items element does not exist and is ignored
-		try {
+		if (data.items && data.items.length) {
 			userName  = data.items[0].name;
 			avatarUrl = data.items[0].avatar;
-		}
-		catch (e) {
-			// ignore errors
 		}
 
 		request.log('info', 'Retrieved user name for logged in user: ' + userName);
