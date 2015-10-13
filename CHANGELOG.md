@@ -1,3 +1,6 @@
+## release-175 hotfix 1 (2015-10-13 13:57 UTC)
+* [XW-552](https://wikia-inc.atlassian.net/browse/XW-552) XW-522 | restore optimizely partial
+
 ## release-175 (2015-10-13 07:59 UTC)
 * [SOC-1387](https://wikia-inc.atlassian.net/browse/SOC-1387) SOC-1387 Conform to top-bar component styling in disc pages
 * [XW-252](https://wikia-inc.atlassian.net/browse/XW-252) XW-252 | load optimizely after ember starts
