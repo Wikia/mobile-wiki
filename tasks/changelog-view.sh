@@ -1,16 +1,34 @@
 #!/bin/sh
 
-if [ "$1" != "" ]; then
-  FROM=$1
-else
-  FROM=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
-  FROM="release-"$FROM
+# Set variables
+while getopts ":f:t:" opt; do
+	case $opt in
+		f)
+			FROM=$OPTARG
+			;;
+		t)
+			TO=$OPTARG
+			;;
+		\?)
+			echo "Invalid option: -$OPTARG"
+			exit 1
+			;;
+		:)
+			echo "Option -$OPTARG requires an argument."
+			exit 1
+			;;
+	esac
+done
+
+if [ -z "$FROM" ]
+then
+	FROM=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
+	FROM="release-"$FROM
 fi
 
-if [ "$2" != "" ]; then
-  TO=$2
-else
-  TO=HEAD
+if [ -z "$TO" ]
+then
+	TO=HEAD
 fi
 
 git --no-pager log $FROM..$TO --merges --pretty=tformat:'* %s: %b' |
