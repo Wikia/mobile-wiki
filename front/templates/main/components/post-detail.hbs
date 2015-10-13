@@ -1,9 +1,9 @@
 <div>
 	{{user-avatar
-		avatarUrl=author.avatarUrl
+		avatarUrl=post.createdBy.avatarUrl
 		displayUsername=true
 		profileUrl=authorUrl
-		username=author.name
+		username=post.createdBy.name
 	}}
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}
@@ -24,14 +24,29 @@
 		upvote='upvote'
 	}}
 	{{#if isDetailsView}}
-		<div class="small-5 columns end count">
+		<div class="small-5 large-3 columns count">
 			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 			{{replyCount}}
 		</div>
 	{{else}}
-		<div class="small-5 columns end count" {{action 'goToPost' postId}}>
+		<div class="small-5 large-3 columns count" {{action 'goToPost' postId}}>
 			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 			{{replyCount}}
 		</div>
 	{{/if}}
+	<div class="share small-2 large-5 columns">
+		{{#if isDetailsView}}
+			{{share-feature sharedUrl=sharedUrl}}
+		{{else}}
+			<span {{action 'toggleShareComponent'}}>
+				{{svg 'share' class='icon toggle-share'}}
+			</span>
+			{{share-feature
+				sharedUrl=sharedUrl
+				isVisible=isShareFeatureVisible
+				onMouseEnter=(action 'cancelHideShareComponent')
+				onMouseLeave=(action 'hideShareComponent')
+			}}
+		{{/if}}
+	</div>
 </div>

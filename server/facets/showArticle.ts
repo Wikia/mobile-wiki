@@ -120,12 +120,6 @@ function onArticleResponse (
 
 			// all the third party scripts we don't want to load on noexternals
 			if (!result.queryParams.noexternals) {
-				// optimizely
-				if (localSettings.optimizely.enabled) {
-					result.optimizelyScript = localSettings.optimizely.scriptPath +
-						localSettings.optimizely.account + '.js';
-				}
-
 				// qualaroo
 				if (localSettings.qualaroo.enabled) {
 					result.qualarooScript = localSettings.qualaroo.scriptUrl;

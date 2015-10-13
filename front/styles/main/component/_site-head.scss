@@ -1,3 +1,9 @@
+$z-header: $z-6;
+
+.site-body {
+	margin-top: $icon-site-head-width;
+}
+
 .site-head {
 	@extend .row;
 	@extend .small-12;
@@ -75,7 +81,6 @@
 
 hr.theme {
 	border-width: 0;
-	height: 10px;
 	margin: 0;
 }
 
@@ -84,5 +89,19 @@ hr.theme {
 		hr.theme {
 			background-color: #{nth($vertical-colors, $i)};
 		}
+	}
+}
+
+@media #{$desktop-range} {
+	hr.theme {
+		height: 25px;
+		position: relative;
+		z-index: $z-header;
+	}
+}
+
+@media #{$mobile-range} {
+	hr.theme {
+		height: 10px;
 	}
 }

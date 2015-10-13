@@ -1,7 +1,8 @@
 moduleFor('mixin:thirdsClick', 'ThirdsClickMixin');
 
 test('calls proper handlers on click', function () {
-	var mock = Em.Object.createWithMixins(App.ThirdsClickMixin, {
+	var mixinClass = Ember.Object.extend(App.ThirdsClickMixin),
+		mixin = mixinClass.create({
 			leftClickHandler: function () {
 				ok(true, 'left click handler is called');
 			},
@@ -23,7 +24,7 @@ test('calls proper handlers on click', function () {
 			clientX: 200
 		};
 
-	mock.callClickHandler(clickEventRight);
-	mock.callClickHandler(clickEventLeft);
-	mock.callClickHandler(clickEventCenter);
+	mixin.callClickHandler(clickEventRight);
+	mixin.callClickHandler(clickEventLeft);
+	mixin.callClickHandler(clickEventCenter);
 });
