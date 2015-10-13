@@ -2,12 +2,10 @@
 	display: inline-block;
 
 	.avatar-username {
+		@extend %ellipsis;
 		display: inline-block;
 		font-size: $type-min;
 		max-width: 140px;
-		overflow: hidden;
-		text-overflow: ellipsis;
 		vertical-align: middle;
-		white-space: nowrap;
 	}
 }
