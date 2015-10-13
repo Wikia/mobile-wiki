@@ -15,7 +15,6 @@
     "article-top-contributors-label": "Top Contributors to this article",
     "side-nav-menu-label": "Menu",
     "navigation-back-label": "Back",
-    "search-no-results-msg": "Sorry, we couldn't find anything that matched your search!",
     "search-loading-msg": "Loading search results...",
     "media-lightbox-error": "Media not found",
     "map-lightbox-error": "Map not found",
@@ -154,6 +153,7 @@
     "sort-by-trending": "Trending",
     "loading-more-posts": "Loading more posts",
     "back-to-wikia-link": "To the Wiki",
+    "back-to-discussions-link": "All Discussions",
     "number-of-posts": "__numberOfPosts__ Posts"
   },
   "userStatus": {

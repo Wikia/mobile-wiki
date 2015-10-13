@@ -1,4 +1,6 @@
-moduleForComponent('article-comment');
+moduleForComponent('article-comment', 'ArticleCommentComponent', {
+	unit: true
+});
 
 test('users is correctly fetched', function () {
 	expect(2);

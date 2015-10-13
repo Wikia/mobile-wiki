@@ -1,6 +1,8 @@
 var model;
 
 moduleForComponent('lightbox-media', 'LightboxMediaComponent', {
+	unit: true,
+
 	setup: function () {
 		M.track = function () {};
 
@@ -54,15 +56,15 @@ test('sets correct footer', function () {
 	// This is the analogue to setFooter='setFooter' in the parent template
 	componentMock.set('setFooter', 'setFooter');
 
-	// This would normally be triggered by didInsertElement
-	componentMock.notifyPropertyChange('model');
+	Ember.run(function () {
+		// This would normally be triggered by didInsertElement
+		componentMock.notifyPropertyChange('model');
 
-	Ember.run(function() {
 		componentMock.set('model.mediaRef', 0);
 	});
 	equal(parentMock.footer, 'testcaption');
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.set('model.mediaRef', 1);
 	});
 	equal(parentMock.footer, 'testcaption1');
@@ -83,20 +85,20 @@ test('sets correct header', function () {
 	// This is the analogue to setHeader='setHeader' in the parent template
 	componentMock.set('setHeader', 'setHeader');
 
-	// This would normally be triggered by didInsertElement
-	componentMock.notifyPropertyChange('model');
+	Ember.run(function () {
+		// This would normally be triggered by didInsertElement
+		componentMock.notifyPropertyChange('model');
 
-	Ember.run(function() {
 		componentMock.set('model.mediaRef', 0);
 	});
 	equal(parentMock.header, null);
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.set('model.mediaRef', 1);
 	});
 	equal(parentMock.header, null);
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.set('model.mediaRef', 2);
 		componentMock.set('model.galleryRef', 0);
 	});
@@ -108,15 +110,15 @@ test('checks if current media is gallery', function () {
 		model: model
 	});
 
-	// This would normally be triggered by didInsertElement
-	componentMock.notifyPropertyChange('model');
+	Ember.run(function () {
+		// This would normally be triggered by didInsertElement
+		componentMock.notifyPropertyChange('model');
 
-	Ember.run(function() {
 		componentMock.set('model.mediaRef', 1);
 	});
 	equal(componentMock.get('isGallery'), false);
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.set('model.mediaRef', 2);
 	});
 	equal(componentMock.get('isGallery'), true);
@@ -127,15 +129,15 @@ test('returns gallery length', function () {
 		model: model
 	});
 
-	// This would normally be triggered by didInsertElement
-	componentMock.notifyPropertyChange('model');
+	Ember.run(function () {
+		// This would normally be triggered by didInsertElement
+		componentMock.notifyPropertyChange('model');
 
-	Ember.run(function() {
 		componentMock.set('model.mediaRef', 0);
 	});
 	deepEqual(componentMock.get('galleryLength'), -1);
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.set('model.mediaRef', 2);
 	});
 	deepEqual(componentMock.get('galleryLength'), 2);
@@ -146,10 +148,10 @@ test('increments / decrements mediaGalleryRef within boundaries', function () {
 		model: model
 	});
 
-	// This would normally be triggered by didInsertElement
-	componentMock.notifyPropertyChange('model');
+	Ember.run(function () {
+		// This would normally be triggered by didInsertElement
+		componentMock.notifyPropertyChange('model');
 
-	Ember.run(function() {
 		componentMock.setProperties({
 			'model.mediaRef': 2,
 			'model.galleryRef': 0
@@ -157,17 +159,17 @@ test('increments / decrements mediaGalleryRef within boundaries', function () {
 	});
 	equal(componentMock.get('currentGalleryRef'), 0);
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.nextMedia();
 	});
 	equal(componentMock.get('currentGalleryRef'), 1);
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.nextMedia();
 	});
 	equal(componentMock.get('currentGalleryRef'), 0);
 
-	Ember.run(function() {
+	Ember.run(function () {
 		componentMock.prevMedia();
 	});
 	equal(componentMock.get('currentGalleryRef'), 1);

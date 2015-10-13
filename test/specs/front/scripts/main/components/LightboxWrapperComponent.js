@@ -1,4 +1,6 @@
-moduleForComponent('lightbox-wrapper', 'LightboxWrapperComponent');
+moduleForComponent('lightbox-wrapper', 'LightboxWrapperComponent', {
+	unit: true
+});
 
 test('toggleFooter method toggles footerExpanded', function () {
 	var componentMock = this.subject();

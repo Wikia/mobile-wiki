@@ -1,9 +1,10 @@
-var mixinMock,
+var mixin,
 	originalThumbnailerGetThumbURL = Mercury.Modules.Thumbnailer.getThumbURL;
 
 moduleFor('mixin:curatedContentThumbnail', 'CuratedContentThumbnailMixin', {
 	setup: function () {
-		mixinMock = Em.Object.createWithMixins(App.CuratedContentThumbnailMixin, {});
+		var mixinClass = Ember.Object.extend(App.CuratedContentThumbnailMixin);
+		mixin = mixinClass.create({});
 	},
 
 	teardown: function () {
@@ -12,36 +13,36 @@ moduleFor('mixin:curatedContentThumbnail', 'CuratedContentThumbnailMixin', {
 });
 
 test('sets aspectRatio property correctly', function () {
-	mixinMock.set('block', 'featured');
-	equal(mixinMock.get('aspectRatio'), 16 / 9);
+	mixin.set('block', 'featured');
+	equal(mixin.get('aspectRatio'), 16 / 9);
 
-	mixinMock.set('block', 'curated');
-	equal(mixinMock.get('aspectRatio'), 1);
+	mixin.set('block', 'curated');
+	equal(mixin.get('aspectRatio'), 1);
 
-	mixinMock.set('block', 'optional');
-	equal(mixinMock.get('aspectRatio'), 1);
+	mixin.set('block', 'optional');
+	equal(mixin.get('aspectRatio'), 1);
 });
 
 test('sets aspectRatioName property correctly', function () {
-	mixinMock.set('aspectRatio', 16 / 9);
-	equal(mixinMock.get('aspectRatioName'), 'landscape');
+	mixin.set('aspectRatio', 16 / 9);
+	equal(mixin.get('aspectRatioName'), 'landscape');
 
-	mixinMock.set('aspectRatio', 1);
-	equal(mixinMock.get('aspectRatioName'), 'square');
+	mixin.set('aspectRatio', 1);
+	equal(mixin.get('aspectRatioName'), 'square');
 });
 
 test('sets imageHeight property correctly', function () {
-	mixinMock.setProperties({
+	mixin.setProperties({
 		aspectRatio: 16 / 9,
 		imageWidth: 400
 	});
-	equal(mixinMock.get('imageHeight'), 400 / (16 / 9));
+	equal(mixin.get('imageHeight'), 400 / (16 / 9));
 
-	mixinMock.setProperties({
+	mixin.setProperties({
 		aspectRatio: 1,
 		imageWidth: 200
 	});
-	equal(mixinMock.get('imageHeight'), 200);
+	equal(mixin.get('imageHeight'), 200);
 });
 
 test('generates thumbnail URL correctly with image crop data', function () {
@@ -54,7 +55,7 @@ test('generates thumbnail URL correctly with image crop data', function () {
 			height: 900
 		};
 
-	mixinMock.setProperties({
+	mixin.setProperties({
 		thumbnailer: {
 			mode: {
 				windowCrop: 'window-crop'
@@ -64,7 +65,7 @@ test('generates thumbnail URL correctly with image crop data', function () {
 		imageWidth: imageWidth
 	});
 
-	mixinMock.thumbnailer.getThumbURL = function (url, options) {
+	mixin.thumbnailer.getThumbURL = function (url, options) {
 		return url + '/' +
 			options.mode + '/' +
 			options.width + '/' +
@@ -75,7 +76,7 @@ test('generates thumbnail URL correctly with image crop data', function () {
 	};
 
 	equal(
-		mixinMock.generateThumbUrl(imageUrl, imageCrop),
+		mixin.generateThumbUrl(imageUrl, imageCrop),
 		'http://vignette/image.jpg/window-crop/' +
 		imageWidth + '/' +
 		imageCrop.x + '/' +
@@ -92,18 +93,18 @@ test('generates thumbnail URL correctly without image crop data', function () {
 		imageWidth = 400,
 		imageHeight = 225;
 
-	mixinMock.setProperties({
+	mixin.setProperties({
 		cropMode: 'top-crop',
 		imageHeight: imageHeight,
 		imageWidth: imageWidth
 	});
 
-	mixinMock.thumbnailer.getThumbURL = function (url, options) {
+	mixin.thumbnailer.getThumbURL = function (url, options) {
 		return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 	};
 
 	equal(
-		mixinMock.generateThumbUrl(imageUrl),
+		mixin.generateThumbUrl(imageUrl),
 		'http://vignette/image.jpg/top-crop/' + imageWidth + '/' + imageHeight
 	);
 });
