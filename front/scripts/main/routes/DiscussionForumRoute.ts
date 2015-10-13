@@ -18,6 +18,11 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 
 	actions: {
 		goToPost(postId: number): void {
+			var postController = this.controllerFor('discussionPost'),
+				forumController = this.controllerFor('discussionForum');
+
+			postController.set('postListSort', forumController.get('sortBy'));
+
 			this.transitionTo('discussion.post', postId);
 		},
 
