@@ -1,6 +1,6 @@
 {{#each posts as |item|}}
 	{{post-detail
-		author=item._embedded.firstPost.[0].createdBy
+		author=item.createdBy
 		goToPost='goToPost'
 		post=item._embedded.firstPost.[0]
 		postId=item.id
