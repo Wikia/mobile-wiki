@@ -72,6 +72,9 @@
 			{{#if error}}
 				M.provide('error', {{{error}}});
 			{{/if}}
+			{{#if server.optimizelyScript}}
+				M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
+			{{/if}}
 
 		</script>
 
@@ -79,7 +82,6 @@
 		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
-		{{> optimizely}}
 		{{> tracking}}
 	</head>
 	<body>
