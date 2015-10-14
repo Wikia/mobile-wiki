@@ -15,9 +15,55 @@ $label-color-valid: $color-blue-gray-dark;
 $link-color: $color-blue-light;
 $upvote-icon-color: #999;
 $upvote-icon-activated-color: #e3bd00;
+$discussion-bg-color: $color-white;
+$discussion-count-color: #999;
+$discussion-reply-border-color: $border-color;
+$discussion-avatar-border-color: $border-color;
+$discussion-content-color: $color-gray-dark;
 $discussion-error-bg-color: $color-white;
 $discussion-error-text-color: #999;
 $discussion-error-link-color: #333;
+$discussion-load-more-color: $color-blue-gray;
+$discussion-see-more-color: #E6E6E6;
+$discussion-timestamp-color: #999;
+$discussion-post-detail-border-color: $border-color;
+
+$discussion-desktop-bg-color: #f6f6f6;
+$discussion-desktop-post-detail-bg-color: $color-white;
+
 $collapsible-menu-border-color: #d0d0d0;
 $collapsible-menu-title-color: $body-font-color;
 $collapsible-menu-list-link-color: $color-black;
+
+$dark-body-background: $color-black;
+$dark-button-color: #16abc1;
+$dark-disabled-button-text-color: $disabled-button-text-color;  ;
+$dark-header-text-color: $header-text-color;
+$dark-input-color-active: $input-color-active;
+$dark-input-border-error-color: $input-border-error-color;
+
+$dark-label-color-active: $label-color-active;
+$dark-label-color-inactive: $label-color-inactive;
+$dark-label-color-valid: $label-color-valid;
+$dark-link-color: $link-color;
+$dark-upvote-icon-color: $steel;
+$dark-upvote-icon-activated-color: #e3bd00;
+$dark-discussion-bg-color: $color-black;
+$dark-discussion-avatar-border-color: $border-color;
+$dark-discussion-content-color: $iron;
+$dark-discussion-count-color: #999;
+$dark-discussion-reply-border-color: $border-color;
+$dark-discussion-error-bg-color: $discussion-error-bg-color;
+$dark-discussion-error-text-color: $discussion-error-text-color;
+$dark-discussion-error-link-color: $discussion-error-link-color;
+$dark-discussion-load-more-color: $color-blue-gray;
+$dark-discussion-see-more-color: #E6E6E6;
+$dark-discussion-timestamp-color: #999;
+$dark-discussion-post-detail-border-color: $border-color;
+
+$dark-discussion-desktop-bg-color: $color-black;
+$dark-discussion-desktop-post-detail-bg-color: $color-white;
+
+$dark-collapsible-menu-border-color: $collapsible-menu-border-color;
+$dark-collapsible-menu-title-color: $collapsible-menu-title-color;
+$dark-collapsible-menu-list-link-color: $collapsible-menu-list-link-color;
