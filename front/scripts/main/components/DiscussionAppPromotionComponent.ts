@@ -6,13 +6,7 @@ App.DiscussionAppPromotionComponent = Em.Component.extend({
 
 	wikiaConfig: Mercury.Utils.prop('wikiaConfig'),
 
-	androidAppLink: Em.computed('wikiaConfig', function () {
-		var wikiaConfig = this.get('wikiaConfig');
-		return wikiaConfig ? wikiaConfig.androidAppLink : null;
-	}),
+	androidAppLink: Em.computed.oneWay('wikiaConfig.androidAppLink'),
 
-	iosAppLink: Em.computed(function () {
-		var wikiaConfig = this.get('wikiaConfig');
-		return wikiaConfig ? wikiaConfig.iosAppLink : null;
-	}),
+	iosAppLink: Em.computed.oneWay('wikiaConfig.iosAppLink'),
 });
