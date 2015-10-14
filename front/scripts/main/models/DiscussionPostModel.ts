@@ -15,7 +15,7 @@ App.DiscussionPostModel = Em.Object.extend({
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
+				url: M.Utils.getDiscussionLink()+ '/' +
 					 this.wikiId + '/threads/' + this.threadId +
 					 '?responseGroup=full' +
 					 '&sortDirection=descending&sortKey=creation_date' +
@@ -54,8 +54,8 @@ App.DiscussionPostModel.reopenClass({
 			});
 
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') +
-					 `/discussion/${wikiId}/threads/${threadId}` +
+				url: M.Utils.getDiscussionLink() +
+					 `/${wikiId}/threads/${threadId}` +
 					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
 					 '&limit=' + postInstance.replyLimit,
 				dataType: 'json',
