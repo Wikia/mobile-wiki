@@ -1,16 +1,14 @@
 /// <reference path='../../../typings/hapi/hapi.d.ts' />
 var config = <DiscussionsSplashPageConfig> require('../../../config/discussionsSplashPageConfig');
 import localSettings = require('../../../config/localSettings');
+import Utils = require('../../lib/Utils');
 
 module landingPage {
 
-	function getConfigFromUrl (url: string): WikiaDiscussionsConfig {
+	function getConfigFromUrl(host: string): WikiaDiscussionsConfig {
 		var domain: string;
 
-		domain = url.replace(
-			/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
-			'$1'
-		);
+		domain = Utils.getWikiaSubdomain(host);
 
 		return config[domain];
 	}

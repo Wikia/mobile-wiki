@@ -15,9 +15,7 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).wikiVariables(),
 		context: any = {},
-		hostName: string = request.info.host.replace(
-			/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
-			'$1');
+		hostName: string = Utils.getWikiaSubdomain(request.info.host);
 
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 	context.server = Utils.createServerData(localSettings, wikiDomain);
