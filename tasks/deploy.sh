@@ -46,7 +46,7 @@ then
 	ssh $USERNAME"deploy-s3" dt -y push -e $ENVIRONMENT -a mercury
 fi
 
-# Push APP and CONFIG
+# Push APP and/or CONFIG
 if [ ! -z "$APP" -o ! -z "$CONFIG" ]
 then
 	ssh $USERNAME"deploy-s3" dt -y lock -t wikia:$ENVIRONMENT --release
