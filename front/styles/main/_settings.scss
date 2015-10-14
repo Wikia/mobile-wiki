@@ -30,6 +30,7 @@ $discussion-post-detail-border-color: $border-color;
 
 $discussion-desktop-bg-color: #f6f6f6;
 $discussion-desktop-post-detail-bg-color: $color-white;
+$discussion-desktop-post-detail-border-color: $border-color;
 
 $collapsible-menu-border-color: #d0d0d0;
 $collapsible-menu-title-color: $body-font-color;
@@ -62,7 +63,8 @@ $dark-discussion-timestamp-color: #999;
 $dark-discussion-post-detail-border-color: $border-color;
 
 $dark-discussion-desktop-bg-color: $color-black;
-$dark-discussion-desktop-post-detail-bg-color: $color-white;
+$dark-discussion-desktop-post-detail-bg-color: #1e1e1e;
+$dark-discussion-desktop-post-detail-border-color: #1e1e1e;
 
 $dark-collapsible-menu-border-color: $collapsible-menu-border-color;
 $dark-collapsible-menu-title-color: $collapsible-menu-title-color;
