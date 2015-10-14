@@ -40,5 +40,5 @@ App.DiscussionHeroUnitComponent = Em.Component.extend({
 
 		return image;
 	}),
-	bannerColor: Mercury.wiki.themeColor
+	bannerColor: Em.get(Mercury, 'wiki.themeColor')
 });
