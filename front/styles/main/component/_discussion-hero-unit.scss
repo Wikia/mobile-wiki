@@ -1,22 +1,32 @@
 $discussion-hero-unit-text-color: $color-white;
 $discussion-hero-unit-avatar-dimension: 40px;
+$discussion-hero-unit-height: 200px;
 
 .discussion-hero-unit {
 	color: $discussion-hero-unit-text-color;
 	display: none;
-	padding-bottom: 37px;
-	padding-top: 37px;
+	height: $discussion-hero-unit-height;
+	margin-top: $global-nav-height;
 	text-align: center;
-	width: 100%;
 
 	h1 {
 		color: $discussion-hero-unit-text-color;
 		font-size: 48px;
+		margin-bottom: 0;
+		margin-top: 35px;
 	}
 
 	p {
-		font-size: 14px;
+		font-size: $type-smallest;
 		font-weight: bold;
+		margin-bottom: 10px;
+		margin-top: 0;
+	}
+
+	.banner {
+		background-color: #fff;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 
 	.discussion-contributors {
@@ -34,18 +44,22 @@ $discussion-hero-unit-avatar-dimension: 40px;
 			width: $discussion-hero-unit-avatar-dimension;
 		}
 	}
+
+	.layer {
+		height: $discussion-hero-unit-height;
+		position: absolute;
+		width: 100%;
+	}
+
+	.opacity {
+		opacity: 0.8;
+	}
 }
 
 .minimized {
 	&.discussion-hero-unit {
 		padding-bottom: 0;
 		padding-top: 25px;
-	}
-}
-
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
-		background-color: #{nth($vertical-colors, $i)};
 	}
 }
 

@@ -1,7 +1,15 @@
-<h1>{{name}}</h1>
-<p>{{i18n 'discussion.number-of-posts' numberOfPosts=numberOfPosts}}</p>
-{{discussion-contributors
-	contributors=contributors
-	maxContributorDisplayCount=6
-	totalContributorCount=numberOfPosts
-}}
+{{#if bannerImage}}
+	<div class="layer banner" style="background-image:url({{bannerImage}});"></div>
+{{/if}}
+{{#if bannerColor}}
+	<div class="layer opacity" style="background-color:{{bannerColor}};"></div>
+{{/if}}
+<div class="layer">
+	<h1>{{name}}</h1>
+	<p>{{i18n 'discussion.number-of-posts' numberOfPosts=numberOfPosts}}</p>
+	{{discussion-contributors
+		contributors=contributors
+		maxContributorDisplayCount=6
+		totalContributorCount=numberOfPosts
+	}}
+</div>
