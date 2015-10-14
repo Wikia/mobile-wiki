@@ -90,15 +90,15 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 
 	createArticleContributionComponent: function(section: number, sectionId: string): JQuery {
 		var title = this.get('cleanTitle'),
-			component = this.createChildView(App.ArticleContributionComponent.create({
-				section: section,
-				sectionId: sectionId,
-				title: title,
-				edit: 'edit',
-				addPhoto: 'addPhoto',
-				uploadFeatureEnabled: this.get('uploadFeatureEnabled')
-			}));
-		return component.createElement().$();
+		    contribution = this.get('container').lookup('component:article-contribution', { singleton: false });
+
+		contribution.set('section', section);
+		contribution.set('sectionId', sectionId);
+		contribution.set('title', title);
+		contribution.set('edit', 'edit');
+		contribution.set('addPhoto', 'addPhoto');
+		contribution.set('uploadFeatureEnabled', this.get('uploadFeatureEnabled'));
+		return this.createChildView(contribution).createElement().$();
 	},
 
 	/**
