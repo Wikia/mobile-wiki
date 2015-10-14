@@ -2,7 +2,8 @@
 
 App.DiscussionPostModel = Em.Object.extend({
 	wikiId: null,
-	threadId: null,
+	postId: null,
+	forumId: null,
 	pivotId: null,
 	replyLimit: 10,
 	replies: [],
@@ -16,7 +17,7 @@ App.DiscussionPostModel = Em.Object.extend({
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
-					 this.wikiId + '/threads/' + this.threadId +
+					 this.wikiId + '/threads/' + this.postId +
 					 '?responseGroup=full' +
 					 '&sortDirection=descending&sortKey=creation_date' +
 					 '&limit=' + this.replyLimit +
@@ -46,16 +47,16 @@ App.DiscussionPostModel = Em.Object.extend({
 });
 
 App.DiscussionPostModel.reopenClass({
-	find(wikiId: number, threadId: number) {
+	find(wikiId: number, postId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var postInstance = App.DiscussionPostModel.create({
 				wikiId: wikiId,
-				threadId: threadId
+				postId: postId
 			});
 
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://' + M.prop('servicesDomain') +
-					 `/discussion/${wikiId}/threads/${threadId}` +
+					 `/discussion/${wikiId}/threads/${postId}` +
 					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
 					 '&limit=' + postInstance.replyLimit,
 				dataType: 'json',
@@ -87,10 +88,12 @@ App.DiscussionPostModel.reopenClass({
 
 					postInstance.setProperties({
 						contributors: contributors,
+						forumId: data.forumId,
 						replies: replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
+						id: data.id,
 						pivotId: pivotId,
 						page: 0,
 						title: data.title
