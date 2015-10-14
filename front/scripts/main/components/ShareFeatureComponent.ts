@@ -131,7 +131,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	},
 
 	actions: {
-		share: function (network: string): void {
+		share(network: string): void {
 			var urlGetter: Function = this.get(network),
 				link: string;
 
