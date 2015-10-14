@@ -29,7 +29,9 @@ $(function() : void {
 		variableWidth: true
 	});
 
-	// Dynamically adjust text size to show community title without text break
+	// Dynamically adjust text size to show community title without text break.
+	// bigText adjusts the size programatically and strips off css padding, so it is
+	// necessary to add it in explicitly afterwards
 	var headings = $('.grid-heading');
 	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
 	headings.css({padding: '.1rem'});
