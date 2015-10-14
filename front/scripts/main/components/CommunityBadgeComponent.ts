@@ -8,12 +8,15 @@ App.CommunityBadgeComponent = Em.Component.extend({
 	// dark theme: #f6f6f6 for light, #000000 for dark. However, that logic is not
 	// in place yet, and all launch wikis use a light theme, so for now it's hard-coded.
 	borderColor: '#f6f6f6',
+	imageStyle: Em.computed('borderColor', function (): Em.Handlebars.SafeString {
+		return new Em.Handlebars.SafeString('border: 2px solid ' + this.get('borderColor') + ';');
+	}),
 
 	wikiImageUrl: Em.computed('squareDimension', function (): string {
 		var imageUrl = Em.get(Mercury, 'wiki.image');
 
 		// Temporarily override images for launch wikis
-		switch (Mercury.wiki.id) {
+		switch (Em.get(Mercury, 'wiki.id')) {
 			case 24357:
 				imageUrl = '/front/images/community-badge-adventure-time.png';
 				break;
