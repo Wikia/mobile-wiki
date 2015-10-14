@@ -2,7 +2,6 @@
 
 App.DiscussionForumController = Em.Controller.extend({
 	application: Em.inject.controller(),
-	isDarkTheme: Em.get(Mercury, 'wiki.isDarkTheme'),
 	sortBy: null,
 
 	// Whether the sort component is currently visible
