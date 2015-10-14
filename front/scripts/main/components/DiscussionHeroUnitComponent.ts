@@ -4,10 +4,10 @@
 App.DiscussionHeroUnitComponent = Em.Component.extend({
 	classNames: ['discussion-hero-unit'],
 
-	bannerImage: Em.computed(function (): string {
+	bannerImageStyle: Em.computed(function (): Em.Handlebars.SafeString {
 		var image: string;
 
-		switch (Mercury.wiki.id) {
+		switch (Em.get(Mercury, 'wiki.id')) {
 			case 24357:
 				image = 'discussion-header-adventure-time.jpg';
 				break;
@@ -34,11 +34,15 @@ App.DiscussionHeroUnitComponent = Em.Component.extend({
 				break;
 		}
 
-		if (image) {
-			image = '/front/images/' + image;
-		}
-
-		return image;
+		return image
+			? new Em.Handlebars.SafeString(`background-image: url(/front/images/${image});`)
+			: null;
 	}),
-	bannerColor: Em.get(Mercury, 'wiki.themeColor')
+
+	bannerColorStyle: Em.computed(function (): Em.Handlebars.SafeString {
+		var themeColor = Em.get(Mercury, 'wiki.themeColor');
+		return themeColor
+			? new Em.Handlebars.SafeString(`background-color: ${themeColor};`)
+			: null;
+	})
 });

@@ -1,8 +1,8 @@
-{{#if bannerImage}}
-	<div class="layer banner" style="background-image:url({{bannerImage}});"></div>
+{{#if bannerImageStyle}}
+	<div class="layer banner" style={{bannerImageStyle}}></div>
 {{/if}}
-{{#if bannerColor}}
-	<div class="layer opacity" style="background-color:{{bannerColor}};"></div>
+{{#if bannerColorStyle}}
+	<div class="layer opacity" style={{bannerColorStyle}}></div>
 {{/if}}
 <div class="layer">
 	<h1>{{name}}</h1>
