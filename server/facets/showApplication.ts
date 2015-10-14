@@ -9,17 +9,22 @@ import Tracking = require('../lib/Tracking');
 import OpenGraph = require('../lib/OpenGraph');
 import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
+import wikiaConfig = require('../../config/discussionsSplashPageConfig');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).wikiVariables(),
-		context: any = {};
+		context: any = {},
+		hostName: string = request.info.host.replace(
+			/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+			'$1');
 
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 	context.server = Utils.createServerData(localSettings, wikiDomain);
 	context.queryParams = Utils.parseQueryParams(request.query, []);
 	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	context.wikiaConfig = wikiaConfig[hostName] ? wikiaConfig[hostName] : {};
 
 	wikiVariables.then((wikiVariables: any): Promise<any> => {
 		var contentDir: string;
