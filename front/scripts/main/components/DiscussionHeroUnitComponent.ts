@@ -4,7 +4,7 @@
 App.DiscussionHeroUnitComponent = Em.Component.extend({
 	classNames: ['discussion-hero-unit'],
 
-	bannerImageStyle: Em.computed(function (): Em.Handlebars.SafeString {
+	headerImageStyle: Em.computed(function (): Em.Handlebars.SafeString {
 		var image: string;
 
 		switch (Em.get(Mercury, 'wiki.id')) {
@@ -39,10 +39,10 @@ App.DiscussionHeroUnitComponent = Em.Component.extend({
 			: null;
 	}),
 
-	bannerColorStyle: Em.computed(function (): Em.Handlebars.SafeString {
-		var themeColor = Em.get(Mercury, 'wiki.themeColor');
-		return themeColor
-			? new Em.Handlebars.SafeString(`background-color: ${themeColor};`)
+	headerColorStyle: Em.computed(function (): Em.Handlebars.SafeString {
+		var headerColor = Em.get(Mercury, 'wiki.theme.colorButtons');
+		return headerColor
+			? new Em.Handlebars.SafeString(`background-color: ${headerColor};`)
 			: null;
 	})
 });
