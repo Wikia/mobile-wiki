@@ -1,14 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/AlertNotificationsMixin.ts" />
-/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
-/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../models/SearchImagesModel.ts"/>
-///<reference path="../mixins/IEIFrameFocusFixMixin.ts"/>
-///<reference path="../mixins/CuratedContentEditorLabelsMixin.ts"/>
-'use strict';
-
 App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLabelsMixin,
@@ -21,12 +10,12 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
 		spinnerOverlay: false,
-		searchPlaceholder: Em.computed((): string =>
+		searchPlaceholder: Em.computed(() =>
 			i18n.t('app.curated-content-editor-search-images-placeholder')
 		),
 
-		searchQueryObserver: Em.observer('searchQuery', function(): void {
-			var searchQuery: string = this.get('searchQuery');
+		searchQueryObserver: Em.observer('searchQuery', function() {
+			const searchQuery = this.get('searchQuery');
 
 			this.set('imagesModel', App.SearchImagesModel.create({
 				searchQuery
@@ -40,12 +29,19 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		}),
 
 		actions: {
-			goBack(): void {
+			/**
+			 * @returns {void}
+			 */
+			goBack() {
 				this.trackClick('curated-content-editor', 'image-search-go-back');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.previous'));
 			},
 
-			select(image: SearchPhotoImageResponseInterface): void {
+			/**
+			 * @param {SearchPhotoImageResponseInterface} image image interface
+			 * @returns {void}
+			 */
+			select(image) {
 				this.trackClick('curated-content-editor', 'image-search-select');
 				this.setProperties({
 					'imageProperties.url': image.url,
@@ -56,7 +52,10 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 				this.sendAction('changeLayout', this.get('imageSearchLayout.next'));
 			},
 
-			loadMore(): void {
+			/**
+			 * @returns {void}
+			 */
+			loadMore() {
 				this.trackClick('curated-content-editor', 'image-search-load-more');
 				this.set('spinnerOverlay', true);
 				this.showLoader();
@@ -64,16 +63,19 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			}
 		},
 
-		getNextBatch(): void {
+		/**
+		 * @returns {void}
+		 */
+		getNextBatch() {
 			this.get('imagesModel').next()
-				.catch((error: any): void => {
+				.catch((error) => {
 					Em.Logger.error(error);
 
 					this.set('searchMessage', i18n.t('app.curated-content-editor-no-images-found'));
 				})
-				.finally((): void => {
+				.finally(() => {
 					this.hideLoader();
 					this.set('spinnerOverlay', false);
 				});
 		}
-});
+	});

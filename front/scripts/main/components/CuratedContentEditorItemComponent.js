@@ -1,24 +1,34 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
-'use strict';
-
 App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEditorLayoutMixin, {
 	editorLayout: 'curated-content-editor-item-form',
 
 	actions: {
-		goBack(): void {
+		/**
+		 * @returns {void}
+		 */
+		goBack() {
 			this.sendAction('goBack');
 		},
 
-		done(model: any): void {
+		/**
+		 * @param {CuratedContentEditorModel} model model to save
+		 * @returns {void}
+		 */
+		done(model) {
 			this.sendAction('done', model);
 		},
 
-		deleteItem(): void {
+		/**
+		 * @returns {void}
+		 */
+		deleteItem() {
 			this.sendAction('deleteItem');
 		},
 
-		changeLayout(newLayoutName: string): void {
+		/**
+		 * @param {String} newLayoutName new layout name
+		 * @returns {void}
+		 */
+		changeLayout(newLayoutName) {
 			this.set('editorLayout', newLayoutName);
 		}
 	}

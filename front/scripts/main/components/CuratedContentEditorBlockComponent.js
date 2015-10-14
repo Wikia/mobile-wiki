@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/CuratedContentEditorSortableItemsMixin.ts"/>
-'use strict';
-
 App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentEditorSortableItemsMixin, {
 	tagName: 'section',
 	classNames: ['curated-content-editor-block'],
@@ -10,19 +6,33 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 	persistentSort: true,
 
 	actions: {
-		addItem(): void {
+		/**
+		 * @returns {void}
+		 */
+		addItem() {
 			this.sendAction('addItem', this.get('block'));
 		},
 
-		editItem(item: CuratedContentEditorItemModel): void {
+		/**
+		 * @param {CuratedContentEditorItemModel} item item to edit
+		 * @returns {void}
+		 */
+		editItem(item) {
 			this.sendAction('editItem', item, this.get('block'));
 		},
 
-		openSection(item: CuratedContentEditorItemModel): void {
+		/**
+		 * @param {CuratedContentEditorItemModel} item section to open
+		 * @returns {void}
+		 */
+		openSection(item) {
 			this.sendAction('openSection', item);
 		},
 
-		showHelp(): void {
+		/**
+		 * @returns {void}
+		 */
+		showHelp() {
 			this.trackClick('curated-content-editor', 'help-show');
 			this.set('isHelpVisible', true);
 		}
