@@ -26,7 +26,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			var href: string;
 			href = '/join?redirect=' + encodeURIComponent(window.location.href);
 			if (this.sectionId) {
-				href += '#' + this.sectionId;
+				href += encodeURIComponent('#' + this.sectionId);
 			}
 			href += this.getUselangParam();
 
