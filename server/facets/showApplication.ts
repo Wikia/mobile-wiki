@@ -22,14 +22,14 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
 	wikiVariables.then((wikiVariables: any): Promise<any> => {
-		var userDir: string;
+		var contentDir: string;
 
 		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
 		context.wiki = wikiVariables;
 		if (context.wiki.language) {
-			userDir = context.wiki.language.userDir;
-			context.isRtl = (userDir === 'rtl');
+			contentDir = context.wiki.language.contentDir;
+			context.isRtl = (contentDir === 'rtl');
 		}
 
 		return OpenGraph.getAttributes(request, context.wiki);

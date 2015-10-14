@@ -66,10 +66,5 @@ App.LightboxWrapperComponent = Em.Component.extend({
 			this.toggleProperty('footerHidden');
 			this.toggleProperty('headerHidden');
 		}
-	},
-
-	didInsertElement(): void {
-		// This is needed for keyDown event to work
-		this.$().focus();
 	}
 });

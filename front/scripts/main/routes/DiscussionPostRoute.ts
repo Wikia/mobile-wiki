@@ -20,7 +20,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 		this.controllerFor('application').setProperties({
 			// Enables vertical-colored theme bar in site-head component
 			themeBar: true,
-			enableShareHeader: true
+			enableShareHeader: false
 		});
 		this._super();
 	},
@@ -38,6 +38,9 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 		didTransition(): boolean {
 			this.controllerFor('application').set('noMargins', true);
 			return true;
-		}
+		},
+		goToForum(forumId: number): void {
+			this.transitionTo('discussion.forum', forumId);
+		},
 	}
 });

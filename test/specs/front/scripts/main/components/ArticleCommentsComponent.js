@@ -1,4 +1,6 @@
-moduleForComponent('article-comments');
+moduleForComponent('article-comments', 'ArticleCommentsComponent', {
+	unit: true
+});
 
 test('page is set correctly within boundaries and buttons are displayed correctly', function () {
 	expect(18);

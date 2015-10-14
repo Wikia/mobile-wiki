@@ -50,7 +50,10 @@ module.exports = {
 		}
 	},
 	replace: {
-		selector: '**/ember-main.hbs',
+		selector: {
+			layouts: '**/_layouts/ember-main.hbs',
+			partials: '**/_partials/*.hbs'
+		},
 		find: '/front/',
 		replace: '{{server.cdnBaseUrl}}/mercury-static/'
 	}

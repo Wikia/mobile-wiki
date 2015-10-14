@@ -4,6 +4,8 @@
 'use strict';
 
 App.ArticleRoute = Em.Route.extend({
+	redirectEmptyTarget: false,
+
 	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
@@ -54,6 +56,8 @@ App.ArticleRoute = Em.Route.extend({
 
 		// Reset query parameters
 		model.set('commentsPage', null);
+
+		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
 	activate (): void {
@@ -69,6 +73,16 @@ App.ArticleRoute = Em.Route.extend({
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
+		},
+
+		didTransition(): boolean {
+			if (this.get('redirectEmptyTarget')) {
+				this.controllerFor('application').addAlert({
+					message: i18n.t('app.article-redirect-empty-target'),
+					type: 'warning'
+				});
+			}
+			return true;
 		},
 
 		error(error: any, transition: EmberStates.Transition): boolean {

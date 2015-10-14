@@ -2,7 +2,8 @@
 
 App.DiscussionPostModel = Em.Object.extend({
 	wikiId: null,
-	threadId: null,
+	postId: null,
+	forumId: null,
 	pivotId: null,
 	replyLimit: 10,
 	replies: [],
@@ -10,14 +11,15 @@ App.DiscussionPostModel = Em.Object.extend({
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
+	contributors: [],
 
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
-					 this.wikiId + '/threads/' + this.threadId +
+					 this.wikiId + '/threads/' + this.postId +
 					 '?responseGroup=full' +
-					 '&sortDirection=descending' +
+					 '&sortDirection=descending&sortKey=creation_date' +
 					 '&limit=' + this.replyLimit +
 					 '&pivot=' + this.pivotId +
 					 '&page=' + (this.page + 1),
@@ -45,23 +47,25 @@ App.DiscussionPostModel = Em.Object.extend({
 });
 
 App.DiscussionPostModel.reopenClass({
-	find(wikiId: number, threadId: number) {
+	find(wikiId: number, postId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var postInstance = App.DiscussionPostModel.create({
 				wikiId: wikiId,
-				threadId: threadId
+				postId: postId
 			});
 
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: 'https://' + M.prop('servicesDomain') +
-					 `/discussion/${wikiId}/threads/${threadId}` +
-					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
+					 `/discussion/${wikiId}/threads/${postId}` +
+					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
+					 '&limit=' + postInstance.replyLimit,
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
 				},
 				success: (data: any) => {
-					var replies = data._embedded['doc:posts'],
+					var contributors: any[] = [],
+						replies = data._embedded['doc:posts'],
 						pivotId: number;
 					// If there are no replies to the first post, 'doc:posts' will not be returned
 					if (replies) {
@@ -69,11 +73,27 @@ App.DiscussionPostModel.reopenClass({
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
 					}
+
+					replies.forEach(function (reply: any) {
+						var author: any;
+						if (reply.hasOwnProperty('createdBy')) {
+							author = reply.createdBy;
+							author.url = M.buildUrl({
+								namespace: 'User',
+								title: author.name
+							});
+							contributors.push(author);
+						}
+					});
+
 					postInstance.setProperties({
+						contributors: contributors,
+						forumId: data.forumId,
 						replies: replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
+						id: data.id,
 						pivotId: pivotId,
 						page: 0,
 						title: data.title
