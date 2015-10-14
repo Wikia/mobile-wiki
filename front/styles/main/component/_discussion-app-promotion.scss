@@ -1,8 +1,10 @@
+$text-color: #999;
+
 .discussion-app-promotion {
 	padding-left: 10px;
 
 	.discussion-app-join-text {
-		color: $aluminum;
+		color: $text-color;
 		font-size: rem-calc(18);
 		margin: 65px 0 10px;
 	}
