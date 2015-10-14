@@ -11,6 +11,7 @@ App.DiscussionAppPromotionComponent = Em.Component.extend({
 	}),
 
 	iosAppLink: Em.computed(function () {
-		return this.get('wikiaConfig') ? this.get('wikiaConfig').iosAppLink : null;
+		var wikiaConfig = this.get('wikiaConfig');
+		return wikiaConfig ? wikiaConfig.iosAppLink : null;
 	}),
 });
