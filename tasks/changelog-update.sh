@@ -1,7 +1,13 @@
 #!/bin/bash
 
-while getopts ":r:" opt; do
+while getopts ":f:t:r:" opt; do
 	case $opt in
+		f)
+			FROM="-f $OPTARG"
+			;;
+		t)
+			TO="-t $OPTARG"
+			;;
 		r)
 			RELEASE=$OPTARG
 			;;
@@ -16,23 +22,26 @@ while getopts ":r:" opt; do
 	esac
 done
 
-if [ -z $RELEASE ]; then
+if [ -z "$RELEASE" ]
+then
 	echo "Please set -r argument, which is RELEASE name like release-xxx, use lower case"
 	exit 1
 fi
 
-HEADC=$(cat CHANGELOG.md | grep "## "$RELEASE" " | wc -l)
+HEADC=$(cat CHANGELOG.md | grep "## $RELEASE " | wc -l)
 
-if [ $HEADC -gt 0 ]; then
+if [ $HEADC -gt 0 ]
+then
 	RELEASE=$RELEASE" hotfix "$HEADC
 fi
 
-./tasks/changelog-view.sh 1> new
+./tasks/changelog-view.sh $FROM $TO 1> new
 
 WORDC=$(wc -w new | tr -d '[:alpha:][:blank:][:punct:]/-')
 DATE=$(date -u +"%Y-%m-%d %H:%M")
 
-if [ $WORDC -gt 0 ]; then
+if [ $WORDC -gt 0 ]
+then
 	echo "## "$RELEASE" ("$DATE" UTC)" > temp
 	cat new >> temp
 	echo "" >> temp
