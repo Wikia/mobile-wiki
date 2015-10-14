@@ -1,5 +1,4 @@
 /// <reference path="../app.ts" />
-/// <reference path='../../../../typings/hapi/hapi.d.ts' />
 'use strict';
 
 App.DiscussionAppPromotionComponent = Em.Component.extend({
