@@ -27,7 +27,7 @@ App.DiscussionRouteUpvoteMixin = Em.Mixin.create({
 
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: method,
-				url: M.Utils.getDiscussionLink() + '/' +
+				url: M.getDiscussionLink() + '/' +
 					Em.get(post, 'siteId') + '/votes/post/' + Em.get(post, 'id'),
 				dataType: 'json',
 				xhrFields: {
