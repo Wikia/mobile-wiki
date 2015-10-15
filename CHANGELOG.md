@@ -1,3 +1,15 @@
+## release-177 (2015-10-15 07:59 UTC)
+* [INT-200](https://wikia-inc.atlassian.net/browse/INT-200) Fix for text getting cut off in featured communities on Japa…
+* enable-discussions-on-staging: Maintenance | Enable discussion feature on all non-prod environments
+* [XW-523](https://wikia-inc.atlassian.net/browse/XW-523) XW-523 | Config for ESLint
+* [XW-544](https://wikia-inc.atlassian.net/browse/XW-544) XW-544 | update Mercury tasks
+
+## release-176 (2015-10-14 07:59 UTC)
+* aden-2468-ox-bidder-on-mobile: ADEN-2468 Add mercury onLoad listener
+* aden-2406-sp-tracking-on-mobile: ADEN-2406 Added detection script and event listeners to track blocking
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195)not for article rendering
+* [SOC-1292](https://wikia-inc.atlassian.net/browse/SOC-1292) SOC-1292 Add back to forum link to post details page
+
 ## release-175 hotfix 1 (2015-10-13 13:57 UTC)
 * [XW-552](https://wikia-inc.atlassian.net/browse/XW-552) XW-522 | restore optimizely partial
 
