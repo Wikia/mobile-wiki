@@ -1,33 +1,33 @@
-{{#if model.connectionError}}
-	{{discussion-connection-error
-		retry=(action 'retry')
-	}}
-{{else if model.notFoundError}}
-	{{discussion-not-found-error
-		goToAllDiscussions=(action 'goToAllDiscussions')
-	}}
-{{else}}
-	{{discussion-header
-		showContent=false
-		headroomEnabled=false
-	}}
-	<div class="site-body">
-		<div class="minimized discussion-hero-unit"></div>
-		<div class="discussion-page row">
-			<div class="rail large-2 columns">
-				{{community-badge}}
-				{{discussion-back-button
-					setLocation='goToForum'
-					label='discussion.back-to-discussions-link'
-				}}
-				<hr/>
-				<div class="discussion-contributors-title">{{i18n "discussion.contributors-title"}}</div>
-				{{discussion-contributors
-					contributors=model.contributors
-					maxContributorDisplayCount=7
-					totalContributorCount=model.postCount
-				}}
-			</div>
+{{discussion-header
+	showContent=false
+	headroomEnabled=false
+}}
+<div class="site-body">
+	<div class="minimized discussion-hero-unit"></div>
+	<div class="discussion-page row">
+		<div class="rail large-2 columns">
+			{{community-badge}}
+			{{discussion-back-button
+				setLocation='goToForum'
+				label='discussion.back-to-discussions-link'
+			}}
+			<hr/>
+			<div class="discussion-contributors-title">{{i18n "discussion.contributors-title"}}</div>
+			{{discussion-contributors
+				contributors=model.contributors
+				maxContributorDisplayCount=7
+				totalContributorCount=model.postCount
+			}}
+		</div>
+		{{#if model.connectionError}}
+			{{discussion-connection-error
+			retry=(action 'retry')
+			}}
+		{{else if model.notFoundError}}
+			{{discussion-not-found-error
+			goToAllDiscussions=(action 'goToAllDiscussions')
+			}}
+		{{else}}
 			<div class="discussion post small-12 large-8 columns">
 				{{post-detail
 					author=model.firstPost.createdBy
@@ -63,7 +63,8 @@
 					}}
 				{{/each}}
 			</div>
-			<div class="rail large-2 columns"></div>
-		</div>
+		{{/if}}
+		<div class="rail large-2 columns"></div>
 	</div>
-{{/if}}
+</div>
+

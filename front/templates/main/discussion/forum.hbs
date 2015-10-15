@@ -1,36 +1,35 @@
-
-{{#if model.connectionError}}
-	{{discussion-connection-error
-		retry=(action 'retry')
+{{discussion-header
+	showContent=true
+	showSortComponent='showSortComponent'
+	hideSortComponent='hideSortComponent'
+	sortBy=sortBy
+	sortMessageKey=sortMessageKey
+}}
+<div class="site-body">
+	{{discussion-hero-unit
+		contributors=model.contributors
+		numberOfPosts=model.totalPosts
+		name=model.name
 	}}
-{{else if model.notFoundError}}
-	{{discussion-not-found-error
-		goToAllDiscussions=(action 'goToAllDiscussions')
-	}}
-{{else}}
-	{{discussion-header
-		showContent=true
-		showSortComponent='showSortComponent'
-		hideSortComponent='hideSortComponent'
-		sortBy=sortBy
-		sortMessageKey=sortMessageKey
-	}}
-	<div class="site-body">
-		{{discussion-hero-unit
-			contributors=model.contributors
-			numberOfPosts=model.totalPosts
-			name=model.name
-		}}
-		<div class="discussion-page row">
-			<div class="rail large-3 columns">
-				{{community-badge}}
-				<hr/>
-				{{discussion-back-button
-					href='/'
-					label='discussion.back-to-wikia-link'
-				}}
-				<hr/>
-			</div>
+	<div class="discussion-page row">
+		<div class="rail large-3 columns">
+			{{community-badge}}
+			<hr/>
+			{{discussion-back-button
+				href='/'
+				label='discussion.back-to-wikia-link'
+			}}
+			<hr/>
+		</div>
+		{{#if model.connectionError}}
+			{{discussion-connection-error
+			retry=(action 'retry')
+			}}
+		{{else if model.notFoundError}}
+			{{discussion-not-found-error
+			goToAllDiscussions=(action 'goToAllDiscussions')
+			}}
+		{{else}}
 			<div class="small-12 large-6 columns">
 				{{discussion-sort
 					setSortBy='setSortBy'
@@ -48,9 +47,8 @@
 					totalPosts=model.totalPosts
 				}}
 			</div>
-			<div class="rail large-3 columns">
-			</div>
+		{{/if}}
+		<div class="rail large-3 columns">
 		</div>
 	</div>
-{{/if}}
-
+</div>
