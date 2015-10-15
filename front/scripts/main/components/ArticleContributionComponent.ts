@@ -22,7 +22,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			this.sendAction('edit', this.get('title'), this.get('section'));
 		},
 
-		select(): void {
+		select(windowObj: any): void {
 			var href = '/join?redirect=' + encodeURIComponent(window.location.href);
 			if (this.get('sectionId')) {
 				href += encodeURIComponent('#' + this.sectionId);
@@ -36,7 +36,8 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 				value: this.get('section')
 			});
 
-			window.location.href = href;
+			windowObj = windowObj || window; //Injecting window obj for unit test.
+			windowObj.location.href = href;
 		},
 
 		addPhoto(): void {
