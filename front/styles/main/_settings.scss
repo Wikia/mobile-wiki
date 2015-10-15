@@ -14,6 +14,7 @@ $label-color-inactive: $color-blue-gray;
 $label-color-valid: $color-blue-gray-dark;
 $link-color: $color-blue-light;
 $upvote-icon-color: #999;
+$upvote-icon-stroke-color: $color-white;
 $upvote-icon-activated-color: #e3bd00;
 $discussion-bg-color: $color-white;
 $discussion-count-color: #999;
@@ -60,7 +61,7 @@ $dark-discussion-error-link-color: $discussion-error-link-color;
 $dark-discussion-load-more-color: $color-blue-gray;
 $dark-discussion-see-more-color: #E6E6E6;
 $dark-discussion-timestamp-color: #999;
-$dark-discussion-post-detail-border-color: $border-color;
+$dark-discussion-post-detail-border-color: #666666;
 
 $dark-discussion-desktop-bg-color: $color-black;
 $dark-discussion-desktop-post-detail-bg-color: #1e1e1e;
