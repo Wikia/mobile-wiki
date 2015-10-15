@@ -19,7 +19,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		'jp': [
 			'facebook',
 			'twitter',
-			'g+',
+			'google',
 			'line'
 		],
 		'pt-br': [
@@ -48,7 +48,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 			'tumblr'
 		],
 		'ru': [
-			'vk',
+			'vkontakte',
 			'facebook',
 			'odnoklassniki'
 		],
@@ -70,14 +70,15 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		return sharedUrl;
 	}),
 
-	currentSocialNetworks: Em.computed('currentUser.language', function (): void {
+	currentSocialNetworks: Em.computed('currentUser.language', function (): string[] {
 		var lang = this.getLanguage(),
 			socialNetworks = this.get('socialNetworks');
-			return socialNetworks[lang] ? socialNetworks[lang] : socialNetworks['en'];
+			return socialNetworks[lang] || socialNetworks['en'];
 	}),
 
 	line(): string {
-		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('computedSharedUrl'));
+		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' +
+			this.get('computedSharedUrl'));
 	},
 
 	facebook(): string {
@@ -93,28 +94,28 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	},
 
 	reddit(): string {
-		return 'http://www.reddit.com/submit?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title='
-			+ encodeURIComponent(this.get('title'));
+		return 'http://www.reddit.com/submit?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
+			encodeURIComponent(this.get('title'));
 	},
 
 	tumblr(): string {
-		return 'http://www.tumblr.com/share/link?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&name='
-			+ encodeURIComponent(this.get('title'));
+		return 'http://www.tumblr.com/share/link?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&name=' +
+			encodeURIComponent(this.get('title'));
 	},
 
 	weibo(): string {
-		return 'http://service.weibo.com/share/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title='
-			+ encodeURIComponent(this.get('title'));
+		return 'http://service.weibo.com/share/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) +
+			'&title=' + encodeURIComponent(this.get('title'));
 	},
 
-	vk(): string {
-		return 'http://vk.com/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title='
-			+ encodeURIComponent(this.get('title'));
+	vkontakte(): string {
+		return 'http://vk.com/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
+			encodeURIComponent(this.get('title'));
 	},
 
 	odnoklassniki(): string {
-		return 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl='
-			+ encodeURIComponent(this.get('computedSharedUrl'));
+		return 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=' +
+			encodeURIComponent(this.get('computedSharedUrl'));
 	},
 
 	nk(): string {
@@ -122,8 +123,8 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	},
 
 	wykop(): string {
-		return 'http://www.wykop.pl/dodaj/link/?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title='
-			+ encodeURIComponent(this.get('title'));
+		return 'http://www.wykop.pl/dodaj/link/?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
+			encodeURIComponent(this.get('title'));
 	},
 
 	meneame(): string {
@@ -131,11 +132,17 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	},
 
 	actions: {
+		/**
+		 * Obtains a shared url getter and executes it to get a shared url with a current page details
+		 * In this case, handler should be named after the string in the config object at the top of the file
+		 * @param network
+		 */
 		share(network: string): void {
 			var urlGetter: Function = this.get(network),
 				link: string;
 
 			if (typeof urlGetter !== 'function') {
+				Em.Logger.warn('Shared Url getter for ' + network + ' does not exist');
 				return;
 			}
 
