@@ -33,5 +33,13 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 
 	googleShare: Em.computed('computedSharedUrl', function (): string {
 		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
-	})
+	}),
+
+	mouseEnter(): void {
+		this.attrs.onMouseEnter();
+	},
+
+	mouseLeave(): void {
+		this.attrs.onMouseLeave();
+	}
 });

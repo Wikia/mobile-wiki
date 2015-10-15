@@ -15,7 +15,6 @@
     "article-top-contributors-label": "Top Contributors to this article",
     "side-nav-menu-label": "Menu",
     "navigation-back-label": "Back",
-    "search-no-results-msg": "Sorry, we couldn't find anything that matched your search!",
     "search-loading-msg": "Loading search results...",
     "media-lightbox-error": "Media not found",
     "map-lightbox-error": "Map not found",
@@ -160,7 +159,8 @@
     "action-retry-title-desktop": "Click to retry",
     "action-retry-title-mobile": "Tap to retry",
     "all-discussions-link-desktop": "Show Me All Discussions",
-    "all-discussions-link-mobile": "All Discussions"
+    "all-discussions-link-mobile": "All Discussions",
+    "back-to-discussions-link": "All Discussions"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",

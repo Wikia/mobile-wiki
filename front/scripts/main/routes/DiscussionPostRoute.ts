@@ -46,6 +46,9 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 		didTransition(): boolean {
 			this.controllerFor('application').set('noMargins', true);
 			return true;
-		}
+		},
+		goToForum(forumId: number): void {
+			this.transitionTo('discussion.forum', forumId);
+		},
 	}
 });

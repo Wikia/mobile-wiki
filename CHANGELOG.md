@@ -1,3 +1,33 @@
+## release-176 (2015-10-14 07:59 UTC)
+* aden-2468-ox-bidder-on-mobile: ADEN-2468 Add mercury onLoad listener
+* aden-2406-sp-tracking-on-mobile: ADEN-2406 Added detection script and event listeners to track blocking
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195)not for article rendering
+* [SOC-1292](https://wikia-inc.atlassian.net/browse/SOC-1292) SOC-1292 Add back to forum link to post details page
+
+## release-175 hotfix 1 (2015-10-13 13:57 UTC)
+* [XW-552](https://wikia-inc.atlassian.net/browse/XW-552) XW-522 | restore optimizely partial
+
+## release-175 (2015-10-13 07:59 UTC)
+* [SOC-1387](https://wikia-inc.atlassian.net/browse/SOC-1387) SOC-1387 Conform to top-bar component styling in disc pages
+* [XW-252](https://wikia-inc.atlassian.net/browse/XW-252) XW-252 | load optimizely after ember starts
+* [XW-440](https://wikia-inc.atlassian.net/browse/XW-440) XW-440 Use mercury.nocookie.net for assets defined in partials
+* [XW-432](https://wikia-inc.atlassian.net/browse/XW-432) XW-432 flatten structure of navigation passed from MercuryApiController
+* [SOC-1118](https://wikia-inc.atlassian.net/browse/SOC-1118) SOC-1118 Sharing icons for discussion posts on desktop
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Styling for google custom search
+* [INT-215](https://wikia-inc.atlassian.net/browse/INT-215) Revert Reuse tracking template from Mercury as shared templa…
+* [XW-289](https://wikia-inc.atlassian.net/browse/XW-289) XW-289 remove showEmptyMesssage in search suggestions
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Fix for incorrect variation number for Google Custom Search …
+* [XW-112](https://wikia-inc.atlassian.net/browse/XW-112) XW-112 Upgrade to Ember 2.0
+* [SOC-1370](https://wikia-inc.atlassian.net/browse/SOC-1370) SOC-1370 Discussion splash pages for 3 more communities
+* [XW-447](https://wikia-inc.atlassian.net/browse/XW-447) XW-447 | Additional changes to Curated Content Editor
+* [INT-213](https://wikia-inc.atlassian.net/browse/INT-213) Minify css for production for Japan HP
+* [XW-50](https://wikia-inc.atlassian.net/browse/XW-50) XW-50 | responsive search input
+* fix-for-search-input: Search Input | Hotfix for overriding paddings coming from auth styles
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) A/B test for Google Custom Search integration
+* [INT-204](https://wikia-inc.atlassian.net/browse/INT-204) Remove UN global goals banner from Japan HP
+* [INT-215](https://wikia-inc.atlassian.net/browse/INT-215) Add Universal Analytics script to Japan HP
+* SERVICES-860-dont-check-user-blocks-on-token-validation: [SERVICES-860] Don't check if user is blocked when validating token
+
 ## release-174 (2015-10-05 07:59 UTC)
 * [XW-229](https://wikia-inc.atlassian.net/browse/XW-229) XW-229 bubble didTransition to applicationRoute from articleRoute
 * [MAIN-5471](https://wikia-inc.atlassian.net/browse/MAIN-5471) MAIN-5471 | Load dev config on devboxes at default

@@ -41,7 +41,7 @@ window.emberHammerOptions = {
 
 App.initializer({
 	name: 'jquery.ajax',
-	initialize () {
+	initialize() {
 		$.ajaxSetup({
 			cache: true
 		});
@@ -50,7 +50,7 @@ App.initializer({
 
 App.initializer({
 	name: 'visit-source',
-	initialize () {
+	initialize() {
 		if (typeof VisitSource === 'function') {
 			(new VisitSource('WikiaSessionSource', M.prop('cookieDomain'))).checkAndStore();
 			(new VisitSource('WikiaLifetimeSource', M.prop('cookieDomain'), false)).checkAndStore();
@@ -59,8 +59,24 @@ App.initializer({
 });
 
 App.initializer({
+	name: 'optimizely',
+	initialize() {
+		var optimizelyScript = M.prop('optimizelyScript');
+
+		if (!Em.isEmpty(optimizelyScript) && !M.getQueryParam('noexternals')) {
+			App.deferReadiness();
+
+			Em.$.getScript(optimizelyScript).always(() => {
+				App.advanceReadiness();
+			});
+		}
+	}
+});
+
+App.initializer({
 	name: 'preload',
-	initialize: (container: any, application: any) => {
+	after: 'optimizely',
+	initialize(container: any, application: any) {
 		var $window = $(window);
 
 		$window.scroll(() => {
@@ -107,7 +123,7 @@ App.initializer({
 App.initializer({
 	name: 'performanceMonitoring',
 	after: 'preload',
-	initialize () {
+	initialize() {
 		if (typeof EmPerfSender === 'undefined') {
 			return;
 		}
@@ -124,7 +140,7 @@ App.initializer({
 			enableLogging: (M.prop('environment') === 'dev'),
 
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
-			send (events: any[], metrics: any) {
+			send(events: any[], metrics: any) {
 				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
 				// is our instance of a Weppy interface
 				M.trackPerf({
@@ -141,7 +157,7 @@ App.initializer({
 App.initializer({
 	name: 'currentUser',
 	after: 'performanceMonitoring',
-	initialize: (container: any, application: any): void => {
+	initialize(container: any, application: any) {
 		application.register('currentUser:main', App.CurrentUser);
 		application.inject('component', 'currentUser', 'currentUser:main');
 	}
@@ -150,12 +166,12 @@ App.initializer({
 App.initializer({
 	name: 'setupTracking',
 	after: 'currentUser',
-	initialize (container: any, application: typeof App): void {
+	initialize() {
 		var UA = Mercury.Modules.Trackers.UniversalAnalytics,
 			dimensions: (string|Function)[] = [],
 			adsContext = Mercury.Modules.Ads.getInstance().getContext();
 
-		function getPageType (): string {
+		function getPageType(): string {
 			var mainPageTitle = Mercury.wiki.mainPageTitle,
 				pathnameChunks = window.location.pathname.split('/');
 
@@ -207,7 +223,7 @@ App.initializer({
 App.initializer({
 	name: 'geo',
 	after: 'setupTracking',
-	initialize(container: any, application: typeof App): void {
+	initialize() {
 		var geoCookie = $.cookie('Geo');
 		if (geoCookie) {
 			M.prop('geo', JSON.parse(geoCookie));

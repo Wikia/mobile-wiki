@@ -5,7 +5,7 @@
  * Handles sending upvote action outside from the component.
  */
 App.DiscussionUpvoteComponentMixin = Em.Mixin.create({
-	classNames: ['small-5', 'columns', 'upvote', 'count'],
+	classNames: ['small-5', 'large-4', 'columns', 'upvote', 'count'],
 	classNameBindings: ['hasUpvoted'],
 
 	post: null,
