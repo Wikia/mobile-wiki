@@ -9,11 +9,15 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 		notFound: 404
 	},
 
+	errorClass: 'discussion-error-page',
+
 	setErrorProperty: function (err: any, model: any): void {
 		if (err.status == this.errorCodes.notFound) {
 			model.set('notFoundError', true);
 		} else {
 			model.set('connectionError', true);
 		}
+
+		Em.$('body').addClass(this.errorClass);
 	}
 });
