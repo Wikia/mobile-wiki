@@ -36,10 +36,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 		},
 
 		retry(): void {
-			//this.refresh();
-			// FIXME: unresolved Ember issue https://github.com/emberjs/ember.js/issues/5070
-			var controller = this.controllerFor('discussionForum');
-			this.transitionTo('discussion.forum', this.get('forumId'), controller.get('sortBy'));
+			this.refresh();
 		},
 
 		goToAllDiscussions(): void {
