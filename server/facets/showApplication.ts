@@ -22,7 +22,7 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.queryParams = Utils.parseQueryParams(request.query, []);
 	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
-	context.wikiaConfig = wikiaConfig[hostName] ? wikiaConfig[hostName] : {};
+	context.wikiaConfig = getDistilledWikiaConfig(hostName);
 
 	wikiVariables.then((wikiVariables: any): Promise<any> => {
 		var contentDir: string;
@@ -54,6 +54,15 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: any): void {
 	Tracking.handleResponse(context, request);
 	reply.view('application', context);
+}
+
+function getDistilledWikiaConfig(hostName: string): Object {
+	var distilledWikiaConfig = {};
+	if (wikiaConfig[hostName]) {
+		distilledWikiaConfig['androidAppLink'] = wikiaConfig[hostName].androidAppLink;
+		distilledWikiaConfig['iosAppLink'] = wikiaConfig[hostName].iosAppLink;
+	}
+	return distilledWikiaConfig;
 }
 
 export = showApplication;
