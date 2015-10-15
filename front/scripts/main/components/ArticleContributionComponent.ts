@@ -41,6 +41,10 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		},
 
 		addPhoto(): void {
+			if (this.get('currentUser.isAuthenticated') !== true) {
+				return;
+			}
+
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
