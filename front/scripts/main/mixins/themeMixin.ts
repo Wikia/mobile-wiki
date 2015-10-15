@@ -6,7 +6,6 @@
  */
 
 App.ThemeMixin = Em.Mixin.create({
-
 	themeClasses: {
 		dark: 'dark-theme'
 	},
