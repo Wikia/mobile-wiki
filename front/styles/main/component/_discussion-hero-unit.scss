@@ -1,6 +1,7 @@
 $discussion-hero-unit-text-color: $color-white;
 $discussion-hero-unit-avatar-dimension: 40px;
 $discussion-hero-unit-height: 200px;
+$discussion-hero-unit-bg-color: #fff;
 
 .discussion-hero-unit {
 	color: $discussion-hero-unit-text-color;
@@ -24,9 +25,7 @@ $discussion-hero-unit-height: 200px;
 	}
 
 	.banner {
-		background-color: #fff;
-		background-position: center;
-		background-repeat: no-repeat;
+		background: $discussion-hero-unit-bg-color no-repeat center;
 	}
 
 	.discussion-contributors {

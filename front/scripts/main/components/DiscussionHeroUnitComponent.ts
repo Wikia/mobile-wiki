@@ -4,36 +4,19 @@
 App.DiscussionHeroUnitComponent = Em.Component.extend({
 	classNames: ['discussion-hero-unit'],
 
+	headerImages: {
+		24357: 'discussion-header-adventure-time.jpg',
+		8390: 'discussion-header-cocktails.jpg',
+		3035: 'discussion-header-fallout.jpg',
+		119235: 'discussion-header-hawaii-five-o.jpg',
+		35171: 'discussion-header-hunger-games.jpg',
+		203914: 'discussion-header-one-direction.jpg',
+		147: 'discussion-header-star-wars.jpg',
+		13346: 'discussion-header-walking-dead.jpg'
+	},
+
 	headerImageStyle: Em.computed(function (): Em.Handlebars.SafeString {
-		var image: string;
-
-		switch (Em.get(Mercury, 'wiki.id')) {
-			case 24357:
-				image = 'discussion-header-adventure-time.jpg';
-				break;
-			case 8390:
-				image = 'discussion-header-cocktails.jpg';
-				break;
-			case 3035:
-				image = 'discussion-header-fallout.jpg';
-				break;
-			case 119235:
-				image = 'discussion-header-hawaii-five-o.jpg';
-				break;
-			case 35171:
-				image = 'discussion-header-hunger-games.jpg';
-				break;
-			case 203914:
-				image = 'discussion-header-one-direction.jpg';
-				break;
-			case 147:
-				image = 'discussion-header-star-wars.jpg';
-				break;
-			case 13346:
-				image = 'discussion-header-walking-dead.jpg';
-				break;
-		}
-
+		var image = this.get('headerImages')[Em.get(Mercury, 'wiki.id')];
 		return image
 			? new Em.Handlebars.SafeString(`background-image: url(/front/images/${image});`)
 			: null;
