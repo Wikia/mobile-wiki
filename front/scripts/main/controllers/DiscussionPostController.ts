@@ -42,7 +42,7 @@ App.DiscussionPostController = Em.Controller.extend({
 			var model = this.get('model'),
 				forumId = Em.get(model, 'forumId');
 
-			this.transitionTo('discussion.forum', forumId, this.get('postListSort'));
+			this.get('target').send('goToForum', forumId, this.get('postListSort'));
 		}
 	}
 });
