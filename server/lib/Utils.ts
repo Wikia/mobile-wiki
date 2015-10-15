@@ -193,14 +193,19 @@ export function shouldAsyncArticle(localSettings: LocalSettings, host: string): 
  */
 export function createServerData(localSettings: LocalSettings, wikiDomain: string = ''): ServerData {
 	// if no environment, pass dev
-	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev,
+		data: any = {
+			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
+			apiBase: localSettings.apiBase,
+			environment: getEnvironmentString(env),
+			cdnBaseUrl: getCDNBaseUrl(localSettings)
+		};
 
-	return {
-		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
-		apiBase: localSettings.apiBase,
-		environment: getEnvironmentString(env),
-		cdnBaseUrl: getCDNBaseUrl(localSettings)
-	};
+	if (localSettings.optimizely.enabled) {
+		data.optimizelyScript = localSettings.optimizely.scriptPath + localSettings.optimizely.account + '.js';
+	}
+
+	return data;
 }
 
 /**

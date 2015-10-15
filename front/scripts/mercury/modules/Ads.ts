@@ -15,14 +15,21 @@ module Mercury.Modules {
 
 	export class Ads {
 		private static instance: Mercury.Modules.Ads = null;
+		private static blocking: boolean = null;
 		private adSlots: string[][] = [];
 		private adsContext: any = null;
 		private adEngineModule: any;
 		private adContextModule: any;
+		private sourcePointDetectionModule: {
+			initDetection(): void;
+		};
 		private adConfigMobile: any;
 		private adLogicPageViewCounterModule: {
-			get (): number;
-			increment (): number;
+			get(): number;
+			increment(): number;
+		};
+		private adMercuryListenerModule: {
+			startOnLoadQueue(): void;
 		};
 		private currentAdsContext: any = null;
 		private isLoaded = false;
@@ -55,20 +62,27 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.config.mobile',
 						'ext.wikia.adEngine.adLogicPageViewCounter',
+						'ext.wikia.adEngine.sourcePointDetection',
+						'ext.wikia.adEngine.mobile.mercuryListener',
 						'wikia.krux'
 					], (
 						adEngineModule: any,
 						adContextModule: any,
 						adConfigMobile: any,
 						adLogicPageViewCounterModule: any,
+						sourcePointDetectionModule: any,
+						adMercuryListener: any,
 						krux: any
 					) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
+						this.sourcePointDetectionModule = sourcePointDetectionModule;
 						this.adConfigMobile = adConfigMobile;
 						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
+						this.adMercuryListenerModule = adMercuryListener;
 						window.Krux = krux || [];
 						this.isLoaded = true;
+						this.addDetectionListeners();
 						this.reloadWhenReady();
 						this.kruxTrackFirstPage();
 					});
@@ -105,6 +119,27 @@ module Mercury.Modules {
 			KruxTracker.trackPageView();
 		}
 
+		private trackBlocking (value: string): void {
+			var dimensions: string[] = [],
+				GATracker: Mercury.Modules.Trackers.UniversalAnalytics;
+			dimensions[6] = value;
+			Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
+			GATracker = new Mercury.Modules.Trackers.UniversalAnalytics();
+			GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, false);
+			this.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, false);
+			Ads.blocking = value === 'Yes';
+		}
+
+		private addDetectionListeners (): void {
+			var trackBlocking: Function = this.trackBlocking;
+			window.addEventListener('sp.blocking', function (): void {
+				trackBlocking('Yes');
+			});
+			window.addEventListener('sp.not_blocking', function (): void {
+				trackBlocking('No');
+			});
+		}
+
 		private setContext (adsContext: any): void {
 			this.adsContext = adsContext ? adsContext : null;
 		}
@@ -117,12 +152,17 @@ module Mercury.Modules {
 			// Store the context for external reuse
 			this.setContext(adsContext);
 			this.currentAdsContext = adsContext;
+			// We need a copy of adSlots as adEngineModule.run destroys it
 			this.slotsQueue = this.getSlots();
 
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
+				if (Ads.blocking !== null) {
+					this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
+				} else {
+					this.sourcePointDetectionModule.initDetection();
+				}
 				this.adLogicPageViewCounterModule.increment();
-				// We need a copy of adSlots as .run destroys it
 				this.adEngineModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury');
 			}
 		}
@@ -132,6 +172,11 @@ module Mercury.Modules {
 		 */
 		public reloadWhenReady (): void {
 			this.reload(this.currentAdsContext);
+			this.onLoad();
+		}
+
+		private onLoad (): void {
+			this.adMercuryListenerModule.startOnLoadQueue();
 		}
 
 		/**
