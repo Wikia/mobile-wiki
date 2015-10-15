@@ -4,9 +4,17 @@
 App.DiscussionAppPromotionComponent = Em.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
-	wikiaConfig: Mercury.Utils.prop('wikiaConfig'),
+	wikiaConfig: M.prop('wikiaConfig'),
 
-	androidAppLink: Em.computed.oneWay('wikiaConfig.androidAppLink'),
+	androidAppLink: Em.computed('wikiaConfig', function () {
+		var wikiaConfig = this.get('wikiaConfig');
+		return wikiaConfig ? wikiaConfig.androidAppLink : null;
+	}),
 
-	iosAppLink: Em.computed.oneWay('wikiaConfig.iosAppLink'),
+	iosAppLink: Em.computed('wikiaConfig', function () {
+		var wikiaConfig = this.get('wikiaConfig');
+		return wikiaConfig ? wikiaConfig.iosAppLink : null;
+	}),
+
+	shouldDisplay: Em.computed.and('androidAppLink', 'iosAppLink'),
 });
