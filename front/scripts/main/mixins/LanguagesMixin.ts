@@ -23,6 +23,7 @@ App.LanguagesMixin = Em.Mixin.create({
 			return this.get('defaultLanguage');
 		} else {
 			lang = lang.dasherize();
+			//pt-br is the only one supported share-feature language with dash and 5 characters
 			if (lang !== 'pt-br') {
 				lang = lang.split('-')[0];
 			}
