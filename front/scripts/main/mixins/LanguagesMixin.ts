@@ -16,9 +16,9 @@ App.LanguagesMixin = Em.Mixin.create({
 	}),
 
 	getUselangParam(): string {
-		var lang: string = Mercury.wiki.language.content;
+		var lang: string = Em.get(Mercury, 'wiki.language.content');
 		if (!lang || lang === 'en') {
-			return ''
+			return '';
 		}
 		return '&uselang=' + encodeURIComponent(lang);
 	}

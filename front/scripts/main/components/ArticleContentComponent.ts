@@ -88,16 +88,23 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		}
 	},
 
+	/**
+	 * Instantiate ArticleContributionComponent by looking up the component from container in order to have dependency injection.
+	 * Read "DEPENDENCY MANAGEMENT IN EMBER.JS" section in http://guides.emberjs.com/v1.10.0/understanding-ember/dependency-injection-and-service-lookup/ 
+	 * "Lookup" function defined in https://github.com/emberjs/ember.js/blob/master/packages/container/lib/container.js
+	 */
 	createArticleContributionComponent: function(section: number, sectionId: string): JQuery {
 		var title = this.get('cleanTitle'),
-		    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
+		    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false }); //I need different instance of this component so not singleton.
 
-		contributionComponent.set('section', section);
-		contributionComponent.set('sectionId', sectionId);
-		contributionComponent.set('title', title);
-		contributionComponent.set('edit', 'edit');
-		contributionComponent.set('addPhoto', 'addPhoto');
-		contributionComponent.set('uploadFeatureEnabled', this.get('uploadFeatureEnabled'));
+		contributionComponent.setProperties({
+			section: section,
+			sectionId: sectionId,
+			title: title,
+			edit: 'edit',
+			addPhoto: 'addPhoto',
+			uploadFeatureEnabled: this.get('uploadFeatureEnabled')
+		});
 		return this.createChildView(contributionComponent).createElement().$();
 	},
 
