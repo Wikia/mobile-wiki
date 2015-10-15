@@ -12,36 +12,22 @@ App.CommunityBadgeComponent = Em.Component.extend({
 		return new Em.Handlebars.SafeString('border: 2px solid ' + this.get('borderColor') + ';');
 	}),
 
+	badgeImages: {
+		24357: '/front/images/community-badge-adventure-time.png',
+		8390: '/front/images/community-badge-cocktails.png',
+		3035: '/front/images/community-badge-fallout.png',
+		119235: '/front/images/community-badge-hawaii-five-o.png',
+		35171: '/front/images/community-badge-hunger-games.png',
+		203914: '/front/images/community-badge-one-direction.png',
+		147: '/front/images/community-badge-star-wars.png',
+		13346: '/front/images/community-badge-walking-dead.png'
+	},
+
 	wikiImageUrl: Em.computed('squareDimension', function (): string {
 		var imageUrl = Em.get(Mercury, 'wiki.image');
 
 		// Temporarily override images for launch wikis
-		switch (Em.get(Mercury, 'wiki.id')) {
-			case 24357:
-				imageUrl = '/front/images/community-badge-adventure-time.png';
-				break;
-			case 8390:
-				imageUrl = '/front/images/community-badge-cocktails.png';
-				break;
-			case 3035:
-				imageUrl = '/front/images/community-badge-fallout.png';
-				break;
-			case 119235:
-				imageUrl = '/front/images/community-badge-hawaii-five-o.png';
-				break;
-			case 35171:
-				imageUrl = '/front/images/community-badge-hunger-games.png';
-				break;
-			case 203914:
-				imageUrl = '/front/images/community-badge-one-direction.png';
-				break;
-			case 147:
-				imageUrl = '/front/images/community-badge-star-wars.png';
-				break;
-			case 13346:
-				imageUrl = '/front/images/community-badge-walking-dead.png';
-				break;
-		}
+		imageUrl = this.get('badgeImages')[Em.get(Mercury, 'wiki.id')];
 
 		if (Em.isEmpty(imageUrl)) {
 			return '';
