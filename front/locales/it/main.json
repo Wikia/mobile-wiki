@@ -15,6 +15,7 @@
     "article-top-contributors-label":"Maggiori contributori di questo articolo",
     "side-nav-menu-label":"Menù",
     "navigation-back-label":"Indietro",
+    "search-no-results-msg":"Siamo spiacenti, non abbiamo trovato nulla che soddisfi la tua ricerca!",
     "search-loading-msg":"Risultati della ricerca in caricamento...",
     "media-lightbox-error":"Media non trovato",
     "map-lightbox-error":"Mappa non trovata",
@@ -148,9 +149,18 @@
   },
   "discussion":{
     "share-default-title":"Forum su __siteName__",
+    "contributors-title":"Tutti i collaboratori",
     "sort-by-latest":"Più recenti",
     "sort-by-trending":"In Trend",
-    "number-of-posts":"__numberOfPosts__ Post"
+    "loading-more-posts":"Altri post in corso di caricamento",
+    "back-to-wikia-link":"Alla Wiki",
+    "number-of-posts":"__numberOfPosts__ Post",
+    "connection-error":"Impossibile connettersi. Riprova.",
+    "not-found-error":"Ops! Sembra che questa pagina non esista!",
+    "action-retry-title-desktop":"Clicca per riprovare",
+    "action-retry-title-mobile":"Tocca per riprovare",
+    "all-discussions-link-desktop":"Mostra tutti i forum",
+    "all-discussions-link-mobile":"Tutti i forum"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ o __loginLink__",
