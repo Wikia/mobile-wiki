@@ -9,7 +9,7 @@ App.CommunityBadgeComponent = Em.Component.extend({
 	// in place yet, and all launch wikis use a light theme, so for now it's hard-coded.
 	borderColor: '#f6f6f6',
 	imageStyle: Em.computed('borderColor', function (): Em.Handlebars.SafeString {
-		return new Em.Handlebars.SafeString('border: 2px solid ' + this.get('borderColor') + ';');
+		return new Em.Handlebars.SafeString(`border: 2px solid ${this.get('borderColor')};`);
 	}),
 
 	badgeImages: {
