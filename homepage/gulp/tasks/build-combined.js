@@ -10,7 +10,11 @@ var gulp = require('gulp'),
 	piper = require('../utils/piper');
 
 gulp.task('build-combined', ['scripts'], function () {
-	var src = ['front/js/main.js'];
+	var src = [
+		'vendor/jquery/dist/jquery.min.js',
+		'vendor/jquery-bigtext/jquery-bigtext.js',
+		'vendor/slick.js/slick/slick.min.js',
+		'front/js/main.js'];
 
 	if (!environment.isProduction) {
 		src.push('front/js/dev.js');
