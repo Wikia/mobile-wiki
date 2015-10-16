@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.CuratedContentEditorLayoutMixin = Em.Mixin.create({
 	imageProperties: {
 		url: '',

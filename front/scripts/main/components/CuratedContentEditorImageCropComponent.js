@@ -1,7 +1,7 @@
 App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLayoutMixin,
-	App.CuratedContentEditorThumbnailMixin,
+	App.CuratedContentThumbnailMixin,
 	App.TrackClickMixin,
 	App.ViewportMixin,
 	{
