@@ -9,11 +9,11 @@ App.ArticleRoute = Em.Route.extend({
 	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
-		if (Mercury.error) {
-			if (Mercury.error.code === 404) {
+		if (Mercury.articleError) {
+			if (Mercury.articleError.code === 404) {
 				this.transitionTo('notFound');
 			} else {
-				Em.Logger.debug('App error: ', Mercury.error);
+				Em.Logger.debug('Article error: ', Mercury.articleError);
 				transition.abort();
 			}
 		}

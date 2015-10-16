@@ -53,25 +53,33 @@ export class ArticleRequestHelper {
 		return Promise.settle(requests)
 			.then((results: Promise.Inspection<Promise<any>>[]) => {
 				var articlePromise: Promise.Inspection<Promise<any>> = results[0],
-					wikiPromise: Promise.Inspection<Promise<any>> = results[1],
+					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
+					isArticlePromiseFulfilled = articlePromise.isFulfilled(),
+					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
 					article: any,
-					wikiVariables: any;
+					data: any;
+
+				if (!isWikiVariablesPromiseFulfilled) {
+					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariablesPromise.reason()));
+				}
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
-				article = articlePromise.isFulfilled() ?
+				article = isArticlePromiseFulfilled ?
 					articlePromise.value() :
 					articlePromise.reason();
 
-				wikiVariables = wikiPromise.isFulfilled() ?
-					wikiPromise.value() :
-					wikiPromise.reason();
-
-				return {
-					article: article.data,
-					exception: article.exception,
+				data = {
+					article: article.data || {},
 					server: Utils.createServerData(localSettings, this.params.wikiDomain),
-					wiki: wikiVariables
+					wiki: wikiVariablesPromise.value()
 				};
+
+				if (isArticlePromiseFulfilled) {
+					return Promise.resolve(data);
+				} else {
+					data.exception = article.exception;
+					return Promise.reject(new MediaWiki.ArticleRequestError(data));
+				}
 			});
 	}
 

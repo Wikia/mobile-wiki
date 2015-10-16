@@ -122,9 +122,7 @@ App.ArticleModel.reopenClass({
 	},
 
 	getPreloadedData(): any {
-		var article = Mercury.article,
-			adsInstance: Mercury.Modules.Ads,
-			instantGlobals = Wikia.InstantGlobals || {};
+		var article = Mercury.article;
 
 		M.prop('articleContentPreloadedInDOM', false);
 
@@ -142,7 +140,6 @@ App.ArticleModel.reopenClass({
 			var error = source.error;
 
 			data = {
-				article: error.details,
 				cleanTitle: M.String.normalizeToWhitespace(model.title),
 				error: error
 			};

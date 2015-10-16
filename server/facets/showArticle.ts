@@ -5,6 +5,7 @@ import Promise = require('bluebird');
 import Article = require('../lib/Article');
 import Caching = require('../lib/Caching');
 import Logger = require('../lib/Logger');
+import MediaWiki = require('../lib/MediaWiki');
 import Tracking = require('../lib/Tracking');
 import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
@@ -45,41 +46,74 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 	article = new Article.ArticleRequestHelper(params);
 
 	if (path === '/' || path === '/wiki/') {
-		article
-			.getWikiVariables()
-			.then((wikiVariables: any): Promise<any> => {
-				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
-				article.setTitle(wikiVariables.mainPageTitle);
-
-				return Promise.join(wikiVariables, article.getArticle());
-			})
-			.spread((wikiVariables: any, article: any): void => {
-				article = article.data;
-				onArticleResponse(request, reply, article.exception, {
-					article,
-					wiki: wikiVariables
-				}, allowCache);
-			})
-			.catch(Utils.RedirectedToCanonicalHost, (): void => {
-				Logger.info('Redirected to canonical host');
-			})
-			.catch((error: any): void => {
-				Logger.error('Error when trying to serve an article', error);
-				reply.redirect(localSettings.redirectUrlOnNoData);
-			});
-	} else  {
+		redirectToMainPage(reply, article);
+	} else {
 		article.setTitle(request.params.title);
-
-		article
-			.getFull()
-			.then((result: any) => {
-				Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, result.wiki);
-				onArticleResponse(request, reply, result.exception, result, allowCache);
-			})
-			.catch(Utils.RedirectedToCanonicalHost, (): void => {
-				Logger.info('Redirected to canonical host');
-			});
+		getArticle(request, reply, article, allowCache);
 	}
+}
+
+/**
+ * This is used only locally, normally MediaWiki takes care of this redirect
+ *
+ * @param reply
+ * @param article
+ */
+function redirectToMainPage(reply: Hapi.Response, article: Article.ArticleRequestHelper): void {
+	article
+		.getWikiVariables()
+		.then(function (wikiVariables: any): void {
+			Logger.info('Redirected to main page');
+			reply.redirect('/wiki/' + wikiVariables.mainPageTitle);
+		})
+		.catch((error: any): void => {
+			Logger.error('WikiVariables error', error);
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		});
+}
+
+/**
+ * Gets wiki variables and article, handles errors on both promises
+ *
+ * @param request
+ * @param reply
+ * @param article
+ * @param allowCache
+ */
+function getArticle(request: Hapi.Request,
+				 reply: Hapi.Response,
+				 article: Article.ArticleRequestHelper,
+				 allowCache: boolean): void {
+	article
+		.getFull()
+		.then((data: any): void => {
+			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wiki);
+			onArticleResponse(request, reply, data, 200, allowCache);
+		})
+		.catch(MediaWiki.WikiVariablesRequestError, (error: any): void => {
+			Logger.error('WikiVariables error', error);
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		})
+		.catch(MediaWiki.ArticleRequestError, (error: any): void => {
+			var data = error.data,
+				errorCode = data.exception.code ? data.exception.code : 500;
+
+			Logger.error('Article error', data.exception);
+
+			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wiki);
+
+			data.articleError = data.exception;
+			delete data.exception;
+
+			onArticleResponse(request, reply, data, errorCode, allowCache);
+		})
+		.catch(Utils.RedirectedToCanonicalHost, (): void => {
+			Logger.info('Redirected to canonical host');
+		})
+		.catch((error: any): void => {
+			Logger.error('Fatal error, blame devs', error);
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		});
 }
 
 /**
@@ -87,54 +121,43 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
  *
  * @param {Hapi.Request} request
  * @param reply
- * @param error
  * @param result
+ * @param code
  * @param allowCache
  */
 function onArticleResponse (
 	request: Hapi.Request,
 	reply: any,
-	error: any,
 	result: any = {},
+	code: number = 200,
 	allowCache: boolean = true): void {
-		var code = 200,
-			response: Hapi.Response;
+		var response: Hapi.Response;
 
-		if (!result.article.details && !result.wiki.dbName) {
-			//if we have nothing to show, redirect to our fallback wiki
-			reply.redirect(localSettings.redirectUrlOnNoData);
+		Tracking.handleResponse(result, request);
+
+		// @TODO CONCF-761 decouple logic for main page and article. Move common part to another file.
+		if (result.article.isMainPage) {
+			prepareMainPageData(request, result);
 		} else {
-			Tracking.handleResponse(result, request);
-
-			if (error) {
-				code = error.code || error.statusCode || 500;
-				result.error = JSON.stringify(error);
-			}
-
-			// @TODO CONCF-761 decouple logic for main page and article. Move common part to another file.
-			if (result.article.isMainPage) {
-				prepareMainPageData(request, result);
-			} else {
-				prepareArticleData(request, result);
-			}
-
-			// all the third party scripts we don't want to load on noexternals
-			if (!result.queryParams.noexternals) {
-				// qualaroo
-				if (localSettings.qualaroo.enabled) {
-					result.qualarooScript = localSettings.qualaroo.scriptUrl;
-				}
-			}
-
-			response = reply.view('article', result);
-			response.code(code);
-			response.type('text/html; charset=utf-8');
-
-			if (allowCache) {
-				return Caching.setResponseCaching(response, cachingTimes);
-			}
-			return Caching.disableCache(response);
+			prepareArticleData(request, result);
 		}
+
+		// all the third party scripts we don't want to load on noexternals
+		if (!result.queryParams.noexternals) {
+			// qualaroo
+			if (localSettings.qualaroo.enabled) {
+				result.qualarooScript = localSettings.qualaroo.scriptUrl;
+			}
+		}
+
+		response = reply.view('article', result);
+		response.code(code);
+		response.type('text/html; charset=utf-8');
+
+		if (allowCache) {
+			return Caching.setResponseCaching(response, cachingTimes);
+		}
+		return Caching.disableCache(response);
 }
 
 export = showArticle;
