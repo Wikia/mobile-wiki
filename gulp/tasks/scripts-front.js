@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	gutil = require('gulp-util'),
 	orderedMergeStream = require('ordered-merge-stream'),
+	// TODO Fix in https://wikia-inc.atlassian.net/browse/XW-562
 	// newer = require('gulp-newer'),
 	ts = require('gulp-typescript'),
 	uglify = require('gulp-uglify'),
@@ -32,6 +33,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 		'!' + path.join(paths.src, folder, paths.tsdFiles),
 		path.join(paths.src, folder, paths.tsFiles)
 	])
+	// TODO Fix in https://wikia-inc.atlassian.net/browse/XW-562
 	// .pipe(newer(path.join(paths.dest, folder + '.js')))
 	.pipe(ts(tsProjects[folder])).js
 	.on('error', function () {
@@ -43,6 +45,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 
 	// build ES6
 	esStream = gulp.src(path.join(paths.src, folder, paths.jsFiles))
+		// TODO Fix in https://wikia-inc.atlassian.net/browse/XW-562
 		// .pipe(newer(path.join(paths.dest, folder + '.js')))
 		.pipe(babel());
 
