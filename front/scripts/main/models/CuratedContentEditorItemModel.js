@@ -138,6 +138,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 			if (!title) {
 				return reject();
 			}
+
 			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
