@@ -1,11 +1,15 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionForumModel = Em.Object.extend({
+App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
 	forumId: null,
 	name: null,
 	posts: null,
 	totalPosts: 0,
+
+	connectionError: null,
+	notFoundError: null,
 	contributors: [],
 
 	loadPage(pageNum: number) {
@@ -25,7 +29,10 @@ App.DiscussionForumModel = Em.Object.extend({
 
 					resolve(this);
 				},
-				error: (err: any) => reject(err)
+				error: (err: any) => {
+					this.setErrorProperty(err, this);
+					resolve(this);
+				}
 			});
 		});
 	},
@@ -86,10 +93,12 @@ App.DiscussionForumModel.reopenClass({
 						posts: posts,
 						totalPosts: totalPosts
 					});
-
 					resolve(forumInstance);
 				},
-				error: (err) => reject(err)
+				error: (err: any) => {
+					forumInstance.setErrorProperty(err, forumInstance);
+					resolve(forumInstance);
+				}
 			});
 		});
 	}

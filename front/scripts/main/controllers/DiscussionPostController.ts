@@ -26,11 +26,23 @@ App.DiscussionPostController = Em.Controller.extend({
 				this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
 			});
 		},
+
+		/**
+		 * @desc Bubbles up to DiscussionPostRoute
+		 */
+		retry(): void {
+			this.get('target').send('retry');
+		},
+
+		goToAllDiscussions(): void {
+			this.get('target').send('goToAllDiscussions');
+		},
+
 		goToForum(): void {
 			var model = this.get('model'),
 				forumId = Em.get(model, 'forumId');
 
-			this.transitionTo('discussion.forum', forumId, this.get('postListSort'));
+			this.get('target').send('goToForum', forumId, this.get('postListSort'));
 		}
 	}
 });
