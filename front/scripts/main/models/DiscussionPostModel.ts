@@ -78,19 +78,19 @@ App.DiscussionPostModel.reopenClass({
 						pivotId = replies[0].id;
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
-					}
 
-					replies.forEach(function (reply: any) {
-						var author: any;
-						if (reply.hasOwnProperty('createdBy')) {
-							author = reply.createdBy;
-							author.url = M.buildUrl({
-								namespace: 'User',
-								title: author.name
-							});
-							contributors.push(author);
-						}
-					});
+						replies.forEach(function (reply: any) {
+							var author: any;
+							if (reply.hasOwnProperty('createdBy')) {
+								author = reply.createdBy;
+								author.url = M.buildUrl({
+									namespace: 'User',
+									title: author.name
+								});
+								contributors.push(author);
+							}
+						});
+					}
 
 					postInstance.setProperties({
 						contributors: contributors,
