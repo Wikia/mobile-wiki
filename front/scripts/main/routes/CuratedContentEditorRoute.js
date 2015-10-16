@@ -34,11 +34,11 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 *
 		 * This will be not needed when we move to module system
 		 *
-		 * @param {JQueryXHR} promise
+		 * @param {JQueryXHR} promise promise
 		 * @returns {void}
 		 */
 		suppressDefineAmd(promise) {
-			var oldAmd;
+			let oldAmd;
 
 			if (window.define) {
 				oldAmd = window.define.amd;
@@ -56,7 +56,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		/**
 		 * Loads Cropper css and js
 		 *
-		 * @returns {JQueryXHR}
+		 * @returns {JQueryXHR} cropper
 		 */
 		loadCropper() {
 			this.set('cropperLoadingInitialized', true);
@@ -76,13 +76,13 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		/**
 		 * Loads Ponto
 		 *
-		 * @returns {JQueryXHR}
+		 * @returns {JQueryXHR} pronto
 		 */
 		loadPonto() {
 			this.set('pontoLoadingInitialized', true);
 
 			return Em.$.getScript(this.pontoPath, () => {
-				var ponto = window.Ponto;
+				const ponto = window.Ponto;
 
 				if (ponto && typeof ponto.setTarget === 'function') {
 					ponto.setTarget(ponto.TARGET_IFRAME_PARENT, window.location.origin);
@@ -196,7 +196,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * Called when user clicks on custom back button or after data is saved
 		 * Does transition to the main page or sends a message through Ponto if available
 		 *
-		 * @param {Boolean} dataSaved is data saved
+		 * @param {Boolean} dataSaved=false is data saved
 		 * @returns {void}
 		 */
 		handleTransitionToMainPage(dataSaved = false) {
@@ -224,6 +224,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			) {
 				return;
 			}
+
 			ponto.invoke(
 				// AMD module name in app
 				'curatedContentTool.pontoBridge',

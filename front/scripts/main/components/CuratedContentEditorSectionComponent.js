@@ -7,7 +7,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	{
 		imageWidth: 300,
-		thumbUrl: Em.computed('model', function () {
+		thumbUrl: Em.computed('model', function() {
 			return this.generateThumbUrl(this.get('model.image_url'));
 		}),
 		notEmptyItems: Em.computed.notEmpty('model.items'),
@@ -29,6 +29,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 				this.trackClick('curated-content-editor', 'section-item-edit');
 				this.sendAction('editItem', item);
 			},
+
 			/**
 			 * @returns {void}
 			 */
@@ -50,6 +51,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			 */
 			done() {
 				this.trackClick('curated-content-editor', 'section-done');
+
 				if (this.get('notEmptyItems')) {
 					this.validateAndDone();
 				} else {

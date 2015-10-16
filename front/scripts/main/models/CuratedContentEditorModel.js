@@ -100,7 +100,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 
 	/**
-	 * @desc Convert CuratedContentEditorModel to structure known by CuratedContent API
+	 * Convert CuratedContentEditorModel to structure known by CuratedContent API
 	 *
 	 * @param {CuratedContentEditorModel} model model to prepare
 	 * @returns {Object} converted object
@@ -112,7 +112,7 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @desc Accepts a raw object that comes from CuratedContent API and creates a model that we can use
+	 * Accepts a raw object that comes from CuratedContent API and creates a model that we can use
 	 *
 	 * @param {CuratedContentEditorRawSection[]} rawData data to sanitize
 	 * @returns {CuratedContentEditorModel} sanitized model
