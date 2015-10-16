@@ -11,8 +11,7 @@ App.DiscussionForumModel = Em.Object.extend({
 	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: M.getDiscussionServiceUrl() + '/' +
-					 this.wikiId + '/forums/' + this.forumId,
+				url: M.getDiscussionServiceUrl({}, `/${this.wikiId}/forums/${this.forumId}`),
 				data: {
 					page: pageNum
 				},
@@ -56,7 +55,7 @@ App.DiscussionForumModel.reopenClass({
 			}
 
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: M.getDiscussionServiceUrl() + `/${wikiId}/forums/${forumId}`,
+				url: M.getDiscussionServiceUrl({}, `/${wikiId}/forums/${forumId}`),
 				data: requestData,
 				dataType: 'json',
 				xhrFields: {

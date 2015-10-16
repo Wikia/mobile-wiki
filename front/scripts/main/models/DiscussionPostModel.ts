@@ -16,13 +16,14 @@ App.DiscussionPostModel = Em.Object.extend({
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: M.getDiscussionServiceUrl()+ '/' +
-					 this.wikiId + '/threads/' + this.postId +
-					 '?responseGroup=full' +
-					 '&sortDirection=descending&sortKey=creation_date' +
-					 '&limit=' + this.replyLimit +
-					 '&pivot=' + this.pivotId +
-					 '&page=' + (this.page + 1),
+				url: M.getDiscussionServiceUrl({
+						'responseGroup': 'full',
+						'sortDirection': 'descending',
+						'sortKey': 'creation_date',
+						'limit': this.replyLimit,
+						'pivot': this.pivot,
+						'page': this.page+1
+					},`/${this.wikiId}/threads/${this.postId}`),
 				dataType: 'json',
 				success: (data: any) => {
 					var newReplies = data._embedded['doc:posts'];
@@ -55,10 +56,12 @@ App.DiscussionPostModel.reopenClass({
 			});
 
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: M.getDiscussionServiceUrl() +
-					 `/${wikiId}/threads/${postId}` +
-					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
-					 '&limit=' + postInstance.replyLimit,
+				url: M.getDiscussionServiceUrl({
+					'responseGroup': 'full',
+					'sortDirection': 'descending',
+					'sortKey': 'creation_date',
+					'limit': postInstance.replyLimit
+				},`/${wikiId}/threads/${postId}`),
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
