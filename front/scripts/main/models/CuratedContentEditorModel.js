@@ -45,7 +45,7 @@ App.CuratedContentEditorModel = Em.Object.extend({
 App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorModel} model
-	 * @returns {Em.RSVP.Promise} server response
+	 * @returns {Em.RSVP.Promise} server response after save
 	 */
 	save(model) {
 		return new Em.RSVP.Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @returns {Em.RSVP.Promise} promise with data
+	 * @returns {Em.RSVP.Promise} model
 	 */
 	load() {
 		return new Em.RSVP.Promise((resolve, reject) => {
