@@ -4,16 +4,16 @@
 App.DiscussionAppPromotionComponent = Em.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
-	wikiaConfig: M.prop('wikiaConfig'),
+	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
 
-	androidAppLink: Em.computed('wikiaConfig', function () {
-		var wikiaConfig = this.get('wikiaConfig');
-		return wikiaConfig ? wikiaConfig.androidAppLink : null;
+	androidAppLink: Em.computed('discussionsSplashPageConfig', function () {
+		var discussionsSplashPageConfig = this.get('discussionsSplashPageConfig');
+		return discussionsSplashPageConfig ? discussionsSplashPageConfig.androidAppLink : null;
 	}),
 
-	iosAppLink: Em.computed('wikiaConfig', function () {
-		var wikiaConfig = this.get('wikiaConfig');
-		return wikiaConfig ? wikiaConfig.iosAppLink : null;
+	iosAppLink: Em.computed('discussionsSplashPageConfig', function () {
+		var discussionsSplashPageConfig = this.get('discussionsSplashPageConfig');
+		return discussionsSplashPageConfig ? discussionsSplashPageConfig.iosAppLink : null;
 	}),
 
 	shouldDisplay: Em.computed.and('androidAppLink', 'iosAppLink'),

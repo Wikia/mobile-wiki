@@ -9,7 +9,7 @@ import Tracking = require('../lib/Tracking');
 import OpenGraph = require('../lib/OpenGraph');
 import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
-import wikiaConfig = require('../../config/discussionsSplashPageConfig');
+import discussionsSplashPageConfig = require('../../config/discussionsSplashPageConfig');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
@@ -22,7 +22,7 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.queryParams = Utils.parseQueryParams(request.query, []);
 	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
-	context.wikiaConfig = getDistilledWikiaConfig(hostName);
+	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
 	wikiVariables.then((wikiVariables: any): Promise<any> => {
 		var contentDir: string;
@@ -56,13 +56,13 @@ function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: a
 	reply.view('application', context);
 }
 
-function getDistilledWikiaConfig(hostName: string): Object {
-	var distilledWikiaConfig = {};
-	if (wikiaConfig[hostName]) {
-		distilledWikiaConfig['androidAppLink'] = wikiaConfig[hostName].androidAppLink;
-		distilledWikiaConfig['iosAppLink'] = wikiaConfig[hostName].iosAppLink;
+function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
+	var distilledConfig = {};
+	if (discussionsSplashPageConfig[hostName]) {
+		distilledConfig['androidAppLink'] = discussionsSplashPageConfig[hostName].androidAppLink;
+		distilledConfig['iosAppLink'] = discussionsSplashPageConfig[hostName].iosAppLink;
 	}
-	return distilledWikiaConfig;
+	return distilledConfig;
 }
 
 export = showApplication;
