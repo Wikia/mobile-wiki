@@ -5,33 +5,40 @@
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
 }}
-{{discussion-hero-unit
-	contributors=model.contributors
-	numberOfPosts=model.totalPosts
-	name=model.name
-}}
-<div class="discussion-page row">
-	<div class="rail large-3 columns">
-		{{community-badge}}
-		{{discussion-back-button}}
-	</div>
-	<div class="small-12 large-6 columns">
-		{{discussion-sort
-			setSortBy='setSortBy'
-			sortVisible=sortVisible
-			sortBy=sortBy
-			sortTypes=sortTypes
-		}}
-		{{forum-wrapper
-			goToPost='goToPost'
-			loadPage='loadPage'
-			upvote='upvote'
-			name=model.name
-			posts=model.posts
-			postsDisplayed=model.posts.length
-			totalPosts=model.totalPosts
-		}}
-	</div>
-	<div class="rail large-3 columns">
+<div class="site-body">
+	{{discussion-hero-unit
+		contributors=model.contributors
+		numberOfPosts=model.totalPosts
+		name=model.name
+	}}
+	<div class="discussion-page row">
+		<div class="rail large-3 columns">
+			{{community-badge}}
+			<hr/>
+			{{discussion-back-button
+				href='/'
+				label='discussion.back-to-wikia-link'
+			}}
+			<hr/>
+		</div>
+		<div class="small-12 large-6 columns">
+			{{discussion-sort
+				setSortBy='setSortBy'
+				sortVisible=sortVisible
+				sortBy=sortBy
+				sortTypes=sortTypes
+			}}
+			{{forum-wrapper
+				goToPost='goToPost'
+				loadPage='loadPage'
+				upvote='upvote'
+				name=model.name
+				posts=model.posts
+				postsDisplayed=model.posts.length
+				totalPosts=model.totalPosts
+			}}
+		</div>
+		<div class="rail large-3 columns">
+		</div>
 	</div>
 </div>
