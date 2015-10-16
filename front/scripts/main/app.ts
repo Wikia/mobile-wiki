@@ -8,7 +8,6 @@
 /// <reference path="../mercury/utils/variantTesting.ts" />
 /// <reference path="../mercury/utils/track.ts" />
 /// <reference path="../mercury/utils/trackPerf.ts" />
-/// <reference path="../mercury/utils/discussionServiceUrl.ts" />
 /// <reference path="../../vendor/visit-source/dist/visit-source.d.ts" />
 
 'use strict';
