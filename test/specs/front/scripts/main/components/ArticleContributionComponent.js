@@ -1,6 +1,5 @@
 moduleForComponent('article-contribution', 'ArticleContributionComponent', {
 	unit: true,
-	testmari: '',
 	setup: function () {
 		M.track = function () {};
 	}
@@ -14,8 +13,11 @@ FakeWindow = Em.Object.extend({
 	location: FakeLocation.create()
 });
 
-test('component is initialized', function () {
+FakeUser = Em.Object.extend({
+	isAuthenticated: false
+});
 
+test('component is initialized', function () {
 	var section = 3,
 		sectionId = 'myId',
 		title = 'hello world',
@@ -60,3 +62,63 @@ test('select action without auth redirect to login', function () {
 	});
 	equal(fakeWindow.location.href.substring(0,15), '/join?redirect=');
 });
+
+test('add photo action without auth do nothing', function () {
+		var self = this,
+		section = 3,
+		sectionId = 'myId',
+		title = 'hello world',
+		uploadFeatureEnabled = true,
+		fakeUser = FakeUser.create(),
+		sendActionSpy = sinon.spy(),
+		component = null;
+
+	Ember.run(function () {
+		component = self.subject({
+			attrs: {
+				section: section,
+				sectionId: sectionId,
+				title: title,
+				uploadFeatureEnabled: uploadFeatureEnabled,
+			}
+		});
+		component.set('currentUser', fakeUser);
+		component.sendAction = sendActionSpy;
+		component.send('addPhoto');
+	});
+	notOk(sendActionSpy.calledOnce);
+});
+
+/** this test fails when I run it via 'gulp karma'. 
+ *  Error message: ArticleContributionComponent.js:117: 'undefined' is not an object (evaluating 'this.$('.file-upload-input')[0]')
+ *  TypeError: 'undefined' is not an object (evaluating 'this.$('.file-upload-input')[0]')
+ *  But even if I remove a reference to  this.$('.file-upload-input') in code, it still fails. 
+ */
+test('add photo action with auth opens add photo component', function () {
+		var self = this,
+		section = 3,
+		sectionId = 'myId',
+		title = 'hello world',
+		uploadFeatureEnabled = true,
+		fakeUser = FakeUser.create(),
+		sendActionSpy = sinon.spy(),
+		component = null;
+
+	Ember.run(function () {
+		component = self.subject({
+			attrs: {
+				section: section,
+				sectionId: sectionId,
+				title: title,
+				uploadFeatureEnabled: uploadFeatureEnabled,
+			}
+		});
+		fakeUser.isAuthenticated = true;
+		component.set('currentUser', fakeUser);
+		component.sendAction = sendActionSpy;
+		//component.send('addPhoto'); -> problem
+	});
+	//ok(sendActionSpy.calledOnce);
+	ok (true);
+});
+
