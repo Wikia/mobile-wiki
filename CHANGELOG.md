@@ -1,3 +1,6 @@
+## release-178 (2015-10-16 10:53 UTC)
+* [SOC-1193](https://wikia-inc.atlassian.net/browse/SOC-1193) SOC-1193 As a user, I want to see a generic temporary error discussion page if the service is down
+
 ## release-177 (2015-10-15 07:59 UTC)
 * [INT-200](https://wikia-inc.atlassian.net/browse/INT-200) Fix for text getting cut off in featured communities on Japa…
 * enable-discussions-on-staging: Maintenance | Enable discussion feature on all non-prod environments
