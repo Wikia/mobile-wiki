@@ -8,6 +8,6 @@
 		{{svg 'camera' role='img' class='icon camera'}}
 	</span>
 	{{#if currentUser.isAuthenticated}}
-	    <input class="file-upload-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>
+		<input class="file-upload-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>
 	{{/if}}
 </div>
