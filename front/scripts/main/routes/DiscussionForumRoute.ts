@@ -4,16 +4,21 @@
 'use strict';
 
 App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
+	defaultSortType: null,
 	forumId: null,
 
 	model(params: any) {
+		var sortBy: string;
 		this.set('forumId', params.forumId);
-		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
+
+		sortBy = params.sortBy || this.defaultSortType;
+		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
 	},
 
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
 		this._super(controller, model, transition);
-		controller.set('sortBy', transition.params['discussion.forum'].sortBy || controller.get('sortTypes')[0].name);
+		this.defaultSortType = controller.get('sortTypes')[0].name;
+		controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 	},
 
 	actions: {
@@ -30,6 +35,14 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
+		retry(): void {
+			this.refresh();
+		},
+
+		goToAllDiscussions(): void {
+			this.transitionTo('discussion.index');
+		},
+
 		setSortBy(sortBy: string): void {
 			var controller = this.controllerFor('discussionForum');
 
@@ -41,6 +54,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
 		},
+
 		didTransition(): boolean {
 			this.controllerFor('application').set('noMargins', true);
 			return true;

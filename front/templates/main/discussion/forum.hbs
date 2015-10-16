@@ -21,23 +21,33 @@
 			}}
 			<hr/>
 		</div>
-		<div class="small-12 large-6 columns">
-			{{discussion-sort
-				setSortBy='setSortBy'
-				sortVisible=sortVisible
-				sortBy=sortBy
-				sortTypes=sortTypes
+		{{#if model.connectionError}}
+			{{discussion-connection-error
+			retry=(action 'retry')
 			}}
-			{{forum-wrapper
-				goToPost='goToPost'
-				loadPage='loadPage'
-				upvote='upvote'
-				name=model.name
-				posts=model.posts
-				postsDisplayed=model.posts.length
-				totalPosts=model.totalPosts
+		{{else if model.notFoundError}}
+			{{discussion-not-found-error
+			goToAllDiscussions=(action 'goToAllDiscussions')
 			}}
-		</div>
+		{{else}}
+			<div class="small-12 large-6 columns">
+				{{discussion-sort
+					setSortBy='setSortBy'
+					sortVisible=sortVisible
+					sortBy=sortBy
+					sortTypes=sortTypes
+				}}
+				{{forum-wrapper
+					goToPost='goToPost'
+					loadPage='loadPage'
+					upvote='upvote'
+					name=model.name
+					posts=model.posts
+					postsDisplayed=model.posts.length
+					totalPosts=model.totalPosts
+				}}
+			</div>
+		{{/if}}
 		<div class="rail large-3 columns">
 			{{discussion-app-promotion}}
 		</div>
