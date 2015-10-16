@@ -35,8 +35,8 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 				label: 'add-photo-no-auth',
 				value: this.get('section')
 			});
-
-			windowObj = windowObj || window; //Injecting window obj for unit test.
+			//Injecting window obj for unit test.
+			windowObj = windowObj || window;
 			windowObj.location.href = href;
 		},
 
