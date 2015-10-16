@@ -36,7 +36,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 	// TODO Fix in https://wikia-inc.atlassian.net/browse/XW-562
 	// .pipe(newer(path.join(paths.dest, folder + '.js')))
 	.pipe(ts(tsProjects[folder])).js
-	.on('error', function () {
+	.on('error', function() {
 		if (gutil.env.testing && environment.isProduction) {
 			console.error('Build contains some typescript errors/warnings');
 			process.exit(1);
@@ -44,10 +44,14 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 	});
 
 	// build ES6
-	esStream = gulp.src(path.join(paths.src, folder, paths.jsFiles))
-		// TODO Fix in https://wikia-inc.atlassian.net/browse/XW-562
-		// .pipe(newer(path.join(paths.dest, folder + '.js')))
-		.pipe(babel());
+	esStream = gulp.src([
+		path.join(paths.src, folder, paths.jsFilesMixins),
+		path.join(paths.src, folder, paths.jsFilesRoutes),
+		path.join(paths.src, folder, paths.jsFilesComponents)
+	])
+	// TODO Fix in https://wikia-inc.atlassian.net/browse/XW-562
+	// .pipe(newer(path.join(paths.dest, folder + '.js')))
+	.pipe(babel());
 
 	return orderedMergeStream([tsStream, esStream])
 		.pipe(concat(folder + '.js'))

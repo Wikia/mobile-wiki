@@ -30,9 +30,12 @@ module.exports = {
 		front: {
 			src: 'front/scripts',
 			dest: basePath + '/front/scripts',
-			jsFiles: '**/*.js',
 			tsFiles: '**/*.ts',
-			tsdFiles: '**/*.d.js'
+			tsdFiles: '**/*.d.js',
+			// todo https://wikia-inc.atlassian.net/browse/XW-517
+			jsFilesMixins: '**/mixins/*.js',
+			jsFilesComponents: '**/components/*.js',
+			jsFilesRoutes: '**/components/*.js'
 		},
 		server: {
 			src: 'server/**/*.ts',
