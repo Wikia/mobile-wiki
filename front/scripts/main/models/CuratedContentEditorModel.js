@@ -1,42 +1,39 @@
-/// <reference path="../app.ts" />
-'use strict';
+/**
+ * CuratedContentEditorRawSection
+ * @typedef {Object} CuratedContentEditorRawSection
+ * @property {String} label
+ * @property {Number} image_id
+ * @property {CuratedContentImageCropData} [image_crop]
+ * @property {String} node_type
+ * @property {CuratedContentEditorRawSection[]} items
+ * @property {String} [image_url]
+ * @property {String} [featured]
+ * @property {String} [type]
+ */
 
-interface CuratedContentEditorRawSectionInterface {
-	label: string;
-	image_id: number;
-	image_crop?: {
-		landscape?: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-		square?: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-	};
-	node_type: string;
-	items: CuratedContentEditorRawSectionInterface[]
-	image_url?: string;
-	featured?: string;
-	type?: string;
-}
+/**
+ * CuratedContentValidationResponseError
+ * @typedef {Object} CuratedContentValidationResponseError
+ * @property {String} target
+ * @property {String} type
+ * @property {String} reason
+ */
 
-interface CuratedContentValidationResponseErrorInterface {
-	target: string;
-	type: string;
-	reason: string;
-}
+/**
+ * CuratedContentValidationResponse
+ * @typedef {Object} CuratedContentValidationResponse
+ * @property {Boolean} status
+ * @property {CuratedContentValidationResponseError[]} [error]
+ */
 
-interface CuratedContentValidationResponseInterface {
-	status: boolean;
-	error?: CuratedContentValidationResponseErrorInterface[];
-}
-
-type CuratedContentEditorModel = typeof App.CuratedContentEditorModel;
+/**
+ * CuratedContentEditorModel
+ * @typedef {Object} CuratedContentEditorModel
+ * @property {CuratedContentEditorItemModel[]} featured
+ * @property {CuratedContentEditorItemModel[]} curated
+ * @property {CuratedContentEditorItemModel[]} optional
+ * @property {Boolean} isDirty
+ */
 
 App.CuratedContentEditorModel = Em.Object.extend({
 	featured: null,
@@ -46,9 +43,13 @@ App.CuratedContentEditorModel = Em.Object.extend({
 });
 
 App.CuratedContentEditorModel.reopenClass({
-	save(model: CuratedContentEditorModel): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	/**
+	 * @param {CuratedContentEditorModel} model model to save
+	 * @returns {Em.RSVP.Promise} returns returns promise
+	 */
+	save(model) {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php',
 					query: {
@@ -59,19 +60,22 @@ App.CuratedContentEditorModel.reopenClass({
 				dataType: 'json',
 				method: 'POST',
 				data: this.prepareDataForSave(model),
-				success: (data: CuratedContentValidationResponseInterface): void => {
+				success: (data) => {
 					resolve(data);
 				},
-				error: (data: any): void => {
+				error: (data) => {
 					reject(data);
 				}
 			});
 		});
 	},
 
-	load(): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	/**
+	 * @returns {Em.RSVP.Promise} promise with data
+	 */
+	load() {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -80,14 +84,14 @@ App.CuratedContentEditorModel.reopenClass({
 					method: 'getData',
 					format: 'json'
 				},
-				success: (data: any): void => {
+				success: (data) => {
 					if (Em.isArray(data.data)) {
 						resolve(App.CuratedContentEditorModel.sanitize(data.data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
 				},
-				error: (data: any): void => {
+				error: (data) => {
 					reject(data);
 				}
 			});
@@ -98,10 +102,10 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @desc Convert CuratedContentEditorModel to structure known by CuratedContent API
 	 *
-	 * @param model CuratedContentEditorModel
-	 * @returns {Object}
+	 * @param {CuratedContentEditorModel} model model to prepare
+	 * @returns {Object} converted object
 	 */
-	prepareDataForSave(model: CuratedContentEditorModel): any {
+	prepareDataForSave(model) {
 		return {
 			data: [].concat(model.featured, model.curated.items, model.optional)
 		};
@@ -110,29 +114,29 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @desc Accepts a raw object that comes from CuratedContent API and creates a model that we can use
 	 *
-	 * @param rawData
-	 * @returns {Object}
+	 * @param {CuratedContentEditorRawSection[]} rawData data to sanitize
+	 * @returns {CuratedContentEditorModel} sanitized model
 	 */
-	sanitize(rawData: any): CuratedContentEditorModel {
+	sanitize(rawData) {
 		/**
 		 * Label inside "optional" has to be initialized with empty string value.
 		 * Code inside CuratedContentController:getSections (MW) decides based on this label
 		 * if it's optional or not. If it's null it will fail rendering main page.
 		 */
-		var featured: any = {
-				items: <any>[],
+		const curated = {
+			items: []
+		};
+		let featured = {
+				items: [],
 				featured: 'true',
 			},
-			curated: any = {
-				items: <any>[]
-			},
-			optional: any = {
-				items: <any>[],
+			optional = {
+				items: [],
 				label: ''
 			};
 
 		if (rawData.length) {
-			rawData.forEach((section: CuratedContentEditorRawSectionInterface): void => {
+			rawData.forEach((section) => {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.label === '') {
@@ -144,16 +148,21 @@ App.CuratedContentEditorModel.reopenClass({
 		}
 
 		return App.CuratedContentEditorModel.create({
-			featured: featured,
-			curated: curated,
-			optional: optional
+			featured,
+			curated,
+			optional
 		});
 	},
 
-	getItem(parent: CuratedContentEditorItemModel, itemLabel: string): CuratedContentEditorItemModel {
-		var item: CuratedContentEditorItemModel = null;
+	/**
+	 * @param {CuratedContentEditorItemModel} parentItem parent item
+	 * @param {String} itemLabel label of an item to get
+	 * @returns {CuratedContentEditorItemModel} item
+	 */
+	getItem(parentItem, itemLabel) {
+		let item = null;
 
-		parent.items.some((itemObj: CuratedContentEditorItemModel): boolean => {
+		parentItem.items.some((itemObj) => {
 			if (itemObj.label === itemLabel) {
 				item = App.CuratedContentEditorItemModel.createNew(itemObj);
 				return true;
@@ -163,9 +172,14 @@ App.CuratedContentEditorModel.reopenClass({
 		return item;
 	},
 
-	getAlreadyUsedNonFeaturedItemsLabels(modelRoot: CuratedContentEditorModel, excludedLabel: string = null): string[] {
+	/**
+	 * @param {CuratedContentEditorItemModel} modelRoot root to search in
+	 * @param {String} excludedLabel=null label excluded from search
+	 * @returns {String[]} already used labels
+	 */
+	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
 		// Flatten the array
-		return [].concat.apply([], modelRoot.curated.items.map((section: CuratedContentEditorItemModel): string[] =>
+		return [].concat.apply([], modelRoot.curated.items.map((section) =>
 			// Labels of section items
 			this.getAlreadyUsedLabels(section, excludedLabel)
 		).concat(
@@ -174,36 +188,45 @@ App.CuratedContentEditorModel.reopenClass({
 		));
 	},
 
-	getAlreadyUsedLabels(
-		sectionOrBlock: CuratedContentEditorItemModel,
-		excludedLabel: string = null
-	): string[] {
-		var labels: string[] = [];
+	/**
+	 * @param {CuratedContentEditorItemModel} sectionOrBlock root to search in
+	 * @param {String} excludedLabel=null label excluded from search
+	 * @returns {String[]} already used labels
+	 */
+	getAlreadyUsedLabels(sectionOrBlock, excludedLabel = null) {
+		let labels = [];
 
 		if (Array.isArray(sectionOrBlock.items)) {
-			labels = sectionOrBlock.items.map((item: CuratedContentEditorItemModel): string => {
-				var itemLabel: string = Em.get(item, 'label');
+			labels = sectionOrBlock.items.map((item) => {
+				const itemLabel = Em.get(item, 'label');
 
 				return (excludedLabel === null || itemLabel !== excludedLabel) ? itemLabel : null;
-			}).filter((item: any): boolean => typeof item === 'string');
+			}).filter((item) => typeof item === 'string');
 		}
 
 		return labels;
 	},
 
-	addItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel): void {
-		//When parent doesn't have items we need to initialize them
-		parent.items = parent.items || [];
-		parent.items.push(newItem.toPlainObject());
+	/**
+	 * @param {CuratedContentEditorItemModel} parentItem parent item
+	 * @param {CuratedContentEditorItemModel} newItem item to add
+	 * @returns {void}
+	 */
+	addItem(parentItem, newItem) {
+		// When parent doesn't have items we need to initialize them
+		parentItem.items = parentItem.items || [];
+		parentItem.items.push(newItem.toPlainObject());
 		App.CuratedContentEditorModel.isDirty = true;
 	},
 
-	updateItem(parent: CuratedContentEditorItemModel, newItem: CuratedContentEditorItemModel, itemLabel: string): void {
-		parent.items.forEach((
-			item: CuratedContentEditorItemModel,
-			index: number,
-			parentItems: CuratedContentEditorItemModel[]
-		): void => {
+	/**
+	 * @param {CuratedContentEditorItemModel} parentItem parent item
+	 * @param {CuratedContentEditorItemModel} newItem item to update
+	 * @param {String} itemLabel item's original label
+	 * @returns {void}
+	 */
+	updateItem(parentItem, newItem, itemLabel) {
+		parentItem.items.forEach((item, index, parentItems) => {
 			if (item.label === itemLabel) {
 				parentItems[index] = newItem.toPlainObject();
 			}
@@ -211,12 +234,13 @@ App.CuratedContentEditorModel.reopenClass({
 		App.CuratedContentEditorModel.isDirty = true;
 	},
 
-	deleteItem(parent: CuratedContentEditorItemModel, itemLabel: string): void {
-		parent.items = parent.items.filter((
-				item: CuratedContentEditorItemModel
-			): boolean => {
-				return item.label !== itemLabel;
-		});
+	/**
+	 * @param {CuratedContentEditorItemModel} parentItem parent item
+	 * @param {String} itemLabel label of an item to get
+	 * @returns {void}
+	 */
+	deleteItem(parentItem, itemLabel) {
+		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);
 		App.CuratedContentEditorModel.isDirty = true;
 	}
 });

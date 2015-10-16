@@ -1,9 +1,25 @@
 /**
+ * CuratedContentImageCropSingleData
+ * @typedef {Object} CuratedContentImageCropSingleData
+ * @property {Number} x
+ * @property {Number} y
+ * @property {Number} width
+ * @property {Number} height
+ */
+
+/**
+ * CuratedContentImageCropData
+ * @typedef {Object} CuratedContentImageCropData
+ * @property {CuratedContentImageCropSingleData} [landscape]
+ * @property {CuratedContentImageCropSingleData} [square]
+ */
+
+/**
  * CuratedContentEditorItemModel
  * @typedef {Object} CuratedContentEditorItemModel
  * @property {Number} article_id
  * @property {Number} image_id
- * @property {Object} image_crop
+ * @property {CuratedContentImageCropData} image_crop
  * @property {String} image_url
  * @property {CuratedContentEditorItemModel[]} items
  * @property {String} label
