@@ -37,7 +37,7 @@ module.exports = {
 			jsFilesModels: '**/models/*.js',
 			jsFilesMixins: '**/mixins/*.js',
 			jsFilesComponents: '**/components/*.js',
-			jsFilesRoutes: '**/components/*.js'
+			jsFilesRoutes: '**/routes/*.js'
 		},
 		server: {
 			src: 'server/**/*.ts',
