@@ -7,7 +7,7 @@
   "globals": {
     "App": true,
     "Em": true,
-    "Mercury": true,
+    "M": true,
     "i18n": true
   },
   "rules": {

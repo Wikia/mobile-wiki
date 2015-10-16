@@ -1,9 +1,16 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/ObjectUtilitiesMixin.ts" />
-'use strict';
-
-type CuratedContentEditorItemModel = typeof App.CuratedContentEditorItemModel;
-
+/**
+ * CuratedContentEditorItemModel
+ * @typedef {Object} CuratedContentEditorItemModel
+ * @property {Number} article_id
+ * @property {Number} image_id
+ * @property {Object} image_crop
+ * @property {String} image_url
+ * @property {CuratedContentEditorItemModel[]} items
+ * @property {String} label
+ * @property {String} node_type
+ * @property {String} title
+ * @property {String} type
+ */
 App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	article_id: null,
 	image_id: null,
@@ -16,15 +23,22 @@ App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	type: null
 });
 
-interface CuratedContentGetImageResponse {
-	url: string;
-	id: number;
-}
+/**
+ * CuratedContentGetImageResponse
+ * @typedef {Object} CuratedContentGetImageResponse
+ * @property {String} url
+ * @property {id} image_id
+ */
 
 App.CuratedContentEditorItemModel.reopenClass({
-	// Object Model instance is only created once and all create() method invocations return already created object.
-	// Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
-	createNew(params: any = {}): CuratedContentEditorItemModel {
+	/**
+	 * Object Model instance is only created once and all create() method invocations return already created object.
+	 * Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
+	 *
+	 * @param {Object} params params to extend
+	 * @returns {CuratedContentEditorItemModel} model
+	 */
+	createNew(params = {}) {
 		var modelParams = $.extend(true, {
 			article_id: null,
 			image_id: null,
@@ -40,9 +54,14 @@ App.CuratedContentEditorItemModel.reopenClass({
 		return App.CuratedContentEditorItemModel.create(modelParams);
 	},
 
-	getImage(title: string, size: number): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	/**
+	 * @param {String} title title of the article
+	 * @param {Number} size desired size
+	 * @returns {Em.RSVP.Promise} promise
+	 */
+	getImage(title, size) {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php',
 				}),
@@ -53,47 +72,56 @@ App.CuratedContentEditorItemModel.reopenClass({
 					size
 				},
 				dataType: 'json',
-				success: (data: CuratedContentValidationResponseInterface): void => {
-					resolve(data);
+				success: (response) => {
+					resolve(response);
 				},
-				error: (data: any): void => {
-					reject(data);
+				error: (error) => {
+					reject(error);
 				}
 			});
 		});
 	},
 
-	validateServerData(item: CuratedContentEditorItemModel, data: any): Em.RSVP.Promise {
-		data = $.extend({}, data, {
+	/**
+	 * @param {CuratedContentEditorItemModel} item model to validate
+	 * @param {Object} data data to extend
+	 * @returns {Em.RSVP.Promise} promise
+	 */
+	validateServerData(item, data) {
+		const completeData = $.extend({}, data, {
 			controller: 'CuratedContentValidator',
 			item: item.toPlainObject(),
 			format: 'json'
 		});
 
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
-				data,
+				data: completeData,
 				method: 'POST',
 				dataType: 'json',
-				success: (data: CuratedContentValidationResponseInterface): void => {
-					resolve(data);
+				success: (response) => {
+					resolve(response);
 				},
-				error: (data: any): void => {
-					reject(data);
+				error: (error) => {
+					reject(error);
 				}
 			});
 		});
 	},
 
-	getSearchSuggestions(title: string): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+	/**
+	 * @param {String} title title to get search suggestions
+	 * @returns {Em.RSVP.Promise} promise
+	 */
+	getSearchSuggestions(title) {
+		return new Em.RSVP.Promise((resolve, reject) => {
 			if (!title) {
 				return reject();
 			}
-			Em.$.ajax(<JQueryAjaxSettings>{
+			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -103,11 +131,11 @@ App.CuratedContentEditorItemModel.reopenClass({
 					query: title
 				},
 				dataType: 'json',
-				success: (data: CuratedContentValidationResponseInterface): void => {
-					resolve(data);
+				success: (response) => {
+					resolve(response);
 				},
-				error: (data: any): void => {
-					reject(data);
+				error: (error) => {
+					reject(error);
 				}
 			});
 		});
