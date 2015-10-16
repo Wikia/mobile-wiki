@@ -165,7 +165,7 @@
     "padded-blocks": 0,
     "quote-props": [2, "as-needed"],
     "quotes": [2, "single"],
-    "require-jsdoc": 2,
+    "require-jsdoc": [2, {"requireReturn": false}],
     "semi-spacing": [2, {"before": false, "after": true}],
     "semi": [2, "always"],
     "sort-vars": 0,
