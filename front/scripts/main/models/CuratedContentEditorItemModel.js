@@ -89,12 +89,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 					size
 				},
 				dataType: 'json',
-				success: (response) => {
-					resolve(response);
-				},
-				error: (error) => {
-					reject(error);
-				}
+				success: (response) => resolve(response),
+				error: (error) => reject(error)
 			});
 		});
 	},
@@ -119,12 +115,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 				data: completeData,
 				method: 'POST',
 				dataType: 'json',
-				success: (response) => {
-					resolve(response);
-				},
-				error: (error) => {
-					reject(error);
-				}
+				success: (response) => resolve(response),
+				error: (error) => reject(error)
 			});
 		});
 	},
@@ -149,12 +141,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 					query: title
 				},
 				dataType: 'json',
-				success: (response) => {
-					resolve(response);
-				},
-				error: (error) => {
-					reject(error);
-				}
+				success: (response) => resolve(response),
+				error: (error) => reject(error)
 			});
 		});
 	}
