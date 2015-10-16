@@ -45,6 +45,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 
 	// build ES6
 	esStream = gulp.src([
+		path.join(paths.src, folder, paths.jsFilesMmodels),
 		path.join(paths.src, folder, paths.jsFilesMixins),
 		path.join(paths.src, folder, paths.jsFilesRoutes),
 		path.join(paths.src, folder, paths.jsFilesComponents)

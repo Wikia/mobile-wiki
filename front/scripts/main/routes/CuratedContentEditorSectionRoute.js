@@ -1,24 +1,33 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-
-'use strict';
-
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
-	serialize(model: CuratedContentEditorItemModel): any {
+	/**
+	 * @param {CuratedContentEditorItemModel} model model to serialize
+	 * @returns {Object} serialized label
+	 */
+	serialize(model) {
 		return {
 			section: model.label
 		};
 	},
 
-	model(params: any): CuratedContentEditorItemModel {
-		var section: string = decodeURIComponent(params.section),
-			rootModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor');
+	/**
+	 * @param {Object} params params to decode
+	 * @returns {CuratedContentEditorItemModel} section section
+	 */
+	model(params) {
+		const section = decodeURIComponent(params.section),
+			curatedSections = this.modelFor('curatedContentEditor').curated;
 
-		return App.CuratedContentEditorModel.getItem(rootModel['curated'], section);
+		return App.CuratedContentEditorModel.getItem(curatedSections, section);
 	},
 
-	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+	/**
+	 * @param {Object} controller controller to set
+	 * @param {CuratedContentEditorItemModel} model CuratedContentEditorItemModel
+	 * @param {EmberState.Transition} transition Ember transition
+	 * @returns {void}
+	 */
+	setupController(controller, model, transition) {
+		const rootModel = this.modelFor('curatedContentEditor'),
 			alreadyUsedItemsLabels = App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel);
 
 		this._super(controller, model, transition);
@@ -29,33 +38,51 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	actions: {
-		goBack(): void {
+		/**
+		 * @returns {void}
+		 */
+		goBack() {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		addItem(): void  {
+		/**
+		 * @returns {void}
+		 */
+		addItem() {
 			this.transitionTo('curatedContentEditor.section.addItem');
 		},
 
-		editItem(item: CuratedContentEditorItemModel): void {
+		/**
+		 * @param {CuratedContentEditorItemModel} item item to edit
+		 * @returns {void}
+		 */
+		editItem(item) {
 			this.transitionTo('curatedContentEditor.section.editItem', encodeURIComponent(item.label));
 		},
 
-		editSection(): void {
+		/**
+		 * @returns {void}
+		 */
+		editSection() {
 			this.transitionTo('curatedContentEditor.section.edit');
 		},
 
-		done(newSection: CuratedContentEditorItemModel): void {
-			var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				controller: any = this.controllerFor('curatedContentEditor.section'),
-				originalSectionLabel: string = controller.get('originalSectionLabel'),
-				isNewSection: boolean = controller.get('isNewSection');
+
+		/**
+		 * @param {CuratedContentEditorItemModel} newSection section to save
+		 * @returns {void}
+		 */
+		done(newSection) {
+			const curatedSections = this.modelFor('curatedContentEditor').curated,
+				controller = this.controllerFor('curatedContentEditor.section'),
+				originalSectionLabel = controller.get('originalSectionLabel'),
+				isNewSection = controller.get('isNewSection');
 
 			if (isNewSection) {
-				App.CuratedContentEditorModel.addItem(rootModel['curated'], newSection);
+				App.CuratedContentEditorModel.addItem(curatedSections, newSection);
 				controller.set('isNewSection', null);
 			} else {
-				App.CuratedContentEditorModel.updateItem(rootModel['curated'], newSection, originalSectionLabel);
+				App.CuratedContentEditorModel.updateItem(curatedSections, newSection, originalSectionLabel);
 			}
 
 			this.transitionTo('curatedContentEditor.index');
