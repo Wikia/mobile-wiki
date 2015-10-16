@@ -35,6 +35,20 @@ App.DiscussionForumController = Em.Controller.extend({
 
 		hideSortComponent(): void {
 			this.set('sortVisible', false);
+		},
+
+		/**
+		 * @desc Bubbles up to DiscussionForumRoute
+		 */
+		retry(): void {
+			this.get('target').send('retry');
+		},
+
+		/**
+		 * @desc Bubbles up to DiscussionForumRoute
+		 */
+		goToAllDiscussions(): void {
+			this.get('target').send('goToAllDiscussions');
 		}
 	}
 });
