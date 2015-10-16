@@ -3,7 +3,12 @@ $horizontal-padding: 15px;
 .discussion-page {
 	width: 100%;
 }
-
+#upvote {
+	.back {
+		fill: $upvote-icon-back-color;
+		stroke: $upvote-icon-back-color;
+	}
+}
 .discussion {
 	background-color: $discussion-bg-color;
 	font-size: $type-smallest;

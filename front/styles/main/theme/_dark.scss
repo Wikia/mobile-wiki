@@ -3,6 +3,13 @@ body.dark-theme {
 }
 
 .dark-theme {
+	#upvote {
+		.back {
+			fill: $dark-upvote-icon-back-color;
+			stroke: $dark-upvote-icon-back-color;
+		}
+	}
+
 	button[type='submit'][disabled] {
 		background-color: $dark-button-color;
 		border-color: $dark-button-color;
