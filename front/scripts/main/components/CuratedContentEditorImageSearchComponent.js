@@ -78,4 +78,5 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 					this.set('spinnerOverlay', false);
 				});
 		}
-	});
+	}
+);

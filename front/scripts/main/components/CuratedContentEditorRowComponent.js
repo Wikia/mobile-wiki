@@ -31,4 +31,5 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 				this.sendAction('moveBy', offset, this.get('model'));
 			}
 		}
-	});
+	}
+);

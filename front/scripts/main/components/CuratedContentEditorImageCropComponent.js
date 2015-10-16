@@ -149,4 +149,5 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 				$imgElement.cropper(this.get('currentCropperSettings'));
 			}
 		}
-	});
+	}
+);

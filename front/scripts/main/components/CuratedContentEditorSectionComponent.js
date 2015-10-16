@@ -119,4 +119,5 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 				});
 			}
 		}
-	});
+	}
+);
