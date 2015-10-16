@@ -10,8 +10,8 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
 
 		actions: {
 			/**
-			 * @param {Number} offset offset to move by
-			 * @param {CuratedContentEditorItemModel} item element to move
+			 * @param {Number} offset
+			 * @param {CuratedContentEditorItemModel} item
 			 * @returns {void}
 			 */
 			moveBy(offset, item) {

@@ -14,7 +14,7 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} item item to edit
+		 * @param {CuratedContentEditorItemModel} item
 		 * @returns {void}
 		 */
 		editItem(item) {
@@ -22,11 +22,11 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(App.CuratedContentE
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} item section to open
+		 * @param {CuratedContentEditorItemModel} section
 		 * @returns {void}
 		 */
-		openSection(item) {
-			this.sendAction('openSection', item);
+		openSection(section) {
+			this.sendAction('openSection', section);
 		},
 
 		/**

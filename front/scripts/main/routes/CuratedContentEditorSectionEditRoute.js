@@ -1,15 +1,15 @@
 App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 	/**
-	 * @returns {CuratedContentEditorItemModel} model for section
+	 * @returns {CuratedContentEditorItemModel} model
 	 */
 	model() {
 		return $.extend(true, {}, this.modelFor('curatedContentEditor.section'));
 	},
 
 	/**
-	 * @param {Object} controller controller to set
-	 * @param {CuratedContentEditorItemModel} model CuratedContentEditorItemModel
-	 * @param {EmberState.Transition} transition Ember transition
+	 * @param {Object} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
 	setupController(controller, model, transition) {
@@ -38,7 +38,7 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} newSection section to go
+		 * @param {CuratedContentEditorItemModel} newSection
 		 * @returns {void}
 		 */
 		done(newSection) {
@@ -49,7 +49,6 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 		},
 
 		/**
-		 * Delete section
 		 * @returns {void}
 		 */
 		deleteItem() {

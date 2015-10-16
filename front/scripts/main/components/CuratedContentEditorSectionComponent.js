@@ -22,7 +22,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {CuratedContentEditorItemModel} item item to edit
+			 * @param {CuratedContentEditorItemModel} item
 			 * @returns {void}
 			 */
 			editItem(item) {
@@ -102,7 +102,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {String} reason error reason
+		 * @param {String} reason
 		 * @returns {void}
 		 */
 		processValidationError(reason) {

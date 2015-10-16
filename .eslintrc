@@ -36,7 +36,7 @@
     "no-sparse-arrays": 2,
     "no-unreachable": 2,
     "use-isnan": 2,
-    "valid-jsdoc": 2,
+    "valid-jsdoc": [2, {"requireParamDescription": false}],
     "valid-typeof": 2,
     "no-unexpected-multiline": 2,
     // Best Practices
@@ -165,7 +165,7 @@
     "padded-blocks": 0,
     "quote-props": [2, "as-needed"],
     "quotes": [2, "single"],
-    "require-jsdoc": [2, {"requireReturn": false}],
+    "require-jsdoc": 2,
     "semi-spacing": [2, {"before": false, "after": true}],
     "semi": [2, "always"],
     "sort-vars": 0,

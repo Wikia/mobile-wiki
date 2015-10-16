@@ -44,8 +44,8 @@ App.CuratedContentEditorModel = Em.Object.extend({
 
 App.CuratedContentEditorModel.reopenClass({
 	/**
-	 * @param {CuratedContentEditorModel} model model to save
-	 * @returns {Em.RSVP.Promise} returns returns promise
+	 * @param {CuratedContentEditorModel} model
+	 * @returns {Em.RSVP.Promise} server response
 	 */
 	save(model) {
 		return new Em.RSVP.Promise((resolve, reject) => {
@@ -102,7 +102,7 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * Convert CuratedContentEditorModel to structure known by CuratedContent API
 	 *
-	 * @param {CuratedContentEditorModel} model model to prepare
+	 * @param {CuratedContentEditorModel} model
 	 * @returns {Object} converted object
 	 */
 	prepareDataForSave(model) {
@@ -114,8 +114,8 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * Accepts a raw object that comes from CuratedContent API and creates a model that we can use
 	 *
-	 * @param {CuratedContentEditorRawSection[]} rawData data to sanitize
-	 * @returns {CuratedContentEditorModel} sanitized model
+	 * @param {CuratedContentEditorRawSection[]} rawData
+	 * @returns {CuratedContentEditorModel} sanitized
 	 */
 	sanitize(rawData) {
 		/**
@@ -155,8 +155,8 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} parentItem parent item
-	 * @param {String} itemLabel label of an item to get
+	 * @param {CuratedContentEditorItemModel} parentItem
+	 * @param {String} itemLabel
 	 * @returns {CuratedContentEditorItemModel} item
 	 */
 	getItem(parentItem, itemLabel) {
@@ -173,8 +173,8 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} modelRoot root to search in
-	 * @param {String} excludedLabel=null label excluded from search
+	 * @param {CuratedContentEditorItemModel} modelRoot
+	 * @param {String} excludedLabel=null
 	 * @returns {String[]} already used labels
 	 */
 	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
@@ -189,8 +189,8 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} sectionOrBlock root to search in
-	 * @param {String} excludedLabel=null label excluded from search
+	 * @param {CuratedContentEditorItemModel} sectionOrBlock
+	 * @param {String} excludedLabel=null
 	 * @returns {String[]} already used labels
 	 */
 	getAlreadyUsedLabels(sectionOrBlock, excludedLabel = null) {
@@ -208,8 +208,8 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} parentItem parent item
-	 * @param {CuratedContentEditorItemModel} newItem item to add
+	 * @param {CuratedContentEditorItemModel} parentItem
+	 * @param {CuratedContentEditorItemModel} newItem
 	 * @returns {void}
 	 */
 	addItem(parentItem, newItem) {
@@ -220,9 +220,9 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} parentItem parent item
-	 * @param {CuratedContentEditorItemModel} newItem item to update
-	 * @param {String} itemLabel item's original label
+	 * @param {CuratedContentEditorItemModel} parentItem
+	 * @param {CuratedContentEditorItemModel} newItem
+	 * @param {String} itemLabel - item's original label
 	 * @returns {void}
 	 */
 	updateItem(parentItem, newItem, itemLabel) {
@@ -235,8 +235,8 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} parentItem parent item
-	 * @param {String} itemLabel label of an item to get
+	 * @param {CuratedContentEditorItemModel} parentItem
+	 * @param {String} itemLabel
 	 * @returns {void}
 	 */
 	deleteItem(parentItem, itemLabel) {

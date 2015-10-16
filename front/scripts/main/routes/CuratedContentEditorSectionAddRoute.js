@@ -10,9 +10,9 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {Object} controller controller to set
-	 * @param {CuratedContentEditorItemModel} model CuratedContentEditorItemModel
-	 * @param {EmberState.Transition} transition Ember transition
+	 * @param {Object} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
 	setupController(controller, model, transition) {
@@ -38,7 +38,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} newSection section to add
+		 * @param {CuratedContentEditorItemModel} newSection
 		 * @returns {void}
 		 */
 		done(newSection) {
@@ -50,7 +50,6 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		},
 
 		/**
-		 * Delete section
 		 * @returns {void}
 		 */
 		deleteItem() {

@@ -27,6 +27,14 @@
  * @property {String} title
  * @property {String} type
  */
+
+/**
+ * CuratedContentGetImageResponse
+ * @typedef {Object} CuratedContentGetImageResponse
+ * @property {String} url
+ * @property {id} image_id
+ */
+
 App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	article_id: null,
 	image_id: null,
@@ -39,23 +47,16 @@ App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	type: null
 });
 
-/**
- * CuratedContentGetImageResponse
- * @typedef {Object} CuratedContentGetImageResponse
- * @property {String} url
- * @property {id} image_id
- */
-
 App.CuratedContentEditorItemModel.reopenClass({
 	/**
 	 * Object Model instance is only created once and all create() method invocations return already created object.
 	 * Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
 	 *
-	 * @param {Object} params params to extend
+	 * @param {Object} params
 	 * @returns {CuratedContentEditorItemModel} model
 	 */
 	createNew(params = {}) {
-		var modelParams = $.extend(true, {
+		const modelParams = $.extend(true, {
 			article_id: null,
 			image_id: null,
 			image_crop: null,
@@ -71,9 +72,9 @@ App.CuratedContentEditorItemModel.reopenClass({
 	},
 
 	/**
-	 * @param {String} title title of the article
-	 * @param {Number} size desired size
-	 * @returns {Em.RSVP.Promise} promise
+	 * @param {String} title
+	 * @param {Number} size
+	 * @returns {Em.RSVP.Promise} image data
 	 */
 	getImage(title, size) {
 		return new Em.RSVP.Promise((resolve, reject) => {
@@ -99,9 +100,9 @@ App.CuratedContentEditorItemModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} item model to validate
-	 * @param {Object} data data to extend
-	 * @returns {Em.RSVP.Promise} promise
+	 * @param {CuratedContentEditorItemModel} item
+	 * @param {Object} data
+	 * @returns {Em.RSVP.Promise} server response
 	 */
 	validateServerData(item, data) {
 		const completeData = $.extend({}, data, {
@@ -129,8 +130,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 	},
 
 	/**
-	 * @param {String} title title to get search suggestions
-	 * @returns {Em.RSVP.Promise} promise
+	 * @param {String} title
+	 * @returns {Em.RSVP.Promise} search suggestions
 	 */
 	getSearchSuggestions(title) {
 		return new Em.RSVP.Promise((resolve, reject) => {

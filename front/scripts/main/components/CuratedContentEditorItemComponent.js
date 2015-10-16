@@ -10,7 +10,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		/**
-		 * @param {CuratedContentEditorModel} model model to save
+		 * @param {CuratedContentEditorModel} model
 		 * @returns {void}
 		 */
 		done(model) {
@@ -25,7 +25,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(App.CuratedContentEd
 		},
 
 		/**
-		 * @param {String} newLayoutName new layout name
+		 * @param {String} newLayoutName
 		 * @returns {void}
 		 */
 		changeLayout(newLayoutName) {

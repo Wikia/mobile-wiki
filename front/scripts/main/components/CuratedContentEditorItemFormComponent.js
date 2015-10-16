@@ -117,6 +117,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		/**
 		 * When user taps/clicks anywhere we want to close search suggestions panel
+		 *
 		 * @returns {void}
 		 */
 		click() {
@@ -202,7 +203,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String[]} files files to upload
+			 * Uploads ONLY FIRST of the selected files (if multiple files are selected)
+			 *
+			 * @param {String[]} files
 			 * @returns {void}
 			 */
 			fileUpload(files) {
@@ -269,7 +272,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} title title to set
+			 * @param {String} title
 			 * @returns {void}
 			 */
 			setTitle(title) {
@@ -280,7 +283,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} tooltipMessage tooltip to display
+			 * @param {String} tooltipMessage
 			 * @returns {void}
 			 */
 			showTooltip(tooltipMessage) {
@@ -390,8 +393,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} item model to save data
-		 * @param {Object} dataToValidate to save
+		 * @param {CuratedContentEditorItemModel} item
+		 * @param {Object} dataToValidate
 		 * @returns {void}
 		 */
 		validateAndDone(item, dataToValidate) {
@@ -420,7 +423,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {String} reason error reason
+		 * @param {String} reason
 		 * @returns {void}
 		 */
 		processValidationError(reason) {

@@ -1,15 +1,15 @@
 App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 	/**
-	 * @returns {CuratedContentEditorItemModel} item to edit
+	 * @returns {CuratedContentEditorItemModel} item
 	 */
 	model() {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
 	/**
-	 * @param {Object} controller controller to set
-	 * @param {CuratedContentEditorItemModel} model CuratedContentEditorItemModel
-	 * @param {EmberState.Transition} transition Ember transition
+	 * @param {Object} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
 	setupController(controller, model, transition) {
@@ -43,7 +43,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} newItem item to add
+		 * @param {CuratedContentEditorItemModel} newItem
 		 * @returns {void}
 		 */
 		done(newItem) {

@@ -1,6 +1,6 @@
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	/**
-	 * @param {CuratedContentEditorItemModel} model model to serialize
+	 * @param {CuratedContentEditorItemModel} model
 	 * @returns {Object} serialized label
 	 */
 	serialize(model) {
@@ -10,8 +10,8 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {Object} params params to decode
-	 * @returns {CuratedContentEditorItemModel} section section
+	 * @param {Object} params
+	 * @returns {CuratedContentEditorItemModel} section
 	 */
 	model(params) {
 		const section = decodeURIComponent(params.section),
@@ -21,9 +21,9 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {Object} controller controller to set
-	 * @param {CuratedContentEditorItemModel} model CuratedContentEditorItemModel
-	 * @param {EmberState.Transition} transition Ember transition
+	 * @param {Object} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
 	setupController(controller, model, transition) {
@@ -53,7 +53,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} item item to edit
+		 * @param {CuratedContentEditorItemModel} item
 		 * @returns {void}
 		 */
 		editItem(item) {
@@ -69,7 +69,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 
 
 		/**
-		 * @param {CuratedContentEditorItemModel} newSection section to save
+		 * @param {CuratedContentEditorItemModel} newSection
 		 * @returns {void}
 		 */
 		done(newSection) {

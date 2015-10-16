@@ -24,7 +24,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {Number} offset offset to move by
+			 * @param {Number} offset
 			 * @returns {void}
 			 */
 			moveBy(offset) {

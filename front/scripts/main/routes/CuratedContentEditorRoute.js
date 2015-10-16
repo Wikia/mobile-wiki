@@ -34,7 +34,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 *
 		 * This will be not needed when we move to module system
 		 *
-		 * @param {JQueryXHR} promise promise
+		 * @param {JQueryXHR} promise
 		 * @returns {void}
 		 */
 		suppressDefineAmd(promise) {
@@ -92,7 +92,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		actions: {
 			/**
-			 * @param {String} block block name to add
+			 * @param {String} block
 			 * @returns {void}
 			 */
 			addBlockItem(block) {
@@ -100,8 +100,8 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				this.transitionTo('curatedContentEditor.blockAddItem', block);
 			},
 			/**
-			 * @param {CuratedContentEditorItemModel} item item to add
-			 * @param {String} block block name to add to
+			 * @param {CuratedContentEditorItemModel} item
+			 * @param {String} block
 			 * @returns {void}
 			 */
 			editBlockItem(item, block) {
@@ -118,16 +118,16 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 
 			/**
-			 * @param {CuratedContentEditorItemModel} item section to open
+			 * @param {CuratedContentEditorItemModel} section
 			 * @returns {void}
 			 */
-			openSection(item) {
+			openSection(section) {
 				this.trackClick('curated-content-editor', 'section-open');
-				this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
+				this.transitionTo('curatedContentEditor.section', encodeURIComponent(section.label));
 			},
 
 			/**
-			 * @param {Boolean} dataSaved data to be saved
+			 * @param {Boolean} dataSaved it's a flag whether data was saved or not
 			 * @returns {void}
 			 */
 			openMainPage(dataSaved) {
@@ -135,7 +135,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 
 			/**
-			 * @param {Object} error error object
+			 * @param {Object} error
 			 * @returns {Boolean} return true
 			 */
 			error(error) {
@@ -157,9 +157,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 
 			/**
-			 * TODO (CONCF-856): This is a quick fix copied from EditRoute, not a clean solution.
+			 * @todo (CONCF-856): This is a quick fix copied from EditRoute, not a clean solution.
 			 *
-			 * @param {EmberState.Transition} transition original transition
+			 * @param {EmberState.Transition} transition
 			 * @returns {Boolean} returns true
 			 */
 			willTransition(transition) {
@@ -196,7 +196,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * Called when user clicks on custom back button or after data is saved
 		 * Does transition to the main page or sends a message through Ponto if available
 		 *
-		 * @param {Boolean} dataSaved=false is data saved
+		 * @param {Boolean} dataSaved=false it's a flag whether data was saved or not
 		 * @returns {void}
 		 */
 		handleTransitionToMainPage(dataSaved = false) {
@@ -212,7 +212,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		},
 
 		/**
-		 * @param {Object} ponto Ponto object
+		 * @param {Object} ponto
 		 * @returns {void}
 		 */
 		closeModalUsingPonto(ponto) {

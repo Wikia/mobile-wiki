@@ -38,7 +38,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {SearchPhotoImageResponseInterface} image image interface
+			 * @param {SearchPhotoImageResponseInterface} image
 			 * @returns {void}
 			 */
 			select(image) {
