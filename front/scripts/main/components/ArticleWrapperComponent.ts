@@ -92,7 +92,6 @@ App.ArticleWrapperComponent = Em.Component.extend(App.LanguagesMixin, App.TrackC
 			description: string;
 
 		if (model) {
-			document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
 			description = (typeof model.get('description') === 'undefined') ? '' : model.get('description');
 			$('meta[name="description"]').attr('content', description);
 		}

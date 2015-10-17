@@ -29,8 +29,6 @@ App.MainPageRouteMixin = Em.Mixin.create({
 
 		sectionOrCategoryName = M.String.normalizeToWhitespace(sectionOrCategoryName);
 
-		document.title = sectionOrCategoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
-
 		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionOrCategoryName,
