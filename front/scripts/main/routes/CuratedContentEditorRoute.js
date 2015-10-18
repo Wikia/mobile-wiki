@@ -136,7 +136,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 			/**
 			 * @param {Object} error
-			 * @returns {Boolean} return true
+			 * @returns {Boolean} returns true
 			 */
 			error(error) {
 				if (error.status === 403) {
