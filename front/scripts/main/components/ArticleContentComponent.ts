@@ -33,6 +33,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 				this.replaceInfoboxesWithInfoboxComponents();
 				this.replaceMapsWithMapComponents();
 				this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
+				this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 				this.replaceWikiaWidgetsWithComponents();
 				this.handleWikiaWidgetWrappers();
 				this.handlePollDaddy();
@@ -164,6 +165,43 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 		for (index = 0; index < numberToProcess; index++) {
 		    $mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
 		}
+	},
+
+	replaceImageCollectionPlaceholdersWithComponents(model: typeof App.ArticleModel): void {
+		var $placeholders = this.$('.pi-image-collection');
+		var articleMedia = model.get('media');
+		var index: number;
+
+		// TODO: Allow us to pass in the number we want to process
+		var numberToProcess = $placeholders.length;
+
+		for (index = 0; index < numberToProcess; index ++) {
+			var element = $placeholders.eq(index);
+			var collectionMedia: typeof App.ArticleMedia[] = [];
+
+			var refs = element.data('refs')
+				.split(',')
+				.compact()
+				.filter((ref: any): boolean => {
+					return ref.length > 0;
+				});
+
+			refs.forEach((ref: number): void => {
+				var image = model.find(ref);
+				image.ref = articleMedia.length;
+				collectionMedia.push(image);
+			});
+
+			articleMedia.push(collectionMedia);
+
+			var component = this.createChildView(App.InfoboxImageCollectionComponent, {
+				media: collectionMedia
+			}).createElement();
+
+			element.replaceWith(component.$());
+		}
+
+		model.set('media', articleMedia);
 	},
 
 	replaceMapsWithMapComponents(): void {

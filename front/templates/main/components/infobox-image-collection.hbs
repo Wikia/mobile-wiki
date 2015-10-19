@@ -1,0 +1,10 @@
+{{#each media as |image|}}
+  <div class="pi-item {{if image.isActive 'active'}}">
+    {{#if image.caption}}
+      <hgroup class="pi-hero-title-wrapper pi-item-spacing">
+        <h3 class="pi-hero-caption">{{image.caption}}</h3>
+      </hgroup>
+    {{/if}}
+    <img src="{{image.thumbUrl}}" class="{{if image.load 'loaded'}}" data-ref="{{image.ref}}" data-gallery-ref="{{image.galleryRef}}">
+  </div>
+{{/each}}
