@@ -9,11 +9,18 @@ module Mercury.Modules.Trackers {
 		static script: HTMLScriptElement = document.getElementsByTagName('script')[0];
 		usesAdsContext: boolean = false;
 
-		//This method should overridden implemented by a tracker
+		/**
+		 * This method should overridden implemented by a tracker
+		 *
+		 * @returns {string}
+		 */
 		url (): string {
 			return '';
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		appendScript (): void {
 			var elem: HTMLScriptElement = document.createElement('script');
 
