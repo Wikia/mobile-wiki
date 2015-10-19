@@ -27,27 +27,25 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
   }),
 
   computedHeight(media: typeof App.ArticleMedia): number {
-    var windowWidth: number = this.get('viewportDimensions.width');
-    var imageAspectRatio: number = this.get('imageAspectRatio');
-    var imageWidth: number = media.width || windowWidth;
-    var imageHeight: number = media.height;
-    var maxWidth: number = Math.floor(imageHeight * imageAspectRatio);
-    var computedHeight: number = imageHeight;
+    var windowWidth: number = this.get('viewportDimensions.width'),
+      imageAspectRatio: number = this.get('imageAspectRatio'),
+      imageWidth: number = media.width || windowWidth,
+      imageHeight: number = media.height,
+      maxWidth: number = Math.floor(imageHeight * imageAspectRatio),
+      computedHeight: number = imageHeight;
 
     if (windowWidth < imageWidth) {
       computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
     }
 
-    //wide image- image wider than 16:9 aspect ratio and inside the HeroImage module
+    //wide image- image wider than 16:9 aspect ratio
     //Crop it to have 16:9 ratio.
-    if (imageWidth > maxWidth && this.get('isInfoboxHeroImage')) {
-      this.set('cropMode', Mercury.Modules.Thumbnailer.mode.zoomCrop);
+    if (imageWidth > maxWidth) {
       return Math.floor(windowWidth / imageAspectRatio);
     }
 
     //high image- image higher than square. Use top-crop-down mode.
     if (windowWidth < computedHeight) {
-      this.set('cropMode', Mercury.Modules.Thumbnailer.mode.topCropDown);
       return windowWidth;
     }
 
@@ -55,8 +53,8 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
   },
 
   setup(): void {
-    var mediaArray = Em.A();
-    var emptyGif = this.get('emptyGif');
+    var mediaArray = Em.A(),
+      emptyGif = this.get('emptyGif');
 
     this.get('media').forEach((image: ArticleMedia, index: number) => {
       image.galleryRef = index;
@@ -72,12 +70,11 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
   },
 
   loadImages(galleryRef: number = 0): void {
-    var image: ArticleMedia;
-    var cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop;
-    var width: number = this.get('thumbWidth');
-    var height: number;
-
-    var collectionLength = this.get('collectionLength');
+    var image: ArticleMedia,
+      cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop,
+      width: number = this.get('thumbWidth'),
+      height: number,
+      collectionLength = this.get('collectionLength');
 
     for (; galleryRef < collectionLength ; galleryRef ++) {
       image = this.get('media').get(galleryRef);
@@ -103,11 +100,11 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 
   actions: {
     switchImage(direction: string) {
-      var activeRef = this.get('activeRef');
-      var refDirection = (direction === 'next') ? 1 : -1;
-      var nextRef =  activeRef + refDirection;
-      var activeImage = this.get('media').get(activeRef);
-      var nextImage = this.get('media').get(nextRef);
+      var activeRef = this.get('activeRef'),
+        refDirection = (direction === 'next') ? 1 : -1,
+        nextRef =  activeRef + refDirection,
+        activeImage = this.get('media').get(activeRef),
+        nextImage = this.get('media').get(nextRef);
 
       activeImage.set('isActive', false);
       nextImage.set('isActive', true);

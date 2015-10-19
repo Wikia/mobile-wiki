@@ -41,7 +41,7 @@ test('computedHeight WIDE infobox image 1000x200', function () {
 				height: 200,
 				width: 1000
 			},
-			expected = 80;
+			expected = 225;
 
 	Ember.run(function () {
 		component.set('viewportDimensions', viewportDimensions);

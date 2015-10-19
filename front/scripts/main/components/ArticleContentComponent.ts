@@ -168,16 +168,16 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 	},
 
 	replaceImageCollectionPlaceholdersWithComponents(model: typeof App.ArticleModel): void {
-		var $placeholders = this.$('.pi-image-collection');
-		var articleMedia = model.get('media');
-		var index: number;
+		var $placeholders = this.$('.pi-image-collection'),
+			articleMedia = model.get('media'),
+			index: number;
 
 		// TODO: Allow us to pass in the number we want to process
 		var numberToProcess = $placeholders.length;
 
 		for (index = 0; index < numberToProcess; index ++) {
-			var element = $placeholders.eq(index);
-			var collectionMedia: typeof App.ArticleMedia[] = [];
+			var element = $placeholders.eq(index),
+				collectionMedia: typeof App.ArticleMedia[] = [];
 
 			var refs = element.data('refs')
 				.split(',')
