@@ -6,6 +6,10 @@
 App.ArticleRoute = Em.Route.extend({
 	redirectEmptyTarget: false,
 
+	/**
+	 * @param {EmberStates.Transition} transition
+	 * @returns {void}
+	 */
 	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
@@ -36,6 +40,10 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
+	/**
+	 * @param {any} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	model(params: any): Em.RSVP.Promise {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
@@ -44,6 +52,10 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
 	afterModel(model: typeof App.ArticleModel): void {
 		// if an article is main page, redirect to mainPage route
 		// this will handle accessing /wiki/Main_Page if default main page is different article
@@ -60,21 +72,34 @@ App.ArticleRoute = Em.Route.extend({
 		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	activate (): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	deactivate (): void {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	actions: {
+		/**
+		 * @param {EmberStates.Transition} transition
+		 * @returns {void}
+		 */
 		willTransition(transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
 		},
 
+		/**
+		 * @returns {boolean}
+		 */
 		didTransition(): boolean {
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
@@ -85,6 +110,11 @@ App.ArticleRoute = Em.Route.extend({
 			return true;
 		},
 
+		/**
+		 * @param {any} error
+		 * @param {EmberStates.Transition} transition
+		 * @returns {boolean}
+		 */
 		error(error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();

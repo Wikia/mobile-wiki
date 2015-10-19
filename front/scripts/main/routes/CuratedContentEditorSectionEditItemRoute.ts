@@ -4,6 +4,10 @@
 'use strict';
 
 App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
+	/**
+	 * @param {any} params
+	 * @returns {CuratedContentEditorItemModel}
+	 */
 	model(params: any): CuratedContentEditorItemModel {
 		var item: string = decodeURIComponent(params.item),
 			sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
@@ -11,6 +15,12 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getItem(sectionModel, item);
 	},
 
+	/**
+	 * @param {any} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberStates.Transition} transition
+	 * @returns {void}
+	 */
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		var sectionController = this.controllerFor('curatedContentEditor.section'),
 			alreadyUsedLabels: string[] = sectionController.get('alreadyUsedItemsLabels').filter(
@@ -24,15 +34,25 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		});
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
 	actions: {
+		/**
+		 * @returns {void}
+		 */
 		goBack(): void {
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
+		/**
+		 * @param {CuratedContentEditorItemModel} newItem
+		 * @returns {void}
+		 */
 		done(newItem: CuratedContentEditorItemModel): void {
 			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
 				originalItemLabel: string = this.get('controller.originalItemLabel'),
@@ -47,6 +67,9 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		deleteItem(): void {
 			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
 				controller: any = this.controllerFor('curatedContentEditor.section.editItem'),

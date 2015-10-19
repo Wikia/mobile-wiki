@@ -4,12 +4,20 @@
 'use strict';
 
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
+	/**
+	 * @param {CuratedContentEditorItemModel} model
+	 * @returns {any}
+	 */
 	serialize(model: CuratedContentEditorItemModel): any {
 		return {
 			section: model.label
 		};
 	},
 
+	/**
+	 * @param {any} params
+	 * @returns {CuratedContentEditorItemModel}
+	 */
 	model(params: any): CuratedContentEditorItemModel {
 		var section: string = decodeURIComponent(params.section),
 			rootModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor');
@@ -17,6 +25,12 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getItem(rootModel['curated'], section);
 	},
 
+	/**
+	 * @param {any} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberStates.Transition} transition
+	 * @returns {void}
+	 */
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 			alreadyUsedItemsLabels = App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel);
@@ -29,22 +43,39 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	actions: {
+		/**
+		 * @returns {void}
+		 */
 		goBack(): void {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		addItem(): void  {
 			this.transitionTo('curatedContentEditor.section.addItem');
 		},
 
+		/**
+		 * @param {CuratedContentEditorItemModel} item
+		 * @returns {void}
+		 */
 		editItem(item: CuratedContentEditorItemModel): void {
 			this.transitionTo('curatedContentEditor.section.editItem', encodeURIComponent(item.label));
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		editSection(): void {
 			this.transitionTo('curatedContentEditor.section.edit');
 		},
 
+		/**
+		 * @param {CuratedContentEditorItemModel} newSection
+		 * @returns {void}
+		 */
 		done(newSection: CuratedContentEditorItemModel): void {
 			var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				controller: any = this.controllerFor('curatedContentEditor.section'),

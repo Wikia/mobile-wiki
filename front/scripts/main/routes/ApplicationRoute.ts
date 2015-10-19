@@ -12,10 +12,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		}
 	},
 
-	model: function <T>(params: T): T {
-		return params;
-	},
-
+	/**
+	 * @returns {void}
+	 */
 	activate: function (): void {
 		var adsInstance: Mercury.Modules.Ads,
 			instantGlobals = Wikia.InstantGlobals || {};
@@ -44,10 +43,16 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 	},
 
 	actions: {
+		/**
+		 * @returns {void}
+		 */
 		loading(): void {
 			this.controller && this.controller.showLoader();
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		didTransition(): void {
 			// Activate any A/B tests for the new route
 			M.VariantTesting.activate();
@@ -67,10 +72,17 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			window.scrollTo(0, 0);
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		error(): void {
 			this.controller && this.controller.hideLoader();
 		},
 
+		/**
+		 * @param {HTMLAnchorElement} target
+		 * @returns {void}
+		 */
 		handleLink(target: HTMLAnchorElement): void {
 			var currentRoute = this.router.get('currentRouteName'),
 				title: string,
@@ -135,6 +147,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			}
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		loadRandomArticle(): void {
 			this.get('controller').send('toggleSideNav', false);
 
@@ -148,7 +163,11 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 				});
 		},
 
-		search: function (searchString : string) {
+		/**
+		 * @param {string} searchString
+		 * @returns {void}
+		 */
+		search: function (searchString : string): void {
 			this.transitionTo('searchResults', {queryParams: {
 				q: searchString,
 			}});
@@ -156,27 +175,50 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes
 		// see http://emberjs.com/images/template-guide/action-bubbling.png
+		/**
+		 * @returns {void}
+		 */
 		handleLightbox(): void {
 			this.get('controller').send('handleLightbox');
 		},
 
+		/**
+		 * @param {string} lightboxType
+		 * @param {any} [lightboxModel]
+		 * @returns {void}
+		 */
 		openLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
 		},
 
+		/**
+		 * @param {string} lightboxType
+		 * @param {any} [lightboxModel]
+		 * @returns {void}
+		 */
 		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		showLightbox(): void {
 			this.get('controller').send('showLightbox');
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		closeLightbox(): void {
 			this.get('controller').send('closeLightbox');
 		},
 
 		// This is used only in not-found.hbs template
+		/**
+		 * @param {boolean} visible
+		 * @returns {void}
+		 */
 		toggleSideNav(visible: boolean): void {
 			this.get('controller').set('sideNavVisible', visible);
 		}

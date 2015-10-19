@@ -6,10 +6,17 @@
 'use strict';
 
 App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsMixin, {
+	/**
+	 * @param {any} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	model(params: any): Em.RSVP.Promise {
 		return App.CuratedContentModel.find(params.sectionName, 'section');
 	},
 
+	/**
+	 * @returns {any}
+	 */
 	meta(): any {
 		return {
 			name: {
@@ -19,6 +26,10 @@ App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsM
 	},
 
 	actions: {
+		/**
+		 * @param {any} error
+		 * @returns {boolean}
+		 */
 		error(error: any): boolean {
 			if (error && error.status === 404) {
 				this.controllerFor('application').addAlert({

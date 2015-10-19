@@ -4,6 +4,10 @@
 'use strict';
 
 App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
+	/**
+	 * @param {any} params
+	 * @returns {CuratedContentEditorItemModel}
+	 */
 	model(params: any): CuratedContentEditorItemModel {
 		var block: string = params.block,
 			item: string = decodeURIComponent(params.item),
@@ -13,6 +17,12 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		return App.CuratedContentEditorModel.getItem(blockModel, item);
 	},
 
+	/**
+	 * @param {any} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberStates.Transition} transition
+	 * @returns {void}
+	 */
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		var block = transition.params['curatedContentEditor.blockEditItem'].block,
 			rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
@@ -29,16 +39,26 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		});
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
 	actions: {
+		/**
+		 * @returns {void}
+		 */
 		goBack(): void {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
-		done(newItem: CuratedContentEditorItemModel) {
+		/**
+		 * @param {CuratedContentEditorItemModel} newItem
+		 * @returns {void}
+		 */
+		done(newItem: CuratedContentEditorItemModel): void {
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),
 				originalItemLabel: string = controller.get('originalItemLabel'),
@@ -49,6 +69,9 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.index');
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		deleteItem(): void {
 			var controller: any = this.controllerFor('curatedContentEditor.blockEditItem'),
 				block: string = controller.get('block'),

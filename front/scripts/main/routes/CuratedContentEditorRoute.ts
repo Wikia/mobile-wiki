@@ -11,6 +11,9 @@ interface Window {
 App.CuratedContentEditorRoute = Em.Route.extend(
 	App.TrackClickMixin,
 	{
+		/**
+		 * @returns {void}
+		 */
 		beforeModel(): void {
 			if (!$().cropper || !this.get('cropperLoadingInitialized')) {
 				this.suppressDefineAmd(
@@ -28,6 +31,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			}
 		},
 
+		/**
+		 * @returns {Em.RSVP.Promise}
+		 */
 		model(): Em.RSVP.Promise {
 			return App.CuratedContentEditorModel.load();
 		},
@@ -39,9 +45,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * This will be not needed when we move to module system
 		 *
 		 * @param {JQueryXHR} promise
-		 * @returns {JQueryXHR}
+		 * @returns {void}
 		 */
-		suppressDefineAmd(promise: JQueryXHR) {
+		suppressDefineAmd(promise: JQueryXHR): void {
 			var oldAmd: any;
 
 			if (window.define) {
@@ -76,6 +82,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		pontoLoadingInitialized: false,
 		pontoPath: '/front/vendor/ponto/web/src/ponto.js',
 
+		/**
+		 * @returns {JQueryXHR}
+		 */
 		loadPonto(): JQueryXHR {
 			this.set('pontoLoadingInitialized', true);
 
@@ -89,30 +98,54 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		},
 
 		actions: {
+			/**
+			 * @param {string} block
+			 * @returns {void}
+			 */
 			addBlockItem(block: string): void {
 				this.trackClick('curated-content-editor', 'item-add');
 				this.transitionTo('curatedContentEditor.blockAddItem', block);
 			},
 
+			/**
+			 * @param {CuratedContentEditorItemModel} item
+			 * @param {string} block
+			 * @returns {void}
+			 */
 			editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
 				this.trackClick('curated-content-editor', 'item-edit');
 				this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 			},
 
+			/**
+			 * @returns {void}
+			 */
 			addSection(): void {
 				this.trackClick('curated-content-editor', 'section-add');
 				this.transitionTo('curatedContentEditor.sectionAdd');
 			},
 
+			/**
+			 * @param {CuratedContentEditorItemModel} item
+			 * @returns {void}
+			 */
 			openSection(item: CuratedContentEditorItemModel): void {
 				this.trackClick('curated-content-editor', 'section-open');
 				this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
 			},
 
+			/**
+			 * @param {boolean} [dataSaved=false]
+			 * @returns {void}
+			 */
 			openMainPage(dataSaved: boolean = false): void {
 				this.handleTransitionToMainPage(dataSaved);
 			},
 
+			/**
+			 * @param {any} error
+			 * @returns {boolean}
+			 */
 			error(error: any): boolean {
 				if (error.status === 403) {
 					this.controllerFor('application').addAlert({
@@ -134,7 +167,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			/**
 			 * TODO (CONCF-856): This is a quick fix copied from EditRoute, not a clean solution.
 			 *
-			 * @param transition
+			 * @param {EmberStates.Transition} transition
 			 * @returns {boolean}
 			 */
 			willTransition(transition: EmberStates.Transition): boolean {
@@ -158,6 +191,10 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				return true;
 			},
 
+			/**
+			 *
+			 * @returns {boolean}
+			 */
 			didTransition(): boolean {
 				this.controllerFor('application').set('fullPage', true);
 				return true;
@@ -168,7 +205,8 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * Called when user clicks on custom back button or after data is saved
 		 * Does transition to the main page or sends a message through Ponto if available
 		 *
-		 * @param dataSaved
+		 * @param {boolean} [dataSaved=false]
+		 * @returns {void}
 		 */
 		handleTransitionToMainPage(dataSaved: boolean = false): void {
 			var ponto = window.Ponto;
@@ -182,6 +220,10 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			}
 		},
 
+		/**
+		 * @param {any} ponto
+		 * @returns {void}
+		 */
 		closeModalUsingPonto(ponto: any): void {
 			var dataSaved = this.get('publish');
 
@@ -214,4 +256,5 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				true
 			);
 		}
-	});
+	}
+);

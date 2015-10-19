@@ -4,10 +4,19 @@
 'use strict';
 
 App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
+	/**
+	 * @returns {CuratedContentEditorItemModel}
+	 */
 	model(): CuratedContentEditorItemModel {
 		return $.extend(true, {}, this.modelFor('curatedContentEditor.section'));
 	},
 
+	/**
+	 * @param {any} controller
+	 * @param {CuratedContentEditorItemModel} model
+	 * @param {EmberStates.Transition} transition
+	 * @returns {void}
+	 */
 	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
 		this._super(controller, model, transition);
 		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(
@@ -15,16 +24,26 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 		);
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	renderTemplate(): void {
 		this.render('curated-content-editor-item');
 	},
 
 	actions: {
+		/**
+		 * @returns {void}
+		 */
 		goBack(): void {
 			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 			this.transitionTo('curatedContentEditor.section', encodeURIComponent(sectionModel.label));
 		},
 
+		/**
+		 * @param {CuratedContentEditorItemModel} newSection
+		 * @returns {void}
+		 */
 		done(newSection: CuratedContentEditorItemModel): void {
 			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section');
 
@@ -32,7 +51,11 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
-		// Delete section
+		/**
+		 * Delete section
+		 *
+		 * @returns {void}
+		 */
 		deleteItem(): void {
 			var rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
 				controller: any = this.controllerFor('curatedContentEditor.section'),
