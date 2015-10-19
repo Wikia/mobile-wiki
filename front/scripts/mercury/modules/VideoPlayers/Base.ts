@@ -15,6 +15,11 @@ module Mercury.Modules.VideoPlayers {
 		videoWidth: number;
 		videoHeight: number;
 
+		/**
+		 * @param {string} provider
+		 * @param {any} params
+		 * @returns {void}
+		 */
 		constructor (provider: string, params: any) {
 			if (!provider) {
 				throw new Error('VideoPlayer requires a provider as the first argument');
@@ -26,6 +31,9 @@ module Mercury.Modules.VideoPlayers {
 			this.videoHeight = params.size.height;
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		loadPlayer () {
 			return M.load(this.resourceURI, () => {
 				// called once player is loaded
@@ -36,13 +44,17 @@ module Mercury.Modules.VideoPlayers {
 		/**
 		 * Intentionally a no-op, documentation that this hook is implemented
 		 * and to not error when called by loadPlayer*
+		 *
+		 * @returns {void}
 		 */
 		playerDidLoad (): void {}
 
 		/**
 		 * Sets CSS width and height for the video container.
 		 * Container selector is can be overriden by the inheriting class
-		 * @param {String} containerSelector - JQuery selector of the video container
+		 *
+		 * @param {string} containerSelector - JQuery selector of the video container
+		 * @returns {void}
 		 */
 		onResize (containerSelector: string = this.containerSelector): void {
 			var $container: JQuery = $(containerSelector),
@@ -75,6 +87,10 @@ module Mercury.Modules.VideoPlayers {
 			$container.css(sanitizedSize);
 		}
 
+		/**
+		 * @param {string} id
+		 * @returns {string}
+		 */
 		createUniqueId (id: string): string {
 			var element = document.getElementById(id),
 			    newId = id + new Date().getTime();
@@ -86,6 +102,10 @@ module Mercury.Modules.VideoPlayers {
 			return newId;
 		}
 
+		/**
+		 * @param {String} event=''
+		 * @returns {void}
+		 */
 		track (event = ''): void {
 			return M.track({
 				action: event,

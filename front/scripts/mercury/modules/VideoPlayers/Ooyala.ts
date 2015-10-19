@@ -29,6 +29,11 @@ module Mercury.Modules.VideoPlayers {
 		// Ooyala JSON payload contains a DOM id
 		public containerId = this.createUniqueId(this.params.playerId);
 
+		/**
+		 * @param {string} provider
+		 * @param {any} params
+		 * @returns {void}
+		 */
 		constructor (provider: string, params: any) {
 			super(provider, params);
 			this.started = false;
@@ -37,6 +42,9 @@ module Mercury.Modules.VideoPlayers {
 			this.setupPlayer();
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		setupPlayer (): void {
 			this.params = $.extend(this.params, {
 				onCreate: () => { return this.onCreate.apply(this, arguments) }
@@ -49,14 +57,24 @@ module Mercury.Modules.VideoPlayers {
 			}
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		createPlayer (): void {
 			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		playerDidLoad (): void {
 			this.createPlayer();
 		}
 
+		/**
+		 * @param {any} player
+		 * @returns {void}
+		 */
 		onCreate (player: any): void {
 			var messageBus = player.mb;
 
