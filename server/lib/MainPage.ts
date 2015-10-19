@@ -58,10 +58,9 @@ export class MainPageRequestHelper {
 		Promise.settle(requests)
 			.then((results: Promise.Inspection<Promise<any>>[]) => {
 				var curatedContentPromise: Promise.Inspection<Promise<any>> = results[0],
-					articlePromise: Promise.Inspection<Promise<any>> = results [1],
+					mainPageDetailsAndAdsContextPromise: Promise.Inspection<Promise<any>> = results [1],
 					wikiPromise: Promise.Inspection<Promise<any>> = results[2],
 					curatedContent: any,
-					articleData: any,
 					pageData: any = {},
 					wikiVariables: any = {};
 
@@ -78,11 +77,9 @@ export class MainPageRequestHelper {
 						wikiPromise.reason();
 				}
 
-				articleData = articlePromise.isFulfilled() ?
-					articlePromise.value() :
-					articlePromise.reason();
-
-				pageData.articleData = articleData.data;
+				pageData.mainPageData = mainPageDetailsAndAdsContextPromise.isFulfilled() ?
+					mainPageDetailsAndAdsContextPromise.value() :
+					mainPageDetailsAndAdsContextPromise.reason();
 
 				callback(curatedContent.exception, pageData, wikiVariables.data);
 			});
@@ -99,7 +96,7 @@ export class MainPageRequestHelper {
 		logger.debug(this.params, 'Fetching section data');
 		requests.push(new MediaWiki.ArticleRequest(this.params).curatedContentSection(this.params.sectionName));
 
-		requests = this.fetchArticleData(requests);
+		requests = this.fetchMainPageDetailsAndAdsContext(requests);
 		if (getWikiVariables) {
 			requests = this.fetchWikiVariables(requests);
 		}
@@ -125,7 +122,7 @@ export class MainPageRequestHelper {
 			})
 		);
 
-		requests = this.fetchArticleData(requests);
+		requests = this.fetchMainPageDetailsAndAdsContext(requests);
 
 		if (getWikiVariables) {
 			requests = this.fetchWikiVariables(requests);
@@ -139,10 +136,10 @@ export class MainPageRequestHelper {
 	 * @param requests
 	 * @returns {Array} array of requests
 	 */
-	private fetchArticleData(requests: any): any {
-		logger.debug(this.params, 'Fetching article data');
+	private fetchMainPageDetailsAndAdsContext(requests: any): any {
+		logger.debug(this.params, 'Fetching Main Page details and ads context');
 		requests.push(
-			new MediaWiki.ArticleRequest(this.params).article(this.params.title, this.params.redirect)
+			new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext()
 		);
 
 		return requests;

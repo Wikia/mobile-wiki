@@ -169,6 +169,15 @@ export class ArticleRequest extends BaseRequest {
 
 		return this.fetch(url);
 	}
+
+	mainPageDetailsAndAdsContext(): Promise<any> {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getMainPageDetailsAndAdsContext'
+		});
+
+		return this.fetch(url);
+	}
 }
 
 /**
