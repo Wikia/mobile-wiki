@@ -60,7 +60,7 @@ export class ArticleRequestHelper {
 					data: any;
 
 				if (!isWikiVariablesPromiseFulfilled) {
-					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariablesPromise.reason()));
+					return Promise.reject(new WikiVariablesRequestError(wikiVariablesPromise.reason()));
 				}
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
@@ -78,7 +78,7 @@ export class ArticleRequestHelper {
 					return Promise.resolve(data);
 				} else {
 					data.exception = article.exception;
-					return Promise.reject(new MediaWiki.ArticleRequestError(data));
+					return Promise.reject(new ArticleRequestError(data));
 				}
 			});
 	}
@@ -129,3 +129,25 @@ export class ArticleRequestHelper {
 			});
 	}
 }
+
+export class WikiVariablesRequestError {
+	private error: any;
+
+	constructor(error: any) {
+		Error.apply(this, arguments);
+		this.error = error;
+	}
+}
+
+WikiVariablesRequestError.prototype = Object.create(Error.prototype);
+
+export class ArticleRequestError {
+	private data: any;
+
+	constructor(data: any) {
+		Error.apply(this, arguments);
+		this.data = data;
+	}
+}
+
+ArticleRequestError.prototype = Object.create(Error.prototype);

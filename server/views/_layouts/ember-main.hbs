@@ -72,8 +72,8 @@
 			{{#if mainPageData}}
 				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
-			{{#if articleError}}
-				M.provide('articleError', {{{json articleError}}});
+			{{#if exception}}
+				M.provide('exception', {{{json exception}}});
 			{{/if}}
 			{{#if server.optimizelyScript}}
 				M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');

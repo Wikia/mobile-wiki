@@ -5,7 +5,6 @@ import Promise = require('bluebird');
 import Article = require('../lib/Article');
 import Caching = require('../lib/Caching');
 import Logger = require('../lib/Logger');
-import MediaWiki = require('../lib/MediaWiki');
 import Tracking = require('../lib/Tracking');
 import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
@@ -62,7 +61,7 @@ function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
 function redirectToMainPage(reply: Hapi.Response, article: Article.ArticleRequestHelper): void {
 	article
 		.getWikiVariables()
-		.then(function (wikiVariables: any): void {
+		.then((wikiVariables: any): void => {
 			Logger.info('Redirected to main page');
 			reply.redirect('/wiki/' + wikiVariables.mainPageTitle);
 		})
@@ -92,11 +91,11 @@ function getArticle(request: Hapi.Request,
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			onArticleResponse(request, reply, data, allowCache);
 		})
-		.catch(MediaWiki.WikiVariablesRequestError, (error: any): void => {
+		.catch(Article.WikiVariablesRequestError, (error: any): void => {
 			Logger.error('WikiVariables error', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
-		.catch(MediaWiki.ArticleRequestError, (error: any): void => {
+		.catch(Article.ArticleRequestError, (error: any): void => {
 			var data = error.data,
 				errorCode = data.exception.code || generalServerErrorCode;
 
@@ -104,8 +103,8 @@ function getArticle(request: Hapi.Request,
 
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 
-			data.articleError = data.exception;
-			delete data.exception;
+			// Clean up exception to not put its details in HTML response
+			delete data.exception.details;
 
 			onArticleResponse(request, reply, data, allowCache, errorCode);
 		})

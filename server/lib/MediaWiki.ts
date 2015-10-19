@@ -274,25 +274,3 @@ export function createUrl(wikiDomain: string, path: string, params: any = {}): s
 	}
 	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 }
-
-export class WikiVariablesRequestError {
-	private error: any;
-
-	constructor(error: any) {
-		Error.apply(this, arguments);
-		this.error = error;
-	}
-}
-
-WikiVariablesRequestError.prototype = Object.create(Error.prototype);
-
-export class ArticleRequestError {
-	private data: any;
-
-	constructor(data: any) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-
-ArticleRequestError.prototype = Object.create(Error.prototype);
