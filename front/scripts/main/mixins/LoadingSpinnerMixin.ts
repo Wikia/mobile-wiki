@@ -11,6 +11,8 @@ App.LoadingSpinnerMixin = Em.Mixin.create({
 	 * if we are able to load it under the delay
 	 * perceived speed of applications is better
 	 * if not, small delay will be almost unnoticeable
+	 *
+	 * @returns {void}
 	 */
 	showLoader(): void {
 		if (!this.get('isLoading')) {
@@ -20,6 +22,9 @@ App.LoadingSpinnerMixin = Em.Mixin.create({
 		}
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	hideLoader(): void {
 		Em.run.cancel(this.get('spinnerTimeout'));
 		this.set('isLoading', false);

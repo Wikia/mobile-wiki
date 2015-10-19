@@ -11,6 +11,11 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 
 	errorClass: 'discussion-error-page',
 
+	/**
+	 * @param {any} err
+	 * @param {any} model
+	 * @returns {void}
+	 */
 	setErrorProperty: function (err: any, model: any): void {
 		if (err.status == this.errorCodes.notFound) {
 			model.set('notFoundError', true);

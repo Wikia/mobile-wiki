@@ -1,6 +1,15 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+/**
+ * PreventableClickEvent
+ * @typedef {object} PreventableClickEvent
+ * @implements {MouseEvent}
+ * @implements {Touch}
+ * @property {function} preventDefault
+ * @property {function} stopPropagation
+ */
+
 interface PreventableClickEvent extends MouseEvent, Touch {
 	preventDefault: () => void;
 	stopPropagation: () => void;
@@ -26,16 +35,21 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 */
 	screenEdgeWidthRatio: (1 / 3),
 
+	/**
+	 * @param {PreventableClickEvent} event
+	 * @returns {void}
+	 */
 	preventDefaultActions(event: PreventableClickEvent): void {
 		event.preventDefault();
 		event.stopPropagation();
 	},
 
 	/**
-	 * @desc Checks on which area on the screen an event took place and calls proper handler
+	 * Checks on which area on the screen an event took place and calls proper handler
 	 *
 	 * @param {PreventableClickEvent} event
-	 * @param {boolean} preventDefault
+	 * @param {boolean} [preventDefault=false]
+	 * @returns {void}
 	 */
 	callClickHandler(event: PreventableClickEvent, preventDefault: boolean = false): void {
 		var viewportWidth = this.get('viewportWidth'),

@@ -62,6 +62,11 @@ App.HeadroomMixin = Em.Mixin.create({
 		})
 	),
 
+	/**
+	 * @param {any} headroomOptions
+	 * @param {number} offset
+	 * @returns {void}
+	 */
 	initHeadroom(headroomOptions: any, offset: number): void {
 		if (this.get('headroomEnabled') === false) {
 			return;

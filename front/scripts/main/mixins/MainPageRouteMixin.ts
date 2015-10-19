@@ -4,14 +4,24 @@
 'use strict';
 
 App.MainPageRouteMixin = Em.Mixin.create({
+	/**
+	 * @returns {void}
+	 */
 	activate(): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	deactivate(): void {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
+	/**
+	 * @param {any} model
+	 * @returns {void}
+	 */
 	afterModel(model: any): void {
 		var sectionOrCategoryName: string,
 			title: string = model.get('title'),
@@ -39,6 +49,11 @@ App.MainPageRouteMixin = Em.Mixin.create({
 		});
 	},
 
+	/**
+	 * @param {any} controller
+	 * @param {App.CuratedContentModel} model
+	 * @returns {void}
+	 */
 	renderTemplate(controller: any, model: typeof App.CuratedContentModel): void {
 		this.render('main-page', {
 			controller: 'mainPage',
@@ -49,6 +64,10 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	},
 
 	actions: {
+		/**
+		 * @param {CuratedContentItem} item
+		 * @returns {void}
+		 */
 		openCuratedContentItem(item: CuratedContentItem): void {
 			/**
 			 * We have to double encode because Ember's RouteRecognizer does decodeURI while processing path.

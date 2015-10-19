@@ -6,6 +6,10 @@
  */
 App.DiscussionUpvoteActionSendMixin = Em.Mixin.create({
 	actions: {
+		/**
+		 * @param {any} post
+		 * @returns {void}
+		 */
 		upvote(post: any): void {
 			this.sendAction('upvote', post);
 		}
