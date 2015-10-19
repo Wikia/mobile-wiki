@@ -13,6 +13,13 @@ interface Window {
 }
 
 (function () {
+	/**
+	 * Track discussions splash page
+	 *
+	 * @param {String} label
+	 * @param {String} [action=M.trackActions.click]
+	 * @returns {void}
+	 */
 	function track(label: string, action: string = M.trackActions.click): void {
 		M.track({
 			trackingMethod: 'both',
@@ -22,6 +29,9 @@ interface Window {
 		});
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	function setupTracking(): void {
 		M.provide('wiki', {
 			id: window.pageParams.wikiId,
@@ -39,6 +49,9 @@ interface Window {
 		setTrackingDimensions();
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	function setTrackingDimensions (): void {
 		var dimensions: (string|Function)[] = [];
 		// Skin
@@ -52,6 +65,9 @@ interface Window {
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	function setTrackingForDiscussionsSplashPage () {
 		M.trackPageView(null);
 
