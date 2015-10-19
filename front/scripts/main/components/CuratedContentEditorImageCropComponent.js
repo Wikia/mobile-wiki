@@ -1,12 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/AlertNotificationsMixin.ts" />
-/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
-/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../mixins/ViewportMixin.ts"/>
-
-'use strict';
-
 App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLayoutMixin,
@@ -19,8 +10,9 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		isLoading: false,
 		cropperInitialized: false,
 		imagePropertiesUrl: Em.computed('imageProperties.url', 'model.image_url', function() {
-			var imagePropertiesUrl = this.get('imageProperties.url');
-			return !Em.isEmpty(imagePropertiesUrl) ? imagePropertiesUrl : this.get('model.image_url');
+			const imagePropertiesUrl = this.get('imageProperties.url');
+
+			return Em.isEmpty(imagePropertiesUrl) ? this.get('model.image_url') : imagePropertiesUrl;
 		}),
 
 		// https://github.com/fengyuanchen/cropper#options
@@ -42,27 +34,33 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		}),
 
 		actions: {
-			goBack(): void {
-				this.trackClick('curated-content-editor', 'image-crop-go-back' );
+			/**
+			 * @returns {void}
+			 */
+			goBack() {
+				this.trackClick('curated-content-editor', 'image-crop-go-back');
 				this.sendAction('changeLayout', this.get('imageCropLayout.previous'));
 			},
 
-			done(): void {
-				this.trackClick('curated-content-editor', 'image-crop-done' );
-				var $imgElement = this.get('$imgElement'),
+			/**
+			 * @returns {void}
+			 */
+			done() {
+				this.trackClick('curated-content-editor', 'image-crop-done');
+				const $imgElement = this.get('$imgElement'),
 					model = this.get('model'),
 					imageUrl = this.get('imagePropertiesUrl'),
-					imageId = this.get('imageProperties.id'),
-					cropData: any,
-					imageCrop: any;
+					imageId = this.get('imageProperties.id');
+				let cropData,
+					imageCrop;
 
 				// Set values on model only if imageProperties are set.
 				// When cropping already added image values on model are already set
 				// - no need to set them to the same ones.
 				if (!Em.isEmpty(imageUrl) && !Em.isEmpty(imageId)) {
 					model.setProperties({
-						'image_url': imageUrl,
-						'image_id': imageId
+						image_url: imageUrl,
+						image_id: imageId
 					});
 				}
 
@@ -84,27 +82,32 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 					model.image_crop[this.get('aspectRatioName')] = imageCrop;
 				}
 
-				this.sendAction('changeLayout', this.get('imageCropLayout.next'))
+				this.sendAction('changeLayout', this.get('imageCropLayout.next'));
 			}
 		},
 
 		/**
-		 * @desc Show loading spinner until image is loaded as the cropper can be displayed only after that
+		 * Show loading spinner until image is loaded as the cropper can be displayed only after that
+		 *
+		 * @returns {void}
 		 */
-		loadImage: Em.on('didInitAttrs', function (): void {
-			var url = this.get('imagePropertiesUrl'),
-				image: HTMLImageElement;
+		loadImage: Em.on('didInitAttrs', function() {
+			const url = this.get('imagePropertiesUrl');
+			let image;
 
 			if (url) {
 				this.set('isLoading', true);
 
 				image = new Image();
-				image.onload = (): void => this.onImageLoaded();
+				image.onload = () => this.onImageLoaded();
 				image.src = url;
 			}
 		}),
 
-		onImageLoaded(): void {
+		/**
+		 * @returns {void}
+		 */
+		onImageLoaded() {
 			// User can browse away from the component before this function is called
 			// Abort when that happens
 			if (this.get('isDestroyed')) {
@@ -117,8 +120,11 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			Em.run.scheduleOnce('afterRender', this, this.initCropper);
 		},
 
-		initCropper(): void {
-			var $imgElement = this.$(this.get('imgSelector'));
+		/**
+		 * @returns {void}
+		 */
+		initCropper() {
+			const $imgElement = this.$(this.get('imgSelector'));
 
 			if (!this.get('cropperInitialized')) {
 				$imgElement.cropper(this.get('currentCropperSettings'));
@@ -131,8 +137,11 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			}
 		},
 
-		onResize(): void {
-			var $imgElement = this.get('$imgElement');
+		/**
+		 * @returns {void}
+		 */
+		onResize() {
+			const $imgElement = this.get('$imgElement');
 
 			if (this.get('cropperInitialized')) {
 				// re-init cropper according to https://github.com/fengyuanchen/cropper/issues/421
@@ -140,4 +149,5 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 				$imgElement.cropper(this.get('currentCropperSettings'));
 			}
 		}
-});
+	}
+);

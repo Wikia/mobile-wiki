@@ -1,17 +1,10 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-
-'use strict';
-
-interface Window {
-	Ponto: any
-}
-
 App.CuratedContentEditorRoute = Em.Route.extend(
 	App.TrackClickMixin,
 	{
-		beforeModel(): void {
+		/**
+		 * @returns {void}
+		 */
+		beforeModel() {
 			if (!$().cropper || !this.get('cropperLoadingInitialized')) {
 				this.suppressDefineAmd(
 					this.loadCropper()
@@ -28,7 +21,10 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			}
 		},
 
-		model(): Em.RSVP.Promise {
+		/**
+		 * @returns {Em.RSVP.Promise} model
+		 */
+		model() {
 			return App.CuratedContentEditorModel.load();
 		},
 
@@ -39,16 +35,16 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * This will be not needed when we move to module system
 		 *
 		 * @param {JQueryXHR} promise
-		 * @returns {JQueryXHR}
+		 * @returns {void}
 		 */
-		suppressDefineAmd(promise: JQueryXHR) {
-			var oldAmd: any;
+		suppressDefineAmd(promise) {
+			let oldAmd;
 
 			if (window.define) {
 				oldAmd = window.define.amd;
 				window.define.amd = false;
 
-				promise.then((): void => {
+				promise.then(() => {
 					window.define.amd = oldAmd;
 				});
 			}
@@ -60,9 +56,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		/**
 		 * Loads Cropper css and js
 		 *
-		 * @returns {JQueryXHR}
+		 * @returns {JQueryXHR} cropper
 		 */
-		loadCropper(): JQueryXHR {
+		loadCropper() {
 			this.set('cropperLoadingInitialized', true);
 
 			$('<link>')
@@ -76,11 +72,17 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		pontoLoadingInitialized: false,
 		pontoPath: '/front/vendor/ponto/web/src/ponto.js',
 
-		loadPonto(): JQueryXHR {
+
+		/**
+		 * Loads Ponto
+		 *
+		 * @returns {JQueryXHR} pronto
+		 */
+		loadPonto() {
 			this.set('pontoLoadingInitialized', true);
 
-			return Em.$.getScript(this.pontoPath, (): void => {
-				var ponto = window.Ponto;
+			return Em.$.getScript(this.pontoPath, () => {
+				const ponto = window.Ponto;
 
 				if (ponto && typeof ponto.setTarget === 'function') {
 					ponto.setTarget(ponto.TARGET_IFRAME_PARENT, window.location.origin);
@@ -89,31 +91,54 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		},
 
 		actions: {
-			addBlockItem(block: string): void {
+			/**
+			 * @param {String} block
+			 * @returns {void}
+			 */
+			addBlockItem(block) {
 				this.trackClick('curated-content-editor', 'item-add');
 				this.transitionTo('curatedContentEditor.blockAddItem', block);
 			},
-
-			editBlockItem(item: CuratedContentEditorItemModel, block: string): void {
+			/**
+			 * @param {CuratedContentEditorItemModel} item
+			 * @param {String} block
+			 * @returns {void}
+			 */
+			editBlockItem(item, block) {
 				this.trackClick('curated-content-editor', 'item-edit');
 				this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 			},
 
-			addSection(): void {
+			/**
+			 * @returns {void}
+			 */
+			addSection() {
 				this.trackClick('curated-content-editor', 'section-add');
 				this.transitionTo('curatedContentEditor.sectionAdd');
 			},
 
-			openSection(item: CuratedContentEditorItemModel): void {
+			/**
+			 * @param {CuratedContentEditorItemModel} section
+			 * @returns {void}
+			 */
+			openSection(section) {
 				this.trackClick('curated-content-editor', 'section-open');
-				this.transitionTo('curatedContentEditor.section', encodeURIComponent(item.label));
+				this.transitionTo('curatedContentEditor.section', encodeURIComponent(section.label));
 			},
 
-			openMainPage(dataSaved: boolean = false): void {
+			/**
+			 * @param {Boolean} dataSaved it's a flag whether data was saved or not
+			 * @returns {void}
+			 */
+			openMainPage(dataSaved) {
 				this.handleTransitionToMainPage(dataSaved);
 			},
 
-			error(error: any): boolean {
+			/**
+			 * @param {Object} error
+			 * @returns {Boolean} returns true
+			 */
+			error(error) {
 				if (error.status === 403) {
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
@@ -132,13 +157,13 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 
 			/**
-			 * TODO (CONCF-856): This is a quick fix copied from EditRoute, not a clean solution.
+			 * @todo (CONCF-856): This is a quick fix copied from EditRoute, not a clean solution.
 			 *
-			 * @param transition
-			 * @returns {boolean}
+			 * @param {EmberState.Transition} transition
+			 * @returns {Boolean} returns true
 			 */
-			willTransition(transition: EmberStates.Transition): boolean {
-				var isStayingOnEditor: boolean = transition.targetName.indexOf('curatedContentEditor') > -1;
+			willTransition(transition) {
+				const isStayingOnEditor = transition.targetName.indexOf('curatedContentEditor') > -1;
 
 				if (
 					App.CuratedContentEditorModel.isDirty &&
@@ -158,7 +183,10 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				return true;
 			},
 
-			didTransition(): boolean {
+			/**
+			 * @returns {Boolean} returns true
+			 */
+			didTransition() {
 				this.controllerFor('application').set('fullPage', true);
 				return true;
 			}
@@ -168,12 +196,13 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * Called when user clicks on custom back button or after data is saved
 		 * Does transition to the main page or sends a message through Ponto if available
 		 *
-		 * @param dataSaved
+		 * @param {Boolean} dataSaved=false it's a flag whether data was saved or not
+		 * @returns {void}
 		 */
-		handleTransitionToMainPage(dataSaved: boolean = false): void {
-			var ponto = window.Ponto;
+		handleTransitionToMainPage(dataSaved = false) {
+			const ponto = window.Ponto;
 
-			this.set('publish', !!dataSaved);
+			this.set('publish', Boolean(dataSaved));
 
 			if (ponto && typeof ponto.invoke === 'function') {
 				this.closeModalUsingPonto(ponto);
@@ -182,8 +211,12 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			}
 		},
 
-		closeModalUsingPonto(ponto: any): void {
-			var dataSaved = this.get('publish');
+		/**
+		 * @param {Object} ponto
+		 * @returns {void}
+		 */
+		closeModalUsingPonto(ponto) {
+			const dataSaved = this.get('publish');
 
 			if (App.CuratedContentEditorModel.isDirty &&
 				!dataSaved &&
@@ -191,6 +224,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			) {
 				return;
 			}
+
 			ponto.invoke(
 				// AMD module name in app
 				'curatedContentTool.pontoBridge',
@@ -203,7 +237,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				Em.K,
 				// If something went wrong on the app side then display an error
 				// This shouldn't happen, ever
-				(err: any): void => {
+				(err) => {
 					Em.Logger.error('Ponto error:', err);
 
 					this.controllerFor('application').addAlert({
