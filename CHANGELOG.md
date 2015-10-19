@@ -1,3 +1,7 @@
+## release-179 (2015-10-19 07:59 UTC)
+* [INT-233](https://wikia-inc.atlassian.net/browse/INT-233) Refactored gulp tasks to work properly together with combine…
+* [SOC-1273](https://wikia-inc.atlassian.net/browse/SOC-1273) SOC-1273 Introduce discussionsSplashPageConfig app links in front end + App promotion component
+
 ## release-178 (2015-10-16 10:53 UTC)
 * [SOC-1193](https://wikia-inc.atlassian.net/browse/SOC-1193) SOC-1193 As a user, I want to see a generic temporary error discussion page if the service is down
 
