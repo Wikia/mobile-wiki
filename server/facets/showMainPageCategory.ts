@@ -29,9 +29,19 @@ function showCategory (request: Hapi.Request, reply: Hapi.Response): void {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
 			mainPage.setTitle(wikiVariables.mainPageTitle);
-			mainPage.getCategory(wikiVariables, (error: any, result: any = {}) => {
-				processCuratedContentData(request, reply, error, result, allowCache);
-			});
+			mainPage.getCategory()
+				.then((pageData: any) => {
+					var result = {
+						mainPageData: {
+							curatedContent: pageData.curatedContent,
+							adsContext: pageData.mainPageData.adsContext,
+							details: pageData.mainPageData.details
+						},
+						server: mainPage.createServerData(wikiDomain),
+						wiki: wikiVariables
+					};
+					processCuratedContentData(request, reply, result, allowCache);
+				});
 		})
 		.catch(Utils.RedirectedToCanonicalHost, (): void => {
 			Logger.info('Redirected to canonical host');

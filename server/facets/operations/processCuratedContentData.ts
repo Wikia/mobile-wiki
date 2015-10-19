@@ -84,13 +84,10 @@ function prepareData (request: Hapi.Request, result: any): void {
  * @param allowCache
  */
 function processCuratedContentData (
-	request: Hapi.Request, reply: any, error: any, result: any = {}, allowCache: boolean = true
+	request: Hapi.Request, reply: any, result: any = {}, allowCache: boolean = true
 ): void {
 	var code = 200,
 		response: Hapi.Response;
-
-	result.mainPageData = result.pageData.mainPageData;
-	delete result.pageData;
 
 	if (!result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
@@ -98,12 +95,12 @@ function processCuratedContentData (
 	} else {
 		Tracking.handleResponse(result, request);
 
-		if (error) {
-			code = error.code || error.statusCode || 500;
-			result.error = JSON.stringify(error);
-
-			allowCache = false;
-		}
+		//if (error) {
+		//	code = error.code || error.statusCode || 500;
+		//	result.error = JSON.stringify(error);
+		//
+		//	allowCache = false;
+		//}
 
 		prepareData(request, result);
 

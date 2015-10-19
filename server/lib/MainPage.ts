@@ -17,52 +17,17 @@ export class MainPageRequestHelper {
 		this.params = params;
 	}
 
-	/**
-	 * @desc Get category items for given section name passed in params.
-	 * Updated pageData inside return object with fetched data.
-	 * @param wikiVariables
-	 * @param next
-	 */
-	getCategory(wikiVariables: any, next: Function): void {
-		this.getCategoryData((error: any, pageData: any) => {
-			next(error, {
-				server: this.createServerData(this.params.wikiDomain),
-				wiki: wikiVariables || {},
-				pageData: pageData || {}
-			});
-		}, false);
-	}
-
-	/**
-	 * @desc Get section items for given category name passed in params.
-	 * Updated pageData inside return object with fetched data.
-	 * @param wikiVariables
-	 * @param next
-	 */
-	getSection(wikiVariables: any, next: Function): void {
-		this.getSectionData((error: any, pageData: any) => {
-			next(error, {
-				server: this.createServerData(this.params.wikiDomain),
-				wiki: wikiVariables || {},
-				pageData: pageData || {}
-			});
-		}, false);
-	}
 
 	/**
 	 * @param {Array} requests - array of requests to process
-	 * @param {Function} callback - callback which should be called with data from requests
-	 * @param {boolean} getWikiVariables - flag if wiki's variables should be fetched
 	 */
-	private processRequests(requests: any, callback: Function, getWikiVariables: boolean): void {
-		Promise.settle(requests)
+	private processRequests(requests: any): Promise<any> {
+		return Promise.settle(requests)
 			.then((results: Promise.Inspection<Promise<any>>[]) => {
 				var curatedContentPromise: Promise.Inspection<Promise<any>> = results[0],
 					mainPageDetailsAndAdsContextPromise: Promise.Inspection<Promise<any>> = results [1],
-					wikiPromise: Promise.Inspection<Promise<any>> = results[2],
 					curatedContent: any,
-					pageData: any = {},
-					wikiVariables: any = {};
+					pageData: any = {};
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 				curatedContent = curatedContentPromise.isFulfilled() ?
@@ -71,78 +36,47 @@ export class MainPageRequestHelper {
 
 				pageData.curatedContent = curatedContent;
 
-				if (getWikiVariables) {
-					wikiVariables = wikiPromise.isFulfilled() ?
-						wikiPromise.value() :
-						wikiPromise.reason();
-				}
-
 				pageData.mainPageData = mainPageDetailsAndAdsContextPromise.isFulfilled() ?
 					mainPageDetailsAndAdsContextPromise.value() :
 					mainPageDetailsAndAdsContextPromise.reason();
 
-				callback(curatedContent.exception, pageData, wikiVariables.data);
+				return Promise.resolve(pageData);
 			});
 	}
 
-	/**
-	 * @desc Fetch data for section
-	 * @param {Function} callback
-	 * @param {boolean} getWikiVariables
-	 */
-	private getSectionData(callback: Function, getWikiVariables: boolean = false): void {
+	getSection(): Promise<any> {
 		var requests: any = [];
 
 		logger.debug(this.params, 'Fetching section data');
 		requests.push(new MediaWiki.ArticleRequest(this.params).curatedContentSection(this.params.sectionName));
 
-		requests = this.fetchMainPageDetailsAndAdsContext(requests);
-		if (getWikiVariables) {
-			requests = this.fetchWikiVariables(requests);
-		}
+		requests.push(this.fetchMainPageDetailsAndAdsContext());
 
-		this.processRequests(requests, callback, getWikiVariables);
-
+		return this.processRequests(requests);
 	}
 
-	/**
-	 * @desc Fetch data for category
-	 * @param {Function} callback
-	 * @param {boolean} getWikiVariables
-	 */
-	private getCategoryData(callback: Function, getWikiVariables: boolean = false): void {
+	getCategory(): Promise<any> {
 		var requests: any = [];
 
 		logger.debug(this.params, 'Fetching category data');
-		requests.push(
-			new MediaWiki.ArticleRequest(this.params).category(this.params.categoryName, {
-				//set the default values for thumbnail - take from: server/facets/api/category.ts:22
-				width: 300,
-				height: 300
-			})
-		);
+		requests.push(new MediaWiki.ArticleRequest(this.params).category(this.params.categoryName, {
+			//set the default values for thumbnail - take from: server/facets/api/category.ts:22
+			width: 300,
+			height: 300
+		}));
 
-		requests = this.fetchMainPageDetailsAndAdsContext(requests);
+		requests.push(this.fetchMainPageDetailsAndAdsContext());
 
-		if (getWikiVariables) {
-			requests = this.fetchWikiVariables(requests);
-		}
-
-		this.processRequests(requests, callback, getWikiVariables);
+		return this.processRequests(requests);
 	}
 
 	/**
 	 * Create MW request for article data and return array with request
-	 * @param requests
 	 * @returns {Array} array of requests
 	 */
-	private fetchMainPageDetailsAndAdsContext(requests: any): any {
+	private fetchMainPageDetailsAndAdsContext(): Promise<any> {
 		logger.debug(this.params, 'Fetching Main Page details and ads context');
-		requests.push(
-			new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext()
-		);
-
-		return requests;
+		return new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext();
 	}
 
 	/**
@@ -164,7 +98,7 @@ export class MainPageRequestHelper {
 	 * @param wikiDomain
 	 * @returns {{mediawikiDomain: string, apiBase: string, environment: string, cdnBaseUrl: string}}
 	 */
-	private createServerData(wikiDomain: string = ''): ServerData {
+	createServerData(wikiDomain: string = ''): ServerData {
 		var env = localSettings.environment;
 
 		return {
