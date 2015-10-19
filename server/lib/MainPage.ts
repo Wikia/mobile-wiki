@@ -26,19 +26,19 @@ export class MainPageRequestHelper {
 			.then((results: Promise.Inspection<Promise<any>>[]) => {
 				var curatedContentPromise: Promise.Inspection<Promise<any>> = results[0],
 					mainPageDetailsAndAdsContextPromise: Promise.Inspection<Promise<any>> = results [1],
-					curatedContent: any,
 					pageData: any = {};
 
-				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
-				curatedContent = curatedContentPromise.isFulfilled() ?
-					curatedContentPromise.value() :
-					curatedContentPromise.reason();
+				if (!curatedContentPromise.isFulfilled()) {
+					return Promise.reject(new GetSectionRequestError(curatedContentPromise.reason()));
+				}
 
-				pageData.curatedContent = curatedContent;
+				pageData.curatedContent = curatedContentPromise.value();
 
-				pageData.mainPageData = mainPageDetailsAndAdsContextPromise.isFulfilled() ?
-					mainPageDetailsAndAdsContextPromise.value() :
-					mainPageDetailsAndAdsContextPromise.reason();
+				if (!mainPageDetailsAndAdsContextPromise.isFulfilled()) {
+					pageData.error = mainPageDetailsAndAdsContextPromise.reason().exception;
+					return Promise.reject(new GetMainPageDataRequestError(pageData));
+				}
+				pageData.mainPageData = mainPageDetailsAndAdsContextPromise.value();
 
 				return Promise.resolve(pageData);
 			});
@@ -48,8 +48,8 @@ export class MainPageRequestHelper {
 		var requests: any = [];
 
 		logger.debug(this.params, 'Fetching section data');
-		requests.push(new MediaWiki.ArticleRequest(this.params).curatedContentSection(this.params.sectionName));
 
+		requests.push(new MediaWiki.ArticleRequest(this.params).curatedContentSection(this.params.sectionName));
 		requests.push(this.fetchMainPageDetailsAndAdsContext());
 
 		return this.processRequests(requests);
@@ -80,25 +80,11 @@ export class MainPageRequestHelper {
 	}
 
 	/**
-	 * Create MW request for wiki variables and return array with request
-	 * @param requests
-	 * @returns {Array} array of requests
-	 */
-	private fetchWikiVariables(requests: any): any {
-		logger.debug({wiki: this.params.wikiDomain}, 'Fetching wiki variables');
-		requests.push(new MediaWiki.WikiRequest({
-			wikiDomain: this.params.wikiDomain
-		}).wikiVariables());
-
-		return requests;
-	}
-
-	/**
 	 * @TODO shared between Article.ts and MainPage.ts - should be moved
 	 * @param wikiDomain
 	 * @returns {{mediawikiDomain: string, apiBase: string, environment: string, cdnBaseUrl: string}}
 	 */
-	createServerData(wikiDomain: string = ''): ServerData {
+	static createServerData(wikiDomain: string = ''): ServerData {
 		var env = localSettings.environment;
 
 		return {
@@ -129,3 +115,23 @@ export class MainPageRequestHelper {
 		this.params.title = title;
 	}
 }
+
+export class GetSectionRequestError {
+	private data: any;
+
+	constructor(data: any) {
+		Error.apply(this, arguments);
+		this.data = data;
+	}
+}
+GetSectionRequestError.prototype = Object.create(Error.prototype);
+
+export class GetMainPageDataRequestError {
+	private data: any;
+
+	constructor(data: any) {
+		Error.apply(this, arguments);
+		this.data = data;
+	}
+}
+GetMainPageDataRequestError.prototype = Object.create(Error.prototype);

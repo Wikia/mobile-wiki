@@ -37,7 +37,7 @@ function showCategory (request: Hapi.Request, reply: Hapi.Response): void {
 							adsContext: pageData.mainPageData.adsContext,
 							details: pageData.mainPageData.details
 						},
-						server: mainPage.createServerData(wikiDomain),
+						server: MainPageRequestHelper.createServerData(wikiDomain),
 						wiki: wikiVariables
 					};
 					processCuratedContentData(request, reply, result, allowCache);

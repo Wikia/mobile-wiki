@@ -38,11 +38,30 @@ function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 							adsContext: pageData.mainPageData.adsContext,
 							details: pageData.mainPageData.details
 						},
-						server: mainPage.createServerData(wikiDomain),
+						server: MainPage.MainPageRequestHelper.createServerData(wikiDomain),
 						wiki: wikiVariables
 					};
 					processCuratedContentData(request, reply, result, allowCache);
-				});
+				})
+				.catch(MainPage.GetMainPageDataRequestError, (errorWithCuratedContent) => {
+					var code = errorWithCuratedContent.error.code || 500;
+					var result = {
+						mainPageData: {
+							curatedContent: errorWithCuratedContent.curatedContent,
+							error: errorWithCuratedContent.error
+						},
+						server: MainPage.MainPageRequestHelper.createServerData(wikiDomain),
+						wiki: wikiVariables
+					};
+					processCuratedContentData(request, reply, result, false, code);
+					Logger.error(
+						'Request to MercuryApi::getMainPageDetailsAndAdsContext failed', errorWithCuratedContent.error
+					);
+				})
+				.catch(MainPage.GetSectionRequestError, (error) => {
+
+				})
+			;
 		})
 		.catch(Utils.RedirectedToCanonicalHost, (): void => {
 			Logger.info('Redirected to canonical host');

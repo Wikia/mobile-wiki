@@ -7,32 +7,6 @@ import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
 import wrapResult = require('./presenters/wrapResult');
 
-interface CuratedContentSectionMW {
-	items: {
-		title: string;
-		label: string;
-		image_id: string;
-		article_id: string;
-		type: string;
-		image_url: string;
-		image_crop?: {
-			landscape: {
-				x: number;
-				y: number;
-				width: number;
-				height: number;
-			};
-			square: {
-				x: number;
-				y: number;
-				width: number;
-				height: number;
-			};
-		};
-		article_local_url: string
-	};
-}
-
 var cachingTimes = {
 	enabled: false,
 	cachingPolicy: Caching.Policy.Private,

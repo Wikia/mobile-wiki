@@ -79,28 +79,20 @@ function prepareData (request: Hapi.Request, result: any): void {
  *
  * @param {Hapi.Request} request
  * @param reply
- * @param error
  * @param result
  * @param allowCache
+ * @param code
  */
 function processCuratedContentData (
-	request: Hapi.Request, reply: any, result: any = {}, allowCache: boolean = true
+	request: Hapi.Request, reply: any, result: any = {}, allowCache: boolean = true, code = 200
 ): void {
-	var code = 200,
-		response: Hapi.Response;
+	var response: Hapi.Response;
 
 	if (!result.wiki.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
 	} else {
 		Tracking.handleResponse(result, request);
-
-		//if (error) {
-		//	code = error.code || error.statusCode || 500;
-		//	result.error = JSON.stringify(error);
-		//
-		//	allowCache = false;
-		//}
 
 		prepareData(request, result);
 
