@@ -57,6 +57,24 @@ $hero-caption-line-height: 18px;
 
 	//////////// Specific styles for each of the infobox elements starts here ////////////
 
+// infobox gallery
+.pi-media-collection {
+	text-align: left;
+	position: relative;
+
+	.pi-item {
+		display: none;
+		text-align: left;
+		position: relative;
+
+		.pi-item {
+			display: none;
+
+			&.active { display: block; }
+		}
+	}
+}
+
 	// infobox hero
 	.pi-hero {
 		min-height: $min-hero-item-height;

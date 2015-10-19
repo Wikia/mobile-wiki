@@ -2,11 +2,46 @@
 /// <reference path="./MediaComponent.ts" />
 'use strict';
 
-App.InfoboxImageCollectionComponent = App.MediaComponent.extend({
+App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixin, {
   classNames: ['pi-image-collection'],
   layoutName: 'components/infobox-image-collection',
 
+  limitHeight: true,
+  imageAspectRatio: 16 / 9,
+
   activeRef: 0,
+
+  thumbWidth: Em.computed('viewportDimensions.width', function(): number {
+    return this.get('viewportDimensions.width');
+  }),
+
+  computedHeight(media): number {
+    var windowWidth: number = this.get('viewportDimensions.width');
+    var imageAspectRatio: number = this.get('imageAspectRatio');
+    var imageWidth: number = media.width || windowWidth;
+    var imageHeight: number = media.height;
+    var maxWidth: number = Math.floor(imageHeight * imageAspectRatio);
+    var computedHeight: number = imageHeight;
+
+    if (windowWidth < imageWidth) {
+      computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
+    }
+
+    //wide image- image wider than 16:9 aspect ratio and inside the HeroImage module
+    //Crop it to have 16:9 ratio.
+    if (imageWidth > maxWidth && this.get('isInfoboxHeroImage')) {
+      this.set('cropMode', Mercury.Modules.Thumbnailer.mode.zoomCrop);
+      return Math.floor(windowWidth / imageAspectRatio);
+    }
+
+    //high image- image higher than square. Use top-crop-down mode.
+    if (windowWidth < computedHeight) {
+      this.set('cropMode', Mercury.Modules.Thumbnailer.mode.topCropDown);
+      return windowWidth;
+    }
+
+    return computedHeight;
+  },
 
   setup(): void {
     var mediaArray = Em.A();
@@ -28,16 +63,15 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend({
   loadImages(galleryRef: number = 0): void {
     var image: ArticleMedia;
     var cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop;
-
-    // TODO: Replace these magic numbers with functions to get desired width/height
-    var width: number = 320;
-    var height: number = 320;
+    var width: number = this.get('thumbWidth');
+    var height: number;
 
     // TODO: Replace this with a computed property that stores the length
     var collectionLength = this.get('media').length;
 
     for (; galleryRef < collectionLength ; galleryRef ++) {
       image = this.get('media').get(galleryRef);
+      height = this.computedHeight(image);
 
       var thumbUrl = this.getThumbURL(image.url, {
         mode: cropMode,
