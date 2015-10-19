@@ -84,11 +84,13 @@ function getArticle(request: Hapi.Request,
 				 reply: Hapi.Response,
 				 article: Article.ArticleRequestHelper,
 				 allowCache: boolean): void {
+	var generalServerErrorCode = 500;
+
 	article
 		.getFull()
 		.then((data: any): void => {
-			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wiki);
-			onArticleResponse(request, reply, data, 200, allowCache);
+			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			onArticleResponse(request, reply, data, allowCache);
 		})
 		.catch(MediaWiki.WikiVariablesRequestError, (error: any): void => {
 			Logger.error('WikiVariables error', error);
@@ -96,16 +98,16 @@ function getArticle(request: Hapi.Request,
 		})
 		.catch(MediaWiki.ArticleRequestError, (error: any): void => {
 			var data = error.data,
-				errorCode = data.exception.code ? data.exception.code : 500;
+				errorCode = data.exception.code || generalServerErrorCode;
 
 			Logger.error('Article error', data.exception);
 
-			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wiki);
+			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 
 			data.articleError = data.exception;
 			delete data.exception;
 
-			onArticleResponse(request, reply, data, errorCode, allowCache);
+			onArticleResponse(request, reply, data, allowCache, errorCode);
 		})
 		.catch(Utils.RedirectedToCanonicalHost, (): void => {
 			Logger.info('Redirected to canonical host');
@@ -129,8 +131,8 @@ function onArticleResponse (
 	request: Hapi.Request,
 	reply: any,
 	result: any = {},
-	code: number = 200,
-	allowCache: boolean = true): void {
+	allowCache: boolean = true,
+	code: number = 200): void {
 		var response: Hapi.Response;
 
 		Tracking.handleResponse(result, request);

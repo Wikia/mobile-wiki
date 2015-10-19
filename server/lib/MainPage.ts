@@ -27,7 +27,7 @@ export class MainPageRequestHelper {
 		this.getCategoryData((error: any, pageData: any) => {
 			next(error, {
 				server: this.createServerData(this.params.wikiDomain),
-				wiki: wikiVariables || {},
+				wikiVariables: wikiVariables || {},
 				pageData: pageData || {}
 			});
 		}, false);
@@ -43,7 +43,7 @@ export class MainPageRequestHelper {
 		this.getSectionData((error: any, pageData: any) => {
 			next(error, {
 				server: this.createServerData(this.params.wikiDomain),
-				wiki: wikiVariables || {},
+				wikiVariables: wikiVariables || {},
 				pageData: pageData || {}
 			});
 		}, false);

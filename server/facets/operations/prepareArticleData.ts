@@ -17,7 +17,8 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	var title: string,
 		articleDetails: any,
 		contentDir = 'ltr',
-		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'];
+		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+		wikiVariables = result.wikiVariables;
 
 	if (result.article.details) {
 		articleDetails = result.article.details;
@@ -25,7 +26,7 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 	} else if (request.params.title) {
 		title = request.params.title.replace(/_/g, ' ');
 	} else {
-		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
+		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}
 
 	if (result.article.article) {
@@ -34,15 +35,15 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		delete result.article.article.content;
 	}
 
-	if (result.wiki.language) {
-		contentDir = result.wiki.language.contentDir;
+	if (wikiVariables.language) {
+		contentDir = wikiVariables.language.contentDir;
 		result.isRtl = (contentDir === 'rtl');
 	}
 
 	result.displayTitle = title;
-	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
-	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
-	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
+	result.isMainPage = (title === wikiVariables.mainPageTitle.replace(/_/g, ' '));
+	result.canonicalUrl = wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_');
+	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = {

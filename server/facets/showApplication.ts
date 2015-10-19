@@ -26,13 +26,13 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 
 		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
-		context.wiki = wikiVariables;
-		if (context.wiki.language) {
-			contentDir = context.wiki.language.contentDir;
+		context.wikiVariables = wikiVariables;
+		if (context.wikiVariables.language) {
+			contentDir = context.wikiVariables.language.contentDir;
 			context.isRtl = (contentDir === 'rtl');
 		}
 
-		return OpenGraph.getAttributes(request, context.wiki);
+		return OpenGraph.getAttributes(request, context.wikiVariables);
 	}).then((openGraphData: any): void => {
 		// Add OpenGraph attributes to context
 		context.openGraph = openGraphData;

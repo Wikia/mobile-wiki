@@ -71,7 +71,7 @@ export class ArticleRequestHelper {
 				data = {
 					article: article.data || {},
 					server: Utils.createServerData(localSettings, this.params.wikiDomain),
-					wiki: wikiVariablesPromise.value()
+					wikiVariables: wikiVariablesPromise.value()
 				};
 
 				if (isArticlePromiseFulfilled) {
