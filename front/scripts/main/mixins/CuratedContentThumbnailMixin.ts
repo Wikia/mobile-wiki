@@ -36,7 +36,7 @@ App.CuratedContentThumbnailMixin = Em.Mixin.create({
 
 	/**
 	 * @param {string} imageUrl
-	 * @param {ImageCropData} imageCrop
+	 * @param {ImageCropData} [imageCrop=null]
 	 * @returns {string}
 	 */
 	generateThumbUrl(imageUrl: string, imageCrop: ImageCropData = null): string {
