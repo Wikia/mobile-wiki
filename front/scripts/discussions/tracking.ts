@@ -16,8 +16,8 @@ interface Window {
 	/**
 	 * Track discussions splash page
 	 *
-	 * @param {String} label
-	 * @param {String} [action=M.trackActions.click]
+	 * @param {string}  label
+	 * @param {string}  [action=M.trackActions.click]
 	 * @returns {void}
 	 */
 	function track(label: string, action: string = M.trackActions.click): void {
