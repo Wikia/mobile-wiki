@@ -10,12 +10,23 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
   imageAspectRatio: 16 / 9,
 
   activeRef: 0,
+  collectionLength: Em.computed('media', function(): number {
+    return this.get('media').length;
+  }),
+
+  nextButtonClass: Em.computed('activeRef', 'collectionLength', function(): string {
+    return this.get('activeRef') < (this.get('collectionLength') - 1) ? 'visible' : '';
+  }),
+
+  previousButtonClass: Em.computed('activeRef', function(): string {
+    return this.get('activeRef') > 0 ? 'visible' : '';
+  }),
 
   thumbWidth: Em.computed('viewportDimensions.width', function(): number {
     return this.get('viewportDimensions.width');
   }),
 
-  computedHeight(media): number {
+  computedHeight(media: typeof App.ArticleMedia): number {
     var windowWidth: number = this.get('viewportDimensions.width');
     var imageAspectRatio: number = this.get('imageAspectRatio');
     var imageWidth: number = media.width || windowWidth;
@@ -66,8 +77,7 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
     var width: number = this.get('thumbWidth');
     var height: number;
 
-    // TODO: Replace this with a computed property that stores the length
-    var collectionLength = this.get('media').length;
+    var collectionLength = this.get('collectionLength');
 
     for (; galleryRef < collectionLength ; galleryRef ++) {
       image = this.get('media').get(galleryRef);
@@ -89,5 +99,19 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
   load(): void {
     this.setup();
     this.loadImages();
+  },
+
+  actions: {
+    switchImage(direction: string) {
+      var activeRef = this.get('activeRef');
+      var refDirection = (direction === 'next') ? 1 : -1;
+      var nextRef =  activeRef + refDirection;
+      var activeImage = this.get('media').get(activeRef);
+      var nextImage = this.get('media').get(nextRef);
+
+      activeImage.set('isActive', false);
+      nextImage.set('isActive', true);
+      this.set('activeRef', nextRef);
+    }
   }
 });
