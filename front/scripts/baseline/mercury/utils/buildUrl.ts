@@ -11,13 +11,13 @@ interface UrlParams {
 
 /**
  * MercuryUtilsBuildUrlParams
- * @typedef {object}  MercuryUtilsBuildUrlParams
- * @property {string}  [namespace] - MediaWiki article namespace
- * @property {string}  [path] - Additional URL path appended to the end of the URL before the querystring
- * @property {string}  [protocol] - Protocol
- * @property {object}  [query] - Querystring data, which is converted to a string and properly escaped
- * @property {string}  [title] - Article title - value of the parameter will be encoded
- * @property {string}  [wiki] - Wiki name, as it would be used as a subdomain
+ * @typedef {object} MercuryUtilsBuildUrlParams
+ * @property {string} [namespace] - MediaWiki article namespace
+ * @property {string} [path] - Additional URL path appended to the end of the URL before the querystring
+ * @property {string} [protocol] - Protocol
+ * @property {object} [query] - Querystring data, which is converted to a string and properly escaped
+ * @property {string} [title] - Article title - value of the parameter will be encoded
+ * @property {string} [wiki] - Wiki name, as it would be used as a subdomain
  */
 
 module Mercury.Utils {
@@ -38,7 +38,7 @@ module Mercury.Utils {
 	 *   ...returns 'http://community.wikia.com/wiki/User:JaneDoe/preferences'
 	 *
 	 * @param {MercuryUtilsBuildUrlParams} urlParams
-	 * @param {object}  context - Window context
+	 * @param {object} context - Window context
 	 * @returns {string}
 	 */
 	export function buildUrl (urlParams: UrlParams = {}, context: any = window): string {
@@ -85,9 +85,9 @@ module Mercury.Utils {
 	/**
 	 * Substitutes the wiki name in a host string with a new wiki name
 	 *
-	 * @param {string}  host - A host string (may include port number) from any Wikia environment
-	 * @param {string}  wiki - The new wiki, which may contain a language prefix; for example, "glee" or "es.walkingdead"
-	 * @returns {string}  New host
+	 * @param {string} host - A host string (may include port number) from any Wikia environment
+	 * @param {string} wiki - The new wiki, which may contain a language prefix; for example, "glee" or "es.walkingdead"
+	 * @returns {string} New host
 	 */
 	export function replaceWikiInHost (host: string, wiki: string): string {
 		var match: Array<string>;

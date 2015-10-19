@@ -1,7 +1,7 @@
 module Mercury.Utils {
 	/**
 	 * @param {any} val
-	 * @returns {boolean}  isPrimitive
+	 * @returns {boolean} isPrimitive
 	 */
 	export function isPrimitive (val: any) {
 		var typeOf = typeof val;

@@ -13,7 +13,7 @@ module Mercury.Utils {
 	}
 
 	/**
-	 * @param {string}  src
+	 * @param {string} src
 	 * @param {Function} [fOnload]
 	 * @returns {void}
 	 */
