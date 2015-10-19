@@ -229,7 +229,7 @@ QUnit.test('Discussion url is computed properly', function () {
 		{
 			path: '',
 			query: { 'action': '&=/'},
-			expectedOutput: 'https://services.wikia.com/discussion?acton=%26%3D%2F'
+			expectedOutput: 'https://services.wikia.com/discussion?action=%26%3D%2F'
 		}
 
 	];
