@@ -1,6 +1,10 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface Window {
+	Ponto: any
+}
+
 App.IEIFrameFocusFixMixin = Em.Mixin.create({
 	/**
 	 * Internet Explorer 11 has problems with catching focus
