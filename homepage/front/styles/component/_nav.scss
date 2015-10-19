@@ -34,6 +34,28 @@ header.navigation {
 		z-index: 9999;
 	}
 
+	.create-wikia {
+		display: none;
+
+		@include media ($horizontal-bar-mode) {
+			display: inline-block;
+		}
+	}
+
+	.create-wikia-button {
+		$create-wikia-button-color: #656e78;
+
+		border: solid 1px $create-wikia-button-color;
+		color: $create-wikia-button-color;
+		display: inline-block;
+		font-size: 12px;
+		height: 30px;
+		line-height: 28px;
+		margin-bottom: 9px;
+		margin-top: 9px;
+		padding: 0 10px;
+	}
+
 	.logo {
 		float: left;
 		max-height: $navigation-height;
