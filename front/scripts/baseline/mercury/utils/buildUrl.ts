@@ -120,7 +120,7 @@ module Mercury.Utils {
 		return host;
 	}
 
-	export function getDiscussionServiceUrl(query: any, path: string = ''): string {
-		return 'https://' + M.prop('servicesDomain') + '/' + M.prop('discussionBaseRoute') + '/' + path + getQueryString(query) ;
+	export function getDiscussionServiceUrl (path: string = '', query: any = {}): string {
+		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}/${path}${getQueryString(query)}` ;
 	}
 }
