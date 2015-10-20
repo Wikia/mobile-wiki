@@ -1,25 +1,20 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-
-'use strict';
-
 App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 	/**
-	 * @returns {CuratedContentEditorItemModel}
+	 * @returns {CuratedContentEditorItemModel} new item
 	 */
-	model(): CuratedContentEditorItemModel {
+	model() {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
 	/**
-	 * @param {any} controller
+	 * @param {Object} controller
 	 * @param {CuratedContentEditorItemModel} model
-	 * @param {EmberStates.Transition} transition
+	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
-	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var sectionController = this.controllerFor('curatedContentEditor.section'),
-			alreadyUsedLabels: string[] = sectionController.get('alreadyUsedItemsLabels');
+	setupController(controller, model, transition) {
+		const sectionController = this.controllerFor('curatedContentEditor.section'),
+			alreadyUsedLabels = sectionController.get('alreadyUsedItemsLabels');
 
 		this._super(controller, model, transition);
 		controller.set('alreadyUsedLabels', alreadyUsedLabels);
@@ -28,7 +23,7 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 	/**
 	 * @returns {void}
 	 */
-	renderTemplate(): void {
+	renderTemplate() {
 		this.render('curated-content-editor-item');
 	},
 
@@ -36,7 +31,7 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 		/**
 		 * @returns {void}
 		 */
-		goBack(): void {
+		goBack() {
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
@@ -44,10 +39,10 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 		 * @param {CuratedContentEditorItemModel} newItem
 		 * @returns {void}
 		 */
-		done(newItem: CuratedContentEditorItemModel): void {
-			var sectionModel: CuratedContentEditorItemModel = this.modelFor('curatedContentEditor.section'),
+		done(newItem) {
+			const sectionModel = this.modelFor('curatedContentEditor.section'),
 				sectionController = this.controllerFor('curatedContentEditor.section'),
-				alreadyUsedLabels: string[] = sectionController.get('alreadyUsedItemsLabels');
+				alreadyUsedLabels = sectionController.get('alreadyUsedItemsLabels');
 
 			sectionController.set('alreadyUsedItemsLabels', alreadyUsedLabels.concat(newItem.label));
 			App.CuratedContentEditorModel.addItem(sectionModel, newItem);
@@ -57,7 +52,7 @@ App.CuratedContentEditorSectionAddItemRoute = Em.Route.extend({
 		/**
 		 * @returns {void}
 		 */
-		deleteItem(): void {
+		deleteItem() {
 			this.send('goBack');
 		}
 	}

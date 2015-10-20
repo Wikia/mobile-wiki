@@ -1,13 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/AlertNotificationsMixin.ts" />
-/// <reference path="../mixins/CuratedContentEditorLayoutMixin.ts"/>
-/// <reference path="../mixins/CuratedContentThumbnailMixin.ts"/>
-/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-///<reference path="../mixins/IEIFrameFocusFixMixin.ts"/>
-///<reference path="../mixins/CuratedContentEditorLabelsMixin.ts"/>
-'use strict';
-
 App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLabelsMixin,
@@ -28,15 +18,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		/* 16x9 transparent gif */
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
-		imageUrl: Em.computed('model.image_url', 'model.image_crop', function (): string {
+		imageUrl: Em.computed('model.image_url', 'model.image_crop', function() {
 			if (this.get('model.image_url')) {
-				var aspectRatioName = this.get('aspectRatioName'),
-					imageCrop = this.get('model.image_crop.' + aspectRatioName) || null;
+				const aspectRatioName = this.get('aspectRatioName'),
+					imageCrop = this.get(`model.image_crop.${aspectRatioName}`) || null;
 
 				return this.generateThumbUrl(this.get('model.image_url'), imageCrop);
-			} else {
-				return this.get('emptyGif');
 			}
+			return this.get('emptyGif');
 		}),
 
 		isSection: Em.computed.equal('model.node_type', 'section'),
@@ -56,23 +45,21 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		titleErrorMessage: null,
 		imageErrorMessage: null,
 
-		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function (): boolean {
-				return Em.isEmpty(this.get('labelErrorMessage')) &&
-					Em.isEmpty(this.get('titleErrorMessage')) &&
-					Em.isEmpty(this.get('imageErrorMessage'));
-			}
-		),
+		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function() {
+			return Em.isEmpty(this.get('labelErrorMessage')) &&
+				Em.isEmpty(this.get('titleErrorMessage')) &&
+				Em.isEmpty(this.get('imageErrorMessage'));
+		}),
 
 		errorClass: 'error',
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
-		pageNameTooltip: Em.computed('isCategory', function(): string {
+		pageNameTooltip: Em.computed('isCategory', function() {
 			if (this.get('isCategory')) {
 				return i18n.t('app.curated-content-editor-enter-category-name-tooltip');
-			} else {
-				return i18n.t('app.curated-content-editor-enter-page-name-tooltip');
 			}
+			return i18n.t('app.curated-content-editor-enter-page-name-tooltip');
 		}),
 
 		searchSuggestionsResult: [],
@@ -81,24 +68,28 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		 * app.curated-content-editor-no-articles-found
 		 * app.curated-content-editor-suggestions-loading
 		 */
-		searchSuggestionsMessage: Em.computed('suggestionsError', function (): string {
+		searchSuggestionsMessage: Em.computed('suggestionsError', function() {
 			if (this.get('suggestionsError')) {
 				if (this.get('isCategory')) {
 					return i18n.t('app.curated-content-editor-no-categories-found');
-				} else {
-					return i18n.t('app.curated-content-editor-no-articles-found');
 				}
-			} else {
-				return i18n.t('app.curated-content-editor-suggestions-loading');
+				return i18n.t('app.curated-content-editor-no-articles-found');
 			}
+			return i18n.t('app.curated-content-editor-suggestions-loading');
 		}),
 
-		labelObserver(): void {
+		/**
+		 * @returns {void}
+		 */
+		labelObserver() {
 			this.validateLabel();
 		},
 
-		titleObserver(): void {
-			var title = this.get('model.title');
+		/**
+		 * @returns {void}
+		 */
+		titleObserver() {
+			const title = this.get('model.title');
 
 			if (this.validateTitle()) {
 				this.getImageDebounced();
@@ -115,31 +106,44 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			}
 		},
 
-		didRender(): void {
+		/**
+		 * @returns {void}
+		 */
+		didRender() {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 			this.addObserver('model.title', this, this.titleObserver);
 			this.addObserver('model.label', this, this.labelObserver);
 		},
 
 		/**
-		 * When user taps/clicks anywhere we want to close
-		 * search suggestions panel
+		 * When user taps/clicks anywhere we want to close search suggestions panel
+		 *
+		 * @returns {void}
 		 */
-		click(): void {
+		click() {
 			this.set('searchSuggestionsVisible', false);
 		},
 
 		actions: {
-			setLabelFocusedOut(): void {
+			/**
+			 * @returns {void}
+			 */
+			setLabelFocusedOut() {
 				this.validateLabel();
 				this.set('isLabelFocused', false);
 			},
 
-			setLabelFocusedIn(): void {
+			/**
+			 * @returns {void}
+			 */
+			setLabelFocusedIn() {
 				this.set('isLabelFocused', true);
 			},
 
-			setTitleFocusedOut(): void {
+			/**
+			 * @returns {void}
+			 */
+			setTitleFocusedOut() {
 				this.validateTitle();
 				this.set('isTitleFocused', false);
 				if (this.get('isLoading')) {
@@ -147,22 +151,31 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				}
 			},
 
-			setTitleFocusedIn(): void {
+			/**
+			 * @returns {void}
+			 */
+			setTitleFocusedIn() {
 				this.showLoader();
 				this.set('isTitleFocused', true);
 			},
 
-			goBack(): void {
-				var trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
-				this.trackClick('curated-content-editor', trackLabel);
+			/**
+			 * @returns {void}
+			 */
+			goBack() {
+				const trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
 
+				this.trackClick('curated-content-editor', trackLabel);
 				this.sendAction('goBack');
 			},
 
-			done(): void {
-				var trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
-				this.trackClick('curated-content-editor', trackLabel);
+			/**
+			 * @returns {void}
+			 */
+			done() {
+				const trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
 
+				this.trackClick('curated-content-editor', trackLabel);
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 					if (this.get('isSection')) {
 						this.validateAndDone(this.get('model'), {
@@ -177,21 +190,30 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				}
 			},
 
-			deleteItem(): void {
-				var trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
-				this.trackClick('curated-content-editor', trackLabel );
+			/**
+			 * @returns {void}
+			 */
+			deleteItem() {
+				const trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
 
+				this.trackClick('curated-content-editor', trackLabel);
 				if (confirm(i18n.t('app.curated-content-editor-remove-item-confirmation'))) {
 					this.sendAction('deleteItem');
 				}
 			},
 
-			fileUpload(files: any[]): void {
+			/**
+			 * Uploads ONLY FIRST of the selected files (if multiple files are selected)
+			 *
+			 * @param {String[]} files
+			 * @returns {void}
+			 */
+			fileUpload(files) {
 				this.trackClick('curated-content-editor', 'item-file-upload');
 				this.showLoader();
 				App.ArticleAddPhotoModel.load(files[0])
-					.then((photoModel: typeof App.ArticleAddPhotoModel) => App.ArticleAddPhotoModel.upload(photoModel))
-					.then((data: any) => {
+					.then((photoModel) => App.ArticleAddPhotoModel.upload(photoModel))
+					.then((data) => {
 						if (data && data.url && data.article_id) {
 							this.setProperties({
 								'imageProperties.url': data.url,
@@ -208,7 +230,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 							this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 						}
 					})
-					.catch((err: any) => {
+					.catch((err) => {
 						Em.Logger.error(err);
 						this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 					})
@@ -217,34 +239,54 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					});
 			},
 
-			showImageMenu(): void {
+			/**
+			 * @returns {void}
+			 */
+			showImageMenu() {
 				this.trackClick('curated-content-editor', 'item-image-menu');
 				this.set('imageMenuVisible', true);
 			},
 
-			hideImageMenu(): void {
+			/**
+			 * @returns {void}
+			 */
+			hideImageMenu() {
 				this.set('imageMenuVisible', false);
 			},
 
-			showSearchImageForm(): void {
+			/**
+			 * @returns {void}
+			 */
+			showSearchImageForm() {
 				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
 			},
 
-			cropImage(): void {
+			/**
+			 * @returns {void}
+			 */
+			cropImage() {
 				this.trackClick('curated-content-editor', 'item-crop-image');
 				this.set('imageCropLayout.previous', this.get('itemFormLayout.name'));
 				this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 			},
 
-			setTitle(title: string): void {
+			/**
+			 * @param {String} title
+			 * @returns {void}
+			 */
+			setTitle(title) {
 				this.setProperties({
 					'model.title': title,
 					searchSuggestionsVisible: false
 				});
 			},
 
-			showTooltip(tooltipMessage: string): void {
+			/**
+			 * @param {String} tooltipMessage
+			 * @returns {void}
+			 */
+			showTooltip(tooltipMessage) {
 				this.trackClick('curated-content-editor', 'tooltip-show');
 				this.setProperties({
 					tooltipMessage,
@@ -253,9 +295,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			}
 		},
 
-		validateImage(): boolean {
-			var imageUrl: string = this.get('model.image_url'),
-				errorMessage: string = null;
+		/**
+		 * @returns {void}
+		 */
+		validateImage() {
+			const imageUrl = this.get('model.image_url');
+			let errorMessage = null;
 
 			if (!imageUrl) {
 				errorMessage = i18n.t('app.curated-content-editor-image-missing-error');
@@ -266,10 +311,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return !errorMessage;
 		},
 
-		validateLabel(): boolean {
-			var label = this.get('model.label'),
-				alreadyUsedLabels = this.get('alreadyUsedLabels'),
-				errorMessage: string = null;
+		/**
+		 * @returns {void}
+		 */
+		validateLabel() {
+			const label = this.get('model.label'),
+				alreadyUsedLabels = this.get('alreadyUsedLabels');
+			let errorMessage = null;
 
 			if (Em.isEmpty(label)) {
 				errorMessage = 'app.curated-content-editor-missing-label-error';
@@ -284,9 +332,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return !errorMessage;
 		},
 
-		validateTitle(): boolean {
-			var title: string,
-				errorMessage: string = null;
+		/**
+		 * @returns {void}
+		 */
+		validateTitle() {
+			let title,
+				errorMessage = null;
 
 			if (!this.get('isSection')) {
 				title = this.get('model.title');
@@ -307,15 +358,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			return true;
 		},
 
-		getImage(): void {
+		/**
+		 * @returns {void}
+		 */
+		getImage() {
 			App.CuratedContentEditorItemModel
 				.getImage(this.get('model.title'), this.get('imageWidth'))
-				.then((data: CuratedContentGetImageResponse): void => {
-					if (!data.url) {
-						if (!this.get('model.image_url')) {
-							this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
-						}
-					} else {
+				.then((data) => {
+					if (data.url) {
 						this.setProperties({
 							imageErrorMessage: null,
 							resetFileInput: true,
@@ -323,89 +373,108 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 							'model.image_id': data.id,
 							'model.image_crop': null
 						});
+					} else if (!this.get('model.image_url')) {
+						this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
 					}
 				})
-				.catch((err: any): void => {
+				.catch((err) => {
 					Em.Logger.error(err);
 					this.set('imageErrorMessage', i18n.t('app.curated-content-error-other'));
 				})
-				.finally((): void => this.hideLoader());
+				.finally(() => this.hideLoader());
 		},
 
-		getImageDebounced(): void {
+		/**
+		 * @returns {void}
+		 */
+		getImageDebounced() {
 			this.showLoader();
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
-		validateAndDone(item: CuratedContentEditorItemModel, data: any): void {
+		/**
+		 * @param {CuratedContentEditorItemModel} item
+		 * @param {Object} dataToValidate
+		 * @returns {void}
+		 */
+		validateAndDone(item, dataToValidate) {
 			this.showLoader();
-			App.CuratedContentEditorItemModel.validateServerData(item, data)
-				.then((data: CuratedContentValidationResponseInterface): void => {
+			App.CuratedContentEditorItemModel.validateServerData(item, dataToValidate)
+				.then((data) => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
+					} if (data.error) {
+						data.error.forEach((error) => this.processValidationError(error.reason));
 					} else {
-						if (data.error) {
-							data.error.forEach((error: CuratedContentValidationResponseErrorInterface)
-								=> this.processValidationError(error.reason));
-						} else {
-							this.addAlert({
-								message: i18n.t('app.curated-content-error-other'),
-								type: 'alert'
-							});
-						}
+						this.addAlert({
+							message: i18n.t('app.curated-content-error-other'),
+							type: 'alert'
+						});
 					}
 				})
-				.catch((err: any): void => {
+				.catch((err) => {
 					Em.Logger.error(err);
 					this.addAlert({
 						message: i18n.t('app.curated-content-error-other'),
 						type: 'alert'
 					});
 				})
-				.finally((): void => this.hideLoader());
+				.finally(() => this.hideLoader());
 		},
 
-		processValidationError(reason: string): void {
+		/**
+		 * @param {String} reason
+		 * @returns {void}
+		 */
+		processValidationError(reason) {
 			switch (reason) {
-				case 'articleNotFound':
-					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
-					break;
-				case 'emptyLabel':
-				case 'tooLongLabel':
-					// error should be displayed with validateLabel method - no need to duplicate messages
-					this.validateLabel();
-					break;
-				case 'videoNotSupportProvider':
-					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
-					break;
-				case 'notSupportedType':
-					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
-					break;
-				case 'duplicatedLabel':
-					this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
-					break;
-				case 'noCategoryInTag':
-					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
-					break;
-				case 'imageMissing':
-					this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
-					break;
+			case 'articleNotFound':
+				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
+				break;
+			case 'emptyLabel':
+			case 'tooLongLabel':
+				// error should be displayed with validateLabel method - no need to duplicate messages
+				this.validateLabel();
+				break;
+			case 'videoNotSupportProvider':
+				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
+				break;
+			case 'notSupportedType':
+				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
+				break;
+			case 'duplicatedLabel':
+				this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
+				break;
+			case 'noCategoryInTag':
+				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
+				break;
+			case 'imageMissing':
+				this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
+				break;
+			default:
+				// none
 			}
 		},
 
-		setSearchSuggestionsDebounced(): void {
+		/**
+		 * @returns {void}
+		 */
+		setSearchSuggestionsDebounced() {
 			Em.run.debounce(this, this.setSearchSuggestions, this.debounceDuration);
 		},
 
-		setSearchSuggestions(): void {
-			var title = this.get('model.title');
+		/**
+		 * @returns {void}
+		 */
+		setSearchSuggestions() {
+			const title = this.get('model.title');
 
 			App.CuratedContentEditorItemModel.getSearchSuggestions(title)
-				.then((data: any): void => {
+				.then((data) => {
 					this.set('searchSuggestionsResult', data.items);
 				})
-				.catch((error: any): void => {
-					//404 error is returned when no articles were found. No need to log it
+				.catch((error) => {
+					// 404 error is returned when no articles were found. No need to log it
 					if (error && error.status !== 404) {
 						Em.Logger.error(error);
 					}

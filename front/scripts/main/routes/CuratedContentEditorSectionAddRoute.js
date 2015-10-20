@@ -1,13 +1,8 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-
-'use strict';
-
 App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	/**
-	 * @returns {CuratedContentEditorItemModel}
+	 * @returns {CuratedContentEditorItemModel} new section
 	 */
-	model(): CuratedContentEditorItemModel {
+		model() {
 		return App.CuratedContentEditorItemModel.createNew({
 			node_type: 'section',
 			items: []
@@ -15,22 +10,22 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {any} controller
+	 * @param {Object} controller
 	 * @param {CuratedContentEditorItemModel} model
-	 * @param {EmberStates.Transition} transition
+	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
-	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
+		setupController(controller, model, transition) {
 		this._super(controller, model, transition);
 		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(
-			this.modelFor('curatedContentEditor').get('curated'))
+				this.modelFor('curatedContentEditor').get('curated'))
 		);
 	},
 
 	/**
 	 * @returns {void}
 	 */
-	renderTemplate(): void {
+		renderTemplate() {
 		this.render('curated-content-editor-item');
 	},
 
@@ -38,7 +33,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		/**
 		 * @returns {void}
 		 */
-		goBack(): void {
+			goBack() {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
@@ -46,7 +41,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		 * @param {CuratedContentEditorItemModel} newSection
 		 * @returns {void}
 		 */
-		done(newSection: CuratedContentEditorItemModel): void {
+			done(newSection) {
 			this.transitionTo('curatedContentEditor.section', newSection, {
 				queryParams: {
 					isNewSection: true
@@ -54,11 +49,10 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 			});
 		},
 
-		// Delete section
 		/**
 		 * @returns {void}
 		 */
-		deleteItem(): void {
+			deleteItem() {
 			this.send('goBack');
 		}
 	}
