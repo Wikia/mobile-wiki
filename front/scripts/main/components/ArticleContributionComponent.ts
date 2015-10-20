@@ -22,7 +22,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			this.sendAction('edit', this.get('title'), this.get('section'));
 		},
 
-		select(windowObj: any): void {
+		select(): void {
 			var href = '/join?redirect=' + encodeURIComponent(window.location.href);
 			if (this.get('sectionId')) {
 				href += encodeURIComponent('#' + this.sectionId);
@@ -35,9 +35,8 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 				label: 'add-photo-no-auth',
 				value: this.get('section')
 			});
-			//Injecting window obj for unit test.
-			windowObj = windowObj || window;
-			windowObj.location.href = href;
+
+			this.openLocation(href);
 		},
 
 		addPhoto(): void {
@@ -54,5 +53,9 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			var photoData = this.$('.file-upload-input')[0].files[0];
 			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 		}
+	},
+
+	openLocation(href: string) {
+		window.location.href = href;
 	}
 });
