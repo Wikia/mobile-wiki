@@ -1,4 +1,3 @@
-/* global App, resetMercuryBaseline*/
 moduleFor('model:articleComments', 'ArticleCommentsModel');
 
 test('url creates valid url to a resource', function () {
