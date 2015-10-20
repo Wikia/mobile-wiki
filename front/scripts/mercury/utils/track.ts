@@ -67,7 +67,7 @@ interface TrackerInstance {
 }
 
 /**
- * @typedef {Object} TrackerInstance
+ * @typedef {object} TrackerInstance
  * @property {TrackFunction} track
  * @property {Function} trackPageView
  * @property {Function} updateTrackedUrl

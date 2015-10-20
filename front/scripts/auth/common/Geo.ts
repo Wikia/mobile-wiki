@@ -1,15 +1,28 @@
+/**
+ * GeoCookie
+ * @typedef {object} GeoCookie
+ * @property {string} [city]
+ * @property {string} [country]
+ * @property {string} [continent]
+ */
 interface GeoCookie {
 	city?: string;
 	country?: string;
 	continent?: string;
 }
 
+/**
+ * @class Geo
+ */
 class Geo {
 	cookieName: string = 'Geo';
 
 	country: string;
 	continent: string;
 
+	/**
+	 * @constructs Geo
+	 */
 	constructor () {
 		var geoCookie: string = Cookie.get(this.cookieName),
 			parsedGeoCookie: GeoCookie;
@@ -28,11 +41,16 @@ class Geo {
 		this.continent = parsedGeoCookie.continent;
 	}
 
+	/**
+	 * @returns {string}
+	 */
 	public getCountry (): string {
 		return this.country;
 	}
 
-	public getContinent (): string {
+	/**
+	 * @returns {string}
+	 */public getContinent (): string {
 		return this.continent;
 	}
 }

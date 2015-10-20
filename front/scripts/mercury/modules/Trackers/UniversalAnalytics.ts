@@ -9,7 +9,7 @@ interface TrackerOptions {
 }
 
 /**
- * @typedef {Object} TrackerOptions
+ * @typedef {object} TrackerOptions
  * @property {string} name
  * @property {boolean} allowLinker
  * @property {number} sampleRate

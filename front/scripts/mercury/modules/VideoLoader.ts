@@ -7,7 +7,7 @@ interface PlayerClassMap {
 }
 
 /**
- * @typedef {Object} PlayerClassMap
+ * @typedef {object} PlayerClassMap
  */
 
 module Mercury.Modules {

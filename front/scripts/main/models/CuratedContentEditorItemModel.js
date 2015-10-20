@@ -1,6 +1,6 @@
 /**
  * CuratedContentImageCropSingleData
- * @typedef {Object} CuratedContentImageCropSingleData
+ * @typedef {object} CuratedContentImageCropSingleData
  * @property {Number} x
  * @property {Number} y
  * @property {Number} width
@@ -9,14 +9,14 @@
 
 /**
  * CuratedContentImageCropData
- * @typedef {Object} CuratedContentImageCropData
+ * @typedef {object} CuratedContentImageCropData
  * @property {CuratedContentImageCropSingleData} [landscape]
  * @property {CuratedContentImageCropSingleData} [square]
  */
 
 /**
  * CuratedContentEditorItemModel
- * @typedef {Object} CuratedContentEditorItemModel
+ * @typedef {object} CuratedContentEditorItemModel
  * @property {Number} article_id
  * @property {Number} image_id
  * @property {CuratedContentImageCropData} image_crop
@@ -30,7 +30,7 @@
 
 /**
  * CuratedContentGetImageResponse
- * @typedef {Object} CuratedContentGetImageResponse
+ * @typedef {object} CuratedContentGetImageResponse
  * @property {String} url
  * @property {id} image_id
  */
@@ -52,7 +52,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	 * Object Model instance is only created once and all create() method invocations return already created object.
 	 * Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
 	 *
-	 * @param {Object} params
+	 * @param {object} params
 	 * @returns {CuratedContentEditorItemModel} model
 	 */
 	createNew(params = {}) {
@@ -97,7 +97,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} item
-	 * @param {Object} data
+	 * @param {object} data
 	 * @returns {Em.RSVP.Promise} server response
 	 */
 	validateServerData(item, data) {

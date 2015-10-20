@@ -41,7 +41,7 @@ class AutoTab {
 	/**
 	 * Get an array of all visible elements in the form
 	 *
-	 * @returns {Object}
+	 * @returns {object}
 	 */
 	private getVisibleElements(): any {
 		return Array.prototype.filter.call(this.form.elements, function (element: HTMLInputElement) {
@@ -52,7 +52,7 @@ class AutoTab {
 	/**
 	 * Get the non-hidden input following this auto-tab input
 	 *
-	 * @returns {Object}
+	 * @returns {object}
 	 */
 	private getNextVisibleInput() {
 		var elements: any = this.getVisibleElements(),
