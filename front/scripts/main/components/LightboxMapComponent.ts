@@ -8,6 +8,9 @@ App.LightboxMapComponent = Em.Component.extend({
 		this.updateState();
 	}),
 
+	/**
+	 * @returns {void}
+	 */
 	didInsertElement(): void {
 		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
 		// This isn't allowed by Ember to do on didInsertElement
@@ -17,6 +20,9 @@ App.LightboxMapComponent = Em.Component.extend({
 		});
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	updateState(): void {
 		var model = this.get('model');
 		this.sendAction('setHeader', model.title);

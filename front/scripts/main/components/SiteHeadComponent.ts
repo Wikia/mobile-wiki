@@ -3,19 +3,30 @@
 /// <reference path="../../main/mixins/HeadroomMixin.ts" />
 'use strict';
 
-App.SiteHeadComponent = Em.Component.extend(App.TrackClickMixin, App.HeadroomMixin, {
-	classNames: ['site-head'],
-	classNameBindings: ['themeBar'],
-	tagName: 'nav',
-	themeBar: false,
-	wikiaHomepage: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
-	actions: {
-		expandSideNav(): void {
-			this.sendAction('toggleSideNav', true);
-		},
+App.SiteHeadComponent = Em.Component.extend(
+	App.TrackClickMixin,
+	App.HeadroomMixin,
+	{
+		classNames: ['site-head'],
+		classNameBindings: ['themeBar'],
+		tagName: 'nav',
+		themeBar: false,
+		wikiaHomepage: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
-		showUserMenu(): void {
-			this.sendAction('toggleUserMenu', true);
-		}
+		actions: {
+			/**
+			 * @returns {void}
+			 */
+			expandSideNav(): void {
+				this.sendAction('toggleSideNav', true);
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			showUserMenu(): void {
+				this.sendAction('toggleUserMenu', true);
+			},
+		},
 	}
-});
+);

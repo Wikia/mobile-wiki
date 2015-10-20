@@ -21,5 +21,5 @@ App.CommunityBadgeComponent = Em.Component.extend({
 		);
 	}),
 
-	wikiName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+	wikiName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
 });

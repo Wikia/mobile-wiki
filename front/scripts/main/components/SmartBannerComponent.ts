@@ -10,10 +10,12 @@ App.SmartBannerComponent = Em.Component.extend({
 	options: {
 		// Language code for App Store
 		appStoreLanguage: 'us',
+
 		// Duration to hide the banner after close button is clicked (0 = always show banner)
 		daysHiddenAfterClose: 15,
+
 		// Duration to hide the banner after it is clicked (0 = always show banner)
-		daysHiddenAfterView: 30
+		daysHiddenAfterView: 30,
 	},
 	day: 86400000,
 
@@ -77,12 +79,18 @@ App.SmartBannerComponent = Em.Component.extend({
 	title: Em.computed.oneWay('config.name'),
 
 	actions: {
+		/**
+		 * @returns {void}
+		 */
 		close(): void {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 			this.sendAction('toggleVisibility', false);
 			this.track(M.trackActions.close);
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		view(): void {
 			var appScheme: string = this.get('appScheme');
 
@@ -95,9 +103,13 @@ App.SmartBannerComponent = Em.Component.extend({
 			}
 
 			this.sendAction('toggleVisibility', false);
-		}
+		},
 	},
 
+	/**
+	 * @param {MouseEvent} event
+	 * @returns {void}
+	 */
 	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
 
@@ -106,12 +118,18 @@ App.SmartBannerComponent = Em.Component.extend({
 		}
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	willInsertElement(): void {
 		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
 		// running this just after render is working too
 		Em.run.scheduleOnce('afterRender', this, this.checkForHiding);
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	checkForHiding(): void {
 		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
 		var standalone: any = Em.get(navigator, 'standalone'),
@@ -135,6 +153,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * Try to open app using custom scheme and if it fails go to fallback function
 	 *
 	 * @param {string} appScheme
+	 * @returns {void}
 	 */
 	tryToOpenApp(appScheme: string): void {
 		this.track(M.trackActions.open);
@@ -145,6 +164,8 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	/**
 	 * Open app store
+	 *
+	 * @returns {void}
 	 */
 	fallbackToStore(): void {
 		this.track(M.trackActions.install);
@@ -155,6 +176,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * Sets sb-closed=1 cookie for given number of days
 	 *
 	 * @param {number} days
+	 * @returns {void}
 	 */
 	setSmartBannerCookie(days: number): void {
 		var date: Date = new Date();
@@ -165,11 +187,15 @@ App.SmartBannerComponent = Em.Component.extend({
 		});
 	},
 
+	/**
+	 * @param {string} action
+	 * @returns {void}
+	 */
 	track(action: string): void {
 		M.track({
 			action: action,
 			category: 'smart-banner',
 			label: Em.get(Mercury, 'wiki.dbName')
 		});
-	}
+	},
 });

@@ -1,5 +1,17 @@
 /// <reference path="../app.ts" />
 'use strict';
+
+/**
+ * AlertNotification
+ * @typedef {object} AlertNotification
+ * @property {string} message
+ * @property {string} [type]
+ * @property {number} [expiry]
+ * @property {boolean} [unsafe]
+ * @property {any} [callbacks]
+ * @property {boolean} [persistent]
+ */
+
 interface AlertNotification {
 	message: string;
 	type?: string;
@@ -15,8 +27,12 @@ App.AlertNotificationsComponent = Em.Component.extend({
 	alerts: null,
 
 	actions: {
+		/**
+		 * @param {AlertNotification} alert
+		 * @returns {void}
+		 */
 		dismissAlert(alert: AlertNotification): void {
 			this.get('alerts').removeObject(alert);
-		}
-	}
+		},
+	},
 });

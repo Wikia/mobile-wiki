@@ -3,9 +3,11 @@
 
 App.WikiaMapComponent = App.ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
-
 	caption: Em.computed.alias('title'),
 
+	/**
+	 * @returns {void}
+	 */
 	didInsertElement(): void {
 		//handle click with jquery because the 'normal' way to handle events doesn't work.
 		this.$().click((): void => {
@@ -18,15 +20,15 @@ App.WikiaMapComponent = App.ImageMediaComponent.extend({
 
 				M.track({
 					action: M.trackActions.click,
-					category: 'map'
+					category: 'map',
 				});
 
 				this.sendAction('click', 'map', {
 					title: title,
 					url: url,
-					id: id
+					id: id,
 				});
 			}
 		});
-	}
+	},
 });

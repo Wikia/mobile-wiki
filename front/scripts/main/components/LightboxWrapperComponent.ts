@@ -23,6 +23,64 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		return type ?  'lightbox-' + type : null;
 	}),
 
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		close(): void {
+			this.setProperties({
+				footer: null,
+				header: null,
+				footerExpanded: false
+			});
+			this.sendAction('closeLightbox');
+		},
+
+		/**
+		 * @param {string} footer
+		 * @returns {void}
+		 */
+		setFooter(footer: string): void {
+			this.set('footer', footer);
+		},
+
+		/**
+		 * @param {string} header
+		 * @returns {void}
+		 */
+		setHeader(header: string): void {
+			this.set('header', header);
+		},
+
+		/**
+		 * @param {string} name
+		 * @param {any} value
+		 * @returns {void}
+		 */
+		setQueryParam(name: string, value: any): void {
+			this.sendAction('setQueryParam', name, value);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		toggleFooter(): void {
+			this.toggleProperty('footerExpanded');
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		toggleUI(): void {
+			this.toggleProperty('footerHidden');
+			this.toggleProperty('headerHidden');
+		},
+	},
+
+	/**
+	 * @param {MouseEvent} event
+	 * @returns {void}
+	 */
 	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
 
@@ -35,36 +93,13 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		}
 	},
 
+	/**
+	 * @param {KeyboardEvent} event
+	 * @returns {void}
+	 */
 	keyDown(event: KeyboardEvent): void {
 		if (event.keyCode === 27) {
 			this.send('close');
 		}
 	},
-
-	actions: {
-		close(): void {
-			this.setProperties({
-				footer: null,
-				header: null,
-				footerExpanded: false
-			});
-			this.sendAction('closeLightbox');
-		},
-		setFooter(footer: string): void {
-			this.set('footer', footer);
-		},
-		setHeader(header: string): void {
-			this.set('header', header);
-		},
-		setQueryParam(name: string, value: any): void {
-			this.sendAction('setQueryParam', name, value);
-		},
-		toggleFooter(): void {
-			this.toggleProperty('footerExpanded');
-		},
-		toggleUI(): void {
-			this.toggleProperty('footerHidden');
-			this.toggleProperty('headerHidden');
-		}
-	}
 });
