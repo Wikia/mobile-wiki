@@ -39,6 +39,9 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		}
 	}),
 
+	/**
+	 * @returns {void}
+	 */
 	init(): void {
 		this.setProperties({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
