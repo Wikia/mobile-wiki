@@ -1,16 +1,13 @@
 'use strict';
 
-interface Window {
-	Krux: {
-		load?: (skinSiteId: string) => void;
-	};
-}
-
 module Mercury.Modules.Trackers {
 	export class Krux {
+		private kruxModule: {
+			load?: (skinSiteId: string) => void;
+		};
 
-		constructor () {
-			window.Krux = window.Krux || [];
+		constructor (krux: any) {
+			this.kruxModule = krux || {};
 		}
 
 		/**
@@ -19,8 +16,8 @@ module Mercury.Modules.Trackers {
 		* (see ads_run.js and krux.js in app repository)
 		*/
 		trackPageView (): void {
-			if (typeof window.Krux.load === 'function') {
-				window.Krux.load(M.prop('tracking.krux.mobileId'));
+			if (typeof this.kruxModule.load === 'function') {
+				this.kruxModule.load(M.prop('tracking.krux.mobileId'));
 			}
 		}
 	}
