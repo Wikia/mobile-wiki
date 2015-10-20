@@ -9,6 +9,6 @@
   </div>
 {{/each}}
 <div class="image-collection-actions">
-  <button class="action-previous {{previousButtonClass}}" {{action "switchImage" "previous"}}>{{svg 'chevron-linked' viewBox='0 0 12 7'}}</button>
-  <button class="action-next {{nextButtonClass}}" {{action "switchImage" "next"}}>{{svg 'chevron-linked' viewBox='0 0 12 7'}}</button>
+  {{#if hasPreviousImage}}<button class="action-previous" {{action 'switchImage' 'previous'}}>{{svg 'chevron-linked' viewBox='0 0 12 7'}}</button>{{/if}}
+  {{#if hasNextImage}}<button class="action-next" {{action 'switchImage' 'next'}}>{{svg 'chevron-linked' viewBox='0 0 12 7'}}</button>{{/if}}
 </div>

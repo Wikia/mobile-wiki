@@ -77,7 +77,7 @@ $hero-caption-line-height: 18px;
 			background: transparent;
 			border: none;
 			bottom: 0;
-			display: none;
+			display: block;
 			height: auto;
 			margin: 0;
 			padding: 0;
@@ -92,8 +92,6 @@ $hero-caption-line-height: 18px;
 		}
 
 		.action-previous svg { transform: scaleX(-1); }
-
-		.visible { display: block; }
 	}
 
 	.action-next { right: 0; }

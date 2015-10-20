@@ -14,12 +14,12 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 		return this.get('media').length;
 	}),
 
-	nextButtonClass: Em.computed('activeRef', 'collectionLength', function(): string {
-		return this.get('activeRef') < (this.get('collectionLength') - 1) ? 'visible' : '';
+	hasNextImage: Em.computed('activeRef', 'collectionLength', function(): string {
+		return this.get('activeRef') < (this.get('collectionLength') - 1);
 	}),
 
-	previousButtonClass: Em.computed('activeRef', function(): string {
-		return this.get('activeRef') > 0 ? 'visible' : '';
+	hasPreviousImage: Em.computed('activeRef', function(): string {
+		return this.get('activeRef') > 0;
 	}),
 
 	thumbWidth: Em.computed('viewportDimensions.width', function(): number {
