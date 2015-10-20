@@ -239,6 +239,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 				twitter: 'WidgetTwitterComponent',
 				vk: 'WidgetVKComponent',
 				polldaddy: 'WidgetPolldaddyComponent',
+				flite: 'WidgetFliteComponent',
 			};
 
 		if (componentNames.hasOwnProperty(widgetType) && Em.typeOf(App[componentNames[widgetType]]) === 'class') {

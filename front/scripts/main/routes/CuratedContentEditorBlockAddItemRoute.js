@@ -1,25 +1,20 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-
-'use strict';
-
 App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 	/**
-	 * @returns {CuratedContentEditorItemModel}
+	 * @returns {CuratedContentEditorItemModel} item
 	 */
-	model(): CuratedContentEditorItemModel {
+	model() {
 		return App.CuratedContentEditorItemModel.createNew();
 	},
 
 	/**
-	 * @param {any} controller
+	 * @param {Object} controller
 	 * @param {CuratedContentEditorItemModel} model
-	 * @param {EmberStates.Transition} transition
+	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
-	setupController(controller: any, model: CuratedContentEditorItemModel, transition: EmberStates.Transition): void {
-		var block = transition.params['curatedContentEditor.blockAddItem'].block,
-			rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
+	setupController(controller, model, transition) {
+		const block = transition.params['curatedContentEditor.blockAddItem'].block,
+			rootModel = this.modelFor('curatedContentEditor'),
 			alreadyUsedLabels = (block === 'optional') ?
 				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel) :
 				App.CuratedContentEditorModel.getAlreadyUsedLabels(rootModel.get(block));
@@ -35,7 +30,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 	/**
 	 * @returns {void}
 	 */
-	renderTemplate(): void {
+	renderTemplate() {
 		this.render('curated-content-editor-item');
 	},
 
@@ -43,7 +38,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		/**
 		 * @returns {void}
 		 */
-		goBack(): void {
+		goBack() {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
@@ -51,10 +46,10 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		 * @param {CuratedContentEditorItemModel} newItem
 		 * @returns {void}
 		 */
-		done(newItem: CuratedContentEditorItemModel): void {
-			var block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
-				rootModel: CuratedContentEditorModel = this.modelFor('curatedContentEditor'),
-				blockModel: CuratedContentEditorItemModel = rootModel[block];
+		done(newItem) {
+			const block = this.controllerFor('curatedContentEditor.blockAddItem').get('block'),
+				rootModel = this.modelFor('curatedContentEditor'),
+				blockModel = rootModel[block];
 
 			App.CuratedContentEditorModel.addItem(blockModel, newItem);
 			this.transitionTo('curatedContentEditor.index');
@@ -63,7 +58,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		/**
 		 * @returns {void}
 		 */
-		deleteItem(): void {
+		deleteItem() {
 			this.send('goBack');
 		}
 	}

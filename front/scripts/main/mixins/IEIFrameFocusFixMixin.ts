@@ -6,7 +6,6 @@
  * @typedef {object} Window
  * @property {any} Ponto
  */
-
 interface Window {
 	Ponto: any
 }
