@@ -1,17 +1,37 @@
+/**
+ * FacebookResponse
+ * @typedef {Object} FacebookResponse
+ * @property {FacebookAuthData} authResponse
+ * @property {string} status
+ */
 interface FacebookResponse {
 	authResponse: FacebookAuthData;
 	status: string;
 }
 
+/**
+ * FacebookAuthData
+ * @typedef {Object} FacebookAuthData
+ * @property {string} accessToken
+ * @property {number} expiresIn
+ */
 interface FacebookAuthData {
 	accessToken: string;
 	expiresIn: number;
 }
 
+/**
+ * HeliosFacebookToken
+ * @typedef {Object} HeliosFacebookToken
+ * @property {string} fb_access_token
+ */
 interface HeliosFacebookToken {
 	fb_access_token: string;
 }
 
+/**
+ * @class FacebookLogin
+ */
 class FacebookLogin {
 	redirect: string;
 	loginButton: HTMLAnchorElement;
@@ -19,6 +39,10 @@ class FacebookLogin {
 	tracker: AuthTracker;
 	authLogger: AuthLogger = AuthLogger.getInstance();
 
+	/**
+	 * @constructs FacebookLogin
+	 * @param {HTMLAnchorElement} loginButton
+	 */
 	constructor (loginButton: HTMLAnchorElement) {
 		this.loginButton = loginButton;
 		this.urlHelper = new UrlHelper();
@@ -26,17 +50,28 @@ class FacebookLogin {
 		this.tracker = new AuthTracker('user-login-mobile', 'login');
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	public init (): void {
 		this.loginButton.addEventListener('click', this.login.bind(this));
 
 		this.redirect = this.urlHelper.urlDecode(window.location.search.substr(1))['redirect'] || '/';
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	public login (): void {
 		window.FB.login(this.onLogin.bind(this), {scope: 'email'});
 		this.deactivateButton();
 	}
 
+	/**
+	 * @param {FacebookResponse} response
+	 *
+	 * @returns {void}
+	 */
 	public onLogin(response: FacebookResponse): void {
 		if (response.status === 'connected') {
 			this.onSuccessfulLogin(response);
@@ -45,25 +80,44 @@ class FacebookLogin {
 		}
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	private activateButton(): void {
 		this.loginButton.classList.remove('on');
 		this.loginButton.classList.remove('disabled');
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	private deactivateButton(): void {
 		this.loginButton.classList.add('on');
 		this.loginButton.classList.add('disabled');
 	}
 
+	/**
+	 * @param {FacebookResponse} response
+	 *
+	 * @returns {void}
+	 */
 	private onSuccessfulLogin(response: FacebookResponse): void {
 		this.getHeliosInfoFromFBToken(response.authResponse);
 	}
 
+	/**
+	 * @param {FacebookResponse} response
+	 *
+	 * @returns {void}
+	 */
 	private onUnsuccessfulLogin(response: FacebookResponse): void {
 		this.tracker.track('facebook-login-helios-error', Mercury.Utils.trackActions.error);
 		this.activateButton();
 	}
 
+	/**
+	 * @returns {string}
+	 */
 	private getFacebookRegistrationUrl(): string {
 		var href = '/register',
 			search = window.location.search;
@@ -76,6 +130,11 @@ class FacebookLogin {
 		return href + search;
 	}
 
+	/**
+	 * @param {FacebookAuthData} facebookAuthData
+	 *
+	 * @returns {void}
+	 */
 	private getHeliosInfoFromFBToken(facebookAuthData: FacebookAuthData): void {
 		var facebookTokenXhr = new XMLHttpRequest(),
 			data = <HeliosFacebookToken> {

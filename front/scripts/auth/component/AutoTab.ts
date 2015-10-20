@@ -1,21 +1,35 @@
+
+/**
+ * @class AutoTab
+ */
 class AutoTab {
 	input: HTMLInputElement;
 	form: HTMLFormElement;
 	max: number;
 
+	/**
+	 * @constructs AutoTab
+	 * @param {HTMLInputElement} input
+	 */
 	constructor(input: HTMLInputElement) {
 		this.input = input;
 		this.form = input.form;
 		this.max = parseInt(input.getAttribute('maxlength'), 10);
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	public init(): void {
 		this.input.addEventListener('input', this.onInput.bind(this));
 		//Jump to the next field if the input was autocompleted
 		this.input.addEventListener('change', this.onInput.bind(this));
 	}
 
-	private onInput() {
+	/**
+	 * @returns {void}
+	 */
+	private onInput(): void {
 		var nextVisibleInput = this.getNextVisibleInput(),
 			length = this.input.value.length;
 
@@ -26,6 +40,8 @@ class AutoTab {
 
 	/**
 	 * Get an array of all visible elements in the form
+	 *
+	 * @returns {Object}
 	 */
 	private getVisibleElements(): any {
 		return Array.prototype.filter.call(this.form.elements, function (element: HTMLInputElement) {
@@ -35,6 +51,8 @@ class AutoTab {
 
 	/**
 	 * Get the non-hidden input following this auto-tab input
+	 *
+	 * @returns {Object}
 	 */
 	private getNextVisibleInput() {
 		var elements: any = this.getVisibleElements(),
