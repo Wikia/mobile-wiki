@@ -1,6 +1,7 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionPostModel = Em.Object.extend({
+App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
 	postId: null,
 	forumId: null,
@@ -11,18 +12,22 @@ App.DiscussionPostModel = Em.Object.extend({
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
+	connectionError: null,
+	notFoundError: null,
 	contributors: [],
 
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
-					 this.wikiId + '/threads/' + this.postId +
-					 '?responseGroup=full' +
-					 '&sortDirection=descending&sortKey=creation_date' +
-					 '&limit=' + this.replyLimit +
-					 '&pivot=' + this.pivotId +
-					 '&page=' + (this.page + 1),
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`,
+					{
+						'responseGroup': 'full',
+						'sortDirection': 'descending',
+						'sortKey': 'creation_date',
+						'limit': this.replyLimit,
+						'pivot': this.pivot,
+						'page': this.page+1
+					}),
 				dataType: 'json',
 				success: (data: any) => {
 					var newReplies = data._embedded['doc:posts'];
@@ -40,7 +45,10 @@ App.DiscussionPostModel = Em.Object.extend({
 
 					resolve(this);
 				},
-				error: (err: any) => reject(err)
+				error: (err: any) => {
+					this.setErrorProperty(err, this);
+					resolve(this);
+				}
 			});
 		});
 	}
@@ -55,10 +63,13 @@ App.DiscussionPostModel.reopenClass({
 			});
 
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') +
-					 `/discussion/${wikiId}/threads/${postId}` +
-					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
-					 '&limit=' + postInstance.replyLimit,
+				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`,
+					{
+						'responseGroup': 'full',
+						'sortDirection': 'descending',
+						'sortKey': 'creation_date',
+						'limit': postInstance.replyLimit
+					}),
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
@@ -72,19 +83,19 @@ App.DiscussionPostModel.reopenClass({
 						pivotId = replies[0].id;
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
-					}
 
-					replies.forEach(function (reply: any) {
-						var author: any;
-						if (reply.hasOwnProperty('createdBy')) {
-							author = reply.createdBy;
-							author.url = M.buildUrl({
-								namespace: 'User',
-								title: author.name
-							});
-							contributors.push(author);
-						}
-					});
+						replies.forEach(function (reply: any) {
+							var author: any;
+							if (reply.hasOwnProperty('createdBy')) {
+								author = reply.createdBy;
+								author.url = M.buildUrl({
+									namespace: 'User',
+									title: author.name
+								});
+								contributors.push(author);
+							}
+						});
+					}
 
 					postInstance.setProperties({
 						contributors: contributors,
@@ -100,7 +111,10 @@ App.DiscussionPostModel.reopenClass({
 					});
 					resolve(postInstance);
 				},
-				error: (err: any) => reject(err)
+				error: (err: any) => {
+					postInstance.setErrorProperty(err, postInstance);
+					resolve(postInstance);
+				}
 			});
 		});
 	}
