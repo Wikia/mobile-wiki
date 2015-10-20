@@ -20,7 +20,7 @@ App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTags
 
 	actions: {
 		error(error: any): boolean {
-			if (error && error.status === 404) {
+			if (error && error.status === 404 || error.code === 404) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.curated-content-error-category-not-found'),
 					type: 'warning',
