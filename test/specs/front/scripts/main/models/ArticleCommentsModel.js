@@ -1,10 +1,5 @@
 /* global App, resetMercuryBaseline*/
-moduleFor('model:articleComments', 'Article Comments Model', {
-	teardown: function () {
-		App.reset();
-		resetMercuryBaseline();
-	}
-});
+moduleFor('model:articleComments', 'ArticleCommentsModel');
 
 test('url creates valid url to a resource', function () {
 	expect(5);
