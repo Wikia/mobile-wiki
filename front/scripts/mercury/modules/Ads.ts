@@ -37,6 +37,7 @@ module Mercury.Modules {
 
 		/**
 		 * Returns instance of Ads object
+		 *
 		 * @returns {Mercury.Modules.Ads}
 		 */
 		public static getInstance (): Mercury.Modules.Ads {
@@ -49,7 +50,8 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
-		 * @param adsUrl Url for the ads script
+		 * @param {string} adsUrl - Url for the ads script
+		 * @returns {void}
 		 */
 		public init (adsUrl: string): void {
 			//Required by ads tracking code
@@ -96,12 +98,14 @@ module Mercury.Modules {
 		 * Method for sampling and pushing ads-related events
 		 * @arguments coming from ads tracking request
 		 * It's called by track() method in wikia.tracker fetched from app by ads code
+		 *
+		 * @returns {void}
 		 */
 		public gaTrackAdEvent (): void {
 			var adHitSample: number = 1, //Percentage of all the track requests to go through
 				GATracker: Mercury.Modules.Trackers.UniversalAnalytics;
-			//Sampling on GA side will kill the performance as we need to allocate object each time we track
-			//ToDo: Optimize object allocation for tracking all events
+			// Sampling on GA side will kill the performance as we need to allocate object each time we track
+			// ToDo: Optimize object allocation for tracking all events
 			if (Math.random() * 100 <= adHitSample) {
 				GATracker = new Mercury.Modules.Trackers.UniversalAnalytics();
 				GATracker.trackAds.apply(GATracker, arguments);
@@ -113,12 +117,18 @@ module Mercury.Modules {
 		 * Calls the trackPageView() function on Krux instance.
 		 * load() in krux.js (/app) automatically detect that
 		 * there is a first page load (needs to load Krux scripts).
+		 *
+		 * @returns {void}
 		 */
 		private kruxTrackFirstPage (): void {
 			var KruxTracker = new Mercury.Modules.Trackers.Krux();
 			KruxTracker.trackPageView();
 		}
 
+		/**
+		 * @param {string} value
+		 * @returns {void}
+		 */
 		private trackBlocking (value: string): void {
 			var dimensions: string[] = [],
 				GATracker: Mercury.Modules.Trackers.UniversalAnalytics;
@@ -130,6 +140,9 @@ module Mercury.Modules {
 			Ads.blocking = value === 'Yes';
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		private addDetectionListeners (): void {
 			var trackBlocking: Function = this.trackBlocking;
 			window.addEventListener('sp.blocking', function (): void {
@@ -140,13 +153,19 @@ module Mercury.Modules {
 			});
 		}
 
+		/**
+		 * @param {any} adsContext
+		 * @returns {void}
+		 */
 		private setContext (adsContext: any): void {
 			this.adsContext = adsContext ? adsContext : null;
 		}
 
 		/**
 		 * Reloads the ads with the provided adsContext
-		 * @param adsContext
+		 *
+		 * @param {any} adsContext
+		 * @returns {void}
 		 */
 		public reload (adsContext: any): void {
 			// Store the context for external reuse
@@ -169,12 +188,17 @@ module Mercury.Modules {
 
 		/**
 		 * This is callback that is run after script is loaded
+		 *
+		 * @returns {void}
 		 */
 		public reloadWhenReady (): void {
 			this.reload(this.currentAdsContext);
 			this.onLoad();
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		private onLoad (): void {
 			this.adMercuryListenerModule.startOnLoadQueue();
 		}
@@ -191,7 +215,8 @@ module Mercury.Modules {
 		/**
 		 * Push slot to the current queue (refresh ad in given slot)
 		 *
-		 * @param name name of the slot
+		 * @param {string} name - name of the slot
+		 * @returns {void}
 		 */
 		public pushSlotToQueue (name: string): void {
 			this.slotsQueue.push([name]);
@@ -200,7 +225,7 @@ module Mercury.Modules {
 		/**
 		 * Adds ad slot
 		 *
-		 * @param name name of the slot
+		 * @param {string} name - name of the slot
 		 * @returns {number} index of the inserted slot
 		 */
 		public addSlot (name: string): number {
@@ -210,7 +235,8 @@ module Mercury.Modules {
 		/**
 		 * Removes ad slot by name
 		 *
-		 * @param name Name of ths slot to remove
+		 * @param {string} name - Name of ths slot to remove
+		 * @returns {void}
 		 */
 		public removeSlot (name:string): void {
 			this.adSlots = $.grep(this.adSlots, (slot) => {
@@ -221,6 +247,10 @@ module Mercury.Modules {
 		/**
 		 * This method is being overwritten in ApplicationRoute for ads needs.
 		 * To learn more check ApplicationRoute.ts file.
+		 *
+		 * @param {any} contents
+		 * @param {boolean} [lightboxVisible]
+		 * @returns {void}
 		 */
 		public createLightbox (contents: any, lightboxVisible?: boolean): void {
 		}
@@ -228,6 +258,8 @@ module Mercury.Modules {
 		/**
 		 * This method is being overwritten in ApplicationRoute for ads needs.
 		 * To learn more check ApplicationRoute.ts file.
+		 *
+		 * @returns {void}
 		 */
 		public showLightbox (): void {
 		}
