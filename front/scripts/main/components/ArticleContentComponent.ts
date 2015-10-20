@@ -95,15 +95,18 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 	 */
 	createArticleContributionComponent: function(section: number, sectionId: string): JQuery {
 		var title = this.get('cleanTitle'),
-		    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false }); //I need different instance of this component so not singleton.
+		    edit = 'edit',
+		    addPhoto = 'addPhoto',
+		    uploadFeatureEnabled = this.get('uploadFeatureEnabled'),
+		    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
 
 		contributionComponent.setProperties({
-			section: section,
-			sectionId: sectionId,
-			title: title,
-			edit: 'edit',
-			addPhoto: 'addPhoto',
-			uploadFeatureEnabled: this.get('uploadFeatureEnabled')
+			section,
+			sectionId,
+			title,
+			edit,
+			addPhoto,
+			uploadFeatureEnabled
 		});
 		return this.createChildView(contributionComponent).createElement().$();
 	},
