@@ -1,6 +1,6 @@
 /**
  * HeliosFacebookConnectData
- * @typedef {Object} HeliosFacebookConnectData
+ * @typedef {object} HeliosFacebookConnectData
  * @property {string} fb_access_token
  */
 interface HeliosFacebookConnectData {
@@ -9,7 +9,7 @@ interface HeliosFacebookConnectData {
 
 /**
  * PageParams
- * @typedef {Object} PageParams
+ * @typedef {object} PageParams
  * @property {number} facebookAppId
  */
 interface PageParams {
@@ -18,7 +18,7 @@ interface PageParams {
 
 /**
  * Window
- * @typedef {Object} Window
+ * @typedef {object} Window
  * @property {pageParams} pageParams
  */
 interface Window {

@@ -1,6 +1,6 @@
 /**
  * CuratedContentEditorRawSection
- * @typedef {Object} CuratedContentEditorRawSection
+ * @typedef {object} CuratedContentEditorRawSection
  * @property {String} label
  * @property {Number} image_id
  * @property {CuratedContentImageCropData} [image_crop]
@@ -13,7 +13,7 @@
 
 /**
  * CuratedContentValidationResponseError
- * @typedef {Object} CuratedContentValidationResponseError
+ * @typedef {object} CuratedContentValidationResponseError
  * @property {String} target
  * @property {String} type
  * @property {String} reason
@@ -21,14 +21,14 @@
 
 /**
  * CuratedContentValidationResponse
- * @typedef {Object} CuratedContentValidationResponse
+ * @typedef {object} CuratedContentValidationResponse
  * @property {Boolean} status
  * @property {CuratedContentValidationResponseError[]} [error]
  */
 
 /**
  * CuratedContentEditorModel
- * @typedef {Object} CuratedContentEditorModel
+ * @typedef {object} CuratedContentEditorModel
  * @property {CuratedContentEditorItemModel[]} featured
  * @property {CuratedContentEditorItemModel[]} curated
  * @property {CuratedContentEditorItemModel[]} optional
@@ -103,7 +103,7 @@ App.CuratedContentEditorModel.reopenClass({
 	 * Convert CuratedContentEditorModel to structure known by CuratedContent API
 	 *
 	 * @param {CuratedContentEditorModel} model
-	 * @returns {Object} converted object
+	 * @returns {object} converted object
 	 */
 	prepareDataForSave(model) {
 		return {

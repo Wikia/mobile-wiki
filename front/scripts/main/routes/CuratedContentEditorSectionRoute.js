@@ -1,7 +1,7 @@
 App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	/**
 	 * @param {CuratedContentEditorItemModel} model
-	 * @returns {Object} serialized label
+	 * @returns {object} serialized label
 	 */
 	serialize(model) {
 		return {
@@ -10,7 +10,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {Object} params
+	 * @param {object} params
 	 * @returns {CuratedContentEditorItemModel} section
 	 */
 	model(params) {
@@ -21,7 +21,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {Object} controller
+	 * @param {object} controller
 	 * @param {CuratedContentEditorItemModel} model
 	 * @param {EmberState.Transition} transition
 	 * @returns {void}

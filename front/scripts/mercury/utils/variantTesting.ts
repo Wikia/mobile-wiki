@@ -17,7 +17,7 @@ interface OptimizelyExperimentIds {
 }
 
 /**
- * @typedef {Object} OptimizelyExperimentIds
+ * @typedef {object} OptimizelyExperimentIds
  * @property {string} prod
  * @property {string} dev
  */

@@ -7,7 +7,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {Object} controller
+	 * @param {object} controller
 	 * @param {CuratedContentEditorItemModel} model
 	 * @param {EmberState.Transition} transition
 	 * @returns {void}

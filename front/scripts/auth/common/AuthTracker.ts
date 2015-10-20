@@ -1,6 +1,15 @@
+/**
+ * @class AuthTracker
+ */
 class AuthTracker {
 	gaCategory: string;
 
+	/**
+	 * @constructs AuthTracker
+	 *
+	 * @param {string} gaCategory
+	 * @param {string} pageType
+	 */
 	constructor (gaCategory: string, pageType: string) {
 		this.gaCategory = gaCategory;
 		M.setTrackContext({
@@ -9,10 +18,13 @@ class AuthTracker {
 		});
 	}
 
-	private setGaCategory (page: string): string {
-		return 'user-' + page + '-' + pageParams.viewType + (pageParams.isModal ? '-modal' : '');
-	}
-
+	/**
+	 * @param {HTMLElement} element
+	 * @param {string} label
+	 * @param {object} action
+	 *
+	 * @returns {void}
+	 */
 	public trackClick (element: HTMLElement, label: string, action = M.trackActions.click): void {
 		if (!element) {
 			return;
@@ -23,10 +35,19 @@ class AuthTracker {
 		}.bind(this))
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	public trackPageView () {
 		M.trackPageView(null);
 	}
 
+	/**
+	 * @param {HTMLFormElement} form
+	 * @param {string} label
+	 *
+	 * @returns {void}
+	 */
 	public trackSubmit (form: HTMLFormElement, label: string): void {
 		if (!form) {
 			return;
@@ -37,6 +58,12 @@ class AuthTracker {
 		}.bind(this));
 	}
 
+	/**
+	 * @param {string} label
+	 * @param {string} action
+	 *
+	 * @returns {void}
+	 */
 	public track (label: string, action: string) {
 		var trackOptions: TrackingParams = {
 				trackingMethod: 'both',

@@ -13,7 +13,7 @@ interface LinkInfo {
 }
 
 /**
- * @typedef {Object} LinkInfo
+ * @typedef {object} LinkInfo
  * @property {string} article
  * @property {string} url
  * @property {string} [hash]

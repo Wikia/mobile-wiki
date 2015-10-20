@@ -13,7 +13,7 @@ interface ContainerSize {
 }
 
 /**
- * @typedef {Object} ContainerSize
+ * @typedef {object} ContainerSize
  * @property {number} width
  * @property {number} height
  */

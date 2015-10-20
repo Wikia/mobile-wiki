@@ -1,6 +1,6 @@
 /**
  * FacebookResponse
- * @typedef {Object} FacebookResponse
+ * @typedef {object} FacebookResponse
  * @property {FacebookAuthData} authResponse
  * @property {string} status
  */
@@ -11,7 +11,7 @@ interface FacebookResponse {
 
 /**
  * FacebookAuthData
- * @typedef {Object} FacebookAuthData
+ * @typedef {object} FacebookAuthData
  * @property {string} accessToken
  * @property {number} expiresIn
  */
@@ -22,7 +22,7 @@ interface FacebookAuthData {
 
 /**
  * HeliosFacebookToken
- * @typedef {Object} HeliosFacebookToken
+ * @typedef {object} HeliosFacebookToken
  * @property {string} fb_access_token
  */
 interface HeliosFacebookToken {
