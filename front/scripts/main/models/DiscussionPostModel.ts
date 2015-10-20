@@ -85,14 +85,12 @@ App.DiscussionPostModel.reopenClass({
 						replies.reverse();
 
 						replies.forEach(function (reply: any) {
-							var author: any;
 							if (reply.hasOwnProperty('createdBy')) {
-								author = reply.createdBy;
-								author.url = M.buildUrl({
+								reply.createdBy.profileUrl = M.buildUrl({
 									namespace: 'User',
-									title: author.name
+									title: reply.createdBy.name
 								});
-								contributors.push(author);
+								contributors.push(reply.createdBy);
 							}
 						});
 					}
