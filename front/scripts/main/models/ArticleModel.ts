@@ -56,6 +56,10 @@ App.ArticleModel = Em.Object.extend({
 });
 
 App.ArticleModel.reopenClass({
+	/**
+	 * @param {object} params
+	 * @returns {string}
+	 */
 	url(params: {title: string; redirect?: string}): string {
 		var redirect = '';
 
@@ -66,6 +70,10 @@ App.ArticleModel.reopenClass({
 		return App.get('apiBase') + '/article/' + params.title + redirect;
 	},
 
+	/**
+	 * @param {object} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	find(params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
 		var model = App.ArticleModel.create(params);
 
@@ -98,6 +106,9 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	getArticleRandomTitle(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -121,6 +132,9 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @returns {any}
+	 */
 	getPreloadedData(): any {
 		var article = Mercury.article,
 			adsInstance: Mercury.Modules.Ads,
@@ -135,6 +149,11 @@ App.ArticleModel.reopenClass({
 		return article;
 	},
 
+	/**
+	 * @param {App.ArticleModel} model
+	 * @param {any} [source= this.getPreloadedData()]
+	 * @return: {void}
+	 */
 	setArticle(model: typeof App.ArticleModel, source = this.getPreloadedData()): void {
 		var data: any = {};
 
