@@ -39,7 +39,7 @@ interface Response {
 }
 
 App.ArticleModel = Em.Object.extend({
-	article: null,
+	content: null,
 	basePath: null,
 	categories: [],
 	cleanTitle: null,
@@ -161,7 +161,7 @@ App.ArticleModel.reopenClass({
 				var article = data.article;
 
 				articleProperties = $.extend(articleProperties, {
-					article: article.content,
+					content: article.content,
 					mediaUsers: article.users,
 					type: article.type,
 					media: App.MediaModel.create({
@@ -182,10 +182,11 @@ App.ArticleModel.reopenClass({
 			}
 
 			if (data.adsContext) {
-				if (data.adsContext.targeting) {
-					data.adsContext.targeting.mercuryPageCategories = articleProperties.categories;
-				}
 				articleProperties.adsContext = data.adsContext;
+
+				if (articleProperties.adsContext.targeting) {
+					articleProperties.adsContext.targeting.mercuryPageCategories = articleProperties.categories;
+				}
 			}
 
 			if (data.topContributors) {
