@@ -29,13 +29,14 @@ export class MainPageRequestHelper {
 					pageData: any = {};
 
 				if (!curatedContentPromise.isFulfilled()) {
+					//console.log(curatedContentPromise.reason());
 					return Promise.reject(new GetSectionRequestError(curatedContentPromise.reason()));
 				}
 
 				pageData.curatedContent = curatedContentPromise.value();
 
 				if (!mainPageDetailsAndAdsContextPromise.isFulfilled()) {
-					pageData.error = mainPageDetailsAndAdsContextPromise.reason().exception;
+					pageData.exception = mainPageDetailsAndAdsContextPromise.reason().exception;
 					return Promise.reject(new GetMainPageDataRequestError(pageData));
 				}
 				pageData.mainPageData = mainPageDetailsAndAdsContextPromise.value();

@@ -35,7 +35,7 @@ App.CuratedContentModel.reopenClass({
 	find(title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase') + '/main/',
-				curatedContentGlobal: any = M.prop('curatedContent'),
+				mainPageDataGlobal: any = M.prop('mainPageData'),
 				params: {offset?: string} = {},
 				modelInstance = App.CuratedContentModel.create({
 					title,
@@ -45,13 +45,16 @@ App.CuratedContentModel.reopenClass({
 			// If this is first PV we have model for curated content already so we don't need to issue another request
 			// When resolving promise we need to set Mercury.curatedContent to null
 			// because this data gets outdated on following PVs
-			if (curatedContentGlobal && curatedContentGlobal.items) {
+			if (mainPageDataGlobal && mainPageDataGlobal.curatedContent && mainPageDataGlobal.curatedContentGlobal.items) {
 				modelInstance.setProperties({
-					items: App.CuratedContentModel.sanitizeItems(curatedContentGlobal.items),
-					offset: curatedContentGlobal.offset
+					items: App.CuratedContentModel.sanitizeItems(mainPageDataGlobal.curatedContent.items),
+					offset: mainPageDataGlobal.curatedContent.offset
 				});
 				resolve(modelInstance);
-				M.prop('curatedContent', null);
+				M.prop('mainPageData', null);
+			} else if (mainPageDataGlobal && mainPageDataGlobal.error) {
+				M.prop('mainPageData', null);
+				reject(mainPageDataGlobal.error);
 			} else {
 				url += type + '/' + title;
 

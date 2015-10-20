@@ -66,14 +66,11 @@
 				M.prop('articleContentPreloadedInDOM', true, true);
 				M.provide('article', {{{json article}}});
 			{{/if}}
-			{{#if curatedContent}}
-				M.prop('curatedContent', {{{json curatedContent}}}, true);
-			{{/if}}
 			{{#if mainPageData}}
-				M.prop('mainPageData', {{{json mainPageData}}});
+				M.prop('mainPageData', {{{json mainPageData}}}, true);
 			{{/if}}
 			{{#if error}}
-				M.provide('error', {{{error}}});
+				M.provide('error', {{{json error}}});
 			{{/if}}
 			{{#if server.optimizelyScript}}
 				M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');

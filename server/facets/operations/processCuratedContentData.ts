@@ -40,8 +40,6 @@ function prepareData (request: Hapi.Request, result: any): void {
 		result.isRtl = (contentDir === 'rtl');
 	}
 
-	result.mainPageData.ns = result.mainPageData.details.ns;
-
 	result.displayTitle = title;
 	result.isMainPage = true;
 	result.canonicalUrl = result.wiki.basePath + '/';
@@ -53,11 +51,16 @@ function prepareData (request: Hapi.Request, result: any): void {
 		url: result.canonicalUrl
 	};
 
-	if (result.mainPageData.details.abstract) {
-		result.openGraph.description = result.mainPageData.details.abstract;
-	}
-	if (result.mainPageData.details.thumbnail) {
-		result.openGraph.image = result.mainPageData.details.thumbnail;
+	if (result.mainPageData && result.mainPageData.details) {
+		result.mainPageData.ns = result.mainPageData.details.ns;
+
+		if (result.mainPageData.details.abstract) {
+			result.openGraph.description = result.mainPageData.details.abstract;
+		}
+
+		if (result.mainPageData.details.thumbnail) {
+			result.openGraph.image = result.mainPageData.details.thumbnail;
+		}
 	}
 
 	// clone object to avoid overriding real localSettings for futurue requests
@@ -68,7 +71,6 @@ function prepareData (request: Hapi.Request, result: any): void {
 	}
 
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
-	result.asyncArticle = shouldAsyncArticle(result);
 }
 
 /**
@@ -84,7 +86,7 @@ function prepareData (request: Hapi.Request, result: any): void {
  * @param code
  */
 function processCuratedContentData (
-	request: Hapi.Request, reply: any, result: any = {}, allowCache: boolean = true, code = 200
+	request: Hapi.Request, reply: any, result: any = {}, allowCache: boolean = true, code: number = 200
 ): void {
 	var response: Hapi.Response;
 
@@ -113,18 +115,6 @@ function processCuratedContentData (
 		}
 		return Caching.disableCache(response);
 	}
-}
-
-/**
- * (HG-753) This allows for loading article content asynchronously while providing a version of the page with
- * article content that search engines can still crawl.
- * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
- */
-function shouldAsyncArticle(result: any): boolean {
-	var asyncEnabled = localSettings.asyncArticle.indexOf(result.wiki.dbName) > -1,
-		noEscapedFragment = result.queryParams._escaped_fragment_ !== 0;
-
-	return asyncEnabled && noEscapedFragment;
 }
 
 export = processCuratedContentData
