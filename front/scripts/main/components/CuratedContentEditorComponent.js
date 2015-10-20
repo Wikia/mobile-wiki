@@ -7,7 +7,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @param {string} block block to add
+			 * @param {string} block
 			 * @returns {void}
 			 */
 			addBlockItem(block) {
