@@ -18,10 +18,11 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		articleDetails: any,
 		contentDir = 'ltr',
 		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+		articleData: any = result.article.data || {},
 		wikiVariables = result.wikiVariables;
 
-	if (result.article.details) {
-		articleDetails = result.article.details;
+	if (articleData.details) {
+		articleDetails = articleData.details;
 		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
 	} else if (request.params.title) {
 		title = request.params.title.replace(/_/g, ' ');
@@ -29,10 +30,10 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}
 
-	if (result.article.article) {
+	if (articleData.article) {
 		// we want to return the article content only once - as HTML and not JS variable
-		result.articleContent = result.article.article.content;
-		delete result.article.article.content;
+		result.articleContent = articleData.article.content;
+		delete articleData.article.content;
 	}
 
 	if (wikiVariables.language) {
@@ -51,12 +52,14 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		title: title,
 		url: result.canonicalUrl
 	};
-	if (result.article.details) {
-		if (result.article.details.abstract) {
-			result.openGraph.description = result.article.details.abstract;
+
+	if (articleDetails) {
+		if (articleDetails.abstract) {
+			result.openGraph.description = articleDetails.abstract;
 		}
-		if (result.article.details.thumbnail) {
-			result.openGraph.image = result.article.details.thumbnail;
+
+		if (articleDetails.thumbnail) {
+			result.openGraph.image = articleDetails.thumbnail;
 		}
 	}
 

@@ -17,10 +17,12 @@ function prepareMainPageData (request: Hapi.Request, result: any): void {
 	var title: string,
 		articleDetails: any,
 		contentDir = 'ltr',
+		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+		articleData = result.article.data,
 		wikiVariables = result.wikiVariables;
 
-	if (result.article.details) {
-		articleDetails = result.article.details;
+	if (articleData.details) {
+		articleDetails = articleData.details;
 		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
 	} else if (request.params.title) {
 		title = request.params.title.replace(/_/g, ' ');
@@ -28,10 +30,10 @@ function prepareMainPageData (request: Hapi.Request, result: any): void {
 		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}
 
-	if (result.article.article) {
+	if (articleData.article) {
 		// we want to return the article content only once - as HTML and not JS variable
-		result.articleContent = result.article.article.content;
-		delete result.article.article.content;
+		result.articleContent = articleData.article.content;
+		delete articleData.article.content;
 	}
 
 	if (wikiVariables.language) {
@@ -40,26 +42,28 @@ function prepareMainPageData (request: Hapi.Request, result: any): void {
 	}
 
 	result.mainPageData = {};
-	result.mainPageData.adsContext = result.article.adsContext;
-	result.mainPageData.ns = result.article.details.ns;
+	result.mainPageData.adsContext = articleData.adsContext;
+	result.mainPageData.ns = articleData.details.ns;
 
 	result.displayTitle = title;
 	result.isMainPage = (title === wikiVariables.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
-	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
+	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = {
 		type: result.isMainPage ? 'website' : 'article',
 		title: result.isMainPage ? wikiVariables.siteName : title,
 		url: result.canonicalUrl
 	};
-	if (result.article.details) {
-		if (result.article.details.abstract) {
-			result.openGraph.description = result.article.details.abstract;
+
+	if (articleDetails) {
+		if (articleDetails.abstract) {
+			result.openGraph.description = articleDetails.abstract;
 		}
-		if (result.article.details.thumbnail) {
-			result.openGraph.image = result.article.details.thumbnail;
+
+		if (articleDetails.thumbnail) {
+			result.openGraph.image = articleDetails.thumbnail;
 		}
 	}
 

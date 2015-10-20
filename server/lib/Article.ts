@@ -57,27 +57,31 @@ export class ArticleRequestHelper {
 					isArticlePromiseFulfilled = articlePromise.isFulfilled(),
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
 					article: any,
+					wikiVariables: any,
 					data: any;
-
-				if (!isWikiVariablesPromiseFulfilled) {
-					return Promise.reject(new WikiVariablesRequestError(wikiVariablesPromise.reason()));
-				}
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 				article = isArticlePromiseFulfilled ?
 					articlePromise.value() :
 					articlePromise.reason();
 
+				wikiVariables = isWikiVariablesPromiseFulfilled ?
+					wikiVariablesPromise.value() :
+					wikiVariablesPromise.reason();
+
+				if (!isWikiVariablesPromiseFulfilled) {
+					return Promise.reject(new WikiVariablesRequestError(wikiVariables));
+				}
+
 				data = {
-					article: article.data || {},
+					article,
 					server: Utils.createServerData(localSettings, this.params.wikiDomain),
-					wikiVariables: wikiVariablesPromise.value()
+					wikiVariables
 				};
 
 				if (isArticlePromiseFulfilled) {
 					return Promise.resolve(data);
 				} else {
-					data.exception = article.exception;
 					return Promise.reject(new ArticleRequestError(data));
 				}
 			});
@@ -105,12 +109,12 @@ export class ArticleRequestHelper {
 		return articleRequest.article(this.params.title, this.params.redirect, this.params.sections);
 	}
 
-	getArticleRandomTitle(next: Function): void {
+	getArticleRandomTitle(): Promise<any> {
 		var articleRequest = new MediaWiki.ArticleRequest(this.params);
 
-		articleRequest
+		return articleRequest
 			.randomTitle()
-			.then((result: any): void => {
+			.then((result: any): Promise<any> => {
 				var articleId: string,
 					pageData: { pageid: number; ns: number; title: string };
 
@@ -118,14 +122,12 @@ export class ArticleRequestHelper {
 					articleId = Object.keys(result.query.pages)[0];
 					pageData = <any>result.query.pages[articleId];
 
-					next(null, {
+					return Promise.resolve({
 						title: pageData.title
 					});
 				} else {
-					next(result.error, null);
+					return Promise.reject(result.exception);
 				}
-			}, (error: any): void => {
-				next(error, null);
 			});
 	}
 }

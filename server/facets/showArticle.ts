@@ -7,6 +7,7 @@ import Caching = require('../lib/Caching');
 import Logger = require('../lib/Logger');
 import Tracking = require('../lib/Tracking');
 import Utils = require('../lib/Utils');
+import getStatusCode = require('./operations/getStatusCode');
 import localSettings = require('../../config/localSettings');
 import prepareArticleData = require('./operations/prepareArticleData');
 import prepareMainPageData = require('./operations/prepareMainPageData');
@@ -97,14 +98,13 @@ function getArticle(request: Hapi.Request,
 		})
 		.catch(Article.ArticleRequestError, (error: any): void => {
 			var data = error.data,
-				errorCode = data.exception.code || generalServerErrorCode;
+				errorCode = getStatusCode(data.article) || generalServerErrorCode;
 
-			Logger.error('Article error', data.exception);
-
+			Logger.error('Article error', data.article.exception);
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 
 			// Clean up exception to not put its details in HTML response
-			delete data.exception.details;
+			delete data.article.exception.details;
 
 			onArticleResponse(request, reply, data, allowCache, errorCode);
 		})
