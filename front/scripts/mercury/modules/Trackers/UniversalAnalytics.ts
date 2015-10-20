@@ -209,5 +209,16 @@ module Mercury.Modules.Trackers {
 				ga(`${prefix}send`, 'pageview');
 			});
 		}
+
+		/**
+		 * Tracks usage of Google Custom Search
+		 * @param queryParam
+		 */
+		trackGoogleSearch (queryParam: string): void {
+			this.tracked.forEach((account:GAAccount) => {
+				var prefix = this.getPrefix(account);
+				ga(`${prefix}send`, 'pageview', queryParam);
+			});
+		}
 	}
 }

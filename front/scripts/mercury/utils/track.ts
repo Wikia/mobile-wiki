@@ -34,6 +34,7 @@ interface TrackerInstance {
 	new(): TrackerInstance;
 	track: TrackFunction;
 	trackPageView: (context?: TrackContext) => void;
+	trackGoogleSearch: (queryParam: string) => void;
 	updateTrackedUrl: (url: string) => void;
 	usesAdsContext: boolean;
 }
@@ -180,6 +181,29 @@ module Mercury.Utils {
 				instance = new Tracker(isSpecialWiki());
 				console.info('Track pageView:', tracker);
 				instance.trackPageView(instance.usesAdsContext ? adsContext : context);
+			}
+		});
+	}
+
+	/**
+	 * Track usage of Google Custom Search
+	 * @param queryParam
+	 */
+	export function trackGoogleSearch (queryParam: string) {
+		var trackers: any = Mercury.Modules.Trackers;
+
+		if (M.prop('queryParams.noexternals')) {
+			return;
+		}
+
+		Object.keys(trackers).forEach((tracker: string): void => {
+			var Tracker = trackers[tracker],
+				instance: TrackerInstance;
+
+			if (typeof Tracker.prototype.trackGoogleSearch === 'function') {
+				instance = new Tracker(isSpecialWiki());
+				console.info('Track Google Search:', tracker);
+				instance.trackGoogleSearch(queryParam);
 			}
 		});
 	}
