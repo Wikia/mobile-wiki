@@ -29,8 +29,7 @@ export class MainPageRequestHelper {
 					pageData: any = {};
 
 				if (!curatedContentPromise.isFulfilled()) {
-					//console.log(curatedContentPromise.reason());
-					return Promise.reject(new GetSectionRequestError(curatedContentPromise.reason()));
+					return Promise.reject(new GetCuratedContentRequestError(curatedContentPromise.reason()));
 				}
 
 				pageData.curatedContent = curatedContentPromise.value();
@@ -117,7 +116,7 @@ export class MainPageRequestHelper {
 	}
 }
 
-export class GetSectionRequestError {
+export class GetCuratedContentRequestError {
 	private data: any;
 
 	constructor(data: any) {
@@ -125,7 +124,7 @@ export class GetSectionRequestError {
 		this.data = data;
 	}
 }
-GetSectionRequestError.prototype = Object.create(Error.prototype);
+GetCuratedContentRequestError.prototype = Object.create(Error.prototype);
 
 export class GetMainPageDataRequestError {
 	private data: any;

@@ -45,15 +45,15 @@ App.CuratedContentModel.reopenClass({
 			// If this is first PV we have model for curated content already so we don't need to issue another request
 			// When resolving promise we need to set Mercury.curatedContent to null
 			// because this data gets outdated on following PVs
-			if (mainPageDataGlobal && mainPageDataGlobal.curatedContent && mainPageDataGlobal.curatedContentGlobal.items) {
+			if (mainPageDataGlobal && mainPageDataGlobal.curatedContent && mainPageDataGlobal.curatedContent.items) {
 				modelInstance.setProperties({
 					items: App.CuratedContentModel.sanitizeItems(mainPageDataGlobal.curatedContent.items),
 					offset: mainPageDataGlobal.curatedContent.offset
 				});
+				M.prop('mainPageData.curatedContent', null);
 				resolve(modelInstance);
-				M.prop('mainPageData', null);
 			} else if (mainPageDataGlobal && mainPageDataGlobal.error) {
-				M.prop('mainPageData', null);
+				M.prop('mainPageData.curatedContent', null);
 				reject(mainPageDataGlobal.error);
 			} else {
 				url += type + '/' + title;

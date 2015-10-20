@@ -27,6 +27,7 @@ App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTags
 					persistent: true,
 				});
 			} else {
+				Em.Logger.error('Error when trying to access MainPageCategoryRoute', error);
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.curated-content-error-other'),
 					type: 'warning',

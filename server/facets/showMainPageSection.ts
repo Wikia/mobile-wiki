@@ -44,7 +44,7 @@ function showSection (request: Hapi.Request, reply: Hapi.Response): void {
 						details: pageData.mainPageData.details
 					};
 				})
-				.catch(MainPage.GetSectionRequestError, (error) => {
+				.catch(MainPage.GetCuratedContentRequestError, (error) => {
 					code = error.data.exception.code || 500;
 					result.mainPageData.error = error.data.exception;
 					allowCache = false;
