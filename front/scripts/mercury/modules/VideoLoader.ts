@@ -22,7 +22,7 @@ module Mercury.Modules {
 		player: VideoPlayers.BasePlayer;
 
 		/**
-		 * @param {*} data
+		 * @param {?Object} data
 		 * @returns {undefined}
 		 */
 		constructor (data: any) {

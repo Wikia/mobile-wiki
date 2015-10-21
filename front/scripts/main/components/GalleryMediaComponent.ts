@@ -62,7 +62,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		},
 
 		/**
-		 * @param {*} imageOrGalleryRef
+		 * @param {?Object} imageOrGalleryRef
 		 * @param {number} [limit=2]
 		 * @param {number} [thumbSize=this.get('thumbSize')]
 		 * @returns {undefined}

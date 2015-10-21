@@ -63,7 +63,7 @@ App.HeadroomMixin = Em.Mixin.create({
 	),
 
 	/**
-	 * @param {*} headroomOptions
+	 * @param {?Object} headroomOptions
 	 * @param {number} offset
 	 * @returns {undefined}
 	 */

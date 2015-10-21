@@ -96,7 +96,7 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 	},
 
 	/**
-	 * @param {*} model
+	 * @param {?Object} model
 	 * @returns {Em.RSVP.Promise}
 	 */
 	upload(model: any): Em.RSVP.Promise {
@@ -160,7 +160,7 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 	},
 
 	/**
-	 * @param {*} photoData
+	 * @param {?Object} photoData
 	 * @returns {Em.RSVP.Promise}
 	 */
 	temporaryUpload(photoData: any): Em.RSVP.Promise {

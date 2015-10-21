@@ -201,7 +201,7 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @param {*} adsContext
+	 * @param {?Object} adsContext
 	 * @returns {undefined}
 	 */
 	setupAdsContext(adsContext: any): void {

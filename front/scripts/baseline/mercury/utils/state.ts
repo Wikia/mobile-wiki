@@ -13,7 +13,7 @@ module Mercury.Utils {
 	/**
 	 * @param {string} [str='']
 	 * @param {string|object} [ns=window]
-	 * @param {*} val
+	 * @param {?Object} val
 	 * @param {boolean} mutable
 	 * @returns {any}
 	 */
@@ -97,7 +97,7 @@ module Mercury.Utils {
 	 * Setter for single properties on the private __props__ object
 	 *
 	 * @param {string} key - A key representing the namespace to set. eg 'foo.bar.baz'
-	 * @param {*} value - Any non-undefined value
+	 * @param {?Object} value - Any non-undefined value
 	 * @param {boolean} mutable - When set to true, the parameters given to Object.defineProperty are relaxed
 	 * @returns {any}
 	 */
@@ -114,7 +114,7 @@ module Mercury.Utils {
 	 * When `value` is set to `undefined` it's a `get`, otherwise it's a `set`.
 	 *
 	 * @param {string} key
-	 * @param {*} [value]
+	 * @param {?Object} [value]
 	 * @param {boolean} [mutable=false]
 	 * @returns {any}
 	 */
@@ -163,7 +163,7 @@ module Mercury.Utils {
 
 	/**
 	 * @param {string} str
-	 * @param {*} obj
+	 * @param {?Object} obj
 	 * @returns {any}
 	 */
 	export function provide(str: string, obj: any): any {

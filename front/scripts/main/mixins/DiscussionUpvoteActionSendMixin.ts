@@ -7,7 +7,7 @@
 App.DiscussionUpvoteActionSendMixin = Em.Mixin.create({
 	actions: {
 		/**
-		 * @param {*} post
+		 * @param {?Object} post
 		 * @returns {undefined}
 		 */
 		upvote(post: any): void {

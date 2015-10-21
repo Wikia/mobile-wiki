@@ -8,7 +8,7 @@ module Mercury.Modules.Trackers {
 		};
 
 		/**
-		 * @param {*} krux
+		 * @param {?Object} krux
 		 * @returns {undefined}
 		 */
 		constructor (krux: any) {

@@ -6,8 +6,8 @@ App.SearchResultsRoute = Em.Route.extend({
 	googleCustomSearchLoadingInitialized: false,
 
 	/**
-	 * @param {*} controller
-	 * @param {*} model
+	 * @param {?Object} controller
+	 * @param {?Object} model
 	 * @param {EmberStates.Transition} transition
 	 * @returns {undefined}
 	 */

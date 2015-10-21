@@ -16,7 +16,7 @@ App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 
 	actions: {
 		/**
-		 * @param {*} error
+		 * @param {?Object} error
 		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */

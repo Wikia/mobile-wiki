@@ -54,7 +54,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 		/**
 		 * @param {string} name
-		 * @param {*} value
+		 * @param {?Object} value
 		 * @returns {undefined}
 		 */
 		setQueryParam(name: string, value: any): void {

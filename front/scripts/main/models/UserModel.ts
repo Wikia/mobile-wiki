@@ -71,7 +71,7 @@ App.UserModel.reopenClass({
 	},
 
 	/**
-	 * @param {*} userData
+	 * @param {?Object} userData
 	 * @returns {{name: any, userId: (string|number), avatarPath: string, profileUrl: string}}
 	 */
 	sanitizeDetails(userData: any): UserProperties {

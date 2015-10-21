@@ -6,7 +6,7 @@
 
 App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 	/**
-	 * @param {*} params
+	 * @param {?Object} params
 	 * @returns {Em.RSVP.Promise}
 	 */
 	model: function(params: any): Em.RSVP.Promise {
@@ -24,7 +24,7 @@ App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 
 	actions: {
 		/**
-		 * @param {*} error
+		 * @param {?Object} error
 		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */

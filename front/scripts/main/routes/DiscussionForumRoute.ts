@@ -8,7 +8,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	forumId: null,
 
 	/**
-	 * @param {*} params
+	 * @param {?Object} params
 	 * @returns {any}
 	 */
 	model(params: any): any {
