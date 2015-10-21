@@ -99,7 +99,7 @@ App.CuratedContentModel.reopenClass({
 	},
 
 	/**
-	 * @param {any} rawData
+	 * @param {*} rawData
 	 * @returns {CuratedContentItem[]}
 	 */
 	sanitizeItems(rawData: any): CuratedContentItem[] {
@@ -115,7 +115,7 @@ App.CuratedContentModel.reopenClass({
 	},
 
 	/**
-	 * @param {any} rawData
+	 * @param {*} rawData
 	 * @returns {CuratedContentItem}
 	 */
 	sanitizeItem(rawData: any): CuratedContentItem {

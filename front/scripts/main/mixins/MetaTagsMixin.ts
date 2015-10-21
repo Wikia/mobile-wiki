@@ -24,7 +24,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 	$head: Em.$('head'),
 
 	/**
-	 * @param {any} meta
+	 * @param {*} meta
 	 * @returns {void}
 	 */
 	setMeta(meta: any): void {

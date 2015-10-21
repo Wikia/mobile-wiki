@@ -41,7 +41,7 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {any} params
+	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
 	 */
 	model(params: any): Em.RSVP.Promise {
@@ -111,7 +111,7 @@ App.ArticleRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @param {any} error
+		 * @param {*} error
 		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */

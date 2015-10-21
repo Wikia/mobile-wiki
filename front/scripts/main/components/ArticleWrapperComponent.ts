@@ -124,7 +124,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
-			 * @param {any} photoData
+			 * @param {*} photoData
 			 * @returns {void}
 			 */
 			addPhoto(title: string, sectionIndex: number, photoData: any): void {
@@ -140,7 +140,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 
 			/**
 			 * @param {string} lightboxType
-			 * @param {any} lightboxData
+			 * @param {*} lightboxData
 			 * @returns {void}
 			 */
 			openLightbox(lightboxType: string, lightboxData: any): void {

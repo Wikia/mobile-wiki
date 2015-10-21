@@ -212,7 +212,7 @@ module Mercury.Utils {
 	 *
 	 * trackPageView is called in ArticleView.onArticleChange
 	 *
-	 * @param {any} adsContext
+	 * @param {*} adsContext
 	 * @returns {void}
 	 */
 	export function trackPageView (adsContext: any) {

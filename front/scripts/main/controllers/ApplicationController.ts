@@ -134,7 +134,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * Also blocks scrolling.
 		 *
 		 * @param {string} lightboxType
-		 * @param {any} lightboxModel
+		 * @param {*} lightboxModel
 		 * @returns {void}
 		 */
 		openLightbox(lightboxType: string, lightboxModel?: any): void {
@@ -159,7 +159,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * Sets query param with given name to given value. Uses whitelist.
 		 *
 		 * @param {string} name
-		 * @param {any} value
+		 * @param {*} value
 		 * @returns {void}
 		 */
 		setQueryParam(name: string, value: any): void {

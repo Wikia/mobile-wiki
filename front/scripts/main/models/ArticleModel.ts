@@ -151,7 +151,7 @@ App.ArticleModel.reopenClass({
 
 	/**
 	 * @param {App.ArticleModel} model
-	 * @param {any} [source= this.getPreloadedData()]
+	 * @param {*} [source= this.getPreloadedData()]
 	 * @return: {void}
 	 */
 	setArticle(model: typeof App.ArticleModel, source = this.getPreloadedData()): void {

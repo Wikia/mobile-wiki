@@ -12,8 +12,8 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 	errorClass: 'discussion-error-page',
 
 	/**
-	 * @param {any} err
-	 * @param {any} model
+	 * @param {*} err
+	 * @param {*} model
 	 * @returns {void}
 	 */
 	setErrorProperty: function (err: any, model: any): void {

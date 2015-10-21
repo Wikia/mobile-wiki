@@ -34,7 +34,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	},
 
 	/**
-	 * @param {any} controller
+	 * @param {*} controller
 	 * @param {App.MainPageModel} model
 	 * @returns {void}
 	 */
@@ -54,7 +54,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 
 	actions: {
 		/**
-		 * @param {any} error
+		 * @param {*} error
 		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */

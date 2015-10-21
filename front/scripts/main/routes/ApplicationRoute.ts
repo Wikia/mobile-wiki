@@ -184,7 +184,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		/**
 		 * @param {string} lightboxType
-		 * @param {any} [lightboxModel]
+		 * @param {*} [lightboxModel]
 		 * @returns {void}
 		 */
 		openLightbox(lightboxType: string, lightboxModel?: any): void {
@@ -193,7 +193,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		/**
 		 * @param {string} lightboxType
-		 * @param {any} [lightboxModel]
+		 * @param {*} [lightboxModel]
 		 * @returns {void}
 		 */
 		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
