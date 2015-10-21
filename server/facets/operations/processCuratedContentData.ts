@@ -17,7 +17,7 @@ var cachingTimes = {
  * @param request
  * @param result
  */
-function prepareData (request: Hapi.Request, result: any): void {
+function prepareData(request: Hapi.Request, result: any): void {
 	var title: string,
 		contentDir = 'ltr',
 		wikiVariables = result.wikiVariables;

@@ -143,7 +143,7 @@ App.ArticleModel.reopenClass({
 		if (exception) {
 			articleProperties = {
 				cleanTitle: M.String.normalizeToWhitespace(model.title),
-				exception: exception
+				exception
 			};
 		} else if (data) {
 			if (data.details) {

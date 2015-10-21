@@ -88,7 +88,7 @@ function getArticle(request: Hapi.Request,
 					allowCache: boolean): void {
 	article
 		.getFull()
-		.then((data: any): void => {
+		.then((data: ArticlePageData): void => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			outputResponse(request, reply, data, allowCache);
 		})
@@ -141,7 +141,7 @@ function outputResponse(request: Hapi.Request,
 		delete result.adsContext;
 	}
 
-	// @TODO we shouldn't rely on side effects of this function
+	// @TODO XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
 	response = reply.view('article', result);

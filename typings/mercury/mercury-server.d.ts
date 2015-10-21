@@ -1,21 +1,5 @@
 interface ArticleData {
-	details: {
-		id: number;
-		title: string;
-		ns: string;
-		url: string;
-		description: string;
-		revision: {
-			id: number;
-			user: string;
-			user_id: number;
-			timestamp: string;
-		};
-		comments: number;
-		type: string;
-		abstract: string;
-		thumbnail: string;
-	};
+	details: ArticleDetails;
 	article: {
 		content: string;
 		media: any[];
@@ -28,6 +12,24 @@ interface ArticleData {
 	topContributors: any[];
 	adsContext: any;
 	redirectEmptyTarget: boolean;
+}
+
+interface ArticleDetails {
+	id: number;
+	title: string;
+	ns: string;
+	url: string;
+	description: string;
+	revision: {
+		id: number;
+		user: string;
+		user_id: number;
+		timestamp: string;
+	};
+	comments: number;
+	type: string;
+	abstract: string;
+	thumbnail: string;
 }
 
 interface ArticlePageData {

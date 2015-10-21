@@ -13,9 +13,7 @@ export function get(request: Hapi.Request, reply: any): void {
 			wikiDomain: params.wikiDomain
 		})
 		.searchForQuery(params.query)
-		.then((response: any): void => {
-			reply(response);
-		})
+		.then(reply)
 		.catch((error: any): void => {
 			reply(error).code(getStatusCode(error));
 		});
