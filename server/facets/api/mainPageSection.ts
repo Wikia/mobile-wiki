@@ -14,9 +14,7 @@ export function get(request: Hapi.Request, reply: any): void {
 
 	new MW.ArticleRequest(params)
 		.curatedContentSection(params.sectionName)
-		.then((response: any): void => {
-			reply(response);
-		})
+		.then(reply)
 		.catch((error: any): void => {
 			reply(error).code(getStatusCode(error));
 		});

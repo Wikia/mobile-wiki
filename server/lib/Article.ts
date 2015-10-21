@@ -6,7 +6,7 @@
 /**
  * @description Article controller
  * @TODO CONCF-761 ArticleRequestHelper and MainPageRequestHelper are sharing couple of functionalities.
- * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
+ * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 import util = require('util');
 import Promise = require('bluebird');
@@ -29,7 +29,7 @@ export class ArticleRequestHelper {
 	/**
 	 * Gets wiki variables and article, returns a promise which is resolved with object containing all the data.
 	 */
-	getFull(): Promise<any> {
+	getFull(): Promise<ArticlePageData> {
 		var requests = [
 			new MediaWiki.ArticleRequest(this.params)
 				.article(this.params.title, this.params.redirect, this.params.sections),
@@ -56,9 +56,9 @@ export class ArticleRequestHelper {
 					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
 					isArticlePromiseFulfilled = articlePromise.isFulfilled(),
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
-					article: any,
-					wikiVariables: any,
-					data: any;
+					article: ArticleResponse|MWException,
+					wikiVariables: any|MWException,
+					data: ArticlePageData;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 				article = isArticlePromiseFulfilled ?
@@ -82,6 +82,7 @@ export class ArticleRequestHelper {
 				if (isArticlePromiseFulfilled) {
 					return Promise.resolve(data);
 				} else {
+					// Even if article promise failed we want to display app using the rest of data
 					return Promise.reject(new ArticleRequestError(data));
 				}
 			});
@@ -101,7 +102,7 @@ export class ArticleRequestHelper {
 	/**
 	 * Gets article, returns a promise which is resolved with the data.
 	 */
-	getArticle(): Promise<any> {
+	getArticle(): Promise<ArticleResponse> {
 		var articleRequest = new MediaWiki.ArticleRequest(this.params);
 
 		logger.debug(this.params, 'Fetching article');
@@ -133,9 +134,9 @@ export class ArticleRequestHelper {
 }
 
 export class WikiVariablesRequestError {
-	private error: any;
+	private error: MWException;
 
-	constructor(error: any) {
+	constructor(error: MWException) {
 		Error.apply(this, arguments);
 		this.error = error;
 	}
@@ -144,9 +145,9 @@ export class WikiVariablesRequestError {
 WikiVariablesRequestError.prototype = Object.create(Error.prototype);
 
 export class ArticleRequestError {
-	private data: any;
+	private data: ArticlePageData;
 
-	constructor(data: any) {
+	constructor(data: ArticlePageData) {
 		Error.apply(this, arguments);
 		this.data = data;
 	}

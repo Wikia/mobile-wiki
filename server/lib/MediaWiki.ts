@@ -1,22 +1,16 @@
 /// <reference path="../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../typings/mercury/mercury-server.d.ts" />
 /// <reference path="../../typings/node/node.d.ts" />
 /// <reference path="../../typings/wreck/wreck.d.ts" />
 
 /**
  * @description Mediawiki API functions
  */
-
 import localSettings = require('../../config/localSettings');
 import Logger = require('./Logger');
 import Wreck = require('wreck');
 import Promise = require('bluebird');
 import Url = require('url');
-
-interface MWRequestParams {
-	wikiDomain: string;
-	headers?: any;
-	redirects?: number;
-}
 
 class BaseRequest {
 	wikiDomain: string;

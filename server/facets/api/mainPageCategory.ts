@@ -19,9 +19,7 @@ export function get(request: Hapi.Request, reply: any): void {
 
 	new MW.ArticleRequest(params)
 		.category(params.categoryName, params.thumbSize, params.offset)
-		.then((response: any): void => {
-			reply(response);
-		})
+		.then(reply)
 		.catch((error: any): void => {
 			reply(error).code(getStatusCode(error));
 		});

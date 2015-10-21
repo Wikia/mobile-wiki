@@ -11,29 +11,38 @@ var shouldAsyncArticle = Utils.shouldAsyncArticle;
  * TODO: clean up this function
  *
  * @param {Hapi.Request} request
- * @param result
+ * @param {ArticlePageData} data
+ * @returns {object}
  */
-function prepareArticleData (request: Hapi.Request, result: any): void {
+function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	var title: string,
 		articleDetails: any,
 		contentDir = 'ltr',
 		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
-		articleData: any = result.article.data || {},
-		wikiVariables = result.wikiVariables;
+		articleData: ArticleData = data.article.data,
+		wikiVariables = data.wikiVariables,
+		result: any = {
+			article: data.article,
+			server: data.server,
+			wikiVariables: data.wikiVariables,
+		};
 
-	if (articleData.details) {
-		articleDetails = articleData.details;
-		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
-	} else if (request.params.title) {
-		title = request.params.title.replace(/_/g, ' ');
-	} else {
-		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
+	if (articleData) {
+		if (articleData.details) {
+			articleDetails = articleData.details;
+			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+		}
+
+		if (articleData.article) {
+			// we want to return the article content only once - as HTML and not JS variable
+			result.articleContent = articleData.article.content;
+			delete articleData.article.content;
+		}
 	}
 
-	if (articleData.article) {
-		// we want to return the article content only once - as HTML and not JS variable
-		result.articleContent = articleData.article.content;
-		delete articleData.article.content;
+	if (!title) {
+		// Fallback to title from URL
+		title = request.params.title.replace(/_/g, ' ');
 	}
 
 	if (wikiVariables.language) {
@@ -70,13 +79,23 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
+	// all the third party scripts we don't want to load on noexternals
+	if (!request.query.noexternals) {
+		// qualaroo
+		if (localSettings.qualaroo.enabled) {
+			result.qualarooScript = localSettings.qualaroo.scriptUrl;
+		}
+	}
+
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
 	result.asyncArticle = (
 		request.query._escaped_fragment_ !== '0' ?
-		shouldAsyncArticle(localSettings, request.headers.host) :
-		false
+			shouldAsyncArticle(localSettings, request.headers.host) :
+			false
 	);
+
+	return result;
 }
 
 export = prepareArticleData;

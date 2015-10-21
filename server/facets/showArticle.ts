@@ -12,6 +12,8 @@ import localSettings = require('../../config/localSettings');
 import prepareArticleData = require('./operations/prepareArticleData');
 import prepareMainPageData = require('./operations/prepareMainPageData');
 
+var deepExtend = require('deep-extend');
+
 var cachingTimes = {
 	enabled: true,
 	cachingPolicy: Caching.Policy.Public,
@@ -19,7 +21,7 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
-function showArticle (request: Hapi.Request, reply: Hapi.Response): void {
+function showArticle(request: Hapi.Request, reply: Hapi.Response): void {
 	var path: string = request.path,
 		wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		params: ArticleRequestParams = {
@@ -64,9 +66,9 @@ function redirectToMainPage(reply: Hapi.Response, article: Article.ArticleReques
 		.getWikiVariables()
 		.then((wikiVariables: any): void => {
 			Logger.info('Redirected to main page');
-			reply.redirect('/wiki/' + wikiVariables.mainPageTitle);
+			reply.redirect(wikiVariables.articlePath + wikiVariables.mainPageTitle);
 		})
-		.catch((error: any): void => {
+		.catch((error: MWException): void => {
 			Logger.error('WikiVariables error', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		});
@@ -81,38 +83,38 @@ function redirectToMainPage(reply: Hapi.Response, article: Article.ArticleReques
  * @param allowCache
  */
 function getArticle(request: Hapi.Request,
-				 reply: Hapi.Response,
-				 article: Article.ArticleRequestHelper,
-				 allowCache: boolean): void {
-	var generalServerErrorCode = 500;
-
+					reply: Hapi.Response,
+					article: Article.ArticleRequestHelper,
+					allowCache: boolean): void {
 	article
 		.getFull()
 		.then((data: any): void => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
-			onArticleResponse(request, reply, data, allowCache);
+			outputResponse(request, reply, data, allowCache);
 		})
-		.catch(Article.WikiVariablesRequestError, (error: any): void => {
+		.catch(Article.WikiVariablesRequestError, (error: MWException): void => {
 			Logger.error('WikiVariables error', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		.catch(Article.ArticleRequestError, (error: any): void => {
-			var data = error.data,
-				errorCode = getStatusCode(data.article) || generalServerErrorCode;
+			var data: ArticlePageData = error.data,
+				errorCode = getStatusCode(data.article, 500);
 
 			Logger.error('Article error', data.article.exception);
+
+			// It's possible that the article promise is rejected but we still want to redirect to canonical host
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 
 			// Clean up exception to not put its details in HTML response
 			delete data.article.exception.details;
 
-			onArticleResponse(request, reply, data, allowCache, errorCode);
+			outputResponse(request, reply, data, allowCache, errorCode);
 		})
 		.catch(Utils.RedirectedToCanonicalHost, (): void => {
 			Logger.info('Redirected to canonical host');
 		})
 		.catch((error: any): void => {
-			Logger.error('Fatal error, blame devs', error);
+			Logger.fatal('Unhandled error, code issue', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		});
 }
@@ -121,44 +123,36 @@ function getArticle(request: Hapi.Request,
  * Handles article response from API
  *
  * @param {Hapi.Request} request
- * @param reply
- * @param result
- * @param code
- * @param allowCache
+ * @param {Hapi.Response} reply
+ * @param {ArticlePageData} data
+ * @param {boolean} allowCache
+ * @param {number} code
  */
-function onArticleResponse (
-	request: Hapi.Request,
-	reply: any,
-	result: any = {},
-	allowCache: boolean = true,
-	code: number = 200): void {
-		var response: Hapi.Response;
+function outputResponse(request: Hapi.Request,
+						reply: Hapi.Response,
+						data: ArticlePageData,
+						allowCache: boolean = true,
+						code: number = 200): void {
+	var response: Hapi.Response,
+		result = prepareArticleData(request, data);
 
-		Tracking.handleResponse(result, request);
+	if (data.article.data && data.article.data.isMainPage) {
+		result = deepExtend(result, prepareMainPageData(data));
+		delete result.adsContext;
+	}
 
-		// @TODO CONCF-761 decouple logic for main page and article. Move common part to another file.
-		if (result.article.isMainPage) {
-			prepareMainPageData(request, result);
-		} else {
-			prepareArticleData(request, result);
-		}
+	// @TODO we shouldn't rely on side effects of this function
+	Tracking.handleResponse(result, request);
 
-		// all the third party scripts we don't want to load on noexternals
-		if (!result.queryParams.noexternals) {
-			// qualaroo
-			if (localSettings.qualaroo.enabled) {
-				result.qualarooScript = localSettings.qualaroo.scriptUrl;
-			}
-		}
+	response = reply.view('article', result);
+	response.code(code);
+	response.type('text/html; charset=utf-8');
 
-		response = reply.view('article', result);
-		response.code(code);
-		response.type('text/html; charset=utf-8');
+	if (allowCache) {
+		return Caching.setResponseCaching(response, cachingTimes);
+	}
 
-		if (allowCache) {
-			return Caching.setResponseCaching(response, cachingTimes);
-		}
-		return Caching.disableCache(response);
+	return Caching.disableCache(response);
 }
 
 export = showArticle;
