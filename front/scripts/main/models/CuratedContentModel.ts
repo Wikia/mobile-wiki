@@ -35,38 +35,33 @@ App.CuratedContentModel.reopenClass({
 	find(title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase') + '/main/',
-				mainPageDataGlobal: any = M.prop('mainPageData'),
 				params: {offset?: string} = {},
 				modelInstance = App.CuratedContentModel.create({
 					title,
 					type
 				});
 
-			if (mainPageDataGlobal && mainPageDataGlobal.error) {
-				M.prop('mainPageData.curatedContent', null);
-				reject(mainPageDataGlobal.error);
-			} else {
-				url += type + '/' + title;
 
-				if (offset) {
-					params.offset = offset;
-				}
+			url += type + '/' + title;
 
-				Em.$.ajax(<JQueryAjaxSettings>{
-					url,
-					data: params,
-					success: (data: any): void => {
-						modelInstance.setProperties({
-							items: App.CuratedContentModel.sanitizeItems(data.items),
-							offset: data.offset || null
-						});
-						resolve(modelInstance);
-					},
-					error: (data: any): void => {
-						reject(data);
-					}
-				});
+			if (offset) {
+				params.offset = offset;
 			}
+
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url,
+				data: params,
+				success: (data: any): void => {
+					modelInstance.setProperties({
+						items: App.CuratedContentModel.sanitizeItems(data.items),
+						offset: data.offset || null
+					});
+					resolve(modelInstance);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
 		});
 	},
 
