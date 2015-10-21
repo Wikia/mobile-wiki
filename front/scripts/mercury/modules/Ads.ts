@@ -31,6 +31,7 @@ module Mercury.Modules {
 		private adMercuryListenerModule: {
 			startOnLoadQueue(): void;
 		};
+		private kruxTracker: Mercury.Modules.Trackers.Krux = null;
 		private currentAdsContext: any = null;
 		private isLoaded = false;
 		private slotsQueue: string[][] = [];
@@ -82,7 +83,7 @@ module Mercury.Modules {
 						this.adConfigMobile = adConfigMobile;
 						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 						this.adMercuryListenerModule = adMercuryListener;
-						window.Krux = krux || [];
+						this.kruxTracker = new Mercury.Modules.Trackers.Krux(krux);
 						this.isLoaded = true;
 						this.addDetectionListeners();
 						this.reloadWhenReady();
@@ -113,16 +114,15 @@ module Mercury.Modules {
 		}
 
 		/**
-		 * Function fired when Krux is ready (see init()).
-		 * Calls the trackPageView() function on Krux instance.
+		 * Function fired when this.kruxTracker is ready (see init()).
+		 * Calls the trackPageView() function on krux tracker.
 		 * load() in krux.js (/app) automatically detect that
 		 * there is a first page load (needs to load Krux scripts).
 		 *
 		 * @returns {void}
 		 */
 		private kruxTrackFirstPage (): void {
-			var KruxTracker = new Mercury.Modules.Trackers.Krux();
-			KruxTracker.trackPageView();
+			this.kruxTracker.trackPageView();
 		}
 
 		/**

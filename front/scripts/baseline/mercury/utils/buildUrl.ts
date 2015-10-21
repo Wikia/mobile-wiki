@@ -21,6 +21,22 @@ interface UrlParams {
  */
 
 module Mercury.Utils {
+	/** Converting and escaping Querystring object to string.
+	 *
+	 * @param query Querystring object
+	 * @returns {string}
+	 */
+	function getQueryString(query: any = {}): string{
+		var queryString = '',
+			queryArray =  Object.keys(query);
+		if (queryArray.length > 0) {
+			queryString = '?' + queryArray.map((key:string):string =>
+						`${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`
+				).join('&');
+		}
+		return queryString;
+	}
+
 	/**
 	 * This function constructs a URL given pieces of a typical Wikia URL. All URL
 	 * parts are optional. Passing in empty params will output the root index URL
@@ -73,10 +89,7 @@ module Mercury.Utils {
 		}
 
 		if (urlParams.query) {
-			url += '?';
-			url += Object.keys(urlParams.query).map((key: string): string =>
-				`${encodeURIComponent(key)}=${encodeURIComponent(urlParams.query[key])}`
-			).join('&');
+			url += getQueryString(urlParams.query);
 		}
 
 		return url;
@@ -110,5 +123,9 @@ module Mercury.Utils {
 		// At this point, in the case of an unknown local host where the wiki is not in the
 		// host string (ie. "mercury:8000"), it will be left unmodified and returned as-is.
 		return host;
+	}
+
+	export function getDiscussionServiceUrl (path: string = '', query: any = {}): string {
+		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}${getQueryString(query)}` ;
 	}
 }

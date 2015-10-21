@@ -1,3 +1,10 @@
+## release-181 (2015-10-21 07:59 UTC)
+* [SOC-1276](https://wikia-inc.atlassian.net/browse/SOC-1276) SOC-1276 Truncate usernames and fix author properties
+* [SOC-1174](https://wikia-inc.atlassian.net/browse/SOC-1174) SOC-1174 | Unified discussion URL for front end calls
+* [SOC-1469](https://wikia-inc.atlassian.net/browse/SOC-1469) SOC-1469 | Iterate over replies only if they exist
+* [ADEN-2569](https://wikia-inc.atlassian.net/browse/ADEN-2569) ADEN-2569 Fix krux implementation
+* [ADEN-2486](https://wikia-inc.atlassian.net/browse/ADEN-2486) ADEN-2486 | Add Flite tag support for mercury
+
 ## release-180 (2015-10-20 07:59 UTC)
 * [XW-512](https://wikia-inc.atlassian.net/browse/XW-512) XW-512 | Introduce ES6
 
