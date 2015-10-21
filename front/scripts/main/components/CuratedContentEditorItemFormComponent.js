@@ -272,7 +272,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} title
+			 * @param {string} title
 			 * @returns {void}
 			 */
 			setTitle(title) {
@@ -283,7 +283,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} tooltipMessage
+			 * @param {string} tooltipMessage
 			 * @returns {void}
 			 */
 			showTooltip(tooltipMessage) {
@@ -423,7 +423,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {String} reason
+		 * @param {string} reason
 		 * @returns {void}
 		 */
 		processValidationError(reason) {

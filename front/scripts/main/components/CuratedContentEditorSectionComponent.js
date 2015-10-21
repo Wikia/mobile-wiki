@@ -102,7 +102,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {String} reason
+		 * @param {string} reason
 		 * @returns {void}
 		 */
 		processValidationError(reason) {

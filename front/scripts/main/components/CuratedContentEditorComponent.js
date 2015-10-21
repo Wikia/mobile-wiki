@@ -98,8 +98,8 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 
 
 		/**
-		 * @param {String} type
-		 * @param {String} reason
+		 * @param {string} type
+		 * @param {string} reason
 		 * @returns {void}
 		 */
 		processValidationError(type, reason) {

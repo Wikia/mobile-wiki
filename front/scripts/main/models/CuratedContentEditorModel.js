@@ -156,7 +156,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
-	 * @param {String} itemLabel
+	 * @param {string} itemLabel
 	 * @returns {CuratedContentEditorItemModel} item
 	 */
 	getItem(parentItem, itemLabel) {
@@ -174,7 +174,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} modelRoot
-	 * @param {String} excludedLabel=null
+	 * @param {string} excludedLabel=null
 	 * @returns {String[]} already used labels
 	 */
 	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
@@ -190,7 +190,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} sectionOrBlock
-	 * @param {String} excludedLabel=null
+	 * @param {string} excludedLabel=null
 	 * @returns {String[]} already used labels
 	 */
 	getAlreadyUsedLabels(sectionOrBlock, excludedLabel = null) {
@@ -222,7 +222,7 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
 	 * @param {CuratedContentEditorItemModel} newItem
-	 * @param {String} itemLabel - item's original label
+	 * @param {string} itemLabel - item's original label
 	 * @returns {void}
 	 */
 	updateItem(parentItem, newItem, itemLabel) {
@@ -236,7 +236,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
-	 * @param {String} itemLabel
+	 * @param {string} itemLabel
 	 * @returns {void}
 	 */
 	deleteItem(parentItem, itemLabel) {

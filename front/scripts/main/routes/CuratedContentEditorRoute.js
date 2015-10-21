@@ -92,7 +92,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		actions: {
 			/**
-			 * @param {String} block
+			 * @param {string} block
 			 * @returns {void}
 			 */
 				addBlockItem(block) {
@@ -101,7 +101,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 			/**
 			 * @param {CuratedContentEditorItemModel} item
-			 * @param {String} block
+			 * @param {string} block
 			 * @returns {void}
 			 */
 				editBlockItem(item, block) {

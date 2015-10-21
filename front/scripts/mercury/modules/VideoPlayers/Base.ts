@@ -103,7 +103,7 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		/**
-		 * @param {String} event=''
+		 * @param {string} event=''
 		 * @returns {void}
 		 */
 		track (event = ''): void {

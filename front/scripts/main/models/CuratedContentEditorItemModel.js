@@ -72,7 +72,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	},
 
 	/**
-	 * @param {String} title
+	 * @param {string} title
 	 * @param {Number} size
 	 * @returns {Em.RSVP.Promise} image data
 	 */
@@ -122,7 +122,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	},
 
 	/**
-	 * @param {String} title
+	 * @param {string} title
 	 * @returns {Em.RSVP.Promise} search suggestions
 	 */
 	getSearchSuggestions(title) {
