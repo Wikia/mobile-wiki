@@ -20,6 +20,7 @@ App.CommunityBadgeComponent = Em.Component.extend({
 		35171: '/front/images/community-badge-hunger-games.png',
 		203914: '/front/images/community-badge-one-direction.png',
 		147: '/front/images/community-badge-star-wars.png',
+		5931: '/front/images/community-badge-star-wars.png',
 		13346: '/front/images/community-badge-walking-dead.png'
 	},
 
