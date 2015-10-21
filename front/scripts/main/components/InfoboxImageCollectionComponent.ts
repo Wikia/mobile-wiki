@@ -17,9 +17,7 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 		return this.get('activeRef') < (this.get('collectionLength') - 1);
 	}),
 
-	hasPreviousImage: Em.computed('activeRef', function(): boolean {
-		return this.get('activeRef') > 0;
-	}),
+	hasPreviousImage: Em.computed.gt('activeRef', 0),
 
 	computedHeight(media: typeof App.ArticleMedia): number {
 		var windowWidth: number = this.get('viewportDimensions.width'),
@@ -62,14 +60,14 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 		this.set('media', mediaArray);
 	},
 
-	loadImages(galleryRef: number = 0): void {
+	loadImages(): void {
 		var image: ArticleMedia,
 			cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop,
 			width: number = this.get('viewportDimensions.width'),
 			height: number,
 			collectionLength = this.get('collectionLength');
 
-		for (; galleryRef < collectionLength ; galleryRef ++) {
+		for (var galleryRef = 0; galleryRef < collectionLength ; galleryRef ++) {
 			image = this.get('media').get(galleryRef);
 			height = this.computedHeight(image);
 
@@ -93,16 +91,16 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 
 	actions: {
 		switchImage(direction: string) {
-			var activeRef = this.get('activeRef'),
+			var oldRef = this.get('activeRef'),
 				refDirection = (direction === 'next') ? 1 : -1,
-				nextRef =  activeRef + refDirection,
+				newRef =  oldRef + refDirection,
 				media = this.get('media'),
-				activeImage = media.get(activeRef),
-				nextImage = media.get(nextRef);
+				oldImage = media.get(oldRef),
+				newImage = media.get(newRef);
 
-			activeImage.set('isActive', false);
-			nextImage.set('isActive', true);
-			this.set('activeRef', nextRef);
+			oldImage.set('isActive', false);
+			newImage.set('isActive', true);
+			this.set('activeRef', newRef);
 		}
 	}
 });

@@ -179,9 +179,7 @@ App.ArticleContentComponent = Em.Component.extend(App.AdsMixin, App.PollDaddyMix
 				refs = $element.data('refs')
 					.split(',')
 					.compact()
-					.filter((ref: any): boolean => {
-						return ref.length > 0;
-					});
+					.filter((ref: any): boolean => ref.length > 0);
 
 			refs.forEach((ref: number): void => {
 				var image = model.find(ref);

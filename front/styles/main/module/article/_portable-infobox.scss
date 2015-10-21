@@ -67,7 +67,9 @@ $hero-caption-line-height: 18px;
 	.pi-item {
 		display: none;
 
-		&.active { display: block; }
+		&.active {
+			display: block;
+		}
 	}
 
 	.image-collection-actions {
@@ -91,7 +93,9 @@ $hero-caption-line-height: 18px;
 			stroke: $infobox-hero-font-color;
 		}
 
-		.action-previous svg { transform: scaleX(-1); }
+		.action-previous svg {
+			transform: scaleX(-1);
+		}
 	}
 
 	.action-next { right: 0; }
