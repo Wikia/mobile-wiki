@@ -30,7 +30,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goBack() {
 				this.trackClick('curated-content-editor', 'image-search-go-back');
@@ -39,7 +39,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 			/**
 			 * @param {SearchPhotoImageResponseInterface} image
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			select(image) {
 				this.trackClick('curated-content-editor', 'image-search-select');
@@ -53,7 +53,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			loadMore() {
 				this.trackClick('curated-content-editor', 'image-search-load-more');
@@ -64,7 +64,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		getNextBatch() {
 			this.get('imagesModel').next()

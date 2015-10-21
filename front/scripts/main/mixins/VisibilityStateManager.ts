@@ -39,7 +39,7 @@ App.VisibilityStateManager = Em.Object.create({
 	/**
 	 * runs a loop over this.components and check if they are visible
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	check(): void {
 		var components = this.components,
@@ -67,7 +67,7 @@ App.VisibilityStateManager = Em.Object.create({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	checkDebounced(): void {
 		Em.run.debounce(this, this.check, 50);
@@ -77,7 +77,7 @@ App.VisibilityStateManager = Em.Object.create({
 	 * adds component to components array and initializes scroll listener
 	 *
 	 * @param {Em.Component} component
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	add(component: Em.Component): void {
 
@@ -94,7 +94,7 @@ App.VisibilityStateManager = Em.Object.create({
 	/**
 	 * resets state, used in ArticleController on a page change
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	reset(): void {
 		this.components.length = 0;

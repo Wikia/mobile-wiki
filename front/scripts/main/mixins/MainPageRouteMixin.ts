@@ -5,14 +5,14 @@
 
 App.MainPageRouteMixin = Em.Mixin.create({
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	activate(): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	deactivate(): void {
 		this.controllerFor('application').set('enableShareHeader', false);
@@ -20,7 +20,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 
 	/**
 	 * @param {*} model
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	afterModel(model: any): void {
 		var sectionOrCategoryName: string,
@@ -52,7 +52,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	/**
 	 * @param {*} controller
 	 * @param {App.CuratedContentModel} model
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	renderTemplate(controller: any, model: typeof App.CuratedContentModel): void {
 		this.render('main-page', {
@@ -66,7 +66,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	actions: {
 		/**
 		 * @param {CuratedContentItem} item
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		openCuratedContentItem(item: CuratedContentItem): void {
 			/**

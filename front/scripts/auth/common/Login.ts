@@ -76,7 +76,7 @@ class Login {
 	/**
 	 * @param {Event} event
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public onSubmit (event: Event): void {
 		var xhr = new XMLHttpRequest(),
@@ -134,7 +134,7 @@ class Login {
 	/**
 	 * @param {LoginResponse} loginResponse
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public onLoginSuccess(loginResponse: LoginResponse): void {
 		this.tracker.track('login-success', M.trackActions.submit);
@@ -142,7 +142,7 @@ class Login {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public watch(): void {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
@@ -169,7 +169,7 @@ class Login {
 	/**
 	 * @param {string} messageKey
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public displayError (messageKey: string): void {
 		var errorElement: HTMLElement = document.createElement('small');
@@ -179,7 +179,7 @@ class Login {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private clearError (): void {
 		var errorNode: Node = this.form.querySelector('small.error');

@@ -105,7 +105,7 @@ class SignupForm {
 	/**
 	 * @param {string} userId
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private onSuccessfulRegistration(userId: string) {
 		M.provide('userId', userId);
@@ -139,7 +139,7 @@ class SignupForm {
 	/**
 	 * @param {Event} event
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public onSubmit(event: Event): void {
 		var registrationXhr = new XMLHttpRequest(),
@@ -184,7 +184,7 @@ class SignupForm {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public watch(): void {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));

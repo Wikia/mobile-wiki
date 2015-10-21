@@ -13,7 +13,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	activate: function (): void {
 		var adsInstance: Mercury.Modules.Ads,
@@ -44,14 +44,14 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 	actions: {
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loading(): void {
 			this.controller && this.controller.showLoader();
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didTransition(): void {
 			// Activate any A/B tests for the new route
@@ -73,7 +73,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		error(): void {
 			this.controller && this.controller.hideLoader();
@@ -81,7 +81,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		/**
 		 * @param {HTMLAnchorElement} target
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleLink(target: HTMLAnchorElement): void {
 			var currentRoute = this.router.get('currentRouteName'),
@@ -148,7 +148,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loadRandomArticle(): void {
 			this.get('controller').send('toggleSideNav', false);
@@ -165,7 +165,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 
 		/**
 		 * @param {string} searchString
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		search: function (searchString : string): void {
 			this.transitionTo('searchResults', {queryParams: {
@@ -176,7 +176,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		// We need to proxy these actions because of the way Ember is bubbling them up through routes
 		// see http://emberjs.com/images/template-guide/action-bubbling.png
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleLightbox(): void {
 			this.get('controller').send('handleLightbox');
@@ -185,7 +185,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		/**
 		 * @param {string} lightboxType
 		 * @param {*} [lightboxModel]
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		openLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.get('controller').send('openLightbox', lightboxType, lightboxModel);
@@ -194,21 +194,21 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		/**
 		 * @param {string} lightboxType
 		 * @param {*} [lightboxModel]
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		showLightbox(): void {
 			this.get('controller').send('showLightbox');
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		closeLightbox(): void {
 			this.get('controller').send('closeLightbox');
@@ -217,7 +217,7 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 		// This is used only in not-found.hbs template
 		/**
 		 * @param {boolean} visible
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		toggleSideNav(visible: boolean): void {
 			this.get('controller').set('sideNavVisible', visible);

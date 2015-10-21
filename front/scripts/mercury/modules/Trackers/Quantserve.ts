@@ -10,7 +10,7 @@ interface Window {
 module Mercury.Modules.Trackers {
 	export class Quantserve extends BaseTracker {
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		constructor () {
 			window._qevents = [];
@@ -26,7 +26,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		trackPageView (): void {
 			var quantcastLabels = ['Category.MobileWeb.Mercury'];

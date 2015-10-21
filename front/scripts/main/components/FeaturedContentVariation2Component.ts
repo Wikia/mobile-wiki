@@ -49,7 +49,7 @@ App.FeaturedContentVariation2Component = Em.Component.extend(
 
 		/**
 		 * @param {PreventableClickEvent} event
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		click(event: PreventableClickEvent): void {
 			this.callClickHandler(event, true);

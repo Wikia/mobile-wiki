@@ -21,14 +21,14 @@ module Mercury.Utils {
 
 	/**
 	 * @param {PerfTrackerParams} obj
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function trackPerf(obj: PerfTrackerParams): void {
 		return getInstance().track(obj);
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function sendPagePerformance(): void {
 		// Initializes Weppy context

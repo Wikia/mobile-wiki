@@ -11,7 +11,7 @@ App.DiscussionRouteUpvoteMixin = Em.Mixin.create({
 	actions: {
 		/**
 		 * @param {*} post
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		upvote(post: any): void {
 			var hasUpvoted: boolean,

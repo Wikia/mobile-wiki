@@ -1,6 +1,6 @@
 App.CuratedContentEditorIndexRoute = Em.Route.extend({
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	renderTemplate() {
 		this.render('curated-content-editor', {

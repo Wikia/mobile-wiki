@@ -40,7 +40,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	}),
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	init(): void {
 		this.setProperties({
@@ -63,7 +63,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		/**
 		 * Resets properties related to lightbox which causes it to close. Also unblocks scrolling.
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		closeLightbox(): void {
 			this.setProperties({
@@ -82,7 +82,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 *
 		 * @param {string} lightboxType
 		 * @param {string} lightboxModel
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.setProperties({
@@ -97,7 +97,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * Bubbles up to ApplicationRoute
 		 *
 		 * @param {HTMLAnchorElement} target
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleLink(target: HTMLAnchorElement): void {
 			this.get('target').send('handleLink', target);
@@ -107,7 +107,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * Handles query params that should open a lightbox.
 		 * If you add another param to the app you should modify this function.
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleLightbox(): void {
 			var file = this.get('file'),
@@ -123,7 +123,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		/**
 		 * Bubbles up to ApplicationRoute
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loadRandomArticle(): void {
 			this.get('target').send('loadRandomArticle');
@@ -135,7 +135,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 *
 		 * @param {string} lightboxType
 		 * @param {*} lightboxModel
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		openLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.setProperties({
@@ -160,7 +160,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 *
 		 * @param {string} name
 		 * @param {*} value
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		setQueryParam(name: string, value: any): void {
 			var queryParamsWhitelist = ['file', 'map'];
@@ -181,7 +181,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		 * Sets lightbox visibility to true. If you use openLightbox with lightboxVisible=false
 		 * you can use this method to lightbox.
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		showLightbox(): void {
 			this.setProperties({
@@ -192,7 +192,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 
 		/**
 		 * @param {boolean} visible
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		toggleSideNav(visible: boolean): void {
 			this.set('sideNavVisible', visible);
@@ -200,7 +200,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 
 		/**
 		 * @param {boolean} visible
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		toggleSmartBanner(visible: boolean): void {
 			this.set('smartBannerVisible', visible);
@@ -208,7 +208,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 
 		/**
 		 * @param {boolean} visible
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		toggleUserMenu(visible: boolean): void {
 			this.set('userMenuVisible', visible);
@@ -222,7 +222,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	 * TODO: we should improve it some day.
 	 *
 	 * @param {string} file
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	openLightboxForMedia(file: string): void {
 		var mediaModel: typeof App.MediaModel = this.get('article.model.media'),
@@ -246,7 +246,7 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	 * Find the map element in DOM by given map id and sends proper data to openLightbox action.
 	 *
 	 * @param {string} map
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	openLightboxForMap(map: string): void {
 		var $map = Em.$(`a[data-map-id=${map}]`);

@@ -9,7 +9,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @param {*} krux
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		constructor (krux: any) {
 			this.kruxModule = krux || {};
@@ -21,7 +21,7 @@ module Mercury.Modules.Trackers {
 		 * mobileId variable is the ID referencing to the mobile site
 		 * (see ads_run.js and krux.js in app repository)
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		trackPageView (): void {
 			if (typeof this.kruxModule.load === 'function') {

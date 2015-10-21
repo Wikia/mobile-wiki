@@ -41,14 +41,14 @@ App.TrendingArticlesItemComponent = Em.Component.extend(
 		})),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		click(): void {
 			this.trackClick('modular-main-page', 'trending-articles');
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		updateImageSize(): void {
 			var viewportWidth = this.get('viewportDimensions.width'),

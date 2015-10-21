@@ -29,7 +29,7 @@ App.LightboxVideoComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didInsertElement(): void {
 			this.initVideoPlayer();
@@ -38,7 +38,7 @@ App.LightboxVideoComponent = Em.Component.extend(
 		/**
 		 * Used to instantiate a video player
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		initVideoPlayer(): void {
 			var videoLoader = new Mercury.Modules.VideoLoader(this.get('model.embed')),

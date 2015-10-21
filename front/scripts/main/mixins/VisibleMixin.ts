@@ -9,7 +9,7 @@
 
 App.VisibleMixin = Em.Mixin.create({
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	init(): void {
 		this._super();

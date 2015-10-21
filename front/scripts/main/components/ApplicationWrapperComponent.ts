@@ -77,21 +77,21 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	}),
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	willInsertElement(): void {
 		$('#preload').remove();
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	didInsertElement(): void {
 		this.trackFirstContent();
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	trackFirstContent(): void {
 		M.trackPerf({
@@ -106,7 +106,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	 * the external link in a new page _and_ the current page would be set to that external link.
 	 *
 	 * @param {MouseEvent} event
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	click(event: MouseEvent): void {
 		/**
@@ -165,7 +165,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 
 	/**
 	 * @param {HTMLAnchorElement} target
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	handleLink(target: HTMLAnchorElement): void {
 		Em.Logger.debug('Handling link with href:', target.href);

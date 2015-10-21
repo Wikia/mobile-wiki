@@ -32,14 +32,14 @@ App.PostDetailComponent = Em.Component.extend(
 		actions: {
 			/**
 			 * @param {number} postId
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goToPost(postId: number): void {
 				this.sendAction('goToPost', postId);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			toggleShareComponent(): void {
 				if (this.get('isShareFeatureVisible')) {
@@ -53,14 +53,14 @@ App.PostDetailComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			hideShareComponent(): void {
 				this.set('isShareFeatureVisible', false);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			cancelHideShareComponent(): void {
 				Em.run.cancel(this.hideShareTimeout);
@@ -68,7 +68,7 @@ App.PostDetailComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		willDestroyElement(): void {
 			Em.run.cancel(this.hideShareTimeout);

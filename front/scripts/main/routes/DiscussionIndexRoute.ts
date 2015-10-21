@@ -4,7 +4,7 @@
 
 App.DiscussionIndexRoute = Em.Route.extend(App.UseNewNavMixin, {
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	beforeModel(): void {
 		var controller = this.controllerFor('discussionForum');

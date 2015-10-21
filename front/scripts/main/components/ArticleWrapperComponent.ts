@@ -47,7 +47,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		gestures: {
 			/**
 			 * @param {JQueryEventObject} event
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			swipeLeft(event: JQueryEventObject): void {
 				// Track swipe events
@@ -68,7 +68,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 
 			/**
 			 * @param {JQueryEventObject} event
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			swipeRight(event: JQueryEventObject): void {
 				// Track swipe events
@@ -115,7 +115,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			edit(title: string, sectionIndex: number): void {
 				this.sendAction('edit', title, sectionIndex);
@@ -125,14 +125,14 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			 * @param {string} title
 			 * @param {number} sectionIndex
 			 * @param {*} photoData
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			addPhoto(title: string, sectionIndex: number, photoData: any): void {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			expandSideNav(): void {
 				this.sendAction('toggleSideNav', true);
@@ -141,7 +141,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			/**
 			 * @param {string} lightboxType
 			 * @param {*} lightboxData
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			openLightbox(lightboxType: string, lightboxData: any): void {
 				this.sendAction('openLightbox', lightboxType, lightboxData);
@@ -149,7 +149,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 
 			/**
 			 * @param {ArticleSectionHeader[]} headers
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			updateHeaders(headers: ArticleSectionHeader[]): void {
 				this.set('headers', headers);
@@ -157,7 +157,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didInsertElement(): void {
 			$(window).off('scroll.mercury.preload');
@@ -230,7 +230,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 * Opens media lightbox for given target
 		 *
 		 * @param {HTMLElement} target
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleMedia(target: HTMLElement): void {
 			var $target = $(target),

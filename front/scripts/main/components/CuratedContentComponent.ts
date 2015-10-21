@@ -13,7 +13,7 @@ App.CuratedContentComponent = Em.Component.extend(
 		actions: {
 			/**
 			 * @param {CuratedContentItem} item
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			clickItem(item: CuratedContentItem): void {
 				var itemType = item.type;
@@ -28,7 +28,7 @@ App.CuratedContentComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			loadMore(): void {
 				this.showLoader();

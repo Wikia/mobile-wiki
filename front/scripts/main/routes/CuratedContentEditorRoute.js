@@ -2,7 +2,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 	App.TrackClickMixin,
 	{
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 			beforeModel() {
 			if (!$().cropper || !this.get('cropperLoadingInitialized')) {
@@ -35,7 +35,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * This will be not needed when we move to module system
 		 *
 		 * @param {JQueryXHR} promise
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 			suppressDefineAmd(promise) {
 			let oldAmd;
@@ -93,7 +93,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		actions: {
 			/**
 			 * @param {string} block
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 				addBlockItem(block) {
 				this.trackClick('curated-content-editor', 'item-add');
@@ -102,7 +102,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			/**
 			 * @param {CuratedContentEditorItemModel} item
 			 * @param {string} block
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 				editBlockItem(item, block) {
 				this.trackClick('curated-content-editor', 'item-edit');
@@ -110,7 +110,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 				addSection() {
 				this.trackClick('curated-content-editor', 'section-add');
@@ -119,7 +119,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 			/**
 			 * @param {CuratedContentEditorItemModel} section
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 				openSection(section) {
 				this.trackClick('curated-content-editor', 'section-open');
@@ -128,7 +128,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 			/**
 			 * @param {Boolean} dataSaved it's a flag whether data was saved or not
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 				openMainPage(dataSaved) {
 				this.handleTransitionToMainPage(dataSaved);
@@ -197,7 +197,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * Does transition to the main page or sends a message through Ponto if available
 		 *
 		 * @param {Boolean} dataSaved=false it's a flag whether data was saved or not
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 			handleTransitionToMainPage(dataSaved = false) {
 			const ponto = window.Ponto;
@@ -213,7 +213,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		/**
 		 * @param {object} ponto
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 			closeModalUsingPonto(ponto) {
 			const dataSaved = this.get('publish');

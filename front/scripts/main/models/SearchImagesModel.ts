@@ -37,7 +37,7 @@ App.SearchImagesModel = Em.Object.extend({
 
 	/**
 	 * @param {SearchPhotoImageResponseInterface[]} fetchedImages
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	setItems(fetchedImages: SearchPhotoImageResponseInterface[]): void {
 		var items = this.get('items');

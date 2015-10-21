@@ -18,7 +18,7 @@ class Form {
 	/**
 	 * @param {Event} event
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private onFocus (event: Event): void {
 		var input: HTMLInputElement = <HTMLInputElement> event.target,
@@ -40,7 +40,7 @@ class Form {
 	/**
 	 * @param {Event} event
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private onBlur (event: Event): void {
 		Array.prototype.forEach.call(
@@ -60,7 +60,7 @@ class Form {
 	 * @param {HTMLInputElement} input
 	 * @param {HTMLElement} toggler
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private togglePasswordInput (input: HTMLInputElement, toggler: HTMLElement): void {
 		if (input.type === 'password') {
@@ -76,7 +76,7 @@ class Form {
 	/**
 	 * @param {Event} event
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private onClick (event: Event): void {
 		var element: HTMLInputElement = <HTMLInputElement> event.target,
@@ -94,7 +94,7 @@ class Form {
 	/**
 	 * Moves labels up if they were filled by the browser's autofill
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private onChange(): void {
 		Array.prototype.forEach.call(
@@ -134,7 +134,7 @@ class Form {
 	/**
 	 * Starts continuous checking for new input
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public watch (): void {
 		this.onChange();

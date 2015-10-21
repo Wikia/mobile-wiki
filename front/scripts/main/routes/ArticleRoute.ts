@@ -8,7 +8,7 @@ App.ArticleRoute = Em.Route.extend({
 
 	/**
 	 * @param {EmberStates.Transition} transition
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	beforeModel: function (transition: EmberStates.Transition):void {
 		var title = transition.params.article.title.replace('wiki/', '');
@@ -54,7 +54,7 @@ App.ArticleRoute = Em.Route.extend({
 
 	/**
 	 * @param {App.ArticleModel} model
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	afterModel(model: typeof App.ArticleModel): void {
 		// if an article is main page, redirect to mainPage route
@@ -73,14 +73,14 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	activate (): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	deactivate (): void {
 		this.controllerFor('application').set('enableShareHeader', false);
@@ -89,7 +89,7 @@ App.ArticleRoute = Em.Route.extend({
 	actions: {
 		/**
 		 * @param {EmberStates.Transition} transition
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		willTransition(transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like

@@ -52,7 +52,7 @@ module Mercury.Modules {
 		 * Initializes the Ad module
 		 *
 		 * @param {string} adsUrl - Url for the ads script
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public init (adsUrl: string): void {
 			//Required by ads tracking code
@@ -100,7 +100,7 @@ module Mercury.Modules {
 		 * @arguments coming from ads tracking request
 		 * It's called by track() method in wikia.tracker fetched from app by ads code
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public gaTrackAdEvent (): void {
 			var adHitSample: number = 1, //Percentage of all the track requests to go through
@@ -119,7 +119,7 @@ module Mercury.Modules {
 		 * load() in krux.js (/app) automatically detect that
 		 * there is a first page load (needs to load Krux scripts).
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		private kruxTrackFirstPage (): void {
 			this.kruxTracker.trackPageView();
@@ -127,7 +127,7 @@ module Mercury.Modules {
 
 		/**
 		 * @param {string} value
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		private trackBlocking (value: string): void {
 			var dimensions: string[] = [],
@@ -141,7 +141,7 @@ module Mercury.Modules {
 		}
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		private addDetectionListeners (): void {
 			var trackBlocking: Function = this.trackBlocking;
@@ -155,7 +155,7 @@ module Mercury.Modules {
 
 		/**
 		 * @param {*} adsContext
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		private setContext (adsContext: any): void {
 			this.adsContext = adsContext ? adsContext : null;
@@ -165,7 +165,7 @@ module Mercury.Modules {
 		 * Reloads the ads with the provided adsContext
 		 *
 		 * @param {*} adsContext
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public reload (adsContext: any): void {
 			// Store the context for external reuse
@@ -189,7 +189,7 @@ module Mercury.Modules {
 		/**
 		 * This is callback that is run after script is loaded
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public reloadWhenReady (): void {
 			this.reload(this.currentAdsContext);
@@ -197,7 +197,7 @@ module Mercury.Modules {
 		}
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		private onLoad (): void {
 			this.adMercuryListenerModule.startOnLoadQueue();
@@ -216,7 +216,7 @@ module Mercury.Modules {
 		 * Push slot to the current queue (refresh ad in given slot)
 		 *
 		 * @param {string} name - name of the slot
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public pushSlotToQueue (name: string): void {
 			this.slotsQueue.push([name]);
@@ -236,7 +236,7 @@ module Mercury.Modules {
 		 * Removes ad slot by name
 		 *
 		 * @param {string} name - Name of ths slot to remove
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public removeSlot (name:string): void {
 			this.adSlots = $.grep(this.adSlots, (slot) => {
@@ -250,7 +250,7 @@ module Mercury.Modules {
 		 *
 		 * @param {*} contents
 		 * @param {boolean} [lightboxVisible]
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public createLightbox (contents: any, lightboxVisible?: boolean): void {
 		}
@@ -259,7 +259,7 @@ module Mercury.Modules {
 		 * This method is being overwritten in ApplicationRoute for ads needs.
 		 * To learn more check ApplicationRoute.ts file.
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		public showLightbox (): void {
 		}

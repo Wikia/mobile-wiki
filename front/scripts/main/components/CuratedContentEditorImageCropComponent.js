@@ -35,7 +35,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goBack() {
 				this.trackClick('curated-content-editor', 'image-crop-go-back');
@@ -43,7 +43,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			done() {
 				this.trackClick('curated-content-editor', 'image-crop-done');
@@ -89,7 +89,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		/**
 		 * Show loading spinner until image is loaded as the cropper can be displayed only after that
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loadImage: Em.on('didInitAttrs', function() {
 			const url = this.get('imagePropertiesUrl');
@@ -105,7 +105,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		onImageLoaded() {
 			// User can browse away from the component before this function is called
@@ -121,7 +121,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		initCropper() {
 			const $imgElement = this.$(this.get('imgSelector'));
@@ -138,7 +138,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		onResize() {
 			const $imgElement = this.get('$imgElement');

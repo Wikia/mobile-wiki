@@ -59,7 +59,7 @@ App.WikiaFooterComponent = Em.Component.extend(
 			/**
 			 * @param {string} text
 			 * @param {string} href
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			handleFooterLinkClick(text: string, href: string): void {
 				if (this.checkLinkForOasisSkinOverwrite(href)) {

@@ -13,7 +13,7 @@ App.FileInputComponent = Em.Component.extend(
 
 		/**
 		 * @param {Event} event
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		change(event: Event): void {
 			var input: HTMLInputElement = <HTMLInputElement> event.target;
@@ -24,7 +24,7 @@ App.FileInputComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		click(): void {
 			this.sendAction('click');

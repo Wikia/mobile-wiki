@@ -71,7 +71,7 @@ App.LocalNavMenuComponent = Em.Component.extend(
 			 * Action that changes `currentMenuItem` based on the index of `currentMenuItem`'s children
 			 *
 			 * @param {number} index - The index of the item to change to
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			changeMenuItem(index: number): void {
 				var curr: RootNavItem = this.get('currentMenuItem');
@@ -85,28 +85,28 @@ App.LocalNavMenuComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			collapseSideNav(): void {
 				this.sendAction('collapseSideNav');
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			gotoRoot(): void {
 				this.set('currentMenuItem', this.get('menuRoot'));
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goBack(): void {
 				this.set('currentMenuItem', this.get('parentItem'));
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			loadRandomArticle(): void {
 				this.trackClick('randomArticle', 'click');
@@ -146,7 +146,7 @@ App.LocalNavMenuComponent = Em.Component.extend(
 		 * set the parent of all its children, depth-first
 		 * @param {number} index - The index of this item in its parent's children array, because
 		 * we need it to link to the correct child
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		injectParentPointersAndIndicesHelper(parent: RootNavItem, curr: NavItem, index: number): void {
 			var i: number,

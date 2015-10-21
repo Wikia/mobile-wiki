@@ -6,7 +6,7 @@ class AuthUtils {
 	/**
 	 * @param {string} url
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public static authSuccessCallback (url?: string): void {
 		if (window.parent && pageParams.parentOrigin) {
@@ -23,7 +23,7 @@ class AuthUtils {
 	/**
 	 * @param {string} url
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public static loadUrl (url?: string): void {
 		var win: Window;

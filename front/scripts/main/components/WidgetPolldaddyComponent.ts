@@ -6,7 +6,7 @@ App.WidgetPolldaddyComponent = Em.Component.extend({
 	data: null,
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	didInsertElement(): void {
 		/**
@@ -18,7 +18,7 @@ App.WidgetPolldaddyComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	loadScript(): void {
 		var id = this.get('data.id');

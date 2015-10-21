@@ -67,21 +67,21 @@ App.ArticleCommentsComponent = Em.Component.extend({
 
 	actions: {
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		nextPage(): void {
 			this.incrementProperty('page');
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		prevPage(): void {
 			this.decrementProperty('page');
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		toggleComments(): void {
 			this.set('page', this.get('page') ? null : 1);
@@ -99,14 +99,14 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	/**
 	 * scrolls to top of article's container, used for pagination
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	scrollToTop(): void {
 		window.scrollTo(0, this.$().offset().top);
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	didInsertElement(): void {
 		this.set('model', App.ArticleCommentsModel.create({

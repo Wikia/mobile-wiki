@@ -25,7 +25,7 @@ App.MediaModel = Em.Object.extend({
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	init(): void {
 		var media = this.get('media');

@@ -70,14 +70,14 @@ App.MediaComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			onVisible(): void {
 				this.load();
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			clickLinkedImage(): void {
 				M.track({

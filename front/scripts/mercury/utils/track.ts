@@ -137,7 +137,7 @@ module Mercury.Utils {
 
 	/**
 	 * @param {TrackingParams} params
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	function pruneParams (params: TrackingParams) {
 		delete params.action;
@@ -161,7 +161,7 @@ module Mercury.Utils {
 
 	/**
 	 * @param {TrackingParams} params
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
@@ -213,7 +213,7 @@ module Mercury.Utils {
 	 * trackPageView is called in ArticleView.onArticleChange
 	 *
 	 * @param {*} adsContext
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function trackPageView (adsContext: any) {
 		var trackers: any = Mercury.Modules.Trackers;
@@ -244,7 +244,7 @@ module Mercury.Utils {
 	 * for original location.
 	 *
 	 * @param {string} url
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function updateTrackedUrl (url: string) {
 		var trackers: any = Mercury.Modules.Trackers;
@@ -266,7 +266,7 @@ module Mercury.Utils {
 
 	/**
 	 * @param {TrackContext} data
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function setTrackContext(data: TrackContext) {
 		context = data;

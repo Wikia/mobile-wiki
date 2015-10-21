@@ -32,7 +32,7 @@ module Mercury.Modules.VideoPlayers {
 		/**
 		 * @param {string} provider
 		 * @param {*} params
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		constructor (provider: string, params: any) {
 			super(provider, params);
@@ -43,7 +43,7 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		setupPlayer (): void {
 			this.params = $.extend(this.params, {
@@ -58,14 +58,14 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		createPlayer (): void {
 			window.OO.Player.create(this.containerId, this.params.videoId, this.params);
 		}
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		playerDidLoad (): void {
 			this.createPlayer();
@@ -73,7 +73,7 @@ module Mercury.Modules.VideoPlayers {
 
 		/**
 		 * @param {*} player
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		onCreate (player: any): void {
 			var messageBus = player.mb;

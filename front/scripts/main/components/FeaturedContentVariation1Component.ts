@@ -13,7 +13,7 @@ App.FeaturedContentVariation1Component = Em.Component.extend(
 
 		gestures: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			swipeLeft(): void {
 				M.VariantTesting.trackEvent('featured-content-next');
@@ -21,7 +21,7 @@ App.FeaturedContentVariation1Component = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			swipeRight(): void {
 				M.VariantTesting.trackEvent('featured-content-prev');
@@ -30,7 +30,7 @@ App.FeaturedContentVariation1Component = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		click(): void {
 			M.VariantTesting.trackEvent('featured-content-click');

@@ -12,14 +12,14 @@ App.WikiaInYourLangComponent = Em.Component.extend(
 		alertKey: 'wikiaInYourLang.alertDismissed',
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didInsertElement(): void {
 			this.handleWikiaInYourLang();
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleWikiaInYourLang(): void {
 			if (this.shouldShowWikiaInYourLang()) {
@@ -45,7 +45,7 @@ App.WikiaInYourLangComponent = Em.Component.extend(
 
 		/**
 		 * @param {App.WikiaInYourLangModel} model
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		createAlert(model: typeof App.WikiaInYourLangModel): void {
 			var alertData = {

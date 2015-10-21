@@ -35,7 +35,7 @@ App.MainPageComponent = Em.Component.extend(
 			/**
 			 * @param {string} lightboxType
 			 * @param {string} lightboxData
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			openLightbox(lightboxType: string, lightboxData: any): void {
 				this.sendAction('openLightbox', lightboxType, lightboxData);
@@ -43,7 +43,7 @@ App.MainPageComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentItem} item
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			openCuratedContentItem(item: CuratedContentItem): void {
 				this.sendAction('openCuratedContentItem', item);
@@ -51,7 +51,7 @@ App.MainPageComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didReceiveAttrs(): void {
 			Em.run.schedule('afterRender', this, (): void => {

@@ -28,7 +28,7 @@ class TermsOfUse {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public init () {
 		if (this.shouldDisplayCheckbox()) {

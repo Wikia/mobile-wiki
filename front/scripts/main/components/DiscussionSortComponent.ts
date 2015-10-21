@@ -18,7 +18,7 @@ App.DiscussionSortComponent = Em.Component.extend({
 	actions: {
 		/**
 		 * @param {string} sortBy
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		setSortBy(sortBy: string): void {
 			// Send action up to route object
@@ -27,7 +27,7 @@ App.DiscussionSortComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	didInsertElement(): void {
 		this.set('$discussionSort', $('.discussion-sort'));
@@ -36,7 +36,7 @@ App.DiscussionSortComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	updateActive(): void {
 		// Add the 'active' CSS class to the sort tab that's active,

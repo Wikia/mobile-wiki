@@ -8,7 +8,7 @@ interface Window {
 module Mercury.Modules.Trackers {
 	export class Comscore extends BaseTracker {
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		constructor () {
 			window._comscore = window._comscore || [];
@@ -22,7 +22,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		trackPageView (): void {
 			var comscore = M.prop('tracking.comscore'),

@@ -26,7 +26,7 @@ module Mercury.Utils.VariantTesting {
 	/**
 	 * Activates all variant tests for the current page
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function activate (): void {
 		var optimizely = window.optimizely;
@@ -39,7 +39,7 @@ module Mercury.Utils.VariantTesting {
 	 * Tracks an event by name
 	 *
 	 * @param {string} eventName
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function trackEvent (eventName: string): void {
 		var optimizely = window.optimizely;

@@ -8,7 +8,7 @@ App.MainPageController = Em.Controller.extend({
 	noAds: Em.computed.alias('application.noAds'),
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	init(): void {
 		this.setProperties({

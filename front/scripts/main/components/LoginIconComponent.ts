@@ -9,7 +9,7 @@ App.LoginIconComponent = Em.Component.extend({
 	classNames: ['external', 'login'],
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	click(): void {
 		var label: string,

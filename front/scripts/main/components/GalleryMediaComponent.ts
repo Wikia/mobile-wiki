@@ -40,7 +40,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		}),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		setUp(): void {
 			var mediaArray = Em.A(),
@@ -65,7 +65,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		 * @param {*} imageOrGalleryRef
 		 * @param {number} [limit=2]
 		 * @param {number} [thumbSize=this.get('thumbSize')]
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loadImages(imageOrGalleryRef: any, limit: number = 2, thumbSize: number = this.get('thumbSize')): void {
 			var galleryRef = typeof imageOrGalleryRef === 'number' ?
@@ -101,7 +101,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		 * Loads media and certain amount of images depending on the gallery width and
 		 * thumbSize sets also onscroll handler
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		load(): void {
 			var $this: JQuery = this.$(),
@@ -126,7 +126,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		 * proper offsetParent to the image element.
 		 *
 		 * @param {number} maxImages
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		onScroll(maxImages: number): void {
 			var $this = this.$(),

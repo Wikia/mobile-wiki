@@ -39,14 +39,14 @@ App.ShareFeatureComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		mouseEnter(): void {
 			this.attrs.onMouseEnter();
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		mouseLeave(): void {
 			this.attrs.onMouseLeave();

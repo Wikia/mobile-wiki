@@ -50,7 +50,7 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleCollapsing(): void {
 			var collapsedHeight = this.get('collapsedHeight');
@@ -65,7 +65,7 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		 * Changes 'collapsed' property.
 		 *
 		 * @param {JQueryEventObject} event
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		onInfoboxClick(event: JQueryEventObject): void {
 			var body: HTMLElement,
@@ -93,7 +93,7 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		 * In case of long infobox, setups click
 		 * handling function to this infobox component.
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didInsertElement(): void {
 			if (this.get('isLongInfobox')) {

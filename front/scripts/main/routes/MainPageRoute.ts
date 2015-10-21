@@ -14,7 +14,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 
 	/**
 	 * @param {App.MainPageModel} model
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	afterModel(model: typeof App.MainPageModel): void {
 		var mainPageTitle = M.String.normalizeToWhitespace(Em.get(Mercury, 'wiki.mainPageTitle'));
@@ -36,7 +36,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	/**
 	 * @param {*} controller
 	 * @param {App.MainPageModel} model
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	renderTemplate(controller: any, model: typeof App.MainPageModel): void {
 		if (model.isCuratedMainPage) {

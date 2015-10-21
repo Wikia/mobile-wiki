@@ -18,7 +18,7 @@ class AutoTab {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public init(): void {
 		this.input.addEventListener('input', this.onInput.bind(this));
@@ -27,7 +27,7 @@ class AutoTab {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	private onInput(): void {
 		var nextVisibleInput = this.getNextVisibleInput(),

@@ -11,7 +11,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 
 	actions: {
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		edit(): void {
 			M.track({
@@ -24,7 +24,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		select(): void {
 			M.track({
@@ -36,7 +36,7 @@ App.ArticleContributionComponent = Em.Component.extend({
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		addPhoto(): void {
 			var photoData = this.$('.file-upload-input')[0].files[0];

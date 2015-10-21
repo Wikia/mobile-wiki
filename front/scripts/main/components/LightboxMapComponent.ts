@@ -9,7 +9,7 @@ App.LightboxMapComponent = Em.Component.extend({
 	}),
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	didInsertElement(): void {
 		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
@@ -21,7 +21,7 @@ App.LightboxMapComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	updateState(): void {
 		var model = this.get('model');

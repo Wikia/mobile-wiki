@@ -171,7 +171,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			pan(event: HammerInput): void {
 				var scale = this.get('scale');
@@ -185,7 +185,7 @@ App.LightboxImageComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			panEnd(): void {
 				this.setProperties({
@@ -196,7 +196,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			doubleTap(event: HammerInput): void {
 				var scale: number;
@@ -221,7 +221,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			pinchMove(event: HammerInput): void {
 				var scale = this.get('scale');
@@ -237,7 +237,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			pinchEnd(event: HammerInput): void {
 				this.set('lastScale', this.get('lastScale') * event.scale);
@@ -245,7 +245,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loadUrl(): void {
 			var url = this.get('model.url');
@@ -258,7 +258,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didInsertElement(): void {
 			var hammerInstance = this.get('_hammerInstance');
@@ -308,7 +308,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		resetZoom(): void {
 			this.setProperties({
@@ -325,7 +325,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * load an image and run update function when it is loaded
 		 *
 		 * @param url string - url of current image
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		load(url: string): void {
 			var image: HTMLImageElement = new Image();
@@ -351,7 +351,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		 *
 		 * @param {string} imageSrc
 		 * @param {boolean} [loadingError=false]
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		update(imageSrc: string, loadingError: boolean = false): void {
 			if (!this.get('isDestroyed')) {

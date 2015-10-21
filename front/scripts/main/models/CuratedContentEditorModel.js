@@ -210,7 +210,7 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
 	 * @param {CuratedContentEditorItemModel} newItem
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	addItem(parentItem, newItem) {
 		// When parent doesn't have items we need to initialize them
@@ -223,7 +223,7 @@ App.CuratedContentEditorModel.reopenClass({
 	 * @param {CuratedContentEditorItemModel} parentItem
 	 * @param {CuratedContentEditorItemModel} newItem
 	 * @param {string} itemLabel - item's original label
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	updateItem(parentItem, newItem, itemLabel) {
 		parentItem.items.forEach((item, index, parentItems) => {
@@ -237,7 +237,7 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
 	 * @param {string} itemLabel
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	deleteItem(parentItem, itemLabel) {
 		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);

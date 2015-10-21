@@ -38,7 +38,7 @@ App.WidgetTwitterComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didInsertElement(): void {
 			this.loadScript();
@@ -46,7 +46,7 @@ App.WidgetTwitterComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loadScript(): void {
 			if (!this.get('scriptLoadInitialized.twitter')) {
@@ -59,7 +59,7 @@ App.WidgetTwitterComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		createTimeline(): void {
 			if (this.get('scriptLoaded.twitter')) {

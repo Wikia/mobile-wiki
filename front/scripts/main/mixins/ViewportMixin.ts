@@ -17,7 +17,7 @@ App.ViewportMixin = Em.Mixin.create({
 	initiated: false,
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	init(): void {
 		this._super();
@@ -31,7 +31,7 @@ App.ViewportMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	onResize(): void {
 		if (!this.get('isDestroyed')) {

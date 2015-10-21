@@ -7,7 +7,7 @@ App.TrackClickMixin = Em.Mixin.create({
 	 * @param {string} category
 	 * @param {string} [label='']
 	 * @param {boolean} [isNonInteractive=true]
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	trackClick: function(category: string, label: string = '', isNonInteractive: boolean = true): void {
 		M.track({
@@ -23,7 +23,7 @@ App.TrackClickMixin = Em.Mixin.create({
 		 * @param {string} category
 		 * @param {string} [label='']
 		 * @param {boolean} [isNonInteractive=true]
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		trackClick(category: string, label: string = '', isNonInteractive: boolean = true): void {
 			this.trackClick(category, label, isNonInteractive);

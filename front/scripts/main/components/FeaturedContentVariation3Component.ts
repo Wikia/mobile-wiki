@@ -55,14 +55,14 @@ App.FeaturedContentVariation3Component = Em.Component.extend(
 
 		/**
 		 * @param event
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		click(event: MouseEvent|Touch): void {
 			this.callClickHandler(event, true);
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		cycleThroughItems(): void {
 			if (this.get('hasMultipleItems') && !this.get('isTimeoutHandleSet')) {
@@ -76,7 +76,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		stopCyclingThroughItems(): void {
 			if (this.get('hasMultipleItems')) {
@@ -86,7 +86,7 @@ App.FeaturedContentVariation3Component = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		resetCycleTimeout(): void {
 			if (this.get('hasMultipleItems')) {
@@ -96,14 +96,14 @@ App.FeaturedContentVariation3Component = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didInsertElement(): void {
 			this.cycleThroughItems();
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		willDestroyElement(): void {
 			this.stopCyclingThroughItems();

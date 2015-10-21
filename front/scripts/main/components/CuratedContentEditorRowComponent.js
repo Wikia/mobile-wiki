@@ -11,7 +11,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			edit() {
 				const model = this.get('model');
@@ -25,7 +25,7 @@ App.CuratedContentEditorRowComponent = Em.Component.extend(
 
 			/**
 			 * @param {number} offset
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			moveBy(offset) {
 				this.sendAction('moveBy', offset, this.get('model'));

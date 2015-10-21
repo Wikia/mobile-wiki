@@ -12,7 +12,7 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
 			/**
 			 * @param {number} offset
 			 * @param {CuratedContentEditorItemModel} item
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			moveBy(offset, item) {
 				const items = this.get('sortableItems'),

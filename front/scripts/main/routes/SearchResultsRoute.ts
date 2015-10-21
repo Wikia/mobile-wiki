@@ -9,7 +9,7 @@ App.SearchResultsRoute = Em.Route.extend({
 	 * @param {*} controller
 	 * @param {*} model
 	 * @param {EmberStates.Transition} transition
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	setupController(controller: any, model: any, transition: EmberStates.Transition): void {
 		this._super(controller, model, transition);

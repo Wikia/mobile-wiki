@@ -20,7 +20,7 @@ class FormErrors {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public clearValidationErrors(): void {
 		var errorNodes: NodeList = this.form.querySelectorAll('.error');
@@ -40,7 +40,7 @@ class FormErrors {
 	/**
 	 * @param {HeliosError[]} errors
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public displayValidationErrors(errors: Array<HeliosError>): void {
 		var errorsDescriptions: string[] = [];
@@ -59,7 +59,7 @@ class FormErrors {
 	/**
 	 * @param {HeliosError} err
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public displayFieldValidationError(err: HeliosError): void {
 		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
@@ -75,7 +75,7 @@ class FormErrors {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	public displayGeneralError(): void {
 		if (!this.generalErrorShown) {
@@ -108,7 +108,7 @@ class FormErrors {
 	/**
 	 * @param {strings[]} errors
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */public trackValidationErrors(errors: Array<string>): void {
 		this.tracker.track(this.trackingLabelPrefix + ': ' + errors.join(';'), M.trackActions.error);
 	}

@@ -9,7 +9,7 @@ App.DiscussionBackButtonComponent = Em.Component.extend({
 	label: '',
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	click(): void {
 		this.sendAction('setLocation');

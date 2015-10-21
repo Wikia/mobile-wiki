@@ -19,14 +19,14 @@ App.ArticleEditComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			back(): void {
 				this.sendAction('back');
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			publish(): void {
 				this.sendAction('publish');

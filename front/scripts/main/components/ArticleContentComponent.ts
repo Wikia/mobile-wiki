@@ -76,7 +76,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			/**
 			 * @param {string} lightboxType
 			 * @param {*} lightboxData
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			openLightbox(lightboxType: string, lightboxData: any): void {
 				this.sendAction('openLightbox', lightboxType, lightboxData);
@@ -85,7 +85,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			edit(title: string, sectionIndex: number): void {
 				this.sendAction('edit', title, sectionIndex);
@@ -95,7 +95,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			 * @param {string} title
 			 * @param {number} sectionIndex
 			 * @param {*} photoData
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			addPhoto(title: string, sectionIndex: number, photoData: any): void {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
@@ -113,7 +113,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		 * so Ember+Glimmer could handle all the rendering
 		 *
 		 * @param {string} content - HTML containing whole article
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		hackIntoEmberRendering(content: string): void {
 			this.$().html(content);
@@ -123,7 +123,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		 * Native browser implementation of location hash often gets clobbered by custom rendering,
 		 * so ensure it happens here.
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleJumpLink(): void {
 			if (window.location.hash) {
@@ -154,7 +154,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
 		 * ToC data from server and render view based on that.
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		loadTableOfContentsData(): void {
 			var headers = this.$('h2[section]').map((i: number, elem: HTMLElement): ArticleSectionHeader => {
@@ -195,7 +195,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		/**
 		 * @param {App.ArticleModel} model
 		 * @param {number} [numberToProcess=-1]
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		replaceMediaPlaceholdersWithMediaComponents(
 			model: typeof App.ArticleModel,
@@ -214,7 +214,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		replaceMapsWithMapComponents(): void {
 			this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement): void => {
@@ -224,7 +224,7 @@ App.ArticleContentComponent = Em.Component.extend(
 
 		/**
 		 * @param {HTMLElement} elem
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		replaceMapWithMapComponent(elem: HTMLElement): void {
 			var $mapPlaceholder = $(elem),
@@ -245,7 +245,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		replaceInfoboxesWithInfoboxComponents(): void {
 			this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
@@ -255,7 +255,7 @@ App.ArticleContentComponent = Em.Component.extend(
 
 		/**
 		 * @param {HTMLElement} elem
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		replaceInfoboxWithInfoboxComponent(elem: HTMLElement): void {
 			var $infoboxPlaceholder = $(elem),
@@ -273,7 +273,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		replaceWikiaWidgetsWithComponents(): void {
 			this.$('[data-wikia-widget]').map((i: number, elem: HTMLElement): void => {
@@ -283,7 +283,7 @@ App.ArticleContentComponent = Em.Component.extend(
 
 		/**
 		 * @param {HTMLElement} elem
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		replaceWikiaWidgetWithComponent(elem: HTMLElement): void {
 			var $widgetPlaceholder = $(elem),
@@ -323,7 +323,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleWikiaWidgetWrappers(): void {
 			this.$('script[type="x-wikia-widget"]').each(function (): void {
@@ -335,7 +335,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		/**
 		 * handles expanding long tables, code taken from WikiaMobile
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleInfoboxes(): void {
 			var shortClass = 'short',
@@ -362,7 +362,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		handleTables(): void {
 			this.$('table:not([class*=infobox], .dirbox)')

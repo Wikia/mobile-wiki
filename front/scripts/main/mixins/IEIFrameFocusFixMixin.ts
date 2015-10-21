@@ -18,7 +18,7 @@ App.IEIFrameFocusFixMixin = Em.Mixin.create({
 	 * which sets focus on iframe after component with this mixin is inserted.
 	 * Function is triggered only when Mercury is loaded inside an iframe - Ponto is defined
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	didInsertElement(): void {
 		var ponto = window.Ponto;

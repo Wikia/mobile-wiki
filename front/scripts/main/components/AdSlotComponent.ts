@@ -36,7 +36,7 @@ App.AdSlotComponent = Em.Component.extend({
 	}),
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	didInsertElement(): void {
 		if (this.get('noAds') === true) {
@@ -48,7 +48,7 @@ App.AdSlotComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	willDestroyElement(): void {
 		var name = this.get('name');

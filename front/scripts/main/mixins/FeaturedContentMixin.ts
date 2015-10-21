@@ -87,7 +87,7 @@ App.FeaturedContentMixin = Em.Mixin.create({
 	}).on('didInsertElement'),
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	prevItem(): void {
 		if (this.get('hasMultipleItems')) {
@@ -100,7 +100,7 @@ App.FeaturedContentMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	nextItem(): void {
 		if (this.get('hasMultipleItems')) {

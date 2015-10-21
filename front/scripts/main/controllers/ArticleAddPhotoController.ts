@@ -12,7 +12,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	handleAddContentSuccess(): void {
 		var title = this.get('model.title');
@@ -31,7 +31,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 
 	/**
 	 * @param data {any}
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	handleUploadSuccess(data: any): void {
 		App.ArticleAddPhotoModel.addToContent(data.title, this.get('model')).then(
@@ -42,7 +42,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 
 	/**
 	 * @param error {any}
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	handleError(error: any): void {
 		var appController = this.get('application'),
@@ -63,7 +63,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 
 	actions: {
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		upload(): void {
 			this.get('application').showLoader();
@@ -74,7 +74,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		back(): void {
 			this.transitionToRoute('article', this.get('model.title'));

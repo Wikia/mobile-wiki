@@ -4,7 +4,7 @@
 App.ArticleAddPhotoComponent = Em.Component.extend({
 	actions: {
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		back(): void {
 			this.sendAction('back');
@@ -12,7 +12,7 @@ App.ArticleAddPhotoComponent = Em.Component.extend({
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		upload(): void {
 			this.sendAction('upload');
@@ -22,7 +22,7 @@ App.ArticleAddPhotoComponent = Em.Component.extend({
 
 	/**
 	 * @param {string} label
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	track(label: string): void {
 		M.track({
