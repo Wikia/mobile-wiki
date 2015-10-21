@@ -136,7 +136,9 @@ App.ArticleModel.reopenClass({
 	setArticle(model: typeof App.ArticleModel, source = this.getPreloadedData()): void {
 		var articleProperties: any = {},
 			exception = source.exception,
-			data = source.data;
+			data = source.data,
+			details: any,
+			article: any;
 
 		if (exception) {
 			articleProperties = {
@@ -145,20 +147,20 @@ App.ArticleModel.reopenClass({
 			};
 		} else if (data) {
 			if (data.details) {
-				var details = data.details;
+				details = data.details;
 
-				articleProperties = $.extend(articleProperties, {
+				articleProperties = {
 					ns: details.ns,
 					cleanTitle: details.title,
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id,
 					description: details.description
-				});
+				};
 			}
 
 			if (data.article) {
-				var article = data.article;
+				article = data.article;
 
 				articleProperties = $.extend(articleProperties, {
 					content: article.content,
