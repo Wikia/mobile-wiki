@@ -1,6 +1,6 @@
 /**
  * Window
- * @typedef {object} Window
+ * @typedef {Object} Window
  * @property {object} FB
  * @property {Function} fbAsyncInit
  * @property {string} facebookAppId

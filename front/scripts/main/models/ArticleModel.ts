@@ -57,7 +57,7 @@ App.ArticleModel = Em.Object.extend({
 
 App.ArticleModel.reopenClass({
 	/**
-	 * @param {object} params
+	 * @param {Object} params
 	 * @returns {string}
 	 */
 	url(params: {title: string; redirect?: string}): string {
@@ -71,7 +71,7 @@ App.ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @param {object} params
+	 * @param {Object} params
 	 * @returns {Em.RSVP.Promise}
 	 */
 	find(params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {

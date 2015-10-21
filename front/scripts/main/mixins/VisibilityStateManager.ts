@@ -3,7 +3,7 @@
 
 /**
  * Window
- * @typedef {object} Window
+ * @typedef {Object} Window
  * @property {number} scrollY
  */
 

@@ -1,6 +1,6 @@
 /**
  * CuratedContentImageCropSingleData
- * @typedef {object} CuratedContentImageCropSingleData
+ * @typedef {Object} CuratedContentImageCropSingleData
  * @property {Number} x
  * @property {Number} y
  * @property {Number} width
@@ -9,29 +9,29 @@
 
 /**
  * CuratedContentImageCropData
- * @typedef {object} CuratedContentImageCropData
+ * @typedef {Object} CuratedContentImageCropData
  * @property {CuratedContentImageCropSingleData} [landscape]
  * @property {CuratedContentImageCropSingleData} [square]
  */
 
 /**
  * CuratedContentEditorItemModel
- * @typedef {object} CuratedContentEditorItemModel
+ * @typedef {Object} CuratedContentEditorItemModel
  * @property {Number} article_id
  * @property {Number} image_id
  * @property {CuratedContentImageCropData} image_crop
- * @property {String} image_url
+ * @property {string} image_url
  * @property {CuratedContentEditorItemModel[]} items
- * @property {String} label
- * @property {String} node_type
- * @property {String} title
- * @property {String} type
+ * @property {string} label
+ * @property {string} node_type
+ * @property {string} title
+ * @property {string} type
  */
 
 /**
  * CuratedContentGetImageResponse
- * @typedef {object} CuratedContentGetImageResponse
- * @property {String} url
+ * @typedef {Object} CuratedContentGetImageResponse
+ * @property {string} url
  * @property {id} image_id
  */
 
@@ -52,7 +52,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	 * Object Model instance is only created once and all create() method invocations return already created object.
 	 * Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
 	 *
-	 * @param {object} params
+	 * @param {Object} params
 	 * @returns {CuratedContentEditorItemModel} model
 	 */
 	createNew(params = {}) {
@@ -97,7 +97,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} item
-	 * @param {object} data
+	 * @param {Object} data
 	 * @returns {Em.RSVP.Promise} server response
 	 */
 	validateServerData(item, data) {

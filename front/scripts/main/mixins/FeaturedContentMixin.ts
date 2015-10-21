@@ -3,7 +3,7 @@
 
 /**
  * ImageCropData
- * @typedef {object} ImageCropData
+ * @typedef {Object} ImageCropData
  * @property {number} x
  * @property {number} y
  * @property {number} width
@@ -12,14 +12,14 @@
 
 /**
  * ImageCrop
- * @typedef {object} ImageCrop
+ * @typedef {Object} ImageCrop
  * @property {ImageCropData} landscape
  * @property {ImageCropData} square
  */
 
 /**
  * FeaturedContentItem
- * @typedef {object} FeaturedContentItem
+ * @typedef {Object} FeaturedContentItem
  * @property {string} title
  * @property {string} label
  * @property {string} image_id

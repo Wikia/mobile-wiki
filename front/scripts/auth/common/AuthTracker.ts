@@ -21,7 +21,7 @@ class AuthTracker {
 	/**
 	 * @param {HTMLElement} element
 	 * @param {string} label
-	 * @param {object} action
+	 * @param {Object} action
 	 *
 	 * @returns {undefined}
 	 */

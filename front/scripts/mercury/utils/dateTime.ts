@@ -10,7 +10,7 @@ interface TimeAgoResult {
  */
 
 /**
- * @typedef {object} TimeAgoResult
+ * @typedef {Object} TimeAgoResult
  * @property {Mercury.Utils.DateTime.Interval} type
  * @property {number} value
  */

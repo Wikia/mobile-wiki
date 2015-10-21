@@ -3,13 +3,13 @@
 
 /**
  * RootNavItem
- * @typedef {object} RootNavItem
+ * @typedef {Object} RootNavItem
  * @property {NavItem[]} [children]
  */
 
 /**
  * NavItem
- * @typedef {object} NavItem
+ * @typedef {Object} NavItem
  * @implements {RootNavItem}
  * @property {string} href
  * @property {number} index

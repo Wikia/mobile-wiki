@@ -3,7 +3,7 @@
  */
 class UrlHelper {
 	/**
-	 * @param {object} object
+	 * @param {Object} object
 	 * @returns {string}
 	 */
 	public urlEncode(object: Object): string {

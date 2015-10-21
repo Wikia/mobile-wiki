@@ -13,13 +13,13 @@ interface PerfTrackerParams {
 }
 
 /**
- * @typedef {object} PerfTrackerParams
+ * @typedef {Object} PerfTrackerParams
  * @property {string} type
- * @property {any} [context]
+ * @property {?object} [context]
  * @property {string} [module]
  * @property {string} name
  * @property {number} [value]
- * @property {any} [annotations]
+ * @property {?object} [annotations]
  */
 
 module Mercury.Modules.Trackers {

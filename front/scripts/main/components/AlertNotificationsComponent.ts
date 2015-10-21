@@ -3,12 +3,12 @@
 
 /**
  * AlertNotification
- * @typedef {object} AlertNotification
+ * @typedef {Object} AlertNotification
  * @property {string} message
  * @property {string} [type]
  * @property {number} [expiry]
  * @property {boolean} [unsafe]
- * @property {any} [callbacks]
+ * @property {?object} [callbacks]
  * @property {boolean} [persistent]
  */
 

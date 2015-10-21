@@ -1,6 +1,6 @@
 /**
  * LoginCredentials
- * @typedef {object} LoginCredentials
+ * @typedef {Object} LoginCredentials
  * @property {string} username
  * @property {string} password
  */
@@ -11,7 +11,7 @@ interface LoginCredentials {
 
 /**
  * LoginResponse
- * @typedef {object} LoginResponse
+ * @typedef {Object} LoginResponse
  * @property {string} user_id
  * @property {string} access_token
  * @property {string} refresh_token
@@ -32,7 +32,7 @@ interface LoginResponse {
 
 /**
  * FormElements
- * @typedef {object} FormElements
+ * @typedef {Object} FormElements
  * @property {HTMLInputElement} username
  * @property {HTMLInputElement} password
  */

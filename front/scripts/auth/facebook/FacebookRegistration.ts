@@ -1,6 +1,6 @@
 /**
  * Window
- * @typedef {object} Window
+ * @typedef {Object} Window
  * @property {{getLoginStatus: Function, getAccessToken: Function, api: Function}} FB
  */
 interface window {
@@ -13,7 +13,7 @@ interface window {
 
 /**
  * FacebookUserData
- * @typedef {object} FacebookUserData
+ * @typedef {Object} FacebookUserData
  * @property {string} [email]
  */
 interface FacebookUserData {
@@ -22,7 +22,7 @@ interface FacebookUserData {
 
 /**
  * HeliosFacebookRegisterData
- * @typedef {object} HeliosFacebookRegisterData
+ * @typedef {Object} HeliosFacebookRegisterData
  * @property {string} birthdate
  * @property {string} email
  * @property {string} fb_access_token

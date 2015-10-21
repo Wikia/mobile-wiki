@@ -1,6 +1,6 @@
 /**
  * GeoCookie
- * @typedef {object} GeoCookie
+ * @typedef {Object} GeoCookie
  * @property {string} [city]
  * @property {string} [country]
  * @property {string} [continent]

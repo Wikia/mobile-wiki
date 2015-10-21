@@ -3,7 +3,7 @@
 
 /**
  * PreventableClickEvent
- * @typedef {object} PreventableClickEvent
+ * @typedef {Object} PreventableClickEvent
  * @implements {MouseEvent}
  * @implements {Touch}
  * @property {function} preventDefault

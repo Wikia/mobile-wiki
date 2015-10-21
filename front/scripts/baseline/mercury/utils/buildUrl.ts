@@ -11,7 +11,7 @@ interface UrlParams {
 
 /**
  * MercuryUtilsBuildUrlParams
- * @typedef {object} MercuryUtilsBuildUrlParams
+ * @typedef {Object} MercuryUtilsBuildUrlParams
  * @property {string} [namespace] - MediaWiki article namespace
  * @property {string} [path] - Additional URL path appended to the end of the URL before the querystring
  * @property {string} [protocol] - Protocol
@@ -54,7 +54,7 @@ module Mercury.Utils {
 	 *   ...returns 'http://community.wikia.com/wiki/User:JaneDoe/preferences'
 	 *
 	 * @param {MercuryUtilsBuildUrlParams} urlParams
-	 * @param {object} context - Window context
+	 * @param {Object} context - Window context
 	 * @returns {string}
 	 */
 	export function buildUrl (urlParams: UrlParams = {}, context: any = window): string {

@@ -1,6 +1,6 @@
 /**
  * CookieAttributes
- * @typedef {object} CookieAttributes
+ * @typedef {Object} CookieAttributes
  * @property {string} [domain]
  * @property {string} [expires]
  * @property {string} [path]
@@ -44,7 +44,7 @@ class Cookie {
 	/**
 	 * @param {string} name
 	 * @param {string} value
-	 * @param {object} attributes
+	 * @param {Object} attributes
 	 *
 	 * @returns {object}
 	 */

@@ -1,34 +1,34 @@
 /**
  * CuratedContentEditorRawSection
- * @typedef {object} CuratedContentEditorRawSection
- * @property {String} label
+ * @typedef {Object} CuratedContentEditorRawSection
+ * @property {string} label
  * @property {Number} image_id
  * @property {CuratedContentImageCropData} [image_crop]
- * @property {String} node_type
+ * @property {string} node_type
  * @property {CuratedContentEditorRawSection[]} items
- * @property {String} [image_url]
- * @property {String} [featured]
- * @property {String} [type]
+ * @property {string} [image_url]
+ * @property {string} [featured]
+ * @property {string} [type]
  */
 
 /**
  * CuratedContentValidationResponseError
- * @typedef {object} CuratedContentValidationResponseError
- * @property {String} target
- * @property {String} type
- * @property {String} reason
+ * @typedef {Object} CuratedContentValidationResponseError
+ * @property {string} target
+ * @property {string} type
+ * @property {string} reason
  */
 
 /**
  * CuratedContentValidationResponse
- * @typedef {object} CuratedContentValidationResponse
+ * @typedef {Object} CuratedContentValidationResponse
  * @property {Boolean} status
  * @property {CuratedContentValidationResponseError[]} [error]
  */
 
 /**
  * CuratedContentEditorModel
- * @typedef {object} CuratedContentEditorModel
+ * @typedef {Object} CuratedContentEditorModel
  * @property {CuratedContentEditorItemModel[]} featured
  * @property {CuratedContentEditorItemModel[]} curated
  * @property {CuratedContentEditorItemModel[]} optional

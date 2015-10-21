@@ -22,7 +22,7 @@ interface InternalTrackingConfig {
 }
 
 /**
- * @typedef {object} InternalTrackingConfig
+ * @typedef {Object} InternalTrackingConfig
  * @property {number} c - wgCityId
  * @property {string} x - wgDBName
  * @property {string} lc - wgContentLanguage
@@ -43,7 +43,7 @@ interface InternalTrackingParams extends TrackingParams {
 }
 
 /**
- * @typedef {object} InternalTrackingParams
+ * @typedef {Object} InternalTrackingParams
  * @property {string} ga_category - category
  * @property {string} a - wgArticleId
  * @property {number} n - wgNamespaceNumber

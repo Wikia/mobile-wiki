@@ -18,9 +18,9 @@ interface YouTubeEvent {
 }
 
 /**
- * @typedef {object} YouTubeEvent
+ * @typedef {Object} YouTubeEvent
  * @property {number} data
- * @property {any} target
+ * @property {?object} target
  */
 
 module Mercury.Modules.VideoPlayers {

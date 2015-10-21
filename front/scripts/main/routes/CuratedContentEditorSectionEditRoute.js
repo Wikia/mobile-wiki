@@ -7,7 +7,7 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {object} controller
+	 * @param {Object} controller
 	 * @param {CuratedContentEditorItemModel} model
 	 * @param {EmberState.Transition} transition
 	 * @returns {undefined}

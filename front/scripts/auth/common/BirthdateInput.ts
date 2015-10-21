@@ -1,6 +1,6 @@
 /**
  * FormElements
- * @typedef {object} FormElements
+ * @typedef {Object} FormElements
  * @property {HTMLInputElement} birthdate
  * @property {HTMLInputElement} day
  * @property {HTMLInputElement} month

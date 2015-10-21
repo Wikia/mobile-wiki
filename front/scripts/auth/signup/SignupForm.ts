@@ -1,19 +1,19 @@
 /**
  * HeliosError
- * @typedef {object} HeliosError
+ * @typedef {Object} HeliosError
  * @property {HeliosErrorAdditional} additional
  * @property {string} description
  */
 
 /**
  * HeliosErrorAdditional
- * @typedef {object} HeliosErrorAdditional
+ * @typedef {Object} HeliosErrorAdditional
  * @property {string} field
  */
 
 /**
  * HeliosRegisterInput
- * @typedef {object} HeliosRegisterInput
+ * @typedef {Object} HeliosRegisterInput
  * @property {string} birthdate
  * @property {string} email
  * @property {string} langCode

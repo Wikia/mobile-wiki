@@ -5,14 +5,14 @@
 
 /**
  * HTMLMouseEvent
- * @typedef {object} HTMLMouseEvent
+ * @typedef {Object} HTMLMouseEvent
  * @implements {MouseEvent}
  * @property {HTMLElement} target
  */
 
 /**
  * DOMStringMap
- * @typedef {object} DOMStringMap
+ * @typedef {Object} DOMStringMap
  * @property {string} galleryRef
  * @property {string} ref
  * @property {string} trackingCategory
@@ -20,7 +20,7 @@
 
 /**
  * EventTarget
- * @typedef {object} EventTarget
+ * @typedef {Object} EventTarget
  * @property {string} tagName
  */
 

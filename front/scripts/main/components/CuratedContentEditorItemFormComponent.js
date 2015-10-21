@@ -394,7 +394,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		/**
 		 * @param {CuratedContentEditorItemModel} item
-		 * @param {object} dataToValidate
+		 * @param {Object} dataToValidate
 		 * @returns {undefined}
 		 */
 		validateAndDone(item, dataToValidate) {

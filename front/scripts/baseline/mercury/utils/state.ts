@@ -128,7 +128,7 @@ module Mercury.Utils {
 	/**
 	 * Set multiple properties of __props__ at once
 	 *
-	 * @param {object} value
+	 * @param {Object} value
 	 * @param {boolean} [mutable=false]
 	 * @returns {object} __props__
 	 */

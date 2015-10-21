@@ -3,7 +3,7 @@
 
 /**
  * ImageCropData
- * @typedef {object} ImageCropData
+ * @typedef {Object} ImageCropData
  * @property {number} x
  * @property {number} y
  * @property {number} width

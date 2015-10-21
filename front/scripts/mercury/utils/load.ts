@@ -10,7 +10,7 @@ declare var $script: Function;
  */
 module Mercury.Utils {
 	/**
-	 * @param {any[]} params
+	 * @param {?Object[]} params
 	 * @returns {any}
 	 */
 	export function load (...params: any[]) {

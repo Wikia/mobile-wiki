@@ -3,19 +3,19 @@
 
 /**
  * Widgets
- * @typedef {object} Widgets
+ * @typedef {Object} Widgets
  * @property {Function} createTimeline
  */
 
 /**
  * Twttr
- * @typedef {object} Twttr
+ * @typedef {Object} Twttr
  * @property {Widgets} [widgets]
  */
 
 /**
  * Window
- * @typedef {object} Window
+ * @typedef {Object} Window
  * @property {Twttr} [twttr]
  */
 

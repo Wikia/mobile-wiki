@@ -9,7 +9,7 @@ interface TrackerOptions {
 }
 
 /**
- * @typedef {object} TrackerOptions
+ * @typedef {Object} TrackerOptions
  * @property {string} name
  * @property {boolean} allowLinker
  * @property {number} sampleRate
@@ -20,7 +20,7 @@ interface TrackerOptions {
  */
 
 /**
- * @typedef {object} GAAccount
+ * @typedef {Object} GAAccount
  * @property {string} id
  * @property {string} [prefix]
  * @property {number} sampleRate

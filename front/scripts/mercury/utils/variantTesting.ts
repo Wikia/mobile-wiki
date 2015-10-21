@@ -17,7 +17,7 @@ interface OptimizelyExperimentIds {
 }
 
 /**
- * @typedef {object} OptimizelyExperimentIds
+ * @typedef {Object} OptimizelyExperimentIds
  * @property {string} prod
  * @property {string} dev
  */
@@ -69,7 +69,7 @@ module Mercury.Utils.VariantTesting {
 	/**
 	 * Integrates Optimizely with Universal Analytics
 	 *
-	 * @param {any[]} dimensions
+	 * @param {?Object[]} dimensions
 	 * @returns {any[]}
 	 */
 	export function integrateOptimizelyWithUA (dimensions: any[]): any[] {

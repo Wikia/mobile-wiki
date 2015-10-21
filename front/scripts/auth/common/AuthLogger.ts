@@ -1,7 +1,7 @@
 /**
  * ClickStreamPayload
- * @typedef {object} ClickStreamPayload
- * @property {Object[]} events
+ * @typedef {Object} ClickStreamPayload
+ * @property {object[]} events
  */
 interface ClickStreamPayload {
 	events: any[];
@@ -9,7 +9,7 @@ interface ClickStreamPayload {
 
 /**
  * PageParams
- * @typedef {object} PageParams
+ * @typedef {Object} PageParams
  * @property {boolean} enableAuthLogger
  * @property {string} authLoggerUrl
  */
@@ -20,7 +20,7 @@ interface PageParams {
 
 /**
  * XMLHttpRequest
- * @typedef {object} XMLHttpRequest
+ * @typedef {Object} XMLHttpRequest
  * @property {string} responseUrl
  */
 interface XMLHttpRequest {
@@ -73,7 +73,7 @@ class AuthLogger {
 	}
 
 	/**
-	 * @param {object} data
+	 * @param {Object} data
 	 *
 	 * @returns {undefined}
 	 */
@@ -90,7 +90,7 @@ class AuthLogger {
 	}
 
 	/**
-	 * @param {object} data
+	 * @param {Object} data
 	 *
 	 * @returns {ClickStreamPayload}
 	 */

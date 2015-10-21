@@ -8,9 +8,9 @@ interface Window {
 }
 
 /**
- * @typedef {object} Window
- * @property {any} ga
- * @property {any} Mercury
+ * @typedef {Object} Window
+ * @property {?object} ga
+ * @property {?object} Mercury
  */
 
 interface TrackContext {
@@ -21,7 +21,7 @@ interface TrackContext {
 }
 
 /**
- * @typedef {object} TrackContext
+ * @typedef {Object} TrackContext
  * @property {string} a
  * @property {number} n
  */
@@ -38,7 +38,7 @@ interface TrackingParams {
 }
 
 /**
- * @typedef {object} TrackingParams
+ * @typedef {Object} TrackingParams
  * @property {string} [action]
  * @property {string} [label]
  * @property {number} [value]
@@ -46,7 +46,7 @@ interface TrackingParams {
  * @property {string} [trackingMethod]
  * @property {boolean} [isNonInteractive]
  * @property {string} [sourceUrl]
- * @property {any[]} [idx]
+ * @property {?object[]} [idx]
  */
 
 interface TrackFunction {
@@ -67,7 +67,7 @@ interface TrackerInstance {
 }
 
 /**
- * @typedef {object} TrackerInstance
+ * @typedef {Object} TrackerInstance
  * @property {TrackFunction} track
  * @property {Function} trackPageView
  * @property {Function} updateTrackedUrl

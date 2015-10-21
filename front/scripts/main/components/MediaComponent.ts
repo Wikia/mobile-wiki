@@ -7,7 +7,7 @@
 
 /**
  * Options
- * @typedef {object} Options
+ * @typedef {Object} Options
  * @property {string} mode
  * @property {number} width
  * @property {number} [height]

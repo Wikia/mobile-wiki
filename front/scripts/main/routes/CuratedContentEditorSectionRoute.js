@@ -10,7 +10,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {object} params
+	 * @param {Object} params
 	 * @returns {CuratedContentEditorItemModel} section
 	 */
 	model(params) {
@@ -21,7 +21,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {object} controller
+	 * @param {Object} controller
 	 * @param {CuratedContentEditorItemModel} model
 	 * @param {EmberState.Transition} transition
 	 * @returns {undefined}

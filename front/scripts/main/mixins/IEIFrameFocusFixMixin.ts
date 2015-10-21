@@ -3,8 +3,8 @@
 
 /**
  * Window
- * @typedef {object} Window
- * @property {any} Ponto
+ * @typedef {Object} Window
+ * @property {?object} Ponto
  */
 interface Window {
 	Ponto: any

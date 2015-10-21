@@ -3,19 +3,19 @@
 
 /**
  * Widgets
- * @typedef {object} Widgets
+ * @typedef {Object} Widgets
  * @property {Function} Group
  */
 
 /**
  * VK
- * @typedef {object} VK
+ * @typedef {Object} VK
  * @property {Widgets} [Widgets]
  */
 
 /**
  * Window
- * @typedef {object} Window
+ * @typedef {Object} Window
  * @property {VK} [VK]
  */
 

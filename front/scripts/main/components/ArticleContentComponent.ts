@@ -7,7 +7,7 @@
 
 /**
  * HTMLElement
- * @typedef {object} HTMLElement
+ * @typedef {Object} HTMLElement
  * @property {function} scrollIntoViewIfNeeded
  */
 

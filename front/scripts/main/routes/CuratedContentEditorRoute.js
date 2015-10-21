@@ -135,7 +135,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 
 			/**
-			 * @param {object} error
+			 * @param {Object} error
 			 * @returns {Boolean} returns true
 			 */
 				error(error) {
@@ -212,7 +212,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		},
 
 		/**
-		 * @param {object} ponto
+		 * @param {Object} ponto
 		 * @returns {undefined}
 		 */
 			closeModalUsingPonto(ponto) {
