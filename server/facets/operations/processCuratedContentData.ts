@@ -19,7 +19,8 @@ var cachingTimes = {
  */
 function prepareData (request: Hapi.Request, result: any): void {
 	var title: string,
-		contentDir = 'ltr';
+		contentDir = 'ltr',
+		mainPageDetails = result.mainPage.details;
 
 	/**
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
@@ -51,15 +52,15 @@ function prepareData (request: Hapi.Request, result: any): void {
 		url: result.canonicalUrl
 	};
 
-	if (result.mainPageData && result.mainPageData.details) {
-		result.mainPageData.ns = result.mainPageData.details.ns;
+	if (result.mainPageData && mainPageDetails) {
+		result.mainPageData.ns = mainPageDetails.ns;
 
 		if (result.mainPageData.details.abstract) {
-			result.openGraph.description = result.mainPageData.details.abstract;
+			result.openGraph.description = mainPageDetails.abstract;
 		}
 
 		if (result.mainPageData.details.thumbnail) {
-			result.openGraph.image = result.mainPageData.details.thumbnail;
+			result.openGraph.image = mainPageDetails.thumbnail;
 		}
 	}
 
@@ -81,21 +82,23 @@ function prepareData (request: Hapi.Request, result: any): void {
  *
  * @param {Hapi.Request} request
  * @param reply
- * @param result
+ * @param {CuratedContentPageData} curatedContentPageData
  * @param allowCache
  * @param code
  */
 function processCuratedContentData (
-	request: Hapi.Request, reply: any, result: any = {}, allowCache: boolean = true, code: number = 200
+	request: Hapi.Request, reply: any, curatedContentPageData: CuratedContentPageData, allowCache: boolean = true, code: number = 200
 ): void {
-	var response: Hapi.Response;
+	var response: Hapi.Response,
+		result: any = curatedContentPageData || {};
 
-	if (!result.wikiVariables.dbName) {
+	if (!curatedContentPageData.wikiVariables.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
 	} else {
 		Tracking.handleResponse(result, request);
 
+		//@TODO unify with code from XW-474 prepareArticleData function
 		prepareData(request, result);
 
 		// all the third party scripts we don't want to load on noexternals

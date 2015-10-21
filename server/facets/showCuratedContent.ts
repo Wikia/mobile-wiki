@@ -36,12 +36,12 @@ function fetchData(request: Hapi.Request, reply: Hapi.Response): void {
 
 	mainPage.setTitle(request.params.title);
 	mainPage.getWikiVariablesAndDetails()
-		.then((data: any): void => {
+		.then((data: CuratedContentPageData): void => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			processCuratedContentData(request, reply, data, allowCache);
 		})
 		.catch(MainPage.MainPageDataRequestError, (error: any) => {
-			var data = error.data;
+			var data: CuratedContentPageData = error.data;
 			Logger.error('Error when fetching ads context and article details', data.mainPageData.exception);
 			processCuratedContentData(request, reply, data, false);
 		})

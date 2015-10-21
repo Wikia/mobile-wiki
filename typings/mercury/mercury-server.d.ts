@@ -22,3 +22,36 @@ interface ServerData {
 	apiBase: string;
 	environment: string;
 }
+
+interface PageDetails {
+	id: number;
+	title: string;
+	ns: string;
+	url: string;
+	description: string;
+	revision: {
+		id: number;
+		user: string;
+		user_id: number;
+		timestamp: string;
+	};
+	comments: number;
+	type: string;
+	abstract: string;
+	thumbnail: string;
+}
+
+interface CuratedContentPageData {
+	mainPageData: {
+		details?: PageDetails;
+		adsContext?: any;
+		exception?: {
+			type: string;
+			message: string;
+			code: number;
+			details: string;
+		};
+	};
+	wikiVariables: any;
+	server: ServerData;
+}
