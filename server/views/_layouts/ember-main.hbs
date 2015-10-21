@@ -70,7 +70,7 @@
 				M.prop('mainPageData', {{{json mainPageData}}}, true);
 			{{/if}}
 			{{#if error}}
-				M.provide('error', {{{json error}}});
+				M.provide('error', {{{error}}});
 			{{/if}}
 			{{#if server.optimizelyScript}}
 				M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');

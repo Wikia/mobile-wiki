@@ -231,7 +231,7 @@ authenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/main/section/{sectionName*}',
-		handler: require('./facets/showMainPageSection'),
+		handler: require('./facets/showCuratedContent').section,
 		config: {
 			cache: routeCacheConfig
 		}
@@ -239,7 +239,7 @@ authenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/main/category/{categoryName*}',
-		handler: require('./facets/showMainPageCategory'),
+		handler: require('./facets/showCuratedContent').category,
 		config: {
 			cache: routeCacheConfig
 		}

@@ -35,19 +35,19 @@ function prepareData (request: Hapi.Request, result: any): void {
 		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
 	}
 
-	if (result.wiki.language) {
-		contentDir = result.wiki.language.contentDir;
+	if (result.wikiVariables.language) {
+		contentDir = result.wikiVariables.language.contentDir;
 		result.isRtl = (contentDir === 'rtl');
 	}
 
 	result.displayTitle = title;
 	result.isMainPage = true;
-	result.canonicalUrl = result.wiki.basePath + '/';
+	result.canonicalUrl = result.wikiVariables.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {
 		type: 'website',
-		title: result.wiki.siteName,
+		title: result.wikiVariables.siteName,
 		url: result.canonicalUrl
 	};
 
@@ -90,7 +90,7 @@ function processCuratedContentData (
 ): void {
 	var response: Hapi.Response;
 
-	if (!result.wiki.dbName) {
+	if (!result.wikiVariables.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
 	} else {
@@ -105,6 +105,9 @@ function processCuratedContentData (
 				result.qualarooScript = localSettings.qualaroo.scriptUrl;
 			}
 		}
+
+		//@TODO Should be removed when XW-474 merged to dev
+		result.wiki = result.wikiVariables;
 
 		response = reply.view('application', result);
 		response.code(code);

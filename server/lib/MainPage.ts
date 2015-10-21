@@ -11,88 +11,10 @@ import localSettings = require('../../config/localSettings');
  * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 export class MainPageRequestHelper {
-	params: MainPageRequestParams;
+	params: ArticleRequestParams;
 
-	constructor(params: MainPageRequestParams) {
+	constructor(params: ArticleRequestParams) {
 		this.params = params;
-	}
-
-
-	/**
-	 * @param {Array} requests - array of requests to process
-	 */
-	private processRequests(requests: any): Promise<any> {
-		return Promise.settle(requests)
-			.then((results: Promise.Inspection<Promise<any>>[]) => {
-				var curatedContentPromise: Promise.Inspection<Promise<any>> = results[0],
-					mainPageDetailsAndAdsContextPromise: Promise.Inspection<Promise<any>> = results [1],
-					pageData: any = {};
-
-				if (!curatedContentPromise.isFulfilled()) {
-					return Promise.reject(new GetCuratedContentRequestError(curatedContentPromise.reason()));
-				}
-
-				pageData.curatedContent = curatedContentPromise.value();
-
-				if (!mainPageDetailsAndAdsContextPromise.isFulfilled()) {
-					pageData.exception = mainPageDetailsAndAdsContextPromise.reason().exception;
-					return Promise.reject(new GetMainPageDataRequestError(pageData));
-				}
-				pageData.mainPageData = mainPageDetailsAndAdsContextPromise.value();
-
-				return Promise.resolve(pageData);
-			});
-	}
-
-	getSection(): Promise<any> {
-		var requests: any = [];
-
-		logger.debug(this.params, 'Fetching section data');
-
-		requests.push(new MediaWiki.ArticleRequest(this.params).curatedContentSection(this.params.sectionName));
-		requests.push(this.fetchMainPageDetailsAndAdsContext());
-
-		return this.processRequests(requests);
-	}
-
-	getCategory(): Promise<any> {
-		var requests: any = [];
-
-		logger.debug(this.params, 'Fetching category data');
-		requests.push(new MediaWiki.ArticleRequest(this.params).category(this.params.categoryName, {
-			//set the default values for thumbnail - take from: server/facets/api/category.ts:22
-			width: 300,
-			height: 300
-		}));
-
-		requests.push(this.fetchMainPageDetailsAndAdsContext());
-
-		return this.processRequests(requests);
-	}
-
-	/**
-	 * Create MW request for article data and return array with request
-	 * @returns {Array} array of requests
-	 */
-	private fetchMainPageDetailsAndAdsContext(): Promise<any> {
-		logger.debug(this.params, 'Fetching Main Page details and ads context');
-		return new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext();
-	}
-
-	/**
-	 * @TODO shared between Article.ts and MainPage.ts - should be moved
-	 * @param wikiDomain
-	 * @returns {{mediawikiDomain: string, apiBase: string, environment: string, cdnBaseUrl: string}}
-	 */
-	static createServerData(wikiDomain: string = ''): ServerData {
-		var env = localSettings.environment;
-
-		return {
-			mediawikiDomain: Utils.getWikiDomainName(localSettings, wikiDomain),
-			apiBase: localSettings.apiBase,
-			environment: Utils.getEnvironmentString(env),
-			cdnBaseUrl: Utils.getCDNBaseUrl(localSettings)
-		};
 	}
 
 	/**
@@ -114,9 +36,66 @@ export class MainPageRequestHelper {
 	setTitle(title: string): void {
 		this.params.title = title;
 	}
+
+	getWikiVariablesAndDetails(): any {
+		var requests = [
+			new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext(),
+			new MediaWiki.WikiRequest({
+				wikiDomain: this.params.wikiDomain
+			}).wikiVariables()
+		];
+
+		logger.debug(this.params, 'Fetching wiki variables and main page details');
+
+		/**
+		 * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#settle---promise
+		 *
+		 * From Promise.settle documentation:
+		 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values)
+		 * return a promise that is fulfilled when all the items in the array are either fulfilled or rejected.
+		 * The fulfillment value is an array of PromiseInspection instances at respective positions in relation
+		 * to the input array. This method is useful for when you have an array of promises and you'd like to know
+		 * when all of them resolve - either by fulfilling of rejecting.
+		 */
+		return Promise.settle(requests)
+			.then((results: Promise.Inspection<Promise<any>>[]) => {
+				var mainPageDataPromise: Promise.Inspection<Promise<any>> = results[0],
+					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
+					isMainPageDataPromiseFulfilled = mainPageDataPromise.isFulfilled(),
+					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
+					mainPageData: any,
+					wikiVariables: any,
+					data: any;
+
+				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
+				mainPageData = isMainPageDataPromiseFulfilled ?
+					mainPageDataPromise.value() :
+					mainPageDataPromise.reason();
+
+				wikiVariables = isWikiVariablesPromiseFulfilled ?
+					wikiVariablesPromise.value() :
+					wikiVariablesPromise.reason();
+
+				if (!isWikiVariablesPromiseFulfilled) {
+					return Promise.reject(new WikiVariablesRequestError(wikiVariables));
+				}
+
+				data = {
+					mainPageData,
+					wikiVariables,
+					server: Utils.createServerData(localSettings, this.params.wikiDomain)
+				};
+
+				if (isMainPageDataPromiseFulfilled) {
+					return Promise.resolve(data);
+				} else {
+					return Promise.reject(new MainPageDataRequestError(data));
+				}
+			});
+	}
 }
 
-export class GetCuratedContentRequestError {
+export class MainPageDataRequestError {
 	private data: any;
 
 	constructor(data: any) {
@@ -124,14 +103,16 @@ export class GetCuratedContentRequestError {
 		this.data = data;
 	}
 }
-GetCuratedContentRequestError.prototype = Object.create(Error.prototype);
+MainPageDataRequestError.prototype = Object.create(Error.prototype);
 
-export class GetMainPageDataRequestError {
-	private data: any;
+export class WikiVariablesRequestError {
+	private error: any;
 
-	constructor(data: any) {
+	constructor(error: any) {
 		Error.apply(this, arguments);
-		this.data = data;
+		this.error = error;
 	}
 }
-GetMainPageDataRequestError.prototype = Object.create(Error.prototype);
+
+WikiVariablesRequestError.prototype = Object.create(Error.prototype);
+

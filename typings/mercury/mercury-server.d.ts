@@ -17,11 +17,6 @@ interface ArticleRequestParams {
 	sections?: string;
 }
 
-interface MainPageRequestParams extends ArticleRequestParams {
-	sectionName?: string;
-	categoryName?: string;
-}
-
 interface ServerData {
 	mediawikiDomain: string;
 	apiBase: string;
