@@ -72,6 +72,10 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
+	.article-video::before {
+		background-position: center;
+	}
+
 	.image-collection-actions {
 		width: 100%;
 

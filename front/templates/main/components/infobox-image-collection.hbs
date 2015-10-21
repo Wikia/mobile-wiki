@@ -1,5 +1,5 @@
 {{#each media as |image|}}
-	<div class="pi-item {{if image.isActive 'active'}}">
+	<div class="pi-item {{if image.isActive 'active'}} article-{{image.type}}">
 		{{#if image.caption}}
 			<hgroup class="pi-hero-title-wrapper pi-item-spacing">
 				<h3 class="pi-hero-caption">{{image.caption}}</h3>
