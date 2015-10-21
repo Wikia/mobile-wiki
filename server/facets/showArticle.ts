@@ -66,7 +66,7 @@ function redirectToMainPage(reply: Hapi.Response, article: Article.ArticleReques
 		.getWikiVariables()
 		.then((wikiVariables: any): void => {
 			Logger.info('Redirected to main page');
-			reply.redirect(wikiVariables.articlePath + wikiVariables.mainPageTitle);
+			reply.redirect(wikiVariables.articlePath + encodeURIComponent(wikiVariables.mainPageTitle));
 		})
 		.catch((error: MWException): void => {
 			Logger.error('WikiVariables error', error);
