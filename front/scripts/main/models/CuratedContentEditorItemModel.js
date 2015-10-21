@@ -73,7 +73,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {string} title
-	 * @param {Number} size
+	 * @param {number} size
 	 * @returns {Em.RSVP.Promise} image data
 	 */
 	getImage(title, size) {
