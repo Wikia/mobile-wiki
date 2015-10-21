@@ -30,7 +30,7 @@ App.SideNavComponent = Em.Component.extend({
 		if (!this.get('isInSearchMode')) {
 			this.send('clearSearch');
 		}
-	}).on('didInsertElement')
+	}).on('didInsertElement'),
 
 	actions: {
 		/**

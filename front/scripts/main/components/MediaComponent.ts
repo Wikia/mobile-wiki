@@ -14,9 +14,9 @@
  */
 
 interface Options {
-	mode: string,
-	width: number,
-	height?: number
+	mode: string;
+	width: number;
+	height?: number;
 }
 
 App.MediaComponent = Em.Component.extend(
