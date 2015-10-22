@@ -11,8 +11,7 @@ var deepExtend = require('deep-extend');
  * @param {Hapi.Request} request
  * @param {CuratedContentPageData} curatedContentPageData
  */
-function prepareCuratedContentData (
-	request: Hapi.Request, curatedContentPageData: CuratedContentPageData): void {
+function prepareCuratedContentData(request: Hapi.Request, curatedContentPageData: CuratedContentPageData): void {
 	var result: any = {
 			mainPageData: curatedContentPageData.mainPageData,
 			wikiVariables: curatedContentPageData.wikiVariables,
@@ -28,11 +27,11 @@ function prepareCuratedContentData (
 	 * See the MainPageRoute for more details.
 	 */
 	if (request.url.path.indexOf('section') > -1) {
-		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')));
-		title = title.replace(/%20/g, ' ');
+		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')))
+			.replace(/%20/g, ' ');
 	} else if (request.url.path.indexOf('category') > -1) {
-		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')));
-		title = title.replace(/_/g, ' ');
+		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')))
+			.replace(/%20/g, ' ');
 	} else {
 		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}

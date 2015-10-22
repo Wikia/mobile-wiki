@@ -18,7 +18,7 @@ export class MainPageRequestHelper {
 	}
 
 	/**
-	 * @TODO CONCF-761 shared between Article.ts and MainPage.ts - should be moved
+	 * @TODO XW-608 shared between Article.ts and MainPage.ts - should be moved
 	 * @param title
 	 */
 	setTitle(title: string): void {
