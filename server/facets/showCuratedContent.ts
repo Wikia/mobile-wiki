@@ -17,11 +17,11 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
-export function category (request: Hapi.Request, reply: Hapi.Response): void {
+export function category(request: Hapi.Request, reply: Hapi.Response): void {
 	fetchData(request, reply);
 }
 
-export function section (request: Hapi.Request, reply: Hapi.Response): void {
+export function section(request: Hapi.Request, reply: Hapi.Response): void {
 	fetchData(request, reply);
 }
 
@@ -81,14 +81,7 @@ function outputResponse(request: Hapi.Request,
 						allowCache: boolean = true,
 						code: number = 200): void {
 	var response: Hapi.Response,
-		result: any;
-
-	if (!data.wikiVariables.dbName) {
-		//if we have nothing to show, redirect to our fallback wiki
-		reply.redirect(localSettings.redirectUrlOnNoData);
-	}
-
-	result = prepareCuratedContentData(request, data);
+		result = prepareCuratedContentData(request, data);
 
 	// @TODO XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
