@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 
 /**
- * @desc Formats a number of seconds into a duration, in the form HH:MM:SS
+ * Formats a number of seconds into a duration, in the form HH:MM:SS
  */
 App.DurationHelper = Em.Helper.helper(function (params: any[]): string {
 	var value: number = params[0],

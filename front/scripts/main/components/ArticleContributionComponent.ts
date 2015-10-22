@@ -10,6 +10,9 @@ App.ArticleContributionComponent = Em.Component.extend({
 	uploadFeatureEnabled: null,
 
 	actions: {
+		/**
+		 * @returns {undefined}
+		 */
 		edit(): void {
 			M.track({
 				action: M.trackActions.click,
@@ -20,6 +23,9 @@ App.ArticleContributionComponent = Em.Component.extend({
 			this.sendAction('edit', this.get('title'), this.get('section'));
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
 		select(): void {
 			M.track({
 				action: M.trackActions.click,
@@ -29,9 +35,12 @@ App.ArticleContributionComponent = Em.Component.extend({
 			});
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
 		addPhoto(): void {
 			var photoData = this.$('.file-upload-input')[0].files[0];
 			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
-		}
-	}
+		},
+	},
 });

@@ -8,6 +8,9 @@ App.LoginIconComponent = Em.Component.extend({
 	tagName: 'a',
 	classNames: ['external', 'login'],
 
+	/**
+	 * @returns {undefined}
+	 */
 	click(): void {
 		var label: string,
 			href: string;
@@ -26,17 +29,22 @@ App.LoginIconComponent = Em.Component.extend({
 			trackingMethod: 'ga',
 			action: M.trackActions.click,
 			category: 'user-login-mobile',
-			label: label
+			label: label,
 		});
 
 		window.location.href = href;
 	},
 
+	/**
+	 * @returns {string}
+	 */
 	getUselangParam(): string {
 		var lang: string = Mercury.wiki.language.content;
+
 		if (!lang || lang === 'en') {
 			return ''
 		}
+
 		return '&uselang=' + encodeURIComponent(lang);
-	}
+	},
 });

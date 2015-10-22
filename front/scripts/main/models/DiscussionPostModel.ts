@@ -16,6 +16,9 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	notFoundError: null,
 	contributors: [],
 
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -55,6 +58,11 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 });
 
 App.DiscussionPostModel.reopenClass({
+	/**
+	 * @param {number} wikiId
+	 * @param {number} postId
+	 * @returns {Em.RSVP.Promise}
+	 */
 	find(wikiId: number, postId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var postInstance = App.DiscussionPostModel.create({

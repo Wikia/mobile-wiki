@@ -5,7 +5,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goBack() {
 				this.sendAction('goBack');
@@ -13,22 +13,22 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentEditorModel} model
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			done(model) {
 				this.sendAction('done', model);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			deleteItem() {
 				this.sendAction('deleteItem');
 			},
 
 			/**
-			 * @param {String} newLayoutName
-			 * @returns {void}
+			 * @param {string} newLayoutName
+			 * @returns {undefined}
 			 */
 			changeLayout(newLayoutName) {
 				this.set('editorLayout', newLayoutName);

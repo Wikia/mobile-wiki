@@ -1,3 +1,11 @@
+/**
+ * CookieAttributes
+ * @typedef {Object} CookieAttributes
+ * @property {string} [domain]
+ * @property {string} [expires]
+ * @property {string} [path]
+ * @property {boolean} [secure]
+ */
 interface CookieAttributes {
 	domain?: string;
 	expires?: string;
@@ -5,7 +13,16 @@ interface CookieAttributes {
 	secure?: boolean;
 }
 
+/**
+ * @class Cookie
+ */
 class Cookie {
+
+	/**
+	 * @param {string} name
+	 *
+	 * @returns {string}
+	 */
 	static get (name: string): string {
 		var cookie = document.cookie,
 			cookieStart: number,
@@ -24,6 +41,13 @@ class Cookie {
 		return null;
 	}
 
+	/**
+	 * @param {string} name
+	 * @param {string} value
+	 * @param {Object} attributes
+	 *
+	 * @returns {object}
+	 */
 	static set (name: string, value: string, attributes: CookieAttributes = {}): any {
 		if (attributes.path === undefined) {
 			attributes.path = '/';

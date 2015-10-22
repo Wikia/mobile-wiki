@@ -12,6 +12,10 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	notFoundError: null,
 	contributors: [],
 
+	/**
+	 * @param {number} pageNum
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -36,6 +40,10 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 		});
 	},
 
+	/**
+	 * @param {string} sortBy
+	 * @returns {string}
+	 */
 	getSortKey(sortBy: string): string {
 		switch (sortBy) {
 			case 'latest':

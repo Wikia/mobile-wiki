@@ -3,13 +3,19 @@
 'use strict';
 
 App.DiscussionIndexRoute = Em.Route.extend(App.UseNewNavMixin, {
+	/**
+	 * @returns {undefined}
+	 */
 	beforeModel(): void {
 		var controller = this.controllerFor('discussionForum');
 
 		this.transitionTo('discussion.forum', Mercury.wiki.id, controller.get('sortTypes')[0].name);
 	},
 
-	model() {
+	/**
+	 * @returns {*}
+	 */
+	model(): any {
 		return App.DiscussionIndexModel.find(Mercury.wiki.id);
 	}
 });

@@ -8,6 +8,9 @@ App.DiscussionBackButtonComponent = Em.Component.extend({
 	href: null,
 	label: '',
 
+	/**
+	 * @returns {undefined}
+	 */
 	click(): void {
 		this.sendAction('setLocation');
 	}

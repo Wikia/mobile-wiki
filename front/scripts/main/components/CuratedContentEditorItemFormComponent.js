@@ -79,14 +79,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		labelObserver() {
 			this.validateLabel();
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		titleObserver() {
 			const title = this.get('model.title');
@@ -107,7 +107,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		didRender() {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
@@ -118,7 +118,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		/**
 		 * When user taps/clicks anywhere we want to close search suggestions panel
 		 *
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		click() {
 			this.set('searchSuggestionsVisible', false);
@@ -126,7 +126,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			setLabelFocusedOut() {
 				this.validateLabel();
@@ -134,14 +134,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			setLabelFocusedIn() {
 				this.set('isLabelFocused', true);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			setTitleFocusedOut() {
 				this.validateTitle();
@@ -152,7 +152,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			setTitleFocusedIn() {
 				this.showLoader();
@@ -160,7 +160,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goBack() {
 				const trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
@@ -170,7 +170,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			done() {
 				const trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
@@ -191,7 +191,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			deleteItem() {
 				const trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
@@ -206,7 +206,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			 * Uploads ONLY FIRST of the selected files (if multiple files are selected)
 			 *
 			 * @param {String[]} files
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			fileUpload(files) {
 				this.trackClick('curated-content-editor', 'item-file-upload');
@@ -240,7 +240,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			showImageMenu() {
 				this.trackClick('curated-content-editor', 'item-image-menu');
@@ -248,14 +248,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			hideImageMenu() {
 				this.set('imageMenuVisible', false);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			showSearchImageForm() {
 				this.trackClick('curated-content-editor', 'item-image-search');
@@ -263,7 +263,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			cropImage() {
 				this.trackClick('curated-content-editor', 'item-crop-image');
@@ -272,8 +272,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} title
-			 * @returns {void}
+			 * @param {string} title
+			 * @returns {undefined}
 			 */
 			setTitle(title) {
 				this.setProperties({
@@ -283,8 +283,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} tooltipMessage
-			 * @returns {void}
+			 * @param {string} tooltipMessage
+			 * @returns {undefined}
 			 */
 			showTooltip(tooltipMessage) {
 				this.trackClick('curated-content-editor', 'tooltip-show');
@@ -296,7 +296,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		validateImage() {
 			const imageUrl = this.get('model.image_url');
@@ -312,7 +312,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		validateLabel() {
 			const label = this.get('model.label'),
@@ -333,7 +333,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		validateTitle() {
 			let title,
@@ -359,7 +359,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		getImage() {
 			App.CuratedContentEditorItemModel
@@ -385,7 +385,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		getImageDebounced() {
 			this.showLoader();
@@ -395,7 +395,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		/**
 		 * @param {CuratedContentEditorItemModel} item
 		 * @param {Object} dataToValidate
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		validateAndDone(item, dataToValidate) {
 			this.showLoader();
@@ -423,8 +423,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {String} reason
-		 * @returns {void}
+		 * @param {string} reason
+		 * @returns {undefined}
 		 */
 		processValidationError(reason) {
 			switch (reason) {
@@ -457,14 +457,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		setSearchSuggestionsDebounced() {
 			Em.run.debounce(this, this.setSearchSuggestions, this.debounceDuration);
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		setSearchSuggestions() {
 			const title = this.get('model.title');
