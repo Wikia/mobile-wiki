@@ -17,10 +17,11 @@ var cachingTimes = {
  * @param request
  * @param result
  */
-function prepareData (request: Hapi.Request, result: any): void {
+function prepareData(request: Hapi.Request, result: any): void {
 	var title: string,
 		contentDir = 'ltr',
-		mainPageDetails = result.mainPage.details;
+		mainPageDetails = result.mainPage.details,
+		wikiVariables = result.wikiVariables;
 
 	/**
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
@@ -33,17 +34,17 @@ function prepareData (request: Hapi.Request, result: any): void {
 		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')));
 		title = title.replace(/_/g, ' ');
 	} else {
-		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
+		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}
 
-	if (result.wikiVariables.language) {
-		contentDir = result.wikiVariables.language.contentDir;
+	if (wikiVariables.language) {
+		contentDir = wikiVariables.language.contentDir;
 		result.isRtl = (contentDir === 'rtl');
 	}
 
 	result.displayTitle = title;
 	result.isMainPage = true;
-	result.canonicalUrl = result.wikiVariables.basePath + '/';
+	result.canonicalUrl = wikiVariables.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {

@@ -67,8 +67,9 @@ App.ApplicationRoute = Em.Route.extend(Em.TargetActionSupport, App.TrackClickMix
 			window.scrollTo(0, 0);
 		},
 
-		error(): void {
+		error(error: any): void {
 			this.controller && this.controller.hideLoader();
+			Em.Logger.error('Route error', error);
 		},
 
 		handleLink(target: HTMLAnchorElement): void {

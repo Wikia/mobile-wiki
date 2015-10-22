@@ -1,29 +1,20 @@
-interface SearchRequestParams {
-	wikiDomain: string;
-	query: string;
+interface ArticleData {
+	details: ArticleDetails;
+	article: {
+		content: string;
+		media: any[];
+		users: any;
+		categories: any[];
+	};
+	isMainPage: boolean;
+	mainPageData: any[];
+	relatedPages: any[];
+	topContributors: any[];
+	adsContext: any;
+	redirectEmptyTarget: boolean;
 }
 
-interface ArticleCommentsRequestParams {
-	wikiDomain: string;
-	articleId: number;
-	page: number;
-}
-
-interface ArticleRequestParams {
-	wikiDomain: string;
-	title?: string;
-	redirect?: any;
-	headers?: any;
-	sections?: string;
-}
-
-interface ServerData {
-	mediawikiDomain: string;
-	apiBase: string;
-	environment: string;
-}
-
-interface PageDetails {
+interface ArticleDetails {
 	id: number;
 	title: string;
 	ns: string;
@@ -41,9 +32,28 @@ interface PageDetails {
 	thumbnail: string;
 }
 
+interface ArticlePageData {
+	article: ArticleResponse;
+	server: ServerData;
+	wikiVariables: any;
+}
+
+interface ArticleRequestParams {
+	wikiDomain: string;
+	title?: string;
+	redirect?: any;
+	headers?: any;
+	sections?: string;
+}
+
+interface ArticleResponse {
+	data?: ArticleData;
+	exception?: MWExceptionData;
+}
+
 interface CuratedContentPageData {
 	mainPageData: {
-		details?: PageDetails;
+		details?: ArticleDetails;
 		adsContext?: any;
 		exception?: {
 			type: string;
@@ -55,3 +65,26 @@ interface CuratedContentPageData {
 	wikiVariables: any;
 	server: ServerData;
 }
+
+interface MWException {
+	exception: MWExceptionData;
+}
+
+interface MWExceptionData {
+	message: string;
+	code: number;
+	details: string;
+}
+
+interface MWRequestParams {
+	wikiDomain: string;
+	headers?: any;
+	redirects?: number;
+}
+
+interface ServerData {
+	mediawikiDomain: string;
+	apiBase: string;
+	environment: string;
+}
+

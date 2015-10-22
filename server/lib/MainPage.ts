@@ -18,18 +18,6 @@ export class MainPageRequestHelper {
 	}
 
 	/**
-	 * Get WikiVariables
-	 * @TODO CONCF-761 shared between Article.ts and MainPage.ts - should be moved
-	 */
-	getWikiVariables(): any {
-		var wikiRequest = new MediaWiki.WikiRequest(this.params);
-
-		logger.debug(this.params, 'Fetching wiki variables');
-
-		return wikiRequest.wikiVariables();
-	}
-
-	/**
 	 * @TODO CONCF-761 shared between Article.ts and MainPage.ts - should be moved
 	 * @param title
 	 */
