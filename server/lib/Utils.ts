@@ -301,20 +301,20 @@ RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
 
 /**
  * Get HTML title
- * @param result
+ * @param data
  * @param displayTitle
  * @param useTemplate
  * @returns {string}
  */
-export function getHtmlTitle(result: any, displayTitle: string, useTemplate: boolean = false): string {
+export function getHtmlTitle(data: any, displayTitle: string = '', useTemplate: boolean = false): string {
 	var htmlTitle: string;
 
-	if (!useTemplate && result.article.htmlTitle) {
-		htmlTitle = result.article.htmlTitle;
-	} else if (result.wiki.htmlTitleTemplate) {
-		htmlTitle = result.wiki.htmlTitleTemplate.replace('$1', displayTitle);
+	if (!useTemplate && data.article.htmlTitle) {
+		htmlTitle = data.article.htmlTitle;
+	} else if (data.wikiVariables.htmlTitleTemplate) {
+		htmlTitle = data.wikiVariables.htmlTitleTemplate.replace('$1', displayTitle);
 	} else {
-		htmlTitle = displayTitle + ' - ' + result.wiki.siteName + ' - Wikia';
+		htmlTitle = displayTitle + ' - ' + data.wikiVariables.siteName + ' - Wikia';
 	}
 
 	if (htmlTitle.substring(0, 3) === ' - ') {

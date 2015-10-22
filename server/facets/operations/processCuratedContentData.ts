@@ -35,8 +35,8 @@ function prepareData(request: Hapi.Request, result: any): void {
 		title = title.replace(/_/g, ' ');
 		result.htmlTitle = Utils.getHtmlTitle(result, title, true);
 	} else {
-		result.htmlTitle = Utils.getHtmlTitle(result, title);
 		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
+		result.htmlTitle = Utils.getHtmlTitle(result, title);
 	}
 
 	if (wikiVariables.language) {
