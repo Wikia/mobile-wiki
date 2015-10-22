@@ -6,9 +6,7 @@ var deepExtend = require('deep-extend');
 
 /**
  * Handles category or section response for Curated Main Page from API
- * @TODO CONCF-761 - part after prepareData is common for Main Page and article
- * - should be moved to some common piece of code.
- * Right now article code is inside showArticle.onArticle() and showMainPage.onArticle()
+ * @TODO XW-608 - remove spaghetti code in prepareCuratedContentData and prepareArticleData
  *
  * @param {Hapi.Request} request
  * @param {CuratedContentPageData} curatedContentPageData

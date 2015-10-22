@@ -7,7 +7,7 @@ import logger = require('./Logger');
 import localSettings = require('../../config/localSettings');
 
 /**
- * @TODO CONCF-761 ArticleRequestHelper and MainPageRequestHelper are sharing couple of functionalities.
+ * @TODO XW-608 move setTitile to common part for MainPageRequestHelper and ArticleRequestHelper
  * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 export class MainPageRequestHelper {
