@@ -29,6 +29,15 @@
 			}}
 		{{else}}
 			<div class="discussion post small-12 large-8 columns">
+				<div class="editor-container">
+					<a href="#" class="editor-close" onclick="$('.editor-container').toggleClass('active')">X</a>
+					<button type="submit">Post</button>
+					<textarea class="editor" onclick="$('.editor-container').toggleClass('active');">test</textarea>
+					{{user-avatar
+					avatarUrl=post.createdBy.avatarUrl
+					}}
+				</div>
+
 				{{post-detail
 					author=model.firstPost.createdBy
 					isDetailsView=true

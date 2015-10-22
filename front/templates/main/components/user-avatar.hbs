@@ -1,7 +1,11 @@
 <figure class="avatar">
+	{{#if profileUrl}}
 	<a href="{{profileUrl}}">
 		<img src="{{avatarUrl}}">
 	</a>
+	{{else}}
+		<img src="{{avatarUrl}}">
+	{{/if}}
 </figure>
 {{#if displayUsername}}
 <a href="{{profileUrl}}" class="avatar-username">{{username}}</a>
