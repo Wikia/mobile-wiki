@@ -10,17 +10,8 @@ App.ArticleRoute = Em.Route.extend({
 	 * @param {EmberStates.Transition} transition
 	 * @returns {undefined}
 	 */
-	beforeModel: function (transition: EmberStates.Transition):void {
+	beforeModel(transition: EmberStates.Transition): void {
 		var title = transition.params.article.title.replace('wiki/', '');
-
-		if (Mercury.error) {
-			if (Mercury.error.code === 404) {
-				this.transitionTo('notFound');
-			} else {
-				Em.Logger.debug('App error: ', Mercury.error);
-				transition.abort();
-			}
-		}
 
 		this.controllerFor('application').send('closeLightbox');
 
@@ -57,6 +48,12 @@ App.ArticleRoute = Em.Route.extend({
 	 * @returns {undefined}
 	 */
 	afterModel(model: typeof App.ArticleModel): void {
+		var exception = model.exception;
+
+		if (!Em.isEmpty(exception)) {
+			Em.Logger.warn('Article model error:', exception);
+		}
+
 		// if an article is main page, redirect to mainPage route
 		// this will handle accessing /wiki/Main_Page if default main page is different article
 		if (model.isMainPage) {
@@ -75,14 +72,14 @@ App.ArticleRoute = Em.Route.extend({
 	/**
 	 * @returns {undefined}
 	 */
-	activate (): void {
+	activate(): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	/**
 	 * @returns {undefined}
 	 */
-	deactivate (): void {
+	deactivate(): void {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
@@ -119,7 +116,12 @@ App.ArticleRoute = Em.Route.extend({
 			if (transition) {
 				transition.abort();
 			}
-			Em.Logger.warn('Route error', error.stack || error);
+
+			this.controllerFor('application').addAlert({
+				message: i18n.t('app.article-error'),
+				type: 'alert'
+			});
+
 			return true;
 		}
 	}
