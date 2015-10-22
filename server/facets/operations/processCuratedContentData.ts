@@ -28,13 +28,14 @@ function prepareData (request: Hapi.Request, result: any): void {
 	if (request.url.path.indexOf('section') > -1) {
 		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')));
 		title = title.replace(/%20/g, ' ');
-		result.article.htmlTitle = result.wiki.htmlTitleTemplate.replace('$1', title);
+		result.htmlTitle = Utils.getHtmlTitle(result, title, true);
 	} else if (request.url.path.indexOf('category') > -1) {
 		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')));
 		title = title.replace(/_/g, ' ');
-		result.article.htmlTitle = result.wiki.htmlTitleTemplate.replace('$1', title);
+		result.htmlTitle = Utils.getHtmlTitle(result, title, true);
 	} else {
 		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
+		result.htmlTitle = Utils.getHtmlTitle(result, title);
 	}
 
 	if (result.wiki.language) {

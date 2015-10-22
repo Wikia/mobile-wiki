@@ -285,3 +285,28 @@ export class RedirectedToCanonicalHost {
 }
 
 RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
+
+/**
+ * Get HTML title
+ * @param result
+ * @param displayTitle
+ * @param useTemplate
+ * @returns {string}
+ */
+export function getHtmlTitle(result: any, displayTitle: string, useTemplate: boolean = false): string {
+	var htmlTitle: string;
+
+	if (!useTemplate && result.article.htmlTitle) {
+		htmlTitle = result.article.htmlTitle;
+	} else if (result.wiki.htmlTitleTemplate) {
+		htmlTitle = result.wiki.htmlTitleTemplate.replace('$1', displayTitle);
+	} else {
+		htmlTitle = displayTitle + ' - ' + result.wiki.siteName + ' - Wikia';
+	}
+
+	if (htmlTitle.substring(0, 3) === ' - ') {
+		htmlTitle = htmlTitle.substring(3);
+	}
+
+	return htmlTitle;
+}

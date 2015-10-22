@@ -32,6 +32,9 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 			context.isRtl = (contentDir === 'rtl');
 		}
 
+		// TODO: Update displayTitle
+		context.htmlTitle = Utils.getHtmlTitle(context, '', true);
+
 		return OpenGraph.getAttributes(request, context.wiki);
 	}).then((openGraphData: any): void => {
 		// Add OpenGraph attributes to context
