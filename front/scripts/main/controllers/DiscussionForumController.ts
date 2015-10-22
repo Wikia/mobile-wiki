@@ -7,6 +7,8 @@ App.DiscussionForumController = Em.Controller.extend({
 	// Whether the sort component is currently visible
 	sortVisible: false,
 
+	editorActivated: false,
+
 	sortTypes: [
 		{
 			name: 'latest',
@@ -49,6 +51,10 @@ App.DiscussionForumController = Em.Controller.extend({
 		 */
 		goToAllDiscussions(): void {
 			this.get('target').send('goToAllDiscussions');
+		},
+
+		activateEditorComponent(): void {
+			this.set('editorActivated', true);
 		}
 	}
 });
