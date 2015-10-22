@@ -212,7 +212,9 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * Tracks usage of Google Custom Search
-		 * @param queryParam
+		 * 
+		 * @param {string} queryParam
+		 * @returns {undefined}
 		 */
 		trackGoogleSearch (queryParam: string): void {
 			this.tracked.forEach((account:GAAccount) => {
