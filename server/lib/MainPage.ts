@@ -92,15 +92,3 @@ export class MainPageDataRequestError {
 	}
 }
 MainPageDataRequestError.prototype = Object.create(Error.prototype);
-
-export class WikiVariablesRequestError {
-	private error: any;
-
-	constructor(error: any) {
-		Error.apply(this, arguments);
-		this.error = error;
-	}
-}
-
-WikiVariablesRequestError.prototype = Object.create(Error.prototype);
-

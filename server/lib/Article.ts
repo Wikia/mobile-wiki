@@ -133,17 +133,6 @@ export class ArticleRequestHelper {
 	}
 }
 
-export class WikiVariablesRequestError {
-	private error: MWException;
-
-	constructor(error: MWException) {
-		Error.apply(this, arguments);
-		this.error = error;
-	}
-}
-
-WikiVariablesRequestError.prototype = Object.create(Error.prototype);
-
 export class ArticleRequestError {
 	private data: ArticlePageData;
 

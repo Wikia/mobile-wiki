@@ -110,9 +110,6 @@ function processCuratedContentData (
 			}
 		}
 
-		//@TODO Should be removed when XW-474 merged to dev
-		result.wiki = result.wikiVariables;
-
 		response = reply.view('application', result);
 		response.code(code);
 		response.type('text/html; charset=utf-8');

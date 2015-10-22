@@ -3,6 +3,7 @@
 
 import Promise = require('bluebird');
 import Article = require('../lib/Article');
+import MediaWiki = require('../lib/MediaWiki');
 import Caching = require('../lib/Caching');
 import Logger = require('../lib/Logger');
 import Tracking = require('../lib/Tracking');
@@ -92,7 +93,7 @@ function getArticle(request: Hapi.Request,
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			outputResponse(request, reply, data, allowCache);
 		})
-		.catch(Article.WikiVariablesRequestError, (error: MWException): void => {
+		.catch(MediaWiki.WikiVariablesRequestError, (error: MWException): void => {
 			Logger.error('WikiVariables error', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})

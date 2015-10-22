@@ -45,7 +45,7 @@ function fetchData(request: Hapi.Request, reply: Hapi.Response): void {
 			Logger.error('Error when fetching ads context and article details', data.mainPageData.exception);
 			processCuratedContentData(request, reply, data, false);
 		})
-		.catch(MainPage.WikiVariablesRequestError, (error: any) => {
+		.catch(MediaWiki.WikiVariablesRequestError, (error: any) => {
 			Logger.error('Error when fetching wiki variables', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
@@ -53,7 +53,7 @@ function fetchData(request: Hapi.Request, reply: Hapi.Response): void {
 			Logger.info('Redirected to canonical host');
 		})
 		.catch((error: any): void => {
-			Logger.fatal('Something wrong with the code', error);
+			Logger.fatal('Unhandled error, code issue', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		});
 }
