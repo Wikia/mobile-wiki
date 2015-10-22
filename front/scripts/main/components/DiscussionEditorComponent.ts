@@ -3,9 +3,10 @@
 
 App.DiscussionEditorComponent = Em.Component.extend({
 	classNames: ['editor-container', 'mobile-hidden'],
-	classNameBindings: ['active'],
+	classNameBindings: ['active', 'sticky'],
 
 	active: false,
+	sticky: false,
 
 	didInsertElement(): void {
 		this._super();
@@ -18,12 +19,12 @@ App.DiscussionEditorComponent = Em.Component.extend({
 
 		$window.scroll(() => {
 			if (window.pageYOffset >= menuPosition && !isAdded) {
-				menu.addClass('sticky');
+				this.set('sticky', true);
 				placeholder.width(menu.outerWidth(true)).height(menu.outerHeight(true));
 				menu.before(placeholder);
 				isAdded = true;
 			} else if (window.pageYOffset < menuPosition && isAdded) {
-				menu.removeClass('sticky');
+				this.set('sticky', false);
 				placeholder.remove();
 				isAdded = false;
 			}
@@ -35,7 +36,7 @@ App.DiscussionEditorComponent = Em.Component.extend({
 			this.set('active', true);
 		},
 		deactivateEditorComponent(): void {
-			this.set('active', true);
+			this.set('active', false);
 		},
 	}
 });

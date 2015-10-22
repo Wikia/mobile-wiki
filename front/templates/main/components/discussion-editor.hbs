@@ -1,6 +1,6 @@
 <a href="#" class="editor-close" {{action 'deactivateEditorComponent'}}>X</a>
 <button type="submit">Post</button>
-<textarea class="editor" onclick="$('.editor-container').toggleClass('active');">test</textarea>
+<textarea class="editor" onfocus={{action 'activateEditorComponent'}} onblur={{action 'deactivateEditorComponent'}} placeholder="Share a thought, question or link"></textarea>
 {{user-avatar
 avatarUrl="http://vignette-poz.wikia-dev.com/common/avatars/0/05/5428365.png/revision/latest/scale-to-width-down/100?cb=1438703288&amp;format=jpg"
 }}
