@@ -17,27 +17,6 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 	didInsertElement(): void {
 		this.set('overlay', this.element.querySelector('.overlay'));
 		this._super();
-
-		var $window = $(window);
-		var menu = $('.editor-container');
-		var menuPosition = menu.offset().top - $('.discussion-header').outerHeight(true);
-		var placeholder = $('<div>').addClass('editor-container-placeholder');
-		var isAdded = false;
-
-		$window.scroll(() => {
-
-			console.log(window.pageYOffset);
-			if (window.pageYOffset >= menuPosition && !isAdded) {
-				menu.addClass('sticky');
-				placeholder.width(menu.outerWidth()).height(menu.outerHeight());
-				menu.before(placeholder);
-				isAdded = true;
-			} else if (window.pageYOffset < menuPosition && isAdded) {
-				menu.removeClass('sticky');
-				placeholder.remove();
-				isAdded = false;
-			}
-		});
 	},
 
 	actions: {
@@ -49,6 +28,10 @@ App.DiscussionHeaderComponent = Em.Component.extend(App.HeadroomMixin, {
 		hideSortComponent(): void {
 			this.sendAction('hideSortComponent');
 			this.get('overlay').style.display = 'none';
+		},
+
+		activateEditorComponent(): void {
+			this.sendAction('activateEditorComponent');
 		}
 	}
 });

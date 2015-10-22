@@ -17,7 +17,7 @@ $discussion-header-color-text: #fff;
 	.header {
 		height: $discussion-header-height;
 		overflow: hidden;
-		padding: 0 15px;
+		padding-left: 15px;
 	}
 
 	h1 {
@@ -53,8 +53,16 @@ $discussion-header-color-text: #fff;
 		float: right;
 		font-size: $type-smallest;
 		line-height: $discussion-header-line-height;
+		margin-right: 15px;
 		text-align: right;
 		width: 110px;
+	}
+
+	.new-post {
+		cursor: pointer;
+		float: right;
+		height: 50px; // TODO fix height
+		width: 56px;
 	}
 }
 
