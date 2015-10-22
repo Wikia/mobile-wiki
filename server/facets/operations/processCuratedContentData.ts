@@ -20,7 +20,7 @@ var cachingTimes = {
 function prepareData(request: Hapi.Request, result: any): void {
 	var title: string,
 		contentDir = 'ltr',
-		mainPageDetails = result.mainPage.details,
+		mainPageDetails = result.mainPageData.details,
 		wikiVariables = result.wikiVariables;
 
 	/**
