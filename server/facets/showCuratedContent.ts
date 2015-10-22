@@ -48,7 +48,7 @@ function fetchData(request: Hapi.Request, reply: Hapi.Response): void {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			outputResponse(request, reply, data, allowCache);
 		})
-		.catch(MainPage.MainPageDataRequestError, (error: any) => {
+		.catch(MainPage.MainPageDataRequestError, (error: any): void => {
 			var data: CuratedContentPageData = error.data;
 			Logger.error('Error when fetching ads context and article details', data.mainPageData.exception);
 			outputResponse(request, reply, data, false);

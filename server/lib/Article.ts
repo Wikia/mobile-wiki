@@ -70,7 +70,7 @@ export class ArticleRequestHelper {
 					wikiVariablesPromise.reason();
 
 				if (!isWikiVariablesPromiseFulfilled) {
-					return Promise.reject(new WikiVariablesRequestError(wikiVariables));
+					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
 
 				data = {
