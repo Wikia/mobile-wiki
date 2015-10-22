@@ -17,7 +17,7 @@ function prepareCuratedContentData (
 	request: Hapi.Request, curatedContentPageData: CuratedContentPageData): void {
 	var result: any = {
 			mainPageData: curatedContentPageData.mainPageData,
-			wikiVariable: curatedContentPageData.wikiVariables,
+			wikiVariables: curatedContentPageData.wikiVariables,
 			server: curatedContentPageData.server
 		},
 		title: string,
@@ -84,6 +84,8 @@ function prepareCuratedContentData (
 			result.qualarooScript = localSettings.qualaroo.scriptUrl;
 		}
 	}
+
+	return result;
 }
 
 export = prepareCuratedContentData

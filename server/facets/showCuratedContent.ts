@@ -17,15 +17,7 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
-export function category(request: Hapi.Request, reply: Hapi.Response): void {
-	fetchData(request, reply);
-}
-
-export function section(request: Hapi.Request, reply: Hapi.Response): void {
-	fetchData(request, reply);
-}
-
-function fetchData(request: Hapi.Request, reply: Hapi.Response): void {
+function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain
@@ -96,3 +88,5 @@ function outputResponse(request: Hapi.Request,
 
 	return Caching.disableCache(response);
 }
+
+export = showCuratedContent;
