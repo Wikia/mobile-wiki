@@ -13,7 +13,7 @@ var deepExtend = require('deep-extend');
  * @param {Hapi.Request} request
  * @param {CuratedContentPageData} curatedContentPageData
  */
-function prepareCuratedContentData (
+export function prepareCuratedContentData (
 	request: Hapi.Request, curatedContentPageData: CuratedContentPageData): void {
 	var result: any = {
 			mainPageData: curatedContentPageData.mainPageData,
@@ -85,5 +85,3 @@ function prepareCuratedContentData (
 		}
 	}
 }
-
-export = prepareCuratedContentData
