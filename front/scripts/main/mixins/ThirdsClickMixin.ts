@@ -6,8 +6,8 @@
  * @typedef {Object} PreventableClickEvent
  * @implements {MouseEvent}
  * @implements {Touch}
- * @property {function} preventDefault
- * @property {function} stopPropagation
+ * @property {Function} preventDefault
+ * @property {Function} stopPropagation
  */
 
 interface PreventableClickEvent extends MouseEvent, Touch {

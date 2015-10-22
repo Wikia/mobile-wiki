@@ -5,7 +5,7 @@
 'use strict';
 App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
 	/**
-	 * @param {?Object} params
+	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
 	 */
 	model (params: any): Em.RSVP.Promise {

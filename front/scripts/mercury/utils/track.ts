@@ -9,8 +9,8 @@ interface Window {
 
 /**
  * @typedef {Object} Window
- * @property {?object} ga
- * @property {?object} Mercury
+ * @property {*} ga
+ * @property {*} Mercury
  */
 
 interface TrackContext {
@@ -46,7 +46,7 @@ interface TrackingParams {
  * @property {string} [trackingMethod]
  * @property {boolean} [isNonInteractive]
  * @property {string} [sourceUrl]
- * @property {?object[]} [idx]
+ * @property {*[]} [idx]
  */
 
 interface TrackFunction {
@@ -212,7 +212,7 @@ module Mercury.Utils {
 	 *
 	 * trackPageView is called in ArticleView.onArticleChange
 	 *
-	 * @param {?Object} adsContext
+	 * @param {*} adsContext
 	 * @returns {undefined}
 	 */
 	export function trackPageView (adsContext: any) {

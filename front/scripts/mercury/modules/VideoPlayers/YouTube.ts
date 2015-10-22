@@ -20,7 +20,7 @@ interface YouTubeEvent {
 /**
  * @typedef {Object} YouTubeEvent
  * @property {number} data
- * @property {?object} target
+ * @property {*} target
  */
 
 module Mercury.Modules.VideoPlayers {
@@ -30,7 +30,7 @@ module Mercury.Modules.VideoPlayers {
 
 		/**
 		 * @param {string} provider
-		 * @param {?Object} params
+		 * @param {*} params
 		 * @returns {undefined}
 		 */
 		constructor (provider: string, params: any) {

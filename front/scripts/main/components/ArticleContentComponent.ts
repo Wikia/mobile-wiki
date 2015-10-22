@@ -8,7 +8,7 @@
 /**
  * HTMLElement
  * @typedef {Object} HTMLElement
- * @property {function} scrollIntoViewIfNeeded
+ * @property {Function} scrollIntoViewIfNeeded
  */
 
 interface HTMLElement {
@@ -75,7 +75,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		actions: {
 			/**
 			 * @param {string} lightboxType
-			 * @param {?Object} lightboxData
+			 * @param {*} lightboxData
 			 * @returns {undefined}
 			 */
 			openLightbox(lightboxType: string, lightboxData: any): void {
@@ -94,7 +94,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
-			 * @param {?Object} photoData
+			 * @param {*} photoData
 			 * @returns {undefined}
 			 */
 			addPhoto(title: string, sectionIndex: number, photoData: any): void {

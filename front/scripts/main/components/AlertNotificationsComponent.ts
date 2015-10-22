@@ -8,7 +8,7 @@
  * @property {string} [type]
  * @property {number} [expiry]
  * @property {boolean} [unsafe]
- * @property {?object} [callbacks]
+ * @property {*} [callbacks]
  * @property {boolean} [persistent]
  */
 

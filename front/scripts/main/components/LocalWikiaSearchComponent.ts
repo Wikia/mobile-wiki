@@ -273,7 +273,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 	 * returns the cached result or null if there were no results
 	 *
 	 * @param {string} query - the query string to search the cache with
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	getCachedResult(query: string): any {
 		return this.get('cachedResults')[query];

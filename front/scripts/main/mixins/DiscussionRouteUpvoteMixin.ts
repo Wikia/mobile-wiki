@@ -10,7 +10,7 @@ App.DiscussionRouteUpvoteMixin = Em.Mixin.create({
 
 	actions: {
 		/**
-		 * @param {?Object} post
+		 * @param {*} post
 		 * @returns {undefined}
 		 */
 		upvote(post: any): void {

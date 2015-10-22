@@ -13,9 +13,9 @@ module Mercury.Utils {
 	/**
 	 * @param {string} [str='']
 	 * @param {string|object} [ns=window]
-	 * @param {?Object} val
+	 * @param {*} val
 	 * @param {boolean} mutable
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	function namespacer(str: string, ns: any, val: any, mutable?: boolean): any  {
 		var parts: string[],
@@ -71,7 +71,7 @@ module Mercury.Utils {
 	 * Accessor for private __props__ object
 	 *
 	 * @param {string} key - A key representing the namespace to set. eg 'foo.bar.baz'
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	function _getProp (key: string): any {
 		var parts = key.split('.'),
@@ -97,9 +97,9 @@ module Mercury.Utils {
 	 * Setter for single properties on the private __props__ object
 	 *
 	 * @param {string} key - A key representing the namespace to set. eg 'foo.bar.baz'
-	 * @param {?Object} value - Any non-undefined value
+	 * @param {*} value - Any non-undefined value
 	 * @param {boolean} mutable - When set to true, the parameters given to Object.defineProperty are relaxed
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	function _setProp (key: string, value: any, mutable: boolean = false): any {
 		if (typeof value === 'undefined') {
@@ -114,9 +114,9 @@ module Mercury.Utils {
 	 * When `value` is set to `undefined` it's a `get`, otherwise it's a `set`.
 	 *
 	 * @param {string} key
-	 * @param {?Object} [value]
+	 * @param {*} [value]
 	 * @param {boolean} [mutable=false]
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	export function prop (key: string, value?: any, mutable = false): any {
 		if (typeof value !== 'undefined') {
@@ -163,8 +163,8 @@ module Mercury.Utils {
 
 	/**
 	 * @param {string} str
-	 * @param {?Object} obj
-	 * @returns {any}
+	 * @param {*} obj
+	 * @returns {*}
 	 */
 	export function provide(str: string, obj: any): any {
 		if (typeof str !== 'string') {

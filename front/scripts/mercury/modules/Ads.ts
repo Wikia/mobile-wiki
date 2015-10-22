@@ -154,7 +154,7 @@ module Mercury.Modules {
 		}
 
 		/**
-		 * @param {?Object} adsContext
+		 * @param {*} adsContext
 		 * @returns {undefined}
 		 */
 		private setContext (adsContext: any): void {
@@ -164,7 +164,7 @@ module Mercury.Modules {
 		/**
 		 * Reloads the ads with the provided adsContext
 		 *
-		 * @param {?Object} adsContext
+		 * @param {*} adsContext
 		 * @returns {undefined}
 		 */
 		public reload (adsContext: any): void {
@@ -248,7 +248,7 @@ module Mercury.Modules {
 		 * This method is being overwritten in ApplicationRoute for ads needs.
 		 * To learn more check ApplicationRoute.ts file.
 		 *
-		 * @param {?Object} contents
+		 * @param {*} contents
 		 * @param {boolean} [lightboxVisible]
 		 * @returns {undefined}
 		 */

@@ -17,7 +17,7 @@ module Mercury.Modules.VideoPlayers {
 
 		/**
 		 * @param {string} provider
-		 * @param {?Object} params
+		 * @param {*} params
 		 * @returns {undefined}
 		 */
 		constructor (provider: string, params: any) {

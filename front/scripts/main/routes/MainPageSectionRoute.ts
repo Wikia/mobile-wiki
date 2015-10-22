@@ -7,7 +7,7 @@
 
 App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsMixin, {
 	/**
-	 * @param {?Object} params
+	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
 	 */
 	model(params: any): Em.RSVP.Promise {
@@ -15,7 +15,7 @@ App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsM
 	},
 
 	/**
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	meta(): any {
 		return {
@@ -27,7 +27,7 @@ App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsM
 
 	actions: {
 		/**
-		 * @param {?Object} error
+		 * @param {*} error
 		 * @returns {boolean}
 		 */
 		error(error: any): boolean {

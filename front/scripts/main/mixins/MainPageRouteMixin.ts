@@ -19,7 +19,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @param {?Object} model
+	 * @param {*} model
 	 * @returns {undefined}
 	 */
 	afterModel(model: any): void {
@@ -50,7 +50,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @param {?Object} controller
+	 * @param {*} controller
 	 * @param {App.CuratedContentModel} model
 	 * @returns {undefined}
 	 */

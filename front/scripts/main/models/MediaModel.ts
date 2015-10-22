@@ -37,7 +37,7 @@ App.MediaModel = Em.Object.extend({
 
 	/**
 	 * @param {number} id
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	find(id: number): ArticleMedia {
 		return this.get('media')[id];

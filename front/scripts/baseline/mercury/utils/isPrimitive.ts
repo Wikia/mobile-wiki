@@ -1,6 +1,6 @@
 module Mercury.Utils {
 	/**
-	 * @param {?Object} val
+	 * @param {*} val
 	 * @returns {boolean} isPrimitive
 	 */
 	export function isPrimitive (val: any) {

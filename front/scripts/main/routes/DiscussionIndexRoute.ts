@@ -13,7 +13,7 @@ App.DiscussionIndexRoute = Em.Route.extend(App.UseNewNavMixin, {
 	},
 
 	/**
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	model(): any {
 		return App.DiscussionIndexModel.find(Mercury.wiki.id);

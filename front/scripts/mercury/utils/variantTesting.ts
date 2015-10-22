@@ -69,8 +69,8 @@ module Mercury.Utils.VariantTesting {
 	/**
 	 * Integrates Optimizely with Universal Analytics
 	 *
-	 * @param {?Object[]} dimensions
-	 * @returns {any[]}
+	 * @param {*[]} dimensions
+	 * @returns {*[]}
 	 */
 	export function integrateOptimizelyWithUA (dimensions: any[]): any[] {
 		var optimizely = window.optimizely,

@@ -175,7 +175,7 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorItemModel} modelRoot
 	 * @param {string} excludedLabel=null
-	 * @returns {String[]} already used labels
+	 * @returns {string[]} already used labels
 	 */
 	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
 		// Flatten the array
@@ -191,7 +191,7 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorItemModel} sectionOrBlock
 	 * @param {string} excludedLabel=null
-	 * @returns {String[]} already used labels
+	 * @returns {string[]} already used labels
 	 */
 	getAlreadyUsedLabels(sectionOrBlock, excludedLabel = null) {
 		let labels = [];

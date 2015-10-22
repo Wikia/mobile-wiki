@@ -15,11 +15,11 @@ interface PerfTrackerParams {
 /**
  * @typedef {Object} PerfTrackerParams
  * @property {string} type
- * @property {?object} [context]
+ * @property {*} [context]
  * @property {string} [module]
  * @property {string} name
  * @property {number} [value]
- * @property {?object} [annotations]
+ * @property {*} [annotations]
  */
 
 module Mercury.Modules.Trackers {

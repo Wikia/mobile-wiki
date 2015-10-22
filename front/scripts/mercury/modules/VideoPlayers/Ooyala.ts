@@ -31,7 +31,7 @@ module Mercury.Modules.VideoPlayers {
 
 		/**
 		 * @param {string} provider
-		 * @param {?Object} params
+		 * @param {*} params
 		 * @returns {undefined}
 		 */
 		constructor (provider: string, params: any) {
@@ -72,7 +72,7 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		/**
-		 * @param {?Object} player
+		 * @param {*} player
 		 * @returns {undefined}
 		 */
 		onCreate (player: any): void {

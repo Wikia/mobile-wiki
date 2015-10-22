@@ -8,8 +8,8 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	forumId: null,
 
 	/**
-	 * @param {?Object} params
-	 * @returns {any}
+	 * @param {*} params
+	 * @returns {*}
 	 */
 	model(params: any): any {
 		var sortBy: string;

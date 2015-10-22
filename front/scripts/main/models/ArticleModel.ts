@@ -133,7 +133,7 @@ App.ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @returns {any}
+	 * @returns {*}
 	 */
 	getPreloadedData(): any {
 		var article = Mercury.article,
@@ -151,7 +151,7 @@ App.ArticleModel.reopenClass({
 
 	/**
 	 * @param {App.ArticleModel} model
-	 * @param {?Object} [source= this.getPreloadedData()]
+	 * @param {*} [source= this.getPreloadedData()]
 	 * @return: {void}
 	 */
 	setArticle(model: typeof App.ArticleModel, source = this.getPreloadedData()): void {

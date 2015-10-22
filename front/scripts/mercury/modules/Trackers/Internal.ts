@@ -97,7 +97,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @param {string} category
-		 * @param {?Object} params
+		 * @param {*} params
 		 * @returns {string}
 		 */
 		private createRequestURL (category: string, params: any): string {
