@@ -1,20 +1,12 @@
 /// <reference path="../../../typings/hapi/hapi.d.ts" />
 /// <reference path="../../../typings/boom/boom.d.ts" />
 import Boom = require('boom');
-import Caching = require('../../lib/Caching');
 import MW = require('../../lib/MediaWiki');
 import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
-import wrapResult = require('./presenters/wrapResult');
+import getStatusCode = require('../operations/getStatusCode');
 
-var cachingTimes = {
-	enabled: false,
-	cachingPolicy: Caching.Policy.Private,
-	varnishTTL: Caching.Interval.disabled,
-	browserTTL: Caching.Interval.disabled
-};
-
-export function get (request: Hapi.Request, reply: any): void {
+export function get(request: Hapi.Request, reply: any): void {
 	var params = {
 			wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
 			categoryName: decodeURIComponent(request.params.categoryName),
@@ -25,17 +17,10 @@ export function get (request: Hapi.Request, reply: any): void {
 			offset: request.query.offset || ''
 		};
 
-	if (params.categoryName === null) {
-		reply(Boom.badRequest('Category not provided'));
-	} else {
-		new MW.ArticleRequest(params)
-			.category(params.categoryName, params.thumbSize, params.offset)
-			.then((response: any): void => {
-				reply(response);
-				Caching.setResponseCaching(response, cachingTimes);
-			}, (error: any): void => {
-				var preparedResult: any = wrapResult(error, {});
-				reply(preparedResult).code(preparedResult.status);
-			});
-	}
+	new MW.ArticleRequest(params)
+		.category(params.categoryName, params.thumbSize, params.offset)
+		.then(reply)
+		.catch((error: any): void => {
+			reply(error).code(getStatusCode(error));
+		});
 }

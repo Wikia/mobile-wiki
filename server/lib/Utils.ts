@@ -114,6 +114,19 @@ export function getWikiDomainName (localSettings: LocalSettings, hostName: strin
 }
 
 /**
+ * @desc Get the subdomain of a given Wikia host
+ *
+ * @param {string} host
+ * @returns {string}
+ */
+export function getWikiaSubdomain(host: string): string {
+	return host.replace(
+		/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+		'$1'
+	);
+}
+
+/**
  * @desc Removes the port from hostname as well as ad domain aliases
  *
  * @param {string} host

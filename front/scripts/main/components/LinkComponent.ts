@@ -6,6 +6,11 @@ Em.LinkComponent.reopen({
 
 	//it allows to use action='x' actionParam='y' in link-to helper
 	action: null,
+
+	/**
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
 	_invoke(event: Event): boolean {
 		var action: string = this.get('action');
 		if (action) {
@@ -20,5 +25,5 @@ Em.LinkComponent.reopen({
 
 		// no action to take, handle the link-to normally
 		return this._super(event);
-	}
+	},
 });

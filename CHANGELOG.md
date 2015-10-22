@@ -1,3 +1,32 @@
+## release-181 (2015-10-21 07:59 UTC)
+* [SOC-1276](https://wikia-inc.atlassian.net/browse/SOC-1276) SOC-1276 Truncate usernames and fix author properties
+* [SOC-1174](https://wikia-inc.atlassian.net/browse/SOC-1174) SOC-1174 | Unified discussion URL for front end calls
+* [SOC-1469](https://wikia-inc.atlassian.net/browse/SOC-1469) SOC-1469 | Iterate over replies only if they exist
+* [ADEN-2569](https://wikia-inc.atlassian.net/browse/ADEN-2569) ADEN-2569 Fix krux implementation
+* [ADEN-2486](https://wikia-inc.atlassian.net/browse/ADEN-2486) ADEN-2486 | Add Flite tag support for mercury
+
+## release-180 (2015-10-20 07:59 UTC)
+* [XW-512](https://wikia-inc.atlassian.net/browse/XW-512) XW-512 | Introduce ES6
+
+## release-179 (2015-10-19 07:59 UTC)
+* [INT-233](https://wikia-inc.atlassian.net/browse/INT-233) Refactored gulp tasks to work properly together with combine…
+* [SOC-1273](https://wikia-inc.atlassian.net/browse/SOC-1273) SOC-1273 Introduce discussionsSplashPageConfig app links in front end + App promotion component
+
+## release-178 (2015-10-16 10:53 UTC)
+* [SOC-1193](https://wikia-inc.atlassian.net/browse/SOC-1193) SOC-1193 As a user, I want to see a generic temporary error discussion page if the service is down
+
+## release-177 (2015-10-15 07:59 UTC)
+* [INT-200](https://wikia-inc.atlassian.net/browse/INT-200) Fix for text getting cut off in featured communities on Japa…
+* enable-discussions-on-staging: Maintenance | Enable discussion feature on all non-prod environments
+* [XW-523](https://wikia-inc.atlassian.net/browse/XW-523) XW-523 | Config for ESLint
+* [XW-544](https://wikia-inc.atlassian.net/browse/XW-544) XW-544 | update Mercury tasks
+
+## release-176 (2015-10-14 07:59 UTC)
+* aden-2468-ox-bidder-on-mobile: ADEN-2468 Add mercury onLoad listener
+* aden-2406-sp-tracking-on-mobile: ADEN-2406 Added detection script and event listeners to track blocking
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195)not for article rendering
+* [SOC-1292](https://wikia-inc.atlassian.net/browse/SOC-1292) SOC-1292 Add back to forum link to post details page
+
 ## release-175 hotfix 1 (2015-10-13 13:57 UTC)
 * [XW-552](https://wikia-inc.atlassian.net/browse/XW-552) XW-522 | restore optimizely partial
 

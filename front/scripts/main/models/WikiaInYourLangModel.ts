@@ -9,6 +9,9 @@ App.WikiaInYourLangModel = Em.Object.extend({
 });
 
 App.WikiaInYourLangModel.reopenClass({
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	load(): Em.RSVP.Promise {
 		var browserLang = navigator.language || navigator.browserLanguage,
 		    model = App.WikiaInYourLangModel.getFromCache(browserLang); //read from cache
@@ -45,6 +48,10 @@ App.WikiaInYourLangModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @param {string} browserLang
+	 * @returns {App.WikiaInYourLangModel}
+	 */
 	getFromCache(browserLang: string): typeof App.WikiaInYourLangModel {
 		var key = App.WikiaInYourLangModel.getCacheKey(browserLang),
 		    value = JSON.parse(window.localStorage.getItem(key)),
@@ -55,6 +62,10 @@ App.WikiaInYourLangModel.reopenClass({
 		return value.model;
 	},
 
+	/**
+	 * @param {string} lang
+	 * @returns {string}
+	 */
 	getCacheKey(lang: string): string {
 		return lang + '-WikiaInYourLang';
 	}

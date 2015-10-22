@@ -39,7 +39,7 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 					},
 					preview: true
 				},
-				wiki: wikiVariables || {},
+				wikiVariables: wikiVariables || {},
 				// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
 				server: {
 					cdnBaseUrl: Utils.getCDNBaseUrl(localSettings)

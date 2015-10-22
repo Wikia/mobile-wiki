@@ -15,12 +15,29 @@ App.DiscussionSortComponent = Em.Component.extend({
 		this.updateActive();
 	}),
 
+	actions: {
+		/**
+		 * @param {string} sortBy
+		 * @returns {undefined}
+		 */
+		setSortBy(sortBy: string): void {
+			// Send action up to route object
+			this.sendAction('setSortBy', sortBy);
+		},
+	},
+
+	/**
+	 * @returns {undefined}
+	 */
 	didInsertElement(): void {
 		this.set('$discussionSort', $('.discussion-sort'));
 		this.updateActive();
 		this._super();
 	},
 
+	/**
+	 * @returns {undefined}
+	 */
 	updateActive(): void {
 		// Add the 'active' CSS class to the sort tab that's active,
 		// but right now this only applies to desktop styling.
@@ -33,11 +50,4 @@ App.DiscussionSortComponent = Em.Component.extend({
 		$discussionSort.find('li.active').removeClass('active');
 		$discussionSort.find('li[data-type="' + this.get('sortBy') + '"]').addClass('active');
 	},
-
-	actions: {
-		setSortBy(sortBy: string): void {
-			// Send action up to route object
-			this.sendAction('setSortBy', sortBy);
-		}
-	}
 });

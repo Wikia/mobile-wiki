@@ -10,6 +10,13 @@ interface ObjectProperties {
 }
 
 module Mercury.Utils {
+	/**
+	 * @param {string} [str='']
+	 * @param {string|object} [ns=window]
+	 * @param {*} val
+	 * @param {boolean} mutable
+	 * @returns {*}
+	 */
 	function namespacer(str: string, ns: any, val: any, mutable?: boolean): any  {
 		var parts: string[],
 			i: number,
@@ -61,11 +68,10 @@ module Mercury.Utils {
 	var __props__: any = {};
 
 	/**
-	 * _getProp
-	 * @private
-	 * @description Accessor for private __props__ object
-	 * @param key: string A key representing the namespace to set. eg 'foo.bar.baz'
-	 * @return any
+	 * Accessor for private __props__ object
+	 *
+	 * @param {string} key - A key representing the namespace to set. eg 'foo.bar.baz'
+	 * @returns {*}
 	 */
 	function _getProp (key: string): any {
 		var parts = key.split('.'),
@@ -88,13 +94,12 @@ module Mercury.Utils {
 	};
 
 	/**
-	 * _setProp
-	 * @private
-	 * @description Setter for single properties on the private __props__ object
-	 * @param key: string A key representing the namespace to set. eg 'foo.bar.baz'
-	 * @param value: any Any non-undefined value
-	 * @param mutable: boolean When set to true, the parameters given to Object.defineProperty are relaxed
-	 * @return any
+	 * Setter for single properties on the private __props__ object
+	 *
+	 * @param {string} key - A key representing the namespace to set. eg 'foo.bar.baz'
+	 * @param {*} value - Any non-undefined value
+	 * @param {boolean} mutable - When set to true, the parameters given to Object.defineProperty are relaxed
+	 * @returns {*}
 	 */
 	function _setProp (key: string, value: any, mutable: boolean = false): any {
 		if (typeof value === 'undefined') {
@@ -104,12 +109,14 @@ module Mercury.Utils {
 	}
 
 	/**
-	 * M.prop
-	 * @description Combined getter/setter for private __props__
-	 * @param key: string
-	 * @param value?: any
-	 * @param mutable = false
-	 * @return any
+	 * Combined getter/setter for private __props__
+	 *
+	 * When `value` is set to `undefined` it's a `get`, otherwise it's a `set`.
+	 *
+	 * @param {string} key
+	 * @param {*} [value]
+	 * @param {boolean} [mutable=false]
+	 * @returns {*}
 	 */
 	export function prop (key: string, value?: any, mutable = false): any {
 		if (typeof value !== 'undefined') {
@@ -119,11 +126,11 @@ module Mercury.Utils {
 	}
 
 	/**
-	 * M.props
-	 * @description Set multiple properties of __props__ at once
-	 * @param value: any
-	 * @param mutable = false
-	 * @return {Object} __props__
+	 * Set multiple properties of __props__ at once
+	 *
+	 * @param {Object} value
+	 * @param {boolean} [mutable=false]
+	 * @returns {object} __props__
 	 */
 	export function props (value: any, mutable = false) {
 		var props: PropertyDescriptorMap = {};
@@ -154,6 +161,11 @@ module Mercury.Utils {
 		return value;
 	}
 
+	/**
+	 * @param {string} str
+	 * @param {*} obj
+	 * @returns {*}
+	 */
 	export function provide(str: string, obj: any): any {
 		if (typeof str !== 'string') {
 			throw Error('Invalid string supplied to namespacer');

@@ -18,6 +18,10 @@ App.DiscussionPostController = Em.Controller.extend({
 	}),
 
 	actions: {
+
+		/**
+		 * @returns {undefined}
+		 */
 		expand(): void {
 			var model = this.get('model');
 
@@ -26,11 +30,31 @@ App.DiscussionPostController = Em.Controller.extend({
 				this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
 			});
 		},
+
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @returns {undefined}
+		 */
+		retry(): void {
+			this.get('target').send('retry');
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		goToAllDiscussions(): void {
+			this.get('target').send('goToAllDiscussions');
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
 		goToForum(): void {
 			var model = this.get('model'),
 				forumId = Em.get(model, 'forumId');
 
-			this.transitionTo('discussion.forum', forumId, this.get('postListSort'));
+			this.get('target').send('goToForum', forumId, this.get('postListSort'));
 		}
 	}
 });
