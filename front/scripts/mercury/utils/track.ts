@@ -187,7 +187,9 @@ module Mercury.Utils {
 
 	/**
 	 * Track usage of Google Custom Search
-	 * @param queryParam
+	 *
+	 * @param {string} queryParam
+	 * @returns {undefined}
 	 */
 	export function trackGoogleSearch (queryParam: string) {
 		var trackers: any = Mercury.Modules.Trackers;
