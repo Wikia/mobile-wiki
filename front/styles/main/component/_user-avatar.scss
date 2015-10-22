@@ -5,3 +5,12 @@
 		font-size: $type-min;
 	}
 }
+
+@media #{$mobile-range} {
+	.user-avatar .avatar-username {
+		@extend %ellipsis;
+		display: inline-block;
+		max-width: 140px;
+		vertical-align: middle;
+	}
+}

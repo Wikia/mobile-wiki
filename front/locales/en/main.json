@@ -13,6 +13,7 @@
     "article-last-edit_plural_2": "Last edited __count__ weeks ago",
     "article-categories-list-label": "Categories",
     "article-top-contributors-label": "Top Contributors to this article",
+    "article-error": "Sorry, we couldn't load the article. Please try again.",
     "side-nav-menu-label": "Menu",
     "navigation-back-label": "Back",
     "search-loading-msg": "Loading search results...",

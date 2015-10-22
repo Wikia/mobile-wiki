@@ -200,3 +200,41 @@ QUnit.test('Fall back to mediawikiDomain', function () {
 		'http://adventuretime.mattk.wikia-dev.com'
 	);
 });
+
+QUnit.test('Discussion url is computed properly', function () {
+	M.prop('servicesDomain', 'services.wikia.com');
+	M.prop('discussionBaseRoute', 'discussion');
+
+	var testCases = [
+		{
+			path: '',
+			query: {},
+			expectedOutput: 'https://services.wikia.com/discussion'
+		},
+		{
+			path: '/147/forums',
+			query: {},
+			expectedOutput: 'https://services.wikia.com/discussion/147/forums'
+		},
+		{
+			path: '/147/threads/2',
+			query: {
+				'responseGroup': 'full',
+				'sortDirection': 'descending',
+				'sortKey': 'creation_date',
+				'limit': 3
+			},
+			expectedOutput: 'https://services.wikia.com/discussion/147/threads/2?responseGroup=full&sortDirection=descending&sortKey=creation_date&limit=3'
+		},
+		{
+			path: '',
+			query: { 'action': '&=/'},
+			expectedOutput: 'https://services.wikia.com/discussion?action=%26%3D%2F'
+		}
+
+	];
+	testCases.forEach(function (testCase) {
+		equal(Mercury.Utils.getDiscussionServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
+	});
+});
+
