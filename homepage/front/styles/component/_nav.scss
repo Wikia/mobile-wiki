@@ -25,6 +25,10 @@ header.navigation {
 	width: 100%;
 	z-index: 999;
 
+	@include media ($horizontal-bar-mode) {
+		position: fixed;
+	}
+
 	.navigation-wrapper {
 		@include clearfix;
 		@include outer-container;
