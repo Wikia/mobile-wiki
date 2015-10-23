@@ -63,12 +63,12 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 
 	loadImages(): void {
 		var image: ArticleMedia,
-			cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop,
 			width: number = this.get('viewportDimensions.width'),
 			height: number,
 			collectionLength = this.get('collectionLength');
 
 		for (var galleryRef = 0; galleryRef < collectionLength ; galleryRef ++) {
+			var cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop;
 			image = this.get('media').get(galleryRef);
 			height = this.computedHeight(image);
 
