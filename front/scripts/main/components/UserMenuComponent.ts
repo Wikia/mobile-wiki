@@ -8,28 +8,31 @@ App.UserMenuComponent = Em.Component.extend({
 
 	isVisible: Em.computed.bool('currentUser.isAuthenticated'),
 
-	links: Em.computed('currentUser.name', function (): Array<any> {
+	links: Em.computed('currentUser.name', function (): any[] {
 		return [
 			{
 				href: M.buildUrl({
 					namespace: 'User',
-					title: this.get('currentUser.name')
+					title: this.get('currentUser.name'),
 				}),
-				textKey: 'user-menu-profile'
+				textKey: 'user-menu-profile',
 			},
 			{
 				href: M.buildUrl({
 					namespace: 'Special',
-					title: 'UserLogout'
+					title: 'UserLogout',
 				}),
-				textKey: 'user-menu-log-out'
+				textKey: 'user-menu-log-out',
 			}
 		];
 	}),
 
 	actions: {
+		/**
+		 * @returns {undefined}
+		 */
 		hide(): void {
 			this.sendAction('toggleVisibility', false);
-		}
-	}
+		},
+	},
 });

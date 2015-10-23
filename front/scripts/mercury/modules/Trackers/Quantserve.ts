@@ -9,16 +9,25 @@ interface Window {
 
 module Mercury.Modules.Trackers {
 	export class Quantserve extends BaseTracker {
+		/**
+		 * @returns {undefined}
+		 */
 		constructor () {
 			window._qevents = [];
 			super();
 			this.usesAdsContext = true;
 		}
 
+		/**
+		 * @returns {string}
+		 */
 		url (): string {
 			return (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js?" + Math.random();
 		}
 
+		/**
+		 * @returns {undefined}
+		 */
 		trackPageView (): void {
 			var quantcastLabels = ['Category.MobileWeb.Mercury'];
 

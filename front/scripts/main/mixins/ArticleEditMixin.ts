@@ -4,6 +4,10 @@
 
 App.ArticleEditMixin = Em.Mixin.create({
 
+	/**
+	 * @param {string} title
+	 * @returns {Em.RSVP.Promise}
+	 */
 	getEditToken(title: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -36,5 +40,4 @@ App.ArticleEditMixin = Em.Mixin.create({
 			});
 		});
 	}
-
 });
