@@ -4,6 +4,7 @@
 
 App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixin, {
 	classNames: ['pi-image-collection'],
+	classNameBindings: ['visible'],
 	layoutName: 'components/infobox-image-collection',
 	limitHeight: true,
 	imageAspectRatio: 16 / 9,
@@ -71,6 +72,10 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 			image = this.get('media').get(galleryRef);
 			height = this.computedHeight(image);
 
+			if (image.height > image.width) {
+				cropMode = Mercury.Modules.Thumbnailer.mode.topCropDown;
+			}
+
 			var thumbUrl = this.getThumbURL(image.url, {
 				mode: cropMode,
 				width: width,
@@ -87,6 +92,7 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 	load(): void {
 		this.setup();
 		this.loadImages();
+		this.set('visible', true);
 	},
 
 	actions: {
