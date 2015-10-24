@@ -51,7 +51,7 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	}
 
 	result.displayTitle = title;
-	result.htmlTitle = Utils.getHtmlTitle(result, title);
+	result.htmlTitle = articleData.htmlTitle;
 	result.isMainPage = (title === wikiVariables.mainPageTitle.replace(/_/g, ' '));
 	result.canonicalUrl = wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);

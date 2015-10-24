@@ -1,5 +1,3 @@
-import Utils = require('../../lib/Utils');
-
 /**
  * Prepares main page data to be rendered
  *
@@ -16,7 +14,6 @@ function prepareMainPageData(data: ArticlePageData): any {
 	result.mainPageData.adsContext = articleData.adsContext;
 	result.mainPageData.ns = articleData.details.ns;
 
-	result.htmlTitle = Utils.getHtmlTitle(data);
 	result.openGraph = {
 		type: 'website',
 		title: title,

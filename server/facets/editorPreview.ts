@@ -37,6 +37,7 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 						revision: {},
 						type: 'article'
 					},
+					htmlTitle: '',
 					preview: true
 				},
 				wikiVariables: wikiVariables || {},

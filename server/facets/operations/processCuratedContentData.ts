@@ -29,14 +29,11 @@ function prepareData(request: Hapi.Request, result: any): void {
 	if (request.url.path.indexOf('section') > -1) {
 		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')));
 		title = title.replace(/%20/g, ' ');
-		result.htmlTitle = Utils.getHtmlTitle(result, title, true);
 	} else if (request.url.path.indexOf('category') > -1) {
 		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')));
 		title = title.replace(/_/g, ' ');
-		result.htmlTitle = Utils.getHtmlTitle(result, title, true);
 	} else {
 		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
-		result.htmlTitle = Utils.getHtmlTitle(result, title);
 	}
 
 	if (wikiVariables.language) {
@@ -52,6 +49,7 @@ function prepareData(request: Hapi.Request, result: any): void {
 	result.mainPageData.ns = result.article.details.ns;
 
 	result.displayTitle = title;
+	result.htmlTitle = Utils.getHtmlTitle(result, title);
 	result.isMainPage = true;
 	result.canonicalUrl = wikiVariables.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names

@@ -105,7 +105,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 				description: string;
 
 			if (model) {
-				document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
+				document.title = Mercury.wiki.htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
 				description = (typeof model.get('description') === 'undefined') ? '' : model.get('description');
 				$('meta[name="description"]').attr('content', description);
 			}

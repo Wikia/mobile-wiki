@@ -303,22 +303,16 @@ RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
  * Get HTML title
  * @param data
  * @param displayTitle
- * @param useTemplate
  * @returns {string}
  */
-export function getHtmlTitle(data: any, displayTitle: string = '', useTemplate: boolean = false): string {
-	var htmlTitle: string;
+export function getHtmlTitle(data: any, displayTitle: string): string {
+	var htmlTitle: string,
+		htmlTitleTemplate: string = data.wikiVariables.htmlTitleTemplate;
 
-	if (!useTemplate && data.article.htmlTitle) {
-		htmlTitle = data.article.htmlTitle;
-	} else if (data.wikiVariables.htmlTitleTemplate) {
-		htmlTitle = data.wikiVariables.htmlTitleTemplate.replace('$1', displayTitle);
+	if (displayTitle) {
+		htmlTitle = htmlTitleTemplate.replace('$1', displayTitle);
 	} else {
-		htmlTitle = displayTitle + ' - ' + data.wikiVariables.siteName + ' - Wikia';
-	}
-
-	if (htmlTitle.substring(0, 3) === ' - ') {
-		htmlTitle = htmlTitle.substring(3);
+		htmlTitle = htmlTitleTemplate.substring(5);
 	}
 
 	return htmlTitle;
