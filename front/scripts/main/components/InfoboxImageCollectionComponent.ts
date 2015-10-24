@@ -62,31 +62,23 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 	},
 
 	loadImages(): void {
-		var image: ArticleMedia,
-			width: number = this.get('viewportDimensions.width'),
-			height: number,
-			collectionLength = this.get('collectionLength');
+		var width: number = this.get('viewportDimensions.width');
 
-		for (var galleryRef = 0; galleryRef < collectionLength ; galleryRef ++) {
-			var cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop;
-			image = this.get('media').get(galleryRef);
-			height = this.computedHeight(image);
-
-			if (image.height > image.width) {
-				cropMode = Mercury.Modules.Thumbnailer.mode.topCropDown;
-			}
-
-			var thumbUrl = this.getThumbURL(image.url, {
-				mode: cropMode,
-				width: width,
-				height: height
-			});
+		this.get('media').forEach((image: ArticleMedia, index: number) => {
+			var cropMode = image.height > image.width ? Mercury.Modules.Thumbnailer.mode.topCropDown : Mercury.Modules.Thumbnailer.mode.zoomCrop,
+				height: number = this.computedHeight(image),
+				thumbUrl: string = this.getThumbURL(image.url, {
+					mode: cropMode,
+					width: width,
+					height: height
+				});
 
 			image.setProperties({
 				thumbUrl: thumbUrl,
 				load: true
 			});
-		}
+		});
+
 	},
 
 	load(): void {

@@ -214,7 +214,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			}
 		},
 
-		replaceImageCollectionPlaceholdersWithComponents(model: typeof App.ArticleModel): void {
+		replaceImageCollectionPlaceholdersWithComponents(model: typeof App.ArticleMedia): void {
 			var $placeholders = this.$('.pi-image-collection'),
 				articleMedia = model.get('media'),
 				index: number,
