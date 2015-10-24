@@ -16,6 +16,7 @@ interface ArticleMedia extends Em.Object {
 	galleryRef: number;
 	thumbUrl: string;
 	captionClass: string;
+	isActive: boolean;
 }
 
 App.GalleryMediaComponent = App.MediaComponent.extend(
