@@ -62,7 +62,6 @@ $hero-caption-line-height: 18px;
 // infobox gallery
 .pi-image-collection {
 	position: relative;
-	text-align: left;
 
 	.pi-item {
 		display: none;
@@ -74,6 +73,10 @@ $hero-caption-line-height: 18px;
 
 	.article-video::before {
 		background-position: center;
+	}
+
+	.pi-hero-title-wrapper {
+		text-align: left;
 	}
 
 	.image-collection-actions {
@@ -90,6 +93,7 @@ $hero-caption-line-height: 18px;
 			position: absolute;
 			top: 0;
 			width: $infobox-image-collection-button-width;
+			z-index: 2;
 		}
 
 		svg {
@@ -102,8 +106,12 @@ $hero-caption-line-height: 18px;
 		}
 	}
 
-	.action-next { right: 0; }
-	.action-previous { left: 0; }
+	.action-next {
+		right: 0;
+	}
+	.action-previous {
+		left: 0;
+	}
 }
 
 	// infobox hero

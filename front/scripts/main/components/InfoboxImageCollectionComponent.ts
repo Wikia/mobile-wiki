@@ -4,6 +4,7 @@
 
 App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixin, {
 	classNames: ['pi-image-collection'],
+	classNameBindings: ['visible'],
 	layoutName: 'components/infobox-image-collection',
 	limitHeight: true,
 	imageAspectRatio: 16 / 9,
@@ -61,32 +62,29 @@ App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixi
 	},
 
 	loadImages(): void {
-		var image: ArticleMedia,
-			cropMode = Mercury.Modules.Thumbnailer.mode.zoomCrop,
-			width: number = this.get('viewportDimensions.width'),
-			height: number,
-			collectionLength = this.get('collectionLength');
+		var width: number = this.get('viewportDimensions.width');
 
-		for (var galleryRef = 0; galleryRef < collectionLength ; galleryRef ++) {
-			image = this.get('media').get(galleryRef);
-			height = this.computedHeight(image);
-
-			var thumbUrl = this.getThumbURL(image.url, {
-				mode: cropMode,
-				width: width,
-				height: height
-			});
+		this.get('media').forEach((image: ArticleMedia, index: number) => {
+			var cropMode = image.height > image.width ? Mercury.Modules.Thumbnailer.mode.topCropDown : Mercury.Modules.Thumbnailer.mode.zoomCrop,
+				height: number = this.computedHeight(image),
+				thumbUrl: string = this.getThumbURL(image.url, {
+					mode: cropMode,
+					width: width,
+					height: height
+				});
 
 			image.setProperties({
 				thumbUrl: thumbUrl,
 				load: true
 			});
-		}
+		});
+
 	},
 
 	load(): void {
 		this.setup();
 		this.loadImages();
+		this.set('visible', true);
 	},
 
 	actions: {
