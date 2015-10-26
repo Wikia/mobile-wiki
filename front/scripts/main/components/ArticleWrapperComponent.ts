@@ -200,9 +200,9 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 */
 		performArticleTransforms(): boolean {
 			var model = this.get('model'),
-				article = model.get('article');
+				articleContent = model.get('content');
 
-			if (article && article.length > 0) {
+			if (articleContent && articleContent.length > 0) {
 				M.setTrackContext({
 					a: model.title,
 					n: model.ns
