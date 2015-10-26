@@ -56,13 +56,19 @@ function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: a
 	reply.view('application', context);
 }
 
+/**
+ * @param {string} hostName
+ * @returns {*}
+ */
 function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
-	var distilledConfig = {};
-	if (discussionsSplashPageConfig[hostName]) {
-		distilledConfig['androidAppLink'] = discussionsSplashPageConfig[hostName].androidAppLink;
-		distilledConfig['iosAppLink'] = discussionsSplashPageConfig[hostName].iosAppLink;
+	var mainConfig = discussionsSplashPageConfig[hostName];
+	if (mainConfig) {
+		return {
+			androidAppLink: mainConfig.androidAppLink,
+			iosAppLink: mainConfig.iosAppLink,
+		};
 	}
-	return distilledConfig;
+	return {};
 }
 
 export = showApplication;
