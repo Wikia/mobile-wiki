@@ -13,5 +13,13 @@ App.LanguagesMixin = Em.Mixin.create({
 
 	isJapaneseWikia: Ember.computed(function (): boolean {
 		return Em.get(Mercury, 'wiki.language.content') === 'ja';
-	})
+	}),
+
+	getUselangParam(): string {
+		var lang: string = Em.get(Mercury, 'wiki.language.content');
+		if (!lang || lang === 'en') {
+			return '';
+		}
+		return '&uselang=' + encodeURIComponent(lang);
+	}
 });
