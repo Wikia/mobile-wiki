@@ -4,12 +4,6 @@
     "browser": true,
     "jquery": true
   },
-  "globals": {
-    "App": true,
-    "Em": true,
-    "M": true,
-    "i18n": true
-  },
   "rules": {
     // ECMA Script 6
     "arrow-parens": [2, "always"],
