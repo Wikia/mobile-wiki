@@ -5,9 +5,16 @@
 			border: 0;
 			display: none;
 			font-size: $type-smallest;
+			font-weight: bold;
 			margin: 0;
 			position: absolute;
 			text-transform: none;
+
+			@for $i from 1 through length($verticals) {
+				.#{nth($verticals, $i)}-vertical & {
+					color: nth($vertical-colors, $i);
+				}
+			}
 		}
 		.editor-close {
 			display: none;
@@ -46,15 +53,8 @@
 			z-index: 800;
 
 			button {
-				font-weight: bold;
 				right: 0;
 				top: 0;
-
-				@for $i from 1 through length($verticals) {
-					.#{nth($verticals, $i)}-vertical & {
-						color: nth($vertical-colors, $i);
-					}
-				}
 			}
 
 			.editor-close {
@@ -105,7 +105,7 @@
 				padding-bottom: 40px;
 
 				.editor {
-					border-bottom: 1px solid #e1e1e1;
+					border-bottom: 1px solid $secondary-color;
 					min-height: 106px;
 					max-height: 400px;
 				}
@@ -120,7 +120,6 @@
 
 			button {
 				bottom: 0;
-				color: #999999;
 				height: 40px;
 				padding: 0 1.25rem;
 				right: 0;
