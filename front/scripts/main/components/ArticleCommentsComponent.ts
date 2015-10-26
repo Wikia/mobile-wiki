@@ -15,24 +15,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	showComments: Em.computed.bool('page'),
 
 	/**
-	 * @desc scrolls to top of article's container, used for pagination
-	 */
-	scrollToTop(): void {
-		window.scrollTo(0, this.$().offset().top);
-	},
-
-	didInsertElement(): void {
-		this.set('model', App.ArticleCommentsModel.create({
-			articleId: this.get('articleId')
-		}));
-
-		if (this.get('page')) {
-			this.scrollToTop();
-		}
-	},
-
-	/**
-	 * @desc observes changes to page property, applies limit `1 <= page <= model.pagesCount`
+	 * observes changes to page property, applies limit `1 <= page <= model.pagesCount`
 	 * and updates model, so it can load a page of comments
 	 */
 	pageObserver: Em.observer('page', 'model.comments', function (): void {
@@ -62,7 +45,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	}),
 
 	/**
-	 * @desc watches changes to model, and scrolls to top of comments
+	 * watches changes to model, and scrolls to top of comments
 	 */
 	commentsObserver: Em.observer('model.comments', function (): void {
 		if (this.get('model.comments')) {
@@ -71,7 +54,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	}),
 
 	/**
-	 * @desc if articleId changes, updates model
+	 * if articleId changes, updates model
 	 */
 	articleIdObserver: Em.observer('articleId', function (): void {
 		this.setProperties({
@@ -83,14 +66,23 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	}),
 
 	actions: {
+		/**
+		 * @returns {undefined}
+		 */
 		nextPage(): void {
 			this.incrementProperty('page');
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
 		prevPage(): void {
 			this.decrementProperty('page');
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
 		toggleComments(): void {
 			this.set('page', this.get('page') ? null : 1);
 
@@ -101,6 +93,28 @@ App.ArticleCommentsComponent = Em.Component.extend({
 				category: 'comments',
 				label: this.get('page') ? 'open' : 'close'
 			});
+		},
+	},
+
+	/**
+	 * scrolls to top of article's container, used for pagination
+	 *
+	 * @returns {undefined}
+	 */
+	scrollToTop(): void {
+		window.scrollTo(0, this.$().offset().top);
+	},
+
+	/**
+	 * @returns {undefined}
+	 */
+	didInsertElement(): void {
+		this.set('model', App.ArticleCommentsModel.create({
+			articleId: this.get('articleId')
+		}));
+
+		if (this.get('page')) {
+			this.scrollToTop();
 		}
-	}
+	},
 });

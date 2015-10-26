@@ -9,30 +9,33 @@ import Tracking = require('../lib/Tracking');
 import OpenGraph = require('../lib/OpenGraph');
 import Logger = require('../lib/Logger');
 import localSettings = require('../../config/localSettings');
+import discussionsSplashPageConfig = require('../../config/discussionsSplashPageConfig');
 
 function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).wikiVariables(),
-		context: any = {};
+		context: any = {},
+		hostName: string = Utils.getWikiaSubdomain(request.info.host);
 
 	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 	context.server = Utils.createServerData(localSettings, wikiDomain);
 	context.queryParams = Utils.parseQueryParams(request.query, []);
 	context.localSettings = localSettings;
 	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
 	wikiVariables.then((wikiVariables: any): Promise<any> => {
 		var contentDir: string;
 
 		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
-		context.wiki = wikiVariables;
-		if (context.wiki.language) {
-			contentDir = context.wiki.language.contentDir;
+		context.wikiVariables = wikiVariables;
+		if (context.wikiVariables.language) {
+			contentDir = context.wikiVariables.language.contentDir;
 			context.isRtl = (contentDir === 'rtl');
 		}
 
-		return OpenGraph.getAttributes(request, context.wiki);
+		return OpenGraph.getAttributes(request, context.wikiVariables);
 	}).then((openGraphData: any): void => {
 		// Add OpenGraph attributes to context
 		context.openGraph = openGraphData;
@@ -51,6 +54,15 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: any): void {
 	Tracking.handleResponse(context, request);
 	reply.view('application', context);
+}
+
+function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
+	var distilledConfig = {};
+	if (discussionsSplashPageConfig[hostName]) {
+		distilledConfig['androidAppLink'] = discussionsSplashPageConfig[hostName].androidAppLink;
+		distilledConfig['iosAppLink'] = discussionsSplashPageConfig[hostName].iosAppLink;
+	}
+	return distilledConfig;
 }
 
 export = showApplication;

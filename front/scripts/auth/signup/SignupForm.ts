@@ -1,3 +1,27 @@
+/**
+ * HeliosError
+ * @typedef {Object} HeliosError
+ * @property {HeliosErrorAdditional} additional
+ * @property {string} description
+ */
+
+/**
+ * HeliosErrorAdditional
+ * @typedef {Object} HeliosErrorAdditional
+ * @property {string} field
+ */
+
+/**
+ * HeliosRegisterInput
+ * @typedef {Object} HeliosRegisterInput
+ * @property {string} birthdate
+ * @property {string} email
+ * @property {string} langCode
+ * @property {string} password
+ * @property {string} username
+ * @property {string} [marketingallowed]
+ */
+
 interface HeliosError {
 	additional: HeliosErrorAdditional;
 	description: string;
@@ -16,6 +40,10 @@ interface HeliosRegisterInput {
 	marketingallowed?: string;
 }
 
+/**
+ * Creates new Signup Form.
+ * @class SignupForm
+ */
 class SignupForm {
 	form: HTMLFormElement;
 	redirect: string;
@@ -26,6 +54,10 @@ class SignupForm {
 	tracker: AuthTracker;
 	authLogger: AuthLogger = AuthLogger.getInstance();
 
+	/**
+	 * @constructs SignupForm
+	 * @param {Element} form
+	 */
 	constructor(form: Element) {
 		this.pageName = 'signup';
 
@@ -43,6 +75,9 @@ class SignupForm {
 		this.tracker = new AuthTracker('user-signup-mobile', this.pageName);
 	}
 
+	/**
+	 * @returns {HeliosRegisterInput}
+	 */
 	private getFormValues(): HeliosRegisterInput {
 		var formElements: HTMLCollection = this.form.elements;
 
@@ -55,6 +90,10 @@ class SignupForm {
 			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
 		};
 	}
+
+	/**
+	 * @returns {string}
+	 */
 	private getWikiaDomain(): string {
 		var hostParts: string[] = location.host.split('.').reverse();
 		if (hostParts.length >= 2) {
@@ -63,6 +102,11 @@ class SignupForm {
 		return location.host;
 	}
 
+	/**
+	 * @param {string} userId
+	 *
+	 * @returns {undefined}
+	 */
 	private onSuccessfulRegistration(userId: string) {
 		M.provide('userId', userId);
 		this.tracker.track('successful-registration', M.trackActions.success);
@@ -92,6 +136,11 @@ class SignupForm {
 		AuthUtils.authSuccessCallback(this.redirect);
 	}
 
+	/**
+	 * @param {Event} event
+	 *
+	 * @returns {undefined}
+	 */
 	public onSubmit(event: Event): void {
 		var registrationXhr = new XMLHttpRequest(),
 			data: HeliosRegisterInput = this.getFormValues(),
@@ -134,6 +183,9 @@ class SignupForm {
 		event.preventDefault();
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	public watch(): void {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}

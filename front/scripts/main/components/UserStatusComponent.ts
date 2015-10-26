@@ -2,14 +2,15 @@
 /// <reference path="../mixins/HeadroomMixin.ts" />
 /// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
 /// <reference path="../../../../typings/i18next/i18next.d.ts" />
-'use strict';
 
+'use strict';
 
 App.UserStatusComponent = Em.Component.extend({
 	userLoggedIn: Em.computed('currentUser.isAuthenticated', function () {
 		if (this.get('currentUser.isAuthenticated') === true) {
 			return true;
 		}
+
 		// HTMLBars attribute binding only removes an attribute if it's value is set to null
 		return null;
 	}),
@@ -22,6 +23,7 @@ App.UserStatusComponent = Em.Component.extend({
 		if (Mercury.wiki.enableNewAuth) {
 			return '/join';
 		}
+
 		return '/Special:UserLogin';
 	}),
 
@@ -29,6 +31,7 @@ App.UserStatusComponent = Em.Component.extend({
 		if (Mercury.wiki.enableNewAuth) {
 			return '/signin';
 		}
+
 		return '/Special:UserLogin';
 	}),
 
@@ -36,18 +39,21 @@ App.UserStatusComponent = Em.Component.extend({
 		if (Mercury.wiki.enableNewAuth) {
 			return '/register';
 		}
+
 		return '/Special:UserSignup';
 	}),
 
 	loginLink: Em.computed('loginHref', function () {
 		var href = this.get('loginHref'),
 			text = i18n.t('userStatus.login-text');
+
 		return `<a href="${href}">${text}</a>`;
 	}),
 
 	registerLink: Em.computed('registerHref', function () {
 		var href = this.get('registerHref'),
 			text = i18n.t('userStatus.register-text');
+
 		return `<a href="${href}">${text}</a>`;
 	}),
 
@@ -56,41 +62,51 @@ App.UserStatusComponent = Em.Component.extend({
 			{
 				href: M.buildUrl({
 					namespace: 'User',
-					title: this.get('currentUser.name')
+					title: this.get('currentUser.name'),
 				}),
-				textKey: 'user-menu-profile'
+				textKey: 'user-menu-profile',
 			},
 			{
 				href: M.buildUrl({
 					namespace: 'Special',
-					title: 'UserLogout'
+					title: 'UserLogout',
 				}),
-				textKey: 'user-menu-log-out'
+				textKey: 'user-menu-log-out',
 			}
 		];
 	}),
 
+	/**
+	 * @returns {string}
+	 */
 	getUselangParam(): string {
 		var lang: string = Em.get(Mercury, 'wiki.language.content');
+
 		if (!lang || lang === 'en') {
 			return '';
 		}
+
 		return '&uselang=' + encodeURIComponent(lang);
 	},
 
+	/**
+	 * @returns {string}
+	 */
 	getRedirectString(): string {
 		return '?redirect=' + encodeURIComponent(window.location.href) + this.getUselangParam();
 	},
 
 	/**
 	 * Add redirect URL on click to make sure it accurately reflects current URL
-	 * @param event
+	 *
+	 * @param {Event} event
+	 * @returns {undefined}
 	 */
 	click(event: Event): void {
 		// handle join, register, and login links for anons
 		if (!this.get('userLoggedIn')) {
-			var $target: JQuery = $(event.target).closest('a'),
-				href: string = $target.attr('href');
+			var $target = $(event.target).closest('a'),
+				href = $target.attr('href');
 
 			// TODO: Add tracking here (HG-886)
 
@@ -99,5 +115,5 @@ App.UserStatusComponent = Em.Component.extend({
 				window.location.assign(href + this.getRedirectString());
 			}
 		}
-	}
+	},
 });

@@ -7,6 +7,9 @@ App.MainPageController = Em.Controller.extend({
 
 	noAds: Em.computed.alias('application.noAds'),
 
+	/**
+	 * @returns {undefined}
+	 */
 	init(): void {
 		this.setProperties({
 			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),

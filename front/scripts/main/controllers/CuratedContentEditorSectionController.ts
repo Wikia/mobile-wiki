@@ -5,8 +5,5 @@
 App.CuratedContentEditorSectionController = Em.Controller.extend({
 	queryParams: {
 		isNewSection: 'new'
-	},
-	alreadyUsedItemLabels: [],
-	isNewSection: false,
-	originalSectionLabel: null
+	}
 });

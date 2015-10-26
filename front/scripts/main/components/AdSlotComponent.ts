@@ -35,6 +35,9 @@ App.AdSlotComponent = Em.Component.extend({
 		}
 	}),
 
+	/**
+	 * @returns {undefined}
+	 */
 	didInsertElement(): void {
 		if (this.get('noAds') === true) {
 			Em.Logger.info('Ad disabled for:', this.get('name'));
@@ -44,6 +47,9 @@ App.AdSlotComponent = Em.Component.extend({
 		}
 	},
 
+	/**
+	 * @returns {undefined}
+	 */
 	willDestroyElement(): void {
 		var name = this.get('name');
 
@@ -52,5 +58,5 @@ App.AdSlotComponent = Em.Component.extend({
 		this.$().remove();
 
 		Em.Logger.info('Will destroy ad:', name);
-	}
+	},
 });

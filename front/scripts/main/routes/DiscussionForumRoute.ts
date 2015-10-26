@@ -4,19 +4,38 @@
 'use strict';
 
 App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
+	defaultSortType: null,
 	forumId: null,
 
-	model(params: any) {
+	/**
+	 * @param {*} params
+	 * @returns {*}
+	 */
+	model(params: any): any {
+		var sortBy: string;
 		this.set('forumId', params.forumId);
-		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, params.sortBy);
+
+		sortBy = params.sortBy || this.defaultSortType;
+		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
 	},
 
-	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition) {
+	/**
+	 * @param {Em.Controller} controller
+	 * @param {Em.Object} model
+	 * @param {EmberStates.Transition} transition
+	 * @returns {undefined}
+	 */
+	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition): void {
 		this._super(controller, model, transition);
-		controller.set('sortBy', transition.params['discussion.forum'].sortBy || controller.get('sortTypes')[0].name);
+		this.defaultSortType = controller.get('sortTypes')[0].name;
+		controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 	},
 
 	actions: {
+		/**
+		 * @param {number} postId
+		 * @returns {undefined}
+		 */
 		goToPost(postId: number): void {
 			var postController = this.controllerFor('discussionPost'),
 				forumController = this.controllerFor('discussionForum');
@@ -26,10 +45,32 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 			this.transitionTo('discussion.post', postId);
 		},
 
+		/**
+		 * @param {number} pageNum
+		 * @returns {undefined}
+		 */
 		loadPage(pageNum: number): void {
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
+		retry(): void {
+			this.refresh();
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		goToAllDiscussions(): void {
+			this.transitionTo('discussion.index');
+		},
+
+		/**
+		 * @param {string} sortBy
+		 * @returns {undefined}
+		 */
 		setSortBy(sortBy: string): void {
 			var controller = this.controllerFor('discussionForum');
 
@@ -41,6 +82,10 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
 		},
+
+		/**
+		 * @returns {boolean}
+		 */
 		didTransition(): boolean {
 			this.controllerFor('application').set('noMargins', true);
 			return true;

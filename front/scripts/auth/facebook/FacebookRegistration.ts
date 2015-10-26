@@ -1,3 +1,8 @@
+/**
+ * Window
+ * @typedef {Object} Window
+ * @property {{getLoginStatus: Function, getAccessToken: Function, api: Function}} FB
+ */
 interface window {
 	FB: {
 		getLoginStatus: Function;
@@ -6,10 +11,26 @@ interface window {
 	}
 }
 
+/**
+ * FacebookUserData
+ * @typedef {Object} FacebookUserData
+ * @property {string} [email]
+ */
 interface FacebookUserData {
 	email?: string;
 }
 
+/**
+ * HeliosFacebookRegisterData
+ * @typedef {Object} HeliosFacebookRegisterData
+ * @property {string} birthdate
+ * @property {string} email
+ * @property {string} fb_access_token
+ * @property {string} password
+ * @property {string} username
+ * @property {string} [langCode]
+ * @property {string} [marketingallowed]
+ */
 interface HeliosFacebookRegistrationData {
 	birthdate: string;
 	email: string;
@@ -20,6 +41,9 @@ interface HeliosFacebookRegistrationData {
 	marketingallowed?: string;
 }
 
+/**
+ * @class FacebookRegistration
+ */
 class FacebookRegistration {
 
 	form: HTMLFormElement;
@@ -31,6 +55,10 @@ class FacebookRegistration {
 	tracker: AuthTracker;
 	authLogger: AuthLogger = AuthLogger.getInstance();
 
+	/**
+	 * @constructs FacebookRegistration
+	 * @param {HTMLFormElement} form
+	 */
 	constructor (form: HTMLFormElement) {
 		new FacebookSDK(this.init.bind(this));
 		this.form = form;
@@ -51,6 +79,9 @@ class FacebookRegistration {
 		this.tracker = new AuthTracker('user-signup-mobile', 'signup');
 	}
 
+	/**
+	 * @returns void
+	 */
 	public init (): void {
 		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
 			var status = facebookResponse.status;
@@ -61,10 +92,18 @@ class FacebookRegistration {
 		}.bind(this));
 	}
 
+	/**
+	 * @returns void
+	 */
 	public getEmailFromFacebook(): void {
 		window.FB.api('/me', this.setUpEmailInput.bind(this));
 	}
 
+	/**
+	 * @params {FacebookUserData} facebookUserData
+	 *
+	 * @returns void
+	 */
 	private setUpEmailInput (facebookUserData: FacebookUserData): void {
 		var email = facebookUserData.email,
 			emailInput = <HTMLInputElement> this.form.elements.namedItem('email'),
@@ -78,6 +117,9 @@ class FacebookRegistration {
 		}
 	}
 
+	/**
+	 * @returns {HeliosFacebookRegistrationData}
+	 */
 	private getHeliosRegistrationDataFromForm(): HeliosFacebookRegistrationData {
 		var formElements: HTMLCollection = this.form.elements;
 		return {
@@ -91,6 +133,12 @@ class FacebookRegistration {
 		};
 	}
 
+	/**
+	 * @param {string} facebookToken
+	 * @param {string} heliosTokenUrl
+	 *
+	 * @returns {undefined}
+	 */
 	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string): void {
 			var facebookTokenXhr = new XMLHttpRequest(),
 			data = <HeliosFacebookToken> {
@@ -123,6 +171,11 @@ class FacebookRegistration {
 		facebookTokenXhr.send(this.urlHelper.urlEncode(data));
 	}
 
+	/**
+	 * @param {Event} event
+	 *
+	 * @returns {undefined}
+	 */
 	public onSubmit (event: Event): void {
 		event.preventDefault();
 

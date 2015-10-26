@@ -1,14 +1,26 @@
+/**
+ * Window
+ * @typedef {Object} Window
+ * @property {object} FB
+ * @property {Function} fbAsyncInit
+ * @property {string} facebookAppId
+ */
 interface Window {
 	FB?: any;
 	fbAsyncInit?: Function;
 	facebookAppId: string;
 }
 
+/**
+ * @class FacebookSDK
+ */
 class FacebookSDK {
 
 	version: string = 'v2.2';
 	/**
 	 * Modified code for async download of Facebook SDK javascript
+	 *
+	 * @constructs FacebookSDK
 	 * @param {Function} onLoad
 	 */
 	constructor (onLoad: Function = Function.prototype) {

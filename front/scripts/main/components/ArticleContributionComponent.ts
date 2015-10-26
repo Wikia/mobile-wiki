@@ -12,6 +12,9 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 	uploadFeatureEnabled: null,
 
 	actions: {
+		/**
+		 * @returns {undefined}
+		 */
 		edit(): void {
 			M.track({
 				action: M.trackActions.click,
@@ -22,6 +25,9 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			this.sendAction('edit', this.get('title'), this.get('section'));
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
 		select(): void {
 			var href = '/join?redirect=' + encodeURIComponent(window.location.href);
 			if (this.get('sectionId')) {
@@ -39,6 +45,9 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			this.openLocation(href);
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
 		addPhoto(): void {
 			if (this.get('currentUser.isAuthenticated') !== true) {
 				return;
@@ -52,10 +61,10 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			});
 			var photoData = this.$('.file-upload-input')[0].files[0];
 			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
-		}
+		},
 	},
 
 	openLocation(href: string) {
 		window.location.href = href;
-	}
+	},
 });

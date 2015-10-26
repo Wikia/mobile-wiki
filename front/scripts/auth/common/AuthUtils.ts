@@ -1,5 +1,13 @@
+/**
+ * @class AuthUtils
+ */
 class AuthUtils {
 
+	/**
+	 * @param {string} url
+	 *
+	 * @returns {undefined}
+	 */
 	public static authSuccessCallback (url?: string): void {
 		if (window.parent && pageParams.parentOrigin) {
 			window.parent.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
@@ -12,6 +20,11 @@ class AuthUtils {
 		window.location.reload();
 	}
 
+	/**
+	 * @param {string} url
+	 *
+	 * @returns {undefined}
+	 */
 	public static loadUrl (url?: string): void {
 		var win: Window;
 

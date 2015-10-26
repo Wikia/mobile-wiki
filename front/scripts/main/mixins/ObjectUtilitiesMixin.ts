@@ -1,4 +1,7 @@
 App.ObjectUtilitiesMixin = Em.Mixin.create({
+	/**
+	 * @returns {*}
+	 */
 	toPlainObject(): any {
 		var value: any,
 			keys: any[] = [],

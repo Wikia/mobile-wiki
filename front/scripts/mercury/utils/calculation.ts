@@ -1,7 +1,7 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 
 /**
- * @define calculation
+ * calculation
  *
  * Library with generic calculation functions
  */
@@ -12,6 +12,12 @@ interface ContainerSize {
 	height: number;
 }
 
+/**
+ * @typedef {Object} ContainerSize
+ * @property {number} width
+ * @property {number} height
+ */
+
 module Mercury.Utils.Calculation {
 	/**
 	 * Calculate container size based on max dimensions and aspect ratio of the content
@@ -20,7 +26,7 @@ module Mercury.Utils.Calculation {
 	 * @param {number} maxHeight
 	 * @param {number} contentWidth
 	 * @param {number} contentHeight
-	 * @return {ContainerSize}
+	 * @returns {ContainerSize}
 	 */
 	export function containerSize (
 		maxWidth: number,
