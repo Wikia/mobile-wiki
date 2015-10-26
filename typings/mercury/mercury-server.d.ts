@@ -52,15 +52,19 @@ interface ArticleResponse {
 }
 
 interface CuratedContentPageData {
-	mainPageData: MainPageData;
+	mainPageData?: MainPageData;
 	wikiVariables: any;
 	server: ServerData;
+	exception?: MWException;
 }
 
 interface MainPageData {
 	details?: ArticleDetails;
 	adsContext?: any;
-	exception?: MWException;
+}
+
+interface MainPageDetailsAndAdsContextResponse {
+	data?: MainPageData;
 }
 
 interface MWException {

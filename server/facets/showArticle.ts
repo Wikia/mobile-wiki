@@ -137,13 +137,16 @@ function outputResponse(request: Hapi.Request,
 	var response: Hapi.Response,
 		result = prepareArticleData(request, data);
 
-	if (data.article.data && data.article.data.isMainPage) {
+	//mainPageData is set only on curated main pages - only then we should do some special preparation for data
+	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
 		delete result.adsContext;
+		// @TODO XW-596 we shouldn't rely on side effects of this function
+		Tracking.handleResponseCuratedMainPage(result, request);
+	} else {
+		// @TODO XW-596 we shouldn't rely on side effects of this function
+		Tracking.handleResponse(result, request);
 	}
-
-	// @TODO XW-596 we shouldn't rely on side effects of this function
-	Tracking.handleResponse(result, request);
 
 	response = reply.view('article', result);
 	response.code(code);

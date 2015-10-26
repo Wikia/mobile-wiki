@@ -5,7 +5,7 @@
 
 /**
  * @description Article controller
- * @TODO XW-608 move setTitile to common part for CuratedContentRequestHelper and ArticleRequestHelper
+ * @TODO XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 import util = require('util');
@@ -51,7 +51,7 @@ export class ArticleRequestHelper {
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
 		return Promise.settle(requests)
-			.then((results: Promise.Inspection<Promise<any>>[]) => {
+			.then((results: Promise.Inspection<Promise<ArticlePageData>>[]) => {
 				var articlePromise: Promise.Inspection<Promise<any>> = results[0],
 					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
 					isArticlePromiseFulfilled = articlePromise.isFulfilled(),

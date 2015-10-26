@@ -7,10 +7,10 @@ import logger = require('./Logger');
 import localSettings = require('../../config/localSettings');
 
 /**
- * @TODO XW-608 move setTitile to common part for CuratedContentRequestHelper and ArticleRequestHelper
+ * @TODO XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
  * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
-export class CuratedContentRequestHelper {
+export class CuratedMainPageRequestHelper {
 	params: ArticleRequestParams;
 
 	constructor(params: ArticleRequestParams) {
@@ -47,18 +47,18 @@ export class CuratedContentRequestHelper {
 		 */
 		return Promise.settle(requests)
 			.then((results: Promise.Inspection<Promise<CuratedContentPageData>>[]) => {
-				var mainPageDataPromise: Promise.Inspection<Promise<MainPageData>> = results[0],
+				var mainPageDataPromise: Promise.Inspection<Promise<MainPageDetailsAndAdsContextResponse>> = results[0],
 					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
-					isMainPageDataPromiseFulfilled = mainPageDataPromise.isFulfilled(),
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
-					mainPageData: MainPageData,
-					wikiVariables: any,
-					data: CuratedContentPageData;
+					mainPageData: MainPageDetailsAndAdsContextResponse,
+					mainPageDataException: MWException,
+					wikiVariables: any;
 
-				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
-				mainPageData = isMainPageDataPromiseFulfilled ?
-					mainPageDataPromise.value() :
-					mainPageDataPromise.reason();
+				if (mainPageDataPromise.isFulfilled()) {
+					mainPageData = mainPageDataPromise.value();
+				} else {
+					mainPageDataException = mainPageDataPromise.reason();
+				}
 
 				wikiVariables = isWikiVariablesPromiseFulfilled ?
 					wikiVariablesPromise.value() :
@@ -68,16 +68,18 @@ export class CuratedContentRequestHelper {
 					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
 
-				data = {
-					mainPageData,
-					wikiVariables,
-					server: Utils.createServerData(localSettings, this.params.wikiDomain)
-				};
-
-				if (isMainPageDataPromiseFulfilled) {
-					return Promise.resolve(data);
+				if (mainPageData && mainPageData.data) {
+					return Promise.resolve({
+						mainPageData: mainPageData.data,
+						wikiVariables,
+						server: Utils.createServerData(localSettings, this.params.wikiDomain)
+					});
 				} else {
-					return Promise.reject(new MainPageDataRequestError(data));
+					return Promise.reject(new MainPageDataRequestError({
+						exception: mainPageDataException,
+						wikiVariables,
+						server: Utils.createServerData(localSettings, this.params.wikiDomain)
+					}));
 				}
 			});
 	}

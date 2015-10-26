@@ -29,7 +29,7 @@ function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain
 		},
-		mainPage: MainPage.CuratedContentRequestHelper,
+		mainPage: MainPage.CuratedMainPageRequestHelper,
 		allowCache = true;
 
 	if (request.state.wikicities_session) {
@@ -39,7 +39,7 @@ function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
 		allowCache = false;
 	}
 
-	mainPage = new MainPage.CuratedContentRequestHelper(params);
+	mainPage = new MainPage.CuratedMainPageRequestHelper(params);
 
 	mainPage.setTitle(request.params.title);
 	mainPage.getWikiVariablesAndDetails()
@@ -49,10 +49,10 @@ function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
 		})
 		.catch(MainPage.MainPageDataRequestError, (error: any): void => {
 			var data: CuratedContentPageData = error.data;
-			Logger.error('Error when fetching ads context and article details', data.mainPageData.exception);
+			Logger.error('Error when fetching ads context and article details', data.exception);
 			outputResponse(request, reply, data, false);
 		})
-		.catch(MediaWiki.WikiVariablesRequestError, (error: any): void => {
+		.catch(MediaWiki.WikiVariablesRequestError, (error: MWException): void => {
 			Logger.error('Error when fetching wiki variables', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
@@ -85,7 +85,7 @@ function outputResponse(request: Hapi.Request,
 		result = prepareCuratedContentData(request, data);
 
 	// @TODO XW-596 we shouldn't rely on side effects of this function
-	Tracking.handleResponse(result, request);
+	Tracking.handleResponseCuratedMainPage(result, request);
 
 	response = reply.view('application', result);
 	response.code(code);
