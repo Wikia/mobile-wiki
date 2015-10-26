@@ -1,9 +1,17 @@
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../../typings/slick/slick.d.ts" />
+/// <reference path="./globals.ts" />
 
 'use strict';
 
+// bigText JQuery plugin
+interface JQuery {
+	bigText(options: any): any;
+}
+
 var parallaxWindow : JQuery = $('#js-parallax-window');
+
+var globals : Globals;
 
 $(function() : void {
 	if (parallaxWindow.length) {
@@ -23,6 +31,15 @@ $(function() : void {
 		centerMode: false,
 		variableWidth: true
 	});
+
+	// Dynamically adjust text size to show community title without text break.
+	// bigText adjusts the size programatically and strips off css padding, so it is
+	// necessary to add it in explicitly afterwards
+	var headings = $('.grid-heading');
+	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
+	headings.css({padding: '.1rem'});
+
+	globals = new Globals();
 });
 
 function parallax() : void {
@@ -61,7 +78,7 @@ $('#loginIcon').click(function(event) : void {
 	if ($(document).width() < 710) {
 		$('#userInfoToggle').toggle();
 	} else {
-		window.location.href = getGlobals().loginUrl;
+		window.location.href = globals.getLoginUrl();
 	}
 
 	event.preventDefault();

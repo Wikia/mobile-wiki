@@ -16,12 +16,18 @@ App.ArticleContentMixin = Em.Mixin.create({
 		width: null
 	},
 
+	/**
+	 * @returns {undefined}
+	 */
 	init(): void {
 		this._super();
 
 		App.ArticleContentListeners.add(this);
 	},
 
+	/**
+	 * @returns {undefined}
+	 */
 	willDestroyElement(): void {
 		this._super();
 
@@ -49,7 +55,7 @@ App.ArticleContentListeners = Em.Object.create({
 	/**
 	 * This is a simple getter. It can't be a computed property because Em.Object.create doesn't support them.
 	 *
-	 * @return {JQuery}
+	 * @returns {JQuery}
 	 */
 	getArticleContentElement(): JQuery {
 		var articleContentElement: JQuery = this.get('articleContentElement');
@@ -62,6 +68,10 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
+	/**
+	 * @param {Em.Component} container
+	 * @returns {undefined}
+	 */
 	add(container: Em.Component): void {
 		var articleContentWidth: number;
 
@@ -80,6 +90,10 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
+	/**
+	 * @param {Em.Component} container
+	 * @returns {undefined}
+	 */
 	remove(container: Em.Component): void {
 		var index = this.containers.indexOf(container);
 
@@ -88,6 +102,9 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	},
 
+	/**
+	 * @returns {undefined}
+	 */
 	onResize(): void {
 		var containers = this.containers,
 			containersCount = containers.length;

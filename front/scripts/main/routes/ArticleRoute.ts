@@ -6,17 +6,12 @@
 App.ArticleRoute = Em.Route.extend({
 	redirectEmptyTarget: false,
 
-	beforeModel: function (transition: EmberStates.Transition):void {
+	/**
+	 * @param {EmberStates.Transition} transition
+	 * @returns {undefined}
+	 */
+	beforeModel(transition: EmberStates.Transition): void {
 		var title = transition.params.article.title.replace('wiki/', '');
-
-		if (Mercury.error) {
-			if (Mercury.error.code === 404) {
-				this.transitionTo('notFound');
-			} else {
-				Em.Logger.debug('App error: ', Mercury.error);
-				transition.abort();
-			}
-		}
 
 		this.controllerFor('application').send('closeLightbox');
 
@@ -36,6 +31,10 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
+	/**
+	 * @param {*} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	model(params: any): Em.RSVP.Promise {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
@@ -44,7 +43,17 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {undefined}
+	 */
 	afterModel(model: typeof App.ArticleModel): void {
+		var exception = model.exception;
+
+		if (!Em.isEmpty(exception)) {
+			Em.Logger.warn('Article model error:', exception);
+		}
+
 		// if an article is main page, redirect to mainPage route
 		// this will handle accessing /wiki/Main_Page if default main page is different article
 		if (model.isMainPage) {
@@ -60,21 +69,34 @@ App.ArticleRoute = Em.Route.extend({
 		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
-	activate (): void {
+	/**
+	 * @returns {undefined}
+	 */
+	activate(): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
-	deactivate (): void {
+	/**
+	 * @returns {undefined}
+	 */
+	deactivate(): void {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	actions: {
+		/**
+		 * @param {EmberStates.Transition} transition
+		 * @returns {undefined}
+		 */
 		willTransition(transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
 		},
 
+		/**
+		 * @returns {boolean}
+		 */
 		didTransition(): boolean {
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
@@ -85,11 +107,21 @@ App.ArticleRoute = Em.Route.extend({
 			return true;
 		},
 
+		/**
+		 * @param {*} error
+		 * @param {EmberStates.Transition} transition
+		 * @returns {boolean}
+		 */
 		error(error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();
 			}
-			Em.Logger.warn('Route error', error.stack || error);
+
+			this.controllerFor('application').addAlert({
+				message: i18n.t('app.article-error'),
+				type: 'alert'
+			});
+
 			return true;
 		}
 	}

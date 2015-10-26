@@ -4,6 +4,10 @@
 'use strict';
 
 App.NotFoundRoute = Em.Route.extend({
+	/**
+	 * @param {EmberStates.Transition} transition
+	 * @returns {undefined}
+	 */
 	beforeModel(transition: EmberStates.Transition): void {
 		this.transitionTo('article', transition.params.notFound.url);
 	}

@@ -2,5 +2,5 @@
 'use strict';
 
 App.TrendingArticlesComponent = Em.Component.extend({
-	classNames: ['trending', 'trending-articles', 'mw-content']
+	classNames: ['trending', 'trending-articles', 'mw-content'],
 });

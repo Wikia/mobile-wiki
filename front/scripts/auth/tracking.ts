@@ -4,20 +4,27 @@
 
 
 (function () {
+	/**
+	 * Auth pages live on www.wikia.com and don't have access to WikiVariables
+	 * hence there's a need to provide this data inline
+	 *
+	 * @returns {undefined}
+	 */
 	function setupTracking(): void {
-		//Auth pages live on www.wikia.com and don't have access to WikiVariables
-		//hence there's a need to provide this data inline
 		M.provide('wiki', {
 			id: 80433,
 			dbName: 'wikiaglobal',
 			language: {
-				user: 'en'
-			}
+				user: 'en',
+			},
 		});
 
 		setTrackingDimensions();
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	function setTrackingDimensions (): void {
 		var dimensions: (string|Function)[] = [];
 		// Skin
@@ -33,6 +40,9 @@
 		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	function setTrackingForSignInPage (): void {
 		var tracker = new AuthTracker('user-login-mobile', '/signin');
 
@@ -65,6 +75,9 @@
 		);
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	function setTrackingForRegisterPage (): void {
 		var tracker = new AuthTracker('user-signup-mobile', '/register');
 
@@ -91,6 +104,9 @@
 		);
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	function setTrackingForJoinPage(): void {
 		var tracker = new AuthTracker('user-login-mobile', '/join');
 
@@ -130,6 +146,9 @@
 		);
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	function setTrackingForFBConnectPage () {
 		var tracker = new AuthTracker('user-signup-mobile', '/signin');
 
@@ -162,6 +181,9 @@
 		);
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	function setTrackingForFBRegisterPage () {
 		var tracker = new AuthTracker('user-signup-mobile', '/register');
 
@@ -188,6 +210,9 @@
 		);
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	function init (): void {
 		var pageType: string,
 			trackingSets: any;

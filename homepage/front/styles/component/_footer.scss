@@ -30,6 +30,12 @@
 		}
 	}
 
+	.footer-link-desktop {
+		@include media($mobile) {
+			display: none;
+		}
+	}
+
 	ul {
 		margin-bottom: $base-spacing * 2;
 		padding: 0;

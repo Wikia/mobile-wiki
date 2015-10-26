@@ -5,10 +5,17 @@
 'use strict';
 
 App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	model(): Em.RSVP.Promise {
 		return App.MainPageModel.find();
 	},
 
+	/**
+	 * @param {App.MainPageModel} model
+	 * @returns {undefined}
+	 */
 	afterModel(model: typeof App.MainPageModel): void {
 		var mainPageTitle = M.String.normalizeToWhitespace(Em.get(Mercury, 'wiki.mainPageTitle'));
 		document.title = mainPageTitle + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
@@ -26,6 +33,11 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 		}
 	},
 
+	/**
+	 * @param {*} controller
+	 * @param {App.MainPageModel} model
+	 * @returns {undefined}
+	 */
 	renderTemplate(controller: any, model: typeof App.MainPageModel): void {
 		if (model.isCuratedMainPage) {
 			this.render('main-page', {
@@ -41,6 +53,11 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	},
 
 	actions: {
+		/**
+		 * @param {*} error
+		 * @param {EmberStates.Transition} transition
+		 * @returns {boolean}
+		 */
 		error(error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();
