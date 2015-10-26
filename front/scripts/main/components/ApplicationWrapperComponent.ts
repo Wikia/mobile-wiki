@@ -55,6 +55,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
+	firstRender: true,
 
 	noScrollObserver: Em.observer('noScroll', function (): void {
 		var $body = Em.$('body'),
@@ -86,18 +87,15 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	/**
 	 * @returns {undefined}
 	 */
-	didInsertElement(): void {
-		this.trackFirstContent();
-	},
+	didRender(): void {
+		if (this.firstRender === true) {
+			this.firstRender = false;
 
-	/**
-	 * @returns {undefined}
-	 */
-	trackFirstContent(): void {
-		M.trackPerf({
-			name: 'firstContent',
-			type: 'mark'
-		});
+			M.trackPerf({
+				name: 'appRendered',
+				type: 'mark'
+			});
+		}
 	},
 
 	/**
