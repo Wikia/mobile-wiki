@@ -7,10 +7,10 @@ import logger = require('./Logger');
 import localSettings = require('../../config/localSettings');
 
 /**
- * @TODO XW-608 move setTitile to common part for MainPageRequestHelper and ArticleRequestHelper
+ * @TODO XW-608 move setTitile to common part for CuratedContentRequestHelper and ArticleRequestHelper
  * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
-export class MainPageRequestHelper {
+export class CuratedContentRequestHelper {
 	params: ArticleRequestParams;
 
 	constructor(params: ArticleRequestParams) {
@@ -25,7 +25,7 @@ export class MainPageRequestHelper {
 		this.params.title = title;
 	}
 
-	getWikiVariablesAndDetails(): any {
+	getWikiVariablesAndDetails(): Promise<CuratedContentPageData> {
 		var requests = [
 			new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext(),
 			new MediaWiki.WikiRequest({
@@ -46,14 +46,14 @@ export class MainPageRequestHelper {
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
 		return Promise.settle(requests)
-			.then((results: Promise.Inspection<Promise<any>>[]) => {
-				var mainPageDataPromise: Promise.Inspection<Promise<any>> = results[0],
+			.then((results: Promise.Inspection<Promise<CuratedContentPageData>>[]) => {
+				var mainPageDataPromise: Promise.Inspection<Promise<MainPageData>> = results[0],
 					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
 					isMainPageDataPromiseFulfilled = mainPageDataPromise.isFulfilled(),
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
-					mainPageData: any,
+					mainPageData: MainPageData,
 					wikiVariables: any,
-					data: any;
+					data: CuratedContentPageData;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 				mainPageData = isMainPageDataPromiseFulfilled ?

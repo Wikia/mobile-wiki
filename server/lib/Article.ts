@@ -5,7 +5,7 @@
 
 /**
  * @description Article controller
- * @TODO XW-608 move setTitile to common part for MainPageRequestHelper and ArticleRequestHelper
+ * @TODO XW-608 move setTitile to common part for CuratedContentRequestHelper and ArticleRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 import util = require('util');

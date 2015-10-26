@@ -17,12 +17,19 @@ var cachingTimes = {
 	browserTTL: Caching.Interval.disabled
 };
 
+/**
+ *
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ *
+ * @returns {void}
+ */
 function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
 	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
 		params: ArticleRequestParams = {
 			wikiDomain: wikiDomain
 		},
-		mainPage: MainPage.MainPageRequestHelper,
+		mainPage: MainPage.CuratedContentRequestHelper,
 		allowCache = true;
 
 	if (request.state.wikicities_session) {
@@ -32,7 +39,7 @@ function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
 		allowCache = false;
 	}
 
-	mainPage = new MainPage.MainPageRequestHelper(params);
+	mainPage = new MainPage.CuratedContentRequestHelper(params);
 
 	mainPage.setTitle(request.params.title);
 	mainPage.getWikiVariablesAndDetails()
@@ -64,8 +71,10 @@ function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  * @param {ArticlePageData} data
- * @param {boolean} allowCache
- * @param {number} code
+ * @param {boolean} [allowCache=true]
+ * @param {number} [code=200]
+ *
+ * @returns {void}
  */
 function outputResponse(request: Hapi.Request,
 						reply: Hapi.Response,
