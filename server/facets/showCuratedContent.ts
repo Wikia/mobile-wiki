@@ -1,7 +1,7 @@
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
 import Logger = require('../lib/Logger');
-import MainPage = require('../lib/MainPage');
+import MainPage = require('../lib/CuratedMainPage');
 import MediaWiki = require('../lib/MediaWiki');
 import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
