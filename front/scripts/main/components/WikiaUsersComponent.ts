@@ -11,5 +11,5 @@ App.WikiaUsersComponent = Em.Component.extend({
 	limit: 5,
 	thumbMode: Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
 	trackingEvent: null,
-	users: []
+	users: [],
 });

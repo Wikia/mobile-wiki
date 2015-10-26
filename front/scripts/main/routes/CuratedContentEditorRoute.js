@@ -2,9 +2,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 	App.TrackClickMixin,
 	{
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
-		beforeModel() {
+			beforeModel() {
 			if (!$().cropper || !this.get('cropperLoadingInitialized')) {
 				this.suppressDefineAmd(
 					this.loadCropper()
@@ -24,7 +24,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		/**
 		 * @returns {Em.RSVP.Promise} model
 		 */
-		model() {
+			model() {
 			return App.CuratedContentEditorModel.load();
 		},
 
@@ -35,9 +35,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * This will be not needed when we move to module system
 		 *
 		 * @param {JQueryXHR} promise
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
-		suppressDefineAmd(promise) {
+			suppressDefineAmd(promise) {
 			let oldAmd;
 
 			if (window.define) {
@@ -58,7 +58,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 *
 		 * @returns {JQueryXHR} cropper
 		 */
-		loadCropper() {
+			loadCropper() {
 			this.set('cropperLoadingInitialized', true);
 
 			$('<link>')
@@ -78,7 +78,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 *
 		 * @returns {JQueryXHR} pronto
 		 */
-		loadPonto() {
+			loadPonto() {
 			this.set('pontoLoadingInitialized', true);
 
 			return Em.$.getScript(this.pontoPath, () => {
@@ -92,45 +92,45 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		actions: {
 			/**
-			 * @param {String} block
-			 * @returns {void}
+			 * @param {string} block
+			 * @returns {undefined}
 			 */
-			addBlockItem(block) {
+				addBlockItem(block) {
 				this.trackClick('curated-content-editor', 'item-add');
 				this.transitionTo('curatedContentEditor.blockAddItem', block);
 			},
 			/**
 			 * @param {CuratedContentEditorItemModel} item
-			 * @param {String} block
-			 * @returns {void}
+			 * @param {string} block
+			 * @returns {undefined}
 			 */
-			editBlockItem(item, block) {
+				editBlockItem(item, block) {
 				this.trackClick('curated-content-editor', 'item-edit');
 				this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
-			addSection() {
+				addSection() {
 				this.trackClick('curated-content-editor', 'section-add');
 				this.transitionTo('curatedContentEditor.sectionAdd');
 			},
 
 			/**
 			 * @param {CuratedContentEditorItemModel} section
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
-			openSection(section) {
+				openSection(section) {
 				this.trackClick('curated-content-editor', 'section-open');
 				this.transitionTo('curatedContentEditor.section', encodeURIComponent(section.label));
 			},
 
 			/**
 			 * @param {Boolean} dataSaved it's a flag whether data was saved or not
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
-			openMainPage(dataSaved) {
+				openMainPage(dataSaved) {
 				this.handleTransitionToMainPage(dataSaved);
 			},
 
@@ -138,7 +138,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			 * @param {Object} error
 			 * @returns {Boolean} returns true
 			 */
-			error(error) {
+				error(error) {
 				if (error.status === 403) {
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
@@ -162,7 +162,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			 * @param {EmberState.Transition} transition
 			 * @returns {Boolean} returns true
 			 */
-			willTransition(transition) {
+				willTransition(transition) {
 				const isStayingOnEditor = transition.targetName.indexOf('curatedContentEditor') > -1;
 
 				if (
@@ -186,7 +186,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			/**
 			 * @returns {Boolean} returns true
 			 */
-			didTransition() {
+				didTransition() {
 				this.controllerFor('application').set('fullPage', true);
 				return true;
 			}
@@ -197,9 +197,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * Does transition to the main page or sends a message through Ponto if available
 		 *
 		 * @param {Boolean} dataSaved=false it's a flag whether data was saved or not
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
-		handleTransitionToMainPage(dataSaved = false) {
+			handleTransitionToMainPage(dataSaved = false) {
 			const ponto = window.Ponto;
 
 			this.set('publish', Boolean(dataSaved));
@@ -213,9 +213,9 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		/**
 		 * @param {Object} ponto
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
-		closeModalUsingPonto(ponto) {
+			closeModalUsingPonto(ponto) {
 			const dataSaved = this.get('publish');
 
 			if (App.CuratedContentEditorModel.isDirty &&

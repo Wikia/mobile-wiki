@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="{{wiki.language.content}}" dir="{{wiki.language.contentDir}}">
+<html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wiki.siteName}}</title>
-		<meta name="keywords" content="{{#if wiki.siteMessage}}{{wiki.siteMessage}},{{/if}}{{wiki.siteName}},{{wiki.dbName}},{{displayTitle}}">
-		<meta name="description" content="{{article.details.description}}">
+		<title>{{#if displayTitle}}{{displayTitle}} - {{/if}}{{wikiVariables.siteName}}</title>
+		<meta name="keywords" content="{{#if wikiVariables.siteMessage}}{{wikiVariables.siteMessage}},{{/if}}{{wikiVariables.siteName}},{{wikiVariables.dbName}},{{displayTitle}}">
+		<meta name="description" content="{{article.data.details.description}}">
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 
 		{{#if themeColor}}
 			<meta name="theme-color" content="{{themeColor}}">
 		{{/if}}
-		{{#if wiki.specialRobotPolicy}}
-			<meta name="robots" content="{{wiki.specialRobotPolicy}}">
+		{{#if wikiVariables.specialRobotPolicy}}
+			<meta name="robots" content="{{wikiVariables.specialRobotPolicy}}">
 		{{/if}}
 		{{#if asyncArticle}}
 			<meta name="fragment" content="!">
@@ -42,9 +42,9 @@
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
-			M.prop('translations', {{{json (translations wiki.language.content ns='main')}}});
+			M.prop('translations', {{{json (translations wikiVariables.language.content ns='main')}}});
 			M.prop('weppyConfig', {{{json localSettings.weppy}}});
-			M.prop('wikiaLanguage', '{{{wiki.language.content}}}');
+			M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
 			M.prop('userId', {{{userId}}});
 			M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 			M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
@@ -52,13 +52,13 @@
 			{{#if discussionsSplashPageConfig}}
 				M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
 			{{/if}}
-			// TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently
+			{{!-- TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently --}}
 			M.provide('ads.slots', []);
-			M.provide('wiki', {{{json wiki}}});
+			M.provide('wiki', {{{json wikiVariables}}});
 
 			{{#if server.mediawikiDomain}}
 				M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
-				M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wiki.cacheBuster}}/groups/-/mercury_ads_js');
+				M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wikiVariables.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
 			{{#if asyncArticle}}
 				M.prop('asyncArticle', {{asyncArticle}});
@@ -73,8 +73,8 @@
 			{{#if mainPageData}}
 				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
-			{{#if error}}
-				M.provide('error', {{{error}}});
+			{{#if exception}}
+				M.provide('exception', {{{json exception}}});
 			{{/if}}
 			{{#if server.optimizelyScript}}
 				M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
@@ -94,11 +94,11 @@
 		<!-- @include ../../../www/front/svg/main.svg -->
 
 
-        <!--
+        {{!--
         Ember must render out to a specific div above the scripts, otherwise
         Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
         DO NOT REMOVE THE FOLLOWING LINE:
-        -->
+        --}}
 		<div id="ember-container">
 			<div id="preload">
 				<nav class="site-head">
@@ -108,7 +108,7 @@
 						</svg>
 					</div>
 				</nav>
-				<div class="page-wrapper" lang="{{wiki.language.content}}" dir="{{wiki.language.contentDir}}">
+				<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 					{{{content}}}
 				</div>
 			</div>

@@ -1,6 +1,15 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+/**
+ * ImageCropData
+ * @typedef {Object} ImageCropData
+ * @property {number} x
+ * @property {number} y
+ * @property {number} width
+ * @property {number} height
+ */
+
 interface ImageCropData {
 	x: number;
 	y: number;
@@ -25,6 +34,11 @@ App.CuratedContentThumbnailMixin = Em.Mixin.create({
 		return Math.round(this.get('imageWidth') / this.get('aspectRatio'));
 	}),
 
+	/**
+	 * @param {string} imageUrl
+	 * @param {ImageCropData} [imageCrop=null]
+	 * @returns {string}
+	 */
 	generateThumbUrl(imageUrl: string, imageCrop: ImageCropData = null): string {
 		var options: any = {
 			width: this.get('imageWidth')

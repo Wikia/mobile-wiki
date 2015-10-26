@@ -50,6 +50,11 @@ App.ArticleEditModel.reopenClass(App.ArticleEditMixin, {
 		});
 	},
 
+	/**
+	 * @param {string} title
+	 * @param {number} sectionIndex
+	 * @returns {Em.RSVP.Promise}
+	 */
 	load: function(title: string, sectionIndex: number): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(M.buildUrl({path: '/api.php'}), {
