@@ -1,3 +1,6 @@
+## release-182 hotfix 1 (2015-10-26 14:32 UTC)
+* release-182-XW-618-hotfix: [HOTFIX] XW-618 Fix page view tracking
+
 ## release-182 (2015-10-23 07:59 UTC)
 * [SOC-1425](https://wikia-inc.atlassian.net/browse/SOC-1425) SOC-1425 Hard-code community avatars for discussions
 * [XW-557](https://wikia-inc.atlassian.net/browse/XW-557) XW-557 Remove obsolete controllers
