@@ -15,6 +15,9 @@ App.SearchResultsRoute = Em.Route.extend({
 		this._super(controller, model, transition);
 		// Only search in current community
 		controller.set('site', window.location.hostname);
+
+		// Send extra tracking info to GA to track search usage
+		M.trackGoogleSearch(window.location.href + 'search?q=' + controller.q);
 	},
 
 	/**
