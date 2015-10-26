@@ -3,6 +3,8 @@
 </a>
 <button type="submit">Post</button>
 <textarea class="editor" onfocus={{action 'activateEditorComponent'}} placeholder="Share a thought, question or link..."></textarea>
+
+{{! TODO anon avatar }}
 {{user-avatar
-avatarUrl="http://vignette-poz.wikia-dev.com/common/avatars/0/05/5428365.png/revision/latest/scale-to-width-down/100?cb=1438703288&amp;format=jpg"
+	avatarUrl=currentUser.avatarPath
 }}
