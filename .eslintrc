@@ -8,6 +8,15 @@
     "superInFunction": true,
     "templateStrings": true
   },
+  "globals": {
+    "App": true,
+    "M": true,
+    "Mercury": true,
+    "QUnit": true,
+    "Em": true,
+    "i8n": true,
+    "window": true
+  },
   // http://eslint.org/docs/rules/
   "rules": {
     // Possible Errors
