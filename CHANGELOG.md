@@ -1,3 +1,21 @@
+## release-183 (2015-10-27 12:45 UTC)
+* create-eslintignore: Create .eslintignore; add more globals
+* [INT-231](https://wikia-inc.atlassian.net/browse/INT-231) Changed wording for Wikia Live to Romaji
+* [INT-170](https://wikia-inc.atlassian.net/browse/INT-170) we want users to be logged in to upload images on Mercury
+* [SOC-1450](https://wikia-inc.atlassian.net/browse/SOC-1450) SOC-1450 | The "view older replies" button stays highlighted after clicking it
+* [XW-618](https://wikia-inc.atlassian.net/browse/XW-618) XW-618 Fix page view tracking
+* track-app-rendered: Track the first didRender instead of didInsertElement
+* [SOC-1174](https://wikia-inc.atlassian.net/browse/SOC-1174) SOC-1174-fix | Fixed 404 after hitting view older replays button
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) GA tracking for google custom search
+* [INT-231](https://wikia-inc.atlassian.net/browse/INT-231) Remove some links from Japan HP footer in mobile view
+* [PI-](https://wikia-inc.atlassian.net/browse/PI-) Media Collections in Portable Infoboxes - MVP
+* [VE-1999](https://wikia-inc.atlassian.net/browse/VE-1999) Change image crop mode on portrait images
+* [VE-1998](https://wikia-inc.atlassian.net/browse/VE-1998) Make sure article videos are clickable
+* [INT-230](https://wikia-inc.atlassian.net/browse/INT-230) Add Create a wikia to nav (desktop only) for Japan homepage
+* [INT-217](https://wikia-inc.atlassian.net/browse/INT-217) Return front end globals for Japan HP via json file
+* [INT-234](https://wikia-inc.atlassian.net/browse/INT-234) Fixed position for Japan homepage nav on desktop
+* [VE-1960](https://wikia-inc.atlassian.net/browse/VE-1960) Mobile rendering of image collections
+
 ## release-182 hotfix 1 (2015-10-26 14:32 UTC)
 * release-182-XW-618-hotfix: [HOTFIX] XW-618 Fix page view tracking
 
