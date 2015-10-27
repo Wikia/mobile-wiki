@@ -148,6 +148,7 @@
     "curated-content-editor-new-category":"Новая категория"
   },
   "discussion":{
+    "pagination-post-show-more":"Просмотр старых ответов",
     "share-default-title":"Обсуждение на __siteName__",
     "contributors-title":"Все участники",
     "sort-by-latest":"Последние",
