@@ -2,7 +2,7 @@
 'use strict';
 
 interface Window {
-	define: Function;
+	define: any;
 }
 
 /**
