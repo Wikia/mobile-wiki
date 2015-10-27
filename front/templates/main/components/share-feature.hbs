@@ -1,5 +1,3 @@
 {{#each currentSocialNetworks as |item|}}
-	<a {{action 'share' item}} href="#">
-		{{svg item role='img' class='icon'}}
-	</a>
+	<a {{action 'share' item}} class="{{item}} icon" href="#"></a>
 {{/each}}

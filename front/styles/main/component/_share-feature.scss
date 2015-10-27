@@ -1,15 +1,16 @@
 .share-feature {
+	display: flex;
+	justify-content: flex-end;
 	text-align: right;
 
 	.icon {
-		filter: grayscale(100%);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		display: block;
 		height: 32px;
 		margin-left: 5px;
 		width: 32px;
-
-		&:hover {
-			filter: grayscale(0%);
-		}
 	}
 }
 

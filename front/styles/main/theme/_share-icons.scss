@@ -1,0 +1,90 @@
+.share-feature {
+	.facebook {
+		background-image: url('/front/images/facebook.svg');
+
+		&:hover {
+			background-image: url('/front/images/facebook-active.svg')
+		}
+	}
+
+	.google {
+		background-image: url('/front/images/google.svg');
+
+		&:hover {
+			background-image: url('/front/images/google-active.svg')
+		}
+	}
+
+	.line {
+		background-image: url('/front/images/line.svg');
+
+		&:hover {
+			background-image: url('/front/images/line-active.svg')
+		}
+	}
+
+	.twitter {
+		background-image: url('/front/images/twitter.svg');
+
+		&:hover {
+			background-image: url('/front/images/twitter-active.svg')
+		}
+	}
+
+	.tumblr {
+		background-image: url('/front/images/tumblr.svg');
+
+		&:hover {
+			background-image: url('/front/images/tumblr-active.svg')
+		}
+	}
+
+	.meneame {
+		background-image: url('/front/images/meneame.svg');
+
+		&:hover {
+			background-image: url('/front/images/meneame-active.svg')
+		}
+	}
+
+	.reddit {
+		background-image: url('/front/images/reddit.svg');
+
+		&:hover {
+			background-image: url('/front/images/reddit-active.svg')
+		}
+	}
+
+	.odnoklassniki {
+		background-image: url('/front/images/odnoklassniki.svg');
+
+		&:hover {
+			background-image: url('/front/images/odnoklassniki-active.svg')
+		}
+	}
+
+	.vkontakte {
+		background-image: url('/front/images/vkontakte.svg');
+
+		&:hover {
+			background-image: url('/front/images/vkontakte-active.svg')
+		}
+	}
+
+	.nk {
+		background-image: url('/front/images/nk.svg');
+
+		&:hover {
+			background-image: url('/front/images/nk-active.svg')
+		}
+	}
+
+	.wykop {
+		background-image: url('/front/images/wykop.svg');
+
+		&:hover {
+			background-image: url('/front/images/wykop-active.svg')
+		}
+	}
+}
+
