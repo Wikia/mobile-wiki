@@ -44,7 +44,7 @@ exports.routes = [
 	},
 	{
 		method: 'GET',
-		path: '/globals.js',
+		path: '/globals',
 		handler: require('./facets/globals')
 	},
 	{

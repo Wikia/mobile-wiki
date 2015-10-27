@@ -1,3 +1,7 @@
+/**
+ * Creates new Marketing Opt In.
+ * @class MarketingOptIn
+ */
 class MarketingOptIn {
 	checkbox: HTMLInputElement;
 	label: HTMLLabelElement;
@@ -6,6 +10,9 @@ class MarketingOptIn {
 	isCanada: boolean;
 	isJapan: boolean;
 
+	/**
+	 * @constructs MarketingOptIn
+	 */
 	constructor () {
 		this.checkbox = <HTMLInputElement> document.getElementById('signupNewsletter');
 		this.label = <HTMLLabelElement> this.checkbox.parentElement;

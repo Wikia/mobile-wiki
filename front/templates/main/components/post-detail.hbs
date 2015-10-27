@@ -2,8 +2,8 @@
 	{{user-avatar
 		avatarUrl=post.createdBy.avatarUrl
 		displayUsername=true
-		profileUrl=authorUrl
-		username=post.createdBy.name
+		profileUrl=author.profileUrl
+		username=author.name
 	}}
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}

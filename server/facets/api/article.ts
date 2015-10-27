@@ -2,7 +2,7 @@ import Article = require('../../lib/Article');
 import Caching = require('../../lib/Caching');
 import Utils = require('../../lib/Utils');
 import localSettings = require('../../../config/localSettings');
-import wrapResult = require('./presenters/wrapResult');
+import getStatusCode = require('../operations/getStatusCode');
 
 var cachingTimes = {
 		enabled: true,
@@ -16,8 +16,7 @@ function isRequestForRandomTitle(query: any): boolean {
 }
 
 function handleArticleResponse(reply: any, result: any, allowCache: boolean): void {
-	var wrappedResult = wrapResult(result.exception, result.data),
-		response = reply(wrappedResult).code(wrappedResult.status);
+	var response = reply(result).code(getStatusCode(result));
 
 	if (allowCache) {
 		return Caching.setResponseCaching(response, cachingTimes);
@@ -52,10 +51,15 @@ export function get(request: Hapi.Request, reply: any): void {
 	article = new Article.ArticleRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
-		article.getArticleRandomTitle((error: any, result: any): void => {
-			var wrappedResult = wrapResult(error, result);
-			Caching.disableCache(reply(wrappedResult));
-		});
+		article
+			.getArticleRandomTitle()
+			.then((result: any): void => {
+				Caching.disableCache(reply(result));
+			})
+			.catch((result: any) => {
+				Caching.disableCache(reply(result).code(getStatusCode(result)));
+			});
+
 		return;
 	}
 

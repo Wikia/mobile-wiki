@@ -16,16 +16,21 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	notFoundError: null,
 	contributors: [],
 
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
-					 this.wikiId + '/threads/' + this.postId +
-					 '?responseGroup=full' +
-					 '&sortDirection=descending&sortKey=creation_date' +
-					 '&limit=' + this.replyLimit +
-					 '&pivot=' + this.pivotId +
-					 '&page=' + (this.page + 1),
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`,
+					{
+						'responseGroup': 'full',
+						'sortDirection': 'descending',
+						'sortKey': 'creation_date',
+						'limit': this.replyLimit,
+						'pivot': this.pivotId,
+						'page': this.page+1
+					}),
 				dataType: 'json',
 				success: (data: any) => {
 					var newReplies = data._embedded['doc:posts'];
@@ -53,6 +58,11 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 });
 
 App.DiscussionPostModel.reopenClass({
+	/**
+	 * @param {number} wikiId
+	 * @param {number} postId
+	 * @returns {Em.RSVP.Promise}
+	 */
 	find(wikiId: number, postId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var postInstance = App.DiscussionPostModel.create({
@@ -61,10 +71,13 @@ App.DiscussionPostModel.reopenClass({
 			});
 
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') +
-					 `/discussion/${wikiId}/threads/${postId}` +
-					 '?responseGroup=full&sortDirection=descending&sortKey=creation_date' +
-					 '&limit=' + postInstance.replyLimit,
+				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`,
+					{
+						'responseGroup': 'full',
+						'sortDirection': 'descending',
+						'sortKey': 'creation_date',
+						'limit': postInstance.replyLimit
+					}),
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
@@ -78,19 +91,17 @@ App.DiscussionPostModel.reopenClass({
 						pivotId = replies[0].id;
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
-					}
 
-					replies.forEach(function (reply: any) {
-						var author: any;
-						if (reply.hasOwnProperty('createdBy')) {
-							author = reply.createdBy;
-							author.url = M.buildUrl({
-								namespace: 'User',
-								title: author.name
-							});
-							contributors.push(author);
-						}
-					});
+						replies.forEach(function (reply: any) {
+							if (reply.hasOwnProperty('createdBy')) {
+								reply.createdBy.profileUrl = M.buildUrl({
+									namespace: 'User',
+									title: reply.createdBy.name
+								});
+								contributors.push(reply.createdBy);
+							}
+						});
+					}
 
 					postInstance.setProperties({
 						contributors: contributors,

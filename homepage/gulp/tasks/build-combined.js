@@ -9,10 +9,11 @@ var gulp = require('gulp'),
 	gulpconcat = require('gulp-concat'),
 	piper = require('../utils/piper');
 
-gulp.task('build-combined', ['scripts'], function () {
+gulp.task('build-combined', ['vendor', 'scripts'], function () {
 	var src = [
 		'vendor/jquery/dist/jquery.min.js',
 		'vendor/jquery-bigtext/jquery-bigtext.js',
+		'vendor/rsvp.js/rsvp.min.js',
 		'vendor/slick.js/slick/slick.min.js',
 		'front/js/main.js'];
 

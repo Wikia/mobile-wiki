@@ -29,23 +29,34 @@ App.DiscussionForumController = Em.Controller.extend({
 	}),
 
 	actions: {
+
+		/**
+		 * @returns {undefined}
+		 */
 		showSortComponent(): void {
 			this.set('sortVisible', true);
 		},
 
+		/**
+		 * @returns {undefined}
+		 */
 		hideSortComponent(): void {
 			this.set('sortVisible', false);
 		},
 
 		/**
-		 * @desc Bubbles up to DiscussionForumRoute
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {undefined}
 		 */
 		retry(): void {
 			this.get('target').send('retry');
 		},
 
 		/**
-		 * @desc Bubbles up to DiscussionForumRoute
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {undefined}
 		 */
 		goToAllDiscussions(): void {
 			this.get('target').send('goToAllDiscussions');

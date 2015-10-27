@@ -17,11 +17,22 @@ interface YouTubeEvent {
 	target: any;
 }
 
+/**
+ * @typedef {Object} YouTubeEvent
+ * @property {number} data
+ * @property {*} target
+ */
+
 module Mercury.Modules.VideoPlayers {
 	export class YouTubePlayer extends BasePlayer {
 		started: boolean;
 		ended: boolean;
 
+		/**
+		 * @param {string} provider
+		 * @param {*} params
+		 * @returns {undefined}
+		 */
 		constructor (provider: string, params: any) {
 			super(provider, params);
 			this.started = false;
@@ -32,6 +43,9 @@ module Mercury.Modules.VideoPlayers {
 		resourceURI = 'https://www.youtube.com/iframe_api';
 		containerId = this.createUniqueId('youtubeVideoPlayer');
 
+		/**
+		 * @returns {undefined}
+		 */
 		bindPlayerEvents (): void {
 			this.params.events = {
 				'onReady': () => { return this.onPlayerReady.apply(this, arguments); },
@@ -48,15 +62,25 @@ module Mercury.Modules.VideoPlayers {
 			}
 		}
 
+		/**
+		 * @returns {undefined}
+		 */
 		createPlayer (): void {
 			this.player = new window.YT.Player(this.containerId, this.params);
 		}
 
+		/**
+		 * @returns {undefined}
+		 */
 		onPlayerReady (): void {
 			this.onResize();
 			this.track('player-loaded');
 		}
 
+		/**
+		 * @param {YouTubeEvent} event
+		 * @returns {undefined}
+		 */
 		onPlayerStateChange (event: YouTubeEvent): void {
 			if (!this.started && event.data === 1) {
 				this.track('content-begin');

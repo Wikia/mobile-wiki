@@ -1,6 +1,10 @@
 /// <reference path="../../baseline/mercury.d.ts" />
 
 module Mercury.Utils {
+	/**
+	 * @param {string} name
+	 * @returns {string}
+	 */
 	export function getQueryParam(name: string): string {
 		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),

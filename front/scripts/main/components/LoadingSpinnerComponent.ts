@@ -13,7 +13,8 @@ App.LoadingSpinnerComponent = Em.Component.extend({
 	fullRadius: Em.computed('radius', function (): number {
 		return this.get('radius') + (this.get('strokeWidth')/2);
 	}),
+
 	fullDiameter: Em.computed('radius', function (): number {
 		return this.get('radius') * 2 + this.get('strokeWidth');
-	})
+	}),
 });

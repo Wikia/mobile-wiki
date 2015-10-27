@@ -6,5 +6,5 @@
 
 App.TopBarComponent = Em.Component.extend({
 	classNames: ['top-bar-component'],
-	logoHref: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com')
+	logoHref: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 });
