@@ -1,15 +1,25 @@
 /**
  * Controls floating labels behavior on focus / blur events in input fields
+ * @class Form
  */
 class Form {
 	form: HTMLFormElement;
 	inputs: NodeList;
 
+	/**
+	 * @constructs Form
+	 * @param {Element} form
+	 */
 	constructor (form: Element) {
 		this.form = <HTMLFormElement> form;
 		this.inputs = this.form.querySelectorAll('input[type=text], input[type=password], input[type=email]');
 	}
 
+	/**
+	 * @param {Event} event
+	 *
+	 * @returns {undefined}
+	 */
 	private onFocus (event: Event): void {
 		var input: HTMLInputElement = <HTMLInputElement> event.target,
 			wrapper: HTMLElement,
@@ -27,6 +37,11 @@ class Form {
 		}
 	}
 
+	/**
+	 * @param {Event} event
+	 *
+	 * @returns {undefined}
+	 */
 	private onBlur (event: Event): void {
 		Array.prototype.forEach.call(
 			this.inputs,
@@ -41,6 +56,12 @@ class Form {
 		);
 	}
 
+	/**
+	 * @param {HTMLInputElement} input
+	 * @param {HTMLElement} toggler
+	 *
+	 * @returns {undefined}
+	 */
 	private togglePasswordInput (input: HTMLInputElement, toggler: HTMLElement): void {
 		if (input.type === 'password') {
 			input.type = 'text';
@@ -52,6 +73,11 @@ class Form {
 		input.focus();
 	}
 
+	/**
+	 * @param {Event} event
+	 *
+	 * @returns {undefined}
+	 */
 	private onClick (event: Event): void {
 		var element: HTMLInputElement = <HTMLInputElement> event.target,
 			wrapper: HTMLElement,
@@ -67,6 +93,8 @@ class Form {
 
 	/**
 	 * Moves labels up if they were filled by the browser's autofill
+	 *
+	 * @returns {undefined}
 	 */
 	private onChange(): void {
 		Array.prototype.forEach.call(
@@ -81,6 +109,11 @@ class Form {
 		)
 	}
 
+	/**
+	 * @param {HTMLElement} currentElement
+	 *
+	 * @returns {HTMLElement}
+	 */
 	private findWrapper(currentElement: HTMLElement): HTMLElement {
 		while (currentElement && !currentElement.classList.contains('input-container')) {
 			currentElement = <HTMLElement> currentElement.parentElement;
@@ -89,12 +122,19 @@ class Form {
 		return currentElement;
 	}
 
+	/**
+	 * @param {HTMLElement} container
+	 *
+	 * @returns {HTMLElement}
+	 */
 	private findLabel(container: HTMLElement): HTMLElement {
 		return <HTMLElement> container.querySelector('label');
 	}
 
 	/**
 	 * Starts continuous checking for new input
+	 *
+	 * @returns {undefined}
 	 */
 	public watch (): void {
 		this.onChange();

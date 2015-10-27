@@ -6,6 +6,8 @@ $infobox-hero-outline-color: rgba(0, 0, 0, .8);
 $infobox-hero-font-color: #fff;
 $min-hero-item-height: 110px;
 
+$infobox-image-collection-button-width: 60px;
+
 //fonts used in infobox
 $infobox-title-font-size: 18px;
 $infobox-title-line-height: 28px;
@@ -56,6 +58,61 @@ $hero-caption-line-height: 18px;
 	}
 
 	//////////// Specific styles for each of the infobox elements starts here ////////////
+
+// infobox gallery
+.pi-image-collection {
+	position: relative;
+
+	.pi-item {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+
+	.article-video::before {
+		background-position: center;
+	}
+
+	.pi-hero-title-wrapper {
+		text-align: left;
+	}
+
+	.image-collection-actions {
+		width: 100%;
+
+		button {
+			background: transparent;
+			border: none;
+			bottom: 0;
+			display: block;
+			height: auto;
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			top: 0;
+			width: $infobox-image-collection-button-width;
+			z-index: 2;
+		}
+
+		svg {
+			fill: $infobox-hero-font-color;
+			stroke: $infobox-hero-font-color;
+		}
+
+		.action-previous svg {
+			transform: scaleX(-1);
+		}
+	}
+
+	.action-next {
+		right: 0;
+	}
+	.action-previous {
+		left: 0;
+	}
+}
 
 	// infobox hero
 	.pi-hero {

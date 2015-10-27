@@ -1,6 +1,5 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../baseline/mercury" />
-/// <reference path="../mixins/EditMixin.ts" />
 /// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
 'use strict';
 
@@ -36,6 +35,10 @@ App.SearchImagesModel = Em.Object.extend({
 	searchQuery: '',
 	items: [],
 
+	/**
+	 * @param {SearchPhotoImageResponseInterface[]} fetchedImages
+	 * @returns {undefined}
+	 */
 	setItems(fetchedImages: SearchPhotoImageResponseInterface[]): void {
 		var items = this.get('items');
 
@@ -58,6 +61,9 @@ App.SearchImagesModel = Em.Object.extend({
 		return this.get('batches') > this.get('nextBatch');
 	}),
 
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	next(): Em.RSVP.Promise {
 		this.incrementProperty('nextBatch');
 
@@ -90,6 +96,9 @@ App.SearchImagesModel = Em.Object.extend({
 		})
 	},
 
+	/**
+	 * @returns {JQueryXHR}
+	 */
 	fetch(): JQueryXHR {
 		return Em.$.getJSON(
 			M.buildUrl({

@@ -6,41 +6,65 @@
 /// <reference path="../../mercury/utils/track.ts"/>
 'use strict';
 
-App.FeaturedContentComponent = Em.Component.extend(App.FeaturedContentMixin, App.TrackClickMixin, App.ThirdsClickMixin, {
-	// See ThirdsClickMixin
-	screenEdgeWidthRatio: (1 / 6),
+App.FeaturedContentComponent = Em.Component.extend(
+	App.FeaturedContentMixin,
+	App.TrackClickMixin,
+	App.ThirdsClickMixin,
+	{
+		// See ThirdsClickMixin
+		screenEdgeWidthRatio: (1 / 6),
 
-	gestures: {
-		swipeLeft: function (): void {
+		gestures: {
+			/**
+			 * @returns {undefined}
+			 */
+			swipeLeft(): void {
+				M.VariantTesting.trackEvent('featured-content-next');
+				this.nextItem();
+			},
+
+			/**
+			 * @returns {undefined}
+			 */
+			swipeRight(): void {
+				M.VariantTesting.trackEvent('featured-content-prev');
+				this.prevItem();
+			},
+		},
+
+		/**
+		 * @returns {boolean}
+		 */
+		rightClickHandler(): boolean {
 			M.VariantTesting.trackEvent('featured-content-next');
 			this.nextItem();
+			return true;
 		},
 
-		swipeRight: function (): void {
+		/**
+		 * @returns {boolean}
+		 */
+		leftClickHandler(): boolean {
 			M.VariantTesting.trackEvent('featured-content-prev');
 			this.prevItem();
+			return true;
 		},
-	},
 
-	rightClickHandler: function(): boolean {
-		M.VariantTesting.trackEvent('featured-content-next');
-		this.nextItem();
-		return true;
-	},
+		/**
+		 * @returns {boolean}
+		 */
+		centerClickHandler(): boolean {
+			this.trackClick('modular-main-page', 'featured-content');
+			M.VariantTesting.trackEvent('featured-content-click');
+			return false;
+		},
 
-	leftClickHandler: function (): boolean {
-		M.VariantTesting.trackEvent('featured-content-prev');
-		this.prevItem();
-		return true;
-	},
-
-	centerClickHandler: function (): boolean {
-		this.trackClick('modular-main-page', 'featured-content');
-		M.VariantTesting.trackEvent('featured-content-click');
-		return false;
-	},
-
-	click: function (event: PreventableClickEvent): void {
-		this.callClickHandler(event, true);
+		/**
+		 * @param {PreventableClickEvent} event
+		 * @returns {undefined}
+		 */
+		click(event: PreventableClickEvent): void {
+			this.callClickHandler(event, true);
+		},
 	}
-});
+);

@@ -16,11 +16,17 @@ interface OptimizelyExperimentIds {
 	dev: string;
 }
 
+/**
+ * @typedef {Object} OptimizelyExperimentIds
+ * @property {string} prod
+ * @property {string} dev
+ */
+
 module Mercury.Utils.VariantTesting {
 	/**
 	 * Activates all variant tests for the current page
 	 *
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function activate (): void {
 		var optimizely = window.optimizely;
@@ -33,7 +39,7 @@ module Mercury.Utils.VariantTesting {
 	 * Tracks an event by name
 	 *
 	 * @param {string} eventName
-	 * @returns {void}
+	 * @returns {undefined}
 	 */
 	export function trackEvent (eventName: string): void {
 		var optimizely = window.optimizely;
@@ -63,8 +69,8 @@ module Mercury.Utils.VariantTesting {
 	/**
 	 * Integrates Optimizely with Universal Analytics
 	 *
-	 * @param {[]} dimensions
-	 * @returns {[]}
+	 * @param {*[]} dimensions
+	 * @returns {*[]}
 	 */
 	export function integrateOptimizelyWithUA (dimensions: any[]): any[] {
 		var optimizely = window.optimizely,
@@ -97,7 +103,7 @@ module Mercury.Utils.VariantTesting {
 	/**
 	 * Get list of Optimizely active experiments
 	 *
-	 * @returns {[]}
+	 * @returns {string[]}
 	 */
 	export function getActiveExperimentsList (): string[] {
 		return isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
@@ -119,8 +125,8 @@ module Mercury.Utils.VariantTesting {
 	/**
 	 * Get Optimizely experiment ID based on environment the app is running on
 	 *
-	 * @param {object} experimentIds contains experimentIdProd and experimentIdDev
-	 * @returns {string} experimentId
+	 * @param {OptimizelyExperimentIds} experimentIds - contains experimentIdProd and experimentIdDev
+	 * @returns {string}
 	 */
 	export function getExperimentIdForThisEnvironment (experimentIds: OptimizelyExperimentIds): string {
 		var environment = M.prop('environment');
@@ -128,9 +134,9 @@ module Mercury.Utils.VariantTesting {
 		switch (environment) {
 			case 'prod':
 			case 'preview':
+			case 'sandbox':
 				return experimentIds.prod;
 			case 'dev':
-			case 'sandbox':
 				return experimentIds.dev;
 			default:
 				return null;

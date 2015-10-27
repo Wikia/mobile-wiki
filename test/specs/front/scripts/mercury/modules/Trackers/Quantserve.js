@@ -1,4 +1,4 @@
-/* global Em, _qevents */
+/* global Em, _qevents, resetMercuryBaseline */
 QUnit.module('Quantserve tests', {
 	setup: function () {
 

@@ -1,17 +1,18 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 'use strict';
 
-App.PostReplyComponent = Em.Component.extend({
-	classNames: ['post-reply'],
+App.PostReplyComponent = Em.Component.extend(
+	App.DiscussionUpvoteActionSendMixin,
+	{
+		classNames: ['post-reply'],
+		post: null,
 
-	author: null,
-	content: null,
-	timestamp: null,
-	upvoteCount: null,
-	authorUrl: Em.computed('author', function (): string {
-		return M.buildUrl({
-			namespace: 'User',
-			title: this.get('author.name')
-		});
-	})
-});
+		authorUrl: Em.computed('post', function (): string {
+			return M.buildUrl({
+				namespace: 'User',
+				title: this.get('post.createdBy.name'),
+			});
+		}),
+	}
+);

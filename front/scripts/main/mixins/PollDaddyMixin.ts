@@ -7,8 +7,10 @@ App.PollDaddyMixin = Em.Mixin.create({
 	/**
 	 * This is a hack to make PollDaddy work (HG-618)
 	 * @see http://static.polldaddy.com/p/8791040.js
+	 *
+	 * @returns {undefined}
 	 */
-	handlePollDaddy: function (): void {
+	handlePollDaddy(): void {
 		var $polls = this.$('script[src^="http://static.polldaddy.com"]');
 
 		$polls.each((index: number, script: HTMLScriptElement): any => {
@@ -42,9 +44,12 @@ App.PollDaddyMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * Dxtract ID from script src
+	 * Extract ID from script src
+	 *
+	 * @param {HTMLScriptElement} script
+	 * @returns {string}
 	 */
-	getPollDaddyId: function (script: HTMLScriptElement): string {
+	getPollDaddyId(script: HTMLScriptElement): string {
 		var idRegEx: RegExp = /(\d+)\.js$/,
 			matches: string[] = script.src.match(idRegEx);
 
@@ -56,14 +61,22 @@ App.PollDaddyMixin = Em.Mixin.create({
 		return null;
 	},
 
-	getPollDaddyInit: function (id: string): Function {
+	/**
+	 * @param {string} id
+	 * @returns {Function}
+	 */
+	getPollDaddyInit(id: string): Function {
 		return window['PDV_go' + id];
 	},
 
 	/**
 	 * Avoid PollDaddy's document.write on subsequent article loads
+	 *
+	 * @param {string} id
+	 * @param {HTMLScriptElement} script
+	 * @returns {undefined}
 	 */
-	handlePollDaddyContainer: function (id: string, script: HTMLScriptElement): void {
+	handlePollDaddyContainer(id: string, script: HTMLScriptElement): void {
 		var html: string;
 
 		if (!this.$('#PDI_container' + id).length) {

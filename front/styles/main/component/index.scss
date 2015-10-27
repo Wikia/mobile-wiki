@@ -1,5 +1,6 @@
 // file order is intended here - put new entries at the bottom
 @import 'site-head';
+@import 'share-header';
 @import 'share-feature';
 @import 'smart-banner';
 @import 'side-nav';
@@ -19,6 +20,16 @@
 @import 'wikia-stats';
 @import 'user-menu';
 @import 'modal-dialog';
+@import 'search';
 @import 'sub-head';
 @import 'top-bar';
+@import 'user-status';
 @import 'discussion-header';
+@import 'discussion-sort';
+@import 'discussion-hero-unit';
+@import 'discussion-error';
+@import 'user-avatar';
+@import 'discussion-contributors';
+@import 'discussion-community-badge';
+@import 'discussion-back-button';
+@import 'discussion-app-promotion';

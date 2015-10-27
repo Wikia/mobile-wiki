@@ -24,8 +24,10 @@ App.MediaModel = Em.Object.extend({
 
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
+	 *
+	 * @returns {undefined}
 	 */
-	init: function (): void {
+	init(): void {
 		var media = this.get('media');
 
 		if (!Ember.isArray(media)) {
@@ -33,15 +35,19 @@ App.MediaModel = Em.Object.extend({
 		}
 	},
 
-	find: function (id: number): ArticleMedia {
+	/**
+	 * @param {number} id
+	 * @returns {*}
+	 */
+	find(id: number): ArticleMedia {
 		return this.get('media')[id];
 	},
 
 	/**
-	 * @param title
+	 * @param {string} title
 	 * @returns {{mediaRef: number, galleryRef: number}}
 	 */
-	getRefsForLightboxByTitle: function (title: string): LightboxMediaRefs {
+	getRefsForLightboxByTitle(title: string): LightboxMediaRefs {
 		var media = this.get('media'),
 			mediaRef: number = null,
 			galleryRef: number = null,

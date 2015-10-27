@@ -1,4 +1,6 @@
-moduleForComponent('image-media', 'ImageMediaComponent');
+moduleForComponent('image-media', 'ImageMediaComponent', {
+	unit: true
+});
 
 test('computedHeight article image 200x1000', function () {
 	var component = this.subject(),

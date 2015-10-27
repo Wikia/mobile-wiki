@@ -23,7 +23,65 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		return type ?  'lightbox-' + type : null;
 	}),
 
-	click: function (event: MouseEvent) {
+	actions: {
+		/**
+		 * @returns {undefined}
+		 */
+		close(): void {
+			this.setProperties({
+				footer: null,
+				header: null,
+				footerExpanded: false
+			});
+			this.sendAction('closeLightbox');
+		},
+
+		/**
+		 * @param {string} footer
+		 * @returns {undefined}
+		 */
+		setFooter(footer: string): void {
+			this.set('footer', footer);
+		},
+
+		/**
+		 * @param {string} header
+		 * @returns {undefined}
+		 */
+		setHeader(header: string): void {
+			this.set('header', header);
+		},
+
+		/**
+		 * @param {string} name
+		 * @param {*} value
+		 * @returns {undefined}
+		 */
+		setQueryParam(name: string, value: any): void {
+			this.sendAction('setQueryParam', name, value);
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		toggleFooter(): void {
+			this.toggleProperty('footerExpanded');
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		toggleUI(): void {
+			this.toggleProperty('footerHidden');
+			this.toggleProperty('headerHidden');
+		},
+	},
+
+	/**
+	 * @param {MouseEvent} event
+	 * @returns {undefined}
+	 */
+	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
 
 		if ($target.is('.lightbox-footer')) {
@@ -35,41 +93,13 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		}
 	},
 
-	keyDown: function (event: KeyboardEvent): void {
+	/**
+	 * @param {KeyboardEvent} event
+	 * @returns {undefined}
+	 */
+	keyDown(event: KeyboardEvent): void {
 		if (event.keyCode === 27) {
 			this.send('close');
 		}
 	},
-
-	actions: {
-		close: function (): void {
-			this.setProperties({
-				footer: null,
-				header: null,
-				footerExpanded: false
-			});
-			this.sendAction('closeLightbox');
-		},
-		setFooter: function (footer: string): void {
-			this.set('footer', footer);
-		},
-		setHeader: function (header: string): void {
-			this.set('header', header);
-		},
-		setQueryParam: function (name: string, value: any): void {
-			this.sendAction('setQueryParam', name, value);
-		},
-		toggleFooter: function (): void {
-			this.toggleProperty('footerExpanded');
-		},
-		toggleUI: function (): void {
-			this.toggleProperty('footerHidden');
-			this.toggleProperty('headerHidden');
-		}
-	},
-
-	didInsertElement: function (): void {
-		// This is needed for keyDown event to work
-		this.$().focus();
-	}
 });

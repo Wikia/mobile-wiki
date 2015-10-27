@@ -1,13 +1,11 @@
-<div class="header clearfix">
-	<h1 {{action 'hideSortSelector'}}>{{siteName}}</h1>
-	<ul {{action 'hideSortSelector'}} class="sort-select {{unless sortVisible 'hide'}}">
-		{{#each sortTypes as |item|}}
-			<li {{action 'setSortBy' item.name}}>{{i18n item.messageKey}}</li>
-		{{/each}}
-	</ul>
-	<div {{action 'showSortSelector'}} class="sort">
-		<span>{{i18n sortMessageKey}}</span>
-		{{svg 'filter-dropdown-white' viewBox='0 0 7 4' class='icon dropdown'}}
+{{#if showContent}}
+	<div class="header clearfix">
+		<h1>{{siteName}}</h1>
+		<div {{action 'showSortComponent'}} class="sort">
+			<span>{{i18n sortMessageKey}}</span>
+			{{svg 'filter-dropdown-white' viewBox='0 0 7 4' class='icon dropdown'}}
+		</div>
+		<div {{action 'hideSortComponent'}} class="overlay"></div>
 	</div>
-</div>
+{{/if}}
 <hr class="theme">

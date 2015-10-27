@@ -94,10 +94,7 @@ export function getCachedWikiDomainName (localSettings: LocalSettings, request: 
  */
 export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
 	var regex: RegExp,
-		match: RegExpMatchArray,
-		environment = localSettings.environment,
-		// For these environments the host name can be passed through
-		passThroughEnv: any = {};
+		match: RegExpMatchArray;
 
 	if (isXipHost(localSettings, hostName)) {
 		/**
@@ -117,13 +114,38 @@ export function getWikiDomainName (localSettings: LocalSettings, hostName: strin
 }
 
 /**
- * @desc Removes the port from hostname
+ * @desc Get the subdomain of a given Wikia host
+ *
+ * @param {string} host
+ * @returns {string}
+ */
+export function getWikiaSubdomain(host: string): string {
+	return host.replace(
+		/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+		'$1'
+	);
+}
+
+/**
+ * @desc Removes the port from hostname as well as ad domain aliases
  *
  * @param {string} host
  * @returns {string}
  */
 export function clearHost (host: string): string {
-	return host.split(':')[0]; //get rid of port
+	// We use two special domain prefixes for Ad Operation and Sales reasons
+	// They behave similar to our staging prefixes but are not staging machines
+	// Talk to Ad Engineering Team if you want to learn more
+	var adDomainAliases: Array<string> = ['externaltest', 'showcase'];
+
+	host = host.split(':')[0]; // get rid of port
+	Object.keys(adDomainAliases).forEach(function (key): void {
+		if (host.indexOf(adDomainAliases[key]) === 0) {
+			host = host.replace(adDomainAliases[key] + '.', ''); // get rid of domain aliases
+		}
+	});
+
+	return host;
 }
 
 /**
@@ -184,19 +206,38 @@ export function shouldAsyncArticle(localSettings: LocalSettings, host: string): 
  */
 export function createServerData(localSettings: LocalSettings, wikiDomain: string = ''): ServerData {
 	// if no environment, pass dev
-	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev,
+		data: any = {
+			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
+			apiBase: localSettings.apiBase,
+			environment: getEnvironmentString(env),
+			cdnBaseUrl: getCDNBaseUrl(localSettings)
+		};
 
-	return {
-		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
-		apiBase: localSettings.apiBase,
-		servicesDomain: localSettings.servicesDomain,
-		environment: getEnvironmentString(env),
-		cdnBaseUrl: getCDNBaseUrl(localSettings)
-	};
+	if (localSettings.optimizely.enabled) {
+		data.optimizelyScript = localSettings.optimizely.scriptPath + localSettings.optimizely.account + '.js';
+	}
+
+	return data;
+}
+
+/**
+ * Gets the domain and path for a static asset
+ *
+ * @param {LocalSettings} localSettings
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+export function getStaticAssetPath(localSettings: LocalSettings, request: Hapi.Request): string {
+	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+	return env !== Environment.Dev
+		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
+		? localSettings.cdnBaseUrl + '/mercury-static/'
+		: '//' + getCachedWikiDomainName(localSettings, request) + '/front/';
 }
 
 export function getCDNBaseUrl(localSettings: LocalSettings): String {
-	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : ''
+	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : '';
 }
 
 /**
@@ -211,12 +252,12 @@ export function getCDNBaseUrl(localSettings: LocalSettings): String {
  * @returns {string}
  */
 export function getHostFromRequest(request: Hapi.Request): string {
-	return request.headers['x-original-host'] || request.headers['host'];
+	return request.headers['x-original-host'] || request.headers.host;
 }
 
 export function isXipHost(localSettings: LocalSettings, hostName: string): boolean {
 	return localSettings.environment === Environment.Dev &&
-		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1
+		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
 }
 
 /**

@@ -3,6 +3,12 @@
 'use strict';
 
 App.TrackClickMixin = Em.Mixin.create({
+	/**
+	 * @param {string} category
+	 * @param {string} [label='']
+	 * @param {boolean} [isNonInteractive=true]
+	 * @returns {undefined}
+	 */
 	trackClick: function(category: string, label: string = '', isNonInteractive: boolean = true): void {
 		M.track({
 			action: M.trackActions.click,
@@ -13,7 +19,13 @@ App.TrackClickMixin = Em.Mixin.create({
 	},
 
 	actions: {
-		trackClick: function (category: string, label: string = '', isNonInteractive: boolean = true): void {
+		/**
+		 * @param {string} category
+		 * @param {string} [label='']
+		 * @param {boolean} [isNonInteractive=true]
+		 * @returns {undefined}
+		 */
+		trackClick(category: string, label: string = '', isNonInteractive: boolean = true): void {
 			this.trackClick(category, label, isNonInteractive);
 		}
 	}

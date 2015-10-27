@@ -8,7 +8,10 @@
 'use strict';
 
 App.VisibleMixin = Em.Mixin.create({
-	init: function () {
+	/**
+	 * @returns {undefined}
+	 */
+	init(): void {
 		this._super();
 
 		App.VisibilityStateManager.add(this);

@@ -91,6 +91,48 @@ test('getWikiName', function () {
 	});
 });
 
+test('getWikiaSubdomain', function () {
+	var testCases = [
+		{
+			host: 'glee.wikia.com',
+			expected: 'glee',
+			description: 'Works for production sub-domains'
+		}, {
+			host: 'bg.poznan.wikia.com',
+			expected: 'bg.poznan',
+			description: 'Works for production sub-domains with language'
+		} , {
+			host: 'verify.poznan.wikia.com',
+			expected: 'poznan',
+			description: 'Works for verify sub-domains'
+		} , {
+			host: 'verify.bg.poznan.wikia.com',
+			expected: 'bg.poznan',
+			description: 'Works for verify sub-domains with language'
+		} , {
+			host: 'preview.poznan.wikia.com',
+			expected: 'poznan',
+			description: 'Works for preview sub-domains'
+		} , {
+			host: 'preview.bg.muppet.wikia.com',
+			expected: 'bg.muppet',
+			description: 'Works for preview sub-domains with language'
+		} , {
+			host: 'sandbox-test.chess.wikia.com',
+			expected: 'chess',
+			description: 'Works for sandbox sub-domains'
+		} , {
+			host: 'sandbox-test.ja.starwars.armon.wikia-dev.com',
+			expected: 'ja.starwars',
+			description: 'Works for sandbox sub-domains with language'
+		}
+	];
+
+	testCases.forEach(function (testCase) {
+		equal(global.getWikiaSubdomain(testCase.host), testCase.expected, testCase.description);
+	});
+});
+
 test('clearHost', function () {
 	var testCases = [
 		{
@@ -101,6 +143,18 @@ test('clearHost', function () {
 			host: 'example.com:8080',
 			expected: 'example.com',
 			description: 'clears the port from the host'
+		} , {
+			host: 'externaltest.muppet.wikia.com',
+			expected: 'muppet.wikia.com',
+			description: 'clears the externaltest ad domain alias'
+		} , {
+			host: 'showcase.muppet.wikia.com',
+			expected: 'muppet.wikia.com',
+			description: 'clears the showcase ad domain alias'
+		} , {
+			host: 'externaltest.muppet.wikia.com:8000',
+			expected: 'muppet.wikia.com',
+			description: 'clears the showcase ad domain alias and port'
 		}
 	];
 	testCases.forEach(function (testCase) {

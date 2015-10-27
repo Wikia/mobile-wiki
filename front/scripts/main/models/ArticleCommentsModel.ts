@@ -37,7 +37,12 @@ App.ArticleCommentsModel = Em.Object.extend({
 		});
 	}),
 
-	url: function (articleId: number, page: number = 0) {
+	/**
+	 * @param {number} articleId
+	 * @param {number} [page=0]
+	 * @returns {string}
+	 */
+	url(articleId: number, page: number = 0): string {
 		return App.get('apiBase') + '/article/comments/' + articleId + '/' + page;
 	}
 });

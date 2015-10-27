@@ -7,37 +7,36 @@
 App.FeaturedContentItemComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.ViewportMixin,
-{
-	tagName: 'a',
-	attributeBindings: ['href', 'style'],
-	classNames: ['featured-content-item'],
-	style: null,
-	href: Em.computed.oneWay('model.article_local_url'),
+	{
+		tagName: 'a',
+		attributeBindings: ['href', 'style'],
+		classNames: ['featured-content-item'],
+		style: null,
+		href: Em.computed.oneWay('model.article_local_url'),
 
-	aspectRatio: 16 / 9,
-	imageWidth: 400,
-	cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
-	thumbUrl: Em.computed('model', function (): string {
-		return this.generateThumbUrl(
-			this.get('model.image_url'),
-			this.get(`model.image_crop.${this.get('aspectRatioName')}`)
-		);
-	}),
+		aspectRatio: 16 / 9,
+		imageWidth: 400,
+		cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
+		thumbUrl: Em.computed('model', function (): string {
+			return this.generateThumbUrl(
+				this.get('model.image_url'),
+				this.get(`model.image_crop.${this.get('aspectRatioName')}`)
+			);
+		}),
 
-	willInsertElement: function (): void {
-		this.updateContainerHeight(this.get('viewportDimensions.width'));
-	},
+		viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+			this.updateContainerHeight();
+		})),
 
-	viewportObserver: Em.observer('viewportDimensions.width', function(): void {
-		this.updateContainerHeight(this.get('viewportDimensions.width'));
-	}),
+		/**
+		 * Keep the 16:9 ratio
+		 *
+		 * @returns {undefined}
+		 */
+		updateContainerHeight(): void {
+			var containerHeight = String(Math.round((this.get('viewportDimensions.width') / 16) * 9));
 
-	/**
-	 * @desc Keep the 16:9 ratio
-	 */
-	updateContainerHeight: function (containerWidth: number) {
-		var containerHeight = String(Math.round((containerWidth / 16) * 9));
-
-		this.set('style', Em.String.htmlSafe(`height: ${containerHeight}px;`));
-	},
-});
+			this.set('style', new Em.Handlebars.SafeString(`height: ${containerHeight}px;`));
+		},
+	}
+);

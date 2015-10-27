@@ -8,6 +8,24 @@ interface TrackerOptions {
 	sampleRate: number;
 }
 
+/**
+ * @typedef {Object} TrackerOptions
+ * @property {string} name
+ * @property {boolean} allowLinker
+ * @property {number} sampleRate
+ */
+
+/**
+ * @typedef {string|function} UniversalAnalyticsDimension
+ */
+
+/**
+ * @typedef {Object} GAAccount
+ * @property {string} id
+ * @property {string} [prefix]
+ * @property {number} sampleRate
+ */
+
 module Mercury.Modules.Trackers {
 	export class UniversalAnalytics {
 		static dimensions: (string|Function)[] = [];
@@ -17,6 +35,10 @@ module Mercury.Modules.Trackers {
 		accountSpecial = 'special';
 		accountAds = 'ads';
 
+		/**
+		 * @param {boolean} [isSpecialWiki=false]
+		 * @returns {undefined}
+		 */
 		constructor (isSpecialWiki = false) {
 			if (!UniversalAnalytics.dimensions.length) {
 				throw new Error(
@@ -46,10 +68,10 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * @static
-		 * @description Synchronously sets the UA dimensional context
-		 * @param {Array} dimensions  array of dimensions to set, may be strings or functions
-		 * @param {boolean} overwrite  set to true to overwrite all preexisting dimensions and unset ones not declared
+		 * Synchronously sets the UA dimensional context
+		 *
+		 * @param {UniversalAnalyticsDimension[]} dimensions - array of dimensions to set, may be strings or functions
+		 * @param {boolean} overwrite - set to true to overwrite all preexisting dimensions and unset ones not declared
 		 * @returns {boolean} true if dimensions were successfully set
 		 */
 		public static setDimensions (dimensions: typeof UniversalAnalytics.dimensions, overwrite?: boolean): boolean {
@@ -67,9 +89,9 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * @private
-		 * @param {number} index of dimension
-		 * @description Retrieves string value or invokes function for value
+		 * Retrieves string value or invokes function for value
+		 *
+		 * @param {number} idx - index of dimension
 		 * @returns {string}
 		 */
 		private getDimension (idx: number): string {
@@ -80,8 +102,9 @@ module Mercury.Modules.Trackers {
 		/**
 		 * Initialize an additional account or property
 		 *
-		 * @param {string} name The name of the account as specified in localSettings
+		 * @param {string} trackerName - The name of the account as specified in localSettings
 		 * @param {string} domain
+		 * @returns {undefined}
 		 */
 		initAccount (trackerName: string, domain: string): void {
 			var options: TrackerOptions, prefix: string,
@@ -130,11 +153,13 @@ module Mercury.Modules.Trackers {
 		 * Tracks an event, using the parameters native to the UA send() method
 		 *
 		 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
-		 * @param {string} category Event category.
-		 * @param {string} action Event action.
-		 * @param {string} label Event label.
-		 * @param {number} value Event value. Has to be an integer.
-		 * @param {boolean} nonInteractive Whether event is non-interactive.
+		 *
+		 * @param {string} category - Event category.
+		 * @param {string} action - Event action.
+		 * @param {string} label - Event label.
+		 * @param {number} value - Event value. Has to be an integer.
+		 * @param {boolean} nonInteractive - Whether event is non-interactive.
+		 * @returns {undefined}
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			this.tracked.forEach((account: GAAccount) => {
@@ -158,11 +183,13 @@ module Mercury.Modules.Trackers {
 		/**
 		 * Tracks an ads-related event
 		 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
-		 * @param {string} category Event category.
-		 * @param {string} action Event action.
-		 * @param {string} label Event label.
-		 * @param {number} value Event value. Has to be an integer.
-		 * @param {boolean} nonInteractive Whether event is non-interactive.
+		 *
+		 * @param {string} category - Event category.
+		 * @param {string} action - Event action.
+		 * @param {string} label - Event label.
+		 * @param {number} value - Event value. Has to be an integer.
+		 * @param {boolean} nonInteractive - Whether event is non-interactive.
+		 * @returns {undefined}
 		 */
 		trackAds (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			ga(this.accounts[this.accountAds].prefix + '.send', {
@@ -182,6 +209,9 @@ module Mercury.Modules.Trackers {
 		 * from https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications :
 		 * Note: if you send a hit that includes both the location and page fields and the path values are different,
 		 * Google Analytics will use the value specified for the page field.
+		 *
+		 * @param {string} url
+		 * @returns {undefined}
 		 */
 		updateTrackedUrl (url: string): void {
 			var location: HTMLAnchorElement = document.createElement('a');
@@ -195,6 +225,8 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * Tracks the current page view
+		 *
+		 * @returns {undefined}
 		 */
 		trackPageView (): void {
 			var pageType = this.getDimension(8);
@@ -207,6 +239,19 @@ module Mercury.Modules.Trackers {
 				var prefix = this.getPrefix(account);
 				ga(`${prefix}set`, 'dimension8', pageType, 3);
 				ga(`${prefix}send`, 'pageview');
+			});
+		}
+
+		/**
+		 * Tracks usage of Google Custom Search
+		 * 
+		 * @param {string} queryParam
+		 * @returns {undefined}
+		 */
+		trackGoogleSearch (queryParam: string): void {
+			this.tracked.forEach((account:GAAccount) => {
+				var prefix = this.getPrefix(account);
+				ga(`${prefix}send`, 'pageview', queryParam);
 			});
 		}
 	}

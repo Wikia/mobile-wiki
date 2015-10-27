@@ -21,6 +21,17 @@ interface InternalTrackingConfig {
 	cb: Number;
 }
 
+/**
+ * @typedef {Object} InternalTrackingConfig
+ * @property {number} c - wgCityId
+ * @property {string} x - wgDBName
+ * @property {string} lc - wgContentLanguage
+ * @property {number} u=0 - trackID || wgTrackID || 0
+ * @property {string} s - skin
+ * @property {string} beacon='' - beacon_id || ''
+ * @property {number} cb - cachebuster
+ */
+
 interface InternalTrackingParams extends TrackingParams {
 	//category
 	ga_category: string;
@@ -31,6 +42,14 @@ interface InternalTrackingParams extends TrackingParams {
 	sourceUrl?: string;
 }
 
+/**
+ * @typedef {Object} InternalTrackingParams
+ * @property {string} ga_category - category
+ * @property {string} a - wgArticleId
+ * @property {number} n - wgNamespaceNumber
+ * @property {string} [sourceUrl]
+ */
+
 module Mercury.Modules.Trackers {
 	export class Internal {
 		baseUrl: string = 'https://beacon.wikia-services.com/__track/';
@@ -40,6 +59,9 @@ module Mercury.Modules.Trackers {
 		head: HTMLElement;
 		defaults: InternalTrackingConfig;
 
+		/**
+		 * @returns {undefined}
+		 */
 		constructor () {
 			var config = Internal.getConfig();
 
@@ -47,12 +69,15 @@ module Mercury.Modules.Trackers {
 			this.defaults = config;
 		}
 
+		/**
+		 * @returns {InternalTrackingConfig}
+		 */
 		static getConfig (): InternalTrackingConfig {
 			var mercury = window.Mercury,
 				config: InternalTrackingConfig = {
 					c: mercury.wiki.id,
 					x: mercury.wiki.dbName,
-					lc: mercury.wiki.language.user,
+					lc: mercury.wiki.language.content,
 					u: mercury.userId || 0,
 					s: 'mercury',
 					beacon: '',
@@ -62,10 +87,19 @@ module Mercury.Modules.Trackers {
 			return config;
 		}
 
+		/**
+		 * @param {string} category
+		 * @returns {boolean}
+		 */
 		static isPageView (category: string): boolean {
 			return category.toLowerCase() === 'view';
 		}
 
+		/**
+		 * @param {string} category
+		 * @param {*} params
+		 * @returns {string}
+		 */
 		private createRequestURL (category: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
@@ -84,6 +118,10 @@ module Mercury.Modules.Trackers {
 			return this.baseUrl + targetRoute + '?' + parts.join('&');
 		}
 
+		/**
+		 * @param {string} url
+		 * @returns {undefined}
+		 */
 		private loadTrackingScript (url: string): void {
 			var script = document.createElement('script');
 
@@ -117,6 +155,11 @@ module Mercury.Modules.Trackers {
 			this.head.insertBefore(script, this.head.firstChild);
 		}
 
+
+		/**
+		 * @param {InternalTrackingParams} params
+		 * @returns {undefined}
+		 */
 		track (params: InternalTrackingParams): void {
 			var config = <InternalTrackingParams>$.extend(params, this.defaults);
 
@@ -126,7 +169,10 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * alias to track a page view
+		 * Alias to track a page view
+		 *
+		 * @param {TrackContext} context
+		 * @returns {undefined}
 		 */
 		trackPageView (context: TrackContext): void {
 			this.track(<InternalTrackingParams>$.extend({

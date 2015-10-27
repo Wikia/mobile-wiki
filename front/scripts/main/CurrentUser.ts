@@ -2,13 +2,14 @@
 /// <reference path="./models/UserModel.ts" />
 'use strict';
 
-interface QueryUserInfoGroupsRightsResponse {
+interface QueryUserInfoResponse {
 	query: {
 		userinfo: {
 			anon?: string;
 			id: number;
 			name: string;
 			rights: string[];
+			options: any;
 		}
 	}
 }
@@ -16,13 +17,17 @@ interface QueryUserInfoGroupsRightsResponse {
 App.CurrentUser = Em.Object.extend({
 	rights: {},
 	isAuthenticated: Em.computed.bool('userId'),
+	language: null,
 
 	userId: Em.computed(function (): number {
 		var cookieUserId = parseInt(M.prop('userId'), 10);
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
-	init: function (): void {
+	/**
+	 * @returns: {void}
+	 */
+	init(): void {
 		var userId = this.get('userId');
 		if (userId !== null) {
 			App.UserModel.find({userId})
@@ -33,42 +38,84 @@ App.CurrentUser = Em.Object.extend({
 					Em.Logger.warn('Couldn\'t load current user model', err);
 				});
 
-			this.loadRights()
-				.then((rightsArray: string[]): void => {
-					var rights = {};
-
-					rightsArray.forEach((right: string): void => {
-						rights[right] = true;
-					});
-
-					this.set('rights', rights);
-				})
+			this.loadUserInfo()
+				.then(this.loadUserLanguage.bind(this))
+				.then(this.loadUserRights.bind(this))
 				.catch((err: any): void => {
-					Em.Logger.warn('Couldn\'t load current user rights', err);
+					this.setUserLanguage();
+					Em.Logger.warn('Couldn\'t load current user info', err);
 				});
+		} else {
+			this.setUserLanguage();
 		}
 		this._super();
 	},
 
-	loadRights(): Em.RSVP.Promise {
+	/**
+	 * @param {string} [userLang=null]
+	 * @returns {undefined}
+	 */
+	setUserLanguage(userLang: string = null): void {
+		var contentLanguage = Em.getWithDefault(Mercury, 'wiki.language.content', 'en'),
+			userLanguage = userLang || contentLanguage;
+
+		this.set('language', userLanguage);
+		M.prop('userLanguage', userLanguage);
+	},
+
+	/**
+	 * @param {QueryUserInfoResponse} result
+	 * @returns {Em.RSVP.Promise}
+	 */
+	loadUserLanguage(result: QueryUserInfoResponse): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			var userLanguage = Em.get(result, 'query.userinfo.options.language');
+
+			this.setUserLanguage(userLanguage);
+
+			resolve(result);
+		});
+	},
+
+	/**
+	 * @param {QueryUserInfoResponse} result
+	 * @returns {Em.RSVP.Promise}
+	 */
+	loadUserRights(result: QueryUserInfoResponse): Em.RSVP.Promise {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+			var rightsArray = Em.get(result, 'query.userinfo.rights'),
+				rights = {};
+
+			if (!Em.isArray(rightsArray)) {
+				reject(result);
+			}
+
+			rightsArray.forEach((right: string): void => {
+				rights[right] = true;
+			});
+
+			this.set('rights', rights);
+
+			resolve(result);
+		});
+	},
+
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
+	loadUserInfo(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: '/api.php',
 				data: {
 					action: 'query',
 					meta: 'userinfo',
-					uiprop: 'rights',
+					uiprop: 'rights|options',
 					format: 'json'
 				},
 				dataType: 'json',
-				success: (result: QueryUserInfoGroupsRightsResponse): void => {
-					var rights = Em.get(result, 'query.userinfo.rights');
-
-					if (Em.isArray(rights)) {
-						resolve(rights);
-					} else {
-						reject(result);
-					}
+				success: (result: QueryUserInfoResponse): void => {
+					resolve(result);
 				},
 				error: (err: any): void => {
 					reject(err);

@@ -3,6 +3,7 @@
 
 App.DiscussionPostController = Em.Controller.extend({
 	numRepliesLoaded: null,
+	postListSort: '',
 
 	canShowMore: Em.computed('model', 'numRepliesLoaded', function (): boolean {
 		var model: typeof App.DiscussionPostModel = this.get('model'),
@@ -17,7 +18,11 @@ App.DiscussionPostController = Em.Controller.extend({
 	}),
 
 	actions: {
-		expand: function () {
+
+		/**
+		 * @returns {undefined}
+		 */
+		expand(): void {
 			var model = this.get('model');
 
 			model.loadNextPage().then(() => {
@@ -25,5 +30,31 @@ App.DiscussionPostController = Em.Controller.extend({
 				this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
 			});
 		},
+
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @returns {undefined}
+		 */
+		retry(): void {
+			this.get('target').send('retry');
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		goToAllDiscussions(): void {
+			this.get('target').send('goToAllDiscussions');
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		goToForum(): void {
+			var model = this.get('model'),
+				forumId = Em.get(model, 'forumId');
+
+			this.get('target').send('goToForum', forumId, this.get('postListSort'));
+		}
 	}
 });

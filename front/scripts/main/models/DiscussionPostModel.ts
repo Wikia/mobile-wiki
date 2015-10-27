@@ -1,8 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionPostModel = Em.Object.extend({
+App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
-	threadId: null,
+	postId: null,
+	forumId: null,
 	pivotId: null,
 	replyLimit: 10,
 	replies: [],
@@ -10,17 +12,25 @@ App.DiscussionPostModel = Em.Object.extend({
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
+	connectionError: null,
+	notFoundError: null,
+	contributors: [],
 
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadNextPage() {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			Em.$.ajax({
-				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
-					 this.wikiId + '/threads/' + this.threadId +
-					 '?responseGroup=full' +
-					 '&sortDirection=descending' +
-					 '&limit=' + this.replyLimit +
-					 '&pivot=' + this.pivotId +
-					 '&page=' + (this.page + 1),
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`,
+					{
+						'responseGroup': 'full',
+						'sortDirection': 'descending',
+						'sortKey': 'creation_date',
+						'limit': this.replyLimit,
+						'pivot': this.pivotId,
+						'page': this.page+1
+					}),
 				dataType: 'json',
 				success: (data: any) => {
 					var newReplies = data._embedded['doc:posts'];
@@ -38,48 +48,79 @@ App.DiscussionPostModel = Em.Object.extend({
 
 					resolve(this);
 				},
-				error: (err: any) => reject(err)
+				error: (err: any) => {
+					this.setErrorProperty(err, this);
+					resolve(this);
+				}
 			});
 		});
 	}
 });
 
 App.DiscussionPostModel.reopenClass({
-	find(wikiId: number, threadId: number) {
+	/**
+	 * @param {number} wikiId
+	 * @param {number} postId
+	 * @returns {Em.RSVP.Promise}
+	 */
+	find(wikiId: number, postId: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var postInstance = App.DiscussionPostModel.create({
 				wikiId: wikiId,
-				threadId: threadId
+				postId: postId
 			});
 
-			Em.$.ajax({
-				url: 'https://' + M.prop('servicesDomain') +
-					 `/discussion/${wikiId}/threads/${threadId}` +
-					 '?responseGroup=full&sortDirection=descending&limit=' + postInstance.replyLimit,
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`,
+					{
+						'responseGroup': 'full',
+						'sortDirection': 'descending',
+						'sortKey': 'creation_date',
+						'limit': postInstance.replyLimit
+					}),
 				dataType: 'json',
+				xhrFields: {
+					withCredentials: true,
+				},
 				success: (data: any) => {
-					var replies = data._embedded['doc:posts'],
+					var contributors: any[] = [],
+						replies = data._embedded['doc:posts'],
 						pivotId: number;
-
 					// If there are no replies to the first post, 'doc:posts' will not be returned
 					if (replies) {
 						pivotId = replies[0].id;
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
+
+						replies.forEach(function (reply: any) {
+							if (reply.hasOwnProperty('createdBy')) {
+								reply.createdBy.profileUrl = M.buildUrl({
+									namespace: 'User',
+									title: reply.createdBy.name
+								});
+								contributors.push(reply.createdBy);
+							}
+						});
 					}
 
 					postInstance.setProperties({
+						contributors: contributors,
+						forumId: data.forumId,
 						replies: replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
+						id: data.id,
 						pivotId: pivotId,
 						page: 0,
 						title: data.title
 					});
 					resolve(postInstance);
 				},
-				error: (err: any) => reject(err)
+				error: (err: any) => {
+					postInstance.setErrorProperty(err, postInstance);
+					resolve(postInstance);
+				}
 			});
 		});
 	}

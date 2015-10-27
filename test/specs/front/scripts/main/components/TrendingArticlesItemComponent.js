@@ -1,4 +1,6 @@
-moduleForComponent('trending-articles-item', 'TrendingArticlesItemComponent');
+moduleForComponent('trending-articles-item', 'TrendingArticlesItemComponent', {
+	unit: true
+});
 
 test('sets proper url for the image', function () {
 	var componentMock = this.subject(),
@@ -15,8 +17,6 @@ test('sets proper url for the image', function () {
 	componentMock.thumbnailer.getThumbURL = function (url, options) {
 		return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 	};
-
-	componentMock.lazyLoadImage();
 
 	equal(
 		componentMock.get('currentlyRenderedImageUrl'),

@@ -1,6 +1,12 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+/**
+ * Window
+ * @typedef {Object} Window
+ * @property {number} scrollY
+ */
+
 interface Window {
 	scrollY: number;
 }
@@ -15,15 +21,15 @@ App.VisibilityStateManager = Em.Object.create({
 	components: [],
 
 	/**
-	 * @desc checks whether an element is inside viewport
+	 * checks whether an element is inside viewport
 	 *
-	 * @param element to be checked
-	 * @param visibleBottom distance from top of a page to bottom of a viewport
-	 * @param visibleTop distance from top of a page to top of a viewport
-	 * @param threshold makes viewport virtually bigger
+	 * @param {JQuery} element to be checked
+	 * @param {number} visibleBottom distance from top of a page to bottom of a viewport
+	 * @param {number} visibleTop distance from top of a page to top of a viewport
+	 * @param {number} [threshold=400] makes viewport virtually bigger
 	 * @returns {boolean}
 	 */
-	isVisible: function (element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
+	isVisible(element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
 		var top = element.offset().top - threshold,
 			bottom = top + element.height() + threshold;
 
@@ -31,9 +37,11 @@ App.VisibilityStateManager = Em.Object.create({
 	},
 
 	/**
-	 * @desc runs a loop over this.components and check if they are visible
+	 * runs a loop over this.components and check if they are visible
+	 *
+	 * @returns {undefined}
 	 */
-	check: function () {
+	check(): void {
 		var components = this.components,
 			i = components.length,
 			component: any,
@@ -58,15 +66,20 @@ App.VisibilityStateManager = Em.Object.create({
 		}
 	},
 
-	checkDebounced: function () {
+	/**
+	 * @returns {undefined}
+	 */
+	checkDebounced(): void {
 		Em.run.debounce(this, this.check, 50);
 	},
 
 	/**
-	 * @desc adds component to components array and initializes scroll listener
-	 * @param component
+	 * adds component to components array and initializes scroll listener
+	 *
+	 * @param {Em.Component} component
+	 * @returns {undefined}
 	 */
-	add: function (component: Em.Component) {
+	add(component: Em.Component): void {
 
 		this.components.push(component);
 
@@ -79,9 +92,11 @@ App.VisibilityStateManager = Em.Object.create({
 	},
 
 	/**
-	 * @desc resets state, used in ArticleController on a page change
+	 * resets state, used in ArticleController on a page change
+	 *
+	 * @returns {undefined}
 	 */
-	reset: function () {
+	reset(): void {
 		this.components.length = 0;
 		this.initialized = false;
 	}

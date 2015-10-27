@@ -1,42 +1,58 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.CollapsibleMenuComponent = Em.Component.extend(App.TrackClickMixin, {
-	tagName: 'nav',
-	classNames: ['collapsible-menu'],
-	classNameBindings: ['additionalClasses'],
-	// Begin component property defaults
-	additionalClasses: null,
-	isCollapsed: true,
-	observe: null,
-	ordered: false,
-	showMenuIcon: true,
-	tLabel: '',
-	trackingEvent: null,
-	// End component property
-	actions: {
-		toggleMenu: function (): void {
-			this.toggleProperty('isCollapsed');
+App.CollapsibleMenuComponent = Em.Component.extend(
+	App.TrackClickMixin,
+	{
+		tagName: 'nav',
+		classNames: ['collapsible-menu'],
+		classNameBindings: ['additionalClasses'],
+		additionalClasses: null,
+		isCollapsed: true,
+		observe: null,
+		ordered: false,
+		showMenuIcon: true,
+		tLabel: '',
+		trackingEvent: null,
 
-			// Track opening and closing menu
-			if (this.trackingEvent !== null) {
-				M.track({
-					action: M.trackActions.click,
-					category: this.get('trackingEvent'),
-					label: this.get('isCollapsed') ? 'close' : 'open'
-				});
+		actions: {
+			/**
+			 * @returns {undefined}
+			 */
+			toggleMenu(): void {
+				this.toggleProperty('isCollapsed');
+
+				if (this.trackingEvent !== null) {
+					M.track({
+						action: M.trackActions.click,
+						category: this.get('trackingEvent'),
+						label: this.get('isCollapsed') ? 'close' : 'open'
+					});
+				}
 			}
-		}
-	},
-	didInsertElement: function (): void {
-		Em.addObserver(this, 'observe', this, this.titleDidChange);
-	},
-	willDestroyElement: function (): void {
-		Em.removeObserver(this, 'observe', this, this.titleDidChange);
-	},
-	titleDidChange: function (): void {
-		if (!this.get('isCollapsed')) {
-			this.set('isCollapsed', true);
-		}
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		didInsertElement(): void {
+			Em.addObserver(this, 'observe', this, this.titleDidChange);
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		willDestroyElement(): void {
+			Em.removeObserver(this, 'observe', this, this.titleDidChange);
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		titleDidChange(): void {
+			if (!this.get('isCollapsed')) {
+				this.set('isCollapsed', true);
+			}
+		},
 	}
-});
+);

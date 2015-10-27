@@ -1,5 +1,7 @@
-table:not(.infobox, .dirbox) {
-	visibility: hidden;
+.article-content {
+	table:not(.infobox, .dirbox) {
+		visibility: hidden;
+	}
 }
 
 .article-table-wrapper {

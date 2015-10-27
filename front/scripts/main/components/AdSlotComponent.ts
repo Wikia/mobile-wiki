@@ -35,7 +35,10 @@ App.AdSlotComponent = Em.Component.extend({
 		}
 	}),
 
-	didInsertElement: function (): void {
+	/**
+	 * @returns {undefined}
+	 */
+	didInsertElement(): void {
 		if (this.get('noAds') === true) {
 			Em.Logger.info('Ad disabled for:', this.get('name'));
 		} else {
@@ -44,7 +47,10 @@ App.AdSlotComponent = Em.Component.extend({
 		}
 	},
 
-	willDestroyElement: function(): void {
+	/**
+	 * @returns {undefined}
+	 */
+	willDestroyElement(): void {
 		var name = this.get('name');
 
 		Mercury.Modules.Ads.getInstance().removeSlot(this.get('name'));
@@ -52,5 +58,5 @@ App.AdSlotComponent = Em.Component.extend({
 		this.$().remove();
 
 		Em.Logger.info('Will destroy ad:', name);
-	}
+	},
 });

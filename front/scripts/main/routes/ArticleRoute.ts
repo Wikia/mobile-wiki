@@ -4,17 +4,14 @@
 'use strict';
 
 App.ArticleRoute = Em.Route.extend({
-	beforeModel: function (transition: EmberStates.Transition):void {
-		var title = transition.params.article.title.replace('wiki/', '');
+	redirectEmptyTarget: false,
 
-		if (Mercury.error) {
-			if (Mercury.error.code === 404) {
-				this.transitionTo('notFound');
-			} else {
-				Em.Logger.debug('App error: ', Mercury.error);
-				transition.abort();
-			}
-		}
+	/**
+	 * @param {EmberStates.Transition} transition
+	 * @returns {undefined}
+	 */
+	beforeModel(transition: EmberStates.Transition): void {
+		var title = transition.params.article.title.replace('wiki/', '');
 
 		this.controllerFor('application').send('closeLightbox');
 
@@ -34,7 +31,11 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
-	model: function (params: any): Em.RSVP.Promise {
+	/**
+	 * @param {*} params
+	 * @returns {Em.RSVP.Promise}
+	 */
+	model(params: any): Em.RSVP.Promise {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
@@ -42,7 +43,17 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
-	afterModel: function (model: typeof App.ArticleModel): void {
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {undefined}
+	 */
+	afterModel(model: typeof App.ArticleModel): void {
+		var exception = model.exception;
+
+		if (!Em.isEmpty(exception)) {
+			Em.Logger.warn('Article model error:', exception);
+		}
+
 		// if an article is main page, redirect to mainPage route
 		// this will handle accessing /wiki/Main_Page if default main page is different article
 		if (model.isMainPage) {
@@ -54,37 +65,63 @@ App.ArticleRoute = Em.Route.extend({
 
 		// Reset query parameters
 		model.set('commentsPage', null);
+
+		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
-	activate (): void {
-		this.controllerFor('application').set('enableSharingHeader', true);
+	/**
+	 * @returns {undefined}
+	 */
+	activate(): void {
+		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
-	deactivate (): void {
-		this.controllerFor('application').set('enableSharingHeader', false);
+	/**
+	 * @returns {undefined}
+	 */
+	deactivate(): void {
+		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	actions: {
-		willTransition: function (transition: EmberStates.Transition): void {
+		/**
+		 * @param {EmberStates.Transition} transition
+		 * @returns {undefined}
+		 */
+		willTransition(transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
 		},
 
-		error: function (error: any, transition: EmberStates.Transition): boolean {
-			if (transition) {
-				transition.abort();
+		/**
+		 * @returns {boolean}
+		 */
+		didTransition(): boolean {
+			if (this.get('redirectEmptyTarget')) {
+				this.controllerFor('application').addAlert({
+					message: i18n.t('app.article-redirect-empty-target'),
+					type: 'warning'
+				});
 			}
-			Em.Logger.warn('Route error', error.stack || error);
 			return true;
 		},
 
-		didTransition: function (): boolean {
-			// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
-			// Optimally, it would remain in the same place.
-			window.scrollTo(0, 0);
+		/**
+		 * @param {*} error
+		 * @param {EmberStates.Transition} transition
+		 * @returns {boolean}
+		 */
+		error(error: any, transition: EmberStates.Transition): boolean {
+			if (transition) {
+				transition.abort();
+			}
 
-			// bubble up to ApplicationRoute#didTransition
+			this.controllerFor('application').addAlert({
+				message: i18n.t('app.article-error'),
+				type: 'alert'
+			});
+
 			return true;
 		}
 	}

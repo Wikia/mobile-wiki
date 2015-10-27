@@ -4,58 +4,62 @@
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 'use strict';
 
-App.TrendingArticlesItemComponent = Em.Component.extend(App.ViewportMixin, App.TrackClickMixin, {
-	tagName: 'a',
-	classNames: ['trending-articles-item'],
-	attributeBindings: ['href', 'style'],
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
-	thumbnailer: Mercury.Modules.Thumbnailer,
-	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	style: null,
-	imageWidth: 250,
+App.TrendingArticlesItemComponent = Em.Component.extend(
+	App.ViewportMixin,
+	App.TrackClickMixin,
+	{
+		tagName: 'a',
+		classNames: ['trending-articles-item'],
+		attributeBindings: ['href', 'style'],
+		cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
+		thumbnailer: Mercury.Modules.Thumbnailer,
+		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+		style: null,
+		imageWidth: 250,
+		href: Em.computed.oneWay('url'),
 
-	currentlyRenderedImageUrl: Em.computed.oneWay('emptyGif'),
-	href: Em.computed.oneWay('url'),
+		currentlyRenderedImageUrl: Em.computed('imageUrl', function (): string {
+			if (this.get('imageUrl')) {
+				var options:any = {
+					width: this.get('imageWidth'),
+					height: this.get('imageHeight'),
+					mode: this.get('cropMode'),
+				};
 
-	imageHeight: Em.computed(function (): number {
-		return Math.floor(this.get('imageWidth') * 9 / 16);
-	}),
+				return this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
+			} else {
+				return this.get('emptyGif');
+			}
+		}),
 
-	viewportObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	}),
+		imageHeight: Em.computed('imageWidth', function (): number {
+			return Math.floor(this.get('imageWidth') * 9 / 16);
+		}),
 
-	willInsertElement: function (): void {
-		this.updateImageSize(this.get('viewportDimensions.width'));
-	},
+		viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+			this.updateImageSize();
+		})),
 
-	didInsertElement: function (): void {
-		if (this.get('imageUrl')) {
-			this.lazyLoadImage();
-		}
-	},
+		/**
+		 * @returns {undefined}
+		 */
+		click(): void {
+			this.trackClick('modular-main-page', 'trending-articles');
+		},
 
-	click: function (): void {
-		this.trackClick('modular-main-page', 'trending-articles');
-	},
+		/**
+		 * @returns {undefined}
+		 */
+		updateImageSize(): void {
+			var viewportWidth = this.get('viewportDimensions.width'),
+				imageWidth = Math.floor((viewportWidth - 20) / 2),
+				imageWidthString = String(imageWidth),
+				imageHeightString = String(Math.floor(imageWidth * 9 / 16));
 
-	lazyLoadImage: function (): void {
-		var options: any = {
-				width: this.get('imageWidth'),
-				height: this.get('imageHeight'),
-				mode: this.get('cropMode')
-			},
-			imageUrl: string = this.thumbnailer.getThumbURL(this.get('imageUrl'), options);
-
-		this.set('currentlyRenderedImageUrl', imageUrl);
-	},
-
-	updateImageSize: function (viewportWidth: number): void {
-		var imageWidth = Math.floor((viewportWidth - 20) / 2),
-			imageWidthString = String(imageWidth),
-			imageHeightString = String(Math.floor(imageWidth * 9 / 16));
-
-		this.set('style', Em.String.htmlSafe(`width: ${imageWidthString}px;`));
-		this.set('imageStyle', Em.String.htmlSafe(`height: ${imageHeightString}px;`));
+			this.setProperties({
+				style: new Em.Handlebars.SafeString(`width: ${imageWidthString}px;`),
+				imageStyle: new Em.Handlebars.SafeString(`height: ${imageHeightString}px;`),
+			});
+		},
 	}
-});
+);

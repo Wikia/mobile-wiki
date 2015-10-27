@@ -1,4 +1,6 @@
-moduleForComponent('localWikiaSearch', 'Local Wikia Search Component', {
+moduleForComponent('localWikiaSearch', 'LocalWikiaSearchComponent', {
+	unit: true,
+
 	setup: function () {
 		// Mock some tracking stuff
 		M.track = function () {};
@@ -23,7 +25,7 @@ test('search URI generation', function () {
 	for (i = 0; i < queries.length; i++) {
 		query = queries[i];
 		encodedQuery = encodedQueries[i];
-		equal('/api/v1/search/' + encodedQuery, ctrl.getSearchURI(query));
+		equal('/api/mercury/search/' + encodedQuery, ctrl.getSearchURI(query));
 	}
 });
 

@@ -2,18 +2,22 @@
 'use strict';
 
 App.TrendingVideosComponent = Em.Component.extend({
-	classNames: ['trending', 'trending-videos'],
+	classNames: ['trending', 'trending-videos', 'mw-content'],
 
 	actions: {
-		openLightbox: function (video: any): void {
+		/**
+		 * @param {*} video
+		 * @returns {undefined}
+		 */
+		openLightbox(video: any): void {
 			var mediaModel = App.MediaModel.create({
-				media: video
+				media: video,
 			});
 
 			this.sendAction('openLightbox', 'media', {
 				media: mediaModel,
-				mediaRef: 0
+				mediaRef: 0,
 			});
-		}
-	}
+		},
+	},
 });

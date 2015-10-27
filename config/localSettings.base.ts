@@ -10,11 +10,13 @@ import Utils = require('../server/lib/Utils');
 var deepExtend: any = require('deep-extend');
 
 var localSettings: LocalSettings = {
-	apiBase: '/api/v1',
+	apiBase: '/api/mercury',
 	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
+	// TODO: XW-395 Remove deprecated API base after transition to new API base
+	deprecatedApiBase: '/api/v1',
 	domain: 'wikia.com',
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
@@ -110,7 +112,7 @@ var localSettings: LocalSettings = {
 		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
 		iPad: /iPad/
 	},
-	enableDiscussions: false,
+	enableDiscussions: process.env.WIKIA_ENVIRONMENT !== 'prod',
 	clickstream: {
 		auth: {
 			enable: true,

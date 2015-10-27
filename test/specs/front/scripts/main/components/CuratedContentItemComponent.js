@@ -1,4 +1,6 @@
-moduleForComponent('curated-content-item', 'CuratedContentItemComponent');
+moduleForComponent('curated-content-item', 'CuratedContentItemComponent', {
+	unit: true
+});
 
 test('returns correct icon name', function () {
 	var componentMock = this.subject();

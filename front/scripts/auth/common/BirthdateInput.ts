@@ -1,3 +1,11 @@
+/**
+ * FormElements
+ * @typedef {Object} FormElements
+ * @property {HTMLInputElement} birthdate
+ * @property {HTMLInputElement} day
+ * @property {HTMLInputElement} month
+ * @property {HTMLInputElement} year
+ */
 interface FormElements extends HTMLCollection {
 	birthdate: HTMLInputElement;
 	day: HTMLInputElement;
@@ -5,6 +13,9 @@ interface FormElements extends HTMLCollection {
 	year: HTMLInputElement;
 }
 
+/**
+ * @class BirthDateInput
+ */
 class BirthdateInput {
 	wrapper: HTMLElement;
 	fakeInputs: NodeList;
@@ -16,6 +27,11 @@ class BirthdateInput {
 	 */
 	realInput: HTMLInputElement;
 
+	/**
+	 * @constructs BirthdateInput
+	 * @param {HTMLElement} el
+	 * @param {HTMLFormElement} form
+	 */
 	constructor(el: HTMLElement, form: HTMLFormElement) {
 		var elements: FormElements = <FormElements>form.elements;
 
@@ -27,12 +43,18 @@ class BirthdateInput {
 		this.fakeInputs = this.wrapper.querySelectorAll('input');
 	}
 
+	/**
+	 * @retuns {void}
+	 */
 	public init(): void {
 		this.initFocus();
 		this.initAutoTab();
 		this.initBirthdateValue();
 	}
 
+	/**
+	 * @retuns {void}
+	 */
 	private initFocus(): void {
 		var firstInput: HTMLInputElement = <HTMLInputElement>this.fakeInputs[0],
 			inputContainer = <HTMLElement> this.wrapper.parentElement,
@@ -53,18 +75,26 @@ class BirthdateInput {
 		}).bind(this), true);
 	}
 
+	/**
+	 * @retuns {void}
+	 */
 	private initAutoTab(): void {
 		Array.prototype.forEach.call(this.fakeInputs, function (input: HTMLInputElement) {
 			new AutoTab(input).init();
 		});
 	}
 
+	/**
+	 * @retuns {void}
+	 */
 	private initBirthdateValue(): void {
 		this.wrapper.addEventListener('input', this.setRealValue.bind(this));
 	}
 
 	/**
 	 * Set the value for the input that will ultimately be saved upon form submission
+	 *
+	 * @retuns {void}
 	 */
 	private setRealValue(): void {
 		this.realInput.value = this.padLeft(this.year.value, this.year.maxLength) + '-' +

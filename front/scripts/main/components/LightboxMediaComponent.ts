@@ -1,178 +1,223 @@
 /// <reference path="../models/MediaModel.ts" />
 'use strict';
 
-App.LightboxMediaComponent = Em.Component.extend(App.ThirdsClickMixin, {
-	classNames: ['lightbox-media', 'lightbox-content-inner'],
-	// This is needed for keyDown event to work
-	attributeBindings: ['tabindex'],
-	tabindex: 0,
-	videoPlayer: null,
-
-	/**
-	 * @desc gets current media from model
-	 *
-	 * @return object
-	 */
-	current: Em.computed('model.media', 'model.mediaRef', function (): ArticleMedia {
-		var mediaModel: typeof App.MediaModel = this.get('model.media');
-		if (mediaModel instanceof App.MediaModel) {
-			return mediaModel.find(this.get('model.mediaRef'));
-		} else {
-			Em.Logger.error('Media model is not an instance of App.MediaModel');
-			return null;
-		}
-	}),
-
-	/**
-	 * @desc gets current media or current media from gallery
-	 *
-	 * @return object
-	 */
-	currentMedia: Em.computed('current', 'isGallery', 'currentGalleryRef', function (): ArticleMedia {
-		var current = this.get('current');
-		return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
-	}),
-
-	currentGalleryRef: Em.computed('model.galleryRef', {
-		get(): number {
-			return this.get('model.galleryRef') || 0;
-		},
-		set(key: string, value: number): number {
-			var galleryLength = this.get('galleryLength') - 1;
-
-			if (value < 0) {
-				return galleryLength;
-			} else if (value > galleryLength) {
-				return 0;
-			}
-
-			return value;
-		}
-	}),
-
-	galleryLength: Em.computed('isGallery', 'current', function (): number {
-		return this.get('isGallery') ? this.get('current').length : -1;
-	}),
-
-	/**
-	 * @desc checks if current displayed media is a gallery
-	 *
-	 * @return boolean
-	 */
-	isGallery: Em.computed('current', function (): boolean {
-		return Em.isArray(this.get('current'));
-	}),
-
-	/**
-	 * @desc checks if current media is a video or image
-	 * and which lightbox component to render
-	 *
-	 * @return string
-	 */
-	lightboxComponent: Em.computed('currentMedia', function (): string {
-		var currentMedia: ArticleMedia = this.get('currentMedia');
-		return currentMedia && currentMedia.url && currentMedia.type ? 'lightbox-' + currentMedia.type : null;
-	}),
-
-	modelObserver: Em.observer('model', 'currentMedia', function (): void {
-		this.updateHeader();
-		this.updateFooter();
-
-		this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
-	}).on('didInsertElement'),
-
-	didInsertElement: function (): void {
+App.LightboxMediaComponent = Em.Component.extend(
+	App.ThirdsClickMixin,
+	{
+		classNames: ['lightbox-media', 'lightbox-content-inner'],
 		// This is needed for keyDown event to work
-		this.$().focus();
-	},
+		attributeBindings: ['tabindex'],
+		tabindex: 0,
+		videoPlayer: null,
 
-	click: function (event: MouseEvent): void {
-		if (this.get('isGallery')) {
-			this.callClickHandler(event, true);
-		} else {
-			this._super(event);
-		}
-	},
-
-	keyDown: function (event: JQueryEventObject): void {
-		if (this.get('isGallery')) {
-			if (event.keyCode === 39) {
-				//handle right arrow
-				this.nextMedia();
-			} else if (event.keyCode === 37) {
-				//handle left arrow
-				this.prevMedia();
+		/**
+		 * gets current media from model
+		 */
+		current: Em.computed('model.media', 'model.mediaRef', function (): ArticleMedia {
+			var mediaModel: typeof App.MediaModel = this.get('model.media');
+			if (mediaModel instanceof App.MediaModel) {
+				return mediaModel.find(this.get('model.mediaRef'));
+			} else {
+				Em.Logger.error('Media model is not an instance of App.MediaModel');
+				return null;
 			}
-		}
+		}),
 
-		this._super(event);
-	},
+		/**
+		 * gets current media or current media from gallery
+		 */
+		currentMedia: Em.computed('current', 'isGallery', 'currentGalleryRef', function (): ArticleMedia {
+			var current = this.get('current');
+			return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
+		}),
 
-	gestures: {
-		swipeLeft: function (): void {
+		currentGalleryRef: Em.computed('model.galleryRef', {
+			get(): number {
+				return this.get('model.galleryRef') || 0;
+			},
+
+			set(key: string, value: number): number {
+				var galleryLength = this.get('galleryLength') - 1;
+
+				if (value < 0) {
+					return galleryLength;
+				} else if (value > galleryLength) {
+					return 0;
+				}
+
+				return value;
+			},
+		}),
+
+		galleryLength: Em.computed('isGallery', 'current', function (): number {
+			return this.get('isGallery') ? this.get('current').length : -1;
+		}),
+
+		/**
+		 * checks if current displayed media is a gallery
+		 */
+		isGallery: Em.computed('current', function (): boolean {
+			return Em.isArray(this.get('current'));
+		}),
+
+		/**
+		 * checks if current media is a video or image and which lightbox component to render
+		 */
+		lightboxComponent: Em.computed('currentMedia', function (): string {
+			var currentMedia: ArticleMedia = this.get('currentMedia');
+			return currentMedia && currentMedia.url && currentMedia.type ? 'lightbox-' + currentMedia.type : null;
+		}),
+
+		modelObserver: Em.observer('model', 'currentMedia', function (): void {
+			this.updateState();
+		}),
+
+		gestures: {
+			/**
+			 * @returns {undefined}
+			 */
+			swipeLeft(): void {
+				if (this.get('isGallery')) {
+					this.nextMedia();
+				}
+			},
+
+			/**
+			 * @returns {undefined}
+			 */
+			swipeRight(): void {
+				if (this.get('isGallery')) {
+					this.prevMedia();
+				}
+			},
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		didInsertElement(): void {
+			// this.updateState modifies header and footer rendered in LightboxWrapperComponent
+			// This isn't allowed by Ember to do on didInsertElement
+			// That's why we need to schedule it in the afterRender queue
+			Em.run.scheduleOnce('afterRender', this, (): void => {
+				this.updateState();
+			});
+		},
+
+		/**
+		 * @param {MouseEvent} event
+		 * @returns {undefined}
+		 */
+		click(event: MouseEvent): void {
 			if (this.get('isGallery')) {
-				this.nextMedia();
+				this.callClickHandler(event, true);
+			} else {
+				this._super(event);
 			}
 		},
 
-		swipeRight: function (): void {
+		/**
+		 * @param {JQueryEventObject} event
+		 * @returns {undefined}
+		 */
+		keyDown(event: JQueryEventObject): void {
 			if (this.get('isGallery')) {
-				this.prevMedia();
+				if (event.keyCode === 39) {
+					//handle right arrow
+					this.nextMedia();
+				} else if (event.keyCode === 37) {
+					//handle left arrow
+					this.prevMedia();
+				}
 			}
-		}
-	},
 
-	rightClickHandler: function(): boolean {
-		this.nextMedia();
-		return true;
-	},
-	leftClickHandler: function(): boolean {
-		this.prevMedia();
-		return true;
-	},
-	centerClickHandler: function(): boolean {
-		// Bubble up
-		return false;
-	},
+			this._super(event);
+		},
 
-	nextMedia: function (): void {
-		this.incrementProperty('currentGalleryRef');
+		/**
+		 * @returns {boolean}
+		 */
+		rightClickHandler(): boolean {
+			this.nextMedia();
+			return true;
+		},
 
-		M.track({
-			action: M.trackActions.paginate,
-			category: 'lightbox',
-			label: 'next'
-		});
-	},
+		/**
+		 * @returns {boolean}
+		 */
+		leftClickHandler(): boolean {
+			this.prevMedia();
+			return true;
+		},
 
-	prevMedia: function (): void {
-		this.decrementProperty('currentGalleryRef');
+		/**
+		 * @returns {boolean}
+		 */
+		centerClickHandler(): boolean {
+			// Bubble up
+			return false;
+		},
 
-		M.track({
-			action: M.trackActions.paginate,
-			category: 'lightbox',
-			label: 'previous'
-		});
-	},
+		/**
+		 * @returns {undefined}
+		 */
+		nextMedia(): void {
+			this.incrementProperty('currentGalleryRef');
 
-	updateHeader: function (): void {
-		var header: string = null;
+			M.track({
+				action: M.trackActions.paginate,
+				category: 'lightbox',
+				label: 'next'
+			});
+		},
 
-		if (this.get('isGallery')) {
-			header = (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
-		}
+		/**
+		 * @returns {undefined}
+		 */
+		prevMedia(): void {
+			this.decrementProperty('currentGalleryRef');
 
-		this.sendAction('setHeader', header);
-	},
+			M.track({
+				action: M.trackActions.paginate,
+				category: 'lightbox',
+				label: 'previous'
+			});
+		},
 
-	updateFooter: function (): void {
-		var currentMedia: ArticleMedia = this.get('currentMedia'),
-			footer: typeof Handlebars.SafeString = null;
+		/**
+		 * @returns {undefined}
+		 */
+		updateState(): void {
+			this.updateHeader();
+			this.updateFooter();
 
-		if (currentMedia && currentMedia.caption) {
-			footer = currentMedia.caption.htmlSafe();
-		}
+			this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
+		},
 
-		this.sendAction('setFooter', footer);
+		/**
+		 * @returns {undefined}
+		 */
+		updateHeader(): void {
+			var header: string = null;
+
+			if (this.get('isGallery')) {
+				header = (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
+			}
+
+			this.sendAction('setHeader', header);
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		updateFooter(): void {
+			var currentMedia: ArticleMedia = this.get('currentMedia');
+
+			if (currentMedia && currentMedia.caption) {
+				this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));
+			} else {
+				this.sendAction('setFooter', null);
+			}
+		},
 	}
-});
+);

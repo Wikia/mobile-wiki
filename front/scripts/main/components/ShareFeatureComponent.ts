@@ -1,36 +1,55 @@
 /// <reference path="../app.ts" />
 /// <reference path="../../main/mixins/LanguagesMixin.ts" />
 /// <reference path="../../main/mixins/TrackClickMixin.ts" />
-/// <reference path="../../main/mixins/HeadroomMixin.ts" />
 'use strict';
 
-App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, App.HeadroomMixin, {
-	classNames: ['share-feature'],
-	headroomOptions: {
-		classes: {
-			initial: 'pinned',
-			pinned: 'pinned'
-		}
-	},
+App.ShareFeatureComponent = Em.Component.extend(
+	App.TrackClickMixin,
+	App.LanguagesMixin,
+	{
+		classNames: ['share-feature'],
 
-	sharedUrl: Em.computed('title', function (): string {
-			return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname;
-		}
-	),
+		title: '',
+		sharedUrl: null,
 
-	lineShare: Em.computed('title', 'sharedUrl', function (): string {
-		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('sharedUrl'));
-	}),
+		computedSharedUrl: Em.computed('title', 'sharedUrl', function (): string {
+			var sharedUrl: string = this.get('sharedUrl');
 
-	facebookShare: Em.computed('sharedUrl', function (): string {
-		return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('sharedUrl'));
-	}),
+			if (Em.isEmpty(sharedUrl)) {
+				return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname;
+			}
 
-	twitterShare: Em.computed('sharedUrl', function (): string {
-		return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
-	}),
+			return sharedUrl;
+		}),
 
-	googleShare: Em.computed('sharedUrl', function (): string {
-		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('sharedUrl'));
-	})
-});
+		lineShare: Em.computed('title', 'computedSharedUrl', function (): string {
+			return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('computedSharedUrl'));
+		}),
+
+		facebookShare: Em.computed('computedSharedUrl', function (): string {
+			return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('computedSharedUrl'));
+		}),
+
+		twitterShare: Em.computed('computedSharedUrl', function (): string {
+			return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+		}),
+
+		googleShare: Em.computed('computedSharedUrl', function (): string {
+			return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+		}),
+
+		/**
+		 * @returns {undefined}
+		 */
+		mouseEnter(): void {
+			this.attrs.onMouseEnter();
+		},
+
+		/**
+		 * @returns {undefined}
+		 */
+		mouseLeave(): void {
+			this.attrs.onMouseLeave();
+		},
+	}
+);

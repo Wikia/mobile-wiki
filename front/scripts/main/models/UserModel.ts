@@ -23,7 +23,11 @@ App.UserModel = Em.Object.extend({
 App.UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
-	find: function (params: UserModelParams): Em.RSVP.Promise {
+	/**
+	 * @param {UserModelParams} params
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	find(params: UserModelParams): Em.RSVP.Promise {
 		var avatarSize: number = params.avatarSize || App.UserModel.defaultAvatarSize,
 			modelInstance = App.UserModel.create();
 
@@ -34,6 +38,11 @@ App.UserModel.reopenClass({
 			});
 	},
 
+	/**
+	 * @param {number} userId
+	 * @param {number} avatarSize
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadDetails(userId: number, avatarSize: number): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -61,7 +70,11 @@ App.UserModel.reopenClass({
 		});
 	},
 
-	sanitizeDetails: function (userData: any): UserProperties {
+	/**
+	 * @param {*} userData
+	 * @returns {{name: any, userId: (string|number), avatarPath: string, profileUrl: string}}
+	 */
+	sanitizeDetails(userData: any): UserProperties {
 		return {
 			name: userData.name,
 			userId: userData.user_id,

@@ -1,34 +1,49 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionForumModel = Em.Object.extend({
+App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
 	forumId: null,
 	name: null,
 	posts: null,
 	totalPosts: 0,
 
+	connectionError: null,
+	notFoundError: null,
+	contributors: [],
+
+	/**
+	 * @param {number} pageNum
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadPage(pageNum: number) {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') + '/discussion/' +
-					 this.wikiId + '/forums/' + this.forumId,
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
 					page: pageNum
 				},
 				dataType: 'json',
 				success: (data: any) => {
 					var newPosts = data._embedded['doc:threads'],
-					    allPosts = this.posts.concat(newPosts);
+						allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
 
 					resolve(this);
 				},
-				error: (err: any) => reject(err)
+				error: (err: any) => {
+					this.setErrorProperty(err, this);
+					resolve(this);
+				}
 			});
 		});
 	},
 
+	/**
+	 * @param {string} sortBy
+	 * @returns {string}
+	 */
 	getSortKey(sortBy: string): string {
 		switch (sortBy) {
 			case 'latest':
@@ -55,23 +70,39 @@ App.DiscussionForumModel.reopenClass({
 			}
 
 			Em.$.ajax(<JQueryAjaxSettings>{
-				url: 'https://' + M.prop('servicesDomain') +
-					 `/discussion/${wikiId}/forums/${forumId}`,
+				url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 				data: requestData,
 				dataType: 'json',
+				xhrFields: {
+					withCredentials: true,
+				},
 				success: (data: any) => {
-					var posts = data._embedded['doc:threads'],
+					var contributors: any[] = [],
+						posts = data._embedded['doc:threads'],
 						totalPosts = data.threadCount;
 
+					posts.forEach(function (post: any) {
+						if (post.hasOwnProperty('createdBy')) {
+							post.createdBy.profileUrl = M.buildUrl({
+								namespace: 'User',
+								title: post.createdBy.name
+							});
+							contributors.push(post.createdBy);
+						}
+					});
+
 					forumInstance.setProperties({
+						contributors: contributors,
 						name: data.name,
 						posts: posts,
 						totalPosts: totalPosts
 					});
-
 					resolve(forumInstance);
 				},
-				error: (err) => reject(err)
+				error: (err: any) => {
+					forumInstance.setErrorProperty(err, forumInstance);
+					resolve(forumInstance);
+				}
 			});
 		});
 	}

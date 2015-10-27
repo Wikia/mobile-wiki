@@ -1,11 +1,5 @@
 moduleForComponent('collapsible-menu', 'CollapsibleMenuComponent', {
-	setup: function () {
-		var self = this;
-		// Mock transclusion of element to be slide toggled
-		Ember.run(function () {
-			self.$().append('<ol></ol>');
-		});
-	}
+	unit: true
 });
 
 test('Beginning state', function () {

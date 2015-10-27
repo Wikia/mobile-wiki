@@ -11,38 +11,49 @@ var shouldAsyncArticle = Utils.shouldAsyncArticle;
  * TODO: clean up this function
  *
  * @param {Hapi.Request} request
- * @param result
+ * @param {ArticlePageData} data
+ * @returns {object}
  */
-function prepareArticleData (request: Hapi.Request, result: any): void {
+function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	var title: string,
 		articleDetails: any,
-		userDir = 'ltr',
-		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'];
+		contentDir = 'ltr',
+		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+		articleData: ArticleData = data.article.data,
+		wikiVariables = data.wikiVariables,
+		result: any = {
+			article: data.article,
+			server: data.server,
+			wikiVariables: data.wikiVariables,
+		};
 
-	if (result.article.details) {
-		articleDetails = result.article.details;
-		title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
-	} else if (request.params.title) {
+	if (articleData) {
+		if (articleData.details) {
+			articleDetails = articleData.details;
+			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+		}
+
+		if (articleData.article) {
+			// we want to return the article content only once - as HTML and not JS variable
+			result.articleContent = articleData.article.content;
+			delete articleData.article.content;
+		}
+	}
+
+	if (!title) {
+		// Fallback to title from URL
 		title = request.params.title.replace(/_/g, ' ');
-	} else {
-		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
 	}
 
-	if (result.article.article) {
-		// we want to return the article content only once - as HTML and not JS variable
-		result.articleContent = result.article.article.content;
-		delete result.article.article.content;
-	}
-
-	if (result.wiki.language) {
-		userDir = result.wiki.language.userDir;
-		result.isRtl = (userDir === 'rtl');
+	if (wikiVariables.language) {
+		contentDir = wikiVariables.language.contentDir;
+		result.isRtl = (contentDir === 'rtl');
 	}
 
 	result.displayTitle = title;
-	result.isMainPage = (title === result.wiki.mainPageTitle.replace(/_/g, ' '));
-	result.canonicalUrl = result.wiki.basePath + result.wiki.articlePath + title.replace(/ /g, '_');
-	result.themeColor = Utils.getVerticalColor(localSettings, result.wiki.vertical);
+	result.isMainPage = (title === wikiVariables.mainPageTitle.replace(/_/g, ' '));
+	result.canonicalUrl = wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_');
+	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = {
@@ -50,12 +61,14 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		title: title,
 		url: result.canonicalUrl
 	};
-	if (result.article.details) {
-		if (result.article.details.abstract) {
-			result.openGraph.description = result.article.details.abstract;
+
+	if (articleDetails) {
+		if (articleDetails.abstract) {
+			result.openGraph.description = articleDetails.abstract;
 		}
-		if (result.article.details.thumbnail) {
-			result.openGraph.image = result.article.details.thumbnail;
+
+		if (articleDetails.thumbnail) {
+			result.openGraph.image = articleDetails.thumbnail;
 		}
 	}
 
@@ -66,13 +79,23 @@ function prepareArticleData (request: Hapi.Request, result: any): void {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
+	// all the third party scripts we don't want to load on noexternals
+	if (!request.query.noexternals) {
+		// qualaroo
+		if (localSettings.qualaroo.enabled) {
+			result.qualarooScript = localSettings.qualaroo.scriptUrl;
+		}
+	}
+
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
 
 	result.asyncArticle = (
 		request.query._escaped_fragment_ !== '0' ?
-		shouldAsyncArticle(localSettings, request.headers.host) :
-		false
+			shouldAsyncArticle(localSettings, request.headers.host) :
+			false
 	);
+
+	return result;
 }
 
 export = prepareArticleData;
