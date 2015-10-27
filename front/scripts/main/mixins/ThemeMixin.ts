@@ -1,6 +1,10 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+interface Window {
+	define: Function;
+}
+
 /**
  * Sets the theme class for the body. For now only for dark theme, because the light is default.
  */
