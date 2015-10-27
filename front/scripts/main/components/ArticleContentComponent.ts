@@ -65,7 +65,7 @@ App.ArticleContentComponent = Em.Component.extend(
 					$contributionComponent: JQuery = null;
 
 				headers.forEach((header: ArticleSectionHeader): void => {
-					$contributionComponent = this.createArticleContributionComponent(header.section);
+					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
 					$sectionHeader = this.$(header.element);
 					$sectionHeader.prepend($contributionComponent).addClass('short-header');
 					$contributionComponent.wrap('<div class="icon-wrapper"></div>');
@@ -133,20 +133,31 @@ App.ArticleContentComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {number} section
-		 * @returns {JQuery}
-		 */
-		createArticleContributionComponent: function(section: number): JQuery {
+		* Instantiate ArticleContributionComponent by looking up the component from container in order to have dependency injection.
+		* Read "DEPENDENCY MANAGEMENT IN EMBER.JS" section in http://guides.emberjs.com/v1.10.0/understanding-ember/dependency-injection-and-service-lookup/ 
+		* "Lookup" function defined in https://github.com/emberjs/ember.js/blob/master/packages/container/lib/container.js
+		*/
+		/**
+		* @param {number} section
+		* @param {string} sectionId
+		* @returns {JQuery}
+		*/
+		createArticleContributionComponent: function(section: number, sectionId: string): JQuery {
 			var title = this.get('cleanTitle'),
-				component = this.createChildView(App.ArticleContributionComponent.create({
-					section: section,
-					title: title,
-					edit: 'edit',
-					addPhoto: 'addPhoto',
-					uploadFeatureEnabled: this.get('uploadFeatureEnabled'),
-				}));
+			    edit = 'edit',
+			    addPhoto = 'addPhoto',
+			    uploadFeatureEnabled = this.get('uploadFeatureEnabled'),
+			    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
 
-			return component.createElement().$();
+			contributionComponent.setProperties({
+				section,
+				sectionId,
+				title,
+				edit,
+				addPhoto,
+				uploadFeatureEnabled
+			});
+			return this.createChildView(contributionComponent).createElement().$();
 		},
 
 		/**

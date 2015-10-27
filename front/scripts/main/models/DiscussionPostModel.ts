@@ -28,7 +28,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 						'sortDirection': 'descending',
 						'sortKey': 'creation_date',
 						'limit': this.replyLimit,
-						'pivot': this.pivot,
+						'pivot': this.pivotId,
 						'page': this.page+1
 					}),
 				dataType: 'json',

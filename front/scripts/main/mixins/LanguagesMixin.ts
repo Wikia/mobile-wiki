@@ -37,6 +37,13 @@ App.LanguagesMixin = Em.Mixin.create({
 		} else {
 			return this.getBrowserLanguage();
 		}
-	}
+	},
 
+	getUselangParam(): string {
+		var lang: string = Em.get(Mercury, 'wiki.language.content');
+		if (!lang || lang === 'en') {
+			return '';
+		}
+		return '&uselang=' + encodeURIComponent(lang);
+	}
 });
