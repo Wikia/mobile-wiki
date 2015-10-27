@@ -9,7 +9,6 @@ class Globals {
 	constructor() {
 		this.loadGlobalData().then((data: any) => {
 			this.cachedData = data;
-			console.log(this.cachedData);
 		});
 	}
 
