@@ -301,13 +301,13 @@ RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
 
 /**
  * Get HTML title
- * @param data
- * @param displayTitle
+ * @param {any} result
+ * @param {string} displayTitle
  * @returns {string}
  */
-export function getHtmlTitle(data: any, displayTitle: string): string {
+export function getHtmlTitle(result: any, displayTitle: string): string {
 	var htmlTitle: string,
-		htmlTitleTemplate: string = data.wikiVariables.htmlTitleTemplate;
+		htmlTitleTemplate: string = result.wikiVariables.htmlTitleTemplate;
 
 	if (displayTitle) {
 		htmlTitle = htmlTitleTemplate.replace('$1', displayTitle);
