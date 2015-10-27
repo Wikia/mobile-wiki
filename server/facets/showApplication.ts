@@ -3,6 +3,13 @@
 /// <reference path='../lib/OpenGraph.ts' />
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
+/**
+ * CommunityAppConfig
+ * @typedef {Object} CommunityAppConfig
+ * @property {string} androidAppLink
+ * @property {string} iosAppLink
+ */
+
 import MW = require('../lib/MediaWiki');
 import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
@@ -58,7 +65,7 @@ function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: a
 
 /**
  * @param {string} hostName
- * @returns {*}
+ * @returns {CommunityAppConfig}
  */
 function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
 	var mainConfig = discussionsSplashPageConfig[hostName];
