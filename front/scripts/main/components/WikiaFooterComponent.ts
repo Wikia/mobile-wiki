@@ -37,7 +37,7 @@ App.WikiaFooterComponent = Em.Component.extend(
 				text: 'hub-lifestyle',
 			},
 			{
-				href: '?useskin=' + Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis'),
+				href: '?useskin=oasis',
 				text: 'footer-link-full-site',
 				className: 'spaced',
 			},
