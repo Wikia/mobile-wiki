@@ -31,7 +31,7 @@ test('component is initialized', function () {
 	equal(component.uploadFeatureEnabled, true);
 });
 
-test('select action without auth redirect to login', function () {
+test('loginToUploadPhoto action without auth redirect to login', function () {
 	var self = this,
 		section = 3,
 		sectionId = 'myId',
@@ -50,7 +50,7 @@ test('select action without auth redirect to login', function () {
 			}
 		});
 		component.openLocation = openLocationSpy;
-		component.send('select');
+		component.send('loginToUploadPhoto');
 	});
 	ok(openLocationSpy.calledOnce);
 });

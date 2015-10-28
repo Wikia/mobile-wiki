@@ -13,9 +13,22 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 
 	actions: {
 		/**
+		 * Called when login is required in order to edit section
+		 * @returns {void}
+		 */
+		loginToEdit() : void {
+			this.redirectToLogin('edit-section-no-auth');
+		},
+
+		/**
+		 * Go to section editor
 		 * @returns {void}
 		 */
 		edit(): void {
+			if (this.get('isEditAllowed') !== true) {
+				return;
+			}
+
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
@@ -26,26 +39,15 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		},
 
 		/**
+		 * Called when login is required in order to edit photo
 		 * @returns {void}
 		 */
-		select(): void {
-			var href = '/join?redirect=' + encodeURIComponent(window.location.href);
-			if (this.get('sectionId')) {
-				href += encodeURIComponent('#' + this.sectionId);
-			}
-			href += this.getUselangParam();
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectioneditor',
-				label: 'add-photo-no-auth',
-				value: this.get('section')
-			});
-
-			this.openLocation(href);
+		loginToUploadPhoto(): void {
+			this.redirectToLogin('add-photo-no-auth');
 		},
 
 		/**
+		 * Go to photo upload
 		 * @returns {void}
 		 */
 		addPhoto(): void {
@@ -66,5 +68,26 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 
 	openLocation(href: string) {
 		window.location.href = href;
+	},
+
+	/**
+	 * Redirect the user to login page
+	 * @param trackingLabel {string} Label to use for tracking of event
+	 */
+	redirectToLogin(trackingLabel: string) {
+		var href = '/join?redirect=' + encodeURIComponent(window.location.href);
+		if (this.get('sectionId')) {
+			href += encodeURIComponent('#' + this.sectionId);
+		}
+		href += this.getUselangParam();
+
+		M.track({
+			action: M.trackActions.click,
+			category: 'sectioneditor',
+			label: trackingLabel,
+			value: this.get('section')
+		});
+
+		this.openLocation(href);
 	},
 });

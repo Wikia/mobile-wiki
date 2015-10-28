@@ -147,6 +147,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			    edit = 'edit',
 			    addPhoto = 'addPhoto',
 			    uploadFeatureEnabled = this.get('uploadFeatureEnabled'),
+			    isEditAllowed = this.get('isEditAllowed'),
 			    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
 
 			contributionComponent.setProperties({
@@ -155,7 +156,8 @@ App.ArticleContentComponent = Em.Component.extend(
 				title,
 				edit,
 				addPhoto,
-				uploadFeatureEnabled
+				uploadFeatureEnabled,
+				isEditAllowed
 			});
 			return this.createChildView(contributionComponent).createElement().$();
 		},

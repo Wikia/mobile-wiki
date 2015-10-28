@@ -1,10 +1,16 @@
 <div class="edit-section">
-	<span {{action 'edit'}}>
-		{{svg 'pencil' role='img' class='icon pencil'}}
-	</span>
+	{{#if isEditAllowed}}
+		<span {{action 'edit'}}>
+			{{svg 'pencil' role='img' class='icon pencil'}}
+		</span>
+	{{else}}
+		<span {{action 'loginToEdit'}}>
+			{{svg 'pencil' role='img' class='icon pencil'}}
+		</span>
+	{{/if}}
 </div>
 <div class={{if uploadFeatureEnabled 'upload-photo' 'upload-photo disabled'}}>
-	<span {{action 'select'}}>
+	<span {{action 'loginToUploadPhoto'}}>
 		{{svg 'camera' role='img' class='icon camera'}}
 	</span>
 	{{#if currentUser.isAuthenticated}}

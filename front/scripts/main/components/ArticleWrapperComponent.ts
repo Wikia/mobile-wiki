@@ -86,6 +86,26 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			return !Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
 		}),
 
+		/**
+		 * For section editor, checks if the user is allowed to edit
+		 * - Logged in users are always allowed to edit
+		 * - Wikias with disableAnonymousEditing set need login to edit
+		 * - Coppa wikias (for wikias directed at children) always require login
+		 *
+		 * @returns {boolean} True if edit is allowed
+		 */
+		isEditAllowed: Em.computed(function(): boolean {
+			var isCoppaWiki = Em.get(Mercury, 'wiki.isCoppaWiki'),
+				disableAnonymousEditing = Em.get(Mercury, 'wiki.disableAnonymousEditing'),
+				isLoggedIn = Em.get(Mercury, 'currentUser.isAuthenticated');
+
+			if (isLoggedIn) {
+				return true;
+			} else {
+				return !(isCoppaWiki || disableAnonymousEditing);
+			}
+		}),
+
 		contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
 			return !this.get('model.isMainPage')
 				&& this.get('isJapaneseWikia')
