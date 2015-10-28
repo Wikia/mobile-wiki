@@ -3,6 +3,13 @@
 /// <reference path='../lib/OpenGraph.ts' />
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
+/**
+ * CommunityAppConfig
+ * @typedef {Object} CommunityAppConfig
+ * @property {string} androidAppLink
+ * @property {string} iosAppLink
+ */
+
 import MW = require('../lib/MediaWiki');
 import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
@@ -56,13 +63,19 @@ function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: a
 	reply.view('application', context);
 }
 
+/**
+ * @param {string} hostName
+ * @returns {CommunityAppConfig}
+ */
 function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
-	var distilledConfig = {};
-	if (discussionsSplashPageConfig[hostName]) {
-		distilledConfig['androidAppLink'] = discussionsSplashPageConfig[hostName].androidAppLink;
-		distilledConfig['iosAppLink'] = discussionsSplashPageConfig[hostName].iosAppLink;
+	var mainConfig = discussionsSplashPageConfig[hostName];
+	if (mainConfig) {
+		return {
+			androidAppLink: mainConfig.androidAppLink,
+			iosAppLink: mainConfig.iosAppLink,
+		};
 	}
-	return distilledConfig;
+	return {};
 }
 
 export = showApplication;
