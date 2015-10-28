@@ -3,7 +3,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentEditorLabelsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	App.IEIFrameFocusFixMixin,
 	{
@@ -145,18 +144,20 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			 */
 			setTitleFocusedOut() {
 				this.validateTitle();
-				this.set('isTitleFocused', false);
-				if (this.get('isLoading')) {
-					this.hideLoader();
-				}
+				this.setProperties({
+					isTitleFocused: false,
+					isLoading: false,
+				});
 			},
 
 			/**
 			 * @returns {undefined}
 			 */
 			setTitleFocusedIn() {
-				this.showLoader();
-				this.set('isTitleFocused', true);
+				this.setProperties({
+					isTitleFocused: true,
+					isLoading: true,
+				});
 			},
 
 			/**
@@ -210,7 +211,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			 */
 			fileUpload(files) {
 				this.trackClick('curated-content-editor', 'item-file-upload');
-				this.showLoader();
+				this.set('isLoading', true);
+
 				App.ArticleAddPhotoModel.load(files[0])
 					.then((photoModel) => App.ArticleAddPhotoModel.upload(photoModel))
 					.then((data) => {
@@ -235,7 +237,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 					})
 					.finally(() => {
-						this.hideLoader();
+						this.set('isLoading', false);
 					});
 			},
 
@@ -381,14 +383,16 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					Em.Logger.error(err);
 					this.set('imageErrorMessage', i18n.t('app.curated-content-error-other'));
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**
 		 * @returns {undefined}
 		 */
 		getImageDebounced() {
-			this.showLoader();
+			this.set('isLoading', true);
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
@@ -398,7 +402,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		 * @returns {undefined}
 		 */
 		validateAndDone(item, dataToValidate) {
-			this.showLoader();
+			this.set('isLoading', true);
+
 			App.CuratedContentEditorItemModel.validateServerData(item, dataToValidate)
 				.then((data) => {
 					if (data.status) {
@@ -419,7 +424,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						type: 'alert'
 					});
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**

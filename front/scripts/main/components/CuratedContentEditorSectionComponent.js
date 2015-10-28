@@ -3,7 +3,6 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.CuratedContentEditorSortableItemsMixin,
 	App.CuratedContentThumbnailMixin,
 	App.CuratedContentEditorLabelsMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		imageWidth: 300,
@@ -67,7 +66,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		 * @returns {undefined}
 		 */
 		validateAndDone() {
-			this.showLoader();
+			this.set('isLoading', true);
+
 			App.CuratedContentEditorItemModel.validateServerData(
 				this.get('model'),
 				{method: 'validateSectionWithItems'}
@@ -98,7 +98,9 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 						type: 'alert'
 					});
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**
