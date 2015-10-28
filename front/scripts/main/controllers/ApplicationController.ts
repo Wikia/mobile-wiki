@@ -2,9 +2,7 @@
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 'use strict';
 
-App.ApplicationController = Em.Controller.extend(
-	App.AlertNotificationsMixin,
-	{
+App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	// This has to be here because we need to access media from ArticleController model to open
 	// lightbox TODO: Should be refactored when decoupling article from application
 	article: Em.inject.controller(),
