@@ -1,3 +1,6 @@
+## release-184 (2015-10-28 07:59 UTC)
+* [SOC-1303](https://wikia-inc.atlassian.net/browse/SOC-1303) SOC-1303 Add i18n + apply styling fixes + add type
+
 ## release-183 (2015-10-27 12:45 UTC)
 * create-eslintignore: Create .eslintignore; add more globals
 * [INT-231](https://wikia-inc.atlassian.net/browse/INT-231) Changed wording for Wikia Live to Romaji
