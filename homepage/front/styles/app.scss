@@ -43,6 +43,7 @@ section {
 	margin-bottom: 3em;
 	padding-left: 3em;
 	padding-right: 3em;
+	-webkit-transform: translate3d(0,0,0); // workaround for broken z-index in safari
 
 	@include media($mobile) {
 		padding-left: .1em;
