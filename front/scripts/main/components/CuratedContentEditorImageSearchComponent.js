@@ -21,7 +21,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			}));
 
 			if (!Em.isEmpty(searchQuery)) {
-				this.set('isLoading', false);
+				this.set('isLoading', true);
 
 				Em.run.debounce(this, this.getNextBatch, this.debounceDuration);
 			}

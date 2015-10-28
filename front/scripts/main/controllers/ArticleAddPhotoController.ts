@@ -52,7 +52,8 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 			message: i18n.t(errorMsg),
 			type: 'alert'
 		});
-		appController.hideLoader();
+
+		appController.set('isLoading', false);
 
 		M.track({
 			action: M.trackActions.impression,
@@ -66,7 +67,8 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 		 * @returns {undefined}
 		 */
 		upload(): void {
-			this.get('application').showLoader();
+			this.get('application').set('isLoading', true);
+
 			App.ArticleAddPhotoModel.upload(this.get('model')).then(
 				this.handleUploadSuccess.bind(this),
 				this.handleError.bind(this)

@@ -20,7 +20,7 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @returns {undefined}
 			 */
 			loading(): void {
-				this.controller && this.controller.showLoader();
+				this.controller && this.controller.set('isLoading', true);
 			},
 
 			/**
@@ -29,7 +29,7 @@ App.ApplicationRoute = Em.Route.extend(
 			didTransition(): void {
 				// Activate any A/B tests for the new route
 				M.VariantTesting.activate();
-				this.controller && this.controller.hideLoader();
+				this.controller && this.controller.set('isLoading', false);
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
@@ -50,7 +50,7 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @returns {undefined}
 			 */
 			error(error: any): void {
-				this.controller && this.controller.hideLoader();
+				this.controller && this.controller.set('isLoading', false);
 				Em.Logger.error('Route error', error);
 			},
 
