@@ -8,7 +8,7 @@ body.dark-theme {
 		stroke: $dark-upvote-icon-back-color;
 	}
 
-	button[type='submit'][disabled] {
+	button[type=submit][disabled] {
 		background-color: $dark-button-color;
 		border-color: $dark-button-color;
 		color: $dark-disabled-button-text-color;
@@ -16,28 +16,28 @@ body.dark-theme {
 	.discussions-header {
 		color: $dark-header-text-color;
 	}
-	input[type='text']:focus,
-	input[type='password']:focus,
-	input[type='email']:focus,
-	input[type='date']:focus,
+	input[type=text]:focus,
+	input[type=password]:focus,
+	input[type=email]:focus,
+	input[type=date]:focus,
 	.focused {
 		border-bottom: 1px solid $dark-input-color-active;
 	}
-	input[type='text'],
-	input[type='text']:focus,
-	input[type='password'],
-	input[type='password']:focus,
-	input[type='email'],
-	input[type='email']:focus,
-	input[type='date'],
-	input[type='date']:focus,
+	input[type=text],
+	input[type=text]:focus,
+	input[type=password],
+	input[type=password]:focus,
+	input[type=email],
+	input[type=email]:focus,
+	input[type=date],
+	input[type=date]:focus,
 	.input {
 		border-bottom: 1px solid $dark-label-color-inactive;
 	}
-	input[type='text']:valid  + .floating-label,
-	input[type='password']:valid + .floating-label,
-	input[type='email']:valid  + .floating-label,
-	input[type='date']:valid + .floating-label {
+	input[type=text]:valid  + .floating-label,
+	input[type=password]:valid + .floating-label,
+	input[type=email]:valid  + .floating-label,
+	input[type=date]:valid + .floating-label {
 		color: $dark-label-color-valid;
 	}
 	form {
