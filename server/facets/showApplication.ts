@@ -38,7 +38,7 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 
 		// TODO: Update displayTitle
 		displayTitle = '';
-		context.htmlTitle = Utils.getHtmlTitle(context, displayTitle);
+		context.htmlTitle = Utils.getHtmlTitle(wikiVariables, displayTitle);
 
 		return OpenGraph.getAttributes(request, context.wikiVariables);
 	}).then((openGraphData: any): void => {
