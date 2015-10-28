@@ -42,14 +42,18 @@ App.ShareFeatureComponent = Em.Component.extend(
 		 * @returns {undefined}
 		 */
 		mouseEnter(): void {
-			this.attrs.onMouseEnter();
+			if (this.attrs && typeof this.attrs.onMouseEnter === 'function') {
+				this.attrs.onMouseEnter();
+			}
 		},
 
 		/**
 		 * @returns {undefined}
 		 */
 		mouseLeave(): void {
-			this.attrs.onMouseLeave();
+			if (this.attrs && typeof this.attrs.onMouseLeave === 'function') {
+				this.attrs.onMouseLeave();
+			}
 		},
 	}
 );
