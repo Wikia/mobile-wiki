@@ -63,7 +63,7 @@ App.WikiaFooterComponent = Em.Component.extend(
 			 */
 			handleFooterLinkClick(text: string, href: string): void {
 				if (this.checkLinkForOasisSkinOverwrite(href)) {
-					Em.$.cookie('useskin', 'oasis');
+					Em.$.cookie('useskin','oasis', {path: '/', domain: this.getCookieDomain()});
 				}
 
 				this.send('trackClick', 'footer', text);
@@ -78,5 +78,12 @@ App.WikiaFooterComponent = Em.Component.extend(
 		checkLinkForOasisSkinOverwrite(href: string): boolean {
 			return href.indexOf('useskin=oasis') !== -1;
 		},
+
+		/**
+		 * @returns {string}
+		 */
+		getCookieDomain(): string {
+			return /[^.]+\.[^.]+$/.exec(window.location.hostname)[0];
+		}
 	}
 );
