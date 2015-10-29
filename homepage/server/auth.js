@@ -6,19 +6,14 @@
 
 var Promise = require('bluebird'),
 	request = require('request'),
+	querystring = require('querystring'),
+	url = require('url'),
 	localSettings = require('../config/localSettings').localSettings;
 
 function Auth() {
-	function appendSlash(str) {
-		if (str.charAt(str.length - 1) !== '/') {
-			str += '/';
-		}
-		return str;
-	}
-
-	this.baseUrl = appendSlash(localSettings.helios.host);
-	this.servicesUrl = appendSlash(localSettings.servicesUrl);
-	this.apiUrl = appendSlash(localSettings.apiUrl);
+	this.baseUrl     = url.resolve(localSettings.helios.host + '/', '.');
+	this.servicesUrl = localSettings.servicesUrl;
+	this.apiUrl      = localSettings.apiUrl;
 }
 
 function requestWrapper(url) {
@@ -47,31 +42,31 @@ function requestWrapper(url) {
 }
 
 Auth.prototype.login = function (username, password) {
-	var url = this.baseUrl + 'token?' +
-		'username=' + username + '&' +
-		'password=' + password;
+	var address = url.resolve(this.baseUrl, 'token?' +
+		querystring.stringify({username: username, password: password}));
 
-	return requestWrapper(url);
+	return requestWrapper(address);
 };
 
 Auth.prototype.info = function (token) {
-	var url = this.baseUrl + 'info?' +
-		'code=' + token + '&noblockcheck=1';
+	var address = url.resolve(this.baseUrl + '/', 'info?' +
+		querystring.stringify({code: token, noblockcheck: 1}));
 
-	return requestWrapper(url);
+	return requestWrapper(address);
 };
 
 Auth.prototype.getUserInfo = function (heliosInfoResponse) {
-	var url = this.apiUrl + 'User/Details/?ids=' + heliosInfoResponse.user_id; // jshint ignore:line
+	var address = url.resolve(this.apiUrl, 'User/Details/?' +
+		querystring.stringify({ids: heliosInfoResponse.user_id})); // jshint ignore:line
 
-	return requestWrapper(url);
+	return requestWrapper(address);
 };
 
 Auth.prototype.getUserName = function (heliosInfoResponse) {
-	var url = this.servicesUrl + 'user-attribute/user/' +
-		heliosInfoResponse.user_id  + '/attr/username'; // jshint ignore:line
+	var address = url.resolve(this.servicesUrl, 'user-attribute/user/' +
+		heliosInfoResponse.user_id  + '/attr/username'); // jshint ignore:line
 
-	return requestWrapper(url);
+	return requestWrapper(address);
 };
 
 module.exports = Auth;
