@@ -15,21 +15,30 @@ module Mercury.Modules {
 
 	export class Ads {
 		private static instance: Mercury.Modules.Ads = null;
+		private static blocking: boolean = null;
 		private adSlots: string[][] = [];
 		private adsContext: any = null;
 		private adEngineModule: any;
 		private adContextModule: any;
+		private sourcePointDetectionModule: {
+			initDetection(): void;
+		};
 		private adConfigMobile: any;
 		private adLogicPageViewCounterModule: {
-			get (): number;
-			increment (): number;
+			get(): number;
+			increment(): number;
 		};
+		private adMercuryListenerModule: {
+			startOnLoadQueue(): void;
+		};
+		private kruxTracker: Mercury.Modules.Trackers.Krux = null;
 		private currentAdsContext: any = null;
 		private isLoaded = false;
 		private slotsQueue: string[][] = [];
 
 		/**
 		 * Returns instance of Ads object
+		 *
 		 * @returns {Mercury.Modules.Ads}
 		 */
 		public static getInstance (): Mercury.Modules.Ads {
@@ -42,7 +51,8 @@ module Mercury.Modules {
 		/**
 		 * Initializes the Ad module
 		 *
-		 * @param adsUrl Url for the ads script
+		 * @param {string} adsUrl - Url for the ads script
+		 * @returns {undefined}
 		 */
 		public init (adsUrl: string): void {
 			//Required by ads tracking code
@@ -55,20 +65,27 @@ module Mercury.Modules {
 						'ext.wikia.adEngine.adContext',
 						'ext.wikia.adEngine.config.mobile',
 						'ext.wikia.adEngine.adLogicPageViewCounter',
+						'ext.wikia.adEngine.sourcePointDetection',
+						'ext.wikia.adEngine.mobile.mercuryListener',
 						'wikia.krux'
 					], (
 						adEngineModule: any,
 						adContextModule: any,
 						adConfigMobile: any,
 						adLogicPageViewCounterModule: any,
+						sourcePointDetectionModule: any,
+						adMercuryListener: any,
 						krux: any
 					) => {
 						this.adEngineModule = adEngineModule;
 						this.adContextModule = adContextModule;
+						this.sourcePointDetectionModule = sourcePointDetectionModule;
 						this.adConfigMobile = adConfigMobile;
 						this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
-						window.Krux = krux || [];
+						this.adMercuryListenerModule = adMercuryListener;
+						this.kruxTracker = new Mercury.Modules.Trackers.Krux(krux);
 						this.isLoaded = true;
+						this.addDetectionListeners();
 						this.reloadWhenReady();
 						this.kruxTrackFirstPage();
 					});
@@ -82,12 +99,14 @@ module Mercury.Modules {
 		 * Method for sampling and pushing ads-related events
 		 * @arguments coming from ads tracking request
 		 * It's called by track() method in wikia.tracker fetched from app by ads code
+		 *
+		 * @returns {undefined}
 		 */
 		public gaTrackAdEvent (): void {
 			var adHitSample: number = 1, //Percentage of all the track requests to go through
 				GATracker: Mercury.Modules.Trackers.UniversalAnalytics;
-			//Sampling on GA side will kill the performance as we need to allocate object each time we track
-			//ToDo: Optimize object allocation for tracking all events
+			// Sampling on GA side will kill the performance as we need to allocate object each time we track
+			// ToDo: Optimize object allocation for tracking all events
 			if (Math.random() * 100 <= adHitSample) {
 				GATracker = new Mercury.Modules.Trackers.UniversalAnalytics();
 				GATracker.trackAds.apply(GATracker, arguments);
@@ -95,43 +114,93 @@ module Mercury.Modules {
 		}
 
 		/**
-		 * Function fired when Krux is ready (see init()).
-		 * Calls the trackPageView() function on Krux instance.
+		 * Function fired when this.kruxTracker is ready (see init()).
+		 * Calls the trackPageView() function on krux tracker.
 		 * load() in krux.js (/app) automatically detect that
 		 * there is a first page load (needs to load Krux scripts).
+		 *
+		 * @returns {undefined}
 		 */
 		private kruxTrackFirstPage (): void {
-			var KruxTracker = new Mercury.Modules.Trackers.Krux();
-			KruxTracker.trackPageView();
+			this.kruxTracker.trackPageView();
 		}
 
+		/**
+		 * @param {string} value
+		 * @returns {undefined}
+		 */
+		private trackBlocking (value: string): void {
+			var dimensions: string[] = [],
+				GATracker: Mercury.Modules.Trackers.UniversalAnalytics;
+			dimensions[6] = value;
+			Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
+			GATracker = new Mercury.Modules.Trackers.UniversalAnalytics();
+			GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, false);
+			this.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, false);
+			Ads.blocking = value === 'Yes';
+		}
+
+		/**
+		 * @returns {undefined}
+		 */
+		private addDetectionListeners (): void {
+			var trackBlocking: Function = this.trackBlocking;
+			window.addEventListener('sp.blocking', function (): void {
+				trackBlocking('Yes');
+			});
+			window.addEventListener('sp.not_blocking', function (): void {
+				trackBlocking('No');
+			});
+		}
+
+		/**
+		 * @param {*} adsContext
+		 * @returns {undefined}
+		 */
 		private setContext (adsContext: any): void {
 			this.adsContext = adsContext ? adsContext : null;
 		}
 
 		/**
 		 * Reloads the ads with the provided adsContext
-		 * @param adsContext
+		 *
+		 * @param {*} adsContext
+		 * @returns {undefined}
 		 */
 		public reload (adsContext: any): void {
 			// Store the context for external reuse
 			this.setContext(adsContext);
 			this.currentAdsContext = adsContext;
+			// We need a copy of adSlots as adEngineModule.run destroys it
 			this.slotsQueue = this.getSlots();
 
 			if (this.isLoaded && adsContext) {
 				this.adContextModule.setContext(adsContext);
+				if (Ads.blocking !== null) {
+					this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
+				} else {
+					this.sourcePointDetectionModule.initDetection();
+				}
 				this.adLogicPageViewCounterModule.increment();
-				// We need a copy of adSlots as .run destroys it
 				this.adEngineModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury');
 			}
 		}
 
 		/**
 		 * This is callback that is run after script is loaded
+		 *
+		 * @returns {undefined}
 		 */
 		public reloadWhenReady (): void {
 			this.reload(this.currentAdsContext);
+			this.onLoad();
+		}
+
+		/**
+		 * @returns {undefined}
+		 */
+		private onLoad (): void {
+			this.adMercuryListenerModule.startOnLoadQueue();
 		}
 
 		/**
@@ -146,7 +215,8 @@ module Mercury.Modules {
 		/**
 		 * Push slot to the current queue (refresh ad in given slot)
 		 *
-		 * @param name name of the slot
+		 * @param {string} name - name of the slot
+		 * @returns {undefined}
 		 */
 		public pushSlotToQueue (name: string): void {
 			this.slotsQueue.push([name]);
@@ -155,7 +225,7 @@ module Mercury.Modules {
 		/**
 		 * Adds ad slot
 		 *
-		 * @param name name of the slot
+		 * @param {string} name - name of the slot
 		 * @returns {number} index of the inserted slot
 		 */
 		public addSlot (name: string): number {
@@ -165,7 +235,8 @@ module Mercury.Modules {
 		/**
 		 * Removes ad slot by name
 		 *
-		 * @param name Name of ths slot to remove
+		 * @param {string} name - Name of ths slot to remove
+		 * @returns {undefined}
 		 */
 		public removeSlot (name:string): void {
 			this.adSlots = $.grep(this.adSlots, (slot) => {
@@ -176,6 +247,10 @@ module Mercury.Modules {
 		/**
 		 * This method is being overwritten in ApplicationRoute for ads needs.
 		 * To learn more check ApplicationRoute.ts file.
+		 *
+		 * @param {*} contents
+		 * @param {boolean} [lightboxVisible]
+		 * @returns {undefined}
 		 */
 		public createLightbox (contents: any, lightboxVisible?: boolean): void {
 		}
@@ -183,6 +258,8 @@ module Mercury.Modules {
 		/**
 		 * This method is being overwritten in ApplicationRoute for ads needs.
 		 * To learn more check ApplicationRoute.ts file.
+		 *
+		 * @returns {undefined}
 		 */
 		public showLightbox (): void {
 		}

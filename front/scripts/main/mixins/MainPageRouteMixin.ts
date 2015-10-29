@@ -4,14 +4,24 @@
 'use strict';
 
 App.MainPageRouteMixin = Em.Mixin.create({
+	/**
+	 * @returns {undefined}
+	 */
 	activate(): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
+	/**
+	 * @returns {undefined}
+	 */
 	deactivate(): void {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
+	/**
+	 * @param {*} model
+	 * @returns {undefined}
+	 */
 	afterModel(model: any): void {
 		var sectionOrCategoryName: string,
 			title: string = model.get('title'),
@@ -29,8 +39,6 @@ App.MainPageRouteMixin = Em.Mixin.create({
 
 		sectionOrCategoryName = M.String.normalizeToWhitespace(sectionOrCategoryName);
 
-		document.title = sectionOrCategoryName + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
-
 		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionOrCategoryName,
@@ -39,6 +47,11 @@ App.MainPageRouteMixin = Em.Mixin.create({
 		});
 	},
 
+	/**
+	 * @param {*} controller
+	 * @param {App.CuratedContentModel} model
+	 * @returns {undefined}
+	 */
 	renderTemplate(controller: any, model: typeof App.CuratedContentModel): void {
 		this.render('main-page', {
 			controller: 'mainPage',
@@ -49,6 +62,10 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	},
 
 	actions: {
+		/**
+		 * @param {CuratedContentItem} item
+		 * @returns {undefined}
+		 */
 		openCuratedContentItem(item: CuratedContentItem): void {
 			/**
 			 * We have to double encode because Ember's RouteRecognizer does decodeURI while processing path.

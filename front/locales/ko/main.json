@@ -15,6 +15,7 @@
     "article-top-contributors-label":"Top Contributors to this article",
     "side-nav-menu-label":"메뉴",
     "navigation-back-label":"뒤로",
+    "search-no-results-msg":"일치하는 검색 결과가 존재하지 않습니다.",
     "search-loading-msg":"검색 결과 불러오는 중...",
     "media-lightbox-error":"미디어를 찾을 수 없습니다",
     "map-lightbox-error":"Map not found",
@@ -147,14 +148,24 @@
     "curated-content-editor-new-category":"New Category"
   },
   "discussion":{
+    "pagination-post-show-more":"View Older Replies",
     "share-default-title":"Discussion on __siteName__",
+    "contributors-title":"All Contributors",
     "sort-by-latest":"Latest",
     "sort-by-trending":"Trending",
-    "number-of-posts":"__numberOfPosts__ Posts"
+    "loading-more-posts":"Loading more posts",
+    "back-to-wikia-link":"To the Wiki",
+    "number-of-posts":"__numberOfPosts__ Posts",
+    "connection-error":"Can't connect, please try again.",
+    "not-found-error":"Uh oh, looks like this page doesn't exist!",
+    "action-retry-title-desktop":"Click to retry",
+    "action-retry-title-mobile":"Tap to retry",
+    "all-discussions-link-desktop":"Show Me All Discussions",
+    "all-discussions-link-mobile":"All Discussions"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",
     "register-text":"Register",
-    "login-text":"Login"
+    "login-text":"Sign In"
   }
 }

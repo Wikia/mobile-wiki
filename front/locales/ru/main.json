@@ -15,6 +15,7 @@
     "article-top-contributors-label":"Самые активные редакторы этой статьи",
     "side-nav-menu-label":"Меню",
     "navigation-back-label":"Назад",
+    "search-no-results-msg":"К сожалению, по вашему запросу не найдено результатов.",
     "search-loading-msg":"Загрузка результатов поиска...",
     "media-lightbox-error":"Файлы не найдены",
     "map-lightbox-error":"Карта не найдена",
@@ -147,10 +148,20 @@
     "curated-content-editor-new-category":"Новая категория"
   },
   "discussion":{
+    "pagination-post-show-more":"Просмотр старых ответов",
     "share-default-title":"Обсуждение на __siteName__",
+    "contributors-title":"Все участники",
     "sort-by-latest":"Последние",
     "sort-by-trending":"Популярные",
-    "number-of-posts":"__numberOfPosts__ записей"
+    "loading-more-posts":"Загрузка сообщений",
+    "back-to-wikia-link":"Назад на вики",
+    "number-of-posts":"__numberOfPosts__ записей",
+    "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
+    "not-found-error":"Страницы не существует.",
+    "action-retry-title-desktop":"Попробовать снова",
+    "action-retry-title-mobile":"Попробовать снова",
+    "all-discussions-link-desktop":"Показать все обсуждения",
+    "all-discussions-link-mobile":"Все обсуждения"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",

@@ -114,6 +114,19 @@ export function getWikiDomainName (localSettings: LocalSettings, hostName: strin
 }
 
 /**
+ * @desc Get the subdomain of a given Wikia host
+ *
+ * @param {string} host
+ * @returns {string}
+ */
+export function getWikiaSubdomain(host: string): string {
+	return host.replace(
+		/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
+		'$1'
+	);
+}
+
+/**
  * @desc Removes the port from hostname as well as ad domain aliases
  *
  * @param {string} host
@@ -285,3 +298,22 @@ export class RedirectedToCanonicalHost {
 }
 
 RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
+
+/**
+ * Get HTML title
+ * @param {any} wikiVariables
+ * @param {string} displayTitle
+ * @returns {string}
+ */
+export function getHtmlTitle(wikiVariables: any, displayTitle: string): string {
+	var htmlTitle: string,
+		htmlTitleTemplate: string = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
+
+	if (displayTitle) {
+		htmlTitle = htmlTitleTemplate.replace('$1', displayTitle);
+	} else {
+		htmlTitle = htmlTitleTemplate.substring(5);
+	}
+
+	return htmlTitle;
+}

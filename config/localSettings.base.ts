@@ -112,7 +112,7 @@ var localSettings: LocalSettings = {
 		mobile: /(iPhone|Android.*Mobile|iPod|Opera Mini|Opera Mobile|Mobile.*Firefox|Windows CE| Kindle|IEMobile|Symbian|Danger|BlackBerry|BB10|Googlebot-Mobile|Nokia)/,
 		iPad: /iPad/
 	},
-	enableDiscussions: false,
+	enableDiscussions: process.env.WIKIA_ENVIRONMENT !== 'prod',
 	clickstream: {
 		auth: {
 			enable: true,

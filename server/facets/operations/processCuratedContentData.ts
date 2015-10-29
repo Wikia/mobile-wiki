@@ -17,9 +17,10 @@ var cachingTimes = {
  * @param request
  * @param result
  */
-function prepareData (request: Hapi.Request, result: any): void {
+function prepareData(request: Hapi.Request, result: any): void {
 	var title: string,
-		contentDir = 'ltr';
+		contentDir = 'ltr',
+		wikiVariables = result.wikiVariables;
 
 	/**
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
@@ -32,11 +33,11 @@ function prepareData (request: Hapi.Request, result: any): void {
 		title = decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')));
 		title = title.replace(/_/g, ' ');
 	} else {
-		title = result.wiki.mainPageTitle.replace(/_/g, ' ');
+		title = wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}
 
-	if (result.wiki.language) {
-		contentDir = result.wiki.language.contentDir;
+	if (wikiVariables.language) {
+		contentDir = wikiVariables.language.contentDir;
 		result.isRtl = (contentDir === 'rtl');
 	}
 
@@ -48,15 +49,17 @@ function prepareData (request: Hapi.Request, result: any): void {
 	result.mainPageData.ns = result.article.details.ns;
 
 	result.displayTitle = title;
+	result.htmlTitle = Utils.getHtmlTitle(wikiVariables, title);
 	result.isMainPage = true;
-	result.canonicalUrl = result.wiki.basePath + '/';
+	result.canonicalUrl = wikiVariables.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {
 		type: 'website',
-		title: result.wiki.siteName,
+		title: wikiVariables.siteName,
 		url: result.canonicalUrl
 	};
+
 	if (result.article.details) {
 		if (result.article.details.abstract) {
 			result.openGraph.description = result.article.details.abstract;
@@ -74,7 +77,6 @@ function prepareData (request: Hapi.Request, result: any): void {
 	}
 
 	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
-	result.asyncArticle = shouldAsyncArticle(result);
 }
 
 /**
@@ -99,7 +101,7 @@ function processCuratedContentData (
 	result.curatedContent = result.pageData.curatedContent;
 	delete result.pageData;
 
-	if (!result.wiki.dbName) {
+	if (!result.wikiVariables.dbName) {
 		//if we have nothing to show, redirect to our fallback wiki
 		reply.redirect(localSettings.redirectUrlOnNoData);
 	} else {
@@ -116,12 +118,6 @@ function processCuratedContentData (
 
 		// all the third party scripts we don't want to load on noexternals
 		if (!result.queryParams.noexternals) {
-			// optimizely
-			if (localSettings.optimizely.enabled) {
-				result.optimizelyScript = localSettings.optimizely.scriptPath +
-					localSettings.optimizely.account + '.js';
-			}
-
 			// qualaroo
 			if (localSettings.qualaroo.enabled) {
 				result.qualarooScript = localSettings.qualaroo.scriptUrl;
@@ -140,18 +136,6 @@ function processCuratedContentData (
 		}
 		return Caching.disableCache(response);
 	}
-}
-
-/**
- * (HG-753) This allows for loading article content asynchronously while providing a version of the page with
- * article content that search engines can still crawl.
- * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
- */
-function shouldAsyncArticle(result: any): boolean {
-	var asyncEnabled = localSettings.asyncArticle.indexOf(result.wiki.dbName) > -1,
-		noEscapedFragment = result.queryParams._escaped_fragment_ !== 0;
-
-	return asyncEnabled && noEscapedFragment;
 }
 
 export = processCuratedContentData

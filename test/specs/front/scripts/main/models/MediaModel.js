@@ -1,37 +1,26 @@
-/* global App, resetMercuryBaseline */
-moduleFor('model:media', 'Media Model', {
-	setup: function () {
-		Mercury.article.article.media = [
-			{
-				image:'TEST'
-			},
-			{
-				image:'TEST!'
-			}
-		];
+var mediaExample = [
+	{
+		image: 'Image 1'
 	},
-	teardown: function () {
-		App.reset();
-		resetMercuryBaseline();
+	{
+		image: 'Image 2'
 	}
-});
+];
+
+moduleFor('model:media', 'MediaModel');
 
 test('returning the media array', function () {
-	expect(1);
-
 	var model = App.MediaModel.create({
-		media: Mercury.article.article.media
+		media: mediaExample
 	});
 
-	deepEqual(Mercury.article.article.media, model.get('media'));
+	deepEqual(mediaExample, model.get('media'));
 });
 
 test('returning data about media', function () {
-	expect(1);
-
 	var model = App.MediaModel.create({
-		media: Mercury.article.article.media
+		media: mediaExample
 	});
 
-	equal(Mercury.article.article.media[0], model.get('media')[0]);
+	equal(mediaExample[0], model.get('media')[0]);
 });

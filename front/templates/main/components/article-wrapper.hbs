@@ -1,6 +1,6 @@
 <div class="wiki-container">
 	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'article' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
-	{{#if model.error}}
+	{{#if model.exception}}
 		{{render 'not-found'}}
 	{{else}}
 		<section class="article-body">
@@ -48,7 +48,7 @@
 			{{/if}}
 			{{article-content
 				adsContext=model.adsContext
-				content=model.article
+				content=model.content
 				media=model.media
 				noAds=noAds
 				openLightbox='openLightbox'
