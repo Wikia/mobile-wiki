@@ -6,6 +6,7 @@ module Mercury.Utils {
 	 * @returns {string}
 	 */
 	export function getDomain(hostname: string = window.location.hostname): string {
-		return /[^.]+\.[^.]+$/.exec(hostname)[0];
+		var domain = /[^.]+\.[^.]+$/.exec(hostname);
+		return Em.isArray(domain) ? domain[0] : hostname;
 	}
 }
