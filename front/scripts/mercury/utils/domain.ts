@@ -2,7 +2,7 @@
 
 module Mercury.Utils {
 	/**
-	 * @param {string} hostname
+	 * @param {string} [hostname=window.location.hostname]
 	 * @returns {string}
 	 */
 	export function getDomain(hostname: string = window.location.hostname): string {
