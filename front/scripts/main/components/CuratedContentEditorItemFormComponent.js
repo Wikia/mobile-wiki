@@ -155,10 +155,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			 * @returns {undefined}
 			 */
 			setTitleFocusedIn() {
-				this.setProperties({
-					isTitleFocused: true,
-					isLoading: true,
-				});
+				this.set('isTitleFocused', true);
 			},
 
 			/**
