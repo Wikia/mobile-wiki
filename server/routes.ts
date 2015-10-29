@@ -72,33 +72,6 @@ unauthenticatedRoutes = [
 	 * API Routes
 	 * @description The following routes should just be API routes
 	 */
-	// TODO: XW-395 Remove deprecated API routes after transition to new API base
-	{
-		method: 'GET',
-		path: localSettings.deprecatedApiBase + '/article/{articleTitle*}',
-		handler: require('./facets/api/article').get
-	},
-	{
-		method: 'GET',
-		// TODO: if you call to api/v1/comments/ without supplying an id, this actually calls /api/v1/article
-		path: localSettings.deprecatedApiBase + '/article/comments/{articleId}/{page?}',
-		handler: require('./facets/api/articleComments').get
-	},
-	{
-		method: 'GET',
-		path: localSettings.deprecatedApiBase + '/search/{query}',
-		handler: require('./facets/api/search').get
-	},
-	{
-		method: 'GET',
-		path: localSettings.deprecatedApiBase + '/main/section/{sectionName}',
-		handler: require('./facets/api/mainPageSection').get
-	},
-	{
-		method: 'GET',
-		path: localSettings.deprecatedApiBase + '/main/category/{categoryName}',
-		handler: require('./facets/api/mainPageCategory').get
-	},
 	{
 		method: 'GET',
 		path: localSettings.apiBase + '/article/{articleTitle*}',
