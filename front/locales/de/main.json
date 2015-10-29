@@ -148,6 +148,7 @@
     "curated-content-editor-new-category":"Neue Kategorie"
   },
   "discussion":{
+    "pagination-post-show-more":"Ältere Antworten anzeigen",
     "share-default-title":"Diskussion in __siteName__",
     "contributors-title":"Alle Beitragenden",
     "sort-by-latest":"Neueste",

@@ -49,6 +49,7 @@ function prepareData(request: Hapi.Request, result: any): void {
 	result.mainPageData.ns = result.article.details.ns;
 
 	result.displayTitle = title;
+	result.htmlTitle = Utils.getHtmlTitle(wikiVariables, title);
 	result.isMainPage = true;
 	result.canonicalUrl = wikiVariables.basePath + '/';
 	// the second argument is a whitelist of acceptable parameter names
