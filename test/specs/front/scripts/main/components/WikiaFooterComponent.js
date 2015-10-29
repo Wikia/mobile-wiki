@@ -28,13 +28,12 @@ test('checkLinkForOasisSkinOverwrite returns false if skin is not ovewritten to 
 test('sets cookie if skin is overwritten to oasis', function () {
 	var component = this.subject();
 
-	M.getDomain = function () {return 'wikia.com'};
 	component.checkLinkForOasisSkinOverwrite = function () {return true};
 	sinon.spy(Em.$, 'cookie');
 	component.send('handleFooterLinkClick', 'test', 'test');
 
 	ok(Em.$.cookie.calledOnce);
-	ok(Em.$.cookie.calledWith('useskin', 'oasis', {path: '/', domain: 'wikia.com'}));
+	ok(Em.$.cookie.calledWith('useskin', 'oasis', {path: '/', domain: M.getDomain()}));
 
 	Em.$.cookie.restore();
 });
