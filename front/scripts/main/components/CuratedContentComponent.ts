@@ -7,6 +7,7 @@ App.CuratedContentComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content', 'mw-content'],
+		isLoading: false,
 
 		actions: {
 			/**
