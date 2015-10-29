@@ -3,6 +3,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
+		isLoading: false,
 
 		actions: {
 			/**
