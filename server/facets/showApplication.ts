@@ -32,7 +32,8 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
 	wikiVariables.then((wikiVariables: any): Promise<any> => {
-		var contentDir: string;
+		var contentDir: string,
+			displayTitle: string;
 
 		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
@@ -41,6 +42,10 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 			contentDir = context.wikiVariables.language.contentDir;
 			context.isRtl = (contentDir === 'rtl');
 		}
+
+		// TODO: Update displayTitle
+		displayTitle = '';
+		context.htmlTitle = Utils.getHtmlTitle(wikiVariables, displayTitle);
 
 		return OpenGraph.getAttributes(request, context.wikiVariables);
 	}).then((openGraphData: any): void => {

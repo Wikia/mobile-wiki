@@ -102,10 +102,13 @@ App.ArticleWrapperComponent = Em.Component.extend(
 
 		modelObserver: Em.observer('model', function (): void {
 			var model = this.get('model'),
+				htmlTitleTemplate: string,
 				description: string;
 
 			if (model) {
-				document.title = model.get('cleanTitle') + ' - ' + Mercury.wiki.siteName;
+				htmlTitleTemplate = Em.getWithDefault(Mercury, 'wiki.htmlTitleTemplate', '$1 - Wikia');
+				document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
+
 				description = (typeof model.get('description') === 'undefined') ? '' : model.get('description');
 				$('meta[name="description"]').attr('content', description);
 			}
