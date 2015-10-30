@@ -32,8 +32,8 @@ App.LanguagesMixin = Em.Mixin.create({
 	},
 
 	getLanguage(): string {
-		if (Em.get('currentUser', 'isAuthenticated')) {
-			return Em.get('currentUser', 'language');
+		if (this.get('currentUser', 'isAuthenticated')) {
+			return this.get('currentUser', 'language');
 		} else {
 			return this.getBrowserLanguage();
 		}
