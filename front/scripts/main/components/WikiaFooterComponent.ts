@@ -1,4 +1,5 @@
 /// <reference path="../../main/mixins/TrackClickMixin.ts" />
+/// <reference path="../../mercury/utils/domain.ts" />
 'use strict';
 
 App.WikiaFooterComponent = Em.Component.extend(
@@ -37,7 +38,7 @@ App.WikiaFooterComponent = Em.Component.extend(
 				text: 'hub-lifestyle',
 			},
 			{
-				href: '?useskin=' + Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis'),
+				href: '?useskin=oasis',
 				text: 'footer-link-full-site',
 				className: 'spaced',
 			},
@@ -63,7 +64,7 @@ App.WikiaFooterComponent = Em.Component.extend(
 			 */
 			handleFooterLinkClick(text: string, href: string): void {
 				if (this.checkLinkForOasisSkinOverwrite(href)) {
-					Em.$.cookie('useskin', 'oasis');
+					Em.$.cookie('useskin', 'oasis', {path: '/', domain: M.getDomain()});
 				}
 
 				this.send('trackClick', 'footer', text);
