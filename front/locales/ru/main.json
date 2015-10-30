@@ -13,9 +13,9 @@
     "article-last-edit_plural_2":"Последняя правка была совершена __count__ недель назад",
     "article-categories-list-label":"Категории",
     "article-top-contributors-label":"Самые активные редакторы этой статьи",
+    "article-error":"Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте ещё раз.",
     "side-nav-menu-label":"Меню",
     "navigation-back-label":"Назад",
-    "search-no-results-msg":"К сожалению, по вашему запросу не найдено результатов.",
     "search-loading-msg":"Загрузка результатов поиска...",
     "media-lightbox-error":"Файлы не найдены",
     "map-lightbox-error":"Карта не найдена",
@@ -148,7 +148,6 @@
     "curated-content-editor-new-category":"Новая категория"
   },
   "discussion":{
-    "pagination-post-show-more":"Просмотр старых ответов",
     "share-default-title":"Обсуждение на __siteName__",
     "contributors-title":"Все участники",
     "sort-by-latest":"Последние",
@@ -158,10 +157,11 @@
     "number-of-posts":"__numberOfPosts__ записей",
     "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
     "not-found-error":"Страницы не существует.",
-    "action-retry-title-desktop":"Попробовать снова",
-    "action-retry-title-mobile":"Попробовать снова",
+    "action-retry-title":"Попробовать снова",
     "all-discussions-link-desktop":"Показать все обсуждения",
-    "all-discussions-link-mobile":"Все обсуждения"
+    "all-discussions-link-mobile":"Все обсуждения",
+    "discussions-app-join":"Хотите присоединиться к обсуждению? Установите приложение прямо сейчас!",
+    "back-to-discussions-link":"Все обсуждения"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",

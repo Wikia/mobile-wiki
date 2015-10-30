@@ -13,9 +13,9 @@
     "article-last-edit_plural_2":"Última edição feita  __count__  semanas atrás",
     "article-categories-list-label":"Categorias",
     "article-top-contributors-label":"Top contribuidores deste artigo",
+    "article-error":"Não foi possível carregar o artigo. Por favor, tente novamente.",
     "side-nav-menu-label":"Menu",
     "navigation-back-label":"Voltar",
-    "search-no-results-msg":"Desculpe, não encontramos nada que corresponde a sua pesquisa!",
     "search-loading-msg":"Carregando resultados da pesquisa...",
     "media-lightbox-error":"Mídia não encontrada",
     "map-lightbox-error":"Mapa não encontrado",
@@ -157,10 +157,11 @@
     "number-of-posts":"__numberOfPosts__ Posts",
     "connection-error":"Não é possível conectar, por favor, tente novamente.",
     "not-found-error":"Opa, parece que esta página não existe!",
-    "action-retry-title-desktop":"Clique para tentar novamente",
-    "action-retry-title-mobile":"Toque para tentar novamente",
+    "action-retry-title":"Tente novamente",
     "all-discussions-link-desktop":"Mostre-me todas as discussões",
-    "all-discussions-link-mobile":"Todas as discussões"
+    "all-discussions-link-mobile":"Todas as discussões",
+    "discussions-app-join":"Você quer participar da discussão? Obtenha o app agora!",
+    "back-to-discussions-link":"Todas as discussões"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ ou __loginLink__",
