@@ -1,11 +1,10 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/LoadingSpinnerMixin.ts" />
 /// <reference path="../mixins/AlertNotificationsMixin.ts" />
 'use strict';
 
-App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.AlertNotificationsMixin, {
-	// This has to be here because we need to access media from ArticleController model to open lightbox
-	// TODO: Should be refactored when decoupling article from application
+App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
+	// This has to be here because we need to access media from ArticleController model to open
+	// lightbox TODO: Should be refactored when decoupling article from application
 	article: Em.inject.controller(),
 	queryParams: ['file', 'map',
 		{ noAds: 'noads' },
@@ -39,6 +38,9 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		}
 	}),
 
+	/**
+	 * @returns {undefined}
+	 */
 	init(): void {
 		this.setProperties({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
@@ -58,8 +60,9 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 
 	actions: {
 		/**
-		 * @desc Resets properties related to lightbox which causes it to close.
-		 * Also unblocks scrolling.
+		 * Resets properties related to lightbox which causes it to close. Also unblocks scrolling.
+		 *
+		 * @returns {undefined}
 		 */
 		closeLightbox(): void {
 			this.setProperties({
@@ -73,11 +76,12 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		},
 
 		/**
-		 * @desc Sets lightbox type and model but doesn't show it
-		 * This method is used by Ads Module to prevent showing lightbox when there is no ad to display.
+		 * Sets lightbox type and model but doesn't show it. This method is used by Ads Module to
+		 * prevent showing lightbox when there is no ad to display.
 		 *
-		 * @param lightboxType
-		 * @param lightboxModel
+		 * @param {string} lightboxType
+		 * @param {string} lightboxModel
+		 * @returns {undefined}
 		 */
 		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.setProperties({
@@ -89,17 +93,20 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		},
 
 		/**
-		 * @desc Bubbles up to ApplicationRoute
+		 * Bubbles up to ApplicationRoute
 		 *
-		 * @param target
+		 * @param {HTMLAnchorElement} target
+		 * @returns {undefined}
 		 */
 		handleLink(target: HTMLAnchorElement): void {
 			this.get('target').send('handleLink', target);
 		},
 
 		/**
-		 * @desc Handles query params that should open a lightbox.
+		 * Handles query params that should open a lightbox.
 		 * If you add another param to the app you should modify this function.
+		 *
+		 * @returns {undefined}
 		 */
 		handleLightbox(): void {
 			var file = this.get('file'),
@@ -113,18 +120,21 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		},
 
 		/**
-		 * @desc Bubbles up to ApplicationRoute
+		 * Bubbles up to ApplicationRoute
+		 *
+		 * @returns {undefined}
 		 */
 		loadRandomArticle(): void {
 			this.get('target').send('loadRandomArticle');
 		},
 
 		/**
-		 * @desc Sets controller properties that are passed to LightboxWrapperComponent.
+		 * Sets controller properties that are passed to LightboxWrapperComponent.
 		 * Also blocks scrolling.
 		 *
-		 * @param lightboxType
-		 * @param lightboxModel
+		 * @param {string} lightboxType
+		 * @param {*} lightboxModel
+		 * @returns {undefined}
 		 */
 		openLightbox(lightboxType: string, lightboxModel?: any): void {
 			this.setProperties({
@@ -136,19 +146,20 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		},
 
 		/**
-		 * @desc Bubbles up to ApplicationRoute
+		 * Bubbles up to ApplicationRoute
 		 *
-		 * @param searchString
+		 * @param {string} searchString
 		 */
 		search: function (searchString : string) {
 			this.get('target').send('search', searchString);
 		},
 
 		/**
-		 * @desc Sets query param with given name to given value. Uses whitelist.
+		 * Sets query param with given name to given value. Uses whitelist.
 		 *
-		 * @param name
-		 * @param value
+		 * @param {string} name
+		 * @param {*} value
+		 * @returns {undefined}
 		 */
 		setQueryParam(name: string, value: any): void {
 			var queryParamsWhitelist = ['file', 'map'];
@@ -166,8 +177,10 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 		},
 
 		/**
-		 * @desc Sets lightbox visibility to true.
-		 * If you use openLightbox with lightboxVisible=false you can use this method to show lightbox.
+		 * Sets lightbox visibility to true. If you use openLightbox with lightboxVisible=false
+		 * you can use this method to lightbox.
+		 *
+		 * @returns {undefined}
 		 */
 		showLightbox(): void {
 			this.setProperties({
@@ -176,24 +189,39 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 			});
 		},
 
+		/**
+		 * @param {boolean} visible
+		 * @returns {undefined}
+		 */
 		toggleSideNav(visible: boolean): void {
 			this.set('sideNavVisible', visible);
 		},
 
+		/**
+		 * @param {boolean} visible
+		 * @returns {undefined}
+		 */
 		toggleSmartBanner(visible: boolean): void {
 			this.set('smartBannerVisible', visible);
 		},
 
+		/**
+		 * @param {boolean} visible
+		 * @returns {undefined}
+		 */
 		toggleUserMenu(visible: boolean): void {
 			this.set('userMenuVisible', visible);
 		}
 	},
 
 	/**
-	 * @desc Finds media in article model by the file query param and sends proper data to openLightbox action.
-	 * TODO: It currently opens the first found image with the given title (file qp), we should improve it some day.
+	 * Finds media in article model by the file query param and sends proper data to
+	 * openLightbox action.
+	 * TODO: It currently opens the first found image with the given title (file qp),
+	 * TODO: we should improve it some day.
 	 *
-	 * @param file
+	 * @param {string} file
+	 * @returns {undefined}
 	 */
 	openLightboxForMedia(file: string): void {
 		var mediaModel: typeof App.MediaModel = this.get('article.model.media'),
@@ -214,9 +242,10 @@ App.ApplicationController = Em.Controller.extend(App.LoadingSpinnerMixin, App.Al
 	},
 
 	/**
-	 * @desc Find the map element in DOM by given map id and sends proper data to openLightbox action.
+	 * Find the map element in DOM by given map id and sends proper data to openLightbox action.
 	 *
-	 * @param map
+	 * @param {string} map
+	 * @returns {undefined}
 	 */
 	openLightboxForMap(map: string): void {
 		var $map = Em.$(`a[data-map-id=${map}]`);

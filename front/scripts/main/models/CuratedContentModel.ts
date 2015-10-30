@@ -65,6 +65,10 @@ App.CuratedContentModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @param {App.CuratedContentModel} model
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadMore(model: typeof App.CuratedContentModel): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			// Category type is hardcoded because only Categories API supports offset.
@@ -82,6 +86,10 @@ App.CuratedContentModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @param {*} rawData
+	 * @returns {CuratedContentItem[]}
+	 */
 	sanitizeItems(rawData: any): CuratedContentItem[] {
 		var sanitizedItems: CuratedContentItem[] = [];
 
@@ -94,6 +102,10 @@ App.CuratedContentModel.reopenClass({
 		return sanitizedItems;
 	},
 
+	/**
+	 * @param {*} rawData
+	 * @returns {CuratedContentItem}
+	 */
 	sanitizeItem(rawData: any): CuratedContentItem {
 		var item: CuratedContentItem,
 			categoryName: string,

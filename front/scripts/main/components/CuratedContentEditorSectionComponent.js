@@ -3,7 +3,6 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.CuratedContentEditorSortableItemsMixin,
 	App.CuratedContentThumbnailMixin,
 	App.CuratedContentEditorLabelsMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		imageWidth: 300,
@@ -11,10 +10,11 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			return this.generateThumbUrl(this.get('model.image_url'));
 		}),
 		notEmptyItems: Em.computed.notEmpty('model.items'),
+		isLoading: false,
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			addItem() {
 				this.trackClick('curated-content-editor', 'section-item-add');
@@ -23,7 +23,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentEditorItemModel} item
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			editItem(item) {
 				this.trackClick('curated-content-editor', 'section-item-edit');
@@ -31,7 +31,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			editSection() {
 				this.trackClick('curated-content-editor', 'section-edit');
@@ -39,7 +39,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goBack() {
 				this.trackClick('curated-content-editor', 'section-go-back');
@@ -47,7 +47,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			done() {
 				this.trackClick('curated-content-editor', 'section-done');
@@ -64,10 +64,11 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		validateAndDone() {
-			this.showLoader();
+			this.set('isLoading', true);
+
 			App.CuratedContentEditorItemModel.validateServerData(
 				this.get('model'),
 				{method: 'validateSectionWithItems'}
@@ -98,12 +99,14 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 						type: 'alert'
 					});
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**
-		 * @param {String} reason
-		 * @returns {void}
+		 * @param {string} reason
+		 * @returns {undefined}
 		 */
 		processValidationError(reason) {
 			if (reason === 'itemsMissing') {

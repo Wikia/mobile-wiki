@@ -9,6 +9,10 @@ App.DiscussionRouteUpvoteMixin = Em.Mixin.create({
 	upvotingInProgress: {},
 
 	actions: {
+		/**
+		 * @param {*} post
+		 * @returns {undefined}
+		 */
 		upvote(post: any): void {
 			var hasUpvoted: boolean,
 				method: string,

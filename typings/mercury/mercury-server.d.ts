@@ -12,6 +12,7 @@ interface ArticleData {
 	topContributors: any[];
 	adsContext: any;
 	redirectEmptyTarget: boolean;
+	htmlTitle: string;
 }
 
 interface ArticleDetails {

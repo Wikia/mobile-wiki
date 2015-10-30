@@ -1,5 +1,6 @@
 /// <reference path="../../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../../typings/slick/slick.d.ts" />
+/// <reference path="./globals.ts" />
 
 'use strict';
 
@@ -9,6 +10,8 @@ interface JQuery {
 }
 
 var parallaxWindow : JQuery = $('#js-parallax-window');
+
+var globals : Globals;
 
 $(function() : void {
 	if (parallaxWindow.length) {
@@ -35,6 +38,8 @@ $(function() : void {
 	var headings = $('.grid-heading');
 	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
 	headings.css({padding: '.1rem'});
+
+	globals = new Globals();
 });
 
 function parallax() : void {
@@ -73,7 +78,7 @@ $('#loginIcon').click(function(event) : void {
 	if ($(document).width() < 710) {
 		$('#userInfoToggle').toggle();
 	} else {
-		window.location.href = getGlobals().loginUrl;
+		window.location.href = globals.getLoginUrl();
 	}
 
 	event.preventDefault();

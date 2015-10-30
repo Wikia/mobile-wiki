@@ -16,6 +16,7 @@ var shouldAsyncArticle = Utils.shouldAsyncArticle;
  */
 function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	var title: string,
+		htmlTitle: string,
 		articleDetails: any,
 		contentDir = 'ltr',
 		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
@@ -38,6 +39,10 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 			result.articleContent = articleData.article.content;
 			delete articleData.article.content;
 		}
+
+		if (articleData.htmlTitle) {
+			htmlTitle = articleData.htmlTitle;
+		}
 	}
 
 	if (!title) {
@@ -51,6 +56,7 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	}
 
 	result.displayTitle = title;
+	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, title);
 	result.isMainPage = articleData.isMainPage;
 	result.canonicalUrl = wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);

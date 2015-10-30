@@ -5,94 +5,134 @@
 /// <reference path="../models/MediaModel.ts" />
 'use strict';
 
-App.MediaComponent = Em.Component.extend(App.VisibleMixin, {
-	tagName: 'figure',
-	classNames: ['media-component'],
+/**
+ * Options
+ * @typedef {Object} Options
+ * @property {string} mode
+ * @property {number} width
+ * @property {number} [height]
+ */
 
-	width: null,
-	height: null,
-	ref: null,
-	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
-	visible: false,
-	media: null,
-	thumbnailer: Mercury.Modules.Thumbnailer,
-	limitHeight: false,
-	normalizeWidth: true,
+interface Options {
+	mode: string;
+	width: number;
+	height?: number;
+}
 
-	//thumb widths
-	thumbSize: {
-		small: 340,
-		medium: 660,
-		large: 900
-	},
+App.MediaComponent = Em.Component.extend(
+	App.VisibleMixin,
+	{
+		tagName: 'figure',
+		classNames: ['media-component'],
 
-	//icon width depends on it's real dimensions
-	iconHeight: 20,
-	iconWidth: Em.computed('media', 'iconHeight', function(): number {
-		var media = this.get('media'),
-			iconHeight = this.get('iconHeight');
+		width: null,
+		height: null,
+		ref: null,
+		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
+		visible: false,
+		media: null,
+		thumbnailer: Mercury.Modules.Thumbnailer,
+		limitHeight: false,
+		normalizeWidth: true,
 
-		return Math.floor(iconHeight * media.width / media.height);
-	}),
+		//thumb widths
+		thumbSize: {
+			small: 340,
+			medium: 660,
+			large: 900,
+		},
 
-	normalizeThumbWidth(width: number): number {
-		if (width <= this.thumbSize.small) {
-			return this.thumbSize.small;
-		} else if (width <= this.thumbSize.medium) {
-			return this.thumbSize.medium;
-		}
+		//icon width depends on it's real dimensions
+		iconHeight: 20,
+		iconWidth: Em.computed('media', 'iconHeight', function(): number {
+			var media = this.get('media'),
+				iconHeight = this.get('iconHeight');
 
-		return this.thumbSize.medium;
-	},
+			return Math.floor(iconHeight * media.width / media.height);
+		}),
 
-	getThumbURL(url: string, options: {mode: string; width: number; height?: number}): string {
-		if (options.width && options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown && this.get('normalizeWidth')) {
-			options.width = this.normalizeThumbWidth(options.width);
-		}
+		/**
+		 * caption for current media
+		 */
+		caption: Em.computed('media', {
+			get(): string {
+				var media = this.get('media');
 
-		// Sometimes width is null, so we need to make sure it has a value.
-		options.width = options.width || this.thumbSize.small;
+				if (media && typeof media.caption === 'string') {
+					return media.caption;
+				}
+			},
 
-		if (!this.get('limitHeight')) {
-			options.height = options.width;
-		}
+			set(key: string, value: string): string {
+				return value;
+			},
+		}),
 
-		url = this.thumbnailer.getThumbURL(url, options);
+		actions: {
+			/**
+			 * @returns {undefined}
+			 */
+			onVisible(): void {
+				this.load();
+			},
 
-		return url;
-	},
-
-	/**
-	 * @desc caption for current media
-	 */
-	caption: Em.computed('media', {
-		get(): string {
-			var media = this.get('media');
-
-			if (media && typeof media.caption === 'string') {
-				return media.caption;
+			/**
+			 * @returns {undefined}
+			 */
+			clickLinkedImage(): void {
+				M.track({
+					action: M.trackActions.click,
+					category: 'linked-image'
+				});
 			}
 		},
-		set(key: string, value: string): string {
-			return value;
-		}
-	}),
 
-	actions: {
-		onVisible(): void {
-			this.load();
+		/**
+		 * @param {number} width
+		 * @returns {number}
+		 */
+		normalizeThumbWidth(width: number): number {
+			if (width <= this.thumbSize.small) {
+				return this.thumbSize.small;
+			} else if (width <= this.thumbSize.medium) {
+				return this.thumbSize.medium;
+			}
+
+			return this.thumbSize.medium;
 		},
 
-		clickLinkedImage(): void {
-			M.track({
-				action: M.trackActions.click,
-				category: 'linked-image'
-			});
-		}
+		/**
+		 * @param {string} url
+		 * @param {Options} options
+		 * @returns {string}
+		 */
+		getThumbURL(url: string, options: Options): string {
+			if (options.width &&
+				options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown &&
+				this.get('normalizeWidth')
+			) {
+				options.width = this.normalizeThumbWidth(options.width);
+			}
+
+			// Sometimes width is null, so we need to make sure it has a value.
+			options.width = options.width || this.thumbSize.small;
+
+			if (!this.get('limitHeight')) {
+				options.height = options.width;
+			}
+
+			url = this.thumbnailer.getThumbURL(url, options);
+
+			return url;
+		},
 	}
-});
+);
 
 App.MediaComponent.reopenClass({
+	/**
+	 * @param {ArticleMedia} media
+	 * @returns {App.MediaComponent}
+	 */
 	newFromMedia(media: ArticleMedia): typeof App.MediaComponent {
 		if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
 			return App.InfoboxImageMediaComponent.create();
@@ -107,5 +147,5 @@ App.MediaComponent.reopenClass({
 		} else {
 			return App.ImageMediaComponent.create();
 		}
-	}
+	},
 });

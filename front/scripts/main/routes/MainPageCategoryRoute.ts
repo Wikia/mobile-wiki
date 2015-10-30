@@ -6,10 +6,17 @@
 'use strict';
 
 App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsMixin, {
+	/**
+	 * @param {*} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	model(params: any): Em.RSVP.Promise {
 		return App.CuratedContentModel.find(params.categoryName, 'category');
 	},
 
+	/**
+	 * @returns {*}
+	 */
 	meta(): any {
 		return {
 			name: {
@@ -19,6 +26,10 @@ App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTags
 	},
 
 	actions: {
+		/**
+		 * @param {*} error
+		 * @returns {boolean}
+		 */
 		error(error: any): boolean {
 			// Status comes from ArticlesApiController::getList in MediaWiki
 			// and code comes from MercuryApiController in MW and server side code in Mercury app

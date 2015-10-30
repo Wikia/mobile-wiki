@@ -8,6 +8,9 @@
 'use strict';
 
 App.VisibleMixin = Em.Mixin.create({
+	/**
+	 * @returns {undefined}
+	 */
 	init(): void {
 		this._super();
 

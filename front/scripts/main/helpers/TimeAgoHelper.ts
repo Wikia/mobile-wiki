@@ -2,7 +2,7 @@
 /// <reference path="../../mercury/utils/dateTime.ts" />
 
 /**
- * @desc Helper to give textual representation of time interval between past date
+ * Helper to give textual representation of time interval between past date
  * and the current time/date in the form
  *
  * {timeAgo unixTimestamp}

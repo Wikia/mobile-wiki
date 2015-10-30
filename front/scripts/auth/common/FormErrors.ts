@@ -1,3 +1,6 @@
+/**
+ * @class FormErrors
+ */
 class FormErrors {
 	form: HTMLFormElement;
 	generalValidationErrors: Array<string> = ['email_blocked', 'username_blocked', 'birthdate_below_min_age'];
@@ -5,12 +8,20 @@ class FormErrors {
 	trackingLabelPrefix: string;
 	tracker: AuthTracker;
 
+	/**
+	 * @param {HTMLFormElement} form
+	 * @param {string} trackingLabelPrefix
+	 * @param {string} page
+	 */
 	constructor (form: HTMLFormElement, trackingLabelPrefix: string = 'formValidationErrors', page: string = 'signup') {
 		this.form = form;
 		this.trackingLabelPrefix = trackingLabelPrefix;
 		this.tracker = new AuthTracker('user-signup-mobile', page);
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	public clearValidationErrors(): void {
 		var errorNodes: NodeList = this.form.querySelectorAll('.error');
 
@@ -26,6 +37,11 @@ class FormErrors {
 		this.generalErrorShown = false;
 	}
 
+	/**
+	 * @param {HeliosError[]} errors
+	 *
+	 * @returns {undefined}
+	 */
 	public displayValidationErrors(errors: Array<HeliosError>): void {
 		var errorsDescriptions: string[] = [];
 		Array.prototype.forEach.call(errors, (err: HeliosError): void => {
@@ -40,6 +56,11 @@ class FormErrors {
 		this.trackValidationErrors(errorsDescriptions);
 	}
 
+	/**
+	 * @param {HeliosError} err
+	 *
+	 * @returns {undefined}
+	 */
 	public displayFieldValidationError(err: HeliosError): void {
 		var errorNode: HTMLElement = this.createValidationErrorHTMLNode(err.description),
 			input: HTMLFormElement = <HTMLFormElement> this.form.elements[err.additional.field],
@@ -53,6 +74,9 @@ class FormErrors {
 		}
 	}
 
+	/**
+	 * @returns {undefined}
+	 */
 	public displayGeneralError(): void {
 		if (!this.generalErrorShown) {
 			var errorNode: HTMLElement = this.createValidationErrorHTMLNode('registration_error');
@@ -61,6 +85,11 @@ class FormErrors {
 		}
 	}
 
+	/**
+	 * @param {string} errorDescription
+	 *
+	 * @returns {HTMLElement}
+	 */
 	public createValidationErrorHTMLNode(errorDescription: string): HTMLElement {
 		var errorNode: HTMLElement = document.createElement('small');
 		errorNode.classList.add('error');
@@ -68,11 +97,19 @@ class FormErrors {
 		return errorNode;
 	}
 
-	public translateValidationError(errCode: string): string {
+	/**
+	 * @param {string} errCode
+	 *
+	 * @returns {string}
+	 */public translateValidationError(errCode: string): string {
 		return i18n.t('errors.' + errCode);
 	}
 
-	public trackValidationErrors(errors: Array<string>): void {
+	/**
+	 * @param {strings[]} errors
+	 *
+	 * @returns {undefined}
+	 */public trackValidationErrors(errors: Array<string>): void {
 		this.tracker.track(this.trackingLabelPrefix + ': ' + errors.join(';'), M.trackActions.error);
 	}
 }

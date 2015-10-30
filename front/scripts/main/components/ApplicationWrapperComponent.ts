@@ -3,6 +3,27 @@
 
 'use strict';
 
+/**
+ * HTMLMouseEvent
+ * @typedef {Object} HTMLMouseEvent
+ * @implements {MouseEvent}
+ * @property {HTMLElement} target
+ */
+
+/**
+ * DOMStringMap
+ * @typedef {Object} DOMStringMap
+ * @property {string} galleryRef
+ * @property {string} ref
+ * @property {string} trackingCategory
+ */
+
+/**
+ * EventTarget
+ * @typedef {Object} EventTarget
+ * @property {string} tagName
+ */
+
 // TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
 interface HTMLMouseEvent extends MouseEvent {
 	target: HTMLElement;
@@ -34,6 +55,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
+	firstRender: true,
 
 	noScrollObserver: Em.observer('noScroll', function (): void {
 		var $body = Em.$('body'),
@@ -55,25 +77,34 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 		}
 	}),
 
+	/**
+	 * @returns {undefined}
+	 */
 	willInsertElement(): void {
 		$('#preload').remove();
 	},
 
-	didInsertElement(): void {
-		this.trackFirstContent();
-	},
+	/**
+	 * @returns {undefined}
+	 */
+	didRender(): void {
+		if (this.firstRender === true) {
+			this.firstRender = false;
 
-	trackFirstContent(): void {
-		M.trackPerf({
-			name: 'firstContent',
-			type: 'mark'
-		});
+			M.trackPerf({
+				name: 'appRendered',
+				type: 'mark'
+			});
+		}
 	},
 
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
 	 * cancel the click event on the current page, then the mouseUp handler would open
 	 * the external link in a new page _and_ the current page would be set to that external link.
+	 *
+	 * @param {MouseEvent} event
+	 * @returns {undefined}
 	 */
 	click(event: MouseEvent): void {
 		/**
@@ -98,6 +129,9 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 
 	/**
 	 * Determine if we have to apply special logic to the click handler for MediaWiki / UGC content
+	 *
+	 * @param {EventTarget} target
+	 * @returns {boolean}
 	 */
 	shouldHandleClick(target: EventTarget): boolean {
 		var $target: JQuery = $(target),
@@ -114,6 +148,9 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 
 	/**
 	 * Determine if the clicked target is an reference/in references list (in text or at the bottom of article)
+	 *
+	 * @param {EventTarget} target
+	 * @returns {boolean}
 	 */
 	targetIsReference(target: EventTarget): boolean {
 		var $target: JQuery = $(target);
@@ -124,6 +161,10 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 		);
 	},
 
+	/**
+	 * @param {HTMLAnchorElement} target
+	 * @returns {undefined}
+	 */
 	handleLink(target: HTMLAnchorElement): void {
 		Em.Logger.debug('Handling link with href:', target.href);
 
@@ -143,5 +184,5 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 				this.sendAction('handleLink', target);
 			}
 		}
-	}
+	},
 });

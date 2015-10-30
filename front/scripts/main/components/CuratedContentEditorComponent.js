@@ -1,21 +1,21 @@
 App.CuratedContentEditorComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
+		isLoading: false,
 
 		actions: {
 			/**
 			 * @param {string} block
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			addBlockItem(block) {
 				this.sendAction('addBlockItem', block);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			addSection() {
 				this.sendAction('addSection');
@@ -24,14 +24,14 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			/**
 			 * @param {CuratedContentEditorItemModel} item
 			 * @param {string} block
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			editBlockItem(item, block) {
 				this.sendAction('editBlockItem', item, block);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			openMainPage() {
 				this.sendAction('openMainPage');
@@ -39,14 +39,14 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentEditorItemModel} section
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			openSection(section) {
 				this.sendAction('openSection', section);
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			save() {
 				this.trackClick('curated-content-editor', 'save');
@@ -55,10 +55,11 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		validateAndSave() {
-			this.showLoader();
+			this.set('isLoading', true);
+
 			App.CuratedContentEditorModel.save(this.get('model'))
 				.then((data) => {
 					if (data.status) {
@@ -93,14 +94,16 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 						});
 					}
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 
 		/**
-		 * @param {String} type
-		 * @param {String} reason
-		 * @returns {void}
+		 * @param {string} type
+		 * @param {string} reason
+		 * @returns {undefined}
 		 */
 		processValidationError(type, reason) {
 			if (type === 'featured') {

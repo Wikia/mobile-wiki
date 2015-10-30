@@ -3,13 +3,13 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 	App.CuratedContentEditorLabelsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	App.IEIFrameFocusFixMixin,
 	{
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
 		spinnerOverlay: false,
+		isLoading: false,
 		searchPlaceholder: Em.computed(() =>
 			i18n.t('app.curated-content-editor-search-images-placeholder')
 		),
@@ -22,7 +22,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			}));
 
 			if (!Em.isEmpty(searchQuery)) {
-				this.showLoader();
+				this.set('isLoading', true);
 
 				Em.run.debounce(this, this.getNextBatch, this.debounceDuration);
 			}
@@ -30,7 +30,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			goBack() {
 				this.trackClick('curated-content-editor', 'image-search-go-back');
@@ -39,7 +39,7 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 
 			/**
 			 * @param {SearchPhotoImageResponseInterface} image
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			select(image) {
 				this.trackClick('curated-content-editor', 'image-search-select');
@@ -53,18 +53,20 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {undefined}
 			 */
 			loadMore() {
 				this.trackClick('curated-content-editor', 'image-search-load-more');
-				this.set('spinnerOverlay', true);
-				this.showLoader();
+				this.setProperties({
+					spinnerOverlay: true,
+					isLoading: true,
+				});
 				this.getNextBatch();
 			}
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {undefined}
 		 */
 		getNextBatch() {
 			this.get('imagesModel').next()
@@ -74,8 +76,10 @@ App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
 					this.set('searchMessage', i18n.t('app.curated-content-editor-no-images-found'));
 				})
 				.finally(() => {
-					this.hideLoader();
-					this.set('spinnerOverlay', false);
+					this.setProperties({
+						spinnerOverlay: false,
+						isLoading: false,
+					});
 				});
 		}
 	}

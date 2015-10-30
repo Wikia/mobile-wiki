@@ -148,6 +148,7 @@
     "curated-content-editor-new-category":"新的类别"
   },
   "discussion":{
+    "pagination-post-show-more": "查看以往回复",
     "share-default-title":"__siteName__上的讨论",
     "contributors-title":"所有贡献者",
     "sort-by-latest":"最新",

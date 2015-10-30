@@ -20,6 +20,9 @@ App.ArticleEditController = Em.Controller.extend({
 		'protectedpage': 'app.edit-publish-error-protectedpage'
 	},
 
+	/**
+	 * @returns {undefined}
+	 */
 	handlePublishSuccess (): void {
 		var title = this.get('model.title');
 		this.transitionToRoute('article', title).then((): void => {
@@ -37,6 +40,10 @@ App.ArticleEditController = Em.Controller.extend({
 		});
 	},
 
+	/**
+	 * @param error {any}
+	 * @returns {undefined}
+	 */
 	handlePublishError (error: any): void {
 		var appController = this.get('application'),
 			errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
@@ -45,7 +52,8 @@ App.ArticleEditController = Em.Controller.extend({
 			message: i18n.t(errorMsg),
 			type: 'alert'
 		});
-		appController.hideLoader();
+
+		appController.set('isLoading', false);
 
 		this.set('isPublishing', false);
 
@@ -57,19 +65,28 @@ App.ArticleEditController = Em.Controller.extend({
 	},
 
 	actions: {
+		/**
+		 * @returns {undefined}
+		 */
 		publish(): void {
 			this.set('isPublishing', true);
-			this.get('application').showLoader();
+			this.get('application').set('isLoading', true);
+
 			App.ArticleEditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
+
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
 				label: 'publish'
 			});
 		},
+
+		/**
+		 * @returns {undefined}
+		 */
 		back(): void {
 			this.transitionToRoute('article', this.get('model.title'));
 			M.track({
