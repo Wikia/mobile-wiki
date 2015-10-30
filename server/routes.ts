@@ -202,7 +202,6 @@ authenticatedRoutes = [
 		method: 'GET',
 		path: '/',
 		//Currently / path is not available on production because of redirects from / to /wiki/...
-		// TODO (CONCF-761): we shouldn't load articles for Curated Main Pages
 		handler: require('./facets/showArticle'),
 		config: {
 			cache: routeCacheConfig
@@ -231,7 +230,7 @@ authenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/main/section/{sectionName*}',
-		handler: require('./facets/showMainPageSection'),
+		handler: require('./facets/showCuratedContent'),
 		config: {
 			cache: routeCacheConfig
 		}
@@ -239,7 +238,7 @@ authenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/main/category/{categoryName*}',
-		handler: require('./facets/showMainPageCategory'),
+		handler: require('./facets/showCuratedContent'),
 		config: {
 			cache: routeCacheConfig
 		}

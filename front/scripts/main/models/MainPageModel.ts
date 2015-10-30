@@ -1,7 +1,6 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-// TODO (CONCF-761): We should decouple main page data from article but this needs a separate API path
 App.MainPageModel = App.ArticleModel.extend({
 	curatedContent: null
 });
