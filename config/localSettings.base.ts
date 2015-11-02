@@ -15,8 +15,6 @@ var localSettings: LocalSettings = {
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
 	backendRequestTimeout: 300000,
-	// TODO: XW-395 Remove deprecated API base after transition to new API base
-	deprecatedApiBase: '/api/v1',
 	domain: 'wikia.com',
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
