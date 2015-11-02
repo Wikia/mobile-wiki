@@ -16,7 +16,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 				'reddit',
 				'tumblr'
 			],
-			'jp': [
+			'ja': [
 				'facebook',
 				'twitter',
 				'google',
