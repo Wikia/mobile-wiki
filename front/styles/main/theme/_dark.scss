@@ -59,13 +59,6 @@ body.dark-theme {
 	.floating-label.active {
 		color: $dark-label-color-active;
 	}
-	figure {
-		&.avatar {
-			img {
-				border-color: $dark-discussion-avatar-border-color;
-			}
-		}
-	}
 	.discussion {
 		background-color: $dark-discussion-bg-color;
 
@@ -140,6 +133,13 @@ body.dark-theme {
 	.rail {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
+		}
+		figure {
+			&.avatar {
+				img {
+					border-color: $dark-discussion-avatar-border-color;
+				}
+			}
 		}
 	}
 	.rail hr {
