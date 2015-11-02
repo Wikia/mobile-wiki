@@ -85,15 +85,15 @@ $horizontal-padding: 15px;
 		height: 20px;
 		width: 20px;
 		vertical-align: middle;
-		&.upvote,
-		&.upvote-reply {
+		&.upvote {
 			fill: $upvote-icon-color;
 		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
-			stroke: $upvote-icon-color;
+			fill: $upvote-reply-icon-color;
+			stroke: $upvote-reply-icon-color;
 		}
 	}
 

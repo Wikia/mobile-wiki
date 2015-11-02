@@ -59,7 +59,13 @@ body.dark-theme {
 	.floating-label.active {
 		color: $dark-label-color-active;
 	}
-
+	figure {
+		&.avatar {
+			img {
+				border-color: $dark-discussion-avatar-border-color;
+			}
+		}
+	}
 	.discussion {
 		background-color: $dark-discussion-bg-color;
 
@@ -78,9 +84,12 @@ body.dark-theme {
 			border-top: 1px solid $dark-discussion-reply-border-color;
 		}
 		.icon {
-			&.upvote,
-			&.upvote-reply {
+			&.upvote{
 				fill: $dark-upvote-icon-color;
+			}
+			&.upvote-reply {
+				fill: $dark-upvote-reply-icon-color;
+				stroke: $dark-upvote-reply-icon-color;
 			}
 		}
 		.has-upvoted {
@@ -119,6 +128,18 @@ body.dark-theme {
 		}
 		p {
 			color: $dark-discussion-community-badge-title-color;
+		}
+	}
+	.discussion-contributors {
+		.discussion-contributors-more {
+			background-color: $dark-discussion-contributors-background-color;
+			border-color: $dark-discussion-contributors-border-color;
+			color: $dark-discussion-contributors-text-color;
+		}
+	}
+	.rail {
+		.discussion-contributors-title {
+			color: $dark-discussion-contributors-rail-title;
 		}
 	}
 	.rail hr {
