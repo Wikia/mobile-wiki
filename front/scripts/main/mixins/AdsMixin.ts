@@ -34,7 +34,7 @@ App.AdsMixin = Em.Mixin.create({
 	 * @param {string} adSlotName
 	 * @param {string} place
 	 * @param {JQuery} element
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	appendAd(adSlotName: string, place: string, element: JQuery): void {
 		// Keep in mind we always want to pass noAds parameter to the AdSlot component
@@ -54,7 +54,7 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	clearAdViews(): void {
 		var adView: Em.View;
@@ -66,7 +66,7 @@ App.AdsMixin = Em.Mixin.create({
 	/**
 	 * Inject MOBILE_IN_CONTENT_EXTRA_* ads on selected wikis
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	injectMoreInContentAds(): void {
 		var config = this.adsData.moreInContentAds,
@@ -142,7 +142,7 @@ App.AdsMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	injectAds(): void {
 		var $firstSection = this.$().children('h2').first(),
@@ -178,7 +178,7 @@ App.AdsMixin = Em.Mixin.create({
 	 * Prefooter ad should be loaded above footer
 	 * only when trending articles and/or trending videos are loaded.
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	injectMainPageAds(): void {
 		var $curatedContent = this.$('.curated-content'),
@@ -202,7 +202,7 @@ App.AdsMixin = Em.Mixin.create({
 
 	/**
 	 * @param {*} adsContext
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	setupAdsContext(adsContext: any): void {
 		Mercury.Modules.Ads.getInstance().reload(adsContext);

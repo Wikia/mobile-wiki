@@ -6,7 +6,7 @@
 
 App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	renderTemplate(): void {
 		this.render('article-add-photo', {

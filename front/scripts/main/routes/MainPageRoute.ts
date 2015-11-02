@@ -14,7 +14,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 
 	/**
 	 * @param {App.MainPageModel} model
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	afterModel(model: typeof App.MainPageModel): void {
 		this.controllerFor('mainPage').setProperties({
@@ -33,7 +33,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	/**
 	 * @param {*} controller
 	 * @param {App.MainPageModel} model
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	renderTemplate(controller: any, model: typeof App.MainPageModel): void {
 		if (model.isCuratedMainPage) {

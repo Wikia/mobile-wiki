@@ -18,7 +18,7 @@ module Mercury.Modules.VideoPlayers {
 		/**
 		 * @param {string} provider
 		 * @param {*} params
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		constructor (provider: string, params: any) {
 			if (!provider) {
@@ -32,7 +32,7 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		loadPlayer () {
 			return M.load(this.resourceURI, () => {
@@ -45,7 +45,7 @@ module Mercury.Modules.VideoPlayers {
 		 * Intentionally a no-op, documentation that this hook is implemented
 		 * and to not error when called by loadPlayer*
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		playerDidLoad (): void {}
 
@@ -54,7 +54,7 @@ module Mercury.Modules.VideoPlayers {
 		 * Container selector is can be overriden by the inheriting class
 		 *
 		 * @param {string} containerSelector - JQuery selector of the video container
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		onResize (containerSelector: string = this.containerSelector): void {
 			var $container: JQuery = $(containerSelector),
@@ -104,7 +104,7 @@ module Mercury.Modules.VideoPlayers {
 
 		/**
 		 * @param {string} event=''
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		track (event = ''): void {
 			return M.track({

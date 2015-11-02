@@ -100,7 +100,7 @@ App.UserStatusComponent = Em.Component.extend({
 	 * Add redirect URL on click to make sure it accurately reflects current URL
 	 *
 	 * @param {Event} event
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	click(event: Event): void {
 		// handle join, register, and login links for anons

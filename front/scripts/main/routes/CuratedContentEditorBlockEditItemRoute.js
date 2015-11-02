@@ -16,7 +16,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 	 * @param {Object} controller
 	 * @param {CuratedContentEditorItemModel} model
 	 * @param {EmberState.Transition} transition
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	setupController(controller, model, transition) {
 		const block = transition.params['curatedContentEditor.blockEditItem'].block,
@@ -35,7 +35,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	renderTemplate() {
 		this.render('curated-content-editor-item');
@@ -43,7 +43,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goBack() {
 			this.transitionTo('curatedContentEditor.index');
@@ -51,7 +51,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 
 		/**
 		 * @param {CuratedContentEditorItemModel} newItem
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		done(newItem) {
 			const controller = this.controllerFor('curatedContentEditor.blockEditItem'),
@@ -65,7 +65,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		deleteItem() {
 			const controller = this.controllerFor('curatedContentEditor.blockEditItem'),

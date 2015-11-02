@@ -25,7 +25,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 
 	/**
 	 * @param {*} meta
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	setMeta(meta: any): void {
 		var $head = this.get('$head'),
@@ -73,7 +73,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	runSetMeta(): void {
 		var meta = this.get('meta');

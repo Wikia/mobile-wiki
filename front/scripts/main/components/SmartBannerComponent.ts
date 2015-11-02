@@ -80,7 +80,7 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		close(): void {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
@@ -89,7 +89,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		view(): void {
 			var appScheme: string = this.get('appScheme');
@@ -108,7 +108,7 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	/**
 	 * @param {MouseEvent} event
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
@@ -119,7 +119,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	willInsertElement(): void {
 		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
@@ -128,7 +128,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	checkForHiding(): void {
 		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
@@ -153,7 +153,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * Try to open app using custom scheme and if it fails go to fallback function
 	 *
 	 * @param {string} appScheme
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	tryToOpenApp(appScheme: string): void {
 		this.track(M.trackActions.open);
@@ -165,7 +165,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	/**
 	 * Open app store
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	fallbackToStore(): void {
 		this.track(M.trackActions.install);
@@ -176,7 +176,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * Sets sb-closed=1 cookie for given number of days
 	 *
 	 * @param {number} days
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	setSmartBannerCookie(days: number): void {
 		var date: Date = new Date();
@@ -189,7 +189,7 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	/**
 	 * @param {string} action
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	track(action: string): void {
 		M.track({

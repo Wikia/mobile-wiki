@@ -14,7 +14,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			addItem() {
 				this.trackClick('curated-content-editor', 'section-item-add');
@@ -23,7 +23,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentEditorItemModel} item
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			editItem(item) {
 				this.trackClick('curated-content-editor', 'section-item-edit');
@@ -31,7 +31,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			editSection() {
 				this.trackClick('curated-content-editor', 'section-edit');
@@ -39,7 +39,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			goBack() {
 				this.trackClick('curated-content-editor', 'section-go-back');
@@ -47,7 +47,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			done() {
 				this.trackClick('curated-content-editor', 'section-done');
@@ -64,7 +64,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		validateAndDone() {
 			this.set('isLoading', true);
@@ -106,7 +106,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 
 		/**
 		 * @param {string} reason
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		processValidationError(reason) {
 			if (reason === 'itemsMissing') {

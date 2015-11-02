@@ -104,7 +104,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(
 		/**
 		 * load an image and run update function when it is loaded
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		load(): void {
 			var url = this.get('url'),
@@ -126,7 +126,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(
 		 * updates img with its src and sets media component to visible state
 		 *
 		 * @param src string - src for image
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		update(src: string): void {
 			this.setProperties({

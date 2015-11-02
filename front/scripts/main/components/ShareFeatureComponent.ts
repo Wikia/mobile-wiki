@@ -156,7 +156,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		mouseEnter(): void {
 			if (this.attrs && typeof this.attrs.onMouseEnter === 'function') {
@@ -165,7 +165,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		mouseLeave(): void {
 			if (this.attrs && typeof this.attrs.onMouseLeave === 'function') {
