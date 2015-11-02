@@ -14,7 +14,7 @@
     "Mercury": true,
     "QUnit": true,
     "Em": true,
-    "i8n": true,
+    "i18n": true,
     "window": true
   },
   // http://eslint.org/docs/rules/
