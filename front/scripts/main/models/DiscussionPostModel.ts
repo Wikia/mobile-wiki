@@ -31,6 +31,9 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 						'pivot': this.pivotId,
 						'page': this.page+1
 					}),
+				xhrFields: {
+					withCredentials: true,
+				},
 				dataType: 'json',
 				success: (data: any) => {
 					var newReplies = data._embedded['doc:posts'];
