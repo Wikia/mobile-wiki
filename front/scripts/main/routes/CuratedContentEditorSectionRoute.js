@@ -67,7 +67,6 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 			this.transitionTo('curatedContentEditor.section.edit');
 		},
 
-
 		/**
 		 * @param {CuratedContentEditorItemModel} newSection
 		 * @returns {void}

@@ -2,7 +2,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	/**
 	 * @returns {CuratedContentEditorItemModel} new section
 	 */
-		model() {
+	model() {
 		return App.CuratedContentEditorItemModel.createNew({
 			node_type: 'section',
 			items: []
@@ -15,17 +15,17 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	 * @param {EmberState.Transition} transition
 	 * @returns {void}
 	 */
-		setupController(controller, model, transition) {
+	setupController(controller, model, transition) {
 		this._super(controller, model, transition);
 		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(
-				this.modelFor('curatedContentEditor').get('curated'))
+			this.modelFor('curatedContentEditor').get('curated'))
 		);
 	},
 
 	/**
 	 * @returns {void}
 	 */
-		renderTemplate() {
+	renderTemplate() {
 		this.render('curated-content-editor-item');
 	},
 
@@ -33,7 +33,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		/**
 		 * @returns {void}
 		 */
-			goBack() {
+		goBack() {
 			this.transitionTo('curatedContentEditor.index');
 		},
 
@@ -41,7 +41,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		 * @param {CuratedContentEditorItemModel} newSection
 		 * @returns {void}
 		 */
-			done(newSection) {
+		done(newSection) {
 			this.transitionTo('curatedContentEditor.section', newSection, {
 				queryParams: {
 					isNewSection: true
@@ -52,7 +52,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		/**
 		 * @returns {void}
 		 */
-			deleteItem() {
+		deleteItem() {
 			this.send('goBack');
 		}
 	}
