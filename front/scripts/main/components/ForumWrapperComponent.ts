@@ -23,7 +23,7 @@ App.ForumWrapperComponent = Em.Component.extend(
 		actions: {
 			/**
 			 * @param {number} postId
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			goToPost(postId: number): void {
 				this.sendAction('goToPost', postId);
@@ -31,7 +31,7 @@ App.ForumWrapperComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didScroll(): void {
 			if (this.get('hasMore') && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
@@ -58,14 +58,14 @@ App.ForumWrapperComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didInsertElement(): void {
 			$(window).on('scroll', this.didScroll.bind(this));
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		willDestroyElement(): void {
 			$(window).off('scroll', this.didScroll.bind(this));

@@ -19,7 +19,7 @@ class LoginValidator {
 	/**
 	 * Activates / deactivates submit button in the login form
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private onInput ():void {
 		if (this.isNotEmpty()) {
@@ -39,14 +39,14 @@ class LoginValidator {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private activateSubmit ():void {
 		this.loginSubmit.disabled = false;
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private deactivateSubmit ():void {
 		this.loginSubmit.disabled = true;
@@ -55,7 +55,7 @@ class LoginValidator {
 	/**
 	 * Starts continuous checking for new input
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public watch (): void {
 		this.onInput();

@@ -23,7 +23,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	 * @param {Em.Controller} controller
 	 * @param {Em.Object} model
 	 * @param {EmberStates.Transition} transition
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition): void {
 		this._super(controller, model, transition);
@@ -34,7 +34,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	actions: {
 		/**
 		 * @param {number} postId
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToPost(postId: number): void {
 			var postController = this.controllerFor('discussionPost'),
@@ -47,21 +47,21 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 
 		/**
 		 * @param {number} pageNum
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		loadPage(pageNum: number): void {
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		retry(): void {
 			this.refresh();
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToAllDiscussions(): void {
 			this.transitionTo('discussion.index');
@@ -69,7 +69,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 
 		/**
 		 * @param {string} sortBy
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		setSortBy(sortBy: string): void {
 			var controller = this.controllerFor('discussionForum');

@@ -31,7 +31,7 @@ App.FeaturedContentItemComponent = Em.Component.extend(
 		/**
 		 * Keep the 16:9 ratio
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		updateContainerHeight(): void {
 			var containerHeight = String(Math.round((this.get('viewportDimensions.width') / 16) * 9));

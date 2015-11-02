@@ -75,7 +75,7 @@ class AuthLogger {
 	/**
 	 * @param {Object} data
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public log(data: any): void {
 		if (this.isEnabled) {
@@ -111,7 +111,7 @@ class AuthLogger {
 	/**
 	 * @param {XMLHttpRequest} xhr
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public xhrError(xhr: XMLHttpRequest): void {
 		this.log({

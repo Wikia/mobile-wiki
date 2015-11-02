@@ -18,7 +18,7 @@ interface Window {
 	 *
 	 * @param {string} label
 	 * @param {string} [action=M.trackActions.click]
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function track(label: string, action: string = M.trackActions.click): void {
 		M.track({
@@ -30,7 +30,7 @@ interface Window {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setupTracking(): void {
 		M.provide('wiki', {
@@ -50,7 +50,7 @@ interface Window {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingDimensions (): void {
 		var dimensions: (string|Function)[] = [];
@@ -66,7 +66,7 @@ interface Window {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingForDiscussionsSplashPage () {
 		M.trackPageView(null);

@@ -12,7 +12,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		close(): void {
 			var onCloseAlert = this.get('alert.callbacks.onCloseAlert');
@@ -24,7 +24,7 @@ App.AlertNotificationComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	didInsertElement(): void {
 		var expiry = this.get('alert.expiry'),
@@ -40,14 +40,14 @@ App.AlertNotificationComponent = Em.Component.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	willDestroyElement(): void {
 		Em.run.cancel(this.get('timeout'));
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	dismissNotification(): void {
 		this.sendAction('action', this.get('alert'));

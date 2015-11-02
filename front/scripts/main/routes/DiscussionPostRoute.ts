@@ -14,7 +14,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 
 	/**
 	 * @param {App.DiscussionPostModel} model
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	afterModel (model: typeof App.DiscussionPostModel): void {
 		var title: string = model.get('title');
@@ -25,7 +25,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	activate (): void {
 		this.controllerFor('application').setProperties({
@@ -37,7 +37,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	deactivate (): void {
 		this.controllerFor('application').setProperties({
@@ -50,14 +50,14 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		retry: function (): void {
 			this.refresh();
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToAllDiscussions(): void {
 			this.transitionTo('discussion.index');
@@ -74,7 +74,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 		/**
 		 * @param {number} forumId
 		 * @param {string} sort
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToForum(forumId: number, sort: string): void {
 			this.transitionTo('discussion.forum', forumId, sort);

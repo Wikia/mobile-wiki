@@ -9,7 +9,7 @@ App.ArticleController = Em.Controller.extend({
 	commentsPage: Em.computed.alias('application.commentsPage'),
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	init(): void {
 		this.setProperties({
@@ -23,7 +23,7 @@ App.ArticleController = Em.Controller.extend({
 		/**
 		 * @param title {string}
 		 * @param sectionIndex {number}
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		edit(title: string, sectionIndex: number): void {
 			App.VisibilityStateManager.reset();
@@ -40,7 +40,7 @@ App.ArticleController = Em.Controller.extend({
 		 * @param title {string}
 		 * @param sectionIndex {number}
 		 * @param photoData {any}
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		addPhoto(title: string, sectionIndex: number, photoData: any): void {
 			var photoModel = App.ArticleAddPhotoModel.load(photoData);
@@ -57,7 +57,7 @@ App.ArticleController = Em.Controller.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		articleRendered(): void {
 			this.send('handleLightbox');

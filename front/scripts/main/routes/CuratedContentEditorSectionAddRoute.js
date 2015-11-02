@@ -13,7 +13,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	 * @param {Object} controller
 	 * @param {CuratedContentEditorItemModel} model
 	 * @param {EmberState.Transition} transition
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 		setupController(controller, model, transition) {
 		this._super(controller, model, transition);
@@ -23,7 +23,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 		renderTemplate() {
 		this.render('curated-content-editor-item');
@@ -31,7 +31,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 			goBack() {
 			this.transitionTo('curatedContentEditor.index');
@@ -39,7 +39,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 
 		/**
 		 * @param {CuratedContentEditorItemModel} newSection
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 			done(newSection) {
 			this.transitionTo('curatedContentEditor.section', newSection, {
@@ -50,7 +50,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 			deleteItem() {
 			this.send('goBack');

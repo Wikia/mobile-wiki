@@ -60,7 +60,7 @@ module Mercury.Modules.Trackers {
 		defaults: InternalTrackingConfig;
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		constructor () {
 			var config = Internal.getConfig();
@@ -120,7 +120,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @param {string} url
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		private loadTrackingScript (url: string): void {
 			var script = document.createElement('script');
@@ -158,7 +158,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @param {InternalTrackingParams} params
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		track (params: InternalTrackingParams): void {
 			var config = <InternalTrackingParams>$.extend(params, this.defaults);
@@ -172,7 +172,7 @@ module Mercury.Modules.Trackers {
 		 * Alias to track a page view
 		 *
 		 * @param {TrackContext} context
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		trackPageView (context: TrackContext): void {
 			this.track(<InternalTrackingParams>$.extend({

@@ -74,7 +74,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 
 		gestures: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			swipeLeft(): void {
 				if (this.get('isGallery')) {
@@ -83,7 +83,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			swipeRight(): void {
 				if (this.get('isGallery')) {
@@ -93,7 +93,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didInsertElement(): void {
 			// this.updateState modifies header and footer rendered in LightboxWrapperComponent
@@ -106,7 +106,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 
 		/**
 		 * @param {MouseEvent} event
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		click(event: MouseEvent): void {
 			if (this.get('isGallery')) {
@@ -118,7 +118,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 
 		/**
 		 * @param {JQueryEventObject} event
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		keyDown(event: JQueryEventObject): void {
 			if (this.get('isGallery')) {
@@ -159,7 +159,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		nextMedia(): void {
 			this.incrementProperty('currentGalleryRef');
@@ -172,7 +172,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		prevMedia(): void {
 			this.decrementProperty('currentGalleryRef');
@@ -185,7 +185,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		updateState(): void {
 			this.updateHeader();
@@ -195,7 +195,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		updateHeader(): void {
 			var header: string = null;
@@ -208,7 +208,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		updateFooter(): void {
 			var currentMedia: ArticleMedia = this.get('currentMedia');

@@ -137,7 +137,7 @@ class FacebookRegistration {
 	 * @param {string} facebookToken
 	 * @param {string} heliosTokenUrl
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string): void {
 			var facebookTokenXhr = new XMLHttpRequest(),
@@ -174,7 +174,7 @@ class FacebookRegistration {
 	/**
 	 * @param {Event} event
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public onSubmit (event: Event): void {
 		event.preventDefault();
