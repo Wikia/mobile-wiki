@@ -108,6 +108,22 @@ body.dark-theme {
 			}
 		}
 	}
+	.discussion-app-promotion {
+		.discussion-app-join-text {
+			color: $dark-app-promotion-text-color;
+		}
+	}
+	.community-badge {
+		img {
+			border-color: $dark-discussion-community-badge-border;
+		}
+		p {
+			color: $dark-discussion-community-badge-title-color;
+		}
+	}
+	.rail hr {
+		border-top-color: $dark-discussion-rail-separator-color;
+	}
 }
 
 @media #{$desktop-range} {
