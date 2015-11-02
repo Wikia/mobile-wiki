@@ -30,7 +30,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 			],
 			'zh': [
 				'facebook',
-				'weibo'
+				//'weibo' Until we have an icon for Weibo
 			],
 			'de': [
 				'facebook',
