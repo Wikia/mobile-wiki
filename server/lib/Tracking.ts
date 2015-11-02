@@ -45,3 +45,21 @@ export function handleResponse (result: any, request: Hapi.Request): void {
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
 }
+
+export function handleResponseCuratedMainPage (result: any, request: Hapi.Request): void {
+	var tracking = localSettings.tracking,
+		vertical: string;
+
+	try {
+		vertical = result.mainPageData.adsContext.targeting.wikiVertical;
+	} catch (error) {
+		Logger.error('No vertical set for response');
+
+		vertical = '';
+	}
+
+	Comscore.handleResponse(tracking, vertical, request);
+
+	// export tracking code to layout and front end code
+	result.tracking = tracking;
+}

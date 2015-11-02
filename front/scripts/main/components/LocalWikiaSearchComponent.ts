@@ -20,6 +20,7 @@ interface SearchSuggestionItem {
 
 App.LocalWikiaSearchComponent = Em.Component.extend({
 	classNames: ['local-wikia-search'],
+	isLoading: false,
 
 	query: '',
 

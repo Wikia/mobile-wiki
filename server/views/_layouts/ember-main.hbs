@@ -67,9 +67,6 @@
 				M.prop('articleContentPreloadedInDOM', true, true);
 				M.provide('article', {{{json article}}});
 			{{/if}}
-			{{#if curatedContent}}
-				M.prop('curatedContent', {{{json curatedContent}}}, true);
-			{{/if}}
 			{{#if mainPageData}}
 				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
@@ -92,7 +89,6 @@
 		{{> qualaroo}}
 		<!-- @include ../../../www/front/svg/common.svg -->
 		<!-- @include ../../../www/front/svg/main.svg -->
-
 
         {{!--
         Ember must render out to a specific div above the scripts, otherwise

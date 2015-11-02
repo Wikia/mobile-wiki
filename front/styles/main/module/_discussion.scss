@@ -120,6 +120,8 @@ $horizontal-padding: 15px;
 		}
 
 		.share {
+			display: flex;
+			justify-content: flex-end;
 			text-align: right;
 
 			> * {

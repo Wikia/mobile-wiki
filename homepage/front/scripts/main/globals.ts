@@ -5,17 +5,18 @@
 
 class Globals {
 	cachedData: any;
-	promise: RSVP.Promise;
 
 	constructor() {
-		this.cachedData = null;
+		this.loadGlobalData().then((data: any) => {
+			this.cachedData = data;
+		});
+	}
 
-		this.promise = new RSVP.Promise((resolve, reject) : void => {
+	loadGlobalData() : RSVP.Promise {
+		return new RSVP.Promise((resolve, reject) : void => {
 			$.get( '/globals', (data) : void => {
-				this.cachedData = data;
+				resolve(data);
 			});
-
-			resolve();
 		});
 	}
 
