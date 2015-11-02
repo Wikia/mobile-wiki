@@ -5,7 +5,7 @@
 	.icon {
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 100% 100%;
+		background-size: contain;
 		display: inline-block;
 		height: 24px;
 		margin-left: 5px;
@@ -33,7 +33,6 @@
 	.discussion {
 		&.forum .share-feature {
 			height: 27px;
-			margin-top: -5px;
 			min-width: 100px;
 			padding-right: 15px;
 		}
