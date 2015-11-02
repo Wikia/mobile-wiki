@@ -130,6 +130,9 @@ body.dark-theme {
 			color: $dark-discussion-contributors-text-color;
 		}
 	}
+	.discussion-contributors-mobile {
+		background-color: $dark-discussion-contributors-background-mobile-color;
+	}
 	.rail {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;

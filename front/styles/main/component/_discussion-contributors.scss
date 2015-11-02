@@ -30,7 +30,7 @@ $discussion-contributors-avatar-dimension: 30px;
 }
 
 .discussion-contributors-mobile {
-	background-color: #F6F6F6;
+	background-color: $discussion-contributors-background-mobile;
 	border: none;
 	padding: 14px 9px;
 }
