@@ -134,28 +134,30 @@ App.ArticleRoute = Em.Route.extend({
 	 * @returns {void}
 	 */
 	updateHead(): void {
-		this.updateTitleTag();
-		this.updateCanonicalLinkTag();
-		this.updateDescriptionMetaTag();
+		var model: typeof App.ArticleModel = this.modelFor('article');
+
+		this.updateTitleTag(model);
+		this.updateCanonicalLinkTag(model);
+		this.updateDescriptionMetaTag(model);
 	},
 
 	/**
+	 * @param {App.ArticleModel} model
 	 * @returns {void}
 	 */
-	updateTitleTag(): void {
-		var model: typeof App.ArticleModel = this.modelFor('article'),
-			defaultHtmlTitleTemplate = '$1 - Wikia',
+	updateTitleTag(model: typeof App.ArticleModel): void {
+		var	defaultHtmlTitleTemplate = '$1 - Wikia',
 			htmlTitleTemplate = Em.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
 
 		document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
 	},
 
 	/**
+	 * @param {App.ArticleModel} model
 	 * @returns {void}
 	 */
-	updateCanonicalLinkTag(): void {
-		var model: typeof App.ArticleModel = this.modelFor('article'),
-			canonicalUrl = Em.get(Mercury, 'wiki.basePath') + model.get('url'),
+	updateCanonicalLinkTag(model: typeof App.ArticleModel): void {
+		var canonicalUrl = Em.get(Mercury, 'wiki.basePath') + model.get('url'),
 			$canonicalLinkTag = Em.$('head link[rel=canonical]');
 
 		if (Em.isEmpty($canonicalLinkTag)) {
@@ -166,11 +168,11 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	/**
+	 * @param {App.ArticleModel} model
 	 * @returns {void}
 	 */
-	updateDescriptionMetaTag(): void {
-		var model: typeof App.ArticleModel = this.modelFor('article'),
-			description = model.getWithDefault('description', ''),
+	updateDescriptionMetaTag(model: typeof App.ArticleModel): void {
+		var description = model.getWithDefault('description', ''),
 			$descriptionMetaTag = Em.$('head meta[name=description]');
 
 		if (Em.isEmpty($descriptionMetaTag)) {
