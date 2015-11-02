@@ -23,6 +23,9 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 				data: {
 					page: pageNum
 				},
+				xhrFields: {
+					withCredentials: true,
+				},
 				dataType: 'json',
 				success: (data: any) => {
 					var newPosts = data._embedded['doc:threads'],
