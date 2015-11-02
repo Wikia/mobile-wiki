@@ -50,7 +50,8 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 			'ru': [
 				'vkontakte',
 				'facebook',
-				'odnoklassniki'
+				'odnoklassniki',
+				'twitter'
 			],
 			'pl': [
 				'facebook',
