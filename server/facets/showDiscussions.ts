@@ -1,4 +1,4 @@
-var config = <DiscussionsSplashPageConfig> require('../../../config/discussionsSplashPageConfig');
+var config = <DiscussionsSplashPageConfig> require('../../config/discussionsSplashPageConfig');
 import Utils = require('../lib/Utils');
 import localSettings = require('../../config/localSettings');
 import showApplication = require('../facets/showApplication');
@@ -23,8 +23,8 @@ function getConfigFromUrl(host: string): WikiaDiscussionsConfig {
  * @param {object} discussionsConfig
  * @returns {object}
  */
-function renderSplashPage (request: Hapi.Request, reply: any, discussionsConfig: WikiaDiscussionsConfig): Hapi.Response {
-	var response: Hapi.Response, discussionsConfig: WikiaDiscussionsConfig;
+function showSplashPage (request: Hapi.Request, reply: any, discussionsConfig: WikiaDiscussionsConfig): Hapi.Response {
+	var response: Hapi.Response;
 
 	request.server.methods.i18n.getInstance().setLng(discussionsConfig.language);
 
@@ -67,7 +67,7 @@ function showDiscussions (request: Hapi.Request, reply: any): void {
 	if (localSettings.enableDiscussions) {
 		showApplication(request, reply);
 	} else {
-		renderSplashPage(request, reply, discussionsConfig);
+		showSplashPage(request, reply, discussionsConfig);
 	}
 }
 
