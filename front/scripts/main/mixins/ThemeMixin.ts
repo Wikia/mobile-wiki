@@ -1,10 +1,6 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-interface Window {
-	define: any;
-}
-
 /**
  * Sets the theme class for the body. For now only for dark theme, because the light is default.
  */
@@ -34,9 +30,7 @@ App.ThemeMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * Loads Cropper css and js
-	 *
-	 * @returns {JQueryXHR}
+	 * Loads other theme css
 	 */
 	loadThemeCss(): void {
 		if (!this.themeActivated || !this.themeSettings[this.themeActivated]) {
