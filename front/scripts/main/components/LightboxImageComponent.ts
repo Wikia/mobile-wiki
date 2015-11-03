@@ -24,6 +24,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 		isZoomed: Em.computed.gt('scale', 1),
 		loadingError: false,
+		isLoading: false,
 
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
@@ -171,7 +172,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			pan(event: HammerInput): void {
 				var scale = this.get('scale');
@@ -185,7 +186,7 @@ App.LightboxImageComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			panEnd(): void {
 				this.setProperties({
@@ -196,7 +197,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			doubleTap(event: HammerInput): void {
 				var scale: number;
@@ -221,7 +222,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			pinchMove(event: HammerInput): void {
 				var scale = this.get('scale');
@@ -237,7 +238,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 			/**
 			 * @param {HammerInput} event
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			pinchEnd(event: HammerInput): void {
 				this.set('lastScale', this.get('lastScale') * event.scale);
@@ -245,7 +246,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		loadUrl(): void {
 			var url = this.get('model.url');
@@ -258,7 +259,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didInsertElement(): void {
 			var hammerInstance = this.get('_hammerInstance');
@@ -308,7 +309,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		resetZoom(): void {
 			this.setProperties({
@@ -325,7 +326,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * load an image and run update function when it is loaded
 		 *
 		 * @param url string - url of current image
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		load(url: string): void {
 			var image: HTMLImageElement = new Image();
@@ -351,7 +352,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		 *
 		 * @param {string} imageSrc
 		 * @param {boolean} [loadingError=false]
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		update(imageSrc: string, loadingError: boolean = false): void {
 			if (!this.get('isDestroyed')) {

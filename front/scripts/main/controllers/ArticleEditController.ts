@@ -21,7 +21,7 @@ App.ArticleEditController = Em.Controller.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	handlePublishSuccess (): void {
 		var title = this.get('model.title');
@@ -42,7 +42,7 @@ App.ArticleEditController = Em.Controller.extend({
 
 	/**
 	 * @param error {any}
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	handlePublishError (error: any): void {
 		var appController = this.get('application'),
@@ -52,7 +52,8 @@ App.ArticleEditController = Em.Controller.extend({
 			message: i18n.t(errorMsg),
 			type: 'alert'
 		});
-		appController.hideLoader();
+
+		appController.set('isLoading', false);
 
 		this.set('isPublishing', false);
 
@@ -65,15 +66,17 @@ App.ArticleEditController = Em.Controller.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		publish(): void {
 			this.set('isPublishing', true);
-			this.get('application').showLoader();
+			this.get('application').set('isLoading', true);
+
 			App.ArticleEditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
+
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
@@ -82,7 +85,7 @@ App.ArticleEditController = Em.Controller.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		back(): void {
 			this.transitionToRoute('article', this.get('model.title'));

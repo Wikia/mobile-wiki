@@ -12,6 +12,7 @@ interface ArticleData {
 	topContributors: any[];
 	adsContext: any;
 	redirectEmptyTarget: boolean;
+	htmlTitle: string;
 }
 
 interface ArticleDetails {
@@ -51,15 +52,20 @@ interface ArticleResponse {
 	exception?: MWExceptionData;
 }
 
-interface MainPageRequestParams extends ArticleRequestParams {
-	sectionName?: string;
-	categoryName?: string;
+interface CuratedContentPageData {
+	mainPageData?: MainPageData;
+	wikiVariables: any;
+	server: ServerData;
+	exception?: MWException;
 }
 
-interface MWRequestParams {
-	wikiDomain: string;
-	headers?: any;
-	redirects?: number;
+interface MainPageData {
+	details?: ArticleDetails;
+	adsContext?: any;
+}
+
+interface MainPageDetailsAndAdsContextResponse {
+	data?: MainPageData;
 }
 
 interface MWException {
@@ -70,6 +76,13 @@ interface MWExceptionData {
 	message: string;
 	code: number;
 	details: string;
+	type?: string;
+}
+
+interface MWRequestParams {
+	wikiDomain: string;
+	headers?: any;
+	redirects?: number;
 }
 
 interface ServerData {

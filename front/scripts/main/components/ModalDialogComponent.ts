@@ -10,7 +10,7 @@ App.ModalDialogComponent = Em.Component.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		close(): void {
 			this.set('isVisible', false);

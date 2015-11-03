@@ -1,19 +1,18 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/LoadingSpinnerMixin.ts"/>
 /// <reference path="../mixins/TrackClickMixin.ts"/>
 /// <reference path="../models/CuratedContentModel.ts"/>
 'use strict';
 
 App.CuratedContentComponent = Em.Component.extend(
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content', 'mw-content'],
+		isLoading: false,
 
 		actions: {
 			/**
 			 * @param {CuratedContentItem} item
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			clickItem(item: CuratedContentItem): void {
 				var itemType = item.type;
@@ -28,10 +27,10 @@ App.CuratedContentComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			loadMore(): void {
-				this.showLoader();
+				this.set('isLoading', true);
 
 				App.CuratedContentModel.loadMore(this.get('model'))
 					.catch((reason: any): void => {
@@ -42,7 +41,7 @@ App.CuratedContentComponent = Em.Component.extend(
 						Em.Logger.error(reason);
 					})
 					.finally((): void => {
-						this.hideLoader();
+						this.set('isLoading', false);
 					});
 			},
 		},

@@ -16,7 +16,7 @@ class VisitSourceWrapper {
 		undefined;
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
  	 */
 	public static init() {
 		if (VisitSourceWrapper.sessionVisitSource && VisitSourceWrapper.lifetimeVisitSource) {

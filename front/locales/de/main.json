@@ -13,9 +13,9 @@
     "article-last-edit_plural_2":"Zuletzt vor __count__ Wochen bearbeitet",
     "article-categories-list-label":"Kategorien",
     "article-top-contributors-label":"Top-Beitragende in diesem Artikel",
+    "article-error":"Sorry, wir konnten den Artikel nicht laden. Bitte versuche es noch einmal.",
     "side-nav-menu-label":"Menü",
     "navigation-back-label":"Zurück",
-    "search-no-results-msg":"Tut uns leid, aber es wurde kein Eintrag zu deiner Suche gefunden!",
     "search-loading-msg":"Lade Suchergebnisse...",
     "media-lightbox-error":"Keine Medien gefunden",
     "map-lightbox-error":"Keine Karten gefunden",
@@ -157,10 +157,11 @@
     "number-of-posts":"__numberOfPosts__ Beiträge",
     "connection-error":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal.",
     "not-found-error":"Hoppla, diese Seite gibt es scheinbar nicht!",
-    "action-retry-title-desktop":"Hier klicken, um es noch einmal zu versuchen",
-    "action-retry-title-mobile":"Hier antippen, um es noch einmal versuchen",
+    "action-retry-title":"Noch einmal versuchen",
     "all-discussions-link-desktop":"Alle Diskussionen anzeigen",
-    "all-discussions-link-mobile":"Alle Diskussionen"
+    "all-discussions-link-mobile":"Alle Diskussionen",
+    "discussions-app-join":"Möchtest du mitdiskutieren? Besorge dir jetzt die App!",
+    "back-to-discussions-link":"Alle Diskussionen"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ oder __loginLink__",

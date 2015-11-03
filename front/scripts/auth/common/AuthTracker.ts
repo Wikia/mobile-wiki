@@ -23,7 +23,7 @@ class AuthTracker {
 	 * @param {string} label
 	 * @param {Object} action
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public trackClick (element: HTMLElement, label: string, action = M.trackActions.click): void {
 		if (!element) {
@@ -36,7 +36,7 @@ class AuthTracker {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public trackPageView () {
 		M.trackPageView(null);
@@ -46,7 +46,7 @@ class AuthTracker {
 	 * @param {HTMLFormElement} form
 	 * @param {string} label
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public trackSubmit (form: HTMLFormElement, label: string): void {
 		if (!form) {
@@ -62,7 +62,7 @@ class AuthTracker {
 	 * @param {string} label
 	 * @param {string} action
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public track (label: string, action: string) {
 		var trackOptions: TrackingParams = {

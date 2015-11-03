@@ -13,9 +13,9 @@
     "article-last-edit_plural_2":"最後の編集：__count__週間前",
     "article-categories-list-label":"カテゴリ",
     "article-top-contributors-label":"この記事の上位投稿者",
+    "article-error":"申し訳ありませんが、記事を読み込めませんでした。もう一度お試しください。",
     "side-nav-menu-label":"メニュー",
     "navigation-back-label":"戻る",
-    "search-no-results-msg":"申し訳ありません、検索と一致する結果が見つかりませんでした。",
     "search-loading-msg":"検索結果を読込中...",
     "media-lightbox-error":"メディアが見つかりません",
     "map-lightbox-error":"地図が見つかりません",
@@ -157,10 +157,11 @@
     "number-of-posts":"投稿__numberOfPosts__件",
     "connection-error":"接続できません。もう一度お試しください。",
     "not-found-error":"このページは存在しないようです。",
-    "action-retry-title-desktop":"クリックして再試行",
-    "action-retry-title-mobile":"タップして再試行",
+    "action-retry-title":"再試行",
     "all-discussions-link-desktop":"すべてのトークを表示",
-    "all-discussions-link-mobile":"すべてのトーク"
+    "all-discussions-link-mobile":"すべてのトーク",
+    "discussions-app-join":"トークに参加する場合は、アプリをダウンロードしましょう。",
+    "back-to-discussions-link":"すべてのトーク"
   },
   "userStatus":{
     "anon-cta":"__registerLink__または__loginLink__",

@@ -3,7 +3,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentEditorLabelsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	App.IEIFrameFocusFixMixin,
 	{
@@ -12,6 +11,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		maxLabelLength: 48,
 		debounceDuration: 250,
 		imageMenuVisible: false,
+		isLoading: false,
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
@@ -79,14 +79,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		labelObserver() {
 			this.validateLabel();
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		titleObserver() {
 			const title = this.get('model.title');
@@ -107,7 +107,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didRender() {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
@@ -118,7 +118,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		/**
 		 * When user taps/clicks anywhere we want to close search suggestions panel
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		click() {
 			this.set('searchSuggestionsVisible', false);
@@ -126,7 +126,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			setLabelFocusedOut() {
 				this.validateLabel();
@@ -134,33 +134,32 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			setLabelFocusedIn() {
 				this.set('isLabelFocused', true);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			setTitleFocusedOut() {
 				this.validateTitle();
-				this.set('isTitleFocused', false);
-				if (this.get('isLoading')) {
-					this.hideLoader();
-				}
+				this.setProperties({
+					isTitleFocused: false,
+					isLoading: false,
+				});
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			setTitleFocusedIn() {
-				this.showLoader();
 				this.set('isTitleFocused', true);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			goBack() {
 				const trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
@@ -170,7 +169,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			done() {
 				const trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
@@ -191,7 +190,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			deleteItem() {
 				const trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
@@ -206,11 +205,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			 * Uploads ONLY FIRST of the selected files (if multiple files are selected)
 			 *
 			 * @param {String[]} files
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			fileUpload(files) {
 				this.trackClick('curated-content-editor', 'item-file-upload');
-				this.showLoader();
+				this.set('isLoading', true);
+
 				App.ArticleAddPhotoModel.load(files[0])
 					.then((photoModel) => App.ArticleAddPhotoModel.upload(photoModel))
 					.then((data) => {
@@ -235,12 +235,12 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 					})
 					.finally(() => {
-						this.hideLoader();
+						this.set('isLoading', false);
 					});
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			showImageMenu() {
 				this.trackClick('curated-content-editor', 'item-image-menu');
@@ -248,14 +248,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			hideImageMenu() {
 				this.set('imageMenuVisible', false);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			showSearchImageForm() {
 				this.trackClick('curated-content-editor', 'item-image-search');
@@ -263,7 +263,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			cropImage() {
 				this.trackClick('curated-content-editor', 'item-crop-image');
@@ -273,7 +273,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 			/**
 			 * @param {string} title
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			setTitle(title) {
 				this.setProperties({
@@ -284,7 +284,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 			/**
 			 * @param {string} tooltipMessage
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			showTooltip(tooltipMessage) {
 				this.trackClick('curated-content-editor', 'tooltip-show');
@@ -296,7 +296,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		validateImage() {
 			const imageUrl = this.get('model.image_url');
@@ -312,7 +312,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		validateLabel() {
 			const label = this.get('model.label'),
@@ -333,7 +333,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		validateTitle() {
 			let title,
@@ -359,7 +359,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		getImage() {
 			App.CuratedContentEditorItemModel
@@ -381,24 +381,27 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					Em.Logger.error(err);
 					this.set('imageErrorMessage', i18n.t('app.curated-content-error-other'));
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		getImageDebounced() {
-			this.showLoader();
+			this.set('isLoading', true);
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
 		/**
 		 * @param {CuratedContentEditorItemModel} item
 		 * @param {Object} dataToValidate
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		validateAndDone(item, dataToValidate) {
-			this.showLoader();
+			this.set('isLoading', true);
+
 			App.CuratedContentEditorItemModel.validateServerData(item, dataToValidate)
 				.then((data) => {
 					if (data.status) {
@@ -419,12 +422,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						type: 'alert'
 					});
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**
 		 * @param {string} reason
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		processValidationError(reason) {
 			switch (reason) {
@@ -457,14 +462,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		setSearchSuggestionsDebounced() {
 			Em.run.debounce(this, this.setSearchSuggestions, this.debounceDuration);
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		setSearchSuggestions() {
 			const title = this.get('model.title');

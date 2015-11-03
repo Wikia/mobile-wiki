@@ -14,12 +14,9 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 
 	/**
 	 * @param {App.MainPageModel} model
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	afterModel(model: typeof App.MainPageModel): void {
-		var mainPageTitle = M.String.normalizeToWhitespace(Em.get(Mercury, 'wiki.mainPageTitle'));
-		document.title = mainPageTitle + ' - ' + Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia');
-
 		this.controllerFor('mainPage').setProperties({
 			adsContext: model.get('adsContext'),
 			isRoot: true,
@@ -36,7 +33,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	/**
 	 * @param {*} controller
 	 * @param {App.MainPageModel} model
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	renderTemplate(controller: any, model: typeof App.MainPageModel): void {
 		if (model.isCuratedMainPage) {

@@ -29,14 +29,31 @@ $horizontal-padding: 15px;
 		font-size: $type-min;
 		font-weight: bold;
 
+		.upvote-area,
+		.replies-area {
+			color: $discussion-count-color;
+			display: block;
+			float: left;
+			height: 30px;
+			line-height: 30px;
+			padding: 0 2px;
+		}
+
 		.icon {
 			margin-right: 3px;
+
+			&.upvote {
+				// clickable area is 30px height, text has to be vertically centered, but icons have to be adjusted
+				// to their bottom, so instead of adding additional html tags nesting, I moved up a bit the larger icon
+				margin-top: -4px;
+			}
 		}
 	}
 
 	.discussion-content {
 		color: $discussion-content-color;
-		margin: 10px 0;
+		margin: 5px 0;
+		padding: 5px 0;
 	}
 
 	.discussion-reply {
@@ -125,6 +142,8 @@ $horizontal-padding: 15px;
 		}
 
 		.share {
+			display: flex;
+			justify-content: flex-end;
 			text-align: right;
 
 			> * {
@@ -143,7 +162,12 @@ $horizontal-padding: 15px;
 		display: inline-block;
 		font-size: 10px;
 		font-weight: bold;
+		margin: 0;
 		width: 100%;
+
+		.icon {
+			margin-right: 3px;
+		}
 	}
 
 	@for $i from 1 through length($verticals) {
@@ -178,7 +202,6 @@ $horizontal-padding: 15px;
 		.post-detail {
 			border-bottom-width: 0;
 			border-top: 1px solid $discussion-post-detail-border-color;
-			cursor: pointer;
 
 			&:first-child {
 				border-width: 0;

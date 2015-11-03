@@ -6,8 +6,8 @@ App.DiscussionPostController = Em.Controller.extend({
 	postListSort: '',
 
 	canShowMore: Em.computed('model', 'numRepliesLoaded', function (): boolean {
-		var model = this.get('model'),
-			numRepliesLoaded = this.get('numRepliesLoaded');
+		var model: typeof App.DiscussionPostModel = this.get('model'),
+			numRepliesLoaded: number = this.get('numRepliesLoaded');
 
 		if (numRepliesLoaded === null) {
 			numRepliesLoaded = Em.get(model, 'replies.length');
@@ -20,7 +20,7 @@ App.DiscussionPostController = Em.Controller.extend({
 	actions: {
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		expand(): void {
 			var model = this.get('model');
@@ -34,21 +34,21 @@ App.DiscussionPostController = Em.Controller.extend({
 		/**
 		 * Bubbles up to DiscussionPostRoute
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		retry(): void {
 			this.get('target').send('retry');
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToAllDiscussions(): void {
 			this.get('target').send('goToAllDiscussions');
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToForum(): void {
 			var model = this.get('model'),

@@ -5,7 +5,7 @@
 
 /**
  * @description Article controller
- * @TODO CONCF-761 ArticleRequestHelper and MainPageRequestHelper are sharing couple of functionalities.
+ * @TODO XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 import util = require('util');
@@ -51,7 +51,7 @@ export class ArticleRequestHelper {
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
 		return Promise.settle(requests)
-			.then((results: Promise.Inspection<Promise<any>>[]) => {
+			.then((results: Promise.Inspection<Promise<ArticlePageData>>[]) => {
 				var articlePromise: Promise.Inspection<Promise<any>> = results[0],
 					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
 					isArticlePromiseFulfilled = articlePromise.isFulfilled(),
@@ -70,7 +70,7 @@ export class ArticleRequestHelper {
 					wikiVariablesPromise.reason();
 
 				if (!isWikiVariablesPromiseFulfilled) {
-					return Promise.reject(new WikiVariablesRequestError(wikiVariables));
+					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
 
 				data = {
@@ -132,17 +132,6 @@ export class ArticleRequestHelper {
 			});
 	}
 }
-
-export class WikiVariablesRequestError {
-	private error: MWException;
-
-	constructor(error: MWException) {
-		Error.apply(this, arguments);
-		this.error = error;
-	}
-}
-
-WikiVariablesRequestError.prototype = Object.create(Error.prototype);
 
 export class ArticleRequestError {
 	private data: ArticlePageData;

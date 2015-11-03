@@ -38,7 +38,7 @@ App.WidgetVKComponent = Em.Component.extend(
 		}),
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didInsertElement(): void {
 			this.loadScript();
@@ -46,7 +46,7 @@ App.WidgetVKComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		loadScript(): void {
 			if (!this.get('scriptLoadInitialized.vk')) {
@@ -59,7 +59,7 @@ App.WidgetVKComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		createWidget(): void {
 			if (this.get('scriptLoaded.vk')) {
