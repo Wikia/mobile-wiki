@@ -31,6 +31,7 @@ App.ThemeMixin = Em.Mixin.create({
 
 	/**
 	 * Loads other theme css
+	 * @returns {void}
 	 */
 	loadThemeCss(): void {
 		if (!this.themeActivated || !this.themeSettings[this.themeActivated]) {
