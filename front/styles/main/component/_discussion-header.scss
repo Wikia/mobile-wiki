@@ -10,10 +10,11 @@ $site-header-height: 50px;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
+	z-index: $z-8; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
 	&.un-pinned {
-		margin-top: $theme-bar-height;
+		margin-top: 20px;
+		z-index: $z-6;
 	}
 
 	.header {
@@ -101,6 +102,10 @@ hr.theme {
 		&.headroom-not-top.un-pinned {
 			transform: translateY(-$site-header-height);
 		}
+	}
+	.headroom-not-top,
+	.headroom-top {
+		transition: all 0s;
 	}
 }
 
