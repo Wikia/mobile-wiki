@@ -2,7 +2,7 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
 	App.TrackClickMixin,
 	{
 		persistentSort: false,
-		sortableItems: Em.computed('model.items', function() {
+		sortableItems: Em.computed('model.items', function () {
 			const items = this.get('model.items') || [];
 
 			return Em.A().pushObjects(items);

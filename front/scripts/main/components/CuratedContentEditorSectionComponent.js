@@ -6,7 +6,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	{
 		imageWidth: 300,
-		thumbUrl: Em.computed('model', function() {
+		thumbUrl: Em.computed('model', function () {
 			return this.generateThumbUrl(this.get('model.image_url'));
 		}),
 		notEmptyItems: Em.computed.notEmpty('model.items'),
@@ -72,7 +72,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			App.CuratedContentEditorItemModel.validateServerData(
 				this.get('model'),
 				{method: 'validateSectionWithItems'}
-			)
+				)
 				.then((data) => {
 					let sortableItems;
 
