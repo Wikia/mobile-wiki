@@ -56,10 +56,6 @@ $discussion-header-color-text: #fff;
 		text-align: right;
 		width: 110px;
 	}
-
-	hr {
-		display: none;
-	}
 }
 
 @for $i from 1 through length($verticals) {
@@ -88,4 +84,7 @@ $discussion-header-color-text: #fff;
 	}
 }
 
+hr.theme {
+	display: none;
+}
 
