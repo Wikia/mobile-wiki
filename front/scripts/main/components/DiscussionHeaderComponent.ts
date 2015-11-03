@@ -18,7 +18,7 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			showSortComponent(): void {
 				this.sendAction('showSortComponent');
@@ -26,7 +26,7 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			hideSortComponent(): void {
 				this.sendAction('hideSortComponent');
@@ -35,7 +35,7 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didInsertElement(): void {
 			this.set('overlay', this.element.querySelector('.overlay'));

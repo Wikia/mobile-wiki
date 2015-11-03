@@ -13,7 +13,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		edit(): void {
 			M.track({
@@ -26,7 +26,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		select(): void {
 			var href = '/join?redirect=' + encodeURIComponent(window.location.href);
@@ -46,7 +46,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		addPhoto(): void {
 			if (this.get('currentUser.isAuthenticated') !== true) {

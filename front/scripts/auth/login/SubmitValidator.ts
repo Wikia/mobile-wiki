@@ -19,7 +19,7 @@ class SubmitValidator {
 	/**
 	 * Activates / deactivates submit button in the login form
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private onChange ():void {
 		if (this.areAllFieldsFilled() && !this.isPermanentlyDisabled) {
@@ -45,21 +45,21 @@ class SubmitValidator {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private activateSubmit ():void {
 		this.submitButton.disabled = false;
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private deactivateSubmit ():void {
 		this.submitButton.disabled = true;
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public disablePermanently (): void {
 		this.isPermanentlyDisabled = true;
@@ -69,7 +69,7 @@ class SubmitValidator {
 	/**
 	 * Starts continuous checking for new input
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public watch (): void {
 		this.onChange();

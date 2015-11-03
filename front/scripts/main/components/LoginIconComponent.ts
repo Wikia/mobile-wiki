@@ -10,7 +10,7 @@ App.LoginIconComponent = Em.Component.extend(App.LanguagesMixin, {
 	classNames: ['external', 'login'],
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	click(): void {
 		var label: string,

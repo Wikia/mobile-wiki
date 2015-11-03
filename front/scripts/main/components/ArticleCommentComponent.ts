@@ -54,7 +54,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	 * TODO: this should be done properly starting from changing the API response
 	 *
 	 * @param {JQuery} $originalFigure
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	convertThumbnails($originalFigure: JQuery): void {
 		var thumbnailsData: any,

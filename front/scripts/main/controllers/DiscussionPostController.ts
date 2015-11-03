@@ -20,7 +20,7 @@ App.DiscussionPostController = Em.Controller.extend({
 	actions: {
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		expand(): void {
 			var model = this.get('model');
@@ -34,21 +34,21 @@ App.DiscussionPostController = Em.Controller.extend({
 		/**
 		 * Bubbles up to DiscussionPostRoute
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		retry(): void {
 			this.get('target').send('retry');
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToAllDiscussions(): void {
 			this.get('target').send('goToAllDiscussions');
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToForum(): void {
 			var model = this.get('model'),

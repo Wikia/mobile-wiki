@@ -17,14 +17,14 @@ App.ApplicationRoute = Em.Route.extend(
 
 		actions: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			loading(): void {
 				this.controller && this.controller.set('isLoading', true);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			didTransition(): void {
 				// Activate any A/B tests for the new route
@@ -47,7 +47,7 @@ App.ApplicationRoute = Em.Route.extend(
 
 			/**
 			 * @param {*} error
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			error(error: any): void {
 				this.controller && this.controller.set('isLoading', false);
@@ -56,7 +56,7 @@ App.ApplicationRoute = Em.Route.extend(
 
 			/**
 			 * @param {HTMLAnchorElement} target
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			handleLink(target: HTMLAnchorElement): void {
 				var currentRoute = this.router.get('currentRouteName'),
@@ -123,7 +123,7 @@ App.ApplicationRoute = Em.Route.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			loadRandomArticle(): void {
 				this.get('controller').send('toggleSideNav', false);
@@ -140,7 +140,7 @@ App.ApplicationRoute = Em.Route.extend(
 
 			/**
 			 * @param {string} searchString
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			search: function (searchString : string): void {
 				this.transitionTo('searchResults', {queryParams: {
@@ -151,7 +151,7 @@ App.ApplicationRoute = Em.Route.extend(
 			// We need to proxy these actions because of the way Ember is bubbling them up through routes
 			// see http://emberjs.com/images/template-guide/action-bubbling.png
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			handleLightbox(): void {
 				this.get('controller').send('handleLightbox');
@@ -160,7 +160,7 @@ App.ApplicationRoute = Em.Route.extend(
 			/**
 			 * @param {string} lightboxType
 			 * @param {*} [lightboxModel]
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			openLightbox(lightboxType: string, lightboxModel?: any): void {
 				this.get('controller').send('openLightbox', lightboxType, lightboxModel);
@@ -169,21 +169,21 @@ App.ApplicationRoute = Em.Route.extend(
 			/**
 			 * @param {string} lightboxType
 			 * @param {*} [lightboxModel]
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
 				this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			showLightbox(): void {
 				this.get('controller').send('showLightbox');
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			closeLightbox(): void {
 				this.get('controller').send('closeLightbox');
@@ -192,7 +192,7 @@ App.ApplicationRoute = Em.Route.extend(
 			// This is used only in not-found.hbs template
 			/**
 			 * @param {boolean} visible
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			toggleSideNav(visible: boolean): void {
 				this.get('controller').set('sideNavVisible', visible);
@@ -200,7 +200,7 @@ App.ApplicationRoute = Em.Route.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		activate: function (): void {
 			var adsInstance: Mercury.Modules.Ads,

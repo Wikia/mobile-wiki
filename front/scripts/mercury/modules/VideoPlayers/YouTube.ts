@@ -31,7 +31,7 @@ module Mercury.Modules.VideoPlayers {
 		/**
 		 * @param {string} provider
 		 * @param {*} params
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		constructor (provider: string, params: any) {
 			super(provider, params);
@@ -44,7 +44,7 @@ module Mercury.Modules.VideoPlayers {
 		containerId = this.createUniqueId('youtubeVideoPlayer');
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		bindPlayerEvents (): void {
 			this.params.events = {
@@ -63,14 +63,14 @@ module Mercury.Modules.VideoPlayers {
 		}
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		createPlayer (): void {
 			this.player = new window.YT.Player(this.containerId, this.params);
 		}
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		onPlayerReady (): void {
 			this.onResize();
@@ -79,7 +79,7 @@ module Mercury.Modules.VideoPlayers {
 
 		/**
 		 * @param {YouTubeEvent} event
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		onPlayerStateChange (event: YouTubeEvent): void {
 			if (!this.started && event.data === 1) {

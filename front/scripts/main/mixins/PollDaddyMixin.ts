@@ -8,7 +8,7 @@ App.PollDaddyMixin = Em.Mixin.create({
 	 * This is a hack to make PollDaddy work (HG-618)
 	 * @see http://static.polldaddy.com/p/8791040.js
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	handlePollDaddy(): void {
 		var $polls = this.$('script[src^="http://static.polldaddy.com"]');
@@ -74,7 +74,7 @@ App.PollDaddyMixin = Em.Mixin.create({
 	 *
 	 * @param {string} id
 	 * @param {HTMLScriptElement} script
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	handlePollDaddyContainer(id: string, script: HTMLScriptElement): void {
 		var html: string;

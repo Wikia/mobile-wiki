@@ -16,7 +16,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 
 		gestures: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			swipeLeft(): void {
 				M.VariantTesting.trackEvent('featured-content-next');
@@ -24,7 +24,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			swipeRight(): void {
 				M.VariantTesting.trackEvent('featured-content-prev');
@@ -61,7 +61,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 
 		/**
 		 * @param {PreventableClickEvent} event
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		click(event: PreventableClickEvent): void {
 			this.callClickHandler(event, true);

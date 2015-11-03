@@ -47,7 +47,7 @@ class FacebookConnect extends Login {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public init (): void {
 		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
@@ -84,7 +84,7 @@ class FacebookConnect extends Login {
 	/**
 	 * @param {LoginResponse} loginResponse
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public onLoginSuccess (loginResponse: LoginResponse): void {
 		var facebookConnectXhr = new XMLHttpRequest(),

@@ -6,7 +6,7 @@ App.AlertNotificationsMixin = Em.Mixin.create({
 
 	/**
 	 * @param {AlertNotification} alertData
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	addAlert(alertData: AlertNotification): void {
 		var message = alertData.message,
@@ -27,7 +27,7 @@ App.AlertNotificationsMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	clearNotifications(): void {
 		var notifications = this.get('alertNotifications'),

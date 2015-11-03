@@ -17,7 +17,7 @@ App.ArticleContentMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	init(): void {
 		this._super();
@@ -26,7 +26,7 @@ App.ArticleContentMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	willDestroyElement(): void {
 		this._super();
@@ -70,7 +70,7 @@ App.ArticleContentListeners = Em.Object.create({
 
 	/**
 	 * @param {Em.Component} container
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	add(container: Em.Component): void {
 		var articleContentWidth: number;
@@ -92,7 +92,7 @@ App.ArticleContentListeners = Em.Object.create({
 
 	/**
 	 * @param {Em.Component} container
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	remove(container: Em.Component): void {
 		var index = this.containers.indexOf(container);
@@ -103,7 +103,7 @@ App.ArticleContentListeners = Em.Object.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	onResize(): void {
 		var containers = this.containers,

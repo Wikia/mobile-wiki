@@ -42,7 +42,7 @@ module Mercury.Modules.Trackers {
 		};
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		constructor () {
 			this.tracker = Weppy.namespace('mercury');
@@ -67,7 +67,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @param {PerfTrackerParams} params
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		track (params: PerfTrackerParams): void {
 			var trackFn = this.tracker;

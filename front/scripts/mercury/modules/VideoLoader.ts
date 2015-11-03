@@ -23,7 +23,7 @@ module Mercury.Modules {
 
 		/**
 		 * @param {*} data
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		constructor (data: any) {
 			this.data = data;
@@ -41,7 +41,7 @@ module Mercury.Modules {
 		/**
 		 * Loads player for the video, currently either OoyalaPlayer, YouTubePlayer or BasePlayer (default)
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		loadPlayerClass () {
 			var provider: string = this.getProviderName(),
@@ -66,7 +66,7 @@ module Mercury.Modules {
 		}
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		onResize () {
 			this.player.onResize();

@@ -25,7 +25,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		close(): void {
 			this.setProperties({
@@ -38,7 +38,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 		/**
 		 * @param {string} footer
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		setFooter(footer: string): void {
 			this.set('footer', footer);
@@ -46,7 +46,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 		/**
 		 * @param {string} header
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		setHeader(header: string): void {
 			this.set('header', header);
@@ -55,21 +55,21 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		/**
 		 * @param {string} name
 		 * @param {*} value
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		setQueryParam(name: string, value: any): void {
 			this.sendAction('setQueryParam', name, value);
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		toggleFooter(): void {
 			this.toggleProperty('footerExpanded');
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		toggleUI(): void {
 			this.toggleProperty('footerHidden');
@@ -79,7 +79,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 	/**
 	 * @param {MouseEvent} event
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	click(event: MouseEvent): void {
 		var $target = this.$(event.target);
@@ -95,7 +95,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 	/**
 	 * @param {KeyboardEvent} event
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	keyDown(event: KeyboardEvent): void {
 		if (event.keyCode === 27) {

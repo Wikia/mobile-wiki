@@ -34,14 +34,14 @@ App.SideNavComponent = Em.Component.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		clearSearch(): void {
 			this.set('searchQuery', '');
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		collapse(): void {
 			this.sendAction('toggleVisibility', false);
@@ -49,14 +49,14 @@ App.SideNavComponent = Em.Component.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		expand(): void {
 			this.sendAction('toggleVisibility', true);
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		searchCancel(): void {
 			this.set('isInSearchMode', false);
@@ -64,7 +64,7 @@ App.SideNavComponent = Em.Component.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		searchFocus(): void {
 			this.set('isInSearchMode', true);
@@ -76,7 +76,7 @@ App.SideNavComponent = Em.Component.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		loadRandomArticle(): void {
 			this.sendAction('loadRandomArticle');
@@ -87,7 +87,7 @@ App.SideNavComponent = Em.Component.extend({
 		 * Running A/B test to switch between using MediaWiki Special:Search and Google Custom Search
 		 *
 		 * @param {string} [value=''] - of input
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		enter(value: string = ''): void {
 			// Experiment id from Optimizely

@@ -37,7 +37,7 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @param {boolean} [isSpecialWiki=false]
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		constructor (isSpecialWiki = false) {
 			if (!UniversalAnalytics.dimensions.length) {
@@ -104,7 +104,7 @@ module Mercury.Modules.Trackers {
 		 *
 		 * @param {string} trackerName - The name of the account as specified in localSettings
 		 * @param {string} domain
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		initAccount (trackerName: string, domain: string): void {
 			var options: TrackerOptions, prefix: string,
@@ -159,7 +159,7 @@ module Mercury.Modules.Trackers {
 		 * @param {string} label - Event label.
 		 * @param {number} value - Event value. Has to be an integer.
 		 * @param {boolean} nonInteractive - Whether event is non-interactive.
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		track (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			this.tracked.forEach((account: GAAccount) => {
@@ -189,7 +189,7 @@ module Mercury.Modules.Trackers {
 		 * @param {string} label - Event label.
 		 * @param {number} value - Event value. Has to be an integer.
 		 * @param {boolean} nonInteractive - Whether event is non-interactive.
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		trackAds (category: string, action: string, label: string, value: number, nonInteractive: boolean): void {
 			ga(this.accounts[this.accountAds].prefix + '.send', {
@@ -211,7 +211,7 @@ module Mercury.Modules.Trackers {
 		 * Google Analytics will use the value specified for the page field.
 		 *
 		 * @param {string} url
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		updateTrackedUrl (url: string): void {
 			var location: HTMLAnchorElement = document.createElement('a');
@@ -226,7 +226,7 @@ module Mercury.Modules.Trackers {
 		/**
 		 * Tracks the current page view
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		trackPageView (): void {
 			var pageType = this.getDimension(8);
@@ -244,9 +244,9 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * Tracks usage of Google Custom Search
-		 * 
+		 *
 		 * @param {string} queryParam
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		trackGoogleSearch (queryParam: string): void {
 			this.tracked.forEach((account:GAAccount) => {

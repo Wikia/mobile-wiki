@@ -15,14 +15,14 @@ App.SiteHeadComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			expandSideNav(): void {
 				this.sendAction('toggleSideNav', true);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			showUserMenu(): void {
 				this.sendAction('toggleUserMenu', true);
