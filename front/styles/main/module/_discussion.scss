@@ -24,8 +24,22 @@ $horizontal-padding: 15px;
 		font-size: $type-min;
 		font-weight: bold;
 
+		.upvote-area,
+		.replies-area {
+			color: #999;
+			display: block;
+			float: left;
+			height: 30px;
+			line-height: 30px;
+			padding: 0 2px;
+		}
+
 		.icon {
 			margin-right: 3px;
+
+			&.upvote {
+				margin-top: -4px;
+			}
 		}
 	}
 
@@ -180,7 +194,6 @@ $horizontal-padding: 15px;
 		.post-detail {
 			border-bottom-width: 0;
 			border-top: 1px solid $border-color;
-			cursor: pointer;
 
 			&:first-child {
 				border-width: 0;

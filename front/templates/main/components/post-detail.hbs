@@ -25,13 +25,17 @@
 	}}
 	{{#if isDetailsView}}
 		<div class="small-5 large-3 columns count">
-			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-			{{replyCount}}
+			<span class="replies-area">
+				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+				{{replyCount}}
+			</span>
 		</div>
 	{{else}}
-		<div class="small-2 large-2 columns count" {{action 'goToPost' postId}}>
-			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-			{{replyCount}}
+		<div class="small-2 large-2 columns count">
+			<a {{action 'goToPost' postId}} class="replies-area">
+				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+				{{replyCount}}
+			</a>
 		</div>
 	{{/if}}
 	<div class="share small-5 large-7 columns">
