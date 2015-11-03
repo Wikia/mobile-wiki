@@ -38,6 +38,8 @@ $horizontal-padding: 15px;
 			margin-right: 3px;
 
 			&.upvote {
+				// clickable area is 30px height, text has to be vertically centered, but icons have to be adjusted
+				// to their bottom, so instead of adding additional html tags nesting, I moved up a bit the larger icon
 				margin-top: -4px;
 			}
 		}
