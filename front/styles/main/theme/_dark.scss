@@ -1,5 +1,9 @@
 body.dark-theme {
 	background-color: $dark-body-background;
+
+	a:active {
+		background-color: inherit;
+	}
 }
 
 .dark-theme {
@@ -135,6 +139,9 @@ body.dark-theme {
 			color: $dark-discussion-contributors-text-color;
 		}
 	}
+	.discussion-contributors-mobile {
+		background-color: $dark-discussion-contributors-background-color;
+	}
 	.rail {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
@@ -164,6 +171,12 @@ body.dark-theme {
 					background-color: $dark-discussion-desktop-post-detail-bg-color;
 					border-top-color: $dark-discussion-desktop-post-detail-border-color;
 				}
+			}
+		}
+		.discussion-sort {
+			li {
+				border-bottom-color: $dark-discussion-sort-color;
+				color: $dark-discussion-sort-color;
 			}
 		}
 	}
