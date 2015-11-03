@@ -13,9 +13,9 @@
     "article-last-edit_plural_2":"Ostatnio edytowane __count__ tygodni temu",
     "article-categories-list-label":"Kategorie",
     "article-top-contributors-label":"Najlepsi współtwórcy tego artykułu",
+    "article-error":"Przepraszamy, nie mogliśmy załadować artykułu. Spróbuj ponownie.",
     "side-nav-menu-label":"Menu",
     "navigation-back-label":"Wstecz",
-    "search-no-results-msg":"Niestety, nie znaleźliśmy wyników pasujących do Twojego zapytania!",
     "search-loading-msg":"Ładowanie wyników wyszukiwania...",
     "media-lightbox-error":"Nie znaleziono mediów",
     "map-lightbox-error":"Nie odnaleziono mapy",
@@ -148,7 +148,6 @@
     "curated-content-editor-new-category":"Nowa kategoria"
   },
   "discussion":{
-    "pagination-post-show-more":"Zobacz wcześniejsze odpowiedzi",
     "share-default-title":"Dyskusja na __siteName__",
     "contributors-title":"Wszyscy Użytkownicy",
     "sort-by-latest":"Najnowsze",
@@ -158,10 +157,11 @@
     "number-of-posts":"__numberOfPosts__ {{PLURAL:$1|$1 Post|$1 Posty|$1 Postów}}",
     "connection-error":"Nie można uzyskać połączenia, spróbuj ponownie.",
     "not-found-error":"Ojej, wygląda na to, że ta strona nie istnieje!",
-    "action-retry-title-desktop":"Kliknij, aby ponowić próbę",
-    "action-retry-title-mobile":"Dotknij, aby ponowić próbę",
+    "action-retry-title":"Ponów próbę",
     "all-discussions-link-desktop":"Pokaż mi wszystkie dyskusje",
-    "all-discussions-link-mobile":"Wszystkie dyskusje"
+    "all-discussions-link-mobile":"Wszystkie dyskusje",
+    "discussions-app-join":"Chcesz dołączyć do dyskusji? Pobierz aplikację!",
+    "back-to-discussions-link":"Wszystkie dyskusje"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ lub __loginLink__",

@@ -24,6 +24,7 @@ App.LightboxImageComponent = Em.Component.extend(
 
 		isZoomed: Em.computed.gt('scale', 1),
 		loadingError: false,
+		isLoading: false,
 
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange

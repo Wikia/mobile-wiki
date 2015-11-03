@@ -52,7 +52,8 @@ App.ArticleEditController = Em.Controller.extend({
 			message: i18n.t(errorMsg),
 			type: 'alert'
 		});
-		appController.hideLoader();
+
+		appController.set('isLoading', false);
 
 		this.set('isPublishing', false);
 
@@ -69,11 +70,13 @@ App.ArticleEditController = Em.Controller.extend({
 		 */
 		publish(): void {
 			this.set('isPublishing', true);
-			this.get('application').showLoader();
+			this.get('application').set('isLoading', true);
+
 			App.ArticleEditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
+
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
