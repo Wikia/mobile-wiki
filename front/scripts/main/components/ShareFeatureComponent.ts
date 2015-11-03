@@ -62,7 +62,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	},
 
 	computedSharedUrl: Em.computed('title', 'sharedUrl', function (): string {
-		var sharedUrl:string = this.get('sharedUrl');
+		var sharedUrl: string = this.get('sharedUrl');
 
 		if (Em.isEmpty(sharedUrl)) {
 			return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname;
@@ -74,6 +74,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	currentSocialNetworks: Em.computed('currentUser.language', function (): string[] {
 		var lang = this.getBrowserLanguage(),
 			socialNetworks = this.get('socialNetworks');
+
 		return socialNetworks[lang] || socialNetworks['en'];
 	}),
 
