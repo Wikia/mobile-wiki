@@ -17,6 +17,11 @@ App.LanguagesMixin = Em.Mixin.create({
 		return Em.get(Mercury, 'wiki.language.content') === 'ja';
 	}),
 
+	/**
+	 * Returns navigator language with fallback to a default language
+	 * defined at the top of this object
+	 * @returns {string}
+	 */
 	getBrowserLanguage(): string {
 		var lang = navigator.language || navigator.browserLanguage;
 		if (!lang) {
@@ -31,6 +36,11 @@ App.LanguagesMixin = Em.Mixin.create({
 		}
 	},
 
+	/**
+	 * Obtains a localized language (browser lang for anons,
+	 * user lang for logged-in users)
+	 * @returns {string}
+	 */
 	getLanguage(): string {
 		if (this.get('currentUser', 'isAuthenticated')) {
 			return this.get('currentUser', 'language');
@@ -39,6 +49,10 @@ App.LanguagesMixin = Em.Mixin.create({
 		}
 	},
 
+	/**
+	 * Creates an escaped uselang querystring param
+	 * @returns {string}
+	 */
 	getUselangParam(): string {
 		var lang: string = Em.get(Mercury, 'wiki.language.content');
 		if (!lang || lang === 'en') {

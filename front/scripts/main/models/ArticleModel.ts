@@ -50,6 +50,7 @@ App.ArticleModel = Em.Object.extend({
 	media: [],
 	mediaUsers: [],
 	title: null,
+	url: null,
 	user: null,
 	users: [],
 	wiki: null,
@@ -174,6 +175,7 @@ App.ArticleModel.reopenClass({
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id,
+					url: details.url,
 					description: details.description
 				};
 			}

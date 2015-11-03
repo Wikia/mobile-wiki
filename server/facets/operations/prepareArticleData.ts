@@ -32,6 +32,7 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 		if (articleData.details) {
 			articleDetails = articleData.details;
 			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+			result.canonicalUrl = wikiVariables.basePath + articleDetails.url;
 		}
 
 		if (articleData.article) {
@@ -58,7 +59,6 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	result.displayTitle = title;
 	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, title);
 	result.isMainPage = articleData.isMainPage;
-	result.canonicalUrl = wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_');
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
