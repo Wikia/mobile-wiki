@@ -21,7 +21,7 @@ App.ArticleEditController = Em.Controller.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	handlePublishSuccess (): void {
 		var title = this.get('model.title');
@@ -42,7 +42,7 @@ App.ArticleEditController = Em.Controller.extend({
 
 	/**
 	 * @param error {any}
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	handlePublishError (error: any): void {
 		var appController = this.get('application'),
@@ -66,7 +66,7 @@ App.ArticleEditController = Em.Controller.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		publish(): void {
 			this.set('isPublishing', true);
@@ -85,7 +85,7 @@ App.ArticleEditController = Em.Controller.extend({
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		back(): void {
 			this.transitionToRoute('article', this.get('model.title'));

@@ -8,7 +8,7 @@
 	 * Auth pages live on www.wikia.com and don't have access to WikiVariables
 	 * hence there's a need to provide this data inline
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setupTracking(): void {
 		M.provide('wiki', {
@@ -23,7 +23,7 @@
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingDimensions (): void {
 		var dimensions: (string|Function)[] = [];
@@ -41,7 +41,7 @@
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingForSignInPage (): void {
 		var tracker = new AuthTracker('user-login-mobile', '/signin');
@@ -76,7 +76,7 @@
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingForRegisterPage (): void {
 		var tracker = new AuthTracker('user-signup-mobile', '/register');
@@ -105,7 +105,7 @@
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingForJoinPage(): void {
 		var tracker = new AuthTracker('user-login-mobile', '/join');
@@ -147,7 +147,7 @@
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingForFBConnectPage () {
 		var tracker = new AuthTracker('user-signup-mobile', '/signin');
@@ -182,7 +182,7 @@
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function setTrackingForFBRegisterPage () {
 		var tracker = new AuthTracker('user-signup-mobile', '/register');
@@ -211,7 +211,7 @@
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	function init (): void {
 		var pageType: string,

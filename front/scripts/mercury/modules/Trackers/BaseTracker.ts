@@ -19,7 +19,7 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		appendScript (): void {
 			var elem: HTMLScriptElement = document.createElement('script');

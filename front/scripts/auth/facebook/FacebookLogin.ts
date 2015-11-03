@@ -51,7 +51,7 @@ class FacebookLogin {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public init (): void {
 		this.loginButton.addEventListener('click', this.login.bind(this));
@@ -60,7 +60,7 @@ class FacebookLogin {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public login (): void {
 		window.FB.login(this.onLogin.bind(this), {scope: 'email'});
@@ -70,7 +70,7 @@ class FacebookLogin {
 	/**
 	 * @param {FacebookResponse} response
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	public onLogin(response: FacebookResponse): void {
 		if (response.status === 'connected') {
@@ -81,7 +81,7 @@ class FacebookLogin {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private activateButton(): void {
 		this.loginButton.classList.remove('on');
@@ -89,7 +89,7 @@ class FacebookLogin {
 	}
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private deactivateButton(): void {
 		this.loginButton.classList.add('on');
@@ -99,7 +99,7 @@ class FacebookLogin {
 	/**
 	 * @param {FacebookResponse} response
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private onSuccessfulLogin(response: FacebookResponse): void {
 		this.getHeliosInfoFromFBToken(response.authResponse);
@@ -108,7 +108,7 @@ class FacebookLogin {
 	/**
 	 * @param {FacebookResponse} response
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private onUnsuccessfulLogin(response: FacebookResponse): void {
 		this.tracker.track('facebook-login-helios-error', Mercury.Utils.trackActions.error);
@@ -133,7 +133,7 @@ class FacebookLogin {
 	/**
 	 * @param {FacebookAuthData} facebookAuthData
 	 *
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	private getHeliosInfoFromFBToken(facebookAuthData: FacebookAuthData): void {
 		var facebookTokenXhr = new XMLHttpRequest(),

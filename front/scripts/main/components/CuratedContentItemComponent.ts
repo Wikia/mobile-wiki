@@ -53,14 +53,14 @@ App.CuratedContentItemComponent = Em.Component.extend(
 		})),
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		click(): void {
 			this.sendAction('action', this.get('model'));
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		updateImageSize(): void {
 			var imageSize = String(Math.floor((this.get('viewportDimensions.width') - 20) / 2));

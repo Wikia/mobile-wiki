@@ -9,7 +9,7 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			addItem() {
 				this.sendAction('addItem', this.get('block'));
@@ -17,7 +17,7 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentEditorItemModel} item
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			editItem(item) {
 				this.sendAction('editItem', item, this.get('block'));
@@ -25,14 +25,14 @@ App.CuratedContentEditorBlockComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentEditorItemModel} section
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			openSection(section) {
 				this.sendAction('openSection', section);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			showHelp() {
 				this.trackClick('curated-content-editor', 'help-show');

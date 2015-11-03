@@ -137,6 +137,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		 * Obtains a shared url getter and executes it to get a shared url with a current page details
 		 * In this case, handler should be named after the string in the config object at the top of the file
 		 * @param {string} network
+		 * @returns {void}
 		 */
 		share(network: string): void {
 			var urlGetter:Function = this.get(network),
@@ -156,7 +157,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	mouseEnter(): void {
 		if (this.attrs && typeof this.attrs.onMouseEnter === 'function') {
@@ -165,7 +166,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	mouseLeave(): void {
 		if (this.attrs && typeof this.attrs.onMouseLeave === 'function') {

@@ -18,7 +18,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 
 	actions: {
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		showMore(): void {
 			var previousLimit = this.get('limit'),
@@ -30,7 +30,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	setUp(): void {
 		this._super();
@@ -55,7 +55,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	load(): void {
 		this.setUp();

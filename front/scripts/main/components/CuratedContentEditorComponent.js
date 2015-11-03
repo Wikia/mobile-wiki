@@ -8,14 +8,14 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		actions: {
 			/**
 			 * @param {string} block
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			addBlockItem(block) {
 				this.sendAction('addBlockItem', block);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			addSection() {
 				this.sendAction('addSection');
@@ -24,14 +24,14 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 			/**
 			 * @param {CuratedContentEditorItemModel} item
 			 * @param {string} block
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			editBlockItem(item, block) {
 				this.sendAction('editBlockItem', item, block);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			openMainPage() {
 				this.sendAction('openMainPage');
@@ -39,14 +39,14 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 
 			/**
 			 * @param {CuratedContentEditorItemModel} section
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			openSection(section) {
 				this.sendAction('openSection', section);
 			},
 
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			save() {
 				this.trackClick('curated-content-editor', 'save');
@@ -55,7 +55,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		validateAndSave() {
 			this.set('isLoading', true);
@@ -103,7 +103,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		/**
 		 * @param {string} type
 		 * @param {string} reason
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		processValidationError(type, reason) {
 			if (type === 'featured') {

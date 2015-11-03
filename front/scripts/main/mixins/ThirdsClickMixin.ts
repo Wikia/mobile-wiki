@@ -37,7 +37,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 
 	/**
 	 * @param {PreventableClickEvent} event
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	preventDefaultActions(event: PreventableClickEvent): void {
 		event.preventDefault();
@@ -49,7 +49,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 *
 	 * @param {PreventableClickEvent} event
 	 * @param {boolean} [preventDefault=false]
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	callClickHandler(event: PreventableClickEvent, preventDefault: boolean = false): void {
 		var viewportWidth = this.get('viewportWidth'),

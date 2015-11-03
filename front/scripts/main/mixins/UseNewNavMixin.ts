@@ -7,7 +7,7 @@
  */
 App.UseNewNavMixin = Em.Mixin.create({
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	activate(): void {
 		this.controllerFor('application').set('useNewNav', true);
@@ -15,7 +15,7 @@ App.UseNewNavMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	deactivate(): void {
 		this.controllerFor('application').set('useNewNav', false);

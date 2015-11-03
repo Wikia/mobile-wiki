@@ -1,8 +1,8 @@
 App.CuratedContentEditorSectionIndexRoute = Em.Route.extend({
 	/**
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
-		renderTemplate() {
+	renderTemplate() {
 		this.render('curated-content-editor-section', {
 			controller: 'curatedContentEditor.section'
 		});

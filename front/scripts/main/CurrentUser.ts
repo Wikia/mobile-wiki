@@ -53,7 +53,7 @@ App.CurrentUser = Em.Object.extend({
 
 	/**
 	 * @param {string} [userLang=null]
-	 * @returns {undefined}
+	 * @returns {void}
 	 */
 	setUserLanguage(userLang: string = null): void {
 		var contentLanguage = Em.getWithDefault(Mercury, 'wiki.language.content', 'en'),

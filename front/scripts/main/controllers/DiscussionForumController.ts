@@ -31,14 +31,14 @@ App.DiscussionForumController = Em.Controller.extend({
 	actions: {
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		showSortComponent(): void {
 			this.set('sortVisible', true);
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		hideSortComponent(): void {
 			this.set('sortVisible', false);
@@ -47,7 +47,7 @@ App.DiscussionForumController = Em.Controller.extend({
 		/**
 		 * Bubbles up to DiscussionForumRoute
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		retry(): void {
 			this.get('target').send('retry');
@@ -56,7 +56,7 @@ App.DiscussionForumController = Em.Controller.extend({
 		/**
 		 * Bubbles up to DiscussionForumRoute
 		 *
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		goToAllDiscussions(): void {
 			this.get('target').send('goToAllDiscussions');

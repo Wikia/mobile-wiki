@@ -17,7 +17,7 @@ App.CollapsibleMenuComponent = Em.Component.extend(
 
 		actions: {
 			/**
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			toggleMenu(): void {
 				this.toggleProperty('isCollapsed');
@@ -33,21 +33,21 @@ App.CollapsibleMenuComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		didInsertElement(): void {
 			Em.addObserver(this, 'observe', this, this.titleDidChange);
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		willDestroyElement(): void {
 			Em.removeObserver(this, 'observe', this, this.titleDidChange);
 		},
 
 		/**
-		 * @returns {undefined}
+		 * @returns {void}
 		 */
 		titleDidChange(): void {
 			if (!this.get('isCollapsed')) {
