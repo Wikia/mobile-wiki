@@ -3,7 +3,7 @@ $discussion-header-color-text: #fff;
 
 .discussion-header {
 	color: $discussion-header-color-text;
-	margin-top: $top-bar-height;
+	margin-top: rem-calc(50); // site-header height
 	max-width: inherit;
 	position: fixed;
 	top: 0;
@@ -11,7 +11,7 @@ $discussion-header-color-text: #fff;
 	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
 	&.un-pinned {
-		margin-top: $theme-bar-height + $top-bar-height;
+		margin-top: $theme-bar-height;
 	}
 
 	.header {
@@ -56,6 +56,10 @@ $discussion-header-color-text: #fff;
 		text-align: right;
 		width: 110px;
 	}
+
+	hr {
+		display: none;
+	}
 }
 
 @for $i from 1 through length($verticals) {
@@ -73,3 +77,15 @@ $discussion-header-color-text: #fff;
 		}
 	}
 }
+
+.site-body-discussion {
+	margin-top: 3.75rem;
+}
+
+@media #{$desktop-range} {
+	.site-body-discussion {
+		margin-top: 0;
+	}
+}
+
+
