@@ -1,9 +1,11 @@
 $discussion-header-line-height: 45px;
 $discussion-header-color-text: #fff;
 
+$site-header-height: 50px;
+
 .discussion-header {
 	color: $discussion-header-color-text;
-	margin-top: rem-calc(50); // site-header height
+	margin-top: $site-header-height;
 	max-width: inherit;
 	position: fixed;
 	top: 0;
@@ -88,3 +90,22 @@ hr.theme {
 	display: none;
 }
 
+[class$="-vertical"] {
+	.side-nav-toggle {
+		display: none;
+	}
+	.site-head {
+		height: $site-header-height + 20px;
+		border-bottom: 20px solid transparent;
+
+		&.headroom-not-top.un-pinned {
+			transform: translateY(-$site-header-height);
+		}
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .site-head {
+		border-bottom-color: #{nth($vertical-colors, $i)};
+	}
+}
