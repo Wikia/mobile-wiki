@@ -1,5 +1,3 @@
-/// <reference path="../app.ts" />
-
 App.DiscussionForumController = Em.Controller.extend({
 	application: Em.inject.controller(),
 	sortBy: null,
@@ -18,29 +16,27 @@ App.DiscussionForumController = Em.Controller.extend({
 		}
 	],
 
-	sortMessageKey: Em.computed('sortBy', function (): string {
-		var sortTypes = this.get('sortTypes'),
-			filtered = sortTypes.filter((obj: any): boolean => {
+	sortMessageKey: Em.computed('sortBy', function () {
+		const sortTypes = this.get('sortTypes'),
+			filtered = sortTypes.filter((obj) => {
 				return obj.name === this.get('sortBy');
 			});
 
-			return filtered.length ? filtered[0].messageKey :
-				sortTypes[0].messageKey;
+		return filtered.length ? filtered[0].messageKey : sortTypes[0].messageKey;
 	}),
 
 	actions: {
-
 		/**
 		 * @returns {void}
 		 */
-		showSortComponent(): void {
+		showSortComponent() {
 			this.set('sortVisible', true);
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		hideSortComponent(): void {
+		hideSortComponent() {
 			this.set('sortVisible', false);
 		},
 
@@ -49,7 +45,7 @@ App.DiscussionForumController = Em.Controller.extend({
 		 *
 		 * @returns {void}
 		 */
-		retry(): void {
+		retry() {
 			this.get('target').send('retry');
 		},
 
@@ -58,7 +54,7 @@ App.DiscussionForumController = Em.Controller.extend({
 		 *
 		 * @returns {void}
 		 */
-		goToAllDiscussions(): void {
+		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
 		}
 	}

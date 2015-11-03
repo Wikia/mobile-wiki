@@ -1,33 +1,32 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury.d.ts" />
-'use strict';
-
 App.ArticleEditController = Em.Controller.extend({
 	application: Em.inject.controller(),
 
 	isPublishing: false,
 
-	publishDisabled: Em.computed('isPublishing', 'model.isDirty', function (): boolean {
+	publishDisabled: Em.computed('isPublishing', 'model.isDirty', function () {
 		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
 	}),
 
 	// FIXME: Cover more errors
 	errorCodeMap: {
-		'autoblockedtext': 'app.edit-publish-error-autoblockedtext',
-		'blocked': 'app.edit-publish-error-blocked',
-		'noedit': 'app.edit-publish-error-noedit',
+		autoblockedtext: 'app.edit-publish-error-autoblockedtext',
+		blocked: 'app.edit-publish-error-blocked',
+		noedit: 'app.edit-publish-error-noedit',
 		'noedit-anon': 'app.edit-publish-error-noedit-anon',
-		'protectedpage': 'app.edit-publish-error-protectedpage'
+		protectedpage: 'app.edit-publish-error-protectedpage'
 	},
 
 	/**
 	 * @returns {void}
 	 */
-	handlePublishSuccess (): void {
-		var title = this.get('model.title');
-		this.transitionToRoute('article', title).then((): void => {
+	handlePublishSuccess() {
+		const title = this.get('model.title');
+
+		this.transitionToRoute('article', title).then(() => {
 			this.get('application').addAlert({
-				message: i18n.t('app.edit-success', { pageTitle: title }),
+				message: i18n.t('app.edit-success', {
+					pageTitle: title
+				}),
 				type: 'success'
 			});
 			this.set('isPublishing', false);
@@ -41,11 +40,11 @@ App.ArticleEditController = Em.Controller.extend({
 	},
 
 	/**
-	 * @param error {any}
+	 * @param {*} error
 	 * @returns {void}
 	 */
-	handlePublishError (error: any): void {
-		var appController = this.get('application'),
+	handlePublishError(error) {
+		const appController = this.get('application'),
 			errorMsg = this.errorCodeMap[error] || 'app.edit-publish-error';
 
 		appController.addAlert({
@@ -68,7 +67,7 @@ App.ArticleEditController = Em.Controller.extend({
 		/**
 		 * @returns {void}
 		 */
-		publish(): void {
+		publish() {
 			this.set('isPublishing', true);
 			this.get('application').set('isLoading', true);
 
@@ -83,11 +82,10 @@ App.ArticleEditController = Em.Controller.extend({
 				label: 'publish'
 			});
 		},
-
 		/**
 		 * @returns {void}
 		 */
-		back(): void {
+		back() {
 			this.transitionToRoute('article', this.get('model.title'));
 			M.track({
 				action: M.trackActions.click,

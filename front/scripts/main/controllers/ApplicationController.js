@@ -1,15 +1,15 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/AlertNotificationsMixin.ts" />
-'use strict';
-
 App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	// This has to be here because we need to access media from ArticleController model to open
 	// lightbox TODO: Should be refactored when decoupling article from application
 	article: Em.inject.controller(),
 	queryParams: ['file', 'map',
-		{ noAds: 'noads' },
+		{
+			noAds: 'noads'
+		},
 		// TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
-		{ commentsPage: 'comments_page' }
+		{
+			commentsPage: 'comments_page'
+		}
 	],
 	file: null,
 	map: null,
@@ -30,7 +30,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	// For rolling out the new top-bar component for the global nav
 	useNewNav: false,
 
-	sideNavCollapsedObserver: Em.observer('sideNavVisible', function (): void {
+	sideNavCollapsedObserver: Em.observer('sideNavVisible', function () {
 		if (this.get('sideNavVisible')) {
 			this.set('noScroll', true);
 		} else {
@@ -41,7 +41,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	/**
 	 * @returns {void}
 	 */
-	init(): void {
+	init() {
 		this.setProperties({
 			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
 			language: Em.get(Mercury, 'wiki.language'),
@@ -64,7 +64,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @returns {void}
 		 */
-		closeLightbox(): void {
+		closeLightbox() {
 			this.setProperties({
 				lightboxModel: null,
 				lightboxType: null,
@@ -80,10 +80,10 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * prevent showing lightbox when there is no ad to display.
 		 *
 		 * @param {string} lightboxType
-		 * @param {string} lightboxModel
+		 * @param {Object?} lightboxModel
 		 * @returns {void}
 		 */
-		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
+		createHiddenLightbox(lightboxType, lightboxModel) {
 			this.setProperties({
 				lightboxModel,
 				lightboxType,
@@ -98,7 +98,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * @param {HTMLAnchorElement} target
 		 * @returns {void}
 		 */
-		handleLink(target: HTMLAnchorElement): void {
+		handleLink(target) {
 			this.get('target').send('handleLink', target);
 		},
 
@@ -108,8 +108,8 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @returns {void}
 		 */
-		handleLightbox(): void {
-			var file = this.get('file'),
+		handleLightbox() {
+			const file = this.get('file'),
 				map = this.get('map');
 
 			if (!Em.isEmpty(file)) {
@@ -124,7 +124,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @returns {void}
 		 */
-		loadRandomArticle(): void {
+		loadRandomArticle() {
 			this.get('target').send('loadRandomArticle');
 		},
 
@@ -133,10 +133,10 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * Also blocks scrolling.
 		 *
 		 * @param {string} lightboxType
-		 * @param {*} lightboxModel
+		 * @param {Object?} lightboxModel
 		 * @returns {void}
 		 */
-		openLightbox(lightboxType: string, lightboxModel?: any): void {
+		openLightbox(lightboxType, lightboxModel) {
 			this.setProperties({
 				lightboxModel,
 				lightboxType,
@@ -149,8 +149,9 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * Bubbles up to ApplicationRoute
 		 *
 		 * @param {string} searchString
+		 * @returns {void}
 		 */
-		search: function (searchString : string) {
+		search(searchString) {
 			this.get('target').send('search', searchString);
 		},
 
@@ -161,13 +162,13 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * @param {*} value
 		 * @returns {void}
 		 */
-		setQueryParam(name: string, value: any): void {
-			var queryParamsWhitelist = ['file', 'map'];
+		setQueryParam(name, value) {
+			const queryParamsWhitelist = ['file', 'map'];
 
 			if (queryParamsWhitelist.indexOf(name) === -1) {
 				Em.Logger.error('Something tried to set query param that is not on the whitelist', {
-					name: name,
-					value: value,
+					name,
+					value,
 					whitelist: queryParamsWhitelist
 				});
 				return;
@@ -182,7 +183,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @returns {void}
 		 */
-		showLightbox(): void {
+		showLightbox() {
 			this.setProperties({
 				lightboxVisible: true,
 				noScroll: true
@@ -193,7 +194,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * @param {boolean} visible
 		 * @returns {void}
 		 */
-		toggleSideNav(visible: boolean): void {
+		toggleSideNav(visible) {
 			this.set('sideNavVisible', visible);
 		},
 
@@ -201,7 +202,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * @param {boolean} visible
 		 * @returns {void}
 		 */
-		toggleSmartBanner(visible: boolean): void {
+		toggleSmartBanner(visible) {
 			this.set('smartBannerVisible', visible);
 		},
 
@@ -209,7 +210,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * @param {boolean} visible
 		 * @returns {void}
 		 */
-		toggleUserMenu(visible: boolean): void {
+		toggleUserMenu(visible) {
 			this.set('userMenuVisible', visible);
 		}
 	},
@@ -223,10 +224,10 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	 * @param {string} file
 	 * @returns {void}
 	 */
-	openLightboxForMedia(file: string): void {
-		var mediaModel: typeof App.MediaModel = this.get('article.model.media'),
-			lightboxMediaRefs = mediaModel instanceof App.MediaModel?
-				mediaModel.getRefsForLightboxByTitle(file):
+	openLightboxForMedia(file) {
+		const mediaModel = this.get('article.model.media'),
+			lightboxMediaRefs = mediaModel instanceof App.MediaModel ?
+				mediaModel.getRefsForLightboxByTitle(file) :
 				null;
 
 		if (!Em.isEmpty(lightboxMediaRefs)) {
@@ -247,8 +248,8 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	 * @param {string} map
 	 * @returns {void}
 	 */
-	openLightboxForMap(map: string): void {
-		var $map = Em.$(`a[data-map-id=${map}]`);
+	openLightboxForMap(map) {
+		const $map = Em.$(`a[data-map-id=${map}]`);
 
 		this.send('openLightbox', 'map', {
 			title: $map.data('map-title'),
