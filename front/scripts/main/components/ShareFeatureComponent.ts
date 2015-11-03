@@ -189,8 +189,8 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		 * @returns {void}
 		 */
 		share(network: string): void {
-			var urlGetter:Function = this.get(network),
-				link:string;
+			var urlGetter: Function = this.get(network),
+				link: string;
 
 			if (typeof urlGetter !== 'function') {
 				Em.Logger.warn('Shared Url getter for ' + network + ' does not exist');
