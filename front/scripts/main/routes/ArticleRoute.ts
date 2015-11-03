@@ -146,7 +146,7 @@ App.ArticleRoute = Em.Route.extend({
 	 * @returns {void}
 	 */
 	updateTitleTag(model: typeof App.ArticleModel): void {
-		var	defaultHtmlTitleTemplate = '$1 - Wikia',
+		var defaultHtmlTitleTemplate = '$1 - Wikia',
 			htmlTitleTemplate = Em.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
 
 		document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
