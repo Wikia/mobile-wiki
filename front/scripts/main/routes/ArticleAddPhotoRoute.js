@@ -1,14 +1,8 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/FullPageMixin.ts"/>
-
-'use strict';
-
 App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 	/**
 	 * @returns {void}
 	 */
-	renderTemplate(): void {
+	renderTemplate() {
 		this.render('article-add-photo', {
 			controller: 'articleAddPhoto'
 		});
@@ -16,27 +10,27 @@ App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 
 	actions: {
 		/**
-		 * @param {*} error
-		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */
-		error(error: any, transition: EmberStates.Transition): boolean {
+		error() {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.addphoto-load-error'),
 				type: 'alert'
 			});
+
 			M.track({
 				action: M.trackActions.impression,
 				category: 'sectionaddphoto',
 				label: 'addphoto-load-error'
 			});
+
 			return true;
 		},
 
 		/**
 		 * @returns {boolean}
 		 */
-		didTransition(): boolean {
+		didTransition() {
 			window.scrollTo(0, 0);
 
 			M.track({

@@ -1,23 +1,16 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/MainPageRouteMixin.ts" />
-/// <reference path="../mixins/MetaTagsMixin.ts"/>
-
-'use strict';
-
 App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
 	 */
-	model(params: any): Em.RSVP.Promise {
+	model(params) {
 		return App.CuratedContentModel.find(params.categoryName, 'category');
 	},
 
 	/**
 	 * @returns {*}
 	 */
-	meta(): any {
+	meta() {
 		return {
 			name: {
 				robots: 'noindex, follow'
@@ -30,7 +23,7 @@ App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTags
 		 * @param {*} error
 		 * @returns {boolean}
 		 */
-		error(error: any): boolean {
+		error(error) {
 			// Status comes from ArticlesApiController::getList in MediaWiki
 			// and code comes from MercuryApiController in MW and server side code in Mercury app
 			if (error && (error.status === 404 || error.code === 404)) {
@@ -46,6 +39,7 @@ App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTags
 					persistent: true,
 				});
 			}
+
 			this.transitionTo('mainPage');
 			return true;
 		}
