@@ -146,11 +146,11 @@ body.dark-theme {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
 		}
-		figure {
-			&.avatar {
-				img {
-					border-color: $dark-discussion-avatar-border-color;
-				}
+	}
+	figure {
+		&.avatar {
+			img {
+				border-color: $dark-discussion-avatar-border-color;
 			}
 		}
 	}
