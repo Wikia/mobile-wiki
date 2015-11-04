@@ -99,7 +99,6 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 				});
 		},
 
-
 		/**
 		 * @param {string} type
 		 * @param {string} reason

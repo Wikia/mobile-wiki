@@ -9,7 +9,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		$imgElement: null,
 		isLoading: false,
 		cropperInitialized: false,
-		imagePropertiesUrl: Em.computed('imageProperties.url', 'model.image_url', function() {
+		imagePropertiesUrl: Em.computed('imageProperties.url', 'model.image_url', function () {
 			const imagePropertiesUrl = this.get('imageProperties.url');
 
 			return Em.isEmpty(imagePropertiesUrl) ? this.get('model.image_url') : imagePropertiesUrl;
@@ -27,7 +27,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 			guides: false,
 			highlight: false
 		},
-		currentCropperSettings: Em.computed('aspectRatio', function() {
+		currentCropperSettings: Em.computed('aspectRatio', function () {
 			return $.extend(this.get('defaultCropperSettings'), {
 				aspectRatio: this.get('aspectRatio')
 			});
@@ -91,7 +91,7 @@ App.CuratedContentEditorImageCropComponent = Em.Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		loadImage: Em.on('didInitAttrs', function() {
+		loadImage: Em.on('didInitAttrs', function () {
 			const url = this.get('imagePropertiesUrl');
 			let image;
 

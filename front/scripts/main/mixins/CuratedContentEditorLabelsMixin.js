@@ -1,13 +1,13 @@
 App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
-	isCategory: Em.computed('isFeaturedItem', 'isSection', function() {
+	isCategory: Em.computed('isFeaturedItem', 'isSection', function () {
 		return !(this.get('isFeaturedItem') || this.get('isSection'));
 	}),
 
-	itemsCountLabel: Em.computed('model.items.length', function() {
-		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
+	itemsCountLabel: Em.computed('model.items.length', function () {
+		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')});
 	}),
 
-	headerLabel: Em.computed('model.label', 'isFeatured', 'isSection', function() {
+	headerLabel: Em.computed('model.label', 'isFeatured', 'isSection', function () {
 		const modelLabel = this.get('model.label');
 
 		if (modelLabel) {
@@ -20,7 +20,7 @@ App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
 		return i18n.t('app.curated-content-editor-new-category');
 	}),
 
-	pageNameLabel: Em.computed('isCategory', function() {
+	pageNameLabel: Em.computed('isCategory', function () {
 		if (this.get('isCategory')) {
 			return i18n.t('app.curated-content-editor-enter-category-name');
 		}
