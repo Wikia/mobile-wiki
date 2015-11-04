@@ -137,7 +137,9 @@ $horizontal-padding: 15px;
 		}
 
 		.share {
+			align-items: center;
 			display: flex;
+			height: 30px;
 			justify-content: flex-end;
 			text-align: right;
 
