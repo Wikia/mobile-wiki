@@ -80,7 +80,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * prevent showing lightbox when there is no ad to display.
 		 *
 		 * @param {string} lightboxType
-		 * @param {Object?} lightboxModel
+		 * @param {Object} [lightboxModel]
 		 * @returns {void}
 		 */
 		createHiddenLightbox(lightboxType, lightboxModel) {
@@ -133,7 +133,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * Also blocks scrolling.
 		 *
 		 * @param {string} lightboxType
-		 * @param {Object?} lightboxModel
+		 * @param {Object} [lightboxModel]
 		 * @returns {void}
 		 */
 		openLightbox(lightboxType, lightboxModel) {
