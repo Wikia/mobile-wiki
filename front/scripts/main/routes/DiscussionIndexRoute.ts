@@ -1,8 +1,7 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/UseNewNavMixin.ts" />
 'use strict';
 
-App.DiscussionIndexRoute = Em.Route.extend(App.UseNewNavMixin, {
+App.DiscussionIndexRoute = Em.Route.extend({
 	/**
 	 * @returns {void}
 	 */

@@ -4,6 +4,8 @@ App.DiscussionForumController = Em.Controller.extend({
 	application: Em.inject.controller(),
 	sortBy: null,
 
+	smartBannerVisible: Em.computed.oneWay('application.smartBannerVisible'),
+
 	// Whether the sort component is currently visible
 	sortVisible: false,
 
