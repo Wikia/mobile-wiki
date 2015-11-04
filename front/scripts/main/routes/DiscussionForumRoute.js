@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/UseNewNavMixin.ts" />
-/// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
-'use strict';
-
 App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
 	defaultSortType: null,
 	forumId: null,
@@ -11,11 +6,11 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	 * @param {*} params
 	 * @returns {*}
 	 */
-	model(params: any): any {
-		var sortBy: string;
+	model(params) {
+		const sortBy = params.sortBy || this.defaultSortType;
+
 		this.set('forumId', params.forumId);
 
-		sortBy = params.sortBy || this.defaultSortType;
 		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
 	},
 
@@ -25,7 +20,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
 	 */
-	setupController(controller: Em.Controller, model: Em.Object, transition: EmberStates.Transition): void {
+	setupController(controller, model, transition) {
 		this._super(controller, model, transition);
 		this.defaultSortType = controller.get('sortTypes')[0].name;
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
@@ -36,8 +31,8 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 		 * @param {number} postId
 		 * @returns {void}
 		 */
-		goToPost(postId: number): void {
-			var postController = this.controllerFor('discussionPost'),
+		goToPost(postId) {
+			const postController = this.controllerFor('discussionPost'),
 				forumController = this.controllerFor('discussionForum');
 
 			postController.set('postListSort', forumController.get('sortBy'));
@@ -49,21 +44,21 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 		 * @param {number} pageNum
 		 * @returns {void}
 		 */
-		loadPage(pageNum: number): void {
+		loadPage(pageNum) {
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		retry(): void {
+		retry() {
 			this.refresh();
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		goToAllDiscussions(): void {
+		goToAllDiscussions() {
 			this.transitionTo('discussion.index');
 		},
 
@@ -71,8 +66,8 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 		 * @param {string} sortBy
 		 * @returns {void}
 		 */
-		setSortBy(sortBy: string): void {
-			var controller = this.controllerFor('discussionForum');
+		setSortBy(sortBy) {
+			const controller = this.controllerFor('discussionForum');
 
 			controller.set('sortBy', sortBy);
 
@@ -86,7 +81,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRou
 		/**
 		 * @returns {boolean}
 		 */
-		didTransition(): boolean {
+		didTransition() {
 			this.controllerFor('application').set('noMargins', true);
 			return true;
 		}

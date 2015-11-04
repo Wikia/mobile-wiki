@@ -61,12 +61,14 @@ App.ApplicationRoute = Em.Route.extend(
 			 */
 			handleLink(target) {
 				const currentRoute = this.router.get('currentRouteName'),
-				// exec() returns an array of matches or null if no match is found.
+					/**
+					 * exec() returns an array of matches or null if no match is found.
+					 */
 					domainNameRegExpMatchArray = (/\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i).exec(window.location.hostname),
 					cookieDomain = domainNameRegExpMatchArray ? `; domain=${domainNameRegExpMatchArray[0]}` : '',
 					defaultSkin = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
-				let	title,
+				let title,
 					trackingCategory,
 					info;
 
