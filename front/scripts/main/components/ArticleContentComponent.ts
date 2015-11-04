@@ -146,7 +146,8 @@ App.ArticleContentComponent = Em.Component.extend(
 			var title = this.get('cleanTitle'),
 			    edit = 'edit',
 			    addPhoto = 'addPhoto',
-			    uploadFeatureEnabled = this.get('uploadFeatureEnabled'),
+			    addPhotoIconEnabled = this.get('addPhotoIconEnabled'),
+			    editIconEnabled = this.get('editIconEnabled'),
 			    isEditAllowed = this.get('isEditAllowed'),
 			    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
 
@@ -156,7 +157,8 @@ App.ArticleContentComponent = Em.Component.extend(
 				title,
 				edit,
 				addPhoto,
-				uploadFeatureEnabled,
+				addPhotoIconEnabled,
+				editIconEnabled,
 				isEditAllowed
 			});
 			return this.createChildView(contributionComponent).createElement().$();

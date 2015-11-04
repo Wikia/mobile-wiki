@@ -4,7 +4,7 @@
 
 App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 	classNames: ['contribution-container'],
-	classNameBindings: ['uploadFeatureEnabled::no-photo'],
+	classNameBindings: ['addPhotoIconEnabled::no-photo'],
 	layoutName: 'components/article-contribution',
 	section: null,
 	sectionId: null,
@@ -39,7 +39,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		},
 
 		/**
-		 * Called when login is required in order to edit photo
+		 * Called when login is required in order to add photo
 		 * @returns {void}
 		 */
 		loginToUploadPhoto(): void {
@@ -47,7 +47,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		},
 
 		/**
-		 * Go to photo upload
+		 * Go to add photo
 		 * @returns {void}
 		 */
 		addPhoto(): void {

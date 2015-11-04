@@ -82,15 +82,82 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			}
 		},
 
-		uploadFeatureEnabled: Em.computed(function(): boolean {
-			return !Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
+
+		/**
+		 * Checks if contribution component should be enabled
+		 * http://clashofclans.wikia.com/        db: clashofclans
+		 * http://de.clashofclans.wikia.com/     db: declashofclans
+		 * http://zh.clashofclans.wikia.com/     db: zhclashofclans723
+		 * http://fr.clashofclans.wikia.com/     db: frclashofclans
+		 * http://ru.clashofclans.wikia.com/     db: ruclashofclans
+		 * http://es.clash-of-clans.wikia.com/   db: esclashofclans727
+		 *
+		 * @returns {boolean} True if contribution component is enabled for this community
+		 */
+		contributionEnabledForCommunity: Em.computed(function(): boolean {
+			var dbName = Em.get(Mercury, 'wiki.dbName');
+
+			var enabledCommunities = [
+				'clashofclans', 'declashofclans', 'zhclashofclans723', 'frclashofclans',
+				'ruclashofclans', 'esclashofclans727'
+			];
+
+			if (this.get('isJapaneseWikia')) {
+				// Enabled for all Japanese wikias
+				return true;
+			} else if (Em.$.inArray(dbName, enabledCommunities) > -1) {
+				// Otherwise check against whitelist
+				return true;
+			}
+
+			return false;
+		}),
+
+		/**
+		 * Checks if mobile contribution features are enabled.
+		 * Contribution features include section editor and photo upload.
+		 *
+		 * @returns {boolean} True if the contribution features should be rendered on the page
+		 */
+		contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
+			var isMainPage = this.get('model.isMainPage'),
+				isJapaneseWikia = this.get('isJapaneseWikia'),
+				enabled = this.get('contributionEnabledForCommunity');
+
+			return !this.get('model.isMainPage') &&
+				this.get('contributionEnabledForCommunity');
+		}),
+
+		/**
+		 * Determine if the upload photo icon should be rendered.
+		 * Only enabled for Japanese wikias
+		 *
+		 * @returns {boolean} True if the upload photo icon should be rendered
+		 */
+		addPhotoIconEnabled: Em.computed(function(): boolean {
+			var isMainPage = this.get('model.isMainPage'),
+				isJapaneseWikia = this.get('isJapaneseWikia');
+
+			// Currently, only Japanese communities should have the photo upload icon
+			return this.get('isJapaneseWikia');
+		}),
+
+		/**
+		 * Determine if the edit section icon should be rendered
+		 *
+		 * @returns {boolean} True if the upload photo icon should be rendered
+		 */
+		editIconEnabled: Em.computed(function(): boolean {
+			// Currently, all communities that have the contribution feature enabled
+			// should have the edit icon
+			return this.get('contributionFeatureEnabled');
 		}),
 
 		/**
 		 * For section editor, checks if the user is allowed to edit
 		 * - Logged in users are always allowed to edit
 		 * - Wikias with disableAnonymousEditing set need login to edit
-		 * - Coppa wikias (for wikias directed at children) always require login
+		 * - Coppa wikias (for wikias directed at children) always require login to edit
 		 *
 		 * @returns {boolean} True if edit is allowed
 		 */
@@ -106,10 +173,22 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			}
 		}),
 
-		contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
-			return !this.get('model.isMainPage')
-				&& this.get('isJapaneseWikia')
-				&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
+		/**
+		 * For add photo, check if the user is allowed to upload
+		 * - Logged in users are always allowed to add photo
+		 * - Wikias with disableAnonymousUploadForMercury set need login to add photo
+		 *
+		 * @returns {boolean} True if add photo is allowed
+		 */
+		isAddPhotoAllowed: Em.computed(function(): boolean {
+			var disableAnonymousUploadForMercury = Em.get(Mercury, 'wiki.wiki.disableAnonymousUploadForMercury'),
+				isLoggedIn = Em.get(Mercury, 'currentUser.isAuthenticated');
+
+			if (isLoggedIn) {
+				return true;
+			} else {
+				return !disableAnonymousUploadForMercury;
+			}
 		}),
 
 		curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),

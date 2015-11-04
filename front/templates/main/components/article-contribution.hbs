@@ -1,19 +1,29 @@
-<div class="edit-section">
-	{{#if isEditAllowed}}
-		<span {{action 'edit'}}>
-			{{svg 'pencil' role='img' class='icon pencil'}}
-		</span>
-	{{else}}
-		<span {{action 'loginToEdit'}}>
-			{{svg 'pencil' role='img' class='icon pencil'}}
-		</span>
-	{{/if}}
-</div>
-<div class={{if uploadFeatureEnabled 'upload-photo' 'upload-photo disabled'}}>
-	<span {{action 'loginToUploadPhoto'}}>
-		{{svg 'camera' role='img' class='icon camera'}}
-	</span>
-	{{#if currentUser.isAuthenticated}}
-		<input class="file-upload-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>
-	{{/if}}
-</div>
+{{#if editIconEnabled}}
+	<div class="edit-section">
+		{{#if isEditAllowed}}
+			<span {{action 'edit'}}>
+				{{svg 'pencil' role='img' class='icon pencil'}}
+			</span>
+		{{else}}
+			<span {{action 'loginToEdit'}}>
+				{{svg 'pencil' role='img' class='icon pencil'}}
+			</span>
+		{{/if}}
+	</div>
+
+{{/if}}
+
+{{#if addPhotoIconEnabled}}
+	<div class='upload-photo'>
+		{{#if isAddPhotoAllowed}}
+			<span {{action 'loginToUploadPhoto'}}>
+				{{svg 'camera' role='img' class='icon camera'}}
+			</span>
+			<input class="file-upload-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>
+		{{else}}
+			<span {{action 'loginToUploadPhoto'}}>
+				{{svg 'camera' role='img' class='icon camera'}}
+			</span>
+		{{/if}}
+	</div>
+{{/if}}
