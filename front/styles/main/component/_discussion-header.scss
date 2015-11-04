@@ -13,7 +13,7 @@ $site-header-height: 50px;
 	z-index: $z-8; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
 	&.un-pinned {
-		margin-top: 20px;
+		margin-top: 0;
 		z-index: $z-6;
 	}
 
@@ -92,8 +92,8 @@ $site-header-height: 50px;
 		visibility: hidden;
 	}
 	.site-head {
-		border-bottom: 20px solid transparent;
-		height: $site-header-height + 20px;
+		border-bottom: 10px solid transparent;
+		height: $site-header-height + 10px;
 		max-width: 100%;
 
 		&.headroom-not-top.un-pinned {
