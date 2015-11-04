@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury.d.ts" />
-'use strict';
-
 App.MainPageController = Em.Controller.extend({
 	application: Em.inject.controller(),
 
@@ -10,7 +6,7 @@ App.MainPageController = Em.Controller.extend({
 	/**
 	 * @returns {void}
 	 */
-	init(): void {
+	init() {
 		this.setProperties({
 			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
 			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')

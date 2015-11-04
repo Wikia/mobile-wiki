@@ -1,13 +1,10 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.DiscussionPostController = Em.Controller.extend({
 	numRepliesLoaded: null,
 	postListSort: '',
 
-	canShowMore: Em.computed('model', 'numRepliesLoaded', function (): boolean {
-		var model: typeof App.DiscussionPostModel = this.get('model'),
-			numRepliesLoaded: number = this.get('numRepliesLoaded');
+	canShowMore: Em.computed('model', 'numRepliesLoaded', function () {
+		const model = this.get('model');
+		let numRepliesLoaded = this.get('numRepliesLoaded');
 
 		if (numRepliesLoaded === null) {
 			numRepliesLoaded = Em.get(model, 'replies.length');
@@ -18,16 +15,17 @@ App.DiscussionPostController = Em.Controller.extend({
 	}),
 
 	actions: {
-
 		/**
 		 * @returns {void}
 		 */
-		expand(): void {
-			var model = this.get('model');
+		expand() {
+			const model = this.get('model');
 
 			model.loadNextPage().then(() => {
-				var model = this.get('model');
-				this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
+				// TODO is this line really needed?
+				const newModel = this.get('model');
+
+				this.set('numRepliesLoaded', Em.get(newModel, 'replies.length'));
 			});
 		},
 
@@ -36,22 +34,22 @@ App.DiscussionPostController = Em.Controller.extend({
 		 *
 		 * @returns {void}
 		 */
-		retry(): void {
+		retry() {
 			this.get('target').send('retry');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		goToAllDiscussions(): void {
+		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		goToForum(): void {
-			var model = this.get('model'),
+		goToForum() {
+			const model = this.get('model'),
 				forumId = Em.get(model, 'forumId');
 
 			this.get('target').send('goToForum', forumId, this.get('postListSort'));
