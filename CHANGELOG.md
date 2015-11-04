@@ -1,3 +1,8 @@
+## release-186 (2015-11-03 07:59 UTC)
+* [XW-651](https://wikia-inc.atlassian.net/browse/XW-651) XW-651 Fix formatting in ES6 files
+* jsdoc-returns-void: Swap undefined with void in JSDoc
+* [SOC-1552](https://wikia-inc.atlassian.net/browse/SOC-1552) SOC-1552 | Can't upvote post that are lazy-loader
+
 ## release-185 (2015-11-02 15:50 UTC)
 * eslint-tweaks: Tweak ESLint - fix typo, add more to .eslintignore
 * [SOC-1225](https://wikia-inc.atlassian.net/browse/SOC-1225) SOC-1225 | Localized social networks in ShareFeatureComponent

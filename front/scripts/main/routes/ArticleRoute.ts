@@ -98,6 +98,8 @@ App.ArticleRoute = Em.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition(): boolean {
+			this.updateHead();
+
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.article-redirect-empty-target'),
@@ -124,5 +126,59 @@ App.ArticleRoute = Em.Route.extend({
 
 			return true;
 		}
+	},
+
+	/**
+	 * @TODO this can be much simpler using ember-cli-meta-tags
+	 *
+	 * @returns {void}
+	 */
+	updateHead(): void {
+		var model: typeof App.ArticleModel = this.modelFor('article');
+
+		this.updateTitleTag(model);
+		this.updateCanonicalLinkTag(model);
+		this.updateDescriptionMetaTag(model);
+	},
+
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
+	updateTitleTag(model: typeof App.ArticleModel): void {
+		var defaultHtmlTitleTemplate = '$1 - Wikia',
+			htmlTitleTemplate = Em.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
+
+		document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
+	},
+
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
+	updateCanonicalLinkTag(model: typeof App.ArticleModel): void {
+		var canonicalUrl = Em.get(Mercury, 'wiki.basePath') + model.get('url'),
+			$canonicalLinkTag = Em.$('head link[rel=canonical]');
+
+		if (Em.isEmpty($canonicalLinkTag)) {
+			$canonicalLinkTag = Em.$('<link rel="canonical">').appendTo('head');
+		}
+
+		$canonicalLinkTag.prop('href', canonicalUrl);
+	},
+
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
+	updateDescriptionMetaTag(model: typeof App.ArticleModel): void {
+		var description = model.getWithDefault('description', ''),
+			$descriptionMetaTag = Em.$('head meta[name=description]');
+
+		if (Em.isEmpty($descriptionMetaTag)) {
+			$descriptionMetaTag = Em.$('<meta name="description">').appendTo('head');
+		}
+
+		$descriptionMetaTag.prop('content', description);
 	}
 });

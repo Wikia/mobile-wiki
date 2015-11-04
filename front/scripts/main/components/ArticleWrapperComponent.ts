@@ -100,20 +100,6 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			Em.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
 		}).on('willInsertElement'),
 
-		modelObserver: Em.observer('model', function (): void {
-			var model = this.get('model'),
-				htmlTitleTemplate: string,
-				description: string;
-
-			if (model) {
-				htmlTitleTemplate = Em.getWithDefault(Mercury, 'wiki.htmlTitleTemplate', '$1 - Wikia');
-				document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
-
-				description = (typeof model.get('description') === 'undefined') ? '' : model.get('description');
-				$('meta[name="description"]').attr('content', description);
-			}
-		}),
-
 		actions: {
 			/**
 			 * @param {string} title
