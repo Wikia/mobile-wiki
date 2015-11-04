@@ -1,3 +1,6 @@
+## release-187 hotfix 1 (2015-11-04 16:59 UTC)
+* [SOC-1574](https://wikia-inc.atlassian.net/browse/SOC-1574) SOC-1574 | Discussion post view fix
+
 ## release-187 (2015-11-04 07:59 UTC)
 * [XW-658](https://wikia-inc.atlassian.net/browse/XW-658) XW-658 Replace new top bar with the classic one
 * [SOC-1558](https://wikia-inc.atlassian.net/browse/SOC-1558) SOC-1558 | 404 error when scrolling too quickly on cocktails discussions wiki
