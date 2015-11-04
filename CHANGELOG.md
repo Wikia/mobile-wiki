@@ -1,3 +1,6 @@
+## release-187 hotfix 2 (2015-11-04 17:04 UTC)
+* enable-discussions: Discussions | Enabling discussions on featured Wikias
+
 ## release-187 hotfix 1 (2015-11-04 16:59 UTC)
 * [SOC-1574](https://wikia-inc.atlassian.net/browse/SOC-1574) SOC-1574 | Discussion post view fix
 
