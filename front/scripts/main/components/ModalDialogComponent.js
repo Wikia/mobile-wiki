@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-
-'use strict';
-
 App.ModalDialogComponent = Em.Component.extend({
 	classNames: ['modal-dialog-wrapper'],
 	classNameBindings: ['type'],
@@ -12,7 +8,7 @@ App.ModalDialogComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		close(): void {
+		close() {
 			this.set('isVisible', false);
 		},
 	},

@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/ArticleContentMixin.ts" />
-/// <reference path="../mixins/ViewportMixin.ts" />
-'use strict';
-
 App.PortableInfoboxComponent = Em.Component.extend(
 	App.ArticleContentMixin,
 	App.ViewportMixin,
@@ -13,9 +8,10 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		layoutName: 'components/portable-infobox',
 		tagName: 'aside',
 
-		button: Em.computed('expandButtonClass', function (): HTMLElement {
-			var expandButtonClass = this.get('expandButtonClass');
-			return this.$('.' + expandButtonClass)[0];
+		button: Em.computed('expandButtonClass', function () {
+			const expandButtonClass = this.get('expandButtonClass');
+
+			return this.$(`.${expandButtonClass}`)[0];
 		}),
 
 		height: null,
@@ -26,8 +22,8 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		 * determines if this infobox is a short one or a long one (needs collapsing)
 		 */
 		isLongInfobox: Em.computed('collapsedHeight', 'height', {
-			get(): boolean {
-				var collapsedHeight = this.get('collapsedHeight'),
+			get() {
+				const collapsedHeight = this.get('collapsedHeight'),
 					height = this.get('height');
 
 				return height > collapsedHeight;
@@ -41,8 +37,8 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		 * We want to always show the image AND some other infobox informations to
 		 * indicate that this is infobox, not only an ordinary image.
 		 */
-		collapsedHeight: Em.computed('viewportDimensions.width', 'viewportDimensions.height', function (): number {
-			var deviceWidth = this.get('viewportDimensions.width'),
+		collapsedHeight: Em.computed('viewportDimensions.width', 'viewportDimensions.height', function () {
+			const deviceWidth = this.get('viewportDimensions.width'),
 				deviceHeight = this.get('viewportDimensions.height'),
 				isLandscape = deviceWidth > deviceHeight;
 
@@ -52,8 +48,8 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		handleCollapsing(): void {
-			var collapsedHeight = this.get('collapsedHeight');
+		handleCollapsing() {
+			const collapsedHeight = this.get('collapsedHeight');
 
 			this.set('collapsed', true);
 			this.$().height(collapsedHeight);
@@ -67,11 +63,12 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		 * @param {JQueryEventObject} event
 		 * @returns {void}
 		 */
-		onInfoboxClick(event: JQueryEventObject): void {
-			var body: HTMLElement,
-				scrollTo: (top?: boolean) => void,
-				collapsed = this.get('collapsed'),
+		onInfoboxClick(event) {
+			const collapsed = this.get('collapsed'),
 				$target = $(event.target);
+
+			let body,
+				scrollTo;
 
 			if ($target.is('a') || $target.is('button')) {
 				return;
@@ -95,7 +92,7 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
+		didInsertElement() {
 			if (this.get('isLongInfobox')) {
 				this.handleCollapsing();
 				this.$().click(this.onInfoboxClick.bind(this));

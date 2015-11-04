@@ -1,18 +1,16 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 Em.LinkComponent.reopen({
 	attributeBindings: ['data-tracking-category'],
 
-	//it allows to use action='x' actionParam='y' in link-to helper
+	// it allows to use action='x' actionParam='y' in link-to helper
 	action: null,
 
 	/**
 	 * @param {Event} event
 	 * @returns {boolean}
 	 */
-	_invoke(event: Event): boolean {
-		var action: string = this.get('action');
+	_invoke(event) {
+		const action = this.get('action');
+
 		if (action) {
 			// There was an action specified (in handlebars) so take custom action
 			if (this.bubbles === false) {

@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="./GalleryMediaComponent.ts" />
-'use strict';
-
 App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	tagName: 'div',
 	classNames: ['linked-gallery'],
@@ -12,7 +8,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	// from showing before "View more" button is clicked
 	incrementLimitValue: 4,
 
-	canShowMore: Em.computed('media', 'limit', function (): boolean {
+	canShowMore: Em.computed('media', 'limit', function () {
 		return this.get('media').length > this.get('limit');
 	}),
 
@@ -20,9 +16,10 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 		/**
 		 * @returns {void}
 		 */
-		showMore(): void {
-			var previousLimit = this.get('limit'),
+		showMore() {
+			const previousLimit = this.get('limit'),
 				mediaLength = this.get('media').length;
+
 			this.set('limit', mediaLength);
 			this.loadImages(previousLimit, (previousLimit + mediaLength));
 			this.$('button').remove();
@@ -32,7 +29,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	/**
 	 * @returns {void}
 	 */
-	setUp(): void {
+	setUp() {
 		this._super();
 		this.set('media', this.get('media').sort(this.sortMedia));
 	},
@@ -44,10 +41,10 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	 * @param {ArticleMedia} b
 	 * @returns {number}
 	 */
-	sortMedia(a: ArticleMedia, b: ArticleMedia): number {
-		if( a.link && typeof b.link === 'undefined' ) {
+	sortMedia(a, b) {
+		if (a.link && typeof b.link === 'undefined') {
 			return 1;
-		} else if ( b.link && typeof a.link === 'undefined' ) {
+		} else if (b.link && typeof a.link === 'undefined') {
 			return -1;
 		}
 
@@ -57,7 +54,7 @@ App.LinkedGalleryMediaComponent = App.GalleryMediaComponent.extend({
 	/**
 	 * @returns {void}
 	 */
-	load(): void {
+	load() {
 		this.setUp();
 		this.loadImages(0, this.limit);
 		this.$().on('scroll', () => this.onScroll);

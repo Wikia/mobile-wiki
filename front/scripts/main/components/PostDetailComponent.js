@@ -1,14 +1,10 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
-'use strict';
-
 App.PostDetailComponent = Em.Component.extend(
 	App.DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['post-detail'],
 
 		postId: null,
-		authorUrl: Em.computed('post', function (): string {
+		authorUrl: Em.computed('post', function () {
 			return M.buildUrl({
 				namespace: 'User',
 				title: this.get('post.createdBy.name'),
@@ -26,7 +22,7 @@ App.PostDetailComponent = Em.Component.extend(
 
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Em.computed('postId', function () {
-			return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + '/d/p/' + this.get('postId');
+			return `${Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}/d/p/${this.get('postId')}`;
 		}),
 
 		actions: {
@@ -34,14 +30,14 @@ App.PostDetailComponent = Em.Component.extend(
 			 * @param {number} postId
 			 * @returns {void}
 			 */
-			goToPost(postId: number): void {
+			goToPost(postId) {
 				this.sendAction('goToPost', postId);
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			toggleShareComponent(): void {
+			toggleShareComponent() {
 				if (this.get('isShareFeatureVisible')) {
 					this.set('isShareFeatureVisible', false);
 				} else {
@@ -55,14 +51,14 @@ App.PostDetailComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			hideShareComponent(): void {
+			hideShareComponent() {
 				this.set('isShareFeatureVisible', false);
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			cancelHideShareComponent(): void {
+			cancelHideShareComponent() {
 				Em.run.cancel(this.hideShareTimeout);
 			},
 		},
@@ -70,7 +66,7 @@ App.PostDetailComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		willDestroyElement(): void {
+		willDestroyElement() {
 			Em.run.cancel(this.hideShareTimeout);
 		},
 	}

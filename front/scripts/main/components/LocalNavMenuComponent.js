@@ -1,45 +1,21 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 /**
- * RootNavItem
+ * Type for topmost-level nav item, which doesn't have any of the properties defined in NavItem
+ * Can also be used to describe any of NavItem which has children
+ *
  * @typedef {Object} RootNavItem
  * @property {NavItem[]} [children]
  */
 
 /**
- * NavItem
+ * Type for nav menu item
+ *
  * @typedef {Object} NavItem
- * @implements {RootNavItem}
  * @property {string} href
  * @property {number} index
  * @property {RootNavItem} parent
  * @property {string} text
+ * @property {NavItem[]} [children]
  */
-
-/**
- * type for topmost-level nav item, which doesn't have any of the
- * properties defined in NavItem. Can also be used to describe any of NavItem
- * which has children
- */
-interface RootNavItem {
-	// Children, if this item has sub-items
-	children?: Array<NavItem>;
-}
-
-/**
- * @desc Type for nav menu item
- */
-interface NavItem extends RootNavItem {
-	// The link to this item's page
-	href: string;
-	// The index of this item in its parent's children array
-	index: number;
-	// This item's parent item (could  be RootNavItem or NavItem)
-	parent: RootNavItem;
-	// Text to print as menu item text
-	text: string;
-}
 
 App.LocalNavMenuComponent = Em.Component.extend(
 	App.TrackClickMixin,
@@ -47,9 +23,9 @@ App.LocalNavMenuComponent = Em.Component.extend(
 		tagName: 'ul',
 		classNames: ['local-nav-menu'],
 
-		menuRoot: Em.computed('model', function (): RootNavItem {
-			var menuRoot = {
-				//@TODO XW-511 Remove second part of OR statement
+		menuRoot: Em.computed('model', function () {
+			const menuRoot = {
+				// @TODO XW-511 Remove second part of OR statement
 				children: Em.get(Mercury, 'wiki.navigation') || Em.get(Mercury, 'wiki.navData.navigation.wiki')
 			};
 
@@ -60,7 +36,7 @@ App.LocalNavMenuComponent = Em.Component.extend(
 
 		parentItem: Em.computed.alias('currentMenuItem.parent'),
 
-		sideNavVisibleObserver: Em.observer('sideNavVisible', function (): void {
+		sideNavVisibleObserver: Em.observer('sideNavVisible', function () {
 			if (!this.get('sideNavVisible')) {
 				this.send('gotoRoot');
 			}
@@ -73,42 +49,43 @@ App.LocalNavMenuComponent = Em.Component.extend(
 			 * @param {number} index - The index of the item to change to
 			 * @returns {void}
 			 */
-			changeMenuItem(index: number): void {
-				var curr: RootNavItem = this.get('currentMenuItem');
+			changeMenuItem(index) {
+				const curr = this.get('currentMenuItem');
+
 				this.set('currentMenuItem', curr.children[index]);
 
 				M.track({
 					action: M.trackActions.click,
 					category: 'wiki-nav',
-					label: 'header-' + (index + 1),
+					label: `header-${(index + 1)}`,
 				});
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			collapseSideNav(): void {
+			collapseSideNav() {
 				this.sendAction('collapseSideNav');
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			gotoRoot(): void {
+			gotoRoot() {
 				this.set('currentMenuItem', this.get('menuRoot'));
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			goBack(): void {
+			goBack() {
 				this.set('currentMenuItem', this.get('parentItem'));
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			loadRandomArticle(): void {
+			loadRandomArticle() {
 				this.trackClick('randomArticle', 'click');
 				this.sendAction('loadRandomArticle');
 			},
@@ -126,12 +103,11 @@ App.LocalNavMenuComponent = Em.Component.extend(
 		 * @param {RootNavItem} topLevel
 		 * @returns {RootNavItem}
 		 */
-		injectParentPointersAndIndices(topLevel: RootNavItem): RootNavItem {
-			var children: Array<NavItem> = topLevel.children || [],
-				i: number,
+		injectParentPointersAndIndices(topLevel) {
+			const children = topLevel.children || [],
 				len = children.length;
 
-			for (i = 0; i < len; i++) {
+			for (let i = 0; i < len; i++) {
 				this.injectParentPointersAndIndicesHelper(topLevel, children[i], i);
 			}
 
@@ -148,10 +124,7 @@ App.LocalNavMenuComponent = Em.Component.extend(
 		 * we need it to link to the correct child
 		 * @returns {void}
 		 */
-		injectParentPointersAndIndicesHelper(parent: RootNavItem, curr: NavItem, index: number): void {
-			var i: number,
-				len: number;
-
+		injectParentPointersAndIndicesHelper(parent, curr, index) {
 			curr.parent = parent;
 			curr.index = index;
 
@@ -159,7 +132,7 @@ App.LocalNavMenuComponent = Em.Component.extend(
 				return;
 			}
 
-			for (i = 0, len = curr.children.length; i < len; i++) {
+			for (let i = 0, len = curr.children.length; i < len; i++) {
 				this.injectParentPointersAndIndicesHelper(curr, curr.children[i], i);
 			}
 		},
