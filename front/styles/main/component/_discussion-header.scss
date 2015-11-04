@@ -106,7 +106,7 @@ hr.theme {
 	}
 	.headroom-not-top,
 	.headroom-top {
-		transition: all 0s;
+		transition: transform .5s, margin .5s;
 	}
 }
 
