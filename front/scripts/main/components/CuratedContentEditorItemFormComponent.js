@@ -177,14 +177,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				this.trackClick('curated-content-editor', trackLabel);
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 					if (this.get('isSection')) {
-						this.validateAndDone(this.get('model'), {
-							method: 'validateSection'
-						});
+						this.validateAndDone(this.get('model'), 'validateSection');
+					} else if (this.get('isFeaturedItem')) {
+						this.validateAndDone(this.get('model'), 'validateFeaturedItem');
 					} else {
-						this.validateAndDone(this.get('model'), {
-							method: 'validateItem',
-							isFeaturedItem: this.get('isFeaturedItem')
-						});
+						this.validateAndDone(this.get('model'), 'validateSectionItem');
 					}
 				}
 			},
@@ -396,13 +393,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		/**
 		 * @param {CuratedContentEditorItemModel} item
-		 * @param {Object} dataToValidate
+		 * @param {string} methodName
 		 * @returns {void}
 		 */
-		validateAndDone(item, dataToValidate) {
+		validateAndDone(item, methodName) {
 			this.set('isLoading', true);
 
-			App.CuratedContentEditorItemModel.validateServerData(item, dataToValidate)
+			App.CuratedContentEditorItemModel.validateServerData(item, methodName)
 				.then((data) => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
