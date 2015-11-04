@@ -109,7 +109,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(
 
 			if (url) {
 				let image;
-				
+
 				image = new Image();
 				image.src = url;
 				if (image.complete) {
