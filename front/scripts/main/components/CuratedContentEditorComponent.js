@@ -69,8 +69,8 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 						});
 
 						this.sendAction('openMainPage', true);
-					} else if (data.error) {
-						data.error.forEach(
+					} else if (data.errors) {
+						data.errors.forEach(
 							(error) => this.processValidationError(error.type, error.reason)
 						);
 					} else {

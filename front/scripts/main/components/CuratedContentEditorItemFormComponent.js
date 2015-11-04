@@ -403,8 +403,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.then((data) => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
-					} if (data.error) {
-						data.error.forEach((error) => this.processValidationError(error.reason));
+					} if (data.errors) {
+						data.errors.forEach((error) => this.processValidationError(error));
 					} else {
 						this.addAlert({
 							message: i18n.t('app.curated-content-error-other'),
@@ -425,11 +425,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {string} reason
+		 * @param {string} errorMessega
 		 * @returns {void}
 		 */
-		processValidationError(reason) {
-			switch (reason) {
+		processValidationError(errorMessega) {
+			switch (errorMessega) {
 			case 'articleNotFound':
 				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
 				break;
