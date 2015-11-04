@@ -24,7 +24,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
-					page: this.pageNum
+					page: this.get('pageNum')
 				},
 				xhrFields: {
 					withCredentials: true,
