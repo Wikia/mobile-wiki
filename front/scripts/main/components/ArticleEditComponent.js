@@ -1,9 +1,3 @@
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/ViewportMixin.ts" />
-
-'use strict';
-
 App.ArticleEditComponent = Em.Component.extend(
 	App.ViewportMixin,
 	{
@@ -13,7 +7,7 @@ App.ArticleEditComponent = Em.Component.extend(
 			this.adjustTextareaHeight();
 		}),
 
-		adjustTextareaHeight: Em.on('didInsertElement', function(): void {
+		adjustTextareaHeight: Em.on('didInsertElement', () => {
 			Em.$('textarea').css('height', Em.$(window).height() - Em.$('.edit-head').outerHeight());
 		}),
 
@@ -21,14 +15,14 @@ App.ArticleEditComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			back(): void {
+			back() {
 				this.sendAction('back');
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			publish(): void {
+			publish() {
 				this.sendAction('publish');
 			},
 		},

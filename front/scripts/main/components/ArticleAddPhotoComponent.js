@@ -1,12 +1,9 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.ArticleAddPhotoComponent = Em.Component.extend({
 	actions: {
 		/**
 		 * @returns {void}
 		 */
-		back(): void {
+		back() {
 			this.sendAction('back');
 			this.track('back');
 		},
@@ -14,7 +11,7 @@ App.ArticleAddPhotoComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		upload(): void {
+		upload() {
 			this.sendAction('upload');
 			this.track('upload');
 		},
@@ -24,11 +21,11 @@ App.ArticleAddPhotoComponent = Em.Component.extend({
 	 * @param {string} label
 	 * @returns {void}
 	 */
-	track(label: string): void {
+	track(label) {
 		M.track({
 			action: M.trackActions.click,
 			category: 'sectionaddphoto',
-			label: label
+			label
 		});
 	},
 });

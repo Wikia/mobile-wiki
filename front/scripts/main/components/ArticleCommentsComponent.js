@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../models/ArticleCommentsModel.ts" />
-'use strict';
-
 App.ArticleCommentsComponent = Em.Component.extend({
 	page: null,
 	articleId: null,
@@ -18,16 +14,17 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 * observes changes to page property, applies limit `1 <= page <= model.pagesCount`
 	 * and updates model, so it can load a page of comments
 	 */
-	pageObserver: Em.observer('page', 'model.comments', function (): void {
+	pageObserver: Em.observer('page', 'model.comments', function () {
 		Em.run.scheduleOnce('afterRender', this, () => {
-			var page: any = this.get('page'),
-				count: number = this.get('model.pagesCount'),
-				currentPage: any = page,
-				currentPageInteger: number,
-				isFirstPage: boolean;
+			const page = this.get('page'),
+				count = this.get('model.pagesCount');
+
+			let currentPage = page,
+				currentPageInteger,
+				isFirstPage;
 
 			// since those can be null we intentionally correct the types
-			if (page != null && count != null) {
+			if (page !== null && count !== null) {
 				currentPage = Math.max(Math.min(page, count), 1);
 			}
 
@@ -47,7 +44,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	/**
 	 * watches changes to model, and scrolls to top of comments
 	 */
-	commentsObserver: Em.observer('model.comments', function (): void {
+	commentsObserver: Em.observer('model.comments', function () {
 		if (this.get('model.comments')) {
 			this.scrollToTop();
 		}
@@ -56,7 +53,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	/**
 	 * if articleId changes, updates model
 	 */
-	articleIdObserver: Em.observer('articleId', function (): void {
+	articleIdObserver: Em.observer('articleId', function () {
 		this.setProperties({
 			'model.articleId': this.get('articleId'),
 			page: null
@@ -65,25 +62,38 @@ App.ArticleCommentsComponent = Em.Component.extend({
 		this.rerender();
 	}),
 
+	/**
+	 * @returns {void}
+	 */
+	didInsertElement() {
+		this.set('model', App.ArticleCommentsModel.create({
+			articleId: this.get('articleId')
+		}));
+
+		if (this.get('page')) {
+			this.scrollToTop();
+		}
+	},
+
 	actions: {
 		/**
 		 * @returns {void}
 		 */
-		nextPage(): void {
+		nextPage() {
 			this.incrementProperty('page');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		prevPage(): void {
+		prevPage() {
 			this.decrementProperty('page');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		toggleComments(): void {
+		toggleComments() {
 			this.set('page', this.get('page') ? null : 1);
 
 			this.toggleProperty('isCollapsed');
@@ -101,20 +111,7 @@ App.ArticleCommentsComponent = Em.Component.extend({
 	 *
 	 * @returns {void}
 	 */
-	scrollToTop(): void {
+	scrollToTop() {
 		window.scrollTo(0, this.$().offset().top);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	didInsertElement(): void {
-		this.set('model', App.ArticleCommentsModel.create({
-			articleId: this.get('articleId')
-		}));
-
-		if (this.get('page')) {
-			this.scrollToTop();
-		}
 	},
 });
