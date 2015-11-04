@@ -1,3 +1,12 @@
+## release-187 (2015-11-04 07:59 UTC)
+* [SOC-1556](https://wikia-inc.atlassian.net/browse/SOC-1556) SOC-1556 | Discussions - Fix profileUrl for lazy loaded replies
+* [SOC-1546](https://wikia-inc.atlassian.net/browse/SOC-1546) SOC-1546 | Thread listing confusing clickable area
+* [SOC-1550](https://wikia-inc.atlassian.net/browse/SOC-1550) SOC-1550 | Discussions - fix grid on error pages
+* enabling-discussion-under-flag: Enabling discussion under flag
+* [SOC-1556](https://wikia-inc.atlassian.net/browse/SOC-1556) SOC-1556 | Discussions - fix author link on details page
+* [SOC-1225](https://wikia-inc.atlassian.net/browse/SOC-1225) SOC-1225 | Additional fixes after merge
+* [XW-584](https://wikia-inc.atlassian.net/browse/XW-584) XW-584 Fix article meta tags
+
 ## release-186 (2015-11-03 07:59 UTC)
 * [XW-651](https://wikia-inc.atlassian.net/browse/XW-651) XW-651 Fix formatting in ES6 files
 * jsdoc-returns-void: Swap undefined with void in JSDoc
