@@ -150,8 +150,8 @@
   "discussion":{
     "share-default-title":"__siteName__についてのトーク",
     "contributors-title":"すべての投稿者",
-    "sort-by-latest":"新しい順",
-    "sort-by-trending":"人気順",
+    "sort-by-latest":"最新",
+    "sort-by-trending":"人気",
     "loading-more-posts":"他の投稿を読み込んでいます",
     "back-to-wikia-link":"ウィキアに戻る",
     "number-of-posts":"投稿__numberOfPosts__件",
@@ -160,7 +160,7 @@
     "action-retry-title":"再試行",
     "all-discussions-link-desktop":"すべてのトークを表示",
     "all-discussions-link-mobile":"すべてのトーク",
-    "discussions-app-join":"トークに参加する場合は、アプリをダウンロードしましょう。",
+    "discussions-app-join":"トークに参加するには、アプリをダウンロードしましょう。",
     "back-to-discussions-link":"すべてのトーク"
   },
   "userStatus":{
