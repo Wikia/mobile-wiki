@@ -62,7 +62,7 @@
     "no-alert": 0,
     "no-caller": 2,
     "no-div-regex": 2,
-    "no-else-return": 1,
+    "no-else-return": 0,
     "no-empty-label": 2,
     "no-eq-null": 2,
     "no-eval": 2,
@@ -85,7 +85,7 @@
     "no-new": 2,
     "no-octal-escape": 2,
     "no-octal": 2,
-    "no-param-reassign": 2,
+    "no-param-reassign": 0,
     "no-process-env": 2,
     "no-proto": 2,
     "no-redeclare": 2,
@@ -169,7 +169,7 @@
     "no-unneeded-ternary": 2,
     "object-curly-spacing": [2, "never"],
     "one-var": [2, "always"],
-    "operator-assignment": [2, "never"],
+    "operator-assignment": [0, "never"],
     "operator-linebreak": [2, "after"],
     "padded-blocks": 0,
     "quote-props": [2, "as-needed"],
@@ -212,7 +212,7 @@
     "max-params": [2, 4],
     "max-statements": 0,
     "no-bitwise": 2,
-    "no-plusplus": 2
+    "no-plusplus": 0
   },
   "env": {
   }
