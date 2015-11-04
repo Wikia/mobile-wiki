@@ -21,7 +21,6 @@ var localSettings = baseLocalSettings.extendSettings({
 		scriptUrl: '//s3.amazonaws.com/ki.js/52510/dlS.js'
 	},
 	port: 7000,
-	enableDiscussions: true,
 	clickstream: {
 		auth: {
 			enable: true,
