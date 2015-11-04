@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.DiscussionSortComponent = Em.Component.extend({
 	classNames: ['discussion-sort', 'clearfix'],
 	classNameBindings: ['sortVisible::mobile-hidden'],
@@ -11,16 +8,25 @@ App.DiscussionSortComponent = Em.Component.extend({
 	// jQuery object for this component
 	$discussionSort: null,
 
-	sortByObserver: Em.observer('sortBy', function (): void {
+	sortByObserver: Em.observer('sortBy', function () {
 		this.updateActive();
 	}),
+
+	/**
+	 * @returns {void}
+	 */
+	didInsertElement() {
+		this.set('$discussionSort', $('.discussion-sort'));
+		this.updateActive();
+		this._super();
+	},
 
 	actions: {
 		/**
 		 * @param {string} sortBy
 		 * @returns {void}
 		 */
-		setSortBy(sortBy: string): void {
+		setSortBy(sortBy) {
 			// Send action up to route object
 			this.sendAction('setSortBy', sortBy);
 		},
@@ -29,25 +35,16 @@ App.DiscussionSortComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement(): void {
-		this.set('$discussionSort', $('.discussion-sort'));
-		this.updateActive();
-		this._super();
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	updateActive(): void {
+	updateActive() {
 		// Add the 'active' CSS class to the sort tab that's active,
 		// but right now this only applies to desktop styling.
-		var $discussionSort: JQuery = this.get('$discussionSort');
+		const $discussionSort = this.get('$discussionSort');
 
 		if ($discussionSort === null) {
 			return;
 		}
 
 		$discussionSort.find('li.active').removeClass('active');
-		$discussionSort.find('li[data-type="' + this.get('sortBy') + '"]').addClass('active');
+		$discussionSort.find(`li[data-type="${this.get('sortBy')}"]`).addClass('active');
 	},
 });

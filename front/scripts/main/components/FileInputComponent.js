@@ -4,7 +4,7 @@ App.FileInputComponent = Em.Component.extend(
 		reset: false,
 		fileInputId: 'fileUpload',
 
-		resetObserver: Em.observer('reset', function (): void {
+		resetObserver: Em.observer('reset', function () {
 			if (this.get('reset')) {
 				this.$().find('input').val(null);
 				this.set('reset', false);
@@ -15,8 +15,8 @@ App.FileInputComponent = Em.Component.extend(
 		 * @param {Event} event
 		 * @returns {void}
 		 */
-		change(event: Event): void {
-			var input: HTMLInputElement = <HTMLInputElement> event.target;
+		change(event) {
+			const input = event.target;
 
 			if (!Em.isEmpty(input.files)) {
 				this.sendAction('fileUpload', input.files);
@@ -26,7 +26,7 @@ App.FileInputComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		click(): void {
+		click() {
 			this.sendAction('click');
 		},
 	}

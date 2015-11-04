@@ -1,11 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/hammerjs/hammerjs" />
-/// <reference path="../mixins/FeaturedContentMixin.ts" />
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../mixins/ThirdsClickMixin.ts"/>
-/// <reference path="../../mercury/utils/track.ts"/>
-'use strict';
-
 App.FeaturedContentComponent = Em.Component.extend(
 	App.FeaturedContentMixin,
 	App.TrackClickMixin,
@@ -18,7 +10,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			swipeLeft(): void {
+			swipeLeft() {
 				M.VariantTesting.trackEvent('featured-content-next');
 				this.nextItem();
 			},
@@ -26,7 +18,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			swipeRight(): void {
+			swipeRight() {
 				M.VariantTesting.trackEvent('featured-content-prev');
 				this.prevItem();
 			},
@@ -35,7 +27,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 		/**
 		 * @returns {boolean}
 		 */
-		rightClickHandler(): boolean {
+		rightClickHandler() {
 			M.VariantTesting.trackEvent('featured-content-next');
 			this.nextItem();
 			return true;
@@ -44,7 +36,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 		/**
 		 * @returns {boolean}
 		 */
-		leftClickHandler(): boolean {
+		leftClickHandler() {
 			M.VariantTesting.trackEvent('featured-content-prev');
 			this.prevItem();
 			return true;
@@ -53,7 +45,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 		/**
 		 * @returns {boolean}
 		 */
-		centerClickHandler(): boolean {
+		centerClickHandler() {
 			this.trackClick('modular-main-page', 'featured-content');
 			M.VariantTesting.trackEvent('featured-content-click');
 			return false;
@@ -63,7 +55,7 @@ App.FeaturedContentComponent = Em.Component.extend(
 		 * @param {PreventableClickEvent} event
 		 * @returns {void}
 		 */
-		click(event: PreventableClickEvent): void {
+		click(event) {
 			this.callClickHandler(event, true);
 		},
 	}

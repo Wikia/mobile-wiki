@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.CollapsibleMenuComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	{
@@ -19,7 +16,7 @@ App.CollapsibleMenuComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			toggleMenu(): void {
+			toggleMenu() {
 				this.toggleProperty('isCollapsed');
 
 				if (this.trackingEvent !== null) {
@@ -35,21 +32,21 @@ App.CollapsibleMenuComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
+		didInsertElement() {
 			Em.addObserver(this, 'observe', this, this.titleDidChange);
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		willDestroyElement(): void {
+		willDestroyElement() {
 			Em.removeObserver(this, 'observe', this, this.titleDidChange);
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		titleDidChange(): void {
+		titleDidChange() {
 			if (!this.get('isCollapsed')) {
 				this.set('isCollapsed', true);
 			}

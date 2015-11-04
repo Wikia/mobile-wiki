@@ -1,23 +1,10 @@
-/// <reference path="../app.ts" />
-/// <reference path="./MediaComponent.ts" />
-/// <reference path="../mixins/ArticleContentMixin.ts" />
-'use strict';
-
 /**
  * ArticleMedia
- * @typedef ArticleMedia
- * @implements {Em.Object}
+ * @typedef {Em.Object} ArticleMedia
  * @property {number} galleryRef
  * @property {string} thumbUrl
  * @property {string} captionClass
  */
-
-interface ArticleMedia extends Em.Object {
-	galleryRef: number;
-	thumbUrl: string;
-	captionClass: string;
-	isActive: boolean;
-}
 
 App.GalleryMediaComponent = App.MediaComponent.extend(
 	App.ArticleContentMixin,
@@ -26,12 +13,12 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		layoutName: 'components/gallery-media',
 
 		thumbSize: 195,
-		//limit how many images get rendered before user scrolls to a gallery
+		// limit how many images get rendered before user scrolls to a gallery
 		limit: 2,
 		incrementLimitValue: 10,
 
-		limitedMedia: Em.computed('media', 'limit', function (): ArticleMedia[] {
-			var limit = this.get('limit');
+		limitedMedia: Em.computed('media', 'limit', function () {
+			const limit = this.get('limit');
 
 			if (limit > 0) {
 				return this.get('media').slice(0, limit);
@@ -43,11 +30,16 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		/**
 		 * @returns {void}
 		 */
-		setUp(): void {
-			var mediaArray = Em.A(),
+		setUp() {
+			const mediaArray = Em.A(),
 				emptyGif = this.get('emptyGif');
 
-			this.get('media').forEach((media: ArticleMedia, index: number) => {
+			/**
+			 * @property {ArticleMedia} media
+			 * @property {number} index
+			 * @return {void}
+			 */
+			this.get('media').forEach((media, index) => {
 				media.galleryRef = index;
 				media.thumbUrl = emptyGif;
 				media.captionClass = Em.get(media, 'caption.length') > 0 ? ' has-caption' : '';
@@ -68,30 +60,31 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		 * @param {number} [thumbSize=this.get('thumbSize')]
 		 * @returns {void}
 		 */
-		loadImages(imageOrGalleryRef: any, limit: number = 2, thumbSize: number = this.get('thumbSize')): void {
-			var galleryRef = typeof imageOrGalleryRef === 'number' ?
+		loadImages(imageOrGalleryRef, limit = 2, thumbSize = this.get('thumbSize')) {
+			let galleryRef = typeof imageOrGalleryRef === 'number' ?
 					imageOrGalleryRef :
-					~~imageOrGalleryRef.getAttribute('data-gallery-ref'),
-				image: ArticleMedia,
-				limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1),
+					Number(imageOrGalleryRef.getAttribute('data-gallery-ref')),
 				mode = Mercury.Modules.Thumbnailer.mode.topCrop,
 				height = thumbSize,
-				width = thumbSize;
+				width = thumbSize,
+				image;
+
+			limit = Math.min(galleryRef + limit, this.get('galleryLength') - 1);
 
 			for (; galleryRef <= limit; galleryRef++) {
 				image = this.get('media').get(galleryRef);
 
 				if (image.context === 'icon') {
-					mode =  Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+					mode = Mercury.Modules.Thumbnailer.mode.scaleToWidth;
 					height = this.get('iconHeight');
 					width = this.get('iconWidth');
 				}
 
 				image.setProperties({
 					thumbUrl: this.getThumbURL(image.url, {
-						mode: mode,
-						height: height,
-						width: width
+						mode,
+						height,
+						width
 					}),
 					load: true
 				});
@@ -104,11 +97,11 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		 *
 		 * @returns {void}
 		 */
-		load(): void {
-			var $this: JQuery = this.$(),
-				galleryWidth: number = $this.width(),
-				thumbSize: number = this.get('thumbSize'),
-				maxImages: number = Math.ceil(galleryWidth / thumbSize);
+		load() {
+			const $this = this.$(),
+				galleryWidth = $this.width(),
+				thumbSize = this.get('thumbSize'),
+				maxImages = Math.ceil(galleryWidth / thumbSize);
 
 			this.setUp();
 			this.loadImages(0, maxImages);
@@ -129,13 +122,18 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		 * @param {number} maxImages
 		 * @returns {void}
 		 */
-		onScroll(maxImages: number): void {
-			var $this = this.$(),
+		onScroll(maxImages) {
+			const $this = this.$(),
 				imagesToLoad = $this.find('img:not(.loaded)'),
 				galleryOffset = $this.scrollLeft() + $this.width();
 
 			if (imagesToLoad.length) {
-				imagesToLoad.each((index: number, image: HTMLImageElement): void => {
+				/**
+				 * @property {number} index
+				 * @property {HTMLImageElement} image
+				 * @returns {void}
+				 */
+				imagesToLoad.each((index, image) => {
 					if (image.offsetLeft < galleryOffset) {
 						this.loadImages(image, maxImages);
 					}

@@ -1,10 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/hammerjs/hammerjs" />
-/// <reference path="../mixins/FeaturedContentMixin.ts" />
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../../mercury/utils/track.ts"/>
-'use strict';
-
 App.FeaturedContentVariation1Component = Em.Component.extend(
 	App.FeaturedContentMixin,
 	App.TrackClickMixin,
@@ -15,7 +8,7 @@ App.FeaturedContentVariation1Component = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			swipeLeft(): void {
+			swipeLeft() {
 				M.VariantTesting.trackEvent('featured-content-next');
 				this.nextItem();
 			},
@@ -23,7 +16,7 @@ App.FeaturedContentVariation1Component = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			swipeRight(): void {
+			swipeRight() {
 				M.VariantTesting.trackEvent('featured-content-prev');
 				this.prevItem();
 			},
@@ -32,7 +25,7 @@ App.FeaturedContentVariation1Component = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		click(): void {
+		click() {
 			M.VariantTesting.trackEvent('featured-content-click');
 			this.trackClick('modular-main-page', 'featured-content');
 		},
