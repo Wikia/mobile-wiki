@@ -18,7 +18,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		/* 16x9 transparent gif */
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
-		imageUrl: Em.computed('model.image_url', 'model.image_crop', function() {
+		imageUrl: Em.computed('model.image_url', 'model.image_crop', function () {
 			if (this.get('model.image_url')) {
 				const aspectRatioName = this.get('aspectRatioName'),
 					imageCrop = this.get(`model.image_crop.${aspectRatioName}`) || null;
@@ -45,7 +45,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		titleErrorMessage: null,
 		imageErrorMessage: null,
 
-		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function() {
+		canSave: Em.computed('labelErrorMessage', 'titleErrorMessage', 'imageErrorMessage', function () {
 			return Em.isEmpty(this.get('labelErrorMessage')) &&
 				Em.isEmpty(this.get('titleErrorMessage')) &&
 				Em.isEmpty(this.get('imageErrorMessage'));
@@ -55,7 +55,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		labelClass: Em.computed.and('labelErrorMessage', 'errorClass'),
 		titleClass: Em.computed.and('titleErrorMessage', 'errorClass'),
 
-		pageNameTooltip: Em.computed('isCategory', function() {
+		pageNameTooltip: Em.computed('isCategory', function () {
 			if (this.get('isCategory')) {
 				return i18n.t('app.curated-content-editor-enter-category-name-tooltip');
 			}
@@ -68,7 +68,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		 * app.curated-content-editor-no-articles-found
 		 * app.curated-content-editor-suggestions-loading
 		 */
-		searchSuggestionsMessage: Em.computed('suggestionsError', function() {
+		searchSuggestionsMessage: Em.computed('suggestionsError', function () {
 			if (this.get('suggestionsError')) {
 				if (this.get('isCategory')) {
 					return i18n.t('app.curated-content-editor-no-categories-found');
@@ -296,7 +296,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {boolean}
 		 */
 		validateImage() {
 			const imageUrl = this.get('model.image_url');
@@ -312,7 +312,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {boolean}
 		 */
 		validateLabel() {
 			const label = this.get('model.label'),
@@ -333,7 +333,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {boolean}
 		 */
 		validateTitle() {
 			let title,
@@ -406,7 +406,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.then((data) => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
-					} if (data.error) {
+					} else if (data.error) {
 						data.error.forEach((error) => this.processValidationError(error.reason));
 					} else {
 						this.addAlert({
