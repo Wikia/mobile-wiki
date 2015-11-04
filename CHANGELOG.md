@@ -1,4 +1,7 @@
 ## release-187 (2015-11-04 07:59 UTC)
+* [XW-658](https://wikia-inc.atlassian.net/browse/XW-658) XW-658 Replace new top bar with the classic one
+* [SOC-1558](https://wikia-inc.atlassian.net/browse/SOC-1558) SOC-1558 | 404 error when scrolling too quickly on cocktails discussions wiki
+* [SOC-1573](https://wikia-inc.atlassian.net/browse/SOC-1573) SOC-1573 | Discussion - new translations for JA
 * [SOC-1556](https://wikia-inc.atlassian.net/browse/SOC-1556) SOC-1556 | Discussions - Fix profileUrl for lazy loaded replies
 * [SOC-1546](https://wikia-inc.atlassian.net/browse/SOC-1546) SOC-1546 | Thread listing confusing clickable area
 * [SOC-1550](https://wikia-inc.atlassian.net/browse/SOC-1550) SOC-1550 | Discussions - fix grid on error pages
