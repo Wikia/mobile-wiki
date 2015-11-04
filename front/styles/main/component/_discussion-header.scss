@@ -87,7 +87,7 @@ $site-header-height: 50px;
 	}
 }
 
-[class$="-vertical"] {
+.discussions {
 	.side-nav-toggle {
 		visibility: hidden;
 	}
@@ -107,7 +107,7 @@ $site-header-height: 50px;
 }
 
 @for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .site-head {
+	.discussions .#{nth($verticals, $i)}-vertical .site-head {
 		border-bottom-color: #{nth($vertical-colors, $i)};
 	}
 }
