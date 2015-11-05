@@ -10,10 +10,12 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.T
 
 	activate(): void {
 		Em.$('body').addClass('discussions');
+		this._super();
 	},
 
 	deactivate(): void {
 		Em.$('body').removeClass('discussions');
+		this._super();
 	},
 
 	/**
