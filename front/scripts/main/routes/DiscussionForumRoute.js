@@ -1,6 +1,14 @@
-App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
+App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 	defaultSortType: null,
 	forumId: null,
+
+	activate() {
+		Em.$('body').addClass('discussions');
+	},
+
+	deactivate() {
+		Em.$('body').removeClass('discussions');
+	},
 
 	/**
 	 * @param {*} params

@@ -1,4 +1,4 @@
-App.DiscussionIndexRoute = Em.Route.extend(App.UseNewNavMixin, {
+App.DiscussionIndexRoute = Em.Route.extend({
 	/**
 	 * @returns {void}
 	 */

@@ -1,4 +1,4 @@
-App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
+App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
@@ -30,6 +30,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 			themeBar: true,
 			enableShareHeader: false
 		});
+		Em.$('body').addClass('discussions');
 		this._super();
 	},
 
@@ -42,6 +43,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRout
 			themeBar: false,
 			enableShareHeader: false
 		});
+		Em.$('body').removeClass('discussions');
 		this._super();
 	},
 
