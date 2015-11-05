@@ -4,7 +4,7 @@ App.ForumWrapperComponent = Em.Component.extend(
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
 		postsDisplayed: 0,
 		totalPosts: 0,
-		pageNum: 0,
+		pageNum: null,
 		currentlyLoadingPage: false,
 		isLoading: true,
 

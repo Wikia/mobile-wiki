@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-
-'use strict';
-
 App.ArticleRoute = Em.Route.extend({
 	redirectEmptyTarget: false,
 
@@ -10,8 +5,8 @@ App.ArticleRoute = Em.Route.extend({
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
 	 */
-	beforeModel(transition: EmberStates.Transition): void {
-		var title = transition.params.article.title.replace('wiki/', '');
+	beforeModel(transition) {
+		const title = transition.params.article.title.replace('wiki/', '');
 
 		this.controllerFor('application').send('closeLightbox');
 
@@ -35,7 +30,7 @@ App.ArticleRoute = Em.Route.extend({
 	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
 	 */
-	model(params: any): Em.RSVP.Promise {
+	model(params) {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
@@ -47,8 +42,8 @@ App.ArticleRoute = Em.Route.extend({
 	 * @param {App.ArticleModel} model
 	 * @returns {void}
 	 */
-	afterModel(model: typeof App.ArticleModel): void {
-		var exception = model.exception;
+	afterModel(model) {
+		const exception = model.exception;
 
 		if (!Em.isEmpty(exception)) {
 			Em.Logger.warn('Article model error:', exception);
@@ -72,23 +67,22 @@ App.ArticleRoute = Em.Route.extend({
 	/**
 	 * @returns {void}
 	 */
-	activate(): void {
+	activate() {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	/**
 	 * @returns {void}
 	 */
-	deactivate(): void {
+	deactivate() {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	actions: {
 		/**
-		 * @param {EmberStates.Transition} transition
 		 * @returns {void}
 		 */
-		willTransition(transition: EmberStates.Transition): void {
+		willTransition() {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
@@ -97,7 +91,7 @@ App.ArticleRoute = Em.Route.extend({
 		/**
 		 * @returns {boolean}
 		 */
-		didTransition(): boolean {
+		didTransition() {
 			this.updateHead();
 
 			if (this.get('redirectEmptyTarget')) {
@@ -106,6 +100,7 @@ App.ArticleRoute = Em.Route.extend({
 					type: 'warning'
 				});
 			}
+
 			return true;
 		},
 
@@ -114,7 +109,7 @@ App.ArticleRoute = Em.Route.extend({
 		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */
-		error(error: any, transition: EmberStates.Transition): boolean {
+		error(error, transition) {
 			if (transition) {
 				transition.abort();
 			}
@@ -133,8 +128,8 @@ App.ArticleRoute = Em.Route.extend({
 	 *
 	 * @returns {void}
 	 */
-	updateHead(): void {
-		var model: typeof App.ArticleModel = this.modelFor('article');
+	updateHead() {
+		const model = this.modelFor('article');
 
 		this.updateTitleTag(model);
 		this.updateCanonicalLinkTag(model);
@@ -145,8 +140,8 @@ App.ArticleRoute = Em.Route.extend({
 	 * @param {App.ArticleModel} model
 	 * @returns {void}
 	 */
-	updateTitleTag(model: typeof App.ArticleModel): void {
-		var defaultHtmlTitleTemplate = '$1 - Wikia',
+	updateTitleTag(model) {
+		const defaultHtmlTitleTemplate = '$1 - Wikia',
 			htmlTitleTemplate = Em.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
 
 		document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
@@ -156,9 +151,9 @@ App.ArticleRoute = Em.Route.extend({
 	 * @param {App.ArticleModel} model
 	 * @returns {void}
 	 */
-	updateCanonicalLinkTag(model: typeof App.ArticleModel): void {
-		var canonicalUrl = Em.get(Mercury, 'wiki.basePath') + model.get('url'),
-			$canonicalLinkTag = Em.$('head link[rel=canonical]');
+	updateCanonicalLinkTag(model) {
+		const canonicalUrl = Em.get(Mercury, 'wiki.basePath') + model.get('url');
+		let $canonicalLinkTag = Em.$('head link[rel=canonical]');
 
 		if (Em.isEmpty($canonicalLinkTag)) {
 			$canonicalLinkTag = Em.$('<link rel="canonical">').appendTo('head');
@@ -171,9 +166,9 @@ App.ArticleRoute = Em.Route.extend({
 	 * @param {App.ArticleModel} model
 	 * @returns {void}
 	 */
-	updateDescriptionMetaTag(model: typeof App.ArticleModel): void {
-		var description = model.getWithDefault('description', ''),
-			$descriptionMetaTag = Em.$('head meta[name=description]');
+	updateDescriptionMetaTag(model) {
+		const description = model.getWithDefault('description', '');
+		let $descriptionMetaTag = Em.$('head meta[name=description]');
 
 		if (Em.isEmpty($descriptionMetaTag)) {
 			$descriptionMetaTag = Em.$('<meta name="description">').appendTo('head');
