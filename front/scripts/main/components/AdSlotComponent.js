@@ -1,13 +1,7 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury.d.ts" />
-/// <reference path="../../mercury/modules/Ads.ts" />
-
-'use strict';
-
 App.AdSlotComponent = Em.Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase', 'noAds'],
-	//This component is created dynamically, and this won't work without it
+	// This component is created dynamically, and this won't work without it
 	layoutName: 'components/ad-slot',
 
 	name: null,
@@ -27,10 +21,10 @@ App.AdSlotComponent = Em.Component.extend({
 	 * the default is false (show ads)
 	 */
 	noAds: Em.computed({
-		get(): boolean {
+		get() {
 			return false;
 		},
-		set(key: string, value: string): boolean {
+		set(key, value) {
 			return value !== '' && value !== '0';
 		}
 	}),
@@ -38,7 +32,7 @@ App.AdSlotComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement(): void {
+	didInsertElement() {
 		if (this.get('noAds') === true) {
 			Em.Logger.info('Ad disabled for:', this.get('name'));
 		} else {
@@ -50,7 +44,7 @@ App.AdSlotComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	willDestroyElement(): void {
+	willDestroyElement() {
 		var name = this.get('name');
 
 		Mercury.Modules.Ads.getInstance().removeSlot(this.get('name'));

@@ -1,5 +1,10 @@
-/// <reference path="../app.ts" />
-'use strict';
+/**
+ * @typedef {Object} ArticleCommentThumbnailData
+ * @property {string} name
+ * @property {string} full
+ * @property {string} [capt]
+ * @property {string} [type]
+ */
 
 App.ArticleCommentComponent = Em.Component.extend({
 	tagName: 'li',
@@ -41,7 +46,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	}),
 
 	actions: {
-		toggleExpand(): void {
+		toggleExpand() {
 			this.toggleProperty('isExpanded');
 		},
 	},
@@ -56,10 +61,44 @@ App.ArticleCommentComponent = Em.Component.extend({
 	 * @param {JQuery} $originalFigure
 	 * @returns {void}
 	 */
-	convertThumbnails($originalFigure: JQuery): void {
-		var thumbnailsData: any,
-			thumbnailer = Mercury.Modules.Thumbnailer,
-			newFigures: JQuery[] = [];
+	convertThumbnails($originalFigure) {
+		const thumbnailer = Mercury.Modules.Thumbnailer,
+			/**
+			 * @param {ArticleCommentThumbnailData} thumbnailData
+			 * @returns {JQuery}
+			 */
+			createFigureFromThumbnailData = (thumbnailData) => {
+				const thumbnailURL = thumbnailer.getThumbURL(thumbnailData.full, {
+						mode: thumbnailer.mode.scaleToWidth,
+						width: this.thumbnailWidth
+					}),
+					$thumbnail = $('<img/>').attr('src', thumbnailURL),
+					href = '%@%@:%@'.fmt(
+						Em.get(Mercury, 'wiki.articlePath'),
+						Em.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
+						thumbnailData.name
+					),
+					$anchor = $('<a/>').attr('href', href).append($thumbnail),
+					$figure = $('<figure/>');
+
+				let $figcaption;
+
+				if (thumbnailData.type === 'video') {
+					$figure.addClass('comment-video');
+				}
+
+				$figure.append($anchor);
+
+				if (thumbnailData.capt) {
+					$figcaption = $('<figcaption/>').text(thumbnailData.capt);
+					$figure.append($figcaption);
+				}
+
+				return $figure;
+			};
+
+		let thumbnailsData,
+			newFigures;
 
 		try {
 			thumbnailsData = JSON.parse($originalFigure.find('img[data-params]').attr('data-params'));
@@ -67,34 +106,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 			return;
 		}
 
-		thumbnailsData.forEach((thumbnailData: {name: string; full: string; capt?: string; type?: string}) => {
-			var thumbnailURL = thumbnailer.getThumbURL(thumbnailData.full, {
-					mode: thumbnailer.mode.scaleToWidth,
-					width: this.thumbnailWidth
-				}),
-				$thumbnail = $('<img/>').attr('src', thumbnailURL),
-				href = '%@%@:%@'.fmt(
-					Em.get(Mercury, 'wiki.articlePath'),
-					Em.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
-					thumbnailData.name
-				),
-				$anchor = $('<a/>').attr('href', href).append($thumbnail),
-				$figcaption: JQuery,
-				$figure = $('<figure/>');
-
-			if (thumbnailData.type === 'video') {
-				$figure.addClass('comment-video');
-			}
-
-			$figure.append($anchor);
-
-			if (thumbnailData.capt) {
-				$figcaption = $('<figcaption/>').text(thumbnailData.capt);
-				$figure.append($figcaption);
-			}
-
-			newFigures.push($figure);
-		});
+		newFigures = thumbnailsData.map(createFigureFromThumbnailData);
 
 		$originalFigure.replaceWith(newFigures);
 	},

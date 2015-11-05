@@ -1,19 +1,8 @@
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/AdsMixin.ts" />
-/// <reference path="../mixins/PollDaddyMixin.ts" />
-
-'use strict';
-
 /**
  * HTMLElement
  * @typedef {Object} HTMLElement
  * @property {Function} scrollIntoViewIfNeeded
  */
-
-interface HTMLElement {
-	scrollIntoViewIfNeeded: () => void
-}
 
 App.ArticleContentComponent = Em.Component.extend(
 	App.AdsMixin,
@@ -30,10 +19,10 @@ App.ArticleContentComponent = Em.Component.extend(
 		cleanTitle: null,
 		headers: null,
 
-		articleContentObserver: Em.observer('content', function (): void {
-			var content = this.get('content');
+		articleContentObserver: Em.observer('content', function () {
+			const content = this.get('content');
 
-			Em.run.scheduleOnce('afterRender', this, (): void => {
+			Em.run.scheduleOnce('afterRender', this, () => {
 				if (content) {
 					this.hackIntoEmberRendering(content);
 					this.loadTableOfContentsData();
@@ -48,7 +37,7 @@ App.ArticleContentComponent = Em.Component.extend(
 					this.handlePollDaddy();
 					this.handleJumpLink();
 
-					Em.run.later(this, (): void => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
+					Em.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
 					this.hackIntoEmberRendering(i18n.t('app.article-empty-label'));
 				}
@@ -58,13 +47,17 @@ App.ArticleContentComponent = Em.Component.extend(
 			});
 		}).on('init'),
 
-		headerObserver: Em.observer('headers', function(): void {
+		headerObserver: Em.observer('headers', function () {
 			if (this.get('contributionFeatureEnabled')) {
-				var headers = this.get('headers'),
-					$sectionHeader: JQuery = null,
-					$contributionComponent: JQuery = null;
+				const headers = this.get('headers');
+				let $sectionHeader = null,
+					$contributionComponent = null;
 
-				headers.forEach((header: ArticleSectionHeader): void => {
+				/**
+				 * @param {ArticleSectionHeader} header
+				 * @returns {void}
+				 */
+				headers.forEach((header) => {
 					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
 					$sectionHeader = this.$(header.element);
 					$sectionHeader.prepend($contributionComponent).addClass('short-header');
@@ -79,7 +72,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			 * @param {*} lightboxData
 			 * @returns {void}
 			 */
-			openLightbox(lightboxType: string, lightboxData: any): void {
+			openLightbox(lightboxType, lightboxData) {
 				this.sendAction('openLightbox', lightboxType, lightboxData);
 			},
 
@@ -88,7 +81,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			 * @param {number} sectionIndex
 			 * @returns {void}
 			 */
-			edit(title: string, sectionIndex: number): void {
+			edit(title, sectionIndex) {
 				this.sendAction('edit', title, sectionIndex);
 			},
 
@@ -98,7 +91,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			 * @param {*} photoData
 			 * @returns {void}
 			 */
-			addPhoto(title: string, sectionIndex: number, photoData: any): void {
+			addPhoto(title, sectionIndex, photoData) {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
 			},
 		},
@@ -116,7 +109,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		 * @param {string} content - HTML containing whole article
 		 * @returns {void}
 		 */
-		hackIntoEmberRendering(content: string): void {
+		hackIntoEmberRendering(content) {
 			this.$().html(content);
 		},
 
@@ -126,28 +119,34 @@ App.ArticleContentComponent = Em.Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		handleJumpLink(): void {
+		handleJumpLink() {
 			if (window.location.hash) {
 				window.location.assign(window.location.hash);
 			}
 		},
 
 		/**
-		* Instantiate ArticleContributionComponent by looking up the component from container in order to have dependency injection.
-		* Read "DEPENDENCY MANAGEMENT IN EMBER.JS" section in http://guides.emberjs.com/v1.10.0/understanding-ember/dependency-injection-and-service-lookup/
-		* "Lookup" function defined in https://github.com/emberjs/ember.js/blob/master/packages/container/lib/container.js
-		*/
-		/**
-		* @param {number} section
-		* @param {string} sectionId
-		* @returns {JQuery}
-		*/
-		createArticleContributionComponent: function(section: number, sectionId: string): JQuery {
-			var title = this.get('cleanTitle'),
-			    edit = 'edit',
-			    addPhoto = 'addPhoto',
-			    uploadFeatureEnabled = this.get('uploadFeatureEnabled'),
-			    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
+		 * Instantiate ArticleContributionComponent by looking up the component from container
+		 * in order to have dependency injection.
+		 *
+		 * Read "DEPENDENCY MANAGEMENT IN EMBER.JS" section in
+		 * http://guides.emberjs.com/v1.10.0/understanding-ember/dependency-injection-and-service-lookup/
+		 *
+		 * "Lookup" function defined in
+		 * https://github.com/emberjs/ember.js/blob/master/packages/container/lib/container.js
+		 *
+		 * @param {number} section
+		 * @param {string} sectionId
+		 * @returns {JQuery}
+		 */
+		createArticleContributionComponent(section, sectionId) {
+			const title = this.get('cleanTitle'),
+				edit = 'edit',
+				addPhoto = 'addPhoto',
+				uploadFeatureEnabled = this.get('uploadFeatureEnabled'),
+				contributionComponent = this.get('container').lookup('component:article-contribution', {
+					singleton: false
+				});
 
 			contributionComponent.setProperties({
 				section,
@@ -157,6 +156,7 @@ App.ArticleContentComponent = Em.Component.extend(
 				addPhoto,
 				uploadFeatureEnabled
 			});
+
 			return this.createChildView(contributionComponent).createElement().$();
 		},
 
@@ -168,18 +168,23 @@ App.ArticleContentComponent = Em.Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		loadTableOfContentsData(): void {
-			var headers = this.$('h2[section]').map((i: number, elem: HTMLElement): ArticleSectionHeader => {
-					if (elem.textContent) {
-						return {
-							element: elem,
-							level: elem.tagName,
-							name: elem.textContent,
-							id: elem.id,
-							section: elem.getAttribute('section'),
-						};
-					}
-				}).toArray();
+		loadTableOfContentsData() {
+			/**
+			 * @param {number} i
+			 * @param {HTMLElement} elem
+			 * @returns {ArticleSectionHeader}
+			 */
+			const headers = this.$('h2[section]').map((i, elem) => {
+				if (elem.textContent) {
+					return {
+						element: elem,
+						level: elem.tagName,
+						name: elem.textContent,
+						id: elem.id,
+						section: elem.getAttribute('section'),
+					};
+				}
+			}).toArray();
 
 			this.set('headers', headers);
 			this.sendAction('updateHeaders', headers);
@@ -190,15 +195,15 @@ App.ArticleContentComponent = Em.Component.extend(
 		 * @param {App.ArticleModel} model
 		 * @returns {JQuery}
 		 */
-		createMediaComponent(element: HTMLElement, model: typeof App.ArticleModel): JQuery {
-			var ref = parseInt(element.dataset.ref, 10),
+		createMediaComponent(element, model) {
+			const ref = parseInt(element.dataset.ref, 10),
 				media = model.find(ref),
 				component = this.createChildView(App.MediaComponent.newFromMedia(media), {
-					ref: ref,
+					ref,
 					width: parseInt(element.getAttribute('width'), 10),
 					height: parseInt(element.getAttribute('height'), 10),
 					imgWidth: element.offsetWidth,
-					media: media,
+					media,
 				}).createElement();
 
 			return component.$().attr('data-ref', ref);
@@ -209,49 +214,47 @@ App.ArticleContentComponent = Em.Component.extend(
 		 * @param {number} [numberToProcess=-1]
 		 * @returns {void}
 		 */
-		replaceMediaPlaceholdersWithMediaComponents(
-			model: typeof App.ArticleModel,
-			numberToProcess: number = -1
-		): void {
-			var $mediaPlaceholders = this.$('.article-media'),
-				index: number;
+		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
+			const $mediaPlaceholders = this.$('.article-media');
 
 			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
 				numberToProcess = $mediaPlaceholders.length;
 			}
 
-			for (index = 0; index < numberToProcess; index++) {
+			for (let index = 0; index < numberToProcess; index++) {
 				$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
 			}
 		},
 
-		replaceImageCollectionPlaceholdersWithComponents(model: typeof App.ArticleMedia): void {
-			var $placeholders = this.$('.pi-image-collection'),
+		/**
+		 * @param {App.ArticleMedia} model
+		 * @returns {void}
+		 */
+		replaceImageCollectionPlaceholdersWithComponents(model) {
+			const $placeholders = this.$('.pi-image-collection'),
 				articleMedia = model.get('media'),
-				index: number,
-				numberToProcess: number = $placeholders.length;
+				numberToProcess = $placeholders.length,
+				getCollectionMediaFromRefs = (ref) => {
+					const image = model.find(ref);
 
-			for (index = 0; index < numberToProcess; index ++) {
-				var $element = $placeholders.eq(index),
-					collectionMedia: typeof App.ArticleMedia[] = [],
+					image.ref = articleMedia.length;
+					return image;
+				};
+
+			for (let index = 0; index < numberToProcess; index++) {
+				const $element = $placeholders.eq(index),
 					refs = $element.data('refs')
 						.split(',')
 						.compact()
-						.filter((ref: any): boolean => ref.length > 0);
-
-				refs.forEach((ref: number): void => {
-					var image = model.find(ref);
-					image.ref = articleMedia.length;
-					collectionMedia.push(image);
-				});
-
-				articleMedia.push(collectionMedia);
-
-				var component = this.createChildView(App.InfoboxImageCollectionComponent, {
-					media: collectionMedia
-				}).createElement();
+						.filter((ref) => ref.length > 0),
+					collectionMedia = refs.map(getCollectionMediaFromRefs),
+					component = this.createChildView(App.InfoboxImageCollectionComponent, {
+						media: collectionMedia
+					}).createElement();
 
 				$element.replaceWith(component.$());
+
+				articleMedia.push(collectionMedia);
 			}
 
 			model.set('media', articleMedia);
@@ -260,18 +263,23 @@ App.ArticleContentComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		replaceMapsWithMapComponents(): void {
-			this.$('.wikia-interactive-map-thumbnail').map((i: number, elem: HTMLElement): void => {
+		replaceMapsWithMapComponents() {
+			/**
+			 * @param {number} i
+			 * @param {Element} elem
+			 * @returns {void}
+			 */
+			this.$('.wikia-interactive-map-thumbnail').map((i, elem) => {
 				this.replaceMapWithMapComponent(elem);
 			});
 		},
 
 		/**
-		 * @param {HTMLElement} elem
+		 * @param {Element} elem
 		 * @returns {void}
 		 */
-		replaceMapWithMapComponent(elem: HTMLElement): void {
-			var $mapPlaceholder = $(elem),
+		replaceMapWithMapComponent(elem) {
+			const $mapPlaceholder = $(elem),
 				$a = $mapPlaceholder.children('a'),
 				$img = $a.children('img'),
 				mapComponent = this.createChildView(App.WikiaMapComponent.create({
@@ -284,57 +292,64 @@ App.ArticleContentComponent = Em.Component.extend(
 
 			mapComponent.createElement();
 			$mapPlaceholder.replaceWith(mapComponent.$());
-			//TODO: do it in the nice way
 			mapComponent.trigger('didInsertElement');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		replaceInfoboxesWithInfoboxComponents(): void {
-			this.$('.portable-infobox').map((i: number, elem: HTMLElement): void => {
+		replaceInfoboxesWithInfoboxComponents() {
+			/**
+			 * @param {number} i
+			 * @param {Element} elem
+			 * @returns {void}
+			 */
+			this.$('.portable-infobox').map((i, elem) => {
 				this.replaceInfoboxWithInfoboxComponent(elem);
 			});
 		},
 
 		/**
-		 * @param {HTMLElement} elem
+		 * @param {Element} elem
 		 * @returns {void}
 		 */
-		replaceInfoboxWithInfoboxComponent(elem: HTMLElement): void {
-			var $infoboxPlaceholder = $(elem),
-				infoboxComponent: typeof App.PortableInfoboxComponent;
-
-			infoboxComponent = this.createChildView(App.PortableInfoboxComponent.create({
-				infoboxHTML: elem.innerHTML,
-				height: $infoboxPlaceholder.outerHeight(),
-			}));
+		replaceInfoboxWithInfoboxComponent(elem) {
+			const $infoboxPlaceholder = $(elem),
+				infoboxComponent = this.createChildView(App.PortableInfoboxComponent.create({
+					infoboxHTML: elem.innerHTML,
+					height: $infoboxPlaceholder.outerHeight(),
+				}));
 
 			infoboxComponent.createElement();
 			$infoboxPlaceholder.replaceWith(infoboxComponent.$());
-			//TODO: do it in the nice way
 			infoboxComponent.trigger('didInsertElement');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		replaceWikiaWidgetsWithComponents(): void {
-			this.$('[data-wikia-widget]').map((i: number, elem: HTMLElement): void => {
+		replaceWikiaWidgetsWithComponents() {
+			/**
+			 * @param {number} i
+			 * @param {Element} elem
+			 * @returns {void}
+			 */
+			this.$('[data-wikia-widget]').map((i, elem) => {
 				this.replaceWikiaWidgetWithComponent(elem);
 			});
 		},
 
 		/**
-		 * @param {HTMLElement} elem
+		 * @param {Element} elem
 		 * @returns {void}
 		 */
-		replaceWikiaWidgetWithComponent(elem: HTMLElement): void {
-			var $widgetPlaceholder = $(elem),
+		replaceWikiaWidgetWithComponent(elem) {
+			const $widgetPlaceholder = $(elem),
 				widgetData = $widgetPlaceholder.data(),
 				widgetType = widgetData.wikiaWidget,
-				componentName = this.getWidgetComponentName(widgetType),
-				component: any;
+				componentName = this.getWidgetComponentName(widgetType);
+
+			let component;
 
 			if (componentName) {
 				component = this.createChildView(App[componentName].create({
@@ -348,15 +363,15 @@ App.ArticleContentComponent = Em.Component.extend(
 
 		/**
 		 * @param {string} widgetType
-		 * @returns {string}
+		 * @returns {string|null}
 		 */
-		getWidgetComponentName(widgetType: string): string {
-			var componentNames = {
-					twitter: 'WidgetTwitterComponent',
-					vk: 'WidgetVKComponent',
-					polldaddy: 'WidgetPolldaddyComponent',
-					flite: 'WidgetFliteComponent',
-				};
+		getWidgetComponentName(widgetType) {
+			const componentNames = {
+				twitter: 'WidgetTwitterComponent',
+				vk: 'WidgetVKComponent',
+				polldaddy: 'WidgetPolldaddyComponent',
+				flite: 'WidgetFliteComponent',
+			};
 
 			if (componentNames.hasOwnProperty(widgetType) && Em.typeOf(App[componentNames[widgetType]]) === 'class') {
 				return componentNames[widgetType];
@@ -369,9 +384,10 @@ App.ArticleContentComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		handleWikiaWidgetWrappers(): void {
-			this.$('script[type="x-wikia-widget"]').each(function (): void {
-				var $this = $(this);
+		handleWikiaWidgetWrappers() {
+			this.$('script[type="x-wikia-widget"]').each(function () {
+				const $this = $(this);
+
 				$this.replaceWith($this.html());
 			});
 		},
@@ -381,21 +397,24 @@ App.ArticleContentComponent = Em.Component.extend(
 		 *
 		 * @returns {void}
 		 */
-		handleInfoboxes(): void {
-			var shortClass = 'short',
+		handleInfoboxes() {
+			const shortClass = 'short',
 				$infoboxes = this.$('table[class*="infobox"] tbody'),
 				body = window.document.body,
 				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 			if ($infoboxes.length) {
 				$infoboxes
-					.filter(function (): boolean {
+					.filter(function () {
 						return this.rows.length > 6;
 					})
 					.addClass(shortClass)
-					.append('<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon"><use xlink:href="#chevron"></use></svg></td></tr>')
-					.on('click', function (event: JQueryEventObject): void {
-						var $target = $(event.target),
+					.append(
+						`<tr class=infobox-expand><td colspan=2><svg viewBox="0 0 12 7" class="icon">` +
+						`<use xlink:href="#chevron"></use></svg></td></tr>`
+					)
+					.on('click', function (event) {
+						const $target = $(event.target),
 							$this = $(this);
 
 						if (!$target.is('a') && $this.toggleClass(shortClass).hasClass(shortClass)) {
@@ -408,7 +427,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		handleTables(): void {
+		handleTables() {
 			this.$('table:not([class*=infobox], .dirbox)')
 				.not('table table')
 				.css('visibility', 'visible')

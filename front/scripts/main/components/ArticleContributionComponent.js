@@ -1,7 +1,3 @@
-/// <reference path='../../../../typings/ember/ember.d.ts' />
-/// <reference path='../app.ts' />
-/// <reference path="../mixins/LanguagesMixin.ts" />
-
 App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 	classNames: ['contribution-container'],
 	classNameBindings: ['uploadFeatureEnabled::no-photo'],
@@ -15,7 +11,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		/**
 		 * @returns {void}
 		 */
-		edit(): void {
+		edit() {
 			M.track({
 				action: M.trackActions.click,
 				category: 'sectioneditor',
@@ -28,11 +24,13 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		/**
 		 * @returns {void}
 		 */
-		select(): void {
-			var href = '/join?redirect=' + encodeURIComponent(window.location.href);
+		select() {
+			let href = `/join?redirect=${encodeURIComponent(window.location.href)}`;
+
 			if (this.get('sectionId')) {
-				href += encodeURIComponent('#' + this.sectionId);
+				href += encodeURIComponent(`#${this.sectionId}`);
 			}
+
 			href += this.getUselangParam();
 
 			M.track({
@@ -48,7 +46,9 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		/**
 		 * @returns {void}
 		 */
-		addPhoto(): void {
+		addPhoto() {
+			const photoData = this.$('.file-upload-input')[0].files[0];
+
 			if (this.get('currentUser.isAuthenticated') !== true) {
 				return;
 			}
@@ -59,12 +59,16 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 				label: 'add-photo',
 				value: this.get('section')
 			});
-			var photoData = this.$('.file-upload-input')[0].files[0];
+
 			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 		},
 	},
 
-	openLocation(href: string) {
+	/**
+	 * @param {string} href
+	 * @returns {void}
+	 */
+	openLocation(href) {
 		window.location.href = href;
 	},
 });

@@ -1,28 +1,11 @@
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/LanguagesMixin.ts" />
-/// <reference path="../mixins/TrackClickMixin.ts" />
-/// <reference path="../mixins/ViewportMixin.ts" />
-
-'use strict';
-
 /**
- * ArticleSectionHeader
- * @typedef ArticleSectionHeader
+ * @typedef {Object} ArticleSectionHeader
  * @property {HTMLElement} element
  * @property {string} level
  * @property {string} name
  * @property {string} [id]
  * @property {string} section
  */
-
-interface ArticleSectionHeader {
-	element: HTMLElement;
-	level: string;
-	name: string;
-	id?: string;
-	section: string;
-}
 
 App.ArticleWrapperComponent = Em.Component.extend(
 	App.LanguagesMixin,
@@ -49,10 +32,9 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			 * @param {JQueryEventObject} event
 			 * @returns {void}
 			 */
-			swipeLeft(event: JQueryEventObject): void {
+			swipeLeft(event) {
 				// Track swipe events
 				if ($(event.target).parents('.article-table').length) {
-
 					M.track({
 						action: M.trackActions.swipe,
 						category: 'tables'
@@ -70,7 +52,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			 * @param {JQueryEventObject} event
 			 * @returns {void}
 			 */
-			swipeRight(event: JQueryEventObject): void {
+			swipeRight(event) {
 				// Track swipe events
 				if ($(event.target).parents('.article-gallery').length) {
 					M.track({
@@ -82,19 +64,20 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			}
 		},
 
-		uploadFeatureEnabled: Em.computed(function(): boolean {
+		uploadFeatureEnabled: Em.computed(() => {
 			return !Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
 		}),
 
-		contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
-			return !this.get('model.isMainPage')
-				&& this.get('isJapaneseWikia')
-				&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
+		contributionFeatureEnabled: Em.computed('model.isMainPage', function () {
+			return (
+				!this.get('model.isMainPage') &&
+				this.get('isJapaneseWikia') && !Em.get(Mercury, 'wiki.disableAnonymousEditing')
+			);
 		}),
 
 		curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
-		articleObserver: Em.observer('model.article', function (): void {
+		articleObserver: Em.observer('model.article', function () {
 			// This check is here because this observer will actually be called for views wherein the state is actually
 			// not valid, IE, the view is in the process of preRender
 			Em.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
@@ -106,7 +89,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			 * @param {number} sectionIndex
 			 * @returns {void}
 			 */
-			edit(title: string, sectionIndex: number): void {
+			edit(title, sectionIndex) {
 				this.sendAction('edit', title, sectionIndex);
 			},
 
@@ -116,14 +99,14 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			 * @param {*} photoData
 			 * @returns {void}
 			 */
-			addPhoto(title: string, sectionIndex: number, photoData: any): void {
+			addPhoto(title, sectionIndex, photoData) {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			expandSideNav(): void {
+			expandSideNav() {
 				this.sendAction('toggleSideNav', true);
 			},
 
@@ -132,7 +115,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			 * @param {*} lightboxData
 			 * @returns {void}
 			 */
-			openLightbox(lightboxType: string, lightboxData: any): void {
+			openLightbox(lightboxType, lightboxData) {
 				this.sendAction('openLightbox', lightboxType, lightboxData);
 			},
 
@@ -140,7 +123,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			 * @param {ArticleSectionHeader[]} headers
 			 * @returns {void}
 			 */
-			updateHeaders(headers: ArticleSectionHeader[]): void {
+			updateHeaders(headers) {
 				this.set('headers', headers);
 			},
 		},
@@ -148,11 +131,11 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
+		didInsertElement() {
 			$(window).off('scroll.mercury.preload');
 			window.scrollTo(0, M.prop('scroll'));
 
-			Em.run.scheduleOnce('afterRender', this, (): void => {
+			Em.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
 			});
 		},
@@ -163,16 +146,17 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 * @param {MouseEvent} event
 		 * @returns {boolean}
 		 */
-		click(event: MouseEvent): boolean {
-			var $anchor = Em.$(event.target).closest('a'),
-				target: EventTarget;
+		click(event) {
+			const $anchor = Em.$(event.target).closest('a');
+
+			let target;
 
 			// Here, we want to handle media only, no links
 			if ($anchor.length === 0) {
 				target = event.target;
 
 				if (this.shouldHandleMedia(target, target.tagName.toLowerCase())) {
-					this.handleMedia(<HTMLElement>target);
+					this.handleMedia(target);
 					event.preventDefault();
 
 					// Don't bubble up
@@ -187,8 +171,8 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		/**
 		 * @returns {boolean}
 		 */
-		performArticleTransforms(): boolean {
-			var model = this.get('model'),
+		performArticleTransforms() {
+			const model = this.get('model'),
 				articleContent = model.get('content');
 
 			if (articleContent && articleContent.length > 0) {
@@ -211,7 +195,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 * @param {string} tagName clicked tag name
 		 * @returns {boolean}
 		 */
-		shouldHandleMedia(target: EventTarget, tagName: string): boolean {
+		shouldHandleMedia(target, tagName) {
 			return (tagName === 'img' || tagName === 'figure') && $(target).children('a').length === 0;
 		},
 
@@ -221,12 +205,13 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 * @param {HTMLElement} target
 		 * @returns {void}
 		 */
-		handleMedia(target: HTMLElement): void {
-			var $target = $(target),
+		handleMedia(target) {
+			const $target = $(target),
 				galleryRef = $target.closest('[data-gallery-ref]').data('gallery-ref'),
 				$mediaElement = $target.closest('[data-ref]'),
-				mediaRef = $mediaElement.data('ref'),
-				media: typeof App.MediaModel;
+				mediaRef = $mediaElement.data('ref');
+
+			let media;
 
 			if (mediaRef >= 0) {
 				Em.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
@@ -234,9 +219,9 @@ App.ArticleWrapperComponent = Em.Component.extend(
 				if (!$mediaElement.hasClass('is-small')) {
 					media = this.get('model.media');
 					this.sendAction('openLightbox', 'media', {
-						media: media,
-						mediaRef: mediaRef,
-						galleryRef: galleryRef
+						media,
+						mediaRef,
+						galleryRef
 					});
 				} else {
 					Em.Logger.debug('Image too small to open in lightbox', target);

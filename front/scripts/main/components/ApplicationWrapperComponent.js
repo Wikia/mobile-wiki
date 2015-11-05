@@ -1,12 +1,7 @@
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../app.ts" />
-
-'use strict';
-
 /**
  * HTMLMouseEvent
  * @typedef {Object} HTMLMouseEvent
- * @implements {MouseEvent}
+ * @extends {MouseEvent}
  * @property {HTMLElement} target
  */
 
@@ -24,32 +19,19 @@
  * @property {string} tagName
  */
 
-// TS built-in MouseEvent's target is an EventTarget, not an HTMLElement
-interface HTMLMouseEvent extends MouseEvent {
-	target: HTMLElement;
-}
-
-interface DOMStringMap {
-	galleryRef: string;
-	ref: string;
-	trackingCategory: string;
-}
-
-interface EventTarget {
-	tagName: string;
-}
-
 App.ApplicationWrapperComponent = Em.Component.extend({
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
-	verticalClass: Em.computed(function (): string {
-		var vertical: string = Em.get(Mercury, 'wiki.vertical');
-		return vertical + '-vertical';
+	verticalClass: Em.computed(() => {
+		const vertical = Em.get(Mercury, 'wiki.vertical');
+
+		return `${vertical}-vertical`;
 	}),
 
-	systemClass: Em.computed(function (): string {
-		var system: string = Mercury.Utils.Browser.getSystem();
-		return system ? 'system-' + system : '';
+	systemClass: Em.computed(() => {
+		const system = Mercury.Utils.Browser.getSystem();
+
+		return system ? `system-${system}` : '';
 	}),
 
 	noScroll: false,
@@ -57,9 +39,9 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	smartBannerVisible: false,
 	firstRender: true,
 
-	noScrollObserver: Em.observer('noScroll', function (): void {
-		var $body = Em.$('body'),
-			scrollLocation: number;
+	noScrollObserver: Em.observer('noScroll', function () {
+		const $body = Em.$('body');
+		let scrollLocation;
 
 		if (this.get('noScroll')) {
 			scrollLocation = $body.scrollTop();
@@ -80,14 +62,14 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	willInsertElement(): void {
+	willInsertElement() {
 		$('#preload').remove();
 	},
 
 	/**
 	 * @returns {void}
 	 */
-	didRender(): void {
+	didRender() {
 		if (this.firstRender === true) {
 			this.firstRender = false;
 
@@ -106,22 +88,22 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	 * @param {MouseEvent} event
 	 * @returns {void}
 	 */
-	click(event: MouseEvent): void {
+	click(event) {
 		/**
 		 * check if the target has a parent that is an anchor
 		 * We do this for links in the form <a href='...'>Blah <i>Blah</i> Blah</a>,
 		 * because if the user clicks the part of the link in the <i></i> then
 		 * target.tagName will register as 'I' and not 'A'.
 		 */
-		var $anchor = Em.$(event.target).closest('a'),
-			target: EventTarget = $anchor.length ? $anchor[0] : event.target,
-			tagName: string;
+		const $anchor = Em.$(event.target).closest('a'),
+			target = $anchor.length ? $anchor[0] : event.target;
+		let tagName;
 
 		if (target && this.shouldHandleClick(target)) {
 			tagName = target.tagName.toLowerCase();
 
 			if (tagName === 'a') {
-				this.handleLink(<HTMLAnchorElement>target);
+				this.handleLink(target);
 				event.preventDefault();
 			}
 		}
@@ -133,15 +115,15 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	 * @param {EventTarget} target
 	 * @returns {boolean}
 	 */
-	shouldHandleClick(target: EventTarget): boolean {
-		var $target: JQuery = $(target),
-			isReference: boolean = this.targetIsReference(target);
+	shouldHandleClick(target) {
+		const $target = $(target),
+			isReference = this.targetIsReference(target);
 
 		return (
 			$target.closest('.mw-content').length &&
-			// ignore polldaddy content
+				// ignore polldaddy content
 			!$target.closest('.PDS_Poll').length &&
-			// don't need special logic for article references
+				// don't need special logic for article references
 			!isReference
 		);
 	},
@@ -152,20 +134,20 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 	 * @param {EventTarget} target
 	 * @returns {boolean}
 	 */
-	targetIsReference(target: EventTarget): boolean {
-		var $target: JQuery = $(target);
+	targetIsReference(target) {
+		const $target = $(target);
 
-		return !!(
+		return Boolean(
 			$target.closest('.references').length ||
 			$target.parent('.reference').length
 		);
 	},
 
 	/**
-	 * @param {HTMLAnchorElement} target
+	 * @param {HTMLAnchorElement|EventTarget} target
 	 * @returns {void}
 	 */
-	handleLink(target: HTMLAnchorElement): void {
+	handleLink(target) {
 		Em.Logger.debug('Handling link with href:', target.href);
 
 		/**
@@ -179,7 +161,7 @@ App.ApplicationWrapperComponent = Em.Component.extend({
 			 * If it's _any_ other link than that comments link, we stop its action and
 			 * pass it up to handleLink
 			 */
-			if (!target.href.match('^' + window.location.origin + '\/a\/.*\/comments$')) {
+			if (!target.href.match(`^${window.location.origin}/a/.*/comments$`)) {
 				this.sendAction('closeLightbox');
 				this.sendAction('handleLink', target);
 			}
