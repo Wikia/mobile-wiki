@@ -15,6 +15,7 @@
     "i18n": true,
     "M": true,
     "Mercury": true,
+    "numeral": true,
     "QUnit": true,
     "window": true,
     "Wikia": true
@@ -209,7 +210,7 @@
     "prefer-template": 0,
     "require-yield": 0,
     // Legacy
-    "max-depth": [1, 2],
+    "max-depth": [1, 3],
     "max-len": [2, 120, 2],
     "max-params": [2, 4],
     "max-statements": 0,
