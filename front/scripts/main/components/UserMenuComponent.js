@@ -1,14 +1,10 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
-'use strict';
-
 App.UserMenuComponent = Em.Component.extend({
 	classNames: ['user-menu'],
 	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 
 	isVisible: Em.computed.bool('currentUser.isAuthenticated'),
 
-	links: Em.computed('currentUser.name', function (): any[] {
+	links: Em.computed('currentUser.name', function () {
 		return [
 			{
 				href: M.buildUrl({
@@ -31,7 +27,7 @@ App.UserMenuComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		hide(): void {
+		hide() {
 			this.sendAction('toggleVisibility', false);
 		},
 	},

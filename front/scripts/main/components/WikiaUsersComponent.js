@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../mercury/modules/Thumbnailer.ts" />
-'use strict';
-
 App.WikiaUsersComponent = Em.Component.extend({
 	avatarHeight: 100,
 	avatarWidth: 100,

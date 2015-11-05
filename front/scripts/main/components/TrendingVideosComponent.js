@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.TrendingVideosComponent = Em.Component.extend({
 	classNames: ['trending', 'trending-videos', 'mw-content'],
 
@@ -9,8 +6,8 @@ App.TrendingVideosComponent = Em.Component.extend({
 		 * @param {*} video
 		 * @returns {void}
 		 */
-		openLightbox(video: any): void {
-			var mediaModel = App.MediaModel.create({
+		openLightbox(video) {
+			const mediaModel = App.MediaModel.create({
 				media: video,
 			});
 

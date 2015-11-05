@@ -1,6 +1,3 @@
-/// <reference path="../mixins/WidgetScriptStateMixin.ts" />
-'use strict';
-
 /**
  * Widgets
  * @typedef {Object} Widgets
@@ -19,28 +16,20 @@
  * @property {Twttr} [twttr]
  */
 
-interface Window {
-	twttr?: {
-		widgets?: {
-			createTimeline: Function;
-		};
-	};
-}
-
 App.WidgetTwitterComponent = Em.Component.extend(
 	App.WidgetScriptStateMixin,
 	{
 		classNames: ['widget-twitter'],
 		data: null,
 
-		scriptLoadedObserver: Em.observer('scriptLoaded.twitter', function (): void {
+		scriptLoadedObserver: Em.observer('scriptLoaded.twitter', function () {
 			this.createTimeline();
 		}),
 
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
+		didInsertElement() {
 			this.loadScript();
 			this.createTimeline();
 		},
@@ -48,11 +37,11 @@ App.WidgetTwitterComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		loadScript(): void {
+		loadScript() {
 			if (!this.get('scriptLoadInitialized.twitter')) {
 				this.set('scriptLoadInitialized.twitter', true);
 
-				Em.$.getScript('//platform.twitter.com/widgets.js', (): void => {
+				Em.$.getScript('//platform.twitter.com/widgets.js', () => {
 					this.set('scriptLoaded.twitter', true);
 				});
 			}
@@ -61,9 +50,10 @@ App.WidgetTwitterComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		createTimeline(): void {
+		createTimeline() {
 			if (this.get('scriptLoaded.twitter')) {
-				var data = this.get('data');
+				const data = this.get('data');
+
 				window.twttr.widgets.createTimeline(data.widgetId, this.$()[0], data);
 			}
 		},

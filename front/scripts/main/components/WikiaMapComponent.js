@@ -1,6 +1,3 @@
-/// <reference path="./ImageMediaComponent.ts" />
-'use strict';
-
 App.WikiaMapComponent = App.ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
 	caption: Em.computed.alias('title'),
@@ -8,10 +5,10 @@ App.WikiaMapComponent = App.ImageMediaComponent.extend({
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement(): void {
-		//handle click with jquery because the 'normal' way to handle events doesn't work.
-		this.$().click((): void => {
-			var url = this.get('url'),
+	didInsertElement() {
+		// handle click with jquery because the 'normal' way to handle events doesn't work.
+		this.$().click(() => {
+			const url = this.get('url'),
 				id = this.get('id'),
 				title = this.get('title');
 
@@ -24,9 +21,9 @@ App.WikiaMapComponent = App.ImageMediaComponent.extend({
 				});
 
 				this.sendAction('click', 'map', {
-					title: title,
-					url: url,
-					id: id,
+					id,
+					title,
+					url,
 				});
 			}
 		});

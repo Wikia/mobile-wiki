@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../mercury/utils/browser.ts" />
-/// <reference path="../../../../typings/jquery.cookie/jquery.cookie.d.ts" />
-'use strict';
-
 App.SmartBannerComponent = Em.Component.extend({
 	classNames: ['smart-banner'],
 	classNameBindings: ['noIcon'],
@@ -19,19 +14,19 @@ App.SmartBannerComponent = Em.Component.extend({
 	},
 	day: 86400000,
 
-	appId: Em.computed('config', 'system', function (): string {
-		return this.get('config.appId.' + this.get('system'));
+	appId: Em.computed('config', 'system', function () {
+		return this.get(`config.appId.${this.get('system')}`);
 	}),
 
-	appScheme: Em.computed('config', 'system', function (): string {
-		return this.get('config.appScheme.' + this.get('system'));
+	appScheme: Em.computed('config', 'system', function () {
+		return this.get(`config.appScheme.${this.get('system')}`);
 	}),
 
-	config: Em.computed(function (): any {
+	config: Em.computed(() => {
 		return Em.getWithDefault(Mercury, 'wiki.smartBanner', {});
 	}),
 
-	dbName: Em.computed(function (): string {
+	dbName: Em.computed(() => {
 		return Em.get(Mercury, 'wiki.dbName');
 	}),
 
@@ -39,32 +34,28 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	icon: Em.computed.oneWay('config.icon'),
 
-	iconStyle: Em.computed('icon', function (): Em.Handlebars.SafeString {
+	iconStyle: Em.computed('icon', function () {
 		return new Em.Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
 	}),
 
-	labelInStore: Em.computed('system', function (): string {
-		return i18n.t('app.smartbanner-store-' + this.get('system'));
+	labelInStore: Em.computed('system', function () {
+		return i18n.t(`app.smartbanner-store-${this.get('system')}`);
 	}),
 
-	labelInstall: Em.computed('system', function (): string {
-		return i18n.t('app.smartbanner-install-' + this.get('system'));
+	labelInstall: Em.computed('system', function () {
+		return i18n.t(`app.smartbanner-install-${this.get('system')}`);
 	}),
 
-	link: Em.computed('appId', 'dbName', 'system', function (): string {
-		var link: string,
-			appId: string = this.get('appId');
+	link: Em.computed('appId', 'dbName', 'system', function () {
+		const appId = this.get('appId');
+
+		let link;
 
 		if (this.get('system') === 'android') {
-			link = 'https://play.google.com/store/apps/details?id=' +
-			appId +
-			'&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D' +
-			this.get('dbName');
+			link = `https://play.google.com/store/apps/details?id=${appId}` +
+				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 		} else {
-			link = 'https://itunes.apple.com/' +
-			this.get('options.appStoreLanguage') +
-			'/app/id' +
-			appId;
+			link = `https://itunes.apple.com/${this.get('options.appStoreLanguage')}/app/id${appId}`;
 		}
 
 		return link;
@@ -72,7 +63,7 @@ App.SmartBannerComponent = Em.Component.extend({
 
 	noIcon: Em.computed.not('icon'),
 
-	system: Em.computed(function (): string {
+	system: Em.computed(() => {
 		return Mercury.Utils.Browser.getSystem();
 	}),
 
@@ -82,7 +73,7 @@ App.SmartBannerComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		close(): void {
+		close() {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 			this.sendAction('toggleVisibility', false);
 			this.track(M.trackActions.close);
@@ -91,8 +82,8 @@ App.SmartBannerComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		view(): void {
-			var appScheme: string = this.get('appScheme');
+		view() {
+			const appScheme = this.get('appScheme');
 
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterView'));
 
@@ -110,8 +101,8 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * @param {MouseEvent} event
 	 * @returns {void}
 	 */
-	click(event: MouseEvent): void {
-		var $target = this.$(event.target);
+	click(event) {
+		const $target = this.$(event.target);
 
 		if (!$target.is('.sb-close')) {
 			this.send('view');
@@ -121,7 +112,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	willInsertElement(): void {
+	willInsertElement() {
 		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
 		// running this just after render is working too
 		Em.run.scheduleOnce('afterRender', this, this.checkForHiding);
@@ -130,16 +121,14 @@ App.SmartBannerComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	checkForHiding(): void {
+	checkForHiding() {
 		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
-		var standalone: any = Em.get(navigator, 'standalone'),
-			config: any = this.get('config');
+		const standalone = Em.get(navigator, 'standalone'),
+			config = this.get('config');
 
 		// Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
-		if (this.get('system') &&
-			!standalone &&
-			config.name &&
-			!config.disabled &&
+		if (this.get('system') && !standalone &&
+			config.name && !config.disabled &&
 			Em.$.cookie('sb-closed') !== '1'
 		) {
 			this.sendAction('toggleVisibility', true);
@@ -155,9 +144,9 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * @param {string} appScheme
 	 * @returns {void}
 	 */
-	tryToOpenApp(appScheme: string): void {
+	tryToOpenApp(appScheme) {
 		this.track(M.trackActions.open);
-		window.document.location.href = appScheme + '://';
+		window.document.location.href = `${appScheme}://`;
 
 		Em.run.later(this, this.fallbackToStore, 300);
 	},
@@ -167,7 +156,7 @@ App.SmartBannerComponent = Em.Component.extend({
 	 *
 	 * @returns {void}
 	 */
-	fallbackToStore(): void {
+	fallbackToStore() {
 		this.track(M.trackActions.install);
 		window.open(this.get('link'), '_blank');
 	},
@@ -178,8 +167,9 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * @param {number} days
 	 * @returns {void}
 	 */
-	setSmartBannerCookie(days: number): void {
-		var date: Date = new Date();
+	setSmartBannerCookie(days) {
+		const date = new Date();
+
 		date.setTime(date.getTime() + (days * this.get('day')));
 		$.cookie('sb-closed', 1, {
 			expires: date,
@@ -191,9 +181,9 @@ App.SmartBannerComponent = Em.Component.extend({
 	 * @param {string} action
 	 * @returns {void}
 	 */
-	track(action: string): void {
+	track(action) {
 		M.track({
-			action: action,
+			action,
 			category: 'smart-banner',
 			label: Em.get(Mercury, 'wiki.dbName')
 		});
