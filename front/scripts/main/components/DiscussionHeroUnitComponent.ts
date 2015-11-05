@@ -3,6 +3,7 @@
 
 App.DiscussionHeroUnitComponent = Em.Component.extend({
 	classNames: ['discussion-hero-unit'],
+	attributeBindings: ['style'],
 
 	headerImages: {
 		24357: 'discussion-header-adventure-time.jpg',
@@ -15,17 +16,10 @@ App.DiscussionHeroUnitComponent = Em.Component.extend({
 		13346: 'discussion-header-walking-dead.jpg'
 	},
 
-	headerImageStyle: Em.computed(function (): Em.Handlebars.SafeString {
+	style: Em.computed(function (): Em.Handlebars.SafeString {
 		var image = this.get('headerImages')[Em.get(Mercury, 'wiki.id')];
 		return image
 			? new Em.Handlebars.SafeString(`background-image: url(/front/images/${image});`)
 			: null;
 	}),
-
-	headerColorStyle: Em.computed(function (): Em.Handlebars.SafeString {
-		var headerColor = Em.get(Mercury, 'wiki.theme.colorButtons');
-		return headerColor
-			? new Em.Handlebars.SafeString(`background-color: ${headerColor};`)
-			: null;
-	})
 });

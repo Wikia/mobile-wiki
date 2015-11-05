@@ -4,17 +4,17 @@ $discussion-hero-unit-height: 200px;
 $discussion-hero-unit-bg-color: #fff;
 
 .discussion-hero-unit {
+	background-position: center;
+	background-size: cover;
 	color: $discussion-hero-unit-text-color;
 	display: none;
-	padding-bottom: 37px;
-	padding-top: 77px;
+	margin-top: 60px;
 	text-align: center;
 
 	h1 {
 		color: $discussion-hero-unit-text-color;
 		font-size: 48px;
-		margin-bottom: 0;
-		margin-top: 35px;
+		margin: 0;
 	}
 
 	p {
@@ -44,14 +44,25 @@ $discussion-hero-unit-bg-color: #fff;
 		}
 	}
 
-	.layer {
-		height: $discussion-hero-unit-height;
-		position: absolute;
+	.discussion-hero-unit-content {
+		height: 100%;
+		padding-top: 37px;
+		padding-bottom: 33px;
 		width: 100%;
 	}
 
 	.opacity {
 		opacity: 0.8;
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
+		background-color: #{nth($vertical-colors, $i)};
+
+		.discussion-hero-unit-content {
+			background-color: rgba(nth($vertical-colors, $i), 0.8);
+		}
 	}
 }
 
