@@ -22,11 +22,7 @@ App.ImageMediaComponent = App.MediaComponent.extend(
 			const imageWidth = this.get('media.width'),
 				imageHeight = this.get('media.height');
 
-			return (
-				Boolean(imageWidth) &&
-				imageWidth < this.smallImageSize.width ||
-				imageHeight < this.smallImageSize.height
-			);
+			return imageWidth && imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
 		}),
 
 		isIcon: Em.computed.equal('media.context', 'icon'),
@@ -108,9 +104,8 @@ App.ImageMediaComponent = App.MediaComponent.extend(
 			const url = this.get('url');
 
 			if (url) {
-				let image;
+				const image = new Image();
 
-				image = new Image();
 				image.src = url;
 				if (image.complete) {
 					this.update(image.src);

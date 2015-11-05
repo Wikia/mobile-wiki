@@ -1,116 +1,133 @@
-App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixin, {
-	classNames: ['pi-image-collection'],
-	classNameBindings: ['visible'],
-	layoutName: 'components/infobox-image-collection',
-	limitHeight: true,
-	imageAspectRatio: 16 / 9,
-	activeRef: 0,
+App.InfoboxImageCollectionComponent = App.MediaComponent.extend(
+	App.ViewportMixin,
+	{
+		classNames: ['pi-image-collection'],
+		classNameBindings: ['visible'],
+		layoutName: 'components/infobox-image-collection',
+		limitHeight: true,
+		imageAspectRatio: 16 / 9,
+		activeRef: 0,
 
-	collectionLength: Em.computed('media', function () {
-		return this.get('media').length;
-	}),
+		collectionLength: Em.computed('media', function () {
+			return this.get('media').length;
+		}),
 
-	hasNextImage: Em.computed('activeRef', 'collectionLength', function () {
-		return this.get('activeRef') < (this.get('collectionLength') - 1);
-	}),
+		hasNextImage: Em.computed('activeRef', 'collectionLength', function () {
+			return this.get('activeRef') < (this.get('collectionLength') - 1);
+		}),
 
-	hasPreviousImage: Em.computed.gt('activeRef', 0),
-
-	/**
-	 * @param {App.ArticleMedia} media
-	 * @returns {number}
-	 */
-	computedHeight(media) {
-		const windowWidth = this.get('viewportDimensions.width'),
-			imageAspectRatio = this.get('imageAspectRatio'),
-			imageWidth = media.width || windowWidth,
-			imageHeight = media.height,
-			maxWidth = Math.floor(imageHeight * imageAspectRatio);
-
-		let computedHeight = imageHeight;
-
-		if (imageWidth > windowWidth) {
-			computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
-		}
-
-		// wide image- image wider than 16:9 aspect ratio
-		// Crop it to have 16:9 ratio.
-		if (imageWidth > maxWidth) {
-			return Math.floor(windowWidth / imageAspectRatio);
-		}
-
-		// high image- image higher than square.
-		if (windowWidth < computedHeight) {
-			return windowWidth;
-		}
-
-		return computedHeight;
-	},
-
-	setup() {
-		const mediaArray = Em.A(),
-			emptyGif = this.get('emptyGif');
+		hasPreviousImage: Em.computed.gt('activeRef', 0),
 
 		/**
-		 * @param {ArticleMedia} image
-		 * @param {number} index
-		 * @returns {void}
+		 * @param {App.ArticleMedia} media
+		 * @returns {number}
 		 */
-		this.get('media').forEach((image, index) => {
-			image.galleryRef = index;
-			image.thumbUrl = emptyGif;
-			image.isActive = (index === this.get('activeRef'));
+		computedHeight(media) {
+			const windowWidth = this.get('viewportDimensions.width'),
+				imageAspectRatio = this.get('imageAspectRatio'),
+				imageWidth = media.width || windowWidth,
+				imageHeight = media.height,
+				maxWidth = Math.floor(imageHeight * imageAspectRatio);
 
-			mediaArray.pushObject(Em.Object.create(image));
-		});
+			let computedHeight = imageHeight;
 
-		this.set('media', mediaArray);
-	},
+			if (imageWidth > windowWidth) {
+				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
+			}
 
-	loadImages() {
-		const width = this.get('viewportDimensions.width');
+			// wide image- image wider than 16:9 aspect ratio
+			// Crop it to have 16:9 ratio.
+			if (imageWidth > maxWidth) {
+				return Math.floor(windowWidth / imageAspectRatio);
+			}
+
+			// high image- image higher than square.
+			if (windowWidth < computedHeight) {
+				return windowWidth;
+			}
+
+			return computedHeight;
+		},
 
 		/**
-		 * @param {ArticleMedia} image
-		 * @param {number} index
 		 * @returns {void}
 		 */
-		this.get('media').forEach((image) => {
-			const cropMode = image.height >
-				image.width ? Mercury.Modules.Thumbnailer.mode.topCropDown : Mercury.Modules.Thumbnailer.mode.zoomCrop,
-				height = this.computedHeight(image),
-				thumbUrl = this.getThumbURL(image.url, {
-					mode: cropMode,
-					width,
-					height
-				});
+		setup() {
+			const mediaArray = Em.A(),
+				emptyGif = this.get('emptyGif');
 
-			image.setProperties({
-				thumbUrl,
-				load: true
+			/**
+			 * @param {ArticleMedia} image
+			 * @param {number} index
+			 * @returns {void}
+			 */
+			this.get('media').forEach((image, index) => {
+				image.galleryRef = index;
+				image.thumbUrl = emptyGif;
+				image.isActive = (index === this.get('activeRef'));
+
+				mediaArray.pushObject(Em.Object.create(image));
 			});
-		});
 
-	},
+			this.set('media', mediaArray);
+		},
 
-	load() {
-		this.setup();
-		this.loadImages();
-		this.set('visible', true);
-	},
+		/**
+		 * @returns {void}
+		 */
+		loadImages() {
+			const width = this.get('viewportDimensions.width');
 
-	actions: {
-		switchImage(direction) {
-			const oldRef = this.get('activeRef'),
-				refDirection = (direction === 'next') ? 1 : -1,
-				newRef = oldRef + refDirection,
-				media = this.get('media'),
-				oldImage = media.get(oldRef),
-				newImage = media.get(newRef);
+			/**
+			 * @param {ArticleMedia} image
+			 * @param {number} index
+			 * @returns {void}
+			 */
+			this.get('media').forEach((image) => {
+				const cropMode = image.height > image.width ?
+						Mercury.Modules.Thumbnailer.mode.topCropDown :
+						Mercury.Modules.Thumbnailer.mode.zoomCrop,
+					height = this.computedHeight(image),
+					thumbUrl = this.getThumbURL(image.url, {
+						mode: cropMode,
+						width,
+						height
+					});
 
-			oldImage.set('isActive', false);
-			newImage.set('isActive', true);
-			this.set('activeRef', newRef);
-		}
+				image.setProperties({
+					thumbUrl,
+					load: true
+				});
+			});
+
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		load() {
+			this.setup();
+			this.loadImages();
+			this.set('visible', true);
+		},
+
+		actions: {
+			/**
+			 * @param {string} direction
+			 * @returns {void}
+			 */
+			switchImage(direction) {
+				const oldRef = this.get('activeRef'),
+					refDirection = (direction === 'next') ? 1 : -1,
+					newRef = oldRef + refDirection,
+					media = this.get('media'),
+					oldImage = media.get(oldRef),
+					newImage = media.get(newRef);
+
+				oldImage.set('isActive', false);
+				newImage.set('isActive', true);
+				this.set('activeRef', newRef);
+			},
+		},
 	}
-});
+);

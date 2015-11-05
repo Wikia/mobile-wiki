@@ -63,7 +63,7 @@ App.GalleryMediaComponent = App.MediaComponent.extend(
 		loadImages(imageOrGalleryRef, limit = 2, thumbSize = this.get('thumbSize')) {
 			let galleryRef = typeof imageOrGalleryRef === 'number' ?
 					imageOrGalleryRef :
-					Number(imageOrGalleryRef.getAttribute('data-gallery-ref')),
+					parseInt(imageOrGalleryRef.getAttribute('data-gallery-ref'), 10),
 				mode = Mercury.Modules.Thumbnailer.mode.topCrop,
 				height = thumbSize,
 				width = thumbSize,
