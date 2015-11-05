@@ -1,6 +1,3 @@
-$discussion-contributors-background-color: #666;
-$discussion-contributors-border-color: $border-color;
-$discussion-contributors-text-color: $color-white;
 $discussion-contributors-avatar-dimension: 30px;
 
 .discussion-contributors {
@@ -33,7 +30,7 @@ $discussion-contributors-avatar-dimension: 30px;
 }
 
 .discussion-contributors-mobile {
-	background-color: #F6F6F6;
+	background-color: $discussion-contributors-background-mobile;
 	border: none;
 	padding: 14px 9px;
 }
@@ -45,7 +42,7 @@ $discussion-contributors-avatar-dimension: 30px;
 	}
 
 	.discussion-contributors-title {
-		color: #333;
+		color: $discussion-contributors-rail-title;
 		font-size: $type-smallest;
 		font-weight: bold;
 		line-height: 18px;
