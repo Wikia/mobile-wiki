@@ -8,6 +8,8 @@ App.DiscussionEditorComponent = Em.Component.extend({
 	active: false,
 	sticky: false,
 
+	submitDisabled: true,
+
 	// TODO destroyElement
 
 	didInsertElement(): void {
@@ -68,6 +70,9 @@ App.DiscussionEditorComponent = Em.Component.extend({
 					console.log('complete');
 				}
 			});
+		},
+		updateSubmitButton(): void {
+			this.set('submitDisabled', Em.$('.editor').val().length === 0);
 		}
 	}
 });

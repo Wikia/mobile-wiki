@@ -30,12 +30,12 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 				this.sendAction('hideSortComponent');
 				this.get('overlay').style.display = 'none';
 			},
+
+			activateEditorComponent(): void {
+				this.sendAction('activateEditorComponent');
+			},
 		},
 
-		activateEditorComponent(): void {
-			this.sendAction('activateEditorComponent');
-		},
-		
 		/**
 		 * @returns {void}
 		 */
