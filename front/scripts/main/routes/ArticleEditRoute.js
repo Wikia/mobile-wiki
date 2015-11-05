@@ -1,22 +1,16 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/FullPageMixin.ts"/>
-
-'use strict';
-
 App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
 	 */
-	model: function(params: any): Em.RSVP.Promise {
+	model(params) {
 		return App.ArticleEditModel.load(params.title, params.sectionIndex);
 	},
 
 	/**
 	 * @returns {void}
 	 */
-	renderTemplate(): void {
+	renderTemplate() {
 		this.render('article-edit', {
 			controller: 'articleEdit'
 		});
@@ -24,20 +18,20 @@ App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 
 	actions: {
 		/**
-		 * @param {*} error
-		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */
-		error(error: any, transition: EmberStates.Transition): boolean {
+		error() {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.edit-load-error'),
 				type: 'alert'
 			});
+
 			M.track({
 				action: M.trackActions.impression,
 				category: 'sectioneditor',
 				label: 'edit-load-error'
 			});
+
 			return true;
 		}
 	}

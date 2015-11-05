@@ -15,7 +15,8 @@
     "QUnit": true,
     "Em": true,
     "i18n": true,
-    "window": true
+    "window": true,
+    "Wikia": true
   },
   // http://eslint.org/docs/rules/
   "rules": {

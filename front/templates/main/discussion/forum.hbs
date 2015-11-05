@@ -4,8 +4,9 @@
 	hideSortComponent='hideSortComponent'
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
+	smartBannerVisible=smartBannerVisible
 }}
-<div class="site-body">
+<div class="site-body-discussion">
 	{{discussion-hero-unit
 		contributors=model.contributors
 		numberOfPosts=model.totalPosts
@@ -42,6 +43,7 @@
 					loadPage='loadPage'
 					upvote='upvote'
 					name=model.name
+					pageNum=model.pageNum
 					posts=model.posts
 					postsDisplayed=model.posts.length
 					totalPosts=model.totalPosts
