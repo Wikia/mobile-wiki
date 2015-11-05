@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../main/mixins/TrackClickMixin.ts" />
-/// <reference path="../../main/mixins/HeadroomMixin.ts" />
-'use strict';
-
 App.SiteHeadComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	App.HeadroomMixin,
@@ -17,14 +12,14 @@ App.SiteHeadComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			expandSideNav(): void {
+			expandSideNav() {
 				this.sendAction('toggleSideNav', true);
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			showUserMenu(): void {
+			showUserMenu() {
 				this.sendAction('toggleUserMenu', true);
 			},
 		},

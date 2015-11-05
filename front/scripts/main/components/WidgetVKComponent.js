@@ -1,6 +1,3 @@
-/// <reference path="../mixins/WidgetScriptStateMixin.ts" />
-'use strict';
-
 /**
  * Widgets
  * @typedef {Object} Widgets
@@ -18,14 +15,6 @@
  * @typedef {Object} Window
  * @property {VK} [VK]
  */
-
-interface Window {
-	VK?: {
-		Widgets?: {
-			Group: Function;
-		};
-	};
-}
 
 App.WidgetVKComponent = Em.Component.extend(
 	App.WidgetScriptStateMixin,

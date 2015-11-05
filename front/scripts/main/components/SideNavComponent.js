@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.SideNavComponent = Em.Component.extend({
 	tagName: 'nav',
 	classNames: ['side-nav'],
@@ -8,12 +5,13 @@ App.SideNavComponent = Em.Component.extend({
 
 	isInSearchMode: false,
 	searchQuery: '',
-	searchPlaceholderLabel: Em.computed(function (): string {
+	searchPlaceholderLabel: Em.computed(() => {
 		return i18n.t('app.search-label');
 	}),
 
 	shouldBeVisibleObserver: Em.observer('shouldBeVisible', function () {
-		var trackLabel: string = this.get('shouldBeVisible') ? 'open' : 'close';
+		const trackLabel = this.get('shouldBeVisible') ? 'open' : 'close';
+
 		M.track({
 			action: M.trackActions.click,
 			category: 'menu',
@@ -36,14 +34,14 @@ App.SideNavComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		clearSearch(): void {
+		clearSearch() {
 			this.set('searchQuery', '');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		collapse(): void {
+		collapse() {
 			this.sendAction('toggleVisibility', false);
 			this.send('searchCancel');
 		},
@@ -51,14 +49,14 @@ App.SideNavComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		expand(): void {
+		expand() {
 			this.sendAction('toggleVisibility', true);
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		searchCancel(): void {
+		searchCancel() {
 			this.set('isInSearchMode', false);
 			this.send('clearSearch');
 		},
@@ -66,7 +64,7 @@ App.SideNavComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		searchFocus(): void {
+		searchFocus() {
 			this.set('isInSearchMode', true);
 			// Track when search is opened
 			M.track({
@@ -78,7 +76,7 @@ App.SideNavComponent = Em.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		loadRandomArticle(): void {
+		loadRandomArticle() {
 			this.sendAction('loadRandomArticle');
 		},
 
@@ -86,12 +84,12 @@ App.SideNavComponent = Em.Component.extend({
 		 * Handler for enter in search box
 		 * Running A/B test to switch between using MediaWiki Special:Search and Google Custom Search
 		 *
-		 * @param {string} [value=''] - of input
+		 * @param {string} [value=''] - input value
 		 * @returns {void}
 		 */
-		enter(value: string = ''): void {
+		enter(value) {
 			// Experiment id from Optimizely
-			var experimentIds = {
+			const experimentIds = {
 					prod: '3571301500',
 					dev: '3579160288'
 				},

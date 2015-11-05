@@ -1,9 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/ViewportMixin.ts"/>
-/// <reference path="../../mercury/modules/Thumbnailer.ts" />
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-'use strict';
-
 App.TrendingArticlesItemComponent = Em.Component.extend(
 	App.ViewportMixin,
 	App.TrackClickMixin,
@@ -18,9 +12,9 @@ App.TrendingArticlesItemComponent = Em.Component.extend(
 		imageWidth: 250,
 		href: Em.computed.oneWay('url'),
 
-		currentlyRenderedImageUrl: Em.computed('imageUrl', function (): string {
+		currentlyRenderedImageUrl: Em.computed('imageUrl', function () {
 			if (this.get('imageUrl')) {
-				var options:any = {
+				const options = {
 					width: this.get('imageWidth'),
 					height: this.get('imageHeight'),
 					mode: this.get('cropMode'),
@@ -32,26 +26,26 @@ App.TrendingArticlesItemComponent = Em.Component.extend(
 			}
 		}),
 
-		imageHeight: Em.computed('imageWidth', function (): number {
+		imageHeight: Em.computed('imageWidth', function () {
 			return Math.floor(this.get('imageWidth') * 9 / 16);
 		}),
 
-		viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+		viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function () {
 			this.updateImageSize();
 		})),
 
 		/**
 		 * @returns {void}
 		 */
-		click(): void {
+		click() {
 			this.trackClick('modular-main-page', 'trending-articles');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		updateImageSize(): void {
-			var viewportWidth = this.get('viewportDimensions.width'),
+		updateImageSize() {
+			const viewportWidth = this.get('viewportDimensions.width'),
 				imageWidth = Math.floor((viewportWidth - 20) / 2),
 				imageWidthString = String(imageWidth),
 				imageHeightString = String(Math.floor(imageWidth * 9 / 16));
