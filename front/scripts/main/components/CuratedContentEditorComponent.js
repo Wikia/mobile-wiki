@@ -69,10 +69,11 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 						});
 
 						this.sendAction('openMainPage', true);
-					} else if (data.errors) {
-						data.errors.forEach(
-							(error) => this.processValidationError(error.type, error.reason)
-						);
+					} else if (data.error) {
+						this.addAlert({
+							message: i18n.t('app.curated-content-editor-error-inside-items-message'),
+							type: 'alert'
+						});
 					} else {
 						this.addAlert({
 							message: i18n.t('app.curated-content-error-other'),
@@ -98,31 +99,4 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 					this.set('isLoading', false);
 				});
 		},
-
-
-		/**
-		 * @param {string} type
-		 * @param {string} reason
-		 * @returns {void}
-		 */
-		processValidationError(type, reason) {
-			if (type === 'featured') {
-				this.addAlert({
-					message: i18n.t('app.curated-content-editor-error-inside-featured-content'),
-					type: 'alert'
-				});
-			} else if (reason === 'itemsMissing') {
-				this.addAlert({
-					message: i18n.t('app.curated-content-editor-missing-items-error'),
-					type: 'alert'
-				});
-			} else {
-				// if other items occur that means user somehow bypassed validation of one or more items earlier
-				this.addAlert({
-					message: i18n.t('app.curated-content-editor-error-inside-items-message'),
-					type: 'alert'
-				});
-			}
-		}
-	}
-);
+	});
