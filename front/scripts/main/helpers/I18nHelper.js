@@ -1,13 +1,19 @@
-/// <reference path="../app.ts" />
+/**
+ * @param {Array} params
+ * @param {Object} options
+ * @returns {string}
+ */
+App.I18nHelper = Em.Helper.helper((params, options) => {
+	const i18nParams = {},
+		value = params.join('.');
 
-App.I18nHelper = Em.Helper.helper(function (params: any[], options: any): string {
-	var i18nParams: {
-			[key: string]: string;
-		} = {},
-		value: string = params.join('.'),
-		namespace = 'main';
+	let namespace = 'main';
 
-	Object.keys(options).forEach((key: string): void => {
+	/**
+	 * @param {string} key
+	 * @returns {void}
+	 */
+	Object.keys(options).forEach((key) => {
 		if (key === 'ns') {
 			namespace = options[key];
 		} else if (key !== 'boundOptions' && options.hasOwnProperty(key)) {

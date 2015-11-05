@@ -1,22 +1,25 @@
-/// <reference path="../app.ts" />
-
-App.TruncateHelper = Em.Helper.helper(function (params: any[]): string {
-	var string: string = params[0],
-		maxLength: number = params[1] || 48,
-		truncatedString: string,
-		lastSpacePosition: number,
+/**
+ * @param {Array} params
+ * @returns {string}
+ */
+App.TruncateHelper = Em.Helper.helper((params) => {
+	const text = params[0],
+		maxLength = params[1] || 48,
 		ellipsisCharacter = '\u2026';
 
-	if (typeof string !== 'string') {
-		Em.Logger.error(`Truncate helper expected string as a parameter, but ${typeof string} given:`, string);
+	let truncatedString,
+		lastSpacePosition;
+
+	if (typeof text !== 'string') {
+		Em.Logger.error(`Truncate helper expected string as a parameter, but ${typeof text} given:`, text);
 		return null;
 	}
 
-	if (string.length <= maxLength) {
-		return string;
+	if (text.length <= maxLength) {
+		return text;
 	}
 
-	truncatedString = string.substr(0, maxLength);
+	truncatedString = text.substr(0, maxLength);
 	lastSpacePosition = truncatedString.lastIndexOf(' ');
 
 	if (lastSpacePosition === maxLength || lastSpacePosition < 0) {

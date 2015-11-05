@@ -1,8 +1,10 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/numeraljs/numeraljs.d.ts" />
+/**
+ * @param {Array} params
+ * @returns {string}
+ */
+App.NumeralHelper = Em.Helper.helper((params) => {
+	const numberToFormat = params[0],
+		format = params[1];
 
-App.NumeralHelper = Em.Helper.helper(function (params: any[]): string {
-	var numberToFormat: number = params[0],
-		format: string = params[1];
 	return numeral(numberToFormat).format(format);
 });
