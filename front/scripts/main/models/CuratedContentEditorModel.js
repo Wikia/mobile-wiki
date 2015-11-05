@@ -173,22 +173,6 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @param {CuratedContentEditorItemModel} modelRoot
-	 * @param {string} excludedLabel=null
-	 * @returns {string[]} already used labels
-	 */
-	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
-		// Flatten the array
-		return [].concat.apply([], modelRoot.curated.items.map((section) =>
-			// Labels of section items
-			this.getAlreadyUsedLabels(section, excludedLabel)
-		).concat(
-			// Labels of optional block items
-			this.getAlreadyUsedLabels(modelRoot.optional, excludedLabel)
-		));
-	},
-
-	/**
 	 * @param {CuratedContentEditorItemModel} sectionOrBlock
 	 * @param {string} excludedLabel=null
 	 * @returns {string[]} already used labels

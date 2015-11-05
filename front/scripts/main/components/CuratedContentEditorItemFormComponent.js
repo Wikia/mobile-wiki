@@ -313,14 +313,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		 */
 		validateLabel() {
 			const label = this.get('model.label'),
-				alreadyUsedLabels = this.get('alreadyUsedLabels');
+				alreadyUsedLabels = this.getWithDefault('alreadyUsedLabels', []);
 			let errorMessage = null;
 
 			if (Em.isEmpty(label)) {
 				errorMessage = 'app.curated-content-editor-missing-label-error';
 			} else if (label.length > this.get('maxLabelLength')) {
 				errorMessage = 'app.curated-content-editor-too-long-label-error';
-			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
+			} else if (Array.isArray(alreadyUsedLabels) && alreadyUsedLabels.indexOf(label) !== -1) {
 				errorMessage = 'app.curated-content-editor-label-in-use-error';
 			}
 
