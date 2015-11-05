@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.LightboxWrapperComponent = Em.Component.extend({
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['isVisible:open'],
@@ -18,16 +15,17 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	type: null,
 	model: null,
 
-	lightboxComponent: Em.computed('type', function (): string {
-		var type: string = this.get('type');
-		return type ?  'lightbox-' + type : null;
+	lightboxComponent: Em.computed('type', function () {
+		const type = this.get('type');
+
+		return type ? `lightbox-${type}` : null;
 	}),
 
 	actions: {
 		/**
 		 * @returns {void}
 		 */
-		close(): void {
+		close() {
 			this.setProperties({
 				footer: null,
 				header: null,
@@ -40,7 +38,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		 * @param {string} footer
 		 * @returns {void}
 		 */
-		setFooter(footer: string): void {
+		setFooter(footer) {
 			this.set('footer', footer);
 		},
 
@@ -48,7 +46,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		 * @param {string} header
 		 * @returns {void}
 		 */
-		setHeader(header: string): void {
+		setHeader(header) {
 			this.set('header', header);
 		},
 
@@ -57,21 +55,21 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		 * @param {*} value
 		 * @returns {void}
 		 */
-		setQueryParam(name: string, value: any): void {
+		setQueryParam(name, value) {
 			this.sendAction('setQueryParam', name, value);
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		toggleFooter(): void {
+		toggleFooter() {
 			this.toggleProperty('footerExpanded');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		toggleUI(): void {
+		toggleUI() {
 			this.toggleProperty('footerHidden');
 			this.toggleProperty('headerHidden');
 		},
@@ -81,8 +79,8 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	 * @param {MouseEvent} event
 	 * @returns {void}
 	 */
-	click(event: MouseEvent): void {
-		var $target = this.$(event.target);
+	click(event) {
+		const $target = this.$(event.target);
 
 		if ($target.is('.lightbox-footer')) {
 			this.send('toggleFooter');
@@ -97,7 +95,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	 * @param {KeyboardEvent} event
 	 * @returns {void}
 	 */
-	keyDown(event: KeyboardEvent): void {
+	keyDown(event) {
 		if (event.keyCode === 27) {
 			this.send('close');
 		}

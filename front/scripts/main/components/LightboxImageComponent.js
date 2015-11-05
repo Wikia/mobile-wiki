@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/hammerjs/hammerjs" />
-/// <reference path="../mixins/ArticleContentMixin.ts" />
-'use strict';
-
 App.LightboxImageComponent = Em.Component.extend(
 	App.ArticleContentMixin,
 	{
@@ -15,8 +10,8 @@ App.LightboxImageComponent = Em.Component.extend(
 		lastScale: 1,
 		scale: 1,
 
-		//Easy to port if we find a way to use enum here
-		screenAreas:  {
+		// Easy to port if we find a way to use enum here
+		screenAreas: {
 			left: 0,
 			center: 1,
 			right: 2,
@@ -29,16 +24,16 @@ App.LightboxImageComponent = Em.Component.extend(
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange
 		 */
-		style: Em.computed(function (): Em.Handlebars.SafeString {
-			var scale = this.get('scale').toFixed(2),
+		style: Em.computed(function () {
+			const scale = this.get('scale').toFixed(2),
 				x = this.get('newX').toFixed(2),
 				y = this.get('newY').toFixed(2),
 				transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
 
-			return ('-webkit-' + transform + transform).htmlSafe();
+			return (`-webkit-'${transform}${transform}`).htmlSafe();
 		}),
 
-		viewportSize: Em.computed(function () {
+		viewportSize: Em.computed(() => {
 			return {
 				width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
 				height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
@@ -49,12 +44,12 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * calculates current scale for zooming
 		 */
 		limitedScale: Em.computed('scale', {
-			get(): number {
+			get() {
 				return this.get('scale');
 			},
 
-			set(key: string, value: number): void {
-				var scale = 1;
+			set(key, value) {
+				let scale = 1;
 
 				if (value >= 1) {
 					scale = Math.min(this.maxZoom, value);
@@ -67,13 +62,14 @@ App.LightboxImageComponent = Em.Component.extend(
 		/**
 		 * property that holds current image
 		 */
-		image: Em.computed(function (): JQuery {
+		image: Em.computed(function () {
 			return this.$('.current');
 		}),
 
-		imageWidth: Em.computed('image', 'scale', function (): number {
-			var $image = this.get('image'),
-				imageWidth = 0;
+		imageWidth: Em.computed('image', 'scale', function () {
+			const $image = this.get('image');
+
+			let imageWidth = 0;
 
 			if ($image) {
 				imageWidth = $image.width() * this.get('scale');
@@ -82,9 +78,10 @@ App.LightboxImageComponent = Em.Component.extend(
 			return imageWidth;
 		}),
 
-		imageHeight: Em.computed('image', 'scale', function (): number {
-			var $image = this.get('image'),
-				imageHeight = 0;
+		imageHeight: Em.computed('image', 'scale', function () {
+			const $image = this.get('image');
+
+			let imageHeight = 0;
 
 			if ($image) {
 				imageHeight = this.get('image').height() * this.get('scale');
@@ -96,14 +93,14 @@ App.LightboxImageComponent = Em.Component.extend(
 		/**
 		 * used to set X boundaries for panning image in media lightbox
 		 */
-		maxX: Em.computed('viewportSize', 'imageWidth', 'scale', function (): number {
+		maxX: Em.computed('viewportSize', 'imageWidth', 'scale', function () {
 			return Math.abs(this.get('viewportSize.width') - this.get('imageWidth')) / 2 / this.get('scale');
 		}),
 
 		/**
 		 * used to set Y boundaries for panning image in media lightbox
 		 */
-		maxY: Em.computed('viewportSize', 'imageHeight', 'scale', function (): number {
+		maxY: Em.computed('viewportSize', 'imageHeight', 'scale', function () {
 			return Math.abs(this.get('viewportSize').height - this.get('imageHeight')) / 2 / this.get('scale');
 		}),
 
@@ -111,12 +108,12 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * calculates X for panning with respect to maxX
 		 */
 		limitedNewX: Em.computed('newX', 'viewportSize', 'imageWidth', {
-			get(): number {
+			get() {
 				return this.get('newX');
 			},
 
-			set(key: string, value: string): void {
-				var newX = 0;
+			set(key, value) {
+				let newX = 0;
 
 				if (this.get('imageWidth') > this.get('viewportSize.width')) {
 					newX = this.limit(value, this.get('maxX'));
@@ -130,12 +127,12 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * calculates Y for panning with respect to maxY
 		 */
 		limitedNewY: Em.computed('newY', 'viewportSize', 'imageHeight', {
-			get(): number {
+			get() {
 				return this.get('newY');
 			},
 
-			set(key: string, value: string): void {
-				var newY = 0;
+			set(key, value) {
+				let newY = 0;
 
 				if (this.get('imageHeight') > this.get('viewportSize.height')) {
 					newY = this.limit(value, this.get('maxY'));
@@ -145,13 +142,13 @@ App.LightboxImageComponent = Em.Component.extend(
 			},
 		}),
 
-		articleContentWidthObserver: Em.observer('articleContent.width', function (): void {
+		articleContentWidthObserver: Em.observer('articleContent.width', function () {
 			this.notifyPropertyChange('viewportSize');
 			this.notifyPropertyChange('imageWidth');
 			this.notifyPropertyChange('imageHeight');
 		}),
 
-		urlObserver: Em.observer('model.url', function() {
+		urlObserver: Em.observer('model.url', function () {
 			this.loadUrl();
 		}),
 
@@ -159,23 +156,23 @@ App.LightboxImageComponent = Em.Component.extend(
 			/**
 			 * @returns {boolean}
 			 */
-			swipeLeft(): boolean {
-				return this.get('isZoomed') ? false : true;
+			swipeLeft() {
+				return !this.get('isZoomed');
 			},
 
 			/**
 			 * @returns {boolean}
 			 */
-			swipeRight(): boolean {
-				return this.get('isZoomed') ? false : true;
+			swipeRight() {
+				return !this.get('isZoomed');
 			},
 
 			/**
 			 * @param {HammerInput} event
 			 * @returns {void}
 			 */
-			pan(event: HammerInput): void {
-				var scale = this.get('scale');
+			pan(event) {
+				const scale = this.get('scale');
 
 				this.setProperties({
 					limitedNewX: this.get('lastX') + event.deltaX / scale,
@@ -188,7 +185,7 @@ App.LightboxImageComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			panEnd(): void {
+			panEnd() {
 				this.setProperties({
 					lastX: this.get('newX'),
 					lastY: this.get('newY')
@@ -199,15 +196,13 @@ App.LightboxImageComponent = Em.Component.extend(
 			 * @param {HammerInput} event
 			 * @returns {void}
 			 */
-			doubleTap(event: HammerInput): void {
-				var scale: number;
-
+			doubleTap(event) {
 				// Allow tap-to-zoom everywhere on non-galleries and in the center area for galleries
 				if (
 					!this.get('isZoomed') &&
 					(!this.get('isGallery') || this.getScreenArea(event) === this.screenAreas.center)
 				) {
-					scale = 3;
+					const scale = 3;
 
 					this.setProperties({
 						limitedScale: scale,
@@ -224,8 +219,8 @@ App.LightboxImageComponent = Em.Component.extend(
 			 * @param {HammerInput} event
 			 * @returns {void}
 			 */
-			pinchMove(event: HammerInput): void {
-				var scale = this.get('scale');
+			pinchMove(event) {
+				const scale = this.get('scale');
 
 				this.setProperties({
 					limitedScale: this.get('lastScale') * event.scale,
@@ -240,7 +235,7 @@ App.LightboxImageComponent = Em.Component.extend(
 			 * @param {HammerInput} event
 			 * @returns {void}
 			 */
-			pinchEnd(event: HammerInput): void {
+			pinchEnd(event) {
 				this.set('lastScale', this.get('lastScale') * event.scale);
 			},
 		},
@@ -248,8 +243,8 @@ App.LightboxImageComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		loadUrl(): void {
-			var url = this.get('model.url');
+		loadUrl() {
+			const url = this.get('model.url');
 
 			if (url) {
 				this.load(url);
@@ -261,8 +256,8 @@ App.LightboxImageComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
-			var hammerInstance = this.get('_hammerInstance');
+		didInsertElement() {
+			const hammerInstance = this.get('_hammerInstance');
 
 			hammerInstance.get('pinch').set({
 				enable: true
@@ -272,7 +267,7 @@ App.LightboxImageComponent = Em.Component.extend(
 				direction: Hammer.DIRECTION_ALL
 			});
 
-			Em.run.scheduleOnce('afterRender', this, (): void => {
+			Em.run.scheduleOnce('afterRender', this, () => {
 				this.loadUrl();
 			});
 		},
@@ -281,12 +276,10 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * Handle click and prevent bubbling
 		 * if the image is zoomed
 		 *
-		 * @param {MouseEvent} event
 		 * @returns {boolean}
 		 */
-		click(event: MouseEvent): boolean {
-			var isZoomed = this.get('isZoomed');
-			return isZoomed ? false : true;
+		click() {
+			return !this.get('isZoomed');
 		},
 
 		/**
@@ -300,7 +293,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * @param {number} max
 		 * @returns {number}
 		 */
-		limit (value: number, max: number): number {
+		limit(value, max) {
 			if (value < 0) {
 				return Math.max(value, -max);
 			} else {
@@ -311,7 +304,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		resetZoom(): void {
+		resetZoom() {
 			this.setProperties({
 				scale: 1,
 				lastScale: 1,
@@ -325,11 +318,11 @@ App.LightboxImageComponent = Em.Component.extend(
 		/**
 		 * load an image and run update function when it is loaded
 		 *
-		 * @param url string - url of current image
+		 * @param {string} url url of current image
 		 * @returns {void}
 		 */
-		load(url: string): void {
-			var image: HTMLImageElement = new Image();
+		load(url) {
+			const image = new Image();
 
 			this.set('isLoading', true);
 			image.src = url;
@@ -337,11 +330,11 @@ App.LightboxImageComponent = Em.Component.extend(
 			if (image.complete) {
 				this.update(image.src);
 			} else {
-				image.addEventListener('load', (): void => {
+				image.addEventListener('load', () => {
 					this.update(image.src);
 				});
 
-				image.addEventListener('error', (): void => {
+				image.addEventListener('error', () => {
 					this.update('', true);
 				});
 			}
@@ -354,7 +347,7 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * @param {boolean} [loadingError=false]
 		 * @returns {void}
 		 */
-		update(imageSrc: string, loadingError: boolean = false): void {
+		update(imageSrc, loadingError = false) {
 			if (!this.get('isDestroyed')) {
 				this.setProperties({
 					imageSrc,
@@ -371,8 +364,8 @@ App.LightboxImageComponent = Em.Component.extend(
 		 * @param {HammerInput} event
 		 * @returns {number}
 		 */
-		getScreenArea(event: HammerInput): number {
-			var viewportWidth = this.get('viewportSize.width'),
+		getScreenArea(event) {
+			const viewportWidth = this.get('viewportSize.width'),
 				x = event.center.x,
 				thirdPartOfScreen = viewportWidth / 3;
 

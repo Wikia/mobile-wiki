@@ -1,21 +1,18 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.LightboxMapComponent = Em.Component.extend({
 	classNames: ['lightbox-map', 'lightbox-content-inner'],
 
-	modelObserver: Em.observer('model', function (): void {
+	modelObserver: Em.observer('model', function () {
 		this.updateState();
 	}),
 
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement(): void {
+	didInsertElement() {
 		// this.updateState modifies header and footer rendered in LightboxWrapperComponent
 		// This isn't allowed by Ember to do on didInsertElement
 		// That's why we need to schedule it in the afterRender queue
-		Em.run.scheduleOnce('afterRender', this, (): void => {
+		Em.run.scheduleOnce('afterRender', this, () => {
 			this.updateState();
 		});
 	},
@@ -23,8 +20,9 @@ App.LightboxMapComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	updateState(): void {
-		var model = this.get('model');
+	updateState() {
+		const model = this.get('model');
+
 		this.sendAction('setHeader', model.title);
 		this.sendAction('setQueryParam', 'map', model.id);
 	},

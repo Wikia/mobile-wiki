@@ -1,6 +1,3 @@
-/// <reference path="../models/MediaModel.ts" />
-'use strict';
-
 App.LightboxMediaComponent = Em.Component.extend(
 	App.ThirdsClickMixin,
 	{
@@ -13,8 +10,9 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * gets current media from model
 		 */
-		current: Em.computed('model.media', 'model.mediaRef', function (): ArticleMedia {
-			var mediaModel: typeof App.MediaModel = this.get('model.media');
+		current: Em.computed('model.media', 'model.mediaRef', function () {
+			const mediaModel = this.get('model.media');
+
 			if (mediaModel instanceof App.MediaModel) {
 				return mediaModel.find(this.get('model.mediaRef'));
 			} else {
@@ -26,18 +24,19 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * gets current media or current media from gallery
 		 */
-		currentMedia: Em.computed('current', 'isGallery', 'currentGalleryRef', function (): ArticleMedia {
-			var current = this.get('current');
+		currentMedia: Em.computed('current', 'isGallery', 'currentGalleryRef', function () {
+			const current = this.get('current');
+
 			return this.get('isGallery') ? current[this.get('currentGalleryRef')] : current;
 		}),
 
 		currentGalleryRef: Em.computed('model.galleryRef', {
-			get(): number {
+			get() {
 				return this.get('model.galleryRef') || 0;
 			},
 
-			set(key: string, value: number): number {
-				var galleryLength = this.get('galleryLength') - 1;
+			set(key, value) {
+				const galleryLength = this.get('galleryLength') - 1;
 
 				if (value < 0) {
 					return galleryLength;
@@ -49,26 +48,27 @@ App.LightboxMediaComponent = Em.Component.extend(
 			},
 		}),
 
-		galleryLength: Em.computed('isGallery', 'current', function (): number {
+		galleryLength: Em.computed('isGallery', 'current', function () {
 			return this.get('isGallery') ? this.get('current').length : -1;
 		}),
 
 		/**
 		 * checks if current displayed media is a gallery
 		 */
-		isGallery: Em.computed('current', function (): boolean {
+		isGallery: Em.computed('current', function () {
 			return Em.isArray(this.get('current'));
 		}),
 
 		/**
 		 * checks if current media is a video or image and which lightbox component to render
 		 */
-		lightboxComponent: Em.computed('currentMedia', function (): string {
-			var currentMedia: ArticleMedia = this.get('currentMedia');
-			return currentMedia && currentMedia.url && currentMedia.type ? 'lightbox-' + currentMedia.type : null;
+		lightboxComponent: Em.computed('currentMedia', function () {
+			const currentMedia = this.get('currentMedia');
+
+			return currentMedia && currentMedia.url && currentMedia.type ? `lightbox-${currentMedia.type}` : null;
 		}),
 
-		modelObserver: Em.observer('model', 'currentMedia', function (): void {
+		modelObserver: Em.observer('model', 'currentMedia', function () {
 			this.updateState();
 		}),
 
@@ -76,7 +76,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			swipeLeft(): void {
+			swipeLeft() {
 				if (this.get('isGallery')) {
 					this.nextMedia();
 				}
@@ -85,7 +85,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			swipeRight(): void {
+			swipeRight() {
 				if (this.get('isGallery')) {
 					this.prevMedia();
 				}
@@ -95,11 +95,11 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
+		didInsertElement() {
 			// this.updateState modifies header and footer rendered in LightboxWrapperComponent
 			// This isn't allowed by Ember to do on didInsertElement
 			// That's why we need to schedule it in the afterRender queue
-			Em.run.scheduleOnce('afterRender', this, (): void => {
+			Em.run.scheduleOnce('afterRender', this, () => {
 				this.updateState();
 			});
 		},
@@ -108,7 +108,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		 * @param {MouseEvent} event
 		 * @returns {void}
 		 */
-		click(event: MouseEvent): void {
+		click(event) {
 			if (this.get('isGallery')) {
 				this.callClickHandler(event, true);
 			} else {
@@ -120,13 +120,13 @@ App.LightboxMediaComponent = Em.Component.extend(
 		 * @param {JQueryEventObject} event
 		 * @returns {void}
 		 */
-		keyDown(event: JQueryEventObject): void {
+		keyDown(event) {
 			if (this.get('isGallery')) {
 				if (event.keyCode === 39) {
-					//handle right arrow
+					// handle right arrow
 					this.nextMedia();
 				} else if (event.keyCode === 37) {
-					//handle left arrow
+					// handle left arrow
 					this.prevMedia();
 				}
 			}
@@ -137,7 +137,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {boolean}
 		 */
-		rightClickHandler(): boolean {
+		rightClickHandler() {
 			this.nextMedia();
 			return true;
 		},
@@ -145,7 +145,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {boolean}
 		 */
-		leftClickHandler(): boolean {
+		leftClickHandler() {
 			this.prevMedia();
 			return true;
 		},
@@ -153,7 +153,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {boolean}
 		 */
-		centerClickHandler(): boolean {
+		centerClickHandler() {
 			// Bubble up
 			return false;
 		},
@@ -161,7 +161,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		nextMedia(): void {
+		nextMedia() {
 			this.incrementProperty('currentGalleryRef');
 
 			M.track({
@@ -174,7 +174,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		prevMedia(): void {
+		prevMedia() {
 			this.decrementProperty('currentGalleryRef');
 
 			M.track({
@@ -187,7 +187,7 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		updateState(): void {
+		updateState() {
 			this.updateHeader();
 			this.updateFooter();
 
@@ -197,11 +197,11 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		updateHeader(): void {
-			var header: string = null;
+		updateHeader() {
+			let header = null;
 
 			if (this.get('isGallery')) {
-				header = (this.get('currentGalleryRef') + 1) + ' / ' + this.get('galleryLength');
+				header = `${(this.get('currentGalleryRef') + 1)} / ${this.get('galleryLength')}`;
 			}
 
 			this.sendAction('setHeader', header);
@@ -210,8 +210,8 @@ App.LightboxMediaComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		updateFooter(): void {
-			var currentMedia: ArticleMedia = this.get('currentMedia');
+		updateFooter() {
+			const currentMedia = this.get('currentMedia');
 
 			if (currentMedia && currentMedia.caption) {
 				this.sendAction('setFooter', new Em.Handlebars.SafeString(currentMedia.caption));

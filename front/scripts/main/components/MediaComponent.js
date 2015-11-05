@@ -1,23 +1,9 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury.d.ts" />
-/// <reference path="../../mercury/modules/Thumbnailer.ts" />
-/// <reference path="../mixins/VisibleMixin.ts" />
-/// <reference path="../models/MediaModel.ts" />
-'use strict';
-
 /**
- * Options
- * @typedef {Object} Options
+ * @typedef {Object} ThumbnailOptions
  * @property {string} mode
  * @property {number} width
  * @property {number} [height]
  */
-
-interface Options {
-	mode: string;
-	width: number;
-	height?: number;
-}
 
 App.MediaComponent = Em.Component.extend(
 	App.VisibleMixin,
@@ -35,17 +21,17 @@ App.MediaComponent = Em.Component.extend(
 		limitHeight: false,
 		normalizeWidth: true,
 
-		//thumb widths
+		// thumb widths
 		thumbSize: {
 			small: 340,
 			medium: 660,
 			large: 900,
 		},
 
-		//icon width depends on it's real dimensions
+		// icon width depends on it's real dimensions
 		iconHeight: 20,
-		iconWidth: Em.computed('media', 'iconHeight', function(): number {
-			var media = this.get('media'),
+		iconWidth: Em.computed('media', 'iconHeight', function () {
+			const media = this.get('media'),
 				iconHeight = this.get('iconHeight');
 
 			return Math.floor(iconHeight * media.width / media.height);
@@ -55,15 +41,14 @@ App.MediaComponent = Em.Component.extend(
 		 * caption for current media
 		 */
 		caption: Em.computed('media', {
-			get(): string {
-				var media = this.get('media');
+			get() {
+				const media = this.get('media');
 
 				if (media && typeof media.caption === 'string') {
 					return media.caption;
 				}
 			},
-
-			set(key: string, value: string): string {
+			set(key, value) {
 				return value;
 			},
 		}),
@@ -72,14 +57,14 @@ App.MediaComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			onVisible(): void {
+			onVisible() {
 				this.load();
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			clickLinkedImage(): void {
+			clickLinkedImage() {
 				M.track({
 					action: M.trackActions.click,
 					category: 'linked-image'
@@ -91,7 +76,7 @@ App.MediaComponent = Em.Component.extend(
 		 * @param {number} width
 		 * @returns {number}
 		 */
-		normalizeThumbWidth(width: number): number {
+		normalizeThumbWidth(width) {
 			if (width <= this.thumbSize.small) {
 				return this.thumbSize.small;
 			} else if (width <= this.thumbSize.medium) {
@@ -103,10 +88,10 @@ App.MediaComponent = Em.Component.extend(
 
 		/**
 		 * @param {string} url
-		 * @param {Options} options
+		 * @param {ThumbnailOptions} options
 		 * @returns {string}
 		 */
-		getThumbURL(url: string, options: Options): string {
+		getThumbURL(url, options) {
 			if (options.width &&
 				options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown &&
 				this.get('normalizeWidth')
@@ -133,16 +118,16 @@ App.MediaComponent.reopenClass({
 	 * @param {ArticleMedia} media
 	 * @returns {App.MediaComponent}
 	 */
-	newFromMedia(media: ArticleMedia): typeof App.MediaComponent {
+	newFromMedia(media) {
 		if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
 			return App.InfoboxImageMediaComponent.create();
 		} else if (Em.isArray(media)) {
-			if ((<any>media).some((media: ArticleMedia) => !!media.link)) {
+			if (media.some((media) => Boolean(media.link))) {
 				return App.LinkedGalleryMediaComponent.create();
 			} else {
 				return App.GalleryMediaComponent.create();
 			}
-		} else if (media.type === 'video'){
+		} else if (media.type === 'video') {
 			return App.VideoMediaComponent.create();
 		} else {
 			return App.ImageMediaComponent.create();

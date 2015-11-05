@@ -10,11 +10,12 @@
   },
   "globals": {
     "App": true,
+    "Em": true,
+    "Hammer": true,
+    "i18n": true,
     "M": true,
     "Mercury": true,
     "QUnit": true,
-    "Em": true,
-    "i18n": true,
     "window": true,
     "Wikia": true
   },

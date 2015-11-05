@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../main/mixins/LanguagesMixin.ts" />
-/// <reference path="../../main/mixins/TrackClickMixin.ts" />
-'use strict';
-
 App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.LanguagesMixin, {
 	classNames: ['share-feature'],
 
@@ -10,13 +5,13 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	sharedUrl: null,
 
 	socialNetworks: {
-		'en': [
+		en: [
 			'facebook',
 			'twitter',
 			'reddit',
 			'tumblr'
 		],
-		'ja': [
+		ja: [
 			'facebook',
 			'twitter',
 			'google',
@@ -28,32 +23,32 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 			'reddit',
 			'tumblr'
 		],
-		'zh': [
+		zh: [
 			'facebook',
-			//'weibo' Until we have an icon for Weibo
+			// 'weibo' Until we have an icon for Weibo
 		],
-		'de': [
+		de: [
 			'facebook',
 			'twitter',
 			'tumblr'
 		],
-		'fr': [
+		fr: [
 			'facebook',
 			'twitter'
 		],
-		'es': [
+		es: [
 			'facebook',
 			'twitter',
 			'meneame',
 			'tumblr'
 		],
-		'ru': [
+		ru: [
 			'vkontakte',
 			'facebook',
 			'odnoklassniki',
 			'twitter'
 		],
-		'pl': [
+		pl: [
 			'facebook',
 			'twitter',
 			'nk',
@@ -61,8 +56,8 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		]
 	},
 
-	computedSharedUrl: Em.computed('title', 'sharedUrl', function (): string {
-		var sharedUrl: string = this.get('sharedUrl');
+	computedSharedUrl: Em.computed('title', 'sharedUrl', function () {
+		const sharedUrl = this.get('sharedUrl');
 
 		if (Em.isEmpty(sharedUrl)) {
 			return Em.getWithDefault(Mercury, 'wiki.basePath', window.location.origin) + window.location.pathname;
@@ -71,114 +66,121 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		return sharedUrl;
 	}),
 
-	currentSocialNetworks: Em.computed('currentUser.language', function (): string[] {
-		var lang = this.getBrowserLanguage(),
+	currentSocialNetworks: Em.computed('currentUser.language', function () {
+		const lang = this.getBrowserLanguage(),
 			socialNetworks = this.get('socialNetworks');
 
-		return socialNetworks[lang] || socialNetworks['en'];
+		return socialNetworks[lang] || socialNetworks.en;
 	}),
 
 	/**
 	 * link generator for sharing a url on line
 	 * @returns {string}
 	 */
-	line(): string {
-		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' +
-			this.get('computedSharedUrl'));
+	line() {
+		return `http://line.me/R/msg/text/?` +
+			`${encodeURIComponent(
+				`${this.get('title')} ${this.get('computedSharedUrl')}`
+			)}`;
 	},
 
 	/**
 	 * link generator for sharing a url on facebook
 	 * @returns {string}
 	 */
-	facebook(): string {
-		return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('computedSharedUrl'));
+	facebook() {
+		return `http://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.get('computedSharedUrl'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on twitter
 	 * @returns {string}
 	 */
-	twitter(): string {
-		return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+	twitter() {
+		return `https://twitter.com/share?url=${encodeURIComponent(this.get('computedSharedUrl'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on google
 	 * @returns {string}
 	 */
-	google(): string {
-		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+	google() {
+		return `https://plus.google.com/share?url=${encodeURIComponent(this.get('computedSharedUrl'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on reddit
 	 * @returns {string}
 	 */
-	reddit(): string {
-		return 'http://www.reddit.com/submit?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
-			encodeURIComponent(this.get('title'));
+	reddit() {
+		return `http://www.reddit.com/submit` +
+			`?url=${encodeURIComponent(this.get('computedSharedUrl'))}` +
+			`&title=${encodeURIComponent(this.get('title'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on tumblr
 	 * @returns {string}
 	 */
-	tumblr(): string {
-		return 'http://www.tumblr.com/share/link?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&name=' +
-			encodeURIComponent(this.get('title'));
+	tumblr() {
+		return `http://www.tumblr.com/share/link` +
+			`?url=${encodeURIComponent(this.get('computedSharedUrl'))}` +
+			`&name=${encodeURIComponent(this.get('title'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on weibo
 	 * @returns {string}
 	 */
-	weibo(): string {
-		return 'http://service.weibo.com/share/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) +
-			'&title=' + encodeURIComponent(this.get('title'));
+	weibo() {
+		return `http://service.weibo.com/share/share.php` +
+			`?url=${encodeURIComponent(this.get('computedSharedUrl'))}` +
+			`&title=${encodeURIComponent(this.get('title'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on vkontakte
 	 * @returns {string}
 	 */
-	vkontakte(): string {
-		return 'http://vk.com/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
-			encodeURIComponent(this.get('title'));
+	vkontakte() {
+		return `http://vk.com/share.php` +
+			`?url=${encodeURIComponent(this.get('computedSharedUrl'))}` +
+			`&title=${encodeURIComponent(this.get('title'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on odnoklassniki
 	 * @returns {string}
 	 */
-	odnoklassniki(): string {
-		return 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=' +
-			encodeURIComponent(this.get('computedSharedUrl'));
+	odnoklassniki() {
+		return `http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1` +
+			`&st._surl=${encodeURIComponent(this.get('computedSharedUrl'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on nk
 	 * @returns {string}
 	 */
-	nk(): string {
-		return 'http://nk.pl/sledzik?shout=' + encodeURIComponent(this.get('computedSharedUrl'));
+	nk() {
+		return `http://nk.pl/sledzik?shout=${encodeURIComponent(this.get('computedSharedUrl'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on wykop
 	 * @returns {string}
 	 */
-	wykop(): string {
-		return 'http://www.wykop.pl/dodaj/link/?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
-			encodeURIComponent(this.get('title'));
+	wykop() {
+		return `http://www.wykop.pl/dodaj/link/` +
+			`?url=${encodeURIComponent(this.get('computedSharedUrl'))}` +
+			`&title=${encodeURIComponent(this.get('title'))}`;
 	},
 
 	/**
 	 * link generator for sharing a url on meneame
 	 * @returns {string}
 	 */
-	meneame():string {
-		return 'https://www.meneame.net/submit.php?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+	meneame() {
+		return `https://www.meneame.net/submit.php?url=${encodeURIComponent(this.get('computedSharedUrl'))}`;
 	},
 
 	actions: {
@@ -188,12 +190,13 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		 * @param {string} network
 		 * @returns {void}
 		 */
-		share(network: string): void {
-			var urlGetter: Function = this.get(network),
-				link: string;
+		share(network) {
+			const urlGetter = this.get(network);
+
+			let link;
 
 			if (typeof urlGetter !== 'function') {
-				Em.Logger.warn('Shared Url getter for ' + network + ' does not exist');
+				Em.Logger.warn(`Shared Url getter for ${network} does not exist`);
 				return;
 			}
 
@@ -208,7 +211,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	/**
 	 * @returns {void}
 	 */
-	mouseEnter(): void {
+	mouseEnter() {
 		if (this.attrs && typeof this.attrs.onMouseEnter === 'function') {
 			this.attrs.onMouseEnter();
 		}
@@ -217,7 +220,7 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	/**
 	 * @returns {void}
 	 */
-	mouseLeave(): void {
+	mouseLeave() {
 		if (this.attrs && typeof this.attrs.onMouseLeave === 'function') {
 			this.attrs.onMouseLeave();
 		}
