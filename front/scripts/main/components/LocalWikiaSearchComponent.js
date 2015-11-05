@@ -97,6 +97,7 @@ App.LocalWikiaSearchComponent = Em.Component.extend({
 			 * @param {SearchSuggestionItem} suggestion
 			 * @param {number} index
 			 * @param {SearchSuggestionItem[]} suggestionsArr
+			 * @returns {void}
 			 */
 			(suggestion, index, suggestionsArr) => {
 				suggestionsArr[index].uri = encodeURIComponent(suggestion.title);

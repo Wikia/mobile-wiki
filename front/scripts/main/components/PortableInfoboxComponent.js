@@ -9,9 +9,7 @@ App.PortableInfoboxComponent = Em.Component.extend(
 		tagName: 'aside',
 
 		button: Em.computed('expandButtonClass', function () {
-			const expandButtonClass = this.get('expandButtonClass');
-
-			return this.$(`.${expandButtonClass}`)[0];
+			return this.$(`.${this.get('expandButtonClass')}`)[0];
 		}),
 
 		height: null,
@@ -67,16 +65,13 @@ App.PortableInfoboxComponent = Em.Component.extend(
 			const collapsed = this.get('collapsed'),
 				$target = $(event.target);
 
-			let body,
-				scrollTo;
-
 			if ($target.is('a') || $target.is('button')) {
 				return;
 			}
 
 			if (!collapsed) {
-				body = window.document.body;
-				scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+				const body = window.document.body,
+					scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 				this.handleCollapsing();
 				scrollTo.apply(this.get('button'));
