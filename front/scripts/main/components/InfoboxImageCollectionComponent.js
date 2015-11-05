@@ -1,104 +1,133 @@
-/// <reference path="../app.ts" />
-/// <reference path="./MediaComponent.ts" />
-'use strict';
+App.InfoboxImageCollectionComponent = App.MediaComponent.extend(
+	App.ViewportMixin,
+	{
+		classNames: ['pi-image-collection'],
+		classNameBindings: ['visible'],
+		layoutName: 'components/infobox-image-collection',
+		limitHeight: true,
+		imageAspectRatio: 16 / 9,
+		activeRef: 0,
 
-App.InfoboxImageCollectionComponent = App.MediaComponent.extend(App.ViewportMixin, {
-	classNames: ['pi-image-collection'],
-	classNameBindings: ['visible'],
-	layoutName: 'components/infobox-image-collection',
-	limitHeight: true,
-	imageAspectRatio: 16 / 9,
-	activeRef: 0,
+		collectionLength: Em.computed('media', function () {
+			return this.get('media').length;
+		}),
 
-	collectionLength: Em.computed('media', function(): number {
-		return this.get('media').length;
-	}),
+		hasNextImage: Em.computed('activeRef', 'collectionLength', function () {
+			return this.get('activeRef') < (this.get('collectionLength') - 1);
+		}),
 
-	hasNextImage: Em.computed('activeRef', 'collectionLength', function(): boolean {
-		return this.get('activeRef') < (this.get('collectionLength') - 1);
-	}),
+		hasPreviousImage: Em.computed.gt('activeRef', 0),
 
-	hasPreviousImage: Em.computed.gt('activeRef', 0),
+		/**
+		 * @param {App.ArticleMedia} media
+		 * @returns {number}
+		 */
+		computedHeight(media) {
+			const windowWidth = this.get('viewportDimensions.width'),
+				imageAspectRatio = this.get('imageAspectRatio'),
+				imageWidth = media.width || windowWidth,
+				imageHeight = media.height,
+				maxWidth = Math.floor(imageHeight * imageAspectRatio);
 
-	computedHeight(media: typeof App.ArticleMedia): number {
-		var windowWidth: number = this.get('viewportDimensions.width'),
-			imageAspectRatio: number = this.get('imageAspectRatio'),
-			imageWidth: number = media.width || windowWidth,
-			imageHeight: number = media.height,
-			maxWidth: number = Math.floor(imageHeight * imageAspectRatio),
-			computedHeight: number = imageHeight;
+			let computedHeight = imageHeight;
 
-		if (imageWidth > windowWidth) {
-			computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
-		}
+			if (imageWidth > windowWidth) {
+				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
+			}
 
-		//wide image- image wider than 16:9 aspect ratio
-		//Crop it to have 16:9 ratio.
-		if (imageWidth > maxWidth) {
-			return Math.floor(windowWidth / imageAspectRatio);
-		}
+			// wide image- image wider than 16:9 aspect ratio
+			// Crop it to have 16:9 ratio.
+			if (imageWidth > maxWidth) {
+				return Math.floor(windowWidth / imageAspectRatio);
+			}
 
-		//high image- image higher than square.
-		if (windowWidth < computedHeight) {
-			return windowWidth;
-		}
+			// high image- image higher than square.
+			if (windowWidth < computedHeight) {
+				return windowWidth;
+			}
 
-		return computedHeight;
-	},
+			return computedHeight;
+		},
 
-	setup(): void {
-		var mediaArray = Em.A(),
-			emptyGif = this.get('emptyGif');
+		/**
+		 * @returns {void}
+		 */
+		setup() {
+			const mediaArray = Em.A(),
+				emptyGif = this.get('emptyGif');
 
-		this.get('media').forEach((image: ArticleMedia, index: number) => {
-			image.galleryRef = index;
-			image.thumbUrl = emptyGif;
-			image.isActive = (index === this.get('activeRef'));
+			/**
+			 * @param {ArticleMedia} image
+			 * @param {number} index
+			 * @returns {void}
+			 */
+			this.get('media').forEach((image, index) => {
+				image.galleryRef = index;
+				image.thumbUrl = emptyGif;
+				image.isActive = (index === this.get('activeRef'));
 
-			mediaArray.pushObject(Em.Object.create(image));
-		});
-
-		this.set('media', mediaArray);
-	},
-
-	loadImages(): void {
-		var width: number = this.get('viewportDimensions.width');
-
-		this.get('media').forEach((image: ArticleMedia, index: number) => {
-			var cropMode = image.height > image.width ? Mercury.Modules.Thumbnailer.mode.topCropDown : Mercury.Modules.Thumbnailer.mode.zoomCrop,
-				height: number = this.computedHeight(image),
-				thumbUrl: string = this.getThumbURL(image.url, {
-					mode: cropMode,
-					width: width,
-					height: height
-				});
-
-			image.setProperties({
-				thumbUrl: thumbUrl,
-				load: true
+				mediaArray.pushObject(Em.Object.create(image));
 			});
-		});
 
-	},
+			this.set('media', mediaArray);
+		},
 
-	load(): void {
-		this.setup();
-		this.loadImages();
-		this.set('visible', true);
-	},
+		/**
+		 * @returns {void}
+		 */
+		loadImages() {
+			const width = this.get('viewportDimensions.width');
 
-	actions: {
-		switchImage(direction: string) {
-			var oldRef = this.get('activeRef'),
-				refDirection = (direction === 'next') ? 1 : -1,
-				newRef =  oldRef + refDirection,
-				media = this.get('media'),
-				oldImage = media.get(oldRef),
-				newImage = media.get(newRef);
+			/**
+			 * @param {ArticleMedia} image
+			 * @param {number} index
+			 * @returns {void}
+			 */
+			this.get('media').forEach((image) => {
+				const cropMode = image.height > image.width ?
+						Mercury.Modules.Thumbnailer.mode.topCropDown :
+						Mercury.Modules.Thumbnailer.mode.zoomCrop,
+					height = this.computedHeight(image),
+					thumbUrl = this.getThumbURL(image.url, {
+						mode: cropMode,
+						width,
+						height
+					});
 
-			oldImage.set('isActive', false);
-			newImage.set('isActive', true);
-			this.set('activeRef', newRef);
-		}
+				image.setProperties({
+					thumbUrl,
+					load: true
+				});
+			});
+
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		load() {
+			this.setup();
+			this.loadImages();
+			this.set('visible', true);
+		},
+
+		actions: {
+			/**
+			 * @param {string} direction
+			 * @returns {void}
+			 */
+			switchImage(direction) {
+				const oldRef = this.get('activeRef'),
+					refDirection = (direction === 'next') ? 1 : -1,
+					newRef = oldRef + refDirection,
+					media = this.get('media'),
+					oldImage = media.get(oldRef),
+					newImage = media.get(newRef);
+
+				oldImage.set('isActive', false);
+				newImage.set('isActive', true);
+				this.set('activeRef', newRef);
+			},
+		},
 	}
-});
+);

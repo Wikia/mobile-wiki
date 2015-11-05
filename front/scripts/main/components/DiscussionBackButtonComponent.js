@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.DiscussionBackButtonComponent = Em.Component.extend({
 	tagName: 'a',
 	classNames: ['back-button'],
@@ -11,7 +8,7 @@ App.DiscussionBackButtonComponent = Em.Component.extend({
 	/**
 	 * @returns {void}
 	 */
-	click(): void {
+	click() {
 		this.sendAction('setLocation');
 	}
 });

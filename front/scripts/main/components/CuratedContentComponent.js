@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/TrackClickMixin.ts"/>
-/// <reference path="../models/CuratedContentModel.ts"/>
-'use strict';
-
 App.CuratedContentComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	{
@@ -14,8 +9,9 @@ App.CuratedContentComponent = Em.Component.extend(
 			 * @param {CuratedContentItem} item
 			 * @returns {void}
 			 */
-			clickItem(item: CuratedContentItem): void {
-				var itemType = item.type;
+			clickItem(item) {
+				const itemType = item.type;
+
 				if (itemType) {
 					this.trackClick('modular-main-page', `curated-content-item-${itemType}`);
 					if (itemType === 'section' || itemType === 'category') {
@@ -29,18 +25,18 @@ App.CuratedContentComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			loadMore(): void {
+			loadMore() {
 				this.set('isLoading', true);
 
 				App.CuratedContentModel.loadMore(this.get('model'))
-					.catch((reason: any): void => {
+					.catch((reason) => {
 						this.controllerFor('application').addAlert({
 							message: i18n.t('app.curated-content-error-load-more-items'),
 							type: 'error'
 						});
 						Em.Logger.error(reason);
 					})
-					.finally((): void => {
+					.finally(() => {
 						this.set('isLoading', false);
 					});
 			},

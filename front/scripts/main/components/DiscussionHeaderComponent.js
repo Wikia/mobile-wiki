@@ -1,24 +1,28 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../main/mixins/HeadroomMixin.ts" />
-'use strict';
-
 App.DiscussionHeaderComponent = Em.Component.extend(
 	App.HeadroomMixin,
 	{
 		classNames: ['discussion-header'],
 
-		siteName: Em.computed(function (): string {
+		overlay: null,
+		showContent: true,
+
+		siteName: Em.computed(() => {
 			return Em.get(Mercury, 'wiki.siteName');
 		}),
-		overlay: null,
 
-		showContent: true,
+		/**
+		 * @returns {void}
+		 */
+		didInsertElement() {
+			this.set('overlay', this.element.querySelector('.overlay'));
+			this._super();
+		},
 
 		actions: {
 			/**
 			 * @returns {void}
 			 */
-			showSortComponent(): void {
+			showSortComponent() {
 				this.sendAction('showSortComponent');
 				this.get('overlay').style.display = 'block';
 			},
@@ -26,18 +30,10 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			hideSortComponent(): void {
+			hideSortComponent() {
 				this.sendAction('hideSortComponent');
 				this.get('overlay').style.display = 'none';
 			},
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement(): void {
-			this.set('overlay', this.element.querySelector('.overlay'));
-			this._super();
 		},
 	}
 );

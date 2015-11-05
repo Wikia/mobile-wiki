@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
-'use strict';
-
 App.ForumWrapperComponent = Em.Component.extend(
 	App.DiscussionUpvoteActionSendMixin,
 	{
@@ -12,11 +8,11 @@ App.ForumWrapperComponent = Em.Component.extend(
 		currentlyLoadingPage: false,
 		isLoading: true,
 
-		hasMore: Em.computed('totalPosts', 'postsDisplayed', function (): boolean {
+		hasMore: Em.computed('totalPosts', 'postsDisplayed', function () {
 			return this.get('totalPosts') > this.get('postsDisplayed');
 		}),
 
-		pageLoaded: Ember.observer('postsDisplayed', function (): void {
+		pageLoaded: Em.observer('postsDisplayed', function () {
 			this.set('currentlyLoadingPage', false);
 		}),
 
@@ -25,7 +21,7 @@ App.ForumWrapperComponent = Em.Component.extend(
 			 * @param {number} postId
 			 * @returns {void}
 			 */
-			goToPost(postId: number): void {
+			goToPost(postId) {
 				this.sendAction('goToPost', postId);
 			},
 		},
@@ -33,7 +29,7 @@ App.ForumWrapperComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didScroll(): void {
+		didScroll() {
 			if (this.get('hasMore') && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
 				this.setProperties({
 					pageNum: this.pageNum + 1,
@@ -48,8 +44,8 @@ App.ForumWrapperComponent = Em.Component.extend(
 		 *
 		 * @returns {boolean}
 		 */
-		isScrolledToTrigger(): boolean {
-			var windowHeight = $(window).height(),
+		isScrolledToTrigger() {
+			const windowHeight = $(window).height(),
 				triggerDistance = 0.25 * windowHeight,
 				distanceToViewportTop = $(document).height() - windowHeight,
 				viewPortTop = $(document).scrollTop();
@@ -60,14 +56,14 @@ App.ForumWrapperComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
+		didInsertElement() {
 			$(window).on('scroll', this.didScroll.bind(this));
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		willDestroyElement(): void {
+		willDestroyElement() {
 			$(window).off('scroll', this.didScroll.bind(this));
 		},
 	}
