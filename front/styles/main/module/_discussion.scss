@@ -52,8 +52,7 @@ $horizontal-padding: 15px;
 
 	.discussion-content {
 		color: $discussion-content-color;
-		margin: 5px 0;
-		padding: 5px 0;
+		margin: 10px 0;
 	}
 
 	.discussion-reply {
@@ -142,8 +141,11 @@ $horizontal-padding: 15px;
 		}
 
 		.share {
+			align-items: center;
 			display: flex;
+			height: 30px;
 			justify-content: flex-end;
+			padding-top: 3px;
 			text-align: right;
 
 			> * {
