@@ -1,14 +1,8 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/MainPageRouteMixin.ts" />
-
-'use strict';
-
 App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	/**
 	 * @returns {Em.RSVP.Promise}
 	 */
-	model(): Em.RSVP.Promise {
+	model() {
 		return App.MainPageModel.find();
 	},
 
@@ -16,7 +10,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	 * @param {App.MainPageModel} model
 	 * @returns {void}
 	 */
-	afterModel(model: typeof App.MainPageModel): void {
+	afterModel(model) {
 		this.controllerFor('mainPage').setProperties({
 			adsContext: model.get('adsContext'),
 			isRoot: true,
@@ -35,7 +29,7 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 	 * @param {App.MainPageModel} model
 	 * @returns {void}
 	 */
-	renderTemplate(controller: any, model: typeof App.MainPageModel): void {
+	renderTemplate(controller, model) {
 		if (model.isCuratedMainPage) {
 			this.render('main-page', {
 				controller: 'mainPage',
@@ -55,10 +49,11 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 		 * @param {EmberStates.Transition} transition
 		 * @returns {boolean}
 		 */
-		error(error: any, transition: EmberStates.Transition): boolean {
+		error(error, transition) {
 			if (transition) {
 				transition.abort();
 			}
+
 			Em.Logger.warn('Route error', error.stack || error);
 			return true;
 		}

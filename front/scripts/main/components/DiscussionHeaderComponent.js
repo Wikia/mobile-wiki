@@ -6,9 +6,6 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 		overlay: null,
 		showContent: true,
 
-		// TODO: not sure this is always accurate
-		smartBannerVisible: Em.computed.alias('controllers.application.smartBannerVisible'),
-
 		siteName: Em.computed(() => {
 			return Em.get(Mercury, 'wiki.siteName');
 		}),
