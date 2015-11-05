@@ -330,7 +330,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {boolean} is title valid
 		 */
 		validateTitle() {
 			let title,

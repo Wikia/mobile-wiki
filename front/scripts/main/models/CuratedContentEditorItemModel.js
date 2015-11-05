@@ -97,7 +97,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} item
-	 * @param methodName
+	 * @param {string} methodName
 	 * @returns {Em.RSVP.Promise} server response
 	 */
 	validateServerData(item, methodName) {
