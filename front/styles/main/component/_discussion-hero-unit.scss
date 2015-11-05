@@ -1,7 +1,6 @@
 $discussion-hero-unit-text-color: $color-white;
 $discussion-hero-unit-avatar-dimension: 40px;
 $discussion-hero-unit-height: 200px;
-$discussion-hero-unit-bg-color: #fff;
 
 .discussion-hero-unit {
 	background-position: center;
@@ -22,10 +21,6 @@ $discussion-hero-unit-bg-color: #fff;
 		font-weight: bold;
 		margin-bottom: 10px;
 		margin-top: 0;
-	}
-
-	.banner {
-		background: $discussion-hero-unit-bg-color no-repeat center;
 	}
 
 	.discussion-contributors {
@@ -49,10 +44,6 @@ $discussion-hero-unit-bg-color: #fff;
 		padding-top: 37px;
 		padding-bottom: 33px;
 		width: 100%;
-	}
-
-	.opacity {
-		opacity: 0.8;
 	}
 }
 
