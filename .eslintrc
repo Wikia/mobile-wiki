@@ -16,7 +16,8 @@
     "M": true,
     "Mercury": true,
     "QUnit": true,
-    "window": true
+    "window": true,
+    "Wikia": true
   },
   // http://eslint.org/docs/rules/
   "rules": {

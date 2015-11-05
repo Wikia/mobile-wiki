@@ -1,10 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../mercury/modules/Ads.ts" />
-/// <reference path="../../mercury/utils/articleLink.ts" />
-/// <reference path="../../mercury/utils/variantTesting.ts" />
-/// <reference path="../../mercury/utils/string.ts" />
-'use strict';
-
 App.ApplicationRoute = Em.Route.extend(
 	Em.TargetActionSupport,
 	App.TrackClickMixin,
@@ -19,17 +12,22 @@ App.ApplicationRoute = Em.Route.extend(
 			/**
 			 * @returns {void}
 			 */
-			loading(): void {
-				this.controller && this.controller.set('isLoading', true);
+			loading() {
+				if (this.controller) {
+					this.controller.set('isLoading', true);
+				}
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			didTransition(): void {
+			didTransition() {
 				// Activate any A/B tests for the new route
 				M.VariantTesting.activate();
-				this.controller && this.controller.set('isLoading', false);
+
+				if (this.controller) {
+					this.controller.set('isLoading', false);
+				}
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
@@ -49,8 +47,11 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @param {*} error
 			 * @returns {void}
 			 */
-			error(error: any): void {
-				this.controller && this.controller.set('isLoading', false);
+			error(error) {
+				if (this.controller) {
+					this.controller.set('isLoading', false);
+				}
+
 				Em.Logger.error('Route error', error);
 			},
 
@@ -58,15 +59,18 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @param {HTMLAnchorElement} target
 			 * @returns {void}
 			 */
-			handleLink(target: HTMLAnchorElement): void {
-				var currentRoute = this.router.get('currentRouteName'),
-					title: string,
-					trackingCategory: string,
-					info: LinkInfo,
-					// exec() returns an array of matches or null if no match is found.
-					domainNameRegExpMatchArray: RegExpExecArray = /\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i.exec(window.location.hostname),
-					cookieDomain: string = domainNameRegExpMatchArray ? '; domain=' + domainNameRegExpMatchArray[0] : '',
-					defaultSkin: string = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
+			handleLink(target) {
+				const currentRoute = this.router.get('currentRouteName'),
+					/**
+					 * exec() returns an array of matches or null if no match is found.
+					 */
+					domainNameRegExpMatchArray = (/\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i).exec(window.location.hostname),
+					cookieDomain = domainNameRegExpMatchArray ? `; domain=${domainNameRegExpMatchArray[0]}` : '',
+					defaultSkin = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
+
+				let title,
+					trackingCategory,
+					info;
 
 				if (currentRoute === 'article') {
 					title = this.controllerFor('article').get('model').get('title');
@@ -97,9 +101,10 @@ App.ApplicationRoute = Em.Route.extend(
 				 * handle links that are external to the application like ?useskin=oasis
 				 */
 				if (target.className.indexOf('external') > -1) {
-					if (target.href.indexOf('useskin=' + defaultSkin) > -1) {
-						document.cookie = 'useskin=' + defaultSkin + cookieDomain + '; path=/';
+					if (target.href.indexOf(`useskin=${defaultSkin}`) > -1) {
+						document.cookie = `useskin=${defaultSkin}${cookieDomain}; path=/`;
 					}
+
 					return window.location.assign(target.href);
 				}
 
@@ -125,15 +130,15 @@ App.ApplicationRoute = Em.Route.extend(
 			/**
 			 * @returns {void}
 			 */
-			loadRandomArticle(): void {
+			loadRandomArticle() {
 				this.get('controller').send('toggleSideNav', false);
 
 				App.ArticleModel
 					.getArticleRandomTitle()
-					.then((articleTitle: string): void => {
+					.then((articleTitle) => {
 						this.transitionTo('article', encodeURIComponent(M.String.normalizeToUnderscore(articleTitle)));
 					})
-					.catch((err: any): void => {
+					.catch((err) => {
 						this.send('error', err);
 					});
 			},
@@ -142,10 +147,12 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @param {string} searchString
 			 * @returns {void}
 			 */
-			search: function (searchString : string): void {
-				this.transitionTo('searchResults', {queryParams: {
-					q: searchString,
-				}});
+			search(searchString) {
+				this.transitionTo('searchResults', {
+					queryParams: {
+						q: searchString,
+					}
+				});
 			},
 
 			// We need to proxy these actions because of the way Ember is bubbling them up through routes
@@ -153,7 +160,7 @@ App.ApplicationRoute = Em.Route.extend(
 			/**
 			 * @returns {void}
 			 */
-			handleLightbox(): void {
+			handleLightbox() {
 				this.get('controller').send('handleLightbox');
 			},
 
@@ -162,7 +169,7 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @param {*} [lightboxModel]
 			 * @returns {void}
 			 */
-			openLightbox(lightboxType: string, lightboxModel?: any): void {
+			openLightbox(lightboxType, lightboxModel) {
 				this.get('controller').send('openLightbox', lightboxType, lightboxModel);
 			},
 
@@ -171,21 +178,21 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @param {*} [lightboxModel]
 			 * @returns {void}
 			 */
-			createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
+			createHiddenLightbox(lightboxType, lightboxModel) {
 				this.get('controller').send('createHiddenLightbox', lightboxType, lightboxModel);
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			showLightbox(): void {
+			showLightbox() {
 				this.get('controller').send('showLightbox');
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			closeLightbox(): void {
+			closeLightbox() {
 				this.get('controller').send('closeLightbox');
 			},
 
@@ -194,7 +201,7 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @param {boolean} visible
 			 * @returns {void}
 			 */
-			toggleSideNav(visible: boolean): void {
+			toggleSideNav(visible) {
 				this.get('controller').set('sideNavVisible', visible);
 			},
 		},
@@ -202,11 +209,12 @@ App.ApplicationRoute = Em.Route.extend(
 		/**
 		 * @returns {void}
 		 */
-		activate: function (): void {
-			var adsInstance: Mercury.Modules.Ads,
-				instantGlobals = Wikia.InstantGlobals || {};
+		activate() {
+			const instantGlobals = Wikia.InstantGlobals || {};
+			let adsInstance;
 
-			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') && !instantGlobals.wgSitewideDisableAdsOnMercury) {
+			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
+				!instantGlobals.wgSitewideDisableAdsOnMercury) {
 				adsInstance = Mercury.Modules.Ads.getInstance();
 				adsInstance.init(M.prop('adsUrl'));
 
@@ -218,12 +226,13 @@ App.ApplicationRoute = Em.Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				adsInstance.createLightbox = (contents: any, lightboxVisible?: boolean): void => {
-					var actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+				adsInstance.createLightbox = (contents, lightboxVisible) => {
+					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+
 					this.send(actionName, 'ads', {contents});
 				};
 
-				adsInstance.showLightbox = (): void => {
+				adsInstance.showLightbox = () => {
 					this.send('showLightbox');
 				};
 			}

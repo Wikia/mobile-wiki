@@ -1,23 +1,16 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-/// <reference path="../mixins/MainPageRouteMixin.ts" />
-/// <reference path="../mixins/MetaTagsMixin.ts"/>
-
-'use strict';
-
 App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
 	 */
-	model(params: any): Em.RSVP.Promise {
+	model(params) {
 		return App.CuratedContentModel.find(params.sectionName, 'section');
 	},
 
 	/**
 	 * @returns {*}
 	 */
-	meta(): any {
+	meta() {
 		return {
 			name: {
 				robots: 'noindex, follow'
@@ -30,7 +23,7 @@ App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsM
 		 * @param {*} error
 		 * @returns {boolean}
 		 */
-		error(error: any): boolean {
+		error(error) {
 			if (error && error.status === 404) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.curated-content-error-section-not-found'),
@@ -44,6 +37,7 @@ App.MainPageSectionRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsM
 					persistent: true,
 				});
 			}
+
 			this.transitionTo('mainPage');
 			return true;
 		}
