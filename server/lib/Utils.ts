@@ -298,3 +298,22 @@ export class RedirectedToCanonicalHost {
 }
 
 RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
+
+/**
+ * Get HTML title
+ * @param {any} wikiVariables
+ * @param {string} displayTitle
+ * @returns {string}
+ */
+export function getHtmlTitle(wikiVariables: any, displayTitle: string): string {
+	var htmlTitle: string,
+		htmlTitleTemplate: string = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
+
+	if (displayTitle) {
+		htmlTitle = htmlTitleTemplate.replace('$1', displayTitle);
+	} else {
+		htmlTitle = htmlTitleTemplate.substring(5);
+	}
+
+	return htmlTitle;
+}

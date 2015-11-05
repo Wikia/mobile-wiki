@@ -1,12 +1,14 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-// TODO (CONCF-761): We should decouple main page data from article but this needs a separate API path
 App.MainPageModel = App.ArticleModel.extend({
 	curatedContent: null
 });
 
 App.MainPageModel.reopenClass({
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	find(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var modelPromise = App.ArticleModel.find({

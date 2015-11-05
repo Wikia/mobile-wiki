@@ -1,11 +1,15 @@
 /**
  * Main entrypoint for validating user login
+ * @class LoginValidator
  */
 class LoginValidator {
 	loginUsername: HTMLInputElement;
 	loginPassword: HTMLInputElement;
 	loginSubmit: HTMLButtonElement;
 
+	/**
+	 * @constructs LoginValidator
+	 */
 	constructor() {
 		this.loginUsername = <HTMLInputElement> window.document.getElementById('loginUsername');
 		this.loginPassword = <HTMLInputElement> window.document.getElementById('loginPassword');
@@ -14,6 +18,8 @@ class LoginValidator {
 
 	/**
 	 * Activates / deactivates submit button in the login form
+	 *
+	 * @returns {void}
 	 */
 	private onInput ():void {
 		if (this.isNotEmpty()) {
@@ -25,22 +31,31 @@ class LoginValidator {
 
 	/**
 	 * Checks if both username and password fields are not empty
+	 *
 	 * @returns {boolean}
 	 */
 	private isNotEmpty ():boolean {
 		return !!(this.loginUsername.value.length && this.loginPassword.value.length);
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	private activateSubmit ():void {
 		this.loginSubmit.disabled = false;
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	private deactivateSubmit ():void {
 		this.loginSubmit.disabled = true;
 	}
 
 	/**
 	 * Starts continuous checking for new input
+	 *
+	 * @returns {void}
 	 */
 	public watch (): void {
 		this.onInput();

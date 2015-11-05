@@ -3,17 +3,10 @@
  * @description This file sets up the Ember app for testing. Depends on ember-qunit (managed by bower):
  * https://github.com/rpflorence/ember-qunit
  */
-
-// Add this content to test application bootstrap
-// Writing this element to test runner DOM is required for Ember to bootstrap
-// properly
-document.write('<div class="article-content" id="preloadedContent">Test content</div><div id="ember-testing"></div>');
+var App = window.App,
+	karma_started = false;
 
 __karma__.loaded = function() {};
-
-var App = window.App;
-
-var karma_started = false;
 
 App.rootElement = '#ember-testing';
 App.setupForTesting();

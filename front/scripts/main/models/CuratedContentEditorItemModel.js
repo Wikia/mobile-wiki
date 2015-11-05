@@ -20,18 +20,18 @@
  * @property {Number} article_id
  * @property {Number} image_id
  * @property {CuratedContentImageCropData} image_crop
- * @property {String} image_url
+ * @property {string} image_url
  * @property {CuratedContentEditorItemModel[]} items
- * @property {String} label
- * @property {String} node_type
- * @property {String} title
- * @property {String} type
+ * @property {string} label
+ * @property {string} node_type
+ * @property {string} title
+ * @property {string} type
  */
 
 /**
  * CuratedContentGetImageResponse
  * @typedef {Object} CuratedContentGetImageResponse
- * @property {String} url
+ * @property {string} url
  * @property {id} image_id
  */
 
@@ -72,8 +72,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 	},
 
 	/**
-	 * @param {String} title
-	 * @param {Number} size
+	 * @param {string} title
+	 * @param {number} size
 	 * @returns {Em.RSVP.Promise} image data
 	 */
 	getImage(title, size) {
@@ -122,7 +122,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	},
 
 	/**
-	 * @param {String} title
+	 * @param {string} title
 	 * @returns {Em.RSVP.Promise} search suggestions
 	 */
 	getSearchSuggestions(title) {

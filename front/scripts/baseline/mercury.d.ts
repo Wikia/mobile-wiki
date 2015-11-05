@@ -6,7 +6,7 @@ declare var require: (deps: string[], func: Function) => void;
 
 declare module Mercury {
 	var article: any;
-	var error: any;
+	var exception: any;
 	var wiki: any;
 	var apiBase: string;
 	var tracking: any;

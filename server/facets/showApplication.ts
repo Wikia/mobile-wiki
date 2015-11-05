@@ -3,6 +3,13 @@
 /// <reference path='../lib/OpenGraph.ts' />
 /// <reference path="../../typings/hapi/hapi.d.ts" />
 
+/**
+ * CommunityAppConfig
+ * @typedef {Object} CommunityAppConfig
+ * @property {string} androidAppLink
+ * @property {string} iosAppLink
+ */
+
 import MW = require('../lib/MediaWiki');
 import Utils = require('../lib/Utils');
 import Tracking = require('../lib/Tracking');
@@ -25,17 +32,22 @@ function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
 	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
 	wikiVariables.then((wikiVariables: any): Promise<any> => {
-		var contentDir: string;
+		var contentDir: string,
+			displayTitle: string;
 
 		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
-		context.wiki = wikiVariables;
-		if (context.wiki.language) {
-			contentDir = context.wiki.language.contentDir;
+		context.wikiVariables = wikiVariables;
+		if (context.wikiVariables.language) {
+			contentDir = context.wikiVariables.language.contentDir;
 			context.isRtl = (contentDir === 'rtl');
 		}
 
-		return OpenGraph.getAttributes(request, context.wiki);
+		// TODO: Update displayTitle
+		displayTitle = '';
+		context.htmlTitle = Utils.getHtmlTitle(wikiVariables, displayTitle);
+
+		return OpenGraph.getAttributes(request, context.wikiVariables);
 	}).then((openGraphData: any): void => {
 		// Add OpenGraph attributes to context
 		context.openGraph = openGraphData;
@@ -56,13 +68,19 @@ function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: a
 	reply.view('application', context);
 }
 
+/**
+ * @param {string} hostName
+ * @returns {CommunityAppConfig}
+ */
 function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
-	var distilledConfig = {};
-	if (discussionsSplashPageConfig[hostName]) {
-		distilledConfig['androidAppLink'] = discussionsSplashPageConfig[hostName].androidAppLink;
-		distilledConfig['iosAppLink'] = discussionsSplashPageConfig[hostName].iosAppLink;
+	var mainConfig = discussionsSplashPageConfig[hostName];
+	if (mainConfig) {
+		return {
+			androidAppLink: mainConfig.androidAppLink,
+			iosAppLink: mainConfig.iosAppLink,
+		};
 	}
-	return distilledConfig;
+	return {};
 }
 
 export = showApplication;

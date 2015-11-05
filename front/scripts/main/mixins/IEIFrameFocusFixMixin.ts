@@ -1,6 +1,11 @@
 /// <reference path="../app.ts" />
 'use strict';
 
+/**
+ * Window
+ * @typedef {Object} Window
+ * @property {*} Ponto
+ */
 interface Window {
 	Ponto: any
 }
@@ -12,6 +17,8 @@ App.IEIFrameFocusFixMixin = Em.Mixin.create({
 	 * This mixin triggers function in mediawiki app
 	 * which sets focus on iframe after component with this mixin is inserted.
 	 * Function is triggered only when Mercury is loaded inside an iframe - Ponto is defined
+	 *
+	 * @returns {void}
 	 */
 	didInsertElement(): void {
 		var ponto = window.Ponto;

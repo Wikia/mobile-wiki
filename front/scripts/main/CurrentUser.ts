@@ -24,6 +24,9 @@ App.CurrentUser = Em.Object.extend({
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
+	/**
+	 * @returns: {void}
+	 */
 	init(): void {
 		var userId = this.get('userId');
 		if (userId !== null) {
@@ -48,6 +51,10 @@ App.CurrentUser = Em.Object.extend({
 		this._super();
 	},
 
+	/**
+	 * @param {string} [userLang=null]
+	 * @returns {void}
+	 */
 	setUserLanguage(userLang: string = null): void {
 		var contentLanguage = Em.getWithDefault(Mercury, 'wiki.language.content', 'en'),
 			userLanguage = userLang || contentLanguage;
@@ -56,6 +63,10 @@ App.CurrentUser = Em.Object.extend({
 		M.prop('userLanguage', userLanguage);
 	},
 
+	/**
+	 * @param {QueryUserInfoResponse} result
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadUserLanguage(result: QueryUserInfoResponse): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var userLanguage = Em.get(result, 'query.userinfo.options.language');
@@ -66,6 +77,10 @@ App.CurrentUser = Em.Object.extend({
 		});
 	},
 
+	/**
+	 * @param {QueryUserInfoResponse} result
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadUserRights(result: QueryUserInfoResponse): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var rightsArray = Em.get(result, 'query.userinfo.rights'),
@@ -85,6 +100,9 @@ App.CurrentUser = Em.Object.extend({
 		});
 	},
 
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadUserInfo(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{

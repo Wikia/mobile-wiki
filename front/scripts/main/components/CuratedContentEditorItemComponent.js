@@ -27,7 +27,7 @@ App.CuratedContentEditorItemComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} newLayoutName
+			 * @param {string} newLayoutName
 			 * @returns {void}
 			 */
 			changeLayout(newLayoutName) {

@@ -1,22 +1,22 @@
 /**
  * CuratedContentEditorRawSection
  * @typedef {Object} CuratedContentEditorRawSection
- * @property {String} label
+ * @property {string} label
  * @property {Number} image_id
  * @property {CuratedContentImageCropData} [image_crop]
- * @property {String} node_type
+ * @property {string} node_type
  * @property {CuratedContentEditorRawSection[]} items
- * @property {String} [image_url]
- * @property {String} [featured]
- * @property {String} [type]
+ * @property {string} [image_url]
+ * @property {string} [featured]
+ * @property {string} [type]
  */
 
 /**
  * CuratedContentValidationResponseError
  * @typedef {Object} CuratedContentValidationResponseError
- * @property {String} target
- * @property {String} type
- * @property {String} reason
+ * @property {string} target
+ * @property {string} type
+ * @property {string} reason
  */
 
 /**
@@ -103,7 +103,7 @@ App.CuratedContentEditorModel.reopenClass({
 	 * Convert CuratedContentEditorModel to structure known by CuratedContent API
 	 *
 	 * @param {CuratedContentEditorModel} model
-	 * @returns {Object} converted object
+	 * @returns {object} converted object
 	 */
 	prepareDataForSave(model) {
 		return {
@@ -156,7 +156,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
-	 * @param {String} itemLabel
+	 * @param {string} itemLabel
 	 * @returns {CuratedContentEditorItemModel} item
 	 */
 	getItem(parentItem, itemLabel) {
@@ -174,8 +174,8 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} modelRoot
-	 * @param {String} excludedLabel=null
-	 * @returns {String[]} already used labels
+	 * @param {string} excludedLabel=null
+	 * @returns {string[]} already used labels
 	 */
 	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
 		// Flatten the array
@@ -190,8 +190,8 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} sectionOrBlock
-	 * @param {String} excludedLabel=null
-	 * @returns {String[]} already used labels
+	 * @param {string} excludedLabel=null
+	 * @returns {string[]} already used labels
 	 */
 	getAlreadyUsedLabels(sectionOrBlock, excludedLabel = null) {
 		let labels = [];
@@ -222,7 +222,7 @@ App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
 	 * @param {CuratedContentEditorItemModel} newItem
-	 * @param {String} itemLabel - item's original label
+	 * @param {string} itemLabel - item's original label
 	 * @returns {void}
 	 */
 	updateItem(parentItem, newItem, itemLabel) {
@@ -236,7 +236,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} parentItem
-	 * @param {String} itemLabel
+	 * @param {string} itemLabel
 	 * @returns {void}
 	 */
 	deleteItem(parentItem, itemLabel) {

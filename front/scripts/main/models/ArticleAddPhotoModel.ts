@@ -95,6 +95,10 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 		});
 	},
 
+	/**
+	 * @param {*} model
+	 * @returns {Em.RSVP.Promise}
+	 */
 	upload(model: any): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			this.temporaryUpload(model.photoData)
@@ -122,6 +126,11 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 		});
 	},
 
+	/**
+	 * @param {string} photoTitle
+	 * @param {string} tempName
+	 * @returns {Em.RSVP.Promise}
+	 */
 	permanentUpload(photoTitle: string, tempName: string): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var params = {
@@ -150,6 +159,10 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 		});
 	},
 
+	/**
+	 * @param {*} photoData
+	 * @returns {Em.RSVP.Promise}
+	 */
 	temporaryUpload(photoData: any): Em.RSVP.Promise {
 		var formData = new FormData();
 		formData.append('file', photoData);

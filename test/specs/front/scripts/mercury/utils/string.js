@@ -1,4 +1,3 @@
-/* global App, resetMercuryBaseline */
 QUnit.module('String util functions');
 
 QUnit.test('sanitizing title', function () {

@@ -39,7 +39,7 @@ interface Response {
 }
 
 App.ArticleModel = Em.Object.extend({
-	article: null,
+	content: null,
 	basePath: null,
 	categories: [],
 	cleanTitle: null,
@@ -50,12 +50,17 @@ App.ArticleModel = Em.Object.extend({
 	media: [],
 	mediaUsers: [],
 	title: null,
+	url: null,
 	user: null,
 	users: [],
 	wiki: null,
 });
 
 App.ArticleModel.reopenClass({
+	/**
+	 * @param {Object} params
+	 * @returns {string}
+	 */
 	url(params: {title: string; redirect?: string}): string {
 		var redirect = '';
 
@@ -66,6 +71,10 @@ App.ArticleModel.reopenClass({
 		return App.get('apiBase') + '/article/' + params.title + redirect;
 	},
 
+	/**
+	 * @param {Object} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	find(params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
 		var model = App.ArticleModel.create(params);
 
@@ -84,20 +93,21 @@ App.ArticleModel.reopenClass({
 					resolve(model);
 				},
 				error: (err: any): void => {
+					// Temporary solution until we can make error states work - ideally we should reject on errors
 					if (err.status === 404) {
-						this.setArticle(model, {
-							error: err.responseJSON
-						});
+						this.setArticle(model, err.responseJSON);
 						resolve(model);
 					} else {
-						// TODO we currently abort transition when there was an error other than 404
-						reject($.extend(err, model));
+						reject(err);
 					}
 				}
 			});
 		});
 	},
 
+	/**
+	 * @returns {Em.RSVP.Promise}
+	 */
 	getArticleRandomTitle(): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -121,86 +131,97 @@ App.ArticleModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @returns {*}
+	 */
 	getPreloadedData(): any {
-		var article = Mercury.article,
-			adsInstance: Mercury.Modules.Ads,
-			instantGlobals = Wikia.InstantGlobals || {};
+		var article = Mercury.article;
 
 		M.prop('articleContentPreloadedInDOM', false);
 
-		// On first page load the article content is available only in HTML
-		article.content = $.trim($('#preloadedContent').html());
+		if (article.data && article.data.article) {
+			// On the first page load the article content is available only in HTML
+			article.data.article.content = $.trim($('#preloadedContent').html());
+		}
 
 		delete Mercury['article'];
 		return article;
 	},
 
+	/**
+	 * @param {App.ArticleModel} model
+	 * @param {*} [source= this.getPreloadedData()]
+	 * @return: {void}
+	 */
 	setArticle(model: typeof App.ArticleModel, source = this.getPreloadedData()): void {
-		var data: any = {};
+		var articleProperties: any = {},
+			exception = source.exception,
+			data = source.data,
+			details: any,
+			article: any;
 
-		if (source.error) {
-			var error = source.error;
-
-			data = {
-				article: error.details,
+		if (exception) {
+			articleProperties = {
 				cleanTitle: M.String.normalizeToWhitespace(model.title),
-				error: error
+				exception
 			};
-		} else if (source) {
-			if (source.details) {
-				var details = source.details;
+		} else if (data) {
+			if (data.details) {
+				details = data.details;
 
-				data = $.extend(data, {
+				articleProperties = {
 					ns: details.ns,
 					cleanTitle: details.title,
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id,
+					url: details.url,
 					description: details.description
-				});
+				};
 			}
 
-			if (source.article) {
-				var article = source.article;
+			if (data.article) {
+				article = data.article;
 
-				data = $.extend(data, {
-					article: article.content || source.content,
+				articleProperties = $.extend(articleProperties, {
+					content: article.content,
 					mediaUsers: article.users,
 					type: article.type,
 					media: App.MediaModel.create({
 						media: article.media
 					}),
 					categories: article.categories,
-					redirectEmptyTarget: source.redirectEmptyTarget || false
+					redirectEmptyTarget: data.redirectEmptyTarget || false
 				});
 			}
 
-			if (source.relatedPages) {
+			if (data.relatedPages) {
 				/**
 				 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
 				 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
 				 * to handle this and never return malformed structures.
 				 */
-				data.relatedPages = source.relatedPages;
+				articleProperties.relatedPages = data.relatedPages;
 			}
 
-			if (source.adsContext) {
-				if (source.adsContext.targeting) {
-					source.adsContext.targeting.mercuryPageCategories = data.categories;
+			if (data.adsContext) {
+				articleProperties.adsContext = data.adsContext;
+
+				if (articleProperties.adsContext.targeting) {
+					articleProperties.adsContext.targeting.mercuryPageCategories = articleProperties.categories;
 				}
-				data.adsContext = source.adsContext;
 			}
 
-			if (source.topContributors) {
+			if (data.topContributors) {
 				// Same issue: the response to the ajax should always be valid and not undefined
-				data.topContributors = source.topContributors;
+				articleProperties.topContributors = data.topContributors;
 			}
 
-			data.isMainPage = source.isMainPage || false;
+			articleProperties.isMainPage = data.isMainPage || false;
 
-			if (source.mainPageData) {
-				data.mainPageData = source.mainPageData;
-				data.isCuratedMainPage = true;
+			if (data.mainPageData) {
+				articleProperties.mainPageData = data.mainPageData;
+				articleProperties.isCuratedMainPage = true;
 			}
 		}
 
@@ -208,7 +229,7 @@ App.ArticleModel.reopenClass({
 		// We need to update global article.type
 		// to allow eg. for analytics to use it
 		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
-		M.prop('article.type', data.type, true);
-		model.setProperties(data);
+		M.prop('article.type', articleProperties.type, true);
+		model.setProperties(articleProperties);
 	}
 });

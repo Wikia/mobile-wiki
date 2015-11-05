@@ -6,6 +6,10 @@ interface PlayerClassMap {
 	[index: string]: string;
 }
 
+/**
+ * @typedef {Object} PlayerClassMap
+ */
+
 module Mercury.Modules {
 
 	var playerClassMap: PlayerClassMap = {
@@ -17,17 +21,27 @@ module Mercury.Modules {
 		data: any;
 		player: VideoPlayers.BasePlayer;
 
+		/**
+		 * @param {*} data
+		 * @returns {void}
+		 */
 		constructor (data: any) {
 			this.data = data;
 			this.loadPlayerClass();
 		}
 
+		/**
+		 * @param {string} name
+		 * @returns {boolean}
+		 */
 		private isProvider (name: string): boolean {
 			return !!this.data.provider.toLowerCase().match(name);
 		}
 
 		/**
 		 * Loads player for the video, currently either OoyalaPlayer, YouTubePlayer or BasePlayer (default)
+		 *
+		 * @returns {void}
 		 */
 		loadPlayerClass () {
 			var provider: string = this.getProviderName(),
@@ -44,10 +58,16 @@ module Mercury.Modules {
 			this.player.onResize();
 		}
 
+		/**
+		 * @returns {string}
+		 */
 		getProviderName () {
 			return this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		onResize () {
 			this.player.onResize();
 		}

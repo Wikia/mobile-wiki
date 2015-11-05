@@ -6,10 +6,17 @@
  * ApplicationController. Once we've rolled it out everywhere, we can remove this code.
  */
 App.UseNewNavMixin = Em.Mixin.create({
+	/**
+	 * @returns {void}
+	 */
 	activate(): void {
 		this.controllerFor('application').set('useNewNav', true);
 		this._super();
 	},
+
+	/**
+	 * @returns {void}
+	 */
 	deactivate(): void {
 		this.controllerFor('application').set('useNewNav', false);
 		this._super();

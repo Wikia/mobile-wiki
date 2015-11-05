@@ -5,6 +5,9 @@ App.WidgetPolldaddyComponent = Em.Component.extend({
 	layoutName: 'components/widget-polldaddy',
 	data: null,
 
+	/**
+	 * @returns {void}
+	 */
 	didInsertElement(): void {
 		/**
 		 * Warning: as we're using user provided ID number to construct ID of an element it HAS TO BE
@@ -14,8 +17,11 @@ App.WidgetPolldaddyComponent = Em.Component.extend({
 		this.loadScript();
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	loadScript(): void {
 		var id = this.get('data.id');
 		Em.$.getScript(`//static.polldaddy.com/p/${id}.js`);
-	}
+	},
 });

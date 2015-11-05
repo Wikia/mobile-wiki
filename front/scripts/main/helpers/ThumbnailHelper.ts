@@ -2,7 +2,7 @@
 /// <reference path="../../mercury/modules/Thumbnailer.ts" />
 
 /**
- * @desc Helper to generate img element with link to thumbnail as the src attribute
+ * Helper to generate img element with link to thumbnail as the src attribute
  * Use case: {{thumbnail url width=100 height=100 mode=thumbMode alt=name}}
  * Only the first parameter (url) is required, rest is optional
  */

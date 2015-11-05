@@ -1,22 +1,16 @@
 /// <reference path="../../typings/bluebird/bluebird.d.ts" />
+/// <reference path="../../typings/mercury/mercury-server.d.ts" />
 /// <reference path="../../typings/node/node.d.ts" />
 /// <reference path="../../typings/wreck/wreck.d.ts" />
 
 /**
  * @description Mediawiki API functions
  */
-
 import localSettings = require('../../config/localSettings');
 import Logger = require('./Logger');
 import Wreck = require('wreck');
 import Promise = require('bluebird');
 import Url = require('url');
-
-interface MWRequestParams {
-	wikiDomain: string;
-	headers?: any;
-	redirects?: number;
-}
 
 class BaseRequest {
 	wikiDomain: string;
@@ -28,7 +22,7 @@ class BaseRequest {
 	 *
 	 * @param params
 	 */
-	constructor (params: MWRequestParams) {
+	constructor(params: MWRequestParams) {
 		this.wikiDomain = params.wikiDomain;
 		this.headers = params.headers;
 	}
@@ -48,7 +42,7 @@ export class SearchRequest extends BaseRequest {
 	 * @param query Search query
 	 * @return {Promise<any>}
 	 */
-	searchForQuery (query: string): Promise<any> {
+	searchForQuery(query: string): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getSearchSuggestions',
@@ -69,7 +63,7 @@ export class WikiRequest extends BaseRequest {
 	 *
 	 * @return {Promise<any>}
 	 */
-	wikiVariables (): Promise<any> {
+	wikiVariables(): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getWikiVariables'
@@ -77,7 +71,7 @@ export class WikiRequest extends BaseRequest {
 
 		return this
 			.fetch(url)
-			.then((wikiVariables: any) => {
+			.then((wikiVariables: any): Promise<any> => {
 				return Promise.resolve(wikiVariables.data);
 			});
 	}
@@ -95,7 +89,7 @@ export class ArticleRequest extends BaseRequest {
 	 * @param sections
 	 * @return {Promise<any>}
 	 */
-	article (title: string, redirect: string, sections?: string): Promise<any> {
+	article(title: string, redirect: string, sections?: string): Promise<any> {
 		var urlParams: any = {
 				controller: 'MercuryApi',
 				method: 'getArticle',
@@ -116,7 +110,7 @@ export class ArticleRequest extends BaseRequest {
 		return this.fetch(url);
 	}
 
-	comments (articleId: number, page: number = 0): Promise<any> {
+	comments(articleId: number, page: number = 0): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getArticleComments',
@@ -127,7 +121,7 @@ export class ArticleRequest extends BaseRequest {
 		return this.fetch(url);
 	}
 
-	curatedContentSection (sectionName: string): Promise<any> {
+	curatedContentSection(sectionName: string): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getCuratedContentSection',
@@ -137,7 +131,7 @@ export class ArticleRequest extends BaseRequest {
 		return this.fetch(url);
 	}
 
-	category (categoryName: string, thumbSize: { width: number; height: number }, offset = ''): Promise<any> {
+	category(categoryName: string, thumbSize: { width: number; height: number }, offset = ''): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'ArticlesApi',
 			method: 'getList',
@@ -158,13 +152,22 @@ export class ArticleRequest extends BaseRequest {
 	 *
 	 * @return {Promise<any>}
 	 */
-	randomTitle (): Promise<any> {
+	randomTitle(): Promise<any> {
 		var url = createUrl(this.wikiDomain, 'api.php', {
 			action: 'query',
 			generator: 'random',
 			grnnamespace: 0,
 			cb: Date.now(),
 			format: 'json'
+		});
+
+		return this.fetch(url);
+	}
+
+	mainPageDetailsAndAdsContext(): Promise<any> {
+		var url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getMainPageDetailsAndAdsContext'
 		});
 
 		return this.fetch(url);
@@ -180,7 +183,7 @@ export class ArticleRequest extends BaseRequest {
  * @param headers
  * @return {Promise<any>}
  */
-export function fetch (url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
+export function fetch(url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
 	/**
 	 * We send requests to Consul URL and the target wiki is passed in the Host header.
 	 * When Wreck gets a redirection response it updates URL only, not headers.
@@ -215,17 +218,23 @@ export function fetch (url: string, host: string = '', redirects: number = 1, he
 					error: err
 				}, 'Error fetching url');
 
-				reject(err);
+				reject({
+					exception: {
+						message: 'Invalid response',
+						code: response.statusCode,
+						details: err
+					}
+				});
 			} else if (response.statusCode === 200) {
 				resolve(payload);
 			} else {
-				// When an empty response comes (for example 503 from Varnish) make it look same as the MediaWiki one
-				if (payload === null) {
+				// Unify error response so it's easier to handle later
+				if (payload === null || !payload.exception) {
 					payload = {
 						exception: {
-							message: 'Empty response',
+							message: 'Invalid response',
 							code: response.statusCode,
-							details: null
+							details: payload ? payload.toString('utf-8') : null
 						}
 					};
 				}
@@ -250,11 +259,11 @@ export function fetch (url: string, host: string = '', redirects: number = 1, he
  * @param params
  * @return {string} url
  */
-export function createUrl (wikiDomain: string, path: string, params: any = {}): string {
+export function createUrl(wikiDomain: string, path: string, params: any = {}): string {
 	var qsAggregator: string[] = [],
 		queryParam: string;
 
-	Object.keys(params).forEach(function(key): void {
+	Object.keys(params).forEach(function (key): void {
 		queryParam = (typeof params[key] !== 'undefined') ?
 			key + '=' + encodeURIComponent(params[key]) :
 			key;
@@ -268,3 +277,14 @@ export function createUrl (wikiDomain: string, path: string, params: any = {}): 
 	}
 	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
 }
+
+export class WikiVariablesRequestError {
+	private error: MWException;
+
+	constructor(error: MWException) {
+		Error.apply(this, arguments);
+		this.error = error;
+	}
+}
+
+WikiVariablesRequestError.prototype = Object.create(Error.prototype);
