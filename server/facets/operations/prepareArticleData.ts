@@ -16,6 +16,7 @@ var shouldAsyncArticle = Utils.shouldAsyncArticle;
  */
 function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	var title: string,
+		htmlTitle: string,
 		articleDetails: any,
 		contentDir = 'ltr',
 		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
@@ -31,12 +32,17 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 		if (articleData.details) {
 			articleDetails = articleData.details;
 			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+			result.canonicalUrl = wikiVariables.basePath + articleDetails.url;
 		}
 
 		if (articleData.article) {
 			// we want to return the article content only once - as HTML and not JS variable
 			result.articleContent = articleData.article.content;
 			delete articleData.article.content;
+		}
+
+		if (articleData.htmlTitle) {
+			htmlTitle = articleData.htmlTitle;
 		}
 	}
 
@@ -51,8 +57,8 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	}
 
 	result.displayTitle = title;
-	result.isMainPage = (title === wikiVariables.mainPageTitle.replace(/_/g, ' '));
-	result.canonicalUrl = wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_');
+	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, title);
+	result.isMainPage = articleData.isMainPage;
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);

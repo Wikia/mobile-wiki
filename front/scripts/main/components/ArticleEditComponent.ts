@@ -4,24 +4,33 @@
 
 'use strict';
 
-App.ArticleEditComponent = Em.Component.extend(App.ViewportMixin, {
-	classNames: ['article-edit'],
+App.ArticleEditComponent = Em.Component.extend(
+	App.ViewportMixin,
+	{
+		classNames: ['article-edit'],
 
-	viewportHeightObserver: Em.observer('viewportDimensions.height', function () {
-		this.adjustTextareaHeight();
-	}),
+		viewportHeightObserver: Em.observer('viewportDimensions.height', function () {
+			this.adjustTextareaHeight();
+		}),
 
-	actions: {
-		back(): void {
-			this.sendAction('back');
+		adjustTextareaHeight: Em.on('didInsertElement', function(): void {
+			Em.$('textarea').css('height', Em.$(window).height() - Em.$('.edit-head').outerHeight());
+		}),
+
+		actions: {
+			/**
+			 * @returns {void}
+			 */
+			back(): void {
+				this.sendAction('back');
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			publish(): void {
+				this.sendAction('publish');
+			},
 		},
-
-		publish(): void {
-			this.sendAction('publish');
-		}
-	},
-
-	adjustTextareaHeight: Em.on('didInsertElement', function(): void {
-		Em.$('textarea').css('height', Em.$(window).height() - Em.$('.edit-head').outerHeight());
-	})
-});
+	}
+);

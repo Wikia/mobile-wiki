@@ -1,9 +1,9 @@
 App.CuratedContentEditorComponent = Em.Component.extend(
 	App.AlertNotificationsMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
+		isLoading: false,
 
 		actions: {
 			/**
@@ -58,7 +58,8 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		 * @returns {void}
 		 */
 		validateAndSave() {
-			this.showLoader();
+			this.set('isLoading', true);
+
 			App.CuratedContentEditorModel.save(this.get('model'))
 				.then((data) => {
 					if (data.status) {
@@ -93,13 +94,15 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 						});
 					}
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 
 		/**
-		 * @param {String} type
-		 * @param {String} reason
+		 * @param {string} type
+		 * @param {string} reason
 		 * @returns {void}
 		 */
 		processValidationError(type, reason) {

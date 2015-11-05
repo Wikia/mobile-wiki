@@ -1,0 +1,8 @@
+node_modules/
+www/
+front/vendor/
+homepage/
+gulp/
+test/
+typings/
+

@@ -2,7 +2,7 @@
 /// <reference path="../../baseline/init.ts" />
 
 /**
- * @desc Helper to generate SVGs in the form:
+ * Helper to generate SVGs in the form:
  * {{svg name viewBox classes}}
  * <svg viewBox="{{viewBox}}" class="{{classes}}">
  * 	<use xlink:href="#{{name}}"></use>

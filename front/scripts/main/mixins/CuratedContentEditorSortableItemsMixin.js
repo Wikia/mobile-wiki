@@ -10,7 +10,7 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
 
 		actions: {
 			/**
-			 * @param {Number} offset
+			 * @param {number} offset
 			 * @param {CuratedContentEditorItemModel} item
 			 * @returns {void}
 			 */

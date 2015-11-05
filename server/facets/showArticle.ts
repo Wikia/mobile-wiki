@@ -3,6 +3,7 @@
 
 import Promise = require('bluebird');
 import Article = require('../lib/Article');
+import MediaWiki = require('../lib/MediaWiki');
 import Caching = require('../lib/Caching');
 import Logger = require('../lib/Logger');
 import Tracking = require('../lib/Tracking');
@@ -92,7 +93,7 @@ function getArticle(request: Hapi.Request,
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			outputResponse(request, reply, data, allowCache);
 		})
-		.catch(Article.WikiVariablesRequestError, (error: MWException): void => {
+		.catch(MediaWiki.WikiVariablesRequestError, (error: MWException): void => {
 			Logger.error('WikiVariables error', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
@@ -136,13 +137,16 @@ function outputResponse(request: Hapi.Request,
 	var response: Hapi.Response,
 		result = prepareArticleData(request, data);
 
-	if (data.article.data && data.article.data.isMainPage) {
+	//mainPageData is set only on curated main pages - only then we should do some special preparation for data
+	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
 		delete result.adsContext;
+		// @TODO XW-596 we shouldn't rely on side effects of this function
+		Tracking.handleResponseCuratedMainPage(result, request);
+	} else {
+		// @TODO XW-596 we shouldn't rely on side effects of this function
+		Tracking.handleResponse(result, request);
 	}
-
-	// @TODO XW-596 we shouldn't rely on side effects of this function
-	Tracking.handleResponse(result, request);
 
 	response = reply.view('article', result);
 	response.code(code);

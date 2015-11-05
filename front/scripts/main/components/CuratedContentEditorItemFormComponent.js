@@ -3,7 +3,6 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 	App.CuratedContentEditorLabelsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
-	App.LoadingSpinnerMixin,
 	App.TrackClickMixin,
 	App.IEIFrameFocusFixMixin,
 	{
@@ -12,6 +11,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		maxLabelLength: 48,
 		debounceDuration: 250,
 		imageMenuVisible: false,
+		isLoading: false,
 
 		// Force one way binding
 		model: Em.computed.oneWay('attrs.model'),
@@ -145,17 +145,16 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			 */
 			setTitleFocusedOut() {
 				this.validateTitle();
-				this.set('isTitleFocused', false);
-				if (this.get('isLoading')) {
-					this.hideLoader();
-				}
+				this.setProperties({
+					isTitleFocused: false,
+					isLoading: false,
+				});
 			},
 
 			/**
 			 * @returns {void}
 			 */
 			setTitleFocusedIn() {
-				this.showLoader();
 				this.set('isTitleFocused', true);
 			},
 
@@ -210,7 +209,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			 */
 			fileUpload(files) {
 				this.trackClick('curated-content-editor', 'item-file-upload');
-				this.showLoader();
+				this.set('isLoading', true);
+
 				App.ArticleAddPhotoModel.load(files[0])
 					.then((photoModel) => App.ArticleAddPhotoModel.upload(photoModel))
 					.then((data) => {
@@ -235,7 +235,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
 					})
 					.finally(() => {
-						this.hideLoader();
+						this.set('isLoading', false);
 					});
 			},
 
@@ -272,7 +272,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} title
+			 * @param {string} title
 			 * @returns {void}
 			 */
 			setTitle(title) {
@@ -283,7 +283,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 			},
 
 			/**
-			 * @param {String} tooltipMessage
+			 * @param {string} tooltipMessage
 			 * @returns {void}
 			 */
 			showTooltip(tooltipMessage) {
@@ -381,14 +381,16 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 					Em.Logger.error(err);
 					this.set('imageErrorMessage', i18n.t('app.curated-content-error-other'));
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		getImageDebounced() {
-			this.showLoader();
+			this.set('isLoading', true);
 			Em.run.debounce(this, this.getImage, this.get('debounceDuration'));
 		},
 
@@ -398,7 +400,8 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		 * @returns {void}
 		 */
 		validateAndDone(item, dataToValidate) {
-			this.showLoader();
+			this.set('isLoading', true);
+
 			App.CuratedContentEditorItemModel.validateServerData(item, dataToValidate)
 				.then((data) => {
 					if (data.status) {
@@ -419,11 +422,13 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 						type: 'alert'
 					});
 				})
-				.finally(() => this.hideLoader());
+				.finally(() => {
+					this.set('isLoading', false);
+				});
 		},
 
 		/**
-		 * @param {String} reason
+		 * @param {string} reason
 		 * @returns {void}
 		 */
 		processValidationError(reason) {

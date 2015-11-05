@@ -7,12 +7,24 @@ interface Window {
 	Mercury: any;
 }
 
+/**
+ * @typedef {Object} Window
+ * @property {*} ga
+ * @property {*} Mercury
+ */
+
 interface TrackContext {
 	//article title
 	a: string;
 	//namespace
 	n: number;
 }
+
+/**
+ * @typedef {Object} TrackContext
+ * @property {string} a
+ * @property {number} n
+ */
 
 interface TrackingParams {
 	action?: string;
@@ -25,18 +37,43 @@ interface TrackingParams {
 	[idx: string]: any;
 }
 
+/**
+ * @typedef {Object} TrackingParams
+ * @property {string} [action]
+ * @property {string} [label]
+ * @property {number} [value]
+ * @property {string} [category]
+ * @property {string} [trackingMethod]
+ * @property {boolean} [isNonInteractive]
+ * @property {string} [sourceUrl]
+ * @property {*[]} [idx]
+ */
+
 interface TrackFunction {
 	(params: TrackingParams): void;
 	actions: any;
 }
 
+/**
+ * @typedef {Function} TrackFunction
+ */
+
 interface TrackerInstance {
 	new(): TrackerInstance;
 	track: TrackFunction;
 	trackPageView: (context?: TrackContext) => void;
+	trackGoogleSearch: (queryParam: string) => void;
 	updateTrackedUrl: (url: string) => void;
 	usesAdsContext: boolean;
 }
+
+/**
+ * @typedef {Object} TrackerInstance
+ * @property {TrackFunction} track
+ * @property {Function} trackPageView
+ * @property {Function} updateTrackedUrl
+ * @property {boolean} usesAdsContext
+ */
 
 module Mercury.Utils {
 	// These actions were ported over from legacy Wikia app code:
@@ -99,6 +136,10 @@ module Mercury.Utils {
 			n: null
 		};
 
+	/**
+	 * @param {TrackingParams} params
+	 * @returns {void}
+	 */
 	function pruneParams (params: TrackingParams) {
 		delete params.action;
 		delete params.label;
@@ -107,6 +148,9 @@ module Mercury.Utils {
 		delete params.isNonInteractive;
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	function isSpecialWiki () {
 		try {
 			return !!(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
@@ -116,6 +160,10 @@ module Mercury.Utils {
 		}
 	}
 
+	/**
+	 * @param {TrackingParams} params
+	 * @returns {void}
+	 */
 	export function track (params: TrackingParams): void {
 		var trackingMethod: string = params.trackingMethod || 'both',
 			action: string = params.action,
@@ -164,6 +212,9 @@ module Mercury.Utils {
 	 * make it a class in Mercury.Modules.Trackers and export one function 'trackPageView'
 	 *
 	 * trackPageView is called in ArticleView.onArticleChange
+	 *
+	 * @param {*} adsContext
+	 * @returns {void}
 	 */
 	export function trackPageView (adsContext: any) {
 		var trackers: any = Mercury.Modules.Trackers;
@@ -185,6 +236,31 @@ module Mercury.Utils {
 	}
 
 	/**
+	 * Track usage of Google Custom Search
+	 *
+	 * @param {string} queryParam
+	 * @returns {void}
+	 */
+	export function trackGoogleSearch (queryParam: string) {
+		var trackers: any = Mercury.Modules.Trackers;
+
+		if (M.prop('queryParams.noexternals')) {
+			return;
+		}
+
+		Object.keys(trackers).forEach((tracker: string): void => {
+			var Tracker = trackers[tracker],
+				instance: TrackerInstance;
+
+			if (typeof Tracker.prototype.trackGoogleSearch === 'function') {
+				instance = new Tracker(isSpecialWiki());
+				console.info('Track Google Search:', tracker);
+				instance.trackGoogleSearch(queryParam);
+			}
+		});
+	}
+
+	/**
 	 * Function that updates tracker's saved location to given path.
 	 * To be called after transition so tracker knows that URL is new.
 	 *
@@ -192,6 +268,9 @@ module Mercury.Utils {
 	 * from window on page load and never updates it (despite changing
 	 * title) - all subsequent events including pageviews are tracked
 	 * for original location.
+	 *
+	 * @param {string} url
+	 * @returns {void}
 	 */
 	export function updateTrackedUrl (url: string) {
 		var trackers: any = Mercury.Modules.Trackers;
@@ -211,6 +290,10 @@ module Mercury.Utils {
 		});
 	}
 
+	/**
+	 * @param {TrackContext} data
+	 * @returns {void}
+	 */
 	export function setTrackContext(data: TrackContext) {
 		context = data;
 	}

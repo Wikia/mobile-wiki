@@ -9,6 +9,58 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 	title: '',
 	sharedUrl: null,
 
+	socialNetworks: {
+		'en': [
+			'facebook',
+			'twitter',
+			'reddit',
+			'tumblr'
+		],
+		'ja': [
+			'facebook',
+			'twitter',
+			'google',
+			'line'
+		],
+		'pt-br': [
+			'facebook',
+			'twitter',
+			'reddit',
+			'tumblr'
+		],
+		'zh': [
+			'facebook',
+			//'weibo' Until we have an icon for Weibo
+		],
+		'de': [
+			'facebook',
+			'twitter',
+			'tumblr'
+		],
+		'fr': [
+			'facebook',
+			'twitter'
+		],
+		'es': [
+			'facebook',
+			'twitter',
+			'meneame',
+			'tumblr'
+		],
+		'ru': [
+			'vkontakte',
+			'facebook',
+			'odnoklassniki',
+			'twitter'
+		],
+		'pl': [
+			'facebook',
+			'twitter',
+			'nk',
+			'wykop'
+		]
+	},
+
 	computedSharedUrl: Em.computed('title', 'sharedUrl', function (): string {
 		var sharedUrl: string = this.get('sharedUrl');
 
@@ -19,27 +71,155 @@ App.ShareFeatureComponent = Em.Component.extend(App.TrackClickMixin, App.Languag
 		return sharedUrl;
 	}),
 
-	lineShare: Em.computed('title', 'computedSharedUrl', function (): string {
-		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' + this.get('computedSharedUrl'));
+	currentSocialNetworks: Em.computed('currentUser.language', function (): string[] {
+		var lang = this.getBrowserLanguage(),
+			socialNetworks = this.get('socialNetworks');
+
+		return socialNetworks[lang] || socialNetworks['en'];
 	}),
 
-	facebookShare: Em.computed('computedSharedUrl', function (): string {
-		return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('computedSharedUrl'));
-	}),
-
-	twitterShare: Em.computed('computedSharedUrl', function (): string {
-		return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
-	}),
-
-	googleShare: Em.computed('computedSharedUrl', function (): string {
-		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
-	}),
-
-	mouseEnter(): void {
-		this.attrs.onMouseEnter();
+	/**
+	 * link generator for sharing a url on line
+	 * @returns {string}
+	 */
+	line(): string {
+		return 'http://line.me/R/msg/text/?' + encodeURIComponent(this.get('title') + ' ' +
+			this.get('computedSharedUrl'));
 	},
 
+	/**
+	 * link generator for sharing a url on facebook
+	 * @returns {string}
+	 */
+	facebook(): string {
+		return 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.get('computedSharedUrl'));
+	},
+
+	/**
+	 * link generator for sharing a url on twitter
+	 * @returns {string}
+	 */
+	twitter(): string {
+		return 'https://twitter.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+	},
+
+	/**
+	 * link generator for sharing a url on google
+	 * @returns {string}
+	 */
+	google(): string {
+		return 'https://plus.google.com/share?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+	},
+
+	/**
+	 * link generator for sharing a url on reddit
+	 * @returns {string}
+	 */
+	reddit(): string {
+		return 'http://www.reddit.com/submit?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
+			encodeURIComponent(this.get('title'));
+	},
+
+	/**
+	 * link generator for sharing a url on tumblr
+	 * @returns {string}
+	 */
+	tumblr(): string {
+		return 'http://www.tumblr.com/share/link?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&name=' +
+			encodeURIComponent(this.get('title'));
+	},
+
+	/**
+	 * link generator for sharing a url on weibo
+	 * @returns {string}
+	 */
+	weibo(): string {
+		return 'http://service.weibo.com/share/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) +
+			'&title=' + encodeURIComponent(this.get('title'));
+	},
+
+	/**
+	 * link generator for sharing a url on vkontakte
+	 * @returns {string}
+	 */
+	vkontakte(): string {
+		return 'http://vk.com/share.php?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
+			encodeURIComponent(this.get('title'));
+	},
+
+	/**
+	 * link generator for sharing a url on odnoklassniki
+	 * @returns {string}
+	 */
+	odnoklassniki(): string {
+		return 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=' +
+			encodeURIComponent(this.get('computedSharedUrl'));
+	},
+
+	/**
+	 * link generator for sharing a url on nk
+	 * @returns {string}
+	 */
+	nk(): string {
+		return 'http://nk.pl/sledzik?shout=' + encodeURIComponent(this.get('computedSharedUrl'));
+	},
+
+	/**
+	 * link generator for sharing a url on wykop
+	 * @returns {string}
+	 */
+	wykop(): string {
+		return 'http://www.wykop.pl/dodaj/link/?url=' + encodeURIComponent(this.get('computedSharedUrl')) + '&title=' +
+			encodeURIComponent(this.get('title'));
+	},
+
+	/**
+	 * link generator for sharing a url on meneame
+	 * @returns {string}
+	 */
+	meneame():string {
+		return 'https://www.meneame.net/submit.php?url=' + encodeURIComponent(this.get('computedSharedUrl'));
+	},
+
+	actions: {
+		/**
+		 * Obtains a shared url getter and executes it to get a shared url with a current page details
+		 * In this case, handler should be named after the string in the config object at the top of the file
+		 * @param {string} network
+		 * @returns {void}
+		 */
+		share(network: string): void {
+			var urlGetter: Function = this.get(network),
+				link: string;
+
+			if (typeof urlGetter !== 'function') {
+				Em.Logger.warn('Shared Url getter for ' + network + ' does not exist');
+				return;
+			}
+
+			link = urlGetter.bind(this)();
+
+			if (typeof link === 'string') {
+				window.open(link);
+			}
+		}
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	mouseEnter(): void {
+		if (this.attrs && typeof this.attrs.onMouseEnter === 'function') {
+			this.attrs.onMouseEnter();
+		}
+	},
+
+	/**
+	 * @returns {void}
+	 */
 	mouseLeave(): void {
-		this.attrs.onMouseLeave();
-	}
+		if (this.attrs && typeof this.attrs.onMouseLeave === 'function') {
+			this.attrs.onMouseLeave();
+		}
+	},
 });

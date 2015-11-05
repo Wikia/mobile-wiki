@@ -1,17 +1,20 @@
 $discussion-header-line-height: 45px;
 $discussion-header-color-text: #fff;
 
+$site-header-height: 50px;
+
 .discussion-header {
 	color: $discussion-header-color-text;
-	margin-top: $top-bar-height;
+	margin-top: $site-header-height;
 	max-width: inherit;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
+	z-index: $z-8; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
 	&.un-pinned {
-		margin-top: $theme-bar-height + $top-bar-height;
+		margin-top: 0;
+		z-index: $z-6;
 	}
 
 	.header {
@@ -78,5 +81,40 @@ $discussion-header-color-text: #fff;
 		.header {
 			display: none;
 		}
+	}
+}
+
+.site-body-discussion {
+	margin-top: 3.75rem;
+}
+
+@media #{$desktop-range} {
+	.site-body-discussion {
+		margin-top: 0;
+	}
+}
+
+.discussions {
+	.side-nav-toggle {
+		visibility: hidden;
+	}
+	.site-head {
+		border-bottom: 10px solid transparent;
+		height: $site-header-height + 10px;
+		max-width: 100%;
+
+		&.headroom-not-top.un-pinned {
+			transform: translateY(-$site-header-height);
+		}
+	}
+	.headroom-not-top,
+	.headroom-top {
+		transition: transform .5s, margin .5s;
+	}
+}
+
+@for $i from 1 through length($verticals) {
+	.discussions .#{nth($verticals, $i)}-vertical .site-head {
+		border-bottom-color: #{nth($vertical-colors, $i)};
 	}
 }

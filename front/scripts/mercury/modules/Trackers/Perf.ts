@@ -12,9 +12,22 @@ interface PerfTrackerParams {
 	annotations?: any;
 }
 
+/**
+ * @typedef {Object} PerfTrackerParams
+ * @property {string} type
+ * @property {*} [context]
+ * @property {string} [module]
+ * @property {string} name
+ * @property {number} [value]
+ * @property {*} [annotations]
+ */
+
 module Mercury.Modules.Trackers {
 	export class Perf extends BaseTracker {
 
+		/**
+		 * @returns {boolean}
+		 */
 		public static checkDependencies () {
 			return typeof Weppy === 'function';
 		}
@@ -28,6 +41,9 @@ module Mercury.Modules.Trackers {
 			country: string;
 		};
 
+		/**
+		 * @returns {void}
+		 */
 		constructor () {
 			this.tracker = Weppy.namespace('mercury');
 
@@ -49,6 +65,10 @@ module Mercury.Modules.Trackers {
 			super();
 		}
 
+		/**
+		 * @param {PerfTrackerParams} params
+		 * @returns {void}
+		 */
 		track (params: PerfTrackerParams): void {
 			var trackFn = this.tracker;
 

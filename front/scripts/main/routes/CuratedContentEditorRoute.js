@@ -72,7 +72,6 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		pontoLoadingInitialized: false,
 		pontoPath: '/front/vendor/ponto/web/src/ponto.js',
 
-
 		/**
 		 * Loads Ponto
 		 *
@@ -92,7 +91,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 
 		actions: {
 			/**
-			 * @param {String} block
+			 * @param {string} block
 			 * @returns {void}
 			 */
 			addBlockItem(block) {
@@ -101,7 +100,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			},
 			/**
 			 * @param {CuratedContentEditorItemModel} item
-			 * @param {String} block
+			 * @param {string} block
 			 * @returns {void}
 			 */
 			editBlockItem(item, block) {
@@ -218,7 +217,8 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		closeModalUsingPonto(ponto) {
 			const dataSaved = this.get('publish');
 
-			if (App.CuratedContentEditorModel.isDirty &&
+			if (
+				App.CuratedContentEditorModel.isDirty &&
 				!dataSaved &&
 				!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
 			) {

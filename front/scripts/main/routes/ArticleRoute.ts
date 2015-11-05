@@ -6,6 +6,10 @@
 App.ArticleRoute = Em.Route.extend({
 	redirectEmptyTarget: false,
 
+	/**
+	 * @param {EmberStates.Transition} transition
+	 * @returns {void}
+	 */
 	beforeModel(transition: EmberStates.Transition): void {
 		var title = transition.params.article.title.replace('wiki/', '');
 
@@ -27,6 +31,10 @@ App.ArticleRoute = Em.Route.extend({
 		}
 	},
 
+	/**
+	 * @param {*} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	model(params: any): Em.RSVP.Promise {
 		return App.ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
@@ -35,6 +43,10 @@ App.ArticleRoute = Em.Route.extend({
 		});
 	},
 
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
 	afterModel(model: typeof App.ArticleModel): void {
 		var exception = model.exception;
 
@@ -57,22 +69,37 @@ App.ArticleRoute = Em.Route.extend({
 		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	activate(): void {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	deactivate(): void {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
 	actions: {
+		/**
+		 * @param {EmberStates.Transition} transition
+		 * @returns {void}
+		 */
 		willTransition(transition: EmberStates.Transition): void {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
 			this.notifyPropertyChange('cleanTitle');
 		},
 
+		/**
+		 * @returns {boolean}
+		 */
 		didTransition(): boolean {
+			this.updateHead();
+
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.article-redirect-empty-target'),
@@ -82,6 +109,11 @@ App.ArticleRoute = Em.Route.extend({
 			return true;
 		},
 
+		/**
+		 * @param {*} error
+		 * @param {EmberStates.Transition} transition
+		 * @returns {boolean}
+		 */
 		error(error: any, transition: EmberStates.Transition): boolean {
 			if (transition) {
 				transition.abort();
@@ -94,5 +126,59 @@ App.ArticleRoute = Em.Route.extend({
 
 			return true;
 		}
+	},
+
+	/**
+	 * @TODO this can be much simpler using ember-cli-meta-tags
+	 *
+	 * @returns {void}
+	 */
+	updateHead(): void {
+		var model: typeof App.ArticleModel = this.modelFor('article');
+
+		this.updateTitleTag(model);
+		this.updateCanonicalLinkTag(model);
+		this.updateDescriptionMetaTag(model);
+	},
+
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
+	updateTitleTag(model: typeof App.ArticleModel): void {
+		var defaultHtmlTitleTemplate = '$1 - Wikia',
+			htmlTitleTemplate = Em.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
+
+		document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
+	},
+
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
+	updateCanonicalLinkTag(model: typeof App.ArticleModel): void {
+		var canonicalUrl = Em.get(Mercury, 'wiki.basePath') + model.get('url'),
+			$canonicalLinkTag = Em.$('head link[rel=canonical]');
+
+		if (Em.isEmpty($canonicalLinkTag)) {
+			$canonicalLinkTag = Em.$('<link rel="canonical">').appendTo('head');
+		}
+
+		$canonicalLinkTag.prop('href', canonicalUrl);
+	},
+
+	/**
+	 * @param {App.ArticleModel} model
+	 * @returns {void}
+	 */
+	updateDescriptionMetaTag(model: typeof App.ArticleModel): void {
+		var description = model.getWithDefault('description', ''),
+			$descriptionMetaTag = Em.$('head meta[name=description]');
+
+		if (Em.isEmpty($descriptionMetaTag)) {
+			$descriptionMetaTag = Em.$('<meta name="description">').appendTo('head');
+		}
+
+		$descriptionMetaTag.prop('content', description);
 	}
 });

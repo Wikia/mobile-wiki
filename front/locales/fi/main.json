@@ -13,9 +13,9 @@
     "article-last-edit_plural_2":"Viimeksi muokattu __count__ viikkoa sitten",
     "article-categories-list-label":"Luokat",
     "article-top-contributors-label":"Top Contributors to this article",
+    "article-error":"Sorry, we couldn't load the article. Please try again.",
     "side-nav-menu-label":"Valikko",
     "navigation-back-label":"Takaisin",
-    "search-no-results-msg":"Pahoittelut, emme löytäneet mitään hakuasi vastaavaa!",
     "search-loading-msg":"Ladataan hakutuloksia...",
     "media-lightbox-error":"Mediaa ei löytynyt",
     "map-lightbox-error":"Map not found",
@@ -157,10 +157,11 @@
     "number-of-posts":"__numberOfPosts__ Posts",
     "connection-error":"Can't connect, please try again.",
     "not-found-error":"Uh oh, looks like this page doesn't exist!",
-    "action-retry-title-desktop":"Click to retry",
-    "action-retry-title-mobile":"Tap to retry",
+    "action-retry-title":"Retry",
     "all-discussions-link-desktop":"Show Me All Discussions",
-    "all-discussions-link-mobile":"All Discussions"
+    "all-discussions-link-mobile":"All Discussions",
+    "discussions-app-join":"Looking to join the discussion? Get the app now!",
+    "back-to-discussions-link":"All Discussions"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",

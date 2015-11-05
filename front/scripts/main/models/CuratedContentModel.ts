@@ -35,48 +35,40 @@ App.CuratedContentModel.reopenClass({
 	find(title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var url = App.get('apiBase') + '/main/',
-				curatedContentGlobal: any = M.prop('curatedContent'),
 				params: {offset?: string} = {},
 				modelInstance = App.CuratedContentModel.create({
 					title,
 					type
 				});
 
-			// If this is first PV we have model for curated content already so we don't need to issue another request
-			// When resolving promise we need to set Mercury.curatedContent to null
-			// because this data gets outdated on following PVs
-			if (curatedContentGlobal && curatedContentGlobal.items) {
-				modelInstance.setProperties({
-					items: App.CuratedContentModel.sanitizeItems(curatedContentGlobal.items),
-					offset: curatedContentGlobal.offset
-				});
-				resolve(modelInstance);
-				M.prop('curatedContent', null);
-			} else {
-				url += type + '/' + title;
 
-				if (offset) {
-					params.offset = offset;
-				}
+			url += type + '/' + title;
 
-				Em.$.ajax(<JQueryAjaxSettings>{
-					url,
-					data: params,
-					success: (data: any): void => {
-						modelInstance.setProperties({
-							items: App.CuratedContentModel.sanitizeItems(data.items),
-							offset: data.offset || null
-						});
-						resolve(modelInstance);
-					},
-					error: (data: any): void => {
-						reject(data);
-					}
-				});
+			if (offset) {
+				params.offset = offset;
 			}
+
+			Em.$.ajax(<JQueryAjaxSettings>{
+				url,
+				data: params,
+				success: (data: any): void => {
+					modelInstance.setProperties({
+						items: App.CuratedContentModel.sanitizeItems(data.items),
+						offset: data.offset || null
+					});
+					resolve(modelInstance);
+				},
+				error: (data: any): void => {
+					reject(data);
+				}
+			});
 		});
 	},
 
+	/**
+	 * @param {App.CuratedContentModel} model
+	 * @returns {Em.RSVP.Promise}
+	 */
 	loadMore(model: typeof App.CuratedContentModel): Em.RSVP.Promise {
 		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			// Category type is hardcoded because only Categories API supports offset.
@@ -94,6 +86,10 @@ App.CuratedContentModel.reopenClass({
 		});
 	},
 
+	/**
+	 * @param {*} rawData
+	 * @returns {CuratedContentItem[]}
+	 */
 	sanitizeItems(rawData: any): CuratedContentItem[] {
 		var sanitizedItems: CuratedContentItem[] = [];
 
@@ -106,6 +102,10 @@ App.CuratedContentModel.reopenClass({
 		return sanitizedItems;
 	},
 
+	/**
+	 * @param {*} rawData
+	 * @returns {CuratedContentItem}
+	 */
 	sanitizeItem(rawData: any): CuratedContentItem {
 		var item: CuratedContentItem,
 			categoryName: string,

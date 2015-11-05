@@ -1,3 +1,72 @@
+## release-187 hotfix 2 (2015-11-04 17:04 UTC)
+* enable-discussions: Discussions | Enabling discussions on featured Wikias
+
+## release-187 hotfix 1 (2015-11-04 16:59 UTC)
+* [SOC-1574](https://wikia-inc.atlassian.net/browse/SOC-1574) SOC-1574 | Discussion post view fix
+
+## release-187 (2015-11-04 07:59 UTC)
+* [XW-658](https://wikia-inc.atlassian.net/browse/XW-658) XW-658 Replace new top bar with the classic one
+* [SOC-1558](https://wikia-inc.atlassian.net/browse/SOC-1558) SOC-1558 | 404 error when scrolling too quickly on cocktails discussions wiki
+* [SOC-1573](https://wikia-inc.atlassian.net/browse/SOC-1573) SOC-1573 | Discussion - new translations for JA
+* [SOC-1556](https://wikia-inc.atlassian.net/browse/SOC-1556) SOC-1556 | Discussions - Fix profileUrl for lazy loaded replies
+* [SOC-1546](https://wikia-inc.atlassian.net/browse/SOC-1546) SOC-1546 | Thread listing confusing clickable area
+* [SOC-1550](https://wikia-inc.atlassian.net/browse/SOC-1550) SOC-1550 | Discussions - fix grid on error pages
+* enabling-discussion-under-flag: Enabling discussion under flag
+* [SOC-1556](https://wikia-inc.atlassian.net/browse/SOC-1556) SOC-1556 | Discussions - fix author link on details page
+* [SOC-1225](https://wikia-inc.atlassian.net/browse/SOC-1225) SOC-1225 | Additional fixes after merge
+* [XW-584](https://wikia-inc.atlassian.net/browse/XW-584) XW-584 Fix article meta tags
+
+## release-186 (2015-11-03 07:59 UTC)
+* [XW-651](https://wikia-inc.atlassian.net/browse/XW-651) XW-651 Fix formatting in ES6 files
+* jsdoc-returns-void: Swap undefined with void in JSDoc
+* [SOC-1552](https://wikia-inc.atlassian.net/browse/SOC-1552) SOC-1552 | Can't upvote post that are lazy-loader
+
+## release-185 (2015-11-02 15:50 UTC)
+* eslint-tweaks: Tweak ESLint - fix typo, add more to .eslintignore
+* [SOC-1225](https://wikia-inc.atlassian.net/browse/SOC-1225) SOC-1225 | Localized social networks in ShareFeatureComponent
+* [XW-395](https://wikia-inc.atlassian.net/browse/XW-395) XW-395 | Remove deprecated /api/v1/* Mercury paths
+* [INT-217](https://wikia-inc.atlassian.net/browse/INT-217) Use promise to get globals
+* [SOC-1459](https://wikia-inc.atlassian.net/browse/SOC-1459) SOC-1459 | Translations for new Discussion strings
+* [XW-30](https://wikia-inc.atlassian.net/browse/XW-30) XW-30 Fetch only article details and adsContext not all main page on categories and sections
+* [XW-547](https://wikia-inc.atlassian.net/browse/XW-547) XW-547 | 'Full site' option persistent per session
+* [INT-245](https://wikia-inc.atlassian.net/browse/INT-245) Workaround for broken z-index in Safari
+* [XW-232](https://wikia-inc.atlassian.net/browse/XW-232) XW-232 | remove throbber on focus on title
+* [XW-601](https://wikia-inc.atlassian.net/browse/XW-601) XW-601 | Remove spinner delay
+* new-polish-i18n: i18n | New translations for auth and auth-front
+* [SEO-10](https://wikia-inc.atlassian.net/browse/SEO-10) Update html title
+* fix-for-uncaught-in-share-feature: Share Feature | Trigger this.attrs handlers only if they exist
+* removing-disc-console-warnings: Maintenance | Removing console warnings trigger from discussion code
+
+## release-184 (2015-10-28 07:59 UTC)
+* [SOC-1303](https://wikia-inc.atlassian.net/browse/SOC-1303) SOC-1303 Add i18n + apply styling fixes + add type
+
+## release-183 (2015-10-27 12:45 UTC)
+* create-eslintignore: Create .eslintignore; add more globals
+* [INT-231](https://wikia-inc.atlassian.net/browse/INT-231) Changed wording for Wikia Live to Romaji
+* [INT-170](https://wikia-inc.atlassian.net/browse/INT-170) we want users to be logged in to upload images on Mercury
+* [SOC-1450](https://wikia-inc.atlassian.net/browse/SOC-1450) SOC-1450 | The "view older replies" button stays highlighted after clicking it
+* [XW-618](https://wikia-inc.atlassian.net/browse/XW-618) XW-618 Fix page view tracking
+* track-app-rendered: Track the first didRender instead of didInsertElement
+* [SOC-1174](https://wikia-inc.atlassian.net/browse/SOC-1174) SOC-1174-fix | Fixed 404 after hitting view older replays button
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) GA tracking for google custom search
+* [INT-231](https://wikia-inc.atlassian.net/browse/INT-231) Remove some links from Japan HP footer in mobile view
+* [PI-](https://wikia-inc.atlassian.net/browse/PI-) Media Collections in Portable Infoboxes - MVP
+* [VE-1999](https://wikia-inc.atlassian.net/browse/VE-1999) Change image crop mode on portrait images
+* [VE-1998](https://wikia-inc.atlassian.net/browse/VE-1998) Make sure article videos are clickable
+* [INT-230](https://wikia-inc.atlassian.net/browse/INT-230) Add Create a wikia to nav (desktop only) for Japan homepage
+* [INT-217](https://wikia-inc.atlassian.net/browse/INT-217) Return front end globals for Japan HP via json file
+* [INT-234](https://wikia-inc.atlassian.net/browse/INT-234) Fixed position for Japan homepage nav on desktop
+* [VE-1960](https://wikia-inc.atlassian.net/browse/VE-1960) Mobile rendering of image collections
+
+## release-182 hotfix 1 (2015-10-26 14:32 UTC)
+* release-182-XW-618-hotfix: [HOTFIX] XW-618 Fix page view tracking
+
+## release-182 (2015-10-23 07:59 UTC)
+* [SOC-1425](https://wikia-inc.atlassian.net/browse/SOC-1425) SOC-1425 Hard-code community avatars for discussions
+* [XW-557](https://wikia-inc.atlassian.net/browse/XW-557) XW-557 Remove obsolete controllers
+* [XW-516](https://wikia-inc.atlassian.net/browse/XW-516) XW-516 | Move typings to JSDoc
+* [XW-474](https://wikia-inc.atlassian.net/browse/XW-474) XW-474 Clean up error handling
+
 ## release-181 (2015-10-21 07:59 UTC)
 * [SOC-1276](https://wikia-inc.atlassian.net/browse/SOC-1276) SOC-1276 Truncate usernames and fix author properties
 * [SOC-1174](https://wikia-inc.atlassian.net/browse/SOC-1174) SOC-1174 | Unified discussion URL for front end calls

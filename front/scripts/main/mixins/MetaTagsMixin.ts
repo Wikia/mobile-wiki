@@ -23,6 +23,10 @@ App.MetaTagsMixin = Em.Mixin.create({
 
 	$head: Em.$('head'),
 
+	/**
+	 * @param {*} meta
+	 * @returns {void}
+	 */
 	setMeta(meta: any): void {
 		var $head = this.get('$head'),
 			$metaProto = Em.$('<meta></meta>'),
@@ -52,6 +56,9 @@ App.MetaTagsMixin = Em.Mixin.create({
 		this.set('currentMetaSelectors', selectors);
 	},
 
+	/**
+	 * @returns {*}
+	 */
 	clearMeta(): any {
 		var $head = this.get('$head'),
 			selectors = this.get('currentMetaSelectors');
@@ -65,6 +72,9 @@ App.MetaTagsMixin = Em.Mixin.create({
 		return this.set('currentMetaSelectors', null);
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	runSetMeta(): void {
 		var meta = this.get('meta');
 
@@ -76,6 +86,9 @@ App.MetaTagsMixin = Em.Mixin.create({
 	},
 
 	actions: {
+		/**
+		 * @returns {boolean}
+		 */
 		didTransition(): boolean {
 			this._super(arguments);
 			Em.run.next(this, this.runSetMeta);
@@ -83,6 +96,9 @@ App.MetaTagsMixin = Em.Mixin.create({
 			return true;
 		},
 
+		/**
+		 * @returns {boolean}
+		 */
 		willTransition(): boolean {
 			this._super(arguments);
 			this.clearMeta();
@@ -90,6 +106,9 @@ App.MetaTagsMixin = Em.Mixin.create({
 			return true;
 		},
 
+		/**
+		 * @returns {boolean}
+		 */
 		resetMeta(): boolean {
 			this.clearMeta();
 			Em.run.next(this, this.runSetMeta);

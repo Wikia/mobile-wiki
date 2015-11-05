@@ -5,6 +5,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
 	forumId: null,
 	name: null,
+	pageNum: null,
 	posts: null,
 	totalPosts: 0,
 
@@ -12,12 +13,21 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	notFoundError: null,
 	contributors: [],
 
-	loadPage(pageNum: number) {
+	/**
+	 * @param {number} pageNum
+	 * @returns {Em.RSVP.Promise}
+	 */
+	loadPage(pageNum: number = 0) {
+		this.set('pageNum', pageNum);
+
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
-					page: pageNum
+					page: this.get('pageNum')
+				},
+				xhrFields: {
+					withCredentials: true,
 				},
 				dataType: 'json',
 				success: (data: any) => {
@@ -36,6 +46,10 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 		});
 	},
 
+	/**
+	 * @param {string} sortBy
+	 * @returns {string}
+	 */
 	getSortKey(sortBy: string): string {
 		switch (sortBy) {
 			case 'latest':

@@ -43,7 +43,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	actions: {
 		toggleExpand(): void {
 			this.toggleProperty('isExpanded');
-		}
+		},
 	},
 
 	/**
@@ -54,6 +54,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	 * TODO: this should be done properly starting from changing the API response
 	 *
 	 * @param {JQuery} $originalFigure
+	 * @returns {void}
 	 */
 	convertThumbnails($originalFigure: JQuery): void {
 		var thumbnailsData: any,
@@ -96,5 +97,5 @@ App.ArticleCommentComponent = Em.Component.extend({
 		});
 
 		$originalFigure.replaceWith(newFigures);
-	}
+	},
 });
