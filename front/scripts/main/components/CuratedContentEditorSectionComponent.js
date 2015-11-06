@@ -70,7 +70,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			this.set('isLoading', true);
 
 			App.CuratedContentEditorItemModel.validateServerData(
-				this.get('model'), 'validateSectionWithItems'
+				this.get('model'), 'validateCuratedContentSectionWithItems'
 			)
 				.then((data) => {
 					let sortableItems;

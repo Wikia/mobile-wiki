@@ -177,11 +177,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				this.trackClick('curated-content-editor', trackLabel);
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 					if (this.get('isSection')) {
-						this.validateAndDone(this.get('model'), 'validateSection');
+						this.validateAndDone(this.get('model'), 'validateCuratedContentSection');
 					} else if (this.get('isFeaturedItem')) {
-						this.validateAndDone(this.get('model'), 'validateFeaturedItem');
+						this.validateAndDone(this.get('model'), 'validateCuratedContentFeaturedItem');
 					} else {
-						this.validateAndDone(this.get('model'), 'validateSectionItem');
+						this.validateAndDone(this.get('model'), 'validateCuratedContentSectionItem');
 					}
 				}
 			},

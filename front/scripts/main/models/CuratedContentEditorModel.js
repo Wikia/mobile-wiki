@@ -54,7 +54,7 @@ App.CuratedContentEditorModel.reopenClass({
 					path: '/wikia.php',
 					query: {
 						controller: 'CuratedContentController',
-						method: 'setData'
+						method: 'setCuratedContentData'
 					}
 				}),
 				dataType: 'json',
