@@ -41,7 +41,9 @@ App.WidgetVKComponent = Em.Component.extend(
 			if (!this.get('scriptLoadInitialized.vk')) {
 				this.set('scriptLoadInitialized.vk', true);
 
-				Em.$.getScript('//vk.com/js/api/openapi.js', () => this.set('scriptLoaded.vk', true));
+				Em.$.getScript('//vk.com/js/api/openapi.js', () => {
+					this.set('scriptLoaded.vk', true);
+				});
 			}
 		},
 
