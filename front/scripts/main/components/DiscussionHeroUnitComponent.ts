@@ -25,9 +25,14 @@ App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 		this.viewportChangeObserver();
 	},
 
-	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): Em.Handlebars.SafeString {
+	/**
+	 * Observes for change in visibility state of the component
+	 * if it shows up and it didn't load the image style before,
+	 * it constructs the style attribute with an approppriate image
+	 */
+	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
 		var visibleElement = this.$(':visible'),
-			isShown = !!(visibleElement && visibleElement.length),
+			isShown = Boolean(visibleElement && visibleElement.length),
 			image = this.get('headerImages')[Em.get(Mercury, 'wiki.id')];
 		if (!this.get('style') && isShown && image) {
 			this.set('style', new Em.Handlebars.SafeString(`background-image: url(/front/images/${image});`));
