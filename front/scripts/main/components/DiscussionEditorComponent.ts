@@ -35,13 +35,19 @@ App.DiscussionEditorComponent = Em.Component.extend({
 		});
 	},
 
+	click(): void {
+		Em.$('.editor').focus();
+	},
+
 	actions: {
 		activateEditorComponent(): void {
 			this.set('active', true);
 		},
+
 		deactivateEditorComponent(): void {
 			this.set('active', false);
 		},
+
 		createPost(forumId): void {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
@@ -70,6 +76,7 @@ App.DiscussionEditorComponent = Em.Component.extend({
 				}
 			});
 		},
+
 		updateSubmitButton(): void {
 			this.set('submitDisabled', Em.$('.editor').val().length === 0);
 		}

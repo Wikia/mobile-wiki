@@ -73,9 +73,13 @@
 				}
 			}
 
+			.editor-wrapper {
+				height: calc(100% - 40px);
+			}
+
 			.editor {
 				border-top: 1px solid #e1e1e1;
-				height: calc(100% - 40px);
+				height: 100%;
 				margin: 0;
 				position: relative;
 				top: 40px;
@@ -96,18 +100,31 @@
 			position: relative;
 
 			.editor {
-				height: 62px;
-				padding: 15px 10px 15px 64px;
+				border-bottom: 1px solid $secondary-color;
+				min-height: $line-height-smaller;
+				height: $line-height-smaller;
+				padding: 0;
+				resize: none;
 				transition: min-height .2s ease;
+			}
+
+			.editor-wrapper {
+				background-color: $color-white;
+				padding: 17px 17px 17px 64px;
 			}
 
 			&.active {
 				padding-bottom: 40px;
 
 				.editor {
-					border-bottom: 1px solid $secondary-color;
 					min-height: 106px;
 					max-height: 400px;
+					padding: 17px 17px 17px 64px;
+					resize: vertical;
+				}
+
+				.editor-wrapper {
+					padding: 0;
 				}
 			}
 

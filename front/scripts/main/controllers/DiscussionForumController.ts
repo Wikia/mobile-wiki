@@ -9,7 +9,7 @@ App.DiscussionForumController = Em.Controller.extend({
 	// Whether the sort component is currently visible
 	sortVisible: false,
 
-	editorActivate: false,
+	editorActive: false,
 
 	sortTypes: [
 		{
@@ -67,7 +67,7 @@ App.DiscussionForumController = Em.Controller.extend({
 		},
 
 		activateEditorComponent(): void {
-			this.set('editorActivate', true);
+			this.set('editorActive', true);
 		}
 	}
 });
