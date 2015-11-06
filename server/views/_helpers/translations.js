@@ -6,26 +6,30 @@ module.exports = function (language, opts) {
 		fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		foundLanguage = '',
-		namespace = opts.hash.ns || 'main',
+		namespace = ['main', 'discussion'],
 		wrapper = {};
 
-	[language, fallbackLanguage, defaultLanguage].some(function (lang) {
-		foundLanguage = lang;
-		translationPath = '../../../front/locales/' + lang + '/' + namespace + '.json';
+		namespace.forEach(function(ns){
 
-		try {
-			translations = require(translationPath);
-			return true;
-		} catch (exception) {
-			Logger.error({
-				lang: lang,
-				path: translationPath,
-				error: exception.message
-			}, 'Translation not found');
-		}
-	});
+			[language, fallbackLanguage, defaultLanguage].some(function (lang) {
+				foundLanguage = lang;
+				translationPath = '../../../front/locales/' + lang + '/' + ns + '.json';
 
-	wrapper[foundLanguage] = {};
-	wrapper[foundLanguage][namespace] = translations;
+				try {
+					translations = require(translationPath);
+					return true;
+				} catch (exception) {
+					Logger.error({
+						lang: lang,
+						namespace: ns,
+						path: translationPath,
+						error: exception.message
+					}, 'Translation not found');
+				}
+			});
+			if(!wrapper.hasOwnProperty(foundLanguage)) wrapper[foundLanguage]= {};
+			wrapper[foundLanguage][ns] = translations;
+		});
+
 	return wrapper;
 };

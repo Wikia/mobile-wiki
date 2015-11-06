@@ -53,7 +53,7 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 					.then((response: any): void => {
 						var content = response._embedded.firstPost[0].rawContent;
 						openGraphData.title = response.title ? response.title :
-							i18n.t('discussion.share-default-title', {siteName: wikiVars.siteName});
+							i18n.t('main.share-default-title', {siteName: wikiVars.siteName, ns: 'discussion'});
 						// Keep description to 175 characters or less
 						openGraphData.description = content.substr(0, 175);
 						if (wikiVars.image) {
