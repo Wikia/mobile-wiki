@@ -29,6 +29,9 @@ App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Observes for change in visibility state of the component
 	 * if it shows up and it didn't load the image style before,
 	 * it constructs the style attribute with an approppriate image
+	 * (This component is always loaded, but hidden in CSS for mobile res,
+	 * so this will check if the browser width changed from mobile to desktop
+	 * and then lazy-load the image)
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
 		var visibleElement = this.$(':visible'),
