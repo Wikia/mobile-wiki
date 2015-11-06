@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury/utils/loadScript.ts" />
-
-'use strict';
-
 App.PollDaddyMixin = Em.Mixin.create({
 	/**
 	 * This is a hack to make PollDaddy work (HG-618)
@@ -10,12 +5,11 @@ App.PollDaddyMixin = Em.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	handlePollDaddy(): void {
-		var $polls = this.$('script[src^="http://static.polldaddy.com"]');
+	handlePollDaddy() {
+		const $polls = this.$('script[src^="http://static.polldaddy.com"]');
 
-		$polls.each((index: number, script: HTMLScriptElement): any => {
-			var init: Function,
-				id: string = this.getPollDaddyId(script);
+		$polls.each((index, script) => {
+			const id = this.getPollDaddyId(script);
 
 			if (!id) {
 				Em.Logger.error('Polldaddy script src url not recognized', script.src);
@@ -23,7 +17,8 @@ App.PollDaddyMixin = Em.Mixin.create({
 				return true;
 			}
 
-			init = this.getPollDaddyInit(id);
+			let init = this.getPollDaddyInit(id);
+
 			this.handlePollDaddyContainer(id, script);
 
 			if (typeof init === 'function') {
@@ -49,9 +44,9 @@ App.PollDaddyMixin = Em.Mixin.create({
 	 * @param {HTMLScriptElement} script
 	 * @returns {string}
 	 */
-	getPollDaddyId(script: HTMLScriptElement): string {
-		var idRegEx: RegExp = /(\d+)\.js$/,
-			matches: string[] = script.src.match(idRegEx);
+	getPollDaddyId(script) {
+		const idRegEx = /(\d+)\.js$/,
+			matches = script.src.match(idRegEx);
 
 		if (matches && matches[1]) {
 			return matches[1];
@@ -65,8 +60,8 @@ App.PollDaddyMixin = Em.Mixin.create({
 	 * @param {string} id
 	 * @returns {Function}
 	 */
-	getPollDaddyInit(id: string): Function {
-		return window['PDV_go' + id];
+	getPollDaddyInit(id) {
+		return window[`PDV_go${id}`];
 	},
 
 	/**
@@ -76,12 +71,11 @@ App.PollDaddyMixin = Em.Mixin.create({
 	 * @param {HTMLScriptElement} script
 	 * @returns {void}
 	 */
-	handlePollDaddyContainer(id: string, script: HTMLScriptElement): void {
-		var html: string;
+	handlePollDaddyContainer(id, script) {
+		if (!this.$(`#PDI_container${id}`).length) {
+			const html = `<a name="pd_a_${id}" style="display: inline; padding: 0; margin: 0;"></a>` +
+			`<div class="PDS_Poll" id="PDI_container'${id}'"></div>`;
 
-		if (!this.$('#PDI_container' + id).length) {
-			html = '<a name="pd_a_' + id + '" style="display: inline; padding: 0px; margin: 0px;"></a>' +
-			'<div class="PDS_Poll" id="PDI_container' + id + '"></div>';
 			$(script).after(html);
 		}
 	}
