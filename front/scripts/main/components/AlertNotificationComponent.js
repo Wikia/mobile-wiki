@@ -10,8 +10,10 @@ App.AlertNotificationComponent = Em.Component.extend({
 		 * @returns {void}
 		 */
 		close() {
-			var onCloseAlert = this.get('alert.callbacks.onCloseAlert');
+			const onCloseAlert = this.get('alert.callbacks.onCloseAlert');
+
 			this.dismissNotification();
+
 			if (typeof onCloseAlert === 'function') {
 				onCloseAlert();
 			}

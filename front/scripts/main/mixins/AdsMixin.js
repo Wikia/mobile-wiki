@@ -105,10 +105,7 @@ App.AdsMixin = Em.Mixin.create({
 			if (headerPosition < prevAdPosition + minDistanceBetweenAds) {
 				// Header too close to previous ad
 				i += 1;
-				continue;
-			}
-
-			if (!nextAdPosition || nextAdPosition > headerPosition + minDistanceBetweenAds) {
+			} else if (!nextAdPosition || nextAdPosition > headerPosition + minDistanceBetweenAds) {
 				// Header is located in the safe spot between previous and next ad
 				goodHeaders.push($headers.eq(i));
 				adsToInject += 1;
@@ -116,11 +113,10 @@ App.AdsMixin = Em.Mixin.create({
 				// Use the current header position as the current ad position
 				// Subtract the ad height to make the calculations work for the next headers
 				adPositions[adIndex] = headerPosition - expectedAdHeight;
-				continue;
+			} else {
+				// We need to find a header that's below the next ad, thus:
+				adIndex += 1;
 			}
-
-			// We need to find a header that's below the next ad, thus:
-			adIndex += 1;
 		}
 
 		// Inject the ads now
