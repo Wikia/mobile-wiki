@@ -1,7 +1,3 @@
-/// <reference path='../../../../typings/ember/ember.d.ts' />
-/// <reference path='../app.ts' />
-'use strict';
-
 App.WidgetScriptStateMixin = Em.Mixin.create({
 	/**
 	 * This state is shared between objects that use the mixin.

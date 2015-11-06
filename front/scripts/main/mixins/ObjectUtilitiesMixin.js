@@ -1,22 +1,20 @@
 App.ObjectUtilitiesMixin = Em.Mixin.create({
 	/**
-	 * @returns {*}
+	 * @returns {Object}
 	 */
-	toPlainObject(): any {
-		var value: any,
-			keys: any[] = [],
-			key: any;
+	toPlainObject() {
+		const keys = [];
 
-		for (key in this) {
+		for (const key in this) {
 			if (this.hasOwnProperty(key)) {
-				value = this[key];
+				const value = this[key];
 
 				// ignore useless items
 				if (value === 'toString') {
 					continue;
 				}
 
-				if (Ember.typeOf(value) === 'function' || typeof value === 'function') {
+				if (Em.typeOf(value) === 'function' || typeof value === 'function') {
 					continue;
 				}
 

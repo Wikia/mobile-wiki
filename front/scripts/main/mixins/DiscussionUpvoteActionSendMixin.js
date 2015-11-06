@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 /**
  * Handles sending upvote action outside from the component.
  */
@@ -10,7 +7,7 @@ App.DiscussionUpvoteActionSendMixin = Em.Mixin.create({
 		 * @param {*} post
 		 * @returns {void}
 		 */
-		upvote(post: any): void {
+		upvote(post) {
 			this.sendAction('upvote', post);
 		}
 	}

@@ -12,6 +12,7 @@
     "App": true,
     "Em": true,
     "Hammer": true,
+    "Headroom": true,
     "i18n": true,
     "M": true,
     "Mercury": true,

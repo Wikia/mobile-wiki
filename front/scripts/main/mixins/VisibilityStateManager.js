@@ -1,15 +1,8 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 /**
  * Window
  * @typedef {Object} Window
  * @property {number} scrollY
  */
-
-interface Window {
-	scrollY: number;
-}
 
 /**
  * object that stores visibility state of components
@@ -29,8 +22,8 @@ App.VisibilityStateManager = Em.Object.create({
 	 * @param {number} [threshold=400] makes viewport virtually bigger
 	 * @returns {boolean}
 	 */
-	isVisible(element: JQuery, visibleBottom: number, visibleTop: number, threshold: number = 400): boolean {
-		var top = element.offset().top - threshold,
+	isVisible(element, visibleBottom, visibleTop, threshold = 400) {
+		const top = element.offset().top - threshold,
 			bottom = top + element.height() + threshold;
 
 		return visibleBottom >= top && visibleTop <= bottom;
@@ -41,19 +34,19 @@ App.VisibilityStateManager = Em.Object.create({
 	 *
 	 * @returns {void}
 	 */
-	check(): void {
-		var components = this.components,
-			i = components.length,
-			component: any,
+	check() {
+		const components = this.components,
 			// in IE10 window.scrollY doesn't work
 			// but window.pageYOffset is basically the same
 			// https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY
 			wTop = window.scrollY || window.pageYOffset,
 			wBottom = wTop + window.innerHeight;
 
+		let i = components.length;
+
 		if (i > 0) {
 			while (i--) {
-				component = components[i];
+				const component = components[i];
 
 				if (component.$() && this.isVisible(component.$(), wBottom, wTop, component.threshold)) {
 					component.send('onVisible');
@@ -69,7 +62,7 @@ App.VisibilityStateManager = Em.Object.create({
 	/**
 	 * @returns {void}
 	 */
-	checkDebounced(): void {
+	checkDebounced() {
 		Em.run.debounce(this, this.check, 50);
 	},
 
@@ -79,8 +72,7 @@ App.VisibilityStateManager = Em.Object.create({
 	 * @param {Em.Component} component
 	 * @returns {void}
 	 */
-	add(component: Em.Component): void {
-
+	add(component) {
 		this.components.push(component);
 
 		if (!this.initialized) {
@@ -96,7 +88,7 @@ App.VisibilityStateManager = Em.Object.create({
 	 *
 	 * @returns {void}
 	 */
-	reset(): void {
+	reset() {
 		this.components.length = 0;
 		this.initialized = false;
 	}
