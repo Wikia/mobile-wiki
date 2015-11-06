@@ -1,20 +1,15 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
-
-'use strict';
-
 App.MainPageRouteMixin = Em.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	activate(): void {
+	activate() {
 		this.controllerFor('application').set('enableShareHeader', true);
 	},
 
 	/**
 	 * @returns {void}
 	 */
-	deactivate(): void {
+	deactivate() {
 		this.controllerFor('application').set('enableShareHeader', false);
 	},
 
@@ -22,11 +17,12 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	 * @param {*} model
 	 * @returns {void}
 	 */
-	afterModel(model: any): void {
-		var sectionOrCategoryName: string,
-			title: string = model.get('title'),
+	afterModel(model) {
+		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
 			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
+
+		let sectionOrCategoryName;
 
 		// WOW!
 		// Ember's RouteRecognizer does decodeURI while processing path.
@@ -42,7 +38,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionOrCategoryName,
-			adsContext: adsContext,
+			adsContext,
 			ns: M.prop('mainPageData.ns')
 		});
 	},
@@ -52,7 +48,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 	 * @param {App.CuratedContentModel} model
 	 * @returns {void}
 	 */
-	renderTemplate(controller: any, model: typeof App.CuratedContentModel): void {
+	renderTemplate(controller, model) {
 		this.render('main-page', {
 			controller: 'mainPage',
 			model: {
@@ -66,7 +62,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 		 * @param {CuratedContentItem} item
 		 * @returns {void}
 		 */
-		openCuratedContentItem(item: CuratedContentItem): void {
+		openCuratedContentItem(item) {
 			/**
 			 * We have to double encode because Ember's RouteRecognizer does decodeURI while processing path.
 			 * If we didn't do encodeURI then it would do decodeURI on a result of our encodeURIComponent
