@@ -28,7 +28,7 @@ App.CuratedContentEditorSectionRoute = Em.Route.extend({
 	 */
 	setupController(controller, model, transition) {
 		const rootModel = this.modelFor('curatedContentEditor'),
-			alreadyUsedItemsLabels = App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel);
+			alreadyUsedItemsLabels = App.CuratedContentEditorModel.getAlreadyUsedLabels(rootModel);
 
 		this._super(controller, model, transition);
 		controller.setProperties({
