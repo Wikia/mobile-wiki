@@ -1,37 +1,38 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 App.LanguagesMixin = Em.Mixin.create({
 	defaultLanguage: 'en',
 
-	isJapaneseBrowser: Em.computed(function (): boolean {
-		var lang = navigator.language || navigator.browserLanguage;
+	isJapaneseBrowser: Em.computed(function () {
+		let lang = navigator.language || navigator.browserLanguage;
+
 		if (!lang) {
 			return this.get('isJapaneseWikia');
 		}
+
 		lang = lang.substr(0, 2);
+
 		return lang === 'ja';
 	}),
 
-	isJapaneseWikia: Em.computed(function (): boolean {
-		return Em.get(Mercury, 'wiki.language.content') === 'ja';
-	}),
+	isJapaneseWikia: Em.computed(() => Em.get(Mercury, 'wiki.language.content') === 'ja'),
 
 	/**
 	 * Returns navigator language with fallback to a default language
 	 * defined at the top of this object
 	 * @returns {string}
 	 */
-	getBrowserLanguage(): string {
-		var lang = navigator.language || navigator.browserLanguage;
+	getBrowserLanguage() {
+		let lang = navigator.language || navigator.browserLanguage;
+
 		if (!lang) {
 			return this.get('defaultLanguage');
 		} else {
 			lang = lang.dasherize();
-			//pt-br is the only one supported share-feature language with dash and 5 characters
+
+			// pt-br is the only one supported share-feature language with dash and 5 characters
 			if (lang !== 'pt-br') {
 				lang = lang.split('-')[0];
 			}
+
 			return lang;
 		}
 	},
@@ -41,7 +42,7 @@ App.LanguagesMixin = Em.Mixin.create({
 	 * user lang for logged-in users)
 	 * @returns {string}
 	 */
-	getLanguage(): string {
+	getLanguage() {
 		if (this.get('currentUser', 'isAuthenticated')) {
 			return this.get('currentUser', 'language');
 		} else {
@@ -53,11 +54,13 @@ App.LanguagesMixin = Em.Mixin.create({
 	 * Creates an escaped uselang querystring param
 	 * @returns {string}
 	 */
-	getUselangParam(): string {
-		var lang: string = Em.get(Mercury, 'wiki.language.content');
+	getUselangParam() {
+		const lang = Em.get(Mercury, 'wiki.language.content');
+
 		if (!lang || lang === 'en') {
 			return '';
 		}
-		return '&uselang=' + encodeURIComponent(lang);
+
+		return `&uselang=${encodeURIComponent(lang)}`;
 	}
 });
