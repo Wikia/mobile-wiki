@@ -10,15 +10,9 @@ App.ObjectUtilitiesMixin = Em.Mixin.create({
 				const value = this[key];
 
 				// ignore useless items
-				if (value === 'toString') {
-					continue;
+				if (value !== 'toString' && Em.typeOf(value) !== 'function' && typeof value !== 'function') {
+					keys.push(key);
 				}
-
-				if (Em.typeOf(value) === 'function' || typeof value === 'function') {
-					continue;
-				}
-
-				keys.push(key);
 			}
 		}
 

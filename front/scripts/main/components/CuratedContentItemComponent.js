@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/CuratedContentThumbnailMixin.ts" />
-/// <reference path="../mixins/ViewportMixin.ts" />
-'use strict';
-
 App.CuratedContentItemComponent = Em.Component.extend(
 	App.CuratedContentThumbnailMixin,
 	App.ViewportMixin,
@@ -19,21 +14,22 @@ App.CuratedContentItemComponent = Em.Component.extend(
 
 		aspectRatio: 1,
 		imageWidth: 200,
-		thumbUrl: Em.computed('model', function (): string {
-				if (this.get('model.imageUrl')) {
-					return this.generateThumbUrl(
-						this.get('model.imageUrl'),
-						this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
-					);
-				} else {
-					return this.get('emptyGif');
-				}
+		thumbUrl: Em.computed('model', function () {
+			if (this.get('model.imageUrl')) {
+				return this.generateThumbUrl(
+					this.get('model.imageUrl'),
+					this.get(`model.imageCrop.${this.get('aspectRatioName')}`)
+				);
+			} else {
+				return this.get('emptyGif');
+			}
 		}),
 
-		icon: Em.computed('type', function (): string {
-			var type = this.get('type'),
-				typesWithDedicatedIcon = ['category', 'video', 'image', 'blog'],
-				iconType: string;
+		icon: Em.computed('type', function () {
+			const type = this.get('type'),
+				typesWithDedicatedIcon = ['category', 'video', 'image', 'blog'];
+
+			let iconType;
 
 			if (typesWithDedicatedIcon.indexOf(type) > -1) {
 				iconType = type;
@@ -45,25 +41,25 @@ App.CuratedContentItemComponent = Em.Component.extend(
 				iconType = 'article';
 			}
 
-			return 'namespace-' + iconType;
+			return `namespace-${iconType}`;
 		}),
 
-		viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function (): void {
+		viewportObserver: Em.on('init', Em.observer('viewportDimensions.width', function () {
 			this.updateImageSize();
 		})),
 
 		/**
 		 * @returns {void}
 		 */
-		click(): void {
+		click() {
 			this.sendAction('action', this.get('model'));
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		updateImageSize(): void {
-			var imageSize = String(Math.floor((this.get('viewportDimensions.width') - 20) / 2));
+		updateImageSize() {
+			const imageSize = String(Math.floor((this.get('viewportDimensions.width') - 20) / 2));
 
 			this.set('style', new Em.Handlebars.SafeString(`height: ${imageSize}px; width: ${imageSize}px;`));
 		},

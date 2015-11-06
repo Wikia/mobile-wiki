@@ -17,6 +17,7 @@
     "M": true,
     "Mercury": true,
     "numeral": true,
+    "require": true,
     "QUnit": true,
     "window": true,
     "Wikia": true

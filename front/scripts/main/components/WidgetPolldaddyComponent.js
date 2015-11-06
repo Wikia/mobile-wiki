@@ -20,7 +20,7 @@ App.WidgetPolldaddyComponent = Em.Component.extend({
 	 */
 	loadScript() {
 		const id = this.get('data.id');
-		
+
 		Em.$.getScript(`//static.polldaddy.com/p/${id}.js`);
 	},
 });

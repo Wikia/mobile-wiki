@@ -19,7 +19,7 @@ App.AlertNotificationsComponent = Em.Component.extend({
 		 * @param {AlertNotification} alert
 		 * @returns {void}
 		 */
-		dismissAlert(alert): void {
+		dismissAlert(alert) {
 			this.get('alerts').removeObject(alert);
 		},
 	},

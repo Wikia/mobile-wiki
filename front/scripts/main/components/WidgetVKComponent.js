@@ -22,14 +22,14 @@ App.WidgetVKComponent = Em.Component.extend(
 		classNames: ['widget-vk'],
 		data: null,
 
-		scriptLoadedObserver: Em.observer('scriptLoaded.vk', function (): void {
+		scriptLoadedObserver: Em.observer('scriptLoaded.vk', function () {
 			this.createWidget();
 		}),
 
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement(): void {
+		didInsertElement() {
 			this.loadScript();
 			this.createWidget();
 		},
@@ -37,22 +37,20 @@ App.WidgetVKComponent = Em.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		loadScript(): void {
+		loadScript() {
 			if (!this.get('scriptLoadInitialized.vk')) {
 				this.set('scriptLoadInitialized.vk', true);
 
-				Em.$.getScript('//vk.com/js/api/openapi.js', (): void => {
-					this.set('scriptLoaded.vk', true);
-				});
+				Em.$.getScript('//vk.com/js/api/openapi.js', () => this.set('scriptLoaded.vk', true));
 			}
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		createWidget(): void {
+		createWidget() {
 			if (this.get('scriptLoaded.vk')) {
-				var elementId = this.get('elementId'),
+				const elementId = this.get('elementId'),
 					data = this.get('data');
 
 				window.VK.Widgets.Group(elementId, data, data.groupId);
