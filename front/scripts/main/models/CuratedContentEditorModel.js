@@ -98,7 +98,6 @@ App.CuratedContentEditorModel.reopenClass({
 		});
 	},
 
-
 	/**
 	 * Convert CuratedContentEditorModel to structure known by CuratedContent API
 	 *

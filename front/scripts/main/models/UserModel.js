@@ -1,17 +1,16 @@
-/// <reference path="../app.ts" />
-'use strict';
+/**
+ * @typedef {Object} UserModelFindParams
+ * @property {number} userId
+ * @property {number} [avatarSize]
+ */
 
-interface UserModelParams {
-	userId: number;
-	avatarSize?: number;
-}
-
-interface UserProperties {
-	avatarPath: string;
-	name: string;
-	profileUrl: string;
-	userId: number;
-}
+/**
+ * @typedef {Object} UserProperties
+ * @property {string} avatarPath
+ * @property {string} name
+ * @property {string} profileUrl
+ * @property {number} userId
+ */
 
 App.UserModel = Em.Object.extend({
 	avatarPath: null,
@@ -24,16 +23,17 @@ App.UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
 	/**
-	 * @param {UserModelParams} params
-	 * @returns {Ember.RSVP.Promise}
+	 * @param {UserModelFindParams} params
+	 * @returns {Ember.RSVP.Promise<App.UserModel>}
 	 */
-	find(params: UserModelParams): Em.RSVP.Promise {
-		var avatarSize: number = params.avatarSize || App.UserModel.defaultAvatarSize,
+	find(params) {
+		const avatarSize = params.avatarSize || App.UserModel.defaultAvatarSize,
 			modelInstance = App.UserModel.create();
 
 		return App.UserModel.loadDetails(params.userId, avatarSize)
-			.then((userDetails: any): typeof App.UserModel => {
-				var detailsSanitized = App.UserModel.sanitizeDetails(userDetails);
+			.then((userDetails) => {
+				const detailsSanitized = App.UserModel.sanitizeDetails(userDetails);
+
 				return modelInstance.setProperties(detailsSanitized);
 			});
 	},
@@ -43,9 +43,9 @@ App.UserModel.reopenClass({
 	 * @param {number} avatarSize
 	 * @returns {Em.RSVP.Promise}
 	 */
-	loadDetails(userId: number, avatarSize: number): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	loadDetails(userId, avatarSize) {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php',
 				}),
@@ -56,25 +56,23 @@ App.UserModel.reopenClass({
 					size: avatarSize
 				},
 				dataType: 'json',
-				success: (result: any): void => {
+				success: (result) => {
 					if (Em.isArray(result.items)) {
 						resolve(result.items[0]);
 					} else {
 						reject(result);
 					}
 				},
-				error: (err: any): void => {
-					reject(err);
-				}
+				error: reject
 			});
 		});
 	},
 
 	/**
 	 * @param {*} userData
-	 * @returns {{name: any, userId: (string|number), avatarPath: string, profileUrl: string}}
+	 * @returns {UserProperties}
 	 */
-	sanitizeDetails(userData: any): UserProperties {
+	sanitizeDetails(userData) {
 		return {
 			name: userData.name,
 			userId: userData.user_id,
@@ -83,7 +81,7 @@ App.UserModel.reopenClass({
 				namespace: 'User',
 				title: userData.name
 			})
-		}
+		};
 	}
 });
 

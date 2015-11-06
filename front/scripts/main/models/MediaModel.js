@@ -1,74 +1,82 @@
-/// <reference path="../app.ts" />
-'use strict';
+/**
+ * @typedef {Object} ArticleMedia
+ * @property {string} caption
+ * @property {string} fileUrl
+ * @property {number} height
+ * @property {string} link
+ * @property {string} title
+ * @property {string} type
+ * @property {string} url
+ * @property {string} user
+ * @property {string} width
+ * @property {string} [context]
+ */
 
-interface ArticleMedia {
-	[index: string]: any;
-	caption: string;
-	fileUrl: string;
-	height: number;
-	link: string;
-	title: string;
-	type: string;
-	url: string;
-	user: string;
-	width: number;
-	context?: string;
-}
-
-interface LightboxMediaRefs {
-	mediaRef: number;
-	galleryRef: number
-}
+/**
+ * @typedef {Object} LightboxMediaRefs
+ * @property {number} galleryRef
+ * @property {number} mediaRef
+ */
 
 App.MediaModel = Em.Object.extend({
-
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 *
 	 * @returns {void}
 	 */
-	init(): void {
-		var media = this.get('media');
+	init() {
+		const media = this.get('media');
 
-		if (!Ember.isArray(media)) {
+		if (!Em.isArray(media)) {
 			this.set('media', [media]);
 		}
 	},
 
 	/**
 	 * @param {number} id
-	 * @returns {*}
+	 * @returns {ArticleMedia}
 	 */
-	find(id: number): ArticleMedia {
+	find(id) {
 		return this.get('media')[id];
 	},
 
 	/**
 	 * @param {string} title
-	 * @returns {{mediaRef: number, galleryRef: number}}
+	 * @returns {LightboxMediaRefs}
 	 */
-	getRefsForLightboxByTitle(title: string): LightboxMediaRefs {
-		var media = this.get('media'),
-			mediaRef: number = null,
-			galleryRef: number = null,
-			findInMedia = function (mediaItem: ArticleMedia|ArticleMedia[], mediaIndex: number): boolean {
-				if (Em.isArray(mediaItem)) {
-					return (<ArticleMedia[]>mediaItem).some(findInGallery, {
-						mediaIndex: mediaIndex
-					});
-				} else if (M.String.normalizeToUnderscore((<ArticleMedia>mediaItem).title) ===
-					M.String.normalizeToUnderscore(title)) {
-					mediaRef = mediaIndex;
-					return true;
-				}
-			},
-			findInGallery = function (galleryItem: ArticleMedia, galleryIndex: number): boolean {
+	getRefsForLightboxByTitle(title) {
+		let mediaRef = null,
+			galleryRef = null;
+
+		const media = this.get('media'),
+			/**
+			 * @param {ArticleMedia} galleryItem
+			 * @param {number}galleryIndex
+			 * @returns {boolean}
+			 */
+			findInGallery = function (galleryItem, galleryIndex) {
 				if (M.String.normalizeToUnderscore(galleryItem.title) === M.String.normalizeToUnderscore(title)) {
 					mediaRef = this.mediaIndex;
 					galleryRef = galleryIndex;
 					return true;
 				}
 				return false;
+			},
+			/**
+			 * @param {ArticleMedia|ArticleMedia[]} mediaItem
+			 * @param {number} mediaIndex
+			 * @returns {boolean}
+			 */
+			findInMedia = function (mediaItem, mediaIndex) {
+				if (Em.isArray(mediaItem)) {
+					return (mediaItem).some(findInGallery, {
+						mediaIndex
+					});
+				} else if (M.String.normalizeToUnderscore(mediaItem.title) ===
+					M.String.normalizeToUnderscore(title)) {
+					mediaRef = mediaIndex;
+					return true;
+				}
 			};
 
 		if (Em.isArray(media)) {
@@ -78,8 +86,8 @@ App.MediaModel = Em.Object.extend({
 		}
 
 		return {
-			mediaRef: mediaRef,
-			galleryRef: galleryRef
+			mediaRef,
+			galleryRef
 		};
 	},
 });

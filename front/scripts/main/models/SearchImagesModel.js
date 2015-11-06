@@ -1,31 +1,37 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury" />
-/// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
-'use strict';
+/**
+ * @typedef {Object} SearchImageResponse
+ * @property {SearchImageResponseData} [response]
+ * @property {*} [error]
+ */
 
-interface SearchPhotoImageResponseInterface {
-	title: string;
-	type: string;
-	url: string;
-	width: string;
-	height: string;
-	thumbnailUrl?: string;
-	id: number;
-}
+/**
+ * @typedef {Object} SearchImageResponseData
+ * @property {SearchImageResults} results
+ * @property {number} limit
+ * @property {number} batch
+ */
 
-interface SearchImageResponseInterface {
-	response?: {
-		results: {
-			photo: {
-				batches: number;
-				items: SearchPhotoImageResponseInterface[];
-			};
-		};
-		limit: number;
-		batch: number;
-	};
-	error?: any
-}
+/**
+ * @typedef {Object} SearchImageResults
+ * @property {SearchImagePhoto} photo
+ */
+
+/**
+ * @typedef {Object} SearchImagePhoto
+ * @property {number} batches
+ * @property {SearchImagePhotoItem[]} items
+ */
+
+/**
+ * @typedef {Object} SearchImagePhotoItem
+ * @property {string} title
+ * @property {string} type
+ * @property {string} url
+ * @property {string} width
+ * @property {string} height
+ * @property {number} id
+ * @property {string} [thumbnailUrl]
+ */
 
 App.SearchImagesModel = Em.Object.extend({
 	searchLimit: 24,
@@ -36,15 +42,19 @@ App.SearchImagesModel = Em.Object.extend({
 	items: [],
 
 	/**
-	 * @param {SearchPhotoImageResponseInterface[]} fetchedImages
+	 * @param {SearchImagePhotoItem[]} fetchedImages
 	 * @returns {void}
 	 */
-	setItems(fetchedImages: SearchPhotoImageResponseInterface[]): void {
-		var items = this.get('items');
+	setItems(fetchedImages) {
+		const items = this.get('items');
 
 		this.set('items',
 			items.concat(
-				fetchedImages.map((image: SearchPhotoImageResponseInterface) => {
+				/**
+				 * @param {SearchImagePhotoItem} image
+				 * @returns {SearchImagePhotoItem}
+				 */
+				fetchedImages.map((image) => {
 					image.thumbnailUrl = Mercury.Modules.Thumbnailer.getThumbURL(image.url, {
 						mode: Mercury.Modules.Thumbnailer.mode.topCrop,
 						width: this.imageSize,
@@ -57,23 +67,26 @@ App.SearchImagesModel = Em.Object.extend({
 		);
 	},
 
-	hasNextBatch: Em.computed('batches', 'nextBatch', function(): boolean {
+	hasNextBatch: Em.computed('batches', 'nextBatch', function () {
 		return this.get('batches') > this.get('nextBatch');
 	}),
 
 	/**
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Em.RSVP.Promise<SearchImagePhotoItem[]>}
 	 */
-	next(): Em.RSVP.Promise {
+	next() {
 		this.incrementProperty('nextBatch');
 
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+		return new Em.RSVP.Promise((resolve, reject) => {
 			this.fetch()
-				.done((data: SearchImageResponseInterface) => {
-					var items: SearchPhotoImageResponseInterface[];
+				/**
+				 * @param {SearchImageResponse} data
+				 */
+				.done((data) => {
+					let items;
 
 					if (data.error) {
-						return reject(data.error)
+						return reject(data.error);
 					}
 
 					items = Em.get(data, 'response.results.photo.items');
@@ -90,16 +103,14 @@ App.SearchImagesModel = Em.Object.extend({
 
 					resolve(items);
 				})
-				.fail((error: any) => {
-					reject(error);
-				});
-		})
+				.fail(reject);
+		});
 	},
 
 	/**
 	 * @returns {JQueryXHR}
 	 */
-	fetch(): JQueryXHR {
+	fetch() {
 		return Em.$.getJSON(
 			M.buildUrl({
 				path: '/api.php',
