@@ -10,6 +10,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	sticky: false,
 
 	submitDisabled: true,
+	isLoading: false,
 
 	style: Em.computed('sticky', function (): Em.Handlebars.SafeString {
 		return this.get('sticky') === true
@@ -69,6 +70,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		},
 
 		createPost(forumId): void {
+			this.set('isLoading', true);
+
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${Mercury.wiki.id}/forums/${forumId}/threads`),
@@ -91,6 +94,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 					console.log('error');
 				},
 				complete: (): void => {
+					this.set('isLoading', false);
 					// TODO
 					console.log('complete');
 				}

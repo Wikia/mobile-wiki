@@ -6,8 +6,12 @@
 	<div class="editor-wrapper">
 		<textarea class="editor" oninput={{action 'updateSubmitButton'}} onfocus={{action 'activateEditorComponent'}} placeholder="Share a thought, question or link..."></textarea>
 	</div>
-	{{! TODO anon avatar }}
 	{{user-avatar
 		avatarUrl=currentUser.avatarPath
+	}}
+	{{loading-spinner
+		active=isLoading
+		radius=32
+		strokeWidth=2
 	}}
 </div>

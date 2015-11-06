@@ -21,9 +21,20 @@
 		}
 	}
 
-	.discussion-editor.active {
-		button {
-			display: inline-block;
+	.discussion-editor {
+		&.active {
+			button {
+				display: inline-block;
+			}
+		}
+
+		.loading-overlay {
+			height: 100%;
+			position: absolute;
+
+			.spinner {
+				margin-top: -32px;
+			}
 		}
 	}
 
