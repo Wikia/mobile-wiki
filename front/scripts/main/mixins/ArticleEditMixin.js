@@ -1,16 +1,12 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../baseline/mercury/utils/buildUrl.ts" />
-'use strict';
-
 App.ArticleEditMixin = Em.Mixin.create({
 
 	/**
 	 * @param {string} title
 	 * @returns {Em.RSVP.Promise}
 	 */
-	getEditToken(title: string): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	getEditToken(title) {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
 				url: M.buildUrl({path: '/api.php'}),
 				data: {
 					action: 'query',
@@ -20,21 +16,23 @@ App.ArticleEditMixin = Em.Mixin.create({
 					format: 'json'
 				},
 				dataType: 'json',
-				success: (resp: any): void => {
-					var edittoken: string,
-						pages: any = Em.get(resp, 'query.pages');
+				success: (resp) => {
+					const pages = Em.get(resp, 'query.pages');
+
 					if (pages) {
 						// FIXME: MediaWiki API, seriously?
-						edittoken = pages[Object.keys(pages)[0]].edittoken;
-						if (edittoken === undefined) {
+						const edittoken = pages[Object.keys(pages)[0]].edittoken;
+
+						if (typeof edittoken === 'undefined') {
 							reject('noedit');
 						}
+
 						resolve(edittoken);
 					} else {
 						reject();
 					}
 				},
-				error: (err): void => {
+				error: (err) => {
 					reject(err);
 				}
 			});
