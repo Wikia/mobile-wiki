@@ -32,9 +32,7 @@ App.ArticleEditMixin = Em.Mixin.create({
 						reject();
 					}
 				},
-				error: (err) => {
-					reject(err);
-				}
+				error: (err) => reject(err)
 			});
 		});
 	}

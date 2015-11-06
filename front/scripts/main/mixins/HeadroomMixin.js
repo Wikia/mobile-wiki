@@ -10,7 +10,7 @@ App.HeadroomMixin = Em.Mixin.create({
 
 	offset: Em.computed('smartBannerVisible', function () {
 		if (this.get('smartBannerVisible')) {
-			return this.get(`smartBannerHeight. ${Mercury.Utils.Browser.getSystem()}`);
+			return this.get(`smartBannerHeight.${Mercury.Utils.Browser.getSystem()}`);
 		}
 
 		return 0;
