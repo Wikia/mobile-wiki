@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../mercury/utils/track.ts" />
-'use strict';
-
 App.TrackClickMixin = Em.Mixin.create({
 	/**
 	 * @param {string} category
@@ -9,12 +5,12 @@ App.TrackClickMixin = Em.Mixin.create({
 	 * @param {boolean} [isNonInteractive=true]
 	 * @returns {void}
 	 */
-	trackClick: function(category: string, label: string = '', isNonInteractive: boolean = true): void {
+	trackClick(category, label = '', isNonInteractive = true) {
 		M.track({
 			action: M.trackActions.click,
-			category: category,
-			label: label,
-			isNonInteractive: isNonInteractive
+			category,
+			label,
+			isNonInteractive
 		});
 	},
 
@@ -25,7 +21,7 @@ App.TrackClickMixin = Em.Mixin.create({
 		 * @param {boolean} [isNonInteractive=true]
 		 * @returns {void}
 		 */
-		trackClick(category: string, label: string = '', isNonInteractive: boolean = true): void {
+		trackClick(category, label = '', isNonInteractive = true) {
 			this.trackClick(category, label, isNonInteractive);
 		}
 	}
