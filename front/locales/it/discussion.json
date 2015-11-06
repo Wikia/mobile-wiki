@@ -1,0 +1,18 @@
+{
+  "main":{
+    "share-default-title":"Forum su __siteName__",
+    "contributors-title":"Tutti i collaboratori",
+    "sort-by-latest":"Più recenti",
+    "sort-by-trending":"In Trend",
+    "loading-more-posts":"Altri post in corso di caricamento",
+    "back-to-wikia-link":"Alla Wiki",
+    "number-of-posts":"__numberOfPosts__ Post",
+    "connection-error":"Impossibile connettersi. Riprova.",
+    "not-found-error":"Ops! Sembra che questa pagina non esista!",
+    "action-retry-title":"Riprova",
+    "all-discussions-link-desktop":"Mostra tutti i forum",
+    "all-discussions-link-mobile":"Tutti i forum",
+    "discussions-app-join":"Vuoi unirti al forum? Scarica la app!",
+    "back-to-discussions-link":"Tutti i forum"
+  }
+}
