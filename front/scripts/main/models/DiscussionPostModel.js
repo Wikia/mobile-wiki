@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionErrorMixin.ts" />
-
 App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
 	postId: null,
@@ -20,23 +17,22 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	 * @returns {Em.RSVP.Promise}
 	 */
 	loadNextPage() {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			Em.$.ajax(<JQueryAjaxSettings>{
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`,
-					{
-						'responseGroup': 'full',
-						'sortDirection': 'descending',
-						'sortKey': 'creation_date',
-						'limit': this.replyLimit,
-						'pivot': this.pivotId,
-						'page': this.page+1
-					}),
+		return new Em.RSVP.Promise((resolve) => {
+			Em.$.ajax({
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
+					responseGroup: 'full',
+					sortDirection: 'descending',
+					sortKey: 'creation_date',
+					limit: this.replyLimit,
+					pivot: this.pivotId,
+					page: this.page + 1
+				}),
 				xhrFields: {
 					withCredentials: true,
 				},
 				dataType: 'json',
-				success: (data: any) => {
-					var newReplies = data._embedded['doc:posts'];
+				success: (data) => {
+					let newReplies = data._embedded['doc:posts'];
 
 					// Note that we have to reverse the list we get back because how we're displaying
 					// replies on the page; we want to see the newest replies first but show them
@@ -46,12 +42,12 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 					this.setProperties({
 						replies: newReplies,
-						page: this.page+1
+						page: this.page + 1
 					});
 
 					resolve(this);
 				},
-				error: (err: any) => {
+				error: (err) => {
 					this.setErrorProperty(err, this);
 					resolve(this);
 				}
@@ -66,36 +62,37 @@ App.DiscussionPostModel.reopenClass({
 	 * @param {number} postId
 	 * @returns {Em.RSVP.Promise}
 	 */
-	find(wikiId: number, postId: number) {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			var postInstance = App.DiscussionPostModel.create({
-				wikiId: wikiId,
-				postId: postId
+	find(wikiId, postId) {
+		return new Em.RSVP.Promise((resolve) => {
+			const postInstance = App.DiscussionPostModel.create({
+				wikiId,
+				postId
 			});
 
-			Em.$.ajax(<JQueryAjaxSettings>{
-				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`,
-					{
-						'responseGroup': 'full',
-						'sortDirection': 'descending',
-						'sortKey': 'creation_date',
-						'limit': postInstance.replyLimit
-					}),
+			Em.$.ajax({
+				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
+					responseGroup: 'full',
+					sortDirection: 'descending',
+					sortKey: 'creation_date',
+					limit: postInstance.replyLimit
+				}),
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
 				},
-				success: (data: any) => {
-					var contributors: any[] = [],
-						replies = data._embedded['doc:posts'],
-						pivotId: number;
+				success: (data) => {
+					const contributors = [],
+						replies = data._embedded['doc:posts'];
+
+					let pivotId;
+
 					// If there are no replies to the first post, 'doc:posts' will not be returned
 					if (replies) {
 						pivotId = replies[0].id;
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
 
-						replies.forEach(function (reply: any) {
+						replies.forEach((reply) => {
 							if (reply.hasOwnProperty('createdBy')) {
 								reply.createdBy.profileUrl = M.buildUrl({
 									namespace: 'User',
@@ -107,20 +104,20 @@ App.DiscussionPostModel.reopenClass({
 					}
 
 					postInstance.setProperties({
-						contributors: contributors,
+						contributors,
 						forumId: data.forumId,
-						replies: replies,
+						replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
 						id: data.id,
-						pivotId: pivotId,
+						pivotId,
 						page: 0,
 						title: data.title
 					});
 					resolve(postInstance);
 				},
-				error: (err: any) => {
+				error: (err) => {
 					postInstance.setErrorProperty(err, postInstance);
 					resolve(postInstance);
 				}

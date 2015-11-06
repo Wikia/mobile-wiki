@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionErrorMixin.ts" />
-
 App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	wikiId: null,
 	forumId: null,
@@ -14,14 +11,14 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	contributors: [],
 
 	/**
-	 * @param {number} pageNum
+	 * @param {number} [pageNum=0]
 	 * @returns {Em.RSVP.Promise}
 	 */
-	loadPage(pageNum: number = 0) {
+	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
 
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+		return new Em.RSVP.Promise((resolve) => {
+			Em.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
 					page: this.get('pageNum')
@@ -30,15 +27,15 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					withCredentials: true,
 				},
 				dataType: 'json',
-				success: (data: any) => {
-					var newPosts = data._embedded['doc:threads'],
+				success: (data) => {
+					const newPosts = data._embedded['doc:threads'],
 						allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
 
 					resolve(this);
 				},
-				error: (err: any) => {
+				error: (err) => {
 					this.setErrorProperty(err, this);
 					resolve(this);
 				}
@@ -50,44 +47,50 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	 * @param {string} sortBy
 	 * @returns {string}
 	 */
-	getSortKey(sortBy: string): string {
+	getSortKey(sortBy) {
 		switch (sortBy) {
-			case 'latest':
-				return 'creation_date';
-			case 'trending':
-				return 'trending';
-			default:
-				return '';
+		case 'latest':
+			return 'creation_date';
+		case 'trending':
+			return 'trending';
+		default:
+			return '';
 		}
 	}
 });
 
 App.DiscussionForumModel.reopenClass({
-	find(wikiId: number, forumId: number, sortBy: string) {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-			var forumInstance = App.DiscussionForumModel.create({
-					wikiId: wikiId,
-					forumId: forumId
+	/**
+	 * @param {number} wikiId
+	 * @param {number} forumId
+	 * @param {string} sortBy
+	 * @returns { Em.RSVP.Promise}
+	 */
+	find(wikiId, forumId, sortBy) {
+		return new Em.RSVP.Promise((resolve) => {
+			const forumInstance = App.DiscussionForumModel.create({
+					wikiId,
+					forumId
 				}),
-				requestData: any = {};
+				requestData = {};
 
 			if (sortBy) {
 				requestData.sortKey = forumInstance.getSortKey(sortBy);
 			}
 
-			Em.$.ajax(<JQueryAjaxSettings>{
+			Em.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 				data: requestData,
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,
 				},
-				success: (data: any) => {
-					var contributors: any[] = [],
+				success: (data) => {
+					const contributors = [],
 						posts = data._embedded['doc:threads'],
 						totalPosts = data.threadCount;
 
-					posts.forEach(function (post: any) {
+					posts.forEach((post) => {
 						if (post.hasOwnProperty('createdBy')) {
 							post.createdBy.profileUrl = M.buildUrl({
 								namespace: 'User',
@@ -98,14 +101,14 @@ App.DiscussionForumModel.reopenClass({
 					});
 
 					forumInstance.setProperties({
-						contributors: contributors,
+						contributors,
 						name: data.name,
-						posts: posts,
-						totalPosts: totalPosts
+						posts,
+						totalPosts
 					});
 					resolve(forumInstance);
 				},
-				error: (err: any) => {
+				error: (err) => {
 					forumInstance.setErrorProperty(err, forumInstance);
 					resolve(forumInstance);
 				}

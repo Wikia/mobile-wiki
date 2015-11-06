@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-
-'use strict';
-
 App.ArticleCommentsModel = Em.Object.extend({
 	articleId: null,
 	comments: 0,
@@ -10,20 +6,18 @@ App.ArticleCommentsModel = Em.Object.extend({
 	page: 0,
 
 	fetch: Em.observer('page', 'articleId', function () {
-		var page = this.get('page'),
+		const page = this.get('page'),
 			articleId = this.get('articleId');
 
 		if (page && page >= 0 && articleId) {
-			return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
-				Em.$.ajax(<JQueryAjaxSettings>{
+			return new Em.RSVP.Promise((resolve, reject) => {
+				Em.$.ajax({
 					url: this.url(articleId, page),
 					success: (data) => {
 						this.setProperties(data.payload);
 						resolve(this);
 					},
-					error: (data) => {
-						reject(data);
-					}
+					error: (data) => reject(data)
 				});
 			});
 		}
@@ -42,7 +36,7 @@ App.ArticleCommentsModel = Em.Object.extend({
 	 * @param {number} [page=0]
 	 * @returns {string}
 	 */
-	url(articleId: number, page: number = 0): string {
-		return App.get('apiBase') + '/article/comments/' + articleId + '/' + page;
+	url(articleId, page = 0) {
+		return `${App.get('apiBase')}/article/comments/${articleId}/${page}`;
 	}
 });

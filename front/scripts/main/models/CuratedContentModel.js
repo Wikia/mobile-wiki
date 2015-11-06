@@ -1,28 +1,27 @@
-/// <reference path="../app.ts" />
-'use strict';
+/**
+ * @typedef {Object} CuratedContentItem
+ * @property {string} label
+ * @property {string} imageUrl
+ * @property {string} type
+ * @property {string} [url]
+ * @property {string} [categoryName]
+ * @property {number} [ns]
+ * @property {CuratedContentItemImageCrop} [imageCrop]
+ */
 
-interface CuratedContentItem {
-	label: string;
-	imageUrl: string;
-	type: string;
-	imageCrop?: {
-		landscape: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-		square: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-	};
-	url?: string;
-	categoryName?: string;
-	ns?: number;
-}
+/**
+ * @typedef {Object} CuratedContentItemImageCrop
+ * @property {CuratedContentItemCropData} landscape
+ * @property {CuratedContentItemCropData} square
+ */
+
+/**
+ * @typedef {Object} CuratedContentItemCropData
+ * @property {number} x
+ * @property {number} y
+ * @property {number} width
+ * @property {number} height
+ */
 
 App.CuratedContentModel = Em.Object.extend({
 	title: null,
@@ -32,35 +31,39 @@ App.CuratedContentModel = Em.Object.extend({
 });
 
 App.CuratedContentModel.reopenClass({
-	find(title: string, type = 'section', offset: string = null): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var url = App.get('apiBase') + '/main/',
-				params: {offset?: string} = {},
-				modelInstance = App.CuratedContentModel.create({
+	/**
+	 * @param {string} title
+	 * @param {string} [type='section']
+	 * @param {string|null} [offset=null]
+	 * @returns {Em.RSVP.Promise}
+	 */
+	find(title, type = 'section', offset = null) {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			const modelInstance = App.CuratedContentModel.create({
 					title,
 					type
-				});
+				}),
+				params = {};
 
+			let url = `${App.get('apiBase')}/main/`;
 
-			url += type + '/' + title;
+			url += `${type}/${title}`;
 
 			if (offset) {
 				params.offset = offset;
 			}
 
-			Em.$.ajax(<JQueryAjaxSettings>{
+			Em.$.ajax({
 				url,
 				data: params,
-				success: (data: any): void => {
+				success: (data) => {
 					modelInstance.setProperties({
 						items: App.CuratedContentModel.sanitizeItems(data.items),
 						offset: data.offset || null
 					});
 					resolve(modelInstance);
 				},
-				error: (data: any): void => {
-					reject(data);
-				}
+				error: (data) => reject(data)
 			});
 		});
 	},
@@ -69,20 +72,18 @@ App.CuratedContentModel.reopenClass({
 	 * @param {App.CuratedContentModel} model
 	 * @returns {Em.RSVP.Promise}
 	 */
-	loadMore(model: typeof App.CuratedContentModel): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+	loadMore(model) {
+		return new Em.RSVP.Promise((resolve, reject) => {
 			// Category type is hardcoded because only Categories API supports offset.
-			var newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
+			const newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
 
 			newModelPromise
-				.then(function (newModel: typeof App.CuratedContentModel): void {
+				.then((newModel) => {
 					model.items.pushObjects(newModel.items);
 					model.set('offset', newModel.offset);
 					resolve(model);
 				})
-				.catch(function (reason: any): void {
-					reject(reason);
-				});
+				.catch(reject);
 		});
 	},
 
@@ -90,11 +91,11 @@ App.CuratedContentModel.reopenClass({
 	 * @param {*} rawData
 	 * @returns {CuratedContentItem[]}
 	 */
-	sanitizeItems(rawData: any): CuratedContentItem[] {
-		var sanitizedItems: CuratedContentItem[] = [];
+	sanitizeItems(rawData) {
+		let sanitizedItems = [];
 
 		if (Em.isArray(rawData)) {
-			sanitizedItems = rawData.map((item: any): CuratedContentItem => {
+			sanitizedItems = rawData.map((item) => {
 				return this.sanitizeItem(item);
 			});
 		}
@@ -106,11 +107,10 @@ App.CuratedContentModel.reopenClass({
 	 * @param {*} rawData
 	 * @returns {CuratedContentItem}
 	 */
-	sanitizeItem(rawData: any): CuratedContentItem {
-		var item: CuratedContentItem,
-			categoryName: string,
-			url: string,
-			articlePath = Em.get(Mercury, 'wiki.articlePath');
+	sanitizeItem(rawData) {
+		let item,
+			categoryName,
+			url;
 
 		if (rawData.type === 'section') {
 			item = {
@@ -130,7 +130,7 @@ App.CuratedContentModel.reopenClass({
 			}
 
 			// Remove /wiki/
-			categoryName = categoryName.replace(articlePath, '');
+			categoryName = categoryName.replace(Em.get(Mercury, 'wiki.articlePath'), '');
 
 			// Remove Category: prefix
 			categoryName = categoryName.substr(categoryName.indexOf(':') + 1);

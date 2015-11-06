@@ -1,42 +1,16 @@
-/// <reference path="../../baseline/mercury" />
-/// <reference path="../app.ts" />
-/// <reference path="../../mercury/utils/string.ts" />
-/// <reference path="../../mercury/modules/Ads.ts" />
-/// <reference path="../../../../typings/i18next/i18next.d.ts" />
+/**
+ * @typedef {Object} ArticleModelUrlParams
+ * @property {string} title
+ * @property {string} [redirect]
+ */
 
-interface Response {
-	data: {
-		details: {
-			id: number;
-			title: string;
-			ns: string;
-			url: string;
-			description: string;
-			revision: {
-				id: number;
-				user: string;
-				user_id: number;
-				timestamp: string;
-			};
-			comments: number;
-			type: string;
-			abstract: string;
-			thumbnail: string;
-		};
-		article: {
-			content: string;
-			media: any[];
-			users: any;
-			categories: any[];
-		};
-		isMainPage: boolean;
-		mainPageData: any[];
-		relatedPages: any[];
-		topContributors: any[];
-		adsContext: any;
-		redirectEmptyTarget: boolean;
-	};
-}
+/**
+ * @typedef {Object} ArticleModelFindParams
+ * @property {string} basePath
+ * @property {string} wiki
+ * @property {string} title
+ * @property {string} [redirect]
+ */
 
 App.ArticleModel = Em.Object.extend({
 	content: null,
@@ -58,41 +32,41 @@ App.ArticleModel = Em.Object.extend({
 
 App.ArticleModel.reopenClass({
 	/**
-	 * @param {Object} params
+	 * @param {ArticleModelUrlParams} params
 	 * @returns {string}
 	 */
-	url(params: {title: string; redirect?: string}): string {
-		var redirect = '';
+	url(params) {
+		let redirect = '';
 
 		if (params.redirect) {
-			redirect += '?redirect=' + encodeURIComponent(params.redirect);
+			redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
 		}
 
-		return App.get('apiBase') + '/article/' + params.title + redirect;
+		return `${App.get('apiBase')}/article/${params.title}${redirect}`;
 	},
 
 	/**
-	 * @param {Object} params
+	 * @param {ArticleModelFindParams} params
 	 * @returns {Em.RSVP.Promise}
 	 */
-	find(params: {basePath: string; wiki: string; title: string; redirect?: string}): Em.RSVP.Promise {
-		var model = App.ArticleModel.create(params);
+	find(params) {
+		const model = App.ArticleModel.create(params);
 
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+		return new Em.RSVP.Promise((resolve, reject) => {
 			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
 			}
 
-			Em.$.ajax(<JQueryAjaxSettings>{
+			Em.$.ajax({
 				url: this.url(params),
 				dataType: 'json',
-				success: (data): void => {
+				success: (data) => {
 					this.setArticle(model, data);
 					resolve(model);
 				},
-				error: (err: any): void => {
+				error: (err) => {
 					// Temporary solution until we can make error states work - ideally we should reject on errors
 					if (err.status === 404) {
 						this.setArticle(model, err.responseJSON);
@@ -108,25 +82,23 @@ App.ArticleModel.reopenClass({
 	/**
 	 * @returns {Em.RSVP.Promise}
 	 */
-	getArticleRandomTitle(): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
-				url: App.get('apiBase') + '/article?random&titleOnly',
+	getArticleRandomTitle() {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
+				url: `${App.get('apiBase')}/article?random&titleOnly`,
 				cache: false,
 				dataType: 'json',
-				success: (data): void => {
+				success: (data) => {
 					if (data.title) {
 						resolve(data.title);
 					} else {
 						reject({
 							message: 'Data from server doesn\'t include article title',
-							data: data
+							data
 						});
 					}
 				},
-				error: (err): void => {
-					reject(err);
-				}
+				error: (err) => reject(err)
 			});
 		});
 	},
@@ -134,8 +106,8 @@ App.ArticleModel.reopenClass({
 	/**
 	 * @returns {*}
 	 */
-	getPreloadedData(): any {
-		var article = Mercury.article;
+	getPreloadedData() {
+		const article = Mercury.article;
 
 		M.prop('articleContentPreloadedInDOM', false);
 
@@ -144,21 +116,23 @@ App.ArticleModel.reopenClass({
 			article.data.article.content = $.trim($('#preloadedContent').html());
 		}
 
-		delete Mercury['article'];
+		Mercury.article = null;
+
 		return article;
 	},
 
 	/**
 	 * @param {App.ArticleModel} model
-	 * @param {*} [source= this.getPreloadedData()]
-	 * @return: {void}
+	 * @param {*} [source=this.getPreloadedData()]
+	 * @returns {void}
 	 */
-	setArticle(model: typeof App.ArticleModel, source = this.getPreloadedData()): void {
-		var articleProperties: any = {},
-			exception = source.exception,
-			data = source.data,
-			details: any,
-			article: any;
+	setArticle(model, source = this.getPreloadedData()) {
+		const exception = source.exception,
+			data = source.data;
+
+		let articleProperties = {},
+			details,
+			article;
 
 		if (exception) {
 			articleProperties = {
