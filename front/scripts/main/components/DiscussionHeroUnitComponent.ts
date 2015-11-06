@@ -1,9 +1,13 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/ViewportMixin.ts" />
+
 'use strict';
 
-App.DiscussionHeroUnitComponent = Em.Component.extend({
+App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 	classNames: ['discussion-hero-unit'],
 	attributeBindings: ['style'],
+
+	style: null,
 
 	headerImages: {
 		24357: 'discussion-header-adventure-time.jpg',
@@ -17,10 +21,16 @@ App.DiscussionHeroUnitComponent = Em.Component.extend({
 		13346: 'discussion-header-walking-dead.jpg'
 	},
 
-	style: Em.computed(function (): Em.Handlebars.SafeString {
-		var image = this.get('headerImages')[Em.get(Mercury, 'wiki.id')];
-		return image
-			? new Em.Handlebars.SafeString(`background-image: url(/front/images/${image});`)
-			: null;
+	didInsertElement(): void {
+		this.viewportChangeObserver();
+	},
+
+	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): Em.Handlebars.SafeString {
+		var visibleElement = this.$(':visible'),
+			isShown = !!(visibleElement && visibleElement.length),
+			image = this.get('headerImages')[Em.get(Mercury, 'wiki.id')];
+		if (!this.get('style') && isShown && image) {
+			this.set('style', new Em.Handlebars.SafeString(`background-image: url(/front/images/${image});`));
+		}
 	}),
 });
