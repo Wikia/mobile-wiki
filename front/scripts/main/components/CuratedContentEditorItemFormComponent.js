@@ -340,11 +340,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				title = this.get('model.title');
 
 				if (Em.isEmpty(title)) {
-					if (this.get('isCategory')) {
-						errorMessage = i18n.t('app.curated-content-editor-missing-category-title-error');
-					} else {
-						errorMessage = i18n.t('app.curated-content-editor-missing-page-title-error');
-					}
+					errorMessage = this.get('isCategory') ?
+						i18n.t('app.curated-content-editor-missing-category-title-error') :
+						i18n.t('app.curated-content-editor-missing-page-title-error');
 				}
 
 				this.set('titleErrorMessage', errorMessage);
