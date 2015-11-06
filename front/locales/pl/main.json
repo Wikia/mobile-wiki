@@ -136,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"Czy na pewno chcesz usunąć ten element?",
     "curated-content-editor-general-section-error":"Popraw błędy w tej sekcji.",
     "curated-content-editor-add-items-message":"Dodaj elementy do tej sekcji.",
-    "curated-content-editor-missing-items-error":"Sekcje nie mogą być puste. Dodaj elementy do tej sekcji.",
     "curated-content-editor-error-inside-items-message":"Popraw błędy wewnątrz elementów.",
     "curated-content-editor-items-count":"__count__ element",
     "curated-content-editor-items-count_plural":"__count__ elementy\/-ów",

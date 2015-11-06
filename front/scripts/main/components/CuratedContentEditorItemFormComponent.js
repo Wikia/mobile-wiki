@@ -403,7 +403,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				.then((data) => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
-					} else if (data.errors) {
+					} else if (Em.isArray(data.errors)) {
 						data.errors.forEach((error) => this.processValidationError(error));
 					} else {
 						this.addAlert({

@@ -136,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"Bist du sicher, dass du diesen Eintrag löschen möchtest?",
     "curated-content-editor-general-section-error":"Bitte Fehler in diesem Abschnitt beheben.",
     "curated-content-editor-add-items-message":"Diesem Abschnitt bitte Einträge hinzufügen.",
-    "curated-content-editor-missing-items-error":"Abschnitte dürfen nicht leer sein. Bitte füge dem Abschnitt Einträge hinzu.",
     "curated-content-editor-error-inside-items-message":"Bitte Fehler in den Einträgen beheben.",
     "curated-content-editor-items-count":"__count__ Eintrag",
     "curated-content-editor-items-count_plural":"__count__ Einträge",

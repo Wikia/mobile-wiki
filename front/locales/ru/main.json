@@ -136,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"Вы уверенны, что хотите удалить этот пункт?",
     "curated-content-editor-general-section-error":"Пожалуйста, исправьте ошибки в этой секции.",
     "curated-content-editor-add-items-message":"Пожалуйста, добавьте пункты в эту секцию.",
-    "curated-content-editor-missing-items-error":"Секция не может быть пустой. Пожалуйста, добавьте пункты в эту секцию.",
     "curated-content-editor-error-inside-items-message":"Пожалуйста, исправьте ошибки в пунктах.",
     "curated-content-editor-items-count":"__count__ пункт",
     "curated-content-editor-items-count_plural":"__count__ пунктов",

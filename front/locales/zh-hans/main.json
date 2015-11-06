@@ -136,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"是否确定要删除此项目?",
     "curated-content-editor-general-section-error":"请修复此群组中的错误。",
     "curated-content-editor-add-items-message":"请将项目添加到这个群组。",
-    "curated-content-editor-missing-items-error":"群组不能为空。请将项目添加到此群组。",
     "curated-content-editor-error-inside-items-message":"请修复各项目中的错误。",
     "curated-content-editor-items-count":"__count__ 个项目",
     "curated-content-editor-items-count_plural":"__count__个项目",

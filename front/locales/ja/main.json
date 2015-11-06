@@ -136,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"この項目を削除してよろしいですか？",
     "curated-content-editor-general-section-error":"このセクションのエラーを修正してください。",
     "curated-content-editor-add-items-message":"このセクションに項目を追加してください。",
-    "curated-content-editor-missing-items-error":"セクションを空にすることはできません。セクションに項目を追加してください。",
     "curated-content-editor-error-inside-items-message":"アイテム内のエラーを修正してください。",
     "curated-content-editor-items-count":"項目__count__個",
     "curated-content-editor-items-count_plural":"項目 __count__個",
