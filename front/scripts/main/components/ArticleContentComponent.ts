@@ -149,6 +149,7 @@ App.ArticleContentComponent = Em.Component.extend(
 			    addPhotoIconVisible = this.get('addPhotoIconVisible'),
 			    editIconVisible = this.get('editIconVisible'),
 			    editAllowed = this.get('editAllowed'),
+			    addPhotoAllowed = this.get('addPhotoAllowed'),
 			    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
 
 			contributionComponent.setProperties({
@@ -159,7 +160,8 @@ App.ArticleContentComponent = Em.Component.extend(
 				addPhoto,
 				addPhotoIconVisible,
 				editIconVisible,
-				editAllowed
+				editAllowed,
+				addPhotoAllowed
 			});
 			return this.createChildView(contributionComponent).createElement().$();
 		},

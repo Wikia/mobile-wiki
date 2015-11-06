@@ -13,56 +13,44 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 
 	actions: {
 		/**
-		 * Called when login is required in order to edit section
-		 * @returns {void}
-		 */
-		loginToEdit() : void {
-			this.redirectToLogin('edit-section-no-auth');
-		},
-
-		/**
-		 * Go to section editor
+		 * Activate section editor
+		 * If login is required to edit, redirect to login page
+		 *
 		 * @returns {void}
 		 */
 		edit(): void {
-			if (this.get('editAllowed') !== true) {
-				return;
+			if (this.get('editAllowed')) {
+				M.track({
+					action: M.trackActions.click,
+					category: 'sectioneditor',
+					label: 'edit',
+					value: this.get('section')
+				});
+				this.sendAction('edit', this.get('title'), this.get('section'));
+			} else {
+				this.redirectToLogin('edit-section-no-auth');
 			}
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectioneditor',
-				label: 'edit',
-				value: this.get('section')
-			});
-			this.sendAction('edit', this.get('title'), this.get('section'));
-		},
-
-		/**
-		 * Called when login is required in order to add photo
-		 * @returns {void}
-		 */
-		loginToUploadPhoto(): void {
-			this.redirectToLogin('add-photo-no-auth');
 		},
 
 		/**
 		 * Go to add photo
+		 * If login is required to add photo, redirect to login page
+		 *
 		 * @returns {void}
 		 */
 		addPhoto(): void {
-			if (this.get('currentUser.isAuthenticated') !== true) {
-				return;
+			if (this.get('addPhotoAllowed')) {
+				M.track({
+					action: M.trackActions.click,
+					category: 'sectioneditor',
+					label: 'add-photo',
+					value: this.get('section')
+				});
+				var photoData = this.$('.file-upload-input')[0].files[0];
+				this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
+			} else {
+				this.redirectToLogin('add-photo-no-auth');
 			}
-
-			M.track({
-				action: M.trackActions.click,
-				category: 'sectioneditor',
-				label: 'add-photo',
-				value: this.get('section')
-			});
-			var photoData = this.$('.file-upload-input')[0].files[0];
-			this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 		},
 	},
 
