@@ -425,11 +425,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {string} errorMessega
+		 * @param {string} errorMessage
 		 * @returns {void}
 		 */
-		processValidationError(errorMessega) {
-			switch (errorMessega) {
+		processValidationError(errorMessage) {
+			switch (errorMessage) {
 			case 'articleNotFound':
 				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
 				break;

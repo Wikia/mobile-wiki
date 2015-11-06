@@ -131,7 +131,6 @@
     "curated-content-editor-add-items-message":"請將項目添加到這個版塊。",
     "curated-content-editor-missing-items-error":"版塊不能為空。請將項目添加到這個版塊。",
     "curated-content-editor-error-inside-items-message":"請修復各個項目中的錯誤。",
-    "curated-content-editor-error-inside-featured-content":"請修復精選內容部分的錯誤。",
     "curated-content-editor-items-count":"__count__ 個項目"
   }
 }

@@ -99,4 +99,5 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 					this.set('isLoading', false);
 				});
 		},
-	});
+	}
+);
