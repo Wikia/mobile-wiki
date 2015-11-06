@@ -1,7 +1,7 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.DiscussionEditorComponent = Em.Component.extend({
+App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-editor', 'mobile-hidden'],
 	classNameBindings: ['active'],
@@ -17,9 +17,7 @@ App.DiscussionEditorComponent = Em.Component.extend({
 			: null;
 	}),
 
-	didInsertElement(): void {
-		this._super();
-
+	initilizeOnScroll(): void {
 		var menuPosition = this.$().offset().top - Em.$('.site-head').outerHeight(true),
 			isAdded = false;
 
@@ -42,9 +40,20 @@ App.DiscussionEditorComponent = Em.Component.extend({
 		Em.$(window).on('scroll', this.onScroll);
 	},
 
+	didInsertElement(): void {
+		this._super();
+
+		this.initilizeOnScroll();
+	},
+
 	willDestroyElement(): void {
 		Em.$(window).off('scroll', this.onScroll);
 	},
+
+	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
+		Em.$(window).off('scroll', this.onScroll);
+		this.initilizeOnScroll();
+	}),
 
 	click(): void {
 		Em.$('.editor').focus();
