@@ -91,6 +91,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 * http://fr.clashofclans.wikia.com/     db: frclashofclans
 		 * http://ru.clashofclans.wikia.com/     db: ruclashofclans
 		 * http://es.clash-of-clans.wikia.com/   db: esclashofclans727
+		 * http://pt-br.clashofclans.wikia.com/  db: ptbrclashofclans
 		 *
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
@@ -99,13 +100,13 @@ App.ArticleWrapperComponent = Em.Component.extend(
 
 			var enabledCommunities = [
 				'clashofclans', 'declashofclans', 'zhclashofclans723', 'frclashofclans',
-				'ruclashofclans', 'esclashofclans727'
+				'ruclashofclans', 'esclashofclans727', 'ptbrclashofclans'
 			];
 
 			if (this.get('isJapaneseWikia')) {
 				// Enabled for all Japanese wikias
 				return true;
-			} else if (Em.$.inArray(dbName, enabledCommunities) > -1) {
+			} else if (enabledCommunities.indexOf(dbName) > -1) {
 				// Otherwise check against whitelist
 				return true;
 			}
@@ -119,11 +120,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 *
 		 * @returns {boolean} True if the contribution features should be rendered on the page
 		 */
-		contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
-			var isMainPage = this.get('model.isMainPage'),
-				isJapaneseWikia = this.get('isJapaneseWikia'),
-				enabled = this.get('contributionEnabledForCommunity');
-
+		contributionEnabled: Em.computed('model.isMainPage', function (): boolean {
 			return !this.get('model.isMainPage') &&
 				this.get('contributionEnabledForCommunity');
 		}),
@@ -134,7 +131,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 *
 		 * @returns {boolean} True if the upload photo icon should be rendered
 		 */
-		addPhotoIconEnabled: Em.computed(function(): boolean {
+		addPhotoIconVisible: Em.computed(function(): boolean {
 			var isMainPage = this.get('model.isMainPage'),
 				isJapaneseWikia = this.get('isJapaneseWikia');
 
@@ -147,10 +144,10 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 *
 		 * @returns {boolean} True if the upload photo icon should be rendered
 		 */
-		editIconEnabled: Em.computed(function(): boolean {
+		editIconVisible: Em.computed(function(): boolean {
 			// Currently, all communities that have the contribution feature enabled
 			// should have the edit icon
-			return this.get('contributionFeatureEnabled');
+			return this.get('contributionEnabled');
 		}),
 
 		/**
@@ -161,7 +158,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 *
 		 * @returns {boolean} True if edit is allowed
 		 */
-		isEditAllowed: Em.computed(function(): boolean {
+		editAllowed: Em.computed(function(): boolean {
 			var isCoppaWiki = Em.get(Mercury, 'wiki.isCoppaWiki'),
 				disableAnonymousEditing = Em.get(Mercury, 'wiki.disableAnonymousEditing'),
 				isLoggedIn = Em.get(Mercury, 'currentUser.isAuthenticated');
@@ -180,8 +177,8 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 *
 		 * @returns {boolean} True if add photo is allowed
 		 */
-		isAddPhotoAllowed: Em.computed(function(): boolean {
-			var disableAnonymousUploadForMercury = Em.get(Mercury, 'wiki.wiki.disableAnonymousUploadForMercury'),
+		addPhotoAllowed: Em.computed(function(): boolean {
+			var disableAnonymousUploadForMercury = Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury'),
 				isLoggedIn = Em.get(Mercury, 'currentUser.isAuthenticated');
 
 			if (isLoggedIn) {

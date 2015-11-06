@@ -4,7 +4,7 @@
 
 App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 	classNames: ['contribution-container'],
-	classNameBindings: ['addPhotoIconEnabled::no-photo'],
+	classNameBindings: ['addPhotoIconVisible::no-photo'],
 	layoutName: 'components/article-contribution',
 	section: null,
 	sectionId: null,
@@ -25,7 +25,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		 * @returns {void}
 		 */
 		edit(): void {
-			if (this.get('isEditAllowed') !== true) {
+			if (this.get('editAllowed') !== true) {
 				return;
 			}
 
@@ -75,8 +75,10 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 	 * @param trackingLabel {string} Label to use for tracking of event
 	 */
 	redirectToLogin(trackingLabel: string) {
-		var href = '/join?redirect=' + encodeURIComponent(window.location.href);
-		if (this.get('sectionId')) {
+		var href = `/join?redirect=${encodeURIComponent(window.location.href)}`,
+			sectionId = this.get('sectionId');
+
+		if (sectionId) {
 			href += encodeURIComponent('#' + this.sectionId);
 		}
 		href += this.getUselangParam();

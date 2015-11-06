@@ -1,6 +1,6 @@
-{{#if editIconEnabled}}
+{{#if editIconVisible}}
 	<div class="edit-section">
-		{{#if isEditAllowed}}
+		{{#if editAllowed}}
 			<span {{action 'edit'}}>
 				{{svg 'pencil' role='img' class='icon pencil'}}
 			</span>
@@ -13,10 +13,10 @@
 
 {{/if}}
 
-{{#if addPhotoIconEnabled}}
+{{#if addPhotoIconVisible}}
 	<div class='upload-photo'>
-		{{#if isAddPhotoAllowed}}
-			<span {{action 'loginToUploadPhoto'}}>
+		{{#if addPhotoAllowed}}
+			<span {{action 'addPhoto'}}>
 				{{svg 'camera' role='img' class='icon camera'}}
 			</span>
 			<input class="file-upload-input" type="file" accept="image/*" {{action 'addPhoto' on='change'}}/>

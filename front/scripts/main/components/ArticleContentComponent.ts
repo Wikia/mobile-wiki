@@ -25,7 +25,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		adsContext: null,
 		content: null,
 		media: null,
-		contributionFeatureEnabled: null,
+		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		cleanTitle: null,
 		headers: null,
@@ -59,7 +59,7 @@ App.ArticleContentComponent = Em.Component.extend(
 		}).on('init'),
 
 		headerObserver: Em.observer('headers', function(): void {
-			if (this.get('contributionFeatureEnabled')) {
+			if (this.get('contributionEnabled')) {
 				var headers = this.get('headers'),
 					$sectionHeader: JQuery = null,
 					$contributionComponent: JQuery = null;
@@ -146,9 +146,9 @@ App.ArticleContentComponent = Em.Component.extend(
 			var title = this.get('cleanTitle'),
 			    edit = 'edit',
 			    addPhoto = 'addPhoto',
-			    addPhotoIconEnabled = this.get('addPhotoIconEnabled'),
-			    editIconEnabled = this.get('editIconEnabled'),
-			    isEditAllowed = this.get('isEditAllowed'),
+			    addPhotoIconVisible = this.get('addPhotoIconVisible'),
+			    editIconVisible = this.get('editIconVisible'),
+			    editAllowed = this.get('editAllowed'),
 			    contributionComponent = this.get('container').lookup('component:article-contribution', { singleton: false });
 
 			contributionComponent.setProperties({
@@ -157,9 +157,9 @@ App.ArticleContentComponent = Em.Component.extend(
 				title,
 				edit,
 				addPhoto,
-				addPhotoIconEnabled,
-				editIconEnabled,
-				isEditAllowed
+				addPhotoIconVisible,
+				editIconVisible,
+				editAllowed
 			});
 			return this.createChildView(contributionComponent).createElement().$();
 		},
