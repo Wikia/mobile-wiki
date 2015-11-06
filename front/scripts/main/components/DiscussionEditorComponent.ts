@@ -2,8 +2,9 @@
 'use strict';
 
 App.DiscussionEditorComponent = Em.Component.extend({
-	classNames: ['editor-container', 'mobile-hidden'],
-	classNameBindings: ['active', 'sticky'],
+	attributeBindings: ['style'],
+	classNames: ['discussion-editor', 'mobile-hidden'],
+	classNameBindings: ['active'],
 
 	active: false,
 	sticky: false,
@@ -15,21 +16,15 @@ App.DiscussionEditorComponent = Em.Component.extend({
 	didInsertElement(): void {
 		this._super();
 
-		var $window = $(window),
-			menu = $('.editor-container'),
-			menuPosition = menu.offset().top - $('.discussion-header').outerHeight(true),
-			placeholder = $('<div>').addClass('editor-container-placeholder'),
+		var menuPosition = this.$().offset().top - Em.$('.site-head').outerHeight(true),
 			isAdded = false;
 
-		$window.scroll(() => {
+		Em.$(window).scroll(() => {
 			if (window.pageYOffset >= menuPosition && !isAdded) {
 				this.set('sticky', true);
-				placeholder.width(menu.outerWidth(true)).height(menu.outerHeight(true));
-				menu.before(placeholder);
 				isAdded = true;
 			} else if (window.pageYOffset < menuPosition && isAdded) {
 				this.set('sticky', false);
-				placeholder.remove();
 				isAdded = false;
 			}
 		});
@@ -38,6 +33,12 @@ App.DiscussionEditorComponent = Em.Component.extend({
 	click(): void {
 		Em.$('.editor').focus();
 	},
+
+	style: Em.computed('sticky', function (): Em.Handlebars.SafeString {
+			return this.get('sticky') === true
+				? new Em.Handlebars.SafeString(`height: ${this.$('.editor-container').outerHeight(true)}px`)
+				: null;
+	}),
 
 	actions: {
 		activateEditorComponent(): void {
@@ -53,7 +54,7 @@ App.DiscussionEditorComponent = Em.Component.extend({
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${Mercury.wiki.id}/forums/${forumId}/threads`),
 				data: JSON.stringify({
-					body: Em.$('.editor').val(),
+					body: this.$('.editor').val(),
 					creatorId: this.get('currentUser.userId'),
 					siteId: Mercury.wiki.id,
 					threadId: forumId,

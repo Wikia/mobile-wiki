@@ -19,11 +19,11 @@
 		.editor-close {
 			display: none;
 		}
+	}
 
-		&.active {
-			button {
-				display: inline-block;
-			}
+	.discussion-editor.active {
+		button {
+			display: inline-block;
 		}
 	}
 
@@ -39,18 +39,17 @@
 	}
 
 	@media #{$mobile-range} {
-		.editor-container-placeholder {
-			display: none;
-		}
-
-		.editor-container.active {
-			background: $color-white;
+		.discussion-editor.active {
 			display: block;
-			height: 100%;
-			position: fixed;
-			top: 0;
-			width: 100%;
-			z-index: 800;
+
+			.editor-container {
+				background: $color-white;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				width: 100%;
+				z-index: 800;
+			}
 
 			button {
 				right: 0;
@@ -113,21 +112,6 @@
 				padding: 17px 17px 17px 64px;
 			}
 
-			&.active {
-				padding-bottom: 40px;
-
-				.editor {
-					min-height: 106px;
-					max-height: 400px;
-					padding: 17px 17px 17px 64px;
-					resize: vertical;
-				}
-
-				.editor-wrapper {
-					padding: 0;
-				}
-			}
-
 			&.sticky {
 				position: fixed;
 				top: 56px;
@@ -147,7 +131,23 @@
 				position: absolute;
 				top: 10px;
 			}
+		}
 
+		.discussion-editor.active {
+			.editor-container {
+				padding-bottom: 40px;
+			}
+
+			.editor {
+				min-height: 106px;
+				max-height: 400px;
+				padding: 17px 17px 17px 64px;
+				resize: vertical;
+			}
+
+			.editor-wrapper {
+				padding: 0;
+			}
 		}
 	}
 }
