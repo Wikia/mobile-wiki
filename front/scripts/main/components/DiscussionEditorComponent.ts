@@ -11,7 +11,11 @@ App.DiscussionEditorComponent = Em.Component.extend({
 
 	submitDisabled: true,
 
-	// TODO destroyElement
+	style: Em.computed('sticky', function (): Em.Handlebars.SafeString {
+		return this.get('sticky') === true
+			? new Em.Handlebars.SafeString(`height: ${this.$('.editor-container').outerHeight(true)}px`)
+			: null;
+	}),
 
 	didInsertElement(): void {
 		this._super();
@@ -19,26 +23,32 @@ App.DiscussionEditorComponent = Em.Component.extend({
 		var menuPosition = this.$().offset().top - Em.$('.site-head').outerHeight(true),
 			isAdded = false;
 
-		Em.$(window).scroll(() => {
-			if (window.pageYOffset >= menuPosition && !isAdded) {
-				this.set('sticky', true);
-				isAdded = true;
-			} else if (window.pageYOffset < menuPosition && isAdded) {
-				this.set('sticky', false);
-				isAdded = false;
-			}
-		});
+		this.onScroll = () => {
+			Em.run.throttle(
+				this,
+				function() {
+					if (window.pageYOffset >= menuPosition && !isAdded) {
+						this.set('sticky', true);
+						isAdded = true;
+					} else if (window.pageYOffset < menuPosition && isAdded) {
+						this.set('sticky', false);
+						isAdded = false;
+					}
+				},
+				25
+			);
+		};
+
+		Em.$(window).on('scroll', this.onScroll);
+	},
+
+	willDestroyElement(): void {
+		Em.$(window).off('scroll', this.onScroll);
 	},
 
 	click(): void {
 		Em.$('.editor').focus();
 	},
-
-	style: Em.computed('sticky', function (): Em.Handlebars.SafeString {
-			return this.get('sticky') === true
-				? new Em.Handlebars.SafeString(`height: ${this.$('.editor-container').outerHeight(true)}px`)
-				: null;
-	}),
 
 	actions: {
 		activateEditorComponent(): void {
