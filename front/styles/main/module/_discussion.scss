@@ -14,7 +14,7 @@ $horizontal-padding: 15px;
 		display: inline-block;
 		margin-right: 5px;
 
-		img {
+		img, svg {
 			border-color: $border-color;
 		}
 	}
@@ -128,13 +128,6 @@ $horizontal-padding: 15px;
 	.post-detail {
 		padding: 12px $horizontal-padding;
 
-		.avatar {
-			img {
-				height: 40px;
-				width: 40px;
-			}
-		}
-
 		.share {
 			align-items: center;
 			display: flex;
@@ -203,6 +196,13 @@ $horizontal-padding: 15px;
 			&:first-child {
 				border-width: 0;
 			}
+		}
+	}
+
+	.avatar {
+		img, svg {
+			height: 40px;
+			width: 40px;
 		}
 	}
 }

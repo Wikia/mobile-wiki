@@ -1,10 +1,14 @@
 <figure class="avatar">
-	{{#if profileUrl}}
-	<a href="{{profileUrl}}">
-		<img src="{{avatarUrl}}">
-	</a>
+	{{#if avatarUrl}}
+		{{#if profileUrl}}
+		<a href="{{profileUrl}}">
+			<img src="{{avatarUrl}}">
+		</a>
+		{{else}}
+			<img src="{{avatarUrl}}">
+		{{/if}}
 	{{else}}
-		<img src="{{avatarUrl}}">
+		{{svg 'avatar' viewBox='0 0 40 40' class='icon'}}
 	{{/if}}
 </figure>
 {{#if displayUsername}}
