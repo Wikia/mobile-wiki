@@ -1,3 +1,5 @@
+import * as state from '../baseline/mercury/utils/state';
+
 /**
  * @typedef {Object} QueryUserInfoResponse
  * @property {QueryUserInfoResponseQuery} query
@@ -23,7 +25,7 @@ App.CurrentUser = Em.Object.extend({
 	language: null,
 
 	userId: Em.computed(() => {
-		const cookieUserId = parseInt(M.prop('userId'), 10);
+		const cookieUserId = parseInt(state.prop('userId'), 10);
 
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
@@ -66,7 +68,7 @@ App.CurrentUser = Em.Object.extend({
 			userLanguage = userLang || contentLanguage;
 
 		this.set('language', userLanguage);
-		M.prop('userLanguage', userLanguage);
+		state.prop('userLanguage', userLanguage);
 	},
 
 	/**

@@ -1,3 +1,7 @@
+import * as state from '../baseline/mercury/utils/state';
+import * as trackPerf from '../mercury/utils/trackPerf';
+import * as queryString from '../mercury/utils/queryString';
+
 const App = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
 	// putting blocking scripts before our content
@@ -26,8 +30,8 @@ App.initializer({
 	name: 'visit-source',
 	initialize() {
 		if (typeof VisitSource === 'function') {
-			(new VisitSource('WikiaSessionSource', M.prop('cookieDomain'))).checkAndStore();
-			(new VisitSource('WikiaLifetimeSource', M.prop('cookieDomain'), false)).checkAndStore();
+			(new VisitSource('WikiaSessionSource', state.prop('cookieDomain'))).checkAndStore();
+			(new VisitSource('WikiaLifetimeSource', state.prop('cookieDomain'), false)).checkAndStore();
 		}
 	}
 });
@@ -35,9 +39,9 @@ App.initializer({
 App.initializer({
 	name: 'optimizely',
 	initialize() {
-		const optimizelyScript = M.prop('optimizelyScript');
+		const optimizelyScript = state.prop('optimizelyScript');
 
-		if (!Em.isEmpty(optimizelyScript) && !M.getQueryParam('noexternals')) {
+		if (!Em.isEmpty(optimizelyScript) && !queryString.getQueryParam('noexternals')) {
 			App.deferReadiness();
 
 			Em.$.getScript(optimizelyScript).always(() => {
@@ -55,16 +59,16 @@ App.initializer({
 			/**
 			 * prevents fail if transitions are empty
 			 */
-			loadedTranslations = M.prop('translations') || {},
+			loadedTranslations = state.prop('translations') || {},
 			/**
 			 * loaded language name is the first key of the Mercury.state.translations object
 			 */
 			loadedLanguage = Object.keys(loadedTranslations)[0];
 
-		let debug = M.prop('environment') === 'dev';
+		let debug = state.prop('environment') === 'dev';
 
 		$window.scroll(() => {
-			M.prop('scroll.mercury.preload', $window.scrollTop(), true);
+			state.prop('scroll.mercury.preload', $window.scrollTop(), true);
 		});
 
 		// turn on debugging with querystring ?debug=1
@@ -73,7 +77,7 @@ App.initializer({
 		}
 
 		App.setProperties({
-			apiBase: M.prop('apiBase'),
+			apiBase: state.prop('apiBase'),
 			language: loadedLanguage || 'en',
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
@@ -109,19 +113,19 @@ App.initializer({
 		// Send page performance stats after window is loaded
 		// Since we load our JS async this code may execute post load event
 		if (document.readyState === 'complete') {
-			M.sendPagePerformance();
+			trackPerf.sendPagePerformance();
 		} else {
-			$(window).load(() => M.sendPagePerformance());
+			$(window).load(() => trackPerf.sendPagePerformance());
 		}
 
 		EmPerfSender.initialize({
-			enableLogging: (M.prop('environment') === 'dev'),
+			enableLogging: (state.prop('environment') === 'dev'),
 
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send(events, metrics) {
-				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, M.trackPerf
+				// This is where we connect EmPerfSender with our persistent metrics adapter, in this case, trackPerf
 				// is our instance of a Weppy interface
-				M.trackPerf({
+				trackPerf.trackPerf({
 					module: metrics.klass.split('.')[0].toLowerCase(),
 					name: metrics.klass,
 					type: 'timer',
@@ -175,7 +179,7 @@ App.initializer({
 		dimensions[1] = Mercury.wiki.dbName;
 		dimensions[2] = Mercury.wiki.language.content;
 		dimensions[4] = 'mercury';
-		dimensions[5] = M.prop('userId') ? 'user' : 'anon';
+		dimensions[5] = state.prop('userId') ? 'user' : 'anon';
 		dimensions[9] = String(Mercury.wiki.id);
 		dimensions[8] = getPageType;
 		// IsCorporatePage
@@ -183,7 +187,7 @@ App.initializer({
 		// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 		// ga(prefix + 'set', 'dimension16', getKruxSegment());
 		dimensions[17] = Mercury.wiki.vertical;
-		dimensions[19] = M.prop('article.type');
+		dimensions[19] = state.prop('article.type');
 
 		if (adsContext) {
 			// Hub
@@ -214,9 +218,9 @@ App.initializer({
 		const geoCookie = $.cookie('Geo');
 
 		if (geoCookie) {
-			M.prop('geo', JSON.parse(geoCookie));
-		} else if (M.prop('environment') === 'dev') {
-			M.prop('geo', {
+			state.prop('geo', JSON.parse(geoCookie));
+		} else if (state.prop('environment') === 'dev') {
+			state.prop('geo', {
 				country: 'wikia-dev-country',
 				continent: 'wikia-dev-continent'
 			});
