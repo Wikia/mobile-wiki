@@ -18,6 +18,7 @@
     "numeral": true,
     "QUnit": true,
     "$script": true,
+    "Weppy": true,
     "window": true,
     "Wikia": true
   },
