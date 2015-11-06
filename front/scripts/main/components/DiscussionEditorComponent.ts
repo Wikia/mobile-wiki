@@ -42,16 +42,15 @@ App.DiscussionEditorComponent = Em.Component.extend({
 		deactivateEditorComponent(): void {
 			this.set('active', false);
 		},
-		createPost(): void {
-			console.log(this);
+		createPost(forumId): void {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
-				// TODO threadId
-				url: M.getDiscussionServiceUrl(`/${Mercury.wiki.id}/forums/1833581173276673026/threads`),
+				url: M.getDiscussionServiceUrl(`/${Mercury.wiki.id}/forums/${forumId}/threads`),
 				data: JSON.stringify({
-					body: 'test',
+					body: Em.$('.editor').val(),
 					creatorId: this.get('currentUser.userId'),
-					siteId: Mercury.wiki.id
+					siteId: Mercury.wiki.id,
+					threadId: forumId,
 				}),
 				contentType: 'application/json',
 				xhrFields: {

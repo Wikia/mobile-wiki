@@ -1,7 +1,7 @@
 <a href="#" class="editor-close" {{action 'deactivateEditorComponent'}}>
 	{{svg 'close' viewBox='0 0 18 18'}}
 </a>
-<button type="submit" {{action 'createPost'}} disabled={{submitDisabled}}>Post</button>
+<button type="submit" {{action 'createPost' forumId}} disabled={{submitDisabled}}>Post</button>
 <textarea class="editor" oninput={{action 'updateSubmitButton'}} onfocus={{action 'activateEditorComponent'}} placeholder="Share a thought, question or link..."></textarea>
 
 {{! TODO anon avatar }}
