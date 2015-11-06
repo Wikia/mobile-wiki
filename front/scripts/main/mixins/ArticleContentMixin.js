@@ -1,7 +1,3 @@
-/// <reference path='../../../../typings/ember/ember.d.ts' />
-/// <reference path='../app.ts' />
-'use strict';
-
 /**
  * This mixin keeps track of current article-content width which is updated on every window resize.
  * ArticleContentMixin should be included in all places
@@ -11,7 +7,7 @@
  * @type {Ember.Mixin}
  */
 App.ArticleContentMixin = Em.Mixin.create({
-	//This object is shared among all objects which include this mixin
+	// This object is shared among all objects which include this mixin
 	articleContent: {
 		width: null
 	},
@@ -19,7 +15,7 @@ App.ArticleContentMixin = Em.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	init(): void {
+	init() {
 		this._super();
 
 		App.ArticleContentListeners.add(this);
@@ -28,7 +24,7 @@ App.ArticleContentMixin = Em.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	willDestroyElement(): void {
+	willDestroyElement() {
 		this._super();
 
 		App.ArticleContentListeners.remove(this);
@@ -57,13 +53,15 @@ App.ArticleContentListeners = Em.Object.create({
 	 *
 	 * @returns {JQuery}
 	 */
-	getArticleContentElement(): JQuery {
-		var articleContentElement: JQuery = this.get('articleContentElement');
+	getArticleContentElement() {
+		let articleContentElement = this.get('articleContentElement');
+
 		if (articleContentElement !== null) {
 			return articleContentElement;
 		} else {
 			articleContentElement = $(this.articleContentSelector);
 			this.set('articleContentElement', articleContentElement);
+
 			return articleContentElement;
 		}
 	},
@@ -72,9 +70,7 @@ App.ArticleContentListeners = Em.Object.create({
 	 * @param {Em.Component} container
 	 * @returns {void}
 	 */
-	add(container: Em.Component): void {
-		var articleContentWidth: number;
-
+	add(container) {
 		this.containers.push(container);
 
 		if (!this.initialized) {
@@ -82,7 +78,8 @@ App.ArticleContentListeners = Em.Object.create({
 				this.onResize();
 			});
 
-			articleContentWidth = this.getArticleContentElement().width();
+			const articleContentWidth = this.getArticleContentElement().width();
+
 			this.set('articleContent.width', articleContentWidth);
 			container.set('articleContent.width', articleContentWidth);
 
@@ -94,8 +91,8 @@ App.ArticleContentListeners = Em.Object.create({
 	 * @param {Em.Component} container
 	 * @returns {void}
 	 */
-	remove(container: Em.Component): void {
-		var index = this.containers.indexOf(container);
+	remove(container) {
+		const index = this.containers.indexOf(container);
 
 		if (index > -1) {
 			this.containers.splice(index, 1);
@@ -105,16 +102,16 @@ App.ArticleContentListeners = Em.Object.create({
 	/**
 	 * @returns {void}
 	 */
-	onResize(): void {
-		var containers = this.containers,
+	onResize() {
+		const containers = this.containers,
 			containersCount = containers.length;
 
-		//We set current width on this.articleContent.width so we always keep track of article-content width.
-		//Even if components are no longer registered (for example in case of opening/closing infobox).
+		// We set current width on this.articleContent.width so we always keep track of article-content width.
+		// Even if components are no longer registered (for example in case of opening/closing infobox).
 		this.set('articleContent.width', this.getArticleContentElement().width());
 
-		//If some containers are registered it is enough to update value in one of them
-		//because articleContent.width property is shared among all objects which include ArticleContentMixin
+		// If some containers are registered it is enough to update value in one of them
+		// because articleContent.width property is shared among all objects which include ArticleContentMixin
 		if (containersCount > 0) {
 			containers[0].set('articleContent.width', this.get('articleContent.width'));
 		}
