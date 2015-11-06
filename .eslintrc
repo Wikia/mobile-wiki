@@ -11,16 +11,20 @@
   "globals": {
     "App": true,
     "Em": true,
+    "EmPerfSender": true,
+    "FastClick": true,
     "Hammer": true,
     "i18n": true,
     "M": true,
     "Mercury": true,
     "numeral": true,
+    "optimizely": true,
     "QUnit": true,
     "$script": true,
     "Weppy": true,
     "window": true,
-    "Wikia": true
+    "Wikia": true,
+    "VisitSource": true
   },
   // http://eslint.org/docs/rules/
   "rules": {

@@ -1,62 +1,68 @@
-/// <reference path="./app.ts" />
-/// <reference path="./models/UserModel.ts" />
-'use strict';
+/**
+ * @typedef {Object} QueryUserInfoResponse
+ * @property {QueryUserInfoResponseQuery} query
+ */
 
-interface QueryUserInfoResponse {
-	query: {
-		userinfo: {
-			anon?: string;
-			id: number;
-			name: string;
-			rights: string[];
-			options: any;
-		}
-	}
-}
+/**
+ * @typedef {Object} QueryUserInfoResponseQuery
+ * @property {QueryUserInfoResponseQueryUserInfo} userinfo
+ */
+
+/**
+ * @typedef {Object} QueryUserInfoResponseQueryUserInfo
+ * @property {string} [anon]
+ * @property {number} id
+ * @property {string} name
+ * @property {string[]} rights
+ * @property {*} options
+ */
 
 App.CurrentUser = Em.Object.extend({
 	rights: {},
 	isAuthenticated: Em.computed.bool('userId'),
 	language: null,
 
-	userId: Em.computed(function (): number {
-		var cookieUserId = parseInt(M.prop('userId'), 10);
+	userId: Em.computed(() => {
+		const cookieUserId = parseInt(M.prop('userId'), 10);
+
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
 	/**
-	 * @returns: {void}
+	 * @returns {void}
 	 */
-	init(): void {
-		var userId = this.get('userId');
+	init() {
+		const userId = this.get('userId');
+
 		if (userId !== null) {
 			App.UserModel.find({userId})
-				.then((result: typeof App.UserModel): void => {
+				.then((result) => {
 					this.setProperties(result);
 				})
-				.catch((err: any): void => {
+				.catch((err) => {
 					Em.Logger.warn('Couldn\'t load current user model', err);
 				});
 
 			this.loadUserInfo()
 				.then(this.loadUserLanguage.bind(this))
 				.then(this.loadUserRights.bind(this))
-				.catch((err: any): void => {
+				.catch((err) => {
 					this.setUserLanguage();
 					Em.Logger.warn('Couldn\'t load current user info', err);
 				});
 		} else {
 			this.setUserLanguage();
 		}
+
 		this._super();
 	},
 
 	/**
-	 * @param {string} [userLang=null]
+	 * @param {string|null} [userLang=null]
 	 * @returns {void}
 	 */
-	setUserLanguage(userLang: string = null): void {
-		var contentLanguage = Em.getWithDefault(Mercury, 'wiki.language.content', 'en'),
+	setUserLanguage(userLang = null) {
+		const contentLanguage = Em.getWithDefault(Mercury, 'wiki.language.content', 'en'),
 			userLanguage = userLang || contentLanguage;
 
 		this.set('language', userLanguage);
@@ -65,11 +71,11 @@ App.CurrentUser = Em.Object.extend({
 
 	/**
 	 * @param {QueryUserInfoResponse} result
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Em.RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadUserLanguage(result: QueryUserInfoResponse): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var userLanguage = Em.get(result, 'query.userinfo.options.language');
+	loadUserLanguage(result) {
+		return new Em.RSVP.Promise((resolve) => {
+			const userLanguage = Em.get(result, 'query.userinfo.options.language');
 
 			this.setUserLanguage(userLanguage);
 
@@ -79,18 +85,18 @@ App.CurrentUser = Em.Object.extend({
 
 	/**
 	 * @param {QueryUserInfoResponse} result
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Em.RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadUserRights(result: QueryUserInfoResponse): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			var rightsArray = Em.get(result, 'query.userinfo.rights'),
+	loadUserRights(result) {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			const rightsArray = Em.get(result, 'query.userinfo.rights'),
 				rights = {};
 
 			if (!Em.isArray(rightsArray)) {
 				reject(result);
 			}
 
-			rightsArray.forEach((right: string): void => {
+			rightsArray.forEach((right) => {
 				rights[right] = true;
 			});
 
@@ -101,11 +107,11 @@ App.CurrentUser = Em.Object.extend({
 	},
 
 	/**
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Em.RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadUserInfo(): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	loadUserInfo() {
+		return new Em.RSVP.Promise((resolve, reject) => {
+			Em.$.ajax({
 				url: '/api.php',
 				data: {
 					action: 'query',
@@ -114,12 +120,8 @@ App.CurrentUser = Em.Object.extend({
 					format: 'json'
 				},
 				dataType: 'json',
-				success: (result: QueryUserInfoResponse): void => {
-					resolve(result);
-				},
-				error: (err: any): void => {
-					reject(err);
-				}
+				success: resolve,
+				error: reject
 			});
 		});
 	}
