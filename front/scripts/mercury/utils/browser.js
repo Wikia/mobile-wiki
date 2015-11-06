@@ -1,25 +1,17 @@
-/// <reference path="../../baseline/mercury.d.ts" />
-
 /**
- * browser
+ * Detects if user is using iOS or Android system
+ *
+ * @returns {string}
  */
-'use strict';
+export function getSystem() {
+	const ua = window.navigator.userAgent;
 
-module Mercury.Utils.Browser {
-	/**
-	 * Detects if user is using iOS or Android system
-	 *
-	 * @returns {string}
-	 */
-	export function getSystem (): string {
-		var ua: string = window.navigator.userAgent,
-			system: string;
+	let system;
 
-		if (ua.match(/iPad|iPhone|iPod/i) !== null) {
-			system = 'ios';
-		} else if (ua.match(/Android/i) !== null) {
-			system = 'android';
-		}
-		return system;
+	if (ua.match(/iPad|iPhone|iPod/i) !== null) {
+		system = 'ios';
+	} else if (ua.match(/Android/i) !== null) {
+		system = 'android';
 	}
+	return system;
 }

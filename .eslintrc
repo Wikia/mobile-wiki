@@ -17,6 +17,7 @@
     "Mercury": true,
     "numeral": true,
     "QUnit": true,
+    "$script": true,
     "window": true,
     "Wikia": true
   },

@@ -1,14 +1,11 @@
-/// <reference path="../../baseline/mercury.d.ts" />
+/**
+ * @param {string} name
+ * @returns {string}
+ */
+export function getQueryParam(name) {
+	const nameSanitized = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]'),
+		regex = new RegExp(`[\\?&]${nameSanitized}=([^&#]*)`),
+		results = regex.exec(location.search);
 
-module Mercury.Utils {
-	/**
-	 * @param {string} name
-	 * @returns {string}
-	 */
-	export function getQueryParam(name: string): string {
-		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-			results = regex.exec(location.search);
-		return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-	}
+	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
