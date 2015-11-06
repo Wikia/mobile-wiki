@@ -1,10 +1,4 @@
-{{#if headerImageStyle}}
-	<div class="layer banner" style={{headerImageStyle}}></div>
-{{/if}}
-{{#if headerColorStyle}}
-	<div class="layer opacity" style={{headerColorStyle}}></div>
-{{/if}}
-<div class="layer">
+<div class="discussion-hero-unit-content">
 	<h1>{{name}}</h1>
 	{{#if numberOfPosts}}
 		<p>{{i18n 'discussion.number-of-posts' numberOfPosts=numberOfPosts}}</p>
