@@ -5,6 +5,19 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		classNames: ['curated-content-editor'],
 		isLoading: false,
 
+		/**
+		 * When user enters curated content editor we want to clear all notifications that might be still there
+		 * after previous edit. For example:
+		 * 1. user enters editor and taps publish - alert about successful page appears
+		 * 2. user gets redirected to main page and taps edit main page link
+		 * - alerts need to be reset because some of them might have not timed out
+		 *
+		 * @returns {void}
+		 */
+		didInsertElement() {
+			this.clearNotifications();
+		},
+
 		actions: {
 			/**
 			 * @param {string} block
