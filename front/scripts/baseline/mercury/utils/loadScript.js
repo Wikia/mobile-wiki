@@ -1,30 +1,29 @@
-/// <reference path='../../mercury.ts' />
-/// <reference path='../../mercury.d.ts' />
+/**
+ * @throws URIError exception
+ * @param {*} error
+ * @returns {void}
+ */
+function loadError(error) {
+	const scriptTag = error.target;
 
-module Mercury.Utils {
-	/**
-	 * @throws URIError exception
-	 * @param {ErrorEvent} error
-	 * @returns {void}
-	 */
-	function loadError (error: ErrorEvent): void {
-		var scriptTag: HTMLScriptElement = <HTMLScriptElement> error.target;
-		throw new URIError('The script ' + scriptTag.src + ' is not accessible.');
+	throw new URIError(`The script ${scriptTag.src} is not accessible.`);
+}
+
+/**
+ * @param {string} src
+ * @param {Function} [fOnload]
+ * @returns {void}
+ */
+export function loadScript(src, fOnload) {
+	const script = document.createElement('script');
+
+	script.type = 'text\/javascript';
+	script.onerror = loadError;
+
+	if (fOnload) {
+		script.onload = fOnload;
 	}
 
-	/**
-	 * @param {string} src
-	 * @param {Function} [fOnload]
-	 * @returns {void}
-	 */
-	export function loadScript(src: string, fOnload: any) {
-		var script = document.createElement('script');
-		script.type = 'text\/javascript';
-		script.onerror = loadError;
-		if (fOnload) {
-			script.onload = fOnload;
-		}
-		document.body.appendChild(script);
-		script.src = src;
-	}
+	document.body.appendChild(script);
+	script.src = src;
 }
