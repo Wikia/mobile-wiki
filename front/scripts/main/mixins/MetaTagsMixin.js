@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-
-'use strict';
-
 /**
  * Route mixin for setting head meta tags on transition into/out of route
  *
@@ -27,12 +23,12 @@ App.MetaTagsMixin = Em.Mixin.create({
 	 * @param {*} meta
 	 * @returns {void}
 	 */
-	setMeta(meta: any): void {
-		var $head = this.get('$head'),
-			$metaProto = Em.$('<meta></meta>'),
-			$newMetaValues: any[] = [],
-			selectors: any[] = [],
-			keys: any = Object.keys || Em.keys,
+	setMeta(meta) {
+		const $head = this.get('$head'),
+			$metaProto = Em.$('<meta/>'),
+			$newMetaValues = [],
+			selectors = [],
+			keys = Object.keys || Em.keys,
 			metaTypes = keys(meta);
 
 		// don't set meta if route is no longer active
@@ -40,9 +36,9 @@ App.MetaTagsMixin = Em.Mixin.create({
 			return;
 		}
 
-		metaTypes.forEach(function(metaType: any) {
-			keys(meta[metaType]).map(function(key: any) {
-				selectors.push('meta[' + metaType + '="' + key + '"]');
+		metaTypes.forEach((metaType) => {
+			keys(meta[metaType]).map((key) => {
+				selectors.push(`meta[${metaType}="${key}"]`);
 				$newMetaValues.push(
 					$metaProto
 						.clone()
@@ -59,12 +55,12 @@ App.MetaTagsMixin = Em.Mixin.create({
 	/**
 	 * @returns {*}
 	 */
-	clearMeta(): any {
-		var $head = this.get('$head'),
+	clearMeta() {
+		const $head = this.get('$head'),
 			selectors = this.get('currentMetaSelectors');
 
 		if (!selectors) {
-			return;
+			return null;
 		}
 
 		$head.find(selectors.join(',')).remove();
@@ -73,10 +69,10 @@ App.MetaTagsMixin = Em.Mixin.create({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {Object}
 	 */
-	runSetMeta(): void {
-		var meta = this.get('meta');
+	runSetMeta() {
+		const meta = this.get('meta');
 
 		if (typeof meta === 'function') {
 			return this.setMeta(meta.apply(this));
@@ -89,7 +85,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 		/**
 		 * @returns {boolean}
 		 */
-		didTransition(): boolean {
+		didTransition() {
 			this._super(arguments);
 			Em.run.next(this, this.runSetMeta);
 
@@ -99,7 +95,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 		/**
 		 * @returns {boolean}
 		 */
-		willTransition(): boolean {
+		willTransition() {
 			this._super(arguments);
 			this.clearMeta();
 
@@ -109,7 +105,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 		/**
 		 * @returns {boolean}
 		 */
-		resetMeta(): boolean {
+		resetMeta() {
 			this.clearMeta();
 			Em.run.next(this, this.runSetMeta);
 
