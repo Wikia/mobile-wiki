@@ -14,7 +14,7 @@
  * @param {Object} options
  * @returns {Em.Handlebars.SafeString}
  */
-App.SvgHelper = Em.Helper.helper(function (params, options) {
+App.SvgHelper = Em.Helper.helper((params, options) => {
 	const optionalParams = [
 			'class',
 			'role',

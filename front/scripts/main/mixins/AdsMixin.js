@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
-'use strict';
-
 App.AdsMixin = Em.Mixin.create({
 	adsData: {
 		minZerothSectionLength: 700,
@@ -28,7 +24,7 @@ App.AdsMixin = Em.Mixin.create({
 			slotNamePrefix: 'MOBILE_IN_CONTENT_EXTRA_'
 		}
 	},
-	adViews: <Em.View[]>[],
+	adViews: [],
 
 	/**
 	 * @param {string} adSlotName
@@ -36,18 +32,18 @@ App.AdsMixin = Em.Mixin.create({
 	 * @param {JQuery} element
 	 * @returns {void}
 	 */
-	appendAd(adSlotName: string, place: string, element: JQuery): void {
+	appendAd(adSlotName, place, element) {
 		// Keep in mind we always want to pass noAds parameter to the AdSlot component
 		// Right now we've got three ad slots and it doesn't make sense to add assertion
 		// in willInsertElement hook of the component to check if the parameters is really defined
-		var view = this.createChildView(App.AdSlotComponent, {
+		const view = this.createChildView(App.AdSlotComponent, {
 			name: adSlotName,
 			noAds: this.get('noAds')
 		});
 
 		view.createElement();
 
-		element[place](<string>view.$());
+		element[place](view.$());
 		this.adViews.push(view);
 
 		view.trigger('didInsertElement');
@@ -56,10 +52,12 @@ App.AdsMixin = Em.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	clearAdViews(): void {
-		var adView: Em.View;
-		while (adView = this.adViews.pop()) {
+	clearAdViews() {
+		let adView = this.adViews.pop();
+
+		while (adView) {
 			adView.destroyElement();
+			adView = this.adViews.pop();
 		}
 	},
 
@@ -68,54 +66,46 @@ App.AdsMixin = Em.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	injectMoreInContentAds(): void {
-		var config = this.adsData.moreInContentAds,
+	injectMoreInContentAds() {
+		const config = this.adsData.moreInContentAds,
 			minDistanceBetweenAds = config.minOffsetDiffBetweenAds,
 			expectedAdHeight = config.adHeight,
 			slotNamePrefix = config.slotNamePrefix,
 			maxSlots = config.maxSlots,
 
-		// Sorted list of top positions of ads:
-			adPositions: number[] = [].concat(
+			// Sorted list of top positions of ads:
+			adPositions = [].concat(
 				// MOBILE_TOP_LEADERBOARD:
 				[0],
 				// in content ads:
-				this.adViews.map(function (adView: Em.View): number {
-					return adView.$().offset().top;
-				})
+				this.adViews.map((adView) => adView.$().offset().top)
 			),
 
-		// Sorted list of top positions of headers:
-			$headers: JQuery = $('.article-content').find('> h2, > h3'),
-			headerPositions = $headers.map(function (): number {
+			// Sorted list of top positions of headers:
+			$headers = $('.article-content').find('> h2, > h3'),
+			headerPositions = $headers.map(function () {
 				return $(this).offset().top;
 			}).get(),
 
-			goodHeaders: JQuery[] = [],
-			adsToInject = 0,
-			prevAdPosition: number,
-			nextAdPosition: number,
-			headerPosition: number,
+			goodHeaders = [],
 
-			i = 0,
 			headerLen = headerPositions.length,
-			adIndex = 0,
 			adLen = adPositions.length;
+
+		let i = 0,
+			adIndex = 0,
+			adsToInject = 0;
 
 		// Find headers to inject ads before
 		while (i < headerLen && adIndex < adLen && adsToInject < maxSlots) {
-			prevAdPosition = adPositions[adIndex];
-			nextAdPosition = adPositions[adIndex + 1];
-
-			headerPosition = headerPositions[i];
+			const prevAdPosition = adPositions[adIndex],
+				nextAdPosition = adPositions[adIndex + 1],
+				headerPosition = headerPositions[i];
 
 			if (headerPosition < prevAdPosition + minDistanceBetweenAds) {
 				// Header too close to previous ad
 				i += 1;
-				continue;
-			}
-
-			if (!nextAdPosition || nextAdPosition > headerPosition + minDistanceBetweenAds) {
+			} else if (!nextAdPosition || nextAdPosition > headerPosition + minDistanceBetweenAds) {
 				// Header is located in the safe spot between previous and next ad
 				goodHeaders.push($headers.eq(i));
 				adsToInject += 1;
@@ -123,16 +113,15 @@ App.AdsMixin = Em.Mixin.create({
 				// Use the current header position as the current ad position
 				// Subtract the ad height to make the calculations work for the next headers
 				adPositions[adIndex] = headerPosition - expectedAdHeight;
-				continue;
+			} else {
+				// We need to find a header that's below the next ad, thus:
+				adIndex += 1;
 			}
-
-			// We need to find a header that's below the next ad, thus:
-			adIndex += 1;
 		}
 
 		// Inject the ads now
-		for (i = 0; i <  adsToInject; i += 1) {
-			Em.Logger.info('Injecting an extra in content ad before ' + goodHeaders[i].attr('id'));
+		for (i = 0; i < adsToInject; i += 1) {
+			Em.Logger.info(`Injecting an extra in content ad before ${goodHeaders[i].attr('id')}`);
 			this.appendAd(slotNamePrefix + (i + 1), 'before', goodHeaders[i]);
 		}
 
@@ -144,8 +133,8 @@ App.AdsMixin = Em.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	injectAds(): void {
-		var $firstSection = this.$().children('h2').first(),
+	injectAds() {
+		const $firstSection = this.$().children('h2').first(),
 			$articleBody = $('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
@@ -168,7 +157,7 @@ App.AdsMixin = Em.Mixin.create({
 		if (showMoreInContentAds) {
 			this.injectMoreInContentAds();
 		} else if (this.adsData.moreInContentAds.enabled) {
-			Em.Logger.info('The page is not long enough for extra in content ads: ' + articleBodyHeight);
+			Em.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
 		}
 	},
 
@@ -180,13 +169,12 @@ App.AdsMixin = Em.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	injectMainPageAds(): void {
-		var $curatedContent = this.$('.curated-content'),
+	injectMainPageAds() {
+		const $curatedContent = this.$('.curated-content'),
 			$trendingArticles = this.$('.trending-articles'),
 			$trendingVideos = this.$('.trending-videos'),
 			showInContent = $curatedContent.length > 0,
-			showPreFooter = !!($trendingArticles.length || $trendingVideos.length),
-			$showPreFooterAfter: JQuery;
+			showPreFooter = $trendingArticles.length || $trendingVideos.length;
 
 		this.clearAdViews();
 
@@ -195,7 +183,8 @@ App.AdsMixin = Em.Mixin.create({
 		}
 
 		if (showPreFooter) {
-			$showPreFooterAfter = $trendingVideos.length ? $trendingVideos : $trendingArticles;
+			const $showPreFooterAfter = $trendingVideos.length ? $trendingVideos : $trendingArticles;
+
 			this.appendAd(this.adsData.mobilePreFooter, 'after', $showPreFooterAfter);
 		}
 	},
@@ -204,7 +193,7 @@ App.AdsMixin = Em.Mixin.create({
 	 * @param {*} adsContext
 	 * @returns {void}
 	 */
-	setupAdsContext(adsContext: any): void {
+	setupAdsContext(adsContext) {
 		Mercury.Modules.Ads.getInstance().reload(adsContext);
 	}
 });

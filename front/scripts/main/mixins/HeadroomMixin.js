@@ -1,8 +1,3 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../mercury/utils/browser.ts" />
-/// <reference path="../../../../typings/headroom/headroom.d.ts" />
-'use strict';
-
 App.HeadroomMixin = Em.Mixin.create({
 	headroom: null,
 	headroomEnabled: true,
@@ -13,10 +8,11 @@ App.HeadroomMixin = Em.Mixin.create({
 		ios: 83
 	},
 
-	offset: Em.computed('smartBannerVisible', function (): number {
+	offset: Em.computed('smartBannerVisible', function () {
 		if (this.get('smartBannerVisible')) {
-			return this.get('smartBannerHeight.' + Mercury.Utils.Browser.getSystem());
+			return this.get(`smartBannerHeight.${Mercury.Utils.Browser.getSystem()}`);
 		}
+
 		return 0;
 	}),
 
@@ -36,8 +32,8 @@ App.HeadroomMixin = Em.Mixin.create({
 	},
 
 	smartBannerVisibleObserver: Em.on('willInsertElement',
-		Em.observer('smartBannerVisible', 'offset', 'headroomOptions', function (): void {
-			var headroom = this.get('headroom'),
+		Em.observer('smartBannerVisible', 'offset', 'headroomOptions', function () {
+			const headroom = this.get('headroom'),
 				smartBannerVisible = this.get('smartBannerVisible'),
 				offset = this.get('offset'),
 				headroomOptions = this.get('headroomOptions'),
@@ -67,27 +63,28 @@ App.HeadroomMixin = Em.Mixin.create({
 	 * @param {number} offset
 	 * @returns {void}
 	 */
-	initHeadroom(headroomOptions: any, offset: number): void {
+	initHeadroom(headroomOptions, offset) {
 		if (this.get('headroomEnabled') === false) {
 			return;
 		}
-		var headroom: Headroom,
-			options = {
-				classes: {
-					initial: 'headroom',
-					pinned: 'pinned',
-					unpinned: 'un-pinned',
-					top: 'headroom-top',
-					notTop: 'headroom-not-top'
-				},
-				offset
-			};
+
+		let options = {
+			classes: {
+				initial: 'headroom',
+				pinned: 'pinned',
+				unpinned: 'un-pinned',
+				top: 'headroom-top',
+				notTop: 'headroom-not-top'
+			},
+			offset
+		};
 
 		if (headroomOptions) {
 			options = $.extend({}, options, headroomOptions);
 		}
 
-		headroom = new Headroom(this.get('element'), options);
+		const headroom = new Headroom(this.get('element'), options);
+
 		headroom.init();
 
 		this.set('headroom', headroom);

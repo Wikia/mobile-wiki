@@ -1,14 +1,8 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 /**
  * Window
  * @typedef {Object} Window
  * @property {*} Ponto
  */
-interface Window {
-	Ponto: any
-}
 
 App.IEIFrameFocusFixMixin = Em.Mixin.create({
 	/**
@@ -20,15 +14,16 @@ App.IEIFrameFocusFixMixin = Em.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	didInsertElement(): void {
-		var ponto = window.Ponto;
+	didInsertElement() {
+		const ponto = window.Ponto;
+
 		if (ponto && typeof ponto.invoke === 'function') {
 			ponto.invoke(
 				'curatedContentTool.pontoBridge',
 				'setFocus',
 				{},
 				Em.K,
-				(err: any): void => {
+				(err) => {
 					Em.Logger.error('Ponto error:', err);
 
 					this.controllerFor('application').addAlert({

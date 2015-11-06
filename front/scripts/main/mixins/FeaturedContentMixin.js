@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 /**
  * ImageCropData
  * @typedef {Object} ImageCropData
@@ -30,41 +27,17 @@
  * @property {string} article_local_url
  */
 
-interface FeaturedContentItem {
-	title: string;
-	label: string;
-	image_id: string;
-	article_id: number;
-	type: string;
-	image_url: string;
-	image_crop?: {
-		landscape: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-		square: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-	};
-	article_local_url: string;
-}
-
 App.FeaturedContentMixin = Em.Mixin.create({
 	layoutName: 'components/featured-content',
 	classNames: ['featured-content', 'mw-content'],
 	currentItemIndex: 0,
 
-	hasMultipleItems: Em.computed('model', function (): boolean {
+	hasMultipleItems: Em.computed('model', function () {
 		return this.get('model.length') > 1;
 	}),
 
-	currentItem: Em.computed('model', 'currentItemIndex', function (): FeaturedContentItem {
-		var model: FeaturedContentItem[] = this.get('model');
+	currentItem: Em.computed('model', 'currentItemIndex', function () {
+		const model = this.get('model');
 
 		if (!Em.isEmpty(model)) {
 			return this.get('model')[this.get('currentItemIndex')];
@@ -73,15 +46,16 @@ App.FeaturedContentMixin = Em.Mixin.create({
 		return null;
 	}),
 
-	lastIndex: Em.computed('model', function (): number {
+	lastIndex: Em.computed('model', function () {
 		return this.get('model.length') - 1;
 	}),
 
 	/**
 	 * Keep pagination up to date
 	 */
-	currentItemIndexObserver: Em.observer('currentItemIndex', function (): void {
-		var $pagination = this.$('.featured-content-pagination');
+	currentItemIndexObserver: Em.observer('currentItemIndex', function () {
+		const $pagination = this.$('.featured-content-pagination');
+
 		$pagination.find('.current').removeClass('current');
 		$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
 	}).on('didInsertElement'),
@@ -89,7 +63,7 @@ App.FeaturedContentMixin = Em.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	prevItem(): void {
+	prevItem() {
 		if (this.get('hasMultipleItems')) {
 			if (this.get('currentItemIndex') === 0) {
 				this.set('currentItemIndex', this.get('lastIndex'));
@@ -102,7 +76,7 @@ App.FeaturedContentMixin = Em.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
-	nextItem(): void {
+	nextItem() {
 		if (this.get('hasMultipleItems')) {
 			if (this.get('currentItemIndex') >= this.get('lastIndex')) {
 				this.set('currentItemIndex', 0);

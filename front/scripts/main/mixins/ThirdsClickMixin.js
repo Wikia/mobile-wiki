@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 /**
  * PreventableClickEvent
  * @typedef {Object} PreventableClickEvent
@@ -10,19 +7,12 @@
  * @property {Function} stopPropagation
  */
 
-interface PreventableClickEvent extends MouseEvent, Touch {
-	preventDefault: () => void;
-	stopPropagation: () => void;
-}
-
 App.ThirdsClickMixin = Em.Mixin.create({
 	leftClickHandler: Em.K,
 	rightClickHandler: Em.K,
 	centerClickHandler: Em.K,
 
-	viewportWidth: Em.computed (function (): number {
-		return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-	}),
+	viewportWidth: Em.computed(() => Math.max(document.documentElement.clientWidth, window.innerWidth || 0)),
 
 	/**
 	 * This can be overriden to change how wide should be areas that leftClickHandler & rightClickHandler respond to.
@@ -39,7 +29,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 * @param {PreventableClickEvent} event
 	 * @returns {void}
 	 */
-	preventDefaultActions(event: PreventableClickEvent): void {
+	preventDefaultActions(event) {
 		event.preventDefault();
 		event.stopPropagation();
 	},
@@ -51,8 +41,8 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 * @param {boolean} [preventDefault=false]
 	 * @returns {void}
 	 */
-	callClickHandler(event: PreventableClickEvent, preventDefault: boolean = false): void {
-		var viewportWidth = this.get('viewportWidth'),
+	callClickHandler(event, preventDefault = false) {
+		const viewportWidth = this.get('viewportWidth'),
 			x = event.clientX,
 			screenEdgeWidth = viewportWidth * this.get('screenEdgeWidthRatio'),
 			screenCenterWidth = viewportWidth - screenEdgeWidth * 2;
@@ -65,10 +55,8 @@ App.ThirdsClickMixin = Em.Mixin.create({
 			if (this.rightClickHandler(event) && preventDefault) {
 				this.preventDefaultActions(event);
 			}
-		} else {
-			if (this.centerClickHandler(event) && preventDefault) {
-				this.preventDefaultActions(event);
-			}
+		} else if (this.centerClickHandler(event) && preventDefault) {
+			this.preventDefaultActions(event);
 		}
 	},
 });

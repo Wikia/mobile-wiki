@@ -45,10 +45,9 @@ App.AdSlotComponent = Em.Component.extend({
 	 * @returns {void}
 	 */
 	willDestroyElement() {
-		var name = this.get('name');
+		const name = this.get('name');
 
 		Mercury.Modules.Ads.getInstance().removeSlot(this.get('name'));
-
 		this.$().remove();
 
 		Em.Logger.info('Will destroy ad:', name);

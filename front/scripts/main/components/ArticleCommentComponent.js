@@ -16,7 +16,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 	thumbnailWidth: 480,
 
 	text: Em.computed('comment.text', function () {
-		var $text = $('<div/>').html(this.get('comment.text')),
+		const $text = $('<div/>').html(this.get('comment.text')),
 			$figure = $text.find('figure');
 
 		if ($figure.length) {
@@ -27,7 +27,8 @@ App.ArticleCommentComponent = Em.Component.extend({
 	}),
 
 	user: Em.computed('users', function () {
-		var users = this.get('users');
+		const users = this.get('users');
+
 		if (users) {
 			return users[this.get('comment.userName')] || {};
 		}
@@ -35,7 +36,7 @@ App.ArticleCommentComponent = Em.Component.extend({
 
 	userName: Em.computed('comment.userName', function () {
 		// Checks for an IP address to identify an anonymous user. This is very crude and obviously doesn't check IPv6.
-		var userName = this.get('comment.userName'),
+		const userName = this.get('comment.userName'),
 			regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
 
 		if (regex.test(userName)) {

@@ -1,6 +1,3 @@
-/// <reference path="../app.ts" />
-'use strict';
-
 /**
  * Handles errors appears in the ajax calls.
  */
@@ -16,8 +13,8 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 	 * @param {*} model
 	 * @returns {void}
 	 */
-	setErrorProperty: function (err: any, model: any): void {
-		if (err.status == this.errorCodes.notFound) {
+	setErrorProperty(err, model) {
+		if (err.status === this.errorCodes.notFound) {
 			model.set('notFoundError', true);
 		} else {
 			model.set('connectionError', true);
