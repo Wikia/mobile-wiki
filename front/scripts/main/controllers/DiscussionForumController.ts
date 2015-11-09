@@ -5,6 +5,7 @@ App.DiscussionForumController = Em.Controller.extend({
 	sortBy: null,
 
 	smartBannerVisible: Em.computed.oneWay('application.smartBannerVisible'),
+	siteHeadPinned: Em.computed.oneWay('application.siteHeadPinned'),
 
 	// Whether the sort component is currently visible
 	sortVisible: false,

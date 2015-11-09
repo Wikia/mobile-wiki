@@ -80,7 +80,13 @@ App.HeadroomMixin = Em.Mixin.create({
 					top: 'headroom-top',
 					notTop: 'headroom-not-top'
 				},
-				offset
+				offset,
+				onPin: () => {
+					this.set('pinned', true);
+				},
+				onUnpin: () => {
+					this.set('pinned', false);
+				}
 			};
 
 		if (headroomOptions) {

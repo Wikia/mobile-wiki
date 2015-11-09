@@ -138,8 +138,13 @@
 				margin-left: -11px;
 				position: fixed;
 				top: 56px;
+				transition: top 0.5s;
 				width: 529px;
 				z-index: 1;
+
+				&.pinned-top {
+					top: 6px;
+				}
 			}
 
 			button {

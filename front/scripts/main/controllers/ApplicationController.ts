@@ -19,6 +19,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	smartBannerVisible: false,
 	sideNavVisible: false,
 	userMenuVisible: false,
+	siteHeadPinned: true,
 	noScroll: false,
 	fullPage: false,
 	noMargins: false,
@@ -209,6 +210,15 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 */
 		toggleUserMenu(visible: boolean): void {
 			this.set('userMenuVisible', visible);
+		},
+
+		/**
+		 * @param {boolean} pinned
+		 * @returns {void}
+		 */
+		toggleSiteHeadPinned(pinned: boolean): void {
+			console.log('pinned', pinned);
+			this.set('siteHeadPinned', pinned);
 		}
 	},
 

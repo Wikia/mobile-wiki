@@ -19,17 +19,21 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	}),
 
 	initilizeOnScroll(): void {
-		var menuPosition = this.$().offset().top - Em.$('.site-head').outerHeight(true),
-			isAdded = false;
+		var offsetTop = this.$().offset().top,
+			siteHeadHeight = Em.$('.site-head').outerHeight(true),
+			isAdded = false,
+			getBreakpointHeight = () => {
+				return offsetTop - (this.get('siteHeadPinned') ? siteHeadHeight : 0);
+			};
 
 		this.onScroll = () => {
 			Em.run.throttle(
 				this,
 				function() {
-					if (window.pageYOffset >= menuPosition && !isAdded) {
+					if (window.pageYOffset >= getBreakpointHeight() && !isAdded) {
 						this.set('sticky', true);
 						isAdded = true;
-					} else if (window.pageYOffset < menuPosition && isAdded) {
+					} else if (window.pageYOffset < getBreakpointHeight() && isAdded) {
 						this.set('sticky', false);
 						isAdded = false;
 					}

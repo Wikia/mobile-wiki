@@ -13,6 +13,8 @@ App.SiteHeadComponent = Em.Component.extend(
 		themeBar: false,
 		wikiaHomepage: Em.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
+		pinned: true,
+
 		actions: {
 			/**
 			 * @returns {void}
@@ -26,7 +28,11 @@ App.SiteHeadComponent = Em.Component.extend(
 			 */
 			showUserMenu(): void {
 				this.sendAction('toggleUserMenu', true);
-			},
+			}
 		},
+
+		pinnedObserver: Em.observer('pinned', function() {
+			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
+		})
 	}
 );
