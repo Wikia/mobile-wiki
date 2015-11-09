@@ -11,6 +11,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	submitDisabled: true,
 	isLoading: false,
+	showSuccess: false,
 
 	style: Em.computed('sticky', function (): Em.Handlebars.SafeString {
 		return this.get('sticky') === true
@@ -86,8 +87,13 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 					withCredentials: true,
 				},
 				success: (data: any): void => {
-					// TODO
-					console.log('success');
+					this.set('showSuccess', true);
+					Em.run.later(() => {
+						this.set('showSuccess', false);
+						this.set('active', false);
+						this.$('.editor-textarea').val('');
+						// TODO load new post
+					}, 2000);
 				},
 				error: (): void => {
 					// TODO
@@ -102,7 +108,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		},
 
 		updateSubmitButton(): void {
-			this.set('submitDisabled', Em.$('.editor-textarea').val().length === 0);
+			this.set('submitDisabled', this.$('.editor-textarea').val().length === 0);
 		}
 	}
 });
