@@ -1,11 +1,13 @@
-<div class="discussion-hero-unit-content">
-	<h1>{{name}}</h1>
-	{{#if numberOfPosts}}
-		<p>{{i18n 'discussion.number-of-posts' numberOfPosts=numberOfPosts}}</p>
-	{{/if}}
-	{{discussion-contributors
-		contributors=contributors
-		maxContributorDisplayCount=6
-		totalContributorCount=numberOfPosts
-	}}
+<div class="discussion-hero-unit-wrapper" style="{{style}}">
+	<div class="discussion-hero-unit-content">
+		<h1>{{name}}</h1>
+		{{#if numberOfPosts}}
+			<p>{{i18n 'discussion.number-of-posts' numberOfPosts=numberOfPosts}}</p>
+		{{/if}}
+		{{discussion-contributors
+			contributors=contributors
+			maxContributorDisplayCount=6
+			totalContributorCount=numberOfPosts
+		}}
+	</div>
 </div>
