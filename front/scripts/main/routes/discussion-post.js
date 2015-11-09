@@ -1,14 +1,16 @@
-App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
+import Ember from 'ember';
+
+const DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 	/**
 	 * @param {*} params
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return App.DiscussionPostModel.find(Mercury.wiki.id, params.postId);
+		return DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 	},
 
 	/**
-	 * @param {App.DiscussionPostModel} model
+	 * @param {DiscussionPostModel} model
 	 * @returns {void}
 	 */
 	afterModel(model) {
@@ -30,7 +32,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 			themeBar: true,
 			enableShareHeader: false
 		});
-		Em.$('body').addClass('discussions');
+		Ember.$('body').addClass('discussions');
 		this._super();
 	},
 
@@ -43,7 +45,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 			themeBar: false,
 			enableShareHeader: false
 		});
-		Em.$('body').removeClass('discussions');
+		Ember.$('body').removeClass('discussions');
 		this._super();
 	},
 
@@ -80,3 +82,5 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 		},
 	}
 });
+
+export default DiscussionPostRoute;

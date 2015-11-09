@@ -1,4 +1,6 @@
-App.SearchResultsRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const SearchResultsRoute = Ember.Route.extend({
 	// Don't let the script to start loading multiple times (user opens the route, goes back, opens it again)
 	googleCustomSearchLoadingInitialized: false,
 
@@ -20,14 +22,14 @@ App.SearchResultsRoute = Em.Route.extend({
 	/**
 	 * Return a promise and resolve only after script is loaded - this way the route won't load before it happens
 	 *
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	beforeModel() {
 		if (!this.get('googleCustomSearchLoadingInitialized')) {
 			return this.loadGoogleCustomSearch();
 		}
 
-		return new Em.RSVP.Promise.resolve();
+		return new Ember.RSVP.Promise.resolve();
 	},
 
 	/**
@@ -39,6 +41,8 @@ App.SearchResultsRoute = Em.Route.extend({
 				`//www.google.com/cse/cse.js?cx=${searchKey}`;
 
 		this.set('googleCustomSearchLoadingInitialized', true);
-		return Em.$.getScript(url);
+		return Ember.$.getScript(url);
 	},
 });
+
+export default SearchResultsRoute;

@@ -1,4 +1,6 @@
-App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
+import Ember from 'ember';
+
+const ArticleAddPhotoRoute = Ember.Route.extend(FullPageMixin, {
 	/**
 	 * @returns {void}
 	 */
@@ -43,3 +45,5 @@ App.ArticleAddPhotoRoute = Em.Route.extend(App.FullPageMixin, {
 		}
 	}
 });
+
+export default ArticleAddPhotoRoute;

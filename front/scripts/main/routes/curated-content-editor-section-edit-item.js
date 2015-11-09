@@ -1,4 +1,6 @@
-App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const CuratedContentEditorSectionEditItemRoute = Ember.Route.extend({
 	/**
 	 * @param {Object} params
 	 * @returns {CuratedContentEditorItemModel} item
@@ -7,7 +9,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 		const item = decodeURIComponent(params.item),
 			sectionModel = this.modelFor('curatedContentEditor.section');
 
-		return App.CuratedContentEditorModel.getItem(sectionModel, item);
+		return CuratedContentEditorModel.getItem(sectionModel, item);
 	},
 
 	/**
@@ -58,7 +60,7 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 			alreadyUsedLabels[itemIndex] = newItem.label;
 			sectionController.set('alreadyUsedItemsLabels', alreadyUsedLabels);
 
-			App.CuratedContentEditorModel.updateItem(sectionModel, newItem, originalItemLabel);
+			CuratedContentEditorModel.updateItem(sectionModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
@@ -70,8 +72,10 @@ App.CuratedContentEditorSectionEditItemRoute = Em.Route.extend({
 				controller = this.controllerFor('curatedContentEditor.section.editItem'),
 				originalItemLabel = controller.get('originalItemLabel');
 
-			App.CuratedContentEditorModel.deleteItem(sectionModel, originalItemLabel);
+			CuratedContentEditorModel.deleteItem(sectionModel, originalItemLabel);
 			this.transitionTo('curatedContentEditor.section.index');
 		}
 	}
 });
+
+export default CuratedContentEditorSectionEditItemRoute;

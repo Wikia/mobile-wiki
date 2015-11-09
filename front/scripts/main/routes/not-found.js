@@ -1,4 +1,6 @@
-App.NotFoundRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const NotFoundRoute = Ember.Route.extend({
 	/**
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
@@ -7,3 +9,5 @@ App.NotFoundRoute = Em.Route.extend({
 		this.transitionTo('article', transition.params.notFound.url);
 	}
 });
+
+export default NotFoundRoute;

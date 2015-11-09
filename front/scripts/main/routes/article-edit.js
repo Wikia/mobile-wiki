@@ -1,10 +1,12 @@
-App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
+import Ember from 'ember';
+
+const ArticleEditRoute = Ember.Route.extend(FullPageMixin, {
 	/**
 	 * @param {*} params
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return App.ArticleEditModel.load(params.title, params.sectionIndex);
+		return ArticleEditModel.load(params.title, params.sectionIndex);
 	},
 
 	/**
@@ -36,3 +38,5 @@ App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 		}
 	}
 });
+
+export default ArticleEditRoute;

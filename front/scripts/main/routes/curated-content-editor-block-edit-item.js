@@ -1,4 +1,6 @@
-App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const CuratedContentEditorBlockEditItemRoute = Ember.Route.extend({
 	/**
 	 * @param {Object} params
 	 * @returns {CuratedContentEditorItemModel} item
@@ -9,7 +11,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 			rootModel = this.modelFor('curatedContentEditor'),
 			blockModel = rootModel[block];
 
-		return App.CuratedContentEditorModel.getItem(blockModel, item);
+		return CuratedContentEditorModel.getItem(blockModel, item);
 	},
 
 	/**
@@ -22,8 +24,8 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 		const block = transition.params['curatedContentEditor.blockEditItem'].block,
 			rootModel = this.modelFor('curatedContentEditor'),
 			alreadyUsedLabels = (block === 'optional') ?
-				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel, model.label) :
-				App.CuratedContentEditorModel.getAlreadyUsedLabels(rootModel.get(block), model.label);
+				CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel, model.label) :
+				CuratedContentEditorModel.getAlreadyUsedLabels(rootModel.get(block), model.label);
 
 		this._super(controller, model, transition);
 		controller.setProperties({
@@ -60,7 +62,7 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 				rootModel = this.modelFor('curatedContentEditor'),
 				blockModel = rootModel[block];
 
-			App.CuratedContentEditorModel.updateItem(blockModel, newItem, originalItemLabel);
+			CuratedContentEditorModel.updateItem(blockModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.index');
 		},
 
@@ -74,8 +76,10 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 				rootModel = this.modelFor('curatedContentEditor'),
 				blockModel = rootModel[block];
 
-			App.CuratedContentEditorModel.deleteItem(blockModel, item);
+			CuratedContentEditorModel.deleteItem(blockModel, item);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}
 });
+
+export default CuratedContentEditorBlockEditItemRoute;

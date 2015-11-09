@@ -1,9 +1,11 @@
-App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const CuratedContentEditorBlockAddItemRoute = Ember.Route.extend({
 	/**
 	 * @returns {CuratedContentEditorItemModel} item
 	 */
 	model() {
-		return App.CuratedContentEditorItemModel.createNew();
+		return CuratedContentEditorItemModel.createNew();
 	},
 
 	/**
@@ -16,8 +18,8 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		const block = transition.params['curatedContentEditor.blockAddItem'].block,
 			rootModel = this.modelFor('curatedContentEditor'),
 			alreadyUsedLabels = (block === 'optional') ?
-				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel) :
-				App.CuratedContentEditorModel.getAlreadyUsedLabels(rootModel.get(block));
+				CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel) :
+				CuratedContentEditorModel.getAlreadyUsedLabels(rootModel.get(block));
 
 		this._super(controller, model, transition);
 		controller.setProperties({
@@ -51,7 +53,7 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 				rootModel = this.modelFor('curatedContentEditor'),
 				blockModel = rootModel[block];
 
-			App.CuratedContentEditorModel.addItem(blockModel, newItem);
+			CuratedContentEditorModel.addItem(blockModel, newItem);
 			this.transitionTo('curatedContentEditor.index');
 		},
 
@@ -63,3 +65,5 @@ App.CuratedContentEditorBlockAddItemRoute = Em.Route.extend({
 		}
 	}
 });
+
+export default CuratedContentEditorBlockAddItemRoute;

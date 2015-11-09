@@ -1,6 +1,8 @@
-App.ApplicationRoute = Em.Route.extend(
-	Em.TargetActionSupport,
-	App.TrackClickMixin,
+import Ember from 'ember';
+
+const ApplicationRoute = Ember.Route.extend(
+	Ember.TargetActionSupport,
+	TrackClickMixin,
 	{
 		queryParams: {
 			commentsPage: {
@@ -52,7 +54,7 @@ App.ApplicationRoute = Em.Route.extend(
 					this.controller.set('isLoading', false);
 				}
 
-				Em.Logger.error('Route error', error);
+				Ember.Logger.error('Route error', error);
 			},
 
 			/**
@@ -66,7 +68,7 @@ App.ApplicationRoute = Em.Route.extend(
 					 */
 					domainNameRegExpMatchArray = (/\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i).exec(window.location.hostname),
 					cookieDomain = domainNameRegExpMatchArray ? `; domain=${domainNameRegExpMatchArray[0]}` : '',
-					defaultSkin = Em.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
+					defaultSkin = Ember.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
 				let title,
 					trackingCategory,
@@ -123,7 +125,7 @@ App.ApplicationRoute = Em.Route.extend(
 					}
 				} else {
 					// Reaching this clause means something is probably wrong.
-					Em.Logger.error('unable to open link', target.href);
+					Ember.Logger.error('unable to open link', target.href);
 				}
 			},
 
@@ -133,7 +135,7 @@ App.ApplicationRoute = Em.Route.extend(
 			loadRandomArticle() {
 				this.get('controller').send('toggleSideNav', false);
 
-				App.ArticleModel
+				ArticleModel
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
 						this.transitionTo('article', encodeURIComponent(M.String.normalizeToUnderscore(articleTitle)));
@@ -239,3 +241,5 @@ App.ApplicationRoute = Em.Route.extend(
 		},
 	}
 );
+
+export default ApplicationRoute;
