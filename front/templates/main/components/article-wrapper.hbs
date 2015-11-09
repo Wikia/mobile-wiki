@@ -38,14 +38,14 @@
 			{{#if contributionEnabled}}
 				<div class="top-contribution-container">
 					{{article-contribution
+						addPhotoAllowed=addPhotoAllowed
+						addPhotoIconVisible=addPhotoIconVisible
+						editAllowed=editAllowed
+						editIconVisible=editIconVisible
 						section=0
 						title=model.cleanTitle
-						edit='edit'
 						addPhoto='addPhoto'
-						addPhotoIconVisible=addPhotoIconVisible
-						editIconVisible=editIconVisible
-						editAllowed=editAllowed
-						addPhotoAllowed=addPhotoAllowed
+						edit='edit'
 					}}
 				</div>
 			{{/if}}

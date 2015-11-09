@@ -131,24 +131,14 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 *
 		 * @returns {boolean} True if the upload photo icon should be rendered
 		 */
-		addPhotoIconVisible: Em.computed(function(): boolean {
-			var isMainPage = this.get('model.isMainPage'),
-				isJapaneseWikia = this.get('isJapaneseWikia');
-
-			// Currently, only Japanese communities should have the photo upload icon
-			return this.get('isJapaneseWikia');
-		}),
+		addPhotoIconVisible: Em.computed.oneWay('isJapaneseWikia'),
 
 		/**
 		 * Determine if the edit section icon should be rendered
 		 *
-		 * @returns {boolean} True if the upload photo icon should be rendered
+		 * @returns {boolean} True if the edit icon should be rendered
 		 */
-		editIconVisible: Em.computed(function(): boolean {
-			// Currently, all communities that have the contribution feature enabled
-			// should have the edit icon
-			return this.get('contributionEnabled');
-		}),
+		editIconVisible: Em.computed.oneWay('contributionEnabled'),
 
 		/**
 		 * For section editor, checks if the user is allowed to edit

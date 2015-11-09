@@ -19,14 +19,16 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 		 * @returns {void}
 		 */
 		edit(): void {
+			var section = this.get('section');
+
 			if (this.get('editAllowed')) {
 				M.track({
 					action: M.trackActions.click,
 					category: 'sectioneditor',
 					label: 'edit',
-					value: this.get('section')
+					value: section
 				});
-				this.sendAction('edit', this.get('title'), this.get('section'));
+				this.sendAction('edit', this.get('title'), section);
 			} else {
 				this.redirectToLogin('edit-section-no-auth');
 			}
@@ -67,7 +69,7 @@ App.ArticleContributionComponent = Em.Component.extend(App.LanguagesMixin, {
 			sectionId = this.get('sectionId');
 
 		if (sectionId) {
-			href += encodeURIComponent('#' + this.sectionId);
+			href += encodeURIComponent('#' + sectionId);
 		}
 		href += this.getUselangParam();
 
