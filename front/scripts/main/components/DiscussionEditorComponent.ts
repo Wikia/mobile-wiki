@@ -69,7 +69,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			this.set('active', active);
 		},
 
-		createPost(forumId): void {
+		createPost(forumId: number): void {
 			this.set('isLoading', true);
 
 			Em.$.ajax(<JQueryAjaxSettings>{
