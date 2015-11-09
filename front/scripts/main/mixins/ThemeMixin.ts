@@ -56,7 +56,12 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 	 */
 	themeColorStyles(): void {
 		var inlineStyles: JQuery,
+			styleId: string = 'discussionInlineStyles',
 			styles: string[] = [];
+
+		if (Em.$('#' + styleId).length) {
+			return;
+		}
 
 		this.set('themeColors', Em.get(Mercury, 'wiki.themeColors'));
 
@@ -64,20 +69,18 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 			return;
 		}
 
-		styles.push('.discussions .site-head {border-bottom-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
-		styles.push('.discussion-header .header {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
-		styles.push('.discussion-hero-unit {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
-		styles.push('.discussion-hero-unit-content {background-color: ' + this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8) + ';}');
-		styles.push('hr.theme {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
-		styles.push('.discussion a {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.back-button {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.back-button svg {fill: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.discussion-sort {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.see-more {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.spinner .path {stroke: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('@media only screen and (min-width: 1064px) {.discussion-sort li.active {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + '; border-color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}}');
+		styles.push('.discussions .border-bottom-theme {border-bottom-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
+		styles.push('.discussions .background-theme {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
+		styles.push('.discussions .background-alpha-theme {background-color: ' + this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8) + ';}');
 
-		inlineStyles = Em.$('<style>');
+
+		styles.push('.discussion a {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.discussions .active-element-theme {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.discussions .active-element-border-theme {border-color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.discussions .fill-theme {fill: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.discussions .stroke-theme {stroke: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+
+		inlineStyles = Em.$('<style>').attr('id', styleId) ;
 		inlineStyles.text(styles.join("\n"));
 
 		Em.$('head').append(inlineStyles);
