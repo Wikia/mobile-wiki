@@ -1,11 +1,22 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/UseNewNavMixin.ts" />
 /// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
+/// <reference path="../mixins/ThemeMixin.ts" />
+
 'use strict';
 
-App.DiscussionForumRoute = Em.Route.extend(App.UseNewNavMixin, App.DiscussionRouteUpvoteMixin, {
+App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.ThemeMixin, {
 	defaultSortType: null,
 	forumId: null,
+
+	activate(): void {
+		Em.$('body').addClass('discussions');
+		this._super();
+	},
+
+	deactivate(): void {
+		Em.$('body').removeClass('discussions');
+		this._super();
+	},
 
 	/**
 	 * @param {*} params

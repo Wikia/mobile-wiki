@@ -6,8 +6,6 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 	App.HeadroomMixin,
 	{
 		classNames: ['discussion-header'],
-		// TODO: not sure this is always accurate
-		smartBannerVisible: Em.computed.alias('controllers.application.smartBannerVisible'),
 
 		siteName: Em.computed(function (): string {
 			return Em.get(Mercury, 'wiki.siteName');
