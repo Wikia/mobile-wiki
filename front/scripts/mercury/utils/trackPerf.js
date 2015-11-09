@@ -1,4 +1,4 @@
-import * as state from 'state';
+import {prop} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} PerfTrackerParams
@@ -77,5 +77,5 @@ export function trackPerf(params) {
 export function sendPagePerformance() {
 	tracker.sendPagePerformance();
 	// used for automation test
-	state.prop('pagePerformanceSent', true);
+	prop('pagePerformanceSent', true);
 }
