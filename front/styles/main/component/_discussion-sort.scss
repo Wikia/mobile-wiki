@@ -19,12 +19,6 @@
 	}
 }
 
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-sort {
-		color: #{nth($vertical-colors, $i)};
-	}
-}
-
 @media #{$mobile-range} {
 	.discussion-sort.mobile-hidden {
 		display: none;
@@ -50,15 +44,6 @@
 			height: 50px;
 			line-height: 50px;
 			width: 50%;
-		}
-	}
-
-	@for $i from 1 through length($verticals) {
-		.#{nth($verticals, $i)}-vertical .discussion-sort {
-			li.active {
-				color: #{nth($vertical-colors, $i)};
-				border-color: #{nth($vertical-colors, $i)};
-			}
 		}
 	}
 }

@@ -63,10 +63,19 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 		if (!this.get('themeColors')) {
 			return;
 		}
+
 		styles.push('.discussions .site-head {border-bottom-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussion-header .header {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussion-hero-unit {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussion-hero-unit-content {background-color: ' + this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8) + ';}');
+		styles.push('.discussion a {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.back-button {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.back-button svg {fill: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.discussion-sort {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.see-more {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('.spinner .path {stroke: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push('@media only screen and (min-width: 1064px) {.discussion-sort li.active {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + '; border-color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}}');
+
 
 		inlineStyles = Em.$('<style>');
 		inlineStyles.text(styles.join("\n"));

@@ -173,14 +173,6 @@ $horizontal-padding: 15px;
 		}
 	}
 
-	@for $i from 1 through length($verticals) {
-		.#{nth($verticals, $i)}-vertical & {
-			.see-more {
-				color: nth($vertical-colors, $i);
-			}
-		}
-	}
-
 	.spinner {
 		display: block;
 		left: auto;
@@ -210,12 +202,6 @@ $horizontal-padding: 15px;
 				border-width: 0;
 			}
 		}
-	}
-}
-
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion a {
-		color: #{nth($vertical-colors, $i)};
 	}
 }
 
