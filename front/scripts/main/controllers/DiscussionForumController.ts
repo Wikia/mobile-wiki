@@ -67,8 +67,8 @@ App.DiscussionForumController = Em.Controller.extend({
 			this.get('target').send('goToAllDiscussions');
 		},
 
-		activateEditorComponent(): void {
-			this.set('editorActive', true);
+		toggleEditorActive(active: boolean): void {
+			this.set('editorActive', active);
 		}
 	}
 });

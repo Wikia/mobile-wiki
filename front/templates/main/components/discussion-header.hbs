@@ -1,7 +1,7 @@
 {{#if showContent}}
 	<div class="header clearfix">
 		<h1>{{siteName}}</h1>
-		<div {{action 'activateEditorComponent'}} class="new-post">
+		<div {{action 'toggleEditorActive' true}} class="new-post">
 			{{svg 'new-post-icon' viewBox='0 0 56 50'}}
 		</div>
 		<div {{action 'showSortComponent'}} class="sort">

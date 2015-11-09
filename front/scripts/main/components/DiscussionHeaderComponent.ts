@@ -31,8 +31,8 @@ App.DiscussionHeaderComponent = Em.Component.extend(
 				this.get('overlay').style.display = 'none';
 			},
 
-			activateEditorComponent(): void {
-				this.sendAction('activateEditorComponent');
+			toggleEditorActive(active: boolean): void {
+				this.sendAction('toggleEditorActive', active);
 			},
 		},
 

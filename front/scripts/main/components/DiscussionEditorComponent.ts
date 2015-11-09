@@ -65,12 +65,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	},
 
 	actions: {
-		activateEditorComponent(): void {
-			this.set('active', true);
-		},
-
-		deactivateEditorComponent(): void {
-			this.set('active', false);
+		toggleEditorActive(active: boolean) {
+			this.set('active', active);
 		},
 
 		createPost(forumId): void {
