@@ -4,10 +4,6 @@
  * @property {FacebookAuthData} authResponse
  * @property {string} status
  */
-interface FacebookResponse {
-	authResponse: FacebookAuthData;
-	status: string;
-}
 
 /**
  * FacebookAuthData
@@ -15,45 +11,39 @@ interface FacebookResponse {
  * @property {string} accessToken
  * @property {number} expiresIn
  */
-interface FacebookAuthData {
-	accessToken: string;
-	expiresIn: number;
-}
 
 /**
  * HeliosFacebookToken
  * @typedef {Object} HeliosFacebookToken
  * @property {string} fb_access_token
  */
-interface HeliosFacebookToken {
-	fb_access_token: string;
-}
 
 /**
  * @class FacebookLogin
+ *
+ * @property {string} redirect
+ * @property {HTMLAnchorElement} loginButton
+ * @property {UrlHelper} urlHelper
+ * @property {AuthTracker} tracker
+ * @property {AuthLogger} authLogger
  */
 class FacebookLogin {
-	redirect: string;
-	loginButton: HTMLAnchorElement;
-	urlHelper: UrlHelper;
-	tracker: AuthTracker;
-	authLogger: AuthLogger = AuthLogger.getInstance();
-
 	/**
-	 * @constructs FacebookLogin
 	 * @param {HTMLAnchorElement} loginButton
+	 * @returns {void}
 	 */
-	constructor (loginButton: HTMLAnchorElement) {
+	constructor(loginButton) {
+		this.tracker = new AuthTracker('user-login-mobile', 'login');
+		this.authLogger = AuthLogger.getInstance();
 		this.loginButton = loginButton;
 		this.urlHelper = new UrlHelper();
 		new FacebookSDK(this.init.bind(this));
-		this.tracker = new AuthTracker('user-login-mobile', 'login');
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	public init (): void {
+	init() {
 		this.loginButton.addEventListener('click', this.login.bind(this));
 
 		this.redirect = this.urlHelper.urlDecode(window.location.search.substr(1))['redirect'] || '/';
@@ -62,7 +52,7 @@ class FacebookLogin {
 	/**
 	 * @returns {void}
 	 */
-	public login (): void {
+	login() {
 		window.FB.login(this.onLogin.bind(this), {scope: 'email'});
 		this.deactivateButton();
 	}
@@ -72,7 +62,7 @@ class FacebookLogin {
 	 *
 	 * @returns {void}
 	 */
-	public onLogin(response: FacebookResponse): void {
+	onLogin(response) {
 		if (response.status === 'connected') {
 			this.onSuccessfulLogin(response);
 		} else {
@@ -83,7 +73,7 @@ class FacebookLogin {
 	/**
 	 * @returns {void}
 	 */
-	private activateButton(): void {
+	activateButton() {
 		this.loginButton.classList.remove('on');
 		this.loginButton.classList.remove('disabled');
 	}
@@ -91,7 +81,7 @@ class FacebookLogin {
 	/**
 	 * @returns {void}
 	 */
-	private deactivateButton(): void {
+	deactivateButton() {
 		this.loginButton.classList.add('on');
 		this.loginButton.classList.add('disabled');
 	}
@@ -101,16 +91,14 @@ class FacebookLogin {
 	 *
 	 * @returns {void}
 	 */
-	private onSuccessfulLogin(response: FacebookResponse): void {
+	onSuccessfulLogin(response) {
 		this.getHeliosInfoFromFBToken(response.authResponse);
 	}
 
 	/**
-	 * @param {FacebookResponse} response
-	 *
 	 * @returns {void}
 	 */
-	private onUnsuccessfulLogin(response: FacebookResponse): void {
+	onUnsuccessfulLogin() {
 		this.tracker.track('facebook-login-helios-error', Mercury.Utils.trackActions.error);
 		this.activateButton();
 	}
@@ -118,16 +106,16 @@ class FacebookLogin {
 	/**
 	 * @returns {string}
 	 */
-	private getFacebookRegistrationUrl(): string {
-		var href = '/register',
-			search = window.location.search;
+	static getFacebookRegistrationUrl() {
+		let search = window.location.search;
+
 		if (search.indexOf('?') !== -1) {
 			search += '&method=facebook';
 		} else {
 			search += '?method=facebook';
 		}
 
-		return href + search;
+		return `/register${search}`;
 	}
 
 	/**
@@ -135,15 +123,20 @@ class FacebookLogin {
 	 *
 	 * @returns {void}
 	 */
-	private getHeliosInfoFromFBToken(facebookAuthData: FacebookAuthData): void {
-		var facebookTokenXhr = new XMLHttpRequest(),
-			data = <HeliosFacebookToken> {
+	getHeliosInfoFromFBToken(facebookAuthData) {
+		const facebookTokenXhr = new XMLHttpRequest(),
+			data = {
 				fb_access_token: facebookAuthData.accessToken
 			},
 			url = this.loginButton.getAttribute('data-helios-facebook-uri');
 
-		facebookTokenXhr.onload = (e: Event): void => {
-			var status: number = (<XMLHttpRequest> e.target).status;
+		/**
+		 * @param {Event} e
+		 * @returns {void}
+         */
+		facebookTokenXhr.onload = (e) => {
+			const status = e.target.status;
+
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', Mercury.Utils.trackActions.success);
 				this.tracker.track('facebook-login-helios-success', Mercury.Utils.trackActions.success);
@@ -157,7 +150,10 @@ class FacebookLogin {
 			}
 		};
 
-		facebookTokenXhr.onerror = (e: Event): void => {
+		/**
+		 * @returns {void}
+		 */
+		facebookTokenXhr.onerror = () => {
 			this.tracker.track('facebook-login-helios-error', M.trackActions.error);
 			this.authLogger.xhrError(facebookTokenXhr);
 			this.activateButton();

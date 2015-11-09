@@ -3,69 +3,66 @@
  * @typedef {Object} HeliosFacebookConnectData
  * @property {string} fb_access_token
  */
-interface HeliosFacebookConnectData {
-	fb_access_token: string;
-}
 
 /**
  * PageParams
  * @typedef {Object} PageParams
  * @property {number} facebookAppId
  */
-interface PageParams {
-	facebookAppId: number;
-}
 
 /**
  * Window
  * @typedef {Object} Window
  * @property {pageParams} pageParams
  */
-interface Window {
-	pageParams: PageParams;
-}
-
 
 /**
  * @class FacebookConnect
+ *
+ * @property {UrlHelper} urlHelper
+ * @property {SubmitValidator} submitValidator
+ * @property {AuthTracker} tracker
  */
 class FacebookConnect extends Login {
-	urlHelper: UrlHelper;
-	submitValidator: SubmitValidator;
-	tracker: AuthTracker;
-
 	/**
 	 * @param {HTMLFormElement} form
 	 * @param {SubmitValidator} submitValidator
+	 *
+	 * @returns {void}
 	 */
-	constructor (form: HTMLFormElement, submitValidator: SubmitValidator) {
+	constructor(form, submitValidator) {
 		super(form);
+		this.tracker = new AuthTracker('user-login-mobile', 'signup');
+
 		new FacebookSDK(this.init.bind(this));
+
 		this.urlHelper = new UrlHelper();
 		this.submitValidator = submitValidator;
-		this.tracker = new AuthTracker('user-login-mobile', 'signup');
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	public init (): void {
-		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
-			var status: string = facebookResponse.status;
-			if (status === 'connected') {
+	init() {
+		/**
+		 * @param {FacebookResponse} facebookResponse
+		 * @returns {void}
+		 */
+		window.FB.getLoginStatus((facebookResponse) => {
+			if (facebookResponse.status === 'connected') {
 				this.watch();
 			} else {
 				this.displayError('errors.server-error');
-				//FB SDK failed, we won't be able to connect accounts
+				// FB SDK failed, we won't be able to connect accounts
 				this.submitValidator.disablePermanently();
 			}
-		}.bind(this));
+		});
 	}
 
 	/**
 	 * @returns {HeliosFacebookConnectData}
 	 */
-	private getHeliosFacebookConnectData(): HeliosFacebookConnectData {
+	static getHeliosFacebookConnectData() {
 		return {
 			fb_access_token: window.FB.getAccessToken()
 		};
@@ -76,9 +73,9 @@ class FacebookConnect extends Login {
 	 *
 	 * @returns {string}
 	 */
-	private getHeliosFacebookConnectUrl(userId: string): string {
-		return this.form.getAttribute('data-heliosFacebookConnectURL')
-			+ userId + '/facebook_app_id/' + window.pageParams.facebookAppId;
+	getHeliosFacebookConnectUrl(userId) {
+		return `${this.form.getAttribute('data-heliosFacebookConnectURL')}${userId}` +
+			`/facebook_app_id/${window.pageParams.facebookAppId}`;
 	}
 
 	/**
@@ -86,47 +83,55 @@ class FacebookConnect extends Login {
 	 *
 	 * @returns {void}
 	 */
-	public onLoginSuccess (loginResponse: LoginResponse): void {
-		var facebookConnectXhr = new XMLHttpRequest(),
-			data: HeliosFacebookConnectData = this.getHeliosFacebookConnectData(),
-			url: string = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
+	onLoginSuccess(loginResponse) {
+		const facebookConnectXhr = new XMLHttpRequest(),
+			data = this.getHeliosFacebookConnectData(),
+			url = this.getHeliosFacebookConnectUrl(loginResponse.user_id);
 
-		facebookConnectXhr.onload = (e: Event) => {
-			var status: number = (<XMLHttpRequest> e.target).status,
-				errors: Array<HeliosError>,
-				errorCodesArray: Array<string> = [],
-				logoutXhr: XMLHttpRequest;
+		/**
+		 * @param {Event} e
+		 * @returns {void}
+         */
+		facebookConnectXhr.onload = (e) => {
+			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', M.trackActions.success);
 				AuthUtils.authSuccessCallback(this.redirect);
 			} else {
-				errors = JSON.parse(facebookConnectXhr.responseText).errors;
+				const errors = JSON.parse(facebookConnectXhr.responseText).errors,
+					errorCodesArray = [];
 
+				/**
+				 * @param {HeliosError} error
+				 * @returns {void}
+				 */
 				errors.forEach(
-					(error: HeliosError): void => {
-						this.displayError('errors.' + error.description);
-						errorCodesArray.push(error.description)
+					(error) => {
+						this.displayError(`errors.${error.description}`);
+						errorCodesArray.push(error.description);
 					}
 				);
 
 				this.tracker.track(
-					'facebook-link-error:' + errorCodesArray.join(';'),
+					`facebook-link-error:${errorCodesArray.join(';')}`,
 					M.trackActions.error
 				);
 
 				this.authLogger.xhrError(facebookConnectXhr);
 
 				// Logout user on connection error
-				logoutXhr = new XMLHttpRequest();
+				const logoutXhr = new XMLHttpRequest();
 				logoutXhr.open('GET', '/logout', true);
 				logoutXhr.send();
 			}
 		};
 
-		facebookConnectXhr.onerror = (e: Event) => {
+		/**
+		 * @returns {void}
+         */
+		facebookConnectXhr.onerror = () => {
 			this.displayError('errors.server-error');
-
 			this.authLogger.xhrError(facebookConnectXhr);
 		};
 
