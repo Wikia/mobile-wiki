@@ -1,24 +1,25 @@
-App.ArticleEditModel = Em.Object.extend({
+import Ember from 'ember';
+
+const ArticleEditModel = Ember.Object.extend({
 	content: null,
 	originalContent: null,
 	timestamp: null,
 	title: null,
 	sectionIndex: null,
-	isDirty: Em.computed('content', 'originalContent', function () {
+	isDirty: Ember.computed('content', 'originalContent', function () {
 		return this.get('content') !== this.get('originalContent');
 	})
 });
-
-App.ArticleEditModel.reopenClass(App.ArticleEditMixin, {
+ArticleEditModel.reopenClass(ArticleEditMixin, {
 	/**
 	 * @param {*} model
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	publish(model) {
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			this.getEditToken(model.title)
 				.then((token) => {
-					Em.$.ajax({
+					Ember.$.ajax({
 						url: M.buildUrl({path: '/api.php'}),
 						data: {
 							action: 'edit',
@@ -48,11 +49,11 @@ App.ArticleEditModel.reopenClass(App.ArticleEditMixin, {
 	/**
 	 * @param {string} title
 	 * @param {number} sectionIndex
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	load(title, sectionIndex) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({path: '/api.php'}),
 				dataType: 'json',
 				cache: false,
@@ -74,12 +75,12 @@ App.ArticleEditModel.reopenClass(App.ArticleEditMixin, {
 					return;
 				}
 
-				pages = Em.get(resp, 'query.pages');
+				pages = Ember.get(resp, 'query.pages');
 
 				if (pages) {
 					// FIXME: MediaWiki API, seriously?
 					revision = pages[Object.keys(pages)[0]].revisions[0];
-					resolve(App.ArticleEditModel.create({
+					resolve(ArticleEditModel.create({
 						title,
 						sectionIndex,
 						content: revision['*'],
@@ -93,3 +94,5 @@ App.ArticleEditModel.reopenClass(App.ArticleEditMixin, {
 		});
 	}
 });
+
+export default ArticleEditModel;

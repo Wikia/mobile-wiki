@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * @typedef {Object} SearchImageResponse
  * @property {SearchImageResponseData} [response]
@@ -33,7 +35,7 @@
  * @property {string} [thumbnailUrl]
  */
 
-App.SearchImagesModel = Em.Object.extend({
+const SearchImagesModel = Ember.Object.extend({
 	searchLimit: 24,
 	nextBatch: 0,
 	batches: 1,
@@ -67,17 +69,17 @@ App.SearchImagesModel = Em.Object.extend({
 		);
 	},
 
-	hasNextBatch: Em.computed('batches', 'nextBatch', function () {
+	hasNextBatch: Ember.computed('batches', 'nextBatch', function () {
 		return this.get('batches') > this.get('nextBatch');
 	}),
 
 	/**
-	 * @returns {Em.RSVP.Promise<SearchImagePhotoItem[]>}
+	 * @returns {Ember.RSVP.Promise<SearchImagePhotoItem[]>}
 	 */
 	next() {
 		this.incrementProperty('nextBatch');
 
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			this.fetch()
 				/**
 				 * @param {SearchImageResponse} data
@@ -89,9 +91,9 @@ App.SearchImagesModel = Em.Object.extend({
 						return reject(data.error);
 					}
 
-					items = Em.get(data, 'response.results.photo.items');
+					items = Ember.get(data, 'response.results.photo.items');
 
-					if (Em.isEmpty(items)) {
+					if (Ember.isEmpty(items)) {
 						return reject({
 							status: 404,
 							statusText: 'empty'
@@ -111,7 +113,7 @@ App.SearchImagesModel = Em.Object.extend({
 	 * @returns {JQueryXHR}
 	 */
 	fetch() {
-		return Em.$.getJSON(
+		return Ember.$.getJSON(
 			M.buildUrl({
 				path: '/api.php',
 			}),
@@ -126,3 +128,5 @@ App.SearchImagesModel = Em.Object.extend({
 		);
 	}
 });
+
+export default SearchImagesModel;

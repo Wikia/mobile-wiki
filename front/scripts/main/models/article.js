@@ -1,3 +1,6 @@
+import Ember from 'ember';
+import MediaModel from '/app/models/media';
+
 /**
  * @typedef {Object} ArticleModelUrlParams
  * @property {string} title
@@ -12,7 +15,7 @@
  * @property {string} [redirect]
  */
 
-App.ArticleModel = Em.Object.extend({
+const ArticleModel = Ember.Object.extend({
 	content: null,
 	basePath: null,
 	categories: [],
@@ -29,8 +32,7 @@ App.ArticleModel = Em.Object.extend({
 	users: [],
 	wiki: null,
 });
-
-App.ArticleModel.reopenClass({
+ArticleModel.reopenClass({
 	/**
 	 * @param {ArticleModelUrlParams} params
 	 * @returns {string}
@@ -42,24 +44,24 @@ App.ArticleModel.reopenClass({
 			redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
 		}
 
-		return `${App.get('apiBase')}/article/${params.title}${redirect}`;
+		return `${get('apiBase')}/article/${params.title}${redirect}`;
 	},
 
 	/**
 	 * @param {ArticleModelFindParams} params
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(params) {
-		const model = App.ArticleModel.create(params);
+		const model = ArticleModel.create(params);
 
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
 			}
 
-			Em.$.ajax({
+			Ember.$.ajax({
 				url: this.url(params),
 				dataType: 'json',
 				success: (data) => {
@@ -80,12 +82,12 @@ App.ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
-				url: `${App.get('apiBase')}/article?random&titleOnly`,
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: `${get('apiBase')}/article?random&titleOnly`,
 				cache: false,
 				dataType: 'json',
 				success: (data) => {
@@ -122,11 +124,11 @@ App.ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @param {App.ArticleModel} model
+	 * @param {ArticleModel} model
 	 * @param {*} [source=this.getPreloadedData()]
 	 * @returns {void}
 	 */
-	setArticle(model, source = this.getPreloadedData()) {
+	setArticle(model, source=this.getPreloadedData()) {
 		const exception = source.exception,
 			data = source.data;
 
@@ -161,7 +163,7 @@ App.ArticleModel.reopenClass({
 					content: article.content,
 					mediaUsers: article.users,
 					type: article.type,
-					media: App.MediaModel.create({
+					media: MediaModel.create({
 						media: article.media
 					}),
 					categories: article.categories,
@@ -207,3 +209,5 @@ App.ArticleModel.reopenClass({
 		model.setProperties(articleProperties);
 	}
 });
+
+export default ArticleModel;

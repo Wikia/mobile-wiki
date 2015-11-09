@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * @typedef {Object} ArticleMedia
  * @property {string} caption
@@ -18,7 +20,7 @@
  * @property {number} mediaRef
  */
 
-App.MediaModel = Em.Object.extend({
+const MediaModel = Ember.Object.extend({
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 *
@@ -27,7 +29,7 @@ App.MediaModel = Em.Object.extend({
 	init() {
 		const media = this.get('media');
 
-		if (!Em.isArray(media)) {
+		if (!Ember.isArray(media)) {
 			this.set('media', [media]);
 		}
 	},
@@ -68,7 +70,7 @@ App.MediaModel = Em.Object.extend({
 			 * @returns {boolean}
 			 */
 			findInMedia = function (mediaItem, mediaIndex) {
-				if (Em.isArray(mediaItem)) {
+				if (Ember.isArray(mediaItem)) {
 					return (mediaItem).some(findInGallery, {
 						mediaIndex
 					});
@@ -79,10 +81,10 @@ App.MediaModel = Em.Object.extend({
 				}
 			};
 
-		if (Em.isArray(media)) {
+		if (Ember.isArray(media)) {
 			media.some(findInMedia);
 		} else {
-			Em.Logger.debug('Media is not an array', media);
+			Ember.Logger.debug('Media is not an array', media);
 		}
 
 		return {
@@ -91,3 +93,5 @@ App.MediaModel = Em.Object.extend({
 		};
 	},
 });
+
+export default MediaModel;

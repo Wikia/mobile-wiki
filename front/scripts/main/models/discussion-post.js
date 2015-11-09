@@ -1,4 +1,6 @@
-App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
+import Ember from 'ember';
+
+const DiscussionPostModel = Ember.Object.extend(DiscussionErrorMixin, {
 	wikiId: null,
 	postId: null,
 	forumId: null,
@@ -14,11 +16,11 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	contributors: [],
 
 	/**
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadNextPage() {
-		return new Em.RSVP.Promise((resolve) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
 					responseGroup: 'full',
 					sortDirection: 'descending',
@@ -55,21 +57,20 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 		});
 	}
 });
-
-App.DiscussionPostModel.reopenClass({
+DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, postId) {
-		return new Em.RSVP.Promise((resolve) => {
-			const postInstance = App.DiscussionPostModel.create({
+		return new Ember.RSVP.Promise((resolve) => {
+			const postInstance = DiscussionPostModel.create({
 				wikiId,
 				postId
 			});
 
-			Em.$.ajax({
+			Ember.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
 					responseGroup: 'full',
 					sortDirection: 'descending',
@@ -125,3 +126,5 @@ App.DiscussionPostModel.reopenClass({
 		});
 	}
 });
+
+export default DiscussionPostModel;

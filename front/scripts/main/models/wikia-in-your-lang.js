@@ -1,23 +1,24 @@
-App.WikiaInYourLangModel = Em.Object.extend({
+import Ember from 'ember';
+
+const WikiaInYourLangModel = Ember.Object.extend({
 	message: null,
 	nativeDomain: null
 });
-
-App.WikiaInYourLangModel.reopenClass({
+WikiaInYourLangModel.reopenClass({
 	/**
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	load() {
 		const browserLang = navigator.language || navigator.browserLanguage,
-			model = App.WikiaInYourLangModel.getFromCache(browserLang);
+			model = WikiaInYourLangModel.getFromCache(browserLang);
 
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (model) {
 				resolve(model);
 				return;
 			}
 
-			Em.$.getJSON(
+			Ember.$.getJSON(
 				M.buildUrl({path: '/wikia.php'}),
 				{
 					controller: 'WikiaInYourLangController',
@@ -29,7 +30,7 @@ App.WikiaInYourLangModel.reopenClass({
 				let modelInstance = null;
 
 				if (resp.success) {
-					modelInstance = App.WikiaInYourLangModel.create({
+					modelInstance = WikiaInYourLangModel.create({
 						nativeDomain: resp.nativeDomain,
 						message: resp.messageMobile
 					});
@@ -37,7 +38,7 @@ App.WikiaInYourLangModel.reopenClass({
 
 				// write to cache
 				window.localStorage.setItem(
-					App.WikiaInYourLangModel.getCacheKey(browserLang),
+					WikiaInYourLangModel.getCacheKey(browserLang),
 					JSON.stringify({
 						model: modelInstance,
 						timestamp: new Date().getTime()
@@ -53,10 +54,10 @@ App.WikiaInYourLangModel.reopenClass({
 
 	/**
 	 * @param {string} browserLang
-	 * @returns {App.WikiaInYourLangModel}
+	 * @returns {WikiaInYourLangModel}
 	 */
 	getFromCache(browserLang) {
-		const key = App.WikiaInYourLangModel.getCacheKey(browserLang),
+		const key = WikiaInYourLangModel.getCacheKey(browserLang),
 			value = JSON.parse(window.localStorage.getItem(key)),
 			now = new Date().getTime();
 
@@ -76,3 +77,5 @@ App.WikiaInYourLangModel.reopenClass({
 		return `${lang}-WikiaInYourLang`;
 	}
 });
+
+export default WikiaInYourLangModel;

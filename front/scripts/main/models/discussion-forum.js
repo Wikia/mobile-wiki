@@ -1,4 +1,6 @@
-App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
+import Ember from 'ember';
+
+const DiscussionForumModel = Ember.Object.extend(DiscussionErrorMixin, {
 	wikiId: null,
 	forumId: null,
 	name: null,
@@ -12,13 +14,13 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 	/**
 	 * @param {number} [pageNum=0]
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadPage(pageNum = 0) {
+	loadPage(pageNum=0) {
 		this.set('pageNum', pageNum);
 
-		return new Em.RSVP.Promise((resolve) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
 					page: this.get('pageNum')
@@ -58,17 +60,16 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 		}
 	}
 });
-
-App.DiscussionForumModel.reopenClass({
+DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
 	 * @param {string} sortBy
-	 * @returns { Em.RSVP.Promise}
+	 * @returns { Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy) {
-		return new Em.RSVP.Promise((resolve) => {
-			const forumInstance = App.DiscussionForumModel.create({
+		return new Ember.RSVP.Promise((resolve) => {
+			const forumInstance = DiscussionForumModel.create({
 					wikiId,
 					forumId
 				}),
@@ -78,7 +79,7 @@ App.DiscussionForumModel.reopenClass({
 				requestData.sortKey = forumInstance.getSortKey(sortBy);
 			}
 
-			Em.$.ajax({
+			Ember.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 				data: requestData,
 				dataType: 'json',
@@ -116,3 +117,5 @@ App.DiscussionForumModel.reopenClass({
 		});
 	}
 });
+
+export default DiscussionForumModel;

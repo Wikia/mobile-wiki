@@ -1,10 +1,12 @@
+import Ember from 'ember';
+
 /**
  * @typedef {Object} FileNameSeparated
  * @property {string} name
  * @property {string} extension
  */
 
-App.ArticleAddPhotoModel = Em.Object.extend({
+const ArticleAddPhotoModel = Ember.Object.extend({
 	title: null,
 	sectionIndex: null,
 	photoData: null,
@@ -12,12 +14,11 @@ App.ArticleAddPhotoModel = Em.Object.extend({
 	photoName: null,
 	photoExtension: null
 });
-
 /**
  * @param {string} fileName
  * @returns {FileNameSeparated}
  */
-App.ArticleAddPhotoModel.separateFileNameAndExtension = (fileName) => {
+ArticleAddPhotoModel.separateFileNameAndExtension = (fileName) => {
 	const name = fileName.substr(0, fileName.lastIndexOf('.')),
 		extension = fileName.substr(fileName.lastIndexOf('.') + 1);
 
@@ -26,24 +27,23 @@ App.ArticleAddPhotoModel.separateFileNameAndExtension = (fileName) => {
 		extension
 	};
 };
-
-App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
+ArticleAddPhotoModel.reopenClass(ArticleEditMixin, {
 	/**
 	 * @param {*} photoData
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	load(photoData) {
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			const oFReader = new FileReader();
 
 			oFReader.readAsDataURL(photoData);
 			oFReader.onload = function (oFREvent) {
-				const separatedName = App.ArticleAddPhotoModel.separateFileNameAndExtension(photoData.name),
+				const separatedName = ArticleAddPhotoModel.separateFileNameAndExtension(photoData.name),
 					photoName = separatedName.name,
 					photoExtension = separatedName.extension;
 
 				resolve(
-					App.ArticleAddPhotoModel.create({
+					ArticleAddPhotoModel.create({
 						photoData,
 						photoImage: oFREvent.target.result,
 						photoName,
@@ -60,7 +60,7 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 	/**
 	 * @param {*} uploadedPhotoTitle
 	 * @param {*} model
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	addToContent(uploadedPhotoTitle, model) {
 		const photoWikiText = `\n[[File:${uploadedPhotoTitle}|thumb]]\n`,
@@ -74,7 +74,7 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 				token: ''
 			};
 
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			this.getEditToken(model.title)
 				.then((token) => {
 					editData.token = token;
@@ -85,8 +85,8 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 	},
 
 	editContent(editData) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({path: '/api.php'}),
 				dataType: 'json',
 				method: 'POST',
@@ -107,10 +107,10 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 
 	/**
 	 * @param {*} model
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	upload(model) {
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			this.temporaryUpload(model.photoData)
 				.then((addMediaTemporary) => {
 					let newPhotoTitle;
@@ -137,10 +137,10 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 	/**
 	 * @param {string} title
 	 * @param {string} tempName
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	permanentUpload(title, tempName) {
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			const params = {
 				action: 'addmediapermanent',
 				format: 'json',
@@ -148,7 +148,7 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 				tempName
 			};
 
-			Em.$.ajax({
+			Ember.$.ajax({
 				url: M.buildUrl({path: '/api.php'}),
 				method: 'POST',
 				data: params,
@@ -168,15 +168,15 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 
 	/**
 	 * @param {*} photoData
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	temporaryUpload(photoData) {
 		const formData = new FormData();
 
 		formData.append('file', photoData);
 
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/api.php',
 					query: {
@@ -206,3 +206,5 @@ App.ArticleAddPhotoModel.reopenClass(App.ArticleEditMixin, {
 		});
 	}
 });
+
+export default ArticleAddPhotoModel;

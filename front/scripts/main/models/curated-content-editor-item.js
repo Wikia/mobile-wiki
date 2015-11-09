@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * CuratedContentImageCropSingleData
  * @typedef {Object} CuratedContentImageCropSingleData
@@ -35,7 +37,7 @@
  * @property {id} image_id
  */
 
-App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
+const CuratedContentEditorItemModel = Ember.Object.extend(ObjectUtilitiesMixin, {
 	article_id: null,
 	image_id: null,
 	image_crop: null,
@@ -46,8 +48,7 @@ App.CuratedContentEditorItemModel = Em.Object.extend(App.ObjectUtilitiesMixin, {
 	title: null,
 	type: null
 });
-
-App.CuratedContentEditorItemModel.reopenClass({
+CuratedContentEditorItemModel.reopenClass({
 	/**
 	 * Object Model instance is only created once and all create() method invocations return already created object.
 	 * Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
@@ -55,7 +56,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	 * @param {Object} [params={}]
 	 * @returns {CuratedContentEditorItemModel} model
 	 */
-	createNew(params = {}) {
+	createNew(params={}) {
 		const modelParams = $.extend(true, {
 			article_id: null,
 			image_id: null,
@@ -68,17 +69,17 @@ App.CuratedContentEditorItemModel.reopenClass({
 			type: null
 		}, params);
 
-		return App.CuratedContentEditorItemModel.create(modelParams);
+		return CuratedContentEditorItemModel.create(modelParams);
 	},
 
 	/**
 	 * @param {string} title
 	 * @param {number} size
-	 * @returns {Em.RSVP.Promise} image data
+	 * @returns {Ember.RSVP.Promise} image data
 	 */
 	getImage(title, size) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php',
 				}),
@@ -98,7 +99,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorItemModel} item
 	 * @param {Object} data
-	 * @returns {Em.RSVP.Promise} server response
+	 * @returns {Ember.RSVP.Promise} server response
 	 */
 	validateServerData(item, data) {
 		const completeData = $.extend({}, data, {
@@ -107,8 +108,8 @@ App.CuratedContentEditorItemModel.reopenClass({
 			format: 'json'
 		});
 
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -123,15 +124,15 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {string} title
-	 * @returns {Em.RSVP.Promise} search suggestions
+	 * @returns {Ember.RSVP.Promise} search suggestions
 	 */
 	getSearchSuggestions(title) {
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (!title) {
 				return reject();
 			}
 
-			Em.$.ajax({
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -147,3 +148,5 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 	}
 });
+
+export default CuratedContentEditorItemModel;
