@@ -1,21 +1,21 @@
 /**
  * Creates new Marketing Opt In.
  * @class MarketingOptIn
+ *
+ * @property {HTMLInputElement} checkbox
+ * @property {HTMLLabelElement} label
+ * @property {Geo} Geo
+ * @property {boolean} isEurope
+ * @property {boolean} isCanada
+ * @property {boolean} isJapan
  */
 class MarketingOptIn {
-	checkbox: HTMLInputElement;
-	label: HTMLLabelElement;
-	Geo: Geo;
-	isEurope: boolean;
-	isCanada: boolean;
-	isJapan: boolean;
-
 	/**
 	 * @constructs MarketingOptIn
 	 */
-	constructor () {
-		this.checkbox = <HTMLInputElement> document.getElementById('signupNewsletter');
-		this.label = <HTMLLabelElement> this.checkbox.parentElement;
+	constructor() {
+		this.checkbox = document.getElementById('signupNewsletter');
+		this.label = this.checkbox.parentElement;
 		this.Geo = new Geo();
 
 		this.isEurope = this.Geo.getContinent() === 'EU';
@@ -23,15 +23,15 @@ class MarketingOptIn {
 		this.isJapan = this.Geo.getCountry() === 'JP';
 	}
 
-	public shouldBeEnabled (): boolean {
+	shouldBeEnabled() {
 		return this.isEurope || this.isCanada || this.isJapan;
 	}
 
-	public shouldBeChecked () {
+	shouldBeChecked() {
 		return !this.isCanada && !this.isJapan;
 	}
 
-	public init () {
+	init () {
 		if (this.shouldBeChecked()) {
 			this.checkbox.checked = true;
 		}
