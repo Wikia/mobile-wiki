@@ -7,7 +7,7 @@ $discussion-hero-unit-height: 200px;
 	color: $discussion-hero-unit-text-color;
 	display: none;
 	height: $discussion-hero-unit-height;
-	margin-top: 60px;
+	margin-top: $site-header-height;
 	text-align: center;
 
 	.discussion-hero-unit-wrapper {
