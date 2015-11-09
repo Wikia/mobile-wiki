@@ -1,0 +1,12 @@
+{
+  "ecmaFeatures": {
+  },
+  "globals": {
+    "AuthTracker": true
+  },
+  // http://eslint.org/docs/rules/
+  "rules": {
+  },
+  "env": {
+  }
+}
