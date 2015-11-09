@@ -1,4 +1,6 @@
-App.AdsMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const AdsMixin = Ember.Mixin.create({
 	adsData: {
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
@@ -36,7 +38,7 @@ App.AdsMixin = Em.Mixin.create({
 		// Keep in mind we always want to pass noAds parameter to the AdSlot component
 		// Right now we've got three ad slots and it doesn't make sense to add assertion
 		// in willInsertElement hook of the component to check if the parameters is really defined
-		const view = this.createChildView(App.AdSlotComponent, {
+		const view = this.createChildView(AdSlotComponent, {
 			name: adSlotName,
 			noAds: this.get('noAds')
 		});
@@ -121,12 +123,12 @@ App.AdsMixin = Em.Mixin.create({
 
 		// Inject the ads now
 		for (i = 0; i < adsToInject; i += 1) {
-			Em.Logger.info(`Injecting an extra in content ad before ${goodHeaders[i].attr('id')}`);
+			Ember.Logger.info(`Injecting an extra in content ad before ${goodHeaders[i].attr('id')}`);
 			this.appendAd(slotNamePrefix + (i + 1), 'before', goodHeaders[i]);
 		}
 
 		if (!adsToInject) {
-			Em.Logger.info('The page is long, but no extra in content ads were injected');
+			Ember.Logger.info('The page is long, but no extra in content ads were injected');
 		}
 	},
 
@@ -157,7 +159,7 @@ App.AdsMixin = Em.Mixin.create({
 		if (showMoreInContentAds) {
 			this.injectMoreInContentAds();
 		} else if (this.adsData.moreInContentAds.enabled) {
-			Em.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
+			Ember.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
 		}
 	},
 
@@ -197,3 +199,5 @@ App.AdsMixin = Em.Mixin.create({
 		Mercury.Modules.Ads.getInstance().reload(adsContext);
 	}
 });
+
+export default AdsMixin;

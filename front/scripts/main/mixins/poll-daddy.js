@@ -1,4 +1,6 @@
-App.PollDaddyMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const PollDaddyMixin = Ember.Mixin.create({
 	/**
 	 * This is a hack to make PollDaddy work (HG-618)
 	 * @see http://static.polldaddy.com/p/8791040.js
@@ -12,7 +14,7 @@ App.PollDaddyMixin = Em.Mixin.create({
 			const id = this.getPollDaddyId(script);
 
 			if (!id) {
-				Em.Logger.error('Polldaddy script src url not recognized', script.src);
+				Ember.Logger.error('Polldaddy script src url not recognized', script.src);
 				// can't find id, continue to next script tag if there is one.
 				return true;
 			}
@@ -31,7 +33,7 @@ App.PollDaddyMixin = Em.Mixin.create({
 					if (typeof init === 'function') {
 						init();
 					} else {
-						Em.Logger.error('Polldaddy code changed', script.src);
+						Ember.Logger.error('Polldaddy code changed', script.src);
 					}
 				});
 			}
@@ -80,3 +82,5 @@ App.PollDaddyMixin = Em.Mixin.create({
 		}
 	}
 });
+
+export default PollDaddyMixin;

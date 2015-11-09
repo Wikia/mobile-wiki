@@ -1,4 +1,6 @@
-App.WidgetScriptStateMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const WidgetScriptStateMixin = Ember.Mixin.create({
 	/**
 	 * This state is shared between objects that use the mixin.
 	 * It's used to load external scripts only once even if there are multiple instances of a single component.
@@ -17,3 +19,5 @@ App.WidgetScriptStateMixin = Em.Mixin.create({
 		vk: false,
 	},
 });
+
+export default WidgetScriptStateMixin;

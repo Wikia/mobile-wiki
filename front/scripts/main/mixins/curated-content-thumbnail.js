@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * ImageCropData
  * @typedef {Object} ImageCropData
@@ -7,20 +9,20 @@
  * @property {number} height
  */
 
-App.CuratedContentThumbnailMixin = Em.Mixin.create({
+const CuratedContentThumbnailMixin = Ember.Mixin.create({
 	thumbnailer: Mercury.Modules.Thumbnailer,
 	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 
-	aspectRatio: Em.computed('block', function () {
+	aspectRatio: Ember.computed('block', function () {
 		return this.get('block') === 'featured' ? 16 / 9 : 1;
 	}),
 
-	aspectRatioName: Em.computed('aspectRatio', function () {
+	aspectRatioName: Ember.computed('aspectRatio', function () {
 		return this.get('aspectRatio') === 16 / 9 ? 'landscape' : 'square';
 	}),
 
-	imageHeight: Em.computed('aspectRatio', 'imageWidth', function () {
+	imageHeight: Ember.computed('aspectRatio', 'imageWidth', function () {
 		return Math.round(this.get('imageWidth') / this.get('aspectRatio'));
 	}),
 
@@ -29,7 +31,7 @@ App.CuratedContentThumbnailMixin = Em.Mixin.create({
 	 * @param {ImageCropData} [imageCrop=null]
 	 * @returns {string}
 	 */
-	generateThumbUrl(imageUrl, imageCrop = null) {
+	generateThumbUrl(imageUrl, imageCrop=null) {
 		const options = {
 			width: this.get('imageWidth')
 		};
@@ -48,3 +50,5 @@ App.CuratedContentThumbnailMixin = Em.Mixin.create({
 		return this.thumbnailer.getThumbURL(imageUrl, options);
 	}
 });
+
+export default CuratedContentThumbnailMixin;

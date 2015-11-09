@@ -1,12 +1,14 @@
-App.ArticleEditMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const ArticleEditMixin = Ember.Mixin.create({
 
 	/**
 	 * @param {string} title
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	getEditToken(title) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({path: '/api.php'}),
 				data: {
 					action: 'query',
@@ -17,7 +19,7 @@ App.ArticleEditMixin = Em.Mixin.create({
 				},
 				dataType: 'json',
 				success: (resp) => {
-					const pages = Em.get(resp, 'query.pages');
+					const pages = Ember.get(resp, 'query.pages');
 
 					if (pages) {
 						// FIXME: MediaWiki API, seriously?
@@ -37,3 +39,5 @@ App.ArticleEditMixin = Em.Mixin.create({
 		});
 	}
 });
+
+export default ArticleEditMixin;

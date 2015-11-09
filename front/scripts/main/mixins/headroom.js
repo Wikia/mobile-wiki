@@ -1,4 +1,6 @@
-App.HeadroomMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const HeadroomMixin = Ember.Mixin.create({
 	headroom: null,
 	headroomEnabled: true,
 
@@ -8,7 +10,7 @@ App.HeadroomMixin = Em.Mixin.create({
 		ios: 83
 	},
 
-	offset: Em.computed('smartBannerVisible', function () {
+	offset: Ember.computed('smartBannerVisible', function () {
 		if (this.get('smartBannerVisible')) {
 			return this.get(`smartBannerHeight.${Mercury.Utils.Browser.getSystem()}`);
 		}
@@ -31,8 +33,8 @@ App.HeadroomMixin = Em.Mixin.create({
 		headroomOptions: null,
 	},
 
-	smartBannerVisibleObserver: Em.on('willInsertElement',
-		Em.observer('smartBannerVisible', 'offset', 'headroomOptions', function () {
+	smartBannerVisibleObserver: Ember.on('willInsertElement',
+		Ember.observer('smartBannerVisible', 'offset', 'headroomOptions', function () {
 			const headroom = this.get('headroom'),
 				smartBannerVisible = this.get('smartBannerVisible'),
 				offset = this.get('offset'),
@@ -90,3 +92,5 @@ App.HeadroomMixin = Em.Mixin.create({
 		this.set('headroom', headroom);
 	}
 });
+
+export default HeadroomMixin;

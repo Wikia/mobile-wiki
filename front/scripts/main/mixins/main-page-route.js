@@ -1,4 +1,6 @@
-App.MainPageRouteMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const MainPageRouteMixin = Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
@@ -45,7 +47,7 @@ App.MainPageRouteMixin = Em.Mixin.create({
 
 	/**
 	 * @param {*} controller
-	 * @param {App.CuratedContentModel} model
+	 * @param {CuratedContentModel} model
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {
@@ -73,8 +75,10 @@ App.MainPageRouteMixin = Em.Mixin.create({
 			} else if (item.type === 'category') {
 				this.transitionTo('mainPageCategory', encodeURI(encodeURIComponent(item.categoryName)));
 			} else {
-				Em.Logger.error('Can\'t open curated content item with type other than section or category', item);
+				Ember.Logger.error('Can\'t open curated content item with type other than section or category', item);
 			}
 		}
 	}
 });
+
+export default MainPageRouteMixin;

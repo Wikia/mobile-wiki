@@ -1,35 +1,4 @@
-/**
- * This mixin keeps track of current article-content width which is updated on every window resize.
- * ArticleContentMixin should be included in all places
- * where article-content width is accessed or resize event should be bound.
- * Mixin has only one property: articleContent.
- * It is stored as object because objects and arrays are shared among all objects which include mixin.
- * @type {Ember.Mixin}
- */
-App.ArticleContentMixin = Em.Mixin.create({
-	// This object is shared among all objects which include this mixin
-	articleContent: {
-		width: null
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	init() {
-		this._super();
-
-		App.ArticleContentListeners.add(this);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	willDestroyElement() {
-		this._super();
-
-		App.ArticleContentListeners.remove(this);
-	}
-});
+import Ember from 'ember';
 
 /**
  * This object keeps track of all components which include ArticleContentMixin.
@@ -39,7 +8,7 @@ App.ArticleContentMixin = Em.Mixin.create({
  * and we update the articleContent.width value in mixin only once.
  * @type {Ember.Object}
  */
-App.ArticleContentListeners = Em.Object.create({
+const ArticleContentListeners = Ember.Object.create({
 	initialized: false,
 	containers: [],
 	articleContentSelector: '.article-content',
@@ -49,7 +18,7 @@ App.ArticleContentListeners = Em.Object.create({
 	articleContentElement: null,
 
 	/**
-	 * This is a simple getter. It can't be a computed property because Em.Object.create doesn't support them.
+	 * This is a simple getter. It can't be a computed property because Ember.Object.create doesn't support them.
 	 *
 	 * @returns {JQuery}
 	 */
@@ -67,14 +36,14 @@ App.ArticleContentListeners = Em.Object.create({
 	},
 
 	/**
-	 * @param {Em.Component} container
+	 * @param {Ember.Component} container
 	 * @returns {void}
 	 */
 	add(container) {
 		this.containers.push(container);
 
 		if (!this.initialized) {
-			Em.$(window).on('resize', () => {
+			Ember.$(window).on('resize', () => {
 				this.onResize();
 			});
 
@@ -88,7 +57,7 @@ App.ArticleContentListeners = Em.Object.create({
 	},
 
 	/**
-	 * @param {Em.Component} container
+	 * @param {Ember.Component} container
 	 * @returns {void}
 	 */
 	remove(container) {
@@ -117,3 +86,5 @@ App.ArticleContentListeners = Em.Object.create({
 		}
 	}
 });
+
+export default ArticleContentListeners;
