@@ -77,7 +77,7 @@ class SignupForm {
 	/**
 	 * @returns {string}
 	 */
-	static getWikiaDomain() {
+	getWikiaDomain() {
 		const hostParts = location.host.split('.').reverse();
 
 		if (hostParts.length >= 2) {

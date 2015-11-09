@@ -1,5 +1,9 @@
-module HttpCodes {
-	export var OK: number = 200;
-	export var BAD_REQUEST: number = 400;
-	export var UNAUTHORIZED: number = 401;
-}
+/**
+ * @enum {object} HttpCodes
+ * @readonly
+ */
+const HttpCodes = {
+	OK: 200,
+	BAD_REQUEST: 400,
+	UNAUTHORIZED: 401
+};

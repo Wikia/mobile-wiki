@@ -1,38 +1,35 @@
 /**
- * GeoCookie
  * @typedef {Object} GeoCookie
  * @property {string} [city]
  * @property {string} [country]
  * @property {string} [continent]
  */
-interface GeoCookie {
-	city?: string;
-	country?: string;
-	continent?: string;
-}
 
 /**
  * @class Geo
+ *
+ * @property {string} cookieName
+ * @property {string} country
+ * @property {string} continent
  */
 class Geo {
-	cookieName: string = 'Geo';
-
-	country: string;
-	continent: string;
-
 	/**
-	 * @constructs Geo
+	 * @returns {void}
 	 */
-	constructor () {
-		var geoCookie: string = Cookie.get(this.cookieName),
-			parsedGeoCookie: GeoCookie;
+	constructor() {
+		this.cookieName = 'Geo';
+
+		const geoCookie = Cookie.get(this.cookieName);
+
+		let parsedGeoCookie;
+
 		try {
 			parsedGeoCookie = JSON.parse(geoCookie);
 		} catch (e) {
 			parsedGeoCookie = null;
 		}
 
-		//Cookie can be either parsed incorrectly or set to null
+		// Cookie can be either parsed incorrectly or set to null
 		if (!parsedGeoCookie) {
 			parsedGeoCookie = {};
 		}
@@ -44,13 +41,14 @@ class Geo {
 	/**
 	 * @returns {string}
 	 */
-	public getCountry (): string {
+	getCountry() {
 		return this.country;
 	}
 
 	/**
 	 * @returns {string}
-	 */public getContinent (): string {
+	 */
+	getContinent() {
 		return this.continent;
 	}
 }

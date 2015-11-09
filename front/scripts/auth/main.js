@@ -22,6 +22,7 @@ i18n.init({
 window.document.addEventListener('DOMContentLoaded', function () {
 	const formElement = document.querySelector('form'),
 		facebookConnectLink = document.querySelector('.signup-provider-facebook');
+
 	let birthdateContainer,
 		submitValidator;
 

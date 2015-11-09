@@ -1,59 +1,46 @@
 /**
- * ClickStreamPayload
  * @typedef {Object} ClickStreamPayload
  * @property {object[]} events
  */
-interface ClickStreamPayload {
-	events: any[];
-}
 
 /**
- * PageParams
  * @typedef {Object} PageParams
  * @property {boolean} enableAuthLogger
  * @property {string} authLoggerUrl
  */
-interface PageParams {
-	enableAuthLogger: boolean;
-	authLoggerUrl: string;
-}
 
 /**
- * XMLHttpRequest
  * @typedef {Object} XMLHttpRequest
  * @property {string} responseUrl
  */
-interface XMLHttpRequest {
-	responseUrl: string;
-}
 
 /**
+ * @enum {object} AuthLoggerLevels
  * @readonly
- * @enum {object}
  */
-enum AuthLoggerLevels {
-	Emergency,
-	critical,
-	alert,
-	error,
-	warning,
-	notice,
-	info,
-	debug
-}
+const AuthLoggerLevels = {
+	Emergency: 0,
+	critical: 1,
+	alert: 2,
+	error: 3,
+	warning: 4,
+	notice: 5,
+	info: 6,
+	debug: 7
+};
 
 /**
  * @class AuthLogger
+ *
+ * @property {AuthLogger} instance
+ * @property {boolean} isEnabled
+ * @property {string} url
  */
 class AuthLogger {
-	static instance: AuthLogger;
-	isEnabled: boolean = false;
-	url: string;
-
 	/**
-	 * @constructs AuthLogger
+	 * @returns {void}
 	 */
-	constructor () {
+	constructor() {
 		if (window.pageParams) {
 			this.isEnabled = window.pageParams.enableAuthLogger;
 			this.url = window.pageParams.authLoggerUrl;
@@ -61,11 +48,10 @@ class AuthLogger {
 	}
 
 	/**
-	 * @static
 	 *
 	 * @returns {AuthLogger}
 	 */
-	static getInstance(): AuthLogger {
+	static getInstance() {
 		if (!AuthLogger.instance) {
 			AuthLogger.instance = new AuthLogger();
 		}
@@ -77,15 +63,14 @@ class AuthLogger {
 	 *
 	 * @returns {void}
 	 */
-	public log(data: any): void {
+	log(data) {
 		if (this.isEnabled) {
-			var loggerXhr: XMLHttpRequest = new XMLHttpRequest(),
-				clickStreamPayload: ClickStreamPayload = this.getClickStreamPayload(data);
+			const loggerXhr = new XMLHttpRequest(),
+				clickStreamPayload = this.getClickStreamPayload(data);
+
 			loggerXhr.open('POST', this.url, true);
 			loggerXhr.setRequestHeader('Content-Type', 'application/json');
-			loggerXhr.send(
-				JSON.stringify(clickStreamPayload)
-			);
+			loggerXhr.send(JSON.stringify(clickStreamPayload));
 		}
 	}
 
@@ -94,17 +79,17 @@ class AuthLogger {
 	 *
 	 * @returns {ClickStreamPayload}
 	 */
-	private getClickStreamPayload(data: any): ClickStreamPayload {
-		var events: any[] = [];
+	getClickStreamPayload(data) {
+		let events = [];
 
-		if (typeof data === 'array') {
+		if (Array.isArray(data)) {
 			events = data;
 		} else {
 			events.push(data);
 		}
 
 		return {
-			events: events
+			events
 		};
 	}
 
@@ -113,12 +98,12 @@ class AuthLogger {
 	 *
 	 * @returns {void}
 	 */
-	public xhrError(xhr: XMLHttpRequest): void {
+	xhrError(xhr) {
 		this.log({
 			level: AuthLoggerLevels.error,
 			status: xhr.status,
 			response: xhr.responseText,
-			//Might give undefined in ie11
+			// Might give undefined in ie11
 			heliosUrl: xhr.responseUrl,
 			clientUrl: window.location.href
 		});

@@ -232,7 +232,10 @@
 		trackingSets[pageType]();
 	}
 
-	document.addEventListener('DOMContentLoaded', function () {
+	/**
+	 * @returns {void}
+	 */
+	document.addEventListener('DOMContentLoaded', () => {
 		init();
 	});
 })();

@@ -4,10 +4,6 @@
  * @property {string} username
  * @property {string} password
  */
-interface LoginCredentials {
-	username: string;
-	password: string;
-}
 
 /**
  * LoginResponse
@@ -20,15 +16,6 @@ interface LoginCredentials {
  * @property {string} [error]
  * @property {string} [error_description]
  */
-interface LoginResponse {
-	user_id: string;
-	access_token: string;
-	refresh_token: string;
-	token_type: string;
-	expires_in: string;
-	error?: string;
-	error_description?: string;
-}
 
 /**
  * FormElements
@@ -36,38 +23,37 @@ interface LoginResponse {
  * @property {HTMLInputElement} username
  * @property {HTMLInputElement} password
  */
-interface FormElements extends HTMLCollection {
-	username: HTMLInputElement;
-	password: HTMLInputElement;
-}
 
 /**
  * @class Login
+ *
+ * @property {HTMLFormElement} form
+ * @property {string} redirect
+ * @property {HTMLInputElement} usernameInput
+ * @property {HTMLInputElement} passwordInput
+ * @property {UrlHelper} urlHelper
+ * @property {AuthTracker} tracker
+ * @property {AuthLogger} authLogger
  */
 class Login {
-	form: HTMLFormElement;
-	redirect: string;
-	usernameInput: HTMLInputElement;
-	passwordInput: HTMLInputElement;
-	urlHelper: UrlHelper;
-	tracker: AuthTracker;
-	authLogger: AuthLogger = AuthLogger.getInstance();
-
 	/**
-	 * @constructs Login
 	 * @param {Element} form
+	 * @returns {void}
 	 */
-	constructor (form: Element) {
-		var elements: FormElements;
-		this.form = <HTMLFormElement> form;
-		elements = <FormElements> this.form.elements;
+	constructor(form) {
+		this.authLogger = AuthLogger.getInstance();
+		this.form = form;
+
+		const elements = this.form.elements;
+
 		this.usernameInput = elements.username;
 		this.passwordInput = elements.password;
 		this.urlHelper = new UrlHelper();
 
 		if (window.location.search) {
-			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
-			this.redirect = params['redirect'];
+			const params = this.urlHelper.urlDecode(window.location.search.substr(1));
+
+			this.redirect = params.redirect;
 		}
 		this.redirect = this.redirect || '/';
 		this.tracker = new AuthTracker('user-login-mobile', '/signin');
@@ -78,10 +64,10 @@ class Login {
 	 *
 	 * @returns {void}
 	 */
-	public onSubmit (event: Event): void {
-		var xhr = new XMLHttpRequest(),
-			postData: LoginCredentials = this.getCredentials(),
-			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
+	onSubmit(event) {
+		const xhr = new XMLHttpRequest(),
+			postData = this.getCredentials(),
+			submitButton = this.form.querySelector('button'),
 			enableSubmitButton = () => {
 				submitButton.disabled = false;
 				submitButton.classList.remove('on');
@@ -92,12 +78,11 @@ class Login {
 		submitButton.disabled = true;
 		submitButton.classList.add('on');
 
-
-		xhr.onload = (): void => {
-			var response: LoginResponse;
-
+		/**
+		 * @returns {void}
+		 */
+		xhr.onload = () => {
 			enableSubmitButton();
-
 			if (xhr.status === HttpCodes.UNAUTHORIZED) {
 				this.tracker.track('login-credentials-error', M.trackActions.error);
 				return this.displayError('errors.wrong-credentials');
@@ -107,7 +92,7 @@ class Login {
 				return this.displayError('errors.server-error');
 			}
 
-			response = JSON.parse(xhr.responseText);
+			const response = JSON.parse(xhr.responseText);
 
 			if (response.error) {
 				// Helios may return an error even if the request returns a 200
@@ -118,7 +103,7 @@ class Login {
 			}
 		};
 
-		xhr.onerror = (): void => {
+		xhr.onerror = () => {
 			enableSubmitButton();
 			this.authLogger.xhrError(xhr);
 			this.tracker.track('login-server-error', M.trackActions.error);
@@ -132,11 +117,9 @@ class Login {
 	}
 
 	/**
-	 * @param {LoginResponse} loginResponse
-	 *
 	 * @returns {void}
 	 */
-	public onLoginSuccess(loginResponse: LoginResponse): void {
+	onLoginSuccess() {
 		this.tracker.track('login-success', M.trackActions.submit);
 		AuthUtils.authSuccessCallback(this.redirect);
 	}
@@ -144,13 +127,13 @@ class Login {
 	/**
 	 * @returns {void}
 	 */
-	public watch(): void {
+	watch() {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 
 		// TODO remove when SOC-719 is ready
 		if (pageParams.isModal) {
-			this.form.querySelector('.forgotten-password').addEventListener('click', function(event) {
-				AuthUtils.loadUrl((<HTMLLinkElement> event.target).href);
+			this.form.querySelector('.forgotten-password').addEventListener('click', (event) => {
+				AuthUtils.loadUrl(event.target.href);
 				event.preventDefault();
 			});
 		}
@@ -159,7 +142,7 @@ class Login {
 	/**
 	 * @returns {LoginCredentials}
 	 */
-	private getCredentials (): LoginCredentials {
+	getCredentials() {
 		return {
 			username: this.usernameInput.value,
 			password: this.passwordInput.value
@@ -171,8 +154,9 @@ class Login {
 	 *
 	 * @returns {void}
 	 */
-	public displayError (messageKey: string): void {
-		var errorElement: HTMLElement = document.createElement('small');
+	displayError(messageKey) {
+		const errorElement = document.createElement('small');
+
 		errorElement.classList.add('error');
 		errorElement.innerHTML = i18n.t(messageKey);
 		this.form.appendChild(errorElement);
@@ -181,8 +165,9 @@ class Login {
 	/**
 	 * @returns {void}
 	 */
-	private clearError (): void {
-		var errorNode: Node = this.form.querySelector('small.error');
+	clearError() {
+		const errorNode = this.form.querySelector('small.error');
+
 		if (errorNode) {
 			errorNode.parentNode.removeChild(errorNode);
 		}

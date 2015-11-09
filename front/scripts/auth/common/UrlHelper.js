@@ -6,8 +6,13 @@ class UrlHelper {
 	 * @param {Object} object
 	 * @returns {string}
 	 */
-	public urlEncode(object: Object): string {
-		return Object.keys(object).map((key: string): string =>
+	urlEncode(object) {
+
+		/**
+		 * @param {string} key
+		 * @returns {string}
+		 */
+		return Object.keys(object).map((key) =>
 				`${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`
 		).join('&');
 	}
@@ -16,13 +21,16 @@ class UrlHelper {
 	 * @param {string} input
 	 * @returns {object}
 	 */
-	public urlDecode(input: string): Object {
-		var queryDict = {};
-		input.split("&").forEach(
-			(item: string): void => {
-				queryDict[decodeURIComponent(item.split("=")[0])] = decodeURIComponent(item.split("=")[1]);
-			}
-		);
+	urlDecode(input) {
+		const queryDict = {};
+
+		/**
+		 * @param {string} item
+		 * @returns {void}
+		 */
+		input.split('&').forEach((item) => {
+			queryDict[decodeURIComponent(item.split('=')[0])] = decodeURIComponent(item.split('=')[1]);
+		});
 		return queryDict;
 	}
 }

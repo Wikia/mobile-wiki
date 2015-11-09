@@ -1,5 +1,4 @@
 /**
- * Window
  * @typedef {Object} Window
  * @property {{getLoginStatus: Function, getAccessToken: Function, api: Function}} FB
  */
@@ -37,13 +36,17 @@ class FacebookRegistration {
 	 * @param {HTMLFormElement} form
 	 * @returns {void}
 	 */
-	constructor (form) {
+	constructor(form) {
 		this.authLogger = AuthLogger.getInstance();
+
 		new FacebookSDK(this.init.bind(this));
+
 		this.form = form;
 		this.urlHelper = new UrlHelper();
+
 		if (window.location.search) {
 			const params = this.urlHelper.urlDecode(window.location.search.substr(1));
+
 			this.redirect = params.redirect;
 		}
 		this.marketingOptIn = new MarketingOptIn();
@@ -66,11 +69,11 @@ class FacebookRegistration {
 		 * @param {FacebookResponse} facebookResponse
 		 * @returns {void}
 		 */
-		window.FB.getLoginStatus(function (facebookResponse) {
+		window.FB.getLoginStatus((facebookResponse) => {
 			if (facebookResponse.status === 'connected') {
 				this.getEmailFromFacebook();
 			}
-		}.bind(this));
+		});
 	}
 
 	/**

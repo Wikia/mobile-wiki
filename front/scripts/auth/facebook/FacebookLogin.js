@@ -46,7 +46,7 @@ class FacebookLogin {
 	init() {
 		this.loginButton.addEventListener('click', this.login.bind(this));
 
-		this.redirect = this.urlHelper.urlDecode(window.location.search.substr(1))['redirect'] || '/';
+		this.redirect = this.urlHelper.urlDecode(window.location.search.substr(1)).redirect || '/';
 	}
 
 	/**
@@ -106,7 +106,7 @@ class FacebookLogin {
 	/**
 	 * @returns {string}
 	 */
-	static getFacebookRegistrationUrl() {
+	getFacebookRegistrationUrl() {
 		let search = window.location.search;
 
 		if (search.indexOf('?') !== -1) {

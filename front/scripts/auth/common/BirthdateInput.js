@@ -1,39 +1,29 @@
 /**
- * FormElements
  * @typedef {Object} FormElements
  * @property {HTMLInputElement} birthdate
  * @property {HTMLInputElement} day
  * @property {HTMLInputElement} month
  * @property {HTMLInputElement} year
  */
-interface FormElements extends HTMLCollection {
-	birthdate: HTMLInputElement;
-	day: HTMLInputElement;
-	month: HTMLInputElement;
-	year: HTMLInputElement;
-}
 
 /**
  * @class BirthDateInput
+ *
+ * @property {HTMLElement} wrapper
+ * @property {NodeList} fakeInputs
+ * @property {HTMLInputElement} day
+ * @property {HTMLInputElement} month
+ * @property {HTMLInputElement} year
+ * @property {HTMLInputElement} realInput - The hidden input that will actually be used for the birthday value
  */
 class BirthdateInput {
-	wrapper: HTMLElement;
-	fakeInputs: NodeList;
-	day: HTMLInputElement;
-	month: HTMLInputElement;
-	year: HTMLInputElement;
 	/**
-	 * The (ultimately hidden) input that will actually be used for the birthday value
-	 */
-	realInput: HTMLInputElement;
-
-	/**
-	 * @constructs BirthdateInput
 	 * @param {HTMLElement} el
 	 * @param {HTMLFormElement} form
+	 * @returns {void}
 	 */
-	constructor(el: HTMLElement, form: HTMLFormElement) {
-		var elements: FormElements = <FormElements>form.elements;
+	constructor(el, form) {
+		const elements = form.elements;
 
 		this.wrapper = el;
 		this.realInput = elements.birthdate;
@@ -44,73 +34,83 @@ class BirthdateInput {
 	}
 
 	/**
-	 * @retuns {void}
+	 * @returns {void}
 	 */
-	public init(): void {
+	init() {
 		this.initFocus();
 		this.initAutoTab();
 		this.initBirthdateValue();
 	}
 
 	/**
-	 * @retuns {void}
+	 * @returns {void}
 	 */
-	private initFocus(): void {
-		var firstInput: HTMLInputElement = <HTMLInputElement>this.fakeInputs[0],
-			inputContainer = <HTMLElement> this.wrapper.parentElement,
-			target: HTMLElement;
+	initFocus() {
+		const firstInput = this.fakeInputs[0],
+			inputContainer = this.wrapper.parentElement;
 
-		inputContainer.addEventListener('focus', ((event: Event): void => {
-			target = <HTMLElement> event.target;
+		/**
+		 * @param {Event} event
+		 * @returns {void}
+		 */
+		inputContainer.addEventListener('focus', (event) => {
+			const target = event.target;
+
 			if (target === this.realInput) {
 				this.realInput.type = 'hidden';
 				this.wrapper.classList.remove('hide');
 				firstInput.focus();
 			}
 			this.wrapper.classList.add('focused');
-		}).bind(this), true);
+		}, true);
 
-		inputContainer.addEventListener('blur', ((): void => {
+		inputContainer.addEventListener('blur', () => {
 			this.wrapper.classList.remove('focused');
-		}).bind(this), true);
+		}, true);
 	}
 
 	/**
-	 * @retuns {void}
+	 * @returns {void}
 	 */
-	private initAutoTab(): void {
-		Array.prototype.forEach.call(this.fakeInputs, function (input: HTMLInputElement) {
+	initAutoTab() {
+		/**
+		 * @param {HTMLInputElement} input
+		 * @returns {void}
+		 */
+		Array.prototype.forEach.call(this.fakeInputs, (input) => {
 			new AutoTab(input).init();
 		});
 	}
 
 	/**
-	 * @retuns {void}
+	 * @returns {void}
 	 */
-	private initBirthdateValue(): void {
+	initBirthdateValue() {
 		this.wrapper.addEventListener('input', this.setRealValue.bind(this));
 	}
 
 	/**
 	 * Set the value for the input that will ultimately be saved upon form submission
 	 *
-	 * @retuns {void}
+	 * @returns {void}
 	 */
-	private setRealValue(): void {
-		this.realInput.value = this.padLeft(this.year.value, this.year.maxLength) + '-' +
-			this.padLeft(this.month.value, this.month.maxLength) + '-' +
-			this.padLeft(this.day.value, this.day.maxLength);
+	setRealValue() {
+		const year = this.padLeft(this.year.value, this.year.maxLength),
+			month = this.padLeft(this.month.value, this.month.maxLength),
+			day = this.padLeft(this.dayvalue, this.day.maxLength);
+
+		this.realInput.value = `${year}-${month}-${day}`;
 	}
 
 	/**
 	 * Pad string from left
 	 *
-	 * @param input input string
-	 * @param length output string length
-	 * @param padChar string used for padding, default '0'
+	 * @param {HTMLInputElement} input
+	 * @param {string} length
+	 * @param {string} [padChar='0']
 	 * @returns {string}
 	 */
-	private padLeft(input: string, length: number, padChar: string = '0'): string {
+	padLeft(input, length, padChar = '0') {
 		return Array(length - input.length + 1).join(padChar) + input;
 	}
 }

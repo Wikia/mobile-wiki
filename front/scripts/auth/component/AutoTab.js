@@ -49,7 +49,7 @@ class AutoTab {
 		 * @param {HTMLElement} element
 		 * @returns {boolean}
 		 */
-		return Array.prototype.filter.call(this.form.elements, function (element) {
+		return Array.prototype.filter.call(this.form.elements, (element) => {
 			return element.type !== 'hidden';
 		});
 	}
@@ -69,13 +69,13 @@ class AutoTab {
 		 * @param {number} index
 		 * @returns {boolean}
 		 */
-		elements.every(function (element, index) {
+		elements.every((element, index) => {
 			if (element === this.input) {
 				nextInput = elements[index + 1];
 				return false;
 			}
 			return true;
-		}, this);
+		});
 
 		return nextInput;
 	}

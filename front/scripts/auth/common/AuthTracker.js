@@ -1,16 +1,15 @@
 /**
  * @class AuthTracker
+ *
+ * @property {string} gaCategory
  */
 class AuthTracker {
-	gaCategory: string;
-
 	/**
-	 * @constructs AuthTracker
-	 *
 	 * @param {string} gaCategory
 	 * @param {string} pageType
+	 * @returns {void}
 	 */
-	constructor (gaCategory: string, pageType: string) {
+	constructor(gaCategory, pageType) {
 		this.gaCategory = gaCategory;
 		M.setTrackContext({
 			a: pageType,
@@ -21,24 +20,27 @@ class AuthTracker {
 	/**
 	 * @param {HTMLElement} element
 	 * @param {string} label
-	 * @param {Object} action
+	 * @param {Object} [action=M.trackActions.click]
 	 *
 	 * @returns {void}
 	 */
-	public trackClick (element: HTMLElement, label: string, action = M.trackActions.click): void {
+	trackClick(element, label, action) {
 		if (!element) {
 			return;
 		}
 
-		element.addEventListener('click', function (): void {
+		/**
+		 * @returns {void}
+		 */
+		element.addEventListener('click', () => {
 			this.track(label, action);
-		}.bind(this))
+		});
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	public trackPageView () {
+	trackPageView() {
 		M.trackPageView(null);
 	}
 
@@ -48,14 +50,17 @@ class AuthTracker {
 	 *
 	 * @returns {void}
 	 */
-	public trackSubmit (form: HTMLFormElement, label: string): void {
+	trackSubmit(form, label) {
 		if (!form) {
 			return;
 		}
 
-		form.addEventListener('submit', function (): void {
+		/**
+		 * @returns {void}
+		 */
+		form.addEventListener('submit', () => {
 			this.track(label, M.trackActions.submit);
-		}.bind(this));
+		});
 	}
 
 	/**
@@ -64,12 +69,12 @@ class AuthTracker {
 	 *
 	 * @returns {void}
 	 */
-	public track (label: string, action: string) {
-		var trackOptions: TrackingParams = {
+	track(label, action) {
+		const trackOptions = {
 				trackingMethod: 'both',
-				action: action,
 				category: this.gaCategory,
-				label: label
+				action,
+				label
 			},
 			sourceUrl = M.getQueryParam('redirect');
 

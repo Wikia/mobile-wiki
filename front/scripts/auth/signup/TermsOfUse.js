@@ -1,5 +1,3 @@
-var pageParams;
-
 /**
  * Creates new TermsOfUse.
  * @class TermsOfUse

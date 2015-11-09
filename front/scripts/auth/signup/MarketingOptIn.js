@@ -11,7 +11,7 @@
  */
 class MarketingOptIn {
 	/**
-	 * @constructs MarketingOptIn
+	 * @returns {void}
 	 */
 	constructor() {
 		this.checkbox = document.getElementById('signupNewsletter');

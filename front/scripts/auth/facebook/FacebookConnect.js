@@ -62,7 +62,7 @@ class FacebookConnect extends Login {
 	/**
 	 * @returns {HeliosFacebookConnectData}
 	 */
-	static getHeliosFacebookConnectData() {
+	getHeliosFacebookConnectData() {
 		return {
 			fb_access_token: window.FB.getAccessToken()
 		};
@@ -100,18 +100,17 @@ class FacebookConnect extends Login {
 				AuthUtils.authSuccessCallback(this.redirect);
 			} else {
 				const errors = JSON.parse(facebookConnectXhr.responseText).errors,
+					logoutXhr = new XMLHttpRequest(),
 					errorCodesArray = [];
 
 				/**
 				 * @param {HeliosError} error
 				 * @returns {void}
 				 */
-				errors.forEach(
-					(error) => {
-						this.displayError(`errors.${error.description}`);
-						errorCodesArray.push(error.description);
-					}
-				);
+				errors.forEach((error) => {
+					this.displayError(`errors.${error.description}`);
+					errorCodesArray.push(error.description);
+				});
 
 				this.tracker.track(
 					`facebook-link-error:${errorCodesArray.join(';')}`,
@@ -121,7 +120,6 @@ class FacebookConnect extends Login {
 				this.authLogger.xhrError(facebookConnectXhr);
 
 				// Logout user on connection error
-				const logoutXhr = new XMLHttpRequest();
 				logoutXhr.open('GET', '/logout', true);
 				logoutXhr.send();
 			}
