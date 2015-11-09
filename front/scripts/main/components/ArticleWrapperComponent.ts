@@ -96,15 +96,20 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
 		contributionEnabledForCommunity: Em.computed(function(): boolean {
-			var dbName = Em.get(Mercury, 'wiki.dbName');
+			var dbName = Em.get(Mercury, 'wiki.dbName'),
+				disableMobileSectionEditor = Em.get(Mercury, 'wiki.disableMobileSectionEditor');
 
 			var enabledCommunities = [
 				'clashofclans', 'declashofclans', 'zhclashofclans723', 'frclashofclans',
 				'ruclashofclans', 'esclashofclans727', 'ptbrclashofclans'
 			];
 
-			if (this.get('isJapaneseWikia')) {
-				// Enabled for all Japanese wikias
+			if (disableMobileSectionEditor) {
+				// When disableMobileSectionEditor is set to true, no contribution tools should show up
+				return false;
+			}
+			else if (this.get('isJapaneseWikia')) {
+				// Enabled for all Japanese wikias unless disableMobileSectionEditor is set
 				return true;
 			} else if (enabledCommunities.indexOf(dbName) > -1) {
 				// Otherwise check against whitelist
@@ -162,20 +167,12 @@ App.ArticleWrapperComponent = Em.Component.extend(
 
 		/**
 		 * For add photo, check if the user is allowed to upload
-		 * - Logged in users are always allowed to add photo
-		 * - Wikias with disableAnonymousUploadForMercury set need login to add photo
+		 * Only logged in users are allowed to add photo
 		 *
 		 * @returns {boolean} True if add photo is allowed
 		 */
 		addPhotoAllowed: Em.computed(function(): boolean {
-			var disableAnonymousUploadForMercury = Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury'),
-				isLoggedIn = Em.get(Mercury, 'currentUser.isAuthenticated');
-
-			if (isLoggedIn) {
-				return true;
-			} else {
-				return !disableAnonymousUploadForMercury;
-			}
+			return Em.get(Mercury, 'currentUser.isAuthenticated');
 		}),
 
 		curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
