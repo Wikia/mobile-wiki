@@ -31,7 +31,7 @@ class MarketingOptIn {
 		return !this.isCanada && !this.isJapan;
 	}
 
-	init () {
+	init() {
 		if (this.shouldBeChecked()) {
 			this.checkbox.checked = true;
 		}
