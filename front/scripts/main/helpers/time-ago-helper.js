@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Helper to give textual representation of time interval between past date
  * and the current time/date in the form
@@ -7,7 +9,7 @@
  * @param {Array} params
  * @returns {string}
  */
-App.TimeAgoHelper = Em.Helper.helper((params) => {
+const TimeAgoHelper = Ember.Helper.helper((params) => {
 	const unixTimestamp = params[0],
 		fromDate = new Date(unixTimestamp * 1000),
 		interval = M.DateTime.timeAgo(fromDate);
@@ -28,7 +30,9 @@ App.TimeAgoHelper = Em.Helper.helper((params) => {
 	case M.DateTime.Interval.Year:
 		return i18n.t('app.years-ago-label', {count: interval.value});
 	default:
-		Em.Logger.error('Unexpected date interval for timestamp', unixTimestamp);
+		Ember.Logger.error('Unexpected date interval for timestamp', unixTimestamp);
 		return '';
 	}
 });
+
+export default TimeAgoHelper;

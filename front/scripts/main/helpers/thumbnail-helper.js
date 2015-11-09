@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Helper to generate img element with link to thumbnail as the src attribute
  * Use case: {{thumbnail url width=100 height=100 mode=thumbMode alt=name}}
@@ -5,9 +7,9 @@
  *
  * @param {Array} params
  * @param {Object} options
- * @returns {Em.Handlebars.SafeString}
+ * @returns {Ember.Handlebars.SafeString}
  */
-App.ThumbnailHelper = Em.Helper.helper((params, options) => {
+const ThumbnailHelper = Ember.Helper.helper((params, options) => {
 	const thumbnailer = Mercury.Modules.Thumbnailer,
 		defaultMode = thumbnailer.mode.fixedAspectRatio,
 		defaultWidth = 100,
@@ -35,10 +37,10 @@ App.ThumbnailHelper = Em.Helper.helper((params, options) => {
 		mode = defaultMode;
 	}
 
-	width = Em.getWithDefault(options, 'hash.width', defaultWidth);
-	height = Em.getWithDefault(options, 'hash.height', defaultHeight);
-	alt = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'alt'));
-	className = Em.Handlebars.Utils.escapeExpression(Em.get(options, 'className')) || className;
+	width = Ember.getWithDefault(options, 'hash.width', defaultWidth);
+	height = Ember.getWithDefault(options, 'hash.height', defaultHeight);
+	alt = Ember.Handlebars.Utils.escapeExpression(Ember.get(options, 'alt'));
+	className = Ember.Handlebars.Utils.escapeExpression(Ember.get(options, 'className')) || className;
 
 	if (imgUrl) {
 		src = thumbnailer.getThumbURL(imgUrl, {
@@ -48,7 +50,9 @@ App.ThumbnailHelper = Em.Helper.helper((params, options) => {
 		});
 	}
 
-	return new Em.Handlebars.SafeString(
+	return new Ember.Handlebars.SafeString(
 		`<img src="${src}" alt="${alt}" class="${className}">`
 	);
 });
+
+export default ThumbnailHelper;
