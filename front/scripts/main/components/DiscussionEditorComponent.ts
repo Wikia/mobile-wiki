@@ -57,7 +57,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	}),
 
 	click(): void {
-		Em.$('.editor-textarea').focus();
+		this.$('.editor-textarea').focus();
 	},
 
 	actions: {
