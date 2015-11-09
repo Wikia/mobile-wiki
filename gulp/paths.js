@@ -32,12 +32,7 @@ module.exports = {
 			dest: basePath + '/front/scripts',
 			tsFiles: '**/*.ts',
 			tsdFiles: '**/*.d.js',
-			jsFiles: '**/*.js',
-			// @todo https://wikia-inc.atlassian.net/browse/XW-517
-			jsFilesModels: '**/models/*.js',
-			jsFilesMixins: '**/mixins/*.js',
-			jsFilesComponents: '**/components/*.js',
-			jsFilesRoutes: '**/routes/*.js'
+			jsFiles: '**/*.js'
 		},
 		server: {
 			src: 'server/**/*.ts',
