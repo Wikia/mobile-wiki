@@ -56,9 +56,13 @@ App.initializer({
 	after: 'optimizely',
 	initialize(container, application) {
 		const $window = $(window),
-			// prevents fail if transitions are empty
+			/**
+			 * prevents fail if transitions are empty
+			 */
 			loadedTranslations = prop('translations') || {},
-			// loaded language name is the first key of the Mercury.state.translations object
+			/**
+			 * loaded language name is the first key of the Mercury.state.translations object
+			 */
 			loadedLanguage = Object.keys(loadedTranslations)[0];
 
 		let debug = prop('environment') === 'dev';
