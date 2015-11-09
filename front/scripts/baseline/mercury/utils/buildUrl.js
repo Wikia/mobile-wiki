@@ -99,18 +99,18 @@ export function buildUrl(urlParams = {}, context = window) {
 export function replaceWikiInHost(host, wiki) {
 	let match;
 
-	// (1) Sandbox, preview, or verify hosts on wikia.com
 	if ((match = host.match(/^(sandbox-.+?|preview|verify)\.(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+		// (1) Sandbox, preview, or verify hosts on wikia.com
 		host = host.replace(`${match[1]}.${match[2]}`, `${match[1]}.${wiki}`);
-		// (2) Production wikia.com
 	} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+		// (2) Production wikia.com
 		// Domain is specified here in case subdomain is actually "wiki", "com", etc.
 		host = host.replace(`${match[1]}.wikia.com`, `${wiki}.wikia.com`);
-		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
 	} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
+		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
 		host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
-		// (4) Environment using xip.io
 	} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
+		// (4) Environment using xip.io
 		host = host.replace(`${match[1]}.${match[2]}.xip.io`, `${wiki}.${match[2]}.xip.io`);
 	}
 
