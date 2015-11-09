@@ -10,7 +10,7 @@ const App = Em.Application.create({
 
 window.emberHammerOptions = {
 	hammerOptions: {
-		// we are using fastclick and this is adviced by ember-hammer lib
+		// we are using fastclick as this is advised by ember-hammer lib
 		ignoreEvents: [],
 		swipe_velocity: 0.1,
 		pan_threshold: 1
