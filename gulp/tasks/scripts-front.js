@@ -45,14 +45,14 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 
 	// build ES6
 	esStream = gulp.src([
-		path.join(paths.src, folder, paths.jsFilesModels),
-		path.join(paths.src, folder, paths.jsFilesMixins),
-		path.join(paths.src, folder, paths.jsFilesRoutes),
-		path.join(paths.src, folder, paths.jsFilesComponents)
+		path.join(paths.src, folder, paths.jsFiles)
 	])
 	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
 	// .pipe(newer(path.join(paths.dest, folder + '.js')))
-	.pipe(babel());
+	.pipe(babel({
+		presets: ['es2015'],
+		plugins: ['transform-es2015-modules-umd']
+	}));
 
 	return orderedMergeStream([tsStream, esStream])
 		.pipe(concat(folder + '.js'))
