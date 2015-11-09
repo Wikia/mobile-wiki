@@ -78,6 +78,7 @@ export function timeAgo(from, to = new Date()) {
 	}
 	// years
 	timeDiff = Math.floor(timeDiff / 12);
+
 	return {
 		type: interval.year,
 		value: timeDiff

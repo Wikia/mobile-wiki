@@ -10,9 +10,7 @@ const __props__ = {};
  * @returns {*}
  */
 function namespacer(str, ns, val, mutable) {
-	let parts,
-		i,
-		properties;
+	let parts;
 
 	if (!str) {
 		parts = [];
@@ -33,7 +31,7 @@ function namespacer(str, ns, val, mutable) {
 		ns = window[ns] = window[ns] || {};
 	}
 
-	properties = {
+	const properties = {
 		value: !mutable && !isPrimitive(val) ? Object.freeze(val) : val
 	};
 
@@ -43,7 +41,7 @@ function namespacer(str, ns, val, mutable) {
 		properties.writable = true;
 	}
 
-	for (i = 0; i < parts.length; i++) {
+	for (let i = 0; i < parts.length; i++) {
 		// if a obj is passed in and loop is assigning last variable in namespace
 		if (i === parts.length - 1) {
 			Object.defineProperty(ns, parts[i], properties);
@@ -66,21 +64,20 @@ function namespacer(str, ns, val, mutable) {
 function _getProp(key) {
 	const parts = key.split('.');
 
-	let value,
-		i;
-
 	if (parts.length > 1) {
-		i = 0;
-		value = __props__;
-		while (i < parts.length) {
+		let value = __props__;
+
+		for (let i = 0; i < parts.length; i++) {
 			if (!value.hasOwnProperty(parts[i])) {
 				return null;
 			}
+
 			value = value[parts[i]];
-			i++;
 		}
+
 		return value;
 	}
+
 	return __props__[key];
 }
 
@@ -114,6 +111,7 @@ export function prop(key, value, mutable = false) {
 	if (typeof value !== 'undefined') {
 		return _setProp(key, value, mutable);
 	}
+
 	return _getProp(key);
 }
 
@@ -128,9 +126,6 @@ export function props(value, mutable = false) {
 	const props = {},
 		keys = Object.keys(value);
 
-	let l = keys.length - 1,
-		curVal;
-
 	if (typeof mutable !== 'boolean') {
 		throw new Error('Argument 2, mutable, must be a boolean value');
 	}
@@ -139,18 +134,19 @@ export function props(value, mutable = false) {
 		throw new Error(`Unable to set properties with the supplied value: ${value} (of type ${typeof value})`);
 	}
 
-	while (l > -1) {
-		curVal = value[keys[l]];
-		props[keys[l]] = {
+	for (let keysLength = keys.length - 1; keysLength > -1; keysLength--) {
+		const curVal = value[keys[keysLength]];
+
+		props[keys[keysLength]] = {
 			value: !mutable && !isPrimitive(curVal) ? Object.freeze(curVal) : curVal,
 			configurable: mutable,
 			enumerable: mutable,
 			writable: mutable
 		};
-		l--;
 	}
 
 	Object.defineProperties(__props__, props);
+
 	return value;
 }
 
@@ -163,5 +159,6 @@ export function provide(str, obj) {
 	if (typeof str !== 'string') {
 		throw Error('Invalid string supplied to namespacer');
 	}
+
 	return namespacer(str, 'Mercury', obj, true);
 }

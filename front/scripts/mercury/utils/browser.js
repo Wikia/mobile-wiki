@@ -13,5 +13,6 @@ export function getSystem() {
 	} else if (ua.match(/Android/i) !== null) {
 		system = 'android';
 	}
+
 	return system;
 }

@@ -58,13 +58,11 @@ export function buildUrl(urlParams = {}, context = window) {
 	const mediawikiDomain = prop('mediawikiDomain'),
 		host = context.location.host;
 
-	let url;
-
 	if (!urlParams.protocol) {
 		urlParams.protocol = 'http';
 	}
 
-	url = `${urlParams.protocol}://`;
+	let url = `${urlParams.protocol}://`;
 
 	if (urlParams.wiki) {
 		url += Mercury.Utils.replaceWikiInHost(host, urlParams.wiki);

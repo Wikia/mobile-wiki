@@ -63,10 +63,6 @@ export function integrateOptimizelyWithUA(dimensions) {
 	const optimizely = window.optimizely,
 		activeExperiments = this.getActiveExperimentsList();
 
-	let dimension,
-		experimentName,
-		variationName;
-
 	// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
 	// isOptimizelyLoadedAndActive function and below
 	// https://github.com/Wikia/app/blob/dev/extensions/wikia/AnalyticsEngine/js/universal_analytics.js
@@ -79,9 +75,9 @@ export function integrateOptimizelyWithUA(dimensions) {
 				optimizely.allExperiments.hasOwnProperty(experimentId) &&
 				typeof optimizely.allExperiments[experimentId].universal_analytics === 'object'
 			) {
-				dimension = optimizely.allExperiments[experimentId].universal_analytics.slot;
-				experimentName = optimizely.allExperiments[experimentId].name;
-				variationName = optimizely.variationNamesMap[experimentId];
+				const dimension = optimizely.allExperiments[experimentId].universal_analytics.slot,
+					experimentName = optimizely.allExperiments[experimentId].name,
+					variationName = optimizely.variationNamesMap[experimentId];
 
 				dimensions[dimension] = `Optimizely ${experimentName} (${experimentId}): ${variationName}`;
 			}
