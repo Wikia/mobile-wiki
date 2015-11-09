@@ -38,7 +38,7 @@
 		}
 	}
 
-	.editor {
+	.editor-textarea {
 		border-radius: 0;
 		position: static;
 
@@ -87,13 +87,24 @@
 				height: calc(100% - 40px);
 			}
 
-			.editor {
+			.editor-textarea {
 				border-top: 1px solid #e1e1e1;
 				height: 100%;
 				margin: 0;
+				padding: 40px 10px 10px;
 				position: relative;
 				top: 40px;
 				width: 100%;
+			}
+
+			.editor-label {
+				color: #999;
+				font-size: $type-min;
+				font-weight: 700;
+				margin: 10px;
+				position: absolute;
+				text-transform: uppercase;
+				top: 40px;
 			}
 
 			.user-avatar {
@@ -109,7 +120,7 @@
 			margin: 0 auto 5px;
 			position: relative;
 
-			.editor {
+			.editor-textarea {
 				border-bottom: 1px solid $secondary-color;
 				min-height: $line-height-smaller;
 				height: $line-height-smaller;
@@ -149,7 +160,7 @@
 				padding-bottom: 40px;
 			}
 
-			.editor {
+			.editor-textarea {
 				min-height: 106px;
 				max-height: 400px;
 				padding: 17px 17px 17px 64px;

@@ -57,7 +57,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	}),
 
 	click(): void {
-		Em.$('.editor').focus();
+		Em.$('.editor-textarea').focus();
 	},
 
 	actions: {
@@ -76,7 +76,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${Mercury.wiki.id}/forums/${forumId}/threads`),
 				data: JSON.stringify({
-					body: this.$('.editor').val(),
+					body: this.$('.editor-textarea').val(),
 					creatorId: this.get('currentUser.userId'),
 					siteId: Mercury.wiki.id,
 					threadId: forumId,
@@ -102,7 +102,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		},
 
 		updateSubmitButton(): void {
-			this.set('submitDisabled', Em.$('.editor').val().length === 0);
+			this.set('submitDisabled', Em.$('.editor-textarea').val().length === 0);
 		}
 	}
 });
