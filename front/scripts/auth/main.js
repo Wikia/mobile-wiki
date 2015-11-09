@@ -1,8 +1,6 @@
-/// <reference path="../../../typings/i18next/i18next.d.ts" />
-/// <reference path="../../vendor/visit-source/dist/visit-source.d.ts" />
-declare var translations: any;
-declare var language: string;
-declare var VisitSource: VisitSource;
+var translations,
+	language,
+	VisitSource;
 
 if (typeof language === 'undefined') {
 	language = '';
@@ -12,7 +10,7 @@ if (typeof translations === 'undefined') {
 	translations = {};
 }
 
-i18n.init(<I18nextOptions> {
+i18n.init({
 	fallbackLng: 'en',
 	lng: language,
 	lowerCaseLng: true,
@@ -21,14 +19,14 @@ i18n.init(<I18nextOptions> {
 	useLocalStorage: false
 });
 
-window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement: HTMLFormElement = <HTMLFormElement> document.querySelector('form'),
-		facebookConnectLink = <HTMLAnchorElement> document.querySelector('.signup-provider-facebook'),
-		birthdateContainer: HTMLElement,
-		submitValidator: SubmitValidator;
+window.document.addEventListener('DOMContentLoaded', function () {
+	const formElement = document.querySelector('form'),
+		facebookConnectLink = document.querySelector('.signup-provider-facebook');
+	let birthdateContainer,
+		submitValidator;
 
 	if (formElement) {
-		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
+		birthdateContainer = formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();
 		submitValidator = new SubmitValidator(formElement);
 		submitValidator.watch();
