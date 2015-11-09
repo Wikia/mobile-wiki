@@ -1,19 +1,20 @@
 /**
  * Main entrypoint for validating user login
  * @class LoginValidator
+ *
+ * @property {HTMLInputElement} loginUsername
+ * @property {HTMLInputElement} loginPassword
+ * @property {HTMLButtonElement} loginSubmit
  */
 class LoginValidator {
-	loginUsername: HTMLInputElement;
-	loginPassword: HTMLInputElement;
-	loginSubmit: HTMLButtonElement;
-
 	/**
 	 * @constructs LoginValidator
+	 * @returns {void}
 	 */
 	constructor() {
-		this.loginUsername = <HTMLInputElement> window.document.getElementById('loginUsername');
-		this.loginPassword = <HTMLInputElement> window.document.getElementById('loginPassword');
-		this.loginSubmit = <HTMLButtonElement> window.document.getElementById('loginSubmit');
+		this.loginUsername = window.document.getElementById('loginUsername');
+		this.loginPassword = window.document.getElementById('loginPassword');
+		this.loginSubmit = window.document.getElementById('loginSubmit');
 	}
 
 	/**
@@ -21,7 +22,7 @@ class LoginValidator {
 	 *
 	 * @returns {void}
 	 */
-	private onInput ():void {
+	onInput() {
 		if (this.isNotEmpty()) {
 			this.activateSubmit();
 		} else {
@@ -34,21 +35,21 @@ class LoginValidator {
 	 *
 	 * @returns {boolean}
 	 */
-	private isNotEmpty ():boolean {
-		return !!(this.loginUsername.value.length && this.loginPassword.value.length);
+	isNotEmpty() {
+		return Boolean(this.loginUsername.value.length && this.loginPassword.value.length);
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	private activateSubmit ():void {
+	activateSubmit() {
 		this.loginSubmit.disabled = false;
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	private deactivateSubmit ():void {
+	deactivateSubmit() {
 		this.loginSubmit.disabled = true;
 	}
 
@@ -57,7 +58,7 @@ class LoginValidator {
 	 *
 	 * @returns {void}
 	 */
-	public watch (): void {
+	watch() {
 		this.onInput();
 		window.document.getElementById('loginForm')
 			.addEventListener('input', this.onInput.bind(this));
