@@ -15,6 +15,7 @@ App.CuratedContentEditorComponent = Em.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
+			this._super();
 			this.clearNotifications();
 		},
 
