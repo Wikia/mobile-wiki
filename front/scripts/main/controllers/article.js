@@ -1,15 +1,17 @@
-App.ArticleController = Em.Controller.extend({
-	application: Em.inject.controller(),
-	noAds: Em.computed.alias('application.noAds'),
-	commentsPage: Em.computed.alias('application.commentsPage'),
+import Ember from 'ember';
+
+const ArticleController = Ember.Controller.extend({
+	application: Ember.inject.controller(),
+	noAds: Ember.computed.alias('application.noAds'),
+	commentsPage: Ember.computed.alias('application.commentsPage'),
 
 	/**
 	 * @returns {void}
 	 */
 	init() {
 		this.setProperties({
-			mainPageTitle: Em.get(Mercury, 'wiki.mainPageTitle'),
-			siteName: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+			mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
+			siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
 	},
 
@@ -20,7 +22,7 @@ App.ArticleController = Em.Controller.extend({
 		 * @returns {void}
 		 */
 		edit(title, sectionIndex) {
-			App.VisibilityStateManager.reset();
+			VisibilityStateManager.reset();
 			this.transitionToRoute('articleEdit', title, sectionIndex);
 
 			M.track({
@@ -38,7 +40,7 @@ App.ArticleController = Em.Controller.extend({
 		 * @returns {void}
 		 */
 		addPhoto(title, sectionIndex, photoData) {
-			const photoModel = App.ArticleAddPhotoModel.load(photoData);
+			const photoModel = ArticleAddPhotoModel.load(photoData);
 
 			// We don't want to hold with transition and wait for a promise to resolve.
             // Instead we set properties on model after resolving promise and Ember scheduler
@@ -61,3 +63,5 @@ App.ArticleController = Em.Controller.extend({
 		}
 	}
 });
+
+export default ArticleController;

@@ -1,5 +1,7 @@
-App.ArticleAddPhotoController = Em.Controller.extend({
-	application: Em.inject.controller(),
+import Ember from 'ember';
+
+const ArticleAddPhotoController = Ember.Controller.extend({
+	application: Ember.inject.controller(),
 
 	errorCodeMap: {
 		invalidtitle: 'app.add-photo-section-title-error',
@@ -32,7 +34,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 	 * @returns {void}
 	 */
 	handleUploadSuccess(data) {
-		App.ArticleAddPhotoModel.addToContent(data.title, this.get('model')).then(
+		ArticleAddPhotoModel.addToContent(data.title, this.get('model')).then(
 			this.handleAddContentSuccess.bind(this),
 			this.handleError.bind(this)
 		);
@@ -67,7 +69,7 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 		upload() {
 			this.get('application').set('isLoading', true);
 
-			App.ArticleAddPhotoModel.upload(this.get('model')).then(
+			ArticleAddPhotoModel.upload(this.get('model')).then(
 				this.handleUploadSuccess.bind(this),
 				this.handleError.bind(this)
 			);
@@ -81,3 +83,5 @@ App.ArticleAddPhotoController = Em.Controller.extend({
 		}
 	}
 });
+
+export default ArticleAddPhotoController;

@@ -1,13 +1,15 @@
-App.DiscussionPostController = Em.Controller.extend({
+import Ember from 'ember';
+
+const DiscussionPostController = Ember.Controller.extend({
 	numRepliesLoaded: null,
 	postListSort: '',
 
-	canShowMore: Em.computed('model', 'numRepliesLoaded', function () {
+	canShowMore: Ember.computed('model', 'numRepliesLoaded', function () {
 		const model = this.get('model');
 		let numRepliesLoaded = this.get('numRepliesLoaded');
 
 		if (numRepliesLoaded === null) {
-			numRepliesLoaded = Em.get(model, 'replies.length');
+			numRepliesLoaded = Ember.get(model, 'replies.length');
 			this.set('numRepliesLoaded', numRepliesLoaded);
 		}
 
@@ -25,7 +27,7 @@ App.DiscussionPostController = Em.Controller.extend({
 				// TODO is this line really needed?
 				const newModel = this.get('model');
 
-				this.set('numRepliesLoaded', Em.get(newModel, 'replies.length'));
+				this.set('numRepliesLoaded', Ember.get(newModel, 'replies.length'));
 			});
 		},
 
@@ -50,9 +52,11 @@ App.DiscussionPostController = Em.Controller.extend({
 		 */
 		goToForum() {
 			const model = this.get('model'),
-				forumId = Em.get(model, 'forumId');
+				forumId = Ember.get(model, 'forumId');
 
 			this.get('target').send('goToForum', forumId, this.get('postListSort'));
 		}
 	}
 });
+
+export default DiscussionPostController;
