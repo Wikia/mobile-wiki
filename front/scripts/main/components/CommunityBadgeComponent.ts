@@ -4,13 +4,6 @@
 App.CommunityBadgeComponent = Em.Component.extend({
 	classNames: ['community-badge'],
 	squareDimension: 125,
-	// This property needs to be set depending on whether the wiki has a light or
-	// dark theme: #f6f6f6 for light, #000000 for dark. However, that logic is not
-	// in place yet, and all launch wikis use a light theme, so for now it's hard-coded.
-	borderColor: '#f6f6f6',
-	imageStyle: Em.computed('borderColor', function (): Em.Handlebars.SafeString {
-		return new Em.Handlebars.SafeString(`border: 2px solid ${this.get('borderColor')};`);
-	}),
 
 	badgeImages: {
 		24357: '/front/images/community-badge-adventure-time.png',
