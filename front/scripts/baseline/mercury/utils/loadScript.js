@@ -4,9 +4,7 @@
  * @returns {void}
  */
 function loadError(error) {
-	const scriptTag = error.target;
-
-	throw new URIError(`The script ${scriptTag.src} is not accessible.`);
+	throw new URIError(`The script ${error.target.src} is not accessible.`);
 }
 
 /**
