@@ -10,7 +10,6 @@ module.exports = function (language, opts) {
 		wrapper = {};
 
 		namespace.forEach(function(ns){
-
 			[language, fallbackLanguage, defaultLanguage].some(function (lang) {
 				foundLanguage = lang;
 				translationPath = '../../../front/locales/' + lang + '/' + ns + '.json';
@@ -30,6 +29,5 @@ module.exports = function (language, opts) {
 			if(!wrapper.hasOwnProperty(foundLanguage)) wrapper[foundLanguage]= {};
 			wrapper[foundLanguage][ns] = translations;
 		});
-
 	return wrapper;
 };
