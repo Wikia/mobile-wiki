@@ -9,7 +9,7 @@
 /**
  * @class Cookie
  */
-class Cookie {
+export class Cookie {
 	/**
 	 * @param {string} name
 	 *

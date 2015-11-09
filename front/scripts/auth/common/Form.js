@@ -6,7 +6,7 @@
  * @property {HTMLFormElement} form
  * @property {NodeList} input
  */
-class Form {
+export class Form {
 	/**
 	 * @param {Element} form
 	 * @returns {void}

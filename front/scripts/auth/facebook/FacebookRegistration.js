@@ -19,6 +19,16 @@
  * @property {string} [marketingallowed]
  */
 
+import {AuthTracker} from '../common/AuthTracker';
+import {AuthLogger} from '../common/AuthLogger';
+import {AuthUtils} from '../common/AuthUtils';
+import {FormErrors} from '../common/FormErrors';
+import {HttpCodes} from '../common/HttpCodes';
+import {UrlHelper} from '../common/UrlHelper';
+import {MarketingOptIn} from '../signup/MarketingOptIn';
+import {TermsOfUse} from '../signup/TermsOfUse';
+import {FacebookSDK} from 'FacebookSDK';
+
 /**
  * @class FacebookRegistration
  *
@@ -31,7 +41,7 @@
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
  */
-class FacebookRegistration {
+export class FacebookRegistration {
 	/**
 	 * @param {HTMLFormElement} form
 	 * @returns {void}

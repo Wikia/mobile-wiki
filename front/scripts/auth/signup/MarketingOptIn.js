@@ -1,3 +1,5 @@
+import {Geo} from '../common/Geo';
+
 /**
  * Creates new Marketing Opt In.
  * @class MarketingOptIn
@@ -9,7 +11,7 @@
  * @property {boolean} isCanada
  * @property {boolean} isJapan
  */
-class MarketingOptIn {
+export class MarketingOptIn {
 	/**
 	 * @returns {void}
 	 */

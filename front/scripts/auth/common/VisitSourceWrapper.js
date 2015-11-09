@@ -1,7 +1,9 @@
+/* eslint no-undefined:0 */
+
 /**
  * @class VisitSourceWrapper
  */
-class VisitSourceWrapper {
+export class VisitSourceWrapper {
 	/**
 	 * @returns {VisitSource}
 	 */

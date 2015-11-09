@@ -22,6 +22,17 @@
  * @property {string} [marketingallowed]
  */
 
+import {AuthTracker} from '../common/AuthTracker';
+import {AuthLogger} from '../common/AuthLogger';
+import {AuthUtils} from '../common/AuthUtils';
+import {Cookie} from '../common/Cookie';
+import {FormErrors} from '../common/FormErrors';
+import {HttpCodes} from '../common/HttpCodes';
+import {UrlHelper} from '../common/UrlHelper';
+import {VisitSourceWrapper} from '../common/VisitSourceWrapper';
+import {MarketingOptIn} from '../signup/MarketingOptIn';
+import {TermsOfUse} from '../signup/TermsOfUse';
+
 /**
  * Creates new Signup Form.
  * @class SignupForm
@@ -35,18 +46,19 @@
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
  */
-class SignupForm {
+export class SignupForm {
 	/**
-	 * @constructs SignupForm
 	 * @param {Element} form
+	 * @returns {void}
 	 */
 	constructor(form) {
 		this.pageName = 'signup';
 
 		this.form = form;
 		if (window.location.search) {
-			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
-			this.redirect = params['redirect'];
+			const params = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+
+			this.redirect = params.redirect;
 		}
 		this.redirect = this.redirect || '/';
 		this.marketingOptIn = new MarketingOptIn();
@@ -81,14 +93,13 @@ class SignupForm {
 		const hostParts = location.host.split('.').reverse();
 
 		if (hostParts.length >= 2) {
-			return hostParts[1] + '.' + hostParts[0];
+			return `${hostParts[1]}.${hostParts[0]}`;
 		}
 		return location.host;
 	}
 
 	/**
 	 * @param {string} userId
-	 *
 	 * @returns {void}
 	 */
 	onSuccessfulRegistration(userId) {
@@ -122,7 +133,6 @@ class SignupForm {
 
 	/**
 	 * @param {Event} event
-	 *
 	 * @returns {void}
 	 */
 	onSubmit(event) {
@@ -140,6 +150,7 @@ class SignupForm {
 
 		/**
 		 * @param {Event} e
+		 * @returns {void}
 		 */
 		registrationXhr.onload = (e) => {
 			const status = e.target.status;

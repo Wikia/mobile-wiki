@@ -1,3 +1,5 @@
+import {Geo} from '../common/Geo';
+
 /**
  * Creates new TermsOfUse.
  * @class TermsOfUse
@@ -6,7 +8,8 @@
  * @property {Geo} Geo
  * @property {boolean} isJapan
  */
-class TermsOfUse {
+
+export class TermsOfUse {
 	/**
 	 * @constructor
 	 * @param {HTMLFormElement} form

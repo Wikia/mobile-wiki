@@ -5,6 +5,8 @@
  * @property {string} [continent]
  */
 
+import {Cookie} from '../common/Cookie';
+
 /**
  * @class Geo
  *
@@ -12,7 +14,7 @@
  * @property {string} country
  * @property {string} continent
  */
-class Geo {
+export class Geo {
 	/**
 	 * @returns {void}
 	 */

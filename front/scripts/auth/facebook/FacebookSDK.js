@@ -1,5 +1,4 @@
 /**
- * Window
  * @typedef {Object} Window
  * @property {object} FB
  * @property {Function} fbAsyncInit
@@ -11,7 +10,7 @@
  *
  * @property {string} version
  */
-class FacebookSDK {
+export class FacebookSDK {
 	/**
 	 * Modified code for async download of Facebook SDK javascript
 	 *

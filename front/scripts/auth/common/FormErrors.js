@@ -1,3 +1,5 @@
+import {AuthTracker} from '../common/AuthTracker';
+
 /**
  * @class FormErrors
  *
@@ -7,7 +9,7 @@
  * @property {string} trackingLabelPrefix
  * @property {AuthTracker} tracker
  */
-class FormErrors {
+export class FormErrors {
 	/**
 	 * @param {HTMLFormElement} form
 	 * @param {string} [trackingLabelPrefix='formValidationErrors']

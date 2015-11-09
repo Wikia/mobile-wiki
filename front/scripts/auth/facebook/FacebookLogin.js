@@ -18,6 +18,13 @@
  * @property {string} fb_access_token
  */
 
+import {AuthTracker} from '../common/AuthTracker';
+import {AuthLogger} from '../common/AuthLogger';
+import {AuthUtils} from '../common/AuthUtils';
+import {HttpCodes} from '../common/HttpCodes';
+import {UrlHelper} from '../common/UrlHelper';
+import {FacebookSDK} from 'FacebookSDK';
+
 /**
  * @class FacebookLogin
  *
@@ -27,7 +34,7 @@
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
  */
-class FacebookLogin {
+export class FacebookLogin {
 	/**
 	 * @param {HTMLAnchorElement} loginButton
 	 * @returns {void}

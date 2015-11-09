@@ -1,3 +1,5 @@
+import {AuthTracker} from '../common/AuthTracker';
+
 (function () {
 	/**
 	 * @returns {void}

@@ -16,6 +16,13 @@
  * @property {pageParams} pageParams
  */
 
+import {AuthTracker} from '../common/AuthTracker';
+import {AuthUtils} from '../common/AuthUtils';
+import {HttpCodes} from '../common/HttpCodes';
+import {Login} from '../common/Login';
+import {UrlHelper} from '../common/UrlHelper';
+import {FacebookSDK} from 'FacebookSDK';
+
 /**
  * @class FacebookConnect
  *
@@ -23,7 +30,7 @@
  * @property {SubmitValidator} submitValidator
  * @property {AuthTracker} tracker
  */
-class FacebookConnect extends Login {
+export class FacebookConnect extends Login {
 	/**
 	 * @param {HTMLFormElement} form
 	 * @param {SubmitValidator} submitValidator
