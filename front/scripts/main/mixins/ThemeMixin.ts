@@ -68,6 +68,7 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 		styles.push('.discussion-header .header {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussion-hero-unit {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussion-hero-unit-content {background-color: ' + this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8) + ';}');
+		styles.push('hr.theme {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussion a {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
 		styles.push('.back-button {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
 		styles.push('.back-button svg {fill: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
@@ -75,7 +76,6 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 		styles.push('.see-more {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
 		styles.push('.spinner .path {stroke: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
 		styles.push('@media only screen and (min-width: 1064px) {.discussion-sort li.active {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + '; border-color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}}');
-
 
 		inlineStyles = Em.$('<style>');
 		inlineStyles.text(styles.join("\n"));
