@@ -5,7 +5,7 @@
  */
 
 /**
- * @param {*[]} params
+ * @param {*} params
  * @returns {*}
  */
 export function load(...params) {
