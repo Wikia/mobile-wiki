@@ -1,16 +1,31 @@
-/// <reference path='../baseline/mercury.ts' />
-/// <reference path='../mercury/utils/track.ts' />
-/// <reference path='../mercury/utils/queryString.ts' />
-
-
 (function () {
+	/**
+	 * @returns {void}
+	 */
+	function setTrackingDimensions() {
+		const dimensions = [];
+
+		// Skin
+		dimensions[4] = 'mercury';
+		// LoginStatus
+		dimensions[5] = 'anon';
+		// Page type
+		dimensions[8] = 'authPage';
+		// IsCorporatePage
+		dimensions[15] = 'No';
+		// newAuthEntryPage
+		dimensions[10] = M.getQueryParam('redirect');
+
+		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
+	}
+
 	/**
 	 * Auth pages live on www.wikia.com and don't have access to WikiVariables
 	 * hence there's a need to provide this data inline
 	 *
 	 * @returns {void}
 	 */
-	function setupTracking(): void {
+	function setupTracking() {
 		M.provide('wiki', {
 			id: 80433,
 			dbName: 'wikiaglobal',
@@ -25,52 +40,34 @@
 	/**
 	 * @returns {void}
 	 */
-	function setTrackingDimensions (): void {
-		var dimensions: (string|Function)[] = [];
-		// Skin
-		dimensions[4] = 'mercury';
-		// LoginStatus
-		dimensions[5] = 'anon';
-		//Page type
-		dimensions[8] = 'authPage';
-		// IsCorporatePage
-		dimensions[15] = 'No';
-		// newAuthEntryPage
-		dimensions[10] = M.getQueryParam('redirect');
-		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
-	}
+	function setTrackingForSignInPage() {
+		const tracker = new AuthTracker('user-login-mobile', '/signin');
 
-	/**
-	 * @returns {void}
-	 */
-	function setTrackingForSignInPage (): void {
-		var tracker = new AuthTracker('user-login-mobile', '/signin');
-
-		//Impression of the Signin page
+		// Impression of the Signin page
 		tracker.trackPageView();
 
 		// Click "Sign In" button
 		tracker.trackSubmit(
-			<HTMLFormElement> document.getElementById('loginForm'),
+			document.getElementById('loginForm'),
 			'login-submit'
 		);
 
 		// Click X to "close" log-in form
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.close'),
+			document.querySelector('.close'),
 			'login-modal',
 			M.trackActions.close
 		);
 
 		// Click "Forgot Password" link
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.forgotten-password'),
+			document.querySelector('.forgotten-password'),
 			'forgot-password-link'
 		);
 
 		// Click "Register Now" link
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.footer-callout-link'),
+			document.querySelector('.footer-callout-link'),
 			'register-link'
 		);
 	}
@@ -78,28 +75,28 @@
 	/**
 	 * @returns {void}
 	 */
-	function setTrackingForRegisterPage (): void {
-		var tracker = new AuthTracker('user-signup-mobile', '/register');
+	function setTrackingForRegisterPage() {
+		const tracker = new AuthTracker('user-signup-mobile', '/register');
 
-		//Impression of the Register page
+		// Impression of the Register page
 		tracker.trackPageView();
 
 		// Click "Sign In" button
 		tracker.trackSubmit(
-			<HTMLFormElement> document.getElementById('signupForm'),
+			document.getElementById('signupForm'),
 			'register-submit'
 		);
 
 		// Click X to "close" log-in form
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.close'),
+			document.querySelector('.close'),
 			'register-modal',
 			M.trackActions.close
 		);
 
 		// Click "Register Now" link
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.footer-callout-link'),
+			document.querySelector('.footer-callout-link'),
 			'signin-link-on-register-page'
 		);
 	}
@@ -107,40 +104,40 @@
 	/**
 	 * @returns {void}
 	 */
-	function setTrackingForJoinPage(): void {
-		var tracker = new AuthTracker('user-login-mobile', '/join');
+	function setTrackingForJoinPage() {
+		const tracker = new AuthTracker('user-login-mobile', '/join');
 
-		//Impression of the Join page
+		// Impression of the Join page
 		tracker.trackPageView();
 
 		// Click "Register With Email" button
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.signup-provider-email'),
+			document.querySelector('.signup-provider-email'),
 			'register-email-button'
 		);
 
 		// Click "Connect with Facebook" button
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.signup-provider-facebook'),
+			document.querySelector('.signup-provider-facebook'),
 			'facebook-connect-button'
 		);
 
 		// Click "Sign in" link on the bottom of the page
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.footer-callout-link'),
+			document.querySelector('.footer-callout-link'),
 			'sign-in-link'
 		);
 
 		// Click X to "close" /join page
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.close'),
+			document.querySelector('.close'),
 			'join-close-button',
 			M.trackActions.close
 		);
 
-		//Click on 'connect with facebook'
+		// Click on 'connect with facebook'
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.signup-provider-facebook'),
+			document.querySelector('.signup-provider-facebook'),
 			'facebook-login-button',
 			M.trackActions.click
 		);
@@ -149,34 +146,34 @@
 	/**
 	 * @returns {void}
 	 */
-	function setTrackingForFBConnectPage () {
-		var tracker = new AuthTracker('user-signup-mobile', '/signin');
+	function setTrackingForFBConnectPage() {
+		const tracker = new AuthTracker('user-signup-mobile', '/signin');
 
-		//Impression of the Facebook Connect page
+		// Impression of the Facebook Connect page
 		tracker.trackPageView();
 
 		// Click "Connect" button
 		tracker.trackSubmit(
-			<HTMLFormElement> document.getElementById('facebookConnectForm'),
+			document.getElementById('facebookConnectForm'),
 			'facebook-connect-submit'
 		);
 
 		// Click X to "close" log-in form
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.close'),
+			document.querySelector('.close'),
 			'facebook-connect-close-button',
 			M.trackActions.close
 		);
 
 		// Click "Forgot Password" link
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.forgotten-password'),
+			document.querySelector('.forgotten-password'),
 			'facebook-connect-forgot-password-link'
 		);
 
 		// Click "Register Now" link
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.footer-callout-link'),
+			document.querySelector('.footer-callout-link'),
 			'facebook-connect-register-link'
 		);
 	}
@@ -184,28 +181,28 @@
 	/**
 	 * @returns {void}
 	 */
-	function setTrackingForFBRegisterPage () {
-		var tracker = new AuthTracker('user-signup-mobile', '/register');
+	function setTrackingForFBRegisterPage() {
+		const tracker = new AuthTracker('user-signup-mobile', '/register');
 
-		//Impression of the Facebook Register page
+		// Impression of the Facebook Register page
 		tracker.trackPageView();
 
 		// Click "Register" button
 		tracker.trackSubmit(
-			<HTMLFormElement> document.getElementById('facebookRegistrationForm'),
+			document.getElementById('facebookRegistrationForm'),
 			'facebook-register-submit'
 		);
 
 		// Click X to "close" log-in form
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.close'),
+			document.querySelector('.close'),
 			'facebook-register-close-button',
 			M.trackActions.close
 		);
 
 		// Click "Connect it" link
 		tracker.trackClick(
-			<HTMLElement> document.querySelector('.footer-callout-link'),
+			document.querySelector('.footer-callout-link'),
 			'facebook-register-connect-link'
 		);
 	}
@@ -213,9 +210,8 @@
 	/**
 	 * @returns {void}
 	 */
-	function init (): void {
-		var pageType: string,
-			trackingSets: any;
+	function init() {
+		let pageType, trackingSets;
 
 		setupTracking();
 
@@ -236,7 +232,7 @@
 		trackingSets[pageType]();
 	}
 
-	document.addEventListener('DOMContentLoaded', function (): void {
+	document.addEventListener('DOMContentLoaded', function () {
 		init();
 	});
 })();
