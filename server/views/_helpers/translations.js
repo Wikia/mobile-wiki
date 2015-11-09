@@ -6,7 +6,7 @@ module.exports = function (language, opts) {
 		fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		foundLanguage = '',
-		namespace = ['main', 'discussion'],
+		namespace = opts.hash.ns,
 		wrapper = {};
 
 		namespace.forEach(function(ns){
