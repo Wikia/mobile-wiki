@@ -1,32 +1,25 @@
-'use strict';
+import {prop} from '../../../baseline/mercury/utils/state';
 
-module Mercury.Modules.Trackers {
-	export class Krux {
+export class Krux {
+	/**
+	 * @param {*} krux
+	 * @returns {void}
+	 */
+	constructor(krux) {
+		this.kruxModule = krux || {};
+	}
 
-		private kruxModule: {
-			load?: (skinSiteId: string) => void;
-		};
-
-		/**
-		 * @param {*} krux
-		 * @returns {void}
-		 */
-		constructor (krux: any) {
-			this.kruxModule = krux || {};
-		}
-
-		/**
-		 * Exports page params to Krux.
-		 *
-		 * mobileId variable is the ID referencing to the mobile site
-		 * (see ads_run.js and krux.js in app repository)
-		 *
-		 * @returns {void}
-		 */
-		trackPageView (): void {
-			if (typeof this.kruxModule.load === 'function') {
-				this.kruxModule.load(M.prop('tracking.krux.mobileId'));
-			}
+	/**
+	 * Exports page params to Krux.
+	 *
+	 * mobileId variable is the ID referencing to the mobile site
+	 * (see ads_run.js and krux.js in app repository)
+	 *
+	 * @returns {void}
+	 */
+	trackPageView() {
+		if (typeof this.kruxModule.load === 'function') {
+			this.kruxModule.load(prop('tracking.krux.mobileId'));
 		}
 	}
 }

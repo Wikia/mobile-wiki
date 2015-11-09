@@ -1,33 +1,30 @@
-/// <reference path="../../../baseline/mercury.d.ts" />
-'use strict';
-
 /**
  * Base class for trackers that have to append their scripts like Comscore or Quantserve
  */
-module Mercury.Modules.Trackers {
-	export class BaseTracker {
-		static script: HTMLScriptElement = document.getElementsByTagName('script')[0];
-		usesAdsContext: boolean = false;
+export class BaseTracker {
+	constructor() {
+		this.script = document.getElementsByTagName('script')[0];
+		this.usesAdsContext = false;
+	}
 
-		/**
-		 * This method should overridden implemented by a tracker
-		 *
-		 * @returns {string}
-		 */
-		url (): string {
-			return '';
-		}
+	/**
+	 * This method should overridden implemented by a tracker
+	 *
+	 * @returns {string}
+	 */
+	url() {
+		return '';
+	}
 
-		/**
-		 * @returns {void}
-		 */
-		appendScript (): void {
-			var elem: HTMLScriptElement = document.createElement('script');
+	/**
+	 * @returns {void}
+	 */
+	appendScript() {
+		const elem = document.createElement('script');
 
-			elem.async = true;
-			elem.src = this.url();
+		elem.async = true;
+		elem.src = this.url();
 
-			BaseTracker.script.parentNode.insertBefore(elem, BaseTracker.script);
-		}
+		this.script.parentNode.insertBefore(elem, this.script);
 	}
 }

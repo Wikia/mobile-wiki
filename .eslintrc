@@ -13,6 +13,7 @@
     "Em": true,
     "EmPerfSender": true,
     "FastClick": true,
+    "ga": true,
     "Hammer": true,
     "Headroom": true,
     "i18n": true,
@@ -220,7 +221,7 @@
     // Legacy
     "max-depth": [1, 3],
     "max-len": [2, 120, 2],
-    "max-params": [2, 4],
+    "max-params": [2, 5],
     "max-statements": 0,
     "no-bitwise": 2,
     "no-plusplus": 0
