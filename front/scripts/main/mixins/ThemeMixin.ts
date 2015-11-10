@@ -21,7 +21,7 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 	activate(): void {
 		this._super();
 
-		this.themeColorStyles();
+		this.applyThemeColorStyles();
 
 		if (Em.get(Mercury, 'wiki.isDarkTheme')) {
 			this.set('themeActivated', 'dark');
@@ -54,7 +54,7 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 	 * Sets inline styles with the theme colors
 	 * @returns {void}
 	 */
-	themeColorStyles(): void {
+	applyThemeColorStyles(): void {
 		var inlineStyles: JQuery,
 			styleId: string = 'discussionInlineStyles',
 			styles: string[] = [];
@@ -69,15 +69,15 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 			return;
 		}
 
-		styles.push('.discussions .border-theme-color {border-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
-		styles.push('.discussions .background-theme-color {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
-		styles.push('.discussions .background-alpha-theme-color {background-color: ' + this.getRgbaColor(this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8)) + ';}');
+		styles.push(`.discussions .border-theme-color {border-color: ${Em.get(Mercury, 'wiki.themeColors.buttons')};}`);
+		styles.push(`.discussions .background-theme-color {background-color: ${Em.get(Mercury, 'wiki.themeColors.buttons')};}`);
+		styles.push(`.discussions .background-alpha-theme-color {background-color: ${this.getRgbaColor(this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8))};}`);
 
-		styles.push('.discussion a {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.discussions .active-element-theme-color {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.discussions .active-element-border-theme-color {border-color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.discussions .fill-theme-color {fill: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
-		styles.push('.discussions .stroke-theme-color {stroke: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
+		styles.push(`.discussion a {color: ${Em.get(Mercury, 'wiki.themeColors.links')};}`);
+		styles.push(`.discussions .active-element-theme-color {color: ${Em.get(Mercury, 'wiki.themeColors.links')};}`);
+		styles.push(`.discussions .active-element-border-theme-color {border-color: ${Em.get(Mercury, 'wiki.themeColors.links')};}`);
+		styles.push(`.discussions .fill-theme-color {fill: ${Em.get(Mercury, 'wiki.themeColors.links')};}`);
+		styles.push(`.discussions .stroke-theme-color {stroke: ${Em.get(Mercury, 'wiki.themeColors.links')};}`);
 
 		inlineStyles = Em.$('<style>').attr('id', styleId) ;
 		inlineStyles.text(styles.join("\n"));
