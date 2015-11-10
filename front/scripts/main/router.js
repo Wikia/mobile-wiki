@@ -1,8 +1,5 @@
-/// <reference path="./app.ts" />
-'use strict';
-
 App.Router.map(function () {
-	var articlePath = '/wiki/';
+	const articlePath = '/wiki/';
 
 	this.route('mainPage', {
 		path: articlePath + Mercury.wiki.mainPageTitle
@@ -52,15 +49,15 @@ App.Router.map(function () {
 	});
 
 	this.route('article', {
-		path: articlePath + '*title'
+		path: `${articlePath}*title`
 	});
 
 	this.route('articleEdit', {
-		path: articlePath + 'edit/:title/:sectionIndex'
+		path: `${articlePath}edit/:title/:sectionIndex`
 	});
 
 	this.route('articleAddPhoto', {
-		path: articlePath + 'addPhoto/:title'
+		path: `${articlePath}addPhoto/:title`
 	});
 
 	this.route('searchResults', {
@@ -94,8 +91,9 @@ App.Router.reopen({
 	 * Sets location API depending on user agent with special case for Catchpoint tests
 	 * @see http://emberjs.com/guides/routing/specifying-the-location-api/
 	 */
-	location: Em.computed(function (): string {
-		var ua = Em.get(window, 'navigator.userAgent');
+	location: Em.computed(() => {
+		const ua = Em.get(window, 'navigator.userAgent');
+
 		return (ua && ua.match(/Catchpoint/)) ? 'none' : 'history';
 	})
 });
