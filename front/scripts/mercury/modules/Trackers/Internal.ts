@@ -58,6 +58,7 @@ module Mercury.Modules.Trackers {
 		error: Function;
 		head: HTMLElement;
 		defaults: InternalTrackingConfig;
+		script: any;
 
 		/**
 		 * @returns {void}
@@ -118,41 +119,45 @@ module Mercury.Modules.Trackers {
 			return this.baseUrl + targetRoute + '?' + parts.join('&');
 		}
 
+		scriptLoadedHandler(abort: any): void {
+
+			if (!abort || !!this.script.readyState || !/loaded|complete/.test(this.script.readyState)) {
+				return;
+			}
+
+			// Handle memory leak in IE
+			this.script.onload = this.script.onreadystatechange = null;
+
+			// Remove the script
+			if (this.head && this.script.parentNode) {
+				this.head.removeChild(this.script);
+			}
+
+			// Dereference the script
+			this.script = undefined;
+
+			if (!abort && typeof this.success === 'function') {
+				setTimeout(this.success, this.callbackTimeout);
+
+			} else if (abort && typeof this.error === 'function') {
+				setTimeout(this.error, this.callbackTimeout);
+			}
+		}
+
 		/**
 		 * @param {string} url
 		 * @returns {void}
 		 */
 		loadTrackingScript (url: string): void {
-			var script = document.createElement('script');
+			this.script = document.createElement('script');
 
-			script.src = url;
+			this.script.src = url;
 
-			script.onload = script.onreadystatechange = (abort: any): void => {
-
-				if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
-					return;
-				}
-
-				// Handle memory leak in IE
-				script.onload = script.onreadystatechange = null;
-
-				// Remove the script
-				if (this.head && script.parentNode) {
-					this.head.removeChild(script);
-				}
-
-				// Dereference the script
-				script = undefined;
-
-				if (!abort && typeof this.success === 'function') {
-					setTimeout(this.success, this.callbackTimeout);
-
-				} else if (abort && typeof this.error === 'function') {
-					setTimeout(this.error, this.callbackTimeout);
-				}
+			this.script.onload = this.script.onreadystatechange = (abort: any) => {
+				this.scriptLoadedHandler(abort);
 			};
 
-			this.head.insertBefore(script, this.head.firstChild);
+			this.head.insertBefore(this.script, this.head.firstChild);
 		}
 
 
