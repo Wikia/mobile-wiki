@@ -217,7 +217,6 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 * @returns {void}
 		 */
 		toggleSiteHeadPinned(pinned: boolean): void {
-			console.log('pinned', pinned);
 			this.set('siteHeadPinned', pinned);
 		}
 	},
