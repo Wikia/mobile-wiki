@@ -1,7 +1,7 @@
 /**
  * @class UrlHelper
  */
-export class UrlHelper {
+export default class UrlHelper {
 	/**
 	 * @param {Object} object
 	 * @returns {string}

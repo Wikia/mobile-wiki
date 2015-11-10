@@ -1,4 +1,4 @@
-import {AuthTracker} from '../common/AuthTracker';
+import AuthTracker from '../common/AuthTracker';
 
 (function () {
 	/**

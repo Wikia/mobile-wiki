@@ -1,13 +1,13 @@
-import {AuthTracker} from '../common/AuthTracker';
-import {AuthLogger} from '../common/AuthLogger';
-import {AuthUtils} from '../common/AuthUtils';
-import {Cookie} from '../common/Cookie';
-import {FormErrors} from '../common/FormErrors';
-import {HttpCodes} from '../common/HttpCodes';
-import {UrlHelper} from '../common/UrlHelper';
-import {VisitSourceWrapper} from '../common/VisitSourceWrapper';
-import {MarketingOptIn} from '../signup/MarketingOptIn';
-import {TermsOfUse} from '../signup/TermsOfUse';
+import AuthTracker from '../common/AuthTracker';
+import AuthLogger from '../common/AuthLogger';
+import AuthUtils from '../common/AuthUtils';
+import Cookie from '../common/Cookie';
+import FormErrors from '../common/FormErrors';
+import HttpCodes from '../common/HttpCodes';
+import UrlHelper from '../common/UrlHelper';
+import VisitSourceWrapper from '../common/VisitSourceWrapper';
+import MarketingOptIn from '../signup/MarketingOptIn';
+import TermsOfUse from '../signup/TermsOfUse';
 
 /**
  * @typedef {Object} HeliosError
@@ -43,7 +43,7 @@ import {TermsOfUse} from '../signup/TermsOfUse';
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
  */
-export class SignupForm {
+export default class SignupForm {
 	/**
 	 * @param {Element} form
 	 * @returns {void}

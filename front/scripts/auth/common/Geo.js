@@ -1,4 +1,4 @@
-import {Cookie} from '../common/Cookie';
+import Cookie from '../common/Cookie';
 
 /**
  * @typedef {Object} GeoCookie
@@ -14,7 +14,7 @@ import {Cookie} from '../common/Cookie';
  * @property {string} country
  * @property {string} continent
  */
-export class Geo {
+export default class Geo {
 	/**
 	 * @returns {void}
 	 */

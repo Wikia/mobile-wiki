@@ -1,12 +1,12 @@
-import {AuthLogger} from '../common/AuthLogger';
-import {AuthTracker} from '../common/AuthTracker';
-import {AuthUtils} from '../common/AuthUtils';
-import {FacebookSDK} from 'FacebookSDK';
-import {FormErrors} from '../common/FormErrors';
-import {HttpCodes} from '../common/HttpCodes';
-import {MarketingOptIn} from '../signup/MarketingOptIn';
-import {TermsOfUse} from '../signup/TermsOfUse';
-import {UrlHelper} from '../common/UrlHelper';
+import AuthLogger from '../common/AuthLogger';
+import AuthTracker from '../common/AuthTracker';
+import AuthUtils from '../common/AuthUtils';
+import FacebookSDK from 'FacebookSDK';
+import FormErrors from '../common/FormErrors';
+import HttpCodes from '../common/HttpCodes';
+import MarketingOptIn from '../signup/MarketingOptIn';
+import TermsOfUse from '../signup/TermsOfUse';
+import UrlHelper from '../common/UrlHelper';
 
 /**
  * @typedef {Object} Window
@@ -41,7 +41,7 @@ import {UrlHelper} from '../common/UrlHelper';
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
  */
-export class FacebookRegistration {
+export default class FacebookRegistration {
 	/**
 	 * @param {HTMLFormElement} form
 	 * @returns {void}

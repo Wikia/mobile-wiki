@@ -6,7 +6,7 @@
  * @property {HTMLButtonElement} submitButton
  * @property {boolean} isPermanentlyDisabled
  */
-export class SubmitValidator {
+export default class SubmitValidator {
 	/**
 	 * @param {Element} form
 	 * @returns {void}

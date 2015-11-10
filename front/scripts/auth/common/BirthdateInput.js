@@ -1,4 +1,4 @@
-import {AutoTab} from '../component/AutoTab';
+import AutoTab from '../component/AutoTab';
 
 /**
  * @typedef {Object} FormElements
@@ -18,7 +18,7 @@ import {AutoTab} from '../component/AutoTab';
  * @property {HTMLInputElement} year
  * @property {HTMLInputElement} realInput - The hidden input that will actually be used for the birthday value
  */
-export class BirthdateInput {
+export default class BirthdateInput {
 	/**
 	 * @param {HTMLElement} el
 	 * @param {HTMLFormElement} form

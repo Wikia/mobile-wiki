@@ -6,7 +6,7 @@
  * @property {HTMLInputElement} loginPassword
  * @property {HTMLButtonElement} loginSubmit
  */
-export class LoginValidator {
+export default class LoginValidator {
 	/**
 	 * @returns {void}
 	 */

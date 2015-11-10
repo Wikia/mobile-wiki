@@ -10,7 +10,7 @@
  *
  * @property {string} version
  */
-export class FacebookSDK {
+export default class FacebookSDK {
 	/**
 	 * Modified code for async download of Facebook SDK javascript
 	 *

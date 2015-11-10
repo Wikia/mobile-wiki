@@ -3,7 +3,7 @@
  *
  * @property {string} gaCategory
  */
-export class AuthTracker {
+export default class AuthTracker {
 	/**
 	 * @param {string} gaCategory
 	 * @param {string} pageType

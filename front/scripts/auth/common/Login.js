@@ -24,11 +24,11 @@
  * @property {HTMLInputElement} password
  */
 
-import {AuthTracker} from '../common/AuthTracker';
-import {AuthLogger} from '../common/AuthLogger';
-import {AuthUtils} from '../common/AuthUtils';
-import {HttpCodes} from '../common/HttpCodes';
-import {UrlHelper} from '../common/UrlHelper';
+import AuthTracker from '../common/AuthTracker';
+import AuthLogger from '../common/AuthLogger';
+import AuthUtils from '../common/AuthUtils';
+import HttpCodes from '../common/HttpCodes';
+import UrlHelper from '../common/UrlHelper';
 
 /**
  * @class Login
@@ -41,7 +41,7 @@ import {UrlHelper} from '../common/UrlHelper';
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
  */
-export class Login {
+export default class Login {
 	/**
 	 * @param {Element} form
 	 * @returns {void}

@@ -1,9 +1,9 @@
-import {AuthLogger} from '../common/AuthLogger';
-import {AuthTracker} from '../common/AuthTracker';
-import {AuthUtils} from '../common/AuthUtils';
-import {FacebookSDK} from 'FacebookSDK';
-import {HttpCodes} from '../common/HttpCodes';
-import {UrlHelper} from '../common/UrlHelper';
+import AuthLogger from '../common/AuthLogger';
+import AuthTracker from '../common/AuthTracker';
+import AuthUtils from '../common/AuthUtils';
+import FacebookSDK from 'FacebookSDK';
+import HttpCodes from '../common/HttpCodes';
+import UrlHelper from '../common/UrlHelper';
 
 /**
  * @typedef {Object} FacebookResponse
@@ -31,7 +31,7 @@ import {UrlHelper} from '../common/UrlHelper';
  * @property {AuthTracker} tracker
  * @property {AuthLogger} authLogger
  */
-export class FacebookLogin {
+export default class FacebookLogin {
 	/**
 	 * @param {HTMLAnchorElement} loginButton
 	 * @returns {void}

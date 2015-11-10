@@ -3,7 +3,7 @@
 /**
  * @class VisitSourceWrapper
  */
-export class VisitSourceWrapper {
+export default class VisitSourceWrapper {
 	/**
 	 * @returns {VisitSource}
 	 */

@@ -1,7 +1,7 @@
 /**
  * @class AuthUtils
  */
-export class AuthUtils {
+export default class AuthUtils {
 	/**
 	 * @param {string} [url]
 	 *
