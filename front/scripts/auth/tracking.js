@@ -1,4 +1,5 @@
-import AuthTracker from '../common/AuthTracker';
+import AuthTracker from 'common/AuthTracker';
+import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 
 (function () {
 	/**
@@ -18,7 +19,7 @@ import AuthTracker from '../common/AuthTracker';
 		// newAuthEntryPage
 		dimensions[10] = M.getQueryParam('redirect');
 
-		Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
+		UniversalAnalytics.setDimensions(dimensions);
 	}
 
 	/**

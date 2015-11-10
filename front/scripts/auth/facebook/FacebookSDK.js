@@ -7,10 +7,14 @@
 
 /**
  * @class FacebookSDK
- *
- * @property {string} version
  */
 export default class FacebookSDK {
+	/**
+	 * @returns {string}
+	 */
+	static get version() {
+		return 'v2.2';
+	}
 	/**
 	 * Modified code for async download of Facebook SDK javascript
 	 *
@@ -38,7 +42,5 @@ export default class FacebookSDK {
 
 			onLoad();
 		};
-
-		this.version = 'v2.2';
 	}
 }

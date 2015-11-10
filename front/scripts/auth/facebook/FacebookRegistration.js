@@ -103,11 +103,10 @@ export default class FacebookRegistration {
 			emailInput = this.form.elements.namedItem('email');
 
 		if (email && emailInput) {
-			emailInput.disabled = true;
-
 			const emailInputLabel = emailInput.nextElementSibling;
 
 			emailInputLabel.classList.add('active');
+			emailInput.disabled = true;
 			emailInput.value = email;
 		}
 	}

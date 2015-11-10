@@ -37,8 +37,8 @@ export default class FacebookLogin {
 	 * @returns {void}
 	 */
 	constructor(loginButton) {
-		this.tracker = new AuthTracker('user-login-mobile', 'login');
 		this.authLogger = AuthLogger.getInstance();
+		this.tracker = new AuthTracker('user-login-mobile', 'login');
 		this.loginButton = loginButton;
 		this.urlHelper = new UrlHelper();
 		new FacebookSDK(this.init.bind(this));
