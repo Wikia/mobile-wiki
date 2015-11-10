@@ -11,7 +11,6 @@ import {Geo} from '../common/Geo';
 
 export class TermsOfUse {
 	/**
-	 * @constructor
 	 * @param {HTMLFormElement} form
 	 * @returns {void}
 	 */

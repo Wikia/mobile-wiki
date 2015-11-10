@@ -1,5 +1,5 @@
 /**
- * Main entrypoint for validating user login
+ * Main entry point for validating user login
  * @class SubmitValidator
  *
  * @property {HTMLFormElement} form
@@ -8,7 +8,6 @@
  */
 export class SubmitValidator {
 	/**
-	 * @constructs SubmitValidator
 	 * @param {Element} form
 	 * @returns {void}
 	 */

@@ -25,14 +25,23 @@ export class MarketingOptIn {
 		this.isJapan = this.Geo.getCountry() === 'JP';
 	}
 
+	/**
+	 * @returns {boolean}
+     */
 	shouldBeEnabled() {
 		return this.isEurope || this.isCanada || this.isJapan;
 	}
 
+	/**
+	 * @returns {boolean}
+     */
 	shouldBeChecked() {
 		return !this.isCanada && !this.isJapan;
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	init() {
 		if (this.shouldBeChecked()) {
 			this.checkbox.checked = true;

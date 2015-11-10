@@ -213,19 +213,16 @@ import {AuthTracker} from '../common/AuthTracker';
 	 * @returns {void}
 	 */
 	function init() {
-		let pageType, trackingSets;
-
 		setupTracking();
 
-		pageType = document.body.getAttribute('data-page-type');
-
-		trackingSets = {
-			'join-page': setTrackingForJoinPage,
-			'signin-page': setTrackingForSignInPage,
-			'register-page': setTrackingForRegisterPage,
-			'fb-connect-page': setTrackingForFBConnectPage,
-			'register-fb-page': setTrackingForFBRegisterPage
-		};
+		const pageType = document.body.getAttribute('data-page-type'),
+			trackingSets = {
+				'join-page': setTrackingForJoinPage,
+				'signin-page': setTrackingForSignInPage,
+				'register-page': setTrackingForRegisterPage,
+				'fb-connect-page': setTrackingForFBConnectPage,
+				'register-fb-page': setTrackingForFBRegisterPage
+			};
 
 		if (!pageType || !trackingSets[pageType]) {
 			return;

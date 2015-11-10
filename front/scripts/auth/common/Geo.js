@@ -1,11 +1,11 @@
+import {Cookie} from '../common/Cookie';
+
 /**
  * @typedef {Object} GeoCookie
  * @property {string} [city]
  * @property {string} [country]
  * @property {string} [continent]
  */
-
-import {Cookie} from '../common/Cookie';
 
 /**
  * @class Geo

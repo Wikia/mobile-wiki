@@ -1,27 +1,3 @@
-/**
- * HeliosError
- * @typedef {Object} HeliosError
- * @property {HeliosErrorAdditional} additional
- * @property {string} description
- */
-
-/**
- * HeliosErrorAdditional
- * @typedef {Object} HeliosErrorAdditional
- * @property {string} field
- */
-
-/**
- * HeliosRegisterInput
- * @typedef {Object} HeliosRegisterInput
- * @property {string} birthdate
- * @property {string} email
- * @property {string} langCode
- * @property {string} password
- * @property {string} username
- * @property {string} [marketingallowed]
- */
-
 import {AuthTracker} from '../common/AuthTracker';
 import {AuthLogger} from '../common/AuthLogger';
 import {AuthUtils} from '../common/AuthUtils';
@@ -32,6 +8,27 @@ import {UrlHelper} from '../common/UrlHelper';
 import {VisitSourceWrapper} from '../common/VisitSourceWrapper';
 import {MarketingOptIn} from '../signup/MarketingOptIn';
 import {TermsOfUse} from '../signup/TermsOfUse';
+
+/**
+ * @typedef {Object} HeliosError
+ * @property {HeliosErrorAdditional} additional
+ * @property {string} description
+ */
+
+/**
+ * @typedef {Object} HeliosErrorAdditional
+ * @property {string} field
+ */
+
+/**
+ * @typedef {Object} HeliosRegisterInput
+ * @property {string} birthdate
+ * @property {string} email
+ * @property {string} langCode
+ * @property {string} password
+ * @property {string} username
+ * @property {string} [marketingallowed]
+ */
 
 /**
  * Creates new Signup Form.

@@ -1,27 +1,24 @@
+import {AuthTracker} from '../common/AuthTracker';
+import {AuthUtils} from '../common/AuthUtils';
+import {FacebookSDK} from 'FacebookSDK';
+import {HttpCodes} from '../common/HttpCodes';
+import {Login} from '../common/Login';
+import {UrlHelper} from '../common/UrlHelper';
+
 /**
- * HeliosFacebookConnectData
  * @typedef {Object} HeliosFacebookConnectData
  * @property {string} fb_access_token
  */
 
 /**
- * PageParams
  * @typedef {Object} PageParams
  * @property {number} facebookAppId
  */
 
 /**
- * Window
  * @typedef {Object} Window
  * @property {pageParams} pageParams
  */
-
-import {AuthTracker} from '../common/AuthTracker';
-import {AuthUtils} from '../common/AuthUtils';
-import {HttpCodes} from '../common/HttpCodes';
-import {Login} from '../common/Login';
-import {UrlHelper} from '../common/UrlHelper';
-import {FacebookSDK} from 'FacebookSDK';
 
 /**
  * @class FacebookConnect

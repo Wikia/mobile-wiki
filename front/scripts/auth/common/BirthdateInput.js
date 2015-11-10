@@ -1,3 +1,5 @@
+import {AutoTab} from '../component/AutoTab';
+
 /**
  * @typedef {Object} FormElements
  * @property {HTMLInputElement} birthdate
@@ -5,8 +7,6 @@
  * @property {HTMLInputElement} month
  * @property {HTMLInputElement} year
  */
-
-import {AutoTab} from '../component/AutoTab';
 
 /**
  * @class BirthDateInput

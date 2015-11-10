@@ -1,5 +1,5 @@
 /**
- * Main entrypoint for validating user login
+ * Main entry point for validating user login
  * @class LoginValidator
  *
  * @property {HTMLInputElement} loginUsername
@@ -8,7 +8,6 @@
  */
 export class LoginValidator {
 	/**
-	 * @constructs LoginValidator
 	 * @returns {void}
 	 */
 	constructor() {

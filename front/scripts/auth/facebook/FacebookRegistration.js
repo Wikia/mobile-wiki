@@ -1,3 +1,13 @@
+import {AuthLogger} from '../common/AuthLogger';
+import {AuthTracker} from '../common/AuthTracker';
+import {AuthUtils} from '../common/AuthUtils';
+import {FacebookSDK} from 'FacebookSDK';
+import {FormErrors} from '../common/FormErrors';
+import {HttpCodes} from '../common/HttpCodes';
+import {MarketingOptIn} from '../signup/MarketingOptIn';
+import {TermsOfUse} from '../signup/TermsOfUse';
+import {UrlHelper} from '../common/UrlHelper';
+
 /**
  * @typedef {Object} Window
  * @property {{getLoginStatus: Function, getAccessToken: Function, api: Function}} FB
@@ -18,16 +28,6 @@
  * @property {string} [langCode]
  * @property {string} [marketingallowed]
  */
-
-import {AuthTracker} from '../common/AuthTracker';
-import {AuthLogger} from '../common/AuthLogger';
-import {AuthUtils} from '../common/AuthUtils';
-import {FormErrors} from '../common/FormErrors';
-import {HttpCodes} from '../common/HttpCodes';
-import {UrlHelper} from '../common/UrlHelper';
-import {MarketingOptIn} from '../signup/MarketingOptIn';
-import {TermsOfUse} from '../signup/TermsOfUse';
-import {FacebookSDK} from 'FacebookSDK';
 
 /**
  * @class FacebookRegistration

@@ -1,29 +1,26 @@
+import {AuthLogger} from '../common/AuthLogger';
+import {AuthTracker} from '../common/AuthTracker';
+import {AuthUtils} from '../common/AuthUtils';
+import {FacebookSDK} from 'FacebookSDK';
+import {HttpCodes} from '../common/HttpCodes';
+import {UrlHelper} from '../common/UrlHelper';
+
 /**
- * FacebookResponse
  * @typedef {Object} FacebookResponse
  * @property {FacebookAuthData} authResponse
  * @property {string} status
  */
 
 /**
- * FacebookAuthData
  * @typedef {Object} FacebookAuthData
  * @property {string} accessToken
  * @property {number} expiresIn
  */
 
 /**
- * HeliosFacebookToken
  * @typedef {Object} HeliosFacebookToken
  * @property {string} fb_access_token
  */
-
-import {AuthTracker} from '../common/AuthTracker';
-import {AuthLogger} from '../common/AuthLogger';
-import {AuthUtils} from '../common/AuthUtils';
-import {HttpCodes} from '../common/HttpCodes';
-import {UrlHelper} from '../common/UrlHelper';
-import {FacebookSDK} from 'FacebookSDK';
 
 /**
  * @class FacebookLogin
