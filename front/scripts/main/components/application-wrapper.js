@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {trackPerf} from '../../mercury/utils/trackPerf.js';
+import {getSystem} from '../../mercury/utils/browser.js';
 
 /**
  * HTMLMouseEvent
@@ -31,7 +33,7 @@ const ApplicationWrapperComponent = Ember.Component.extend({
 	}),
 
 	systemClass: Ember.computed(() => {
-		const system = Mercury.Utils.Browser.getSystem();
+		const system = getSystem();
 
 		return system ? `system-${system}` : '';
 	}),
@@ -75,7 +77,7 @@ const ApplicationWrapperComponent = Ember.Component.extend({
 		if (this.firstRender === true) {
 			this.firstRender = false;
 
-			M.trackPerf({
+			trackPerf({
 				name: 'appRendered',
 				type: 'mark'
 			});

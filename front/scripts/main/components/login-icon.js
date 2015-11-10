@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from 'login-icon.js';
+import {track, trackActions} from '../../mercury/utils/track.js';
 
 const LoginIconComponent = Ember.Component.extend(
 	LanguagesMixin,
@@ -24,9 +25,9 @@ const LoginIconComponent = Ember.Component.extend(
 				href = '/Special:UserLogin';
 			}
 
-			M.track({
+			track({
 				trackingMethod: 'ga',
-				action: M.trackActions.click,
+				action: trackActions.click,
 				category: 'user-login-mobile',
 				label,
 			});

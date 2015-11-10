@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import MediaComponent from 'media.js';
 import ArticleContentMixin from '../mixins/article-content.js';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 /**
  * ArticleMedia
@@ -68,7 +69,7 @@ const GalleryMediaComponent = MediaComponent.extend(
 			let galleryRef = typeof imageOrGalleryRef === 'number' ?
 					imageOrGalleryRef :
 					parseInt(imageOrGalleryRef.getAttribute('data-gallery-ref'), 10),
-				mode = Mercury.Modules.Thumbnailer.mode.topCrop,
+				mode = Thumbnailer.mode.topCrop,
 				height = thumbSize,
 				width = thumbSize,
 				image;
@@ -79,7 +80,7 @@ const GalleryMediaComponent = MediaComponent.extend(
 				image = this.get('media').get(galleryRef);
 
 				if (image.context === 'icon') {
-					mode = Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+					mode = Thumbnailer.mode.scaleToWidth;
 					height = this.get('iconHeight');
 					width = this.get('iconWidth');
 				}

@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ThirdsClickMixin from '../mixins/thirds-click.js';
 import MediaModel from '../models/media.js';
+import {track, trackActions} from '../../mercury/utils/track.js';
+import {normalizeToUnderscore} from '../../mercury/utils/string.js';
 
 const LightboxMediaComponent = Ember.Component.extend(
 	ThirdsClickMixin,
@@ -168,8 +170,8 @@ const LightboxMediaComponent = Ember.Component.extend(
 		nextMedia() {
 			this.incrementProperty('currentGalleryRef');
 
-			M.track({
-				action: M.trackActions.paginate,
+			track({
+				action: trackActions.paginate,
 				category: 'lightbox',
 				label: 'next'
 			});
@@ -181,8 +183,8 @@ const LightboxMediaComponent = Ember.Component.extend(
 		prevMedia() {
 			this.decrementProperty('currentGalleryRef');
 
-			M.track({
-				action: M.trackActions.paginate,
+			track({
+				action: trackActions.paginate,
 				category: 'lightbox',
 				label: 'previous'
 			});
@@ -195,7 +197,7 @@ const LightboxMediaComponent = Ember.Component.extend(
 			this.updateHeader();
 			this.updateFooter();
 
-			this.sendAction('setQueryParam', 'file', M.String.normalizeToUnderscore(this.get('currentMedia.title')));
+			this.sendAction('setQueryParam', 'file', normalizeToUnderscore(this.get('currentMedia.title')));
 		},
 
 		/**

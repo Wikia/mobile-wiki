@@ -1,9 +1,10 @@
 import Ember from 'ember';
+import {prop} from '../../baseline/mercury/utils/state.js';
 
 const DiscussionAppPromotionComponent = Ember.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
-	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
+	discussionsSplashPageConfig: prop('discussionsSplashPageConfig'),
 
 	androidAppLink: Ember.computed('discussionsSplashPageConfig', function () {
 		const discussionsSplashPageConfig = this.get('discussionsSplashPageConfig');

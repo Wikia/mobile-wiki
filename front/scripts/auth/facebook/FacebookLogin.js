@@ -104,7 +104,7 @@ export default class FacebookLogin {
 	 * @returns {void}
 	 */
 	onUnsuccessfulLogin() {
-		this.tracker.track('facebook-login-helios-error', Mercury.Utils.trackActions.error);
+		this.tracker.track('facebook-login-helios-error', trackActions.error);
 		this.activateButton();
 	}
 
@@ -143,8 +143,8 @@ export default class FacebookLogin {
 			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
-				this.tracker.track('facebook-link-existing', Mercury.Utils.trackActions.success);
-				this.tracker.track('facebook-login-helios-success', Mercury.Utils.trackActions.success);
+				this.tracker.track('facebook-link-existing', trackActions.success);
+				this.tracker.track('facebook-login-helios-success', trackActions.success);
 				AuthUtils.authSuccessCallback(this.redirect);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				this.authLogger.xhrError(facebookTokenXhr);

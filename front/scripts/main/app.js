@@ -2,6 +2,7 @@ import Ember from 'ember';
 import {prop} from '../baseline/mercury/utils/state.js';
 import * as trackPerf from '../mercury/utils/trackPerf.js';
 import {getQueryParam} from '../mercury/utils/queryString.js';
+import {integrateOptimizelyWithUA} from '../mercury/utils/variantTesting.js';
 import Ads from '../mercury/modules/Ads.js';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics.js';
 import LinkComponent from 'mixins/link-component.js';
@@ -215,7 +216,7 @@ App.initializer({
 			dimensions[18] = Mercury.wiki.wikiCategories.join(',');
 		}
 
-		dimensions = Mercury.Utils.VariantTesting.integrateOptimizelyWithUA(dimensions);
+		dimensions = integrateOptimizelyWithUA(dimensions);
 
 		UniversalAnalytics.setDimensions(dimensions);
 	}

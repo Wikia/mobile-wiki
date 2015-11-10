@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {track, trackActions} from '../../mercury/utils/track.js';
+import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting.js';
 
 const SideNavComponent = Ember.Component.extend({
 	tagName: 'nav',
@@ -14,8 +16,8 @@ const SideNavComponent = Ember.Component.extend({
 	shouldBeVisibleObserver: Ember.observer('shouldBeVisible', function () {
 		const trackLabel = this.get('shouldBeVisible') ? 'open' : 'close';
 
-		M.track({
-			action: M.trackActions.click,
+		track({
+			action: trackActions.click,
 			category: 'menu',
 			label: trackLabel
 		});
@@ -69,8 +71,8 @@ const SideNavComponent = Ember.Component.extend({
 		searchFocus() {
 			this.set('isInSearchMode', true);
 			// Track when search is opened
-			M.track({
-				action: M.trackActions.click,
+			track({
+				action: trackActions.click,
 				category: 'search',
 			});
 		},
@@ -95,7 +97,7 @@ const SideNavComponent = Ember.Component.extend({
 					prod: '3571301500',
 					dev: '3579160288'
 				},
-				variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
+				variationNumber = getExperimentVariationNumber(experimentIds);
 
 			if (variationNumber === 1) {
 				// Use Google Search

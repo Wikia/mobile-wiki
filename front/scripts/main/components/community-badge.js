@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 const CommunityBadgeComponent = Ember.Component.extend({
 	classNames: ['community-badge'],
@@ -30,10 +31,10 @@ const CommunityBadgeComponent = Ember.Component.extend({
 			return '';
 		}
 
-		return Mercury.Modules.Thumbnailer.getThumbURL(
+		return Thumbnailer.getThumbURL(
 			imageUrl,
 			{
-				mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+				mode: Thumbnailer.mode.topCrop,
 				width: this.get('squareDimension'),
 				height: this.get('squareDimension'),
 			}

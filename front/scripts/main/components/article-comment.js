@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 /**
  * @typedef {Object} ArticleCommentThumbnailData
@@ -65,7 +66,7 @@ const ArticleCommentComponent = Ember.Component.extend({
 	 * @returns {void}
 	 */
 	convertThumbnails($originalFigure) {
-		const thumbnailer = Mercury.Modules.Thumbnailer,
+		const thumbnailer = Thumbnailer,
 			/**
 			 * @param {ArticleCommentThumbnailData} thumbnailData
 			 * @returns {JQuery}

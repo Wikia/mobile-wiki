@@ -5,6 +5,8 @@ import LinkedGalleryMediaComponent from 'linked-gallery-media.js';
 import GalleryMediaComponent from 'gallery-media.js';
 import VideoMediaComponent from 'video-media.js';
 import ImageMediaComponent from 'image-media.js';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
+import {track, trackActions} from '../../mercury/utils/track.js';
 
 /**
  * @typedef {Object} ThumbnailOptions
@@ -25,7 +27,7 @@ const MediaComponent = Ember.Component.extend(
 		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		visible: false,
 		media: null,
-		thumbnailer: Mercury.Modules.Thumbnailer,
+		thumbnailer: Thumbnailer,
 		limitHeight: false,
 		normalizeWidth: true,
 
@@ -73,8 +75,8 @@ const MediaComponent = Ember.Component.extend(
 			 * @returns {void}
 			 */
 			clickLinkedImage() {
-				M.track({
-					action: M.trackActions.click,
+				track({
+					action: trackActions.click,
 					category: 'linked-image'
 				});
 			}
@@ -101,7 +103,7 @@ const MediaComponent = Ember.Component.extend(
 		 */
 		getThumbURL(url, options) {
 			if (options.width &&
-				options.mode === Mercury.Modules.Thumbnailer.mode.thumbnailDown &&
+				options.mode === Thumbnailer.mode.thumbnailDown &&
 				this.get('normalizeWidth')
 			) {
 				options.width = this.normalizeThumbWidth(options.width);

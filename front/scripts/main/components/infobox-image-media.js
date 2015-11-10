@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ImageMediaComponent from 'image-media.js';
 import ViewportMixin from '../mixins/viewport.js';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 const InfoboxImageMediaComponent = ImageMediaComponent.extend(
 	ViewportMixin,
@@ -8,7 +9,7 @@ const InfoboxImageMediaComponent = ImageMediaComponent.extend(
 		imageAspectRatio: 16 / 9,
 		limitHeight: true,
 		normalizeWidth: false,
-		cropMode: Mercury.Modules.Thumbnailer.mode.thumbnailDown,
+		cropMode: Thumbnailer.mode.thumbnailDown,
 		isInfoboxHeroImage: Ember.computed.equal('media.context', 'infobox-hero-image'),
 
 		caption: Ember.computed('media.caption', 'isInfoboxHeroImage', function () {
@@ -37,13 +38,13 @@ const InfoboxImageMediaComponent = ImageMediaComponent.extend(
 				// wide image- image wider than 16:9 aspect ratio and inside the HeroImage module
 				// Crop it to have 16:9 ratio.
 				if (imageWidth > maxWidth && this.get('isInfoboxHeroImage')) {
-					this.set('cropMode', Mercury.Modules.Thumbnailer.mode.zoomCrop);
+					this.set('cropMode', Thumbnailer.mode.zoomCrop);
 					return Math.floor(windowWidth / imageAspectRatio);
 				}
 
 				// high image- image higher than square. Use top-crop-down mode.
 				if (windowWidth < computedHeight) {
-					this.set('cropMode', Mercury.Modules.Thumbnailer.mode.topCropDown);
+					this.set('cropMode', Thumbnailer.mode.topCropDown);
 					return windowWidth;
 				}
 

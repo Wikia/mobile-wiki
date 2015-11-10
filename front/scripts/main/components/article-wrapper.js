@@ -2,6 +2,8 @@ import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages.js';
 import TrackClickMixin from '../mixins/track-click.js';
 import ViewportMixin from '../mixins/viewport.js';
+import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track.js';
+import {prop} from '../../baseline/mercury/utils/state.js';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -40,13 +42,13 @@ const ArticleWrapperComponent = Ember.Component.extend(
 			swipeLeft(event) {
 				// Track swipe events
 				if ($(event.target).parents('.article-table').length) {
-					M.track({
-						action: M.trackActions.swipe,
+					track({
+						action: trackActions.swipe,
 						category: 'tables'
 					});
 				} else if ($(event.target).parents('.article-gallery').length) {
-					M.track({
-						action: M.trackActions.paginate,
+					track({
+						action: trackActions.paginate,
 						category: 'gallery',
 						label: 'next'
 					});
@@ -60,8 +62,8 @@ const ArticleWrapperComponent = Ember.Component.extend(
 			swipeRight(event) {
 				// Track swipe events
 				if ($(event.target).parents('.article-gallery').length) {
-					M.track({
-						action: M.trackActions.paginate,
+					track({
+						action: trackActions.paginate,
 						category: 'gallery',
 						label: 'previous'
 					});
@@ -138,7 +140,7 @@ const ArticleWrapperComponent = Ember.Component.extend(
 		 */
 		didInsertElement() {
 			$(window).off('scroll.mercury.preload');
-			window.scrollTo(0, M.prop('scroll'));
+			window.scrollTo(0, prop('scroll'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
@@ -181,13 +183,13 @@ const ArticleWrapperComponent = Ember.Component.extend(
 				articleContent = model.get('content');
 
 			if (articleContent && articleContent.length > 0) {
-				M.setTrackContext({
+				setTrackContext({
 					a: model.title,
 					n: model.ns
 				});
 
-				M.updateTrackedUrl(window.location.href);
-				M.trackPageView(model.get('adsContext.targeting'));
+				updateTrackedUrl(window.location.href);
+				trackPageView(model.get('adsContext.targeting'));
 			}
 
 			return true;
@@ -233,8 +235,8 @@ const ArticleWrapperComponent = Ember.Component.extend(
 				}
 
 				if (galleryRef >= 0) {
-					M.track({
-						action: M.trackActions.click,
+					track({
+						action: trackActions.click,
 						category: 'gallery'
 					});
 				}

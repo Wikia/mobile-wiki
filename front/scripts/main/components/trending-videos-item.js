@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport.js';
 import TrackClickMixin from '../mixins/track-click.js';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 const TrendingVideosItemComponent = Ember.Component.extend(
 	ViewportMixin,
@@ -9,8 +10,8 @@ const TrendingVideosItemComponent = Ember.Component.extend(
 		tagName: 'a',
 		classNames: ['trending-videos-item'],
 		attributeBindings: ['href'],
-		thumbnailer: Mercury.Modules.Thumbnailer,
-		cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
+		thumbnailer: Thumbnailer,
+		cropMode: Thumbnailer.mode.topCrop,
 		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		imageStyle: null,
 		video: null,

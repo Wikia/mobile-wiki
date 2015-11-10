@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click.js';
+import {track, trackActions} from '../../mercury/utils/track.js';
 
 /**
  * Type for topmost-level nav item, which doesn't have any of the properties defined in NavItem
@@ -57,8 +58,8 @@ const LocalNavMenuComponent = Ember.Component.extend(
 
 				this.set('currentMenuItem', curr.children[index]);
 
-				M.track({
-					action: M.trackActions.click,
+				track({
+					action: trackActions.click,
 					category: 'wiki-nav',
 					label: `header-${(index + 1)}`,
 				});

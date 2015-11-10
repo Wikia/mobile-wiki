@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail.js';
 import ViewportMixin from '../mixins/viewport.js';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 const FeaturedContentItemComponent = Ember.Component.extend(
 	CuratedContentThumbnailMixin,
@@ -14,7 +15,7 @@ const FeaturedContentItemComponent = Ember.Component.extend(
 
 		aspectRatio: 16 / 9,
 		imageWidth: 400,
-		cropMode: Mercury.Modules.Thumbnailer.mode.zoomCrop,
+		cropMode: Thumbnailer.mode.zoomCrop,
 		thumbUrl: Ember.computed('model', function () {
 			return this.generateThumbUrl(
 				this.get('model.image_url'),

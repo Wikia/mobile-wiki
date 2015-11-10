@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Ads from '../../mercury/modules/Ads.js';
 
 const AdSlotComponent = Ember.Component.extend({
 	classNames: ['ad-slot-wrapper'],
@@ -39,7 +40,7 @@ const AdSlotComponent = Ember.Component.extend({
 			Ember.Logger.info('Ad disabled for:', this.get('name'));
 		} else {
 			Ember.Logger.info('Injected ad:', this.get('name'));
-			Mercury.Modules.Ads.getInstance().addSlot(this.get('name'));
+			Ads.getInstance().addSlot(this.get('name'));
 		}
 	},
 
@@ -49,7 +50,7 @@ const AdSlotComponent = Ember.Component.extend({
 	willDestroyElement() {
 		const name = this.get('name');
 
-		Mercury.Modules.Ads.getInstance().removeSlot(this.get('name'));
+		Ads.getInstance().removeSlot(this.get('name'));
 		this.$().remove();
 
 		Ember.Logger.info('Will destroy ad:', name);

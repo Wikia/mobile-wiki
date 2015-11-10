@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import App from '../app.js';
+import {track, trackActions} from '../../mercury/utils/track.js';
 
 /**
  * Type for search suggestion
@@ -213,8 +214,8 @@ const LocalWikiaSearchComponent = Ember.Component.extend({
 		delete this.get('requestsInProgress')[query];
 		// Track when search is submitted. To avoid spamming this event, track only
 		// when a search request has ended.
-		M.track({
-			action: M.trackActions.submit,
+		track({
+			action: trackActions.submit,
 			category: 'search'
 		});
 	},
