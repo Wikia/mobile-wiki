@@ -1,48 +1,29 @@
 /*
- * scripts
- * Compiles client TypeScript files
+ * scripts-es6
+ * Compiles client ES6 files
  */
 
 var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gulpif = require('gulp-if'),
-	folders = require('gulp-folders'),
-	ts = require('gulp-typescript'),
-	sourcemaps = require('gulp-sourcemaps'),
+	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
-	gutil = require('gulp-util'),
-	newer = require('gulp-newer'),
+	folders = require('gulp-folders'),
 	environment = require('../utils/environment.js'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.homepage,
-	path = require('path'),
-	tsProjects = {};
+	path = require('path');
 
-gulp.task('scripts', ['tslint'], folders(paths.src, function (folder) {
-	// we need project per folder
-	if (!tsProjects[folder]) {
-		tsProjects[folder] = ts.createProject(options);
-	}
-
+gulp.task('scripts', ['eslint'], folders(paths.src, function (folder) {
 	return gulp.src([
-		'!' + path.join(paths.src, folder, paths.dFiles),
+		'!' + path.join(paths.src, folder),
 		path.join(paths.src, folder, paths.files)
 	])
-		.pipe(gulpif(!environment.isProduction, sourcemaps.init()))
-		.pipe(newer(path.join(paths.dest, folder + '.js')))
-		.pipe(ts(tsProjects[folder])).js
-		.on('error', function () {
-			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some typescript errors/warnings');
-				process.exit(1);
-			}
-		})
-		.pipe(concat(folder + '.js'))
-		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulpif(!environment.isProduction, sourcemaps.write('.', {
-			includeContent: true,
-			sourceRoot: '/scripts/',
-			sourceMappingURLPrefix: '/scripts/'
-		})))
+		.pipe(babel({
+			presets: ['babel-preset-es2015'],
+			plugins: ['transform-runtime'],
+//			plugins: ['transform-runtime', 'transform-es2015-modules-umd'],
+		}))
+//		.pipe(gulpif(environment.isProduction, uglify()))
 		.pipe(gulp.dest(paths.dest));
 }));

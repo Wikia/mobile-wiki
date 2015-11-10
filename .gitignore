@@ -50,6 +50,6 @@ homepage/front/css
 homepage/front/js
 homepage/front/vendor
 homepage/vendor
-homepage/front/scripts/**/*.js
-homepage/front/scripts/**/*.map
+homepage/front/scripts-ts/**/*.js
+homepage/front/scripts-ts/**/*.map
 homepage/config/localSettings.js

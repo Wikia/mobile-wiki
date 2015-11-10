@@ -36,10 +36,9 @@ module.exports = {
     scripts: {
         homepage: {
             src: 'front/scripts',
-            watch: 'front/scripts/**/*.ts',
+            watch: 'front/scripts/**/*.js',
             dest: 'front/js',
-            files: '**/*.ts',
-            dFiles: '**/*.d.ts'
+            files: '**/*.js',
         },
         auth: {
             src: '../front/scripts/auth',
