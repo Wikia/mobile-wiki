@@ -4,6 +4,7 @@ import * as trackPerf from '../mercury/utils/trackPerf.js';
 import {getQueryParam} from '../mercury/utils/queryString.js';
 import Ads from '../mercury/modules/Ads.js';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics.js';
+import LinkComponent from 'mixins/link-component.js';
 
 const App = Ember.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -145,6 +146,18 @@ App.initializer({
 	initialize(container, application) {
 		application.register('currentUser:main', App.CurrentUser);
 		application.inject('component', 'currentUser', 'currentUser:main');
+	}
+});
+
+App.initializer({
+	name: 'linkComponent',
+	initialize(container, application) {
+		application.register('linkComponent:attributeBindings', LinkComponent.attributeBindings);
+		application.register('linkComponent:action', LinkComponent.action);
+		application.register('linkComponent:_invoke', LinkComponent._invoke());
+		application.inject('LinkComponent', 'attributeBindings', 'linkComponent:attributeBindings');
+		application.inject('LinkComponent', 'action', 'linkComponent:action');
+		application.inject('LinkComponent', '_invoke', 'linkComponent:_invoke');
 	}
 });
 

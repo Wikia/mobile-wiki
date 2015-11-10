@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-Ember.LinkComponent.reopen({
+const LinkComponent = Ember.Mixin.create({
 	attributeBindings: ['data-tracking-category'],
 
 	// it allows to use action='x' actionParam='y' in link-to helper
@@ -28,4 +28,4 @@ Ember.LinkComponent.reopen({
 	},
 });
 
-export default undefined;
+export default LinkComponent;
