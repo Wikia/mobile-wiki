@@ -1,4 +1,6 @@
-App.ObjectUtilitiesMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const ObjectUtilitiesMixin = Ember.Mixin.create({
 	/**
 	 * @returns {Object}
 	 */
@@ -10,7 +12,7 @@ App.ObjectUtilitiesMixin = Em.Mixin.create({
 				const value = this[key];
 
 				// ignore useless items
-				if (value !== 'toString' && Em.typeOf(value) !== 'function' && typeof value !== 'function') {
+				if (value !== 'toString' && Ember.typeOf(value) !== 'function' && typeof value !== 'function') {
 					keys.push(key);
 				}
 			}
@@ -19,3 +21,5 @@ App.ObjectUtilitiesMixin = Em.Mixin.create({
 		return this.getProperties(keys);
 	}
 });
+
+export default ObjectUtilitiesMixin;

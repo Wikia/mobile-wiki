@@ -1,10 +1,12 @@
+import Ember from 'ember';
+
 /**
  * Window
  * @typedef {Object} Window
  * @property {*} Ponto
  */
 
-App.IEIFrameFocusFixMixin = Em.Mixin.create({
+const IEIFrameFocusFixMixin = Ember.Mixin.create({
 	/**
 	 * Internet Explorer 11 has problems with catching focus
 	 * when user clicks on an input which is rendered inside an iframe.
@@ -22,9 +24,9 @@ App.IEIFrameFocusFixMixin = Em.Mixin.create({
 				'curatedContentTool.pontoBridge',
 				'setFocus',
 				{},
-				Em.K,
+				Ember.K,
 				(err) => {
-					Em.Logger.error('Ponto error:', err);
+					Ember.Logger.error('Ponto error:', err);
 
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.curated-content-error-other'),
@@ -36,3 +38,5 @@ App.IEIFrameFocusFixMixin = Em.Mixin.create({
 		}
 	},
 });
+
+export default IEIFrameFocusFixMixin;

@@ -1,13 +1,15 @@
-App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
-	isCategory: Em.computed('isFeaturedItem', 'isSection', function () {
+import Ember from 'ember';
+
+const CuratedContentEditorLabelsMixin = Ember.Mixin.create({
+	isCategory: Ember.computed('isFeaturedItem', 'isSection', function () {
 		return !(this.get('isFeaturedItem') || this.get('isSection'));
 	}),
 
-	itemsCountLabel: Em.computed('model.items.length', function () {
+	itemsCountLabel: Ember.computed('model.items.length', function () {
 		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')});
 	}),
 
-	headerLabel: Em.computed('model.label', 'isFeatured', 'isSection', function () {
+	headerLabel: Ember.computed('model.label', 'isFeatured', 'isSection', function () {
 		const modelLabel = this.get('model.label');
 
 		if (modelLabel) {
@@ -20,10 +22,12 @@ App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
 		return i18n.t('app.curated-content-editor-new-category');
 	}),
 
-	pageNameLabel: Em.computed('isCategory', function () {
+	pageNameLabel: Ember.computed('isCategory', function () {
 		if (this.get('isCategory')) {
 			return i18n.t('app.curated-content-editor-enter-category-name');
 		}
 		return i18n.t('app.curated-content-editor-enter-page-name');
 	})
 });
+
+export default CuratedContentEditorLabelsMixin;

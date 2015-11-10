@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Route mixin for setting head meta tags on transition into/out of route
  *
@@ -5,7 +7,7 @@
  *
  * @example How to set meta tags on a route
  *
- *   App.ExampleRoute = Em.Route.extend(App.MetaTagsMixin, {
+ *   ExampleRoute = Ember.Route.extend(MetaTagsMixin, {
  *
  *   	meta(): any {
  *		return {
@@ -15,9 +17,9 @@
  *		};
  *	 }
  */
-App.MetaTagsMixin = Em.Mixin.create({
+const MetaTagsMixin = Ember.Mixin.create({
 
-	$head: Em.$('head'),
+	$head: Ember.$('head'),
 
 	/**
 	 * @param {*} meta
@@ -25,10 +27,10 @@ App.MetaTagsMixin = Em.Mixin.create({
 	 */
 	setMeta(meta) {
 		const $head = this.get('$head'),
-			$metaProto = Em.$('<meta/>'),
+			$metaProto = Ember.$('<meta/>'),
 			$newMetaValues = [],
 			selectors = [],
-			keys = Object.keys || Em.keys,
+			keys = Object.keys || Ember.keys,
 			metaTypes = keys(meta);
 
 		// don't set meta if route is no longer active
@@ -87,7 +89,7 @@ App.MetaTagsMixin = Em.Mixin.create({
 		 */
 		didTransition() {
 			this._super(arguments);
-			Em.run.next(this, this.runSetMeta);
+			Ember.run.next(this, this.runSetMeta);
 
 			return true;
 		},
@@ -107,9 +109,11 @@ App.MetaTagsMixin = Em.Mixin.create({
 		 */
 		resetMeta() {
 			this.clearMeta();
-			Em.run.next(this, this.runSetMeta);
+			Ember.run.next(this, this.runSetMeta);
 
 			return false;
 		}
 	},
 });
+
+export default MetaTagsMixin;

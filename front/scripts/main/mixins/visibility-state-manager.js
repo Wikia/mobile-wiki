@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Window
  * @typedef {Object} Window
@@ -8,7 +10,7 @@
  * object that stores visibility state of components
  * and fires onVisible action when a components is becoming visible
  */
-App.VisibilityStateManager = Em.Object.create({
+const VisibilityStateManager = Ember.Object.create({
 
 	initialized: false,
 	components: [],
@@ -22,7 +24,7 @@ App.VisibilityStateManager = Em.Object.create({
 	 * @param {number} [threshold=400] makes viewport virtually bigger
 	 * @returns {boolean}
 	 */
-	isVisible(element, visibleBottom, visibleTop, threshold = 400) {
+	isVisible(element, visibleBottom, visibleTop, threshold=400) {
 		const top = element.offset().top - threshold,
 			bottom = top + element.height() + threshold;
 
@@ -63,13 +65,13 @@ App.VisibilityStateManager = Em.Object.create({
 	 * @returns {void}
 	 */
 	checkDebounced() {
-		Em.run.debounce(this, this.check, 50);
+		Ember.run.debounce(this, this.check, 50);
 	},
 
 	/**
 	 * adds component to components array and initializes scroll listener
 	 *
-	 * @param {Em.Component} component
+	 * @param {Ember.Component} component
 	 * @returns {void}
 	 */
 	add(component) {
@@ -93,3 +95,5 @@ App.VisibilityStateManager = Em.Object.create({
 		this.initialized = false;
 	}
 });
+
+export default VisibilityStateManager;

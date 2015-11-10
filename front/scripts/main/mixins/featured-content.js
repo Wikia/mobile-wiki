@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * ImageCropData
  * @typedef {Object} ImageCropData
@@ -27,33 +29,33 @@
  * @property {string} article_local_url
  */
 
-App.FeaturedContentMixin = Em.Mixin.create({
+const FeaturedContentMixin = Ember.Mixin.create({
 	layoutName: 'components/featured-content',
 	classNames: ['featured-content', 'mw-content'],
 	currentItemIndex: 0,
 
-	hasMultipleItems: Em.computed('model', function () {
+	hasMultipleItems: Ember.computed('model', function () {
 		return this.get('model.length') > 1;
 	}),
 
-	currentItem: Em.computed('model', 'currentItemIndex', function () {
+	currentItem: Ember.computed('model', 'currentItemIndex', function () {
 		const model = this.get('model');
 
-		if (!Em.isEmpty(model)) {
+		if (!Ember.isEmpty(model)) {
 			return this.get('model')[this.get('currentItemIndex')];
 		}
 
 		return null;
 	}),
 
-	lastIndex: Em.computed('model', function () {
+	lastIndex: Ember.computed('model', function () {
 		return this.get('model.length') - 1;
 	}),
 
 	/**
 	 * Keep pagination up to date
 	 */
-	currentItemIndexObserver: Em.observer('currentItemIndex', function () {
+	currentItemIndexObserver: Ember.observer('currentItemIndex', function () {
 		const $pagination = this.$('.featured-content-pagination');
 
 		$pagination.find('.current').removeClass('current');
@@ -86,3 +88,5 @@ App.FeaturedContentMixin = Em.Mixin.create({
 		}
 	}
 });
+
+export default FeaturedContentMixin;

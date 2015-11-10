@@ -1,11 +1,14 @@
-App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
-	App.TrackClickMixin,
+import Ember from 'ember';
+import TrackClickMixin from '/app/mixins/track-click';
+
+const CuratedContentEditorSortableItemsMixin = Ember.Mixin.create(
+	TrackClickMixin,
 	{
 		persistentSort: false,
-		sortableItems: Em.computed('model.items', function () {
+		sortableItems: Ember.computed('model.items', function () {
 			const items = this.get('model.items') || [];
 
-			return Em.A().pushObjects(items);
+			return Ember.A().pushObjects(items);
 		}),
 
 		actions: {
@@ -27,9 +30,11 @@ App.CuratedContentEditorSortableItemsMixin = Em.Mixin.create(
 
 					if (this.get('persistentSort')) {
 						this.set('model.items', this.get('sortableItems').slice(0, items.length));
-						App.CuratedContentEditorModel.isDirty = true;
+						CuratedContentEditorModel.isDirty = true;
 					}
 				}
 			}
 		}
 	});
+
+export default CuratedContentEditorSortableItemsMixin;

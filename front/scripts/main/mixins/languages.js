@@ -1,7 +1,9 @@
-App.LanguagesMixin = Em.Mixin.create({
+import Ember from 'ember';
+
+const LanguagesMixin = Ember.Mixin.create({
 	defaultLanguage: 'en',
 
-	isJapaneseBrowser: Em.computed(function () {
+	isJapaneseBrowser: Ember.computed(function () {
 		let lang = navigator.language || navigator.browserLanguage;
 
 		if (!lang) {
@@ -13,7 +15,7 @@ App.LanguagesMixin = Em.Mixin.create({
 		return lang === 'ja';
 	}),
 
-	isJapaneseWikia: Em.computed(() => Em.get(Mercury, 'wiki.language.content') === 'ja'),
+	isJapaneseWikia: Ember.computed(() => Ember.get(Mercury, 'wiki.language.content') === 'ja'),
 
 	/**
 	 * Returns navigator language with fallback to a default language
@@ -55,7 +57,7 @@ App.LanguagesMixin = Em.Mixin.create({
 	 * @returns {string}
 	 */
 	getUselangParam() {
-		const lang = Em.get(Mercury, 'wiki.language.content');
+		const lang = Ember.get(Mercury, 'wiki.language.content');
 
 		if (!lang || lang === 'en') {
 			return '';
@@ -64,3 +66,5 @@ App.LanguagesMixin = Em.Mixin.create({
 		return `&uselang=${encodeURIComponent(lang)}`;
 	}
 });
+
+export default LanguagesMixin;

@@ -1,7 +1,9 @@
+import Ember from 'ember';
+
 /**
  * Handles sending upvote action outside from the component.
  */
-App.DiscussionUpvoteActionSendMixin = Em.Mixin.create({
+const DiscussionUpvoteActionSendMixin = Ember.Mixin.create({
 	actions: {
 		/**
 		 * @param {*} post
@@ -12,3 +14,5 @@ App.DiscussionUpvoteActionSendMixin = Em.Mixin.create({
 		}
 	}
 });
+
+export default DiscussionUpvoteActionSendMixin;

@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * PreventableClickEvent
  * @typedef {Object} PreventableClickEvent
@@ -7,12 +9,12 @@
  * @property {Function} stopPropagation
  */
 
-App.ThirdsClickMixin = Em.Mixin.create({
-	leftClickHandler: Em.K,
-	rightClickHandler: Em.K,
-	centerClickHandler: Em.K,
+const ThirdsClickMixin = Ember.Mixin.create({
+	leftClickHandler: Ember.K,
+	rightClickHandler: Ember.K,
+	centerClickHandler: Ember.K,
 
-	viewportWidth: Em.computed(() => Math.max(document.documentElement.clientWidth, window.innerWidth || 0)),
+	viewportWidth: Ember.computed(() => Math.max(document.documentElement.clientWidth, window.innerWidth || 0)),
 
 	/**
 	 * This can be overriden to change how wide should be areas that leftClickHandler & rightClickHandler respond to.
@@ -41,7 +43,7 @@ App.ThirdsClickMixin = Em.Mixin.create({
 	 * @param {boolean} [preventDefault=false]
 	 * @returns {void}
 	 */
-	callClickHandler(event, preventDefault = false) {
+	callClickHandler(event, preventDefault=false) {
 		const viewportWidth = this.get('viewportWidth'),
 			x = event.clientX,
 			screenEdgeWidth = viewportWidth * this.get('screenEdgeWidthRatio'),
@@ -60,3 +62,5 @@ App.ThirdsClickMixin = Em.Mixin.create({
 		}
 	},
 });
+
+export default ThirdsClickMixin;
