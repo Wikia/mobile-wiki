@@ -39,7 +39,7 @@ App.DiscussionSortComponent = Em.Component.extend({
 	 * @returns {void}
 	 */
 	updateActive(): void {
-		var activeClass: string = 'active active-element-theme active-element-border-theme';
+		var activeClass: string = 'active active-element-theme-color active-element-border-theme-color';
 
 		// Add the 'active' CSS class to the sort tab that's active,
 		// but right now this only applies to desktop styling.

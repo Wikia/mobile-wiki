@@ -5,7 +5,7 @@
 App.DiscussionHeaderComponent = Em.Component.extend(
 	App.HeadroomMixin,
 	{
-		classNames: ['discussion-header', 'background-theme'],
+		classNames: ['discussion-header', 'background-theme-color'],
 
 		siteName: Em.computed(function (): string {
 			return Em.get(Mercury, 'wiki.siteName');
