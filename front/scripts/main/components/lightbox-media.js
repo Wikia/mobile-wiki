@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import ThirdsClickMixin from '../mixins/thirds-click.js';
+import MediaModel from '../models/media.js';
 
 const LightboxMediaComponent = Ember.Component.extend(
 	ThirdsClickMixin,

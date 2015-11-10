@@ -1,9 +1,10 @@
 import Ember from 'ember';
-import InfoboxImageMediaComponent from '/app/components/infobox-image-media';
-import LinkedGalleryMediaComponent from '/app/components/linked-gallery-media';
-import GalleryMediaComponent from '/app/components/gallery-media';
-import VideoMediaComponent from '/app/components/video-media';
-import ImageMediaComponent from '/app/components/image-media';
+import VisibleMixin from '../mixins/visible.js';
+import InfoboxImageMediaComponent from 'infobox-image-media.js';
+import LinkedGalleryMediaComponent from 'linked-gallery-media.js';
+import GalleryMediaComponent from 'gallery-media.js';
+import VideoMediaComponent from 'video-media.js';
+import ImageMediaComponent from 'image-media.js';
 
 /**
  * @typedef {Object} ThumbnailOptions
@@ -119,6 +120,7 @@ const MediaComponent = Ember.Component.extend(
 		},
 	}
 );
+
 MediaComponent.reopenClass({
 	/**
 	 * @param {ArticleMedia} media

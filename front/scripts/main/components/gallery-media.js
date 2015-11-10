@@ -1,5 +1,6 @@
-import MediaComponent from '/app/components/media';
 import Ember from 'ember';
+import MediaComponent from 'media.js';
+import ArticleContentMixin from '../mixins/article-content.js';
 
 /**
  * ArticleMedia
@@ -63,7 +64,7 @@ const GalleryMediaComponent = MediaComponent.extend(
 		 * @param {number} [thumbSize=this.get('thumbSize')]
 		 * @returns {void}
 		 */
-		loadImages(imageOrGalleryRef, limit=2, thumbSize=this.get('thumbSize')) {
+		loadImages(imageOrGalleryRef, limit = 2, thumbSize = this.get('thumbSize')) {
 			let galleryRef = typeof imageOrGalleryRef === 'number' ?
 					imageOrGalleryRef :
 					parseInt(imageOrGalleryRef.getAttribute('data-gallery-ref'), 10),

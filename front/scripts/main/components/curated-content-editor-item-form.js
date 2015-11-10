@@ -1,4 +1,12 @@
 import Ember from 'ember';
+import AlertNotificationsMixin from '../mixins/alert-notifications.js';
+import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels.js';
+import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout.js';
+import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail.js';
+import TrackClickMixin from '../mixins/track-click.js';
+import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix.js';
+import ArticleAddPhotoModel from '../models/article-add-photo.js';
+import CuratedContentEditorItemModel from '../models/curated-content-editor-item.js';
 
 const CuratedContentEditorItemFormComponent = Ember.Component.extend(
 	AlertNotificationsMixin,

@@ -229,3 +229,5 @@ App.initializer({
 		}
 	}
 });
+
+export default App;

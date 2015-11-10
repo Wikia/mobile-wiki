@@ -1,4 +1,7 @@
 import Ember from 'ember';
+import FeaturedContentMixin from '../mixins/featured-content.js';
+import TrackClickMixin from '../mixins/track-click.js';
+import ThirdsClickMixin from '../mixins/thirds-click.js';
 
 const FeaturedContentComponent = Ember.Component.extend(
 	FeaturedContentMixin,

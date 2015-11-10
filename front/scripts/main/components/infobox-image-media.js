@@ -1,5 +1,6 @@
-import ImageMediaComponent from '/app/components/image-media';
 import Ember from 'ember';
+import ImageMediaComponent from 'image-media.js';
+import ViewportMixin from '../mixins/viewport.js';
 
 const InfoboxImageMediaComponent = ImageMediaComponent.extend(
 	ViewportMixin,

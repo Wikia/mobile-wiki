@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send.js';
 
 const ForumWrapperComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,

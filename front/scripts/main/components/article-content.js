@@ -1,9 +1,10 @@
 import Ember from 'ember';
-import MediaComponent from '/app/components/media';
-import InfoboxImageCollectionComponent from '/app/components/infobox-image-collection';
-import WikiaMapComponent from '/app/components/wikia-map';
-import PortableInfoboxComponent from '/app/components/portable-infobox';
-import undefined from '/app/-link-component';
+import MediaComponent from 'media.js';
+import InfoboxImageCollectionComponent from 'infobox-image-collection.js';
+import WikiaMapComponent from 'wikia-map.js';
+import PortableInfoboxComponent from 'portable-infobox.js';
+import AdsMixin from '../mixins/ads.js';
+import PollDaddyMixin from '../mixins/poll-daddy.js';
 
 /**
  * HTMLElement
@@ -221,7 +222,7 @@ const ArticleContentComponent = Ember.Component.extend(
 		 * @param {number} [numberToProcess=-1]
 		 * @returns {void}
 		 */
-		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess=-1) {
+		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
 			const $mediaPlaceholders = this.$('.article-media');
 
 			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {

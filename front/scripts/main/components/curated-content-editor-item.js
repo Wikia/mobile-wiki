@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout.js';
 
 const CuratedContentEditorItemComponent = Ember.Component.extend(
 	CuratedContentEditorLayoutMixin,
