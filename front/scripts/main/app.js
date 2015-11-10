@@ -2,6 +2,8 @@ import Ember from 'ember';
 import {prop} from '../baseline/mercury/utils/state.js';
 import * as trackPerf from '../mercury/utils/trackPerf.js';
 import {getQueryParam} from '../mercury/utils/queryString.js';
+import Ads from '../mercury/modules/Ads.js';
+import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics.js';
 
 const App = Ember.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -150,8 +152,7 @@ App.initializer({
 	name: 'setupTracking',
 	after: 'currentUser',
 	initialize() {
-		const UA = Mercury.Modules.Trackers.UniversalAnalytics,
-			adsContext = Mercury.Modules.Ads.getInstance().getContext();
+		const adsContext = Ads.getInstance().getContext();
 
 		let dimensions = [];
 
@@ -203,7 +204,7 @@ App.initializer({
 
 		dimensions = Mercury.Utils.VariantTesting.integrateOptimizelyWithUA(dimensions);
 
-		UA.setDimensions(dimensions);
+		UniversalAnalytics.setDimensions(dimensions);
 	}
 });
 
