@@ -9,6 +9,7 @@ import VisitSourceWrapper from '../common/VisitSourceWrapper';
 import MarketingOptIn from '../signup/MarketingOptIn';
 import TermsOfUse from '../signup/TermsOfUse';
 import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
+import provide from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} HeliosError
@@ -101,7 +102,7 @@ export default class SignupForm {
 	 * @returns {void}
 	 */
 	onSuccessfulRegistration(userId) {
-		M.provide('userId', userId);
+		provide('userId', userId);
 		this.tracker.track('successful-registration', trackActions.success);
 
 		Cookie.set(
