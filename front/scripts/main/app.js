@@ -154,7 +154,7 @@ App.initializer({
 	initialize(container, application) {
 		application.register('linkComponent:attributeBindings', LinkComponent.attributeBindings);
 		application.register('linkComponent:action', LinkComponent.action);
-		application.register('linkComponent:_invoke', LinkComponent._invoke());
+		application.register('linkComponent:_invoke', LinkComponent._invoke);
 		application.inject('LinkComponent', 'attributeBindings', 'linkComponent:attributeBindings');
 		application.inject('LinkComponent', 'action', 'linkComponent:action');
 		application.inject('LinkComponent', '_invoke', 'linkComponent:_invoke');
