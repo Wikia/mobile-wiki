@@ -21,7 +21,7 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 	activate(): void {
 		this._super();
 
-		this.themeColorStyles ();
+		this.themeColorStyles();
 
 		if (Em.get(Mercury, 'wiki.isDarkTheme')) {
 			this.set('themeActivated', 'dark');
@@ -72,7 +72,6 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 		styles.push('.discussions .border-bottom-theme {border-bottom-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussions .background-theme {background-color: ' + Em.get(Mercury, 'wiki.themeColors.buttons') + ';}');
 		styles.push('.discussions .background-alpha-theme {background-color: ' + this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8) + ';}');
-
 
 		styles.push('.discussion a {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
 		styles.push('.discussions .active-element-theme {color: ' + Em.get(Mercury, 'wiki.themeColors.links') + ';}');
