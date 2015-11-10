@@ -5,9 +5,9 @@
  */
 
 /**
- * @param {*[]} params
+ * @param {*} params
  * @returns {*}
  */
-export function load(...params) {
+export default function load(...params) {
 	return $script.apply(null, params);
 }

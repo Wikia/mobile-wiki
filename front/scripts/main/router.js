@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 App.Router.map(function () {
 	const articlePath = '/wiki/';
 
@@ -91,8 +93,8 @@ App.Router.reopen({
 	 * Sets location API depending on user agent with special case for Catchpoint tests
 	 * @see http://emberjs.com/guides/routing/specifying-the-location-api/
 	 */
-	location: Em.computed(() => {
-		const ua = Em.get(window, 'navigator.userAgent');
+	location: Ember.computed(() => {
+		const ua = Ember.get(window, 'navigator.userAgent');
 
 		return (ua && ua.match(/Catchpoint/)) ? 'none' : 'history';
 	})
