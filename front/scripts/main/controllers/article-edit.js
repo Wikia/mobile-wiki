@@ -1,9 +1,11 @@
-App.ArticleEditController = Em.Controller.extend({
-	application: Em.inject.controller(),
+import Ember from 'ember';
+
+const ArticleEditController = Ember.Controller.extend({
+	application: Ember.inject.controller(),
 
 	isPublishing: false,
 
-	publishDisabled: Em.computed('isPublishing', 'model.isDirty', function () {
+	publishDisabled: Ember.computed('isPublishing', 'model.isDirty', function () {
 		return (this.get('isPublishing') === true || this.get('model.isDirty') === false);
 	}),
 
@@ -71,7 +73,7 @@ App.ArticleEditController = Em.Controller.extend({
 			this.set('isPublishing', true);
 			this.get('application').set('isLoading', true);
 
-			App.ArticleEditModel.publish(this.get('model')).then(
+			ArticleEditModel.publish(this.get('model')).then(
 				this.handlePublishSuccess.bind(this),
 				this.handlePublishError.bind(this)
 			);
@@ -96,3 +98,5 @@ App.ArticleEditController = Em.Controller.extend({
 		}
 	}
 });
+
+export default ArticleEditController;

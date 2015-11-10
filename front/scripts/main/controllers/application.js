@@ -1,7 +1,9 @@
-App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
+import Ember from 'ember';
+
+const ApplicationController = Ember.Controller.extend(AlertNotificationsMixin, {
 	// This has to be here because we need to access media from ArticleController model to open
 	// lightbox TODO: Should be refactored when decoupling article from application
-	article: Em.inject.controller(),
+	article: Ember.inject.controller(),
 	queryParams: ['file', 'map',
 		{
 			noAds: 'noads'
@@ -28,7 +30,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	// Controls the appearance of the share-header component
 	enableShareHeader: false,
 
-	sideNavCollapsedObserver: Em.observer('sideNavVisible', function () {
+	sideNavCollapsedObserver: Ember.observer('sideNavVisible', function () {
 		if (this.get('sideNavVisible')) {
 			this.set('noScroll', true);
 		} else {
@@ -41,9 +43,9 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	 */
 	init() {
 		this.setProperties({
-			domain: Em.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
-			language: Em.get(Mercury, 'wiki.language'),
-			editorPreview: Em.get(Mercury, 'article.preview')
+			domain: Ember.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
+			language: Ember.get(Mercury, 'wiki.language'),
+			editorPreview: Ember.get(Mercury, 'article.preview')
 		});
 
 		// This event is for tracking mobile sessions between Mercury and WikiaMobile
@@ -110,9 +112,9 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 			const file = this.get('file'),
 				map = this.get('map');
 
-			if (!Em.isEmpty(file)) {
+			if (!Ember.isEmpty(file)) {
 				this.openLightboxForMedia(file);
-			} else if (!Em.isEmpty(map)) {
+			} else if (!Ember.isEmpty(map)) {
 				this.openLightboxForMap(map);
 			}
 		},
@@ -164,7 +166,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 			const queryParamsWhitelist = ['file', 'map'];
 
 			if (queryParamsWhitelist.indexOf(name) === -1) {
-				Em.Logger.error('Something tried to set query param that is not on the whitelist', {
+				Ember.Logger.error('Something tried to set query param that is not on the whitelist', {
 					name,
 					value,
 					whitelist: queryParamsWhitelist
@@ -224,11 +226,11 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	 */
 	openLightboxForMedia(file) {
 		const mediaModel = this.get('article.model.media'),
-			lightboxMediaRefs = mediaModel instanceof App.MediaModel ?
+			lightboxMediaRefs = mediaModel instanceof MediaModel ?
 				mediaModel.getRefsForLightboxByTitle(file) :
 				null;
 
-		if (!Em.isEmpty(lightboxMediaRefs)) {
+		if (!Ember.isEmpty(lightboxMediaRefs)) {
 			this.send('openLightbox', 'media', {
 				media: mediaModel,
 				mediaRef: lightboxMediaRefs.mediaRef,
@@ -247,7 +249,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	 * @returns {void}
 	 */
 	openLightboxForMap(map) {
-		const $map = Em.$(`a[data-map-id=${map}]`);
+		const $map = Ember.$(`a[data-map-id=${map}]`);
 
 		this.send('openLightbox', 'map', {
 			title: $map.data('map-title'),
@@ -256,3 +258,5 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		});
 	}
 });
+
+export default ApplicationController;

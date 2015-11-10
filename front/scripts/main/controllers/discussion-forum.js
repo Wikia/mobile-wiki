@@ -1,8 +1,10 @@
-App.DiscussionForumController = Em.Controller.extend({
-	application: Em.inject.controller(),
+import Ember from 'ember';
+
+const DiscussionForumController = Ember.Controller.extend({
+	application: Ember.inject.controller(),
 	sortBy: null,
 
-	smartBannerVisible: Em.computed.oneWay('application.smartBannerVisible'),
+	smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
 
 	// Whether the sort component is currently visible
 	sortVisible: false,
@@ -18,7 +20,7 @@ App.DiscussionForumController = Em.Controller.extend({
 		}
 	],
 
-	sortMessageKey: Em.computed('sortBy', function () {
+	sortMessageKey: Ember.computed('sortBy', function () {
 		const sortTypes = this.get('sortTypes'),
 			filtered = sortTypes.filter((obj) => {
 				return obj.name === this.get('sortBy');
@@ -61,3 +63,5 @@ App.DiscussionForumController = Em.Controller.extend({
 		}
 	}
 });
+
+export default DiscussionForumController;
