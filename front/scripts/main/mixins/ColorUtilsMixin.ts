@@ -11,15 +11,25 @@ interface rgbaNotation {
 App.ColorUtilsMixin = Em.Mixin.create({
 
 	/**
+	 * Returns expanded colors, line #fff -> #ffffff, if given value is not shortened hex color, it is returned
+	 * without changes
+	 * @param {string} hex color
+	 * @returns {string} expanded hex color
+	 */
+	shortHexColorExpand(hex: string): string {
+		return hex.replace (/^#?([a-f\d])([a-f\d])([a-f\d])$/i, '#$1$1$2$2$3$3');
+	},
+
+	/**
 	 * Returns given hex color as rgbaNotation object
-	 * @param {string} hex
+	 * @param {string} hex color
 	 * @param {number} alpha
 	 * @returns {rgbaNotation}
 	 */
 	hexToRgb(hex: string, alpha: number = 1): rgbaNotation {
 		var rgbParts: RegExpExecArray;
 
-		rgbParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		rgbParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.shortHexColorExpand(hex));
 
 		if (!rgbParts) {
 			return;
