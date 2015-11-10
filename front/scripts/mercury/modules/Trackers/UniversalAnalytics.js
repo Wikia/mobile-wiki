@@ -18,7 +18,7 @@ import {prop} from '../../../baseline/mercury/utils/state';
  * @property {number} sampleRate
  */
 
-export class UniversalAnalytics {
+export default class UniversalAnalytics {
 	/**
 	 * @param {boolean} [isSpecialWiki=false]
 	 * @returns {void}

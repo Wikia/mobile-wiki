@@ -1,6 +1,6 @@
-import {BasePlayer} from 'VideoPlayers/Base';
-import {OoyalaPlayer} from 'VideoPlayers/Ooyala';
-import {YouTubePlayer} from 'VideoPlayers/YouTube';
+import BasePlayer from 'VideoPlayers/Base';
+import OoyalaPlayer from 'VideoPlayers/Ooyala';
+import YouTubePlayer from 'VideoPlayers/YouTube';
 
 const playerClassMap = {
 	base: BasePlayer,

@@ -1,6 +1,6 @@
-import {BasePlayer} from 'Base';
+import BasePlayer from 'Base';
 
-export class OoyalaPlayer extends BasePlayer {
+export default class OoyalaPlayer extends BasePlayer {
 	/**
 	 * @param {string} provider
 	 * @param {*} params

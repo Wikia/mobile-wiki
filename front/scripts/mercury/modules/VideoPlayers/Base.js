@@ -1,7 +1,7 @@
-import {load} from '../../utils/load';
+import load from '../../utils/load';
 import {containerSize} from '../../utils/calculation';
 
-export class BasePlayer {
+export default class BasePlayer {
 	/**
 	 * @param {string} provider
 	 * @param {*} params

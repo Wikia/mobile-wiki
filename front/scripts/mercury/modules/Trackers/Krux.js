@@ -1,6 +1,6 @@
 import {prop} from '../../../baseline/mercury/utils/state';
 
-export class Krux {
+export default class Krux {
 	/**
 	 * @param {*} krux
 	 * @returns {void}

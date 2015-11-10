@@ -1,7 +1,7 @@
-import {BaseTracker} from 'BaseTracker';
+import BaseTracker from 'BaseTracker';
 import {prop} from '../../../baseline/mercury/utils/state';
 
-export class Quantserve extends BaseTracker {
+export default class Quantserve extends BaseTracker {
 	/**
 	 * @returns {void}
 	 */

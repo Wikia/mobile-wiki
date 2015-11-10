@@ -1,7 +1,7 @@
-import {UniversalAnalytics} from 'Trackers/UniversalAnalytics';
-import {load} from '../utils/load';
+import UniversalAnalytics from 'Trackers/UniversalAnalytics';
+import load from '../utils/load';
 
-export class Ads {
+export default class Ads {
 	constructor() {
 		this.adSlots = [];
 		this.adsContext = null;

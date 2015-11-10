@@ -17,7 +17,7 @@
  * @property {string} [sourceUrl]
  */
 
-export class Internal {
+export default class Internal {
 	/**
 	 * @returns {void}
 	 */
@@ -86,7 +86,7 @@ export class Internal {
 
 		script.onload = script.onreadystatechange = (abort) => {
 
-			if (!abort || Boolean(script.readyState) || !/loaded|complete/.test(script.readyState)) {
+			if (!abort || Boolean(script.readyState) || !(/loaded|complete/).test(script.readyState)) {
 				return;
 			}
 

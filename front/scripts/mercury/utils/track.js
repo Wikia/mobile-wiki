@@ -1,8 +1,8 @@
-import {Comscore} from '../modules/Trackers/Comscore';
-import {Internal} from '../modules/Trackers/Internal';
-import {Krux} from '../modules/Trackers/Krux';
-import {Quantserve} from '../modules/Trackers/Quantserve';
-import {UniversalAnalytics} from '../modules/Trackers/UniversalAnalytics';
+import Comscore from '../modules/Trackers/Comscore';
+import Internal from '../modules/Trackers/Internal';
+import Krux from '../modules/Trackers/Krux';
+import Quantserve from '../modules/Trackers/Quantserve';
+import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 import {prop} from '../../baseline/mercury/utils/state';
 
 /**
@@ -40,7 +40,7 @@ const trackers = {
 		Quantserve,
 		UniversalAnalytics
 	},
-	actions = {
+	trackActions = {
 		// Generic add
 		add: 'add',
 		// Generic click, mostly javascript clicks
@@ -157,7 +157,7 @@ export function track(params) {
 		}
 
 		uaTracker = new trackers.UniversalAnalytics(isSpecialWiki());
-		uaTracker.track(category, actions[action], label, value, isNonInteractive);
+		uaTracker.track(category, trackActions[action], label, value, isNonInteractive);
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
@@ -181,7 +181,6 @@ export function trackPageView(adsContext) {
 	if (prop('queryParams.noexternals')) {
 		return;
 	}
-
 	Object.keys(trackers).forEach((tracker) => {
 		const Tracker = trackers[tracker];
 
@@ -253,4 +252,4 @@ export function setTrackContext(data) {
 	this.context = data;
 }
 
-export {actions as trackActions};
+export {trackActions};

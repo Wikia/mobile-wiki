@@ -1,7 +1,7 @@
 /**
  * Base class for trackers that have to append their scripts like Comscore or Quantserve
  */
-export class BaseTracker {
+export default class BaseTracker {
 	constructor() {
 		this.script = document.getElementsByTagName('script')[0];
 		this.usesAdsContext = false;
