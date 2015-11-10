@@ -39,6 +39,14 @@ App.ColorUtilsMixin = Em.Mixin.create({
 	 * @returns {string}
 	 */
 	getRgbaColor(rgba: rgbaNotation): string {
-		return 'rgba(' + [rgba.r, rgba.g, rgba.b, rgba.a].join(', ')  + ')';
+		var rgbaColor: string;
+		rgbaColor = 'rgba(' + [rgba.r, rgba.g, rgba.b].join(', ');
+
+		if (rgba.a !== undefined) {
+			rgbaColor += ', ' + rgba.a
+		}
+		rgbaColor += ')';
+
+		return rgbaColor;
 	}
 });
