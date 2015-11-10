@@ -1,4 +1,4 @@
-import Ember from 'Ember';
+import Ember from 'ember';
 import {prop} from '../baseline/mercury/utils/state';
 
 /**

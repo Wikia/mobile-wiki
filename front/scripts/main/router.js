@@ -1,4 +1,4 @@
-import Ember from 'Ember';
+import Ember from 'ember';
 
 App.Router.map(function () {
 	const articlePath = '/wiki/';
