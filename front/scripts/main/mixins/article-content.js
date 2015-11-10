@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ArticleContentListeners from '/app/-article-content-mixin';
+import ArticleContentListeners from 'article-content-mixin.js';
 
 /**
  * This mixin keeps track of current article-content width which is updated on every window resize.
