@@ -97,7 +97,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 */
 		contributionEnabledForCommunity: Em.computed(function(): boolean {
 			var dbName = Em.get(Mercury, 'wiki.dbName'),
-				disableMobileSectionEditor = Em.get(Mercury, 'wiki.disableMobileSectionEditor');
+				disableMobileSectionEditor = Em.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false);
 
 			var enabledCommunities = [
 				'clashofclans', 'declashofclans', 'zhclashofclans723', 'frclashofclans',
@@ -107,8 +107,7 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			if (disableMobileSectionEditor) {
 				// When disableMobileSectionEditor is set to true, no contribution tools should show up
 				return false;
-			}
-			else if (this.get('isJapaneseWikia')) {
+			} else if (this.getWithDefault('isJapaneseWikia', false)) {
 				// Enabled for all Japanese wikias unless disableMobileSectionEditor is set
 				return true;
 			} else if (enabledCommunities.indexOf(dbName) > -1) {
@@ -154,8 +153,8 @@ App.ArticleWrapperComponent = Em.Component.extend(
 		 * @returns {boolean} True if edit is allowed
 		 */
 		editAllowed: Em.computed(function(): boolean {
-			var isCoppaWiki = Em.get(Mercury, 'wiki.isCoppaWiki'),
-				disableAnonymousEditing = Em.get(Mercury, 'wiki.disableAnonymousEditing'),
+			var isCoppaWiki = Em.getWithDefault(Mercury, 'wiki.isCoppaWiki', false),
+				disableAnonymousEditing = Em.getWithDefault(Mercury, 'wiki.disableAnonymousEditing', false),
 				isLoggedIn = Em.get(Mercury, 'currentUser.isAuthenticated');
 
 			if (isLoggedIn) {
