@@ -70,7 +70,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			this.set('active', active);
 		},
 
-		createPost(forumId: number): void {
+		createPost(forumId: string): void {
 			this.set('isLoading', true);
 
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -91,6 +91,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 					Em.run.later(() => {
 						this.set('showSuccess', false);
 						this.set('active', false);
+						this.set('submitDisabled', false);
 						this.$('.editor-textarea').val('');
 						// TODO load new post
 					}, 2000);
@@ -107,8 +108,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			});
 		},
 
-		updateSubmitButton(): void {
+		updateOnType(): void {
 			this.set('submitDisabled', this.$('.editor-textarea').val().length === 0);
+			this.set('active', true);
 		}
 	}
 });
