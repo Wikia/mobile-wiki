@@ -28,6 +28,14 @@ App.ForumWrapperComponent = Em.Component.extend(
 			goToPost(postId: number): void {
 				this.sendAction('goToPost', postId);
 			},
+
+			/**
+			 * @param {string} sortBy
+			 * @returns {void}
+			 */
+			setSortBy(sortBy: string): void {
+				this.sendAction('setSortBy', sortBy);
+			},
 		},
 
 		/**

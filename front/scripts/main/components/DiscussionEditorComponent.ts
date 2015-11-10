@@ -72,6 +72,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 		createPost(forumId: string): void {
 			this.set('isLoading', true);
+			this.sendAction('setSortBy', 'latest');
+			Em.$('html, body').animate({ scrollTop: 0 });
 
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
