@@ -1,10 +1,12 @@
-App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTagsMixin, {
+import Ember from 'ember';
+
+const MainPageCategoryRoute = Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, {
 	/**
 	 * @param {*} params
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return App.CuratedContentModel.find(params.categoryName, 'category');
+		return CuratedContentModel.find(params.categoryName, 'category');
 	},
 
 	/**
@@ -45,3 +47,5 @@ App.MainPageCategoryRoute = Em.Route.extend(App.MainPageRouteMixin, App.MetaTags
 		}
 	}
 });
+
+export default MainPageCategoryRoute;

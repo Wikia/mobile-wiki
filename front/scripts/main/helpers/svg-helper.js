@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Helper to generate SVGs in the form:
  * {{svg name viewBox classes}}
@@ -12,9 +14,9 @@
  *
  * @param {Array} params
  * @param {Object} options
- * @returns {Em.Handlebars.SafeString}
+ * @returns {Ember.Handlebars.SafeString}
  */
-App.SvgHelper = Em.Helper.helper((params, options) => {
+const SvgHelper = Ember.Helper.helper((params, options) => {
 	const optionalParams = [
 			'class',
 			'role',
@@ -31,5 +33,7 @@ App.SvgHelper = Em.Helper.helper((params, options) => {
 	});
 	ret += `><use xlink:href="#${name}"></use></svg>`;
 
-	return new Em.Handlebars.SafeString(ret);
+	return new Ember.Handlebars.SafeString(ret);
 });
+
+export default SvgHelper;

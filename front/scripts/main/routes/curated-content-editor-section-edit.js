@@ -1,4 +1,6 @@
-App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const CuratedContentEditorSectionEditRoute = Ember.Route.extend({
 	/**
 	 * @returns {CuratedContentEditorItemModel} model
 	 */
@@ -15,7 +17,7 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 	setupController(controller, model, transition) {
 		this._super(controller, model, transition);
 
-		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(
+		controller.set('alreadyUsedLabels', CuratedContentEditorModel.getAlreadyUsedLabels(
 			this.modelFor('curatedContentEditor').get('curated'), model.label)
 		);
 	},
@@ -44,7 +46,7 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 		done(newSection) {
 			const sectionModel = this.modelFor('curatedContentEditor.section');
 
-			Em.setProperties(sectionModel, newSection);
+			Ember.setProperties(sectionModel, newSection);
 			this.transitionTo('curatedContentEditor.section.index');
 		},
 
@@ -56,8 +58,10 @@ App.CuratedContentEditorSectionEditRoute = Em.Route.extend({
 				controller = this.controllerFor('curatedContentEditor.section'),
 				originalSectionLabel = controller.get('originalSectionLabel');
 
-			App.CuratedContentEditorModel.deleteItem(curatedSections, originalSectionLabel);
+			CuratedContentEditorModel.deleteItem(curatedSections, originalSectionLabel);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}
 });
+
+export default CuratedContentEditorSectionEditRoute;

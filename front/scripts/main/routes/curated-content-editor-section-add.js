@@ -1,9 +1,11 @@
-App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const CuratedContentEditorSectionAddRoute = Ember.Route.extend({
 	/**
 	 * @returns {CuratedContentEditorItemModel} new section
 	 */
 	model() {
-		return App.CuratedContentEditorItemModel.createNew({
+		return CuratedContentEditorItemModel.createNew({
 			node_type: 'section',
 			items: []
 		});
@@ -17,7 +19,7 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 	 */
 	setupController(controller, model, transition) {
 		this._super(controller, model, transition);
-		controller.set('alreadyUsedLabels', App.CuratedContentEditorModel.getAlreadyUsedLabels(
+		controller.set('alreadyUsedLabels', CuratedContentEditorModel.getAlreadyUsedLabels(
 			this.modelFor('curatedContentEditor').get('curated'))
 		);
 	},
@@ -57,3 +59,5 @@ App.CuratedContentEditorSectionAddRoute = Em.Route.extend({
 		}
 	}
 });
+
+export default CuratedContentEditorSectionAddRoute;

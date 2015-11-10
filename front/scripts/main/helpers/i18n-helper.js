@@ -1,9 +1,11 @@
+import Ember from 'ember';
+
 /**
  * @param {Array} params
  * @param {Object} options
  * @returns {string}
  */
-App.I18nHelper = Em.Helper.helper((params, options) => {
+const I18nHelper = Ember.Helper.helper((params, options) => {
 	const i18nParams = {},
 		value = params.join('.');
 
@@ -23,3 +25,5 @@ App.I18nHelper = Em.Helper.helper((params, options) => {
 
 	return i18n.t(`${namespace}:${value}`, i18nParams);
 });
+
+export default I18nHelper;

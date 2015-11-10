@@ -1,13 +1,15 @@
-App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
+import Ember from 'ember';
+
+const DiscussionForumRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 	defaultSortType: null,
 	forumId: null,
 
 	activate() {
-		Em.$('body').addClass('discussions');
+		Ember.$('body').addClass('discussions');
 	},
 
 	deactivate() {
-		Em.$('body').removeClass('discussions');
+		Ember.$('body').removeClass('discussions');
 	},
 
 	/**
@@ -19,12 +21,12 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 
 		this.set('forumId', params.forumId);
 
-		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
+		return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
 	},
 
 	/**
-	 * @param {Em.Controller} controller
-	 * @param {Em.Object} model
+	 * @param {Ember.Controller} controller
+	 * @param {Ember.Object} model
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
 	 */
@@ -95,3 +97,5 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 		}
 	}
 });
+
+export default DiscussionForumRoute;

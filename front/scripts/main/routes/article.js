@@ -1,4 +1,6 @@
-App.ArticleRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const ArticleRoute = Ember.Route.extend({
 	redirectEmptyTarget: false,
 
 	/**
@@ -28,10 +30,10 @@ App.ArticleRoute = Em.Route.extend({
 
 	/**
 	 * @param {*} params
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return App.ArticleModel.find({
+		return ArticleModel.find({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
 			wiki: this.controllerFor('application').get('domain')
@@ -39,14 +41,14 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {App.ArticleModel} model
+	 * @param {ArticleModel} model
 	 * @returns {void}
 	 */
 	afterModel(model) {
 		const exception = model.exception;
 
-		if (!Em.isEmpty(exception)) {
-			Em.Logger.warn('Article model error:', exception);
+		if (!Ember.isEmpty(exception)) {
+			Ember.Logger.warn('Article model error:', exception);
 		}
 
 		// if an article is main page, redirect to mainPage route
@@ -56,7 +58,7 @@ App.ArticleRoute = Em.Route.extend({
 		}
 
 		this.controllerFor('application').set('currentTitle', model.get('title'));
-		App.VisibilityStateManager.reset();
+		VisibilityStateManager.reset();
 
 		// Reset query parameters
 		model.set('commentsPage', null);
@@ -137,43 +139,45 @@ App.ArticleRoute = Em.Route.extend({
 	},
 
 	/**
-	 * @param {App.ArticleModel} model
+	 * @param {ArticleModel} model
 	 * @returns {void}
 	 */
 	updateTitleTag(model) {
 		const defaultHtmlTitleTemplate = '$1 - Wikia',
-			htmlTitleTemplate = Em.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
+			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
 
 		document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
 	},
 
 	/**
-	 * @param {App.ArticleModel} model
+	 * @param {ArticleModel} model
 	 * @returns {void}
 	 */
 	updateCanonicalLinkTag(model) {
-		const canonicalUrl = Em.get(Mercury, 'wiki.basePath') + model.get('url');
-		let $canonicalLinkTag = Em.$('head link[rel=canonical]');
+		const canonicalUrl = Ember.get(Mercury, 'wiki.basePath') + model.get('url');
+		let $canonicalLinkTag = Ember.$('head link[rel=canonical]');
 
-		if (Em.isEmpty($canonicalLinkTag)) {
-			$canonicalLinkTag = Em.$('<link rel="canonical">').appendTo('head');
+		if (Ember.isEmpty($canonicalLinkTag)) {
+			$canonicalLinkTag = Ember.$('<link rel="canonical">').appendTo('head');
 		}
 
 		$canonicalLinkTag.prop('href', canonicalUrl);
 	},
 
 	/**
-	 * @param {App.ArticleModel} model
+	 * @param {ArticleModel} model
 	 * @returns {void}
 	 */
 	updateDescriptionMetaTag(model) {
 		const description = model.getWithDefault('description', '');
-		let $descriptionMetaTag = Em.$('head meta[name=description]');
+		let $descriptionMetaTag = Ember.$('head meta[name=description]');
 
-		if (Em.isEmpty($descriptionMetaTag)) {
-			$descriptionMetaTag = Em.$('<meta name="description">').appendTo('head');
+		if (Ember.isEmpty($descriptionMetaTag)) {
+			$descriptionMetaTag = Ember.$('<meta name="description">').appendTo('head');
 		}
 
 		$descriptionMetaTag.prop('content', description);
 	}
 });
+
+export default ArticleRoute;

@@ -1,8 +1,10 @@
+import Ember from 'ember';
+
 /**
  * @param {Array} params
  * @returns {string}
  */
-App.TruncateHelper = Em.Helper.helper((params) => {
+const TruncateHelper = Ember.Helper.helper((params) => {
 	const text = params[0],
 		maxLength = params[1] || 48,
 		ellipsisCharacter = '\u2026';
@@ -11,7 +13,7 @@ App.TruncateHelper = Em.Helper.helper((params) => {
 		lastSpacePosition;
 
 	if (typeof text !== 'string') {
-		Em.Logger.error(`Truncate helper expected string as a parameter, but ${typeof text} given:`, text);
+		Ember.Logger.error(`Truncate helper expected string as a parameter, but ${typeof text} given:`, text);
 		return null;
 	}
 
@@ -28,3 +30,5 @@ App.TruncateHelper = Em.Helper.helper((params) => {
 
 	return truncatedString.substr(0, lastSpacePosition) + ellipsisCharacter;
 });
+
+export default TruncateHelper;

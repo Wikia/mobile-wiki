@@ -1,5 +1,7 @@
-App.CuratedContentEditorRoute = Em.Route.extend(
-	App.TrackClickMixin,
+import Ember from 'ember';
+
+const CuratedContentEditorRoute = Ember.Route.extend(
+	TrackClickMixin,
 	{
 		/**
 		 * @returns {void}
@@ -12,7 +14,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			}
 
 			if (window.self !== window.top && (
-					!window.Ponto || !this.get('pontoLoadingInitialized')
+					(!window.Ponto || !this.get('pontoLoadingInitialized'))
 				)
 			) {
 				this.suppressDefineAmd(
@@ -22,10 +24,10 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		},
 
 		/**
-		 * @returns {Em.RSVP.Promise} model
+		 * @returns {Ember.RSVP.Promise} model
 		 */
 		model() {
-			return App.CuratedContentEditorModel.load();
+			return CuratedContentEditorModel.load();
 		},
 
 		/**
@@ -66,7 +68,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				.attr('href', `${this.cropperPath}/cropper.min.css`)
 				.appendTo('head');
 
-			return Em.$.getScript(`${this.cropperPath}/cropper.min.js`);
+			return Ember.$.getScript(`${this.cropperPath}/cropper.min.js`);
 		},
 
 		pontoLoadingInitialized: false,
@@ -80,7 +82,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		loadPonto() {
 			this.set('pontoLoadingInitialized', true);
 
-			return Em.$.getScript(this.pontoPath, () => {
+			return Ember.$.getScript(this.pontoPath, () => {
 				const ponto = window.Ponto;
 
 				if (ponto && typeof ponto.setTarget === 'function') {
@@ -145,7 +147,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 					});
 					this.handleTransitionToMainPage();
 				} else {
-					Em.Logger.error(error);
+					Ember.Logger.error(error);
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.curated-content-error-other'),
 						type: 'warning'
@@ -165,7 +167,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 				const isStayingOnEditor = transition.targetName.indexOf('curatedContentEditor') > -1;
 
 				if (
-					App.CuratedContentEditorModel.isDirty &&
+					CuratedContentEditorModel.isDirty &&
 					!isStayingOnEditor &&
 					!this.get('publish') &&
 					!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
@@ -198,7 +200,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 		 * @param {Boolean} dataSaved=false it's a flag whether data was saved or not
 		 * @returns {void}
 		 */
-		handleTransitionToMainPage(dataSaved = false) {
+		handleTransitionToMainPage(dataSaved=false) {
 			const ponto = window.Ponto;
 
 			this.set('publish', Boolean(dataSaved));
@@ -218,7 +220,7 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			const dataSaved = this.get('publish');
 
 			if (
-				App.CuratedContentEditorModel.isDirty &&
+				CuratedContentEditorModel.isDirty &&
 				!dataSaved &&
 				!confirm(i18n.t('app.curated-content-editor-exit-prompt'))
 			) {
@@ -234,11 +236,11 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 					saved: dataSaved
 				},
 				// We don't care about success callback
-				Em.K,
+				Ember.K,
 				// If something went wrong on the app side then display an error
 				// This shouldn't happen, ever
 				(err) => {
-					Em.Logger.error('Ponto error:', err);
+					Ember.Logger.error('Ponto error:', err);
 
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.curated-content-error-other'),
@@ -249,3 +251,5 @@ App.CuratedContentEditorRoute = Em.Route.extend(
 			);
 		}
 	});
+
+export default CuratedContentEditorRoute;

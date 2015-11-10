@@ -1,4 +1,6 @@
-App.CuratedContentEditorSectionIndexRoute = Em.Route.extend({
+import Ember from 'ember';
+
+const CuratedContentEditorSectionIndexRoute = Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */
@@ -8,3 +10,5 @@ App.CuratedContentEditorSectionIndexRoute = Em.Route.extend({
 		});
 	}
 });
+
+export default CuratedContentEditorSectionIndexRoute;

@@ -1,13 +1,15 @@
-App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
+import Ember from 'ember';
+
+const MainPageRoute = Ember.Route.extend(MainPageRouteMixin, {
 	/**
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	model() {
-		return App.MainPageModel.find();
+		return MainPageModel.find();
 	},
 
 	/**
-	 * @param {App.MainPageModel} model
+	 * @param {MainPageModel} model
 	 * @returns {void}
 	 */
 	afterModel(model) {
@@ -15,18 +17,18 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 			adsContext: model.get('adsContext'),
 			isRoot: true,
 			ns: model.get('ns'),
-			title: Em.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+			title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
 
 		if (!model.isCuratedMainPage) {
 			// This is needed for articles
-			App.VisibilityStateManager.reset();
+			VisibilityStateManager.reset();
 		}
 	},
 
 	/**
 	 * @param {*} controller
-	 * @param {App.MainPageModel} model
+	 * @param {MainPageModel} model
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {
@@ -54,8 +56,10 @@ App.MainPageRoute = Em.Route.extend(App.MainPageRouteMixin, {
 				transition.abort();
 			}
 
-			Em.Logger.warn('Route error', error.stack || error);
+			Ember.Logger.warn('Route error', error.stack || error);
 			return true;
 		}
 	}
 });
+
+export default MainPageRoute;
