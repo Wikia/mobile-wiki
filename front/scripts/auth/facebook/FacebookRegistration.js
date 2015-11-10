@@ -1,28 +1,25 @@
+import AuthLogger from '../common/AuthLogger';
+import AuthTracker from '../common/AuthTracker';
+import AuthUtils from '../common/AuthUtils';
+import FacebookSDK from 'FacebookSDK';
+import FormErrors from '../common/FormErrors';
+import HttpCodes from '../common/HttpCodes';
+import MarketingOptIn from '../signup/MarketingOptIn';
+import TermsOfUse from '../signup/TermsOfUse';
+import UrlHelper from '../common/UrlHelper';
+
 /**
- * Window
  * @typedef {Object} Window
  * @property {{getLoginStatus: Function, getAccessToken: Function, api: Function}} FB
  */
-interface window {
-	FB: {
-		getLoginStatus: Function;
-		getAccessToken: Function;
-		api: Function;
-	}
-}
 
 /**
- * FacebookUserData
  * @typedef {Object} FacebookUserData
  * @property {string} [email]
  */
-interface FacebookUserData {
-	email?: string;
-}
 
 /**
- * HeliosFacebookRegisterData
- * @typedef {Object} HeliosFacebookRegisterData
+ * @typedef {Object} HeliosFacebookRegistrationData
  * @property {string} birthdate
  * @property {string} email
  * @property {string} fb_access_token
@@ -31,41 +28,36 @@ interface FacebookUserData {
  * @property {string} [langCode]
  * @property {string} [marketingallowed]
  */
-interface HeliosFacebookRegistrationData {
-	birthdate: string;
-	email: string;
-	fb_access_token: string;
-	password: string;
-	username: string;
-	langCode?: string;
-	marketingallowed?: string;
-}
 
 /**
  * @class FacebookRegistration
+ *
+ * @property {HTMLFormElement} form
+ * @property {string} redirect
+ * @property {UrlHelper} urlHelper
+ * @property {MarketingOptIn} marketingOptIn
+ * @property {FormErrors} formErrors
+ * @property {TermsOfUse} termsOfUse
+ * @property {AuthTracker} tracker
+ * @property {AuthLogger} authLogger
  */
-class FacebookRegistration {
-
-	form: HTMLFormElement;
-	redirect: string;
-	urlHelper: UrlHelper;
-	marketingOptIn: MarketingOptIn;
-	formErrors: FormErrors;
-	termsOfUse: TermsOfUse;
-	tracker: AuthTracker;
-	authLogger: AuthLogger = AuthLogger.getInstance();
-
+export default class FacebookRegistration {
 	/**
-	 * @constructs FacebookRegistration
 	 * @param {HTMLFormElement} form
+	 * @returns {void}
 	 */
-	constructor (form: HTMLFormElement) {
+	constructor(form) {
+		this.authLogger = AuthLogger.getInstance();
+
 		new FacebookSDK(this.init.bind(this));
+
 		this.form = form;
 		this.urlHelper = new UrlHelper();
+
 		if (window.location.search) {
-			var params: Object = this.urlHelper.urlDecode(window.location.search.substr(1));
-			this.redirect = params['redirect'];
+			const params = this.urlHelper.urlDecode(window.location.search.substr(1));
+
+			this.redirect = params.redirect;
 		}
 		this.marketingOptIn = new MarketingOptIn();
 		this.marketingOptIn.init();
@@ -80,39 +72,41 @@ class FacebookRegistration {
 	}
 
 	/**
-	 * @returns void
+	 * @returns {void}
 	 */
-	public init (): void {
-		window.FB.getLoginStatus(function (facebookResponse: FacebookResponse): void {
-			var status = facebookResponse.status;
-
-			if (status === 'connected') {
+	init() {
+		/**
+		 * @param {FacebookResponse} facebookResponse
+		 * @returns {void}
+		 */
+		window.FB.getLoginStatus((facebookResponse) => {
+			if (facebookResponse.status === 'connected') {
 				this.getEmailFromFacebook();
 			}
-		}.bind(this));
+		});
 	}
 
 	/**
-	 * @returns void
+	 * @returns {void}
 	 */
-	public getEmailFromFacebook(): void {
+	getEmailFromFacebook() {
 		window.FB.api('/me', this.setUpEmailInput.bind(this));
 	}
 
 	/**
-	 * @params {FacebookUserData} facebookUserData
+	 * @param {FacebookUserData} facebookUserData
 	 *
-	 * @returns void
+	 * @returns {void}
 	 */
-	private setUpEmailInput (facebookUserData: FacebookUserData): void {
-		var email = facebookUserData.email,
-			emailInput = <HTMLInputElement> this.form.elements.namedItem('email'),
-			emailInputLabel: HTMLLabelElement;
+	setUpEmailInput(facebookUserData) {
+		const email = facebookUserData.email,
+			emailInput = this.form.elements.namedItem('email');
 
 		if (email && emailInput) {
-			emailInput.disabled = true;
-			emailInputLabel = <HTMLLabelElement> emailInput.nextElementSibling;
+			const emailInputLabel = emailInput.nextElementSibling;
+
 			emailInputLabel.classList.add('active');
+			emailInput.disabled = true;
 			emailInput.value = email;
 		}
 	}
@@ -120,15 +114,16 @@ class FacebookRegistration {
 	/**
 	 * @returns {HeliosFacebookRegistrationData}
 	 */
-	private getHeliosRegistrationDataFromForm(): HeliosFacebookRegistrationData {
-		var formElements: HTMLCollection = this.form.elements;
+	getHeliosRegistrationDataFromForm() {
+		const formElements = this.form.elements;
+
 		return {
-			username: (<HTMLInputElement> formElements.namedItem('username')).value,
-			password: (<HTMLInputElement> formElements.namedItem('password')).value,
-			email: (<HTMLInputElement> formElements.namedItem('email')).value,
-			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value,
-			langCode: (<HTMLInputElement> formElements.namedItem('langCode')).value,
-			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value,
+			username: formElements.namedItem('username').value,
+			password: formElements.namedItem('password').value,
+			email: formElements.namedItem('email').value,
+			birthdate: formElements.namedItem('birthdate').value,
+			langCode: formElements.namedItem('langCode').value,
+			marketingallowed: formElements.namedItem('marketingallowed').value,
 			fb_access_token: window.FB.getAccessToken()
 		};
 	}
@@ -139,14 +134,18 @@ class FacebookRegistration {
 	 *
 	 * @returns {void}
 	 */
-	private loginWithFacebookAccessToken (facebookToken: string, heliosTokenUrl: string): void {
-			var facebookTokenXhr = new XMLHttpRequest(),
-			data = <HeliosFacebookToken> {
+	loginWithFacebookAccessToken(facebookToken, heliosTokenUrl) {
+		const facebookTokenXhr = new XMLHttpRequest(),
+			data = {
 				fb_access_token: facebookToken
 			};
 
-		facebookTokenXhr.onload = (e: Event): void => {
-			var status: number = (<XMLHttpRequest> e.target).status;
+		/**
+		 * @param {Event} e
+		 * @returns {void}
+		 */
+		facebookTokenXhr.onload = (e) => {
+			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-signup-join-wikia-success', Mercury.Utils.trackActions.success);
@@ -158,7 +157,10 @@ class FacebookRegistration {
 			}
 		};
 
-		facebookTokenXhr.onerror = (e: Event): void => {
+		/**
+		 * @returns {void}
+		 */
+		facebookTokenXhr.onerror = () => {
 			this.formErrors.displayGeneralError();
 			this.authLogger.xhrError(facebookTokenXhr);
 
@@ -176,17 +178,21 @@ class FacebookRegistration {
 	 *
 	 * @returns {void}
 	 */
-	public onSubmit (event: Event): void {
+	onSubmit(event) {
 		event.preventDefault();
 
-		var facebookRegistrationXhr = new XMLHttpRequest(),
-			data = <HeliosFacebookRegistrationData> this.getHeliosRegistrationDataFromForm(),
+		const facebookRegistrationXhr = new XMLHttpRequest(),
+			data = this.getHeliosRegistrationDataFromForm(),
 			url = this.form.getAttribute('action');
 
 		this.formErrors.clearValidationErrors();
 
-		facebookRegistrationXhr.onload = (e: Event) => {
-			var status: number = (<XMLHttpRequest> e.target).status;
+		/**
+		 * @param {Event} e
+		 * @returns {void}
+		 */
+		facebookRegistrationXhr.onload = (e) => {
+			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
 				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url.replace('/users', '/token'));
@@ -198,7 +204,10 @@ class FacebookRegistration {
 			}
 		};
 
-		facebookRegistrationXhr.onerror = (e: Event) => {
+		/**
+		 * @returns {void}
+		 */
+		facebookRegistrationXhr.onerror = () => {
 			this.formErrors.displayGeneralError();
 			this.authLogger.xhrError(facebookRegistrationXhr);
 

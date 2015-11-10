@@ -1,19 +1,20 @@
 /**
- * Main entrypoint for validating user login
+ * Main entry point for validating user login
  * @class SubmitValidator
+ *
+ * @property {HTMLFormElement} form
+ * @property {HTMLButtonElement} submitButton
+ * @property {boolean} isPermanentlyDisabled
  */
-class SubmitValidator {
-	form: HTMLFormElement;
-	submitButton: HTMLButtonElement;
-	isPermanentlyDisabled: boolean = false;
-
+export default class SubmitValidator {
 	/**
-	 * @constructs SubmitValidator
 	 * @param {Element} form
+	 * @returns {void}
 	 */
-	constructor(form: Element) {
-		this.form = <HTMLFormElement> form;
-		this.submitButton = <HTMLButtonElement> this.form.querySelector('button[type=submit]');
+	constructor(form) {
+		this.form = form;
+		this.submitButton = this.form.querySelector('button[type=submit]');
+		this.isPermanentlyDisabled = false;
 	}
 
 	/**
@@ -21,7 +22,7 @@ class SubmitValidator {
 	 *
 	 * @returns {void}
 	 */
-	private onChange ():void {
+	onChange() {
 		if (this.areAllFieldsFilled() && !this.isPermanentlyDisabled) {
 			this.activateSubmit();
 		} else {
@@ -34,12 +35,15 @@ class SubmitValidator {
 	 *
 	 * @returns {boolean}
 	 */
-	private areAllFieldsFilled ():boolean {
-		var input: HTMLInputElement,
-			inputFields: NodeList = this.form.querySelectorAll('input[type=text], ' +
+	areAllFieldsFilled() {
+		const inputFields = this.form.querySelectorAll('input[type=text], ' +
 			'input[type=password], input[type=number], input[type=email], input[type=checkbox]:required');
 
-		return Array.prototype.slice.call(inputFields, 0).every((input: HTMLInputElement): boolean => {
+		/**
+		 * @param {HTMLInputElement} input
+		 * @returns {boolean}
+		 */
+		return Array.prototype.slice.call(inputFields, 0).every((input) => {
 			return input.value && !(input.type === 'checkbox' && !input.checked);
 		});
 	}
@@ -47,21 +51,21 @@ class SubmitValidator {
 	/**
 	 * @returns {void}
 	 */
-	private activateSubmit ():void {
+	activateSubmit() {
 		this.submitButton.disabled = false;
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	private deactivateSubmit ():void {
+	deactivateSubmit() {
 		this.submitButton.disabled = true;
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	public disablePermanently (): void {
+	disablePermanently() {
 		this.isPermanentlyDisabled = true;
 		this.deactivateSubmit();
 	}
@@ -71,7 +75,7 @@ class SubmitValidator {
 	 *
 	 * @returns {void}
 	 */
-	public watch (): void {
+	watch() {
 		this.onChange();
 		this.form.addEventListener('change', this.onChange.bind(this), true);
 		this.form.addEventListener('input', this.onChange.bind(this));

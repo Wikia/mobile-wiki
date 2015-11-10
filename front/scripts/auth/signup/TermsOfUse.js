@@ -1,19 +1,20 @@
-declare var pageParams: any;
+import Geo from '../common/Geo';
 
 /**
  * Creates new TermsOfUse.
- * @class
+ * @class TermsOfUse
+ *
+ * @property {HTMLFormElement} form
+ * @property {Geo} Geo
+ * @property {boolean} isJapan
  */
-class TermsOfUse {
-	form: HTMLFormElement;
-	Geo: Geo;
-	isJapan: boolean;
 
+export default class TermsOfUse {
 	/**
-	 * @constructor
 	 * @param {HTMLFormElement} form
+	 * @returns {void}
 	 */
-	constructor (form: HTMLFormElement) {
+	constructor(form) {
 		this.form = form;
 		this.Geo = new Geo();
 
@@ -23,17 +24,17 @@ class TermsOfUse {
 	/**
 	 * @returns {boolean}
 	 */
-	public shouldDisplayCheckbox (): boolean {
+	shouldDisplayCheckbox() {
 		return this.isJapan;
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	public init () {
+	init() {
 		if (this.shouldDisplayCheckbox()) {
-			var checkbox: HTMLInputElement = document.createElement('input'),
-				label: HTMLLabelElement = document.createElement('label');
+			const checkbox = document.createElement('input'),
+				label = document.createElement('label');
 
 			document.getElementById('termsOfUse').style.display = 'none';
 

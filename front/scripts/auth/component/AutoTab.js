@@ -1,17 +1,18 @@
-
 /**
  * @class AutoTab
+ *
+ * @property {HTMLInputElement} input
+ * @property {HTMLFormElement} form
+ * @property {number} max
  */
-class AutoTab {
-	input: HTMLInputElement;
-	form: HTMLFormElement;
-	max: number;
-
+export default class AutoTab {
 	/**
 	 * @constructs AutoTab
+	 *
 	 * @param {HTMLInputElement} input
+	 * @returns {void}
 	 */
-	constructor(input: HTMLInputElement) {
+	constructor(input) {
 		this.input = input;
 		this.form = input.form;
 		this.max = parseInt(input.getAttribute('maxlength'), 10);
@@ -20,17 +21,17 @@ class AutoTab {
 	/**
 	 * @returns {void}
 	 */
-	public init(): void {
+	init() {
 		this.input.addEventListener('input', this.onInput.bind(this));
-		//Jump to the next field if the input was autocompleted
+		// Jump to the next field if the input was autocompleted
 		this.input.addEventListener('change', this.onInput.bind(this));
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	private onInput(): void {
-		var nextVisibleInput = this.getNextVisibleInput(),
+	onInput() {
+		const nextVisibleInput = this.getNextVisibleInput(),
 			length = this.input.value.length;
 
 		if (length >= this.max && nextVisibleInput) {
@@ -43,8 +44,12 @@ class AutoTab {
 	 *
 	 * @returns {object}
 	 */
-	private getVisibleElements(): any {
-		return Array.prototype.filter.call(this.form.elements, function (element: HTMLInputElement) {
+	getVisibleElements() {
+		/**
+		 * @param {HTMLElement} element
+		 * @returns {boolean}
+		 */
+		return Array.prototype.filter.call(this.form.elements, (element) => {
 			return element.type !== 'hidden';
 		});
 	}
@@ -54,17 +59,23 @@ class AutoTab {
 	 *
 	 * @returns {object}
 	 */
-	private getNextVisibleInput() {
-		var elements: any = this.getVisibleElements(),
-			nextInput: any = null;
+	getNextVisibleInput() {
+		const elements = this.getVisibleElements();
 
-		elements.every(function (element: HTMLElement, index: number) {
+		let nextInput = null;
+
+		/**
+		 * @param {HTMLElement} element
+		 * @param {number} index
+		 * @returns {boolean}
+		 */
+		elements.every((element, index) => {
 			if (element === this.input) {
 				nextInput = elements[index + 1];
 				return false;
 			}
 			return true;
-		}, this);
+		});
 
 		return nextInput;
 	}

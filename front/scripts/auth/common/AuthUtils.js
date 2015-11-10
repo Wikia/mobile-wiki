@@ -1,14 +1,13 @@
 /**
  * @class AuthUtils
  */
-class AuthUtils {
-
+export default class AuthUtils {
 	/**
-	 * @param {string} url
+	 * @param {string} [url]
 	 *
 	 * @returns {void}
 	 */
-	public static authSuccessCallback (url?: string): void {
+	static authSuccessCallback(url) {
 		if (window.parent && pageParams.parentOrigin) {
 			window.parent.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
 			return;
@@ -21,18 +20,16 @@ class AuthUtils {
 	}
 
 	/**
-	 * @param {string} url
+	 * @param {string} [url]
 	 *
 	 * @returns {void}
 	 */
-	public static loadUrl (url?: string): void {
-		var win: Window;
-
-		win = (pageParams.isModal ? window.parent : window);
+	static loadUrl(url) {
+		const win = (pageParams.isModal ? window.parent : window);
 
 		if (url) {
 			win.location.href = url;
-			return
+			return;
 		}
 
 		win.location.reload();

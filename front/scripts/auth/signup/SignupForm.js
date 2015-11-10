@@ -1,18 +1,28 @@
+import AuthTracker from '../common/AuthTracker';
+import AuthLogger from '../common/AuthLogger';
+import AuthUtils from '../common/AuthUtils';
+import Cookie from '../common/Cookie';
+import FormErrors from '../common/FormErrors';
+import HttpCodes from '../common/HttpCodes';
+import UrlHelper from '../common/UrlHelper';
+import VisitSourceWrapper from '../common/VisitSourceWrapper';
+import MarketingOptIn from '../signup/MarketingOptIn';
+import TermsOfUse from '../signup/TermsOfUse';
+import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
+import {provide} from '../../baseline/mercury/utils/state';
+
 /**
- * HeliosError
  * @typedef {Object} HeliosError
  * @property {HeliosErrorAdditional} additional
  * @property {string} description
  */
 
 /**
- * HeliosErrorAdditional
  * @typedef {Object} HeliosErrorAdditional
  * @property {string} field
  */
 
 /**
- * HeliosRegisterInput
  * @typedef {Object} HeliosRegisterInput
  * @property {string} birthdate
  * @property {string} email
@@ -22,49 +32,32 @@
  * @property {string} [marketingallowed]
  */
 
-interface HeliosError {
-	additional: HeliosErrorAdditional;
-	description: string;
-}
-
-interface HeliosErrorAdditional {
-	field: string;
-}
-
-interface HeliosRegisterInput {
-	birthdate: string;
-	email: string;
-	langCode: string;
-	password: string;
-	username: string;
-	marketingallowed?: string;
-}
-
 /**
  * Creates new Signup Form.
  * @class SignupForm
+ *
+ * @property {HTMLFormElement} form
+ * @property {string} redirect
+ * @property {MarketingOptIn} marketingOptIn
+ * @property {FormErrors} formErrors
+ * @property {string} pageName
+ * @property {TermsOfUse} termsOfUse
+ * @property {AuthTracker} tracker
+ * @property {AuthLogger} authLogger
  */
-class SignupForm {
-	form: HTMLFormElement;
-	redirect: string;
-	marketingOptIn: MarketingOptIn;
-	formErrors: FormErrors;
-	pageName: string;
-	termsOfUse: TermsOfUse;
-	tracker: AuthTracker;
-	authLogger: AuthLogger = AuthLogger.getInstance();
-
+export default class SignupForm {
 	/**
-	 * @constructs SignupForm
 	 * @param {Element} form
+	 * @returns {void}
 	 */
-	constructor(form: Element) {
+	constructor(form) {
 		this.pageName = 'signup';
 
-		this.form = <HTMLFormElement> form;
+		this.form = form;
 		if (window.location.search) {
-			var params: Object = (new UrlHelper()).urlDecode(window.location.search.substr(1));
-			this.redirect = params['redirect'];
+			const params = (new UrlHelper()).urlDecode(window.location.search.substr(1));
+
+			this.redirect = params.redirect;
 		}
 		this.redirect = this.redirect || '/';
 		this.marketingOptIn = new MarketingOptIn();
@@ -73,43 +66,44 @@ class SignupForm {
 		this.formErrors = new FormErrors(this.form, 'registrationValidationErrors', this.pageName);
 		this.termsOfUse.init();
 		this.tracker = new AuthTracker('user-signup-mobile', this.pageName);
+		this.authLogger = AuthLogger.getInstance();
 	}
 
 	/**
 	 * @returns {HeliosRegisterInput}
 	 */
-	private getFormValues(): HeliosRegisterInput {
-		var formElements: HTMLCollection = this.form.elements;
+	getFormValues() {
+		const formElements = this.form.elements;
 
 		return {
-			username: (<HTMLInputElement> formElements.namedItem('username')).value,
-			password: (<HTMLInputElement> formElements.namedItem('password')).value,
-			email: (<HTMLInputElement> formElements.namedItem('email')).value,
-			birthdate: (<HTMLInputElement> formElements.namedItem('birthdate')).value,
-			langCode: (<HTMLInputElement> formElements.namedItem('langCode')).value,
-			marketingallowed: (<HTMLInputElement> formElements.namedItem('marketingallowed')).value
+			username: formElements.namedItem('username').value,
+			password: formElements.namedItem('password').value,
+			email: formElements.namedItem('email').value,
+			birthdate: formElements.namedItem('birthdate').value,
+			langCode: formElements.namedItem('langCode').value,
+			marketingallowed: formElements.namedItem('marketingallowed').value
 		};
 	}
 
 	/**
 	 * @returns {string}
 	 */
-	private getWikiaDomain(): string {
-		var hostParts: string[] = location.host.split('.').reverse();
+	getWikiaDomain() {
+		const hostParts = location.host.split('.').reverse();
+
 		if (hostParts.length >= 2) {
-			return hostParts[1] + '.' + hostParts[0];
+			return `${hostParts[1]}.${hostParts[0]}`;
 		}
 		return location.host;
 	}
 
 	/**
 	 * @param {string} userId
-	 *
 	 * @returns {void}
 	 */
-	private onSuccessfulRegistration(userId: string) {
-		M.provide('userId', userId);
-		this.tracker.track('successful-registration', M.trackActions.success);
+	onSuccessfulRegistration(userId) {
+		provide('userId', userId);
+		this.tracker.track('successful-registration', trackActions.success);
 
 		Cookie.set(
 			'registerSuccess',
@@ -119,16 +113,16 @@ class SignupForm {
 			}
 		);
 
-		M.track({
+		mercuryTrack({
 			trackingMethod: 'internal',
-			action: M.trackActions.success,
+			action: trackActions.success,
 			category: 'user-registration-session-source',
 			label: VisitSourceWrapper.sessionVisitSource.get()
 		});
 
-		M.track({
+		mercuryTrack({
 			trackingMethod: 'internal',
-			action: M.trackActions.success,
+			action: trackActions.success,
 			category: 'user-registration-lifetime-source',
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
@@ -138,13 +132,12 @@ class SignupForm {
 
 	/**
 	 * @param {Event} event
-	 *
 	 * @returns {void}
 	 */
-	public onSubmit(event: Event): void {
-		var registrationXhr = new XMLHttpRequest(),
-			data: HeliosRegisterInput = this.getFormValues(),
-			submitButton: HTMLElement = <HTMLElement> this.form.querySelector('button'),
+	onSubmit(event) {
+		const registrationXhr = new XMLHttpRequest(),
+			data = this.getFormValues(),
+			submitButton = this.form.querySelector('button'),
 			enableSubmitButton = () => {
 				submitButton.disabled = false;
 				submitButton.classList.remove('on');
@@ -154,8 +147,12 @@ class SignupForm {
 		submitButton.classList.add('on');
 		this.formErrors.clearValidationErrors();
 
-		registrationXhr.onload = (e: Event) => {
-			var status: number = (<XMLHttpRequest> e.target).status;
+		/**
+		 * @param {Event} e
+		 * @returns {void}
+		 */
+		registrationXhr.onload = (e) => {
+			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
 				this.onSuccessfulRegistration(JSON.parse(registrationXhr.responseText).user_id);
@@ -169,7 +166,7 @@ class SignupForm {
 			}
 		};
 
-		registrationXhr.onerror = (e: Event) => {
+		registrationXhr.onerror = () => {
 			enableSubmitButton();
 			this.formErrors.displayGeneralError();
 			this.authLogger.xhrError(registrationXhr);
@@ -186,7 +183,7 @@ class SignupForm {
 	/**
 	 * @returns {void}
 	 */
-	public watch(): void {
+	watch() {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 }

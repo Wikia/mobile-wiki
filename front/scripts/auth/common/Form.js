@@ -1,17 +1,18 @@
 /**
  * Controls floating labels behavior on focus / blur events in input fields
+ *
  * @class Form
+ *
+ * @property {HTMLFormElement} form
+ * @property {NodeList} input
  */
-class Form {
-	form: HTMLFormElement;
-	inputs: NodeList;
-
+export default class Form {
 	/**
-	 * @constructs Form
 	 * @param {Element} form
+	 * @returns {void}
 	 */
-	constructor (form: Element) {
-		this.form = <HTMLFormElement> form;
+	constructor(form) {
+		this.form = form;
 		this.inputs = this.form.querySelectorAll('input[type=text], input[type=password], input[type=email]');
 	}
 
@@ -20,17 +21,17 @@ class Form {
 	 *
 	 * @returns {void}
 	 */
-	private onFocus (event: Event): void {
-		var input: HTMLInputElement = <HTMLInputElement> event.target,
-			wrapper: HTMLElement,
-			label: HTMLElement;
+	onFocus(event) {
+		const input = event.target;
+
+		let wrapper, label;
 
 		if (['checkbox', 'submit'].indexOf(input.type) !== -1) {
 			return;
 		}
 
-		wrapper = <HTMLElement> this.findWrapper(input);
-		label = <HTMLElement> this.findLabel(wrapper);
+		wrapper = this.findWrapper(input);
+		label = this.findLabel(wrapper);
 
 		if (input.tagName.toLowerCase() === 'input' && wrapper) {
 			label.classList.add('active');
@@ -38,21 +39,24 @@ class Form {
 	}
 
 	/**
-	 * @param {Event} event
-	 *
 	 * @returns {void}
 	 */
-	private onBlur (event: Event): void {
+	onBlur() {
+		/**
+		 * @param {HTMLInputElement} input
+		 * @returns {void}
+		 */
 		Array.prototype.forEach.call(
 			this.inputs,
-			(function (input: HTMLInputElement): void {
-				var wrapper: HTMLElement = this.findWrapper(input),
-					label: HTMLElement = this.findLabel(wrapper);
+			(input) => {
+				const wrapper = this.findWrapper(input),
+					label = this.findLabel(wrapper);
+
 				if (!input.classList.contains('fake-input') && input.id !== 'signupBirthDate' &&
 					wrapper && input.value === '') {
 					label.classList.remove('active');
 				}
-			}).bind(this)
+			}
 		);
 	}
 
@@ -62,7 +66,7 @@ class Form {
 	 *
 	 * @returns {void}
 	 */
-	private togglePasswordInput (input: HTMLInputElement, toggler: HTMLElement): void {
+	togglePasswordInput(input, toggler) {
 		if (input.type === 'password') {
 			input.type = 'text';
 			toggler.classList.add('on');
@@ -78,13 +82,13 @@ class Form {
 	 *
 	 * @returns {void}
 	 */
-	private onClick (event: Event): void {
-		var element: HTMLInputElement = <HTMLInputElement> event.target,
-			wrapper: HTMLElement,
-			input: HTMLInputElement;
+	onClick(event) {
+		const element = event.target;
+
 		if (element.className.match('password-toggler')) {
-			wrapper = <HTMLElement> element.parentElement;
-			input = <HTMLInputElement> wrapper.querySelector('input');
+			const wrapper = element.parentElement,
+				input = wrapper.querySelector('input');
+
 			this.togglePasswordInput(input, element);
 		} else if (element.className.match('dice')) {
 			element.classList.toggle('on');
@@ -96,17 +100,22 @@ class Form {
 	 *
 	 * @returns {void}
 	 */
-	private onChange(): void {
+	onChange() {
+		/**
+		 * @param {HTMLInputElement} input
+		 * @returns {void}
+		 */
 		Array.prototype.forEach.call(
 			this.inputs,
-			(function (input: HTMLInputElement): void {
-				var wrapper: HTMLElement = this.findWrapper(input),
-					label: HTMLElement = this.findLabel(wrapper);
+			(input) => {
+				const wrapper = this.findWrapper(input),
+					label = this.findLabel(wrapper);
+
 				if (input.value && wrapper) {
 					label.classList.add('active');
 				}
-			}).bind(this)
-		)
+			}
+		);
 	}
 
 	/**
@@ -114,9 +123,9 @@ class Form {
 	 *
 	 * @returns {HTMLElement}
 	 */
-	private findWrapper(currentElement: HTMLElement): HTMLElement {
+	findWrapper(currentElement) {
 		while (currentElement && !currentElement.classList.contains('input-container')) {
-			currentElement = <HTMLElement> currentElement.parentElement;
+			currentElement = currentElement.parentElement;
 		}
 
 		return currentElement;
@@ -127,8 +136,8 @@ class Form {
 	 *
 	 * @returns {HTMLElement}
 	 */
-	private findLabel(container: HTMLElement): HTMLElement {
-		return <HTMLElement> container.querySelector('label');
+	findLabel(container) {
+		return container.querySelector('label');
 	}
 
 	/**
@@ -136,7 +145,7 @@ class Form {
 	 *
 	 * @returns {void}
 	 */
-	public watch (): void {
+	watch() {
 		this.onChange();
 		this.form.addEventListener('focus', this.onFocus.bind(this), true);
 		this.form.addEventListener('blur', this.onBlur.bind(this), true);

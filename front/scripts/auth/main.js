@@ -1,8 +1,12 @@
-/// <reference path="../../../typings/i18next/i18next.d.ts" />
-/// <reference path="../../vendor/visit-source/dist/visit-source.d.ts" />
-declare var translations: any;
-declare var language: string;
-declare var VisitSource: VisitSource;
+import BirthdateInput from 'common/BirthdateInput';
+import FacebookConnect from 'facebook/FacebookConnect';
+import FacebookLogin from 'facebook/FacebookLogin';
+import FacebookRegistration from 'facebook/FacebookRegistration';
+import Form from 'common/Form';
+import Login from 'common/Login';
+import SignupForm from 'signup/SignupForm';
+import SubmitValidator from 'login/SubmitValidator';
+import VisitSourceWrapper from 'common/VisitSourceWrapper';
 
 if (typeof language === 'undefined') {
 	language = '';
@@ -12,7 +16,7 @@ if (typeof translations === 'undefined') {
 	translations = {};
 }
 
-i18n.init(<I18nextOptions> {
+i18n.init({
 	fallbackLng: 'en',
 	lng: language,
 	lowerCaseLng: true,
@@ -21,14 +25,18 @@ i18n.init(<I18nextOptions> {
 	useLocalStorage: false
 });
 
-window.document.addEventListener('DOMContentLoaded', function ():void {
-	var formElement: HTMLFormElement = <HTMLFormElement> document.querySelector('form'),
-		facebookConnectLink = <HTMLAnchorElement> document.querySelector('.signup-provider-facebook'),
-		birthdateContainer: HTMLElement,
-		submitValidator: SubmitValidator;
+/**
+ * @returns {void}
+ */
+window.document.addEventListener('DOMContentLoaded', () => {
+	const formElement = document.querySelector('form'),
+		facebookConnectLink = document.querySelector('.signup-provider-facebook');
+
+	let birthdateContainer,
+		submitValidator;
 
 	if (formElement) {
-		birthdateContainer = <HTMLElement> formElement.querySelector('.birthdate-container');
+		birthdateContainer = formElement.querySelector('.birthdate-container');
 		new Form(formElement).watch();
 		submitValidator = new SubmitValidator(formElement);
 		submitValidator.watch();
