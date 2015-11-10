@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ArticleAddPhotoModel from '../models/article-add-photo.js';
 
 const ArticleAddPhotoController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
