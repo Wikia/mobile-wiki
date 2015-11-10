@@ -11,7 +11,7 @@ interface rgbaNotation {
 App.ColorUtilsMixin = Em.Mixin.create({
 
 	/**
-	 * Returns expanded colors, line #fff -> #ffffff, if given value is not shortened hex color, it is returned
+	 * Returns expanded colors, like #fff -> #ffffff, if given value is not shortened hex color, it is returned
 	 * without changes
 	 * @param {string} hex color
 	 * @returns {string} expanded hex color
