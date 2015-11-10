@@ -43,7 +43,7 @@ const ThirdsClickMixin = Ember.Mixin.create({
 	 * @param {boolean} [preventDefault=false]
 	 * @returns {void}
 	 */
-	callClickHandler(event, preventDefault=false) {
+	callClickHandler(event, preventDefault = false) {
 		const viewportWidth = this.get('viewportWidth'),
 			x = event.clientX,
 			screenEdgeWidth = viewportWidth * this.get('screenEdgeWidthRatio'),

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DiscussionErrorMixin from '../mixins/discussion-error';
 
 const DiscussionForumModel = Ember.Object.extend(DiscussionErrorMixin, {
 	wikiId: null,
@@ -16,7 +17,7 @@ const DiscussionForumModel = Ember.Object.extend(DiscussionErrorMixin, {
 	 * @param {number} [pageNum=0]
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadPage(pageNum=0) {
+	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
 
 		return new Ember.RSVP.Promise((resolve) => {

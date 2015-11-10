@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import App from '../app.js';
+import ArticleAddPhotoModel from '../models/article-add-photo.js';
 
 const ArticleController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -22,7 +24,7 @@ const ArticleController = Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		edit(title, sectionIndex) {
-			VisibilityStateManager.reset();
+			App.VisibilityStateManager.reset();
 			this.transitionToRoute('articleEdit', title, sectionIndex);
 
 			M.track({

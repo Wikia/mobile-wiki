@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ArticleEditMixin from '../mixins/article-edit';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -14,6 +15,7 @@ const ArticleAddPhotoModel = Ember.Object.extend({
 	photoName: null,
 	photoExtension: null
 });
+
 /**
  * @param {string} fileName
  * @returns {FileNameSeparated}

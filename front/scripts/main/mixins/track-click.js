@@ -7,7 +7,7 @@ const TrackClickMixin = Ember.Mixin.create({
 	 * @param {boolean} [isNonInteractive=true]
 	 * @returns {void}
 	 */
-	trackClick(category, label='', isNonInteractive=true) {
+	trackClick(category, label = '', isNonInteractive = true) {
 		M.track({
 			action: M.trackActions.click,
 			category,
@@ -23,7 +23,7 @@ const TrackClickMixin = Ember.Mixin.create({
 		 * @param {boolean} [isNonInteractive=true]
 		 * @returns {void}
 		 */
-		trackClick(category, label='', isNonInteractive=true) {
+		trackClick(category, label = '', isNonInteractive = true) {
 			this.trackClick(category, label, isNonInteractive);
 		}
 	}

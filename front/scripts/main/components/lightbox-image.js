@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ArticleContentMixin from '../mixins/article-content.js';
 
 const LightboxImageComponent = Ember.Component.extend(
 	ArticleContentMixin,
@@ -349,7 +350,7 @@ const LightboxImageComponent = Ember.Component.extend(
 		 * @param {boolean} [loadingError=false]
 		 * @returns {void}
 		 */
-		update(imageSrc, loadingError=false) {
+		update(imageSrc, loadingError = false) {
 			if (!this.get('isDestroyed')) {
 				this.setProperties({
 					imageSrc,

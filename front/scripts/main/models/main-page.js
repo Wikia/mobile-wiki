@@ -1,10 +1,11 @@
-import ArticleModel from '/app/models/article';
 import Ember from 'ember';
-import CuratedContentModel from '/app/models/curated-content';
+import ArticleModel from 'article';
+import CuratedContentModel from 'curated-content';
 
 const MainPageModel = ArticleModel.extend({
 	curatedContent: null
 });
+
 MainPageModel.reopenClass({
 	/**
 	 * @returns {Ember.RSVP.Promise}

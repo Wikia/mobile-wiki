@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import App from 'app.js';
 
 App.Router.map(function () {
 	const articlePath = '/wiki/';

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail.js';
+import ViewportMixin from '../mixins/viewport.js';
 
 const CuratedContentItemComponent = Ember.Component.extend(
 	CuratedContentThumbnailMixin,

@@ -1,5 +1,7 @@
-import MediaComponent from '/app/components/media';
 import Ember from 'ember';
+import MediaComponent from 'media.js';
+import ArticleContentMixin from '../mixins/article-content.js';
+import ViewportMixin from '../mixins/viewport.js';
 
 const ImageMediaComponent = MediaComponent.extend(
 	ArticleContentMixin,

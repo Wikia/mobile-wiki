@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import DiscussionPostModel from '../models/discussion-post';
+import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 
 const DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 	/**

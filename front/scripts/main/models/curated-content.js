@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import App from '../app';
 
 /**
  * @typedef {Object} CuratedContentItem
@@ -31,6 +32,7 @@ const CuratedContentModel = Ember.Object.extend({
 	items: [],
 	offset: null
 });
+
 CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
@@ -38,7 +40,7 @@ CuratedContentModel.reopenClass({
 	 * @param {string|null} [offset=null]
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(title, type='section', offset=null) {
+	find(title, type = 'section', offset = null) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const modelInstance = CuratedContentModel.create({
 					title,
@@ -46,7 +48,7 @@ CuratedContentModel.reopenClass({
 				}),
 				params = {};
 
-			let url = `${get('apiBase')}/main/`;
+			let url = `${App.get('apiBase')}/main/`;
 
 			url += `${type}/${title}`;
 

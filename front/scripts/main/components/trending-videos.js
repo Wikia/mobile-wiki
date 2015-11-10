@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import MediaModel from '../models/media.js';
 
 const TrendingVideosComponent = Ember.Component.extend({
 	classNames: ['trending', 'trending-videos', 'mw-content'],

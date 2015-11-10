@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DiscussionIndexModel from '../models/discussion-index';
 
 const DiscussionIndexRoute = Ember.Route.extend({
 	/**

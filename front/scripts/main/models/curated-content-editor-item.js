@@ -48,6 +48,7 @@ const CuratedContentEditorItemModel = Ember.Object.extend(ObjectUtilitiesMixin, 
 	title: null,
 	type: null
 });
+
 CuratedContentEditorItemModel.reopenClass({
 	/**
 	 * Object Model instance is only created once and all create() method invocations return already created object.
@@ -56,7 +57,7 @@ CuratedContentEditorItemModel.reopenClass({
 	 * @param {Object} [params={}]
 	 * @returns {CuratedContentEditorItemModel} model
 	 */
-	createNew(params={}) {
+	createNew(params = {}) {
 		const modelParams = $.extend(true, {
 			article_id: null,
 			image_id: null,

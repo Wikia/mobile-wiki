@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import TrackClickMixin from '../mixins/track-click';
+import ArticleModel from '../models/article';
 
 const ApplicationRoute = Ember.Route.extend(
 	Ember.TargetActionSupport,

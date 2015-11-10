@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import TrackClickMixin from '../mixins/track-click.js';
 
 /**
  * Type for topmost-level nav item, which doesn't have any of the properties defined in NavItem

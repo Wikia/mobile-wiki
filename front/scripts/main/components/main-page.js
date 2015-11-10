@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import AdsMixin from '../mixins/ads.js';
+import TrackClickMixin from '../mixins/track-click.js';
 
 const MainPageComponent = Ember.Component.extend(
 	AdsMixin,

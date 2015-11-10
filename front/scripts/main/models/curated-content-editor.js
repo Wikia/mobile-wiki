@@ -44,6 +44,7 @@ const CuratedContentEditorModel = Ember.Object.extend({
 	optional: null,
 	isDirty: false
 });
+
 CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorModel} model
@@ -178,7 +179,7 @@ CuratedContentEditorModel.reopenClass({
 	 * @param {string} excludedLabel=null
 	 * @returns {string[]} already used labels
 	 */
-	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel=null) {
+	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
 		// Flatten the array
 		return [].concat.apply([], modelRoot.curated.items.map((section) =>
 			// Labels of section items
@@ -194,7 +195,7 @@ CuratedContentEditorModel.reopenClass({
 	 * @param {string} excludedLabel=null
 	 * @returns {string[]} already used labels
 	 */
-	getAlreadyUsedLabels(sectionOrBlock, excludedLabel=null) {
+	getAlreadyUsedLabels(sectionOrBlock, excludedLabel = null) {
 		let labels = [];
 
 		if (Array.isArray(sectionOrBlock.items)) {

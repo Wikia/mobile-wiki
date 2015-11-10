@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import FullPageMixin from '../mixins/full-page';
 
 const ArticleAddPhotoRoute = Ember.Route.extend(FullPageMixin, {
 	/**

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import ArticleModel from '../models/article';
+import VisibilityStateManager from '../mixins/visibility-state-manager';
 
 const ArticleRoute = Ember.Route.extend({
 	redirectEmptyTarget: false,

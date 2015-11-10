@@ -1,5 +1,5 @@
-import ImageMediaComponent from '/app/components/image-media';
 import Ember from 'ember';
+import ImageMediaComponent from 'image-media.js';
 
 const WikiaMapComponent = ImageMediaComponent.extend({
 	classNames: ['wikia-map'],

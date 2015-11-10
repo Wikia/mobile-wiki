@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ArticleCommentsModel from '../models/article-comments.js';
 
 const ArticleCommentsComponent = Ember.Component.extend({
 	page: null,

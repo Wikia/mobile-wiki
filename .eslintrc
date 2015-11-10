@@ -10,7 +10,6 @@
   },
   "globals": {
     "App": true,
-    "Em": true,
     "EmPerfSender": true,
     "FastClick": true,
     "ga": true,

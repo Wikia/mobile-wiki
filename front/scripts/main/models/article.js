@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import MediaModel from '/app/models/media';
+import App from '../app';
+import MediaModel from 'media';
 
 /**
  * @typedef {Object} ArticleModelUrlParams
@@ -32,6 +33,7 @@ const ArticleModel = Ember.Object.extend({
 	users: [],
 	wiki: null,
 });
+
 ArticleModel.reopenClass({
 	/**
 	 * @param {ArticleModelUrlParams} params
@@ -44,7 +46,7 @@ ArticleModel.reopenClass({
 			redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
 		}
 
-		return `${get('apiBase')}/article/${params.title}${redirect}`;
+		return `${App.get('apiBase')}/article/${params.title}${redirect}`;
 	},
 
 	/**
@@ -87,7 +89,7 @@ ArticleModel.reopenClass({
 	getArticleRandomTitle() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${get('apiBase')}/article?random&titleOnly`,
+				url: `${App.get('apiBase')}/article?random&titleOnly`,
 				cache: false,
 				dataType: 'json',
 				success: (data) => {
@@ -128,7 +130,7 @@ ArticleModel.reopenClass({
 	 * @param {*} [source=this.getPreloadedData()]
 	 * @returns {void}
 	 */
-	setArticle(model, source=this.getPreloadedData()) {
+	setArticle(model, source = this.getPreloadedData()) {
 		const exception = source.exception,
 			data = source.data;
 

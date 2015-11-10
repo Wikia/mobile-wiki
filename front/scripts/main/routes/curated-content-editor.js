@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import TrackClickMixin from '../mixins/track-click';
+import CuratedContentEditorModel from '../models/curated-content-editor';
 
 const CuratedContentEditorRoute = Ember.Route.extend(
 	TrackClickMixin,
@@ -200,7 +202,7 @@ const CuratedContentEditorRoute = Ember.Route.extend(
 		 * @param {Boolean} dataSaved=false it's a flag whether data was saved or not
 		 * @returns {void}
 		 */
-		handleTransitionToMainPage(dataSaved=false) {
+		handleTransitionToMainPage(dataSaved = false) {
 			const ponto = window.Ponto;
 
 			this.set('publish', Boolean(dataSaved));

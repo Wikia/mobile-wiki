@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ArticleEditModel from '../models/article-edit.js';
 
 const ArticleEditController = Ember.Controller.extend({
 	application: Ember.inject.controller(),

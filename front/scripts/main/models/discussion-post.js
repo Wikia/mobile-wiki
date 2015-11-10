@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DiscussionErrorMixin from '../mixins/discussion-error';
 
 const DiscussionPostModel = Ember.Object.extend(DiscussionErrorMixin, {
 	wikiId: null,
@@ -57,6 +58,7 @@ const DiscussionPostModel = Ember.Object.extend(DiscussionErrorMixin, {
 		});
 	}
 });
+
 DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import App from '../app';
 
 const ArticleCommentsModel = Ember.Object.extend({
 	articleId: null,
@@ -38,8 +39,8 @@ const ArticleCommentsModel = Ember.Object.extend({
 	 * @param {number} [page=0]
 	 * @returns {string}
 	 */
-	url(articleId, page=0) {
-		return `${get('apiBase')}/article/comments/${articleId}/${page}`;
+	url(articleId, page = 0) {
+		return `${App.get('apiBase')}/article/comments/${articleId}/${page}`;
 	}
 });
 

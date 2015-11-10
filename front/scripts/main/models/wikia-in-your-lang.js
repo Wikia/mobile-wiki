@@ -4,6 +4,7 @@ const WikiaInYourLangModel = Ember.Object.extend({
 	message: null,
 	nativeDomain: null
 });
+
 WikiaInYourLangModel.reopenClass({
 	/**
 	 * @returns {Ember.RSVP.Promise}

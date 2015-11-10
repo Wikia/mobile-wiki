@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 /**
- * ImageCropData
  * @typedef {Object} ImageCropData
  * @property {number} x
  * @property {number} y
@@ -31,7 +30,7 @@ const CuratedContentThumbnailMixin = Ember.Mixin.create({
 	 * @param {ImageCropData} [imageCrop=null]
 	 * @returns {string}
 	 */
-	generateThumbUrl(imageUrl, imageCrop=null) {
+	generateThumbUrl(imageUrl, imageCrop = null) {
 		const options = {
 			width: this.get('imageWidth')
 		};

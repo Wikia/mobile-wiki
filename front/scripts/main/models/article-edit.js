@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ArticleEditMixin from '../mixins/article-edit';
 
 const ArticleEditModel = Ember.Object.extend({
 	content: null,
@@ -10,6 +11,7 @@ const ArticleEditModel = Ember.Object.extend({
 		return this.get('content') !== this.get('originalContent');
 	})
 });
+
 ArticleEditModel.reopenClass(ArticleEditMixin, {
 	/**
 	 * @param {*} model
