@@ -1,5 +1,7 @@
 import AuthTracker from 'common/AuthTracker';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
+import trackActions from '../mercury/utils/track';
+import getQueryParam from '../mercury/utils/queryString';
 
 (function () {
 	/**
@@ -17,7 +19,7 @@ import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 		// IsCorporatePage
 		dimensions[15] = 'No';
 		// newAuthEntryPage
-		dimensions[10] = M.getQueryParam('redirect');
+		dimensions[10] = getQueryParam('redirect');
 
 		UniversalAnalytics.setDimensions(dimensions);
 	}
@@ -59,7 +61,7 @@ import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 		tracker.trackClick(
 			document.querySelector('.close'),
 			'login-modal',
-			M.trackActions.close
+			trackActions.close
 		);
 
 		// Click "Forgot Password" link
@@ -94,7 +96,7 @@ import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 		tracker.trackClick(
 			document.querySelector('.close'),
 			'register-modal',
-			M.trackActions.close
+			trackActions.close
 		);
 
 		// Click "Register Now" link
@@ -135,14 +137,14 @@ import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 		tracker.trackClick(
 			document.querySelector('.close'),
 			'join-close-button',
-			M.trackActions.close
+			trackActions.close
 		);
 
 		// Click on 'connect with facebook'
 		tracker.trackClick(
 			document.querySelector('.signup-provider-facebook'),
 			'facebook-login-button',
-			M.trackActions.click
+			trackActions.click
 		);
 	}
 
@@ -165,7 +167,7 @@ import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 		tracker.trackClick(
 			document.querySelector('.close'),
 			'facebook-connect-close-button',
-			M.trackActions.close
+			trackActions.close
 		);
 
 		// Click "Forgot Password" link
@@ -200,7 +202,7 @@ import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 		tracker.trackClick(
 			document.querySelector('.close'),
 			'facebook-register-close-button',
-			M.trackActions.close
+			trackActions.close
 		);
 
 		// Click "Connect it" link

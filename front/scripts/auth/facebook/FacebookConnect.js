@@ -4,6 +4,7 @@ import FacebookSDK from 'FacebookSDK';
 import HttpCodes from '../common/HttpCodes';
 import Login from '../common/Login';
 import UrlHelper from '../common/UrlHelper';
+import trackActions from '../../mercury/utils/track';
 
 /**
  * @typedef {Object} HeliosFacebookConnectData
@@ -100,7 +101,7 @@ export default class FacebookConnect extends Login {
 			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
-				this.tracker.track('facebook-link-existing', M.trackActions.success);
+				this.tracker.track('facebook-link-existing', trackActions.success);
 				AuthUtils.authSuccessCallback(this.redirect);
 			} else {
 				const errors = JSON.parse(facebookConnectXhr.responseText).errors,
@@ -118,7 +119,7 @@ export default class FacebookConnect extends Login {
 
 				this.tracker.track(
 					`facebook-link-error:${errorCodesArray.join(';')}`,
-					M.trackActions.error
+					trackActions.error
 				);
 
 				this.authLogger.xhrError(facebookConnectXhr);

@@ -1,4 +1,5 @@
 import AuthTracker from '../common/AuthTracker';
+import trackActions from '../../mercury/utils/track';
 
 /**
  * @class FormErrors
@@ -130,6 +131,6 @@ export default class FormErrors {
 	 * @returns {void}
 	 */
 	trackValidationErrors(errors) {
-		this.tracker.track(`${this.trackingLabelPrefix}: ${errors.join(';')}`, M.trackActions.error);
+		this.tracker.track(`${this.trackingLabelPrefix}: ${errors.join(';')}`, trackActions.error);
 	}
 }

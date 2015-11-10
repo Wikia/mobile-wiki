@@ -1,12 +1,17 @@
+import AuthTracker from '../common/AuthTracker';
+import AuthLogger from '../common/AuthLogger';
+import AuthUtils from '../common/AuthUtils';
+import HttpCodes from '../common/HttpCodes';
+import UrlHelper from '../common/UrlHelper';
+import trackActions from '../../mercury/utils/track';
+
 /**
- * LoginCredentials
  * @typedef {Object} LoginCredentials
  * @property {string} username
  * @property {string} password
  */
 
 /**
- * LoginResponse
  * @typedef {Object} LoginResponse
  * @property {string} user_id
  * @property {string} access_token
@@ -18,17 +23,10 @@
  */
 
 /**
- * FormElements
  * @typedef {Object} FormElements
  * @property {HTMLInputElement} username
  * @property {HTMLInputElement} password
  */
-
-import AuthTracker from '../common/AuthTracker';
-import AuthLogger from '../common/AuthLogger';
-import AuthUtils from '../common/AuthUtils';
-import HttpCodes from '../common/HttpCodes';
-import UrlHelper from '../common/UrlHelper';
 
 /**
  * @class Login
@@ -90,10 +88,10 @@ export default class Login {
 		xhr.onload = () => {
 			enableSubmitButton();
 			if (xhr.status === HttpCodes.UNAUTHORIZED) {
-				this.tracker.track('login-credentials-error', M.trackActions.error);
+				this.tracker.track('login-credentials-error', trackActions.error);
 				return this.displayError('errors.wrong-credentials');
 			} else if (xhr.status !== HttpCodes.OK) {
-				this.tracker.track('login-server-error', M.trackActions.error);
+				this.tracker.track('login-server-error', trackActions.error);
 				this.authLogger.xhrError(xhr);
 				return this.displayError('errors.server-error');
 			}
@@ -102,7 +100,7 @@ export default class Login {
 
 			if (response.error) {
 				// Helios may return an error even if the request returns a 200
-				this.tracker.track('login-credentials-error', M.trackActions.error);
+				this.tracker.track('login-credentials-error', trackActions.error);
 				this.displayError('errors.wrong-credentials');
 			} else {
 				this.onLoginSuccess(response);
@@ -112,7 +110,7 @@ export default class Login {
 		xhr.onerror = () => {
 			enableSubmitButton();
 			this.authLogger.xhrError(xhr);
-			this.tracker.track('login-server-error', M.trackActions.error);
+			this.tracker.track('login-server-error', trackActions.error);
 			this.displayError('errors.server-error');
 		};
 
@@ -126,7 +124,7 @@ export default class Login {
 	 * @returns {void}
 	 */
 	onLoginSuccess() {
-		this.tracker.track('login-success', M.trackActions.submit);
+		this.tracker.track('login-success', trackActions.submit);
 		AuthUtils.authSuccessCallback(this.redirect);
 	}
 

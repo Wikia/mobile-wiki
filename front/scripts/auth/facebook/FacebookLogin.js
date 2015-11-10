@@ -4,6 +4,7 @@ import AuthUtils from '../common/AuthUtils';
 import FacebookSDK from 'FacebookSDK';
 import HttpCodes from '../common/HttpCodes';
 import UrlHelper from '../common/UrlHelper';
+import trackActions from '../../mercury/utils/track';
 
 /**
  * @typedef {Object} FacebookResponse
@@ -158,7 +159,7 @@ export default class FacebookLogin {
 		 * @returns {void}
 		 */
 		facebookTokenXhr.onerror = () => {
-			this.tracker.track('facebook-login-helios-error', M.trackActions.error);
+			this.tracker.track('facebook-login-helios-error', trackActions.error);
 			this.authLogger.xhrError(facebookTokenXhr);
 			this.activateButton();
 		};

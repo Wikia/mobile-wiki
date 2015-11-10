@@ -1,3 +1,6 @@
+import getQueryParam from '../../mercury/utils/queryString';
+import {track as mercuryTrack, trackActions, mercuryTrackPageView, setTrackContext} from '../../mercury/utils/track';
+
 /**
  * @class AuthTracker
  *
@@ -11,7 +14,7 @@ export default class AuthTracker {
 	 */
 	constructor(gaCategory, pageType) {
 		this.gaCategory = gaCategory;
-		M.setTrackContext({
+		setTrackContext({
 			a: pageType,
 			n: -1
 		});
@@ -20,11 +23,11 @@ export default class AuthTracker {
 	/**
 	 * @param {HTMLElement} element
 	 * @param {string} label
-	 * @param {Object} [action=M.trackActions.click]
+	 * @param {Object} [action=trackActions.click]
 	 *
 	 * @returns {void}
 	 */
-	trackClick(element, label, action = M.trackActions.click) {
+	trackClick(element, label, action = trackActions.click) {
 		if (!element) {
 			return;
 		}
@@ -41,7 +44,7 @@ export default class AuthTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		M.trackPageView(null);
+		mercuryTrackPageView(null);
 	}
 
 	/**
@@ -59,7 +62,7 @@ export default class AuthTracker {
 		 * @returns {void}
 		 */
 		form.addEventListener('submit', () => {
-			this.track(label, M.trackActions.submit);
+			this.track(label, trackActions.submit);
 		});
 	}
 
@@ -76,12 +79,12 @@ export default class AuthTracker {
 				action,
 				label
 			},
-			sourceUrl = M.getQueryParam('redirect');
+			sourceUrl = getQueryParam('redirect');
 
 		if (sourceUrl) {
 			trackOptions.sourceUrl = sourceUrl;
 		}
 
-		M.track(trackOptions);
+		mercuryTrack(trackOptions);
 	}
 }

@@ -8,6 +8,7 @@ import UrlHelper from '../common/UrlHelper';
 import VisitSourceWrapper from '../common/VisitSourceWrapper';
 import MarketingOptIn from '../signup/MarketingOptIn';
 import TermsOfUse from '../signup/TermsOfUse';
+import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
 
 /**
  * @typedef {Object} HeliosError
@@ -101,7 +102,7 @@ export default class SignupForm {
 	 */
 	onSuccessfulRegistration(userId) {
 		M.provide('userId', userId);
-		this.tracker.track('successful-registration', M.trackActions.success);
+		this.tracker.track('successful-registration', trackActions.success);
 
 		Cookie.set(
 			'registerSuccess',
@@ -111,16 +112,16 @@ export default class SignupForm {
 			}
 		);
 
-		M.track({
+		mercuryTrack({
 			trackingMethod: 'internal',
-			action: M.trackActions.success,
+			action: trackActions.success,
 			category: 'user-registration-session-source',
 			label: VisitSourceWrapper.sessionVisitSource.get()
 		});
 
-		M.track({
+		mercuryTrack({
 			trackingMethod: 'internal',
-			action: M.trackActions.success,
+			action: trackActions.success,
 			category: 'user-registration-lifetime-source',
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
