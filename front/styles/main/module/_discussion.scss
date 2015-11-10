@@ -132,6 +132,7 @@ $horizontal-padding: 15px;
 
 	.post-detail {
 		padding: 12px $horizontal-padding;
+		transition: opacity 1s;
 
 		.share {
 			align-items: center;
@@ -148,6 +149,10 @@ $horizontal-padding: 15px;
 
 		.timestamp {
 			font-size: $type-min;
+		}
+
+		&.is-new {
+			opacity: 0;
 		}
 	}
 

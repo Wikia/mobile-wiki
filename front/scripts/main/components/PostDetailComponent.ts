@@ -6,6 +6,7 @@ App.PostDetailComponent = Em.Component.extend(
 	App.DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['post-detail'],
+		classNameBindings: ['isNew'],
 
 		postId: null,
 		authorUrl: Em.computed('post', function (): string {
@@ -23,6 +24,8 @@ App.PostDetailComponent = Em.Component.extend(
 
 		// Timeout used for auto-hiding the sharing icons
 		hideShareTimeout: null,
+
+		isNew: Em.computed.alias('post.isNew'),
 
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Em.computed('postId', function () {

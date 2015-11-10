@@ -2,7 +2,7 @@
 	<a href="#" class="editor-close" {{action 'toggleEditorActive' false}}>
 		{{svg 'close' viewBox='0 0 18 18'}}
 	</a>
-	<button type="submit" {{action 'createPost' forumId}} disabled={{submitDisabled}}>Post</button>
+	<button type="submit" {{action 'createPost' forumId posts}} disabled={{submitDisabled}}>Post</button>
 	<div class="editor-wrapper">
 		<textarea class="editor-textarea" oninput={{action 'updateOnType'}} onfocus={{action 'toggleEditorActive' true}} placeholder="Share a thought, question or link..."></textarea>
 	</div>
@@ -12,7 +12,7 @@
 	}}
 	{{#if isLoading}}
 		{{loading-spinner
-			active=true
+			active=isLoading
 			radius=32
 			strokeWidth=2
 		}}

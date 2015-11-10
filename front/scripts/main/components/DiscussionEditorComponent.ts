@@ -70,7 +70,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			this.set('active', active);
 		},
 
-		createPost(forumId: string): void {
+		createPost(forumId: string, posts): void {
 			this.set('isLoading', true);
 			this.sendAction('setSortBy', 'latest');
 			Em.$('html, body').animate({ scrollTop: 0 });
@@ -88,14 +88,21 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				xhrFields: {
 					withCredentials: true,
 				},
-				success: (data: any): void => {
+				success: (post: any): void => {
 					this.set('showSuccess', true);
-					Em.run.later(() => {
+					Em.run.later(this, () => {
 						this.set('showSuccess', false);
 						this.set('active', false);
 						this.set('submitDisabled', false);
 						this.$('.editor-textarea').val('');
-						// TODO load new post
+
+						// TODO fix when changing tab
+						post._embedded.firstPost[0].isNew = true;
+						posts.insertAt(0, post);
+
+						Em.run.next(this, () => {
+							Em.set(post._embedded.firstPost[0], 'isNew', false);
+						});
 					}, 2000);
 				},
 				error: (): void => {
