@@ -59,6 +59,30 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 			default:
 				return '';
 		}
+	},
+
+	createPost(postData: any) {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
+				data: JSON.stringify(postData),
+				contentType: 'application/json',
+				xhrFields: {
+					withCredentials: true,
+				},
+				success: (post: any): void => {
+					post._embedded.firstPost[0].isNew = true;
+					this.posts.insertAt(0, post);
+					resolve(this);
+				},
+				error: (err: any) => {
+					this.setErrorProperty(err, this);
+					resolve(this);
+				}
+			});
+		});
+
 	}
 });
 

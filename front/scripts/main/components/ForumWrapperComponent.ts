@@ -36,6 +36,14 @@ App.ForumWrapperComponent = Em.Component.extend(
 			setSortBy(sortBy: string): void {
 				this.sendAction('setSortBy', sortBy);
 			},
+
+			/**
+			 * @param {any} postData
+			 * @returns {void}
+			 */
+			createPost(postData: any): any {
+				return this.sendAction('createPost', postData);
+			},
 		},
 
 		/**

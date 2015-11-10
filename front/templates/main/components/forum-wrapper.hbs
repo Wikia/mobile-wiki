@@ -4,6 +4,7 @@
 	siteHeadPinned=siteHeadPinned
 	setSortBy=setSortBy
 	posts=posts
+	createPost='createPost'
 }}
 {{#each posts as |item|}}
 	{{post-detail
@@ -13,6 +14,7 @@
 		postId=item.id
 		replyCount=item.postCount
 		upvote='upvote'
+		isVisible=item._embedded.firstPost.[0].isVisible
 	}}
 {{/each}}
 {{#if hasMore}}

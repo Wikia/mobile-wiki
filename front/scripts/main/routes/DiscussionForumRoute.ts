@@ -64,6 +64,10 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.T
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
+		createPost(postData: any): any {
+			return this.modelFor('discussion.forum').createPost(postData);
+		},
+
 		/**
 		 * @returns {void}
 		 */
@@ -92,6 +96,13 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.T
 			}
 
 			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+		},
+
+		/**
+		 * @param postData
+		 */
+		createNewPost(postData: any) {
+
 		},
 
 		/**
