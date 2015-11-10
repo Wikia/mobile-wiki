@@ -1,12 +1,13 @@
 $discussion-hero-unit-text-color: $color-white;
 $discussion-hero-unit-avatar-dimension: 40px;
+$discussion-hero-unit-height: 200px;
 
 .discussion-hero-unit {
-	background-position: center;
-	background-size: cover;
+	background: $discussion-header-image-blend-background;
 	color: $discussion-hero-unit-text-color;
 	display: none;
-	margin-top: 60px;
+	height: $discussion-hero-unit-height;
+	margin-top: $site-header-height;
 	text-align: center;
 
 	h1 {
@@ -46,10 +47,24 @@ $discussion-hero-unit-avatar-dimension: 40px;
 	}
 }
 
+//@for $i from 1 through length($verticals) {
+//	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
+//		background: #{nth($vertical-colors, $i)};
+//
+//		.discussion-hero-unit-content {
+//			background-color: rgba(nth($vertical-colors, $i), 1);
+//		}
+//
+//		&.overlay .discussion-hero-unit-content {
+//			background-color: rgba(nth($vertical-colors, $i), 0.8);
+//		}
+//	}
+//}
+//
+
 .minimized {
 	&.discussion-hero-unit {
-		padding-bottom: 0;
-		padding-top: 95px;
+		height: $site-header-height;
 	}
 }
 
