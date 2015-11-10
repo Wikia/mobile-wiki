@@ -1,6 +1,7 @@
 import {prop} from '../baseline/mercury/utils/state';
 import * as trackPerf from '../mercury/utils/trackPerf';
 import {getQueryParam} from '../mercury/utils/queryString';
+import Ads from '../mercury/modules/Ads';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 
 const App = Em.Application.create({
@@ -150,7 +151,7 @@ App.initializer({
 	name: 'setupTracking',
 	after: 'currentUser',
 	initialize() {
-		const adsContext = Mercury.Modules.Ads.getInstance().getContext();
+		const adsContext = Ads.getInstance().getContext();
 
 		let dimensions = [];
 
