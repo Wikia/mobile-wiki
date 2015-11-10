@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 const DiscussionIndexModel = Ember.Object.extend({
 });
+
 DiscussionIndexModel.reopenClass({
 	/**
 	 * @param {number} wikiId

@@ -20,6 +20,7 @@ const UserModel = Ember.Object.extend({
 	userId: null,
 	rights: null
 });
+
 UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
