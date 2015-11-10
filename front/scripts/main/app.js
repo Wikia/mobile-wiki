@@ -1,8 +1,9 @@
-import {prop} from '../baseline/mercury/utils/state';
-import * as trackPerf from '../mercury/utils/trackPerf';
-import {getQueryParam} from '../mercury/utils/queryString';
+import Ember from 'ember';
+import {prop} from '../baseline/mercury/utils/state.js';
+import * as trackPerf from '../mercury/utils/trackPerf.js';
+import {getQueryParam} from '../mercury/utils/queryString.js';
 
-const App = Em.Application.create({
+const App = Ember.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
 	// putting blocking scripts before our content
 	rootElement: '#ember-container'
@@ -41,10 +42,10 @@ App.initializer({
 	initialize() {
 		const optimizelyScript = prop('optimizelyScript');
 
-		if (!Em.isEmpty(optimizelyScript) && !getQueryParam('noexternals')) {
+		if (!Ember.isEmpty(optimizelyScript) && !getQueryParam('noexternals')) {
 			App.deferReadiness();
 
-			Em.$.getScript(optimizelyScript).always(() => {
+			Ember.$.getScript(optimizelyScript).always(() => {
 				App.advanceReadiness();
 			});
 		}
@@ -225,7 +226,7 @@ App.initializer({
 				continent: 'wikia-dev-continent'
 			});
 		} else {
-			Em.debug('Geo cookie is not set');
+			Ember.debug('Geo cookie is not set');
 		}
 	}
 });

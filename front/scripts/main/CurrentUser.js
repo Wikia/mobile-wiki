@@ -1,4 +1,6 @@
-import {prop} from '../baseline/mercury/utils/state';
+import Ember from 'ember';
+import App from 'app.js';
+import {prop} from '../baseline/mercury/utils/state.js';
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -19,12 +21,12 @@ import {prop} from '../baseline/mercury/utils/state';
  * @property {*} options
  */
 
-App.CurrentUser = Em.Object.extend({
+const CurrentUser = Ember.Object.extend({
 	rights: {},
-	isAuthenticated: Em.computed.bool('userId'),
+	isAuthenticated: Ember.computed.bool('userId'),
 	language: null,
 
-	userId: Em.computed(() => {
+	userId: Ember.computed(() => {
 		const cookieUserId = parseInt(prop('userId'), 10);
 
 		return cookieUserId > 0 ? cookieUserId : null;
@@ -42,7 +44,7 @@ App.CurrentUser = Em.Object.extend({
 					this.setProperties(result);
 				})
 				.catch((err) => {
-					Em.Logger.warn('Couldn\'t load current user model', err);
+					Ember.Logger.warn('Couldn\'t load current user model', err);
 				});
 
 			this.loadUserInfo()
@@ -50,7 +52,7 @@ App.CurrentUser = Em.Object.extend({
 				.then(this.loadUserRights.bind(this))
 				.catch((err) => {
 					this.setUserLanguage();
-					Em.Logger.warn('Couldn\'t load current user info', err);
+					Ember.Logger.warn('Couldn\'t load current user info', err);
 				});
 		} else {
 			this.setUserLanguage();
@@ -64,7 +66,7 @@ App.CurrentUser = Em.Object.extend({
 	 * @returns {void}
 	 */
 	setUserLanguage(userLang = null) {
-		const contentLanguage = Em.getWithDefault(Mercury, 'wiki.language.content', 'en'),
+		const contentLanguage = Ember.getWithDefault(Mercury, 'wiki.language.content', 'en'),
 			userLanguage = userLang || contentLanguage;
 
 		this.set('language', userLanguage);
@@ -73,11 +75,11 @@ App.CurrentUser = Em.Object.extend({
 
 	/**
 	 * @param {QueryUserInfoResponse} result
-	 * @returns {Em.RSVP.Promise<QueryUserInfoResponse>}
+	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserLanguage(result) {
-		return new Em.RSVP.Promise((resolve) => {
-			const userLanguage = Em.get(result, 'query.userinfo.options.language');
+		return new Ember.RSVP.Promise((resolve) => {
+			const userLanguage = Ember.get(result, 'query.userinfo.options.language');
 
 			this.setUserLanguage(userLanguage);
 
@@ -87,14 +89,14 @@ App.CurrentUser = Em.Object.extend({
 
 	/**
 	 * @param {QueryUserInfoResponse} result
-	 * @returns {Em.RSVP.Promise<QueryUserInfoResponse>}
+	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserRights(result) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			const rightsArray = Em.get(result, 'query.userinfo.rights'),
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const rightsArray = Ember.get(result, 'query.userinfo.rights'),
 				rights = {};
 
-			if (!Em.isArray(rightsArray)) {
+			if (!Ember.isArray(rightsArray)) {
 				reject(result);
 			}
 
@@ -109,11 +111,11 @@ App.CurrentUser = Em.Object.extend({
 	},
 
 	/**
-	 * @returns {Em.RSVP.Promise<QueryUserInfoResponse>}
+	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo() {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: '/api.php',
 				data: {
 					action: 'query',
@@ -128,3 +130,5 @@ App.CurrentUser = Em.Object.extend({
 		});
 	}
 });
+
+export default CurrentUser;

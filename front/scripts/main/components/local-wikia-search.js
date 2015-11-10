@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import App from '../app.js';
 
 /**
  * Type for search suggestion
@@ -126,7 +127,7 @@ const LocalWikiaSearchComponent = Ember.Component.extend({
 	 * @returns {string}
 	 */
 	getSearchURI(query) {
-		return `${get('apiBase')}/search/${encodeURIComponent(query)}`;
+		return `${App.get('apiBase')}/search/${encodeURIComponent(query)}`;
 	},
 
 	/**
