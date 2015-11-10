@@ -2,7 +2,7 @@ import Ember from 'ember';
 import FeaturedContentMixin from '../mixins/featured-content.js';
 import TrackClickMixin from '../mixins/track-click.js';
 
-const FeaturedContentconstiation1Component = Ember.Component.extend(
+const FeaturedContentVariation1Component = Ember.Component.extend(
 	FeaturedContentMixin,
 	TrackClickMixin,
 	{
