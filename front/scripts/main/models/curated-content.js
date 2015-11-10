@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * @typedef {Object} CuratedContentItem
  * @property {string} label
@@ -23,29 +25,28 @@
  * @property {number} height
  */
 
-App.CuratedContentModel = Em.Object.extend({
+const CuratedContentModel = Ember.Object.extend({
 	title: null,
 	type: null,
 	items: [],
 	offset: null
 });
-
-App.CuratedContentModel.reopenClass({
+CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
 	 * @param {string} [type='section']
 	 * @param {string|null} [offset=null]
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(title, type = 'section', offset = null) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			const modelInstance = App.CuratedContentModel.create({
+	find(title, type='section', offset=null) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const modelInstance = CuratedContentModel.create({
 					title,
 					type
 				}),
 				params = {};
 
-			let url = `${App.get('apiBase')}/main/`;
+			let url = `${get('apiBase')}/main/`;
 
 			url += `${type}/${title}`;
 
@@ -53,12 +54,12 @@ App.CuratedContentModel.reopenClass({
 				params.offset = offset;
 			}
 
-			Em.$.ajax({
+			Ember.$.ajax({
 				url,
 				data: params,
 				success: (data) => {
 					modelInstance.setProperties({
-						items: App.CuratedContentModel.sanitizeItems(data.items),
+						items: CuratedContentModel.sanitizeItems(data.items),
 						offset: data.offset || null
 					});
 					resolve(modelInstance);
@@ -69,13 +70,13 @@ App.CuratedContentModel.reopenClass({
 	},
 
 	/**
-	 * @param {App.CuratedContentModel} model
-	 * @returns {Em.RSVP.Promise}
+	 * @param {CuratedContentModel} model
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadMore(model) {
-		return new Em.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			// Category type is hardcoded because only Categories API supports offset.
-			const newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
+			const newModelPromise = CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
 
 			newModelPromise
 				.then((newModel) => {
@@ -94,7 +95,7 @@ App.CuratedContentModel.reopenClass({
 	sanitizeItems(rawData) {
 		let sanitizedItems = [];
 
-		if (Em.isArray(rawData)) {
+		if (Ember.isArray(rawData)) {
 			sanitizedItems = rawData.map((item) => {
 				return this.sanitizeItem(item);
 			});
@@ -130,7 +131,7 @@ App.CuratedContentModel.reopenClass({
 			}
 
 			// Remove /wiki/
-			categoryName = categoryName.replace(Em.get(Mercury, 'wiki.articlePath'), '');
+			categoryName = categoryName.replace(Ember.get(Mercury, 'wiki.articlePath'), '');
 
 			// Remove Category: prefix
 			categoryName = categoryName.substr(categoryName.indexOf(':') + 1);
@@ -150,7 +151,7 @@ App.CuratedContentModel.reopenClass({
 			};
 
 			// ArticlesApi doesn't return type for blog posts so we need to look at the namespace
-			if (Em.isEmpty(rawData.type) && rawData.ns === 500) {
+			if (Ember.isEmpty(rawData.type) && rawData.ns === 500) {
 				item.type = 'blog';
 			}
 		}
@@ -162,3 +163,5 @@ App.CuratedContentModel.reopenClass({
 		return item;
 	}
 });
+
+export default CuratedContentModel;

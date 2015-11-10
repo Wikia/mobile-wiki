@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * @typedef {Object} UserModelFindParams
  * @property {number} userId
@@ -12,27 +14,26 @@
  * @property {number} userId
  */
 
-App.UserModel = Em.Object.extend({
+const UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
 	userId: null,
 	rights: null
 });
-
-App.UserModel.reopenClass({
+UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
 	/**
 	 * @param {UserModelFindParams} params
-	 * @returns {Ember.RSVP.Promise<App.UserModel>}
+	 * @returns {Ember.RSVP.Promise<UserModel>}
 	 */
 	find(params) {
-		const avatarSize = params.avatarSize || App.UserModel.defaultAvatarSize,
-			modelInstance = App.UserModel.create();
+		const avatarSize = params.avatarSize || UserModel.defaultAvatarSize,
+			modelInstance = UserModel.create();
 
-		return App.UserModel.loadDetails(params.userId, avatarSize)
+		return UserModel.loadDetails(params.userId, avatarSize)
 			.then((userDetails) => {
-				const detailsSanitized = App.UserModel.sanitizeDetails(userDetails);
+				const detailsSanitized = UserModel.sanitizeDetails(userDetails);
 
 				return modelInstance.setProperties(detailsSanitized);
 			});
@@ -41,11 +42,11 @@ App.UserModel.reopenClass({
 	/**
 	 * @param {number} userId
 	 * @param {number} avatarSize
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadDetails(userId, avatarSize) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php',
 				}),
@@ -57,7 +58,7 @@ App.UserModel.reopenClass({
 				},
 				dataType: 'json',
 				success: (result) => {
-					if (Em.isArray(result.items)) {
+					if (Ember.isArray(result.items)) {
 						resolve(result.items[0]);
 					} else {
 						reject(result);
@@ -85,3 +86,4 @@ App.UserModel.reopenClass({
 	}
 });
 
+export default UserModel;

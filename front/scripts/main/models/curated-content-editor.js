@@ -1,3 +1,6 @@
+import Ember from 'ember';
+import CuratedContentEditorItemModel from '/app/models/curated-content-editor-item';
+
 /**
  * CuratedContentEditorRawSection
  * @typedef {Object} CuratedContentEditorRawSection
@@ -35,21 +38,20 @@
  * @property {Boolean} isDirty
  */
 
-App.CuratedContentEditorModel = Em.Object.extend({
+const CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
 	optional: null,
 	isDirty: false
 });
-
-App.CuratedContentEditorModel.reopenClass({
+CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorModel} model
-	 * @returns {Em.RSVP.Promise} server response after save
+	 * @returns {Ember.RSVP.Promise} server response after save
 	 */
 	save(model) {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php',
 					query: {
@@ -71,11 +73,11 @@ App.CuratedContentEditorModel.reopenClass({
 	},
 
 	/**
-	 * @returns {Em.RSVP.Promise} model
+	 * @returns {Ember.RSVP.Promise} model
 	 */
 	load() {
-		return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -85,8 +87,8 @@ App.CuratedContentEditorModel.reopenClass({
 					format: 'json'
 				},
 				success: (data) => {
-					if (Em.isArray(data.data)) {
-						resolve(App.CuratedContentEditorModel.sanitize(data.data));
+					if (Ember.isArray(data.data)) {
+						resolve(CuratedContentEditorModel.sanitize(data.data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
@@ -146,7 +148,7 @@ App.CuratedContentEditorModel.reopenClass({
 			});
 		}
 
-		return App.CuratedContentEditorModel.create({
+		return CuratedContentEditorModel.create({
 			featured,
 			curated,
 			optional
@@ -163,7 +165,7 @@ App.CuratedContentEditorModel.reopenClass({
 
 		parentItem.items.some((itemObj) => {
 			if (itemObj.label === itemLabel) {
-				item = App.CuratedContentEditorItemModel.createNew(itemObj);
+				item = CuratedContentEditorItemModel.createNew(itemObj);
 				return true;
 			}
 		});
@@ -176,7 +178,7 @@ App.CuratedContentEditorModel.reopenClass({
 	 * @param {string} excludedLabel=null
 	 * @returns {string[]} already used labels
 	 */
-	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
+	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel=null) {
 		// Flatten the array
 		return [].concat.apply([], modelRoot.curated.items.map((section) =>
 			// Labels of section items
@@ -192,12 +194,12 @@ App.CuratedContentEditorModel.reopenClass({
 	 * @param {string} excludedLabel=null
 	 * @returns {string[]} already used labels
 	 */
-	getAlreadyUsedLabels(sectionOrBlock, excludedLabel = null) {
+	getAlreadyUsedLabels(sectionOrBlock, excludedLabel=null) {
 		let labels = [];
 
 		if (Array.isArray(sectionOrBlock.items)) {
 			labels = sectionOrBlock.items.map((item) => {
-				const itemLabel = Em.get(item, 'label');
+				const itemLabel = Ember.get(item, 'label');
 
 				return (excludedLabel === null || itemLabel !== excludedLabel) ? itemLabel : null;
 			}).filter((item) => typeof item === 'string');
@@ -215,7 +217,7 @@ App.CuratedContentEditorModel.reopenClass({
 		// When parent doesn't have items we need to initialize them
 		parentItem.items = parentItem.items || [];
 		parentItem.items.push(newItem.toPlainObject());
-		App.CuratedContentEditorModel.isDirty = true;
+		CuratedContentEditorModel.isDirty = true;
 	},
 
 	/**
@@ -230,7 +232,7 @@ App.CuratedContentEditorModel.reopenClass({
 				parentItems[index] = newItem.toPlainObject();
 			}
 		});
-		App.CuratedContentEditorModel.isDirty = true;
+		CuratedContentEditorModel.isDirty = true;
 	},
 
 	/**
@@ -240,6 +242,8 @@ App.CuratedContentEditorModel.reopenClass({
 	 */
 	deleteItem(parentItem, itemLabel) {
 		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);
-		App.CuratedContentEditorModel.isDirty = true;
+		CuratedContentEditorModel.isDirty = true;
 	}
 });
+
+export default CuratedContentEditorModel;
