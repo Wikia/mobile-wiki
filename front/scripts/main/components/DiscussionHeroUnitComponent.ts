@@ -5,7 +5,10 @@
 
 App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 	classNames: ['discussion-hero-unit'],
+	classNameBindings: ['overlay'],
+	attributeBindings: ['style'],
 
+	overlay: false,
 	style: null,
 
 	headerImages: {
@@ -37,7 +40,9 @@ App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 			isShown = Boolean(visibleElement && visibleElement.length),
 			image = this.get('headerImages')[Em.get(Mercury, 'wiki.id')];
 		if (!this.get('style') && isShown && image) {
-			this.set('style', new Em.Handlebars.SafeString(`background: url(/front/images/${image}) center no-repeat;`));
+			this.set('style',
+				new Em.Handlebars.SafeString(`background: #fff url(/front/images/${image}) center no-repeat;`));
+			this.set('overlay', true);
 		}
 	}),
 });

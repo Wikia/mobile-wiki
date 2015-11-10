@@ -3,17 +3,12 @@ $discussion-hero-unit-avatar-dimension: 40px;
 $discussion-hero-unit-height: 200px;
 
 .discussion-hero-unit {
-	background: #fff;
+	background: $discussion-header-image-blend-background;
 	color: $discussion-hero-unit-text-color;
 	display: none;
 	height: $discussion-hero-unit-height;
 	margin-top: $site-header-height;
 	text-align: center;
-
-	.discussion-hero-unit-wrapper {
-		height: 100%;
-		width: 100%;
-	}
 
 	h1 {
 		color: $discussion-hero-unit-text-color;
@@ -53,10 +48,14 @@ $discussion-hero-unit-height: 200px;
 }
 
 @for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-hero-unit-wrapper {
+	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
 		background: #{nth($vertical-colors, $i)};
 
 		.discussion-hero-unit-content {
+			background-color: rgba(nth($vertical-colors, $i), 1);
+		}
+
+		&.overlay .discussion-hero-unit-content {
 			background-color: rgba(nth($vertical-colors, $i), 0.8);
 		}
 	}
@@ -64,8 +63,7 @@ $discussion-hero-unit-height: 200px;
 
 .minimized {
 	&.discussion-hero-unit {
-		padding-bottom: 0;
-		padding-top: 95px;
+		height: $site-header-height;
 	}
 }
 
