@@ -1,6 +1,9 @@
 import BaseTracker from 'BaseTracker';
 import {prop} from '../../../baseline/mercury/utils/state';
 
+/**
+ * @class Comscore
+ */
 export default class Comscore extends BaseTracker {
 	/**
 	 * @returns {void}

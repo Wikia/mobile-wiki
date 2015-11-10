@@ -1,8 +1,18 @@
 import {prop} from '../../../baseline/mercury/utils/state';
 
+/**
+ * @typedef {Object} KruxModule
+ * @property {Function} [load]
+ */
+
+/**
+ * @class Krux
+ *
+ * @property {KruxModule} kruxModule
+ */
 export default class Krux {
 	/**
-	 * @param {*} krux
+	 * @param {KruxModule} krux
 	 * @returns {void}
 	 */
 	constructor(krux) {

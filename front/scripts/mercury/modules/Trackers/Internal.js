@@ -17,6 +17,16 @@
  * @property {string} [sourceUrl]
  */
 
+/**
+ * @class Internal
+ *
+ * @property {string} baseUrl
+ * @property {number} callbackTimeout
+ * @property {HTMLElement} head
+ * @property {InternalTrackingConfig} defaults
+ * @property {Function} success
+ * @property {Function} error
+ */
 export default class Internal {
 	/**
 	 * @returns {void}

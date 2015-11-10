@@ -1,6 +1,41 @@
+import Krux from 'Trackers/Krux';
 import UniversalAnalytics from 'Trackers/UniversalAnalytics';
 import load from '../utils/load';
 
+/**
+ * @typedef {Object} SourcePointDetectionModule
+ * @property {Function} initDetection
+ */
+
+/**
+ * @typedef {Object} AdLogicPageViewCounterModule
+ * @property {Function} get
+ * @property {Function} increment
+ */
+
+/**
+ * @typedef {Object} AdMercuryListenerModule
+ * @property {Function} startOnLoadQueue
+ */
+
+/**
+ * @class Ads
+ *
+ * @property {Ads} instance
+ * @property {boolean|null} blocking
+ * @property {string[][]} adSlots
+ * @property {Object} adsContext
+ * @property {*} adEngineModule
+ * @property {*} adContextModule
+ * @property {SourcePointDetectionModule} sourcePointDetectionModule
+ * @property {*} adConfigMobile
+ * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
+ * @property {AdMercuryListenerModule} adMercuryListenerModule
+ * @property {Krux} kruxTracker
+ * @property {Object} currentAdsContext
+ * @property {boolean} isLoaded
+ * @property {string[][]} slotsQueue
+ */
 export default class Ads {
 	constructor() {
 		this.adSlots = [];
@@ -57,7 +92,7 @@ export default class Ads {
 					this.adConfigMobile = adConfigMobile;
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
-					this.kruxTracker = new Mercury.Modules.Trackers.Krux(krux);
+					this.kruxTracker = new Krux(krux);
 					this.isLoaded = true;
 					this.addDetectionListeners();
 					this.reloadWhenReady();

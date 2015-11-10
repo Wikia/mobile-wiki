@@ -1,5 +1,10 @@
 /**
  * Base class for trackers that have to append their scripts like Comscore or Quantserve
+ *
+ * @class BaseTracker
+ *
+ * @property {HTMLScriptElement} script
+ * @property {boolean} usesAdsContext
  */
 export default class BaseTracker {
 	constructor() {

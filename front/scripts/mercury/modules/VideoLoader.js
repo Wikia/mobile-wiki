@@ -8,7 +8,10 @@ const playerClassMap = {
 	youtube: YouTubePlayer
 };
 
-export class VideoLoader {
+/**
+ * @class VideoLoader
+ */
+export default class VideoLoader {
 	/**
 	 * @param {*} data
 	 * @returns {void}

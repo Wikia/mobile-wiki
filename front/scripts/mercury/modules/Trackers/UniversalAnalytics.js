@@ -18,6 +18,16 @@ import {prop} from '../../../baseline/mercury/utils/state';
  * @property {number} sampleRate
  */
 
+/**
+ * @class UniversalAnalytics
+ *
+ * @property {(string|Function)[]} dimensions
+ * @property {GAAccount[]} tracked
+ * @property {GAAccountMap} accounts
+ * @property {string} accountPrimary
+ * @property {string} accountSpecial
+ * @property {string} accountAds
+ */
 export default class UniversalAnalytics {
 	/**
 	 * @param {boolean} [isSpecialWiki=false]
