@@ -24,7 +24,7 @@ export class AuthTracker {
 	 *
 	 * @returns {void}
 	 */
-	trackClick(element, label, action) {
+	trackClick(element, label, action = M.trackActions.click) {
 		if (!element) {
 			return;
 		}
