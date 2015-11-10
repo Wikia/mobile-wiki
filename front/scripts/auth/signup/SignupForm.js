@@ -9,7 +9,7 @@ import VisitSourceWrapper from '../common/VisitSourceWrapper';
 import MarketingOptIn from '../signup/MarketingOptIn';
 import TermsOfUse from '../signup/TermsOfUse';
 import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
-import provide from '../../baseline/mercury/utils/state';
+import {provide} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} HeliosError

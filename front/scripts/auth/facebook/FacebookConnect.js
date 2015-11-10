@@ -4,7 +4,7 @@ import FacebookSDK from 'FacebookSDK';
 import HttpCodes from '../common/HttpCodes';
 import Login from '../common/Login';
 import UrlHelper from '../common/UrlHelper';
-import trackActions from '../../mercury/utils/track';
+import {trackActions} from '../../mercury/utils/track';
 
 /**
  * @typedef {Object} HeliosFacebookConnectData

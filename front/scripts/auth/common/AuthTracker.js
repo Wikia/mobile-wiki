@@ -1,5 +1,6 @@
 import getQueryParam from '../../mercury/utils/queryString';
-import {track as mercuryTrack, trackActions, mercuryTrackPageView, setTrackContext} from '../../mercury/utils/track';
+import {track as mercuryTrack, trackActions, trackPageView as mercuryTrackPageView, setTrackContext}
+	from '../../mercury/utils/track';
 
 /**
  * @class AuthTracker

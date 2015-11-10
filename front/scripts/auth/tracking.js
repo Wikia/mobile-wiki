@@ -2,7 +2,7 @@ import AuthTracker from 'common/AuthTracker';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 import trackActions from '../mercury/utils/track';
 import getQueryParam from '../mercury/utils/queryString';
-import provide from '../../baseline/mercury/utils/state';
+import {provide} from '../../baseline/mercury/utils/state';
 
 (function () {
 	/**
