@@ -1,5 +1,3 @@
-/* eslint no-undefined:0 */
-
 /**
  * @class VisitSourceWrapper
  */
@@ -10,7 +8,7 @@ export default class VisitSourceWrapper {
 	static get sessionVisitSource() {
 		return (typeof VisitSource === 'function') ?
 			new VisitSource('WikiaSessionSource', pageParams.cookieDomain) :
-			undefined;
+			null;
 	}
 	/**
 	 * @returns {VisitSource}
@@ -18,7 +16,7 @@ export default class VisitSourceWrapper {
 	static get lifetimeVisitSource() {
 		return (typeof VisitSource === 'function') ?
 			new VisitSource('WikiaLifetimeSource', pageParams.cookieDomain, false) :
-			undefined;
+			null;
 	}
 
 	/**
