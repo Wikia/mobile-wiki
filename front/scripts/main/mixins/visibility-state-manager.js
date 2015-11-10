@@ -24,7 +24,7 @@ const VisibilityStateManager = Ember.Object.create({
 	 * @param {number} [threshold=400] makes viewport virtually bigger
 	 * @returns {boolean}
 	 */
-	isVisible(element, visibleBottom, visibleTop, threshold=400) {
+	isVisible(element, visibleBottom, visibleTop, threshold = 400) {
 		const top = element.offset().top - threshold,
 			bottom = top + element.height() + threshold;
 

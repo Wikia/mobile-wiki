@@ -1,66 +1,70 @@
 import Ember from 'ember';
 import DiscussionErrorMixin from '../mixins/discussion-error';
 
-const DiscussionForumModel = Ember.Object.extend(DiscussionErrorMixin, {
-	wikiId: null,
-	forumId: null,
-	name: null,
-	pageNum: null,
-	posts: null,
-	totalPosts: 0,
+const DiscussionForumModel = Ember.Object.extend(
+	DiscussionErrorMixin,
+	{
+		wikiId: null,
+		forumId: null,
+		name: null,
+		pageNum: null,
+		posts: null,
+		totalPosts: 0,
 
-	connectionError: null,
-	notFoundError: null,
-	contributors: [],
+		connectionError: null,
+		notFoundError: null,
+		contributors: [],
 
-	/**
-	 * @param {number} [pageNum=0]
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	loadPage(pageNum = 0) {
-		this.set('pageNum', pageNum);
+		/**
+		 * @param {number} [pageNum=0]
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		loadPage(pageNum = 0) {
+			this.set('pageNum', pageNum);
 
-		return new Ember.RSVP.Promise((resolve) => {
-			Ember.$.ajax({
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
-				data: {
-					page: this.get('pageNum')
-				},
-				xhrFields: {
-					withCredentials: true,
-				},
-				dataType: 'json',
-				success: (data) => {
-					const newPosts = data._embedded['doc:threads'],
-						allPosts = this.posts.concat(newPosts);
+			return new Ember.RSVP.Promise((resolve) => {
+				Ember.$.ajax({
+					url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+					data: {
+						page: this.get('pageNum')
+					},
+					xhrFields: {
+						withCredentials: true,
+					},
+					dataType: 'json',
+					success: (data) => {
+						const newPosts = data._embedded['doc:threads'],
+							allPosts = this.posts.concat(newPosts);
 
-					this.set('posts', allPosts);
+						this.set('posts', allPosts);
 
-					resolve(this);
-				},
-				error: (err) => {
-					this.setErrorProperty(err, this);
-					resolve(this);
-				}
+						resolve(this);
+					},
+					error: (err) => {
+						this.setErrorProperty(err, this);
+						resolve(this);
+					}
+				});
 			});
-		});
-	},
+		},
 
-	/**
-	 * @param {string} sortBy
-	 * @returns {string}
-	 */
-	getSortKey(sortBy) {
-		switch (sortBy) {
-		case 'latest':
-			return 'creation_date';
-		case 'trending':
-			return 'trending';
-		default:
-			return '';
+		/**
+		 * @param {string} sortBy
+		 * @returns {string}
+		 */
+		getSortKey(sortBy) {
+			switch (sortBy) {
+			case 'latest':
+				return 'creation_date';
+			case 'trending':
+				return 'trending';
+			default:
+				return '';
+			}
 		}
 	}
-});
+);
+
 DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId

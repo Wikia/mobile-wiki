@@ -73,7 +73,7 @@ const ArticleContentListeners = Ember.Object.create({
 		 */
 		onResize() {
 			const containers = this.containers,
-					containersCount = containers.length;
+				containersCount = containers.length;
 
 			// We set current width on this.articleContent.width so we always keep track of article-content width.
 			// Even if components are no longer registered (for example in case of opening/closing infobox).

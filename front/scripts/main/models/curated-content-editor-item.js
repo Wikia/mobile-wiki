@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ObjectUtilitiesMixin from '../mixins/object-utilities.js';
 
 /**
  * CuratedContentImageCropSingleData
@@ -37,17 +38,20 @@ import Ember from 'ember';
  * @property {id} image_id
  */
 
-const CuratedContentEditorItemModel = Ember.Object.extend(ObjectUtilitiesMixin, {
-	article_id: null,
-	image_id: null,
-	image_crop: null,
-	image_url: null,
-	items: null,
-	label: null,
-	node_type: null,
-	title: null,
-	type: null
-});
+const CuratedContentEditorItemModel = Ember.Object.extend(
+	ObjectUtilitiesMixin,
+	{
+		article_id: null,
+		image_id: null,
+		image_crop: null,
+		image_url: null,
+		items: null,
+		label: null,
+		node_type: null,
+		title: null,
+		type: null
+	}
+);
 
 CuratedContentEditorItemModel.reopenClass({
 	/**
