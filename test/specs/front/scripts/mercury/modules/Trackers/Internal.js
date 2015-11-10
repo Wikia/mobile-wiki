@@ -51,18 +51,20 @@ QUnit.test('params are object without empty values', function () {
 QUnit.module('Internal tracker loadTrackingScript', {
 	setup: function () {
 		this.tracker = new Mercury.Modules.Trackers.Internal();
-	}}, QUnit.test('load tracking script', function () {
-		var head = document.head,
-			headFirstChild = head.firstChild,
-			insertedScript;
-
-		this.tracker.loadTrackingScript('foo');
-		insertedScript = document.querySelector('head script[src="foo"]');
-
-		notDeepEqual(head.firstChild, headFirstChild, 'First child is updated');
-		equal(head.firstChild, insertedScript, 'Script is injected as first child in head');
-	})
+	}}
 );
+
+QUnit.test('load tracking script', function () {
+	var head = document.head,
+		headFirstChild = head.firstChild,
+		insertedScript;
+
+	this.tracker.loadTrackingScript('foo');
+	insertedScript = document.querySelector('head script[src="foo"]');
+
+	notDeepEqual(head.firstChild, headFirstChild, 'First child is updated');
+	equal(head.firstChild, insertedScript, 'Script is injected as first child in head');
+});
 
 QUnit.module('Track', {
 	setup: function () {
