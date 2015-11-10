@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import FullPageMixin from '../mixins/full-page';
+import ArticleEditModel from '../models/article-edit';
 
 const ArticleEditRoute = Ember.Route.extend(FullPageMixin, {
 	/**
