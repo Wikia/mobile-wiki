@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import TrackClickMixin from '../mixins/track-click.js';
+import HeadroomMixin from '../mixins/headroom.js';
 
 const SiteHeadComponent = Ember.Component.extend(
 	TrackClickMixin,

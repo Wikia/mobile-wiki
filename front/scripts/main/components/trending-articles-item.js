@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import ViewportMixin from '../mixins/viewport.js';
+import TrackClickMixin from '../mixins/track-click.js';
 
 const TrendingArticlesItemComponent = Ember.Component.extend(
 	ViewportMixin,

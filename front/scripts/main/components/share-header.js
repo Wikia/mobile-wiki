@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import HeadroomMixin from '../mixins/headroom.js';
 
 const ShareHeaderComponent = Ember.Component.extend(
 	HeadroomMixin,

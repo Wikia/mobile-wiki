@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send.js';
 
 const PostReplyComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,

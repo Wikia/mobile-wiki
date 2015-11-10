@@ -1,4 +1,7 @@
 import Ember from 'ember';
+import AlertNotificationsMixin from '../mixins/alert-notifications.js';
+import LanguagesMixin from '../mixins/languages.js';
+import WikiaInYourLangModel from '../models/wikia-in-your-lang.js';
 
 const WikiaInYourLangComponent = Ember.Component.extend(
 	AlertNotificationsMixin,

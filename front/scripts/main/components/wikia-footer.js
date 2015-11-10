@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import TrackClickMixin from '../mixins/track-click.js';
 
 const WikiaFooterComponent = Ember.Component.extend(
 	TrackClickMixin,
