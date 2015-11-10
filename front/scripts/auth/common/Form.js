@@ -22,13 +22,16 @@ export default class Form {
 	 * @returns {void}
 	 */
 	onFocus(event) {
-		const input = event.target,
-			wrapper = this.findWrapper(input),
-			label = this.findLabel(wrapper);
+		const input = event.target;
+
+		let wrapper, label;
 
 		if (['checkbox', 'submit'].indexOf(input.type) !== -1) {
 			return;
 		}
+
+		wrapper = this.findWrapper(input);
+		label = this.findLabel(wrapper);
 
 		if (input.tagName.toLowerCase() === 'input' && wrapper) {
 			label.classList.add('active');

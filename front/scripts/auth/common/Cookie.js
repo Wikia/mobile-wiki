@@ -15,7 +15,7 @@ export default class Cookie {
 	 *
 	 * @returns {string}
 	 */
-	get(name) {
+	static get(name) {
 		const cookie = document.cookie;
 
 		if (cookie.length) {
@@ -37,11 +37,11 @@ export default class Cookie {
 	/**
 	 * @param {string} name
 	 * @param {string} value
-	 * @param {Object} attributes
+	 * @param {Object} [attributes={}]
 	 *
 	 * @returns {object}
 	 */
-	set(name, value, attributes = {}) {
+	static set(name, value, attributes = {}) {
 		if (typeof attributes.path === 'undefined') {
 			attributes.path = '/';
 		}

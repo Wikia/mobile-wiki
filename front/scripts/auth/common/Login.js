@@ -48,10 +48,8 @@ export default class Login {
 		this.authLogger = AuthLogger.getInstance();
 		this.form = form;
 
-		const elements = this.form.elements;
-
-		this.usernameInput = elements.username;
-		this.passwordInput = elements.password;
+		this.usernameInput = form.elements.username;
+		this.passwordInput = form.elements.password;
 		this.urlHelper = new UrlHelper();
 
 		if (window.location.search) {

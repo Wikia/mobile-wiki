@@ -78,10 +78,13 @@ export default class FormErrors {
 	 */
 	displayFieldValidationError(err) {
 		const errorNode = this.createValidationErrorHTMLNode(err.description),
-			input = this.form.elements[err.additional.field],
-			specialFieldContainer = input.parentNode.querySelector('.input');
+			input = this.form.elements[err.additional.field];
+
+		let specialFieldContainer;
 
 		input.parentNode.appendChild(errorNode);
+
+		specialFieldContainer = input.parentNode.querySelector('.input');
 
 		if (specialFieldContainer) {
 			// Special case when we imitate input on UI using containers. eg. Birthdate input filed
