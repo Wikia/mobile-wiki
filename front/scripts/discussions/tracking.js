@@ -1,6 +1,6 @@
 import {provide} from '../baseline/mercury/utils/state';
 import {track as mercuryTrack, trackActions, trackPageView, setTrackContext} from '../mercury/utils/track';
-import {UniversalAnalytics} from '../mercury/modules/Trackers/UniversalAnalytics';
+import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 
 (function () {
 	/**

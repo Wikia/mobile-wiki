@@ -1,7 +1,7 @@
 import {prop} from '../baseline/mercury/utils/state';
 import * as trackPerf from '../mercury/utils/trackPerf';
 import {getQueryParam} from '../mercury/utils/queryString';
-import {UniversalAnalytics} from '../mercury/modules/Trackers/UniversalAnalytics';
+import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 
 const App = Em.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
