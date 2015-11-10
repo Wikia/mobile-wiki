@@ -100,7 +100,7 @@ module Mercury.Modules.Trackers {
 		 * @param {*} params
 		 * @returns {string}
 		 */
-		private createRequestURL (category: string, params: any): string {
+		createRequestURL (category: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
 				targetRoute = Internal.isPageView(category) ? 'view' : 'special/trackingevent',
@@ -122,7 +122,7 @@ module Mercury.Modules.Trackers {
 		 * @param {string} url
 		 * @returns {void}
 		 */
-		private loadTrackingScript (url: string): void {
+		loadTrackingScript (url: string): void {
 			var script = document.createElement('script');
 
 			script.src = url;
