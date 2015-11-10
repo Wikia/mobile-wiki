@@ -27,14 +27,14 @@ export default class MarketingOptIn {
 
 	/**
 	 * @returns {boolean}
-     */
+	 */
 	shouldBeEnabled() {
 		return this.isEurope || this.isCanada || this.isJapan;
 	}
 
 	/**
 	 * @returns {boolean}
-     */
+	 */
 	shouldBeChecked() {
 		return !this.isCanada && !this.isJapan;
 	}
