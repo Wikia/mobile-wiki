@@ -154,6 +154,19 @@ module Mercury.Modules {
 		}
 
 		/**
+		 * Turns off all ads for logged in user
+		 *
+		 * @param {*} adsContext
+		 */
+		private turnOffAdsForLoggedInUsers (adsContext: any) {
+			if (M.prop('userId')) {
+				adsContext.opts = adsContext.opts || {};
+				adsContext.opts.showAds = false;
+				adsContext.opts.pageType = 'no_ads';
+			}
+		}
+
+		/**
 		 * @param {*} adsContext
 		 * @returns {void}
 		 */
@@ -168,6 +181,7 @@ module Mercury.Modules {
 		 * @returns {void}
 		 */
 		public reload (adsContext: any): void {
+			this.turnOffAdsForLoggedInUsers(adsContext);
 			// Store the context for external reuse
 			this.setContext(adsContext);
 			this.currentAdsContext = adsContext;
