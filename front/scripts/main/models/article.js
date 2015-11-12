@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import App from '../app';
 import MediaModel from 'media';
 import Mercury from '../../mercury/Mercury';

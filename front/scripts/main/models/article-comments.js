@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import App from '../app';
 
 const ArticleCommentsModel = Ember.Object.extend({

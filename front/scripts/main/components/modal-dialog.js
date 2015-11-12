@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const ModalDialogComponent = Ember.Component.extend({
 	classNames: ['modal-dialog-wrapper'],

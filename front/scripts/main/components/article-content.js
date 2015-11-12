@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import MediaComponent from 'media';
 import InfoboxImageCollectionComponent from 'infobox-image-collection';
 import WikiaMapComponent from 'wikia-map';

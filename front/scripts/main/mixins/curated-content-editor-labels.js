@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const CuratedContentEditorLabelsMixin = Ember.Mixin.create({
 	isCategory: Ember.computed('isFeaturedItem', 'isSection', function () {

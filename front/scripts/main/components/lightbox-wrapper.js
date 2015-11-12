@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const LightboxWrapperComponent = Ember.Component.extend({
 	classNames: ['lightbox-wrapper'],

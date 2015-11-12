@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import Mercury from '../mercury/Mercury';
 import {prop} from '../baseline/mercury/utils/state';
 import * as trackPerf from '../mercury/utils/trackPerf';

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import App from '../app';
 import Mercury from '../../mercury/Mercury';
 import ArticleAddPhotoModel from '../models/article-add-photo';

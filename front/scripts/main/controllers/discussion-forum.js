@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const DiscussionForumController = Ember.Controller.extend({
 	application: Ember.inject.controller(),

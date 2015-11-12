@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import VisibleMixin from '../mixins/visible';
 import InfoboxImageMediaComponent from 'infobox-image-media';
 import LinkedGalleryMediaComponent from 'linked-gallery-media';

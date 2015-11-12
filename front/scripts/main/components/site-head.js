@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import Mercury from '../../mercury/Mercury';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';

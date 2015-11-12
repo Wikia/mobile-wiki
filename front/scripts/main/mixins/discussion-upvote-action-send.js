@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 /**
  * Handles sending upvote action outside from the component.

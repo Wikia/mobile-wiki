@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import Mercury from '../../mercury/Mercury';
 import {trackPerf} from '../../mercury/utils/trackPerf';
 import {getSystem} from '../../mercury/utils/browser';

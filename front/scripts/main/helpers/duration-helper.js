@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 /**
  * Formats a number of seconds into a duration, in the form HH:MM:SS

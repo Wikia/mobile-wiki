@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const FileInputComponent = Ember.Component.extend(
 	Ember.Evented,

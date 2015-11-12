@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const DiscussionBackButtonComponent = Ember.Component.extend({
 	tagName: 'a',

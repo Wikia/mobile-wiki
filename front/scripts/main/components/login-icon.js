@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import Mercury from '../../mercury/Mercury';
 import LanguagesMixin from 'login-icon';
 import {track, trackActions} from '../../mercury/utils/track';

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import {loadScript} from '../../baseline/mercury/utils/loadScript';
 
 const PollDaddyMixin = Ember.Mixin.create({

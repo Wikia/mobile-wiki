@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const DiscussionPostController = Ember.Controller.extend({
 	numRepliesLoaded: null,

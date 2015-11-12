@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const CuratedContentEditorSectionController = Ember.Controller.extend({
 	queryParams: {

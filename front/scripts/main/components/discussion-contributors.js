@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const DiscussionContributorsComponent = Ember.Component.extend({
 	classNames: ['discussion-contributors'],

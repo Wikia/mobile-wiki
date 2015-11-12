@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const WikiaStatsComponent = Ember.Component.extend({
 	classNames: ['wikia-stats'],

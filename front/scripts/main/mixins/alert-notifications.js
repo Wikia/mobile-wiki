@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const AlertNotificationsMixin = Ember.Mixin.create({
 	alertNotifications: Ember.A(),

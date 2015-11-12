@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 /**
  * Handles errors appears in the ajax calls.

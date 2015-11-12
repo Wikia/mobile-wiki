@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const WidgetScriptStateMixin = Ember.Mixin.create({
 	/**

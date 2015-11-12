@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import ArticleModel from 'article';
 import CuratedContentModel from 'curated-content';
 import Mercury from '../../mercury/Mercury';

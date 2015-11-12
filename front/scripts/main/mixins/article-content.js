@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 /**
  * This object keeps track of all components which include ArticleContentMixin.

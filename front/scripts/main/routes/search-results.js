@@ -1,5 +1,5 @@
 import {trackGoogleSearch} from '../../mercury/utils/track';
-import Ember from 'ember';
+
 
 const SearchResultsRoute = Ember.Route.extend({
 	// Don't let the script to start loading multiple times (user opens the route, goes back, opens it again)

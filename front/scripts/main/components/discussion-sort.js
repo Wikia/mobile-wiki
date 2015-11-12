@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const DiscussionSortComponent = Ember.Component.extend({
 	classNames: ['discussion-sort', 'clearfix'],

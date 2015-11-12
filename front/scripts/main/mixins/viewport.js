@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 /**
  * This mixin keeps track of viewport size which is updated on every window resize.

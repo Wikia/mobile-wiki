@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const LightboxMapComponent = Ember.Component.extend({
 	classNames: ['lightbox-map', 'lightbox-content-inner'],

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const LoadingSpinnerComponent = Ember.Component.extend({
 	classNameBindings: ['overlay:loading-overlay'],

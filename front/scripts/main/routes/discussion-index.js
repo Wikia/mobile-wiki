@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import Mercury from '../../mercury/Mercury';
 import DiscussionIndexModel from '../models/discussion-index';
 

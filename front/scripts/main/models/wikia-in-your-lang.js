@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 const WikiaInYourLangModel = Ember.Object.extend({

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import TrackClickMixin from '../mixins/track-click';
 import ArticleModel from '../models/article';
 import Mercury from '../../mercury/Mercury';

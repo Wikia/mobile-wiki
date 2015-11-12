@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../../mercury/utils/track';
 

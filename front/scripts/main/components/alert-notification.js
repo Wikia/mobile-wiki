@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const AlertNotificationComponent = Ember.Component.extend({
 	classNames: ['alert-notification', 'alert-box'],

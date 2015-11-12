@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';

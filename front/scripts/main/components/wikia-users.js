@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const WikiaUsersComponent = Ember.Component.extend({

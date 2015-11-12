@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import {getSystem} from '../../mercury/utils/browser';
 
 const HeadroomMixin = Ember.Mixin.create({

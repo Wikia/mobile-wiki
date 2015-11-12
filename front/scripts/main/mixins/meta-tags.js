@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 /**
  * Route mixin for setting head meta tags on transition into/out of route

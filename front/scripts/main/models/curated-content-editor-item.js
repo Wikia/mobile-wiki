@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import ObjectUtilitiesMixin from '../mixins/object-utilities';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 

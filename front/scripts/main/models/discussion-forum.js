@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import DiscussionErrorMixin from '../mixins/discussion-error';
 import {buildUrl, getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 

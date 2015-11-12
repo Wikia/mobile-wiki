@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const LinkComponent = Ember.Mixin.create({
 	attributeBindings: ['data-tracking-category'],

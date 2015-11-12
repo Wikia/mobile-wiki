@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 /**
  * @param {string} [hostname=window.location.hostname]

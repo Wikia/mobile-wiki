@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 

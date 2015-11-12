@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 
 const WidgetPolldaddyComponent = Ember.Component.extend({
 	classNames: ['widget-polldaddy'],

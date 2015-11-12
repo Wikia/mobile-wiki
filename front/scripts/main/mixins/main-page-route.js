@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 import {prop} from '../../baseline/mercury/utils/state';
 

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+
 import {prop} from '../../baseline/mercury/utils/state';
 
 const DiscussionAppPromotionComponent = Ember.Component.extend({
