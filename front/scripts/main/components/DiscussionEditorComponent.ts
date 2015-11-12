@@ -113,7 +113,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		createPost(forumId: string): void {
 			this.set('isLoading', true);
 			// TODO fix switching tabs
-			this.sendAction('setSortBy', 'latest');
 			Em.$('html, body').animate({ scrollTop: 0 });
 
 			this.sendAction('createPost', {

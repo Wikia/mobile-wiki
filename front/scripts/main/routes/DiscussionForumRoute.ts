@@ -42,6 +42,22 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.T
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 	},
 
+	/**
+	 * @param {string} sortBy
+	 * @returns {EmberStates.Transition}
+	 */
+	setSortBy(sortBy: string): void {
+		var controller = this.controllerFor('discussionForum');
+
+		controller.set('sortBy', sortBy);
+
+		if (controller.get('sortAlwaysVisible') !== true) {
+			this.controllerFor('discussionForum').set('sortVisible', false);
+		}
+
+		return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+	},
+
 	actions: {
 		/**
 		 * @param {number} postId
@@ -65,7 +81,9 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.T
 		},
 
 		createPost(postData: any): any {
-			return this.modelFor('discussion.forum').createPost(postData);
+			this.setSortBy('latest').promise.then(() => {
+				this.modelFor('discussion.forum').createPost(postData);
+			});
 		},
 
 		/**
@@ -87,22 +105,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.T
 		 * @returns {void}
 		 */
 		setSortBy(sortBy: string): void {
-			var controller = this.controllerFor('discussionForum');
-
-			controller.set('sortBy', sortBy);
-
-			if (controller.get('sortAlwaysVisible') !== true) {
-				this.controllerFor('discussionForum').set('sortVisible', false);
-			}
-
-			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
-		},
-
-		/**
-		 * @param postData
-		 */
-		createNewPost(postData: any) {
-
+			this.setSortBy(sortBy);
 		},
 
 		/**
