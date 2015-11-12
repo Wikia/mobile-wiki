@@ -145,22 +145,6 @@
     "curated-content-editor-new-section":"Новый раздел",
     "curated-content-editor-new-category":"Новая категория"
   },
-  "discussion":{
-    "share-default-title":"Обсуждение на __siteName__",
-    "contributors-title":"Все участники",
-    "sort-by-latest":"Последние",
-    "sort-by-trending":"Популярные",
-    "loading-more-posts":"Загрузка сообщений",
-    "back-to-wikia-link":"Назад на вики",
-    "number-of-posts":"__numberOfPosts__ записей",
-    "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
-    "not-found-error":"Страницы не существует.",
-    "action-retry-title":"Попробовать снова",
-    "all-discussions-link-desktop":"Показать все обсуждения",
-    "all-discussions-link-mobile":"Все обсуждения",
-    "discussions-app-join":"Хотите присоединиться к обсуждению? Установите приложение прямо сейчас!",
-    "back-to-discussions-link":"Все обсуждения"
-  },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",
     "register-text":"Зарегистрироваться",

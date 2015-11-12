@@ -145,22 +145,6 @@
     "curated-content-editor-new-section":"新しいセクション",
     "curated-content-editor-new-category":"新しいカテゴリ"
   },
-  "discussion":{
-    "share-default-title":"__siteName__についてのトーク",
-    "contributors-title":"すべての投稿者",
-    "sort-by-latest":"最新",
-    "sort-by-trending":"人気",
-    "loading-more-posts":"他の投稿を読み込んでいます",
-    "back-to-wikia-link":"ウィキアに戻る",
-    "number-of-posts":"投稿__numberOfPosts__件",
-    "connection-error":"接続できません。もう一度お試しください。",
-    "not-found-error":"このページは存在しないようです。",
-    "action-retry-title":"再試行",
-    "all-discussions-link-desktop":"すべてのトークを表示",
-    "all-discussions-link-mobile":"すべてのトーク",
-    "discussions-app-join":"トークに参加するには、アプリをダウンロードしましょう。",
-    "back-to-discussions-link":"すべてのトーク"
-  },
   "userStatus":{
     "anon-cta":"__registerLink__または__loginLink__",
     "register-text":"登録",
