@@ -92,17 +92,24 @@ $site-header-height: 50px;
 		visibility: hidden;
 	}
 	.site-head {
-		border-bottom: 10px solid transparent;
-		height: $site-header-height + 10px;
 		max-width: 100%;
-
-		&.headroom-not-top.un-pinned {
-			transform: translateY(-$site-header-height);
-		}
 	}
 	.headroom-not-top,
 	.headroom-top {
 		transition: transform .5s, margin .5s;
+	}
+}
+
+@media #{$mobile-range} {
+	.discussions {
+		.site-head {
+			border-bottom: 10px solid transparent;
+			height: $site-header-height + 10px;
+
+			&.headroom-not-top.un-pinned {
+				transform: translateY(-$site-header-height);
+			}
+		}
 	}
 }
 
