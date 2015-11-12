@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import App from 'app.js';
+import Mercury from '../mercury/Mercury';
 import {prop} from '../baseline/mercury/utils/state.js';
 
 /**

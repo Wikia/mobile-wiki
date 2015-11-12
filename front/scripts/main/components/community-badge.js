@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Mercury from '../../mercury/Mercury';
 import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 const CommunityBadgeComponent = Ember.Component.extend({

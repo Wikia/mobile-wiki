@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import App from '../app.js';
+import Mercury from '../../mercury/Mercury';
 import ArticleAddPhotoModel from '../models/article-add-photo.js';
 import {track, trackActions} from '../../mercury/utils/track.js';
 

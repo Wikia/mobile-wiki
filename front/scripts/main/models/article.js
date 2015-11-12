@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import App from '../app';
 import MediaModel from 'media';
+import Mercury from '../../mercury/Mercury.js';
 import {prop} from '../../baseline/mercury/utils/state';
 import {normalizeToWhitespace} from '../../mercury/utils/string.js';
 
@@ -209,7 +210,7 @@ ArticleModel.reopenClass({
 		// We need to update global article.type
 		// to allow eg. for analytics to use it
 		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
-		M.prop('article.type', articleProperties.type, true);
+		prop('article.type', articleProperties.type, true);
 		model.setProperties(articleProperties);
 	}
 });

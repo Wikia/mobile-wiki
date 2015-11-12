@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import App from 'app.js';
+import Mercury from '../mercury/Mercury';
 
 App.Router.map(function () {
 	const articlePath = '/wiki/';

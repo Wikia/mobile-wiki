@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Mercury from '../../mercury/Mercury';
 import {track, trackActions} from '../../mercury/utils/track.js';
 import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting.js';
 

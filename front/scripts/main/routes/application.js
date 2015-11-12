@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import ArticleModel from '../models/article';
+import Mercury from '../../mercury/Mercury';
 import {prop} from '../../baseline/mercury/utils/state.js';
 import {activate as variantTestingActivate} from '../../mercury/utils/variantTesting.js';
 import {getLinkInfo} from '../../mercury/utils/articleLink.js';
 import {normalizeToUnderscore} from '../../mercury/utils/string.js';
-import {getInstance as adsModuleGetInstance} from '../../mercury/modules/Ads.js';
+import Ads from '../../mercury/modules/Ads.js';
 
 const ApplicationRoute = Ember.Route.extend(
 	Ember.TargetActionSupport,
@@ -224,7 +225,7 @@ const ApplicationRoute = Ember.Route.extend(
 
 			if (prop('adsUrl') && !prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance = adsModuleGetInstance();
+				adsInstance = Ads.getInstance();
 				adsInstance.init(prop('adsUrl'));
 
 				/*

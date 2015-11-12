@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Mercury from '../../mercury/Mercury';
 import TrackClickMixin from '../mixins/track-click.js';
 import {track, trackActions} from '../../mercury/utils/track.js';
 
