@@ -130,6 +130,46 @@
 				display: none;
 			}
 		}
+
+		.discussion-editor {
+			&.has-error {
+				.error-container {
+					padding-top: 39px;
+				}
+
+				.editor-wrapper {
+					height: calc(100% - 79px);
+					padding-top: 39px;
+				}
+
+				.editor-label {
+					top: 79px;
+				}
+
+				.editor-close {
+					top: 49px;
+				}
+
+				button {
+					top: 39px;
+				}
+			}
+
+			span {
+				&.error {
+					align-items: center;
+					background-color: #f6f6f6;
+					color: #d0021b;;
+					display: flex;
+					font-size: 16px;
+					height: 39px;
+					justify-content: center;
+					position: absolute;
+					top: 0;
+					width: 100%;
+				}
+			}
+		}
 	}
 
 	@media #{$desktop-range} {

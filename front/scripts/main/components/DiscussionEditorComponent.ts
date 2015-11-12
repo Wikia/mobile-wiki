@@ -4,7 +4,7 @@
 App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-editor', 'mobile-hidden'],
-	classNameBindings: ['active'],
+	classNameBindings: ['active', 'hasError'],
 
 	active: false,
 	sticky: false,
@@ -12,6 +12,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	submitDisabled: true,
 	isLoading: false,
 	showSuccess: false,
+	hasError: false,
 
 	style: Em.computed('sticky', function (): Em.Handlebars.SafeString {
 		return this.get('sticky') === true
@@ -96,6 +97,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	errorObserver: Em.observer('shouldShowError', function () {
 		if (this.get('shouldShowError')) {
 			this.set('isLoading', false);
+			this.set('hasError', true);
 		}
 	}),
 
