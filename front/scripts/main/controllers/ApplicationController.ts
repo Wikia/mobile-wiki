@@ -82,6 +82,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @param {string} lightboxType
 		 * @param {string} lightboxModel
+		 * @param (*) closeButtonDelay
 		 * @returns {void}
 		 */
 		createHiddenLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: any): void {
@@ -136,6 +137,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @param {string} lightboxType
 		 * @param {*} lightboxModel
+		 * @param (*) closeButtonDelay
 		 * @returns {void}
 		 */
 		openLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: any): void {
