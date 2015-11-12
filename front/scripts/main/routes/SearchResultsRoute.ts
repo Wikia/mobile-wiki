@@ -17,7 +17,7 @@ App.SearchResultsRoute = Em.Route.extend({
 		controller.set('site', window.location.hostname);
 
 		// Send extra tracking info to GA to track search usage
-		M.trackGoogleSearch(window.location.href + 'search?q=' + controller.q);
+		M.trackGoogleSearch(`${window.location.pathname}/search?q=${controller.q}`);
 	},
 
 	/**

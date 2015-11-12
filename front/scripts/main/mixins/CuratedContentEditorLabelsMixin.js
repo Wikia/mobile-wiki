@@ -4,7 +4,7 @@ App.CuratedContentEditorLabelsMixin = Em.Mixin.create({
 	}),
 
 	itemsCountLabel: Em.computed('model.items.length', function() {
-		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')})
+		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')});
 	}),
 
 	headerLabel: Em.computed('model.label', 'isFeatured', 'isSection', function() {

@@ -177,14 +177,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				this.trackClick('curated-content-editor', trackLabel);
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 					if (this.get('isSection')) {
-						this.validateAndDone(this.get('model'), {
-							method: 'validateSection'
-						});
+						this.validateAndDone(this.get('model'), 'validateCuratedContentSection');
+					} else if (this.get('isFeaturedItem')) {
+						this.validateAndDone(this.get('model'), 'validateCuratedContentFeaturedItem');
 					} else {
-						this.validateAndDone(this.get('model'), {
-							method: 'validateItem',
-							isFeaturedItem: this.get('isFeaturedItem')
-						});
+						this.validateAndDone(this.get('model'), 'validateCuratedContentSectionItem');
 					}
 				}
 			},
@@ -316,14 +313,14 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		 */
 		validateLabel() {
 			const label = this.get('model.label'),
-				alreadyUsedLabels = this.get('alreadyUsedLabels');
+				alreadyUsedLabels = this.getWithDefault('alreadyUsedLabels', []);
 			let errorMessage = null;
 
 			if (Em.isEmpty(label)) {
 				errorMessage = 'app.curated-content-editor-missing-label-error';
 			} else if (label.length > this.get('maxLabelLength')) {
 				errorMessage = 'app.curated-content-editor-too-long-label-error';
-			} else if (alreadyUsedLabels.indexOf(label) !== -1) {
+			} else if (Array.isArray(alreadyUsedLabels) && alreadyUsedLabels.indexOf(label) !== -1) {
 				errorMessage = 'app.curated-content-editor-label-in-use-error';
 			}
 
@@ -333,7 +330,7 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @returns {void}
+		 * @returns {boolean} is title valid
 		 */
 		validateTitle() {
 			let title,
@@ -343,11 +340,9 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 				title = this.get('model.title');
 
 				if (Em.isEmpty(title)) {
-					if (this.get('isCategory')) {
-						errorMessage = i18n.t('app.curated-content-editor-missing-category-title-error');
-					} else {
-						errorMessage = i18n.t('app.curated-content-editor-missing-page-title-error');
-					}
+					errorMessage = this.get('isCategory') ?
+						i18n.t('app.curated-content-editor-missing-category-title-error') :
+						i18n.t('app.curated-content-editor-missing-page-title-error');
 				}
 
 				this.set('titleErrorMessage', errorMessage);
@@ -396,18 +391,18 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 
 		/**
 		 * @param {CuratedContentEditorItemModel} item
-		 * @param {Object} dataToValidate
+		 * @param {string} methodName
 		 * @returns {void}
 		 */
-		validateAndDone(item, dataToValidate) {
+		validateAndDone(item, methodName) {
 			this.set('isLoading', true);
 
-			App.CuratedContentEditorItemModel.validateServerData(item, dataToValidate)
+			App.CuratedContentEditorItemModel.validateServerData(item, methodName)
 				.then((data) => {
 					if (data.status) {
 						this.sendAction('done', this.get('model'));
-					} if (data.error) {
-						data.error.forEach((error) => this.processValidationError(error.reason));
+					} else if (Em.isArray(data.errors)) {
+						data.errors.forEach((error) => this.processValidationError(error));
 					} else {
 						this.addAlert({
 							message: i18n.t('app.curated-content-error-other'),
@@ -428,11 +423,11 @@ App.CuratedContentEditorItemFormComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {string} reason
+		 * @param {string} errorMessage
 		 * @returns {void}
 		 */
-		processValidationError(reason) {
-			switch (reason) {
+		processValidationError(errorMessage) {
+			switch (errorMessage) {
 			case 'articleNotFound':
 				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
 				break;
