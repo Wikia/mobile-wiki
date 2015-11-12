@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {normalizeToUnderscore} from '../../mercury/utils/string.js';
 
 /**
  * @typedef {Object} ArticleMedia
@@ -57,7 +58,7 @@ const MediaModel = Ember.Object.extend({
 			 * @returns {boolean}
 			 */
 			findInGallery = function (galleryItem, galleryIndex) {
-				if (M.String.normalizeToUnderscore(galleryItem.title) === M.String.normalizeToUnderscore(title)) {
+				if (normalizeToUnderscore(galleryItem.title) === normalizeToUnderscore(title)) {
 					mediaRef = this.mediaIndex;
 					galleryRef = galleryIndex;
 					return true;
@@ -74,8 +75,7 @@ const MediaModel = Ember.Object.extend({
 					return (mediaItem).some(findInGallery, {
 						mediaIndex
 					});
-				} else if (M.String.normalizeToUnderscore(mediaItem.title) ===
-					M.String.normalizeToUnderscore(title)) {
+				} else if (normalizeToUnderscore(mediaItem.title) === normalizeToUnderscore(title)) {
 					mediaRef = mediaIndex;
 					return true;
 				}

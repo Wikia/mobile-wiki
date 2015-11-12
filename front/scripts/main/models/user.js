@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl.js';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -48,7 +49,7 @@ UserModel.reopenClass({
 	loadDetails(userId, avatarSize) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.buildUrl({
+				url: buildUrl({
 					path: '/wikia.php',
 				}),
 				data: {
@@ -79,7 +80,7 @@ UserModel.reopenClass({
 			name: userData.name,
 			userId: userData.user_id,
 			avatarPath: userData.avatar,
-			profileUrl: M.buildUrl({
+			profileUrl: buildUrl({
 				namespace: 'User',
 				title: userData.name
 			})

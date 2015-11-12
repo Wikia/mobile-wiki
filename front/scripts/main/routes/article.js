@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ArticleModel from '../models/article';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
+import {normalizeToUnderscore} from '../../mercury/utils/string.js';
 
 const ArticleRoute = Ember.Route.extend({
 	redirectEmptyTarget: false,
@@ -24,9 +25,7 @@ const ArticleRoute = Ember.Route.extend({
 		// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
 		// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 		if (title.match(/\s/)) {
-			this.transitionTo('article',
-				M.String.normalizeToUnderscore(title)
-			);
+			this.transitionTo('article', normalizeToUnderscore(title));
 		}
 	},
 

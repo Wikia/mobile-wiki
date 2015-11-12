@@ -1,3 +1,4 @@
+import {trackGoogleSearch} from '../../mercury/utils/track.js';
 import Ember from 'ember';
 
 const SearchResultsRoute = Ember.Route.extend({
@@ -16,7 +17,7 @@ const SearchResultsRoute = Ember.Route.extend({
 		controller.set('site', window.location.hostname);
 
 		// Send extra tracking info to GA to track search usage
-		M.trackGoogleSearch(`${window.location.href}search?q=${controller.get('q')}`);
+		trackGoogleSearch(`${window.location.href}search?q=${controller.get('q')}`);
 	},
 
 	/**

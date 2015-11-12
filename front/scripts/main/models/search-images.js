@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl.js';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 /**
  * @typedef {Object} SearchImageResponse
@@ -57,8 +59,8 @@ const SearchImagesModel = Ember.Object.extend({
 				 * @returns {SearchImagePhotoItem}
 				 */
 				fetchedImages.map((image) => {
-					image.thumbnailUrl = Mercury.Modules.Thumbnailer.getThumbURL(image.url, {
-						mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+					image.thumbnailUrl = Thumbnailer.getThumbURL(image.url, {
+						mode: Thumbnailer.mode.topCrop,
 						width: this.imageSize,
 						height: this.imageSize
 					});
@@ -114,7 +116,7 @@ const SearchImagesModel = Ember.Object.extend({
 	 */
 	fetch() {
 		return Ember.$.getJSON(
-			M.buildUrl({
+			buildUrl({
 				path: '/api.php',
 			}),
 			{
