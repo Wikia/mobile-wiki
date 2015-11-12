@@ -17,6 +17,9 @@
 			strokeWidth=2
 		}}
 	{{/if}}
+	{{#if shouldShowError}}
+		<span class="error">Post failed.</span>
+	{{/if}}
 	{{#if showSuccess}}
 		<div class="loading-overlay">
 			{{svg 'success' class='success' viewBox='0 0 80 80'}}

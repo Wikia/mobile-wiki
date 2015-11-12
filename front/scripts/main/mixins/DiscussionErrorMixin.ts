@@ -5,8 +5,9 @@
  * Handles errors appears in the ajax calls.
  */
 App.DiscussionErrorMixin = Em.Mixin.create({
-	errorCodes: {
-		notFound: 404
+	httpCodes: {
+		notFound: 404,
+		ok: 200
 	},
 
 	errorClass: 'discussion-error-page',
@@ -16,13 +17,17 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 	 * @param {*} model
 	 * @returns {void}
 	 */
-	setErrorProperty: function (err: any, model: any): void {
-		if (err.status == this.errorCodes.notFound) {
+	setErrorProperty (err: any, model: any): void {
+		if (err.status == this.httpCodes.notFound) {
 			model.set('notFoundError', true);
 		} else {
 			model.set('connectionError', true);
 		}
 
 		Em.$('body').addClass(this.errorClass);
+	},
+
+	setPostFailedState (hasFailed: boolean, model: any): void {
+		model.set('postFailed', hasFailed);
 	}
 });

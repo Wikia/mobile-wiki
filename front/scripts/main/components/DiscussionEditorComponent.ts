@@ -93,6 +93,12 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		}
 	}),
 
+	errorObserver: Em.observer('shouldShowError', function () {
+		if (this.get('shouldShowError')) {
+			this.set('isLoading', false);
+		}
+	}),
+
 	click(): void {
 		this.$('.editor-textarea').focus();
 	},

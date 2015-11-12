@@ -62,6 +62,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	},
 
 	createPost(postData: any) {
+		this.setPostFailedState(false, this);
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
@@ -77,7 +78,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any) => {
-					this.setErrorProperty(err, this);
+					this.setPostFailedState(true, this);
 					resolve(this);
 				}
 			});
