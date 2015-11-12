@@ -63,21 +63,21 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 			return;
 		}
 
-		this.set('themeColors', Em.get(Mercury, 'wiki.themeColors'));
+		this.set('themeColors', Em.get(Mercury, 'wiki.theme'));
 
 		if (!this.get('themeColors')) {
 			return;
 		}
 
-		styles += `.discussions .border-theme-color {border-color: ${Em.get(Mercury, 'wiki.themeColors.buttons')};}`;
-		styles += `.discussions .background-theme-color {background-color: ${Em.get(Mercury, 'wiki.themeColors.buttons')};}`;
-		styles += `.discussions .background-alpha-theme-color {background-color: ${this.getRgbaColor(this.hexToRgb(Em.get(Mercury, 'wiki.themeColors.buttons'), 0.8))};}`;
+		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
+		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
+		styles += `.discussions .background-alpha-theme-color {background-color: ${this.getRgbaColor(this.hexToRgb(this.get('themeColors.color-buttons'), 0.8))};}`;
 
-		styles += `.discussion a {color: ${Em.get(Mercury, 'wiki.themeColors.links')};}`;
-		styles += `.discussions .active-element-theme-color {color: ${Em.get(Mercury, 'wiki.themeColors.links')};}`;
-		styles += `.discussions .active-element-border-theme-color {border-color: ${Em.get(Mercury, 'wiki.themeColors.links')};}`;
-		styles += `.discussions .fill-theme-color {fill: ${Em.get(Mercury, 'wiki.themeColors.links')};}`;
-		styles += `.discussions .stroke-theme-color {stroke: ${Em.get(Mercury, 'wiki.themeColors.links')};}`;
+		styles += `.discussion a {color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .active-element-theme-color {color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .active-element-border-theme-color {border-color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .fill-theme-color {fill: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
 
 		inlineStyles = Em.$('<style>').attr('id', styleId) ;
 		inlineStyles.text(styles);
