@@ -70,8 +70,7 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 			this.set('isLoading', true);
 
 			App.CuratedContentEditorItemModel.validateServerData(
-				this.get('model'),
-				{method: 'validateSectionWithItems'}
+				this.get('model'), 'validateCuratedContentSectionWithItems'
 			)
 				.then((data) => {
 					let sortableItems;
@@ -83,8 +82,8 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 						// Slice creates native JS array with only items (without meta properties).
 						this.set('model.items', sortableItems.slice(0, sortableItems.length));
 						this.sendAction('done', this.get('model'));
-					} else if (data.error) {
-						data.error.forEach((error) => this.processValidationError(error.reason));
+					} else if (Em.isArray(data.errors)) {
+						data.errors.forEach((error) => this.processValidationError(error));
 					} else {
 						this.addAlert({
 							message: i18n.t('app.curated-content-error-other'),
@@ -105,11 +104,11 @@ App.CuratedContentEditorSectionComponent = Em.Component.extend(
 		},
 
 		/**
-		 * @param {string} reason
+		 * @param {string} errorMessage
 		 * @returns {void}
 		 */
-		processValidationError(reason) {
-			if (reason === 'itemsMissing') {
+		processValidationError(errorMessage) {
+			if (errorMessage === 'itemsMissing') {
 				this.addAlert({
 					message: i18n.t('app.curated-content-editor-empty-section-error'),
 					type: 'alert'

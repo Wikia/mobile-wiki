@@ -98,7 +98,6 @@
     "curated-content-editor-no-articles-found":"Статьи не найдены",
     "curated-content-editor-no-categories-found":"Категории не найдены",
     "curated-content-editor-suggestions-loading":"Загрузка...",
-    "curated-content-editor-error-inside-featured-content":"Пожалуйста, исправьте ошибки в Избранном Контенте.",
     "curated-content-editor-changes-saved":"Ваши правки были сохранены",
     "curated-content-editor-image-missing-error":"Пожалуйста, добавьте изображение",
     "curated-content-editor-missing-label-error":"Отображаемое название отсутствует",
@@ -137,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"Вы уверенны, что хотите удалить этот пункт?",
     "curated-content-editor-general-section-error":"Пожалуйста, исправьте ошибки в этой секции.",
     "curated-content-editor-add-items-message":"Пожалуйста, добавьте пункты в эту секцию.",
-    "curated-content-editor-missing-items-error":"Секция не может быть пустой. Пожалуйста, добавьте пункты в эту секцию.",
     "curated-content-editor-error-inside-items-message":"Пожалуйста, исправьте ошибки в пунктах.",
     "curated-content-editor-items-count":"__count__ пункт",
     "curated-content-editor-items-count_plural":"__count__ пунктов",
@@ -146,22 +144,6 @@
     "curated-content-editor-new-featured-content":"Новый Избранный контент",
     "curated-content-editor-new-section":"Новый раздел",
     "curated-content-editor-new-category":"Новая категория"
-  },
-  "discussion":{
-    "share-default-title":"Обсуждение на __siteName__",
-    "contributors-title":"Все участники",
-    "sort-by-latest":"Последние",
-    "sort-by-trending":"Популярные",
-    "loading-more-posts":"Загрузка сообщений",
-    "back-to-wikia-link":"Назад на вики",
-    "number-of-posts":"__numberOfPosts__ записей",
-    "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
-    "not-found-error":"Страницы не существует.",
-    "action-retry-title":"Попробовать снова",
-    "all-discussions-link-desktop":"Показать все обсуждения",
-    "all-discussions-link-mobile":"Все обсуждения",
-    "discussions-app-join":"Хотите присоединиться к обсуждению? Установите приложение прямо сейчас!",
-    "back-to-discussions-link":"Все обсуждения"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",

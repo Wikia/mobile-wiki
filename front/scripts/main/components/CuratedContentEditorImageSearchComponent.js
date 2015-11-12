@@ -1,5 +1,4 @@
 App.CuratedContentEditorImageSearchComponent = Em.Component.extend(
-	App.AlertNotificationsMixin,
 	App.CuratedContentEditorLabelsMixin,
 	App.CuratedContentEditorLayoutMixin,
 	App.CuratedContentThumbnailMixin,
