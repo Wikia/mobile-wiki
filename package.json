@@ -1,6 +1,6 @@
 {
   "name": "Mercury",
-  "version": "187.2.0",
+  "version": "188.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
