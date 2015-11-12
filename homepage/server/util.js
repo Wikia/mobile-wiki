@@ -68,6 +68,10 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 		reply.view(view, combinedData);
 	}
 
+	var userId,
+		userName,
+		avatarUrl;
+
 	if (!strings) {
 		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
 	}
@@ -77,17 +81,17 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	this.getLoginState(request).then(function (data) {
 		request.log('info', 'Got valid access token (user id: ' + data.user_id + ')');  // jshint ignore:line
 
-		return auth.getUserInfo(data);
+		userId = data.hasOwnProperty('user_id') ? data.user_id : null; // jshint ignore:line
+
+		return auth.getUserName(userId);
 	}).then(function (data) {
-		var userName, avatarUrl;
-
-		// Data is in first element of items array. In case of error, items element does not exist and is ignored
-		if (data.items && data.items.length) {
-			userName  = data.items[0].name;
-			avatarUrl = data.items[0].avatar;
-		}
-
+		userName = data.value;
 		request.log('info', 'Retrieved user name for logged in user: ' + userName);
+
+		return auth.getUserAvatar(userId);
+	}).then(function (data) {
+		avatarUrl = data.value;
+		request.log('info', 'Retrieved avatar url for logged in user: ' + avatarUrl);
 
 		renderView(true, userName, avatarUrl);
 	}).catch(function (error) {

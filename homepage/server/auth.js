@@ -55,16 +55,23 @@ Auth.prototype.info = function (token) {
 	return requestWrapper(address);
 };
 
-Auth.prototype.getUserInfo = function (heliosInfoResponse) {
+Auth.prototype.getUserInfo = function (userId) {
 	var address = url.resolve(this.apiUrl, 'User/Details/?' +
-		querystring.stringify({ids: heliosInfoResponse.user_id})); // jshint ignore:line
+		querystring.stringify(userId));
 
 	return requestWrapper(address);
 };
 
-Auth.prototype.getUserName = function (heliosInfoResponse) {
+Auth.prototype.getUserName = function (userId) {
 	var address = url.resolve(this.servicesUrl, 'user-attribute/user/' +
-		heliosInfoResponse.user_id  + '/attr/username'); // jshint ignore:line
+		userId  + '/attr/username');
+
+	return requestWrapper(address);
+};
+
+Auth.prototype.getUserAvatar = function (userId) {
+	var address = url.resolve(this.servicesUrl, 'user-attribute/user/' +
+		userId  + '/attr/avatar');
 
 	return requestWrapper(address);
 };
