@@ -37,8 +37,12 @@
 		z-index: auto;
 
 		li {
-			border-bottom: 4px solid $discussion-sort-color;
-			color: $discussion-sort-color;
+			&.not-active {
+				border-bottom-color: $discussion-sort-color;
+				color: $discussion-sort-color;
+			}
+
+			border-bottom: 4px solid;
 			float: left;
 			font-size: $type-smaller;
 			height: 50px;

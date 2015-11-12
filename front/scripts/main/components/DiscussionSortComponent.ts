@@ -39,7 +39,8 @@ App.DiscussionSortComponent = Em.Component.extend({
 	 * @returns {void}
 	 */
 	updateActive(): void {
-		var activeClass: string = 'active active-element-theme-color active-element-border-theme-color';
+		var activeClass: string = 'active active-element-theme-color active-element-border-theme-color',
+			notActiveClass: string = 'not-active';
 
 		// Add the 'active' CSS class to the sort tab that's active,
 		// but right now this only applies to desktop styling.
@@ -49,7 +50,7 @@ App.DiscussionSortComponent = Em.Component.extend({
 			return;
 		}
 
-		$discussionSort.find('li.active').removeClass(activeClass);
-		$discussionSort.find('li[data-type="' + this.get('sortBy') + '"]').addClass(activeClass);
+		$discussionSort.find('li.active').removeClass(activeClass).addClass(notActiveClass);
+		$discussionSort.find('li[data-type="' + this.get('sortBy') + '"]').removeClass(notActiveClass).addClass(activeClass);
 	},
 });
