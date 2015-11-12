@@ -129,9 +129,7 @@
     "curated-content-editor-remove-item-confirmation":"¿Estás seguro de que quieres borrar este elemento?",
     "curated-content-editor-general-section-error":"Arregla los errores en esta sección.",
     "curated-content-editor-add-items-message":"Agrega elementos a esta sección.",
-    "curated-content-editor-missing-items-error":"Las secciones no pueden estar vacías. Por favor agrega elementos a la sección.",
     "curated-content-editor-error-inside-items-message":"Arregla los errores dentro de los elementos.",
-    "curated-content-editor-error-inside-featured-content":"Arregla los errores dentro del contenido destacado.",
     "curated-content-editor-items-count":"__count__ elementos"
   }
 }

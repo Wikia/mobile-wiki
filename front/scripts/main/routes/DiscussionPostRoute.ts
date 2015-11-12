@@ -1,8 +1,10 @@
 /// <reference path="../app.ts" />
 /// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
+/// <reference path="../mixins/ThemeMixin.ts" />
+
 'use strict';
 
-App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
+App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.ThemeMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
@@ -32,6 +34,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 			themeBar: true,
 			enableShareHeader: false
 		});
+		Em.$('body').addClass('discussions');
 		this._super();
 	},
 
@@ -44,6 +47,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, {
 			themeBar: false,
 			enableShareHeader: false
 		});
+		Em.$('body').removeClass('discussions');
 		this._super();
 	},
 
