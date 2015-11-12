@@ -162,8 +162,8 @@ App.ApplicationRoute = Em.Route.extend(
 			 * @param {*} [lightboxModel]
 			 * @returns {void}
 			 */
-			openLightbox(lightboxType: string, lightboxModel?: any): void {
-				this.get('controller').send('openLightbox', lightboxType, lightboxModel);
+			openLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: any): void {
+				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
 			},
 
 			/**
@@ -218,9 +218,12 @@ App.ApplicationRoute = Em.Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				adsInstance.createLightbox = (contents: any, lightboxVisible?: boolean): void => {
+				adsInstance.createLightbox = (contents: any, lightboxVisible?: boolean, closeButtonDelay?: any): void => {
 					var actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
-					this.send(actionName, 'ads', {contents});
+					if (!closeButtonDelay) {
+						closeButtonDelay = 0;
+					}
+					this.send(actionName, 'ads', {contents}, closeButtonDelay);
 				};
 
 				adsInstance.showLightbox = (): void => {
