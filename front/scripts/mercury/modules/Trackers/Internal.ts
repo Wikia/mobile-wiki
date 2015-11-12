@@ -100,7 +100,7 @@ module Mercury.Modules.Trackers {
 		 * @param {*} params
 		 * @returns {string}
 		 */
-		private createRequestURL (category: string, params: any): string {
+		createRequestURL (category: string, params: any): string {
 			var parts: string[] = [],
 				paramStr: string,
 				targetRoute = Internal.isPageView(category) ? 'view' : 'special/trackingevent',
@@ -119,37 +119,41 @@ module Mercury.Modules.Trackers {
 		}
 
 		/**
-		 * @param {string} url
+		 * @param {boolean} abort
+		 * @param {HTMLScriptElement} script
 		 * @returns {void}
 		 */
-		private loadTrackingScript (url: string): void {
-			var script = document.createElement('script');
+		scriptLoadedHandler(abort: any, script: HTMLScriptElement): void {
 
+			if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
+				return;
+			}
+
+			// Handle memory leak in IE
+			script.onload = script.onreadystatechange = null;
+
+			// Remove the script
+			if (this.head && script.parentNode) {
+				this.head.removeChild(script);
+			}
+
+			if (!abort && typeof this.success === 'function') {
+				setTimeout(this.success, this.callbackTimeout);
+
+			} else if (abort && typeof this.error === 'function') {
+				setTimeout(this.error, this.callbackTimeout);
+			}
+		}
+
+		/**
+		 * @param {string} url
+		 * @param {HTMLScriptElement} script
+		 * @returns {void}
+		 */
+		loadTrackingScript (url: string, script: HTMLScriptElement = document.createElement('script')): void {
 			script.src = url;
-
-			script.onload = script.onreadystatechange = (abort: any): void => {
-
-				if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
-					return;
-				}
-
-				// Handle memory leak in IE
-				script.onload = script.onreadystatechange = null;
-
-				// Remove the script
-				if (this.head && script.parentNode) {
-					this.head.removeChild(script);
-				}
-
-				// Dereference the script
-				script = undefined;
-
-				if (!abort && typeof this.success === 'function') {
-					setTimeout(this.success, this.callbackTimeout);
-
-				} else if (abort && typeof this.error === 'function') {
-					setTimeout(this.error, this.callbackTimeout);
-				}
+			script.onload = script.onreadystatechange = (abort: any) => {
+				this.scriptLoadedHandler(abort, script);
 			};
 
 			this.head.insertBefore(script, this.head.firstChild);
