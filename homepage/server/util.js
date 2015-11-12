@@ -81,7 +81,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	this.getLoginState(request).then(function (data) {
 		request.log('info', 'Got valid access token (user id: ' + data.user_id + ')');  // jshint ignore:line
 
-		userId = data.hasOwnProperty('user_id') ? data.user_id : null; // jshint ignore:line
+		userId = data.user_id; // jshint ignore:line
 
 		return auth.getUserName(userId);
 	}).then(function (data) {
