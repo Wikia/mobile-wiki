@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const TrackClickMixin = Ember.Mixin.create({
 	/**
@@ -8,8 +9,8 @@ const TrackClickMixin = Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	trackClick(category, label = '', isNonInteractive = true) {
-		M.track({
-			action: M.trackActions.click,
+		track({
+			action: trackActions.click,
 			category,
 			label,
 			isNonInteractive

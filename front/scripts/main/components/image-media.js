@@ -1,7 +1,8 @@
 import Ember from 'ember';
-import MediaComponent from 'media.js';
-import ArticleContentMixin from '../mixins/article-content.js';
-import ViewportMixin from '../mixins/viewport.js';
+import MediaComponent from 'media';
+import ArticleContentMixin from '../mixins/article-content';
+import ViewportMixin from '../mixins/viewport';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const ImageMediaComponent = MediaComponent.extend(
 	ArticleContentMixin,
@@ -56,7 +57,7 @@ const ImageMediaComponent = MediaComponent.extend(
 			get() {
 				const media = this.get('media');
 
-				let mode = Mercury.Modules.Thumbnailer.mode.thumbnailDown,
+				let mode = Thumbnailer.mode.thumbnailDown,
 					width = this.get('articleContent.width');
 
 				if (!media) {
@@ -64,7 +65,7 @@ const ImageMediaComponent = MediaComponent.extend(
 				}
 
 				if (media.context === 'icon') {
-					mode = Mercury.Modules.Thumbnailer.mode.scaleToWidth;
+					mode = Thumbnailer.mode.scaleToWidth;
 					width = this.get('iconWidth');
 				}
 
@@ -79,7 +80,7 @@ const ImageMediaComponent = MediaComponent.extend(
 			},
 			set(key, value) {
 				return this.getThumbURL(value, {
-					mode: Mercury.Modules.Thumbnailer.mode.topCrop,
+					mode: Thumbnailer.mode.topCrop,
 					height: this.get('computedHeight'),
 					width: this.get('articleContent.width')
 				});

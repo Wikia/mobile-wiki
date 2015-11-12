@@ -1,5 +1,7 @@
 import Ember from 'ember';
-import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send.js';
+import Mercury from '../../mercury/Mercury';
+import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 const PostDetailComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
@@ -8,7 +10,7 @@ const PostDetailComponent = Ember.Component.extend(
 
 		postId: null,
 		authorUrl: Ember.computed('post', function () {
-			return M.buildUrl({
+			return buildUrl({
 				namespace: 'User',
 				title: this.get('post.createdBy.name'),
 			});

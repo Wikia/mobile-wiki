@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ArticleContentMixin from '../mixins/article-content.js';
-import ViewportMixin from '../mixins/viewport.js';
+import ArticleContentMixin from '../mixins/article-content';
+import ViewportMixin from '../mixins/viewport';
 
 const PortableInfoboxComponent = Ember.Component.extend(
 	ArticleContentMixin,

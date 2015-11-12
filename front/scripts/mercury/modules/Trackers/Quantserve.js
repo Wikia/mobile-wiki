@@ -1,4 +1,5 @@
 import BaseTracker from 'BaseTracker';
+import Mercury from '../../Mercury';
 import {prop} from '../../../baseline/mercury/utils/state';
 
 /**

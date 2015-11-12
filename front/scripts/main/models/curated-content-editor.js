@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import CuratedContentEditorItemModel from '/app/models/curated-content-editor-item';
+import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 /**
  * CuratedContentEditorRawSection
@@ -53,7 +54,7 @@ CuratedContentEditorModel.reopenClass({
 	save(model) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.buildUrl({
+				url: buildUrl({
 					path: '/wikia.php',
 					query: {
 						controller: 'CuratedContentController',
@@ -79,7 +80,7 @@ CuratedContentEditorModel.reopenClass({
 	load() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.buildUrl({
+				url: buildUrl({
 					path: '/wikia.php'
 				}),
 				data: {

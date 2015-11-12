@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import FullPageMixin from '../mixins/full-page';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const ArticleAddPhotoRoute = Ember.Route.extend(FullPageMixin, {
 	/**
@@ -21,8 +22,8 @@ const ArticleAddPhotoRoute = Ember.Route.extend(FullPageMixin, {
 				type: 'alert'
 			});
 
-			M.track({
-				action: M.trackActions.impression,
+			track({
+				action: trackActions.impression,
 				category: 'sectionaddphoto',
 				label: 'addphoto-load-error'
 			});
@@ -36,8 +37,8 @@ const ArticleAddPhotoRoute = Ember.Route.extend(FullPageMixin, {
 		didTransition() {
 			window.scrollTo(0, 0);
 
-			M.track({
-				action: M.trackActions.impression,
+			track({
+				action: trackActions.impression,
 				category: 'sectionaddphoto',
 				label: 'addphoto-loaded'
 			});

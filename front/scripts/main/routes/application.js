@@ -1,6 +1,12 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import ArticleModel from '../models/article';
+import Mercury from '../../mercury/Mercury';
+import {prop} from '../../baseline/mercury/utils/state';
+import {activate as variantTestingActivate} from '../../mercury/utils/variantTesting';
+import {getLinkInfo} from '../../mercury/utils/articleLink';
+import {normalizeToUnderscore} from '../../mercury/utils/string';
+import Ads from '../../mercury/modules/Ads';
 
 const ApplicationRoute = Ember.Route.extend(
 	Ember.TargetActionSupport,
@@ -27,7 +33,7 @@ const ApplicationRoute = Ember.Route.extend(
 			 */
 			didTransition() {
 				// Activate any A/B tests for the new route
-				M.VariantTesting.activate();
+				variantTestingActivate();
 
 				if (this.controller) {
 					this.controller.set('isLoading', false);
@@ -40,7 +46,7 @@ const ApplicationRoute = Ember.Route.extend(
 				 * This is called after the first route of any application session has loaded
 				 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 				 */
-				M.prop('articleContentPreloadedInDOM', false);
+				prop('articleContentPreloadedInDOM', false);
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
@@ -83,7 +89,7 @@ const ApplicationRoute = Ember.Route.extend(
 				}
 
 				trackingCategory = target.dataset.trackingCategory;
-				info = M.getLinkInfo(
+				info = getLinkInfo(
 					Mercury.wiki.basePath,
 					title,
 					target.hash,
@@ -140,7 +146,7 @@ const ApplicationRoute = Ember.Route.extend(
 				ArticleModel
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
-						this.transitionTo('article', encodeURIComponent(M.String.normalizeToUnderscore(articleTitle)));
+						this.transitionTo('article', encodeURIComponent(normalizeToUnderscore(articleTitle)));
 					})
 					.catch((err) => {
 						this.send('error', err);
@@ -217,10 +223,10 @@ const ApplicationRoute = Ember.Route.extend(
 			const instantGlobals = Wikia.InstantGlobals || {};
 			let adsInstance;
 
-			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
+			if (prop('adsUrl') && !prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance = Mercury.Modules.Ads.getInstance();
-				adsInstance.init(M.prop('adsUrl'));
+				adsInstance = Ads.getInstance();
+				adsInstance.init(prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads

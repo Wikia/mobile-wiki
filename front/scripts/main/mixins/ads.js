@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import AdSlotComponent from '../components/ad-slot.js';
+import AdSlotComponent from '../components/ad-slot';
+import Ads from '../../mercury/modules/Ads';
 
 const AdsMixin = Ember.Mixin.create({
 	adsData: {
@@ -197,7 +198,7 @@ const AdsMixin = Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setupAdsContext(adsContext) {
-		Mercury.Modules.Ads.getInstance().reload(adsContext);
+		Ads.getInstance().reload(adsContext);
 	}
 });
 

@@ -1,7 +1,8 @@
 import Ember from 'ember';
-import AlertNotificationsMixin from '../mixins/alert-notifications.js';
-import LanguagesMixin from '../mixins/languages.js';
-import WikiaInYourLangModel from '../models/wikia-in-your-lang.js';
+import AlertNotificationsMixin from '../mixins/alert-notifications';
+import LanguagesMixin from '../mixins/languages';
+import WikiaInYourLangModel from '../models/wikia-in-your-lang';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const WikiaInYourLangComponent = Ember.Component.extend(
 	AlertNotificationsMixin,
@@ -25,15 +26,15 @@ const WikiaInYourLangComponent = Ember.Component.extend(
 					.then((model) => {
 						if (model) {
 							this.createAlert(model);
-							M.track({
-								action: M.trackActions.impression,
+							track({
+								action: trackActions.impression,
 								category: 'wikiaInYourLangAlert',
 								label: 'shown',
 							});
 						}
 					}, (err) => {
-						M.track({
-							action: M.trackActions.impression,
+						track({
+							action: trackActions.impression,
 							category: 'wikiaInYourLangAlert',
 							label: err || 'error',
 						});
@@ -53,8 +54,8 @@ const WikiaInYourLangComponent = Ember.Component.extend(
 				callbacks: {
 					onInsertElement: (alert) => {
 						alert.on('click', 'a:not(.close)', () => {
-							M.track({
-								action: M.trackActions.click,
+							track({
+								action: trackActions.click,
 								category: 'wikiaInYourLangAlert',
 								label: 'link',
 							});
@@ -62,8 +63,8 @@ const WikiaInYourLangComponent = Ember.Component.extend(
 					},
 					onCloseAlert: () => {
 						window.localStorage.setItem(this.get('alertKey'), new Date().getTime().toString());
-						M.track({
-							action: M.trackActions.click,
+						track({
+							action: trackActions.click,
 							category: 'wikiaInYourLangAlert',
 							label: 'close',
 						});

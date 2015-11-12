@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click.js';
+import TrackClickMixin from '../mixins/track-click';
+import {getDomain} from '../../mercury/utils/domain';
 
 const WikiaFooterComponent = Ember.Component.extend(
 	TrackClickMixin,
@@ -63,7 +64,7 @@ const WikiaFooterComponent = Ember.Component.extend(
 			 */
 			handleFooterLinkClick(text, href) {
 				if (this.checkLinkForOasisSkinOverwrite(href)) {
-					Ember.$.cookie('useskin', 'oasis', {path: '/', domain: M.getDomain()});
+					Ember.$.cookie('useskin', 'oasis', {path: '/', domain: getDomain()});
 				}
 
 				this.send('trackClick', 'footer', text);

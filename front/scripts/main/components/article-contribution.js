@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import LanguagesMixin from '../mixins/languages.js';
+import LanguagesMixin from '../mixins/languages';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const ArticleContributionComponent = Ember.Component.extend(
 	LanguagesMixin,
@@ -17,8 +18,8 @@ const ArticleContributionComponent = Ember.Component.extend(
 			 * @returns {void}
 			 */
 			edit() {
-				M.track({
-					action: M.trackActions.click,
+				track({
+					action: trackActions.click,
 					category: 'sectioneditor',
 					label: 'edit',
 					value: this.get('section')
@@ -38,8 +39,8 @@ const ArticleContributionComponent = Ember.Component.extend(
 
 				href += this.getUselangParam();
 
-				M.track({
-					action: M.trackActions.click,
+				track({
+					action: trackActions.click,
 					category: 'sectioneditor',
 					label: 'add-photo-no-auth',
 					value: this.get('section')
@@ -58,8 +59,8 @@ const ArticleContributionComponent = Ember.Component.extend(
 					return;
 				}
 
-				M.track({
-					action: M.trackActions.click,
+				track({
+					action: trackActions.click,
 					category: 'sectioneditor',
 					label: 'add-photo',
 					value: this.get('section')

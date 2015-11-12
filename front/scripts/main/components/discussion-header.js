@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import HeadroomMixin from '../mixins/headroom.js';
+import Mercury from '../../mercury/Mercury';
+import HeadroomMixin from '../mixins/headroom';
 
 const DiscussionHeaderComponent = Ember.Component.extend(
 	HeadroomMixin,

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
 
 const ArticleAddPhotoComponent = Ember.Component.extend({
 	actions: {
@@ -24,8 +25,8 @@ const ArticleAddPhotoComponent = Ember.Component.extend({
 	 * @returns {void}
 	 */
 	track(label) {
-		M.track({
-			action: M.trackActions.click,
+		mercuryTrack({
+			action: trackActions.click,
 			category: 'sectionaddphoto',
 			label
 		});

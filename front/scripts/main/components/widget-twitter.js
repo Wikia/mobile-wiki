@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import WidgetScriptStateMixin from '../mixins/widget-script-state.js';
+import WidgetScriptStateMixin from '../mixins/widget-script-state';
 
 /**
  * Widgets

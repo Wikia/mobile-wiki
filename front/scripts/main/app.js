@@ -1,10 +1,12 @@
 import Ember from 'ember';
-import {prop} from '../baseline/mercury/utils/state.js';
-import * as trackPerf from '../mercury/utils/trackPerf.js';
-import {getQueryParam} from '../mercury/utils/queryString.js';
-import Ads from '../mercury/modules/Ads.js';
-import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics.js';
-import LinkComponent from 'mixins/link-component.js';
+import Mercury from '../mercury/Mercury';
+import {prop} from '../baseline/mercury/utils/state';
+import * as trackPerf from '../mercury/utils/trackPerf';
+import {getQueryParam} from '../mercury/utils/queryString';
+import {integrateOptimizelyWithUA} from '../mercury/utils/variantTesting';
+import Ads from '../mercury/modules/Ads';
+import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
+import LinkComponent from 'mixins/link-component';
 
 const App = Ember.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -215,7 +217,7 @@ App.initializer({
 			dimensions[18] = Mercury.wiki.wikiCategories.join(',');
 		}
 
-		dimensions = Mercury.Utils.VariantTesting.integrateOptimizelyWithUA(dimensions);
+		dimensions = integrateOptimizelyWithUA(dimensions);
 
 		UniversalAnalytics.setDimensions(dimensions);
 	}

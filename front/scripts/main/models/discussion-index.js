@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 
 const DiscussionIndexModel = Ember.Object.extend({
 });
@@ -11,7 +12,7 @@ DiscussionIndexModel.reopenClass({
 	find(wikiId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.getDiscussionServiceUrl(`/discussion/${wikiId}/forums`),
+				url: getDiscussionServiceUrl(`/discussion/${wikiId}/forums`),
 				dataType: 'json',
 				success: (data) => resolve(data),
 				error: (err) => reject(err)

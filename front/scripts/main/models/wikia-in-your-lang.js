@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 const WikiaInYourLangModel = Ember.Object.extend({
 	message: null,
@@ -20,7 +21,7 @@ WikiaInYourLangModel.reopenClass({
 			}
 
 			Ember.$.getJSON(
-				M.buildUrl({path: '/wikia.php'}),
+				buildUrl({path: '/wikia.php'}),
 				{
 					controller: 'WikiaInYourLangController',
 					method: 'getNativeWikiaInfo',

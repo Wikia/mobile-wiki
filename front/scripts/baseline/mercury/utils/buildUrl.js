@@ -1,3 +1,4 @@
+import Mercury from '../../../mercury/Mercury';
 import {prop} from 'state';
 
 /**
@@ -35,6 +36,36 @@ function getQueryString(query = {}) {
 }
 
 /**
+ * Substitutes the wiki name in a host string with a new wiki name
+ *
+ * @param {string} host - A host string (may include port number) from any Wikia environment
+ * @param {string} wiki - The new wiki, which may contain a language prefix; for example, "glee" or "es.walkingdead"
+ * @returns {string} New host
+ */
+export function replaceWikiInHost(host, wiki) {
+	let match;
+
+	if ((match = host.match(/^(sandbox-.+?|preview|verify)\.(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+		// (1) Sandbox, preview, or verify hosts on wikia.com
+		host = host.replace(`${match[1]}.${match[2]}`, `${match[1]}.${wiki}`);
+	} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
+		// (2) Production wikia.com
+		// Domain is specified here in case subdomain is actually "wiki", "com", etc.
+		host = host.replace(`${match[1]}.wikia.com`, `${wiki}.wikia.com`);
+	} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
+		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
+		host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
+	} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
+		// (4) Environment using xip.io
+		host = host.replace(`${match[1]}.${match[2]}.xip.io`, `${wiki}.${match[2]}.xip.io`);
+	}
+
+	// At this point, in the case of an unknown local host where the wiki is not in the
+	// host string (ie. "mercury:8000"), it will be left unmodified and returned as-is.
+	return host;
+}
+
+/**
  * This function constructs a URL given pieces of a typical Wikia URL. All URL
  * parts are optional. Passing in empty params will output the root index URL
  * of the current host.
@@ -65,7 +96,7 @@ export function buildUrl(urlParams = {}, context = window) {
 	let url = `${urlParams.protocol}://`;
 
 	if (urlParams.wiki) {
-		url += Mercury.Utils.replaceWikiInHost(host, urlParams.wiki);
+		url += replaceWikiInHost(host, urlParams.wiki);
 	} else if (typeof mediawikiDomain !== 'undefined') {
 		url += mediawikiDomain;
 	} else {
@@ -87,36 +118,6 @@ export function buildUrl(urlParams = {}, context = window) {
 	}
 
 	return url;
-}
-
-/**
- * Substitutes the wiki name in a host string with a new wiki name
- *
- * @param {string} host - A host string (may include port number) from any Wikia environment
- * @param {string} wiki - The new wiki, which may contain a language prefix; for example, "glee" or "es.walkingdead"
- * @returns {string} New host
- */
-export function replaceWikiInHost(host, wiki) {
-	let match;
-
-	if ((match = host.match(/^(sandbox-.+?|preview|verify)\.(.+?)\.wikia\.com($|\/|:)/)) !== null) {
-		// (1) Sandbox, preview, or verify hosts on wikia.com
-		host = host.replace(`${match[1]}.${match[2]}`, `${match[1]}.${wiki}`);
-	} else if ((match = host.match(/^(.+?)\.wikia\.com($|\/|:)/)) !== null) {
-		// (2) Production wikia.com
-		// Domain is specified here in case subdomain is actually "wiki", "com", etc.
-		host = host.replace(`${match[1]}.wikia.com`, `${wiki}.wikia.com`);
-	} else if ((match = host.match(/^(.+)\.(.+?)\.wikia-dev.\w{2,3}($|\/|:)/)) !== null) {
-		// (3) Devbox hosted on wikia-dev.com, wikia-dev.us, wikia-dev.pl, etc.
-		host = host.replace(`${match[1]}.${match[2]}`, `${wiki}.${match[2]}`);
-	} else if ((match = host.match(/^(.+)\.(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\.xip\.io($|\/|:)/)) !== null) {
-		// (4) Environment using xip.io
-		host = host.replace(`${match[1]}.${match[2]}.xip.io`, `${wiki}.${match[2]}.xip.io`);
-	}
-
-	// At this point, in the case of an unknown local host where the wiki is not in the
-	// host string (ie. "mercury:8000"), it will be left unmodified and returned as-is.
-	return host;
 }
 
 /**

@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click.js';
-import CuratedContentModel from '../models/curated-content.js';
+import TrackClickMixin from '../mixins/track-click';
+import CuratedContentModel from '../models/curated-content';
 
 const CuratedContentComponent = Ember.Component.extend(
 	TrackClickMixin,

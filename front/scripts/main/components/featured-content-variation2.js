@@ -1,7 +1,8 @@
 import Ember from 'ember';
-import FeaturedContentMixin from '../mixins/featured-content.js';
-import TrackClickMixin from '../mixins/track-click.js';
-import ThirdsClickMixin from '../mixins/thirds-click.js';
+import FeaturedContentMixin from '../mixins/featured-content';
+import TrackClickMixin from '../mixins/track-click';
+import ThirdsClickMixin from '../mixins/thirds-click';
+import {trackEvent} from '../../mercury/utils/variantTesting';
 
 const FeaturedContentVariation2Component = Ember.Component.extend(
 	FeaturedContentMixin,
@@ -22,7 +23,7 @@ const FeaturedContentVariation2Component = Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		rightClickHandler() {
-			M.VariantTesting.trackEvent('featured-content-next');
+			trackEvent('featured-content-next');
 			this.nextItem();
 			return true;
 		},
@@ -31,7 +32,7 @@ const FeaturedContentVariation2Component = Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		leftClickHandler() {
-			M.VariantTesting.trackEvent('featured-content-prev');
+			trackEvent('featured-content-prev');
 			this.prevItem();
 			return true;
 		},
@@ -41,7 +42,7 @@ const FeaturedContentVariation2Component = Ember.Component.extend(
 		 */
 		centerClickHandler() {
 			this.trackClick('modular-main-page', 'featured-content');
-			M.VariantTesting.trackEvent('featured-content-click');
+			trackEvent('featured-content-click');
 			return false;
 		},
 

@@ -1,4 +1,7 @@
 import Ember from 'ember';
+import Mercury from '../../mercury/Mercury';
+import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
+import {getSystem} from '../../mercury/utils/browser';
 
 const SmartBannerComponent = Ember.Component.extend({
 	classNames: ['smart-banner'],
@@ -66,7 +69,7 @@ const SmartBannerComponent = Ember.Component.extend({
 	noIcon: Ember.computed.not('icon'),
 
 	system: Ember.computed(() => {
-		return Mercury.Utils.Browser.getSystem();
+		return getSystem();
 	}),
 
 	title: Ember.computed.oneWay('config.name'),
@@ -78,7 +81,7 @@ const SmartBannerComponent = Ember.Component.extend({
 		close() {
 			this.setSmartBannerCookie(this.get('options.daysHiddenAfterClose'));
 			this.sendAction('toggleVisibility', false);
-			this.track(M.trackActions.close);
+			this.track(trackActions.close);
 		},
 
 		/**
@@ -134,7 +137,7 @@ const SmartBannerComponent = Ember.Component.extend({
 			Ember.$.cookie('sb-closed') !== '1'
 		) {
 			this.sendAction('toggleVisibility', true);
-			this.track(M.trackActions.impression);
+			this.track(trackActions.impression);
 		} else {
 			this.set('isVisible', false);
 		}
@@ -147,7 +150,7 @@ const SmartBannerComponent = Ember.Component.extend({
 	 * @returns {void}
 	 */
 	tryToOpenApp(appScheme) {
-		this.track(M.trackActions.open);
+		this.track(trackActions.open);
 		window.document.location.href = `${appScheme}://`;
 
 		Ember.run.later(this, this.fallbackToStore, 300);
@@ -159,7 +162,7 @@ const SmartBannerComponent = Ember.Component.extend({
 	 * @returns {void}
 	 */
 	fallbackToStore() {
-		this.track(M.trackActions.install);
+		this.track(trackActions.install);
 		window.open(this.get('link'), '_blank');
 	},
 
@@ -184,7 +187,7 @@ const SmartBannerComponent = Ember.Component.extend({
 	 * @returns {void}
 	 */
 	track(action) {
-		M.track({
+		mercuryTrack({
 			action,
 			category: 'smart-banner',
 			label: Ember.get(Mercury, 'wiki.dbName')

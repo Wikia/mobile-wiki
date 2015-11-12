@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const WikiaUsersComponent = Ember.Component.extend({
 	avatarHeight: 100,
@@ -7,7 +8,7 @@ const WikiaUsersComponent = Ember.Component.extend({
 	isVisible: Ember.computed.notEmpty('users'),
 	label: null,
 	limit: 5,
-	thumbMode: Mercury.Modules.Thumbnailer.mode.fixedAspectRatio,
+	thumbMode: Thumbnailer.mode.fixedAspectRatio,
 	trackingEvent: null,
 	users: [],
 });

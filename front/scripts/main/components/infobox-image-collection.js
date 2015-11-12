@@ -1,6 +1,7 @@
 import Ember from 'ember';
-import MediaComponent from 'media.js';
-import ViewportMixin from '../mixins/viewport.js';
+import MediaComponent from 'media';
+import ViewportMixin from '../mixins/viewport';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const InfoboxImageCollectionComponent = MediaComponent.extend(
 	ViewportMixin,
@@ -89,8 +90,8 @@ const InfoboxImageCollectionComponent = MediaComponent.extend(
 			 */
 			this.get('media').forEach((image) => {
 				const cropMode = image.height > image.width ?
-						Mercury.Modules.Thumbnailer.mode.topCropDown :
-						Mercury.Modules.Thumbnailer.mode.zoomCrop,
+						Thumbnailer.mode.topCropDown :
+						Thumbnailer.mode.zoomCrop,
 					height = this.computedHeight(image),
 					thumbUrl = this.getThumbURL(image.url, {
 						mode: cropMode,

@@ -1,6 +1,8 @@
 import Ember from 'ember';
-import AdsMixin from '../mixins/ads.js';
-import TrackClickMixin from '../mixins/track-click.js';
+import AdsMixin from '../mixins/ads';
+import TrackClickMixin from '../mixins/track-click';
+import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
+import {setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
 
 const MainPageComponent = Ember.Component.extend(
 	AdsMixin,
@@ -14,7 +16,7 @@ const MainPageComponent = Ember.Component.extend(
 					prod: '3079180094',
 					dev: '3054131385',
 				},
-				variationNumber = Mercury.Utils.VariantTesting.getExperimentVariationNumber(experimentIds);
+				variationNumber = getExperimentVariationNumber(experimentIds);
 
 			switch (variationNumber) {
 			case 1:
@@ -54,13 +56,13 @@ const MainPageComponent = Ember.Component.extend(
 		 */
 		didReceiveAttrs() {
 			Ember.run.schedule('afterRender', this, () => {
-				M.setTrackContext({
+				setTrackContext({
 					a: this.get('title'),
 					n: this.get('ns'),
 				});
 
-				M.updateTrackedUrl(window.location.href);
-				M.trackPageView(this.get('adsContext.targeting'));
+				updateTrackedUrl(window.location.href);
+				trackPageView(this.get('adsContext.targeting'));
 
 				this.injectMainPageAds();
 				this.setupAdsContext(this.get('adsContext'));

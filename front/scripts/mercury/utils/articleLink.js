@@ -1,3 +1,5 @@
+import Mercury from '../Mercury';
+
 /**
  * Library to parse links in an article and return information about how to process a given link.
  */

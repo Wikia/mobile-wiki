@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DateTime from '../../mercury/utils/dateTime';
 
 /**
  * Helper to give textual representation of time interval between past date
@@ -12,22 +13,22 @@ import Ember from 'ember';
 const TimeAgoHelper = Ember.Helper.helper((params) => {
 	const unixTimestamp = params[0],
 		fromDate = new Date(unixTimestamp * 1000),
-		interval = M.DateTime.timeAgo(fromDate);
+		interval = DateTime.timeAgo(fromDate);
 
 	switch (interval.type) {
-	case M.DateTime.Interval.Now:
+	case DateTime.Interval.Now:
 		return i18n.t('app.now-label');
-	case M.DateTime.Interval.Second:
+	case DateTime.Interval.Second:
 		return i18n.t('app.seconds-ago-label', {count: interval.value});
-	case M.DateTime.Interval.Minute:
+	case DateTime.Interval.Minute:
 		return i18n.t('app.minutes-ago-label', {count: interval.value});
-	case M.DateTime.Interval.Hour:
+	case DateTime.Interval.Hour:
 		return i18n.t('app.hours-ago-label', {count: interval.value});
-	case M.DateTime.Interval.Day:
+	case DateTime.Interval.Day:
 		return i18n.t('app.days-ago-label', {count: interval.value});
-	case M.DateTime.Interval.Month:
+	case DateTime.Interval.Month:
 		return i18n.t('app.months-ago-label', {count: interval.value});
-	case M.DateTime.Interval.Year:
+	case DateTime.Interval.Year:
 		return i18n.t('app.years-ago-label', {count: interval.value});
 	default:
 		Ember.Logger.error('Unexpected date interval for timestamp', unixTimestamp);

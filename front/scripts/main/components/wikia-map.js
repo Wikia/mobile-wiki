@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import ImageMediaComponent from 'image-media.js';
+import ImageMediaComponent from 'image-media';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const WikiaMapComponent = ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
@@ -18,8 +19,8 @@ const WikiaMapComponent = ImageMediaComponent.extend({
 			if (url) {
 				Ember.Logger.debug('Handling map with id:', id, 'and title:', title);
 
-				M.track({
-					action: M.trackActions.click,
+				track({
+					action: trackActions.click,
 					category: 'map',
 				});
 

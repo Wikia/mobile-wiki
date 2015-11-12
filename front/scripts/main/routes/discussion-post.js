@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Mercury from '../../mercury/Mercury';
 import DiscussionPostModel from '../models/discussion-post';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 

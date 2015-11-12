@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Mercury from '../../mercury/Mercury';
 
 const LanguagesMixin = Ember.Mixin.create({
 	defaultLanguage: 'en',

@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import ArticleContentMixin from '../mixins/article-content.js';
+import ArticleContentMixin from '../mixins/article-content';
+import VideoLoader from '../../mercury/modules/VideoLoader';
 
 const LightboxVideoComponent = Ember.Component.extend(
 	ArticleContentMixin,
@@ -39,7 +40,7 @@ const LightboxVideoComponent = Ember.Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const videoLoader = new Mercury.Modules.VideoLoader(this.get('model.embed')),
+			const videoLoader = new VideoLoader(this.get('model.embed')),
 				selector = Ember.get(videoLoader, 'player.containerSelector');
 
 			// Stop bubbling it up to the lightbox

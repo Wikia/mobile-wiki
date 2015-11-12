@@ -2,6 +2,7 @@ import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
 import Krux from '../modules/Trackers/Krux';
 import Quantserve from '../modules/Trackers/Quantserve';
+import Mercury from '../Mercury';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 import {prop} from '../../baseline/mercury/utils/state';
 

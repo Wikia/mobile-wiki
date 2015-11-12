@@ -1,6 +1,8 @@
 import Ember from 'ember';
-import AlertNotificationsMixin from '../mixins/alert-notifications.js';
-import MediaModel from '../models/media.js';
+import AlertNotificationsMixin from '../mixins/alert-notifications';
+import MediaModel from '../models/media';
+import {track, trackActions} from '../../mercury/utils/track';
+import Mercury from '../../mercury/Mercury';
 
 const ApplicationController = Ember.Controller.extend(
 	AlertNotificationsMixin,
@@ -53,8 +55,8 @@ const ApplicationController = Ember.Controller.extend(
 			});
 
 			// This event is for tracking mobile sessions between Mercury and WikiaMobile
-			M.track({
-				action: M.trackActions.impression,
+			track({
+				action: trackActions.impression,
 				category: 'app',
 				label: 'load'
 			});

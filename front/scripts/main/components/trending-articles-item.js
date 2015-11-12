@@ -1,6 +1,7 @@
 import Ember from 'ember';
-import ViewportMixin from '../mixins/viewport.js';
-import TrackClickMixin from '../mixins/track-click.js';
+import ViewportMixin from '../mixins/viewport';
+import TrackClickMixin from '../mixins/track-click';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const TrendingArticlesItemComponent = Ember.Component.extend(
 	ViewportMixin,
@@ -9,8 +10,8 @@ const TrendingArticlesItemComponent = Ember.Component.extend(
 		tagName: 'a',
 		classNames: ['trending-articles-item'],
 		attributeBindings: ['href', 'style'],
-		cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
-		thumbnailer: Mercury.Modules.Thumbnailer,
+		cropMode: Thumbnailer.mode.topCrop,
+		thumbnailer: Thumbnailer,
 		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7',
 		style: null,
 		imageWidth: 250,

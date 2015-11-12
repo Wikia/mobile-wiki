@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import ArticleEditModel from '../models/article-edit.js';
+import ArticleEditModel from '../models/article-edit';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const ArticleEditController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -35,8 +36,8 @@ const ArticleEditController = Ember.Controller.extend({
 			this.set('isPublishing', false);
 		});
 
-		M.track({
-			action: M.trackActions.impression,
+		track({
+			action: trackActions.impression,
 			category: 'sectioneditor',
 			label: 'success'
 		});
@@ -59,8 +60,8 @@ const ArticleEditController = Ember.Controller.extend({
 
 		this.set('isPublishing', false);
 
-		M.track({
-			action: M.trackActions.impression,
+		track({
+			action: trackActions.impression,
 			category: 'sectioneditor',
 			label: error || 'edit-publish-error'
 		});
@@ -79,8 +80,8 @@ const ArticleEditController = Ember.Controller.extend({
 				this.handlePublishError.bind(this)
 			);
 
-			M.track({
-				action: M.trackActions.click,
+			track({
+				action: trackActions.click,
 				category: 'sectioneditor',
 				label: 'publish'
 			});
@@ -90,8 +91,8 @@ const ArticleEditController = Ember.Controller.extend({
 		 */
 		back() {
 			this.transitionToRoute('article', this.get('model.title'));
-			M.track({
-				action: M.trackActions.click,
+			track({
+				action: trackActions.click,
 				category: 'sectioneditor',
 				label: 'back',
 				value: this.get('publishDisabled')

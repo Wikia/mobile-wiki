@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click.js';
+import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const CollapsibleMenuComponent = Ember.Component.extend(
 	TrackClickMixin,
@@ -23,8 +24,8 @@ const CollapsibleMenuComponent = Ember.Component.extend(
 				this.toggleProperty('isCollapsed');
 
 				if (this.trackingEvent !== null) {
-					M.track({
-						action: M.trackActions.click,
+					track({
+						action: trackActions.click,
 						category: this.get('trackingEvent'),
 						label: this.get('isCollapsed') ? 'close' : 'open'
 					});

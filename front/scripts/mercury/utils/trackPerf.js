@@ -11,19 +11,19 @@ import {prop} from '../../baseline/mercury/utils/state';
  */
 
 const context = {
-		country: M.prop('geo.country'),
-		env: M.prop('environment'),
-		logged_in: Boolean(M.prop('userId')),
+		country: prop('geo.country'),
+		env: prop('environment'),
+		logged_in: Boolean(prop('userId')),
 		skin: 'mercury',
 		url: window.location.href.split('#')[0],
 		'user-agent': window.navigator.userAgent
 	},
 	tracker = (typeof Weppy === 'function') ?
 		Weppy.namespace('mercury').setOptions({
-			aggregationInterval: M.prop('weppyConfig').aggregationInterval,
+			aggregationInterval: prop('weppyConfig').aggregationInterval,
 			context,
-			host: M.prop('weppyConfig').host,
-			sample: M.prop('weppyConfig').samplingRate,
+			host: prop('weppyConfig').host,
+			sample: prop('weppyConfig').samplingRate,
 			transport: 'url'
 		}) :
 		null;

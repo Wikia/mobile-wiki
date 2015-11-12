@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import ArticleCommentsModel from '../models/article-comments.js';
+import ArticleCommentsModel from '../models/article-comments';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const ArticleCommentsComponent = Ember.Component.extend({
 	page: null,
@@ -101,8 +102,8 @@ const ArticleCommentsComponent = Ember.Component.extend({
 
 			this.toggleProperty('isCollapsed');
 
-			M.track({
-				action: M.trackActions.click,
+			track({
+				action: trackActions.click,
 				category: 'comments',
 				label: this.get('page') ? 'open' : 'close'
 			});

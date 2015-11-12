@@ -7,6 +7,7 @@ import HttpCodes from '../common/HttpCodes';
 import MarketingOptIn from '../signup/MarketingOptIn';
 import TermsOfUse from '../signup/TermsOfUse';
 import UrlHelper from '../common/UrlHelper';
+import {trackActions} from '../../mercury/utils/track';
 
 /**
  * @typedef {Object} Window
@@ -148,7 +149,7 @@ export default class FacebookRegistration {
 			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
-				this.tracker.track('facebook-signup-join-wikia-success', Mercury.Utils.trackActions.success);
+				this.tracker.track('facebook-signup-join-wikia-success', trackActions.success);
 				AuthUtils.authSuccessCallback(this.redirect);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				this.formErrors.displayGeneralError();
@@ -164,7 +165,7 @@ export default class FacebookRegistration {
 			this.formErrors.displayGeneralError();
 			this.authLogger.xhrError(facebookTokenXhr);
 
-			this.tracker.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
+			this.tracker.track('facebook-signup-join-wikia-error', trackActions.error);
 		};
 
 		facebookTokenXhr.open('POST', heliosTokenUrl, true);
@@ -211,7 +212,7 @@ export default class FacebookRegistration {
 			this.formErrors.displayGeneralError();
 			this.authLogger.xhrError(facebookRegistrationXhr);
 
-			this.tracker.track('facebook-signup-join-wikia-error', Mercury.Utils.trackActions.error);
+			this.tracker.track('facebook-signup-join-wikia-error', trackActions.error);
 		};
 
 		facebookRegistrationXhr.open('POST', url, true);

@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import AlertNotificationsMixin from '../mixins/alert-notifications.js';
-import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout.js';
-import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail.js';
-import TrackClickMixin from '../mixins/track-click.js';
-import ViewportMixin from '../mixins/viewport.js';
+import AlertNotificationsMixin from '../mixins/alert-notifications';
+import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
+import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
+import TrackClickMixin from '../mixins/track-click';
+import ViewportMixin from '../mixins/viewport';
 
 const CuratedContentEditorImageCropComponent = Ember.Component.extend(
 	AlertNotificationsMixin,

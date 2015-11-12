@@ -1,6 +1,8 @@
 import Ember from 'ember';
-import App from '../app.js';
-import ArticleAddPhotoModel from '../models/article-add-photo.js';
+import App from '../app';
+import Mercury from '../../mercury/Mercury';
+import ArticleAddPhotoModel from '../models/article-add-photo';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const ArticleController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -27,8 +29,8 @@ const ArticleController = Ember.Controller.extend({
 			App.VisibilityStateManager.reset();
 			this.transitionToRoute('articleEdit', title, sectionIndex);
 
-			M.track({
-				action: M.trackActions.click,
+			track({
+				action: trackActions.click,
 				category: 'sectioneditor',
 				label: 'edit',
 				value: sectionIndex
