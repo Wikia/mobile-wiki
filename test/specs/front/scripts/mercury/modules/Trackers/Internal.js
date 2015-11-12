@@ -24,6 +24,14 @@ QUnit.test('params are object without empty values', function () {
 	equal(result, 'http://wikia.com/view?fizz=buzz&fizz2=buzz2', 'Request url is equal to expected');
 });
 
+QUnit.test('params are encoded', function () {
+	var result = this.tracker.createRequestURL('foo', {
+		'fizz&&&': 'buzz???'
+	});
+
+	equal(result, 'http://wikia.com/view?fizz%26%26%26=buzz%3F%3F%3F', 'Request url is equal to expected');
+});
+
 QUnit.test('params are object with empty values', function () {
 	var result = this.tracker.createRequestURL('foo', {
 		'fizz': 'buzz',
@@ -67,8 +75,7 @@ QUnit.module('Internal tracker loadTrackingScript', {
 );
 
 QUnit.test('load tracking script', function () {
-	var head = document.head,
-		scriptElementMock = {},
+	var scriptElementMock = {},
 		scriptsCountBeforeLoad = scriptsArray.length,
 		scriptsCountAfterLoad,
 		insertedScript;
@@ -86,7 +93,6 @@ QUnit.test('load tracking script', function () {
 QUnit.module('Track', {
 	setup: function () {
 		this.tracker = new Mercury.Modules.Trackers.Internal();
-		this.tracker.url = function() {};
 		this.tracker.loadTrackingScript = sinon.spy();
 		this.tracker.createRequestURL = sinon.spy();
 	}
