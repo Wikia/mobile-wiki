@@ -8,12 +8,18 @@ moduleFor('mixin:colorUtils', 'ColorUtilsMixin', {
 });
 
 test('returns rgba values correctly', function () {
+	var error;
+
 	deepEqual(mixin.hexToRgb('#ffffff'), {r: 255, g: 255, b: 255, a: 1});
 	deepEqual(mixin.hexToRgb('#fc4400', 0.4), {r: 252, g: 68, b: 0, a: 0.4});
 	deepEqual(mixin.hexToRgb('#75cccc', 0.1), {r: 117, g: 204, b: 204, a: 0.1});
 	deepEqual(mixin.hexToRgb('#333333', 0.9), {r: 51, g: 51, b: 51, a: 0.9});
 	deepEqual(mixin.hexToRgb('#000000', 0), {r: 0, g: 0, b: 0, a: 0});
-	equal(mixin.hexToRgb('33'), undefined);
+
+	throws(
+		function(){mixin.hexToRgb('33')},
+		new Error('hex must be in proper color hex notation')
+	);
 });
 
 test('returns rgba color correctly', function () {

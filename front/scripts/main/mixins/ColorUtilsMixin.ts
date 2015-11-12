@@ -32,7 +32,7 @@ App.ColorUtilsMixin = Em.Mixin.create({
 		rgbParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.shortHexColorExpand(hex));
 
 		if (!rgbParts) {
-			return;
+			throw new Error('hex must be in proper color hex notation');
 		}
 
 		return {
