@@ -19,15 +19,10 @@ App.CuratedContentEditorBlockEditItemRoute = Em.Route.extend({
 	 * @returns {void}
 	 */
 	setupController(controller, model, transition) {
-		const block = transition.params['curatedContentEditor.blockEditItem'].block,
-			rootModel = this.modelFor('curatedContentEditor'),
-			alreadyUsedLabels = (block === 'optional') ?
-				App.CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel, model.label) :
-				App.CuratedContentEditorModel.getAlreadyUsedLabels(rootModel.get(block), model.label);
+		const block = transition.params['curatedContentEditor.blockEditItem'].block;
 
 		this._super(controller, model, transition);
 		controller.setProperties({
-			alreadyUsedLabels,
 			block,
 			isFeaturedItem: block === 'featured',
 			originalItemLabel: model.label
