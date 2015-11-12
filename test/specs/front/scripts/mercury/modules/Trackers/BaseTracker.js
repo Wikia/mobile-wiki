@@ -1,5 +1,5 @@
 /* global Mercury */
-var scriptsArray = [];
+var scriptsArray;
 
 QUnit.module('BaseTracker tests', {
 	setup: function () {
@@ -11,6 +11,7 @@ QUnit.module('BaseTracker tests', {
 			}
 		};
 
+		scriptsArray = [];
 		this.createElementOriginal = document.createElement;
 
 		document.createElement = function() {
@@ -22,6 +23,7 @@ QUnit.module('BaseTracker tests', {
 	},
 	teardown: function() {
 		document.createElement = this.createElementOriginal;
+		scriptsArray = [];
 	}
 });
 

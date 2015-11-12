@@ -1,4 +1,6 @@
 /* global Mercury */
+var scriptsArray;
+
 QUnit.module('Internal tracker createRequestURL method tests when isPageView returns true', {
 	setup: function () {
 		Mercury.Modules.Trackers.Internal.isPageView = function() {return true;};
@@ -51,19 +53,34 @@ QUnit.test('params are object without empty values', function () {
 QUnit.module('Internal tracker loadTrackingScript', {
 	setup: function () {
 		this.tracker = new Mercury.Modules.Trackers.Internal();
+		this.tracker.scriptLoadedHandler = function() {};
+		this.tracker.head = {
+			insertBefore: function(script) {
+				scriptsArray.push(script);
+			}
+		};
+		scriptsArray = [];
+	},
+	teardown: function() {
+		scriptsArray = [];
 	}}
 );
 
 QUnit.test('load tracking script', function () {
 	var head = document.head,
-		headFirstChild = head.firstChild,
+		scriptElementMock = {},
+		scriptsCountBeforeLoad = scriptsArray.length,
+		scriptsCountAfterLoad,
 		insertedScript;
 
-	this.tracker.loadTrackingScript('foo');
-	insertedScript = document.querySelector('head script[src="foo"]');
+	this.tracker.loadTrackingScript('scriptUrl', scriptElementMock);
+	insertedScript = scriptsArray[0];
 
-	notDeepEqual(head.firstChild, headFirstChild, 'First child is updated');
-	equal(head.firstChild, insertedScript, 'Script is injected as first child in head');
+	scriptsCountAfterLoad = scriptsArray.length;
+	equal(scriptsCountAfterLoad - scriptsCountBeforeLoad, 1, 'Script is inserted in head');
+	equal(typeof insertedScript['onload'] === 'function', true, 'Script has onload handler assigned');
+	equal(typeof insertedScript['onreadystatechange'] === 'function', true, 'Script has onreadystatechange handler assigned');
+	equal(insertedScript['src'], 'scriptUrl', 'Script has correct url');
 });
 
 QUnit.module('Track', {
