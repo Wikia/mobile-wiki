@@ -55,6 +55,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		},
 
 		/**
+		 * @param {boolean} hidden
 		 * @returns {void}
 		 */
 		setCloseButtonHidden(hidden: boolean): void {
