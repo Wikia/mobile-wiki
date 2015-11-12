@@ -58,7 +58,6 @@ module Mercury.Modules.Trackers {
 		error: Function;
 		head: HTMLElement;
 		defaults: InternalTrackingConfig;
-		script: any;
 
 		/**
 		 * @returns {void}
@@ -119,22 +118,24 @@ module Mercury.Modules.Trackers {
 			return this.baseUrl + targetRoute + '?' + parts.join('&');
 		}
 
-		scriptLoadedHandler(abort: any): void {
+		/**
+		 * @param {boolean} abort
+		 * @param {HTMLScriptElement} script
+		 * @returns {void}
+		 */
+		scriptLoadedHandler(abort: any, script: HTMLScriptElement): void {
 
-			if (!abort || !!this.script.readyState || !/loaded|complete/.test(this.script.readyState)) {
+			if (!abort || !!script.readyState || !/loaded|complete/.test(script.readyState)) {
 				return;
 			}
 
 			// Handle memory leak in IE
-			this.script.onload = this.script.onreadystatechange = null;
+			script.onload = script.onreadystatechange = null;
 
 			// Remove the script
-			if (this.head && this.script.parentNode) {
-				this.head.removeChild(this.script);
+			if (this.head && script.parentNode) {
+				this.head.removeChild(script);
 			}
-
-			// Dereference the script
-			this.script = undefined;
 
 			if (!abort && typeof this.success === 'function') {
 				setTimeout(this.success, this.callbackTimeout);
@@ -146,18 +147,16 @@ module Mercury.Modules.Trackers {
 
 		/**
 		 * @param {string} url
+		 * @param {HTMLScriptElement} script
 		 * @returns {void}
 		 */
-		loadTrackingScript (url: string): void {
-			this.script = document.createElement('script');
-
-			this.script.src = url;
-
-			this.script.onload = this.script.onreadystatechange = (abort: any) => {
-				this.scriptLoadedHandler(abort);
+		loadTrackingScript (url: string, script: HTMLScriptElement = document.createElement('script')): void {
+			script.src = url;
+			script.onload = script.onreadystatechange = (abort: any) => {
+				this.scriptLoadedHandler(abort, script);
 			};
 
-			this.head.insertBefore(this.script, this.head.firstChild);
+			this.head.insertBefore(script, this.head.firstChild);
 		}
 
 
