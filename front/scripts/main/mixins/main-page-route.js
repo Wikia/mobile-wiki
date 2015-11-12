@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {normalizeToWhitespace} from '../../mercury/utils/string.js';
+import {prop} from '../../baseline/mercury/utils/state.js';
 
 const MainPageRouteMixin = Ember.Mixin.create({
 	/**
@@ -22,7 +24,7 @@ const MainPageRouteMixin = Ember.Mixin.create({
 	afterModel(model) {
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
-			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
+			adsContext = $.extend({}, prop('mainPageData.adsContext'));
 
 		let sectionOrCategoryName;
 
@@ -35,13 +37,13 @@ const MainPageRouteMixin = Ember.Mixin.create({
 			sectionOrCategoryName = decodeURIComponent(title);
 		}
 
-		sectionOrCategoryName = M.String.normalizeToWhitespace(sectionOrCategoryName);
+		sectionOrCategoryName = normalizeToWhitespace(sectionOrCategoryName);
 
 		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionOrCategoryName,
 			adsContext,
-			ns: M.prop('mainPageData.ns')
+			ns: prop('mainPageData.ns')
 		});
 	},
 

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
 
 /**
  * @typedef {Object} ImageCropData
@@ -9,8 +10,8 @@ import Ember from 'ember';
  */
 
 const CuratedContentThumbnailMixin = Ember.Mixin.create({
-	thumbnailer: Mercury.Modules.Thumbnailer,
-	cropMode: Mercury.Modules.Thumbnailer.mode.topCrop,
+	thumbnailer: Thumbnailer,
+	cropMode: Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 
 	aspectRatio: Ember.computed('block', function () {

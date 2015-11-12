@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ArticleAddPhotoModel from '../models/article-add-photo.js';
+import {track, trackActions} from '../../mercury/utils/track.js';
 
 const ArticleAddPhotoController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -23,8 +24,8 @@ const ArticleAddPhotoController = Ember.Controller.extend({
 			});
 		});
 
-		M.track({
-			action: M.trackActions.impression,
+		track({
+			action: trackActions.impression,
 			category: 'sectionaddphoto',
 			label: 'success'
 		});
@@ -56,8 +57,8 @@ const ArticleAddPhotoController = Ember.Controller.extend({
 
 		appController.set('isLoading', false);
 
-		M.track({
-			action: M.trackActions.impression,
+		track({
+			action: trackActions.impression,
 			category: 'sectionaddphoto',
 			label: error || 'add-photo-error'
 		});

@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import App from '../app';
 import MediaModel from 'media';
+import {prop} from '../../baseline/mercury/utils/state';
+import {normalizeToWhitespace} from '../../mercury/utils/string.js';
 
 /**
  * @typedef {Object} ArticleModelUrlParams
@@ -57,7 +59,7 @@ ArticleModel.reopenClass({
 		const model = ArticleModel.create(params);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
+			if (prop('articleContentPreloadedInDOM') && !prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
@@ -113,7 +115,7 @@ ArticleModel.reopenClass({
 	getPreloadedData() {
 		const article = Mercury.article;
 
-		M.prop('articleContentPreloadedInDOM', false);
+		prop('articleContentPreloadedInDOM', false);
 
 		if (article.data && article.data.article) {
 			// On the first page load the article content is available only in HTML
@@ -140,7 +142,7 @@ ArticleModel.reopenClass({
 
 		if (exception) {
 			articleProperties = {
-				cleanTitle: M.String.normalizeToWhitespace(model.title),
+				cleanTitle: normalizeToWhitespace(model.title),
 				exception
 			};
 		} else if (data) {

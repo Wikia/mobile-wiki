@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl.js';
 
 /**
  * Handles posts upvoting.
@@ -28,7 +29,7 @@ const DiscussionRouteUpvoteMixin = Ember.Mixin.create({
 
 			Ember.$.ajax({
 				method,
-				url: M.getDiscussionServiceUrl(`/${Ember.get(post, 'siteId')}/votes/post/${Ember.get(post, 'id')}`),
+				url: getDiscussionServiceUrl(`/${Ember.get(post, 'siteId')}/votes/post/${Ember.get(post, 'id')}`),
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true,

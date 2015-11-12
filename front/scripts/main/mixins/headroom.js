@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {getSystem} from '../../mercury/utils/browser.js';
 
 const HeadroomMixin = Ember.Mixin.create({
 	headroom: null,
@@ -12,7 +13,7 @@ const HeadroomMixin = Ember.Mixin.create({
 
 	offset: Ember.computed('smartBannerVisible', function () {
 		if (this.get('smartBannerVisible')) {
-			return this.get(`smartBannerHeight.${Mercury.Utils.Browser.getSystem()}`);
+			return this.get(`smartBannerHeight.${getSystem()}`);
 		}
 
 		return 0;

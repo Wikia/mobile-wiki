@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ObjectUtilitiesMixin from '../mixins/object-utilities.js';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl.js';
 
 /**
  * CuratedContentImageCropSingleData
@@ -85,7 +86,7 @@ CuratedContentEditorItemModel.reopenClass({
 	getImage(title, size) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.buildUrl({
+				url: buildUrl({
 					path: '/wikia.php',
 				}),
 				data: {
@@ -115,7 +116,7 @@ CuratedContentEditorItemModel.reopenClass({
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.buildUrl({
+				url: buildUrl({
 					path: '/wikia.php'
 				}),
 				data: completeData,
@@ -138,7 +139,7 @@ CuratedContentEditorItemModel.reopenClass({
 			}
 
 			Ember.$.ajax({
-				url: M.buildUrl({
+				url: buildUrl({
 					path: '/wikia.php'
 				}),
 				data: {
