@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import MediaComponent from 'media.js';
-import InfoboxImageCollectionComponent from 'infobox-image-collection.js';
-import WikiaMapComponent from 'wikia-map.js';
-import PortableInfoboxComponent from 'portable-infobox.js';
-import AdsMixin from '../mixins/ads.js';
-import PollDaddyMixin from '../mixins/poll-daddy.js';
+import MediaComponent from 'media';
+import InfoboxImageCollectionComponent from 'infobox-image-collection';
+import WikiaMapComponent from 'wikia-map';
+import PortableInfoboxComponent from 'portable-infobox';
+import AdsMixin from '../mixins/ads';
+import PollDaddyMixin from '../mixins/poll-daddy';
 
 /**
  * HTMLElement

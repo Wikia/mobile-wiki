@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl.js';
+import {getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 
 const DiscussionIndexModel = Ember.Object.extend({
 });

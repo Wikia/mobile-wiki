@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import App from '../app';
 import MediaModel from 'media';
-import Mercury from '../../mercury/Mercury.js';
+import Mercury from '../../mercury/Mercury';
 import {prop} from '../../baseline/mercury/utils/state';
-import {normalizeToWhitespace} from '../../mercury/utils/string.js';
+import {normalizeToWhitespace} from '../../mercury/utils/string';
 
 /**
  * @typedef {Object} ArticleModelUrlParams

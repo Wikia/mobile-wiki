@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ImageMediaComponent from 'image-media.js';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import ImageMediaComponent from 'image-media';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const WikiaMapComponent = ImageMediaComponent.extend({
 	classNames: ['wikia-map'],

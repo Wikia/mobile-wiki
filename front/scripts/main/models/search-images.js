@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl.js';
-import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 /**
  * @typedef {Object} SearchImageResponse

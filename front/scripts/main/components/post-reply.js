@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send.js';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl.js';
+import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 const PostReplyComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,

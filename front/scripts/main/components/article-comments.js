@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ArticleCommentsModel from '../models/article-comments.js';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import ArticleCommentsModel from '../models/article-comments';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const ArticleCommentsComponent = Ember.Component.extend({
 	page: null,

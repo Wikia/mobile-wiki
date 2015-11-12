@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DateTime from '../../mercury/utils/dateTime.js';
+import DateTime from '../../mercury/utils/dateTime';
 
 /**
  * Helper to give textual representation of time interval between past date

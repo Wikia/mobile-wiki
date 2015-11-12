@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track as mercuryTrack, trackActions} from '../../mercury/utils/track.js';
+import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
 
 const ArticleAddPhotoComponent = Ember.Component.extend({
 	actions: {

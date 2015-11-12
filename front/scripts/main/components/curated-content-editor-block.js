@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import CuratedContentEditorSortableItemsMixin from '../mixins/curated-content-editor-sortable-items.js';
+import CuratedContentEditorSortableItemsMixin from '../mixins/curated-content-editor-sortable-items';
 
 const CuratedContentEditorBlockComponent = Ember.Component.extend(
 	CuratedContentEditorSortableItemsMixin,

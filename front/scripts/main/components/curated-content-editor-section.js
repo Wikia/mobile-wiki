@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import AlertNotificationsMixin from '../mixins/alert-notifications.js';
-import CuratedContentEditorSortableItemsMixin from '../mixins/curated-content-editor-sortable-items.js';
-import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail.js';
-import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels.js';
-import TrackClickMixin from '../mixins/track-click.js';
-import CuratedContentEditorItemModel from '../models/curated-content-editor-item.js';
+import AlertNotificationsMixin from '../mixins/alert-notifications';
+import CuratedContentEditorSortableItemsMixin from '../mixins/curated-content-editor-sortable-items';
+import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
+import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
+import TrackClickMixin from '../mixins/track-click';
+import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 
 const CuratedContentEditorSectionComponent = Ember.Component.extend(
 	AlertNotificationsMixin,

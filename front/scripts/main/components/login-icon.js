@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Mercury from '../../mercury/Mercury';
-import LanguagesMixin from 'login-icon.js';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import LanguagesMixin from 'login-icon';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const LoginIconComponent = Ember.Component.extend(
 	LanguagesMixin,

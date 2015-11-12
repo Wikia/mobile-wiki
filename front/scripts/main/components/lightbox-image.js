@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ArticleContentMixin from '../mixins/article-content.js';
+import ArticleContentMixin from '../mixins/article-content';
 
 const LightboxImageComponent = Ember.Component.extend(
 	ArticleContentMixin,

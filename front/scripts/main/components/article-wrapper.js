@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import Mercury from '../../mercury/Mercury';
-import LanguagesMixin from '../mixins/languages.js';
-import TrackClickMixin from '../mixins/track-click.js';
-import ViewportMixin from '../mixins/viewport.js';
-import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track.js';
-import {prop} from '../../baseline/mercury/utils/state.js';
+import LanguagesMixin from '../mixins/languages';
+import TrackClickMixin from '../mixins/track-click';
+import ViewportMixin from '../mixins/viewport';
+import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
+import {prop} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} ArticleSectionHeader

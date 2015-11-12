@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Mercury from '../../mercury/Mercury';
-import TrackClickMixin from '../mixins/track-click.js';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from '../../mercury/utils/track';
 
 /**
  * Type for topmost-level nav item, which doesn't have any of the properties defined in NavItem

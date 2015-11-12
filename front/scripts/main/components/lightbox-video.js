@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ArticleContentMixin from '../mixins/article-content.js';
-import VideoLoader from '../../mercury/modules/VideoLoader.js';
+import ArticleContentMixin from '../mixins/article-content';
+import VideoLoader from '../../mercury/modules/VideoLoader';
 
 const LightboxVideoComponent = Ember.Component.extend(
 	ArticleContentMixin,

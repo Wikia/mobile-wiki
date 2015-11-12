@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import GalleryMediaComponent from 'gallery-media.js';
+import GalleryMediaComponent from 'gallery-media';
 
 const LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
 	tagName: 'div',

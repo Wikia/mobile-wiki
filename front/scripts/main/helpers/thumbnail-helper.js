@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 /**
  * Helper to generate img element with link to thumbnail as the src attribute

@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import ViewportMixin from '../mixins/viewport.js';
-import TrackClickMixin from '../mixins/track-click.js';
-import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
+import ViewportMixin from '../mixins/viewport';
+import TrackClickMixin from '../mixins/track-click';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const TrendingVideosItemComponent = Ember.Component.extend(
 	ViewportMixin,

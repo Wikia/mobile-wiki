@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import App from 'app.js';
+import App from 'app';
 import Mercury from '../mercury/Mercury';
-import {prop} from '../baseline/mercury/utils/state.js';
+import {prop} from '../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} QueryUserInfoResponse

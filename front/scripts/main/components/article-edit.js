@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ViewportMixin from '../mixins/viewport.js';
+import ViewportMixin from '../mixins/viewport';
 
 const ArticleEditComponent = Ember.Component.extend(
 	ViewportMixin,

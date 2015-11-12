@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const TrackClickMixin = Ember.Mixin.create({
 	/**

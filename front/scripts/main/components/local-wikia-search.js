@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import App from '../app.js';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import App from '../app';
+import {track, trackActions} from '../../mercury/utils/track';
 
 /**
  * Type for search suggestion

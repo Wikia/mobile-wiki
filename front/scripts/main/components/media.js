@@ -1,12 +1,12 @@
 import Ember from 'ember';
-import VisibleMixin from '../mixins/visible.js';
-import InfoboxImageMediaComponent from 'infobox-image-media.js';
-import LinkedGalleryMediaComponent from 'linked-gallery-media.js';
-import GalleryMediaComponent from 'gallery-media.js';
-import VideoMediaComponent from 'video-media.js';
-import ImageMediaComponent from 'image-media.js';
-import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import VisibleMixin from '../mixins/visible';
+import InfoboxImageMediaComponent from 'infobox-image-media';
+import LinkedGalleryMediaComponent from 'linked-gallery-media';
+import GalleryMediaComponent from 'gallery-media';
+import VideoMediaComponent from 'video-media';
+import ImageMediaComponent from 'image-media';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
+import {track, trackActions} from '../../mercury/utils/track';
 
 /**
  * @typedef {Object} ThumbnailOptions

@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ArticleEditModel from '../models/article-edit.js';
-import {track, trackActions} from '../../mercury/utils/track.js';
+import ArticleEditModel from '../models/article-edit';
+import {track, trackActions} from '../../mercury/utils/track';
 
 const ArticleEditController = Ember.Controller.extend({
 	application: Ember.inject.controller(),

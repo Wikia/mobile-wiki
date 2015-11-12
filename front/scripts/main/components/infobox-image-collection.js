@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import MediaComponent from 'media.js';
-import ViewportMixin from '../mixins/viewport.js';
-import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
+import MediaComponent from 'media';
+import ViewportMixin from '../mixins/viewport';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const InfoboxImageCollectionComponent = MediaComponent.extend(
 	ViewportMixin,

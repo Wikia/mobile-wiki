@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import MediaComponent from 'media.js';
-import ArticleContentMixin from '../mixins/article-content.js';
-import ViewportMixin from '../mixins/viewport.js';
-import Thumbnailer from '../../mercury/modules/Thumbnailer.js';
+import MediaComponent from 'media';
+import ArticleContentMixin from '../mixins/article-content';
+import ViewportMixin from '../mixins/viewport';
+import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 const ImageMediaComponent = MediaComponent.extend(
 	ArticleContentMixin,

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Mercury from '../../mercury/Mercury';
-import TrackClickMixin from '../mixins/track-click.js';
-import LanguagesMixin from '../mixins/languages.js';
+import TrackClickMixin from '../mixins/track-click';
+import LanguagesMixin from '../mixins/languages';
 
 const ShareFeatureComponent = Ember.Component.extend(
 	TrackClickMixin,

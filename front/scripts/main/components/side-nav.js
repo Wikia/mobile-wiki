@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Mercury from '../../mercury/Mercury';
-import {track, trackActions} from '../../mercury/utils/track.js';
-import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting.js';
+import {track, trackActions} from '../../mercury/utils/track';
+import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 
 const SideNavComponent = Ember.Component.extend({
 	tagName: 'nav',

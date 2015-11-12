@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {normalizeToUnderscore} from '../../mercury/utils/string.js';
+import {normalizeToUnderscore} from '../../mercury/utils/string';
 
 /**
  * @typedef {Object} ArticleMedia

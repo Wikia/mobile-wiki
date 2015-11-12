@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import App from 'app.js';
+import App from 'app';
 import Mercury from '../mercury/Mercury';
 
 App.Router.map(function () {

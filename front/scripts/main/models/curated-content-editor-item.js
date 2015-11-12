@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ObjectUtilitiesMixin from '../mixins/object-utilities.js';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl.js';
+import ObjectUtilitiesMixin from '../mixins/object-utilities';
+import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 /**
  * CuratedContentImageCropSingleData

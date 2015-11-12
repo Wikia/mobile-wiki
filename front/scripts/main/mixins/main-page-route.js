@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import {normalizeToWhitespace} from '../../mercury/utils/string.js';
-import {prop} from '../../baseline/mercury/utils/state.js';
+import {normalizeToWhitespace} from '../../mercury/utils/string';
+import {prop} from '../../baseline/mercury/utils/state';
 
 const MainPageRouteMixin = Ember.Mixin.create({
 	/**

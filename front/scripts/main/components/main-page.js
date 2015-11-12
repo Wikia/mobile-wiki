@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import AdsMixin from '../mixins/ads.js';
-import TrackClickMixin from '../mixins/track-click.js';
-import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting.js';
-import {setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track.js';
+import AdsMixin from '../mixins/ads';
+import TrackClickMixin from '../mixins/track-click';
+import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
+import {setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
 
 const MainPageComponent = Ember.Component.extend(
 	AdsMixin,
