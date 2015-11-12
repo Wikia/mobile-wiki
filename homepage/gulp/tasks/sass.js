@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 	options = require('../options').sass,
 	paths = require('../paths').styles.homepage;
 
-gulp.task('sass', ['bower'], function () {
+gulp.task('sass', ['vendor'], function () {
 	gulp.src(paths.src)
 	    .pipe(sass(options).on('error', sass.logError))
 		.pipe(autoprefixer({

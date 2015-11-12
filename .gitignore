@@ -43,7 +43,6 @@ mercury.iml
 .settings
 
 # Intermediate files from TypeScript compiler
-front/scripts/**/*.js
 front/scripts/**/*.js.map
 
 # Homepage

@@ -1,8 +1,25 @@
+/**
+ * LoginCredentials
+ * @typedef {Object} LoginCredentials
+ * @property {string} username
+ * @property {string} password
+ */
 interface LoginCredentials {
 	username: string;
 	password: string;
 }
 
+/**
+ * LoginResponse
+ * @typedef {Object} LoginResponse
+ * @property {string} user_id
+ * @property {string} access_token
+ * @property {string} refresh_token
+ * @property {string} token_type
+ * @property {string} expires_in
+ * @property {string} [error]
+ * @property {string} [error_description]
+ */
 interface LoginResponse {
 	user_id: string;
 	access_token: string;
@@ -13,11 +30,20 @@ interface LoginResponse {
 	error_description?: string;
 }
 
+/**
+ * FormElements
+ * @typedef {Object} FormElements
+ * @property {HTMLInputElement} username
+ * @property {HTMLInputElement} password
+ */
 interface FormElements extends HTMLCollection {
 	username: HTMLInputElement;
 	password: HTMLInputElement;
 }
 
+/**
+ * @class Login
+ */
 class Login {
 	form: HTMLFormElement;
 	redirect: string;
@@ -27,6 +53,10 @@ class Login {
 	tracker: AuthTracker;
 	authLogger: AuthLogger = AuthLogger.getInstance();
 
+	/**
+	 * @constructs Login
+	 * @param {Element} form
+	 */
 	constructor (form: Element) {
 		var elements: FormElements;
 		this.form = <HTMLFormElement> form;
@@ -43,6 +73,11 @@ class Login {
 		this.tracker = new AuthTracker('user-login-mobile', '/signin');
 	}
 
+	/**
+	 * @param {Event} event
+	 *
+	 * @returns {void}
+	 */
 	public onSubmit (event: Event): void {
 		var xhr = new XMLHttpRequest(),
 			postData: LoginCredentials = this.getCredentials(),
@@ -96,11 +131,19 @@ class Login {
 		xhr.send(this.urlHelper.urlEncode(postData));
 	}
 
+	/**
+	 * @param {LoginResponse} loginResponse
+	 *
+	 * @returns {void}
+	 */
 	public onLoginSuccess(loginResponse: LoginResponse): void {
 		this.tracker.track('login-success', M.trackActions.submit);
 		AuthUtils.authSuccessCallback(this.redirect);
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	public watch(): void {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 
@@ -113,6 +156,9 @@ class Login {
 		}
 	}
 
+	/**
+	 * @returns {LoginCredentials}
+	 */
 	private getCredentials (): LoginCredentials {
 		return {
 			username: this.usernameInput.value,
@@ -120,6 +166,11 @@ class Login {
 		};
 	}
 
+	/**
+	 * @param {string} messageKey
+	 *
+	 * @returns {void}
+	 */
 	public displayError (messageKey: string): void {
 		var errorElement: HTMLElement = document.createElement('small');
 		errorElement.classList.add('error');
@@ -127,6 +178,9 @@ class Login {
 		this.form.appendChild(errorElement);
 	}
 
+	/**
+	 * @returns {void}
+	 */
 	private clearError (): void {
 		var errorNode: Node = this.form.querySelector('small.error');
 		if (errorNode) {

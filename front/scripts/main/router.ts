@@ -2,17 +2,10 @@
 'use strict';
 
 App.Router.map(function () {
-	/*
-	This can be either '/*title' or '/wiki/*title' and is based on configuration
-	That is coming from MW
-	but if anything happens lets default to /wiki/*title
-
-	ensure that it has trailing / also
-	 */
-	var articlePath = Em.getWithDefault(Mercury, 'wiki.articlePath', '/wiki/').replace(/\/?$/, '/');
+	var articlePath = '/wiki/';
 
 	this.route('mainPage', {
-		path: '/wiki/' + Mercury.wiki.mainPageTitle
+		path: articlePath + Mercury.wiki.mainPageTitle
 	});
 
 	this.route('mainPageSection', {
@@ -90,13 +83,10 @@ App.Router.map(function () {
 		});
 	});
 
-	// We don't want to duplicate the previous route
-	if (articlePath !== '/') {
-		// Route to catch all badly formed URLs
-		this.route('notFound', {
-			path: '/*url'
-		});
-	}
+	// Route to catch all badly formed URLs
+	this.route('notFound', {
+		path: '/*url'
+	});
 });
 
 App.Router.reopen({

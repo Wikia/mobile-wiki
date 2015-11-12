@@ -13,6 +13,7 @@
     "article-last-edit_plural_2":"上次編輯在 __count__ 周前",
     "article-categories-list-label":"分類",
     "article-top-contributors-label":"這篇文章的傑出貢獻者",
+    "article-error":"對不起，我們無法載入這篇文章。請再試一次。",
     "side-nav-menu-label":"選單",
     "navigation-back-label":"返回",
     "search-loading-msg":"正在載入搜尋結果…",
@@ -148,13 +149,23 @@
   },
   "discussion":{
     "share-default-title":"__siteName__上的討論",
+    "contributors-title":"所有貢獻者",
     "sort-by-latest":"最新話題",
     "sort-by-trending":"熱門瀏覽",
-    "number-of-posts":"__numberOfPosts__條帖子"
+    "loading-more-posts":"載入更多帖子",
+    "back-to-wikia-link":"返回Wiki",
+    "number-of-posts":"__numberOfPosts__條帖子",
+    "connection-error":"不能連接，請再試一次。",
+    "not-found-error":"很抱歉，此頁面似乎不存在!",
+    "action-retry-title":"請再試一次",
+    "all-discussions-link-desktop":"展示所有討論",
+    "all-discussions-link-mobile":"所有討論",
+    "discussions-app-join":"想要參與討論？立即下載這款軟體吧！",
+    "back-to-discussions-link":"所有討論"
   },
   "userStatus":{
     "anon-cta":"__registerLink__或__loginLink__",
     "register-text":"註冊",
-    "login-text":"登錄"
+    "login-text":"登入"
   }
 }

@@ -10,7 +10,8 @@ var Promise = require('bluebird'),
 	deepExtend = require('deep-extend'),
 	Auth = require('./auth'),
 	auth = new Auth(),
-	localSettings = require('../config/localSettings').localSettings;
+	localSettings = require('../config/localSettings').localSettings,
+	strings;
 
 exports.readJsonConfigSync = function (filename) {
 	try {
@@ -20,6 +21,7 @@ exports.readJsonConfigSync = function (filename) {
 		return JSON.parse(data);
 	}
 	catch (e) {
+		console.log(e);
 		return null;
 	}
 };
@@ -65,6 +67,12 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 		reply.view(view, combinedData);
 	}
+
+	if (!strings) {
+		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
+	}
+
+	data = deepExtend(data, strings);
 
 	this.getLoginState(request).then(function (data) {
 		request.log('info', 'Got valid access token (user id: ' + data.user_id + ')');  // jshint ignore:line

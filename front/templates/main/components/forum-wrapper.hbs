@@ -1,10 +1,11 @@
 {{#each posts as |item|}}
 	{{post-detail
+		author=item.createdBy
 		goToPost='goToPost'
-		upvote='upvote'
 		post=item._embedded.firstPost.[0]
 		postId=item.id
 		replyCount=item.postCount
+		upvote='upvote'
 	}}
 {{/each}}
 {{#if hasMore}}

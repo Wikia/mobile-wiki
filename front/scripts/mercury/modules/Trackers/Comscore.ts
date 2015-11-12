@@ -7,15 +7,23 @@ interface Window {
 
 module Mercury.Modules.Trackers {
 	export class Comscore extends BaseTracker {
+		/**
+		 * @returns {void}
+		 */
 		constructor () {
 			window._comscore = window._comscore || [];
 			super();
 		}
-
+		/**
+		 * @returns {string}
+		 */
 		url (): string {
 			return (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js?" + Math.random();
 		}
 
+		/**
+		 * @returns {void}
+		 */
 		trackPageView (): void {
 			var comscore = M.prop('tracking.comscore'),
 				id: string =  comscore.id,

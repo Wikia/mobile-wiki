@@ -1,24 +1,36 @@
-interface XhrLoggerData {
-	level: string;
-	status: number;
-	response: any;
-	heliosUrl: string;
-	clientUrl: string;
-}
-
+/**
+ * ClickStreamPayload
+ * @typedef {Object} ClickStreamPayload
+ * @property {object[]} events
+ */
 interface ClickStreamPayload {
 	events: any[];
 }
 
+/**
+ * PageParams
+ * @typedef {Object} PageParams
+ * @property {boolean} enableAuthLogger
+ * @property {string} authLoggerUrl
+ */
 interface PageParams {
 	enableAuthLogger: boolean;
 	authLoggerUrl: string;
 }
 
+/**
+ * XMLHttpRequest
+ * @typedef {Object} XMLHttpRequest
+ * @property {string} responseUrl
+ */
 interface XMLHttpRequest {
 	responseUrl: string;
 }
 
+/**
+ * @readonly
+ * @enum {object}
+ */
 enum AuthLoggerLevels {
 	Emergency,
 	critical,
@@ -30,11 +42,17 @@ enum AuthLoggerLevels {
 	debug
 }
 
+/**
+ * @class AuthLogger
+ */
 class AuthLogger {
 	static instance: AuthLogger;
 	isEnabled: boolean = false;
 	url: string;
 
+	/**
+	 * @constructs AuthLogger
+	 */
 	constructor () {
 		if (window.pageParams) {
 			this.isEnabled = window.pageParams.enableAuthLogger;
@@ -42,6 +60,11 @@ class AuthLogger {
 		}
 	}
 
+	/**
+	 * @static
+	 *
+	 * @returns {AuthLogger}
+	 */
 	static getInstance(): AuthLogger {
 		if (!AuthLogger.instance) {
 			AuthLogger.instance = new AuthLogger();
@@ -49,6 +72,11 @@ class AuthLogger {
 		return AuthLogger.instance;
 	}
 
+	/**
+	 * @param {Object} data
+	 *
+	 * @returns {void}
+	 */
 	public log(data: any): void {
 		if (this.isEnabled) {
 			var loggerXhr: XMLHttpRequest = new XMLHttpRequest(),
@@ -61,6 +89,11 @@ class AuthLogger {
 		}
 	}
 
+	/**
+	 * @param {Object} data
+	 *
+	 * @returns {ClickStreamPayload}
+	 */
 	private getClickStreamPayload(data: any): ClickStreamPayload {
 		var events: any[] = [];
 
@@ -75,6 +108,11 @@ class AuthLogger {
 		};
 	}
 
+	/**
+	 * @param {XMLHttpRequest} xhr
+	 *
+	 * @returns {void}
+	 */
 	public xhrError(xhr: XMLHttpRequest): void {
 		this.log({
 			level: AuthLoggerLevels.error,

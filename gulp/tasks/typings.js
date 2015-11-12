@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 
 gulp.task('typings', folders(paths.src, function (folder) {
 	return gulp.src(
-			['!' + path.join(folder, paths.dFiles), path.join(folder, paths.files)], {
+			['!' + path.join(folder, paths.tsdFiles), path.join(folder, paths.tsFiles)], {
 				cwd: paths.src
 			}
 		)

@@ -13,6 +13,7 @@
     "article-last-edit_plural_2":"Editado por última vez hace __count__ semanas",
     "article-categories-list-label":"Categorías",
     "article-top-contributors-label":"Principales editores de este artículo",
+    "article-error":"Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.",
     "side-nav-menu-label":"Menú",
     "navigation-back-label":"Atrás",
     "search-loading-msg":"Cargando resultados de la búsqueda...",
@@ -54,7 +55,7 @@
     "videos-label":"Vídeos",
     "photos-label":"Fotos",
     "pages-label":"Páginas",
-    "username-anonymous":"Un colaborador de Wikia",
+    "username-anonymous":"Un editor de Wikia",
     "smartbanner-store-ios":"En la App Store",
     "smartbanner-store-android":"En Google Play",
     "smartbanner-install-ios":"BAJAR",
@@ -148,9 +149,19 @@
   },
   "discussion":{
     "share-default-title":"Discusión en __siteName__",
+    "contributors-title":"Todos los editores",
     "sort-by-latest":"Más recientes",
     "sort-by-trending":"Tendencias",
-    "number-of-posts":"__numberOfPosts__ publicaciones"
+    "loading-more-posts":"Cargando más publicaciones",
+    "back-to-wikia-link":"A la wikia",
+    "number-of-posts":"__numberOfPosts__ publicaciones",
+    "connection-error":"No se puede conectar, por favor inténtalo de nuevo.",
+    "not-found-error":"¡Uh oh, parece que esta página no existe!",
+    "action-retry-title":"Volver a intentar",
+    "all-discussions-link-desktop":"Muéstrame todas las discusiones",
+    "all-discussions-link-mobile":"Todas las discusiones",
+    "discussions-app-join":"¿Deseas unirte a la discusión? ¡Obtén la aplicación ahora!",
+    "back-to-discussions-link":"Todas las discusiones"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ o __loginLink__",

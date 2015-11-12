@@ -5,10 +5,17 @@
 'use strict';
 
 App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
+	/**
+	 * @param {*} params
+	 * @returns {Em.RSVP.Promise}
+	 */
 	model: function(params: any): Em.RSVP.Promise {
 		return App.ArticleEditModel.load(params.title, params.sectionIndex);
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	renderTemplate(): void {
 		this.render('article-edit', {
 			controller: 'articleEdit'
@@ -16,6 +23,11 @@ App.ArticleEditRoute = Em.Route.extend(App.FullPageMixin, {
 	},
 
 	actions: {
+		/**
+		 * @param {*} error
+		 * @param {EmberStates.Transition} transition
+		 * @returns {boolean}
+		 */
 		error(error: any, transition: EmberStates.Transition): boolean {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.edit-load-error'),

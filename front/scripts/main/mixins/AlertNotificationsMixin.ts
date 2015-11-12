@@ -4,6 +4,10 @@
 App.AlertNotificationsMixin = Em.Mixin.create({
 	alertNotifications: Ember.A(),
 
+	/**
+	 * @param {AlertNotification} alertData
+	 * @returns {void}
+	 */
 	addAlert(alertData: AlertNotification): void {
 		var message = alertData.message,
 			type = alertData.type || '',
@@ -22,6 +26,9 @@ App.AlertNotificationsMixin = Em.Mixin.create({
 		});
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	clearNotifications(): void {
 		var notifications = this.get('alertNotifications'),
 			updatedNotifications = notifications.filter((item: AlertNotification): boolean => {

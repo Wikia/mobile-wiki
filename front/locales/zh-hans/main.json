@@ -13,6 +13,7 @@
     "article-last-edit_plural_2":"上次编辑在 __count__ 周前",
     "article-categories-list-label":"类别",
     "article-top-contributors-label":"这篇文章的杰出编辑者",
+    "article-error":"对不起，我们无法加载这篇文章。请再试一次。",
     "side-nav-menu-label":"菜单",
     "navigation-back-label":"返回",
     "search-loading-msg":"正在加载搜索结果...",
@@ -148,9 +149,19 @@
   },
   "discussion":{
     "share-default-title":"__siteName__上的讨论",
+    "contributors-title":"所有贡献者",
     "sort-by-latest":"最新",
     "sort-by-trending":"热门浏览",
-    "number-of-posts":"__numberOfPosts__条帖子"
+    "loading-more-posts":"下载更多帖子",
+    "back-to-wikia-link":"返回维基",
+    "number-of-posts":"__numberOfPosts__条帖子",
+    "connection-error":"连接失效，请再试一次。",
+    "not-found-error":"很抱歉，此页面似乎不存在!",
+    "action-retry-title":"请再试一次",
+    "all-discussions-link-desktop":"展示所有讨论",
+    "all-discussions-link-mobile":"所有讨论",
+    "discussions-app-join":"想参与讨论？立即下载这款应用吧！",
+    "back-to-discussions-link":"所有讨论"
   },
   "userStatus":{
     "anon-cta":"__registerLink__或__loginLink__",

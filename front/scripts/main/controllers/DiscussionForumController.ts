@@ -1,8 +1,10 @@
 /// <reference path="../app.ts" />
 
 App.DiscussionForumController = Em.Controller.extend({
-	needs: 'application',
+	application: Em.inject.controller(),
 	sortBy: null,
+
+	smartBannerVisible: Em.computed.oneWay('application.smartBannerVisible'),
 
 	// Whether the sort component is currently visible
 	sortVisible: false,
@@ -29,12 +31,37 @@ App.DiscussionForumController = Em.Controller.extend({
 	}),
 
 	actions: {
+
+		/**
+		 * @returns {void}
+		 */
 		showSortComponent(): void {
 			this.set('sortVisible', true);
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		hideSortComponent(): void {
 			this.set('sortVisible', false);
+		},
+
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
+		retry(): void {
+			this.get('target').send('retry');
+		},
+
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
+		goToAllDiscussions(): void {
+			this.get('target').send('goToAllDiscussions');
 		}
 	}
 });

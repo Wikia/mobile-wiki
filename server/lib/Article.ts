@@ -5,8 +5,8 @@
 
 /**
  * @description Article controller
- * @TODO CONCF-761 ArticleRequestHelper and MainPageRequestHelper are sharing couple of functionalities.
- * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
+ * @TODO XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
+ * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 import util = require('util');
 import Promise = require('bluebird');
@@ -29,7 +29,7 @@ export class ArticleRequestHelper {
 	/**
 	 * Gets wiki variables and article, returns a promise which is resolved with object containing all the data.
 	 */
-	getFull(): Promise<any> {
+	getFull(): Promise<ArticlePageData> {
 		var requests = [
 			new MediaWiki.ArticleRequest(this.params)
 				.article(this.params.title, this.params.redirect, this.params.sections),
@@ -51,27 +51,40 @@ export class ArticleRequestHelper {
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
 		return Promise.settle(requests)
-			.then((results: Promise.Inspection<Promise<any>>[]) => {
+			.then((results: Promise.Inspection<Promise<ArticlePageData>>[]) => {
 				var articlePromise: Promise.Inspection<Promise<any>> = results[0],
-					wikiPromise: Promise.Inspection<Promise<any>> = results[1],
-					article: any,
-					wikiVariables: any;
+					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
+					isArticlePromiseFulfilled = articlePromise.isFulfilled(),
+					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
+					article: ArticleResponse|MWException,
+					wikiVariables: any|MWException,
+					data: ArticlePageData;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
-				article = articlePromise.isFulfilled() ?
+				article = isArticlePromiseFulfilled ?
 					articlePromise.value() :
 					articlePromise.reason();
 
-				wikiVariables = wikiPromise.isFulfilled() ?
-					wikiPromise.value() :
-					wikiPromise.reason();
+				wikiVariables = isWikiVariablesPromiseFulfilled ?
+					wikiVariablesPromise.value() :
+					wikiVariablesPromise.reason();
 
-				return {
-					article: article.data,
-					exception: article.exception,
+				if (!isWikiVariablesPromiseFulfilled) {
+					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
+				}
+
+				data = {
+					article,
 					server: Utils.createServerData(localSettings, this.params.wikiDomain),
-					wiki: wikiVariables
+					wikiVariables
 				};
+
+				if (isArticlePromiseFulfilled) {
+					return Promise.resolve(data);
+				} else {
+					// Even if article promise failed we want to display app using the rest of data
+					return Promise.reject(new ArticleRequestError(data));
+				}
 			});
 	}
 
@@ -89,7 +102,7 @@ export class ArticleRequestHelper {
 	/**
 	 * Gets article, returns a promise which is resolved with the data.
 	 */
-	getArticle(): Promise<any> {
+	getArticle(): Promise<ArticleResponse> {
 		var articleRequest = new MediaWiki.ArticleRequest(this.params);
 
 		logger.debug(this.params, 'Fetching article');
@@ -97,12 +110,12 @@ export class ArticleRequestHelper {
 		return articleRequest.article(this.params.title, this.params.redirect, this.params.sections);
 	}
 
-	getArticleRandomTitle(next: Function): void {
+	getArticleRandomTitle(): Promise<any> {
 		var articleRequest = new MediaWiki.ArticleRequest(this.params);
 
-		articleRequest
+		return articleRequest
 			.randomTitle()
-			.then((result: any): void => {
+			.then((result: any): Promise<any> => {
 				var articleId: string,
 					pageData: { pageid: number; ns: number; title: string };
 
@@ -110,14 +123,23 @@ export class ArticleRequestHelper {
 					articleId = Object.keys(result.query.pages)[0];
 					pageData = <any>result.query.pages[articleId];
 
-					next(null, {
+					return Promise.resolve({
 						title: pageData.title
 					});
 				} else {
-					next(result.error, null);
+					return Promise.reject(result.exception);
 				}
-			}, (error: any): void => {
-				next(error, null);
 			});
 	}
 }
+
+export class ArticleRequestError {
+	private data: ArticlePageData;
+
+	constructor(data: ArticlePageData) {
+		Error.apply(this, arguments);
+		this.data = data;
+	}
+}
+
+ArticleRequestError.prototype = Object.create(Error.prototype);
