@@ -20,7 +20,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.Th
 	afterModel(model: typeof App.DiscussionPostModel): void {
 		var title: string = model.get('title');
 		if (!title) {
-			title = i18n.t('discussion.share-default-title', {siteName: Mercury.wiki.siteName});
+			title = i18n.t('main.share-default-title', {siteName: Mercury.wiki.siteName, ns:'discussion'});
 		}
 		this.controllerFor('application').set('currentTitle', title);
 	},

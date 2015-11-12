@@ -145,22 +145,6 @@
     "curated-content-editor-new-section":"新的部分",
     "curated-content-editor-new-category":"新的類別"
   },
-  "discussion":{
-    "share-default-title":"__siteName__上的討論",
-    "contributors-title":"所有貢獻者",
-    "sort-by-latest":"最新話題",
-    "sort-by-trending":"熱門瀏覽",
-    "loading-more-posts":"載入更多帖子",
-    "back-to-wikia-link":"返回Wiki",
-    "number-of-posts":"__numberOfPosts__條帖子",
-    "connection-error":"不能連接，請再試一次。",
-    "not-found-error":"很抱歉，此頁面似乎不存在!",
-    "action-retry-title":"請再試一次",
-    "all-discussions-link-desktop":"展示所有討論",
-    "all-discussions-link-mobile":"所有討論",
-    "discussions-app-join":"想要參與討論？立即下載這款軟體吧！",
-    "back-to-discussions-link":"所有討論"
-  },
   "userStatus":{
     "anon-cta":"__registerLink__或__loginLink__",
     "register-text":"註冊",

@@ -145,22 +145,6 @@
     "curated-content-editor-new-section":"Neuer Ordner",
     "curated-content-editor-new-category":"Neue Kategorie"
   },
-  "discussion":{
-    "share-default-title":"Diskussion in __siteName__",
-    "contributors-title":"Alle Beitragenden",
-    "sort-by-latest":"Neueste",
-    "sort-by-trending":"Trends",
-    "loading-more-posts":"Mehr Beiträge laden",
-    "back-to-wikia-link":"Zum Wiki",
-    "number-of-posts":"__numberOfPosts__ Beiträge",
-    "connection-error":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal.",
-    "not-found-error":"Hoppla, diese Seite gibt es scheinbar nicht!",
-    "action-retry-title":"Noch einmal versuchen",
-    "all-discussions-link-desktop":"Alle Diskussionen anzeigen",
-    "all-discussions-link-mobile":"Alle Diskussionen",
-    "discussions-app-join":"Möchtest du mitdiskutieren? Besorge dir jetzt die App!",
-    "back-to-discussions-link":"Alle Diskussionen"
-  },
   "userStatus":{
     "anon-cta":"__registerLink__ oder __loginLink__",
     "register-text":"Registrieren",
