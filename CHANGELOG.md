@@ -1,3 +1,9 @@
+## release-188 (2015-11-12 11:33 UTC)
+* [XW-665](https://wikia-inc.atlassian.net/browse/XW-665) Xw 665 add missing tests for tracking
+* [XW-669](https://wikia-inc.atlassian.net/browse/XW-669) XW-669 | Create separate validator for Mercury Curated Content Editor
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Don't include domain name for google search tracking
+* [SOC-1266](https://wikia-inc.atlassian.net/browse/SOC-1266) SOC-1266 As a user, I want a dark theme for discussions for dark wikias
+
 ## release-187 hotfix 2 (2015-11-04 17:04 UTC)
 * enable-discussions: Discussions | Enabling discussions on featured Wikias
 
