@@ -19,6 +19,16 @@
 		.editor-close {
 			display: none;
 		}
+
+		span {
+			&.error {
+				background-color: $discussion-editor-error-background-color;
+				color: $discussion-editor-error-text-color;
+				font-size: 12px;
+				padding: 0;
+				text-align: center;
+			}
+		}
 	}
 
 	.discussion-editor {
