@@ -8,6 +8,16 @@ App.LightboxAdsComponent = Em.Component.extend({
 	 * @returns {void}
 	 */
 	didInsertElement(): void {
+		var closeButtonDelay = this.get('lightboxCloseButtonDelay') * 1000;
+
 		this.sendAction('setHeader', 'Advertisement');
+
+		if (closeButtonDelay>0) {
+			this.sendAction('setCloseButtonHidden', true);
+
+			Em.run.later(this, (): void => {
+				this.sendAction('setCloseButtonHidden', false);
+			}, closeButtonDelay);
+		}
 	}
 });
