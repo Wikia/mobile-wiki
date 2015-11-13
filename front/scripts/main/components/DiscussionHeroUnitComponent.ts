@@ -19,7 +19,14 @@ App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 		35171: 'discussion-header-hunger-games.jpg',
 		203914: 'discussion-header-one-direction.jpg',
 		147: 'discussion-header-star-wars.jpg',
+		750: 'discussion-header-star-wars.jpg',
+		916: 'discussion-header-star-wars.jpg',
+		1473: 'discussion-header-star-wars.jpg',
+		1530: 'discussion-header-star-wars.jpg',
+		1707: 'discussion-header-star-wars.jpg',
+		3786: 'discussion-header-star-wars.jpg',
 		5931: 'discussion-header-star-wars.jpg',
+		280741: 'discussion-header-star-wars.jpg',
 		13346: 'discussion-header-walking-dead.jpg'
 	},
 

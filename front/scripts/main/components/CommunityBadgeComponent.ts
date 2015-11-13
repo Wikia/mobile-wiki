@@ -13,7 +13,14 @@ App.CommunityBadgeComponent = Em.Component.extend({
 		35171: '/front/images/community-badge-hunger-games.png',
 		203914: '/front/images/community-badge-one-direction.png',
 		147: '/front/images/community-badge-star-wars.png',
+		750: '/front/images/community-badge-star-wars.png',
+		916: '/front/images/community-badge-star-wars.png',
+		1473: '/front/images/community-badge-star-wars.png',
+		1530: '/front/images/community-badge-star-wars.png',
+		1707: '/front/images/community-badge-star-wars.png',
+		3786: '/front/images/community-badge-star-wars.png',
 		5931: '/front/images/community-badge-star-wars.png',
+		280741: '/front/images/community-badge-star-wars.png',
 		13346: '/front/images/community-badge-walking-dead.png'
 	},
 
