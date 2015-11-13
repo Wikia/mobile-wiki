@@ -53,8 +53,8 @@
 	}
 
 	.editor-textarea {
+		border: 0;
 		border-radius: 0;
-		position: static;
 
 		&:focus {
 			background-color: $color-white;
@@ -97,7 +97,6 @@
 				border-top: 1px solid #e1e1e1;
 				height: 100%;
 				margin: 0;
-				max-width: initial;
 				padding: 40px 10px 10px;
 				position: relative;
 				top: 40px;
