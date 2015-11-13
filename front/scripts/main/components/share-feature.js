@@ -2,8 +2,9 @@
 import Mercury from '../../mercury/Mercury';
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
+import App from '../app';
 
-const ShareFeatureComponent = Ember.Component.extend(
+App.ShareFeatureComponent = Ember.Component.extend(
 	TrackClickMixin,
 	LanguagesMixin,
 	{
@@ -236,4 +237,4 @@ const ShareFeatureComponent = Ember.Component.extend(
 	}
 );
 
-export default ShareFeatureComponent;
+export default App.ShareFeatureComponent;

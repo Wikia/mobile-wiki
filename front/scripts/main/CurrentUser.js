@@ -2,6 +2,7 @@
 import App from './app';
 import Mercury from '../mercury/Mercury';
 import {globalProp} from '../baseline/mercury/utils/state';
+import UserModel from '../main/models/user';
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -22,7 +23,7 @@ import {globalProp} from '../baseline/mercury/utils/state';
  * @property {*} options
  */
 
-const CurrentUser = Ember.Object.extend({
+App.CurrentUser = Ember.Object.extend({
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
 	language: null,
@@ -40,7 +41,7 @@ const CurrentUser = Ember.Object.extend({
 		const userId = this.get('userId');
 
 		if (userId !== null) {
-			App.UserModel.find({userId})
+			UserModel.find({userId})
 				.then((result) => {
 					this.setProperties(result);
 				})
@@ -132,4 +133,4 @@ const CurrentUser = Ember.Object.extend({
 	}
 });
 
-export default CurrentUser;
+export default App.CurrentUser;

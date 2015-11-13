@@ -1,7 +1,8 @@
 
 import {track, trackActions} from '../../mercury/utils/track';
+import App from '../app';
 
-const TrackClickMixin = Ember.Mixin.create({
+App.TrackClickMixin = Ember.Mixin.create({
 	/**
 	 * @param {string} category
 	 * @param {string} [label='']
@@ -30,4 +31,4 @@ const TrackClickMixin = Ember.Mixin.create({
 	}
 });
 
-export default TrackClickMixin;
+export default App.TrackClickMixin;

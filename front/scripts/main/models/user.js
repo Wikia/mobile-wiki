@@ -1,5 +1,6 @@
 
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
+import App from '../app';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -15,14 +16,14 @@ import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
  * @property {number} userId
  */
 
-const UserModel = Ember.Object.extend({
+App.UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
 	userId: null,
 	rights: null
 });
 
-UserModel.reopenClass({
+App.UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
 	/**
@@ -30,12 +31,12 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<UserModel>}
 	 */
 	find(params) {
-		const avatarSize = params.avatarSize || UserModel.defaultAvatarSize,
-			modelInstance = UserModel.create();
+		const avatarSize = params.avatarSize || App.UserModel.defaultAvatarSize,
+			modelInstance = App.UserModel.create();
 
-		return UserModel.loadDetails(params.userId, avatarSize)
+		return App.UserModel.loadDetails(params.userId, avatarSize)
 			.then((userDetails) => {
-				const detailsSanitized = UserModel.sanitizeDetails(userDetails);
+				const detailsSanitized = App.UserModel.sanitizeDetails(userDetails);
 
 				return modelInstance.setProperties(detailsSanitized);
 			});
@@ -88,4 +89,4 @@ UserModel.reopenClass({
 	}
 });
 
-export default UserModel;
+export default App.UserModel;

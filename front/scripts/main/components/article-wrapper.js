@@ -5,6 +5,7 @@ import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
 import {globalProp} from '../../baseline/mercury/utils/state';
+import App from '../app';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -15,7 +16,7 @@ import {globalProp} from '../../baseline/mercury/utils/state';
  * @property {string} section
  */
 
-const ArticleWrapperComponent = Ember.Component.extend(
+App.ArticleWrapperComponent = Ember.Component.extend(
 	LanguagesMixin,
 	TrackClickMixin,
 	ViewportMixin,
@@ -248,4 +249,4 @@ const ArticleWrapperComponent = Ember.Component.extend(
 	}
 );
 
-export default ArticleWrapperComponent;
+export default App.ArticleWrapperComponent;

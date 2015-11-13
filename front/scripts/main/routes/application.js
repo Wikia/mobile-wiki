@@ -7,8 +7,9 @@ import {activate as variantTestingActivate} from '../../mercury/utils/variantTes
 import {getLinkInfo} from '../../mercury/utils/articleLink';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
 import Ads from '../../mercury/modules/Ads';
+import App from './../app';
 
-const ApplicationRoute = Ember.Route.extend(
+App.ApplicationRoute = Ember.Route.extend(
 	Ember.TargetActionSupport,
 	TrackClickMixin,
 	{
@@ -249,5 +250,3 @@ const ApplicationRoute = Ember.Route.extend(
 		},
 	}
 );
-
-export default ApplicationRoute;
