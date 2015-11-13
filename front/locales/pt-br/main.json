@@ -136,10 +136,4 @@
     "curated-content-editor-exit-prompt":"Você tem alterações não salvas. Tem certeza que deseja sair?",
     "curated-content-editor-main-page":"Página principal"
   },
-  "discussion":{
-    "pagination-post-show-more":"Visualizar respostas mais antigas",
-    "share-default-title":"Discussão em __siteName__",
-    "sort-by-latest":"Mais recentes",
-    "sort-by-trending":"Tendências"
-  }
 }

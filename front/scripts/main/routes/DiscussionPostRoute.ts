@@ -1,10 +1,10 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionLayoutMixin.ts" />
 /// <reference path="../mixins/DiscussionRouteUpvoteMixin.ts" />
-/// <reference path="../mixins/ThemeMixin.ts" />
 
 'use strict';
 
-App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.ThemeMixin, {
+App.DiscussionPostRoute = Em.Route.extend(App.DiscussionLayoutMixin, App.DiscussionRouteUpvoteMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Em.RSVP.Promise}
@@ -20,7 +20,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.Th
 	afterModel(model: typeof App.DiscussionPostModel): void {
 		var title: string = model.get('title');
 		if (!title) {
-			title = i18n.t('discussion.share-default-title', {siteName: Mercury.wiki.siteName});
+			title = i18n.t('main.share-default-title', {siteName: Mercury.wiki.siteName, ns:'discussion'});
 		}
 		this.controllerFor('application').set('currentTitle', title);
 	},
@@ -34,7 +34,6 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.Th
 			themeBar: true,
 			enableShareHeader: false
 		});
-		Em.$('body').addClass('discussions');
 		this._super();
 	},
 
@@ -47,7 +46,6 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionRouteUpvoteMixin, App.Th
 			themeBar: false,
 			enableShareHeader: false
 		});
-		Em.$('body').removeClass('discussions');
 		this._super();
 	},
 

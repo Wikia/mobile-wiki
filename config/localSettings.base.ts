@@ -116,7 +116,8 @@ var localSettings: LocalSettings = {
 			enable: true,
 			url: 'https://services.wikia.com/clickstream/events/social'
 		}
-	}
+	},
+	translationFiles: ['main', 'discussion']
 };
 
 export function extendSettings(customLocalSet: any): LocalSettings {
