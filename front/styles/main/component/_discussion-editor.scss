@@ -2,6 +2,7 @@ $editor-border-width: 4px;
 $editor-toolbar-height: 40px;
 $editor-textarea-paddings: 17px 17px 17px 64px;
 $sticky-editor-width: 529px;
+$success-icon-size: 80px;
 
 .discussion {
 	.editor-container {
@@ -48,11 +49,11 @@ $sticky-editor-width: 529px;
 
 			.success {
 				display: block;
-				height: 80px;
-				margin: -40px auto 0;
+				height: $success-icon-size;
+				margin: - $success-icon-size / 2 auto 0;
 				position: relative;
 				top: 50%;
-				width: 80px;
+				width: $success-icon-size;
 			}
 		}
 	}
@@ -75,7 +76,7 @@ $sticky-editor-width: 529px;
 				&.error {
 					align-items: center;
 					background-color: #f6f6f6;
-					color: #d0021b;;
+					color: #d0021b;
 					display: flex;
 					font-size: $type-smallest;
 					height: $editor-toolbar-height;
