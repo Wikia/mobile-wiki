@@ -184,7 +184,7 @@ $horizontal-padding: 15px;
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height + $theme-bar-height;
+		margin-top: $discussion-header-height - $theme-bar-height;
 
 		.discussion-content {
 			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
