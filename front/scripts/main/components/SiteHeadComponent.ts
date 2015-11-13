@@ -7,7 +7,7 @@ App.SiteHeadComponent = Em.Component.extend(
 	App.TrackClickMixin,
 	App.HeadroomMixin,
 	{
-		classNames: ['site-head'],
+		classNames: ['site-head', 'border-theme-color'],
 		classNameBindings: ['themeBar'],
 		tagName: 'nav',
 		themeBar: false,

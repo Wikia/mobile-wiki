@@ -175,8 +175,10 @@ body.dark-theme {
 		}
 		.discussion-sort {
 			li {
-				border-bottom-color: $dark-discussion-sort-color;
-				color: $dark-discussion-sort-color;
+				&.not-active {
+					border-bottom-color: $dark-discussion-sort-color;
+					color: $dark-discussion-sort-color;
+				}
 			}
 		}
 	}
