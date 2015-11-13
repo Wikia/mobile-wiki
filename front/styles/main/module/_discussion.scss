@@ -222,7 +222,7 @@ $horizontal-padding: 15px;
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: 0;
-			width: 507px;
+			width: $discussion-page-width;
 
 			.post-detail {
 				background-color: $discussion-desktop-post-detail-bg-color;

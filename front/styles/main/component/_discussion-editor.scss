@@ -1,3 +1,8 @@
+$editor-border-width: 4px;
+$editor-toolbar-height: 40px;
+$editor-textarea-paddings: 17px 17px 17px 64px;
+$sticky-editor-width: 529px;
+
 .discussion {
 	.editor-container {
 		button {
@@ -18,7 +23,7 @@
 			&.error {
 				background-color: $discussion-editor-error-background-color;
 				color: $discussion-editor-error-text-color;
-				font-size: 12px;
+				font-size: $type-min;
 				margin: 0;
 				padding: 0;
 				text-align: center;
@@ -55,6 +60,7 @@
 	.editor-textarea {
 		border: 0;
 		border-radius: 0;
+		margin: 0;
 
 		&:focus {
 			background-color: $color-white;
@@ -64,96 +70,95 @@
 	}
 
 	@media #{$mobile-range} {
-		.discussion-editor.active {
-			display: block;
-
-			.editor-container {
-				background: $color-white;
-				height: 100%;
-				position: fixed;
-				top: 0;
-				width: 100%;
-				z-index: 800;
-			}
-
-			button {
-				right: 0;
-				top: 0;
-			}
-
-			.editor-close {
-				display: inline-block;
-				left: 10px;
-				position: absolute;
-				top: 10px;
-				width: 18px;
-			}
-
-			.editor-wrapper {
-				height: calc(100% - 40px);
-			}
-
-			.editor-textarea {
-				border-top: 1px solid #e1e1e1;
-				height: 100%;
-				margin: 0;
-				padding: 40px 10px 10px;
-				position: relative;
-				top: 40px;
-				width: 100%;
-			}
-
-			.editor-label {
-				color: #999;
-				font-size: $type-min;
-				font-weight: 700;
-				margin: 10px;
-				position: absolute;
-				text-transform: uppercase;
-				top: 40px;
-			}
-
-			.user-avatar {
-				display: none;
-			}
-		}
-
 		.discussion-editor {
-			&.has-error {
-				.error-container {
-					padding-top: 39px;
-				}
-
-				.editor-wrapper {
-					height: calc(100% - 79px);
-					padding-top: 39px;
-				}
-
-				.editor-label {
-					top: 79px;
-				}
-
-				.editor-close {
-					top: 49px;
-				}
-
-				button {
-					top: 39px;
-				}
-			}
-
 			span {
 				&.error {
 					align-items: center;
 					background-color: #f6f6f6;
 					color: #d0021b;;
 					display: flex;
-					font-size: 16px;
-					height: 39px;
+					font-size: $type-smallest;
+					height: $editor-toolbar-height;
 					justify-content: center;
 					position: absolute;
 					top: 0;
 					width: 100%;
+				}
+			}
+
+			&.active {
+				display: block;
+
+				.editor-container {
+					background: $color-white;
+					height: 100%;
+					position: fixed;
+					top: 0;
+					width: 100%;
+					z-index: $z-8;
+				}
+
+				button {
+					right: 0;
+					top: 0;
+				}
+
+				.editor-close {
+					display: inline-block;
+					left: 10px;
+					position: absolute;
+					top: 10px;
+					width: 18px;
+				}
+
+				.editor-wrapper {
+					height: calc(100% - #{$editor-toolbar-height});
+				}
+
+				.editor-textarea {
+					border-top: 1px solid #e1e1e1;
+					height: 100%;
+					padding: $editor-toolbar-height 10px 10px;
+					position: relative;
+					top: $editor-toolbar-height;
+					width: 100%;
+				}
+
+				.editor-label {
+					color: #999;
+					font-size: $type-min;
+					font-weight: 700;
+					margin: 10px;
+					position: absolute;
+					text-transform: uppercase;
+					top: $editor-toolbar-height;
+				}
+
+				.user-avatar {
+					display: none;
+				}
+			}
+
+			&.has-error {
+				.error-container {
+					padding-top: $editor-toolbar-height;
+				}
+
+				.editor-wrapper {
+					height: calc(100% - #{2 * $editor-toolbar-height});
+					padding-top: $editor-toolbar-height;
+				}
+
+				.editor-label {
+					top: 2 * $editor-toolbar-height;
+				}
+
+				.editor-close {
+					top: $editor-toolbar-height + 10px;
+				}
+
+				button {
+					top: $editor-toolbar-height;
 				}
 			}
 		}
@@ -162,7 +167,7 @@
 	@media #{$desktop-range} {
 		.editor-container {
 			background-color: #f6f6f6;
-			border: 4px solid $border-color;
+			border: $editor-border-width solid $border-color;
 			margin: 0 auto 5px;
 			position: relative;
 
@@ -177,25 +182,25 @@
 
 			.editor-wrapper {
 				background-color: $color-white;
-				padding: 17px 17px 17px 64px;
+				padding: $editor-textarea-paddings;
 			}
 
 			&.sticky {
-				margin-left: -11px;
+				margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
 				position: fixed;
-				top: 56px;
+				top: $discussion-header-height + $theme-bar-height - $editor-border-width;
 				transition: top 0.5s;
-				width: 529px;
+				width: $sticky-editor-width;
 				z-index: 1;
 
 				&.pinned-top {
-					top: 6px;
+					top: $theme-bar-height - $editor-border-width;
 				}
 			}
 
 			button {
 				bottom: 0;
-				height: 40px;
+				height: $editor-toolbar-height;
 				padding: 0 1.25rem;
 				right: 0;
 			}
@@ -209,13 +214,13 @@
 
 		.discussion-editor.active {
 			.editor-container {
-				padding-bottom: 40px;
+				padding-bottom: $editor-toolbar-height;
 			}
 
 			.editor-textarea {
 				min-height: 106px;
 				max-height: 400px;
-				padding: 17px 17px 17px 64px;
+				padding: $editor-textarea-paddings;
 				resize: vertical;
 			}
 
