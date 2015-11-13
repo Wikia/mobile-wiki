@@ -268,3 +268,10 @@ $horizontal-padding: 15px;
 		}
 	}
 }
+
+@media #{$mobile-range} {
+	//To make sure discussion body is always expanding to 100% width
+	.row {
+		max-width: initial;
+	}
+}
