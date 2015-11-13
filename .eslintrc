@@ -11,6 +11,7 @@
   "globals": {
     "App": true,
     "EmPerfSender": true,
+    "Ember": true,
     "FastClick": true,
     "ga": true,
     "Hammer": true,

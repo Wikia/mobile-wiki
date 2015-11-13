@@ -92,11 +92,11 @@ const trackers = {
 		takeSurvey: 'take-survey',
 		// View
 		view: 'view'
-	},
-	context = {
-		a: null,
-		n: null
 	};
+let context = {
+	a: null,
+	n: null
+};
 
 /**
  * @param {TrackingParams} params
@@ -250,7 +250,7 @@ export function updateTrackedUrl(url) {
  * @returns {void}
  */
 export function setTrackContext(data) {
-	this.context = data;
+	context = data;
 }
 
 export {trackActions};

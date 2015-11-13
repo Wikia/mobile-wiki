@@ -8,6 +8,7 @@ import WikiaMapComponent from './wikia-map';
 import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
+import App from '../app';
 
 /**
  * HTMLElement
@@ -15,7 +16,7 @@ import PollDaddyMixin from '../mixins/poll-daddy';
  * @property {Function} scrollIntoViewIfNeeded
  */
 
-const ArticleContentComponent = Ember.Component.extend(
+App.ArticleContentComponent = Ember.Component.extend(
 	AdsMixin,
 	PollDaddyMixin,
 	{
@@ -462,4 +463,4 @@ const ArticleContentComponent = Ember.Component.extend(
 	}
 );
 
-export default ArticleContentComponent;
+export default App.ArticleContentComponent;

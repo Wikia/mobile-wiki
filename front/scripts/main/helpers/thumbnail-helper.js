@@ -1,5 +1,5 @@
-
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
+import App from '../app';
 
 /**
  * Helper to generate img element with link to thumbnail as the src attribute
@@ -10,7 +10,7 @@ import Thumbnailer from '../../mercury/modules/Thumbnailer';
  * @param {Object} options
  * @returns {Ember.Handlebars.SafeString}
  */
-const ThumbnailHelper = Ember.Helper.helper((params, options) => {
+App.ThumbnailHelper = Ember.Helper.helper((params, options) => {
 	const thumbnailer = Thumbnailer,
 		defaultMode = thumbnailer.mode.fixedAspectRatio,
 		defaultWidth = 100,
@@ -56,4 +56,4 @@ const ThumbnailHelper = Ember.Helper.helper((params, options) => {
 	);
 });
 
-export default ThumbnailHelper;
+export default App.ThumbnailHelper;
