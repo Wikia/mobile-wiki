@@ -4,7 +4,7 @@
 	</a>
 	<button type="submit" {{action 'createPost' forumId}} disabled={{submitDisabled}}>Post</button>
 	<div class="editor-wrapper">
-		<textarea class="editor-textarea" oninput={{action 'updateOnType'}} onfocus={{action 'toggleEditorActive' true}} placeholder="Share a thought, question or link..."></textarea>
+		<textarea class="editor-textarea" onkeypress={{action 'handleKeyPress' forumId}} oninput={{action 'updateOnType'}} onfocus={{action 'toggleEditorActive' true}} placeholder="Share a thought, question or link..."></textarea>
 	</div>
 	<label class="desktop-hidden editor-label">Create a post</label>
 	{{user-avatar

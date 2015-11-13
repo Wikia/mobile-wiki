@@ -126,6 +126,13 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		updateOnType(): void {
 			this.set('submitDisabled', this.$('.editor-textarea').val().length === 0);
 			this.set('active', true);
+		},
+
+		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
+			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
+				// Create post on CTR + ENTER
+				this.send('createPost', forumId);
+			}
 		}
 	}
 });
