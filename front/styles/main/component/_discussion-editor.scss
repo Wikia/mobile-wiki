@@ -58,13 +58,17 @@ $success-icon-size: 80px;
 		}
 	}
 
+	.editor-wrapper {
+		background-color: $discussion-editor-background-color;
+	}
+
 	.editor-textarea {
+		background-color: inherit;
 		border: 0;
 		border-radius: 0;
 		margin: 0;
 
 		&:focus {
-			background-color: $color-white;
 			border: 0;
 			box-shadow: none;
 		}
@@ -76,7 +80,7 @@ $success-icon-size: 80px;
 				&.error {
 					align-items: center;
 					background-color: #f6f6f6;
-					color: #d0021b;
+					color: $discussion-editor-error-background-color;
 					display: flex;
 					font-size: $type-smallest;
 					height: $editor-toolbar-height;
@@ -91,7 +95,7 @@ $success-icon-size: 80px;
 				display: block;
 
 				.editor-container {
-					background: $color-white;
+					background: $discussion-editor-background-color;
 					height: 100%;
 					position: fixed;
 					top: 0;
@@ -167,8 +171,8 @@ $success-icon-size: 80px;
 
 	@media #{$desktop-range} {
 		.editor-container {
-			background-color: #f6f6f6;
-			border: $editor-border-width solid $border-color;
+			background-color: $discussion-editor-toolbar-background-color;
+			border: $editor-border-width solid $discussion-editor-border-color;
 			margin: 0 auto 5px;
 			position: relative;
 
@@ -182,7 +186,6 @@ $success-icon-size: 80px;
 			}
 
 			.editor-wrapper {
-				background-color: $color-white;
 				padding: $editor-textarea-paddings;
 			}
 

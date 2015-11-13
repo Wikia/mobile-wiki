@@ -118,6 +118,24 @@ body.dark-theme {
 				border-top-color: $dark-discussion-post-detail-border-color;
 			}
 		}
+
+		.editor-container {
+			background-color: $dark-discussion-editor-toolbar-background-color;
+			border-color: $dark-discussion-editor-border-color;
+
+			button {
+				background: none;
+			}
+
+			.editor-textarea {
+				border-color: $dark-discussion-editor-border-color;
+				color: $dark-discussion-content-color;
+			}
+		}
+
+		.editor-wrapper {
+			background-color: $dark-discussion-editor-background-color;
+		}
 	}
 	.discussion-app-promotion {
 		.discussion-app-join-text {
@@ -149,7 +167,7 @@ body.dark-theme {
 	}
 	figure {
 		&.avatar {
-			img {
+			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
 			}
 		}
