@@ -1,3 +1,17 @@
+## release-188 hotfix 1 (2015-11-13 16:22 UTC)
+* [SOC-1476](https://wikia-inc.atlassian.net/browse/SOC-1476) Soc 1476 fix
+* sg-update: Style-Guide | Bump version to 1.7.4
+
+## release-188 (2015-11-13 12:49 UTC)
+* [SOC-1404](https://wikia-inc.atlassian.net/browse/SOC-1404) SOC-1404 As a designer, I want two colors from Theme Designer to be used in new Discussions
+* [ADEN-2595](https://wikia-inc.atlassian.net/browse/ADEN-2595) ADEN-2595 Disable all ads for logged in users
+* [SOC-1290](https://wikia-inc.atlassian.net/browse/SOC-1290) SOC-1290 Banner images for discussion desktop header
+* [SOC-1476](https://wikia-inc.atlassian.net/browse/SOC-1476) SOC-1476 | Move discussion translations to discussion.json file
+* [XW-665](https://wikia-inc.atlassian.net/browse/XW-665) Xw 665 add missing tests for tracking
+* [XW-669](https://wikia-inc.atlassian.net/browse/XW-669) XW-669 | Create separate validator for Mercury Curated Content Editor
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Don't include domain name for google search tracking
+* [SOC-1266](https://wikia-inc.atlassian.net/browse/SOC-1266) SOC-1266 As a user, I want a dark theme for discussions for dark wikias
+
 ## release-187 hotfix 2 (2015-11-04 17:04 UTC)
 * enable-discussions: Discussions | Enabling discussions on featured Wikias
 
