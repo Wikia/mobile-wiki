@@ -1,4 +1,4 @@
-import {prop} from '../../baseline/mercury/utils/state';
+import {globalProp} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} PerfTrackerParams
@@ -11,19 +11,19 @@ import {prop} from '../../baseline/mercury/utils/state';
  */
 
 const context = {
-		country: prop('geo.country'),
-		env: prop('environment'),
-		logged_in: Boolean(prop('userId')),
+		country: globalProp('geo.country'),
+		env: globalProp('environment'),
+		logged_in: Boolean(globalProp('userId')),
 		skin: 'mercury',
 		url: window.location.href.split('#')[0],
 		'user-agent': window.navigator.userAgent
 	},
 	tracker = (typeof Weppy === 'function') ?
 		Weppy.namespace('mercury').setOptions({
-			aggregationInterval: prop('weppyConfig').aggregationInterval,
+			aggregationInterval: globalProp('weppyConfig').aggregationInterval,
 			context,
-			host: prop('weppyConfig').host,
-			sample: prop('weppyConfig').samplingRate,
+			host: globalProp('weppyConfig').host,
+			sample: globalProp('weppyConfig').samplingRate,
 			transport: 'url'
 		}) :
 		null;
@@ -77,5 +77,5 @@ export function trackPerf(params) {
 export function sendPagePerformance() {
 	tracker.sendPagePerformance();
 	// used for automation test
-	prop('pagePerformanceSent', true);
+	globalProp('pagePerformanceSent', true);
 }

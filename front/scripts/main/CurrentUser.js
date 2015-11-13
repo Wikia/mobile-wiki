@@ -1,7 +1,7 @@
 
 import App from './app';
 import Mercury from '../mercury/Mercury';
-import {prop} from '../baseline/mercury/utils/state';
+import {globalProp} from '../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} QueryUserInfoResponse

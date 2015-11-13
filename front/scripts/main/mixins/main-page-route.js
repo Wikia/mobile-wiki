@@ -1,6 +1,6 @@
 
 import {normalizeToWhitespace} from '../../mercury/utils/string';
-import {prop} from '../../baseline/mercury/utils/state';
+import {globalProp} from '../../baseline/mercury/utils/state';
 
 const MainPageRouteMixin = Ember.Mixin.create({
 	/**
@@ -24,7 +24,7 @@ const MainPageRouteMixin = Ember.Mixin.create({
 	afterModel(model) {
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
-			adsContext = $.extend({}, prop('mainPageData.adsContext'));
+			adsContext = $.extend({}, globalProp('mainPageData.adsContext'));
 
 		let sectionOrCategoryName;
 
@@ -43,7 +43,7 @@ const MainPageRouteMixin = Ember.Mixin.create({
 			isRoot: false,
 			title: sectionOrCategoryName,
 			adsContext,
-			ns: prop('mainPageData.ns')
+			ns: globalProp('mainPageData.ns')
 		});
 	},
 

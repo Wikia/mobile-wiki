@@ -1,4 +1,4 @@
-import {prop} from '../../../baseline/mercury/utils/state';
+import {globalProp} from '../../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} TrackerOptions
@@ -54,7 +54,7 @@ export default class UniversalAnalytics {
 			'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 		].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
 
-		this.accounts = prop('tracking.ua');
+		this.accounts = globalProp('tracking.ua');
 
 		this.initAccount(this.accountPrimary, domain);
 

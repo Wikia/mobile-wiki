@@ -4,7 +4,7 @@ import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
-import {prop} from '../../baseline/mercury/utils/state';
+import {globalProp} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -141,7 +141,7 @@ const ArticleWrapperComponent = Ember.Component.extend(
 		 */
 		didInsertElement() {
 			$(window).off('scroll.mercury.preload');
-			window.scrollTo(0, prop('scroll'));
+			window.scrollTo(0, globalProp('scroll'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
