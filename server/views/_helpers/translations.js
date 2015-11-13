@@ -6,10 +6,10 @@ module.exports = function (language, opts) {
 		fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		foundLanguage = '',
-		namespace = '',
+		namespace,
 		wrapper = {};
 
-		namespace= (opts.hash.ns instanceof Array) ? opts.hash.ns : [opts.hash.ns];
+	namespace = (opts.hash.ns instanceof Array) ? opts.hash.ns : [opts.hash.ns];
 
 	namespace.forEach(function(ns){
 		[language, fallbackLanguage, defaultLanguage].some(function (lang) {
