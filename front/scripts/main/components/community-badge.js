@@ -1,4 +1,4 @@
-
+import App from '../app';
 import Mercury from '../../mercury/Mercury';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 

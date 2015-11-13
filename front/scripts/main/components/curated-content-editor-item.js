@@ -1,7 +1,7 @@
-
+import App from '../app';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 
-const CuratedContentEditorItemComponent = Ember.Component.extend(
+App.CuratedContentEditorItemComponent = Ember.Component.extend(
 	CuratedContentEditorLayoutMixin,
 	{
 		editorLayout: 'curated-content-editor-item-form',
@@ -40,4 +40,4 @@ const CuratedContentEditorItemComponent = Ember.Component.extend(
 	}
 );
 
-export default CuratedContentEditorItemComponent;
+export default App.CuratedContentEditorItemComponent;

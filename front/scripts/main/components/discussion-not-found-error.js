@@ -1,7 +1,7 @@
+import App from '../app';
 
-
-const DiscussionNotFoundErrorComponent = Ember.Component.extend({
+App.DiscussionNotFoundErrorComponent = Ember.Component.extend({
 	classNames: ['discussion-error', 'columns', 'large-6'],
 });
 
-export default DiscussionNotFoundErrorComponent;
+export default App.DiscussionNotFoundErrorComponent;

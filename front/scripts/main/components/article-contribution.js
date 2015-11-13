@@ -1,8 +1,8 @@
-
 import LanguagesMixin from '../mixins/languages';
 import {track, trackActions} from '../../mercury/utils/track';
+import App from '../app';
 
-const ArticleContributionComponent = Ember.Component.extend(
+App.ArticleContributionComponent = Ember.Component.extend(
 	LanguagesMixin,
 	{
 		classNames: ['contribution-container'],
@@ -80,4 +80,4 @@ const ArticleContributionComponent = Ember.Component.extend(
 	}
 );
 
-export default ArticleContributionComponent;
+export default App.ArticleContributionComponent;

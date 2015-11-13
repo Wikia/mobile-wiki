@@ -1,6 +1,6 @@
+import App from '../app';
 
-
-const DiscussionBackButtonComponent = Ember.Component.extend({
+App.DiscussionBackButtonComponent = Ember.Component.extend({
 	tagName: 'a',
 	classNames: ['back-button'],
 	attributeBindings: ['href'],
@@ -15,4 +15,4 @@ const DiscussionBackButtonComponent = Ember.Component.extend({
 	}
 });
 
-export default DiscussionBackButtonComponent;
+export default App.DiscussionBackButtonComponent;

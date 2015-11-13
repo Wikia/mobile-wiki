@@ -1,4 +1,4 @@
-
+import App from '../app';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
@@ -7,7 +7,7 @@ import TrackClickMixin from '../mixins/track-click';
 import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import SearchImagesModel from '../models/search-images';
 
-const CuratedContentEditorImageSearchComponent = Ember.Component.extend(
+App.CuratedContentEditorImageSearchComponent = Ember.Component.extend(
 	AlertNotificationsMixin,
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,
@@ -94,4 +94,4 @@ const CuratedContentEditorImageSearchComponent = Ember.Component.extend(
 	}
 );
 
-export default CuratedContentEditorImageSearchComponent;
+export default App.CuratedContentEditorImageSearchComponent;

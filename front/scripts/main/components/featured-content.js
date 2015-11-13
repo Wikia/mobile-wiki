@@ -1,10 +1,10 @@
-
+import App from '../app';
 import FeaturedContentMixin from '../mixins/featured-content';
 import TrackClickMixin from '../mixins/track-click';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import {trackEvent} from '../../mercury/utils/variantTesting';
 
-const FeaturedContentComponent = Ember.Component.extend(
+App.FeaturedContentComponent = Ember.Component.extend(
 	FeaturedContentMixin,
 	TrackClickMixin,
 	ThirdsClickMixin,
@@ -67,4 +67,4 @@ const FeaturedContentComponent = Ember.Component.extend(
 	}
 );
 
-export default FeaturedContentComponent;
+export default App.FeaturedContentComponent;

@@ -1,7 +1,7 @@
+import App from '../app';
 
-
-const DiscussionHeroUnitComponent = Ember.Component.extend({
+App.DiscussionHeroUnitComponent = Ember.Component.extend({
 	classNames: ['discussion-hero-unit'],
 });
 
-export default DiscussionHeroUnitComponent;
+export default App.DiscussionHeroUnitComponent;

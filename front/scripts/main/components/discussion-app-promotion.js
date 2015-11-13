@@ -1,7 +1,7 @@
-
+import App from '../app';
 import {globalProp} from '../../baseline/mercury/utils/state';
 
-const DiscussionAppPromotionComponent = Ember.Component.extend({
+App.DiscussionAppPromotionComponent = Ember.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
 	discussionsSplashPageConfig: globalProp('discussionsSplashPageConfig'),
@@ -21,4 +21,4 @@ const DiscussionAppPromotionComponent = Ember.Component.extend({
 	shouldDisplay: Ember.computed.and('androidAppLink', 'iosAppLink'),
 });
 
-export default DiscussionAppPromotionComponent;
+export default App.DiscussionAppPromotionComponent;

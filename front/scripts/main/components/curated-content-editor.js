@@ -1,9 +1,9 @@
-
+import App from '../app';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 
-const CuratedContentEditorComponent = Ember.Component.extend(
+App.CuratedContentEditorComponent = Ember.Component.extend(
 	AlertNotificationsMixin,
 	TrackClickMixin,
 	{
@@ -131,4 +131,4 @@ const CuratedContentEditorComponent = Ember.Component.extend(
 	}
 );
 
-export default CuratedContentEditorComponent;
+export default App.CuratedContentEditorComponent;

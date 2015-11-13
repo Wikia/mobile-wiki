@@ -1,11 +1,11 @@
-
+import App from '../app';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 
-const CuratedContentEditorImageCropComponent = Ember.Component.extend(
+App.CuratedContentEditorImageCropComponent = Ember.Component.extend(
 	AlertNotificationsMixin,
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
@@ -159,4 +159,4 @@ const CuratedContentEditorImageCropComponent = Ember.Component.extend(
 	}
 );
 
-export default CuratedContentEditorImageCropComponent;
+export default App.CuratedContentEditorImageCropComponent;

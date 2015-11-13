@@ -1,8 +1,8 @@
-
+import App from '../app';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
 
-const CuratedContentItemComponent = Ember.Component.extend(
+App.CuratedContentItemComponent = Ember.Component.extend(
 	CuratedContentThumbnailMixin,
 	ViewportMixin,
 	{
@@ -70,4 +70,4 @@ const CuratedContentItemComponent = Ember.Component.extend(
 	}
 );
 
-export default CuratedContentItemComponent;
+export default App.CuratedContentItemComponent;
