@@ -2,11 +2,11 @@
 	<a href="#" class="editor-close" {{action 'toggleEditorActive' false}}>
 		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
 	</a>
-	<button class="active-element-theme-color" type="submit" {{action 'createPost' forumId}} disabled={{submitDisabled}}>{{i18n 'post-action-button-label' ns='discussion'}}</button>
+	<button class="active-element-theme-color" type="submit" {{action 'createPost' forumId}} disabled={{submitDisabled}}>{{i18n 'main.post-action-button-label' ns='discussion'}}</button>
 	<div class="editor-wrapper">
-		<textarea class="editor-textarea" onkeypress={{action 'handleKeyPress' forumId}} oninput={{action 'updateOnType'}} onfocus={{action 'toggleEditorActive' true}} placeholder="{{i18n 'post-editor-placeholder-text' ns='discussion'}}"></textarea>
+		<textarea class="editor-textarea" onkeypress={{action 'handleKeyPress' forumId}} oninput={{action 'updateOnType'}} onfocus={{action 'toggleEditorActive' true}} placeholder="{{i18n 'main.post-editor-placeholder-text' ns='discussion'}}"></textarea>
 	</div>
-	<label class="desktop-hidden editor-label">{{i18n 'post-editor-label' ns='discussion'}}</label>
+	<label class="desktop-hidden editor-label">{{i18n 'main.post-editor-label' ns='discussion'}}</label>
 	{{user-avatar
 		avatarUrl=currentUser.avatarPath
 	}}
@@ -18,7 +18,7 @@
 		}}
 	{{/if}}
 	{{#if shouldShowError}}
-		<span class="error">{{i18n 'post-failed-error' ns='discussion'}}</span>
+		<span class="error">{{i18n 'main.post-failed-error' ns='discussion'}}</span>
 	{{/if}}
 	{{#if showSuccess}}
 		<div class="loading-overlay">
