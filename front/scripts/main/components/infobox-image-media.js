@@ -1,5 +1,5 @@
 
-import ImageMediaComponent from 'image-media';
+import ImageMediaComponent from './image-media';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 

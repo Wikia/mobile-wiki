@@ -1,4 +1,4 @@
-import BasePlayer from 'Base';
+import BasePlayer from './Base';
 
 export default class OoyalaPlayer extends BasePlayer {
 	/**

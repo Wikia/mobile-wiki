@@ -1,5 +1,5 @@
 
-import App from 'app';
+import App from './app';
 import Mercury from '../mercury/Mercury';
 import {prop} from '../baseline/mercury/utils/state';
 

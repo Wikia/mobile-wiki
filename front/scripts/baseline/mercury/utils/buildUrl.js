@@ -1,5 +1,5 @@
 import Mercury from '../../../mercury/Mercury';
-import {prop} from 'state';
+import {prop} from './state';
 
 /**
  * @typedef {Object} MercuryUtilsBuildUrlParams

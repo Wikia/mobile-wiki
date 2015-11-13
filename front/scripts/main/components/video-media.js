@@ -1,4 +1,4 @@
-import ImageMediaComponent from '/app/components/image-media';
+import ImageMediaComponent from '../components/image-media';
 
 const VideoMediaComponent = ImageMediaComponent.extend({
 	classNames: ['article-video'],

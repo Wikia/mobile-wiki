@@ -1,5 +1,5 @@
 
-import App from 'app';
+import App from './app.js';
 import Mercury from '../mercury/Mercury';
 
 App.Router.map(function () {

@@ -1,6 +1,6 @@
 import AuthTracker from '../common/AuthTracker';
 import AuthUtils from '../common/AuthUtils';
-import FacebookSDK from 'FacebookSDK';
+import FacebookSDK from './FacebookSDK';
 import HttpCodes from '../common/HttpCodes';
 import Login from '../common/Login';
 import UrlHelper from '../common/UrlHelper';

@@ -1,5 +1,5 @@
 
-import GalleryMediaComponent from 'gallery-media';
+import GalleryMediaComponent from './gallery-media';
 
 const LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
 	tagName: 'div',

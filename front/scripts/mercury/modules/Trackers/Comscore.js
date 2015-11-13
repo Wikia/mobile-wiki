@@ -1,4 +1,4 @@
-import BaseTracker from 'BaseTracker';
+import BaseTracker from './BaseTracker';
 import {prop} from '../../../baseline/mercury/utils/state';
 
 /**

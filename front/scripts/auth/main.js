@@ -1,12 +1,12 @@
-import BirthdateInput from 'common/BirthdateInput';
-import FacebookConnect from 'facebook/FacebookConnect';
-import FacebookLogin from 'facebook/FacebookLogin';
-import FacebookRegistration from 'facebook/FacebookRegistration';
-import Form from 'common/Form';
-import Login from 'common/Login';
-import SignupForm from 'signup/SignupForm';
-import SubmitValidator from 'login/SubmitValidator';
-import VisitSourceWrapper from 'common/VisitSourceWrapper';
+import BirthdateInput from './common/BirthdateInput';
+import FacebookConnect from './facebook/FacebookConnect';
+import FacebookLogin from './facebook/FacebookLogin';
+import FacebookRegistration from './facebook/FacebookRegistration';
+import Form from './common/Form';
+import Login from './common/Login';
+import SignupForm from './signup/SignupForm';
+import SubmitValidator from './login/SubmitValidator';
+import VisitSourceWrapper from './common/VisitSourceWrapper';
 
 if (typeof language === 'undefined') {
 	language = '';

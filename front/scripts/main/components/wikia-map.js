@@ -1,5 +1,5 @@
 
-import ImageMediaComponent from 'image-media';
+import ImageMediaComponent from './image-media';
 import {track, trackActions} from '../../mercury/utils/track';
 
 const WikiaMapComponent = ImageMediaComponent.extend({

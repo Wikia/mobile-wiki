@@ -1,8 +1,8 @@
 
-import MediaComponent from 'media';
-import InfoboxImageCollectionComponent from 'infobox-image-collection';
-import WikiaMapComponent from 'wikia-map';
-import PortableInfoboxComponent from 'portable-infobox';
+import MediaComponent from './media';
+import InfoboxImageCollectionComponent from './infobox-image-collection';
+import WikiaMapComponent from './wikia-map';
+import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
 
