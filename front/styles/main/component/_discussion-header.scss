@@ -61,14 +61,6 @@ $site-header-height: 50px;
 	}
 }
 
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-header {
-		.header {
-			background-color: #{nth($vertical-colors, $i)};
-		}
-	}
-}
-
 @media #{$desktop-range} {
 	.discussion-header {
 		.header {
@@ -110,11 +102,5 @@ $site-header-height: 50px;
 				transform: translateY(-$site-header-height);
 			}
 		}
-	}
-}
-
-@for $i from 1 through length($verticals) {
-	.discussions .#{nth($verticals, $i)}-vertical .site-head {
-		border-bottom-color: #{nth($vertical-colors, $i)};
 	}
 }

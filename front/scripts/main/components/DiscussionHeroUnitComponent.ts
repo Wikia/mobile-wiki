@@ -5,7 +5,7 @@
 
 App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 	classNames: ['discussion-hero-unit'],
-	classNameBindings: ['overlay'],
+	contentClassNames: 'background-theme-color',
 	attributeBindings: ['style'],
 
 	overlay: false,
@@ -42,7 +42,7 @@ App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 		if (!this.get('style') && isShown && image) {
 			this.set('style',
 				new Em.Handlebars.SafeString(`background: #fff url(/front/images/${image}) center no-repeat;`));
-			this.set('overlay', true);
+			this.set('contentClassNames', 'background-alpha-theme-color');
 		}
 	}),
 });

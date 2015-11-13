@@ -47,20 +47,6 @@ $discussion-hero-unit-height: 200px;
 	}
 }
 
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
-		background: #{nth($vertical-colors, $i)};
-
-		.discussion-hero-unit-content {
-			background-color: rgba(nth($vertical-colors, $i), 1);
-		}
-
-		&.overlay .discussion-hero-unit-content {
-			background-color: rgba(nth($vertical-colors, $i), 0.8);
-		}
-	}
-}
-
 .minimized {
 	&.discussion-hero-unit {
 		height: $site-header-height;

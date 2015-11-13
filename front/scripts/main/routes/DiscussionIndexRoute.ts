@@ -1,7 +1,9 @@
 /// <reference path="../app.ts" />
+/// <reference path="../mixins/DiscussionLayoutMixin.ts" />
+
 'use strict';
 
-App.DiscussionIndexRoute = Em.Route.extend({
+App.DiscussionIndexRoute = Em.Route.extend(App.DiscussionLayoutMixin, {
 	/**
 	 * @returns {void}
 	 */

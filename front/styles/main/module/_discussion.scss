@@ -52,7 +52,8 @@ $horizontal-padding: 15px;
 
 	.discussion-content {
 		color: $discussion-content-color;
-		margin: 10px 0;
+		margin: 5px 0;
+		padding: .3rem 0;
 	}
 
 	.discussion-reply {
@@ -172,14 +173,6 @@ $horizontal-padding: 15px;
 		}
 	}
 
-	@for $i from 1 through length($verticals) {
-		.#{nth($verticals, $i)}-vertical & {
-			.see-more {
-				color: nth($vertical-colors, $i);
-			}
-		}
-	}
-
 	.spinner {
 		display: block;
 		left: auto;
@@ -196,8 +189,8 @@ $horizontal-padding: 15px;
 		margin-top: $discussion-header-height + $theme-bar-height;
 
 		.discussion-content {
-			// Constrains content on the forum post list to 3 lines
-			max-height: $line-height-smallest * 3;
+			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
+			max-height: $line-height-smallest * 3 + .3rem;
 			overflow: hidden;
 		}
 
@@ -209,12 +202,6 @@ $horizontal-padding: 15px;
 				border-width: 0;
 			}
 		}
-	}
-}
-
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion a {
-		color: #{nth($vertical-colors, $i)};
 	}
 }
 

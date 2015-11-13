@@ -3,7 +3,7 @@
 
 App.DiscussionBackButtonComponent = Em.Component.extend({
 	tagName: 'a',
-	classNames: ['back-button'],
+	classNames: ['back-button', 'active-element-theme-color'],
 	attributeBindings: ['href'],
 	href: null,
 	label: '',
