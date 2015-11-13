@@ -1,3 +1,6 @@
+## release-189 (2015-11-13 18:01 UTC)
+* [SOC-1551](https://wikia-inc.atlassian.net/browse/SOC-1551) SOC-1551 | Contributors count will be broken when we reach 1k contributors
+
 ## release-188 hotfix 1 (2015-11-13 16:22 UTC)
 * [SOC-1476](https://wikia-inc.atlassian.net/browse/SOC-1476) Soc 1476 fix
 * sg-update: Style-Guide | Bump version to 1.7.4
