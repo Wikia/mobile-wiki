@@ -61,6 +61,11 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 		}
 	},
 
+	/**
+	 * Create new post in Discussion Service
+	 * @param {object} postData
+	 * @returns {Em.RSVP.Promise}
+	 */
 	createPost(postData: any) {
 		this.setPostFailedState(false, this);
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
