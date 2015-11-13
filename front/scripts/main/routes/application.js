@@ -221,7 +221,7 @@ App.ApplicationRoute = Ember.Route.extend(
 		 * @returns {void}
 		 */
 		activate() {
-			const instantGlobals = Wikia.InstantGlobals || {};
+			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 			let adsInstance;
 
 			if (globalProp('adsUrl') && !globalProp('queryParams.noexternals') &&
