@@ -1,5 +1,3 @@
-
-
 const AlertNotificationsMixin = Ember.Mixin.create({
 	alertNotifications: Ember.A(),
 

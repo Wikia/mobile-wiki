@@ -1,6 +1,6 @@
 
 
-const LinkComponent = Ember.Mixin.create({
+const LinkComponent = Ember.Object.create({
 	attributeBindings: ['data-tracking-category'],
 
 	// it allows to use action='x' actionParam='y' in link-to helper
@@ -24,7 +24,7 @@ const LinkComponent = Ember.Mixin.create({
 		}
 
 		// no action to take, handle the link-to normally
-		return this._super(event);
+		//return this._super(event);
 	},
 });
 

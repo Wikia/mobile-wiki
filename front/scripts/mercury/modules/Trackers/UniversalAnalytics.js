@@ -261,4 +261,4 @@ export default class UniversalAnalytics {
 	}
 }
 
-UniversalAnalytics.prototype.dimensions = [];
+//UniversalAnalytics.prototype.dimensions = [];

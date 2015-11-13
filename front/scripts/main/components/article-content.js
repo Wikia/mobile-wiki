@@ -1,5 +1,8 @@
-
-import MediaComponent from './media';
+import InfoboxImageMediaComponent from './infobox-image-media';
+import LinkedGalleryMediaComponent from './linked-gallery-media';
+import GalleryMediaComponent from './gallery-media';
+import VideoMediaComponent from './video-media';
+import ImageMediaComponent from './image-media';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
 import WikiaMapComponent from './wikia-map';
 import PortableInfoboxComponent from './portable-infobox';
@@ -27,6 +30,21 @@ const ArticleContentComponent = Ember.Component.extend(
 		cleanTitle: null,
 		headers: null,
 
+		newFromMedia(media) {
+			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
+				return InfoboxImageMediaComponent.create();
+			} else if (Ember.isArray(media)) {
+				if (media.some((media) => Boolean(media.link))) {
+					return LinkedGalleryMediaComponent.create();
+				} else {
+					return GalleryMediaComponent.create();
+				}
+			} else if (media.type === 'video') {
+				return VideoMediaComponent.create();
+			} else {
+				return ImageMediaComponent.create();
+			}
+		},
 		articleContentObserver: Ember.observer('content', function () {
 			const content = this.get('content');
 
@@ -206,7 +224,7 @@ const ArticleContentComponent = Ember.Component.extend(
 		createMediaComponent(element, model) {
 			const ref = parseInt(element.dataset.ref, 10),
 				media = model.find(ref),
-				component = this.createChildView(MediaComponent.newFromMedia(media), {
+				component = this.createChildView(this.newFromMedia(media), {
 					ref,
 					width: parseInt(element.getAttribute('width'), 10),
 					height: parseInt(element.getAttribute('height'), 10),

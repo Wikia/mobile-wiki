@@ -9,11 +9,11 @@ import SubmitValidator from './login/SubmitValidator';
 import VisitSourceWrapper from './common/VisitSourceWrapper';
 
 if (typeof language === 'undefined') {
-	language = '';
+	var language = '';
 }
 
 if (typeof translations === 'undefined') {
-	translations = {};
+	var translations = {};
 }
 
 i18n.init({

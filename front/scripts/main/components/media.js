@@ -1,10 +1,4 @@
-
 import VisibleMixin from '../mixins/visible';
-import InfoboxImageMediaComponent from './infobox-image-media';
-import LinkedGalleryMediaComponent from './linked-gallery-media';
-import GalleryMediaComponent from './gallery-media';
-import VideoMediaComponent from './video-media';
-import ImageMediaComponent from './image-media';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 import {track, trackActions} from '../../mercury/utils/track';
 
@@ -123,26 +117,5 @@ const MediaComponent = Ember.Component.extend(
 	}
 );
 
-MediaComponent.reopenClass({
-	/**
-	 * @param {ArticleMedia} media
-	 * @returns {MediaComponent}
-	 */
-	newFromMedia(media) {
-		if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-			return InfoboxImageMediaComponent.create();
-		} else if (Ember.isArray(media)) {
-			if (media.some((media) => Boolean(media.link))) {
-				return LinkedGalleryMediaComponent.create();
-			} else {
-				return GalleryMediaComponent.create();
-			}
-		} else if (media.type === 'video') {
-			return VideoMediaComponent.create();
-		} else {
-			return ImageMediaComponent.create();
-		}
-	},
-});
-
 export default MediaComponent;
+

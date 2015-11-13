@@ -63,7 +63,7 @@ export function isOptimizelyLoadedAndActive() {
  */
 export function integrateOptimizelyWithUA(dimensions) {
 	const optimizely = window.optimizely,
-		activeExperiments = this.getActiveExperimentsList();
+		activeExperiments = getActiveExperimentsList();
 
 	// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
 	// isOptimizelyLoadedAndActive function and below
