@@ -9,12 +9,6 @@
 			margin: 0;
 			position: absolute;
 			text-transform: none;
-
-			@for $i from 1 through length($verticals) {
-				.#{nth($verticals, $i)}-vertical & {
-					color: nth($vertical-colors, $i);
-				}
-			}
 		}
 		.editor-close {
 			display: none;
@@ -93,14 +87,6 @@
 				position: absolute;
 				top: 10px;
 				width: 18px;
-
-				svg {
-					@for $i from 1 through length($verticals) {
-						.#{nth($verticals, $i)}-vertical & {
-							fill: nth($vertical-colors, $i);
-						}
-					}
-				}
 			}
 
 			.editor-wrapper {
