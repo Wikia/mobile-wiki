@@ -12,7 +12,7 @@ App.LightboxAdsComponent = Em.Component.extend({
 
 		this.sendAction('setHeader', 'Advertisement');
 
-		if (closeButtonDelay>0) {
+		if (closeButtonDelay > 0) {
 			this.sendAction('setCloseButtonHidden', true);
 
 			Em.run.later(this, (): void => {
