@@ -103,12 +103,12 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				this.set('submitDisabled', false);
 				this.$('.editor-textarea').val('');
 
-				newPosts.forEach(function(post: any) {
+				newPosts.forEach(function (post: any) {
 					Em.set(post._embedded.firstPost[0], 'isVisible', true);
 				});
 
 				Em.run.next(this, () => {
-					newPosts.forEach(function(post: any) {
+					newPosts.forEach(function (post: any) {
 						Em.set(post._embedded.firstPost[0], 'isNew', false);
 					});
 				});
