@@ -28,7 +28,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	initilizeOnScroll(): void {
+	initializeOnScroll(): void {
 		var offsetTop = this.$().offset().top,
 			siteHeadHeight = Em.$('.site-head').outerHeight(true),
 			isAdded = false,
