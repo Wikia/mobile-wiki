@@ -1,5 +1,4 @@
 import App from '../app';
-import Mercury from '../../mercury/Mercury';
 import {track, trackActions} from '../../mercury/utils/track';
 import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 

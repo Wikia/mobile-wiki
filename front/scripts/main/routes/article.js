@@ -1,5 +1,4 @@
 import ArticleModel from '../models/article';
-import Mercury from '../../mercury/Mercury';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
 import App from '../app';

@@ -1,5 +1,4 @@
 import App from '../app';
-import Mercury from '../../mercury/Mercury';
 import DiscussionIndexModel from '../models/discussion-index';
 
 App.DiscussionIndexRoute = Ember.Route.extend({

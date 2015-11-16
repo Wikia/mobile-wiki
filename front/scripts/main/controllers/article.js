@@ -1,4 +1,3 @@
-import Mercury from '../../mercury/Mercury';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../../mercury/utils/track';
 import App from '../app';

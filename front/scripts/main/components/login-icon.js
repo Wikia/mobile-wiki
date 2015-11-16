@@ -1,5 +1,4 @@
 import App from '../app';
-import Mercury from '../../mercury/Mercury';
 import LanguagesMixin from '../mixins/languages';
 import {track, trackActions} from '../../mercury/utils/track';
 

@@ -1,5 +1,4 @@
 import App from '../app';
-import Mercury from '../../mercury/Mercury';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../models/discussion-forum';
 

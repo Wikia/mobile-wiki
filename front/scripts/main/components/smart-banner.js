@@ -1,5 +1,4 @@
 
-import Mercury from '../../mercury/Mercury';
 import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
 import {getSystem} from '../../mercury/utils/browser';
 import App from '../app';

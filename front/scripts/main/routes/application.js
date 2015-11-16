@@ -1,6 +1,5 @@
 import TrackClickMixin from '../mixins/track-click';
 import ArticleModel from '../models/article';
-import Mercury from '../../mercury/Mercury';
 import {globalProp} from '../../baseline/mercury/utils/state';
 import {activate as variantTestingActivate} from '../../mercury/utils/variantTesting';
 import {getLinkInfo} from '../../mercury/utils/articleLink';

@@ -1,5 +1,4 @@
 
-import Mercury from '../../mercury/Mercury';
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
 import App from '../app';

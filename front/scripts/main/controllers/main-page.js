@@ -1,5 +1,4 @@
 import App from '../app';
-import Mercury from '../../mercury/Mercury';
 
 App.MainPageController = Ember.Controller.extend({
 	application: Ember.inject.controller(),

@@ -1,7 +1,6 @@
 import App from '../app';
 import ArticleModel from './article';
 import CuratedContentModel from './curated-content';
-import Mercury from '../../mercury/Mercury';
 
 App.MainPageModel = ArticleModel.extend({
 	curatedContent: null

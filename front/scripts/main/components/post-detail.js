@@ -1,5 +1,4 @@
 import App from '../app';
-import Mercury from '../../mercury/Mercury';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 

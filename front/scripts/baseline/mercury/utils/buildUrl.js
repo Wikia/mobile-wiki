@@ -1,4 +1,3 @@
-import Mercury from '../../../mercury/Mercury';
 import {globalProp} from './state';
 
 /**

@@ -1,5 +1,3 @@
-
-import Mercury from '../mercury/Mercury';
 import {globalProp} from '../baseline/mercury/utils/state';
 import * as trackPerf from '../mercury/utils/trackPerf';
 import {getQueryParam} from '../mercury/utils/queryString';

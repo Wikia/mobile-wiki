@@ -1,6 +1,5 @@
 import App from '../app';
 import MediaModel from './media';
-import Mercury from '../../mercury/Mercury';
 import {globalProp} from '../../baseline/mercury/utils/state';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 
