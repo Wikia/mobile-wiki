@@ -10,7 +10,6 @@ import {globalProp} from '../../baseline/mercury/utils/state';
  * @property {*} [annotations]
  */
 
-
 const context = {
 	country: globalProp('geo.country'),
 	env: globalProp('environment'),
