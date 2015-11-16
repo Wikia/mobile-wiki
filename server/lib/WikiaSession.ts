@@ -38,8 +38,10 @@ module WikiaSession {
 							return reply(Boom.unauthorized('WhoAmI connection error'));
 						}
 
-						if (parsed.status === 401) {
-							reply.unstate('access_token');
+						if (parsed.status && parsed.status != 200) {
+							if (parsed.status === 401) {
+								reply.unstate('access_token');
+							}
 							return reply(Boom.unauthorized('Token not authorized by WhoAmI'));
 						}
 						return reply.continue({credentials: {userId: parsed.userId}});
