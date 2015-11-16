@@ -25,6 +25,10 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		return type ?  'lightbox-' + type : null;
 	}),
 
+	closeAllowed: Em.computed('closeButtonHidden', function (): boolean {
+		return this.get('closeButtonHidden') ? false : true;
+	}),
+
 	actions: {
 		/**
 		 * @returns {void}
@@ -108,7 +112,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	 * @returns {void}
 	 */
 	keyDown(event: KeyboardEvent): void {
-		if (!this.get('closeButtonHidden') && event.keyCode === 27) {
+		if (this.get('closeAllowed') && event.keyCode === 27) {
 			this.send('close');
 		}
 	},
