@@ -39,7 +39,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		this.onScroll = () => {
 			Em.run.throttle(
 				this,
-				function() {
+				function (): void {
 					if (window.pageYOffset >= getBreakpointHeight() && !isAdded) {
 						this.set('sticky', true);
 						isAdded = true;
@@ -120,7 +120,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Handle post creation error
 	 * @returns {void}
 	 */
-	errorObserver: Em.observer('shouldShowError', function () {
+	errorObserver: Em.observer('shouldShowError', function (): void {
 		if (this.get('shouldShowError')) {
 			this.set('isLoading', false);
 			this.set('hasError', true);
@@ -140,7 +140,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Enable/disable editor
 		 * @returns {void}
 		 */
-		toggleEditorActive(active: boolean) {
+		toggleEditorActive(active: boolean): void {
 			this.set('active', active);
 		},
 
@@ -165,7 +165,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Update editor when typing - activate editor and activate submit button
 		 * @returns {void}
 		 */
-		updateOnType(): void {
+		updateOnInput(): void {
 			this.set('submitDisabled', this.$('.editor-textarea').val().length === 0);
 			this.set('active', true);
 		},
@@ -176,7 +176,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 */
 		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
 			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
-				// Create post on CTR + ENTER
+				// Create post on CTRL + ENTER
 				this.send('createPost', forumId);
 			}
 		}

@@ -4,7 +4,7 @@
 	</a>
 	<button class="active-element-theme-color" type="submit" {{action 'createPost' forumId}} disabled={{submitDisabled}}>{{i18n 'editor.post-action-button-label' ns='discussion'}}</button>
 	<div class="editor-wrapper">
-		<textarea class="editor-textarea" onkeypress={{action 'handleKeyPress' forumId}} oninput={{action 'updateOnType'}} onfocus={{action 'toggleEditorActive' true}} placeholder="{{i18n 'editor.post-editor-placeholder-text' ns='discussion'}}"></textarea>
+		<textarea class="editor-textarea" onkeypress={{action 'handleKeyPress' forumId}} oninput={{action 'updateOnInput'}} onfocus={{action 'toggleEditorActive' true}} placeholder="{{i18n 'editor.post-editor-placeholder-text' ns='discussion'}}"></textarea>
 	</div>
 	<label class="desktop-hidden editor-label">{{i18n 'editor.post-editor-label' ns='discussion'}}</label>
 	{{user-avatar

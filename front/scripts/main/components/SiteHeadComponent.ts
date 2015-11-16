@@ -31,7 +31,7 @@ App.SiteHeadComponent = Em.Component.extend(
 			}
 		},
 
-		pinnedObserver: Em.observer('pinned', function() {
+		pinnedObserver: Em.observer('pinned', function ():void {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
 		})
 	}
