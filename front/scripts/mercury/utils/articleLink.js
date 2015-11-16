@@ -54,6 +54,7 @@ export function getLinkInfo(basePath, title, hash, uri) {
 			};
 		}
 
+		/* eslint no-continue: 0 */
 		for (const ns in namespaces) {
 			if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 				continue;
