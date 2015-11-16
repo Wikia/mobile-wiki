@@ -16,13 +16,14 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 	 * @param {*} model
 	 * @returns {void}
 	 */
-	setErrorProperty: function (err: any, model: any): void {
+	setErrorProperty: function (err: any, model: any, shouldShowErrorScreen: boolean = true): void {
 		if (err.status == this.errorCodes.notFound) {
 			model.set('notFoundError', true);
 		} else {
 			model.set('connectionError', true);
 		}
-
-		Em.$('body').addClass(this.errorClass);
+		if (shouldShowErrorScreen) {
+			Em.$('body').addClass(this.errorClass);
+		}
 	}
 });

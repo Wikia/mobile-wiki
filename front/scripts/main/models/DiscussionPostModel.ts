@@ -29,7 +29,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 						'sortKey': 'creation_date',
 						'limit': this.replyLimit,
 						'pivot': this.pivotId,
-						'page': this.page+1
+						'page': this.page+10
 					}),
 				xhrFields: {
 					withCredentials: true,
@@ -52,7 +52,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any) => {
-					this.setErrorProperty(err, this);
+					this.setErrorProperty(err, this, false);
 					resolve(this);
 				}
 			});
@@ -121,8 +121,8 @@ App.DiscussionPostModel.reopenClass({
 					resolve(postInstance);
 				},
 				error: (err: any) => {
-					postInstance.setErrorProperty(err, postInstance);
-					resolve(postInstance);
+						postInstance.setErrorProperty(err, postInstance,false);
+						resolve(postInstance);
 				}
 			});
 		});
