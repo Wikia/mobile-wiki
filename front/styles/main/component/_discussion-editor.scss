@@ -223,8 +223,8 @@ $success-icon-size: 80px;
 			}
 
 			.editor-textarea {
-				min-height: 106px;
 				max-height: 400px;
+				min-height: 106px;
 				padding: $editor-textarea-paddings;
 				resize: vertical;
 			}
