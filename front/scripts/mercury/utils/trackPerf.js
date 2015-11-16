@@ -23,9 +23,9 @@ let tracker;
 
 /**
  * 1. initialize tracker if it's undefined
- * 2. return tracker
+ * 2. return tracker or null (if Weppy is not present)
  *
- * @returns {*}
+ * @returns {Object|null}
  */
 function getTracker() {
 	if (typeof tracker === 'undefined') {
@@ -52,6 +52,10 @@ function getTracker() {
  */
 export function trackPerf(params) {
 	let trackFn = getTracker();
+
+	if (!trackFn) {
+		return;
+	}
 
 	if (typeof params.module === 'string') {
 		trackFn = tracker.into(params.module);
@@ -93,7 +97,11 @@ export function trackPerf(params) {
  * @returns {void}
  */
 export function sendPagePerformance() {
-	getTracker().sendPagePerformance();
+	const trackFn = getTracker();
+
+	if (trackFn) {
+		trackFn.sendPagePerformance();
+	}
 	// used for automation test
 	globalProp('pagePerformanceSent', true);
 }
