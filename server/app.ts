@@ -81,8 +81,8 @@ server.register(plugins, (err: any) => {
 	}
 });
 
-server.auth.scheme('helios', WikiaSession.scheme);
-server.auth.strategy('session', 'helios');
+server.auth.scheme('wikia', WikiaSession.scheme);
+server.auth.strategy('session', 'wikia');
 
 server.views({
 	engines: {
