@@ -1,4 +1,4 @@
-
+import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 /**
@@ -9,7 +9,7 @@ import Thumbnailer from '../../mercury/modules/Thumbnailer';
  * @property {number} height
  */
 
-const CuratedContentThumbnailMixin = Ember.Mixin.create({
+App.CuratedContentThumbnailMixin = Ember.Mixin.create({
 	thumbnailer: Thumbnailer,
 	cropMode: Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
@@ -51,4 +51,4 @@ const CuratedContentThumbnailMixin = Ember.Mixin.create({
 	}
 });
 
-export default CuratedContentThumbnailMixin;
+export default App.CuratedContentThumbnailMixin;

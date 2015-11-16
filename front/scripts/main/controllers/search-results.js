@@ -1,8 +1,8 @@
+import App from '../app';
 
-
-const SearchResultsController = Ember.Controller.extend({
+App.SearchResultsController = Ember.Controller.extend({
 	queryParams: ['q'],
 	q: null,
 });
 
-export default SearchResultsController;
+export default App.SearchResultsController;

@@ -1,7 +1,7 @@
-
+import App from '../app';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
-const ArticleEditMixin = Ember.Mixin.create({
+App.ArticleEditMixin = Ember.Mixin.create({
 
 	/**
 	 * @param {string} title
@@ -41,4 +41,4 @@ const ArticleEditMixin = Ember.Mixin.create({
 	}
 });
 
-export default ArticleEditMixin;
+export default App.ArticleEditMixin;

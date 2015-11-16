@@ -1,8 +1,8 @@
-
+import App from '../app';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../../mercury/utils/track';
 
-const ArticleEditController = Ember.Controller.extend({
+App.ArticleEditController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
 
 	isPublishing: false,
@@ -101,4 +101,4 @@ const ArticleEditController = Ember.Controller.extend({
 	}
 });
 
-export default ArticleEditController;
+export default App.ArticleEditController;

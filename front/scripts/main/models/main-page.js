@@ -1,13 +1,13 @@
-
+import App from '../app';
 import ArticleModel from './article';
 import CuratedContentModel from './curated-content';
 import Mercury from '../../mercury/Mercury';
 
-const MainPageModel = ArticleModel.extend({
+App.MainPageModel = ArticleModel.extend({
 	curatedContent: null
 });
 
-MainPageModel.reopenClass({
+App.MainPageModel.reopenClass({
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -34,4 +34,4 @@ MainPageModel.reopenClass({
 	}
 });
 
-export default MainPageModel;
+export default App.MainPageModel;

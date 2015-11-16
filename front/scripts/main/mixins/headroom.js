@@ -1,4 +1,3 @@
-
 import {getSystem} from '../../mercury/utils/browser';
 import App from '../app.js';
 

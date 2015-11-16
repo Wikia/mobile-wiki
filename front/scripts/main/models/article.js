@@ -1,4 +1,3 @@
-
 import App from '../app';
 import MediaModel from './media';
 import Mercury from '../../mercury/Mercury';
@@ -19,7 +18,7 @@ import {normalizeToWhitespace} from '../../mercury/utils/string';
  * @property {string} [redirect]
  */
 
-const ArticleModel = Ember.Object.extend({
+App.ArticleModel = Ember.Object.extend({
 	content: null,
 	basePath: null,
 	categories: [],
@@ -37,7 +36,7 @@ const ArticleModel = Ember.Object.extend({
 	wiki: null,
 });
 
-ArticleModel.reopenClass({
+App.ArticleModel.reopenClass({
 	/**
 	 * @param {ArticleModelUrlParams} params
 	 * @returns {string}
@@ -57,7 +56,7 @@ ArticleModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(params) {
-		const model = ArticleModel.create(params);
+		const model = App.ArticleModel.create(params);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (globalProp('articleContentPreloadedInDOM') && !globalProp('asyncArticle')) {
@@ -215,4 +214,4 @@ ArticleModel.reopenClass({
 	}
 });
 
-export default ArticleModel;
+export default App.ArticleModel;

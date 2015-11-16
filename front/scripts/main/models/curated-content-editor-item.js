@@ -1,4 +1,4 @@
-
+import App from '../app';
 import ObjectUtilitiesMixin from '../mixins/object-utilities';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
@@ -39,7 +39,7 @@ import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
  * @property {id} image_id
  */
 
-const CuratedContentEditorItemModel = Ember.Object.extend(
+App.CuratedContentEditorItemModel = Ember.Object.extend(
 	ObjectUtilitiesMixin,
 	{
 		article_id: null,
@@ -54,7 +54,7 @@ const CuratedContentEditorItemModel = Ember.Object.extend(
 	}
 );
 
-CuratedContentEditorItemModel.reopenClass({
+App.CuratedContentEditorItemModel.reopenClass({
 	/**
 	 * Object Model instance is only created once and all create() method invocations return already created object.
 	 * Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
@@ -75,7 +75,7 @@ CuratedContentEditorItemModel.reopenClass({
 			type: null
 		}, params);
 
-		return CuratedContentEditorItemModel.create(modelParams);
+		return App.CuratedContentEditorItemModel.create(modelParams);
 	},
 
 	/**
@@ -155,4 +155,4 @@ CuratedContentEditorItemModel.reopenClass({
 	}
 });
 
-export default CuratedContentEditorItemModel;
+export default App.CuratedContentEditorItemModel;

@@ -2,7 +2,7 @@ import App from '../app';
 import Mercury from '../../mercury/Mercury';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-const CommunityBadgeComponent = Ember.Component.extend({
+App.CommunityBadgeComponent = Ember.Component.extend({
 	classNames: ['community-badge'],
 	squareDimension: 125,
 	// This property needs to be set depending on whether the wiki has a light or
@@ -45,4 +45,4 @@ const CommunityBadgeComponent = Ember.Component.extend({
 	wikiName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
 });
 
-export default CommunityBadgeComponent;
+export default App.CommunityBadgeComponent;

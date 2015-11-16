@@ -1,5 +1,5 @@
-
 import App from '../app';
+
 /**
  * Helper to generate SVGs in the form:
  * {{svg name viewBox classes}}

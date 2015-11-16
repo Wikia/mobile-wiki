@@ -1,4 +1,4 @@
-
+import App from '../app.js';
 
 /**
  * ImageCropData
@@ -29,7 +29,7 @@
  * @property {string} article_local_url
  */
 
-const FeaturedContentMixin = Ember.Mixin.create({
+App.FeaturedContentMixin = Ember.Mixin.create({
 	layoutName: 'components/featured-content',
 	classNames: ['featured-content', 'mw-content'],
 	currentItemIndex: 0,
@@ -89,4 +89,4 @@ const FeaturedContentMixin = Ember.Mixin.create({
 	}
 });
 
-export default FeaturedContentMixin;
+export default App.FeaturedContentMixin;

@@ -1,9 +1,9 @@
-
+import App from '../app';
 
 /**
  * Handles errors appears in the ajax calls.
  */
-const DiscussionErrorMixin = Ember.Mixin.create({
+App.DiscussionErrorMixin = Ember.Mixin.create({
 	errorCodes: {
 		notFound: 404
 	},
@@ -26,4 +26,4 @@ const DiscussionErrorMixin = Ember.Mixin.create({
 	}
 });
 
-export default DiscussionErrorMixin;
+export default App.DiscussionErrorMixin;

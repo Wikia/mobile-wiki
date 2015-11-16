@@ -10,7 +10,7 @@ import App from '../app';
  * @property {string} [type]
  */
 
-const ArticleCommentComponent = Ember.Component.extend({
+App.ArticleCommentComponent = Ember.Component.extend({
 	tagName: 'li',
 	classNames: ['article-comment'],
 
@@ -117,4 +117,4 @@ const ArticleCommentComponent = Ember.Component.extend({
 	},
 });
 
-export default ArticleCommentComponent;
+export default App.ArticleCommentComponent;

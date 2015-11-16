@@ -1,6 +1,6 @@
 import App from '../app';
 
-const UserAvatarComponent = Ember.Component.extend({
+App.UserAvatarComponent = Ember.Component.extend({
 	classNames: ['user-avatar'],
 });
 

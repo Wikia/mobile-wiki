@@ -1,4 +1,4 @@
-
+import App from '../app';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
@@ -39,14 +39,14 @@ import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
  * @property {Boolean} isDirty
  */
 
-const CuratedContentEditorModel = Ember.Object.extend({
+App.CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
 	optional: null,
 	isDirty: false
 });
 
-CuratedContentEditorModel.reopenClass({
+App.CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorModel} model
 	 * @returns {Ember.RSVP.Promise} server response after save
@@ -90,7 +90,7 @@ CuratedContentEditorModel.reopenClass({
 				},
 				success: (data) => {
 					if (Ember.isArray(data.data)) {
-						resolve(CuratedContentEditorModel.sanitize(data.data));
+						resolve(App.CuratedContentEditorModel.sanitize(data.data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
@@ -150,7 +150,7 @@ CuratedContentEditorModel.reopenClass({
 			});
 		}
 
-		return CuratedContentEditorModel.create({
+		return App.CuratedContentEditorModel.create({
 			featured,
 			curated,
 			optional
@@ -219,7 +219,7 @@ CuratedContentEditorModel.reopenClass({
 		// When parent doesn't have items we need to initialize them
 		parentItem.items = parentItem.items || [];
 		parentItem.items.push(newItem.toPlainObject());
-		CuratedContentEditorModel.isDirty = true;
+		App.CuratedContentEditorModel.isDirty = true;
 	},
 
 	/**
@@ -234,7 +234,7 @@ CuratedContentEditorModel.reopenClass({
 				parentItems[index] = newItem.toPlainObject();
 			}
 		});
-		CuratedContentEditorModel.isDirty = true;
+		App.CuratedContentEditorModel.isDirty = true;
 	},
 
 	/**
@@ -244,8 +244,8 @@ CuratedContentEditorModel.reopenClass({
 	 */
 	deleteItem(parentItem, itemLabel) {
 		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);
-		CuratedContentEditorModel.isDirty = true;
+		App.CuratedContentEditorModel.isDirty = true;
 	}
 });
 
-export default CuratedContentEditorModel;
+export default App.CuratedContentEditorModel;

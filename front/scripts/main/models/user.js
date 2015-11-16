@@ -1,4 +1,3 @@
-
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 import App from '../app';
 

@@ -1,8 +1,8 @@
-
+import App from '../app';
 import DiscussionErrorMixin from '../mixins/discussion-error';
 import {buildUrl, getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 
-const DiscussionForumModel = Ember.Object.extend(
+App.DiscussionForumModel = Ember.Object.extend(
 	DiscussionErrorMixin,
 	{
 		wikiId: null,
@@ -66,7 +66,7 @@ const DiscussionForumModel = Ember.Object.extend(
 	}
 );
 
-DiscussionForumModel.reopenClass({
+App.DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
@@ -75,7 +75,7 @@ DiscussionForumModel.reopenClass({
 	 */
 	find(wikiId, forumId, sortBy) {
 		return new Ember.RSVP.Promise((resolve) => {
-			const forumInstance = DiscussionForumModel.create({
+			const forumInstance = App.DiscussionForumModel.create({
 					wikiId,
 					forumId
 				}),
@@ -124,4 +124,4 @@ DiscussionForumModel.reopenClass({
 	}
 });
 
-export default DiscussionForumModel;
+export default App.DiscussionForumModel;

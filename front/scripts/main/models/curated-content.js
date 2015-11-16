@@ -1,4 +1,3 @@
-
 import App from '../app';
 import Mercury from '../../mercury/Mercury';
 
@@ -27,14 +26,14 @@ import Mercury from '../../mercury/Mercury';
  * @property {number} height
  */
 
-const CuratedContentModel = Ember.Object.extend({
+App.CuratedContentModel = Ember.Object.extend({
 	title: null,
 	type: null,
 	items: [],
 	offset: null
 });
 
-CuratedContentModel.reopenClass({
+App.CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
 	 * @param {string} [type='section']
@@ -43,7 +42,7 @@ CuratedContentModel.reopenClass({
 	 */
 	find(title, type = 'section', offset = null) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			const modelInstance = CuratedContentModel.create({
+			const modelInstance = App.CuratedContentModel.create({
 					title,
 					type
 				}),
@@ -62,7 +61,7 @@ CuratedContentModel.reopenClass({
 				data: params,
 				success: (data) => {
 					modelInstance.setProperties({
-						items: CuratedContentModel.sanitizeItems(data.items),
+						items: App.CuratedContentModel.sanitizeItems(data.items),
 						offset: data.offset || null
 					});
 					resolve(modelInstance);
@@ -79,7 +78,7 @@ CuratedContentModel.reopenClass({
 	loadMore(model) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			// Category type is hardcoded because only Categories API supports offset.
-			const newModelPromise = CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
+			const newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
 
 			newModelPromise
 				.then((newModel) => {
@@ -167,4 +166,4 @@ CuratedContentModel.reopenClass({
 	}
 });
 
-export default CuratedContentModel;
+export default App.CuratedContentModel;

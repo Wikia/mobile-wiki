@@ -1,10 +1,10 @@
-
+import App from '../app';
 import {getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 
-const DiscussionIndexModel = Ember.Object.extend({
+App.DiscussionIndexModel = Ember.Object.extend({
 });
 
-DiscussionIndexModel.reopenClass({
+App.DiscussionIndexModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @returns {Ember.RSVP.Promise}
@@ -21,4 +21,4 @@ DiscussionIndexModel.reopenClass({
 	}
 });
 
-export default DiscussionIndexModel;
+export default App.DiscussionIndexModel;

@@ -1,11 +1,11 @@
-
+import App from '../app';
 import {getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 
 /**
  * Handles posts upvoting.
  * If the post was upvoted already, the upvote is removed.
  */
-const DiscussionRouteUpvoteMixin = Ember.Mixin.create({
+App.DiscussionRouteUpvoteMixin = Ember.Mixin.create({
 	upvotingInProgress: {},
 
 	actions: {
@@ -48,4 +48,4 @@ const DiscussionRouteUpvoteMixin = Ember.Mixin.create({
 	}
 });
 
-export default DiscussionRouteUpvoteMixin;
+export default App.DiscussionRouteUpvoteMixin;
