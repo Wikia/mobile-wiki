@@ -82,10 +82,10 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @param {string} lightboxType
 		 * @param {string} lightboxModel
-		 * @param (*) closeButtonDelay
+		 * @param {number} closeButtonDelay
 		 * @returns {void}
 		 */
-		createHiddenLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: any): void {
+		createHiddenLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: number): void {
 			this.setProperties({
 				lightboxModel,
 				lightboxType,
@@ -137,10 +137,10 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @param {string} lightboxType
 		 * @param {*} lightboxModel
-		 * @param (*) closeButtonDelay
+		 * @param {number} closeButtonDelay
 		 * @returns {void}
 		 */
-		openLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: any): void {
+		openLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: number): void {
 			this.setProperties({
 				lightboxModel,
 				lightboxType,
