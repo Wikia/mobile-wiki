@@ -1,17 +1,17 @@
 {{discussion-header
-	showContent=true
-	showSortComponent='showSortComponent'
 	hideSortComponent='hideSortComponent'
+	showSortComponent='showSortComponent'
 	toggleEditorActive='toggleEditorActive'
+	showContent=true
+	smartBannerVisible=smartBannerVisible
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
-	smartBannerVisible=smartBannerVisible
 }}
 <div class="site-body-discussion">
 	{{discussion-hero-unit
 		contributors=model.contributors
-		numberOfPosts=model.totalPosts
 		name=model.name
+		numberOfPosts=model.totalPosts
 	}}
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
@@ -25,26 +25,26 @@
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
-			retry=(action 'retry')
+				retry=(action 'retry')
 			}}
 		{{else if model.notFoundError}}
 			{{discussion-not-found-error
-			goToAllDiscussions=(action 'goToAllDiscussions')
+				goToAllDiscussions=(action 'goToAllDiscussions')
 			}}
 		{{else}}
 			<div class="small-12 large-6 columns">
 				{{discussion-sort
 					setSortBy='setSortBy'
-					sortVisible=sortVisible
 					sortBy=sortBy
 					sortTypes=sortTypes
+					sortVisible=sortVisible
 				}}
 				{{forum-wrapper
+					createPost='createPost'
 					goToPost='goToPost'
 					loadPage='loadPage'
-					upvote='upvote'
 					setSortBy='setSortBy'
-					createPost='createPost'
+					upvote='upvote'
 					name=model.name
 					pageNum=model.pageNum
 					posts=model.posts

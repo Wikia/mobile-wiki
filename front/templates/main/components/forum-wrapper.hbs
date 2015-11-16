@@ -1,21 +1,21 @@
 {{discussion-editor
+	createPost='createPost'
 	active=editorActive
 	forumId=forumId
-	siteHeadPinned=siteHeadPinned
-	setSortBy=setSortBy
 	posts=posts
-	createPost='createPost'
+	setSortBy=setSortBy
 	shouldShowError=shouldShowPostError
+	siteHeadPinned=siteHeadPinned
 }}
 {{#each posts as |item|}}
 	{{post-detail
-		author=item.createdBy
 		goToPost='goToPost'
+		upvote='upvote'
+		author=item.createdBy
+		isVisible=item._embedded.firstPost.[0].isVisible
 		post=item._embedded.firstPost.[0]
 		postId=item.id
 		replyCount=item.postCount
-		upvote='upvote'
-		isVisible=item._embedded.firstPost.[0].isVisible
 	}}
 {{/each}}
 {{#if hasMore}}
