@@ -47,6 +47,7 @@ interface LocalSettings {
 	};
 	whoAmIService: {
 		path: string;
+		timeout: number;
 	}
 	host: any;
 	ironSecret: string;

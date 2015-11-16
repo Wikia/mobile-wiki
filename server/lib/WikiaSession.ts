@@ -52,7 +52,7 @@ module WikiaSession {
 				Wreck.get(
 					authUtils.getWhoAmIUrl(),
 					{
-						timeout: 3000,
+						timeout: localSettings.whoAmIService.timeout,
 						headers: {
 							Cookie: 'access_token=' + encodeURIComponent(accessToken)
 						}
