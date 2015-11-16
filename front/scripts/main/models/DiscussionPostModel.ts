@@ -14,6 +14,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	page: 0,
 	connectionError: null,
 	notFoundError: null,
+	minorError: null,
 	contributors: [],
 
 	/**
@@ -52,7 +53,12 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any) => {
-					this.setErrorProperty(err, this, false);
+					if (err.status != 404){
+						this.setErrorProperty(err, this);
+					}else{
+						this.minorError = true;
+					}
+
 					resolve(this);
 				}
 			});
@@ -121,8 +127,8 @@ App.DiscussionPostModel.reopenClass({
 					resolve(postInstance);
 				},
 				error: (err: any) => {
-						postInstance.setErrorProperty(err, postInstance,false);
-						resolve(postInstance);
+					postInstance.setErrorProperty(err, postInstance);
+					resolve(postInstance);
 				}
 			});
 		});

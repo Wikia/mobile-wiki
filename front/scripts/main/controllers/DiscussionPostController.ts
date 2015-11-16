@@ -30,7 +30,7 @@ App.DiscussionPostController = Em.Controller.extend({
 				var model = this.get('model');
 				console.log(model);
 				console.log('setting numRepliesLoaded');
-				if (model.notFoundError) {
+				if (model.minorError) {
 					this.set('numRepliesLoaded', model.postCount);
 				} else {
 					this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
