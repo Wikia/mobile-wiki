@@ -66,8 +66,8 @@ $success-icon-size: 80px;
 		background-color: inherit;
 		border: 0;
 		border-radius: 0;
-		margin: 0;
 		-webkit-font-smoothing: subpixel-antialiased;
+		margin: 0;
 
 		&:focus {
 			border: 0;
@@ -179,8 +179,8 @@ $success-icon-size: 80px;
 
 			.editor-textarea {
 				border-bottom: 1px solid $secondary-color;
-				min-height: $line-height-smaller;
 				height: $line-height-smaller;
+				min-height: $line-height-smaller;
 				padding: 0;
 				resize: none;
 				transition: min-height .2s ease;
@@ -193,7 +193,7 @@ $success-icon-size: 80px;
 			&.sticky {
 				margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
 				position: fixed;
-				top: rem-calc(50 - 4);
+				top: rem-calc(50 - 4); // Sass don't accept px variables here, 50 - TopNav height, 4 - editor border size
 				transition: top 0.5s;
 				width: $sticky-editor-width;
 				z-index: 1;
