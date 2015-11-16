@@ -85,17 +85,18 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * @returns {void}
 	 */
 	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
-		var newPosts = this.get('posts').filter(function(post: any) {
+		var newPosts = this.get('posts').filter(function (post: any):boolean {
 			return post._embedded.firstPost[0].isNew;
-		});
+		}),
+			newPost = newPosts.get('firstObject');
 
-		if (newPosts.length) {
+		if (newPost) {
+			newPost = newPost._embedded.firstPost[0];
+
 			this.set('isLoading', false);
 			this.set('showSuccess', true);
 
-			newPosts.forEach(function(post: any) {
-				Em.set(post._embedded.firstPost[0], 'isVisible', false);
-			});
+			Em.set(newPost, 'isVisible', false);
 
 			Em.run.later(this, () => {
 				this.set('showSuccess', false);
@@ -103,14 +104,10 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				this.set('submitDisabled', false);
 				this.$('.editor-textarea').val('');
 
-				newPosts.forEach(function (post: any) {
-					Em.set(post._embedded.firstPost[0], 'isVisible', true);
-				});
+				Em.set(newPost, 'isVisible', true);
 
 				Em.run.next(this, () => {
-					newPosts.forEach(function (post: any) {
-						Em.set(post._embedded.firstPost[0], 'isNew', false);
-					});
+					Em.set(newPost, 'isNew', false);
 				});
 			}, 2000);
 		}
