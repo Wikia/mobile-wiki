@@ -131,9 +131,9 @@ $success-icon-size: 80px;
 				}
 
 				.editor-label {
-					color: #999;
+					color: $discussion-editor-label-color;
 					font-size: $type-min;
-					font-weight: 700;
+					font-weight: bold;
 					margin: 10px;
 					position: absolute;
 					text-transform: uppercase;
