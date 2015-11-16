@@ -17,7 +17,7 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 	 * @param {*} model
 	 * @returns {void}
 	 */
-	setErrorProperty (err: any, model: any): void {
+	setErrorProperty(err: any, model: any): void {
 		if (err.status == this.httpCodes.notFound) {
 			model.set('notFoundError', true);
 		} else {
@@ -27,7 +27,7 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 		Em.$('body').addClass(this.errorClass);
 	},
 
-	setPostFailedState (hasFailed: boolean, model: any): void {
+	setPostFailedState(hasFailed: boolean, model: any): void {
 		model.set('postFailed', hasFailed);
 	}
 });
