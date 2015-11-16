@@ -1,6 +1,6 @@
+import App from '../app';
 
-
-const LightboxWrapperComponent = Ember.Component.extend({
+App.LightboxWrapperComponent = Ember.Component.extend({
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['isVisible:open'],
 	// This is needed for keyDown event to work
@@ -104,4 +104,4 @@ const LightboxWrapperComponent = Ember.Component.extend({
 	},
 });
 
-export default LightboxWrapperComponent;
+export default App.LightboxWrapperComponent;

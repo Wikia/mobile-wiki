@@ -1,8 +1,8 @@
-
+import App from '../app';
 import ArticleContentMixin from '../mixins/article-content';
 import VideoLoader from '../../mercury/modules/VideoLoader';
 
-const LightboxVideoComponent = Ember.Component.extend(
+App.LightboxVideoComponent = Ember.Component.extend(
 	ArticleContentMixin,
 	{
 		classNames: ['lightbox-video', 'lightbox-content-inner'],
@@ -53,4 +53,4 @@ const LightboxVideoComponent = Ember.Component.extend(
 	}
 );
 
-export default LightboxVideoComponent;
+export default App.LightboxVideoComponent;

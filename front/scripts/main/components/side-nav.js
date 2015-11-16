@@ -1,9 +1,9 @@
-
+import App from '../app';
 import Mercury from '../../mercury/Mercury';
 import {track, trackActions} from '../../mercury/utils/track';
 import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 
-const SideNavComponent = Ember.Component.extend({
+App.SideNavComponent = Ember.Component.extend({
 	tagName: 'nav',
 	classNames: ['side-nav'],
 	classNameBindings: ['shouldBeVisible:slide-into-view:collapsed'],
@@ -115,4 +115,4 @@ const SideNavComponent = Ember.Component.extend({
 	},
 });
 
-export default SideNavComponent;
+export default App.SideNavComponent;

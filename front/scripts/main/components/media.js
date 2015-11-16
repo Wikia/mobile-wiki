@@ -1,6 +1,7 @@
 import VisibleMixin from '../mixins/visible';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 import {track, trackActions} from '../../mercury/utils/track';
+import App from '../app';
 
 /**
  * @typedef {Object} ThumbnailOptions
@@ -9,7 +10,7 @@ import {track, trackActions} from '../../mercury/utils/track';
  * @property {number} [height]
  */
 
-const MediaComponent = Ember.Component.extend(
+App.MediaComponent = Ember.Component.extend(
 	VisibleMixin,
 	{
 		tagName: 'figure',
@@ -117,5 +118,5 @@ const MediaComponent = Ember.Component.extend(
 	}
 );
 
-export default MediaComponent;
+export default App.MediaComponent;
 

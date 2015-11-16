@@ -1,9 +1,9 @@
-
+import App from '../app';
 import Mercury from '../../mercury/Mercury';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
-const PostDetailComponent = Ember.Component.extend(
+App.PostDetailComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['post-detail'],
@@ -77,4 +77,4 @@ const PostDetailComponent = Ember.Component.extend(
 	}
 );
 
-export default PostDetailComponent;
+export default App.PostDetailComponent;

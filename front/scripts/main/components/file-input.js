@@ -1,6 +1,6 @@
+import App from '../app';
 
-
-const FileInputComponent = Ember.Component.extend(
+App.FileInputComponent = Ember.Component.extend(
 	Ember.Evented,
 	{
 		reset: false,
@@ -34,4 +34,4 @@ const FileInputComponent = Ember.Component.extend(
 	}
 );
 
-export default FileInputComponent;
+export default App.FileInputComponent;

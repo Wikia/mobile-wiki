@@ -1,10 +1,10 @@
-
+import App from '../app';
 import AdsMixin from '../mixins/ads';
 import TrackClickMixin from '../mixins/track-click';
 import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 import {setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
 
-const MainPageComponent = Ember.Component.extend(
+App.MainPageComponent = Ember.Component.extend(
 	AdsMixin,
 	TrackClickMixin,
 	{
@@ -71,4 +71,4 @@ const MainPageComponent = Ember.Component.extend(
 	}
 );
 
-export default MainPageComponent;
+export default App.MainPageComponent;

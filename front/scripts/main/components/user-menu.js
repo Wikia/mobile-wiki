@@ -1,7 +1,7 @@
-
+import App from '../app';
 import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
-const UserMenuComponent = Ember.Component.extend({
+App.UserMenuComponent = Ember.Component.extend({
 	classNames: ['user-menu'],
 	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 
@@ -36,4 +36,4 @@ const UserMenuComponent = Ember.Component.extend({
 	},
 });
 
-export default UserMenuComponent;
+export default App.UserMenuComponent;

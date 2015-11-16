@@ -1,4 +1,3 @@
-
 import App from '../app';
 import {track, trackActions} from '../../mercury/utils/track';
 
