@@ -14,6 +14,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	showSuccess: false,
 	hasError: false,
 
+	offsetTop: 0,
+	siteHeadHeight: 0,
+
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
@@ -29,30 +32,28 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * @returns {void}
 	 */
 	initializeOnScroll(): void {
-		var offsetTop = this.$().offset().top,
-			siteHeadHeight = Em.$('.site-head').outerHeight(true),
-			isAdded = false,
-			getBreakpointHeight = () => {
-				return offsetTop - (this.get('siteHeadPinned') ? siteHeadHeight : 0);
-			};
+		this.offsetTop = this.$().offset().top;
+		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
 
-		this.onScroll = () => {
-			Em.run.throttle(
-				this,
-				function (): void {
-					if (window.pageYOffset >= getBreakpointHeight() && !isAdded) {
-						this.set('isSticky', true);
-						isAdded = true;
-					} else if (window.pageYOffset < getBreakpointHeight() && isAdded) {
-						this.set('isSticky', false);
-						isAdded = false;
-					}
-				},
-				25
-			);
-		};
+		Em.$(window).on('scroll', ():void => {this.onScroll()});
+	},
 
-		Em.$(window).on('scroll', this.onScroll);
+	getBreakpointHeight(): number {
+		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
+	},
+
+	onScroll(): void  {
+		Em.run.throttle(
+			this,
+			function (): void {
+				if (window.pageYOffset >= this.getBreakpointHeight() && !this.get('isSticky')) {
+					this.set('isSticky', true);
+				} else if (window.pageYOffset < this.getBreakpointHeight() && this.get('isSticky')) {
+					this.set('isSticky', false);
+				}
+			},
+			25
+		);
 	},
 
 	/**
