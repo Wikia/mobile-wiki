@@ -30,7 +30,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 						'sortKey': 'creation_date',
 						'limit': this.replyLimit,
 						'pivot': this.pivotId,
-						'page': this.page+10
+						'page': this.page+1
 					}),
 				xhrFields: {
 					withCredentials: true,
