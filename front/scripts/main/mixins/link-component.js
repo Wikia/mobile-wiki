@@ -1,6 +1,4 @@
-import App from '../app';
-
-App.LinkComponent = Ember.Object.create({
+const LinkComponent = Ember.Object.create({
 	attributeBindings: ['data-tracking-category'],
 
 	// it allows to use action='x' actionParam='y' in link-to helper
@@ -22,10 +20,7 @@ App.LinkComponent = Ember.Object.create({
 			// trigger the action on the controller
 			this.get('parentView').get('context').send(action, this.get('actionParam'));
 		}
-
-		// no action to take, handle the link-to normally
-		return this._super(event);
 	},
 });
 
-export default App.LinkComponent;
+export default LinkComponent;
