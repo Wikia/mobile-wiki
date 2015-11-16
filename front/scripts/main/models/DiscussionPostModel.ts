@@ -53,9 +53,9 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any) => {
-					if (err.status != 404){
+					if (err.status != 404) {
 						this.setErrorProperty(err, this);
-					}else{
+					} else {
 						this.minorError = true;
 					}
 
