@@ -45,6 +45,9 @@ interface LocalSettings {
 		usernameMaxLength: number;
 		passwordMaxLength: number;
 	};
+	whoAmIService: {
+		path: string;
+	}
 	host: any;
 	ironSecret: string;
 	mediawikiDomain?: string;

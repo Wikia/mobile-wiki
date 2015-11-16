@@ -2,9 +2,9 @@
 /// <reference path='../../typings/wreck/wreck.d.ts' />
 /// <reference path='../../typings/boom/boom.d.ts' />
 
-interface HeliosInfoResponse {
-	'user_id': string;
-	'error'?: string;
+interface WhoAmIResponse {
+	'userId'?: string;
+	'status'?: number;
 }
 
 import Boom          = require('boom');
@@ -14,13 +14,13 @@ import localSettings = require('../../config/localSettings');
 import Logger        = require('./Logger');
 import authUtils     = require('./AuthUtils');
 
-module HeliosSession {
+module WikiaSession {
 	export function scheme (server: Hapi.Server, options: any): {authenticate: any} {
 		return {
 			authenticate: (request: any, reply: any): void => {
 				var accessToken: string = request.state.access_token,
 					callback = (err: any, response: any, payload: string): any => {
-						var parsed: HeliosInfoResponse,
+						var parsed: WhoAmIResponse,
 							parseError: Error;
 
 						try {
@@ -31,18 +31,18 @@ module HeliosSession {
 
 						// Detects an error with the connection
 						if (err || parseError) {
-							Logger.error('Helios connection error: ', {
+							Logger.error('WhoAmI connection error: ', {
 								err: err,
 								parseError: parseError
 							});
-							return reply(Boom.unauthorized('Helios connection error'));
+							return reply(Boom.unauthorized('WhoAmI connection error'));
 						}
 
-						if (parsed.error) {
+						if (parsed.status === 401) {
 							reply.unstate('access_token');
-							return reply(Boom.unauthorized('Token not authorized by Helios'));
+							return reply(Boom.unauthorized('Token not authorized by WhoAmI'));
 						}
-						return reply.continue({credentials: {userId: parsed.user_id}});
+						return reply.continue({credentials: {userId: parsed.userId}});
 					};
 
 				if (!accessToken) {
@@ -50,7 +50,13 @@ module HeliosSession {
 				}
 
 				Wreck.get(
-					authUtils.getHeliosUrl('/info') + '?code=' + accessToken + '&noblockcheck=1',
+					authUtils.getWhoAmIUrl(),
+					{
+						timeout: 3000,
+						headers: {
+							Cookie: 'access_token=' + encodeURIComponent(accessToken)
+						}
+					},
 					callback
 				);
 			}
@@ -58,4 +64,4 @@ module HeliosSession {
 	}
 }
 
-export = HeliosSession;
+export = WikiaSession;

@@ -13,7 +13,7 @@ import Caching       = require('./lib/Caching');
 import Hapi          = require('hapi');
 import Logger        = require('./lib/Logger');
 import Utils         = require('./lib/Utils');
-import HeliosSession = require('./lib/HeliosSession');
+import WikiaSession = require('./lib/WikiaSession');
 import cluster       = require('cluster');
 import localSettings = require('../config/localSettings');
 import path          = require('path');
@@ -81,7 +81,7 @@ server.register(plugins, (err: any) => {
 	}
 });
 
-server.auth.scheme('helios', HeliosSession.scheme);
+server.auth.scheme('helios', WikiaSession.scheme);
 server.auth.strategy('session', 'helios');
 
 server.views({
