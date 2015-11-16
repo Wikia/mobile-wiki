@@ -18,9 +18,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
 	 */
-	style: Em.computed('isSticky', function (): Em.Handlebars.SafeString {
+	style: Em.computed('isSticky', function (): string {
 		return this.get('isSticky') === true
-			? new Em.Handlebars.SafeString(`height: ${this.$('.editor-container').outerHeight(true)}px`)
+			? `height: ${this.$('.editor-container').outerHeight(true)}px`
 			: null;
 	}),
 
@@ -61,7 +61,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	didInsertElement(): void {
 		this._super();
 
-		this.initilizeOnScroll();
+		this.initializeOnScroll();
 	},
 
 	/**
@@ -77,7 +77,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
 		Em.$(window).off('scroll', this.onScroll);
-		this.initilizeOnScroll();
+		this.initializeOnScroll();
 	}),
 
 	/**
