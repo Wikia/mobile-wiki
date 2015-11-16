@@ -8,20 +8,20 @@ import SignupForm from './signup/SignupForm';
 import SubmitValidator from './login/SubmitValidator';
 import VisitSourceWrapper from './common/VisitSourceWrapper';
 
-if (typeof language === 'undefined') {
-	var language = '';
+if (typeof window.language === 'undefined') {
+	window.language = '';
 }
 
-if (typeof translations === 'undefined') {
-	var translations = {};
+if (typeof window.translations === 'undefined') {
+	window.translations = {};
 }
 
 i18n.init({
 	fallbackLng: 'en',
-	lng: language,
+	lng: window.language,
 	lowerCaseLng: true,
 	ns: 'auth-front',
-	resStore: translations,
+	resStore: window.translations,
 	useLocalStorage: false
 });
 
