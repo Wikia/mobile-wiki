@@ -144,7 +144,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			this.set('active', active);
 		},
 
-
 		/**
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
