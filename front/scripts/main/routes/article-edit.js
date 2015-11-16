@@ -42,4 +42,4 @@ App.ArticleEditRoute = Ember.Route.extend(FullPageMixin, {
 	}
 });
 
-export default ArticleEditRoute;
+export default App.ArticleEditRoute;

@@ -66,4 +66,4 @@ App.MainPageRoute = Ember.Route.extend(MainPageRouteMixin, {
 	}
 });
 
-export default MainPageRoute;
+export default App.MainPageRoute;

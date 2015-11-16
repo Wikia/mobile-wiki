@@ -56,6 +56,15 @@ export function isOptimizelyLoadedAndActive() {
 }
 
 /**
+ * Get list of Optimizely active experiments
+ *
+ * @returns {string[]}
+ */
+export function getActiveExperimentsList() {
+	return isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
+}
+
+/**
  * Integrates Optimizely with Universal Analytics
  *
  * @param {Array} dimensions
@@ -87,15 +96,6 @@ export function integrateOptimizelyWithUA(dimensions) {
 	}
 
 	return dimensions;
-}
-
-/**
- * Get list of Optimizely active experiments
- *
- * @returns {string[]}
- */
-export function getActiveExperimentsList() {
-	return isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
 }
 
 /**
