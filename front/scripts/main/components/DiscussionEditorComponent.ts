@@ -4,10 +4,10 @@
 App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-editor', 'mobile-hidden'],
-	classNameBindings: ['active', 'hasError'],
+	classNameBindings: ['isActive', 'hasError'],
 
-	active: false,
-	sticky: false,
+	isActive: false,
+	isSticky: false,
 
 	submitDisabled: true,
 	isLoading: false,
@@ -18,8 +18,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
 	 */
-	style: Em.computed('sticky', function (): Em.Handlebars.SafeString {
-		return this.get('sticky') === true
+	style: Em.computed('isSticky', function (): Em.Handlebars.SafeString {
+		return this.get('isSticky') === true
 			? new Em.Handlebars.SafeString(`height: ${this.$('.editor-container').outerHeight(true)}px`)
 			: null;
 	}),
@@ -41,10 +41,10 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				this,
 				function (): void {
 					if (window.pageYOffset >= getBreakpointHeight() && !isAdded) {
-						this.set('sticky', true);
+						this.set('isSticky', true);
 						isAdded = true;
 					} else if (window.pageYOffset < getBreakpointHeight() && isAdded) {
-						this.set('sticky', false);
+						this.set('isSticky', false);
 						isAdded = false;
 					}
 				},
@@ -99,7 +99,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 			Em.run.later(this, () => {
 				this.set('showSuccess', false);
-				this.set('active', false);
+				this.set('isActive', false);
 				this.set('submitDisabled', false);
 				this.$('.editor-textarea').val('');
 
@@ -141,7 +141,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active: boolean): void {
-			this.set('active', active);
+			this.set('isActive', active);
 		},
 
 		/**
@@ -166,7 +166,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 */
 		updateOnInput(): void {
 			this.set('submitDisabled', this.$('.editor-textarea').val().length === 0);
-			this.set('active', true);
+			this.set('isActive', true);
 		},
 
 		/**

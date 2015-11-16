@@ -33,7 +33,7 @@ $success-icon-size: 80px;
 	}
 
 	.discussion-editor {
-		&.active {
+		&.is-active {
 			button {
 				display: inline-block;
 			}
@@ -92,7 +92,7 @@ $success-icon-size: 80px;
 				}
 			}
 
-			&.active {
+			&.is-active {
 				display: block;
 
 				.editor-container {
@@ -217,7 +217,7 @@ $success-icon-size: 80px;
 			}
 		}
 
-		.discussion-editor.active {
+		.discussion-editor.is-active {
 			.editor-container {
 				padding-bottom: $editor-toolbar-height;
 			}

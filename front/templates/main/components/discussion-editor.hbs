@@ -1,4 +1,4 @@
-<div class="editor-container {{if sticky 'sticky'}} {{unless siteHeadPinned 'pinned-top'}}">
+<div class="editor-container {{if isSticky 'sticky'}} {{unless siteHeadPinned 'pinned-top'}}">
 	<a href="#" class="editor-close" {{action 'toggleEditorActive' false}}>
 		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
 	</a>
