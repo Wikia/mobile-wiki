@@ -67,6 +67,7 @@ $success-icon-size: 80px;
 		border: 0;
 		border-radius: 0;
 		margin: 0;
+		-webkit-font-smoothing: subpixel-antialiased;
 
 		&:focus {
 			border: 0;
