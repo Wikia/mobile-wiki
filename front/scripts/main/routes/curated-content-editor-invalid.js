@@ -1,4 +1,4 @@
-
+import App from '../app';
 
 const CuratedContentEditorInvalidRoute = Ember.Route.extend({
 	/**
@@ -10,5 +10,3 @@ const CuratedContentEditorInvalidRoute = Ember.Route.extend({
 		this.transitionTo('curatedContentEditor');
 	}
 });
-
-export default CuratedContentEditorInvalidRoute;

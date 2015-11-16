@@ -1,4 +1,3 @@
-
 import ArticleModel from '../models/article';
 import Mercury from '../../mercury/Mercury';
 import VisibilityStateManager from '../mixins/visibility-state-manager';

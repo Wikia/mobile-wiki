@@ -1,8 +1,8 @@
-
+import App from '../app';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 
-const CuratedContentEditorSectionAddItemRoute = Ember.Route.extend({
+App.CuratedContentEditorSectionAddItemRoute = Ember.Route.extend({
 	/**
 	 * @returns {CuratedContentEditorItemModel} new item
 	 */
@@ -61,5 +61,3 @@ const CuratedContentEditorSectionAddItemRoute = Ember.Route.extend({
 		}
 	}
 });
-
-export default CuratedContentEditorSectionAddItemRoute;

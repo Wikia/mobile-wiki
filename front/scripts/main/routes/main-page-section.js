@@ -1,9 +1,9 @@
-
+import App from '../app';
 import MainPageRouteMixin from '../mixins/main-page-route';
 import MetaTagsMixin from '../mixins/meta-tags';
 import CuratedContentModel from '../models/curated-content';
 
-const MainPageSectionRoute = Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, {
+App.MainPageSectionRoute = Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
@@ -48,5 +48,3 @@ const MainPageSectionRoute = Ember.Route.extend(MainPageRouteMixin, MetaTagsMixi
 		}
 	}
 });
-
-export default MainPageSectionRoute;

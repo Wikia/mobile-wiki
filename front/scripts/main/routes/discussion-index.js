@@ -1,8 +1,8 @@
-
+import App from '../app';
 import Mercury from '../../mercury/Mercury';
 import DiscussionIndexModel from '../models/discussion-index';
 
-const DiscussionIndexRoute = Ember.Route.extend({
+App.DiscussionIndexRoute = Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */
@@ -19,5 +19,3 @@ const DiscussionIndexRoute = Ember.Route.extend({
 		return DiscussionIndexModel.find(Mercury.wiki.id);
 	}
 });
-
-export default DiscussionIndexRoute;
