@@ -4,24 +4,19 @@
  */
 
 var gulp = require('gulp'),
+	environment = require('../utils/environment'),
 	Builder = require('systemjs-builder');
 
-gulp.task('front-modules', function() {
+gulp.task('front-modules', function () {
 	var builder = new Builder();
+
 	builder.config({
-		"baseURL": "front/scripts",
+		baseURL: 'front/scripts/',
 		defaultJSExtensions: true,
-		paths: {
-			state: 'baseline/mercury/utils/state'
-		},
 	});
+
 	return builder
-		.buildStatic('**/*.js', 'www/front/scripts/modules.js')
-		.then(function() {
-			console.log('Build complete');
-		})
-		.catch(function(err) {
-			console.log('Build error');
-			console.log(err);
+		.buildStatic('main/**/*.js + mercury/**/*.js', 'www/front/scripts/modules.js', {
+			minify: environment.isProduction
 		});
 });
