@@ -1,3 +1,9 @@
+## release-189 (2015-11-17 15:45 UTC)
+* [SOC-1566](https://wikia-inc.atlassian.net/browse/SOC-1566) SOC-1566 | Use WhoAmI service instead of Helios for access_token validation
+* [INT-254](https://wikia-inc.atlassian.net/browse/INT-254) Send user id to qualaroo
+* SOC: Enable discussions on starwars
+* [SOC-1551](https://wikia-inc.atlassian.net/browse/SOC-1551) SOC-1551 | Contributors count will be broken when we reach 1k contributors
+
 ## release-188 hotfix 1 (2015-11-13 16:22 UTC)
 * [SOC-1476](https://wikia-inc.atlassian.net/browse/SOC-1476) Soc 1476 fix
 * sg-update: Style-Guide | Bump version to 1.7.4
