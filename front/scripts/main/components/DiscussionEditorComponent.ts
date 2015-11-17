@@ -35,14 +35,16 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		this.offsetTop = this.$().offset().top;
 		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
 
-		Em.$(window).on('scroll', ():void => {this.onScroll()});
+		Em.$(window).on('scroll', (): void => {
+			this.onScroll()
+		});
 	},
 
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
 	},
 
-	onScroll(): void  {
+	onScroll(): void {
 		Em.run.throttle(
 			this,
 			function (): void {
