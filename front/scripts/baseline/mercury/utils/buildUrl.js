@@ -1,4 +1,3 @@
-import {globalProp} from './state';
 
 /**
  * @typedef {Object} MercuryUtilsBuildUrlParams
@@ -85,7 +84,7 @@ export function replaceWikiInHost(host, wiki) {
  * @returns {string}
  */
 export function buildUrl(urlParams = {}, context = window) {
-	const mediawikiDomain = globalProp('mediawikiDomain'),
+	const mediawikiDomain = state.prop('mediawikiDomain'),
 		host = context.location.host;
 
 	if (!urlParams.protocol) {
@@ -125,5 +124,5 @@ export function buildUrl(urlParams = {}, context = window) {
  * @returns {string}
  */
 export function getDiscussionServiceUrl(path = '', query = {}) {
-	return `https://${globalProp('servicesDomain')}/${globalProp('discussionBaseRoute')}${path}${getQueryString(query)}`;
+	return `https://${state.prop('servicesDomain')}/${state.prop('discussionBaseRoute')}${path}${getQueryString(query)}`;
 }

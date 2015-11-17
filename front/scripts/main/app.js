@@ -1,4 +1,3 @@
-import {globalProp} from '../baseline/mercury/utils/state';
 import * as trackPerf from '../mercury/utils/trackPerf';
 import {getQueryParam} from '../mercury/utils/queryString';
 import {integrateOptimizelyWithUA} from '../mercury/utils/variantTesting';
@@ -35,8 +34,8 @@ App.initializer({
 	name: 'visit-source',
 	initialize() {
 		if (typeof VisitSource === 'function') {
-			(new VisitSource('WikiaSessionSource', globalProp('cookieDomain'))).checkAndStore();
-			(new VisitSource('WikiaLifetimeSource', globalProp('cookieDomain'), false)).checkAndStore();
+			(new VisitSource('WikiaSessionSource', state.prop('cookieDomain'))).checkAndStore();
+			(new VisitSource('WikiaLifetimeSource', state.prop('cookieDomain'), false)).checkAndStore();
 		}
 	}
 });
@@ -44,7 +43,7 @@ App.initializer({
 App.initializer({
 	name: 'optimizely',
 	initialize() {
-		const optimizelyScript = globalProp('optimizelyScript');
+		const optimizelyScript = state.prop('optimizelyScript');
 
 		if (!Ember.isEmpty(optimizelyScript) && !getQueryParam('noexternals')) {
 			App.deferReadiness();
@@ -64,16 +63,16 @@ App.initializer({
 			/**
 			 * prevents fail if transitions are empty
 			 */
-			loadedTranslations = globalProp('translations') || {},
+			loadedTranslations = state.prop('translations') || {},
 			/**
 			 * loaded language name is the first key of the Mercury.state.translations object
 			 */
 			loadedLanguage = Object.keys(loadedTranslations)[0];
 
-		let debug = globalProp('environment') === 'dev';
+		let debug = state.prop('environment') === 'dev';
 
 		$window.scroll(() => {
-			globalProp('scroll.mercury.preload', $window.scrollTop(), true);
+			state.prop('scroll.mercury.preload', $window.scrollTop(), true);
 		});
 
 		// turn on debugging with querystring ?debug=1
@@ -82,7 +81,7 @@ App.initializer({
 		}
 
 		App.setProperties({
-			apiBase: globalProp('apiBase'),
+			apiBase: state.prop('apiBase'),
 			language: loadedLanguage || 'en',
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
@@ -125,7 +124,7 @@ App.initializer({
 		}
 
 		EmPerfSender.initialize({
-			enableLogging: (globalProp('environment') === 'dev'),
+			enableLogging: (state.prop('environment') === 'dev'),
 
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send(events, metrics) {
@@ -196,7 +195,7 @@ App.initializer({
 		dimensions[1] = Mercury.wiki.dbName;
 		dimensions[2] = Mercury.wiki.language.content;
 		dimensions[4] = 'mercury';
-		dimensions[5] = globalProp('userId') ? 'user' : 'anon';
+		dimensions[5] = state.prop('userId') ? 'user' : 'anon';
 		dimensions[9] = String(Mercury.wiki.id);
 		dimensions[8] = getPageType;
 		// IsCorporatePage
@@ -204,7 +203,7 @@ App.initializer({
 		// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 		// ga(prefix + 'set', 'dimension16', getKruxSegment());
 		dimensions[17] = Mercury.wiki.vertical;
-		dimensions[19] = globalProp('article.type');
+		dimensions[19] = state.prop('article.type');
 
 		if (adsContext) {
 			// Hub
@@ -235,9 +234,9 @@ App.initializer({
 		const geoCookie = $.cookie('Geo');
 
 		if (geoCookie) {
-			globalProp('geo', JSON.parse(geoCookie));
-		} else if (globalProp('environment') === 'dev') {
-			globalProp('geo', {
+			state.prop('geo', JSON.parse(geoCookie));
+		} else if (state.prop('environment') === 'dev') {
+			state.prop('geo', {
 				country: 'wikia-dev-country',
 				continent: 'wikia-dev-continent'
 			});

@@ -3,7 +3,6 @@ import Internal from '../modules/Trackers/Internal';
 import Krux from '../modules/Trackers/Krux';
 import Quantserve from '../modules/Trackers/Quantserve';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
-import {globalProp} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} TrackContext
@@ -114,7 +113,7 @@ function pruneParams(params) {
  */
 function isSpecialWiki() {
 	try {
-		return Boolean(globalProp('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
+		return Boolean(state.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
 	} catch (e) {
 		// Property doesn't exist
 		return false;
@@ -136,7 +135,7 @@ export function track(params) {
 	let tracker,
 		uaTracker;
 
-	if (globalProp('queryParams.noexternals')) {
+	if (state.prop('queryParams.noexternals')) {
 		return;
 	}
 
@@ -178,7 +177,7 @@ export function track(params) {
  * @returns {void}
  */
 export function trackPageView(adsContext) {
-	if (globalProp('queryParams.noexternals')) {
+	if (state.prop('queryParams.noexternals')) {
 		return;
 	}
 	Object.keys(trackers).forEach((tracker) => {
@@ -200,7 +199,7 @@ export function trackPageView(adsContext) {
  * @returns {void}
  */
 export function trackGoogleSearch(queryParam) {
-	if (globalProp('queryParams.noexternals')) {
+	if (state.prop('queryParams.noexternals')) {
 		return;
 	}
 
@@ -229,7 +228,7 @@ export function trackGoogleSearch(queryParam) {
  * @returns {void}
  */
 export function updateTrackedUrl(url) {
-	if (globalProp('queryParams.noexternals')) {
+	if (state.prop('queryParams.noexternals')) {
 		return;
 	}
 

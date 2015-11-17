@@ -1,6 +1,5 @@
 import TrackClickMixin from '../mixins/track-click';
 import ArticleModel from '../models/article';
-import {globalProp} from '../../baseline/mercury/utils/state';
 import {activate as variantTestingActivate} from '../../mercury/utils/variantTesting';
 import {getLinkInfo} from '../../mercury/utils/articleLink';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
@@ -45,7 +44,7 @@ App.ApplicationRoute = Ember.Route.extend(
 				 * This is called after the first route of any application session has loaded
 				 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 				 */
-				globalProp('articleContentPreloadedInDOM', false);
+				state.prop('articleContentPreloadedInDOM', false);
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
@@ -222,10 +221,10 @@ App.ApplicationRoute = Ember.Route.extend(
 			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 			let adsInstance;
 
-			if (globalProp('adsUrl') && !globalProp('queryParams.noexternals') &&
+			if (state.prop('adsUrl') && !state.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
 				adsInstance = Ads.getInstance();
-				adsInstance.init(globalProp('adsUrl'));
+				adsInstance.init(state.prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads

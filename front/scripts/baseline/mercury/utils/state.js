@@ -162,15 +162,3 @@ export function provide(str, obj) {
 
 	return namespacer(str, 'Mercury', obj, true);
 }
-
-/**
- * @param {string} key
- * @returns {*}
- */
-export function globalProp(key) {
-	if (typeof window.state.prop === 'function') {
-		return window.state.prop(key);
-	} else {
-		return prop(key);
-	}
-}

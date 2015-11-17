@@ -1,5 +1,4 @@
 import BaseTracker from './BaseTracker';
-import {globalProp} from '../../../baseline/mercury/utils/state';
 
 /**
  * @class Quantserve
@@ -37,7 +36,7 @@ export default class Quantserve extends BaseTracker {
 		window.__qc = null;
 
 		window._qevents = [{
-			qacct: globalProp('tracking.quantserve'),
+			qacct: state.prop('tracking.quantserve'),
 			labels: quantcastLabels.join(',')
 		}];
 

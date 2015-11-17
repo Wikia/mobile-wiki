@@ -1,6 +1,5 @@
 import App from '../app';
 import MediaModel from './media';
-import {globalProp} from '../../baseline/mercury/utils/state';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 
 /**
@@ -58,7 +57,7 @@ App.ArticleModel.reopenClass({
 		const model = App.ArticleModel.create(params);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (globalProp('articleContentPreloadedInDOM') && !globalProp('asyncArticle')) {
+			if (state.prop('articleContentPreloadedInDOM') && !state.prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
@@ -114,7 +113,7 @@ App.ArticleModel.reopenClass({
 	getPreloadedData() {
 		const article = Mercury.article;
 
-		globalProp('articleContentPreloadedInDOM', false);
+		state.prop('articleContentPreloadedInDOM', false);
 
 		if (article.data && article.data.article) {
 			// On the first page load the article content is available only in HTML
@@ -208,7 +207,7 @@ App.ArticleModel.reopenClass({
 		// We need to update global article.type
 		// to allow eg. for analytics to use it
 		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
-		globalProp('article.type', articleProperties.type, true);
+		state.prop('article.type', articleProperties.type, true);
 		model.setProperties(articleProperties);
 	}
 });

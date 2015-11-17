@@ -1,5 +1,4 @@
 import BaseTracker from './BaseTracker';
-import {globalProp} from '../../../baseline/mercury/utils/state';
 
 /**
  * @class Comscore
@@ -26,7 +25,7 @@ export default class Comscore extends BaseTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		const comscore = globalProp('tracking.comscore'),
+		const comscore = state.prop('tracking.comscore'),
 			id = comscore.id,
 			c7Value = comscore.c7Value;
 

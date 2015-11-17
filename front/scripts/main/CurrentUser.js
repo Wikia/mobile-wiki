@@ -1,5 +1,4 @@
 import App from './app';
-import {globalProp} from '../baseline/mercury/utils/state';
 import UserModel from '../main/models/user';
 
 /**
@@ -27,7 +26,7 @@ App.CurrentUser = Ember.Object.extend({
 	language: null,
 
 	userId: Ember.computed(() => {
-		const cookieUserId = parseInt(globalProp('userId'), 10);
+		const cookieUserId = parseInt(state.prop('userId'), 10);
 
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
@@ -70,7 +69,7 @@ App.CurrentUser = Ember.Object.extend({
 			userLanguage = userLang || contentLanguage;
 
 		this.set('language', userLanguage);
-		globalProp('userLanguage', userLanguage);
+		state.prop('userLanguage', userLanguage);
 	},
 
 	/**

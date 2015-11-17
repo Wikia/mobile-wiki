@@ -1,4 +1,3 @@
-import {globalProp} from '../../baseline/mercury/utils/state';
 
 /**
  * Helper for variant testing using Optimizely
@@ -118,7 +117,7 @@ export function getExperimentVariationNumberBySingleId(experimentId) {
  * @returns {string|null}
  */
 export function getExperimentIdForThisEnvironment(experimentIds) {
-	const environment = globalProp('environment');
+	const environment = state.prop('environment');
 
 	switch (environment) {
 	case 'prod':
