@@ -88,7 +88,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * @returns {void}
 	 */
 	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
-		var newPosts = this.get('posts').filter(function (post: any):boolean {
+		var newPosts = this.get('posts').filter(function (post: any): boolean {
 			return post._embedded.firstPost[0].isNew;
 		}),
 			newPost = newPosts.get('firstObject');
@@ -96,15 +96,20 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		if (newPost) {
 			newPost = newPost._embedded.firstPost[0];
 
-			this.set('isLoading', false);
-			this.set('showSuccess', true);
+			this.setProperties({
+				isLoading: false,
+				showSuccess: true
+			});
 
 			Em.set(newPost, 'isVisible', false);
 
 			Em.run.later(this, () => {
-				this.set('showSuccess', false);
-				this.set('isActive', false);
-				this.set('submitDisabled', false);
+				this.setProperties({
+					showSuccess: false,
+					isActive: false,
+					submitDisabled: false
+				});
+
 				this.$('.editor-textarea').val('');
 
 				Em.set(newPost, 'isVisible', true);
@@ -122,8 +127,10 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 */
 	errorObserver: Em.observer('shouldShowError', function (): void {
 		if (this.get('shouldShowError')) {
-			this.set('isLoading', false);
-			this.set('hasError', true);
+			this.setProperties({
+				isLoading: false,
+				hasError: true
+			});
 		}
 	}),
 
@@ -165,8 +172,10 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * @returns {void}
 		 */
 		updateOnInput(): void {
-			this.set('submitDisabled', this.$('.editor-textarea').val().length === 0);
-			this.set('isActive', true);
+			this.setProperties({
+				submitDisabled: this.$('.editor-textarea').val().length === 0,
+				isActive: true
+			});
 		},
 
 		/**
