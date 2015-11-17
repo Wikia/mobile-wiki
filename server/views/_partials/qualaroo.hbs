@@ -3,7 +3,7 @@
 		// qualaroo configuration
 		var _kiq = [],
 			qualarooConfig = {};
-		
+
 		// recommended-by-Qualaroo way of loading their script
 		(function(){
 			setTimeout(function(){
@@ -12,11 +12,10 @@
 			}, 1);
 		})();
 
-		// user identity
-		// TODO when we'll support user login on mercury
-		// if (user_id) {
-		// 	_kiq.push(['identify', user_id]);
-		// }
+
+		{{#if userId}}
+		 	_kiq.push(['identify', {{userId}}]);
+		{{/if}}
 
 		// send some variables to qualaroo so we can target our audience
 		if (typeof optimizely === "object") {
