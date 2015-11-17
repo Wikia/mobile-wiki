@@ -1,5 +1,9 @@
 $horizontal-padding: 15px;
 
+body.discussions {
+	background-color: $discussion-desktop-bg-color;
+}
+
 .discussion-page {
 	width: 100%;
 }
@@ -10,7 +14,6 @@ $horizontal-padding: 15px;
 }
 
 .discussion {
-	background-color: $discussion-bg-color;
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
 	max-width: inherit;
@@ -132,6 +135,8 @@ $horizontal-padding: 15px;
 	}
 
 	.post-detail {
+		background-color: $discussion-desktop-post-detail-bg-color;;
+		margin-bottom: 5px;
 		padding: 12px $horizontal-padding;
 
 		.avatar {
@@ -186,30 +191,17 @@ $horizontal-padding: 15px;
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height + $theme-bar-height;
+		margin-top: $discussion-header-height;
 
 		.discussion-content {
 			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
 			max-height: $line-height-smallest * 3 + .3rem;
 			overflow: hidden;
 		}
-
-		.post-detail {
-			border-bottom-width: 0;
-			border-top: 1px solid $discussion-post-detail-border-color;
-
-			&:first-child {
-				border-width: 0;
-			}
-		}
 	}
 }
 
 @media #{$desktop-range} {
-	body {
-		background-color: $discussion-desktop-bg-color;
-	}
-
 	.discussion {
 		background-color: transparent;
 
