@@ -57,6 +57,30 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 				}
 			});
 		});
+	},
+
+	createReply(replyData: any) {
+		this.setFailedState(false, this);
+		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
+				data: JSON.stringify(replyData),
+				contentType: 'application/json',
+				xhrFields: {
+					withCredentials: true,
+				},
+				success: (reply: any): void => {
+					reply.isNew = true;
+					this.replies.pushObject(reply);
+					resolve(this);
+				},
+				error: (err: any) => {
+					this.setFailedState(true, this);
+					resolve(this);
+				}
+			});
+		});
 	}
 });
 

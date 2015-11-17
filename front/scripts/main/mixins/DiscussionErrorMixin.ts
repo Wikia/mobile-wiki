@@ -27,7 +27,7 @@ App.DiscussionErrorMixin = Em.Mixin.create({
 		Em.$('body').addClass(this.errorClass);
 	},
 
-	setPostFailedState(hasFailed: boolean, model: any): void {
-		model.set('postFailed', hasFailed);
+	setFailedState(hasFailed: boolean, model: any): void {
+		model.set('requestFailed', hasFailed);
 	}
 });
