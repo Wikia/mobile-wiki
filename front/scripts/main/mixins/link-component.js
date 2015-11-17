@@ -1,26 +1,24 @@
-// source: https://github.com/Kuzirashi/ember-link-action/blob/master/addon/initializers/allow-link-action.js
-
 Ember.LinkComponent.reopen({
-	_sendInvokeAction() {
-		this.sendAction('invokeAction');
-	},
+	attributeBindings: ['data-tracking-category'],
 
-	init() {
-		this._super(...arguments);
+	// it allows to use action='x' actionParam='y' in link-to helper
+	action: null,
 
-		// Map desired event name to invoke function
-		const eventName = this.get('eventName');
+	/**
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
+	_invoke(event) {
+		const action = this.get('action');
 
-		if (this.get('invokeAction')) {
-			this.on(eventName, this, this._sendInvokeAction);
+		if (action) {
+			// There was an action specified (in handlebars) so take custom action
+			if (this.bubbles === false) {
+				event.stopPropagation();
+			}
+
+			// trigger the action on the controller
+			this.get('parentView').get('context').send(action, this.get('actionParam'));
 		}
-
-		this.on(eventName, this, this._invoke);
 	},
-
-	willDestroyElement() {
-		if (this.get('invokeAction')) {
-			this.off(this.get('eventName'), this, this._sendInvokeAction);
-		}
-	}
 });
