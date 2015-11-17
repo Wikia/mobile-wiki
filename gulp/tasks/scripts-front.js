@@ -1,6 +1,6 @@
 /*
  * scripts-front
- * Compiles front ts files
+ * Compiles front scripts
  */
 
 var gulp = require('gulp'),
@@ -8,17 +8,13 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	folders = require('gulp-folders'),
 	gulpif = require('gulp-if'),
-	gutil = require('gulp-util'),
-	orderedMergeStream = require('ordered-merge-stream'),
 	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
 	// newer = require('gulp-newer'),
-	ts = require('gulp-typescript'),
 	uglify = require('gulp-uglify'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
-	path = require('path'),
-	tsProjects = {};
+	path = require('path');
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
 	// build ES6
