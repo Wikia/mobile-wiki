@@ -1,22 +1,22 @@
 /*
  * scripts-front
- * Compiles front ts files
+ * Compiles front js files
  */
 
 var gulp = require('gulp'),
-	environment = require('../utils/environment'),
-	Builder = require('systemjs-builder');
+	Builder = require('systemjs-builder'),
+	paths = require('../paths').scripts.front,
+	environment = require('../utils/environment');
 
 gulp.task('front-modules', function () {
 	var builder = new Builder();
 
 	builder.config({
-		baseURL: 'front/scripts/',
+		baseURL: paths.src,
 		defaultJSExtensions: true,
 	});
 
-	return builder
-		.buildStatic('main/**/*.js + mercury/**/*.js', 'www/front/scripts/modules.js', {
-			minify: environment.isProduction
-		});
+	return builder.buildStatic('main/' + paths.jsFiles + ' + mercury/' + paths.jsFiles, paths.dest + '/modules.js', {
+		minify: environment.isProduction
+	});
 });
