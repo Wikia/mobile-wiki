@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	gulpconcat = require('gulp-concat'),
 	piper = require('../utils/piper');
 
-gulp.task('build-combined', ['front-modules', 'scripts-front', 'templates'], function () {
+gulp.task('build-combined', ['scripts-front-modules-spa', 'scripts-front-modules-auth', 'scripts-front', 'templates'], function () {
 	return piper(
 		gulp.src([
 			'www/front/templates/main.js',

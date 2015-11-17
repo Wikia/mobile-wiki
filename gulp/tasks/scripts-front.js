@@ -18,7 +18,7 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
 	// build ES6
-	if (folder === 'main' || folder === 'mercury') {
+	if (folder === 'main' || folder === 'mercury' || folder === 'auth') {
 		return gulp.src([]);
 	}
 

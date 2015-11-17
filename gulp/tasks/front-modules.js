@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 	paths = require('../paths').scripts.front,
 	environment = require('../utils/environment');
 
-gulp.task('front-modules', function () {
+gulp.task('scripts-front-modules-spa', function () {
 	var builder = new Builder();
 
 	builder.config({
@@ -19,6 +19,23 @@ gulp.task('front-modules', function () {
 	return builder.buildStatic(
 		'main/' + paths.jsFiles + ' + mercury/' + paths.jsFiles,
 		paths.dest + '/modules.js',
+		{
+			minify: environment.isProduction
+		}
+	);
+});
+
+gulp.task('scripts-front-modules-auth', function () {
+	var builder = new Builder();
+
+	builder.config({
+		baseURL: paths.src,
+		defaultJSExtensions: true,
+	});
+
+	return builder.buildStatic(
+		'auth/' + paths.jsFiles + ' + mercury/' + paths.jsFiles,
+		paths.dest + '/auth.js',
 		{
 			minify: environment.isProduction
 		}
