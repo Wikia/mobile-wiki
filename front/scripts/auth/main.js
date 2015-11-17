@@ -1,27 +1,27 @@
-import BirthdateInput from 'common/BirthdateInput';
-import FacebookConnect from 'facebook/FacebookConnect';
-import FacebookLogin from 'facebook/FacebookLogin';
-import FacebookRegistration from 'facebook/FacebookRegistration';
-import Form from 'common/Form';
-import Login from 'common/Login';
-import SignupForm from 'signup/SignupForm';
-import SubmitValidator from 'login/SubmitValidator';
-import VisitSourceWrapper from 'common/VisitSourceWrapper';
+import BirthdateInput from './common/BirthdateInput';
+import FacebookConnect from './facebook/FacebookConnect';
+import FacebookLogin from './facebook/FacebookLogin';
+import FacebookRegistration from './facebook/FacebookRegistration';
+import Form from './common/Form';
+import Login from './common/Login';
+import SignupForm from './signup/SignupForm';
+import SubmitValidator from './login/SubmitValidator';
+import VisitSourceWrapper from './common/VisitSourceWrapper';
 
-if (typeof language === 'undefined') {
-	language = '';
+if (typeof window.language === 'undefined') {
+	window.language = '';
 }
 
-if (typeof translations === 'undefined') {
-	translations = {};
+if (typeof window.translations === 'undefined') {
+	window.translations = {};
 }
 
 i18n.init({
 	fallbackLng: 'en',
-	lng: language,
+	lng: window.language,
 	lowerCaseLng: true,
 	ns: 'auth-front',
-	resStore: translations,
+	resStore: window.translations,
 	useLocalStorage: false
 });
 

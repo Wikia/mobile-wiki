@@ -1,5 +1,5 @@
-import Krux from 'Trackers/Krux';
-import UniversalAnalytics from 'Trackers/UniversalAnalytics';
+import Krux from './Trackers/Krux';
+import UniversalAnalytics from './Trackers/UniversalAnalytics';
 import load from '../utils/load';
 
 /**
@@ -36,7 +36,7 @@ import load from '../utils/load';
  * @property {boolean} isLoaded
  * @property {string[][]} slotsQueue
  */
-export default class Ads {
+class Ads {
 	constructor() {
 		this.adSlots = [];
 		this.adsContext = null;
@@ -67,6 +67,8 @@ export default class Ads {
 	init(adsUrl) {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
+
+		/* global require */
 
 		// Load the ads code from MW
 		load(adsUrl, () => {
@@ -290,5 +292,7 @@ export default class Ads {
 	}
 }
 
-Ads.prototype.instance = null;
-Ads.prototype.blocking = null;
+Ads.instance = null;
+Ads.blocking = null;
+
+export default Ads;

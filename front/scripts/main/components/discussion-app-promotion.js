@@ -1,10 +1,9 @@
-import Ember from 'ember';
-import {prop} from '../../baseline/mercury/utils/state';
+import App from '../app';
 
-const DiscussionAppPromotionComponent = Ember.Component.extend({
+App.DiscussionAppPromotionComponent = Ember.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
-	discussionsSplashPageConfig: prop('discussionsSplashPageConfig'),
+	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
 
 	androidAppLink: Ember.computed('discussionsSplashPageConfig', function () {
 		const discussionsSplashPageConfig = this.get('discussionsSplashPageConfig');
@@ -21,4 +20,4 @@ const DiscussionAppPromotionComponent = Ember.Component.extend({
 	shouldDisplay: Ember.computed.and('androidAppLink', 'iosAppLink'),
 });
 
-export default DiscussionAppPromotionComponent;
+export default App.DiscussionAppPromotionComponent;

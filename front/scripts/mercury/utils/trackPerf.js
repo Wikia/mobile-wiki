@@ -1,4 +1,3 @@
-import {prop} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} PerfTrackerParams
@@ -11,29 +10,51 @@ import {prop} from '../../baseline/mercury/utils/state';
  */
 
 const context = {
-		country: prop('geo.country'),
-		env: prop('environment'),
-		logged_in: Boolean(prop('userId')),
-		skin: 'mercury',
-		url: window.location.href.split('#')[0],
-		'user-agent': window.navigator.userAgent
-	},
-	tracker = (typeof Weppy === 'function') ?
-		Weppy.namespace('mercury').setOptions({
-			aggregationInterval: prop('weppyConfig').aggregationInterval,
-			context,
-			host: prop('weppyConfig').host,
-			sample: prop('weppyConfig').samplingRate,
-			transport: 'url'
-		}) :
-		null;
+	country: M.prop('geo.country'),
+	env: M.prop('environment'),
+	logged_in: Boolean(M.prop('userId')),
+	skin: 'mercury',
+	url: window.location.href.split('#')[0],
+	'user-agent': window.navigator.userAgent
+};
+
+let tracker;
+
+/**
+ * 1. initialize tracker if it's undefined
+ * 2. return tracker or null (if Weppy is not present)
+ *
+ * @returns {Object|null}
+ */
+function getTracker() {
+	if (typeof tracker === 'undefined') {
+		if (typeof Weppy === 'function') {
+			tracker = Weppy.namespace('mercury');
+			tracker.setOptions({
+				aggregationInterval: M.prop('weppyConfig').aggregationInterval,
+				context,
+				host: M.prop('weppyConfig').host,
+				sample: M.prop('weppyConfig').samplingRate,
+				transport: 'url'
+			});
+		} else {
+			tracker = null;
+		}
+	}
+
+	return tracker;
+}
 
 /**
  * @param {PerfTrackerParams} params
  * @returns {void}
  */
 export function trackPerf(params) {
-	let trackFn = tracker;
+	let trackFn = getTracker();
+
+	if (!trackFn) {
+		return;
+	}
 
 	if (typeof params.module === 'string') {
 		trackFn = tracker.into(params.module);
@@ -75,7 +96,11 @@ export function trackPerf(params) {
  * @returns {void}
  */
 export function sendPagePerformance() {
-	tracker.sendPagePerformance();
+	const trackFn = getTracker();
+
+	if (trackFn) {
+		trackFn.sendPagePerformance();
+	}
 	// used for automation test
-	prop('pagePerformanceSent', true);
+	M.prop('pagePerformanceSent', true);
 }

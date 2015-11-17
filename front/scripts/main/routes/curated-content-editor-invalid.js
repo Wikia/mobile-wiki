@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import App from '../app';
 
-const CuratedContentEditorInvalidRoute = Ember.Route.extend({
+App.CuratedContentEditorInvalidRoute = Ember.Route.extend({
 	/**
 	 * When user tries to load invalid path under /main/edit/* we redirect to /main/edit
 	 *
@@ -11,4 +11,4 @@ const CuratedContentEditorInvalidRoute = Ember.Route.extend({
 	}
 });
 
-export default CuratedContentEditorInvalidRoute;
+export default App.CuratedContentEditorInvalidRoute;

@@ -1,7 +1,6 @@
-import Ember from 'ember';
-import Mercury from '../../mercury/Mercury';
+import App from '../app';
 
-const MainPageController = Ember.Controller.extend({
+App.MainPageController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
 
 	noAds: Ember.computed.alias('application.noAds'),
@@ -17,4 +16,4 @@ const MainPageController = Ember.Controller.extend({
 	}
 });
 
-export default MainPageController;
+export default App.MainPageController;

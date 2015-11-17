@@ -1,12 +1,12 @@
-import Ember from 'ember';
-import VisibilityStateManager from 'visibility-state-manager';
+import App from '../app';
+import VisibilityStateManager from './visibility-state-manager';
 
 /**
  * Mixin that sends 'onVisible' action when element appears on screen for the first time.
  *
  */
 
-const VisibleMixin = Ember.Mixin.create({
+App.VisibleMixin = Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
@@ -17,4 +17,4 @@ const VisibleMixin = Ember.Mixin.create({
 	}
 });
 
-export default VisibleMixin;
+export default App.VisibleMixin;

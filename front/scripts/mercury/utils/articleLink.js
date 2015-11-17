@@ -1,4 +1,3 @@
-import Mercury from '../Mercury';
 
 /**
  * Library to parse links in an article and return information about how to process a given link.
@@ -55,6 +54,7 @@ export function getLinkInfo(basePath, title, hash, uri) {
 			};
 		}
 
+		/* eslint no-continue: 0 */
 		for (const ns in namespaces) {
 			if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 				continue;

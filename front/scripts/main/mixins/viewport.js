@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import App from '../app';
 
 /**
  * This mixin keeps track of viewport size which is updated on every window resize.
@@ -6,7 +6,7 @@ import Ember from 'ember';
  * It is stored as object because objects and arrays are shared among all objects which include mixin.
  * @type {Ember.Mixin}
  */
-const ViewportMixin = Ember.Mixin.create({
+App.ViewportMixin = Ember.Mixin.create({
 	// This object is shared among all objects which include this mixin
 	viewportDimensions: {
 		height: null,
@@ -42,4 +42,4 @@ const ViewportMixin = Ember.Mixin.create({
 	}
 });
 
-export default ViewportMixin;
+export default App.ViewportMixin;

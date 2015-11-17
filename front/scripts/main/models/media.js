@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import App from '../app';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
 
 /**
@@ -21,7 +21,7 @@ import {normalizeToUnderscore} from '../../mercury/utils/string';
  * @property {number} mediaRef
  */
 
-const MediaModel = Ember.Object.extend({
+App.MediaModel = Ember.Object.extend({
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 *
@@ -94,4 +94,4 @@ const MediaModel = Ember.Object.extend({
 	},
 });
 
-export default MediaModel;
+export default App.MediaModel;

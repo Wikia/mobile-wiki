@@ -1,18 +1,17 @@
-import Ember from 'ember';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
+import App from '../app';
 
-const WikiaInYourLangModel = Ember.Object.extend({
+App.WikiaInYourLangModel = Ember.Object.extend({
 	message: null,
 	nativeDomain: null
 });
 
-WikiaInYourLangModel.reopenClass({
+App.WikiaInYourLangModel.reopenClass({
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load() {
 		const browserLang = navigator.language || navigator.browserLanguage,
-			model = WikiaInYourLangModel.getFromCache(browserLang);
+			model = App.WikiaInYourLangModel.getFromCache(browserLang);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (model) {
@@ -21,7 +20,7 @@ WikiaInYourLangModel.reopenClass({
 			}
 
 			Ember.$.getJSON(
-				buildUrl({path: '/wikia.php'}),
+				M.buildUrl({path: '/wikia.php'}),
 				{
 					controller: 'WikiaInYourLangController',
 					method: 'getNativeWikiaInfo',
@@ -32,7 +31,7 @@ WikiaInYourLangModel.reopenClass({
 				let modelInstance = null;
 
 				if (resp.success) {
-					modelInstance = WikiaInYourLangModel.create({
+					modelInstance = App.WikiaInYourLangModel.create({
 						nativeDomain: resp.nativeDomain,
 						message: resp.messageMobile
 					});
@@ -40,7 +39,7 @@ WikiaInYourLangModel.reopenClass({
 
 				// write to cache
 				window.localStorage.setItem(
-					WikiaInYourLangModel.getCacheKey(browserLang),
+					App.WikiaInYourLangModel.getCacheKey(browserLang),
 					JSON.stringify({
 						model: modelInstance,
 						timestamp: new Date().getTime()
@@ -59,7 +58,7 @@ WikiaInYourLangModel.reopenClass({
 	 * @returns {WikiaInYourLangModel}
 	 */
 	getFromCache(browserLang) {
-		const key = WikiaInYourLangModel.getCacheKey(browserLang),
+		const key = App.WikiaInYourLangModel.getCacheKey(browserLang),
 			value = JSON.parse(window.localStorage.getItem(key)),
 			now = new Date().getTime();
 
@@ -80,4 +79,4 @@ WikiaInYourLangModel.reopenClass({
 	}
 });
 
-export default WikiaInYourLangModel;
+export default App.WikiaInYourLangModel;

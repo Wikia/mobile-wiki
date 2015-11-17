@@ -1,9 +1,8 @@
-import Ember from 'ember';
-import Mercury from '../../mercury/Mercury';
+import App from '../app';
 import DiscussionPostModel from '../models/discussion-post';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 
-const DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
+App.DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
@@ -85,5 +84,3 @@ const DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 		},
 	}
 });
-
-export default DiscussionPostRoute;

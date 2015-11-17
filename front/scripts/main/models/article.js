@@ -1,8 +1,5 @@
-import Ember from 'ember';
 import App from '../app';
-import MediaModel from 'media';
-import Mercury from '../../mercury/Mercury';
-import {prop} from '../../baseline/mercury/utils/state';
+import MediaModel from './media';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 
 /**
@@ -19,7 +16,7 @@ import {normalizeToWhitespace} from '../../mercury/utils/string';
  * @property {string} [redirect]
  */
 
-const ArticleModel = Ember.Object.extend({
+App.ArticleModel = Ember.Object.extend({
 	content: null,
 	basePath: null,
 	categories: [],
@@ -37,7 +34,7 @@ const ArticleModel = Ember.Object.extend({
 	wiki: null,
 });
 
-ArticleModel.reopenClass({
+App.ArticleModel.reopenClass({
 	/**
 	 * @param {ArticleModelUrlParams} params
 	 * @returns {string}
@@ -57,10 +54,10 @@ ArticleModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(params) {
-		const model = ArticleModel.create(params);
+		const model = App.ArticleModel.create(params);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (prop('articleContentPreloadedInDOM') && !prop('asyncArticle')) {
+			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 				this.setArticle(model);
 				resolve(model);
 				return;
@@ -116,7 +113,7 @@ ArticleModel.reopenClass({
 	getPreloadedData() {
 		const article = Mercury.article;
 
-		prop('articleContentPreloadedInDOM', false);
+		M.prop('articleContentPreloadedInDOM', false);
 
 		if (article.data && article.data.article) {
 			// On the first page load the article content is available only in HTML
@@ -210,9 +207,9 @@ ArticleModel.reopenClass({
 		// We need to update global article.type
 		// to allow eg. for analytics to use it
 		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
-		prop('article.type', articleProperties.type, true);
+		M.prop('article.type', articleProperties.type, true);
 		model.setProperties(articleProperties);
 	}
 });
 
-export default ArticleModel;
+export default App.ArticleModel;

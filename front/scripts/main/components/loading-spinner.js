@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import App from '../app';
 
-const LoadingSpinnerComponent = Ember.Component.extend({
+App.LoadingSpinnerComponent = Ember.Component.extend({
 	classNameBindings: ['overlay:loading-overlay'],
 	isVisible: Ember.computed.alias('active'),
 
@@ -18,4 +18,4 @@ const LoadingSpinnerComponent = Ember.Component.extend({
 	}),
 });
 
-export default LoadingSpinnerComponent;
+export default App.LoadingSpinnerComponent;

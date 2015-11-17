@@ -1,7 +1,6 @@
-import Ember from 'ember';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
+import App from '../app';
 
-const UserMenuComponent = Ember.Component.extend({
+App.UserMenuComponent = Ember.Component.extend({
 	classNames: ['user-menu'],
 	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 
@@ -10,14 +9,14 @@ const UserMenuComponent = Ember.Component.extend({
 	links: Ember.computed('currentUser.name', function () {
 		return [
 			{
-				href: buildUrl({
+				href: M.buildUrl({
 					namespace: 'User',
 					title: this.get('currentUser.name'),
 				}),
 				textKey: 'user-menu-profile',
 			},
 			{
-				href: buildUrl({
+				href: M.buildUrl({
 					namespace: 'Special',
 					title: 'UserLogout',
 				}),
@@ -36,4 +35,4 @@ const UserMenuComponent = Ember.Component.extend({
 	},
 });
 
-export default UserMenuComponent;
+export default App.UserMenuComponent;

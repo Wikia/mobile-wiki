@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 
-const CuratedContentEditorSectionRoute = Ember.Route.extend({
+App.CuratedContentEditorSectionRoute = Ember.Route.extend({
 	/**
 	 * @param {CuratedContentEditorItemModel} model
 	 * @returns {object} serialized label
@@ -91,5 +91,3 @@ const CuratedContentEditorSectionRoute = Ember.Route.extend({
 		}
 	}
 });
-
-export default CuratedContentEditorSectionRoute;

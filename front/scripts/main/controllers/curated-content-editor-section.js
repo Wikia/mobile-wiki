@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import App from '../app';
 
-const CuratedContentEditorSectionController = Ember.Controller.extend({
+App.CuratedContentEditorSectionController = Ember.Controller.extend({
 	queryParams: {
 		isNewSection: 'new'
 	}
 });
 
-export default CuratedContentEditorSectionController;
+export default App.CuratedContentEditorSectionController;

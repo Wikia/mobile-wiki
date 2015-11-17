@@ -1,10 +1,10 @@
-import Ember from 'ember';
-import MediaComponent from 'media';
+import App from '../app';
+import MediaComponent from './media';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-const ImageMediaComponent = MediaComponent.extend(
+App.ImageMediaComponent = MediaComponent.extend(
 	ArticleContentMixin,
 	ViewportMixin,
 	{
@@ -138,4 +138,4 @@ const ImageMediaComponent = MediaComponent.extend(
 	}
 );
 
-export default ImageMediaComponent;
+export default App.ImageMediaComponent;

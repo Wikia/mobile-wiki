@@ -1,9 +1,9 @@
-import Ember from 'ember';
-import Mercury from '../../mercury/Mercury';
+
 import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
 import {getSystem} from '../../mercury/utils/browser';
+import App from '../app';
 
-const SmartBannerComponent = Ember.Component.extend({
+App.SmartBannerComponent = Ember.Component.extend({
 	classNames: ['smart-banner'],
 	classNameBindings: ['noIcon'],
 
@@ -195,4 +195,4 @@ const SmartBannerComponent = Ember.Component.extend({
 	},
 });
 
-export default SmartBannerComponent;
+export default App.SmartBannerComponent;

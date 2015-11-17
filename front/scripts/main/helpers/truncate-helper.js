@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import App from '../app';
 
 /**
  * @param {Array} params
  * @returns {string}
  */
-const TruncateHelper = Ember.Helper.helper((params) => {
+App.TruncateHelper = Ember.Helper.helper((params) => {
 	const text = params[0],
 		maxLength = params[1] || 48,
 		ellipsisCharacter = '\u2026';
@@ -31,4 +31,4 @@ const TruncateHelper = Ember.Helper.helper((params) => {
 	return truncatedString.substr(0, lastSpacePosition) + ellipsisCharacter;
 });
 
-export default TruncateHelper;
+export default App.TruncateHelper;

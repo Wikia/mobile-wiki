@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import App from '../app';
 
-const ModalDialogComponent = Ember.Component.extend({
+App.ModalDialogComponent = Ember.Component.extend({
 	classNames: ['modal-dialog-wrapper'],
 	classNameBindings: ['type'],
 	type: 'info',
@@ -16,4 +16,4 @@ const ModalDialogComponent = Ember.Component.extend({
 	},
 });
 
-export default ModalDialogComponent;
+export default App.ModalDialogComponent;

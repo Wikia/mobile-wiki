@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import App from '../app';
 
 /**
  * Helper to generate SVGs in the form:
@@ -16,7 +16,7 @@ import Ember from 'ember';
  * @param {Object} options
  * @returns {Ember.Handlebars.SafeString}
  */
-const SvgHelper = Ember.Helper.helper((params, options) => {
+App.SvgHelper = Ember.Helper.helper((params, options) => {
 	const optionalParams = [
 			'class',
 			'role',
@@ -36,4 +36,4 @@ const SvgHelper = Ember.Helper.helper((params, options) => {
 	return new Ember.Handlebars.SafeString(ret);
 });
 
-export default SvgHelper;
+export default App.SvgHelper;

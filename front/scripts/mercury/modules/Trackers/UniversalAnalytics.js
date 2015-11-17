@@ -1,4 +1,3 @@
-import {prop} from '../../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} TrackerOptions
@@ -28,7 +27,7 @@ import {prop} from '../../../baseline/mercury/utils/state';
  * @property {string} accountSpecial
  * @property {string} accountAds
  */
-export default class UniversalAnalytics {
+class UniversalAnalytics {
 	/**
 	 * @param {boolean} [isSpecialWiki=false]
 	 * @returns {void}
@@ -39,7 +38,7 @@ export default class UniversalAnalytics {
 		this.accountSpecial = 'special';
 		this.accountAds = 'ads';
 
-		if (!this.dimensions.length) {
+		if (!UniversalAnalytics.dimensions.length) {
 			throw new Error(
 				'Cannot instantiate UA tracker: please provide dimensions using UniversalAnalytics#setDimensions'
 			);
@@ -54,7 +53,7 @@ export default class UniversalAnalytics {
 			'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 		].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
 
-		this.accounts = prop('tracking.ua');
+		this.accounts = M.prop('tracking.ua');
 
 		this.initAccount(this.accountPrimary, domain);
 
@@ -130,8 +129,8 @@ export default class UniversalAnalytics {
 			ga(`${prefix}linker:autoLink`, domain);
 		}
 
-		this.dimensions.forEach((dimension, idx) =>
-			ga(`${prefix}set`, `dimension${idx}`, this.getDimension(idx)));
+		UniversalAnalytics.dimensions.forEach((dimension, idx) =>
+			ga(`${prefix}set`, `dimension${idx}`, UniversalAnalytics.getDimension(idx)));
 
 		this.tracked.push(this.accounts[trackerName]);
 	}
@@ -162,7 +161,7 @@ export default class UniversalAnalytics {
 		this.tracked.forEach((account) => {
 			// skip over ads tracker (as it's handled in self.trackAds)
 			if (account.prefix !== this.accountAds) {
-				const prefix = this.getPrefix(account);
+				const prefix = UniversalAnalytics.getPrefix(account);
 
 				ga(
 					`${prefix}send`,
@@ -220,7 +219,7 @@ export default class UniversalAnalytics {
 		location.href = url;
 
 		this.tracked.forEach((account) => {
-			const prefix = this.getPrefix(account);
+			const prefix = UniversalAnalytics.getPrefix(account);
 
 			ga(`${prefix}set`, 'page', location.pathname);
 		});
@@ -232,14 +231,14 @@ export default class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		const pageType = this.getDimension(8);
+		const pageType = UniversalAnalytics.getDimension(8);
 
 		if (!pageType) {
 			throw new Error('missing page type dimension (#8)');
 		}
 
 		this.tracked.forEach((account) => {
-			const prefix = this.getPrefix(account);
+			const prefix = UniversalAnalytics.getPrefix(account);
 
 			ga(`${prefix}set`, 'dimension8', pageType, 3);
 			ga(`${prefix}send`, 'pageview');
@@ -254,11 +253,12 @@ export default class UniversalAnalytics {
 	 */
 	trackGoogleSearch(queryParam) {
 		this.tracked.forEach((account) => {
-			const prefix = this.getPrefix(account);
+			const prefix = UniversalAnalytics.getPrefix(account);
 
 			ga(`${prefix}send`, 'pageview', queryParam);
 		});
 	}
 }
 
-UniversalAnalytics.prototype.dimensions = [];
+UniversalAnalytics.dimensions = [];
+export default UniversalAnalytics;

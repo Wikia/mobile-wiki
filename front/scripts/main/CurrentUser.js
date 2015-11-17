@@ -1,7 +1,5 @@
-import Ember from 'ember';
-import App from 'app';
-import Mercury from '../mercury/Mercury';
-import {prop} from '../baseline/mercury/utils/state';
+import App from './app';
+import UserModel from '../main/models/user';
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -22,13 +20,13 @@ import {prop} from '../baseline/mercury/utils/state';
  * @property {*} options
  */
 
-const CurrentUser = Ember.Object.extend({
+App.CurrentUser = Ember.Object.extend({
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
 	language: null,
 
 	userId: Ember.computed(() => {
-		const cookieUserId = parseInt(prop('userId'), 10);
+		const cookieUserId = parseInt(M.prop('userId'), 10);
 
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
@@ -40,7 +38,7 @@ const CurrentUser = Ember.Object.extend({
 		const userId = this.get('userId');
 
 		if (userId !== null) {
-			App.UserModel.find({userId})
+			UserModel.find({userId})
 				.then((result) => {
 					this.setProperties(result);
 				})
@@ -71,7 +69,7 @@ const CurrentUser = Ember.Object.extend({
 			userLanguage = userLang || contentLanguage;
 
 		this.set('language', userLanguage);
-		prop('userLanguage', userLanguage);
+		M.prop('userLanguage', userLanguage);
 	},
 
 	/**
@@ -132,4 +130,4 @@ const CurrentUser = Ember.Object.extend({
 	}
 });
 
-export default CurrentUser;
+export default App.CurrentUser;

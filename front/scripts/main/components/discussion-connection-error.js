@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 
-const DiscussionConnectionErrorComponent = Ember.Component.extend({
+App.DiscussionConnectionErrorComponent = Ember.Component.extend({
 	classNames: ['discussion-error', 'columns', 'large-6'],
 });
 
-export default DiscussionConnectionErrorComponent;
+export default App.DiscussionConnectionErrorComponent;

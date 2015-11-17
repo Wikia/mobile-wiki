@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 
-const TrendingArticlesComponent = Ember.Component.extend({
+App.TrendingArticlesComponent = Ember.Component.extend({
 	classNames: ['trending', 'trending-articles', 'mw-content'],
 });
 
-export default TrendingArticlesComponent;
+export default App.TrendingArticlesComponent;

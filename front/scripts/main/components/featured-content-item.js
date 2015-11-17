@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import App from '../app';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-const FeaturedContentItemComponent = Ember.Component.extend(
+App.FeaturedContentItemComponent = Ember.Component.extend(
 	CuratedContentThumbnailMixin,
 	ViewportMixin,
 	{
@@ -40,4 +40,4 @@ const FeaturedContentItemComponent = Ember.Component.extend(
 	}
 );
 
-export default FeaturedContentItemComponent;
+export default App.FeaturedContentItemComponent;

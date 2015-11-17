@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import App from '../app';
 import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../../mercury/utils/track';
 
-const ArticleEditRoute = Ember.Route.extend(FullPageMixin, {
+App.ArticleEditRoute = Ember.Route.extend(FullPageMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
@@ -41,5 +41,3 @@ const ArticleEditRoute = Ember.Route.extend(FullPageMixin, {
 		}
 	}
 });
-
-export default ArticleEditRoute;

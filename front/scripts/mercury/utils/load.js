@@ -4,6 +4,8 @@
  * developers and also to allow for swapping implementations in the future.
  */
 
+/* global $script */
+
 /**
  * @param {*} params
  * @returns {*}

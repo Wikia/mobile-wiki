@@ -1,4 +1,4 @@
-import BasePlayer from 'Base';
+import BasePlayer from './Base';
 
 /**
  * @typedef {Object} YouTubeEvent

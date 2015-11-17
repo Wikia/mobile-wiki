@@ -1,5 +1,4 @@
-import BaseTracker from 'BaseTracker';
-import {prop} from '../../../baseline/mercury/utils/state';
+import BaseTracker from './BaseTracker';
 
 /**
  * @class Comscore
@@ -26,7 +25,7 @@ export default class Comscore extends BaseTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		const comscore = prop('tracking.comscore'),
+		const comscore = M.prop('tracking.comscore'),
 			id = comscore.id,
 			c7Value = comscore.c7Value;
 

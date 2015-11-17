@@ -1,9 +1,8 @@
-import Ember from 'ember';
-import Mercury from '../../mercury/Mercury';
+import App from '../app';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../models/discussion-forum';
 
-const DiscussionForumRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
+App.DiscussionForumRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 	defaultSortType: null,
 	forumId: null,
 
@@ -100,5 +99,3 @@ const DiscussionForumRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 		}
 	}
 });
-
-export default DiscussionForumRoute;

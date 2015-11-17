@@ -2,9 +2,7 @@ import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
 import Krux from '../modules/Trackers/Krux';
 import Quantserve from '../modules/Trackers/Quantserve';
-import Mercury from '../Mercury';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
-import {prop} from '../../baseline/mercury/utils/state';
 
 /**
  * @typedef {Object} TrackContext
@@ -92,11 +90,11 @@ const trackers = {
 		takeSurvey: 'take-survey',
 		// View
 		view: 'view'
-	},
-	context = {
-		a: null,
-		n: null
 	};
+let context = {
+	a: null,
+	n: null
+};
 
 /**
  * @param {TrackingParams} params
@@ -115,7 +113,7 @@ function pruneParams(params) {
  */
 function isSpecialWiki() {
 	try {
-		return Boolean(prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
+		return Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
 	} catch (e) {
 		// Property doesn't exist
 		return false;
@@ -137,7 +135,7 @@ export function track(params) {
 	let tracker,
 		uaTracker;
 
-	if (prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 
@@ -179,7 +177,7 @@ export function track(params) {
  * @returns {void}
  */
 export function trackPageView(adsContext) {
-	if (prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 	Object.keys(trackers).forEach((tracker) => {
@@ -201,7 +199,7 @@ export function trackPageView(adsContext) {
  * @returns {void}
  */
 export function trackGoogleSearch(queryParam) {
-	if (prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 
@@ -230,7 +228,7 @@ export function trackGoogleSearch(queryParam) {
  * @returns {void}
  */
 export function updateTrackedUrl(url) {
-	if (prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 
@@ -250,7 +248,7 @@ export function updateTrackedUrl(url) {
  * @returns {void}
  */
 export function setTrackContext(data) {
-	this.context = data;
+	context = data;
 }
 
 export {trackActions};

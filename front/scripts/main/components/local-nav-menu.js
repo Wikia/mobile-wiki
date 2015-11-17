@@ -1,5 +1,4 @@
-import Ember from 'ember';
-import Mercury from '../../mercury/Mercury';
+import App from '../app';
 import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from '../../mercury/utils/track';
 
@@ -22,7 +21,7 @@ import {track, trackActions} from '../../mercury/utils/track';
  * @property {NavItem[]} [children]
  */
 
-const LocalNavMenuComponent = Ember.Component.extend(
+App.LocalNavMenuComponent = Ember.Component.extend(
 	TrackClickMixin,
 	{
 		tagName: 'ul',
@@ -144,4 +143,4 @@ const LocalNavMenuComponent = Ember.Component.extend(
 	}
 );
 
-export default LocalNavMenuComponent;
+export default App.LocalNavMenuComponent;

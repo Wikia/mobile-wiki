@@ -1,7 +1,7 @@
-import Ember from 'ember';
-import GalleryMediaComponent from 'gallery-media';
+import App from '../app';
+import GalleryMediaComponent from './gallery-media';
 
-const LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
+App.LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
 	tagName: 'div',
 	classNames: ['linked-gallery'],
 	layoutName: 'components/linked-gallery-media',
@@ -64,4 +64,4 @@ const LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
 	},
 });
 
-export default LinkedGalleryMediaComponent;
+export default App.LinkedGalleryMediaComponent;

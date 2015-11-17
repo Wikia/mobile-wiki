@@ -34,6 +34,7 @@
 
 		<style><!-- @include ../../../www/front/styles/main/baseline.css --></style>
 
+		{{> nirvana }}
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
@@ -48,7 +49,7 @@
 			M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
 			M.prop('discussionBaseRoute', {{{json localSettings.discuss.baseAPIPath}}});
 			{{#if discussionsSplashPageConfig}}
-				M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
+				prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
 			{{/if}}
 			{{!-- TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently --}}
 			M.provide('ads.slots', []);
@@ -88,11 +89,11 @@
 		<!-- @include ../../../www/front/svg/common.svg -->
 		<!-- @include ../../../www/front/svg/main.svg -->
 
-        {{!--
-        Ember must render out to a specific div above the scripts, otherwise
-        Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
-        DO NOT REMOVE THE FOLLOWING LINE:
-        --}}
+		{{!--
+		Ember must render out to a specific div above the scripts, otherwise
+		Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
+		DO NOT REMOVE THE FOLLOWING LINE:
+		--}}
 		<div id="ember-container">
 			<div id="preload">
 				<nav class="site-head">

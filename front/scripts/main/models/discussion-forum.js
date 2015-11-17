@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 import DiscussionErrorMixin from '../mixins/discussion-error';
-import {buildUrl, getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 
-const DiscussionForumModel = Ember.Object.extend(
+App.DiscussionForumModel = Ember.Object.extend(
 	DiscussionErrorMixin,
 	{
 		wikiId: null,
@@ -25,7 +24,7 @@ const DiscussionForumModel = Ember.Object.extend(
 
 			return new Ember.RSVP.Promise((resolve) => {
 				Ember.$.ajax({
-					url: getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+					url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 					data: {
 						page: this.get('pageNum')
 					},
@@ -66,7 +65,7 @@ const DiscussionForumModel = Ember.Object.extend(
 	}
 );
 
-DiscussionForumModel.reopenClass({
+App.DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
@@ -75,7 +74,7 @@ DiscussionForumModel.reopenClass({
 	 */
 	find(wikiId, forumId, sortBy) {
 		return new Ember.RSVP.Promise((resolve) => {
-			const forumInstance = DiscussionForumModel.create({
+			const forumInstance = App.DiscussionForumModel.create({
 					wikiId,
 					forumId
 				}),
@@ -86,7 +85,7 @@ DiscussionForumModel.reopenClass({
 			}
 
 			Ember.$.ajax({
-				url: getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
+				url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 				data: requestData,
 				dataType: 'json',
 				xhrFields: {
@@ -99,7 +98,7 @@ DiscussionForumModel.reopenClass({
 
 					posts.forEach((post) => {
 						if (post.hasOwnProperty('createdBy')) {
-							post.createdBy.profileUrl = buildUrl({
+							post.createdBy.profileUrl = M.buildUrl({
 								namespace: 'User',
 								title: post.createdBy.name
 							});
@@ -124,4 +123,4 @@ DiscussionForumModel.reopenClass({
 	}
 });
 
-export default DiscussionForumModel;
+export default App.DiscussionForumModel;

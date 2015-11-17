@@ -1,7 +1,6 @@
-import Ember from 'ember';
 import App from '../app';
 
-const ArticleCommentsModel = Ember.Object.extend({
+App.ArticleCommentsModel = Ember.Object.extend({
 	articleId: null,
 	comments: 0,
 	users: null,
@@ -44,4 +43,4 @@ const ArticleCommentsModel = Ember.Object.extend({
 	}
 });
 
-export default ArticleCommentsModel;
+export default App.ArticleCommentsModel;

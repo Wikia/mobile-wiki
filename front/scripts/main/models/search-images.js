@@ -1,5 +1,4 @@
-import Ember from 'ember';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
+import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 /**
@@ -37,7 +36,7 @@ import Thumbnailer from '../../mercury/modules/Thumbnailer';
  * @property {string} [thumbnailUrl]
  */
 
-const SearchImagesModel = Ember.Object.extend({
+App.SearchImagesModel = Ember.Object.extend({
 	searchLimit: 24,
 	nextBatch: 0,
 	batches: 1,
@@ -116,7 +115,7 @@ const SearchImagesModel = Ember.Object.extend({
 	 */
 	fetch() {
 		return Ember.$.getJSON(
-			buildUrl({
+			M.buildUrl({
 				path: '/api.php',
 			}),
 			{
@@ -131,4 +130,4 @@ const SearchImagesModel = Ember.Object.extend({
 	}
 });
 
-export default SearchImagesModel;
+export default App.SearchImagesModel;

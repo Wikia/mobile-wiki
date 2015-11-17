@@ -1,8 +1,9 @@
-import ImageMediaComponent from '/app/components/image-media';
+import App from '../app';
+import ImageMediaComponent from '../components/image-media';
 
-const VideoMediaComponent = ImageMediaComponent.extend({
+App.VideoMediaComponent = ImageMediaComponent.extend({
 	classNames: ['article-video'],
 	layoutName: 'components/video-media',
 });
 
-export default VideoMediaComponent;
+export default App.VideoMediaComponent;

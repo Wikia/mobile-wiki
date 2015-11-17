@@ -1,9 +1,8 @@
-import Ember from 'ember';
-import Mercury from '../../mercury/Mercury';
+import App from '../app';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
 
-const SiteHeadComponent = Ember.Component.extend(
+App.SiteHeadComponent = Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
 	{
@@ -31,4 +30,4 @@ const SiteHeadComponent = Ember.Component.extend(
 	}
 );
 
-export default SiteHeadComponent;
+export default App.SiteHeadComponent;

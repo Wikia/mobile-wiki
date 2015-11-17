@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
-import {prop} from '../../baseline/mercury/utils/state';
 
-const MainPageRouteMixin = Ember.Mixin.create({
+App.MainPageRouteMixin = Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
@@ -24,7 +23,7 @@ const MainPageRouteMixin = Ember.Mixin.create({
 	afterModel(model) {
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
-			adsContext = $.extend({}, prop('mainPageData.adsContext'));
+			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
 
 		let sectionOrCategoryName;
 
@@ -43,7 +42,7 @@ const MainPageRouteMixin = Ember.Mixin.create({
 			isRoot: false,
 			title: sectionOrCategoryName,
 			adsContext,
-			ns: prop('mainPageData.ns')
+			ns: M.prop('mainPageData.ns')
 		});
 	},
 
@@ -83,4 +82,4 @@ const MainPageRouteMixin = Ember.Mixin.create({
 	}
 });
 
-export default MainPageRouteMixin;
+export default App.MainPageRouteMixin;

@@ -1,4 +1,3 @@
-import {prop} from '../../baseline/mercury/utils/state';
 
 /**
  * Helper for variant testing using Optimizely
@@ -56,6 +55,15 @@ export function isOptimizelyLoadedAndActive() {
 }
 
 /**
+ * Get list of Optimizely active experiments
+ *
+ * @returns {string[]}
+ */
+export function getActiveExperimentsList() {
+	return isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
+}
+
+/**
  * Integrates Optimizely with Universal Analytics
  *
  * @param {Array} dimensions
@@ -63,7 +71,7 @@ export function isOptimizelyLoadedAndActive() {
  */
 export function integrateOptimizelyWithUA(dimensions) {
 	const optimizely = window.optimizely,
-		activeExperiments = this.getActiveExperimentsList();
+		activeExperiments = getActiveExperimentsList();
 
 	// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
 	// isOptimizelyLoadedAndActive function and below
@@ -90,15 +98,6 @@ export function integrateOptimizelyWithUA(dimensions) {
 }
 
 /**
- * Get list of Optimizely active experiments
- *
- * @returns {string[]}
- */
-export function getActiveExperimentsList() {
-	return isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
-}
-
-/**
  * Get number of the Optimizely experiment variation the user is running for given experiment ID
  *
  * @param {string} experimentId
@@ -118,7 +117,7 @@ export function getExperimentVariationNumberBySingleId(experimentId) {
  * @returns {string|null}
  */
 export function getExperimentIdForThisEnvironment(experimentIds) {
-	const environment = prop('environment');
+	const environment = M.prop('environment');
 
 	switch (environment) {
 	case 'prod':
@@ -139,11 +138,11 @@ export function getExperimentIdForThisEnvironment(experimentIds) {
  * @returns {number|null}
  */
 export function getExperimentVariationNumber(experimentIds) {
-	const experimentIdForThisEnv = this.getExperimentIdForThisEnvironment(experimentIds),
-		activeExperimentsList = this.getActiveExperimentsList();
+	const experimentIdForThisEnv = getExperimentIdForThisEnvironment(experimentIds),
+		activeExperimentsList = getActiveExperimentsList();
 
 	if (activeExperimentsList && activeExperimentsList.indexOf(experimentIdForThisEnv) !== -1) {
-		return this.getExperimentVariationNumberBySingleId(experimentIdForThisEnv);
+		return getExperimentVariationNumberBySingleId(experimentIdForThisEnv);
 	}
 
 	return null;

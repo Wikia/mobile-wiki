@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import App from '../app';
 
 // This mixin should be considered temporary, until a
 // better solution is created with Jira ticket XW-247
-const FullPageMixin = Ember.Mixin.create({
+App.FullPageMixin = Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
@@ -18,4 +18,4 @@ const FullPageMixin = Ember.Mixin.create({
 	}
 });
 
-export default FullPageMixin;
+export default App.FullPageMixin;

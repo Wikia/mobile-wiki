@@ -1,12 +1,9 @@
-import Ember from 'ember';
-import Mercury from '../mercury/Mercury';
-import {prop} from '../baseline/mercury/utils/state';
 import * as trackPerf from '../mercury/utils/trackPerf';
 import {getQueryParam} from '../mercury/utils/queryString';
 import {integrateOptimizelyWithUA} from '../mercury/utils/variantTesting';
 import Ads from '../mercury/modules/Ads';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
-import LinkComponent from 'mixins/link-component';
+import CurrentUser from './CurrentUser';
 
 const App = Ember.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -36,8 +33,8 @@ App.initializer({
 	name: 'visit-source',
 	initialize() {
 		if (typeof VisitSource === 'function') {
-			(new VisitSource('WikiaSessionSource', prop('cookieDomain'))).checkAndStore();
-			(new VisitSource('WikiaLifetimeSource', prop('cookieDomain'), false)).checkAndStore();
+			(new VisitSource('WikiaSessionSource', M.prop('cookieDomain'))).checkAndStore();
+			(new VisitSource('WikiaLifetimeSource', M.prop('cookieDomain'), false)).checkAndStore();
 		}
 	}
 });
@@ -45,7 +42,7 @@ App.initializer({
 App.initializer({
 	name: 'optimizely',
 	initialize() {
-		const optimizelyScript = prop('optimizelyScript');
+		const optimizelyScript = M.prop('optimizelyScript');
 
 		if (!Ember.isEmpty(optimizelyScript) && !getQueryParam('noexternals')) {
 			App.deferReadiness();
@@ -65,16 +62,16 @@ App.initializer({
 			/**
 			 * prevents fail if transitions are empty
 			 */
-			loadedTranslations = prop('translations') || {},
+			loadedTranslations = M.prop('translations') || {},
 			/**
 			 * loaded language name is the first key of the Mercury.state.translations object
 			 */
 			loadedLanguage = Object.keys(loadedTranslations)[0];
 
-		let debug = prop('environment') === 'dev';
+		let debug = M.prop('environment') === 'dev';
 
 		$window.scroll(() => {
-			prop('scroll.mercury.preload', $window.scrollTop(), true);
+			M.prop('scroll.mercury.preload', $window.scrollTop(), true);
 		});
 
 		// turn on debugging with querystring ?debug=1
@@ -83,12 +80,13 @@ App.initializer({
 		}
 
 		App.setProperties({
-			apiBase: prop('apiBase'),
+			apiBase: M.prop('apiBase'),
 			language: loadedLanguage || 'en',
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
 			LOG_TRANSITIONS: debug,
-			LOG_TRANSITIONS_INTERNAL: debug
+			LOG_TRANSITIONS_INTERNAL: debug,
+			LOG_RESOLVER: true
 		});
 
 		i18n.init({
@@ -125,7 +123,7 @@ App.initializer({
 		}
 
 		EmPerfSender.initialize({
-			enableLogging: (prop('environment') === 'dev'),
+			enableLogging: (M.prop('environment') === 'dev'),
 
 			// Specify a specific function for EmPerfSender to use when it has captured metrics
 			send(events, metrics) {
@@ -146,20 +144,8 @@ App.initializer({
 	name: 'currentUser',
 	after: 'performanceMonitoring',
 	initialize(container, application) {
-		application.register('currentUser:main', App.CurrentUser);
+		application.register('currentUser:main', CurrentUser);
 		application.inject('component', 'currentUser', 'currentUser:main');
-	}
-});
-
-App.initializer({
-	name: 'linkComponent',
-	initialize(container, application) {
-		application.register('linkComponent:attributeBindings', LinkComponent.attributeBindings);
-		application.register('linkComponent:action', LinkComponent.action);
-		application.register('linkComponent:_invoke', LinkComponent._invoke);
-		application.inject('LinkComponent', 'attributeBindings', 'linkComponent:attributeBindings');
-		application.inject('LinkComponent', 'action', 'linkComponent:action');
-		application.inject('LinkComponent', '_invoke', 'linkComponent:_invoke');
 	}
 });
 
@@ -196,7 +182,7 @@ App.initializer({
 		dimensions[1] = Mercury.wiki.dbName;
 		dimensions[2] = Mercury.wiki.language.content;
 		dimensions[4] = 'mercury';
-		dimensions[5] = prop('userId') ? 'user' : 'anon';
+		dimensions[5] = M.prop('userId') ? 'user' : 'anon';
 		dimensions[9] = String(Mercury.wiki.id);
 		dimensions[8] = getPageType;
 		// IsCorporatePage
@@ -204,7 +190,7 @@ App.initializer({
 		// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 		// ga(prefix + 'set', 'dimension16', getKruxSegment());
 		dimensions[17] = Mercury.wiki.vertical;
-		dimensions[19] = prop('article.type');
+		dimensions[19] = M.prop('article.type');
 
 		if (adsContext) {
 			// Hub
@@ -235,9 +221,9 @@ App.initializer({
 		const geoCookie = $.cookie('Geo');
 
 		if (geoCookie) {
-			prop('geo', JSON.parse(geoCookie));
-		} else if (prop('environment') === 'dev') {
-			prop('geo', {
+			M.prop('geo', JSON.parse(geoCookie));
+		} else if (M.prop('environment') === 'dev') {
+			M.prop('geo', {
 				country: 'wikia-dev-country',
 				continent: 'wikia-dev-continent'
 			});

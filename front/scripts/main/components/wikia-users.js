@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-const WikiaUsersComponent = Ember.Component.extend({
+App.WikiaUsersComponent = Ember.Component.extend({
 	avatarHeight: 100,
 	avatarWidth: 100,
 	classNameBindings: ['classes'],
@@ -13,4 +13,4 @@ const WikiaUsersComponent = Ember.Component.extend({
 	users: [],
 });
 
-export default WikiaUsersComponent;
+export default App.WikiaUsersComponent;

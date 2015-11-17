@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 
-const ForumWrapperComponent = Ember.Component.extend(
+App.ForumWrapperComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
@@ -72,4 +72,4 @@ const ForumWrapperComponent = Ember.Component.extend(
 	}
 );
 
-export default ForumWrapperComponent;
+export default App.ForumWrapperComponent;

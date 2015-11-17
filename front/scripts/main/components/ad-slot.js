@@ -1,7 +1,8 @@
-import Ember from 'ember';
-import Ads from '../../mercury/modules/Ads';
 
-const AdSlotComponent = Ember.Component.extend({
+import Ads from '../../mercury/modules/Ads';
+import App from '../app';
+
+App.AdSlotComponent = Ember.Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase', 'noAds'],
 	// This component is created dynamically, and this won't work without it
@@ -57,4 +58,4 @@ const AdSlotComponent = Ember.Component.extend({
 	},
 });
 
-export default AdSlotComponent;
+export default App.AdSlotComponent;

@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const LinkComponent = Ember.Mixin.create({
+Ember.LinkComponent.reopen({
 	attributeBindings: ['data-tracking-category'],
 
 	// it allows to use action='x' actionParam='y' in link-to helper
@@ -22,10 +20,5 @@ const LinkComponent = Ember.Mixin.create({
 			// trigger the action on the controller
 			this.get('parentView').get('context').send(action, this.get('actionParam'));
 		}
-
-		// no action to take, handle the link-to normally
-		return this._super(event);
 	},
 });
-
-export default LinkComponent;

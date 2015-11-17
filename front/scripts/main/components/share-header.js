@@ -1,7 +1,8 @@
-import Ember from 'ember';
-import HeadroomMixin from '../mixins/headroom';
 
-const ShareHeaderComponent = Ember.Component.extend(
+import HeadroomMixin from '../mixins/headroom';
+import App from '../app';
+
+App.ShareHeaderComponent = Ember.Component.extend(
 	HeadroomMixin,
 	{
 		classNames: ['share-header'],
@@ -14,4 +15,4 @@ const ShareHeaderComponent = Ember.Component.extend(
 	}
 );
 
-export default ShareHeaderComponent;
+export default App.ShareHeaderComponent;

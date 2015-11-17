@@ -1,10 +1,9 @@
-import Ember from 'ember';
-import Mercury from '../../mercury/Mercury';
+import App from '../app';
 import MainPageModel from '../models/main-page';
 import MainPageRouteMixin from '../mixins/main-page-route';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 
-const MainPageRoute = Ember.Route.extend(MainPageRouteMixin, {
+App.MainPageRoute = Ember.Route.extend(MainPageRouteMixin, {
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -65,5 +64,3 @@ const MainPageRoute = Ember.Route.extend(MainPageRouteMixin, {
 		}
 	}
 });
-
-export default MainPageRoute;

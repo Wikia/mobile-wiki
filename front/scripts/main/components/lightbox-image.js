@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import App from '../app';
 import ArticleContentMixin from '../mixins/article-content';
 
-const LightboxImageComponent = Ember.Component.extend(
+App.LightboxImageComponent = Ember.Component.extend(
 	ArticleContentMixin,
 	{
 		classNames: ['lightbox-image', 'lightbox-content-inner'],
@@ -383,4 +383,4 @@ const LightboxImageComponent = Ember.Component.extend(
 	}
 );
 
-export default LightboxImageComponent;
+export default App.LightboxImageComponent;

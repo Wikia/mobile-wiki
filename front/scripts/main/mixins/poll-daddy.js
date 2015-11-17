@@ -1,7 +1,6 @@
-import Ember from 'ember';
-import {loadScript} from '../../baseline/mercury/utils/loadScript';
+import App from '../app';
 
-const PollDaddyMixin = Ember.Mixin.create({
+App.PollDaddyMixin = Ember.Mixin.create({
 	/**
 	 * This is a hack to make PollDaddy work (HG-618)
 	 * @see http://static.polldaddy.com/p/8791040.js
@@ -29,7 +28,7 @@ const PollDaddyMixin = Ember.Mixin.create({
 			} else {
 				// Script is in the page source but hasn't executed upon transition.
 				// Load and execute it now.
-				loadScript(script.src, () => {
+				M.loadScript(script.src, () => {
 					init = this.getPollDaddyInit(id);
 					if (typeof init === 'function') {
 						init();
@@ -84,4 +83,4 @@ const PollDaddyMixin = Ember.Mixin.create({
 	}
 });
 
-export default PollDaddyMixin;
+export default App.PollDaddyMixin;
