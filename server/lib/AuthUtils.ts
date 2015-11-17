@@ -49,3 +49,11 @@ export function getHeliosUrl(path: string): string {
 		pathname: localSettings.helios.path + path
 	});
 }
+
+export function getWhoAmIUrl(): string {
+	return url.format({
+		protocol: 'https',
+		host: localSettings.servicesDomain,
+		pathname: localSettings.whoAmIService.path
+	});
+}
