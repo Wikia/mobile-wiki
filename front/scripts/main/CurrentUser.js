@@ -26,7 +26,7 @@ App.CurrentUser = Ember.Object.extend({
 	language: null,
 
 	userId: Ember.computed(() => {
-		const cookieUserId = parseInt(state.prop('userId'), 10);
+		const cookieUserId = parseInt(M.prop('userId'), 10);
 
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
@@ -69,7 +69,7 @@ App.CurrentUser = Ember.Object.extend({
 			userLanguage = userLang || contentLanguage;
 
 		this.set('language', userLanguage);
-		state.prop('userLanguage', userLanguage);
+		M.prop('userLanguage', userLanguage);
 	},
 
 	/**

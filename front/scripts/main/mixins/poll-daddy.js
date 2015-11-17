@@ -1,5 +1,4 @@
 import App from '../app';
-import {loadScript} from '../../baseline/mercury/utils/loadScript';
 
 App.PollDaddyMixin = Ember.Mixin.create({
 	/**
@@ -29,7 +28,7 @@ App.PollDaddyMixin = Ember.Mixin.create({
 			} else {
 				// Script is in the page source but hasn't executed upon transition.
 				// Load and execute it now.
-				loadScript(script.src, () => {
+				M.loadScript(script.src, () => {
 					init = this.getPollDaddyInit(id);
 					if (typeof init === 'function') {
 						init();

@@ -36,7 +36,7 @@ export default class Quantserve extends BaseTracker {
 		window.__qc = null;
 
 		window._qevents = [{
-			qacct: state.prop('tracking.quantserve'),
+			qacct: M.prop('tracking.quantserve'),
 			labels: quantcastLabels.join(',')
 		}];
 

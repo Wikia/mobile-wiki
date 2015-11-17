@@ -1,4 +1,3 @@
-import {provide} from '../baseline/mercury/utils/state';
 import {track as mercuryTrack, trackActions, trackPageView, setTrackContext} from '../mercury/utils/track';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 
@@ -41,7 +40,7 @@ import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 	 * @returns {void}
 	 */
 	function setupTracking() {
-		provide('wiki', {
+		M.provide('wiki', {
 			id: window.pageParams.wikiId,
 			dbName: window.pageParams.dbName,
 			language: {

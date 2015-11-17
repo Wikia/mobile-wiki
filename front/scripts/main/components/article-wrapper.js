@@ -140,7 +140,7 @@ App.ArticleWrapperComponent = Ember.Component.extend(
 		 */
 		didInsertElement() {
 			$(window).off('scroll.mercury.preload');
-			window.scrollTo(0, state.prop('scroll'));
+			window.scrollTo(0, M.prop('scroll'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');

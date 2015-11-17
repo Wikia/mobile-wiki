@@ -3,7 +3,7 @@ import App from '../app';
 App.DiscussionAppPromotionComponent = Ember.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
-	discussionsSplashPageConfig: state.prop('discussionsSplashPageConfig'),
+	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
 
 	androidAppLink: Ember.computed('discussionsSplashPageConfig', function () {
 		const discussionsSplashPageConfig = this.get('discussionsSplashPageConfig');

@@ -23,7 +23,7 @@ App.MainPageRouteMixin = Ember.Mixin.create({
 	afterModel(model) {
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
-			adsContext = $.extend({}, state.prop('mainPageData.adsContext'));
+			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
 
 		let sectionOrCategoryName;
 
@@ -42,7 +42,7 @@ App.MainPageRouteMixin = Ember.Mixin.create({
 			isRoot: false,
 			title: sectionOrCategoryName,
 			adsContext,
-			ns: state.prop('mainPageData.ns')
+			ns: M.prop('mainPageData.ns')
 		});
 	},
 

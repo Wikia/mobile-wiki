@@ -28,7 +28,7 @@ export default class Krux {
 	 */
 	trackPageView() {
 		if (typeof this.kruxModule.load === 'function') {
-			this.kruxModule.load(state.prop('tracking.krux.mobileId'));
+			this.kruxModule.load(M.prop('tracking.krux.mobileId'));
 		}
 	}
 }

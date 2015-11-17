@@ -10,9 +10,9 @@
  */
 
 const context = {
-	country: state.prop('geo.country'),
-	env: state.prop('environment'),
-	logged_in: Boolean(state.prop('userId')),
+	country: M.prop('geo.country'),
+	env: M.prop('environment'),
+	logged_in: Boolean(M.prop('userId')),
 	skin: 'mercury',
 	url: window.location.href.split('#')[0],
 	'user-agent': window.navigator.userAgent
@@ -31,10 +31,10 @@ function getTracker() {
 		if (typeof Weppy === 'function') {
 			tracker = Weppy.namespace('mercury');
 			tracker.setOptions({
-				aggregationInterval: state.prop('weppyConfig').aggregationInterval,
+				aggregationInterval: M.prop('weppyConfig').aggregationInterval,
 				context,
-				host: state.prop('weppyConfig').host,
-				sample: state.prop('weppyConfig').samplingRate,
+				host: M.prop('weppyConfig').host,
+				sample: M.prop('weppyConfig').samplingRate,
 				transport: 'url'
 			});
 		} else {
@@ -102,5 +102,5 @@ export function sendPagePerformance() {
 		trackFn.sendPagePerformance();
 	}
 	// used for automation test
-	state.prop('pagePerformanceSent', true);
+	M.prop('pagePerformanceSent', true);
 }

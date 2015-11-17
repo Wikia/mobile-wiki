@@ -1,5 +1,4 @@
 import App from '../app';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 App.UserMenuComponent = Ember.Component.extend({
 	classNames: ['user-menu'],
@@ -10,14 +9,14 @@ App.UserMenuComponent = Ember.Component.extend({
 	links: Ember.computed('currentUser.name', function () {
 		return [
 			{
-				href: buildUrl({
+				href: M.buildUrl({
 					namespace: 'User',
 					title: this.get('currentUser.name'),
 				}),
 				textKey: 'user-menu-profile',
 			},
 			{
-				href: buildUrl({
+				href: M.buildUrl({
 					namespace: 'Special',
 					title: 'UserLogout',
 				}),

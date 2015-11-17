@@ -1,5 +1,4 @@
 import App from '../app';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 App.ArticleEditMixin = Ember.Mixin.create({
 
@@ -10,7 +9,7 @@ App.ArticleEditMixin = Ember.Mixin.create({
 	getEditToken(title) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: buildUrl({path: '/api.php'}),
+				url: M.buildUrl({path: '/api.php'}),
 				data: {
 					action: 'query',
 					prop: 'info',

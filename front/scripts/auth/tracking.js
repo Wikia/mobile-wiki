@@ -2,7 +2,6 @@ import AuthTracker from './common/AuthTracker';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 import trackActions from '../mercury/utils/track';
 import getQueryParam from '../mercury/utils/queryString';
-import {provide} from '../baseline/mercury/utils/state';
 
 (function () {
 	/**
@@ -32,7 +31,7 @@ import {provide} from '../baseline/mercury/utils/state';
 	 * @returns {void}
 	 */
 	function setupTracking() {
-		provide('wiki', {
+		M.provide('wiki', {
 			id: 80433,
 			dbName: 'wikiaglobal',
 			language: {

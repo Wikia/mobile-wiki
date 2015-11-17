@@ -44,7 +44,7 @@ App.ApplicationRoute = Ember.Route.extend(
 				 * This is called after the first route of any application session has loaded
 				 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 				 */
-				state.prop('articleContentPreloadedInDOM', false);
+				M.prop('articleContentPreloadedInDOM', false);
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
@@ -221,10 +221,10 @@ App.ApplicationRoute = Ember.Route.extend(
 			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 			let adsInstance;
 
-			if (state.prop('adsUrl') && !state.prop('queryParams.noexternals') &&
+			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
 				adsInstance = Ads.getInstance();
-				adsInstance.init(state.prop('adsUrl'));
+				adsInstance.init(M.prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads

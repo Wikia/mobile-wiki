@@ -117,7 +117,7 @@ export function getExperimentVariationNumberBySingleId(experimentId) {
  * @returns {string|null}
  */
 export function getExperimentIdForThisEnvironment(experimentIds) {
-	const environment = state.prop('environment');
+	const environment = M.prop('environment');
 
 	switch (environment) {
 	case 'prod':

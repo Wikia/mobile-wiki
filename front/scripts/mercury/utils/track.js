@@ -113,7 +113,7 @@ function pruneParams(params) {
  */
 function isSpecialWiki() {
 	try {
-		return Boolean(state.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
+		return Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
 	} catch (e) {
 		// Property doesn't exist
 		return false;
@@ -135,7 +135,7 @@ export function track(params) {
 	let tracker,
 		uaTracker;
 
-	if (state.prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 
@@ -177,7 +177,7 @@ export function track(params) {
  * @returns {void}
  */
 export function trackPageView(adsContext) {
-	if (state.prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 	Object.keys(trackers).forEach((tracker) => {
@@ -199,7 +199,7 @@ export function trackPageView(adsContext) {
  * @returns {void}
  */
 export function trackGoogleSearch(queryParam) {
-	if (state.prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 
@@ -228,7 +228,7 @@ export function trackGoogleSearch(queryParam) {
  * @returns {void}
  */
 export function updateTrackedUrl(url) {
-	if (state.prop('queryParams.noexternals')) {
+	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 

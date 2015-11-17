@@ -53,7 +53,7 @@ class UniversalAnalytics {
 			'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
 		].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
 
-		this.accounts = state.prop('tracking.ua');
+		this.accounts = M.prop('tracking.ua');
 
 		this.initAccount(this.accountPrimary, domain);
 

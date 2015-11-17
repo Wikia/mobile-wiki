@@ -1,4 +1,3 @@
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 import App from '../app';
 
 /**
@@ -49,7 +48,7 @@ App.UserModel.reopenClass({
 	loadDetails(userId, avatarSize) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: buildUrl({
+				url: M.buildUrl({
 					path: '/wikia.php',
 				}),
 				data: {
@@ -80,7 +79,7 @@ App.UserModel.reopenClass({
 			name: userData.name,
 			userId: userData.user_id,
 			avatarPath: userData.avatar,
-			profileUrl: buildUrl({
+			profileUrl: M.buildUrl({
 				namespace: 'User',
 				title: userData.name
 			})

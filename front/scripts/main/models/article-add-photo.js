@@ -1,6 +1,5 @@
 import App from '../app';
 import ArticleEditMixin from '../mixins/article-edit';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -93,7 +92,7 @@ App.ArticleAddPhotoModel.reopenClass(
 		editContent(editData) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				Ember.$.ajax({
-					url: buildUrl({path: '/api.php'}),
+					url: M.buildUrl({path: '/api.php'}),
 					dataType: 'json',
 					method: 'POST',
 					data: editData,
@@ -155,7 +154,7 @@ App.ArticleAddPhotoModel.reopenClass(
 				};
 
 				Ember.$.ajax({
-					url: buildUrl({path: '/api.php'}),
+					url: M.buildUrl({path: '/api.php'}),
 					method: 'POST',
 					data: params,
 					success: (resp) => {
@@ -183,7 +182,7 @@ App.ArticleAddPhotoModel.reopenClass(
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				Ember.$.ajax({
-					url: buildUrl({
+					url: M.buildUrl({
 						path: '/api.php',
 						query: {
 							action: 'addmediatemporary',

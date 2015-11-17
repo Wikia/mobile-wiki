@@ -1,6 +1,5 @@
 import App from '../app';
 import DiscussionErrorMixin from '../mixins/discussion-error';
-import {buildUrl, getDiscussionServiceUrl} from '../../baseline/mercury/utils/buildUrl';
 
 App.DiscussionForumModel = Ember.Object.extend(
 	DiscussionErrorMixin,
@@ -25,7 +24,7 @@ App.DiscussionForumModel = Ember.Object.extend(
 
 			return new Ember.RSVP.Promise((resolve) => {
 				Ember.$.ajax({
-					url: getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+					url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 					data: {
 						page: this.get('pageNum')
 					},
@@ -86,7 +85,7 @@ App.DiscussionForumModel.reopenClass({
 			}
 
 			Ember.$.ajax({
-				url: getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
+				url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 				data: requestData,
 				dataType: 'json',
 				xhrFields: {
@@ -99,7 +98,7 @@ App.DiscussionForumModel.reopenClass({
 
 					posts.forEach((post) => {
 						if (post.hasOwnProperty('createdBy')) {
-							post.createdBy.profileUrl = buildUrl({
+							post.createdBy.profileUrl = M.buildUrl({
 								namespace: 'User',
 								title: post.createdBy.name
 							});

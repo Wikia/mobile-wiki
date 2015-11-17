@@ -25,7 +25,7 @@ export default class Comscore extends BaseTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		const comscore = state.prop('tracking.comscore'),
+		const comscore = M.prop('tracking.comscore'),
 			id = comscore.id,
 			c7Value = comscore.c7Value;
 

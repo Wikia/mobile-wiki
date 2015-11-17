@@ -1,5 +1,4 @@
 import App from '../app';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
 /**
@@ -116,7 +115,7 @@ App.SearchImagesModel = Ember.Object.extend({
 	 */
 	fetch() {
 		return Ember.$.getJSON(
-			buildUrl({
+			M.buildUrl({
 				path: '/api.php',
 			}),
 			{

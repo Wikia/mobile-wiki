@@ -1,6 +1,5 @@
 import App from '../app';
 import ArticleEditMixin from '../mixins/article-edit';
-import {buildUrl} from '../../baseline/mercury/utils/buildUrl';
 
 App.ArticleEditModel = Ember.Object.extend({
 	content: null,
@@ -25,7 +24,7 @@ App.ArticleEditModel.reopenClass(
 				this.getEditToken(model.title)
 					.then((token) => {
 						Ember.$.ajax({
-							url: buildUrl({path: '/api.php'}),
+							url: M.buildUrl({path: '/api.php'}),
 							data: {
 								action: 'edit',
 								title: model.title,
@@ -59,7 +58,7 @@ App.ArticleEditModel.reopenClass(
 		load(title, sectionIndex) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				Ember.$.ajax({
-					url: buildUrl({path: '/api.php'}),
+					url: M.buildUrl({path: '/api.php'}),
 					dataType: 'json',
 					cache: false,
 					data: {

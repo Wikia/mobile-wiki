@@ -37,43 +37,43 @@
 		{{> nirvana }}
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
-			state.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
-			state.prop('environment', '{{{server.environment}}}');
-			state.prop('queryParams', {{{json queryParams}}});
-			state.prop('tracking', {{{json tracking}}});
-			state.prop('translations', {{{json (translations wikiVariables.language.content ns='main')}}});
-			state.prop('weppyConfig', {{{json localSettings.weppy}}});
-			state.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
-			state.prop('userId', {{{userId}}});
-			state.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
-			state.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
-			state.prop('discussionBaseRoute', {{{json localSettings.discuss.baseAPIPath}}});
+			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
+			M.prop('environment', '{{{server.environment}}}');
+			M.prop('queryParams', {{{json queryParams}}});
+			M.prop('tracking', {{{json tracking}}});
+			M.prop('translations', {{{json (translations wikiVariables.language.content ns='main')}}});
+			M.prop('weppyConfig', {{{json localSettings.weppy}}});
+			M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
+			M.prop('userId', {{{userId}}});
+			M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
+			M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
+			M.prop('discussionBaseRoute', {{{json localSettings.discuss.baseAPIPath}}});
 			{{#if discussionsSplashPageConfig}}
 				prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
 			{{/if}}
 			{{!-- TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently --}}
-			state.provide('ads.slots', []);
-			state.provide('wiki', {{{json wikiVariables}}});
+			M.provide('ads.slots', []);
+			M.provide('wiki', {{{json wikiVariables}}});
 
 			{{#if server.mediawikiDomain}}
-				state.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
-				state.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wikiVariables.cacheBuster}}/groups/-/mercury_ads_js');
+				M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
+				M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wikiVariables.cacheBuster}}/groups/-/mercury_ads_js');
 			{{/if}}
 			{{#if asyncArticle}}
-				state.prop('asyncArticle', {{asyncArticle}});
+				M.prop('asyncArticle', {{asyncArticle}});
 			{{/if}}
 			{{#if article}}
-				state.prop('articleContentPreloadedInDOM', true, true);
-				state.provide('article', {{{json article}}});
+				M.prop('articleContentPreloadedInDOM', true, true);
+				M.provide('article', {{{json article}}});
 			{{/if}}
 			{{#if mainPageData}}
-				state.prop('mainPageData', {{{json mainPageData}}});
+				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
 			{{#if exception}}
-				state.provide('exception', {{{json exception}}});
+				M.provide('exception', {{{json exception}}});
 			{{/if}}
 			{{#if server.optimizelyScript}}
-				state.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
+				M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
 			{{/if}}
 
 		</script>
@@ -112,8 +112,8 @@
 		<script>
 			(function () {
 				document.addEventListener("DOMContentLoaded", function() {
-					loadScript.loadScript('/front/vendor/main.js', function () {
-						loadScript.loadScript('/front/scripts/combined.js');
+					M.loadScript('/front/vendor/main.js', function () {
+						M.loadScript('/front/scripts/combined.js');
 					});
 				});
 			}());
