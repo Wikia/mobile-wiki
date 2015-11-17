@@ -16,7 +16,11 @@ gulp.task('front-modules', function () {
 		defaultJSExtensions: true,
 	});
 
-	return builder.buildStatic('main/' + paths.jsFiles + ' + mercury/' + paths.jsFiles, paths.dest + '/modules.js', {
-		minify: environment.isProduction
-	});
+	return builder.buildStatic(
+		'main/' + paths.jsFiles + ' + mercury/' + paths.jsFiles,
+		paths.dest + '/modules.js',
+		{
+			minify: environment.isProduction
+		}
+	);
 });
