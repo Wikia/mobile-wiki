@@ -25,9 +25,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		return type ?  'lightbox-' + type : null;
 	}),
 
-	closeAllowed: Em.computed('closeButtonHidden', function (): boolean {
-		return this.get('closeButtonHidden') ? false : true;
-	}),
+	closeAllowed: Em.computed.not('closeButtonHidden'),
 
 	actions: {
 		/**
