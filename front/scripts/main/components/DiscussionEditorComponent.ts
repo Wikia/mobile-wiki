@@ -163,7 +163,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				body: this.$('.editor-textarea').val(),
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
-				threadId: forumId,
 			});
 		},
 
