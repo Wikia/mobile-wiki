@@ -80,8 +80,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 */
 	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
 		var newPosts = this.get('posts').filter(function (post: any): boolean {
-			return post._embedded.firstPost[0].isNew;
-		}),
+				return post._embedded.firstPost[0].isNew;
+			}),
 			newPost = newPosts.get('firstObject');
 
 		if (newPost) {
@@ -106,6 +106,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				Em.set(newPost, 'isVisible', true);
 
 				Em.run.next(this, () => {
+					// This needs to be dalayed for CSS animation
 					Em.set(newPost, 'isNew', false);
 				});
 			}, 2000);
@@ -146,7 +147,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
-		createPost(forumId: string): void {
+		createPost(): void {
 			this.set('isLoading', true);
 			Em.$('html, body').animate({ scrollTop: 0 });
 
