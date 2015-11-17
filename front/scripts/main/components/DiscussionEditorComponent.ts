@@ -31,14 +31,14 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	initializeOnScroll(): void {
+	initializeOnScroll: Em.on('didInsertElement', function (): void {
 		this.offsetTop = this.$().offset().top;
 		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
 
 		Em.$(window).on('scroll', (): void => {
-			this.onScroll()
+			this.onScroll();
 		});
-	},
+	}),
 
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
@@ -56,15 +56,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			},
 			25
 		);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	didInsertElement(): void {
-		this._super();
-
-		this.initializeOnScroll();
 	},
 
 	/**
