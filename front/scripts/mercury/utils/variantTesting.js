@@ -138,8 +138,8 @@ export function getExperimentIdForThisEnvironment(experimentIds) {
  * @returns {number|null}
  */
 export function getExperimentVariationNumber(experimentIds) {
-	const experimentIdForThisEnv = this.getExperimentIdForThisEnvironment(experimentIds),
-		activeExperimentsList = this.getActiveExperimentsList();
+	const experimentIdForThisEnv = getExperimentIdForThisEnvironment(experimentIds),
+		activeExperimentsList = getActiveExperimentsList();
 
 	if (activeExperimentsList && activeExperimentsList.indexOf(experimentIdForThisEnv) !== -1) {
 		return this.getExperimentVariationNumberBySingleId(experimentIdForThisEnv);
