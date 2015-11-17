@@ -151,18 +151,6 @@ App.initializer({
 });
 
 App.initializer({
-	name: 'linkComponent',
-	initialize(container, application) {
-		container.register('linkComponent:attributeBindings', LinkComponent.attributeBindings);
-		container.register('linkComponent:action', LinkComponent.action);
-		container.register('linkComponent:_invoke', LinkComponent._invoke);
-		application.inject('LinkComponent', 'attributeBindings', 'linkComponent:attributeBindings');
-		application.inject('LinkComponent', 'action', 'linkComponent:action');
-		application.inject('LinkComponent', '_invoke', 'linkComponent:_invoke');
-	}
-});
-
-App.initializer({
 	name: 'setupTracking',
 	after: 'currentUser',
 	initialize() {
