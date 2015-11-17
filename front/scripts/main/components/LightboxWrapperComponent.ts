@@ -9,6 +9,8 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	tabindex: 0,
 
 	isVisible: false,
+	closeButtonHidden: false,
+	lightboxCloseButtonDelay: 0,
 	footerExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
@@ -22,6 +24,8 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		var type: string = this.get('type');
 		return type ?  'lightbox-' + type : null;
 	}),
+
+	closeAllowed: Em.computed.not('closeButtonHidden'),
 
 	actions: {
 		/**
@@ -50,6 +54,14 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		 */
 		setHeader(header: string): void {
 			this.set('header', header);
+		},
+
+		/**
+		 * @param {boolean} hidden
+		 * @returns {void}
+		 */
+		setCloseButtonHidden(hidden: boolean): void {
+			this.set('closeButtonHidden', hidden);
 		},
 
 		/**
@@ -98,7 +110,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 	 * @returns {void}
 	 */
 	keyDown(event: KeyboardEvent): void {
-		if (event.keyCode === 27) {
+		if (this.get('closeAllowed') && event.keyCode === 27) {
 			this.send('close');
 		}
 	},
