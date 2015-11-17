@@ -80,8 +80,8 @@ $success-icon-size: 80px;
 			span {
 				&.error {
 					align-items: center;
-					background-color: #f6f6f6;
-					color: $discussion-editor-error-background-color;
+					background-color: $discussion-editor-mobile-error-background-color;
+					color: $discussion-editor-mobile-error-text-color;
 					display: flex;
 					font-size: $type-smallest;
 					height: $editor-toolbar-height;
@@ -122,7 +122,7 @@ $success-icon-size: 80px;
 				}
 
 				.editor-textarea {
-					border-top: 1px solid #e1e1e1;
+					border-top: 1px solid $discussion-editor-textarea-border-color;
 					height: 100%;
 					padding: $editor-toolbar-height 10px 10px;
 					position: relative;
