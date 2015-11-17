@@ -142,7 +142,7 @@ export function getExperimentVariationNumber(experimentIds) {
 		activeExperimentsList = getActiveExperimentsList();
 
 	if (activeExperimentsList && activeExperimentsList.indexOf(experimentIdForThisEnv) !== -1) {
-		return this.getExperimentVariationNumberBySingleId(experimentIdForThisEnv);
+		return getExperimentVariationNumberBySingleId(experimentIdForThisEnv);
 	}
 
 	return null;
