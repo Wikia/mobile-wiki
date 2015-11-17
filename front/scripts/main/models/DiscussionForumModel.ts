@@ -80,7 +80,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 				success: (post: any): void => {
 					post._embedded.firstPost[0].isNew = true;
 					this.posts.insertAt(0, post);
-					this.totalPosts += 1;
+					this.incrementProperty('totalPosts');
 					resolve(this);
 				},
 				error: (err: any) => {
