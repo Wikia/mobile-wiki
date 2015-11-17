@@ -3,7 +3,6 @@ import {getQueryParam} from '../mercury/utils/queryString';
 import {integrateOptimizelyWithUA} from '../mercury/utils/variantTesting';
 import Ads from '../mercury/modules/Ads';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
-import LinkComponent from './mixins/link-component';
 import CurrentUser from './CurrentUser';
 
 const App = Ember.Application.create({
