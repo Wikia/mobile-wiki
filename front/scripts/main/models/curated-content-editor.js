@@ -57,7 +57,7 @@ App.CuratedContentEditorModel.reopenClass({
 					path: '/wikia.php',
 					query: {
 						controller: 'CuratedContentController',
-						method: 'setData'
+						method: 'setCuratedContentData'
 					}
 				}),
 				dataType: 'json',
@@ -172,22 +172,6 @@ App.CuratedContentEditorModel.reopenClass({
 		});
 
 		return item;
-	},
-
-	/**
-	 * @param {CuratedContentEditorItemModel} modelRoot
-	 * @param {string} excludedLabel=null
-	 * @returns {string[]} already used labels
-	 */
-	getAlreadyUsedNonFeaturedItemsLabels(modelRoot, excludedLabel = null) {
-		// Flatten the array
-		return [].concat.apply([], modelRoot.curated.items.map((section) =>
-			// Labels of section items
-			this.getAlreadyUsedLabels(section, excludedLabel)
-		).concat(
-			// Labels of optional block items
-			this.getAlreadyUsedLabels(modelRoot.optional, excludedLabel)
-		));
 	},
 
 	/**

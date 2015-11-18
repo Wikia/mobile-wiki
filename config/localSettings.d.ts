@@ -45,6 +45,10 @@ interface LocalSettings {
 		usernameMaxLength: number;
 		passwordMaxLength: number;
 	};
+	whoAmIService: {
+		path: string;
+		timeout: number;
+	}
 	host: any;
 	ironSecret: string;
 	mediawikiDomain?: string;

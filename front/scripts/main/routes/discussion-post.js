@@ -1,8 +1,9 @@
 import App from '../app';
 import DiscussionPostModel from '../models/discussion-post';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
+import DiscussionLayoutMixin from '../mixins/discussion-layout';
 
-App.DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
+App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
@@ -19,7 +20,7 @@ App.DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 		let title = model.get('title');
 
 		if (!title) {
-			title = i18n.t('discussion.share-default-title', {siteName: Mercury.wiki.siteName});
+			title = i18n.t('main.share-default-title', {siteName: Mercury.wiki.siteName, ns: 'discussion'});
 		}
 
 		this.controllerFor('application').set('currentTitle', title);
@@ -34,7 +35,6 @@ App.DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 			themeBar: true,
 			enableShareHeader: false
 		});
-		Ember.$('body').addClass('discussions');
 		this._super();
 	},
 
@@ -47,7 +47,6 @@ App.DiscussionPostRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
 			themeBar: false,
 			enableShareHeader: false
 		});
-		Ember.$('body').removeClass('discussions');
 		this._super();
 	},
 

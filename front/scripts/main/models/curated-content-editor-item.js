@@ -103,15 +103,16 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {CuratedContentEditorItemModel} item
-	 * @param {Object} data
-	 * @returns {Ember.RSVP.Promise} server response
+	 * @param {string} methodName
+	 * @returns {Em.RSVP.Promise} server response
 	 */
-	validateServerData(item, data) {
-		const completeData = $.extend({}, data, {
+	validateServerData(item, methodName) {
+		const completeData = {
 			controller: 'CuratedContentValidator',
+			method: methodName,
 			item: item.toPlainObject(),
 			format: 'json'
-		});
+		};
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({

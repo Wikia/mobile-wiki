@@ -10,6 +10,19 @@ App.CuratedContentEditorComponent = Ember.Component.extend(
 		classNames: ['curated-content-editor'],
 		isLoading: false,
 
+		/**
+		 * When user enters curated content editor we want to clear all notifications that might be still there
+		 * after previous edit. For example:
+		 * 1. user enters editor and taps publish - alert about successful page appears
+		 * 2. user gets redirected to main page and taps edit main page link
+		 * - alerts need to be reset because some of them might have not timed out
+		 *
+		 * @returns {void}
+		 */
+		didInsertElement() {
+			this.clearNotifications();
+		},
+
 		actions: {
 			/**
 			 * @param {string} block
@@ -75,9 +88,10 @@ App.CuratedContentEditorComponent = Ember.Component.extend(
 
 						this.sendAction('openMainPage', true);
 					} else if (data.error) {
-						data.error.forEach(
-							(error) => this.processValidationError(error.type, error.reason)
-						);
+						this.addAlert({
+							message: i18n.t('app.curated-content-editor-error-inside-items-message'),
+							type: 'alert'
+						});
 					} else {
 						this.addAlert({
 							message: i18n.t('app.curated-content-error-other'),
@@ -103,31 +117,6 @@ App.CuratedContentEditorComponent = Ember.Component.extend(
 					this.set('isLoading', false);
 				});
 		},
-
-		/**
-		 * @param {string} type
-		 * @param {string} reason
-		 * @returns {void}
-		 */
-		processValidationError(type, reason) {
-			if (type === 'featured') {
-				this.addAlert({
-					message: i18n.t('app.curated-content-editor-error-inside-featured-content'),
-					type: 'alert'
-				});
-			} else if (reason === 'itemsMissing') {
-				this.addAlert({
-					message: i18n.t('app.curated-content-editor-missing-items-error'),
-					type: 'alert'
-				});
-			} else {
-				// if other items occur that means user somehow bypassed validation of one or more items earlier
-				this.addAlert({
-					message: i18n.t('app.curated-content-editor-error-inside-items-message'),
-					type: 'alert'
-				});
-			}
-		}
 	}
 );
 

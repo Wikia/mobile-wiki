@@ -98,7 +98,6 @@
     "curated-content-editor-no-articles-found":"Nie odnaleziono artykułów",
     "curated-content-editor-no-categories-found":"Nie odnaleziono kategorii",
     "curated-content-editor-suggestions-loading":"Ładowanie...",
-    "curated-content-editor-error-inside-featured-content":"Popraw błędy wewnątrz Wyróżnionej Treści.",
     "curated-content-editor-changes-saved":"Zmiany zostały zapisane",
     "curated-content-editor-image-missing-error":"Dodaj obraz",
     "curated-content-editor-missing-label-error":"Brak nazwy wyświetlanej",
@@ -137,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"Czy na pewno chcesz usunąć ten element?",
     "curated-content-editor-general-section-error":"Popraw błędy w tej sekcji.",
     "curated-content-editor-add-items-message":"Dodaj elementy do tej sekcji.",
-    "curated-content-editor-missing-items-error":"Sekcje nie mogą być puste. Dodaj elementy do tej sekcji.",
     "curated-content-editor-error-inside-items-message":"Popraw błędy wewnątrz elementów.",
     "curated-content-editor-items-count":"__count__ element",
     "curated-content-editor-items-count_plural":"__count__ elementy\/-ów",
@@ -146,22 +144,6 @@
     "curated-content-editor-new-featured-content":"Nowa Wyróżniona Treść",
     "curated-content-editor-new-section":"Nowa sekcja",
     "curated-content-editor-new-category":"Nowa kategoria"
-  },
-  "discussion":{
-    "share-default-title":"Dyskusja na __siteName__",
-    "contributors-title":"Wszyscy Użytkownicy",
-    "sort-by-latest":"Najnowsze",
-    "sort-by-trending":"Popularne",
-    "loading-more-posts":"Ładuję więcej postów",
-    "back-to-wikia-link":"do Wiki",
-    "number-of-posts":"__numberOfPosts__ {{PLURAL:$1|$1 Post|$1 Posty|$1 Postów}}",
-    "connection-error":"Nie można uzyskać połączenia, spróbuj ponownie.",
-    "not-found-error":"Ojej, wygląda na to, że ta strona nie istnieje!",
-    "action-retry-title":"Ponów próbę",
-    "all-discussions-link-desktop":"Pokaż mi wszystkie dyskusje",
-    "all-discussions-link-mobile":"Wszystkie dyskusje",
-    "discussions-app-join":"Chcesz dołączyć do dyskusji? Pobierz aplikację!",
-    "back-to-discussions-link":"Wszystkie dyskusje"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ lub __loginLink__",

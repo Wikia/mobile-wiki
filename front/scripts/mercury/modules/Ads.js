@@ -182,12 +182,27 @@ class Ads {
 	}
 
 	/**
+	 * Turns off all ads for logged in user
+	 *
+	 * @param {*} adsContext
+	 * @returns {void}
+	 */
+	turnOffAdsForLoggedInUsers(adsContext) {
+		if (M.prop('userId')) {
+			adsContext.opts = adsContext.opts || {};
+			adsContext.opts.showAds = false;
+			adsContext.opts.pageType = 'no_ads';
+		}
+	}
+
+	/**
 	 * Reloads the ads with the provided adsContext
 	 *
 	 * @param {*} adsContext
 	 * @returns {void}
 	 */
 	reload(adsContext) {
+		this.turnOffAdsForLoggedInUsers(adsContext);
 		// Store the context for external reuse
 		this.setContext(adsContext);
 		this.currentAdsContext = adsContext;

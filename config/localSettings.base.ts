@@ -26,6 +26,10 @@ var localSettings: LocalSettings = {
 	discuss: {
 		baseAPIPath: 'discussion',
 	},
+	whoAmIService: {
+		path: '/whoami',
+		timeout: 3000
+	},
 	ironSecret: 'TEST_SECRET_REPLACE_THIS',
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
@@ -116,7 +120,8 @@ var localSettings: LocalSettings = {
 			enable: true,
 			url: 'https://services.wikia.com/clickstream/events/social'
 		}
-	}
+	},
+	translationFiles: ['main', 'discussion']
 };
 
 export function extendSettings(customLocalSet: any): LocalSettings {

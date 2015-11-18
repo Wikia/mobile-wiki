@@ -32,6 +32,7 @@ App.ApplicationController = Ember.Controller.extend(
 		lightboxType: null,
 		lightboxModel: null,
 		lightboxVisible: false,
+		lightboxCloseButtonDelay: 0,
 		// Controls the appearance of the share-header component
 		enableShareHeader: false,
 
@@ -74,6 +75,7 @@ App.ApplicationController = Ember.Controller.extend(
 					lightboxModel: null,
 					lightboxType: null,
 					lightboxVisible: false,
+					lightboxCloseButtonDelay: 0,
 					file: null,
 					map: null,
 					noScroll: false
@@ -86,13 +88,15 @@ App.ApplicationController = Ember.Controller.extend(
 			 *
 			 * @param {string} lightboxType
 			 * @param {Object} [lightboxModel]
+			 * @param {number} [closeButtonDelay]
 			 * @returns {void}
 			 */
-			createHiddenLightbox(lightboxType, lightboxModel) {
+			createHiddenLightbox(lightboxType, lightboxModel, closeButtonDelay) {
 				this.setProperties({
 					lightboxModel,
 					lightboxType,
 					lightboxVisible: false,
+					lightboxCloseButtonDelay: closeButtonDelay,
 					noScroll: false
 				});
 			},
@@ -139,13 +143,15 @@ App.ApplicationController = Ember.Controller.extend(
 			 *
 			 * @param {string} lightboxType
 			 * @param {Object} [lightboxModel]
+			 * @param {number} [closeButtonDelay]
 			 * @returns {void}
 			 */
-			openLightbox(lightboxType, lightboxModel) {
+			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
 				this.setProperties({
 					lightboxModel,
 					lightboxType,
 					lightboxVisible: true,
+					lightboxCloseButtonDelay: closeButtonDelay,
 					noScroll: true
 				});
 			},

@@ -98,7 +98,6 @@
     "curated-content-editor-no-articles-found":"No se encontraron artículos",
     "curated-content-editor-no-categories-found":"No se han encontrado categorías",
     "curated-content-editor-suggestions-loading":"Cargando...",
-    "curated-content-editor-error-inside-featured-content":"Arregla los errores dentro del contenido destacado.",
     "curated-content-editor-changes-saved":"Se han guardado tus cambios",
     "curated-content-editor-image-missing-error":"Proporciona una imagen",
     "curated-content-editor-missing-label-error":"Falta nombre para visualización",
@@ -137,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"¿Estás seguro de que quieres borrar este elemento?",
     "curated-content-editor-general-section-error":"Arregla los errores en esta sección.",
     "curated-content-editor-add-items-message":"Agrega elementos a esta sección.",
-    "curated-content-editor-missing-items-error":"Las secciones no pueden estar vacías. Por favor agrega elementos a la sección.",
     "curated-content-editor-error-inside-items-message":"Arregla los errores dentro de los elementos.",
     "curated-content-editor-items-count":"__count__ elemento",
     "curated-content-editor-items-count_plural":"__count__ elementos",
@@ -146,22 +144,6 @@
     "curated-content-editor-new-featured-content":"Nuevo contenido destacado",
     "curated-content-editor-new-section":"Nueva sección",
     "curated-content-editor-new-category":"Nueva categoría"
-  },
-  "discussion":{
-    "share-default-title":"Discusión en __siteName__",
-    "contributors-title":"Todos los editores",
-    "sort-by-latest":"Más recientes",
-    "sort-by-trending":"Tendencias",
-    "loading-more-posts":"Cargando más publicaciones",
-    "back-to-wikia-link":"A la wikia",
-    "number-of-posts":"__numberOfPosts__ publicaciones",
-    "connection-error":"No se puede conectar, por favor inténtalo de nuevo.",
-    "not-found-error":"¡Uh oh, parece que esta página no existe!",
-    "action-retry-title":"Volver a intentar",
-    "all-discussions-link-desktop":"Muéstrame todas las discusiones",
-    "all-discussions-link-mobile":"Todas las discusiones",
-    "discussions-app-join":"¿Deseas unirte a la discusión? ¡Obtén la aplicación ahora!",
-    "back-to-discussions-link":"Todas las discusiones"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ o __loginLink__",

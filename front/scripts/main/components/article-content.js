@@ -457,7 +457,6 @@ App.ArticleContentComponent = Ember.Component.extend(
 		handleTables() {
 			this.$('table:not([class*=infobox], .dirbox)')
 				.not('table table')
-				.css('visibility', 'visible')
 				.wrap('<div class="article-table-wrapper"/>');
 		},
 	}

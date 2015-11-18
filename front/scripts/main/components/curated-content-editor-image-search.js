@@ -1,5 +1,4 @@
 import App from '../app';
-import AlertNotificationsMixin from '../mixins/alert-notifications';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
@@ -8,7 +7,6 @@ import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import SearchImagesModel from '../models/search-images';
 
 App.CuratedContentEditorImageSearchComponent = Ember.Component.extend(
-	AlertNotificationsMixin,
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,

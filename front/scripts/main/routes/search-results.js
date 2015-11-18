@@ -17,13 +17,13 @@ App.SearchResultsRoute = Ember.Route.extend({
 		controller.set('site', window.location.hostname);
 
 		// Send extra tracking info to GA to track search usage
-		trackGoogleSearch(`${window.location.href}search?q=${controller.get('q')}`);
+		trackGoogleSearch(`${window.location.pathname}search?q=${controller.get('q')}`);
 	},
 
 	/**
 	 * Return a promise and resolve only after script is loaded - this way the route won't load before it happens
 	 *
-	 * @returns {Ember.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise.resolve}
 	 */
 	beforeModel() {
 		if (!this.get('googleCustomSearchLoadingInitialized')) {
