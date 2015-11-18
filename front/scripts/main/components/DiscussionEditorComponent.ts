@@ -7,6 +7,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	classNameBindings: ['isActive', 'hasError'],
 
 	placeholderText: 'editor.post-editor-placeholder-text',
+	submitText: 'editor.post-action-button-label',
 
 	isActive: false,
 	isSticky: false,
@@ -157,7 +158,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
-		createPost(forumId: string): void {
+		create(forumId: string): void {
 			this.set('isLoading', true);
 			Em.$('html, body').animate({ scrollTop: 0 });
 

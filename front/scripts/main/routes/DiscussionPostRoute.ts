@@ -65,6 +65,14 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionLayoutMixin, App.Discuss
 		},
 
 		/**
+		 * Triggers new reply creation on a model
+		 * @param postData
+		 */
+		createReply(replyData: any): any {
+			this.modelFor('discussion.post').createReply(replyData);
+		},
+
+		/**
 		 * @returns {boolean}
 		 */
 		didTransition(): boolean {

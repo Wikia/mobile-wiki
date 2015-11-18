@@ -1,23 +1,11 @@
 /// <reference path="../app.ts" />
 'use strict';
 
-App.DiscussionReplyEditorComponent = Em.Component.extend(App.ViewportMixin, {
-	attributeBindings: ['style'],
+App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	classNames: ['discussion-editor', 'mobile-hidden', 'reply-editor'],
-	classNameBindings: ['isActive', 'hasError'],
 
 	placeholderText: 'editor.reply-editor-placeholder-text',
-
-	isActive: false,
-	isSticky: false,
-
-	submitDisabled: true,
-	isLoading: false,
-	showSuccess: false,
-	hasError: false,
-
-	offsetTop: 0,
-	siteHeadHeight: 0,
+	submitText: 'editor.reply-action-button-label',
 
 	layoutName: 'components/discussion-editor',
 
@@ -159,11 +147,11 @@ App.DiscussionReplyEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
-		createPost(forumId: string): void {
+		create(forumId: string): void {
 			this.set('isLoading', true);
 			Em.$('html, body').animate({ scrollTop: 0 });
 
-			this.sendAction('createPost', {
+			this.sendAction('createReply', {
 				body: this.$('.editor-textarea').val(),
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
