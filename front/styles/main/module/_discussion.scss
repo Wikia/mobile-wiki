@@ -2,6 +2,8 @@ $horizontal-padding: 15px;
 $post-details-post-width: 560px;
 $post-details-border-width: 580px;
 $post-details-reply-width: 524px;
+$post-details-reply-upvote-width: 12px;
+$post-details-reply-upvote-margin-left: 10px;
 
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
@@ -46,9 +48,8 @@ body.discussions {
 		}
 
 		.icon {
-			margin-right: 3px;
-
 			&.upvote {
+				margin-right: 3px;
 				// clickable area is 30px height, text has to be vertically centered, but icons have to be adjusted
 				// to their bottom, so instead of adding additional html tags nesting, I moved up a bit the larger icon
 				margin-top: -4px;
@@ -58,6 +59,7 @@ body.discussions {
 
 	.discussion-content {
 		color: $discussion-content-color;
+		font-size: rem-calc(16);
 		margin: 5px 0;
 		padding: .3rem 0;
 	}
@@ -86,8 +88,9 @@ body.discussions {
 		}
 
 		.discussion-content {
-			font-size: $type-min;
+			font-size: $type-smallest;
 			line-height: $line-height-min;
+			margin-left: $post-details-reply-upvote-width + $post-details-reply-upvote-margin-left;
 		}
 
 		.timestamp {
@@ -96,14 +99,20 @@ body.discussions {
 
 		.upvotes {
 			float: left;
-			margin: -7px 10px 0 0;
+			margin: -5px $post-details-reply-upvote-margin-left 0 0;
 			text-align: center;
+
+			.count {
+				min-width: $post-details-reply-upvote-width;
+				text-align: center;
+			}
 
 			small {
 				display: block;
 				font-size: 10px;
 				font-weight: bold;
 				line-height: 10px;
+				word-wrap: normal;
 			}
 		}
 	}
@@ -224,10 +233,6 @@ body.discussions {
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
-
-			.discussion-content {
-				font-size: $type-smaller;
-			}
 		}
 	}
 }
