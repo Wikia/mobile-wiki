@@ -17,7 +17,7 @@ var gulp = require('gulp'),
 	path = require('path');
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
-	// build ES6
+	// main, mercury and auth folders are handled by front-modules
 	if (folder === 'main' || folder === 'mercury' || folder === 'auth') {
 		return gulp.src([]);
 	}
