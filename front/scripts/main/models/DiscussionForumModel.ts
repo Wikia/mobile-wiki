@@ -11,6 +11,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 	connectionError: null,
 	notFoundError: null,
+	minorError: false,
 	contributors: [],
 
 	/**
@@ -37,9 +38,15 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					this.set('posts', allPosts);
 
 					resolve(this);
+
 				},
 				error: (err: any) => {
-					this.setErrorProperty(err, this);
+					if (err.status !== 404) {
+						this.setErrorProperty(err, this);
+					} else {
+						console.log(this);
+						this.set('minorError', true);
+					}
 					resolve(this);
 				}
 			});
