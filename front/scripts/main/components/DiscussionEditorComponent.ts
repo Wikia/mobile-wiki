@@ -95,23 +95,27 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			Em.set(newPost, 'isVisible', false);
 
 			Em.run.later(this, () => {
-				this.setProperties({
-					showSuccess: false,
-					isActive: false,
-					submitDisabled: false
-				});
-
-				this.$('.editor-textarea').val('');
-
-				Em.set(newPost, 'isVisible', true);
-
-				Em.run.next(this, () => {
-					// This needs to be dalayed for CSS animation
-					Em.set(newPost, 'isNew', false);
-				});
+				this.showNewPostAnimations(newPost);
 			}, 2000);
 		}
 	}),
+
+	showNewPostAnimations(newPost: any): void {
+		this.setProperties({
+			showSuccess: false,
+			isActive: false,
+			submitDisabled: false
+		});
+
+		this.$('.editor-textarea').val('');
+
+		Em.set(newPost, 'isVisible', true);
+
+		Em.run.next(this, () => {
+			// This needs to be dalayed for CSS animation
+			Em.set(newPost, 'isNew', false);
+		});
+	},
 
 	/**
 	 * Handle post creation error
