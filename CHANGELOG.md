@@ -1,3 +1,6 @@
+## release-189 hotfix 1 (2015-11-18 13:00 UTC)
+* [XW-745](https://wikia-inc.atlassian.net/browse/XW-745) XW-745 | Non-portable infoboxes no longer show on Mercury in iOS
+
 ## release-189 (2015-11-17 15:45 UTC)
 * [SOC-1566](https://wikia-inc.atlassian.net/browse/SOC-1566) SOC-1566 | Use WhoAmI service instead of Helios for access_token validation
 * [INT-254](https://wikia-inc.atlassian.net/browse/INT-254) Send user id to qualaroo
