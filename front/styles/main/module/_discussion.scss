@@ -214,6 +214,10 @@ body.discussions {
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
+
+			.discussion-content {
+				font-size: $type-smaller;
+			}
 		}
 	}
 }
