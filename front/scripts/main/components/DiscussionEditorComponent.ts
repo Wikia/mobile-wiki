@@ -104,12 +104,11 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	showNewPostAnimations(newPost: any): void {
 		this.setProperties({
-			showSuccess: false,
 			isActive: false,
+			postBody: '',
+			showSuccess: false,
 			submitDisabled: false
 		});
-
-		this.set('postBody', '');
 
 		Em.set(newPost, 'isVisible', true);
 
