@@ -237,6 +237,7 @@ App.ApplicationRoute = Ember.Route.extend(
 				 */
 				adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
 					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+
 					if (!closeButtonDelay) {
 						closeButtonDelay = 0;
 					}

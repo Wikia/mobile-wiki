@@ -47,6 +47,7 @@ App.DiscussionHeroUnitComponent = Ember.Component.extend(ViewportMixin, {
 		const visibleElement = this.$(':visible'),
 			isShown = Boolean(visibleElement && visibleElement.length),
 			image = this.get('headerImages')[Ember.get(Mercury, 'wiki.id')];
+
 		if (!this.get('style') && isShown && image) {
 			this.set('style',
 				new Ember.Handlebars.SafeString(`background: #fff url(/front/images/${image}) center no-repeat;`));

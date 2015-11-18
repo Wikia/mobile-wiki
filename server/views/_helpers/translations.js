@@ -11,7 +11,7 @@ module.exports = function (language, opts) {
 
 	namespace = (opts.hash.ns instanceof Array) ? opts.hash.ns : [opts.hash.ns];
 
-	namespace.forEach(function(ns){
+	namespace.forEach(function (ns) {
 		[language, fallbackLanguage, defaultLanguage].some(function (lang) {
 			foundLanguage = lang;
 			translationPath = '../../../front/locales/' + lang + '/' + ns + '.json';
@@ -29,8 +29,8 @@ module.exports = function (language, opts) {
 			}
 		});
 
-		if(!wrapper.hasOwnProperty(foundLanguage)){
-			wrapper[foundLanguage]= {};
+		if (!wrapper.hasOwnProperty(foundLanguage)) {
+			wrapper[foundLanguage] = {};
 		}
 
 		wrapper[foundLanguage][ns] = translations;

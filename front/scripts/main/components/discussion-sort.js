@@ -49,7 +49,10 @@ App.DiscussionSortComponent = Ember.Component.extend({
 		}
 
 		$discussionSort.find('li.active').removeClass(activeClass).addClass(notActiveClass);
-		$discussionSort.find('li[data-type="' + this.get('sortBy') + '"]').removeClass(notActiveClass).addClass(activeClass);
+		$discussionSort
+			.find(`li[data-type="${this.get('sortBy')}"]`)
+			.removeClass(notActiveClass)
+			.addClass(activeClass);
 	},
 });
 

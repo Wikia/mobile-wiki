@@ -285,7 +285,7 @@ class Ads {
 	 *
 	 * @returns {void}
 	 */
-	public createLightbox () {
+	createLightbox() {
 	}
 
 	/**
