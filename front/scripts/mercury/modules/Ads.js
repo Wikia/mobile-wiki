@@ -23,7 +23,7 @@ import load from '../utils/load';
  *
  * @property {Ads} instance
  * @property {boolean|null} blocking
- * @property {string[][]} adSlots
+ * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
  * @property {*} adEngineModule
  * @property {*} adContextModule
@@ -34,7 +34,7 @@ import load from '../utils/load';
  * @property {Krux} kruxTracker
  * @property {Object} currentAdsContext
  * @property {boolean} isLoaded
- * @property {string[][]} slotsQueue
+ * @property {Array<string[]>} slotsQueue
  */
 class Ads {
 	constructor() {
