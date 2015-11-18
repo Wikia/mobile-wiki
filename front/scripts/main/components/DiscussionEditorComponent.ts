@@ -6,6 +6,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	classNames: ['discussion-editor', 'mobile-hidden'],
 	classNameBindings: ['isActive', 'hasError'],
 
+	placeholderText: 'editor.post-editor-placeholder-text',
+
 	isActive: false,
 	isSticky: false,
 

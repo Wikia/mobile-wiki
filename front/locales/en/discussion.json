@@ -32,6 +32,7 @@
     "post-failed-error": "Post failed.",
     "post-editor-label": "Create a post",
     "post-action-button-label": "Post",
-    "post-editor-placeholder-text": "Share a thought, question or link..."
+    "post-editor-placeholder-text": "Share a thought, question or link...",
+    "reply-editor-placeholder-text": "Write a reply..."
   }
 }

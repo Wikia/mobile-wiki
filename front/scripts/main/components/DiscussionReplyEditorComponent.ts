@@ -6,6 +6,8 @@ App.DiscussionReplyEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	classNames: ['discussion-editor', 'mobile-hidden', 'reply-editor'],
 	classNameBindings: ['isActive', 'hasError'],
 
+	placeholderText: 'editor.reply-editor-placeholder-text',
+
 	isActive: false,
 	isSticky: false,
 
