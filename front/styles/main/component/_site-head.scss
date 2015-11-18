@@ -81,17 +81,12 @@ $z-header: $z-6;
 
 hr.theme {
 	border-width: 0;
+	height: 10px;
 	margin: 0;
 }
 
 @media #{$desktop-range} {
 	hr.theme {
 		display: none;
-	}
-}
-
-@media #{$mobile-range} {
-	hr.theme {
-		height: 10px;
 	}
 }
