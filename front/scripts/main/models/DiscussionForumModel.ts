@@ -11,7 +11,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 	connectionError: null,
 	notFoundError: null,
-	minorError: false, // Set true, when you don't want to display error message
+	minorError: false, // Set true, when you don't want to display error message ex: 404 on infinite scroll, when unable to load no existing pages
 	contributors: [],
 
 	/**

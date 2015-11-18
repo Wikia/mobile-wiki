@@ -27,10 +27,10 @@ App.DiscussionPostController = Em.Controller.extend({
 
 			model.loadNextPage().then(() => {
 				var model = this.get('model');
-				if (model.minorError) {
+				if (model.get('minorError')) {
 					this.set('numRepliesLoaded', model.postCount);
 				} else {
-					this.set('numRepliesLoaded', Em.get(model, 'replies.length'));
+					this.set('numRepliesLoaded', model.get('replies.length'));
 				}
 			});
 		},

@@ -14,7 +14,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	page: 0,
 	connectionError: null,
 	notFoundError: null,
-	minorError: false, // Set true, when you don't want to display error message
+	minorError: false, // Set true, when you don't want to display error message ex: 404 on "view older replies" button, when unable to load no existing or deleted replies
 	contributors: [],
 
 	/**
@@ -30,7 +30,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 						'sortKey': 'creation_date',
 						'limit': this.replyLimit,
 						'pivot': this.pivotId,
-						'page': this.page+1
+						'page': this.page+100
 					}),
 				xhrFields: {
 					withCredentials: true,
@@ -53,10 +53,10 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any) => {
-					if (err.status != 404) {
+					if (err.status !== 404) {
 						this.setErrorProperty(err, this);
 					} else {
-						this.minorError = true;
+						this.set('minorError',true);
 					}
 
 					resolve(this);
