@@ -1,17 +1,11 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
-	wikiId: null,
-	forumId: null,
+App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 	name: null,
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
 
-	connectionError: null,
-	notFoundError: null,
-	minorError: false, // Set true, when you don't want to display error message ex: 404 on infinite scroll, when unable to load no existing pages
 	contributors: [],
 
 	/**
@@ -41,11 +35,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 				},
 				error: (err: any) => {
-					if (err.status === 404) {
-						this.set('minorError', true);
-					} else {
-						this.setErrorProperty(err, this);
-					}
+					this.handleLoadMoreError(err);
 					resolve(this);
 				}
 			});
