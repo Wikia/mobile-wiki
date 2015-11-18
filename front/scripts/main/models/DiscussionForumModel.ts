@@ -11,7 +11,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 	connectionError: null,
 	notFoundError: null,
-	minorError: false,
+	minorError: false, // Set true, when you don't want to display error message
 	contributors: [],
 
 	/**
