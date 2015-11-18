@@ -172,6 +172,11 @@ body.dark-theme {
 					border-top-color: $dark-discussion-desktop-post-detail-border-color;
 				}
 			}
+			&.post {
+				.see-more {
+					border-top-color: $dark-discussion-reply-border-color;
+				}
+			}
 		}
 		.discussion-sort {
 			li {

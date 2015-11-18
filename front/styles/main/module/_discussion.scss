@@ -1,4 +1,7 @@
 $horizontal-padding: 15px;
+$post-details-post-width: 560px;
+$post-details-border-width: 580px;
+$post-details-reply-width: 524px;
 
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
@@ -65,6 +68,10 @@ body.discussions {
 			top: 12px;
 			left: $horizontal-padding;
 			right: $horizontal-padding;
+		}
+
+		&.first-reply {
+			border: none;
 		}
 
 		.author {
@@ -177,13 +184,16 @@ body.discussions {
 	}
 
 	.see-more {
-		background-color: $discussion-see-more-color;
-		border-width: 0;
-		display: inline-block;
-		font-size: 10px;
-		font-weight: bold;
-		margin: 0;
-		width: 100%;
+		button {
+			background-color: $discussion-see-more-color;
+			border-width: 0;
+			display: inline-block;
+			font-size: 10px;
+			font-weight: bold;
+			margin: 0;
+			padding: 0 $horizontal-padding;
+			width: 100%;
+		}
 
 		.icon {
 			margin-right: 3px;
@@ -243,16 +253,27 @@ body.discussions {
 
 		&.post {
 			.post-detail {
-				width: 588px;
+				width: $post-details-post-width;
 			}
 
 			.post-reply {
-				width: 524px;
+				width: $post-details-reply-width;
+			}
+
+			.see-more {
+				border-top: 1px solid $discussion-reply-border-color;
+				text-align: center;
+				width: $post-details-border-width;
+
+				button {
+					width: $post-details-post-width;
+				}
 			}
 		}
 
 		.post-detail,
-		.post-reply {
+		.post-reply,
+		.see-more {
 			margin-left: auto;
 			margin-right: auto;
 		}

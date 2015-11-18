@@ -47,13 +47,16 @@
 					}}
 				</div>
 				{{#if canShowMore}}
-					<button {{action 'expand'}} class="see-more active-element-theme-color">
-						{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-						{{i18n 'main.pagination-post-show-more' ns='discussion'}}
-					</button>
+					<div class="see-more">
+						<button {{action 'expand'}} class="active-element-theme-color">
+							{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+							{{i18n 'main.pagination-post-show-more' ns='discussion'}}
+						</button>
+					</div>
 				{{/if}}
 				{{#each model.replies as |item index|}}
 					{{post-reply
+						index=index
 						post=item
 						author=item.createdBy
 						content=item.rawContent
