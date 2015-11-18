@@ -49,7 +49,7 @@
 			M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
 			M.prop('discussionBaseRoute', {{{json localSettings.discuss.baseAPIPath}}});
 			{{#if discussionsSplashPageConfig}}
-				prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
+				M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
 			{{/if}}
 			{{!-- TODO: The ad code actually depends on this being at this exact namespace :/ Must fix, is very brittle currently --}}
 			M.provide('ads.slots', []);
