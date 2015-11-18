@@ -86,9 +86,7 @@ hr.theme {
 
 @media #{$desktop-range} {
 	hr.theme {
-		height: 25px;
-		position: relative;
-		z-index: $z-header;
+		display: none;
 	}
 }
 
