@@ -99,7 +99,7 @@ export default class BirthdateInput {
 	setRealValue() {
 		const year = this.padLeft(this.year.value, this.year.maxLength),
 			month = this.padLeft(this.month.value, this.month.maxLength),
-			day = this.padLeft(this.dayvalue, this.day.maxLength);
+			day = this.padLeft(this.day.value, this.day.maxLength);
 
 		this.realInput.value = `${year}-${month}-${day}`;
 	}
