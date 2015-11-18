@@ -1,3 +1,5 @@
+// Files which are neither exporting nor importing anything are not transpiled to ES5 by systemjs-builder
+// That's why export default is added here
 export default Ember.LinkComponent.reopen({
 	attributeBindings: ['data-tracking-category'],
 
