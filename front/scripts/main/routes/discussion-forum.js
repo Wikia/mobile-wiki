@@ -1,18 +1,11 @@
 import App from '../app';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../models/discussion-forum';
+import DiscussionLayoutMixin from '../mixins/discussion-layout';
 
-App.DiscussionForumRoute = Ember.Route.extend(DiscussionRouteUpvoteMixin, {
+App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
 	defaultSortType: null,
 	forumId: null,
-
-	activate() {
-		Ember.$('body').addClass('discussions');
-	},
-
-	deactivate() {
-		Ember.$('body').removeClass('discussions');
-	},
 
 	/**
 	 * @param {*} params

@@ -175,10 +175,11 @@ App.ApplicationRoute = Ember.Route.extend(
 			/**
 			 * @param {string} lightboxType
 			 * @param {*} [lightboxModel]
+			 * @param {number} [closeButtonDelay]
 			 * @returns {void}
 			 */
-			openLightbox(lightboxType, lightboxModel) {
-				this.get('controller').send('openLightbox', lightboxType, lightboxModel);
+			openLightbox(lightboxType, lightboxModel, closeButtonDelay) {
+				this.get('controller').send('openLightbox', lightboxType, lightboxModel, closeButtonDelay);
 			},
 
 			/**
@@ -234,10 +235,13 @@ App.ApplicationRoute = Ember.Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				adsInstance.createLightbox = (contents, lightboxVisible) => {
+				adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
 					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
+					if (!closeButtonDelay) {
+						closeButtonDelay = 0;
+					}
 
-					this.send(actionName, 'ads', {contents});
+					this.send(actionName, 'ads', {contents}, closeButtonDelay);
 				};
 
 				adsInstance.showLightbox = () => {

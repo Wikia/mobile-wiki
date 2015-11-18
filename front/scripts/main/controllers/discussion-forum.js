@@ -12,11 +12,11 @@ App.DiscussionForumController = Ember.Controller.extend({
 	sortTypes: [
 		{
 			name: 'latest',
-			messageKey: 'discussion.sort-by-latest'
+			messageKey: 'main.sort-by-latest'
 		},
 		{
 			name: 'trending',
-			messageKey: 'discussion.sort-by-trending'
+			messageKey: 'main.sort-by-trending'
 		}
 	],
 

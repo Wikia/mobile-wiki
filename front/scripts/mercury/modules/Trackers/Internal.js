@@ -86,34 +86,41 @@ export default class Internal {
 	}
 
 	/**
-	 * @param {string} url
+	 * @param {boolean} abort
+	 * @param {HTMLScriptElement} script
 	 * @returns {void}
 	 */
-	loadTrackingScript(url) {
-		const script = document.createElement('script');
+	scriptLoadedHandler(abort, script) {
 
+		if (!abort || script.readyState || !/loaded|complete/.test(script.readyState)) {
+			return;
+		}
+
+		// Handle memory leak in IE
+		script.onload = script.onreadystatechange = null;
+
+		// Remove the script
+		if (this.head && script.parentNode) {
+			this.head.removeChild(script);
+		}
+
+		if (!abort && typeof this.success === 'function') {
+			setTimeout(this.success, this.callbackTimeout);
+
+		} else if (abort && typeof this.error === 'function') {
+			setTimeout(this.error, this.callbackTimeout);
+		}
+	}
+
+	/**
+	 * @param {string} url
+	 * @param {Element} [script=document.createElement('script')]
+	 * @returns {void}
+	 */
+	loadTrackingScript(url, script = document.createElement('script')) {
 		script.src = url;
-
 		script.onload = script.onreadystatechange = (abort) => {
-
-			if (!abort || Boolean(script.readyState) || !(/loaded|complete/).test(script.readyState)) {
-				return;
-			}
-
-			// Handle memory leak in IE
-			script.onload = script.onreadystatechange = null;
-
-			// Remove the script
-			if (this.head && script.parentNode) {
-				this.head.removeChild(script);
-			}
-
-			if (!abort && typeof this.success === 'function') {
-				setTimeout(this.success, this.callbackTimeout);
-
-			} else if (abort && typeof this.error === 'function') {
-				setTimeout(this.error, this.callbackTimeout);
-			}
+			this.scriptLoadedHandler(abort, script);
 		};
 
 		this.head.insertBefore(script, this.head.firstChild);

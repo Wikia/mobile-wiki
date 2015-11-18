@@ -31,7 +31,7 @@ App.CuratedContentEditorSectionRoute = Ember.Route.extend({
 	 */
 	setupController(controller, model, transition) {
 		const rootModel = this.modelFor('curatedContentEditor'),
-			alreadyUsedItemsLabels = CuratedContentEditorModel.getAlreadyUsedNonFeaturedItemsLabels(rootModel);
+			alreadyUsedItemsLabels = CuratedContentEditorModel.getAlreadyUsedLabels(rootModel);
 
 		this._super(controller, model, transition);
 		controller.setProperties({

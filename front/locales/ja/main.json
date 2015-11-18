@@ -98,7 +98,6 @@
     "curated-content-editor-no-articles-found":"記事が見つかりませんでした",
     "curated-content-editor-no-categories-found":"カテゴリーが見つかりません。",
     "curated-content-editor-suggestions-loading":"読み込んでいます...",
-    "curated-content-editor-error-inside-featured-content":"注目のコンテンツ内に修正が必要な箇所があります。",
     "curated-content-editor-changes-saved":"変更内容を保存しました",
     "curated-content-editor-image-missing-error":"画像を指定してください",
     "curated-content-editor-missing-label-error":"表示名をご入力ください",
@@ -137,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"この項目を削除してよろしいですか？",
     "curated-content-editor-general-section-error":"このセクションのエラーを修正してください。",
     "curated-content-editor-add-items-message":"このセクションに項目を追加してください。",
-    "curated-content-editor-missing-items-error":"セクションを空にすることはできません。セクションに項目を追加してください。",
     "curated-content-editor-error-inside-items-message":"アイテム内のエラーを修正してください。",
     "curated-content-editor-items-count":"項目__count__個",
     "curated-content-editor-items-count_plural":"項目 __count__個",
@@ -146,22 +144,6 @@
     "curated-content-editor-new-featured-content":"新しい注目のコンテンツ",
     "curated-content-editor-new-section":"新しいセクション",
     "curated-content-editor-new-category":"新しいカテゴリ"
-  },
-  "discussion":{
-    "share-default-title":"__siteName__についてのトーク",
-    "contributors-title":"すべての投稿者",
-    "sort-by-latest":"最新",
-    "sort-by-trending":"人気",
-    "loading-more-posts":"他の投稿を読み込んでいます",
-    "back-to-wikia-link":"ウィキアに戻る",
-    "number-of-posts":"投稿__numberOfPosts__件",
-    "connection-error":"接続できません。もう一度お試しください。",
-    "not-found-error":"このページは存在しないようです。",
-    "action-retry-title":"再試行",
-    "all-discussions-link-desktop":"すべてのトークを表示",
-    "all-discussions-link-mobile":"すべてのトーク",
-    "discussions-app-join":"トークに参加するには、アプリをダウンロードしましょう。",
-    "back-to-discussions-link":"すべてのトーク"
   },
   "userStatus":{
     "anon-cta":"__registerLink__または__loginLink__",

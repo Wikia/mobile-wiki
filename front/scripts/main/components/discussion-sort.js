@@ -40,14 +40,16 @@ App.DiscussionSortComponent = Ember.Component.extend({
 	updateActive() {
 		// Add the 'active' CSS class to the sort tab that's active,
 		// but right now this only applies to desktop styling.
-		const $discussionSort = this.get('$discussionSort');
+		const $discussionSort = this.get('$discussionSort'),
+			activeClass = 'active active-element-theme-color active-element-border-theme-color',
+			notActiveClass = 'not-active';
 
 		if ($discussionSort === null) {
 			return;
 		}
 
-		$discussionSort.find('li.active').removeClass('active');
-		$discussionSort.find(`li[data-type="${this.get('sortBy')}"]`).addClass('active');
+		$discussionSort.find('li.active').removeClass(activeClass).addClass(notActiveClass);
+		$discussionSort.find('li[data-type="' + this.get('sortBy') + '"]').removeClass(notActiveClass).addClass(activeClass);
 	},
 });
 

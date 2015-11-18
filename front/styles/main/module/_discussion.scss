@@ -4,8 +4,13 @@ $horizontal-padding: 15px;
 	width: 100%;
 }
 
+.upvote-icon-background {
+	fill: $upvote-icon-back-color;
+	stroke: $upvote-icon-back-color;
+}
+
 .discussion {
-	background-color: $color-white;
+	background-color: $discussion-bg-color;
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
 	max-width: inherit;
@@ -15,18 +20,18 @@ $horizontal-padding: 15px;
 		margin-right: 5px;
 
 		img {
-			border-color: $border-color;
+			border-color: $discussion-avatar-border-color;
 		}
 	}
 
 	.count {
-		color: #999;
+		color: $discussion-count-color;
 		font-size: $type-min;
 		font-weight: bold;
 
 		.upvote-area,
 		.replies-area {
-			color: #999;
+			color: $discussion-count-color;
 			display: block;
 			float: left;
 			height: 30px;
@@ -46,12 +51,13 @@ $horizontal-padding: 15px;
 	}
 
 	.discussion-content {
-		color: $color-gray-dark;
-		margin: 10px 0;
+		color: $discussion-content-color;
+		margin: 5px 0;
+		padding: .3rem 0;
 	}
 
 	.discussion-reply {
-		border-top: 1px solid $border-color;
+		border-top: 1px solid $discussion-reply-border-color;
 		padding: {
 			top: 12px;
 			left: $horizontal-padding;
@@ -96,15 +102,15 @@ $horizontal-padding: 15px;
 		height: 20px;
 		width: 20px;
 		vertical-align: middle;
-		&.upvote,
-		&.upvote-reply {
+		&.upvote {
 			fill: $upvote-icon-color;
 		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
-			stroke: $upvote-icon-color;
+			fill: $upvote-reply-icon-color;
+			stroke: $upvote-reply-icon-color;
 		}
 	}
 
@@ -120,7 +126,7 @@ $horizontal-padding: 15px;
 	}
 
   	.load-more {
-		color: $color-gray-semi;
+		color: $discussion-load-more-color;
 		text-align: center;
 		width: 100%;
 	}
@@ -154,7 +160,7 @@ $horizontal-padding: 15px;
 	}
 
 	.see-more {
-		background-color: #E6E6E6;
+		background-color: $discussion-see-more-color;
 		border-width: 0;
 		display: inline-block;
 		font-size: 10px;
@@ -167,14 +173,6 @@ $horizontal-padding: 15px;
 		}
 	}
 
-	@for $i from 1 through length($verticals) {
-		.#{nth($verticals, $i)}-vertical & {
-			.see-more {
-				color: nth($vertical-colors, $i);
-			}
-		}
-	}
-
 	.spinner {
 		display: block;
 		left: auto;
@@ -183,7 +181,7 @@ $horizontal-padding: 15px;
 	}
 
 	.timestamp {
-		color: #999;
+		color: $discussion-timestamp-color;
 		font-weight: bold;
 	}
 
@@ -191,14 +189,14 @@ $horizontal-padding: 15px;
 		margin-top: $discussion-header-height + $theme-bar-height;
 
 		.discussion-content {
-			// Constrains content on the forum post list to 3 lines
-			max-height: $line-height-smallest * 3;
+			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
+			max-height: $line-height-smallest * 3 + .3rem;
 			overflow: hidden;
 		}
 
 		.post-detail {
 			border-bottom-width: 0;
-			border-top: 1px solid $border-color;
+			border-top: 1px solid $discussion-post-detail-border-color;
 
 			&:first-child {
 				border-width: 0;
@@ -207,15 +205,9 @@ $horizontal-padding: 15px;
 	}
 }
 
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion a {
-		color: #{nth($vertical-colors, $i)};
-	}
-}
-
 @media #{$desktop-range} {
 	body {
-		background-color: #f6f6f6;
+		background-color: $discussion-desktop-bg-color;
 	}
 
 	.discussion {
@@ -227,7 +219,8 @@ $horizontal-padding: 15px;
 			margin-top: 0;
 
 			.post-detail {
-				background-color: $color-white;
+				background-color: $discussion-desktop-post-detail-bg-color;
+				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
 				margin-bottom: 5px;
 				padding: 20px 30px;

@@ -6,7 +6,7 @@ App.SiteHeadComponent = Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
 	{
-		classNames: ['site-head'],
+		classNames: ['site-head', 'border-theme-color'],
 		classNameBindings: ['themeBar'],
 		tagName: 'nav',
 		themeBar: false,

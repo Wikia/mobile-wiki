@@ -4,7 +4,7 @@ import HeadroomMixin from '../mixins/headroom';
 App.DiscussionHeaderComponent = Ember.Component.extend(
 	HeadroomMixin,
 	{
-		classNames: ['discussion-header'],
+		classNames: ['discussion-header', 'background-theme-color'],
 
 		overlay: null,
 		showContent: true,

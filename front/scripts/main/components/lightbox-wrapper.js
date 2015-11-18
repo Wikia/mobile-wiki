@@ -8,6 +8,8 @@ App.LightboxWrapperComponent = Ember.Component.extend({
 	tabindex: 0,
 
 	isVisible: false,
+	closeButtonHidden: false,
+	lightboxCloseButtonDelay: 0,
 	footerExpanded: false,
 	footerHidden: false,
 	headerHidden: false,
@@ -22,6 +24,8 @@ App.LightboxWrapperComponent = Ember.Component.extend({
 
 		return type ? `lightbox-${type}` : null;
 	}),
+
+	closeAllowed: Ember.computed.not('closeButtonHidden'),
 
 	actions: {
 		/**
@@ -50,6 +54,14 @@ App.LightboxWrapperComponent = Ember.Component.extend({
 		 */
 		setHeader(header) {
 			this.set('header', header);
+		},
+
+		/**
+		 * @param {boolean} hidden
+		 * @returns {void}
+		 */
+		setCloseButtonHidden(hidden) {
+			this.set('closeButtonHidden', hidden);
 		},
 
 		/**
@@ -98,7 +110,7 @@ App.LightboxWrapperComponent = Ember.Component.extend({
 	 * @returns {void}
 	 */
 	keyDown(event) {
-		if (event.keyCode === 27) {
+		if (this.get('closeAllowed') && event.keyCode === 27) {
 			this.send('close');
 		}
 	},

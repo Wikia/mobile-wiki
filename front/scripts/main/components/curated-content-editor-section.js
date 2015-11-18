@@ -77,48 +77,45 @@ App.CuratedContentEditorSectionComponent = Ember.Component.extend(
 		validateAndDone() {
 			this.set('isLoading', true);
 
-			CuratedContentEditorItemModel
-				.validateServerData(
-					this.get('model'),
-					{method: 'validateSectionWithItems'}
-				)
-				.then((data) => {
-					let sortableItems;
+			CuratedContentEditorItemModel.validateServerData(
+				this.get('model'), 'validateCuratedContentSectionWithItems'
+			).then((data) => {
+				let sortableItems;
 
-					if (data.status) {
-						sortableItems = this.get('sortableItems');
-						// It's done this way because sortableItems property contains not only items but also meta properties
-						// which we don't want to pass to model.
-						// Slice creates native JS array with only items (without meta properties).
-						this.set('model.items', sortableItems.slice(0, sortableItems.length));
-						this.sendAction('done', this.get('model'));
-					} else if (data.error) {
-						data.error.forEach((error) => this.processValidationError(error.reason));
-					} else {
-						this.addAlert({
-							message: i18n.t('app.curated-content-error-other'),
-							type: 'alert'
-						});
-					}
-				})
-				.catch((err) => {
-					Ember.Logger.error(err);
+				if (data.status) {
+					sortableItems = this.get('sortableItems');
+					// It's done this way because sortableItems property contains not only items but also meta properties
+					// which we don't want to pass to model.
+					// Slice creates native JS array with only items (without meta properties).
+					this.set('model.items', sortableItems.slice(0, sortableItems.length));
+					this.sendAction('done', this.get('model'));
+				} else if (Ember.isArray(data.errors)) {
+					data.errors.forEach((error) => this.processValidationError(error));
+				} else {
 					this.addAlert({
 						message: i18n.t('app.curated-content-error-other'),
 						type: 'alert'
 					});
-				})
-				.finally(() => {
-					this.set('isLoading', false);
+				}
+			})
+			.catch((err) => {
+				Ember.Logger.error(err);
+				this.addAlert({
+					message: i18n.t('app.curated-content-error-other'),
+					type: 'alert'
 				});
+			})
+			.finally(() => {
+				this.set('isLoading', false);
+			});
 		},
 
 		/**
-		 * @param {string} reason
+		 * @param {string} errorMessage
 		 * @returns {void}
 		 */
-		processValidationError(reason) {
-			if (reason === 'itemsMissing') {
+		processValidationError(errorMessage) {
+			if (errorMessage === 'itemsMissing') {
 				this.addAlert({
 					message: i18n.t('app.curated-content-editor-empty-section-error'),
 					type: 'alert'
