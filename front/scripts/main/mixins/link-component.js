@@ -1,4 +1,4 @@
-Ember.LinkComponent.reopen({
+export default Ember.LinkComponent.reopen({
 	attributeBindings: ['data-tracking-category'],
 
 	// it allows to use action='x' actionParam='y' in link-to helper
