@@ -155,7 +155,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 				body: this.$('.editor-textarea').val(),
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
-				threadId: forumId,
 			});
 		},
 
