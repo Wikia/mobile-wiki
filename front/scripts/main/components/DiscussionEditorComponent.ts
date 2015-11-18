@@ -112,7 +112,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 		Em.set(newPost, 'isVisible', true);
 
-		Em.run.next(this, () => {
+		Ember.run.scheduleOnce('afterRender', this, () => {
 			// This needs to be dalayed for CSS animation
 			Em.set(newPost, 'isNew', false);
 		});
