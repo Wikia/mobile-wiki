@@ -411,7 +411,6 @@ App.ArticleContentComponent = Em.Component.extend(
 		handleTables(): void {
 			this.$('table:not([class*=infobox], .dirbox)')
 				.not('table table')
-				.css('visibility', 'visible')
 				.wrap('<div class="article-table-wrapper"/>');
 		},
 	}
