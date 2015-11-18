@@ -35,7 +35,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					withCredentials: true,
 				},
 				dataType: 'json',
-				success: (data: any) => {
+				success: (data: any): void => {
 					var newReplies = data._embedded['doc:posts'];
 
 					// Note that we have to reverse the list we get back because how we're displaying
@@ -51,8 +51,32 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 					resolve(this);
 				},
-				error: (err: any) => {
+				error: (err: any): void => {
 					this.setErrorProperty(err, this);
+					resolve(this);
+				}
+			});
+		});
+	},
+
+	createReply(replyData: any) {
+		this.setFailedState(false, this);
+		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+			Em.$.ajax(<JQueryAjaxSettings>{
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
+				data: JSON.stringify(replyData),
+				contentType: 'application/json',
+				xhrFields: {
+					withCredentials: true,
+				},
+				success: (reply: any): void => {
+					reply.isNew = true;
+					this.replies.pushObject(reply);
+					resolve(this);
+				},
+				error: (err: any): void => {
+					this.setFailedState(true, this);
 					resolve(this);
 				}
 			});
@@ -67,7 +91,7 @@ App.DiscussionPostModel.reopenClass({
 	 * @returns {Em.RSVP.Promise}
 	 */
 	find(wikiId: number, postId: number) {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
+		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
 			var postInstance = App.DiscussionPostModel.create({
 				wikiId: wikiId,
 				postId: postId
@@ -85,7 +109,7 @@ App.DiscussionPostModel.reopenClass({
 				xhrFields: {
 					withCredentials: true,
 				},
-				success: (data: any) => {
+				success: (data: any): void => {
 					var contributors: any[] = [],
 						replies = data._embedded['doc:posts'],
 						pivotId: number;
@@ -95,7 +119,7 @@ App.DiscussionPostModel.reopenClass({
 						// See note in previous reverse above on why this is necessary
 						replies.reverse();
 
-						replies.forEach(function (reply: any) {
+						replies.forEach(function (reply: any): void {
 							if (reply.hasOwnProperty('createdBy')) {
 								reply.createdBy.profileUrl = M.buildUrl({
 									namespace: 'User',
@@ -120,7 +144,7 @@ App.DiscussionPostModel.reopenClass({
 					});
 					resolve(postInstance);
 				},
-				error: (err: any) => {
+				error: (err: any): void => {
 					postInstance.setErrorProperty(err, postInstance);
 					resolve(postInstance);
 				}
